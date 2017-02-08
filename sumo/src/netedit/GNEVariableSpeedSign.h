@@ -75,7 +75,7 @@ public:
      * @param[in] device device in which write parameters of additional element
      * @param[in] currentDirectory current directory in which this additional are writted
      */
-    void writeAdditional(OutputDevice& device, const std::string& currentDirectory);
+    void writeAdditional(OutputDevice& device) const;
 
     /// @brief get filename of rerouter
     std::string getFilename() const;

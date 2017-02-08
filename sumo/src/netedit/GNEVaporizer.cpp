@@ -145,7 +145,7 @@ GNEVaporizer::commmitAdditionalGeometryMoved(SUMOReal, SUMOReal, GNEUndoList*) {
 
 
 void
-GNEVaporizer::writeAdditional(OutputDevice& device, const std::string&) {
+GNEVaporizer::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());

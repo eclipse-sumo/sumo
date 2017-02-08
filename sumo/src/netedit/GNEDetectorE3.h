@@ -82,7 +82,7 @@ public:
     /**@brief writte additionals element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    void writeAdditional(OutputDevice& device, const std::string& currentDirectory);
+    void writeAdditional(OutputDevice& device) const;
 
     /// @brief gererate a new ID for an Entry detector child
     std::string generateEntryID();

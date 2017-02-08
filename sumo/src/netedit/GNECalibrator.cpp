@@ -149,7 +149,7 @@ GNECalibrator::openAdditionalDialog() {
 
 
 void
-GNECalibrator::writeAdditional(OutputDevice& device, const std::string&) {
+GNECalibrator::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
@@ -158,7 +158,7 @@ GNECalibrator::writeAdditional(OutputDevice& device, const std::string&) {
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
     device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
     // Write all flows of this calibrator
-    for (std::vector<GNECalibrator::GNECalibratorFlow*>::iterator i = myFlowValues.begin(); i != myFlowValues.end(); ++i) {
+    for (std::vector<GNECalibrator::GNECalibratorFlow*>::const_iterator i = myFlowValues.begin(); i != myFlowValues.end(); ++i) {
         // Open flow tag
         device.openTag(SUMO_TAG_FLOW);
         // Write begin

@@ -150,7 +150,7 @@ GNEDetectorE3::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy
 
 
 void
-GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& /* currentDirectory */) {
+GNEDetectorE3::writeAdditional(OutputDevice& device) const {
     // Only save E3 if have Entry/Exits
     if ((myGNEDetectorEntrys.size() + myGNEDetectorExits.size()) > 0) {
         // Write parameters
@@ -166,7 +166,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& /* curre
         device.writeAttr(SUMO_ATTR_Y, myPosition.y());
 
         // Write entrys
-        for(std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
+        for(std::vector<GNEDetectorEntry*>::const_iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
             device.openTag((*i)->getTag());
             device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
             device.writeAttr(SUMO_ATTR_POSITION, (*i)->getPositionOverLane());
@@ -174,7 +174,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, const std::string& /* curre
         }
 
         // Write exits
-        for(std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
+        for(std::vector<GNEDetectorExit*>::const_iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
             device.openTag((*i)->getTag());
             device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
             device.writeAttr(SUMO_ATTR_POSITION, (*i)->getPositionOverLane());
@@ -221,7 +221,7 @@ GNEDetectorE3::addEntryChild(GNEDetectorEntry *entry) {
     if(entry == NULL) {
         throw InvalidArgument("Trying to add an empty entry child in " + getID());
     } else if(std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry) != myGNEDetectorEntrys.end()) {
-        throw InvalidArgument("Trying to add a duplicate entry child " + getID());
+        throw InvalidArgument("Trying to add a duplicate entry child in " + getID());
     } else {
         myGNEDetectorEntrys.push_back(entry);
     }
@@ -234,7 +234,7 @@ GNEDetectorE3::removeEntryChild(GNEDetectorEntry *entry) {
     if(entry == NULL) {
         throw InvalidArgument("Trying to remove an empty entry child " + getID());
     } else if(std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry) == myGNEDetectorEntrys.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted entry child " + getID());
+        throw InvalidArgument("Trying to remove a non previously inserted entry child in " + getID());
     } else {
         myGNEDetectorEntrys.erase(std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry));
     }
@@ -247,7 +247,7 @@ GNEDetectorE3::addExitChild(GNEDetectorExit *exit) {
     if(exit == NULL) {
         throw InvalidArgument("Trying to add an empty exit child in " + getID());
     } else if(std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit) != myGNEDetectorExits.end()) {
-        throw InvalidArgument("Trying to add a duplicate exit child " + getID());
+        throw InvalidArgument("Trying to add a duplicate exit child in " + getID());
     } else {
         myGNEDetectorExits.push_back(exit);
     }
@@ -260,7 +260,7 @@ GNEDetectorE3::removeExitChild(GNEDetectorExit *exit) {
     if(exit == NULL) {
         throw InvalidArgument("Trying to remove an empty exit child " + getID());
     } else if(std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit) == myGNEDetectorExits.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted exit child " + getID());
+        throw InvalidArgument("Trying to remove a non previously inserted exit child in " + getID());
     } else {
         myGNEDetectorExits.erase(std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit));
     }
