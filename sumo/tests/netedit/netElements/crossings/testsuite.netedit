@@ -4,6 +4,9 @@ create
 # delete crossing
 delete
 
+# delete crossing without undo
+delete_noundo
+
 # load small net with crossings
 load_small
 
