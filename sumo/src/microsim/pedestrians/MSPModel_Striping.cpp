@@ -542,6 +542,9 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
             // transform pedestrians into the current coordinate system
             for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
                 PState& p = *pedestrians[ii];
+                if (p.myWaitingToEnter || p.myAmJammed) {
+                    continue;
+                }
                 Position relPos =  lane->getShape().transformToVectorCoordinates(p.getPosition(*p.myStage, -1), true);
                 const SUMOReal newY = relPos.y() + lateral_offset;
                 //std::cout << "    ped=" << p.myPerson->getID() << "  relX=" << relPos.x() << " relY=" << newY << " latOff=" << lateral_offset << " s=" << p.stripe(newY) << " os=" << p.otherStripe(newY) << "\n";
@@ -555,7 +558,7 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
             sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(nextDir));
             for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
                 const PState& p = *pedestrians[ii];
-                if (p.myWaitingToEnter) {
+                if (p.myWaitingToEnter || p.myAmJammed) {
                     continue;
                 }
                 SUMOReal newY = p.myRelY;
@@ -1221,7 +1224,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
             }
             xSpeed = vMax / 4;
         }
-    } else {
+    } else if (stripe(myRelY) >= 0 && stripe(myRelY) <= sMax)  {
         myAmJammed = false;
     }
     // dawdling
