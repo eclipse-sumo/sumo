@@ -19,11 +19,11 @@ netedit.zoomIn(match.getTarget().offset(325, 225), 10)
 # set delete mode
 type("d")
 
-# delete first crossing
-click(match.getTarget().offset(250, 225))
+# delete junction 
+click(match.getTarget().offset(300, 250))
 
-# delete second crossing
-click(match.getTarget().offset(385, 225))
+# check undo
+netedit.undo(match, 1)
 
 # save newtork
 netedit.saveNetwork()

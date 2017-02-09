@@ -4,8 +4,11 @@ create
 # delete crossing
 delete
 
-# delete crossing without undo
-delete_noundo
+# delete crossing, undo, but not redo (net must be the same as original)
+delete_noredo
+
+# delete junction, undo, but not redo (net must be the same as original)
+delete_junction
 
 # load small net with crossings
 load_small

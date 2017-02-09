@@ -27,7 +27,6 @@ click(match.getTarget().offset(385, 225))
 
 # check undo redo
 netedit.undo(match, 2)
-netedit.redo(match, 2)
 
 # save newtork
 netedit.saveNetwork()
