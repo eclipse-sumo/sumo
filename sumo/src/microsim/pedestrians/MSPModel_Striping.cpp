@@ -517,6 +517,8 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
         //    << " nextDir=" << nextDir
         //    << " currentLength=" << currentLength
         //    << " currentDir=" << currentDir
+        //    << " stripes=" << stripes
+        //    << " nextStripes=" << nextStripes
         //    << " offset=" << offset
         //    << "\n";
         if (nextStripes < stripes) {
@@ -532,13 +534,17 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
             transformToCurrentLanePositions(obs, currentDir, nextDir, currentLength, nextLength);
             // complex transformation into the coordinate system of the current lane
             // (pedestrians on next lane may walk at arbitrary angles relative to the current lane)
-            const SUMOReal lateral_offset = (lane->getWidth() - stripeWidth) * 0.5;
+            SUMOReal lateral_offset = (lane->getWidth() - stripeWidth) * 0.5;
+            if ((stripes - nextStripes) % 2 != 0) {
+                lateral_offset += 0.5 * stripeWidth;
+            }
             nextDir = currentDir;
             // transform pedestrians into the current coordinate system
             for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
                 PState& p = *pedestrians[ii];
                 Position relPos =  lane->getShape().transformToVectorCoordinates(p.getPosition(*p.myStage, -1), true);
                 const SUMOReal newY = relPos.y() + lateral_offset;
+                //std::cout << "    ped=" << p.myPerson->getID() << "  relX=" << relPos.x() << " relY=" << newY << " latOff=" << lateral_offset << " s=" << p.stripe(newY) << " os=" << p.otherStripe(newY) << "\n";
                 addCloserObstacle(obs, relPos.x(), p.stripe(newY), stripes, p.myPerson->getID(), p.myPerson->getVehicleType().getWidth(), currentDir);
                 addCloserObstacle(obs, relPos.x(), p.otherStripe(newY), stripes, p.myPerson->getID(), p.myPerson->getVehicleType().getWidth(), currentDir);
             }
