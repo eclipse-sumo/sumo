@@ -322,6 +322,16 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
 SUMOReal
 SUMOVTypeParameter::getCFParam(const SumoXMLAttr attr, const SUMOReal defaultValue) const {
     if (cfParameter.count(attr)) {
+        return std::stod(cfParameter.find(attr)->second);
+    } else {
+        return defaultValue;
+    }
+}
+
+
+std::string
+SUMOVTypeParameter::getCFParamString(const SumoXMLAttr attr, const std::string defaultValue) const {
+    if (cfParameter.count(attr)) {
         return cfParameter.find(attr)->second;
     } else {
         return defaultValue;
@@ -331,7 +341,7 @@ SUMOVTypeParameter::getCFParam(const SumoXMLAttr attr, const SUMOReal defaultVal
 SUMOReal
 SUMOVTypeParameter::getLCParam(const SumoXMLAttr attr, const SUMOReal defaultValue) const {
     if (lcParameter.count(attr)) {
-        return lcParameter.find(attr)->second;
+        return std::stod(lcParameter.find(attr)->second);
     } else {
         return defaultValue;
     }

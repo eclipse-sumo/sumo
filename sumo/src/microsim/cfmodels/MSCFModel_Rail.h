@@ -21,18 +21,30 @@
 
 #include "MSCFModel_Krauss.h"
 
-class MSCFModel_Rail  : public MSCFModel_Krauss {
+class MSCFModel_Rail  : public MSCFModel {
+
+public:
+    virtual SUMOReal followSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed,
+                                 SUMOReal predMaxDecel) const;
+
+    virtual SUMOReal stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const;
+
+    virtual int getModelID() const;
+
+    virtual MSCFModel *duplicate(const MSVehicleType *vtype) const;
 
 public:
     /** @brief Constructor
-     * @param[in] accel The maximum acceleration
-     * @param[in] decel The maximum deceleration
-     * @param[in] headwayTime The haedwayTime
+     * @param[in] trainType The train type
      */
-    MSCFModel_Rail(const MSVehicleType *vtype, SUMOReal accel, SUMOReal decel, SUMOReal headwayTime);
+    MSCFModel_Rail(const MSVehicleType *vtype, std::string trainType);
 
 
     virtual ~MSCFModel_Rail();
+
+    virtual SUMOReal maxNextSpeed(SUMOReal speed, const MSVehicle *const veh) const override;
+
+    virtual SUMOReal minNextSpeed(SUMOReal speed, const MSVehicle *const veh) const override;
 };
 
 

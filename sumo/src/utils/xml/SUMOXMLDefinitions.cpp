@@ -292,6 +292,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "tmp4",                   SUMO_ATTR_TMP4 },
     { "tmp5",                   SUMO_ATTR_TMP5 },
 
+    { "trainType",               SUMO_ATTR_TRAIN_TYPE },
+
     { "lcStrategic",            SUMO_ATTR_LCA_STRATEGIC_PARAM },
     { "lcCooperative",          SUMO_ATTR_LCA_COOPERATIVE_PARAM },
     { "lcSpeedGain",            SUMO_ATTR_LCA_SPEEDGAIN_PARAM },

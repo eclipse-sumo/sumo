@@ -29,7 +29,9 @@
 #ifdef _MSC_VER
 #include <windows_config.h>
 #else
+
 #include <config.h>
+
 #endif
 
 #include <string>
@@ -43,6 +45,7 @@
 // class declarations
 // ===========================================================================
 class OutputDevice;
+
 class OptionsCont;
 
 
@@ -88,7 +91,7 @@ public:
      *
      * Initialises the structure with default values
      */
-    SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vc = SVC_IGNORING);
+    SUMOVTypeParameter(const std::string &vtid, const SUMOVehicleClass vc = SVC_IGNORING);
 
 
     /** @brief Returns whether the given parameter was set
@@ -105,7 +108,7 @@ public:
      * @param[in, out] dev The device to write into
      * @exception IOError not yet implemented
      */
-    void write(OutputDevice& dev) const;
+    void write(OutputDevice &dev) const;
 
     /** @brief Validates stored car-following parameter
      */
@@ -118,6 +121,13 @@ public:
      * @return The named value from the map or the default if it does not exist there
      */
     SUMOReal getCFParam(const SumoXMLAttr attr, const SUMOReal defaultValue) const;
+
+    /** @brief Returns the named value from the map, or the default if it is not contained there
+    * @param[in] attr The corresponding xml attribute
+    * @param[in] defaultValue The value to return if the given map does not contain the named variable
+    * @return The named value from the map or the default if it does not exist there
+    */
+    std::string getCFParamString(const SumoXMLAttr attr, const std::string defaultValue) const;
 
     /** @brief Returns the named value from the map, or the default if it is not contained there
      * @param[in] attr The corresponding xml attribute
@@ -183,7 +193,7 @@ public:
     SumoXMLTag cfModel;
 
     /// @brief sub-model parameters
-    typedef std::map<SumoXMLAttr, SUMOReal> SubParams;
+    typedef std::map<SumoXMLAttr, std::string> SubParams;
     /// @brief Car-following parameter
     SubParams cfParameter;
     /// @brief Lane-changing parameter
@@ -231,7 +241,7 @@ public:
     static SUMOReal getDefaultImperfection(const SUMOVehicleClass vc = SVC_IGNORING);
 
     /// @brief return the default parameters, this is a function due to the http://www.parashift.com/c++-faq/static-init-order.html
-    static const SUMOVTypeParameter& getDefault();
+    static const SUMOVTypeParameter &getDefault();
 
 };
 

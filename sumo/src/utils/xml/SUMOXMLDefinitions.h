@@ -424,6 +424,11 @@ enum SumoXMLAttr {
     SUMO_ATTR_TMP5,
     /// @}
 
+    /// @name Train model attributes
+    /// @{
+    SUMO_ATTR_TRAIN_TYPE, //used by: Rail
+    /// @}
+
     /// @name Lane changing model attributes
     /// @{
     SUMO_ATTR_LCA_STRATEGIC_PARAM,
