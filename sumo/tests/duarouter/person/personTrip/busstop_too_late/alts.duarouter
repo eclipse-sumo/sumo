@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Feb  9 12:50:36 2017 by SUMO duarouter Version dev-SVN-r22889
+<!-- generated on Thu Feb  9 14:45:39 2017 by SUMO duarouter Version dev-SVN-r22896
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -73,9 +73,6 @@
         <stop busStop="end_0" until="710.00"/>
     </vehicle>
     <person id="p1" depart="2000.00">
-        <walk edges="beg" busStop="beg_0"/>
-        <ride busStop="left_0" lines="bus"/>
-        <ride busStop="end_0" lines="bus2"/>
-        <walk edges="end"/>
+        <walk edges="beg middle end"/>
     </person>
 </routes>
