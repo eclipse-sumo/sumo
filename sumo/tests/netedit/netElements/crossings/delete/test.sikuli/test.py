@@ -16,7 +16,7 @@ netedit.rebuildNetwork()
 # zoom in central node
 netedit.zoomIn(match.getTarget().offset(325, 225), 10)
 
-# set crossing mode
+# set delete mode
 type("d")
 
 # delete first crossing
@@ -28,6 +28,18 @@ click(match.getTarget().offset(385, 225))
 # check undo redo
 netedit.undo(match, 2)
 netedit.redo(match, 2)
+
+# set delete mode
+type("d")
+
+# delete junction
+click(match.getTarget().offset(300, 225))
+
+# Rebuild network
+netedit.rebuildNetwork()
+
+# undo delete junction
+netedit.undo(match, 1)
 
 # save newtork
 netedit.saveNetwork()
