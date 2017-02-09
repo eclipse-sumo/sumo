@@ -132,6 +132,10 @@ public:
 
 
 protected:
+    static const SUMOReal DIST_FAR_AWAY;
+    static const SUMOReal DIST_BEHIND;
+    static const SUMOReal DIST_OVERLAP;
+
     class lane_by_numid_sorter {
     public:
         /// comparing operation
@@ -173,12 +177,12 @@ protected:
     /// @brief information regarding surround Pedestrians (and potentially other things)
     struct Obstacle {
         /// @brief create No-Obstacle
-        Obstacle(int dir);
+        Obstacle(int dir, SUMOReal dist=DIST_FAR_AWAY);
         /// @brief create an obstacle from ped for ego moving in dir
         Obstacle(const PState& ped);
         /// @brief create an obstacle from explict values
-        Obstacle(SUMOReal _x, SUMOReal _speed, const std::string& _description, const SUMOReal width = 0.)
-            : xFwd(_x + width / 2.), xBack(_x - width / 2.), speed(_speed), description(_description) {};
+        Obstacle(SUMOReal _x, SUMOReal _speed, const std::string& _description, const SUMOReal width = 0., bool _border=false)
+            : xFwd(_x + width / 2.), xBack(_x - width / 2.), speed(_speed), description(_description), border(_border) {};
 
         /// @brief maximal position on the current lane in forward direction
         SUMOReal xFwd;
@@ -186,6 +190,8 @@ protected:
         SUMOReal xBack;
         /// @brief speed relative to lane direction (positive means in the same direction)
         SUMOReal speed;
+        /// @brief whether this obstacle denotes a border or a pedestrian
+        bool border;
         /// @brief the id / description of the obstacle
         std::string description;
     };
@@ -386,6 +392,8 @@ private:
 
     const Obstacles& getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const MSLane* lane, const MSLane* nextLane, int stripes,
                                           SUMOReal nextLength, int nextDir, SUMOReal currentLength, int currentDir);
+
+    static void transformToCurrentLanePositions(Obstacles& o, int currentDir, int nextDir, SUMOReal currentLength, SUMOReal nextLength);
 
     static void addCloserObstacle(Obstacles& obs, SUMOReal x, int stripe, int numStripes, const std::string& id, SUMOReal width, int dir);
 

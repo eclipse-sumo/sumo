@@ -170,7 +170,7 @@ bool
 ROPerson::computeIntermodal(const RORouterProvider& provider, PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler) {
     std::vector<ROIntermodalRouter::TripItem> result;
     provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), trip->getDepartPos(), trip->getArrivalPos(),
-                                           myType->maxSpeed, veh, trip->getModes(), 0, result);
+                                           myType->maxSpeed, veh, trip->getModes(), myParameter.depart, result);
     bool carUsed = false;
     for (std::vector<ROIntermodalRouter::TripItem>::const_iterator it = result.begin(); it != result.end(); ++it) {
         if (!it->edges.empty()) {

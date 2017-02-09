@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:56091 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:38028 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -75,7 +75,7 @@ step 15
 step 16
 {0: ['horiz', 'newPerson']}
 :0_w1
-8.00012861603
+10.220128616
 :0_c0
 recovering from exception after asking for invalid stage index
 recovering from exception after asking for invalid stage index

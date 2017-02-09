@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 26 16:15:13 2017 by SUMO Version dev-SVN-r22713
+<!-- generated on Thu Feb  9 11:02:28 2017 by SUMO Version dev-SVN-r22889
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -25,7 +25,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="56091"/>
+        <remote-port value="38028"/>
     </traci_server>
 
 </configuration>
@@ -666,96 +666,96 @@
         <person id="horiz" x="514.40" y="511.57" angle="270.00" speed="1.39" pos="234.10" edge="2si" slope="0.00"/>
     </timestep>
     <timestep time="183.00">
-        <person id="horiz" x="513.01" y="511.57" angle="270.00" speed="1.39" pos="0.44" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="513.01" y="511.22" angle="270.00" speed="1.39" pos="0.44" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="184.00">
-        <person id="horiz" x="511.62" y="511.88" angle="270.00" speed="1.39" pos="1.83" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="511.62" y="511.22" angle="270.00" speed="1.39" pos="1.83" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="185.00">
-        <person id="horiz" x="510.31" y="511.97" angle="274.61" speed="1.39" pos="3.22" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="510.26" y="511.32" angle="274.61" speed="1.39" pos="3.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="186.00">
-        <person id="horiz" x="508.92" y="512.08" angle="274.61" speed="1.39" pos="4.61" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="508.87" y="511.43" angle="274.61" speed="1.39" pos="4.61" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="187.00">
-        <person id="horiz" x="507.54" y="512.19" angle="274.61" speed="1.39" pos="6.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="507.49" y="511.55" angle="274.61" speed="1.39" pos="6.00" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="188.00">
-        <person id="horiz" x="506.16" y="512.30" angle="274.61" speed="1.39" pos="7.39" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="506.10" y="511.66" angle="274.61" speed="1.39" pos="7.39" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="189.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.61" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="504.70" y="511.72" angle="270.00" speed="1.39" pos="8.77" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="190.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.31" y="511.72" angle="270.00" speed="1.39" pos="10.16" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="191.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.06" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="192.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="193.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="194.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="195.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="196.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="197.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="198.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="199.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="200.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="201.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="202.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="203.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="204.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="205.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="206.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="207.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="208.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="209.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="210.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="211.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="212.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
     <timestep time="213.00">
-        <person id="horiz" x="505.54" y="512.35" angle="274.61" speed="0.00" pos="8.00" edge=":0_w1" slope="0.00"/>
+        <person id="horiz" x="503.25" y="511.72" angle="270.00" speed="0.00" pos="10.22" edge=":0_w1" slope="0.00"/>
     </timestep>
 </fcd-export>

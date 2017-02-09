@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 27/12/2016 10:42:29 by Netedit Version dev-SVN-r22364
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\create\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\create\input_net.net.xml"/>
+        <plain-output-prefix value="C:\Users\Palcraft\Desktop\input_net"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="1" to="5" fromLane="1" toLane="1"/>
+
+    <connection from="2" to="6" fromLane="1" toLane="1"/>
+
+    <connection from="3" to="7" fromLane="1" toLane="1"/>
+
+    <connection from="4" to="8" fromLane="1" toLane="1"/>
+
+    <connection from="5" to="4" fromLane="0" toLane="0"/>
+    <connection from="5" to="2" fromLane="0" toLane="0"/>
+    <connection from="5" to="2" fromLane="1" toLane="1"/>
+    <connection from="5" to="3" fromLane="1" toLane="1"/>
+    <connection from="5" to="1" fromLane="1" toLane="1"/>
+
+    <connection from="6" to="3" fromLane="0" toLane="0"/>
+    <connection from="6" to="1" fromLane="0" toLane="0"/>
+    <connection from="6" to="1" fromLane="1" toLane="1"/>
+    <connection from="6" to="4" fromLane="1" toLane="1"/>
+    <connection from="6" to="2" fromLane="1" toLane="1"/>
+
+    <connection from="7" to="1" fromLane="0" toLane="0"/>
+    <connection from="7" to="4" fromLane="0" toLane="0"/>
+    <connection from="7" to="4" fromLane="1" toLane="1"/>
+    <connection from="7" to="2" fromLane="1" toLane="1"/>
+    <connection from="7" to="3" fromLane="1" toLane="1"/>
+
+    <connection from="8" to="2" fromLane="0" toLane="0"/>
+    <connection from="8" to="3" fromLane="0" toLane="0"/>
+    <connection from="8" to="3" fromLane="1" toLane="1"/>
+    <connection from="8" to="1" fromLane="1" toLane="1"/>
+    <connection from="8" to="4" fromLane="1" toLane="1"/>
+
+	<crossing node="Center" edges="3 7" priority="0"/>
+    <crossing node="Center" edges="8 4" priority="1" width="3"/>
+</connections>

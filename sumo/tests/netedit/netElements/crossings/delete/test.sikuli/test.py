@@ -16,7 +16,7 @@ netedit.rebuildNetwork()
 # zoom in central node
 netedit.zoomIn(match.getTarget().offset(325, 225), 10)
 
-# set crossing mode
+# set delete mode
 type("d")
 
 # delete first crossing

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/01/15 09:28:40 by SUMO Version dev-SVN-r19469
+<!-- generated on Wed Feb  8 16:35:59 2017 by SUMO Version dev-SVN-r22880
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -73,8 +73,8 @@
             <person id="visitor1" pos="5.56" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor4" pos="4.07" angle="0.00" stage="walking"/>
-            <person id="visitor3" pos="4.53" angle="0.00" stage="walking"/>
+            <person id="visitor4" pos="4.32" angle="0.00" stage="walking"/>
+            <person id="visitor3" pos="4.78" angle="0.00" stage="walking"/>
             <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
         </edge>
     </timestep>
@@ -85,7 +85,7 @@
         <edge id="SC">
             <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
             <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="5.92" angle="0.00" stage="walking"/>
+            <person id="visitor3" pos="6.17" angle="0.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="6.00">
