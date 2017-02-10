@@ -319,6 +319,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "personNumber",           SUMO_ATTR_PERSON_NUMBER },
     { "containerNumber",        SUMO_ATTR_CONTAINER_NUMBER },
     { "modes",                  SUMO_ATTR_MODES },
+    { "walkFactor",             SUMO_ATTR_WALKFACTOR },
 
     { "function",               SUMO_ATTR_FUNCTION },
     { "pos",                    SUMO_ATTR_POSITION },

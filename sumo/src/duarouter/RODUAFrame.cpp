@@ -136,6 +136,9 @@ RODUAFrame::addDUAOptions() {
     oc.addSynonyme("logit.theta", "lTheta", true);
     oc.addDescription("logit.theta", "Processing", "Use FLOAT as logit's theta (negative values mean auto-estimation)");
 
+    oc.doRegister("persontrip.walkfactor", new Option_Float(SUMOReal(0.9)));
+    oc.addDescription("persontrip.walkfactor", "Processing", "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing");
+
 }
 
 

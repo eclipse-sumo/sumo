@@ -730,8 +730,9 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             throw InvalidArgument("Unknown person mode '" + mode + "'.");
         }
     }
+    SUMOReal walkFactor = attrs.getOpt<SUMOReal>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
     if (ok) {
-        myActivePerson->addTrip(from, to, modeSet, types, departPos, arrivalPos, busStop);
+        myActivePerson->addTrip(from, to, modeSet, types, departPos, arrivalPos, busStop, walkFactor);
     }
     return ok;
 }

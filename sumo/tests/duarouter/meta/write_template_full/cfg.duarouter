@@ -58,6 +58,7 @@
         <logit.beta value="-1" synonymes="lBeta" type="FLOAT" help="Use FLOAT as logit&apos;s beta"/>
         <logit.gamma value="1" synonymes="lGamma" type="FLOAT" help="Use FLOAT as logit&apos;s gamma"/>
         <logit.theta value="-1" synonymes="lTheta" type="FLOAT" help="Use FLOAT as logit&apos;s theta (negative values mean auto-estimation)"/>
+        <persontrip.walkfactor value="0.9" type="FLOAT" help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"/>
     </processing>
 
     <defaults>

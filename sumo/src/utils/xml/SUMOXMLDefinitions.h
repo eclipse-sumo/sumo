@@ -459,6 +459,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_PERSON_NUMBER,
     SUMO_ATTR_CONTAINER_NUMBER,
     SUMO_ATTR_MODES,
+    SUMO_ATTR_WALKFACTOR,
     /// @}
 
     /// @name source definitions

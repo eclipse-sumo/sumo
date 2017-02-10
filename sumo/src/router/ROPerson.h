@@ -69,7 +69,8 @@ public:
     virtual ~ROPerson();
 
     void addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                 const std::string& vTypes, const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop);
+                 const std::string& vTypes, const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop, 
+                 SUMOReal walkFactor);
 
     void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines, const std::string& destStop);
 
@@ -215,10 +216,10 @@ public:
     class PersonTrip : public PlanItem {
     public:
         PersonTrip()
-            : from(0), to(0), modes(SVC_PEDESTRIAN), dep(0), arr(0), busStop("") {}
+            : from(0), to(0), modes(SVC_PEDESTRIAN), dep(0), arr(0), busStop(""), walkFactor(1.0) {}
         PersonTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                   const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop)
-            : from(from), to(to), modes(modeSet), dep(departPos), arr(arrivalPos), busStop(busStop) {}
+                   const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop, SUMOReal _walkFactor)
+            : from(from), to(to), modes(modeSet), dep(departPos), arr(arrivalPos), busStop(busStop), walkFactor(_walkFactor) {}
         /// @brief Destructor
         virtual ~PersonTrip() {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
@@ -266,6 +267,9 @@ public:
                 (*it)->saveAsXML(os);
             }
         }
+        SUMOReal getWalkFactor() const {
+            return walkFactor;
+        }
 
     private:
         const ROEdge* from;
@@ -277,6 +281,8 @@ public:
         std::vector<TripItem*> myTripItems;
         /// @brief the vehicles which may be used for routing
         std::vector<ROVehicle*> myVehicles;
+        /// @brief walking speed factor
+        SUMOReal walkFactor;
 
     private:
         /// @brief Invalidated assignment operator
