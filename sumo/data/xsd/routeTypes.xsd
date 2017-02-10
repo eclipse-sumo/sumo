@@ -102,6 +102,7 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="RB425" />
+                    <xsd:enumeration value="NGT400" />
                 </xsd:restriction>
             </xsd:simpleType>
 
