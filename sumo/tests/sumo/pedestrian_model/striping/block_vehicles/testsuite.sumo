@@ -7,3 +7,6 @@ walking_forward_left_turning_vehicle
 # this time the left turning vehicle is blocked from entering lane before an internal junction
 walking_forward_left_turning_vehicle2
 walking_backward_left_turning_vehicle
+
+# person walking across the street without priority-crossing, a vehicle suddenly appears
+walking_forward_unprioritized
