@@ -83,7 +83,7 @@ GNEJunction::~GNEJunction() {
     if (myAmResponsible) {
         delete &myNBNode;
     }
-    rebuildCrossings(true);
+    dropGNECrossings();
 }
 
 
@@ -98,28 +98,36 @@ GNEJunction::updateGeometry() {
     }
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
     // rebuild GNECrossings
-    rebuildCrossings(false);
-    for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
-        (*it)->updateGeometry();
-    }
+    rebuildGNECrossings();
+
+
+
+
+
+    // after creation of GNECrossings, their geometry must be updated
+    //for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
+    //    (*it)->updateGeometry();
+    //}
+
+
+
+
+
+
+
 }
 
 
 void
-GNEJunction::rebuildCrossings(bool deleteOnly) {
-    for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
-        (*it)->decRef();
-        if ((*it)->unreferenced()) {
-            delete *it;
-        }
-    }
-    myGNECrossings.clear();
-    if (!deleteOnly) {
-        const std::vector<NBNode::Crossing>& crossings = myNBNode.getCrossings();
-        for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
-            myGNECrossings.push_back(new GNECrossing(this, (*it).id));
-            myGNECrossings.back()->incRef();
-        }
+GNEJunction::rebuildGNECrossings() {
+    // drop existent GNECrossings
+    dropGNECrossings();
+    // build new NBNode::Crossings and walking areas and create GNECrossings
+    myNBNode.buildCrossingsAndWalkingAreas(false);
+    const std::vector<NBNode::Crossing>& crossings = myNBNode.getCrossings();
+    for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
+        myGNECrossings.push_back(new GNECrossing(this, (*it).id));
+        myGNECrossings.back()->incRef();
     }
 }
 
@@ -476,7 +484,7 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
         undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status), true);
         invalidateTLS(undoList);
     } else {
-        rebuildCrossings(false);
+        rebuildGNECrossings();
     }
 }
 
@@ -542,6 +550,19 @@ GNEJunction::removeFromCrossings(GNEEdge* edge, GNEUndoList* undoList) {
 bool
 GNEJunction::isLogicValid() {
     return myHasValidLogic;
+}
+
+
+void
+GNEJunction::dropGNECrossings() {
+    // delete all GNECrossing
+    for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
+        (*it)->decRef();
+        if ((*it)->unreferenced()) {
+            delete *it;
+        }
+    }
+    myGNECrossings.clear();
 }
 
 
