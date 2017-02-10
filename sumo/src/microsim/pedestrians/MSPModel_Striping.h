@@ -190,10 +190,10 @@ protected:
         SUMOReal xBack;
         /// @brief speed relative to lane direction (positive means in the same direction)
         SUMOReal speed;
-        /// @brief whether this obstacle denotes a border or a pedestrian
-        bool border;
         /// @brief the id / description of the obstacle
         std::string description;
+        /// @brief whether this obstacle denotes a border or a pedestrian
+        bool border;
     };
 
     struct WalkingAreaPath {

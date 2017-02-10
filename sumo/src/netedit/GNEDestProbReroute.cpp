@@ -41,9 +41,9 @@
 // ===========================================================================
 
 GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval &rerouterIntervalParent, GNEEdge *newEdgeDestination, SUMOReal probability):
+    myRerouterIntervalParent(&rerouterIntervalParent),
     myNewEdgeDestination(newEdgeDestination),
     myProbability(0),
-    myRerouterIntervalParent(&rerouterIntervalParent),
     myTag(SUMO_TAG_DEST_PROB_REROUTE) {
     // set probability manually to avoid non valid values
     setProbability(probability);
