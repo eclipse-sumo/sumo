@@ -22,8 +22,33 @@ type("d")
 # delete junction 
 click(match.getTarget().offset(300, 250))
 
+# Rebuild network
+netedit.rebuildNetwork()
+
 # check undo
 netedit.undo(match, 1)
+
+# Rebuild network
+netedit.rebuildNetwork()
+
+# set traffic light mode
+type("t")
+
+# select traffic light
+click(match.getTarget().offset(300, 250))
+
+# delete traffic light
+click(match.getTarget().offset(-120, 150))
+
+# go to reference
+click(match.getTarget().offset(0, 0))
+
+# Rebuild network
+netedit.rebuildNetwork()
+
+# check undo
+netedit.undo(match, 1)
+netedit.redo(match, 1)
 
 # save newtork
 netedit.saveNetwork()
