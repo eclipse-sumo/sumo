@@ -100,6 +100,7 @@ protected:
         OPENDRIVE_TAG_POLY3,
         OPENDRIVE_TAG_PARAMPOLY3,
         OPENDRIVE_TAG_LANESECTION,
+        OPENDRIVE_TAG_LANEOFFSET,
         OPENDRIVE_TAG_LEFT,
         OPENDRIVE_TAG_CENTER,
         OPENDRIVE_TAG_RIGHT,
@@ -268,6 +269,9 @@ protected:
         SUMOReal d;
     };
 
+    /// LaneOffset has the same fields as Elevation
+    typedef OpenDriveElevation OpenDriveLaneOffset;
+
 
     /**
      * @struct OpenDriveLane
@@ -420,6 +424,7 @@ protected:
         std::vector<OpenDriveLink> links;
         std::vector<OpenDriveGeometry> geometries;
         std::vector<OpenDriveElevation> elevations;
+        std::vector<OpenDriveLaneOffset> offsets;
         NBNode* from;
         NBNode* to;
         PositionVector geom;
