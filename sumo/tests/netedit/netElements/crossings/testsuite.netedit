@@ -10,6 +10,9 @@ delete_noredo
 # delete junction, undo, but not redo (net must be the same as original)
 delete_junction
 
+# delete junction with TLS
+delete_TLS
+
 # load small net with crossings
 load_small
 
