@@ -83,6 +83,8 @@ def get_options(args=None):
                          default=1.0, help="multiply weight of fringe edges by <FLOAT> (default 1")
     optParser.add_option("--fringe-threshold", type="float", dest="fringe_threshold",
                          default=0.0, help="only consider edges with speed above <FLOAT> as fringe edges (default 0)")
+    optParser.add_option("--allow-fringe", dest="allow_fringe", action="store_true",
+                         default=False, help="Allow departing on edges that leave the network and arriving on edges that enter the network (via turnarounds or as 1-edge trips")
     optParser.add_option("--min-distance", type="float", dest="min_distance",
                          default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m appart")
     optParser.add_option("--max-distance", type="float", dest="max_distance",
@@ -234,10 +236,12 @@ class LoadedProps:
 
 def buildTripGenerator(net, options):
     try:
+        forbidden_source_fringe = None if options.allow_fringe else "_outgoing"
+        forbidden_sink_fringe = None if options.allow_fringe else "_incoming"
         source_generator = RandomEdgeGenerator(
-            net, get_prob_fun(options, "_incoming", "_outgoing"))
+            net, get_prob_fun(options, "_incoming", forbidden_source_fringe))
         sink_generator = RandomEdgeGenerator(
-            net, get_prob_fun(options, "_outgoing", "_incoming"))
+            net, get_prob_fun(options, "_outgoing", forbidden_sink_fringe))
         if options.weightsprefix:
             if os.path.isfile(options.weightsprefix + SOURCE_SUFFIX):
                 source_generator = RandomEdgeGenerator(
@@ -246,8 +250,8 @@ def buildTripGenerator(net, options):
                 sink_generator = RandomEdgeGenerator(
                     net, LoadedProps(options.weightsprefix + SINK_SUFFIX))
     except InvalidGenerator:
-        print(
-            "Error: no valid edges for generating source or destination", file=sys.stderr)
+        print("Error: no valid edges for generating source or destination. Try using option --allow-fringe", 
+                file=sys.stderr)
         return None
 
     try:
