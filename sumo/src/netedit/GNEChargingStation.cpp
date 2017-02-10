@@ -380,7 +380,7 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlocked);
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -403,7 +403,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -431,8 +431,9 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
                 if (parse<SUMOReal>(value) > myLane->getLaneParametricLenght()) {
                     // Ask user if want to assign the lenght of lane as endPosition
                     FXuint answer = FXMessageBox::question(getViewNet()->getApp(), MBOX_YES_NO,
-                                                           "EndPosition exceeds the size of the lane", "%s",
-                                                           "EndPosition exceeds the size of the lane. You want to assign the size of the lane as endPosition?");
+                                                           (toString(SUMO_ATTR_ENDPOS) + " exceeds the size of the " + toString(SUMO_TAG_LANE)).c_str(), "%s",
+                                                           (toString(SUMO_ATTR_ENDPOS) + " exceeds the size of the " + toString(SUMO_TAG_LANE) + 
+                                                            ". Do you want to assign the lenght of the " + toString(SUMO_TAG_LANE) + " as " + toString(SUMO_ATTR_ENDPOS) + "?").c_str());
                     if (answer == 1) { //1:yes, 2:no, 4:esc
                         return true;
                     } else {
@@ -456,7 +457,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -504,7 +505,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             getViewNet()->update();
             break;
         default:
-            throw InvalidArgument(toString(getType()) + "attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + "attribute '" + toString(key) + "' not allowed");
     }
 }
 

@@ -99,9 +99,9 @@ void GNEChange_Crossing::redo() {
 FXString 
 GNEChange_Crossing::undoName() const {
     if (myForward) {
-        return ("Undo create crossing");
+        return ("Undo create " + toString(SUMO_TAG_CROSSING)).c_str();
     } else {
-        return ("Undo delete crossing");
+        return ("Undo delete " + toString(SUMO_TAG_CROSSING)).c_str();
     }
 }
 
@@ -109,8 +109,8 @@ GNEChange_Crossing::undoName() const {
 FXString 
 GNEChange_Crossing::redoName() const {
     if (myForward) {
-        return ("Redo create crossing");
+        return ("Redo create " + toString(SUMO_TAG_CROSSING)).c_str();
     } else {
-        return ("Redo delete crossing");
+        return ("Redo delete " + toString(SUMO_TAG_CROSSING)).c_str();
     }
 }

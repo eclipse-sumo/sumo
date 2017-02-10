@@ -290,7 +290,7 @@ GNEEdge::moveGeometry(const Position& oldPos, const Position& newPos, bool relat
 bool
 GNEEdge::changeGeometry(PositionVector& geom, const std::string& id, const Position& oldPos, const Position& newPos, bool relative, bool moveEndPoints) {
     if (geom.size() < 2) {
-        throw ProcessError("Invalid geometry size in edge " + id);
+        throw ProcessError("Invalid geometry size in " + toString(SUMO_TAG_EDGE) + " with ID='" + id + "'");
     } else {
         int index = geom.indexOfClosest(oldPos);
         const SUMOReal nearestOffset = geom.nearest_offset_to_point2D(oldPos, true);
@@ -556,7 +556,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SHAPE_END:
             return toString(myNBEdge.getGeometry()[-1]);
         default:
-            throw InvalidArgument("edge attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -569,7 +569,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW: {
-            undoList->p_begin("change edge attribute");
+            undoList->p_begin("change " + toString(getTag()) + " attribute");
             const std::string origValue = getAttribute(key); // will have intermediate value of "lane specific"
             // lane specific attributes need to be changed via lanes to allow undo
             for (LaneVector::iterator it = myLanes.begin(); it != myLanes.end(); it++) {
@@ -581,7 +581,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             break;
         }
         case SUMO_ATTR_FROM: {
-            undoList->p_begin("change edge attribute");
+            undoList->p_begin("change  " + toString(getTag()) + "  attribute");
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             myGNEJunctionSource->setLogicValid(false, undoList);
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
@@ -591,7 +591,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             break;
         }
         case SUMO_ATTR_TO: {
-            undoList->p_begin("change edge attribute");
+            undoList->p_begin("change  " + toString(getTag()) + "  attribute");
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             myGNEJunctionDestiny->setLogicValid(false, undoList);
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
@@ -630,7 +630,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument("edge attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -668,8 +668,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
-            PositionVector shape = GeomConvHelper::parseShapeReporting(
-                                       value, "user-supplied position", 0, ok, true);
+            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
             return ok;
             break;
         }
@@ -690,7 +689,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<SUMOReal>(value);
             break;
         default:
-            throw InvalidArgument("edge attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -792,14 +791,14 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         default:
-            throw InvalidArgument("edge attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
 void
 GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
-    undoList->p_begin("change number of lanes");
+    undoList->p_begin("change number of " + toString(SUMO_TAG_LANE) +  "s");
     myGNEJunctionSource->setLogicValid(false, undoList);
     myGNEJunctionDestiny->setLogicValid(false, undoList);
 
@@ -858,7 +857,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
 void
 GNEEdge::removeLane(GNELane* lane) {
     if (myLanes.size() == 0) {
-        throw ProcessError("Should not remove the last lane from an edge\n");
+        throw ProcessError("Should not remove the last " + toString(SUMO_TAG_LANE) + " from an " + toString(getTag()));
     }
     if (lane == 0) {
         lane = myLanes.back();
@@ -945,28 +944,22 @@ GNEEdge::setMicrosimID(const std::string& newID) {
 void
 GNEEdge::addAdditionalChild(GNEAdditional* additional) {
     // First check that additional wasn't already inserted
-    for (AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
-        if (*i == additional) {
-            throw ProcessError("additional element with ID='" + additional->getID() + "' was already inserted in edge with ID='" + getID() + "'");
-        }
+    if(std::find(myAdditionals.begin(), myAdditionals.end(), additional) != myAdditionals.end()) {
+        throw ProcessError(toString(additional->getTag()) + "  with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else {
+        myAdditionals.push_back(additional);
     }
-    myAdditionals.push_back(additional);
 }
 
 
 void
 GNEEdge::removeAdditionalChild(GNEAdditional* additional) {
-    // Declare iterator
-    AdditionalVector::iterator i = myAdditionals.begin();
-    // Find additional
-    while ((*i != additional) && (i != myAdditionals.end())) {
-        i++;
-    }
-    // If additional was found, remove it
-    if (i == myAdditionals.end()) {
-        throw ProcessError("additional element with ID='" + additional->getID() + "' doesn't exist in edge with ID='" + getID() + "'");
+    // First check that additional was already inserted
+    AdditionalVector::iterator it = std::find(myAdditionals.begin(), myAdditionals.end(), additional);
+    if(it == myAdditionals.end()) {
+        throw ProcessError(toString(additional->getTag()) + "  with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
-        myAdditionals.erase(i);
+        myAdditionals.erase(it);
     }
 }
 

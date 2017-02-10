@@ -84,9 +84,9 @@ GNEChange_Connection::redo() {
 FXString 
 GNEChange_Connection::undoName() const {
     if (myForward) {
-        return ("Undo create connection");
+        return ("Undo create " + toString(SUMO_TAG_CONNECTION)).c_str();
     } else {
-        return ("Undo delete connection");
+        return ("Undo delete " + toString(SUMO_TAG_CONNECTION)).c_str();
     }
 }
 
@@ -94,8 +94,8 @@ GNEChange_Connection::undoName() const {
 FXString 
 GNEChange_Connection::redoName() const {
     if (myForward) {
-        return ("Redo create connection");
+        return ("Redo create " + toString(SUMO_TAG_CONNECTION)).c_str();
     } else {
-        return ("Redo delete connection");
+        return ("Redo delete " + toString(SUMO_TAG_CONNECTION)).c_str();
     }
 }

@@ -527,7 +527,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 if ((e->state & CONTROLMASK) == 0) {
                     // allow moving when control is held down
                     if (!myUndoList->hasCommandGroup()) {
-                        myUndoList->p_begin("create new edge");
+                        myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
                     }
                     if (!pointed_junction) {
                         pointed_junction = myNet->createJunction(getPositionInformation(), myUndoList);
@@ -555,7 +555,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                                 if (myChainCreateEdge->getCheck()) {
                                     myCreateEdgeSource = pointed_junction;
                                     myCreateEdgeSource->markAsCreateEdgeSource();
-                                    myUndoList->p_begin("create new edge");
+                                    myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
                                 } else {
                                     myCreateEdgeSource = 0;
                                 }
@@ -1227,14 +1227,14 @@ GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtCursorPosition(myPopupSpot);
     if (edge != 0) {
         if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
-            myUndoList->p_begin("straighten selected edges");
+            myUndoList->p_begin("straighten selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (std::vector<GNEEdge*>::iterator it = edges.begin(); it != edges.end(); it++) {
                 (*it)->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
             }
             myUndoList->p_end();
         } else {
-            myUndoList->p_begin("straighten edge");
+            myUndoList->p_begin("straighten " + toString(SUMO_TAG_EDGE));
             edge->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
             myUndoList->p_end();
         }
@@ -1268,14 +1268,14 @@ GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
     GNELane* lane = getLaneAtCurserPosition(myPopupSpot);
     if (lane != 0) {
         if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
-            myUndoList->p_begin("duplicate selected lanes");
+            myUndoList->p_begin("duplicate selected " + toString(SUMO_TAG_LANE) + "s");
             std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
             for (std::vector<GNELane*>::iterator it = lanes.begin(); it != lanes.end(); it++) {
                 myNet->duplicateLane(*it, myUndoList);
             }
             myUndoList->p_end();
         } else {
-            myUndoList->p_begin("duplicate lane");
+            myUndoList->p_begin("duplicate " + toString(SUMO_TAG_LANE));
             myNet->duplicateLane(lane, myUndoList);
             myUndoList->p_end();
         }
@@ -1879,7 +1879,7 @@ GNEViewNet::updateModeSpecificControls() {
 
 void
 GNEViewNet::deleteSelectedJunctions() {
-    myUndoList->p_begin("delete selected junctions");
+    myUndoList->p_begin("delete selected " + toString(SUMO_TAG_JUNCTION) + "s");
     std::vector<GNEJunction*> junctions = myNet->retrieveJunctions(true);
     for (std::vector<GNEJunction*>::iterator it = junctions.begin(); it != junctions.end(); it++) {
         myNet->deleteJunction(*it, myUndoList);
@@ -1891,13 +1891,13 @@ GNEViewNet::deleteSelectedJunctions() {
 void
 GNEViewNet::deleteSelectedEdges() {
     if (mySelectEdges->getCheck()) {
-        myUndoList->p_begin("delete selected edges");
+        myUndoList->p_begin("delete selected " + toString(SUMO_TAG_EDGE) + "s");
         std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
         for (std::vector<GNEEdge*>::iterator it = edges.begin(); it != edges.end(); it++) {
             myNet->deleteEdge(*it, myUndoList);
         }
     } else {
-        myUndoList->p_begin("delete selected lanes");
+        myUndoList->p_begin("delete selected " + toString(SUMO_TAG_LANE) + "s");
         std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
         for (std::vector<GNELane*>::iterator it = lanes.begin(); it != lanes.end(); it++) {
             myNet->deleteLane(*it, myUndoList);

@@ -205,7 +205,7 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
             return toString(myCrossing.edges);
             break;
         default:
-            throw InvalidArgument("junction attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -217,14 +217,14 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            throw InvalidArgument("modifying crossing attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(getTag()) + " isn't allowed");
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_PRIORITY:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
         default:
-            throw InvalidArgument("crossing attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -248,9 +248,9 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WIDTH:
             return isPositive<SUMOReal>(value);
         case SUMO_ATTR_PRIORITY:
-            return value == "true" || value == "false";
+            return ((value == "true") || (value == "false"));
         default:
-            throw InvalidArgument("crossing attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -262,7 +262,7 @@ void
 GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            throw InvalidArgument("modifying crossing attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(getTag()) + " isn't allowed");
         case SUMO_ATTR_EDGES: {
             // remove edges of crossing
             myCrossing.edges.clear();
@@ -283,7 +283,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             myCrossing.priority = parse<bool>(value);
             break;
         default:
-            throw InvalidArgument("crossing attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

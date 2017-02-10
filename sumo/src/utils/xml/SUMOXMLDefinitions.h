@@ -131,6 +131,8 @@ enum SumoXMLTag {
     SUMO_TAG_TAZSOURCE,
     /// @brief a sink within a district (connection road)
     SUMO_TAG_TAZSINK,
+    /// @brief a traffic light
+    SUMO_TAG_TRAFFIC_LIGHT,
     /// @brief a traffic light logic
     SUMO_TAG_TLLOGIC,
     /// @brief a single phase description

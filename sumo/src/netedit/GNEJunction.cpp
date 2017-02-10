@@ -99,22 +99,6 @@ GNEJunction::updateGeometry() {
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
     // rebuild GNECrossings
     rebuildGNECrossings();
-
-
-
-
-
-    // after creation of GNECrossings, their geometry must be updated
-    //for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
-    //    (*it)->updateGeometry();
-    //}
-
-
-
-
-
-
-
 }
 
 
@@ -280,7 +264,7 @@ GNEJunction::addIncomingGNEEdge(GNEEdge *edge) {
     // Check if incoming edge was already inserted
     std::vector<GNEEdge*>::iterator i = std::find(myGNEIncomingEdges.begin(), myGNEIncomingEdges.end(), edge);
     if(i != myGNEIncomingEdges.end()) {
-        throw InvalidArgument("Incoming GNEEdge with ID '" + edge->getID() + "' was already inserted into junction with ID " + getID() + "'");
+        throw InvalidArgument("Incoming " + toString(SUMO_TAG_EDGE) + " with ID '" + edge->getID() + "' was already inserted into " + toString(getTag()) + " with ID " + getID() + "'");
     } else {
         // Add edge into containers
         myGNEIncomingEdges.push_back(edge);
@@ -294,7 +278,7 @@ GNEJunction::addOutgoingGNEEdge(GNEEdge *edge) {
     // Check if outgoing edge was already inserted
     std::vector<GNEEdge*>::iterator i = std::find(myGNEOutgoingEdges.begin(), myGNEOutgoingEdges.end(), edge);
     if(i != myGNEOutgoingEdges.end()) {
-        throw InvalidArgument("Outgoing GNEEdge with ID '" + edge->getID() + "' was already inserted into junction with ID " + getID() + "'");
+        throw InvalidArgument("Outgoing " + toString(SUMO_TAG_EDGE) + " with ID '" + edge->getID() + "' was already inserted into " + toString(getTag()) + " with ID " + getID() + "'");
     } else {
         // Add edge into containers
         myGNEOutgoingEdges.push_back(edge);
@@ -308,7 +292,7 @@ GNEJunction::removeIncomingGNEEdge(GNEEdge *edge) {
     // Check if incoming edge was already inserted
     std::vector<GNEEdge*>::iterator i = std::find(myGNEIncomingEdges.begin(), myGNEIncomingEdges.end(), edge);
     if(i == myGNEIncomingEdges.end()) {
-        throw InvalidArgument("Incoming GNEEdge with ID '" + edge->getID() + "' doesn't found into junction with ID " + getID() + "'");
+        throw InvalidArgument("Incoming " + toString(SUMO_TAG_EDGE) + " with ID '" + edge->getID() + "' doesn't found into " + toString(getTag()) + " with ID " + getID() + "'");
     } else {
         // remove edge from containers
         myGNEIncomingEdges.erase(i);
@@ -322,7 +306,7 @@ GNEJunction::removeOutgoingGNEEdge(GNEEdge *edge) {
     // Check if outgoing edge was already inserted
     std::vector<GNEEdge*>::iterator i = std::find(myGNEOutgoingEdges.begin(), myGNEOutgoingEdges.end(), edge);
     if(i == myGNEOutgoingEdges.end()) {
-        throw InvalidArgument("Outgoing GNEEdge with ID '" + edge->getID() + "' doesn't found into junction with ID " + getID() + "'");
+        throw InvalidArgument("Outgoing " + toString(SUMO_TAG_EDGE) + " with ID '" + edge->getID() + "' doesn't found into " + toString(getTag()) + " with ID " + getID() + "'");
     } else {
         // remove edge from containers
         myGNEOutgoingEdges.erase(i);
@@ -593,7 +577,7 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_KEEP_CLEAR:
             return myNBNode.getKeepClear() ? "true" : "false";
         default:
-            throw InvalidArgument("junction attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -614,7 +598,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
         case SUMO_ATTR_TYPE: {
-            undoList->p_begin("change junction type");
+            undoList->p_begin("change " + toString(getTag()) + " type");
             if (NBNode::isTrafficLight(SUMOXMLDefinitions::NodeTypes.get(value))) {
                 if (!getNBNode()->isTLControlled()) {
                     // create new traffic light
@@ -634,7 +618,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             break;
         }
         case SUMO_ATTR_TLID: {
-            undoList->p_begin("change tls id");
+            undoList->p_begin("change " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " id");
             // junction is already controlled, remove from previous tls
             const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
             for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
@@ -672,7 +656,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             break;
         }
         default:
-            throw InvalidArgument("junction attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -692,8 +676,7 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
-            PositionVector shape = GeomConvHelper::parseShapeReporting(
-                                       value, "user-supplied position", 0, ok, true);
+            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
             return ok;
             break;
         }
@@ -708,7 +691,7 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             return value == "true" || value == "false";
             break;
         default:
-            throw InvalidArgument("junction attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -770,7 +753,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBNode.setKeepClear(value == "true");
             break;
         default:
-            throw InvalidArgument("junction attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

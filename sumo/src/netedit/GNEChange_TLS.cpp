@@ -98,9 +98,9 @@ GNEChange_TLS::redo() {
 FXString 
 GNEChange_TLS::undoName() const {
     if (myForward) {
-        return ("Undo create traffic light");
+        return ("Undo create " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
     } else {
-        return ("Undo delete traffic light");
+        return ("Undo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
     }
 }
 
@@ -108,8 +108,8 @@ GNEChange_TLS::undoName() const {
 FXString 
 GNEChange_TLS::redoName() const {
     if (myForward) {
-        return ("Redo create traffic light");
+        return ("Redo create " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
     } else {
-        return ("Redo delete traffic light");
+        return ("Redo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
     }
 }

@@ -103,18 +103,18 @@ RGBColor GNECrossingFrame::crossingParameters::mySelectedColor;
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::edgesSelector::edgesSelector(FXComposite* parent, GNECrossingFrame* crossingFrameParent) :
-    FXGroupBox(parent, "selection of Edges", GUIDesignGroupBoxFrame),
+    FXGroupBox(parent, ("selection of " + toString(SUMO_TAG_EDGE) + "s").c_str(), GUIDesignGroupBoxFrame),
     myCrossingFrameParent(crossingFrameParent),
     myCurrentJunction(0) {
 
     // Create button for selected edges
-    myUseSelectedEdges =new FXButton(this, "Use selected Edges", 0, this, MID_GNE_USEONLYSELECTEDEDGES, GUIDesignButton);
+    myUseSelectedEdges =new FXButton(this, ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_USEONLYSELECTEDEDGES, GUIDesignButton);
 
     // Create button for clear selection
-    myClearEdgesSelection = new FXButton(this, "clear edges", 0, this, MID_GNE_CLEAREDGESELECTION, GUIDesignButton);
+    myClearEdgesSelection = new FXButton(this, ("clear " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_CLEAREDGESELECTION, GUIDesignButton);
 
     // Create button for invert selection
-    myInvertEdgesSelection = new FXButton(this, "invert edges", 0, this, MID_GNE_INVERTEDGESELECTION, GUIDesignButton);
+    myInvertEdgesSelection = new FXButton(this, ("invert " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_INVERTEDGESELECTION, GUIDesignButton);
 
     // Create help button
     helpEdges = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);

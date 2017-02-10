@@ -220,9 +220,9 @@ void
 GNERerouter::addEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and doesn't exist previously
     if(edge == NULL) {
-        throw InvalidArgument("Trying to add an empty edge in " + getID());
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag())+ " with ID='" + getID() + "'");
     } else if(std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end()) {
-        throw InvalidArgument("Trying to add a duplicate edge" + getID());
+        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag())+ " with ID='" + getID() + "'");
     } else {
         myEdges.push_back(edge);
     }
@@ -233,9 +233,9 @@ void
 GNERerouter::removeEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and exist previously
     if(edge == NULL) {
-        throw InvalidArgument("Trying to remove an empty edge child " + getID());
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag())+ " with ID='" + getID() + "'");
     } else if(std::find(myEdges.begin(), myEdges.end(), edge) == myEdges.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted edge in " + getID());
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag())+ " with ID='" + getID() + "'");
     } else {
         myEdges.erase(std::find(myEdges.begin(), myEdges.end(), edge));
     }
@@ -368,7 +368,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlocked);
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -390,7 +390,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             updateGeometry();
             break;
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -432,7 +432,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -481,7 +481,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             getViewNet()->update();
             break;
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

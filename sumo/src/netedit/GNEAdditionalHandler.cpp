@@ -309,7 +309,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
             if (lane) {
                 lanes.push_back(lane);
             } else {
-                WRITE_WARNING("lane '" + lanesID.at(i) + "' isn't valid");
+                WRITE_WARNING(toString(SUMO_TAG_LANE) + " '" + lanesID.at(i) + "' isn't valid");
             }
         }
         // if operation of build variable speed signal was sucesfully, save Id

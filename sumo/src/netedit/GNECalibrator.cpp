@@ -315,7 +315,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
                 return "";
             }
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -336,7 +336,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             updateGeometry();
             break;
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 
 }
@@ -369,7 +369,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -401,7 +401,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             myRouteProbe = dynamic_cast<GNERouteProbe*>(myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value));
             break;
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

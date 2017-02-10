@@ -292,7 +292,7 @@ GNENet::createEdge(
                                  defaultOffset);
         edge = new GNEEdge(*nbe, this, wasSplit);
     }
-    undoList->p_begin("create edge");
+    undoList->p_begin("create " + toString(SUMO_TAG_EDGE));
     undoList->add(new GNEChange_Edge(edge, true), true);
     src->setLogicValid(false, undoList);
     dest->setLogicValid(false, undoList);
@@ -308,7 +308,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     // we have to delete all incident edges because they cannot exist without that junction
     // all deletions must be undone/redone together so we start a new command group
     // @todo if any of those edges are dead-ends should we remove their orphan junctions as well?
-    undoList->p_begin("delete junction");
+    undoList->p_begin("delete " + toString(SUMO_TAG_JUNCTION));
 
     // delete all crossings vinculated with junction
     while (junction->getGNECrossings().size() > 0) {
@@ -335,7 +335,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
 
 void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
-    undoList->p_begin("delete edge");
+    undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
     // delete additionals childs of edge
     std::vector<GNEAdditional*> copyOfEdgeAdditionals = edge->getAdditionalChilds();
     for(std::vector<GNEAdditional*>::iterator i = copyOfEdgeAdditionals.begin(); i != copyOfEdgeAdditionals.end(); i++) {
@@ -377,7 +377,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         // remove the whole edge instead
         deleteEdge(edge, undoList);
     } else {
-        undoList->p_begin("delete lane");
+        undoList->p_begin("delete " + toString(SUMO_TAG_LANE));
         // delete additionals childs of lane
         std::vector<GNEAdditional*> copyOfAdditionals = lane->getAdditionalChilds();
         for(std::vector<GNEAdditional*>::const_iterator i = copyOfAdditionals.begin(); i != copyOfAdditionals.end(); i++) {
@@ -405,7 +405,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
 
 void
 GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
-    undoList->p_begin("delete connection");
+    undoList->p_begin("delete " + toString(SUMO_TAG_CONNECTION));
     NBConnection deleted = connection->getNBConnection();
     GNEJunction* affected = connection->getEdgeFrom()->getGNEJunctionDestiny();
     affected->markAsModified(undoList);
@@ -437,7 +437,7 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
 
 void
 GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList) {
-    undoList->p_begin("duplicate lane");
+    undoList->p_begin("duplicate " + toString(SUMO_TAG_LANE));
     GNEEdge* edge = &lane->getParentEdge();
     const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
     GNELane* newLane = new GNELane(*edge, lane->getIndex());
@@ -530,7 +530,7 @@ GNENet::deleteGeometryOrEdge(GNEEdge* edge, const Position& pos, GNEUndoList* un
 
 GNEJunction*
 GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction) {
-    undoList->p_begin("split edge");
+    undoList->p_begin("split " + toString(SUMO_TAG_EDGE));
     deleteEdge(edge, undoList); // still exists. we delete it so we can reuse the name in case of resplit
     // compute geometry
     const PositionVector& oldGeom = edge->getNBEdge()->getGeometry();
@@ -584,7 +584,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
 void
 GNENet::splitEdgesBidi(const std::set<GNEEdge*>& edges, const Position& pos, GNEUndoList* undoList) {
     GNEJunction* newJunction = 0;
-    undoList->p_begin("split edges");
+    undoList->p_begin("split " + toString(SUMO_TAG_EDGE) + "s");
     for (std::set<GNEEdge*>::const_iterator it = edges.begin(); it != edges.end(); ++it) {
         newJunction = splitEdge(*it, pos, undoList, newJunction);
     }
@@ -594,7 +594,7 @@ GNENet::splitEdgesBidi(const std::set<GNEEdge*>& edges, const Position& pos, GNE
 
 void
 GNENet::reverseEdge(GNEEdge* edge, GNEUndoList* undoList) {
-    undoList->p_begin("reverse edge");
+    undoList->p_begin("reverse " + toString(SUMO_TAG_EDGE));
     deleteEdge(edge, undoList); // still exists. we delete it so we can reuse the name in case of resplit
     GNEEdge* reversed = createEdge(edge->getGNEJunctionDestiny(), edge->getGNEJunctionSource(), edge, undoList, edge->getID(), false, true);
     assert(reversed != 0);
@@ -605,7 +605,7 @@ GNENet::reverseEdge(GNEEdge* edge, GNEUndoList* undoList) {
 
 GNEEdge*
 GNENet::addReversedEdge(GNEEdge* edge, GNEUndoList* undoList) {
-    undoList->p_begin("add reversed edge");
+    undoList->p_begin("add reversed " + toString(SUMO_TAG_EDGE));
     GNEEdge* reversed = 0;
     if (edge->getNBEdge()->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
         GNEEdge* reversed = createEdge(edge->getGNEJunctionDestiny(), edge->getGNEJunctionSource(), edge, undoList, "-" + edge->getID(), false, true);
@@ -638,7 +638,7 @@ GNENet::addReversedEdge(GNEEdge* edge, GNEUndoList* undoList) {
 
 void
 GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* undoList) {
-    undoList->p_begin("merge junctions");
+    undoList->p_begin("merge " + toString(SUMO_TAG_JUNCTION) + "s");
     // position of moved and target are probably a bit different (snap radius)
     moved->move(target->getNBNode()->getPosition());
     // register the move with undolist (must happend within the undo group)
@@ -783,7 +783,7 @@ GNENet::retrieveLane(const std::string& id, bool failHard) {
         }
         if (failHard) {
             // Throw exception if failHard is enabled
-            throw UnknownElement("lane " + id);
+            throw UnknownElement(toString(SUMO_TAG_LANE) + " " + id);
         }
     }
     return 0;
@@ -1009,7 +1009,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     if (selected.size() < 2) {
         return;
     }
-    undoList->p_begin("Join selected junctions");
+    undoList->p_begin("Join selected " + toString(SUMO_TAG_JUNCTION) + "s");
 
     EdgeVector allIncoming;
     EdgeVector allOutgoing;
@@ -1055,7 +1055,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
 
 void
 GNENet::removeSolitaryJunctions(GNEUndoList* undoList) {
-    undoList->p_begin("Clean junctions");
+    undoList->p_begin("Clean " + toString(SUMO_TAG_JUNCTION) + "s");
     std::vector<GNEJunction*> toRemove;
     for (GNEJunctions::const_iterator it = myJunctions.begin(); it != myJunctions.end(); it++) {
         GNEJunction* junction = it->second;
@@ -1209,7 +1209,7 @@ GNENet::insertAdditional(GNEAdditional* additional, bool hardFail) {
     if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())) != myAdditionals.end()) {
         // Throw exception only if hardFail is enabled
         if (hardFail) {
-            throw ProcessError("additional element with ID='" + additional->getID() + "' already exist");
+            throw ProcessError(toString(additional->getTag()) + "  with ID='" + additional->getID() + "' already exist");
         }
     } else {
         myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
@@ -1224,7 +1224,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
     GNEAdditionals::iterator additionalToRemove = myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag()));
     // Check if additional element exists before deletion
     if (additionalToRemove == myAdditionals.end()) {
-        throw ProcessError("additional element with ID='" + additional->getID() + "' doesn't exist");
+        throw ProcessError(toString(additional->getTag()) + "  with ID='" + additional->getID() + "' doesn't exist");
     } else {
         myAdditionals.erase(additionalToRemove);
         myGrid.removeAdditionalGLObject(additional);
@@ -1237,7 +1237,7 @@ void
 GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) {
     GNEAdditionals::iterator additionalToUpdate = myAdditionals.find(std::pair<std::string, SumoXMLTag>(oldID, additional->getTag()));
     if (additionalToUpdate == myAdditionals.end()) {
-        throw ProcessError("additional element with old ID='" + oldID + "' doesn't exist");
+        throw ProcessError(toString(additional->getTag()) + "  with old ID='" + oldID + "' doesn't exist");
     } else {
         // remove an insert additional again into container
         myAdditionals.erase(additionalToUpdate);

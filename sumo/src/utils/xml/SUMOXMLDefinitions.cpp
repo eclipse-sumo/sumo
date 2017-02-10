@@ -89,6 +89,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "taz",                        SUMO_TAG_TAZ },
     { "tazSource",                  SUMO_TAG_TAZSOURCE },
     { "tazSink",                    SUMO_TAG_TAZSINK },
+    { "trafficLight",               SUMO_TAG_TRAFFIC_LIGHT },
     { "tlLogic",                    SUMO_TAG_TLLOGIC },
     { "phase",                      SUMO_TAG_PHASE },
     { "trip",                       SUMO_TAG_TRIP },

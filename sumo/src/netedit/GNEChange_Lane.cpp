@@ -121,9 +121,9 @@ GNEChange_Lane::redo() {
 FXString 
 GNEChange_Lane::undoName() const {
     if (myForward) {
-        return ("Undo create lane");
+        return ("Undo create " + toString(SUMO_TAG_LANE)).c_str();
     } else {
-        return ("Undo delete lane");
+        return ("Undo delete " + toString(SUMO_TAG_LANE)).c_str();
     }
 }
 
@@ -131,8 +131,8 @@ GNEChange_Lane::undoName() const {
 FXString 
 GNEChange_Lane::redoName() const {
     if (myForward) {
-        return ("Redo create lane");
+        return ("Redo create " + toString(SUMO_TAG_LANE)).c_str();
     } else {
-        return ("Redo delete lane");
+        return ("Redo delete " + toString(SUMO_TAG_LANE)).c_str();
     }
 }

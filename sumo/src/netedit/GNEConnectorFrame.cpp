@@ -182,7 +182,7 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
         myCurrentLane->setSpecialColor(&sourceColor);
         initTargets();
         myNumChanges = 0;
-        myViewNet->getUndoList()->p_begin("modify connections");
+        myViewNet->getUndoList()->p_begin("modify " + toString(SUMO_TAG_CONNECTION) + "s");
     } else if (myPotentialTargets.count(lane) || allowConflict) {
         const int fromIndex = myCurrentLane->getIndex();
         GNEEdge& srcEdge = myCurrentLane->getParentEdge();
@@ -213,14 +213,14 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
                 break;
             }
             case CONFLICTED:
-                myViewNet->setStatusBarText("Another lane from the same edge already connects to that lane");
+                myViewNet->setStatusBarText("Another lane from the same edge already connects to that " + toString(SUMO_TAG_LANE));
                 break;
         }
         if (changed) {
             myNumChanges += 1;
         }
     } else {
-        myViewNet->setStatusBarText("Invalid target for connection");
+        myViewNet->setStatusBarText("Invalid target for " + toString(SUMO_TAG_CONNECTION));
     }
     updateDescription();
 }
@@ -359,7 +359,7 @@ GNEConnectorFrame::onCmdSelectPass(FXObject*, FXSelector, void*) {
 long
 GNEConnectorFrame::onCmdClearSelectedConnections(FXObject*, FXSelector, void*) {
     onCmdCancel(0, 0, 0);
-    myViewNet->getUndoList()->p_begin("clear connections from selected lanes, edges and junctions");
+    myViewNet->getUndoList()->p_begin("clear connections from selected lanes, edges and " + toString(SUMO_TAG_JUNCTION) + "s");
     const std::set<GUIGlID> ids = gSelected.getSelected();
     for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         GUIGlID id = *it;

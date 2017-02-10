@@ -131,11 +131,11 @@ GNEStoppingPlace::getEndPosition() const {
 void
 GNEStoppingPlace::setStartPosition(SUMOReal startPos) {
     if (startPos < 0) {
-        throw InvalidArgument("Start position '" + toString(startPos) + "' not allowed. Must be greater than 0");
+        throw InvalidArgument(toString(SUMO_ATTR_STARTPOS) + " '" + toString(startPos) + "' not allowed. Must be greater than 0");
     } else if (startPos >= myEndPos) {
-        throw InvalidArgument("Start position '" + toString(startPos) + "' not allowed. Must be smaller than endPos '" + toString(myEndPos) + "'");
+        throw InvalidArgument(toString(SUMO_ATTR_STARTPOS) + " '" + toString(startPos) + "' not allowed. Must be smaller than endPos '" + toString(myEndPos) + "'");
     } else if ((myEndPos - startPos) < 1) {
-        throw InvalidArgument("Start position '" + toString(startPos) + "' not allowed. Lenght of StoppingPlace must be equal or greater than 1");
+        throw InvalidArgument(toString(SUMO_ATTR_STARTPOS) + " '" + toString(startPos) + "' not allowed. Lenght of StoppingPlace must be equal or greater than 1");
     } else {
         myStartPos = startPos;
     }
@@ -145,11 +145,11 @@ GNEStoppingPlace::setStartPosition(SUMOReal startPos) {
 void
 GNEStoppingPlace::setEndPosition(SUMOReal endPos) {
     if (endPos > myLane->getLaneShapeLenght()) {
-        throw InvalidArgument("End position '" + toString(endPos) + "' not allowed. Must be smaller than lane length");
+        throw InvalidArgument(toString(SUMO_ATTR_ENDPOS) + " '" + toString(endPos) + "' not allowed. Must be smaller than lane length");
     } else if (myStartPos >= endPos) {
-        throw InvalidArgument("End position '" + toString(endPos) + "' not allowed. Must be smaller than endPos '" + toString(myEndPos) + "'");
+        throw InvalidArgument(toString(SUMO_ATTR_ENDPOS) + " '" + toString(endPos) + "' not allowed. Must be smaller than endPos '" + toString(myEndPos) + "'");
     } else if ((endPos - myStartPos) < 1) {
-        throw InvalidArgument("End position '" + toString(endPos) + "' not allowed. Lenght of StoppingPlace must be equal or greater than 1");
+        throw InvalidArgument(toString(SUMO_ATTR_ENDPOS) + " '" + toString(endPos) + "' not allowed. Lenght of StoppingPlace must be equal or greater than 1");
     } else {
         myEndPos = endPos;
     }

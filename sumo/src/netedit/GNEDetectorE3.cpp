@@ -195,7 +195,7 @@ GNEDetectorE3::generateEntryID() {
     while (myViewNet->getNet()->getAdditional(SUMO_TAG_DET_ENTRY, getID() + "_Entry" + toString(counter)) != NULL) {
         counter++;
     }
-    return (getID() + "_Entry" + toString(counter));
+    return (getID() + "_Det_Entry" + toString(counter));
 }
 
 
@@ -205,7 +205,7 @@ GNEDetectorE3::generateExitID() {
     while (myViewNet->getNet()->getAdditional(SUMO_TAG_DET_EXIT, getID() + "_Exit" + toString(counter)) != NULL) {
         counter++;
     }
-    return (getID() + "_Exit" + toString(counter));
+    return (getID() + "_Det_Exit" + toString(counter));
 }
 
 
@@ -219,9 +219,9 @@ void
 GNEDetectorE3::addEntryChild(GNEDetectorEntry *entry) {
     // Check that entry is valid and doesn't exist previously
     if(entry == NULL) {
-        throw InvalidArgument("Trying to add an empty entry child in " + getID());
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_DET_ENTRY) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
     } else if(std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry) != myGNEDetectorEntrys.end()) {
-        throw InvalidArgument("Trying to add a duplicate entry child in " + getID());
+        throw InvalidArgument("Trying to add a duplicated " + toString(SUMO_TAG_DET_ENTRY) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
     } else {
         myGNEDetectorEntrys.push_back(entry);
     }
@@ -232,9 +232,9 @@ void
 GNEDetectorE3::removeEntryChild(GNEDetectorEntry *entry) {
     // Check that entry is valid and exist previously
     if(entry == NULL) {
-        throw InvalidArgument("Trying to remove an empty entry child " + getID());
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_DET_ENTRY) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
     } else if(std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry) == myGNEDetectorEntrys.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted entry child in " + getID());
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_DET_ENTRY) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
     } else {
         myGNEDetectorEntrys.erase(std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry));
     }
@@ -245,9 +245,9 @@ void
 GNEDetectorE3::addExitChild(GNEDetectorExit *exit) {
     // Check that exit is valid and doesn't exist previously
     if(exit == NULL) {
-        throw InvalidArgument("Trying to add an empty exit child in " + getID());
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_DET_EXIT) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
     } else if(std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit) != myGNEDetectorExits.end()) {
-        throw InvalidArgument("Trying to add a duplicate exit child in " + getID());
+        throw InvalidArgument("Trying to add a duplicated " + toString(SUMO_TAG_DET_EXIT) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
     } else {
         myGNEDetectorExits.push_back(exit);
     }
@@ -258,9 +258,9 @@ void
 GNEDetectorE3::removeExitChild(GNEDetectorExit *exit) {
     // Check that exit is valid and exist previously
     if(exit == NULL) {
-        throw InvalidArgument("Trying to remove an empty exit child " + getID());
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_DET_EXIT) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
     } else if(std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit) == myGNEDetectorExits.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted exit child in " + getID());
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_DET_EXIT) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
     } else {
         myGNEDetectorExits.erase(std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit));
     }
@@ -333,7 +333,7 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlocked);
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -356,7 +356,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             updateGeometry();
             break;
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -385,7 +385,7 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -430,7 +430,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             getViewNet()->update();
             break;
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

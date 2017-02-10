@@ -106,9 +106,9 @@ GNEChange_Edge::redo() {
 FXString 
 GNEChange_Edge::undoName() const {
     if (myForward) {
-        return ("Undo create edge");
+        return ("Undo create " + toString(SUMO_TAG_EDGE)).c_str();
     } else {
-        return ("Undo delete edge");
+        return ("Undo delete " + toString(SUMO_TAG_EDGE)).c_str();
     }
 }
 
@@ -116,8 +116,8 @@ GNEChange_Edge::undoName() const {
 FXString 
 GNEChange_Edge::redoName() const {
     if (myForward) {
-        return ("Redo create edge");
+        return ("Redo create " + toString(SUMO_TAG_EDGE)).c_str();
     } else {
-        return ("Redo delete edge");
+        return ("Redo delete " + toString(SUMO_TAG_EDGE)).c_str();
     }
 }

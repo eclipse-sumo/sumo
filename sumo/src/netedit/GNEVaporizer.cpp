@@ -273,7 +273,7 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return toString(myEnd);
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -292,7 +292,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
             updateGeometry();
             break;
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -317,7 +317,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_END:
             return canParse<SUMOReal>(value);
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -338,7 +338,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEnd = parse<SUMOReal>(value);
             break;
         default:
-            throw InvalidArgument(toString(getType()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
