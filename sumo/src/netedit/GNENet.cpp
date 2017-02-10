@@ -310,6 +310,11 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     // @todo if any of those edges are dead-ends should we remove their orphan junctions as well?
     undoList->p_begin("delete junction");
 
+    // delete all crossings vinculated with junction
+    while (junction->getGNECrossings().size() > 0) {
+        deleteCrossing(junction->getGNECrossings().front(), undoList);
+    }
+
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incident = junction->getNBNode()->getEdges();
     for (EdgeVector::const_iterator it = incident.begin(); it != incident.end(); it++) {

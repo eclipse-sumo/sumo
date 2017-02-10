@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 10/02/2017 12:54:43 by Netedit Version dev-SVN-r22880
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\delete_TLS\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\delete_TLS\input_net.net.xml"/>
+        <plain-output-prefix value="C:\Proyectos\input_net"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<tlLogics version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <tlLogic id="Center" type="static" programID="0" offset="0">
+        <phase duration="26" state="gGGggrrrrrgGGggrrrrrGG"/>
+        <phase duration="5" state="gGGggrrrrrgGGggrrrrrrr"/>
+        <phase duration="4" state="yyyggrrrrryyyggrrrrrrr"/>
+        <phase duration="6" state="rrrGGrrrrrrrrGGrrrrrrr"/>
+        <phase duration="4" state="rrryyrrrrrrrryyrrrrrrr"/>
+        <phase duration="31" state="rrrrrGGGggrrrrrGGGggrr"/>
+        <phase duration="4" state="rrrrryyyggrrrrryyyggrr"/>
+        <phase duration="6" state="rrrrrrrrGGrrrrrrrrGGrr"/>
+        <phase duration="4" state="rrrrrrrryyrrrrrrrryyrr"/>
+    </tlLogic>
+
+    <connection from="5" to="4" fromLane="0" toLane="0" tl="Center" linkIndex="10"/>
+    <connection from="5" to="2" fromLane="0" toLane="0" tl="Center" linkIndex="11"/>
+    <connection from="5" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="12"/>
+    <connection from="5" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="13"/>
+    <connection from="5" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="14"/>
+    <connection from="6" to="3" fromLane="0" toLane="0" tl="Center" linkIndex="0"/>
+    <connection from="6" to="1" fromLane="0" toLane="0" tl="Center" linkIndex="1"/>
+    <connection from="6" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="2"/>
+    <connection from="6" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="3"/>
+    <connection from="6" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="4"/>
+    <connection from="7" to="1" fromLane="0" toLane="0" tl="Center" linkIndex="15"/>
+    <connection from="7" to="4" fromLane="0" toLane="0" tl="Center" linkIndex="16"/>
+    <connection from="7" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="17"/>
+    <connection from="7" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="18"/>
+    <connection from="7" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="19"/>
+    <connection from="8" to="2" fromLane="0" toLane="0" tl="Center" linkIndex="5"/>
+    <connection from="8" to="3" fromLane="0" toLane="0" tl="Center" linkIndex="6"/>
+    <connection from="8" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="7"/>
+    <connection from="8" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="8"/>
+    <connection from="8" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="9"/>
+</tlLogics>

@@ -28,6 +28,9 @@ busstop
 # public transport via bustops but the person departs to late to use a bus
 busstop_too_late
 
+# waiting for the bus would take too long. walking should be preferred
+prefer_walking
+
 # public transport via bustops with non matching stops for the same line
 busstop_unmatched
 

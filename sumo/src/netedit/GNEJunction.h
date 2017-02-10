@@ -213,6 +213,9 @@ public:
     /// @brief whether this junction has a valid logic
     bool isLogicValid();
 
+    /// @brief drop crossings
+    void dropGNECrossings();
+
 private:
     /// @brief A reference to the represented junction
     NBNode& myNBNode;
@@ -280,7 +283,7 @@ private:
     void removeTrafficLight(NBTrafficLightDefinition* tlDef);
 
     /// @brief rebuilds crossing objects for this junction
-    void rebuildCrossings(bool deleteOnly);
+    void rebuildGNECrossings();
 };
 
 

@@ -89,9 +89,6 @@ protected:
     /// @brief reference to rerouter interval parent
     GNERerouterInterval *myRerouterIntervalParent;
 
-    /// @brief XML Tag of closing lane reroute
-    SumoXMLTag myTag;
-
     /// @brief closed lane
     GNELane *myClosedLane;
 
@@ -100,6 +97,9 @@ protected:
 
     /// @brief codified disallowed vehicles
     SVCPermissions myDisallowedVehicles;
+
+    /// @brief XML Tag of closing lane reroute
+    SumoXMLTag myTag;
 };
 
 #endif

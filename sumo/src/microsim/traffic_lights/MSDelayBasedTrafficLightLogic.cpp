@@ -127,9 +127,7 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(){
                 }
 #endif
                 MSE2Collector* detector = static_cast<MSE2Collector*>(i->second);
-//                MSE2Collector* detector = i->second;
                 const std::vector<MSE2Collector::VehicleInfo>& vehInfos = detector->getCurrentVehicles();
-                SUMOReal prolongationForLane = 0.; // debug
 
 #ifdef DEBUG_TIMELOSS_CONTROL
                 std::cout << "Number of current vehicles on detector: " << vehInfos.size() << std::endl;
@@ -154,8 +152,7 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(){
     std::cout << "Proposed prolongation (maximal estimated passing time): " << prolongationTime << std::endl; // debug
 #endif
     return TIME2STEPS(prolongationTime);
-};
-
+}
 
 
 SUMOTime
@@ -203,4 +200,3 @@ MSDelayBasedTrafficLightLogic::trySwitch() {
 
 
 /****************************************************************************/
-

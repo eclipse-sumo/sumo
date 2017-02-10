@@ -81,14 +81,14 @@ protected:
     /// @brief reference to rerouter interval parent
     GNERerouterInterval *myRerouterIntervalParent;
 
-    /// @brief XML Tag of destiny probability reroute
-    SumoXMLTag myTag;
-
     /// @brief id of new edge destination
     GNEEdge *myNewEdgeDestination;
 
     /// @brief probability with which a vehicle will use the given edge as destination
     SUMOReal myProbability;
+
+    /// @brief XML Tag of destiny probability reroute
+    SumoXMLTag myTag;
 };
 
 #endif

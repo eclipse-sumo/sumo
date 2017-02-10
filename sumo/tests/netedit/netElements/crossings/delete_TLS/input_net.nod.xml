@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 10/02/2017 12:54:43 by Netedit Version dev-SVN-r22880
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\delete_TLS\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\delete_TLS\input_net.net.xml"/>
+        <plain-output-prefix value="C:\Proyectos\input_net"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
+
+    <node id="A" x="50.00" y="0.00" type="priority"/>
+    <node id="B" x="50.00" y="100.00" type="priority"/>
+    <node id="C" x="0.00" y="50.00" type="priority"/>
+    <node id="Center" x="50.00" y="50.00" type="traffic_light" tl="Center"/>
+    <node id="D" x="100.00" y="50.00" type="priority"/>
+</nodes>

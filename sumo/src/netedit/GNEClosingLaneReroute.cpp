@@ -41,10 +41,10 @@
 // ===========================================================================
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNELane *closedLane, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles) :
+    myRerouterIntervalParent(&rerouterIntervalParent),
     myClosedLane(closedLane),
     myAllowedVehicles(allowedVehicles),
     myDisallowedVehicles(disallowedVehicles),
-    myRerouterIntervalParent(&rerouterIntervalParent),
     myTag(SUMO_TAG_CLOSING_LANE_REROUTE) {
 }
 

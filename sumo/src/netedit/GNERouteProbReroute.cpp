@@ -42,9 +42,9 @@
 // ===========================================================================
 
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval &rerouterIntervalParent, std::string newRouteId, SUMOReal probability) :
+    myRerouterIntervalParent(&rerouterIntervalParent),
     myNewRouteId(newRouteId),
     myProbability(probability),
-    myRerouterIntervalParent(&rerouterIntervalParent),
     myTag(SUMO_TAG_ROUTE_PROB_REROUTE) {
     // set probability manually to avoid non valid values
     setProbability(probability);

@@ -69,8 +69,8 @@ ROPerson::~ROPerson() {
 
 void
 ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                  const std::string& vTypes, const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop) {
-    PersonTrip* trip = new PersonTrip(from, to, modeSet, departPos, arrivalPos, busStop);
+                  const std::string& vTypes, const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop, SUMOReal walkFactor) {
+    PersonTrip* trip = new PersonTrip(from, to, modeSet, departPos, arrivalPos, busStop, walkFactor);
     RONet* net = RONet::getInstance();
     SUMOVehicleParameter pars;
     pars.departProcedure = DEPART_TRIGGERED;
@@ -170,7 +170,7 @@ bool
 ROPerson::computeIntermodal(const RORouterProvider& provider, PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler) {
     std::vector<ROIntermodalRouter::TripItem> result;
     provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), trip->getDepartPos(), trip->getArrivalPos(),
-                                           myType->maxSpeed, veh, trip->getModes(), myParameter.depart, result);
+                                           myType->maxSpeed * trip->getWalkFactor(), veh, trip->getModes(), myParameter.depart, result);
     bool carUsed = false;
     for (std::vector<ROIntermodalRouter::TripItem>::const_iterator it = result.begin(); it != result.end(); ++it) {
         if (!it->edges.empty()) {

@@ -43,11 +43,10 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNERerouter *rerouterParent, SUMOReal begin, SUMOReal end) :
+    myRerouterParent(rerouterParent),
     myBegin(begin),
     myEnd(end),
-    myRerouterParent(rerouterParent),
     myTag(SUMO_TAG_INTERVAL) {
-    // bendegin cannot be minor that begin
     assert(begin <= end);
 }
 

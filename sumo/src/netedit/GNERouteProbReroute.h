@@ -82,15 +82,15 @@ protected:
     /// @brief reference to rerouter interval parent
     GNERerouterInterval *myRerouterIntervalParent;
 
-    /// @brief XML Tag of route probability reroute
-    SumoXMLTag myTag;
-
     /// @brief id of new route
     /// @todo change string to GNERoute
     std::string myNewRouteId;
 
     /// @brief probability with which a vehicle will use the given edge as destination
     SUMOReal myProbability;
+
+    /// @brief XML Tag of route probability reroute
+    SumoXMLTag myTag;
 };
 
 #endif

@@ -171,37 +171,37 @@ long
 GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if(myBeginEndValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK, 
-                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), 
+                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
                               (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) + 
                               " cannot be updated because " + toString(myRerouterInterval->getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
         return 0;
     } else if(myCopyOfClosingLaneReroutes.empty() && myCopyOfClosingReroutes.empty() && myCopyOfDestProbReroutes.empty() && myCopyOfRouteProbReroutes.empty()) {
         FXMessageBox::warning(getApp(), MBOX_OK, 
-                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), 
+                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
                               (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) + 
                               " cannot be updated because at least one " + toString(myRerouterInterval->getTag()) + "'s element must be defined.").c_str());
         return 0;
     } else if(myClosingLaneReroutesValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), 
+                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
                               (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) + 
                               " cannot be updated because there are invalid "+ toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s.").c_str());
         return 0;
     } else if(myClosingReroutesValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), 
+                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
                               (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) + 
                               " cannot be updated because there are invalid "+ toString(SUMO_TAG_CLOSING_REROUTE) + "s.").c_str());
         return 0;
     } else if(myDestProbReroutesValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), 
+                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
                               (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) + 
                               " cannot be updated because there are invalid "+ toString(SUMO_TAG_DEST_PROB_REROUTE) + "s.").c_str());
         return 0;
     } else if(myRouteProbReroutesValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), 
+                              ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
                               (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) + 
                               " cannot be updated because there are invalid "+ toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s.").c_str());
         return 0;

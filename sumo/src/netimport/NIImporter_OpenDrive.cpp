@@ -85,6 +85,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "poly3",            NIImporter_OpenDrive::OPENDRIVE_TAG_POLY3 },
     { "paramPoly3",       NIImporter_OpenDrive::OPENDRIVE_TAG_PARAMPOLY3 },
     { "laneSection",      NIImporter_OpenDrive::OPENDRIVE_TAG_LANESECTION },
+    { "laneOffset",       NIImporter_OpenDrive::OPENDRIVE_TAG_LANEOFFSET },
     { "left",             NIImporter_OpenDrive::OPENDRIVE_TAG_LEFT },
     { "center",           NIImporter_OpenDrive::OPENDRIVE_TAG_CENTER },
     { "right",            NIImporter_OpenDrive::OPENDRIVE_TAG_RIGHT },
@@ -874,6 +875,47 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 }
             }
         }
+        // add laneoffset
+        if (e.offsets.size() > 0) {
+            // make sure there are intermediate points for each offset-section
+            for (std::vector<OpenDriveLaneOffset>::iterator j = e.offsets.begin(); j != e.offsets.end(); ++j) {
+                const OpenDriveLaneOffset& el = *j;
+                // check wether we need to insert a new point at dist
+                Position pS = e.geom.positionAtOffset(el.s);
+                int iS = e.geom.indexOfClosest(pS);
+                // prevent close spacing to reduce impact of rounding errors in z-axis
+                if (pS.distanceTo2D(e.geom[iS]) > POSITION_EPS) {
+                    e.geom.insertAtClosest(pS);
+                }
+            }
+            // XXX add further points for sections with non-constant offset
+            // shift each point orthogonally by the specified offset
+            int k = 0;
+            SUMOReal pos = 0;
+            for (std::vector<OpenDriveLaneOffset>::iterator j = e.offsets.begin(); j != e.offsets.end(); ++j) {
+                const OpenDriveLaneOffset& el = *j;
+                const SUMOReal sNext = (j + 1) == e.offsets.end() ? std::numeric_limits<SUMOReal>::max() : (*(j + 1)).s;
+                while (k < (int)e.geom.size() && pos < sNext) {
+                    const SUMOReal ds = pos - el.s;
+                    const SUMOReal offset = el.a + el.b * ds + el.c * ds * ds + el.d * ds * ds * ds;
+                    //std::cout << " edge=" << e.id << " k=" << k << " sNext=" << sNext << " pos=" << pos << " offset=" << offset << " ds=" << ds << " el.s=" << el.s << "el.a=" << el.a << " el.b=" << el.b << " el.c=" << el.c << " el.d=" << el.d <<  "\n";
+                    if (fabs(offset) > POSITION_EPS) {
+                        try {
+                            PositionVector tmp = e.geom;
+                            tmp.move2side(-offset);
+                            e.geom[k] = tmp[k];
+                        } catch (InvalidArgument&) { }
+                    }
+                    k++;
+                    if (k < (int)e.geom.size()) {
+                        // XXX pos understimates the actual position since the
+                        // actual geometry between k-1 and k could be curved
+                        pos += e.geom[k - 1].distanceTo2D(e.geom[k]);
+                    }
+                }
+            }
+        }
+        //std::cout << " loaded geometry " << e.id << "=" << e.geom << "\n";
     }
 }
 
@@ -1424,6 +1466,15 @@ NIImporter_OpenDrive::myStartElement(int element,
         case OPENDRIVE_TAG_LANESECTION: {
             SUMOReal s = attrs.get<SUMOReal>(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
             myCurrentEdge.laneSections.push_back(OpenDriveLaneSection(s));
+        }
+        break;
+        case OPENDRIVE_TAG_LANEOFFSET: {
+            SUMOReal s = attrs.get<SUMOReal>(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
+            SUMOReal a = attrs.get<SUMOReal>(OPENDRIVE_ATTR_A, myCurrentEdge.id.c_str(), ok);
+            SUMOReal b = attrs.get<SUMOReal>(OPENDRIVE_ATTR_B, myCurrentEdge.id.c_str(), ok);
+            SUMOReal c = attrs.get<SUMOReal>(OPENDRIVE_ATTR_C, myCurrentEdge.id.c_str(), ok);
+            SUMOReal d = attrs.get<SUMOReal>(OPENDRIVE_ATTR_D, myCurrentEdge.id.c_str(), ok);
+            myCurrentEdge.offsets.push_back(OpenDriveLaneOffset(s, a, b, c, d));
         }
         break;
         case OPENDRIVE_TAG_LEFT:

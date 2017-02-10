@@ -76,16 +76,19 @@ GNECrossing::updateGeometry() {
     // Clear Shape rotations and segments
     myShapeRotations.clear();
     myShapeLengths.clear();
-    // Obtain sgments of size and calculate it
-    int segments = (int) myCrossing.shape.size() - 1;
-    if (segments >= 0) {
-        myShapeRotations.reserve(segments);
-        myShapeLengths.reserve(segments);
-        for (int i = 0; i < segments; ++i) {
-            const Position& f = myCrossing.shape[i];
-            const Position& s = myCrossing.shape[i + 1];
-            myShapeLengths.push_back(f.distanceTo2D(s));
-            myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+    // only rebuild shape if junction's shape isn't in Buuble mode
+    if(myParentJunction->getNBNode()->getShape().size() > 0) {
+        // Obtain segments of size and calculate it
+        int segments = (int) myCrossing.shape.size() - 1;
+        if (segments >= 0) {
+            myShapeRotations.reserve(segments);
+            myShapeLengths.reserve(segments);
+            for (int i = 0; i < segments; ++i) {
+                const Position& f = myCrossing.shape[i];
+                const Position& s = myCrossing.shape[i + 1];
+                myShapeLengths.push_back(f.distanceTo2D(s));
+                myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+            }
         }
     }
 }
@@ -105,32 +108,37 @@ GNECrossing::getNBCrossing() const {
 
 void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
-    if (!s.drawCrossingsAndWalkingareas) {
-        return;
-    }
-    glPushMatrix();
-    glPushName(getGlID());
-    glTranslated(0, 0, GLO_JUNCTION + 0.1); // must draw on top of junction
-
-    if (myCrossing.priority) {
-        glColor3d(0.9, 0.9, 0.9);
-    } else {
-        glColor3d(0.1, 0.1, 0.1);
-    }
-    glTranslated(0, 0, .2);
-    // @todo: duplicate eliminate duplicate code with GNELane::drawCrossties(0.5, 1.0, myCrossing.width * 0.5);
-    {
+    // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0
+    if (s.drawCrossingsAndWalkingareas == true && myShapeRotations.size() > 0 && myShapeLengths.size() > 0) {
+        // push first draw matrix
+        glPushMatrix();
+        // push name
+        glPushName(getGlID());
+         // must draw on top of junction
+        glTranslated(0, 0, GLO_JUNCTION + 0.1);
+        // set color depending of priority
+        if (myCrossing.priority) {
+            glColor3d(0.9, 0.9, 0.9);
+        } else {
+            glColor3d(0.1, 0.1, 0.1);
+        }
+        // traslate to front
+        glTranslated(0, 0, .2);
+        // set default values
         SUMOReal length = 0.5;
         SUMOReal spacing = 1.0;
         SUMOReal halfWidth = myCrossing.width * 0.5;
+        // push second draw matrix
         glPushMatrix();
         // draw on top of of the white area between the rails
         glTranslated(0, 0, 0.1);
-        int e = (int) myCrossing.shape.size() - 1;
-        for (int i = 0; i < e; ++i) {
+        for (int i = 0; i < (int)myCrossing.shape.size() - 1; ++i) {
+            // push three draw matrix
             glPushMatrix();
+            // traslete and rotate
             glTranslated(myCrossing.shape[i].x(), myCrossing.shape[i].y(), 0.0);
             glRotated(myShapeRotations[i], 0, 0, 1);
+            // draw crossing
             for (SUMOReal t = 0; t < myShapeLengths[i]; t += spacing) {
                 glBegin(GL_QUADS);
                 glVertex2d(-halfWidth, -t);
@@ -139,14 +147,18 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 glVertex2d(halfWidth, -t);
                 glEnd();
             }
+            // pop three draw matrix
             glPopMatrix();
         }
+        // pop second draw matrix
+        glPopMatrix();
+        // traslate to back
+        glTranslated(0, 0, -.2);
+        // pop name
+        glPopName();
+        // pop draw matrix
         glPopMatrix();
     }
-
-    glTranslated(0, 0, -.2);
-    glPopName();
-    glPopMatrix();
 }
 
 
