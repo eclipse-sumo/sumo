@@ -41,10 +41,10 @@
     #define GUIDesignTextField              (FRAME_THICK | LAYOUT_FILL_X)
 
     /// @brief text field extended over Frame with thick frame and limited to Integers
-    #define GUIDesignTextFieldInt  (FRAME_THICK | LAYOUT_FILL_X | TEXTFIELD_INTEGER)
+    #define GUIDesignTextFieldInt           (FRAME_THICK | LAYOUT_FILL_X | TEXTFIELD_INTEGER)
 
     /// @brief text field extended over Frame with thick frame and limited to Doubles/SUMOReals
-    #define GUIDesignTextFieldReal (FRAME_THICK | LAYOUT_FILL_X | TEXTFIELD_REAL)
+    #define GUIDesignTextFieldReal          (FRAME_THICK | LAYOUT_FILL_X | TEXTFIELD_REAL)
 
     /// @brief text field extended over the matrix column with thick frame and limited to integers
     #define GUIDesignTextFieldAttributeInt  (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | TEXTFIELD_INTEGER)
@@ -76,6 +76,9 @@
    
     /// @brief button only with icon with the same size as a Label
     #define GUIDesignButtonIcon             (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+
+    /// @brief button used in Breakpoint editor
+    #define GUIDesignButtonBreakpoint       (ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED), 0, 0, 0, 0, 4, 4, 3, 3 
 
     /// @name FXButtons for toolbar
     /// @{
@@ -312,21 +315,109 @@
 /// @}
 
 
+/// @name design for view settings dialog
+/// @{
+
+    /// @rbrief dialog
+    #define GUIDesignViewSettingsMainDialog         (DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+    #define GUIDesignViewSettingsDialog             (DECOR_TITLE | DECOR_BORDER)
+
+    /// @brief vertical frames
+    #define GUIDesignViewSettingsVerticalFrame1     (LAYOUT_FILL_X | LAYOUT_SIDE_TOP | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 2, 2
+
+    #define GUIDesignViewSettingsVerticalFrame2     (LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 2, 2
+
+    #define GUIDesignViewSettingsVerticalFrame3     (LAYOUT_FILL_Y), 0, 0, 0, 0, 10, 10, 10, 10, 5, 5
+
+    #define GUIDesignViewSettingsVerticalFrame4     (LAYOUT_FILL_X | LAYOUT_FILL_Y),  0, 0, 0, 0, 10, 10, 2, 8, 5, 2
+
+    #define GUIDesignViewSettingsVerticalFrame5     (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 10, 10, 10, 10, 10, 10
+
+    #define GUIDesignViewSettingsVerticalFrame6     (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 2, 2
+
+    /// @brief Horizontal frames    
+    #define GUIDesignViewSettingsHorizontalFrame1   (FRAME_THICK), 0, 0, 0, 0, 0, 0, 0, 0, 2, 2
+
+    #define GUIDesignViewSettingsHorizontalFrame2   (LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | PACK_UNIFORM_WIDTH), 0, 0, 0, 0, 10, 10, 5, 5
+
+    #define GUIDesignViewSettingsHorizontalFrame3   (LAYOUT_FILL_X | PACK_UNIFORM_WIDTH), 0, 0, 0, 0, 0, 0, 0, 0
+
+    /// @brief Matrix
+    #define GUIDesignViewSettingsMatrix1            (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 10, 10, 10, 10, 5, 5
+
+    #define GUIDesignViewSettingsMatrix2            (LAYOUT_FILL_X | LAYOUT_CENTER_Y | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 10, 10, 0, 0, 5, 5
+
+    #define GUIDesignViewSettingsMatrix3            (LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 10, 10, 10, 2, 5, 5
+
+    #define GUIDesignViewSettingsMatrix4            (LAYOUT_FILL_X | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 10, 10, 0, 0, 5, 3
+                                
+    #define GUIDesignViewSettingsMatrix5            (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 10, 10, 0, 0, 5, 5
+ 
+
+    /// @brief Combo boxs
+    #define GUIDesignViewSettingsComboBox1          (COMBOBOX_INSERT_LAST | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_CENTER_Y | COMBOBOX_STATIC)
+
+    /// @brief ColorWell
+    #define GUIDesignViewSettingsColorWell          (LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | LAYOUT_SIDE_TOP | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT), 0, 0, 100, 0, 0, 0, 0, 0
+
+    #define GUIDesignViewSettingsSpinDial1          (LAYOUT_CENTER_Y | LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK)
+
+    #define GUIDesignViewSettingsSpinDial2          (LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK)
+
+    /// @brief Tab books
+    #define GUIDesignViewSettingsTabBook1           (TABBOOK_LEFTTABS | PACK_UNIFORM_WIDTH | PACK_UNIFORM_HEIGHT | LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_RIGHT), 0, 0, 0, 0, 0, 0, 0, 0
+
+    #define GUIDesignViewSettingsTabItemBook1       (TAB_LEFT_NORMAL), 0, 0, 0, 0, 4, 8, 4, 4
+
+    /// @brief Label
+    #define GUIDesignViewSettingsLabel1             (LAYOUT_CENTER_Y)
+
+    #define GUIDesignViewSettingsLabel2             (LAYOUT_FILL_X | JUSTIFY_LEFT)
+
+    /// @brief textFields
+    #define GUIDesignViewSettingsTextField1         (TEXTFIELD_ENTER_ONLY | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X)
+
+    /// @brief Buttons
+    #define GUIDesignViewSettingsButton1            (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X), 0, 0, 0, 0, 20, 20, 4, 4
+
+    #define GUIDesignViewSettingsButton2            (BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X), 0, 0, 0, 0, 30, 30, 4, 4
+
+    #define GUIDesignViewSettingsButton3            (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X), 0, 0, 0, 0, 30, 30, 4, 4
+
+    #define GUIDesignViewSettingsButton4            (BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_RIGHT)
+
+    #define GUIDesignViewSettingsButton5            (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_RIGHT), 0, 0, 0, 0, 20, 20
+
+    /// @brief Color wells
+    #define GUIDesignViewSettingsColorWell1         (LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT), 0, 0, 100, 0, 0, 0, 0, 0
+
+    #define GUIDesignViewSettingsColorWell2         (LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | LAYOUT_SIDE_TOP | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT), 0, 0, 100, 0, 0, 0, 0, 0
+
+    /// @brief MFX Add/Edit Typed Table
+    #define GUIDesignViewSettingsMFXTable           (LAYOUT_FILL_Y | LAYOUT_FIX_WIDTH) /*|LAYOUT_FIX_HEIGHT*/, 0, 0, 470, 0                 
+
+    #define GUIDesignViewSettingsMFXTableJustify    (JUSTIFY_CENTER_X | JUSTIFY_TOP)
+/// @}
+
+
 /// @name design for dialog boxs
 /// @{
     /// @brief design for standard dialog box (for example, about dialog)
-    #define GUIDesignDialogBox              (DECOR_CLOSE | DECOR_TITLE)
+    #define GUIDesignDialogBox                  (DECOR_CLOSE | DECOR_TITLE)
 
     /// @brief design for dialog box with specift width and height (for example, additional dialogs)
-    #define GUIDesignDialogBoxExplicit      (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT)
+    #define GUIDesignDialogBoxExplicit          (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT)
 /// @}
 
 
 /// @name design for FXTables and their cells
 /// @{
+    /// @brief design for table extended over frame
+    #define GUIDesignTable                      (LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
-    /// @brief design for table used in TLS editor
-    #define GUIDesignTable                      (LAYOUT_FIX_HEIGHT | LAYOUT_FILL_X)
+    /// @brief design for table extended over frame but with limited Height
+    #define GUIDesignTableLimitedHeight         (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
 
     /// @brief design for tables used in additional dialogs
     #define GUIDesignTableAdditionals           (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT)
@@ -343,7 +434,11 @@
 
     #define GUIDesignRadioButton            (RADIOBUTTON_NORMAL)
 
+    /// @brief design for FXLists
     #define GUIDesignList                   (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_NORMAL)
+
+    /// @brief desgin for TabBooks
+    #define GUIDesignTabBook                (TABBOOK_LEFTTABS | PACK_UNIFORM_WIDTH | PACK_UNIFORM_HEIGHT | LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_RIGHT)
 
 #endif
 

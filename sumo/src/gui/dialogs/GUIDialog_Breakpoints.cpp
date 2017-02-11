@@ -76,13 +76,13 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock)
-    : FXMainWindow(parent->getApp(), "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20, 20, 170, 300),
-      myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
-    FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
+GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock) : 
+    FXMainWindow(parent->getApp(), "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20, 20, 170, 300),
+    myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
+    FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
 
     // build the table
-    myTable = new FXTable(hbox, this, MID_TABLE, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    myTable = new FXTable(hbox, this, MID_TABLE, GUIDesignTable);
     myTable->setVisibleRows(20);
     myTable->setVisibleColumns(1);
     myTable->setTableSize(20, 1);
@@ -96,15 +96,15 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<
 
     // create buttons ('&' in the label creates a hot key)
     // "Load"
-    new FXButton(layout, "&Load\t\t", 0, this, MID_CHOOSEN_LOAD, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "&Load\t\t", 0, this, MID_CHOOSEN_LOAD, GUIDesignButtonBreakpoint);
     // "Save"
-    new FXButton(layout, "&Save\t\t", 0, this, MID_CHOOSEN_SAVE, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "&Save\t\t", 0, this, MID_CHOOSEN_SAVE, GUIDesignButtonBreakpoint);
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     // "Clear List"
-    new FXButton(layout, "Clea&r\t\t", 0, this, MID_CHOOSEN_CLEAR, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "Clea&r\t\t", 0, this, MID_CHOOSEN_CLEAR, GUIDesignButtonBreakpoint);
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     // "Close"
-    new FXButton(layout, "&Close\t\t", 0, this, MID_CANCEL, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "&Close\t\t", 0, this, MID_CANCEL, GUIDesignButtonBreakpoint);
 
     //
     setIcon(GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS));

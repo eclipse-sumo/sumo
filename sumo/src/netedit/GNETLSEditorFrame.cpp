@@ -143,7 +143,7 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame *horizontalFrameParent, G
     myGroupBoxPhases = new FXGroupBox(myContentFrame, "Phases", GUIDesignGroupBoxFrame);
     
     // create and configure phase table
-    myPhaseTable = new FXTable(myGroupBoxPhases, this, MID_GNE_PHASE_TABLE, GUIDesignTable);
+    myPhaseTable = new FXTable(myGroupBoxPhases, this, MID_GNE_PHASE_TABLE, GUIDesignTableLimitedHeight);
     myPhaseTable->setColumnHeaderMode(LAYOUT_FIX_HEIGHT);
     myPhaseTable->setColumnHeaderHeight(0);
     myPhaseTable->setRowHeaderMode(LAYOUT_FIX_WIDTH);
