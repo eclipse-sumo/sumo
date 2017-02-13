@@ -105,8 +105,8 @@ private:
 
         /// @brief compute walking time on edge and update state members
         SUMOTime computeWalkingTime(const MSEdge* prev, const MSPerson::MSPersonStage_Walking& stage, SUMOTime currentTime);
-        MoveToNextEdge* getCommand() { 
-            return myCommand; 
+        MoveToNextEdge* getCommand() {
+            return myCommand;
         }
 
     private:

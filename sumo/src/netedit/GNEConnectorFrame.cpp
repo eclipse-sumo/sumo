@@ -90,29 +90,29 @@ RGBColor GNEConnectorFrame::conflictColor;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet):
+GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, "Edit Connections"),
     myCurrentLane(0) {
     // Create groupbox for lane information
     myGroupBoxDescription = new FXGroupBox(myContentFrame, "Lane", GUIDesignGroupBoxFrame);
-    
+
     // Create label for lane description and update it
     myLaneDescriptionLabel = new FXLabel(myGroupBoxDescription, "", 0, GUIDesignLabelLeft);
     updateDescription();
 
     // Create GroupBox for Buttons
     myGroupBoxModifications = new FXGroupBox(myContentFrame, "Modifications", GUIDesignGroupBoxFrame);
-    
+
     // Create "Cancel" button
-    myCancelButton = new FXButton(myGroupBoxModifications, "Cancel\t\tDiscard connection modifications (Esc)", 
+    myCancelButton = new FXButton(myGroupBoxModifications, "Cancel\t\tDiscard connection modifications (Esc)",
                                   GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_CANCEL, GUIDesignButton);
     // Create "OK" button
-    mySaveButton = new FXButton(myGroupBoxModifications, "OK\t\tSave connection modifications (Enter)", 
+    mySaveButton = new FXButton(myGroupBoxModifications, "OK\t\tSave connection modifications (Enter)",
                                 GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_OK, GUIDesignButton);
-    
+
     // Create groupbox for operations
     myGroupBoxOperations = new FXGroupBox(myContentFrame, "Operations", GUIDesignGroupBoxFrame);
-    
+
     // Create "Select Dead Ends" button
     mySelectDeadEndsButton = new FXButton(myGroupBoxOperations, "Select Dead Ends\t\tSelects all lanes that have no outgoing connection (clears previous selection)",
                                           0, this, MID_GNE_SELECT_DEAD_ENDS, GUIDesignButton);
@@ -134,7 +134,7 @@ GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame *horizontalFrameParent, G
 
     // Create groupbox for selection hints
     myGroupBoxSelection = new FXGroupBox(myContentFrame, "Selection", GUIDesignGroupBoxFrame);
-    
+
     // Selection Hint
     myHoldShiftLabel = new FXLabel(myGroupBoxSelection, "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelLeft);
     myHoldControlLabel = new FXLabel(myGroupBoxSelection, "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper nodes)", 0, GUIDesignLabelLeft);

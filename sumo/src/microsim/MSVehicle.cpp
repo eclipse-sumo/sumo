@@ -248,8 +248,7 @@ MSVehicle::Influencer::Influencer() :
     myRightDriveLC(LC_NOCONFLICT),
     mySublaneLC(LC_NOCONFLICT),
     myTraciLaneChangePriority(LCP_URGENT),
-    myTraCISignals(-1)
-{
+    myTraCISignals(-1) {
 }
 
 
@@ -836,9 +835,9 @@ MSVehicle::computeAngle() const {
     }
 
     Position p2 = getBackPosition();
-    if (p2 == Position::INVALID){
+    if (p2 == Position::INVALID) {
         // Handle special case of vehicle's back reaching out of the network
-        if (myFurtherLanes.size() > 0){
+        if (myFurtherLanes.size() > 0) {
             p2 = myFurtherLanes.back()->geometryPositionAtOffset(0, -myFurtherLanesPosLat.back());
         } else {
             p2 = myLane->geometryPositionAtOffset(0, posLat);
@@ -1051,8 +1050,9 @@ MSVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg)
             if (iter->parkingarea != 0 && iter->parkingarea == parkingArea) {
                 duration += iter->duration;
                 ++removeStops;
-            } else
+            } else {
                 break;
+            }
         }
     }
 
@@ -1090,8 +1090,9 @@ MSVehicle::getNextParkingArea() {
     if (!myStops.empty()) {
         SUMOVehicleParameter::Stop stopPar;
         Stop stop = myStops.front();
-        if (!stop.reached && stop.parkingarea != 0)
+        if (!stop.reached && stop.parkingarea != 0) {
             nextParkingArea = stop.parkingarea;
+        }
     }
     return nextParkingArea;
 }
@@ -1445,9 +1446,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     while (true) {
         // check leader on lane
         //  leader is given for the first edge only
-        if (opposite && 
-                (leaderLane->getVehicleNumber() > 1 
-                || (leaderLane != myLane && leaderLane->getVehicleNumber() > 0))) {
+        if (opposite &&
+                (leaderLane->getVehicleNumber() > 1
+                 || (leaderLane != myLane && leaderLane->getVehicleNumber() > 0))) {
             // find opposite-driving leader that must be respected on the currently looked at lane
             // XXX make sure to look no further than leaderLane
             CLeaderDist leader = leaderLane->getOppositeLeader(this, getPositionOnLane(), true);
@@ -1577,11 +1578,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         const SUMOReal brakeDist = cfModel.brakeGap(myState.mySpeed, cfModel.getMaxDecel(), 0.);
 #ifdef DEBUG_PLAN_MOVE
         gDebugFlag1 = DEBUG_COND;
-        if (DEBUG_COND) std::cout 
-            << " stopDist=" << stopDist
-            << " vLinkWait=" << vLinkWait
-            << " brakeDist=" << brakeDist
-            << "\n";
+        if (DEBUG_COND) std::cout
+                    << " stopDist=" << stopDist
+                    << " vLinkWait=" << vLinkWait
+                    << " brakeDist=" << brakeDist
+                    << "\n";
 #endif
         if (yellowOrRed && seen >= brakeDist) {
             // the vehicle is able to brake in front of a yellow/red traffic light
@@ -1635,7 +1636,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 //        SUMOReal determinedFoePresence = seen < visibilityDistance - myState.mySpeed*foeRecognitionTime;
 
 #ifdef DEBUG_PLAN_MOVE
-        if (DEBUG_COND){
+        if (DEBUG_COND) {
             std::cout << " approaching link=" << (*link)->getViaLaneOrLane()->getID() << " prio=" << (*link)->havePriority() << " seen=" << seen << " visibilityDistance=" << visibilityDistance << " brakeDist=" << brakeDist << "\n";
         }
 #endif
@@ -1648,7 +1649,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             arrivalSpeed = MIN2(vLinkPass, maxArrivalSpeed);
             slowedDownForMinor = true;
 #ifdef DEBUG_PLAN_MOVE
-            if (DEBUG_COND){
+            if (DEBUG_COND) {
                 std::cout << "   slowedDownForMinor maxArrivalSpeed=" << maxArrivalSpeed << " arrivalSpeed=" << arrivalSpeed << "\n";
             }
 #endif
@@ -2916,8 +2917,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         // or the reverse-direction lane. In the latter case we need to
         // transform it to the forward lane.
         bool startLaneIsOpposite = (startLane->isInternal()
-                ? &(startLane->getLinkCont()[0]->getLane()->getEdge()) != *(myCurrEdge + 1)
-                : &startLane->getEdge() != *myCurrEdge);
+                                    ? & (startLane->getLinkCont()[0]->getLane()->getEdge()) != *(myCurrEdge + 1)
+                                    : &startLane->getEdge() != *myCurrEdge);
         if (startLaneIsOpposite) {
             startLane = startLane->getOpposite();
             assert(startLane != 0);
@@ -3433,7 +3434,7 @@ MSVehicle::addContainer(MSTransportable* container) {
 }
 
 
-void 
+void
 MSVehicle::removeTransportable(MSTransportable* t) {
     const bool isPerson = dynamic_cast<MSPerson*>(t) != 0;
     MSDevice_Transportable* device = isPerson ? myPersonDevice : myContainerDevice;
@@ -3950,7 +3951,7 @@ MSVehicle::isRemoteControlled() const {
 }
 
 
-void 
+void
 MSVehicle::Stop::write(OutputDevice& dev) const {
     // lots of duplication with SUMOVehicleParameter::Stop::write()
     dev.openTag(SUMO_TAG_STOP);

@@ -40,7 +40,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEClosingReroute::GNEClosingReroute(GNERerouterInterval &rerouterIntervalParent, GNEEdge *closedEdge, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles) :
+GNEClosingReroute::GNEClosingReroute(GNERerouterInterval& rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles) :
     myRerouterIntervalParent(&rerouterIntervalParent),
     myClosedEdge(closedEdge),
     myAllowedVehicles(allowedVehicles),
@@ -53,25 +53,25 @@ GNEClosingReroute::~GNEClosingReroute() {
 }
 
 
-SVCPermissions 
+SVCPermissions
 GNEClosingReroute::getAllowedVehicles() const {
     return myAllowedVehicles;
 }
 
 
-SVCPermissions 
+SVCPermissions
 GNEClosingReroute::getDisallowedVehicles() const {
     return myDisallowedVehicles;
 }
 
 
-void 
+void
 GNEClosingReroute::setAllowedVehicles(SVCPermissions allowed) {
     myAllowedVehicles = allowed;
 }
 
 
-void 
+void
 GNEClosingReroute::setDisallowedVehicles(SVCPermissions disallowed) {
     myDisallowedVehicles = disallowed;
 }
@@ -83,13 +83,13 @@ GNEClosingReroute::getClosedEdge() const {
 }
 
 
-void 
-GNEClosingReroute::setClosedEdge(GNEEdge *edge) {
+void
+GNEClosingReroute::setClosedEdge(GNEEdge* edge) {
     myClosedEdge = edge;
 }
 
 
-SumoXMLTag 
+SumoXMLTag
 GNEClosingReroute::getTag() const {
     return myTag;
 }
@@ -101,12 +101,12 @@ GNEClosingReroute::getRerouterIntervalParent() const {
 }
 
 
-bool 
-GNEClosingReroute::operator==(const GNEClosingReroute &closingReroute) {
-    if((myRerouterIntervalParent == closingReroute.myRerouterIntervalParent) &&
-       (myClosedEdge == closingReroute.myClosedEdge) &&
-       (myAllowedVehicles == closingReroute.myAllowedVehicles) &&
-       (myDisallowedVehicles == closingReroute.myDisallowedVehicles)) {
+bool
+GNEClosingReroute::operator==(const GNEClosingReroute& closingReroute) {
+    if ((myRerouterIntervalParent == closingReroute.myRerouterIntervalParent) &&
+            (myClosedEdge == closingReroute.myClosedEdge) &&
+            (myAllowedVehicles == closingReroute.myAllowedVehicles) &&
+            (myDisallowedVehicles == closingReroute.myDisallowedVehicles)) {
         return true;
     } else {
         return false;

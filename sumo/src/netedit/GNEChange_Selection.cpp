@@ -61,7 +61,7 @@ GNEChange_Selection::~GNEChange_Selection() {
 }
 
 
-void 
+void
 GNEChange_Selection::undo() {
     if (myForward) {
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
@@ -90,7 +90,7 @@ GNEChange_Selection::undo() {
 }
 
 
-void 
+void
 GNEChange_Selection::redo() {
     if (myForward) {
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
@@ -119,7 +119,7 @@ GNEChange_Selection::redo() {
 }
 
 
-FXString 
+FXString
 GNEChange_Selection::undoName() const {
     if (myForward) {
         return ("Undo change selection");
@@ -129,7 +129,7 @@ GNEChange_Selection::undoName() const {
 }
 
 
-FXString 
+FXString
 GNEChange_Selection::redoName() const {
     if (myForward) {
         return ("Redo change selection");

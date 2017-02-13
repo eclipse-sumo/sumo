@@ -51,13 +51,12 @@ MSParkingArea::MSParkingArea(const std::string& id,
                              MSLane& lane,
                              SUMOReal begPos, SUMOReal endPos,
                              unsigned int capacity,
-                             SUMOReal width, SUMOReal length, SUMOReal angle) : 
-    MSStoppingPlace(id, lines, lane, begPos, endPos), 
-    myCapacity(capacity), 
-    myWidth(width), 
-    myLength(length), 
-    myAngle(angle) 
-{
+                             SUMOReal width, SUMOReal length, SUMOReal angle) :
+    MSStoppingPlace(id, lines, lane, begPos, endPos),
+    myCapacity(capacity),
+    myWidth(width),
+    myLength(length),
+    myAngle(angle) {
     // initialize unspecified defaults
     if (myWidth == 0) {
         myWidth = SUMO_const_laneWidth;
@@ -65,7 +64,7 @@ MSParkingArea::MSParkingArea(const std::string& id,
     if (myLength == 0) {
         myLength = getSpaceDim();
     }
-        
+
     myShape = lane.getShape();
     myShape.move2side(lane.getWidth() / 2. + myWidth / 2.);
     myShape = myShape.getSubpart(begPos, endPos);
@@ -108,7 +107,7 @@ Position
 MSParkingArea::getVehiclePosition(const SUMOVehicle& forVehicle) {
     std::map<unsigned int, LotSpaceDefinition >::iterator i;
     for (i = mySpaceOccupancies.begin(); i != mySpaceOccupancies.end(); i++) {
-        if ((*i).second.vehicle == &forVehicle) { 
+        if ((*i).second.vehicle == &forVehicle) {
             return (*i).second.myPosition;
         }
     }
@@ -119,7 +118,7 @@ SUMOReal
 MSParkingArea::getVehicleAngle(const SUMOVehicle& forVehicle) {
     std::map<unsigned int, LotSpaceDefinition >::iterator i;
     for (i = mySpaceOccupancies.begin(); i != mySpaceOccupancies.end(); i++) {
-        if ((*i).second.vehicle == &forVehicle) {  
+        if ((*i).second.vehicle == &forVehicle) {
             return (((*i).second.myRotation - 90.) * (SUMOReal) PI / (SUMOReal) 180.0);
         }
     }
@@ -167,7 +166,7 @@ MSParkingArea::leaveFrom(SUMOVehicle* what) {
     assert(myEndPositions.find(what) != myEndPositions.end());
     std::map<unsigned int, LotSpaceDefinition >::iterator i;
     for (i = mySpaceOccupancies.begin(); i != mySpaceOccupancies.end(); i++) {
-        if ((*i).second.vehicle == what) {  
+        if ((*i).second.vehicle == what) {
             (*i).second.vehicle = 0;
             break;
         }

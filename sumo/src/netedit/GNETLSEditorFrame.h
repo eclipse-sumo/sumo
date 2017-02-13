@@ -57,7 +57,7 @@ public:
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNETLSEditorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet);
+    GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNETLSEditorFrame();
@@ -152,46 +152,46 @@ private:
     FXFont* myTableFont;
 
     /// @brief groupbox for current junction
-    FXGroupBox *myGroupBoxJunction;
+    FXGroupBox* myGroupBoxJunction;
 
     /// @brief the label that shows the current editing state
     FXLabel* myDescription;
-    
+
     /// @brief groupbox for TLS Definition buttons
-    FXGroupBox *myGroupBoxTLSDef;
-    
+    FXGroupBox* myGroupBoxTLSDef;
+
     /// @brief button for create new Traffic light program
-    FXButton *myNewTLProgram;
+    FXButton* myNewTLProgram;
 
     /// @brief button for delete traffic light program
-    FXButton *myDeleteTLProgram;
+    FXButton* myDeleteTLProgram;
 
     /// @brief groupbox for TLS attributes
-    FXGroupBox *myGroupBoxAttributes;
+    FXGroupBox* myGroupBoxAttributes;
 
     /// @brief matrix for attributes
-    FXMatrix *myAttributeMatrix;
+    FXMatrix* myAttributeMatrix;
 
     /// @brief name label
-    FXLabel *myNameLabel;
+    FXLabel* myNameLabel;
 
     /// @brief name text field
-    FXTextField *myNameTextField;
+    FXTextField* myNameTextField;
 
     /// @brief program label
-    FXLabel *myProgramLabel;
+    FXLabel* myProgramLabel;
 
     /// @brief the comboBox for selecting the tl-definition to edit
     FXComboBox* myProgramComboBox;
 
     /// @brief offset label
-    FXLabel *myOffsetLabel;
-    
+    FXLabel* myOffsetLabel;
+
     /// @brief the control for modifying offset
     FXTextField* myOffset;
 
     /// @brief groupbox for phases
-    FXGroupBox *myGroupBoxPhases;
+    FXGroupBox* myGroupBoxPhases;
 
     /// @brief table for selecting and rearranging phases and for changing duration
     FXTable* myPhaseTable;
@@ -200,19 +200,19 @@ private:
     FXLabel* myCycleDuration;
 
     /// @brief insert new phase button
-    FXButton *myInsertDuplicateButton;
+    FXButton* myInsertDuplicateButton;
 
     /// @brief delete phase button
-    FXButton *myDeleteSelectedPhaseButton;
+    FXButton* myDeleteSelectedPhaseButton;
 
     /// @brief groupbox for buttons modifications
-    FXGroupBox *myGroupBoxModifications;
-    
+    FXGroupBox* myGroupBoxModifications;
+
     /// @brief button for cancel modifications
-    FXButton *myDiscardModificationsButtons;
+    FXButton* myDiscardModificationsButtons;
 
     /// @brief button for save modifications
-    FXButton *mySaveModificationsButtons;
+    FXButton* mySaveModificationsButtons;
 
     /// @brief the junction of the tls is being modified
     GNEJunction* myCurrentJunction;

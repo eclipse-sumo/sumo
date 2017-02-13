@@ -107,7 +107,7 @@ GNERerouter::updateGeometry() {
     for (childEdges::iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
         myShape.append(i->edge->getLanes().at(0)->getShape());
     }
-    
+
     // Update geometry of additional parent
     updateConnections();
     */
@@ -154,7 +154,7 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_ID, getID());
     // obtain ID's of Edges
     std::vector<std::string> edgeIDs;
-    for(std::vector<GNEEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+    for (std::vector<GNEEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
         edgeIDs.push_back((*i)->getID());
     }
     device.writeAttr(SUMO_ATTR_EDGES, joinToString(edgeIDs, " ").c_str());
@@ -174,7 +174,7 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_END, i->getEnd());
 
         // write closing lane reroutes
-        for(std::vector<GNEClosingLaneReroute>::const_iterator j = i->getClosingLaneReroutes().begin(); j != i->getClosingLaneReroutes().end(); j++) {
+        for (std::vector<GNEClosingLaneReroute>::const_iterator j = i->getClosingLaneReroutes().begin(); j != i->getClosingLaneReroutes().end(); j++) {
             device.openTag(j->getTag());
             device.writeAttr(SUMO_ATTR_LANE, j->getClosedLane()->getID());
             device.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(j->getAllowedVehicles()));
@@ -183,30 +183,30 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
         }
 
         // write closing reroutes
-        for(std::vector<GNEClosingReroute>::const_iterator j = i->getClosingReroutes().begin(); j != i->getClosingReroutes().end(); j++) {
+        for (std::vector<GNEClosingReroute>::const_iterator j = i->getClosingReroutes().begin(); j != i->getClosingReroutes().end(); j++) {
             device.openTag(j->getTag());
             device.writeAttr(SUMO_ATTR_EDGE, j->getClosedEdge()->getID());
             device.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(j->getAllowedVehicles()));
             device.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(j->getDisallowedVehicles()));
             device.closeTag();
         }
-        
+
         // write dest prob reroutes
-        for(std::vector<GNEDestProbReroute>::const_iterator j = i->getDestProbReroutes().begin(); j != i->getDestProbReroutes().end(); j++) {
+        for (std::vector<GNEDestProbReroute>::const_iterator j = i->getDestProbReroutes().begin(); j != i->getDestProbReroutes().end(); j++) {
             device.openTag(j->getTag());
             device.writeAttr(SUMO_ATTR_EDGE, j->getNewDestination()->getID());
             device.writeAttr(SUMO_ATTR_PROB, j->getProbability());
             device.closeTag();
         }
-        
+
         // write route prob reroutes
-        for(std::vector<GNERouteProbReroute>::const_iterator j = i->getRouteProbReroutes().begin(); j != i->getRouteProbReroutes().end(); j++) {
+        for (std::vector<GNERouteProbReroute>::const_iterator j = i->getRouteProbReroutes().begin(); j != i->getRouteProbReroutes().end(); j++) {
             device.openTag(j->getTag());
             device.writeAttr(SUMO_ATTR_ROUTE, j->getNewRouteId());
             device.writeAttr(SUMO_ATTR_PROB, j->getProbability());
             device.closeTag();
         }
-        
+
         // Close tag
         device.closeTag();
     }
@@ -216,26 +216,26 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
 }
 
 
-void 
+void
 GNERerouter::addEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and doesn't exist previously
-    if(edge == NULL) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag())+ " with ID='" + getID() + "'");
-    } else if(std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag())+ " with ID='" + getID() + "'");
+    if (edge == NULL) {
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else if (std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end()) {
+        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myEdges.push_back(edge);
     }
 }
 
 
-void 
+void
 GNERerouter::removeEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and exist previously
-    if(edge == NULL) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag())+ " with ID='" + getID() + "'");
-    } else if(std::find(myEdges.begin(), myEdges.end(), edge) == myEdges.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag())+ " with ID='" + getID() + "'");
+    if (edge == NULL) {
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else if (std::find(myEdges.begin(), myEdges.end(), edge) == myEdges.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myEdges.erase(std::find(myEdges.begin(), myEdges.end(), edge));
     }
@@ -287,10 +287,10 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     /*
     // Draw symbols in every lane
     const SUMOReal exaggeration = s.addSize.getExaggeration(s);
-    
+
     if (s.scale * exaggeration >= 3) {
         // draw rerouter symbol over all lanes
-        
+
         for (childEdges::const_iterator i = myChildEdges.begin(); i != myChildEdges.end(); i++) {
             for (int lanePosIt = 0; lanePosIt < (int)i->positionsOverLanes.size(); lanePosIt++) {
                 glPushMatrix();
@@ -352,7 +352,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGES: {
             // obtain ID's of Edges
             std::vector<std::string> edgeIDs;
-            for(std::vector<GNEEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+            for (std::vector<GNEEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
                 edgeIDs.push_back((*i)->getID());
             }
             return joinToString(edgeIDs, " ");

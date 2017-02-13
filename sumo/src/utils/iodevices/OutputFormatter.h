@@ -74,7 +74,7 @@ public:
      * @todo Describe what is saved
      */
     virtual bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
-        const std::map<SumoXMLAttr, std::string>& attrs) = 0;
+                                const std::map<SumoXMLAttr, std::string>& attrs) = 0;
 
 
     /** @brief Opens an XML tag

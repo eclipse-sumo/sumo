@@ -4,6 +4,7 @@ import wx
 
 
 class PanelOne(wx.Panel):
+
     """
     This will be the first notebook tab
     """
@@ -26,6 +27,7 @@ class PanelOne(wx.Panel):
 
 
 class NestedPanel(wx.Panel):
+
     """
     This will be the first notebook tab
     """
@@ -53,6 +55,7 @@ class NestedPanel(wx.Panel):
 
 ########################################################################
 class NestedNotebookDemo(wx.Notebook):
+
     """
     Notebook class
     """
@@ -106,6 +109,7 @@ class NestedNotebookDemo(wx.Notebook):
 
 ########################################################################
 class DemoFrame(wx.Frame):
+
     """
     Frame that holds all other widgets
     """

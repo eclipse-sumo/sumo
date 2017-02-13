@@ -67,7 +67,7 @@ GNEChange_Edge::~GNEChange_Edge() {
 }
 
 
-void 
+void
 GNEChange_Edge::undo() {
     if (myForward) {
         myNet->deleteSingleEdge(myEdge);
@@ -85,7 +85,7 @@ GNEChange_Edge::undo() {
 }
 
 
-void 
+void
 GNEChange_Edge::redo() {
     if (myForward) {
         myNet->insertEdge(myEdge);
@@ -103,7 +103,7 @@ GNEChange_Edge::redo() {
 }
 
 
-FXString 
+FXString
 GNEChange_Edge::undoName() const {
     if (myForward) {
         return ("Undo create " + toString(SUMO_TAG_EDGE)).c_str();
@@ -113,7 +113,7 @@ GNEChange_Edge::undoName() const {
 }
 
 
-FXString 
+FXString
 GNEChange_Edge::redoName() const {
     if (myForward) {
         return ("Redo create " + toString(SUMO_TAG_EDGE)).c_str();

@@ -52,8 +52,8 @@ class GNERerouterInterval;
 class GNEClosingLaneReroute {
 public:
     /// @brief constructor
-    GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNELane *closedLane, 
-                         SVCPermissions allowedVehicles = SVC_IGNORING, SVCPermissions disallowedVehicles = SVC_IGNORING);
+    GNEClosingLaneReroute(GNERerouterInterval& rerouterIntervalParent, GNELane* closedLane,
+                          SVCPermissions allowedVehicles = SVC_IGNORING, SVCPermissions disallowedVehicles = SVC_IGNORING);
 
     /// @brief destructor
     ~GNEClosingLaneReroute();
@@ -71,26 +71,26 @@ public:
     void setDisallowedVehicles(SVCPermissions disallowed);
 
     /// @brief get closed lane Id
-    GNELane *getClosedLane() const;
+    GNELane* getClosedLane() const;
 
     /// @brief set closed lane Id
-    void setClosedLane(GNELane *lane);
+    void setClosedLane(GNELane* lane);
 
     /// @brief get tag
     SumoXMLTag getTag() const;
 
     /// @brief get rerouter interval parent
-    const GNERerouterInterval &getRerouterIntervalParent() const;
+    const GNERerouterInterval& getRerouterIntervalParent() const;
 
     /// @brief overload operator ==
-    bool operator==(const GNEClosingLaneReroute &closingLaneReroute);
+    bool operator==(const GNEClosingLaneReroute& closingLaneReroute);
 
 protected:
     /// @brief reference to rerouter interval parent
-    GNERerouterInterval *myRerouterIntervalParent;
+    GNERerouterInterval* myRerouterIntervalParent;
 
     /// @brief closed lane
-    GNELane *myClosedLane;
+    GNELane* myClosedLane;
 
     /// @brief codified allowed vehicles
     SVCPermissions myAllowedVehicles;

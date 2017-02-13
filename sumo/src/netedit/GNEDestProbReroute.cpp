@@ -40,7 +40,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval &rerouterIntervalParent, GNEEdge *newEdgeDestination, SUMOReal probability):
+GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval& rerouterIntervalParent, GNEEdge* newEdgeDestination, SUMOReal probability):
     myRerouterIntervalParent(&rerouterIntervalParent),
     myNewEdgeDestination(newEdgeDestination),
     myProbability(0),
@@ -83,7 +83,7 @@ GNEDestProbReroute::setProbability(SUMOReal probability) {
 }
 
 
-SumoXMLTag 
+SumoXMLTag
 GNEDestProbReroute::getTag() const {
     return myTag;
 }
@@ -95,11 +95,11 @@ GNEDestProbReroute::getRerouterIntervalParent() const {
 }
 
 
-bool 
-GNEDestProbReroute::operator==(const GNEDestProbReroute &destProbReroute) {
-    if((myRerouterIntervalParent == destProbReroute.myRerouterIntervalParent) &&
-       (myNewEdgeDestination == destProbReroute.myNewEdgeDestination) &&
-       (myProbability == destProbReroute.myProbability)) {
+bool
+GNEDestProbReroute::operator==(const GNEDestProbReroute& destProbReroute) {
+    if ((myRerouterIntervalParent == destProbReroute.myRerouterIntervalParent) &&
+            (myNewEdgeDestination == destProbReroute.myNewEdgeDestination) &&
+            (myProbability == destProbReroute.myProbability)) {
         return true;
     } else {
         return false;

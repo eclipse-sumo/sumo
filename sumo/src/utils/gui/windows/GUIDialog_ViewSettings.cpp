@@ -451,7 +451,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myShowSizeLegend = new FXCheckButton(m72, "Show Size Legend", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowSizeLegend->setCheck(mySettings->showSizeLegend);
         new FXLabel(m72, "");
-    } 
+    }
     {
         // openGL
         new FXTabItem(tabbook, "openGL", NULL, GUIDesignViewSettingsTabItemBook1);
@@ -1553,7 +1553,7 @@ GUIDialog_ViewSettings::SizePanel::SizePanel(
     new FXLabel(parent, "");
     FXMatrix* m1 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m1, "Minimum Size", 0, GUIDesignViewSettingsLabel1);
-    myMinSizeDial = new FXRealSpinDial(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE,GUIDesignViewSettingsSpinDial1);
+    myMinSizeDial = new FXRealSpinDial(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
     myMinSizeDial->setValue(settings.minSize);
     FXMatrix* m2 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m2, "Exaggerate by", 0, GUIDesignViewSettingsLabel1);

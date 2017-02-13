@@ -369,7 +369,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_NODE,
     SUMO_ATTR_EDGE,
     /// @}
-    
+
     /// @brief the edges of a route
     SUMO_ATTR_EDGES,
 
@@ -411,7 +411,7 @@ enum SumoXMLAttr {
     /// @brief Allow/disallow charge in transit in Charging Stations
     SUMO_ATTR_CHARGEINTRANSIT,
     /// @brief Delay in the charge of charging stations
-    SUMO_ATTR_CHARGEDELAY,      
+    SUMO_ATTR_CHARGEDELAY,
     /// @}
 
     /// @name Car following model attributes
@@ -948,9 +948,9 @@ enum LaneChangeAction {
     LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT | LCA_INSUFFICIENT_SPACE,
     /// @brief reasons of lane change
     LCA_CHANGE_REASONS = (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT | LCA_SUBLANE)
-    // LCA_BLOCKED_BY_CURRENT_LEADER = 1 << 28
-    // LCA_BLOCKED_BY_CURRENT_FOLLOWER = 1 << 29
-    /// @}
+                         // LCA_BLOCKED_BY_CURRENT_LEADER = 1 << 28
+                         // LCA_BLOCKED_BY_CURRENT_FOLLOWER = 1 << 29
+                         /// @}
 };
 
 
@@ -969,17 +969,17 @@ enum LaneChangeModel {
  */
 enum LateralAlignment {
     /// @brief drive on the right side
-    LATALIGN_RIGHT,      
+    LATALIGN_RIGHT,
     /// @brief drive in the middle
-    LATALIGN_CENTER,     
+    LATALIGN_CENTER,
     /// @brief maintain the current alignment
-    LATALIGN_ARBITRARY,  
+    LATALIGN_ARBITRARY,
     /// @brief align with the closest sublane border
-    LATALIGN_NICE,       
+    LATALIGN_NICE,
     /// @brief align with the rightmost sublane that allows keeping the current speed
-    LATALIGN_COMPACT,    
+    LATALIGN_COMPACT,
     /// @brief drive on the left side
-    LATALIGN_LEFT        
+    LATALIGN_LEFT
 };
 
 // @}

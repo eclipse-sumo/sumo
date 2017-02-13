@@ -718,7 +718,7 @@ public:
 
     /// @brief return the follower with the largest missing rear gap among all predecessor lanes (within dist)
     std::pair<MSVehicle* const, SUMOReal> getFollowerOnConsecutive(
-        SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel, SUMOReal dist = -1, bool ignoreMinorLinks=false) const;
+        SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel, SUMOReal dist = -1, bool ignoreMinorLinks = false) const;
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
     MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const;

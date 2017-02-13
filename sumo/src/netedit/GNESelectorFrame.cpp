@@ -81,7 +81,7 @@ FXIMPLEMENT(GNESelectorFrame, FXVerticalFrame, GNESelectorFrameMap, ARRAYNUMBER(
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet):
+GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, getStats().c_str()),
     mySetOperation(SET_ADD),
     mySetOperationTarget(mySetOperation),
@@ -366,7 +366,7 @@ void
 GNESelectorFrame::show() {
     // selection may have changed due to deletions
     gSelected.add2Update(this);
-    selectionUpdated(); 
+    selectionUpdated();
     // Show frame
     GNEFrame::show();
 }

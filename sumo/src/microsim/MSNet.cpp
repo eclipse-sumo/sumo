@@ -759,10 +759,10 @@ MSNet::postSimStepOutput() const {
             oss << "TraCI: " << myTraCIStepDuration << "ms, ";
         }
 #endif
-            oss << "vehicles TOT " << myVehicleControl->getDepartedVehicleNo()
-                << " ACT " << myVehicleControl->getRunningVehicleNo()
-                << " BUF " << myInserter->getWaitingVehicleNo()
-                << ")                                              ";
+        oss << "vehicles TOT " << myVehicleControl->getDepartedVehicleNo()
+            << " ACT " << myVehicleControl->getRunningVehicleNo()
+            << " BUF " << myInserter->getWaitingVehicleNo()
+            << ")                                              ";
         std::string prev = "Step #" + time2string(myStep - DELTA_T);
         std::cout << oss.str().substr(0, 78 - prev.length());
     }

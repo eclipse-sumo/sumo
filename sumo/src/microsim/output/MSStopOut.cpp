@@ -55,13 +55,13 @@ MSStopOut::init() {
 // method definitions
 // ===========================================================================
 MSStopOut::MSStopOut(OutputDevice& dev) :
-    myDevice(dev)
-{ }
+    myDevice(dev) {
+}
 
 MSStopOut::~MSStopOut() {}
 
 
-void 
+void
 MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers) {
     assert(veh != 0);
     if (myStopped.count(veh) != 0) {
@@ -71,27 +71,27 @@ MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers
     myStopped[veh] = stopInfo;
 }
 
-void 
+void
 MSStopOut::loadedPersons(const SUMOVehicle* veh, int n) {
     myStopped[veh].loadedPersons += n;
 }
 
-void 
+void
 MSStopOut::unloadedPersons(const SUMOVehicle* veh, int n) {
     myStopped[veh].unloadedPersons += n;
 }
 
-void 
+void
 MSStopOut::loadedContainers(const SUMOVehicle* veh, int n) {
     myStopped[veh].loadedContainers += n;
 }
 
-void 
+void
 MSStopOut::unloadedContainers(const SUMOVehicle* veh, int n) {
     myStopped[veh].unloadedContainers += n;
 }
 
-void 
+void
 MSStopOut::stopEnded(const SUMOVehicle* veh, const MSVehicle::Stop& stop) {
     assert(veh != 0);
     if (myStopped.count(veh) == 0) {

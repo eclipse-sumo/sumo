@@ -380,7 +380,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
             e->disallowVehicleClass(-1, SVC_PASSENGER);
         }
         // permission modifications based on brunnel_type
-        if (brunnel_type == 10) { // ferry 
+        if (brunnel_type == 10) { // ferry
             e->setPermissions(SVC_SHIP, -1);
         }
     }
@@ -533,8 +533,7 @@ NIImporter_DlrNavteq::TimeRestrictionsHandler::TimeRestrictionsHandler(NBEdgeCon
     myNotStarted(0),
     myUnderConstruction(0),
     myFinished(0),
-    myRemovedEdges(0)
-{
+    myRemovedEdges(0) {
 }
 
 
@@ -596,7 +595,7 @@ NIImporter_DlrNavteq::TimeRestrictionsHandler::report(const std::string& result)
 }
 
 
-void 
+void
 NIImporter_DlrNavteq::TimeRestrictionsHandler::printSummary() {
     if (myConstructionEntries > 0) {
         char buff[1024];
@@ -615,7 +614,7 @@ NIImporter_DlrNavteq::TimeRestrictionsHandler::printSummary() {
 }
 
 
-int 
+int
 NIImporter_DlrNavteq::readPrefixedInt(const std::string& s, const std::string& prefix, int fallBack) {
     int result = fallBack;
     size_t pos = s.find(prefix);
@@ -625,7 +624,7 @@ NIImporter_DlrNavteq::readPrefixedInt(const std::string& s, const std::string& p
     return result;
 }
 
-time_t 
+time_t
 NIImporter_DlrNavteq::readTimeRec(const std::string& start, const std::string& duration) {
     // http://www.cplusplus.com/reference/ctime/mktime/
     struct tm timeinfo;
@@ -639,7 +638,7 @@ NIImporter_DlrNavteq::readTimeRec(const std::string& start, const std::string& d
     timeinfo.tm_yday = 0;
     timeinfo.tm_isdst = 0;
 
-    timeinfo.tm_year = readPrefixedInt(start, "y") + readPrefixedInt(duration, "y") - 1900; 
+    timeinfo.tm_year = readPrefixedInt(start, "y") + readPrefixedInt(duration, "y") - 1900;
     timeinfo.tm_mon = readPrefixedInt(start, "M") + readPrefixedInt(duration, "M") - 1;
     timeinfo.tm_mday = 7 * (readPrefixedInt(start, "w") + readPrefixedInt(duration, "w"));
     timeinfo.tm_mday += readPrefixedInt(start, "d") + readPrefixedInt(duration, "d");
@@ -649,7 +648,7 @@ NIImporter_DlrNavteq::readTimeRec(const std::string& start, const std::string& d
 }
 
 
-time_t 
+time_t
 NIImporter_DlrNavteq::readDate(const std::string& yyyymmdd) {
     struct tm timeinfo;
     timeinfo.tm_hour = 0;
@@ -659,9 +658,9 @@ NIImporter_DlrNavteq::readDate(const std::string& yyyymmdd) {
     timeinfo.tm_yday = 0;
     timeinfo.tm_isdst = 0;
 
-    if (yyyymmdd.size() == 10 
-            && yyyymmdd[4] == '-' 
-            && yyyymmdd[7] == '-' ) {
+    if (yyyymmdd.size() == 10
+            && yyyymmdd[4] == '-'
+            && yyyymmdd[7] == '-') {
         try {
             timeinfo.tm_year = TplConvert::_str2int(yyyymmdd.substr(0, 4)) - 1900;
             timeinfo.tm_mon = TplConvert::_str2int(yyyymmdd.substr(5, 2)) - 1;

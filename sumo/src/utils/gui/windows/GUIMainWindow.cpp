@@ -65,14 +65,13 @@ GUIMainWindow* GUIMainWindow::myInstance = 0;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIMainWindow::GUIMainWindow(FXApp* a) : 
+GUIMainWindow::GUIMainWindow(FXApp* a) :
     FXMainWindow(a, "SUMO-gui main window", NULL, NULL, DECOR_ALL, 20, 20, 600, 400),
     myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER)),
-    myAmGaming(false), 
+    myAmGaming(false),
     myListInternal(false),
     myListParking(true),
-    myListTeleporting(false)
-{
+    myListTeleporting(false) {
 
     FXFontDesc fdesc;
     getApp()->getNormalFont()->getFontDesc(fdesc);

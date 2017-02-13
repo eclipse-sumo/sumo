@@ -139,7 +139,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         device.writeAttr("name", StringUtils::escapeXML(e->getStreetName()));
         device.setPrecision(8); // length requires higher precision
         device.writeAttr("length", MAX2(POSITION_EPS, length));
-        device.setPrecision(gPrecision); 
+        device.setPrecision(gPrecision);
         device.writeAttr("id", getID(e->getID(), edgeMap, edgeID));
         device.writeAttr("junction", -1);
         const bool hasSucc = e->getConnections().size() > 0;
@@ -239,7 +239,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 device.writeAttr("name", c.getInternalLaneID());
                 device.setPrecision(8); // length requires higher precision
                 device.writeAttr("length", MAX2(POSITION_EPS, length));
-                device.setPrecision(gPrecision); 
+                device.setPrecision(gPrecision);
                 device.writeAttr("id", getID(c.getInternalLaneID(), edgeMap, edgeID));
                 device.writeAttr("junction", getID(n->getID(), nodeMap, nodeID));
                 device.openTag("link");
@@ -694,7 +694,7 @@ NWWriter_OpenDrive::writeElevationProfile(const PositionVector& shape, OutputDev
 }
 
 
-void 
+void
 NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e) {
     if (e->getNumLanes() > 1) {
         // compute 'stop line' of rightmost lane

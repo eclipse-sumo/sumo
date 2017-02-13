@@ -538,7 +538,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_WIDTH:
             if (myNBEdge.hasLaneSpecificWidth()) {
                 return "lane specific";
-            } else if (myNBEdge.getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH){
+            } else if (myNBEdge.getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH) {
                 return "default";
             } else {
                 return toString(myNBEdge.getLaneWidth());
@@ -679,7 +679,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
             break;
         case SUMO_ATTR_WIDTH:
-            if(value == "default") {
+            if (value == "default") {
                 return true;
             } else {
                 return canParse<SUMOReal>(value) && (isPositive<SUMOReal>(value) || parse<SUMOReal>(value) == NBEdge::UNSPECIFIED_WIDTH);
@@ -754,7 +754,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBEdge.setSpeed(-1, parse<SUMOReal>(value));
             break;
         case SUMO_ATTR_WIDTH:
-            if(value == "default") {
+            if (value == "default") {
                 myNBEdge.setLaneWidth(-1, NBEdge::UNSPECIFIED_WIDTH);
             } else {
                 myNBEdge.setLaneWidth(-1, parse<SUMOReal>(value));
@@ -944,7 +944,7 @@ GNEEdge::setMicrosimID(const std::string& newID) {
 void
 GNEEdge::addAdditionalChild(GNEAdditional* additional) {
     // First check that additional wasn't already inserted
-    if(std::find(myAdditionals.begin(), myAdditionals.end(), additional) != myAdditionals.end()) {
+    if (std::find(myAdditionals.begin(), myAdditionals.end(), additional) != myAdditionals.end()) {
         throw ProcessError(toString(additional->getTag()) + "  with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myAdditionals.push_back(additional);
@@ -956,7 +956,7 @@ void
 GNEEdge::removeAdditionalChild(GNEAdditional* additional) {
     // First check that additional was already inserted
     AdditionalVector::iterator it = std::find(myAdditionals.begin(), myAdditionals.end(), additional);
-    if(it == myAdditionals.end()) {
+    if (it == myAdditionals.end()) {
         throw ProcessError(toString(additional->getTag()) + "  with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myAdditionals.erase(it);

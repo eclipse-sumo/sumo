@@ -65,7 +65,8 @@ class Segments(ArrayObjman):
                                   groupnames=['state'],
                                   is_save=True,
                                   name='ID ' + parent.get_ident(),
-                                  info='ID of ' + parent.get_name() + ' object.',
+                                  info='ID of ' +
+                                  parent.get_name() + ' object.',
                                   xmltag='id_poly',
                                   ))
 
@@ -459,6 +460,7 @@ class TestTableObjMan(TableObjman):
 
 
 class TestTableObjManNocols(TableObjman):
+
     """
     Table manager without columns...for test purposes
     """

@@ -288,7 +288,7 @@ private:
         myIntermodalNet(net), myNumericalID((int)net->getAllEdges().size()) {}
 
     int splitEdge(_IntermodalEdge* const toSplit, _IntermodalEdge* afterSplit, const SUMOReal pos,
-        _IntermodalEdge* const fwdConn, _IntermodalEdge* const backConn = 0) {
+                  _IntermodalEdge* const fwdConn, _IntermodalEdge* const backConn = 0) {
         int splitIndex = 1;
         std::vector<_IntermodalEdge*>& splitList = myAccessSplits[toSplit];
         if (splitList.empty()) {

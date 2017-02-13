@@ -61,7 +61,7 @@ GNEChange_Connection::~GNEChange_Connection() {
 }
 
 
-void 
+void
 GNEChange_Connection::undo() {
     if (myForward) {
         myEdge->removeConnection(myNBEdgeConnection);
@@ -71,7 +71,7 @@ GNEChange_Connection::undo() {
 }
 
 
-void 
+void
 GNEChange_Connection::redo() {
     if (myForward) {
         myEdge->addConnection(myNBEdgeConnection, myConnection);
@@ -81,7 +81,7 @@ GNEChange_Connection::redo() {
 }
 
 
-FXString 
+FXString
 GNEChange_Connection::undoName() const {
     if (myForward) {
         return ("Undo create " + toString(SUMO_TAG_CONNECTION)).c_str();
@@ -91,7 +91,7 @@ GNEChange_Connection::undoName() const {
 }
 
 
-FXString 
+FXString
 GNEChange_Connection::redoName() const {
     if (myForward) {
         return ("Redo create " + toString(SUMO_TAG_CONNECTION)).c_str();

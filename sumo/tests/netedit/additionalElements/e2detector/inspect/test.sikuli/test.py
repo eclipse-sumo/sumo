@@ -3,7 +3,8 @@ import os
 import sys
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
-neteditTestRoot = os.path.join(os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
+neteditTestRoot = os.path.join(
+    os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
 sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit
 
@@ -119,7 +120,7 @@ netedit.modifyAttribute(parametersReference, 9, "-8")
 netedit.modifyAttribute(parametersReference, 9, "12.5")
 
 # go to a empty area
-click(match);
+click(match)
 
 # Check undos and redos
 netedit.undo(match, 23)
@@ -131,5 +132,5 @@ netedit.saveAdditionals()
 # save newtork
 netedit.saveNetwork()
 
-# quit netedit 
+# quit netedit
 netedit.quit(neteditProcess, False, False)

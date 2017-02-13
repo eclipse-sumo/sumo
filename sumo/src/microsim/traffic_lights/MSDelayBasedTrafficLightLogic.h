@@ -64,11 +64,11 @@ public:
      * @param[in] parameter The parameter to use for tls set-up
      */
     MSDelayBasedTrafficLightLogic(MSTLLogicControl& tlcontrol,
-                                const std::string& id, const std::string& programID,
-                                const MSSimpleTrafficLightLogic::Phases& phases,
-                                int step, SUMOTime delay,
-                                const std::map<std::string, std::string>& parameter,
-                                const std::string& basePath);
+                                  const std::string& id, const std::string& programID,
+                                  const MSSimpleTrafficLightLogic::Phases& phases,
+                                  int step, SUMOTime delay,
+                                  const std::map<std::string, std::string>& parameter,
+                                  const std::string& basePath);
 
 
     /** @brief Initializes the tls with information about incoming lanes

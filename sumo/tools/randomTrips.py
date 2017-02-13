@@ -250,8 +250,8 @@ def buildTripGenerator(net, options):
                 sink_generator = RandomEdgeGenerator(
                     net, LoadedProps(options.weightsprefix + SINK_SUFFIX))
     except InvalidGenerator:
-        print("Error: no valid edges for generating source or destination. Try using option --allow-fringe", 
-                file=sys.stderr)
+        print("Error: no valid edges for generating source or destination. Try using option --allow-fringe",
+              file=sys.stderr)
         return None
 
     try:
@@ -270,11 +270,13 @@ def buildTripGenerator(net, options):
 
     return RandomTripGenerator(source_generator, sink_generator, via_generator, options.intermediate, options.pedestrians)
 
+
 def is_walk_attribute(attr):
     for cand in ['departPos', 'arrivalPos', 'speed', 'duration', 'busStop']:
         if cand in attr:
             return True
     return False
+
 
 def is_persontrip_attribute(attr):
     for cand in ['vTypes', 'modes']:
@@ -295,11 +297,13 @@ def split_trip_attributes(tripattrs):
             personattrs.append(a)
     return prependSpace(' '.join(personattrs)), prependSpace(' '.join(otherattrs))
 
+
 def prependSpace(s):
     if len(s) == 0 or s[0] == " ":
         return s
     else:
         return " " + s
+
 
 def main(options):
     if options.seed:
@@ -337,10 +341,10 @@ def main(options):
                     '    <person id="%s" depart="%.2f"%s>\n' % (label, depart, personattrs))
                 if options.persontrips:
                     fouttrips.write(
-                            '        <personTrip from="%s" to="%s"%s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
+                        '        <personTrip from="%s" to="%s"%s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
                 else:
                     fouttrips.write(
-                            '        <walk from="%s" to="%s"%s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
+                        '        <walk from="%s" to="%s"%s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
                 fouttrips.write('    </person>\n')
             else:
                 fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s"%s%s/>\n' % (
@@ -384,7 +388,7 @@ def main(options):
     if options.validate:
         print("calling route2trips")
         route2trips.main([options.routefile], outfile=options.tripfile,
-                vias=vias, calledBy=" via randomTrips.py")
+                         vias=vias, calledBy=" via randomTrips.py")
 
     if options.weights_outprefix:
         trip_generator.source_generator.write_weights(

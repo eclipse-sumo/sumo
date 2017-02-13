@@ -215,7 +215,7 @@ public:
      */
     void duplicateLane(GNELane* lane, GNEUndoList* undoList);
 
-    
+
     /**@brief transform lane to restricted lane
      * @param[in] vclass vehicle class to restrict
      * @param[in] lane The lane to be transformed

@@ -1390,7 +1390,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
             Position vehPos = v->getPosition();
 #ifdef DEBUG_MOVEXY
-            std::cout << std::endl << "begin vehicle " << v->getID() << " vehPos:" << vehPos << " lane:" << Named::getIDSecure( v->getLane()) << std::endl;
+            std::cout << std::endl << "begin vehicle " << v->getID() << " vehPos:" << vehPos << " lane:" << Named::getIDSecure(v->getLane()) << std::endl;
             std::cout << " want pos:" << pos << " origID:" << origID << " laneNum:" << laneNum << " origAngle:" << origAngle << " angle:" << angle << " keepRoute:" << keepRoute << std::endl;
 #endif
 
@@ -1781,9 +1781,9 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
         }
     }
     // check position, stuff, we should have the best lane along the route
-    lanePos = MAX2(SUMOReal(0), MIN2(SUMOReal((*lane)->getLength() - POSITION_EPS), 
-                (*lane)->interpolateGeometryPosToLanePos(
-                    (*lane)->getShape().nearest_offset_to_point2D(pos, false))));
+    lanePos = MAX2(SUMOReal(0), MIN2(SUMOReal((*lane)->getLength() - POSITION_EPS),
+                                     (*lane)->interpolateGeometryPosToLanePos(
+                                         (*lane)->getShape().nearest_offset_to_point2D(pos, false))));
     //std::cout << SIMTIME << " vtdMap_matchingRoutePosition vehicle=" << v.getID() << " currLane=" << v.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(edges) << " lane=" << (*lane)->getID() << "\n";
 #ifdef DEBUG_MOVEXY
     std::cout << "  b ok lane " << (*lane)->getID() << " lanePos:" << lanePos << std::endl;

@@ -34,12 +34,14 @@ sumoProcess = subprocess.Popen([sumoBinary,
                                 '-S', '-Q',
                                 '--remote-port', str(PORT)], stdout=sys.stdout)
 
+
 def checkMiddleEdges():
     now = traci.simulation.getCurrentTime() / 1000
     for edge in ["middle", "middle2", "middle3"]:
         print("edge=%s current=%s adapted=%s" % (edge,
-            traci.edge.getTraveltime(edge),
-            traci.edge.getAdaptedTraveltime(edge, now)))
+                                                 traci.edge.getTraveltime(
+                                                     edge),
+                                                 traci.edge.getAdaptedTraveltime(edge, now)))
 
 vehID = "ego"
 traci.init(PORT)

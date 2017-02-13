@@ -42,7 +42,7 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouterInterval::GNERerouterInterval(GNERerouter *rerouterParent, SUMOReal begin, SUMOReal end) :
+GNERerouterInterval::GNERerouterInterval(GNERerouter* rerouterParent, SUMOReal begin, SUMOReal end) :
     myRerouterParent(rerouterParent),
     myBegin(begin),
     myEnd(end),
@@ -55,10 +55,10 @@ GNERerouterInterval::~GNERerouterInterval() {
 }
 
 
-bool 
-GNERerouterInterval::insertClosinLanegReroutes(const GNEClosingLaneReroute &clr) {
+bool
+GNERerouterInterval::insertClosinLanegReroutes(const GNEClosingLaneReroute& clr) {
     // Check if was already inserted due uplicates aren't allowed
-    if(std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), clr) != myClosingLaneReroutes.end()) {
+    if (std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), clr) != myClosingLaneReroutes.end()) {
         WRITE_WARNING(clr.getTag() + " with ID = " + clr.getClosedLane()->getID() + "' was already inserted; Duplicates aren't allowed");
         return false;
     } else {
@@ -69,11 +69,11 @@ GNERerouterInterval::insertClosinLanegReroutes(const GNEClosingLaneReroute &clr)
 }
 
 
-bool 
-GNERerouterInterval::removeClosingLaneReroutes(const GNEClosingLaneReroute &clr) {
+bool
+GNERerouterInterval::removeClosingLaneReroutes(const GNEClosingLaneReroute& clr) {
     std::vector<GNEClosingLaneReroute>::iterator i = std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), clr);
     // check if exists
-    if(i == myClosingLaneReroutes.end()) {
+    if (i == myClosingLaneReroutes.end()) {
         WRITE_WARNING(clr.getTag() + " with ID = " + clr.getClosedLane()->getID() + "' wasn't previously inserted");
         return false;
     } else {
@@ -85,9 +85,9 @@ GNERerouterInterval::removeClosingLaneReroutes(const GNEClosingLaneReroute &clr)
 
 
 bool
-GNERerouterInterval::insertClosingReroutes(const GNEClosingReroute &cr) {
+GNERerouterInterval::insertClosingReroutes(const GNEClosingReroute& cr) {
     // Check if was already inserted due uplicates aren't allowed
-    if(std::find(myClosingReroutes.begin(), myClosingReroutes.end(), cr) != myClosingReroutes.end()) {
+    if (std::find(myClosingReroutes.begin(), myClosingReroutes.end(), cr) != myClosingReroutes.end()) {
         WRITE_WARNING(cr.getTag() + " with ID = " + cr.getClosedEdge()->getID() + "' was already inserted; Duplicates aren't allowed");
         return false;
     } else {
@@ -99,10 +99,10 @@ GNERerouterInterval::insertClosingReroutes(const GNEClosingReroute &cr) {
 
 
 bool
-GNERerouterInterval::removeClosingReroutes(const GNEClosingReroute &cr) {
+GNERerouterInterval::removeClosingReroutes(const GNEClosingReroute& cr) {
     std::vector<GNEClosingReroute>::iterator i = std::find(myClosingReroutes.begin(), myClosingReroutes.end(), cr);
     // check if exists
-    if(i == myClosingReroutes.end()) {
+    if (i == myClosingReroutes.end()) {
         WRITE_WARNING(cr.getTag() + " with ID = " + cr.getClosedEdge()->getID() + "' wasn't previously inserted");
         return false;
     } else {
@@ -114,9 +114,9 @@ GNERerouterInterval::removeClosingReroutes(const GNEClosingReroute &cr) {
 
 
 bool
-GNERerouterInterval::insertDestProbReroutes(const GNEDestProbReroute &dpr) {
+GNERerouterInterval::insertDestProbReroutes(const GNEDestProbReroute& dpr) {
     // Check if was already inserted due uplicates aren't allowed
-    if(std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), dpr) != myDestProbReroutes.end()) {
+    if (std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), dpr) != myDestProbReroutes.end()) {
         WRITE_WARNING(dpr.getTag() + " with ID = " + dpr.getNewDestination()->getID() + "' was already inserted; Duplicates aren't allowed");
         return false;
     } else {
@@ -128,10 +128,10 @@ GNERerouterInterval::insertDestProbReroutes(const GNEDestProbReroute &dpr) {
 
 
 bool
-GNERerouterInterval::removeDestProbReroutes(const GNEDestProbReroute &dpr) {
+GNERerouterInterval::removeDestProbReroutes(const GNEDestProbReroute& dpr) {
     std::vector<GNEDestProbReroute>::iterator i = std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), dpr);
     // check if exists
-    if(i == myDestProbReroutes.end()) {
+    if (i == myDestProbReroutes.end()) {
         WRITE_WARNING(dpr.getTag() + " with ID = " + dpr.getNewDestination()->getID() + "' wasn't previously inserted");
         return false;
     } else {
@@ -143,9 +143,9 @@ GNERerouterInterval::removeDestProbReroutes(const GNEDestProbReroute &dpr) {
 
 
 bool
-GNERerouterInterval::insertRouteProbReroute(const GNERouteProbReroute &rpr) {
+GNERerouterInterval::insertRouteProbReroute(const GNERouteProbReroute& rpr) {
     // Check if was already inserted due uplicates aren't allowed
-    if(std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), rpr) != myRouteProbReroutes.end()) {
+    if (std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), rpr) != myRouteProbReroutes.end()) {
         WRITE_WARNING(rpr.getTag() + " with ID = " + rpr.getNewRouteId() + "' was already inserted; Duplicates aren't allowed");
         return false;
     } else {
@@ -157,10 +157,10 @@ GNERerouterInterval::insertRouteProbReroute(const GNERouteProbReroute &rpr) {
 
 
 bool
-GNERerouterInterval::removeRouteProbReroute(const GNERouteProbReroute &rpr) {
+GNERerouterInterval::removeRouteProbReroute(const GNERouteProbReroute& rpr) {
     std::vector<GNERouteProbReroute>::iterator i = std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), rpr);
     // check if exists
-    if(i == myRouteProbReroutes.end()) {
+    if (i == myRouteProbReroutes.end()) {
         WRITE_WARNING(rpr.getTag() + " with ID = " + rpr.getNewRouteId() + "' wasn't previously inserted");
         return false;
     } else {
@@ -177,7 +177,7 @@ GNERerouterInterval::getRerouterParent() const {
 }
 
 
-SumoXMLTag 
+SumoXMLTag
 GNERerouterInterval::getTag() const {
     return myTag;
 }
@@ -207,57 +207,57 @@ GNERerouterInterval::setEnd(SUMOReal end) {
 }
 
 
-const std::vector<GNEClosingLaneReroute> &
+const std::vector<GNEClosingLaneReroute>&
 GNERerouterInterval::getClosingLaneReroutes() const {
     return myClosingLaneReroutes;
 }
 
 
-const std::vector<GNEClosingReroute> &
+const std::vector<GNEClosingReroute>&
 GNERerouterInterval::getClosingReroutes() const {
     return myClosingReroutes;
 }
 
 
-const std::vector<GNEDestProbReroute> &
+const std::vector<GNEDestProbReroute>&
 GNERerouterInterval::getDestProbReroutes() const {
     return myDestProbReroutes;
 }
 
 
-const std::vector<GNERouteProbReroute> &
+const std::vector<GNERouteProbReroute>&
 GNERerouterInterval::getRouteProbReroutes() const {
     return myRouteProbReroutes;
 }
 
 
-void 
-GNERerouterInterval::setClosingLaneReroutes(const std::vector<GNEClosingLaneReroute> &closingLaneReroutes) {
+void
+GNERerouterInterval::setClosingLaneReroutes(const std::vector<GNEClosingLaneReroute>& closingLaneReroutes) {
     myClosingLaneReroutes = closingLaneReroutes;
 }
 
 
-void 
-GNERerouterInterval::setClosingReroutes(const std::vector<GNEClosingReroute> &closingReroutes) {
+void
+GNERerouterInterval::setClosingReroutes(const std::vector<GNEClosingReroute>& closingReroutes) {
     myClosingReroutes = closingReroutes;
 }
 
 
 void
-GNERerouterInterval::setDestProbReroutes(const std::vector<GNEDestProbReroute> &destProbReroutes) {
+GNERerouterInterval::setDestProbReroutes(const std::vector<GNEDestProbReroute>& destProbReroutes) {
     myDestProbReroutes = destProbReroutes;
 }
 
 
 void
-GNERerouterInterval::setRouteProbReroutes(const std::vector<GNERouteProbReroute> &rerouteProbabilityReroutes) {
+GNERerouterInterval::setRouteProbReroutes(const std::vector<GNERouteProbReroute>& rerouteProbabilityReroutes) {
     myRouteProbReroutes = rerouteProbabilityReroutes;
 }
 
 
 GNERerouterInterval&
-GNERerouterInterval::operator=(const GNERerouterInterval &rerouterInterval) {
-    if(this != &rerouterInterval) {
+GNERerouterInterval::operator=(const GNERerouterInterval& rerouterInterval) {
+    if (this != &rerouterInterval) {
         myRerouterParent = rerouterInterval.myRerouterParent;
         myBegin = rerouterInterval.myBegin;
         myEnd = rerouterInterval.myEnd;

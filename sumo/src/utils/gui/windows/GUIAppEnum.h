@@ -415,38 +415,38 @@ enum {
     /// @name NETEDIT Message IDs
     /// @{
 
-    /// @brief abort current edit operation 
+    /// @brief abort current edit operation
     MID_GNE_ABORT,
-    /// @brief hot key <DEL> 
+    /// @brief hot key <DEL>
     MID_GNE_HOTKEY_DEL,
-    /// @brief hot key <ENTER> 
+    /// @brief hot key <ENTER>
     MID_GNE_HOTKEY_ENTER,
     /// @}
 
     /// @name NETEDIT edit modes
     /// @{
 
-    /// @brief mode has changed 
+    /// @brief mode has changed
     MID_GNE_MODE_CHANGE,
-    /// @brief mode has changed 
+    /// @brief mode has changed
     MID_GNE_MODEADDITIONAL_CHANGE,
-    /// @brief mode for adding edges 
+    /// @brief mode for adding edges
     MID_GNE_MODE_CREATE_EDGE,
-    /// @brief mode for moving things 
+    /// @brief mode for moving things
     MID_GNE_MODE_MOVE,
-    /// @brief mode for deleting things 
+    /// @brief mode for deleting things
     MID_GNE_MODE_DELETE,
-    /// @brief mode for inspecting object attributes 
+    /// @brief mode for inspecting object attributes
     MID_GNE_MODE_INSPECT,
-    /// @brief mode for selecting objects 
+    /// @brief mode for selecting objects
     MID_GNE_MODE_SELECT,
-    /// @brief mode for connecting lanes 
+    /// @brief mode for connecting lanes
     MID_GNE_MODE_CONNECT,
-    /// @brief mode for editing tls 
+    /// @brief mode for editing tls
     MID_GNE_MODE_TLS,
-    /// @brief mode for editing additional 
+    /// @brief mode for editing additional
     MID_GNE_MODE_ADDITIONAL,
-    /// @brief mode for editing crossing 
+    /// @brief mode for editing crossing
     MID_GNE_MODE_CROSSING,
     /// @}
 
@@ -506,9 +506,9 @@ enum {
     /// @name tls mode messages
     /// @{
 
-    /// @brief replace program with a newly guessed program 
+    /// @brief replace program with a newly guessed program
     MID_GNE_GUESS_PROGRAM,
-    /// @brief definition related controls 
+    /// @brief definition related controls
     MID_GNE_DEF_OFFSET,
     MID_GNE_DEF_SWITCH,
     MID_GNE_DEF_CREATE,
@@ -543,101 +543,101 @@ enum {
     /// @brief Save additionals
     MID_GNE_SAVE_ADDITIONALS,
     MID_GNE_SAVE_ADDITIONALS_AS,
-    /// @brief insert contents of another network 
+    /// @brief insert contents of another network
     MID_GNE_INSERT_NETWORK,
     /// @brief show connections
     MID_GNE_SHOW_CONNECTIONS,
     /// @brief show junctions as bubbles
     MID_GNE_SHOW_BUBBLES,
-    /// @brief attribute edited 
+    /// @brief attribute edited
     MID_GNE_SET_ATTRIBUTE,
-    /// @brief attribute blocking 
+    /// @brief attribute blocking
     MID_GNE_SET_BLOCKING,
-    /// @brief show connection 
+    /// @brief show connection
     MID_GNE_SHOW_CONNECTION,
-    /// @brief inspect connection 
+    /// @brief inspect connection
     MID_GNE_INSPECT_CONNECTION,
-    /// @brief go back to the previous element 
+    /// @brief go back to the previous element
     MID_GNE_INSPECT_GOBACK,
-    /// @brief add row 
+    /// @brief add row
     MID_GNE_ADDROW,
-    /// @brief remove row 
+    /// @brief remove row
     MID_GNE_REMOVEROW,
-    /// @brief add set 
+    /// @brief add set
     MID_GNE_ADDSET,
-    /// @brief remove set 
+    /// @brief remove set
     MID_GNE_REMOVESET,
     /// @brief search additional parent
     MID_GNE_SEARCHADDITIONALPARENT,
     /// @brief select additional parent
     MID_GNE_SELECTADDITIONALPARENT,
-    /// @brief search edge 
+    /// @brief search edge
     MID_GNE_SEARCHEDGE,
     /// @brief show only selected edge in a list
     MID_GNE_SHOWONLYSELECTEDEDGES,
     /// @brief use selected edges only
     MID_GNE_USEONLYSELECTEDEDGES,
-    /// @brief select edge 
+    /// @brief select edge
     MID_GNE_SELECTEDGE,
-    /// @brief clear selection of edges 
+    /// @brief clear selection of edges
     MID_GNE_CLEAREDGESELECTION,
-    /// @brief invert selection of edges 
+    /// @brief invert selection of edges
     MID_GNE_INVERTEDGESELECTION,
-    /// @brief search lane 
+    /// @brief search lane
     MID_GNE_SEARCHLANE,
-    /// @brief use selected lanes 
+    /// @brief use selected lanes
     MID_GNE_USESELECTEDLANES,
-    /// @brief select lane 
+    /// @brief select lane
     MID_GNE_SELECTLANE,
-    /// @brief clear selection of lanes 
+    /// @brief clear selection of lanes
     MID_GNE_CLEARLANESELECTION,
-    /// @brief invert selection of lanes 
+    /// @brief invert selection of lanes
     MID_GNE_INVERTLANESELECTION,
-    /// @brief open edit dialog 
+    /// @brief open edit dialog
     MID_GNE_OPEN_ATTRIBUTE_EDITOR,
-    /// @brief split an edge 
+    /// @brief split an edge
     MID_GNE_SPLIT_EDGE,
-    /// @brief split an edge 
+    /// @brief split an edge
     MID_GNE_SPLIT_EDGE_BIDI,
-    /// @brief reverse an edge 
+    /// @brief reverse an edge
     MID_GNE_REVERSE_EDGE,
-    /// @brief add reverse edge 
+    /// @brief add reverse edge
     MID_GNE_ADD_REVERSE_EDGE,
-    /// @brief edit junction shape 
+    /// @brief edit junction shape
     MID_GNE_NODE_SHAPE,
-    /// @brief turn junction into geometry node 
+    /// @brief turn junction into geometry node
     MID_GNE_NODE_REPLACE,
-    /// @brief set non-default geometry endpoint 
+    /// @brief set non-default geometry endpoint
     MID_GNE_SET_EDGE_ENDPOINT,
-    /// @brief restore geometry endpoint to node position 
+    /// @brief restore geometry endpoint to node position
     MID_GNE_RESET_EDGE_ENDPOINT,
-    /// @brief remove inner geometry 
+    /// @brief remove inner geometry
     MID_GNE_STRAIGHTEN,
-    /// @brief simplify polygon geometry 
+    /// @brief simplify polygon geometry
     MID_GNE_SIMPLIFY_SHAPE,
-    /// @brief delete geometry point 
+    /// @brief delete geometry point
     MID_GNE_DELETE_GEOMETRY,
-    /// @brief duplicate a lane 
+    /// @brief duplicate a lane
     MID_GNE_DUPLICATE_LANE,
-    /// @brief transform lane to sidewalk 
+    /// @brief transform lane to sidewalk
     MID_GNE_TRANSFORM_LANE_SIDEWALK,
-    /// @brief transform lane to bikelane 
+    /// @brief transform lane to bikelane
     MID_GNE_TRANSFORM_LANE_BIKE,
-    /// @brief transform lane to busLane 
+    /// @brief transform lane to busLane
     MID_GNE_TRANSFORM_LANE_BUS,
-    /// @brief revert transformation 
+    /// @brief revert transformation
     MID_GNE_REVERT_TRANSFORMATION,
-    /// @brief add sidewalk 
+    /// @brief add sidewalk
     MID_GNE_ADD_LANE_SIDEWALK,
-    /// @brief add bikelane 
+    /// @brief add bikelane
     MID_GNE_ADD_LANE_BIKE,
-    /// @brief add busLane 
+    /// @brief add busLane
     MID_GNE_ADD_LANE_BUS,
-    /// @brief remove sidewalk 
+    /// @brief remove sidewalk
     MID_GNE_REMOVE_LANE_SIDEWALK,
-    /// @brief remove bikelane 
+    /// @brief remove bikelane
     MID_GNE_REMOVE_LANE_BIKE,
-    /// @brief remove busLane 
+    /// @brief remove busLane
     MID_GNE_REMOVE_LANE_BUS,
     /// @brief set object as template
     MID_GNE_SET_TEMPLATE,
@@ -645,19 +645,19 @@ enum {
     MID_GNE_COPY_TEMPLATE,
     /// @brief remove template
     MID_GNE_REMOVE_TEMPLATE,
-    /// @brief select dead end lanes 
+    /// @brief select dead end lanes
     MID_GNE_SELECT_DEAD_ENDS,
-    /// @brief select lanes that have no connection leading to it 
+    /// @brief select lanes that have no connection leading to it
     MID_GNE_SELECT_DEAD_STARTS,
-    /// @brief select lanes that are connected from concurrent lanes 
+    /// @brief select lanes that are connected from concurrent lanes
     MID_GNE_SELECT_CONFLICTS,
-    /// @brief select lanes with connections that have the pass attribute set to 'true' 
+    /// @brief select lanes with connections that have the pass attribute set to 'true'
     MID_GNE_SELECT_PASS,
-    /// @brief changes the visual scaling of selected items 
+    /// @brief changes the visual scaling of selected items
     MID_GNE_SELECT_SCALE,
-    /// @brief Create crossing 
+    /// @brief Create crossing
     MID_GNE_CREATE_CROSSING,
-    /// @brief Size of frame area updated 
+    /// @brief Size of frame area updated
     MID_GNE_SIZEOF_FRAMEAREAWIDTH_UPDATED,
     /// @}
 

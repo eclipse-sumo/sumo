@@ -178,6 +178,7 @@ class MainSplitter(wx.SplitterWindow):
 
 
 class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
+
     """
     Simple wx frame with some special features.
     """

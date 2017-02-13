@@ -177,11 +177,11 @@ protected:
     /// @brief information regarding surround Pedestrians (and potentially other things)
     struct Obstacle {
         /// @brief create No-Obstacle
-        Obstacle(int dir, SUMOReal dist=DIST_FAR_AWAY);
+        Obstacle(int dir, SUMOReal dist = DIST_FAR_AWAY);
         /// @brief create an obstacle from ped for ego moving in dir
         Obstacle(const PState& ped);
         /// @brief create an obstacle from explict values
-        Obstacle(SUMOReal _x, SUMOReal _speed, const std::string& _description, const SUMOReal width = 0., bool _border=false)
+        Obstacle(SUMOReal _x, SUMOReal _speed, const std::string& _description, const SUMOReal width = 0., bool _border = false)
             : xFwd(_x + width / 2.), xBack(_x - width / 2.), speed(_speed), description(_description), border(_border) {};
 
         /// @brief maximal position on the current lane in forward direction
@@ -401,7 +401,7 @@ private:
     Pedestrians& getPedestrians(const MSLane* lane);
 
     /* @brief compute stripe-offset to transform relY values from a lane with origStripes into a lane wit destStrips
-     * @note this is called once for transforming nextLane peds to into the current system as obstacles and another time 
+     * @note this is called once for transforming nextLane peds to into the current system as obstacles and another time
      * (in reverse) to transform the pedestrian coordinates into the nextLane-coordinates when changing lanes
      */
     static int getStripeOffset(int origStripes, int destStripes, bool addRemainder);

@@ -132,7 +132,7 @@ public:
             // XXX a new router may also be needed if vehicles differ in speed factor
             for (int i = 0; i < numIntervals; i++) {
                 myRouters[svc].push_back(new CHRouterType(
-                    myEdges, myIgnoreErrors, &E::getTravelTimeStatic, svc.first, myWeightPeriod, false));
+                                             myEdges, myIgnoreErrors, &E::getTravelTimeStatic, svc.first, myWeightPeriod, false));
 #ifdef HAVE_FOX
                 if (myThreadPool.size() > 0) {
                     myThreadPool.add(new ComputeHierarchyTask(myRouters[svc].back(), vehicle, myBegin + i * myWeightPeriod));

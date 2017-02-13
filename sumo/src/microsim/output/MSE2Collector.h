@@ -86,17 +86,17 @@ public:
     /** @brief Internal representation of a vehicle
     */
     struct VehicleInfo {
-        VehicleInfo(std::string _id, std::string _type, SUMOReal _speed, SUMOReal _timeOnDet, 
-                SUMOReal _lengthOnDet, SUMOReal _position, SUMOReal _lengthWithGap, 
-                SUMOReal _accel, SUMOReal vmax, bool _stillOnDet) : 
-            id(_id), 
-            type(_type), 
-            speed(_speed), 
-            timeOnDet(_timeOnDet), 
-            lengthOnDet(_lengthOnDet), 
-            position(_position), 
-            lengthWithGap(_lengthWithGap), 
-            accel(_accel), 
+        VehicleInfo(std::string _id, std::string _type, SUMOReal _speed, SUMOReal _timeOnDet,
+                    SUMOReal _lengthOnDet, SUMOReal _position, SUMOReal _lengthWithGap,
+                    SUMOReal _accel, SUMOReal vmax, bool _stillOnDet) :
+            id(_id),
+            type(_type),
+            speed(_speed),
+            timeOnDet(_timeOnDet),
+            lengthOnDet(_lengthOnDet),
+            position(_position),
+            lengthWithGap(_lengthWithGap),
+            accel(_accel),
             timeLoss(vmax > 0 ? timeOnDet * (vmax - speed) / vmax : 0),
             accumulatedTimeLoss(timeLoss),
             stillOnDet(_stillOnDet) {}

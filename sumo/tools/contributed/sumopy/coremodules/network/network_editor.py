@@ -25,6 +25,7 @@ from coremodules.network.network import MODES
 
 
 class NetSelectTool(SelectTool):
+
     """
     Selection tool for OGL canvas.
     """
@@ -105,6 +106,7 @@ class NetSelectTool(SelectTool):
 
 
 class NetDeleteTool(DeleteTool):
+
     """
     Delete tool for OGL canvas.
     """
@@ -137,6 +139,7 @@ class NetDeleteTool(DeleteTool):
 
 
 class NeteditorTools(ToolsPanel):
+
     """
     Shows a toolpallet with different tools and an options panel.
     Here tools are added which 
@@ -499,7 +502,8 @@ class LaneDrawings(EdgeDrawings):
         #     print '   modes_allow = ',modes_allow,type(modes_allow),modes_allow==lanetype
         # print ' inds_ped = ',np.flatnonzero(inds_ped)
         #self.colors_fill.value[self._inds_map[inds_ped]] = np.array([0.9,0.0,0.0,0.8],np.float32)
-        for attr in self.get_attrsman().get_group('typecolors'):  # better use get group
+        # better use get group
+        for attr in self.get_attrsman().get_group('typecolors'):
             # print '  lane color',attr.attrname,attr.value,attr.id_mode
             #self.colors_fill.value[self._inds_map[self._lanes.ids_mode.value==attr.id_mode]] = attr.value
             #self.colors_fill.value[self._inds_map[self._lanes.ids_mode.value==attr.id_mode]] = attr.value
@@ -525,7 +529,8 @@ class ConnectionDrawings(Fancylines):
 
         Fancylines.__init__(self, ident,  parent, name='Connection drawings',
                             is_fill=True,
-                            is_outline=False,  # currently only fill implemented
+                            # currently only fill implemented
+                            is_outline=False,
                             arrowstretch=2.5,
                             is_lefthalf=True,
                             is_righthalf=True,
@@ -636,7 +641,8 @@ class CrossingDrawings(Fancylines):
 
         Fancylines.__init__(self, ident,  parent, name='Crossing drawings',
                             is_fill=True,
-                            is_outline=False,  # currently only fill implemented
+                            # currently only fill implemented
+                            is_outline=False,
                             arrowstretch=2.5,
                             is_lefthalf=True,
                             is_righthalf=True,
@@ -894,6 +900,7 @@ class Neteditor(OGleditor):
 
 
 class NeteditorMainframe(AgileToolbarFrameMixin, wx.Frame):
+
     """
     Simple wx frame with some special features.
     """

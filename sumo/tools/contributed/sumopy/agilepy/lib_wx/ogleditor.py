@@ -226,6 +226,7 @@ class Vbo:
 
 
 class SelectToolMixin(BaseTool):
+
     """
     Mixin for Selection tools for OGL canvas.
     """
@@ -266,7 +267,8 @@ class SelectToolMixin(BaseTool):
         if len(self) > 0:
             # ungighlight selected objects
             is_draw = False
-            for drawobj, _id in self.drawobjects.value:  # drawing.get_drawobjs():
+            # drawing.get_drawobjs():
+            for drawobj, _id in self.drawobjects.value:
                 is_draw |= drawobj.unhighlight([_id], is_update=True)
             if is_draw:
                 self._canvas.draw()
@@ -433,6 +435,7 @@ class SelectToolMixin(BaseTool):
 
 
 class AddLineTool(BaseTool):
+
     """
     Mixin for Selection tools for OGL canvas.
     """
@@ -525,7 +528,8 @@ class AddLineTool(BaseTool):
     def begin_animation(self, event):
         # print 'AddLineTool'
         #self.drawobj_anim, _id, self.ind_vert =  self.get_current_vertexselection()
-        self.drawobj_anim = self._canvas.get_drawing().get_drawobj_by_ident('fancylines')
+        self.drawobj_anim = self._canvas.get_drawing().get_drawobj_by_ident(
+            'fancylines')
         self.coord_last = self._canvas.unproject(event.GetPosition())
         vert = np.concatenate(
             (self.coord_last, self.coord_last), 1).reshape((2, 3))
@@ -602,7 +606,8 @@ class AddLineTool(BaseTool):
                                           mainframe=self.parent.get_mainframe(),
                                           pos=wx.DefaultPosition, size=size, style=wx.MAXIMIZE_BOX | wx.RESIZE_BORDER,
                                           func_apply=self.on_apply_option,
-                                          immediate_apply=False, panelstyle='default',  # 'instrumental'
+                                          # 'instrumental'
+                                          immediate_apply=False, panelstyle='default',
                                           standartbuttons=['apply', 'restore'])
         else:
 
@@ -617,7 +622,8 @@ class AddLineTool(BaseTool):
                                           mainframe=self.parent.get_mainframe(),
                                           pos=wx.DefaultPosition, size=size, style=wx.MAXIMIZE_BOX | wx.RESIZE_BORDER,
                                           func_apply=self.on_apply_option,
-                                          immediate_apply=False, panelstyle='default',  # 'instrumental'
+                                          # 'instrumental'
+                                          immediate_apply=False, panelstyle='default',
                                           standartbuttons=['apply', 'restore'])
 
         return self._optionspanel
@@ -633,6 +639,7 @@ class AddLineTool(BaseTool):
 
 
 class AddCircleTool(AddLineTool):
+
     """
     Mixin for Selection tools for OGL canvas.
     """
@@ -674,7 +681,8 @@ class AddCircleTool(AddLineTool):
     def begin_animation(self, event):
         # print 'AddLineTool'
         #self.drawobj_anim, _id, self.ind_vert =  self.get_current_vertexselection()
-        self.drawobj_anim = self._canvas.get_drawing().get_drawobj_by_ident('circles')
+        self.drawobj_anim = self._canvas.get_drawing().get_drawobj_by_ident(
+            'circles')
         self.coord_last = self._canvas.unproject(event.GetPosition())
         #vert = np.concatenate((self.coord_last,self.coord_last),1).reshape((2,3))
         # print '  vert ',vert#,self.width.get_value(),self.color.get_value(),
@@ -719,6 +727,7 @@ class AddCircleTool(AddLineTool):
 
 
 class AddPolylineTool(AddLineTool):
+
     """
     Mixin for Selection tools for OGL canvas.
     """
@@ -747,7 +756,8 @@ class AddPolylineTool(AddLineTool):
     def begin_animation(self, event):
         # print 'AddLineTool.begin_animation'
         #self.drawobj_anim, _id, self.ind_vert =  self.get_current_vertexselection()
-        self.drawobj_anim = self._canvas.get_drawing().get_drawobj_by_ident('polylines')
+        self.drawobj_anim = self._canvas.get_drawing().get_drawobj_by_ident(
+            'polylines')
         self.coord_last = self._canvas.unproject(event.GetPosition())
         #vertices = [list(self.coord_last),list(self.coord_last) ]
         # attention, we need copies here!!
@@ -792,6 +802,7 @@ class AddPolylineTool(AddLineTool):
 
 
 class AddPolygonTool(AddPolylineTool):
+
     """
     Mixin for Selection tools for OGL canvas.
     """
@@ -832,7 +843,8 @@ class AddPolygonTool(AddPolylineTool):
     def begin_animation(self, event):
         # print 'AddLineTool.begin_animation'
         #self.drawobj_anim, _id, self.ind_vert =  self.get_current_vertexselection()
-        self.drawobj_anim = self._canvas.get_drawing().get_drawobj_by_ident('polygons')
+        self.drawobj_anim = self._canvas.get_drawing().get_drawobj_by_ident(
+            'polygons')
         self.coord_last = self._canvas.unproject(event.GetPosition())
         #vertices = [list(self.coord_last),list(self.coord_last) ]
         # attention, we need copies here!!
@@ -855,6 +867,7 @@ class AddPolygonTool(AddPolylineTool):
 
 
 class SelectTool(SelectToolMixin):
+
     """
     Selection tool for OGL canvas.
     """
@@ -915,6 +928,7 @@ class SelectTool(SelectToolMixin):
 
 
 class ConfigureTool(SelectToolMixin):
+
     """
     Selection tool for OGL canvas.
     """
@@ -994,7 +1008,8 @@ class ConfigureTool(SelectToolMixin):
                                            mainframe=self.parent.get_mainframe(),
                                            #pos=wx.DefaultPosition, size=size, style = wx.MAXIMIZE_BOX|wx.RESIZE_BORDER,
                                            func_apply=self.on_apply_option,
-                                           immediate_apply=False, panelstyle='default',  # 'instrumental'
+                                           # 'instrumental'
+                                           immediate_apply=False, panelstyle='default',
                                            standartbuttons=['apply', 'restore'])
         else:
             # show option of currently selected drawobj
@@ -1010,7 +1025,8 @@ class ConfigureTool(SelectToolMixin):
                                           mainframe=self.parent.get_mainframe(),
                                           pos=wx.DefaultPosition, size=size, style=wx.MAXIMIZE_BOX | wx.RESIZE_BORDER,
                                           func_apply=self.on_apply_option,
-                                          immediate_apply=False, panelstyle='default',  # 'instrumental'
+                                          # 'instrumental'
+                                          immediate_apply=False, panelstyle='default',
                                           standartbuttons=['apply', 'restore'])
 
         return self._optionspanel
@@ -1028,6 +1044,7 @@ class ConfigureTool(SelectToolMixin):
 
 
 class HandleTool(SelectTool):
+
     """
     General  tool to help select handles.
     """
@@ -1123,6 +1140,7 @@ class HandleTool(SelectTool):
 
 
 class DeleteTool(SelectTool):
+
     """
     Delete tool for OGL canvas.
     """
@@ -1175,6 +1193,7 @@ class DeleteTool(SelectTool):
 
 
 class MoveTool(SelectTool):
+
     """
     Move tool for OGL canvas.
     """
@@ -1309,6 +1328,7 @@ class MoveTool(SelectTool):
 
 
 class StretchTool(HandleTool):
+
     """
     Stretch tool for OGL canvas.
     """
@@ -1616,7 +1636,8 @@ class DrawobjMixin(am.ArrayObjman):
             self.add_col(am.IdsArrayConf('ids_parent', parent,
                                          is_save=True,
                                          name=parent.format_ident() + '[ID]',
-                                         info='ID of ' + parent.get_name() + ' object.',
+                                         info='ID of ' +
+                                         parent.get_name() + ' object.',
                                          ))
 
     def get_vertices_array(self):
@@ -3532,6 +3553,7 @@ class Polygons(DrawobjMixin):
 
 
 class OGLdrawing(am.ArrayObjman):
+
     """
     Class holding an ordered list of all OGL draw objects.
     This class manages also the order in which the draw objects are rendered. 
@@ -3615,6 +3637,7 @@ class OGLdrawing(am.ArrayObjman):
 
 
 class OGLnavcanvas(wx.Panel):
+
     """
     Canvas with some navigation tools.
     """
@@ -3921,14 +3944,16 @@ class OGLcanvas(glcanvas.GLCanvas):
         #
         Rot = event.GetWheelRotation()
         # print 'OnWheel!!',Rot,event.ControlDown(),event.ShiftDown()
-        if (not event.ShiftDown()) & event.ControlDown():  # event.ControlDown(): # zoom
+        # event.ControlDown(): # zoom
+        if (not event.ShiftDown()) & event.ControlDown():
             if Rot < 0:
                 self.zoom_in(is_draw=False)
             else:
                 self.zoom_out(is_draw=False)
             is_draw |= True
 
-        if (event.ShiftDown()) & event.ControlDown():  # event.ControlDown(): # zoom
+        # event.ControlDown(): # zoom
+        if (event.ShiftDown()) & event.ControlDown():
             if Rot < 0:
                 self.xRotate -= 5.0
             else:
@@ -4302,6 +4327,7 @@ class OGLcanvas(glcanvas.GLCanvas):
 
 
 class OGLcanvasTools(ToolsPanel):
+
     """
     Shows a toolpallet with different tools and an options panel.
     Here tools are added which 
@@ -4470,6 +4496,7 @@ if __name__ == '__main__':
     from mainframe import AgileToolbarFrameMixin
 
     class OGLeditorMainframe(AgileToolbarFrameMixin, wx.Frame):
+
         """
         Simple wx frame with some special features.
         """

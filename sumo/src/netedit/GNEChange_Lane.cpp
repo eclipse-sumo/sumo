@@ -82,7 +82,7 @@ GNEChange_Lane::~GNEChange_Lane() {
 }
 
 
-void 
+void
 GNEChange_Lane::undo() {
     if (myForward) {
         myEdge->removeLane(myLane);
@@ -100,7 +100,7 @@ GNEChange_Lane::undo() {
 }
 
 
-void 
+void
 GNEChange_Lane::redo() {
     if (myForward) {
         myEdge->addLane(myLane, myLaneAttrs);
@@ -118,7 +118,7 @@ GNEChange_Lane::redo() {
 }
 
 
-FXString 
+FXString
 GNEChange_Lane::undoName() const {
     if (myForward) {
         return ("Undo create " + toString(SUMO_TAG_LANE)).c_str();
@@ -128,7 +128,7 @@ GNEChange_Lane::undoName() const {
 }
 
 
-FXString 
+FXString
 GNEChange_Lane::redoName() const {
     if (myForward) {
         return ("Redo create " + toString(SUMO_TAG_LANE)).c_str();

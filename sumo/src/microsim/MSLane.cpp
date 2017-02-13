@@ -268,7 +268,7 @@ MSLane::lastInsertion(MSVehicle& veh, SUMOReal mspeed, bool patchSpeed) {
     // XXX interpret departPosLat value
     const SUMOReal posLat = 0;
     SUMOReal pos = getLength() - POSITION_EPS;
-    MSVehicle* leader = getLastAnyVehicle(); 
+    MSVehicle* leader = getLastAnyVehicle();
     // back position of leader relative to this lane
     SUMOReal leaderBack;
     if (leader == 0) {
@@ -1004,10 +1004,10 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             all.push_back(*last);
         }
         std::cout << SIMTIME << " detectCollisions stage=" << stage << " lane=" << getID() << ":\n"
-            << "   vehs=" << toString(myVehicles) << "\n"
-            << "   part=" << toString(myPartialVehicles) << "\n"
-            << "   all=" << toString(all) << "\n"
-            << "\n";
+                  << "   vehs=" << toString(myVehicles) << "\n"
+                  << "   part=" << toString(myPartialVehicles) << "\n"
+                  << "   all=" << toString(all) << "\n"
+                  << "\n";
     }
 #endif
 
@@ -1129,17 +1129,17 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, cons
     }
 #ifdef DEBUG_COLLISIONS
     if (DEBUG_COND) std::cout << SIMTIME
-        << " thisLane=" << getID()
-            << " collider=" << collider->getID()
-            << " victim=" << victim->getID()
-            << " colliderLane=" << collider->getLane()->getID()
-            << " victimLane=" << victim->getLane()->getID()
-            << " colliderPos=" << colliderPos
-            << " victimBackPos=" << victim->getBackPositionOnLane(this)
-            << " colliderLat=" << collider->getCenterOnEdge(this)
-            << " victimLat=" << victim->getCenterOnEdge(this)
-            << " gap=" << gap
-            << "\n";
+                                  << " thisLane=" << getID()
+                                  << " collider=" << collider->getID()
+                                  << " victim=" << victim->getID()
+                                  << " colliderLane=" << collider->getLane()->getID()
+                                  << " victimLane=" << victim->getLane()->getID()
+                                  << " colliderPos=" << colliderPos
+                                  << " victimBackPos=" << victim->getBackPositionOnLane(this)
+                                  << " colliderLat=" << collider->getCenterOnEdge(this)
+                                  << " victimLat=" << victim->getCenterOnEdge(this)
+                                  << " gap=" << gap
+                                  << "\n";
 #endif
     if (gap < -NUMERICAL_EPS) {
         SUMOReal latGap = 0;
@@ -1409,8 +1409,8 @@ MSLane::integrateNewVehicle(SUMOTime) {
     }
     sortPartialVehicles();
 #ifdef DEBUG_VEHICLE_CONTAINER
-    if (DEBUG_COND) std::cout << SIMTIME << " integrateNewVehicle lane=" << getID() 
-        << " vhicles=" << toString(myVehicles) << " partials=" << toString(myPartialVehicles) << "\n";
+    if (DEBUG_COND) std::cout << SIMTIME << " integrateNewVehicle lane=" << getID()
+                                  << " vhicles=" << toString(myVehicles) << " partials=" << toString(myPartialVehicles) << "\n";
 #endif
     return wasInactive && myVehicles.size() != 0;
 }
@@ -1798,8 +1798,8 @@ MSLane::getLeader(const MSVehicle* veh, const SUMOReal vehPos, const std::vector
             }
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(veh)) {
-                std::cout << "   getLeader lane=" << getID() << " ego=" << veh->getID() << " egoPos=" << vehPos 
-                    << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane(this) << " predBack=" << pred->getBackPositionOnLane(this) << "\n";
+                std::cout << "   getLeader lane=" << getID() << " ego=" << veh->getID() << " egoPos=" << vehPos
+                          << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane(this) << " predBack=" << pred->getBackPositionOnLane(this) << "\n";
             }
 #endif
             if (pred->getPositionOnLane(this) > vehPos + NUMERICAL_EPS) {
@@ -2299,7 +2299,7 @@ MSLane::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc) {
         if (v != 0) {
             v->updateBestLanes(false, this);
             incorporateVehicle(v, v->getPositionOnLane(), v->getSpeed(), v->getLateralPositionOnLane(), myVehicles.end(),
-                    MSMoveReminder::NOTIFICATION_JUNCTION);
+                               MSMoveReminder::NOTIFICATION_JUNCTION);
             v->processNextStop(v->getSpeed());
         }
     }

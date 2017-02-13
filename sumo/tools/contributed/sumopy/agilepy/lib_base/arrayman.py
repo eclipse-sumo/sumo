@@ -260,6 +260,7 @@ class ArrayConfMixin:
 
 
 class ArrayConf(ArrayConfMixin, ColConf):
+
     """
     Column made of numeric array.
 
@@ -268,6 +269,7 @@ class ArrayConf(ArrayConfMixin, ColConf):
 
 
 class ListArrayConf(ArrayConfMixin, ColConf):
+
     """
     Column made of an array of lists.
 
@@ -347,6 +349,7 @@ class ListArrayConf(ArrayConfMixin, ColConf):
 
 
 class NumArrayConf(ArrayConfMixin, ColConf):
+
     """
     Column made of numeric array.
 
@@ -369,6 +372,7 @@ class NumArrayConf(ArrayConfMixin, ColConf):
 
 
 class IdsArrayConf(ArrayConfMixin, ColConf):
+
     """
     Column, where each entry is the id of a single Table. 
     """
@@ -515,6 +519,7 @@ class IdsArrayConf(ArrayConfMixin, ColConf):
 
 
 class IdlistsArrayConf(IdsArrayConf):
+
     """
     Column, where each entry is a list of ids of a single Table. 
     """
@@ -523,7 +528,8 @@ class IdlistsArrayConf(IdsArrayConf):
         self._is_index = False
         self._tab = tab
         ArrayConfMixin.__init__(self,  attrname,
-                                None,  # default, will be substituted by id list
+                                # default, will be substituted by id list
+                                None,
                                 dtype='object',
                                 metatype='ids',
                                 perm='r',
@@ -568,6 +574,7 @@ class IdlistsArrayConf(IdsArrayConf):
 
 
 class TabIdListArrayConf(ArrayConfMixin, ColConf):
+
     """
     Column made of an array of lists with (table,id) tupels.
     The tables are linked, and will not be saved.
@@ -712,6 +719,7 @@ class TabIdListArrayConf(ArrayConfMixin, ColConf):
 
 
 class TabIdsArrayConf(ArrayConfMixin, ColConf):
+
     """
     Column, where each entry contains a tuple with table object and id. 
     The tables are linked, and will not be saved.
@@ -796,6 +804,7 @@ class TabIdsArrayConf(ArrayConfMixin, ColConf):
 
 
 class Arrayman(Tabman):
+
     """
     Manages all table attributes of an object.
 
@@ -1068,6 +1077,7 @@ class Arrayman(Tabman):
 
 
 class ArrayObjman(Arrayman, TableMixin):
+
     """
     Array Object management manages objects with numeric Python arrays
      based columns. Can also handle list and dict based columns. 

@@ -338,13 +338,13 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
     // delete additionals childs of edge
     std::vector<GNEAdditional*> copyOfEdgeAdditionals = edge->getAdditionalChilds();
-    for(std::vector<GNEAdditional*>::iterator i = copyOfEdgeAdditionals.begin(); i != copyOfEdgeAdditionals.end(); i++) {
+    for (std::vector<GNEAdditional*>::iterator i = copyOfEdgeAdditionals.begin(); i != copyOfEdgeAdditionals.end(); i++) {
         undoList->add(new GNEChange_Additional((*i), false), true);
     }
     // delete additionals childs of lane
-    for(std::vector<GNELane*>::const_iterator i = edge->getLanes().begin(); i != edge->getLanes().end(); i++) {
+    for (std::vector<GNELane*>::const_iterator i = edge->getLanes().begin(); i != edge->getLanes().end(); i++) {
         std::vector<GNEAdditional*> copyOfLaneAdditionals = (*i)->getAdditionalChilds();
-        for(std::vector<GNEAdditional*>::iterator j = copyOfLaneAdditionals.begin(); j != copyOfLaneAdditionals.end(); j++) {
+        for (std::vector<GNEAdditional*>::iterator j = copyOfLaneAdditionals.begin(); j != copyOfLaneAdditionals.end(); j++) {
             undoList->add(new GNEChange_Additional((*j), false), true);
         }
     }
@@ -380,7 +380,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         undoList->p_begin("delete " + toString(SUMO_TAG_LANE));
         // delete additionals childs of lane
         std::vector<GNEAdditional*> copyOfAdditionals = lane->getAdditionalChilds();
-        for(std::vector<GNEAdditional*>::const_iterator i = copyOfAdditionals.begin(); i != copyOfAdditionals.end(); i++) {
+        for (std::vector<GNEAdditional*>::const_iterator i = copyOfAdditionals.begin(); i != copyOfAdditionals.end(); i++) {
             undoList->add(new GNEChange_Additional((*i), false), true);
         }
         // invalidate junctions (saving connections)
@@ -421,10 +421,10 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
 }
 
 
-void 
+void
 GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
     undoList->p_begin("delete crossing");
-    undoList->add(new GNEChange_Crossing(crossing->getParentJunction(), crossing->getNBCrossing().edges, 
+    undoList->add(new GNEChange_Crossing(crossing->getParentJunction(), crossing->getNBCrossing().edges,
                                          crossing->getNBCrossing().width, crossing->getNBCrossing().priority, false), true);
     if (gSelected.isSelected(GLO_CROSSING, crossing->getGlID())) {
         std::set<GUIGlID> deselected;
@@ -980,10 +980,10 @@ GNENet::requireRecompute() {
 }
 
 
-bool 
+bool
 GNENet::netHasCrossings() const {
     for (std::map<std::string, NBNode*>::const_iterator i = myNetBuilder->getNodeCont().begin(); i != myNetBuilder->getNodeCont().end() ; i++) {
-        if(i->second->getCrossings().size() > 0) {
+        if (i->second->getCrossings().size() > 0) {
             return true;
         }
     }
@@ -997,7 +997,7 @@ GNENet::getApp() {
 }
 
 
-NBNetBuilder* 
+NBNetBuilder*
 GNENet::getNetBuilder() const {
     return myNetBuilder;
 }
@@ -1246,10 +1246,10 @@ GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) 
 }
 
 
-GNEAdditional* 
+GNEAdditional*
 GNENet::retrieveAdditional(const std::string& id, bool hardFail) const {
-    for(GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
-        if(i->second->getID() == id) {
+    for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+        if (i->second->getID() == id) {
             return i->second;
         }
     }
@@ -1438,8 +1438,8 @@ GNENet::computeAndUpdate(OptionsCont& oc) {
     myNetBuilder->compute(oc, liveExplicitTurnarounds, false);
     // update ids if necessary
     if (oc.getBool("numerical-ids") || oc.isSet("reserved-ids")) {
-        GNEEdges newEdgeMap; 
-        GNEJunctions newJunctionMap; 
+        GNEEdges newEdgeMap;
+        GNEJunctions newJunctionMap;
         for (GNEEdges::const_iterator it = myEdges.begin(); it != myEdges.end(); it++) {
             it->second->setMicrosimID(it->second->getNBEdge()->getID());
             newEdgeMap[it->second->getNBEdge()->getID()] = it->second;

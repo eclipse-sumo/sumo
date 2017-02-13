@@ -11,6 +11,7 @@ from coremodules.network.network import SumoIdsConf, MODES
 
 
 class AddOdWizzard(am.ArrayObjman):
+
     """Contains information and methods to add an od matrix for 
     a certain mode and for a certain time interval to the scenario.
     """

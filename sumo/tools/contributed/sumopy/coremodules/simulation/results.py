@@ -345,6 +345,7 @@ class Simresults(cm.BaseObjman):
 
 
 class IntervalAvReader2(handler.ContentHandler):
+
     """
     Reads edge or lane based intervals
     and returns time averaged values for each attribute name.

@@ -50,7 +50,7 @@ public:
     /// @brief destructor (Called automatically)
     ~MFXCheckableButton();
 
-    /// @brief check if this MFXCheckableButton is checked 
+    /// @brief check if this MFXCheckableButton is checked
     bool amChecked() const;
 
     /// @brief check or uncheck this MFXCheckableButton
@@ -58,7 +58,7 @@ public:
 
     /// @name FOX callbacks
     /// @{
-    /// @brief called when this MFXCheckableButton is painted 
+    /// @brief called when this MFXCheckableButton is painted
     long onPaint(FXObject*, FXSelector, void*);
 
     /// @brief called when this MFXCheckableButton is updated
@@ -81,9 +81,9 @@ private:
     bool myAmChecked;
 
     /// @brief colors of this MFXCheckableButton
-    FXColor myBackColor, 
-            myDarkColor, 
-            myHiliteColor, 
+    FXColor myBackColor,
+            myDarkColor,
+            myHiliteColor,
             myShadowColor;
 
     /// @brief check if this MFXCheckableButton is initialised

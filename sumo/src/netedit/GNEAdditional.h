@@ -233,12 +233,12 @@ protected:
     /// @brief The GNEViewNet this additional element belongs
     GNEViewNet* myViewNet;
 
-    /**@brief The edge this additional belongs. 
+    /**@brief The edge this additional belongs.
      * @note is NULL if additional doesnt' belongs to a edge
      */
     GNEEdge* myEdge;
 
-    /**@brief The lane this additional belongs. 
+    /**@brief The lane this additional belongs.
      * @note is NULL if additional doesnt' belongs to a lane
      */
     GNELane* myLane;

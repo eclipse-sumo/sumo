@@ -137,7 +137,7 @@ MESegment::MESegment(const std::string& id):
 }
 
 
-bool 
+bool
 MESegment::useMultiQueue(bool multiQueue, const MSEdge& parent) {
     return multiQueue && parent.getLanes().size() > 1 && parent.getNumSuccessors() > 1;
 }
@@ -374,8 +374,8 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, MESegment* next) {
 SUMOTime
 MESegment::getTimeHeadway(const MESegment* pred, const MEVehicle* veh) {
     const SUMOTime tau = (pred->free()
-        ? (free() ? myTau_ff : myTau_fj) 
-        : (free() ? myTau_jf : TIME2STEPS(myA * getCarNumber() + myB)));
+                          ? (free() ? myTau_ff : myTau_fj)
+                          : (free() ? myTau_jf : TIME2STEPS(myA * getCarNumber() + myB)));
     return (SUMOTime)(tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap()) / pred->getTLSCapacity(veh));
 }
 
@@ -682,7 +682,7 @@ MESegment::getVehicles() const {
 }
 
 
-bool 
+bool
 MESegment::hasBlockedLeader() const {
     for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
         if (k->size() > 0 && (*k).back()->getWaitingTime() > 0) {
@@ -729,12 +729,12 @@ MESegment::getTLSCapacity(const MEVehicle* veh) const {
             assert(link->getGreenFraction() > 0);
             return link->getGreenFraction();
         }
-    } 
+    }
     return 1;
 }
 
 
-SUMOReal 
+SUMOReal
 MESegment::getMaxPenaltySeconds() const {
     SUMOReal maxPenalty = 0;
     for (std::vector<MSLane*>::const_iterator i = myEdge.getLanes().begin(); i != myEdge.getLanes().end(); ++i) {
@@ -743,7 +743,7 @@ MESegment::getMaxPenaltySeconds() const {
         for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
             MSLink* link = *j;
             maxPenalty = MAX2(maxPenalty, STEPS2TIME(
-                        link->getMesoTLSPenalty() + (link->havePriority() ? 0 : MSGlobals::gMesoMinorPenalty)));
+                                  link->getMesoTLSPenalty() + (link->havePriority() ? 0 : MSGlobals::gMesoMinorPenalty)));
         }
     }
     return maxPenalty;

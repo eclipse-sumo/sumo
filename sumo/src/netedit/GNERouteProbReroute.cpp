@@ -41,7 +41,7 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval &rerouterIntervalParent, std::string newRouteId, SUMOReal probability) :
+GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval& rerouterIntervalParent, std::string newRouteId, SUMOReal probability) :
     myRerouterIntervalParent(&rerouterIntervalParent),
     myNewRouteId(newRouteId),
     myProbability(probability),
@@ -61,7 +61,7 @@ GNERouteProbReroute::getNewRouteId() const {
 }
 
 
-void 
+void
 GNERouteProbReroute::setNewRouteId(std::string newRouteId) {
     myNewRouteId = newRouteId;
 }
@@ -84,7 +84,7 @@ GNERouteProbReroute::setProbability(SUMOReal probability) {
 }
 
 
-SumoXMLTag 
+SumoXMLTag
 GNERouteProbReroute::getTag() const {
     return myTag;
 }
@@ -96,11 +96,11 @@ GNERouteProbReroute::getRerouterIntervalParent() const {
 }
 
 
-bool 
-GNERouteProbReroute::operator==(const GNERouteProbReroute &routeProbReroute) {
-    if((myRerouterIntervalParent == routeProbReroute.myRerouterIntervalParent) &&
-       (myNewRouteId == routeProbReroute.myNewRouteId) &&
-       (myProbability && routeProbReroute.myProbability)) {
+bool
+GNERouteProbReroute::operator==(const GNERouteProbReroute& routeProbReroute) {
+    if ((myRerouterIntervalParent == routeProbReroute.myRerouterIntervalParent) &&
+            (myNewRouteId == routeProbReroute.myNewRouteId) &&
+            (myProbability && routeProbReroute.myProbability)) {
         return true;
     } else {
         return false;

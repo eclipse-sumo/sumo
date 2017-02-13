@@ -502,7 +502,7 @@ public:
      */
     std::string getContainerStopID(const MSLane* lane, const SUMOReal pos) const;
     /// @}
-    
+
     /// @name Insertion and retrieval of parking areas
     /// @{
 

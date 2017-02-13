@@ -22,7 +22,8 @@ import sys
 import unittest
 # Do not use SUMO_HOME here to ensure you are always testing the
 # functions from the same tree the test is in
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'tools'))
+sys.path.append(
+    os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'tools'))
 import sumolib
 
 

@@ -62,7 +62,7 @@ public:
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNESelectorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet);
+    GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNESelectorFrame();

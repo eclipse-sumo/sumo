@@ -747,7 +747,8 @@ class VehicleDomain(Domain):
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, effort)
         self._connection._sendExact()
 
-    LAST_TRAVEL_TIME_UPDATE = -1;
+    LAST_TRAVEL_TIME_UPDATE = -1
+
     def rerouteTraveltime(self, vehID, currentTravelTimes=True):
         """rerouteTraveltime(string, bool) -> None Reroutes a vehicle. If
         currentTravelTimes is True (default) then the current traveltime of the
@@ -884,7 +885,6 @@ class VehicleDomain(Domain):
                                        1 + 4 + sum(map(len, edgeList)) + 4 * len(edgeList))
         self._connection._packStringList(edgeList)
         self._connection._sendExact()
-
 
     def setMinGap(self, vehID, minGap):
         """setMinGap(string, double) -> None

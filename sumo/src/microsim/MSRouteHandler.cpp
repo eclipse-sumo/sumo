@@ -79,8 +79,7 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(0),
     myCurrentRouteDistribution(0),
-    myAmLoadingState(false)
-{
+    myAmLoadingState(false) {
     myActiveRoute.reserve(100);
 }
 

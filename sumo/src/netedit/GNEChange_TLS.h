@@ -80,12 +80,12 @@ public:
 
 private:
     /**@brief we need the junction because it is the target of our change commands
-     * @note we assume shared responsiblity for the junction via reference counting 
+     * @note we assume shared responsiblity for the junction via reference counting
      */
     GNEJunction* myJunction;
 
     /**@brief the traffic light to be created/deleted. We assume no responsiblity for the pointer
-     * @note since it is hard to track by which NBnodes a tlDef is used (may be more than one). 
+     * @note since it is hard to track by which NBnodes a tlDef is used (may be more than one).
      */
     NBTrafficLightDefinition* myTlDef;
 

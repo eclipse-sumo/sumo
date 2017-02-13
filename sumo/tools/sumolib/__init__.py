@@ -230,4 +230,5 @@ def writeXMLHeader(outf, script, root=None):
 """ % (datetime.datetime.now(), script,
        (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))))
     if root is not None:
-        outf.write('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s_file.xsd">\n' % (root, root))
+        outf.write(
+            '<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s_file.xsd">\n' % (root, root))

@@ -193,12 +193,12 @@ MTRand GUIApplicationWindow::myGamingRNG;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPattern) : 
+GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPattern) :
     GUIMainWindow(a),
     myLoadThread(0), myRunThread(0),
     myAmLoading(false),
     myAlternateSimDelay(0),
-    myRecentNets(a, "nets"), 
+    myRecentNets(a, "nets"),
     myConfigPattern(configPattern),
     hadDependentBuild(false),
     myShowTimeAsHMS(false),
@@ -482,8 +482,8 @@ GUIApplicationWindow::fillMenuBar() {
                     "Show Internal Structures\t\tShow internal junctions and streets in locator dialog.",
                     this, MID_LISTINTERNAL);
     FXMenuCheck* listParking = new FXMenuCheck(myLocatorMenu,
-                    "Show Parking Vehicles\t\tShow parking vehicles in locator dialog.",
-                    this, MID_LISTPARKING);
+            "Show Parking Vehicles\t\tShow parking vehicles in locator dialog.",
+            this, MID_LISTPARKING);
     listParking->setCheck(myListParking);
     new FXMenuCheck(myLocatorMenu,
                     "Show vehicles outside the road network\t\tShow vehicles that are teleporting or driving remote-controlled outside the road network in locator dialog.",

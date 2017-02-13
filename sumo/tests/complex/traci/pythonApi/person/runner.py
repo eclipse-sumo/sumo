@@ -42,7 +42,7 @@ def step():
     return s
 
 # add walking person
-traci.person.add("newPerson", "3si", -10) 
+traci.person.add("newPerson", "3si", -10)
 traci.person.appendWalkingStage("newPerson", ["3si", "2si"], -20)
 traci.person.appendWaitingStage("newPerson", 10, "twiddling thumbs")
 traci.person.appendWalkingStage("newPerson", ["2si", "2o"], 20)
@@ -58,8 +58,9 @@ traci.person.setLength(personID, 2)
 traci.person.setHeight(personID, 1.9)
 traci.person.setWidth(personID, 1.11)
 traci.person.setMinGap(personID, 2.22)
-traci.person.setColor(personID, (0,0,255,255))
+traci.person.setColor(personID, (0, 0, 255, 255))
 print("type", traci.person.getTypeID(personID))
+
 
 def check(personID):
     print("persons", traci.person.getIDList())
@@ -100,7 +101,8 @@ traci.person.appendDrivingStage("newPerson", "1o", "B42")
 traci.route.add("r0", ["3si", "1o"])
 traci.vehicle.add("veh0", "r0", traci.vehicle.DEPART_TRIGGERED, pos=230)
 traci.vehicle.setLine("veh0", "B42")
-traci.vehicle.setStop("veh0", "3si", 235, laneIndex=2, startPos=230, duration=1000)
+traci.vehicle.setStop(
+    "veh0", "3si", 235, laneIndex=2, startPos=230, duration=1000)
 
 print("getIDList", traci.person.getIDList())
 for i in range(10):
@@ -108,7 +110,8 @@ for i in range(10):
     print(traci.person.getSubscriptionResults(personID))
 
 traci.person.removeStages("newPerson")
-traci.person.appendWaitingStage("newPerson", 10, "Jumped out of a moving vehicle. Ouch!")
+traci.person.appendWaitingStage(
+    "newPerson", 10, "Jumped out of a moving vehicle. Ouch!")
 
 for i in range(196):
     step()

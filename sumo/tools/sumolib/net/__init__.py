@@ -388,7 +388,8 @@ class Net:
             n._coord = (n._coord[0] + dx, n._coord[1] + dy, n._coord[2] + dz)
         for e in self._edges:
             for l in e._lanes:
-                l._shape = [(p[0] + dx, p[1] + dy, p[2] + dz) for p in l.getShape3D()]
+                l._shape = [(p[0] + dx, p[1] + dy, p[2] + dz)
+                            for p in l.getShape3D()]
             e.rebuildShape()
 
 
@@ -417,9 +418,11 @@ class NetReader(handler.ContentHandler):
                 if 'priority' in attrs:
                     prio = int(attrs['priority'])
                 self._currentEdge = self._net.addEdge(attrs['id'],
-                                                      attrs.get('from', None), attrs.get('to', None),
+                                                      attrs.get('from', None), attrs.get(
+                                                          'to', None),
                                                       prio, function, attrs.get('name', ''))
-                self._currentEdge.setRawShape(convertShape(attrs.get('shape', '')))
+                self._currentEdge.setRawShape(
+                    convertShape(attrs.get('shape', '')))
             else:
                 if function in ['crossing', 'walkingarea']:
                     self._net._crossings_and_walkingAreas.add(attrs['id'])
@@ -437,10 +440,12 @@ class NetReader(handler.ContentHandler):
                 intLanes = None
                 if self._withInternal:
                     intLanes = attrs["intLanes"].split(" ")
-                self._currentNode = self._net.addNode(attrs['id'], attrs['type'], 
-                        tuple(map(float, [attrs['x'], attrs['y'], attrs['z'] if 'z' in attrs else '0'])), 
-                        attrs['incLanes'].split(" "), intLanes)
-                self._currentNode.setShape(convertShape(attrs.get('shape', '')))
+                self._currentNode = self._net.addNode(attrs['id'], attrs['type'],
+                                                      tuple(
+                                                          map(float, [attrs['x'], attrs['y'], attrs['z'] if 'z' in attrs else '0'])),
+                                                      attrs['incLanes'].split(" "), intLanes)
+                self._currentNode.setShape(
+                    convertShape(attrs.get('shape', '')))
         if name == 'succ' and self._withConnections:  # deprecated
             if attrs['edge'][0] != ':':
                 self._currentEdge = self._net.getEdge(attrs['edge'])
@@ -538,13 +543,13 @@ class NetReader(handler.ContentHandler):
         return self._net
 
 
-def convertShape(shapeString): 
+def convertShape(shapeString):
     """ Convert xml shape string into float tuples.
 
     This method converts the 2d or 3d shape string from SUMO's xml file
     into a list containing 3d float-tuples. Non existant z coordinates default
     to zero. If shapeString is empty, an empty list will be returned.
-    """ 
+    """
 
     cshape = []
     for pointString in shapeString.split():
@@ -554,7 +559,8 @@ def convertShape(shapeString):
         elif len(p) == 3:
             cshape.append(tuple(p))
         else:
-            raise ValueError('Invalid shape point "%s", should be either 2d or 3d' % pointString)
+            raise ValueError(
+                'Invalid shape point "%s", should be either 2d or 3d' % pointString)
     return cshape
 
 

@@ -233,6 +233,7 @@ class RouteDrawings(Polygons):
 
 
 class AddTripTool(AddPolygonTool):
+
     """
     Mixin for Selection tools for OGL canvas.
     """
@@ -274,7 +275,8 @@ class AddTripTool(AddPolygonTool):
     def begin_animation(self, event):
         # print 'AddLineTool.begin_animation'
         #self.drawobj_anim, _id, self.ind_vert =  self.get_current_vertexselection()
-        self.drawobj_anim = self._canvas.get_drawing().get_drawobj_by_ident('zonedraws')
+        self.drawobj_anim = self._canvas.get_drawing().get_drawobj_by_ident(
+            'zonedraws')
         self.coord_last = self._canvas.unproject(event.GetPosition())
         #vertices = [list(self.coord_last),list(self.coord_last) ]
         # attention, we need copies here!!
@@ -297,6 +299,7 @@ class AddTripTool(AddPolygonTool):
 
 
 class WxGui(ModuleGui):
+
     """Contains functions that communicate between the widgets of the main wx gui
     and the functions of the plugin.
     """

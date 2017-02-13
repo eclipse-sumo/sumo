@@ -131,7 +131,7 @@ private:
     GNEJunction* myParentJunction;
 
     /// @brief the data for this crossing
-    NBNode::Crossing &myCrossing;
+    NBNode::Crossing& myCrossing;
 
     /// @brief the shape of the edge
     const PositionVector myShape;

@@ -77,7 +77,7 @@ GNECrossing::updateGeometry() {
     myShapeRotations.clear();
     myShapeLengths.clear();
     // only rebuild shape if junction's shape isn't in Buuble mode
-    if(myParentJunction->getNBNode()->getShape().size() > 0) {
+    if (myParentJunction->getNBNode()->getShape().size() > 0) {
         // Obtain segments of size and calculate it
         int segments = (int) myCrossing.shape.size() - 1;
         if (segments >= 0) {
@@ -94,13 +94,13 @@ GNECrossing::updateGeometry() {
 }
 
 
-GNEJunction* 
+GNEJunction*
 GNECrossing::getParentJunction() const {
     return myParentJunction;
 }
 
 
-NBNode::Crossing& 
+NBNode::Crossing&
 GNECrossing::getNBCrossing() const {
     return myCrossing;
 }
@@ -114,7 +114,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         // push name
         glPushName(getGlID());
-         // must draw on top of junction
+        // must draw on top of junction
         glTranslated(0, 0, GLO_JUNCTION + 0.1);
         // set color depending of priority
         if (myCrossing.priority) {
@@ -238,8 +238,8 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
             std::vector<std::string> NBEdgeIDs;
             SUMOSAXAttributes::parseStringVector(value, NBEdgeIDs);
             // Obtain NBEdges of GNENet and check if exists
-            for(std::vector<std::string>::iterator i = NBEdgeIDs.begin(); i != NBEdgeIDs.end(); i++) {
-                if(myNet->retrieveEdge((*i), false) == NULL) {
+            for (std::vector<std::string>::iterator i = NBEdgeIDs.begin(); i != NBEdgeIDs.end(); i++) {
+                if (myNet->retrieveEdge((*i), false) == NULL) {
                     return false;
                 }
             }
@@ -269,7 +269,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             std::vector<std::string> NBEdgeIDs;
             SUMOSAXAttributes::parseStringVector(value, NBEdgeIDs);
             // Obtain NBEdges of GNENet and insert it in the crossing
-            for(std::vector<std::string>::iterator i = NBEdgeIDs.begin(); i != NBEdgeIDs.end(); i++) {
+            for (std::vector<std::string>::iterator i = NBEdgeIDs.begin(); i != NBEdgeIDs.end(); i++) {
                 myCrossing.edges.push_back(myNet->retrieveEdge(*i)->getNBEdge());
             }
             break;

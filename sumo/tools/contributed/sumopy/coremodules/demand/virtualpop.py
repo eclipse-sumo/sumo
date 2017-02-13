@@ -570,7 +570,8 @@ class Virtualpolulation(am.ArrayObjman):
 
         #--------------------------------------------------------------------
         # Activities table
-        self.add(cm.ObjConf(Activities('activities', self, scenario.net.lanes)))
+        self.add(
+            cm.ObjConf(Activities('activities', self, scenario.net.lanes)))
 
         #--------------------------------------------------------------------
         # misc params
@@ -692,7 +693,8 @@ class Virtualpolulation(am.ArrayObjman):
         demand = self.parent
         odflowtab = demand.odintervals.generate_odflows()
 
-        probs_fac, ids_fac = self.get_landuse().facilities.get_departure_probabilities()
+        probs_fac, ids_fac = self.get_landuse(
+        ).facilities.get_departure_probabilities()
         landusetypes = self.get_landuse().landusetypes
 
         for id_flow in odflowtab.get_ids():
@@ -865,7 +867,8 @@ class Virtualpolulation(am.ArrayObjman):
                 id_parking_home, id_parking_activity, id_veh)
             print 79 * '_'
             print '  id_plan=%d, id_person=%d, ids_veh=%d, n_edges=%d' % (id_plan, id_person,  id_veh, len(ids_edge_car))
-            if len(ids_edge_car) > 0:  # simple check for reachibility of destination
+            # simple check for reachibility of destination
+            if len(ids_edge_car) > 0:
                 # print '  found route between parling duration_approx_car',duration_approx_car
                 # preroute walking
                 ids_edge_walk, dists_walk, durations_walk = self.get_route(
@@ -876,7 +879,8 @@ class Virtualpolulation(am.ArrayObjman):
                     id_edge_home, id_edge_parking_home, pos_edge_home, pos_edge_parking_home, id_mode=MODES['pedestrian'])
                 id_stage, time = self.walks.value.append_stage(id_plan, time, duration=sum(durations_walk),
                                                                id_edge_from=id_edge_home, position_edge_from=pos_edge_home,
-                                                               id_edge_to=id_edge_parking_home, position_edge_to=pos_edge_parking_home - 7.0,
+                                                               id_edge_to=id_edge_parking_home, position_edge_to=pos_edge_parking_home -
+                                                               7.0,
                                                                )
 
                 # self.append_stage(  id_plan, self.walks,
@@ -897,7 +901,8 @@ class Virtualpolulation(am.ArrayObjman):
                     id_edge_parking_activity, id_edge_activity, pos_edge_home, pos_edge_activity, id_mode=MODES['pedestrian'])
 
                 id_stage, time = self.walks.value.append_stage(id_plan, time, duration=sum(durations_walk),
-                                                               id_edge_from=id_edge_parking_activity, position_edge_from=pos_edge_parking_activity - 7.0,
+                                                               id_edge_from=id_edge_parking_activity, position_edge_from=pos_edge_parking_activity -
+                                                               7.0,
                                                                id_edge_to=id_edge_activity, position_edge_to=pos_edge_activity,
                                                                )
             else:

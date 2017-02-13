@@ -402,17 +402,17 @@ MSTransportable::getSpeed() const {
 }
 
 
-int 
+int
 MSTransportable::getNumRemainingStages() const {
     return (int)(myPlan->end() - myStep);
 }
 
-int 
+int
 MSTransportable::getNumStages() const {
     return (int)myPlan->size();
 }
 
-void 
+void
 MSTransportable::appendStage(Stage* stage) {
     // myStep is invalidated upon modifying myPlan
     const int stepIndex = (int)(myStep - myPlan->begin());
@@ -421,7 +421,7 @@ MSTransportable::appendStage(Stage* stage) {
 }
 
 
-void 
+void
 MSTransportable::removeStage(int next) {
     assert(myStep + next < myPlan->end());
     assert(next >= 0);
@@ -435,14 +435,14 @@ MSTransportable::removeStage(int next) {
         if (myStep + 1 == myPlan->end()) {
             // stay in the simulation until the start of simStep to allow appending new stages (at the correct position)
             appendStage(new Stage_Waiting(*getEdge(), 0, 0, getEdgePos(), "last stage removed", false));
-        } 
+        }
         (*myStep)->abort(this);
         proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
     }
 }
 
 
-void 
+void
 MSTransportable::setSpeed(SUMOReal speed) {
     for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
         (*i)->setSpeed(speed);

@@ -51,7 +51,8 @@ try:
                 'svn up --ignore-externals -r %s sumo' % rev, shell=True)
             if ret != 0:
                 break
-            subprocess.call('cd sumo; make clean; make -j 16; cd ..', shell=True)
+            subprocess.call(
+                'cd sumo; make clean; make -j 16; cd ..', shell=True)
             shutil.copytree('sumo/bin', 'bin%s' % rev,
                             ignore=shutil.ignore_patterns('Makefile*', '*.bat', '*.jar'))
             subprocess.call('strip -R .note.gnu.build-id bin%s/*' %

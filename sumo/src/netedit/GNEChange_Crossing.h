@@ -62,7 +62,7 @@ public:
      * @param[in] priority boolean with the priority of crossing
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*> &edges, SUMOReal width, bool priority, bool forward);
+    GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges, SUMOReal width, bool priority, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Crossing();
@@ -92,7 +92,7 @@ private:
     /// @brief width of GNECrossing
     SUMOReal myWidth;
 
-    /// @brief priority of GNECrossing 
+    /// @brief priority of GNECrossing
     bool myPriority;
 };
 

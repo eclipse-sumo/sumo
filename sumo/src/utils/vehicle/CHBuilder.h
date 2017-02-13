@@ -97,8 +97,8 @@ public:
      *            hierarchy is tailored to the svc
      */
     CHBuilder(const std::vector<E*>& edges, bool unbuildIsWarning,
-             const SUMOVehicleClass svc,
-             bool validatePermissions):
+              const SUMOVehicleClass svc,
+              bool validatePermissions):
         myEdges(edges),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         mySPTree(new SPTree<CHInfo, CHConnection>(4, validatePermissions)),

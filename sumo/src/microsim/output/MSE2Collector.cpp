@@ -161,14 +161,14 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
                                           veh.getVehicleType().getLengthWithGap(), veh.getAcceleration(), vmax, true));
 //    DBG(
 #ifdef DEBUG_NOTIFY_MOVE
-        std::ostringstream str;
-        str << time2string(MSNet::getInstance()->getCurrentTimeStep())
+    std::ostringstream str;
+    str << time2string(MSNet::getInstance()->getCurrentTimeStep())
         << " MSE2Collector::notifyMove::"
         << " lane " << myLane->getID()
         << " passedVeh " << myPassedVeh
         << " myKnownVehicles-length " << myPreviousKnownVehicles.size();
 //        WRITE_MESSAGE(str.str());
-        std::cout << str.str() << std::endl;
+    std::cout << str.str() << std::endl;
 #endif
 //    )
     return true;
@@ -375,9 +375,9 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     //       (include in VehicleInfo?); (3) including this code into the first loop above on the price of using a non-constant
     //       iterator there.
     for (std::vector<VehicleInfo>::iterator i = myKnownVehicles.begin(); i != myKnownVehicles.end(); ++i) {
-        for (iv = myPreviousKnownVehicles.begin(); iv != myPreviousKnownVehicles.end(); ++iv){
+        for (iv = myPreviousKnownVehicles.begin(); iv != myPreviousKnownVehicles.end(); ++iv) {
             // if the vehicle was here before, account for the accumulated timeloss as well (i->timeLoss is only the last step's timeloss)
-            if (iv->id == i->id){
+            if (iv->id == i->id) {
                 i->accumulatedTimeLoss += iv->timeLoss;
                 break;
             }

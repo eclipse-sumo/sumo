@@ -387,10 +387,10 @@ protected:
     GNEViewNet* myViewNet;
 
     /// @brief Pointer to the last inserted E3
-    GNEDetectorE3 *myE3Parent;
+    GNEDetectorE3* myE3Parent;
 
     /// @brief pointer to rerouterInterval in which insert GNEClosingReroute, GNEDestProbReroute, etc.
-    GNERerouterInterval *rerouterIntervalToInsertValues;
+    GNERerouterInterval* rerouterIntervalToInsertValues;
 
     /// @brief last used Tag
     SumoXMLTag myLastTag;
@@ -401,7 +401,7 @@ protected:
 private:
     /// @brief get parsed attribute of XML and show warnings if there are problems
     template<typename T>
-    static T getParsedAttribute(const SUMOSAXAttributes& attrs, const char* objectid, SumoXMLTag tag, SumoXMLAttr attribute, bool &abort, bool report = true);
+    static T getParsedAttribute(const SUMOSAXAttributes& attrs, const char* objectid, SumoXMLTag tag, SumoXMLAttr attribute, bool& abort, bool report = true);
 
     /// @brief get special attribute friendly position, used in stopping places
     bool getFriendlyPosition(const SUMOSAXAttributes& attrs, const char* objectid);

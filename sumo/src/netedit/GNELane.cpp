@@ -799,7 +799,7 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_WIDTH:
-            if(value == "default") {
+            if (value == "default") {
                 return true;
             } else {
                 return canParse<SUMOReal>(value) && (isPositive<SUMOReal>(value) || parse<SUMOReal>(value) == NBEdge::UNSPECIFIED_WIDTH);
@@ -843,7 +843,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getViewNet()->update();
             break;
         case SUMO_ATTR_WIDTH:
-            if(value == "default") {
+            if (value == "default") {
                 edge->setLaneWidth(myIndex, NBEdge::UNSPECIFIED_WIDTH);
             } else {
                 edge->setLaneWidth(myIndex, parse<SUMOReal>(value));

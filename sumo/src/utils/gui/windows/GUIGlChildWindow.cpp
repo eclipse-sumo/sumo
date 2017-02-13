@@ -98,7 +98,7 @@ void
 GUIGlChildWindow::buildNavigationToolBar() {
     // Build navigation toolbar
     myNavigationToolBar = new FXToolBar(myContentFrame, GUIDesignBar);
-    
+
     // build the view settings
     // recenter view
     new FXButton(myNavigationToolBar,

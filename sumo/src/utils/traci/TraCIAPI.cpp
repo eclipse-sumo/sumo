@@ -2199,7 +2199,7 @@ TraCIAPI::VehicleScope::setLine(const std::string& vehicleID, const std::string&
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
 
-void 
+void
 TraCIAPI::VehicleScope::setVia(const std::string& vehicleID, const std::vector<std::string>& via) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRINGLIST);
@@ -2306,7 +2306,7 @@ TraCIAPI::PersonScope::getEdges(const std::string& personID, int nextStageIndex)
     return myParent.getStringVector(CMD_GET_PERSON_VARIABLE, VAR_EDGES, personID, &content);
 }
 
-void 
+void
 TraCIAPI::PersonScope::removeStages(const std::string& personID) const {
     // remove all stages after the current and then abort the current stage
     while (getRemainingStages(personID) > 1) {
@@ -2315,10 +2315,10 @@ TraCIAPI::PersonScope::removeStages(const std::string& personID) const {
     removeStage(personID, 0);
 }
 
-void 
+void
 TraCIAPI::PersonScope::add(const std::string& personID, const std::string& edgeID, SUMOReal pos, SUMOReal depart, const std::string typeID) {
     if (depart > 0) {
-        depart*= 1000;
+        depart *= 1000;
     }
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
@@ -2336,9 +2336,9 @@ TraCIAPI::PersonScope::add(const std::string& personID, const std::string& edgeI
     myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
 }
 
-void 
+void
 TraCIAPI::PersonScope::appendWaitingStage(const std::string& personID, SUMOReal duration, const std::string& description, const std::string& stopID) {
-    duration*= 1000;
+    duration *= 1000;
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt(4);
@@ -2355,10 +2355,10 @@ TraCIAPI::PersonScope::appendWaitingStage(const std::string& personID, SUMOReal 
     myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
 }
 
-void 
+void
 TraCIAPI::PersonScope::appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, SUMOReal arrivalPos, SUMOReal duration, SUMOReal speed, const std::string& stopID) {
     if (duration > 0) {
-        duration*= 1000;
+        duration *= 1000;
     }
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
@@ -2380,7 +2380,7 @@ TraCIAPI::PersonScope::appendWalkingStage(const std::string& personID, const std
     myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
 }
 
-void 
+void
 TraCIAPI::PersonScope::appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID) {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
@@ -2398,7 +2398,7 @@ TraCIAPI::PersonScope::appendDrivingStage(const std::string& personID, const std
     myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
 }
 
-void 
+void
 TraCIAPI::PersonScope::removeStage(const std::string& personID, int nextStageIndex) const {
     tcpip::Storage content;
     content.writeByte(TYPE_INTEGER);

@@ -3,7 +3,8 @@ import os
 import sys
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
-neteditTestRoot = os.path.join(os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
+neteditTestRoot = os.path.join(
+    os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
 sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit
 
@@ -34,7 +35,8 @@ netedit.modifyAttribute(parametersReference, 1, "3 7 1")
 # rebuild network
 netedit.rebuildNetwork()
 
-# Change Edges with the same edges as another crossing (Duplicate crossings aren't allow)
+# Change Edges with the same edges as another crossing (Duplicate
+# crossings aren't allow)
 netedit.modifyAttribute(parametersReference, 1, "4 8")
 
 # rebuild network
@@ -73,5 +75,5 @@ netedit.redo(match, 3)
 # save newtork
 netedit.saveNetwork()
 
-# quit netedit 
+# quit netedit
 netedit.quit(neteditProcess, False, False)

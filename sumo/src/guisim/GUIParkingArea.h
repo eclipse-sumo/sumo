@@ -68,7 +68,7 @@ class GUIManipulator;
  */
 class GUIParkingArea : public MSParkingArea, public GUIGlObject_AbstractAdd {
 public:
-    
+
     /** @brief Constructor
      * @param[in] idStorage The gl-id storage for giving this object an gl-id
      * @param[in] id The id of the parking area

@@ -71,6 +71,7 @@ def get_allowed(allow, disallow):
         disallow = disallow.split()
         return tuple([c for c in SUMO_VEHICLE_CLASSES if not c in disallow])
 
+
 def addJunctionPos(shape, fromPos, toPos):
     """Extends shape with the given positions in case they differ from the
     existing endpoints. assumes that shape and positions have the same dimensionality"""
@@ -101,14 +102,14 @@ class Lane:
 
     def isInternal(self):
         """Returns True, if the lane is an internal lane. 
-        
+
         Raises a ValueError if the lane does not yet have an edge yet."""
-        
+
         if self._edge is None:
             raise ValueError, 'edge for this lane not yet defined'
         else:
             return self._edge.isInternal()
-        
+
     def getSpeed(self):
         return self._speed
 
@@ -124,9 +125,9 @@ class Lane:
         for pp in shape:
             if len(pp) != 3:
                 raise ValueError('shape point must consist of x,y,z')
-        
+
         self._shape3D = shape
-        self._shape = [(x,y) for x,y,z in shape]
+        self._shape = [(x, y) for x, y, z in shape]
 
     def getShape(self, includeJunctions=False):
         """Returns the shape of the lane in 2d.
@@ -147,8 +148,8 @@ class Lane:
         if includeJunctions and not self._edge.isInternal():
             if self._shapeWithJunctions is None:
                 self._shapeWithJunctions = addJunctionPos(self._shape,
-                        self._edge.getFromNode().getCoord(),
-                        self._edge.getToNode().getCoord())
+                                                          self._edge.getFromNode().getCoord(),
+                                                          self._edge.getToNode().getCoord())
             return self._shapeWithJunctions
         return self._shape
 
@@ -172,8 +173,9 @@ class Lane:
         if includeJunctions and not self._edge.isSpecial():
             if self._shapeWithJunctions3D is None:
                 self._shapeWithJunctions3D = addJunctionPos(self._shape3D,
-                        self._edge.getFromNode().getCoord3D(),
-                        self._edge.getToNode().getCoord3D())
+                                                            self._edge.getFromNode(
+                                                            ).getCoord3D(),
+                                                            self._edge.getToNode().getCoord3D())
             return self._shapeWithJunctions3D
         return self._shape3D
 

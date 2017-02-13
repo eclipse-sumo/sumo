@@ -147,7 +147,7 @@ GNECalibratorDialog::~GNECalibratorDialog() {
 long
 GNECalibratorDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     // Declare new calibrator
-    GNECalibrator::GNECalibratorFlow *calibratorFlow = new GNECalibrator::GNECalibratorFlow (0,"","");
+    GNECalibrator::GNECalibratorFlow* calibratorFlow = new GNECalibrator::GNECalibratorFlow(0, "", "");
     // set ID
     std::string id = myTextFieldId->getText().text();
 

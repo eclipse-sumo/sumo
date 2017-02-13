@@ -187,7 +187,7 @@ public:
      */
     void writeConfiguration(std::ostream& os, const bool filled,
                             const bool complete, const bool addComments,
-                            const bool maskDoubleHyphen=false) const;
+                            const bool maskDoubleHyphen = false) const;
 
 
     /** @brief Writes the xml schema for the configuration

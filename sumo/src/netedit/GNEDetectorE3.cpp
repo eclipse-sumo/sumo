@@ -110,12 +110,12 @@ GNEDetectorE3::updateGeometry() {
 
 
     // iterate over entry childs and update their gemometries
-    for(std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
+    for (std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
         (*i)->updateGeometryByParent();
     }
 
     // iterate over entry childs and update their gemometries
-    for(std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
+    for (std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
         (*i)->updateGeometryByParent();
     }
 
@@ -166,7 +166,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_Y, myPosition.y());
 
         // Write entrys
-        for(std::vector<GNEDetectorEntry*>::const_iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
+        for (std::vector<GNEDetectorEntry*>::const_iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
             device.openTag((*i)->getTag());
             device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
             device.writeAttr(SUMO_ATTR_POSITION, (*i)->getPositionOverLane());
@@ -174,7 +174,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
         }
 
         // Write exits
-        for(std::vector<GNEDetectorExit*>::const_iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
+        for (std::vector<GNEDetectorExit*>::const_iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
             device.openTag((*i)->getTag());
             device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
             device.writeAttr(SUMO_ATTR_POSITION, (*i)->getPositionOverLane());
@@ -189,7 +189,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
 }
 
 
-std::string 
+std::string
 GNEDetectorE3::generateEntryID() {
     int counter = 0;
     while (myViewNet->getNet()->getAdditional(SUMO_TAG_DET_ENTRY, getID() + "_Entry" + toString(counter)) != NULL) {
@@ -199,7 +199,7 @@ GNEDetectorE3::generateEntryID() {
 }
 
 
-std::string 
+std::string
 GNEDetectorE3::generateExitID() {
     int counter = 0;
     while (myViewNet->getNet()->getAdditional(SUMO_TAG_DET_EXIT, getID() + "_Exit" + toString(counter)) != NULL) {
@@ -215,12 +215,12 @@ GNEDetectorE3::getParentName() const {
 }
 
 
-void 
-GNEDetectorE3::addEntryChild(GNEDetectorEntry *entry) {
+void
+GNEDetectorE3::addEntryChild(GNEDetectorEntry* entry) {
     // Check that entry is valid and doesn't exist previously
-    if(entry == NULL) {
+    if (entry == NULL) {
         throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_DET_ENTRY) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
-    } else if(std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry) != myGNEDetectorEntrys.end()) {
+    } else if (std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry) != myGNEDetectorEntrys.end()) {
         throw InvalidArgument("Trying to add a duplicated " + toString(SUMO_TAG_DET_ENTRY) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
     } else {
         myGNEDetectorEntrys.push_back(entry);
@@ -228,12 +228,12 @@ GNEDetectorE3::addEntryChild(GNEDetectorEntry *entry) {
 }
 
 
-void 
-GNEDetectorE3::removeEntryChild(GNEDetectorEntry *entry) {
+void
+GNEDetectorE3::removeEntryChild(GNEDetectorEntry* entry) {
     // Check that entry is valid and exist previously
-    if(entry == NULL) {
+    if (entry == NULL) {
         throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_DET_ENTRY) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
-    } else if(std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry) == myGNEDetectorEntrys.end()) {
+    } else if (std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry) == myGNEDetectorEntrys.end()) {
         throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_DET_ENTRY) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
     } else {
         myGNEDetectorEntrys.erase(std::find(myGNEDetectorEntrys.begin(), myGNEDetectorEntrys.end(), entry));
@@ -241,12 +241,12 @@ GNEDetectorE3::removeEntryChild(GNEDetectorEntry *entry) {
 }
 
 
-void 
-GNEDetectorE3::addExitChild(GNEDetectorExit *exit) {
+void
+GNEDetectorE3::addExitChild(GNEDetectorExit* exit) {
     // Check that exit is valid and doesn't exist previously
-    if(exit == NULL) {
+    if (exit == NULL) {
         throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_DET_EXIT) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
-    } else if(std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit) != myGNEDetectorExits.end()) {
+    } else if (std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit) != myGNEDetectorExits.end()) {
         throw InvalidArgument("Trying to add a duplicated " + toString(SUMO_TAG_DET_EXIT) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
     } else {
         myGNEDetectorExits.push_back(exit);
@@ -254,12 +254,12 @@ GNEDetectorE3::addExitChild(GNEDetectorExit *exit) {
 }
 
 
-void 
-GNEDetectorE3::removeExitChild(GNEDetectorExit *exit) {
+void
+GNEDetectorE3::removeExitChild(GNEDetectorExit* exit) {
     // Check that exit is valid and exist previously
-    if(exit == NULL) {
+    if (exit == NULL) {
         throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_DET_EXIT) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
-    } else if(std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit) == myGNEDetectorExits.end()) {
+    } else if (std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit) == myGNEDetectorExits.end()) {
         throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_DET_EXIT) + " child in " + toString(SUMO_TAG_E3DETECTOR) + " with ID='" + getID() + "'");
     } else {
         myGNEDetectorExits.erase(std::find(myGNEDetectorExits.begin(), myGNEDetectorExits.end(), exit));
@@ -267,13 +267,13 @@ GNEDetectorE3::removeExitChild(GNEDetectorExit *exit) {
 }
 
 
-int 
+int
 GNEDetectorE3::getNumberOfEntryChilds() const {
     return (int)myGNEDetectorEntrys.size();
 }
 
 
-int 
+int
 GNEDetectorE3::getNumberOfExitChilds() const {
     return (int)myGNEDetectorExits.size();
 }
@@ -396,10 +396,10 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             setAdditionalID(value);
             // Change Ids of all Entry/Exits childs
-            for(std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
+            for (std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
                 (*i)->setAdditionalID(generateEntryID());
             }
-            for(std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
+            for (std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
                 (*i)->setAdditionalID(generateExitID());
             }
             break;
@@ -435,7 +435,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEDetectorE3::updateGeometryConnections() {
     myConnectionPositions.clear();
     // Iterate over Entrys
@@ -445,14 +445,14 @@ GNEDetectorE3::updateGeometryConnections() {
         SUMOReal B = std::abs((*i)->getPositionInView().y() - getPositionInView().y());
         // Set positions of connection's vertex. Connection is build from Entry to E3
         posConnection.push_back((*i)->getPositionInView());
-        if(getPositionInView().x() > (*i)->getPositionInView().x()) {
-            if(getPositionInView().y() > (*i)->getPositionInView().y()) {
+        if (getPositionInView().x() > (*i)->getPositionInView().x()) {
+            if (getPositionInView().y() > (*i)->getPositionInView().y()) {
                 posConnection.push_back(Position((*i)->getPositionInView().x() + A, (*i)->getPositionInView().y()));
             } else {
                 posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() - B));
             }
         } else {
-            if(getPositionInView().y() > (*i)->getPositionInView().y()) {
+            if (getPositionInView().y() > (*i)->getPositionInView().y()) {
                 posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() + B));
             } else {
                 posConnection.push_back(Position((*i)->getPositionInView().x() - A, (*i)->getPositionInView().y()));
@@ -468,14 +468,14 @@ GNEDetectorE3::updateGeometryConnections() {
         SUMOReal B = std::abs((*i)->getPositionInView().y() - getPositionInView().y());
         // Set positions of connection's vertex. Connection is build from Entry to E3
         posConnection.push_back((*i)->getPositionInView());
-        if(getPositionInView().x() > (*i)->getPositionInView().x()) {
-            if(getPositionInView().y() > (*i)->getPositionInView().y()) {
+        if (getPositionInView().x() > (*i)->getPositionInView().x()) {
+            if (getPositionInView().y() > (*i)->getPositionInView().y()) {
                 posConnection.push_back(Position((*i)->getPositionInView().x() + A, (*i)->getPositionInView().y()));
             } else {
                 posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() - B));
             }
         } else {
-            if(getPositionInView().y() > (*i)->getPositionInView().y()) {
+            if (getPositionInView().y() > (*i)->getPositionInView().y()) {
                 posConnection.push_back(Position((*i)->getPositionInView().x(), (*i)->getPositionInView().y() + B));
             } else {
                 posConnection.push_back(Position((*i)->getPositionInView().x() - A, (*i)->getPositionInView().y()));

@@ -414,28 +414,30 @@ NLTriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id,
 
 void
 NLTriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
-        const std::vector<std::string>& lines,
-        MSLane* lane, SUMOReal frompos, SUMOReal topos,
-        unsigned int capacity,
-        SUMOReal width, SUMOReal length, SUMOReal angle) {
+                                   const std::vector<std::string>& lines,
+                                   MSLane* lane, SUMOReal frompos, SUMOReal topos,
+                                   unsigned int capacity,
+                                   SUMOReal width, SUMOReal length, SUMOReal angle) {
     // Close previous parking area if there are not lots inside
 
     MSParkingArea* stop = new MSParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle);
     if (!net.addParkingArea(stop)) {
         delete stop;
         throw InvalidArgument("Could not build parking area '" + id + "'; probably declared twice.");
-    } else
+    } else {
         myParkingArea = stop;
+    }
 }
 
 
 void
 NLTriggerBuilder::addLotEntry(SUMOReal x, SUMOReal y, SUMOReal z,
-        SUMOReal width, SUMOReal length, SUMOReal angle) {                          
+                              SUMOReal width, SUMOReal length, SUMOReal angle) {
     if (myParkingArea != 0) {
         myParkingArea->addLotEntry(x, y, z, width, length, angle);
-    } else
+    } else {
         throw InvalidArgument("Could not add lot entry outside a parking area.");
+    }
 }
 
 
@@ -443,8 +445,9 @@ void
 NLTriggerBuilder::endParkingArea() {
     if (myParkingArea != 0) {
         myParkingArea = 0;
-    } else
+    } else {
         throw InvalidArgument("Could not end a parking area that is not opened.");
+    }
 }
 
 

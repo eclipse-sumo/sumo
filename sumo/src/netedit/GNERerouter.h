@@ -90,7 +90,7 @@ public:
     void removeEdgeChild(GNEEdge* edge);
 
     /// @brief get rerouter intervals
-    const std::vector<GNERerouterInterval> &getRerouterIntervals() const;
+    const std::vector<GNERerouterInterval>& getRerouterIntervals() const;
 
     /**@brief set rerouter intervals
      * @note all previously intervals will be deleted

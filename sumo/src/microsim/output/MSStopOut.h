@@ -90,25 +90,25 @@ private:
     struct StopInfo {
 
         StopInfo(SUMOTime t, int numPersons, int numContainers) :
-            started(t), 
+            started(t),
             initialNumPersons(numPersons),
             loadedPersons(0),
             unloadedPersons(0),
             initialNumContainers(numContainers),
             loadedContainers(0),
-            unloadedContainers(0) 
-        {}
+            unloadedContainers(0) {
+        }
 
         // @note: need default constructor or std::map doesn't work
         StopInfo() :
-            started(-1), 
+            started(-1),
             initialNumPersons(0),
             loadedPersons(0),
             unloadedPersons(0),
             initialNumContainers(0),
             loadedContainers(0),
-            unloadedContainers(0) 
-        {}
+            unloadedContainers(0) {
+        }
 
         SUMOTime started;
         int initialNumPersons;

@@ -138,7 +138,7 @@ private:
     /// @brief List of names of polygons/pois that shall be removed
     std::vector<std::string> myRemoveByNames;
 
-    static void writeDlrTDPHeader(OutputDevice& device, const OptionsCont& oc); 
+    static void writeDlrTDPHeader(OutputDevice& device, const OptionsCont& oc);
 
 private:
     /// @brief Invalidated copy constructor

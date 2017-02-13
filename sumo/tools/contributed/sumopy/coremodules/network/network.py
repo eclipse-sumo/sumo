@@ -67,6 +67,7 @@ OSMEDGETYPE_TO_MODES = {'highway.cycleway': ([MODES['bicycle']], 5.6),
 
 
 class SumoIdsConf(am.ArrayConf):
+
     """
     Sumo id array coniguration
     """
@@ -183,7 +184,9 @@ class TrafficLightLogics(am.ArrayObjman):
                                      groupnames=['state'],
                                      name='ID tls',
                                      info='ID of traffic light system.  Typically the id for a traffic light is identical with the junction id. The name may be obtained by right-clicking the red/green bars in front of a controlled intersection.',
-                                     xmltag='id',  # this will be ID TLS tag used as ID in xml file
+                                     # this will be ID TLS tag used as ID in
+                                     # xml file
+                                     xmltag='id',
                                      ))
 
         self.add_col(am.ArrayConf('ids_prog', '',
@@ -2144,7 +2147,8 @@ class Network(cm.BaseObjman):
             #        os.remove(tlsfilepath)
             return True
         else:
-            self.get_logger().w('import_sumonodes: files not found', key='message')
+            self.get_logger().w(
+                'import_sumonodes: files not found', key='message')
             return False
 
     def import_sumonodes(self, filename, is_remove_xmlfiles=False, logger=None, **others):
@@ -2313,6 +2317,7 @@ class Network(cm.BaseObjman):
 
 
 class SumoConnectionCounter(handler.ContentHandler):
+
     """Parses a SUMO edge XML file and counts edges and lanes."""
 
     def __init__(self):
@@ -2328,6 +2333,7 @@ class SumoConnectionCounter(handler.ContentHandler):
 
 
 class SumoConnectionReader(handler.ContentHandler):
+
     """Parses a SUMO connection XML file"""
 
     def __init__(self, net, counter):
@@ -2418,6 +2424,7 @@ class SumoConnectionReader(handler.ContentHandler):
 
 
 class SumoNodeCounter(handler.ContentHandler):
+
     """Parses a SUMO edge XML file and counts edges and lanes."""
 
     def __init__(self):
@@ -2430,6 +2437,7 @@ class SumoNodeCounter(handler.ContentHandler):
 
 
 class SumoNodeReader(handler.ContentHandler):
+
     """Parses a SUMO node XML file"""
 
     def __init__(self, net, counter):
@@ -2604,6 +2612,7 @@ class SumoNodeReader(handler.ContentHandler):
 #            self.n_tls += 1
 
 class SumoTllReader(handler.ContentHandler):
+
     """Parses a SUMO tll XML file and reads it into net."""
 
     def __init__(self, net):
@@ -2710,6 +2719,7 @@ class SumoTllReader(handler.ContentHandler):
 
 
 class SumoEdgeCounter(handler.ContentHandler):
+
     """Parses a SUMO edge XML file and counts edges and lanes."""
 
     def __init__(self):
@@ -2732,6 +2742,7 @@ class SumoEdgeCounter(handler.ContentHandler):
 
 
 class SumoEdgeReader(handler.ContentHandler):
+
     """Parses a SUMO edge XML file and reads it into net."""
 
     def __init__(self, net, counter, offset_delta=np.array([0.0, 0.0])):
@@ -3026,7 +3037,8 @@ class SumoEdgeReader(handler.ContentHandler):
             offsets_end=self.offset_end_lanes,
             modes_allow=self.modes_allow,
             modes_disallow=self.modes_disallow,
-            ids_mode=self.ids_mode_lanes,  # main mode will be determined from other attributes
+            # main mode will be determined from other attributes
+            ids_mode=self.ids_mode_lanes,
             ids_edge=ids_edge[self.inds_edge_lanes],
             # shapes = self.shapes_lanes, # lane shapes are not given -> must
             # be derived from edge shape
@@ -3156,7 +3168,8 @@ class OsmImporter(CmlMixin, Process):
                  proj='',
                  is_import_elevation_osm=False,
                  typefilepath=None,
-                 roadtypes='ordinary roads+bikeways',  # ordinary roads+bikeways+footpath
+                 # ordinary roads+bikeways+footpath
+                 roadtypes='ordinary roads+bikeways',
                  n_lanes_default=0,
                  edgespeed_default=13.9,
                  priority_default=-1,

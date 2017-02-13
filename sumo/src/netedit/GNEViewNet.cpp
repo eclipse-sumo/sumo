@@ -636,20 +636,20 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
             case GNE_MODE_DELETE: {
                 // Check if Control key is pressed
                 bool markElementMode = (((FXEvent*)data)->state & CONTROLMASK) != 0;
-                GNEAttributeCarrier *ac = dynamic_cast<GNEAttributeCarrier*>(pointed);
+                GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(pointed);
                 if (ac) {
                     // if pointed element is an attribute carrier, remove it or mark it
-                    if(markElementMode) {
-                        if(myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != ac) {
+                    if (markElementMode) {
+                        if (myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != ac) {
                             myViewParent->getDeleteFrame()->markAttributeCarrier(ac);
                             myViewParent->getDeleteFrame()->showAttributeCarrierChilds(ac);
                         }
-                    } else if(myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != NULL) {
+                    } else if (myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != NULL) {
                         myViewParent->getDeleteFrame()->markAttributeCarrier(NULL);
                         myViewParent->getDeleteFrame()->showAttributeCarrierChilds(ac);
                     } else {
                         myViewParent->getDeleteFrame()->removeAttributeCarrier(ac);
-                    }   
+                    }
                 } else {
                     GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
                 }
@@ -819,7 +819,7 @@ GNEViewNet::onDoubleClicked(FXObject*, FXSelector, void*) {
             int id = getObjectUnderCursor();
             GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
             GUIGlObjectStorage::gIDStorage.unblockObject(id);
-            GNEAdditional *pointed_additional = dynamic_cast<GNEAdditional*>(pointed);
+            GNEAdditional* pointed_additional = dynamic_cast<GNEAdditional*>(pointed);
             // If pointed element is an additional
             if (pointed_additional != NULL) {
                 // If additional has a additional dialog, open it.
@@ -836,7 +836,7 @@ long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onMouseMove(obj, sel, data);
     // in delete mode object under cursor must be checked in every mouse movement
-    if( myEditMode == GNE_MODE_DELETE) {
+    if (myEditMode == GNE_MODE_DELETE) {
         setFocus();
         // show object information in delete frame
         if (makeCurrent()) {
@@ -847,7 +847,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
             // Update current label of delete frame
             myViewParent->getDeleteFrame()->updateCurrentLabel(ac);
             // show childs of object in GNEDeleteFrame if current there isn't a marked element
-            if(myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() == NULL) {
+            if (myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() == NULL) {
                 myViewParent->getDeleteFrame()->showAttributeCarrierChilds(ac);
             }
         }
@@ -1099,63 +1099,63 @@ GNEViewNet::getEdgesAtCursorPosition(Position& /* pos */) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdSetModeCreateEdge(FXObject*, FXSelector, void*) {
     setEditMode(GNE_MODE_CREATE_EDGE);
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdSetModeMove(FXObject*, FXSelector, void*) {
     setEditMode(GNE_MODE_MOVE);
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdSetModeDelete(FXObject*, FXSelector, void*) {
     setEditMode(GNE_MODE_DELETE);
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdSetModeInspect(FXObject*, FXSelector, void*) {
     setEditMode(GNE_MODE_INSPECT);
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdSetModeSelect(FXObject*, FXSelector, void*) {
     setEditMode(GNE_MODE_SELECT);
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdSetModeConnect(FXObject*, FXSelector, void*) {
     setEditMode(GNE_MODE_CONNECT);
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdSetModeTLS(FXObject*, FXSelector, void*) {
     setEditMode(GNE_MODE_TLS);
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdSetModeAdditional(FXObject*, FXSelector, void*) {
     setEditMode(GNE_MODE_ADDITIONAL);
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdSetModeCrossing(FXObject*, FXSelector, void*) {
     setEditMode(GNE_MODE_CROSSING);
     return 1;
@@ -1721,30 +1721,30 @@ GNEViewNet::buildEditModeControls() {
     myEditModeNames.insert("(r) Crossings", GNE_MODE_CROSSING);
 
     // initialize buttons for modes
-    myEditModeCreateEdge = new MFXCheckableButton(false, myToolbar, "\tset create edge mode\tMode for creating junction and edges.", 
-                                                  GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), this, MID_GNE_MODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
-    myEditModeMove = new MFXCheckableButton(false, myToolbar, "\tset move mode\tMode for move elements.", 
+    myEditModeCreateEdge = new MFXCheckableButton(false, myToolbar, "\tset create edge mode\tMode for creating junction and edges.",
+            GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), this, MID_GNE_MODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
+    myEditModeMove = new MFXCheckableButton(false, myToolbar, "\tset move mode\tMode for move elements.",
                                             GUIIconSubSys::getIcon(ICON_MODEMOVE), this, MID_GNE_MODE_MOVE, GUIDesignButtonToolbarCheckable);
-    myEditModeDelete = new MFXCheckableButton(false, myToolbar, "\tset delete mode\tMode for delete elements.", 
-                                              GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_MODE_DELETE, GUIDesignButtonToolbarCheckable);
-    myEditModeInspect = new MFXCheckableButton(false, myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.", 
-                                               GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_MODE_INSPECT, GUIDesignButtonToolbarCheckable);
-    myEditModeSelect = new MFXCheckableButton(false, myToolbar, "\tset select mode\tMode for select elements.", 
-                                              GUIIconSubSys::getIcon(ICON_MODESELECT), this, MID_GNE_MODE_SELECT, GUIDesignButtonToolbarCheckable);
-    myEditModeConnection = new MFXCheckableButton(false, myToolbar, "\tset connection mode\tMode for edit connections between lanes.", 
-                                                  GUIIconSubSys::getIcon(ICON_MODECONNECTION), this, MID_GNE_MODE_CONNECT, GUIDesignButtonToolbarCheckable);
-    myEditModeTrafficLight = new MFXCheckableButton(false, myToolbar, "\tset traffic light mode\tMode for edit traffic lights over junctions.", 
-                                                    GUIIconSubSys::getIcon(ICON_MODETLS), this, MID_GNE_MODE_TLS, GUIDesignButtonToolbarCheckable);
-    myEditModeAdditional = new MFXCheckableButton(false, myToolbar, "\tset additional mode\tMode for adding additional elements.", 
-                                                  GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), this, MID_GNE_MODE_ADDITIONAL, GUIDesignButtonToolbarCheckable);
-    myEditModeCrossing = new MFXCheckableButton(false, myToolbar, "\tset crossing mode\tMode for creating crossings between edges.", 
-                                                GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_MODE_CROSSING, GUIDesignButtonToolbarCheckable);
+    myEditModeDelete = new MFXCheckableButton(false, myToolbar, "\tset delete mode\tMode for delete elements.",
+            GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_MODE_DELETE, GUIDesignButtonToolbarCheckable);
+    myEditModeInspect = new MFXCheckableButton(false, myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.",
+            GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_MODE_INSPECT, GUIDesignButtonToolbarCheckable);
+    myEditModeSelect = new MFXCheckableButton(false, myToolbar, "\tset select mode\tMode for select elements.",
+            GUIIconSubSys::getIcon(ICON_MODESELECT), this, MID_GNE_MODE_SELECT, GUIDesignButtonToolbarCheckable);
+    myEditModeConnection = new MFXCheckableButton(false, myToolbar, "\tset connection mode\tMode for edit connections between lanes.",
+            GUIIconSubSys::getIcon(ICON_MODECONNECTION), this, MID_GNE_MODE_CONNECT, GUIDesignButtonToolbarCheckable);
+    myEditModeTrafficLight = new MFXCheckableButton(false, myToolbar, "\tset traffic light mode\tMode for edit traffic lights over junctions.",
+            GUIIconSubSys::getIcon(ICON_MODETLS), this, MID_GNE_MODE_TLS, GUIDesignButtonToolbarCheckable);
+    myEditModeAdditional = new MFXCheckableButton(false, myToolbar, "\tset additional mode\tMode for adding additional elements.",
+            GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), this, MID_GNE_MODE_ADDITIONAL, GUIDesignButtonToolbarCheckable);
+    myEditModeCrossing = new MFXCheckableButton(false, myToolbar, "\tset crossing mode\tMode for creating crossings between edges.",
+            GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_MODE_CROSSING, GUIDesignButtonToolbarCheckable);
 
     // @ToDo add here new FXToolBarGrip(myNavigationToolBar, NULL, 0, GUIDesignToolbarGrip);
 
     // initialize mode specific controls
     myChainCreateEdge = new FXMenuCheck(myToolbar, "chain\t\tCreate consecutive edges with a single click (hit ESC to cancel chain).", this, 0);
-    myAutoCreateOppositeEdge = new FXMenuCheck(myToolbar,"two-way\t\tAutomatically create an edge in the opposite direction", this, 0);
+    myAutoCreateOppositeEdge = new FXMenuCheck(myToolbar, "two-way\t\tAutomatically create an edge in the opposite direction", this, 0);
     mySelectEdges = new FXMenuCheck(myToolbar, "select edges\t\tToggle whether clicking should select edges or lanes", this, 0);
     mySelectEdges->setCheck();
 
@@ -1801,7 +1801,7 @@ GNEViewNet::updateModeSpecificControls() {
             myWarnAboutMerge->show();
             myShowBubbleOverJunction->show();
             // check move mode button
-	        myEditModeMove->setChecked(true);
+            myEditModeMove->setChecked(true);
             break;
         case GNE_MODE_DELETE:
             // Show delete frame
@@ -1810,7 +1810,7 @@ GNEViewNet::updateModeSpecificControls() {
             mySelectEdges->show();
             myShowConnections->show();
             // check delete mode button
-	        myEditModeDelete->setChecked(true);
+            myEditModeDelete->setChecked(true);
             break;
         case GNE_MODE_INSPECT:
             // show inspector frame
@@ -1819,7 +1819,7 @@ GNEViewNet::updateModeSpecificControls() {
             mySelectEdges->show();
             myShowConnections->show();
             // check inspect mode button
-	        myEditModeInspect->setChecked(true);
+            myEditModeInspect->setChecked(true);
             break;
         case GNE_MODE_SELECT:
             // show selector frame
@@ -1829,13 +1829,13 @@ GNEViewNet::updateModeSpecificControls() {
             myShowConnections->show();
             myExtendToEdgeNodes->show();
             // check select mode button
-	        myEditModeSelect->setChecked(true);
+            myEditModeSelect->setChecked(true);
             break;
         case GNE_MODE_CONNECT:
             // show connector frame
             myViewParent->getConnectorFrame()->show();
             // check connection mode button
-	        myEditModeConnection->setChecked(true);
+            myEditModeConnection->setChecked(true);
             break;
         case GNE_MODE_TLS:
             // show TLS Frame
@@ -1843,19 +1843,19 @@ GNEViewNet::updateModeSpecificControls() {
             // show additionals checkboxs
             myChangeAllPhases->show();
             // check TLS mode button
-	        myEditModeTrafficLight->setChecked(true);
+            myEditModeTrafficLight->setChecked(true);
             break;
         case GNE_MODE_ADDITIONAL:
             // show additional frame
             myViewParent->getAdditionalFrame()->show();
             // check additional mode button
-	        myEditModeAdditional->setChecked(true);
+            myEditModeAdditional->setChecked(true);
             break;
         case GNE_MODE_CROSSING:
             // show crossing frame
             myViewParent->getCrossingFrame()->show();
             // check crossing mode button
-	        myEditModeCrossing->setChecked(true);
+            myEditModeCrossing->setChecked(true);
             break;
         default:
             break;

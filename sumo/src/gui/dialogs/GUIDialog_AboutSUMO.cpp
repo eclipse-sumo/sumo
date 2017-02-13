@@ -52,8 +52,8 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
 
     // DLR Icon
     FXHorizontalFrame* f2 = new FXHorizontalFrame(f1, GUIDesignAboutFrame2);
-    new FXLabel (f2, "\tDLR\t.", GUIIconSubSys::getIcon(ICON_DLR), GUIDesignAboutLabelIcon);
-    
+    new FXLabel(f2, "\tDLR\t.", GUIIconSubSys::getIcon(ICON_DLR), GUIDesignAboutLabelIcon);
+
     // "SUMO <VERSION>"
     FXVerticalFrame* f4 = new FXVerticalFrame(f2, GUIDesignAboutFrame3);
     myHeadlineFont = new FXFont(getApp(), "Arial", 18, FXFont::Bold);
@@ -65,14 +65,14 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
 
     // additional infos
     FXVerticalFrame* f3 = new FXVerticalFrame(f1, GUIDesignAboutFrame3);
-    
+
     // copyright notice
     new FXLabel(f3, "A microscopic, multi-modal, open source road traffic simulation.", 0, GUIDesignAboutLabelInformation);
     new FXLabel(f3, "Copyright (C) 2001-2017 DLR / Institute of Transportation Systems", 0, GUIDesignAboutLabelInformation);
 
     FXLinkLabel* link = new FXLinkLabel(f3, "http://sumo.dlr.de", 0, GUIDesignAboutLinkLabel);
     link->setTipText("http://sumo.dlr.de");
-    
+
     // ok-button
     new FXButton(f1, "OK\t\t", GUIIconSubSys::getIcon(ICON_ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     setIcon(GUIIconSubSys::getIcon(ICON_APP));

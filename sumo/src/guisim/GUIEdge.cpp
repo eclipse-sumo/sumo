@@ -409,7 +409,7 @@ GUIEdge::getRelativeSpeed() const {
 
 void
 GUIEdge::setColor(const GUIVisualizationSettings& s) const {
-    myMesoColor = RGBColor(0,0,0); // default background color when using multiColor
+    myMesoColor = RGBColor(0, 0, 0); // default background color when using multiColor
     const GUIColorer& c = s.edgeColorer;
     if (!setFunctionalColor(c.getActive()) && !setMultiColor(c)) {
         myMesoColor = c.getScheme().getColor(getColorValue(c.getActive()));

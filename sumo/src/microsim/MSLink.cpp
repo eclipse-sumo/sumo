@@ -633,11 +633,11 @@ MSLink::getLeaderInfo(const MSVehicle* ego, SUMOReal dist, std::vector<const MSP
                 MSVehicle* leader = (MSVehicle*)*it_veh;
                 const bool isOpposite = leader->getLaneChangeModel().isOpposite();
                 if (gDebugFlag1) {
-                    std::cout << " candiate leader=" << leader->getID() 
-                        << " cannotIgnore=" << cannotIgnore 
-                        << " willPass=" << foeLane->getLinkCont()[0]->getApproaching(leader).willPass 
-                        << " isFrontOnLane=" << leader->isFrontOnLane(foeLane) 
-                        << " isOpposite=" << isOpposite << "\n";
+                    std::cout << " candiate leader=" << leader->getID()
+                              << " cannotIgnore=" << cannotIgnore
+                              << " willPass=" << foeLane->getLinkCont()[0]->getApproaching(leader).willPass
+                              << " isFrontOnLane=" << leader->isFrontOnLane(foeLane)
+                              << " isOpposite=" << isOpposite << "\n";
                 }
                 if (!cannotIgnore && !foeLane->getLinkCont()[0]->getApproaching(leader).willPass && leader->isFrontOnLane(foeLane) && !isOpposite) {
                     continue;

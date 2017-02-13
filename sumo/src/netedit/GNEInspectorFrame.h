@@ -180,7 +180,7 @@ public:
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEInspectorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet);
+    GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEInspectorFrame();
@@ -296,7 +296,7 @@ private:
     FXGroupBox* myGroupBoxForTreeList;
 
     /// @brief tree list to show the childs of the element to erase
-    FXTreeList *myTreelist;
+    FXTreeList* myTreelist;
 
     /// @brief map used to save the Tree items with their AC
     std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;
@@ -305,7 +305,7 @@ private:
     std::set<FXTreeItem*> myTreeItesmWithoutAC;
 
     /// @brief pointer to current right clicked Attribute Carrier
-    GNEAttributeCarrier *myRightClickedAC;
+    GNEAttributeCarrier* myRightClickedAC;
 };
 
 

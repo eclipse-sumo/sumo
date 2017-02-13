@@ -126,7 +126,7 @@ public:
      * @todo Describe what is saved
      */
     bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
-        const std::map<SumoXMLAttr, std::string>& attrs);
+                        const std::map<SumoXMLAttr, std::string>& attrs);
 
 
     /** @brief Writes a header with optional edge list and connections.
@@ -219,7 +219,7 @@ private:
      * @param[in] attr The attribute (name)
      * @param[in] type The attribute type
      */
-    static inline void writeAttrHeader(std::ostream& into, const SumoXMLAttr attr, const DataType type=BF_INVALID) {
+    static inline void writeAttrHeader(std::ostream& into, const SumoXMLAttr attr, const DataType type = BF_INVALID) {
         FileHelpers::writeByte(into, static_cast<unsigned char>(BF_XML_ATTRIBUTE));
         const int attrNum = (int)attr;
         FileHelpers::writeByte(into, static_cast<unsigned char>(attrNum % 256));

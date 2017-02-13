@@ -1281,7 +1281,7 @@ PositionVector::smoothedZFront(SUMOReal dist) const {
 }
 
 
-SUMOReal 
+SUMOReal
 PositionVector::offsetAtIndex2D(int index) const {
     if (index < 0 || index >= (int)size()) {
         return GeomHelper::INVALID_OFFSET;
@@ -1294,13 +1294,13 @@ PositionVector::offsetAtIndex2D(int index) const {
 }
 
 
-SUMOReal 
+SUMOReal
 PositionVector::getMaxGrade() const {
     SUMOReal result = 0;
     for (int i = 1; i < (int)size(); ++i) {
         const Position& p1 = (*this)[i - 1];
         const Position& p2 = (*this)[i];
-        result = MAX2(result, (SUMOReal)fabs((p1.z() - p2.z()) / p1.distanceTo2D(p2))); 
+        result = MAX2(result, (SUMOReal)fabs((p1.z() - p2.z()) / p1.distanceTo2D(p2)));
     }
     return result;
 }

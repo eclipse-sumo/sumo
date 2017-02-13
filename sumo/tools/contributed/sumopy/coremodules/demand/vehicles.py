@@ -873,7 +873,8 @@ class VehicleTypes(am.ArrayObjman):
                 attrconfig.write_xml(fd, _id)
 
             # insert lanechange model here:
-            fd.write(xm.num('laneChangeModel', self.lanechangemodel.get_value()))
+            fd.write(
+                xm.num('laneChangeModel', self.lanechangemodel.get_value()))
 
             if (len(idcolconfig_include_tab) > 0) | (len(objcolconfigs) > 0):
                 fd.write(xm.stop())

@@ -197,7 +197,8 @@ def main(options):
         vTypeNode = domTree.createElement("vType")
         vTypeNode.setAttribute("id", options.vehDistName + str(i))
         for attName, attValue in vTypeParameters.items():
-            vTypeNode.setAttribute(attName, attValue.sampleValueString(options.decimalPlaces))
+            vTypeNode.setAttribute(
+                attName, attValue.sampleValueString(options.decimalPlaces))
         vTypeDistNode.appendChild(vTypeNode)
 
     existingDistNodes = domTree.getElementsByTagName("vTypeDistribution")
@@ -213,13 +214,16 @@ def main(options):
             domTree.documentElement.appendChild(vTypeDistNode)
     else:
         additionalNode = domTree.createElement("additional")
-        additionalNode.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
-        additionalNode.setAttribute("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/additional_file.xsd")
+        additionalNode.setAttribute(
+            "xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
+        additionalNode.setAttribute(
+            "xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/additional_file.xsd")
         additionalNode.appendChild(vTypeDistNode)
         domTree.appendChild(additionalNode)
     try:
         fileHandle = open(options.outputFile, "wb")
-        domTree.documentElement.writexml(fileHandle, addindent="    ", newl="\n")
+        domTree.documentElement.writexml(
+            fileHandle, addindent="    ", newl="\n")
         fileHandle.close()
     except Exception as e:
         sys.exit(str(e))

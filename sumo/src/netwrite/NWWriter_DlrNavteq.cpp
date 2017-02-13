@@ -183,10 +183,10 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
             }
 
             std::string internalNodeID = e->getID();
-            if (internalNodeID == UNDEFINED 
+            if (internalNodeID == UNDEFINED
                     || (nc.retrieve(internalNodeID) != 0)
                     || reservedNodeIDs.count(internalNodeID) > 0
-                    ) {
+               ) {
                 // need to invent a new name to avoid clashing with the id of a 'real' node or a reserved name
                 if (numericalIDs) {
                     internalNodeID = idSupplier.getNext();
@@ -236,7 +236,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
                << getGraphLength(e) << "\t"
                << getAllowedTypes(e->getPermissions()) << "\t"
                << getFormOfWay(e) << "\t"
-               << getBrunnelType(e) << "\t" 
+               << getBrunnelType(e) << "\t"
                << getRoadClass(e) << "\t"
                << getSpeedCategory(kph) << "\t"
                << getNavteqLaneCode(e->getNumLanes()) << "\t"
@@ -263,10 +263,10 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
         namesDevice << "# NAME_ID\tPERMANENT_ID_INFO\tName\n";
         namesDevice << "# [elements] " << nameIDs.size() << "\n";
         for (std::map<const std::string, std::string>::const_iterator i = nameIDs.begin(); i != nameIDs.end(); ++i) {
-            namesDevice 
-                << i->second << "\t" 
-                << 0 << "\t" 
-                << i->first << "\n";
+            namesDevice
+                    << i->second << "\t"
+                    << 0 << "\t"
+                    << i->first << "\n";
         }
         namesDevice.close();
     }
@@ -497,7 +497,7 @@ NWWriter_DlrNavteq::writeProhibitedManoeuvres(const OptionsCont& oc, const NBNod
     }
     std::vector<std::string> avoid = ec.getAllNames(); // already used for tls RELATREC_ID
     avoid.insert(avoid.end(), reservedRelIDs.begin(), reservedRelIDs.end());
-    IDSupplier idSupplier("", avoid); // @note: use a global relRecIDsupplier if this is used more often 
+    IDSupplier idSupplier("", avoid); // @note: use a global relRecIDsupplier if this is used more often
     // write format specifier
     device << "#No driving allowed from ID1 to ID2 or the complete chain from ID1 to IDn\n";
     device << "#RELATREC_ID\tPERMANENT_ID_INFO\tVALIDITY_PERIOD\tTHROUGH_TRAFFIC\tVEHICLE_TYPE\tNAVTEQ_LINK_ID1\t[NAVTEQ_LINK_ID2 ...]\n";
@@ -514,13 +514,13 @@ NWWriter_DlrNavteq::writeProhibitedManoeuvres(const OptionsCont& oc, const NBNod
                 const SVCPermissions outPerm = outEdge->getPermissions();
                 const SVCPermissions commonPerm = inPerm & outPerm;
                 if (commonPerm != 0 && commonPerm != SVC_PEDESTRIAN && !inEdge->isConnectedTo(outEdge)) {
-                    device 
-                        << idSupplier.getNext() << "\t"
-                        << 1 << "\t" // permanent id
-                        << UNDEFINED << "\t"
-                        << 1 << "\t"
-                        << getAllowedTypes(SVCAll) << "\t"
-                        << inEdge->getID() << "\t" << outEdge->getID() << "\n";
+                    device
+                            << idSupplier.getNext() << "\t"
+                            << 1 << "\t" // permanent id
+                            << UNDEFINED << "\t"
+                            << 1 << "\t"
+                            << getAllowedTypes(SVCAll) << "\t"
+                            << inEdge->getID() << "\t" << outEdge->getID() << "\n";
                 }
             }
         }
@@ -547,15 +547,15 @@ NWWriter_DlrNavteq::writeConnectedLanes(const OptionsCont& oc, NBNodeCont& nc) {
             const std::vector<NBEdge::Connection>& connections = from->getConnections();
             for (std::vector<NBEdge::Connection>::const_iterator it_c = connections.begin(); it_c != connections.end(); it_c++) {
                 const NBEdge::Connection& c = *it_c;
-                device 
-                    << n->getID() << "\t"
-                    << getAllowedTypes(fromPerm & c.toEdge->getPermissions()) << "\t"
-                    << c.fromLane + 1 << "\t" // one-based
-                    << c.toLane + 1 << "\t" // one-based
-                    << 1 << "\t" // no information regarding permissibility of through traffic 
-                    << from->getID() << "\t"
-                    << c.toEdge->getID() << "\t"
-                    << "\n";
+                device
+                        << n->getID() << "\t"
+                        << getAllowedTypes(fromPerm & c.toEdge->getPermissions()) << "\t"
+                        << c.fromLane + 1 << "\t" // one-based
+                        << c.toLane + 1 << "\t" // one-based
+                        << 1 << "\t" // no information regarding permissibility of through traffic
+                        << from->getID() << "\t"
+                        << c.toEdge->getID() << "\t"
+                        << "\n";
             }
         }
     }

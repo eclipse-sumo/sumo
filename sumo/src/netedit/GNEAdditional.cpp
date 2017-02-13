@@ -336,7 +336,7 @@ GNEAdditional::drawLockIcon(SUMOReal size) const {
 }
 
 
-void 
+void
 GNEAdditional::drawParentAndChildrenConnections() const {
     // Iterate over myConnectionPositions
     for (std::vector<std::vector<Position> >::const_iterator i = myConnectionPositions.begin(); i != myConnectionPositions.end(); i++) {
@@ -346,9 +346,9 @@ GNEAdditional::drawParentAndChildrenConnections() const {
         glTranslated(0, 0, getType() - 0.01);
         // Set color of the base
         GLHelper::setColor(RGBColor(255, 235, 0, 255));
-        for(std::vector<Position>::const_iterator j = (*i).begin(); (j+1) != (*i).end(); j++) { 
+        for (std::vector<Position>::const_iterator j = (*i).begin(); (j + 1) != (*i).end(); j++) {
             // Draw Lines
-            GLHelper::drawLine((*j), (*(j+1)));
+            GLHelper::drawLine((*j), (*(j + 1)));
         }
         // Pop draw matrix
         glPopMatrix();

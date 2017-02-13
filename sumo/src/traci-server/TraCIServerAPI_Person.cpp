@@ -376,7 +376,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 }
                 p->appendStage(new MSPerson::MSPersonStage_Driving(*edge, bs, -NUMERICAL_EPS, StringTokenizer(lines).getVector()));
 
-            // append waiting stage
+                // append waiting stage
             } else if (stageType == MSTransportable::WAITING) {
                 if (numParameters != 4) {
                     return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Adding a waiting stage needs four parameters.", outputStorage);
@@ -405,7 +405,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 }
                 p->appendStage(new MSTransportable::Stage_Waiting(*p->getArrivalEdge(), duration, 0, p->getArrivalPos(), description, false));
 
-            // append walking stage
+                // append walking stage
             } else if (stageType == MSTransportable::MOVING_WITHOUT_VEHICLE) {
                 if (numParameters != 6) {
                     return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Adding a walking stage needs six parameters.", outputStorage);

@@ -80,8 +80,8 @@ public:
 
     public:
         /// constructor
-        MSPersonStage_Walking(const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime, 
-                SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos, SUMOReal departPosLat);
+        MSPersonStage_Walking(const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime,
+                              SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos, SUMOReal departPosLat);
 
         /// destructor
         ~MSPersonStage_Walking();

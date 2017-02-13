@@ -432,7 +432,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
                     // Ask user if want to assign the lenght of lane as endPosition
                     FXuint answer = FXMessageBox::question(getViewNet()->getApp(), MBOX_YES_NO,
                                                            (toString(SUMO_ATTR_ENDPOS) + " exceeds the size of the " + toString(SUMO_TAG_LANE)).c_str(), "%s",
-                                                           (toString(SUMO_ATTR_ENDPOS) + " exceeds the size of the " + toString(SUMO_TAG_LANE) + 
+                                                           (toString(SUMO_ATTR_ENDPOS) + " exceeds the size of the " + toString(SUMO_TAG_LANE) +
                                                             ". Do you want to assign the lenght of the " + toString(SUMO_TAG_LANE) + " as " + toString(SUMO_ATTR_ENDPOS) + "?").c_str());
                     if (answer == 1) { //1:yes, 2:no, 4:esc
                         return true;

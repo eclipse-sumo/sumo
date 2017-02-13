@@ -50,7 +50,7 @@ typedef std::vector<NBEdge*> EdgeVector;
 /// @brief container for unique edges
 typedef std::set<NBEdge*> EdgeSet;
 
-/// @brief container for (sorted) lanes. The lanes are sorted from rightmost (id=0) to leftmost (id=nolanes-1) 
+/// @brief container for (sorted) lanes. The lanes are sorted from rightmost (id=0) to leftmost (id=nolanes-1)
 typedef std::vector<int> LaneVector;
 
 

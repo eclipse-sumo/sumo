@@ -76,7 +76,7 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock) : 
+GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock) :
     FXMainWindow(parent->getApp(), "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20, 20, 170, 300),
     myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);

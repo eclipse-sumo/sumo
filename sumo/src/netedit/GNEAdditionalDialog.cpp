@@ -65,7 +65,7 @@ GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int h
     // set icon
     setIcon(parent->getIcon());
     // create main frame
-    FXVerticalFrame *mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+    FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // Create frame for contents
     myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignContentsFrame);
     // create buttons centered
@@ -81,8 +81,8 @@ GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int h
 GNEAdditionalDialog::~GNEAdditionalDialog() {}
 
 
-void 
-GNEAdditionalDialog::changeAdditionalDialogHeader(const std::string &newHeader) {
+void
+GNEAdditionalDialog::changeAdditionalDialogHeader(const std::string& newHeader) {
     // change FXDialogBox title
     setTitle(newHeader.c_str());
 }

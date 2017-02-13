@@ -64,7 +64,7 @@ GNEChange_Junction::~GNEChange_Junction() {
 }
 
 
-void 
+void
 GNEChange_Junction::undo() {
     if (myForward) {
         myNet->deleteSingleJunction(myJunction);
@@ -74,7 +74,7 @@ GNEChange_Junction::undo() {
 }
 
 
-void 
+void
 GNEChange_Junction::redo() {
     if (myForward) {
         myNet->insertJunction(myJunction);
@@ -84,7 +84,7 @@ GNEChange_Junction::redo() {
 }
 
 
-FXString 
+FXString
 GNEChange_Junction::undoName() const {
     if (myForward) {
         return ("Undo create " + toString(SUMO_TAG_JUNCTION)).c_str();
@@ -94,7 +94,7 @@ GNEChange_Junction::undoName() const {
 }
 
 
-FXString 
+FXString
 GNEChange_Junction::redoName() const {
     if (myForward) {
         return ("Redo create " + toString(SUMO_TAG_JUNCTION)).c_str();
