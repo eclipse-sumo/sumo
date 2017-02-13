@@ -1,6 +1,6 @@
 Warning: There is already another crossing with the same edges in the junction; Duplicated crossing aren't allowed.
 Warning: Invalid pedestrian topology: crossing ':Center_c2' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
-Warning: Discarding invalid crossing ':Center_c0' at junction 'Center' with edges '4'.
+Warning: Discarding invalid crossing ':Center_c2' at junction 'Center' with edges '4'.
 Warning: Invalid pedestrian topology: crossing ':Center_c2' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c2' has no target.
+Warning: Discarding invalid crossing ':Center_c2' at junction 'Center' with edges '4'.
+Warning: Discarding invalid crossing ':Center_c2' at junction 'Center' with edges '8'.

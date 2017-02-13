@@ -97,7 +97,6 @@ GNEJunction::updateGeometry() {
         myBoundary.add(myNBNode.getShape().getBoxBoundary());
     }
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
-    // rebuild GNECrossings
     rebuildGNECrossings();
 }
 
@@ -106,12 +105,15 @@ void
 GNEJunction::rebuildGNECrossings() {
     // drop existent GNECrossings
     dropGNECrossings();
-    // build new NBNode::Crossings and walking areas and create GNECrossings
-    myNBNode.buildCrossingsAndWalkingAreas(false);
-    const std::vector<NBNode::Crossing>& crossings = myNBNode.getCrossings();
-    for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
-        myGNECrossings.push_back(new GNECrossing(this, (*it).id));
-        myGNECrossings.back()->incRef();
+    // rebuild GNECrossings only if create crossings and walkingAreas in net is enabled
+    if(myNet->getNetBuilder()->haveNetworkCrossings() == true) {
+        // build new NBNode::Crossings and walking areas and create GNECrossings
+        myNBNode.buildCrossingsAndWalkingAreas();
+        const std::vector<NBNode::Crossing>& crossings = myNBNode.getCrossings();
+        for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
+            myGNECrossings.push_back(new GNECrossing(this, (*it).id));
+            myGNECrossings.back()->incRef();
+        }
     }
 }
 

@@ -110,7 +110,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myNeedRecompute(true) {
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 
-    // init junctions
+    // init junctions (by default Crossing and walking areas aren't created)
     NBNodeCont& nc = myNetBuilder->getNodeCont();
     const std::vector<std::string>& nodeNames = nc.getAllNames();
     for (std::vector<std::string>::const_iterator name_it = nodeNames.begin(); name_it != nodeNames.end(); ++name_it) {

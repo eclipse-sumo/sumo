@@ -66,7 +66,8 @@
 // ===========================================================================
 NBNetBuilder::NBNetBuilder() :
     myEdgeCont(myTypeCont),
-    myHaveLoadedNetworkWithoutInternalEdges(false) {
+    myHaveLoadedNetworkWithoutInternalEdges(false),
+    myNetworkHaveCrossings(false) {
 }
 
 
@@ -309,28 +310,28 @@ NBNetBuilder::compute(OptionsCont& oc,
     NBNodeTypeComputer::computeNodeTypes(myNodeCont);
     PROGRESS_TIME_MESSAGE(before);
     //
-    bool haveCrossings = false;
+    myNetworkHaveCrossings = false;
     if (oc.getBool("crossings.guess")) {
-        haveCrossings = true;
+        myNetworkHaveCrossings = true;
         int crossings = 0;
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             crossings += (*i).second->guessCrossings();
         }
         WRITE_MESSAGE("Guessed " + toString(crossings) + " pedestrian crossings.");
     }
-    if (!haveCrossings) {
+    if (!myNetworkHaveCrossings) {
         // recheck whether we had crossings in the input
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             if (i->second->getCrossings().size() > 0) {
-                haveCrossings = true;
+                myNetworkHaveCrossings = true;
                 break;
             }
         }
     }
 
-    if (oc.isDefault("no-internal-links") && !haveCrossings && myHaveLoadedNetworkWithoutInternalEdges) {
+    if (oc.isDefault("no-internal-links") && !myNetworkHaveCrossings && myHaveLoadedNetworkWithoutInternalEdges) {
         oc.set("no-internal-links", "true");
-    } else if (!mayAddOrRemove && haveCrossings) {
+    } else if (!mayAddOrRemove && myNetworkHaveCrossings) {
         // crossings added via netedit
         oc.resetWritable();
         oc.set("no-internal-links", "false");
@@ -383,7 +384,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     myEdgeCont.recheckLanes();
     PROGRESS_TIME_MESSAGE(before);
 
-    if (haveCrossings && !oc.getBool("no-internal-links")) {
+    if (myNetworkHaveCrossings && !oc.getBool("no-internal-links")) {
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             i->second->buildCrossingsAndWalkingAreas();
         }

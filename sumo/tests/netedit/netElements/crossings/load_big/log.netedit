@@ -1,8 +1,3 @@
-Warning: Invalid pedestrian topology: crossing ':27411228_c2' has no target.
-Warning: Invalid pedestrian topology: crossing ':588181259_c0' has no target.
-Warning: Invalid pedestrian topology: crossing ':588181343_c2' has no target.
-Warning: Invalid pedestrian topology: crossing ':735132793_c1' has no target.
-Warning: Invalid pedestrian topology: crossing ':98976234_c2' has no target.
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
