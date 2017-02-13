@@ -84,7 +84,7 @@ MSPModel_NonInteracting::add(MSPerson* person, MSPerson::MSPersonStage_Walking* 
 }
 
 
-void 
+void
 MSPModel_NonInteracting::remove(PedestrianState* state) {
     dynamic_cast<PState*>(state)->getCommand()->abortWalk();
 }

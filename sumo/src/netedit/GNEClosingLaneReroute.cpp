@@ -40,7 +40,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval &rerouterIntervalParent, GNELane *closedLane, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles) :
+GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval& rerouterIntervalParent, GNELane* closedLane, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles) :
     myRerouterIntervalParent(&rerouterIntervalParent),
     myClosedLane(closedLane),
     myAllowedVehicles(allowedVehicles),
@@ -64,13 +64,13 @@ GNEClosingLaneReroute::getDisallowedVehicles() const {
 }
 
 
-void 
+void
 GNEClosingLaneReroute::setAllowedVehicles(SVCPermissions allowed) {
     myAllowedVehicles = allowed;
 }
 
 
-void 
+void
 GNEClosingLaneReroute::setDisallowedVehicles(SVCPermissions disallowed) {
     myDisallowedVehicles = disallowed;
 }
@@ -88,7 +88,7 @@ GNEClosingLaneReroute::setClosedLane(GNELane* lane) {
 }
 
 
-SumoXMLTag 
+SumoXMLTag
 GNEClosingLaneReroute::getTag() const {
     return myTag;
 }
@@ -100,12 +100,12 @@ GNEClosingLaneReroute::getRerouterIntervalParent() const {
 }
 
 
-bool 
-GNEClosingLaneReroute::operator==(const GNEClosingLaneReroute &closingReroute) {
-    if((myRerouterIntervalParent == closingReroute.myRerouterIntervalParent) &&
-       (myClosedLane == closingReroute.myClosedLane) &&
-       (myAllowedVehicles == closingReroute.myAllowedVehicles) &&
-       (myDisallowedVehicles == closingReroute.myDisallowedVehicles)) {
+bool
+GNEClosingLaneReroute::operator==(const GNEClosingLaneReroute& closingReroute) {
+    if ((myRerouterIntervalParent == closingReroute.myRerouterIntervalParent) &&
+            (myClosedLane == closingReroute.myClosedLane) &&
+            (myAllowedVehicles == closingReroute.myAllowedVehicles) &&
+            (myDisallowedVehicles == closingReroute.myDisallowedVehicles)) {
         return true;
     } else {
         return false;

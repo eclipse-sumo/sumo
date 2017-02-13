@@ -274,6 +274,7 @@ def is_objconfigured(obj):
 
 
 class ArrayObj:
+
     """
     Mixin for Classes or Instance which are used as array-element 
     within the framework of the ArrayObjConfigurator.
@@ -369,6 +370,7 @@ class ArrayObj:
 
 
 class PlugoutMixin:
+
     """
     Mixin to provide methods to plug  callback functions into other objects.
     """
@@ -438,6 +440,7 @@ class PlugoutMixin:
 
 
 class PluginMixin:
+
     """
     Mixin to provide methods to plug in callback functions
     from other objects.
@@ -572,6 +575,7 @@ class PluginMixin:
 
 
 class ObjConfigurator:
+
     """
     Base mixin class for general scalar object configuration.
 
@@ -1571,6 +1575,7 @@ class ObjConfigurator:
 
 
 class ArrayObjConfigurator(ObjConfigurator):
+
     """
     Base class for general scalar object configuration.
 
@@ -2813,7 +2818,8 @@ class ArrayObjConfigurator(ObjConfigurator):
             returnlist = False
 
         elif type(ids) not in ARRAYTYPES:
-            ids = [ids]  # just a single id, do return a simple value, not a list
+            # just a single id, do return a simple value, not a list
+            ids = [ids]
             returnlist = False
         else:
             returnlist = True
@@ -2975,6 +2981,7 @@ class ArrayObjConfigurator(ObjConfigurator):
 # pass
 
 class EmptyClass:
+
     """
     This claass is empty and used as default.
 
@@ -2986,6 +2993,7 @@ class EmptyClass:
 
 
 class IntegerQueues(ArrayObjConfigurator):
+
     """
     Class implements multiple queues with the following properties:
         - only integers  can be queued
@@ -3254,6 +3262,7 @@ class IntegerQueues(ArrayObjConfigurator):
 
 
 class IntegerItems(ArrayObjConfigurator):
+
     """
     Class cotaining integer items (the ids) of the integer queue.
 
@@ -3339,6 +3348,7 @@ class IntegerItems(ArrayObjConfigurator):
 
 
 class MetaList(ArrayObjConfigurator):
+
     """
     Empty class with ArrayObjConfigurator properties.
     Can be freely configured to contain any kind of database like,
@@ -3368,6 +3378,7 @@ class TestNamed(ArrayObjConfigurator):
 
 
 class TestMod(ObjConfigurator, ArrayObj):
+
     """
     test
     """
@@ -3394,6 +3405,7 @@ class TestMod(ObjConfigurator, ArrayObj):
 
 
 class Car(ArrayObj):
+
     """
     test
     """
@@ -3414,6 +3426,7 @@ class Car(ArrayObj):
 
 
 class CarTest(ArrayObjConfigurator):
+
     """
     test
     """
@@ -3432,6 +3445,7 @@ class CarTest(ArrayObjConfigurator):
 
 
 class Cars(ArrayObjConfigurator):
+
     """
     test
     """
@@ -3474,6 +3488,7 @@ class Cars(ArrayObjConfigurator):
 
 
 class ObjConfiguratorTest(ObjConfigurator):
+
     """
     test
     """
@@ -3486,6 +3501,7 @@ class ObjConfiguratorTest(ObjConfigurator):
 
 
 class Cabs(ArrayObjConfigurator):
+
     """
     test
     """
@@ -3512,6 +3528,7 @@ class Cabs(ArrayObjConfigurator):
 
 
 class MarrayTest(ArrayObjConfigurator):
+
     """
     test
     from base import *;t=MarrayTest();t['s',1]=[11,22,33,44];t['s',3]=[-33,-44]

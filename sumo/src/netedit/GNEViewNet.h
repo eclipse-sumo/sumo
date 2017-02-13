@@ -392,31 +392,31 @@ private:
     /// @name buttons  for selecting the edit mode
     /// @{
     /// @brief chekable button for edit mode create edge
-    MFXCheckableButton *myEditModeCreateEdge;
-    
+    MFXCheckableButton* myEditModeCreateEdge;
+
     /// @brief chekable button for edit mode move
-    MFXCheckableButton *myEditModeMove;
-    
+    MFXCheckableButton* myEditModeMove;
+
     /// @brief chekable button for edit mode delete
-    MFXCheckableButton *myEditModeDelete;
-    
+    MFXCheckableButton* myEditModeDelete;
+
     /// @brief chekable button for edit mode inspect
-    MFXCheckableButton *myEditModeInspect;
+    MFXCheckableButton* myEditModeInspect;
 
     /// @brief chekable button for edit mode select
-    MFXCheckableButton *myEditModeSelect;
-    
+    MFXCheckableButton* myEditModeSelect;
+
     /// @brief chekable button for edit mode connection
-    MFXCheckableButton *myEditModeConnection;
+    MFXCheckableButton* myEditModeConnection;
 
     /// @brief chekable button for edit mode traffic light
-    MFXCheckableButton *myEditModeTrafficLight;
-    
+    MFXCheckableButton* myEditModeTrafficLight;
+
     /// @brief chekable button for edit mode additional
-    MFXCheckableButton *myEditModeAdditional;
-    
+    MFXCheckableButton* myEditModeAdditional;
+
     /// @brief chekable button for edit mode crossing
-    MFXCheckableButton *myEditModeCrossing;
+    MFXCheckableButton* myEditModeCrossing;
     /// @}
 
     /// @brief since we cannot switch on strings we map the mode names to an enum

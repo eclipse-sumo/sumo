@@ -68,7 +68,7 @@ enum GUIIcon {
     ICON_LAGGRVIEW,
     /// @}
 
-    /// @name simulation view icons (other) 
+    /// @name simulation view icons (other)
     /// @{
     ICON_RECENTERVIEW,
     ICON_ALLOWROTATION,

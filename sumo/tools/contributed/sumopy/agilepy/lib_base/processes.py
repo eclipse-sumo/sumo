@@ -125,6 +125,7 @@ class Process(cm.BaseObjman):
 
 
 class Options:
+
     """
     Dummy option class to fake option parsing
     """
@@ -228,7 +229,8 @@ class CmlMixin:
         if not (self.optiongroupname in kwargs0['groupnames']):
             kwargs0['groupnames'] += [self.optiongroupname]
 
-        default = self.get_attrsman().add(cm.AttrConf(option, value, **kwargs0))
+        default = self.get_attrsman().add(
+            cm.AttrConf(option, value, **kwargs0))
 
         setattr(self, option, default)
 

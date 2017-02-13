@@ -21,6 +21,7 @@ import agilepy.lib_base.arrayman as am
 
 
 class BaseTool(am.ArrayObjman):
+
     """
     This is a base tool class for Agilecanvas.
     It must handle all mouse or keyboard events,
@@ -121,7 +122,8 @@ class BaseTool(am.ArrayObjman):
                                       show_groupnames=False, show_title=True, is_modal=False,
                                       mainframe=self.parent.get_mainframe(),
                                       pos=wx.DefaultPosition, size=size, style=wx.MAXIMIZE_BOX | wx.RESIZE_BORDER,
-                                      immediate_apply=False, panelstyle='default',  # 'instrumental'
+                                      # 'instrumental'
+                                      immediate_apply=False, panelstyle='default',
                                       standartbuttons=['apply', 'restore'])
 
         return self._optionspanel
@@ -209,6 +211,7 @@ class DelTool(BaseTool):
 
 
 class ToolPalett(wx.Panel):
+
     """
     This is a panel where tools are represented by images and/or text.
     The tools are selected in a radio-button-fashion.
@@ -408,16 +411,19 @@ class __ToggleMixin:
 
 
 class GenBitmapTextToggleButton(__ToggleMixin, GenBitmapTextButton):
+
     """A generic toggle bitmap button with text label"""
     pass
 
 
 class GenBitmapToggleButton(__ToggleMixin, GenBitmapButton):
+
     """A generic toggle bitmap button with text label"""
     pass
 
 
 class ToolsPanel(wx.Panel):
+
     """
     Shows a toolpallet with different tools and an options panel.
     """

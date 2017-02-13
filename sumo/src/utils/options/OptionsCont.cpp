@@ -342,7 +342,7 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
                 std::string tmp = st.next();
                 // Test whether this is a whitespace string and disregard item if so.
                 // This may stem, e.g., from separating filenames by ', ' in the configuration file
-                if (tmp.find_first_not_of("\t ") == std::string::npos){
+                if (tmp.find_first_not_of("\t ") == std::string::npos) {
                     continue;
                 }
                 if (!FileHelpers::isAbsolute(tmp)) {

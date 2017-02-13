@@ -119,7 +119,7 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
 }
 
 
-bool 
+bool
 SystemFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     gPrecision = oc.getInt("precision");

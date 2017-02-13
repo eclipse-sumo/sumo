@@ -50,7 +50,7 @@
 class GNERerouterInterval {
 public:
     /// @brief constructor
-    GNERerouterInterval(GNERerouter *rerouterParent, SUMOReal begin, SUMOReal end);
+    GNERerouterInterval(GNERerouter* rerouterParent, SUMOReal begin, SUMOReal end);
 
     /// @brief destructor
     ~GNERerouterInterval();
@@ -58,45 +58,45 @@ public:
     /**@brief insert a new closing lane reroute
      * @return true if insertion was sucesfully, false if is duplicated
      */
-    bool insertClosinLanegReroutes(const GNEClosingLaneReroute &clr);
+    bool insertClosinLanegReroutes(const GNEClosingLaneReroute& clr);
 
     /**@brief remove a previously inserted closing reroute
      * @return true if deletetion was sucesfully, false if wasn't found
      */
-    bool removeClosingLaneReroutes(const GNEClosingLaneReroute &clr);
+    bool removeClosingLaneReroutes(const GNEClosingLaneReroute& clr);
 
     /**@brief insert a new closing lane reroute
      * @return true if insertion was sucesfully, false if is duplicated
      */
-    bool insertClosingReroutes(const GNEClosingReroute &cr);
+    bool insertClosingReroutes(const GNEClosingReroute& cr);
 
     /**@brief remove a previously inserted closing reroute
      * @return true if deletetion was sucesfully, false if wasn't found
      */
-    bool removeClosingReroutes(const GNEClosingReroute &cr);
+    bool removeClosingReroutes(const GNEClosingReroute& cr);
 
     /**@brief insert destiny probability reroute
      * @return true if deletetion was sucesfully, false if wasn't found
      */
-    bool insertDestProbReroutes(const GNEDestProbReroute &dpr);
+    bool insertDestProbReroutes(const GNEDestProbReroute& dpr);
 
     /**@brief remove a previously inserted destiny probability reroute
      * @return true if deletetion was sucesfully, false if wasn't found
      */
-    bool removeDestProbReroutes(const GNEDestProbReroute &dpr);
+    bool removeDestProbReroutes(const GNEDestProbReroute& dpr);
 
     /**@brief insert route probability reroute
      * @return true if insertion was sucesfully, false if is duplicated
      */
-    bool insertRouteProbReroute(const GNERouteProbReroute &rpr);
+    bool insertRouteProbReroute(const GNERouteProbReroute& rpr);
 
     /**@brief remove a previously inserted route probability reroute
      * @return true if deletetion was sucesfully, false if wasn't found
      */
-    bool removeRouteProbReroute(const GNERouteProbReroute &rpr);
+    bool removeRouteProbReroute(const GNERouteProbReroute& rpr);
 
     /// @brief get rerouter parent
-    GNERerouter *getRerouterParent() const;
+    GNERerouter* getRerouterParent() const;
 
     /// @brief get tag
     SumoXMLTag getTag() const;
@@ -114,35 +114,35 @@ public:
     void setEnd(SUMOReal end);
 
     /// @brief get closing reroutes
-    const std::vector<GNEClosingLaneReroute> &getClosingLaneReroutes() const;
+    const std::vector<GNEClosingLaneReroute>& getClosingLaneReroutes() const;
 
     /// @brief get closing reroutes
-    const std::vector<GNEClosingReroute> &getClosingReroutes() const;
+    const std::vector<GNEClosingReroute>& getClosingReroutes() const;
 
     /// @brief get destiny probability reroutes
-    const std::vector<GNEDestProbReroute> &getDestProbReroutes() const;
+    const std::vector<GNEDestProbReroute>& getDestProbReroutes() const;
 
     /// @brief get reoute probability reroutes
-    const std::vector<GNERouteProbReroute> &getRouteProbReroutes() const;
+    const std::vector<GNERouteProbReroute>& getRouteProbReroutes() const;
 
     /// @brief set closing reroutes
-    void setClosingLaneReroutes(const std::vector<GNEClosingLaneReroute> &closingLaneReroutes);
+    void setClosingLaneReroutes(const std::vector<GNEClosingLaneReroute>& closingLaneReroutes);
 
     /// @brief set closing reroutes
-    void setClosingReroutes(const std::vector<GNEClosingReroute> &closingReroutes);
+    void setClosingReroutes(const std::vector<GNEClosingReroute>& closingReroutes);
 
     /// @brief set destiny probability reroutes
-    void setDestProbReroutes(const std::vector<GNEDestProbReroute> &destProbReroutes);
+    void setDestProbReroutes(const std::vector<GNEDestProbReroute>& destProbReroutes);
 
     /// @brief set reoute probability reroutes
-    void setRouteProbReroutes(const std::vector<GNERouteProbReroute> &rerouteProbabilityReroutes);
+    void setRouteProbReroutes(const std::vector<GNERouteProbReroute>& rerouteProbabilityReroutes);
 
     /// @brief overload operator =
-    GNERerouterInterval &operator=(const GNERerouterInterval &rerouterInterval);
+    GNERerouterInterval& operator=(const GNERerouterInterval& rerouterInterval);
 
 protected:
     /// @brief pointer to rerouter parent
-    GNERerouter *myRerouterParent;
+    GNERerouter* myRerouterParent;
 
     /// @brief begin timeStep
     SUMOReal myBegin;

@@ -65,7 +65,7 @@ public:
     Position getPositionInView() const;
 
     /// @brief get E3 Detector parent
-    GNEDetectorE3 *getE3Parent() const;
+    GNEDetectorE3* getE3Parent() const;
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element

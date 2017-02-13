@@ -180,7 +180,7 @@ public:
     void writeFlows(const SUMOTime begin, const SUMOTime end,
                     OutputDevice& dev, const bool noVtype,
                     const std::string& prefix,
-                    bool asProbability=false);
+                    bool asProbability = false);
 
 
     /** @brief Returns the number of loaded vehicles

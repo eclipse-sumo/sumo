@@ -179,6 +179,7 @@ class Plugin:
 
 
 class AttrConf:
+
     """
     Contains additional information on the object's attribute.
     """
@@ -587,6 +588,7 @@ class AttrConf:
 
 
 class NumConf(AttrConf):
+
     """
     Contains additional information on the object's attribute.
     Here specific number related attributes are defined.
@@ -607,6 +609,7 @@ class NumConf(AttrConf):
 
 
 class ObjConf(AttrConf):
+
     """
     Contains additional information on the object's attribute.
     Configures Pointer to another object .
@@ -734,6 +737,7 @@ class ObjConf(AttrConf):
 
 
 class FuncConf(AttrConf):
+
     """
     Configures a function.
     The function with name funcname must be a method of the object. 
@@ -783,6 +787,7 @@ class FuncConf(AttrConf):
 
 
 class Indexing:
+
     """
     Mixing to allow any column attribute to be used as index. 
     """
@@ -864,6 +869,7 @@ class Indexing:
 
 
 class ColConf(Indexing, AttrConf):
+
     """
     Basic column configuration.
     Here an ordered dictionary is used to represent the data.
@@ -1188,6 +1194,7 @@ class NumcolConf(ColConf):
 
 
 class IdsConf(ColConf):
+
     """
     Column, where each entry is the id of a single Table. 
     """
@@ -1327,6 +1334,7 @@ class IdsConf(ColConf):
 
 
 class TabIdsConf(ColConf):
+
     """
     Column, where each entry contains a tuple with table object and id. 
     """
@@ -1429,6 +1437,7 @@ class TabIdsConf(ColConf):
 
 
 class ObjsConf(ColConf):
+
     """
     Column, where each entry is an object of class objclass with 
     ident= (attrname, id). 
@@ -1560,6 +1569,7 @@ class ObjsConf(ColConf):
 
 
 class Attrsman:
+
     """
     Manages all attributes of an object
 
@@ -1589,7 +1599,8 @@ class Attrsman:
 
         self._obj = obj  # managed object
         self._attrconfigs = []  # managed attribute config instances
-        self.attrname = attrname  # the manager's attribute name in the obj instance
+        # the manager's attribute name in the obj instance
+        self.attrname = attrname
 
         # groupes of attributes
         # key=groupname, value = list of attribute config instances
@@ -1854,6 +1865,7 @@ class Attrsman:
 
 
 class Tabman(Attrsman):
+
     """
     Manages all table attributes of an object.
 
@@ -2075,6 +2087,7 @@ class Tabman(Attrsman):
 
 
 class BaseObjman:
+
     """
     Object management base methods to be inherited by all object managers.
     """
@@ -2101,7 +2114,8 @@ class BaseObjman:
         self.set_logger(logger)
 
         self.parent = parent
-        self.childs = {}  # dict with attrname as key and child instance as value
+        # dict with attrname as key and child instance as value
+        self.childs = {}
 
         self._info = info
 
@@ -2714,7 +2728,8 @@ class TableMixin(BaseObjman):
                 attrconfig_id = getattr(self.get_attrsman(), attrname_id)
                 xmltag_id = None  # this will define the id tag
             else:
-                attrconfig_id = None  # native id will be written using xmltag_id from args
+                # native id will be written using xmltag_id from args
+                attrconfig_id = None
 
             # print '  attrname_id,attrconfig_id',attrname_id,attrconfig_id
             # if attrconfig_id is not None:
@@ -2790,6 +2805,7 @@ class TableMixin(BaseObjman):
 
 
 class TableObjman(Tabman, TableMixin):
+
     """
     Table Object management manages objects with list and dict based columns. 
     For faster operation use ArrayObjman in arrayman package, which requires numpy.

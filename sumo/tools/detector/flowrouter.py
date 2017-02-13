@@ -622,7 +622,8 @@ if net.detectSourceSink(sources, sinks):
             if options.verbose:
                 print("Reading flows")
             for flow in options.flowfiles:
-                haveFlows = reader.readFlows(flow, start, start + options.interval)
+                haveFlows = reader.readFlows(
+                    flow, start, start + options.interval)
             if haveFlows:
                 if options.verbose:
                     print("Calculating routes")

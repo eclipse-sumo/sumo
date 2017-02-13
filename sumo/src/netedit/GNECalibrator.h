@@ -51,12 +51,12 @@ public:
     /// @brief calibrator flow
     class GNECalibratorFlow {
 
-    public: 
+    public:
         /// @briefdefault constructor
-        GNECalibratorFlow(GNECalibrator *calibratorParent, std::string type, std::string route);
+        GNECalibratorFlow(GNECalibrator* calibratorParent, std::string type, std::string route);
 
         /// @brief parameter constructor
-        GNECalibratorFlow(GNECalibrator *calibratorParent, std::string type, std::string route, std::string color, std::string departLane, std::string departPos,
+        GNECalibratorFlow(GNECalibrator* calibratorParent, std::string type, std::string route, std::string color, std::string departLane, std::string departPos,
                           std::string departSpeed, std::string arrivalLane, std::string arrivalPos, std::string arrivalSpeed,
                           std::string line, int personNumber, int containerNumber, SUMOReal begin, SUMOReal end,
                           SUMOReal vehsPerHour, SUMOReal period, SUMOReal probability, int number);
@@ -67,35 +67,35 @@ public:
         /// @brief get pointer to calibrator parent
         GNECalibrator* getCalibratorParent() const;
 
-        /// @brief get type of vehicle 
-        const std::string &getType() const;
+        /// @brief get type of vehicle
+        const std::string& getType() const;
 
         /// @brief get route in which this flow is used
-        const std::string &getRoute() const;
+        const std::string& getRoute() const;
 
         /// @brief get color of flow
-        const std::string &getColor() const;
+        const std::string& getColor() const;
 
         /// @brief get depart lane
-        const std::string &getDepartLane() const;
+        const std::string& getDepartLane() const;
 
         /// @brief get depart position
-        const std::string &getDepartPos() const;
+        const std::string& getDepartPos() const;
 
         /// @brief get arrival speed
-        const std::string &getDepartSpeed() const;
+        const std::string& getDepartSpeed() const;
 
         /// @brief get arrival lane
-        const std::string &getArrivalLane() const;
+        const std::string& getArrivalLane() const;
 
         /// @brief get arrival position
-        const std::string &getArrivalPos() const;
+        const std::string& getArrivalPos() const;
 
         /// @brief get arrival speed
-        const std::string &getArrivalSpeed() const;
+        const std::string& getArrivalSpeed() const;
 
         /// @brief get line of busStop/containerStop
-        const std::string &getLine() const;
+        const std::string& getLine() const;
 
         /// @brief get number of persons
         int getPersonNumber() const;
@@ -319,10 +319,10 @@ public:
     void setFlowValues(std::vector<GNECalibrator::GNECalibratorFlow*> calibratorFlowValues);
 
     /// @brief insert a new flow
-    void insertFlow(GNECalibratorFlow *flow);
+    void insertFlow(GNECalibratorFlow* flow);
 
     /// @brief remove a existent flow
-    void removeFlow(GNECalibratorFlow *flow);
+    void removeFlow(GNECalibratorFlow* flow);
 
     /// @name inherited from GUIGlObject
     /// @{

@@ -109,28 +109,28 @@ public:
     NBNode* getNBNode() const;
 
     /// @brief add incoming GNEEdge
-    void addIncomingGNEEdge(GNEEdge *edge);
+    void addIncomingGNEEdge(GNEEdge* edge);
 
     /// @brief add outgoing GNEEdge
-    void addOutgoingGNEEdge(GNEEdge *edge);
+    void addOutgoingGNEEdge(GNEEdge* edge);
 
     /// @brief remove incoming GNEEdge
-    void removeIncomingGNEEdge(GNEEdge *edge);
+    void removeIncomingGNEEdge(GNEEdge* edge);
 
     /// @brief remove outgoing GNEEdge
-    void removeOutgoingGNEEdge(GNEEdge *edge);
+    void removeOutgoingGNEEdge(GNEEdge* edge);
 
     /// @brief Returns all GNEEdges vinculated with this Junction
-    const std::vector<GNEEdge*> &getGNEEdges() const;
+    const std::vector<GNEEdge*>& getGNEEdges() const;
 
     /// @brief Returns incoming GNEEdges
-    const std::vector<GNEEdge*> &getGNEIncomingEdges() const;
+    const std::vector<GNEEdge*>& getGNEIncomingEdges() const;
 
     /// @brief Returns incoming GNEEdges
-    const std::vector<GNEEdge*> &getGNEOutgoingEdges() const;
+    const std::vector<GNEEdge*>& getGNEOutgoingEdges() const;
 
     /// @brief Returns GNECrossings
-    const std::vector<GNECrossing*> &getGNECrossings() const;
+    const std::vector<GNECrossing*>& getGNECrossings() const;
 
     /// @brief marks as first junction in createEdge-mode
     void markAsCreateEdgeSource();

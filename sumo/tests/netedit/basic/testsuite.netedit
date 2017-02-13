@@ -1,8 +1,9 @@
-#Open netEdit
+# Open netEdit
 open_netedit
 
-#create net with two nodes and an edge
+# create net with two nodes and an edge
 new_net_1edge
 
-#provoke a error with sikulix
+# provoke a error with sikulix
 sikulix_error
+load_and_save

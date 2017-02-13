@@ -653,7 +653,8 @@ if False | is_all:  # False:#True:
     # print 'This is the configuration instance of the attribute x',obj.attrsman.x
     #
 
-if 0 | is_all:  # False:#True:  ###!!!!!!!!!!!!!!!!check this : failed to reload!!
+# False:#True:  ###!!!!!!!!!!!!!!!!check this : failed to reload!!
+if 0 | is_all:
     obj = TestTableObjMan()
 
     print 'obj.ident', obj.ident

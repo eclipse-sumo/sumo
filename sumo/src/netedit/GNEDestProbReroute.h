@@ -51,13 +51,13 @@ class GNERerouterInterval;
 class GNEDestProbReroute {
 public:
     /// @brief constructor
-    GNEDestProbReroute(GNERerouterInterval &rerouterIntervalParent, GNEEdge *newEdgeDestination, SUMOReal probability);
+    GNEDestProbReroute(GNERerouterInterval& rerouterIntervalParent, GNEEdge* newEdgeDestination, SUMOReal probability);
 
     /// @brief destructor
     ~GNEDestProbReroute();
 
     /// @brief get edge destination
-    GNEEdge *getNewDestination() const;
+    GNEEdge* getNewDestination() const;
 
     /// @brief set edge destination
     void setNewDestination(GNEEdge* edge);
@@ -72,17 +72,17 @@ public:
     SumoXMLTag getTag() const;
 
     /// @brief get rerouter interval parent
-    const GNERerouterInterval &getRerouterIntervalParent() const;
+    const GNERerouterInterval& getRerouterIntervalParent() const;
 
     /// @brief overload operator ==
-    bool operator==(const GNEDestProbReroute &destProbReroute);
+    bool operator==(const GNEDestProbReroute& destProbReroute);
 
 protected:
     /// @brief reference to rerouter interval parent
-    GNERerouterInterval *myRerouterIntervalParent;
+    GNERerouterInterval* myRerouterIntervalParent;
 
     /// @brief id of new edge destination
-    GNEEdge *myNewEdgeDestination;
+    GNEEdge* myNewEdgeDestination;
 
     /// @brief probability with which a vehicle will use the given edge as destination
     SUMOReal myProbability;

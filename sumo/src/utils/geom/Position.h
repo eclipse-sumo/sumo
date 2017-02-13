@@ -169,7 +169,7 @@ public:
         myZ -= pos.myZ;
     }
 
-    /// @brief 
+    /// @brief
     void norm2d() {
         SUMOReal val = sqrt(myX * myX + myY * myY);
         myX = myX / val;

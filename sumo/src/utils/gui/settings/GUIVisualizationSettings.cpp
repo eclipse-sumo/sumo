@@ -1001,7 +1001,7 @@ GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s,
 }
 
 
-const RGBColor& 
+const RGBColor&
 GUIVisualizationSettings::getLinkColor(const LinkState& ls) {
     switch (ls) {
         case LINKSTATE_TL_GREEN_MAJOR:

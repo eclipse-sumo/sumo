@@ -128,9 +128,9 @@ GNEDetector::getFilename() const {
 void
 GNEDetector::setPositionOverLane(SUMOReal pos) {
     if (pos < 0) {
-        throw InvalidArgument("Position '" + toString(pos) + "' not allowed. Must be greater than 0");
+        throw InvalidArgument("Position '" + toString(pos) + "' of " + toString(getTag()) + " not allowed. Must be greater than 0");
     } else if (pos > myLane->getLaneShapeLenght()) {
-        throw InvalidArgument("Position '" + toString(pos) + "' not allowed. Must be smaller than lane length");
+        throw InvalidArgument("Position '" + toString(pos) + "' of " + toString(getTag()) + " not allowed. Must be smaller than lane length");
     } else {
         myPosition = Position(pos, 0);
     }

@@ -49,7 +49,7 @@ FXIMPLEMENT(GUIManipulator, FXDialogBox, NULL, 0)
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIManipulator::GUIManipulator(GUIMainWindow& app, const std::string& name, int xpos, int ypos) : 
+GUIManipulator::GUIManipulator(GUIMainWindow& app, const std::string& name, int xpos, int ypos) :
     FXDialogBox(&app, name.c_str(), GUIDesignDialogBox, xpos, ypos, 0, 0) {}
 
 

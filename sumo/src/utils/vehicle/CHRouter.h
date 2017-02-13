@@ -171,7 +171,7 @@ public:
         }
 
 
-        typedef std::vector<typename CHBuilder<E,V>::Connection> ConnectionVector;
+        typedef std::vector<typename CHBuilder<E, V>::Connection> ConnectionVector;
         /** @brief explore on element from the frontier,update minTTSeen and meeting
          * if an EdgeInfo found by the otherSearch is encountered
          * returns whether stepping should continue
@@ -309,7 +309,7 @@ public:
     virtual SUMOAbstractRouter<E, V>* clone() {
         WRITE_MESSAGE("Cloning Contraction Hierarchy for " + SumoVehicleClassStrings.getString(mySVC) + " and time " + time2string(myValidUntil) + ".");
         CHRouter<E, V, PF>* clone = new CHRouter<E, V, PF>(myEdges, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
-                                      mySVC, myWeightPeriod, myHierarchy);
+                mySVC, myWeightPeriod, myHierarchy);
         clone->myValidUntil = myValidUntil;
         return clone;
     }
@@ -428,8 +428,8 @@ public:
 private:
     // retrieve the via edge for a shortcut
     const E* getVia(const E* forwardFrom, const E* forwardTo) const {
-        typename CHBuilder<E,V>::ConstEdgePair forward(forwardFrom, forwardTo);
-        typename CHBuilder<E,V>::ShortcutVia::const_iterator it = myHierarchy->shortcuts.find(forward);
+        typename CHBuilder<E, V>::ConstEdgePair forward(forwardFrom, forwardTo);
+        typename CHBuilder<E, V>::ShortcutVia::const_iterator it = myHierarchy->shortcuts.find(forward);
         if (it != myHierarchy->shortcuts.end()) {
             return it->second;
         } else {

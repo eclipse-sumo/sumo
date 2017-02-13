@@ -3,7 +3,8 @@ import os
 import sys
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
-neteditTestRoot = os.path.join(os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
+neteditTestRoot = os.path.join(
+    os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
 sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit
 
@@ -70,7 +71,8 @@ netedit.modifyAttribute(parametersReference, 3, "3000")
 # Answer "no" to the answer dialog
 netedit.waitQuestion("n")
 
-# Change parameter 3 with a valid value (out of range, but adapted to the end of lane)
+# Change parameter 3 with a valid value (out of range, but adapted to the
+# end of lane)
 netedit.modifyAttribute(parametersReference, 3, "3000")
 
 # Answer "yes" to the answer dialog
@@ -89,7 +91,7 @@ netedit.modifyAttribute(parametersReference, 4, "line1, line2")
 netedit.modifyAttribute(parametersReference, 4, "line1 line2")
 
 # go to a empty area
-click(match);
+click(match)
 
 # Check undos and redos
 netedit.undo(match, 13)
@@ -101,5 +103,5 @@ netedit.saveAdditionals()
 # save newtork
 netedit.saveNetwork()
 
-# quit netedit 
+# quit netedit
 netedit.quit(neteditProcess, False, False)

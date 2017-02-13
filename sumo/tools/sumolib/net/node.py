@@ -51,7 +51,7 @@ class Node:
             if len(pp) != 3:
                 raise ValueError('shape point must consist of x,y,z')
         self._shape3D = shape
-        self._shape = [(x,y) for x,y,z in shape]
+        self._shape = [(x, y) for x, y, z in shape]
 
     def getShape(self):
         """Returns the shape of the node in 2d.
@@ -76,7 +76,6 @@ class Node:
         """
 
         return self._shape3D
-
 
     def addOutgoing(self, edge):
         self._outgoing.append(edge)

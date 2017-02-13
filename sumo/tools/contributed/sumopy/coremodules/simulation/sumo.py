@@ -270,14 +270,18 @@ class Sumo(CmlMixin, Process):
                                                        wildcards='Typemap XML files (*.rou.xml)|*.rou.xml',
                                                        metatype='filepaths',
                                                        info='SUMO route xml file.\n'
-                                                       + 'If multiple, comma separated files are given'
-                                                       + ' then make sure the start time of trips'
-                                                       + ' are in increasing chronological order.',
+                                                       +
+                                                       'If multiple, comma separated files are given'
+                                                       +
+                                                       ' then make sure the start time of trips'
+                                                       +
+                                                       ' are in increasing chronological order.',
                                                        ))
 
         simtime_start_default = scenario.demand.trips.get_time_depart_first()
         # estimate end of simtime
-        simtime_end_default = scenario.demand.trips.get_time_depart_last() + 600.0
+        simtime_end_default = scenario.demand.trips.get_time_depart_last() + \
+            600.0
 
         self.simtime_start = attrsman.add(cm.AttrConf('simtime_start', kwargs.get('simtime_start', simtime_start_default),
                                                       groupnames=[
@@ -313,8 +317,10 @@ class Sumo(CmlMixin, Process):
                                                          name='teleport',
                                                          perm='rw',
                                                          info='Time to teleport in seconds, which is the time after'
-                                                         + 'dedlocks get resolved by teleporting\n'
-                                                         + '-1 means no teleporting takes place',
+                                                         +
+                                                         'dedlocks get resolved by teleporting\n'
+                                                         +
+                                                         '-1 means no teleporting takes place',
                                                          metatype='time',
                                                          unit='s',
                                                          ))

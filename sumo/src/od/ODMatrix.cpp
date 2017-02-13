@@ -304,7 +304,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
             dev.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
             dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin));
             dev.writeAttr(SUMO_ATTR_END, time2string(c->end));
-            if(!asProbability) {
+            if (!asProbability) {
                 dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
             } else {
                 const SUMOReal probability = float(c->vehicleNumber) / STEPS2TIME(c->end - c->begin);

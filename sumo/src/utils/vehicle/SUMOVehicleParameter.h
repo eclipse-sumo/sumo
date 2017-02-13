@@ -309,7 +309,7 @@ public:
      * @param[in] tag The typeID to write (defaults to member vtypeid)
      * @exception IOError not yet implemented
      */
-    void write(OutputDevice& dev, const OptionsCont& oc, const SumoXMLTag tag = SUMO_TAG_VEHICLE, const std::string& typeID="") const;
+    void write(OutputDevice& dev, const OptionsCont& oc, const SumoXMLTag tag = SUMO_TAG_VEHICLE, const std::string& typeID = "") const;
 
 
     /** @brief Returns whether the defaults shall be used

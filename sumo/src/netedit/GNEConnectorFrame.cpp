@@ -90,29 +90,29 @@ RGBColor GNEConnectorFrame::conflictColor;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet):
+GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, "Edit Connections"),
     myCurrentLane(0) {
     // Create groupbox for lane information
     myGroupBoxDescription = new FXGroupBox(myContentFrame, "Lane", GUIDesignGroupBoxFrame);
-    
+
     // Create label for lane description and update it
     myLaneDescriptionLabel = new FXLabel(myGroupBoxDescription, "", 0, GUIDesignLabelLeft);
     updateDescription();
 
     // Create GroupBox for Buttons
     myGroupBoxModifications = new FXGroupBox(myContentFrame, "Modifications", GUIDesignGroupBoxFrame);
-    
+
     // Create "Cancel" button
-    myCancelButton = new FXButton(myGroupBoxModifications, "Cancel\t\tDiscard connection modifications (Esc)", 
+    myCancelButton = new FXButton(myGroupBoxModifications, "Cancel\t\tDiscard connection modifications (Esc)",
                                   GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_CANCEL, GUIDesignButton);
     // Create "OK" button
-    mySaveButton = new FXButton(myGroupBoxModifications, "OK\t\tSave connection modifications (Enter)", 
+    mySaveButton = new FXButton(myGroupBoxModifications, "OK\t\tSave connection modifications (Enter)",
                                 GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_OK, GUIDesignButton);
-    
+
     // Create groupbox for operations
     myGroupBoxOperations = new FXGroupBox(myContentFrame, "Operations", GUIDesignGroupBoxFrame);
-    
+
     // Create "Select Dead Ends" button
     mySelectDeadEndsButton = new FXButton(myGroupBoxOperations, "Select Dead Ends\t\tSelects all lanes that have no outgoing connection (clears previous selection)",
                                           0, this, MID_GNE_SELECT_DEAD_ENDS, GUIDesignButton);
@@ -134,7 +134,7 @@ GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame *horizontalFrameParent, G
 
     // Create groupbox for selection hints
     myGroupBoxSelection = new FXGroupBox(myContentFrame, "Selection", GUIDesignGroupBoxFrame);
-    
+
     // Selection Hint
     myHoldShiftLabel = new FXLabel(myGroupBoxSelection, "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelLeft);
     myHoldControlLabel = new FXLabel(myGroupBoxSelection, "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper nodes)", 0, GUIDesignLabelLeft);
@@ -182,7 +182,7 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
         myCurrentLane->setSpecialColor(&sourceColor);
         initTargets();
         myNumChanges = 0;
-        myViewNet->getUndoList()->p_begin("modify connections");
+        myViewNet->getUndoList()->p_begin("modify " + toString(SUMO_TAG_CONNECTION) + "s");
     } else if (myPotentialTargets.count(lane) || allowConflict) {
         const int fromIndex = myCurrentLane->getIndex();
         GNEEdge& srcEdge = myCurrentLane->getParentEdge();
@@ -213,14 +213,14 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
                 break;
             }
             case CONFLICTED:
-                myViewNet->setStatusBarText("Another lane from the same edge already connects to that lane");
+                myViewNet->setStatusBarText("Another lane from the same edge already connects to that " + toString(SUMO_TAG_LANE));
                 break;
         }
         if (changed) {
             myNumChanges += 1;
         }
     } else {
-        myViewNet->setStatusBarText("Invalid target for connection");
+        myViewNet->setStatusBarText("Invalid target for " + toString(SUMO_TAG_CONNECTION));
     }
     updateDescription();
 }
@@ -359,7 +359,7 @@ GNEConnectorFrame::onCmdSelectPass(FXObject*, FXSelector, void*) {
 long
 GNEConnectorFrame::onCmdClearSelectedConnections(FXObject*, FXSelector, void*) {
     onCmdCancel(0, 0, 0);
-    myViewNet->getUndoList()->p_begin("clear connections from selected lanes, edges and junctions");
+    myViewNet->getUndoList()->p_begin("clear connections from selected lanes, edges and " + toString(SUMO_TAG_JUNCTION) + "s");
     const std::set<GUIGlID> ids = gSelected.getSelected();
     for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         GUIGlID id = *it;

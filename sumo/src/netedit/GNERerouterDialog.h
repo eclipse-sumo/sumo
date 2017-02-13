@@ -62,7 +62,7 @@ public:
 
     /// @brief get rerouter parent
     GNERerouter* getRerouterParent() const;
-    
+
     /// @brief check if a interval exists
     bool findInterval(SUMOReal begin, SUMOReal end) const;
 
@@ -105,7 +105,7 @@ protected:
 
     /// @brief set with a copy of rerouter intervals
     std::vector<GNERerouterInterval> myCopyOfRerouterIntervals;
-  
+
     /// @brief update data table
     void updateIntervalTable();
 

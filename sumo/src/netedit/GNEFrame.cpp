@@ -54,7 +54,7 @@
 // method definitions
 // ===========================================================================
 
-GNEFrame::GNEFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel) :
+GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel) :
     FXVerticalFrame(horizontalFrameParent, GUIDesignFrame),
     myViewNet(viewNet) {
     // Create font
@@ -73,7 +73,7 @@ GNEFrame::GNEFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet
     // Create frame for right elements of header (By default unused)
     myHeaderRightFrame = new FXHorizontalFrame(myHeaderFrame, GUIDesignHorizontalFrame);
     myHeaderRightFrame->hide();
-    
+
     // Add separator
     new FXHorizontalSeparator(this, GUIDesignHorizontalSeparator);
 
@@ -96,7 +96,7 @@ GNEFrame::~GNEFrame() {
 }
 
 
-void 
+void
 GNEFrame::show() {
     // show scroll window
     FXVerticalFrame::show();
@@ -105,7 +105,7 @@ GNEFrame::show() {
 }
 
 
-void 
+void
 GNEFrame::hide() {
     // hide scroll window
     FXVerticalFrame::hide();
@@ -114,7 +114,7 @@ GNEFrame::hide() {
 }
 
 
-void 
+void
 GNEFrame::setFrameWidth(int width) {
     setWidth(width);
     myScrollWindowsContents->setWidth(width);

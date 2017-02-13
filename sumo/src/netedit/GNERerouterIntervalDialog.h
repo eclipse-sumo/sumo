@@ -2,7 +2,7 @@
 /// @file    GNERerouterIntervalDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2017
-/// @version $Id: GNERerouterIntervalDialog.h 22824 2017-02-02 09:51:02Z palcraft $
+/// @version $Id$
 ///
 /// Dialog for edit rerouter intervals
 /****************************************************************************/
@@ -60,7 +60,7 @@ class GNERerouterIntervalDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNERerouterIntervalDialog(GNERerouterDialog *rerouterDialog, GNERerouterInterval &rerouterInterval);
+    GNERerouterIntervalDialog(GNERerouterDialog* rerouterDialog, GNERerouterInterval& rerouterInterval);
 
     /// @brief destructor
     ~GNERerouterIntervalDialog();
@@ -124,31 +124,31 @@ protected:
     GNERerouterIntervalDialog() {}
 
     /// @brief pointer to GNERerouterDialog parent
-    GNERerouterDialog *myRerouterDialogParent;
+    GNERerouterDialog* myRerouterDialogParent;
 
     /// @brief pointer to rerouter interval
-    GNERerouterInterval *myRerouterInterval;
+    GNERerouterInterval* myRerouterInterval;
 
     /// @brief begin time text field
-    FXTextField *myBeginTextField;
+    FXTextField* myBeginTextField;
 
     /// @brief end time text field
-    FXTextField *myEndTextField;
+    FXTextField* myEndTextField;
 
     /// @brief begin/end time check label
-    FXLabel *myCheckLabel;
+    FXLabel* myCheckLabel;
 
     /// @brief button for add new closing lane reroutes
-    FXButton *myAddClosingLaneReroutes;
+    FXButton* myAddClosingLaneReroutes;
 
     /// @brief button for add new closing reroutes
-    FXButton *myAddClosingReroutes;
+    FXButton* myAddClosingReroutes;
 
     /// @brief button for add new destiny probability reroutes
-    FXButton *myAddDestProbReroutes;
+    FXButton* myAddDestProbReroutes;
 
     /// @brief button for add new route probability reroutes
-    FXButton *myAddRouteProbReroute;
+    FXButton* myAddRouteProbReroute;
 
     /// @brief list with closing lane reroutes
     FXTable* myClosingLaneRerouteList;

@@ -456,7 +456,7 @@ public:
     /// @}
 
     /// @brief Returns the edge with negated id if it exists
-    NBEdge* getOppositeByID(const std::string& edgeID) const; 
+    NBEdge* getOppositeByID(const std::string& edgeID) const;
 
 
     /** @brief Determines which edges belong to roundabouts and increases their priority
@@ -542,7 +542,7 @@ public:
     void checkOverlap(SUMOReal threshold, SUMOReal zThreshold) const;
 
     /// @brief check whether edges are to steep
-    void checkGrade(SUMOReal threshold) const; 
+    void checkGrade(SUMOReal threshold) const;
 
 private:
     /** @brief Returns the edges which have been built by splitting the edge of the given id

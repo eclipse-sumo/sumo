@@ -75,7 +75,7 @@ GNEChange_TLS::~GNEChange_TLS() {
 }
 
 
-void 
+void
 GNEChange_TLS::undo() {
     if (myForward) {
         myJunction->removeTrafficLight(myTlDef);
@@ -85,7 +85,7 @@ GNEChange_TLS::undo() {
 }
 
 
-void 
+void
 GNEChange_TLS::redo() {
     if (myForward) {
         myJunction->addTrafficLight(myTlDef, myForceInsert);
@@ -95,21 +95,21 @@ GNEChange_TLS::redo() {
 }
 
 
-FXString 
+FXString
 GNEChange_TLS::undoName() const {
     if (myForward) {
-        return ("Undo create traffic light");
+        return ("Undo create " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
     } else {
-        return ("Undo delete traffic light");
+        return ("Undo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
     }
 }
 
 
-FXString 
+FXString
 GNEChange_TLS::redoName() const {
     if (myForward) {
-        return ("Redo create traffic light");
+        return ("Redo create " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
     } else {
-        return ("Redo delete traffic light");
+        return ("Redo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
     }
 }

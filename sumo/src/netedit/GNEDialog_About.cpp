@@ -52,7 +52,7 @@ GNEDialog_About::GNEDialog_About(FXWindow* parent) :
 
     // DLR Icon
     FXHorizontalFrame* f2 = new FXHorizontalFrame(f1, GUIDesignAboutFrame2);
-    new FXLabel (f2, "\tDLR\t.", GUIIconSubSys::getIcon(ICON_DLR), GUIDesignAboutLabelIcon);
+    new FXLabel(f2, "\tDLR\t.", GUIIconSubSys::getIcon(ICON_DLR), GUIDesignAboutLabelIcon);
 
     // "NETEDIT <VERSION>"
     FXVerticalFrame* f4 = new FXVerticalFrame(f2, GUIDesignAboutFrame3);
@@ -62,7 +62,7 @@ GNEDialog_About::GNEDialog_About(FXWindow* parent) :
     l->setFont(myHeadlineFont);
     new FXLabel(f4, "Network editor for SUMO, the Simulation of Urban MObility", 0, GUIDesignAboutLabelDescription);
     new FXLabel(f4, HAVE_ENABLED, 0, GUIDesignAboutLabelDescription);
-    
+
     // additional infos
     FXVerticalFrame* f3 = new FXVerticalFrame(f1, GUIDesignAboutFrame3);
 

@@ -99,6 +99,7 @@ stockIDs = [
 
 
 class BaseTool(cm.BaseObjman):
+
     """
     This is a base tool class for Agilecanvas.
     It must handle all mouse or keyboard events,
@@ -358,6 +359,7 @@ class DelTool(BaseTool):
 
 
 class ToolPalett(wx.Panel):
+
     """
     This is a panel where tools are represented by images and/or text.
     The tools are selected in a radio-button-fashion.
@@ -563,16 +565,19 @@ class __ToggleMixin:
 
 
 class GenBitmapTextToggleButton(__ToggleMixin, GenBitmapTextButton):
+
     """A generic toggle bitmap button with text label"""
     pass
 
 
 class GenBitmapToggleButton(__ToggleMixin, GenBitmapButton):
+
     """A generic toggle bitmap button with text label"""
     pass
 
 
 class ToolsPanel(wx.Panel):
+
     """
 
     Interactively navigates through objects and displays attributes 
@@ -802,6 +807,7 @@ class WxGLTest_orig(glcanvas.GLCanvas):
 
 
 class Lines:
+
     """Lines class."""
 
     def __init__(self, linewidth=3, vertices=None, colors=None):
@@ -932,6 +938,7 @@ class Rectangles(Lines):
 
 
 class Triangles(Lines):
+
     """Triangles class."""
 
     def __init__(self, linewidth=3, vertices=None, colors=None):
@@ -973,6 +980,7 @@ class Triangles(Lines):
 
 
 class GLFrame(wx.Frame):
+
     """A simple class for using OpenGL with wxPython."""
 
     def __init__(self, parent, id=-1, title='', pos=wx.DefaultPosition,
@@ -1798,6 +1806,7 @@ class MainSplitter(wx.SplitterWindow):
 
 
 class TestMainframe(AgileToolbarFrameMixin, wx.Frame):
+
     """
     Simple wx frame with some special features.
     """
@@ -1979,8 +1988,10 @@ triangles = Triangles(linewidth=linewidth2, vertices=vertices2, colors=colors2)
 
 linewidth3 = 3
 vertices3 = [
-    [[0.5, 0.0, 0.0], [0.7, 0.0, 0.0], [0.7, 0.3, 0.0], [0.5, 0.3, 0.0], ],  # 0
-    [[0.1, 0.0, 0.0], [0.3, 0.0, 0.0], [0.3, 0.2, 0.0], [0.1, 0.2, 0.0], ],  # 1
+    [[0.5, 0.0, 0.0], [0.7, 0.0, 0.0],
+        [0.7, 0.3, 0.0], [0.5, 0.3, 0.0], ],  # 0
+    [[0.1, 0.0, 0.0], [0.3, 0.0, 0.0],
+        [0.3, 0.2, 0.0], [0.1, 0.2, 0.0], ],  # 1
 ]
 colors3 = [
     [0.8, 0.0, 0.8, 0.9],    # 0

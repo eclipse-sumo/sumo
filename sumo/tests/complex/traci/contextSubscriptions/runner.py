@@ -115,7 +115,8 @@ def runSingle(traciEndTime, viewRange, module, objID):
                         "timestep %s: %s is missing in surrounding vehicles" % (step, v))
 
         step += 1
-    module.unsubscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange)
+    module.unsubscribeContext(
+        objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange)
     responses = traci.simulationStep()
     if responses:
         print("Error: Unsubscribe did not work")

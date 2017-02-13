@@ -569,13 +569,13 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
         return false;
     }
     MSLane* insertionLane = getDepartLane(static_cast<MSVehicle&>(v));
-    if (insertionLane == 0){
+    if (insertionLane == 0) {
         return false;
     }
 
-    if (!forceCheck){
+    if (!forceCheck) {
         if (myLastFailedInsertionTime == time) {
-            if (myFailedInsertionMemory.count(insertionLane->getIndex())){
+            if (myFailedInsertionMemory.count(insertionLane->getIndex())) {
                 // A vehicle was already rejected for the proposed insertionLane in this timestep
                 return false;
             }
@@ -587,7 +587,7 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
 
     bool success = insertionLane->insertVehicle(static_cast<MSVehicle&>(v));
 
-    if(!success){
+    if (!success) {
         myFailedInsertionMemory.insert(insertionLane->getIndex());
     }
     return success;
@@ -875,7 +875,7 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
 
 bool
 MSEdge::canChangeToOpposite() {
-    return (!myLanes->empty() && myLanes->back()->getOpposite() != 0 && 
+    return (!myLanes->empty() && myLanes->back()->getOpposite() != 0 &&
             // do not change on curved internal lanes
             (!isInternal() || myLanes->back()->getIncomingLanes()[0].viaLink->getDirection() == LINKDIR_STRAIGHT));
 }

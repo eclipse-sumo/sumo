@@ -148,6 +148,7 @@ def str_to_obj_nested(s):
 
 
 class AttrBase:
+
     """
     Mixin class that provides methods to support text representation 
     of attributes
@@ -181,6 +182,7 @@ class AttrBase:
 
 
 class WidgetContainer:
+
     """
     Contains one or several widgets representing a scalar attribute.
     Should be overwritten to accomodate various interactive datatypes.
@@ -335,8 +337,10 @@ class WidgetContainer:
         # print
         # 'create_namewidget',self._attrconf.get_obj().ident,self._attrconf.attrname
         widget = wx.StaticText(self.parent, -1,
-                               self._attrconf.get_name().title() + self.equalchar,
-                               style=wx.ALIGN_RIGHT  # |wx.SIMPLE_BORDER   #wx.STATIC_BORDER #
+                               self._attrconf.get_name().title() +
+                               self.equalchar,
+                               # |wx.SIMPLE_BORDER   #wx.STATIC_BORDER #
+                               style=wx.ALIGN_RIGHT
                                )
         widget.SetBackgroundColour(self.color_bg)
         self.extend_widgetsize(widget)
@@ -352,7 +356,8 @@ class WidgetContainer:
         if self._attrconf.has_unit():
             widget = wx.StaticText(self.parent, -1,
                                    self._attrconf.format_unit(),
-                                   style=wx.ALIGN_LEFT  # |wx.SIMPLE_BORDER #wx.STATIC_BORDER #|  #
+                                   # |wx.SIMPLE_BORDER #wx.STATIC_BORDER #|  #
+                                   style=wx.ALIGN_LEFT
                                    )
             widget.SetBackgroundColour(self.color_bg)
             self.extend_widgetsize(widget)
@@ -528,6 +533,7 @@ class WidgetContainer:
 
 
 class NumericWidgetContainer(AttrBase, WidgetContainer):
+
     """
     Contains one or several widgets representing a scalar numeric attribute.
 
@@ -614,7 +620,8 @@ class NumericWidgetContainer(AttrBase, WidgetContainer):
         if np.isinf(value):
             widget = wx.StaticText(self.parent, -1,
                                    value.__repr__(),
-                                   style=wx.ALIGN_LEFT  # |wx.SIMPLE_BORDER #wx.STATIC_BORDER #|  #
+                                   # |wx.SIMPLE_BORDER #wx.STATIC_BORDER #|  #
+                                   style=wx.ALIGN_LEFT
                                    )
             # widget.SetBackgroundColour(self.color_bg)
             self.extend_widgetsize(widget)
@@ -701,6 +708,7 @@ class NumericWidgetContainer(AttrBase, WidgetContainer):
 
 
 class IntegerWidgetContainer(NumericWidgetContainer):
+
     """
     Contains one or several widgets representing a scalar numeric attribute.
 
@@ -731,6 +739,7 @@ class IntegerWidgetContainer(NumericWidgetContainer):
 
 
 class BooleanWidgetContainer(AttrBase, WidgetContainer):
+
     """
     Contains one or several widgets representing a boolean attribute.
 
@@ -787,6 +796,7 @@ class BooleanWidgetContainer(AttrBase, WidgetContainer):
 
 
 class ChoiceWidgetContainer(WidgetContainer):
+
     """
     Contains one or several widgets representing a text attribute.
 
@@ -886,6 +896,7 @@ class ChoiceWidgetContainer(WidgetContainer):
 
 
 class TextWidgetContainer(WidgetContainer):
+
     """
     Contains one or several widgets representing a text attribute.
 
@@ -950,6 +961,7 @@ class TextWidgetContainer(WidgetContainer):
 
 
 class ListWidgetContainer(WidgetContainer):
+
     """
     Contains one or several widgets representing a text attribute.
 
@@ -1022,6 +1034,7 @@ class ListWidgetContainer(WidgetContainer):
 
 
 class ObjWidgetContainer(AttrBase, WidgetContainer):
+
     """
     Contains one or several widgets representing an obj attribute.
 
@@ -1390,6 +1403,7 @@ class DirpathWidgetContainer(AttrBase, TextWidgetContainer):
 
 
 class ScalarPanel(wx.Panel):
+
     """
     Interactively displays scalar attributes of object on a parent panel.
     """
@@ -1633,6 +1647,7 @@ class ScalarPanel(wx.Panel):
 
 
 class ScalarPanelScrolled(wxlib.scrolledpanel.ScrolledPanel, ScalarPanel):
+
     """
     Interactively displays scalar attributes of object on a parent panel.
     """
@@ -1789,7 +1804,8 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
 
                             #gridlib.GridCellChoiceEditor(['what','ever'], allowOthers=True)
                     else:
-                        return gridlib.GRID_VALUE_STRING  # still display a string with choice
+                        # still display a string with choice
+                        return gridlib.GRID_VALUE_STRING
                 else:
                     return gridlib.GRID_VALUE_STRING
             return gridlib.GRID_VALUE_NUMBER
@@ -2713,7 +2729,8 @@ class TabPanel(AttrBase, gridlib.Grid):
                     # apply current widget values
                     dlg.apply()
                     if self._objpanel:
-                        self._objpanel.restore()  # thi will also update scalars on objpanel
+                        # thi will also update scalars on objpanel
+                        self._objpanel.restore()
                     self.ForceRefresh()
                 else:
                     # print ">>>>>>>>>You pressed Cancel\n"
@@ -2783,6 +2800,7 @@ class TabPanel(AttrBase, gridlib.Grid):
 
 
 class ObjPanelMixin:
+
     """
     Common methods for panels
     """
@@ -3580,6 +3598,7 @@ class ObjPanelDialog(ObjPanelMixin, wx.Dialog):
 
 
 class ObjPanel(ObjPanelMixin, wx.Panel):
+
     """
     Interactively displays attributes of object on a panel.
     """
@@ -3625,6 +3644,7 @@ class ObjPanel(ObjPanelMixin, wx.Panel):
 
 
 class TablePanel(ObjPanelMixin, wx.Panel):
+
     """
     Common methods for panels
     """
@@ -4093,6 +4113,7 @@ class NaviPanelMixin:
 
 
 class NaviPanel(NaviPanelMixin, wx.Panel):
+
     """
 
     Interactively navigates through objects and displays attributes 
@@ -4283,6 +4304,7 @@ class ObjBrowserMainframe(wx.Frame):
 
 
 class ObjBrowserApp(wx.App):
+
     """
 
     """
@@ -4307,6 +4329,7 @@ class ObjBrowserApp(wx.App):
 
 
 class TableBrowserApp(wx.App):
+
     """
 
     """

@@ -73,10 +73,9 @@ FXIMPLEMENT(GNEDialog_Wizard::InputFloat, FXHorizontalFrame, InputFloatMap, ARRA
 GNEDialog_Wizard::GNEDialog_Wizard(FXWindow* parent,  const char* name, int width, int height) :
     FXDialogBox(parent, name, GUIDesignDialogBox, 0, 0, width, height) {
     OptionsCont& oc = OptionsCont::getOptions();
-    FXVerticalFrame* contentFrame = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
 
-    FXTabBook* tabbook = new FXTabBook(
-        contentFrame, 0, 0, TABBOOK_LEFTTABS | PACK_UNIFORM_WIDTH | PACK_UNIFORM_HEIGHT | LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_RIGHT);
+    FXTabBook* tabbook = new FXTabBook(contentFrame, 0, 0, GUIDesignTabBook);
 
     const std::vector<std::string>& topics = oc.getSubTopics();
     for (std::vector<std::string>::const_iterator it_topic = topics.begin(); it_topic != topics.end(); it_topic++) {

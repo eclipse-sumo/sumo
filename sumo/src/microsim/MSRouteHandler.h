@@ -174,7 +174,7 @@ protected:
     /// @brief The id of the currently parsed route distribution
     std::string myCurrentRouteDistributionID;
 
-    /// @brief whether a state file is being loaded 
+    /// @brief whether a state file is being loaded
     bool myAmLoadingState;
 
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors

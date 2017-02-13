@@ -103,13 +103,13 @@ private:
      * @param[in] oc The options to use
      * @param[in] nc The node-container from which to read data
      */
-    static void writeProhibitedManoeuvres(const OptionsCont& oc, const NBNodeCont& nc, const NBEdgeCont& ec); 
+    static void writeProhibitedManoeuvres(const OptionsCont& oc, const NBNodeCont& nc, const NBEdgeCont& ec);
 
     /** @brief Writes the connected_lanes file
      * @param[in] oc The options to use
      * @param[in] nc The node-container from which to read data
      */
-    static void writeConnectedLanes(const OptionsCont& oc, NBNodeCont& nc); 
+    static void writeConnectedLanes(const OptionsCont& oc, NBNodeCont& nc);
 
     /// @brief write header comments (input paramters, date, etc...)
     static void writeHeader(OutputDevice& device, const OptionsCont& oc);
@@ -129,7 +129,7 @@ private:
     /// @brief get the length of the edge when measured up to the junction center
     static SUMOReal getGraphLength(NBEdge* edge);
 
-    static std::string getSinglePostalCode(const std::string& zipCode, const std::string edgeID); 
+    static std::string getSinglePostalCode(const std::string& zipCode, const std::string edgeID);
 
     /// @brief magic value for undefined stuff
     static const std::string UNDEFINED;

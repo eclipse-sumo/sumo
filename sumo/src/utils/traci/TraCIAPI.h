@@ -829,14 +829,14 @@ public:
         std::string getNextEdge(const std::string& personID) const;
         std::string getVehicle(const std::string& personID) const;
         int getRemainingStages(const std::string& personID) const;
-        int getStage(const std::string& personID, int nextStageIndex=0) const;
-        std::vector<std::string> getEdges(const std::string& personID, int nextStageIndex=0) const;
+        int getStage(const std::string& personID, int nextStageIndex = 0) const;
+        std::vector<std::string> getEdges(const std::string& personID, int nextStageIndex = 0) const;
 
         void removeStages(const std::string& personID) const;
-        void add(const std::string& personID, const std::string& edgeID, SUMOReal pos, SUMOReal depart=DEPART_NOW, const std::string typeID="DEFAULT_PEDTYPE");
-        void appendWaitingStage(const std::string& personID, SUMOReal duration, const std::string& description="waiting", const std::string& stopID="");
-        void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, SUMOReal arrivalPos, SUMOReal duration=-1, SUMOReal speed=-1, const std::string& stopID="");
-        void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID="");
+        void add(const std::string& personID, const std::string& edgeID, SUMOReal pos, SUMOReal depart = DEPART_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
+        void appendWaitingStage(const std::string& personID, SUMOReal duration, const std::string& description = "waiting", const std::string& stopID = "");
+        void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, SUMOReal arrivalPos, SUMOReal duration = -1, SUMOReal speed = -1, const std::string& stopID = "");
+        void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID = "");
         void removeStage(const std::string& personID, int nextStageIndex) const;
         void setSpeed(const std::string& personID, SUMOReal speed) const;
         void setType(const std::string& personID, const std::string& typeID) const;

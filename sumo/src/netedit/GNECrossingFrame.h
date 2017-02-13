@@ -71,20 +71,20 @@ public:
         /// @brief get current junction
         GNEJunction* getCurrentJunction() const;
 
-        /// @brief enable edgeSelector 
-        void enableEdgeSelector(GNEJunction *currentJunction);
+        /// @brief enable edgeSelector
+        void enableEdgeSelector(GNEJunction* currentJunction);
 
-        /// @brief disable edgeSelector 
+        /// @brief disable edgeSelector
         void disableEdgeSelector();
 
-        /// @brief restore colors of all edges 
+        /// @brief restore colors of all edges
         void restoreEdgeColors();
 
         /// @brief return candidate color
-        const RGBColor &getCandidateColor() const;
+        const RGBColor& getCandidateColor() const;
 
         /// @brief return selected color
-        const RGBColor &getSelectedColor() const;
+        const RGBColor& getSelectedColor() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -107,7 +107,7 @@ public:
 
     private:
         /// @brief pointer to GNECrossingFrame parent
-        GNECrossingFrame *myCrossingFrameParent;
+        GNECrossingFrame* myCrossingFrameParent;
 
         /// @brief CheckBox for selected edges
         FXButton* myUseSelectedEdges;
@@ -122,7 +122,7 @@ public:
         FXButton* myInvertEdgesSelection;
 
         /// @brief current Junction
-        GNEJunction *myCurrentJunction;
+        GNEJunction* myCurrentJunction;
     };
 
     // ===========================================================================
@@ -135,7 +135,7 @@ public:
 
     public:
         /// @brief constructor
-        crossingParameters(GNECrossingFrame *crossingFrameParent, GNECrossingFrame::edgesSelector *es);
+        crossingParameters(GNECrossingFrame* crossingFrameParent, GNECrossingFrame::edgesSelector* es);
 
         /// @brief destructor
         ~crossingParameters();
@@ -150,16 +150,16 @@ public:
         bool isCrossingParametersEnabled() const;
 
         /// @brief mark or dismark edge
-        void markEdge(GNEEdge *edge);
+        void markEdge(GNEEdge* edge);
 
         /// @brief clear edges
         void clearEdges();
 
         /// @brief invert edges
-        void invertEdges(GNEJunction *parentJunction);
+        void invertEdges(GNEJunction* parentJunction);
 
         /// @brief use selected eges
-        void useSelectedEdges(GNEJunction *parentJunction);
+        void useSelectedEdges(GNEJunction* parentJunction);
 
         /// @brief get crossing NBedges
         std::vector<NBEdge*> getCrossingEdges() const;
@@ -171,17 +171,17 @@ public:
         SUMOReal getCrossingWidth() const;
 
         /// @brief get candidate color
-        const RGBColor &getCandidateColor() const;
+        const RGBColor& getCandidateColor() const;
 
         /// @brief get selected color
-        const RGBColor &getSelectedColor() const;
+        const RGBColor& getSelectedColor() const;
 
         /// @brief check if current parameters are valid
         bool isCurrentParametersValid() const;
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when user set a value 
+        /// @brief Called when user set a value
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
         /// @brief Called when help button is pressed
@@ -194,34 +194,34 @@ public:
 
     private:
         /// @brief pointer to GNECrossingFrame parent
-        GNECrossingFrame *myCrossingFrameParent;
+        GNECrossingFrame* myCrossingFrameParent;
 
         /// @brief pointer to edge selector
-        GNECrossingFrame::edgesSelector *myEdgeSelector;
+        GNECrossingFrame::edgesSelector* myEdgeSelector;
 
         /// @brief current selected edges
         std::vector<GNEEdge*> myCurrentSelectedEdges;
 
         /// @brief FXMatrix for place attributes
-        FXMatrix *myAttributesMatrix;
+        FXMatrix* myAttributesMatrix;
 
         /// @brief Label for edges
-        FXLabel *myCrossingEdgesLabel;
+        FXLabel* myCrossingEdgesLabel;
 
         /// @brief TextField for edges
-        FXTextField *myCrossingEdges;
+        FXTextField* myCrossingEdges;
 
         /// @brief Label for Priority
-        FXLabel *myCrossingPriorityLabel;
+        FXLabel* myCrossingPriorityLabel;
 
         /// @brief CheckBox for Priority
-        FXMenuCheck *myCrossingPriority;
+        FXMenuCheck* myCrossingPriority;
 
         /// @brief Label for width
-        FXLabel *myCrossingWidthLabel;
+        FXLabel* myCrossingWidthLabel;
 
         /// @brief TextField for width
-        FXTextField *myCrossingWidth;
+        FXTextField* myCrossingWidth;
 
         /// @brief button for help
         FXButton* myHelpCrossingAttribute;
@@ -241,12 +241,12 @@ public:
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNECrossingFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet);
+    GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNECrossingFrame();
 
-    /// @brief hide crossing frame 
+    /// @brief hide crossing frame
     void hide();
 
     /**@brief add Crossing element
@@ -273,10 +273,10 @@ public:
     static std::string getIdsSelected(const FXList* list);
 
     /// @brief get edge selector
-    GNECrossingFrame::edgesSelector *getEdgeSelector() const;
+    GNECrossingFrame::edgesSelector* getEdgeSelector() const;
 
     /// @brief get Crossing parameters
-    GNECrossingFrame::crossingParameters *getCrossingParameters() const;
+    GNECrossingFrame::crossingParameters* getCrossingParameters() const;
 
 protected:
     /// @brief FOX needs this
@@ -284,31 +284,31 @@ protected:
 
 private:
     /// @brief edge selector
-    GNECrossingFrame::edgesSelector *myEdgeSelector;
+    GNECrossingFrame::edgesSelector* myEdgeSelector;
 
     /// @brief crossing parameters
-    GNECrossingFrame::crossingParameters *myCrossingParameters;
+    GNECrossingFrame::crossingParameters* myCrossingParameters;
 
     /// @brief groupbox for the junction label
     FXGroupBox* myGroupBoxLabel;
 
     /// @brief Label for current Junction
-    FXLabel *myCurrentJunctionLabel;
+    FXLabel* myCurrentJunctionLabel;
 
     /// @brief groupbox for buttons
-    FXGroupBox *myGroupBoxButtons;
+    FXGroupBox* myGroupBoxButtons;
 
     /// @field FXButton for create Crossing
-    FXButton *myCreateCrossingButton;
+    FXButton* myCreateCrossingButton;
 
     /// @brief groupbox for Legend
-    FXGroupBox *myGroupBoxLegend;
+    FXGroupBox* myGroupBoxLegend;
 
     /// @brief Label for color candidate
-    FXLabel *myColorCandidateLabel;
+    FXLabel* myColorCandidateLabel;
 
     /// @brief Label for color selected
-    FXLabel *myColorSelectedLabel;
+    FXLabel* myColorSelectedLabel;
 };
 
 

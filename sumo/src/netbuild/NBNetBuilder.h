@@ -166,9 +166,14 @@ public:
     }
     /// @}
 
-    /// @brief notify about style of loaded network
+    /// @brief notify about style of loaded network (Without internal edges
     void haveLoadedNetworkWithoutInternalEdges() {
         myHaveLoadedNetworkWithoutInternalEdges = true;
+    }
+
+    /// @brief notify about style of loaded network (Without Crossings)
+    bool haveNetworkCrossings() {
+        return myNetworkHaveCrossings;
     }
 
     /**
@@ -217,6 +222,9 @@ protected:
 
     /// @brief whether a .net.xml without internal edges was loaded
     bool myHaveLoadedNetworkWithoutInternalEdges;
+
+    /// @brief flag to indicate that network has crossings
+    bool myNetworkHaveCrossings;
 
 private:
     /// @brief shift network so its lower left corner is at 0,0

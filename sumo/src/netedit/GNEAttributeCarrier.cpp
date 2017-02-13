@@ -146,7 +146,7 @@ GNEAttributeCarrier::getID() const {
 }
 
 
-std::string 
+std::string
 GNEAttributeCarrier::getAttributeType(SumoXMLTag tag, SumoXMLAttr attr) {
     if (isInt(tag, attr)) {
         return "int";
@@ -272,7 +272,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EDGES, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PRIORITY, "false"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "3")); 
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "3"));
                 break;
             case SUMO_TAG_CONNECTION:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FROM, NODEFAULTVALUE));
@@ -470,10 +470,10 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
-bool 
+bool
 GNEAttributeCarrier::isTime(SumoXMLTag tag, SumoXMLAttr attr) {
     // define on first access
-    if(myTimeAttrs.empty()) {
+    if (myTimeAttrs.empty()) {
         myTimeAttrs[SUMO_TAG_CALIBRATOR].insert(SUMO_ATTR_FREQUENCY);
         myTimeAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_CHARGEDELAY);
         myTimeAttrs[SUMO_TAG_E1DETECTOR].insert(SUMO_ATTR_FREQUENCY);
@@ -485,7 +485,7 @@ GNEAttributeCarrier::isTime(SumoXMLTag tag, SumoXMLAttr attr) {
         myTimeAttrs[SUMO_TAG_VAPORIZER].insert(SUMO_ATTR_END);
         myTimeAttrs[SUMO_TAG_VAPORIZER].insert(SUMO_ATTR_STARTTIME);
     }
-    return myTimeAttrs[tag].count(attr) == 1;    
+    return myTimeAttrs[tag].count(attr) == 1;
 }
 
 
@@ -502,7 +502,7 @@ GNEAttributeCarrier::isBool(SumoXMLTag tag, SumoXMLAttr attr) {
         myBoolAttrs[SUMO_TAG_JUNCTION].insert(SUMO_ATTR_KEEP_CLEAR);
         myBoolAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_OFF);
     }
-    return myBoolAttrs[tag].count(attr) == 1;    
+    return myBoolAttrs[tag].count(attr) == 1;
 }
 
 
@@ -529,16 +529,16 @@ GNEAttributeCarrier::isList(SumoXMLTag tag, SumoXMLAttr attr) {
 bool
 GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
     // ID is an atribute that always is unique
-    if(attr == SUMO_ATTR_ID) {
+    if (attr == SUMO_ATTR_ID) {
         return true;
     } else {
         // define on first access
         if (myUniqueAttrs.empty()) {
-	        myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_FROM_LANE);
-	        myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TO);
-	        myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TO_LANE);
-	        myUniqueAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_FROM);
-	        myUniqueAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_TO);
+            myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_FROM_LANE);
+            myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TO);
+            myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TO_LANE);
+            myUniqueAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_FROM);
+            myUniqueAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_TO);
             myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_ENDPOS);
             myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_LANE);
             myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_STARTPOS);
@@ -594,7 +594,7 @@ GNEAttributeCarrier::isDiscrete(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
-bool 
+bool
 GNEAttributeCarrier::isPositive(SumoXMLTag tag, SumoXMLAttr attr) {
     // define on first access
     if (myPositiveAttrs.empty()) {
@@ -642,7 +642,7 @@ GNEAttributeCarrier::isPositive(SumoXMLTag tag, SumoXMLAttr attr) {
     return myPositiveAttrs[tag].count(attr) == 1;
 }
 
-bool 
+bool
 GNEAttributeCarrier::isProbability(SumoXMLTag tag, SumoXMLAttr attr) {
     // define on first access
     if (myProbabilityAttrs.empty()) {
@@ -653,7 +653,7 @@ GNEAttributeCarrier::isProbability(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
-bool 
+bool
 GNEAttributeCarrier::isNonEditable(SumoXMLTag tag, SumoXMLAttr attr) {
     // define on first access
     if (myNonEditableAttrs.empty()) {
@@ -685,7 +685,7 @@ bool
 GNEAttributeCarrier::hasDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
         if ((*i).first == attr) {
-            if((*i).second != NODEFAULTVALUE) {
+            if ((*i).second != NODEFAULTVALUE) {
                 return true;
             } else {
                 return false;

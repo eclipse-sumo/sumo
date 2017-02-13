@@ -45,7 +45,7 @@ public:
     static void initIcons(FXApp* a);
 
     /**@brief returns a icon previously defined in the enum GUIIcon
-     * @param[in] which GUIIcon enum 
+     * @param[in] which GUIIcon enum
      */
     static FXIcon* getIcon(GUIIcon which);
 

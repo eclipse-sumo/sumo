@@ -214,10 +214,10 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             // If shape isn't empty, show menu command lane position
             if (myShape.size() > 0) {
                 const SUMOReal lanePos = lane->getShape().nearest_offset_to_point2D(myShape[0]);
-                new FXMenuCommand(ret, ("lane position: " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
+                new FXMenuCommand(ret, ("position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
             }
         } else {
-            throw InvalidArgument("Additional with ID '" + getMicrosimID() + "' don't have their lane as a ParentName()");
+            throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't have their lane as a ParentName()");
         }
     } else if (std::find(attributes.begin(), attributes.end(), SUMO_ATTR_EDGE) != attributes.end()) {
         // If additional own an edge as attribute, get lane
@@ -229,10 +229,10 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             // If shape isn't empty, show menu command edge position
             if (myShape.size() > 0) {
                 const SUMOReal edgePos = edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(myShape[0]);
-                new FXMenuCommand(ret, ("edge position: " + toString(innerPos + edgePos)).c_str(), 0, 0, 0);
+                new FXMenuCommand(ret, ("position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + edgePos)).c_str(), 0, 0, 0);
             }
         } else {
-            throw InvalidArgument("Additional with ID '" + getMicrosimID() + "' don't have their edge as a ParentName()");
+            throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' don't have their edge as a ParentName()");
         }
     } else {
         new FXMenuCommand(ret, ("position in view: " + toString(myPosition.x()) + "," + toString(myPosition.y())).c_str(), 0, 0, 0);
@@ -336,7 +336,7 @@ GNEAdditional::drawLockIcon(SUMOReal size) const {
 }
 
 
-void 
+void
 GNEAdditional::drawParentAndChildrenConnections() const {
     // Iterate over myConnectionPositions
     for (std::vector<std::vector<Position> >::const_iterator i = myConnectionPositions.begin(); i != myConnectionPositions.end(); i++) {
@@ -346,9 +346,9 @@ GNEAdditional::drawParentAndChildrenConnections() const {
         glTranslated(0, 0, getType() - 0.01);
         // Set color of the base
         GLHelper::setColor(RGBColor(255, 235, 0, 255));
-        for(std::vector<Position>::const_iterator j = (*i).begin(); (j+1) != (*i).end(); j++) { 
+        for (std::vector<Position>::const_iterator j = (*i).begin(); (j + 1) != (*i).end(); j++) {
             // Draw Lines
-            GLHelper::drawLine((*j), (*(j+1)));
+            GLHelper::drawLine((*j), (*(j + 1)));
         }
         // Pop draw matrix
         glPopMatrix();
@@ -359,7 +359,7 @@ GNEAdditional::drawParentAndChildrenConnections() const {
 void
 GNEAdditional::changeEdge(const std::string& edgeID) {
     if (myEdge == NULL) {
-        throw InvalidArgument("Additional with ID '" + getMicrosimID() + "' doesn't belong to a edge");
+        throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to an " + toString(SUMO_TAG_EDGE));
     } else {
         myEdge->removeAdditionalChild(this);
         myEdge = getViewNet()->getNet()->retrieveEdge(edgeID);
@@ -373,7 +373,7 @@ GNEAdditional::changeEdge(const std::string& edgeID) {
 void
 GNEAdditional::changeLane(const std::string& laneID) {
     if (myLane == NULL) {
-        throw InvalidArgument("Additional with ID '" + getMicrosimID() + "' doesn't belong to a lane");
+        throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to a " + toString(SUMO_TAG_LANE));
     } else {
         myLane->removeAdditionalChild(this);
         myLane = getViewNet()->getNet()->retrieveLane(laneID);

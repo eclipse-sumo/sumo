@@ -5,6 +5,7 @@ import agilepy.lib_base.classman as cm
 
 
 class ModuleGui:
+
     """Manages all GUIs to interact between the widgets from mainframe
     and the specific functions of the module.
     """

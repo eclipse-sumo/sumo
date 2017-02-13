@@ -138,7 +138,8 @@ class DetectorReader(handler.ContentHandler):
                         timeIsValid = True
                     else:
                         curTime = float(flowDef[timeIdx])
-                        timeIsValid = (timeMax is None and curTime == timeVal) or (curTime >= timeVal and curTime < timeMax)
+                        timeIsValid = (timeMax is None and curTime == timeVal) or (
+                            curTime >= timeVal and curTime < timeMax)
                     if timeIsValid:
                         hadFlow = True
                         if speedIdx != -1:

@@ -106,7 +106,7 @@ MSDelayBasedTrafficLightLogic::~MSDelayBasedTrafficLightLogic() { }
 
 
 SUMOTime
-MSDelayBasedTrafficLightLogic::proposeProlongation(){
+MSDelayBasedTrafficLightLogic::proposeProlongation() {
 #ifdef DEBUG_TIMELOSS_CONTROL
     std::cout << "\n" << SIMTIME << " MSDelayBasedTrafficLightLogic::proposeProlongation() for TLS '" << this->getID() << "'" << std::endl;
 #endif
@@ -133,13 +133,13 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(){
                 std::cout << "Number of current vehicles on detector: " << vehInfos.size() << std::endl;
 #endif
 
-                for (std::vector<MSE2Collector::VehicleInfo>::const_iterator iv = vehInfos.begin(); iv != vehInfos.end(); ++iv){
-                    if (iv->stillOnDet && iv->accumulatedTimeLoss > TIMELOSS_THRESHOLD){
-                        SUMOReal estimatedTimeToJunction = ((*j)->getLength() - iv->position)/(*j)->getSpeedLimit();
+                for (std::vector<MSE2Collector::VehicleInfo>::const_iterator iv = vehInfos.begin(); iv != vehInfos.end(); ++iv) {
+                    if (iv->stillOnDet && iv->accumulatedTimeLoss > TIMELOSS_THRESHOLD) {
+                        SUMOReal estimatedTimeToJunction = ((*j)->getLength() - iv->position) / (*j)->getSpeedLimit();
                         prolongationTime = MAX2(prolongationTime, estimatedTimeToJunction);
 #ifdef DEBUG_TIMELOSS_CONTROL
                         std::cout << "vehicle '" << iv->id << "' with accumulated timeloss: " << iv->accumulatedTimeLoss
-                                << "\nestimated passing time: " << estimatedTimeToJunction << std::endl;
+                                  << "\nestimated passing time: " << estimatedTimeToJunction << std::endl;
                     } else {
                         std::cout << "disregarded: (vehicle '" << iv->id << "' with accumulated timeloss " << iv->accumulatedTimeLoss << ")" << std::endl;
 #endif
@@ -164,7 +164,7 @@ MSDelayBasedTrafficLightLogic::trySwitch() {
 
 #ifdef DEBUG_TIMELOSS_CONTROL
     std::cout << "last switch = " << currentPhase.myLastSwitch
-            << "\nactDuration = " << actDuration << std::endl;
+              << "\nactDuration = " << actDuration << std::endl;
 #endif
 
     // flag whether to prolong or not

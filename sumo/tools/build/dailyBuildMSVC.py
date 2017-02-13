@@ -108,7 +108,7 @@ def runTests(options, env, svnrev, debugSuffix=""):
         subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
         # Check if sikulixServer is already opened
-        #if runSikulixServer.checkStatus() == False :
+        # if runSikulixServer.checkStatus() == False :
         #    runSikulixServer.startSikulixServer()
         subprocess.call([ttBin, "-a", "netedit.gui"] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)

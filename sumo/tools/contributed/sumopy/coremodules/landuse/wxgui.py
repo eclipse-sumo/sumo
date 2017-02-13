@@ -303,6 +303,7 @@ class ZoneDrawings(Polygons):
 
 
 class AddZoneTool(AddPolygonTool):
+
     """
     Mixin for Selection tools for OGL canvas.
     """
@@ -348,7 +349,8 @@ class AddZoneTool(AddPolygonTool):
                                           mainframe=self.parent.get_mainframe(),
                                           pos=wx.DefaultPosition, size=size, style=wx.MAXIMIZE_BOX | wx.RESIZE_BORDER,
                                           func_apply=self.on_apply_option,
-                                          immediate_apply=False, panelstyle='default',  # 'instrumental'
+                                          # 'instrumental'
+                                          immediate_apply=False, panelstyle='default',
                                           standartbuttons=['apply', 'restore'])
         else:
 
@@ -363,7 +365,8 @@ class AddZoneTool(AddPolygonTool):
                                           mainframe=self.parent.get_mainframe(),
                                           pos=wx.DefaultPosition, size=size, style=wx.MAXIMIZE_BOX | wx.RESIZE_BORDER,
                                           func_apply=self.on_apply_option,
-                                          immediate_apply=False, panelstyle='default',  # 'instrumental'
+                                          # 'instrumental'
+                                          immediate_apply=False, panelstyle='default',
                                           standartbuttons=['apply', 'restore'])
 
         return self._optionspanel
@@ -380,7 +383,8 @@ class AddZoneTool(AddPolygonTool):
         # print 'AddLineTool.begin_animation'
         #self.drawobj_anim, _id, self.ind_vert =  self.get_current_vertexselection()
         self._optionspanel.apply()
-        self.drawobj_anim = self._canvas.get_drawing().get_drawobj_by_ident('zonedraws')
+        self.drawobj_anim = self._canvas.get_drawing().get_drawobj_by_ident(
+            'zonedraws')
         self.coord_last = self._canvas.unproject(event.GetPosition())
         #vertices = [list(self.coord_last),list(self.coord_last) ]
         # attention, we need copies here!!
@@ -404,6 +408,7 @@ class AddZoneTool(AddPolygonTool):
 
 
 class WxGui(ModuleGui):
+
     """Contains functions that communicate between the widgets of the main wx gui
     and the functions of the plugin.
     """

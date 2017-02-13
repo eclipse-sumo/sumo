@@ -31,6 +31,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/common/TplCheck.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEVariableSpeedSignDialog.h"
 #include "GNEVariableSpeedSign.h"
@@ -64,20 +65,20 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* var
     myVariableSpeedSignParent(variableSpeedSignParent) {
 
     // create List with the data
-    myDataList = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_REMOVEROW, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    myDataList = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_REMOVEROW, GUIDesignTableLimitedHeight);
     myDataList->setEditable(false);
 
     // create Horizontal frame for row elements
-    myRowFrame = new FXHorizontalFrame(myContentFrame, LAYOUT_FILL_X);
+    myRowFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
 
     // create Text field for the timeStep
-    myRowStep = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGN_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
+    myRowStep = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGN_CHANGEVALUE, GUIDesignTextField);
 
     // create Text field for the speed
-    myRowSpeed = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGN_CHANGEVALUE, FRAME_THICK | LAYOUT_FILL_X);
+    myRowSpeed = new FXTextField(myRowFrame, 10, this, MID_GNE_VARIABLESPEEDSIGN_CHANGEVALUE, GUIDesignTextField);
 
     // create Button for insert row
-    myAddRow = new FXButton(myRowFrame, "Add", 0, this, MID_GNE_VARIABLESPEEDSIGN_ADDROW, FRAME_THICK);
+    myAddRow = new FXButton(myRowFrame, "Add", 0, this, MID_GNE_VARIABLESPEEDSIGN_ADDROW, GUIDesignButtonIcon);
 
     // Get values of variable speed signal
     myVSSValues = myVariableSpeedSignParent->getVariableSpeedSignSteps();

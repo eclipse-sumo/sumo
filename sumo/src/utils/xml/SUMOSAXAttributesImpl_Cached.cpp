@@ -52,9 +52,9 @@
 // class definitions
 // ===========================================================================
 SUMOSAXAttributesImpl_Cached::SUMOSAXAttributesImpl_Cached(
-        const std::map<std::string, std::string>& attrs,
-        const std::map<int, std::string>& predefinedTagsMML,
-        const std::string& objectType) :
+    const std::map<std::string, std::string>& attrs,
+    const std::map<int, std::string>& predefinedTagsMML,
+    const std::string& objectType) :
     SUMOSAXAttributes(objectType),
     myAttrs(attrs),
     myPredefinedTagsMML(predefinedTagsMML) { }
@@ -240,7 +240,7 @@ SUMOSAXAttributesImpl_Cached::serialize(std::ostream& os) const {
 }
 
 
-SUMOSAXAttributes* 
+SUMOSAXAttributes*
 SUMOSAXAttributesImpl_Cached::clone() const {
     return new SUMOSAXAttributesImpl_Cached(myAttrs, myPredefinedTagsMML, getObjectType());
 }

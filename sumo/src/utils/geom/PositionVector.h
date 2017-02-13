@@ -365,13 +365,13 @@ public:
 
 
     /// @brief returned vector that is smoothed at the front (within dist)
-    PositionVector smoothedZFront(SUMOReal dist=std::numeric_limits<SUMOReal>::max()) const; 
+    PositionVector smoothedZFront(SUMOReal dist = std::numeric_limits<SUMOReal>::max()) const;
 
-    /// @brief return the offset at the given index 
-    SUMOReal offsetAtIndex2D(int index) const; 
+    /// @brief return the offset at the given index
+    SUMOReal offsetAtIndex2D(int index) const;
 
     /// @brief return the maximum grade of all segments as a fraction of zRange/length2D
-    SUMOReal getMaxGrade() const; 
+    SUMOReal getMaxGrade() const;
 
 private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect

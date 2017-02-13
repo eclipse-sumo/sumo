@@ -38,6 +38,7 @@ def get_tablecolors():
 
 
 class AgileToolbarMixin:
+
     """
     Easy to use toolbar where strings can be used to identify tools. 
     Mixin for frames.
@@ -142,6 +143,7 @@ class AgileToolbarMixin:
 
 
 class AgileToolbarFrameMixin(AgileToolbarMixin):
+
     """
     Easy to use toolbar where strings can be used to identify tools. 
     Mixin for frames only.
@@ -173,6 +175,7 @@ class AgileToolbarFrameMixin(AgileToolbarMixin):
 
 
 class AgileMenuMixin:
+
     """
     Easy to use menue mixin for main menu and popup
     """
@@ -448,6 +451,7 @@ class AgileMenuMixin:
 
 
 class AgilePopupMenu(wx.Menu, AgileMenuMixin):
+
     """
     Easy to use popup
     """
@@ -596,6 +600,7 @@ KEYMAP = {
 
 
 class KeyHandler:
+
     """
     Mixin for handling key events in wx
     """
@@ -696,6 +701,7 @@ class KeyHandler:
 
 
 class OptionsFrame(wx.Frame):
+
     """
     Simple wx frame with some special features.
     """
@@ -720,6 +726,7 @@ class OptionsFrame(wx.Frame):
 
 
 class OptionsPanel(AgileToolbarMixin, wx.Panel):
+
     """
     UNUSED
     Simple wx panele with some special features.
@@ -832,6 +839,7 @@ class AgileStatusbar(wx.StatusBar):
 
 
 class AgileMenubar(AgileMenuMixin, wx.MenuBar):
+
     """
     Easy to use main menu bar
     """

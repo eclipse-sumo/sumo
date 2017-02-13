@@ -69,7 +69,7 @@ public:
     virtual ~ROPerson();
 
     void addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                 const std::string& vTypes, const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop, 
+                 const std::string& vTypes, const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop,
                  SUMOReal walkFactor);
 
     void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines, const std::string& destStop);

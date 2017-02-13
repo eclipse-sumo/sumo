@@ -65,14 +65,14 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     myRerouterParent(rerouterParent) {
 
     // create add buton and label
-    FXHorizontalFrame *buttonAndLabelInterval = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* buttonAndLabelInterval = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     myAddInterval = new FXButton(buttonAndLabelInterval, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_INTERVAL, GUIDesignButtonIcon);
     new FXLabel(buttonAndLabelInterval, ("Add new " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
 
     // Create table, copy intervals and update table
     myIntervalList = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_TABLE_INTERVAL, GUIDesignTableAdditionals);
-    myIntervalList->setSelBackColor(FXRGBA(255,255,255,255));
-    myIntervalList->setSelTextColor(FXRGBA(0,0,0,255));
+    myIntervalList->setSelBackColor(FXRGBA(255, 255, 255, 255));
+    myIntervalList->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myIntervalList->setEditable(false);
     myCopyOfRerouterIntervals = myRerouterParent->getRerouterIntervals();
     updateIntervalTable();
@@ -86,17 +86,17 @@ GNERerouterDialog::~GNERerouterDialog() {
 }
 
 
-GNERerouter* 
+GNERerouter*
 GNERerouterDialog::getRerouterParent() const {
     return myRerouterParent;
 }
 
 
-bool 
+bool
 GNERerouterDialog::findInterval(SUMOReal begin, SUMOReal end) const {
     // Iterate over intervals
-    for(std::vector<GNERerouterInterval>::const_iterator i = myCopyOfRerouterIntervals.begin(); i != myCopyOfRerouterIntervals.end(); i++) {
-        if((i->getBegin() == begin) && (i->getEnd() == end)) {
+    for (std::vector<GNERerouterInterval>::const_iterator i = myCopyOfRerouterIntervals.begin(); i != myCopyOfRerouterIntervals.end(); i++) {
+        if ((i->getBegin() == begin) && (i->getEnd() == end)) {
             return true;
         }
     }
@@ -106,9 +106,9 @@ GNERerouterDialog::findInterval(SUMOReal begin, SUMOReal end) const {
 
 bool
 GNERerouterDialog::checkInterval(SUMOReal begin, SUMOReal end) const {
-    if((begin < 0) || (end < 0)) {
+    if ((begin < 0) || (end < 0)) {
         return false;
-    } else if((begin == 0) && (end == 0)) {
+    } else if ((begin == 0) && (end == 0)) {
         return false;
     } else if (begin >= end) {
         return false;
@@ -119,15 +119,15 @@ GNERerouterDialog::checkInterval(SUMOReal begin, SUMOReal end) const {
 }
 
 
-bool 
+bool
 GNERerouterDialog::checkModifyInterval(SUMOReal oldBegin, SUMOReal oldEnd, SUMOReal newBegin, SUMOReal newEnd) const {
     // Iterate over intervals
-    for(std::vector<GNERerouterInterval>::const_iterator i = myCopyOfRerouterIntervals.begin(); i != myCopyOfRerouterIntervals.end(); i++) {
-        if((i->getBegin() == oldBegin) && (i->getEnd() == oldEnd)) {
+    for (std::vector<GNERerouterInterval>::const_iterator i = myCopyOfRerouterIntervals.begin(); i != myCopyOfRerouterIntervals.end(); i++) {
+        if ((i->getBegin() == oldBegin) && (i->getEnd() == oldEnd)) {
             // Check that new interval is valid
-            if((newBegin < 0) || (newEnd < 0)) {
+            if ((newBegin < 0) || (newEnd < 0)) {
                 return false;
-            } else if((newBegin == 0) && (newEnd == 0)) {
+            } else if ((newBegin == 0) && (newEnd == 0)) {
                 return false;
             } else if (newBegin >= newEnd) {
                 return false;
@@ -170,11 +170,11 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
     // create empty rerouter interval and configure it with GNERerouterIntervalDialog
     GNERerouterInterval newInterval(myRerouterParent, 0, 0);
-    if(GNERerouterIntervalDialog(this, newInterval).execute() == TRUE) {
+    if (GNERerouterIntervalDialog(this, newInterval).execute() == TRUE) {
         // if new interval was sucesfully configured, add it to myCopyOfRerouterIntervals
         myCopyOfRerouterIntervals.push_back(newInterval);
         updateIntervalTable();
@@ -185,11 +185,11 @@ GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for(int i = 0; i < (int)myCopyOfRerouterIntervals.size(); i++) {
-        if(myIntervalList->getItem(i, 2)->hasFocus()) {
+    for (int i = 0; i < (int)myCopyOfRerouterIntervals.size(); i++) {
+        if (myIntervalList->getItem(i, 2)->hasFocus()) {
             // remove row
             myIntervalList->removeRows(i);
             myCopyOfRerouterIntervals.erase(myCopyOfRerouterIntervals.begin() + i);
@@ -197,13 +197,13 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
         }
     }
     // check if some begin or o end  button was pressed
-    for(int i = 0; i < (int)myCopyOfRerouterIntervals.size(); i++) {
-        if(myIntervalList->getItem(i, 0)->hasFocus() || myIntervalList->getItem(i, 1)->hasFocus()) {
+    for (int i = 0; i < (int)myCopyOfRerouterIntervals.size(); i++) {
+        if (myIntervalList->getItem(i, 0)->hasFocus() || myIntervalList->getItem(i, 1)->hasFocus()) {
             // edit interval
             GNERerouterIntervalDialog(this, *(myCopyOfRerouterIntervals.begin() + i)).execute();
             return 1;
         }
-    }            
+    }
     // nothing to do
     return 0;
 }
@@ -211,7 +211,7 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
 
 void
 GNERerouterDialog::updateIntervalTable() {
-     // clear table
+    // clear table
     myIntervalList->clearItems();
     // set number of rows
     myIntervalList->setTableSize(int(myCopyOfRerouterIntervals.size()), 3);

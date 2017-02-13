@@ -47,3 +47,4 @@ validate_intermediate
 
 # setting non-positive period should fail
 period_positive
+all_fringe_network

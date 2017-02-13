@@ -61,13 +61,12 @@
 // method definitions
 // ===========================================================================
 MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
-    MSRouteHandler(file, true), 
+    MSRouteHandler(file, true),
     myOffset(offset),
     mySegment(0),
     myEdgeAndLane(0, -1),
     myAttrs(0),
-    myLastParameterised(0)
-{
+    myLastParameterised(0) {
     myAmLoadingState = true;
     const std::vector<std::string> vehIDs = OptionsCont::getOptions().getStringVector("load-state.remove-vehicles");
     myVehiclesToRemove.insert(vehIDs.begin(), vehIDs.end());

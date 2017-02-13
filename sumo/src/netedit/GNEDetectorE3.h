@@ -91,16 +91,16 @@ public:
     std::string generateExitID();
 
     /// @brief add an Entry child
-    void addEntryChild(GNEDetectorEntry *entry);
+    void addEntryChild(GNEDetectorEntry* entry);
 
     /// @brief delete an Entry child
-    void removeEntryChild(GNEDetectorEntry *entry);
+    void removeEntryChild(GNEDetectorEntry* entry);
 
     /// @brief add an Exit child
-    void addExitChild(GNEDetectorExit *exit);
+    void addExitChild(GNEDetectorExit* exit);
 
     /// @brief delete an Exit child
-    void removeExitChild(GNEDetectorExit *exit);
+    void removeExitChild(GNEDetectorExit* exit);
 
     /// @brief get number of entry childs
     int getNumberOfEntryChilds() const;

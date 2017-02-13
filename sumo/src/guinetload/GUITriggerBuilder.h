@@ -138,10 +138,10 @@ protected:
      */
     virtual void beginParkingArea(MSNet& net, const std::string& id,
                                   const std::vector<std::string>& lines, MSLane* lane,
-                                  SUMOReal frompos, SUMOReal topos, 
+                                  SUMOReal frompos, SUMOReal topos,
                                   unsigned int capacity,
                                   SUMOReal width, SUMOReal length, SUMOReal angle);
-    
+
 
     /** @brief Builds a charging station
      *

@@ -141,7 +141,7 @@ MSDevice_Routing::checkOptions(OptionsCont& oc) {
         WRITE_ERROR("Negative value for device.rerouting.adaptation-interval!");
         ok = false;
     }
-    if (oc.getFloat("device.rerouting.adaptation-weight") < 0.  || 
+    if (oc.getFloat("device.rerouting.adaptation-weight") < 0.  ||
             oc.getFloat("device.rerouting.adaptation-weight") > 1.) {
         WRITE_ERROR("The value for device.rerouting.adaptation-weight must be between 0 and 1!");
         ok = false;

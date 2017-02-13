@@ -112,7 +112,8 @@ class Domain:
 
     def _getUniversal(self, varID, objectID=""):
         if self._deprecatedFor:
-            warnings.warn("The domain %s is deprecated, use %s instead." % (self._name, self._deprecatedFor))#, DeprecationWarning)
+            warnings.warn("The domain %s is deprecated, use %s instead." % (
+                self._name, self._deprecatedFor))  # , DeprecationWarning)
         result = self._connection._sendReadOneStringCmd(
             self._cmdGetID, varID, objectID)
         return self._retValFunc[varID](result)
@@ -150,7 +151,7 @@ class Domain:
         Unsubscribe from receiving object values.
         """
         self._connection._subscribe(
-            self._subscribeID, 0, 2**31-1, objectID, [])
+            self._subscribeID, 0, 2**31 - 1, objectID, [])
 
     def getSubscriptionResults(self, objectID=None):
         """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -175,7 +176,7 @@ class Domain:
 
     def unsubscribeContext(self, objectID, domain, dist):
         self._connection._subscribeContext(
-            self._contextID, 0, 2**31-1, objectID, domain, dist, [])
+            self._contextID, 0, 2**31 - 1, objectID, domain, dist, [])
 
     def getContextSubscriptionResults(self, objectID=None):
         return self._connection._getSubscriptionResults(self._contextResponseID).getContext(objectID)

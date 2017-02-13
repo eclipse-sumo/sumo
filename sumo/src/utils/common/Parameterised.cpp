@@ -93,7 +93,7 @@ Parameterised::clearParameter() {
     myMap.clear();
 }
 
-void 
+void
 Parameterised::writeParams(OutputDevice& out) const {
     for (std::map<std::string, std::string>::const_iterator j = myMap.begin(); j != myMap.end(); ++j) {
         out.openTag(SUMO_TAG_PARAM);

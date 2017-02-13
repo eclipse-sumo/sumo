@@ -3,14 +3,15 @@ import os
 import sys
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
-neteditTestRoot = os.path.join(os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
+neteditTestRoot = os.path.join(
+    os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
 sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit
 
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
-# apply zoom 
+# apply zoom
 netedit.zoomIn(match.getTarget().offset(325, 100), 10)
 
 # Change to create additional
@@ -60,7 +61,7 @@ netedit.modifyAttribute(parametersReference, 1, "")
 netedit.modifyAttribute(parametersReference, 1, "25")
 
 # go to a empty area
-netedit.leftClick(match, 0, 0);
+netedit.leftClick(match, 0, 0)
 
 # Check undos and redos
 netedit.undo(match, 4)
@@ -72,6 +73,5 @@ netedit.saveAdditionals()
 # save newtork
 netedit.saveNetwork()
 
-# quit netedit 
+# quit netedit
 netedit.quit(neteditProcess, False, False)
-

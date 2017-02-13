@@ -77,7 +77,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
             dev.writeAttr(SUMO_ATTR_TYPE, vtypeid);
         }
     } else {
-            dev.writeAttr(SUMO_ATTR_TYPE, typeID);
+        dev.writeAttr(SUMO_ATTR_TYPE, typeID);
     }
     if (departProcedure == DEPART_TRIGGERED) {
         dev.writeAttr(SUMO_ATTR_DEPART, "triggered");

@@ -495,7 +495,7 @@ NBNode::bezierControlPoints(
     SUMOReal extrapolateBeg,
     SUMOReal extrapolateEnd,
     bool& ok,
-    NBNode* recordError, 
+    NBNode* recordError,
     SUMOReal straightThresh) {
 
     const Position beg = begShape.back();
@@ -1980,7 +1980,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
 }
 
 
-bool 
+bool
 NBNode::checkCrossingDuplicated(EdgeVector edges) {
     // sort edge vector
     std::sort(edges.begin(), edges.end());
@@ -1989,7 +1989,7 @@ NBNode::checkCrossingDuplicated(EdgeVector edges) {
         // sort edges of crossing before compare
         EdgeVector edgesOfCrossing = it->edges;
         std::sort(edgesOfCrossing.begin(), edgesOfCrossing.end());
-        if(edgesOfCrossing == edges) {
+        if (edgesOfCrossing == edges) {
             return true;
         }
     }
@@ -2699,7 +2699,7 @@ NBNode::rightOnRedConflict(int index, int foeIndex) const {
 }
 
 
-void 
+void
 NBNode::sortEdges(bool useNodeShape) {
     if (myAllEdges.size() == 0) {
         return;

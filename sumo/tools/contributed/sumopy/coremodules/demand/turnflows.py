@@ -276,7 +276,8 @@ class TurnflowModes(am.ArrayObjman):
         ids_sourceedge = []
 
         # get vtypes for specified mode
-        vtypes = self.get_demand().vtypes.select_by_mode(id_mode, is_sumoid=True)
+        vtypes = self.get_demand().vtypes.select_by_mode(
+            id_mode, is_sumoid=True)
 
         if len(vtypes) > 0:  # any vehicles found for this mode?
             # TODO: can we put some distributen here?
@@ -542,7 +543,8 @@ class Turnflows(am.ArrayObjman):
             time_start, time_end = self.export_flows_and_turns(
                 flowfilepath, turnfilepath, id_mode)
             print '  time_start, time_end =', time_start, time_end
-            if time_end > time_start:  # means there exist some flows for this mode
+            # means there exist some flows for this mode
+            if time_end > time_start:
                 cmd = 'jtrrouter --flow-files=%s --turn-ratio-files=%s --net-file=%s --output-file=%s --begin %s --end %s %s'\
                     % (P + flowfilepath + P,
                        P + turnfilepath + P,

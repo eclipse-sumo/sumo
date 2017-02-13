@@ -10,6 +10,7 @@ from network_editor import *
 
 
 class WxGui(ModuleGui):
+
     """Contains functions that communicate between the widgets of the main wx gui
     and the functions of the plugin.
     """
@@ -204,7 +205,8 @@ class WxGui(ModuleGui):
     def on_clean_codes(self, event=None):
         self._net.nodes.clean(is_reshape_edgelanes=True)
         self._mainframe.browse_obj(self._net.nodes)
-        self._mainframe.refresh_moduleguis()  # this will also replace the drawing!!
+        # this will also replace the drawing!!
+        self._mainframe.refresh_moduleguis()
         if event:
             event.Skip()
 

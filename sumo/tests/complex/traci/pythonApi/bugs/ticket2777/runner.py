@@ -36,6 +36,7 @@ sumoProcess = subprocess.Popen([sumoBinary,
                                 '-S', '-Q',
                                 '--remote-port', str(PORT)], stdout=sys.stdout)
 
+
 def check(vehID, steps=1):
     for i in range(steps):
         if i > 0:
@@ -58,7 +59,8 @@ traci.init(PORT)
 traci.simulationStep()
 check(vehID)
 try:
-    print("%s setStop for %s" % (traci.simulation.getCurrentTime() / 1000.0, vehID))
+    print("%s setStop for %s" %
+          (traci.simulation.getCurrentTime() / 1000.0, vehID))
     traci.vehicle.setStop(vehID, "beg", pos=1.0, laneIndex=0, duration=5000)
 except traci.TraCIException:
     pass
@@ -68,7 +70,8 @@ traci.simulationStep(21 * 1000)
 vehID = "v1"
 check(vehID)
 try:
-    print("%s setStop for %s" % (traci.simulation.getCurrentTime() / 1000.0, vehID))
+    print("%s setStop for %s" %
+          (traci.simulation.getCurrentTime() / 1000.0, vehID))
     traci.vehicle.setStop(vehID, "end", pos=1.0, laneIndex=0, duration=5000)
 except traci.TraCIException:
     pass
@@ -78,7 +81,8 @@ traci.simulationStep(41 * 1000)
 vehID = "v2"
 check(vehID)
 try:
-    print("%s setStop for %s" % (traci.simulation.getCurrentTime() / 1000.0, vehID))
+    print("%s setStop for %s" %
+          (traci.simulation.getCurrentTime() / 1000.0, vehID))
     traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5000)
 except traci.TraCIException:
     pass
@@ -88,7 +92,8 @@ traci.simulationStep(61 * 1000)
 vehID = "v3"
 check(vehID)
 try:
-    print("%s setStop for %s" % (traci.simulation.getCurrentTime() / 1000.0, vehID))
+    print("%s setStop for %s" %
+          (traci.simulation.getCurrentTime() / 1000.0, vehID))
     traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5000)
 except traci.TraCIException:
     pass

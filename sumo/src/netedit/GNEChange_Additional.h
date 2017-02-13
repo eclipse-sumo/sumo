@@ -89,7 +89,7 @@ private:
     GNELane* myLaneParent;
 
     /// @brief pointer to E3 parent (used by Entry/exits)
-    GNEDetectorE3 *myE3Parent;
+    GNEDetectorE3* myE3Parent;
 
     /// @brief list of Entry detectors child (used by E3 Detector)
     std::vector<GNEDetectorEntry*> myEntryChilds;

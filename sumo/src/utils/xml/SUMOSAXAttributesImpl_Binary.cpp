@@ -338,7 +338,7 @@ SUMOSAXAttributesImpl_Binary::serialize(std::ostream& os) const {
 }
 
 
-SUMOSAXAttributes* 
+SUMOSAXAttributes*
 SUMOSAXAttributesImpl_Binary::clone() const {
     std::map<std::string, std::string> attrs;
     for (std::map<int, char>::const_iterator it = myCharValues.begin(); it != myCharValues.end(); ++it) {

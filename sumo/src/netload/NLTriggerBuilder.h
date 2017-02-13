@@ -161,7 +161,7 @@ public:
                                   MSLane* lane, SUMOReal frompos, SUMOReal topos,
                                   unsigned int capacity,
                                   SUMOReal width, SUMOReal length, SUMOReal angle);
-    
+
 
     /** @brief Add a lot entry to current parking area
      *
@@ -176,7 +176,7 @@ public:
      * @exception InvalidArgument If the current parking area is 0
      */
     void addLotEntry(SUMOReal x, SUMOReal y, SUMOReal z,
-                             SUMOReal width, SUMOReal length, SUMOReal angle);
+                     SUMOReal width, SUMOReal length, SUMOReal angle);
 
 
 
@@ -204,7 +204,7 @@ public:
      */
     void parseAndAddLotEntry(const SUMOSAXAttributes& attrs);
 
-    
+
     /** @brief End a parking area
      *
      * @exception InvalidArgument If the current parking area is 0

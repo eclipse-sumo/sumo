@@ -64,7 +64,7 @@ public:
      * @todo Describe what is saved
      */
     bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
-        const std::map<SumoXMLAttr, std::string>& attrs);
+                        const std::map<SumoXMLAttr, std::string>& attrs);
 
 
     /** @brief Writes an XML header with optional configuration

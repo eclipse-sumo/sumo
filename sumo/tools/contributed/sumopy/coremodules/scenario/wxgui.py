@@ -9,6 +9,7 @@ import scenario
 
 
 class WxGui(ModuleGui):
+
     """Contains functions that communicate between the widgets of the main wx gui
     and the functions of the plugin.
     """

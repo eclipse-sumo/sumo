@@ -1098,7 +1098,7 @@ NBNodeCont::getFreeID() {
     int counter = 0;
     std::string freeID = "SUMOGenerated" + toString<int>(counter);
     // While there is a node with id equal to freeID
-    while(retrieve(freeID) != 0) {
+    while (retrieve(freeID) != 0) {
         // update counter and generate a new freeID
         counter++;
         freeID = "SUMOGenerated" + toString<int>(counter);

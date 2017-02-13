@@ -160,10 +160,10 @@ class PersonDomain(Domain):
         """
         self._connection._beginMessage(
             tc.CMD_GET_PERSON_VARIABLE, tc.VAR_EDGES, personID, 1 + 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, nextStageIndex)
+        self._connection._string += struct.pack("!Bi",
+                                                tc.TYPE_INTEGER, nextStageIndex)
         return self._connection._checkResult(tc.CMD_GET_PERSON_VARIABLE,
                                              tc.VAR_EDGES, personID).readStringList()
-
 
     def getStage(self, personID, nextStageIndex=0):
         """getStage(string, int) -> int
@@ -177,7 +177,8 @@ class PersonDomain(Domain):
         """
         self._connection._beginMessage(
             tc.CMD_GET_PERSON_VARIABLE, tc.VAR_STAGE, personID, 1 + 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, nextStageIndex)
+        self._connection._string += struct.pack("!Bi",
+                                                tc.TYPE_INTEGER, nextStageIndex)
         return self._connection._checkResult(tc.CMD_GET_PERSON_VARIABLE,
                                              tc.VAR_STAGE, personID).readInt()
 
@@ -195,7 +196,6 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_VEHICLE, personID)
 
-
     def removeStages(self, personID):
         """remove(string)
         Removes all stages of the person. If no new phases are appended, 
@@ -203,9 +203,8 @@ class PersonDomain(Domain):
         """
         # remove all stages after the current and then abort the current stage
         while self.getRemainingStages(personID) > 1:
-            self.removeStage(personID, 1);
-        self.removeStage(personID, 0);
-
+            self.removeStage(personID, 1)
+        self.removeStage(personID, 0)
 
     def add(self, personID, edgeID, pos, depart=DEPART_NOW, typeID="DEFAULT_PEDTYPE"):
         """add(string, string, double, int, string)
@@ -231,13 +230,15 @@ class PersonDomain(Domain):
         duration *= 1000
         self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID,
                                        1 + 4  # compound
-                                       + 1 + 4 # stage type
-                                       + 1 + 4 # duration
-                                       + 1 + 4 + len(description) 
+                                       + 1 + 4  # stage type
+                                       + 1 + 4  # duration
+                                       + 1 + 4 + len(description)
                                        + 1 + 4 + len(stopID))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, tc.STAGE_WAITING)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, duration)
+        self._connection._string += struct.pack(
+            "!Bi", tc.TYPE_INTEGER, tc.STAGE_WAITING)
+        self._connection._string += struct.pack("!Bi",
+                                                tc.TYPE_INTEGER, duration)
         self._connection._packString(description)
         self._connection._packString(stopID)
         self._connection._sendExact()
@@ -255,17 +256,21 @@ class PersonDomain(Domain):
         self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID,
                                        1 + 4  # compound
                                        + 1 + 4  # stageType
-                                       + 1 + 4 + sum(map(len, edges)) + 4 * len(edges) 
-                                       + 1 + 8 # arrivalPos
-                                       + 1 + 4 # duration
-                                       + 1 + 8 # speed
-                                       + 1 + 4 + len(stopID) 
+                                       + 1 + 4 + \
+                                       sum(map(len, edges)) + 4 * len(edges)
+                                       + 1 + 8  # arrivalPos
+                                       + 1 + 4  # duration
+                                       + 1 + 8  # speed
+                                       + 1 + 4 + len(stopID)
                                        )
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 6)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, tc.STAGE_WALKING)
+        self._connection._string += struct.pack(
+            "!Bi", tc.TYPE_INTEGER, tc.STAGE_WALKING)
         self._connection._packStringList(edges)
-        self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, arrivalPos)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, duration)
+        self._connection._string += struct.pack("!Bd",
+                                                tc.TYPE_DOUBLE, arrivalPos)
+        self._connection._string += struct.pack("!Bi",
+                                                tc.TYPE_INTEGER, duration)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, speed)
         self._connection._packString(stopID)
         self._connection._sendExact()
@@ -276,13 +281,14 @@ class PersonDomain(Domain):
         The lines parameter should be a space-separated list of line ids
         """
         self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID,
-                                       1 + 4 # compound
-                                       + 1 + 4 # stage type
-                                       + 1 + 4 + len(toEdge) 
-                                       + 1 + 4 + len(lines) 
+                                       1 + 4  # compound
+                                       + 1 + 4  # stage type
+                                       + 1 + 4 + len(toEdge)
+                                       + 1 + 4 + len(lines)
                                        + 1 + 4 + len(stopID))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, tc.STAGE_DRIVING)
+        self._connection._string += struct.pack(
+            "!Bi", tc.TYPE_INTEGER, tc.STAGE_DRIVING)
         self._connection._packString(toEdge)
         self._connection._packString(lines)
         self._connection._packString(stopID)
@@ -296,7 +302,8 @@ class PersonDomain(Domain):
         """
         self._connection._beginMessage(
             tc.CMD_SET_PERSON_VARIABLE, tc.REMOVE_STAGE, personID, 1 + 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, nextStageIndex)
+        self._connection._string += struct.pack("!Bi",
+                                                tc.TYPE_INTEGER, nextStageIndex)
         self._connection._sendExact()
 
     def setSpeed(self, personID, speed):
@@ -306,7 +313,6 @@ class PersonDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_PERSON_VARIABLE, tc.VAR_SPEED, personID, speed)
-
 
     def setType(self, personID, typeID):
         """setType(string, string) -> None

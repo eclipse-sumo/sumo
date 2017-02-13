@@ -36,6 +36,7 @@ sumoProcess = subprocess.Popen([sumoBinary,
                                 '-S', '-Q',
                                 '--remote-port', str(PORT)], stdout=sys.stdout)
 
+
 def check(vehID, steps=1):
     for i in range(steps):
         if i > 0:

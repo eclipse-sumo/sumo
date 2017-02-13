@@ -431,36 +431,36 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myEditMenu,
                       "&Redo\tCtrl+Y\tRedo the last change.",
                       GUIIconSubSys::getIcon(ICON_REDO), myUndoList, FXUndoList::ID_REDO);
-    
+
     new FXMenuSeparator(myEditMenu);
-    
+
     // build modes command
-    new FXMenuCommand(myEditMenu, 
-                      "&Edge mode\tE\tCreate junction and edges.", 
+    new FXMenuCommand(myEditMenu,
+                      "&Edge mode\tE\tCreate junction and edges.",
                       GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), this, MID_GNE_MODE_CREATE_EDGE);
-    new FXMenuCommand(myEditMenu, 
-                      "&Move mode\tM\tMove elements.", 
+    new FXMenuCommand(myEditMenu,
+                      "&Move mode\tM\tMove elements.",
                       GUIIconSubSys::getIcon(ICON_MODEMOVE), this, MID_GNE_MODE_MOVE);
-    new FXMenuCommand(myEditMenu, 
-                      "&Delete mode\tD\tDelete elements.", 
+    new FXMenuCommand(myEditMenu,
+                      "&Delete mode\tD\tDelete elements.",
                       GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_MODE_DELETE);
-    new FXMenuCommand(myEditMenu, 
-                      "&Inspect mode\tI\tInspect elements and change their attributes.", 
+    new FXMenuCommand(myEditMenu,
+                      "&Inspect mode\tI\tInspect elements and change their attributes.",
                       GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_MODE_INSPECT);
-    new FXMenuCommand(myEditMenu, 
-                      "&Select mode\tS\tSelect elements.", 
+    new FXMenuCommand(myEditMenu,
+                      "&Select mode\tS\tSelect elements.",
                       GUIIconSubSys::getIcon(ICON_MODESELECT), this, MID_GNE_MODE_SELECT);
     new FXMenuCommand(myEditMenu,
-                      "&Connection mode\tC\tEdit connections between lanes.", 
+                      "&Connection mode\tC\tEdit connections between lanes.",
                       GUIIconSubSys::getIcon(ICON_MODECONNECTION), this, MID_GNE_MODE_CONNECT);
     new FXMenuCommand(myEditMenu,
-                      "&Traffic light mode\tT\tEdit traffic lights over junctions.", 
+                      "&Traffic light mode\tT\tEdit traffic lights over junctions.",
                       GUIIconSubSys::getIcon(ICON_MODETLS), this, MID_GNE_MODE_TLS);
     new FXMenuCommand(myEditMenu,
-                      "&Additional mode\tA\tCreate additional elements.", 
+                      "&Additional mode\tA\tCreate additional elements.",
                       GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), this, MID_GNE_MODE_ADDITIONAL);
     new FXMenuCommand(myEditMenu,
-                      "C&rossing mode\tR\tCreate crossings between edges.", 
+                      "C&rossing mode\tR\tCreate crossings between edges.",
                       GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_MODE_CROSSING);
 
     /*
@@ -544,14 +544,14 @@ GNEApplicationWindow::fillMenuBar() {
 
     // build help menu
     myHelpMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, 
+    new FXMenuTitle(myMenuBar,
                     "&Help",
                     0, myHelpMenu);
-    new FXMenuCommand(myHelpMenu, 
-                      "&Online Documentation\tF1\tOpen Online documentation.", 
+    new FXMenuCommand(myHelpMenu,
+                      "&Online Documentation\tF1\tOpen Online documentation.",
                       0, this, MID_HELP);
-    new FXMenuCommand(myHelpMenu, 
-                      "&About\tF2\tAbout netedit.", 
+    new FXMenuCommand(myHelpMenu,
+                      "&About\tF2\tAbout netedit.",
                       0, this, MID_ABOUT);
 }
 
@@ -927,8 +927,8 @@ GUISUMOAbstractView*
 GNEApplicationWindow::openNewView() {
     std::string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
-    GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()), this, getBuildGLCanvas(), 
-                                                  myNet, myUndoList, NULL, opts, 10, 10, 300, 200);
+    GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()), this, getBuildGLCanvas(),
+            myNet, myUndoList, NULL, opts, 10, 10, 300, 200);
     if (myMDIClient->numChildren() == 1) {
         viewParent->maximize();
     } else {
@@ -1141,8 +1141,8 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     oc.resetWritable();
     std::string prefix = file.text();
     // if last character is a dot, remove it
-    if(prefix.at(prefix.size()-1) == '.') {
-        prefix = prefix.substr(0, prefix.size()-1);
+    if (prefix.at(prefix.size() - 1) == '.') {
+        prefix = prefix.substr(0, prefix.size() - 1);
     }
     oc.set("plain-output-prefix", prefix);
     getApp()->beginWaitCursor();
@@ -1300,7 +1300,7 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
         // Set new additional file
         myAdditionalsFile = file.text();
         // save additionals
-        return onCmdSaveAdditionals(0,0,0);
+        return onCmdSaveAdditionals(0, 0, 0);
     } else {
         return 1;
     }

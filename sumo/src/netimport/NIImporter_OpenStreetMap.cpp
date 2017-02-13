@@ -783,7 +783,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         }
 
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
-        if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes") 
+        if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes")
                 && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks" && key != "layer" && key != "route" && key != "postal_code") {
             return;
         }

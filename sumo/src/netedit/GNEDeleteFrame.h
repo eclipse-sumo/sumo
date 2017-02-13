@@ -43,7 +43,7 @@ class GNEAttributeCarrier;
  * @class GNEDeleteFrame
  * The Widget for deleting elements
  */
-class GNEDeleteFrame : public GNEFrame{
+class GNEDeleteFrame : public GNEFrame {
     /// @brief FOX-declaration
     FXDECLARE(GNEDeleteFrame)
 
@@ -53,27 +53,27 @@ public:
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEDeleteFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet);
+    GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEDeleteFrame();
 
     /// @brief show child of attributeCarrier in frame if previously there isn't a marked element
-    void showAttributeCarrierChilds(GNEAttributeCarrier *ac);
+    void showAttributeCarrierChilds(GNEAttributeCarrier* ac);
 
     /// @brief remove attribute carrier (element)
-    void removeAttributeCarrier(GNEAttributeCarrier *ac);
+    void removeAttributeCarrier(GNEAttributeCarrier* ac);
 
     /**@brief mark attribute carrier (element)
      * @note if ac == NULL current marked attribute carrier will be dismarked
      */
-    void markAttributeCarrier(GNEAttributeCarrier *ac);
+    void markAttributeCarrier(GNEAttributeCarrier* ac);
 
     /// @brief update current label
-    void updateCurrentLabel(GNEAttributeCarrier *ac);
+    void updateCurrentLabel(GNEAttributeCarrier* ac);
 
     /// @brief returns marked atrribute carrier
-    GNEAttributeCarrier *getMarkedAttributeCarrier() const;
+    GNEAttributeCarrier* getMarkedAttributeCarrier() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -99,31 +99,31 @@ protected:
 
 private:
     /// @brief groupbox for current element
-    FXGroupBox *myGroupBoxCurrentElement;
+    FXGroupBox* myGroupBoxCurrentElement;
 
     /// @brief label for current element
-    FXLabel *myCurrentElementLabel;
+    FXLabel* myCurrentElementLabel;
 
     /// @brief label for marked element
-    FXLabel *myMarkedElementLabel;
+    FXLabel* myMarkedElementLabel;
 
     /// @brief groupbox options
-    FXGroupBox *myGroupBoxOptions;
-    
+    FXGroupBox* myGroupBoxOptions;
+
     /// @brief groupbox for tree list childs
-    FXGroupBox *myGroupBoxTreeList;
+    FXGroupBox* myGroupBoxTreeList;
 
     /// @brief groupbox for information
-    FXGroupBox *myGroupBoxInformation;
+    FXGroupBox* myGroupBoxInformation;
 
     /// @brief Label for information 1
-    FXLabel *myInformationLabel;
+    FXLabel* myInformationLabel;
 
     /// @brief checkbox for enable/disble automatically delete additionals childs
-    FXMenuCheck *myCheckBoxAutomaticallyDeleteAdditionals;
+    FXMenuCheck* myCheckBoxAutomaticallyDeleteAdditionals;
 
     /// @brief tree list to show the childs of the element to erase
-    FXTreeList *myTreelist;
+    FXTreeList* myTreelist;
 
     /// @brief map used to save the Tree items with their AC
     std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;
@@ -132,13 +132,13 @@ private:
     std::set<FXTreeItem*> myTreeItesmWithoutAC;
 
     /// @brief pointer to current AC
-    GNEAttributeCarrier *myCurrentAC;
+    GNEAttributeCarrier* myCurrentAC;
 
     /// @brief pointer to marked attributeCarrier (element)
-    GNEAttributeCarrier *myMarkedAC;
+    GNEAttributeCarrier* myMarkedAC;
 
     /// @brief current attribute carrier selected in three
-    GNEAttributeCarrier *myClickedAC;
+    GNEAttributeCarrier* myClickedAC;
 };
 
 

@@ -63,7 +63,7 @@
 // method definitions
 // ===========================================================================
 GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
-                               SUMOReal frompos, SUMOReal topos, unsigned int capacity, 
+                               SUMOReal frompos, SUMOReal topos, unsigned int capacity,
                                SUMOReal width, SUMOReal length, SUMOReal angle)
     : MSParkingArea(id, lines, lane, frompos, topos, capacity, width, length, angle),
       GUIGlObject_AbstractAdd("parkingArea", GLO_TRIGGER, id) {
@@ -92,7 +92,7 @@ GUIParkingArea::~GUIParkingArea() {}
 
 GUIGLObjectPopupMenu*
 GUIParkingArea::getPopUpMenu(GUIMainWindow& app,
-                               GUISUMOAbstractView& parent) {
+                             GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -106,7 +106,7 @@ GUIParkingArea::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIParkingArea::getParameterWindow(GUIMainWindow& app,
-                                     GUISUMOAbstractView&) {
+                                   GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 4);
     // add items

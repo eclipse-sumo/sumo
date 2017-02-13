@@ -53,7 +53,7 @@ public:
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEConnectorFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet);
+    GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEConnectorFrame();
@@ -105,61 +105,61 @@ private:
 
     /// @brief GroupBox for Buttons
     FXGroupBox* myGroupBoxModifications;
-    
+
     /// @brief "Cancel" button
-    FXButton *myCancelButton;
+    FXButton* myCancelButton;
 
     /// @brief "OK" button
-    FXButton *mySaveButton;
-    
+    FXButton* mySaveButton;
+
     /// @brief groupbox for operations
     FXGroupBox* myGroupBoxOperations;
-    
+
     /// @brief "Select Dead Ends" button
-    FXButton *mySelectDeadEndsButton;
+    FXButton* mySelectDeadEndsButton;
 
     /// @brief "Select Dead Starts" button
-    FXButton *mySelectDeadStartsButton;
+    FXButton* mySelectDeadStartsButton;
 
     /// @brief "Select Conflicts" button
-    FXButton *mySelectConflictsButton;
+    FXButton* mySelectConflictsButton;
 
     /// @brief "Select Edges which may always pass"
-    FXButton *mySelectPassingButton;
+    FXButton* mySelectPassingButton;
 
     /// @brief "Clear Selected"
-    FXButton *myClearSelectedButton;
+    FXButton* myClearSelectedButton;
 
     /// @brief "Reset Selected"
-    FXButton *myResetSelectedButton;
+    FXButton* myResetSelectedButton;
 
     /// @brief groupbox for selection hints
     FXGroupBox* myGroupBoxSelection;
-    
+
     /// @brief Selection Hint
-    FXLabel *myHoldShiftLabel;
-    
+    FXLabel* myHoldShiftLabel;
+
     /// @brief hold control label
-    FXLabel *myHoldControlLabel;
+    FXLabel* myHoldControlLabel;
 
     /// @brief group box for legend
     FXGroupBox* myGroupBoxLegend;
 
     /// @brief source label
-    FXLabel *mySourceLabel;
+    FXLabel* mySourceLabel;
 
     /// @brief target label
-    FXLabel *myTargetLabel;
+    FXLabel* myTargetLabel;
 
     /// @brief possible target label
-    FXLabel *myPossibleTargetLabel;
+    FXLabel* myPossibleTargetLabel;
 
     /// @brief target pass label
-    FXLabel *myTargetPassLabel;
+    FXLabel* myTargetPassLabel;
 
-    /// @brief conflict label 
-    FXLabel *myConflictLabel;
-    
+    /// @brief conflict label
+    FXLabel* myConflictLabel;
+
     /// @brief the lane of which connections are to be modified
     GNELane* myCurrentLane;
 

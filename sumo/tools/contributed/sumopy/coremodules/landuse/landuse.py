@@ -56,7 +56,8 @@ class LanduseTypes(am.ArrayObjman):
         # landuse types table
         self.add_col(am.ArrayConf('typekeys', '',
                                   is_index=True,
-                                  dtype='object',  # actually a string of variable length
+                                  # actually a string of variable length
+                                  dtype='object',
                                   perm='r',
                                   name='Type',
                                   info='Type of facility. Must be unique, because used as key.',
@@ -290,7 +291,8 @@ class Facilities(am.ArrayObjman):
                                      ))
 
         self.add_col(am.ArrayConf('osmkeys', '',
-                                  dtype='object',  # actually a string of variable length
+                                  # actually a string of variable length
+                                  dtype='object',
                                   perm='rw',
                                   name='OSM key',
                                   info='OSM key of facility.',
@@ -643,6 +645,7 @@ class Facilities(am.ArrayObjman):
 
 
 class SumoPolyCounter(handler.ContentHandler):
+
     """Counts facilities from poly.xml file into facility structure"""
 
     def __init__(self):
@@ -655,12 +658,14 @@ class SumoPolyCounter(handler.ContentHandler):
 
 
 class SumoPolyReader(handler.ContentHandler):
+
     """Reads facilities from poly.xml file into facility structure"""
 
     def __init__(self, facilities, counter, offset_delta):
 
         self._facilities = facilities
-        self._ids_landusetype_all = self._facilities.get_landusetypes().get_ids()
+        self._ids_landusetype_all = self._facilities.get_landusetypes(
+        ).get_ids()
         self._osmfilters = self._facilities.get_landusetypes().osmfilters
 
         self._ind_fac = -1
@@ -1064,7 +1069,8 @@ class Landuse(cm.BaseObjman):
             self.facilities.import_poly(filepath)
 
         else:
-            self.get_logger().w('import_xml: files not found:' + filepath, key='message')
+            self.get_logger().w(
+                'import_xml: files not found:' + filepath, key='message')
 
         #
         # here may be other relevant imports

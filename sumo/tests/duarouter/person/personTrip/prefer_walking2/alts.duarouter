@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 13 14:50:41 2017 by SUMO duarouter Version dev-SVN-r22923
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p0" depart="3.00">
+        <walk edges="beg middle end"/>
+    </person>
+    <vehicle id="bus.0" depart="7.00" line="bus">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
+        </routeDistribution>
+        <stop busStop="beg_0" until="12.00"/>
+        <stop busStop="end_0" until="112.00"/>
+    </vehicle>
+    <vehicle id="bus.1" depart="5007.00" line="bus">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
+        </routeDistribution>
+        <stop busStop="beg_0" until="5012.00"/>
+        <stop busStop="end_0" until="5112.00"/>
+    </vehicle>
+</routes>

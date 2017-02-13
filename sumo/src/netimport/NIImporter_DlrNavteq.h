@@ -414,8 +414,8 @@ protected:
     };
 
     static int readPrefixedInt(const std::string& s, const std::string& prefix, int fallBack = 0);
-    static time_t readTimeRec(const std::string& start, const std::string& duration); 
-    static time_t readDate(const std::string& yyyymmdd); 
+    static time_t readTimeRec(const std::string& start, const std::string& duration);
+    static time_t readDate(const std::string& yyyymmdd);
 
 };
 

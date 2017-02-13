@@ -46,6 +46,7 @@ def route(tripfilepath, netfilepath, routefilepath, options='-v --ignore-errors'
 
 
 class Router(Process):
+
     """
     Not in use !!
     """
@@ -188,10 +189,12 @@ class Demand(cm.BaseObjman):
                     filepath, is_generate_ids=False, is_add=True)
 
             else:
-                self.get_logger().w('import_xml: files not found:' + filepath, key='message')
+                self.get_logger().w(
+                    'import_xml: files not found:' + filepath, key='message')
 
         else:
-            self.get_logger().w('import_xml: files not found:' + filepath, key='message')
+            self.get_logger().w(
+                'import_xml: files not found:' + filepath, key='message')
 
             # no trip file exists, but maybe just a route file with trips
             filepath = os.path.join(dirname, rootname + '.rou.xml')
@@ -200,7 +203,8 @@ class Demand(cm.BaseObjman):
                     filepath, is_generate_ids=False, is_add=False)
 
             else:
-                self.get_logger().w('import_xml: files not found:' + filepath, key='message')
+                self.get_logger().w(
+                    'import_xml: files not found:' + filepath, key='message')
 
 
 class Routes(am.ArrayObjman):
@@ -754,6 +758,7 @@ class Trips(am.ArrayObjman):
 
 
 class TripCounter(handler.ContentHandler):
+
     """Parses a SUMO route XML file and counts trips."""
 
     def __init__(self):
@@ -766,6 +771,7 @@ class TripCounter(handler.ContentHandler):
 
 
 class TripReader(handler.ContentHandler):
+
     """Reads trips from trip or route file into trip table"""
 
     def __init__(self, trips,  n_trip):
@@ -886,6 +892,7 @@ class TripReader(handler.ContentHandler):
 
 
 class RouteCounter(handler.ContentHandler):
+
     """Parses a SUMO route XML file and counts trips."""
 
     def __init__(self):
@@ -905,6 +912,7 @@ class RouteCounter(handler.ContentHandler):
 
 
 class RouteReader(TripReader):
+
     """Reads trips from trip or route file into trip table"""
 
     def __init__(self, trips,  counter):

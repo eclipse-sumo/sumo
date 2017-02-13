@@ -278,6 +278,7 @@ COLORMAP_JET = np.array([
 
 
 class ResultSelectTool(NetSelectTool):
+
     """
     Result Selection tool for result OGL canvas.
     """
@@ -404,7 +405,8 @@ class ResultSelectTool(NetSelectTool):
                                       mainframe=self.parent.get_mainframe(),
                                       pos=wx.DefaultPosition, size=size, style=wx.MAXIMIZE_BOX | wx.RESIZE_BORDER,
                                       func_apply=self.on_apply_option,
-                                      immediate_apply=False, panelstyle='default',  # 'instrumental'
+                                      # 'instrumental'
+                                      immediate_apply=False, panelstyle='default',
                                       standartbuttons=['apply', 'restore'])
 
         return self._optionspanel
@@ -618,6 +620,7 @@ class SimpleEdgeDrawings(EdgeDrawings):
 
 
 class ResultviewerTools(ToolsPanel):
+
     """
     Shows a toolpallet with different tools and an options panel.
     Here tools are added which 
@@ -904,6 +907,7 @@ class Resultviewer(OGleditor):
 
 
 class ResultviewrMainframe(AgileToolbarFrameMixin, wx.Frame):
+
     """
     Standalone result viewer....under costruction.
     """

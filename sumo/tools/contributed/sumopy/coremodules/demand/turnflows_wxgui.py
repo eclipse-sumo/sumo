@@ -10,6 +10,7 @@ from coremodules.network.network import SumoIdsConf, MODES
 
 
 class TurnflowImporter(cm.BaseObjman):
+
     """Contains information and methods to import.
     """
 
@@ -130,7 +131,8 @@ class AddTurnflowDialog(wx.Frame):
     def make_browser(self):
         # Create Browser widget here
         buttons = [('Add ODM', self.on_add, 'Add ODM data to current scenario.'),
-                   ('Cancel', self.on_close, 'Close wizzard without adding ODM.'),
+                   ('Cancel', self.on_close,
+                    'Close wizzard without adding ODM.'),
                    #('OK', self.on_add_close, 'Add ODM data to current scenario and close wizzard.'),
                    ]
         defaultbuttontext = 'Add ODM'

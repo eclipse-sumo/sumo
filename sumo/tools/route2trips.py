@@ -33,6 +33,7 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib
 
+
 class RouteReader(handler.ContentHandler):
 
     def __init__(self, attrList, outfile, vias, calledBy=""):
@@ -67,8 +68,8 @@ class RouteReader(handler.ContentHandler):
                   file=self.outfile)
         elif name == 'routes':
             sumolib.writeXMLHeader(
-                    self.outfile, 
-                    "$Id$%s" % self.calledBy, "routes")
+                self.outfile,
+                "$Id$%s" % self.calledBy, "routes")
 
     def endElement(self, name):
         if name == 'route':
@@ -83,7 +84,7 @@ class RouteReader(handler.ContentHandler):
             via = self.vias.get(self._vID, "")
             if self._attrList:
                 print('    <trip %s%s/>' % (' '.join(['%s="%s"' % (key,
-                    self._vehicleAttrs[key]) for key in self._attrList]), via),
+                                                                   self._vehicleAttrs[key]) for key in self._attrList]), via),
                       file=self.outfile)
             else:
                 del self._vehicleAttrs['id']

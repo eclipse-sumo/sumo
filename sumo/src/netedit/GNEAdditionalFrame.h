@@ -159,16 +159,16 @@ public:
 
         /// @brief hide all parameters
         void hideParameter();
-        
+
         /// @brief return tag of list
         SumoXMLTag getTag() const;
-        
+
         /// @brief return attribute of list
         SumoXMLAttr getAttr() const;
 
         /// @brief return the value of list
         std::string getListValues();
-        
+
         /// @brief check that current list is valid
         bool isCurrentListValid() const;
 
@@ -589,7 +589,7 @@ public:
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEAdditionalFrame(FXHorizontalFrame *horizontalFrameParent, GNEViewNet* viewNet);
+    GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEAdditionalFrame();

@@ -52,7 +52,7 @@ class GNERerouterInterval;
 class GNERouteProbReroute {
 public:
     /// @brief constructor
-    GNERouteProbReroute(GNERerouterInterval &rerouterIntervalParent, std::string newRouteId, SUMOReal probability);
+    GNERouteProbReroute(GNERerouterInterval& rerouterIntervalParent, std::string newRouteId, SUMOReal probability);
 
     /// @brief destructor
     ~GNERouteProbReroute();
@@ -73,14 +73,14 @@ public:
     SumoXMLTag getTag() const;
 
     /// @brief get rerouter interval parent
-    const GNERerouterInterval &getRerouterIntervalParent() const;
+    const GNERerouterInterval& getRerouterIntervalParent() const;
 
     /// @brief overload == operator
-    bool operator==(const GNERouteProbReroute &routeProbReroute);
+    bool operator==(const GNERouteProbReroute& routeProbReroute);
 
 protected:
     /// @brief reference to rerouter interval parent
-    GNERerouterInterval *myRerouterIntervalParent;
+    GNERerouterInterval* myRerouterIntervalParent;
 
     /// @brief id of new route
     /// @todo change string to GNERoute

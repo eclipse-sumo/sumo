@@ -65,7 +65,7 @@ class Position;
  */
 class MSParkingArea : public MSStoppingPlace {
 public:
-        
+
     /** @brief Constructor
      *
      * @param[in] id The id of the stop
@@ -80,14 +80,14 @@ public:
      * @param[in] angle Angle of the default lot rectangle
      */
     MSParkingArea(const std::string& id,
-                    const std::vector<std::string>& lines, MSLane& lane,
-                    SUMOReal begPos, SUMOReal endPos, unsigned int capacity,
-                    SUMOReal width, SUMOReal length, SUMOReal angle);
+                  const std::vector<std::string>& lines, MSLane& lane,
+                  SUMOReal begPos, SUMOReal endPos, unsigned int capacity,
+                  SUMOReal width, SUMOReal length, SUMOReal angle);
 
     /// @brief Destructor
     virtual ~MSParkingArea();
 
-    
+
     /** @brief Returns the area capacity
      *
      * @return The capacity
@@ -97,10 +97,10 @@ public:
 
     /** @brief Returns the area occupancy
      *
-     * @return The occupancy computed as number of vehicles in myEndPositions 
+     * @return The occupancy computed as number of vehicles in myEndPositions
      */
     int getOccupancy() const;
-    
+
 
     /** @brief Called if a vehicle enters this stop
      *
@@ -115,7 +115,7 @@ public:
      */
     void enter(SUMOVehicle* what, SUMOReal beg, SUMOReal end);
 
-    
+
     /** @brief Called if a vehicle leaves this stop
      *
      * Removes the position of the vehicle from myEndPositions.
@@ -134,13 +134,13 @@ public:
      */
     SUMOReal getLastFreePos(const SUMOVehicle& forVehicle) const;
 
-    
+
     /** @brief Returns the position of parked vehicle
      *
      * @return The position of parked vehicle
      */
     Position getVehiclePosition(const SUMOVehicle& forVehicle);
-    
+
 
     /** @brief Returns the angle of parked vehicle
      *
@@ -154,10 +154,10 @@ public:
      * @return The space dimension
      */
     SUMOReal getSpaceDim() const;
-    
+
 
     /** @brief Add a lot entry to parking area
-     * 
+     *
      * @param[in] x X position of the lot center
      * @param[in] y Y position of the lot center
      * @param[in] z Z position of the lot center
@@ -168,7 +168,7 @@ public:
      */
     void addLotEntry(SUMOReal x, SUMOReal y, SUMOReal z,
                      SUMOReal width, SUMOReal length, SUMOReal angle);
-    
+
 
     /** @brief Returns the lot rectangle width
      *
@@ -183,7 +183,7 @@ public:
      */
     SUMOReal getLength() const;
 
-    
+
     /** @brief Returns the lot rectangle angle
      *
      * @return The angle
@@ -201,7 +201,7 @@ protected:
         /// @brief The last parked vehicle or 0
         SUMOVehicle* vehicle;
         /// @brief The position of the vehicle when parking in this space
-        Position myPosition; 
+        Position myPosition;
         /// @brief The rotation
         SUMOReal myRotation;
         /// @brief The width

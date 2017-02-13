@@ -135,10 +135,10 @@ public:
     struct Crossing {
         /// @brief constructor
         Crossing(const NBNode* _node, const EdgeVector& _edges, SUMOReal _width, bool _priority) :
-            node(_node), 
-            edges(_edges), 
-            width(_width), 
-            priority(_priority), 
+            node(_node),
+            edges(_edges),
+            width(_width),
+            priority(_priority),
             tlLinkNo(-1) {
         }
         /// @brief The parent node of this crossing
@@ -263,7 +263,7 @@ public:
         return myRadius;
     }
 
-    /// @brief Returns the keepClear flag 
+    /// @brief Returns the keepClear flag
     bool getKeepClear() const {
         return myKeepClear;
     }
@@ -279,7 +279,7 @@ public:
     /// @brief Removes the given traffic light from this node
     void removeTrafficLight(NBTrafficLightDefinition* tlDef);
 
-    /// @brief Removes all references to traffic lights that control this tls 
+    /// @brief Removes all references to traffic lights that control this tls
     void removeTrafficLights();
 
     /**@brief Returns whether this node is controlled by any tls
@@ -423,7 +423,7 @@ public:
 
     /// @brief return whether the given laneToLane connection is a right turn which must yield to a bicycle crossings
     static bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
-                                  const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane, 
+                                  const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane,
                                   bool lefthand = false);
 
     /**@brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
@@ -499,7 +499,7 @@ public:
 
     /// @brief get edges to join
     std::vector<std::pair<NBEdge*, NBEdge*> > getEdgesToJoin() const;
-    
+
     /// @chech if node is near district
     bool isNearDistrict() const;
 
@@ -534,8 +534,8 @@ public:
                                       NBNode* recordError = 0) const;
     /// @brief get bezier control points
     static PositionVector bezierControlPoints(const PositionVector& begShape, const PositionVector& endShape,
-                                              bool isTurnaround, SUMOReal extrapolateBeg, SUMOReal extrapolateEnd, 
-                                              bool& ok, NBNode* recordError = 0, SUMOReal straightThresh=DEG2RAD(5));
+            bool isTurnaround, SUMOReal extrapolateBeg, SUMOReal extrapolateEnd,
+            bool& ok, NBNode* recordError = 0, SUMOReal straightThresh = DEG2RAD(5));
 
 
     /// @brief compute the displacement error during s-curve computation
@@ -581,7 +581,7 @@ public:
     void buildWalkingAreas(int cornerDetail);
 
     /// @brief build crossings, and walkingareas. Also removes invalid loaded crossings if wished
-    void buildCrossingsAndWalkingAreas(bool discardInvalid=true);
+    void buildCrossingsAndWalkingAreas(bool discardInvalid = true);
 
     /// @brief return all edges that lie clockwise between the given edges
     EdgeVector edgesBetween(const NBEdge* e1, const NBEdge* e2) const;
@@ -594,7 +594,7 @@ public:
         return myBlockedConnections;
     }
 
-    /// @brief whether this is structurally similar to a geometry node 
+    /// @brief whether this is structurally similar to a geometry node
     bool geometryLike() const;
 
     /// @brief update the type of this node as a roundabout
@@ -656,7 +656,7 @@ public:
         /// @brief Constructor
         explicit nodes_by_id_sorter() { }
 
-        /// @brief Comparing operator 
+        /// @brief Comparing operator
         int operator()(NBNode* n1, NBNode* n2) const {
             return n1->getID() < n2->getID();
         }

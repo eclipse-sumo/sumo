@@ -60,7 +60,7 @@ public:
     ~GNEAdditionalDialog();
 
     /// @brief change additional dialog header
-    void changeAdditionalDialogHeader(const std::string &newHeader);
+    void changeAdditionalDialogHeader(const std::string& newHeader);
 
     /// @name FOX-callbacks
     /// @{
