@@ -2,7 +2,7 @@
 /// @file    GNERerouterIntervalDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2017
-/// @version $Id: GNERerouterIntervalDialog.h 22824 2017-02-02 09:51:02Z palcraft $
+/// @version $Id$
 ///
 /// Dialog for edit rerouter intervals
 /****************************************************************************/
