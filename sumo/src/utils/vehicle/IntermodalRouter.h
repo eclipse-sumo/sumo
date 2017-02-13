@@ -140,14 +140,23 @@ public:
         SUMOTime lastUntil = 0;
         std::vector<SUMOVehicleParameter::Stop> validStops;
         if (addStops != 0) {
+            // stops are part of a stand-alone route. until times are offsets from vehicle departure
             for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = addStops->begin(); s != addStops->end(); ++s) {
-                if (myStopConnections.count(s->busstop) > 0 && s->until >= lastUntil) {
-                    validStops.push_back(*s);
-                    lastUntil = s->until;
+                if (myStopConnections.count(s->busstop) > 0) {
+                    // compute stop times for the first vehicle
+                    SUMOVehicleParameter::Stop stop = *s;
+                    stop.until += pars.depart;
+                    if (stop.until >= lastUntil) {
+                        validStops.push_back(stop);
+                        lastUntil = stop.until;
+                    } else {
+                        WRITE_WARNING("Ignoring unordered stop at '" + stop.busstop + "' at " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
+                    }
                 }
             }
         }
         for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin(); s != pars.stops.end(); ++s) {
+            // stops are part of the vehicle until times are absolute times for the first vehicle
             if (myStopConnections.count(s->busstop) > 0 && s->until >= lastUntil) {
                 validStops.push_back(*s);
                 lastUntil = s->until;
