@@ -17,26 +17,14 @@
 /****************************************************************************/
 #include <iostream>
 #include <utils/common/MsgHandler.h>
+#include <microsim/MSVehicle.h>
+#include <utils/geom/GeomHelper.h>
 #include "MSCFModel_Rail.h"
 
-MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType *vtype, std::string trainType) : MSCFModel(vtype, 1.0, 1.0, 1.0) {
 
-    if (trainType.compare("RB425") == 0) {
-        traction = initRB425Traction();
-        resistance = initRB425Resistance();
-        trainParams = initRB425Params();
+#define G  9.80665
 
-    } else if (trainType.compare("NGT400") == 0) {
-        traction = initNGT400Traction();
-        resistance = initNGT400Resistance();
-        trainParams = initNGT400Params();
-    }else {
-        WRITE_ERROR("Unknown train type: " + trainType);
-        throw ProcessError();
-    }
-
-
-
+MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType *vtype) : MSCFModel(vtype, 1.0, 1.0, 1.0) {
 }
 
 MSCFModel_Rail::~MSCFModel_Rail() {
@@ -61,58 +49,56 @@ MSCFModel *MSCFModel_Rail::duplicate(const MSVehicleType *vtype) const {
 }
 
 SUMOReal MSCFModel_Rail::maxNextSpeed(SUMOReal speed, const MSVehicle *const veh) const {
-//    //TODO edge vmax
-//    SUMOReal permissibleSpd = trainParams.vmax; //MIN2(trainParams.vmax,edge.vmax);
-//
-////    if (speed >= trainParams.vmax) {
-////        return  trainParams.vmax;
-////    }
-//
-//
-//    SUMOReal targetSpd = permissibleSpd;
-//    //TODO delay + reserve
 
-    if (speed >= trainParams.vmax) {
-        return trainParams.vmax;
+    VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
+    if (vars->isNotYetInitialized()) {
+        vars->init(veh);
     }
 
 
 
+//    VehicleVariables v = veh->
+
+    if (speed >= vars->trainParams.vmax) {
+        return vars->trainParams.vmax;
+    }
+
+
     //TODO signals + stops ...
 
-    SUMOReal targetSpeed = trainParams.vmax;
+    SUMOReal targetSpeed = vars->trainParams.vmax;
 
-    SUMOReal res = getResitance(speed);
+    SUMOReal res = vars->getResitance(speed); // kN
 
-    //TODO grade resistance force
-    SUMOReal gr = 0; //trainParams.weight * 9.81 * edge.grade
+    SUMOReal slope = veh->getSlope();
+    SUMOReal gr = vars->trainParams.weight * G * sin(DEG2RAD(slope)); //kN
 
-    SUMOReal totalRes = res + gr;
+    SUMOReal totalRes = res + gr; //kN
 
-    SUMOReal trac = getTraction(speed);
+    SUMOReal trac = vars->getTraction(speed); //kN
 
     SUMOReal a;
     if (speed < targetSpeed) {
-        a = (trac - totalRes) / trainParams.rotWeight;
+        a = (trac - totalRes) / vars->trainParams.rotWeight; //kN/t == N/kg
     } else {
         a = 0.;
         if (totalRes > trac) {
-            a = (trac - totalRes) / trainParams.rotWeight;
+            a = (trac - totalRes) / vars->trainParams.rotWeight;//kN/t == N/kg
         }
     }
 
     SUMOReal maxNextSpeed = speed + a * DELTA_T/1000.;
 
-    std::cout << "maxNextSpeed: " << maxNextSpeed << std::endl;
+//    std::cout << veh->getID() << " speed: " << (speed*3.6) << std::endl;
 
     return maxNextSpeed;
 }
 
 SUMOReal MSCFModel_Rail::minNextSpeed(SUMOReal speed, const MSVehicle *const veh) const {
-    return 0.;
+    return speed;
 }
 
-SUMOReal MSCFModel_Rail::getResitance(SUMOReal speed) const {
+SUMOReal MSCFModel_Rail::VehicleVariables::getResitance(SUMOReal speed) const {
     std::map<SUMOReal, SUMOReal>::const_iterator low, prev;
     low = resistance.lower_bound(speed);
 
@@ -140,7 +126,7 @@ SUMOReal MSCFModel_Rail::getResitance(SUMOReal speed) const {
 
 }
 
-double MSCFModel_Rail::getTraction(double speed) const {
+double MSCFModel_Rail::VehicleVariables::getTraction(double speed) const {
     std::map<SUMOReal, SUMOReal>::const_iterator low, prev;
     low = traction.lower_bound(speed);
 
@@ -165,6 +151,46 @@ double MSCFModel_Rail::getTraction(double speed) const {
     SUMOReal trac = (1 - weight) * prev->second + weight * low->second;
 
     return trac;
-
-    return 0;
 }
+
+void MSCFModel_Rail::VehicleVariables::init(const MSVehicle *const veh) {
+
+    std::string trainType = veh->getVehicleType().getParameter().getCFParamString(SUMO_ATTR_TRAIN_TYPE,"NGT400");
+
+    if (trainType.compare("RB425") == 0) {
+        traction = initRB425Traction();
+        resistance = initRB425Resistance();
+        trainParams = initRB425Params();
+
+    } else if (trainType.compare("NGT400") == 0) {
+        traction = initNGT400Traction();
+        resistance = initNGT400Resistance();
+        trainParams = initNGT400Params();
+    }else {
+        WRITE_ERROR("Unknown train type: " + trainType);
+        throw ProcessError();
+    }
+
+    notYetInitialized = false;
+
+}
+
+double MSCFModel_Rail::getSpeedAfterMaxDecel(SUMOReal speed) const {
+
+    //TODO grade resistance force
+    SUMOReal gr = 0; //trainParams.weight * 9.81 * edge.grade
+
+    //TODO train params
+    SUMOReal a = 0;//trainParams.decl - gr/trainParams.rotWeight;
+
+    return speed + a * DELTA_T/1000.;
+}
+
+MSCFModel::VehicleVariables *MSCFModel_Rail::createVehicleVariables() const {
+    VehicleVariables* ret = new VehicleVariables();
+    return ret;
+}
+
+//double MSCFModel_Rail::VehicleVariables::getResitance(SUMOReal speed) const {
+//    return 0;
+//}

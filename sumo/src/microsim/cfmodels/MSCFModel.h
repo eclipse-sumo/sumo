@@ -295,7 +295,7 @@ public:
         return secureGap;
     }
 
-    /** @brief Returns the velocity after maximum deceleration
+    virtual /** @brief Returns the velocity after maximum deceleration
      * @param[in] v The velocity
      * @return The velocity after maximum deceleration
      */
