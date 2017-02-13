@@ -103,6 +103,12 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="RB425" />
                     <xsd:enumeration value="NGT400" />
+                    <xsd:enumeration value="NGT400_16" />
+                    <xsd:enumeration value="ICE1" />
+                    <xsd:enumeration value="ICE3" />
+                    <xsd:enumeration value="REDosto7" />
+                    <xsd:enumeration value="RB628" />
+                    <xsd:enumeration value="Freight" />
                 </xsd:restriction>
             </xsd:simpleType>
 

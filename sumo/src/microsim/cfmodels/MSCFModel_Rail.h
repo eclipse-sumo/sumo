@@ -47,7 +47,7 @@ public:
 
     double getSpeedAfterMaxDecel(SUMOReal v) const override;
 
-    MSCFModel::VehicleVariables* createVehicleVariables() const;
+    MSCFModel::VehicleVariables *createVehicleVariables() const;
 
 private:
     class VehicleVariables : public MSCFModel::VehicleVariables {
@@ -64,11 +64,11 @@ private:
         };
 
 
-
-
         typedef std::map<SUMOReal, SUMOReal> LookUpMap;
 
+        //TODO make train parameters static -- one for each trainType
         TrainParams trainParams;
+
         LookUpMap initNGT400Traction() { // early version of NGT 400
             LookUpMap map;
             map[0] = 716.0;
@@ -189,6 +189,433 @@ private:
             return params;
         }
 
+        LookUpMap initNGT400_16Traction() {
+            LookUpMap map;
+            map[0] = 274.5;
+            map[10] = 274.5;
+            map[20] = 274.5;
+            map[30] = 274.5;
+            map[40] = 274.5;
+            map[50] = 274.5;
+            map[60] = 274.5;
+            map[70] = 274.5;
+            map[80] = 274.5;
+            map[90] = 274.5;
+            map[100] = 274.5;
+            map[110] = 274.5;
+            map[120] = 274.5;
+            map[130] = 274.5;
+            map[140] = 274.5;
+            map[150] = 274.5;
+            map[160] = 274.5;
+            map[170] = 274.5;
+            map[180] = 274.5;
+            map[190] = 274.5;
+            map[200] = 274.5;
+            map[210] = 273;
+            map[220] = 262.3;
+            map[230] = 250;
+            map[240] = 239;
+            map[250] = 229;
+            map[260] = 222;
+            map[270] = 213;
+            map[280] = 205;
+            map[290] = 198;
+            map[300] = 191;
+            map[310] = 186;
+            map[320] = 180;
+            map[330] = 174;
+            map[340] = 169;
+            map[350] = 165;
+            map[360] = 160;
+            map[370] = 155.5;
+            map[380] = 151;
+            map[390] = 148;
+            map[400] = 144;
+            map[410] = 140;
+            map[420] = 136;
+            map[430] = 134;
+            map[440] = 131;
+            map[450] = 128;
+            map[460] = 125;
+            map[470] = 123;
+            return map;
+        }
+
+        LookUpMap initNGT400_16Resistance() {
+            LookUpMap map;
+            map[0] = 5.71;
+            map[10] = 6.01;
+            map[20] = 6.4;
+            map[30] = 7.0;
+            map[40] = 7.51;
+            map[50] = 8.34;
+            map[60] = 9.2;
+            map[70] = 10.4;
+            map[80] = 11.3;
+            map[90] = 12.58;
+            map[100] = 14.05;
+            map[110] = 15.5;
+            map[120] = 16.9;
+            map[130] = 18.75;
+            map[140] = 20.77;
+            map[150] = 22.9;
+            map[160] = 25.0;
+            map[170] = 26.9;
+            map[180] = 29.38;
+            map[190] = 32.0;
+            map[200] = 34.5;
+            map[210] = 37.0;
+            map[220] = 39.91;
+            map[230] = 43.11;
+            map[240] = 46.4;
+            map[250] = 49.3;
+            map[260] = 52.4;
+            map[270] = 56.09;
+            map[280] = 59.8;
+            map[290] = 63.7;
+            map[300] = 66.8;
+            map[310] = 71.0;
+            map[320] = 75.39;
+            map[330] = 79.9;
+            map[340] = 84.1;
+            map[350] = 87.9;
+            map[360] = 92.7;
+            map[370] = 97.6;
+            map[380] = 102.0;
+            map[390] = 107.0;
+            map[400] = 112.0;
+            map[410] = 117.5;
+            map[420] = 123.0;
+            map[430] = 128.3;
+            map[440] = 133.3;
+            map[450] = 139.2;
+            map[460] = 145.5;
+            map[470] = 150.0;
+            return map;
+        }
+
+        TrainParams initNGT400_16Params() {
+            TrainParams params;
+            params.weight = 384;
+            params.mf = 1.04;
+            params.length = 200;
+            params.decl = 0.9;
+            params.vmax = 430 / 3.6;
+            params.recovery = 0.6;
+            params.rotWeight = params.weight * params.mf;
+            return params;
+        }
+
+        LookUpMap initICE1Traction() {
+            LookUpMap map;
+            map[0] = 400;
+            map[10] = 394;
+            map[20] = 388;
+            map[30] = 382;
+            map[40] = 377;
+            map[50] = 372;
+            map[60] = 369;
+            map[70] = 366;
+            map[80] = 363;
+            map[90] = 361;
+            map[100] = 349;
+            map[110] = 317;
+            map[120] = 290;
+            map[130] = 268;
+            map[140] = 249;
+            map[150] = 232;
+            map[160] = 217;
+            map[170] = 205;
+            map[180] = 193;
+            map[190] = 183;
+            map[200] = 174;
+            map[210] = 165;
+            map[220] = 158;
+            map[230] = 151;
+            map[240] = 145;
+            map[250] = 139;
+            return map;
+        }
+
+        LookUpMap initICE1Resistance() {
+            LookUpMap map;
+            map[0] = 10.7;
+            map[10] = 12.3;
+            map[20] = 14.2;
+            map[30] = 16.4;
+            map[40] = 18.7;
+            map[50] = 21.3;
+            map[60] = 24.2;
+            map[70] = 27.3;
+            map[80] = 30.6;
+            map[90] = 34.1;
+            map[100] = 37.9;
+            map[110] = 41.9;
+            map[120] = 46.2;
+            map[130] = 50.6;
+            map[140] = 55.4;
+            map[150] = 60.4;
+            map[160] = 65.6;
+            map[170] = 71.1;
+            map[180] = 76.7;
+            map[190] = 82.6;
+            map[200] = 88.8;
+            map[210] = 95.2;
+            map[220] = 101.8;
+            map[230] = 108.7;
+            map[240] = 115.8;
+            map[250] = 123.1;
+            return map;
+        }
+
+        TrainParams initICE1Params() {
+            TrainParams params;
+            params.weight = 876;
+            params.mf = 1.1;
+            params.length = 358;
+            params.decl = 0.5;
+            params.vmax = 250 / 3.6;
+            params.recovery = 0.1;
+            params.rotWeight = params.weight * params.mf;
+            return params;
+        }
+
+        TrainParams initICE3Params() {
+            TrainParams params;
+            params.weight = 420;
+            params.mf = 1.04;
+            params.length = 200;
+            params.decl = 0.5;
+            params.vmax = 300 / 3.6;
+            params.recovery = 0.6;
+            params.rotWeight = params.weight * params.mf;
+            return params;
+        }
+
+        LookUpMap initICE3Traction() {
+            LookUpMap map;
+            map[0] = 300;
+            map[10] = 298;
+            map[20] = 297;
+            map[30] = 295;
+            map[40] = 293;
+            map[50] = 292;
+            map[60] = 290;
+            map[70] = 288;
+            map[80] = 286.5;
+            map[90] = 285;
+            map[100] = 283;
+            map[110] = 262;
+            map[120] = 240;
+            map[130] = 221;
+            map[140] = 206;
+            map[150] = 192;
+            map[160] = 180;
+            map[170] = 169;
+            map[180] = 160;
+            map[190] = 152;
+            map[200] = 144;
+            map[210] = 137;
+            map[220] = 131;
+            map[230] = 125;
+            map[240] = 120;
+            map[250] = 115;
+            map[260] = 111;
+            map[270] = 107;
+            map[280] = 103;
+            map[290] = 99;
+            map[300] = 96;
+            return map;
+        }
+
+        LookUpMap initICE3Resistance() {
+            LookUpMap map;
+            map[0] = 7.4;
+            map[10] = 7.6;
+            map[20] = 8.0;
+            map[30] = 8.4;
+            map[40] = 9.1;
+            map[50] = 9.8;
+            map[60] = 10.7;
+            map[70] = 11.7;
+            map[80] = 12.8;
+            map[90] = 14.1;
+            map[100] = 15.5;
+            map[110] = 17.1;
+            map[120] = 18.8;
+            map[130] = 20.6;
+            map[140] = 22.6;
+            map[150] = 24.6;
+            map[160] = 26.9;
+            map[170] = 29.2;
+            map[180] = 31.7;
+            map[190] = 34.3;
+            map[200] = 37.1;
+            map[210] = 40.0;
+            map[220] = 43.1;
+            map[230] = 46.2;
+            map[240] = 49.6;
+            map[250] = 53.0;
+            map[260] = 56.6;
+            map[270] = 60.3;
+            map[280] = 64.1;
+            map[290] = 68.1;
+            map[300] = 71.8;
+            return map;
+        }
+
+        TrainParams initREDosto7Params() {
+            TrainParams params;
+            params.weight = 425.5;
+            params.mf = 1.1;
+            params.length = 207;
+            params.decl = 0.5;
+            params.vmax = 160 / 3.6;
+            params.recovery = 0.1;
+            params.rotWeight = params.weight * params.mf;
+            return params;
+        }
+
+        LookUpMap initREDosto7Traction() {
+            LookUpMap map;
+            map[0] = 300;
+            map[10] = 300;
+            map[20] = 300;
+            map[30] = 300;
+            map[40] = 300;
+            map[50] = 300;
+            map[60] = 300;
+            map[70] = 289;
+            map[80] = 253;
+            map[90] = 224;
+            map[100] = 202;
+            map[110] = 183;
+            map[120] = 168;
+            map[130] = 155;
+            map[140] = 144;
+            map[150] = 134;
+            map[160] = 125;
+            return map;
+        }
+
+        LookUpMap initREDosto7Resistance() {
+            LookUpMap map;
+            map[0] = 8.5;
+            map[10] = 8.9;
+            map[20] = 9.5;
+            map[30] = 10.4;
+            map[40] = 11.4;
+            map[50] = 12.7;
+            map[60] = 14.1;
+            map[70] = 15.8;
+            map[80] = 17.7;
+            map[90] = 19.8;
+            map[100] = 22.6;
+            map[110] = 24.6;
+            map[120] = 27.3;
+            map[130] = 30.2;
+            map[140] = 33.3;
+            map[150] = 36.6;
+            map[160] = 40.2;
+            return map;
+        }
+
+        TrainParams initRB628Params() {
+            TrainParams params;
+            params.weight = 72.2;
+            params.mf = 1.04;
+            params.length = 46;
+            params.decl = 0.5;
+            params.vmax = 120 / 3.6;
+            params.recovery = 0;
+            params.rotWeight = params.weight * params.mf;
+            return params;
+        }
+
+        LookUpMap initRB628Traction() {
+            LookUpMap map;
+            map[0] = 60;
+            map[10] = 53.8;
+            map[20] = 47.6;
+            map[30] = 36.9;
+            map[40] = 28.7;
+            map[50] = 23.5;
+            map[60] = 20.0;
+            map[70] = 17.5;
+            map[80] = 15.2;
+            map[90] = 13.9;
+            map[100] = 12.8;
+            map[110] = 11.7;
+            map[120] = 10.8;
+            return map;
+        }
+
+        LookUpMap initRB628Resistance() {
+            LookUpMap map;
+            map[0] = 1.29;
+            map[10] = 1.46;
+            map[20] = 1.73;
+            map[30] = 2.08;
+            map[40] = 2.52;
+            map[50] = 3.05;
+            map[60] = 3.66;
+            map[70] = 4.36;
+            map[80] = 5.16;
+            map[90] = 6.03;
+            map[100] = 7.00;
+            map[110] = 8.06;
+            map[120] = 9.2;
+            return map;
+        }
+
+        TrainParams initFreightParams() {
+            TrainParams params;
+            params.weight = 1440;
+            params.mf = 1.06;
+            params.length = 512;
+            params.decl = 0.3;
+            params.vmax = 120 / 3.6;
+            params.recovery = 0.05;
+            params.rotWeight = params.weight * params.mf;
+            return params;
+        }
+
+        LookUpMap initFreightTraction() {
+            LookUpMap map;
+            map[0] = 300;
+            map[10] = 296;
+            map[20] = 293;
+            map[30] = 289;
+            map[40] = 286;
+            map[50] = 282;
+            map[60] = 279;
+            map[70] = 275;
+            map[80] = 272;
+            map[90] = 255;
+            map[100] = 230;
+            map[110] = 209;
+            map[120] = 190;//guessed value
+            return map;
+        }
+
+        LookUpMap initFreightResistance() {
+            LookUpMap map;
+            map[0] = 1.9;
+            map[10] = 4.3;
+            map[20] = 8.5;
+            map[30] = 14.3;
+            map[40] = 21.7;
+            map[50] = 30.8;
+            map[60] = 41.5;
+            map[70] = 53.8;
+            map[80] = 67.8;
+            map[90] = 83.5;
+            map[100] = 110.7;
+            map[110] = 119.6;
+            map[120] = 140.2;
+            return map;
+        }
 
         LookUpMap initRB425Traction() {
             LookUpMap map;
@@ -260,6 +687,8 @@ private:
     private:
 
         bool notYetInitialized = true;
+
+        //TODO make look up tables static -- one for each trainType
         LookUpMap traction;
         LookUpMap resistance;
     };

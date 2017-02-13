@@ -50,7 +50,7 @@ MSCFModel *MSCFModel_Rail::duplicate(const MSVehicleType *vtype) const {
 
 SUMOReal MSCFModel_Rail::maxNextSpeed(SUMOReal speed, const MSVehicle *const veh) const {
 
-    VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
+    VehicleVariables *vars = (VehicleVariables *) veh->getCarFollowVariables();
     if (vars->isNotYetInitialized()) {
         vars->init(veh);
     }
@@ -87,7 +87,7 @@ SUMOReal MSCFModel_Rail::maxNextSpeed(SUMOReal speed, const MSVehicle *const veh
         }
     }
 
-    SUMOReal maxNextSpeed = speed + a * DELTA_T/1000.;
+    SUMOReal maxNextSpeed = speed + a * DELTA_T / 1000.;
 
 //    std::cout << veh->getID() << " speed: " << (speed*3.6) << std::endl;
 
@@ -155,18 +155,41 @@ double MSCFModel_Rail::VehicleVariables::getTraction(double speed) const {
 
 void MSCFModel_Rail::VehicleVariables::init(const MSVehicle *const veh) {
 
-    std::string trainType = veh->getVehicleType().getParameter().getCFParamString(SUMO_ATTR_TRAIN_TYPE,"NGT400");
+    std::string trainType = veh->getVehicleType().getParameter().getCFParamString(SUMO_ATTR_TRAIN_TYPE, "NGT400");
 
     if (trainType.compare("RB425") == 0) {
         traction = initRB425Traction();
         resistance = initRB425Resistance();
         trainParams = initRB425Params();
-
     } else if (trainType.compare("NGT400") == 0) {
         traction = initNGT400Traction();
         resistance = initNGT400Resistance();
         trainParams = initNGT400Params();
-    }else {
+    } else if (trainType.compare("NGT400_16") == 0) {
+        traction = initNGT400_16Traction();
+        resistance = initNGT400_16Resistance();
+        trainParams = initNGT400_16Params();
+    } else if (trainType.compare("ICE1") == 0) {
+        traction = initICE1Traction();
+        resistance = initICE1Resistance();
+        trainParams = initICE1Params();
+    } else if (trainType.compare("ICE3") == 0) {
+        traction = initICE3Traction();
+        resistance = initICE3Resistance();
+        trainParams = initICE3Params();
+    } else if (trainType.compare("REDosto7") == 0) {
+        traction = initREDosto7Traction();
+        resistance = initREDosto7Resistance();
+        trainParams = initREDosto7Params();
+    } else if (trainType.compare("Freight") == 0) {
+        traction = initFreightTraction();
+        resistance = initFreightResistance();
+        trainParams = initFreightParams();
+    } else if (trainType.compare("RB628") == 0) {
+        traction = initRB628Traction();
+        resistance = initRB628Resistance();
+        trainParams = initRB628Params();
+    } else {
         WRITE_ERROR("Unknown train type: " + trainType);
         throw ProcessError();
     }
@@ -183,11 +206,11 @@ double MSCFModel_Rail::getSpeedAfterMaxDecel(SUMOReal speed) const {
     //TODO train params
     SUMOReal a = 0;//trainParams.decl - gr/trainParams.rotWeight;
 
-    return speed + a * DELTA_T/1000.;
+    return speed + a * DELTA_T / 1000.;
 }
 
 MSCFModel::VehicleVariables *MSCFModel_Rail::createVehicleVariables() const {
-    VehicleVariables* ret = new VehicleVariables();
+    VehicleVariables *ret = new VehicleVariables();
     return ret;
 }
 
