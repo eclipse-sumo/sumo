@@ -169,7 +169,7 @@ public:
                 break;
             }
             if (time >= STEPS2TIME(it->second.begin) && time < STEPS2TIME(it->second.end)) {
-                const int running = MAX2((int)0, (int)ceil((time - STEPS2TIME(it->second.begin)) / STEPS2TIME(it->second.period)));
+                const int running = MAX2(0, (int)ceil((time - STEPS2TIME(it->second.begin)) / STEPS2TIME(it->second.period)));
                 const SUMOTime nextDepart = it->second.begin + running * it->second.period;
                 minArrivalSec = MIN2(STEPS2TIME(nextDepart) + it->second.travelTimeSec, minArrivalSec);
                 //std::cout << " edge=" << myEntryStop->getID() << "->" << this->getID() << " beg=" << STEPS2TIME(it->second.begin) << " end=" << STEPS2TIME(it->second.end) 
