@@ -25,6 +25,15 @@
 #define G  9.80665
 
 MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType *vtype) : MSCFModel(vtype, 1.0, 1.0, 1.0) {
+
+    trainParams["RB425"] = initRB425Params();
+    trainParams["RB628"] = initRB628Params();
+    trainParams["NGT400"] = initNGT400Params();
+    trainParams["NGT400_16"] = initNGT400_16Params();
+    trainParams["ICE1"] = initICE1Params();
+    trainParams["ICE3"] = initICE3Params();
+    trainParams["REDosto7"] = initREDosto7Params();
+    trainParams["Freight"] = initFreightParams();
 }
 
 MSCFModel_Rail::~MSCFModel_Rail() {
@@ -50,40 +59,41 @@ MSCFModel *MSCFModel_Rail::duplicate(const MSVehicleType *vtype) const {
 
 SUMOReal MSCFModel_Rail::maxNextSpeed(SUMOReal speed, const MSVehicle *const veh) const {
 
-    VehicleVariables *vars = (VehicleVariables *) veh->getCarFollowVariables();
+    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
     if (vars->isNotYetInitialized()) {
-        vars->init(veh);
+        initVehicleVariables(veh, vars);
     }
 
+    TrainParams myTrainParams = trainParams.find(vars->getTrainType())->second;
 
 
 //    VehicleVariables v = veh->
 
-    if (speed >= vars->trainParams.vmax) {
-        return vars->trainParams.vmax;
+    if (speed >= myTrainParams.vmax) {
+        return myTrainParams.vmax;
     }
 
 
     //TODO signals + stops ...
 
-    SUMOReal targetSpeed = vars->trainParams.vmax;
+    SUMOReal targetSpeed = myTrainParams.vmax;
 
-    SUMOReal res = vars->getResitance(speed); // kN
+    SUMOReal res = getResitance(speed, &myTrainParams); // kN
 
     SUMOReal slope = veh->getSlope();
-    SUMOReal gr = vars->trainParams.weight * G * sin(DEG2RAD(slope)); //kN
+    SUMOReal gr = myTrainParams.weight * G * sin(DEG2RAD(slope)); //kN
 
     SUMOReal totalRes = res + gr; //kN
 
-    SUMOReal trac = vars->getTraction(speed); //kN
+    SUMOReal trac = getTraction(speed, &myTrainParams); //kN
 
     SUMOReal a;
     if (speed < targetSpeed) {
-        a = (trac - totalRes) / vars->trainParams.rotWeight; //kN/t == N/kg
+        a = (trac - totalRes) / myTrainParams.rotWeight; //kN/t == N/kg
     } else {
         a = 0.;
         if (totalRes > trac) {
-            a = (trac - totalRes) / vars->trainParams.rotWeight;//kN/t == N/kg
+            a = (trac - totalRes) / myTrainParams.rotWeight;//kN/t == N/kg
         }
     }
 
@@ -98,15 +108,15 @@ SUMOReal MSCFModel_Rail::minNextSpeed(SUMOReal speed, const MSVehicle *const veh
     return speed;
 }
 
-SUMOReal MSCFModel_Rail::VehicleVariables::getResitance(SUMOReal speed) const {
+SUMOReal MSCFModel_Rail::getResitance(SUMOReal speed, TrainParams *params) const {
     std::map<SUMOReal, SUMOReal>::const_iterator low, prev;
-    low = resistance.lower_bound(speed);
+    low = params->resistance.lower_bound(speed);
 
-    if (low == resistance.end()) { //speed > max speed
-        return (*resistance.rbegin()).second;
+    if (low == params->resistance.end()) { //speed > max speed
+        return (params->resistance.rbegin())->second;
     }
 
-    if (low == resistance.begin()) {
+    if (low == params->resistance.begin()) {
         return low->second;
     }
 
@@ -126,15 +136,15 @@ SUMOReal MSCFModel_Rail::VehicleVariables::getResitance(SUMOReal speed) const {
 
 }
 
-double MSCFModel_Rail::VehicleVariables::getTraction(double speed) const {
+double MSCFModel_Rail::getTraction(double speed, TrainParams *params) const {
     std::map<SUMOReal, SUMOReal>::const_iterator low, prev;
-    low = traction.lower_bound(speed);
+    low = params->traction.lower_bound(speed);
 
-    if (low == traction.end()) { //speed > max speed
-        return (*traction.rbegin()).second;
+    if (low == params->traction.end()) { //speed > max speed
+        return params->traction.rbegin()->second;
     }
 
-    if (low == traction.begin()) {
+    if (low == params->traction.begin()) {
         return low->second;
     }
 
@@ -153,48 +163,17 @@ double MSCFModel_Rail::VehicleVariables::getTraction(double speed) const {
     return trac;
 }
 
-void MSCFModel_Rail::VehicleVariables::init(const MSVehicle *const veh) {
+void
+MSCFModel_Rail::initVehicleVariables(const MSVehicle *const veh, MSCFModel_Rail::VehicleVariables *pVariables) const {
 
     std::string trainType = veh->getVehicleType().getParameter().getCFParamString(SUMO_ATTR_TRAIN_TYPE, "NGT400");
 
-    if (trainType.compare("RB425") == 0) {
-        traction = initRB425Traction();
-        resistance = initRB425Resistance();
-        trainParams = initRB425Params();
-    } else if (trainType.compare("NGT400") == 0) {
-        traction = initNGT400Traction();
-        resistance = initNGT400Resistance();
-        trainParams = initNGT400Params();
-    } else if (trainType.compare("NGT400_16") == 0) {
-        traction = initNGT400_16Traction();
-        resistance = initNGT400_16Resistance();
-        trainParams = initNGT400_16Params();
-    } else if (trainType.compare("ICE1") == 0) {
-        traction = initICE1Traction();
-        resistance = initICE1Resistance();
-        trainParams = initICE1Params();
-    } else if (trainType.compare("ICE3") == 0) {
-        traction = initICE3Traction();
-        resistance = initICE3Resistance();
-        trainParams = initICE3Params();
-    } else if (trainType.compare("REDosto7") == 0) {
-        traction = initREDosto7Traction();
-        resistance = initREDosto7Resistance();
-        trainParams = initREDosto7Params();
-    } else if (trainType.compare("Freight") == 0) {
-        traction = initFreightTraction();
-        resistance = initFreightResistance();
-        trainParams = initFreightParams();
-    } else if (trainType.compare("RB628") == 0) {
-        traction = initRB628Traction();
-        resistance = initRB628Resistance();
-        trainParams = initRB628Params();
-    } else {
+    if (trainParams.find(trainType) == trainParams.end()) {
         WRITE_ERROR("Unknown train type: " + trainType);
         throw ProcessError();
     }
-
-    notYetInitialized = false;
+    pVariables->setTrainType(trainType);
+    pVariables->setInitialized();
 
 }
 
