@@ -118,6 +118,7 @@ public:
 
     // @brief fraction of the leftmost lanes to reserve for oncoming traffic
     static const SUMOReal RESERVE_FOR_ONCOMING_FACTOR;
+    static const SUMOReal RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS;
 
     // @brief the time pedestrians take to reach maximum impatience
     static const SUMOReal MAX_WAIT_TOLERANCE;

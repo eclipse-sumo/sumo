@@ -93,6 +93,7 @@ const SUMOReal MSPModel_Striping::OBSTRUCTION_THRESHOLD(MSPModel_Striping::OBSTR
 const SUMOReal MSPModel_Striping::SQUEEZE(0.7);
 const SUMOReal MSPModel_Striping::BLOCKER_LOOKAHEAD(10.0); // meters
 const SUMOReal MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR(0.0);
+const SUMOReal MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS(0.34);
 const SUMOReal MSPModel_Striping::MAX_WAIT_TOLERANCE(120.); // seconds
 const SUMOReal MSPModel_Striping::LATERAL_SPEED_FACTOR(0.4);
 const SUMOReal MSPModel_Striping::MIN_STARTUP_DIST(0.4); // meters
@@ -1134,14 +1135,15 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     // forbid a portion of the leftmost stripes (in walking direction).
     // lanes with stripes less than 1 / RESERVE_FOR_ONCOMING_FACTOR
     // may still deadlock in heavy pedestrian traffic
-    const int reserved = (int)floor(stripes * RESERVE_FOR_ONCOMING_FACTOR);
+    const bool onJunction = myLane->getEdge().isWalkingArea() || myLane->getEdge().isCrossing();
+    const int reserved = (int)floor(stripes * (onJunction ? RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS : RESERVE_FOR_ONCOMING_FACTOR));
     if (myDir == FORWARD) {
         for (int i = 0; i < reserved; ++i) {
-            utility[i] += INAPPROPRIATE_PENALTY;
+            utility[i] += INAPPROPRIATE_PENALTY * (i == current ? 0.5 : 1);
         }
     } else {
         for (int i = sMax; i > sMax - reserved; --i) {
-            utility[i] += INAPPROPRIATE_PENALTY;
+            utility[i] += INAPPROPRIATE_PENALTY * (i == current ? 0.5 : 1);
         }
     }
     // adapt utility based on obstacles
