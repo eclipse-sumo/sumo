@@ -9,7 +9,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit
 
 # Open netedit
-neteditProcess = netedit.setupAndStart(neteditTestRoot, False, False)
+neteditProcess = netedit.setupAndStart(neteditTestRoot, True, False)
 
 # quit netedit
 netedit.quit(neteditProcess, False, False)
