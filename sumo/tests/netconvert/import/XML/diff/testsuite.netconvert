@@ -21,3 +21,4 @@ lane_specific_settings
 
 # change node type from traffic_light to traffic_light_right_on_red
 change_node_type_right_on_red
+remove_tll_connection
