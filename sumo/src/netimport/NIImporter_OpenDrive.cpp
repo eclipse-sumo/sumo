@@ -881,17 +881,19 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
             for (std::vector<OpenDriveLaneOffset>::iterator j = e.offsets.begin(); j != e.offsets.end(); ++j) {
                 const OpenDriveLaneOffset& el = *j;
                 // check wether we need to insert a new point at dist
-                Position pS = e.geom.positionAtOffset(el.s);
+                Position pS = e.geom.positionAtOffset2D(el.s);
                 int iS = e.geom.indexOfClosest(pS);
                 // prevent close spacing to reduce impact of rounding errors in z-axis
                 if (pS.distanceTo2D(e.geom[iS]) > POSITION_EPS) {
                     e.geom.insertAtClosest(pS);
+                    //std::cout << " edge=" << e.id << " inserting pos=" << pS << " s=" << el.s << " iS=" << iS << " dist=" << pS.distanceTo2D(e.geom[iS]) << "\n";
                 }
             }
             // XXX add further points for sections with non-constant offset
             // shift each point orthogonally by the specified offset
             int k = 0;
             SUMOReal pos = 0;
+            PositionVector geom2;
             for (std::vector<OpenDriveLaneOffset>::iterator j = e.offsets.begin(); j != e.offsets.end(); ++j) {
                 const OpenDriveLaneOffset& el = *j;
                 const SUMOReal sNext = (j + 1) == e.offsets.end() ? std::numeric_limits<SUMOReal>::max() : (*(j + 1)).s;
@@ -902,9 +904,15 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                     if (fabs(offset) > POSITION_EPS) {
                         try {
                             PositionVector tmp = e.geom;
+                            // XXX shifting the whole geometry is inefficient.  could also use positionAtOffset(lateralOffset=...)
                             tmp.move2side(-offset);
-                            e.geom[k] = tmp[k];
-                        } catch (InvalidArgument&) { }
+                            //std::cout << " edge=" << e.id << " k=" << k << " offset=" << offset << " geom[k]=" << e.geom[k] << " tmp[k]=" << tmp[k] << " gSize=" << e.geom.size() << " tSize=" << tmp.size() <<  " geom=" << e.geom << " tmp=" << tmp << "\n";
+                            geom2.push_back(tmp[k]);
+                        } catch (InvalidArgument&) { 
+                            geom2.push_back(e.geom[k]);
+                        }
+                    } else {
+                        geom2.push_back(e.geom[k]);
                     }
                     k++;
                     if (k < (int)e.geom.size()) {
@@ -914,6 +922,8 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                     }
                 }
             }
+            assert(e.geom.size() == geom2.size());
+            e.geom = geom2;
         }
         //std::cout << " loaded geometry " << e.id << "=" << e.geom << "\n";
     }
