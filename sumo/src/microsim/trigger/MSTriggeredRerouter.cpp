@@ -3,6 +3,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Mirco Sturari
 /// @date    Mon, 25 July 2005
 /// @version $Id$
 ///
