@@ -137,7 +137,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
         WRITE_ERROR("Unknown traffic light type '" + typeS + "' for tlLogic '" + id + "'.");
         return 0;
     }
-    // there are two scenarios to consider
+    // there are three scenarios to consider
     // 1) the tll.xml is loaded to update traffic lights defined in a net.xml:
     //   simply retrieve the loaded definitions and update them
     // 2) the tll.xml is loaded to define new traffic lights
