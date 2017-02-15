@@ -3,5 +3,6 @@
     <!-- Deleted Elements -->
     <delete from="WC" fromLane="0" to="CN" toLane="0"/>
     <!-- Created Elements -->
+    <connection from="EC" fromLane="0" to="CN" toLane="0" />
     <!-- Changed Elements -->
 </connections>
