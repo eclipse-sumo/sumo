@@ -20,8 +20,8 @@
 	
 	<rerouter id="REROUTER_Via_Montespirello" edges="a b">
 		<interval begin="0" end="2000">
-			<parkingZoneReroute id="ParkAreaA" />
-			<parkingZoneReroute id="ParkAreaB" />
+			<parkingAreaReroute id="ParkAreaA" />
+			<parkingAreaReroute id="ParkAreaB" />
 		</interval>
 	</rerouter>
 	
