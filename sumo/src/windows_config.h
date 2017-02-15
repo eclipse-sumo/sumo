@@ -60,11 +60,11 @@
 #define NUMERICAL_EPS (SUMOReal)0.001
 
 /* Define if auto-generated version.h should be used. */
-#define HAVE_VERSION_H 1
+//#define HAVE_VERSION_H 1
 
 /* Version number of package */
 #ifndef HAVE_VERSION_H
-#define VERSION_STRING "0.28.0"
+#define VERSION_STRING "0.29.0"
 #endif
 
 /* Define if junction internal lanes should be used. */
