@@ -33,12 +33,15 @@
             <xsd:element name="weight-attribute" type="strOptionType" minOccurs="0"/>
             <xsd:element name="load-state" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="load-state.offset" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="load-state.remove-vehicles" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
     <xsd:complexType name="outputType">
         <xsd:all>
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
             <xsd:element name="netstate-dump" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="netstate-dump.empty-edges" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="netstate-dump.precision" type="intOptionType" minOccurs="0"/>
@@ -67,6 +70,7 @@
             <xsd:element name="link-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="bt-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lanechange-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="stop-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="save-state.times" type="intArrayOptionType" minOccurs="0"/>
             <xsd:element name="save-state.period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="save-state.prefix" type="fileOptionType" minOccurs="0"/>
@@ -211,6 +215,7 @@
             <xsd:element name="meso-junction-control" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-junction-control.limited" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-tls-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="meso-minor-penalty" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="meso-overtaking" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-recheck" type="timeOptionType" minOccurs="0"/>
         </xsd:all>
@@ -232,6 +237,7 @@
             <xsd:element name="demo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="disable-textures" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="window-size" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="window-pos" type="strOptionType" minOccurs="0"/>
             <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

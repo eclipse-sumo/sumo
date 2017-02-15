@@ -35,6 +35,8 @@
     <xsd:complexType name="outputType">
         <xsd:all>
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vtype-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="exit-times" type="boolOptionType" minOccurs="0"/>
@@ -68,6 +70,7 @@
             <xsd:element name="logit.beta" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="logit.gamma" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="logit.theta" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.walkfactor" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

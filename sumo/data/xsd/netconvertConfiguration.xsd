@@ -46,6 +46,8 @@
     <xsd:complexType name="outputType">
         <xsd:all>
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="plain-output-prefix" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-output" type="fileOptionType" minOccurs="0"/>
@@ -53,9 +55,11 @@
             <xsd:element name="matsim-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="opendrive-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="dlr-navteq-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="dlr-navteq.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="output.street-names" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output.original-names" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="street-sign-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="opendrive-output.straight-threshold" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -144,6 +148,7 @@
             <xsd:element name="ignore-errors.edge-type" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="lanes-from-capacity.norm" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="speed-in-kmh" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="construction-date" type="strOptionType" minOccurs="0"/>
             <xsd:element name="plain.extend-edge-shape" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="matsim.keep-length" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="matsim.lanes-from-capacity" type="boolOptionType" minOccurs="0"/>
@@ -169,10 +174,13 @@
             <xsd:element name="osm.skip-duplicates-check" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.elevation" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.layer-elevation" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="osm.layer-elevation.max-grade" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="osm.oneway-spread-right" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.import-all-lanes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.ignore-widths" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="numerical-ids" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="reserved-ids" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="dismiss-vclasses" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds.tls" type="boolOptionType" minOccurs="0"/>
@@ -187,6 +195,9 @@
             <xsd:element name="geometry.min-radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.min-radius.fix" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="geometry.junction-mismatch-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.check-overlap" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.check-overlap.vertical-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.max-grade" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="offset.disable-normalization" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="offset.x" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="offset.y" type="floatOptionType" minOccurs="0"/>
