@@ -137,6 +137,15 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         PROGRESS_DONE_MESSAGE();
     }
 
+    // load connected lanes if given
+    file = oc.getString("dlr-navteq-prefix") + "_connected_lanes.txt";
+    if (lr.setFile(file)) {
+        PROGRESS_BEGIN_MESSAGE("Loading connected lanes");
+        ConnectedLanesHandler handler7(nb.getEdgeCont());
+        lr.readAll(handler7);
+        PROGRESS_DONE_MESSAGE();
+    }
+
     // load time restrictions if given
     file = oc.getString("dlr-navteq-prefix") + "_links_timerestrictions.txt";
     if (lr.setFile(file)) {
@@ -735,5 +744,66 @@ NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
     return true;
 }
 
+
+// ---------------------------------------------------------------------------
+// definitions of NIImporter_DlrNavteq::ConnectedLanesHandler-methods
+// ---------------------------------------------------------------------------
+NIImporter_DlrNavteq::ConnectedLanesHandler::ConnectedLanesHandler(
+        NBEdgeCont& ec) :
+    myEdgeCont(ec)
+{ }
+
+
+NIImporter_DlrNavteq::ConnectedLanesHandler::~ConnectedLanesHandler() {}
+
+
+bool
+NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
+// # NAME_ID    Name
+    if (result[0] == '#') {
+        return true;
+    }
+    StringTokenizer st(result, StringTokenizer::TAB);
+    if (st.size() == 1) {
+        return true; // one line with the number of data containing lines in it (also starts with a comment # since ersion 6.5)
+    }
+    assert(st.size() >= 7);
+    const std::string nodeID = st.next();
+    const std::string vehicleType = st.next();
+    const std::string fromLaneS = st.next();
+    const std::string toLaneS = st.next();
+    const std::string throughTraffic = st.next();
+    const std::string startEdge = st.next(); 
+    const std::string endEdge = st.get(st.size() - 1);
+
+    NBEdge* from = myEdgeCont.retrieve(startEdge);
+    if (from == 0) {
+        WRITE_WARNING("Ignoring prohibition from unknown start edge '" + startEdge + "'");
+        return true;
+    }
+    NBEdge* to = myEdgeCont.retrieve(endEdge);
+    if (to == 0) {
+        WRITE_WARNING("Ignoring prohibition from unknown end edge '" + endEdge + "'");
+        return true;
+    }
+    int fromLane = TplConvert::_2int(fromLaneS.c_str()) - 1; // one based
+    if (fromLane < 0 || fromLane >= from->getNumLanes()) {
+        WRITE_WARNING("Ignoring invalid lane index '" + fromLaneS + "' in connection from edge '" + startEdge + "' with " + toString(from->getNumLanes()) + " lanes");
+        return true;
+    }
+    int toLane = TplConvert::_2int(toLaneS.c_str()) - 1; // one based
+    if (toLane < 0 || toLane >= to->getNumLanes()) {
+        WRITE_WARNING("Ignoring invalid lane index '" + toLaneS + "' in connection to edge '" + endEdge + "' with " + toString(to->getNumLanes()) + " lanes");
+        return true;
+    }
+    if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true)) {
+        if (OptionsCont::getOptions().getBool("show-errors.connections-first-try")) {
+            WRITE_WARNING("Could not set loaded connection from '" + from->getLaneID(fromLane) + "' to '" + to->getLaneID(toLane) + "'.");
+        }
+        // set as to be re-applied after network processing
+        myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, true, true, NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
+    }
+    return true;
+}
 
 /****************************************************************************/
