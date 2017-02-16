@@ -1230,6 +1230,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     }
     // dawdling
     const SUMOReal dawdle = MIN2(xSpeed, RandHelper::rand() * vMax * dawdling);
+    xSpeed -= dawdle;
 
     // XXX ensure that diagonal speed <= vMax
     // avoid deadlocks on narrow sidewalks
