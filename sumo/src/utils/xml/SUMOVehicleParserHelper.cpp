@@ -172,7 +172,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
             if (ret->repetitionEnd == SUMOTime_MAX) {
                 ret->repetitionNumber = std::numeric_limits<int>::max();
             } else {
-                const SUMOReal repLength = ret->repetitionEnd - ret->depart;
+                const SUMOReal repLength = (SUMOReal)(ret->repetitionEnd - ret->depart);
                 ret->repetitionNumber = (int)ceil(repLength / ret->repetitionOffset);
             }
         }

@@ -6,12 +6,12 @@
     </vType>
 	
     <route id="route1" edges="a b c">
-		<stop index="0" parkingArea="ParkAreaA" duration="200" parking="true"/>
-		<stop index="1" parkingArea="ParkAreaB" duration="200" parking="true"/>
+		<stop index="0" parkingArea="ParkAreaA" duration="200"/>
+		<stop index="1" parkingArea="ParkAreaB" duration="200"/>
     </route>
 
     <route id="route2" edges="a b c">
-		<stop index="0" parkingArea="ParkAreaA" duration="200" parking="true"/>
+		<stop index="0" parkingArea="ParkAreaA" duration="200"/>
     </route>
 
     <route id="route3" edges="a b c"/>
@@ -22,7 +22,7 @@
 	
     <!-- these vehicles have to use ParkAreaB because ParkAreaA is full -->
     <flow id="flow3" begin="40" end="75" number="7" route="route3">
-		<stop index="0" parkingArea="ParkAreaA" duration="200" parking="true"/>
+		<stop index="0" parkingArea="ParkAreaA" duration="200"/>
     </flow>
 	
 </routes>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 27 07:13:33 2015 by SUMO Version dev-SVN-r18733I
+<!-- generated on 02/16/17 13:25:44 by SUMO Version dev-SVN-r22878
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -17,7 +17,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -29,6 +29,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v0" depart="0.00" departLane="" departPos="0.00" departSpeed="15.28" departDelay="0.00" arrival="7.00" arrivalLane="" arrivalPos="0.00" arrivalSpeed="15.28" duration="7.00" routeLength="0.00" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v0" vType="t0" vaporized=""/>
-    <tripinfo id="v1" depart="0.00" departLane="" departPos="0.00" departSpeed="15.28" departDelay="0.00" arrival="7.00" arrivalLane="" arrivalPos="0.00" arrivalSpeed="15.28" duration="7.00" routeLength="0.00" waitSteps="0" timeLoss="0.00" rerouteNo="1" devices="tripinfo_v1" vType="t0" vaporized=""/>
+    <tripinfo id="v0" depart="0.00" departLane="" departPos="0.00" departSpeed="15.28" departDelay="0.00" arrival="7.00" arrivalLane="" arrivalPos="0.00" arrivalSpeed="15.28" duration="7.00" routeLength="0.00" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v0" vType="t0" speedFactor="1.10" vaporized=""/>
+    <tripinfo id="v1" depart="0.00" departLane="" departPos="0.00" departSpeed="15.28" departDelay="0.00" arrival="7.00" arrivalLane="" arrivalPos="0.00" arrivalSpeed="15.28" duration="7.00" routeLength="0.00" waitSteps="0" timeLoss="0.00" rerouteNo="1" devices="tripinfo_v1" vType="t0" speedFactor="1.10" vaporized=""/>
 </tripinfos>

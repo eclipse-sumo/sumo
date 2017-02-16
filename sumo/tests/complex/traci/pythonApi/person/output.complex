@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:38028 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:52734 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -8,12 +8,12 @@ type pType2@horiz
 persons ['horiz', 'newPerson']
 person count 2
 examining horiz
-speed 1.38888888889
-pos (758.7222222222222, 504.975)
+speed 1.37625571631
+pos (758.9823578158006, 504.975)
 angle 270.0
 road 2fi
 type pType2@horiz
-lanePos 241.277777778
+lanePos 241.017642184
 color (255, 255, 0, 255)
 length 2.0
 MinGap 2.22
@@ -33,12 +33,12 @@ step 5
 persons ['horiz', 'newPerson']
 person count 2
 examining horiz
-speed 1.38888888889
-pos (754.5555555555555, 504.975)
+speed 1.23742354743
+pos (755.3374932061804, 504.975)
 angle 270.0
 road 2fi
 type pType2@horiz
-lanePos 245.444444444
+lanePos 244.662506794
 color (255, 255, 0, 255)
 length 2.0
 MinGap 2.22
@@ -75,7 +75,7 @@ step 15
 step 16
 {0: ['horiz', 'newPerson']}
 :0_w1
-10.220128616
+10.217046835
 :0_c0
 recovering from exception after asking for invalid stage index
 recovering from exception after asking for invalid stage index

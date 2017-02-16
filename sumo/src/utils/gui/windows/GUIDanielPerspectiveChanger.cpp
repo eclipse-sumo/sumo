@@ -289,6 +289,10 @@ GUIDanielPerspectiveChanger::changeCanvasSizeLeft(int change) {
 
 long
 GUIDanielPerspectiveChanger::onKeyPress(void* data) {
+    // ignore key events in gaming mode
+    if (gSchemeStorage.getDefault().gaming) {
+        return 0;
+    }
     FXEvent* e = (FXEvent*) data;
     SUMOReal zoomDiff = 0.1;
     SUMOReal moveX = 0;

@@ -11,6 +11,8 @@ copy_test_path:elmar_nodes_unsplitted.txt
 copy_test_path:elmar_traffic_signals.txt
 copy_test_path:elmar_links_timerestrictions.txt
 copy_test_path:elmar_names.txt
+copy_test_path:elmar_prohibited_manoeuvres.txt
+copy_test_path:elmar_connected_lanes.txt
 copy_test_path:visum.net
 copy_test_path:vissim.inp
 copy_test_path:input_net.net.xml
