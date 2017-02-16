@@ -77,6 +77,9 @@ public:
     /// @brief scaling factor for geo coordinates (DLRNavteq format uses this to increase floating point precisions)
     static const int GEO_SCALE;
 
+    /// @brief magic value for undefined stuff
+    static const std::string UNDEFINED;
+
 protected:
     /**
      * @class NodesHandler
@@ -412,6 +415,56 @@ protected:
         TimeRestrictionsHandler& operator=(const TimeRestrictionsHandler&);
 
     };
+
+
+    /**
+     * @class ProhibitionHandler
+     * @brief Imports prohibitions regarding connectivity
+     *
+     * Being a LineHandler, this class retrieves each line from a LineReader
+     * and parses these information assuming they contain prohibited manoeuver definitions
+     * in DLRNavteq's format.
+     */
+    class ProhibitionHandler : public LineHandler {
+    public:
+        /** @brief Constructor
+         * @param[in] file The name of the parsed file
+         * @param[filled] streetNames output container for read names
+         */
+        ProhibitionHandler(NBEdgeCont& ne, time_t constructionTime);
+
+
+        /// @brief Destructor
+        ~ProhibitionHandler();
+
+
+        /** @brief Parsing method
+         *
+         * Implementation of the LineHandler-interface called by a LineReader;
+         * interprets the retrieved information and stores the streetNames
+         * @param[in] result The read line
+         * @return Whether the parsing shall continue
+         * @exception ProcessError if something fails
+         * @see LineHandler::report
+         */
+        bool report(const std::string& result);
+
+
+    protected:
+        /// @brief The edge container to store loaded edges into
+        NBEdgeCont& myEdgeCont;
+        time_t myConstructionTime;
+
+
+    private:
+        /// @brief Invalidated copy constructor.
+        ProhibitionHandler(const ProhibitionHandler&);
+
+        /// @brief Invalidated assignment operator.
+        ProhibitionHandler& operator=(const ProhibitionHandler&);
+
+    };
+
 
     static int readPrefixedInt(const std::string& s, const std::string& prefix, int fallBack = 0);
     static time_t readTimeRec(const std::string& start, const std::string& duration);

@@ -64,6 +64,7 @@
 // ---------------------------------------------------------------------------
 const int NIImporter_DlrNavteq::GEO_SCALE = 5;
 const int NIImporter_DlrNavteq::EdgesHandler::MISSING_COLUMN = std::numeric_limits<int>::max();
+const std::string NIImporter_DlrNavteq::UNDEFINED("-1");
 
 // ===========================================================================
 // method definitions
@@ -77,6 +78,8 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isSet("dlr-navteq-prefix")) {
         return;
     }
+    time_t csTime;
+    time(&csTime);
     // parse file(s)
     LineReader lr;
     // load nodes
@@ -125,12 +128,19 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         PROGRESS_DONE_MESSAGE();
     }
 
+    // load prohibited manoeuvres if given
+    file = oc.getString("dlr-navteq-prefix") + "_prohibited_manoeuvres.txt";
+    if (lr.setFile(file)) {
+        PROGRESS_BEGIN_MESSAGE("Loading prohibited manoeuvres");
+        ProhibitionHandler handler6(nb.getEdgeCont(), csTime);
+        lr.readAll(handler6);
+        PROGRESS_DONE_MESSAGE();
+    }
+
     // load time restrictions if given
     file = oc.getString("dlr-navteq-prefix") + "_links_timerestrictions.txt";
     if (lr.setFile(file)) {
         PROGRESS_BEGIN_MESSAGE("Loading time restrictions");
-        time_t csTime;
-        time(&csTime);
         if (!oc.isDefault("construction-date")) {
             csTime = readDate(oc.getString("construction-date"));
         }
@@ -673,6 +683,56 @@ NIImporter_DlrNavteq::readDate(const std::string& yyyymmdd) {
     time_t now;
     time(&now);
     return now;
+}
+
+// ---------------------------------------------------------------------------
+// definitions of NIImporter_DlrNavteq::ProhibitionHandler-methods
+// ---------------------------------------------------------------------------
+NIImporter_DlrNavteq::ProhibitionHandler::ProhibitionHandler(
+        NBEdgeCont& ec, time_t constructionTime) :
+    myEdgeCont(ec),
+    myConstructionTime(constructionTime)
+{ }
+
+
+NIImporter_DlrNavteq::ProhibitionHandler::~ProhibitionHandler() {}
+
+
+bool
+NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
+// # NAME_ID    Name
+    if (result[0] == '#') {
+        return true;
+    }
+    StringTokenizer st(result, StringTokenizer::TAB);
+    if (st.size() == 1) {
+        return true; // one line with the number of data containing lines in it (also starts with a comment # since ersion 6.5)
+    }
+    assert(st.size() >= 7);
+    const std::string id = st.next();
+    const std::string permanent = st.next();
+    const std::string validityPeriod = st.next();
+    const std::string throughTraffic = st.next();
+    const std::string vehicleType = st.next();
+    const std::string startEdge = st.next(); 
+    const std::string endEdge = st.get(st.size() - 1);
+
+    if (validityPeriod != UNDEFINED) {
+        WRITE_WARNING("Ignoring temporary prohibited manoeuvre (" + validityPeriod + ")");
+        return true;
+    } 
+    NBEdge* from = myEdgeCont.retrieve(startEdge);
+    if (from == 0) {
+        WRITE_WARNING("Ignoring prohibition from unknown start edge '" + startEdge + "'");
+        return true;
+    }
+    NBEdge* to = myEdgeCont.retrieve(endEdge);
+    if (to == 0) {
+        WRITE_WARNING("Ignoring prohibition from unknown end edge '" + endEdge + "'");
+        return true;
+    }
+    from->removeFromConnections(to, -1, -1, true);
+    return true;
 }
 
 
