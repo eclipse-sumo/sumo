@@ -526,16 +526,20 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
 
 void
 NBEdgeCont::patchRoundabouts(NBEdge* orig, NBEdge* part1, NBEdge* part2, std::set<EdgeSet>& roundabouts) {
-    for (std::set<EdgeSet>::iterator it = roundabouts.begin(); it != roundabouts.end(); ++it) {
+    std::set<EdgeSet> addLater;
+    for (std::set<EdgeSet>::iterator it = roundabouts.begin(); it != roundabouts.end();) {
         EdgeSet roundaboutSet = *it;
         if (roundaboutSet.count(orig) > 0) {
-            roundabouts.erase(roundaboutSet);
+            it = roundabouts.erase(it);
             roundaboutSet.erase(orig);
             roundaboutSet.insert(part1);
             roundaboutSet.insert(part2);
-            roundabouts.insert(roundaboutSet);
+            addLater.insert(roundaboutSet);
+        } else {
+            ++it;
         }
     }
+    roundabouts.insert(addLater.begin(), addLater.end());
 }
 
 
