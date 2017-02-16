@@ -14,7 +14,7 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True)
 # Focus netedit window
 netedit.leftClick(match, 0, -105)
 
-# Change to crete edge mode
+# Change to create edge mode
 netedit.createEdgeMode()
 
 # Create one way edge
