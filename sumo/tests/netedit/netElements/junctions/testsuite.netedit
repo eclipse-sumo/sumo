@@ -2,17 +2,14 @@
 create
 
 # delete
-delete
+#delete
 
 # inspect
-inspect
+#inspect
 
 # load
-load
+#load
 
 # move
-move
-
-# lock/unlock
-lock_unlock
+#move
 

@@ -181,24 +181,38 @@ def saveAdditionals():
     type("d", Key.CTRL + Key.SHIFT)
 
 #################################################
+# Create edge
+#################################################
+
+# Change to delete  mode
+def createEdgeMode():
+	type("e")
+
+# Cancel current created edge (used in chain mode)
+def cancelEdge():
+	type(Key.ESC)
+	
+# Change chain option
+def changeChainOption(match):
+	click(match.getTarget().offset(350, -50))
+
+# Change two-way mode
+def changeTwoWayOption(match):
+	click(match.getTarget().offset(400, -50))
+	
+#################################################
 # Inspect mode
 #################################################
 
 # set inspect mode
-
-
 def inspectMode():
     type("i")
 
 # netedit parameters reference
-
-
 def getParametersReference(match):
     return match.getTarget().offset(-75, 50)
 
 # netedit modify int/float/string
-
-
 def modifyAttribute(parametersReference, attributeNumber, value):
     click(parametersReference)
     # jump to attribute
@@ -212,8 +226,6 @@ def modifyAttribute(parametersReference, attributeNumber, value):
     type(Key.ENTER)
 
 # netedit modify bool
-
-
 def modifyBoolAttribute(parametersReference, attributeNumber):
     click(parametersReference)
     # jump to bool attribute
@@ -233,8 +245,6 @@ def moveMode():
     type("m")
 
 # move element
-
-
 def moveElement(match, startX, startY, endX, endY):
     # change mouse move delay
     Settings.MoveMouseDelay = 0.5
@@ -249,14 +259,10 @@ def moveElement(match, startX, startY, endX, endY):
 #################################################
 
 # Change to crossing mode
-
-
 def crossingMode():
     type("r")
 
 # create crossing
-
-
 def createCrossing(match):
     # select edges attribute
     click(match.getTarget().offset(-100, 250))
