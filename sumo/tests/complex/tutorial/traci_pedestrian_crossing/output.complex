@@ -1,20 +1,20 @@
 Loading configuration... done.
 Success.
 Loading configuration... done.
-***Starting server on port 51545 ***
-Loading net-file from 'data/../pedcrossing.net.xml'... done (3ms).
-Loading additional-files from 'data/pedcrossing.tll.xml'... done (3ms).
+***Starting server on port 38716 ***
+Loading net-file from 'data/../pedcrossing.net.xml'... done (1ms).
+Loading additional-files from 'data/pedcrossing.tll.xml'... done (4ms).
 Loading done.
 Simulation started with time: 0.00
-Could not connect to TraCI server at localhost:51545 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:38716 [Errno 111] Connection refused
  Retrying in 1 seconds
 ped0 pushes the button
 ped1 pushes the button
 ped2 pushes the button
-ped5 pushes the button
+ped6 pushes the button
 ped7 pushes the button
 ped8 pushes the button
-ped9 pushes the button
+ped8 pushes the button
 ped10 pushes the button
 ped11 pushes the button
 ped12 pushes the button
@@ -31,12 +31,12 @@ ped28 pushes the button
 ped29 pushes the button
 ped30 pushes the button
 ped33 pushes the button
-ped31 pushes the button
+ped32 pushes the button
 ped34 pushes the button
 ped36 pushes the button
 ped37 pushes the button
 ped40 pushes the button
-ped41 pushes the button
+ped40 pushes the button
 ped42 pushes the button
 ped43 pushes the button
 ped46 pushes the button
@@ -46,11 +46,12 @@ ped50 pushes the button
 ped51 pushes the button
 ped52 pushes the button
 ped54 pushes the button
+ped54 pushes the button
 ped55 pushes the button
 ped56 pushes the button
 ped58 pushes the button
 ped62 pushes the button
-ped59 pushes the button
+ped62 pushes the button
 ped64 pushes the button
 ped63 pushes the button
 ped66 pushes the button
@@ -59,7 +60,7 @@ ped69 pushes the button
 ped70 pushes the button
 ped71 pushes the button
 ped72 pushes the button
-ped73 pushes the button
+ped72 pushes the button
 ped75 pushes the button
 ped76 pushes the button
 ped77 pushes the button
@@ -73,21 +74,21 @@ ped88 pushes the button
 ped89 pushes the button
 ped92 pushes the button
 ped93 pushes the button
-Simulation ended at time: 3618.00
+Simulation ended at time: 3617.00
 Reason: TraCI requested termination.
 Performance: 
- Duration: 3372ms
- Real time factor: 1072.95
- UPS: 4945.729537
+ Duration: 875ms
+ Real time factor: 4133.71
+ UPS: 20309.714286
 Vehicles: 
- Inserted: 686
+ Inserted: 711
  Running: 0
  Waiting: 0
 Persons: 
  Inserted: 94
- Running: 1
+ Running: 2
 
-DijkstraRouterTT answered 1193 queries and explored 7.00 edges on average.
-DijkstraRouterTT spent 5ms answering queries (0.00ms on average).
-DijkstraRouterTT answered 935 queries and explored 2.00 edges on average.
-DijkstraRouterTT spent 6ms answering queries (0.01ms on average).
+DijkstraRouterTT answered 1188 queries and explored 7.00 edges on average.
+DijkstraRouterTT spent 1ms answering queries (0.00ms on average).
+DijkstraRouterTT answered 1035 queries and explored 2.00 edges on average.
+DijkstraRouterTT spent 0ms answering queries (0.00ms on average).
