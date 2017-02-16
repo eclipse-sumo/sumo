@@ -156,6 +156,9 @@ public:
     }
 
     void addSchedule(const SUMOTime begin, const SUMOTime end, const SUMOTime period, const SUMOReal travelTimeSec) {
+        //std::cout << " edge=" << myEntryStop->getID() << "->" << this->getID() << " beg=" << STEPS2TIME(begin) << " end=" << STEPS2TIME(end) 
+        //    << " period=" << STEPS2TIME(period) 
+        //    << " travelTime=" << travelTimeSec << "\n";
         mySchedules.insert(std::make_pair(STEPS2TIME(begin), Schedule(begin, end, period, travelTimeSec)));
     }
 
@@ -166,10 +169,10 @@ public:
                 break;
             }
             if (time >= STEPS2TIME(it->second.begin) && time < STEPS2TIME(it->second.end)) {
-                const long long int running = MAX2((SUMOReal)0, ceil((time - STEPS2TIME(it->second.begin)) / STEPS2TIME(it->second.period)));
+                const int running = MAX2(0, (int)ceil((time - STEPS2TIME(it->second.begin)) / STEPS2TIME(it->second.period)));
                 const SUMOTime nextDepart = it->second.begin + running * it->second.period;
                 minArrivalSec = MIN2(STEPS2TIME(nextDepart) + it->second.travelTimeSec, minArrivalSec);
-                //std::cout << " edge=" << this->getID() << " beg=" << STEPS2TIME(it->second.begin) << " end=" << STEPS2TIME(it->second.end) 
+                //std::cout << " edge=" << myEntryStop->getID() << "->" << this->getID() << " beg=" << STEPS2TIME(it->second.begin) << " end=" << STEPS2TIME(it->second.end) 
                 //    << " atTime=" << time 
                 //    << " running=" << running << " nextDepart=" << nextDepart
                 //    << " minASec=" << minArrivalSec << " travelTime=" << minArrivalSec - time << "\n";
@@ -185,7 +188,7 @@ private:
 };
 
 
-/// @brief the access edge connecting diferent modes that is given to the internal router (SUMOAbstractRouter)
+/// @brief the access edge connecting different modes that is given to the internal router (SUMOAbstractRouter)
 template<class E, class L, class N, class V>
 class AccessEdge : public IntermodalEdge<E, L, N, V> {
 private:

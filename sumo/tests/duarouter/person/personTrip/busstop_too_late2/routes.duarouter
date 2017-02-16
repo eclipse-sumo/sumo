@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Feb 14 08:51:26 2017 by SUMO duarouter Version dev-SVN-r22939
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="bus.0" depart="0.00" line="bus">
+        <route edges="beg middle end"/>
+        <stop busStop="beg_0" until="10.00"/>
+        <stop busStop="end_0" until="110.00"/>
+    </vehicle>
+    <vehicle id="bus.1" depart="300.00" line="bus">
+        <route edges="beg middle end"/>
+        <stop busStop="beg_0" until="310.00"/>
+        <stop busStop="end_0" until="410.00"/>
+    </vehicle>
+    <person id="p0" depart="520.00">
+        <walk edges="beg middle end"/>
+    </person>
+    <vehicle id="bus.2" depart="600.00" line="bus">
+        <route edges="beg middle end"/>
+        <stop busStop="beg_0" until="610.00"/>
+        <stop busStop="end_0" until="710.00"/>
+    </vehicle>
+    <vehicle id="bus.3" depart="900.00" line="bus">
+        <route edges="beg middle end"/>
+        <stop busStop="beg_0" until="910.00"/>
+        <stop busStop="end_0" until="1010.00"/>
+    </vehicle>
+</routes>

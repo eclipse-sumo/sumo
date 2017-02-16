@@ -19,13 +19,16 @@
 #define SUMO_MSCFMODEL_RAIL_H
 
 
-#include "MSCFModel_Krauss.h"
+#include "MSCFModel.h"
+
+
 
 class MSCFModel_Rail : public MSCFModel {
 
 public:
-    virtual SUMOReal followSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed,
-                                 SUMOReal predMaxDecel) const;
+
+    double followSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed,
+                       SUMOReal predMaxDecel) const override;
 
     virtual SUMOReal stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const;
 
@@ -45,11 +48,14 @@ public:
 
     virtual SUMOReal minNextSpeed(SUMOReal speed, const MSVehicle *const veh) const override;
 
-    double getSpeedAfterMaxDecel(SUMOReal v) const override;
+    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const override;
 
     MSCFModel::VehicleVariables *createVehicleVariables() const;
 
+    SUMOReal moveHelper(MSVehicle *const veh, SUMOReal vPos) const override;
 
+    double freeSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed,
+                     const bool onInsertion) const override;
 
 private:
 
@@ -722,6 +728,9 @@ private:
     }
 
     void initVehicleVariables(const MSVehicle *const pVehicle, MSCFModel_Rail::VehicleVariables *pVariables)const;
+
+    double maximumSafeStopSpeed(const MSVehicle *const veh, double gap, const double spd, bool insertion, double deltaT) const;
+
 };
 
 
