@@ -1053,6 +1053,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                     continue;
                 }
                 if (detectCollisionBetween(timestep, stage, follow, lead, toRemove, toTeleport)) {
+                    // XXX what about collisions with multiple leaders at once?
                     break;
                 }
             }
@@ -1116,7 +1117,6 @@ bool
 MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
                                std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
                                std::set<const MSVehicle*>& toTeleport) const {
-    assert(collider->isFrontOnLane(this));
 #ifndef NO_TRACI
     if (myCollisionAction == COLLISION_ACTION_TELEPORT && ((victim->hasInfluencer() && victim->getInfluencer()->isVTDAffected(timestep)) ||
             (collider->hasInfluencer() && collider->getInfluencer()->isVTDAffected(timestep)))) {
