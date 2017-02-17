@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 17 Feb 2017 10:29:32 AM CET by Netedit Version dev-SVN-r23002
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="debug.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="debug.net.xml"/>
+        <plain-output-prefix value="/scr2/sip-svn-trunk/projects/SHARPS2/bug20170216/InnerRing_16.02.17/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="a" from="W" to="X" priority="10"  numLanes="2" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship"/>
+    <edge id="b" from="X" to="Y" priority="10"  numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship"/>
+    <edge id="c" from="Y" to="Z" priority="11"  numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship"/>
+    <edge id="d" from="V" to="Y" priority="11"  numLanes="2" speed="27.78" shape="9605.43,3258.19,5.00 9507.12,3231.07,5.00 9393.51,3198.58,5.00 9257.81,3162.70,5.00 9193.89,3139.35,5.00 9121.45,3107.27,5.00 9062.82,3072.24,5.00 9008.27,3034.40,5.00 8963.47,2994.88,5.00 8753.04,2798.22,5.00 8629.53,2683.53,5.00 8543.35,2603.48,5.00 8364.50,2452.28,5.00 8255.69,2358.78,5.00 8212.84,2328.49,5.00 8167.08,2310.63,5.00" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship"/>
+</edges>
