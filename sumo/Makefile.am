@@ -108,6 +108,9 @@ dist-complete: dist dist-doc dist-tests traas traci4j trafficmodeler
 	zip -r $(PACKAGE)-all-$(VERSION).zip $(distdir)
 	$(am__remove_distdir)
 
+pydist:
+	cd tools && python ./build/setup-sumolib.py sdist bdist_egg && python ./build/setup-traci.py sdist bdist_egg
+
 examples:
 	tools/extractTest.py -x -f tests/examples.txt
 
