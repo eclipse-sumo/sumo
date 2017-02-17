@@ -62,11 +62,6 @@ class Edge:
 
         return self._function != ""
 
-    def isInternal(self):
-        """Returns True, if the edge is an internal edge """
-
-        return True if self._function == 'internal' else False
-
     def getFunction(self):
         return self._function
 

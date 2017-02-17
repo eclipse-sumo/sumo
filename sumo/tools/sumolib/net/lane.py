@@ -100,16 +100,6 @@ class Lane:
         self._allowed = get_allowed(allow, disallow)
         edge.addLane(self)
 
-    def isInternal(self):
-        """Returns True, if the lane is an internal lane. 
-
-        Raises a ValueError if the lane does not yet have an edge yet."""
-
-        if self._edge is None:
-            raise ValueError, 'edge for this lane not yet defined'
-        else:
-            return self._edge.isInternal()
-
     def getSpeed(self):
         return self._speed
 
@@ -145,7 +135,7 @@ class Lane:
         shape of the lane is returned.
         """
 
-        if includeJunctions and not self._edge.isInternal():
+        if includeJunctions and not self._edge.isSpecial():
             if self._shapeWithJunctions is None:
                 self._shapeWithJunctions = addJunctionPos(self._shape,
                                                           self._edge.getFromNode().getCoord(),
