@@ -33,5 +33,5 @@ print(map(str, lane.getOutgoing()))
 internal_edge = net.getEdge(":C_0")
 internal_lane = net.getLane(":C_0_0")
 assert internal_edge.getFunction() == 'internal'
-assert internal_edge.isInternal()
-assert internal_lane.isInternal()
+assert internal_edge.isSpecial()
+assert internal_lane.getEdge().isSpecial()
