@@ -113,6 +113,10 @@ public:
         return myHaveSeenNeighs;
     }
 
+    bool haveSeenAdditionalSpeedRestrictions() const {
+        return myHaveSeenAdditionalSpeedRestrictions;
+    }
+
     bool lefthand() const {
         return myLefthand;
     }
@@ -338,6 +342,9 @@ protected:
 
     /// @brief whether the loaded network contains explicit neighbor lanes
     bool myHaveSeenNeighs;
+
+    /// @brief whether additional files contained type-specific speed limits
+    bool myHaveSeenAdditionalSpeedRestrictions;
 
     /// @brief whether the loaded network was built for left hand traffic
     bool myLefthand;

@@ -177,7 +177,7 @@ MSLane::MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge
     myLengthGeometryFactor(MAX2(POSITION_EPS, myShape.length()) / myLength), // factor should not be 0
     myRightSideOnEdge(0), // initialized in MSEdge::initialize
     myRightmostSublane(0) { // initialized in MSEdge::initialize
-    myRestrictions = MSNet::getInstance()->getRestrictions(edge->getEdgeType());
+        initRestrictions();// may be reloaded again from initialized in MSEdge::closeBuilding
 }
 
 
@@ -185,6 +185,12 @@ MSLane::~MSLane() {
     for (MSLinkCont::iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
         delete *i;
     }
+}
+
+
+void 
+MSLane::initRestrictions() {
+    myRestrictions = MSNet::getInstance()->getRestrictions(myEdge->getEdgeType());
 }
 
 

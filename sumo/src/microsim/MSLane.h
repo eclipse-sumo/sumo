@@ -894,6 +894,9 @@ public:
         myRightmostSublane = rightmostSublane;
     }
 
+    /// @brief initialized vClass-specific speed limits
+    void initRestrictions();
+
     SUMOReal getRightSideOnEdge() const {
         return myRightSideOnEdge;
     }

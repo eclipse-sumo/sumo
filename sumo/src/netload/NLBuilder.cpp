@@ -200,6 +200,9 @@ NLBuilder::build() {
         if (!ShapeHandler::loadFiles(myOptions.getStringVector("additional-files"), sh)) {
             return false;
         }
+        if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
+            myNet.getEdgeControl().setAdditionalRestrictions();
+        }
     }
     // optionally switch off traffic lights
     if (myOptions.getBool("tls.all-off")) {
