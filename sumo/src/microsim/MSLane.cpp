@@ -177,7 +177,7 @@ MSLane::MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge
     myLengthGeometryFactor(MAX2(POSITION_EPS, myShape.length()) / myLength), // factor should not be 0
     myRightSideOnEdge(0), // initialized in MSEdge::initialize
     myRightmostSublane(0) { // initialized in MSEdge::initialize
-    myRestrictions = MSNet::getInstance()->getRestrictions(edge->getEdgeType());
+        initRestrictions();// may be reloaded again from initialized in MSEdge::closeBuilding
 }
 
 
@@ -185,6 +185,12 @@ MSLane::~MSLane() {
     for (MSLinkCont::iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
         delete *i;
     }
+}
+
+
+void 
+MSLane::initRestrictions() {
+    myRestrictions = MSNet::getInstance()->getRestrictions(myEdge->getEdgeType());
 }
 
 
@@ -1047,6 +1053,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                     continue;
                 }
                 if (detectCollisionBetween(timestep, stage, follow, lead, toRemove, toTeleport)) {
+                    // XXX what about collisions with multiple leaders at once?
                     break;
                 }
             }
@@ -1110,7 +1117,6 @@ bool
 MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
                                std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
                                std::set<const MSVehicle*>& toTeleport) const {
-    assert(collider->isFrontOnLane(this));
 #ifndef NO_TRACI
     if (myCollisionAction == COLLISION_ACTION_TELEPORT && ((victim->hasInfluencer() && victim->getInfluencer()->isVTDAffected(timestep)) ||
             (collider->hasInfluencer() && collider->getInfluencer()->isVTDAffected(timestep)))) {

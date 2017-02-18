@@ -62,3 +62,6 @@ geometry.remove
 # import lefthand and junctionCornerDetail
 network_attributes
 remove_lane
+
+# load a network with edge types and write it to plain-xml and .net.xml
+edge_types

@@ -14,6 +14,9 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 # Focus netedit window
 netedit.leftClick(match, 0, -105)
 
+# rebuild network
+netedit.rebuildNetwork()
+
 # Change to delete mode
 netedit.deleteMode()
 
@@ -26,11 +29,8 @@ netedit.leftClick(match, 260, 50)
 # remove two way edges
 netedit.leftClick(match, 500, 50)
 
-# select chain mode
-netedit.changeChainOption(match)
-
 # remove square
-netedit.leftClick(match, 50, 150)
+netedit.leftClick(match, 60, 160)
 netedit.leftClick(match, 150, 280)
 
 # remove circular road
@@ -47,6 +47,9 @@ netedit.rebuildNetwork()
 
 # Check redo
 netedit.redo(match, 6)
+
+# save additionals
+netedit.saveAdditionals()
 
 # save newtork
 netedit.saveNetwork()

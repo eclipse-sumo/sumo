@@ -80,6 +80,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myLastParameterised(0),
     myHaveSeenInternalEdge(false),
     myHaveSeenNeighs(false),
+    myHaveSeenAdditionalSpeedRestrictions(false),
     myLefthand(false),
     myNetworkVersion(0),
     myNetIsLoaded(false) {
@@ -226,6 +227,9 @@ NLHandler::myStartElement(int element,
                 const SUMOReal speed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentTypeID.c_str(), ok);
                 if (ok) {
                     myNet.addRestriction(myCurrentTypeID, svc, speed);
+                }
+                if (myNetIsLoaded) {
+                    myHaveSeenAdditionalSpeedRestrictions = true;
                 }
                 break;
             }

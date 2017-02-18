@@ -57,12 +57,10 @@ GNERerouterInterval::~GNERerouterInterval() {
 
 bool
 GNERerouterInterval::insertClosinLanegReroutes(const GNEClosingLaneReroute& clr) {
-    // Check if was already inserted due uplicates aren't allowed
     if (std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), clr) != myClosingLaneReroutes.end()) {
-        WRITE_WARNING(clr.getTag() + " with ID = " + clr.getClosedLane()->getID() + "' was already inserted; Duplicates aren't allowed");
+        WRITE_WARNING(toString(clr.getTag()) + " for lane '" + clr.getClosedLane()->getID() + "' was already inserted; duplicates aren't allowed");
         return false;
     } else {
-        // insert in vector
         myClosingLaneReroutes.push_back(clr);
         return true;
     }
@@ -72,12 +70,10 @@ GNERerouterInterval::insertClosinLanegReroutes(const GNEClosingLaneReroute& clr)
 bool
 GNERerouterInterval::removeClosingLaneReroutes(const GNEClosingLaneReroute& clr) {
     std::vector<GNEClosingLaneReroute>::iterator i = std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), clr);
-    // check if exists
     if (i == myClosingLaneReroutes.end()) {
-        WRITE_WARNING(clr.getTag() + " with ID = " + clr.getClosedLane()->getID() + "' wasn't previously inserted");
+        WRITE_WARNING(toString(clr.getTag()) + " for lane '" + clr.getClosedLane()->getID() + "' wasn't previously inserted");
         return false;
     } else {
-        // remove it from vector
         myClosingLaneReroutes.erase(i);
         return true;
     }
@@ -86,12 +82,10 @@ GNERerouterInterval::removeClosingLaneReroutes(const GNEClosingLaneReroute& clr)
 
 bool
 GNERerouterInterval::insertClosingReroutes(const GNEClosingReroute& cr) {
-    // Check if was already inserted due uplicates aren't allowed
     if (std::find(myClosingReroutes.begin(), myClosingReroutes.end(), cr) != myClosingReroutes.end()) {
-        WRITE_WARNING(cr.getTag() + " with ID = " + cr.getClosedEdge()->getID() + "' was already inserted; Duplicates aren't allowed");
+        WRITE_WARNING(toString(cr.getTag()) + " for edge '" + cr.getClosedEdge()->getID() + "' was already inserted; duplicates aren't allowed");
         return false;
     } else {
-        // insert in vector
         myClosingReroutes.push_back(cr);
         return true;
     }
@@ -101,12 +95,10 @@ GNERerouterInterval::insertClosingReroutes(const GNEClosingReroute& cr) {
 bool
 GNERerouterInterval::removeClosingReroutes(const GNEClosingReroute& cr) {
     std::vector<GNEClosingReroute>::iterator i = std::find(myClosingReroutes.begin(), myClosingReroutes.end(), cr);
-    // check if exists
     if (i == myClosingReroutes.end()) {
-        WRITE_WARNING(cr.getTag() + " with ID = " + cr.getClosedEdge()->getID() + "' wasn't previously inserted");
+        WRITE_WARNING(toString(cr.getTag()) + " for edge '" + cr.getClosedEdge()->getID() + "' wasn't previously inserted");
         return false;
     } else {
-        // remove it from vector
         myClosingReroutes.erase(i);
         return true;
     }
@@ -115,12 +107,10 @@ GNERerouterInterval::removeClosingReroutes(const GNEClosingReroute& cr) {
 
 bool
 GNERerouterInterval::insertDestProbReroutes(const GNEDestProbReroute& dpr) {
-    // Check if was already inserted due uplicates aren't allowed
     if (std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), dpr) != myDestProbReroutes.end()) {
-        WRITE_WARNING(dpr.getTag() + " with ID = " + dpr.getNewDestination()->getID() + "' was already inserted; Duplicates aren't allowed");
+        WRITE_WARNING(toString(dpr.getTag()) + " to edge '" + dpr.getNewDestination()->getID() + "' was already inserted; duplicates aren't allowed");
         return false;
     } else {
-        // insert in vector
         myDestProbReroutes.push_back(dpr);
         return true;
     }
@@ -130,12 +120,10 @@ GNERerouterInterval::insertDestProbReroutes(const GNEDestProbReroute& dpr) {
 bool
 GNERerouterInterval::removeDestProbReroutes(const GNEDestProbReroute& dpr) {
     std::vector<GNEDestProbReroute>::iterator i = std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), dpr);
-    // check if exists
     if (i == myDestProbReroutes.end()) {
-        WRITE_WARNING(dpr.getTag() + " with ID = " + dpr.getNewDestination()->getID() + "' wasn't previously inserted");
+        WRITE_WARNING(toString(dpr.getTag()) + " to edge '" + dpr.getNewDestination()->getID() + "' wasn't previously inserted");
         return false;
     } else {
-        // remove it from vector
         myDestProbReroutes.erase(i);
         return true;
     }
@@ -144,12 +132,10 @@ GNERerouterInterval::removeDestProbReroutes(const GNEDestProbReroute& dpr) {
 
 bool
 GNERerouterInterval::insertRouteProbReroute(const GNERouteProbReroute& rpr) {
-    // Check if was already inserted due uplicates aren't allowed
     if (std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), rpr) != myRouteProbReroutes.end()) {
-        WRITE_WARNING(rpr.getTag() + " with ID = " + rpr.getNewRouteId() + "' was already inserted; Duplicates aren't allowed");
+        WRITE_WARNING(toString(rpr.getTag()) + " for route '" + rpr.getNewRouteId() + "' was already inserted; duplicates aren't allowed");
         return false;
     } else {
-        // insert in vector
         myRouteProbReroutes.push_back(rpr);
         return true;
     }
@@ -159,12 +145,10 @@ GNERerouterInterval::insertRouteProbReroute(const GNERouteProbReroute& rpr) {
 bool
 GNERerouterInterval::removeRouteProbReroute(const GNERouteProbReroute& rpr) {
     std::vector<GNERouteProbReroute>::iterator i = std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), rpr);
-    // check if exists
     if (i == myRouteProbReroutes.end()) {
-        WRITE_WARNING(rpr.getTag() + " with ID = " + rpr.getNewRouteId() + "' wasn't previously inserted");
+        WRITE_WARNING(toString(rpr.getTag()) + " for route '" + rpr.getNewRouteId() + "' wasn't previously inserted");
         return false;
     } else {
-        // remove it from vector
         myRouteProbReroutes.erase(i);
         return true;
     }

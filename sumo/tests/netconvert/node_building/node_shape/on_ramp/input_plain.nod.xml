@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 17 Feb 2017 10:29:32 AM CET by Netedit Version dev-SVN-r23002
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="debug.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="debug.net.xml"/>
+        <plain-output-prefix value="/scr2/sip-svn-trunk/projects/SHARPS2/bug20170216/InnerRing_16.02.17/input_plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-342847.42,-3448296.22" convBoundary="8131.70,2301.89,9605.43,3258.19" origBoundary="121.297115,31.114573,121.635121,31.383613" projParameter="+proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="V" x="9605.43" y="3258.19" z="5.00" type="unregulated"/>
+    <node id="W" x="8315.07" y="2426.22" z="5.00" type="unregulated"/>
+    <node id="X" x="8201.50" y="2331.90" z="5.00" type="priority"/>
+    <node id="Y" x="8167.08" y="2310.63" z="5.00" type="priority" radius="13.03"/>
+    <node id="Z" x="8131.70" y="2301.89" z="5.00" type="unregulated"/>
+</nodes>

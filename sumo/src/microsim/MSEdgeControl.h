@@ -175,6 +175,9 @@ public:
      */
     void gotActive(MSLane* l);
 
+    /// @brief apply additional restrictions
+    void setAdditionalRestrictions();
+
 
 public:
     /**

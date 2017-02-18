@@ -234,6 +234,18 @@ def modifyBoolAttribute(parametersReference, attributeNumber):
     # change value
     type(Key.SPACE)
 
+# change type of junction
+def changeTypeOfJunction(parametersReference, junctionType):
+    click(parametersReference)
+    # jump to type attribute
+    for x in range(0, 2):
+        type(Key.TAB)
+    # change value
+    for x in range(0, junctionType):
+        type(Key.DOWN)
+	# save changed value
+	type(Key.TAB)
+	
 #################################################
 # Move mode
 #################################################

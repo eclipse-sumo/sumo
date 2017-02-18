@@ -50,7 +50,7 @@
 #include <netbuild/NBAlgorithms_Ramps.h>
 #include <netbuild/NBNetBuilder.h>
 #include "NILoader.h"
-#include "NIXMLEdgesHandler.h"
+#include "NIXMLTypesHandler.h"
 #include "NIImporter_SUMO.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -109,6 +109,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         return;
     }
     // parse file(s)
+    NIXMLTypesHandler* typesHandler = new NIXMLTypesHandler(myNetBuilder.getTypeCont());
     std::vector<std::string> files = oc.getStringVector("sumo-net-file");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
@@ -118,6 +119,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         setFileName(*file);
         PROGRESS_BEGIN_MESSAGE("Parsing sumo-net from '" + *file + "'");
         XMLSubSys::runParser(*this, *file, true);
+        XMLSubSys::runParser(*typesHandler, *file);
         PROGRESS_DONE_MESSAGE();
     }
     // build edges
