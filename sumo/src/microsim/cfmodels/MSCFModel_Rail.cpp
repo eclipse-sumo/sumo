@@ -27,16 +27,30 @@
 #define G  9.80665
 
 
-MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType *vtype) : MSCFModel(vtype, -1, -1, -1) {
+MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType *vtype, std::string trainType) : MSCFModel(vtype, -1, -1, -1) {
 
-    trainParams["RB425"] = initRB425Params();
-    trainParams["RB628"] = initRB628Params();
-    trainParams["NGT400"] = initNGT400Params();
-    trainParams["NGT400_16"] = initNGT400_16Params();
-    trainParams["ICE1"] = initICE1Params();
-    trainParams["ICE3"] = initICE3Params();
-    trainParams["REDosto7"] = initREDosto7Params();
-    trainParams["Freight"] = initFreightParams();
+    if (trainType.compare("RB425") == 0) {
+        myTrainParams = initRB425Params();
+    } else if (trainType.compare("RB628")) {
+        myTrainParams = initRB628Params();
+    } else if (trainType.compare("NGT400")) {
+        myTrainParams = initNGT400Params();
+    }else if (trainType.compare("NGT400_16")) {
+        myTrainParams = initNGT400_16Params();
+    } else if (trainType.compare("ICE1")) {
+        myTrainParams = initICE1Params();
+    } else if (trainType.compare("REDosto7")) {
+        myTrainParams = initREDosto7Params();
+    } else if (trainType.compare("Freight")) {
+        myTrainParams = initFreightParams();
+    } else {
+        WRITE_ERROR("Unknown train type: " + trainType + ". Exiting!");
+        throw ProcessError();
+    }
+
+    setMaxDecel(myTrainParams.decl);
+
+
 }
 
 MSCFModel_Rail::~MSCFModel_Rail() {
@@ -51,53 +65,6 @@ SUMOReal MSCFModel_Rail::followSpeed(const MSVehicle *const veh, SUMOReal speed,
     return 0;
 }
 
-SUMOReal MSCFModel_Rail::stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const {
-
-    if (MSGlobals::gSemiImplicitEulerUpdate) {
-        return MIN2(maximumSafeStopSpeed(veh,gap,speed,false,TS), maxNextSpeed(speed, veh));
-    } else {
-        WRITE_ERROR("Anything else then semi implicit euler update is not yet implemented. Exiting!");
-        throw ProcessError();
-    }
-}
-
-SUMOReal MSCFModel_Rail::maximumSafeStopSpeed(const MSVehicle *const veh, SUMOReal gap, const SUMOReal spd, bool insertion,
-                                         SUMOReal deltaT) const {
-
-    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
-    if (vars->isNotYetInitialized()) {
-        initVehicleVariables(veh, vars);
-    }
-
-    TrainParams myTrainParams = trainParams.find(vars->getTrainType())->second;
-
-    gap -= NUMERICAL_EPS; // lots of code relies on some slack XXX: it shouldn't...
-    if (gap <= 0) {
-        return 0;
-    } else if (gap <= ACCEL2SPEED(myTrainParams.decl)) {
-        // workaround for #2310
-        return MIN2(ACCEL2SPEED(myTrainParams.decl), DIST2SPEED(gap));
-    }
-    const SUMOReal g = gap;
-    const SUMOReal b = ACCEL2SPEED(myTrainParams.decl);
-    const SUMOReal t = myHeadwayTime;
-    const SUMOReal s = TS;
-
-
-    // h = the distance that would be covered if it were possible to stop
-    // exactly after gap and decelerate with b every simulation step
-    // h = 0.5 * n * (n-1) * b * s + n * b * t (solve for n)
-    //n = ((1.0/2.0) - ((t + (pow(((s*s) + (4.0*((s*((2.0*h/b) - t)) + (t*t)))), (1.0/2.0))*sign/2.0))/s));
-    const SUMOReal n = floor(.5 - ((t + (sqrt(((s * s) + (4.0 * ((s * (2.0 * g / b - t)) + (t * t))))) * -0.5)) / s));
-    const SUMOReal h = 0.5 * n * (n - 1) * b * s + n * b * t;
-    assert(h <= g + NUMERICAL_EPS);
-    // compute the additional speed that must be used during deceleration to fix
-    // the discrepancy between g and h
-    const SUMOReal r = (g - h) / (n * s + t);
-    const SUMOReal x = n * b + r;
-    assert(x >= 0);
-    return x;
-}
 
 
 
@@ -111,12 +78,11 @@ MSCFModel *MSCFModel_Rail::duplicate(const MSVehicleType *vtype) const {
 
 SUMOReal MSCFModel_Rail::maxNextSpeed(SUMOReal speed, const MSVehicle *const veh) const {
 
-    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
-    if (vars->isNotYetInitialized()) {
-        initVehicleVariables(veh, vars);
-    }
+//    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
+//    if (vars->isNotYetInitialized()) {
+//        initVehicleVariables(veh, vars);
+//    }
 
-    TrainParams myTrainParams = trainParams.find(vars->getTrainType())->second;
 
     if (speed >= myTrainParams.vmax) {
         return myTrainParams.vmax;
@@ -124,14 +90,14 @@ SUMOReal MSCFModel_Rail::maxNextSpeed(SUMOReal speed, const MSVehicle *const veh
 
     SUMOReal targetSpeed = myTrainParams.vmax;
 
-    SUMOReal res = getResitance(speed, &myTrainParams); // kN
+    SUMOReal res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
 
     SUMOReal slope = veh->getSlope();
     SUMOReal gr = myTrainParams.weight * G * sin(DEG2RAD(slope)); //kN
 
     SUMOReal totalRes = res + gr; //kN
 
-    SUMOReal trac = getTraction(speed, &myTrainParams); //kN
+    SUMOReal trac = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.traction)); // kN
 
     SUMOReal a;
     if (speed < targetSpeed) {
@@ -152,16 +118,15 @@ SUMOReal MSCFModel_Rail::maxNextSpeed(SUMOReal speed, const MSVehicle *const veh
 
 SUMOReal MSCFModel_Rail::minNextSpeed(SUMOReal speed, const MSVehicle *const veh) const {
 
-    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
-    if (vars->isNotYetInitialized()) {
-        initVehicleVariables(veh, vars);
-    }
+//    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
+//    if (vars->isNotYetInitialized()) {
+//        initVehicleVariables(veh, vars);
+//    }
 
-    TrainParams myTrainParams = trainParams.find(vars->getTrainType())->second;
 
     SUMOReal slope = veh->getSlope();
     SUMOReal gr = myTrainParams.weight * G * sin(DEG2RAD(slope)); //kN
-    SUMOReal res = getResitance(speed, &myTrainParams); // kN
+    SUMOReal res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
     SUMOReal totalRes = res + gr; //kN
 
     SUMOReal a = (myTrainParams.decl + totalRes)/myTrainParams.rotWeight;
@@ -170,15 +135,15 @@ SUMOReal MSCFModel_Rail::minNextSpeed(SUMOReal speed, const MSVehicle *const veh
 
 }
 
-SUMOReal MSCFModel_Rail::getResitance(SUMOReal speed, TrainParams *params) const {
+SUMOReal MSCFModel_Rail::getInterpolatedValueFromLookUpMap(SUMOReal speed, const LookUpMap * lookUpMap) const {
     std::map<SUMOReal, SUMOReal>::const_iterator low, prev;
-    low = params->resistance.lower_bound(speed);
+    low = lookUpMap->lower_bound(speed);
 
-    if (low == params->resistance.end()) { //speed > max speed
-        return (params->resistance.rbegin())->second;
+    if (low == lookUpMap->end()) { //speed > max speed
+        return (lookUpMap->rbegin())->second;
     }
 
-    if (low == params->resistance.begin()) {
+    if (low == lookUpMap->begin()) {
         return low->second;
     }
 
@@ -198,46 +163,14 @@ SUMOReal MSCFModel_Rail::getResitance(SUMOReal speed, TrainParams *params) const
 
 }
 
-double MSCFModel_Rail::getTraction(double speed, TrainParams *params) const {
-    std::map<SUMOReal, SUMOReal>::const_iterator low, prev;
-    low = params->traction.lower_bound(speed);
 
-    if (low == params->traction.end()) { //speed > max speed
-        return params->traction.rbegin()->second;
-    }
 
-    if (low == params->traction.begin()) {
-        return low->second;
-    }
-
-    prev = low;
-    --prev;
-
-    SUMOReal range = low->first - prev->first;
-    SUMOReal dist = speed - prev->first;
-    assert(range > 0);
-    assert(dist > 0);
-
-    SUMOReal weight = dist / range;
-
-    SUMOReal trac = (1 - weight) * prev->second + weight * low->second;
-
-    return trac;
-}
-
-void
-MSCFModel_Rail::initVehicleVariables(const MSVehicle *const veh, MSCFModel_Rail::VehicleVariables *pVariables) const {
-
-    std::string trainType = veh->getVehicleType().getParameter().getCFParamString(SUMO_ATTR_TRAIN_TYPE, "NGT400");
-
-    if (trainParams.find(trainType) == trainParams.end()) {
-        WRITE_ERROR("Unknown train type: " + trainType);
-        throw ProcessError();
-    }
-    pVariables->setTrainType(trainType);
-    pVariables->setInitialized();
-
-}
+//void
+//MSCFModel_Rail::initVehicleVariables(const MSVehicle *const veh, MSCFModel_Rail::VehicleVariables *pVariables) const {
+//
+//    pVariables->setInitialized();
+//
+//}
 
 SUMOReal MSCFModel_Rail::getSpeedAfterMaxDecel(SUMOReal speed) const {
 
@@ -291,12 +224,12 @@ SUMOReal MSCFModel_Rail::moveHelper(MSVehicle *const veh, SUMOReal vPos) const {
 double MSCFModel_Rail::freeSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal dist, SUMOReal targetSpeed,
                                  const bool onInsertion) const {
 
-    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
-    if (vars->isNotYetInitialized()) {
-        initVehicleVariables(veh, vars);
-    }
+//    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
+//    if (vars->isNotYetInitialized()) {
+//        initVehicleVariables(veh, vars);
+//    }
 
-    TrainParams myTrainParams = trainParams.find(vars->getTrainType())->second;
+    //TODO: signals, coasting, ...
 
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         // adapt speed to succeeding lane, no reaction time is involved
@@ -308,7 +241,7 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle *const veh, SUMOReal speed, SUM
         if (dist < v) {
             return targetSpeed;
         }
-        const SUMOReal b = ACCEL2DIST(myTrainParams.decl);
+        const SUMOReal b = ACCEL2DIST(myDecel);
         const SUMOReal y = MAX2(0.0, ((sqrt((b + 2.0 * v) * (b + 2.0 * v) + 8.0 * b * dist) - b) * 0.5 - v) / b);
         const SUMOReal yFull = floor(y);
         const SUMOReal exactGap = (yFull * yFull + yFull) * 0.5 * b + yFull * v + (y > yFull ? v : 0.0);
@@ -318,4 +251,8 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle *const veh, SUMOReal speed, SUM
         WRITE_ERROR("Anything else then semi implicit euler update is not yet implemented. Exiting!");
         throw ProcessError();
     }
+}
+
+double MSCFModel_Rail::stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const {
+    return 0;
 }

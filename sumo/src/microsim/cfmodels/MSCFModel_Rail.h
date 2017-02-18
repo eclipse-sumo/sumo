@@ -30,8 +30,6 @@ public:
     double followSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed,
                        SUMOReal predMaxDecel) const override;
 
-    virtual SUMOReal stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const;
-
     virtual int getModelID() const;
 
     virtual MSCFModel *duplicate(const MSVehicleType *vtype) const;
@@ -39,7 +37,7 @@ public:
     /** @brief Constructor
      * @param[in] trainType The train type
      */
-    MSCFModel_Rail(const MSVehicleType *vtype);
+    MSCFModel_Rail(const MSVehicleType *vtype, std::string trainType);
 
 
     virtual ~MSCFModel_Rail();
@@ -73,39 +71,38 @@ private:
         LookUpMap resistance;
     };
 
-    double getResitance(SUMOReal speed, TrainParams *params) const;
+    double getInterpolatedValueFromLookUpMap(SUMOReal speed, const LookUpMap *lookUpMap) const;
 
-    double getTraction(double speed, TrainParams *params) const;
+public:
+    double stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const override;
 
-
-
-    class VehicleVariables : public MSCFModel::VehicleVariables {
-
-    public:
-
-        const std::string getTrainType() const { return myTrainType; };
-
-        void setTrainType(std::string trainType) { myTrainType = trainType; }
-
-        bool isNotYetInitialized() {
-            return notYetInitialized;
-        }
-
-        void setInitialized() {
-            notYetInitialized = false;
-        }
-
-    private:
-        std::string myTrainType;
-        bool notYetInitialized = true;
-
-
-    };
+//    class VehicleVariables : public MSCFModel::VehicleVariables {
+//
+//    public:
+//
+//        const std::string getTrainType() const { return myTrainType; };
+//
+//        void setTrainType(std::string trainType) { myTrainType = trainType; }
+//
+//        bool isNotYetInitialized() {
+//            return notYetInitialized;
+//        }
+//
+//        void setInitialized() {
+//            notYetInitialized = false;
+//        }
+//
+//    private:
+//        std::string myTrainType;
+//        bool notYetInitialized = true;
+//
+//
+//    };
 
 private:
 
 
-    std::map<std::string, TrainParams> trainParams;
+    TrainParams myTrainParams;
 
     LookUpMap initNGT400Traction() const { // early version of NGT 400
         LookUpMap map;
@@ -727,9 +724,7 @@ private:
         return params;
     }
 
-    void initVehicleVariables(const MSVehicle *const pVehicle, MSCFModel_Rail::VehicleVariables *pVariables)const;
-
-    double maximumSafeStopSpeed(const MSVehicle *const veh, double gap, const double spd, bool insertion, double deltaT) const;
+//    void initVehicleVariables(const MSVehicle *const pVehicle, MSCFModel_Rail::VehicleVariables *pVariables)const;
 
 };
 
