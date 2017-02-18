@@ -56,12 +56,12 @@ class Vertex:
         self.inPathEdge = edge
         self.flowDelta = flow
         if isForward:
-            numSatEdges = edge.source.gain / edge.source.flowDelta
+            numSatEdges = edge.source.gain // edge.source.flowDelta
             self.gain = numSatEdges * flow
             if edge.capacity < sys.maxsize:
                 self.gain += flow
         else:
-            numSatEdges = edge.target.gain / edge.target.flowDelta
+            numSatEdges = edge.target.gain // edge.target.flowDelta
             self.gain = numSatEdges * flow
             if edge.capacity < sys.maxsize:
                 self.gain -= flow
@@ -97,6 +97,9 @@ class Edge:
             cap = "inf"
         return self.kind + "_" + self.label + "<" + str(self.flow) + "|" + cap + ">"
 
+    def __lt__(self, other):
+        return self.label < other.label
+
 
 # Route class storing the list of edges and the frequency of a route.
 class Route:
@@ -114,6 +117,9 @@ class Route:
                     result += lastLabel + ", "
                 lastLabel = edge.label
         return result + lastLabel + "]"
+
+    def __lt__(self, other):
+        return self.edges < other.edges
 
 
 # Net class which stores the network (vertex and edge collection) and the
@@ -200,11 +206,11 @@ class Net:
 
     def detectSourceSink(self, sources, sinks):
         self.trimNet()
-        for id in sources:
+        for id in sorted(sources):
             self.addSourceEdge(self.getEdge(id))
-        for id in sinks:
+        for id in sorted(sinks):
             self.addSinkEdge(self.getEdge(id))
-        for edgeObj in self._edges.itervalues():
+        for edgeObj in sorted(self._edges.values()):
             if len(sources) == 0 and (len(edgeObj.source.inEdges) == 0 or edgeObj in self._possibleSources):
                 self.addSourceEdge(edgeObj)
             if len(sinks) == 0 and (len(edgeObj.target.outEdges) == 0 or edgeObj in self._possibleSinks):
@@ -220,7 +226,7 @@ class Net:
     def initNet(self):
         for edge in self._internalEdges:
             edge.reset()
-        for edge in self._edges.itervalues():
+        for edge in self._edges.values():
             edge.reset()
             if len(edge.detGroup) > 0:
                 edge.capacity = 0
@@ -368,7 +374,7 @@ class Net:
                 vertex.reset()
             pathFound = self.findPath(self._source, self._source)
             if not pathFound:
-                for edge in self._edges.itervalues():
+                for edge in sorted(self._edges.values()):
                     if edge.capacity < sys.maxsize:
                         while edge.flow < edge.capacity and self.pullFlow(edge):
                             pathFound = True
@@ -395,7 +401,7 @@ class Net:
                     routeByEdges[key].frequency += route.frequency
                 else:
                     routeByEdges[key] = route
-            edge.routes = routeByEdges.values()
+            edge.routes = sorted(routeByEdges.values())
             for id, route in enumerate(edge.routes):
                 firstReal = ''
                 lastReal = None
@@ -440,7 +446,7 @@ class Net:
     def writeFlowPOIs(self, poiOut, suffix=""):
         if not poiOut:
             return
-        for edge in self._edges.itervalues():
+        for edge in self._edges.values():
             color = "0,0,1"
             for src in edge.source.inEdges:
                 if src.source == self._source:
@@ -503,7 +509,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
 
     def readDetectors(self, detFile):
         self._detReader = detector.DetectorReader(detFile, self._lane2edge)
-        for edge, detGroups in self._detReader._edge2DetData.iteritems():
+        for edge, detGroups in self._detReader._edge2DetData.items():
             for group in detGroups:
                 if group.isValid:
                     self._net.getEdge(edge).detGroup.append(group)
@@ -631,8 +637,8 @@ if net.detectSourceSink(sources, sinks):
                 if routeOut:
                     net.writeRoutes(routeOut, suffix)
                 else:
-                    for edge in net._source.outEdges:
-                        for route in edge.routes:
+                    for edge in sorted(net._source.outEdges):
+                        for route in sorted(edge.routes):
                             print(route)
                 net.writeEmitters(
                     emitOut, 60 * start, 60 * (start + options.interval), suffix)
