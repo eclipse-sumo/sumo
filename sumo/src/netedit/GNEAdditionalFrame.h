@@ -44,7 +44,7 @@ class GNEAdditional;
 // ===========================================================================
 /**
  * @class GNEAdditionalFrame
- * The Widget for setting default parameters of additional elements
+ * The Widget for setting internal attributes of additional elements
  */
 class GNEAdditionalFrame : public GNEFrame {
     /// @brief FOX-declaration
@@ -56,7 +56,7 @@ public:
     // class singleAdditionalParameter
     // ===========================================================================
 
-    class singleAdditionalParameter : public FXMatrix {
+    class singleAdditionalParameter : public FXHorizontalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::singleAdditionalParameter)
 
@@ -134,7 +134,7 @@ public:
     // class singleAdditionalParameterList
     // ===========================================================================
 
-    class singleAdditionalParameterList : public FXMatrix {
+    class singleAdditionalParameterList : public FXVerticalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::singleAdditionalParameterList)
 
@@ -192,20 +192,26 @@ public:
         /// @brief current XML attribute
         SumoXMLAttr myAdditionalAttr;
 
+        /// @brief Vector with HorizontalFrames
+        std::vector<FXHorizontalFrame*>myHorizontalFrames;
+
         /// @brief vector with with the name of every parameter
         std::vector<FXLabel*> myLabels;
 
         /// @brief vector textField to modify the value of parameter
         std::vector<FXTextField*> myTextFields;
 
+        /// @brief horizontal frame for buttons
+        FXHorizontalFrame* myHorizontalFrameButtons;
+
         /// @brief Button to increase the number of textFields
-        FXButton* add;
+        FXButton* myAddButton;
 
         /// @brief Button to decrease the number of textFields
-        FXButton* remove;
+        FXButton* myRemoveButton;
 
         /// @brief number of visible text fields
-        int numberOfVisibleTextfields;
+        int myNumberOfVisibleTextfields;
 
         /// @brief Number max of values in a parameter of type list
         int myMaxNumberOfValuesInParameterList;
@@ -334,13 +340,19 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user enters a new lenght
+        /// @brief Called when user enters a new lenght
         long onCmdSetLength(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user enters another reference point
+        /// @brief Called when user enters another reference point
         long onCmdSelectReferencePoint(FXObject*, FXSelector, void*);
 
-        /// @brief Called when help button is pressed
+        /// @brief Called when user changes the checkbox "set blocking"
+        long onCmdSetBlocking(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user changes the checkbox "force position"
+        long onCmdSetForcePosition(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the help button
         long onCmdHelp(FXObject*, FXSelector, void*);
         /// @}
 
@@ -364,10 +376,16 @@ public:
         /// @brief textField for lenght
         FXTextField* myLengthTextField;
 
+        /// @brief Label for force position
+        FXLabel* myForcePositionLabel;
+
         /// @brief checkBox for the option "force position"
         FXMenuCheck* myCheckForcePosition;
 
-        /// @brief checkBox for blocking movement
+        /// @brief Label for block movement
+        FXLabel* myBlockLabel;
+
+        /// @brief checkBox for block movement
         FXMenuCheck* myCheckBlock;
 
         /// @brief Flag to check if current lenght is valid
@@ -641,10 +659,10 @@ private:
     /// @brief combo box with the list of additional elements
     FXComboBox* myAdditionalMatchBox;
 
-    /// @brief additional default parameters
+    /// @brief additional internal attributes
     GNEAdditionalFrame::additionalParameters* myadditionalParameters;
 
-    /// @brief editor parameter
+    /// @brief Netedit parameter
     GNEAdditionalFrame::editorParameters* myEditorParameters;
 
     /// @brief list of additional Set

@@ -46,15 +46,6 @@
 /// @brief text field extended over Frame with thick frame and limited to Doubles/SUMOReals
 #define GUIDesignTextFieldReal          (FRAME_THICK | LAYOUT_FILL_X | TEXTFIELD_REAL)
 
-/// @brief text field extended over the matrix column with thick frame and limited to integers
-#define GUIDesignTextFieldAttributeInt  (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | TEXTFIELD_INTEGER)
-
-/// @brief text field extended over the matrix column with thick frame and limited to real
-#define GUIDesignTextFieldAttributeReal (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | TEXTFIELD_REAL)
-
-/// @brief text field extended over the matrix column with thick frame
-#define GUIDesignTextFieldAttributeStr  (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
-
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol          1
 /// @}
@@ -62,22 +53,22 @@
 
 /// @name FXButtons
 /// @{
-/// @brief button extended over over Frame with thick and raise frame
-#define GUIDesignButton                 (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X) , 0, 0, 0, 0, 4, 4, 3, 3
+/// @brief button extended over over Frame with thick and raise frame (@todo check 4, 4, 3, 3)
+#define GUIDesignButton                 (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X), 0, 0, 0, 0, 4, 4, 3, 3
 
 /// @brief button extended over over column with thick and raise frame
-#define GUIDesignButtonAttribute        (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
+#define GUIDesignButtonAttribute        (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH), 0, 0, 100, 0
 
-/// @brief button with size limited by text, centered over Frame with thick and raise frame
-#define GUIDesignButtonDialog           (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_CENTER_X | JUSTIFY_NORMAL)
+/// @brief little button rectangular (46x23) used in frames (For example, in "help" buttons)
+#define GUIDesignButtonRectangular      (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 46, 23
 
-/// @brief little button for help in frames
-#define GUIDesignButtonHelp             (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_NORMAL)
-
-/// @brief button only with icon with the same size as a Label
+/// @brief button only with icon (23x23)
 #define GUIDesignButtonIcon             (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
 
-/// @brief button used in Breakpoint editor
+/// @brief button only with icon (46x23)
+#define GUIDesignButtonIconRectangular  (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 46, 23
+
+/// @brief button used in breakpoint editor
 #define GUIDesignButtonBreakpoint       (ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED), 0, 0, 0, 0, 4, 4, 3, 3
 
 /// @name FXButtons for toolbar
@@ -125,11 +116,8 @@
 
 /// @name FXMenu Checks
 /// @{
-/// @brief MenuCheck for Frames extended over the frame
-#define GUIDesignMenuCheck              (LAYOUT_LEFT | ICON_BEFORE_TEXT)
-
-/// @brief MenuCheck button for attributes extended over the matrix column
-#define GUIDesignMenuCheckAttribute     (LAYOUT_LEFT | LAYOUT_FILL_COLUMN | ICON_BEFORE_TEXT)
+/// @brief MenuCheck extended over Frame
+#define GUIDesignMenuCheck              (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 /// @}
 
 
@@ -157,7 +145,7 @@
 #define GUIDesignLabelCenterThick       (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
 /// @brief label extended over the matrix column with thick frame
-#define GUIDesignLabelAttribute         (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
+#define GUIDesignLabelAttribute         (FRAME_THICK | LAYOUT_FIX_WIDTH | ICON_BEFORE_TEXT), 0, 0, 100, 0
 
 /// @brief label ticked filled only with an icon
 #define GUIDesignLabelOnlyIcon          (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH), 0, 0, 24, 0, 2, 2, 2, 2
@@ -173,7 +161,7 @@
 #define GUIDesignComboBoxStatic         (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_CENTER_Y)
 
 /// @brief Combo box static (cannot be edited) extended over the matrix column
-#define GUIDesignComboBoxAttribute      (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X)
+#define GUIDesignComboBoxAttribute      (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_X)
 
 /// @brief number of column of every combo box
 #define GUIDesignComboBoxNCol           1
@@ -182,14 +170,9 @@
 
 /// @name FXPackers
 /// @{
-/// @brief Horizontal frame extended over frame
-#define GUIDesignHorizontalFrame            (LAYOUT_FILL_X | LAYOUT_LEFT)
 
-/// @brief Vertical frame extended over frame
-#define GUIDesignVerticalFrame              (LAYOUT_FILL_Y | LAYOUT_LEFT)
-
-/// @brief Horizontal frame used in Button Frames
-#define GUIDesignHorizontalFrameButton      (LAYOUT_FILL_X)
+/// @brief Horizontal frame extended over frame parent
+#define GUIDesignHorizontalFrame            (LAYOUT_FILL_X)
 
 /// @brief Horizontal frame used in status bar
 #define GUIDesignHorizontalFrameStatusBar   (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN), 0, 0, 20, 0, 0, 0, 0, 0, 0, 0
@@ -197,29 +180,29 @@
 /// @brief Matrix design extended over Frame packed by columns
 #define GUIDesignMatrix                     (LAYOUT_FILL_X | LAYOUT_FILL_Y | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
 
-/// @brief Matrix design extended over Frame and used for represent attributes and their values
-#define GUIDesignMatrixAttributes           (LAYOUT_FILL_X | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
-
 /// @brief Group box design extended over frame
 #define GUIDesignGroupBoxFrame              (LAYOUT_FILL_X | FRAME_GROOVE | GROUPBOX_TITLE_CENTER)
 
 /// @brief FXMatrix used to pack values in Viewsettings
 #define GUIDesignMatrixViewSettings         (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 10, 10, 10, 10, 5, 5
+
+/// @brief Matrix design extended over Frame and used for represent attributes and their values (Deprecated)
+#define GUIDesignMatrixAttributes           (LAYOUT_FILL_X | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
 /// @}
 
 
 /// @name General design for netedit frames
 /// @{
 /// @brief design for frames area
-#define GUIDesignFrameArea                  (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignFrameArea                  (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y)
 
 /// @brief design for viewn area
 #define GUIDesignViewnArea                  (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for the content frame of every frame
-#define GUIDesignContentsScrollWindow       (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y)
+#define GUIDesignContentsScrollWindow       (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
 
-/// @brief design for auxiliar (Without borders) frames used to pack another frames extended in all directions
+/// @brief design for ºar (Without borders) frames used to pack another frames extended in all directions
 #define GUIDesignAuxiliarFrame              (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
@@ -229,13 +212,10 @@
 #define GUIDesignAuxiliarVerticalFrame      (LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for horizontal frame used to pack another frames with a uniform width
-#define GUIDesignUniformHorizontalFrame    (LAYOUT_FILL_X | LAYOUT_FILL_Y | PACK_UNIFORM_WIDTH)
+#define GUIDesignUniformHorizontalFrame     (LAYOUT_FILL_X | LAYOUT_FILL_Y | PACK_UNIFORM_WIDTH)
 
 /// @brief design for the main content frame of every frame/dialog
 #define GUIDesignContentsFrame              (LAYOUT_FILL_X | LAYOUT_FILL_Y)
-
-/// @brief design for all frames
-#define GUIDesignFrame                      (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 /// @}
 
 
@@ -286,7 +266,7 @@
 #define GUIDesignSpinDial               (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y)
 
 /// @brief  spin dial extended over the matrix column with thick frame
-#define GUIDesignSpinDialAttribute      (FRAME_THICK | LAYOUT_FILL_COLUMN | LAYOUT_FILL_X | SPIN_NOMAX)
+#define GUIDesignSpinDialAttribute      (FRAME_THICK | LAYOUT_FILL_X | SPIN_NOMAX)
 /// @}
 
 

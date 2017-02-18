@@ -45,7 +45,7 @@ class GNEEdge;
 // ===========================================================================
 /**
  * @class GNECrossingFrame
- * The Widget for setting default parameters of Crossing elements
+ * The Widget for setting internal attributes of Crossing elements
  */
 class GNECrossingFrame : public GNEFrame {
     /// @brief FOX-declaration
@@ -201,9 +201,6 @@ public:
 
         /// @brief current selected edges
         std::vector<GNEEdge*> myCurrentSelectedEdges;
-
-        /// @brief FXMatrix for place attributes
-        FXMatrix* myAttributesMatrix;
 
         /// @brief Label for edges
         FXLabel* myCrossingEdgesLabel;

@@ -117,7 +117,7 @@ GNECrossingFrame::edgesSelector::edgesSelector(FXComposite* parent, GNECrossingF
     myInvertEdgesSelection = new FXButton(this, ("invert " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_INVERTEDGESELECTION, GUIDesignButton);
 
     // Create help button
-    helpEdges = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
+    helpEdges = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -217,28 +217,27 @@ GNECrossingFrame::crossingParameters::crossingParameters(GNECrossingFrame* cross
     myCrossingFrameParent(crossingFrameParent),
     myEdgeSelector(es),
     myCurrentParametersValid(true) {
-    // Create a Matrix for parameters
-    myAttributesMatrix = new FXMatrix(this, 2, GUIDesignMatrixAttributes);
-    // create label for edges
-    myCrossingEdgesLabel = new FXLabel(myAttributesMatrix, toString(SUMO_ATTR_EDGES).c_str(), 0, GUIDesignLabelAttribute);
+    FXHorizontalFrame *crossingParameter = NULL; 
+    // create label and string textField for edges
+    crossingParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myCrossingEdgesLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_EDGES).c_str(), 0, GUIDesignLabelAttribute);
+    myCrossingEdges = new FXTextField(crossingParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myCrossingEdgesLabel->disable();
-    // create string textField for edges
-    myCrossingEdges = new FXTextField(myAttributesMatrix, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldAttributeStr);
     myCrossingEdges->disable();
-    // create label for Priority
-    myCrossingPriorityLabel = new FXLabel(myAttributesMatrix, toString(SUMO_ATTR_PRIORITY).c_str(), 0, GUIDesignLabelAttribute);
+    // create label and checkbox for Priority
+    crossingParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myCrossingPriorityLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_PRIORITY).c_str(), 0, GUIDesignLabelAttribute);
+    myCrossingPriority = new FXMenuCheck(crossingParameter, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignMenuCheck);
     myCrossingPriorityLabel->disable();
-    // create CheckBox for Priority
-    myCrossingPriority = new FXMenuCheck(myAttributesMatrix, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignMenuCheckAttribute);
     myCrossingPriority->disable();
-    // create label for width
-    myCrossingWidthLabel = new FXLabel(myAttributesMatrix, toString(SUMO_ATTR_WIDTH).c_str(), 0, GUIDesignLabelAttribute);
+    // create label and textfield for width
+    crossingParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myCrossingWidthLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_WIDTH).c_str(), 0, GUIDesignLabelAttribute);
+    myCrossingWidth = new FXTextField(crossingParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
     myCrossingWidthLabel->disable();
-    // create extField for width
-    myCrossingWidth = new FXTextField(myAttributesMatrix, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldAttributeReal);
     myCrossingWidth->disable();
     // Create help button
-    myHelpCrossingAttribute = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
+    myHelpCrossingAttribute = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
     myHelpCrossingAttribute->disable();
     // set colors
     myCandidateColor = RGBColor(0, 64, 0, 255);
@@ -272,7 +271,7 @@ GNECrossingFrame::crossingParameters::disableCrossingParameters() {
     // clear all values of parameters
     myCrossingEdges->setText("");
     myCrossingPriority->setCheck(false);
-    myCrossingPriority->setText("False");
+    myCrossingPriority->setText("false");
     myCrossingWidth->setText("");
     // Disable all elements of the crossing frames
     myCrossingEdgesLabel->disable();
@@ -457,9 +456,9 @@ GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
 
     // change label of crossing priority
     if (myCrossingPriority->getCheck()) {
-        myCrossingPriority->setText("True");
+        myCrossingPriority->setText("true");
     } else {
-        myCrossingPriority->setText("False");
+        myCrossingPriority->setText("false");
     }
 
     // Check width
@@ -530,7 +529,7 @@ GNECrossingFrame::crossingParameters::onCmdHelp(FXObject*, FXSelector, void*) {
     header->setItemJustify(2, JUSTIFY_CENTER_X);
     header->setItemSize(2, maxSizeColumnDefinitions * 6);
     // Button Close
-    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     helpDialog->create();
     helpDialog->show();
     return 1;

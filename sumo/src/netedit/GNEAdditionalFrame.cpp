@@ -72,57 +72,59 @@ FXDEFMAP(GNEAdditionalFrame) GNEAdditionalMap[] = {
 };
 
 FXDEFMAP(GNEAdditionalFrame::singleAdditionalParameter) GNEsingleAdditionalParameterMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GNEAdditionalFrame::singleAdditionalParameter::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL, GNEAdditionalFrame::singleAdditionalParameter::onCmdSetBooleanAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT,   GNEAdditionalFrame::singleAdditionalParameter::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL,   GNEAdditionalFrame::singleAdditionalParameter::onCmdSetBooleanAttribute),
 };
 
 FXDEFMAP(GNEAdditionalFrame::singleAdditionalParameterList) GNEsingleAdditionalParameterListMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDROW,    GNEAdditionalFrame::singleAdditionalParameterList::onCmdAddRow),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVEROW, GNEAdditionalFrame::singleAdditionalParameterList::onCmdRemoveRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDROW,     GNEAdditionalFrame::singleAdditionalParameterList::onCmdAddRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVEROW,  GNEAdditionalFrame::singleAdditionalParameterList::onCmdRemoveRow),
 };
 
 FXDEFMAP(GNEAdditionalFrame::additionalParameters) GNEadditionalParametersMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_HELP, GNEAdditionalFrame::additionalParameters::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEAdditionalFrame::additionalParameters::onCmdHelp),
 };
 
 FXDEFMAP(GNEAdditionalFrame::editorParameters) GNEEditorParametersMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GNEAdditionalFrame::editorParameters::onCmdSetLength),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_ADDITIONAL_REFERENCEPOINT,       GNEAdditionalFrame::editorParameters::onCmdSelectReferencePoint),
-    FXMAPFUNC(SEL_COMMAND, MID_HELP,                                     GNEAdditionalFrame::editorParameters::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT,   GNEAdditionalFrame::editorParameters::onCmdSetLength),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_REFERENCEPOINT,         GNEAdditionalFrame::editorParameters::onCmdSelectReferencePoint),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING,                           GNEAdditionalFrame::editorParameters::onCmdSetBlocking),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_FORCEPOSITION,          GNEAdditionalFrame::editorParameters::onCmdSetForcePosition),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNEAdditionalFrame::editorParameters::onCmdHelp),
 };
 
 FXDEFMAP(GNEAdditionalFrame::additionalParentSelector) GNEadditionalParentSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTADDITIONALPARENT, GNEAdditionalFrame::additionalParentSelector::onCmdSelectAdditionalParent),
-    FXMAPFUNC(SEL_COMMAND, MID_HELP,                       GNEAdditionalFrame::additionalParentSelector::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTADDITIONALPARENT, GNEAdditionalFrame::additionalParentSelector::onCmdSelectAdditionalParent),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEAdditionalFrame::additionalParentSelector::onCmdHelp),
 };
 
 FXDEFMAP(GNEAdditionalFrame::edgeParentsSelector) GNEedgeParentsSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOWONLYSELECTEDEDGES, GNEAdditionalFrame::edgeParentsSelector::onCmdUseSelectedEdges),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CLEAREDGESELECTION,    GNEAdditionalFrame::edgeParentsSelector::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INVERTEDGESELECTION,   GNEAdditionalFrame::edgeParentsSelector::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED, MID_GNE_SEARCHEDGE,            GNEAdditionalFrame::edgeParentsSelector::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTEDGE,            GNEAdditionalFrame::edgeParentsSelector::onCmdSelectEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_HELP,                      GNEAdditionalFrame::edgeParentsSelector::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHOWONLYSELECTEDEDGES,  GNEAdditionalFrame::edgeParentsSelector::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEAREDGESELECTION,     GNEAdditionalFrame::edgeParentsSelector::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INVERTEDGESELECTION,    GNEAdditionalFrame::edgeParentsSelector::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SEARCHEDGE,             GNEAdditionalFrame::edgeParentsSelector::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTEDGE,             GNEAdditionalFrame::edgeParentsSelector::onCmdSelectEdge),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEAdditionalFrame::edgeParentsSelector::onCmdHelp),
 };
 
 FXDEFMAP(GNEAdditionalFrame::laneParentsSelector) GNElaneParentsSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_USESELECTEDLANES,    GNEAdditionalFrame::laneParentsSelector::onCmdUseSelectedLanes),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CLEARLANESELECTION,  GNEAdditionalFrame::laneParentsSelector::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INVERTLANESELECTION, GNEAdditionalFrame::laneParentsSelector::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED, MID_GNE_SEARCHLANE,          GNEAdditionalFrame::laneParentsSelector::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECTLANE,          GNEAdditionalFrame::laneParentsSelector::onCmdSelectLane),
-    FXMAPFUNC(SEL_COMMAND, MID_HELP,                    GNEAdditionalFrame::laneParentsSelector::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USESELECTEDLANES,       GNEAdditionalFrame::laneParentsSelector::onCmdUseSelectedLanes),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARLANESELECTION,     GNEAdditionalFrame::laneParentsSelector::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INVERTLANESELECTION,    GNEAdditionalFrame::laneParentsSelector::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_SEARCHLANE,             GNEAdditionalFrame::laneParentsSelector::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTLANE,             GNEAdditionalFrame::laneParentsSelector::onCmdSelectLane),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEAdditionalFrame::laneParentsSelector::onCmdHelp),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAdditionalFrame,                                FXVerticalFrame, GNEAdditionalMap,                    ARRAYNUMBER(GNEAdditionalMap))
-FXIMPLEMENT(GNEAdditionalFrame::singleAdditionalParameter,     FXMatrix,        GNEsingleAdditionalParameterMap,     ARRAYNUMBER(GNEsingleAdditionalParameterMap))
-FXIMPLEMENT(GNEAdditionalFrame::singleAdditionalParameterList, FXMatrix,        GNEsingleAdditionalParameterListMap, ARRAYNUMBER(GNEsingleAdditionalParameterListMap))
-FXIMPLEMENT(GNEAdditionalFrame::additionalParameters,          FXGroupBox,      GNEadditionalParametersMap,          ARRAYNUMBER(GNEadditionalParametersMap))
-FXIMPLEMENT(GNEAdditionalFrame::editorParameters,              FXGroupBox,      GNEEditorParametersMap,              ARRAYNUMBER(GNEEditorParametersMap))
-FXIMPLEMENT(GNEAdditionalFrame::additionalParentSelector,      FXGroupBox,      GNEadditionalParentSelectorMap,      ARRAYNUMBER(GNEadditionalParentSelectorMap))
-FXIMPLEMENT(GNEAdditionalFrame::edgeParentsSelector,           FXGroupBox,      GNEedgeParentsSelectorMap,           ARRAYNUMBER(GNEedgeParentsSelectorMap))
-FXIMPLEMENT(GNEAdditionalFrame::laneParentsSelector,           FXGroupBox,      GNElaneParentsSelectorMap,           ARRAYNUMBER(GNElaneParentsSelectorMap))
+FXIMPLEMENT(GNEAdditionalFrame,                                 FXVerticalFrame,    GNEAdditionalMap,                       ARRAYNUMBER(GNEAdditionalMap))
+FXIMPLEMENT(GNEAdditionalFrame::singleAdditionalParameter,      FXHorizontalFrame,  GNEsingleAdditionalParameterMap,        ARRAYNUMBER(GNEsingleAdditionalParameterMap))
+FXIMPLEMENT(GNEAdditionalFrame::singleAdditionalParameterList,  FXVerticalFrame,    GNEsingleAdditionalParameterListMap,    ARRAYNUMBER(GNEsingleAdditionalParameterListMap))
+FXIMPLEMENT(GNEAdditionalFrame::additionalParameters,           FXGroupBox,         GNEadditionalParametersMap,             ARRAYNUMBER(GNEadditionalParametersMap))
+FXIMPLEMENT(GNEAdditionalFrame::editorParameters,               FXGroupBox,         GNEEditorParametersMap,                 ARRAYNUMBER(GNEEditorParametersMap))
+FXIMPLEMENT(GNEAdditionalFrame::additionalParentSelector,       FXGroupBox,         GNEadditionalParentSelectorMap,         ARRAYNUMBER(GNEadditionalParentSelectorMap))
+FXIMPLEMENT(GNEAdditionalFrame::edgeParentsSelector,            FXGroupBox,         GNEedgeParentsSelectorMap,              ARRAYNUMBER(GNEedgeParentsSelectorMap))
+FXIMPLEMENT(GNEAdditionalFrame::laneParentsSelector,            FXGroupBox,         GNElaneParentsSelectorMap,              ARRAYNUMBER(GNElaneParentsSelectorMap))
 
 // ===========================================================================
 // method definitions
@@ -141,7 +143,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     // Create additional parameters
     myadditionalParameters = new GNEAdditionalFrame::additionalParameters(myContentFrame);
 
-    // Create editor parameter
+    // Create Netedit parameter
     myEditorParameters = new GNEAdditionalFrame::editorParameters(myContentFrame);
 
     // Create create list for additional Set
@@ -421,7 +423,7 @@ void
 GNEAdditionalFrame::setParametersOfAdditional(SumoXMLTag actualAdditionalType) {
     // Set new actualAdditionalType
     myActualAdditionalType = actualAdditionalType;
-    // Clear default parameters
+    // Clear internal attributes
     myadditionalParameters->clearAttributes();
     // Hide lenght field and reference point
     myEditorParameters->hideLengthField();
@@ -545,15 +547,15 @@ GNEAdditionalFrame::setEndPosition(SUMOReal laneLenght, SUMOReal positionOfTheMo
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::singleAdditionalParameter::singleAdditionalParameter(FXComposite* parent) :
-    FXMatrix(parent, 4, GUIDesignMatrixAttributes),
+    FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame),
     myAdditionalTag(SUMO_TAG_NOTHING),
     myAdditionalAttr(SUMO_ATTR_NOTHING),
     myCurrentValueValid(true) {
     // Create visual elements
-    myLabel = new FXLabel(this, "name", 0, GUIDesignLabelAttribute, 0, 0, 60, 0);
-    myTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextFieldAttributeStr);
+    myLabel = new FXLabel(this, "name", 0, GUIDesignLabelAttribute);
+    myTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextField);
     myTimeSpinDial = new FXSpinner(this, 7, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_DIAL, GUIDesignSpinDialAttribute);
-    myMenuCheck = new FXMenuCheck(this, "Disabled", this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL, GUIDesignMenuCheckAttribute);
+    myMenuCheck = new FXMenuCheck(this, "Disabled", this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL, GUIDesignMenuCheck);
     // Set widht of menuCheck manually
     myMenuCheck->setWidth(20);
     // Hide elements
@@ -614,10 +616,10 @@ GNEAdditionalFrame::singleAdditionalParameter::showParameter(SumoXMLTag addition
     myLabel->show();
     if (value) {
         myMenuCheck->setCheck(true);
-        myMenuCheck->setText("True");
+        myMenuCheck->setText("true");
     } else {
         myMenuCheck->setCheck(false);
-        myMenuCheck->setText("False");
+        myMenuCheck->setText("false");
     }
     myMenuCheck->show();
     myCurrentValueValid = true;
@@ -715,9 +717,9 @@ GNEAdditionalFrame::singleAdditionalParameter::onCmdSetAttribute(FXObject*, FXSe
 long
 GNEAdditionalFrame::singleAdditionalParameter::onCmdSetBooleanAttribute(FXObject*, FXSelector, void*) {
     if (myMenuCheck->getCheck()) {
-        myMenuCheck->setText("True");
+        myMenuCheck->setText("true");
     } else {
-        myMenuCheck->setText("False");
+        myMenuCheck->setText("false");
     }
     return 1;
 }
@@ -727,23 +729,25 @@ GNEAdditionalFrame::singleAdditionalParameter::onCmdSetBooleanAttribute(FXObject
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::singleAdditionalParameterList::singleAdditionalParameterList(FXComposite* parent) :
-    FXMatrix(parent, 2, GUIDesignMatrixAttributes),
+    FXVerticalFrame(parent, GUIDesignAuxiliarHorizontalFrame),
     myAdditionalTag(SUMO_TAG_NOTHING),
     myAdditionalAttr(SUMO_ATTR_NOTHING),
-    numberOfVisibleTextfields(1),
+    myNumberOfVisibleTextfields(1),
     myMaxNumberOfValuesInParameterList(20) {
     // Create elements
     for (int i = 0; i < myMaxNumberOfValuesInParameterList; i++) {
-        myLabels.push_back(new FXLabel(this, "name", 0, GUIDesignLabelAttribute, 0, 0, 60, 0));
-        myTextFields.push_back(new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextFieldAttributeStr));
+        myHorizontalFrames.push_back(new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame));
+        myLabels.push_back(new FXLabel(myHorizontalFrames.back(), "name", 0, GUIDesignLabelAttribute));
+        myTextFields.push_back(new FXTextField(myHorizontalFrames.back(), GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextField));
     }
     // Create label Row
-    myLabels.push_back(new FXLabel(this, "Rows", 0, GUIDesignLabelAttribute, 0, 0, 60, 0));
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
+    myHorizontalFrameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLabels.push_back(new FXLabel(myHorizontalFrameButtons, "Rows", 0, GUIDesignLabelAttribute));
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(myHorizontalFrameButtons, GUIDesignAuxiliarHorizontalFrame);
     // Create add button
-    add = new FXButton(buttonsFrame, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_ADDROW, GUIDesignButtonAttribute, 0, 0, 20, 20);
-    // Create delete buttons
-    remove = new FXButton(buttonsFrame, "", GUIIconSubSys::getIcon(ICON_REMOVE), this, MID_GNE_REMOVEROW, GUIDesignButtonAttribute, 0, 0, 20, 20);
+    myAddButton = new FXButton(buttonsFrame, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_ADDROW, GUIDesignButtonIcon);
+    // Create remove buttons
+    myRemoveButton = new FXButton(buttonsFrame, "", GUIIconSubSys::getIcon(ICON_REMOVE), this, MID_GNE_REMOVEROW, GUIDesignButtonIcon);
     // Hide all para meters
     hideParameter();
 }
@@ -781,20 +785,18 @@ GNEAdditionalFrame::singleAdditionalParameterList::showListParameter(SumoXMLTag 
     if ((int)value.size() < myMaxNumberOfValuesInParameterList) {
         myAdditionalTag = tag;
         myAdditionalAttr = attr;
-        numberOfVisibleTextfields = (int)value.size();
-        if (numberOfVisibleTextfields == 0) {
-            numberOfVisibleTextfields++;
+        myNumberOfVisibleTextfields = (int)value.size();
+        if (myNumberOfVisibleTextfields == 0) {
+            myNumberOfVisibleTextfields++;
         }
         for (int i = 0; i < myMaxNumberOfValuesInParameterList; i++) {
             myLabels.at(i)->setText((toString(attr) + ": " + toString(i)).c_str());
         }
-        for (int i = 0; i < numberOfVisibleTextfields; i++) {
-            myLabels.at(i)->show();
-            myTextFields.at(i)->show();
+        for (int i = 0; i < myNumberOfVisibleTextfields; i++) {
+            myHorizontalFrames.at(i)->show();
         }
-        add->show();
-        remove->show();
-        show();
+        myHorizontalFrameButtons->show();
+        FXVerticalFrame::show();
     }
 }
 
@@ -803,14 +805,11 @@ void
 GNEAdditionalFrame::singleAdditionalParameterList::hideParameter() {
     myAdditionalTag = SUMO_TAG_NOTHING;
     myAdditionalAttr = SUMO_ATTR_NOTHING;
-    for (int i = 0; i < myMaxNumberOfValuesInParameterList; i++) {
-        myLabels.at(i)->hide();
-        myTextFields.at(i)->hide();
-        myTextFields.at(i)->setText("");
+    for (int i = 0; i < (int)myHorizontalFrames.size(); i++) {
+        myHorizontalFrames.at(i)->hide();
     }
-    add->hide();
-    remove->hide();
-    hide();
+    myHorizontalFrameButtons->hide();
+    FXVerticalFrame::hide();
 }
 
 
@@ -829,7 +828,7 @@ std::string
 GNEAdditionalFrame::singleAdditionalParameterList::getListValues() {
     // Declare, fill and return a string with the list values
     std::string value;
-    for (int i = 0; i < numberOfVisibleTextfields; i++) {
+    for (int i = 0; i < myNumberOfVisibleTextfields; i++) {
         if (!myTextFields.at(i)->getText().empty()) {
             value += (myTextFields.at(i)->getText().text() + std::string(" "));
         }
@@ -847,10 +846,9 @@ GNEAdditionalFrame::singleAdditionalParameterList::isCurrentListValid() const {
 
 long
 GNEAdditionalFrame::singleAdditionalParameterList::onCmdAddRow(FXObject*, FXSelector, void*) {
-    if (numberOfVisibleTextfields < (myMaxNumberOfValuesInParameterList - 1)) {
-        myLabels.at(numberOfVisibleTextfields)->show();
-        myTextFields.at(numberOfVisibleTextfields)->show();
-        numberOfVisibleTextfields++;
+    if (myNumberOfVisibleTextfields < (myMaxNumberOfValuesInParameterList - 1)) {
+        myHorizontalFrames.at(myNumberOfVisibleTextfields)->show();
+        myNumberOfVisibleTextfields++;
         getParent()->recalc();
     }
     return 1;
@@ -859,12 +857,10 @@ GNEAdditionalFrame::singleAdditionalParameterList::onCmdAddRow(FXObject*, FXSele
 
 long
 GNEAdditionalFrame::singleAdditionalParameterList::onCmdRemoveRow(FXObject*, FXSelector, void*) {
-    if (numberOfVisibleTextfields > 1) {
-        numberOfVisibleTextfields--;
-        myLabels.at(numberOfVisibleTextfields)->hide();
-        myTextFields.at(numberOfVisibleTextfields)->hide();
-        myTextFields.at(numberOfVisibleTextfields)->setText("");
-
+    if (myNumberOfVisibleTextfields > 1) {
+        myNumberOfVisibleTextfields--;
+        myHorizontalFrames.at(myNumberOfVisibleTextfields)->hide();
+        myTextFields.at(myNumberOfVisibleTextfields)->setText("");
         getParent()->recalc();
     }
     return 1;
@@ -875,7 +871,7 @@ GNEAdditionalFrame::singleAdditionalParameterList::onCmdRemoveRow(FXObject*, FXS
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::additionalParameters::additionalParameters(FXComposite* parent) :
-    FXGroupBox(parent, "Default parameters", GUIDesignGroupBoxFrame),
+    FXGroupBox(parent, "Internal attributes", GUIDesignGroupBoxFrame),
     myIndexParameter(0),
     myIndexParameterList(0),
     maxNumberOfParameters(GNEAttributeCarrier::getHigherNumberOfAttributes()),
@@ -892,7 +888,7 @@ GNEAdditionalFrame::additionalParameters::additionalParameters(FXComposite* pare
     }
 
     // Create help button
-    helpAdditional = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
+    helpAdditional = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -1104,7 +1100,7 @@ GNEAdditionalFrame::additionalParameters::onCmdHelp(FXObject*, FXSelector, void*
     header->setItemJustify(2, JUSTIFY_CENTER_X);
     header->setItemSize(2, maxSizeColumnDefinitions * 6);
     // Button Close
-    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     helpDialog->create();
     helpDialog->show();
     return 1;
@@ -1115,38 +1111,31 @@ GNEAdditionalFrame::additionalParameters::onCmdHelp(FXObject*, FXSelector, void*
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::editorParameters::editorParameters(FXComposite* parent) :
-    FXGroupBox(parent, "editor parameters", GUIDesignGroupBoxFrame),
+    FXGroupBox(parent, "Netedit attributes", GUIDesignGroupBoxFrame),
     myActualAdditionalReferencePoint(GNE_ADDITIONALREFERENCEPOINT_LEFT),
     myCurrentLengthValid(true) {
-    // Create FXListBox for the reference points
+    // Create FXListBox for the reference points and fill it
     myReferencePointMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_MODE_ADDITIONAL_REFERENCEPOINT, GUIDesignComboBox);
-
-    // Create Frame for Label and TextField
-    FXHorizontalFrame* lengthFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
-
-    // Create length label
-    myLengthLabel = new FXLabel(lengthFrame, "Length:", 0, GUIDesignLabelAttribute);
-
-    // Create length text field
-    myLengthTextField = new FXTextField(lengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextField);
-
-    // Set default value of length
-    myLengthTextField->setText("10");
-
-    // Create FXMenuCheck for the force option
-    myCheckForcePosition = new FXMenuCheck(this, "Force position", this, MID_GNE_MODE_ADDITIONAL_FORCEPOSITION, GUIDesignMenuCheck);
-
-    // Create FXMenuCheck for the force option
-    myCheckBlock = new FXMenuCheck(this, "Block movement", this, MID_GNE_SET_BLOCKING, GUIDesignMenuCheck);
-
-    // Create help button
-    helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
-
-    // Add options to myReferencePointMatchBox
     myReferencePointMatchBox->appendItem("reference left");
     myReferencePointMatchBox->appendItem("reference right");
     myReferencePointMatchBox->appendItem("reference center");
-
+    // Create Frame for Length Label and textField
+    FXHorizontalFrame* lengthFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLengthLabel = new FXLabel(lengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
+    myLengthTextField = new FXTextField(lengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextField);
+    myLengthTextField->setText("10");
+    // Create Frame for force position Label and checkBox
+    FXHorizontalFrame* forcePositionFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myForcePositionLabel = new FXLabel(forcePositionFrame, "force position", 0, GUIDesignLabelAttribute);
+    myCheckForcePosition = new FXMenuCheck(forcePositionFrame, "true", this, MID_GNE_MODE_ADDITIONAL_FORCEPOSITION, GUIDesignMenuCheck);
+    myCheckForcePosition->setCheck(true);
+    // Create Frame for block movement label and checkBox
+    FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myBlockLabel = new FXLabel(blockMovement, "block movement", 0, GUIDesignLabelAttribute);
+    myCheckBlock = new FXMenuCheck(blockMovement, "false", this, MID_GNE_SET_BLOCKING, GUIDesignMenuCheck);
+    myCheckBlock->setCheck(false);
+    // Create help button
+    helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
     // Set visible items
     myReferencePointMatchBox->setNumVisible((int)myReferencePointMatchBox->getNumItems());
 }
@@ -1216,7 +1205,7 @@ long
 GNEAdditionalFrame::editorParameters::onCmdSetLength(FXObject*, FXSelector, void*) {
     // change color of text field depending of the input lenght
     if (TplCheck::_str2SUMOReal(myLengthTextField->getText().text()) &&
-            TplConvert::_str2SUMOReal(myLengthTextField->getText().text()) > 0) {
+        TplConvert::_str2SUMOReal(myLengthTextField->getText().text()) > 0) {
         myLengthTextField->setTextColor(FXRGB(0, 0, 0));
         myLengthTextField->killFocus();
         myCurrentLengthValid = true;
@@ -1234,6 +1223,28 @@ long
 GNEAdditionalFrame::editorParameters::onCmdSelectReferencePoint(FXObject*, FXSelector, void*) {
     // Cast actual reference point type
     myActualAdditionalReferencePoint = static_cast<additionalReferencePoint>(myReferencePointMatchBox->getCurrentItem());
+    return 1;
+}
+
+
+long 
+GNEAdditionalFrame::editorParameters::onCmdSetBlocking(FXObject*, FXSelector, void*) {
+    if(myCheckBlock->getCheck()) {
+        myCheckBlock->setText("true");
+    } else {
+        myCheckBlock->setText("false");
+    }
+    return 1;
+}
+
+
+long 
+GNEAdditionalFrame::editorParameters::onCmdSetForcePosition(FXObject*, FXSelector, void*) {
+    if(myCheckForcePosition->getCheck()) {
+        myCheckForcePosition->setText("true");
+    } else {
+        myCheckForcePosition->setText("false");
+    }
     return 1;
 }
 
@@ -1258,7 +1269,7 @@ GNEAdditionalFrame::editorParameters::onCmdHelp(FXObject*, FXSelector, void*) {
             << "the mouse. This option can be modified with the Inspector.";
     new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelLeft);
     // "OK"
-    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     helpDialog->create();
     helpDialog->show();
     return 1;
@@ -1298,7 +1309,7 @@ GNEAdditionalFrame::additionalParentSelector::additionalParentSelector(FXComposi
     myList = new FXList(this, this, MID_GNE_SELECTADDITIONALPARENT, GUIDesignList, 0, 0, 0, 100);
 
     // Create help button
-    myHelpAdditionalParentSelector = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
+    myHelpAdditionalParentSelector = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 
     // Hide List
     hideListOfAdditionals();
@@ -1369,16 +1380,16 @@ GNEAdditionalFrame::edgeParentsSelector::edgeParentsSelector(FXComposite* parent
     myList = new FXList(this, this, MID_GNE_SELECTEDGE, GUIDesignList, 0, 0, 0, 100);
 
     // Create horizontal frame
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 
     // Create button for clear selection
-    myClearEdgesSelection = new FXButton(buttonsFrame, "Clear", 0, this, MID_GNE_CLEAREDGESELECTION, GUIDesignButtonHelp);
+    myClearEdgesSelection = new FXButton(buttonsFrame, "Clear", 0, this, MID_GNE_CLEAREDGESELECTION, GUIDesignButtonRectangular);
 
     // Create button for invert selection
-    myInvertEdgesSelection = new FXButton(buttonsFrame, "Invert", 0, this, MID_GNE_INVERTEDGESELECTION, GUIDesignButtonHelp);
+    myInvertEdgesSelection = new FXButton(buttonsFrame, "Invert", 0, this, MID_GNE_INVERTEDGESELECTION, GUIDesignButtonRectangular);
 
     // Create help button
-    myHelpedgeParentsSelector = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
+    myHelpedgeParentsSelector = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 
     // Hide List
     hideList();
@@ -1530,16 +1541,16 @@ GNEAdditionalFrame::laneParentsSelector::laneParentsSelector(FXComposite* parent
     myList = new FXList(this, this, MID_GNE_SELECTLANE, GUIDesignList, 0, 0, 0, 100);
 
     // Create horizontal frame
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 
     // Create button for clear selection
-    clearLanesSelection = new FXButton(buttonsFrame, "clear", 0, this, MID_GNE_CLEARLANESELECTION, GUIDesignButtonHelp);
+    clearLanesSelection = new FXButton(buttonsFrame, "clear", 0, this, MID_GNE_CLEARLANESELECTION, GUIDesignButtonRectangular);
 
     // Create button for invert selection
-    invertLanesSelection = new FXButton(buttonsFrame, "invert", 0, this, MID_GNE_INVERTLANESELECTION, GUIDesignButtonHelp);
+    invertLanesSelection = new FXButton(buttonsFrame, "invert", 0, this, MID_GNE_INVERTLANESELECTION, GUIDesignButtonRectangular);
 
     // Create help button
-    helpLanes = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
+    helpLanes = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 
     // Hide List
     hideList();

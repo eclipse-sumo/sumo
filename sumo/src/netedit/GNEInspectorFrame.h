@@ -56,7 +56,7 @@ public:
     // class AttrInput
     // ===========================================================================
 
-    class AttrInput : public FXMatrix  {
+    class AttrInput : public FXHorizontalFrame  {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::AttrInput)
 
@@ -273,6 +273,9 @@ private:
 
     /// @brief GropuBox for editor attributes
     FXGroupBox* myGroupBoxForEditor;
+
+    /// @brief Label for Check blocked
+    FXLabel* myCheckBlockedLabel;
 
     /// @brief pointer to menu check block
     FXMenuCheck* myCheckBlocked;

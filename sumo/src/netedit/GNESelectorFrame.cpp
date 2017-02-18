@@ -121,7 +121,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // Set default value for Match string
     myMatchString->setText(">10.0");
     // Create help button
-    new FXButton(matchBox, "Help", 0, this, MID_HELP, GUIDesignButtonHelp);
+    new FXButton(matchBox, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
     // Create Groupbox for visual scalings
     FXGroupBox* selSizeBox = new FXGroupBox(myContentFrame, "Visual Scaling", GUIDesignGroupBoxFrame);
     // Create spin button and configure it
@@ -347,7 +347,7 @@ GNESelectorFrame::onCmdHelp(FXObject*, FXSelector, void*) {
             << "edge; speed; '>10' -> match all edges with a speed above 10\n";
     new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelLeft);
     // "OK"
-    new FXButton(helpDialog, "OK\t\tSave modifications", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonDialog, 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(helpDialog, "OK\t\tSave modifications", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     helpDialog->create();
     helpDialog->show();
     return 1;
