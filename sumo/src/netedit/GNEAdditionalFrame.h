@@ -53,19 +53,19 @@ class GNEAdditionalFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class singleAdditionalParameter
+    // class AdditionalAttributeSingle
     // ===========================================================================
 
-    class singleAdditionalParameter : public FXHorizontalFrame {
+    class AdditionalAttributeSingle : public FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::singleAdditionalParameter)
+        FXDECLARE(GNEAdditionalFrame::AdditionalAttributeSingle)
 
     public:
         /// @brief constructor
-        singleAdditionalParameter(FXComposite* parent);
+        AdditionalAttributeSingle(FXComposite* parent);
 
         /// @brief destructor
-        ~singleAdditionalParameter();
+        ~AdditionalAttributeSingle();
 
         /// @brief show name and value of attribute of type string
         void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::string value);
@@ -105,7 +105,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        singleAdditionalParameter() {}
+        AdditionalAttributeSingle() {}
 
     private:
         /// @brief current XML attribute
@@ -131,19 +131,19 @@ public:
     };
 
     // ===========================================================================
-    // class singleAdditionalParameterList
+    // class AdditionalAttributeList
     // ===========================================================================
 
-    class singleAdditionalParameterList : public FXVerticalFrame {
+    class AdditionalAttributeList : public FXVerticalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::singleAdditionalParameterList)
+        FXDECLARE(GNEAdditionalFrame::AdditionalAttributeList)
 
     public:
         /// @brief constructor
-        singleAdditionalParameterList(FXComposite* parent);
+        AdditionalAttributeList(FXComposite* parent);
 
         /// @brief destructor
-        ~singleAdditionalParameterList();
+        ~AdditionalAttributeList();
 
         /// @brief show name and value of parameters of type int
         void showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<int> value);
@@ -183,7 +183,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        singleAdditionalParameterList() {}
+        AdditionalAttributeList() {}
 
     private:
         /// @brief current XML tag
@@ -218,25 +218,25 @@ public:
     };
 
     // ===========================================================================
-    // class additionalParameters
+    // class AdditionalAttributes
     // ===========================================================================
 
-    class additionalParameters : public FXGroupBox {
+    class AdditionalAttributes : public FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::additionalParameters)
+        FXDECLARE(GNEAdditionalFrame::AdditionalAttributes)
 
     public:
         /// @brief constructor
-        additionalParameters(FXComposite* parent);
+        AdditionalAttributes(FXComposite* parent);
 
         /// @brief destructor
-        ~additionalParameters();
+        ~AdditionalAttributes();
 
         /// @brief clear attributes
         void clearAttributes();
 
         /// @brief add attribute
-        void addAttribute(SumoXMLTag additionalTag, SumoXMLAttr additionalAttribute);
+        void addAttribute(SumoXMLTag additionalTag, SumoXMLAttr AdditionalAttributeSingle);
 
         /// @brief show group box
         void showAdditionalParameters();
@@ -248,7 +248,7 @@ public:
         std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;
 
         /// @brief check if all values defined by user are valid
-        bool isValuesValid() const;
+        bool areValuesValid() const;
 
         /// @brief get number of added attributes
         int getNumberOfAddedAttributes() const;
@@ -261,20 +261,20 @@ public:
 
     protected:
         /// @brief FOX needs this
-        additionalParameters() {}
+        AdditionalAttributes() {}
 
     private:
         /// @brief current additional tag
         SumoXMLTag myAdditionalTag;
 
         /// @brief vector with the additional parameters
-        std::vector<singleAdditionalParameter*> myVectorOfsingleAdditionalParameter;
+        std::vector<AdditionalAttributeSingle*> myVectorOfsingleAdditionalParameter;
 
         /// @brief Index for myVectorOfsingleAdditionalParameter
         int myIndexParameter;
 
         /// @brief vector with the additional parameters of type list
-        std::vector<singleAdditionalParameterList*> myVectorOfsingleAdditionalParameterList;
+        std::vector<AdditionalAttributeList*> myVectorOfsingleAdditionalParameterList;
 
         /// @brief index for myIndexParameterList
         int myIndexParameterList;
@@ -290,12 +290,12 @@ public:
     };
 
     // ===========================================================================
-    // class editorParameters
+    // class NeteditAttributes
     // ===========================================================================
 
-    class editorParameters : public FXGroupBox {
+    class NeteditAttributes : public FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::editorParameters)
+        FXDECLARE(GNEAdditionalFrame::NeteditAttributes)
 
     public:
         /// @brief list of the reference points
@@ -306,10 +306,10 @@ public:
         };
 
         /// @brief constructor
-        editorParameters(FXComposite* parent);
+        NeteditAttributes(FXComposite* parent);
 
         /// @brief destructor
-        ~editorParameters();
+        ~NeteditAttributes();
 
         /// @brief show length field
         void showLengthField();
@@ -358,7 +358,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        editorParameters() {}
+        NeteditAttributes() {}
 
     private:
         /// @brief match box with the list of reference points
@@ -393,32 +393,32 @@ public:
     };
 
     // ===========================================================================
-    // class additionalParentSelector
+    // class SelectorParentAdditional
     // ===========================================================================
 
-    class additionalParentSelector : public FXGroupBox {
+    class SelectorParentAdditional : public FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::additionalParentSelector)
+        FXDECLARE(GNEAdditionalFrame::SelectorParentAdditional)
 
     public:
         /// @brief constructor
-        additionalParentSelector(FXComposite* parent, GNEViewNet* viewNet);
+        SelectorParentAdditional(FXComposite* parent, GNEViewNet* viewNet);
 
         /// @brief destructor
-        ~additionalParentSelector();
+        ~SelectorParentAdditional();
 
         /// @brief get if currently additional Set
         std::string getIdSelected() const;
 
-        /// @brief Show list of additionalParentSelector
+        /// @brief Show list of SelectorParentAdditional
         void showListOfAdditionals(SumoXMLTag type, bool uniqueSelection);
 
-        /// @brief hide additionalParentSelector
+        /// @brief hide SelectorParentAdditional
         void hideListOfAdditionals();
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief called when user select an additionalParentSelector of the list
+        /// @brief called when user select an SelectorParentAdditional of the list
         long onCmdSelectAdditionalParent(FXObject*, FXSelector, void*);
 
         /// @brief Called when help button is pressed
@@ -427,7 +427,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        additionalParentSelector() {}
+        SelectorParentAdditional() {}
 
     private:
 
@@ -448,27 +448,27 @@ public:
     };
 
     // ===========================================================================
-    // class edgeParentsSelector
+    // class SelectorParentEdges
     // ===========================================================================
 
-    class edgeParentsSelector : public FXGroupBox {
+    class SelectorParentEdges : public FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::edgeParentsSelector)
+        FXDECLARE(GNEAdditionalFrame::SelectorParentEdges)
 
     public:
         /// @brief constructor
-        edgeParentsSelector(FXComposite* parent, GNEViewNet* viewNet);
+        SelectorParentEdges(FXComposite* parent, GNEViewNet* viewNet);
 
         /// @brief destructor
-        ~edgeParentsSelector();
+        ~SelectorParentEdges();
 
         /// @brief get list of selecte id's in string format
         std::string getIdsSelected() const;
 
-        /// @brief Show list of edgeParentsSelector
+        /// @brief Show list of SelectorParentEdges
         void showList(std::string search = "");
 
-        /// @brief hide edgeParentsSelector
+        /// @brief hide SelectorParentEdges
         void hideList();
 
         /// @brief Update use selectedEdges
@@ -500,13 +500,13 @@ public:
 
     protected:
         /// @brief FOX needs this
-        edgeParentsSelector() {}
+        SelectorParentEdges() {}
 
     private:
         /// @brief CheckBox for selected edges
         FXMenuCheck* myUseSelectedEdges;
 
-        /// @brief List of edgeParentsSelector
+        /// @brief List of SelectorParentEdges
         FXList* myList;
 
         /// @brief text field for search edge IDs
@@ -526,27 +526,27 @@ public:
     };
 
     // ===========================================================================
-    // class laneParentsSelector
+    // class SelectorParentLanes
     // ===========================================================================
 
-    class laneParentsSelector : public FXGroupBox {
+    class SelectorParentLanes : public FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::laneParentsSelector)
+        FXDECLARE(GNEAdditionalFrame::SelectorParentLanes)
 
     public:
         /// @brief constructor
-        laneParentsSelector(FXComposite* parent, GNEViewNet* viewNet);
+        SelectorParentLanes(FXComposite* parent, GNEViewNet* viewNet);
 
         /// @brief destructor
-        ~laneParentsSelector();
+        ~SelectorParentLanes();
 
         /// @brief get list of selecte id's in string format
         std::string getIdsSelected() const;
 
-        /// @brief Show list of laneParentsSelector
+        /// @brief Show list of SelectorParentLanes
         void showList(std::string search = "");
 
-        /// @brief hide laneParentsSelector
+        /// @brief hide SelectorParentLanes
         void hideList();
 
         // @brief Update use selectedLanes
@@ -578,13 +578,13 @@ public:
 
     protected:
         /// @brief FOX needs this
-        laneParentsSelector() {}
+        SelectorParentLanes() {}
 
     private:
         /// @brief CheckBox for selected lanes
         FXMenuCheck* myUseSelectedLanes;
 
-        /// @brief List of laneParentsSelector
+        /// @brief List of SelectorParentLanes
         FXList* myList;
 
         /// @brief text field for search lane IDs
@@ -660,19 +660,19 @@ private:
     FXComboBox* myAdditionalMatchBox;
 
     /// @brief additional internal attributes
-    GNEAdditionalFrame::additionalParameters* myadditionalParameters;
+    GNEAdditionalFrame::AdditionalAttributes* myadditionalParameters;
 
     /// @brief Netedit parameter
-    GNEAdditionalFrame::editorParameters* myEditorParameters;
+    GNEAdditionalFrame::NeteditAttributes* myEditorParameters;
 
     /// @brief list of additional Set
-    GNEAdditionalFrame::additionalParentSelector* myAdditionalParentSelector;
+    GNEAdditionalFrame::SelectorParentAdditional* myAdditionalParentSelector;
 
-    /// @brief list of edgeParentsSelector
-    GNEAdditionalFrame::edgeParentsSelector* myedgeParentsSelector;
+    /// @brief list of SelectorParentEdges
+    GNEAdditionalFrame::SelectorParentEdges* myedgeParentsSelector;
 
-    /// @brief list of laneParentsSelector
-    GNEAdditionalFrame::laneParentsSelector* mylaneParentsSelector;
+    /// @brief list of SelectorParentLanes
+    GNEAdditionalFrame::SelectorParentLanes* mylaneParentsSelector;
 
     /// @brief actual additional type selected in the match Box
     SumoXMLTag myActualAdditionalType;

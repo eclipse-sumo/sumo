@@ -94,19 +94,19 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
 };
 
 
-FXDEFMAP(GNEInspectorFrame::AttrInput) AttrInputMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,         GNEInspectorFrame::AttrInput::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_OPEN_ATTRIBUTE_EDITOR, GNEInspectorFrame::AttrInput::onCmdOpenAttributeEditor)
+FXDEFMAP(GNEInspectorFrame::AttributeInput) AttrInputMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,         GNEInspectorFrame::AttributeInput::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_OPEN_ATTRIBUTE_EDITOR, GNEInspectorFrame::AttributeInput::onCmdOpenAttributeEditor)
 };
 
-FXDEFMAP(GNEInspectorFrame::AttrEditor) AttrEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_INSPECT_RESET, GNEInspectorFrame::AttrEditor::onCmdReset),
+FXDEFMAP(GNEInspectorFrame::AttributeEditor) AttrEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_INSPECT_RESET, GNEInspectorFrame::AttributeEditor::onCmdReset),
 };
 
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame, FXVerticalFrame, GNEInspectorFrameMap, ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT(GNEInspectorFrame::AttrInput, FXHorizontalFrame, AttrInputMap, ARRAYNUMBER(AttrInputMap))
-FXIMPLEMENT(GNEInspectorFrame::AttrEditor, FXDialogBox, AttrEditorMap, ARRAYNUMBER(AttrEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::AttributeInput, FXHorizontalFrame, AttrInputMap, ARRAYNUMBER(AttrInputMap))
+FXIMPLEMENT(GNEInspectorFrame::AttributeEditor, FXDialogBox, AttrEditorMap, ARRAYNUMBER(AttrEditorMap))
 
 // ===========================================================================
 // method definitions
@@ -128,9 +128,9 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGroupBoxForAttributes = new FXGroupBox(myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame);
     myGroupBoxForAttributes->hide();
 
-    // Create AttrInput
+    // Create AttributeInput
     for (int i = 0; i < (int)GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
-        vectorOfAttrInput.push_back(new AttrInput(myGroupBoxForAttributes, this));
+        vectorOfAttrInput.push_back(new AttributeInput(myGroupBoxForAttributes, this));
     }
 
     // Create groupBox for Netedit parameters
@@ -224,8 +224,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         //Show myGroupBoxForAttributes
         myGroupBoxForAttributes->show();
 
-        // Hide all AttrInput
-        for (std::vector<GNEInspectorFrame::AttrInput*>::iterator i = vectorOfAttrInput.begin(); i != vectorOfAttrInput.end(); i++) {
+        // Hide all AttributeInput
+        for (std::vector<GNEInspectorFrame::AttributeInput*>::iterator i = vectorOfAttrInput.begin(); i != vectorOfAttrInput.end(); i++) {
             (*i)->hideAttribute();
         }
 
@@ -234,7 +234,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         const std::vector<SumoXMLAttr>& attrs = myACs.front()->getAttrs();
 
         // Declare iterator over AttrImput
-        std::vector<GNEInspectorFrame::AttrInput*>::iterator itAttrs = vectorOfAttrInput.begin();
+        std::vector<GNEInspectorFrame::AttributeInput*>::iterator itAttrs = vectorOfAttrInput.begin();
 
         // Iterate over attributes
         for (std::vector<SumoXMLAttr>::const_iterator it = attrs.begin(); it != attrs.end(); it++) {
@@ -715,10 +715,10 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
 }
 
 // ===========================================================================
-// AttrInput method definitions
+// AttributeInput method definitions
 // ===========================================================================
 
-GNEInspectorFrame::AttrInput::AttrInput(FXComposite* parent, GNEInspectorFrame* inspectorFrameParent) :
+GNEInspectorFrame::AttributeInput::AttributeInput(FXComposite* parent, GNEInspectorFrame* inspectorFrameParent) :
     FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame),
     myInspectorFrameParent(inspectorFrameParent),
     myTag(SUMO_TAG_NOTHING),
@@ -752,7 +752,7 @@ GNEInspectorFrame::AttrInput::AttrInput(FXComposite* parent, GNEInspectorFrame* 
 
 
 void
-GNEInspectorFrame::AttrInput::showAttribute(SumoXMLTag tag, SumoXMLAttr attr, const std::string& value) {
+GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag tag, SumoXMLAttr attr, const std::string& value) {
     // Set actual Tag and attribute
     myTag = tag;
     myAttr = attr;
@@ -814,13 +814,13 @@ GNEInspectorFrame::AttrInput::showAttribute(SumoXMLTag tag, SumoXMLAttr attr, co
         myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
         myTextFieldStrings->show();
     }
-    // Show AttrInput
+    // Show AttributeInput
     show();
 }
 
 
 void
-GNEInspectorFrame::AttrInput::hideAttribute() {
+GNEInspectorFrame::AttributeInput::hideAttribute() {
     // Hide all elements
     myLabel->hide();
     myTextFieldInt->hide();
@@ -830,33 +830,33 @@ GNEInspectorFrame::AttrInput::hideAttribute() {
     myChoicesCombo->hide();
     myCheckBox->hide();
     myButtonCombinableChoices->hide();
-    // hide AttrInput
+    // hide AttributeInput
     hide();
 }
 
 
 SumoXMLTag
-GNEInspectorFrame::AttrInput::getTag() const {
+GNEInspectorFrame::AttributeInput::getTag() const {
     return myTag;
 }
 
 
 SumoXMLAttr
-GNEInspectorFrame::AttrInput::getAttr() const {
+GNEInspectorFrame::AttributeInput::getAttr() const {
     return myAttr;
 }
 
 
 long
-GNEInspectorFrame::AttrInput::onCmdOpenAttributeEditor(FXObject*, FXSelector, void*) {
-    // Open AttrEditor
-    AttrEditor(this, myTextFieldStrings);
+GNEInspectorFrame::AttributeInput::onCmdOpenAttributeEditor(FXObject*, FXSelector, void*) {
+    // Open AttributeEditor
+    AttributeEditor(this, myTextFieldStrings);
     return 1;
 }
 
 
 long
-GNEInspectorFrame::AttrInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // Declare changed value
     std::string newVal;
     // First, obtain the string value of the new attribute depending of their type
@@ -874,7 +874,7 @@ GNEInspectorFrame::AttrInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
         const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
         // Check if are combinable coices
         if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
-            // Get value obtained using AttrEditor
+            // Get value obtained using AttributeEditor
             newVal = myTextFieldStrings->getText().text();
         } else {
             // Get value of ComboBox
@@ -959,21 +959,21 @@ GNEInspectorFrame::AttrInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
 
 
 void
-GNEInspectorFrame::AttrInput::show() {
+GNEInspectorFrame::AttributeInput::show() {
     FXHorizontalFrame::show();
 }
 
 
 void
-GNEInspectorFrame::AttrInput::hide() {
+GNEInspectorFrame::AttributeInput::hide() {
     FXHorizontalFrame::hide();
 }
 
 // ===========================================================================
-// AttrEditor method definitions
+// AttributeEditor method definitions
 // ===========================================================================
 
-GNEInspectorFrame::AttrEditor::AttrEditor(AttrInput* attrInputParent, FXTextField* textFieldAttr) :
+GNEInspectorFrame::AttributeEditor::AttributeEditor(AttributeInput* attrInputParent, FXTextField* textFieldAttr) :
     FXDialogBox(attrInputParent->getApp(), ("Editing attribute '" + toString(attrInputParent->getAttr()) + "'").c_str(), GUIDesignDialogBox),
     myAttrInputParent(attrInputParent),
     myTextFieldAttr(textFieldAttr) {
@@ -1032,11 +1032,11 @@ GNEInspectorFrame::AttrEditor::AttrEditor(AttrInput* attrInputParent, FXTextFiel
 }
 
 
-GNEInspectorFrame::AttrEditor::~AttrEditor() {}
+GNEInspectorFrame::AttributeEditor::~AttributeEditor() {}
 
 
 long
-GNEInspectorFrame::AttrEditor::onCmdReset(FXObject*, FXSelector, void*) {
+GNEInspectorFrame::AttributeEditor::onCmdReset(FXObject*, FXSelector, void*) {
     // Obtain vector with the choices
     const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myAttrInputParent->getTag(), myAttrInputParent->getAttr());
     // Get old value

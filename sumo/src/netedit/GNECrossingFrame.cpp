@@ -209,7 +209,7 @@ GNECrossingFrame::edgesSelector::onCmdHelp(FXObject*, FXSelector, void*) {
 
 
 // ---------------------------------------------------------------------------
-// GNECrossingFrame::editorParameters- methods
+// GNECrossingFrame::NeteditAttributes- methods
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::crossingParameters::crossingParameters(GNECrossingFrame* crossingFrameParent, GNECrossingFrame::edgesSelector* es) :

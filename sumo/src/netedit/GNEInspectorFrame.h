@@ -53,16 +53,16 @@ class GNEInspectorFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class AttrInput
+    // class AttributeInput
     // ===========================================================================
 
-    class AttrInput : public FXHorizontalFrame  {
+    class AttributeInput : public FXHorizontalFrame  {
         /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::AttrInput)
+        FXDECLARE(GNEInspectorFrame::AttributeInput)
 
     public:
         /// @brief constructor
-        AttrInput(FXComposite* parent, GNEInspectorFrame* inspectorFrameParent);
+        AttributeInput(FXComposite* parent, GNEInspectorFrame* inspectorFrameParent);
 
         /// @brief show attribute
         void showAttribute(SumoXMLTag tag, SumoXMLAttr attr, const std::string& value);
@@ -84,7 +84,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        AttrInput() {}
+        AttributeInput() {}
 
     private:
         /// @brief pointer to GNEInspectorFrame parent
@@ -128,30 +128,30 @@ public:
     };
 
     // ===========================================================================
-    // class AttrEditor
+    // class AttributeEditor
     // ===========================================================================
 
-    class AttrEditor : public FXDialogBox {
+    class AttributeEditor : public FXDialogBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::AttrEditor)
+        FXDECLARE(GNEInspectorFrame::AttributeEditor)
 
     public:
         /// @brief constructor
-        AttrEditor(AttrInput* attrInputParent, FXTextField* textFieldAttr);
+        AttributeEditor(AttributeInput* attrInputParent, FXTextField* textFieldAttr);
 
         /// @brief destructor
-        ~AttrEditor();
+        ~AttributeEditor();
 
         /// @brief call when user press button reset
         long onCmdReset(FXObject*, FXSelector, void*);
 
     protected:
         /// @brief FOX needs this
-        AttrEditor() {}
+        AttributeEditor() {}
 
     private:
-        /// @brief Pointer to AttrInput parent
-        AttrInput* myAttrInputParent;
+        /// @brief Pointer to AttributeInput parent
+        AttributeInput* myAttrInputParent;
 
         // @brief Pointer to TexField in which write attribute
         FXTextField* myTextFieldAttr;
@@ -254,7 +254,7 @@ private:
     FXGroupBox* myGroupBoxForAttributes;
 
     /// @brief list of Attribute inputs
-    std::vector<GNEInspectorFrame::AttrInput*> vectorOfAttrInput;
+    std::vector<GNEInspectorFrame::AttributeInput*> vectorOfAttrInput;
 
     /// @brief back Button
     FXButton* myBackButton;
