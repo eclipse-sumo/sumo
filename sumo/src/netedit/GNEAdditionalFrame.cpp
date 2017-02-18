@@ -1124,12 +1124,12 @@ GNEAdditionalFrame::NeteditAttributes::NeteditAttributes(FXComposite* parent) :
     myLengthLabel = new FXLabel(lengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
     myLengthTextField = new FXTextField(lengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextField);
     myLengthTextField->setText("10");
-    // Create Frame for force position Label and checkBox
+    // Create Frame for force position Label and checkBox (By default disabled)
     FXHorizontalFrame* forcePositionFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myForcePositionLabel = new FXLabel(forcePositionFrame, "force position", 0, GUIDesignLabelAttribute);
-    myCheckForcePosition = new FXMenuCheck(forcePositionFrame, "true", this, MID_GNE_MODE_ADDITIONAL_FORCEPOSITION, GUIDesignMenuCheck);
-    myCheckForcePosition->setCheck(true);
-    // Create Frame for block movement label and checkBox
+    myCheckForcePosition = new FXMenuCheck(forcePositionFrame, "false", this, MID_GNE_MODE_ADDITIONAL_FORCEPOSITION, GUIDesignMenuCheck);
+    myCheckForcePosition->setCheck(false);
+    // Create Frame for block movement label and checkBox (By default disabled)
     FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myBlockLabel = new FXLabel(blockMovement, "block movement", 0, GUIDesignLabelAttribute);
     myCheckBlock = new FXMenuCheck(blockMovement, "false", this, MID_GNE_SET_BLOCKING, GUIDesignMenuCheck);
