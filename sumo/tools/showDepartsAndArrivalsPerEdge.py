@@ -73,22 +73,20 @@ def main():
         if options.subpart is not None:
             sys.stderr.print("Warning: Ignoring trips when using --subpart")
             break
-
         departCounts[trip.fromTaz] += 1
         arrivalCounts[trip.toTaz] += 1
     for walk in parse_fast(options.routefile, 'walk', ['from', 'to']):
         if options.subpart is not None:
             sys.stderr.print("Warning: Ignoring trips when using --subpart")
             break
-
         departCounts[walk.attr_from] += 1
         arrivalCounts[walk.to] += 1
 
     departStats = Statistics("departEdges")
     arrivalStats = Statistics("arrivalEdges")
-    for e in departCounts.keys():
+    for e in sorted(departCounts.keys()):
         departStats.add(departCounts[e], e)
-    for e in arrivalCounts.keys():
+    for e in sorted(arrivalCounts.keys()):
         arrivalStats.add(arrivalCounts[e], e)
     print(departStats)
     print(arrivalStats)
@@ -98,9 +96,9 @@ def main():
         outf.write('   <interval begin="0" end="10000" id="routeStats">\n')
         allEdges = set(departCounts.keys())
         allEdges.update(arrivalCounts.keys())
-        for e in sorted(list(allEdges)):
-            outf.write('      <edge id="%s" departed="%s" arrived="%s" delta="%s"/>\n' % (e,
-                                                                                          departCounts[e], arrivalCounts[e], arrivalCounts[e] - departCounts[e]))
+        for e in sorted(allEdges):
+            outf.write('      <edge id="%s" departed="%s" arrived="%s" delta="%s"/>\n' % \
+                       (e, departCounts[e], arrivalCounts[e], arrivalCounts[e] - departCounts[e]))
         outf.write("   </interval>\n")
         outf.write("</edgedata>\n")
 

@@ -74,17 +74,18 @@ def main():
     lengths = {}
     lengths2 = {}
 
-    for vehicle in parse(options.routeFile, 'vehicle'):
-        lengths[vehicle.id] = getRouteLength(net, vehicle)
-
     if options.routeFile2 is None:
         # write statistics on a single route file
         stats = Statistics(
             "route lengths", histogram=True, scale=options.binwidth)
-        for id, length in lengths.items():
-            stats.add(length, id)
 
-    else:
+    for vehicle in parse(options.routeFile, 'vehicle'):
+        length = getRouteLength(net, vehicle)
+        if options.routeFile2 is None:
+            stats.add(length, vehicle.id)
+        lengths[vehicle.id] = length
+
+    if options.routeFile2 is not None:
         # compare route lengths between two files
         stats = Statistics(
             "route length difference", histogram=True, scale=options.binwidth)

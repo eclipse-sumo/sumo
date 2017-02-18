@@ -22,7 +22,7 @@ from __future__ import absolute_import
 import sys
 import re
 import xml.etree.cElementTree as ET
-from collections import namedtuple, defaultdict
+from collections import namedtuple, OrderedDict
 from keyword import iskeyword
 from functools import reduce
 from xml.sax import make_parser
@@ -161,7 +161,7 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
             parsenode.clear()
 
 
-_NO_CHILDREN = defaultdict(lambda: [])
+_NO_CHILDREN = {}
 _IDENTITY = lambda x: x
 
 
@@ -178,9 +178,9 @@ def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_c
     # prepare children
     child_dict = _NO_CHILDREN  # conserve space by reusing singleton
     if len(node) > 0:
-        child_dict = defaultdict(lambda: [])
+        child_dict = OrderedDict()
         for c in node:
-            child_dict[c.tag].append(_get_compound_object(
+            child_dict.setdefault(c.tag, []).append(_get_compound_object(
                 c, elementTypes, c.tag, element_attrs, attr_conversions,
                 heterogeneous, warn))
     attrnames = elementTypes[element_name]._original_fields
