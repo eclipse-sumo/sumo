@@ -89,7 +89,7 @@ protected:
     FXButton* myResetButton;
 
     /// @brief map with the buttons for every VClass
-    std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*>> myVClassMap;
+    std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*> > myVClassMap;
 
 private:
     /// @brief Invalidated copy constructor.

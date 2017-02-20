@@ -408,7 +408,7 @@ long
 GNEDialog_AllowDisallow::onCmdValueChanged(FXObject* obj, FXSelector, void*) {
     FXButton *buttonPressed = dynamic_cast<FXButton*>(obj);
     // change icon of button
-    for(std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*>>::iterator i = myVClassMap.begin(); i != myVClassMap.end(); i++) {
+    for(std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*> >::iterator i = myVClassMap.begin(); i != myVClassMap.end(); i++) {
         if(i->second.first == buttonPressed) {
             if(buttonPressed->getIcon() == GUIIconSubSys::getIcon(ICON_ACCEPT)) {
                 buttonPressed->setIcon(GUIIconSubSys::getIcon(ICON_CANCEL));
@@ -426,7 +426,7 @@ long
 GNEDialog_AllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
     // clear allow and disallow VClasses
     std::vector<std::string> allowedVehicles;
-    for(std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*>>::iterator i = myVClassMap.begin(); i != myVClassMap.end(); i++) {
+    for(std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*> >::iterator i = myVClassMap.begin(); i != myVClassMap.end(); i++) {
         // check if vehicle is alloweddepending of the Icon
         if(i->second.first->getIcon() == GUIIconSubSys::getIcon(ICON_ACCEPT)) {
             allowedVehicles.push_back(getVehicleClassNames(i->first) );
@@ -454,7 +454,7 @@ GNEDialog_AllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
     std::vector<std::string> allowStringVector;
     SUMOSAXAttributes::parseStringVector(myCopyOfAllow, allowStringVector);
     // iterate over myVClassMap and set icons
-    for(std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*>>::iterator i = myVClassMap.begin(); i != myVClassMap.end(); i++) {
+    for(std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*> >::iterator i = myVClassMap.begin(); i != myVClassMap.end(); i++) {
         if(std::find(allowStringVector.begin(), allowStringVector.end(), getVehicleClassNames(i->first)) != allowStringVector.end()) {
             i->second.first->setIcon(GUIIconSubSys::getIcon(ICON_ACCEPT));
             i->second.second->setText((getVehicleClassNames(i->first) + " allowed").c_str());
