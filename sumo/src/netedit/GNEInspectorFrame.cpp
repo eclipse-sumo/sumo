@@ -65,6 +65,7 @@
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
+#include "GNEDialog_AllowDisallow.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -96,17 +97,12 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
 
 FXDEFMAP(GNEInspectorFrame::AttributeInput) AttrInputMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,         GNEInspectorFrame::AttributeInput::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_OPEN_ATTRIBUTE_EDITOR, GNEInspectorFrame::AttributeInput::onCmdOpenAttributeEditor)
-};
-
-FXDEFMAP(GNEInspectorFrame::AttributeEditor) AttrEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_MODE_INSPECT_RESET, GNEInspectorFrame::AttributeEditor::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_OPEN_ATTRIBUTE_EDITOR, GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor)
 };
 
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame, FXVerticalFrame, GNEInspectorFrameMap, ARRAYNUMBER(GNEInspectorFrameMap))
 FXIMPLEMENT(GNEInspectorFrame::AttributeInput, FXHorizontalFrame, AttrInputMap, ARRAYNUMBER(AttrInputMap))
-FXIMPLEMENT(GNEInspectorFrame::AttributeEditor, FXDialogBox, AttrEditorMap, ARRAYNUMBER(AttrEditorMap))
 
 // ===========================================================================
 // method definitions
@@ -130,7 +126,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
 
     // Create AttributeInput
     for (int i = 0; i < (int)GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
-        vectorOfAttrInput.push_back(new AttributeInput(myGroupBoxForAttributes, this));
+        myVectorOfAttributeInputs.push_back(new AttributeInput(myGroupBoxForAttributes, this));
     }
 
     // Create groupBox for Netedit parameters
@@ -225,7 +221,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         myGroupBoxForAttributes->show();
 
         // Hide all AttributeInput
-        for (std::vector<GNEInspectorFrame::AttributeInput*>::iterator i = vectorOfAttrInput.begin(); i != vectorOfAttrInput.end(); i++) {
+        for (std::vector<GNEInspectorFrame::AttributeInput*>::iterator i = myVectorOfAttributeInputs.begin(); i != myVectorOfAttributeInputs.end(); i++) {
             (*i)->hideAttribute();
         }
 
@@ -234,7 +230,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         const std::vector<SumoXMLAttr>& attrs = myACs.front()->getAttrs();
 
         // Declare iterator over AttrImput
-        std::vector<GNEInspectorFrame::AttributeInput*>::iterator itAttrs = vectorOfAttrInput.begin();
+        std::vector<GNEInspectorFrame::AttributeInput*>::iterator itAttrs = myVectorOfAttributeInputs.begin();
 
         // Iterate over attributes
         for (std::vector<SumoXMLAttr>::const_iterator it = attrs.begin(); it != attrs.end(); it++) {
@@ -432,7 +428,7 @@ GNEInspectorFrame::onCmdShowChildMenu(FXObject*, FXSelector, void* data) {
     FXEvent* e = (FXEvent*) data;
     FXTreeItem* item = myTreelist->getItemAt(e->win_x, e->win_y);
     // Check if there are an item in the position and create pop-up menu
-    if (item && (myTreeItesmWithoutAC.find(item) == myTreeItesmWithoutAC.end())) {
+    if (item && (myTreeItemsWithoutAC.find(item) == myTreeItemsWithoutAC.end())) {
         createPopUpMenu(e->root_x, e->root_y, myTreeItemToACMap[myTreelist->getItemAt(e->win_x, e->win_y)]);
     }
     return 1;
@@ -503,7 +499,7 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
     // clear items
     myTreelist->clearItems();
     myTreeItemToACMap.clear();
-    myTreeItesmWithoutAC.clear();
+    myTreeItemsWithoutAC.clear();
     myGroupBoxForTreeList->show();
     // Switch gl type of ac
     switch (dynamic_cast<GUIGlObject*>(myACs.front())->getType()) {
@@ -535,7 +531,7 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
                     // insert incoming connections of lanes (by default isn't expanded)
                     if (lane->getGNEIncomingConnections().size() > 0) {
                         FXTreeItem* incomingConnections = myTreelist->insertItem(0, laneItem, "Incomings", lane->getGNEIncomingConnections().front()->getIcon(), lane->getGNEIncomingConnections().front()->getIcon());
-                        myTreeItesmWithoutAC.insert(incomingConnections);
+                        myTreeItemsWithoutAC.insert(incomingConnections);
                         incomingConnections->setExpanded(false);
                         for (int k = 0; k < (int)lane->getGNEIncomingConnections().size(); k++) {
                             GNEConnection* connection = lane->getGNEIncomingConnections().at(k);
@@ -547,7 +543,7 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
                     // insert outcoming connections of lanes (by default isn't expanded)
                     if (lane->getGNEOutcomingConnections().size() > 0) {
                         FXTreeItem* outgoingConnections = myTreelist->insertItem(0, laneItem, "Outcomings", lane->getGNEOutcomingConnections().front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
-                        myTreeItesmWithoutAC.insert(outgoingConnections);
+                        myTreeItemsWithoutAC.insert(outgoingConnections);
                         outgoingConnections->setExpanded(false);
                         for (int k = 0; k < (int)lane->getGNEOutcomingConnections().size(); k++) {
                             GNEConnection* connection = lane->getGNEOutcomingConnections().at(k);
@@ -597,7 +593,7 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
                 // insert incoming connections of lanes (by default isn't expanded)
                 if (lane->getGNEIncomingConnections().size() > 0) {
                     FXTreeItem* incomingConnections = myTreelist->insertItem(0, laneItem, "Incomings", lane->getGNEIncomingConnections().front()->getIcon(), lane->getGNEIncomingConnections().front()->getIcon());
-                    myTreeItesmWithoutAC.insert(incomingConnections);
+                    myTreeItemsWithoutAC.insert(incomingConnections);
                     incomingConnections->setExpanded(false);
                     for (int j = 0; j < (int)lane->getGNEIncomingConnections().size(); j++) {
                         GNEConnection* connection = lane->getGNEIncomingConnections().at(j);
@@ -609,7 +605,7 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
                 // insert outcoming connections of lanes (by default isn't expanded)
                 if (lane->getGNEOutcomingConnections().size() > 0) {
                     FXTreeItem* outgoingConnections = myTreelist->insertItem(0, laneItem, "Outcomings", lane->getGNEOutcomingConnections().front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
-                    myTreeItesmWithoutAC.insert(outgoingConnections);
+                    myTreeItemsWithoutAC.insert(outgoingConnections);
                     outgoingConnections->setExpanded(false);
                     for (int j = 0; j < (int)lane->getGNEOutcomingConnections().size(); j++) {
                         GNEConnection* connection = lane->getGNEOutcomingConnections().at(j);
@@ -644,7 +640,7 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
             // insert incoming connections of lanes (by default isn't expanded)
             if (lane->getGNEIncomingConnections().size() > 0) {
                 FXTreeItem* incomingConnections = myTreelist->insertItem(0, laneItem, "Incomings", lane->getGNEIncomingConnections().front()->getIcon(), lane->getGNEIncomingConnections().front()->getIcon());
-                myTreeItesmWithoutAC.insert(incomingConnections);
+                myTreeItemsWithoutAC.insert(incomingConnections);
                 incomingConnections->setExpanded(false);
                 for (int i = 0; i < (int)lane->getGNEIncomingConnections().size(); i++) {
                     GNEConnection* connection = lane->getGNEIncomingConnections().at(i);
@@ -656,7 +652,7 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
             // insert outcoming connections of lanes (by default isn't expanded)
             if (lane->getGNEOutcomingConnections().size() > 0) {
                 FXTreeItem* outgoingConnections = myTreelist->insertItem(0, laneItem, "Outcomings", lane->getGNEOutcomingConnections().front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
-                myTreeItesmWithoutAC.insert(outgoingConnections);
+                myTreeItemsWithoutAC.insert(outgoingConnections);
                 outgoingConnections->setExpanded(false);
                 for (int i = 0; i < (int)lane->getGNEOutcomingConnections().size(); i++) {
                     GNEConnection* connection = lane->getGNEOutcomingConnections().at(i);
@@ -848,10 +844,37 @@ GNEInspectorFrame::AttributeInput::getAttr() const {
 
 
 long
-GNEInspectorFrame::AttributeInput::onCmdOpenAttributeEditor(FXObject*, FXSelector, void*) {
-    // Open AttributeEditor
-    AttributeEditor(this, myTextFieldStrings);
-    return 1;
+GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor(FXObject*, FXSelector, void*) {
+    // declare auxiliar variables
+    AttributeInput* oppositeAttr = NULL;
+    std::string allowed;
+    // first find opposite attribute
+    for(std::vector<GNEInspectorFrame::AttributeInput*>::iterator i = myInspectorFrameParent->myVectorOfAttributeInputs.begin(); 
+        i != myInspectorFrameParent->myVectorOfAttributeInputs.end(); i++) {
+            if(((*i)->getAttr() == SUMO_ATTR_ALLOW) && (myAttr == SUMO_ATTR_DISALLOW)) {
+                oppositeAttr = (*i);
+                allowed = (*i)->myTextFieldStrings->getText().text();
+            } else if(((*i)->getAttr() == SUMO_ATTR_DISALLOW) && (myAttr == SUMO_ATTR_ALLOW)) {
+                oppositeAttr = (*i);
+                allowed = myTextFieldStrings->getText().text();
+            }
+    }
+    // only continue if AttributeCarrier has both Attributes (ALLOW and DISALLOW)
+    if (oppositeAttr == NULL) {
+        return 0;
+    } else if (GNEDialog_AllowDisallow(getApp(), &allowed).execute()) {
+        // set allowed values in myTextFieldStrings or in oppositeAttr
+        if(myAttr == SUMO_ATTR_ALLOW) {
+            myTextFieldStrings->setText((allowed).c_str());
+            onCmdSetAttribute(0, 0, 0);
+        } else {    
+            oppositeAttr->myTextFieldStrings->setText((allowed).c_str());
+            oppositeAttr->onCmdSetAttribute(0,0,0);
+        }
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 
@@ -967,89 +990,6 @@ GNEInspectorFrame::AttributeInput::show() {
 void
 GNEInspectorFrame::AttributeInput::hide() {
     FXHorizontalFrame::hide();
-}
-
-// ===========================================================================
-// AttributeEditor method definitions
-// ===========================================================================
-
-GNEInspectorFrame::AttributeEditor::AttributeEditor(AttributeInput* attrInputParent, FXTextField* textFieldAttr) :
-    FXDialogBox(attrInputParent->getApp(), ("Editing attribute '" + toString(attrInputParent->getAttr()) + "'").c_str(), GUIDesignDialogBox),
-    myAttrInputParent(attrInputParent),
-    myTextFieldAttr(textFieldAttr) {
-    // Create matrix
-    myCheckBoxMatrix = new FXMatrix(this, 2, GUIDesignMatrixAttributes);
-
-    // Obtain vector with the choices
-    const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myAttrInputParent->getTag(), myAttrInputParent->getAttr());
-
-    // Get old value
-    const std::string oldValue = myTextFieldAttr->getText().text();
-
-    // Resize myVectorOfCheckBox
-    myVectorOfCheckBox.resize(choices.size(), NULL);
-
-    // Iterate over choices
-    for (int i = 0; i < (int)choices.size(); i++) {
-        // Create checkBox
-        myVectorOfCheckBox.at(i) = new FXMenuCheck(myCheckBoxMatrix, choices.at(i).c_str(), NULL, 0, GUIDesignMenuCheck);
-        // Set initial value
-        if (oldValue.find(choices.at(i)) != std::string::npos) {
-            myVectorOfCheckBox.at(i)->setCheck(true);
-        }
-    }
-
-    // Add separator
-    new FXHorizontalSeparator(this, GUIDesignHorizontalSeparator);
-
-    // Create frame for buttons
-    frameButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
-
-    // Create accept button
-    myAcceptButton = new FXButton(frameButtons, "Accept", 0, this, FXDialogBox::ID_ACCEPT, GUIDesignButtonAccept);
-
-    // Create cancel button
-    myCancelButton = new FXButton(frameButtons, "Cancel", 0, this, FXDialogBox::ID_CANCEL, GUIDesignButtonCancel);
-
-    // Create reset button
-    myResetButton = new FXButton(frameButtons, "Reset", 0, this, MID_GNE_MODE_INSPECT_RESET, GUIDesignButtonReset);
-
-    // Execute dialog to make it modal, and if user press button "accept", save attribute
-    if (execute()) {
-        std::vector<std::string> attrSolution;
-        // Iterate  over myVectorOfCheckBox
-        for (int i = 0; i < (int)myVectorOfCheckBox.size(); i++) {
-            // If checkBox is cheked, save attribute
-            if (myVectorOfCheckBox.at(i)->getCheck()) {
-                attrSolution.push_back(std::string(myVectorOfCheckBox.at(i)->getText().text()));
-            }
-        }
-        // join to string
-        myTextFieldAttr->setText(joinToString(attrSolution, " ").c_str());
-        // Set attribute
-        myAttrInputParent->onCmdSetAttribute(0, 0, 0);
-    }
-}
-
-
-GNEInspectorFrame::AttributeEditor::~AttributeEditor() {}
-
-
-long
-GNEInspectorFrame::AttributeEditor::onCmdReset(FXObject*, FXSelector, void*) {
-    // Obtain vector with the choices
-    const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myAttrInputParent->getTag(), myAttrInputParent->getAttr());
-    // Get old value
-    const std::string oldValue = myTextFieldAttr->getText().text();
-    // Reset values
-    for (int i = 0; i < (int)choices.size(); i++) {
-        if (oldValue.find(choices.at(i)) != std::string::npos) {
-            myVectorOfCheckBox.at(i)->setCheck(true);
-        } else {
-            myVectorOfCheckBox.at(i)->setCheck(false);
-        }
-    }
-    return 1;
 }
 
 /****************************************************************************/

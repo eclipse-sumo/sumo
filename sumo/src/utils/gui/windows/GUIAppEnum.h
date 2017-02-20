@@ -496,6 +496,8 @@ enum {
     MID_GNE_MODE_CALIBRATOR_TABLE,
     MID_GNE_MODE_CALIBRATOR_EDITVALUE,
 
+    /// @brief allowDisallow dialog
+    MID_GNE_ALLOWDISALLOW_CHANGE,
 
     /// @brief processing menu messages
     MID_GNE_COMPUTE_JUNCTIONS,
