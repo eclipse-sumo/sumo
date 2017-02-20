@@ -37,7 +37,6 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplConvert.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>

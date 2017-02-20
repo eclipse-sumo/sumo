@@ -278,8 +278,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     if (myTestingMode && OptionsCont::getOptions().isSet("window-size")) {
         std::vector<std::string> windowSize = OptionsCont::getOptions().getStringVector("window-size");
         assert(windowSize.size() == 2);
-        myTestingWidth = TplConvert::_str2int(windowSize[0]);
-        myTestingHeight = TplConvert::_str2int(windowSize[1]);
+        myTestingWidth = GNEAttributeCarrier::parse<int>(windowSize[0]);
+        myTestingHeight = GNEAttributeCarrier::parse<int>(windowSize[1]);
     }
 }
 

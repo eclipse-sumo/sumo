@@ -28,7 +28,6 @@
 #endif
 
 #include <iostream>
-#include <utils/common/TplCheck.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -155,14 +154,14 @@ GNECalibratorDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     if (myTextFieldBegin->getText().empty()) {
         return 0;
     } else {
-        calibratorFlow->setBegin(TplConvert::_str2SUMOReal(myTextFieldBegin->getText().text()));
+        calibratorFlow->setBegin(GNEAttributeCarrier::parse<SUMOReal>(myTextFieldBegin->getText().text()));
     }
 
     // set End
     if (myTextFieldEnd->getText().empty()) {
         return 0;
     } else {
-        calibratorFlow->setEnd(TplConvert::_str2SUMOReal(myTextFieldEnd->getText().text()));
+        calibratorFlow->setEnd(GNEAttributeCarrier::parse<SUMOReal>(myTextFieldEnd->getText().text()));
     }
 
     // set Type
@@ -204,22 +203,22 @@ GNECalibratorDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     calibratorFlow->setLine(myTextFieldLine->getText().text());
 
     // set PersionNumber
-    calibratorFlow->setPersonNumber(TplConvert::_str2int(myTextFieldPersonNumber->getText().text()));
+    calibratorFlow->setPersonNumber(GNEAttributeCarrier::parse<int>(myTextFieldPersonNumber->getText().text()));
 
     // set Container Number
-    calibratorFlow->setContainerNumber(TplConvert::_str2int(myTextFieldContainerNumber->getText().text()));
+    calibratorFlow->setContainerNumber(GNEAttributeCarrier::parse<int>(myTextFieldContainerNumber->getText().text()));
 
     // Set vehsPerHour
-    calibratorFlow->setVehsPerHour(TplConvert::_str2SUMOReal(myTextFieldVehsPerHour->getText().text()));
+    calibratorFlow->setVehsPerHour(GNEAttributeCarrier::parse<SUMOReal>(myTextFieldVehsPerHour->getText().text()));
 
     // set Period
-    calibratorFlow->setPeriod(TplConvert::_str2SUMOReal(myTextFieldPeriod->getText().text()));
+    calibratorFlow->setPeriod(GNEAttributeCarrier::parse<SUMOReal>(myTextFieldPeriod->getText().text()));
 
     // set Probability
-    calibratorFlow->setProbability(TplCheck::_str2SUMOReal(myTextFieldProbability->getText().text()));
+    calibratorFlow->setProbability(GNEAttributeCarrier::canParse<SUMOReal>(myTextFieldProbability->getText().text()));
 
     // set Number
-    calibratorFlow->setNumber(TplConvert::_str2int(myTextFieldNumber->getText().text()));
+    calibratorFlow->setNumber(GNEAttributeCarrier::parse<int>(myTextFieldNumber->getText().text()));
 
     // addd new calibrator flow to table
     if (std::find(myFlowValues.begin(), myFlowValues.end(), calibratorFlow) == myFlowValues.end()) {

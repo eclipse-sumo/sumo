@@ -35,7 +35,6 @@
 #include <utils/foxtools/fxexdefs.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplCheck.h>
 #include <utils/common/ToString.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -462,8 +461,8 @@ GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     }
 
     // Check width
-    if (TplCheck::_str2SUMOReal(myCrossingWidth->getText().text()) &&
-            TplConvert::_str2SUMOReal(myCrossingWidth->getText().text()) > 0) {
+    if (GNEAttributeCarrier::canParse<SUMOReal>(myCrossingWidth->getText().text()) &&
+            GNEAttributeCarrier::parse<SUMOReal>(myCrossingWidth->getText().text()) > 0) {
         myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
         myCrossingWidth->killFocus();
     } else {
