@@ -367,6 +367,30 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             distances[*i] = 100;
         }
     }
+    // prevent inverted node shapes 
+    // (may happen with near-parallel edges)
+    const SUMOReal minDistSum = 2 * (100 + radius);
+    for (i = newAll.begin(); i != newAll.end(); ++i) {
+        if (distances[*i] < 100 && (*i)->hasDefaultGeometryEndpoints()) {
+            for (EdgeVector::const_iterator j = newAll.begin(); j != newAll.end(); ++j) {
+                if (distances[*j] > 100 && (*j)->hasDefaultGeometryEndpoints() && distances[*i] + distances[*j] < minDistSum) {
+                    const SUMOReal angleDiff = fabs(NBHelpers::relAngle((*i)->getAngleAtNode(&myNode), (*j)->getAngleAtNode(&myNode)));
+                    if (angleDiff > 160 || angleDiff < 20) {
+#ifdef DEBUG_NODE_SHAPE
+                        if (DEBUGCOND) {
+                            std::cout << "   increasing dist for i=" << (*i)->getID() << " because of j=" << (*j)->getID() << " jDist=" << distances[*j] 
+                                << "  oldI=" << distances[*i] << " newI=" << minDistSum - distances[*j] 
+                                << " angleDiff=" << angleDiff 
+                                << " geomI=" << (*i)->getGeometry() << " geomJ=" << (*j)->getGeometry() << "\n";
+                        }
+#endif
+                        distances[*i] = minDistSum - distances[*j];
+                    }
+                }
+            }
+        }
+    }
+
 
     // build
     PositionVector ret;
