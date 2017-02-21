@@ -79,6 +79,9 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isDefault("junctions.internal-link-detail")) {
         attrs[SUMO_ATTR_LINKDETAIL] = toString(oc.getInt("junctions.internal-link-detail"));
     }
+    if (oc.getBool("rectangular-lane-cut")) {
+        attrs[SUMO_ATTR_RECTANGULAR_LANE_CUT] = "true";
+    }
     device.writeXMLHeader("net", "net_file.xsd", attrs); // street names may contain non-ascii chars
     device.lf();
     // get involved container

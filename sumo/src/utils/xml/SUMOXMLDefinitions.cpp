@@ -455,6 +455,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "version",                SUMO_ATTR_VERSION },
     { "junctionCornerDetail",   SUMO_ATTR_CORNERDETAIL },
     { "junctionLinkDetail",     SUMO_ATTR_LINKDETAIL },
+    { "rectangularLaneCut",     SUMO_ATTR_RECTANGULAR_LANE_CUT },
     { "lefthand",               SUMO_ATTR_LEFTHAND },
 
     { "actorConfig",            SUMO_ATTR_ACTORCONFIG },

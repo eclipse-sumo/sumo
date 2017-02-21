@@ -330,6 +330,9 @@ private:
     /// @brief the level of geometry detail for internal lanes in the loaded network
     int myLinkDetail;
 
+    /// @brief whether all lanes of an edge should have the same stop line
+    bool myRectLaneCut;
+
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;
 
