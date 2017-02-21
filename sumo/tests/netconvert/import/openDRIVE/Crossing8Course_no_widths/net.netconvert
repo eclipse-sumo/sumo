@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 26 16:09:42 2016 by SUMO netconvert Version dev-SVN-r21242
+<!-- generated on Tue Feb 21 13:53:28 2017 by SUMO netconvert Version dev-SVN-r23033
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -9,9 +9,14 @@
         <opendrive-files value="opendrive.xodr"/>
     </input>
 
+    <tls_building>
+        <tls.left-green.time value="0"/>
+    </tls_building>
+
     <processing>
         <opendrive.ignore-widths value="true"/>
         <no-internal-links value="true"/>
+        <rectangular-lane-cut value="true"/>
     </processing>
 
     <report>
@@ -22,7 +27,7 @@
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" rectangularLaneCut="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="200.00,86.66" convBoundary="0.00,0.00,400.00,173.36" origBoundary="-200.00,-86.66,200.00,86.70" projParameter="!"/>
 
