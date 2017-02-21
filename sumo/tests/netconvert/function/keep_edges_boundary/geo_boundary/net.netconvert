@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 20 09:18:09 2017 by SUMO netconvert Version dev-SVN-r23002
+<!-- generated on Mon Feb 20 12:28:03 2017 by SUMO netconvert Version dev-SVN-r23007
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -46,7 +46,7 @@
         <lane id="-26004787#1_0" index="0" allow="pedestrian" speed="8.33" length="45.25" shape="424.20,538.36 450.08,531.23"/>
     </edge>
     <edge id="-26004787#2" from="283719904" to="283722837" priority="1">
-        <lane id="-26004787#2_0" index="0" allow="pedestrian" speed="8.33" length="46.45" shape="369.65,554.20 408.40,542.77"/>
+        <lane id="-26004787#2_0" index="0" allow="pedestrian" speed="8.33" length="46.45" shape="369.55,554.23 408.40,542.77"/>
     </edge>
     <edge id="-26004861#0" from="283721344" to="287944369" priority="1">
         <lane id="-26004861#0_0" index="0" allow="pedestrian" speed="8.33" length="20.23" shape="459.23,535.41 462.52,543.23"/>
@@ -211,7 +211,7 @@
         <lane id="26004787#1_0" index="0" allow="pedestrian" speed="8.33" length="45.25" shape="450.95,534.41 425.07,541.54"/>
     </edge>
     <edge id="26004787#2" from="283722837" to="283719904" priority="1">
-        <lane id="26004787#2_0" index="0" allow="pedestrian" speed="8.33" length="46.45" shape="409.34,545.93 370.81,557.30"/>
+        <lane id="26004787#2_0" index="0" allow="pedestrian" speed="8.33" length="46.45" shape="409.34,545.93 370.48,557.40"/>
     </edge>
     <edge id="26004861#0" from="287944369" to="283721344" priority="1">
         <lane id="26004861#0_0" index="0" allow="pedestrian" speed="8.33" length="20.23" shape="459.48,544.51 456.19,536.70"/>
@@ -349,7 +349,7 @@
         <lane id="5784968#1_0" index="0" speed="13.89" length="89.39" shape="430.98,490.39 377.64,547.70"/>
     </edge>
     <edge id="5784968#2" from="36268403" to="283719904" priority="4">
-        <lane id="5784968#2_0" index="0" speed="13.89" length="8.71" shape="371.40,554.64 370.29,555.91"/>
+        <lane id="5784968#2_0" index="0" speed="13.89" length="8.71" shape="371.40,554.64 369.72,556.57"/>
     </edge>
     <edge id="5784968#3" from="283719904" to="38920778" priority="4">
         <lane id="5784968#3_0" index="0" speed="13.89" length="44.99" shape="367.31,559.57 343.58,590.54"/>

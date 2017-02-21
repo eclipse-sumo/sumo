@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 20 09:18:07 2017 by SUMO netconvert Version dev-SVN-r23002
+<!-- generated on Mon Feb 20 12:28:01 2017 by SUMO netconvert Version dev-SVN-r23007
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -893,7 +893,7 @@
         </lane>
     </edge>
     <edge id="5784968#2" from="36268403" to="283719904" priority="4" type="highway.residential">
-        <lane id="5784968#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="12.23" shape="935.08,554.71 933.41,556.61">
+        <lane id="5784968#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="4.20" shape="936.65,552.91 936.52,553.06">
             <param key="origId" value="5784968"/>
         </lane>
     </edge>

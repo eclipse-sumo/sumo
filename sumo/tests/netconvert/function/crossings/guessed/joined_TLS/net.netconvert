@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 28 14:38:27 2016 by SUMO netconvert Version dev-SVN-r22106
+<!-- generated on Mon Feb 20 12:28:06 2017 by SUMO netconvert Version dev-SVN-r23007
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -41,10 +41,10 @@
         <lane id=":21487229_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="4.00" shape="98.91,101.75 102.64,96.43"/>
     </edge>
     <edge id=":21487229_w0" function="walkingarea">
-        <lane id=":21487229_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.57" width="4.00" shape="105.86,107.13 108.74,107.99 102.21,93.56 101.06,95.20 104.28,97.57"/>
+        <lane id=":21487229_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.57" width="4.00" shape="105.86,107.13 108.74,107.99 102.21,93.56 101.06,95.20 101.00,95.28 104.28,97.57"/>
     </edge>
     <edge id=":21487229_w1" function="walkingarea">
-        <lane id=":21487229_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.28" width="4.00" shape="100.55,102.90 97.22,100.69 96.07,102.33"/>
+        <lane id=":21487229_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.28" width="4.00" shape="100.55,102.90 97.28,100.61 97.22,100.69 96.07,102.33"/>
     </edge>
     <edge id=":29215077_0" function="internal">
         <lane id=":29215077_0_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="11.11" length="16.21" shape="98.03,99.18 94.09,96.42 91.36,94.58 88.53,92.89 84.31,90.59"/>
@@ -102,10 +102,10 @@
         <lane id=":29215077_c3_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="4.00" shape="95.30,101.21 89.03,99.49"/>
     </edge>
     <edge id=":29215077_w0" function="walkingarea">
-        <lane id=":29215077_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.78" width="4.00" shape="95.83,99.28 94.77,103.14 95.91,102.21 97.05,100.57 97.11,100.49 93.83,98.20"/>
+        <lane id=":29215077_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.78" width="4.00" shape="95.83,99.28 94.77,103.14 95.91,102.21 97.05,100.57 93.83,98.20"/>
     </edge>
     <edge id=":29215077_w1" function="walkingarea">
-        <lane id=":29215077_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.97" width="4.00" shape="97.56,92.87 100.84,95.16 100.90,95.08 102.04,93.44 99.13,86.20 98.19,90.08"/>
+        <lane id=":29215077_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.97" width="4.00" shape="97.56,92.87 100.90,95.08 102.04,93.44 99.13,86.20 98.19,90.08"/>
     </edge>
     <edge id=":29215077_w2" function="walkingarea">
         <lane id=":29215077_w2_0" index="0" allow="pedestrian" speed="1.00" length="3.54" width="4.00" shape="91.87,88.56 92.81,84.67 92.71,84.65 89.80,83.94 88.05,84.65 87.10,86.41 86.91,86.32 90.35,88.36"/>

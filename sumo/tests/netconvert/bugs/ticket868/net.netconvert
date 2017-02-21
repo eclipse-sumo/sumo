@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 15:25:39 2016 by SUMO netconvert Version dev-SVN-r21562
+<!-- generated on Mon Feb 20 12:28:07 2017 by SUMO netconvert Version dev-SVN-r23007
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -152,9 +152,9 @@
         <lane id="4045172#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="109.52" shape="139.49,51.04 146.38,52.76 158.88,53.50 168.14,53.99 178.37,55.23 185.78,56.35 192.02,58.40 201.10,63.82 208.79,69.08 236.85,87.91"/>
     </edge>
     <edge id="66389908#0" from="804434748" to="320920680" priority="9" type="highway.primary" spreadType="center" shape="157.94,62.18 152.51,61.51 138.82,58.90">
-        <lane id="66389908#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="25.67" shape="156.72,65.36 152.00,64.77 138.85,62.26"/>
-        <lane id="66389908#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="25.67" shape="158.44,62.25 152.51,61.51 139.47,59.02"/>
-        <lane id="66389908#0_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="25.67" shape="158.34,58.91 153.03,58.25 140.09,55.78"/>
+        <lane id="66389908#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="23.57" shape="155.70,65.23 152.00,64.77 138.85,62.26"/>
+        <lane id="66389908#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="23.57" shape="156.35,61.99 152.51,61.51 139.47,59.02"/>
+        <lane id="66389908#0_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="23.57" shape="158.34,58.91 153.03,58.25 140.09,55.78"/>
     </edge>
     <edge id="66389908#1" from="320920680" to="2116887815" priority="9" type="highway.primary" spreadType="center" shape="138.82,58.90 124.33,51.79 116.14,42.85 101.78,21.61">
         <lane id="66389908#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="53.90" shape="136.78,61.57 122.32,54.48 113.54,44.90 99.13,23.58"/>
