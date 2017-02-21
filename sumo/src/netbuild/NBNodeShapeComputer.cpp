@@ -305,10 +305,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                         }
 #endif
                         if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
-                            SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
-                            if (mmin > 100 && mmin < 205) {
-                                distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin - 100); //100 + 1.5;
-                            }
+                            // do nothing. 
                         } else if (fabs(a2 - a1) < 10 || farAngleDist < DEG2RAD(135)) {
                             distances[*i] = MAX2(a1, a2);
                         }
@@ -370,6 +367,8 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     PositionVector ret;
     for (i = newAll.begin(); i != newAll.end(); ++i) {
         const PositionVector& ccwBound = geomsCCW[*i];
+        const PositionVector& cwBound = geomsCW[*i];
+        //SUMOReal offset = MIN3(distances[*i], cwBound.length2D() - POSITION_EPS, ccwBound.length2D() - POSITION_EPS);
         SUMOReal offset = distances[*i];
         if (offset == -1) {
             WRITE_WARNING("Fixing offset for edge '" + (*i)->getID() + "' at node '" + myNode.getID() + ".");
@@ -383,13 +382,12 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         }
         ret.push_back_noDoublePos(p);
         //
-        const PositionVector& cwBound = geomsCW[*i];
         p = cwBound.positionAtOffset2D(offset);
         p.set(p.x(), p.y(), myNode.getPosition().z());
         ret.push_back_noDoublePos(p);
 #ifdef DEBUG_NODE_SHAPE
         if (DEBUGCOND) {
-            std::cout << "   build stopLine for i=" << (*i)->getID() << " offset=" << offset << " ccwBound=" <<  ccwBound << " cwBound=" << cwBound << "\n";
+            std::cout << "   build stopLine for i=" << (*i)->getID() << " offset=" << offset << " dist=" << distances[*i] << " cwLength=" << cwBound.length2D() << " ccwLength=" << ccwBound.length2D() << " p=" << p << " ccwBound=" <<  ccwBound << " cwBound=" << cwBound << "\n";
         }
 #endif
         if (rectangularCut) {
