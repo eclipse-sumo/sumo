@@ -307,6 +307,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                         if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
                             // do nothing. 
                         } else if (fabs(a2 - a1) < 10 || farAngleDist < DEG2RAD(135)) {
+                            // XXX do this unconditionally 
                             distances[*i] = MAX2(a1, a2);
                         }
 #ifdef DEBUG_NODE_SHAPE
@@ -374,27 +375,24 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             WRITE_WARNING("Fixing offset for edge '" + (*i)->getID() + "' at node '" + myNode.getID() + ".");
             offset = (SUMOReal) - .1;
         }
-        Position p;
-        p = ccwBound.positionAtOffset2D(offset);
-        p.set(p.x(), p.y(), myNode.getPosition().z());
+        Position p = ccwBound.positionAtOffset2D(offset);
+        p.setz(myNode.getPosition().z());
         if (i != newAll.begin()) {
             ret.append(getSmoothCorner(geomsCW[*(i - 1)].reverse(), ccwBound, ret[-1], p, cornerDetail));
         }
         ret.push_back_noDoublePos(p);
         //
-        p = cwBound.positionAtOffset2D(offset);
-        p.set(p.x(), p.y(), myNode.getPosition().z());
-        ret.push_back_noDoublePos(p);
+        Position p2 = cwBound.positionAtOffset2D(offset);
+        p2.setz(myNode.getPosition().z());
+        ret.push_back_noDoublePos(p2);
 #ifdef DEBUG_NODE_SHAPE
         if (DEBUGCOND) {
-            std::cout << "   build stopLine for i=" << (*i)->getID() << " offset=" << offset << " dist=" << distances[*i] << " cwLength=" << cwBound.length2D() << " ccwLength=" << ccwBound.length2D() << " p=" << p << " ccwBound=" <<  ccwBound << " cwBound=" << cwBound << "\n";
+            std::cout << "   build stopLine for i=" << (*i)->getID() << " offset=" << offset << " dist=" << distances[*i] << " cwLength=" << cwBound.length2D() << " ccwLength=" << ccwBound.length2D() << " p=" << p << " p2=" << p2 << " ccwBound=" <<  ccwBound << " cwBound=" << cwBound << "\n";
         }
 #endif
-        if (rectangularCut) {
-            (*i)->setNodeBorder(&myNode, p);
-            for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
-                (*k)->setNodeBorder(&myNode, p);
-            }
+        (*i)->setNodeBorder(&myNode, p, p2, rectangularCut);
+        for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
+            (*k)->setNodeBorder(&myNode, p, p2, rectangularCut);
         }
     }
     // final curve segment

@@ -509,21 +509,27 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
 }
 
 void
-NBEdge::setNodeBorder(const NBNode* node, const Position& p) {
+NBEdge::setNodeBorder(const NBNode* node, const Position& p, const Position& p2, bool rectangularCut) {
     const SUMOReal extend = 200;
-    const SUMOReal distanceOfClosestThreshold = 1.0; // very rough heuristic, actually depends on angle
-    SUMOReal distanceOfClosest = distanceOfClosestThreshold;
-    PositionVector border = myGeom.getOrthogonal(p, extend, distanceOfClosest);
-    if (distanceOfClosest < distanceOfClosestThreshold) {
-        // shift border forward / backward
-        const SUMOReal shiftDirection = (node == myFrom ? 1.0 : -1.0);
-        SUMOReal base = myGeom.nearest_offset_to_point2D(p);
-        if (base != GeomHelper::INVALID_OFFSET) {
-            base += shiftDirection * (distanceOfClosestThreshold - distanceOfClosest);
-            PositionVector tmp = myGeom;
-            tmp.move2side(1.0);
-            border = myGeom.getOrthogonal(tmp.positionAtOffset2D(base), extend, distanceOfClosest);
+    PositionVector border;
+    if (rectangularCut) {
+        const SUMOReal distanceOfClosestThreshold = 1.0; // very rough heuristic, actually depends on angle
+        SUMOReal distanceOfClosest = distanceOfClosestThreshold;
+        border = myGeom.getOrthogonal(p, extend, distanceOfClosest);
+        if (distanceOfClosest < distanceOfClosestThreshold) {
+            // shift border forward / backward
+            const SUMOReal shiftDirection = (node == myFrom ? 1.0 : -1.0);
+            SUMOReal base = myGeom.nearest_offset_to_point2D(p);
+            if (base != GeomHelper::INVALID_OFFSET) {
+                base += shiftDirection * (distanceOfClosestThreshold - distanceOfClosest);
+                PositionVector tmp = myGeom;
+                tmp.move2side(1.0);
+                border = myGeom.getOrthogonal(tmp.positionAtOffset2D(base), extend, distanceOfClosest);
+            }
         }
+    } else {
+        border.push_back(p);
+        border.push_back(p2);
     }
     if (border.size() == 2) {
         SUMOReal edgeWidth = 0;
@@ -2503,6 +2509,7 @@ NBEdge::append(NBEdge* e) {
     myPossibleTurnDestination = e->myPossibleTurnDestination;
     // set the node
     myTo = e->myTo;
+    myToBorder = e->myToBorder;
     if (e->getSignalOffset() != UNSPECIFIED_SIGNAL_OFFSET) {
         mySignalOffset = e->getSignalOffset();
     } else {

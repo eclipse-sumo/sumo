@@ -1160,7 +1160,7 @@ public:
     PositionVector cutAtIntersection(const PositionVector& old) const;
 
     /// @brief Set Node border
-    void setNodeBorder(const NBNode* node, const Position& p);
+    void setNodeBorder(const NBNode* node, const Position& p, const Position& p2, bool rectangularCut);
 
 private:
     /** @class ToEdgeConnectionsAdder
