@@ -192,7 +192,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
 std::string
 GNEDetectorE3::generateEntryID() {
     int counter = 0;
-    while (myViewNet->getNet()->getAdditional(SUMO_TAG_DET_ENTRY, getID() + "_Entry" + toString(counter)) != NULL) {
+    while (myViewNet->getNet()->getAdditional(SUMO_TAG_DET_ENTRY, getID() + "_Det_Entry" + toString(counter)) != NULL) {
         counter++;
     }
     return (getID() + "_Det_Entry" + toString(counter));
@@ -202,7 +202,7 @@ GNEDetectorE3::generateEntryID() {
 std::string
 GNEDetectorE3::generateExitID() {
     int counter = 0;
-    while (myViewNet->getNet()->getAdditional(SUMO_TAG_DET_EXIT, getID() + "_Exit" + toString(counter)) != NULL) {
+    while (myViewNet->getNet()->getAdditional(SUMO_TAG_DET_EXIT, getID() + "_Det_Exit" + toString(counter)) != NULL) {
         counter++;
     }
     return (getID() + "_Det_Exit" + toString(counter));
