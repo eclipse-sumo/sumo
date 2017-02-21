@@ -1016,6 +1016,9 @@ public:
     /// @brief node types
     static StringBijection<SumoXMLNodeType> NodeTypes;
 
+    /// @brief node without TLStypes (Used only in NETEDIT)
+    static StringBijection<SumoXMLNodeType> NodeWithoutTLSTypes;
+
     /// @brief edge functions
     static StringBijection<SumoXMLEdgeFunc> EdgeFunctions;
 
@@ -1059,6 +1062,9 @@ private:
 
     /// @brief node type values
     static StringBijection<SumoXMLNodeType>::Entry sumoNodeTypeValues[];
+
+    /// @brief node without TLS type values
+    static StringBijection<SumoXMLNodeType>::Entry sumoNodeWithoutTLSTypeValues[];
 
     /// @brief edge function values
     static StringBijection<SumoXMLEdgeFunc>::Entry sumoEdgeFuncValues[];
