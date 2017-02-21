@@ -498,6 +498,9 @@ enum {
 
     /// @brief allowDisallow dialog
     MID_GNE_ALLOWDISALLOW_CHANGE,
+    MID_GNE_ALLOWDISALLOW_SELECTALL,
+    MID_GNE_ALLOWDISALLOW_UNSELECTALL,
+    MID_GNE_ALLOWDISALLOW_SELECTONLYNONROAD,
 
     /// @brief processing menu messages
     MID_GNE_COMPUTE_JUNCTIONS,
