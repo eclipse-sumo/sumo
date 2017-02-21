@@ -163,7 +163,7 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
         NBNode* n = (*i).second;
         // the type may already be set from the data
         if (n->myType != NODETYPE_UNKNOWN && n->myType != NODETYPE_DEAD_END) {
-            return;
+            continue;
         }
         // check whether the node is a waterway node. Set to unregulated by default
         bool waterway = true;
@@ -175,18 +175,18 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
         }
         if (waterway && (n->myType == NODETYPE_UNKNOWN || n->myType == NODETYPE_DEAD_END)) {
             n->myType = NODETYPE_NOJUNCTION;
-            return;
+            continue;
         }
 
         // check whether the junction is not a real junction
         if (n->myIncomingEdges.size() == 1) {
             n->myType = NODETYPE_PRIORITY;
-            return;
+            continue;
         }
         // @todo "isSimpleContinuation" should be revalidated
         if (n->isSimpleContinuation()) {
             n->myType = NODETYPE_PRIORITY;
-            return;
+            continue;
         }
         // determine the type
         SumoXMLNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
