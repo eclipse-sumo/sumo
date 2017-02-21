@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Feb 16 12:00:52 2017 by SUMO netconvert Version dev-SVN-r22974
+<!-- generated on Tue Feb 21 16:44:03 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -64,7 +64,7 @@
         <lane id="415852971_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="192.68" shape="118.75,77.85 156.67,79.40 201.98,86.25 280.78,104.14 299.64,114.27"/>
     </edge>
 
-    <junction id="1392924660" type="unregulated" x="250.88" y="105.61" incLanes="" intLanes="" shape="251.75,102.48 250.01,108.75"/>
+    <junction id="1392924660" type="dead_end" x="250.88" y="105.61" incLanes="" intLanes="" shape="251.75,102.48 250.01,108.75"/>
     <junction id="1560223615" type="priority" x="119.40" y="0.00" incLanes="415852909_0" intLanes="" shape="119.45,0.00 116.16,-0.23 119.35,-0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
@@ -87,7 +87,7 @@
         <request index="9" response="00000000111" foes="00000000111"/>
         <request index="10" response="00000000110" foes="00000000110"/>
     </junction>
-    <junction id="4167993268" type="unregulated" x="300.42" y="112.82" incLanes="415852971_0 415852971_1" intLanes="" shape="301.96,109.95 298.88,115.68"/>
+    <junction id="4167993268" type="dead_end" x="300.42" y="112.82" incLanes="415852971_0 415852971_1" intLanes="" shape="301.96,109.95 298.88,115.68"/>
 
     <connection from="415852837" to="415852908" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="415852838" to="415852971" fromLane="0" toLane="0" dir="r" state="m"/>

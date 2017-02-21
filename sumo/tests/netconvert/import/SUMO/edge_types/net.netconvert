@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 17 Feb 2017 10:00:25 AM CET by Netedit Version dev-SVN-r22994
+<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/scr1/sumoI/sumo/tests/netconvert/import/SUMO/edge_types/net.netconvert"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr1/sumoI/sumo/tests/netconvert/import/SUMO/edge_types/net.netconvert"/>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
     </output>
 
     <processing>
+        <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
@@ -39,7 +46,7 @@
         <lane id="1fi_1" index="1" speed="11.11" length="500.00" shape="0.00,498.35 500.00,498.35"/>
     </edge>
 
-    <junction id="0" type="unregulated" x="500.00" y="500.00" incLanes="1fi_0 1fi_1" intLanes="" shape="500.00,493.45 500.00,499.95"/>
-    <junction id="1" type="unregulated" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,493.45"/>
+    <junction id="0" type="dead_end" x="500.00" y="500.00" incLanes="1fi_0 1fi_1" intLanes="" shape="500.00,493.45 500.00,499.95"/>
+    <junction id="1" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,493.45"/>
 
 </net>

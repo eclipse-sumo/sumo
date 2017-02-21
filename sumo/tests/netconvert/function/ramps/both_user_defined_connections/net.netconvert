@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 13:13:17 2017 by SUMO netconvert Version dev-SVN-r23030
+<!-- generated on Tue Feb 21 16:44:08 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -64,7 +64,7 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="gneJ0" type="unregulated" x="0.00" y="34.95" incLanes="" intLanes="" shape="-0.00,34.90 -0.02,28.40"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="34.95" incLanes="" intLanes="" shape="-0.00,34.90 -0.02,28.40"/>
     <junction id="gneJ1" type="priority" x="77.48" y="34.74" incLanes="on_0 A_0 A_1" intLanes="" shape="82.92,34.64 82.83,24.84 80.00,24.17 78.54,27.01 75.96,28.19 75.98,34.69">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
@@ -76,9 +76,9 @@
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="gneJ3" type="unregulated" x="276.09" y="34.01" incLanes="C_0 C_1" intLanes="" shape="276.18,27.46 276.09,33.96"/>
-    <junction id="gneJ4" type="unregulated" x="25.90" y="0.00" incLanes="" intLanes="" shape="25.92,-0.04 27.39,-2.89"/>
-    <junction id="gneJ5" type="unregulated" x="274.20" y="19.27" incLanes="off_0" intLanes="" shape="273.54,16.09 274.19,19.22"/>
+    <junction id="gneJ3" type="dead_end" x="276.09" y="34.01" incLanes="C_0 C_1" intLanes="" shape="276.18,27.46 276.09,33.96"/>
+    <junction id="gneJ4" type="dead_end" x="25.90" y="0.00" incLanes="" intLanes="" shape="25.92,-0.04 27.39,-2.89"/>
+    <junction id="gneJ5" type="dead_end" x="274.20" y="19.27" incLanes="off_0" intLanes="" shape="273.54,16.09 274.19,19.22"/>
 
     <connection from="A" to="B-AddedOnRampEdge" fromLane="0" toLane="1" pass="1" dir="s" state="M"/>
     <connection from="A" to="B-AddedOnRampEdge" fromLane="1" toLane="2" pass="1" dir="s" state="M"/>

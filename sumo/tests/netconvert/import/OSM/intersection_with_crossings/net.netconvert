@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:33 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -173,8 +173,8 @@
         <phase duration="5" state="rrrrrrrrrrrr"/>
     </tlLogic>
 
-    <junction id="1802244960" type="unregulated" x="0.00" y="36.69" incLanes="177308083_0 177308083_1" intLanes="" shape="-0.19,40.34 0.08,35.04"/>
-    <junction id="1877604354" type="unregulated" x="327.72" y="171.93" incLanes="" intLanes="" shape="328.99,170.88 324.90,174.25"/>
+    <junction id="1802244960" type="dead_end" x="0.00" y="36.69" incLanes="177308083_0 177308083_1" intLanes="" shape="-0.19,40.34 0.08,35.04"/>
+    <junction id="1877604354" type="dead_end" x="327.72" y="171.93" incLanes="" intLanes="" shape="328.99,170.88 324.90,174.25"/>
     <junction id="1877604780" type="dead_end" x="34.16" y="0.00" incLanes="-324752522_0 -324752522_1" intLanes="" shape="34.21,-0.00 28.82,0.28 34.11,0.00"/>
     <junction id="447602290" type="priority" x="34.91" y="109.49" incLanes="324752524_0 324752524_1 324752524_2" intLanes=":447602290_0_0" shape="34.86,109.49 43.55,109.76 34.96,109.49">
         <request index="0" response="0" foes="0" cont="0"/>

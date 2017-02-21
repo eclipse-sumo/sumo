@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 20 12:28:04 2017 by SUMO netconvert Version dev-SVN-r23007
+<!-- generated on Tue Feb 21 16:44:08 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -61,7 +61,7 @@
         <lane id="gneE4_1" index="1" speed="13.89" length="64.60" shape="39.48,-1.61 99.09,12.50"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="0.00" y="27.83" incLanes="" intLanes="" shape="0.00,27.78 0.00,21.28"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="27.83" incLanes="" intLanes="" shape="0.00,27.78 0.00,21.28"/>
     <junction id="gneJ1" type="priority" x="40.00" y="27.83" incLanes="gneE3_0 gneE3_1 gneE0_0 gneE0_1" intLanes="" shape="56.25,27.78 56.25,14.68 53.34,14.17 51.12,20.27 52.38,21.28 52.38,27.78">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
@@ -76,9 +76,9 @@
         <request index="4" response="000000" foes="000000"/>
         <request index="5" response="000000" foes="000000"/>
     </junction>
-    <junction id="gneJ3" type="unregulated" x="120.00" y="27.83" incLanes="gneE2_0 gneE2_1 gneE2_2 gneE2_3 gneE2_4 gneE2_5" intLanes="" shape="120.00,8.08 120.00,27.78"/>
-    <junction id="gneJ4" type="unregulated" x="4.07" y="3.20" incLanes="" intLanes="" shape="4.09,3.15 6.31,-2.95"/>
-    <junction id="gneJ5" type="unregulated" x="39.10" y="0.00" incLanes="" intLanes="" shape="39.11,-0.05 40.61,-6.37"/>
+    <junction id="gneJ3" type="dead_end" x="120.00" y="27.83" incLanes="gneE2_0 gneE2_1 gneE2_2 gneE2_3 gneE2_4 gneE2_5" intLanes="" shape="120.00,8.08 120.00,27.78"/>
+    <junction id="gneJ4" type="dead_end" x="4.07" y="3.20" incLanes="" intLanes="" shape="4.09,3.15 6.31,-2.95"/>
+    <junction id="gneJ5" type="dead_end" x="39.10" y="0.00" incLanes="" intLanes="" shape="39.11,-0.05 40.61,-6.37"/>
 
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="2" pass="1" dir="s" state="M"/>
     <connection from="gneE0" to="gneE1" fromLane="1" toLane="3" pass="1" dir="s" state="M"/>

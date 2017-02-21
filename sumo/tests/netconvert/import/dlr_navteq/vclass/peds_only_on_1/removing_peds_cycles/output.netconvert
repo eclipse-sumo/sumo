@@ -13,7 +13,7 @@ Sorting nodes' edges... done (0ms).
 Computing node shapes... done (0ms).
 Computing edge shapes... done (0ms).
 Computing node types... done (0ms).
-Computing priorities... done (1ms).
+Computing priorities... done (0ms).
 Computing approached edges... done (0ms).
 Computing approaching lanes... done (0ms).
 Dividing of lanes on approached lanes... done (0ms).
@@ -27,7 +27,8 @@ Computing traffic light logics... done (0ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 1
+  Unregulated junctions       : 0
+  Dead-end junctions          : 1
   Priority junctions          : 4
   Right-before-left junctions : 0
  Network boundaries:

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 11:37:20 2017 by SUMO netconvert Version dev-SVN-r23030
+<!-- generated on Tue Feb 21 16:43:57 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -44,8 +44,8 @@
         <lane id="d_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="1724.69" shape="1473.29,957.89,5.00 1374.97,930.77,5.00 1261.37,898.28,5.00 1125.61,862.39,5.00 1061.57,838.99,5.00 988.99,806.85,5.00 930.23,771.74,5.00 875.55,733.81,5.00 830.66,694.21,5.00 620.22,497.54,5.00 496.71,382.85,5.00 410.56,302.83,5.00 231.73,151.65,5.00 122.97,58.19,5.00 80.35,28.06,5.00 79.93,27.90,5.00"/>
     </edge>
 
-    <junction id="V" type="unregulated" x="1473.73" y="956.30" z="5.00" incLanes="" intLanes="" shape="1473.72,956.35,5.00 1471.99,962.61,5.00"/>
-    <junction id="W" type="unregulated" x="183.37" y="124.33" z="5.00" incLanes="" intLanes="" shape="183.34,124.37,5.00 179.19,129.37,5.00"/>
+    <junction id="V" type="dead_end" x="1473.73" y="956.30" z="5.00" incLanes="" intLanes="" shape="1473.72,956.35,5.00 1471.99,962.61,5.00"/>
+    <junction id="W" type="dead_end" x="183.37" y="124.33" z="5.00" incLanes="" intLanes="" shape="183.34,124.37,5.00 179.19,129.37,5.00"/>
     <junction id="X" type="priority" x="69.80" y="30.01" z="5.00" incLanes="a_0 a_1" intLanes="" shape="66.48,35.77,5.00 70.64,30.77,5.00 68.72,29.40,5.00 67.03,32.12,5.00">
         <request index="0" response="0" foes="0"/>
     </junction>
@@ -54,7 +54,7 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="Z" type="unregulated" x="0.00" y="0.00" z="5.00" incLanes="c_0 c_1 c_2" intLanes="" shape="-2.36,9.56,5.00 -0.01,0.05,5.00"/>
+    <junction id="Z" type="dead_end" x="0.00" y="0.00" z="5.00" incLanes="c_0 c_1 c_2" intLanes="" shape="-2.36,9.56,5.00 -0.01,0.05,5.00"/>
 
     <connection from="a" to="b" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="b" to="c" fromLane="0" toLane="0" dir="s" state="M"/>

@@ -4,38 +4,38 @@
     <node id="1" type="rightBeforeLeft"/>
     <node id="2" type="priority"/>
     <node id="3" type="rightBeforeLeft"/>
-    <node id="4"/>
+    <node id="4" type="deadEnd"/>
     <node id="5" type="priority"/>
     <node id="6" type="rightBeforeLeft"/>
     <node id="7" type="priority"/>
     <node id="8" type="priority"/>
-    <node id="9"/>
-    <node id="10"/>
+    <node id="9" type="deadEnd"/>
+    <node id="10" type="deadEnd"/>
     <node id="11" type="rightBeforeLeft"/>
     <node id="12" type="priority"/>
     <node id="13" type="priority"/>
     <node id="14" type="priority"/>
-    <node id="15"/>
-    <node id="16"/>
+    <node id="15" type="deadEnd"/>
+    <node id="16" type="deadEnd"/>
     <node id="17" type="priority"/>
     <node id="18" type="priority"/>
-    <node id="19"/>
-    <node id="20"/>
+    <node id="19" type="deadEnd"/>
+    <node id="20" type="deadEnd"/>
     <node id="21" type="priority"/>
     <node id="22" type="rightBeforeLeft"/>
     <node id="23" type="rightBeforeLeft"/>
     <node id="24" type="priority"/>
     <node id="25" type="priority"/>
     <node id="26" type="priority"/>
-    <node id="27"/>
+    <node id="27" type="deadEnd"/>
     <node id="28" type="priority"/>
     <node id="29" type="rightBeforeLeft"/>
     <node id="30" type="priority"/>
     <node id="31" type="rightBeforeLeft"/>
     <node id="32" type="rightBeforeLeft"/>
-    <node id="33"/>
+    <node id="33" type="deadEnd"/>
     <node id="34" type="priority"/>
-    <node id="35"/>
+    <node id="35" type="deadEnd"/>
     <node id="36" type="priority"/>
     <node id="37" type="priority"/>
     <node id="38" type="priority"/>
@@ -53,7 +53,7 @@
     <node id="50" type="rightBeforeLeft"/>
     <node id="51" type="priority"/>
     <node id="52" type="priority"/>
-    <node id="53"/>
+    <node id="53" type="deadEnd"/>
     <node id="54" type="priority"/>
     <node id="55" type="priority"/>
     <node id="56" type="priority"/>
@@ -81,12 +81,12 @@
     <node id="78" type="priority"/>
     <node id="79" type="priority"/>
     <node id="80" type="priority"/>
-    <node id="81"/>
-    <node id="82"/>
+    <node id="81" type="deadEnd"/>
+    <node id="82" type="deadEnd"/>
     <node id="83" type="priority"/>
     <node id="84" type="priority"/>
     <node id="85" type="priority"/>
-    <node id="86"/>
+    <node id="86" type="deadEnd"/>
     <node id="87" type="priority"/>
     <node id="88" type="rightBeforeLeft"/>
     <node id="89" type="priority"/>
@@ -103,7 +103,7 @@
     <node id="100" type="priority"/>
     <node id="101" type="priority"/>
     <node id="102" type="priority"/>
-    <node id="103"/>
+    <node id="103" type="deadEnd"/>
     <node id="104" type="priority"/>
     <node id="105" type="priority"/>
     <node id="106" type="priority"/>
@@ -114,16 +114,16 @@
     <node id="111" type="priority"/>
     <node id="112" type="priority"/>
     <node id="113" type="rightBeforeLeft"/>
-    <node id="114"/>
-    <node id="115"/>
+    <node id="114" type="deadEnd"/>
+    <node id="115" type="deadEnd"/>
     <node id="116" type="priority"/>
     <node id="117" type="priority"/>
     <node id="118" type="priority"/>
-    <node id="119"/>
+    <node id="119" type="deadEnd"/>
     <node id="120" type="rightBeforeLeft"/>
     <node id="121" type="rightBeforeLeft"/>
-    <node id="122"/>
-    <node id="123"/>
+    <node id="122" type="deadEnd"/>
+    <node id="123" type="deadEnd"/>
     <node id="124" type="priority"/>
     <node id="125" type="priority"/>
     <node id="126" type="priority"/>
@@ -151,8 +151,8 @@
     <node id="148" type="priority"/>
     <node id="149" type="priority"/>
     <node id="150" type="priority"/>
-    <node id="151"/>
-    <node id="152"/>
+    <node id="151" type="deadEnd"/>
+    <node id="152" type="deadEnd"/>
     <node id="153" type="priority"/>
     <node id="154" type="priority"/>
     <node id="155" type="priority"/>
@@ -195,18 +195,18 @@
     <node id="192" type="priority"/>
     <node id="193" type="priority"/>
     <node id="194" type="priority"/>
-    <node id="195"/>
+    <node id="195" type="deadEnd"/>
     <node id="196" type="priority"/>
     <node id="197" type="rightBeforeLeft"/>
     <node id="198" type="priority"/>
     <node id="199" type="priority"/>
     <node id="200" type="rightBeforeLeft"/>
-    <node id="201"/>
+    <node id="201" type="deadEnd"/>
     <node id="202" type="priority"/>
     <node id="203" type="rightBeforeLeft"/>
     <node id="204" type="priority"/>
     <node id="205" type="priority"/>
-    <node id="206"/>
+    <node id="206" type="deadEnd"/>
     <node id="207" type="priority"/>
     <node id="208" type="priority"/>
     <node id="209" type="priority"/>
@@ -238,14 +238,14 @@
     <node id="235" type="priority"/>
     <node id="236" type="priority"/>
     <node id="237" type="priority"/>
-    <node id="238"/>
-    <node id="239"/>
+    <node id="238" type="deadEnd"/>
+    <node id="239" type="deadEnd"/>
     <node id="240" type="priority"/>
     <node id="241" type="priority"/>
     <node id="242" type="priority"/>
     <node id="243" type="priority"/>
     <node id="244" type="rightBeforeLeft"/>
-    <node id="245"/>
+    <node id="245" type="deadEnd"/>
     <node id="246" type="priority"/>
     <node id="247" type="priority"/>
     <node id="248" type="priority"/>
@@ -254,7 +254,7 @@
     <node id="251" type="priority"/>
     <node id="252" type="priority"/>
     <node id="253" type="priority"/>
-    <node id="254"/>
+    <node id="254" type="deadEnd"/>
     <node id="255" type="priority"/>
     <node id="256" type="priority"/>
     <node id="257" type="roundaboutMulti"/>
@@ -268,7 +268,7 @@
     <node id="265" type="priority"/>
     <node id="266" type="priority"/>
     <node id="267" type="priority"/>
-    <node id="268"/>
+    <node id="268" type="deadEnd"/>
     <node id="269" type="roundaboutMulti"/>
     <node id="270" type="priority"/>
     <node id="271" type="priority"/>
@@ -283,10 +283,10 @@
     <node id="280" type="priority"/>
     <node id="281" type="priority"/>
     <node id="282" type="priority"/>
-    <node id="283"/>
+    <node id="283" type="deadEnd"/>
     <node id="284" type="priority"/>
     <node id="285" type="priority"/>
-    <node id="286"/>
+    <node id="286" type="deadEnd"/>
     <node id="287" type="priority"/>
     <node id="288" type="priority"/>
     <node id="289" type="rightBeforeLeft"/>
@@ -296,7 +296,7 @@
     <node id="293" type="priority"/>
     <node id="294" type="priority"/>
     <node id="295" type="rightBeforeLeft"/>
-    <node id="296"/>
+    <node id="296" type="deadEnd"/>
     <node id="297" type="priority"/>
     <node id="298" type="priority"/>
     <node id="299" type="priority"/>
@@ -306,11 +306,11 @@
     <node id="303" type="rightBeforeLeft"/>
     <node id="304" type="rightBeforeLeft"/>
     <node id="305" type="priority"/>
-    <node id="306"/>
+    <node id="306" type="deadEnd"/>
     <node id="307" type="priority"/>
     <node id="308" type="priority"/>
     <node id="309" type="priority"/>
-    <node id="310"/>
+    <node id="310" type="deadEnd"/>
     <node id="311" type="priority"/>
     <node id="312" type="priority"/>
     <node id="313" type="trafficLight"/>

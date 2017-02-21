@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:40:06 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:00 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -20,6 +20,7 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <report>
@@ -54,14 +55,14 @@
         <lane id="middle.50_2" index="2" speed="13.89" length="50.00" shape="150.00,-1.65 200.00,-1.65"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-9.85"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-9.85"/>
     <junction id="gneJ1" type="priority" x="100.00" y="0.00" incLanes="beg_0 beg_1 beg_2" intLanes="" shape="100.00,-0.05 100.00,-9.85 100.00,-0.05">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="gneJ3" type="priority" x="200.00" y="0.00" incLanes="middle.50_0 middle.50_1 middle.50_2" intLanes="" shape="200.00,-0.05 200.00,-9.85 200.00,-0.05">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="gneJ4" type="unregulated" x="300.00" y="0.00" incLanes="end_0 end_1 end_2" intLanes="" shape="300.00,-9.85 300.00,-0.05"/>
+    <junction id="gneJ4" type="dead_end" x="300.00" y="0.00" incLanes="end_0 end_1 end_2" intLanes="" shape="300.00,-9.85 300.00,-0.05"/>
     <junction id="middle.50" type="priority" x="150.00" y="0.00" incLanes="middle_0 middle_1 middle_2" intLanes="" shape="150.00,-0.05 150.00,-9.85 150.00,-0.05">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:32:02 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Tue Feb 21 16:44:10 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,7 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <report>
@@ -146,12 +147,12 @@
         <request index="4" response="000000" foes="000000" cont="0"/>
         <request index="5" response="000000" foes="000011" cont="0"/>
     </junction>
-    <junction id="E" type="unregulated" x="300.00" y="100.00" incLanes="C2E_0 C2E_1 C2E_2 C2E_3" intLanes="" shape="300.00,88.75 300.00,99.95"/>
-    <junction id="N" type="unregulated" x="100.00" y="200.00" incLanes="CN_0 CN_1 CN_2 CN_3" intLanes="" shape="111.25,200.00 100.05,200.00"/>
-    <junction id="N2" type="unregulated" x="200.00" y="200.00" incLanes="C2N2_0 C2N2_1 C2N2_2 C2N2_3" intLanes="" shape="211.25,200.00 200.05,200.00"/>
-    <junction id="S" type="unregulated" x="100.00" y="0.00" incLanes="" intLanes="" shape="100.05,0.00 111.25,0.00"/>
-    <junction id="S2" type="unregulated" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.05,0.00 211.25,0.00"/>
-    <junction id="W" type="unregulated" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,99.95 0.00,88.75"/>
+    <junction id="E" type="dead_end" x="300.00" y="100.00" incLanes="C2E_0 C2E_1 C2E_2 C2E_3" intLanes="" shape="300.00,88.75 300.00,99.95"/>
+    <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0 CN_1 CN_2 CN_3" intLanes="" shape="111.25,200.00 100.05,200.00"/>
+    <junction id="N2" type="dead_end" x="200.00" y="200.00" incLanes="C2N2_0 C2N2_1 C2N2_2 C2N2_3" intLanes="" shape="211.25,200.00 200.05,200.00"/>
+    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="" intLanes="" shape="100.05,0.00 111.25,0.00"/>
+    <junction id="S2" type="dead_end" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.05,0.00 211.25,0.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,99.95 0.00,88.75"/>
 
     <connection from="CC2" to="C2E" fromLane="2" toLane="2" via=":C2_2_0" tl="CC2" linkIndex="7" dir="s" state="o"/>
     <connection from="CC2" to="C2E" fromLane="3" toLane="3" via=":C2_2_1" tl="CC2" linkIndex="8" dir="s" state="o"/>

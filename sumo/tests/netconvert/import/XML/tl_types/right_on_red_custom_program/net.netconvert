@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:10 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Tue Feb 21 16:43:59 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -48,9 +48,9 @@
         <request index="0" response="10" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
-    <junction id="gneJ0" type="unregulated" x="0.00" y="9.99" incLanes="" intLanes="" shape="-0.00,9.94 -0.01,6.74"/>
-    <junction id="gneJ2" type="unregulated" x="0.49" y="0.00" incLanes="" intLanes="" shape="0.49,-0.05 0.77,-3.24"/>
-    <junction id="gneJ4" type="unregulated" x="103.08" y="8.88" incLanes="CE_0" intLanes="" shape="103.02,5.63 103.08,8.83"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="9.99" incLanes="" intLanes="" shape="-0.00,9.94 -0.01,6.74"/>
+    <junction id="gneJ2" type="dead_end" x="0.49" y="0.00" incLanes="" intLanes="" shape="0.49,-0.05 0.77,-3.24"/>
+    <junction id="gneJ4" type="dead_end" x="103.08" y="8.88" incLanes="CE_0" intLanes="" shape="103.02,5.63 103.08,8.83"/>
 
     <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="s" state="o"/>
     <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="s" state="o"/>

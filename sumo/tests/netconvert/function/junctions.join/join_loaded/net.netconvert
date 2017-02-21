@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:32:00 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Tue Feb 21 16:44:09 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -129,14 +129,14 @@
         <request index="14" response="0000000000110000" foes="0000011000111110" cont="1"/>
         <request index="15" response="0000010000100001" foes="0000010000100001" cont="1"/>
     </junction>
-    <junction id="gneJ10" type="unregulated" x="119.19" y="53.02" incLanes="" intLanes="" shape="119.15,51.42 119.23,54.62"/>
-    <junction id="gneJ12" type="unregulated" x="54.61" y="101.64" incLanes="gneE6_0" intLanes="" shape="56.20,101.80 53.02,101.48"/>
-    <junction id="gneJ13" type="unregulated" x="38.48" y="100.14" incLanes="" intLanes="" shape="40.08,100.24 36.88,100.04"/>
-    <junction id="gneJ15" type="unregulated" x="0.00" y="46.27" incLanes="gneE8_0" intLanes="" shape="-0.23,47.85 0.23,44.69"/>
-    <junction id="gneJ2" type="unregulated" x="62.89" y="0.71" incLanes="" intLanes="" shape="61.31,0.45 64.47,0.97"/>
-    <junction id="gneJ6" type="unregulated" x="110.29" y="36.45" incLanes="gneE2_0" intLanes="" shape="110.33,34.85 110.25,38.05"/>
-    <junction id="gneJ7" type="unregulated" x="1.68" y="29.85" incLanes="" intLanes="" shape="1.53,31.44 1.83,28.26"/>
-    <junction id="gneJ8" type="unregulated" x="49.04" y="0.00" incLanes="gneE4_0" intLanes="" shape="47.44,-0.05 50.64,0.05"/>
+    <junction id="gneJ10" type="dead_end" x="119.19" y="53.02" incLanes="" intLanes="" shape="119.15,51.42 119.23,54.62"/>
+    <junction id="gneJ12" type="dead_end" x="54.61" y="101.64" incLanes="gneE6_0" intLanes="" shape="56.20,101.80 53.02,101.48"/>
+    <junction id="gneJ13" type="dead_end" x="38.48" y="100.14" incLanes="" intLanes="" shape="40.08,100.24 36.88,100.04"/>
+    <junction id="gneJ15" type="dead_end" x="0.00" y="46.27" incLanes="gneE8_0" intLanes="" shape="-0.23,47.85 0.23,44.69"/>
+    <junction id="gneJ2" type="dead_end" x="62.89" y="0.71" incLanes="" intLanes="" shape="61.31,0.45 64.47,0.97"/>
+    <junction id="gneJ6" type="dead_end" x="110.29" y="36.45" incLanes="gneE2_0" intLanes="" shape="110.33,34.85 110.25,38.05"/>
+    <junction id="gneJ7" type="dead_end" x="1.68" y="29.85" incLanes="" intLanes="" shape="1.53,31.44 1.83,28.26"/>
+    <junction id="gneJ8" type="dead_end" x="49.04" y="0.00" incLanes="gneE4_0" intLanes="" shape="47.44,-0.05 50.64,0.05"/>
 
     <junction id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_16_0" type="internal" x="43.65" y="51.65" incLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_6_0 gneE7_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_1_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_2_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_10_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_11_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_12_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_13_0"/>
     <junction id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_17_0" type="internal" x="49.26" y="32.90" incLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_7_0 gneE3_0 gneE5_0 gneE7_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_2_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_8_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_13_0"/>

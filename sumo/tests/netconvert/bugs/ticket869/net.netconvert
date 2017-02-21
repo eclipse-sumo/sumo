@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul  8 15:00:45 2016 by SUMO netconvert Version dev-SVN-r21134
+<!-- generated on Tue Feb 21 16:44:12 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -71,7 +71,7 @@
         <lane id="8614778_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="154.60" shape="-1.40,0.88 25.72,44.09 51.56,85.12 81.72,131.26"/>
     </edge>
 
-    <junction id="61321502" type="unregulated" x="83.10" y="130.36" incLanes="8614778_0 8614778_1" intLanes="" shape="85.82,128.58 80.38,132.13"/>
-    <junction id="61330091" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-2.75,1.73 2.75,-1.73"/>
+    <junction id="61321502" type="dead_end" x="83.10" y="130.36" incLanes="8614778_0 8614778_1" intLanes="" shape="85.82,128.58 80.38,132.13"/>
+    <junction id="61330091" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-2.75,1.73 2.75,-1.73"/>
 
 </net>

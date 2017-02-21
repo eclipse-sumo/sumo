@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 14:42:05 2017 by SUMO netconvert Version dev-SVN-r23039
+<!-- generated on Tue Feb 21 16:44:29 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -3529,8 +3529,8 @@
         <request index="7" response="000011000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
-    <junction id="878.begin" type="unregulated" x="1069.90" y="766.04" incLanes="" intLanes="" shape="1069.86,766.07 1067.59,768.33"/>
-    <junction id="889.end" type="unregulated" x="1080.78" y="753.50" incLanes="-889.0.00_0" intLanes="" shape="1083.04,751.17 1080.81,753.47"/>
+    <junction id="878.begin" type="dead_end" x="1069.90" y="766.04" incLanes="" intLanes="" shape="1069.86,766.07 1067.59,768.33"/>
+    <junction id="889.end" type="dead_end" x="1080.78" y="753.50" incLanes="-889.0.00_0" intLanes="" shape="1083.04,751.17 1080.81,753.47"/>
     <junction id="9" type="priority" x="402.76" y="485.99" incLanes="-843.0.00_0 -759.0.00_0 -757.0.00_0 -845.0.00_0" intLanes=":9_0_0 :9_1_0 :9_2_0 :9_3_0 :9_4_0 :9_5_0 :9_16_0 :9_17_0 :9_8_0 :9_9_0 :9_10_0 :9_11_0 :9_12_0 :9_13_0 :9_18_0 :9_19_0" shape="405.88,491.64 409.01,485.83 408.66,483.97 403.62,479.71 399.84,480.49 396.32,486.07 396.63,488.02 401.69,492.26">
         <request index="0" response="0000000000100000" foes="1000010000100000" cont="0"/>
         <request index="1" response="0111000001100000" foes="0111110001100000" cont="0"/>
@@ -3549,8 +3549,8 @@
         <request index="14" response="0000000000110000" foes="0000011000111110" cont="1"/>
         <request index="15" response="0000010000100001" foes="0000010000100001" cont="1"/>
     </junction>
-    <junction id="917.end" type="unregulated" x="524.27" y="748.37" incLanes="-917.0.00_0" intLanes="" shape="527.19,749.80 524.32,748.40"/>
-    <junction id="918.begin" type="unregulated" x="520.38" y="745.16" incLanes="" intLanes="" shape="520.33,745.14 517.43,743.79"/>
+    <junction id="917.end" type="dead_end" x="524.27" y="748.37" incLanes="-917.0.00_0" intLanes="" shape="527.19,749.80 524.32,748.40"/>
+    <junction id="918.begin" type="dead_end" x="520.38" y="745.16" incLanes="" intLanes="" shape="520.33,745.14 517.43,743.79"/>
 
     <junction id=":10_9_0" type="internal" x="379.73" y="464.06" incLanes=":10_5_0 -844.0.00_0 -925.0.00_0" intLanes=":10_1_0 :10_6_0"/>
     <junction id=":10_10_0" type="internal" x="359.52" y="459.24" incLanes=":10_8_0 -820.0.00_0 -844.0.00_0" intLanes=":10_0_0 :10_4_0"/>

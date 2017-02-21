@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:40 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:12 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -47,15 +47,15 @@
         <lane id="motorway_1" index="1" speed="13.89" length="221.70" shape="0.02,50.81 60.97,50.21 139.28,52.44 190.39,57.73 217.31,62.17"/>
     </edge>
 
-    <junction id="2159689627" type="unregulated" x="0.00" y="49.16" incLanes="" intLanes="" shape="0.03,52.41 -0.03,45.91"/>
-    <junction id="324321646" type="unregulated" x="272.57" y="18.01" incLanes="exit_with_only_one_lane_0" intLanes="" shape="276.97,20.26 274.12,18.80"/>
+    <junction id="2159689627" type="dead_end" x="0.00" y="49.16" incLanes="" intLanes="" shape="0.03,52.41 -0.03,45.91"/>
+    <junction id="324321646" type="dead_end" x="272.57" y="18.01" incLanes="exit_with_only_one_lane_0" intLanes="" shape="276.97,20.26 274.12,18.80"/>
     <junction id="443238" type="priority" x="248.17" y="67.55" incLanes="bug_in_osm_db_0 bug_in_osm_db_1 motorway_0 motorway_1" intLanes="" shape="220.42,64.57 226.22,46.72 216.67,57.10 217.52,63.82">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="cluster_35916474_35916475_443246" type="unregulated" x="490.35" y="245.24" incLanes="" intLanes="" shape="493.24,242.38 488.62,246.95"/>
+    <junction id="cluster_35916474_35916475_443246" type="dead_end" x="490.35" y="245.24" incLanes="" intLanes="" shape="493.24,242.38 488.62,246.95"/>
     <junction id="exit_with_only_one_lane-AddedOnRampNode" type="priority" x="340.37" y="58.76" incLanes="exit_with_only_one_lane-AddedOnRampEdge_0 exit_with_only_one_lane-AddedOnRampEdge_1 exit_with_only_one_lane-AddedOnRampEdge_2 exit_with_only_one_lane-AddedOnRampEdge_3" intLanes="" shape="342.56,58.54 340.01,56.59 330.45,53.04 340.85,61.01">
         <request index="0" response="0" foes="0"/>
     </junction>

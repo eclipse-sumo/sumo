@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon 20 Jun 2016 08:55:14 AM CEST by Netedit Version dev-SVN-r20996
+<!-- generated on Tue Feb 21 16:44:02 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/3arm_bike_lane/net.netconvert"/>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr1/sumoI/sumo/tests/netconvert/import/XML/connection_guessing/3arm_bike_lane/net.netconvert"/>
-        <output.street-names value="true"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
+        <ignore-errors.edge-type value="true"/>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
     </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
@@ -49,9 +52,9 @@
         <request index="1" response="001" foes="001"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="E" type="unregulated" x="100.00" y="0.00" incLanes="CE_0 CE_1 CE_2" intLanes="" shape="100.00,-5.45 100.00,-0.05"/>
-    <junction id="S" type="unregulated" x="0.00" y="-100.00" incLanes="CS_0 CS_1" intLanes="" shape="-4.35,-100.00 -0.05,-100.00"/>
-    <junction id="W" type="unregulated" x="-100.00" y="0.00" incLanes="" intLanes="" shape="-100.00,-0.05 -100.00,-5.45"/>
+    <junction id="E" type="dead_end" x="100.00" y="0.00" incLanes="CE_0 CE_1 CE_2" intLanes="" shape="100.00,-5.45 100.00,-0.05"/>
+    <junction id="S" type="dead_end" x="0.00" y="-100.00" incLanes="CS_0 CS_1" intLanes="" shape="-4.35,-100.00 -0.05,-100.00"/>
+    <junction id="W" type="dead_end" x="-100.00" y="0.00" incLanes="" intLanes="" shape="-100.00,-0.05 -100.00,-5.45"/>
 
     <connection from="WC" to="CE" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="WC" to="CS" fromLane="2" toLane="1" dir="r" state="m"/>

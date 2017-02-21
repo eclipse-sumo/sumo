@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 27 13:29:51 2016 by SUMO netconvert Version dev-SVN-r21542
+<!-- generated on Tue Feb 21 16:44:10 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -16,6 +16,7 @@
         <lefthand value="false"/>
         <junctions.join value="true"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <report>
@@ -61,14 +62,14 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="gneJ12" type="unregulated" x="-7.30" y="8.54" incLanes="gneE11_0" intLanes="" shape="-7.26,10.14 -7.34,6.94"/>
+    <junction id="gneJ12" type="dead_end" x="-7.30" y="8.54" incLanes="gneE11_0" intLanes="" shape="-7.26,10.14 -7.34,6.94"/>
     <junction id="gneJ2" type="priority" x="83.93" y="6.61" incLanes="gneE9_0 gneE12_0" intLanes="" shape="82.37,9.74 85.57,9.70 87.20,8.20 87.18,5.00 85.82,3.51 82.63,3.22">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="gneJ5" type="unregulated" x="-7.77" y="-1.91" incLanes="" intLanes="" shape="-7.75,-0.31 -7.79,-3.51"/>
-    <junction id="gneJ8" type="unregulated" x="177.01" y="-5.19" incLanes="gneE8_0" intLanes="" shape="176.98,-6.79 177.04,-3.59"/>
-    <junction id="gneJ9" type="unregulated" x="177.16" y="6.20" incLanes="" intLanes="" shape="177.15,4.60 177.17,7.80"/>
+    <junction id="gneJ5" type="dead_end" x="-7.77" y="-1.91" incLanes="" intLanes="" shape="-7.75,-0.31 -7.79,-3.51"/>
+    <junction id="gneJ8" type="dead_end" x="177.01" y="-5.19" incLanes="gneE8_0" intLanes="" shape="176.98,-6.79 177.04,-3.59"/>
+    <junction id="gneJ9" type="dead_end" x="177.16" y="6.20" incLanes="" intLanes="" shape="177.15,4.60 177.17,7.80"/>
 
     <connection from="gneE10" to="gneE11" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="gneE10" to="gneE13" fromLane="0" toLane="0" dir="s" state="M"/>

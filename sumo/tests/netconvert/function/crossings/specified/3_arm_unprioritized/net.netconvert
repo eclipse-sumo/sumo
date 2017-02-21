@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:37 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:10 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -18,6 +18,7 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <report>
@@ -63,9 +64,9 @@
         <lane id="37356409_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="80.71" shape="46.53,72.21 83.54,0.48"/>
     </edge>
 
-    <junction id="338538580" type="unregulated" x="0.00" y="35.14" incLanes="" intLanes="" shape="-1.16,36.32 2.56,32.54"/>
-    <junction id="432715440" type="unregulated" x="76.47" y="110.34" incLanes="30616907#1_0 30616907#1_1" intLanes="" shape="79.03,107.74 75.31,111.52"/>
-    <junction id="436051053" type="unregulated" x="83.50" y="0.46" incLanes="37356409_0 37356409_1" intLanes="" shape="80.25,-1.21 84.96,1.22"/>
+    <junction id="338538580" type="dead_end" x="0.00" y="35.14" incLanes="" intLanes="" shape="-1.16,36.32 2.56,32.54"/>
+    <junction id="432715440" type="dead_end" x="76.47" y="110.34" incLanes="30616907#1_0 30616907#1_1" intLanes="" shape="79.03,107.74 75.31,111.52"/>
+    <junction id="436051053" type="dead_end" x="83.50" y="0.46" incLanes="37356409_0 37356409_1" intLanes="" shape="80.25,-1.21 84.96,1.22"/>
     <junction id="436051055" type="priority" x="43.53" y="77.91" incLanes="30616907#0_0 30616907#0_1 :436051055_w1_0" intLanes=":436051055_2_0 :436051055_1_0 :436051055_c0_0" shape="43.87,80.56 47.58,76.78 47.96,72.94 43.25,70.51 41.49,70.79 37.77,74.57">
         <request index="0" response="100" foes="100" cont="1"/>
         <request index="1" response="000" foes="000" cont="0"/>

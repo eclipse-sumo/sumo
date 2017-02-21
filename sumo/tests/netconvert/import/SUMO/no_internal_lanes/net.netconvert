@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:31 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,7 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <report>
@@ -39,11 +40,11 @@
         <lane id="gneE1_0" index="0" speed="13.89" length="10.00" shape="9.00,-1.65 19.00,-1.65"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
     <junction id="gneJ1" type="priority" x="9.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="9.00,-0.05 9.00,-3.25 9.00,-0.05">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="gneJ3" type="unregulated" x="19.00" y="0.00" incLanes="gneE1_0" intLanes="" shape="19.00,-3.25 19.00,-0.05"/>
+    <junction id="gneJ3" type="dead_end" x="19.00" y="0.00" incLanes="gneE1_0" intLanes="" shape="19.00,-3.25 19.00,-0.05"/>
 
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
 

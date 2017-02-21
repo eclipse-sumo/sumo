@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:38 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:11 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,7 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
         <crossings.guess value="true"/>
     </processing>
 
@@ -34,5 +35,5 @@
 
     <node id="34677686" x="600.43" y="320.65" type="dead_end"/>
     <node id="34677691" x="588.73" y="376.99" type="priority"/>
-    <node id="34677698" x="576.67" y="435.92" type="unregulated"/>
+    <node id="34677698" x="576.67" y="435.92" type="dead_end"/>
 </nodes>

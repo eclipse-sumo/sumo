@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 20 12:28:07 2017 by SUMO netconvert Version dev-SVN-r23007
+<!-- generated on Tue Feb 21 16:44:12 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -50,14 +50,14 @@
         <lane id="ramp_0" index="0" speed="16.67" length="304.79" shape="399.03,182.68 396.87,183.69 388.38,186.08 383.55,187.24 377.77,188.19 372.84,188.63 367.93,188.87 362.83,188.79 356.94,188.44 349.05,187.76 341.58,186.96 332.27,185.90 325.90,185.28 319.38,184.78 314.01,184.42 306.37,184.26 300.51,184.23 292.77,184.38 287.32,184.67 279.88,185.37 274.23,185.97 267.46,186.99 262.05,187.85 256.54,188.97 251.06,190.25 243.53,192.12 238.04,193.66 234.85,194.67 232.81,195.32 228.20,196.94 221.47,199.45 215.54,201.80 213.74,202.60 191.13,213.55 185.29,217.00 182.51,218.85 178.21,221.71 169.57,227.76 156.05,237.23 155.15,237.99 139.80,251.06 123.53,270.62"/>
     </edge>
 
-    <junction id="N_end" type="unregulated" x="0.00" y="363.37" incLanes="on_ramp_0 on_ramp_1 on_ramp_2" intLanes="" shape="6.40,370.88 0.04,363.42"/>
-    <junction id="N_main_start" type="unregulated" x="421.87" y="0.01" incLanes="" intLanes="" shape="421.90,0.04 426.16,4.95"/>
+    <junction id="N_end" type="dead_end" x="0.00" y="363.37" incLanes="on_ramp_0 on_ramp_1 on_ramp_2" intLanes="" shape="6.40,370.88 0.04,363.42"/>
+    <junction id="N_main_start" type="dead_end" x="421.87" y="0.01" incLanes="" intLanes="" shape="421.90,0.04 426.16,4.95"/>
     <junction id="N_merge" type="priority" x="116.12" y="264.27" incLanes="main_0 main_1 ramp_0" intLanes=":N_merge_0_0 :N_merge_0_1 :N_merge_2_0" shape="121.51,268.25 117.29,263.30 115.01,265.25 121.37,272.71">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="N_ramp_start" type="unregulated" x="398.33" y="181.20" incLanes="" intLanes="" shape="398.34,181.23 399.71,184.13"/>
+    <junction id="N_ramp_start" type="dead_end" x="398.33" y="181.20" incLanes="" intLanes="" shape="398.34,181.23 399.71,184.13"/>
 
     <connection from="main" to="on_ramp" fromLane="0" toLane="1" pass="1" via=":N_merge_0_0" dir="s" state="M"/>
     <connection from="main" to="on_ramp" fromLane="1" toLane="2" pass="1" via=":N_merge_0_1" dir="s" state="M"/>

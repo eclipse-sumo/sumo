@@ -26,7 +26,8 @@ Computing traffic light logics... done (0ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 2
+  Unregulated junctions       : 0
+  Dead-end junctions          : 2
   Priority junctions          : 0
   Right-before-left junctions : 0
  Network boundaries:
@@ -34,5 +35,5 @@ Summary:
   Applied offset     : -500.00,0.00
   Converted boundary : 0.00,0.00,500.00,0.00
 -----------------------------------------------------
-Writing network... done (0ms).
+Writing network... done (1ms).
 Success.

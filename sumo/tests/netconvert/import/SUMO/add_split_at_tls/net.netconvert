@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:31 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,7 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <report>
@@ -155,38 +156,38 @@
     <junction id="32to41.48" type="priority" x="148.55" y="100.00" incLanes="32to41_0" intLanes=":32to41.48_0_0" shape="148.55,99.95 148.55,96.75 148.55,99.95">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="n11" type="unregulated" x="100.00" y="300.00" incLanes="" intLanes="" shape="99.95,300.00 96.75,300.00"/>
-    <junction id="n12" type="unregulated" x="0.00" y="200.00" incLanes="13to12_0" intLanes="" shape="0.00,203.25 0.00,200.05"/>
+    <junction id="n11" type="dead_end" x="100.00" y="300.00" incLanes="" intLanes="" shape="99.95,300.00 96.75,300.00"/>
+    <junction id="n12" type="dead_end" x="0.00" y="200.00" incLanes="13to12_0" intLanes="" shape="0.00,203.25 0.00,200.05"/>
     <junction id="n13" type="traffic_light" x="100.00" y="200.00" incLanes="11to13_0 22to13.48_0" intLanes=":n13_0_0 :n13_1_0 :n13_2_0 :n13_3_0" shape="96.75,204.75 99.95,204.75 101.45,203.25 101.45,200.05 99.95,198.55 96.75,198.55 95.25,200.05 95.25,203.25">
         <request index="0" response="0000" foes="0100" cont="0"/>
         <request index="1" response="0000" foes="1100" cont="0"/>
         <request index="2" response="0011" foes="0011" cont="0"/>
         <request index="3" response="0010" foes="0010" cont="0"/>
     </junction>
-    <junction id="n21" type="unregulated" x="200.00" y="300.00" incLanes="22to21_0" intLanes="" shape="203.25,300.00 200.05,300.00"/>
+    <junction id="n21" type="dead_end" x="200.00" y="300.00" incLanes="22to21_0" intLanes="" shape="203.25,300.00 200.05,300.00"/>
     <junction id="n22" type="priority" x="200.00" y="200.00" incLanes="23to22_0 41to22_0" intLanes=":n22_0_0 :n22_1_0 :n22_2_0 :n22_4_0" shape="200.05,204.75 203.25,204.75 204.75,203.25 204.75,200.05 203.25,198.55 200.05,198.55 198.55,200.05 198.55,203.25">
         <request index="0" response="0000" foes="0100" cont="0"/>
         <request index="1" response="0000" foes="1100" cont="0"/>
         <request index="2" response="0011" foes="0011" cont="0"/>
         <request index="3" response="0010" foes="0010" cont="1"/>
     </junction>
-    <junction id="n23" type="unregulated" x="300.00" y="200.00" incLanes="" intLanes="" shape="300.00,200.05 300.00,203.25"/>
-    <junction id="n31" type="unregulated" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,99.95 0.00,96.75"/>
+    <junction id="n23" type="dead_end" x="300.00" y="200.00" incLanes="" intLanes="" shape="300.00,200.05 300.00,203.25"/>
+    <junction id="n31" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,99.95 0.00,96.75"/>
     <junction id="n32" type="priority" x="100.00" y="100.00" incLanes="13to32_0 31to32_0" intLanes=":n32_0_0 :n32_4_0 :n32_2_0 :n32_3_0" shape="96.75,101.45 99.95,101.45 101.45,99.95 101.45,96.75 99.95,95.25 96.75,95.25 95.25,96.75 95.25,99.95">
         <request index="0" response="1100" foes="1100" cont="0"/>
         <request index="1" response="1000" foes="1000" cont="1"/>
         <request index="2" response="0000" foes="0001" cont="0"/>
         <request index="3" response="0000" foes="0011" cont="0"/>
     </junction>
-    <junction id="n33" type="unregulated" x="100.00" y="0.00" incLanes="32to33_0" intLanes="" shape="96.75,0.00 99.95,0.00"/>
+    <junction id="n33" type="dead_end" x="100.00" y="0.00" incLanes="32to33_0" intLanes="" shape="96.75,0.00 99.95,0.00"/>
     <junction id="n41" type="traffic_light" x="200.00" y="100.00" incLanes="43to41_0 32to41.48_0" intLanes=":n41_0_0 :n41_1_0 :n41_2_0 :n41_3_0" shape="200.05,101.45 203.25,101.45 204.75,99.95 204.75,96.75 203.25,95.25 200.05,95.25 198.55,96.75 198.55,99.95">
         <request index="0" response="0000" foes="0100" cont="0"/>
         <request index="1" response="0000" foes="1100" cont="0"/>
         <request index="2" response="0011" foes="0011" cont="0"/>
         <request index="3" response="0010" foes="0010" cont="0"/>
     </junction>
-    <junction id="n42" type="unregulated" x="300.00" y="100.00" incLanes="41to42_0" intLanes="" shape="300.00,96.75 300.00,99.95"/>
-    <junction id="n43" type="unregulated" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.05,0.00 203.25,0.00"/>
+    <junction id="n42" type="dead_end" x="300.00" y="100.00" incLanes="41to42_0" intLanes="" shape="300.00,96.75 300.00,99.95"/>
+    <junction id="n43" type="dead_end" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.05,0.00 203.25,0.00"/>
 
     <junction id=":n22_4_0" type="internal" x="201.37" y="200.05" incLanes=":n22_3_0 23to22_0" intLanes=":n22_1_0"/>
     <junction id=":n32_4_0" type="internal" x="98.63" y="99.95" incLanes=":n32_1_0 31to32_0" intLanes=":n32_3_0"/>

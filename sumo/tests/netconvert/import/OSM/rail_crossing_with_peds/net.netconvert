@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 28 14:38:22 2016 by SUMO netconvert Version dev-SVN-r22106
+<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -301,8 +301,8 @@
         <request index="1" response="100" foes="100" cont="0"/>
         <request index="2" response="000" foes="011" cont="0"/>
     </junction>
-    <junction id="247330281" type="unregulated" x="0.00" y="4860.38" incLanes="" intLanes="" shape="1.20,4861.44 -1.20,4859.32"/>
-    <junction id="247330284" type="unregulated" x="3.62" y="4864.69" incLanes="27006469#2_0" intLanes="" shape="4.82,4865.75 2.42,4863.63"/>
+    <junction id="247330281" type="dead_end" x="0.00" y="4860.38" incLanes="" intLanes="" shape="1.20,4861.44 -1.20,4859.32"/>
+    <junction id="247330284" type="dead_end" x="3.62" y="4864.69" incLanes="27006469#2_0" intLanes="" shape="4.82,4865.75 2.42,4863.63"/>
     <junction id="2475741815" type="dead_end" x="1993.30" y="725.29" incLanes="4054008#0_0 239924889_0" intLanes="" shape="1995.67,727.02 1996.22,725.09 1995.51,723.36 1993.75,722.40 1991.11,725.88 1992.42,727.39"/>
     <junction id="2476940049" type="rail_crossing" x="2006.58" y="729.13" incLanes="4054008#1_0 441932173#1_0 :2476940049_w1_0" intLanes=":2476940049_0_0 :2476940049_c0_0" shape="2009.33,730.92 2009.86,728.99 2008.85,727.16 2005.79,726.23 2003.88,727.31 2003.33,729.23 2004.36,731.09 2007.44,731.96">
         <request index="0" response="00" foes="10" cont="0"/>
@@ -341,13 +341,13 @@
     <junction id="32493670" type="priority" x="2032.71" y="596.76" incLanes="4935122_0" intLanes=":32493670_0_0" shape="2032.76,596.78 2029.58,595.89 2032.66,596.75">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="3954229803" type="unregulated" x="190.40" y="4629.49" incLanes="" intLanes="" shape="191.60,4630.55 189.21,4628.43"/>
-    <junction id="3954229804" type="unregulated" x="190.80" y="4636.68" incLanes="441932172#2_0" intLanes="" shape="191.99,4637.74 189.60,4635.62"/>
-    <junction id="4396212846" type="unregulated" x="2197.67" y="0.00" incLanes="441932173#2_0" intLanes="" shape="2196.12,-0.40 2199.22,0.40"/>
-    <junction id="4396212847" type="unregulated" x="2201.65" y="0.93" incLanes="" intLanes="" shape="2200.10,0.53 2203.20,1.32"/>
-    <junction id="4396212848" type="unregulated" x="2211.77" y="2.11" incLanes="22955557#2_0" intLanes="" shape="2210.22,1.70 2213.31,2.52"/>
-    <junction id="4396212849" type="unregulated" x="2215.74" y="3.27" incLanes="" intLanes="" shape="2214.19,2.87 2217.29,3.67"/>
-    <junction id="4396212913" type="unregulated" x="1948.91" y="772.39" incLanes="" intLanes="" shape="1949.47,773.22 1948.36,771.56"/>
+    <junction id="3954229803" type="dead_end" x="190.40" y="4629.49" incLanes="" intLanes="" shape="191.60,4630.55 189.21,4628.43"/>
+    <junction id="3954229804" type="dead_end" x="190.80" y="4636.68" incLanes="441932172#2_0" intLanes="" shape="191.99,4637.74 189.60,4635.62"/>
+    <junction id="4396212846" type="dead_end" x="2197.67" y="0.00" incLanes="441932173#2_0" intLanes="" shape="2196.12,-0.40 2199.22,0.40"/>
+    <junction id="4396212847" type="dead_end" x="2201.65" y="0.93" incLanes="" intLanes="" shape="2200.10,0.53 2203.20,1.32"/>
+    <junction id="4396212848" type="dead_end" x="2211.77" y="2.11" incLanes="22955557#2_0" intLanes="" shape="2210.22,1.70 2213.31,2.52"/>
+    <junction id="4396212849" type="dead_end" x="2215.74" y="3.27" incLanes="" intLanes="" shape="2214.19,2.87 2217.29,3.67"/>
+    <junction id="4396212913" type="dead_end" x="1948.91" y="772.39" incLanes="" intLanes="" shape="1949.47,773.22 1948.36,771.56"/>
     <junction id="56455689" type="priority" x="1919.56" y="842.48" incLanes="-126100196#0_0" intLanes=":56455689_0_0" shape="1919.51,842.46 1922.59,843.64 1919.60,842.50">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>

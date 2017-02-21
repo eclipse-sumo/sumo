@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:48 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Tue Feb 21 16:44:11 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -103,11 +103,11 @@
         <lane id="SC_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="549.18" shape="667.81,-0.29 684.55,94.62 696.58,547.27"/>
     </edge>
 
-    <junction id="1088517596" type="unregulated" x="0.00" y="610.72" incLanes="CW_rail_0" intLanes="" shape="0.29,612.29 -0.29,609.15"/>
+    <junction id="1088517596" type="dead_end" x="0.00" y="610.72" incLanes="CW_rail_0" intLanes="" shape="0.29,612.29 -0.29,609.15"/>
     <junction id="3032658464" type="right_before_left" x="1099.87" y="505.88" incLanes="CE_0" intLanes=":3032658464_0_0" shape="1099.88,505.93 1099.40,502.66 1099.86,505.83">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="38891331" type="unregulated" x="792.26" y="570.79" incLanes="" intLanes="" shape="792.28,569.19 792.24,572.39"/>
+    <junction id="38891331" type="dead_end" x="792.26" y="570.79" incLanes="" intLanes="" shape="792.28,569.19 792.24,572.39"/>
     <junction id="408481556" type="priority" x="696.38" y="614.72" incLanes="CN_0" intLanes=":408481556_0_0" shape="696.33,614.72 699.63,614.57 696.43,614.72">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>

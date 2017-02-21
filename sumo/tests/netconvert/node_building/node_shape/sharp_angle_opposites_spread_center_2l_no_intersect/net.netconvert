@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:07 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Tue Feb 21 16:43:57 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -54,8 +54,8 @@
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="gneJ3" type="unregulated" x="400.00" y="20.00" incLanes="" intLanes="" shape="400.18,16.76 399.82,23.24"/>
-    <junction id="gneJ4" type="unregulated" x="400.00" y="0.00" incLanes="gneE2b_0 gneE2b_1" intLanes="" shape="400.00,-3.25 400.00,3.25"/>
+    <junction id="gneJ3" type="dead_end" x="400.00" y="20.00" incLanes="" intLanes="" shape="400.18,16.76 399.82,23.24"/>
+    <junction id="gneJ4" type="dead_end" x="400.00" y="0.00" incLanes="gneE2b_0 gneE2b_1" intLanes="" shape="400.00,-3.25 400.00,3.25"/>
     <junction id="gneJ5" type="priority" x="170.00" y="0.00" incLanes="gneE2.0_0 gneE2.0_1" intLanes="" shape="170.13,3.25 170.13,-3.25 170.02,-3.25 169.71,3.24">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>

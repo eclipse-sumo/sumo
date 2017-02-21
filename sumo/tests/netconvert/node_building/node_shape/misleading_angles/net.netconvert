@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 20 12:06:35 2017 by SUMO netconvert Version dev-SVN-r23007
+<!-- generated on Tue Feb 21 16:43:57 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -56,14 +56,14 @@
         <lane id="4260758_1" index="1" speed="13.41" length="86.46" shape="570.43,551.33 571.56,549.58 579.31,540.22 596.43,525.14 610.39,513.96 626.22,504.04"/>
     </edge>
 
-    <junction id="354990984" type="unregulated" x="625.34" y="502.64" incLanes="4260758_0 4260758_1" intLanes="" shape="623.61,499.89 627.07,505.39"/>
-    <junction id="471620785" type="unregulated" x="153.42" y="184.06" incLanes="" intLanes="" shape="151.16,186.40 155.68,181.72"/>
+    <junction id="354990984" type="dead_end" x="625.34" y="502.64" incLanes="4260758_0 4260758_1" intLanes="" shape="623.61,499.89 627.07,505.39"/>
+    <junction id="471620785" type="dead_end" x="153.42" y="184.06" incLanes="" intLanes="" shape="151.16,186.40 155.68,181.72"/>
     <junction id="cluster_2093621882_502188926_9805204" type="priority" x="551.39" y="586.57" incLanes="4049871#5_0 4049871#5_1" intLanes="" shape="561.82,591.53 555.59,589.65 555.33,596.14">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="cluster_2515519354_2515519360_254853488_254905633_9801927" type="unregulated" x="662.37" y="471.56" incLanes="" intLanes="" shape="660.18,466.80 662.90,472.70"/>
-    <junction id="cluster_254853447_299206553_9805190" type="unregulated" x="0.00" y="0.00" incLanes="4049872_0 4049872_1" intLanes="" shape="0.47,0.01 6.97,0.14"/>
+    <junction id="cluster_2515519354_2515519360_254853488_254905633_9801927" type="dead_end" x="662.37" y="471.56" incLanes="" intLanes="" shape="660.18,466.80 662.90,472.70"/>
+    <junction id="cluster_254853447_299206553_9805190" type="dead_end" x="0.00" y="0.00" incLanes="4049872_0 4049872_1" intLanes="" shape="0.47,0.01 6.97,0.14"/>
     <junction id="cluster_502188736_9805207" type="right_before_left" x="557.48" y="554.05" incLanes="4049871#1_0 4049871#1_1 237107504#2_0 237107504#2_1" intLanes="" shape="557.85,555.06 564.07,553.18 563.14,545.06 559.76,539.51 571.78,552.20 566.31,548.68 558.53,547.05 556.03,553.05">
         <request index="0" response="000000" foes="110000"/>
         <request index="1" response="001000" foes="001000"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:55 2016 by SUMO netconvert Version dev-SVN-r21152
+<!-- generated on Tue Feb 21 16:44:02 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -80,12 +80,12 @@
         <request index="4" response="000010" foes="000010" cont="0"/>
         <request index="5" response="001110" foes="001110" cont="0"/>
     </junction>
-    <junction id="1-begin" type="unregulated" x="0.01" y="35.32" incLanes="" intLanes="" shape="0.00,36.92 0.01,33.72"/>
-    <junction id="2-begin" type="unregulated" x="55.85" y="0.04" incLanes="" intLanes="" shape="54.25,0.02 57.45,0.06"/>
-    <junction id="4-end" type="unregulated" x="55.35" y="70.00" incLanes="4_0" intLanes="" shape="56.95,70.01 53.75,69.99"/>
-    <junction id="5-end" type="unregulated" x="0.00" y="38.82" incLanes="5_0" intLanes="" shape="-0.00,40.42 0.00,37.22"/>
-    <junction id="6-end" type="unregulated" x="52.35" y="0.00" incLanes="6_0" intLanes="" shape="50.75,-0.02 53.95,0.02"/>
-    <junction id="7-begin" type="unregulated" x="51.85" y="69.68" incLanes="" intLanes="" shape="53.45,69.69 50.25,69.68"/>
+    <junction id="1-begin" type="dead_end" x="0.01" y="35.32" incLanes="" intLanes="" shape="0.00,36.92 0.01,33.72"/>
+    <junction id="2-begin" type="dead_end" x="55.85" y="0.04" incLanes="" intLanes="" shape="54.25,0.02 57.45,0.06"/>
+    <junction id="4-end" type="dead_end" x="55.35" y="70.00" incLanes="4_0" intLanes="" shape="56.95,70.01 53.75,69.99"/>
+    <junction id="5-end" type="dead_end" x="0.00" y="38.82" incLanes="5_0" intLanes="" shape="-0.00,40.42 0.00,37.22"/>
+    <junction id="6-end" type="dead_end" x="52.35" y="0.00" incLanes="6_0" intLanes="" shape="50.75,-0.02 53.95,0.02"/>
+    <junction id="7-begin" type="dead_end" x="51.85" y="69.68" incLanes="" intLanes="" shape="53.45,69.69 50.25,69.68"/>
 
     <junction id=":0_6_0" type="internal" x="53.57" y="35.97" incLanes=":0_1_0" intLanes=":0_3_0 :0_4_0 :0_5_0"/>
 

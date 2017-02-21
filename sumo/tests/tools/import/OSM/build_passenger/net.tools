@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 14:42:04 2017 by SUMO netconvert Version dev-SVN-r23039
+<!-- generated on Tue Feb 21 16:44:28 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -10,7 +10,7 @@
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/dynamic_gui.21Feb144203.30192/tools/import/OSM/build_passenger/net.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/dynamic_gui.21Feb164426.1538/tools/import/OSM/build_passenger/net.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
     </output>
@@ -1944,7 +1944,7 @@
     <junction id="2008877431" type="priority" x="991.26" y="390.63" incLanes="69923147_0" intLanes=":2008877431_0_0" shape="991.31,390.63 988.01,390.50 991.21,390.63">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="21540770" type="unregulated" x="582.88" y="513.91" incLanes="" intLanes="" shape="583.71,518.73 582.06,509.08"/>
+    <junction id="21540770" type="dead_end" x="582.88" y="513.91" incLanes="" intLanes="" shape="583.71,518.73 582.06,509.08"/>
     <junction id="2165987550" type="priority" x="1008.38" y="456.25" incLanes="206579061_0 -206579062#2_0" intLanes=":2165987550_0_0 :2165987550_0_1 :2165987550_5_0 :2165987550_3_0 :2165987550_6_0" shape="1011.87,455.43 1005.51,454.11 1005.30,455.12 1005.20,455.62 1005.11,456.13 1005.01,456.63 1004.92,457.13 1014.56,458.88">
         <request index="0" response="00000" foes="10000" cont="0"/>
         <request index="1" response="00000" foes="10000" cont="0"/>
@@ -1952,7 +1952,7 @@
         <request index="3" response="00000" foes="00100" cont="0"/>
         <request index="4" response="00011" foes="00011" cont="1"/>
     </junction>
-    <junction id="2165987553" type="unregulated" x="636.80" y="534.30" incLanes="146511467_0 146511467_1" intLanes="" shape="637.36,537.51 636.24,531.10"/>
+    <junction id="2165987553" type="dead_end" x="636.80" y="534.30" incLanes="146511467_0 146511467_1" intLanes="" shape="637.36,537.51 636.24,531.10"/>
     <junction id="2165987554" type="priority" x="925.09" y="530.68" incLanes="46150483_0 46150483_1" intLanes=":2165987554_0_0 :2165987554_0_1 :2165987554_0_2" shape="928.19,534.67 924.28,525.69 922.91,527.97 924.90,534.15">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
@@ -1989,10 +1989,10 @@
         <request index="3" response="00000" foes="00010" cont="0"/>
         <request index="4" response="00001" foes="00001" cont="1"/>
     </junction>
-    <junction id="32266899" type="unregulated" x="1134.11" y="3.27" incLanes="22917250_0 22917250_1 22917250_2" intLanes="" shape="1129.23,2.85 1138.99,3.69"/>
-    <junction id="32266901" type="unregulated" x="1147.77" y="0.00" incLanes="" intLanes="" shape="1142.89,-0.48 1152.64,0.48"/>
-    <junction id="32266926" type="unregulated" x="584.60" y="529.99" incLanes="22762377#1_0 22762377#1_1 22762377#1_2" intLanes="" shape="585.40,534.83 583.81,525.16"/>
-    <junction id="38918157" type="unregulated" x="2061.71" y="946.75" incLanes="" intLanes="" shape="2063.97,944.41 2059.45,949.09"/>
+    <junction id="32266899" type="dead_end" x="1134.11" y="3.27" incLanes="22917250_0 22917250_1 22917250_2" intLanes="" shape="1129.23,2.85 1138.99,3.69"/>
+    <junction id="32266901" type="dead_end" x="1147.77" y="0.00" incLanes="" intLanes="" shape="1142.89,-0.48 1152.64,0.48"/>
+    <junction id="32266926" type="dead_end" x="584.60" y="529.99" incLanes="22762377#1_0 22762377#1_1 22762377#1_2" intLanes="" shape="585.40,534.83 583.81,525.16"/>
+    <junction id="38918157" type="dead_end" x="2061.71" y="946.75" incLanes="" intLanes="" shape="2063.97,944.41 2059.45,949.09"/>
     <junction id="38919703" type="traffic_light" x="1658.24" y="630.98" incLanes="143308546#4_0 143308546#4_1 142575693#4_0" intLanes=":38919703_0_0 :38919703_0_1 :38919703_2_0" shape="1659.23,635.66 1662.98,630.36 1657.55,626.69 1654.07,632.19 1654.76,632.66 1654.90,633.02 1654.89,633.46 1654.75,633.99 1654.47,634.59 1657.29,636.11 1657.82,635.48 1658.13,635.34 1658.47,635.32 1658.83,635.43">
         <request index="0" response="000" foes="100" cont="0"/>
         <request index="1" response="000" foes="100" cont="0"/>
@@ -2015,7 +2015,7 @@
     <junction id="473482356" type="priority" x="615.07" y="629.51" incLanes="-141968853_0" intLanes=":473482356_0_0" shape="615.05,629.46 616.02,632.61 615.08,629.56">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="57343487" type="unregulated" x="2075.68" y="931.95" incLanes="143308542#0_0 143308542#0_1" intLanes="" shape="2077.96,929.63 2073.40,934.26"/>
+    <junction id="57343487" type="dead_end" x="2075.68" y="931.95" incLanes="143308542#0_0 143308542#0_1" intLanes="" shape="2077.96,929.63 2073.40,934.26"/>
     <junction id="59992997" type="priority" x="1477.43" y="373.83" incLanes="24214694#2_0 -190083618#2_0" intLanes=":59992997_0_0 :59992997_0_1 :59992997_0_2 :59992997_6_0 :59992997_4_0 :59992997_7_0" shape="1474.33,375.58 1480.80,374.95 1480.56,372.11 1467.50,373.05">
         <request index="0" response="000000" foes="100000" cont="0"/>
         <request index="1" response="000000" foes="100000" cont="0"/>
@@ -2027,8 +2027,8 @@
     <junction id="664166095" type="priority" x="1276.93" y="833.08" incLanes="-143308562#2_0" intLanes=":664166095_0_0" shape="1276.88,833.08 1280.17,833.35 1276.98,833.09">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="664166124" type="unregulated" x="1511.85" y="923.92" incLanes="" intLanes="" shape="1513.23,924.74 1510.48,923.11"/>
-    <junction id="664166127" type="unregulated" x="1521.29" y="930.74" incLanes="142575692#1_0" intLanes="" shape="1522.75,931.40 1519.83,930.08"/>
+    <junction id="664166124" type="dead_end" x="1511.85" y="923.92" incLanes="" intLanes="" shape="1513.23,924.74 1510.48,923.11"/>
+    <junction id="664166127" type="dead_end" x="1521.29" y="930.74" incLanes="142575692#1_0" intLanes="" shape="1522.75,931.40 1519.83,930.08"/>
     <junction id="835806371" type="priority" x="0.00" y="803.87" incLanes="-69923147_0" intLanes=":835806371_0_0" shape="-0.03,803.83 2.11,806.34 0.03,803.90">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>

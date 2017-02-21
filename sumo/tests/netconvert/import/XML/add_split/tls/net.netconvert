@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 15 13:02:33 2016 by SUMO netconvert Version dev-SVN-r22304
+<!-- generated on Tue Feb 21 16:44:00 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,7 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <report>
@@ -103,15 +104,15 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ0" type="unregulated" x="-11.14" y="34.95" incLanes="" intLanes="" shape="-11.14,34.90 -11.10,28.40"/>
+    <junction id="gneJ0" type="dead_end" x="-11.14" y="34.95" incLanes="" intLanes="" shape="-11.14,34.90 -11.10,28.40"/>
     <junction id="gneJ1" type="traffic_light" x="87.20" y="35.55" incLanes="beg2_0 beg2_1 beg.end_0 beg.end_1" intLanes=":gneJ1_0_0 :gneJ1_0_1 :gneJ1_2_0 :gneJ1_2_1" shape="80.91,37.88 87.35,37.00 89.70,34.58 87.46,28.48 79.12,28.95 79.08,35.45">
         <request index="0" response="1100" foes="1100" cont="0"/>
         <request index="1" response="1100" foes="1100" cont="0"/>
         <request index="2" response="0000" foes="0011" cont="0"/>
         <request index="3" response="0000" foes="0011" cont="0"/>
     </junction>
-    <junction id="gneJ2" type="unregulated" x="101.42" y="139.68" incLanes="" intLanes="" shape="101.37,139.69 94.93,140.57"/>
-    <junction id="gneJ3" type="unregulated" x="198.95" y="-5.47" incLanes="end.end_0 end.end_1" intLanes="" shape="196.69,-11.62 198.93,-5.52"/>
+    <junction id="gneJ2" type="dead_end" x="101.42" y="139.68" incLanes="" intLanes="" shape="101.37,139.69 94.93,140.57"/>
+    <junction id="gneJ3" type="dead_end" x="198.95" y="-5.47" incLanes="end.end_0 end.end_1" intLanes="" shape="196.69,-11.62 198.93,-5.52"/>
 
     <connection from="beg" to="beg.end" fromLane="0" toLane="0" via=":beg.60_0_0" dir="s" state="M"/>
     <connection from="beg" to="beg.end" fromLane="0" toLane="1" via=":beg.60_0_1" dir="s" state="M"/>

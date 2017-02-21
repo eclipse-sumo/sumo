@@ -27,7 +27,8 @@ Building inner edges... done (0ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 3
+  Unregulated junctions       : 0
+  Dead-end junctions          : 3
   Priority junctions          : 0
   Right-before-left junctions : 0
   Rail signal junctions      : 1
@@ -36,5 +37,5 @@ Summary:
   Applied offset     : 500.00,0.00
   Converted boundary : 0.00,0.00,1000.00,100.00
 -----------------------------------------------------
-Writing network... done (1ms).
+Writing network... done (0ms).
 Success.

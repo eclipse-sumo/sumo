@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:53 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Tue Feb 21 16:44:12 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -49,7 +49,7 @@
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="osgb4000000025275978" type="unregulated" x="3.00" y="351.00" incLanes="osgb4000000025305633_0 osgb4000000025305633_1" intLanes="" shape="9.21,353.07 3.05,351.02"/>
+    <junction id="osgb4000000025275978" type="dead_end" x="3.00" y="351.00" incLanes="osgb4000000025305633_0 osgb4000000025305633_1" intLanes="" shape="9.21,353.07 3.05,351.02"/>
 
     <connection from="osgb4000000025305632" to="osgb4000000025305634" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="osgb4000000025305632" to="osgb4000000025305634" fromLane="0" toLane="1" dir="r" state="M"/>

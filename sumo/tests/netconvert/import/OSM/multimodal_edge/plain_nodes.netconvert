@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:32 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sharps/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
     <output>
-        <output-file value="ignore.net.xml"/>
+        <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
         <output.street-names value="true"/>
     </output>
@@ -33,6 +32,6 @@
 
     <node id="1" x="0.00" y="0.00" type="priority"/>
     <node id="2" x="647.27" y="350.76" type="priority"/>
-    <node id="3" x="7454.01" y="225.32" type="unregulated"/>
-    <node id="4" x="14260.81" y="109.28" type="unregulated"/>
+    <node id="3" x="7454.01" y="225.32" type="dead_end"/>
+    <node id="4" x="14260.81" y="109.28" type="dead_end"/>
 </nodes>

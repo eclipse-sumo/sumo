@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 20 12:28:03 2017 by SUMO netconvert Version dev-SVN-r23007
+<!-- generated on Tue Feb 21 16:44:06 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -663,14 +663,14 @@
         <request index="7" response="000000000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="38918157" type="unregulated" x="505.07" y="767.38" incLanes="" intLanes="" shape="506.20,766.26 503.93,768.51"/>
+    <junction id="38918157" type="dead_end" x="505.07" y="767.38" incLanes="" intLanes="" shape="506.20,766.26 503.93,768.51"/>
     <junction id="38919605" type="priority" x="219.07" y="575.80" incLanes="6137239#4_0" intLanes="" shape="219.04,575.83 221.38,573.51 219.11,575.76">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="38919652" type="priority" x="53.04" y="561.71" incLanes="-6137239#4_0" intLanes="" shape="53.04,561.66 53.14,564.96 53.04,561.76">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="38919668" type="unregulated" x="122.09" y="465.95" incLanes="27437972#1_0" intLanes="" shape="121.14,467.23 123.05,464.67"/>
+    <junction id="38919668" type="dead_end" x="122.09" y="465.95" incLanes="27437972#1_0" intLanes="" shape="121.14,467.23 123.05,464.67"/>
     <junction id="38920778" type="priority" x="340.19" y="592.25" incLanes="5784968#3_0 27445015#3_0 -5784968#4_0" intLanes="" shape="343.52,596.22 345.22,593.50 344.85,591.52 339.70,587.56 336.45,588.40 334.92,591.21 335.28,593.08 340.28,597.24">
         <request index="0" response="000010000" foes="010010000"/>
         <request index="1" response="000110000" foes="110110000"/>
@@ -683,7 +683,7 @@
         <request index="8" response="000100010" foes="000100010"/>
     </junction>
     <junction id="56242425" type="dead_end" x="98.76" y="435.60" incLanes="-7730463_0" intLanes="" shape="102.65,439.40 104.12,436.55 103.75,434.72 98.77,430.54"/>
-    <junction id="57343487" type="unregulated" x="518.17" y="752.54" incLanes="27445015#4_0" intLanes="" shape="519.28,751.39 517.05,753.69"/>
+    <junction id="57343487" type="dead_end" x="518.17" y="752.54" incLanes="27445015#4_0" intLanes="" shape="519.28,751.39 517.05,753.69"/>
     <junction id="94487954" type="traffic_light" x="1173.99" y="19.62" incLanes="-7216737#0_0 -7216737#0_1" intLanes="" shape="1173.96,19.67 1176.89,13.75 1174.01,19.58">
         <request index="0" response="0" foes="0"/>
     </junction>

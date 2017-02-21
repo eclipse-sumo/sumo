@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:32 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -102,8 +102,8 @@
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="3" type="unregulated" x="7454.01" y="225.32" incLanes="10860202_0" intLanes="" shape="7453.98,223.72 7454.04,226.92"/>
-    <junction id="4" type="unregulated" x="14260.81" y="109.28" incLanes="10860203_0" intLanes="" shape="14260.78,107.68 14260.83,110.88"/>
+    <junction id="3" type="dead_end" x="7454.01" y="225.32" incLanes="10860202_0" intLanes="" shape="7453.98,223.72 7454.04,226.92"/>
+    <junction id="4" type="dead_end" x="14260.81" y="109.28" incLanes="10860203_0" intLanes="" shape="14260.78,107.68 14260.83,110.88"/>
 
     <connection from="-10860201" to="10860201" fromLane="1" toLane="1" via=":1_0_0" dir="t" state="M"/>
     <connection from="10860201" to="10860202" fromLane="0" toLane="0" via=":2_0_0" dir="s" state="M"/>
