@@ -845,36 +845,27 @@ GNEInspectorFrame::AttributeInput::getAttr() const {
 
 long
 GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor(FXObject*, FXSelector, void*) {
-    // declare auxiliar variables
-    AttributeInput* oppositeAttr = NULL;
-    std::string allowed;
-    // first find opposite attribute
-    for(std::vector<GNEInspectorFrame::AttributeInput*>::iterator i = myInspectorFrameParent->myVectorOfAttributeInputs.begin(); 
-        i != myInspectorFrameParent->myVectorOfAttributeInputs.end(); i++) {
-            if(((*i)->getAttr() == SUMO_ATTR_ALLOW) && (myAttr == SUMO_ATTR_DISALLOW)) {
-                oppositeAttr = (*i);
-                allowed = (*i)->myTextFieldStrings->getText().text();
-            } else if(((*i)->getAttr() == SUMO_ATTR_DISALLOW) && (myAttr == SUMO_ATTR_ALLOW)) {
-                oppositeAttr = (*i);
-                allowed = myTextFieldStrings->getText().text();
-            }
+    // in XML either allow or disallow can be defined for convenience
+    // In the input dialog, only the positive-list (allow) is defined even when
+    // clicking on 'disallow'
+    std::string allowed = myTextFieldStrings->getText().text();
+    std::string disallowed = "";
+    if (myAttr == SUMO_ATTR_DISALLOW) {
+        std::swap(allowed, disallowed);
     }
-    // only continue if AttributeCarrier has both Attributes (ALLOW and DISALLOW)
-    if (oppositeAttr == NULL) {
-        return 0;
-    } else if (GNEDialog_AllowDisallow(getApp(), &allowed).execute()) {
-        // set allowed values in myTextFieldStrings or in oppositeAttr
-        if(myAttr == SUMO_ATTR_ALLOW) {
-            myTextFieldStrings->setText((allowed).c_str());
-            onCmdSetAttribute(0, 0, 0);
-        } else {    
-            oppositeAttr->myTextFieldStrings->setText((allowed).c_str());
-            oppositeAttr->onCmdSetAttribute(0,0,0);
-        }
-        return 1;
+    SVCPermissions permissions = parseVehicleClasses(allowed, disallowed);
+    // use expanded form
+    allowed = getVehicleClassNames(permissions, true);
+    GNEDialog_AllowDisallow(getApp(), &allowed).execute();
+    if (myAttr == SUMO_ATTR_DISALLOW) {
+        // invert again
+        std::string disallowed = getVehicleClassNames(SVCAll & ~parseVehicleClasses(allowed));
+        myTextFieldStrings->setText((disallowed).c_str());
     } else {
-        return 0;
+        myTextFieldStrings->setText((allowed).c_str());
     }
+    onCmdSetAttribute(0, 0, 0);
+    return 1;
 }
 
 

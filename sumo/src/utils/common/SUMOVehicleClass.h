@@ -228,9 +228,10 @@ typedef int SUMOEmissionClass;
 // ---------------------------------------------------------------------------
 /** @brief Returns the ids of the given classes, divided using a ' '
  * @param[in] the permissions to encode
+ * @param[in] expand whether 'all' should be used
  * @return The string representation of these classes
  */
-extern std::string getVehicleClassNames(SVCPermissions permissions);
+extern std::string getVehicleClassNames(SVCPermissions permissions, bool expand=false);
 
 
 /** @brief Returns the ids of the given classes, divided using a ' '
