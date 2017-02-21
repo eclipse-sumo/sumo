@@ -1,0 +1,95 @@
+[![Build Status](https://travis-ci.org/planetsumo/sumo.svg?branch=master)](https://travis-ci.org/planetsumo/sumo)
+
+                           SUMO - Simulation of Urban MObility 
+
+
+
+What is SUMO?
+=============
+
+"Simulation of Urban MObility" (SUMO) is an open source, highly portable, microscopic
+road traffic simulation package designed to handle large road networks. The project
+homepage can be found at
+
+        http://sumo.dlr.de/
+
+It is mainly developed by employees of the Institute of Transportation Systems
+at the German Aerospace Center (http://www.dlr.de/ts).
+
+
+
+Where to get it?
+================
+
+You can download SUMO from SourceForge via our downloads site:
+
+        http://sumo.dlr.de/wiki/Downloads
+
+
+As the program is still under development and is extended continuously, we advice you to
+use the latest sources from our Subversion repository. Using a command line svn client
+the following command should work:
+
+        svn co https://svn.code.sf.net/p/sumo/code/trunk/sumo
+
+
+
+Mailing List.
+=============
+
+To stay informed, we have a mailing list for SUMO. To subscribe, send mail to
+sumo-user-request@lists.sourceforge.net with the word subscribe in the message body.
+Messages to the list can be sent to sumo-user@lists.sourceforge.net.
+SUMO announcements will be made through the sumo-announce@lists.sourceforge.net list;
+you can subscribe to this list by sending a message "subscribe" to the list server at
+sumo-announce-request@lists.sourceforge.net.
+
+
+
+Build and Installation.
+=======================
+
+For Windows we provide pre-compiled binaries and Visual Studio project files.
+Using Linux a simple "./configure && make" should be enough for the distributions, if you
+have installed all needed libraries properly. Using the repository checkout you
+need to issue "make -f Makefile.cvs" before "./configure && make" in order to run
+the autoconf utilities creating configure and the Makefiles.
+If configure does not find the libraries or includes needed, please check
+"./configure --help" for information on how to specify the paths needed.
+
+For detailed build instructions have a look at our wiki:
+
+        http://sumo.dlr.de/wiki/Developer/Main#Build_instructions
+
+
+
+Getting started.
+================
+
+To get started with SUMO, take a look at the examples directory, which contains
+some example networks with routing data and configuration files.
+There is also user documentation provided in the docs/ directory and on the
+homepage.
+
+
+
+Bugs.
+=====
+
+Please use for bugs and requests our bug tracking tool which provides OpenID access
+
+        http://sumo.dlr.de/trac/
+
+or file them to the list sumo-users@lists.sourceforge.net. Before
+filing a bug, please consider to check with a current subversion checkout
+that the problem still persists.
+
+
+
+License.
+========
+
+SUMO is licensed under GPL, see the file COPYING for details. For the licenses of
+the different libraries and supplementary code, see 
+
+        http://sumo.dlr.de/wiki/License
