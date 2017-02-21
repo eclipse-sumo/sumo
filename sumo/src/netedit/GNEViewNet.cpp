@@ -637,6 +637,9 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 // Check if Control key is pressed
                 bool markElementMode = (((FXEvent*)data)->state & CONTROLMASK) != 0;
                 GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(pointed);
+                if (pointed_lane && mySelectEdges->getCheck()) {
+                    ac = pointed_edge;
+                }
                 if (ac) {
                     // if pointed element is an attribute carrier, remove it or mark it
                     if (markElementMode) {
