@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 12 10:33:00 2017 by SUMO netconvert Version dev-SVN-r22560
+<!-- generated on Tue Feb 21 13:13:15 2017 by SUMO netconvert Version dev-SVN-r23030
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -68,7 +68,6 @@
     <node id="294168972" x="714.97" y="226.01" type="priority"/>
     <node id="294169338" x="558.41" y="308.54" type="right_before_left"/>
     <node id="294169339" x="544.28" y="302.42" type="right_before_left"/>
-    <node id="294169342" x="495.08" y="307.55" type="priority"/>
     <node id="294169618" x="541.18" y="150.49" type="priority"/>
     <node id="294829385" x="858.87" y="482.32" type="priority"/>
     <node id="294829798" x="922.84" y="406.82" type="priority"/>
@@ -79,9 +78,10 @@
     <node id="294831562" x="501.77" y="245.17" type="priority"/>
     <node id="294831563" x="766.37" y="525.27" type="priority"/>
     <node id="294831564" x="934.12" y="553.29" type="priority"/>
-    <node id="294831565" x="492.35" y="390.75" type="priority"/>
-    <node id="294831566" x="897.77" y="599.27" type="priority"/>
-    <node id="294831567" x="615.26" y="422.75" type="priority"/>
+    <node id="294831565" x="495.28" y="309.77" type="priority"/>
+    <node id="294831566" x="492.35" y="390.75" type="priority"/>
+    <node id="294831567" x="897.77" y="599.27" type="priority"/>
+    <node id="294831568" x="615.26" y="422.75" type="priority"/>
     <node id="32266935" x="478.98" y="121.02" type="traffic_light" tl="32266935"/>
     <node id="32266936" x="472.77" y="49.00" type="priority"/>
     <node id="32266938" x="477.79" y="107.21" type="priority"/>
@@ -113,7 +113,6 @@
     <node id="38919854" x="387.44" y="504.33" type="priority"/>
     <node id="38919880" x="339.13" y="454.31" type="priority"/>
     <node id="38919927" x="297.39" y="446.01" type="priority"/>
-    <node id="38920501" x="495.47" y="311.99" type="priority"/>
     <node id="38920557" x="518.91" y="744.71" type="unregulated"/>
     <node id="56231597" x="633.67" y="383.18" type="priority"/>
     <node id="56242425" x="662.43" y="435.64" type="priority"/>

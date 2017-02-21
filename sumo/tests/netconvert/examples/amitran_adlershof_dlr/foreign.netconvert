@@ -791,7 +791,7 @@
     <link id="457" from="120" to="301" roadClass="4" length="38752" speedLimitKmh="20" laneNr="1"/>
     <link id="458" from="301" to="298" roadClass="4" length="21180" speedLimitKmh="20" laneNr="1"/>
     <link id="459" from="298" to="29" roadClass="4" length="30361" speedLimitKmh="20" laneNr="1"/>
-    <link id="460" from="29" to="23" roadClass="4" length="3089" speedLimitKmh="20" laneNr="1"/>
+    <link id="460" from="29" to="23" roadClass="4" length="8063" speedLimitKmh="20" laneNr="1"/>
     <link id="461" from="120" to="121" roadClass="4" length="62527" speedLimitKmh="20" laneNr="1"/>
     <link id="462" from="122" to="126" roadClass="1" length="55578" speedLimitKmh="100" laneNr="1"/>
     <link id="463" from="126" to="123" roadClass="1" length="389864" speedLimitKmh="100" laneNr="1"/>
