@@ -522,6 +522,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 };
 
 
+const std::string SUMO_PARAM_ORIGID("origId");
+
+
 StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[] = {
     {"traffic_light",               NODETYPE_TRAFFIC_LIGHT},
     {"traffic_light_unregulated",   NODETYPE_TRAFFIC_LIGHT_NOJUNCTION},

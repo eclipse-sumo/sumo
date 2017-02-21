@@ -746,6 +746,12 @@ enum SumoXMLAttr {
  */
 
 /**
+ * SumoXMLParam Key Constants. Since all usage contexts needs strings rather
+ * than enum values we do not bother with a StringBijection
+ */
+extern const std::string SUMO_PARAM_ORIGID;
+
+/**
  * @enum SumoXMLNodeType
  * @brief Numbers representing special SUMO-XML-attribute values
  * for representing node- (junction-) types used in netbuild/netimport and netload
@@ -1006,6 +1012,7 @@ public:
 
     /// @name Special values of SUMO-XML attributes
     /// @{
+
     /// @brief node types
     static StringBijection<SumoXMLNodeType> NodeTypes;
 
@@ -1049,6 +1056,7 @@ public:
 private:
     /// @brief containers for the different SUMOXMLDefinitions
     /// @{
+
     /// @brief node type values
     static StringBijection<SumoXMLNodeType>::Entry sumoNodeTypeValues[];
 

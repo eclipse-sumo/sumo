@@ -442,7 +442,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     }
     if (origNames && origID != "") {
         into.openTag(SUMO_TAG_PARAM);
-        into.writeAttr(SUMO_ATTR_KEY, "origId");
+        into.writeAttr(SUMO_ATTR_KEY, SUMO_PARAM_ORIGID);
         into.writeAttr(SUMO_ATTR_VALUE, origID);
         into.closeTag();
     }
