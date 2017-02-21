@@ -1788,76 +1788,53 @@ GNEViewNet::updateModeSpecificControls() {
     myEditModeTrafficLight->setChecked(false);
     myEditModeAdditional->setChecked(false);
     myEditModeCrossing->setChecked(false);
-    // hide all Frames
     myViewParent->hideAllFrames();
     // enable selected controls
     switch (myEditMode) {
         case GNE_MODE_CREATE_EDGE:
-            // show additionals checkboxs
             myChainCreateEdge->show();
             myAutoCreateOppositeEdge->show();
-            // check create edge mode button
             myEditModeCreateEdge->setChecked(true);
             break;
         case GNE_MODE_MOVE:
-            // show additionals checkboxs
             myWarnAboutMerge->show();
             myShowBubbleOverJunction->show();
-            // check move mode button
             myEditModeMove->setChecked(true);
             break;
         case GNE_MODE_DELETE:
-            // Show delete frame
             myViewParent->getDeleteFrame()->show();
-            // show additionals checkboxs
             mySelectEdges->show();
             myShowConnections->show();
-            // check delete mode button
             myEditModeDelete->setChecked(true);
             break;
         case GNE_MODE_INSPECT:
-            // show inspector frame
             myViewParent->getInspectorFrame()->show();
-            // show additionals checkboxs
             mySelectEdges->show();
             myShowConnections->show();
-            // check inspect mode button
             myEditModeInspect->setChecked(true);
             break;
         case GNE_MODE_SELECT:
-            // show selector frame
             myViewParent->getSelectorFrame()->show();
-            // show additionals checkboxs
             mySelectEdges->show();
             myShowConnections->show();
             myExtendToEdgeNodes->show();
-            // check select mode button
             myEditModeSelect->setChecked(true);
             break;
         case GNE_MODE_CONNECT:
-            // show connector frame
             myViewParent->getConnectorFrame()->show();
-            // check connection mode button
             myEditModeConnection->setChecked(true);
             break;
         case GNE_MODE_TLS:
-            // show TLS Frame
             myViewParent->getTLSEditorFrame()->show();
-            // show additionals checkboxs
             myChangeAllPhases->show();
-            // check TLS mode button
             myEditModeTrafficLight->setChecked(true);
             break;
         case GNE_MODE_ADDITIONAL:
-            // show additional frame
             myViewParent->getAdditionalFrame()->show();
-            // check additional mode button
             myEditModeAdditional->setChecked(true);
             break;
         case GNE_MODE_CROSSING:
-            // show crossing frame
             myViewParent->getCrossingFrame()->show();
-            // check crossing mode button
             myEditModeCrossing->setChecked(true);
             break;
         default:
