@@ -62,7 +62,7 @@ FXIMPLEMENT(GNEDialog_AllowDisallow, FXDialogBox, GNEDialog_AllowDisallowMap, AR
 // ===========================================================================
 
 GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(FXApp* app, std::string *allow) :
-    FXDialogBox(app, ("Edit allowed and disallowed " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBoxExplicit, 0, 0, 1024, 590, 0, 0, 0, 0), 
+    FXDialogBox(app, ("Edit allowed and disallowed " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBoxExplicit, 0, 0, 1100, 590, 0, 0, 0, 0), 
     myAllow(allow),
     myCopyOfAllow(*allow) {
     // set vehicle icon for this dialog
@@ -82,37 +82,37 @@ GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(FXApp* app, std::string *allow)
     FXGroupBox *myGroupBoxVehiclesFrame = new FXGroupBox(mainFrame, ("Select " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignGroupBoxFrame);
     // Create frame for vehicles's columns
     FXHorizontalFrame *myVehiclesFrame = new FXHorizontalFrame(myGroupBoxVehiclesFrame, GUIDesignContentsFrame);
-    // create left frame and fill it (9 vehicles)
+    // create left frame and fill it
     FXVerticalFrame *myContentLeftFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
-    buildVClassPassenger(myContentLeftFrame);
-    buildVClassTaxi(myContentLeftFrame);
-    buildVClassBus(myContentLeftFrame);
-    buildVClassCoach(myContentLeftFrame);
-    buildVClassDelivery(myContentLeftFrame);
-    buildVClassTruck(myContentLeftFrame);
-    buildVClassTrailer(myContentLeftFrame);
-    buildVClassEmergency(myContentLeftFrame);
-    // create center frame and fill it (9 vehicles)
-    FXVerticalFrame *myContentCenterFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);  
-    buildVClassMotorcycle(myContentCenterFrame);
-    buildVClassMoped(myContentCenterFrame);
-    buildVClassBicycle(myContentCenterFrame);
-    buildVClassPedestrian(myContentCenterFrame);
-    buildVClassTram(myContentCenterFrame);
-    buildVClassRailUrban(myContentCenterFrame);
-    buildVClassRail(myContentCenterFrame);
-    buildVClassRailElectric(myContentCenterFrame);
-    buildVClassShip(myContentCenterFrame);
-    buildVClassEVehicle(myContentCenterFrame);
+    buildVClass(myContentLeftFrame, SVC_PASSENGER, ICON_VCLASS_PASSENGER, "Default vehicle class");
+    buildVClass(myContentLeftFrame, SVC_TAXI, ICON_VCLASS_TAXI, "Vehicle for hire with a driver");
+    buildVClass(myContentLeftFrame, SVC_BUS, ICON_VCLASS_BUS, "Urban line traffic");
+    buildVClass(myContentLeftFrame, SVC_COACH, ICON_VCLASS_COACH, "Overland transport");
+    buildVClass(myContentLeftFrame, SVC_DELIVERY, ICON_VCLASS_DELIVERY, "Vehicles specialized to deliver goods");
+    buildVClass(myContentLeftFrame, SVC_TRUCK, ICON_VCLASS_TRUCK, "Vehicle designed to transport cargo");
+    buildVClass(myContentLeftFrame, SVC_TRAILER, ICON_VCLASS_TRAILER, "Truck with trailer");
+    buildVClass(myContentLeftFrame, SVC_EMERGENCY, ICON_VCLASS_EMERGENCY, "Vehicle designated to respond to an emergency");
+    // create center frame and fill it
+    FXVerticalFrame *myContentCenterFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame); 
+    buildVClass(myContentCenterFrame, SVC_MOTORCYCLE, ICON_VCLASS_MOTORCYCLE, "Two- or three-wheeled motor vehicle");
+    buildVClass(myContentCenterFrame, SVC_MOPED, ICON_VCLASS_MOPED, "Motorcycle not allowed in motorways");
+    buildVClass(myContentCenterFrame, SVC_BICYCLE, ICON_VCLASS_BICYCLE, "Human-powered, pedal-driven vehicle");
+    buildVClass(myContentCenterFrame, SVC_PEDESTRIAN, ICON_VCLASS_PEDESTRIAN, "Person traveling on foot");
+    buildVClass(myContentCenterFrame, SVC_TRAM, ICON_VCLASS_TRAM, "Rail vehicle which runs on tracks");
+    buildVClass(myContentCenterFrame, SVC_RAIL_URBAN, ICON_VCLASS_RAIL_URBAN, "Heavier than tram");
+    buildVClass(myContentCenterFrame, SVC_RAIL, ICON_VCLASS_RAIL, "Heavy rail vehicle (ICE)");
+    buildVClass(myContentCenterFrame, SVC_RAIL_ELECTRIC, ICON_VCLASS_RAIL_ELECTRIC, "Rail electric vehicle (Trolleybus)");
+    buildVClass(myContentCenterFrame, SVC_SHIP, ICON_VCLASS_SHIP, "Basic class for navigating waterway");
+    buildVClass(myContentCenterFrame, SVC_E_VEHICLE, ICON_VCLASS_EVEHICLE, "Future electric mobility vehicles");
     // create right frame and fill it  (8 vehicles)
     FXVerticalFrame *myContentRightFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
-    buildVClassPrivate(myContentRightFrame);
-    buildVClassArmy(myContentRightFrame);
-    buildVClassAuthority(myContentRightFrame);
-    buildVClassVip(myContentRightFrame);
-    buildVClassHov(myContentRightFrame);
-    buildVClassCustom1(myContentRightFrame);
-    buildVClassCustom2(myContentRightFrame);
+    buildVClass(myContentRightFrame, SVC_PRIVATE, ICON_VCLASS_PRIVATE, "A passenger car assigned for private use");
+    buildVClass(myContentRightFrame, SVC_ARMY, ICON_VCLASS_ARMY, "Vehicle designed for military forces");
+    buildVClass(myContentRightFrame, SVC_AUTHORITY, ICON_VCLASS_AUTHORITY, "Vehicle of a governmental security agency");
+    buildVClass(myContentRightFrame, SVC_VIP, ICON_VCLASS_VIP, "A civilian security armored car used by VIPs");
+    buildVClass(myContentRightFrame, SVC_HOV, ICON_VCLASS_HOV, "High-Occupancy Vehicle (two or more passengers)");
+    buildVClass(myContentRightFrame, SVC_CUSTOM1, ICON_VCLASS_CUSTOM1, "Reserved for user-defined semantics");
+    buildVClass(myContentRightFrame, SVC_CUSTOM2, ICON_VCLASS_CUSTOM2, "Reserved for user-defined semantics");
     // create dialog buttons bot centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -231,429 +231,19 @@ GNEDialog_AllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
 
 
 void 
-GNEDialog_AllowDisallow::buildVClassPrivate(FXVerticalFrame *contentsFrame) {
+GNEDialog_AllowDisallow::buildVClass(FXVerticalFrame *contentsFrame, SUMOVehicleClass vclass, GUIIcon icon, const std::string &description) {
     // add vehicle frame for SVC_PRIVATE
     FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_PRIVATE), GUIDesignLabelIconVClass);
+    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(icon), GUIDesignLabelIconVClass);
     labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
     // create frame for information and button
     FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
     FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
     // create status and text button
-    myVClassMap[SVC_PRIVATE].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_PRIVATE].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
+    myVClassMap[vclass].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
+    myVClassMap[vclass].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
     // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "A passenger car assigned for private use", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-    GNEDialog_AllowDisallow::buildVClassEmergency(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_EMERGENCY
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_EMERGENCY), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_EMERGENCY].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_EMERGENCY].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Vehicle designated to respond to an emergency", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassAuthority(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_AUTHORITY
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_AUTHORITY), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_AUTHORITY].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_AUTHORITY].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Vehicle of a governmental security agency", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassArmy(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_ARMY
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_ARMY), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_ARMY].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_ARMY].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Vehicle designed for military forces", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassVip(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_VIP
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_VIP), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_VIP].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_VIP].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "A civilian security armored car used by VIPs", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassPassenger(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_PASSENGER
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_PASSENGER), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_PASSENGER].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_PASSENGER].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Default vehicle class", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassHov(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_HOV
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_HOV), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_HOV].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_HOV].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "High-Occupancy Vehicle (two or more passengers)", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassTaxi(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_TAXI
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_TAXI), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_TAXI].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_TAXI].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Vehicle for hire with a driver", 0, GUIDesignLabelLeftThick); 
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassBus(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_BUS
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_BUS), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_BUS].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_BUS].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Urban line traffic", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassCoach(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_COACH
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_COACH), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_COACH].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_COACH].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Overland transport", 0, GUIDesignLabelLeftThick);
-}
-
-
-void
-GNEDialog_AllowDisallow::buildVClassDelivery(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_DELIVERY
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_DELIVERY), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_DELIVERY].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_DELIVERY].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Vehicles specialized to deliver goods", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassTruck(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_TRUCK
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_TRUCK), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_TRUCK].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_TRUCK].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Vehicle designed to transport cargo", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassTrailer(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_TRAILER
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_TRAILER), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_TRAILER].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_TRAILER].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Truck with trailer", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassTram(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_TRAM
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_TRAM), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_TRAM].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_TRAM].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Rail vehicle which runs on tracks", 0, GUIDesignLabelLeftThick);
-}
-
-
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassRailUrban(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_RAIL_URBAN
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_RAIL), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_RAIL].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_RAIL].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Heavy rail vehicle (ICE)", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassRail(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_RAIL
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_RAIL_URBAN), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_RAIL_URBAN].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_RAIL_URBAN].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Heavier than tram", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassRailElectric(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_RAIL_ELECTRIC
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_RAIL_ELECTRIC), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_RAIL_ELECTRIC].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_RAIL_ELECTRIC].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Rail electric vehicle (Trolleybus)", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassMotorcycle(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_MOTORCYCLE
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_MOTORCYCLE), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_MOTORCYCLE].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_MOTORCYCLE].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Two- or three-wheeled motor vehicle", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassMoped(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_MOPED
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_MOPED), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_MOPED].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_MOPED].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Motorcycle not allowed in motorways", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassBicycle(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_BICYCLE
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_BICYCLE), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_BICYCLE].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_BICYCLE].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Human-powered, pedal-driven vehicle", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassPedestrian(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_PEDESTRIAN
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_PEDESTRIAN), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_PEDESTRIAN].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_PEDESTRIAN].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Person traveling on foot", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassEVehicle(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_E_VEHICLE
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_EVEHICLE), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_E_VEHICLE].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_E_VEHICLE].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Future electric mobility vehicles", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassShip(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_SHIP
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_SHIP), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_SHIP].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_SHIP].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Basic class for navigating waterway", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassCustom1(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_CUSTOM1
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_CUSTOM1), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_CUSTOM1].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_CUSTOM1].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Reserved for user-defined semantics", 0, GUIDesignLabelLeftThick);
-}
-
-
-void 
-GNEDialog_AllowDisallow::buildVClassCustom2(FXVerticalFrame *contentsFrame) {
-    // add vehicle frame for SVC_CUSTOM2
-    FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(ICON_VCLASS_CUSTOM2), GUIDesignLabelIconVClass);
-    labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
-    // create frame for information and button
-    FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXHorizontalFrame *buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create status and text button
-    myVClassMap[SVC_CUSTOM2].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[SVC_CUSTOM2].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
-    // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, "Reserved for user-defined semantics", 0, GUIDesignLabelLeftThick);
+    new FXLabel(buttonAndInformationFrame, description.c_str(), 0, GUIDesignLabelLeftThick);
 }
 
 /****************************************************************************/

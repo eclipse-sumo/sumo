@@ -107,89 +107,14 @@ protected:
     std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*> > myVClassMap;
 
 private:
+    /// @brief build VClass
+    void buildVClass(FXVerticalFrame *contentsFrame, SUMOVehicleClass vclass, GUIIcon icon, const std::string &description);
+
     /// @brief Invalidated copy constructor.
     GNEDialog_AllowDisallow(const GNEDialog_AllowDisallow&);
 
     /// @brief Invalidated assignment operator.
     GNEDialog_AllowDisallow& operator=(const GNEDialog_AllowDisallow&);
-
-    /// @name build VClass element
-    /// @{
-    /// @brief build VClass of type private
-	void buildVClassPrivate(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type emergency
-    void buildVClassEmergency(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type authority
-    void buildVClassAuthority(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type army
-    void buildVClassArmy(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type vip
-    void buildVClassVip(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type passenger
-    void buildVClassPassenger(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type hov
-    void buildVClassHov(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type taxi
-    void buildVClassTaxi(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type bus
-    void buildVClassBus(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type coach
-    void buildVClassCoach(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type delivery
-    void buildVClassDelivery(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type truck
-    void buildVClassTruck(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type trailer
-    void buildVClassTrailer(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type tram
-    void buildVClassTram(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type rail urban
-    void buildVClassRailUrban(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type rail
-    void buildVClassRail(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type rail electric
-    void buildVClassRailElectric(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type motorcylce
-    void buildVClassMotorcycle(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type moped
-    void buildVClassMoped(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type bicycle
-    void buildVClassBicycle(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type pedestrian
-    void buildVClassPedestrian(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type electric vehicle
-    void buildVClassEVehicle(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type ship
-    void buildVClassShip(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type custom 1
-    void buildVClassCustom1(FXVerticalFrame *contentsFrame);
-
-    /// @brief build VClass of type custom 2
-    void buildVClassCustom2(FXVerticalFrame *contentsFrame);
-    /// @}
 };
 
 #endif
