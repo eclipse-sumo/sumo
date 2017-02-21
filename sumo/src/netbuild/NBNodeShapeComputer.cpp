@@ -296,6 +296,8 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                     }
 #endif
                     if (*cwi != *ccwi && currGeom2.intersects(neighGeom2)) {
+                        // also use the second intersection point 
+                        // but prevent very large node shapes
                         const SUMOReal farAngleDist = ccwCloser ? cad : ccad;
                         SUMOReal a1 = distances[*i];
                         SUMOReal a2 = radius + closestIntersection(currGeom2, neighGeom2, 100);
@@ -304,10 +306,12 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                             std::cout << "      neigh2 also intersects a1=" << a1 << " a2=" << a2 << " ccad=" << RAD2DEG(ccad) << " cad=" << RAD2DEG(cad) << " dist[cwi]=" << distances[*cwi] << " dist[ccwi]=" << distances[*ccwi] << " farAngleDist=" << RAD2DEG(farAngleDist) << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
                         }
 #endif
+                        //if (RAD2DEG(farAngleDist) < 175) {
+                        //    distances[*i] = MAX2(a1, MIN2(a2, a1 + 180 - RAD2DEG(farAngleDist)));
+                        //}
                         if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
                             // do nothing. 
                         } else if (fabs(a2 - a1) < 10 || farAngleDist < DEG2RAD(135)) {
-                            // XXX do this unconditionally 
                             distances[*i] = MAX2(a1, a2);
                         }
 #ifdef DEBUG_NODE_SHAPE
