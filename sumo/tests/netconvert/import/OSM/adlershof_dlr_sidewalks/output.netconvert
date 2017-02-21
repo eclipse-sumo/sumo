@@ -1,4 +1,4 @@
-Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml'... done.
+Parsing types from '/scr1/sumoID/sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing types from 'input_types.typ.xml'... done.
 Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
@@ -11,32 +11,31 @@ done.
    33 types loaded.
    882 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops... done (0ms).
+Removing self-loops... done (1ms).
 Joining junction clusters... 
-done (2ms).
+done (7ms).
  Joined 19 junction cluster(s).
-Removing empty nodes and geometry nodes... done (1ms).
+Removing empty nodes and geometry nodes... done (5ms).
    95 nodes removed.
-Moving network to origin... done (2ms).
-Computing turning directions... done (1ms).
-Sorting nodes' edges... done (1ms).
-Computing node shapes... 
-done (21ms).
-Computing edge shapes... done (8ms).
-Computing node types... done (0ms).
-Computing priorities... done (1ms).
-Computing approached edges... done (0ms).
+Moving network to origin... done (8ms).
+Computing turning directions... done (2ms).
+Sorting nodes' edges... done (2ms).
+Computing node shapes... done (80ms).
+Computing edge shapes... done (35ms).
+Computing node types... done (1ms).
+Computing priorities... done (2ms).
+Computing approached edges... done (2ms).
 Guessing and setting roundabouts... 
  Guessed 1 roundabout(s).
-done (0ms).
-Computing approaching lanes... done (5ms).
-Dividing of lanes on approached lanes... done (1ms).
+done (1ms).
+Computing approaching lanes... done (21ms).
+Dividing of lanes on approached lanes... done (6ms).
 Processing turnarounds... done (1ms).
-Rechecking of lane endings... done (0ms).
+Rechecking of lane endings... done (1ms).
 Assigning nodes to traffic lights... done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (9ms).
-Computing traffic light logics... done (0ms).
+Computing node logics... done (38ms).
+Computing traffic light logics... done (1ms).
  3 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
@@ -50,5 +49,5 @@ Summary:
   Applied offset     : -395408.93,-5809112.45
   Converted boundary : 0.00,0.00,5580.65,3531.77
 -----------------------------------------------------
-Writing network... done (92ms).
+Writing network... done (182ms).
 Success.

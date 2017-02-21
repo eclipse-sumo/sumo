@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 12 16:31:49 2016 by SUMO netgenerate Version dev-SVN-r21152
+<!-- generated on Tue Feb 21 08:36:39 2017 by SUMO netgenerate Version dev-SVN-r23002
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -38,7 +38,7 @@
         <lane id=":12_1_0" index="0" speed="13.90" length="6.48" shape="229.84,182.37 231.82,182.91 232.97,182.60 233.29,181.45 232.78,179.47"/>
     </edge>
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" speed="13.90" length="5.09" shape="106.55,137.71 106.17,136.25 105.82,135.28 105.40,134.33 104.77,132.96"/>
+        <lane id=":2_0_0" index="0" speed="13.90" length="7.69" shape="106.55,137.71 105.95,135.51 105.38,134.06 104.69,132.65 103.72,130.58"/>
     </edge>
     <edge id=":2_1" function="internal">
         <lane id=":2_1_0" index="0" speed="13.90" length="6.32" shape="106.55,137.71 106.31,135.70 106.74,134.50 107.86,134.12 109.65,134.56"/>
@@ -60,7 +60,7 @@
         <lane id="13_0" index="0" speed="13.90" length="129.35" shape="109.65,134.56 229.84,182.37"/>
     </edge>
     <edge id="15" from="2" to="14" priority="-1">
-        <lane id="15_0" index="0" speed="13.90" length="144.70" shape="104.77,132.96 46.14,0.67"/>
+        <lane id="15_0" index="0" speed="13.90" length="142.10" shape="103.72,130.58 46.14,0.67"/>
     </edge>
     <edge id="17" from="8" to="12" priority="-1">
         <lane id="17_0" index="0" speed="13.90" length="224.28" shape="367.64,365.14 233.90,185.09"/>
@@ -107,7 +107,7 @@
     </junction>
     <junction id="14" type="unregulated" x="47.65" y="0.00" incLanes="15_0" intLanes="" shape="44.68,1.32 47.61,0.02"/>
     <junction id="18" type="unregulated" x="554.80" y="297.91" incLanes="19_0" intLanes="" shape="553.58,294.90 554.78,297.87"/>
-    <junction id="2" type="traffic_light" x="107.74" y="135.58" incLanes="3_0" intLanes=":2_0_0 :2_1_0" shape="105.00,138.08 108.11,137.34 109.06,136.05 110.24,133.08 106.23,132.31 103.31,133.61">
+    <junction id="2" type="traffic_light" x="107.74" y="135.58" incLanes="3_0" intLanes=":2_0_0 :2_1_0" shape="105.00,138.08 108.11,137.34 109.06,136.05 110.24,133.08 105.18,129.93 102.25,131.23">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>

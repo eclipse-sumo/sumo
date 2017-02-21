@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 27 15:44:03 2016 by SUMO netconvert Version dev-SVN-r21818
+<!-- generated on Mon Feb 20 09:18:10 2017 by SUMO netconvert Version dev-SVN-r23002
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -171,7 +171,7 @@
         <lane id="-5784968#2_0" index="0" speed="13.89" length="8.65" shape="367.22,554.41 368.86,552.54"/>
     </edge>
     <edge id="-5784968#3" from="38920778" to="283719904" priority="4" type="highway.residential">
-        <lane id="-5784968#3_0" index="0" speed="13.89" length="44.99" shape="340.93,588.53 364.04,558.41"/>
+        <lane id="-5784968#3_0" index="0" speed="13.89" length="44.99" shape="340.93,588.53 364.67,557.58"/>
     </edge>
     <edge id="-5784968#4" from="306982585" to="38920778" priority="4" type="highway.residential">
         <lane id="-5784968#4_0" index="0" speed="13.89" length="9.89" shape="332.71,598.72 336.50,594.11"/>
@@ -351,7 +351,7 @@
         <lane id="5784968#2_0" index="0" speed="13.89" length="8.65" shape="371.34,554.71 370.27,555.93"/>
     </edge>
     <edge id="5784968#3" from="283719904" to="38920778" priority="4" type="highway.residential">
-        <lane id="5784968#3_0" index="0" speed="13.89" length="44.99" shape="366.66,560.42 343.55,590.54"/>
+        <lane id="5784968#3_0" index="0" speed="13.89" length="44.99" shape="367.29,559.59 343.55,590.54"/>
     </edge>
     <edge id="5784968#4" from="38920778" to="306982585" priority="4" type="highway.residential">
         <lane id="5784968#4_0" index="0" speed="13.89" length="9.89" shape="339.05,596.20 335.26,600.81"/>
@@ -417,7 +417,7 @@
         <request index="14" response="0000011000110110" foes="0000011000111110"/>
         <request index="15" response="0000010000100001" foes="0000010000100001"/>
     </junction>
-    <junction id="283719904" type="priority" x="367.54" y="556.55" incLanes="26004787#2_0 5784968#2_0 -5784968#3_0" intLanes="" shape="370.91,558.95 369.08,552.71 370.90,557.64 366.01,553.36 362.77,557.43 367.92,561.39">
+    <junction id="283719904" type="priority" x="367.54" y="556.55" incLanes="26004787#2_0 5784968#2_0 -5784968#3_0" intLanes="" shape="370.91,558.95 369.08,552.71 370.90,557.64 366.01,553.36 363.40,556.60 368.56,560.56">
         <request index="0" response="000010000" foes="100010000"/>
         <request index="1" response="011010000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>

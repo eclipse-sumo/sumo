@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:07 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Mon Feb 20 09:18:00 2017 by SUMO netconvert Version dev-SVN-r23002
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -28,26 +28,26 @@
     <location netOffset="-391777.54,-5819454.48" convBoundary="0.00,0.00,519.81,191.11" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-1" from="3091127668" to="C" priority="13" type="waterway.river" shape="0.00,191.11 36.75,150.03 74.72,111.20 128.02,72.67 180.00,58.11">
-        <lane id="-1_0" index="0" allow="ship" speed="2.78" length="273.75" width="7.00" shape="-2.65,188.74 34.16,147.60 72.39,108.50 126.45,69.42 218.94,43.52"/>
+        <lane id="-1_0" index="0" allow="ship" speed="2.78" length="229.18" width="7.00" shape="-2.65,188.74 34.16,147.60 72.39,108.50 126.45,69.42 176.95,55.28"/>
     </edge>
     <edge id="-2" from="C" to="C2" priority="13" type="waterway.river" shape="180.00,58.11 242.21,53.04 275.25,50.21 420.38,26.68 454.94,20.43 519.81,4.59">
-        <lane id="-2_0" index="0" allow="ship" speed="2.78" length="267.40" width="7.00" shape="225.99,50.80 241.91,49.50 274.81,46.68 419.78,23.18 454.20,16.96 474.78,11.93"/>
+        <lane id="-2_0" index="0" allow="ship" speed="2.78" length="305.99" width="7.00" shape="225.99,50.80 241.91,49.50 274.81,46.68 419.78,23.18 454.20,16.96 474.78,11.93"/>
     </edge>
     <edge id="-3" from="C" to="C2" priority="13" type="waterway.river" shape="180.00,58.11 238.25,33.99 270.71,29.36 417.99,5.45 452.49,0.00 519.81,4.59">
-        <lane id="-3_0" index="0" allow="ship" speed="2.78" length="269.37" width="7.00" shape="221.54,37.07 237.31,30.54 270.17,25.85 417.43,1.94 452.33,-3.57 474.68,-2.05"/>
+        <lane id="-3_0" index="0" allow="ship" speed="2.78" length="308.94" width="7.00" shape="221.54,37.07 237.31,30.54 270.17,25.85 417.43,1.94 452.33,-3.57 474.68,-2.05"/>
     </edge>
     <edge id="1" from="C" to="3091127668" priority="13" type="waterway.river" shape="180.00,58.11 128.02,72.67 74.72,111.20 36.75,150.03 0.00,191.11">
-        <lane id="1_0" index="0" allow="ship" speed="2.78" length="273.75" width="7.00" shape="220.85,50.35 129.59,75.92 77.05,113.90 39.34,152.46 2.65,193.48"/>
+        <lane id="1_0" index="0" allow="ship" speed="2.78" length="229.18" width="7.00" shape="178.86,62.12 129.59,75.92 77.05,113.90 39.34,152.46 2.65,193.48"/>
     </edge>
     <edge id="2" from="C2" to="C" priority="13" type="waterway.river" shape="519.81,4.59 454.94,20.43 420.38,26.68 275.25,50.21 242.21,53.04 180.00,58.11">
-        <lane id="2_0" index="0" allow="ship" speed="2.78" length="267.40" width="7.00" shape="476.47,18.83 455.68,23.90 420.98,30.18 275.69,53.74 242.51,56.58 226.57,57.88"/>
+        <lane id="2_0" index="0" allow="ship" speed="2.78" length="305.99" width="7.00" shape="476.47,18.83 455.68,23.90 420.98,30.18 275.69,53.74 242.51,56.58 226.57,57.88"/>
     </edge>
     <edge id="3" from="C2" to="C" priority="13" type="waterway.river" shape="519.81,4.59 452.49,0.00 417.99,5.45 270.71,29.36 238.25,33.99 180.00,58.11">
-        <lane id="3_0" index="0" allow="ship" speed="2.78" length="269.37" width="7.00" shape="474.19,5.04 452.65,3.57 418.55,8.96 271.25,32.87 239.19,37.44 224.26,43.63"/>
+        <lane id="3_0" index="0" allow="ship" speed="2.78" length="308.94" width="7.00" shape="474.19,5.04 452.65,3.57 418.55,8.96 271.25,32.87 239.19,37.44 224.26,43.63"/>
     </edge>
 
     <junction id="3091127668" type="dead_end" x="0.00" y="191.11" incLanes="1_0" intLanes="" shape="-0.04,191.08 5.25,195.81 0.04,191.14"/>
-    <junction id="C" type="right_before_left" x="180.00" y="58.11" incLanes="2_0 3_0 -1_0" intLanes="" shape="226.85,61.37 225.71,47.31 225.60,46.86 220.20,33.83 218.00,40.15 221.80,53.72">
+    <junction id="C" type="right_before_left" x="180.00" y="58.11" incLanes="2_0 3_0 -1_0" intLanes="" shape="226.85,61.37 225.71,47.31 225.60,46.86 220.20,33.83 176.00,51.91 179.80,65.49">
         <request index="0" response="000000" foes="001000"/>
         <request index="1" response="110000" foes="111000"/>
         <request index="2" response="000000" foes="100000"/>
