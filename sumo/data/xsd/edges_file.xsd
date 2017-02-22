@@ -69,6 +69,7 @@
         <xsd:attribute name="allow" type="xsd:string" use="optional"/>
         <xsd:attribute name="disallow" type="xsd:string" use="optional"/>
         <xsd:attribute name="prefer" type="xsd:string" use="optional"/>
+        <xsd:attribute name="accleration" type="boolType" use="optional"/>
         <xsd:attribute name="endOffset" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
 

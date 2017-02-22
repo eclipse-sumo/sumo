@@ -216,6 +216,8 @@ private:
         SUMOReal width;
         /// @brief This lane's offset from the intersection
         SUMOReal endOffset;
+        /// @brief Whether this lane is an acceleration lane
+        bool accelRamp;
         /// @brief This lane's opposite lane
         std::string oppositeID;
     };

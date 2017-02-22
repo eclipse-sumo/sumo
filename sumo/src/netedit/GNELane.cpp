@@ -760,6 +760,8 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_ENDOFFSET:
             return toString(edge->getLaneStruct(myIndex).endOffset);
+        case SUMO_ATTR_ACCELERATION:
+            return toString(edge->getLaneStruct(myIndex).accelRamp);
         case SUMO_ATTR_INDEX:
             return toString(myIndex);
         default:
@@ -778,6 +780,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_DISALLOW:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_ENDOFFSET:
+        case SUMO_ATTR_ACCELERATION:
         case SUMO_ATTR_INDEX:
             // no special handling
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -806,6 +809,8 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_ENDOFFSET:
             return canParse<SUMOReal>(value);
+        case SUMO_ATTR_ACCELERATION:
+            return canParse<bool>(value);
         case SUMO_ATTR_INDEX:
             return value == toString(myIndex);
         default:
@@ -851,6 +856,9 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ENDOFFSET:
             edge->setEndOffset(myIndex, parse<SUMOReal>(value));
+            break;
+        case SUMO_ATTR_ACCELERATION:
+            edge->setAcceleration(myIndex, parse<bool>(value));
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -148,6 +148,9 @@ public:
 
         /// @brief An opposite lane ID, if given
         std::string oppositeID;
+
+        /// @brief Whether this lane is an acceleration lane
+        bool accelRamp;
     };
 
 
@@ -965,6 +968,9 @@ public:
     /// @brief whether lanes differ in offset
     bool hasLaneSpecificEndOffset() const;
 
+    /// @brief whether one of the lanes is an acceleration lane
+    bool hasAccelLane() const;
+
     /// @brief computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges(bool noLeftMovers);
 
@@ -1112,6 +1118,9 @@ public:
 
     /// @brief set lane specific speed (negative lane implies set for all lanes)
     void setSpeed(int lane, SUMOReal speed);
+
+    /// @brief marks one lane as acceleration lane
+    void setAcceleration(int lane, bool accelRamp);
 
     /// @brief get the union of allowed classes over all lanes or for a specific lane
     SVCPermissions getPermissions(int lane = -1) const;

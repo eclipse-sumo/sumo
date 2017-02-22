@@ -222,6 +222,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             nbe->setLaneWidth(fromLaneIndex, lane->width);
             nbe->setEndOffset(fromLaneIndex, lane->endOffset);
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
+            nbe->setAcceleration(fromLaneIndex, lane->accelRamp);
             nbe->getLaneStruct(fromLaneIndex).oppositeID = lane->oppositeID;
         }
         nbe->declareConnectionsAsLoaded();
@@ -510,6 +511,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     myCurrentLane->width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_WIDTH);
     myCurrentLane->endOffset = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_OFFSET);
     myCurrentLane->shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
+    myCurrentLane->accelRamp = attrs.getOpt<bool>(SUMO_ATTR_ACCELERATION, id.c_str(), ok, false);
     // lane coordinates are derived (via lane spread) do not include them in convex boundary
     NBNetBuilder::transformCoordinates(myCurrentLane->shape, false, myLocation);
 }

@@ -123,7 +123,9 @@ NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
     permissions(SVCAll),
     preferred(0),
     endOffset(e->getEndOffset()), width(e->getLaneWidth()),
-    origID(origID_) {
+    origID(origID_),
+    accelRamp(false)
+{
 }
 
 
@@ -1693,8 +1695,23 @@ NBEdge::hasLaneSpecificEndOffset() const {
 
 
 bool
+NBEdge::hasAccelLane() const {
+    for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
+        if (i->accelRamp) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool
 NBEdge::needsLaneSpecificOutput() const {
-    return hasLaneSpecificPermissions() || hasLaneSpecificSpeed() || hasLaneSpecificWidth() || hasLaneSpecificEndOffset() || (!myLanes.empty() && myLanes.back().oppositeID != "");
+    return (hasLaneSpecificPermissions() 
+            || hasLaneSpecificSpeed() 
+            || hasLaneSpecificWidth() 
+            || hasLaneSpecificEndOffset() 
+            || hasAccelLane() 
+            || (!myLanes.empty() && myLanes.back().oppositeID != ""));
 }
 
 
@@ -2735,6 +2752,13 @@ NBEdge::setSpeed(int lane, SUMOReal speed) {
     }
     assert(lane < (int)myLanes.size());
     myLanes[lane].speed = speed;
+}
+
+void
+NBEdge::setAcceleration(int lane, bool accelRamp) {
+    assert(lane >= 0);
+    assert(lane < (int)myLanes.size());
+    myLanes[lane].accelRamp = accelRamp;
 }
 
 

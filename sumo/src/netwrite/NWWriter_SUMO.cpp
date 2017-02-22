@@ -386,7 +386,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
         const NBEdge::Lane& l = lanes[i];
         writeLane(into, e.getLaneID(i), l.speed,
                   l.permissions, l.preferred, l.endOffset, l.width, l.shape, l.origID,
-                  length, i, origNames, l.oppositeID);
+                  length, i, origNames, l.oppositeID, 0, l.accelRamp);
     }
     // close the edge
     into.closeTag();
@@ -398,7 +398,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
                          SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
                          SUMOReal endOffset, SUMOReal width, PositionVector shape,
                          const std::string& origID, SUMOReal length, int index, bool origNames,
-                         const std::string& oppositeID, const NBNode* node) {
+                         const std::string& oppositeID, const NBNode* node, bool accelRamp) {
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE).writeAttr(SUMO_ATTR_ID, lID);
     // the first lane of an edge will be the depart lane
@@ -425,6 +425,9 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     if (width != NBEdge::UNSPECIFIED_WIDTH) {
         into.writeAttr(SUMO_ATTR_WIDTH, width);
     }
+    if (accelRamp) {
+        into.writeAttr<bool>(SUMO_ATTR_ACCELERATION, accelRamp);
+    }
     if (node != 0) {
         const NBNode::CustomShapeMap& cs = node->getCustomLaneShapes();
         NBNode::CustomShapeMap::const_iterator it = cs.find(lID);
@@ -446,6 +449,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
         into.writeAttr(SUMO_ATTR_VALUE, origID);
         into.closeTag();
     }
+
     into.closeTag();
 }
 
