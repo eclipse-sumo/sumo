@@ -1,6 +1,6 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <rerouter id="rerouter" edges="beg">
-        <interval begin="20" end="220">
+        <interval begin="20" end="120">
             <closingLaneReroute id="middle_0"/>
             <closingLaneReroute id="middle_1"/>
         </interval>
