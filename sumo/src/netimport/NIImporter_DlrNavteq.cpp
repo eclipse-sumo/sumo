@@ -132,7 +132,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     file = oc.getString("dlr-navteq-prefix") + "_prohibited_manoeuvres.txt";
     if (lr.setFile(file)) {
         PROGRESS_BEGIN_MESSAGE("Loading prohibited manoeuvres");
-        ProhibitionHandler handler6(nb.getEdgeCont(), csTime);
+        ProhibitionHandler handler6(nb.getEdgeCont(), file, csTime);
         lr.readAll(handler6);
         PROGRESS_DONE_MESSAGE();
     }
@@ -708,8 +708,10 @@ NIImporter_DlrNavteq::readDate(const std::string& yyyymmdd) {
 // definitions of NIImporter_DlrNavteq::ProhibitionHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_DlrNavteq::ProhibitionHandler::ProhibitionHandler(
-        NBEdgeCont& ec, time_t constructionTime) :
+        NBEdgeCont& ec, const std::string& file, time_t constructionTime) :
     myEdgeCont(ec),
+    myFile(file),
+    myVersion(0),
     myConstructionTime(constructionTime)
 { }
 
@@ -721,25 +723,33 @@ bool
 NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
 // # NAME_ID    Name
     if (result[0] == '#') {
+        if (myVersion == 0) {
+            const SUMOReal version = readVersion(result, myFile);
+            if (version > 0) {
+                myVersion = version;
+            }
+        }
         return true;
     }
     StringTokenizer st(result, StringTokenizer::TAB);
     if (st.size() == 1) {
         return true; // one line with the number of data containing lines in it (also starts with a comment # since ersion 6.5)
     }
-    assert(st.size() >= 7);
-    const std::string id = st.next();
-    const std::string permanent = st.next();
-    const std::string validityPeriod = st.next();
-    const std::string throughTraffic = st.next();
-    const std::string vehicleType = st.next();
+    if (myVersion >= 6) {
+        assert(st.size() >= 7);
+        const std::string id = st.next();
+        const std::string permanent = st.next();
+        const std::string validityPeriod = st.next();
+        const std::string throughTraffic = st.next();
+        const std::string vehicleType = st.next();
+        if (validityPeriod != UNDEFINED) {
+            WRITE_WARNING("Ignoring temporary prohibited manoeuvre (" + validityPeriod + ")");
+            return true;
+        } 
+    }
     const std::string startEdge = st.next(); 
     const std::string endEdge = st.get(st.size() - 1);
 
-    if (validityPeriod != UNDEFINED) {
-        WRITE_WARNING("Ignoring temporary prohibited manoeuvre (" + validityPeriod + ")");
-        return true;
-    } 
     NBEdge* from = myEdgeCont.retrieve(startEdge);
     if (from == 0) {
         WRITE_WARNING("Ignoring prohibition from unknown start edge '" + startEdge + "'");
@@ -769,7 +779,6 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::~ConnectedLanesHandler() {}
 
 bool
 NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
-// # NAME_ID    Name
     if (result[0] == '#') {
         return true;
     }

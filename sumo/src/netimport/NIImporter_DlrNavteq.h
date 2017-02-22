@@ -431,7 +431,7 @@ protected:
          * @param[in] file The name of the parsed file
          * @param[filled] streetNames output container for read names
          */
-        ProhibitionHandler(NBEdgeCont& ne, time_t constructionTime);
+        ProhibitionHandler(NBEdgeCont& ne, const std::string& file, time_t constructionTime);
 
 
         /// @brief Destructor
@@ -453,6 +453,8 @@ protected:
     protected:
         /// @brief The edge container to store loaded edges into
         NBEdgeCont& myEdgeCont;
+        const std::string myFile;
+        SUMOReal myVersion;
         time_t myConstructionTime;
 
 
