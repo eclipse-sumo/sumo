@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:07 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Wed Feb 22 09:26:41 2017 by SUMO netconvert Version dev-SVN-r23052
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -45,13 +45,13 @@
         <lane id="s1_2" index="2" speed="30.00" length="963.36" shape="2000.00,1.65 1044.53,1.65"/>
     </edge>
     <edge id="s2" from="4" to="3" priority="-1">
-        <lane id="s2_0" index="0" speed="30.00" length="49.65" shape="1041.53,11.55 1000.00,11.55"/>
+        <lane id="s2_0" index="0" speed="30.00" length="49.65" acceleration="1" shape="1041.53,11.55 1000.00,11.55"/>
         <lane id="s2_1" index="1" speed="30.00" length="49.65" shape="1041.53,8.25 1000.00,8.25"/>
         <lane id="s2_2" index="2" speed="30.00" length="49.65" shape="1041.53,4.95 1000.00,4.95"/>
         <lane id="s2_3" index="3" speed="30.00" length="49.65" shape="1041.53,1.65 1000.00,1.65"/>
     </edge>
     <edge id="s3" from="3" to="2" priority="-1">
-        <lane id="s3_0" index="0" speed="30.00" length="49.65" shape="1000.00,11.55 958.47,11.55"/>
+        <lane id="s3_0" index="0" speed="30.00" length="49.65" acceleration="1" shape="1000.00,11.55 958.47,11.55"/>
         <lane id="s3_1" index="1" speed="30.00" length="49.65" shape="1000.00,8.25 958.47,8.25"/>
         <lane id="s3_2" index="2" speed="30.00" length="49.65" shape="1000.00,4.95 958.47,4.95"/>
         <lane id="s3_3" index="3" speed="30.00" length="49.65" shape="1000.00,1.65 958.47,1.65"/>

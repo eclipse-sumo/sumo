@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:08 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Wed Feb 22 09:26:41 2017 by SUMO netconvert Version dev-SVN-r23052
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -50,7 +50,7 @@
         <lane id="s2_2" index="2" speed="30.00" length="400.00" shape="1398.50,1.65 1000.00,1.65"/>
     </edge>
     <edge id="s2-AddedOnRampEdge" from="4" to="s2-AddedOnRampNode" priority="-1">
-        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="100.00" shape="1492.43,11.55 1401.50,11.55"/>
+        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="100.00" acceleration="1" shape="1492.43,11.55 1401.50,11.55"/>
         <lane id="s2-AddedOnRampEdge_1" index="1" speed="30.00" length="100.00" shape="1492.43,8.25 1401.50,8.25"/>
         <lane id="s2-AddedOnRampEdge_2" index="2" speed="30.00" length="100.00" shape="1492.43,4.95 1401.50,4.95"/>
         <lane id="s2-AddedOnRampEdge_3" index="3" speed="30.00" length="100.00" shape="1492.43,1.65 1401.50,1.65"/>

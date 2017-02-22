@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:08 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Wed Feb 22 09:26:42 2017 by SUMO netconvert Version dev-SVN-r23052
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -39,14 +39,14 @@
         <lane id="gneE0_1" index="1" speed="28.00" length="59.33" shape="0.00,26.18 52.38,26.18"/>
     </edge>
     <edge id="gneE1" from="gneJ1" to="gneJ2" priority="1">
-        <lane id="gneE1_0" index="0" speed="28.00" length="62.10" shape="56.25,16.28 99.84,16.28"/>
-        <lane id="gneE1_1" index="1" speed="28.00" length="62.10" shape="56.25,19.58 99.84,19.58"/>
+        <lane id="gneE1_0" index="0" speed="28.00" length="62.10" acceleration="1" shape="56.25,16.28 99.84,16.28"/>
+        <lane id="gneE1_1" index="1" speed="28.00" length="62.10" acceleration="1" shape="56.25,19.58 99.84,19.58"/>
         <lane id="gneE1_2" index="2" speed="28.00" length="62.10" shape="56.25,22.88 99.84,22.88"/>
         <lane id="gneE1_3" index="3" speed="28.00" length="62.10" shape="56.25,26.18 99.84,26.18"/>
     </edge>
     <edge id="gneE2" from="gneJ2" to="gneJ3" priority="1">
-        <lane id="gneE2_0" index="0" speed="28.00" length="28.21" shape="103.18,9.68 120.00,9.68"/>
-        <lane id="gneE2_1" index="1" speed="28.00" length="28.21" shape="103.18,12.98 120.00,12.98"/>
+        <lane id="gneE2_0" index="0" speed="28.00" length="28.21" acceleration="1" shape="103.18,9.68 120.00,9.68"/>
+        <lane id="gneE2_1" index="1" speed="28.00" length="28.21" acceleration="1" shape="103.18,12.98 120.00,12.98"/>
         <lane id="gneE2_2" index="2" speed="28.00" length="28.21" shape="103.18,16.28 120.00,16.28"/>
         <lane id="gneE2_3" index="3" speed="28.00" length="28.21" shape="103.18,19.58 120.00,19.58"/>
         <lane id="gneE2_4" index="4" speed="28.00" length="28.21" shape="103.18,22.88 120.00,22.88"/>
