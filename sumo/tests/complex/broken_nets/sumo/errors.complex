@@ -540,7 +540,7 @@ Quitting (on error).
 ------------------ net/junction[0]@id:<remove>
 Error: missing required attribute 'id'
  In file 'mod.net.xml'
- At line/column 35/107.
+ At line/column 35/104.
 
 Quitting (on error).
 ------------------ net/junction[1]@id:<remove>
@@ -552,7 +552,7 @@ Quitting (on error).
 ------------------ net/junction[2]@id:<remove>
 Error: missing required attribute 'id'
  In file 'mod.net.xml'
- At line/column 40/120.
+ At line/column 40/117.
 
 Quitting (on error).
 ------------------ net/junction[0]@type:
