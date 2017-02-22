@@ -1,6 +1,6 @@
 /*
  * GL2PS, an OpenGL to PostScript Printing Library
- * Copyright (C) 1999-2012 Christophe Geuzaine <geuz@geuz.org>
+ * Copyright (C) 1999-2015 Christophe Geuzaine <geuz@geuz.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of either:
@@ -282,7 +282,7 @@ void text()
   printstring("  b: to change the blending mode (transparency)", 0.);
   y -= dy;
   glRasterPos2d(x, y);
-  printstring("  q: to quit", 0.), 0.;
+  printstring("  q: to quit", 0.);
   y -= dy;
   glRasterPos2d(x, y);
   printstring("Click and move the mouse to rotate the objects", 0.);

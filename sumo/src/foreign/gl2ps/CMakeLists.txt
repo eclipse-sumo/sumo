@@ -1,5 +1,5 @@
 #  GL2PS, an OpenGL to PostScript Printing Library
-#  Copyright (C) 1999-2012 C. Geuzaine
+#  Copyright (C) 1999-2015 C. Geuzaine
 # 
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of either:
@@ -49,7 +49,7 @@ option(ENABLE_PNG "Enable PNG support" ON)
 
 set(GL2PS_MAJOR_VERSION 1)
 set(GL2PS_MINOR_VERSION 3)
-set(GL2PS_PATCH_VERSION 8)
+set(GL2PS_PATCH_VERSION 9)
 set(GL2PS_EXTRA_VERSION "" CACHE STRING "GL2PS extra version string")
 
 set(GL2PS_VERSION "${GL2PS_MAJOR_VERSION}.${GL2PS_MINOR_VERSION}")
@@ -106,6 +106,11 @@ if(ENABLE_PNG)
   endif(PNG_FOUND)
 endif(ENABLE_PNG)
 
+find_library(MATH_LIBRARY m)
+if(MATH_LIBRARY)
+  list(APPEND EXTERNAL_LIBRARIES ${MATH_LIBRARY})
+endif(MATH_LIBRARY)
+
 include_directories(${EXTERNAL_INCLUDES})
 
 if(OPENGL_FOUND)
@@ -116,8 +121,8 @@ if(OPENGL_FOUND)
   target_link_libraries(shared ${EXTERNAL_LIBRARIES})
   set_target_properties(shared PROPERTIES OUTPUT_NAME gl2ps)
   set_target_properties(shared PROPERTIES
-                        VERSION ${GL2PS_MAJOR_VERSION}.${GL2PS_MINOR_VERSION}.${GL2PS_PATCH_VERSION}
-                        SOVERSION ${GL2PS_MAJOR_VERSION})
+    VERSION ${GL2PS_MAJOR_VERSION}.${GL2PS_MINOR_VERSION}.${GL2PS_PATCH_VERSION}
+    SOVERSION ${GL2PS_MAJOR_VERSION})
   if(MSVC)
     set_target_properties(shared PROPERTIES COMPILE_FLAGS "-DGL2PSDLL -DGL2PSDLL_EXPORTS")
   endif(MSVC)
@@ -180,8 +185,8 @@ set(CPACK_PACKAGE_EXECUTABLE "gl2ps;gl2ps")
 set(CPACK_STRIP_FILES TRUE)
 set(CPACK_SOURCE_PACKAGE_FILE_NAME gl2ps-${GL2PS_VERSION}-source)
 set(CPACK_SOURCE_GENERATOR TGZ)
-set(CPACK_SOURCE_IGNORE_FILES "${CMAKE_BINARY_DIR}" "/CVS/" "/.svn" "~$" 
-    "DS_Store$" "/tmp/" "/bin/" "/lib/")
+set(CPACK_SOURCE_IGNORE_FILES "TODO.txt" "${CMAKE_BINARY_DIR}" "/CVS/"
+    "/.svn" "~$" "DS_Store$" "/tmp/" "/bin/" "/lib/")
 if(WIN32)
   set(CPACK_GENERATOR ZIP)
 else(WIN32)

@@ -1,6 +1,6 @@
 /*
  * GL2PS, an OpenGL to PostScript Printing Library
- * Copyright (C) 1999-2012 C. Geuzaine
+ * Copyright (C) 1999-2015 C. Geuzaine
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of either:
@@ -183,7 +183,7 @@ typedef struct {
   GLushort pattern;
   char boundary, offset, culled;
   GLint factor;
-  GLfloat width;
+  GLfloat width, ofactor, ounits;
   GL2PSvertex *verts;
   union {
     GL2PSstring *text;
@@ -211,7 +211,7 @@ typedef struct {
   GLint format, sort, options, colorsize, colormode, buffersize;
   char *title, *producer, *filename;
   GLboolean boundary, blending;
-  GLfloat *feedback, offset[2], lastlinewidth;
+  GLfloat *feedback, lastlinewidth;
   GLint viewport[4], blendfunc[2], lastfactor;
   GL2PSrgba *colormap, lastrgba, threshold, bgcolor;
   GLushort lastpattern;
@@ -428,7 +428,7 @@ static int gl2psPrintf(const char* fmt, ...)
 #if !defined(GL2PS_HAVE_NO_VSNPRINTF)
   /* Try writing the string to a 1024 byte buffer. If it is too small to fit,
      keep trying larger sizes until it does. */
-  size_t bufsize = sizeof(buf);
+  int bufsize = sizeof(buf);
 #endif
   if(gl2ps->options & GL2PS_COMPRESS){
     va_start(args, fmt);
@@ -893,6 +893,8 @@ static GLint gl2psAddText(GLint type, const char *str, const char *fontname,
   prim->verts[0].xyz[2] = pos[2];
   prim->culled = 0;
   prim->offset = 0;
+  prim->ofactor = 0.0;
+  prim->ounits = 0.0;
   prim->pattern = 0;
   prim->factor = 0;
   prim->width = 1;
@@ -1044,6 +1046,8 @@ static GL2PSprimitive *gl2psCopyPrimitive(GL2PSprimitive *p)
   prim->numverts = p->numverts;
   prim->boundary = p->boundary;
   prim->offset = p->offset;
+  prim->ofactor = p->ofactor;
+  prim->ounits = p->ounits;
   prim->pattern = p->pattern;
   prim->factor = p->factor;
   prim->culled = p->culled;
@@ -1241,6 +1245,8 @@ static void gl2psCreateSplitPrimitive(GL2PSprimitive *parent, GL2PSplane plane,
   child->boundary = 0; /* FIXME: not done! */
   child->culled = parent->culled;
   child->offset = parent->offset;
+  child->ofactor = parent->ofactor;
+  child->ounits = parent->ounits;
   child->pattern = parent->pattern;
   child->factor = parent->factor;
   child->width = parent->width;
@@ -1377,6 +1383,8 @@ static void gl2psDivideQuad(GL2PSprimitive *quad,
   (*t1)->numverts = (*t2)->numverts = 3;
   (*t1)->culled = (*t2)->culled = quad->culled;
   (*t1)->offset = (*t2)->offset = quad->offset;
+  (*t1)->ofactor = (*t2)->ofactor = quad->ofactor;
+  (*t1)->ounits = (*t2)->ounits = quad->ounits;
   (*t1)->pattern = (*t2)->pattern = quad->pattern;
   (*t1)->factor = (*t2)->factor = quad->factor;
   (*t1)->width = (*t2)->width = quad->width;
@@ -1695,8 +1703,8 @@ static void gl2psRescaleAndOffset(void)
       }
     }
     else if(prim->offset && (prim->type == GL2PS_TRIANGLE)){
-      factor = gl2ps->offset[0];
-      units = gl2ps->offset[1];
+      factor = prim->ofactor;
+      units = prim->ounits;
       area =
         (prim->verts[1].xyz[0] - prim->verts[0].xyz[0]) *
         (prim->verts[2].xyz[1] - prim->verts[1].xyz[1]) -
@@ -1916,6 +1924,8 @@ static GL2PSprimitive *gl2psCreateSplitPrimitive2D(GL2PSprimitive *parent,
   child->boundary = 0; /* FIXME: not done! */
   child->culled = parent->culled;
   child->offset = parent->offset;
+  child->ofactor = parent->ofactor;
+  child->ounits = parent->ounits;
   child->pattern = parent->pattern;
   child->factor = parent->factor;
   child->width = parent->width;
@@ -2104,6 +2114,8 @@ static void gl2psAddBoundaryInList(GL2PSprimitive *prim, GL2PSlist *list)
       b = (GL2PSprimitive*)gl2psMalloc(sizeof(GL2PSprimitive));
       b->type = GL2PS_LINE;
       b->offset = prim->offset;
+      b->ofactor = prim->ofactor;
+      b->ounits = prim->ounits;
       b->pattern = prim->pattern;
       b->factor = prim->factor;
       b->culled = prim->culled;
@@ -2175,6 +2187,7 @@ static void gl2psBuildPolygonBoundary(GL2PSbsptree *tree)
 
 static void gl2psAddPolyPrimitive(GLshort type, GLshort numverts,
                                   GL2PSvertex *verts, GLint offset,
+                                  GLfloat ofactor, GLfloat ounits,
                                   GLushort pattern, GLint factor,
                                   GLfloat width, char boundary)
 {
@@ -2187,6 +2200,8 @@ static void gl2psAddPolyPrimitive(GLshort type, GLshort numverts,
   memcpy(prim->verts, verts, numverts * sizeof(GL2PSvertex));
   prim->boundary = boundary;
   prim->offset = (char)offset;
+  prim->ofactor = ofactor;
+  prim->ounits = ounits;
   prim->pattern = pattern;
   prim->factor = factor;
   prim->width = width;
@@ -2229,7 +2244,7 @@ static void gl2psParseFeedbackBuffer(GLint used)
   GLushort pattern = 0;
   GLboolean boundary;
   GLint i, sizeoffloat, count, v, vtot, offset = 0, factor = 0, auxindex = 0;
-  GLfloat lwidth = 1.0F, psize = 1.0F;
+  GLfloat lwidth = 1.0F, psize = 1.0F, ofactor, ounits;
   GLfloat *current;
   GL2PSvertex vertices[3];
   GL2PSprimitive *prim;
@@ -2249,7 +2264,7 @@ static void gl2psParseFeedbackBuffer(GLint used)
       i = gl2psGetVertex(&vertices[0], current);
       current += i;
       used    -= i;
-      gl2psAddPolyPrimitive(GL2PS_POINT, 1, vertices, 0,
+      gl2psAddPolyPrimitive(GL2PS_POINT, 1, vertices, 0, 0.0, 0.0,
                             pattern, factor, psize, 0);
       break;
     case GL_LINE_TOKEN :
@@ -2262,7 +2277,7 @@ static void gl2psParseFeedbackBuffer(GLint used)
       i = gl2psGetVertex(&vertices[1], current);
       current += i;
       used    -= i;
-      gl2psAddPolyPrimitive(GL2PS_LINE, 2, vertices, 0,
+      gl2psAddPolyPrimitive(GL2PS_LINE, 2, vertices, 0, 0.0, 0.0,
                             pattern, factor, lwidth, 0);
       break;
     case GL_POLYGON_TOKEN :
@@ -2286,8 +2301,8 @@ static void gl2psParseFeedbackBuffer(GLint used)
           }
           else
             flag = 0;
-          gl2psAddPolyPrimitive(GL2PS_TRIANGLE, 3, vertices, offset,
-                                pattern, factor, 1, flag);
+          gl2psAddPolyPrimitive(GL2PS_TRIANGLE, 3, vertices, offset, ofactor,
+                                ounits, pattern, factor, 1, flag);
           vertices[1] = vertices[2];
         }
         else
@@ -2305,8 +2320,20 @@ static void gl2psParseFeedbackBuffer(GLint used)
       break;
     case GL_PASS_THROUGH_TOKEN :
       switch((GLint)current[1]){
-      case GL2PS_BEGIN_OFFSET_TOKEN : offset = 1; break;
-      case GL2PS_END_OFFSET_TOKEN : offset = 0; break;
+      case GL2PS_BEGIN_OFFSET_TOKEN :
+        offset = 1;
+        current += 2;
+        used -= 2;
+        ofactor = current[1];
+        current += 2;
+        used -= 2;
+        ounits = current[1];
+        break;
+      case GL2PS_END_OFFSET_TOKEN :
+        offset = 0;
+        ofactor = 0.0;
+        ounits = 0.0;
+        break;
       case GL2PS_BEGIN_BOUNDARY_TOKEN : boundary = GL_TRUE; break;
       case GL2PS_END_BOUNDARY_TOKEN : boundary = GL_FALSE; break;
       case GL2PS_END_STIPPLE_TOKEN : pattern = 0; factor = 0; break;
@@ -2348,6 +2375,8 @@ static void gl2psParseFeedbackBuffer(GLint used)
         prim->verts = (GL2PSvertex *)gl2psMalloc(4 * sizeof(GL2PSvertex));
         prim->culled = 0;
         prim->offset = 0;
+        prim->ofactor = 0.0;
+        prim->ounits = 0.0;
         prim->pattern = 0;
         prim->factor = 0;
         prim->width = 1;
@@ -5064,8 +5093,14 @@ static void gl2psPrintSVGPixmap(GLfloat x, GLfloat y, GL2PSimage *pixmap)
                         sizeof(unsigned char));
   gl2psConvertPixmapToPNG(pixmap, png);
   gl2psListEncodeBase64(png);
+
+  /* Use "transform" attribute to scale and translate the image from
+     the coordinates origin (0,0) */
+  y -= pixmap->zoom_y * (GLfloat)pixmap->height;
   gl2psPrintf("<image x=\"%g\" y=\"%g\" width=\"%d\" height=\"%d\"\n",
-              x, y - pixmap->height, pixmap->width, pixmap->height);
+              0., 0., pixmap->width, pixmap->height);
+  gl2psPrintf("transform=\"matrix(%g,0,0,%g,%g,%g)\"\n",
+              pixmap->zoom_x, pixmap->zoom_y, x, y);
   gl2psPrintf("xlink:href=\"data:image/png;base64,");
   for(i = 0; i < gl2psListNbr(png); i++){
     gl2psListRead(png, i, &c);
@@ -5447,7 +5482,12 @@ static void gl2psPrintPGFPrimitive(void *data)
             prim->verts[0].rgba[0], prim->verts[0].rgba[1],
             prim->verts[0].rgba[2], prim->data.text->str);
 
-    fprintf(gl2ps->stream, "}{}{\\pgfusepath{discard}}}\n");
+    fprintf(gl2ps->stream, "}{}{\\pgfusepath{discard}}}");
+
+    if(prim->data.text->angle)
+       fprintf(gl2ps->stream, "}");
+
+    fprintf(gl2ps->stream, "\n");
     break;
   case GL2PS_SPECIAL :
     /* alignment contains the format for which the special output text
@@ -5929,6 +5969,8 @@ GL2PSDLL_API GLint gl2psDrawPixels(GLsizei width, GLsizei height,
   prim->verts[0].xyz[2] = pos[2];
   prim->culled = 0;
   prim->offset = 0;
+  prim->ofactor = 0.0;
+  prim->ounits = 0.0;
   prim->pattern = 0;
   prim->factor = 0;
   prim->width = 1;
@@ -6003,14 +6045,17 @@ GL2PSDLL_API GLint gl2psDrawImageMap(GLsizei width, GLsizei height,
 GL2PSDLL_API GLint gl2psEnable(GLint mode)
 {
   GLint tmp;
+  GLfloat tmp2;
 
   if(!gl2ps) return GL2PS_UNINITIALIZED;
 
   switch(mode){
   case GL2PS_POLYGON_OFFSET_FILL :
     glPassThrough(GL2PS_BEGIN_OFFSET_TOKEN);
-    glGetFloatv(GL_POLYGON_OFFSET_FACTOR, &gl2ps->offset[0]);
-    glGetFloatv(GL_POLYGON_OFFSET_UNITS, &gl2ps->offset[1]);
+    glGetFloatv(GL_POLYGON_OFFSET_FACTOR, &tmp2);
+    glPassThrough(tmp2);
+    glGetFloatv(GL_POLYGON_OFFSET_UNITS, &tmp2);
+    glPassThrough(tmp2);
     break;
   case GL2PS_POLYGON_BOUNDARY :
     glPassThrough(GL2PS_BEGIN_BOUNDARY_TOKEN);
