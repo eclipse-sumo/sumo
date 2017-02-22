@@ -121,7 +121,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         setFileName(*file);
         PROGRESS_BEGIN_MESSAGE("Parsing sumo-net from '" + *file + "'");
         XMLSubSys::runParser(*this, *file, true);
-        XMLSubSys::runParser(*typesHandler, *file);
+        XMLSubSys::runParser(*typesHandler, *file, true);
         PROGRESS_DONE_MESSAGE();
     }
     // build edges
