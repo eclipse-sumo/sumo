@@ -179,6 +179,10 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
                 moveRampRight(curr, toAdd);
                 currLength += curr->getGeometry().length(); // !!! loaded length?
                 last = curr;
+                // mark acceleration lanes
+                for (int i = 0; i < curr->getNumLanes() - potHighway->getNumLanes(); ++i) {
+                    curr->setAcceleration(i, true);
+                }
             }
             NBNode* nextN = curr->getToNode();
             if (nextN->getOutgoingEdges().size() == 1) {
@@ -220,10 +224,19 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             if (wasFirst) {
                 first = curr;
             }
+            // mark acceleration lanes
+            for (int i = 0; i < curr->getNumLanes() - potHighway->getNumLanes(); ++i) {
+                curr->setAcceleration(i, true);
+            }
         }
         if (curr == cont && dontSplit) {
             WRITE_WARNING("Could not build on-ramp for edge '"  + curr->getID() + "' due to option '--ramps.no-split'");
             return;
+        }
+    } else {
+        // mark acceleration lanes
+        for (int i = 0; i < firstLaneNumber - potHighway->getNumLanes(); ++i) {
+            cont->setAcceleration(i, true);
         }
     }
     // set connections from ramp/highway to added ramp
@@ -242,6 +255,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
     p.pop_back();
     p.push_back(first->getLaneShape(0)[0]);
     potRamp->setGeometry(p);
+
 }
 
 
