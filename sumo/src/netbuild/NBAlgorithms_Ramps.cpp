@@ -479,6 +479,16 @@ NBRampsComputer::fulfillsRampConstraints(
             return false;
         }
     }
+    // are the angles between highway and other / ramp and other more or less straight?
+    const NBNode* node = potHighway->getToNode() == potRamp->getToNode() ? potHighway->getToNode() : potHighway->getFromNode();
+    SUMOReal angle = fabs(NBHelpers::relAngle(potHighway->getAngleAtNode(node), other->getAngleAtNode(node)));
+    if (angle >= 60) {
+        return false;
+    }
+    angle = fabs(NBHelpers::relAngle(potRamp->getAngleAtNode(node), other->getAngleAtNode(node)));
+    if (angle >= 60) {
+        return false;
+    }
     /*
     if (potHighway->getSpeed() < minHighwaySpeed || other->getSpeed() < minHighwaySpeed) {
         return false;
