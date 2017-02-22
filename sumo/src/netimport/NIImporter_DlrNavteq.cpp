@@ -160,6 +160,27 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
 }
 
+SUMOReal 
+NIImporter_DlrNavteq::readVersion(const std::string& line, const std::string& file) {
+    assert(line[0] == '#');
+    const std::string marker = "extraction version: v";
+    const std::string lowerCase = StringUtils::to_lower_case(line);
+    if (lowerCase.find(marker) == std::string::npos) {
+        return -1;
+    }
+    const int vStart = (int)(lowerCase.find(marker) + marker.size());
+    const int vEnd = (int)line.find(" ", vStart);
+    try {
+        const SUMOReal version = TplConvert::_2SUMOReal(line.substr(vStart, vEnd - vStart).c_str());
+        if (version < 0) {
+            throw ProcessError("Invalid version number '" + toString(version) + "' in file '" + file + "'.");
+        }
+        return version;
+    } catch (NumberFormatException&) {
+        throw ProcessError("Non-numerical value '" + line.substr(vStart, vEnd - vStart) + "' for version string in file '" + file + "'.");
+    }
+}
+
 
 // ---------------------------------------------------------------------------
 // definitions of NIImporter_DlrNavteq::NodesHandler-methods
@@ -261,18 +282,9 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         if (!myColumns.empty()) {
             return true;
         }
-        const std::string marker = "extraction version: v";
-        const std::string lowerCase = StringUtils::to_lower_case(result);
-        if (lowerCase.find(marker) == std::string::npos) {
-            return true;
-        }
-        const int vStart = (int)(lowerCase.find(marker) + marker.size());
-        const int vEnd = (int)result.find(" ", vStart);
-        try {
-            myVersion = TplConvert::_2SUMOReal(result.substr(vStart, vEnd - vStart).c_str());
-            if (myVersion < 0) {
-                throw ProcessError("Invalid version number '" + toString(myVersion) + "' in file '" + myFile + "'.");
-            }
+        const SUMOReal version = readVersion(result, myFile);
+        if (version > 0) {
+            myVersion = version;
             // init columns
             const int NUM_COLUMNS = 25; // @note arrays must match this size!
             const int MC = MISSING_COLUMN;
@@ -286,8 +298,6 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
                 const int columns[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24};
                 myColumns = std::vector<int>(columns, columns + NUM_COLUMNS);
             }
-        } catch (NumberFormatException&) {
-            throw ProcessError("Non-numerical value '" + result.substr(vStart, vEnd - vStart) + "' for version string in file '" + myFile + "'.");
         }
         return true;
     }
