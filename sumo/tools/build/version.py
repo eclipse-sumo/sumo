@@ -28,7 +28,7 @@ from __future__ import print_function
 
 import sys
 import re
-from subprocess import Popen, PIPE
+import subprocess
 from os.path import dirname, exists, getmtime, join, isdir
 
 UNKNOWN_REVISION = "UNKNOWN"
@@ -111,23 +111,22 @@ def main():
         svnDir = sys.argv[2]
     else:
         svnDir = find_svnDir(sumoSrc)
-    if svnDir == None or not exists(svnDir):
+    if svnDir is None or not exists(svnDir):
         print("unknown revision - svn dir '%s' not found" % svnDir)
         if not exists(versionFile):
             create_version_file(versionFile, UNKNOWN_REVISION, "<None>")
     else:
         # determine svn file
         svnFile = find_svnFile(svnDir)
-        if svnFile == None:
+        if svnFile is None:
             print("unknown revision - no svn file found in %s" % svnDir)
             if not exists(versionFile):
                 create_version_file(versionFile, UNKNOWN_REVISION, "<None>")
         if not exists(versionFile) or getmtime(versionFile) < getmtime(svnFile):
             # svnFile is newer. lets update the revision number
             try:
-                svnRevision = int(re.search(
-                    'Revision: (\d*)\n',
-                    Popen(['svn', 'info', sumoSrc], stdout=PIPE).communicate()[0]).group(1))
+                svnInfo = subprocess.check_output(['svn', 'info', sumoSrc])
+                svnRevision = int(re.search('Revision: (\d*)', svnInfo).group(1))
             except:
                 svnRevision = parseRevision(svnFile)
             create_version_file(versionFile, svnRevision, svnFile)
