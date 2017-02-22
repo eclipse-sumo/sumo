@@ -38,6 +38,8 @@
 // osg may include windows.h somewhere so we need to guard against macro pollution
 #ifdef WIN32
 #define NOMINMAX
+#pragma warning(push)
+#pragma warning(disable: 4127) // do not warn about constant conditional expression
 #endif
 #include <osgViewer/Viewer>
 #include <osgViewer/ViewerEventHandlers>
@@ -48,6 +50,7 @@
 #include <osg/ShapeDrawable>
 #ifdef WIN32
 #undef NOMINMAX
+#pragma warning(pop) 
 #endif
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
@@ -316,7 +319,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
             if (d.filename.length() == 6 && d.filename.substr(0, 5) == "light") {
                 GUIOSGBuilder::buildLight(d, *myRoot);
             } else if (d.filename.length() > 3 && d.filename.substr(0, 3) == "tl:") {
-                const int linkStringIdx = d.filename.find(':', 3);
+                const int linkStringIdx = (int)d.filename.find(':', 3);
                 GUINet* net = (GUINet*) MSNet::getInstance();
                 try {
                     MSTLLogicControl::TLSLogicVariants& vars = net->getTLSControl().get(d.filename.substr(3, linkStringIdx - 3));
@@ -326,10 +329,10 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                     }
                     const MSLink* const l = vars.getActive()->getLinksAt(linkIdx)[0];
                     osg::Switch* switchNode = new osg::Switch();
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myGreenLight, osg::Vec4(0., 1., 0., .3)), false);
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myYellowLight, osg::Vec4(1., 1., 0., .3)), false);
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedLight, osg::Vec4(1., 0., 0., .3)), false);
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4(1., .5, 0., .3)), false);
+                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myGreenLight, osg::Vec4d(0., 1., 0., .3)), false);
+                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myYellowLight, osg::Vec4d(1., 1., 0., .3)), false);
+                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedLight, osg::Vec4d(1., 0., 0., .3)), false);
+                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(1., .5, 0., .3)), false);
                     myRoot->addChild(switchNode);
                     vars.addSwitchCommand(new Command_TLSChange(l, switchNode));
                 } catch (NumberFormatException&) {
@@ -355,11 +358,11 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
             myRoot->addChild(myVehicles[veh].pos);
         }
         osg::PositionAttitudeTransform* n = myVehicles[veh].pos;
-        n->setPosition(osg::Vec3(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()));
+        n->setPosition(osg::Vec3d(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()));
         const SUMOReal dir = veh->getAngle() + PI / 2.;
         const SUMOReal slope = veh->getSlope();
-        n->setAttitude(osg::Quat(dir, osg::Vec3(0, 0, 1)) *
-                       osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(0, 1, 0)));
+        n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)) *
+                       osg::Quat(osg::DegreesToRadians(slope), osg::Vec3d(0, 1, 0)));
         /*
         osg::ref_ptr<osg::AnimationPath> path = new osg::AnimationPath;
         // path->setLoopMode( osg::AnimationPath::NO_LOOPING );
@@ -372,7 +375,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         n->setUpdateCallback(new osg::AnimationPathCallback(path));
         */
         const RGBColor& col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(myVisualizationSettings->vehicleColorer.getActive()));
-        myVehicles[veh].geom->setColor(osg::Vec4(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
+        myVehicles[veh].geom->setColor(osg::Vec4d(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
         myVehicles[veh].lights->setValue(0, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
         myVehicles[veh].lights->setValue(1, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
         myVehicles[veh].lights->setValue(2, veh->signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT));
@@ -405,9 +408,9 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         }
         osg::PositionAttitudeTransform* n = myPersons[person].pos;
         const Position pos = person->getPosition();
-        n->setPosition(osg::Vec3(pos.x(), pos.y(), pos.z()));
+        n->setPosition(osg::Vec3d(pos.x(), pos.y(), pos.z()));
         const SUMOReal dir = person->getAngle() + PI / 2.;
-        n->setAttitude(osg::Quat(dir, osg::Vec3(0, 0, 1)));
+        n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)));
     }
     if (myAdapter->makeCurrent()) {
         myViewer->frame();
@@ -585,7 +588,7 @@ long GUIOSGView::onLeftBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
     handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
 
     FXEvent* event = (FXEvent*)ptr;
-    myAdapter->getEventQueue()->mouseButtonPress(event->click_x, event->click_y, 1);
+    myAdapter->getEventQueue()->mouseButtonPress((float)event->click_x, (float)event->click_y, 1);
     if (myApp->isGaming()) {
         onGamingClick(getPositionInformation());
     }
@@ -595,7 +598,7 @@ long GUIOSGView::onLeftBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
 
 long GUIOSGView::onLeftBtnRelease(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
-    myAdapter->getEventQueue()->mouseButtonRelease(event->click_x, event->click_y, 1);
+    myAdapter->getEventQueue()->mouseButtonRelease((float)event->click_x, (float)event->click_y, 1);
 
     return FXGLCanvas::onLeftBtnRelease(sender, sel, ptr);
 }
@@ -604,14 +607,14 @@ long GUIOSGView::onMiddleBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
     handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
 
     FXEvent* event = (FXEvent*)ptr;
-    myAdapter->getEventQueue()->mouseButtonPress(event->click_x, event->click_y, 2);
+    myAdapter->getEventQueue()->mouseButtonPress((float)event->click_x, (float)event->click_y, 2);
 
     return FXGLCanvas::onMiddleBtnPress(sender, sel, ptr);
 }
 
 long GUIOSGView::onMiddleBtnRelease(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
-    myAdapter->getEventQueue()->mouseButtonRelease(event->click_x, event->click_y, 2);
+    myAdapter->getEventQueue()->mouseButtonRelease((float)event->click_x, (float)event->click_y, 2);
 
     return FXGLCanvas::onMiddleBtnRelease(sender, sel, ptr);
 }
@@ -620,14 +623,14 @@ long GUIOSGView::onRightBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
     handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
 
     FXEvent* event = (FXEvent*)ptr;
-    myAdapter->getEventQueue()->mouseButtonPress(event->click_x, event->click_y, 3);
+    myAdapter->getEventQueue()->mouseButtonPress((float)event->click_x, (float)event->click_y, 3);
 
     return FXGLCanvas::onRightBtnPress(sender, sel, ptr);
 }
 
 long GUIOSGView::onRightBtnRelease(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
-    myAdapter->getEventQueue()->mouseButtonRelease(event->click_x, event->click_y, 3);
+    myAdapter->getEventQueue()->mouseButtonRelease((float)event->click_x, (float)event->click_y, 3);
 
     return FXGLCanvas::onRightBtnRelease(sender, sel, ptr);
 }
@@ -635,7 +638,7 @@ long GUIOSGView::onRightBtnRelease(FXObject* sender, FXSelector sel, void* ptr) 
 long
 GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
-    myAdapter->getEventQueue()->mouseMotion(event->win_x, event->win_y);
+    myAdapter->getEventQueue()->mouseMotion((float)event->win_x, (float)event->win_y);
 
     return FXGLCanvas::onMotion(sender, sel, ptr);
 }
