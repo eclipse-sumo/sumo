@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 15:25:26 2016 by SUMO netconvert Version dev-SVN-r21562
+<!-- generated on Tue Feb 21 16:43:57 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -50,8 +50,8 @@
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="gneJ3" type="unregulated" x="400.00" y="20.00" incLanes="" intLanes="" shape="400.18,16.76 399.82,23.24"/>
-    <junction id="gneJ4" type="unregulated" x="400.00" y="0.00" incLanes="gneE2_0 gneE2_1" intLanes="" shape="400.04,-3.25 399.96,3.25"/>
+    <junction id="gneJ3" type="dead_end" x="400.00" y="20.00" incLanes="" intLanes="" shape="400.18,16.76 399.82,23.24"/>
+    <junction id="gneJ4" type="dead_end" x="400.00" y="0.00" incLanes="gneE2_0 gneE2_1" intLanes="" shape="400.04,-3.25 399.96,3.25"/>
 
     <connection from="gneE0" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="gneE0" to="gneE2" fromLane="1" toLane="1" dir="s" state="M"/>

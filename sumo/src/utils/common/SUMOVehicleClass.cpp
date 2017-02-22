@@ -150,8 +150,8 @@ const SVCPermissions SVC_UNSPECIFIED = -1;
 // ------------ Conversion of SUMOVehicleClass
 
 std::string
-getVehicleClassNames(SVCPermissions permissions) {
-    if (permissions == SVCAll) {
+getVehicleClassNames(SVCPermissions permissions, bool expand) {
+    if (permissions == SVCAll && !expand) {
         return "all";
     }
     return joinToString(getVehicleClassNamesList(permissions), ' ');

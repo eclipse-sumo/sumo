@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:26 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Tue Feb 21 16:44:03 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -22,6 +22,7 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <report>
@@ -173,7 +174,7 @@
     <junction id="4" type="priority" x="500.00" y="1000.00" incLanes="4o_0" intLanes=":4_0_0" shape="499.95,1000.00 503.25,1000.00 500.05,1000.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="m1" type="unregulated" x="250.00" y="500.00" incLanes="1fi_0 1fi_1" intLanes="" shape="250.00,493.45 250.00,499.95"/>
+    <junction id="m1" type="dead_end" x="250.00" y="500.00" incLanes="1fi_0 1fi_1" intLanes="" shape="250.00,493.45 250.00,499.95"/>
     <junction id="m2" type="priority" x="750.00" y="500.00" incLanes="2fi_0 2fi_1" intLanes=":m2_0_0 :m2_0_1 :m2_0_2" shape="751.50,506.55 751.50,500.05 748.50,500.05 748.50,509.85">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>

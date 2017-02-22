@@ -35,7 +35,6 @@
 #include <utils/foxtools/fxexdefs.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplCheck.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -673,10 +672,10 @@ long
 GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // Check if format of current value of myTextField is correct
     if (GNEAttributeCarrier::isInt(myAdditionalTag, myAdditionalAttr)) {
-        if (TplCheck::_str2int(myTextField->getText().text())) {
+        if (GNEAttributeCarrier::canParse<int>(myTextField->getText().text())) {
             myCurrentValueValid = true;
             // convert string to int
-            int intValue = TplConvert::_str2int(myTextField->getText().text());
+            int intValue = GNEAttributeCarrier::parse<int>(myTextField->getText().text());
             // Check if int value must be positive
             if (GNEAttributeCarrier::isPositive(myAdditionalTag, myAdditionalAttr) && (intValue < 0)) {
                 myCurrentValueValid = false;
@@ -685,10 +684,10 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
             myCurrentValueValid = false;
         }
     } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, myAdditionalAttr)) {
-        if (TplCheck::_str2SUMOReal(myTextField->getText().text())) {
+        if (GNEAttributeCarrier::canParse<SUMOReal>(myTextField->getText().text())) {
             myCurrentValueValid = true;
             // convert string to double
-            SUMOReal SUMORealValue = TplConvert::_str2SUMOReal(myTextField->getText().text());
+            SUMOReal SUMORealValue = GNEAttributeCarrier::parse<SUMOReal>(myTextField->getText().text());
             // Check if double value must be positive
             if (GNEAttributeCarrier::isPositive(myAdditionalTag, myAdditionalAttr) && (SUMORealValue < 0)) {
                 myCurrentValueValid = false;
@@ -1204,8 +1203,8 @@ GNEAdditionalFrame::NeteditAttributes::isCurrentLenghtValid() const {
 long
 GNEAdditionalFrame::NeteditAttributes::onCmdSetLength(FXObject*, FXSelector, void*) {
     // change color of text field depending of the input lenght
-    if (TplCheck::_str2SUMOReal(myLengthTextField->getText().text()) &&
-        TplConvert::_str2SUMOReal(myLengthTextField->getText().text()) > 0) {
+    if (GNEAttributeCarrier::canParse<SUMOReal>(myLengthTextField->getText().text()) &&
+        GNEAttributeCarrier::parse<SUMOReal>(myLengthTextField->getText().text()) > 0) {
         myLengthTextField->setTextColor(FXRGB(0, 0, 0));
         myLengthTextField->killFocus();
         myCurrentLengthValid = true;

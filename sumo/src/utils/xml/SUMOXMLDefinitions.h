@@ -642,6 +642,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_VERSION,
     SUMO_ATTR_CORNERDETAIL,
     SUMO_ATTR_LINKDETAIL,
+    SUMO_ATTR_RECTANGULAR_LANE_CUT,
     SUMO_ATTR_LEFTHAND,
     SUMO_ATTR_COMMAND,
 
@@ -749,6 +750,12 @@ enum SumoXMLAttr {
  * Since these enums shall be used in switch statements we keep them separated
  * @{
  */
+
+/**
+ * SumoXMLParam Key Constants. Since all usage contexts needs strings rather
+ * than enum values we do not bother with a StringBijection
+ */
+extern const std::string SUMO_PARAM_ORIGID;
 
 /**
  * @enum SumoXMLNodeType
@@ -1011,8 +1018,12 @@ public:
 
     /// @name Special values of SUMO-XML attributes
     /// @{
+
     /// @brief node types
     static StringBijection<SumoXMLNodeType> NodeTypes;
+
+    /// @brief node without TLStypes (Used only in NETEDIT)
+    static StringBijection<SumoXMLNodeType> NodeWithoutTLSTypes;
 
     /// @brief edge functions
     static StringBijection<SumoXMLEdgeFunc> EdgeFunctions;
@@ -1054,8 +1065,12 @@ public:
 private:
     /// @brief containers for the different SUMOXMLDefinitions
     /// @{
+
     /// @brief node type values
     static StringBijection<SumoXMLNodeType>::Entry sumoNodeTypeValues[];
+
+    /// @brief node without TLS type values
+    static StringBijection<SumoXMLNodeType>::Entry sumoNodeWithoutTLSTypeValues[];
 
     /// @brief edge function values
     static StringBijection<SumoXMLEdgeFunc>::Entry sumoEdgeFuncValues[];

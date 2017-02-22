@@ -11,8 +11,8 @@ Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +
 Removing self-loops... done (0ms).
 Removing empty nodes... done (0ms).
    7 nodes removed.
-Moving network to origin... done (0ms).
-Computing turning directions... done (1ms).
+Moving network to origin... done (1ms).
+Computing turning directions... done (0ms).
 Sorting nodes' edges... done (0ms).
 Computing node shapes... done (4ms).
 Computing edge shapes... done (1ms).
@@ -24,15 +24,15 @@ Dividing of lanes on approached lanes... done (0ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
-Computing traffic light control information... done (1ms).
-Computing node logics... done (2ms).
+Computing traffic light control information... done (0ms).
+Computing node logics... done (1ms).
 Computing traffic light logics... done (0ms).
  3 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 5
-  Dead-end junctions          : 9
+  Unregulated junctions       : 0
+  Dead-end junctions          : 14
   Priority junctions          : 67
   Right-before-left junctions : 6
  Network boundaries:
@@ -40,5 +40,5 @@ Summary:
   Applied offset     : -399345.66,-5809365.64
   Converted boundary : 0.00,0.00,1737.68,767.39
 -----------------------------------------------------
-Writing network... done (44ms).
+Writing network... done (31ms).
 Success.

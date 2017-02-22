@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Oct 31 12:48:36 2016 by SUMO netconvert Version dev-SVN-r21846
+<!-- generated on Tue Feb 21 16:44:12 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -53,10 +53,10 @@
         <request index="2" response="0001" foes="0001" cont="0"/>
         <request index="3" response="0011" foes="0011" cont="0"/>
     </junction>
-    <junction id="E" type="unregulated" x="2000.00" y="100.00" incLanes="CE_0" intLanes="" shape="2000.00,96.75 2000.00,99.95"/>
-    <junction id="N" type="unregulated" x="1000.00" y="200.00" incLanes="" intLanes="" shape="999.95,200.00 996.75,200.00"/>
-    <junction id="S" type="unregulated" x="1000.00" y="0.00" incLanes="CS_0" intLanes="" shape="996.75,0.00 999.95,0.00"/>
-    <junction id="W" type="unregulated" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,99.95 0.00,96.75"/>
+    <junction id="E" type="dead_end" x="2000.00" y="100.00" incLanes="CE_0" intLanes="" shape="2000.00,96.75 2000.00,99.95"/>
+    <junction id="N" type="dead_end" x="1000.00" y="200.00" incLanes="" intLanes="" shape="999.95,200.00 996.75,200.00"/>
+    <junction id="S" type="dead_end" x="1000.00" y="0.00" incLanes="CS_0" intLanes="" shape="996.75,0.00 999.95,0.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,99.95 0.00,96.75"/>
 
     <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="-1" dir="s" state="M"/>
     <connection from="NC" to="CE" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="-1" dir="l" state="M"/>

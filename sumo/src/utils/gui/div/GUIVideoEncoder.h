@@ -40,6 +40,8 @@
 
 #define __STDC_CONSTANT_MACROS
 
+#pragma warning(push)
+#pragma warning(disable: 4244) // do not warn about integer conversions
 extern "C"
 {
 #include <libavutil/opt.h>
@@ -48,6 +50,7 @@ extern "C"
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
 }
+#pragma warning(pop) 
 
 
 class GUIVideoEncoder {

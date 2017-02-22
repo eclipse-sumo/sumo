@@ -29,7 +29,6 @@
 
 #include <iostream>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/common/TplCheck.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 
@@ -100,17 +99,17 @@ GNEVariableSpeedSignDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     SUMOReal time, speed;
 
     // Get Time
-    if (TplCheck::_str2SUMOReal(myRowStep->getText().text()) == false) {
+    if (GNEAttributeCarrier::canParse<SUMOReal>(myRowStep->getText().text()) == false) {
         return 0;
     } else {
-        time = TplConvert::_str2SUMOReal(myRowStep->getText().text());
+        time = GNEAttributeCarrier::parse<SUMOReal>(myRowStep->getText().text());
     }
 
     // get SPeed
-    if (TplCheck::_str2SUMOReal(myRowSpeed->getText().text()) == false) {
+    if (GNEAttributeCarrier::canParse<SUMOReal>(myRowSpeed->getText().text()) == false) {
         return 0;
     } else {
-        speed = TplConvert::_str2SUMOReal(myRowSpeed->getText().text());
+        speed = GNEAttributeCarrier::parse<SUMOReal>(myRowSpeed->getText().text());
     }
 
     // Set new time and their speed if don't exist already
@@ -132,7 +131,7 @@ GNEVariableSpeedSignDialog::onCmdRemoveRow(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myDataList->getNumRows(); i++) {
         if (myDataList->getItem(i, 2)->isSelected()) {
             // Remove element of table and map
-            myVSSValues.erase(TplConvert::_2int(myDataList->getItem(i, 0)->getText().text()));
+            myVSSValues.erase(GNEAttributeCarrier::parse<int>(myDataList->getItem(i, 0)->getText().text()));
             myDataList->removeRows(i);
             // update table
             updateTable();

@@ -33,7 +33,8 @@ Building inner edges... done (0ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 2
+  Unregulated junctions       : 0
+  Dead-end junctions          : 2
   Priority junctions          : 2
   Right-before-left junctions : 0
  Network boundaries:

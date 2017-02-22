@@ -34,8 +34,9 @@ def setup(neteditTests):
 
 def Popen(newNet):
     # set the default parameters of netedit
-    neteditCall = [neteditApp, '--gui-testing', '--window-size', '700,500',
-                   '--no-warnings', '--error-log', os.path.join(textTestSandBox, 'log.txt')]
+    neteditCall = [neteditApp, '--gui-testing', '--window-pos', '50,50',
+                   '--window-size', '700,500', '--no-warnings',
+                   '--error-log', os.path.join(textTestSandBox, 'log.txt')]
 
     # check if a new net must be created
     if newNet:

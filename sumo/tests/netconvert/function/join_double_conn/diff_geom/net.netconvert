@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:36 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:09 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -32,16 +32,16 @@
     <location netOffset="500.00,50.00" convBoundary="0.00,0.00,1800.00,100.00" origBoundary="-500.00,-50.00,1300.00,50.00" projParameter="!"/>
 
     <edge id="1to21" from="1" to="2" priority="-1" shape="500.00,50.00 1000.00,100.00 1500.00,50.00">
-        <lane id="1to21_0" index="0" speed="13.90" length="1024.14" shape="517.41,50.08 1000.00,98.34 1482.59,50.08"/>
+        <lane id="1to21_0" index="0" speed="13.90" length="1004.99" shape="517.41,50.08 1000.00,98.34 1482.59,50.08"/>
     </edge>
     <edge id="1to22" from="1" to="2" priority="-1" shape="500.00,50.00 1000.00,0.00 1500.00,50.00">
-        <lane id="1to22_0" index="0" speed="13.90" length="989.18" shape="517.41,46.60 1000.00,-1.66 1482.59,46.60"/>
+        <lane id="1to22_0" index="0" speed="13.90" length="1004.99" shape="517.41,46.60 1000.00,-1.66 1482.59,46.60"/>
     </edge>
     <edge id="91to1" from="91" to="1" priority="-1">
-        <lane id="91to1_0" index="0" speed="13.90" length="519.80" shape="0.00,48.35 512.34,48.35"/>
+        <lane id="91to1_0" index="0" speed="13.90" length="500.00" shape="0.00,48.35 498.50,48.35"/>
     </edge>
     <edge id="out" from="2" to="3" priority="-1">
-        <lane id="out_0" index="0" speed="13.90" length="334.84" shape="1501.66,48.35 1800.00,48.35"/>
+        <lane id="out_0" index="0" speed="13.90" length="300.00" shape="1501.66,48.35 1800.00,48.35"/>
     </edge>
 
     <tlLogic id="2" type="static" programID="0" offset="0">
@@ -51,7 +51,7 @@
         <phase duration="4" state="ry"/>
     </tlLogic>
 
-    <junction id="1" type="priority" x="500.00" y="50.00" incLanes="91to1_0" intLanes="" shape="517.25,51.68 517.57,48.49 517.57,48.19 517.25,45.01 512.34,46.75 512.34,49.95">
+    <junction id="1" type="priority" x="500.00" y="50.00" incLanes="91to1_0" intLanes="" shape="517.25,51.68 517.57,48.49 517.57,48.19 517.25,45.01 498.50,46.75 498.50,49.95">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
@@ -59,8 +59,8 @@
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="3" type="unregulated" x="1800.00" y="50.00" incLanes="out_0" intLanes="" shape="1800.00,46.75 1800.00,49.95"/>
-    <junction id="91" type="unregulated" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,49.95 0.00,46.75"/>
+    <junction id="3" type="dead_end" x="1800.00" y="50.00" incLanes="out_0" intLanes="" shape="1800.00,46.75 1800.00,49.95"/>
+    <junction id="91" type="dead_end" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,49.95 0.00,46.75"/>
 
     <connection from="1to21" to="out" fromLane="0" toLane="0" tl="2" linkIndex="1" dir="s" state="o"/>
     <connection from="1to22" to="out" fromLane="0" toLane="0" tl="2" linkIndex="0" dir="s" state="o"/>

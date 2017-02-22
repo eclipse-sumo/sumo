@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 28 14:38:25 2016 by SUMO netconvert Version dev-SVN-r22106
+<!-- generated on Tue Feb 21 16:44:09 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,7 @@
         <roundabouts.guess value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <report>
@@ -42,10 +43,10 @@
         <lane id=":54525860_2_0" index="0" speed="13.89" length="6.51" shape="4220.82,2539.94 4218.92,2540.29 4218.78,2539.03 4220.40,2536.16"/>
     </edge>
     <edge id=":54525871_0" function="internal">
-        <lane id=":54525871_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="5.56" shape="4256.15,2510.06 4257.31,2509.14 4257.63,2508.05 4257.80,2506.77 4258.50,2505.28"/>
+        <lane id=":54525871_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="8.91" shape="4252.60,2511.70 4254.83,2510.42 4256.06,2509.11 4257.04,2507.50 4258.50,2505.28"/>
     </edge>
     <edge id=":54525871_1" function="internal">
-        <lane id=":54525871_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="5.01" shape="4256.15,2510.06 4257.51,2509.48 4258.48,2509.17 4259.46,2508.88 4260.87,2508.39"/>
+        <lane id=":54525871_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="8.90" shape="4252.60,2511.70 4260.87,2508.39"/>
     </edge>
     <edge id=":54525873_0" function="internal">
         <lane id=":54525873_0_0" index="0" speed="19.44" length="13.32" shape="4282.99,2462.83 4281.27,2449.62"/>
@@ -101,7 +102,7 @@
         <lane id="-51800059_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="24.87" shape="4260.87,2508.39 4268.12,2505.61 4284.88,2502.19"/>
     </edge>
     <edge id="-51800060" from="54525860" to="54525871" priority="-1" spreadType="center" shape="4215.39,2543.52 4227.36,2525.95 4240.53,2517.31 4254.33,2510.90">
-        <lane id="-51800060_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="45.32" shape="4220.40,2536.16 4227.36,2525.95 4240.53,2517.31 4256.15,2510.06"/>
+        <lane id="-51800060_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="41.41" shape="4220.40,2536.16 4227.36,2525.95 4240.53,2517.31 4252.60,2511.70"/>
     </edge>
     <edge id="-51800062" from="54525882" to="54525860" priority="-1" spreadType="center" shape="4296.89,2572.94 4280.87,2552.59 4261.95,2541.09 4235.30,2539.46 4215.39,2543.52">
         <lane id="-51800062_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="77.18" shape="4292.42,2567.26 4280.87,2552.59 4261.95,2541.09 4235.30,2539.46 4225.83,2541.39"/>
@@ -132,7 +133,7 @@
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="1"/>
     </junction>
-    <junction id="54525871" type="priority" x="4254.33" y="2510.90" incLanes="-51800060_0" intLanes=":54525871_0_0 :54525871_1_0" shape="4261.44,2509.89 4260.29,2506.90 4259.79,2506.23 4257.22,2504.32 4255.47,2508.61 4256.82,2511.51">
+    <junction id="54525871" type="priority" x="4254.33" y="2510.90" incLanes="-51800060_0" intLanes=":54525871_0_0 :54525871_1_0" shape="4261.44,2509.89 4260.29,2506.90 4259.79,2506.23 4257.22,2504.32 4251.93,2510.25 4253.28,2513.15">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
@@ -157,8 +158,8 @@
         <request index="3" response="00111" foes="00111" cont="0"/>
         <request index="4" response="00100" foes="00100" cont="0"/>
     </junction>
-    <junction id="54525882" type="unregulated" x="4296.89" y="2572.94" incLanes="" intLanes="" shape="4297.60,2565.57 4294.42,2565.96 4293.68,2566.27 4291.16,2568.25"/>
-    <junction id="54525903" type="unregulated" x="4331.69" y="2716.03" incLanes="51800087_0 51800087_1" intLanes="" shape="4334.87,2715.36 4328.51,2716.70"/>
+    <junction id="54525882" type="dead_end" x="4296.89" y="2572.94" incLanes="" intLanes="" shape="4297.60,2565.57 4294.42,2565.96 4293.68,2566.27 4291.16,2568.25"/>
+    <junction id="54525903" type="dead_end" x="4331.69" y="2716.03" incLanes="51800087_0 51800087_1" intLanes="" shape="4334.87,2715.36 4328.51,2716.70"/>
 
     <junction id=":54525860_2_0" type="internal" x="4220.82" y="2539.94" incLanes=":54525860_1_0 -51800062_0" intLanes=":54525860_0_0"/>
 

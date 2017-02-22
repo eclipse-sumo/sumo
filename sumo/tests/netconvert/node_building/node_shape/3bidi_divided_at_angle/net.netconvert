@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:07 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Tue Feb 21 16:43:57 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -58,9 +58,9 @@
         <lane id="61584187#0_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="34.61" shape="17.26,17.64 2.10,10.56"/>
     </edge>
 
-    <junction id="1472911019" type="unregulated" x="90.29" y="60.88" incLanes="" intLanes="" shape="91.94,58.02 87.15,66.34"/>
+    <junction id="1472911019" type="dead_end" x="90.29" y="60.88" incLanes="" intLanes="" shape="91.94,58.02 87.15,66.34"/>
     <junction id="2121324849" type="dead_end" x="8.09" y="47.46" incLanes="-23121445#5_0 -23121445#5_1" intLanes="" shape="8.05,47.43 12.66,50.25 8.13,47.49"/>
-    <junction id="29207821" type="unregulated" x="99.00" y="56.48" incLanes="54048862#2_0 54048862#2_1 54048862#2_2 54048862#2_3" intLanes="" shape="103.08,49.65 96.46,60.73"/>
+    <junction id="29207821" type="dead_end" x="99.00" y="56.48" incLanes="54048862#2_0 54048862#2_1 54048862#2_2 54048862#2_3" intLanes="" shape="103.08,49.65 96.46,60.73"/>
     <junction id="cluster_1472911017_697323164" type="priority" x="25.92" y="18.35" incLanes="4067932_0 4067932_1 4067932_2 54048862#1_0 54048862#1_1 54048862#1_2 54048862#1_3 23121445#5_0 23121445#5_1" intLanes="" shape="26.06,31.18 38.25,10.93 24.30,2.62 13.87,24.88 14.44,26.80 23.57,32.37">
         <request index="0" response="0000000000" foes="0001000000"/>
         <request index="1" response="0000000000" foes="1111000000"/>

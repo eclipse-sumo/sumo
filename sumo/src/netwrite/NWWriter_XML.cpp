@@ -248,6 +248,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                 if (e->hasLaneSpecificSpeed()) {
                     edevice.writeAttr(SUMO_ATTR_SPEED, lane.speed);
                 }
+                if (lane.accelRamp) {
+                    edevice.writeAttr(SUMO_ATTR_ACCELERATION, lane.accelRamp);
+                }
                 if (lane.oppositeID != "") {
                     edevice.openTag(SUMO_TAG_NEIGH);
                     edevice.writeAttr(SUMO_ATTR_LANE, lane.oppositeID);

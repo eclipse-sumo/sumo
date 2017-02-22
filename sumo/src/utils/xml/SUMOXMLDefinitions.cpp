@@ -458,6 +458,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "version",                SUMO_ATTR_VERSION },
     { "junctionCornerDetail",   SUMO_ATTR_CORNERDETAIL },
     { "junctionLinkDetail",     SUMO_ATTR_LINKDETAIL },
+    { "rectangularLaneCut",     SUMO_ATTR_RECTANGULAR_LANE_CUT },
     { "lefthand",               SUMO_ATTR_LEFTHAND },
 
     { "actorConfig",            SUMO_ATTR_ACTORCONFIG },
@@ -524,10 +525,30 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 };
 
 
+const std::string SUMO_PARAM_ORIGID("origId");
+
+
 StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[] = {
     {"traffic_light",               NODETYPE_TRAFFIC_LIGHT},
     {"traffic_light_unregulated",   NODETYPE_TRAFFIC_LIGHT_NOJUNCTION},
     {"traffic_light_right_on_red",  NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED},
+    {"rail_signal",                 NODETYPE_RAIL_SIGNAL},
+    {"rail_crossing",               NODETYPE_RAIL_CROSSING},
+    {"priority",                    NODETYPE_PRIORITY},
+    {"priority_stop",               NODETYPE_PRIORITY_STOP},
+    {"right_before_left",           NODETYPE_RIGHT_BEFORE_LEFT},
+    {"allway_stop",                 NODETYPE_ALLWAY_STOP},
+    {"zipper",                      NODETYPE_ZIPPER},
+    {"district",                    NODETYPE_DISTRICT},
+    {"unregulated",                 NODETYPE_NOJUNCTION},
+    {"internal",                    NODETYPE_INTERNAL},
+    {"dead_end",                    NODETYPE_DEAD_END},
+    {"DEAD_END",                    NODETYPE_DEAD_END_DEPRECATED},
+    {"unknown",                     NODETYPE_UNKNOWN} //< must be the last one
+};
+
+
+StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeWithoutTLSTypeValues[] = {
     {"rail_signal",                 NODETYPE_RAIL_SIGNAL},
     {"rail_crossing",               NODETYPE_RAIL_CROSSING},
     {"priority",                    NODETYPE_PRIORITY},
@@ -661,6 +682,9 @@ StringBijection<int> SUMOXMLDefinitions::Attrs(
 
 StringBijection<SumoXMLNodeType> SUMOXMLDefinitions::NodeTypes(
     SUMOXMLDefinitions::sumoNodeTypeValues, NODETYPE_UNKNOWN);
+
+StringBijection<SumoXMLNodeType> SUMOXMLDefinitions::NodeWithoutTLSTypes(
+    SUMOXMLDefinitions::sumoNodeWithoutTLSTypeValues, NODETYPE_UNKNOWN);
 
 StringBijection<SumoXMLEdgeFunc> SUMOXMLDefinitions::EdgeFunctions(
     SUMOXMLDefinitions::sumoEdgeFuncValues, EDGEFUNC_INTERNAL);

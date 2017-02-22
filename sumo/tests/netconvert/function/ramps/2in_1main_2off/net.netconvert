@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:35 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:08 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -34,8 +34,8 @@
     <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,100.00" origBoundary="-1000.00,0.00,1000.00,100.00" projParameter="!"/>
 
     <edge id="off" from="2" to="2a" priority="-1" shape="500.00,8.25 200.00,100.00">
-        <lane id="off_0" index="0" speed="30.00" length="330.59" shape="515.26,8.76 201.45,104.73"/>
-        <lane id="off_1" index="1" speed="30.00" length="330.59" shape="514.30,5.60 200.48,101.58"/>
+        <lane id="off_0" index="0" speed="30.00" length="330.57" shape="515.26,8.76 201.45,104.73"/>
+        <lane id="off_1" index="1" speed="30.00" length="330.57" shape="514.30,5.60 200.48,101.58"/>
     </edge>
     <edge id="s1" from="5" to="4" priority="-1">
         <lane id="s1_0" index="0" speed="30.00" length="500.00" shape="2000.00,4.95 1500.00,4.95"/>
@@ -50,21 +50,21 @@
         <lane id="s3_1" index="1" speed="30.00" length="400.00" shape="1000.00,1.65 601.50,1.65"/>
     </edge>
     <edge id="s3-AddedOffRampEdge" from="s3-AddedOffRampNode" to="2" priority="-1">
-        <lane id="s3-AddedOffRampEdge_0" index="0" speed="30.00" length="116.80" shape="598.50,8.25 518.66,8.25"/>
-        <lane id="s3-AddedOffRampEdge_1" index="1" speed="30.00" length="116.80" shape="598.50,4.95 518.66,4.95"/>
-        <lane id="s3-AddedOffRampEdge_2" index="2" speed="30.00" length="116.80" shape="598.50,1.65 518.66,1.65"/>
+        <lane id="s3-AddedOffRampEdge_0" index="0" speed="30.00" length="86.57" shape="598.50,8.25 518.66,8.25"/>
+        <lane id="s3-AddedOffRampEdge_1" index="1" speed="30.00" length="86.57" shape="598.50,4.95 518.66,4.95"/>
+        <lane id="s3-AddedOffRampEdge_2" index="2" speed="30.00" length="86.57" shape="598.50,1.65 518.66,1.65"/>
     </edge>
     <edge id="s4" from="2" to="1" priority="-1">
-        <lane id="s4_0" index="0" speed="30.00" length="516.80" shape="515.02,1.65 0.00,1.65"/>
+        <lane id="s4_0" index="0" speed="30.00" length="519.75" shape="515.02,1.65 0.00,1.65"/>
     </edge>
 
-    <junction id="1" type="unregulated" x="0.00" y="0.00" incLanes="s4_0" intLanes="" shape="0.00,3.25 0.00,0.05"/>
+    <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="s4_0" intLanes="" shape="0.00,3.25 0.00,0.05"/>
     <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3-AddedOffRampEdge_0 s3-AddedOffRampEdge_1 s3-AddedOffRampEdge_2" intLanes="" shape="518.66,9.85 518.66,0.05 515.02,0.05 515.02,3.25 513.83,4.07 515.73,10.29">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="2a" type="unregulated" x="200.00" y="100.00" incLanes="off_0 off_1" intLanes="" shape="201.92,106.26 200.01,100.05"/>
+    <junction id="2a" type="dead_end" x="200.00" y="100.00" incLanes="off_0 off_1" intLanes="" shape="201.92,106.26 200.01,100.05"/>
     <junction id="3" type="priority" x="1000.00" y="0.00" incLanes="s2_0 s2_1" intLanes="" shape="1000.00,6.55 1000.00,0.05 1000.00,6.55">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
@@ -73,7 +73,7 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="5" type="unregulated" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,6.55"/>
+    <junction id="5" type="dead_end" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,6.55"/>
     <junction id="s3-AddedOffRampNode" type="priority" x="600.00" y="0.00" incLanes="s3_0 s3_1" intLanes="" shape="601.50,6.55 601.50,0.05 598.50,0.05 598.50,9.85">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>

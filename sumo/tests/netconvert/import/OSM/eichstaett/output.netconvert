@@ -1,4 +1,4 @@
-Parsing types from '/scr1/sumoI/sumo/data/typemap/osmNetconvert.typ.xml'... done.
+Parsing types from '/scr1/sumoID/sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing nodes from osm-file 'osm.xml'... 
 Found duplicate nodes. Substituting 408437200 with 259645435
 done.
@@ -10,29 +10,28 @@ Parsing relations from osm-file 'osm.xml'... done.
    33 types loaded.
    1985 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops... done (0ms).
-Removing empty nodes... done (2ms).
+Removing self-loops... done (1ms).
+Removing empty nodes... done (8ms).
    193 nodes removed.
-Moving network to origin... done (1ms).
-Computing turning directions... done (1ms).
-Sorting nodes' edges... done (2ms).
-Computing node shapes... 
-done (43ms).
-Computing edge shapes... done (8ms).
-Computing node types... done (0ms).
-Computing priorities... done (2ms).
-Computing approached edges... done (1ms).
+Moving network to origin... done (6ms).
+Computing turning directions... done (5ms).
+Sorting nodes' edges... done (8ms).
+Computing node shapes... done (404ms).
+Computing edge shapes... done (83ms).
+Computing node types... done (2ms).
+Computing priorities... done (6ms).
+Computing approached edges... done (5ms).
 Guessing and setting roundabouts... 
  Guessed 2 roundabout(s).
 done (0ms).
-Computing approaching lanes... done (4ms).
-Dividing of lanes on approached lanes... done (3ms).
-Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
+Computing approaching lanes... done (40ms).
+Dividing of lanes on approached lanes... done (18ms).
+Processing turnarounds... done (2ms).
+Rechecking of lane endings... done (2ms).
 Assigning nodes to traffic lights... done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (12ms).
-Computing traffic light logics... done (0ms).
+Computing node logics... done (113ms).
+Computing traffic light logics... done (2ms).
  4 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
@@ -45,5 +44,5 @@ Summary:
   Applied offset     : -654114.72,-5410956.58
   Converted boundary : 0.00,0.00,19318.29,19090.37
 -----------------------------------------------------
-Writing network... done (152ms).
+Writing network... done (602ms).
 Success.

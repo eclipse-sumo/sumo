@@ -47,7 +47,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/StringUtils.h>
-#include <utils/common/TplConvert.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -544,7 +543,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
         if (sep_index != std::string::npos) { // edge may have been renamed in between
             std::string posString = baseName.substr(sep_index + 1);
             try {
-                posBase = TplConvert::_2int(posString.c_str());
+                posBase = GNEAttributeCarrier::parse<int>(posString.c_str());
                 baseName = baseName.substr(0, sep_index); // includes the .
             } catch (NumberFormatException) {
             }

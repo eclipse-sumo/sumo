@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:12 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Tue Feb 21 16:43:59 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -125,7 +125,7 @@
     <junction id="54536750" type="priority" x="0.00" y="46.83" incLanes="51812052_0 51812052_1" intLanes=":54536750_0_0" shape="-0.01,46.78 1.55,51.95 0.01,46.88">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="54536752" type="unregulated" x="47.39" y="0.00" incLanes="" intLanes="" shape="47.44,-0.02 50.43,-1.14 50.22,-1.12 58.22,-4.27" radius="5.00"/>
+    <junction id="54536752" type="dead_end" x="47.39" y="0.00" incLanes="" intLanes="" shape="47.44,-0.02 50.43,-1.14 50.22,-1.12 58.22,-4.27" radius="5.00"/>
     <junction id="54536753" type="traffic_light" x="58.36" y="29.16" incLanes="-786367651_0 -786367651_1 -786367651_2 51811895b_0 51811895b_1 51811895b_2 51811895a_0 -51812052_0 -51812052_1 -51812052_2 :54536753_w1_0 :54536753_w0_0" intLanes=":54536753_8_0 :54536753_1_0 :54536753_1_1 :54536753_3_0 :54536753_3_1 :54536753_9_0 :54536753_6_0 :54536753_10_0 :54536753_c0_0 :54536753_c1_0" shape="54.15,41.24 72.10,34.97 70.74,31.17 63.68,33.69 59.79,23.69 56.61,24.99 52.93,15.82 44.93,18.99 42.01,25.07 46.07,38.47" radius="5.00" customShape="1">
         <request index="0" response="1100000000" foes="1100100000" cont="1"/>
         <request index="1" response="0100000000" foes="0111100000" cont="0"/>
@@ -138,9 +138,9 @@
         <request index="8" response="0000000000" foes="0010011111" cont="0"/>
         <request index="9" response="0000000000" foes="0011100001" cont="0"/>
     </junction>
-    <junction id="54536771" type="unregulated" x="75.31" y="83.58" incLanes="" intLanes="" shape="78.41,82.44 70.33,85.40"/>
-    <junction id="54536772" type="unregulated" x="82.51" y="80.86" incLanes="786367652_0 786367652_1 786367652_2" intLanes="" shape="87.51,79.11 79.39,81.95"/>
-    <junction id="gneJ3" type="unregulated" x="50.60" y="9.93" incLanes="-51811895a_0 -51811895a_1 -51811895a_2" intLanes="" shape="43.14,14.55 51.11,11.33 50.82,10.34 42.92,13.65" customShape="1"/>
+    <junction id="54536771" type="dead_end" x="75.31" y="83.58" incLanes="" intLanes="" shape="78.41,82.44 70.33,85.40"/>
+    <junction id="54536772" type="dead_end" x="82.51" y="80.86" incLanes="786367652_0 786367652_1 786367652_2" intLanes="" shape="87.51,79.11 79.39,81.95"/>
+    <junction id="gneJ3" type="dead_end" x="50.60" y="9.93" incLanes="-51811895a_0 -51811895a_1 -51811895a_2" intLanes="" shape="43.14,14.55 51.11,11.33 50.82,10.34 42.92,13.65" customShape="1"/>
 
     <junction id=":54536753_8_0" type="internal" x="48.96" y="34.23" incLanes=":54536753_0_0" intLanes=":54536753_5_0 :54536753_c0_0 :54536753_c1_0"/>
     <junction id=":54536753_9_0" type="internal" x="58.30" y="26.74" incLanes=":54536753_5_0" intLanes=":54536753_0_0 :54536753_1_0 :54536753_1_1 :54536753_7_0 :54536753_c1_0"/>

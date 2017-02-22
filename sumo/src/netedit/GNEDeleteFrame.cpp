@@ -120,7 +120,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
     // clear items
     myTreelist->clearItems();
     myTreeItemToACMap.clear();
-    myTreeItesmWithoutAC.clear();
+    myTreeItemsWithoutAC.clear();
     // Switch gl type of ac
     if (ac) {
         switch (dynamic_cast<GUIGlObject*>(ac)->getType()) {
@@ -152,7 +152,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
                         // insert incoming connections of lanes (by default isn't expanded)
                         if (lane->getGNEIncomingConnections().size() > 0) {
                             FXTreeItem* incomingConnections = myTreelist->insertItem(0, laneItem, "Incomings", lane->getGNEIncomingConnections().front()->getIcon(), lane->getGNEIncomingConnections().front()->getIcon());
-                            myTreeItesmWithoutAC.insert(incomingConnections);
+                            myTreeItemsWithoutAC.insert(incomingConnections);
                             incomingConnections->setExpanded(false);
                             for (int k = 0; k < (int)lane->getGNEIncomingConnections().size(); k++) {
                                 GNEConnection* connection = lane->getGNEIncomingConnections().at(k);
@@ -164,7 +164,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
                         // insert outcoming connections of lanes (by default isn't expanded)
                         if (lane->getGNEOutcomingConnections().size() > 0) {
                             FXTreeItem* outgoingConnections = myTreelist->insertItem(0, laneItem, "Outcomings", lane->getGNEOutcomingConnections().front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
-                            myTreeItesmWithoutAC.insert(outgoingConnections);
+                            myTreeItemsWithoutAC.insert(outgoingConnections);
                             outgoingConnections->setExpanded(false);
                             for (int k = 0; k < (int)lane->getGNEOutcomingConnections().size(); k++) {
                                 GNEConnection* connection = lane->getGNEOutcomingConnections().at(k);
@@ -214,7 +214,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
                     // insert incoming connections of lanes (by default isn't expanded)
                     if (lane->getGNEIncomingConnections().size() > 0) {
                         FXTreeItem* incomingConnections = myTreelist->insertItem(0, laneItem, "Incomings", lane->getGNEIncomingConnections().front()->getIcon(), lane->getGNEIncomingConnections().front()->getIcon());
-                        myTreeItesmWithoutAC.insert(incomingConnections);
+                        myTreeItemsWithoutAC.insert(incomingConnections);
                         incomingConnections->setExpanded(false);
                         for (int j = 0; j < (int)lane->getGNEIncomingConnections().size(); j++) {
                             GNEConnection* connection = lane->getGNEIncomingConnections().at(j);
@@ -226,7 +226,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
                     // insert outcoming connections of lanes (by default isn't expanded)
                     if (lane->getGNEOutcomingConnections().size() > 0) {
                         FXTreeItem* outgoingConnections = myTreelist->insertItem(0, laneItem, "Outcomings", lane->getGNEOutcomingConnections().front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
-                        myTreeItesmWithoutAC.insert(outgoingConnections);
+                        myTreeItemsWithoutAC.insert(outgoingConnections);
                         outgoingConnections->setExpanded(false);
                         for (int j = 0; j < (int)lane->getGNEOutcomingConnections().size(); j++) {
                             GNEConnection* connection = lane->getGNEOutcomingConnections().at(j);
@@ -261,7 +261,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
                 // insert incoming connections of lanes (by default isn't expanded)
                 if (lane->getGNEIncomingConnections().size() > 0) {
                     FXTreeItem* incomingConnections = myTreelist->insertItem(0, laneItem, "Incomings", lane->getGNEIncomingConnections().front()->getIcon(), lane->getGNEIncomingConnections().front()->getIcon());
-                    myTreeItesmWithoutAC.insert(incomingConnections);
+                    myTreeItemsWithoutAC.insert(incomingConnections);
                     incomingConnections->setExpanded(false);
                     for (int i = 0; i < (int)lane->getGNEIncomingConnections().size(); i++) {
                         GNEConnection* connection = lane->getGNEIncomingConnections().at(i);
@@ -273,7 +273,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
                 // insert outcoming connections of lanes (by default isn't expanded)
                 if (lane->getGNEOutcomingConnections().size() > 0) {
                     FXTreeItem* outgoingConnections = myTreelist->insertItem(0, laneItem, "Outcomings", lane->getGNEOutcomingConnections().front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
-                    myTreeItesmWithoutAC.insert(outgoingConnections);
+                    myTreeItemsWithoutAC.insert(outgoingConnections);
                     outgoingConnections->setExpanded(false);
                     for (int i = 0; i < (int)lane->getGNEOutcomingConnections().size(); i++) {
                         GNEConnection* connection = lane->getGNEOutcomingConnections().at(i);
@@ -454,7 +454,7 @@ GNEDeleteFrame::onCmdShowChildMenu(FXObject*, FXSelector, void* data) {
     FXEvent* e = (FXEvent*) data;
     FXTreeItem* item = myTreelist->getItemAt(e->win_x, e->win_y);
     // Check if there are an item in the position and create pop-up menu
-    if (item && (myTreeItesmWithoutAC.find(item) == myTreeItesmWithoutAC.end())) {
+    if (item && (myTreeItemsWithoutAC.find(item) == myTreeItemsWithoutAC.end())) {
         createPopUpMenu(e->root_x, e->root_y, myTreeItemToACMap[myTreelist->getItemAt(e->win_x, e->win_y)]);
     }
     return 1;

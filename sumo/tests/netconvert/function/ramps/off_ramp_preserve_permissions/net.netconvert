@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:35 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:08 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -35,7 +35,7 @@
     <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,100.00" origBoundary="-1000.00,0.00,1000.00,100.00" projParameter="!"/>
 
     <edge id="off" from="2" to="2a" priority="-1" shape="500.00,11.55 200.00,100.00">
-        <lane id="off_0" index="0" disallow="bicycle" speed="30.00" length="327.61" shape="504.17,12.04 200.47,101.58"/>
+        <lane id="off_0" index="0" disallow="bicycle" speed="30.00" length="327.73" shape="504.17,12.04 200.47,101.58"/>
     </edge>
     <edge id="s1" from="5" to="4" priority="-1">
         <lane id="s1_0" index="0" disallow="bicycle" speed="30.00" length="500.00" shape="2000.00,8.25 1500.00,8.25"/>
@@ -65,14 +65,14 @@
         <lane id="s4_2" index="2" disallow="bicycle" speed="30.00" length="500.00" shape="498.50,1.65 0.00,1.65"/>
     </edge>
 
-    <junction id="1" type="unregulated" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="0.00,9.85 0.00,0.05"/>
+    <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="0.00,9.85 0.00,0.05"/>
     <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3_0 s3_1 s3_2 s3_3" intLanes="" shape="507.57,13.15 507.57,0.05 498.50,0.05 498.50,9.85 503.72,10.50 504.63,13.57">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="2a" type="unregulated" x="200.00" y="100.00" incLanes="off_0" intLanes="" shape="200.92,103.12 200.01,100.05"/>
+    <junction id="2a" type="dead_end" x="200.00" y="100.00" incLanes="off_0" intLanes="" shape="200.92,103.12 200.01,100.05"/>
     <junction id="3" type="priority" x="1000.00" y="0.00" incLanes="s2-AddedOffRampEdge_0 s2-AddedOffRampEdge_1 s2-AddedOffRampEdge_2 s2-AddedOffRampEdge_3" intLanes="" shape="1000.00,13.15 1000.00,0.05 1000.00,13.15">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
@@ -84,7 +84,7 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="5" type="unregulated" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,9.85"/>
+    <junction id="5" type="dead_end" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,9.85"/>
     <junction id="s2-AddedOffRampNode" type="priority" x="1001.00" y="0.00" incLanes="s2_0 s2_1 s2_2" intLanes="" shape="1002.50,9.85 1002.50,0.05 1000.00,0.05 1000.00,13.15">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>

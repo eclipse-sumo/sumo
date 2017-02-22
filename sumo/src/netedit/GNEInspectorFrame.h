@@ -80,7 +80,7 @@ public:
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
         /// @brief open model dialog for more comfortable attribute editing
-        long onCmdOpenAttributeEditor(FXObject*, FXSelector, void*);
+        long onCmdOpenAllowDisallowEditor(FXObject*, FXSelector, void*);
 
     protected:
         /// @brief FOX needs this
@@ -125,54 +125,6 @@ public:
 
         /// @brief set hide as private function
         void hide();
-    };
-
-    // ===========================================================================
-    // class AttributeEditor
-    // ===========================================================================
-
-    class AttributeEditor : public FXDialogBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::AttributeEditor)
-
-    public:
-        /// @brief constructor
-        AttributeEditor(AttributeInput* attrInputParent, FXTextField* textFieldAttr);
-
-        /// @brief destructor
-        ~AttributeEditor();
-
-        /// @brief call when user press button reset
-        long onCmdReset(FXObject*, FXSelector, void*);
-
-    protected:
-        /// @brief FOX needs this
-        AttributeEditor() {}
-
-    private:
-        /// @brief Pointer to AttributeInput parent
-        AttributeInput* myAttrInputParent;
-
-        // @brief Pointer to TexField in which write attribute
-        FXTextField* myTextFieldAttr;
-
-        // @brief Matrix in that CheckBoxs will be inserted
-        FXMatrix* myCheckBoxMatrix;
-
-        /// @brief vector of Menuchecks
-        std::vector<FXMenuCheck*> myVectorOfCheckBox;
-
-        /// @brief frame for the buttons
-        FXHorizontalFrame* frameButtons;
-
-        /// @brief Button Accept
-        FXButton* myAcceptButton;
-
-        /// @brief Button Cancel
-        FXButton* myCancelButton;
-
-        /// @brief Button Reset
-        FXButton* myResetButton;
     };
 
 public:
@@ -254,7 +206,7 @@ private:
     FXGroupBox* myGroupBoxForAttributes;
 
     /// @brief list of Attribute inputs
-    std::vector<GNEInspectorFrame::AttributeInput*> vectorOfAttrInput;
+    std::vector<GNEInspectorFrame::AttributeInput*> myVectorOfAttributeInputs;
 
     /// @brief back Button
     FXButton* myBackButton;
@@ -305,7 +257,7 @@ private:
     std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;
 
     /// @brief set used to save tree items without AC assigned (for example, Incoming/Outcoming connections)
-    std::set<FXTreeItem*> myTreeItesmWithoutAC;
+    std::set<FXTreeItem*> myTreeItemsWithoutAC;
 
     /// @brief pointer to current right clicked Attribute Carrier
     GNEAttributeCarrier* myRightClickedAC;

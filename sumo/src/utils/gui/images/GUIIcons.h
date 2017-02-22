@@ -274,6 +274,7 @@ enum GUIIcon {
 
     /// @name icons for status
     /// @{
+    ICON_OK,
     ICON_ACCEPT,
     ICON_CANCEL,
     ICON_CORRECT,

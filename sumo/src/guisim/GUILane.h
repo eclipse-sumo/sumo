@@ -85,7 +85,7 @@ public:
     GUILane(const std::string& id, SUMOReal maxSpeed,
             SUMOReal length, MSEdge* const edge, int numericalID,
             const PositionVector& shape, SUMOReal width,
-            SVCPermissions permissions, int index);
+            SVCPermissions permissions, int index, bool isRampAccel);
 
 
     /// @brief Destructor

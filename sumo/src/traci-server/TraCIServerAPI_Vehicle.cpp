@@ -1613,11 +1613,11 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
             */
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << lane->getID() << " langle:" << langle << " angleDiff:" << GeomHelper::getMinAngleDiff(angle, langle) << " off:" << off << std::endl;
-            std::cout << lane->getID() << " param=" << lane->getParameter("origId", lane->getID()) << " origID='" << origID << "\n";
+            std::cout << lane->getID() << " param=" << lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) << " origID='" << origID << "\n";
 #endif
             lane2utility[lane] = LaneUtility(
                                      dist, GeomHelper::getMinAngleDiff(angle, langle),
-                                     lane->getParameter("origId", lane->getID()) == origID,
+                                     lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) == origID,
                                      onRoute, sameEdge, prevEdge, nextEdge);
             // update scaling value
             maxDist = MAX2(maxDist, MIN2(dist, SUMO_const_laneWidth));
@@ -1774,7 +1774,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
     if ((*lane)->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
         const std::vector<MSLane*>& lanes = (*lane)->getEdge().getLanes();
         for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-            if ((*i)->getParameter("origId", (*i)->getID()) == origID) {
+            if ((*i)->getParameter(SUMO_PARAM_ORIGID, (*i)->getID()) == origID) {
                 *lane = *i;
                 break;
             }

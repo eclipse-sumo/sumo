@@ -32,7 +32,10 @@
 #include <fx.h>
 #include <FXPNGImage.h>
 #include <FXJPGImage.h>
+#pragma warning(push)
+#pragma warning(disable: 4244) // do not warn about integer conversions
 #include <FXTIFImage.h>
+#pragma warning(pop) 
 #include <utils/common/ToString.h>
 #include "MFXImageHelper.h"
 

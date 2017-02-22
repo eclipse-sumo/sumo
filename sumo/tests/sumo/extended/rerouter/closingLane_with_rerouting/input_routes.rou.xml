@@ -3,5 +3,5 @@
 
     <route id="r0" edges="beg beg2 middle end"/>
 
-    <flow id="flow" begin="0" end="200" period="0.5" departLane="free" route="r0" departSpeed="max"/>
+    <flow id="flow" begin="0" end="100" period="0.7" departLane="free" route="r0" departSpeed="max"/>
 </routes>

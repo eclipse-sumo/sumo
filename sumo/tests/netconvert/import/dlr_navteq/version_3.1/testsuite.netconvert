@@ -8,3 +8,6 @@ roundtrip
 
 # import street names from _names.txt
 street_names
+
+# Copy of prohibited_manoeuvres
+prohibited_manoeuvres

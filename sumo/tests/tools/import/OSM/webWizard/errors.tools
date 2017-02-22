@@ -41,7 +41,8 @@ Warning: Not joining junctions 1473296997,1474316003 because the cluster is too 
 Warning: Not joining junctions 1566942175,1566942181 because the cluster is too complex (parallel incoming -143201761,-173197451#4)
 Warning: Not joining junctions 1615531695,2831092403,52153639 because the cluster is too complex (parallel incoming 148449390,158785194#0)
 Warning: Not joining junctions 1633112625,2831092402,30731499 because the cluster is too complex (parallel outgoing 195400997#1,22962554#1)
-Warning: Not joining junctions 258017933,258485791,27411258,2796846632,30731510,588181257,588181259 because the cluster is too complex (11 incoming edges)
+Warning: Not joining junctions 1661927045,258017933,258485791,27411258,2796846632,30731510,588181257,588181258,588181259 because the cluster is too complex (10 incoming edges)
+Warning: Not joining junctions 30731492,311264846,588181297,588181300,588181302 because the cluster is too complex (parallel outgoing 153522299#1,46140393)
 Warning: Not joining junctions 1785414414,2924018416,2924018417,2924018418,3253177076,3253177078,3253177079 because the cluster is too complex (7 incoming edges)
 Warning: Not joining junctions 1668717163,1668717165,258485805,588181279 because the cluster is too complex (parallel incoming 101699676#0,4610362#1)
 Warning: Not joining junctions 1673585713,3269783482 because the cluster is too complex (parallel incoming 144014233,207364192#0)
@@ -52,7 +53,6 @@ Warning: Not joining junctions 2003979131,25664779,25664841,746803372 because th
 Warning: Not joining junctions 2054664369,2054664372 because the cluster is too complex (parallel outgoing 288406367,48536047)
 Warning: Not joining junctions 2054724789,2054724822,2054724836,29219450 because the cluster is too complex (6 incoming edges)
 Warning: Not joining junctions 2071374906,2071374916,29805117 because the cluster is too complex (parallel outgoing 25386365#2,25946660)
-Warning: Not joining junctions 2091651012,27412098 because the cluster is too complex (parallel outgoing -24243107#3,237751551#1)
 Warning: Not joining junctions 3104326558,315140135 because the cluster is too complex (parallel outgoing 199579026#1,199579028#0)
 Warning: Not joining junctions 21432801,3139140896,3178759584,735967920,735967921,961816249,961816257 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 266540986,31154724 because the cluster is too complex (parallel incoming -24509315#0,156364553#1)
@@ -61,7 +61,6 @@ Warning: Not joining junctions 27411228,588181343,860313203 because the cluster 
 Warning: Not joining junctions 28373970,28373972,2882261426 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 2894540722,2894540724 because the cluster is too complex (parallel incoming -285825373,-285825375)
 Warning: Not joining junctions 29192958,3378459483 because the cluster is too complex (parallel incoming 122820534#1,330840136)
-Warning: Not joining junctions 30731492,311264846,588181297,588181300,588181302 because the cluster is too complex (parallel outgoing 153522299#1,46140393)
 Warning: Not joining junctions 311264847,735132786,735132792,735132793 because the cluster is too complex (parallel outgoing 143931935,46140376#1)
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
@@ -222,15 +221,6 @@ Warning: Found sharp turn with radius 1.07 at the end of edge '88462837'.
 Warning: Found sharp turn with radius 5.03 at the end of edge '88462843'.
 Warning: Found sharp turn with radius 0.83 at the start of edge '88462848'.
 Warning: Found sharp turn with radius 2.55 at the start of edge '88462862'.
-Warning: Shape for junction '196721246' has distance 41.43 to its given position
-Warning: Shape for junction '2071374815' has distance 33.62 to its given position
-Warning: Shape for junction '2071374842' has distance 23.59 to its given position
-Warning: Shape for junction '2071374916' has distance 34.57 to its given position
-Warning: Shape for junction '2095738463' has distance 21.77 to its given position
-Warning: Shape for junction '29805117' has distance 34.90 to its given position
-Warning: Shape for junction '30731520' has distance 20.72 to its given position
-Warning: Shape for junction '3091127668' has distance 24.80 to its given position
-Warning: Shape for junction '588181284' has distance 25.35 to its given position
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '1615477665' does not have any roads.
 Warning: The rail crossing '1673527106' does not have any roads.
@@ -266,4 +256,5 @@ Warning: Could not build program '0' for traffic light '25662552'
 Warning: The traffic light '29219437' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '29219437'
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
+Warning: Connection '187103791_2->-19801644#1_1' is only 0.10 short.
 Warning: Missing yellow phase in tlLogic '310069196', program '0' for tl-index 0 when switching to phase 1

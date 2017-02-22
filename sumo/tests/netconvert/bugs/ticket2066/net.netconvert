@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:40 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:12 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -39,12 +39,12 @@
         <lane id="CD_0" index="0" speed="13.90" length="98.50" shape="201.50,-1.65 300.00,-1.65"/>
     </edge>
 
-    <junction id="A" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55"/>
+    <junction id="A" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55"/>
     <junction id="C" type="priority" x="200.00" y="0.00" incLanes="AB_0 AB_1" intLanes=":C_0_0 :C_0_1" shape="201.50,-0.05 201.50,-3.25 198.50,-6.55 198.50,-0.05">
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
-    <junction id="D" type="unregulated" x="300.00" y="0.00" incLanes="CD_0" intLanes="" shape="300.00,-3.25 300.00,-0.05"/>
+    <junction id="D" type="dead_end" x="300.00" y="0.00" incLanes="CD_0" intLanes="" shape="300.00,-3.25 300.00,-0.05"/>
 
     <connection from="AB" to="CD" fromLane="0" toLane="0" via=":C_0_0" dir="s" state="M"/>
     <connection from="AB" to="CD" fromLane="1" toLane="0" via=":C_0_1" dir="s" state="m"/>

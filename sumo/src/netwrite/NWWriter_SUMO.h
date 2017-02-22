@@ -133,12 +133,13 @@ protected:
      * @param[in] origNames Whether original names shall be written as parameter
      * @param[in] oppositeID The ID of the opposite lane for overtaking
      * @param[in] node The node to check for custom shape data
+     * @param[in] accelRamp whether this lane is an acceleration lane
      */
     static void writeLane(OutputDevice& into, const std::string& lID,
                           SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
                           SUMOReal endOffset, SUMOReal width, PositionVector shape,
                           const std::string& origID, SUMOReal length, int index, bool origNames,
-                          const std::string& oppositeID, const NBNode* node = 0);
+                          const std::string& oppositeID, const NBNode* node = 0, bool accelRamp = false);
 
 
     /** @brief Writes a junction (<junction ...)

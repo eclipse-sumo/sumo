@@ -22,12 +22,13 @@ Rechecking of lane endings... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
 Computing traffic light control information... done (0ms).
 Computing node logics... done (0ms).
-Computing traffic light logics... done (0ms).
+Computing traffic light logics... done (1ms).
  0 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 1
+  Unregulated junctions       : 0
+  Dead-end junctions          : 1
   Priority junctions          : 4
   Right-before-left junctions : 0
  Network boundaries:

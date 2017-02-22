@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 26 16:09:42 2016 by SUMO netconvert Version dev-SVN-r21242
+<!-- generated on Tue Feb 21 16:44:05 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -9,6 +9,14 @@
         <opendrive-files value="opendrive.xodr"/>
     </input>
 
+    <tls_building>
+        <tls.left-green.time value="0"/>
+    </tls_building>
+
+    <processing>
+        <rectangular-lane-cut value="true"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
     </report>
@@ -16,7 +24,7 @@
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" rectangularLaneCut="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-7793.00,-2175.01" convBoundary="0.00,0.00,173.42,55.89" origBoundary="7793.00,2175.01,7966.42,2230.89" projParameter="!"/>
 
@@ -47,7 +55,7 @@
         <lane id="-190.0.00_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="22.22" length="181.95" width="3.20" shape="173.80,1.61 154.13,6.23 66.82,34.36 0.54,57.44"/>
     </edge>
 
-    <junction id="146" type="unregulated" x="173.42" y="0.00" incLanes="" intLanes="" shape="173.44,0.05 174.92,6.38"/>
-    <junction id="268" type="unregulated" x="0.00" y="55.89" incLanes="-190.0.00_0 -190.0.00_1" intLanes="" shape="2.15,62.07 0.02,55.93"/>
+    <junction id="146" type="dead_end" x="173.42" y="0.00" incLanes="" intLanes="" shape="173.44,0.05 174.92,6.38"/>
+    <junction id="268" type="dead_end" x="0.00" y="55.89" incLanes="-190.0.00_0 -190.0.00_1" intLanes="" shape="2.15,62.07 0.02,55.93"/>
 
 </net>

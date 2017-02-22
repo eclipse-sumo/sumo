@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 15:25:25 2016 by SUMO netconvert Version dev-SVN-r21562
+<!-- generated on Tue Feb 21 16:43:57 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -44,8 +44,8 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="gneJ3" type="unregulated" x="400.00" y="10.00" incLanes="" intLanes="" shape="400.04,8.40 399.96,11.60"/>
-    <junction id="gneJ4" type="unregulated" x="400.00" y="0.00" incLanes="gneE2_0" intLanes="" shape="400.01,-1.60 399.99,1.60"/>
+    <junction id="gneJ3" type="dead_end" x="400.00" y="10.00" incLanes="" intLanes="" shape="400.04,8.40 399.96,11.60"/>
+    <junction id="gneJ4" type="dead_end" x="400.00" y="0.00" incLanes="gneE2_0" intLanes="" shape="400.01,-1.60 399.99,1.60"/>
 
     <connection from="gneE0" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="gneE3" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>

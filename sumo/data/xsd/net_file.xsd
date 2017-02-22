@@ -40,6 +40,7 @@
         <xsd:attribute name="junctionCornerDetail" type="xsd:int"/>
         <xsd:attribute name="junctionLinkDetail" type="xsd:int"/>
         <xsd:attribute name="lefthand" type="boolType"/>
+        <xsd:attribute name="rectangularLaneCut" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="edgeType">
@@ -91,6 +92,7 @@
         <xsd:attribute name="length" type="positiveFloatType" use="required"/>
         <xsd:attribute name="endOffset" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="width" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="acceleration" type="boolType" use="optional"/>
         <xsd:attribute name="shape" type="shapeTypeTwo" use="required"/>
         <xsd:attribute name="customShape" type="boolType" use="optional"/>
     </xsd:complexType>

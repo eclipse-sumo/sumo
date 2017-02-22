@@ -216,6 +216,8 @@ private:
         SUMOReal width;
         /// @brief This lane's offset from the intersection
         SUMOReal endOffset;
+        /// @brief Whether this lane is an acceleration lane
+        bool accelRamp;
         /// @brief This lane's opposite lane
         std::string oppositeID;
     };
@@ -329,6 +331,9 @@ private:
 
     /// @brief the level of geometry detail for internal lanes in the loaded network
     int myLinkDetail;
+
+    /// @brief whether all lanes of an edge should have the same stop line
+    bool myRectLaneCut;
 
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;

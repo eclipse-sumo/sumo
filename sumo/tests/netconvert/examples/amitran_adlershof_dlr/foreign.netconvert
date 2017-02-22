@@ -4,38 +4,38 @@
     <node id="1" type="rightBeforeLeft"/>
     <node id="2" type="priority"/>
     <node id="3" type="rightBeforeLeft"/>
-    <node id="4"/>
+    <node id="4" type="deadEnd"/>
     <node id="5" type="priority"/>
     <node id="6" type="rightBeforeLeft"/>
     <node id="7" type="priority"/>
     <node id="8" type="priority"/>
-    <node id="9"/>
-    <node id="10"/>
+    <node id="9" type="deadEnd"/>
+    <node id="10" type="deadEnd"/>
     <node id="11" type="rightBeforeLeft"/>
     <node id="12" type="priority"/>
     <node id="13" type="priority"/>
     <node id="14" type="priority"/>
-    <node id="15"/>
-    <node id="16"/>
+    <node id="15" type="deadEnd"/>
+    <node id="16" type="deadEnd"/>
     <node id="17" type="priority"/>
     <node id="18" type="priority"/>
-    <node id="19"/>
-    <node id="20"/>
+    <node id="19" type="deadEnd"/>
+    <node id="20" type="deadEnd"/>
     <node id="21" type="priority"/>
     <node id="22" type="rightBeforeLeft"/>
     <node id="23" type="rightBeforeLeft"/>
     <node id="24" type="priority"/>
     <node id="25" type="priority"/>
     <node id="26" type="priority"/>
-    <node id="27"/>
+    <node id="27" type="deadEnd"/>
     <node id="28" type="priority"/>
     <node id="29" type="rightBeforeLeft"/>
     <node id="30" type="priority"/>
     <node id="31" type="rightBeforeLeft"/>
     <node id="32" type="rightBeforeLeft"/>
-    <node id="33"/>
+    <node id="33" type="deadEnd"/>
     <node id="34" type="priority"/>
-    <node id="35"/>
+    <node id="35" type="deadEnd"/>
     <node id="36" type="priority"/>
     <node id="37" type="priority"/>
     <node id="38" type="priority"/>
@@ -53,7 +53,7 @@
     <node id="50" type="rightBeforeLeft"/>
     <node id="51" type="priority"/>
     <node id="52" type="priority"/>
-    <node id="53"/>
+    <node id="53" type="deadEnd"/>
     <node id="54" type="priority"/>
     <node id="55" type="priority"/>
     <node id="56" type="priority"/>
@@ -81,12 +81,12 @@
     <node id="78" type="priority"/>
     <node id="79" type="priority"/>
     <node id="80" type="priority"/>
-    <node id="81"/>
-    <node id="82"/>
+    <node id="81" type="deadEnd"/>
+    <node id="82" type="deadEnd"/>
     <node id="83" type="priority"/>
     <node id="84" type="priority"/>
     <node id="85" type="priority"/>
-    <node id="86"/>
+    <node id="86" type="deadEnd"/>
     <node id="87" type="priority"/>
     <node id="88" type="rightBeforeLeft"/>
     <node id="89" type="priority"/>
@@ -103,7 +103,7 @@
     <node id="100" type="priority"/>
     <node id="101" type="priority"/>
     <node id="102" type="priority"/>
-    <node id="103"/>
+    <node id="103" type="deadEnd"/>
     <node id="104" type="priority"/>
     <node id="105" type="priority"/>
     <node id="106" type="priority"/>
@@ -114,16 +114,16 @@
     <node id="111" type="priority"/>
     <node id="112" type="priority"/>
     <node id="113" type="rightBeforeLeft"/>
-    <node id="114"/>
-    <node id="115"/>
+    <node id="114" type="deadEnd"/>
+    <node id="115" type="deadEnd"/>
     <node id="116" type="priority"/>
     <node id="117" type="priority"/>
     <node id="118" type="priority"/>
-    <node id="119"/>
+    <node id="119" type="deadEnd"/>
     <node id="120" type="rightBeforeLeft"/>
     <node id="121" type="rightBeforeLeft"/>
-    <node id="122"/>
-    <node id="123"/>
+    <node id="122" type="deadEnd"/>
+    <node id="123" type="deadEnd"/>
     <node id="124" type="priority"/>
     <node id="125" type="priority"/>
     <node id="126" type="priority"/>
@@ -151,8 +151,8 @@
     <node id="148" type="priority"/>
     <node id="149" type="priority"/>
     <node id="150" type="priority"/>
-    <node id="151"/>
-    <node id="152"/>
+    <node id="151" type="deadEnd"/>
+    <node id="152" type="deadEnd"/>
     <node id="153" type="priority"/>
     <node id="154" type="priority"/>
     <node id="155" type="priority"/>
@@ -195,18 +195,18 @@
     <node id="192" type="priority"/>
     <node id="193" type="priority"/>
     <node id="194" type="priority"/>
-    <node id="195"/>
+    <node id="195" type="deadEnd"/>
     <node id="196" type="priority"/>
     <node id="197" type="rightBeforeLeft"/>
     <node id="198" type="priority"/>
     <node id="199" type="priority"/>
     <node id="200" type="rightBeforeLeft"/>
-    <node id="201"/>
+    <node id="201" type="deadEnd"/>
     <node id="202" type="priority"/>
     <node id="203" type="rightBeforeLeft"/>
     <node id="204" type="priority"/>
     <node id="205" type="priority"/>
-    <node id="206"/>
+    <node id="206" type="deadEnd"/>
     <node id="207" type="priority"/>
     <node id="208" type="priority"/>
     <node id="209" type="priority"/>
@@ -238,14 +238,14 @@
     <node id="235" type="priority"/>
     <node id="236" type="priority"/>
     <node id="237" type="priority"/>
-    <node id="238"/>
-    <node id="239"/>
+    <node id="238" type="deadEnd"/>
+    <node id="239" type="deadEnd"/>
     <node id="240" type="priority"/>
     <node id="241" type="priority"/>
     <node id="242" type="priority"/>
     <node id="243" type="priority"/>
     <node id="244" type="rightBeforeLeft"/>
-    <node id="245"/>
+    <node id="245" type="deadEnd"/>
     <node id="246" type="priority"/>
     <node id="247" type="priority"/>
     <node id="248" type="priority"/>
@@ -254,7 +254,7 @@
     <node id="251" type="priority"/>
     <node id="252" type="priority"/>
     <node id="253" type="priority"/>
-    <node id="254"/>
+    <node id="254" type="deadEnd"/>
     <node id="255" type="priority"/>
     <node id="256" type="priority"/>
     <node id="257" type="roundaboutMulti"/>
@@ -268,7 +268,7 @@
     <node id="265" type="priority"/>
     <node id="266" type="priority"/>
     <node id="267" type="priority"/>
-    <node id="268"/>
+    <node id="268" type="deadEnd"/>
     <node id="269" type="roundaboutMulti"/>
     <node id="270" type="priority"/>
     <node id="271" type="priority"/>
@@ -283,10 +283,10 @@
     <node id="280" type="priority"/>
     <node id="281" type="priority"/>
     <node id="282" type="priority"/>
-    <node id="283"/>
+    <node id="283" type="deadEnd"/>
     <node id="284" type="priority"/>
     <node id="285" type="priority"/>
-    <node id="286"/>
+    <node id="286" type="deadEnd"/>
     <node id="287" type="priority"/>
     <node id="288" type="priority"/>
     <node id="289" type="rightBeforeLeft"/>
@@ -296,7 +296,7 @@
     <node id="293" type="priority"/>
     <node id="294" type="priority"/>
     <node id="295" type="rightBeforeLeft"/>
-    <node id="296"/>
+    <node id="296" type="deadEnd"/>
     <node id="297" type="priority"/>
     <node id="298" type="priority"/>
     <node id="299" type="priority"/>
@@ -306,11 +306,11 @@
     <node id="303" type="rightBeforeLeft"/>
     <node id="304" type="rightBeforeLeft"/>
     <node id="305" type="priority"/>
-    <node id="306"/>
+    <node id="306" type="deadEnd"/>
     <node id="307" type="priority"/>
     <node id="308" type="priority"/>
     <node id="309" type="priority"/>
-    <node id="310"/>
+    <node id="310" type="deadEnd"/>
     <node id="311" type="priority"/>
     <node id="312" type="priority"/>
     <node id="313" type="trafficLight"/>
@@ -341,7 +341,7 @@
     <link id="7" from="292" to="23" roadClass="4" length="18648" speedLimitKmh="20" laneNr="1"/>
     <link id="8" from="29" to="28" roadClass="4" length="5802" speedLimitKmh="20" laneNr="1"/>
     <link id="9" from="31" to="22" roadClass="4" length="28598" speedLimitKmh="20" laneNr="1"/>
-    <link id="10" from="30" to="31" roadClass="4" length="21493" speedLimitKmh="20" laneNr="1"/>
+    <link id="10" from="30" to="31" roadClass="4" length="11931" speedLimitKmh="20" laneNr="1"/>
     <link id="11" from="31" to="30" roadClass="4" length="200" speedLimitKmh="20" laneNr="1"/>
     <link id="12" from="280" to="256" roadClass="3" length="221012" speedLimitKmh="50" laneNr="2"/>
     <link id="13" from="83" to="280" roadClass="3" length="147510" speedLimitKmh="50" laneNr="2"/>
@@ -358,7 +358,7 @@
     <link id="24" from="39" to="43" roadClass="4" length="202230" speedLimitKmh="10" laneNr="1"/>
     <link id="25" from="52" to="267" roadClass="3" length="721021" speedLimitKmh="30" laneNr="2"/>
     <link id="26" from="51" to="52" roadClass="3" length="56113" speedLimitKmh="50" laneNr="2"/>
-    <link id="27" from="48" to="51" roadClass="3" length="99015" speedLimitKmh="50" laneNr="2"/>
+    <link id="27" from="48" to="51" roadClass="3" length="99052" speedLimitKmh="50" laneNr="2"/>
     <link id="28" from="277" to="264" roadClass="3" length="98273" speedLimitKmh="50" laneNr="2"/>
     <link id="29" from="278" to="277" roadClass="3" length="72469" speedLimitKmh="50" laneNr="2"/>
     <link id="30" from="236" to="278" roadClass="3" length="112821" speedLimitKmh="50" laneNr="2"/>
@@ -366,7 +366,7 @@
     <link id="32" from="83" to="198" roadClass="3" length="303486" speedLimitKmh="80" laneNr="2"/>
     <link id="33" from="61" to="60" roadClass="3" length="100208" speedLimitKmh="80" laneNr="2"/>
     <link id="34" from="302" to="61" roadClass="3" length="121555" speedLimitKmh="80" laneNr="2"/>
-    <link id="35" from="314" to="302" roadClass="3" length="55708" speedLimitKmh="80" laneNr="2"/>
+    <link id="35" from="314" to="302" roadClass="3" length="47887" speedLimitKmh="80" laneNr="2"/>
     <link id="36" from="28" to="248" roadClass="3" length="30054" speedLimitKmh="80" laneNr="2"/>
     <link id="37" from="249" to="28" roadClass="3" length="81099" speedLimitKmh="80" laneNr="2"/>
     <link id="38" from="328" to="249" roadClass="3" length="61129" speedLimitKmh="80" laneNr="2"/>
@@ -404,7 +404,7 @@
     <link id="70" from="320" to="78" roadClass="3" length="13466" speedLimitKmh="80" laneNr="2"/>
     <link id="71" from="80" to="320" roadClass="3" length="60611" speedLimitKmh="80" laneNr="2"/>
     <link id="72" from="281" to="80" roadClass="3" length="67563" speedLimitKmh="80" laneNr="2"/>
-    <link id="73" from="126" to="281" roadClass="3" length="200" speedLimitKmh="80" laneNr="2"/>
+    <link id="73" from="126" to="281" roadClass="3" length="199" speedLimitKmh="80" laneNr="2"/>
     <link id="74" from="273" to="279" roadClass="3" length="55552" speedLimitKmh="80" laneNr="2"/>
     <link id="75" from="24" to="273" roadClass="3" length="11193" speedLimitKmh="80" laneNr="2"/>
     <link id="76" from="68" to="24" roadClass="3" length="109800" speedLimitKmh="80" laneNr="2"/>
@@ -481,7 +481,7 @@
     <link id="147" from="144" to="200" roadClass="4" length="162453" speedLimitKmh="20" laneNr="1"/>
     <link id="148" from="312" to="57" roadClass="1" length="58731" speedLimitKmh="50" laneNr="3"/>
     <link id="149" from="153" to="171" roadClass="4" length="103349" speedLimitKmh="20" laneNr="1"/>
-    <link id="150" from="104" to="136" roadClass="1" length="401909" speedLimitKmh="50" laneNr="3"/>
+    <link id="150" from="104" to="136" roadClass="1" length="401874" speedLimitKmh="50" laneNr="3"/>
     <link id="151" from="154" to="145" roadClass="3" length="23085" speedLimitKmh="50" laneNr="2"/>
     <link id="152" from="146" to="154" roadClass="3" length="199" speedLimitKmh="50" laneNr="2"/>
     <link id="153" from="329" to="146" roadClass="3" length="37395" speedLimitKmh="50" laneNr="2"/>
@@ -580,7 +580,7 @@
     <link id="246" from="187" to="175" roadClass="4" length="15409" speedLimitKmh="20" laneNr="1"/>
     <link id="247" from="323" to="287" roadClass="4" length="22611" speedLimitKmh="20" laneNr="1"/>
     <link id="248" from="150" to="290" roadClass="4" length="1101709" speedLimitKmh="20" laneNr="1"/>
-    <link id="249" from="23" to="29" roadClass="4" length="141" speedLimitKmh="20" laneNr="1"/>
+    <link id="249" from="23" to="29" roadClass="4" length="6358" speedLimitKmh="20" laneNr="1"/>
     <link id="250" from="22" to="23" roadClass="4" length="32667" speedLimitKmh="20" laneNr="1"/>
     <link id="251" from="21" to="22" roadClass="4" length="32375" speedLimitKmh="20" laneNr="1"/>
     <link id="252" from="249" to="21" roadClass="4" length="9018" speedLimitKmh="20" laneNr="1"/>
@@ -643,13 +643,13 @@
     <link id="309" from="264" to="258" roadClass="3" length="31802" speedLimitKmh="50" laneNr="2"/>
     <link id="310" from="257" to="264" roadClass="3" length="31446" speedLimitKmh="50" laneNr="2"/>
     <link id="311" from="52" to="51" roadClass="3" length="56113" speedLimitKmh="50" laneNr="2"/>
-    <link id="312" from="51" to="48" roadClass="3" length="98979" speedLimitKmh="50" laneNr="2"/>
+    <link id="312" from="51" to="48" roadClass="3" length="99016" speedLimitKmh="50" laneNr="2"/>
     <link id="313" from="47" to="46" roadClass="3" length="200" speedLimitKmh="50" laneNr="2"/>
-    <link id="314" from="46" to="257" roadClass="3" length="28131" speedLimitKmh="50" laneNr="2"/>
-    <link id="315" from="257" to="258" roadClass="3" length="2822" speedLimitKmh="50" laneNr="2"/>
-    <link id="316" from="258" to="269" roadClass="3" length="7978" speedLimitKmh="50" laneNr="2"/>
-    <link id="317" from="269" to="49" roadClass="3" length="1762" speedLimitKmh="50" laneNr="2"/>
-    <link id="318" from="49" to="47" roadClass="3" length="5957" speedLimitKmh="50" laneNr="2"/>
+    <link id="314" from="46" to="257" roadClass="3" length="23179" speedLimitKmh="50" laneNr="2"/>
+    <link id="315" from="257" to="258" roadClass="3" length="200" speedLimitKmh="50" laneNr="2"/>
+    <link id="316" from="258" to="269" roadClass="3" length="3763" speedLimitKmh="50" laneNr="2"/>
+    <link id="317" from="269" to="49" roadClass="3" length="298" speedLimitKmh="50" laneNr="2"/>
+    <link id="318" from="49" to="47" roadClass="3" length="3380" speedLimitKmh="50" laneNr="2"/>
     <link id="319" from="264" to="277" roadClass="3" length="98273" speedLimitKmh="50" laneNr="2"/>
     <link id="320" from="277" to="278" roadClass="3" length="72464" speedLimitKmh="50" laneNr="2"/>
     <link id="321" from="278" to="236" roadClass="3" length="112821" speedLimitKmh="50" laneNr="2"/>
@@ -658,7 +658,7 @@
     <link id="324" from="198" to="83" roadClass="3" length="303543" speedLimitKmh="80" laneNr="2"/>
     <link id="325" from="60" to="61" roadClass="3" length="100208" speedLimitKmh="80" laneNr="2"/>
     <link id="326" from="61" to="302" roadClass="3" length="121555" speedLimitKmh="80" laneNr="2"/>
-    <link id="327" from="302" to="314" roadClass="3" length="54267" speedLimitKmh="80" laneNr="2"/>
+    <link id="327" from="302" to="314" roadClass="3" length="38613" speedLimitKmh="80" laneNr="2"/>
     <link id="328" from="248" to="28" roadClass="3" length="30054" speedLimitKmh="80" laneNr="2"/>
     <link id="329" from="28" to="249" roadClass="3" length="81099" speedLimitKmh="80" laneNr="2"/>
     <link id="330" from="249" to="328" roadClass="3" length="66823" speedLimitKmh="80" laneNr="2"/>
@@ -755,7 +755,7 @@
     <link id="421" from="326" to="101" roadClass="4" length="20828" speedLimitKmh="20" laneNr="1"/>
     <link id="422" from="322" to="88" roadClass="4" length="18137" speedLimitKmh="10" laneNr="1"/>
     <link id="423" from="88" to="87" roadClass="4" length="131671" speedLimitKmh="10" laneNr="1"/>
-    <link id="424" from="152" to="106" roadClass="0" length="602887" speedLimitKmh="80" laneNr="3"/>
+    <link id="424" from="152" to="106" roadClass="0" length="566055" speedLimitKmh="80" laneNr="3"/>
     <link id="425" from="106" to="107" roadClass="0" length="489956" speedLimitKmh="80" laneNr="3"/>
     <link id="426" from="242" to="128" roadClass="3" length="161909" speedLimitKmh="50" laneNr="2"/>
     <link id="427" from="128" to="241" roadClass="3" length="39728" speedLimitKmh="50" laneNr="2"/>
@@ -791,7 +791,7 @@
     <link id="457" from="120" to="301" roadClass="4" length="38752" speedLimitKmh="20" laneNr="1"/>
     <link id="458" from="301" to="298" roadClass="4" length="21180" speedLimitKmh="20" laneNr="1"/>
     <link id="459" from="298" to="29" roadClass="4" length="30361" speedLimitKmh="20" laneNr="1"/>
-    <link id="460" from="29" to="23" roadClass="4" length="971" speedLimitKmh="20" laneNr="1"/>
+    <link id="460" from="29" to="23" roadClass="4" length="8063" speedLimitKmh="20" laneNr="1"/>
     <link id="461" from="120" to="121" roadClass="4" length="62527" speedLimitKmh="20" laneNr="1"/>
     <link id="462" from="122" to="126" roadClass="1" length="55578" speedLimitKmh="100" laneNr="1"/>
     <link id="463" from="126" to="123" roadClass="1" length="389864" speedLimitKmh="100" laneNr="1"/>
@@ -811,7 +811,7 @@
     <link id="477" from="76" to="18" roadClass="4" length="77749" speedLimitKmh="30" laneNr="1"/>
     <link id="478" from="18" to="17" roadClass="4" length="7518" speedLimitKmh="30" laneNr="1"/>
     <link id="479" from="124" to="134" roadClass="4" length="26416" speedLimitKmh="10" laneNr="1"/>
-    <link id="480" from="136" to="104" roadClass="1" length="389369" speedLimitKmh="50" laneNr="3"/>
+    <link id="480" from="136" to="104" roadClass="1" length="389357" speedLimitKmh="50" laneNr="3"/>
     <link id="481" from="313" to="136" roadClass="1" length="73386" speedLimitKmh="50" laneNr="3"/>
     <link id="482" from="135" to="313" roadClass="1" length="75749" speedLimitKmh="50" laneNr="3"/>
     <link id="483" from="138" to="137" roadClass="4" length="40800" speedLimitKmh="20" laneNr="1"/>
@@ -832,7 +832,7 @@
     <link id="498" from="200" to="144" roadClass="4" length="162146" speedLimitKmh="20" laneNr="1"/>
     <link id="499" from="57" to="312" roadClass="1" length="58389" speedLimitKmh="50" laneNr="4"/>
     <link id="500" from="171" to="153" roadClass="4" length="115472" speedLimitKmh="20" laneNr="1"/>
-    <link id="501" from="219" to="151" roadClass="0" length="668962" speedLimitKmh="80" laneNr="3"/>
+    <link id="501" from="219" to="151" roadClass="0" length="639597" speedLimitKmh="80" laneNr="3"/>
     <link id="502" from="155" to="329" roadClass="3" length="59025" speedLimitKmh="50" laneNr="4"/>
     <link id="503" from="145" to="154" roadClass="3" length="23085" speedLimitKmh="50" laneNr="2"/>
     <link id="504" from="154" to="146" roadClass="3" length="199" speedLimitKmh="50" laneNr="3"/>
@@ -917,7 +917,7 @@
     <link id="583" from="222" to="223" roadClass="4" length="10536" speedLimitKmh="20" laneNr="1"/>
     <link id="584" from="72" to="226" roadClass="4" length="88747" speedLimitKmh="10" laneNr="1"/>
     <link id="585" from="226" to="227" roadClass="4" length="29558" speedLimitKmh="10" laneNr="1"/>
-    <link id="586" from="227" to="228" roadClass="4" length="85696" speedLimitKmh="10" laneNr="1"/>
+    <link id="586" from="227" to="228" roadClass="4" length="79957" speedLimitKmh="10" laneNr="1"/>
     <link id="587" from="228" to="328" roadClass="4" length="33651" speedLimitKmh="10" laneNr="1"/>
     <link id="588" from="249" to="228" roadClass="4" length="13035" speedLimitKmh="10" laneNr="1"/>
     <link id="589" from="228" to="324" roadClass="4" length="7568" speedLimitKmh="10" laneNr="1"/>
@@ -1010,7 +1010,7 @@
     <link id="676" from="74" to="73" roadClass="3" length="200" speedLimitKmh="80" laneNr="2"/>
     <link id="677" from="61" to="305" roadClass="4" length="91987" speedLimitKmh="20" laneNr="1"/>
     <link id="678" from="305" to="61" roadClass="4" length="91933" speedLimitKmh="20" laneNr="1"/>
-    <link id="679" from="314" to="303" roadClass="4" length="17482" speedLimitKmh="10" laneNr="1"/>
+    <link id="679" from="314" to="303" roadClass="4" length="14914" speedLimitKmh="10" laneNr="1"/>
     <link id="680" from="303" to="304" roadClass="4" length="17796" speedLimitKmh="10" laneNr="1"/>
     <link id="681" from="304" to="59" roadClass="4" length="62574" speedLimitKmh="10" laneNr="1"/>
     <link id="682" from="59" to="125" roadClass="4" length="13008" speedLimitKmh="10" laneNr="1"/>

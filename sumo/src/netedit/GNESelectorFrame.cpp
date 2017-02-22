@@ -288,7 +288,7 @@ GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
             compOp = '=';
         }
         try {
-            handleIDs(getMatches(tag, attr, compOp, TplConvert::_2SUMOReal(expr.c_str()), expr), false);
+            handleIDs(getMatches(tag, attr, compOp, GNEAttributeCarrier::parse<SUMOReal>(expr.c_str()), expr), false);
         } catch (EmptyData&) {
             valid = false;
         } catch (NumberFormatException&) {

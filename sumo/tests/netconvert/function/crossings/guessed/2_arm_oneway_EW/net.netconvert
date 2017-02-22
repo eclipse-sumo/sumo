@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:38 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:11 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -56,8 +56,8 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="E" type="unregulated" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.00,0.05 200.00,11.25"/>
-    <junction id="W" type="unregulated" x="0.00" y="0.00" incLanes="CW_0 CW_1 CW_2 CW_3" intLanes="" shape="0.00,11.25 0.00,0.05"/>
+    <junction id="E" type="dead_end" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.00,0.05 200.00,11.25"/>
+    <junction id="W" type="dead_end" x="0.00" y="0.00" incLanes="CW_0 CW_1 CW_2 CW_3" intLanes="" shape="0.00,11.25 0.00,0.05"/>
 
     <connection from="EC" to="CW" fromLane="2" toLane="2" via=":C_0_0" dir="s" state="M"/>
     <connection from="EC" to="CW" fromLane="3" toLane="3" via=":C_0_1" dir="s" state="M"/>

@@ -76,6 +76,7 @@ const SUMOReal MSPModel_Striping::DIST_OVERLAP(-1);
 // ===========================================================================
 
 MSPModel_Striping::WalkingAreaPaths MSPModel_Striping::myWalkingAreaPaths;
+MSPModel_Striping::MinNextLengths MSPModel_Striping::myMinNextLengths;
 MSPModel_Striping::Pedestrians MSPModel_Striping::noPedestrians;
 
 
@@ -198,6 +199,7 @@ MSPModel_Striping::cleanupHelper() {
     myActiveLanes.clear();
     myNumActivePedestrians = 0;
     myWalkingAreaPaths.clear(); // need to recompute when lane pointers change
+    myMinNextLengths.clear();
 }
 
 
@@ -229,6 +231,7 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
         const MSEdge* edge = *i;
         if (edge->isWalkingArea()) {
             const MSLane* walkingArea = getSidewalk<MSEdge, MSLane>(edge);
+            myMinNextLengths[walkingArea] = walkingArea->getLength();
             // build all possible paths across this walkingArea
             // gather all incident lanes
             std::vector<const MSLane*> lanes;
@@ -275,7 +278,9 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
                             // will be walking backward on walkingArea
                             shape = shape.reverse();
                         }
-                        myWalkingAreaPaths[std::make_pair(from, to)] = WalkingAreaPath(from, walkingArea, to, shape);
+                        WalkingAreaPath wap = WalkingAreaPath(from, walkingArea, to, shape);
+                        myWalkingAreaPaths[std::make_pair(from, to)] = wap;
+                        myMinNextLengths[walkingArea] = MIN2(myMinNextLengths[walkingArea], wap.length);
                     }
                 }
             }
@@ -502,10 +507,10 @@ MSPModel_Striping::getStripeOffset(int origStripes, int destStripes, bool addRem
 
 const MSPModel_Striping::Obstacles&
 MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
-                                        MSLane* lane, const MSLane* nextLane, int stripes, SUMOReal nextLength, int nextDir,
+                                        MSLane* lane, const MSLane* nextLane, int stripes, int nextDir,
                                         SUMOReal currentLength, int currentDir) {
     if (nextLanesObs.count(nextLane) == 0) {
-
+        const SUMOReal nextLength = nextLane->getEdge().isWalkingArea() ? myMinNextLengths[nextLane] : nextLane->getLength();
         // figure out the which pedestrians are ahead on the next lane
         const int nextStripes = numStripes(nextLane);
         // do not move past the end of the next lane in a single step
@@ -757,11 +762,9 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         const SUMOReal speed = p.myStage->getMaxSpeed();
         if (nextLane != 0 && dist <= LOOKAHEAD_ONCOMING) {
             const SUMOReal currentLength = (p.myWalkingAreaPath == 0 ? lane->getLength() : p.myWalkingAreaPath->length);
-            const SUMOReal nextLength = nextLane->getLength(); // XXX what to do if nextLane is a walkingArea?
             const Obstacles& nextObs = getNextLaneObstacles(
                                            nextLanesObs, lane, nextLane, stripes,
-                                           nextLength, p.myNLI.dir,
-                                           currentLength, dir);
+                                           p.myNLI.dir, currentLength, dir);
 
             if DEBUGCOND(p.myPerson->getID()) {
                 std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  nextObs=";
@@ -1059,9 +1062,9 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
             // lane was not checked for obstacles)
             const SUMOReal newLength = (myWalkingAreaPath == 0 ? myLane->getLength() : myWalkingAreaPath->length);
             if (-dist > newLength) {
-                dist = -newLength;
-                // should not happen because the end of myLane should have been an obstacle as well
                 assert(false);
+                // should not happen because the end of myLane should have been an obstacle as well
+                dist = -newLength;
             }
             if (myDir == BACKWARD) {
                 myRelX = newLength + dist;

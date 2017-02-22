@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 26 13:45:17 2016 by SUMO netconvert Version dev-SVN-r21539
+<!-- generated on Tue Feb 21 16:44:05 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -18,6 +18,10 @@
         <proj.utm value="true"/>
     </projection>
 
+    <processing>
+        <rectangular-lane-cut value="true"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
     </report>
@@ -25,7 +29,7 @@
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" rectangularLaneCut="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-353137.24,-3455639.81" convBoundary="0.00,0.00,1103.40,284.53" origBoundary="121.458063,31.225745,121.469606,31.228401" projParameter="+proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -85,8 +89,8 @@
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="-117533" type="unregulated" x="0.00" y="24.72" incLanes="-117527_0 -117527_1 -117527_2" intLanes="" shape="0.15,29.62 -0.15,19.83"/>
-    <junction id="-117534" type="unregulated" x="1103.40" y="284.53" incLanes="" intLanes="" shape="1105.75,280.22 1101.05,288.83"/>
+    <junction id="-117533" type="dead_end" x="0.00" y="24.72" incLanes="-117527_0 -117527_1 -117527_2" intLanes="" shape="0.15,29.62 -0.15,19.83"/>
+    <junction id="-117534" type="dead_end" x="1103.40" y="284.53" incLanes="" intLanes="" shape="1105.75,280.22 1101.05,288.83"/>
 
     <connection from="-117528" to="-117527" fromLane="0" toLane="0" via=":-117529_0_0" dir="s" state="M"/>
     <connection from="-117528" to="-117527" fromLane="1" toLane="1" via=":-117529_0_1" dir="s" state="M"/>

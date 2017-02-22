@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr 26 13:40:28 2016 by SUMO netconvert Version dev-SVN-r20551
+<!-- generated on Tue Feb 21 16:44:06 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -23,6 +23,7 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <report>
@@ -60,7 +61,7 @@
         <phase duration="9" state="yy"/>
     </tlLogic>
 
-    <junction id="absBeg" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55"/>
+    <junction id="absBeg" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55"/>
     <junction id="absEnd" type="priority" x="2000.00" y="0.00" incLanes="end_0 end_1" intLanes="" shape="2000.00,-0.05 2000.00,-6.55 2000.00,-0.05">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
@@ -71,7 +72,7 @@
     <junction id="end" type="traffic_light" x="1500.00" y="0.00" incLanes="middle_0" intLanes="" shape="1501.50,-0.05 1501.50,-6.55 1498.50,-3.25 1498.50,-0.05">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="rabsEnd" type="unregulated" x="2500.00" y="0.00" incLanes="rend_0 rend_1" intLanes="" shape="2500.00,-6.55 2500.00,-0.05"/>
+    <junction id="rabsEnd" type="dead_end" x="2500.00" y="0.00" incLanes="rend_0 rend_1" intLanes="" shape="2500.00,-6.55 2500.00,-0.05"/>
 
     <connection from="beg" to="middle" fromLane="0" toLane="0" pass="1" dir="s" state="M"/>
     <connection from="end" to="rend" fromLane="0" toLane="0" dir="s" state="M"/>

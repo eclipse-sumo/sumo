@@ -101,7 +101,7 @@ def compare(first, second):
     for edge in first:
         if edge in second:
             commonEdges += SCALE
-    return commonEdges / max(len(first), len(second))
+    return commonEdges // max(len(first), len(second))
 
 
 def matching(routeIDs1, routeIDs2, similarityMatrix, match):
@@ -285,7 +285,7 @@ if options.districts:
     parser.setContentHandler(DistrictReader(sources, sinks, edges))
     parser.parse(options.districts)
     for routes, routeMatrix in [(routes1, routeMatrix1), (routes2, routeMatrix2)]:
-        for routeID in routes:
+        for routeID in sorted(routes):
             route = routes[routeID]
             source = sources[route[0]]
             sink = sinks[route[-1]]
@@ -297,7 +297,7 @@ if options.districts:
 else:
     for routes, routeMatrix in [(routes1, routeMatrix1), (routes2, routeMatrix2)]:
         routeMatrix["dummySource"] = {}
-        routeMatrix["dummySource"]["dummySink"] = list(routes.keys())
+        routeMatrix["dummySource"]["dummySink"] = list(sorted(routes.keys()))
 
 match = {}
 totalMatch = 0

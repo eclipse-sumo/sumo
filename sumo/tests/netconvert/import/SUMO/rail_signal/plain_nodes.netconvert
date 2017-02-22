@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:32 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,7 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <report>
@@ -32,7 +33,7 @@
     <location netOffset="500.00,0.00" convBoundary="0.00,0.00,1000.00,100.00" origBoundary="-500.00,0.00,500.00,100.00" projParameter="!"/>
 
     <node id="C" x="500.00" y="0.00" type="rail_signal"/>
-    <node id="E" x="1000.00" y="0.00" type="unregulated"/>
-    <node id="N" x="1000.00" y="100.00" type="unregulated"/>
-    <node id="W" x="0.00" y="0.00" type="unregulated"/>
+    <node id="E" x="1000.00" y="0.00" type="dead_end"/>
+    <node id="N" x="1000.00" y="100.00" type="dead_end"/>
+    <node id="W" x="0.00" y="0.00" type="dead_end"/>
 </nodes>

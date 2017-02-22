@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul 29 15:30:10 2016 by SUMO netconvert Version dev-SVN-r21267
+<!-- generated on Tue Feb 21 16:44:01 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -32,7 +32,7 @@
         <lane id="1_2" index="2" allow="passenger" speed="28.00" length="100.00" width="2.20" shape="0.00,-1.15 100.00,-1.15"/>
     </edge>
 
-    <junction id="0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-9.85"/>
-    <junction id="1" type="unregulated" x="100.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes="" shape="100.00,-9.85 100.00,-0.05"/>
+    <junction id="0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-9.85"/>
+    <junction id="1" type="dead_end" x="100.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes="" shape="100.00,-9.85 100.00,-0.05"/>
 
 </net>

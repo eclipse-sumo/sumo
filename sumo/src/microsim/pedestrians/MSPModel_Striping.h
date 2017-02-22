@@ -153,6 +153,7 @@ protected:
     typedef std::vector<Obstacle> Obstacles;
     typedef std::map<const MSLane*, Obstacles, lane_by_numid_sorter> NextLanesObstacles;
     typedef std::map<std::pair<const MSLane*, const MSLane*>, WalkingAreaPath> WalkingAreaPaths;
+    typedef std::map<const MSLane*, SUMOReal> MinNextLengths;
 
     struct NextLaneInfo {
         NextLaneInfo(const MSLane* _lane, const MSLink* _link, int _dir) :
@@ -392,7 +393,7 @@ private:
     static Obstacles getNeighboringObstacles(const Pedestrians& pedestrians, int egoIndex, int stripes);
 
     const Obstacles& getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const MSLane* lane, const MSLane* nextLane, int stripes,
-                                          SUMOReal nextLength, int nextDir, SUMOReal currentLength, int currentDir);
+                                          int nextDir, SUMOReal currentLength, int currentDir);
 
     static void transformToCurrentLanePositions(Obstacles& o, int currentDir, int nextDir, SUMOReal currentLength, SUMOReal nextLength);
 
@@ -420,6 +421,7 @@ private:
 
     /// @brief store for walkinArea elements
     static WalkingAreaPaths myWalkingAreaPaths;
+    static MinNextLengths myMinNextLengths;
 
     /// @brief empty pedestrian vector
     static Pedestrians noPedestrians;

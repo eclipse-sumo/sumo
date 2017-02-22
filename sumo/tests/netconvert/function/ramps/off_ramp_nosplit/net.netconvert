@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:35 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:08 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -55,14 +55,14 @@
         <lane id="s4_1" index="1" speed="30.00" length="500.00" shape="479.01,1.65 0.00,1.65"/>
     </edge>
 
-    <junction id="1" type="unregulated" x="0.00" y="0.00" incLanes="s4_0 s4_1" intLanes="" shape="0.00,6.55 0.00,0.05"/>
+    <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="s4_0 s4_1" intLanes="" shape="0.00,6.55 0.00,0.05"/>
     <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3_0 s3_1" intLanes="" shape="502.56,6.55 502.56,0.05 479.01,0.05 479.01,6.55 479.09,7.02 481.14,13.19">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="2a" type="unregulated" x="200.00" y="100.00" incLanes="off_0 off_1" intLanes="" shape="202.07,106.21 200.02,100.05"/>
+    <junction id="2a" type="dead_end" x="200.00" y="100.00" incLanes="off_0 off_1" intLanes="" shape="202.07,106.21 200.02,100.05"/>
     <junction id="3" type="priority" x="1000.00" y="0.00" incLanes="s2_0 s2_1" intLanes="" shape="1000.00,6.55 1000.00,0.05 1000.00,6.55">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
@@ -71,7 +71,7 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="5" type="unregulated" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,6.55"/>
+    <junction id="5" type="dead_end" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,6.55"/>
 
     <connection from="s1" to="s2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="s1" to="s2" fromLane="1" toLane="1" dir="s" state="M"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 15:25:34 2016 by SUMO netconvert Version dev-SVN-r21562
+<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -194,7 +194,7 @@
     <junction id="1311777490" type="priority" x="3163.91" y="184.22" incLanes="-257131025_0" intLanes=":1311777490_0_0" shape="3163.86,184.23 3167.14,183.87 3163.96,184.22">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="138559856" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-2.52,2.06 2.52,-2.06"/>
+    <junction id="138559856" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-2.52,2.06 2.52,-2.06"/>
     <junction id="1560223301" type="priority" x="3346.03" y="133.86" incLanes="190083608#1_0 190083608#1_1 190083608#1_2" intLanes=":1560223301_0_0" shape="3346.03,133.91 3345.12,125.76 3346.02,133.81">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
@@ -226,7 +226,7 @@
     <junction id="35215949" type="priority" x="616.34" y="551.82" incLanes="153959895_0" intLanes=":35215949_0_0" shape="616.39,551.81 613.12,552.21 616.30,551.82">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="539758831" type="unregulated" x="740.05" y="890.59" incLanes="22721677#3_0 22721677#3_1" intLanes="" shape="742.58,888.55 737.53,892.64"/>
+    <junction id="539758831" type="dead_end" x="740.05" y="890.59" incLanes="22721677#3_0 22721677#3_1" intLanes="" shape="742.58,888.55 737.53,892.64"/>
     <junction id="937153130" type="traffic_light" x="671.96" y="806.99" incLanes="22721677#1_0 22721677#1_1" intLanes=":937153130_0_0 :937153130_0_1" shape="669.49,809.12 674.58,805.06 674.32,804.76 669.42,809.03">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>

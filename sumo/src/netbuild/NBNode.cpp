@@ -724,7 +724,7 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
     myRequest = 0;
     if (myIncomingEdges.size() == 0 || myOutgoingEdges.size() == 0) {
         // no logic if nothing happens here
-        myType = NODETYPE_NOJUNCTION;
+        myType = NODETYPE_DEAD_END;
         std::set<NBTrafficLightDefinition*> trafficLights = myTrafficLights; // make a copy because we will modify the original
         for (std::set<NBTrafficLightDefinition*>::const_iterator i = trafficLights.begin(); i != trafficLights.end(); ++i) {
             // if this is the only controlled node we keep the tlDef as it is to generate a warning later

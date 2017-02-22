@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:40 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:12 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -46,9 +46,9 @@
 
     <junction id="gneJ0" type="unregulated" x="170.82" y="0.00" incLanes="beg2_0 beg2_1 beg_0 beg_1" intLanes="" shape="166.53,14.67 172.94,13.64 173.32,6.60 173.44,0.10 164.69,0.10 164.79,13.20"/>
     <junction id="gneJ1" type="dead_end" x="80.19" y="0.71" incLanes="middle_0 middle_1 middle_2 middle_3" intLanes="" shape="82.95,13.84 82.85,0.74 75.66,0.83 75.77,7.33 74.91,12.55 80.83,15.22"/>
-    <junction id="gneJ2" type="unregulated" x="0.24" y="2.01" incLanes="end_0 end_1" intLanes="" shape="0.35,8.56 0.24,2.06"/>
-    <junction id="gneJ3" type="unregulated" x="0.00" y="30.01" incLanes="end2_0 end2_1" intLanes="" shape="0.26,36.55 0.00,30.06"/>
-    <junction id="gneJ4" type="unregulated" x="299.61" y="2.48" incLanes="" intLanes="" shape="299.61,2.53 299.48,9.03"/>
-    <junction id="gneJ5" type="unregulated" x="294.58" y="35.08" incLanes="" intLanes="" shape="294.57,35.13 293.72,41.57"/>
+    <junction id="gneJ2" type="dead_end" x="0.24" y="2.01" incLanes="end_0 end_1" intLanes="" shape="0.35,8.56 0.24,2.06"/>
+    <junction id="gneJ3" type="dead_end" x="0.00" y="30.01" incLanes="end2_0 end2_1" intLanes="" shape="0.26,36.55 0.00,30.06"/>
+    <junction id="gneJ4" type="dead_end" x="299.61" y="2.48" incLanes="" intLanes="" shape="299.61,2.53 299.48,9.03"/>
+    <junction id="gneJ5" type="dead_end" x="294.58" y="35.08" incLanes="" intLanes="" shape="294.57,35.13 293.72,41.57"/>
 
 </net>

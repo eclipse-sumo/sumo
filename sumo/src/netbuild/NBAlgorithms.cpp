@@ -162,7 +162,7 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         // the type may already be set from the data
-        if (n->myType != NODETYPE_UNKNOWN) {
+        if (n->myType != NODETYPE_UNKNOWN && n->myType != NODETYPE_DEAD_END) {
             continue;
         }
         // check whether the node is a waterway node. Set to unregulated by default
@@ -173,7 +173,7 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
                 break;
             }
         }
-        if (waterway && n->myType == NODETYPE_UNKNOWN) {
+        if (waterway && (n->myType == NODETYPE_UNKNOWN || n->myType == NODETYPE_DEAD_END)) {
             n->myType = NODETYPE_NOJUNCTION;
             continue;
         }

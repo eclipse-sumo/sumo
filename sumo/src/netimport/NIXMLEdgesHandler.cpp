@@ -333,6 +333,10 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
         myCurrentEdge->setSpeed(lane, attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok));
     }
+    // check whether this is an acceleration lane
+    if (attrs.hasAttribute(SUMO_ATTR_ACCELERATION)) {
+        myCurrentEdge->setAcceleration(lane, attrs.get<bool>(SUMO_ATTR_ACCELERATION, myCurrentID.c_str(), ok));
+    }
 }
 
 

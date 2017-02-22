@@ -86,7 +86,9 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myHaveSeenInternalEdge(false),
       myAmLefthand(false),
       myCornerDetail(0),
-      myLinkDetail(-1) {
+      myLinkDetail(-1),
+      myRectLaneCut(false)
+{
 }
 
 
@@ -119,7 +121,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         setFileName(*file);
         PROGRESS_BEGIN_MESSAGE("Parsing sumo-net from '" + *file + "'");
         XMLSubSys::runParser(*this, *file, true);
-        XMLSubSys::runParser(*typesHandler, *file);
+        XMLSubSys::runParser(*typesHandler, *file, true);
         PROGRESS_DONE_MESSAGE();
     }
     // build edges
@@ -220,6 +222,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             nbe->setLaneWidth(fromLaneIndex, lane->width);
             nbe->setEndOffset(fromLaneIndex, lane->endOffset);
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
+            nbe->setAcceleration(fromLaneIndex, lane->accelRamp);
             nbe->getLaneStruct(fromLaneIndex).oppositeID = lane->oppositeID;
         }
         nbe->declareConnectionsAsLoaded();
@@ -270,6 +273,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     }
     if (oc.isDefault("junctions.internal-link-detail") && myLinkDetail > 0) {
         oc.set("junctions.internal-link-detail", toString(myLinkDetail));
+    }
+    if (oc.isDefault("rectangular-lane-cut")) {
+        oc.set("rectangular-lane-cut", toString(myRectLaneCut));
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
@@ -337,6 +343,7 @@ NIImporter_SUMO::myStartElement(int element,
             myAmLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, 0, ok, false);
             myCornerDetail = attrs.getOpt<int>(SUMO_ATTR_CORNERDETAIL, 0, ok, 0);
             myLinkDetail = attrs.getOpt<int>(SUMO_ATTR_LINKDETAIL, 0, ok, -1);
+            myRectLaneCut = attrs.getOpt<bool>(SUMO_ATTR_RECTANGULAR_LANE_CUT, 0, ok, false);
             break;
         }
         case SUMO_TAG_EDGE:
@@ -504,6 +511,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     myCurrentLane->width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_WIDTH);
     myCurrentLane->endOffset = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_OFFSET);
     myCurrentLane->shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
+    myCurrentLane->accelRamp = attrs.getOpt<bool>(SUMO_ATTR_ACCELERATION, id.c_str(), ok, false);
     // lane coordinates are derived (via lane spread) do not include them in convex boundary
     NBNetBuilder::transformCoordinates(myCurrentLane->shape, false, myLocation);
 }

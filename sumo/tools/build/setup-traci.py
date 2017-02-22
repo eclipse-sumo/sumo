@@ -4,7 +4,7 @@
 @date    2017-01-26
 @author  Dominik Buse
 @author  Michael Behrisch
-@version $Id: runSikulixServer.pyw 22252 2016-12-09 22:13:00Z behrisch $
+@version $Id$
 
 setuptool based setup module for SUMO's TraCI python client library
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 12 10:32:59 2017 by SUMO netconvert Version dev-SVN-r22560
+<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -53,7 +53,7 @@
     <node id="283721344" x="13.534536" y="52.430191" type="dead_end"/>
     <node id="283721348" x="13.534233" y="52.429766" type="priority"/>
     <node id="283721473" x="13.534342" y="52.430565" type="dead_end"/>
-    <node id="283722835" x="13.534540" y="52.430680" type="unregulated"/>
+    <node id="283722835" x="13.534540" y="52.430680" type="dead_end"/>
     <node id="283722837" x="13.533891" y="52.430291" type="dead_end"/>
     <node id="287944368" x="13.534379" y="52.429984" type="dead_end"/>
     <node id="287944369" x="13.534646" y="52.430360" type="dead_end"/>
@@ -94,13 +94,13 @@
     <node id="36268417" x="13.534108" y="52.427815" type="priority"/>
     <node id="36268421" x="13.536524" y="52.425891" type="priority"/>
     <node id="36268431" x="13.533700" y="52.429356" type="priority"/>
-    <node id="38918157" x="13.535191" y="52.432321" type="unregulated"/>
+    <node id="38918157" x="13.535191" y="52.432321" type="dead_end"/>
     <node id="38919605" x="13.531043" y="52.430547" type="priority"/>
     <node id="38919652" x="13.528606" y="52.430390" type="priority"/>
     <node id="38919668" x="13.529650" y="52.429542" type="priority"/>
     <node id="38919703" x="13.529341" y="52.429401" type="priority"/>
     <node id="38919712" x="13.528635" y="52.430191" type="priority"/>
-    <node id="38919797" x="13.527211" y="52.432059" type="unregulated"/>
+    <node id="38919797" x="13.527211" y="52.432059" type="dead_end"/>
     <node id="38919808" x="13.528423" y="52.430401" type="priority"/>
     <node id="38919841" x="13.526923" y="52.430362" type="priority"/>
     <node id="38919854" x="13.525252" y="52.429832" type="priority"/>
@@ -108,7 +108,7 @@
     <node id="38919927" x="13.523945" y="52.429291" type="priority"/>
     <node id="38919945" x="13.526709" y="52.428875" type="priority"/>
     <node id="38920501" x="13.526898" y="52.428123" type="priority"/>
-    <node id="38920557" x="13.527113" y="52.432016" type="unregulated"/>
+    <node id="38920557" x="13.527113" y="52.432016" type="dead_end"/>
     <node id="38920778" x="13.532819" y="52.430717" type="priority"/>
     <node id="56231397" x="13.526948" y="52.428783" type="priority"/>
     <node id="56231597" x="13.528908" y="52.428788" type="priority"/>
@@ -116,7 +116,7 @@
     <node id="56242425" x="13.529316" y="52.429265" type="priority"/>
     <node id="56242441" x="13.528620" y="52.429186" type="priority"/>
     <node id="57343359" x="13.519602" y="52.428360" type="priority"/>
-    <node id="57343487" x="13.535388" y="52.432190" type="unregulated"/>
+    <node id="57343487" x="13.535388" y="52.432190" type="dead_end"/>
     <node id="57343510" x="13.519871" y="52.426842" type="priority"/>
     <node id="59993001" x="13.526752" y="52.428754" type="priority"/>
     <node id="94487954" x="13.545248" y="52.425722" type="traffic_light" tl="94487954"/>

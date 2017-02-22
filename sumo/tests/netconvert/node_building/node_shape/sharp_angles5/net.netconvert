@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:40:04 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:43:57 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -39,10 +39,10 @@
         <lane id="4_0" index="0" speed="13.90" length="34.95" shape="296.44,104.47 280.76,131.37"/>
     </edge>
 
-    <junction id="407629005" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.23,1.58 0.23,-1.58"/>
-    <junction id="407629006" type="unregulated" x="330.95" y="165.77" incLanes="1_0" intLanes="" shape="332.38,165.05 329.52,166.49"/>
-    <junction id="408672323" type="unregulated" x="464.05" y="304.70" incLanes="" intLanes="" shape="465.29,303.69 462.81,305.71"/>
-    <junction id="408672330" type="unregulated" x="280.76" y="131.37" incLanes="4_0" intLanes="" shape="282.14,132.18 279.38,130.56"/>
+    <junction id="407629005" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.23,1.58 0.23,-1.58"/>
+    <junction id="407629006" type="dead_end" x="330.95" y="165.77" incLanes="1_0" intLanes="" shape="332.38,165.05 329.52,166.49"/>
+    <junction id="408672323" type="dead_end" x="464.05" y="304.70" incLanes="" intLanes="" shape="465.29,303.69 462.81,305.71"/>
+    <junction id="408672330" type="dead_end" x="280.76" y="131.37" incLanes="4_0" intLanes="" shape="282.14,132.18 279.38,130.56"/>
     <junction id="C" type="priority" x="298.36" y="101.18" incLanes="2_0 3_0" intLanes="" shape="299.53,105.15 301.66,104.18 298.72,98.34 295.86,99.79 295.06,103.67 297.82,105.28">
         <request index="0" response="0000" foes="0100"/>
         <request index="1" response="0000" foes="1100"/>

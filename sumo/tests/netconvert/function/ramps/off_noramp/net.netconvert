@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:34 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:07 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -43,24 +43,24 @@
         <lane id="s2_2" index="2" speed="30.00" length="500.00" shape="1500.00,1.65 1000.00,1.65"/>
     </edge>
     <edge id="s3" from="3" to="2" priority="-1">
-        <lane id="s3_0" index="0" speed="30.00" length="527.30" shape="1000.00,8.25 482.23,8.25"/>
-        <lane id="s3_1" index="1" speed="30.00" length="527.30" shape="1000.00,4.95 482.23,4.95"/>
-        <lane id="s3_2" index="2" speed="30.00" length="527.30" shape="1000.00,1.65 482.23,1.65"/>
+        <lane id="s3_0" index="0" speed="30.00" length="528.98" shape="1000.00,8.25 482.23,8.25"/>
+        <lane id="s3_1" index="1" speed="30.00" length="528.98" shape="1000.00,4.95 482.23,4.95"/>
+        <lane id="s3_2" index="2" speed="30.00" length="528.98" shape="1000.00,1.65 482.23,1.65"/>
     </edge>
     <edge id="s4" from="2" to="1" priority="-1">
-        <lane id="s4_0" index="0" speed="30.00" length="527.30" shape="469.11,8.25 0.00,8.25"/>
-        <lane id="s4_1" index="1" speed="30.00" length="527.30" shape="469.11,4.95 0.00,4.95"/>
-        <lane id="s4_2" index="2" speed="30.00" length="527.30" shape="469.11,1.65 0.00,1.65"/>
+        <lane id="s4_0" index="0" speed="30.00" length="477.67" shape="469.11,8.25 0.00,8.25"/>
+        <lane id="s4_1" index="1" speed="30.00" length="477.67" shape="469.11,4.95 0.00,4.95"/>
+        <lane id="s4_2" index="2" speed="30.00" length="477.67" shape="469.11,1.65 0.00,1.65"/>
     </edge>
 
-    <junction id="1" type="unregulated" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="0.00,9.85 0.00,0.05"/>
+    <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="0.00,9.85 0.00,0.05"/>
     <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3_0 s3_1 s3_2" intLanes="" shape="482.23,9.85 482.23,0.05 469.11,0.05 469.11,9.85 469.19,10.32 470.20,13.36">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="2a" type="unregulated" x="200.00" y="100.00" incLanes="off_0" intLanes="" shape="201.03,103.08 200.02,100.05"/>
+    <junction id="2a" type="dead_end" x="200.00" y="100.00" incLanes="off_0" intLanes="" shape="201.03,103.08 200.02,100.05"/>
     <junction id="3" type="priority" x="1000.00" y="0.00" incLanes="s2_0 s2_1 s2_2" intLanes="" shape="1000.00,9.85 1000.00,0.05 1000.00,9.85">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
@@ -71,7 +71,7 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="5" type="unregulated" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,9.85"/>
+    <junction id="5" type="dead_end" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,9.85"/>
 
     <connection from="s1" to="s2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="s1" to="s2" fromLane="1" toLane="1" dir="s" state="M"/>

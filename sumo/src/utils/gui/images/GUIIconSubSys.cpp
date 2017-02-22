@@ -382,6 +382,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_VCLASS_CUSTOM1] = new FXXPMIcon(a, vclass_custom1_xpm);
     myIcons[ICON_VCLASS_CUSTOM2] = new FXXPMIcon(a, vclass_custom2_xpm);
 
+    myIcons[ICON_OK] = new FXXPMIcon(a, accept_xpm);    // @todo create ok icon
     myIcons[ICON_ACCEPT] = new FXXPMIcon(a, accept_xpm);
     myIcons[ICON_CANCEL] = new FXXPMIcon(a, cancel_xpm);
     myIcons[ICON_CORRECT] = new FXXPMIcon(a, correct_xpm);

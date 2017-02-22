@@ -103,7 +103,7 @@ public:
      */
     virtual MSLane* addLane(const std::string& id, SUMOReal maxSpeed,
                             SUMOReal length, const PositionVector& shape,
-                            SUMOReal width, SVCPermissions permissions, int index);
+                            SUMOReal width, SVCPermissions permissions, int index, bool isRampAccel);
 
 
     /** @brief Adds a neighbor to the current lane

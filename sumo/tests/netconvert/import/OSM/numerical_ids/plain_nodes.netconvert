@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 12 10:33:00 2017 by SUMO netconvert Version dev-SVN-r22560
+<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -59,7 +59,7 @@
     <node id="283721344" x="1019.45" y="531.46" type="dead_end"/>
     <node id="283721348" x="997.85" y="484.53" type="priority"/>
     <node id="283721473" x="1007.12" y="573.30" type="dead_end"/>
-    <node id="283722835" x="1020.81" y="585.83" type="unregulated"/>
+    <node id="283722835" x="1020.81" y="585.83" type="dead_end"/>
     <node id="283722837" x="975.80" y="543.48" type="dead_end"/>
     <node id="287944368" x="1008.30" y="508.63" type="dead_end"/>
     <node id="287944369" x="1027.28" y="550.08" type="dead_end"/>
@@ -68,7 +68,6 @@
     <node id="294168972" x="714.97" y="226.01" type="priority"/>
     <node id="294169338" x="558.41" y="308.54" type="right_before_left"/>
     <node id="294169339" x="544.28" y="302.42" type="right_before_left"/>
-    <node id="294169342" x="495.08" y="307.55" type="priority"/>
     <node id="294169618" x="541.18" y="150.49" type="priority"/>
     <node id="294829385" x="858.87" y="482.32" type="priority"/>
     <node id="294829798" x="922.84" y="406.82" type="priority"/>
@@ -79,9 +78,10 @@
     <node id="294831562" x="501.77" y="245.17" type="priority"/>
     <node id="294831563" x="766.37" y="525.27" type="priority"/>
     <node id="294831564" x="934.12" y="553.29" type="priority"/>
-    <node id="294831565" x="492.35" y="390.75" type="priority"/>
-    <node id="294831566" x="897.77" y="599.27" type="priority"/>
-    <node id="294831567" x="615.26" y="422.75" type="priority"/>
+    <node id="294831565" x="495.28" y="309.77" type="priority"/>
+    <node id="294831566" x="492.35" y="390.75" type="priority"/>
+    <node id="294831567" x="897.77" y="599.27" type="priority"/>
+    <node id="294831568" x="615.26" y="422.75" type="priority"/>
     <node id="32266935" x="478.98" y="121.02" type="traffic_light" tl="32266935"/>
     <node id="32266936" x="472.77" y="49.00" type="priority"/>
     <node id="32266938" x="477.79" y="107.21" type="priority"/>
@@ -101,24 +101,23 @@
     <node id="36268417" x="984.96" y="267.80" type="priority"/>
     <node id="36268421" x="1144.91" y="50.46" type="priority"/>
     <node id="36268431" x="960.73" y="439.70" type="priority"/>
-    <node id="38918157" x="1068.74" y="767.39" type="unregulated"/>
+    <node id="38918157" x="1068.74" y="767.39" type="dead_end"/>
     <node id="38919605" x="782.81" y="575.88" type="priority"/>
     <node id="38919652" x="616.73" y="561.79" type="priority"/>
     <node id="38919668" x="685.82" y="466.03" type="priority"/>
     <node id="38919703" x="664.49" y="450.74" type="priority"/>
     <node id="38919712" x="618.29" y="539.59" type="priority"/>
-    <node id="38919797" x="525.69" y="749.30" type="unregulated"/>
+    <node id="38919797" x="525.69" y="749.30" type="dead_end"/>
     <node id="38919808" x="604.30" y="563.25" type="priority"/>
     <node id="38919841" x="502.24" y="560.98" type="priority"/>
     <node id="38919854" x="387.44" y="504.33" type="priority"/>
     <node id="38919880" x="339.13" y="454.31" type="priority"/>
     <node id="38919927" x="297.39" y="446.01" type="priority"/>
-    <node id="38920501" x="495.47" y="311.99" type="priority"/>
-    <node id="38920557" x="518.91" y="744.71" type="unregulated"/>
+    <node id="38920557" x="518.91" y="744.71" type="dead_end"/>
     <node id="56231597" x="633.67" y="383.18" type="priority"/>
     <node id="56242425" x="662.43" y="435.64" type="priority"/>
     <node id="57343359" x="0.00" y="348.44" type="priority"/>
-    <node id="57343487" x="1081.87" y="752.58" type="unregulated"/>
+    <node id="57343487" x="1081.87" y="752.58" type="dead_end"/>
     <node id="57343510" x="14.85" y="179.31" type="priority"/>
     <node id="94487954" x="1737.68" y="19.68" type="traffic_light" tl="94487954"/>
 </nodes>

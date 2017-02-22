@@ -85,7 +85,7 @@ public:
                             SUMOReal maxSpeed, SUMOReal length,
                             const PositionVector& shape, SUMOReal width,
                             SVCPermissions permissions,
-                            int index);
+                            int index, bool isRampAccel);
 
 
 

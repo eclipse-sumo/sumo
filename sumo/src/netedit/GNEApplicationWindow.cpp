@@ -36,8 +36,6 @@
 #include <sstream>
 #include <algorithm>
 
-#include <utils/common/TplConvert.h>
-#include <utils/common/TplCheck.h>
 #include <utils/common/ToString.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/FXLinkLabel.h>
@@ -1364,7 +1362,12 @@ GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, cons
 
     if (underscore != std::string::npos) {
         edgeID = laneID.substr(0, underscore);
-        lane = TplConvert::_2intSec(laneID.substr(underscore).c_str(), 0);
+        if(laneID.substr(underscore).empty()) {
+            lane = 0;
+        }
+        else {
+            lane = GNEAttributeCarrier::parse<int>(laneID.substr(underscore).c_str());
+        }
     }
     NBEdge* edge = myNet->retrieveEdge(edgeID)->getNBEdge();
     if (edge == 0 || edge->getNumLanes() <= lane) {

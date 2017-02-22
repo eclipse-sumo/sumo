@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:38 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Tue Feb 21 16:44:11 2017 by SUMO netconvert Version dev-SVN-r23047
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -41,8 +41,8 @@
     </edge>
 
     <junction id="C" type="dead_end" x="100.00" y="0.00" incLanes="WC_0" intLanes="" shape="100.00,-0.05 100.00,-3.25 100.00,-0.05"/>
-    <junction id="E" type="unregulated" x="200.00" y="0.00" incLanes="CE_0" intLanes="" shape="200.00,-3.25 200.00,-0.05"/>
-    <junction id="W" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
+    <junction id="E" type="dead_end" x="200.00" y="0.00" incLanes="CE_0" intLanes="" shape="200.00,-3.25 200.00,-0.05"/>
+    <junction id="W" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
 
     <connection from=":C_w0" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="WC" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
