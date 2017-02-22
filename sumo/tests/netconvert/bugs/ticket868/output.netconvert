@@ -11,12 +11,11 @@ done.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done (0ms).
 Finding isolated roads... done (0ms).
-Removing empty nodes and geometry nodes... done (1ms).
+Removing empty nodes and geometry nodes... done (0ms).
    32 nodes removed.
 Moving network to origin... done (0ms).
 Computing turning directions... done (0ms).
 Guessing and setting on-/off-ramps... done (0ms).
-Removing sharp turn with radius 1.75 at the end of edge '151057631#0'.
 Removing sharp turn with radius 5.53 at the start of edge '151059738#0'.
 Removing sharp turn with radius 8.28 at the start of edge '151059738#0'.
 Sorting nodes' edges... done (0ms).
@@ -31,7 +30,7 @@ Dividing of lanes on approached lanes... done (0ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
-Computing traffic light control information... done (1ms).
+Computing traffic light control information... done (0ms).
 Computing node logics... done (0ms).
 Computing traffic light logics... 
 done (0ms).

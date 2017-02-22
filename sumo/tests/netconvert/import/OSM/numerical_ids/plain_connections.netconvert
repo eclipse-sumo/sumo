@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 13:13:15 2017 by SUMO netconvert Version dev-SVN-r23030
+<!-- generated on Wed Feb 22 09:55:30 2017 by SUMO netconvert Version dev-SVN-r23052
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -385,11 +385,11 @@
     <connection from="27445111" to="27445144" fromLane="0" toLane="0"/>
     <connection from="27445111" to="27445112" fromLane="1" toLane="0"/>
 
-    <connection from="27445112" to="27445113" fromLane="0" toLane="1" pass="1"/>
+    <connection from="27445112" to="27445113" fromLane="0" toLane="0"/>
 
     <connection from="27445113" to="27445114" fromLane="0" toLane="0"/>
-    <connection from="27445113" to="27445052" fromLane="1" toLane="0"/>
-    <connection from="27445113" to="27445116" fromLane="1" toLane="0"/>
+    <connection from="27445113" to="27445052" fromLane="0" toLane="0"/>
+    <connection from="27445113" to="27445116" fromLane="0" toLane="0"/>
 
     <connection from="27445114" to="27445000" fromLane="0" toLane="0"/>
     <connection from="27445114" to="27441289" fromLane="0" toLane="0"/>
@@ -513,7 +513,7 @@
     <connection from="27445148" to="27445060" fromLane="0" toLane="0"/>
     <connection from="27445148" to="27445149" fromLane="0" toLane="0"/>
 
-    <connection from="27445149" to="27445113" fromLane="0" toLane="0" pass="1"/>
+    <connection from="27445149" to="27445113" fromLane="0" toLane="0"/>
 
     <connection from="27445150" to="27445151" fromLane="0" toLane="0"/>
     <connection from="27445150" to="27445053" fromLane="0" toLane="0"/>
