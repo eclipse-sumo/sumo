@@ -78,8 +78,8 @@
 GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
                  MSEdge* const edge, int numericalID,
                  const PositionVector& shape, SUMOReal width,
-                 SVCPermissions permissions, int index) :
-    MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions, index),
+                 SVCPermissions permissions, int index, bool isRampAccel) :
+    MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions, index, isRampAccel),
     GUIGlObject(GLO_LANE, id),
     myAmClosed(false) {
     if (MSGlobals::gUseMesoSim) {

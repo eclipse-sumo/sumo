@@ -63,8 +63,8 @@ GUIEdgeControlBuilder::addLane(const std::string& id,
                                const PositionVector& shape,
                                SUMOReal width,
                                SVCPermissions permissions,
-                               int index) {
-    MSLane* lane = new GUILane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, index);
+                               int index, bool isRampAccel) {
+    MSLane* lane = new GUILane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, index, isRampAccel);
     myLaneStorage->push_back(lane);
     return lane;
 }
