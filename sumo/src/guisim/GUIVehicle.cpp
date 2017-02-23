@@ -83,6 +83,7 @@
  * GUIVehicle - methods
  * ----------------------------------------------------------------------- */
 #ifdef _MSC_VER
+#pragma warning(push)
 #pragma warning(disable: 4355)
 #endif
 GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
@@ -91,7 +92,7 @@ GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     GUIBaseVehicle((MSBaseVehicle&) * this) {
 }
 #ifdef _MSC_VER
-#pragma warning(default: 4355)
+#pragma warning(pop)
 #endif
 
 
@@ -716,6 +717,11 @@ GUIVehicle::drawOutsideNetwork(bool add) {
             myAdditionalVisualizations[view] &= ~VO_DRAW_OUTSIDE_NETWORK;
         }
     }
+}
+
+bool 
+GUIVehicle::isSelected() const {
+    return gSelected.isSelected(GLO_VEHICLE, getGlID());
 }
 
 /****************************************************************************/

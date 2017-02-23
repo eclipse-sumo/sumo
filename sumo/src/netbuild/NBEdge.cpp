@@ -59,6 +59,7 @@
 #endif // CHECK_MEMORY_LEAKS
 
 //#define DEBUG_CONNECTION_GUESSING
+//#define DEBUG_ANGLES
 #define DEBUGCOND true
 
 // ===========================================================================
@@ -1617,6 +1618,15 @@ NBEdge::computeAngle() {
     const Position referencePosEnd = shape.positionAtOffset2D(shape.length() - angleLookahead);
     myEndAngle = GeomHelper::legacyDegree(referencePosEnd.angleTo2D(toCenter), true);
     myTotalAngle = GeomHelper::legacyDegree(myFrom->getPosition().angleTo2D(myTo->getPosition()), true);
+#ifdef DEBUG_ANGLES
+    if (DEBUGCOND) std::cout << "computeAngle edge=" << getID() << " fromCenter=" << fromCenter << " toCenter=" << toCenter 
+        << " refStart=" << referencePosStart << " refEnd=" << referencePosEnd << " shape=" << shape
+        << " hasFromShape=" << hasFromShape
+        << " hasToShape=" << hasToShape
+        << " numLanes=" << getNumLanes()
+        << " shapeLane=" << getNumLanes() / 2
+        << " startA=" << myStartAngle << " endA=" << myEndAngle << " totA=" << myTotalAngle << "\n";
+#endif
 }
 
 

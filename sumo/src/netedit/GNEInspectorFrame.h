@@ -64,8 +64,8 @@ public:
         /// @brief constructor
         AttributeInput(FXComposite* parent, GNEInspectorFrame* inspectorFrameParent);
 
-        /// @brief show attribute
-        void showAttribute(SumoXMLTag tag, SumoXMLAttr attr, const std::string& value);
+        /// @brief show attribute of ac
+        void showAttribute(GNEAttributeCarrier *ac, SumoXMLTag tag, SumoXMLAttr attr, const std::string& value);
 
         /// @brief show attribute
         void hideAttribute();

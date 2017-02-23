@@ -262,7 +262,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
 
-    // start drawing lane checikg whether it is not too small
+    // start drawing lane checking whether it is not too small
     const SUMOReal selectionScale = selected || selectedEdge ? s.selectionScale : 1;
     SUMOReal exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     // XXX apply usefull scale values
@@ -307,7 +307,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             drawCrossties(0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
         } else {
             // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
-            const SUMOReal halfWidth = selectionScale * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - (selectedEdge ? .3 : 0));
+            const SUMOReal halfWidth = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - (selectedEdge ? .3 : 0));
             if (myShapeColors.size() > 0) {
                 GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, myShapeColors, halfWidth);
             } else {

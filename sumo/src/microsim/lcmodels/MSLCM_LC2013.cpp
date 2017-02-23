@@ -941,10 +941,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             }
 #endif
         }
-    } else if (neighFollow.first != 0) {
-        // XXX: Shouldn't the condition be extended by '&& (blocked & LCA_BLOCKED_BY_LEADER) != 0'? Refs. #2578
-        // Otherwise we don't need to inform the follower but simply cut in
-
+    } else if (neighFollow.first != 0 && (blocked & LCA_BLOCKED_BY_LEADER)) {
         // we are not blocked by the follower now, make sure it remains that way
         // XXX: Does the below code for the euler case really assure that? Refs. #2578
         SUMOReal vsafe, vsafe1;

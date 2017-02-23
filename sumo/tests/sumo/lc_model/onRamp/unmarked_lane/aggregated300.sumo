@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Feb 23 10:47:39 2017 by SUMO Version dev-SVN-r22980
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="1019.00" id="laneData">
+        <edge id="beg">
+            <lane id="beg_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="beg2">
+            <lane id="beg2_0" sampledSeconds="2451.09" traveltime="100.04" overlapTraveltime="101.48" density="0.80" occupancy="0.40" waitingTime="0.00" speed="29.58" departed="394" arrived="0" entered="0" left="276" laneChangedFrom="119" laneChangedTo="1"/>
+            <lane id="beg2_1" sampledSeconds="2050.98" traveltime="87.82" overlapTraveltime="88.01" density="0.67" occupancy="0.34" waitingTime="0.00" speed="34.11" departed="301" arrived="0" entered="0" left="419" laneChangedFrom="1" laneChangedTo="119"/>
+        </edge>
+        <edge id="end">
+            <lane id="end_0" sampledSeconds="4073.39" traveltime="9.00" overlapTraveltime="9.17" density="20.29" occupancy="10.15" waitingTime="0.00" speed="22.03" departed="0" arrived="446" entered="444" left="0" laneChangedFrom="0" laneChangedTo="2"/>
+            <lane id="end_1" sampledSeconds="2727.80" traveltime="5.90" overlapTraveltime="6.05" density="13.59" occupancy="6.79" waitingTime="0.00" speed="33.40" departed="0" arrived="451" entered="453" left="0" laneChangedFrom="2" laneChangedTo="0"/>
+        </edge>
+        <edge id="end2">
+            <lane id="end2_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="end3">
+            <lane id="end3_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="merge">
+            <lane id="merge_0" sampledSeconds="1739.62" traveltime="11.66" overlapTraveltime="12.26" density="17.60" occupancy="8.80" waitingTime="302.00" speed="8.32" departed="0" arrived="0" entered="202" left="0" laneChangedFrom="202" laneChangedTo="0"/>
+            <lane id="merge_1" sampledSeconds="3205.74" traveltime="9.73" overlapTraveltime="10.17" density="32.43" occupancy="16.22" waitingTime="131.00" speed="10.03" departed="0" arrived="0" entered="275" left="444" laneChangedFrom="33" laneChangedTo="202"/>
+            <lane id="merge_2" sampledSeconds="1368.20" traveltime="2.96" overlapTraveltime="3.11" density="13.84" occupancy="6.92" waitingTime="0.00" speed="32.78" departed="0" arrived="0" entered="420" left="453" laneChangedFrom="0" laneChangedTo="33"/>
+        </edge>
+        <edge id="offRamp">
+            <lane id="offRamp_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="onRamp">
+            <lane id="onRamp_0" sampledSeconds="1898.26" traveltime="9.34" overlapTraveltime="9.56" density="6.16" occupancy="3.08" waitingTime="0.00" speed="32.15" departed="202" arrived="0" entered="0" left="202" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+    </interval>
+</meandata>

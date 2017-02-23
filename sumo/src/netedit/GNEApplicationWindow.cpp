@@ -177,6 +177,7 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 // member method definitions
 // ===========================================================================
 #ifdef _MSC_VER
+#pragma warning(push)
 #pragma warning(disable: 4355)
 #endif
 GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPattern) :
@@ -195,7 +196,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     GUITextureSubSys::initTextures(a);
 }
 #ifdef _MSC_VER
-#pragma warning(default: 4355)
+#pragma warning(pop)
 #endif
 
 

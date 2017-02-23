@@ -136,6 +136,9 @@ public:
      */
     GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief whether this vehicle is selected in the GUI
+    bool isSelected() const; 
+
 protected:
     /// @brief register vehicle for drawing while outside the network
     void drawOutsideNetwork(bool add);

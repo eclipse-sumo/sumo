@@ -229,8 +229,11 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         SumoXMLTag tag = myACs.front()->getTag();
         const std::vector<SumoXMLAttr>& attrs = myACs.front()->getAttrs();
 
-        // Declare iterator over AttrImput
+        // Declare iterator over AttrInput
         std::vector<GNEInspectorFrame::AttributeInput*>::iterator itAttrs = myVectorOfAttributeInputs.begin();
+
+        //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
+        bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myACs.front()) && (dynamic_cast<GNEJunction*>(myACs.front())->getNBNode()->getControllingTLS().empty()));
 
         // Iterate over attributes
         for (std::vector<SumoXMLAttr>::const_iterator it = attrs.begin(); it != attrs.end(); it++) {
@@ -252,8 +255,10 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
                 }
                 oss << *it_val;
             }
-            // Show attribute
-            (*itAttrs)->showAttribute(myACs.front()->getTag(), *it, oss.str());
+            // Show attribute    
+            if((disableTLSinJunctions == true && tag == SUMO_TAG_JUNCTION && ((*it == SUMO_ATTR_TLTYPE) || (*it == SUMO_ATTR_TLID))) == false) {
+                (*itAttrs)->showAttribute(myACs.front(), myACs.front()->getTag(), *it, oss.str());
+            }
             itAttrs++;
         }
 
@@ -748,11 +753,13 @@ GNEInspectorFrame::AttributeInput::AttributeInput(FXComposite* parent, GNEInspec
 
 
 void
-GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag tag, SumoXMLAttr attr, const std::string& value) {
+GNEInspectorFrame::AttributeInput::showAttribute(GNEAttributeCarrier *ac, SumoXMLTag tag, SumoXMLAttr attr, const std::string& value) {
     // Set actual Tag and attribute
     myTag = tag;
     myAttr = attr;
-    // ShowLabel
+    // If we have an junction without traffic light, we doesn't show the traffic light values
+    GNEJunction *gne = dynamic_cast<GNEJunction*>(ac);
+    // Show attribute Label
     myLabel->setText(toString(myAttr).c_str());
     myLabel->show();
     // Set field depending of the type of value
@@ -767,7 +774,7 @@ GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag tag, SumoXMLAttr att
         myCheckBox->show();
     } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
         // Obtain choices
-        const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
+        std::vector<std::string> choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
         // Check if are combinable coices
         if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
             // hide label
@@ -780,6 +787,22 @@ GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag tag, SumoXMLAttr att
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->show();
         } else {
+            // If we have an junction without traffic light, remove TLS Choices
+            if((tag == SUMO_TAG_JUNCTION) && (gne != NULL) && (gne->getNBNode()->getControllingTLS().empty())) {
+                std::vector<std::string>::iterator it;
+                it = std::find(choices.begin(), choices.end(), toString(NODETYPE_TRAFFIC_LIGHT));
+                if(it != choices.end()) {
+                    choices.erase(it);
+                }
+                it = std::find(choices.begin(), choices.end(), toString(NODETYPE_TRAFFIC_LIGHT_NOJUNCTION));
+                if(it != choices.end()) {
+                    choices.erase(it);
+                }
+                it = std::find(choices.begin(), choices.end(), toString(NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED));
+                if(it != choices.end()) {
+                    choices.erase(it);
+                }
+            }
             // fill comboBox
             myChoicesCombo->clearItems();
             for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {

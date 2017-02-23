@@ -51,7 +51,9 @@
 OutputDevice_Network::OutputDevice_Network(const std::string& host,
         const int port) {
     mySocket = new tcpip::Socket(host, port);
+#ifdef _MSC_VER
 #pragma warning(suppress: 4127) // do not warn about constant conditional expression
+#endif
     for (int wait = 1000; true; wait += 1000) {
         try {
             mySocket->connect();

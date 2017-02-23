@@ -48,6 +48,7 @@ const SUMOReal TraCIAPI::DEPART_NOW = -3;
 // TraCIAPI-methods
 // ---------------------------------------------------------------------------
 #ifdef _MSC_VER
+#pragma warning(push)
 #pragma warning(disable: 4355)
 #endif
 TraCIAPI::TraCIAPI()
@@ -57,7 +58,7 @@ TraCIAPI::TraCIAPI()
       vehicletype(*this), vehicle(*this), person(*this),
       mySocket(0) {}
 #ifdef _MSC_VER
-#pragma warning(default: 4355)
+#pragma warning(pop)
 #endif
 
 

@@ -793,6 +793,10 @@ public:
         return myCFVariables;
     }
 
+    /// @brief whether this vehicle is selected in the GUI
+    virtual bool isSelected() const {
+        return false;
+    }
 
     /// @name vehicle stops definitions and i/o
     //@{
