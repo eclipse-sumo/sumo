@@ -31,8 +31,10 @@
 
 #ifdef HAVE_OSG
 
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4127) // do not warn about constant conditional expression
+#endif
 #include <osg/Version>
 #include <osgViewer/ViewerEventHandlers>
 #include <osgGA/TrackballManipulator>
@@ -51,7 +53,9 @@
 #include <osg/ShadeModel>
 #include <osg/Light>
 #include <osg/LightSource>
+#ifdef _MSC_VER
 #pragma warning(pop) 
+#endif
 
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
