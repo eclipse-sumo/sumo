@@ -28,7 +28,7 @@ class MSCFModel_Rail : public MSCFModel {
 public:
 
     double followSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed,
-                       SUMOReal predMaxDecel) const override;
+                       SUMOReal predMaxDecel) const;
 
     virtual int getModelID() const;
 
@@ -42,18 +42,18 @@ public:
 
     virtual ~MSCFModel_Rail();
 
-    virtual SUMOReal maxNextSpeed(SUMOReal speed, const MSVehicle *const veh) const override;
+    virtual SUMOReal maxNextSpeed(SUMOReal speed, const MSVehicle *const veh) const;
 
-    virtual SUMOReal minNextSpeed(SUMOReal speed, const MSVehicle *const veh) const override;
+    virtual SUMOReal minNextSpeed(SUMOReal speed, const MSVehicle *const veh) const;
 
-    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const override;
+    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const;
 
     MSCFModel::VehicleVariables *createVehicleVariables() const;
 
-    SUMOReal moveHelper(MSVehicle *const veh, SUMOReal vPos) const override;
+    SUMOReal moveHelper(MSVehicle *const veh, SUMOReal vPos) const;
 
     double freeSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed,
-                     const bool onInsertion) const override;
+                     const bool onInsertion) const;
 
 private:
 
@@ -74,7 +74,7 @@ private:
     double getInterpolatedValueFromLookUpMap(SUMOReal speed, const LookUpMap *lookUpMap) const;
 
 public:
-    double stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const override;
+    double stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const;
 
 //    class VehicleVariables : public MSCFModel::VehicleVariables {
 //
@@ -566,7 +566,7 @@ private:
         return map;
     }
 
-    TrainParams initRB628Params() const const {
+    TrainParams initRB628Params() const {
         TrainParams params;
         params.weight = 72.2;
         params.mf = 1.04;

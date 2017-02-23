@@ -74,8 +74,10 @@ int MSCFModel_Rail::getModelID() const {
     return SUMO_TAG_CF_RAIL;
 }
 
-MSCFModel *MSCFModel_Rail::duplicate(const MSVehicleType *vtype) const {
-    return nullptr;
+MSCFModel*
+MSCFModel_Rail::duplicate(const MSVehicleType *vtype) const {
+    /// XXX Fixme
+    throw ProcessError("not yet implemented");
 }
 
 SUMOReal MSCFModel_Rail::maxNextSpeed(SUMOReal speed, const MSVehicle *const veh) const {
