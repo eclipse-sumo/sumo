@@ -38,6 +38,7 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include <iomanip>
 
 #include <guisim/GUINet.h>
 #include <guisim/GUILane.h>
@@ -581,12 +582,12 @@ GUIApplicationWindow::buildToolBars() {
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXButton(myToolBar3, "Time:\t\tToggle between seconds and hour:minute:seconds display", 0, this, MID_TIME_TOOGLE, GUIDesignButtonToolbarText);
 
-        myLCDLabel = new FXEX::FXLCDLabel(myToolBar3, 13, 0, 0, JUSTIFY_RIGHT);
+        myLCDLabel = new FXEX::FXLCDLabel(myToolBar3, 16, 0, 0, JUSTIFY_RIGHT);
         myLCDLabel->setHorizontal(2);
         myLCDLabel->setVertical(6);
         myLCDLabel->setThickness(2);
         myLCDLabel->setGroove(2);
-        myLCDLabel->setText("-------------");
+        myLCDLabel->setText("----------------");
     }
     {
         // Simulation Delay
@@ -1279,7 +1280,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 setTitle(MFXUtils::getTitleText("SUMO " VERSION_STRING, ec->myFile.c_str()));
             }
             // set simulation step begin information
-            myLCDLabel->setText("-------------");
+            myLCDLabel->setText("----------------");
             for (std::vector<FXButton*>::const_iterator it = myStatButtons.begin(); it != myStatButtons.end(); ++it) {
                 (*it)->setText("-");
             }
@@ -1490,7 +1491,7 @@ GUIApplicationWindow::getBuildGLCanvas() const {
 void
 GUIApplicationWindow::closeAllWindows() {
     myTrackerLock.lock();
-    myLCDLabel->setText("-------------");
+    myLCDLabel->setText("----------------");
     for (std::vector<FXButton*>::const_iterator it = myStatButtons.begin(); it != myStatButtons.end(); ++it) {
         (*it)->setText("-");
         if (it != myStatButtons.begin()) {
@@ -1570,30 +1571,33 @@ void
 GUIApplicationWindow::updateTimeLCD(SUMOTime time) {
     time -= DELTA_T; // synchronize displayed time with netstate output
     if (time < 0) {
-        myLCDLabel->setText("-------------");
+        myLCDLabel->setText("----------------");
         return;
     }
     if (myAmGaming) {
         // show time counting backwards
         time = myRunThread->getSimEndTime() - time;
     }
-    SUMOReal fracSeconds = STEPS2TIME(time);
-    const bool hideFraction = myAmGaming || fmod(TS, 1.) == 0.;
-    const int BuffSize = 100;
-    char buffer[BuffSize];
+    std::ostringstream str;
+    str << std::setfill('0');
+    const bool hideFraction = myAmGaming || DELTA_T % 1000 == 0;
     if (myShowTimeAsHMS) {
-        const int hours = (int)fracSeconds / 3600;
-        const int minutes = ((int)fracSeconds % 3600) / 60;
-        fracSeconds = fracSeconds - 3600 * hours - 60 * minutes;
-        const std::string format = (hideFraction ?
-                                    "%02d-%02d-%02.0f" : "%02d-%02d-%06.3f");
-        snprintf(buffer, BuffSize, format.c_str(), hours, minutes, fracSeconds);
-    } else {
-        const std::string format = (hideFraction ?
-                                    "%13.0f" : "%13.3f");
-        snprintf(buffer, BuffSize, format.c_str(), fracSeconds);
+        SUMOTime day = time / 86400000;
+        if (day > 0) {
+            str << day << '-';
+            time %= 86400000;
+        }
+        str << std::setw(2);
+        str << time / 3600000 << '-';
+        time %= 3600000;
+        str << std::setw(2) << time / 60000 << '-';
+        time %= 60000;
     }
-    myLCDLabel->setText(buffer);
+    str << std::setw(2) << time / 1000;
+    if (!hideFraction) {
+        str << '.' << std::setw(3) << time % 1000;
+    }
+    myLCDLabel->setText(str.str().c_str());
 }
 
 
