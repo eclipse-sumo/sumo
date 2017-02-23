@@ -254,12 +254,34 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
                     oss << " ";
                 }
                 oss << *it_val;
+            
+                // edges has a special handle
+                if((myACs.front()->getTag() == SUMO_TAG_EDGE) && ((*it == SUMO_ATTR_WIDTH) || (*it == SUMO_ATTR_ENDOFFSET) || (*it == SUMO_ATTR_SPEED) || (*it == SUMO_ATTR_ALLOW)|| (*it == SUMO_ATTR_DISALLOW))) {
+                    std::vector<std::string> laneAttributes;
+                    bool sameAttribute = true;
+                    SUMOSAXAttributes::parseStringVector(oss.str(), laneAttributes);
+                    if(laneAttributes.size() > 0) {
+                        // check if all attributes of the list are the same
+                        for(int i = 1; i < laneAttributes.size(); i++) {
+                            if(laneAttributes.at(i-1) != laneAttributes.at(i)) {
+                                sameAttribute = false;
+                            }
+                        }
+                        // show attribute depending of all attributes are the same
+                        if(sameAttribute == true) {
+                            (*itAttrs)->showAttribute(myACs.front(), myACs.front()->getTag(), *it, laneAttributes.front());
+                        } else {
+                            (*itAttrs)->showAttribute(myACs.front(), myACs.front()->getTag(), *it, "custom");
+                        }
+                    } else {
+                        (*itAttrs)->showAttribute(myACs.front(), myACs.front()->getTag(), *it, "");
+                    }
+                } else if(((disableTLSinJunctions == true) && (tag == SUMO_TAG_JUNCTION) && ((*it == SUMO_ATTR_TLTYPE) || (*it == SUMO_ATTR_TLID))) == false) {
+                    (*itAttrs)->showAttribute(myACs.front(), myACs.front()->getTag(), *it, oss.str());
+                }
+                // update attribute iterator
+                itAttrs++;
             }
-            // Show attribute    
-            if((disableTLSinJunctions == true && tag == SUMO_TAG_JUNCTION && ((*it == SUMO_ATTR_TLTYPE) || (*it == SUMO_ATTR_TLID))) == false) {
-                (*itAttrs)->showAttribute(myACs.front(), myACs.front()->getTag(), *it, oss.str());
-            }
-            itAttrs++;
         }
 
         // If attributes correspond to an Additional
@@ -757,7 +779,7 @@ GNEInspectorFrame::AttributeInput::showAttribute(GNEAttributeCarrier *ac, SumoXM
     // Set actual Tag and attribute
     myTag = tag;
     myAttr = attr;
-    // If we have an junction without traffic light, we doesn't show the traffic light values
+    // If we have an junction without traffic light, we musn't show the traffic light values
     GNEJunction *gne = dynamic_cast<GNEJunction*>(ac);
     // Show attribute Label
     myLabel->setText(toString(myAttr).c_str());

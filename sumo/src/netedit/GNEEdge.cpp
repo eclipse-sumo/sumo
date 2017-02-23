@@ -516,39 +516,50 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             return toString(myNBEdge.getLaneSpreadFunction());
         case SUMO_ATTR_NAME:
             return myNBEdge.getStreetName();
-        case SUMO_ATTR_ALLOW:
-            // return all allowed classes (may differ from the written attributes)
-            return (getVehicleClassNames(myNBEdge.getPermissions()) +
-                    (myNBEdge.hasLaneSpecificPermissions() ? " (combined!)" : ""));
-        case SUMO_ATTR_DISALLOW: {
-            // return classes disallowed on at least one lane (may differ from the written attributes)
-            SVCPermissions combinedDissallowed = 0;
-            for (int i = 0; i < (int)myNBEdge.getNumLanes(); ++i) {
-                combinedDissallowed |= ~myNBEdge.getPermissions(i);
+        case SUMO_ATTR_ALLOW: {
+            // return vector with the allowed vehicles of lanes
+            std::vector<std::string> allowedVehicles;
+            for(std::vector<NBEdge::Lane>::const_iterator i = myNBEdge.getLanes().begin(); i != myNBEdge.getLanes().end(); i++) {
+                allowedVehicles.push_back(toString(i->permissions));
             }
-            return (getVehicleClassNames(combinedDissallowed) +
-                    (myNBEdge.hasLaneSpecificPermissions() ? " (combined!)" : ""));
+            return joinToString(allowedVehicles, " ");
         }
-        case SUMO_ATTR_SPEED:
-            if (myNBEdge.hasLaneSpecificSpeed()) {
-                return "lane specific";
-            } else {
-                return toString(myNBEdge.getSpeed());
+        case SUMO_ATTR_DISALLOW: {
+            // return vector with the disallowed vehicles of lanes
+            std::vector<std::string> disallowedVehicles;
+            for(std::vector<NBEdge::Lane>::const_iterator i = myNBEdge.getLanes().begin(); i != myNBEdge.getLanes().end(); i++) {
+                disallowedVehicles.push_back(toString(~(i->permissions)));
             }
-        case SUMO_ATTR_WIDTH:
-            if (myNBEdge.hasLaneSpecificWidth()) {
-                return "lane specific";
-            } else if (myNBEdge.getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH) {
-                return "default";
-            } else {
-                return toString(myNBEdge.getLaneWidth());
+            return joinToString(disallowedVehicles, " ");
+        }
+        case SUMO_ATTR_SPEED: {
+            // return vector with the speeds of lanes
+            std::vector<std::string> speeds;
+            for(std::vector<NBEdge::Lane>::const_iterator i = myNBEdge.getLanes().begin(); i != myNBEdge.getLanes().end(); i++) {
+                speeds.push_back(toString(i->speed));
             }
-        case SUMO_ATTR_ENDOFFSET:
-            if (myNBEdge.hasLaneSpecificEndOffset()) {
-                return "lane specific";
-            } else {
-                return toString(myNBEdge.getEndOffset());
+            return joinToString(speeds, " ");
+        }
+        case SUMO_ATTR_WIDTH: {
+            // return vector with the widths of lanes
+            std::vector<std::string> widths;
+            for(std::vector<NBEdge::Lane>::const_iterator i = myNBEdge.getLanes().begin(); i != myNBEdge.getLanes().end(); i++) {
+                if(i->width == NBEdge::UNSPECIFIED_WIDTH) {
+                    widths.push_back("default");
+                } else {
+                    widths.push_back(toString(i->width));
+                }
             }
+            return joinToString(widths, " ");
+        }
+        case SUMO_ATTR_ENDOFFSET: {
+            // return vector with the endOffsets of lanes
+            std::vector<std::string> endOffsets;
+            for(std::vector<NBEdge::Lane>::const_iterator i = myNBEdge.getLanes().begin(); i != myNBEdge.getLanes().end(); i++) {
+                endOffsets.push_back(toString(i->endOffset));
+            }
+            return joinToString(endOffsets, " ");
+        }
         case GNE_ATTR_MODIFICATION_STATUS:
             return myConnectionStatus;
         case GNE_ATTR_SHAPE_START:
@@ -570,10 +581,20 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW: {
             undoList->p_begin("change " + toString(getTag()) + " attribute");
-            const std::string origValue = getAttribute(key); // will have intermediate value of "lane specific"
-            // lane specific attributes need to be changed via lanes to allow undo
-            for (LaneVector::iterator it = myLanes.begin(); it != myLanes.end(); it++) {
-                (*it)->setAttribute(key, value, undoList);
+            std::vector<std::string> disallowedVehicles;
+            SUMOSAXAttributes::parseStringVector(value, disallowedVehicles);
+             // will have intermediate value of "lane specific"
+            const std::string origValue = getAttribute(key);
+            if(disallowedVehicles.size() == myNBEdge.getLanes().size()) {
+                int disallowedVehiclesIterator = 0;
+                for (LaneVector::iterator it = myLanes.begin(); it != myLanes.end(); it++) {
+                    (*it)->setAttribute(key, toString(disallowedVehicles.at(disallowedVehiclesIterator)), undoList);
+                }
+                disallowedVehiclesIterator++;
+            } else if (disallowedVehicles.size() == 1) {
+                for (LaneVector::iterator it = myLanes.begin(); it != myLanes.end(); it++) {
+                    (*it)->setAttribute(key, toString(disallowedVehicles.front()), undoList);
+                }
             }
             // ensure that the edge value is also changed. Actually this sets the lane attributes again but it does not matter
             undoList->p_add(new GNEChange_Attribute(this, key, value, true, origValue));
@@ -750,23 +771,65 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_NAME:
             myNBEdge.setStreetName(value);
             break;
-        case SUMO_ATTR_SPEED:
-            myNBEdge.setSpeed(-1, parse<SUMOReal>(value));
-            break;
-        case SUMO_ATTR_WIDTH:
-            if (value == "default") {
-                myNBEdge.setLaneWidth(-1, NBEdge::UNSPECIFIED_WIDTH);
-            } else {
-                myNBEdge.setLaneWidth(-1, parse<SUMOReal>(value));
+        case SUMO_ATTR_SPEED: {
+            std::vector<std::string> speeds;
+            SUMOSAXAttributes::parseStringVector(value, speeds);
+            if(speeds.size() == myNBEdge.getLanes().size()) {
+                for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
+                    myNBEdge.setSpeed(i, GNEAttributeCarrier::parse<SUMOReal>(speeds.at(i)));
+                }
+            } else if (speeds.size() == 1) {
+                for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
+                    myNBEdge.setSpeed(i, GNEAttributeCarrier::parse<SUMOReal>(speeds.front()));
+                }
             }
             break;
-        case SUMO_ATTR_ENDOFFSET:
-            myNBEdge.setEndOffset(-1, parse<SUMOReal>(value));
+        }
+        case SUMO_ATTR_WIDTH: {
+            std::vector<std::string> widths;
+            SUMOSAXAttributes::parseStringVector(value, widths);
+            if(widths.size() == myNBEdge.getLanes().size()) {
+                for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
+                    if(widths.at(i) == "default") {
+                        myNBEdge.getLaneStruct(i).width = NBEdge::UNSPECIFIED_WIDTH;
+                    } else {
+                        myNBEdge.getLaneStruct(i).width = GNEAttributeCarrier::parse<SUMOReal>(widths.at(i));
+                    }
+                }
+            } else if (widths.size() == 1) {
+                for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
+                    if(widths.front() == "default") {
+                        myNBEdge.getLaneStruct(i).width = NBEdge::UNSPECIFIED_WIDTH;
+                    } else {
+                        myNBEdge.getLaneStruct(i).width = GNEAttributeCarrier::parse<SUMOReal>(widths.front());
+                    }
+                }
+            }
+            // update geometry of lanes
+            updateGeometry();
+            myNet->getViewNet()->update();
             break;
-        case SUMO_ATTR_ALLOW:
-            break;  // no edge value
-        case SUMO_ATTR_DISALLOW:
-            break; // no edge value
+        }
+        case SUMO_ATTR_ENDOFFSET: {
+            std::vector<std::string> endOffsets;
+            SUMOSAXAttributes::parseStringVector(value, endOffsets);
+            if(endOffsets.size() == myNBEdge.getLanes().size()) {
+                for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
+                    myNBEdge.setEndOffset(i, GNEAttributeCarrier::parse<SUMOReal>(endOffsets.at(i)));
+                }
+            } else if (endOffsets.size() == 1) {
+                for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
+                    myNBEdge.setEndOffset(i, GNEAttributeCarrier::parse<SUMOReal>(endOffsets.front()));
+                }
+            }
+            break;
+        }
+        case SUMO_ATTR_ALLOW: {
+            break;
+        }
+        case SUMO_ATTR_DISALLOW: {
+            break;
+        }
         case GNE_ATTR_MODIFICATION_STATUS:
             myConnectionStatus = value;
             if (value == GUESSED) {

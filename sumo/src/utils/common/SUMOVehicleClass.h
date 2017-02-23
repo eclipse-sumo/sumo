@@ -204,12 +204,14 @@ extern StringBijection<SUMOVehicleClass> SumoVehicleClassStrings;
 extern std::set<std::string> deprecatedVehicleClassesSeen;
 extern StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings;
 
-/* @brief bitset where each bit declares whether a certain SVC may use this edge/lane
- */
+/// @brief bitset where each bit declares whether a certain SVC may use this edge/lane
 typedef int SVCPermissions;
-extern const SVCPermissions SVCAll; // everything allowed
-extern const SVCPermissions SVC_UNSPECIFIED; // permissions not specified
 
+/// @brief all VClasses are allowed
+extern const SVCPermissions SVCAll;
+
+/// @brief permissions not specified
+extern const SVCPermissions SVC_UNSPECIFIED; 
 
 /**
  * @enum SUMOEmissionClass

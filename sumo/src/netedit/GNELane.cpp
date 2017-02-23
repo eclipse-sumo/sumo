@@ -853,6 +853,8 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 edge->setLaneWidth(myIndex, parse<SUMOReal>(value));
             }
+            updateGeometry();
+            myNet->getViewNet()->update();
             break;
         case SUMO_ATTR_ENDOFFSET:
             edge->setEndOffset(myIndex, parse<SUMOReal>(value));
