@@ -199,7 +199,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 Position pos = geom[i];
                 glPushMatrix();
                 glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
-                GLHelper:: drawFilledCircle(SNAP_RADIUS, 32);
+                GLHelper:: drawFilledCircle(SNAP_RADIUS * MIN2((SUMOReal)1, s.laneWidthExaggeration), 32);
                 glPopMatrix();
             }
             glPopName();
