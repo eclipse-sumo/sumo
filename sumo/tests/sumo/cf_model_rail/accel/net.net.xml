@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,6000.00,18.88" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="e0" from="j0" to="j1" priority="1">
+        <lane id="e0_0" index="0" allow="rail" speed="144.44" length="1998.62" shape="0.02,-1.65,0 1998.39,17.23,10"/>
+    </edge>
+    <edge id="e1" from="j1" to="j2" priority="1">
+        <lane id="e1_0" index="0" allow="rail" speed="200" length="20000" shape="1998.68,17.23,10 3997.34,9.77,0"/>
+    </edge>
+    <edge id="e2" from="j2" to="j3" priority="1">
+        <lane id="e2_0" index="0" allow="rail" speed="4.44" length="2002.53" shape="3997.64,9.77 5999.99,-1.65"/>
+    </edge>
+
+    <junction id="j0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.03,-3.25"/>
+    <junction id="j1" type="unregulated" x="1998.53" y="18.88" incLanes="e0_0" intLanes="" shape="1998.69,18.83 1998.67,15.63 1998.40,15.63 1998.37,18.83"/>
+    <junction id="j2" type="priority" x="3997.50" y="11.42" incLanes="e1_0" intLanes="" shape="3997.65,11.37 3997.63,8.17 3997.34,8.17 3997.35,11.37">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="j3" type="unregulated" x="6000.00" y="0.00" incLanes="e2_0" intLanes="" shape="5999.98,-3.25 6000.00,-0.05"/>
+
+    <connection from="e0" to="e1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="e1" to="e2" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
