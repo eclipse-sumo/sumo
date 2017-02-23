@@ -31,18 +31,20 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType *vtype, std::string trainType
 
     if (trainType.compare("RB425") == 0) {
         myTrainParams = initRB425Params();
-    } else if (trainType.compare("RB628")) {
+    } else if (trainType.compare("RB628") == 0) {
         myTrainParams = initRB628Params();
-    } else if (trainType.compare("NGT400")) {
+    } else if (trainType.compare("NGT400") == 0) {
         myTrainParams = initNGT400Params();
-    }else if (trainType.compare("NGT400_16")) {
+    }else if (trainType.compare("NGT400_16") == 0) {
         myTrainParams = initNGT400_16Params();
-    } else if (trainType.compare("ICE1")) {
+    } else if (trainType.compare("ICE1") == 0) {
         myTrainParams = initICE1Params();
-    } else if (trainType.compare("REDosto7")) {
+    } else if (trainType.compare("REDosto7") == 0) {
         myTrainParams = initREDosto7Params();
-    } else if (trainType.compare("Freight")) {
+    } else if (trainType.compare("Freight") == 0) {
         myTrainParams = initFreightParams();
+    } else if (trainType.compare("ICE3") == 0) {
+        myTrainParams = initICE3Params();
     } else {
         WRITE_ERROR("Unknown train type: " + trainType + ". Exiting!");
         throw ProcessError();
