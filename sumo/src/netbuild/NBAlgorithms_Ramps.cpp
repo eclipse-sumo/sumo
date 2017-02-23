@@ -408,10 +408,7 @@ NBRampsComputer::getOnRampEdges(NBNode* n, NBEdge** potHighway, NBEdge** potRamp
     }
     */
     // heuristic: ramp comes from right
-    const std::vector<NBEdge*>& edges2 = n->getEdges();
-    std::vector<NBEdge*>::const_iterator i = std::find(edges2.begin(), edges2.end(), *other);
-    NBContHelper::nextCW(edges2, i);
-    if ((*i) == *potHighway) {
+    if (NBContHelper::relative_incoming_edge_sorter(*other)(*potRamp, *potHighway)) {
         std::swap(*potHighway, *potRamp);
     }
 }
@@ -457,7 +454,7 @@ NBRampsComputer::fulfillsRampConstraints(
         return false;
     }
     // check whether a lane is missing
-    if (potHighway->getNumLanes() + potRamp->getNumLanes() <= other->getNumLanes()) {
+    if (potHighway->getNumLanes() + potRamp->getNumLanes() < other->getNumLanes()) {
         return false;
     }
     // is it really a highway?
