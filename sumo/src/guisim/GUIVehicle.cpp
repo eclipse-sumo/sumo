@@ -718,5 +718,10 @@ GUIVehicle::drawOutsideNetwork(bool add) {
     }
 }
 
+bool 
+GUIVehicle::isSelected() const {
+    return gSelected.isSelected(GLO_VEHICLE, getGlID());
+}
+
 /****************************************************************************/
 
