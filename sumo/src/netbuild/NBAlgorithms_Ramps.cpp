@@ -438,6 +438,12 @@ NBRampsComputer::getOffRampEdges(NBNode* n, NBEdge** potHighway, NBEdge** potRam
     if ((*i) == *potRamp) {
         std::swap(*potHighway, *potRamp);
     }
+    // the following would be better but runs afoul of misleading angles when both edges
+    // have the same geometry start point but different references lanes are
+    // chosen for NBEdge::computeAngle()
+    //if (NBContHelper::relative_outgoing_edge_sorter(*other)(*potHighway, *potRamp)) {
+    //    std::swap(*potHighway, *potRamp);
+    //}
 }
 
 
