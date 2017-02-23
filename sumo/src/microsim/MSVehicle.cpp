@@ -1444,9 +1444,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     assert(lane != 0);
     const MSLane* leaderLane = myLane;
 #ifdef _MSC_VER
-#pragma warning(suppress: 4127) // do not warn about constant conditional expression
+#pragma warning(push)
+#pragma warning(disable: 4127) // do not warn about constant conditional expression
 #endif
     while (true) {
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
         // check leader on lane
         //  leader is given for the first edge only
         if (opposite &&
