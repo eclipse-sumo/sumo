@@ -37,6 +37,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RandHelper.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
+#include <microsim/cfmodels/MSCFModel_Rail.h>
 #include "MSNet.h"
 #include "cfmodels/MSCFModel_IDM.h"
 #include "cfmodels/MSCFModel_Kerner.h"
@@ -259,6 +260,9 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             vtype->myCarFollowModel = new MSCFModel_Wiedemann(vtype, accel, decel,
                     from.getCFParam(SUMO_ATTR_CF_WIEDEMANN_SECURITY, 0.5),
                     from.getCFParam(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5));
+            break;
+        case SUMO_TAG_CF_RAIL:
+            vtype->myCarFollowModel = new MSCFModel_Rail(vtype, from.getCFParamString(SUMO_ATTR_TRAIN_TYPE,"NGT400"));
             break;
         case SUMO_TAG_CF_KRAUSS:
         default:

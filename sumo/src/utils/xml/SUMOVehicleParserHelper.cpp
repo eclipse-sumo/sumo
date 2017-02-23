@@ -508,8 +508,8 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into,
     bool ok = true;
     for (std::set<SumoXMLAttr>::const_iterator it = cf_it->second.begin(); it != cf_it->second.end(); it++) {
         if (attrs.hasAttribute(*it)) {
-            into.cfParameter[*it] = attrs.get<SUMOReal>(*it, into.id.c_str(), ok);
-            if (*it == SUMO_ATTR_TAU && TIME2STEPS(into.cfParameter[*it]) < DELTA_T) {
+            into.cfParameter[*it] = attrs.get<std::string>(*it, into.id.c_str(), ok);
+            if (*it == SUMO_ATTR_TAU && TIME2STEPS(std::stod(into.cfParameter[*it])) < DELTA_T) {
                 WRITE_WARNING("Value of tau=" + toString(into.cfParameter[*it])
                               + " in car following model '" + toString(into.cfModel) + "' lower than simulation step size may cause collisions");
             }
@@ -533,6 +533,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS] = krausParams;
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_ORIG1] = krausParams;
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_PLUS_SLOPE] = krausParams;
+
 
         std::set<SumoXMLAttr> smartSKParams;
         smartSKParams.insert(SUMO_ATTR_ACCEL);
@@ -598,6 +599,10 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         wiedemannParams.insert(SUMO_ATTR_CF_WIEDEMANN_SECURITY);
         wiedemannParams.insert(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION);
         allowedCFModelAttrs[SUMO_TAG_CF_WIEDEMANN] = wiedemannParams;
+
+        std::set<SumoXMLAttr> railParamms;
+        railParamms.insert(SUMO_ATTR_TRAIN_TYPE);
+        allowedCFModelAttrs[SUMO_TAG_CF_RAIL] = railParamms;
     }
     return allowedCFModelAttrs;
 }

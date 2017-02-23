@@ -159,7 +159,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             break;
         case SVC_RAIL:
             length = 67.5 * 2;
-            maxSpeed = 160. / 3.6;
+            maxSpeed = 1600. / 3.6;
             width = 2.84;
             height = 3.75;
             shape = SVS_RAIL;
@@ -322,6 +322,16 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
 SUMOReal
 SUMOVTypeParameter::getCFParam(const SumoXMLAttr attr, const SUMOReal defaultValue) const {
     if (cfParameter.count(attr)) {
+        return TplConvert::_str2SUMOReal(cfParameter.find(attr)->second);
+    } else {
+        return defaultValue;
+    }
+}
+
+
+std::string
+SUMOVTypeParameter::getCFParamString(const SumoXMLAttr attr, const std::string defaultValue) const {
+    if (cfParameter.count(attr)) {
         return cfParameter.find(attr)->second;
     } else {
         return defaultValue;
@@ -331,7 +341,7 @@ SUMOVTypeParameter::getCFParam(const SumoXMLAttr attr, const SUMOReal defaultVal
 SUMOReal
 SUMOVTypeParameter::getLCParam(const SumoXMLAttr attr, const SUMOReal defaultValue) const {
     if (lcParameter.count(attr)) {
-        return lcParameter.find(attr)->second;
+        return TplConvert::_str2SUMOReal(lcParameter.find(attr)->second);
     } else {
         return defaultValue;
     }

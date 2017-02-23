@@ -19,6 +19,9 @@ errors
 # testing car-following model properties
 cf_model
 
+# testing rail-following model properties
+cf_model_rail
+
 # test lane-changing model properties
 lc_model
 

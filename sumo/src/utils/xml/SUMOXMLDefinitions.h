@@ -255,6 +255,7 @@ enum SumoXMLTag {
     SUMO_TAG_CF_PWAGNER2009,
     SUMO_TAG_CF_BKERNER,
     SUMO_TAG_CF_WIEDEMANN,
+    SUMO_TAG_CF_RAIL,
     /// @}
 
     /// @name Pedestrians
@@ -423,6 +424,11 @@ enum SumoXMLAttr {
     SUMO_ATTR_TMP3,
     SUMO_ATTR_TMP4,
     SUMO_ATTR_TMP5,
+    /// @}
+
+    /// @name Train model attributes
+    /// @{
+    SUMO_ATTR_TRAIN_TYPE, //used by: Rail
     /// @}
 
     /// @name Lane changing model attributes

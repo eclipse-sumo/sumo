@@ -252,7 +252,7 @@ public:
      * @param[in] speed The vehicle itself, for obtaining other values, if needed as e.g. road conditions.
      * @return The minimum possible speed for the next step
      */
-    SUMOReal minNextSpeed(SUMOReal speed, const MSVehicle* const veh = 0) const;
+    virtual SUMOReal minNextSpeed(SUMOReal speed, const MSVehicle* const veh = 0) const;
 
 
     /** @brief Returns the distance the vehicle needs to halt including driver's reaction time,
@@ -295,7 +295,7 @@ public:
         return secureGap;
     }
 
-    /** @brief Returns the velocity after maximum deceleration
+    virtual /** @brief Returns the velocity after maximum deceleration
      * @param[in] v The velocity
      * @return The velocity after maximum deceleration
      */
