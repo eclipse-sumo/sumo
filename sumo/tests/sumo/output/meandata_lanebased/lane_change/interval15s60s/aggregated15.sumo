@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep 29 14:14:44 2016 by SUMO Version dev-SVN-r21578
+<!-- generated on Thu Feb 23 10:49:02 2017 by SUMO Version dev-SVN-r22980
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -29,12 +29,12 @@
         <edge id="1si">
             <lane id="1si_0" sampledSeconds="3.00" traveltime="32.53" overlapTraveltime="32.92" density="0.80" occupancy="0.24" waitingTime="0.00" speed="7.69" departed="2" arrived="0" entered="0" left="0" laneChangedFrom="2" laneChangedTo="0"/>
             <lane id="1si_1" sampledSeconds="11.00" traveltime="47.03" overlapTraveltime="47.60" density="2.93" occupancy="0.88" waitingTime="0.00" speed="5.32" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="2" laneChangedTo="2"/>
-            <lane id="1si_2" sampledSeconds="9.00" traveltime="46.45" overlapTraveltime="47.00" density="2.40" occupancy="0.72" waitingTime="0.00" speed="5.38" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="2"/>
+            <lane id="1si_2" sampledSeconds="9.00" traveltime="46.43" overlapTraveltime="46.98" density="2.40" occupancy="0.72" waitingTime="0.00" speed="5.38" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="2"/>
         </edge>
     </interval>
     <interval begin="15.00" end="30.00" id="dump_15">
         <edge id="1si">
-            <lane id="1si_2" sampledSeconds="30.00" traveltime="49.99" overlapTraveltime="50.59" density="8.00" occupancy="2.40" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="1si_2" sampledSeconds="30.00" traveltime="50.00" overlapTraveltime="50.60" density="8.00" occupancy="2.40" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
     </interval>
     <interval begin="30.00" end="45.00" id="dump_15">
