@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 2.8)
 
 set(CMAKE_COLOR_MAKEFILE ON)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build/cmake_modules/")
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
         "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(warnings "-Wall -Wextra")
