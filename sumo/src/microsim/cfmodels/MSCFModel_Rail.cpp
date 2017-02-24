@@ -225,8 +225,8 @@ SUMOReal MSCFModel_Rail::moveHelper(MSVehicle *const veh, SUMOReal vPos) const {
     return vNext;
 }
 
-double MSCFModel_Rail::freeSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal dist, SUMOReal targetSpeed,
-                                 const bool onInsertion) const {
+SUMOReal MSCFModel_Rail::freeSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal dist, SUMOReal targetSpeed,
+                                   const bool onInsertion) const {
 
 //    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
 //    if (vars->isNotYetInitialized()) {
@@ -257,6 +257,6 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle *const veh, SUMOReal speed, SUM
     }
 }
 
-double MSCFModel_Rail::stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const {
+SUMOReal MSCFModel_Rail::stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const {
     return 0;
 }

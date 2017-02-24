@@ -27,8 +27,8 @@ class MSCFModel_Rail : public MSCFModel {
 
 public:
 
-    double followSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed,
-                       SUMOReal predMaxDecel) const;
+    SUMOReal followSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed,
+                         SUMOReal predMaxDecel) const;
 
     virtual int getModelID() const;
 
@@ -52,8 +52,8 @@ public:
 
     SUMOReal moveHelper(MSVehicle *const veh, SUMOReal vPos) const;
 
-    double freeSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed,
-                     const bool onInsertion) const;
+    SUMOReal freeSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed,
+                       const bool onInsertion) const;
 
 private:
 
@@ -71,10 +71,10 @@ private:
         LookUpMap resistance;
     };
 
-    double getInterpolatedValueFromLookUpMap(SUMOReal speed, const LookUpMap *lookUpMap) const;
+    SUMOReal getInterpolatedValueFromLookUpMap(SUMOReal speed, const LookUpMap *lookUpMap) const;
 
 public:
-    double stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const;
+    SUMOReal stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const;
 
 //    class VehicleVariables : public MSCFModel::VehicleVariables {
 //
