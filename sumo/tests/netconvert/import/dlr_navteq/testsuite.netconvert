@@ -25,6 +25,9 @@ timerestriction
 prohibited_manoeuvres
 connected_lanes
 
+# only some lanes of an edge have definitions, the rest must be guessed
+connected_lanes_partial
+
 # tests for input data generated with gdfExtractor version 3.1
 version_3.1
 
