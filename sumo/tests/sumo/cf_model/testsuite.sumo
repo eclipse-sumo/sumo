@@ -20,3 +20,6 @@ adap_speed_for_new_lane
 tau
 vehs_per_hour
 errors
+
+# tests for rail following model
+rail
