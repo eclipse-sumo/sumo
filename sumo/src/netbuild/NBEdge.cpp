@@ -925,7 +925,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
             // yes, the connection was set using an algorithm which requires a recheck
             myStep = LANES2LANES_RECHECK;
         } else {
-            // ok, let's only not recheck it if we did no add something that has to be recheked
+            // ok, let's only not recheck it if we did no add something that has to be rechecked
             if (myStep != LANES2LANES_RECHECK) {
                 myStep = LANES2LANES_DONE;
             }
