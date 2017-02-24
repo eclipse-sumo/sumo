@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec  8 12:23:54 2016 by SUMO Version dev-SVN-r22229
+<!-- generated on Fri Feb 24 07:55:43 2017 by SUMO Version dev-SVN-r23098
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -26,19 +26,19 @@
 </configuration>
 -->
 
-<snapshot version="dev-SVN-r22229" time="8.00">
+<snapshot version="dev-SVN-r23098" time="8.00">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="2" begin="2" end="0" depart="4.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
     <vType id="type0">
-        <carFollowing-Krauss sigma="0.00"/>
+        <carFollowing-Krauss sigma="0"/>
     </vType>
     <vType id="type1">
-        <carFollowing-Krauss sigma="0.00"/>
+        <carFollowing-Krauss sigma="0"/>
     </vType>
     <vType id="type2">
-        <carFollowing-Krauss sigma="0.00"/>
+        <carFollowing-Krauss sigma="0"/>
         <param key="has.rerouting.device" value="false"/>
     </vType>
     <vTypeDistribution id="testDist" vTypes="type0 type1" probabilities="1.00 1.00"/>
