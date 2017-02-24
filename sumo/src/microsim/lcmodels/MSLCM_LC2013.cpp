@@ -95,7 +95,8 @@
 //#define DEBUG_SLOW_DOWN
 //#define DEBUG_SAVE_BLOCKER_LENGTH
 
-#define DEBUG_COND (myVehicle.getID() == "disabled")
+//#define DEBUG_COND (myVehicle.getID() == "disabled")
+#define DEBUG_COND (myVehicle.isSelected())
 
 // ===========================================================================
 // member method definitions
@@ -111,6 +112,7 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     myCooperativeParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 1)),
     mySpeedGainParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 1)),
     myKeepRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1)),
+    myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMANTAL1, 0)),
     myChangeProbThresholdRight(2.0 * myKeepRightParam / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     myChangeProbThresholdLeft(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)) {
 #ifdef DEBUG_CONSTRUCTOR
@@ -691,11 +693,14 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         const SUMOReal secureGap = nv->getCarFollowModel().getSecureGap(MAX2(neighNewSpeed1s, (SUMOReal)0.),
                                    MAX2(plannedSpeed, (SUMOReal)0.), myVehicle.getCarFollowModel().getMaxDecel());
 
+        const SUMOReal onRampThreshold = myVehicle.getLane()->getSpeedLimit() * 0.8 * myExperimentalParam1 * (1 - myVehicle.getImpatience());
+
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
             std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
                       << " speed=" << myVehicle.getSpeed()
                       << " plannedSpeed=" << plannedSpeed
+                      << " threshold=" << onRampThreshold
                       << " neighNewSpeed=" << neighNewSpeed
                       << " neighNewSpeed1s=" << neighNewSpeed1s
                       << " dv=" << dv
@@ -705,6 +710,12 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                       << "\n";
         }
 #endif
+        // prevent vehicles on an on ramp stopping the main flow
+        if (dir == LCA_MLEFT 
+                && myVehicle.getLane()->isAccelLane()
+                && neighNewSpeed1s < onRampThreshold) {
+            return;
+        }
 
         if (decelGap > 0 && decelGap >= secureGap) {
             // XXX: This does not assure that the leader can cut in in the next step if TS < 1 (see above)

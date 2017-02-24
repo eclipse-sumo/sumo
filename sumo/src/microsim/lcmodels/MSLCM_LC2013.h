@@ -246,6 +246,8 @@ protected:
     const SUMOReal myCooperativeParam; // in [0,1]
     const SUMOReal mySpeedGainParam;
     const SUMOReal myKeepRightParam;
+
+    const SUMOReal myExperimentalParam1; // for feature testing
     //@}
 
     /// @name derived parameters
