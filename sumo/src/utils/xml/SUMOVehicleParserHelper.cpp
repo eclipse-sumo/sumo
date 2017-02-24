@@ -636,7 +636,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
     std::set<SumoXMLAttr> allowed = allowedLCModelAttrs[model];
     for (std::set<SumoXMLAttr>::const_iterator it = allowed.begin(); it != allowed.end(); it++) {
         if (attrs.hasAttribute(*it)) {
-            into.lcParameter[*it] = attrs.get<SUMOReal>(*it, into.id.c_str(), ok);
+            into.lcParameter[*it] = attrs.get<std::string>(*it, into.id.c_str(), ok);
         }
     }
     if (!ok) {
