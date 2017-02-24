@@ -149,6 +149,10 @@ GNELoadThread::run() {
                 throw ProcessError();
             } else {
                 net = new GNENet(netBuilder);
+                if (oc.getBool("lefthand")) {
+                    // force initial geometry computation because the net will look strange otherwise
+                    net->computeAndUpdate(oc);
+                }
             }
 
         } catch (ProcessError& e) {

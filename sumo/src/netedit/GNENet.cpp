@@ -1457,7 +1457,7 @@ GNENet::computeAndUpdate(OptionsCont& oc) {
         }
     }
     myGrid.reset();
-    myGrid.add(GeoConvHelper::getProcessing().getConvBoundary());
+    myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
     // update precomputed geometries
     initGNEConnections();
 
