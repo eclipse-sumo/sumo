@@ -125,7 +125,8 @@ NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
     preferred(0),
     endOffset(e->getEndOffset()), width(e->getLaneWidth()),
     origID(origID_),
-    accelRamp(false)
+    accelRamp(false),
+    connectionsDone(false)
 {
 }
 
@@ -1733,14 +1734,12 @@ NBEdge::computeEdge2Edges(bool noLeftMovers) {
     if (myStep >= EDGE2EDGES) {
         return true;
     }
-    if (myConnections.size() == 0) {
-        const EdgeVector& o = myTo->getOutgoingEdges();
-        for (EdgeVector::const_iterator i = o.begin(); i != o.end(); ++i) {
-            if (noLeftMovers && myTo->isLeftMover(this, *i)) {
-                continue;
-            }
-            myConnections.push_back(Connection(-1, *i, -1));
+    const EdgeVector& o = myTo->getOutgoingEdges();
+    for (EdgeVector::const_iterator i = o.begin(); i != o.end(); ++i) {
+        if (noLeftMovers && myTo->isLeftMover(this, *i)) {
+            continue;
         }
+        myConnections.push_back(Connection(-1, *i, -1));
     }
     myStep = EDGE2EDGES;
     return true;
@@ -2033,7 +2032,11 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
                 }
                 continue;
             }
-
+            if (myLanes[fromIndex].connectionsDone) {
+                // we already have complete information about connections from
+                // this lane. do not add anything else
+                continue;
+            }
             myConnections.push_back(Connection(fromIndex, target, -1));
 #ifdef DEBUG_CONNECTION_GUESSING
             if (DEBUGCOND) {
@@ -2090,6 +2093,8 @@ NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int
             && ((getPermissions(fromIndex) & target->getPermissions()) != 0)
             // more than pedestrians
             && ((getPermissions(fromIndex) & target->getPermissions()) != SVC_PEDESTRIAN)
+            // lane not yet fully defined
+            && !myLanes[fromIndex].connectionsDone
         ) {
 #ifdef DEBUG_CONNECTION_GUESSING
             if (DEBUGCOND) {

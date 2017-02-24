@@ -151,6 +151,10 @@ public:
 
         /// @brief Whether this lane is an acceleration lane
         bool accelRamp;
+
+        /// @brief Whether connection information for this lane is already completed
+        // @note (see NIImporter_DlrNavteq::ConnectedLanesHandler)
+        bool connectionsDone;
     };
 
 
@@ -1143,8 +1147,8 @@ public:
     }
 
     /// @brief declares connections as fully loaded. This is needed to avoid recomputing connections if an edge has no connections intentionally.
-    void declareConnectionsAsLoaded() {
-        myStep = LANES2LANES_USER;
+    void declareConnectionsAsLoaded(EdgeBuildingStep step = LANES2LANES_USER) {
+        myStep = step;
     }
 
     /* @brief fill connection attributes shape, viaShape, ...
