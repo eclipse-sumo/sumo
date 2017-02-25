@@ -101,7 +101,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @see MSMoveReminder::Notification
          */
-        virtual bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
+        virtual bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
         /** @brief Checks whether the reminder still has to be notified about the vehicle moves
@@ -130,7 +130,7 @@ public:
          * @see MSMoveReminder::notifyLeave
          */
         virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-                                 MSMoveReminder::Notification reason);
+                                 MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
 
 
         /** @brief Returns whether any data was collected.
@@ -227,7 +227,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
+        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
 
 
         /** @brief Computes current values and adds them to their sums
@@ -241,7 +241,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @return Always true
          */
-        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
+        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         //@}
 
         bool isEmpty() const;

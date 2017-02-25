@@ -160,7 +160,7 @@ public:
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
     /// @}
 
 

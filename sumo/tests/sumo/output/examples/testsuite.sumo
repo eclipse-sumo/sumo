@@ -1,10 +1,12 @@
 cross3ltl_summary
 cross3ltl_fcd
 cross3ltl_inductloops
+
+# lane area detectors in front of tl junction (NOTE: discrepancies to original E2 test results due to new feature of snapping the detector ends to the lane ends, delete NOTE after approval)
 cross3ltl_laneArea
 
 # lane area detectors that span multiple lanes
-cross3ltl_laneArea_cont
+cross3ltl_laneArea_longDetector
 cross3ltl_entryExit
 cross3ltl_meandata_constrained
 cross3ltl_meandata_edges

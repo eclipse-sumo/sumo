@@ -93,7 +93,7 @@ MSDevice_BTsender::~MSDevice_BTsender() {
 
 
 bool
-MSDevice_BTsender::notifyEnter(SUMOVehicle& veh, Notification reason) {
+MSDevice_BTsender::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED && sVehicles.find(veh.getID()) == sVehicles.end()) {
         sVehicles[veh.getID()] = new VehicleInformation(veh.getID());
         sVehicles[veh.getID()]->route.push_back(veh.getEdge());
@@ -123,7 +123,7 @@ MSDevice_BTsender::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOReal 
 
 
 bool
-MSDevice_BTsender::notifyLeave(SUMOVehicle& veh, SUMOReal /* lastPos */, Notification reason) {
+MSDevice_BTsender::notifyLeave(SUMOVehicle& veh, SUMOReal /* lastPos */, Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     if (reason < MSMoveReminder::NOTIFICATION_TELEPORT) {
         return true;
     }

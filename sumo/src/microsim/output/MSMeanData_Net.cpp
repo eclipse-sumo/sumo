@@ -123,7 +123,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& veh,
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) {
+MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     if ((myParent == 0 || myParent->vehicleApplies(veh)) && (getLane() == 0 || getLane() == static_cast<MSVehicle&>(veh).getLane())) {
         if (MSGlobals::gUseMesoSim) {
             removeFromVehicleUpdateValues(veh);
@@ -147,7 +147,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal /*l
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
+MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (myParent == 0 || myParent->vehicleApplies(veh)) {
         if (getLane() == 0 || getLane() == static_cast<MSVehicle&>(veh).getLane()) {
             if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {

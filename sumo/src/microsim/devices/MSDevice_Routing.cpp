@@ -241,7 +241,7 @@ MSDevice_Routing::~MSDevice_Routing() {
 
 
 bool
-MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason) {
+MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         // clean up pre depart rerouting
         if (myPreInsertionPeriod > 0) {

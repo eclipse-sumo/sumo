@@ -128,7 +128,7 @@ MSDevice_Tripinfo::notifyMoveInternal(const SUMOVehicle& veh,
 }
 
 bool
-MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
+MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         if (!MSGlobals::gUseMesoSim) {
             myDepartLane = static_cast<MSVehicle&>(veh).getLane()->getID();
@@ -142,7 +142,7 @@ MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification re
 
 bool
 MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
-                               MSMoveReminder::Notification reason) {
+                               MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         myArrivalTime = MSNet::getInstance()->getCurrentTimeStep();
         if (!MSGlobals::gUseMesoSim) {

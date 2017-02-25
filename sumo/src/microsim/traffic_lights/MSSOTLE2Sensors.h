@@ -6,6 +6,8 @@
 /// @version $Id$
 ///
 // The class for SOTL sensors of "E2" type
+// XXX: Not tested with MSMultiLaneE2Collector (Generalization of MSE2Collector). If this is to be used in the future and you run into problems,
+//      start taking a look at the getEstimateQueueLength() method of the collector.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2010-2017 DLR (http://www.dlr.de/) and contributors

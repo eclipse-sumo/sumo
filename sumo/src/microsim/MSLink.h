@@ -460,6 +460,10 @@ public:
         return myFoeLanes;
     }
 
+    const std::vector<MSLink*>& getFoeLinks (){
+        return myFoeLinks;
+    }
+
     /// @brief initialize parallel links (to be called after all links are loaded)
     void initParallelLinks();
 

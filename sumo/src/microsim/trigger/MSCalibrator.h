@@ -120,7 +120,7 @@ protected:
          * @see Notification
          */
         //@}
-        virtual bool notifyEnter(SUMOVehicle& veh, Notification reason);
+        virtual bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
         void disable() {
             myParent = 0;

@@ -76,7 +76,7 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
 
 
 bool
-MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, SUMOReal, MSMoveReminder::Notification reason) {
+MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, SUMOReal, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         WRITE_WARNING("Vehicle '" + veh.getID() + "' arrived inside " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
         myCollector.myEnteredContainer.erase(&veh);
@@ -126,7 +126,7 @@ MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
 
 
 bool
-MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOVehicle& veh, SUMOReal /* lastPos */, MSMoveReminder::Notification reason) {
+MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOVehicle&  veh , SUMOReal /* lastPos */, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         return false;
     }

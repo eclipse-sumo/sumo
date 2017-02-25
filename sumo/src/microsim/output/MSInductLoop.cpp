@@ -84,7 +84,7 @@ MSInductLoop::reset() {
 
 
 bool
-MSInductLoop::notifyEnter(SUMOVehicle& veh, Notification reason) {
+MSInductLoop::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* /* enteredLane */) {
     if (!vehicleApplies(veh)) {
         return false;
     }
@@ -145,7 +145,7 @@ MSInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
 
 
 bool
-MSInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) {
+MSInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
         leaveDetectorByLaneChange(veh, lastPos);
         return false;

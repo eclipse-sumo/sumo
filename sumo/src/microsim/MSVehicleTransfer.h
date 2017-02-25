@@ -53,7 +53,7 @@ class MSLane;
 /**
  * @class MSVehicleTransfer
  * This object (each simulation owns exactly one) is responsible for the
- *  transfer of vehicles that got stocked within the network due to grid locks.
+ *  transfer of vehicles that got stuck within the network due to grid locks.
  *  It also manages vehicles that are removed from the network because of stops
  *  with the parking attribute.
  *

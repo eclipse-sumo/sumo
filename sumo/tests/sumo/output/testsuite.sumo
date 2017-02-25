@@ -7,6 +7,9 @@ e1Instant
 # Tests for e2Detectors (lane-areal)
 e2
 
+# Tests for multilane e2Detectors (lane-areal)
+e2multilane
+
 # Tests for e3Detectors (areal)
 e3
 
@@ -61,12 +64,11 @@ examples
 # test the duration log output
 duration_log
 
-#Test for Floating Car Data
+# Test for Floating Car Data
 fcd-output
-
 link-output
 
-#Tests for full-output (huge overhead)
+# Tests for full-output (huge overhead)
 full-output
 
 # Tests for emission-output 

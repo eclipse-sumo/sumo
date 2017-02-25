@@ -114,7 +114,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
     //@}
 
 

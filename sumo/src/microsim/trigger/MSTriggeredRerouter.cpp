@@ -350,13 +350,13 @@ MSTriggeredRerouter::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/,
 
 bool
 MSTriggeredRerouter::notifyLeave(SUMOVehicle& /*veh*/, SUMOReal /*lastPos*/,
-                                 MSMoveReminder::Notification reason) {
+                                 MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     return reason == NOTIFICATION_LANE_CHANGE;
 }
 
 
 bool
-MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /*reason*/) {
+MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /*reason*/, const MSLane* /* enteredLane */) {
     // check whether the vehicle shall be rerouted
     const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     const MSTriggeredRerouter::RerouteInterval* rerouteDef = getCurrentReroute(time, veh);

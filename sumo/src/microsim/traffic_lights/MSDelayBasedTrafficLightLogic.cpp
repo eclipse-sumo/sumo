@@ -30,7 +30,6 @@
 
 #include <cassert>
 #include <vector>
-#include <microsim/output/MSE2Collector.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -49,11 +48,6 @@
 // parameter defaults definitions
 // ===========================================================================
 
-// if a vehicle's timeloss is below TIMELOSS_THRESHOLD, this is counted as insignificant,
-// since this may stem from dawdling, or driving slightly slower than the detector
-// TODO: this might be adapted to the detector-length and the vehicle's maximal speed...
-#define TIMELOSS_THRESHOLD 1.0
-
 //#define DEBUG_TIMELOSS_CONTROL
 
 // ===========================================================================
@@ -68,6 +62,8 @@ MSDelayBasedTrafficLightLogic::MSDelayBasedTrafficLightLogic(MSTLLogicControl& t
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter) {
 
     myShowDetectors = TplConvert::_2bool(getParameter("show-detectors", "false").c_str());
+    myDetectionRange = TplConvert::_2SUMOReal(getParameter("range", "-1.0").c_str());
+    myTimeLossThreshold = TplConvert::_2SUMOReal(getParameter("minTimeloss", "1.0").c_str());
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(TplConvert::_2SUMOReal(getParameter("freq", "300").c_str()));
     myVehicleTypes = getParameter("vTypes", "");
@@ -88,16 +84,15 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         for (i = lanes.begin(); i != lanes.end(); i++) {
             MSLane* lane = (*i);
             // Build the induct loop and set it into the container
-            std::string id = "TLS" + myID + "_" + myProgramID + "_E2DetectorOn_" + lane->getID();
+            std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
             if (myLaneDetectors.find(lane) == myLaneDetectors.end()) {
-                // TODO: allow hiding E2-detectors in the gui
-                // TODO: allow specifying a maximal detector range
-                myLaneDetectors[lane] = nb.createSingleLaneE2Detector(id, DU_TL_CONTROL, lane, 0., lane->getLength(), 1000, SUMO_const_haltingSpeed, 1000,  myVehicleTypes); //, myShowDetectors);
+                myLaneDetectors[lane] = new MSE2Collector(id, DU_TL_CONTROL, lane, std::numeric_limits<SUMOReal>::max(), lane->getLength(), myDetectionRange, 0, 0, 0, myVehicleTypes);
                 MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_E2DETECTOR, myLaneDetectors[lane], myFile, myFreq);
             }
         }
     }
 }
+
 
 
 MSDelayBasedTrafficLightLogic::~MSDelayBasedTrafficLightLogic() { }
@@ -126,17 +121,19 @@ MSDelayBasedTrafficLightLogic::proposeProlongation() {
                     continue;
                 }
 #endif
-                MSE2Collector* detector = static_cast<MSE2Collector*>(i->second);
-                const std::vector<MSE2Collector::VehicleInfo>& vehInfos = detector->getCurrentVehicles();
+
+                MSE2Collector* detector = static_cast<MSE2Collector* >(i->second);
+                const MSE2Collector::VehicleInfoMap& vehInfos = detector->getVehicleInfos();
 
 #ifdef DEBUG_TIMELOSS_CONTROL
                 std::cout << "Number of current vehicles on detector: " << vehInfos.size() << std::endl;
 #endif
 
-                for (std::vector<MSE2Collector::VehicleInfo>::const_iterator iv = vehInfos.begin(); iv != vehInfos.end(); ++iv) {
-                    if (iv->stillOnDet && iv->accumulatedTimeLoss > TIMELOSS_THRESHOLD) {
-                        SUMOReal estimatedTimeToJunction = ((*j)->getLength() - iv->position) / (*j)->getSpeedLimit();
+                for (MSE2Collector::VehicleInfoMap::const_iterator iv = vehInfos.begin(); iv != vehInfos.end(); ++iv){
+                    if (iv->second->accumulatedTimeLoss > myTimeLossThreshold && iv->second->distToDetectorEnd > 0){
+                        SUMOReal estimatedTimeToJunction = (iv->second->distToDetectorEnd)/(*j)->getSpeedLimit();
                         prolongationTime = MAX2(prolongationTime, estimatedTimeToJunction);
+
 #ifdef DEBUG_TIMELOSS_CONTROL
                         std::cout << "vehicle '" << iv->id << "' with accumulated timeloss: " << iv->accumulatedTimeLoss
                                   << "\nestimated passing time: " << estimatedTimeToJunction << std::endl;
@@ -152,7 +149,8 @@ MSDelayBasedTrafficLightLogic::proposeProlongation() {
     std::cout << "Proposed prolongation (maximal estimated passing time): " << prolongationTime << std::endl; // debug
 #endif
     return TIME2STEPS(prolongationTime);
-}
+};
+
 
 
 SUMOTime
@@ -200,3 +198,4 @@ MSDelayBasedTrafficLightLogic::trySwitch() {
 
 
 /****************************************************************************/
+

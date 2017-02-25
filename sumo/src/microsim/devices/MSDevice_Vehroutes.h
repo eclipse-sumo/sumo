@@ -97,7 +97,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
     /** @brief Saves exit times if needed
@@ -111,7 +111,7 @@ public:
      *
      * @return True, if exit times are to be collected.
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason);
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
     /// @}
 
 

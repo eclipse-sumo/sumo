@@ -109,7 +109,7 @@ public:
         * @param[in] reason The reason for the state change
         * @see MSMoveReminder::notifyLeave
         */
-        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
+        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
         /// @}
 
 
@@ -174,7 +174,7 @@ public:
         * @param[in] reason The reason for the state change
         * @see MSMoveReminder::notifyLeave
         */
-        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
+        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
         //@}
 
 

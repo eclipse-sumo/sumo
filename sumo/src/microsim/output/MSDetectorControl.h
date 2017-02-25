@@ -39,7 +39,6 @@
 #include <utils/common/NamedObjectCont.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <microsim/output/MSE2Collector.h>
-#include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/output/MSE3Collector.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/output/MSRouteProbe.h>

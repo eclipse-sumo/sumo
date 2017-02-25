@@ -46,6 +46,7 @@ class NLDetectorBuilder;
 /**
  * @class MSDelayBasedTrafficLightLogic
  * @brief An actuated traffic light logic based on time delay of approaching vehicles
+ * @todo Validate against the original algorithm's details.
  */
 class MSDelayBasedTrafficLightLogic : public MSSimpleTrafficLightLogic {
 public:
@@ -115,12 +116,30 @@ protected:
      */
     SUMOTime proposeProlongation();
 
+    /**
+     * @brief Calculates the points lie at distance dist upstream (measured from the lane's end).
+     *        Note that this uses the distance along the road network, not the Euclidean distance.
+     *        If the lane has no predecessors, the cross section is placed at its beginning.
+     * @param[in] dist The upstream distance for the cross sections to be determined.
+     * @param[in/out] res Container to store the cross sections.
+     */
+    void determineEntriesAndExits(SUMOReal range, CrossSectionVector& entries, CrossSectionVector& exits) const;
+
+
 protected:
     /// A map from lanes to the corresponding lane detectors
     LaneDetectorMap myLaneDetectors;
 
     /// Whether the detectors shall be shown in the GUI
     bool myShowDetectors;
+
+    /// Range of the connected detector, which provides the information on approaching vehicles
+    SUMOReal myDetectionRange;
+
+    /// If a vehicle's timeloss is below myTimeLossThreshold, this is counted as insignificant,
+    /// since this may stem from dawdling, or driving only slightly slower than the maximal velocity on the lane.
+    // (Idea: this might be adapted to the detector-length and the vehicle's maximal speed)
+    SUMOReal myTimeLossThreshold;
 
     /// The output file for generated detectors
     std::string myFile;

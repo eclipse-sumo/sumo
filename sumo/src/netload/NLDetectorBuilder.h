@@ -37,6 +37,7 @@
 #include <microsim/output/MSCrossSection.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/output/MSE2Collector.h>
+#include <microsim/output/MSMultiLaneE2Collector.h>
 
 // ===========================================================================
 // class declarations
@@ -122,100 +123,22 @@ public:
                                 const std::string& vTypes);
 
 
-    /** @brief Builds an e2 detector with a fixed interval and adds it to the net
-     *
-     * Checks the given values, first. If one of the values is invalid
-     *  (lane is not known, sampling frequency<=0, position is larger
-     *  than lane's length, length is too large, the id is already in use),
-     *  an InvalidArgument is thrown.
-     *
-     * Otherwise the e2 detector is built, either by calling "buildMultiLaneE2Det"
-     *  if the detector shall continue on consecutive lanes, or by calling
-     *  "buildSingleLaneE2Det" if it is a one-lane detector.
-     *
-     * @param[in] id The id the detector shall have
-     * @param[in] lane The name of the lane the detector is placed at
-     * @param[in] pos The definition of the position on the lane the detector shall be placed at
-     * @param[in] length The definition of the length the detector shall have
-     * @param[in] cont Whether the detector shall continue on predeceeding lanes
-     * @param[in] splInterval The aggregation time span the detector shall use
-     * @param[in] device The output device the detector shall write into
-     * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
-     * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
-     * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
-     * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
-     * @exception InvalidArgument If one of the values is invalid
-     */
-    void buildE2Detector(const std::string& id, const std::string& lane, SUMOReal pos, SUMOReal length,
-                         bool cont, SUMOTime splInterval, const std::string& device, SUMOTime haltingTimeThreshold,
-                         SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
-                         bool friendlyPos,
-                         const std::string& vTypes);
+    /// @note We demand that either pos == numeric_limits::max() or endPos == numeric_limits::max()
+    /// pos == numeric_limits::max() indicates, endPos should be used and lane is interpreted as endLane.
+    ///
+    /// Further, if tlls != 0 we must have frequency == -1, and for tlls == 0, we have toLane == 0 and frequency > 0
+    ///
+    void buildE2Detector(const std::string& id, MSLane* lane, SUMOReal pos, SUMOReal endPos, SUMOReal length,
+                         const std::string& device, SUMOTime frequency,
+                         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+                         bool friendlyPos, const std::string& vTypes,
+                         MSTLLogicControl::TLSLogicVariants* tlls = 0, MSLane* toLane = 0);
 
-
-    /** @brief Builds an e2 detector connected to a lsa
-     *
-     * Checks the given values, first. If one of the values is invalid
-     *  (lane is not known, position is larger than lane's length, length is too large,
-     *  the tls is not known, the id is already in use),
-     *  an InvalidArgument is thrown.
-     *
-     * Otherwise the e2 detector is built, either by calling "buildMultiLaneE2Det"
-     *  if the detector shall continue on consecutive lanes, or by calling
-     *  "buildSingleLaneE2Det" if it is a one-lane detector.
-     *
-     * @param[in] id The id the detector shall have
-     * @param[in] lane The name of the lane the detector is placed at
-     * @param[in] pos The definition of the position on the lane the detector shall be placed at
-     * @param[in] length The definition of the length the detector shall have
-     * @param[in] cont Whether the detector shall continue on predeceeding lanes
-     * @param[in] tlls The tls the detector is assigned to
-     * @param[in] device The output device the detector shall write into
-     * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
-     * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
-     * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
-     * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
-     * @exception InvalidArgument If one of the values is invalid
-     */
-    void buildE2Detector(const std::string& id, const std::string& lane, SUMOReal pos, SUMOReal length,
-                         bool cont, MSTLLogicControl::TLSLogicVariants& tlls,
-                         const std::string& device, SUMOTime haltingTimeThreshold,
-                         SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
-                         bool friendlyPos,
-                         const std::string& vTypes);
-
-
-    /** @brief Builds an e2 detector connected to a link's state
-     *
-     * Checks the given values, first. If one of the values is invalid
-     *  (lane is not known, position is larger than lane's length, length is too large,
-     *  the tls or the destination lane is not known, the id is already in use),
-     *  an InvalidArgument is thrown.
-     *
-     * Otherwise the e2 detector is built, either by calling "buildMultiLaneE2Det"
-     *  if the detector shall continue on consecutive lanes, or by calling
-     *  "buildSingleLaneE2Det" if it is a one-lane detector.
-     *
-     * @param[in] id The id the detector shall have
-     * @param[in] lane The name of the lane the detector is placed at
-     * @param[in] pos The definition of the position on the lane the detector shall be placed at
-     * @param[in] length The definition of the length the detector shall have
-     * @param[in] cont Whether the detector shall continue on predeceeding lanes
-     * @param[in] tlls The tls the detector is assigned to
-     * @param[in] tolane The name of the lane to which the link to which the detector to build shall be assigned to points
-     * @param[in] device The output device the detector shall write into
-     * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
-     * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
-     * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
-     * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
-     * @exception InvalidArgument If one of the values is invalid
-     */
-    void buildE2Detector(const std::string& id, const std::string& lane, SUMOReal pos, SUMOReal length,
-                         bool cont, MSTLLogicControl::TLSLogicVariants& tlls, const std::string& tolane,
-                         const std::string& device, SUMOTime haltingTimeThreshold,
-                         SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
-                         bool friendlyPos,
-                         const std::string& vTypes);
+    void buildE2Detector(const std::string& id, std::vector<MSLane*> lanes, SUMOReal pos, SUMOReal endPos,
+                         const std::string& device, SUMOTime frequency,
+                         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+                         bool friendlyPos, const std::string& vTypes,
+                         MSTLLogicControl::TLSLogicVariants* tlls = 0, MSLane* toLane = 0);
 
 
     /** @brief Stores temporary the initial information about an e3 detector to build
@@ -372,6 +295,7 @@ public:
      * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
+     * @param[in] vTypes Vehicle types, that the detector takes into account
      */
     virtual MSE2Collector* createSingleLaneE2Detector(const std::string& id,
             DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
@@ -379,27 +303,6 @@ public:
             SUMOReal haltingSpeedThreshold,
             SUMOReal jamDistThreshold,
             const std::string& vTypes);
-
-
-    /** @brief Creates an instance of an e2ol-detector using the given values
-     *
-     * Simply calls the MS_E2_ZS_CollectorOverLanes constructor. After this call,
-     *  the detector must be initialised.
-     *
-     * @param[in] id The id the detector shall have
-     * @param[in] lane The lane the detector is placed at
-     * @param[in] pos The position on the lane the detector is placed at
-     * @param[in] length The length the detector has
-     * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
-     * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
-     * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
-     */
-    virtual MSDetectorFileOutput* createMultiLaneE2Detector(
-        const std::string& id, DetectorUsage usage, MSLane* lane, SUMOReal pos,
-        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold,
-        const std::string& vTypes);
-
 
     /** @brief Creates an instance of an e3 detector using the given values
      *
@@ -462,26 +365,6 @@ public:
                                         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
                                         SUMOReal jamDistThreshold,
                                         const std::string& vTypes);
-
-
-    /** @brief Builds an e2 detector that continues on preceeding lanes
-     *
-     * @param[in] id The id the detector shall have
-     * @param[in] usage Information how the detector is used within the simulation
-     * @param[in] lane The lane the detector is placed at
-     * @param[in] pos The position on the lane the detector is placed at
-     * @param[in] length The length the detector has
-     * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
-     * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
-     * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
-     * @todo Check whether this method is really needful
-     */
-    MSDetectorFileOutput* buildMultiLaneE2Det(const std::string& id, DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
-            SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-            SUMOReal jamDistThreshold,
-            const std::string& vTypes);
-
-
 
 
 protected:
@@ -555,31 +438,6 @@ protected:
                                  const std::string& detid);
 
 
-    /** @brief Converts the length and the position information for an e2 detector
-     *
-     * @param[in] id The id of the currently built detector (for error message generation)
-     * @param[in] clane The lane the detector is placed at
-     * @param[in, out] pos The position definition to convert
-     * @param[in, out] length The length definition to convert
-     * @exception InvalidArgument If the defined position or the defined length is invalid
-     */
-    void convUncontE2PosLength(const std::string& id, MSLane* clane,
-                               SUMOReal& pos, SUMOReal& length, bool frinedly_pos);
-
-
-    /** @brief Converts the length and the position information for an e2ol-detector
-     *
-     * @param[in] id The id of the currently built detector (for error message generation)
-     * @param[in] clane The lane the detector is placed at
-     * @param[in, out] pos The position definition to convert
-     * @param[in, out] length The length definition to convert
-     * @exception InvalidArgument If the defined position or the defined length is invalid
-     */
-    void convContE2PosLength(const std::string& id, MSLane* clane,
-                             SUMOReal& pos, SUMOReal& length, bool frinedly_pos);
-
-
-
     /// @name Value checking/adapting methods
     /// @{
 
@@ -592,7 +450,7 @@ protected:
     MSEdge* getEdgeChecking(const std::string& edgeID, SumoXMLTag type,
                             const std::string& detid);
 
-
+public:
     /** @brief Returns the named lane
      * @param[in] laneID The id of the lane
      * @param[in] type The type of the detector (for error message generation)
@@ -602,7 +460,7 @@ protected:
     MSLane* getLaneChecking(const std::string& laneID, SumoXMLTag type,
                             const std::string& detid);
 
-
+protected:
     /** @brief Checks whether the given frequency (sample interval) is valid
      * @param[in] splInterval The sample interval
      * @param[in] type The type of the detector (for error message generation)

@@ -32,8 +32,7 @@
 #include <string>
 #include <iostream>
 #include <guisim/GUIInductLoop.h>
-#include <guisim/GUI_E2_ZS_Collector.h>
-#include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
+#include <guisim/GUIE2Collector.h>
 #include <guisim/GUIE3Collector.h>
 #include <guisim/GUIInstantInductLoop.h>
 #include <microsim/MSGlobals.h>
@@ -88,17 +87,17 @@ GUIDetectorBuilder::createSingleLaneE2Detector(const std::string& id,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold, const std::string& vTypes) {
-    return new GUI_E2_ZS_Collector(id, usage, lane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
+    return new GUIE2Collector(id, usage, lane, pos, std::numeric_limits<SUMOReal>::max(), length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
 }
 
 
 MSDetectorFileOutput*
 GUIDetectorBuilder::createMultiLaneE2Detector(const std::string& id,
-        DetectorUsage usage, MSLane* lane, SUMOReal pos,
+        DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold, const std::string& vTypes) {
-    return new GUI_E2_ZS_CollectorOverLanes(id, usage, lane, pos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
+    return new GUIE2Collector(id, usage, lane, pos, std::numeric_limits<SUMOReal>::max(), length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
 }
 
 

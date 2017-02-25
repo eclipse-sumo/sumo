@@ -131,7 +131,7 @@ public:
      * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
      */
     virtual MSDetectorFileOutput* createMultiLaneE2Detector(
-        const std::string& id, DetectorUsage usage, MSLane* lane, SUMOReal pos,
+        const std::string& id, DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold, const std::string& vTypes);

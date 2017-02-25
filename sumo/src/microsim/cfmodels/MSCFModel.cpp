@@ -391,7 +391,7 @@ MSCFModel::passingTime(const SUMOReal lastPos, const SUMOReal passedPos, const S
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         // euler update (constantly moving with currentSpeed during [0,TS])
         const SUMOReal t = distanceOldToPassed / currentSpeed;
-        return t;
+        return MIN2(TS, MAX2(0., t)); //rounding errors could give results out of the admissible result range
 
     } else {
         // ballistic update (constant acceleration a during [0,TS], except in case of a stop)
@@ -417,7 +417,7 @@ MSCFModel::passingTime(const SUMOReal lastPos, const SUMOReal passedPos, const S
         if (fabs(a) < NUMERICAL_EPS) {
             // treat as constant speed within [0, TS]
             const SUMOReal t = 2 * distanceOldToPassed / (lastSpeed + currentSpeed);
-            return t;
+            return MIN2(TS, MAX2(0., t)); //rounding errors could give results out of the admissible result range
         } else if (a > 0) {
             // positive acceleration => only one positive solution
             const SUMOReal va = lastSpeed / a;

@@ -168,8 +168,7 @@
     <ClCompile Include="..\..\..\src\guisim\GUIParkingArea.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIPerson.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUITransportableControl.cpp" />
-    <ClCompile Include="..\..\..\src\guisim\GUI_E2_ZS_Collector.cpp" />
-    <ClCompile Include="..\..\..\src\guisim\GUI_E2_ZS_CollectorOverLanes.cpp" />
+    <ClCompile Include="..\..\..\src\guisim\GUIE2Collector.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIBusStop.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIDetectorWrapper.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIE3Collector.cpp" />
@@ -195,8 +194,7 @@
     <ClInclude Include="..\..\..\src\guisim\GUIParkingArea.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIPerson.h" />
     <ClInclude Include="..\..\..\src\guisim\GUITransportableControl.h" />
-    <ClInclude Include="..\..\..\src\guisim\GUI_E2_ZS_Collector.h" />
-    <ClInclude Include="..\..\..\src\guisim\GUI_E2_ZS_CollectorOverLanes.h" />
+    <ClCompile Include="..\..\..\src\guisim\GUIE2Collector.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIBusStop.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIDetectorWrapper.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIE3Collector.h" />

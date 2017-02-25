@@ -156,7 +156,7 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
 void
 MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, int direction) {
     initLastLaneChangeOffset(direction);
-    myVehicle.leaveLane(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
+    myVehicle.leaveLane(MSMoveReminder::NOTIFICATION_LANE_CHANGE, target);
     source->leftByLaneChange(&myVehicle);
     myVehicle.enterLaneAtLaneChange(target);
     target->enteredByLaneChange(&myVehicle);

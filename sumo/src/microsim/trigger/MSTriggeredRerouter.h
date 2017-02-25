@@ -129,7 +129,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
@@ -152,7 +152,7 @@ public:
      * @param[in] isLaneChange whether the vehicle changed from the lane
      * @return false if the vehicle left th edge
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
 
     /// Returns the rerouting definition valid for the given time and vehicle, 0 if none
     const RerouteInterval* getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const;

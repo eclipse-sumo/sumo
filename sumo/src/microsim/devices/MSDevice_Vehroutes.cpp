@@ -128,7 +128,7 @@ MSDevice_Vehroutes::~MSDevice_Vehroutes() {
 
 
 bool
-MSDevice_Vehroutes::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
+MSDevice_Vehroutes::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         if (mySorted && myStateListener.myDevices[&veh] == this) {
             const SUMOTime departure = myIntendedDepart ? myHolder.getParameter().depart : MSNet::getInstance()->getCurrentTimeStep();
@@ -140,7 +140,7 @@ MSDevice_Vehroutes::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification r
 
 
 bool
-MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) {
+MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     if (mySaveExits && reason != NOTIFICATION_LANE_CHANGE) {
         if (reason != NOTIFICATION_TELEPORT && myLastSavedAt == veh.getEdge()) { // need to check this for internal lanes
             myExits.back() = MSNet::getInstance()->getCurrentTimeStep();

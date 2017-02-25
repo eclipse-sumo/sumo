@@ -115,7 +115,7 @@ public:
      * @return True if vehicle enters the induction loop
      * @see Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, Notification reason);
+    bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane = 0);
 
     /** @brief Checks whether the vehicle shall be counted and/or shall still touch this MSMoveReminder
      *
@@ -150,7 +150,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
 
 
     //@}

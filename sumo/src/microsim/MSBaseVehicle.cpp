@@ -343,9 +343,9 @@ MSBaseVehicle::removeReminder(MSMoveReminder* rem) {
 
 
 void
-MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason) {
+MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason, const MSLane* enteredLane) {
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
-        if (rem->first->notifyEnter(*this, reason)) {
+        if (rem->first->notifyEnter(*this, reason, enteredLane)) {
 #ifdef _DEBUG
             if (myTraceMoveReminders) {
                 traceMoveReminder("notifyEnter", rem->first, rem->second, true);

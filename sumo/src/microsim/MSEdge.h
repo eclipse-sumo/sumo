@@ -357,9 +357,8 @@ public:
     }
 
 
-    /** @brief Returns the edge at the given position from the list of reachable edges
-     * @param[in] pos The position of the list within the list of approached
-     * @return The following edge, stored at position pos
+    /** @brief
+     * @return
      */
     const MSEdgeVector& getPredecessors() const {
         return myPredecessors;

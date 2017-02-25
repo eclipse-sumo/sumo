@@ -1,0 +1,8 @@
+<routes>
+    <route id="r1" edges="In L2 L3 L4 L5 L6 L7 Out"/>
+    <route id="r2" edges="In L2 L3 midexit"/>
+    <route id="r3" edges="midentry L3 L4 L5 L6 L7 Out"/>
+    <route id="r4" edges="midentry L3 midexit"/>
+    <vType id="t1" sigma="0" length="5"/>
+    <vehicle id="v0" type ="t1" depart="0" route="r1" departSpeed="max" departLane="0" arrivalLane="1"/>
+</routes>

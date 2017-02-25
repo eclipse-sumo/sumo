@@ -98,7 +98,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& 
 
 
 bool
-MSMeanData_Amitran::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
+MSMeanData_Amitran::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (myParent->vehicleApplies(veh)) {
         if (getLane() == 0 || getLane() == static_cast<MSVehicle&>(veh).getLane()) {
             if (reason == MSMoveReminder::NOTIFICATION_DEPARTED || reason == MSMoveReminder::NOTIFICATION_JUNCTION) {

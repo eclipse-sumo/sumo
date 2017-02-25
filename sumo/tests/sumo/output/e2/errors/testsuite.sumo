@@ -4,7 +4,6 @@ id_missing
 # id is empty
 id_empty
 
-
 # lane is missing
 lane_missing
 
@@ -13,7 +12,6 @@ lane_empty
 
 # lane is unknown
 lane_false
-
 
 # position is missing
 pos_missing
@@ -27,7 +25,6 @@ pos_false
 # position is beyond lane's length
 pos_too_high
 
-
 # length is missing
 length_missing
 
@@ -37,9 +34,8 @@ length_empty
 # length is not numeric
 length_false
 
-# length is beyond lane's length
+# length length is beyond lane's length. (NOTE: This is no longer forbidden since multiple lanes may be spanned by the E2 detector)
 length_too_high
-
 
 # freq is missing
 freq_missing
@@ -53,7 +49,6 @@ freq_negative
 # freq is not numeric
 freq_false
 
-
 # file is missing
 file_missing
 
@@ -62,6 +57,3 @@ file_empty
 
 # file can not be built
 file_false
-
-
-

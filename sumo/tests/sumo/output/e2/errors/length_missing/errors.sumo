@@ -1,2 +1,1 @@
-Error: Attribute 'length' is missing in definition of e2Detector '4/1to3/1'.
-Quitting (on error).
+Warning: Missing arguments 'length'/'endPos' for E2Detector '4/1to3/1'. Assuming detector end == lane end of lane '4/1to3/1_0'.

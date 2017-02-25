@@ -5,7 +5,6 @@ MSCrossSection.h \
 MSDetectorControl.cpp MSDetectorControl.h \
 MSDetectorFileOutput.h \
 MSE2Collector.cpp MSE2Collector.h \
-MS_E2_ZS_CollectorOverLanes.cpp MS_E2_ZS_CollectorOverLanes.h \
 MSE3Collector.cpp MSE3Collector.h \
 MSInductLoop.cpp MSInductLoop.h \
 MSInstantInductLoop.cpp MSInstantInductLoop.h \
@@ -25,3 +24,5 @@ MSEmissionExport.cpp MSEmissionExport.h  \
 MSVTKExport.cpp MSVTKExport.h \
 MSFullExport.cpp MSFullExport.h \
 MSQueueExport.cpp MSQueueExport.h
+# MSMultiLaneE2Collector.cpp MSMultiLaneE2Collector.h
+# MS_E2_ZS_CollectorOverLanes.cpp MS_E2_ZS_CollectorOverLanes.h

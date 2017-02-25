@@ -342,8 +342,6 @@ public:
 
     /// @}
 
-
-
     /// @name Access to vehicles
     /// @{
 
@@ -554,6 +552,9 @@ public:
 
     /// returns the container with all links !!!
     const MSLinkCont& getLinkCont() const;
+
+    /// returns the link to the given lane or 0, if it is not connected
+    MSLink* getLinkTo(const MSLane*) const;
 
     /// Returns true if there is not a single vehicle on the lane.
     bool empty() const {
@@ -806,6 +807,22 @@ public:
     /** @brief return the (first) predecessor lane from the given edge
      */
     MSLane* getLogicalPredecessorLane(const MSEdge& fromEdge) const;
+
+
+    /** Return the main predecessor lane for the current.
+     * If there are several incoming lanes, the first attempt is to return the priorized.
+     * If this does not yield an unambiguous lane, the one with the least angle difference
+     * to the current is selected.
+     */
+    MSLane* getCanonicalPredecessorLane() const;
+
+
+    /** Return the main successor lane for the current.
+     * If there are several outgoing lanes, the first attempt is to return the priorized.
+     * If this does not yield an unambiguous lane, the one with the least angle difference
+     * to the current is selected.
+     */
+    MSLane* getCanonicalSuccessorLane() const;
 
     /// @brief get the state of the link from the logical predecessor to this lane
     LinkState getIncomingLinkState() const;
@@ -1109,9 +1126,17 @@ protected:
     /// The vClass speed restrictions for this lane
     const std::map<SUMOVehicleClass, SUMOReal>* myRestrictions;
 
+    /// All direct predecessor lanes
     std::vector<IncomingLaneInfo> myIncomingLanes;
+
+    /// 
     mutable MSLane* myLogicalPredecessorLane;
 
+    /// Similar to LogicalPredecessorLane, @see getCanonicalPredecessorLane()
+    mutable MSLane* myCanonicalPredecessorLane;
+
+    /// Main successor lane, @see getCanonicalSuccessorLane()
+    mutable MSLane* myCanonicalSuccessorLane;
 
     /// @brief The current length of all vehicles on this lane, including their minGaps
     SUMOReal myBruttoVehicleLengthSum;
@@ -1123,6 +1148,7 @@ protected:
         right-of-way rule, i.e. blocked or not blocked. */
     MSLinkCont myLinks;
 
+    /// All direct internal and direct (disregarding internal predecessors) non-internal predecessor lanes of this lane
     std::map<MSEdge*, std::vector<MSLane*> > myApproachingLanes;
 
     /// @brief leaders on all sublanes as seen by approaching vehicles (cached)
@@ -1214,7 +1240,7 @@ private:
 
     };
 
-    /** @class by_id_sorter
+    /** @class by_connections_to_sorter
      * @brief Sorts edges by their angle relative to the given edge (straight comes first)
      *
      */
@@ -1230,6 +1256,47 @@ private:
         by_connections_to_sorter& operator=(const by_connections_to_sorter&); // just to avoid a compiler warning
     private:
         const MSEdge* const myEdge;
+        SUMOReal myLaneDir;
+    };
+
+
+
+    /** @class incoming_lane_priority_sorter
+     * @brief Sorts lanes (IncomingLaneInfos) by their priority or, if this doesn't apply,
+     *         wrt. the angle difference magnitude relative to the target lane's angle (straight comes first)
+     */
+    class incoming_lane_priority_sorter {
+    public:
+        /// @brief constructor
+        explicit incoming_lane_priority_sorter(const MSLane* targetLane);
+
+        /// @brief comparing operator
+        int operator()(const IncomingLaneInfo& lane1, const IncomingLaneInfo& lane2) const;
+
+    private:
+        incoming_lane_priority_sorter& operator=(const by_connections_to_sorter&); // just to avoid a compiler warning
+    private:
+        const MSLane* const myLane;
+        SUMOReal myLaneDir;
+    };
+
+
+    /** @class outgoing_lane_priority_sorter
+     * @brief Sorts lanes (their origin link) by the priority of their noninternal target edges or, if this doesn't yield an unambiguous result,
+     *         wrt. the angle difference magnitude relative to the target lane's angle (straight comes first)
+     */
+    class outgoing_lane_priority_sorter {
+    public:
+        /// @brief constructor
+        explicit outgoing_lane_priority_sorter(const MSLane* sourceLane);
+
+        /// @brief comparing operator
+        int operator()(const MSLink* link1, const MSLink* link2) const;
+
+    private:
+        outgoing_lane_priority_sorter& operator=(const by_connections_to_sorter&); // just to avoid a compiler warning
+    private:
+        const MSLane* const myLane;
         SUMOReal myLaneDir;
     };
 

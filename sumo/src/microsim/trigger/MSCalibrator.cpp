@@ -476,7 +476,7 @@ MSCalibrator::updateMeanData() {
     }
 }
 
-bool MSCalibrator::VehicleRemover::notifyEnter(SUMOVehicle& veh, Notification /* reason */) {
+bool MSCalibrator::VehicleRemover::notifyEnter(SUMOVehicle& veh, Notification /* reason */, const MSLane* /* enteredLane */) {
     if (myParent == 0) {
         return false;
     }

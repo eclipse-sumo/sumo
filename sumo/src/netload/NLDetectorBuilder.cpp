@@ -40,7 +40,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/output/MSE2Collector.h>
-#include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
+#include <microsim/output/MSMultiLaneE2Collector.h>
 #include <microsim/output/MSVTypeProbe.h>
 #include <microsim/output/MSRouteProbe.h>
 #include <microsim/output/MSMeanData_Net.h>
@@ -134,133 +134,163 @@ NLDetectorBuilder::buildInstantInductLoop(const std::string& id,
 
 
 void
-NLDetectorBuilder::buildE2Detector(const std::string& id,
-                                   const std::string& lane, SUMOReal pos, SUMOReal length,
-                                   bool cont, SUMOTime splInterval,
-                                   const std::string& device,
-                                   SUMOTime haltingTimeThreshold,
-                                   SUMOReal haltingSpeedThreshold,
-                                   SUMOReal jamDistThreshold, bool friendlyPos,
-                                   const std::string& vTypes) {
-    checkSampleInterval(splInterval, SUMO_TAG_E2DETECTOR, id);
-    MSLane* clane = getLaneChecking(lane, SUMO_TAG_E2DETECTOR, id);
-    // check whether the detector may lie over more than one lane
-    MSDetectorFileOutput* det = 0;
-    if (!cont) {
-        convUncontE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildSingleLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
-        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, device, splInterval);
-    } else {
-        convContE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildMultiLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
-        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, device, splInterval);
-    }
-}
+NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, SUMOReal pos, SUMOReal endPos, SUMOReal length,
+                     const std::string& device, SUMOTime frequency,
+                     SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+                     bool friendlyPos, const std::string& vTypes,
+                     MSTLLogicControl::TLSLogicVariants* tlls, MSLane* toLane){
 
+    bool tlsGiven = tlls != 0;
+    bool toLaneGiven = toLane != 0;
+    bool posGiven = pos != std::numeric_limits<SUMOReal>::max();
+    bool endPosGiven = endPos != std::numeric_limits<SUMOReal>::max();
 
-void
-NLDetectorBuilder::buildE2Detector(const std::string& id,
-                                   const std::string& lane, SUMOReal pos, SUMOReal length,
-                                   bool cont,
-                                   MSTLLogicControl::TLSLogicVariants& tlls,
-                                   const std::string& device,
-                                   SUMOTime haltingTimeThreshold,
-                                   SUMOReal haltingSpeedThreshold,
-                                   SUMOReal jamDistThreshold, bool friendlyPos,
-                                   const std::string& vTypes) {
-    if (tlls.getActive() == 0) {
-        throw InvalidArgument("The detector '" + id + "' refers to the unknown lsa.");
-    }
-    MSLane* clane = getLaneChecking(lane, SUMO_TAG_E2DETECTOR, id);
-    // check whether the detector may lie over more than one lane
-    MSDetectorFileOutput* det = 0;
-    if (!cont) {
-        convUncontE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildSingleLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
-        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
-    } else {
-        convContE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildMultiLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
-        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
-    }
-    // add the file output
-    new Command_SaveTLCoupledDet(tlls, det, myNet.getCurrentTimeStep(), OutputDevice::getDevice(device));
-}
+    assert(posGiven || endPosGiven);
 
-
-void
-NLDetectorBuilder::buildE2Detector(const std::string& id,
-                                   const std::string& lane, SUMOReal pos, SUMOReal length,
-                                   bool cont,
-                                   MSTLLogicControl::TLSLogicVariants& tlls,
-                                   const std::string& tolane,
-                                   const std::string& device,
-                                   SUMOTime haltingTimeThreshold,
-                                   SUMOReal haltingSpeedThreshold,
-                                   SUMOReal jamDistThreshold, bool friendlyPos,
-                                   const std::string& vTypes) {
-    if (tlls.getActive() == 0) {
-        throw InvalidArgument("The detector '" + id + "' refers to the unknown lsa.");
-    }
-    MSLane* clane = getLaneChecking(lane, SUMO_TAG_E2DETECTOR, id);
-    MSLane* ctoLane = getLaneChecking(tolane, SUMO_TAG_E2DETECTOR, id);
-    MSLink* link = MSLinkContHelper::getConnectingLink(*clane, *ctoLane);
-    if (link == 0) {
-        throw InvalidArgument(
-            "The detector output can not be build as no connection between lanes '"
-            + lane + "' and '" + tolane + "' exists.");
-    }
-    if (pos < 0) {
-        pos = -pos;
-    }
-    // check whether the detector may lie over more than one lane
-    MSDetectorFileOutput* det = 0;
-    if (!cont) {
-        convUncontE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildSingleLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
-        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
-    } else {
-        convContE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildMultiLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
-        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
-    }
-    // add the file output
-    new Command_SaveTLCoupledLaneDet(tlls, det, myNet.getCurrentTimeStep(), OutputDevice::getDevice(device), link);
-}
-
-
-void
-NLDetectorBuilder::convUncontE2PosLength(const std::string& id, MSLane* clane,
-        SUMOReal& pos, SUMOReal& length,
-        bool friendlyPos) {
-    // get and check the position
-    pos = getPositionChecking(pos, clane, friendlyPos, id);
-    // check length
-    if (length <= 0) {
-        if (friendlyPos) {
-            length = (SUMOReal) 0.1;
-        } else {
-            throw InvalidArgument("Invalid length for detector '" + id + "'.");
+    // Check positioning
+    if (posGiven) {
+        if(pos >= lane->getLength() || (pos < 0 && -pos > lane->getLength())){
+            std::stringstream ss;
+            ss << "The given position (=" << pos << ") for detector '" << id
+                    << "' does not lie on the given lane '" << lane->getID()
+                    << "' with length " << lane->getLength();
+            if (friendlyPos) {
+                SUMOReal newPos = pos > 0 ? lane->getLength()-POSITION_EPS : 0.;
+                ss << " (adjusting to new position " << newPos;
+                WRITE_WARNING(ss.str());
+                pos = newPos;
+            } else {
+                ss << " (0 <= pos < lane->getLength() is required)";
+                throw InvalidArgument(ss.str());
+            }
         }
     }
-    if (length + pos > clane->getLength()) {
-        if (friendlyPos) {
-            length = clane->getLength() - pos;
-        } else {
-            throw InvalidArgument("The length of detector '" + id + "' reaches beyond the lane's '" + clane->getID() + "' length.");
+    if (endPosGiven) {
+        if(endPos > lane->getLength() || (endPos <= 0 && -endPos >= lane->getLength())){
+            std::stringstream ss;
+            ss << "The given end position (=" << endPos << ") for detector '" << id
+                    << "' does not lie on the given lane '" << lane->getID()
+                    << "' with length " << lane->getLength();
+            if (friendlyPos) {
+                SUMOReal newEndPos = endPos > 0 ? lane->getLength() : POSITION_EPS;
+                ss << " (adjusting to new position " << newEndPos;
+                WRITE_WARNING(ss.str());
+                pos = newEndPos;
+            } else {
+                std::stringstream ss;
+                ss << " (0 <= pos < lane->getLength() is required)";
+                throw InvalidArgument(ss.str());
+            }
         }
     }
-}
 
+    MSE2Collector* det = 0;
+    if (tlsGiven) {
+        // Detector connected to TLS
+        det =  new MSE2Collector(id, DU_USER_DEFINED, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, friendlyPos);
+        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
+        // add the file output (XXX: Where's the corresponding delete?)
+        if (toLaneGiven) {
+            // Detector also associated to specific link
+            MSLane* lastLane = det->getLastLane();
+            MSLink* link = MSLinkContHelper::getConnectingLink(*lastLane, *toLane);
+            if (link == 0) {
+                throw InvalidArgument(
+                    "The detector '" + id + "' cannot be build as no connection between lanes '"
+                    + lastLane->getID() + "' and '" + toLane->getID() + "' exists.");
+            }
+            new Command_SaveTLCoupledLaneDet(*tlls, det, myNet.getCurrentTimeStep(), OutputDevice::getDevice(device), link);
+        } else {
+            // detector for tls but without specific link
+            new Command_SaveTLCoupledDet(*tlls, det, myNet.getCurrentTimeStep(), OutputDevice::getDevice(device));
+        }
+    } else {
+        // User specified detector for xml-output
+        checkSampleInterval(frequency, SUMO_TAG_E2DETECTOR, id);
+        det =  new MSE2Collector(id, DU_USER_DEFINED, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, friendlyPos);
+        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, device, frequency);
+    }
+
+}
 
 void
-NLDetectorBuilder::convContE2PosLength(const std::string& id, MSLane* clane,
-                                       SUMOReal& pos, SUMOReal& /*length*/,
-                                       bool friendlyPos) {
-    // get and check the position
-    pos = getPositionChecking(pos, clane, friendlyPos, id);
-    // length will be kept as is
+NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> lanes, SUMOReal pos, SUMOReal endPos,
+                     const std::string& device, SUMOTime frequency,
+                     SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+                     bool friendlyPos, const std::string& vTypes,
+                     MSTLLogicControl::TLSLogicVariants* tlls, MSLane* toLane){
+
+    bool tlsGiven = tlls != 0;
+    bool toLaneGiven = toLane != 0;
+    assert(pos != std::numeric_limits<SUMOReal>::max());
+    assert(endPos != std::numeric_limits<SUMOReal>::max());
+    assert(lanes.size() != 0);
+
+    MSLane* firstLane = lanes[0];
+    MSLane* lastLane = lanes[lanes.size() - 1];
+
+    // Check positioning
+    if(pos >= firstLane->getLength() || (pos < 0 && -pos > firstLane->getLength())){
+        std::stringstream ss;
+        ss << "The given position (=" << pos << ") for detector '" << id
+                << "' does not lie on the given lane '" << firstLane->getID()
+                << "' with length " << firstLane->getLength();
+        if (friendlyPos) {
+            SUMOReal newPos = pos > 0 ? firstLane->getLength()-POSITION_EPS : 0.;
+            ss << " (adjusting to new position " << newPos;
+            WRITE_WARNING(ss.str());
+            pos = newPos;
+        } else {
+            ss << " (0 <= pos < lane->getLength() is required)";
+            throw InvalidArgument(ss.str());
+        }
+    }
+    if(endPos > lastLane->getLength() || (endPos <= 0 && -endPos >= lastLane->getLength())){
+        std::stringstream ss;
+        ss << "The given end position (=" << endPos << ") for detector '" << id
+                << "' does not lie on the given lane '" << lastLane->getID()
+                << "' with length " << lastLane->getLength();
+        if (friendlyPos) {
+            SUMOReal newEndPos = endPos > 0 ? lastLane->getLength() : POSITION_EPS;
+            ss << " (adjusting to new position " << newEndPos;
+            WRITE_WARNING(ss.str());
+            pos = newEndPos;
+        } else {
+            ss << " (0 <= pos < lane->getLength() is required)";
+            throw InvalidArgument(ss.str());
+        }
+    }
+
+    MSE2Collector* det = 0;
+    if (tlsGiven) {
+        // Detector connected to TLS
+        det = new MSE2Collector(id, DU_USER_DEFINED, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, friendlyPos);
+        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
+        // add the file output (XXX: Where's the corresponding delete?)
+        if (toLaneGiven) {
+            // Detector also associated to specific link
+            MSLane* lastLane= det->getLastLane();
+            MSLink* link = MSLinkContHelper::getConnectingLink(*lastLane, *toLane);
+            if (link == 0) {
+                throw InvalidArgument(
+                    "The detector '" + id + "' cannot be build as no connection between lanes '"
+                    + lastLane->getID() + "' and '" + toLane->getID() + "' exists.");
+            }
+            new Command_SaveTLCoupledLaneDet(*tlls, det, myNet.getCurrentTimeStep(), OutputDevice::getDevice(device), link);
+        } else {
+            // detector for tls but without specific link
+            new Command_SaveTLCoupledDet(*tlls, det, myNet.getCurrentTimeStep(), OutputDevice::getDevice(device));
+        }
+    } else {
+        // User specified detector for xml-output
+        checkSampleInterval(frequency, SUMO_TAG_E2DETECTOR, id);
+
+        det = new MSE2Collector(id, DU_USER_DEFINED, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, friendlyPos);
+        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, device, frequency);
+    }
+
 }
+
 
 
 void
@@ -354,8 +384,8 @@ NLDetectorBuilder::buildRouteProbe(const std::string& id, const std::string& edg
     myNet.getDetectorControl().add(SUMO_TAG_ROUTEPROBE, probe, device, frequency, begin);
 }
 
-
-// -------------------
+//
+//// -------------------
 MSE2Collector*
 NLDetectorBuilder::buildSingleLaneE2Det(const std::string& id,
                                         DetectorUsage usage,
@@ -369,20 +399,6 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string& id,
                                       jamDistThreshold, vTypes);
 }
 
-
-MSDetectorFileOutput*
-NLDetectorBuilder::buildMultiLaneE2Det(const std::string& id, DetectorUsage usage,
-                                       MSLane* lane, SUMOReal pos, SUMOReal length,
-                                       SUMOTime haltingTimeThreshold,
-                                       SUMOReal haltingSpeedThreshold,
-                                       SUMOReal jamDistThreshold,
-                                       const std::string& vTypes) {
-    MSDetectorFileOutput* ret = createMultiLaneE2Detector(id, usage,
-                                lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
-                                jamDistThreshold, vTypes);
-    static_cast<MS_E2_ZS_CollectorOverLanes*>(ret)->init(lane, length);
-    return ret;
-}
 
 
 MSDetectorFileOutput*
@@ -409,18 +425,8 @@ NLDetectorBuilder::createSingleLaneE2Detector(const std::string& id,
         DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
         const std::string& vTypes) {
-    return new MSE2Collector(id, usage, lane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
+    return new MSE2Collector(id, usage, lane, pos, std::numeric_limits<SUMOReal>::max(), length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
 }
-
-
-MSDetectorFileOutput*
-NLDetectorBuilder::createMultiLaneE2Detector(const std::string& id,
-        DetectorUsage usage, MSLane* lane, SUMOReal pos,
-        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
-        const std::string& vTypes) {
-    return new MS_E2_ZS_CollectorOverLanes(id, usage, lane, pos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
-}
-
 
 MSDetectorFileOutput*
 NLDetectorBuilder::createE3Detector(const std::string& id,

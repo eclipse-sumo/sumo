@@ -107,7 +107,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @see MSMoveReminder::Notification
          */
-        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
+        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         //@}
 
         bool isEmpty() const;

@@ -99,8 +99,10 @@ public:
         NOTIFICATION_JUNCTION,
         /// @brief The vehicle changes the segment (meso only)
         NOTIFICATION_SEGMENT,
-        /// @brief The vehicle changes lanes (micro only) XXX: What if a vehicle changes lanes and passes a junction simultaneously?
+        /// @brief The vehicle changes lanes (micro only)
         NOTIFICATION_LANE_CHANGE,
+        /* All notifications below must result in the vehicle not being on the net
+         * (onLeaveLane sets amOnNet=false if reason>=NOTIFICATION_TELEPORT) */
         /// @brief The vehicle is being teleported
         NOTIFICATION_TELEPORT,
         /// @brief The vehicle starts or ends parking
@@ -129,9 +131,10 @@ public:
      * @return True if vehicle enters the reminder.
      * @see Notification
      */
-    virtual bool notifyEnter(SUMOVehicle& veh, Notification reason) {
+    virtual bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane) {
         UNUSED_PARAMETER(reason);
         UNUSED_PARAMETER(&veh);
+        UNUSED_PARAMETER(&enteredLane);
         return true;
     }
 
@@ -175,7 +178,7 @@ public:
      * @return True if the reminder wants to receive further info.
      */
     virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-                             Notification reason) {
+                             Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0) {
         UNUSED_PARAMETER(reason);
         UNUSED_PARAMETER(lastPos);
         UNUSED_PARAMETER(&veh);

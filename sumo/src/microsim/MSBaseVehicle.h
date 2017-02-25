@@ -337,11 +337,12 @@ public:
      *  "MSMoveReminder::notifyEnter" is called.
      *
      * @param[in] reason The reason for changing the reminders' states
+     * @param[in] enteredLane The lane, which is entered (if applicable)
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    virtual void activateReminders(const MSMoveReminder::Notification reason);
+    virtual void activateReminders(const MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
     /** @brief Returns the precomputed factor by which the driver wants to be faster than the speed limit
      * @return Speed limit factor

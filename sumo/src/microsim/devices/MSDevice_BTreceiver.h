@@ -100,7 +100,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, Notification reason);
+    bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane = 0);
 
 
     /** @brief Checks whether the reminder still has to be notified about the vehicle moves
@@ -129,7 +129,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason);
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
     //@}
 
 

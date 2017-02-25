@@ -1,0 +1,3 @@
+<additionals>
+    <e2Detector id="e2MultiLaneDetector_In_0" lane="In_0" endPos="35.5" length="30" freq="10.00" file="detector.xml" />
+</additionals>
