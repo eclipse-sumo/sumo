@@ -94,15 +94,20 @@ MSE2Collector::MSE2Collector(const std::string& id,
     assert(lane != 0);
 
     // check that exactly one of length, startPos, endPos is invalid
-    bool lengthInvalid = length == std::numeric_limits<SUMOReal>::max();
+    bool lengthInvalid = length == std::numeric_limits<SUMOReal>::max() || length <= 0;
     bool endPosInvalid = endPos == std::numeric_limits<SUMOReal>::max();
     bool posInvalid = startPos == std::numeric_limits<SUMOReal>::max();
     int numInvalid = (int) lengthInvalid + (int) endPosInvalid + (int) posInvalid;
-    assert(numInvalid == 1);
 
     // check and normalize positions (assure positive values for pos and endPos, snap to lane-ends)
     if (lengthInvalid) {
         // assume that the detector is only located on a single lane
+        if (posInvalid) {
+            startPos = 0;
+        }
+        if (endPosInvalid) {
+            endPos = lane->getLength();
+        }
         endPos = endPos < 0 ? lane->getLength() + endPos : endPos;
         startPos = startPos < 0 ? lane->getLength() + startPos : startPos;
         bool valid = endPos <= lane->getLength() && 0 <= startPos && startPos < endPos;
