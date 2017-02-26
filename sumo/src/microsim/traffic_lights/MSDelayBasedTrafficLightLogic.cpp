@@ -48,7 +48,7 @@
 // parameter defaults definitions
 // ===========================================================================
 
-//#define DEBUG_TIMELOSS_CONTROL
+#define DEBUG_TIMELOSS_CONTROL
 
 // ===========================================================================
 // method definitions
@@ -62,7 +62,7 @@ MSDelayBasedTrafficLightLogic::MSDelayBasedTrafficLightLogic(MSTLLogicControl& t
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter) {
 
     myShowDetectors = TplConvert::_2bool(getParameter("show-detectors", "false").c_str());
-    myDetectionRange = TplConvert::_2SUMOReal(getParameter("range", "-1.0").c_str());
+    myDetectionRange = TplConvert::_2SUMOReal(getParameter("detectorRange", "-1.0").c_str());
     myTimeLossThreshold = TplConvert::_2SUMOReal(getParameter("minTimeloss", "1.0").c_str());
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(TplConvert::_2SUMOReal(getParameter("freq", "300").c_str()));
@@ -83,7 +83,7 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         const LaneVector& lanes = *i2;
         for (i = lanes.begin(); i != lanes.end(); i++) {
             MSLane* lane = (*i);
-            // Build the induct loop and set it into the container
+            // Build the detectors and register them at the detector control
             std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
             if (myLaneDetectors.find(lane) == myLaneDetectors.end()) {
                 myLaneDetectors[lane] = new MSE2Collector(id, DU_TL_CONTROL, lane, std::numeric_limits<SUMOReal>::max(), lane->getLength(), myDetectionRange, 0, 0, 0, myVehicleTypes);
@@ -103,7 +103,7 @@ MSDelayBasedTrafficLightLogic::~MSDelayBasedTrafficLightLogic() { }
 SUMOTime
 MSDelayBasedTrafficLightLogic::proposeProlongation() {
 #ifdef DEBUG_TIMELOSS_CONTROL
-    std::cout << "\n" << SIMTIME << " MSDelayBasedTrafficLightLogic::proposeProlongation() for TLS '" << this->getID() << "'" << std::endl;
+    std::cout << "\n" << SIMTIME << " MSDelayBasedTrafficLightLogic::proposeProlongation() for TLS '" << this->getID() << "' (current phase = " << myStep << ")" << std::endl;
 #endif
     SUMOReal prolongationTime = 0.;
     const std::string& state = getCurrentPhaseDef().getState();
@@ -124,24 +124,33 @@ MSDelayBasedTrafficLightLogic::proposeProlongation() {
 
                 MSE2Collector* detector = static_cast<MSE2Collector* >(i->second);
                 const MSE2Collector::VehicleInfoMap& vehInfos = detector->getVehicleInfos();
-
 #ifdef DEBUG_TIMELOSS_CONTROL
-                std::cout << "Number of current vehicles on detector: " << vehInfos.size() << std::endl;
+                int nrVehs = 0; // count vehicles on detector
 #endif
-
                 for (MSE2Collector::VehicleInfoMap::const_iterator iv = vehInfos.begin(); iv != vehInfos.end(); ++iv){
-                    if (iv->second->accumulatedTimeLoss > myTimeLossThreshold && iv->second->distToDetectorEnd > 0){
-                        SUMOReal estimatedTimeToJunction = (iv->second->distToDetectorEnd)/(*j)->getSpeedLimit();
-                        prolongationTime = MAX2(prolongationTime, estimatedTimeToJunction);
+                    if (iv->second->onDetector){
+                        if (iv->second->accumulatedTimeLoss > myTimeLossThreshold && iv->second->distToDetectorEnd > 0) {
+                            SUMOReal estimatedTimeToJunction = (iv->second->distToDetectorEnd)/(*j)->getSpeedLimit();
+                            prolongationTime = MAX2(prolongationTime, estimatedTimeToJunction);
+#ifdef DEBUG_TIMELOSS_CONTROL
+                            nrVehs++;
+#endif
 
 #ifdef DEBUG_TIMELOSS_CONTROL
-                        std::cout << "vehicle '" << iv->id << "' with accumulated timeloss: " << iv->accumulatedTimeLoss
-                                  << "\nestimated passing time: " << estimatedTimeToJunction << std::endl;
-                    } else {
-                        std::cout << "disregarded: (vehicle '" << iv->id << "' with accumulated timeloss " << iv->accumulatedTimeLoss << ")" << std::endl;
+                            std::cout << "vehicle '" << iv->second->id << "' with accumulated timeloss: " << iv->second->accumulatedTimeLoss
+                                      << "\nestimated passing time: " << estimatedTimeToJunction << std::endl;
+                        } else {
+                            std::string reason = iv->second->accumulatedTimeLoss <= myTimeLossThreshold ? " (time loss below threshold)" : " (front already left detector)";
+                            std::cout << "disregarded: (vehicle '" << iv->second->id << "' with accumulated timeloss " << iv->second->accumulatedTimeLoss << ")" << reason << std::endl;
 #endif
+                        }
                     }
                 }
+
+#ifdef DEBUG_TIMELOSS_CONTROL
+                std::cout << "Number of current vehicles on detector: " << nrVehs << std::endl;
+#endif
+
             }
         }
     }
