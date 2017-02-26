@@ -598,11 +598,11 @@ StringBijection<LinkDirection>::Entry SUMOXMLDefinitions::linkDirectionValues[] 
 };
 
 
-StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesVales[] = {
+StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesValues[] = {
     { "static",         TLTYPE_STATIC },
     { "rail",           TLTYPE_RAIL },
     { "actuated",       TLTYPE_ACTUATED },
-    { "delayBased",     TLTYPE_DELAYBASED },
+    { "delay_based",    TLTYPE_DELAYBASED },
     { "sotl_phase",     TLTYPE_SOTL_PHASE },
     { "sotl_platoon",   TLTYPE_SOTL_PLATOON },
     { "sotl_request",   TLTYPE_SOTL_REQUEST },
@@ -680,7 +680,7 @@ StringBijection<LinkDirection> SUMOXMLDefinitions::LinkDirections(
     SUMOXMLDefinitions::linkDirectionValues, LINKDIR_NODIR);
 
 StringBijection<TrafficLightType> SUMOXMLDefinitions::TrafficLightTypes(
-    SUMOXMLDefinitions::trafficLightTypesVales, TLTYPE_INVALID);
+    SUMOXMLDefinitions::trafficLightTypesValues, TLTYPE_INVALID);
 
 StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
     SUMOXMLDefinitions::laneChangeModelValues, LCM_DEFAULT);

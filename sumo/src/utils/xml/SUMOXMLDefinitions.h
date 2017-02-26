@@ -1080,7 +1080,7 @@ private:
     static StringBijection<LinkDirection>::Entry linkDirectionValues[];
 
     /// @brief traffic light types values
-    static StringBijection<TrafficLightType>::Entry trafficLightTypesVales[];
+    static StringBijection<TrafficLightType>::Entry trafficLightTypesValues[];
 
     /// @brief lane change model values
     static StringBijection<LaneChangeModel>::Entry laneChangeModelValues[];
