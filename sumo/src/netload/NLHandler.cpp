@@ -994,7 +994,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
             }
         } else {
             std::stringstream ss;
-            if (lengthGiven and fabs(length - clane->getLength()) > NUMERICAL_EPS) {
+            if (lengthGiven && fabs(length - clane->getLength()) > NUMERICAL_EPS) {
                 ss << "Incomplete positional specification for E2Detector '" << id << "'."
                         << "\nUsage combinations for positional specification: [lane, pos, length], [lane, endPos, length], or [lanes, pos, endPos]";
                 throw InvalidArgument(ss.str());
