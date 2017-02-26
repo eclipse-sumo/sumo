@@ -37,7 +37,7 @@
 #include <microsim/output/MSCrossSection.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/output/MSE2Collector.h>
-#include <microsim/output/MSMultiLaneE2Collector.h>
+// #include <microsim/output/MSMultiLaneE2Collector.h>
 
 // ===========================================================================
 // class declarations

@@ -40,7 +40,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/output/MSE2Collector.h>
-#include <microsim/output/MSMultiLaneE2Collector.h>
+// #include <microsim/output/MSMultiLaneE2Collector.h>
 #include <microsim/output/MSVTypeProbe.h>
 #include <microsim/output/MSRouteProbe.h>
 #include <microsim/output/MSMeanData_Net.h>
