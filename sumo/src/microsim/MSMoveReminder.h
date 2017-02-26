@@ -179,9 +179,11 @@ public:
      */
     virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
                              Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0) {
-        UNUSED_PARAMETER(reason);
-        UNUSED_PARAMETER(lastPos);
         UNUSED_PARAMETER(&veh);
+        UNUSED_PARAMETER(lastPos);
+        UNUSED_PARAMETER(reason);
+        UNUSED_PARAMETER(leftLane);
+        UNUSED_PARAMETER(enteredLane);
         return true;
     }
 

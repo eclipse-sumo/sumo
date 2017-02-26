@@ -1274,7 +1274,7 @@ private:
         int operator()(const IncomingLaneInfo& lane1, const IncomingLaneInfo& lane2) const;
 
     private:
-        incoming_lane_priority_sorter& operator=(const by_connections_to_sorter&); // just to avoid a compiler warning
+        incoming_lane_priority_sorter& operator=(const incoming_lane_priority_sorter&); // just to avoid a compiler warning
     private:
         const MSLane* const myLane;
         SUMOReal myLaneDir;
@@ -1294,7 +1294,7 @@ private:
         int operator()(const MSLink* link1, const MSLink* link2) const;
 
     private:
-        outgoing_lane_priority_sorter& operator=(const by_connections_to_sorter&); // just to avoid a compiler warning
+        outgoing_lane_priority_sorter& operator=(const outgoing_lane_priority_sorter&); // just to avoid a compiler warning
     private:
         const MSLane* const myLane;
         SUMOReal myLaneDir;
