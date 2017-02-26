@@ -256,7 +256,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
                 oss << *it_val;
             
                 // edges has a special handle
-                if((myACs.front()->getTag() == SUMO_TAG_EDGE) && ((*it == SUMO_ATTR_WIDTH) || (*it == SUMO_ATTR_ENDOFFSET) || (*it == SUMO_ATTR_SPEED) || (*it == SUMO_ATTR_ALLOW)|| (*it == SUMO_ATTR_DISALLOW))) {
+                if((myACs.front()->getTag() == SUMO_TAG_EDGE) && ((*it == SUMO_ATTR_WIDTH) || (*it == SUMO_ATTR_ENDOFFSET) || (*it == SUMO_ATTR_SPEED))) {
                     std::vector<std::string> laneAttributes;
                     bool sameAttribute = true;
                     SUMOSAXAttributes::parseStringVector(oss.str(), laneAttributes);
@@ -898,7 +898,17 @@ GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor(FXObject*, FXSel
     if (myAttr == SUMO_ATTR_DISALLOW) {
         std::swap(allowed, disallowed);
     }
-    SVCPermissions permissions = parseVehicleClasses(allowed, disallowed);
+    // remove special word "(combined!)"
+    std::string::size_type i = allowed.find(" (combined!)");
+    if (i != std::string::npos) {
+       allowed.erase(i, 12);
+    }
+    SVCPermissions permissions;
+    if(allowed == "all") {
+        permissions = SVCAll;
+    } else {
+        permissions = parseVehicleClasses(allowed, disallowed);
+    }
     // use expanded form
     allowed = getVehicleClassNames(permissions, true);
     GNEDialog_AllowDisallow(getApp(), &allowed).execute();

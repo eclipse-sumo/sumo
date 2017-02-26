@@ -516,21 +516,16 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             return toString(myNBEdge.getLaneSpreadFunction());
         case SUMO_ATTR_NAME:
             return myNBEdge.getStreetName();
-        case SUMO_ATTR_ALLOW: {
-            // return vector with the allowed vehicles of lanes
-            std::vector<std::string> allowedVehicles;
-            for(std::vector<NBEdge::Lane>::const_iterator i = myNBEdge.getLanes().begin(); i != myNBEdge.getLanes().end(); i++) {
-                allowedVehicles.push_back(toString(i->permissions));
-            }
-            return joinToString(allowedVehicles, " ");
-        }
+        case SUMO_ATTR_ALLOW:
+            // return all allowed classes (may differ from the written attributes)
+            return (getVehicleClassNames(myNBEdge.getPermissions()) + (myNBEdge.hasLaneSpecificPermissions() ? " (combined!)" : ""));
         case SUMO_ATTR_DISALLOW: {
-            // return vector with the disallowed vehicles of lanes
-            std::vector<std::string> disallowedVehicles;
-            for(std::vector<NBEdge::Lane>::const_iterator i = myNBEdge.getLanes().begin(); i != myNBEdge.getLanes().end(); i++) {
-                disallowedVehicles.push_back(toString(~(i->permissions)));
+            // return classes disallowed on at least one lane (may differ from the written attributes)
+            SVCPermissions combinedDissallowed = 0;
+            for (int i = 0; i < (int)myNBEdge.getNumLanes(); ++i) {
+                combinedDissallowed |= ~myNBEdge.getPermissions(i);
             }
-            return joinToString(disallowedVehicles, " ");
+            return (getVehicleClassNames(combinedDissallowed) + (myNBEdge.hasLaneSpecificPermissions() ? " (combined!)" : ""));
         }
         case SUMO_ATTR_SPEED: {
             // return vector with the speeds of lanes
@@ -577,9 +572,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
     switch (key) {
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_ENDOFFSET:
-        case SUMO_ATTR_SPEED:
-        case SUMO_ATTR_ALLOW:
-        case SUMO_ATTR_DISALLOW: {
+        case SUMO_ATTR_SPEED: {
             undoList->p_begin("change " + toString(getTag()) + " attribute");
             std::vector<std::string> disallowedVehicles;
             SUMOSAXAttributes::parseStringVector(value, disallowedVehicles);
@@ -601,6 +594,19 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             undoList->p_end();
             break;
         }
+        case SUMO_ATTR_ALLOW:
+        case SUMO_ATTR_DISALLOW: {
+            undoList->p_begin("change " + toString(getTag()) + " attribute");
+            const std::string origValue = getAttribute(key); // will have intermediate value of "lane specific"
+            // lane specific attributes need to be changed via lanes to allow undo
+            for (LaneVector::iterator it = myLanes.begin(); it != myLanes.end(); it++) {
+                (*it)->setAttribute(key, value, undoList);
+            }
+            // ensure that the edge value is also changed. Actually this sets the lane attributes again but it does not matter
+            undoList->p_add(new GNEChange_Attribute(this, key, value, true, origValue));
+            undoList->p_end();
+            break;
+        }   
         case SUMO_ATTR_FROM: {
             undoList->p_begin("change  " + toString(getTag()) + "  attribute");
             undoList->p_add(new GNEChange_Attribute(this, key, value));
