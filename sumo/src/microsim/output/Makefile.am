@@ -23,6 +23,6 @@ MSStopOut.cpp MSStopOut.h  \
 MSEmissionExport.cpp MSEmissionExport.h  \
 MSVTKExport.cpp MSVTKExport.h \
 MSFullExport.cpp MSFullExport.h \
-MSQueueExport.cpp MSQueueExport.h
-# MSMultiLaneE2Collector.cpp MSMultiLaneE2Collector.h
+MSQueueExport.cpp MSQueueExport.h \
+MSMultiLaneE2Collector.cpp MSMultiLaneE2Collector.h
 # MS_E2_ZS_CollectorOverLanes.cpp MS_E2_ZS_CollectorOverLanes.h
