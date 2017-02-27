@@ -126,13 +126,13 @@ PollutantsInterface::getEuroClass(const SUMOEmissionClass c) {
 }
 
 
-SUMOReal
+double
 PollutantsInterface::getWeight(const SUMOEmissionClass c) {
     return myHelpers[c >> 16]->getWeight(c);
 }
 
 
-SUMOReal
+double
 PollutantsInterface::compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope) {
     return myHelpers[c >> 16]->compute(c, e, v, a, slope);
 }
@@ -147,8 +147,8 @@ PollutantsInterface::computeAll(const SUMOEmissionClass c, const double v, const
 }
 
 
-SUMOReal
-PollutantsInterface::computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const SUMOReal tt) {
+double
+PollutantsInterface::computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt) {
     const Helper* const h = myHelpers[c >> 16];
     return (h->compute(c, e, v, 0, slope) + h->compute(c, e, v - a, a, slope)) * tt / 2.;
 }

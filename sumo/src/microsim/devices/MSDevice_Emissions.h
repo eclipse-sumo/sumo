@@ -102,7 +102,7 @@ public:
         * @see MSMoveReminder::notifyMove
         * @see PollutantsInterface
         */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
+    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
     /// @}
 
 

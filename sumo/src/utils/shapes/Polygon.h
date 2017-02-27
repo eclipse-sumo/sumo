@@ -68,8 +68,8 @@ public:
      */
     Polygon(const std::string& id, const std::string& type,
             const RGBColor& color, const PositionVector& shape, bool fill,
-            SUMOReal layer = DEFAULT_LAYER,
-            SUMOReal angle = DEFAULT_ANGLE,
+            double layer = DEFAULT_LAYER,
+            double angle = DEFAULT_ANGLE,
             const std::string& imgFile = DEFAULT_IMG_FILE);
 
 

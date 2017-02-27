@@ -84,7 +84,7 @@ NBOwnTLDef::getToPrio(const NBEdge* const e) {
 }
 
 
-SUMOReal
+double
 NBOwnTLDef::getDirectionalWeight(LinkDirection dir) {
     switch (dir) {
         case LINKDIR_STRAIGHT:
@@ -100,9 +100,9 @@ NBOwnTLDef::getDirectionalWeight(LinkDirection dir) {
     return 0;
 }
 
-SUMOReal
+double
 NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const NBEdge* const e2) {
-    SUMOReal val = 0;
+    double val = 0;
     for (int e1l = 0; e1l < e1->getNumLanes(); e1l++) {
         std::vector<NBEdge::Connection> approached1 = e1->getConnectionsFromLane(e1l);
         for (int e2l = 0; e2l < e2->getNumLanes(); e2l++) {
@@ -130,16 +130,16 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const N
 std::pair<NBEdge*, NBEdge*>
 NBOwnTLDef::getBestCombination(const EdgeVector& edges) {
     std::pair<NBEdge*, NBEdge*> bestPair(static_cast<NBEdge*>(0), static_cast<NBEdge*>(0));
-    SUMOReal bestValue = -1;
+    double bestValue = -1;
     for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         for (EdgeVector::const_iterator j = i + 1; j != edges.end(); ++j) {
-            const SUMOReal value = computeUnblockedWeightedStreamNumber(*i, *j);
+            const double value = computeUnblockedWeightedStreamNumber(*i, *j);
             if (value > bestValue) {
                 bestValue = value;
                 bestPair = std::pair<NBEdge*, NBEdge*>(*i, *j);
             } else if (value == bestValue) {
-                const SUMOReal ca = GeomHelper::getMinAngleDiff((*i)->getAngleAtNode((*i)->getToNode()), (*j)->getAngleAtNode((*j)->getToNode()));
-                const SUMOReal oa = GeomHelper::getMinAngleDiff(bestPair.first->getAngleAtNode(bestPair.first->getToNode()), bestPair.second->getAngleAtNode(bestPair.second->getToNode()));
+                const double ca = GeomHelper::getMinAngleDiff((*i)->getAngleAtNode((*i)->getToNode()), (*j)->getAngleAtNode((*j)->getToNode()));
+                const double oa = GeomHelper::getMinAngleDiff(bestPair.first->getAngleAtNode(bestPair.first->getToNode()), bestPair.second->getAngleAtNode(bestPair.second->getToNode()));
                 if (fabs(oa - ca) < NUMERICAL_EPS) { // break ties by id
                     if (bestPair.first->getID() < (*i)->getID()) {
                         bestPair = std::pair<NBEdge*, NBEdge*>(*i, *j);
@@ -249,7 +249,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         if (incoming.size() == 2) {
             // if there are only 2 incoming edges we need to decide whether they are a crossing or a "continuation"
             // @node: this heuristic could be extended to also check the number of outgoing edges
-            SUMOReal angle = fabs(NBHelpers::relAngle(incoming[0]->getAngleAtNode(incoming[0]->getToNode()), incoming[1]->getAngleAtNode(incoming[1]->getToNode())));
+            double angle = fabs(NBHelpers::relAngle(incoming[0]->getAngleAtNode(incoming[0]->getToNode()), incoming[1]->getAngleAtNode(incoming[1]->getToNode())));
             // angle would be 180 for straight opposing incoming edges
             if (angle < 135) {
                 chosen = std::pair<NBEdge*, NBEdge*>(toProc[0], static_cast<NBEdge*>(0));

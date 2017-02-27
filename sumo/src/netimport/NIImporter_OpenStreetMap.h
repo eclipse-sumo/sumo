@@ -87,11 +87,11 @@ protected:
         /// @brief The node's id
         const long long int id;
         /// @brief The longitude the node is located at
-        const SUMOReal lon;
+        const double lon;
         /// @brief The latitude the node is located at
-        const SUMOReal lat;
+        const double lat;
         /// @brief The elevation of this node
-        SUMOReal ele;
+        double ele;
         /// @brief Whether this is a tls controlled junction
         bool tlsControlled;
         /// @brief Whether this is a railway crossing
@@ -234,13 +234,13 @@ private:
                    const std::vector<long long int>& passed, NBNetBuilder& nb);
 
     /// @brief reconstruct elevation from layer info
-    void reconstructLayerElevation(SUMOReal layerElevation, NBNetBuilder& nb);
+    void reconstructLayerElevation(double layerElevation, NBNetBuilder& nb);
 
     /// @brief collect neighboring nodes with their road distance and maximum between-speed. Search does not continue beyond knownElevation-nodes
-    std::map<NBNode*, std::pair<SUMOReal, SUMOReal> > getNeighboringNodes(NBNode* node, SUMOReal maxDist, const std::set<NBNode*>& knownElevation);
+    std::map<NBNode*, std::pair<double, double> > getNeighboringNodes(NBNode* node, double maxDist, const std::set<NBNode*>& knownElevation);
 
 protected:
-    static const SUMOReal MAXSPEED_UNGIVEN;
+    static const double MAXSPEED_UNGIVEN;
     static const long long int INVALID_ID;
 
     /**
@@ -377,7 +377,7 @@ protected:
         std::vector<int> myParentElements;
 
         /// @brief A map of non-numeric speed descriptions to their numeric values
-        std::map<std::string, SUMOReal> mySpeedMap;
+        std::map<std::string, double> mySpeedMap;
 
     private:
         /** @brief invalidated copy constructor */

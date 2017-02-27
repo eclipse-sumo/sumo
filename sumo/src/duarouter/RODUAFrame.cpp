@@ -101,11 +101,11 @@ void
 RODUAFrame::addDUAOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     // register Gawron's DUE-settings
-    oc.doRegister("gawron.beta", new Option_Float(SUMOReal(0.3)));
+    oc.doRegister("gawron.beta", new Option_Float(double(0.3)));
     oc.addSynonyme("gawron.beta", "gBeta", true);
     oc.addDescription("gawron.beta", "Processing", "Use FLOAT as Gawron's beta");
 
-    oc.doRegister("gawron.a", new Option_Float(SUMOReal(0.05)));
+    oc.doRegister("gawron.a", new Option_Float(double(0.05)));
     oc.addSynonyme("gawron.a", "gA", true);
     oc.addDescription("gawron.a", "Processing", "Use FLOAT as Gawron's a");
 
@@ -124,19 +124,19 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("route-choice-method", new Option_String("gawron"));
     oc.addDescription("route-choice-method", "Processing", "Choose a route choice method: gawron, logit, or lohse");
 
-    oc.doRegister("logit.beta", new Option_Float(SUMOReal(-1)));
+    oc.doRegister("logit.beta", new Option_Float(double(-1)));
     oc.addSynonyme("logit.beta", "lBeta", true);
     oc.addDescription("logit.beta", "Processing", "Use FLOAT as logit's beta");
 
-    oc.doRegister("logit.gamma", new Option_Float(SUMOReal(1)));
+    oc.doRegister("logit.gamma", new Option_Float(double(1)));
     oc.addSynonyme("logit.gamma", "lGamma", true);
     oc.addDescription("logit.gamma", "Processing", "Use FLOAT as logit's gamma");
 
-    oc.doRegister("logit.theta", new Option_Float(SUMOReal(-1)));
+    oc.doRegister("logit.theta", new Option_Float(double(-1)));
     oc.addSynonyme("logit.theta", "lTheta", true);
     oc.addDescription("logit.theta", "Processing", "Use FLOAT as logit's theta (negative values mean auto-estimation)");
 
-    oc.doRegister("persontrip.walkfactor", new Option_Float(SUMOReal(0.9)));
+    oc.doRegister("persontrip.walkfactor", new Option_Float(double(0.9)));
     oc.addDescription("persontrip.walkfactor", "Processing", "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing");
 
 }

@@ -136,22 +136,22 @@ private:
 
         struct Lane {
         public:
-            Lane(const std::string& _id, int _idx, SUMOReal _v)
+            Lane(const std::string& _id, int _idx, double _v)
                 : id(_id), index(_idx), v(_v) {}
             std::string id;
             int index;
-            SUMOReal v;
+            double v;
         };
 
         std::vector<Lane> myCurrentLanes;
 
         struct LaneSet {
         public:
-            LaneSet(const std::string& _id, const std::vector<Lane>& _lanes, SUMOReal _v, int _pos, NBNode* _from, NBNode* _to)
+            LaneSet(const std::string& _id, const std::vector<Lane>& _lanes, double _v, int _pos, NBNode* _from, NBNode* _to)
                 : id(_id), lanes(_lanes), v(_v), position(_pos), from(_from), to(_to) {}
             std::string id;
             std::vector<Lane> lanes;
-            SUMOReal v;
+            double v;
             int position;
             NBNode* from;
             NBNode* to;

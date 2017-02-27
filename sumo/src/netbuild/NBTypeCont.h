@@ -76,8 +76,8 @@ public:
      * @param[in] defaultPriority The default priority of an edge
      * @param[in] defaultPermissions The default permissions of an edge
      */
-    void setDefaults(int defaultNumLanes, SUMOReal defaultLaneWidth,
-                     SUMOReal defaultSpeed, int defaultPriority,
+    void setDefaults(int defaultNumLanes, double defaultLaneWidth,
+                     double defaultSpeed, int defaultPriority,
                      SVCPermissions defaultPermissions);
 
 
@@ -92,11 +92,11 @@ public:
      * @return Whether the type could be added (no type with the same id existed)
      */
     void insert(const std::string& id, int numLanes,
-                SUMOReal maxSpeed, int prio,
+                double maxSpeed, int prio,
                 SVCPermissions permissions,
-                SUMOReal width, bool oneWayIsDefault,
-                SUMOReal sidewalkWidth,
-                SUMOReal bikeLaneWidth);
+                double width, bool oneWayIsDefault,
+                double sidewalkWidth,
+                double bikeLaneWidth);
 
     /** @brief Returns the number of known types
      * @return The number of known edge types (excluding the default)
@@ -128,7 +128,7 @@ public:
      * @param[in] svc The vehicle class the restriction refers to
      * @param[in] speed The restricted speed
      */
-    bool addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed);
+    bool addRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed);
 
     /** @brief Copy restrictions to a type
      * @param[in] fromId The id of the source type
@@ -157,7 +157,7 @@ public:
      * @param[in] type The name of the type to return the speed for
      * @return The allowed speed on edges of this type
      */
-    SUMOReal getSpeed(const std::string& type) const;
+    double getSpeed(const std::string& type) const;
 
 
     /** @brief Returns the priority for the given type
@@ -211,7 +211,7 @@ public:
      * @param[in] type The name of the type to return the width for
      * @return The width of lanes of edges of this type
      */
-    SUMOReal getWidth(const std::string& type) const;
+    double getWidth(const std::string& type) const;
 
 
     /** @brief Returns the lane width for a sidewalk to be added [m]
@@ -220,7 +220,7 @@ public:
      * @param[in] type The name of the type to return the width for
      * @return The width of lanes of edges of this type
      */
-    SUMOReal getSidewalkWidth(const std::string& type) const;
+    double getSidewalkWidth(const std::string& type) const;
 
 
     /** @brief Returns the lane width for a bike lane to be added [m]
@@ -229,7 +229,7 @@ public:
      * @param[in] type The name of the type to return the width for
      * @return The width of lanes of edges of this type
      */
-    SUMOReal getBikeLaneWidth(const std::string& type) const;
+    double getBikeLaneWidth(const std::string& type) const;
     /// @}
 
 
@@ -237,7 +237,7 @@ private:
     struct TypeDefinition {
         /// @brief Constructor
         TypeDefinition() :
-            numLanes(1), speed((SUMOReal) 13.9), priority(-1),
+            numLanes(1), speed((double) 13.9), priority(-1),
             permissions(SVC_UNSPECIFIED),
             oneWay(true), discard(false),
             width(NBEdge::UNSPECIFIED_WIDTH),
@@ -246,10 +246,10 @@ private:
         }
 
         /// @brief Constructor
-        TypeDefinition(int _numLanes, SUMOReal _speed, int _priority,
-                       SUMOReal _width, SVCPermissions _permissions, bool _oneWay,
-                       SUMOReal _sideWalkWidth,
-                       SUMOReal _bikeLaneWidth) :
+        TypeDefinition(int _numLanes, double _speed, int _priority,
+                       double _width, SVCPermissions _permissions, bool _oneWay,
+                       double _sideWalkWidth,
+                       double _bikeLaneWidth) :
             numLanes(_numLanes), speed(_speed), priority(_priority),
             permissions(_permissions),
             oneWay(_oneWay), discard(false), width(_width),
@@ -260,7 +260,7 @@ private:
         /// @brief The number of lanes of an edge
         int numLanes;
         /// @brief The maximal velocity on an edge in m/s
-        SUMOReal speed;
+        double speed;
         /// @brief The priority of an edge
         int priority;
         /// @brief List of vehicle types that are allowed on this edge
@@ -270,15 +270,15 @@ private:
         /// @brief Whether edges of this type shall be discarded
         bool discard;
         /// @brief The width of lanes of edges of this type [m]
-        SUMOReal width;
+        double width;
         /* @brief The width of the sidewalk that should be added as an additional lane
          * a value of NBEdge::UNSPECIFIED_WIDTH indicates that no sidewalk should be added */
-        SUMOReal sidewalkWidth;
+        double sidewalkWidth;
         /* @brief The width of the bike lane that should be added as an additional lane
          * a value of NBEdge::UNSPECIFIED_WIDTH indicates that no bike lane should be added */
-        SUMOReal bikeLaneWidth;
+        double bikeLaneWidth;
         /// @brief The vehicle class specific speed restrictions
-        std::map<SUMOVehicleClass, SUMOReal> restrictions;
+        std::map<SUMOVehicleClass, double> restrictions;
         /// @brief The attributes which have been set
         std::set<SumoXMLAttr> attrs;
 

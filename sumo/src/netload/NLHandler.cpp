@@ -98,7 +98,7 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_NET: {
                 bool ok;
                 myLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, 0, ok, false);
-                myNetworkVersion = attrs.get<SUMOReal>(SUMO_ATTR_VERSION, 0, ok, false);
+                myNetworkVersion = attrs.get<double>(SUMO_ATTR_VERSION, 0, ok, false);
                 break;
             }
             case SUMO_TAG_EDGE:
@@ -224,7 +224,7 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_RESTRICTION: {
                 bool ok = true;
                 const SUMOVehicleClass svc = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, myCurrentTypeID.c_str(), ok));
-                const SUMOReal speed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentTypeID.c_str(), ok);
+                const double speed = attrs.get<double>(SUMO_ATTR_SPEED, myCurrentTypeID.c_str(), ok);
                 if (ok) {
                     myNet.addRestriction(myCurrentTypeID, svc, speed);
                 }
@@ -424,11 +424,11 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    const SUMOReal maxSpeed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, id.c_str(), ok);
-    const SUMOReal length = attrs.get<SUMOReal>(SUMO_ATTR_LENGTH, id.c_str(), ok);
+    const double maxSpeed = attrs.get<double>(SUMO_ATTR_SPEED, id.c_str(), ok);
+    const double length = attrs.get<double>(SUMO_ATTR_LENGTH, id.c_str(), ok);
     const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "", false);
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
-    const SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, SUMO_const_laneWidth);
+    const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), ok, SUMO_const_laneWidth);
     const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     const int index = attrs.get<int>(SUMO_ATTR_INDEX, id.c_str(), ok);
     const bool isRampAccel = attrs.getOpt<bool>(SUMO_ATTR_ACCELERATION, id.c_str(), ok, false);
@@ -478,8 +478,8 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
             shape.closePolygon();
         }
     }
-    SUMOReal x = attrs.get<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok);
-    SUMOReal y = attrs.get<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok);
+    double x = attrs.get<double>(SUMO_ATTR_X, id.c_str(), ok);
+    double y = attrs.get<double>(SUMO_ATTR_Y, id.c_str(), ok);
     bool typeOK = true;
     SumoXMLNodeType type = attrs.getNodeType(typeOK);
     if (!typeOK) {
@@ -779,7 +779,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
         return;
     }
     const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
-    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), ok);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
@@ -807,7 +807,7 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), ok);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
@@ -878,10 +878,10 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     const std::string lsaid = attrs.getOpt<std::string>(SUMO_ATTR_TLID, id.c_str(), ok, "");
     const std::string toLane = attrs.getOpt<std::string>(SUMO_ATTR_TO, id.c_str(), ok, "");
     const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
-    const SUMOReal haltingSpeedThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
-    const SUMOReal jamDistThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f);
-    SUMOReal position = attrs.getOpt<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok, std::numeric_limits<SUMOReal>::max());
-    const SUMOReal length = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, id.c_str(), ok, std::numeric_limits<SUMOReal>::max());
+    const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
+    const double jamDistThreshold = attrs.getOpt<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f);
+    double position = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), ok, std::numeric_limits<double>::max());
+    const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, std::numeric_limits<double>::max());
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     //    const bool showDetector = attrs.getOpt<bool>(SUMO_ATTR_SHOW_DETECTOR, id.c_str(), ok, true);
     const bool showDetector = true;
@@ -893,7 +893,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
 
-    SUMOReal endPosition = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, std::numeric_limits<SUMOReal>::max());
+    double endPosition = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, std::numeric_limits<double>::max());
     const std::string lanes = attrs.getOpt<std::string>(SUMO_ATTR_LANES, id.c_str(), ok, ""); // lanes has priority to lane
     if (!ok) {
         return;
@@ -907,9 +907,9 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
         lane = id;
         laneGiven = true;
     }
-    bool lengthGiven = length != std::numeric_limits<SUMOReal>::max();
-    bool posGiven = position != std::numeric_limits<SUMOReal>::max();
-    bool endPosGiven = endPosition != std::numeric_limits<SUMOReal>::max();
+    bool lengthGiven = length != std::numeric_limits<double>::max();
+    bool posGiven = position != std::numeric_limits<double>::max();
+    bool endPosGiven = endPosition != std::numeric_limits<double>::max();
     bool lsaGiven = lsaid != "";
     bool toLaneGiven = toLane != "";
 
@@ -975,7 +975,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
                 ss << "Ignoring argument 'endPos' for E2Detector '" << id << "' since argument 'pos' was given."
                         << "\nUsage combinations for positional specification: [lane, pos, length], [lane, endPos, length], or [lanes, pos, endPos]";
                 WRITE_WARNING(ss.str());
-                endPosition = std::numeric_limits<SUMOReal>::max();
+                endPosition = std::numeric_limits<double>::max();
             }
             if (!lengthGiven && !endPosGiven) {
                 std::stringstream ss;
@@ -1065,7 +1065,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
     const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
-    const SUMOReal haltingSpeedThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
+    const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     if (!ok) {
@@ -1086,7 +1086,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
 void
 NLHandler::addE3Entry(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
     if (!ok) {
@@ -1099,7 +1099,7 @@ NLHandler::addE3Entry(const SUMOSAXAttributes& attrs) {
 void
 NLHandler::addE3Exit(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    const SUMOReal position = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
+    const double position = attrs.get<double>(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
     if (!ok) {
@@ -1113,9 +1113,9 @@ void
 NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    const SUMOReal maxTravelTime = attrs.getOpt<SUMOReal>(SUMO_ATTR_MAX_TRAVELTIME, id.c_str(), ok, 100000);
-    const SUMOReal minSamples = attrs.getOpt<SUMOReal>(SUMO_ATTR_MIN_SAMPLES, id.c_str(), ok, 0);
-    const SUMOReal haltingSpeedThreshold = attrs.getOpt<SUMOReal>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, POSITION_EPS);
+    const double maxTravelTime = attrs.getOpt<double>(SUMO_ATTR_MAX_TRAVELTIME, id.c_str(), ok, 100000);
+    const double minSamples = attrs.getOpt<double>(SUMO_ATTR_MIN_SAMPLES, id.c_str(), ok, 0);
+    const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, POSITION_EPS);
     const std::string excludeEmpty = attrs.getOpt<std::string>(SUMO_ATTR_EXCLUDE_EMPTY, id.c_str(), ok, "false");
     const bool withInternal = attrs.getOpt<bool>(SUMO_ATTR_WITH_INTERNAL, id.c_str(), ok, false);
     const bool trackVehicles = attrs.getOpt<bool>(SUMO_ATTR_TRACK_VEHICLES, id.c_str(), ok, false);
@@ -1157,7 +1157,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         bool ok = true;
         const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, 0, ok);
         const int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
-        const SUMOReal foeVisibilityDistance = attrs.getOpt<SUMOReal>(SUMO_ATTR_VISIBILITY_DISTANCE, 0, ok, 4.5);
+        const double foeVisibilityDistance = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, 0, ok, 4.5);
         const int toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
         LinkDirection dir = parseLinkDir(attrs.get<std::string>(SUMO_ATTR_DIR, 0, ok));
         LinkState state = parseLinkState(attrs.get<std::string>(SUMO_ATTR_STATE, 0, ok));
@@ -1202,7 +1202,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
                 return;
             }
         }
-        SUMOReal length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);
+        double length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);
 
         // build the link
         MSLane* via = 0;
@@ -1401,7 +1401,7 @@ NLHandler::closeWAUT() {
 
 
 Position
-NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos) {
+NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos) {
     MSLane* lane = MSLane::dictionary(laneID);
     if (lane == 0) {
         WRITE_ERROR("Lane '" + laneID + "' to place poi '" + poiID + "' on is not known.");

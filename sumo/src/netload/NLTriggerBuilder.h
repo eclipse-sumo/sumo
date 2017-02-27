@@ -158,9 +158,9 @@ public:
      */
     virtual void beginParkingArea(MSNet& net,
                                   const std::string& id, const std::vector<std::string>& lines,
-                                  MSLane* lane, SUMOReal frompos, SUMOReal topos,
+                                  MSLane* lane, double frompos, double topos,
                                   unsigned int capacity,
-                                  SUMOReal width, SUMOReal length, SUMOReal angle);
+                                  double width, double length, double angle);
 
 
     /** @brief Add a lot entry to current parking area
@@ -175,8 +175,8 @@ public:
      * @param[in] angle Angle of the lot rectangle
      * @exception InvalidArgument If the current parking area is 0
      */
-    void addLotEntry(SUMOReal x, SUMOReal y, SUMOReal z,
-                     SUMOReal width, SUMOReal length, SUMOReal angle);
+    void addLotEntry(double x, double y, double z,
+                     double width, double length, double angle);
 
 
 
@@ -272,7 +272,7 @@ protected:
      * @exception InvalidArgument If the stop can not be added to the net (is duplicate)
      */
     virtual void buildStoppingPlace(MSNet& net, const std::string& id, const std::vector<std::string>& lines,
-                                    MSLane* lane, SUMOReal frompos, SUMOReal topos, const SumoXMLTag element);
+                                    MSLane* lane, double frompos, double topos, const SumoXMLTag element);
 
     /** @brief Builds a charging Station
      *
@@ -289,8 +289,8 @@ protected:
      * @param[in] ChargeDelay
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
-    virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, SUMOReal frompos, SUMOReal topos,
-                                      SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int ChargeDelay);
+    virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
+                                      double chargingPower, double efficiency, bool chargeInTransit, int ChargeDelay);
 
     /** @brief builds a microscopic calibrator
      *
@@ -304,7 +304,7 @@ protected:
      * @todo Is the position correct/needed
      */
     virtual MSCalibrator* buildCalibrator(MSNet& net,
-                                          const std::string& id, MSEdge* edge, SUMOReal pos,
+                                          const std::string& id, MSEdge* edge, double pos,
                                           const std::string& file, const std::string& outfile,
                                           const SUMOTime freq, const MSRouteProbe* probe);
 
@@ -320,7 +320,7 @@ protected:
      * @todo Is the position correct/needed
      */
     virtual METriggeredCalibrator* buildMECalibrator(MSNet& net,
-            const std::string& id, const MSEdge* edge, SUMOReal pos,
+            const std::string& id, const MSEdge* edge, double pos,
             const std::string& file, const std::string& outfile,
             const SUMOTime freq, MSRouteProbe* probe);
 
@@ -337,7 +337,7 @@ protected:
      */
     virtual MSTriggeredRerouter* buildRerouter(MSNet& net,
             const std::string& id, MSEdgeVector& edges,
-            SUMOReal prob, const std::string& file, bool off);
+            double prob, const std::string& file, bool off);
     //@}
 
 
@@ -389,7 +389,7 @@ protected:
      * @return The position on the lane
      * @exception InvalidArgument If the position is beyond the lane
      */
-    SUMOReal getPosition(const SUMOSAXAttributes& attrs,
+    double getPosition(const SUMOSAXAttributes& attrs,
                          MSLane* lane, const std::string& tt, const std::string& tid);
     /// @}
 

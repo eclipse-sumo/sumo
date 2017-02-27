@@ -59,9 +59,9 @@
 
 /* function to calculate the factorial */
 
-SUMOReal factrl(int n) {
+double factrl(int n) {
     static int ntop = 6;
-    static SUMOReal a[33] = {
+    static double a[33] = {
         1.0, 1.0, 2.0, 6.0, 24.0, 120.0, 720.0
     }
     ; /* fill in the first few values */
@@ -78,35 +78,35 @@ SUMOReal factrl(int n) {
         j1 = ntop++;
         a[ntop] = a[j1] * ntop;
     }
-    return a[n]; /* returns the value n! as a SUMOReal */
+    return a[n]; /* returns the value n! as a double */
 }
 
 /* function to calculate the factorial function for Bernstein basis */
 
-SUMOReal Ni(int n, int i) {
+double Ni(int n, int i) {
     return factrl(n) / (factrl(i) * factrl(n - i));
 }
 
 /* function to calculate the Bernstein basis */
 
-SUMOReal Basis(int n, int i, SUMOReal t) {
+double Basis(int n, int i, double t) {
     /* handle the special cases to avoid domain problem with pow */
-    const SUMOReal ti = (i == 0) ? 1.0 : pow(t, i); /* this is t^i */
-    const SUMOReal tni = (n == i) ? 1.0 : pow(1 - t, n - i); /* this is (1-t)^(n-i) */
+    const double ti = (i == 0) ? 1.0 : pow(t, i); /* this is t^i */
+    const double tni = (n == i) ? 1.0 : pow(1 - t, n - i); /* this is (1-t)^(n-i) */
     return Ni(n, i) * ti * tni;
 }
 
 /* Bezier curve subroutine */
 void
-bezier(int npts, SUMOReal b[], int cpts, SUMOReal p[]) {
+bezier(int npts, double b[], int cpts, double p[]) {
     int i;
     int j;
     int i1;
     int icount;
     int jcount;
 
-    const SUMOReal step = (SUMOReal) 1.0 / (cpts - 1);
-    SUMOReal t;
+    const double step = (double) 1.0 / (cpts - 1);
+    double t;
 
     /*    calculate the points on the Bezier curve */
 
@@ -137,14 +137,14 @@ bezier(int npts, SUMOReal b[], int cpts, SUMOReal p[]) {
 PositionVector
 bezier(const PositionVector& init, int numPoints) {
     PositionVector ret;
-    SUMOReal* def = new SUMOReal[1 + (int)init.size() * 3];
+    double* def = new double[1 + (int)init.size() * 3];
     for (int i = 0; i < (int)init.size(); ++i) {
         // starts at index 1
         def[i * 3 + 1] = init[i].x();
         def[i * 3 + 2] = init[i].z();
         def[i * 3 + 3] = init[i].y();
     }
-    SUMOReal* ret_buf = new SUMOReal[numPoints * 3 + 1];
+    double* ret_buf = new double[numPoints * 3 + 1];
     bezier((int)init.size(), def, numPoints, ret_buf);
     delete[] def;
     Position prev;

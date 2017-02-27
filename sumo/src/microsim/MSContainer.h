@@ -78,7 +78,7 @@ public:
     public:
         /// constructor
         MSContainerStage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
-                                 const SUMOReal arrivalPos, const std::vector<std::string>& lines);
+                                 const double arrivalPos, const std::vector<std::string>& lines);
 
         /// destructor
         ~MSContainerStage_Driving();
@@ -114,7 +114,7 @@ public:
 
     public:
         /// constructor
-        MSContainerStage_Tranship(const std::vector<const MSEdge*>& route, MSStoppingPlace* toStop, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
+        MSContainerStage_Tranship(const std::vector<const MSEdge*>& route, MSStoppingPlace* toStop, double speed, double departPos, double arrivalPos);
 
         /// destructor
         ~MSContainerStage_Tranship();
@@ -132,19 +132,19 @@ public:
         const MSEdge* getToEdge() const;
 
         /// Returns the offset from the start of the current edge measured in its natural direction
-        SUMOReal getEdgePos(SUMOTime now) const;
+        double getEdgePos(SUMOTime now) const;
 
         /// Returns the position of the container
         Position getPosition(SUMOTime now) const;
 
         /// Returns the angle of the container
-        SUMOReal getAngle(SUMOTime now) const;
+        double getAngle(SUMOTime now) const;
 
         /// Returns the time the container spent waiting
         SUMOTime getWaitingTime(SUMOTime now) const;
 
         /// Returns the speed of the container
-        SUMOReal getSpeed() const;
+        double getSpeed() const;
 
         /// @brief the edges of the current stage
         ConstMSEdgeVector getEdges() const;
@@ -183,15 +183,15 @@ public:
 
 
         /// @brief accessors to be used by MSCModel_NonInteracting
-        inline SUMOReal getMaxSpeed() const {
+        inline double getMaxSpeed() const {
             return mySpeed;
         }
 
-        inline SUMOReal getDepartPos() const {
+        inline double getDepartPos() const {
             return myDepartPos;
         }
 
-        inline SUMOReal getArrivalPos() const {
+        inline double getArrivalPos() const {
             return myArrivalPos;
         }
 
@@ -211,10 +211,10 @@ public:
         std::vector<const MSEdge*>::iterator myRouteStep;
 
         /// @brief the depart position
-        SUMOReal myDepartPos;
+        double myDepartPos;
 
         /// @brief the speed of the container
-        SUMOReal mySpeed;
+        double mySpeed;
 
         /// @brief state that is to be manipulated by MSCModel
         CState* myContainerState;

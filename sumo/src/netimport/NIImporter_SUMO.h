@@ -192,9 +192,9 @@ private:
         /// @brief Whether the junction must be kept clear coming from this connection
         bool keepClear;
         /// @brief custom position for internal junction on this connection
-        SUMOReal contPos;
+        double contPos;
         /// @brief custom foe visibility for connection
-        SUMOReal visibility;
+        double visibility;
     };
 
 
@@ -203,7 +203,7 @@ private:
      */
     struct LaneAttrs {
         /// @brief The maximum velocity allowed on this lane
-        SUMOReal maxSpeed;
+        double maxSpeed;
         /// @brief This lane's shape (needed to reconstruct edge shape for legacy networks)
         PositionVector shape;
         /// @brief This lane's connections
@@ -213,9 +213,9 @@ private:
         /// @brief This lane's disallowed vehicle classes
         std::string disallow;
         /// @brief The width of this lane
-        SUMOReal width;
+        double width;
         /// @brief This lane's offset from the intersection
-        SUMOReal endOffset;
+        double endOffset;
         /// @brief Whether this lane is an acceleration lane
         bool accelRamp;
         /// @brief This lane's opposite lane
@@ -242,11 +242,11 @@ private:
         /// @brief This edges's shape
         PositionVector shape;
         /// @brief The length of the edge if set explicitly
-        SUMOReal length;
+        double length;
         /// @brief This edge's priority
         int priority;
         /// @brief The maximum velocity allowed on this edge (!!!)
-        SUMOReal maxSpeed;
+        double maxSpeed;
         /// @brief This edge's lanes
         std::vector<LaneAttrs*> lanes;
         /// @brief The built edge
@@ -272,7 +272,7 @@ private:
     struct Crossing {
         std::string edgeID;
         std::vector<std::string> crossingEdges;
-        SUMOReal width;
+        double width;
         bool priority;
     };
 

@@ -74,7 +74,7 @@ public:
         void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, int value);
 
         /// @brief show name and value of parameters of type float/real/time
-        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, SUMOReal value, bool isTime = false);
+        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, double value, bool isTime = false);
 
         /// @brief show name and value of parameters of type bool
         void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, bool value);
@@ -149,7 +149,7 @@ public:
         void showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<int> value);
 
         /// @brief show name and value of parameters of type float
-        void showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<SUMOReal> value, bool isTime = false);
+        void showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<double> value, bool isTime = false);
 
         /// @brief show name and value of parameters of type bool
         void showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<bool> value);
@@ -327,7 +327,7 @@ public:
         additionalReferencePoint getActualReferencePoint();
 
         /// @brief get value of lenght
-        SUMOReal getLenght();
+        double getLenght();
 
         /// @brief check if block is enabled
         bool isBlockEnabled();
@@ -648,10 +648,10 @@ private:
     std::string generateID(GNENetElement* netElement) const;
 
     /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
-    SUMOReal setStartPosition(SUMOReal positionOfTheMouseOverLane, SUMOReal lenghtOfAdditional);
+    double setStartPosition(double positionOfTheMouseOverLane, double lenghtOfAdditional);
 
     /// @brief obtain the End position values of StoppingPlaces and E2 detector over the lane
-    SUMOReal setEndPosition(SUMOReal laneLenght, SUMOReal positionOfTheMouseOverLane, SUMOReal lenghtOfAdditional);
+    double setEndPosition(double laneLenght, double positionOfTheMouseOverLane, double lenghtOfAdditional);
 
     /// @brief groupBox for Match Box of additionals
     FXGroupBox* myGroupBoxForMyAdditionalMatchBox;

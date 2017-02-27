@@ -234,17 +234,17 @@ protected:
          * @param[in] yArg y-position at this part's begin
          * @param[in] hdgArg heading at this part's begin
          */
-        OpenDriveGeometry(SUMOReal lengthArg, SUMOReal sArg, SUMOReal xArg, SUMOReal yArg, SUMOReal hdgArg)
+        OpenDriveGeometry(double lengthArg, double sArg, double xArg, double yArg, double hdgArg)
             : length(lengthArg), s(sArg), x(xArg), y(yArg), hdg(hdgArg),
               type(OPENDRIVE_GT_UNKNOWN) { }
 
-        SUMOReal length;
-        SUMOReal s;
-        SUMOReal x;
-        SUMOReal y;
-        SUMOReal hdg;
+        double length;
+        double s;
+        double x;
+        double y;
+        double hdg;
         GeometryType type;
-        std::vector<SUMOReal> params;
+        std::vector<double> params;
     };
 
     /**
@@ -259,14 +259,14 @@ protected:
          * @param[in] c second order
          * @param[in] d third order
          */
-        OpenDriveElevation(SUMOReal _s, SUMOReal _a, SUMOReal _b, SUMOReal _c, SUMOReal _d) :
+        OpenDriveElevation(double _s, double _a, double _b, double _c, double _d) :
             s(_s), a(_a), b(_b), c(_c), d(_d) {}
 
-        SUMOReal s;
-        SUMOReal a;
-        SUMOReal b;
-        SUMOReal c;
-        SUMOReal d;
+        double s;
+        double a;
+        double b;
+        double c;
+        double d;
     };
 
     /// LaneOffset has the same fields as Elevation
@@ -292,9 +292,9 @@ protected:
         std::string type; //!< The lane's type
         int successor; //!< The lane's successor lane
         int predecessor; //!< The lane's predecessor lane
-        std::vector<std::pair<SUMOReal, SUMOReal> > speeds; //!< List of positions/speeds of speed changes
-        SUMOReal speed; //!< The lane's speed (set in post-processing)
-        SUMOReal width; //!< The lane's width; @todo: this is the maximum width only
+        std::vector<std::pair<double, double> > speeds; //!< List of positions/speeds of speed changes
+        double speed; //!< The lane's speed (set in post-processing)
+        double width; //!< The lane's width; @todo: this is the maximum width only
     };
 
 
@@ -306,7 +306,7 @@ protected:
         /** @brief Constructor
          * @param[in] sArg The offset from the start, counted from the begin
          */
-        OpenDriveLaneSection(SUMOReal sArg);
+        OpenDriveLaneSection(double sArg);
 
 
         /** @brief Build the mapping from OpenDrive to SUMO lanes
@@ -327,10 +327,10 @@ protected:
 
 
         bool buildSpeedChanges(const NBTypeCont& tc, std::vector<OpenDriveLaneSection>& newSections);
-        OpenDriveLaneSection buildLaneSection(SUMOReal startPos);
+        OpenDriveLaneSection buildLaneSection(double startPos);
 
         /// @brief The starting offset of this lane section
-        SUMOReal s;
+        double s;
         /// @brief A mapping from OpenDrive to SUMO-index (the first is signed, the second unsigned)
         std::map<int, int> laneMap;
         /// @brief The lanes, sorted by their direction
@@ -359,7 +359,7 @@ protected:
          * @param[in] dynamicArg Whether the signal is dynamic
          * @param[in] sArg The offset from the start, counted from the begin
          */
-        OpenDriveSignal(int idArg, const std::string typeArg, const std::string nameArg, int orientationArg, bool dynamicArg, SUMOReal sArg)
+        OpenDriveSignal(int idArg, const std::string typeArg, const std::string nameArg, int orientationArg, bool dynamicArg, double sArg)
             : id(idArg), type(typeArg), name(nameArg), orientation(orientationArg), dynamic(dynamicArg), s(sArg) { }
 
         int id;
@@ -367,7 +367,7 @@ protected:
         std::string name;
         int orientation;
         bool dynamic;
-        SUMOReal s;
+        double s;
     };
 
 
@@ -393,7 +393,7 @@ protected:
      * @brief Representation of an openDrive "link"
      */
     struct OpenDriveEdge {
-        OpenDriveEdge(const std::string& idArg, const std::string& streetNameArg, const std::string& junctionArg, SUMOReal lengthArg) :
+        OpenDriveEdge(const std::string& idArg, const std::string& streetNameArg, const std::string& junctionArg, double lengthArg) :
             id(idArg),
             streetName(streetNameArg),
             junction(junctionArg),
@@ -420,7 +420,7 @@ protected:
         /// @brief The id of the junction the edge belongs to
         std::string junction;
         /// @brief The length of the edge
-        SUMOReal length;
+        double length;
         std::vector<OpenDriveLink> links;
         std::vector<OpenDriveGeometry> geometries;
         std::vector<OpenDriveElevation> elevations;
@@ -451,10 +451,10 @@ protected:
     class same_position_finder {
     public:
         /** @brief constructor */
-        explicit same_position_finder(SUMOReal pos) : myPosition(pos) { }
+        explicit same_position_finder(double pos) : myPosition(pos) { }
 
         /** @brief the comparing function */
-        bool operator()(const std::pair<SUMOReal, SUMOReal>& ps) {
+        bool operator()(const std::pair<double, double>& ps) {
             return ps.first == myPosition;
         }
 
@@ -462,7 +462,7 @@ protected:
         same_position_finder& operator=(const same_position_finder&); // just to avoid a compiler warning
     private:
         /// @brief The position to search for
-        SUMOReal myPosition;
+        double myPosition;
 
     };
 
@@ -509,7 +509,7 @@ protected:
 private:
     void addLink(LinkType lt, const std::string& elementType, const std::string& elementID,
                  const std::string& contactPoint);
-    void addGeometryShape(GeometryType type, const std::vector<SUMOReal>& vals);
+    void addGeometryShape(GeometryType type, const std::vector<double>& vals);
     static void setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string, OpenDriveEdge*>& edges);
     static void buildConnectionsToOuter(const Connection& c, const std::map<std::string, OpenDriveEdge*>& innerEdges, std::vector<Connection>& into);
     friend bool operator<(const Connection& c1, const Connection& c2);
@@ -553,9 +553,9 @@ protected:
     static PositionVector geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g);
     static PositionVector geomFromParamPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g);
     static Position calculateStraightEndPoint(double hdg, double length, const Position& start);
-    static void calculateCurveCenter(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_radius, SUMOReal ad_hdg);
-    static void calcPointOnCurve(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY,
-                                 SUMOReal ad_r, SUMOReal ad_length);
+    static void calculateCurveCenter(double* ad_x, double* ad_y, double ad_radius, double ad_hdg);
+    static void calcPointOnCurve(double* ad_x, double* ad_y, double ad_centerX, double ad_centerY,
+                                 double ad_r, double ad_length);
 
 
     /** @brief Computes a polygon representation of each edge's geometry

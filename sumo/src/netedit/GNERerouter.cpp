@@ -67,7 +67,7 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off) :
+GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, double probability, bool off) :
     GNEAdditional(id, viewNet, pos, SUMO_TAG_REROUTER, ICON_REROUTER),
     myEdges(edges),
     myFilename(filename),
@@ -130,7 +130,7 @@ GNERerouter::openAdditionalDialog() {
 
 
 void
-GNERerouter::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
+GNERerouter::moveAdditionalGeometry(double offsetx, double offsety) {
     // change Position
     myPosition = Position(offsetx, offsety);
     updateGeometry();
@@ -138,7 +138,7 @@ GNERerouter::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
 
 
 void
-GNERerouter::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList) {
+GNERerouter::commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(Position(oldPosx, oldPosy))));
     undoList->p_end();
@@ -286,7 +286,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
 
     /*
     // Draw symbols in every lane
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
 
     if (s.scale * exaggeration >= 3) {
         // draw rerouter symbol over all lanes
@@ -315,7 +315,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
                 glColor3d(0, 0, 0);
                 pfSetPosition(0, 0);
                 pfSetScale(3.f);
-                SUMOReal w = pfdkGetStringWidth("U");
+                double w = pfdkGetStringWidth("U");
                 glRotated(180, 0, 1, 0);
                 glTranslated(-w / 2., 2, 0);
                 pfDrawString("U");
@@ -426,7 +426,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return isValidFileValue(value);
         case SUMO_ATTR_PROB:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         case SUMO_ATTR_OFF:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -471,7 +471,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFilename = value;
             break;
         case SUMO_ATTR_PROB:
-            myProbability = parse<SUMOReal>(value);
+            myProbability = parse<double>(value);
             break;
         case SUMO_ATTR_OFF:
             myOff = parse<bool>(value);

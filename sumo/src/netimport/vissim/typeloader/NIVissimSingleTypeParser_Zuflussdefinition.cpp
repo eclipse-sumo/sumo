@@ -71,14 +71,14 @@ NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream& from) {
         // exact = true;
         tag = myRead(from);
     }
-    // SUMOReal q = TplConvert::_2SUMOReal(tag.c_str());
+    // double q = TplConvert::_2double(tag.c_str());
     // read the vehicle types
     from >> tag;
     int vehicle_combination;
     from >> vehicle_combination;
     // check whether optional time information is available
     tag = readEndSecure(from);
-    SUMOReal beg, end;
+    double beg, end;
     beg = -1;
     end = -1;
     if (tag == "zeit") {

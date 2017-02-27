@@ -64,10 +64,10 @@
 // method definitions
 // ===========================================================================
 GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
-                       SUMOReal frompos, SUMOReal topos) :
+                       double frompos, double topos) :
     MSStoppingPlace(id, lines, lane, frompos, topos),
     GUIGlObject_AbstractAdd("busStop", GLO_TRIGGER, id) {
-    const SUMOReal offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
+    const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
     myFGShape = lane.getShape();
     myFGShape.move2side(1.65 * offsetSign);
     myFGShape = myFGShape.getSubpart(frompos, topos);
@@ -78,14 +78,14 @@ GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& li
         const Position& f = myFGShape[i];
         const Position& s = myFGShape[i + 1];
         myFGShapeLengths.push_back(f.distanceTo(s));
-        myFGShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+        myFGShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
     }
     PositionVector tmp = myFGShape;
     tmp.move2side(1.5 * offsetSign);
     myFGSignPos = tmp.getLineCenter();
     myFGSignRot = 0;
     if (tmp.length() != 0) {
-        myFGSignRot = myFGShape.rotationDegreeAtOffset(SUMOReal((myFGShape.length() / 2.)));
+        myFGSignRot = myFGShape.rotationDegreeAtOffset(double((myFGShape.length() / 2.)));
         myFGSignRot -= 90;
     }
 }
@@ -95,7 +95,7 @@ GUIBusStop::~GUIBusStop() {}
 
 
 void
-GUIBusStop::addAccess(MSLane* lane, const SUMOReal pos) {
+GUIBusStop::addAccess(MSLane* lane, const double pos) {
     MSStoppingPlace::addAccess(lane, pos);
     myAccessCoords.push_back(lane->getShape().positionAtOffset(pos));
 }
@@ -139,12 +139,12 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(green);
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
     // draw details unless zoomed out to far
     if (s.scale * exaggeration >= 10) {
         // draw the lines
-        const SUMOReal rotSign = MSNet::getInstance()->lefthand() ? -1 : 1;
+        const double rotSign = MSNet::getInstance()->lefthand() ? -1 : 1;
         for (int i = 0; i != (int)myLines.size(); ++i) {
             glPushMatrix();
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
@@ -167,10 +167,10 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
         }
         glScaled(exaggeration, exaggeration, 1);
-        GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
+        GLHelper::drawFilledCircle((double) 1.1, noPoints);
         glTranslated(0, 0, .1);
         GLHelper::setColor(yellow);
-        GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
+        GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.scale * exaggeration >= 4.5) {
             GLHelper::drawText("H", Position(), .1, 1.6, green, myFGSignRot);
         }

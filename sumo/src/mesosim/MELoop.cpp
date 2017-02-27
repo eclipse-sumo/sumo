@@ -251,7 +251,7 @@ MELoop::nextSegment(MESegment* s, MEVehicle* v) {
 
 
 int
-MELoop::numSegmentsFor(const SUMOReal length, const SUMOReal sLength) {
+MELoop::numSegmentsFor(const double length, const double sLength) {
     int no = (int)floor(length / sLength + 0.5);
     if (no == 0) { // assure there is at least one segment
         return 1;
@@ -263,9 +263,9 @@ MELoop::numSegmentsFor(const SUMOReal length, const SUMOReal sLength) {
 
 void
 MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
-    const SUMOReal length = e.getLength();
+    const double length = e.getLength();
     int no = numSegmentsFor(length, oc.getFloat("meso-edgelength"));
-    const SUMOReal slength = length / (SUMOReal)no;
+    const double slength = length / (double)no;
     MESegment* newSegment = 0;
     MESegment* nextSegment = 0;
     bool multiQueue = oc.getBool("meso-multi-queue");
@@ -290,10 +290,10 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
 
 
 MESegment*
-MELoop::getSegmentForEdge(const MSEdge& e, SUMOReal pos) {
+MELoop::getSegmentForEdge(const MSEdge& e, double pos) {
     MESegment* s = myEdges2FirstSegments[e.getNumericalID()];
     if (pos > 0) {
-        SUMOReal cpos = 0;
+        double cpos = 0;
         while (s->getNextSegment() != 0 && cpos + s->getLength() < pos) {
             cpos += s->getLength();
             s = s->getNextSegment();

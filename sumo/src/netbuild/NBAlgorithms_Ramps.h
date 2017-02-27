@@ -72,7 +72,7 @@ private:
      * @param[in] noramps Edges that shall not be treated as ramps
      * @return Whether the node is assumed to be an on-ramp begin
      */
-    static bool mayNeedOnRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed,
+    static bool mayNeedOnRamp(NBNode* cur, double minHighwaySpeed, double maxRampSpeed,
                               const std::set<std::string>& noramps);
 
 
@@ -83,7 +83,7 @@ private:
      * @param[in] noramps Edges that shall not be treated as ramps
      * @return Whether the node is assumed to be an off-ramp end
      */
-    static bool mayNeedOffRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed,
+    static bool mayNeedOffRamp(NBNode* cur, double minHighwaySpeed, double maxRampSpeed,
                                const std::set<std::string>& noramps);
 
 
@@ -96,7 +96,7 @@ private:
      * @param[in] dontSplit Whether no edges shall be split
      * @param[in, filled] incremented The list of edges which lane number was already incremented
      */
-    static void buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit);
+    static void buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, double rampLength, bool dontSplit);
 
 
     /** @brief Builds an off-ramp ending at the given node
@@ -108,7 +108,7 @@ private:
      * @param[in] dontSplit Whether no edges shall be split
      * @param[in, filled] incremented The list of edges which lane number was already incremented
      */
-    static void buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit);
+    static void buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, double rampLength, bool dontSplit);
 
 
     static void getOnRampEdges(NBNode* n, NBEdge** potHighway, NBEdge** potRamp, NBEdge** other);
@@ -129,7 +129,7 @@ private:
      * @param[in] noramps Edges that shall not be treated as ramps
      * @return Whether a ramp can be built here
      */
-    static bool fulfillsRampConstraints(NBEdge* potHighway, NBEdge* potRamp, NBEdge* other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed,
+    static bool fulfillsRampConstraints(NBEdge* potHighway, NBEdge* potRamp, NBEdge* other, double minHighwaySpeed, double maxRampSpeed,
                                         const std::set<std::string>& noramps);
 
 

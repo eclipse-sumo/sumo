@@ -211,10 +211,10 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
     ret->mkItem("dest edge [id]", false, getDestination().getID());
     ret->mkItem("edge [id]", false, getEdge()->getID());
-    ret->mkItem("position [m]", true, new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getEdgePos));
-    ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getSpeed));
-    ret->mkItem("angle [degree]", true, new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getNaviDegree));
-    ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIPerson, SUMOReal>(this, &GUIPerson::getWaitingSeconds));
+    ret->mkItem("position [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
+    ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getSpeed));
+    ret->mkItem("angle [degree]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getNaviDegree));
+    ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getWaitingSeconds));
 
     ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
     ret->mkItem("", false, "");
@@ -254,7 +254,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     // set person color
     setColor(s);
     // scale
-    const SUMOReal upscale = s.personSize.getExaggeration(s, 80);
+    const double upscale = s.personSize.getExaggeration(s, 80);
     glScaled(upscale, upscale, 1);
     switch (s.personQuality) {
         case 0:
@@ -311,7 +311,7 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
             GLHelper::setColor(darker);
             MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
             assert(stage != 0);
-            const SUMOReal exaggeration = s.personSize.getExaggeration(s);
+            const double exaggeration = s.personSize.getExaggeration(s);
             const ConstMSEdgeVector& edges = stage->getRoute();
             for (ConstMSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
                 GUILane* lane = static_cast<GUILane*>((*it)->getLanes()[0]);
@@ -364,13 +364,13 @@ GUIPerson::setFunctionalColor(int activeScheme) const {
             return false;
         }
         case 8: { // color by angle
-            SUMOReal hue = GeomHelper::naviDegree(getAngle());
+            double hue = GeomHelper::naviDegree(getAngle());
             GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
             return true;
         }
         case 9: { // color randomly (by pointer)
-            const SUMOReal hue = (long)this % 360; // [0-360]
-            const SUMOReal sat = (((long)this / 360) % 67) / 100.0 + 0.33; // [0.33-1]
+            const double hue = (long)this % 360; // [0-360]
+            const double sat = (((long)this / 360) % 67) / 100.0 + 0.33; // [0.33-1]
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }
@@ -380,7 +380,7 @@ GUIPerson::setFunctionalColor(int activeScheme) const {
 }
 
 
-SUMOReal
+double
 GUIPerson::getColorValue(int activeScheme) const {
     switch (activeScheme) {
         case 4:
@@ -389,7 +389,7 @@ GUIPerson::getColorValue(int activeScheme) const {
             if (isWaiting4Vehicle()) {
                 return 3;
             } else {
-                return (SUMOReal)getCurrentStageType();
+                return (double)getCurrentStageType();
             }
         case 6:
             return getWaitingSeconds();
@@ -400,7 +400,7 @@ GUIPerson::getColorValue(int activeScheme) const {
 }
 
 
-SUMOReal
+double
 GUIPerson::getEdgePos() const {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSPerson::getEdgePos();
@@ -414,21 +414,21 @@ GUIPerson::getPosition() const {
 }
 
 
-SUMOReal
+double
 GUIPerson::getNaviDegree() const {
     AbstractMutex::ScopedLocker locker(myLock);
     return GeomHelper::naviDegree(MSPerson::getAngle());
 }
 
 
-SUMOReal
+double
 GUIPerson::getWaitingSeconds() const {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSPerson::getWaitingSeconds();
 }
 
 
-SUMOReal
+double
 GUIPerson::getSpeed() const {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSPerson::getSpeed();
@@ -492,9 +492,9 @@ GUIPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
         }
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            const SUMOReal exaggeration = s.personSize.getExaggeration(s);
-            const SUMOReal halfLength = getVehicleType().getLength() / 2.0 * exaggeration;
-            const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
+            const double exaggeration = s.personSize.getExaggeration(s);
+            const double halfLength = getVehicleType().getLength() / 2.0 * exaggeration;
+            const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);
         }
     } else {

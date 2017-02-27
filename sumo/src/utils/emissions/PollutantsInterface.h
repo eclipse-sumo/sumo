@@ -67,13 +67,13 @@ public:
      * @brief Storage for collected values of all emission types
      */
     struct Emissions {
-        SUMOReal CO2;
-        SUMOReal CO;
-        SUMOReal HC;
-        SUMOReal fuel;
-        SUMOReal NOx;
-        SUMOReal PMx;
-        SUMOReal electricity;
+        double CO2;
+        double CO;
+        double HC;
+        double fuel;
+        double NOx;
+        double PMx;
+        double electricity;
 
         /** @brief Constructor, intializes all members
          * @param[in] co2 initial value for CO2, defaults to 0
@@ -84,7 +84,7 @@ public:
          * @param[in] pmx initial value for PMx, defaults to 0
          * @param[in] elec initial value for electricity, defaults to 0
          */
-        Emissions(SUMOReal co2 = 0, SUMOReal co = 0, SUMOReal hc = 0, SUMOReal f = 0, SUMOReal nox = 0, SUMOReal pmx = 0, SUMOReal elec = 0)
+        Emissions(double co2 = 0, double co = 0, double hc = 0, double f = 0, double nox = 0, double pmx = 0, double elec = 0)
             : CO2(co2), CO(co), HC(hc), fuel(f), NOx(nox), PMx(pmx), electricity(elec) {
         }
 
@@ -92,7 +92,7 @@ public:
          * @param[in] a the other emission valuess
          * @param[in] scale scaling factor, defaulting to 1 (no scaling)
          */
-        void addScaled(const Emissions& a, const SUMOReal scale = 1.) {
+        void addScaled(const Emissions& a, const double scale = 1.) {
             CO2 += scale * a.CO2;
             CO += scale * a.CO;
             HC += scale * a.HC;
@@ -216,7 +216,7 @@ public:
          * @param[in] c the emission class
          * @return a reference weight
          */
-        virtual SUMOReal getWeight(const SUMOEmissionClass c) const {
+        virtual double getWeight(const SUMOEmissionClass c) const {
             UNUSED_PARAMETER(c);
             return -1.;
         }
@@ -230,7 +230,7 @@ public:
          * @param[in] slope The road's slope at vehicle's position [deg]
          * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
          */
-        virtual SUMOReal compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope) const = 0;
+        virtual double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope) const = 0;
 
         /** @brief Add all known emission classes of this model to the given container
          * @param[in] list the vector to add to
@@ -335,7 +335,7 @@ public:
      * @param[in] c The vehicle emission class
      * @return the weight in kg if it matters, 0 otherwise
      */
-    static SUMOReal getWeight(const SUMOEmissionClass c);
+    static double getWeight(const SUMOEmissionClass c);
 
 
     /** @brief Returns the amount of the emitted pollutant given the vehicle type and state (in mg/s or ml/s for fuel)
@@ -346,7 +346,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
-    static SUMOReal compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope);
+    static double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope);
 
 
     /** @brief Returns the amount of all emitted pollutants given the vehicle type and state (in mg/s or ml/s for fuel)
@@ -368,7 +368,7 @@ public:
      * @param{in] tt the time the vehicle travels
      * @return The amount emitted by the given vehicle class [mg]
      */
-    static SUMOReal computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const SUMOReal tt);
+    static double computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt);
 
 private:
     /// @brief Instance of HBEFA2Helper which gets cleaned up automatically

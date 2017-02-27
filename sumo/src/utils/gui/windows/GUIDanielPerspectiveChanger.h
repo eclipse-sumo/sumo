@@ -74,34 +74,34 @@ public:
     long onKeyPress(void* data);
 
     /// Returns the rotation of the canvas stored in this changer
-    virtual SUMOReal getRotation() const;
+    virtual double getRotation() const;
 
     /// Returns the x-offset of the field to show stored in this changer
-    virtual SUMOReal getXPos() const;
+    virtual double getXPos() const;
 
     /// Returns the y-offset of the field to show stored in this changer
-    virtual SUMOReal getYPos() const;
+    virtual double getYPos() const;
 
     /// Returns the zoom factor computed stored in this changer
-    virtual SUMOReal getZoom() const;
+    virtual double getZoom() const;
 
     /// @brief Returns the camera height corresponding to the current zoom factor
-    virtual SUMOReal getZPos() const;
+    virtual double getZPos() const;
 
     /// @brief Returns the camera height at which the given zoom level is reached
-    virtual SUMOReal zoom2ZPos(SUMOReal zoom) const;
+    virtual double zoom2ZPos(double zoom) const;
 
     /// @brief Returns the zoom level that is achieved at a given camera height
-    virtual SUMOReal zPos2Zoom(SUMOReal zPos) const;
+    virtual double zPos2Zoom(double zPos) const;
 
     /// Centers the view to the given position, setting it to a size that covers the radius
-    void centerTo(const Position& pos, SUMOReal radius, bool applyZoom = true);
+    void centerTo(const Position& pos, double radius, bool applyZoom = true);
 
     /** @brief Sets the viewport */
-    void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);
+    void setViewport(double zoom, double xPos, double yPos);
 
     /// @brief Alternative method for setting the viewport
-    void setViewportFrom(SUMOReal xPos, SUMOReal yPos, SUMOReal zPos);
+    void setViewportFrom(double xPos, double yPos, double zPos);
 
     /* @brief Adapts the viewport so that a change in canvass size keeps most of the
      * view intact (by showing more / less instead of zooming)
@@ -127,17 +127,17 @@ private:
     void move(int xdiff, int ydiff);
 
     /// Performs the zooming of the view
-    void zoom(SUMOReal factor);
+    void zoom(double factor);
 
     /// Performs the rotation of the view
     void rotate(int diff);
 
 private:
     /// the original viewport dimensions in m which serve as the reference point for 100% zoom
-    SUMOReal myOrigWidth, myOrigHeight;
+    double myOrigWidth, myOrigHeight;
 
     /// the current rotation
-    SUMOReal myRotation;
+    double myRotation;
 
     /// the current mouse state
     int myMouseButtonState;

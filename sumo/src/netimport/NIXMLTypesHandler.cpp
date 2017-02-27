@@ -75,14 +75,14 @@ NIXMLTypesHandler::myStartElement(int element,
             const std::string defType = myTypeCont.knows(myCurrentTypeID) ? myCurrentTypeID : "";
             const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id, ok, myTypeCont.getPriority(defType));
             const int numLanes = attrs.getOpt<int>(SUMO_ATTR_NUMLANES, id, ok, myTypeCont.getNumLanes(defType));
-            const SUMOReal speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, id, ok, myTypeCont.getSpeed(defType));
+            const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id, ok, myTypeCont.getSpeed(defType));
             const std::string allowS = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id, ok, "");
             const std::string disallowS = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id, ok, "");
             const bool oneway = attrs.getOpt<bool>(SUMO_ATTR_ONEWAY, id, ok, myTypeCont.getIsOneWay(defType));
             const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id, ok, false);
-            const SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id, ok, myTypeCont.getWidth(defType));
-            const SUMOReal sidewalkWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_SIDEWALKWIDTH, id, ok, myTypeCont.getSidewalkWidth(defType));
-            const SUMOReal bikeLaneWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_BIKELANEWIDTH, id, ok, myTypeCont.getBikeLaneWidth(defType));
+            const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id, ok, myTypeCont.getWidth(defType));
+            const double sidewalkWidth = attrs.getOpt<double>(SUMO_ATTR_SIDEWALKWIDTH, id, ok, myTypeCont.getSidewalkWidth(defType));
+            const double bikeLaneWidth = attrs.getOpt<double>(SUMO_ATTR_BIKELANEWIDTH, id, ok, myTypeCont.getBikeLaneWidth(defType));
             if (!ok) {
                 return;
             }
@@ -109,7 +109,7 @@ NIXMLTypesHandler::myStartElement(int element,
         case SUMO_TAG_RESTRICTION: {
             bool ok = true;
             const SUMOVehicleClass svc = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, myCurrentTypeID.c_str(), ok));
-            const SUMOReal speed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentTypeID.c_str(), ok);
+            const double speed = attrs.get<double>(SUMO_ATTR_SPEED, myCurrentTypeID.c_str(), ok);
             if (ok) {
                 myTypeCont.addRestriction(myCurrentTypeID, svc, speed);
             }

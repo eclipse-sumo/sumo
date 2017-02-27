@@ -330,11 +330,11 @@ bool isForbidden(SVCPermissions permissions) {
 const std::string DEFAULT_VTYPE_ID("DEFAULT_VEHTYPE");
 const std::string DEFAULT_PEDTYPE_ID("DEFAULT_PEDTYPE");
 
-const SUMOReal DEFAULT_VEH_PROB(1.);
+const double DEFAULT_VEH_PROB(1.);
 
-const SUMOReal DEFAULT_PEDESTRIAN_SPEED(5. / 3.6);
+const double DEFAULT_PEDESTRIAN_SPEED(5. / 3.6);
 
-const SUMOReal DEFAULT_CONTAINER_TRANSHIP_SPEED(5. / 3.6);
+const double DEFAULT_CONTAINER_TRANSHIP_SPEED(5. / 3.6);
 
 /****************************************************************************/
 

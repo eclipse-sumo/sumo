@@ -192,8 +192,8 @@ NIImporter_ArcView::load() {
         } else if (poFeature->GetFieldIndex("ST_TYP_AFT") >= 0) {
             type = poFeature->GetFieldAsString("ST_TYP_AFT");
         }
-        SUMOReal width = myTypeCont.getWidth(type);
-        SUMOReal speed = getSpeed(*poFeature, id);
+        double width = myTypeCont.getWidth(type);
+        double speed = getSpeed(*poFeature, id);
         int nolanes = getLaneNo(*poFeature, id, speed);
         int priority = getPriority(*poFeature, id);
         if (nolanes == 0 || speed == 0) {
@@ -207,7 +207,7 @@ NIImporter_ArcView::load() {
             }
         }
         if (mySpeedInKMH) {
-            speed = speed / (SUMOReal) 3.6;
+            speed = speed / (double) 3.6;
         }
 
 
@@ -224,7 +224,7 @@ NIImporter_ArcView::load() {
 
         PositionVector shape;
         for (int j = 0; j < cgeom->getNumPoints(); j++) {
-            Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+            Position pos((double) cgeom->getX(j), (double) cgeom->getY(j));
             if (!NBNetBuilder::transformCoordinate(pos)) {
                 WRITE_WARNING("Unable to project coordinates for edge '" + id + "'.");
             }
@@ -304,7 +304,7 @@ NIImporter_ArcView::load() {
 }
 
 #ifdef HAVE_GDAL
-SUMOReal
+double
 NIImporter_ArcView::getSpeed(OGRFeature& poFeature, const std::string& edgeid) {
     if (myOptions.isSet("shapefile.type-id")) {
         return myTypeCont.getSpeed(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
@@ -313,11 +313,11 @@ NIImporter_ArcView::getSpeed(OGRFeature& poFeature, const std::string& edgeid) {
     //  idea by John Michael Calandrino
     int index = poFeature.GetDefnRef()->GetFieldIndex("speed");
     if (index >= 0 && poFeature.IsFieldSet(index)) {
-        return (SUMOReal) poFeature.GetFieldAsDouble(index);
+        return (double) poFeature.GetFieldAsDouble(index);
     }
     index = poFeature.GetDefnRef()->GetFieldIndex("SPEED");
     if (index >= 0 && poFeature.IsFieldSet(index)) {
-        return (SUMOReal) poFeature.GetFieldAsDouble(index);
+        return (double) poFeature.GetFieldAsDouble(index);
     }
     // try to get the NavTech-information
     index = poFeature.GetDefnRef()->GetFieldIndex("SPEED_CAT");
@@ -331,7 +331,7 @@ NIImporter_ArcView::getSpeed(OGRFeature& poFeature, const std::string& edgeid) {
 
 int
 NIImporter_ArcView::getLaneNo(OGRFeature& poFeature, const std::string& edgeid,
-                              SUMOReal speed) {
+                              double speed) {
     if (myOptions.isSet("shapefile.type-id")) {
         return (int) myTypeCont.getNumLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }

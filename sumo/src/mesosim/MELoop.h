@@ -82,7 +82,7 @@ public:
     void removeLeaderCar(MEVehicle* v);
 
     /** @brief Compute number of segments per edge (best value stay close to the configured segment length) */
-    static int numSegmentsFor(const SUMOReal length, const SUMOReal slength);
+    static int numSegmentsFor(const double length, const double slength);
 
     /** @brief Build the segments for a given edge
      *
@@ -96,7 +96,7 @@ public:
      * @param[in] pos the position to get the segment for
      * @return The relevant segment
      */
-    MESegment* getSegmentForEdge(const MSEdge& e, SUMOReal pos = 0);
+    MESegment* getSegmentForEdge(const MSEdge& e, double pos = 0);
 
     /** @brief change to the next segment
      * this handles combinations of the following cases:

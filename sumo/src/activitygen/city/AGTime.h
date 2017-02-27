@@ -123,7 +123,7 @@ public:
      *
      * @return number of seconds
      */
-    int getSecondsOf(SUMOReal minutes);
+    int getSecondsOf(double minutes);
 
 private:
     /**

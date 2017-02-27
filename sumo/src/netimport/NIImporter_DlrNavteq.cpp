@@ -160,7 +160,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
 }
 
-SUMOReal 
+double 
 NIImporter_DlrNavteq::readVersion(const std::string& line, const std::string& file) {
     assert(line[0] == '#');
     const std::string marker = "extraction version: v";
@@ -171,7 +171,7 @@ NIImporter_DlrNavteq::readVersion(const std::string& line, const std::string& fi
     const int vStart = (int)(lowerCase.find(marker) + marker.size());
     const int vEnd = (int)line.find(" ", vStart);
     try {
-        const SUMOReal version = TplConvert::_2SUMOReal(line.substr(vStart, vEnd - vStart).c_str());
+        const double version = TplConvert::_2double(line.substr(vStart, vEnd - vStart).c_str());
         if (version < 0) {
             throw ProcessError("Invalid version number '" + toString(version) + "' in file '" + file + "'.");
         }
@@ -282,7 +282,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         if (!myColumns.empty()) {
             return true;
         }
-        const SUMOReal version = readVersion(result, myFile);
+        const double version = readVersion(result, myFile);
         if (version > 0) {
             myVersion = version;
             // init columns
@@ -350,7 +350,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         throw ProcessError("The to-node '" + toID + "' of link '" + id + "' could not be found");
     }
     // speed
-    SUMOReal speed;
+    double speed;
     try {
         speed = TplConvert::_2int(getColumn(st, SPEED_RESTRICTION, "-1").c_str()) / 3.6;
     } catch (NumberFormatException) {
@@ -724,7 +724,7 @@ NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
 // # NAME_ID    Name
     if (result[0] == '#') {
         if (myVersion == 0) {
-            const SUMOReal version = readVersion(result, myFile);
+            const double version = readVersion(result, myFile);
             if (version > 0) {
                 myVersion = version;
             }

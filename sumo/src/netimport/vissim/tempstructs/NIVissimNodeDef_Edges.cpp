@@ -110,12 +110,12 @@ NIVissimNodeDef_Edges::searchAndSetConnections() {
 */
 
 
-SUMOReal
+double
 NIVissimNodeDef_Edges::getEdgePosition(int edgeid) const {
     for (NIVissimNodeParticipatingEdgeVector::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
         NIVissimNodeParticipatingEdge* edge = *i;
         if (edge->getID() == edgeid) {
-            return (edge->getFromPos() + edge->getToPos()) / (SUMOReal) 2.0;
+            return (edge->getFromPos() + edge->getToPos()) / (double) 2.0;
         }
     }
     return -1;

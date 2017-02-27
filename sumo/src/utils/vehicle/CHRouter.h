@@ -70,7 +70,7 @@ class CHRouter: public SUMOAbstractRouter<E, V>, public PF {
 
 public:
     /// Type of the function that is used to retrieve the edge effort.
-    typedef SUMOReal(* Operation)(const E* const, const V* const, SUMOReal);
+    typedef double(* Operation)(const E* const, const V* const, double);
 
     /**
      * @struct EdgeInfo
@@ -82,7 +82,7 @@ public:
         /// Constructor
         EdgeInfo(const E* e) :
             edge(e),
-            traveltime(std::numeric_limits<SUMOReal>::max()),
+            traveltime(std::numeric_limits<double>::max()),
             prev(0),
             visited(false) {
         }
@@ -91,7 +91,7 @@ public:
         const E* edge;
 
         /// Effort to reach the edge
-        SUMOReal traveltime;
+        double traveltime;
 
         /// The previous edge
         EdgeInfo* prev;
@@ -100,7 +100,7 @@ public:
         bool visited;
 
         inline void reset() {
-            traveltime = std::numeric_limits<SUMOReal>::max();
+            traveltime = std::numeric_limits<double>::max();
             visited = false;
         }
     };
@@ -176,7 +176,7 @@ public:
          * if an EdgeInfo found by the otherSearch is encountered
          * returns whether stepping should continue
          */
-        bool step(const std::vector<ConnectionVector>& uplinks, const Unidirectional& otherSearch, SUMOReal& minTTSeen, Meeting& meeting) {
+        bool step(const std::vector<ConnectionVector>& uplinks, const Unidirectional& otherSearch, double& minTTSeen, Meeting& meeting) {
             // pop the node with the minimal length
             EdgeInfo* const minimumInfo = myFrontier.front();
             pop_heap(myFrontier.begin(), myFrontier.end(), myComparator);
@@ -192,7 +192,7 @@ public:
 #endif
             if (otherSearch.found(minEdge)) {
                 const EdgeInfo* const otherInfo = otherSearch.getEdgeInfo(minEdge);
-                const SUMOReal ttSeen = minimumInfo->traveltime + otherInfo->traveltime;
+                const double ttSeen = minimumInfo->traveltime + otherInfo->traveltime;
 #ifdef CHRouter_DEBUG_QUERY
                 std::cout << "DEBUG: " << (myAmForward ? "Forward" : "Backward") << "-Search hit other search at '" << minEdge->getID() << "', tt: " << ttSeen << " \n";
 #endif
@@ -214,17 +214,17 @@ public:
             const ConnectionVector& upward = uplinks[minEdge->getNumericalID()];
             for (typename ConnectionVector::const_iterator it = upward.begin(); it != upward.end(); it++) {
                 EdgeInfo* upwardInfo = &myEdgeInfos[it->target];
-                const SUMOReal traveltime = minimumInfo->traveltime + it->cost;
+                const double traveltime = minimumInfo->traveltime + it->cost;
                 const SUMOVehicleClass svc = myVehicle->getVClass();
                 // check whether it can be used
                 if ((it->permissions & svc) != svc) {
                     continue;
                 }
-                const SUMOReal oldTraveltime = upwardInfo->traveltime;
+                const double oldTraveltime = upwardInfo->traveltime;
                 if (!upwardInfo->visited && traveltime < oldTraveltime) {
                     upwardInfo->traveltime = traveltime;
                     upwardInfo->prev = minimumInfo;
-                    if (oldTraveltime == std::numeric_limits<SUMOReal>::max()) {
+                    if (oldTraveltime == std::numeric_limits<double>::max()) {
                         myFrontier.push_back(upwardInfo);
                         push_heap(myFrontier.begin(), myFrontier.end(), myComparator);
                     } else {
@@ -333,7 +333,7 @@ public:
         this->startQuery();
         myForwardSearch.init(from, vehicle);
         myBackwardSearch.init(to, vehicle);
-        SUMOReal minTTSeen = std::numeric_limits<SUMOReal>::max();
+        double minTTSeen = std::numeric_limits<double>::max();
         Meeting meeting(static_cast<EdgeInfo*>(0), static_cast<EdgeInfo*>(0));
         bool continueForward = true;
         bool continueBackward = true;
@@ -350,7 +350,7 @@ public:
                 num_visited_bw += 1;
             }
         }
-        if (minTTSeen < std::numeric_limits<SUMOReal>::max()) {
+        if (minTTSeen < std::numeric_limits<double>::max()) {
             buildPathFromMeeting(meeting, into);
         } else {
             myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
@@ -364,9 +364,9 @@ public:
     }
 
 
-    SUMOReal recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
-        const SUMOReal time = STEPS2TIME(msTime);
-        SUMOReal costs = 0;
+    double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
+        const double time = STEPS2TIME(msTime);
+        double costs = 0;
         for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             if (PF::operator()(*i, v)) {
                 return -1;

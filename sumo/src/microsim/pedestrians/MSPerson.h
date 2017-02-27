@@ -81,7 +81,7 @@ public:
     public:
         /// constructor
         MSPersonStage_Walking(const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime,
-                              SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos, SUMOReal departPosLat);
+                              double speed, double departPos, double arrivalPos, double departPosLat);
 
         /// destructor
         ~MSPersonStage_Walking();
@@ -93,21 +93,21 @@ public:
         void abort(MSTransportable*);
 
         /// sets the walking speed (ignored in other stages)
-        void setSpeed(SUMOReal speed);
+        void setSpeed(double speed);
 
         /// Returns the current edge
         const MSEdge* getEdge() const;
         const MSEdge* getFromEdge() const;
-        SUMOReal getEdgePos(SUMOTime now) const;
+        double getEdgePos(SUMOTime now) const;
 
         ///
         Position getPosition(SUMOTime now) const;
 
-        SUMOReal getAngle(SUMOTime now) const;
+        double getAngle(SUMOTime now) const;
 
         SUMOTime getWaitingTime(SUMOTime now) const;
 
-        SUMOReal getSpeed() const;
+        double getSpeed() const;
 
         /// @brief the edges of the current stage
         ConstMSEdgeVector getEdges() const;
@@ -146,18 +146,18 @@ public:
 
         /// @brief accessors to be used by MSPModel
         //@{
-        inline SUMOReal getMaxSpeed() const {
+        inline double getMaxSpeed() const {
             return mySpeed;
         }
-        inline SUMOReal getDepartPos() const {
+        inline double getDepartPos() const {
             return myDepartPos;
         }
 
-        inline SUMOReal getDepartPosLat() const {
+        inline double getDepartPosLat() const {
             return myDepartPosLat;
         }
 
-        inline SUMOReal getArrivalPos() const {
+        inline double getArrivalPos() const {
             return myArrivalPos;
         }
 
@@ -181,7 +181,7 @@ public:
 
         /* @brief compute average speed if the total walking duration is given
          * @note Must be called when the previous stage changes myDepartPos from the default*/
-        SUMOReal computeAverageSpeed() const;
+        double computeAverageSpeed() const;
 
 
     private:
@@ -197,9 +197,9 @@ public:
         /// @brief The current internal edge this person is on or 0
         MSEdge* myCurrentInternalEdge;
 
-        SUMOReal myDepartPos;
-        SUMOReal myDepartPosLat;
-        SUMOReal mySpeed;
+        double myDepartPos;
+        double myDepartPosLat;
+        double mySpeed;
 
         /// @brief state that is to be manipulated by MSPModel
         PedestrianState* myPedestrianState;
@@ -210,7 +210,7 @@ public:
             explicit arrival_finder(SUMOTime time) : myTime(time) {}
 
             /// comparison operator
-            bool operator()(SUMOReal t) const {
+            bool operator()(double t) const {
                 return myTime > t;
             }
 
@@ -236,7 +236,7 @@ public:
     public:
         /// constructor
         MSPersonStage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
-                              const SUMOReal arrivalPos, const std::vector<std::string>& lines);
+                              const double arrivalPos, const std::vector<std::string>& lines);
 
         /// destructor
         ~MSPersonStage_Driving();

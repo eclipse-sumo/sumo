@@ -101,9 +101,9 @@ public:
      * @see MSLane
      * @todo Definitely not a good way
      */
-    virtual MSLane* addLane(const std::string& id, SUMOReal maxSpeed,
-                            SUMOReal length, const PositionVector& shape,
-                            SUMOReal width, SVCPermissions permissions, int index, bool isRampAccel);
+    virtual MSLane* addLane(const std::string& id, double maxSpeed,
+                            double length, const PositionVector& shape,
+                            double width, SVCPermissions permissions, int index, bool isRampAccel);
 
 
     /** @brief Adds a neighbor to the current lane

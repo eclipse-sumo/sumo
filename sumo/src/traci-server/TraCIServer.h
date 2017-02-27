@@ -108,7 +108,7 @@ public:
     /// @brief process all commands until a simulation step is wanted
     static void processCommandsUntilSimStep(SUMOTime step);
 
-    void setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, SUMOReal pos, SUMOReal posLat, SUMOReal angle,
+    void setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                           int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
 
     void postProcessVTD();
@@ -161,7 +161,7 @@ public:
 
     void writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Storage& tempMsg);
 
-    void collectObjectsInRange(int domain, const PositionVector& shape, SUMOReal range, std::set<std::string>& into);
+    void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into);
 
 
     /// @name Helpers for reading and checking values
@@ -341,7 +341,7 @@ private:
          */
         Subscription(int commandIdArg, const std::string& idArg,
                      const std::vector<int>& variablesArg, const std::vector<std::vector<unsigned char> >& paramsArg,
-                     SUMOTime beginTimeArg, SUMOTime endTimeArg, bool contextVarsArg, int contextDomainArg, SUMOReal rangeArg)
+                     SUMOTime beginTimeArg, SUMOTime endTimeArg, bool contextVarsArg, int contextDomainArg, double rangeArg)
             : commandId(commandIdArg), id(idArg), variables(variablesArg), parameters(paramsArg), beginTime(beginTimeArg), endTime(endTimeArg),
               contextVars(contextVarsArg), contextDomain(contextDomainArg), range(rangeArg) {}
 
@@ -362,7 +362,7 @@ private:
         /// @brief The domain ID of the context
         int contextDomain;
         /// @brief The range of the context
-        SUMOReal range;
+        double range;
 
     };
 

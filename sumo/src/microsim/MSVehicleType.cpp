@@ -76,21 +76,21 @@ MSVehicleType::~MSVehicleType() {
 }
 
 
-SUMOReal
-MSVehicleType::computeChosenSpeedDeviation(MTRand* rng, const SUMOReal minDevFactor) const {
+double
+MSVehicleType::computeChosenSpeedDeviation(MTRand* rng, const double minDevFactor) const {
     if (myParameter.speedDev == 0) {
         return myParameter.speedFactor;
     }
     // for speedDev = 0.1, most 95% of the vehicles will drive between 80% and 120% of speedLimit * speedFactor
-    const SUMOReal devA = MIN2(SUMOReal(2.), RandHelper::randNorm(0, 1., rng));
+    const double devA = MIN2(double(2.), RandHelper::randNorm(0, 1., rng));
     // avoid voluntary speeds below 20% of the requested speedFactor
-    return MAX2(minDevFactor, SUMOReal(devA * myParameter.speedDev + 1.)) * myParameter.speedFactor;
+    return MAX2(minDevFactor, double(devA * myParameter.speedDev + 1.)) * myParameter.speedFactor;
 }
 
 
 // ------------ Setter methods
 void
-MSVehicleType::setLength(const SUMOReal& length) {
+MSVehicleType::setLength(const double& length) {
     if (myOriginalType != 0 && length < 0) {
         myParameter.length = myOriginalType->getLength();
     } else {
@@ -100,7 +100,7 @@ MSVehicleType::setLength(const SUMOReal& length) {
 
 
 void
-MSVehicleType::setHeight(const SUMOReal& height) {
+MSVehicleType::setHeight(const double& height) {
     if (myOriginalType != 0 && height < 0) {
         myParameter.height = myOriginalType->getHeight();
     } else {
@@ -110,7 +110,7 @@ MSVehicleType::setHeight(const SUMOReal& height) {
 
 
 void
-MSVehicleType::setMinGap(const SUMOReal& minGap) {
+MSVehicleType::setMinGap(const double& minGap) {
     if (myOriginalType != 0 && minGap < 0) {
         myParameter.minGap = myOriginalType->getMinGap();
     } else {
@@ -120,7 +120,7 @@ MSVehicleType::setMinGap(const SUMOReal& minGap) {
 
 
 void
-MSVehicleType::setMaxSpeed(const SUMOReal& maxSpeed) {
+MSVehicleType::setMaxSpeed(const double& maxSpeed) {
     if (myOriginalType != 0 && maxSpeed < 0) {
         myParameter.maxSpeed = myOriginalType->getMaxSpeed();
     } else {
@@ -136,7 +136,7 @@ MSVehicleType::setVClass(SUMOVehicleClass vclass) {
 
 
 void
-MSVehicleType::setDefaultProbability(const SUMOReal& prob) {
+MSVehicleType::setDefaultProbability(const double& prob) {
     if (myOriginalType != 0 && prob < 0) {
         myParameter.defaultProbability = myOriginalType->getDefaultProbability();
     } else {
@@ -146,7 +146,7 @@ MSVehicleType::setDefaultProbability(const SUMOReal& prob) {
 
 
 void
-MSVehicleType::setSpeedFactor(const SUMOReal& factor) {
+MSVehicleType::setSpeedFactor(const double& factor) {
     if (myOriginalType != 0 && factor < 0) {
         myParameter.speedFactor = myOriginalType->getSpeedFactor();
     } else {
@@ -156,7 +156,7 @@ MSVehicleType::setSpeedFactor(const SUMOReal& factor) {
 
 
 void
-MSVehicleType::setSpeedDeviation(const SUMOReal& dev) {
+MSVehicleType::setSpeedDeviation(const double& dev) {
     if (myOriginalType != 0 && dev < 0) {
         myParameter.speedDev = myOriginalType->getSpeedDeviation();
     } else {
@@ -178,7 +178,7 @@ MSVehicleType::setColor(const RGBColor& color) {
 
 
 void
-MSVehicleType::setWidth(const SUMOReal& width) {
+MSVehicleType::setWidth(const double& width) {
     if (myOriginalType != 0 && width < 0) {
         myParameter.width = myOriginalType->getWidth();
     } else {
@@ -188,7 +188,7 @@ MSVehicleType::setWidth(const SUMOReal& width) {
 
 
 void
-MSVehicleType::setImpatience(const SUMOReal impatience) {
+MSVehicleType::setImpatience(const double impatience) {
     if (myOriginalType != 0 && impatience < 0) {
         myParameter.impatience = myOriginalType->getImpatience();
     } else {
@@ -208,10 +208,10 @@ MSVehicleType::setShape(SUMOVehicleShape shape) {
 MSVehicleType*
 MSVehicleType::build(SUMOVTypeParameter& from) {
     MSVehicleType* vtype = new MSVehicleType(from);
-    const SUMOReal accel = from.getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(from.vehicleClass));
-    const SUMOReal decel = from.getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass));
-    const SUMOReal sigma = from.getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(from.vehicleClass));
-    const SUMOReal tau = from.getCFParam(SUMO_ATTR_TAU, 1.);
+    const double accel = from.getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(from.vehicleClass));
+    const double decel = from.getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass));
+    const double sigma = from.getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(from.vehicleClass));
+    const double tau = from.getCFParam(SUMO_ATTR_TAU, 1.);
     switch (from.cfModel) {
         case SUMO_TAG_CF_IDM:
             vtype->myCarFollowModel = new MSCFModel_IDM(vtype, accel, decel, tau,

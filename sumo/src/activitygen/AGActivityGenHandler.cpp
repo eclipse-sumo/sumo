@@ -142,9 +142,9 @@ AGActivityGenHandler::parseGeneralCityInfo(const SUMOSAXAttributes& attrs) {
         myCity.statData.households = attrs.getInt(AGEN_ATTR_HOUSEHOLDS);
         myCity.statData.limitAgeChildren = attrs.getOpt<int>(AGEN_ATTR_CHILDREN, 0, ok, 18);
         myCity.statData.limitAgeRetirement = attrs.getOpt<int>(AGEN_ATTR_RETIREMENT, 0, ok, 63);
-        myCity.statData.carRate = attrs.getOpt<SUMOReal>(AGEN_ATTR_CARS, 0, ok, 0.58);
-        myCity.statData.unemployement = attrs.getOpt<SUMOReal>(AGEN_ATTR_UNEMPLOYEMENT, 0, ok, 0.06);
-        myCity.statData.maxFootDistance = attrs.getOpt<SUMOReal>(AGEN_ATTR_MAX_FOOT_DIST, 0, ok, 300.0);
+        myCity.statData.carRate = attrs.getOpt<double>(AGEN_ATTR_CARS, 0, ok, 0.58);
+        myCity.statData.unemployement = attrs.getOpt<double>(AGEN_ATTR_UNEMPLOYEMENT, 0, ok, 0.06);
+        myCity.statData.maxFootDistance = attrs.getOpt<double>(AGEN_ATTR_MAX_FOOT_DIST, 0, ok, 300.0);
         myCity.statData.incomingTraffic = attrs.getOpt<int>(AGEN_ATTR_IN_TRAFFIC, 0, ok, 0);
         myCity.statData.outgoingTraffic = attrs.getOpt<int>(AGEN_ATTR_OUT_TRAFFIC, 0, ok, 0);
     } catch (const std::exception& e) {
@@ -159,11 +159,11 @@ void
 AGActivityGenHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     try {
         bool ok;
-        myCity.statData.carPreference = attrs.getOpt<SUMOReal>(AGEN_ATTR_CARPREF, 0, ok, 0.0);
-        myCity.statData.speedTimePerKm = attrs.getOpt<SUMOReal>(AGEN_ATTR_CITYSPEED, 0, ok, 360.0);
-        myCity.statData.freeTimeActivityRate = attrs.getOpt<SUMOReal>(AGEN_ATTR_FREETIMERATE, 0, ok, 0.15);
-        myCity.statData.uniformRandomTrafficRate = attrs.getOpt<SUMOReal>(AGEN_ATTR_UNI_RAND_TRAFFIC, 0, ok, 0.0);
-        myCity.statData.departureVariation = attrs.getOpt<SUMOReal>(AGEN_ATTR_DEP_VARIATION, 0, ok, 0.0);
+        myCity.statData.carPreference = attrs.getOpt<double>(AGEN_ATTR_CARPREF, 0, ok, 0.0);
+        myCity.statData.speedTimePerKm = attrs.getOpt<double>(AGEN_ATTR_CITYSPEED, 0, ok, 360.0);
+        myCity.statData.freeTimeActivityRate = attrs.getOpt<double>(AGEN_ATTR_FREETIMERATE, 0, ok, 0.15);
+        myCity.statData.uniformRandomTrafficRate = attrs.getOpt<double>(AGEN_ATTR_UNI_RAND_TRAFFIC, 0, ok, 0.0);
+        myCity.statData.departureVariation = attrs.getOpt<double>(AGEN_ATTR_DEP_VARIATION, 0, ok, 0.0);
     } catch (const std::exception& e) {
         WRITE_ERROR("Error while parsing the element " +
                     SUMOXMLDefinitions::Tags.getString(AGEN_TAG_PARAM) + ": " +
@@ -175,8 +175,8 @@ AGActivityGenHandler::parseParameters(const SUMOSAXAttributes& attrs) {
 void
 AGActivityGenHandler::parseStreets(const SUMOSAXAttributes& attrs) {
     try {
-        SUMOReal pop = 0;
-        SUMOReal work = 0;
+        double pop = 0;
+        double work = 0;
 
         if (attrs.hasAttribute(AGEN_ATTR_POPULATION)) {
             pop = attrs.getFloat(AGEN_ATTR_POPULATION);
@@ -205,7 +205,7 @@ void
 AGActivityGenHandler::parseCityGates(const SUMOSAXAttributes& attrs) {
     try {
         std::string edge = attrs.getString(SUMO_ATTR_EDGE);
-        SUMOReal positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
+        double positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
         AGPosition posi(myCity.getStreet(edge), positionOnEdge);
         myCity.statData.incoming[(int)myCity.cityGates.size()] = attrs.getFloat(AGEN_ATTR_INCOMING);
         myCity.statData.outgoing[(int)myCity.cityGates.size()] = attrs.getFloat(AGEN_ATTR_OUTGOING);
@@ -263,7 +263,7 @@ void
 AGActivityGenHandler::parseSchool(const SUMOSAXAttributes& attrs) {
     try {
         std::string edge = attrs.getString(SUMO_ATTR_EDGE);
-        SUMOReal positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
+        double positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
         AGPosition posi(myCity.getStreet(edge), positionOnEdge);
         int beginAge = attrs.getInt(AGEN_ATTR_BEGINAGE);
         int endAge = attrs.getInt(AGEN_ATTR_ENDAGE);
@@ -285,7 +285,7 @@ void
 AGActivityGenHandler::parseBusStation(const SUMOSAXAttributes& attrs) {
     try {
         std::string edge = attrs.getString(SUMO_ATTR_EDGE);
-        SUMOReal positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
+        double positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
         int id = attrs.getInt(SUMO_ATTR_ID);
         AGPosition posi(myCity.getStreet(edge), positionOnEdge);
         myCity.statData.busStations.insert(std::pair<int, AGPosition>(id, posi));

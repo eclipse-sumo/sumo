@@ -307,7 +307,7 @@ void BinaryFormatter::writeAttr(dummy& into, const std::string& attr, const T& v
 }
 
 template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const bool& val);
-template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const SUMOReal& val);
+template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val);
 template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const int& val);
 template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const SumoXMLNodeType& val);
 template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const SumoXMLEdgeFunc& val);
@@ -316,7 +316,7 @@ template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr
 template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const Boundary& val);
 template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const RGBColor& val);
 template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::vector<int>& val);
-//template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::vector<SUMOReal>& val);
+//template<> void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::vector<double>& val);
 
 
 template <typename dummy>

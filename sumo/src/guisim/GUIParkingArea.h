@@ -83,8 +83,8 @@ public:
      */
     GUIParkingArea(const std::string& id,
                    const std::vector<std::string>& lines, MSLane& lane,
-                   SUMOReal frompos, SUMOReal topos, unsigned int capacity,
-                   SUMOReal width, SUMOReal length, SUMOReal angle);
+                   double frompos, double topos, unsigned int capacity,
+                   double width, double length, double angle);
 
 
     /// @brief Destructor
@@ -137,16 +137,16 @@ public:
 
 private:
     /// @brief The rotations of the shape parts
-    std::vector<SUMOReal> myShapeRotations;
+    std::vector<double> myShapeRotations;
 
     /// @brief The lengths of the shape parts
-    std::vector<SUMOReal> myShapeLengths;
+    std::vector<double> myShapeLengths;
 
     /// @brief The position of the sign
     Position mySignPos;
 
     /// @brief The rotation of the sign
-    SUMOReal mySignRot;
+    double mySignRot;
 
 };
 

@@ -129,7 +129,7 @@ private:
      * @exception NumberFormatException If the float is not numeric
      * @exception UnknownElement If the named data field is not in the line
      */
-    SUMOReal getNamedFloat(const std::string& fieldName);
+    double getNamedFloat(const std::string& fieldName);
 
     /** @brief The same, but two different names for the field are allowed
      *
@@ -140,7 +140,7 @@ private:
      * @exception NumberFormatException If the float is not numeric
      * @exception UnknownElement If the named data field is not in the line
      */
-    SUMOReal getNamedFloat(const std::string& fieldName1, const std::string& fieldName2);
+    double getNamedFloat(const std::string& fieldName1, const std::string& fieldName2);
 
 
     /** @brief Returns the value from the named column as a float or the default value if an error occurs
@@ -149,7 +149,7 @@ private:
      * @param[in] defaultValue The default to return in the case of an error
      * @return The parsed real or the default value if an error while parsing occured
      */
-    SUMOReal getNamedFloat(const std::string& fieldName, SUMOReal defaultValue);
+    double getNamedFloat(const std::string& fieldName, double defaultValue);
 
     /** @brief The same, but two different names for the field are allowed
      *
@@ -158,8 +158,8 @@ private:
      * @param[in] defaultValue The default to return in the case of an error
      * @return The parsed real or the default value if an error while parsing occured
      */
-    SUMOReal getNamedFloat(const std::string& fieldName1, const std::string& fieldName2,
-                           SUMOReal defaultValue);
+    double getNamedFloat(const std::string& fieldName1, const std::string& fieldName2,
+                           double defaultValue);
 
 
     /** @brief Returns the value from the named column as a normalised string
@@ -186,16 +186,16 @@ private:
     std::string getNamedString(const std::string& fieldName1, const std::string& fieldName2);
 
 
-    /** @brief tries to get a SUMOReal which is possibly assigned to a certain modality
+    /** @brief tries to get a double which is possibly assigned to a certain modality
      *
-     * When the SUMOReal cannot be extracted using the given name, "(IV)" is
+     * When the double cannot be extracted using the given name, "(IV)" is
      * appended to the begin of the name. Note that this function does not
      * yet support public traffic.
      *
      * @param[in] name Name of the column to extract the real from
      * @return The real stored under the named column, or if not found the one from "(IV)"+name, or if not found -1
      */
-    SUMOReal getWeightedFloat(const std::string& name);
+    double getWeightedFloat(const std::string& name);
 
 
     /** @brief tries to get a bool which is possibly assigned to a certain modality

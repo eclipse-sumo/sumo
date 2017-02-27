@@ -93,8 +93,8 @@ public:
     struct VehicleInfo {
         /** @note Constructor expects an _entryLane argument corresponding to a lane, which is part of the detector.
         */
-        VehicleInfo(std::string id, std::string type, SUMOReal length, SUMOReal minGap, const MSLane* entryLane, SUMOReal entryOffset,
-                std::size_t currentOffsetIndex, SUMOReal exitOffset, SUMOReal distToDetectorEnd, bool onDetector) :
+        VehicleInfo(std::string id, std::string type, double length, double minGap, const MSLane* entryLane, double entryOffset,
+                std::size_t currentOffsetIndex, double exitOffset, double distToDetectorEnd, bool onDetector) :
             id(id),
             type(type),
             length(length),
@@ -119,9 +119,9 @@ public:
         /// vehicle's type
         std::string type;
         /// vehicle's length
-        SUMOReal length;
+        double length;
         /// vehicle's minGap
-        SUMOReal minGap;
+        double minGap;
         /// ID of the lane, on which the vehicle entered the detector
         std::string entryLaneID;
         /// Lane, on which the vehicle currently resides (always the one for which the last notifyEnter was received)
@@ -131,16 +131,16 @@ public:
         /// Distance of the vehicle's entry lane's beginning to the detector start (can be negative for the first lane)
         /// In notifyMove(), the positional input arguments are relative to that position (since the vehicle picks up the MoveReminder
         /// on the entry lane)
-        SUMOReal entryOffset;
+        double entryOffset;
         /// Offset from the detector start, where the vehicle has leaves the detector (defaults to detector length and is updated
         /// if the vehicle leaves the detector via a junction before reaching its end, i.e. enters a lane not part of the detector)
-        SUMOReal exitOffset;
+        double exitOffset;
         /// Accumulated time that this vehicle has spent on the detector since its last entry
-        SUMOReal totalTimeOnDetector;
+        double totalTimeOnDetector;
         /// Accumulated time loss that this vehicle suffered since it entered the detector
-        SUMOReal accumulatedTimeLoss;
+        double accumulatedTimeLoss;
         /// Distance left till the detector end after the last integration step (may become negative if the vehicle passes beyond the detector end)
-        SUMOReal distToDetectorEnd;
+        double distToDetectorEnd;
 
 
 
@@ -149,12 +149,12 @@ public:
         /// Whether the vehicle has already entered the detector (don't count twice!)
         bool hasEntered;
         /// Last value of the acceleration
-        SUMOReal lastAccel;
+        double lastAccel;
         /// Last value of the speed
-        SUMOReal lastSpeed;
+        double lastSpeed;
         /// Last value of the vehicle position in reference to the start lane
         /// @note NOT in reference to the entry lane as newPos argument in notifyMove()!
-        SUMOReal lastPos;
+        double lastPos;
     };
 
     typedef std::map<std::string, VehicleInfo*> VehicleInfoMap;
@@ -166,7 +166,7 @@ private:
      *          temporarily stored in myMoveNotifications for each step.
     */
     struct MoveNotificationInfo {
-        MoveNotificationInfo(std::string _vehID, SUMOReal _oldPos, SUMOReal _newPos, SUMOReal _speed, SUMOReal _accel, SUMOReal _distToDetectorEnd, SUMOReal _timeOnDetector, SUMOReal _lengthOnDetector, SUMOReal _timeLoss, bool _onDetector) :
+        MoveNotificationInfo(std::string _vehID, double _oldPos, double _newPos, double _speed, double _accel, double _distToDetectorEnd, double _timeOnDetector, double _lengthOnDetector, double _timeLoss, bool _onDetector) :
         id(_vehID),
         oldPos(_oldPos),
         newPos(_newPos),
@@ -183,21 +183,21 @@ private:
         /// Vehicle's id
         std::string id;
         /// Position before the last integration step (relative to the vehicle's entry lane on the detector)
-        SUMOReal oldPos;
+        double oldPos;
         /// Position after the last integration step (relative to the vehicle's entry lane on the detector)
-        SUMOReal newPos;
+        double newPos;
         /// Speed after the last integration step
-        SUMOReal speed;
+        double speed;
         /// Acceleration in the last integration step
-        SUMOReal accel;
+        double accel;
         /// Time spent on the detector during the last integration step
-        SUMOReal timeOnDetector;
+        double timeOnDetector;
         /// The length of the part of the vehicle on the detector at the end of the last time step
-        SUMOReal lengthOnDetector;
+        double lengthOnDetector;
         /// timeloss during the last integration step
-        SUMOReal timeLoss;
+        double timeLoss;
         /// Distance left till the detector end after the last integration step (may become negative if the vehicle passes beyond the detector end)
-        SUMOReal distToDetectorEnd;
+        double distToDetectorEnd;
         /// whether the vehicle is on the detector at the end of the current timestep
         bool onDetector;
     };
@@ -234,14 +234,14 @@ public:
     * @param[in] vTypes Vehicle types, that the detector takes into account
     * @param[in] showDetector Whether the detector should be visible in the GUI (@todo)
     *
-    * @note Exactly one of the arguments startPos, endPos and length should be invalid (i.e. equal to std::numeric_limits<SUMOReal>::max()).
+    * @note Exactly one of the arguments startPos, endPos and length should be invalid (i.e. equal to std::numeric_limits<double>::max()).
     *        If length is invalid, it is required that 0 <= startPos < endPos <= lane->length
     *        If endPos is invalid, the detector may span over several lanes downstream of the lane
     *        If pos is invalid, the detector may span over several lanes upstream of the lane
     */
     MSE2Collector(const std::string& id,
-            DetectorUsage usage, MSLane* lane, SUMOReal startPos, SUMOReal endPos, SUMOReal length,
-            SUMOReal haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+            DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
+            double haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
             const std::string& vTypes, bool showDetector = false);
 
 
@@ -259,8 +259,8 @@ public:
     * @param[in] showDetector Whether the detector should be visible in the GUI (@todo)
     */
     MSE2Collector(const std::string& id,
-            DetectorUsage usage, std::vector<MSLane*> lanes, SUMOReal startPos, SUMOReal endPos,
-            SUMOReal haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+            DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
+            double haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
             const std::string& vTypes, bool showDetector = false);
 
 
@@ -298,8 +298,8 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyMove
      */
-    virtual bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
-                    SUMOReal newSpeed);
+    virtual bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos,
+                    double newSpeed);
 
 
     /** @brief Removes a known vehicle due to its lane-change
@@ -313,7 +313,7 @@ public:
      * @param[in] isLaneChange whether the vehicle changed from the lane
      * @see MSMoveReminder::notifyLeave
      */
-    virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+    virtual bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
 
 
     /** @brief Adds the vehicle to known vehicles if not beyond the dector
@@ -375,7 +375,7 @@ public:
      *
      * @return The detector's begin position
      */
-    SUMOReal getStartPos() const {
+    double getStartPos() const {
         return myStartPos;
     }
 
@@ -384,7 +384,7 @@ public:
      *
      * @return The detector's end position
      */
-    SUMOReal getEndPos() const {
+    double getEndPos() const {
         return myEndPos;
     }
 
@@ -414,17 +414,17 @@ public:
     int getCurrentVehicleNumber() const;
 
     /** @brief Returns the current detector occupancy */
-    SUMOReal getCurrentOccupancy() const{
+    double getCurrentOccupancy() const{
         return myCurrentOccupancy;
     }
 
     /** @brief Returns the mean vehicle speed of vehicles currently on the detector*/
-    SUMOReal getCurrentMeanSpeed() const{
+    double getCurrentMeanSpeed() const{
         return myCurrentMeanSpeed;
     }
 
     /** @brief Returns the mean vehicle length of vehicles currently on the detector*/
-    SUMOReal getCurrentMeanLength() const {
+    double getCurrentMeanLength() const {
         return myCurrentMeanLength;
     }
 
@@ -439,7 +439,7 @@ public:
     }
 
     /** @brief Returns the length in meters of the currently largest jam */
-    SUMOReal getCurrentMaxJamLengthInMeters() const{
+    double getCurrentMaxJamLengthInMeters() const{
         return myCurrentMaxJamLengthInMeters;
     }
 
@@ -449,7 +449,7 @@ public:
     }
 
     /** @brief Returns the length of all jams in meters */
-    SUMOReal getCurrentJamLengthInMeters() const{
+    double getCurrentJamLengthInMeters() const{
         return myCurrentJamLengthInMeters;
     }
 
@@ -515,10 +515,10 @@ public:
     /// TODO: Need documentation, used for tls control in MSSOTLE2Sensors (->Daniel?)
     /// @{
     /** @brief Returns an estimate of the number of vehicles currently on the detector */
-    int getEstimatedCurrentVehicleNumber(SUMOReal speedThreshold) const;
+    int getEstimatedCurrentVehicleNumber(double speedThreshold) const;
 
     /** @brief Returns an estimate of the lenght of the queue of vehicles currently stopped on the detector */
-    SUMOReal getEstimateQueueLength() const;
+    double getEstimateQueueLength() const;
     /// @}
 
 
@@ -560,7 +560,7 @@ private:
      * @param[in/out] timeOnDetector Total time spent on the detector during the last step
      * @param[in/out] timeLoss Total time loss suffered during the last integration step
      */
-    void calculateTimeLossAndTimeOnDetector(const SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, const VehicleInfo& vi, SUMOReal& timeOnDetector, SUMOReal& timeLoss) const;
+    void calculateTimeLossAndTimeOnDetector(const SUMOVehicle& veh, double oldPos, double newPos, const VehicleInfo& vi, double& timeOnDetector, double& timeLoss) const;
 
     /** @brief Checks integrity of myLanes, adds internal-lane information, inits myLength, myFirstLane, myLastLane, myOffsets
      *         Called once at construction.
@@ -570,11 +570,11 @@ private:
 
     /** @brief Adjusts positioning if the detector length is less than POSITION_EPS and tests some assertions
      */
-    void checkPositioning(bool posGiven = false, SUMOReal desiredLength = 0.);
+    void checkPositioning(bool posGiven = false, double desiredLength = 0.);
 
     /** @brief Snaps value to snpPoint if they are closer than snapDist
      */
-    static SUMOReal snap(SUMOReal value, SUMOReal snapPoint, SUMOReal snapDist);
+    static double snap(double value, double snapPoint, double snapDist);
 
     /** @brief Updates the detector length after myStartPos and myEndPos have been modified
      */
@@ -595,7 +595,7 @@ private:
      *                 If dir == "fw" lane is interpreted as corresponding to the start lane of the detector,
      *                 otherwise the lane is interpreted as the end lane.
      */
-    std::vector<MSLane*> selectLanes(MSLane* endLane, SUMOReal length, std::string dir);
+    std::vector<MSLane*> selectLanes(MSLane* endLane, double length, std::string dir);
 
 
     /** @brief This adds the detector as a MoveReminder to the associated lanes.
@@ -625,7 +625,7 @@ private:
      * @param vehInfo Info on the detector's memory of the vehicle
      * @return A MoveNotificationInfo containing quantities of interest for the detector
      */
-    MoveNotificationInfo* makeMoveNotification(const SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed, const VehicleInfo& vehInfo) const;
+    MoveNotificationInfo* makeMoveNotification(const SUMOVehicle& veh, double oldPos, double newPos, double newSpeed, const VehicleInfo& vehInfo) const;
 
     /** @brief Creates and returns a VehicleInfo (called at the vehicle's entry)
      *
@@ -643,7 +643,7 @@ private:
      * @param vmax Maximal possible speed for the considered vehicle on the segment
      * @return Time loss (== MAX(timespan*(vmax - (initialSpeed + accel/2))/vmax), 0)
      */
-    static SUMOReal calculateSegmentTimeLoss(SUMOReal timespan, SUMOReal initialSpeed, SUMOReal accel, SUMOReal vmax);
+    static double calculateSegmentTimeLoss(double timespan, double initialSpeed, double accel, double vmax);
 
     /** brief returns true if the vehicle corresponding to mni1 is closer to the detector end than the vehicle corresponding to mni2
      */
@@ -662,24 +662,24 @@ private:
     /// @brief The detector's lane sequence
     std::vector<std::string> myLanes;
     /// @brief The distances of the lane-beginnings from the detector start-point
-    std::vector<SUMOReal> myOffsets;
+    std::vector<double> myOffsets;
     /// @brief The first lane of the detector's lane sequence
     MSLane* myFirstLane;
     /// @brief The last lane of the detector's lane sequence
     MSLane* myLastLane;
     /// @brief The position the detector starts at on the first lane
-    SUMOReal myStartPos;
+    double myStartPos;
     /// @brief The position the detector ends at on the last lane
-    SUMOReal myEndPos;
+    double myEndPos;
     /// @brief The total detector length
-    SUMOReal myDetectorLength;
+    double myDetectorLength;
 
     /// @brief A vehicle must driver slower than this to be counted as a part of a jam
-    SUMOReal myJamHaltingSpeedThreshold;
+    double myJamHaltingSpeedThreshold;
     /// @brief A vehicle must be that long beyond myJamHaltingSpeedThreshold to be counted as a part of a jam
     SUMOTime myJamHaltingTimeThreshold;
     /// @brief Two standing vehicles must be closer than this to be counted into the same jam
-    SUMOReal myJamDistanceThreshold;
+    double myJamDistanceThreshold;
     /// @}
 
 
@@ -715,33 +715,33 @@ private:
     /// @name Values generated for aggregated file output
     /// @{
     /// @brief The number of collected samples [time x vehicle] since the last reset
-    SUMOReal myVehicleSamples;
+    double myVehicleSamples;
     /// @brief The total amount of all time losses [time x vehicle] since the last reset
-    SUMOReal myTotalTimeLoss;
+    double myTotalTimeLoss;
     /// @brief The number of vehicles, which have entered the detector since the last reset
     std::size_t myNumberOfEnteredVehicles;
     /// @brief The sum of collected vehicle speeds [m/s]
-    SUMOReal mySpeedSum;
+    double mySpeedSum;
     /// @brief The number of started halts [#]
-    SUMOReal myStartedHalts;
+    double myStartedHalts;
     /// @brief The sum of jam lengths [m]
-    SUMOReal myJamLengthInMetersSum;
+    double myJamLengthInMetersSum;
     /// @brief The sum of jam lengths [#veh]
     int myJamLengthInVehiclesSum;
     /// @brief The current aggregation duration [#steps]
     int myTimeSamples;
     /// @brief The sum of occupancies [%]
-    SUMOReal myOccupancySum;
+    double myOccupancySum;
     /// @brief The maximum occupancy [%]
-    SUMOReal myMaxOccupancy;
+    double myMaxOccupancy;
     /// @brief The mean jam length [#veh]
     int myMeanMaxJamInVehicles;
     /// @brief The mean jam length [m]
-    SUMOReal myMeanMaxJamInMeters;
+    double myMeanMaxJamInMeters;
     /// @brief The max jam length [#veh]
     int myMaxJamInVehicles;
     /// @brief The max jam length [m]
-    SUMOReal myMaxJamInMeters;
+    double myMaxJamInMeters;
     /// @brief The mean number of vehicles [#veh]
     int myMeanVehicleNumber;
     /// @}
@@ -755,19 +755,19 @@ private:
     std::size_t myMaxVehicleNumber;
 
     /// @brief The current occupancy
-    SUMOReal myCurrentOccupancy;
+    double myCurrentOccupancy;
     /// @brief The current mean speed
-    SUMOReal myCurrentMeanSpeed;
+    double myCurrentMeanSpeed;
     /// @brief The current mean length
-    SUMOReal myCurrentMeanLength;
+    double myCurrentMeanLength;
     /// @brief The current jam number
     int myCurrentJamNo;
     /// @brief the current maximum jam length in meters
-    SUMOReal myCurrentMaxJamLengthInMeters;
+    double myCurrentMaxJamLengthInMeters;
     /// @brief The current maximum jam length in vehicles
     int myCurrentMaxJamLengthInVehicles;
     /// @brief The overall jam length in meters
-    SUMOReal myCurrentJamLengthInMeters;
+    double myCurrentJamLengthInMeters;
     /// @brief The overall jam length in vehicles
     int myCurrentJamLengthInVehicles;
     /// @brief The number of started halts in the last step

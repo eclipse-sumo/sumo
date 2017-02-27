@@ -61,7 +61,7 @@ public:
      */
     GUIPolygon(const std::string& id, const std::string& type,
                const RGBColor& color, const PositionVector& shape, bool fill,
-               SUMOReal layer = 0, SUMOReal angle = 0, const std::string& imgFile = "");
+               double layer = 0, double angle = 0, const std::string& imgFile = "");
 
     /// @brief Destructor
     ~GUIPolygon();
@@ -113,7 +113,7 @@ public:
     virtual void setShape(const PositionVector& shape);
 
     /// @brief set a new shape and update the tesselation
-    void setLineWidth(SUMOReal lineWidth) {
+    void setLineWidth(double lineWidth) {
         myLineWidth = lineWidth;
     }
 
@@ -125,13 +125,13 @@ private:
     mutable GLuint myDisplayList;
 
     /// @brief the previous line width for deciding whether the display list must be refreshed
-    mutable SUMOReal myLineWidth;
+    mutable double myLineWidth;
 
     /// @brief store the drawing commands in a display list
-    void storeTesselation(SUMOReal lineWidth) const;
+    void storeTesselation(double lineWidth) const;
 
     // @brief perform the tesselation / drawing
-    void performTesselation(SUMOReal lineWidth) const;
+    void performTesselation(double lineWidth) const;
 
 };
 

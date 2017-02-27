@@ -846,7 +846,7 @@ GNEInspectorFrame::AttributeInput::showAttribute(GNEAttributeCarrier *ac, SumoXM
         myTextFieldInt->show();
     } else if (GNEAttributeCarrier::isTime(myTag, myAttr)) {
         // Show myTimeSpinDial for Time attributes
-        myTimeSpinDial->setValue((int)GNEAttributeCarrier::parse<SUMOReal>(value));
+        myTimeSpinDial->setValue((int)GNEAttributeCarrier::parse<double>(value));
         myTimeSpinDial->setTextColor(FXRGB(0, 0, 0));
         myTimeSpinDial->show();
     } else {

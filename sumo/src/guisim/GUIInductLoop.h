@@ -61,7 +61,7 @@ public:
      * @param[in] position Position of the detector within the lane
      * @param[in] vTypes which vehicle types are considered
      */
-    GUIInductLoop(const std::string& id, MSLane* const lane, SUMOReal position, const std::string& vTypes);
+    GUIInductLoop(const std::string& id, MSLane* const lane, double position, const std::string& vTypes);
 
 
     /// @brief Destructor
@@ -107,7 +107,7 @@ protected:
      * @param entryTimestep Timestep (not necessary integer) of entrance.
      * @see MSInductLoop::enterDetectorByMove()
      */
-    void enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep);
+    void enterDetectorByMove(SUMOVehicle& veh, double entryTimestep);
 
 
     /** @brief Processes a vehicle that leaves the detector
@@ -118,7 +118,7 @@ protected:
      * @param leaveTimestep Timestep (not necessary integer) of leaving.
      * @see MSInductLoop::leaveDetectorByMove()
      */
-    void leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep);
+    void leaveDetectorByMove(SUMOVehicle& veh, double leaveTimestep);
 
 
     /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
@@ -128,7 +128,7 @@ protected:
      * @param veh The leaving vehicle.
      * @param lastPos The last position of the leaving vehicle.
      */
-    void leaveDetectorByLaneChange(SUMOVehicle& veh, SUMOReal lastPos);
+    void leaveDetectorByLaneChange(SUMOVehicle& veh, double lastPos);
     /// @}
 
 
@@ -142,7 +142,7 @@ public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// @brief Constructor
-        MyWrapper(GUIInductLoop& detector, SUMOReal pos);
+        MyWrapper(GUIInductLoop& detector, double pos);
 
         /// @brief Destructor
         ~MyWrapper();
@@ -193,10 +193,10 @@ public:
         Position myFGPosition;
 
         /// @brief The rotation in full-geometry mode
-        SUMOReal myFGRotation;
+        double myFGRotation;
 
         /// @brief The position on the lane
-        SUMOReal myPosition;
+        double myPosition;
 
     private:
         /// @brief Invalidated copy constructor.

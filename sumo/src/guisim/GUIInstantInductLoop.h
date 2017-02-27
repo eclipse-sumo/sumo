@@ -53,7 +53,7 @@ public:
      * @param[in] position Position of the detector within the lane.
      */
     GUIInstantInductLoop(const std::string& id, OutputDevice& od,
-                         MSLane* const lane, SUMOReal positionInMeters, const std::string& vTypes);
+                         MSLane* const lane, double positionInMeters, const std::string& vTypes);
 
 
     /// @brief Destructor
@@ -75,7 +75,7 @@ public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// @brief Constructor
-        MyWrapper(GUIInstantInductLoop& detector, SUMOReal pos);
+        MyWrapper(GUIInstantInductLoop& detector, double pos);
 
         /// @brief Destructor
         ~MyWrapper();
@@ -126,10 +126,10 @@ public:
         Position myFGPosition;
 
         /// @brief The rotation in full-geometry mode
-        SUMOReal myFGRotation;
+        double myFGRotation;
 
         /// @brief The position on the lane
-        SUMOReal myPosition;
+        double myPosition;
 
     private:
         /// @brief Invalidated copy constructor.

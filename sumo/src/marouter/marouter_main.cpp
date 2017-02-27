@@ -115,8 +115,8 @@ initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
     }
 }
 
-SUMOReal
-getTravelTime(const ROEdge* const edge, const ROVehicle* const /* veh */, SUMOReal /* time */) {
+double
+getTravelTime(const ROEdge* const edge, const ROVehicle* const /* veh */, double /* time */) {
     return edge->getLength() / edge->getSpeed();
 }
 
@@ -155,8 +155,8 @@ writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const
         ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
         if (edge->getFunc() == ROEdge::ET_NORMAL) {
             dev.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, edge->getID());
-            const SUMOReal traveltime = edge->getTravelTime(veh, STEPS2TIME(begin));
-            const SUMOReal flow = edge->getFlow(STEPS2TIME(begin));
+            const double traveltime = edge->getTravelTime(veh, STEPS2TIME(begin));
+            const double flow = edge->getFlow(STEPS2TIME(begin));
             dev.writeAttr("traveltime", traveltime);
             dev.writeAttr("speed", edge->getLength() / traveltime);
             dev.writeAttr("entered", flow);

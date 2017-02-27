@@ -105,13 +105,13 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
-    inline SUMOReal compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const {
+    inline double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const {
         UNUSED_PARAMETER(slope);
         if (c == HBEFA3_BASE || a < 0. || e == PollutantsInterface::ELEC) {
             return 0.;
         }
         const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA3_BASE - 1;
-        SUMOReal scale = 3.6;
+        double scale = 3.6;
         if (e == PollutantsInterface::FUEL) {
             if (getFuel(c) == "Diesel") {
                 scale *= 836.;
@@ -120,7 +120,7 @@ public:
             }
         }
         const double* f = myFunctionParameter[index][e];
-        return (SUMOReal) MAX2((f[0] + f[1] * a * v + f[2] * a * a * v + f[3] * v + f[4] * v * v + f[5] * v * v * v) / scale, 0.);
+        return (double) MAX2((f[0] + f[1] * a * v + f[2] * a * a * v + f[3] * v + f[4] * v * v + f[5] * v * v * v) / scale, 0.);
     }
 
 

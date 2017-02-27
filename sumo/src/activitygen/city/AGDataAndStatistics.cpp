@@ -68,7 +68,7 @@ AGDataAndStatistics::getRandomPopDistributed(int n, int m) {
     if (m > limitEndAge) {
         m = limitEndAge;
     }
-    const SUMOReal alea = RandHelper::rand(getPropYoungerThan(n), getPropYoungerThan(m));
+    const double alea = RandHelper::rand(getPropYoungerThan(n), getPropYoungerThan(m));
     for (int a = n; a < m; ++a) {
         if (alea < getPropYoungerThan(a + 1)) {
             return a;
@@ -78,9 +78,9 @@ AGDataAndStatistics::getRandomPopDistributed(int n, int m) {
 }
 
 int
-AGDataAndStatistics::getPoissonsNumberOfChildren(SUMOReal mean) {
-    SUMOReal alea = RandHelper::rand();
-    SUMOReal cumul = 0;
+AGDataAndStatistics::getPoissonsNumberOfChildren(double mean) {
+    double alea = RandHelper::rand();
+    double cumul = 0;
     for (int nbr = 0; nbr < LIMIT_CHILDREN_NUMBER; ++nbr) {
         cumul += poisson(mean, nbr);
         if (cumul > alea) {
@@ -90,9 +90,9 @@ AGDataAndStatistics::getPoissonsNumberOfChildren(SUMOReal mean) {
     return LIMIT_CHILDREN_NUMBER;
 }
 
-SUMOReal
-AGDataAndStatistics::poisson(SUMOReal mean, int occ) {
-    return exp(-mean) * pow(mean, occ) / (SUMOReal)factorial(occ);
+double
+AGDataAndStatistics::poisson(double mean, int occ) {
+    return exp(-mean) * pow(mean, occ) / (double)factorial(occ);
 }
 
 int
@@ -112,26 +112,26 @@ AGDataAndStatistics::consolidateStat() {
     normalizeMapProb(&outgoing);
     limitEndAge = population.rbegin()->first;
 
-    oldAgeHhProb = (SUMOReal)getPeopleOlderThan(limitAgeRetirement) / (SUMOReal)getPeopleOlderThan(limitAgeChildren);
-    secondPersProb = (SUMOReal)(getPeopleOlderThan(limitAgeChildren) - households) / (SUMOReal)households;
-    meanNbrChildren = (SUMOReal)getPeopleYoungerThan(limitAgeChildren) / ((1 - oldAgeHhProb) * (SUMOReal)households);
+    oldAgeHhProb = (double)getPeopleOlderThan(limitAgeRetirement) / (double)getPeopleOlderThan(limitAgeChildren);
+    secondPersProb = (double)(getPeopleOlderThan(limitAgeChildren) - households) / (double)households;
+    meanNbrChildren = (double)getPeopleYoungerThan(limitAgeChildren) / ((1 - oldAgeHhProb) * (double)households);
     //cout << " --> oldAgeHhProb = " << setprecision(3) << oldAgeHhProb << "  - retAge? " << getPeopleOlderThan(limitAgeRetirement) << " adAge? " << getPeopleOlderThan(limitAgeChildren) << endl;
     //cout << " --> secondPersProb = " << setprecision(3) << secondPersProb << "  - adAge? " << getPeopleOlderThan(limitAgeChildren) << " hh?" << households << endl;
     //cout << " --> meanNbrChildren = " << setprecision(3) << meanNbrChildren << "  - chAge? " << getPeopleYoungerThan(limitAgeChildren) << endl;
 }
 
-SUMOReal
+double
 AGDataAndStatistics::getPropYoungerThan(int age) {
-    std::map<int, SUMOReal>::iterator it;
-    SUMOReal sum = 0;
+    std::map<int, double>::iterator it;
+    double sum = 0;
     int previousAge = 0;
-    SUMOReal prop = 0;
+    double prop = 0;
 
     for (it = population.begin(); it != population.end(); ++it) {
         if (it->first < age) {
             sum += it->second;
         } else if (it->first >= age && previousAge < age) {
-            prop = ((SUMOReal)(age - previousAge) / (SUMOReal)(it->first - previousAge));
+            prop = ((double)(age - previousAge) / (double)(it->first - previousAge));
             sum += prop * it->second;
             break;
         }
@@ -142,7 +142,7 @@ AGDataAndStatistics::getPropYoungerThan(int age) {
 
 int
 AGDataAndStatistics::getPeopleYoungerThan(int age) {
-    return (int)((SUMOReal)inhabitants * getPropYoungerThan(age) + .5);
+    return (int)((double)inhabitants * getPropYoungerThan(age) + .5);
 }
 
 int
@@ -151,9 +151,9 @@ AGDataAndStatistics::getPeopleOlderThan(int age) {
 }
 
 void
-AGDataAndStatistics::normalizeMapProb(std::map<int, SUMOReal>* myMap) {
-    SUMOReal sum = 0;
-    std::map<int, SUMOReal>::iterator it;
+AGDataAndStatistics::normalizeMapProb(std::map<int, double>* myMap) {
+    double sum = 0;
+    std::map<int, double>::iterator it;
     for (it = myMap->begin(); it != myMap->end(); ++it) {
         sum += it->second;
     }
@@ -165,18 +165,18 @@ AGDataAndStatistics::normalizeMapProb(std::map<int, SUMOReal>* myMap) {
     }
 }
 
-SUMOReal
-AGDataAndStatistics::getInverseExpRandomValue(SUMOReal mean, SUMOReal maxVar) {
+double
+AGDataAndStatistics::getInverseExpRandomValue(double mean, double maxVar) {
     if (maxVar <= 0) {
         return mean;
     }
-    SUMOReal p = RandHelper::rand(static_cast<SUMOReal>(0.0001), static_cast<SUMOReal>(1));
+    double p = RandHelper::rand(static_cast<double>(0.0001), static_cast<double>(1));
     //we have to scale the distribution because maxVar is different from INF
-    SUMOReal scale = exp((-1) * maxVar);
+    double scale = exp((-1) * maxVar);
     //new p: scaled
     p = p * (1 - scale) + scale; // p = [scale; 1) ==> (1-p) = (0; 1-scale]
 
-    SUMOReal variation = (-1) * log(p);
+    double variation = (-1) * log(p);
     //decide the side of the mean value
     if (RandHelper::rand(1000) < 500) {
         return mean + variation;
@@ -188,9 +188,9 @@ AGDataAndStatistics::getInverseExpRandomValue(SUMOReal mean, SUMOReal maxVar) {
 
 int
 AGDataAndStatistics::getRandomCityGateByIncoming() {
-    SUMOReal alea = RandHelper::rand();
-    SUMOReal total = 0;
-    std::map<int, SUMOReal>::iterator it;
+    double alea = RandHelper::rand();
+    double total = 0;
+    std::map<int, double>::iterator it;
     for (it = incoming.begin(); it != incoming.end(); ++it) {
         total += it->second;
         if (alea < total) {
@@ -203,9 +203,9 @@ AGDataAndStatistics::getRandomCityGateByIncoming() {
 
 int
 AGDataAndStatistics::getRandomCityGateByOutgoing() {
-    SUMOReal alea = RandHelper::rand();
-    SUMOReal total = 0;
-    std::map<int, SUMOReal>::iterator it;
+    double alea = RandHelper::rand();
+    double total = 0;
+    std::map<int, double>::iterator it;
     for (it = outgoing.begin(); it != outgoing.end(); ++it) {
         total += it->second;
         if (alea < total) {

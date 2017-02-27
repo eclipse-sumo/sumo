@@ -65,7 +65,7 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal frequency, const std::string& filename, SUMOReal begin) :
+GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double frequency, const std::string& filename, double begin) :
     GNEAdditional(id, viewNet, Position(), SUMO_TAG_ROUTEPROBE, ICON_ROUTEPROBE),
     myFrequency(frequency),
     myFilename(filename),
@@ -137,13 +137,13 @@ GNERouteProbe::getPositionInView() const {
 
 
 void
-GNERouteProbe::moveAdditionalGeometry(SUMOReal, SUMOReal) {
+GNERouteProbe::moveAdditionalGeometry(double, double) {
     // This additional cannot be moved
 }
 
 
 void
-GNERouteProbe::commmitAdditionalGeometryMoved(SUMOReal, SUMOReal, GNEUndoList*) {
+GNERouteProbe::commmitAdditionalGeometryMoved(double, double, GNEUndoList*) {
     // This additional cannot be moved
 }
 
@@ -169,13 +169,13 @@ GNERouteProbe::getFilename() const {
 }
 
 
-SUMOReal
+double
 GNERouteProbe::getFrequency() const {
     return myFrequency;
 }
 
 
-SUMOReal
+double
 GNERouteProbe::getBegin() const {
     return myBegin;
 }
@@ -188,13 +188,13 @@ GNERouteProbe::setFilename(std::string filename) {
 
 
 void
-GNERouteProbe::setFrequency(SUMOReal frequency) {
+GNERouteProbe::setFrequency(double frequency) {
     myFrequency = frequency;
 }
 
 
 void
-GNERouteProbe::setBegin(SUMOReal begin) {
+GNERouteProbe::setBegin(double begin) {
     myBegin = begin;
 }
 
@@ -209,9 +209,9 @@ void
 GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // get values
     glPushName(getGlID());
-    SUMOReal width = (SUMOReal) 2.0 * s.scale;
+    double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
 
     // draw shape
     glColor3ub(255, 216, 0);
@@ -335,7 +335,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FREQUENCY:
             return canParse<int>(value);
         case SUMO_ATTR_BEGIN:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -358,7 +358,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFrequency = parse<int>(value);
             break;
         case SUMO_ATTR_BEGIN:
-            myBegin = parse<SUMOReal>(value);
+            myBegin = parse<double>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

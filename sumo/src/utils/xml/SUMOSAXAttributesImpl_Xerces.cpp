@@ -143,9 +143,9 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
 }
 
 
-SUMOReal
+double
 SUMOSAXAttributesImpl_Xerces::getFloat(int id) const {
-    return TplConvert::_2SUMOReal(getAttributeValueSecure(id));
+    return TplConvert::_2double(getAttributeValueSecure(id));
 }
 
 
@@ -157,10 +157,10 @@ SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const {
 }
 
 
-SUMOReal
+double
 SUMOSAXAttributesImpl_Xerces::getFloat(const std::string& id) const {
     XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(id.c_str());
-    SUMOReal result = TplConvert::_2SUMOReal(myAttrs.getValue(t));
+    double result = TplConvert::_2double(myAttrs.getValue(t));
     XERCES_CPP_NAMESPACE::XMLString::release(&t);
     return result;
 }
@@ -226,12 +226,12 @@ SUMOSAXAttributesImpl_Xerces::getShape(int attr) const {
         if (pos.size() != 2 && pos.size() != 3) {
             throw FormatException("shape format");
         }
-        SUMOReal x = TplConvert::_2SUMOReal(pos.next().c_str());
-        SUMOReal y = TplConvert::_2SUMOReal(pos.next().c_str());
+        double x = TplConvert::_2double(pos.next().c_str());
+        double y = TplConvert::_2double(pos.next().c_str());
         if (pos.size() == 2) {
             shape.push_back(Position(x, y));
         } else {
-            SUMOReal z = TplConvert::_2SUMOReal(pos.next().c_str());
+            double z = TplConvert::_2double(pos.next().c_str());
             shape.push_back(Position(x, y, z));
         }
     }
@@ -246,10 +246,10 @@ SUMOSAXAttributesImpl_Xerces::getBoundary(int attr) const {
     if (st.size() != 4) {
         throw FormatException("boundary format");
     }
-    const SUMOReal xmin = TplConvert::_2SUMOReal(st.next().c_str());
-    const SUMOReal ymin = TplConvert::_2SUMOReal(st.next().c_str());
-    const SUMOReal xmax = TplConvert::_2SUMOReal(st.next().c_str());
-    const SUMOReal ymax = TplConvert::_2SUMOReal(st.next().c_str());
+    const double xmin = TplConvert::_2double(st.next().c_str());
+    const double ymin = TplConvert::_2double(st.next().c_str());
+    const double xmax = TplConvert::_2double(st.next().c_str());
+    const double ymax = TplConvert::_2double(st.next().c_str());
     return Boundary(xmin, ymin, xmax, ymax);
 }
 

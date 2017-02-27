@@ -161,8 +161,8 @@ MSLane::AnyVehicleIterator::nextIsMyVehicles() const {
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSLane::MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge* const edge,
-               int numericalID, const PositionVector& shape, SUMOReal width,
+MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* const edge,
+               int numericalID, const PositionVector& shape, double width,
                SVCPermissions permissions, int index, bool isRampAccel) :
     Named(id),
     myNumericalID(numericalID), myShape(shape), myIndex(index),
@@ -222,7 +222,7 @@ MSLane::addMoveReminder(MSMoveReminder* rem) {
 }
 
 
-SUMOReal
+double
 MSLane::setPartialOccupation(MSVehicle* v) {
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(v)) {
@@ -256,7 +256,7 @@ MSLane::resetPartialOccupation(MSVehicle* v) {
 
 // ------ Vehicle emission ------
 void
-MSLane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed, SUMOReal posLat, const MSLane::VehCont::iterator& at, MSMoveReminder::Notification notification) {
+MSLane::incorporateVehicle(MSVehicle* veh, double pos, double speed, double posLat, const MSLane::VehCont::iterator& at, MSMoveReminder::Notification notification) {
     assert(pos <= myLength);
     bool wasInactive = myVehicles.size() == 0;
     veh->enterLaneAtInsertion(this, pos, speed, posLat, notification);
@@ -276,18 +276,18 @@ MSLane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed, SUMORea
 
 
 bool
-MSLane::lastInsertion(MSVehicle& veh, SUMOReal mspeed, bool patchSpeed) {
+MSLane::lastInsertion(MSVehicle& veh, double mspeed, bool patchSpeed) {
     // XXX interpret departPosLat value
-    const SUMOReal posLat = 0;
-    SUMOReal pos = getLength() - POSITION_EPS;
+    const double posLat = 0;
+    double pos = getLength() - POSITION_EPS;
     MSVehicle* leader = getLastAnyVehicle();
     // back position of leader relative to this lane
-    SUMOReal leaderBack;
+    double leaderBack;
     if (leader == 0) {
         /// look for a leaders on consecutive lanes
         veh.setTentativeLaneAndPosition(this, pos, posLat);
         veh.updateBestLanes(false, this);
-        std::pair<MSVehicle* const, SUMOReal> leaderInfo = getLeader(&veh, pos, veh.getBestLanesContinuation(), veh.getCarFollowModel().brakeGap(mspeed));
+        std::pair<MSVehicle* const, double> leaderInfo = getLeader(&veh, pos, veh.getBestLanesContinuation(), veh.getCarFollowModel().brakeGap(mspeed));
         leader = leaderInfo.first;
         leaderBack = pos + leaderInfo.second + veh.getVehicleType().getMinGap();
     } else {
@@ -299,7 +299,7 @@ MSLane::lastInsertion(MSVehicle& veh, SUMOReal mspeed, bool patchSpeed) {
         return isInsertionSuccess(&veh, mspeed, pos, posLat, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED);
     } else {
         // try to insert behind the leader
-        const SUMOReal frontGapNeeded = veh.getCarFollowModel().getSecureGap(mspeed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap() + POSITION_EPS;
+        const double frontGapNeeded = veh.getCarFollowModel().getSecureGap(mspeed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap() + POSITION_EPS;
         if (leaderBack >= frontGapNeeded) {
             pos = MIN2(pos, leaderBack - frontGapNeeded);
             bool result = isInsertionSuccess(&veh, mspeed, pos, posLat, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED);
@@ -313,17 +313,17 @@ MSLane::lastInsertion(MSVehicle& veh, SUMOReal mspeed, bool patchSpeed) {
 
 
 bool
-MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
+MSLane::freeInsertion(MSVehicle& veh, double mspeed,
                       MSMoveReminder::Notification notification) {
     bool adaptableSpeed = true;
     // try to insert teleporting vehicles fully on this lane
-    const SUMOReal minPos = (notification == MSMoveReminder::NOTIFICATION_TELEPORT ?
+    const double minPos = (notification == MSMoveReminder::NOTIFICATION_TELEPORT ?
                              MIN2(myLength, veh.getVehicleType().getLength()) : 0);
 
     if (myVehicles.size() == 0) {
         // ensure sufficient gap to followers on predecessor lanes
-        const SUMOReal backOffset = minPos - veh.getVehicleType().getLength();
-        const SUMOReal missingRearGap = getMissingRearGap(backOffset, mspeed, veh.getCarFollowModel().getMaxDecel());
+        const double backOffset = minPos - veh.getVehicleType().getLength();
+        const double missingRearGap = getMissingRearGap(backOffset, mspeed, veh.getCarFollowModel().getMaxDecel());
         if (missingRearGap > 0) {
             if (minPos + missingRearGap <= myLength) {
                 // @note. The rear gap is tailored to mspeed. If it changes due
@@ -343,11 +343,11 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
     } else {
         // check whether the vehicle can be put behind the last one if there is such
         MSVehicle* leader = getFirstFullVehicle(); // @todo reproduction of bogus old behavior. see #1961
-        const SUMOReal leaderPos = leader->getBackPositionOnLane(this);
-        const SUMOReal speed = adaptableSpeed ? leader->getSpeed() : mspeed;
-        const SUMOReal frontGapNeeded = veh.getCarFollowModel().getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap();
+        const double leaderPos = leader->getBackPositionOnLane(this);
+        const double speed = adaptableSpeed ? leader->getSpeed() : mspeed;
+        const double frontGapNeeded = veh.getCarFollowModel().getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap();
         if (leaderPos >= frontGapNeeded) {
-            const SUMOReal tspeed = MIN2(veh.getCarFollowModel().insertionFollowSpeed(&veh, mspeed, frontGapNeeded, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()), mspeed);
+            const double tspeed = MIN2(veh.getCarFollowModel().insertionFollowSpeed(&veh, mspeed, frontGapNeeded, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()), mspeed);
             // check whether we can insert our vehicle behind the last vehicle on the lane
             if (isInsertionSuccess(&veh, tspeed, minPos, 0, adaptableSpeed, notification)) {
                 //std::cout << SIMTIME << " freeInsertion lane=" << getID() << " veh=" << veh.getID() << " pos=" << minPos<< " speed=" << speed  << " tspeed=" << tspeed << " frontGapNeeded=" << frontGapNeeded << " lead=" << leader->getID() << " lPos=" << leaderPos << "\n   vehsOnLane=" << toString(myVehicles) << " @(358)\n";
@@ -367,22 +367,22 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
         const MSVehicle* follower = *predIt;
 
         // patch speed if allowed
-        SUMOReal speed = mspeed;
+        double speed = mspeed;
         if (adaptableSpeed && leader != 0) {
             speed = MIN2(leader->getSpeed(), mspeed);
         }
 
         // compute the space needed to not collide with leader
-        SUMOReal frontMax = getLength();
+        double frontMax = getLength();
         if (leader != 0) {
-            SUMOReal leaderRearPos = leader->getBackPositionOnLane(this);
-            SUMOReal frontGapNeeded = veh.getCarFollowModel().getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap();
+            double leaderRearPos = leader->getBackPositionOnLane(this);
+            double frontGapNeeded = veh.getCarFollowModel().getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap();
             frontMax = leaderRearPos - frontGapNeeded;
         }
         // compute the space needed to not let the follower collide
-        const SUMOReal followPos = follower->getPositionOnLane() + follower->getVehicleType().getMinGap();
-        const SUMOReal backGapNeeded = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), veh.getSpeed(), veh.getCarFollowModel().getMaxDecel());
-        const SUMOReal backMin = followPos + backGapNeeded + veh.getVehicleType().getLength();
+        const double followPos = follower->getPositionOnLane() + follower->getVehicleType().getMinGap();
+        const double backGapNeeded = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), veh.getSpeed(), veh.getCarFollowModel().getMaxDecel());
+        const double backMin = followPos + backGapNeeded + veh.getVehicleType().getLength();
 
         // check whether there is enough room (given some extra space for rounding errors)
         if (frontMax > minPos && backMin + POSITION_EPS < frontMax) {
@@ -400,9 +400,9 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
 }
 
 
-SUMOReal
+double
 MSLane::getDepartSpeed(const MSVehicle& veh, bool& patchSpeed) {
-    SUMOReal speed = 0;
+    double speed = 0;
     const SUMOVehicleParameter& pars = veh.getParameter();
     switch (pars.departSpeedProcedure) {
         case DEPART_SPEED_GIVEN:
@@ -429,11 +429,11 @@ MSLane::getDepartSpeed(const MSVehicle& veh, bool& patchSpeed) {
 
 bool
 MSLane::insertVehicle(MSVehicle& veh) {
-    SUMOReal pos = 0;
-    SUMOReal posLat = 0;
+    double pos = 0;
+    double posLat = 0;
     bool patchSpeed = true; // whether the speed shall be adapted to infrastructure/traffic in front
     const SUMOVehicleParameter& pars = veh.getParameter();
-    SUMOReal speed = getDepartSpeed(veh, patchSpeed);
+    double speed = getDepartSpeed(veh, patchSpeed);
 
     // determine the position
     switch (pars.departPosProcedure) {
@@ -511,13 +511,13 @@ MSLane::insertVehicle(MSVehicle& veh) {
 }
 
 
-SUMOReal
+double
 MSLane::basePos(const MSVehicle& veh) const {
     return MIN2(veh.getVehicleType().getLength() + POSITION_EPS, myLength);
 }
 
 bool
-MSLane::checkFailure(MSVehicle* aVehicle, SUMOReal& speed, SUMOReal& dist, const SUMOReal nspeed, const bool patchSpeed, const std::string errorMsg) const {
+MSLane::checkFailure(MSVehicle* aVehicle, double& speed, double& dist, const double nspeed, const bool patchSpeed, const std::string errorMsg) const {
     if (nspeed < speed) {
         if (patchSpeed) {
             speed = MIN2(nspeed, speed);
@@ -536,7 +536,7 @@ MSLane::checkFailure(MSVehicle* aVehicle, SUMOReal& speed, SUMOReal& dist, const
 
 bool
 MSLane::isInsertionSuccess(MSVehicle* aVehicle,
-                           SUMOReal speed, SUMOReal pos, SUMOReal posLat, bool patchSpeed,
+                           double speed, double pos, double posLat, bool patchSpeed,
                            MSMoveReminder::Notification notification) {
     if (pos < 0 || pos > myLength) {
         // we may not start there
@@ -556,8 +556,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     const MSCFModel& cfModel = aVehicle->getCarFollowModel();
     const std::vector<MSLane*>& bestLaneConts = aVehicle->getBestLanesContinuation(this);
     std::vector<MSLane*>::const_iterator ri = bestLaneConts.begin();
-    SUMOReal seen = getLength() - pos; // == distance from insertion position until the end of the currentLane
-    SUMOReal dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
+    double seen = getLength() - pos; // == distance from insertion position until the end of the currentLane
+    double dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
 
     // before looping through the continuation lanes, check if a stop is scheduled on this lane
     // (the code is duplicated in the loop)
@@ -566,7 +566,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         if (nextStop.lane == this) {
             std::stringstream msg;
             msg << "scheduled stop on lane '" << myID << "' too close";
-            const SUMOReal distToStop = nextStop.endPos - pos;
+            const double distToStop = nextStop.endPos - pos;
             if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, distToStop),
                              patchSpeed, msg.str())) {
                 // we may not drive with the given velocity - we cannot stop at the stop
@@ -643,7 +643,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 if (nextStop.lane == nextLane) {
                     std::stringstream msg;
                     msg << "scheduled stop on lane '" << nextStop.lane->getID() << "' too close";
-                    const SUMOReal distToStop = seen + nextStop.endPos;
+                    const double distToStop = seen + nextStop.endPos;
                     if (checkFailure(aVehicle, speed, dist, cfModel.stopSpeed(aVehicle, speed, distToStop),
                                      patchSpeed, msg.str())) {
                         // we may not drive with the given velocity - we cannot stop at the stop
@@ -654,7 +654,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 
             // check leader on next lane
             // XXX check all leaders in the sublane case
-            SUMOReal gap = 0;
+            double gap = 0;
             MSVehicle* leader = nextLane->getLastAnyVehicle();
             if (leader != 0) {
 #ifdef DEBUG_INSERTION
@@ -667,7 +667,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 if (gap < 0) {
                     return false;
                 }
-                const SUMOReal nspeed = cfModel.insertionFollowSpeed(aVehicle, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                const double nspeed = cfModel.insertionFollowSpeed(aVehicle, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                 if (checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
                     // we may not drive with the given velocity - we crash into the leader
 #ifdef DEBUG_INSERTION
@@ -688,7 +688,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
             }
             // check next lane's maximum velocity
-            const SUMOReal nspeed = cfModel.freeSpeed(aVehicle, speed, seen, nextLane->getVehicleMaxSpeed(aVehicle), true);
+            const double nspeed = cfModel.freeSpeed(aVehicle, speed, seen, nextLane->getVehicleMaxSpeed(aVehicle), true);
             if (nspeed < speed) {
                 if (patchSpeed) {
                     speed = nspeed;
@@ -724,7 +724,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     // get the pointer to the vehicle next in front of the given position
     MSLeaderInfo leaders = getLastVehicleInformation(aVehicle, 0, pos);
     //if (aVehicle->getID() == "disabled") std::cout << " leaders=" << leaders.toString() << "\n";
-    const SUMOReal nspeed = safeInsertionSpeed(aVehicle, leaders, speed);
+    const double nspeed = safeInsertionSpeed(aVehicle, leaders, speed);
     if (nspeed < 0 || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
         // XXX: checking for nspeed<0... Might appear naturally with ballistic update (see #860, Leo)
         // TODO: check if ballistic update needs adjustments here, refs. #2577
@@ -756,7 +756,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     for (int i = 0; i < followers.numSublanes(); ++i) {
         const MSVehicle* follower = followers[i].first;
         if (follower != 0) {
-            const SUMOReal backGapNeeded = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), speed, cfModel.getMaxDecel());
+            const double backGapNeeded = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), speed, cfModel.getMaxDecel());
             if (followers[i].second < backGapNeeded) {
                 // too close to the follower on this lane
 #ifdef DEBUG_INSERTION
@@ -779,8 +779,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     }
     if (followers.numFreeSublanes() > 0) {
         // check approaching vehicles to prevent rear-end collisions
-        const SUMOReal backOffset = pos - aVehicle->getVehicleType().getLength();
-        const SUMOReal missingRearGap = getMissingRearGap(backOffset, speed, aVehicle->getCarFollowModel().getMaxDecel());
+        const double backOffset = pos - aVehicle->getVehicleType().getLength();
+        const double missingRearGap = getMissingRearGap(backOffset, speed, aVehicle->getCarFollowModel().getMaxDecel());
         if (missingRearGap > 0) {
             // too close to a follower
 #ifdef DEBUG_INSERTION
@@ -831,21 +831,21 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 
 
 void
-MSLane::forceVehicleInsertion(MSVehicle* veh, SUMOReal pos, MSMoveReminder::Notification notification, SUMOReal posLat) {
+MSLane::forceVehicleInsertion(MSVehicle* veh, double pos, MSMoveReminder::Notification notification, double posLat) {
     veh->updateBestLanes(true, this);
     bool dummy;
-    const SUMOReal speed = veh->hasDeparted() ? veh->getSpeed() : getDepartSpeed(*veh, dummy);
+    const double speed = veh->hasDeparted() ? veh->getSpeed() : getDepartSpeed(*veh, dummy);
     incorporateVehicle(veh, pos, speed, posLat, find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), pos)), notification);
 }
 
 
-SUMOReal
-MSLane::safeInsertionSpeed(const MSVehicle* veh, const MSLeaderInfo& leaders, SUMOReal speed) {
-    SUMOReal nspeed = speed;
+double
+MSLane::safeInsertionSpeed(const MSVehicle* veh, const MSLeaderInfo& leaders, double speed) {
+    double nspeed = speed;
     for (int i = 0; i < leaders.numSublanes(); ++i) {
         const MSVehicle* leader = leaders[i];
         if (leader != 0) {
-            const SUMOReal gap = leader->getBackPositionOnLane(this) - veh->getPositionOnLane() - veh->getVehicleType().getMinGap();
+            const double gap = leader->getBackPositionOnLane(this) - veh->getPositionOnLane() - veh->getVehicleType().getMinGap();
             if (gap < 0) {
                 return -1;
             }
@@ -859,7 +859,7 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, const MSLeaderInfo& leaders, SU
 
 // ------ Handling vehicles lapping into lanes ------
 const MSLeaderInfo&
-MSLane::getLastVehicleInformation(const MSVehicle* ego, SUMOReal latOffset, SUMOReal minPos, bool allowCached) const {
+MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double minPos, bool allowCached) const {
     if (myLeaderInfoTime < MSNet::getInstance()->getCurrentTimeStep() || ego != 0 || minPos > 0 || !allowCached) {
         myLeaderInfoTmp = MSLeaderInfo(this, ego, latOffset);
         AnyVehicleIterator last = anyVehiclesBegin();
@@ -875,7 +875,7 @@ MSLane::getLastVehicleInformation(const MSVehicle* ego, SUMOReal latOffset, SUMO
             }
 #endif
             if (veh != ego && veh->getPositionOnLane(this) >= minPos) {
-                const SUMOReal latOffset = veh->getLatOffset(this);
+                const double latOffset = veh->getLatOffset(this);
                 freeSublanes = myLeaderInfoTmp.addLeader(veh, true, latOffset);
 #ifdef DEBUG_PLAN_MOVE
                 if (DEBUG_COND2(ego)) {
@@ -910,7 +910,7 @@ MSLane::getLastVehicleInformation(const MSVehicle* ego, SUMOReal latOffset, SUMO
 
 
 const MSLeaderInfo&
-MSLane::getFirstVehicleInformation(const MSVehicle* ego, SUMOReal latOffset, bool onlyFrontOnLane, SUMOReal maxPos, bool allowCached) const {
+MSLane::getFirstVehicleInformation(const MSVehicle* ego, double latOffset, bool onlyFrontOnLane, double maxPos, bool allowCached) const {
     if (myFollowerInfoTime < MSNet::getInstance()->getCurrentTimeStep() || ego != 0 || maxPos < myLength || !allowCached || onlyFrontOnLane) {
         // XXX separate cache for onlyFrontOnLane = true
         myLeaderInfoTmp = MSLeaderInfo(this, ego, latOffset);
@@ -925,8 +925,8 @@ MSLane::getFirstVehicleInformation(const MSVehicle* ego, SUMOReal latOffset, boo
 #endif
             if (veh != ego && veh->getPositionOnLane(this) <= maxPos
                     && (!onlyFrontOnLane || veh->isFrontOnLane(this))) {
-                //const SUMOReal latOffset = veh->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
-                const SUMOReal latOffset = veh->getLatOffset(this);
+                //const double latOffset = veh->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
+                const double latOffset = veh->getLatOffset(this);
 #ifdef DEBUG_PLAN_MOVE
                 if (DEBUG_COND2(ego)) {
                     std::cout << "          veh=" << veh->getID() << " latOffset=" << latOffset << "\n";
@@ -936,7 +936,7 @@ MSLane::getFirstVehicleInformation(const MSVehicle* ego, SUMOReal latOffset, boo
             }
             veh = *(++first);
         }
-        if (ego == 0 && maxPos == std::numeric_limits<SUMOReal>::max()) {
+        if (ego == 0 && maxPos == std::numeric_limits<double>::max()) {
             // update cached value
             myFollowerInfoTime = MSNet::getInstance()->getCurrentTimeStep();
             myFollowerInfo = myLeaderInfoTmp;
@@ -964,7 +964,7 @@ MSLane::getFirstVehicleInformation(const MSVehicle* ego, SUMOReal latOffset, boo
 void
 MSLane::planMovements(SUMOTime t) {
     assert(myVehicles.size() != 0);
-    SUMOReal cumulatedVehLength = 0.;
+    double cumulatedVehLength = 0.;
     MSLeaderInfo ahead(this);
     // iterate over myVehicles and myPartialVehicles merge-sort style
     VehCont::reverse_iterator veh = myVehicles.rbegin();
@@ -982,7 +982,7 @@ MSLane::planMovements(SUMOTime t) {
     for (; veh != myVehicles.rend(); ++veh) {
         while (vehPart != myPartialVehicles.rend()
                 && ((*vehPart)->getPositionOnLane(this) > (*veh)->getPositionOnLane())) {
-            const SUMOReal latOffset = (*vehPart)->getLatOffset(this);
+            const double latOffset = (*vehPart)->getLatOffset(this);
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
                 std::cout << "    partial ahead: " << (*vehPart)->getID() << " latOffset=" << latOffset << "\n";
@@ -1130,8 +1130,8 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, cons
     if (bothOpposite) {
         std::swap(victim, collider);
     }
-    const SUMOReal colliderPos = colliderOpposite ? collider->getBackPositionOnLane(this) : collider->getPositionOnLane(this);
-    SUMOReal gap = victim->getBackPositionOnLane(this) - colliderPos - collider->getVehicleType().getMinGap();
+    const double colliderPos = colliderOpposite ? collider->getBackPositionOnLane(this) : collider->getPositionOnLane(this);
+    double gap = victim->getBackPositionOnLane(this) - colliderPos - collider->getVehicleType().getMinGap();
     if (bothOpposite) {
         gap = -gap - 2 * collider->getVehicleType().getMinGap();
     }
@@ -1150,7 +1150,7 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, cons
                                   << "\n";
 #endif
     if (gap < -NUMERICAL_EPS) {
-        SUMOReal latGap = 0;
+        double latGap = 0;
         if (MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0) {
             latGap = (fabs(victim->getCenterOnEdge(this) - collider->getCenterOnEdge(this))
                       - 0.5 * fabs(victim->getVehicleType().getWidth() + collider->getVehicleType().getWidth()));
@@ -1174,7 +1174,7 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, cons
 
 void
 MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
-                               SUMOReal gap, SUMOReal latGap, std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
+                               double gap, double latGap, std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
                                std::set<const MSVehicle*>& toTeleport) const {
     std::string prefix;
     switch (myCollisionAction) {
@@ -1233,8 +1233,8 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIn
     for (VehCont::reverse_iterator i = myVehicles.rbegin(); i != myVehicles.rend();) {
         MSVehicle* veh = *i;
         // length is needed later when the vehicle may not exist anymore
-        const SUMOReal length = veh->getVehicleType().getLengthWithGap();
-        const SUMOReal nettoLength = veh->getVehicleType().getLength();
+        const double length = veh->getVehicleType().getLengthWithGap();
+        const double nettoLength = veh->getVehicleType().getLength();
         const bool moved = veh->executeMove();
         MSLane* const target = veh->getLane();
         if (veh->hasArrived()) {
@@ -1568,14 +1568,14 @@ MSLane::getLinkTo(const MSLane* target) const {
 
 
 void
-MSLane::setMaxSpeed(SUMOReal val) {
+MSLane::setMaxSpeed(double val) {
     myMaxSpeed = val;
     myEdge->recalcCache();
 }
 
 
 void
-MSLane::setLength(SUMOReal val) {
+MSLane::setLength(double val) {
     myLength = val;
     myEdge->recalcCache();
 }
@@ -1659,19 +1659,19 @@ MSLane::isApproachedFrom(MSEdge* const edge, MSLane* const lane) {
 
 class by_second_sorter {
 public:
-    inline int operator()(const std::pair<const MSVehicle*, SUMOReal>& p1, const std::pair<const MSVehicle*, SUMOReal>& p2) const {
+    inline int operator()(const std::pair<const MSVehicle*, double>& p1, const std::pair<const MSVehicle*, double>& p2) const {
         return p1.second < p2.second;
     }
 };
 
 
-SUMOReal MSLane::getMissingRearGap(
-    SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const {
+double MSLane::getMissingRearGap(
+    double backOffset, double leaderSpeed, double leaderMaxDecel) const {
     // this follows the same logic as getFollowerOnConsecutive. we do a tree
     // search and check for the vehicle with the largest missing rear gap within
     // relevant range
-    SUMOReal result = 0;
-    std::pair<MSVehicle* const, SUMOReal> followerInfo = getFollowerOnConsecutive(backOffset, leaderSpeed, leaderMaxDecel);
+    double result = 0;
+    std::pair<MSVehicle* const, double> followerInfo = getFollowerOnConsecutive(backOffset, leaderSpeed, leaderMaxDecel);
     MSVehicle* v = followerInfo.first;
     if (v != 0) {
         result = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderMaxDecel) - followerInfo.second;
@@ -1680,18 +1680,18 @@ SUMOReal MSLane::getMissingRearGap(
 }
 
 
-SUMOReal
+double
 MSLane::getMaximumBrakeDist() const {
     const MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
-    const SUMOReal maxSpeed = getSpeedLimit() * vc.getMaxSpeedFactor();
+    const double maxSpeed = getSpeedLimit() * vc.getMaxSpeedFactor();
     // NOTE: For the euler update this is an upper bound on the actual braking distance (see ticket #860)
     return maxSpeed * maxSpeed * 0.5 / vc.getMinDeceleration();
 }
 
 
-std::pair<MSVehicle* const, SUMOReal>
+std::pair<MSVehicle* const, double>
 MSLane::getFollowerOnConsecutive(
-    SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel, SUMOReal dist, bool ignoreMinorLinks) const {
+    double backOffset, double leaderSpeed, double leaderMaxDecel, double dist, bool ignoreMinorLinks) const {
     // do a tree search among all follower lanes and check for the most
     // important vehicle (the one requiring the largest reargap)
     // to get a safe bound on the necessary search depth, we need to consider the maximum speed and minimum
@@ -1706,8 +1706,8 @@ MSLane::getFollowerOnConsecutive(
                                   << " dist=" << dist
                                   << "\n";
 #endif
-    std::pair<MSVehicle*, SUMOReal> result(static_cast<MSVehicle*>(0), -1);
-    SUMOReal missingRearGapMax = -std::numeric_limits<SUMOReal>::max();
+    std::pair<MSVehicle*, double> result(static_cast<MSVehicle*>(0), -1);
+    double missingRearGapMax = -std::numeric_limits<double>::max();
     std::set<MSLane*> visited;
     std::vector<MSLane::IncomingLaneInfo> newFound;
     std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;
@@ -1725,7 +1725,7 @@ MSLane::getFollowerOnConsecutive(
             // Checking the first vehicle on the considered lane.
             // XXX: Could there be a problem if someone fast is just overtaking a a slow first vehicle, e.g.? (Leo) Refs.#2578
             MSVehicle* v = next->getFirstAnyVehicle();
-            SUMOReal agap = 0;
+            double agap = 0;
             if (v != 0) {
                 // the front of v is already on divergent trajectory from the ego vehicle
                 // for which this method is called (in the context of MSLaneChanger).
@@ -1756,7 +1756,7 @@ MSLane::getFollowerOnConsecutive(
 #endif
             }
             if (v != 0) {
-                const SUMOReal missingRearGap = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderMaxDecel) - agap;
+                const double missingRearGap = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderMaxDecel) - agap;
                 if (missingRearGap > missingRearGapMax) {
                     missingRearGapMax = missingRearGap;
                     result.first = v;
@@ -1784,8 +1784,8 @@ MSLane::getFollowerOnConsecutive(
     return result;
 }
 
-std::pair<MSVehicle* const, SUMOReal>
-MSLane::getLeader(const MSVehicle* veh, const SUMOReal vehPos, const std::vector<MSLane*>& bestLaneConts, SUMOReal dist, bool checkTmpVehicles) const {
+std::pair<MSVehicle* const, double>
+MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<MSLane*>& bestLaneConts, double dist, bool checkTmpVehicles) const {
     // get the leading vehicle for (shadow) veh
     // XXX this only works as long as all lanes of an edge have equal length
 #ifdef DEBUG_CONTEXT
@@ -1806,7 +1806,7 @@ MSLane::getLeader(const MSVehicle* veh, const SUMOReal vehPos, const std::vector
             }
 #endif
             if (pred->getPositionOnLane() > vehPos + NUMERICAL_EPS) {
-                return std::pair<MSVehicle* const, SUMOReal>(pred, pred->getBackPositionOnLane(this) - veh->getVehicleType().getMinGap() - vehPos);
+                return std::pair<MSVehicle* const, double>(pred, pred->getBackPositionOnLane(this) - veh->getVehicleType().getMinGap() - vehPos);
             }
         }
     } else {
@@ -1823,14 +1823,14 @@ MSLane::getLeader(const MSVehicle* veh, const SUMOReal vehPos, const std::vector
             }
 #endif
             if (pred->getPositionOnLane(this) > vehPos + NUMERICAL_EPS) {
-                return std::pair<MSVehicle* const, SUMOReal>(pred, pred->getBackPositionOnLane(this) - veh->getVehicleType().getMinGap() - vehPos);
+                return std::pair<MSVehicle* const, double>(pred, pred->getBackPositionOnLane(this) - veh->getVehicleType().getMinGap() - vehPos);
             }
         }
     }
     // XXX from here on the code mirrors MSLaneChanger::getRealLeader
     if (bestLaneConts.size() > 0) {
-        SUMOReal seen = getLength() - vehPos;
-        SUMOReal speed = veh->getSpeed();
+        double seen = getLength() - vehPos;
+        double speed = veh->getSpeed();
         if (dist < 0) {
             dist = veh->getCarFollowModel().brakeGap(speed) + veh->getVehicleType().getMinGap();
         }
@@ -1840,7 +1840,7 @@ MSLane::getLeader(const MSVehicle* veh, const SUMOReal vehPos, const std::vector
         }
 #endif
         if (seen > dist) {
-            return std::pair<MSVehicle* const, SUMOReal>(static_cast<MSVehicle*>(0), -1);
+            return std::pair<MSVehicle* const, double>(static_cast<MSVehicle*>(0), -1);
         }
         return getLeaderOnConsecutive(dist, seen, speed, *veh, bestLaneConts);
     } else {
@@ -1849,8 +1849,8 @@ MSLane::getLeader(const MSVehicle* veh, const SUMOReal vehPos, const std::vector
 }
 
 
-std::pair<MSVehicle* const, SUMOReal>
-MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle& veh,
+std::pair<MSVehicle* const, double>
+MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSVehicle& veh,
                                const std::vector<MSLane*>& bestLaneConts) const {
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(&veh)) {
@@ -1870,7 +1870,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
             std::cout << "    partials=" << toString(myPartialVehicles) << "\n";
         }
 #endif
-        return std::pair<MSVehicle* const, SUMOReal>(pred, seen - (getLength() - pred->getBackPositionOnLane(this)) - veh.getVehicleType().getMinGap());
+        return std::pair<MSVehicle* const, double>(pred, seen - (getLength() - pred->getBackPositionOnLane(this)) - veh.getVehicleType().getMinGap());
     }
     const MSLane* nextLane = this;
     SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, NUMERICAL_EPS));
@@ -1914,7 +1914,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
                 std::cout << "    found leader " << leader->getID() << " on nextLane=" << nextLane->getID() << "\n";
             }
 #endif
-            const SUMOReal dist = seen + leader->getBackPositionOnLane(nextLane) - veh.getVehicleType().getMinGap();
+            const double dist = seen + leader->getBackPositionOnLane(nextLane) - veh.getVehicleType().getMinGap();
             nextLane->releaseVehicles();
             return std::make_pair(leader, dist);
         }
@@ -1935,11 +1935,11 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
 }
 
 
-std::pair<MSVehicle* const, SUMOReal>
-MSLane::getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle& veh) const {
+std::pair<MSVehicle* const, double>
+MSLane::getCriticalLeader(double dist, double seen, double speed, const MSVehicle& veh) const {
     const std::vector<MSLane*>& bestLaneConts = veh.getBestLanesContinuation(this);
-    std::pair<MSVehicle*, SUMOReal> result = std::make_pair(static_cast<MSVehicle*>(0), -1);
-    SUMOReal safeSpeed = std::numeric_limits<SUMOReal>::max();
+    std::pair<MSVehicle*, double> result = std::make_pair(static_cast<MSVehicle*>(0), -1);
+    double safeSpeed = std::numeric_limits<double>::max();
     int view = 1;
     // loop over following lanes
     // @note: we don't check the partial occupator for this lane since it was
@@ -1961,7 +1961,7 @@ MSLane::getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MS
                 // XXX ignoring pedestrians here!
                 // XXX ignoring the fact that the link leader may alread by following us
                 // XXX ignoring the fact that we may drive up to the crossing point
-                const SUMOReal tmpSpeed = veh.getSafeFollowSpeed((*it).vehAndGap, seen, nextLane, (*it).distToCrossing);
+                const double tmpSpeed = veh.getSafeFollowSpeed((*it).vehAndGap, seen, nextLane, (*it).distToCrossing);
                 if (tmpSpeed < safeSpeed) {
                     safeSpeed = tmpSpeed;
                     result = (*it).vehAndGap;
@@ -1975,8 +1975,8 @@ MSLane::getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MS
         }
         MSVehicle* leader = nextLane->getLastAnyVehicle();
         if (leader != 0 && leader != result.first) {
-            const SUMOReal gap = seen + leader->getBackPositionOnLane(nextLane) - veh.getVehicleType().getMinGap();
-            const SUMOReal tmpSpeed = veh.getCarFollowModel().insertionFollowSpeed(leader, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+            const double gap = seen + leader->getBackPositionOnLane(nextLane) - veh.getVehicleType().getMinGap();
+            const double tmpSpeed = veh.getCarFollowModel().insertionFollowSpeed(leader, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
             if (tmpSpeed < safeSpeed) {
                 safeSpeed = tmpSpeed;
                 result = std::make_pair(leader, gap);
@@ -2125,9 +2125,9 @@ MSLane::getCrossingIndex() const {
 }
 
 // ------------ Current state retrieval
-SUMOReal
+double
 MSLane::getBruttoOccupancy() const {
-    SUMOReal fractions = myPartialVehicles.size() > 0 ? myLength - myPartialVehicles.front()->getBackPositionOnLane(this) : 0;
+    double fractions = myPartialVehicles.size() > 0 ? myLength - myPartialVehicles.front()->getBackPositionOnLane(this) : 0;
     getVehiclesSecure();
     if (myVehicles.size() != 0) {
         MSVehicle* lastVeh = myVehicles.front();
@@ -2140,9 +2140,9 @@ MSLane::getBruttoOccupancy() const {
 }
 
 
-SUMOReal
+double
 MSLane::getNettoOccupancy() const {
-    SUMOReal fractions = myPartialVehicles.size() > 0 ? myLength - myPartialVehicles.front()->getBackPositionOnLane(this) : 0;
+    double fractions = myPartialVehicles.size() > 0 ? myLength - myPartialVehicles.front()->getBackPositionOnLane(this) : 0;
     getVehiclesSecure();
     if (myVehicles.size() != 0) {
         MSVehicle* lastVeh = myVehicles.front();
@@ -2155,12 +2155,12 @@ MSLane::getNettoOccupancy() const {
 }
 
 
-SUMOReal
+double
 MSLane::getWaitingSeconds() const {
     if (myVehicles.size() == 0) {
         return 0;
     }
-    SUMOReal wtime = 0;
+    double wtime = 0;
     for (VehCont::const_iterator i = myVehicles.begin(); i != myVehicles.end(); ++i) {
         wtime += (*i)->getWaitingSeconds();
     }
@@ -2168,25 +2168,25 @@ MSLane::getWaitingSeconds() const {
 }
 
 
-SUMOReal
+double
 MSLane::getMeanSpeed() const {
     if (myVehicles.size() == 0) {
         return myMaxSpeed;
     }
-    SUMOReal v = 0;
+    double v = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
         v += (*i)->getSpeed();
     }
-    SUMOReal ret = v / (SUMOReal) myVehicles.size();
+    double ret = v / (double) myVehicles.size();
     releaseVehicles();
     return ret;
 }
 
 
-SUMOReal
+double
 MSLane::getCO2Emissions() const {
-    SUMOReal ret = 0;
+    double ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
         ret += (*i)->getCO2Emissions();
@@ -2196,9 +2196,9 @@ MSLane::getCO2Emissions() const {
 }
 
 
-SUMOReal
+double
 MSLane::getCOEmissions() const {
-    SUMOReal ret = 0;
+    double ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
         ret += (*i)->getCOEmissions();
@@ -2208,9 +2208,9 @@ MSLane::getCOEmissions() const {
 }
 
 
-SUMOReal
+double
 MSLane::getPMxEmissions() const {
-    SUMOReal ret = 0;
+    double ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
         ret += (*i)->getPMxEmissions();
@@ -2220,9 +2220,9 @@ MSLane::getPMxEmissions() const {
 }
 
 
-SUMOReal
+double
 MSLane::getNOxEmissions() const {
-    SUMOReal ret = 0;
+    double ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
         ret += (*i)->getNOxEmissions();
@@ -2232,9 +2232,9 @@ MSLane::getNOxEmissions() const {
 }
 
 
-SUMOReal
+double
 MSLane::getHCEmissions() const {
-    SUMOReal ret = 0;
+    double ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
         ret += (*i)->getHCEmissions();
@@ -2244,9 +2244,9 @@ MSLane::getHCEmissions() const {
 }
 
 
-SUMOReal
+double
 MSLane::getFuelConsumption() const {
-    SUMOReal ret = 0;
+    double ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
         ret += (*i)->getFuelConsumption();
@@ -2256,9 +2256,9 @@ MSLane::getFuelConsumption() const {
 }
 
 
-SUMOReal
+double
 MSLane::getElectricityConsumption() const {
-    SUMOReal ret = 0;
+    double ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
         ret += (*i)->getElectricityConsumption();
@@ -2268,17 +2268,17 @@ MSLane::getElectricityConsumption() const {
 }
 
 
-SUMOReal
+double
 MSLane::getHarmonoise_NoiseEmissions() const {
-    SUMOReal ret = 0;
+    double ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
     if (vehs.size() == 0) {
         releaseVehicles();
         return 0;
     }
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        SUMOReal sv = (*i)->getHarmonoise_NoiseEmissions();
-        ret += (SUMOReal) pow(10., (sv / 10.));
+        double sv = (*i)->getHarmonoise_NoiseEmissions();
+        ret += (double) pow(10., (sv / 10.));
     }
     releaseVehicles();
     return HelpersHarmonoise::sum(ret);
@@ -2286,7 +2286,7 @@ MSLane::getHarmonoise_NoiseEmissions() const {
 
 
 bool
-MSLane::VehPosition::operator()(const MSVehicle* cmp, SUMOReal pos) const {
+MSLane::VehPosition::operator()(const MSVehicle* cmp, double pos) const {
     return cmp->getPositionOnLane() >= pos;
 }
 
@@ -2298,8 +2298,8 @@ MSLane::vehicle_position_sorter::operator()(MSVehicle* v1, MSVehicle* v2) const 
 
 int
 MSLane::vehicle_natural_position_sorter::operator()(MSVehicle* v1, MSVehicle* v2) const {
-    const SUMOReal pos1 = v1->getBackPositionOnLane(myLane);
-    const SUMOReal pos2 = v2->getBackPositionOnLane(myLane);
+    const double pos1 = v1->getBackPositionOnLane(myLane);
+    const double pos2 = v2->getBackPositionOnLane(myLane);
     if (pos1 != pos2) {
         return pos1 < pos2;
     } else {
@@ -2319,7 +2319,7 @@ MSLane::by_connections_to_sorter::operator()(const MSEdge* const e1, const MSEdg
 
     const std::vector<MSLane*>* ae1 = e1->allowedLanes(*myEdge);
     const std::vector<MSLane*>* ae2 = e2->allowedLanes(*myEdge);
-    SUMOReal s1 = 0;
+    double s1 = 0;
     if (ae1 != 0 && ae1->size() != 0) {
 //        std::cout << "\nsize 1 = " << ae1->size()
 //        << " anglediff 1 = " << fabs(GeomHelper::angleDiff((*ae1)[0]->getShape().angleAt2D(0), myLaneDir)) / M_PI / 2.
@@ -2327,9 +2327,9 @@ MSLane::by_connections_to_sorter::operator()(const MSEdge* const e1, const MSEdg
 //        for (std::vector<MSLane*>::const_iterator j = ae1->begin(); j != ae1->end(); ++j){
 //            std::cout << "\n" << (*j)->getID();
 //        }
-        s1 = (SUMOReal) ae1->size() + fabs(GeomHelper::angleDiff((*ae1)[0]->getShape().angleAt2D(0), myLaneDir)) / M_PI / 2.;
+        s1 = (double) ae1->size() + fabs(GeomHelper::angleDiff((*ae1)[0]->getShape().angleAt2D(0), myLaneDir)) / M_PI / 2.;
     }
-    SUMOReal s2 = 0;
+    double s2 = 0;
     if (ae2 != 0 && ae2->size() != 0) {
 //        std::cout << "\nsize 2 = " << ae2->size()
 //        << " anglediff 2 = " << fabs(GeomHelper::angleDiff((*ae2)[0]->getShape().angleAt2D(0), myLaneDir)) / M_PI / 2.
@@ -2337,7 +2337,7 @@ MSLane::by_connections_to_sorter::operator()(const MSEdge* const e1, const MSEdg
 //        for (std::vector<MSLane*>::const_iterator j = ae2->begin(); j != ae2->end(); ++j){
 //            std::cout << "\n" << (*j)->getID();
 //        }
-        s2 = (SUMOReal) ae2->size() + fabs(GeomHelper::angleDiff((*ae2)[0]->getShape().angleAt2D(0), myLaneDir)) / M_PI / 2.;
+        s2 = (double) ae2->size() + fabs(GeomHelper::angleDiff((*ae2)[0]->getShape().angleAt2D(0), myLaneDir)) / M_PI / 2.;
     }
 
 //    std::cout << "\ne1 = " << e1->getID() << " e2 = " << e2->getID()
@@ -2418,8 +2418,8 @@ MSLane::incoming_lane_priority_sorter::operator ()(const IncomingLaneInfo& laneI
     }
 
     // both are priorized, compare angle difference
-    SUMOReal d1 = fabs(GeomHelper::angleDiff(noninternal1->getShape().angleAt2D(0), myLaneDir));
-    SUMOReal d2 = fabs(GeomHelper::angleDiff(noninternal2->getShape().angleAt2D(0), myLaneDir));
+    double d1 = fabs(GeomHelper::angleDiff(noninternal1->getShape().angleAt2D(0), myLaneDir));
+    double d2 = fabs(GeomHelper::angleDiff(noninternal2->getShape().angleAt2D(0), myLaneDir));
 
     return d2 > d1;
 }
@@ -2459,8 +2459,8 @@ MSLane::outgoing_lane_priority_sorter::operator ()(const MSLink* link1, const MS
     // if priority of targets coincides, use angle difference
 
     // both are priorized, compare angle difference
-    SUMOReal d1 = fabs(GeomHelper::angleDiff(target1->getShape().angleAt2D(0), myLaneDir));
-    SUMOReal d2 = fabs(GeomHelper::angleDiff(target2->getShape().angleAt2D(0), myLaneDir));
+    double d1 = fabs(GeomHelper::angleDiff(target1->getShape().angleAt2D(0), myLaneDir));
+    double d2 = fabs(GeomHelper::angleDiff(target2->getShape().angleAt2D(0), myLaneDir));
 
     return d2 > d1;
 }
@@ -2501,7 +2501,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const 
 #endif
     assert(ego != 0);
     assert(&ego->getLane()->getEdge() == &getEdge());
-    const SUMOReal egoLatDist = ego->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
+    const double egoLatDist = ego->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
     MSCriticalFollowerDistanceInfo result(this, allSublanes ? 0 : ego, allSublanes ? 0 : egoLatDist);
     /// XXX iterate in reverse and abort when there are no more freeSublanes
     for (AnyVehicleIterator last = anyVehiclesBegin(); last != anyVehiclesEnd(); ++last) {
@@ -2512,9 +2512,9 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const 
         }
 #endif
         if (veh != ego && veh->getPositionOnLane(this) <= ego->getPositionOnLane()) {
-            //const SUMOReal latOffset = veh->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
-            const SUMOReal latOffset = veh->getLatOffset(this);
-            const SUMOReal dist = ego->getBackPositionOnLane() - veh->getPositionOnLane(this) - veh->getVehicleType().getMinGap();
+            //const double latOffset = veh->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
+            const double latOffset = veh->getLatOffset(this);
+            const double dist = ego->getBackPositionOnLane() - veh->getPositionOnLane(this) - veh->getVehicleType().getMinGap();
             result.addFollower(veh, ego, dist, latOffset);
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(ego)) {
@@ -2529,12 +2529,12 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const 
     }
 #endif
     if (result.numFreeSublanes() > 0) {
-        const SUMOReal backOffset = ego->getBackPositionOnLane(ego->getLane());
+        const double backOffset = ego->getBackPositionOnLane(ego->getLane());
         // do a tree search among all follower lanes and check for the most
         // important vehicle (the one requiring the largest reargap)
         // to get a safe bound on the necessary search depth, we need to consider the maximum speed and minimum
         // deceleration of potential follower vehicles
-        SUMOReal dist = getMaximumBrakeDist() - backOffset;
+        double dist = getMaximumBrakeDist() - backOffset;
 
         std::set<MSLane*> visited;
         std::vector<MSLane::IncomingLaneInfo> newFound;
@@ -2552,7 +2552,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const 
 #endif
                 for (int i = 0; i < first.numSublanes(); ++i) {
                     const MSVehicle* v = first[i];
-                    SUMOReal agap = 0;
+                    double agap = 0;
                     if (v != 0 && v != ego) {
                         if (!v->isFrontOnLane(next)) {
                             // the front of v is already on divergent trajectory from the ego vehicle
@@ -2609,7 +2609,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const 
 
 
 void
-MSLane::getLeadersOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle* ego,
+MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MSVehicle* ego,
                                 const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result) const {
     if (seen > dist) {
         return;
@@ -2726,20 +2726,20 @@ MSLane::getOpposite() const {
 }
 
 
-SUMOReal
-MSLane::getOppositePos(SUMOReal pos) const {
+double
+MSLane::getOppositePos(double pos) const {
     MSLane* opposite = getOpposite();
     if (opposite == 0) {
         assert(false);
         throw ProcessError("Lane '" + getID() + "' cannot compute oppositePos as there is no opposite lane.");
     }
     // XXX transformations for curved geometries
-    return MAX2((SUMOReal)0, opposite->getLength() - pos);
+    return MAX2(0., opposite->getLength() - pos);
 
 }
 
-std::pair<MSVehicle* const, SUMOReal>
-MSLane::getFollower(const MSVehicle* ego, SUMOReal egoPos, SUMOReal dist, bool ignoreMinorLinks) const {
+std::pair<MSVehicle* const, double>
+MSLane::getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignoreMinorLinks) const {
     for (AnyVehicleIterator first = anyVehiclesUpstreamBegin(); first != anyVehiclesUpstreamEnd(); ++first) {
         // XXX refactor leaderInfo to use a const vehicle all the way through the call hierarchy
         MSVehicle* pred = (MSVehicle*)*first;
@@ -2749,7 +2749,7 @@ MSLane::getFollower(const MSVehicle* ego, SUMOReal egoPos, SUMOReal dist, bool i
         }
 #endif
         if (pred->getPositionOnLane(this) < egoPos && pred != ego) {
-            return std::pair<MSVehicle* const, SUMOReal>(pred, egoPos - pred->getPositionOnLane(this) - ego->getVehicleType().getLength() - pred->getVehicleType().getMinGap());
+            return std::pair<MSVehicle* const, double>(pred, egoPos - pred->getPositionOnLane(this) - ego->getVehicleType().getLength() - pred->getVehicleType().getMinGap());
         }
     }
     return getFollowerOnConsecutive(
@@ -2757,8 +2757,8 @@ MSLane::getFollower(const MSVehicle* ego, SUMOReal egoPos, SUMOReal dist, bool i
                ego->getSpeed(), ego->getCarFollowModel().getMaxDecel(), dist, ignoreMinorLinks);
 }
 
-std::pair<MSVehicle* const, SUMOReal>
-MSLane::getOppositeLeader(const MSVehicle* ego, SUMOReal dist, bool oppositeDir) const {
+std::pair<MSVehicle* const, double>
+MSLane::getOppositeLeader(const MSVehicle* ego, double dist, bool oppositeDir) const {
 #ifdef DEBUG_OPPOSITE
     if (DEBUG_COND2(ego)) std::cout << SIMTIME << " getOppositeLeader lane=" << getID()
                                         << " ego=" << ego->getID()
@@ -2771,16 +2771,16 @@ MSLane::getOppositeLeader(const MSVehicle* ego, SUMOReal dist, bool oppositeDir)
     if (!oppositeDir) {
         return getLeader(ego, getOppositePos(ego->getPositionOnLane()), ego->getBestLanesContinuation(this));
     } else {
-        const SUMOReal egoLength = ego->getVehicleType().getLength();
-        const SUMOReal egoPos = ego->getLaneChangeModel().isOpposite() ? ego->getPositionOnLane() : getOppositePos(ego->getPositionOnLane());
-        std::pair<MSVehicle* const, SUMOReal> result = getFollower(ego, egoPos + egoLength, dist, true);
+        const double egoLength = ego->getVehicleType().getLength();
+        const double egoPos = ego->getLaneChangeModel().isOpposite() ? ego->getPositionOnLane() : getOppositePos(ego->getPositionOnLane());
+        std::pair<MSVehicle* const, double> result = getFollower(ego, egoPos + egoLength, dist, true);
         result.second -= ego->getVehicleType().getMinGap();
         return result;
     }
 }
 
 
-std::pair<MSVehicle* const, SUMOReal>
+std::pair<MSVehicle* const, double>
 MSLane::getOppositeFollower(const MSVehicle* ego) const {
 #ifdef DEBUG_OPPOSITE
     if (DEBUG_COND2(ego)) std::cout << SIMTIME << " getOppositeFollower lane=" << getID()
@@ -2790,10 +2790,10 @@ MSLane::getOppositeFollower(const MSVehicle* ego) const {
                                         << "\n";
 #endif
     if (ego->getLaneChangeModel().isOpposite()) {
-        std::pair<MSVehicle* const, SUMOReal> result = getFollower(ego, getOppositePos(ego->getPositionOnLane()), -1, true);
+        std::pair<MSVehicle* const, double> result = getFollower(ego, getOppositePos(ego->getPositionOnLane()), -1, true);
         return result;
     } else {
-        std::pair<MSVehicle* const, SUMOReal> result = getLeader(ego, getOppositePos(ego->getPositionOnLane() - ego->getVehicleType().getLength()), std::vector<MSLane*>());
+        std::pair<MSVehicle* const, double> result = getLeader(ego, getOppositePos(ego->getPositionOnLane() - ego->getVehicleType().getLength()), std::vector<MSLane*>());
         if (result.second > 0) {
             // follower can be safely ignored since it is going the other way
             return std::make_pair(static_cast<MSVehicle*>(0), -1);

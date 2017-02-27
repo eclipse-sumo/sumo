@@ -232,7 +232,7 @@ inline std::string toString(const std::vector<long long int>& v, std::streamsize
 
 
 template <>
-inline std::string toString(const std::vector<SUMOReal>& v, std::streamsize accuracy) {
+inline std::string toString(const std::vector<double>& v, std::streamsize accuracy) {
     return joinToString(v, " ", accuracy);
 }
 

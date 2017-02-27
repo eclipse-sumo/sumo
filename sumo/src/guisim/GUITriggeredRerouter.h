@@ -68,7 +68,7 @@ public:
      * @param[in] off Whether the rerouter is off (not working) initially
      */
     GUITriggeredRerouter(const std::string& id,
-                         const MSEdgeVector& edges, SUMOReal prob,
+                         const MSEdgeVector& edges, double prob,
                          const std::string& aXMLFilename, bool off,
                          SUMORTree& rtree);
 
@@ -183,7 +183,7 @@ public:
         typedef std::vector<Position> PosCont;
 
         /// Definition of a rotation container
-        typedef std::vector<SUMOReal> RotCont;
+        typedef std::vector<double> RotCont;
 
     private:
         /// The parent rerouter to which this edge instance belongs
@@ -255,7 +255,7 @@ public:
 
         FXDataTarget myChosenTarget;
 
-        SUMOReal myUsageProbability;
+        double myUsageProbability;
 
         FXRealSpinDial* myUsageProbabilityDial;
 

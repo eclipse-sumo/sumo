@@ -86,16 +86,16 @@ GUISettingsHandler::myStartElement(int element,
             std::transform(myViewType.begin(), myViewType.end(), myViewType.begin(), tolower);
             break;
         case SUMO_TAG_DELAY:
-            myDelay = attrs.getOpt<SUMOReal>(SUMO_ATTR_VALUE, 0, ok, myDelay);
+            myDelay = attrs.getOpt<double>(SUMO_ATTR_VALUE, 0, ok, myDelay);
             break;
         case SUMO_TAG_VIEWPORT: {
-            const SUMOReal x = attrs.getOpt<SUMOReal>(SUMO_ATTR_X, 0, ok, myLookFrom.x());
-            const SUMOReal y = attrs.getOpt<SUMOReal>(SUMO_ATTR_Y, 0, ok, myLookFrom.y());
-            const SUMOReal z = attrs.getOpt<SUMOReal>(SUMO_ATTR_ZOOM, 0, ok, myLookFrom.z());
+            const double x = attrs.getOpt<double>(SUMO_ATTR_X, 0, ok, myLookFrom.x());
+            const double y = attrs.getOpt<double>(SUMO_ATTR_Y, 0, ok, myLookFrom.y());
+            const double z = attrs.getOpt<double>(SUMO_ATTR_ZOOM, 0, ok, myLookFrom.z());
             myLookFrom.set(x, y, z);
-            const SUMOReal cx = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_X, 0, ok, myLookAt.x());
-            const SUMOReal cy = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_Y, 0, ok, myLookAt.y());
-            const SUMOReal cz = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_Z, 0, ok, myLookAt.z());
+            const double cx = attrs.getOpt<double>(SUMO_ATTR_CENTER_X, 0, ok, myLookAt.x());
+            const double cy = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, 0, ok, myLookAt.y());
+            const double cz = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, 0, ok, myLookAt.z());
             myLookAt.set(cx, cy, cz);
             break;
         }
@@ -124,8 +124,8 @@ GUISettingsHandler::myStartElement(int element,
             bool ok = true;
             mySettings.backgroundColor = RGBColor::parseColorReporting(attrs.getStringSecure("backgroundColor", toString(mySettings.backgroundColor)), "background", 0, true, ok);
             mySettings.showGrid = TplConvert::_2bool(attrs.getStringSecure("showGrid", toString(mySettings.showGrid)).c_str());
-            mySettings.gridXSize = TplConvert::_2SUMOReal(attrs.getStringSecure("gridXSize", toString(mySettings.gridXSize)).c_str());
-            mySettings.gridYSize = TplConvert::_2SUMOReal(attrs.getStringSecure("gridYSize", toString(mySettings.gridYSize)).c_str());
+            mySettings.gridXSize = TplConvert::_2double(attrs.getStringSecure("gridXSize", toString(mySettings.gridXSize)).c_str());
+            mySettings.gridYSize = TplConvert::_2double(attrs.getStringSecure("gridYSize", toString(mySettings.gridYSize)).c_str());
         }
         break;
         case SUMO_TAG_VIEWSETTINGS_EDGES: {
@@ -140,8 +140,8 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.cwaEdgeName = parseTextSettings("cwaEdgeName", attrs, mySettings.cwaEdgeName);
             mySettings.streetName = parseTextSettings("streetName", attrs, mySettings.streetName);
             mySettings.hideConnectors = TplConvert::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
-            mySettings.laneWidthExaggeration = TplConvert::_2SUMOReal(attrs.getStringSecure("widthExaggeration", toString(mySettings.laneWidthExaggeration)).c_str());
-            mySettings.laneMinSize = TplConvert::_2SUMOReal(attrs.getStringSecure("minSize", toString(mySettings.laneWidthExaggeration)).c_str());
+            mySettings.laneWidthExaggeration = TplConvert::_2double(attrs.getStringSecure("widthExaggeration", toString(mySettings.laneWidthExaggeration)).c_str());
+            mySettings.laneMinSize = TplConvert::_2double(attrs.getStringSecure("minSize", toString(mySettings.laneWidthExaggeration)).c_str());
             mySettings.showLaneDirection = TplConvert::_2bool(attrs.getStringSecure("showDirection", toString(mySettings.showLaneDirection)).c_str());
             mySettings.showSublanes = TplConvert::_2bool(attrs.getStringSecure("showSublanes", toString(mySettings.showSublanes)).c_str());
             myCurrentColorer = element;
@@ -198,15 +198,15 @@ GUISettingsHandler::myStartElement(int element,
                 if (myCurrentScheme->isFixed()) {
                     myCurrentScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), color);
                 } else {
-                    myCurrentScheme->addColor(color, attrs.getOpt<SUMOReal>(SUMO_ATTR_THRESHOLD, 0, ok, 0));
+                    myCurrentScheme->addColor(color, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, 0, ok, 0));
                 }
             } else if (myCurrentScaleScheme != 0) {
                 bool ok = true;
-                SUMOReal scale = attrs.get<SUMOReal>(SUMO_ATTR_COLOR, 0, ok);
+                double scale = attrs.get<double>(SUMO_ATTR_COLOR, 0, ok);
                 if (myCurrentScaleScheme->isFixed()) {
                     myCurrentScaleScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), scale);
                 } else {
-                    myCurrentScaleScheme->addColor(scale, attrs.getOpt<SUMOReal>(SUMO_ATTR_THRESHOLD, 0, ok, 0));
+                    myCurrentScaleScheme->addColor(scale, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, 0, ok, 0));
                 }
             }
             break;
@@ -267,16 +267,16 @@ GUISettingsHandler::myStartElement(int element,
             if (d.filename != "" && !FileHelpers::isAbsolute(d.filename)) {
                 d.filename = FileHelpers::getConfigurationRelative(getFileName(), d.filename);
             }
-            d.centerX = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_X, 0, ok, d.centerX);
-            d.centerY = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_Y, 0, ok, d.centerY);
-            d.centerZ = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_Z, 0, ok, d.centerZ);
-            d.width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, 0, ok, d.width);
-            d.height = attrs.getOpt<SUMOReal>(SUMO_ATTR_HEIGHT, 0, ok, d.height);
-            d.altitude = TplConvert::_2SUMOReal(attrs.getStringSecure("altitude", toString(d.height)).c_str());
-            d.rot = TplConvert::_2SUMOReal(attrs.getStringSecure("rotation", toString(d.rot)).c_str());
-            d.tilt = TplConvert::_2SUMOReal(attrs.getStringSecure("tilt", toString(d.tilt)).c_str());
-            d.roll = TplConvert::_2SUMOReal(attrs.getStringSecure("roll", toString(d.roll)).c_str());
-            d.layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, 0, ok, d.layer);
+            d.centerX = attrs.getOpt<double>(SUMO_ATTR_CENTER_X, 0, ok, d.centerX);
+            d.centerY = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, 0, ok, d.centerY);
+            d.centerZ = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, 0, ok, d.centerZ);
+            d.width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, 0, ok, d.width);
+            d.height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, 0, ok, d.height);
+            d.altitude = TplConvert::_2double(attrs.getStringSecure("altitude", toString(d.height)).c_str());
+            d.rot = TplConvert::_2double(attrs.getStringSecure("rotation", toString(d.rot)).c_str());
+            d.tilt = TplConvert::_2double(attrs.getStringSecure("tilt", toString(d.tilt)).c_str());
+            d.roll = TplConvert::_2double(attrs.getStringSecure("roll", toString(d.roll)).c_str());
+            d.layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, 0, ok, d.layer);
             d.screenRelative = TplConvert::_2bool(attrs.getStringSecure("screenRelative", toString(d.screenRelative)).c_str());
             d.initialised = false;
             myDecals.push_back(d);
@@ -285,16 +285,16 @@ GUISettingsHandler::myStartElement(int element,
         case SUMO_TAG_VIEWSETTINGS_LIGHT: {
             GUISUMOAbstractView::Decal d;
             d.filename = "light" + attrs.getOpt<std::string>(SUMO_ATTR_INDEX, 0, ok, "0");
-            d.centerX = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_X, 0, ok, d.centerX);
-            d.centerY = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_Y, 0, ok, d.centerY);
-            d.centerZ = attrs.getOpt<SUMOReal>(SUMO_ATTR_CENTER_Z, 0, ok, d.centerZ);
-            d.width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, 0, ok, d.width);
-            d.height = attrs.getOpt<SUMOReal>(SUMO_ATTR_HEIGHT, 0, ok, d.height);
-            d.altitude = TplConvert::_2SUMOReal(attrs.getStringSecure("altitude", toString(d.height)).c_str());
-            d.rot = TplConvert::_2SUMOReal(attrs.getStringSecure("rotation", toString(d.rot)).c_str());
-            d.tilt = TplConvert::_2SUMOReal(attrs.getStringSecure("tilt", toString(d.tilt)).c_str());
-            d.roll = TplConvert::_2SUMOReal(attrs.getStringSecure("roll", toString(d.roll)).c_str());
-            d.layer = attrs.getOpt<SUMOReal>(SUMO_ATTR_LAYER, 0, ok, d.layer);
+            d.centerX = attrs.getOpt<double>(SUMO_ATTR_CENTER_X, 0, ok, d.centerX);
+            d.centerY = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, 0, ok, d.centerY);
+            d.centerZ = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, 0, ok, d.centerZ);
+            d.width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, 0, ok, d.width);
+            d.height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, 0, ok, d.height);
+            d.altitude = TplConvert::_2double(attrs.getStringSecure("altitude", toString(d.height)).c_str());
+            d.rot = TplConvert::_2double(attrs.getStringSecure("rotation", toString(d.rot)).c_str());
+            d.tilt = TplConvert::_2double(attrs.getStringSecure("tilt", toString(d.tilt)).c_str());
+            d.roll = TplConvert::_2double(attrs.getStringSecure("roll", toString(d.roll)).c_str());
+            d.layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, 0, ok, d.layer);
             d.initialised = false;
             myDecals.push_back(d);
         }
@@ -302,12 +302,12 @@ GUISettingsHandler::myStartElement(int element,
         case SUMO_TAG_VIEWSETTINGS_EVENT: {
             const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
             const std::string cmd = attrs.get<std::string>(SUMO_ATTR_COMMAND, 0, ok);
-            const SUMOReal prob = attrs.get<SUMOReal>(SUMO_ATTR_PROB, id.c_str(), ok);
+            const double prob = attrs.get<double>(SUMO_ATTR_PROB, id.c_str(), ok);
             myEventDistributions[id].add(prob, cmd);
         }
         break;
         case SUMO_TAG_VIEWSETTINGS_EVENT_JAM_TIME:
-            myJamSoundTime = attrs.get<SUMOReal>(SUMO_ATTR_VALUE, 0, ok);
+            myJamSoundTime = attrs.get<double>(SUMO_ATTR_VALUE, 0, ok);
             break;
         default:
             break;
@@ -322,7 +322,7 @@ GUISettingsHandler::parseTextSettings(
     bool ok = true;
     return GUIVisualizationTextSettings(
                TplConvert::_2bool(attrs.getStringSecure(prefix + "_show", toString(defaults.show)).c_str()),
-               TplConvert::_2SUMOReal(attrs.getStringSecure(prefix + "_size", toString(defaults.size)).c_str()),
+               TplConvert::_2double(attrs.getStringSecure(prefix + "_size", toString(defaults.size)).c_str()),
                RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_color", toString(defaults.color)), "edges", 0, true, ok));
 }
 
@@ -332,8 +332,8 @@ GUISettingsHandler::parseSizeSettings(
     const std::string& prefix, const SUMOSAXAttributes& attrs,
     GUIVisualizationSizeSettings defaults) {
     return GUIVisualizationSizeSettings(
-               TplConvert::_2SUMOReal(attrs.getStringSecure(prefix + "_minSize", toString(defaults.minSize)).c_str()),
-               TplConvert::_2SUMOReal(attrs.getStringSecure(prefix + "_exaggeration", toString(defaults.exaggeration)).c_str()),
+               TplConvert::_2double(attrs.getStringSecure(prefix + "_minSize", toString(defaults.minSize)).c_str()),
+               TplConvert::_2double(attrs.getStringSecure(prefix + "_exaggeration", toString(defaults.exaggeration)).c_str()),
                TplConvert::_2bool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constantSize)).c_str()));
 }
 
@@ -382,7 +382,7 @@ GUISettingsHandler::getDecals() const {
 }
 
 
-SUMOReal
+double
 GUISettingsHandler::getDelay() const {
     return myDelay;
 }

@@ -85,7 +85,7 @@ public:
      * @param[in]: employmentRate (1 - unemploymentRate)
      * @param[in]: wps the list of work positions (open or not) in the city
      */
-    void tryToWork(SUMOReal employmentRate, std::vector<AGWorkPosition>* wps);
+    void tryToWork(double employmentRate, std::vector<AGWorkPosition>* wps);
 
     /** @brief Called when the adult has lost her job.
      *

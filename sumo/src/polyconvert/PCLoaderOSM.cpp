@@ -247,7 +247,7 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
         SUMO::Polygon* poly = new SUMO::Polygon(
             StringUtils::escapeXML(id),
             StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
-            def.color, vec, def.allowFill && closedShape, (SUMOReal)def.layer);
+            def.color, vec, def.allowFill && closedShape, (double)def.layer);
         if (withAttributes) {
             poly->addParameter(edge->myAttributes);
         }
@@ -270,7 +270,7 @@ PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap:
         PointOfInterest* poi = new PointOfInterest(
             StringUtils::escapeXML(id),
             StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
-            def.color, pos, (SUMOReal)def.layer);
+            def.color, pos, (double)def.layer);
         if (withAttributes) {
             poi->addParameter(node->myAttributes);
         }
@@ -312,8 +312,8 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
             PCOSMNode* toAdd = new PCOSMNode();
             toAdd->id = id;
             bool ok = true;
-            toAdd->lon = attrs.get<SUMOReal>(SUMO_ATTR_LON, toString(id).c_str(), ok);
-            toAdd->lat = attrs.get<SUMOReal>(SUMO_ATTR_LAT, toString(id).c_str(), ok);
+            toAdd->lon = attrs.get<double>(SUMO_ATTR_LON, toString(id).c_str(), ok);
+            toAdd->lat = attrs.get<double>(SUMO_ATTR_LAT, toString(id).c_str(), ok);
             if (!ok) {
                 delete toAdd;
                 return;

@@ -39,25 +39,25 @@
 /* Test the method 'rand' without parameters.*/
 TEST(RandHelper, test_rand_range) {
     for (int i = 0; i < 1000; i++) {
-        const SUMOReal rand = RandHelper::rand();
-        EXPECT_LT(rand, SUMOReal(1));
-        EXPECT_LE(SUMOReal(0), rand);
+        const double rand = RandHelper::rand();
+        EXPECT_LT(rand, double(1));
+        EXPECT_LE(0., rand);
     }
 }
 
 /* Test the method 'rand' with an upper float limit.*/
 TEST(RandHelper, test_rand_range_float) {
     for (int i = 0; i < 1000; i++) {
-        const SUMOReal rand = RandHelper::rand(SUMOReal(10));
-        EXPECT_LT(rand, SUMOReal(10));
-        EXPECT_LE(SUMOReal(0), rand);
+        const double rand = RandHelper::rand(double(10));
+        EXPECT_LT(rand, double(10));
+        EXPECT_LE(0., rand);
     }
 }
 
 /* Test the method 'rand' with an upper int limit.*/
 TEST(RandHelper, test_rand_range_int) {
     for (int i = 0; i < 1000; i++) {
-        const SUMOReal rand = RandHelper::rand(100);
+        const double rand = RandHelper::rand(100);
         EXPECT_LT(rand, 100);
         EXPECT_LE(0, rand);
     }
@@ -66,16 +66,16 @@ TEST(RandHelper, test_rand_range_int) {
 /* Test the method 'rand' with two float limits.*/
 TEST(RandHelper, test_rand_range_two_float) {
     for (int i = 0; i < 1000; i++) {
-        const SUMOReal rand = RandHelper::rand(SUMOReal(0.1), SUMOReal(0.5));
-        EXPECT_LT(rand, SUMOReal(0.5));
-        EXPECT_LE(SUMOReal(0.1), rand);
+        const double rand = RandHelper::rand(double(0.1), double(0.5));
+        EXPECT_LT(rand, double(0.5));
+        EXPECT_LE(double(0.1), rand);
     }
 }
 
 /* Test the method 'rand' with two int limits.*/
 TEST(RandHelper, test_rand_range_two_int) {
     for (int i = 0; i < 1000; i++) {
-        const SUMOReal rand = RandHelper::rand(50, 100);
+        const double rand = RandHelper::rand(50, 100);
         EXPECT_LT(rand, 100);
         EXPECT_LE(50, rand);
     }
@@ -85,7 +85,7 @@ TEST(RandHelper, test_rand_range_two_int) {
 TEST(RandHelper, test_uniform) {
     int count[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     for (int i = 0; i < 1000; i++) {
-        const SUMOReal rand = RandHelper::rand(SUMOReal(0), SUMOReal(10));
+        const double rand = RandHelper::rand(0., double(10));
         count[(int)rand]++;
     }
     for (int i = 0; i < 10; i++) {
@@ -98,7 +98,7 @@ TEST(RandHelper, test_uniform) {
 TEST(RandHelper, test_norm) {
     int count[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     for (int i = 0; i < 1000; i++) {
-        const SUMOReal rand = RandHelper::randNorm(SUMOReal(5), SUMOReal(2));
+        const double rand = RandHelper::randNorm(double(5), double(2));
         count[MIN2(MAX2((int)rand,0),9)]++;
     }
     EXPECT_LE(0, count[0]);

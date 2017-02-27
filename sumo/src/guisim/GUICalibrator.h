@@ -59,7 +59,7 @@ public:
      * @param[in] file Name of the file to read the speeds to set from
      */
     GUICalibrator(const std::string& id,
-                  MSEdge* edge, SUMOReal pos,
+                  MSEdge* edge, double pos,
                   const std::string& aXMLFilename,
                   const std::string& outputFilename,
                   const SUMOTime freq,
@@ -167,7 +167,7 @@ public:
 
         FXDataTarget myChosenTarget;
 
-        SUMOReal mySpeed;
+        double mySpeed;
 
         FXDataTarget mySpeedTarget;
 
@@ -187,7 +187,7 @@ private:
     typedef std::vector<Position> PosCont;
 
     /// Definition of a rotation container
-    typedef std::vector<SUMOReal> RotCont;
+    typedef std::vector<double> RotCont;
 
 private:
     /// The positions in full-geometry mode

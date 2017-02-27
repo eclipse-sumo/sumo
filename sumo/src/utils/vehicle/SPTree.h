@@ -112,13 +112,13 @@ public:
                     if (follower == excluded) {
                         continue;
                     }
-                    const SUMOReal traveltime = min->traveltime + con.cost;
-                    const SUMOReal oldTraveltime = follower->traveltime;
+                    const double traveltime = min->traveltime + con.cost;
+                    const double oldTraveltime = follower->traveltime;
                     if (!follower->visited && traveltime < oldTraveltime) {
                         follower->traveltime = traveltime;
                         follower->depth = min->depth + 1;
                         follower->permissions = (min->permissions & con.permissions);
-                        if (oldTraveltime == std::numeric_limits<SUMOReal>::max()) {
+                        if (oldTraveltime == std::numeric_limits<double>::max()) {
                             myFrontier.push_back(follower);
                             push_heap(myFrontier.begin(), myFrontier.end(), myCmp);
                         } else {
@@ -153,9 +153,9 @@ public:
         for (typename CHConnectionPairs::iterator it = myShortcutsToValidate.begin(); it != myShortcutsToValidate.end(); ++it) {
             const C* const aInfo = it->first;
             const C* const fInfo = it->second;
-            const SUMOReal bestWitness = dijkstraTT(
+            const double bestWitness = dijkstraTT(
                                              aInfo->target, fInfo->target, excluded, (aInfo->permissions & fInfo->permissions));
-            const SUMOReal viaCost = aInfo->cost + fInfo->cost;
+            const double viaCost = aInfo->cost + fInfo->cost;
             if (viaCost < bestWitness) {
                 myNeededShortcuts.push_back(*it);
             }
@@ -167,7 +167,7 @@ public:
 
 private:
     // perform dijkstra search under permission constraints
-    SUMOReal dijkstraTT(E* start, E* dest, const E* excluded, SVCPermissions permissions) {
+    double dijkstraTT(E* start, E* dest, const E* excluded, SVCPermissions permissions) {
         init();
         start->traveltime = 0;
         start->depth = 0;
@@ -192,13 +192,13 @@ private:
                     if ((con.permissions & permissions) != permissions) {
                         continue;
                     }
-                    const SUMOReal traveltime = min->traveltime + con.cost;
-                    const SUMOReal oldTraveltime = follower->traveltime;
+                    const double traveltime = min->traveltime + con.cost;
+                    const double oldTraveltime = follower->traveltime;
                     if (!follower->visited && traveltime < oldTraveltime) {
                         follower->traveltime = traveltime;
                         follower->depth = min->depth + 1;
                         follower->permissions = (min->permissions & con.permissions);
-                        if (oldTraveltime == std::numeric_limits<SUMOReal>::max()) {
+                        if (oldTraveltime == std::numeric_limits<double>::max()) {
                             myFrontier.push_back(follower);
                             push_heap(myFrontier.begin(), myFrontier.end(), myCmp);
                         } else {

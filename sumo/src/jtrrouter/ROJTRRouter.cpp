@@ -60,7 +60,7 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
                      const ROVehicle* const vehicle,
                      SUMOTime time, ConstROEdgeVector& into) {
     const ROJTREdge* current = static_cast<const ROJTREdge*>(from);
-    SUMOReal timeS = STEPS2TIME(time);
+    double timeS = STEPS2TIME(time);
     std::set<const ROEdge*> avoidEdges;
     // route until a sinks has been found
     while (current != 0 && current != to &&
@@ -92,10 +92,10 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
 }
 
 
-SUMOReal
+double
 ROJTRRouter::recomputeCosts(const ConstROEdgeVector& edges, const ROVehicle* const v, SUMOTime msTime) const {
-    const SUMOReal time = STEPS2TIME(msTime);
-    SUMOReal costs = 0;
+    const double time = STEPS2TIME(msTime);
+    double costs = 0;
     for (ConstROEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         costs += (*i)->getTravelTime(v, time);
     }

@@ -50,7 +50,7 @@ public:
      *
      * @param[in] divider Value for the norming divider
      */
-    NBCapacity2Lanes(SUMOReal divider) : myDivider(divider) { }
+    NBCapacity2Lanes(double divider) : myDivider(divider) { }
 
 
     /// @brief Destructor
@@ -65,7 +65,7 @@ public:
      * @param[in] capacity The capacity to convert
      * @return The capacity converted to the number of lanes
      */
-    int get(SUMOReal capacity) const {
+    int get(double capacity) const {
         capacity /= myDivider;
         if (capacity > (int) capacity) {
             capacity += 1;
@@ -79,7 +79,7 @@ public:
 
 private:
     /// @brief The norming divider
-    SUMOReal myDivider;
+    double myDivider;
 
 };
 

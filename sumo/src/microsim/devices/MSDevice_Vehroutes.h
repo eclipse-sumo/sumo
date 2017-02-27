@@ -111,7 +111,7 @@ public:
      *
      * @return True, if exit times are to be collected.
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOVehicle& veh, double lastPos, Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
     /// @}
 
 

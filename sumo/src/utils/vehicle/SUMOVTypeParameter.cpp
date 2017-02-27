@@ -246,7 +246,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_EMISSIONCLASS, PollutantsInterface::getName(emissionClass));
     }
     if (wasSet(VTYPEPARS_IMPATIENCE_SET)) {
-        if (impatience == -std::numeric_limits<SUMOReal>::max()) {
+        if (impatience == -std::numeric_limits<double>::max()) {
             dev.writeAttr(SUMO_ATTR_IMPATIENCE, "off");
         } else {
             dev.writeAttr(SUMO_ATTR_IMPATIENCE, impatience);
@@ -319,10 +319,10 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
 }
 
 
-SUMOReal
-SUMOVTypeParameter::getCFParam(const SumoXMLAttr attr, const SUMOReal defaultValue) const {
+double
+SUMOVTypeParameter::getCFParam(const SumoXMLAttr attr, const double defaultValue) const {
     if (cfParameter.count(attr)) {
-        return TplConvert::_str2SUMOReal(cfParameter.find(attr)->second);
+        return TplConvert::_str2double(cfParameter.find(attr)->second);
     } else {
         return defaultValue;
     }
@@ -338,10 +338,10 @@ SUMOVTypeParameter::getCFParamString(const SumoXMLAttr attr, const std::string d
     }
 }
 
-SUMOReal
-SUMOVTypeParameter::getLCParam(const SumoXMLAttr attr, const SUMOReal defaultValue) const {
+double
+SUMOVTypeParameter::getLCParam(const SumoXMLAttr attr, const double defaultValue) const {
     if (lcParameter.count(attr)) {
-        return TplConvert::_str2SUMOReal(lcParameter.find(attr)->second);
+        return TplConvert::_str2double(lcParameter.find(attr)->second);
     } else {
         return defaultValue;
     }
@@ -349,7 +349,7 @@ SUMOVTypeParameter::getLCParam(const SumoXMLAttr attr, const SUMOReal defaultVal
 
 
 
-SUMOReal
+double
 SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {
     switch (vc) {
         case SVC_PEDESTRIAN:
@@ -384,7 +384,7 @@ SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {
 }
 
 
-SUMOReal
+double
 SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
     switch (vc) {
         case SVC_PEDESTRIAN:
@@ -419,7 +419,7 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
 }
 
 
-SUMOReal
+double
 SUMOVTypeParameter::getDefaultImperfection(const SUMOVehicleClass vc) {
     switch (vc) {
         case SVC_TRAM:

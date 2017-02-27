@@ -41,34 +41,34 @@
 // method definitions
 // ===========================================================================
 MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
-                             SUMOReal accel, SUMOReal decel,
-                             SUMOReal headwayTime, SUMOReal delta,
-                             SUMOReal internalStepping)
+                             double accel, double decel,
+                             double headwayTime, double delta,
+                             double internalStepping)
     : MSCFModel(vtype, accel, decel, headwayTime), myDelta(delta),
       myAdaptationFactor(1.), myAdaptationTime(0.),
       myIterations(MAX2(1, int(TS / internalStepping + .5))),
-      myTwoSqrtAccelDecel(SUMOReal(2 * sqrt(accel * decel))) {
+      myTwoSqrtAccelDecel(double(2 * sqrt(accel * decel))) {
 }
 
 
 MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
-                             SUMOReal accel, SUMOReal decel,
-                             SUMOReal headwayTime,
-                             SUMOReal adaptationFactor, SUMOReal adaptationTime,
-                             SUMOReal internalStepping)
+                             double accel, double decel,
+                             double headwayTime,
+                             double adaptationFactor, double adaptationTime,
+                             double internalStepping)
     : MSCFModel(vtype, accel, decel, headwayTime), myDelta(4.),
       myAdaptationFactor(adaptationFactor), myAdaptationTime(adaptationTime),
       myIterations(MAX2(1, int(TS / internalStepping + .5))),
-      myTwoSqrtAccelDecel(SUMOReal(2 * sqrt(accel * decel))) {
+      myTwoSqrtAccelDecel(double(2 * sqrt(accel * decel))) {
 }
 
 
 MSCFModel_IDM::~MSCFModel_IDM() {}
 
 
-SUMOReal
-MSCFModel_IDM::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
-    const SUMOReal vNext = MSCFModel::moveHelper(veh, vPos);
+double
+MSCFModel_IDM::moveHelper(MSVehicle* const veh, double vPos) const {
+    const double vNext = MSCFModel::moveHelper(veh, vPos);
     if (myAdaptationFactor != 1.) {
         VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
         vars->levelOfService += (vNext / veh->getLane()->getVehicleMaxSpeed(veh) - vars->levelOfService) / myAdaptationTime * TS;
@@ -77,14 +77,14 @@ MSCFModel_IDM::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
 }
 
 
-SUMOReal
-MSCFModel_IDM::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
+double
+MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /*predMaxDecel*/) const {
     return _v(veh, gap2pred, speed, predSpeed, veh->getLane()->getVehicleMaxSpeed(veh));
 }
 
 
-SUMOReal
-MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap2pred) const {
+double
+MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const {
     if (gap2pred < 0.01) {
         return 0;
     }
@@ -93,46 +93,46 @@ MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOR
 
 
 /// @todo update interactionGap logic to IDM
-SUMOReal
-MSCFModel_IDM::interactionGap(const MSVehicle* const veh, SUMOReal vL) const {
+double
+MSCFModel_IDM::interactionGap(const MSVehicle* const veh, double vL) const {
     // Resolve the IDM equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
-    const SUMOReal acc = myAccel * (1. - pow(veh->getSpeed() / veh->getLane()->getVehicleMaxSpeed(veh), myDelta));
-    const SUMOReal vNext = veh->getSpeed() + acc;
-    const SUMOReal gap = (vNext - vL) * (veh->getSpeed() + vL) / (2 * myDecel) + vL;
+    const double acc = myAccel * (1. - pow(veh->getSpeed() / veh->getLane()->getVehicleMaxSpeed(veh), myDelta));
+    const double vNext = veh->getSpeed() + acc;
+    const double gap = (vNext - vL) * (veh->getSpeed() + vL) / (2 * myDecel) + vL;
 
     // Don't allow timeHeadWay < deltaT situations.
     return MAX2(gap, SPEED2DIST(vNext));
 }
 
 
-SUMOReal
-MSCFModel_IDM::_v(const MSVehicle* const veh, const SUMOReal gap2pred, const SUMOReal egoSpeed,
-                  const SUMOReal predSpeed, const SUMOReal desSpeed, const bool respectMinGap) const {
+double
+MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const double egoSpeed,
+                  const double predSpeed, const double desSpeed, const bool respectMinGap) const {
 // this is more or less based on http://www.vwi.tu-dresden.de/~treiber/MicroApplet/IDM.html
 // and http://arxiv.org/abs/cond-mat/0304337
 // we assume however constant speed for the leader
-    SUMOReal headwayTime = myHeadwayTime;
+    double headwayTime = myHeadwayTime;
     if (myAdaptationFactor != 1.) {
         const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
         headwayTime *= myAdaptationFactor + vars->levelOfService * (1. - myAdaptationFactor);
     }
-    SUMOReal newSpeed = egoSpeed;
-    SUMOReal gap = gap2pred;
+    double newSpeed = egoSpeed;
+    double gap = gap2pred;
     for (int i = 0; i < myIterations; i++) {
-        const SUMOReal delta_v = newSpeed - predSpeed;
-        SUMOReal s = MAX2(SUMOReal(0), newSpeed * headwayTime + newSpeed * delta_v / myTwoSqrtAccelDecel);
+        const double delta_v = newSpeed - predSpeed;
+        double s = MAX2(0., newSpeed * headwayTime + newSpeed * delta_v / myTwoSqrtAccelDecel);
         if (respectMinGap) {
             s += myType->getMinGap();
         }
-        const SUMOReal acc = myAccel * (1. - pow(newSpeed / desSpeed, myDelta) - (s * s) / (gap * gap));
+        const double acc = myAccel * (1. - pow(newSpeed / desSpeed, myDelta) - (s * s) / (gap * gap));
         newSpeed += ACCEL2SPEED(acc) / myIterations;
         //TODO use more realistic position update which takes accelerated motion into account
-        gap -= MAX2(SUMOReal(0), SPEED2DIST(newSpeed - predSpeed) / myIterations);
+        gap -= MAX2(0., SPEED2DIST(newSpeed - predSpeed) / myIterations);
     }
 //    return MAX2(getSpeedAfterMaxDecel(egoSpeed), newSpeed);
-    return MAX2(SUMOReal(0), newSpeed);
+    return MAX2(0., newSpeed);
 }
 
 

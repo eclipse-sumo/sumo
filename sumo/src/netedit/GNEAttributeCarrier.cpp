@@ -81,9 +81,9 @@ GNEAttributeCarrier::parse(const std::string& string) {
 }
 
 
-template<> SUMOReal
+template<> double
 GNEAttributeCarrier::parse(const std::string& string) {
-    return TplConvert::_str2SUMOReal(string);
+    return TplConvert::_str2double(string);
 }
 
 
@@ -906,11 +906,11 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
-template<> SUMOReal
+template<> double
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
         if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return TplConvert::_str2SUMOReal((*i).second);
+            return TplConvert::_str2double((*i).second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -951,7 +951,7 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
-template<> std::vector<SUMOReal>
+template<> std::vector<double>
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     std::cout << "FINISH" << std::endl;
 

@@ -57,7 +57,7 @@ public:
      * @param[in] probability The probability for vehicle rerouting
      * @param[in] off Whether the router should be inactive initially
      */
-    GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, SUMOReal probability, bool off);
+    GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, double probability, bool off);
 
     /// @brief Destructor
     ~GNERerouter();
@@ -73,10 +73,10 @@ public:
     void openAdditionalDialog();
 
     /// @brief change the position of the rerouter geometry
-    void moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety);
+    void moveAdditionalGeometry(double offsetx, double offsety);
 
     /// @brief updated geometry changes in the attributes of additional
-    void commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList);
+    void commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList);
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
@@ -141,7 +141,7 @@ protected:
     std::string myFilename;
 
     /// @brief probability of rerouter
-    SUMOReal myProbability;
+    double myProbability;
 
     /// @brief attribute to enable or disable inactive initially
     bool myOff;

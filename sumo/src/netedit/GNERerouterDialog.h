@@ -64,13 +64,13 @@ public:
     GNERerouter* getRerouterParent() const;
 
     /// @brief check if a interval exists
-    bool findInterval(SUMOReal begin, SUMOReal end) const;
+    bool findInterval(double begin, double end) const;
 
     /// @brief check begin and end of an new interval
-    bool checkInterval(SUMOReal begin, SUMOReal end) const;
+    bool checkInterval(double begin, double end) const;
 
     /// @brief check if begin and end of an existent interval can be modified
-    bool checkModifyInterval(SUMOReal oldBegin, SUMOReal oldEnd, SUMOReal newBegin, SUMOReal newEnd) const;
+    bool checkModifyInterval(double oldBegin, double oldEnd, double newBegin, double newEnd) const;
 
     /// @name FOX-callbacks
     /// @{

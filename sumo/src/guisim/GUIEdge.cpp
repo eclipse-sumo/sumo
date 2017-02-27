@@ -112,9 +112,9 @@ GUIEdge::getIDs(bool includeInternal) {
 }
 
 
-SUMOReal
+double
 GUIEdge::getTotalLength(bool includeInternal, bool eachLane) {
-    SUMOReal result = 0;
+    double result = 0;
     for (MSEdge::DictType::const_iterator i = MSEdge::myDict.begin(); i != MSEdge::myDict.end(); ++i) {
         const MSEdge* edge = i->second;
         if (edge->getPurpose() != EDGEFUNCTION_INTERNAL || includeInternal) {
@@ -177,7 +177,7 @@ GUIEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (MSGlobals::gUseMesoSim) {
         buildShowParamsPopupEntry(ret);
     }
-    const SUMOReal pos = getLanes()[0]->getShape().nearest_offset_to_point2D(parent.getPositionInformation());
+    const double pos = getLanes()[0]->getShape().nearest_offset_to_point2D(parent.getPositionInformation());
     new FXMenuCommand(ret, ("pos: " + toString(pos)).c_str(), 0, 0, 0);
     buildPositionCopyEntry(ret, false);
     return ret;
@@ -192,11 +192,11 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     // add edge items
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
-    ret->mkItem("brutto occupancy [%]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getBruttoOccupancy, 100.));
-    ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getMeanSpeed));
-    ret->mkItem("flow [veh/h/lane]", true, new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getFlow));
-    ret->mkItem("routing speed [m/s]", true, new FunctionBinding<MSEdge, SUMOReal>(this, &MSEdge::getRoutingSpeed));
-    ret->mkItem("#vehicles", true, new CastingFunctionBinding<GUIEdge, SUMOReal, int>(this, &GUIEdge::getVehicleNo));
+    ret->mkItem("brutto occupancy [%]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getBruttoOccupancy, 100.));
+    ret->mkItem("mean vehicle speed [m/s]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getMeanSpeed));
+    ret->mkItem("flow [veh/h/lane]", true, new FunctionBinding<GUIEdge, double>(this, &GUIEdge::getFlow));
+    ret->mkItem("routing speed [m/s]", true, new FunctionBinding<MSEdge, double>(this, &MSEdge::getRoutingSpeed));
+    ret->mkItem("#vehicles", true, new CastingFunctionBinding<GUIEdge, double, int>(this, &GUIEdge::getVehicleNo));
     ret->mkItem("vehicle ids", false, getVehicleIDs());
     // add segment items
     MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());
@@ -205,12 +205,12 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("segment length [m]", false, segment->getLength());
     ret->mkItem("segment allowed speed [m/s]", false, segment->getEdge().getSpeedLimit());
     ret->mkItem("segment jam threshold [%]", false, segment->getRelativeJamThreshold() * 100);
-    ret->mkItem("segment brutto occupancy [%]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getRelativeOccupancy, 100));
-    ret->mkItem("segment mean vehicle speed [m/s]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getMeanSpeed));
-    ret->mkItem("segment flow [veh/h/lane]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getFlow));
-    ret->mkItem("segment #vehicles", true, new CastingFunctionBinding<MESegment, SUMOReal, int>(segment, &MESegment::getCarNumber));
-    ret->mkItem("segment leader leave time", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getEventTimeSeconds));
-    ret->mkItem("segment headway [s]", true, new FunctionBinding<MESegment, SUMOReal>(segment, &MESegment::getLastHeadwaySeconds));
+    ret->mkItem("segment brutto occupancy [%]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getRelativeOccupancy, 100));
+    ret->mkItem("segment mean vehicle speed [m/s]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getMeanSpeed));
+    ret->mkItem("segment flow [veh/h/lane]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getFlow));
+    ret->mkItem("segment #vehicles", true, new CastingFunctionBinding<MESegment, double, int>(segment, &MESegment::getCarNumber));
+    ret->mkItem("segment leader leave time", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEventTimeSeconds));
+    ret->mkItem("segment headway [s]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getLastHeadwaySeconds));
 
     // close building
     ret->closeBuilding();
@@ -259,10 +259,10 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
         GUILane* lane1 = dynamic_cast<GUILane*>((*myLanes)[0]);
         GUILane* lane2 = dynamic_cast<GUILane*>((*myLanes).back());
         if (lane1 != 0 && lane2 != 0) {
-            Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (SUMOReal) 2.);
-            p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (SUMOReal) 2.));
+            Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (double) 2.);
+            p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (double) 2.));
             p.mul(.5);
-            SUMOReal angle = lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (SUMOReal) 2.);
+            double angle = lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (double) 2.);
             angle += 90;
             if (angle > 90 && angle < 270) {
                 angle -= 180;
@@ -313,20 +313,20 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
         for (std::vector<MSLane*>::const_iterator msl = myLanes->begin(); msl != myLanes->end(); ++msl, ++laneIndex) {
             GUILane* l = static_cast<GUILane*>(*msl);
             // go through the vehicles
-            SUMOReal segmentOffset = 0; // offset at start of current segment
+            double segmentOffset = 0; // offset at start of current segment
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != 0; segment = segment->getNextSegment()) {
-                const SUMOReal length = segment->getLength();
+                const double length = segment->getLength();
                 if (laneIndex < segment->numQueues()) {
                     // make a copy so we don't have to worry about synchronization
                     queue = segment->getQueue(laneIndex);
                     const int queueSize = (int)queue.size();
-                    SUMOReal vehiclePosition = segmentOffset + length;
+                    double vehiclePosition = segmentOffset + length;
                     // draw vehicles beginning with the leader at the end of the segment
-                    SUMOReal xOff = 0;
+                    double xOff = 0;
                     for (int i = 0; i < queueSize; ++i) {
                         GUIMEVehicle* veh = static_cast<GUIMEVehicle*>(queue[queueSize - i - 1]);
-                        const SUMOReal vehLength = veh->getVehicleType().getLengthWithGap();
+                        const double vehLength = veh->getVehicleType().getLengthWithGap();
                         while (vehiclePosition < segmentOffset) {
                             // if there is only a single queue for a
                             // multi-lane edge shift vehicles and start
@@ -335,7 +335,7 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                             xOff += 2;
                         }
                         const Position p = l->geometryPositionAtOffset(vehiclePosition);
-                        const SUMOReal angle = l->getShape().rotationAtOffset(l->interpolateLanePosToGeometryPos(vehiclePosition));
+                        const double angle = l->getShape().rotationAtOffset(l->interpolateLanePosToGeometryPos(vehiclePosition));
                         veh->drawOnPos(s, p, angle);
                         vehiclePosition -= vehLength;
                     }
@@ -375,33 +375,33 @@ GUIEdge::getVehicleIDs() const {
 }
 
 
-SUMOReal
+double
 GUIEdge::getFlow() const {
-    SUMOReal flow = 0;
+    double flow = 0;
     for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
-        flow += (SUMOReal) segment->getCarNumber() * segment->getMeanSpeed();
+        flow += (double) segment->getCarNumber() * segment->getMeanSpeed();
     }
     return 3600 * flow / (*myLanes)[0]->getLength();
 }
 
 
-SUMOReal
+double
 GUIEdge::getBruttoOccupancy() const {
-    SUMOReal occ = 0;
+    double occ = 0;
     for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
         occ += segment->getBruttoOccupancy();
     }
-    return occ / (*myLanes)[0]->getLength() / (SUMOReal)(myLanes->size());
+    return occ / (*myLanes)[0]->getLength() / (double)(myLanes->size());
 }
 
 
-SUMOReal
+double
 GUIEdge::getAllowedSpeed() const {
     return (*myLanes)[0]->getSpeedLimit();
 }
 
 
-SUMOReal
+double
 GUIEdge::getRelativeSpeed() const {
     return getMeanSpeed() / getAllowedSpeed();
 }
@@ -422,7 +422,7 @@ GUIEdge::setFunctionalColor(int activeScheme) const {
     switch (activeScheme) {
         case 9: {
             const PositionVector& shape = getLanes()[0]->getShape();
-            SUMOReal hue = GeomHelper::naviDegree(shape.beginEndAngle()); // [0-360]
+            double hue = GeomHelper::naviDegree(shape.beginEndAngle()); // [0-360]
             myMesoColor = RGBColor::fromHSV(hue, 1., 1.);
             return true;
         }
@@ -480,7 +480,7 @@ GUIEdge::setMultiColor(const GUIColorer& c) const {
 }
 
 
-SUMOReal
+double
 GUIEdge::getColorValue(int activeScheme) const {
     switch (activeScheme) {
         case 1:
@@ -506,7 +506,7 @@ GUIEdge::getColorValue(int activeScheme) const {
 }
 
 
-SUMOReal
+double
 GUIEdge::getScaleValue(int activeScheme) const {
     switch (activeScheme) {
         case 1:
@@ -531,7 +531,7 @@ GUIEdge::getScaleValue(int activeScheme) const {
 MESegment*
 GUIEdge::getSegmentAtPosition(const Position& pos) {
     const PositionVector& shape = getLanes()[0]->getShape();
-    const SUMOReal lanePos = shape.nearest_offset_to_point2D(pos);
+    const double lanePos = shape.nearest_offset_to_point2D(pos);
     return MSGlobals::gMesoNet->getSegmentForEdge(*this, lanePos);
 }
 

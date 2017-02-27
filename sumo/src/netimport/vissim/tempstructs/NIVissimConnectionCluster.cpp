@@ -111,7 +111,7 @@ NIVissimConnectionCluster::NodeSubCluster::getConnectionIDs() const {
 bool
 NIVissimConnectionCluster::NodeSubCluster::overlapsWith(
     const NIVissimConnectionCluster::NodeSubCluster& c,
-    SUMOReal offset) {
+    double offset) {
     assert(myBoundary.xmax() >= myBoundary.xmin());
     assert(c.myBoundary.xmax() >= c.myBoundary.xmin());
     return myBoundary.overlapsWith(c.myBoundary, offset);
@@ -180,7 +180,7 @@ NIVissimConnectionCluster::getNextFreeNodeID() {
 
 bool
 NIVissimConnectionCluster::overlapsWith(NIVissimConnectionCluster* c,
-                                        SUMOReal offset) const {
+                                        double offset) const {
     assert(myBoundary.xmax() >= myBoundary.xmin());
     assert(c->myBoundary.xmax() >= c->myBoundary.xmin());
     return c->myBoundary.overlapsWith(myBoundary, offset);
@@ -218,7 +218,7 @@ NIVissimConnectionCluster::add(NIVissimConnectionCluster* c) {
 
 
 void
-NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset) {
+NIVissimConnectionCluster::joinBySameEdges(double offset) {
     // !!! ...
     // Further, we try to omit joining of overlaping nodes. This is done by holding
     //  the lists of incoming and outgoing edges and incrementally building the nodes
@@ -327,7 +327,7 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset) {
 
 
 bool
-NIVissimConnectionCluster::joinable(NIVissimConnectionCluster* c2, SUMOReal offset) {
+NIVissimConnectionCluster::joinable(NIVissimConnectionCluster* c2, double offset) {
     // join clusters which have at least one connection in common
     if (VectorHelper<int>::subSetExists(myConnections, c2->myConnections)) {
         return true;
@@ -436,9 +436,9 @@ NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster* cc2) {
             if (c1->getFromEdgeID() == c2->getFromEdgeID()) {
                 NIVissimEdge* e = NIVissimEdge::dictionary(c1->getFromEdgeID());
                 const PositionVector& g = e->getGeometry();
-                SUMOReal pos1 = GeomHelper::nearest_offset_on_line_to_point2D(
+                double pos1 = GeomHelper::nearest_offset_on_line_to_point2D(
                                     g.front(), g.back(), c1->getBoundary().getCenter());
-                SUMOReal pos2 = GeomHelper::nearest_offset_on_line_to_point2D(
+                double pos2 = GeomHelper::nearest_offset_on_line_to_point2D(
                                     g.front(), g.back(), c2->getBoundary().getCenter());
                 if (pos1 <= 5.0 && pos2 <= 5.0) {
                     return true;
@@ -447,9 +447,9 @@ NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster* cc2) {
             if (c1->getToEdgeID() == c2->getToEdgeID()) {
                 NIVissimEdge* e = NIVissimEdge::dictionary(c1->getFromEdgeID());
                 const PositionVector& g = e->getGeometry();
-                SUMOReal pos1 = GeomHelper::nearest_offset_on_line_to_point2D(
+                double pos1 = GeomHelper::nearest_offset_on_line_to_point2D(
                                     g.front(), g.back(), c1->getBoundary().getCenter());
-                SUMOReal pos2 = GeomHelper::nearest_offset_on_line_to_point2D(
+                double pos2 = GeomHelper::nearest_offset_on_line_to_point2D(
                                     g.front(), g.back(), c2->getBoundary().getCenter());
                 if (pos1 >= g.length() - 5.0 && pos2 >= g.length() - 5.0) {
                     return true;
@@ -591,7 +591,7 @@ NIVissimConnectionCluster::getNBNode() const {
 
 
 bool
-NIVissimConnectionCluster::around(const Position& p, SUMOReal offset) const {
+NIVissimConnectionCluster::around(const Position& p, double offset) const {
     assert(myBoundary.xmax() >= myBoundary.xmin());
     return myBoundary.around(p, offset);
 }
@@ -629,11 +629,11 @@ NIVissimConnectionCluster::recheckEdges() {
 }
 
 
-SUMOReal
+double
 NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
     // return the middle of the connections when there are any
     if (myConnections.size() != 0) {
-        SUMOReal sum = 0;
+        double sum = 0;
         int part = 0;
         std::vector<int>::const_iterator i;
         for (i = myConnections.begin(); i != myConnections.end(); i++) {
@@ -648,7 +648,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
             }
         }
         if (part > 0) {
-            return sum / (SUMOReal) part;
+            return sum / (double) part;
         }
     }
     // use the position of the node if possible
@@ -658,21 +658,21 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
         NIVissimNodeDef* node =
             NIVissimNodeDef::dictionary(myNodeCluster);
         if (node != 0) {
-            SUMOReal pos = node->getEdgePosition(edgeid);
+            double pos = node->getEdgePosition(edgeid);
             if (pos >= 0) {
                 return pos;
             }
         }
         /*
-                SUMOReal try1 = GeomHelper::nearest_offset_on_line_to_point(
+                double try1 = GeomHelper::nearest_offset_on_line_to_point(
                     edge->getBegin2D(), edge->getEnd2D(), node->getPos());
                 if(try1>=0) {
                     return try1;
                 }
                 // try to use simple distance
-                SUMOReal dist1 =
+                double dist1 =
                     GeomHelper::distance(node->getPos(), edge->getBegin2D());
-                SUMOReal dist2 =
+                double dist2 =
                     GeomHelper::distance(node->getPos(), edge->getEnd2D());
                 return dist1<dist2
                     ? 0 : edge->getLength();

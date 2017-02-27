@@ -69,9 +69,9 @@ NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::parse(std::istre
             tag = readEndSecure(from);
         }
         if (tag != "DATAEND") {
-            SUMOReal p1 = TplConvert::_2SUMOReal(tag.c_str());
+            double p1 = TplConvert::_2double(tag.c_str());
             from >> tag;
-            SUMOReal p2 = TplConvert::_2SUMOReal(tag.c_str());
+            double p2 = TplConvert::_2double(tag.c_str());
             points.push_back(Position(p1, p2));
         }
     } while (tag != "DATAEND");

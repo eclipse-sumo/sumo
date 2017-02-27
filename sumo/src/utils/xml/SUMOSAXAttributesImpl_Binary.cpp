@@ -220,17 +220,17 @@ SUMOSAXAttributesImpl_Binary::getStringSecure(int id,
 }
 
 
-SUMOReal
+double
 SUMOSAXAttributesImpl_Binary::getFloat(int id) const {
-    const std::map<int, SUMOReal>::const_iterator i = myFloatValues.find(id);
+    const std::map<int, double>::const_iterator i = myFloatValues.find(id);
     if (i == myFloatValues.end()) {
-        return TplConvert::_2SUMOReal(getString(id).c_str());
+        return TplConvert::_2double(getString(id).c_str());
     }
     return i->second;
 }
 
 
-SUMOReal
+double
 SUMOSAXAttributesImpl_Binary::getFloat(const std::string& /* id */) const {
     throw ProcessError("not implemented for binary data");
 }
@@ -349,7 +349,7 @@ SUMOSAXAttributesImpl_Binary::clone() const {
         const std::string attrName = myAttrIds.find(it->first)->second;
         attrs[attrName] = toString(it->second);
     }
-    for (std::map<int, SUMOReal>::const_iterator it = myFloatValues.begin(); it != myFloatValues.end(); ++it) {
+    for (std::map<int, double>::const_iterator it = myFloatValues.begin(); it != myFloatValues.end(); ++it) {
         const std::string attrName = myAttrIds.find(it->first)->second;
         attrs[attrName] = toString(it->second);
     }

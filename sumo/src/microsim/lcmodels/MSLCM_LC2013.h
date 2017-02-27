@@ -84,9 +84,9 @@ public:
     int wantsChange(
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
-        const std::pair<MSVehicle*, SUMOReal>& leader,
-        const std::pair<MSVehicle*, SUMOReal>& neighLead,
-        const std::pair<MSVehicle*, SUMOReal>& neighFollow,
+        const std::pair<MSVehicle*, double>& leader,
+        const std::pair<MSVehicle*, double>& neighLead,
+        const std::pair<MSVehicle*, double>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
@@ -102,10 +102,10 @@ public:
      * @param cfModel The model used
      * @return the new speed of the vehicle as proposed by the lane changer
      */
-    SUMOReal patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
+    double patchSpeed(const double min, const double wanted, const double max,
                         const MSCFModel& cfModel);
     /** helper function which contains the actual logic */
-    SUMOReal _patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
+    double _patchSpeed(const double min, const double wanted, const double max,
                          const MSCFModel& cfModel);
 
     void changed();
@@ -119,9 +119,9 @@ protected:
     int _wantsChange(
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
-        const std::pair<MSVehicle*, SUMOReal>& leader,
-        const std::pair<MSVehicle*, SUMOReal>& neighLead,
-        const std::pair<MSVehicle*, SUMOReal>& neighFollow,
+        const std::pair<MSVehicle*, double>& leader,
+        const std::pair<MSVehicle*, double>& neighLead,
+        const std::pair<MSVehicle*, double>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
@@ -131,17 +131,17 @@ protected:
      * and inform it accordingly
      * If we decide to follow, myVSafes will be extended
      * returns the planned speed if following or -1 if overtaking */
-    SUMOReal informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
+    double informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                           int blocked, int dir,
-                          const std::pair<MSVehicle*, SUMOReal>& neighLead,
-                          SUMOReal remainingSeconds);
+                          const std::pair<MSVehicle*, double>& neighLead,
+                          double remainingSeconds);
 
     /// @brief decide whether we will try cut in before the follower or allow to be overtaken
     void informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                         int blocked, int dir,
-                        const std::pair<MSVehicle*, SUMOReal>& neighFollow,
-                        SUMOReal remainingSeconds,
-                        SUMOReal plannedSpeed);
+                        const std::pair<MSVehicle*, double>& neighFollow,
+                        double remainingSeconds,
+                        double plannedSpeed);
 
 
     /* @brief compute the distance to cover until a safe gap to the vehicle v in front is reached
@@ -153,7 +153,7 @@ protected:
          * @param[in] followerSpeed an assumed speed for the follower (default uses the current speed)
          * @return the distance that the relative positions would have to change.
          */
-    static SUMOReal overtakeDistance(const MSVehicle* follower, const MSVehicle* leader, const SUMOReal gap, SUMOReal followerSpeed = INVALID_SPEED, SUMOReal leaderSpeed = INVALID_SPEED);
+    static double overtakeDistance(const MSVehicle* follower, const MSVehicle* leader, const double gap, double followerSpeed = INVALID_SPEED, double leaderSpeed = INVALID_SPEED);
 
     /// @brief compute useful slowdowns for blocked vehicles
     int slowDownForBlocked(MSVehicle** blocked, int state);
@@ -171,7 +171,7 @@ protected:
     /// @param[out] roundaboutEdgesAheadNeigh Number of lanes in the next oncoming roundabout in neigh
     static void
     getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::LaneQ& curr, const MSVehicle::LaneQ& neigh,
-                           SUMOReal& roundaboutDistanceAhead, SUMOReal& roundaboutDistanceAheadNeigh, int& roundaboutEdgesAhead, int& roundaboutEdgesAheadNeigh);
+                           double& roundaboutDistanceAhead, double& roundaboutDistanceAheadNeigh, int& roundaboutEdgesAhead, int& roundaboutEdgesAheadNeigh);
 
     /// @brief Computes the artificial bonus distance for roundabout lanes
     ///        this additional distance reduces the sense of urgency within
@@ -179,22 +179,22 @@ protected:
     ///        lane in multi-lane roundabouts.
     /// @param[in] roundaboutDistAhead Distance on roundabout
     /// @param[in] roundaboutEdgesAhead number of edges on roundabout
-    SUMOReal
-    roundaboutDistBonus(SUMOReal roundaboutDistAhead, int roundaboutEdgesAhead) const;
+    double
+    roundaboutDistBonus(double roundaboutDistAhead, int roundaboutEdgesAhead) const;
 
     /// @brief compute the distance on the next upcoming roundabout along a given sequence of lanes.
     /// @param[in] position position of the vehicle on the initial lane
     /// @param[in] initialLane starting lane for the computation (may be internal)
     /// @param[in] continuationLanes sequence of lanes along which the roundabout distance is to be computed (only containing non-internal lanes)
     /// @return distance along next upcoming roundabout on the given sequence of lanes continuationLanes
-    static SUMOReal
-    distanceAlongNextRoundabout(SUMOReal position, const MSLane* initialLane, const std::vector<MSLane*>& continuationLanes);
+    static double
+    distanceAlongNextRoundabout(double position, const MSLane* initialLane, const std::vector<MSLane*>& continuationLanes);
 
     /// @brief save space for vehicles which need to counter-lane-change
     void saveBlockerLength(MSVehicle* blocker, int lcaCounter);
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    inline void saveBlockerLength(SUMOReal length) {
+    inline void saveBlockerLength(double length) {
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
     };
 
@@ -210,51 +210,51 @@ protected:
     inline bool amBlockingFollowerPlusNB() {
         return (myOwnState & (LCA_AMBLOCKINGFOLLOWER | LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)) != 0;
     }
-    inline bool currentDistDisallows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
+    inline bool currentDistDisallows(double dist, int laneOffset, double lookForwardDist) {
         return dist / (abs(laneOffset)) < lookForwardDist;
     }
-    inline bool currentDistAllows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
+    inline bool currentDistAllows(double dist, int laneOffset, double lookForwardDist) {
         return dist / abs(laneOffset) > lookForwardDist;
     }
 
     /// @brief information regarding save velocity (unused) and state flags of the ego vehicle
-    typedef std::pair<SUMOReal, int> Info;
+    typedef std::pair<double, int> Info;
 
 
 
 protected:
     /// @brief a value for tracking the probability that a change to the offset with the same sign is beneficial
-    SUMOReal mySpeedGainProbability;
+    double mySpeedGainProbability;
     /* @brief a value for tracking the probability of following the/"Rechtsfahrgebot"
      * A larger negative value indicates higher probability for moving to the
      * right (as in mySpeedGainProbability) */
-    SUMOReal myKeepRightProbability;
+    double myKeepRightProbability;
 
-    SUMOReal myLeadingBlockerLength;
-    SUMOReal myLeftSpace;
+    double myLeadingBlockerLength;
+    double myLeftSpace;
 
     /*@brief the speed to use when computing the look-ahead distance for
      * determining urgency of strategic lane changes */
-    SUMOReal myLookAheadSpeed;
+    double myLookAheadSpeed;
 
-    std::vector<SUMOReal> myVSafes;
+    std::vector<double> myVSafes;
     bool myDontBrake; // XXX: myDontBrake is initialized as false and seems not to be changed anywhere... What's its purpose???
 
     /// @name user configurable model parameters
     //@{
-    const SUMOReal myStrategicParam;
-    const SUMOReal myCooperativeParam; // in [0,1]
-    const SUMOReal mySpeedGainParam;
-    const SUMOReal myKeepRightParam;
+    const double myStrategicParam;
+    const double myCooperativeParam; // in [0,1]
+    const double mySpeedGainParam;
+    const double myKeepRightParam;
 
-    const SUMOReal myExperimentalParam1; // for feature testing
+    const double myExperimentalParam1; // for feature testing
     //@}
 
     /// @name derived parameters
     //@{
     // @brief willingness to encroach on other vehicles laterally (pushing them around)
-    const SUMOReal myChangeProbThresholdRight;
-    const SUMOReal myChangeProbThresholdLeft;
+    const double myChangeProbThresholdRight;
+    const double myChangeProbThresholdLeft;
     //@}
 };
 

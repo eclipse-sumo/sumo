@@ -68,7 +68,7 @@
 // ---------------------------------------------------------------------------
 void
 ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string& id,
-        SUMOReal val, SUMOReal beg, SUMOReal end) const {
+        double val, double beg, double end) const {
     ROEdge* e = myNet.getEdge(id);
     if (e != 0) {
         e->addTravelTime(val, beg, end);
@@ -89,7 +89,7 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::st
 // ---------------------------------------------------------------------------
 void
 ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string& id,
-        SUMOReal val, SUMOReal beg, SUMOReal end) const {
+        double val, double beg, double end) const {
     ROEdge* e = myNet.getEdge(id);
     if (e != 0) {
         e->addEffort(val, beg, end);
@@ -311,7 +311,7 @@ void
 ROLoader::writeStats(const SUMOTime time, const SUMOTime start, const SUMOTime absNo, bool endGiven) {
     if (myLogSteps) {
         if (endGiven) {
-            const SUMOReal perc = (SUMOReal)(time - start) / (SUMOReal) absNo;
+            const double perc = (double)(time - start) / (double) absNo;
             std::cout << "Reading up to time step: " + time2string(time) + "  (" + time2string(time - start) + "/" + time2string(absNo) + " = " + toString(perc * 100) + "% done)       \r";
         } else {
             std::cout << "Reading up to time step: " + time2string(time) + "\r";

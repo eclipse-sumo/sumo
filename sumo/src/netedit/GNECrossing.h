@@ -139,10 +139,10 @@ private:
     /// @name computed only once (for performance) in updateGeometry()
     /// @{
     /// The rotations of the shape parts
-    std::vector<SUMOReal> myShapeRotations;
+    std::vector<double> myShapeRotations;
 
     /// The lengths of the shape parts
-    std::vector<SUMOReal> myShapeLengths;
+    std::vector<double> myShapeLengths;
     /// @}
 
     /// @brief the created popup

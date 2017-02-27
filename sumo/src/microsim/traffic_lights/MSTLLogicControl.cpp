@@ -405,7 +405,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step) {
         assert(def.end >= def.begin);
         deltaPossible += TIME2STEPS(def.end - def.begin);
     }
-    int stretchUmlaufAnz = (int) TplConvert::_2SUMOReal(myTo->getParameter("StretchUmlaufAnz", "").c_str());
+    int stretchUmlaufAnz = (int) TplConvert::_2double(myTo->getParameter("StretchUmlaufAnz", "").c_str());
     deltaPossible = stretchUmlaufAnz * deltaPossible;
     if ((deltaPossible > deltaToCut) && (deltaToCut < (cycleTime / 2))) {
         cutLogic(step, gspTo, deltaToCut);
@@ -470,8 +470,8 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
     SUMOTime durOfPhase = myTo->getPhase(currStep).duration;
     SUMOTime remainingStretchTime = allStretchTime;
     SUMOTime StretchTimeOfPhase = 0;
-    int stretchUmlaufAnz = (int) TplConvert::_2SUMOReal(myTo->getParameter("StretchUmlaufAnz", "").c_str());
-    SUMOReal facSum = 0;
+    int stretchUmlaufAnz = (int) TplConvert::_2double(myTo->getParameter("StretchUmlaufAnz", "").c_str());
+    double facSum = 0;
     int areasNo = getStretchAreaNo(myTo);
     for (int x = 0; x < areasNo; x++) {
         StretchBereichDef def = getStretchBereichDef(myTo, x + 1);
@@ -486,8 +486,8 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
         SUMOTime end = TIME2STEPS(def.end);
         SUMOTime endOfPhase = (startPos + durOfPhase - diffToStart);
         if (end <= endOfPhase && end >= startPos) {
-            SUMOReal fac = def.fac;
-            SUMOReal actualfac = fac / facSum;
+            double fac = def.fac;
+            double actualfac = fac / facSum;
             facSum = facSum - fac;
             StretchTimeOfPhase = TIME2STEPS(int(STEPS2TIME(remainingStretchTime) * actualfac + 0.5));
             remainingStretchTime = allStretchTime - StretchTimeOfPhase;
@@ -510,9 +510,9 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
             for (int j = 0; j < areasNo && remainingStretchTime > 0; j++) {
                 StretchBereichDef def = getStretchBereichDef(myTo, j + 1);
                 SUMOTime end = TIME2STEPS(def.end);
-                SUMOReal fac = def.fac;
+                double fac = def.fac;
                 if ((beginOfPhase <= end) && (endOfPhase >= end)) {
-                    SUMOReal actualfac = fac / facSum;
+                    double actualfac = fac / facSum;
                     StretchTimeOfPhase = TIME2STEPS(int(STEPS2TIME(remainingStretchTime) * actualfac + 0.5));
                     facSum -= fac;
                     durOfPhase += StretchTimeOfPhase;
@@ -538,9 +538,9 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchAreaNo(MSTrafficLightLo
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::StretchBereichDef
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchBereichDef(MSTrafficLightLogic* from, int index) const {
     StretchBereichDef def;
-    def.begin = TplConvert::_2SUMOReal(from->getParameter("B" + toString(index) + ".begin", "").c_str());
-    def.end = TplConvert::_2SUMOReal(from->getParameter("B" + toString(index) + ".end", "").c_str());
-    def.fac = TplConvert::_2SUMOReal(from->getParameter("B" + toString(index) + ".factor", "").c_str());
+    def.begin = TplConvert::_2double(from->getParameter("B" + toString(index) + ".begin", "").c_str());
+    def.end = TplConvert::_2double(from->getParameter("B" + toString(index) + ".end", "").c_str());
+    def.fac = TplConvert::_2double(from->getParameter("B" + toString(index) + ".factor", "").c_str());
     return def;
 }
 

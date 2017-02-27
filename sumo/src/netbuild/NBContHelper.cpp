@@ -88,10 +88,10 @@ NBContHelper::findConnectingEdge(const EdgeVector& edges,
 
 
 
-SUMOReal
+double
 NBContHelper::maxSpeed(const EdgeVector& ev) {
     assert(ev.size() > 0);
-    SUMOReal max = (*(ev.begin()))->getSpeed();
+    double max = (*(ev.begin()))->getSpeed();
     for (EdgeVector::const_iterator i = ev.begin() + 1; i != ev.end(); i++) {
         max =
             max > (*i)->getSpeed()
@@ -152,12 +152,12 @@ NBContHelper::relative_outgoing_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) 
     if (e1 == 0 || e2 == 0) {
         return -1;
     }
-    SUMOReal relAngle1 = NBHelpers::normRelAngle(
+    double relAngle1 = NBHelpers::normRelAngle(
                              myEdge->getEndAngle(), e1->getStartAngle());
-    SUMOReal relAngle2 = NBHelpers::normRelAngle(
+    double relAngle2 = NBHelpers::normRelAngle(
                              myEdge->getEndAngle(), e2->getStartAngle());
 
-    SUMOReal lookAhead = 2 * NBEdge::ANGLE_LOOKAHEAD;
+    double lookAhead = 2 * NBEdge::ANGLE_LOOKAHEAD;
     while (fabs(relAngle1 - relAngle2) < 3.0) {
         // look at further geometry segments to resolve ambiguity
         const Position referencePos1 = e1->getGeometry().positionAtOffset2D(lookAhead);
@@ -183,21 +183,21 @@ NBContHelper::straightness_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
     if (e1 == 0 || e2 == 0) {
         return -1;
     }
-    SUMOReal relAngle1 = NBHelpers::normRelAngle(
+    double relAngle1 = NBHelpers::normRelAngle(
                              myReferenceAngle, myRefIncoming ? e1->getShapeStartAngle() : e1->getShapeEndAngle());
-    SUMOReal relAngle2 = NBHelpers::normRelAngle(
+    double relAngle2 = NBHelpers::normRelAngle(
                              myReferenceAngle, myRefIncoming ? e2->getShapeStartAngle() : e2->getShapeEndAngle());
     const int geomIndex = myRefIncoming ? 0 : -1;
 
     //std::cout << " e1=" << e1->getID() << " e2=" << e2->getID() << " refA=" << myReferenceAngle << " initially a1=" << relAngle1 << " a2=" << relAngle2 << "\n";
-    const SUMOReal e1Length = e1->getGeometry().length2D();
-    const SUMOReal e2Length = e2->getGeometry().length2D();
-    const SUMOReal maxLookAhead = MAX2(e1Length, e2Length);
-    SUMOReal lookAhead = MIN2(maxLookAhead, 2 * NBEdge::ANGLE_LOOKAHEAD);
+    const double e1Length = e1->getGeometry().length2D();
+    const double e2Length = e2->getGeometry().length2D();
+    const double maxLookAhead = MAX2(e1Length, e2Length);
+    double lookAhead = MIN2(maxLookAhead, 2 * NBEdge::ANGLE_LOOKAHEAD);
     while (fabs(relAngle1 - relAngle2) < 3.0) {
         // look at further geometry segments to resolve ambiguity
-        const SUMOReal offset1 = myRefIncoming ? lookAhead : e1Length - lookAhead;
-        const SUMOReal offset2 = myRefIncoming ? lookAhead : e2Length - lookAhead;
+        const double offset1 = myRefIncoming ? lookAhead : e1Length - lookAhead;
+        const double offset2 = myRefIncoming ? lookAhead : e2Length - lookAhead;
         const Position referencePos1 = e1->getGeometry().positionAtOffset2D(offset1);
         const Position referencePos2 = e2->getGeometry().positionAtOffset2D(offset2);
 
@@ -234,12 +234,12 @@ NBContHelper::relative_incoming_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) 
     if (e1 == 0 || e2 == 0) {
         return -1;
     }
-    SUMOReal relAngle1 = NBHelpers::normRelAngle(
+    double relAngle1 = NBHelpers::normRelAngle(
                              myEdge->getStartAngle(), e1->getEndAngle());
-    SUMOReal relAngle2 = NBHelpers::normRelAngle(
+    double relAngle2 = NBHelpers::normRelAngle(
                              myEdge->getStartAngle(), e2->getEndAngle());
 
-    SUMOReal lookAhead = 2 * NBEdge::ANGLE_LOOKAHEAD;
+    double lookAhead = 2 * NBEdge::ANGLE_LOOKAHEAD;
     while (fabs(relAngle1 - relAngle2) < 3.0) {
         // look at further geometry segments to resolve ambiguity
         const Position referencePos1 = e1->getGeometry().positionAtOffset2D(e1->getGeometry().length() - lookAhead);
@@ -271,12 +271,12 @@ operator<<(std::ostream& os, const EdgeVector& ev) {
 
 
 
-SUMOReal
+double
 NBContHelper::getMaxSpeed(const EdgeVector& edges) {
     if (edges.size() == 0) {
         return -1;
     }
-    SUMOReal ret = (*(edges.begin()))->getSpeed();
+    double ret = (*(edges.begin()))->getSpeed();
     for (EdgeVector::const_iterator i = edges.begin() + 1; i != edges.end(); i++) {
         if ((*i)->getSpeed() > ret) {
             ret = (*i)->getSpeed();
@@ -286,12 +286,12 @@ NBContHelper::getMaxSpeed(const EdgeVector& edges) {
 }
 
 
-SUMOReal
+double
 NBContHelper::getMinSpeed(const EdgeVector& edges) {
     if (edges.size() == 0) {
         return -1;
     }
-    SUMOReal ret = (*(edges.begin()))->getSpeed();
+    double ret = (*(edges.begin()))->getSpeed();
     for (EdgeVector::const_iterator i = edges.begin() + 1; i != edges.end(); i++) {
         if ((*i)->getSpeed() < ret) {
             ret = (*i)->getSpeed();
@@ -305,9 +305,9 @@ int
 NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter::operator()(const NBEdge* e1, const NBEdge* e2) const {
     assert(e1->getFromNode() == myNode || e1->getToNode() == myNode);
     assert(e2->getFromNode() == myNode || e2->getToNode() == myNode);
-    const SUMOReal angle1 = e1->getAngleAtNodeToCenter(myNode);
-    const SUMOReal angle2 = e2->getAngleAtNodeToCenter(myNode);
-    const SUMOReal absDiff = fabs(angle1 - angle2);
+    const double angle1 = e1->getAngleAtNodeToCenter(myNode);
+    const double angle2 = e2->getAngleAtNodeToCenter(myNode);
+    const double absDiff = fabs(angle1 - angle2);
 
     // cannot trust the angle difference hence a heuristic:
     if (absDiff < 2 || absDiff > (360 - 2)) {

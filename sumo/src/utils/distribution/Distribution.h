@@ -50,7 +50,7 @@ public:
     virtual ~Distribution() { }
 
     /// Returns the maximum value of this distribution
-    virtual SUMOReal getMax() const = 0;
+    virtual double getMax() const = 0;
 
 };
 

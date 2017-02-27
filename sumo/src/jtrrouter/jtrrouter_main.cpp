@@ -81,7 +81,7 @@
  */
 void
 initNet(RONet& net, ROLoader& loader,
-        const std::vector<SUMOReal>& turnDefs) {
+        const std::vector<double>& turnDefs) {
     // load the net
     ROJTREdgeBuilder builder;
     loader.loadNet(net, builder);
@@ -92,16 +92,16 @@ initNet(RONet& net, ROLoader& loader,
     }
 }
 
-std::vector<SUMOReal>
+std::vector<double>
 getTurningDefaults(OptionsCont& oc) {
-    std::vector<SUMOReal> ret;
+    std::vector<double> ret;
     std::vector<std::string> defs = oc.getStringVector("turn-defaults");
     if (defs.size() < 2) {
         throw ProcessError("The defaults for turnings must be a tuple of at least two numbers divided by ','.");
     }
     for (std::vector<std::string>::const_iterator i = defs.begin(); i != defs.end(); ++i) {
         try {
-            SUMOReal val = TplConvert::_2SUMOReal((*i).c_str());
+            double val = TplConvert::_2double((*i).c_str());
             ret.push_back(val);
         } catch (NumberFormatException&) {
             throw ProcessError("A turn default is not numeric.");
@@ -151,7 +151,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     net.openOutput(oc);
     // build the router
     ROJTRRouter* router = new ROJTRRouter(oc.getBool("ignore-errors"), oc.getBool("accept-all-destinations"),
-                                          (int)(((SUMOReal) net.getEdgeNo()) * OptionsCont::getOptions().getFloat("max-edges-factor")),
+                                          (int)(((double) net.getEdgeNo()) * OptionsCont::getOptions().getFloat("max-edges-factor")),
                                           oc.getBool("ignore-vclasses"), oc.getBool("allow-loops"));
     RORouteDef::setUsingJTRR();
     RORouterProvider provider(router, new PedestrianRouterDijkstra<ROEdge, ROLane, RONode, ROVehicle>(),
@@ -189,7 +189,7 @@ main(int argc, char** argv) {
             throw ProcessError();
         }
         RandHelper::initRandGlobal();
-        std::vector<SUMOReal> defs = getTurningDefaults(oc);
+        std::vector<double> defs = getTurningDefaults(oc);
         // load data
         ROLoader loader(oc, true, !oc.getBool("no-step-log"));
         net = new RONet();

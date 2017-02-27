@@ -46,8 +46,8 @@ public:
     static bool dictionary(int id, const std::string& name,
                            const PositionVector& poly);
 //    virtual void computeBounding();
-//    SUMOReal getEdgePosition(int edgeid) const;
-//    void searchAndSetConnections(SUMOReal offset);
+//    double getEdgePosition(int edgeid) const;
+//    void searchAndSetConnections(double offset);
 private:
     PositionVector myPoly;
 

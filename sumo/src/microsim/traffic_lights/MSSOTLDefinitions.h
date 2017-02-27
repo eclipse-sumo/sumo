@@ -60,17 +60,17 @@ typedef std::pair<std::string, MSE2Collector*> MSLaneID_MSE2Collector;
 typedef std::map<std::string, MSE2Collector*> MSLaneID_MSE2CollectorMap;
 
 //Every lane has its speed limit, it can be retrieved by lane Id
-typedef std::pair<std::string, SUMOReal> MSLaneID_MaxSpeed;
-typedef std::map<std::string, SUMOReal> MSLaneID_MaxSpeedMap;
+typedef std::pair<std::string, double> MSLaneID_MaxSpeed;
+typedef std::map<std::string, double> MSLaneID_MaxSpeedMap;
 
 //****************************************************
 //Type definitions to implement the pheromone paradigm
-typedef std::pair<std::string, SUMOReal> MSLaneId_Pheromone;
+typedef std::pair<std::string, double> MSLaneId_Pheromone;
 /**
 * This map type definition identifies a set of lanes, connected to a kind of pheromone.
 * Pheromone can be of different kinds to express different stimuli
 */
-typedef std::map<std::string, SUMOReal> MSLaneId_PheromoneMap;
+typedef std::map<std::string, double> MSLaneId_PheromoneMap;
 
 //****************************************************
 

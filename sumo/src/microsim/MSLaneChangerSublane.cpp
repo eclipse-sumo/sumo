@@ -65,7 +65,7 @@ MSLaneChangerSublane::updateChanger(bool vehHasChanged) {
         myCandi->ahead.addLeader(lead, false, 0);
         MSLane* shadowLane = lead->getLaneChangeModel().getShadowLane();
         if (shadowLane != 0) {
-            const SUMOReal latOffset = lead->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
+            const double latOffset = lead->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
             //std::cout << SIMTIME << " updateChanger shadowLane=" << shadowLane->getID() << " lead=" << Named::getIDSecure(lead) << "\n";
             (myChanger.begin() + shadowLane->getIndex())->ahead.addLeader(lead, false, latOffset);
         }
@@ -152,7 +152,7 @@ MSLaneChangerSublane::checkChangeHelper(MSVehicle* vehicle, int laneOffset) {
 
 
 bool
-MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, SUMOReal latDist) {
+MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, double latDist) {
     //gDebugFlag4 = vehicle->getID() == "Togliatti_80_26";
     // 1) update vehicles lateral position according to latDist and target lane
     vehicle->myState.myPosLat += latDist;
@@ -188,7 +188,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, SU
     MSLane* shadowLane = vehicle->getLaneChangeModel().getShadowLane();
     if (shadowLane != 0 && shadowLane != oldShadowLane) {
         assert(to != from);
-        const SUMOReal latOffset = vehicle->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
+        const double latOffset = vehicle->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
         (myChanger.begin() + shadowLane->getIndex())->ahead.addLeader(vehicle, false, latOffset);
     }
     if (gDebugFlag4) std::cout << SIMTIME << " startChangeSublane shadowLane"
@@ -198,9 +198,9 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, SU
     // compute new angle of the vehicle from the x- and y-distances travelled within last time step
     // (should happen last because primaryLaneChanged() also triggers angle computation)
     // this part of the angle comes from the orientation of our current lane
-    SUMOReal laneAngle = vehicle->getLane()->getShape().rotationAtOffset(vehicle->getLane()->interpolateLanePosToGeometryPos(vehicle->getPositionOnLane())) ;
+    double laneAngle = vehicle->getLane()->getShape().rotationAtOffset(vehicle->getLane()->interpolateLanePosToGeometryPos(vehicle->getPositionOnLane())) ;
     // this part of the angle comes from the vehicle's lateral movement
-    SUMOReal changeAngle = 0;
+    double changeAngle = 0;
     // avoid flicker
     if (fabs(latDist) > NUMERICAL_EPS) {
         // avoid extreme angles by using vehicle length as a proxy for turning radius
@@ -226,7 +226,7 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* ego) 
         const MSVehicle* veh = target->ahead[i];
         if (veh != 0) {
             assert(veh != 0);
-            const SUMOReal gap = veh->getBackPositionOnLane() - ego->getPositionOnLane() - ego->getVehicleType().getMinGap();
+            const double gap = veh->getBackPositionOnLane() - ego->getPositionOnLane() - ego->getVehicleType().getMinGap();
             if (gDebugFlag1) {
                 std::cout << " ahead lead=" << veh->getID() << " leadBack=" << veh->getBackPositionOnLane() << " gap=" << gap << "\n";
             }
@@ -239,7 +239,7 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* ego) 
     for (int i = 0; i < aheadSamePos.numSublanes(); ++i) {
         const MSVehicle* veh = aheadSamePos[i];
         if (veh != 0 && veh != ego) {
-            const SUMOReal gap = veh->getBackPositionOnLane(target->lane) - ego->getPositionOnLane() - ego->getVehicleType().getMinGap();
+            const double gap = veh->getBackPositionOnLane(target->lane) - ego->getPositionOnLane() - ego->getVehicleType().getMinGap();
             if (gDebugFlag1) {
                 std::cout << " further lead=" << veh->getID() << " leadBack=" << veh->getBackPositionOnLane(target->lane) << " gap=" << gap << "\n";
             }
@@ -250,9 +250,9 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* ego) 
     if (result.numFreeSublanes() > 0) {
         MSLane* targetLane = target->lane;
 
-        SUMOReal seen = ego->getLane()->getLength() - ego->getPositionOnLane();
-        SUMOReal speed = ego->getSpeed();
-        SUMOReal dist = ego->getCarFollowModel().brakeGap(speed) + ego->getVehicleType().getMinGap();
+        double seen = ego->getLane()->getLength() - ego->getPositionOnLane();
+        double speed = ego->getSpeed();
+        double dist = ego->getCarFollowModel().brakeGap(speed) + ego->getVehicleType().getMinGap();
         if (seen > dist) {
             return result;
         }
@@ -267,7 +267,7 @@ int
 MSLaneChangerSublane::checkChangeSublane(
     int laneOffset,
     const std::vector<MSVehicle::LaneQ>& preb,
-    SUMOReal& latDist) const {
+    double& latDist) const {
 
     ChangerIt target = myCandi + laneOffset;
     MSVehicle* vehicle = veh(myCandi);

@@ -469,7 +469,7 @@ public:
      * @param[in] pos the position of the additional to return.
      * @return The additional id on the location, or "" if don't exists
      */
-    std::string getAdditionalID(SumoXMLTag type, const GNELane* lane, const SUMOReal pos) const;
+    std::string getAdditionalID(SumoXMLTag type, const GNELane* lane, const double pos) const;
 
     /**@brief get vector with additionals
      * @param[in] type type of additional to get. SUMO_TAG_NOTHING will get all additionals
@@ -567,7 +567,7 @@ private:
     Boundary myZBoundary;
 
     /// @brief marker for whether the z-boundary is initialized
-    static const SUMOReal Z_INITIALIZED;
+    static const double Z_INITIALIZED;
 };
 
 #endif

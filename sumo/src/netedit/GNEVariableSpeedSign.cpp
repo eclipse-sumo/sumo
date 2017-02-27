@@ -64,7 +64,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> /* lanes */, const std::string& filename, const std::map<SUMOReal, SUMOReal>& vssValues) :
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> /* lanes */, const std::string& filename, const std::map<double, double>& vssValues) :
     GNEAdditional(id, viewNet, pos, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGN),
     myFilename(filename),
     myVSSValues(vssValues),
@@ -124,7 +124,7 @@ GNEVariableSpeedSign::openAdditionalDialog() {
 
 
 void
-GNEVariableSpeedSign::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
+GNEVariableSpeedSign::moveAdditionalGeometry(double offsetx, double offsety) {
     // change Position
     myPosition = Position(offsetx, offsety);
     updateGeometry();
@@ -132,7 +132,7 @@ GNEVariableSpeedSign::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety)
 
 
 void
-GNEVariableSpeedSign::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList) {
+GNEVariableSpeedSign::commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(Position(oldPosx, oldPosy))));
     undoList->p_end();
@@ -157,7 +157,7 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
         /*
         OutputDevice& deviceVSS = OutputDevice::getDevice(currentDirectory + myFilename);
         deviceVSS.openTag("VSS");
-        for (std::map<SUMOReal, SUMOReal>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
+        for (std::map<double, double>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
             // Open VSS tag
             deviceVSS.openTag(SUMO_TAG_STEP);
             // Write TimeSTep
@@ -170,7 +170,7 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
         deviceVSS.close();
         */
     } else {
-        for (std::map<SUMOReal, SUMOReal>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
+        for (std::map<double, double>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
             // Open VSS tag
             device.openTag(SUMO_TAG_STEP);
             // Write TimeSTep
@@ -195,7 +195,7 @@ GNEVariableSpeedSign::getFilename() const {
 }
 
 
-std::map<SUMOReal, SUMOReal>
+std::map<double, double>
 GNEVariableSpeedSign::getVariableSpeedSignSteps() const {
     return myVSSValues;
 }
@@ -208,13 +208,13 @@ GNEVariableSpeedSign::setFilename(std::string filename) {
 
 
 void
-GNEVariableSpeedSign::setVariableSpeedSignSteps(const std::map<SUMOReal, SUMOReal>& vssValues) {
+GNEVariableSpeedSign::setVariableSpeedSignSteps(const std::map<double, double>& vssValues) {
     myVSSValues = vssValues;
 }
 
 
 bool
-GNEVariableSpeedSign::insertStep(const SUMOReal time, const SUMOReal speed) {
+GNEVariableSpeedSign::insertStep(const double time, const double speed) {
     if (myVSSValues.find(time) == myVSSValues.end()) {
         myVSSValues[time] = speed;
         return true;
@@ -261,7 +261,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
     /*
     // Obtain exaggeration
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
 
     // Iterate over lanes
     for (childLanes::const_iterator i = myChildLanes.begin(); i != myChildLanes.end(); i++) {
@@ -280,26 +280,26 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         glColor3d(1, 0, 0);
-        GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
+        GLHelper::drawFilledCircle((double) 1.3, noPoints);
         if (s.scale >= 5) {
             glTranslated(0, 0, .1);
             glColor3d(0, 0, 0);
-            GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
+            GLHelper::drawFilledCircle((double) 1.1, noPoints);
             // Draw speed
-            SUMOReal speed = i->lane->getSpeed();
+            double speed = i->lane->getSpeed();
             // Show as Km/h
             speed *= 3.6f;
             if (((int) speed + 1) % 10 == 0) {
-                speed = (SUMOReal)(((int) speed + 1) / 10 * 10);
+                speed = (double)(((int) speed + 1) / 10 * 10);
             }
             // draw the speed string
-            std::string speedToDraw = toString<SUMOReal>(speed);
+            std::string speedToDraw = toString<double>(speed);
             glColor3d(1, 1, 0);
             glTranslated(0, 0, .1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             pfSetPosition(0, 0);
             pfSetScale(1.2f);
-            SUMOReal w = pfdkGetStringWidth(speedToDraw.c_str());
+            double w = pfdkGetStringWidth(speedToDraw.c_str());
             glRotated(180, 0, 1, 0);
             glTranslated(-w / 2., 0.3, 0);
             pfDrawString(speedToDraw.c_str());

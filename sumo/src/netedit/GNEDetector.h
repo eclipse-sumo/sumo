@@ -57,7 +57,7 @@ public:
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, SUMOReal posOverLane, SUMOReal freq, const std::string& filename);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double posOverLane, double freq, const std::string& filename);
 
     /// @brief Destructor
     ~GNEDetector();
@@ -69,10 +69,10 @@ public:
     virtual Position getPositionInView() const = 0;
 
     /// @brief change the position of the additional geometry
-    void moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety);
+    void moveAdditionalGeometry(double offsetx, double offsety);
 
     /// @brief updated geometry changes in the attributes of additional
-    void commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal, GNEUndoList* undoList);
+    void commmitAdditionalGeometryMoved(double oldPosx, double, GNEUndoList* undoList);
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
@@ -81,10 +81,10 @@ public:
     virtual void writeAdditional(OutputDevice& device) const = 0;
 
     /// @brief Returns the position of the detector over lane
-    SUMOReal getPositionOverLane() const;
+    double getPositionOverLane() const;
 
     /// @brief returns the aggregation period the values the detector collects shall be summed up.
-    SUMOReal getFrequency() const;
+    double getFrequency() const;
 
     /// @brief returns the path to the output file
     std::string getFilename() const;
@@ -93,13 +93,13 @@ public:
      * @param[in] pos new position of detector over lane
      * @throws InvalidArgument if value of pos isn't valid
      */
-    void setPositionOverLane(SUMOReal pos);
+    void setPositionOverLane(double pos);
 
     /**@brief Set a new frequency in detector
      * @param[in] freq new frequency of detector
      * @throws InvalidArgument if value of frequency isn't valid
      */
-    void setFrequency(const SUMOReal freq);
+    void setFrequency(const double freq);
 
     /**@brief Set a new filename in detector
      * @param[in] filename new filename of detector
@@ -144,7 +144,7 @@ public:
 
 protected:
     /// @brief The aggregation period the values the detector collects shall be summed up.
-    SUMOReal myFreq;
+    double myFreq;
 
     /// @brief The path to the output file
     std::string myFilename;
@@ -152,7 +152,7 @@ protected:
     /// @name members and functions relative to detector icon
     /// @{
     /// @brief set Rotation of block Icon
-    void drawDetectorIcon(const int GNELogoID, SUMOReal sizex = 0.5, SUMOReal sizey = 0.5) const;
+    void drawDetectorIcon(const int GNELogoID, double sizex = 0.5, double sizey = 0.5) const;
 
     /// @brief The position of detector
     Position myDetectorLogoOffset;

@@ -137,8 +137,8 @@ GUIPerspectiveChanger::patchedViewPort() {
         return myViewPort;
     }
     Boundary result = myViewPort;
-    SUMOReal canvasRatio = (SUMOReal)myCallback.getWidth() / myCallback.getHeight();
-    SUMOReal ratio = result.getWidth() / result.getHeight();
+    double canvasRatio = (double)myCallback.getWidth() / myCallback.getHeight();
+    double ratio = result.getWidth() / result.getHeight();
     if (ratio < canvasRatio) {
         result.growWidth(result.getWidth() * (canvasRatio / ratio - 1) / 2);
     } else {

@@ -77,10 +77,10 @@ MSDevice_Emissions::~MSDevice_Emissions() {
 
 
 bool
-MSDevice_Emissions::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*newPos*/, SUMOReal newSpeed) {
+MSDevice_Emissions::notifyMove(SUMOVehicle& veh, double /*oldPos*/, double /*newPos*/, double newSpeed) {
     const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
-    const SUMOReal a = veh.getAcceleration();
-    const SUMOReal slope = veh.getSlope();
+    const double a = veh.getAcceleration();
+    const double slope = veh.getSlope();
     myEmissions.addScaled(PollutantsInterface::computeAll(c, newSpeed, a, slope), TS);
     return true;
 }

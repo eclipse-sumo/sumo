@@ -52,8 +52,8 @@
 // static members
 // ===========================================================================
 bool MSDevice_BTreceiver::myWasInitialised = false;
-SUMOReal MSDevice_BTreceiver::myRange = -1.;
-SUMOReal MSDevice_BTreceiver::myOffTime = -1.;
+double MSDevice_BTreceiver::myRange = -1.;
+double MSDevice_BTreceiver::myOffTime = -1.;
 MTRand MSDevice_BTreceiver::sRecognitionRNG;
 std::map<std::string, MSDevice_BTreceiver::VehicleInformation*> MSDevice_BTreceiver::sVehicles;
 
@@ -205,7 +205,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::updateVisibility(MSDevice_BTreceiver::Veh
     const Position receiverDelta = receiverData.position - oldReceiverPosition;
     const Position translatedSender = senderData.position - receiverDelta;
     // find crossing points
-    std::vector<SUMOReal> intersections;
+    std::vector<double> intersections;
     GeomHelper::findLineCircleIntersections(oldReceiverPosition, receiver.range, oldSenderPosition, translatedSender, intersections);
     switch (intersections.size()) {
         case 0:
@@ -262,7 +262,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::updateVisibility(MSDevice_BTreceiver::Veh
 
 
 void
-MSDevice_BTreceiver::BTreceiverUpdate::enterRange(SUMOReal atOffset, const MSDevice_BTsender::VehicleState& receiverState,
+MSDevice_BTreceiver::BTreceiverUpdate::enterRange(double atOffset, const MSDevice_BTsender::VehicleState& receiverState,
         const std::string& senderID, const MSDevice_BTsender::VehicleState& senderState,
         std::map<std::string, SeenDevice*>& currentlySeen) {
     MeetingPoint mp(SIMTIME + atOffset, receiverState, senderState);
@@ -275,7 +275,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::enterRange(SUMOReal atOffset, const MSDev
 void
 MSDevice_BTreceiver::BTreceiverUpdate::leaveRange(VehicleInformation& receiverInfo, const MSDevice_BTsender::VehicleState& receiverState,
         MSDevice_BTsender::VehicleInformation& senderInfo, const MSDevice_BTsender::VehicleState& senderState,
-        SUMOReal tOffset) {
+        double tOffset) {
     std::map<std::string, SeenDevice*>::iterator i = receiverInfo.currentlySeen.find(senderInfo.getID());
     // check whether the other was recognized
     addRecognitionPoint(SIMTIME + tOffset, receiverState, senderState, i->second);
@@ -292,11 +292,11 @@ MSDevice_BTreceiver::BTreceiverUpdate::leaveRange(VehicleInformation& receiverIn
 }
 
 
-SUMOReal
+double
 MSDevice_BTreceiver::inquiryDelaySlots(const int backoffLimit) {
     const int phaseOffset = sRecognitionRNG.randInt(2047);
     const bool interlaced = sRecognitionRNG.rand() < 0.7;
-    const SUMOReal delaySlots = sRecognitionRNG.rand() * 15;
+    const double delaySlots = sRecognitionRNG.rand() * 15;
     const int backoff = sRecognitionRNG.randInt(backoffLimit);
     if (interlaced) {
         return sRecognitionRNG.rand() * 31 + backoff;
@@ -322,7 +322,7 @@ MSDevice_BTreceiver::inquiryDelaySlots(const int backoffLimit) {
 
 
 void
-MSDevice_BTreceiver::BTreceiverUpdate::addRecognitionPoint(const SUMOReal tEnd, const MSDevice_BTsender::VehicleState& receiverState,
+MSDevice_BTreceiver::BTreceiverUpdate::addRecognitionPoint(const double tEnd, const MSDevice_BTsender::VehicleState& receiverState,
         const MSDevice_BTsender::VehicleState& senderState,
         SeenDevice* senderDevice) const {
     if (senderDevice->nextView == -1.) {
@@ -411,7 +411,7 @@ MSDevice_BTreceiver::notifyEnter(SUMOVehicle& veh, Notification reason, const MS
 
 
 bool
-MSDevice_BTreceiver::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOReal newPos, SUMOReal newSpeed) {
+MSDevice_BTreceiver::notifyMove(SUMOVehicle& veh, double /* oldPos */, double newPos, double newSpeed) {
     if (sVehicles.find(veh.getID()) == sVehicles.end()) {
         WRITE_WARNING("btreceiver: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
         return true;
@@ -423,7 +423,7 @@ MSDevice_BTreceiver::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMORea
 
 
 bool
-MSDevice_BTreceiver::notifyLeave(SUMOVehicle& veh, SUMOReal /* lastPos */, Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
+MSDevice_BTreceiver::notifyLeave(SUMOVehicle& veh, double /* lastPos */, Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     if (reason < MSMoveReminder::NOTIFICATION_TELEPORT) {
         return true;
     }

@@ -69,7 +69,7 @@ public:
     /// @brief Destructor
     virtual ~NLShapeHandler() {}
 
-    Position getLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos);
+    Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos);
 };
 
 
@@ -121,7 +121,7 @@ public:
         return myLefthand;
     }
 
-    SUMOReal networkVersion() const {
+    double networkVersion() const {
         return myNetworkVersion;
     }
 
@@ -350,7 +350,7 @@ protected:
     bool myLefthand;
 
     /// @brief the loaded network version
-    SUMOReal myNetworkVersion;
+    double myNetworkVersion;
 
     /// @brief whether the location element was already loadee
     bool myNetIsLoaded;

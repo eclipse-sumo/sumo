@@ -55,7 +55,7 @@ class GUIMEInductLoop : public MEInductLoop {
 public:
     /// Construtor
     GUIMEInductLoop(const std::string& id, MESegment* s,
-                    SUMOReal position, const std::string& vTypes);
+                    double position, const std::string& vTypes);
 
     /// Destructor
     ~GUIMEInductLoop();
@@ -75,7 +75,7 @@ public:
     public:
         /// Constructor
         MyWrapper(GUIMEInductLoop& detector,
-                  SUMOReal pos);
+                  double pos);
 
         /// Destructor
         ~MyWrapper();
@@ -126,10 +126,10 @@ public:
         Position myFGPosition;
 
         /// The rotation in full-geometry mode
-        SUMOReal myFGRotation;
+        double myFGRotation;
 
         /// The position on the lane
-        SUMOReal myPosition;
+        double myPosition;
 
     private:
         /// @brief Invalidated copy constructor.

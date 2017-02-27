@@ -35,7 +35,7 @@
 
 /* Bezier curve subroutine */
 void
-bezier(int npts, SUMOReal b[], int cpts, SUMOReal p[]);
+bezier(int npts, double b[], int cpts, double p[]);
 
 
 PositionVector

@@ -80,7 +80,7 @@ public:
      */
     GUIBusStop(const std::string& id,
                const std::vector<std::string>& lines, MSLane& lane,
-               SUMOReal frompos, SUMOReal topos);
+               double frompos, double topos);
 
 
     /// @brief Destructor
@@ -88,7 +88,7 @@ public:
 
 
     /// @brief adds an access point to this stop
-    void addAccess(MSLane* lane, const SUMOReal pos);
+    void addAccess(MSLane* lane, const double pos);
 
     /// @name inherited from GUIGlObject
     //@{
@@ -135,10 +135,10 @@ public:
 
 private:
     /// @brief The rotations of the shape parts
-    std::vector<SUMOReal> myFGShapeRotations;
+    std::vector<double> myFGShapeRotations;
 
     /// @brief The lengths of the shape parts
-    std::vector<SUMOReal> myFGShapeLengths;
+    std::vector<double> myFGShapeLengths;
 
     /// @brief The shape
     PositionVector myFGShape;
@@ -147,7 +147,7 @@ private:
     Position myFGSignPos;
 
     /// @brief The rotation of the sign
-    SUMOReal myFGSignRot;
+    double myFGSignRot;
 
     /// @brief The coordinates of access points
     PositionVector myAccessCoords;

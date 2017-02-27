@@ -159,7 +159,7 @@ protected:
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
         void addEdgeWeight(const std::string& id,
-                           SUMOReal val, SUMOReal beg, SUMOReal end) const;
+                           double val, double beg, double end) const;
 
     private:
         /// @brief The network edges shall be obtained from
@@ -190,7 +190,7 @@ protected:
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
         void addEdgeWeight(const std::string& id,
-                           SUMOReal val, SUMOReal beg, SUMOReal end) const;
+                           double val, double beg, double end) const;
 
     private:
         /// @brief The network edges shall be obtained from

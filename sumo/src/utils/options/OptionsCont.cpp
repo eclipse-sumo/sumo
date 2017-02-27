@@ -216,7 +216,7 @@ OptionsCont::getString(const std::string& name) const {
 }
 
 
-SUMOReal
+double
 OptionsCont::getFloat(const std::string& name) const {
     Option* o = getSecure(name);
     return o->getFloat();

@@ -186,7 +186,7 @@ GUICalibrator::GUIManip_Calibrator::onCmdClose(FXObject*, FXSelector, void*) {
 
 long
 GUICalibrator::GUIManip_Calibrator::onCmdUserDef(FXObject*, FXSelector, void*) {
-    //mySpeed = (SUMOReal)(myUserDefinedSpeed->getValue() / 3.6);
+    //mySpeed = (double)(myUserDefinedSpeed->getValue() / 3.6);
     //static_cast<GUICalibrator*>(myObject)->setOverridingValue(mySpeed);
     //myParent->updateChildren();
     return 1;
@@ -205,7 +205,7 @@ GUICalibrator::GUIManip_Calibrator::onUpdUserDef(FXObject* sender, FXSelector, v
 
 long
 GUICalibrator::GUIManip_Calibrator::onCmdPreDef(FXObject*, FXSelector, void*) {
-    //mySpeed = (SUMOReal)(SUMOReal)((myPredefinedValues->getCurrentItem() * 20 + 20) / 3.6);
+    //mySpeed = (double)(double)((myPredefinedValues->getCurrentItem() * 20 + 20) / 3.6);
     //static_cast<GUICalibrator*>(myObject)->setOverridingValue(mySpeed);
     //myParent->updateChildren();
     return 1;
@@ -227,16 +227,16 @@ GUICalibrator::GUIManip_Calibrator::onCmdChangeOption(FXObject*, FXSelector, voi
     //static_cast<GUICalibrator*>(myObject)->setOverriding(true);
     //switch (myChosenValue) {
     //    case 0:
-    //        mySpeed = (SUMOReal) static_cast<GUICalibrator*>(myObject)->getDefaultSpeed();
+    //        mySpeed = (double) static_cast<GUICalibrator*>(myObject)->getDefaultSpeed();
     //        break;
     //    case 1:
-    //        mySpeed = (SUMOReal) static_cast<GUICalibrator*>(myObject)->getLoadedSpeed();
+    //        mySpeed = (double) static_cast<GUICalibrator*>(myObject)->getLoadedSpeed();
     //        break;
     //    case 2:
-    //        mySpeed = (SUMOReal)((myPredefinedValues->getCurrentItem() * 20 + 20) / 3.6);
+    //        mySpeed = (double)((myPredefinedValues->getCurrentItem() * 20 + 20) / 3.6);
     //        break;
     //    case 3:
-    //        mySpeed = (SUMOReal)(myUserDefinedSpeed->getValue() / 3.6);
+    //        mySpeed = (double)(myUserDefinedSpeed->getValue() / 3.6);
     //        break;
     //    default:
     //        // hmmm, should not happen
@@ -279,7 +279,7 @@ GUICalibrator::GUICalibratorPopupMenu::onCmdOpenManip(FXObject*,
  * GUICalibrator - methods
  * ----------------------------------------------------------------------- */
 GUICalibrator::GUICalibrator(const std::string& id,
-                             MSEdge* edge, SUMOReal pos,
+                             MSEdge* edge, double pos,
                              const std::string& aXMLFilename,
                              const std::string& outputFilename,
                              const SUMOTime freq,
@@ -361,10 +361,10 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
             flow = toString((int)myCurrentStateInterval->q) + "v/h";
         }
     }
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
     for (int i = 0; i < (int)myFGPositions.size(); ++i) {
         const Position& pos = myFGPositions[i];
-        SUMOReal rot = myFGRotations[i];
+        double rot = myFGRotations[i];
         glPushMatrix();
         glTranslated(pos.x(), pos.y(), getType());
         glRotated(rot, 0, 0, 1);
@@ -389,7 +389,7 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
             glColor3d(0, 0, 0);
             pfSetPosition(0, 0);
             pfSetScale(3.f);
-            SUMOReal w = pfdkGetStringWidth("C");
+            double w = pfdkGetStringWidth("C");
             glRotated(180, 0, 1, 0);
             glTranslated(-w / 2., 2, 0);
             pfDrawString("C");

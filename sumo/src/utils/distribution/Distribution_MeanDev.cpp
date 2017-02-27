@@ -40,14 +40,14 @@
 // method definitions
 // ===========================================================================
 Distribution_MeanDev::Distribution_MeanDev(const std::string& id,
-        SUMOReal mean, SUMOReal deviation)
+        double mean, double deviation)
     : Distribution(id), myMeanValue(mean), myDeviation(deviation) {}
 
 
 Distribution_MeanDev::~Distribution_MeanDev() {}
 
 
-SUMOReal
+double
 Distribution_MeanDev::getMax() const {
     return myMeanValue + myDeviation;
 }

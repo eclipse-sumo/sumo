@@ -110,8 +110,8 @@ GNEConnection::updateGeometry() {
                       laneShapeFrom,
                       laneShapeTo,
                       NUM_POINTS, getEdgeFrom()->getNBEdge()->getTurnDestination() == nbCon.toEdge,
-                      (SUMOReal) 5. * (SUMOReal) getEdgeFrom()->getNBEdge()->getNumLanes(),
-                      (SUMOReal) 5. * (SUMOReal) nbCon.toEdge->getNumLanes());
+                      (double) 5. * (double) getEdgeFrom()->getNBEdge()->getNumLanes(),
+                      (double) 5. * (double) nbCon.toEdge->getNumLanes());
 
     } else {
         myShape.clear();
@@ -128,7 +128,7 @@ GNEConnection::updateGeometry() {
             const Position& f = myShape[i];
             const Position& s = myShape[i + 1];
             myShapeLengths.push_back(f.distanceTo2D(s));
-            myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
         }
     }
 }
@@ -351,12 +351,12 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_KEEP_CLEAR:
             return canParse<bool>(value);
         case SUMO_ATTR_CONTPOS:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         case SUMO_ATTR_UNCONTROLLED:
             return false; // XXX see #2599
         //return canParse<bool>(value);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
-            return isPositive<SUMOReal>(value);
+            return isPositive<double>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -379,10 +379,10 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         break;
         */
         case SUMO_ATTR_CONTPOS:
-            nbCon.contPos = parse<SUMOReal>(value);
+            nbCon.contPos = parse<double>(value);
             break;
         case SUMO_ATTR_VISIBILITY_DISTANCE:
-            nbCon.visibility = parse<SUMOReal>(value);
+            nbCon.visibility = parse<double>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

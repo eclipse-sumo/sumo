@@ -56,16 +56,16 @@ struct RODFRouteDesc {
     ROEdgeVector edges2Pass;
     /// @brief The name of the route
     std::string routename;
-    SUMOReal duration_2;
-    SUMOReal distance;
+    double duration_2;
+    double distance;
     int passedNo;
     const ROEdge* endDetectorEdge;
     const ROEdge* lastDetectorEdge;
-    SUMOReal distance2Last;
+    double distance2Last;
     SUMOTime duration2Last;
 
-    SUMOReal overallProb;
-    SUMOReal factor;
+    double overallProb;
+    double factor;
 
 };
 

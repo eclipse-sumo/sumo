@@ -69,13 +69,13 @@ public:
     virtual ~ROPerson();
 
     void addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                 const std::string& vTypes, const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop,
-                 SUMOReal walkFactor);
+                 const std::string& vTypes, const double departPos, const double arrivalPos, const std::string& busStop,
+                 double walkFactor);
 
     void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines, const std::string& destStop);
 
-    void addWalk(const ConstROEdgeVector& edges, const SUMOReal duration, const SUMOReal speed,
-                 const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop);
+    void addWalk(const ConstROEdgeVector& edges, const double duration, const double speed,
+                 const double departPos, const double arrivalPos, const std::string& busStop);
 
     void addStop(const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const stopEdge);
 
@@ -186,9 +186,9 @@ public:
     class Walk : public TripItem {
     public:
         Walk(const ConstROEdgeVector& _edges, const std::string& _destStop = "")
-            : edges(_edges), dur(-1), v(-1), dep(std::numeric_limits<SUMOReal>::infinity()), arr(std::numeric_limits<SUMOReal>::infinity()), destStop(_destStop) {}
-        Walk(const ConstROEdgeVector& edges, const SUMOReal duration, const SUMOReal speed,
-             const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& _destStop)
+            : edges(_edges), dur(-1), v(-1), dep(std::numeric_limits<double>::infinity()), arr(std::numeric_limits<double>::infinity()), destStop(_destStop) {}
+        Walk(const ConstROEdgeVector& edges, const double duration, const double speed,
+             const double departPos, const double arrivalPos, const std::string& _destStop)
             : edges(edges), dur(duration), v(speed), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
         const ROEdge* getOrigin() const {
             return edges.front();
@@ -200,7 +200,7 @@ public:
 
     private:
         const ConstROEdgeVector edges;
-        const SUMOReal dur, v, dep, arr;
+        const double dur, v, dep, arr;
         const std::string destStop;
 
     private:
@@ -218,7 +218,7 @@ public:
         PersonTrip()
             : from(0), to(0), modes(SVC_PEDESTRIAN), dep(0), arr(0), busStop(""), walkFactor(1.0) {}
         PersonTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                   const SUMOReal departPos, const SUMOReal arrivalPos, const std::string& busStop, SUMOReal _walkFactor)
+                   const double departPos, const double arrivalPos, const std::string& busStop, double _walkFactor)
             : from(from), to(to), modes(modeSet), dep(departPos), arr(arrivalPos), busStop(busStop), walkFactor(_walkFactor) {}
         /// @brief Destructor
         virtual ~PersonTrip() {
@@ -246,10 +246,10 @@ public:
         const ROEdge* getDestination() const {
             return to != 0 ? to : myTripItems.back()->getDestination();
         }
-        SUMOReal getDepartPos() const {
+        double getDepartPos() const {
             return dep;
         }
-        SUMOReal getArrivalPos() const {
+        double getArrivalPos() const {
             return arr;
         }
         SVCPermissions getModes() const {
@@ -267,7 +267,7 @@ public:
                 (*it)->saveAsXML(os);
             }
         }
-        SUMOReal getWalkFactor() const {
+        double getWalkFactor() const {
             return walkFactor;
         }
 
@@ -275,14 +275,14 @@ public:
         const ROEdge* from;
         const ROEdge* to;
         const SVCPermissions modes;
-        const SUMOReal dep, arr;
+        const double dep, arr;
         const std::string busStop;
         /// @brief the fully specified trips
         std::vector<TripItem*> myTripItems;
         /// @brief the vehicles which may be used for routing
         std::vector<ROVehicle*> myVehicles;
         /// @brief walking speed factor
-        SUMOReal walkFactor;
+        double walkFactor;
 
     private:
         /// @brief Invalidated assignment operator

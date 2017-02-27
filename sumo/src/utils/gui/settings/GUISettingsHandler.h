@@ -110,7 +110,7 @@ public:
     /** @brief Returns the parsed delay
      * @return the parsed delay
      */
-    SUMOReal getDelay() const;
+    double getDelay() const;
 
 
     /** @brief Returns the parsed breakpoints
@@ -133,7 +133,7 @@ public:
     }
 
     RandomDistributor<std::string> getEventDistribution(const std::string& id);
-    SUMOReal getJamSoundTime() {
+    double getJamSoundTime() {
         return myJamSoundTime;
     }
 
@@ -145,7 +145,7 @@ private:
     std::string myViewType;
 
     /// @brief The delay loaded
-    SUMOReal myDelay;
+    double myDelay;
 
     /// @brief The viewport loaded, zoom is stored in z coordinate
     Position myLookFrom;
@@ -173,7 +173,7 @@ private:
 
     /// @brief The parsed event distributions
     std::map<std::string, RandomDistributor<std::string> > myEventDistributions;
-    SUMOReal myJamSoundTime;
+    double myJamSoundTime;
 
 private:
 

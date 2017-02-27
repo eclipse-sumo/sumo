@@ -97,15 +97,15 @@ int MSDeterministicHiLevelTrafficLightLogic::decideNextPhase() {
             countVehicles(getCurrentPhaseDef()));
 }
 
-SUMOReal MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes() {
+double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes() {
     if (inputLanes.size() == 0) {
         return 0;
     }
-    SUMOReal vSpeedInTot = 0;
+    double vSpeedInTot = 0;
     for (MSLaneID_set::iterator laneIterator = inputLanes.begin();
             laneIterator != inputLanes.end(); laneIterator++) {
         std::string laneId = *laneIterator;
-        SUMOReal maxSpeed = getSensors()->meanVehiclesSpeed(laneId);
+        double maxSpeed = getSensors()->meanVehiclesSpeed(laneId);
         if (maxSpeed > -1) {
             vSpeedInTot += (13.89 - maxSpeed) * 10. / 13.89;
         }
@@ -115,15 +115,15 @@ SUMOReal MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes() {
     return vSpeedInTot / inputLanes.size();
 }
 
-SUMOReal MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes() {
+double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes() {
     if (outputLanes.size() == 0) {
         return 0;
     }
-    SUMOReal vSpeedOutTot = 0;
+    double vSpeedOutTot = 0;
     for (MSLaneID_set::iterator laneIterator = outputLanes.begin();
             laneIterator != outputLanes.end(); laneIterator++) {
         std::string laneId = *laneIterator;
-        SUMOReal maxSpeed = getSensors()->meanVehiclesSpeed(laneId);
+        double maxSpeed = getSensors()->meanVehiclesSpeed(laneId);
         if (maxSpeed > -1) {
             vSpeedOutTot += (13.89 - maxSpeed) * 10. / 13.89;
         }
@@ -135,8 +135,8 @@ SUMOReal MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes() {
 
 void MSDeterministicHiLevelTrafficLightLogic::decidePolicy() {
     // Decide if it is the case to check for another plan
-    SUMOReal mean_vSpeed_in = getMeanSpeedForInputLanes();
-    SUMOReal mean_vSpeed_out = getMeanSpeedForOutputLanes();
+    double mean_vSpeed_in = getMeanSpeedForInputLanes();
+    double mean_vSpeed_out = getMeanSpeedForOutputLanes();
     MSSOTLPolicy* oldPolicy = getCurrentPolicy();
     choosePolicy(mean_vSpeed_in, mean_vSpeed_out);
     MSSOTLPolicy* newPolicy = getCurrentPolicy();
@@ -153,13 +153,13 @@ void MSDeterministicHiLevelTrafficLightLogic::decidePolicy() {
 }
 
 void MSDeterministicHiLevelTrafficLightLogic::choosePolicy(
-    SUMOReal mean_vSpeed_in, SUMOReal mean_vSpeed_out) {
+    double mean_vSpeed_in, double mean_vSpeed_out) {
 
     int index_maxStimulus = 0;
-    SUMOReal maxStimulus = -1;
+    double maxStimulus = -1;
     // Compute simulus for each policy
     for (int i = 0; i < (int)getPolicies().size(); i++) {
-        SUMOReal stimulus = getPolicies()[i]->computeDesirability(mean_vSpeed_in,
+        double stimulus = getPolicies()[i]->computeDesirability(mean_vSpeed_in,
                             mean_vSpeed_out);
         if (stimulus > maxStimulus) {
             maxStimulus = stimulus;

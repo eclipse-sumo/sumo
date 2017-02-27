@@ -288,7 +288,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             delete myAlternatives[0];
             myAlternatives[0] = current;
         }
-        const SUMOReal costs = router.recomputeCosts(current->getEdgeVector(), veh, begin);
+        const double costs = router.recomputeCosts(current->getEdgeVector(), veh, begin);
         if (costs < 0) {
             throw ProcessError("Route '" + getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
         }
@@ -300,11 +300,11 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         myAlternatives.push_back(current);
     }
     // recompute the costs and (when a new route was added) scale the probabilities
-    const SUMOReal scale = SUMOReal(myAlternatives.size() - 1) / SUMOReal(myAlternatives.size());
+    const double scale = double(myAlternatives.size() - 1) / double(myAlternatives.size());
     for (std::vector<RORoute*>::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
         RORoute* alt = *i;
         // recompute the costs for all routes
-        const SUMOReal newCosts = router.recomputeCosts(alt->getEdgeVector(), veh, begin);
+        const double newCosts = router.recomputeCosts(alt->getEdgeVector(), veh, begin);
         if (newCosts < 0.) {
             throw ProcessError("Route '" + current->getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
         }
@@ -312,7 +312,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         if (myNewRoute) {
             if (*i == current) {
                 // set initial probability and costs
-                alt->setProbability((SUMOReal)(1.0 / (SUMOReal) myAlternatives.size()));
+                alt->setProbability((double)(1.0 / (double) myAlternatives.size()));
                 alt->setCosts(newCosts);
             } else {
                 // rescale probs for all others
@@ -342,7 +342,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         }
         myAlternatives.erase(myAlternatives.begin() + RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().getMaxRouteNumber(), myAlternatives.end());
         // rescale probabilities
-        SUMOReal newSum = 0;
+        double newSum = 0;
         for (std::vector<RORoute*>::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
             newSum += (*i)->getProbability();
         }
@@ -354,7 +354,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     }
 
     // find the route to use
-    SUMOReal chosen = RandHelper::rand();
+    double chosen = RandHelper::rand();
     int pos = 0;
     for (std::vector<RORoute*>::iterator i = myAlternatives.begin(); i != myAlternatives.end() - 1; i++, pos++) {
         chosen -= (*i)->getProbability();
@@ -416,9 +416,9 @@ RORouteDef::copy(const std::string& id, const SUMOTime stopOffset) const {
 }
 
 
-SUMOReal
+double
 RORouteDef::getOverallProb() const {
-    SUMOReal sum = 0.;
+    double sum = 0.;
     for (std::vector<RORoute*>::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
         sum += (*i)->getProbability();
     }

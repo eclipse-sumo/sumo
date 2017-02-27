@@ -99,7 +99,7 @@ protected:
      */
     virtual MSTriggeredRerouter* buildRerouter(MSNet& net,
             const std::string& id, MSEdgeVector& edges,
-            SUMOReal prob, const std::string& file, bool off);
+            double prob, const std::string& file, bool off);
 
 
     /** @brief Builds a bus stop
@@ -117,7 +117,7 @@ protected:
      */
     virtual void buildStoppingPlace(MSNet& net, const std::string& id,
                                     const std::vector<std::string>& lines, MSLane* lane,
-                                    SUMOReal frompos, SUMOReal topos, const SumoXMLTag element);
+                                    double frompos, double topos, const SumoXMLTag element);
 
 
     /** @brief Builds a parking area
@@ -138,9 +138,9 @@ protected:
      */
     virtual void beginParkingArea(MSNet& net, const std::string& id,
                                   const std::vector<std::string>& lines, MSLane* lane,
-                                  SUMOReal frompos, SUMOReal topos,
+                                  double frompos, double topos,
                                   unsigned int capacity,
-                                  SUMOReal width, SUMOReal length, SUMOReal angle);
+                                  double width, double length, double angle);
 
 
     /** @brief Builds a charging station
@@ -159,7 +159,7 @@ protected:
      * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
      */
     virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane,
-                                      SUMOReal frompos, SUMOReal topos, SUMOReal chargingPower, SUMOReal efficiency,
+                                      double frompos, double topos, double chargingPower, double efficiency,
                                       bool chargeInTransit, int chargeDelay);
 
     /** @brief builds a microscopic calibrator
@@ -174,7 +174,7 @@ protected:
      * @todo Is the position correct/needed
      */
     virtual MSCalibrator* buildCalibrator(MSNet& net,
-                                          const std::string& id, MSEdge* edge, SUMOReal pos,
+                                          const std::string& id, MSEdge* edge, double pos,
                                           const std::string& file, const std::string& outfile,
                                           const SUMOTime freq, const MSRouteProbe* probe);
     /// @}

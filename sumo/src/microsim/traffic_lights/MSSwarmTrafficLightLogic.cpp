@@ -79,12 +79,12 @@ MSSwarmTrafficLightLogic::~MSSwarmTrafficLightLogic() {
     if (logData && swarmLogFile.is_open()) {
         swarmLogFile.close();
     }
-    for (std::map<std::string, CircularBuffer<SUMOReal>*>::iterator it = m_meanSpeedHistory.begin();
+    for (std::map<std::string, CircularBuffer<double>*>::iterator it = m_meanSpeedHistory.begin();
             it != m_meanSpeedHistory.end(); ++it) {
         delete it->second;
     }
     m_meanSpeedHistory.clear();
-    for (std::map<std::string, CircularBuffer<SUMOReal>*>::iterator it = m_derivativeHistory.begin();
+    for (std::map<std::string, CircularBuffer<double>*>::iterator it = m_derivativeHistory.begin();
             it != m_derivativeHistory.end(); ++it) {
         delete it->second;
     }
@@ -128,7 +128,7 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) throw(ProcessError) {
 //	Derivative
     const int derivativeHistorySize = TplConvert::_2int(getParameter("PHERO_DERIVATIVE_HISTORY_SIZE", "3").c_str());
     const int meanSpeedHistorySize = TplConvert::_2int(getParameter("PHERO_MEAN_SPEED_HISTORY_SIZE", "3").c_str());
-    m_derivativeAlpha = TplConvert::_2SUMOReal(getParameter("PHERO_DERIVATIVE_ALPHA", "1").c_str());
+    m_derivativeAlpha = TplConvert::_2double(getParameter("PHERO_DERIVATIVE_ALPHA", "1").c_str());
     m_losCounter = 0;
     m_losMaxLimit = TplConvert::_2int(getParameter("LOSS_OF_SIGNAL_LIMIT", "10").c_str());
 
@@ -143,8 +143,8 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) throw(ProcessError) {
                 if (allowLine(currentLane)) {
                     pheromoneInputLanes.insert(MSLaneId_Pheromone(currentLane->getID(), 0.0));
 //					Consider the derivative only for the input lane
-                    m_meanSpeedHistory.insert(std::make_pair(currentLane->getID(), new CircularBuffer<SUMOReal>(meanSpeedHistorySize)));
-                    m_derivativeHistory.insert(std::make_pair(currentLane->getID(), new CircularBuffer<SUMOReal>(derivativeHistorySize)));
+                    m_meanSpeedHistory.insert(std::make_pair(currentLane->getID(), new CircularBuffer<double>(meanSpeedHistorySize)));
+                    m_derivativeHistory.insert(std::make_pair(currentLane->getID(), new CircularBuffer<double>(derivativeHistorySize)));
                     ANALYSIS_DBG(
                         WRITE_MESSAGE("MSSwarmTrafficLightLogic::init Intersection " + getID() + " pheromoneInputLanes adding " + currentLane->getID());)
                 } else {
@@ -259,7 +259,7 @@ int MSSwarmTrafficLightLogic::decideNextPhase() {
         gotTargetLane = false;
     }
 
-//    SUMOReal phero =0;
+//    double phero =0;
 //	if(getCurrentPhaseDef().isDecisional())
 //	{
 //    for(LaneIdVector::const_iterator it = targetLanes.begin(); it != targetLanes.end(); ++it)
@@ -298,7 +298,7 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels() {
 }
 
 void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap& pheroMap, std::string logString,
-        const SUMOReal beta, const SUMOReal gamma) {
+        const double beta, const double gamma) {
     //	ANALYSIS_DBG(
     DBG(
         std::ostringstream _str; _str << logString << " Lanes " << pheroMap.size() << " TL " << getID() << " ."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updatePheromoneLevels:: " + _str.str());)
@@ -306,19 +306,19 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap& pher
     for (MSLaneId_PheromoneMap::iterator laneIterator = pheroMap.begin(); laneIterator != pheroMap.end();
             ++laneIterator) {
         std::string laneId = laneIterator->first;
-        SUMOReal oldPhero = laneIterator->second;
-        SUMOReal maxSpeed = getSensors()->getMaxSpeed(laneId);
-        SUMOReal meanVehiclesSpeed = getSensors()->meanVehiclesSpeed(laneId);
+        double oldPhero = laneIterator->second;
+        double maxSpeed = getSensors()->getMaxSpeed(laneId);
+        double meanVehiclesSpeed = getSensors()->meanVehiclesSpeed(laneId);
         bool updatePheromone = (meanVehiclesSpeed > -1);
-        //		SUMOReal pheroAdd = getSensors()->countVehicles(laneId);
+        //		double pheroAdd = getSensors()->countVehicles(laneId);
 
         //derivative
-        SUMOReal derivative = 0;
+        double derivative = 0;
         //If i need to use the derivative for the lane
         if (m_meanSpeedHistory.find(laneId) != m_meanSpeedHistory.end()) {
             //Update the derivative
             if (updatePheromone) {
-                SUMOReal currentDerivative = 0;
+                double currentDerivative = 0;
                 m_losCounter = 0;
                 if (m_meanSpeedHistory[laneId]->size() > 0) {
                     //Calculate the current derivative mean with the old speed points
@@ -352,7 +352,7 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap& pher
                 }
             }
         }
-        SUMOReal pheroAdd = MAX2((maxSpeed - meanVehiclesSpeed) * 10 / maxSpeed, (SUMOReal)0.0);
+        double pheroAdd = MAX2((maxSpeed - meanVehiclesSpeed) * 10 / maxSpeed, 0.0);
 //		Use the derivative only if it has a value
         if (derivative > 0)
 //		Correct the pheromone value by dividing it for the derivative.
@@ -370,7 +370,7 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap& pher
         )
 
         // Evaporation + current contribute
-        SUMOReal phero = beta * oldPhero + gamma * pheroAdd * updatePheromone;
+        double phero = beta * oldPhero + gamma * pheroAdd * updatePheromone;
         ANALYSIS_DBG(
         if (phero > 10) {
         std::ostringstream i_str;
@@ -378,7 +378,7 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap& pher
         WRITE_MESSAGE(i_str.str())
         });
 
-        phero = MIN2(MAX2(phero, (SUMOReal)0.0), getPheroMaxVal());
+        phero = MIN2(MAX2(phero, 0.0), getPheroMaxVal());
         pheroMap[laneId] = phero;
         ANALYSIS_DBG(
             //		DBG(
@@ -401,7 +401,7 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap& pher
             std::ostringstream str; str << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::countSensors:: lane " << laneId << " passedVeh " << getCountSensors()->getPassedVeh(laneId, false); WRITE_MESSAGE(str.str());)
 
 //		int vehicles = getSensors()->countVehicles(laneId);
-//		SUMOReal pheroIn = getBetaNo() * oldPheroIn + // Evaporation
+//		double pheroIn = getBetaNo() * oldPheroIn + // Evaporation
 //		getGammaNo() * vehicles;
 //		DBG(
 //		std::ostringstream i_str;
@@ -409,12 +409,12 @@ void MSSwarmTrafficLightLogic::updatePheromoneLevels(MSLaneId_PheromoneMap& pher
 //		MsgHandler::getMessageInstance()->inform(time2string(MSNet::getInstance()->getCurrentTimeStep()) +" MSSwarmTrafficLightLogic::updatePheromoneLevels:: PheroIn"+i_str.str());
 //		)
 //
-//      pheroIn = MIN2(MAX2(pheroIn, (SUMOReal)0.0), getPheroMaxVal());
+//      pheroIn = MIN2(MAX2(pheroIn, 0.0), getPheroMaxVal());
 //		pheromoneInputLanes[laneId] = pheroIn;
     }
 }
 void MSSwarmTrafficLightLogic::updateSensitivities() {
-    SUMOReal elapsedTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - lastThetaSensitivityUpdate);
+    double elapsedTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - lastThetaSensitivityUpdate);
     lastThetaSensitivityUpdate = MSNet::getInstance()->getCurrentTimeStep();
 
     MSSOTLPolicy* currentPolicy = getCurrentPolicy();
@@ -431,7 +431,7 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
         return;
     }
 
-    SUMOReal eta = -1.;
+    double eta = -1.;
     // If skipEta it means that we've had Congestion for too much time. Forcing forgetting.
     if (!skipEta || currentPolicy->getName().compare("Congestion") != 0) {
         switch (getReinforcementMode()) {
@@ -451,7 +451,7 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
     }
     for (int i = 0; i < (int)policies.size(); i++) {
         MSSOTLPolicy* policy = policies[i];
-        SUMOReal newSensitivity;
+        double newSensitivity;
         if (eta < 0) {	//bad performance
             if (policy == currentPolicy) { // punish the current policy
                 newSensitivity = policy->getThetaSensitivity() + getForgettingCox() * (-eta);
@@ -498,11 +498,11 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
     }
 }
 
-SUMOReal MSSwarmTrafficLightLogic::getPheromoneForInputLanes() {
+double MSSwarmTrafficLightLogic::getPheromoneForInputLanes() {
     if (pheromoneInputLanes.size() == 0) {
         return 0;
     }
-    SUMOReal pheroIn = 0;
+    double pheroIn = 0;
     for (MSLaneId_PheromoneMap::const_iterator iterator = pheromoneInputLanes.begin();
             iterator != pheromoneInputLanes.end(); iterator++) {
         std::string laneId = iterator->first;
@@ -516,11 +516,11 @@ SUMOReal MSSwarmTrafficLightLogic::getPheromoneForInputLanes() {
     return pheroIn / pheromoneInputLanes.size();
 }
 
-SUMOReal MSSwarmTrafficLightLogic::getPheromoneForOutputLanes() {
+double MSSwarmTrafficLightLogic::getPheromoneForOutputLanes() {
     if (pheromoneOutputLanes.size() == 0) {
         return 0;
     }
-    SUMOReal pheroOut = 0;
+    double pheroOut = 0;
     for (MSLaneId_PheromoneMap::const_iterator iterator = pheromoneOutputLanes.begin();
             iterator != pheromoneOutputLanes.end(); iterator++) {
         DBG(
@@ -532,51 +532,51 @@ SUMOReal MSSwarmTrafficLightLogic::getPheromoneForOutputLanes() {
     return pheroOut / pheromoneOutputLanes.size();
 }
 
-SUMOReal MSSwarmTrafficLightLogic::getDispersionForInputLanes(SUMOReal average_phero_in) {
+double MSSwarmTrafficLightLogic::getDispersionForInputLanes(double average_phero_in) {
     if (pheromoneInputLanes.size() == 0) {
         return 0;
     }
-    SUMOReal sum = 0;
+    double sum = 0;
     for (MSLaneId_PheromoneMap::const_iterator iterator = pheromoneInputLanes.begin();
             iterator != pheromoneInputLanes.end(); iterator++) {
         std::string laneId = iterator->first;
         sum += pow(iterator->second - average_phero_in, 2);
     }
 
-    SUMOReal result = sqrt(sum / pheromoneInputLanes.size()) * getScaleFactorDispersionIn();
+    double result = sqrt(sum / pheromoneInputLanes.size()) * getScaleFactorDispersionIn();
     DBG(
         ostringstream so_str; so_str << " dispersionIn " << result; WRITE_MESSAGE("MSSwarmTrafficLightLogic::getDispersionForInputLanes::" + so_str.str());)
     return result;
 }
 
-SUMOReal MSSwarmTrafficLightLogic::getDispersionForOutputLanes(SUMOReal average_phero_out) {
+double MSSwarmTrafficLightLogic::getDispersionForOutputLanes(double average_phero_out) {
     if (pheromoneOutputLanes.size() == 0) {
         return 0;
     }
-    SUMOReal sum = 0;
+    double sum = 0;
     for (MSLaneId_PheromoneMap::const_iterator iterator = pheromoneOutputLanes.begin();
             iterator != pheromoneOutputLanes.end(); iterator++) {
         sum += pow(iterator->second - average_phero_out, 2);
     }
 
-    SUMOReal result = sqrt(sum / pheromoneOutputLanes.size()) * getScaleFactorDispersionOut();
+    double result = sqrt(sum / pheromoneOutputLanes.size()) * getScaleFactorDispersionOut();
     DBG(
         ostringstream so_str; so_str << " dispersionOut " << result; WRITE_MESSAGE("MSSwarmTrafficLightLogic::getDispersionForOutputLanes::" + so_str.str());)
     return result;
 }
-SUMOReal MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForInputLanes() {
+double MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForInputLanes() {
     if (pheromoneInputLanes.size() == 0) {
         return 0;
     }
-    SUMOReal max_phero_val_current = 0;
-    SUMOReal max_phero_val_old = 0;
-    SUMOReal temp_avg_other_lanes = 0;
+    double max_phero_val_current = 0;
+    double max_phero_val_old = 0;
+    double temp_avg_other_lanes = 0;
     std::string laneId_max;
     int counter = 0;
     for (MSLaneId_PheromoneMap::const_iterator iterator = pheromoneInputLanes.begin();
             iterator != pheromoneInputLanes.end(); iterator++) {
         std::string laneId = iterator->first;
-        SUMOReal lanePhero = iterator->second;
+        double lanePhero = iterator->second;
         if (counter == 0) {
             max_phero_val_current = lanePhero;
             counter++;
@@ -593,25 +593,25 @@ SUMOReal MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForInputLanes() {
         counter++;
     }
 
-    SUMOReal result = max_phero_val_current - temp_avg_other_lanes;
+    double result = max_phero_val_current - temp_avg_other_lanes;
     DBG(
         ostringstream so_str; so_str << " currentMaxPhero " << max_phero_val_current << " lane " << laneId_max << " avgOtherLanes " << temp_avg_other_lanes << " distance " << result; WRITE_MESSAGE("MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForInputLanes::" + so_str.str());)
     return result;
 }
 
-SUMOReal MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForOutputLanes() {
+double MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForOutputLanes() {
     if (pheromoneOutputLanes.size() == 0) {
         return 0;
     }
-    SUMOReal max_phero_val_current = 0;
-    SUMOReal max_phero_val_old = 0;
-    SUMOReal temp_avg_other_lanes = 0;
+    double max_phero_val_current = 0;
+    double max_phero_val_old = 0;
+    double temp_avg_other_lanes = 0;
     std::string laneId_max;
     int counter = 0;
     for (MSLaneId_PheromoneMap::const_iterator iterator = pheromoneOutputLanes.begin();
             iterator != pheromoneOutputLanes.end(); iterator++) {
         std::string laneId = iterator->first;
-        SUMOReal lanePhero = iterator->second;
+        double lanePhero = iterator->second;
         if (counter == 0) {
             max_phero_val_current = lanePhero;
             counter++;
@@ -628,7 +628,7 @@ SUMOReal MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForOutputLanes() {
         counter++;
     }
 
-    SUMOReal result = max_phero_val_current - temp_avg_other_lanes;
+    double result = max_phero_val_current - temp_avg_other_lanes;
     DBG(
         ostringstream so_str; so_str << " currentMaxPhero " << max_phero_val_current << " lane " << laneId_max << " avgOtherLanes " << temp_avg_other_lanes << " distance " << result; WRITE_MESSAGE("MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForOutputLanes::" + so_str.str());)
     return result;
@@ -636,19 +636,19 @@ SUMOReal MSSwarmTrafficLightLogic::getDistanceOfMaxPheroForOutputLanes() {
 void MSSwarmTrafficLightLogic::decidePolicy() {
 //	MSSOTLPolicy* currentPolicy = getCurrentPolicy();
     // Decide if it is the case to check for another plan
-//	SUMOReal sampled = (SUMOReal) RandHelper::rand(RAND_MAX);
-    SUMOReal sampled = RandHelper::rand();
-    SUMOReal changeProb = getChangePlanProbability();
+//	double sampled = (double) RandHelper::rand(RAND_MAX);
+    double sampled = RandHelper::rand();
+    double changeProb = getChangePlanProbability();
 //	changeProb = changeProb * RAND_MAX;
 
     if (sampled <= changeProb || mustChange) { // Check for another plan
 
-        SUMOReal pheroIn = getPheromoneForInputLanes();
-        SUMOReal pheroOut = getPheromoneForOutputLanes();
-        //SUMOReal dispersionIn = getDispersionForInputLanes(pheroIn);
-        //SUMOReal dispersionOut = getDispersionForOutputLanes(pheroOut);
-        SUMOReal distancePheroIn = getDistanceOfMaxPheroForInputLanes();
-        SUMOReal distancePheroOut = getDistanceOfMaxPheroForOutputLanes();
+        double pheroIn = getPheromoneForInputLanes();
+        double pheroOut = getPheromoneForOutputLanes();
+        //double dispersionIn = getDispersionForInputLanes(pheroIn);
+        //double dispersionOut = getDispersionForOutputLanes(pheroOut);
+        double distancePheroIn = getDistanceOfMaxPheroForInputLanes();
+        double distancePheroOut = getDistanceOfMaxPheroForOutputLanes();
         MSSOTLPolicy* oldPolicy = getCurrentPolicy();
         choosePolicy(pheroIn, pheroOut, distancePheroIn, distancePheroOut);
         MSSOTLPolicy* newPolicy = getCurrentPolicy();
@@ -669,23 +669,23 @@ void MSSwarmTrafficLightLogic::decidePolicy() {
     }
 }
 
-SUMOReal MSSwarmTrafficLightLogic::calculatePhi(int factor) {
+double MSSwarmTrafficLightLogic::calculatePhi(int factor) {
     if (factor == 0) {
         return 1;
     }
     if (factor == 1) {
         return 0.2;
     } else {
-        return 1 - (1 / ((SUMOReal) factor));
+        return 1 - (1 / ((double) factor));
     }
 }
 
-SUMOReal MSSwarmTrafficLightLogic::calculateEtaDiff() {
+double MSSwarmTrafficLightLogic::calculateEtaDiff() {
 
     MSLane* currentLane = NULL;
     int count = 0, minIn = 0, minOut = 0, toSub, tmp;
     bool inInit = true, outInit = true;
-    SUMOReal eta, normalized, diff, phi, delta;
+    double eta, normalized, diff, phi, delta;
     LaneIdVector toReset;
 
     carsIn = 0;
@@ -870,11 +870,11 @@ SUMOReal MSSwarmTrafficLightLogic::calculateEtaDiff() {
     return eta;
 }
 
-SUMOReal MSSwarmTrafficLightLogic::calculateEtaRatio() {
+double MSSwarmTrafficLightLogic::calculateEtaRatio() {
     MSLane* currentLane = NULL;
     int count = 0, minIn = 0, minOut = 0, toSub, tmp;
     bool inInit = true, outInit = true;
-    SUMOReal eta, ratio, phi, normalized, delta;
+    double eta, ratio, phi, normalized, delta;
     LaneIdVector toReset;
 
     carsIn = 0;
@@ -983,11 +983,11 @@ SUMOReal MSSwarmTrafficLightLogic::calculateEtaRatio() {
 
     //Normalized to 1
     if (carsOut != 0) {
-        ratio = ((SUMOReal) inTarget) / carsOut;
+        ratio = ((double) inTarget) / carsOut;
         normalized = ratio / (inTarget + carsOut);
     } else {
-        ratio = std::numeric_limits<SUMOReal>::infinity();
-        normalized = std::numeric_limits<SUMOReal>::infinity();
+        ratio = std::numeric_limits<double>::infinity();
+        normalized = std::numeric_limits<double>::infinity();
     }
 
     DBG(
@@ -1088,8 +1088,8 @@ void MSSwarmTrafficLightLogic::resetLaneCheck() {
     }
 }
 
-void MSSwarmTrafficLightLogic::choosePolicy(SUMOReal phero_in, SUMOReal phero_out, SUMOReal dispersion_in,
-        SUMOReal dispersion_out) {
+void MSSwarmTrafficLightLogic::choosePolicy(double phero_in, double phero_out, double dispersion_in,
+        double dispersion_out) {
     if (m_useVehicleTypesWeights) {
         for (std::vector<MSSOTLPolicy*>::iterator it = getPolicies().begin(); it != getPolicies().end(); ++it) {
             if (it.operator * ()->getName() == "Phase") {
@@ -1098,12 +1098,12 @@ void MSSwarmTrafficLightLogic::choosePolicy(SUMOReal phero_in, SUMOReal phero_ou
             }
         }
     }
-    std::vector<SUMOReal> thetaStimuli;
-    SUMOReal thetaSum = 0.0;
+    std::vector<double> thetaStimuli;
+    double thetaSum = 0.0;
     // Compute stimulus for each policy
     for (int i = 0; i < (int)getPolicies().size(); i++) {
-        SUMOReal stimulus = getPolicies()[i]->computeDesirability(phero_in, phero_out, dispersion_in, dispersion_out);
-        SUMOReal thetaStimulus = pow(stimulus, 2) / (pow(stimulus, 2) + pow(getPolicies()[i]->getThetaSensitivity(), 2));
+        double stimulus = getPolicies()[i]->computeDesirability(phero_in, phero_out, dispersion_in, dispersion_out);
+        double thetaStimulus = pow(stimulus, 2) / (pow(stimulus, 2) + pow(getPolicies()[i]->getThetaSensitivity(), 2));
 
         thetaStimuli.push_back(thetaStimulus);
         thetaSum += thetaStimulus;
@@ -1115,11 +1115,11 @@ void MSSwarmTrafficLightLogic::choosePolicy(SUMOReal phero_in, SUMOReal phero_ou
     }
 
     // Compute a random value between 0 and the sum of the thetaSum
-//	SUMOReal r = RandHelper::rand(RAND_MAX);
+//	double r = RandHelper::rand(RAND_MAX);
 //	r = r / RAND_MAX * thetaSum;
-    SUMOReal r = RandHelper::rand((SUMOReal)thetaSum);
+    double r = RandHelper::rand((double)thetaSum);
 
-    SUMOReal partialSum = 0;
+    double partialSum = 0;
     for (int i = 0; i < (int)getPolicies().size(); i++) {
         partialSum += thetaStimuli[i];
 
@@ -1134,7 +1134,7 @@ void MSSwarmTrafficLightLogic::choosePolicy(SUMOReal phero_in, SUMOReal phero_ou
     }
 }
 
-void MSSwarmTrafficLightLogic::choosePolicy(SUMOReal phero_in, SUMOReal phero_out) {
+void MSSwarmTrafficLightLogic::choosePolicy(double phero_in, double phero_out) {
     choosePolicy(phero_in, phero_out, 0, 0);
 }
 

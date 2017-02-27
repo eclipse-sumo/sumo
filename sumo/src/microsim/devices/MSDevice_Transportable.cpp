@@ -72,7 +72,7 @@ MSDevice_Transportable::~MSDevice_Transportable() {
 
 
 bool
-MSDevice_Transportable::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) {
+MSDevice_Transportable::notifyMove(SUMOVehicle& veh, double /*oldPos*/, double /*newPos*/, double /*newSpeed*/) {
     if (myStopped) {
         if (!veh.isStopped()) {
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
@@ -123,7 +123,7 @@ MSDevice_Transportable::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notifi
 
 
 bool
-MSDevice_Transportable::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
+MSDevice_Transportable::notifyLeave(SUMOVehicle& veh, double /*lastPos*/,
                                     MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {

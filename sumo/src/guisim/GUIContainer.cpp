@@ -144,10 +144,10 @@ GUIContainer::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
     ret->mkItem("dest edge [id]", false, getDestination().getID());
     ret->mkItem("edge [id]", false, getEdge()->getID());
-    ret->mkItem("position [m]", true, new FunctionBinding<GUIContainer, SUMOReal>(this, &GUIContainer::getEdgePos));
-    ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIContainer, SUMOReal>(this, &GUIContainer::getSpeed));
-    ret->mkItem("angle [degree]", true, new FunctionBinding<GUIContainer, SUMOReal>(this, &GUIContainer::getAngle));
-    ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIContainer, SUMOReal>(this, &GUIContainer::getWaitingSeconds));
+    ret->mkItem("position [m]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getEdgePos));
+    ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getSpeed));
+    ret->mkItem("angle [degree]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getAngle));
+    ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getWaitingSeconds));
     // close building
     ret->closeBuilding();
     return ret;
@@ -178,7 +178,7 @@ GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
     // set container color
     setColor(s);
     // scale
-    const SUMOReal upscale = s.containerSize.getExaggeration(s);
+    const double upscale = s.containerSize.getExaggeration(s);
     glScaled(upscale, upscale, 1);
     switch (s.containerQuality) {
         case 0:
@@ -214,7 +214,7 @@ GUIContainer::drawGLAdditional(GUISUMOAbstractView* const /* parent */, const GU
         if (getNumberReroutes() > 0) {
             const int noReroutePlus1 = getNumberReroutes() + 1;
             for (int i = noReroutePlus1 - 1; i >= 0; i--) {
-                SUMOReal darken = SUMOReal(0.4) / SUMOReal(noReroutePlus1) * SUMOReal(i);
+                double darken = double(0.4) / double(noReroutePlus1) * double(i);
                 drawRoute(s, i, darken);
             }
         } else {
@@ -290,7 +290,7 @@ GUIContainer::setFunctionalColor(int activeScheme) const {
             return false;
         }
         case 8: {
-            SUMOReal hue = GeomHelper::naviDegree(getAngle());
+            double hue = GeomHelper::naviDegree(getAngle());
             GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
             return true;
         }
@@ -300,7 +300,7 @@ GUIContainer::setFunctionalColor(int activeScheme) const {
 }
 
 
-SUMOReal
+double
 GUIContainer::getColorValue(int activeScheme) const {
     switch (activeScheme) {
         case 4:
@@ -309,7 +309,7 @@ GUIContainer::getColorValue(int activeScheme) const {
             if (isWaiting4Vehicle()) {
                 return 3;
             } else {
-                return (SUMOReal)getCurrentStageType();
+                return (double)getCurrentStageType();
             }
         case 6:
             return getWaitingSeconds();
@@ -320,7 +320,7 @@ GUIContainer::getColorValue(int activeScheme) const {
 }
 
 
-SUMOReal
+double
 GUIContainer::getEdgePos() const {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSContainer::getEdgePos();
@@ -339,21 +339,21 @@ GUIContainer::getPosition() const {
 }
 
 
-SUMOReal
+double
 GUIContainer::getAngle() const {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSContainer::getAngle();
 }
 
 
-SUMOReal
+double
 GUIContainer::getWaitingSeconds() const {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSContainer::getWaitingSeconds();
 }
 
 
-SUMOReal
+double
 GUIContainer::getSpeed() const {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSContainer::getSpeed();
@@ -392,9 +392,9 @@ GUIContainer::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
         //}
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            const SUMOReal exaggeration = s.personSize.getExaggeration(s);
-            const SUMOReal halfLength = getVehicleType().getLength() / 2.0 * exaggeration;
-            const SUMOReal halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
+            const double exaggeration = s.personSize.getExaggeration(s);
+            const double halfLength = getVehicleType().getLength() / 2.0 * exaggeration;
+            const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);
         }
     } else {

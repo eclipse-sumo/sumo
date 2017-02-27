@@ -169,10 +169,10 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
     MSLane* lane = getLane(attrs, "chargingStation", id);
 
     // get the positions
-    SUMOReal frompos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
-    SUMOReal topos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
-    SUMOReal chargingPower = attrs.getOpt<SUMOReal>(SUMO_ATTR_CHARGINGPOWER, id.c_str(), ok, 0);
-    SUMOReal efficiency = attrs.getOpt<SUMOReal>(SUMO_ATTR_EFFICIENCY, id.c_str(), ok, 0);
+    double frompos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
+    double topos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
+    double chargingPower = attrs.getOpt<double>(SUMO_ATTR_CHARGINGPOWER, id.c_str(), ok, 0);
+    double efficiency = attrs.getOpt<double>(SUMO_ATTR_EFFICIENCY, id.c_str(), ok, 0);
     bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), ok, 0);
     int ChargeDelay = attrs.getOpt<int>(SUMO_ATTR_CHARGEDELAY, id.c_str(), ok, 0);
 
@@ -198,8 +198,8 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     // get the lane
     MSLane* lane = getLane(attrs, toString(element), id);
     // get the positions
-    SUMOReal frompos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
-    SUMOReal topos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
+    double frompos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
+    double topos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
         throw InvalidArgument("Invalid position for " + toString(element) + " '" + id + "'.");
@@ -218,7 +218,7 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
     MSLane* lane = getLane(attrs, "access" , "");
     // get the positions
     bool ok = true;
-    SUMOReal pos = attrs.getOpt<SUMOReal>(SUMO_ATTR_POSITION, "access", ok, 0);
+    double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "access", ok, false);
     if (!ok || !myHandler->checkStopPos(pos, pos, lane->getLength(), 0, friendlyPos)) {
         throw InvalidArgument("Invalid position for access in stop '" + myCurrentStop->getID() + "'.");
@@ -239,13 +239,13 @@ NLTriggerBuilder::parseAndBeginParkingArea(MSNet& net, const SUMOSAXAttributes& 
     // get the lane
     MSLane* lane = getLane(attrs, "parkingArea", id);
     // get the positions
-    SUMOReal frompos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
-    SUMOReal topos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
+    double frompos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
+    double topos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     unsigned int capacity = attrs.getOpt<int>(SUMO_ATTR_ROADSIDE_CAPACITY, id.c_str(), ok, 0);
-    SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, 0);
-    SUMOReal length = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, id.c_str(), ok, 0);
-    SUMOReal angle = attrs.getOpt<SUMOReal>(SUMO_ATTR_ANGLE, id.c_str(), ok, 0);
+    double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), ok, 0);
+    double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, 0);
+    double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, 0);
     if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
         throw InvalidArgument("Invalid position for parking area '" + id + "'.");
     }
@@ -266,18 +266,18 @@ NLTriggerBuilder::parseAndAddLotEntry(const SUMOSAXAttributes& attrs) {
         throw ProcessError();
     }
     // get the positions
-    SUMOReal x = attrs.get<SUMOReal>(SUMO_ATTR_X, "", ok);
+    double x = attrs.get<double>(SUMO_ATTR_X, "", ok);
     if (!ok) {
         throw InvalidArgument("Invalid x position for lot entry.");
     }
-    SUMOReal y = attrs.get<SUMOReal>(SUMO_ATTR_Y, "", ok);
+    double y = attrs.get<double>(SUMO_ATTR_Y, "", ok);
     if (!ok) {
         throw InvalidArgument("Invalid y position for lot entry.");
     }
-    SUMOReal z = attrs.getOpt<SUMOReal>(SUMO_ATTR_Z, "", ok, 0.);
-    SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, "", ok, myParkingArea->getWidth());
-    SUMOReal length = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, "", ok, myParkingArea->getLength());
-    SUMOReal angle = attrs.getOpt<SUMOReal>(SUMO_ATTR_ANGLE, "", ok, myParkingArea->getAngle());
+    double z = attrs.getOpt<double>(SUMO_ATTR_Z, "", ok, 0.);
+    double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, "", ok, myParkingArea->getWidth());
+    double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "", ok, myParkingArea->getLength());
+    double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, "", ok, myParkingArea->getAngle());
     // add the lot entry
     addLotEntry(x, y, z, width, length, angle);
 }
@@ -294,7 +294,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
     }
     // get the file name to read further definitions from
     MSLane* lane = getLane(attrs, "calibrator", id);
-    const SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
+    const double pos = getPosition(attrs, lane, "calibrator", id);
     const SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T); // !!! no error handling
     std::string file = getFileName(attrs, base, true);
     std::string outfile = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, id.c_str(), ok, "");
@@ -345,7 +345,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     if (edges.size() == 0) {
         throw InvalidArgument("No edges found for MSTriggeredRerouter '" + id + "'.");
     }
-    SUMOReal prob = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, id.c_str(), ok, 1);
+    double prob = attrs.getOpt<double>(SUMO_ATTR_PROB, id.c_str(), ok, 1);
     bool off = attrs.getOpt<bool>(SUMO_ATTR_OFF, id.c_str(), ok, false);
     if (!ok) {
         throw InvalidArgument("Could not parse MSTriggeredRerouter '" + id + "'.");
@@ -373,7 +373,7 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet& /*net*/, const std::string& id,
 
 METriggeredCalibrator*
 NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
-                                    const MSEdge* edge, SUMOReal pos,
+                                    const MSEdge* edge, double pos,
                                     const std::string& file,
                                     const std::string& outfile,
                                     const SUMOTime freq, MSRouteProbe* probe) {
@@ -383,7 +383,7 @@ NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
 
 MSCalibrator*
 NLTriggerBuilder::buildCalibrator(MSNet& /*net*/, const std::string& id,
-                                  MSEdge* edge, SUMOReal pos,
+                                  MSEdge* edge, double pos,
                                   const std::string& file,
                                   const std::string& outfile,
                                   const SUMOTime freq, const MSRouteProbe* probe) {
@@ -394,7 +394,7 @@ NLTriggerBuilder::buildCalibrator(MSNet& /*net*/, const std::string& id,
 MSTriggeredRerouter*
 NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
                                 MSEdgeVector& edges,
-                                SUMOReal prob, const std::string& file, bool off) {
+                                double prob, const std::string& file, bool off) {
     return new MSTriggeredRerouter(id, edges, prob, file, off);
 }
 
@@ -402,7 +402,7 @@ NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
 void
 NLTriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id,
                                      const std::vector<std::string>& lines,
-                                     MSLane* lane, SUMOReal frompos, SUMOReal topos, const SumoXMLTag element) {
+                                     MSLane* lane, double frompos, double topos, const SumoXMLTag element) {
     myCurrentStop = new MSStoppingPlace(id, lines, *lane, frompos, topos);
     const bool success = element == SUMO_TAG_CONTAINER_STOP ? net.addContainerStop(myCurrentStop) : net.addBusStop(myCurrentStop);
     if (!success) {
@@ -415,9 +415,9 @@ NLTriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id,
 void
 NLTriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
                                    const std::vector<std::string>& lines,
-                                   MSLane* lane, SUMOReal frompos, SUMOReal topos,
+                                   MSLane* lane, double frompos, double topos,
                                    unsigned int capacity,
-                                   SUMOReal width, SUMOReal length, SUMOReal angle) {
+                                   double width, double length, double angle) {
     // Close previous parking area if there are not lots inside
 
     MSParkingArea* stop = new MSParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle);
@@ -431,8 +431,8 @@ NLTriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
 
 
 void
-NLTriggerBuilder::addLotEntry(SUMOReal x, SUMOReal y, SUMOReal z,
-                              SUMOReal width, SUMOReal length, SUMOReal angle) {
+NLTriggerBuilder::addLotEntry(double x, double y, double z,
+                              double width, double length, double angle) {
     if (myParkingArea != 0) {
         myParkingArea->addLotEntry(x, y, z, width, length, angle);
     } else {
@@ -452,8 +452,8 @@ NLTriggerBuilder::endParkingArea() {
 
 
 void
-NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, SUMOReal frompos, SUMOReal topos,
-                                       SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int ChargeDelay) {
+NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
+                                       double chargingPower, double efficiency, bool chargeInTransit, int ChargeDelay) {
     MSChargingStation* chargingStation = new MSChargingStation(id, *lane, frompos, topos, chargingPower, efficiency, chargeInTransit, ChargeDelay);
 
     if (!net.addChargingStation(chargingStation)) {
@@ -497,12 +497,12 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes& attrs,
 }
 
 
-SUMOReal
+double
 NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
                               MSLane* lane,
                               const std::string& tt, const std::string& tid) {
     bool ok = true;
-    SUMOReal pos = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, 0, ok);
+    double pos = attrs.get<double>(SUMO_ATTR_POSITION, 0, ok);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
     if (!ok) {
         throw InvalidArgument("Error on parsing a position information.");
@@ -512,7 +512,7 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
     }
     if (pos > lane->getLength()) {
         if (friendlyPos) {
-            pos = lane->getLength() - (SUMOReal) 0.1;
+            pos = lane->getLength() - (double) 0.1;
         } else {
             throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane->getID() + "' length.");
         }

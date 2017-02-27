@@ -62,7 +62,7 @@
 // ===========================================================================
 // static
 // ===========================================================================
-const SUMOReal GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
+const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
 
 // ===========================================================================
 // members methods
@@ -199,7 +199,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 Position pos = geom[i];
                 glPushMatrix();
                 glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
-                GLHelper:: drawFilledCircle(SNAP_RADIUS * MIN2((SUMOReal)1, s.laneWidthExaggeration), 32);
+                GLHelper:: drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 32);
                 glPopMatrix();
             }
             glPopName();
@@ -212,10 +212,10 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         GNELane* lane1 = myLanes[0];
         GNELane* lane2 = myLanes[myLanes.size() - 1];
-        Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (SUMOReal) 2.);
-        p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (SUMOReal) 2.));
+        Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (double) 2.);
+        p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (double) 2.));
         p.mul(.5);
-        SUMOReal angle = lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (SUMOReal) 2.);
+        double angle = lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (double) 2.);
         angle += 90;
         if (angle > 90 && angle < 270) {
             angle -= 180;
@@ -293,12 +293,12 @@ GNEEdge::changeGeometry(PositionVector& geom, const std::string& id, const Posit
         throw ProcessError("Invalid geometry size in " + toString(SUMO_TAG_EDGE) + " with ID='" + id + "'");
     } else {
         int index = geom.indexOfClosest(oldPos);
-        const SUMOReal nearestOffset = geom.nearest_offset_to_point2D(oldPos, true);
+        const double nearestOffset = geom.nearest_offset_to_point2D(oldPos, true);
         if (nearestOffset != GeomHelper::INVALID_OFFSET
                 && (moveEndPoints || (nearestOffset >= SNAP_RADIUS
                                       && nearestOffset <= geom.length2D() - SNAP_RADIUS))) {
             const Position nearest = geom.positionAtOffset2D(nearestOffset);
-            const SUMOReal distance = geom[index].distanceTo2D(nearest);
+            const double distance = geom[index].distanceTo2D(nearest);
             if (distance < SNAP_RADIUS) { //move existing
                 if (moveEndPoints || (index != 0 && index != (int)geom.size() - 1)) {
                     const bool closed = geom.isClosed();
@@ -675,7 +675,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidID(value) && myNet->retrieveJunction(value, false) != 0 && value != myGNEJunctionSource->getMicrosimID();
             break;
         case SUMO_ATTR_SPEED:
-            return isPositive<SUMOReal>(value);
+            return isPositive<double>(value);
             break;
         case SUMO_ATTR_NUMLANES:
             return isPositive<int>(value);
@@ -684,7 +684,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<int>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            return canParse<SUMOReal>(value) && (isPositive<SUMOReal>(value) || parse<SUMOReal>(value) == NBEdge::UNSPECIFIED_LOADED_LENGTH);
+            return canParse<double>(value) && (isPositive<double>(value) || parse<double>(value) == NBEdge::UNSPECIFIED_LOADED_LENGTH);
             break;
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
@@ -709,11 +709,11 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             if (value == "default") {
                 return true;
             } else {
-                return canParse<SUMOReal>(value) && (isPositive<SUMOReal>(value) || parse<SUMOReal>(value) == NBEdge::UNSPECIFIED_WIDTH);
+                return canParse<double>(value) && (isPositive<double>(value) || parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH);
             }
             break;
         case SUMO_ATTR_ENDOFFSET:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -761,7 +761,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBEdge.myPriority = parse<int>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            myNBEdge.setLoadedLength(parse<SUMOReal>(value));
+            myNBEdge.setLoadedLength(parse<double>(value));
             break;
         case SUMO_ATTR_TYPE:
             myNBEdge.myType = value;
@@ -782,11 +782,11 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             SUMOSAXAttributes::parseStringVector(value, speeds);
             if(speeds.size() == myNBEdge.getLanes().size()) {
                 for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
-                    myNBEdge.setSpeed(i, GNEAttributeCarrier::parse<SUMOReal>(speeds.at(i)));
+                    myNBEdge.setSpeed(i, GNEAttributeCarrier::parse<double>(speeds.at(i)));
                 }
             } else if (speeds.size() == 1) {
                 for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
-                    myNBEdge.setSpeed(i, GNEAttributeCarrier::parse<SUMOReal>(speeds.front()));
+                    myNBEdge.setSpeed(i, GNEAttributeCarrier::parse<double>(speeds.front()));
                 }
             }
             break;
@@ -799,7 +799,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
                     if(widths.at(i) == "default") {
                         myNBEdge.getLaneStruct(i).width = NBEdge::UNSPECIFIED_WIDTH;
                     } else {
-                        myNBEdge.getLaneStruct(i).width = GNEAttributeCarrier::parse<SUMOReal>(widths.at(i));
+                        myNBEdge.getLaneStruct(i).width = GNEAttributeCarrier::parse<double>(widths.at(i));
                     }
                 }
             } else if (widths.size() == 1) {
@@ -807,7 +807,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
                     if(widths.front() == "default") {
                         myNBEdge.getLaneStruct(i).width = NBEdge::UNSPECIFIED_WIDTH;
                     } else {
-                        myNBEdge.getLaneStruct(i).width = GNEAttributeCarrier::parse<SUMOReal>(widths.front());
+                        myNBEdge.getLaneStruct(i).width = GNEAttributeCarrier::parse<double>(widths.front());
                     }
                 }
             }
@@ -821,11 +821,11 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             SUMOSAXAttributes::parseStringVector(value, endOffsets);
             if(endOffsets.size() == myNBEdge.getLanes().size()) {
                 for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
-                    myNBEdge.setEndOffset(i, GNEAttributeCarrier::parse<SUMOReal>(endOffsets.at(i)));
+                    myNBEdge.setEndOffset(i, GNEAttributeCarrier::parse<double>(endOffsets.at(i)));
                 }
             } else if (endOffsets.size() == 1) {
                 for (int i = 0; i < (int)myNBEdge.getLanes().size(); i++) {
-                    myNBEdge.setEndOffset(i, GNEAttributeCarrier::parse<SUMOReal>(endOffsets.front()));
+                    myNBEdge.setEndOffset(i, GNEAttributeCarrier::parse<double>(endOffsets.front()));
                 }
             }
             break;

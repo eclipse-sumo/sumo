@@ -105,7 +105,7 @@ public:
      * @param[in] xoff Current view's x-offset
      * @param[in] yoff Current view's y-offset
      */
-    void setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff);
+    void setValues(double zoom, double xoff, double yoff);
 
 
     /** @brief Sets the given values into the dialog

@@ -67,7 +67,7 @@ public:
                       bool sourcesStrict) const;
     void buildRoutes(RODFDetectorCon& det, bool keepUnfoundEnds, bool includeInBetween,
                      bool keepShortestOnly, int maxFollowingLength) const;
-    SUMOReal getAbsPos(const RODFDetector& det) const;
+    double getAbsPos(const RODFDetector& det) const;
 
     void buildEdgeFlowMap(const RODFDetectorFlows& flows,
                           const RODFDetectorCon& detectors,
@@ -91,19 +91,19 @@ public:
     bool hasDetector(ROEdge* edge) const;
     const std::vector<std::string>& getDetectorList(ROEdge* edge) const;
 
-    SUMOReal getMaxSpeedFactorPKW() const {
+    double getMaxSpeedFactorPKW() const {
         return myMaxSpeedFactorPKW;
     }
 
-    SUMOReal getMaxSpeedFactorLKW() const {
+    double getMaxSpeedFactorLKW() const {
         return myMaxSpeedFactorLKW;
     }
 
-    SUMOReal getAvgSpeedFactorPKW() const {
+    double getAvgSpeedFactorPKW() const {
         return myAvgSpeedFactorPKW;
     }
 
-    SUMOReal getAvgSpeedFactorLKW() const {
+    double getAvgSpeedFactorLKW() const {
         return myAvgSpeedFactorLKW;
     }
 
@@ -192,10 +192,10 @@ private:
     bool myKeepTurnarounds;
 
     /// @brief maximum speed factor in measurements
-    SUMOReal myMaxSpeedFactorPKW;
-    SUMOReal myMaxSpeedFactorLKW;
-    SUMOReal myAvgSpeedFactorPKW;
-    SUMOReal myAvgSpeedFactorLKW;
+    double myMaxSpeedFactorPKW;
+    double myMaxSpeedFactorLKW;
+    double myAvgSpeedFactorPKW;
+    double myAvgSpeedFactorLKW;
 
 };
 

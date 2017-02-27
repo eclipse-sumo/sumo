@@ -289,10 +289,10 @@ NBNetBuilder::compute(OptionsCont& oc,
 
     // APPLY SPEED MODIFICATIONS
     if (oc.exists("speed.offset")) {
-        const SUMOReal speedOffset = oc.getFloat("speed.offset");
-        const SUMOReal speedFactor = oc.getFloat("speed.factor");
+        const double speedOffset = oc.getFloat("speed.offset");
+        const double speedFactor = oc.getFloat("speed.factor");
         if (speedOffset != 0 || speedFactor != 1) {
-            const SUMOReal speedMin = oc.getFloat("speed.minimum");
+            const double speedMin = oc.getFloat("speed.minimum");
             before = SysUtils::getCurrentMillis();
             PROGRESS_BEGIN_MESSAGE("Applying speed modifications");
             for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
@@ -511,8 +511,8 @@ NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper, bool lefthand) {
     long before = SysUtils::getCurrentMillis();
     PROGRESS_BEGIN_MESSAGE("Moving network to origin");
     Boundary boundary = geoConvHelper.getConvBoundary();
-    const SUMOReal x = -boundary.xmin();
-    const SUMOReal y = -(lefthand ? boundary.ymax() : boundary.ymin());
+    const double x = -boundary.xmin();
+    const double y = -(lefthand ? boundary.ymax() : boundary.ymin());
     //if (lefthand) {
     //    y = boundary.ymax();
     //}
@@ -555,7 +555,7 @@ NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoCon
             if (from_srs != 0 && from_srs->usingGeoProjection()) {
                 from_srs->cartesian2geo(orig);
             }
-            SUMOReal z = hm.getZ(orig);
+            double z = hm.getZ(orig);
             from = Position(from.x(), from.y(), z);
         }
     }
@@ -565,7 +565,7 @@ NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoCon
 
 bool
 NBNetBuilder::transformCoordinates(PositionVector& from, bool includeInBoundary, GeoConvHelper* from_srs) {
-    const SUMOReal maxLength = OptionsCont::getOptions().getFloat("geometry.max-segment-length");
+    const double maxLength = OptionsCont::getOptions().getFloat("geometry.max-segment-length");
     if (maxLength > 0 && from.size() > 1) {
         // transformation to cartesian coordinates must happen before we can check segment length
         PositionVector copy = from;
@@ -578,7 +578,7 @@ NBNetBuilder::transformCoordinates(PositionVector& from, bool includeInBoundary,
         for (int i = 0; i < (int)copy.size() - 1; i++) {
             Position start = from[i + inserted];
             Position end = from[i + inserted + 1];
-            SUMOReal length = copy[i].distanceTo(copy[i + 1]);
+            double length = copy[i].distanceTo(copy[i + 1]);
             const Position step = (end - start) * (maxLength / length);
             int steps = 0;
             while (length > maxLength) {

@@ -62,7 +62,7 @@ public:
      * @param[in] degreeOfBelief how strong the person beliefs the proposition
      * @return whether the person agrees with the proposition
      */
-    virtual bool decide(SUMOReal probability) const;
+    virtual bool decide(double probability) const;
 
     /** @brief Puts out a summary of the class properties.
      */

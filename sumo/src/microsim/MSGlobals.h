@@ -86,7 +86,7 @@ public:
     static SUMOTime gLaneChangeDuration;
 
     /** Lateral resolution within a lane */
-    static SUMOReal gLateralResolution;
+    static double gLateralResolution;
 
     /// Information whether a state has been loaded
     static bool gStateLoaded;
@@ -101,7 +101,7 @@ public:
     static bool gMesoOvertaking;
 
     /** scaling factor for macroscopic time penalty when passing tls controlled intersection */
-    static SUMOReal gMesoTLSPenalty;
+    static double gMesoTLSPenalty;
 
     /** penalty time for passing a minor link */
     static SUMOTime gMesoMinorPenalty;

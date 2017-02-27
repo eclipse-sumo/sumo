@@ -377,9 +377,9 @@ GNECrossingFrame::crossingParameters::isCurrentParametersValid() const {
 }
 
 
-SUMOReal
+double
 GNECrossingFrame::crossingParameters::getCrossingWidth() const {
-    return GNEAttributeCarrier::parse<SUMOReal>(myCrossingWidth->getText().text());
+    return GNEAttributeCarrier::parse<double>(myCrossingWidth->getText().text());
 }
 
 
@@ -461,8 +461,8 @@ GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     }
 
     // Check width
-    if (GNEAttributeCarrier::canParse<SUMOReal>(myCrossingWidth->getText().text()) &&
-            GNEAttributeCarrier::parse<SUMOReal>(myCrossingWidth->getText().text()) > 0) {
+    if (GNEAttributeCarrier::canParse<double>(myCrossingWidth->getText().text()) &&
+            GNEAttributeCarrier::parse<double>(myCrossingWidth->getText().text()) > 0) {
         myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
         myCrossingWidth->killFocus();
     } else {

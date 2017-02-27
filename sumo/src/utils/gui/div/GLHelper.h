@@ -78,8 +78,8 @@ public:
      * @param[in] width The width of the line
      * @param[in] offset The orthogonal offset
      */
-    static void drawBoxLine(const Position& beg, SUMOReal rot,
-                            SUMOReal visLength, SUMOReal width, SUMOReal offset = 0);
+    static void drawBoxLine(const Position& beg, double rot,
+                            double visLength, double width, double offset = 0);
 
 
     /** @brief Draws a thick line using the mean of both given points as begin position
@@ -93,7 +93,7 @@ public:
      * @param[in] width The width of the line
      */
     static void drawBoxLine(const Position& beg1, const Position& beg2,
-                            SUMOReal rot, SUMOReal visLength, SUMOReal width);
+                            double rot, double visLength, double width);
 
 
     /** @brief Draws thick lines
@@ -109,8 +109,8 @@ public:
      * @see drawBoxLine
      */
     static void drawBoxLines(const PositionVector& geom,
-                             const std::vector<SUMOReal>& rots, const std::vector<SUMOReal>& lengths,
-                             SUMOReal width, int cornerDetail = 0, SUMOReal offset = 0);
+                             const std::vector<double>& rots, const std::vector<double>& lengths,
+                             double width, int cornerDetail = 0, double offset = 0);
 
     /** @brief Draws thick lines with varying color
      *
@@ -126,9 +126,9 @@ public:
      * @see drawBoxLine
      */
     static void drawBoxLines(const PositionVector& geom,
-                             const std::vector<SUMOReal>& rots, const std::vector<SUMOReal>& lengths,
+                             const std::vector<double>& rots, const std::vector<double>& lengths,
                              const std::vector<RGBColor>& cols,
-                             SUMOReal width, int cornerDetail = 0, SUMOReal offset = 0);
+                             double width, int cornerDetail = 0, double offset = 0);
 
 
     /** @brief Draws thick lines using the mean of the points given in the point lists as begin positions
@@ -144,8 +144,8 @@ public:
      */
     static void drawBoxLines(const PositionVector& geom1,
                              const PositionVector& geom2,
-                             const std::vector<SUMOReal>& rots, const std::vector<SUMOReal>& lengths,
-                             SUMOReal width);
+                             const std::vector<double>& rots, const std::vector<double>& lengths,
+                             double width);
 
 
     /** @brief Draws thick lines
@@ -157,7 +157,7 @@ public:
      * @param[in] width The width of the lines
      * @see drawBoxLine
      */
-    static void drawBoxLines(const PositionVector& geom, SUMOReal width);
+    static void drawBoxLines(const PositionVector& geom, double width);
 
 
     /** @brief Draws a thin line
@@ -168,8 +168,8 @@ public:
      * @param[in] rot The direction the line shall be drawn to (in radiants)
      * @param[in] visLength The length of the line
      */
-    static void drawLine(const Position& beg, SUMOReal rot,
-                         SUMOReal visLength);
+    static void drawLine(const Position& beg, double rot,
+                         double visLength);
 
 
     /** @brief Draws a thin line using the mean of both given points as begin position
@@ -182,7 +182,7 @@ public:
      * @param[in] visLength The length of the line
      */
     static void drawLine(const Position& beg1, const Position& beg2,
-                         SUMOReal rot, SUMOReal visLength);
+                         double rot, double visLength);
 
 
     /** @brief Draws a thin line along the given position vector
@@ -220,7 +220,7 @@ public:
      * @param[in] width The width of the circle
      * @param[in] steps The number of steps to divide the circle into
      */
-    static void drawFilledCircle(SUMOReal width, int steps = 8);
+    static void drawFilledCircle(double width, int steps = 8);
 
 
     /** @brief Draws a filled circle around (0,0)
@@ -232,8 +232,8 @@ public:
      * @param[in] beg The begin angle in degress
      * @param[in] end The end angle in degress
      */
-    static void drawFilledCircle(SUMOReal width, int steps,
-                                 SUMOReal beg, SUMOReal end);
+    static void drawFilledCircle(double width, int steps,
+                                 double beg, double end);
 
 
     /** @brief Draws an unfilled circle around (0,0)
@@ -244,7 +244,7 @@ public:
      * @param[in] iwidth The inner width of the circle
      * @param[in] steps The number of steps to divide the circle into
      */
-    static void drawOutlineCircle(SUMOReal width, SUMOReal iwidth,
+    static void drawOutlineCircle(double width, double iwidth,
                                   int steps = 8);
 
 
@@ -258,8 +258,8 @@ public:
      * @param[in] beg The begin angle in degress
      * @param[in] end The end angle in degress
      */
-    static void drawOutlineCircle(SUMOReal width, SUMOReal iwidth,
-                                  int steps, SUMOReal beg, SUMOReal end);
+    static void drawOutlineCircle(double width, double iwidth,
+                                  int steps, double beg, double end);
 
 
     /** @brief Draws a triangle at the end of the given line
@@ -270,7 +270,7 @@ public:
      * @param[in] tWidth The width of the triangle
      */
     static void drawTriangleAtEnd(const Position& p1, const Position& p2,
-                                  SUMOReal tLength, SUMOReal tWidth);
+                                  double tLength, double tWidth);
 
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);
@@ -280,30 +280,30 @@ public:
 
     /// @brief draw Text with given parameters
     static void drawText(const std::string& text, const Position& pos,
-                         const SUMOReal layer, const SUMOReal size,
-                         const RGBColor& col = RGBColor::BLACK, const SUMOReal angle = 0);
+                         const double layer, const double size,
+                         const RGBColor& col = RGBColor::BLACK, const double angle = 0);
 
     /// @brief draw Text box with given parameters
     static void drawTextBox(const std::string& text, const Position& pos,
-                            const SUMOReal layer, const SUMOReal size,
+                            const double layer, const double size,
                             const RGBColor& txtColor = RGBColor::BLACK,
                             const RGBColor& bgColor = RGBColor::WHITE,
                             const RGBColor& borderColor = RGBColor::BLACK,
-                            const SUMOReal angle = 0);
+                            const double angle = 0);
 
     /// @brief draw vertex numbers for the given shape (in a random color)
-    static void debugVertices(const PositionVector& shape, SUMOReal size, SUMOReal layer = 256);
+    static void debugVertices(const PositionVector& shape, double size, double layer = 256);
 
 private:
     /// @brief normalize angle for lookup in myCircleCoords
-    static int angleLookup(SUMOReal angleDeg);
+    static int angleLookup(double angleDeg);
 
     /// @brief whether the road makes a right turn (or goes straight)
-    static bool rightTurn(SUMOReal angle1, SUMOReal angle2);
+    static bool rightTurn(double angle1, double angle2);
 
 private:
     /// @brief Storage for precomputed sin/cos-values describing a circle
-    static std::vector<std::pair<SUMOReal, SUMOReal> > myCircleCoords;
+    static std::vector<std::pair<double, double> > myCircleCoords;
 
 };
 

@@ -77,9 +77,9 @@ public:
     // backward connections are used only in backwards search
     class Connection {
     public:
-        Connection(int t, SUMOReal c, SVCPermissions p): target(t), cost(c), permissions(p) {}
+        Connection(int t, double c, SVCPermissions p): target(t), cost(c), permissions(p) {}
         int target;
-        SUMOReal cost;
+        double cost;
         SVCPermissions permissions;
     };
 
@@ -132,7 +132,7 @@ public:
             result->backwardUplinks.push_back(std::vector<Connection>());
         }
         // copy connections from the original net
-        const SUMOReal time_seconds = STEPS2TIME(time); // timelines store seconds!
+        const double time_seconds = STEPS2TIME(time); // timelines store seconds!
         for (int i = 0; i < numEdges; i++) {
             synchronize(myCHInfos[i], time_seconds, vehicle, effortProvider);
         }
@@ -204,10 +204,10 @@ public:
 
 private:
     struct Shortcut {
-        Shortcut(ConstEdgePair e, SUMOReal c, int u, SVCPermissions p):
+        Shortcut(ConstEdgePair e, double c, int u, SVCPermissions p):
             edgePair(e), cost(c), underlying(u), permissions(p) {}
         ConstEdgePair edgePair;
-        SUMOReal cost;
+        double cost;
         int underlying;
         SVCPermissions permissions;
     };
@@ -218,10 +218,10 @@ private:
     /// @brief Forward/backward connection with associated FORWARD cost
     class CHConnection {
     public:
-        CHConnection(CHInfo* t, SUMOReal c, SVCPermissions p, int u):
+        CHConnection(CHInfo* t, double c, SVCPermissions p, int u):
             target(t), cost(c), permissions(p), underlying(u) {}
         CHInfo* target;
-        SUMOReal cost;
+        double cost;
         SVCPermissions permissions;
         /// the number of connections underlying this connection
         int underlying;
@@ -244,7 +244,7 @@ private:
             level(0),
             underlyingTotal(0),
             visited(false),
-            traveltime(std::numeric_limits<SUMOReal>::max()) {
+            traveltime(std::numeric_limits<double>::max()) {
         }
 
         /// @brief recompute the contraction priority and report whether it changed
@@ -255,10 +255,10 @@ private:
             } else {
                 contractedNeighbors += 1; // called when a connected edge was contracted
             }
-            const SUMOReal oldPriority = priority;
+            const double oldPriority = priority;
             // priority term as used by abraham []
             const int edge_difference = (int)followers.size() + (int)approaching.size() - 2 * (int)shortcuts.size();
-            priority = (SUMOReal)(2 * edge_difference - contractedNeighbors - underlyingTotal - 5 * level);
+            priority = (double)(2 * edge_difference - contractedNeighbors - underlyingTotal - 5 * level);
             return priority != oldPriority;
         }
 
@@ -277,7 +277,7 @@ private:
                 spTree->rebuildFrom(aInfo.target, this);
                 for (typename CHConnections::iterator it_f = followers.begin(); it_f != followers.end(); it_f++) {
                     CHConnection& fInfo = *it_f;
-                    const SUMOReal viaCost = aInfo.cost + fInfo.cost;
+                    const double viaCost = aInfo.cost + fInfo.cost;
                     const SVCPermissions viaPermissions = (aInfo.permissions & fInfo.permissions);
                     if (fInfo.target->traveltime > viaCost) {
                         // found no faster path -> we need a shortcut via edge
@@ -311,7 +311,7 @@ private:
                 for (typename CHConnectionPairs::const_iterator it = pairs.begin(); it != pairs.end(); ++it) {
                     const CHConnection* aInfo = it->first;
                     const CHConnection* fInfo = it->second;
-                    const SUMOReal viaCost = aInfo->cost + fInfo->cost;
+                    const double viaCost = aInfo->cost + fInfo->cost;
                     const SVCPermissions viaPermissions = (aInfo->permissions & fInfo->permissions);
                     const int underlying = aInfo->underlying + fInfo->underlying;
                     underlyingTotal += underlying;
@@ -360,7 +360,7 @@ private:
         /// @brief The current edge - not const since it may receive shortcut edges
         const E* edge;
         /// @brief The contraction priority
-        SUMOReal priority;
+        double priority;
         /// @brief The needed shortcuts
         std::vector<Shortcut> shortcuts;
         /// @brief priority subterms
@@ -377,7 +377,7 @@ private:
         /// members used in SPTree
         bool visited;
         /// Effort to reach the edge
-        SUMOReal traveltime;
+        double traveltime;
         /// number of edges from start
         int depth;
         /// the permissions when reaching this edge on the fastest path
@@ -386,7 +386,7 @@ private:
         SVCPermissions permissions;
 
         inline void reset() {
-            traveltime = std::numeric_limits<SUMOReal>::max();
+            traveltime = std::numeric_limits<double>::max();
             visited = false;
         }
 
@@ -397,7 +397,7 @@ private:
         }
 
         inline void debugWitness(const CHConnection& aInfo, const CHConnection& fInfo) {
-            const SUMOReal viaCost = aInfo.cost + fInfo.cost;
+            const double viaCost = aInfo.cost + fInfo.cost;
             std::cout << "found witness with lenght " << fInfo.target->traveltime << " against via " << edge->getID() << " (length " << viaCost << ") for " << aInfo.target->edge->getID() << ", " << fInfo.target->edge->getID() << "\n";
         }
 
@@ -427,7 +427,7 @@ private:
 
 
     /// @brief copy connections from the original net (modified destructively during contraction)
-    void synchronize(CHInfo& info, SUMOReal time, const V* const vehicle, const SUMOAbstractRouter<E, V>* effortProvider) {
+    void synchronize(CHInfo& info, double time, const V* const vehicle, const SUMOAbstractRouter<E, V>* effortProvider) {
         // forward and backward connections are used only in forward search,
         // thus approaching costs are those of the approaching edge and not of the edge itself
         const bool prune = !mySPTree->validatePermissions();
@@ -435,7 +435,7 @@ private:
         if (prune && ((edge->getPermissions() & mySVC) != mySVC)) {
             return;
         }
-        const SUMOReal cost = effortProvider->getEffort(edge, vehicle, time);
+        const double cost = effortProvider->getEffort(edge, vehicle, time);
 
         const std::vector<E*>& successors = edge->getSuccessors(mySVC);
         for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {

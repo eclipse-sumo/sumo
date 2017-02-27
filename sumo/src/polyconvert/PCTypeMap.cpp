@@ -59,7 +59,7 @@ PCTypeMap::~PCTypeMap() {}
 bool
 PCTypeMap::add(const std::string& id, const std::string& newid,
                const std::string& color, const std::string& prefix,
-               SUMOReal layer, bool discard, bool allowFill) {
+               double layer, bool discard, bool allowFill) {
     if (has(id)) {
         return false;
     }

@@ -53,10 +53,10 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
-std::vector<SUMOReal> MSDevice_Routing::myEdgeSpeeds;
-std::vector<std::vector<SUMOReal> > MSDevice_Routing::myPastEdgeSpeeds;
+std::vector<double> MSDevice_Routing::myEdgeSpeeds;
+std::vector<std::vector<double> > MSDevice_Routing::myPastEdgeSpeeds;
 Command* MSDevice_Routing::myEdgeWeightSettingCommand = 0;
-SUMOReal MSDevice_Routing::myAdaptationWeight;
+double MSDevice_Routing::myAdaptationWeight;
 int MSDevice_Routing::myAdaptationSteps;
 int MSDevice_Routing::myAdaptationStepsIndex = 0;
 SUMOTime MSDevice_Routing::myAdaptationInterval = -1;
@@ -65,7 +65,7 @@ bool MSDevice_Routing::myWithTaz;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSDevice_Routing::myCachedRoutes;
 SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSDevice_Routing::myRouter = 0;
 AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* MSDevice_Routing::myRouterWithProhibited = 0;
-SUMOReal MSDevice_Routing::myRandomizeWeightsFactor = 0;
+double MSDevice_Routing::myRandomizeWeightsFactor = 0;
 #ifdef HAVE_FOX
 FXWorkerThread::Pool MSDevice_Routing::myThreadPool;
 #endif
@@ -175,12 +175,12 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
             myAdaptationSteps = oc.getInt("device.rerouting.adaptation-steps");
             const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
             const bool useLoaded = oc.getBool("device.rerouting.init-with-loaded-weights");
-            const SUMOReal currentSecond = SIMTIME;
+            const double currentSecond = SIMTIME;
             for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
                 while ((*i)->getNumericalID() >= (int)myEdgeSpeeds.size()) {
                     myEdgeSpeeds.push_back(0);
                     if (myAdaptationSteps > 0) {
-                        myPastEdgeSpeeds.push_back(std::vector<SUMOReal>());
+                        myPastEdgeSpeeds.push_back(std::vector<double>());
                     }
                 }
                 if (useLoaded) {
@@ -189,7 +189,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
                     myEdgeSpeeds[(*i)->getNumericalID()] = (*i)->getMeanSpeed();
                 }
                 if (myAdaptationSteps > 0) {
-                    myPastEdgeSpeeds[(*i)->getNumericalID()] = std::vector<SUMOReal>(myAdaptationSteps, myEdgeSpeeds[(*i)->getNumericalID()]);
+                    myPastEdgeSpeeds[(*i)->getNumericalID()] = std::vector<double>(myAdaptationSteps, myEdgeSpeeds[(*i)->getNumericalID()]);
                 }
             }
             myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
@@ -291,13 +291,13 @@ MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) {
 }
 
 
-SUMOReal
-MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal) {
+double
+MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, double) {
     const int id = e->getNumericalID();
     if (id < (int)myEdgeSpeeds.size()) {
-        SUMOReal effort = MAX2(e->getLength() / MAX2(myEdgeSpeeds[id], NUMERICAL_EPS), e->getMinimumTravelTime(v));
+        double effort = MAX2(e->getLength() / MAX2(myEdgeSpeeds[id], NUMERICAL_EPS), e->getMinimumTravelTime(v));
         if (myRandomizeWeightsFactor != 1) {
-            effort *= RandHelper::rand((SUMOReal)1, myRandomizeWeightsFactor);
+            effort *= RandHelper::rand((double)1, myRandomizeWeightsFactor);
         }
         return effort;
     }
@@ -305,7 +305,7 @@ MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, S
 }
 
 
-SUMOReal
+double
 MSDevice_Routing::getAssumedSpeed(const MSEdge* edge) {
     return edge->getLength() / getEffort(edge, 0, 0);
 }
@@ -326,17 +326,17 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) {
         // moving average
         for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             const int id = (*i)->getNumericalID();
-            const SUMOReal currSpeed = (*i)->getMeanSpeed();
+            const double currSpeed = (*i)->getMeanSpeed();
             myEdgeSpeeds[id] += (currSpeed - myPastEdgeSpeeds[id][myAdaptationStepsIndex]) / myAdaptationSteps;
             myPastEdgeSpeeds[id][myAdaptationStepsIndex] = currSpeed;
         }
         myAdaptationStepsIndex = (myAdaptationStepsIndex + 1) % myAdaptationSteps;
     } else {
         // exponential moving average
-        const SUMOReal newWeightFactor = (SUMOReal)(1. - myAdaptationWeight);
+        const double newWeightFactor = (double)(1. - myAdaptationWeight);
         for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             const int id = (*i)->getNumericalID();
-            const SUMOReal currSpeed = (*i)->getMeanSpeed();
+            const double currSpeed = (*i)->getMeanSpeed();
             if (currSpeed != myEdgeSpeeds[id]) {
                 myEdgeSpeeds[id] = myEdgeSpeeds[id] * myAdaptationWeight + currSpeed * newWeightFactor;
             }

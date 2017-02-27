@@ -70,8 +70,8 @@ public:
     void computeBounding();
     int getFromEdgeID() const;
     int getToEdgeID() const;
-    SUMOReal getFromPosition() const;
-    SUMOReal getToPosition() const;
+    double getFromPosition() const;
+    double getToPosition() const;
     Position getFromGeomPosition() const;
     Position getToGeomPosition() const;
     void setNodeCluster(int nodeid);

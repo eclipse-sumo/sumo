@@ -121,14 +121,14 @@ RONet::~RONet() {
 
 
 void
-RONet::addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed) {
+RONet::addRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed) {
     myRestrictions[id][svc] = speed;
 }
 
 
-const std::map<SUMOVehicleClass, SUMOReal>*
+const std::map<SUMOVehicleClass, double>*
 RONet::getRestrictions(const std::string& id) const {
-    std::map<std::string, std::map<SUMOVehicleClass, SUMOReal> >::const_iterator i = myRestrictions.find(id);
+    std::map<std::string, std::map<SUMOVehicleClass, double> >::const_iterator i = myRestrictions.find(id);
     if (i == myRestrictions.end()) {
         return 0;
     }
@@ -670,7 +670,7 @@ RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
     // add access to all public transport stops
     for (std::map<std::string, SUMOVehicleParameter::Stop*>::const_iterator i = myInstance->myBusStops.begin(); i != myInstance->myBusStops.end(); ++i) {
         router.addAccess(i->first, myInstance->getEdgeForLaneID(i->second->lane), i->second->endPos);
-        for (std::multimap<std::string, SUMOReal>::const_iterator a = i->second->accessPos.begin(); a != i->second->accessPos.end(); ++a) {
+        for (std::multimap<std::string, double>::const_iterator a = i->second->accessPos.begin(); a != i->second->accessPos.end(); ++a) {
             router.addAccess(i->first, myInstance->getEdgeForLaneID(a->first), a->second);
         }
     }

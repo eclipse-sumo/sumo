@@ -43,8 +43,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
-                                   SUMOReal dawdle, SUMOReal headwayTime)
+MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, double accel, double decel,
+                                   double dawdle, double headwayTime)
     : MSCFModel_KraussOrig1(vtype, accel, decel, dawdle, headwayTime) {
 }
 
@@ -52,8 +52,8 @@ MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal accel, S
 MSCFModel_Krauss::~MSCFModel_Krauss() {}
 
 
-SUMOReal
-MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
+double
+MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=TS, to assure that
     // the stopping position is approached with a uniform deceleration also for tau!=TS.
@@ -61,11 +61,11 @@ MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SU
 }
 
 
-SUMOReal
-MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
-    const SUMOReal vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
-    const SUMOReal vmin = minNextSpeed(speed);
-    const SUMOReal vmax = maxNextSpeed(speed, veh);
+double
+MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel) const {
+    const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
+    const double vmin = minNextSpeed(speed);
+    const double vmax = maxNextSpeed(speed, veh);
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MIN2(vsafe, vmax);
     } else {
@@ -76,8 +76,8 @@ MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMORe
 }
 
 
-SUMOReal
-MSCFModel_Krauss::dawdle(SUMOReal speed) const {
+double
+MSCFModel_Krauss::dawdle(double speed) const {
     if (!MSGlobals::gSemiImplicitEulerUpdate) {
         // in case of the ballistic update, negative speeds indicate
         // a desired stop before the completion of the next timestep.
@@ -87,7 +87,7 @@ MSCFModel_Krauss::dawdle(SUMOReal speed) const {
         }
     }
     // generate random number out of [0,1)
-    const SUMOReal random = RandHelper::rand();
+    const double random = RandHelper::rand();
     // Dawdle.
     if (speed < myAccel) {
         // we should not prevent vehicles from driving just due to dawdling
@@ -97,7 +97,7 @@ MSCFModel_Krauss::dawdle(SUMOReal speed) const {
     } else {
         speed -= ACCEL2SPEED(myDawdle * myAccel * random);
     }
-    return MAX2(SUMOReal(0), speed);
+    return MAX2(0., speed);
 }
 
 

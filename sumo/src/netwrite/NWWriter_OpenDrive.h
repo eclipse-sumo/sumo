@@ -64,25 +64,25 @@ public:
 
 protected:
     /// @brief write geometry as sequence of lines (sumo style)
-    static SUMOReal writeGeomLines(const PositionVector& shape, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal offset = 0);
+    static double writeGeomLines(const PositionVector& shape, OutputDevice& device, OutputDevice& elevationDevice, double offset = 0);
 
     /* @brief write geometry as sequence of lines and bezier curves
      *
      * @param[in] straightThresh angular changes below threshold are considered to be straight and no curve will be fitted between the segments
      * @param[out] length Return the total length of the reference line
      */
-    static bool writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal straightThresh, SUMOReal& length);
+    static bool writeGeomSmooth(const PositionVector& shape, double speed, OutputDevice& device, OutputDevice& elevationDevice, double straightThresh, double& length);
 
     /// @brief write geometry as a single bezier curve (paramPoly3)
-    static SUMOReal writeGeomPP3(OutputDevice& device,
+    static double writeGeomPP3(OutputDevice& device,
                                  OutputDevice& elevationDevice,
                                  PositionVector init,
-                                 SUMOReal length,
-                                 SUMOReal offset = 0);
+                                 double length,
+                                 double offset = 0);
 
     static void writeElevationProfile(const PositionVector& shape, OutputDevice& device, const OutputDevice_String& elevationDevice);
 
-    static void writeEmptyCenterLane(OutputDevice& device, const std::string& mark, SUMOReal markWidth);
+    static void writeEmptyCenterLane(OutputDevice& device, const std::string& mark, double markWidth);
     static int getID(const std::string& origID, StringBijection<int>& map, int& lastID);
 
     static std::string getLaneType(SVCPermissions permissions);

@@ -56,8 +56,8 @@ class GNEPOI : public GUIPointOfInterest, public GNEAttributeCarrier {
 public:
     /// @brief Constructor
     GNEPOI(GNENet* net, const std::string& id, const std::string& type,
-           const RGBColor& color, SUMOReal layer, SUMOReal angle, const std::string& imgFile,
-           const Position& pos, SUMOReal width, SUMOReal height);
+           const RGBColor& color, double layer, double angle, const std::string& imgFile,
+           const Position& pos, double width, double height);
 
     /// @brief Destructor
     virtual ~GNEPOI();

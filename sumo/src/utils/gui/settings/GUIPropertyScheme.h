@@ -53,14 +53,14 @@ class GUIPropertyScheme {
 public:
     /// Constructor
     GUIPropertyScheme(const std::string& name, const T& baseColor,
-                      const std::string& colName = "", const bool isFixed = false, SUMOReal baseValue = 0) :
+                      const std::string& colName = "", const bool isFixed = false, double baseValue = 0) :
         myName(name), myIsInterpolated(!isFixed),
         myIsFixed(isFixed),
         myAllowNegativeValues(false) {
         addColor(baseColor, baseValue, colName);
     }
 
-    void setThreshold(const int pos, const SUMOReal threshold) {
+    void setThreshold(const int pos, const double threshold) {
         myThresholds[pos] = threshold;
     }
 
@@ -80,9 +80,9 @@ public:
         return false;
     }
 
-    int addColor(const T& color, const SUMOReal threshold, const std::string& name = "") {
+    int addColor(const T& color, const double threshold, const std::string& name = "") {
         typename std::vector<T>::iterator colIt = myColors.begin();
-        std::vector<SUMOReal>::iterator threshIt = myThresholds.begin();
+        std::vector<double>::iterator threshIt = myThresholds.begin();
         std::vector<std::string>::iterator nameIt = myNames.begin();
         int pos = 0;
         while (threshIt != myThresholds.end() && (*threshIt) < threshold) {
@@ -110,12 +110,12 @@ public:
         myNames.clear();
     }
 
-    const T getColor(const SUMOReal value) const {
+    const T getColor(const double value) const {
         if (myColors.size() == 1 || value < myThresholds.front()) {
             return myColors.front();
         }
         typename std::vector<T>::const_iterator colIt = myColors.begin() + 1;
-        std::vector<SUMOReal>::const_iterator threshIt = myThresholds.begin() + 1;
+        std::vector<double>::const_iterator threshIt = myThresholds.begin() + 1;
         while (threshIt != myThresholds.end() && (*threshIt) <= value) {
             ++threshIt;
             ++colIt;
@@ -126,11 +126,11 @@ public:
         if (!myIsInterpolated) {
             return *(colIt - 1);
         }
-        SUMOReal lowVal = *(threshIt - 1);
+        double lowVal = *(threshIt - 1);
         return interpolate(*(colIt - 1), *colIt, (value - lowVal) / ((*threshIt) - lowVal));
     }
 
-    void setInterpolated(const bool interpolate, SUMOReal interpolationStart = 0.f) {
+    void setInterpolated(const bool interpolate, double interpolationStart = 0.f) {
         myIsInterpolated = interpolate;
         if (interpolate) {
             myThresholds[0] = interpolationStart;
@@ -145,7 +145,7 @@ public:
         return myColors;
     }
 
-    const std::vector<SUMOReal>& getThresholds() const {
+    const std::vector<double>& getThresholds() const {
         return myThresholds;
     }
 
@@ -178,7 +178,7 @@ public:
             dev.writeAttr(SUMO_ATTR_INTERPOLATED, myIsInterpolated);
         }
         typename std::vector<T>::const_iterator colIt = myColors.begin();
-        std::vector<SUMOReal>::const_iterator threshIt = myThresholds.begin();
+        std::vector<double>::const_iterator threshIt = myThresholds.begin();
         std::vector<std::string>::const_iterator nameIt = myNames.begin();
         while (threshIt != myThresholds.end()) {
             dev.openTag(SUMO_TAG_ENTRY);
@@ -203,7 +203,7 @@ public:
 
 
     /// @brief specializations for GUIColorScheme
-    RGBColor interpolate(const RGBColor& min, const RGBColor& max, SUMOReal weight) const {
+    RGBColor interpolate(const RGBColor& min, const RGBColor& max, double weight) const {
         return RGBColor::interpolate(min, max, weight);
     }
 
@@ -213,11 +213,11 @@ public:
 
 
     /// @brief specializations for GUIScaleScheme
-    SUMOReal interpolate(const SUMOReal& min, const SUMOReal& max, SUMOReal weight) const {
+    double interpolate(const double& min, const double& max, double weight) const {
         return min + (max - min) * weight;
     }
 
-    std::string getTagName(std::vector<SUMOReal>) const {
+    std::string getTagName(std::vector<double>) const {
         return toString(SUMO_TAG_SCALINGSCHEME);
     }
 
@@ -225,7 +225,7 @@ public:
 private:
     std::string myName;
     std::vector<T> myColors;
-    std::vector<SUMOReal> myThresholds;
+    std::vector<double> myThresholds;
     bool myIsInterpolated;
     std::vector<std::string> myNames;
     bool myIsFixed;
@@ -234,7 +234,7 @@ private:
 };
 
 typedef GUIPropertyScheme<RGBColor> GUIColorScheme;
-typedef GUIPropertyScheme<SUMOReal> GUIScaleScheme;
+typedef GUIPropertyScheme<double> GUIScaleScheme;
 
 #endif
 

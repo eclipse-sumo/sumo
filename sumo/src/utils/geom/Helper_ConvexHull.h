@@ -46,7 +46,7 @@
 
 
 // Assume that a class is already given for the object:
-//    Position with coordinates {SUMOReal x, y;}
+//    Position with coordinates {double x, y;}
 //===================================================================
 
 
@@ -58,7 +58,7 @@
 //    See: the January 2001 Algorithm on Area of Triangles
 
 
-inline SUMOReal
+inline double
 isLeft(const Position& P0,
        const Position& P1,
        const Position& P2) {

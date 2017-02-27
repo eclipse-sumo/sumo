@@ -66,12 +66,12 @@ GeomConvHelper::parseShapeReporting(const std::string& shpdef, const std::string
             return PositionVector();
         }
         try {
-            SUMOReal x = TplConvert::_2SUMOReal(pos.next().c_str());
-            SUMOReal y = TplConvert::_2SUMOReal(pos.next().c_str());
+            double x = TplConvert::_2double(pos.next().c_str());
+            double y = TplConvert::_2double(pos.next().c_str());
             if (pos.size() == 2) {
                 shape.push_back(Position(x, y));
             } else {
-                SUMOReal z = TplConvert::_2SUMOReal(pos.next().c_str());
+                double z = TplConvert::_2double(pos.next().c_str());
                 shape.push_back(Position(x, y, z));
             }
         } catch (NumberFormatException&) {
@@ -98,10 +98,10 @@ GeomConvHelper::parseBoundaryReporting(const std::string& def, const std::string
         return Boundary();
     }
     try {
-        SUMOReal xmin = TplConvert::_2SUMOReal(st.next().c_str());
-        SUMOReal ymin = TplConvert::_2SUMOReal(st.next().c_str());
-        SUMOReal xmax = TplConvert::_2SUMOReal(st.next().c_str());
-        SUMOReal ymax = TplConvert::_2SUMOReal(st.next().c_str());
+        double xmin = TplConvert::_2double(st.next().c_str());
+        double ymin = TplConvert::_2double(st.next().c_str());
+        double xmax = TplConvert::_2double(st.next().c_str());
+        double ymax = TplConvert::_2double(st.next().c_str());
         return Boundary(xmin, ymin, xmax, ymax);
     } catch (NumberFormatException&) {
         emitError(report, "Shape", objecttype, objectid, "not numeric entry");

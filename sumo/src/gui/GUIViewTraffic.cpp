@@ -260,7 +260,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
     MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
     const std::vector<MSTrafficLightLogic*>& logics = tlsControl.getAllLogics();
     MSTrafficLightLogic* minTll = 0;
-    SUMOReal minDist = std::numeric_limits<SUMOReal>::infinity();
+    double minDist = std::numeric_limits<double>::infinity();
     for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
         // get the logic
         MSTrafficLightLogic* tll = (*i);

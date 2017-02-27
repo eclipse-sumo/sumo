@@ -68,7 +68,7 @@ public:
     void remove(PedestrianState* state);
 
     /// @brief whether a pedestrian is blocking the crossing of lane at offset distToCrossing
-    bool blockedAtDist(const MSLane* lane, SUMOReal distToCrossing, std::vector<const MSPerson*>* collectBlockers);
+    bool blockedAtDist(const MSLane* lane, double distToCrossing, std::vector<const MSPerson*>* collectBlockers);
 
 private:
     class MoveToNextEdge : public Command {
@@ -95,11 +95,11 @@ private:
 
         /// @brief abstract methods inherited from PedestrianState
         /// @{
-        SUMOReal getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
+        double getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
         Position getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        SUMOReal getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
+        double getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
         SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        SUMOReal getSpeed(const MSPerson::MSPersonStage_Walking& stage) const;
+        double getSpeed(const MSPerson::MSPersonStage_Walking& stage) const;
         const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const;
         /// @}
 
@@ -112,8 +112,8 @@ private:
     private:
         SUMOTime myLastEntryTime;
         SUMOTime myCurrentDuration;
-        SUMOReal myCurrentBeginPos;
-        SUMOReal myCurrentEndPos;
+        double myCurrentBeginPos;
+        double myCurrentEndPos;
         MoveToNextEdge* myCommand;
 
     };

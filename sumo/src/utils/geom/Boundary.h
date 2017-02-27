@@ -52,9 +52,9 @@ public:
     Boundary();
 
     /// Constructor - the boundary will be build using the given values
-    Boundary(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2);
+    Boundary(double x1, double y1, double x2, double y2);
 
-    Boundary(SUMOReal x1, SUMOReal y1, SUMOReal z1, SUMOReal x2, SUMOReal y2, SUMOReal z2);
+    Boundary(double x1, double y1, double z1, double x2, double y2, double z2);
 
     /// Destructor
     ~Boundary();
@@ -63,7 +63,7 @@ public:
     void reset();
 
     /// Makes the boundary include the given coordinate
-    void add(SUMOReal x, SUMOReal y, SUMOReal z = 0);
+    void add(double x, double y, double z = 0);
 
     /// Makes the boundary include the given coordinate
     void add(const Position& p);
@@ -75,40 +75,40 @@ public:
     Position getCenter() const;
 
     /// Returns minimum x-coordinate
-    SUMOReal xmin() const;
+    double xmin() const;
 
     /// Returns maximum x-coordinate
-    SUMOReal xmax() const;
+    double xmax() const;
 
     /// Returns minimum y-coordinate
-    SUMOReal ymin() const;
+    double ymin() const;
 
     /// Returns maximum y-coordinate
-    SUMOReal ymax() const;
+    double ymax() const;
 
     /// Returns minimum z-coordinate
-    SUMOReal zmin() const;
+    double zmin() const;
 
     /// Returns maximum z-coordinate
-    SUMOReal zmax() const;
+    double zmax() const;
 
     /// Returns the width of the boudary (x-axis)
-    SUMOReal getWidth() const;
+    double getWidth() const;
 
     /// Returns the height of the boundary (y-axis)
-    SUMOReal getHeight() const;
+    double getHeight() const;
 
     /// Returns the elevation range of the boundary (z-axis)
-    SUMOReal getZRange() const;
+    double getZRange() const;
 
     /// Returns whether the boundary contains the given coordinate
-    bool around(const Position& p, SUMOReal offset = 0) const;
+    bool around(const Position& p, double offset = 0) const;
 
     /// Returns whether the boundary overlaps with the given polygon
-    bool overlapsWith(const AbstractPoly& poly, SUMOReal offset = 0) const;
+    bool overlapsWith(const AbstractPoly& poly, double offset = 0) const;
 
     /// Returns whether the boundary is partially within the given polygon
-    bool partialWithin(const AbstractPoly& poly, SUMOReal offset = 0) const;
+    bool partialWithin(const AbstractPoly& poly, double offset = 0) const;
 
     /// Returns whether the boundary crosses the given line
     bool crosses(const Position& p1, const Position& p2) const;
@@ -117,29 +117,29 @@ public:
     /** @brief extends the boundary by the given amount
      *
      * The method returns a reference to the instance for further use */
-    Boundary& grow(SUMOReal by);
+    Boundary& grow(double by);
 
     /// Increases the width of the boundary (x-axis)
-    void growWidth(SUMOReal by);
+    void growWidth(double by);
 
     /// Increases the height of the boundary (y-axis)
-    void growHeight(SUMOReal by);
+    void growHeight(double by);
 
     /// flips ymin and ymax
     void flipY();
 
     /// Sets the boundary to the given values
-    void set(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax);
+    void set(double xmin, double ymin, double xmax, double ymax);
 
     /// Moves the boundary by the given amount
-    void moveby(SUMOReal x, SUMOReal y, SUMOReal z = 0);
+    void moveby(double x, double y, double z = 0);
 
     /// Output operator
     friend std::ostream& operator<<(std::ostream& os, const Boundary& b);
 
 private:
     /// The boundaries
-    SUMOReal myXmin, myXmax, myYmin, myYmax, myZmin, myZmax;
+    double myXmin, myXmax, myYmin, myYmax, myZmin, myZmax;
 
     /// Information whether the boundary was initialised
     bool myWasInitialised;

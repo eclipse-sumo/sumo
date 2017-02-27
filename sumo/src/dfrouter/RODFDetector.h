@@ -99,7 +99,7 @@ public:
      * @see RODFDetectorType
      */
     RODFDetector(const std::string& id, const std::string& laneID,
-                 SUMOReal pos, const RODFDetectorType type);
+                 double pos, const RODFDetectorType type);
 
 
     /** @brief Constructor
@@ -139,7 +139,7 @@ public:
     /** @brief Returns the position at which the detector lies
      * @return The position of the detector at the lane
      */
-    SUMOReal getPos() const {
+    double getPos() const {
         return myPosition;
     };
 
@@ -172,14 +172,14 @@ public:
                                 const std::map<SUMOTime, RandomDistributor<int>* >& dists,
                                 const RODFDetectorFlows& flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
-                                bool includeUnusedRoutes, SUMOReal scale,
-                                bool insertionsOnly, SUMOReal defaultSpeed) const;
+                                bool includeUnusedRoutes, double scale,
+                                bool insertionsOnly, double defaultSpeed) const;
     bool writeRoutes(std::vector<std::string>& saved,
                      OutputDevice& out);
     void writeSingleSpeedTrigger(const std::string& file,
                                  const RODFDetectorFlows& flows,
                                  SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
-                                 SUMOReal defaultSpeed);
+                                 double defaultSpeed);
     void writeEndRerouterDetectors(const std::string& file);
     /// @}
 
@@ -192,22 +192,22 @@ public:
                                    const RODFDetectorFlows& flows,
                                    SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 
-    const std::vector<std::map<RODFEdge*, SUMOReal> >& getSplitProbabilities() const {
+    const std::vector<std::map<RODFEdge*, double> >& getSplitProbabilities() const {
         return mySplitProbabilities;
     }
 
 protected:
     int getFlowFor(const ROEdge* edge, SUMOTime time) const;
-    SUMOReal computeDistanceFactor(const RODFRouteDesc& rd) const;
+    double computeDistanceFactor(const RODFRouteDesc& rd) const;
 
 
 protected:
     std::string myLaneID;
-    SUMOReal myPosition;
+    double myPosition;
     RODFDetectorType myType;
     RODFRouteCont* myRoutes;
     std::set<const RODFDetector*> myPriorDetectors, myFollowingDetectors;
-    std::vector<std::map<RODFEdge*, SUMOReal> > mySplitProbabilities;
+    std::vector<std::map<RODFEdge*, double> > mySplitProbabilities;
     std::map<std::string, RODFEdge*> myRoute2Edge;
 
 
@@ -248,7 +248,7 @@ public:
                        SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                        const RODFNet& net,
                        bool writeCalibrators, bool includeUnusedRoutes,
-                       SUMOReal scale,
+                       double scale,
                        bool insertionsOnly);
 
     void writeEmitterPOIs(const std::string& file,
@@ -269,7 +269,7 @@ public:
 
     void mesoJoin(const std::string& nid, const std::vector<std::string>& oldids);
 
-    void setSpeedFactorAndDev(SUMOVTypeParameter& type, SUMOReal maxFactor, SUMOReal avgFactor, SUMOReal dev, bool forceDev);
+    void setSpeedFactorAndDev(SUMOVTypeParameter& type, double maxFactor, double avgFactor, double dev, bool forceDev);
 
 protected:
     /** @brief Clears the given distributions map, deleting the timed distributions

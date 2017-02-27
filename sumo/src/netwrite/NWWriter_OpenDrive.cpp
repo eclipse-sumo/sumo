@@ -71,7 +71,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const NBNodeCont& nc = nb.getNodeCont();
     const NBEdgeCont& ec = nb.getEdgeCont();
     const bool origNames = oc.getBool("output.original-names");
-    const SUMOReal straightThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
+    const double straightThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
     // some internal mapping containers
     int nodeID = 1;
     int edgeID = nc.size() * 10; // distinct from node ids
@@ -111,7 +111,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         elevationOSS.setPrecision(8);
         OutputDevice_String planViewOSS(false, 2);
         planViewOSS.setPrecision(8);
-        SUMOReal length = 0;
+        double length = 0;
 
         planViewOSS.openTag("planView");
         planViewOSS.setPrecision(8); // geometry hdg requires higher precision
@@ -213,12 +213,12 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 if (outEdge == 0) {
                     continue;
                 }
-                const SUMOReal width = c.toEdge->getLaneWidth(c.toLane);
+                const double width = c.toEdge->getLaneWidth(c.toLane);
                 const PositionVector begShape = getLeftLaneBorder(inEdge, c.fromLane);
                 const PositionVector endShape = getLeftLaneBorder(outEdge, c.toLane);
                 //std::cout << "computing reference line for internal lane " << c.getInternalLaneID() << " begLane=" << inEdge->getLaneShape(c.fromLane) << " endLane=" << outEdge->getLaneShape(c.toLane) << "\n";
 
-                SUMOReal length;
+                double length;
                 PositionVector fallBackShape;
                 fallBackShape.push_back(begShape.back());
                 fallBackShape.push_back(endShape.front());
@@ -337,13 +337,13 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 }
 
 
-SUMOReal
-NWWriter_OpenDrive::writeGeomLines(const PositionVector& shape, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal offset) {
+double
+NWWriter_OpenDrive::writeGeomLines(const PositionVector& shape, OutputDevice& device, OutputDevice& elevationDevice, double offset) {
     for (int j = 0; j < (int)shape.size() - 1; ++j) {
         const Position& p = shape[j];
         const Position& p2 = shape[j + 1];
-        const SUMOReal hdg = shape.angleAt2D(j);
-        const SUMOReal length = p.distanceTo2D(p2);
+        const double hdg = shape.angleAt2D(j);
+        const double length = p.distanceTo2D(p2);
         device.openTag("geometry");
         device.writeAttr("s", offset);
         device.writeAttr("x", p.x());
@@ -360,7 +360,7 @@ NWWriter_OpenDrive::writeGeomLines(const PositionVector& shape, OutputDevice& de
 
 
 void
-NWWriter_OpenDrive::writeEmptyCenterLane(OutputDevice& device, const std::string& mark, SUMOReal markWidth) {
+NWWriter_OpenDrive::writeEmptyCenterLane(OutputDevice& device, const std::string& mark, double markWidth) {
     device << "                <center>\n";
     device << "                    <lane id=\"0\" type=\"none\" level=\"true\">\n";
     device << "                        <link/>\n";
@@ -429,7 +429,7 @@ NWWriter_OpenDrive::getLeftLaneBorder(const NBEdge* edge, int laneIndex) {
     // computations based on the reference line
     // This assumes that the 'stop line' for all lanes is colinear!
     const int leftmost = (int)edge->getNumLanes() - 1;
-    SUMOReal widthOffset = -(edge->getLaneWidth(leftmost) / 2);
+    double widthOffset = -(edge->getLaneWidth(leftmost) / 2);
     // collect lane widths from left border of edge to left border of lane to connect to
     for (int i = leftmost; i > laneIndex; i--) {
         widthOffset += edge->getLaneWidth(i);
@@ -442,20 +442,20 @@ NWWriter_OpenDrive::getLeftLaneBorder(const NBEdge* edge, int laneIndex) {
 }
 
 
-SUMOReal
+double
 NWWriter_OpenDrive::writeGeomPP3(
     OutputDevice& device,
     OutputDevice& elevationDevice,
     PositionVector init,
-    SUMOReal length,
-    SUMOReal offset) {
+    double length,
+    double offset) {
     assert(init.size() == 3 || init.size() == 4);
 
     // avoid division by 0
     length = MAX2(POSITION_EPS, length);
 
     const Position p = init.front();
-    const SUMOReal hdg = init.angleAt2D(0);
+    const double hdg = init.angleAt2D(0);
 
     // backup elevation values
     const PositionVector initZ = init;
@@ -464,9 +464,9 @@ NWWriter_OpenDrive::writeGeomPP3(
     init.rotate2D(-hdg);
 
     // parametric coefficients
-    SUMOReal aU, bU, cU, dU;
-    SUMOReal aV, bV, cV, dV;
-    SUMOReal aZ, bZ, cZ, dZ;
+    double aU, bU, cU, dU;
+    double aV, bV, cV, dV;
+    double aZ, bZ, cZ, dZ;
 
     // unfactor the Bernstein polynomials of degree 2 (or 3) and collect the coefficients
     if (init.size() == 3) {
@@ -539,31 +539,31 @@ NWWriter_OpenDrive::writeGeomPP3(
 
 
 bool
-NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed, OutputDevice& device, OutputDevice& elevationDevice, SUMOReal straightThresh, SUMOReal& length) {
+NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, double speed, OutputDevice& device, OutputDevice& elevationDevice, double straightThresh, double& length) {
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) {
         std::cout << "writeGeomSmooth\n  n=" << shape.size() << " shape=" << toString(shape) << "\n";
     }
 #endif
     bool ok = true;
-    const SUMOReal longThresh = speed; //  16.0; // make user-configurable (should match the sampling rate of the source data)
-    const SUMOReal curveCutout = longThresh / 2; // 8.0; // make user-configurable (related to the maximum turning rate)
+    const double longThresh = speed; //  16.0; // make user-configurable (should match the sampling rate of the source data)
+    const double curveCutout = longThresh / 2; // 8.0; // make user-configurable (related to the maximum turning rate)
     // the length of the segment that is added for cutting a corner can be bounded by 2*curveCutout (prevent the segment to be classified as 'long')
     assert(longThresh >= 2 * curveCutout);
     assert(shape.size() > 2);
     // add intermediate points wherever there is a strong angular change between long segments
     // assume the geometry is simplified so as not to contain consecutive colinear points
     PositionVector shape2 = shape;
-    SUMOReal maxAngleDiff = 0;
-    SUMOReal offset = 0;
+    double maxAngleDiff = 0;
+    double offset = 0;
     for (int j = 1; j < (int)shape.size() - 1; ++j) {
-        //const SUMOReal hdg = shape.angleAt2D(j);
+        //const double hdg = shape.angleAt2D(j);
         const Position& p0 = shape[j - 1];
         const Position& p1 = shape[j];
         const Position& p2 = shape[j + 1];
-        const SUMOReal dAngle = fabs(GeomHelper::angleDiff(p0.angleTo2D(p1), p1.angleTo2D(p2)));
-        const SUMOReal length1 = p0.distanceTo2D(p1);
-        const SUMOReal length2 = p1.distanceTo2D(p2);
+        const double dAngle = fabs(GeomHelper::angleDiff(p0.angleTo2D(p1), p1.angleTo2D(p2)));
+        const double length1 = p0.distanceTo2D(p1);
+        const double length2 = p1.distanceTo2D(p2);
         maxAngleDiff = MAX2(maxAngleDiff, dAngle);
 #ifdef DEBUG_SMOOTH_GEOM
         if (DEBUGCOND) {
@@ -604,7 +604,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
         PositionVector line;
         line.push_back(p0);
         line.push_back(p1);
-        const SUMOReal lineLength = line.length2D();
+        const double lineLength = line.length2D();
         if (lineLength >= longThresh) {
             offset = writeGeomLines(line, device, elevationDevice, offset);
 #ifdef DEBUG_SMOOTH_GEOM
@@ -645,7 +645,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
                 endShape.push_back(shape2[j + 2]);
                 endShape.add(p1 - endShape.front());
             }
-            const SUMOReal extrapolateLength = MIN2((SUMOReal)25, lineLength / 4);
+            const double extrapolateLength = MIN2((double)25, lineLength / 4);
             PositionVector init = NBNode::bezierControlPoints(begShape, endShape, false, extrapolateLength, extrapolateLength, ok, 0, straightThresh);
             if (init.size() == 0) {
                 // could not compute control points, write line
@@ -657,7 +657,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, SUMOReal speed,
 #endif
             } else {
                 // write bezier
-                const SUMOReal curveLength = bezier(init, 12).length2D();
+                const double curveLength = bezier(init, 12).length2D();
                 offset = writeGeomPP3(device, elevationDevice, init, curveLength, offset);
 #ifdef DEBUG_SMOOTH_GEOM
                 if (DEBUGCOND) {
@@ -676,7 +676,7 @@ void
 NWWriter_OpenDrive::writeElevationProfile(const PositionVector& shape, OutputDevice& device, const OutputDevice_String& elevationDevice) {
     // check if the shape is flat
     bool flat = true;
-    SUMOReal z = shape.size() == 0 ? 0 : shape[0].z();
+    double z = shape.size() == 0 ? 0 : shape[0].z();
     for (int i = 1; i < (int)shape.size(); ++i) {
         if (fabs(shape[i].z() - z) > NUMERICAL_EPS) {
             flat = false;
@@ -707,7 +707,7 @@ NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e) {
         stopLine.push_back(to - PositionVector::sideOffset(from, to, -1000.0));
         // endpoints of all other lanes should be on the stop line
         for (int lane = 1; lane < e->getNumLanes(); ++lane) {
-            const SUMOReal dist = stopLine.distance2D(e->getLaneShape(lane)[-1]);
+            const double dist = stopLine.distance2D(e->getLaneShape(lane)[-1]);
             if (dist > NUMERICAL_EPS) {
                 WRITE_WARNING("Uneven stop line at lane '" + e->getLaneID(lane) + "' (dist=" + toString(dist) + ") cannot be represented in OpenDRIVE.");
             }

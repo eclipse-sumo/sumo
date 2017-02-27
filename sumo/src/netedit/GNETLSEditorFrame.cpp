@@ -420,7 +420,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
     FXString value = myPhaseTable->getItemText(tp->row, tp->col);
     if (tp->col == 0) {
         // duration edited
-        if (GNEAttributeCarrier::canParse<SUMOReal>(value.text())) {
+        if (GNEAttributeCarrier::canParse<double>(value.text())) {
             SUMOTime duration = getSUMOTime(value);
             if (duration > 0) {
                 myEditedDef->getLogic()->setPhaseDuration(tp->row, duration);
@@ -658,8 +658,8 @@ GNETLSEditorFrame::controlsEdge(GNEEdge& edge) const {
 
 SUMOTime
 GNETLSEditorFrame::getSUMOTime(const FXString& string) {
-    assert(GNEAttributeCarrier::canParse<SUMOReal>(string.text()));
-    return TIME2STEPS(GNEAttributeCarrier::parse<SUMOReal>(string.text()));
+    assert(GNEAttributeCarrier::canParse<double>(string.text()));
+    return TIME2STEPS(GNEAttributeCarrier::parse<double>(string.text()));
 }
 
 

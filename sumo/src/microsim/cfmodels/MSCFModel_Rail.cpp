@@ -61,8 +61,8 @@ MSCFModel_Rail::~MSCFModel_Rail() {
 
 
 
-SUMOReal MSCFModel_Rail::followSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed,
-                                     SUMOReal predMaxDecel) const {
+double MSCFModel_Rail::followSpeed(const MSVehicle *const veh, double speed, double gap2pred, double predSpeed,
+                                     double predMaxDecel) const {
 //TODO: impossible to answer unless the pred vehicle is known [Gregor Feb '17]
     return 0;
 }
@@ -80,7 +80,7 @@ MSCFModel_Rail::duplicate(const MSVehicleType *vtype) const {
     throw ProcessError("not yet implemented");
 }
 
-SUMOReal MSCFModel_Rail::maxNextSpeed(SUMOReal speed, const MSVehicle *const veh) const {
+double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle *const veh) const {
 
 //    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
 //    if (vars->isNotYetInitialized()) {
@@ -92,18 +92,18 @@ SUMOReal MSCFModel_Rail::maxNextSpeed(SUMOReal speed, const MSVehicle *const veh
         return myTrainParams.vmax;
     }
 
-    SUMOReal targetSpeed = myTrainParams.vmax;
+    double targetSpeed = myTrainParams.vmax;
 
-    SUMOReal res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
+    double res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
 
-    SUMOReal slope = veh->getSlope();
-    SUMOReal gr = myTrainParams.weight * G * sin(DEG2RAD(slope)); //kN
+    double slope = veh->getSlope();
+    double gr = myTrainParams.weight * G * sin(DEG2RAD(slope)); //kN
 
-    SUMOReal totalRes = res + gr; //kN
+    double totalRes = res + gr; //kN
 
-    SUMOReal trac = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.traction)); // kN
+    double trac = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.traction)); // kN
 
-    SUMOReal a;
+    double a;
     if (speed < targetSpeed) {
         a = (trac - totalRes) / myTrainParams.rotWeight; //kN/t == N/kg
     } else {
@@ -113,14 +113,14 @@ SUMOReal MSCFModel_Rail::maxNextSpeed(SUMOReal speed, const MSVehicle *const veh
         }
     }
 
-    SUMOReal maxNextSpeed = speed + a * DELTA_T / 1000.;
+    double maxNextSpeed = speed + a * DELTA_T / 1000.;
 
     std::cout << veh->getID() << " speed: " << (speed*3.6) << std::endl;
 
     return maxNextSpeed;
 }
 
-SUMOReal MSCFModel_Rail::minNextSpeed(SUMOReal speed, const MSVehicle *const veh) const {
+double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle *const veh) const {
 
 //    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
 //    if (vars->isNotYetInitialized()) {
@@ -128,19 +128,19 @@ SUMOReal MSCFModel_Rail::minNextSpeed(SUMOReal speed, const MSVehicle *const veh
 //    }
 
 
-    SUMOReal slope = veh->getSlope();
-    SUMOReal gr = myTrainParams.weight * G * sin(DEG2RAD(slope)); //kN
-    SUMOReal res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
-    SUMOReal totalRes = res + gr; //kN
+    double slope = veh->getSlope();
+    double gr = myTrainParams.weight * G * sin(DEG2RAD(slope)); //kN
+    double res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
+    double totalRes = res + gr; //kN
 
-    SUMOReal a = (myTrainParams.decl + totalRes)/myTrainParams.rotWeight;
+    double a = (myTrainParams.decl + totalRes)/myTrainParams.rotWeight;
 
     return speed - a * DELTA_T / 1000.;
 
 }
 
-SUMOReal MSCFModel_Rail::getInterpolatedValueFromLookUpMap(SUMOReal speed, const LookUpMap * lookUpMap) const {
-    std::map<SUMOReal, SUMOReal>::const_iterator low, prev;
+double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const LookUpMap * lookUpMap) const {
+    std::map<double, double>::const_iterator low, prev;
     low = lookUpMap->lower_bound(speed);
 
     if (low == lookUpMap->end()) { //speed > max speed
@@ -154,14 +154,14 @@ SUMOReal MSCFModel_Rail::getInterpolatedValueFromLookUpMap(SUMOReal speed, const
     prev = low;
     --prev;
 
-    SUMOReal range = low->first - prev->first;
-    SUMOReal dist = speed - prev->first;
+    double range = low->first - prev->first;
+    double dist = speed - prev->first;
     assert(range > 0);
     assert(dist > 0);
 
-    SUMOReal weight = dist / range;
+    double weight = dist / range;
 
-    SUMOReal res = (1 - weight) * prev->second + weight * low->second;
+    double res = (1 - weight) * prev->second + weight * low->second;
 
     return res;
 
@@ -176,12 +176,12 @@ SUMOReal MSCFModel_Rail::getInterpolatedValueFromLookUpMap(SUMOReal speed, const
 //
 //}
 
-SUMOReal MSCFModel_Rail::getSpeedAfterMaxDecel(SUMOReal speed) const {
+double MSCFModel_Rail::getSpeedAfterMaxDecel(double speed) const {
 
 //    //TODO neither vehicle nor train is known here, so spd aftr mx decl cannot be calculated! [Gregor Feb '17]
-//    SUMOReal gr = 0; //trainParams.weight * 9.81 * edge.grade
+//    double gr = 0; //trainParams.weight * 9.81 * edge.grade
 //
-//    SUMOReal a = 0;//trainParams.decl - gr/trainParams.rotWeight;
+//    double a = 0;//trainParams.decl - gr/trainParams.rotWeight;
 //
 //    return speed + a * DELTA_T / 1000.;
     WRITE_ERROR("function call not allowd for rail model. Exiting!");
@@ -196,15 +196,15 @@ MSCFModel::VehicleVariables *MSCFModel_Rail::createVehicleVariables() const {
 
 
 //mostly c 'n p from MSCFModel
-SUMOReal MSCFModel_Rail::moveHelper(MSVehicle *const veh, SUMOReal vPos) const {
-    const SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
-    const SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
+double MSCFModel_Rail::moveHelper(MSVehicle *const veh, double vPos) const {
+    const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
+    const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
     //  in this case, we neglect dawdling, nonetheless, using
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
-    SUMOReal vMin, vNext;
-    const SUMOReal vMax = MIN3(veh->getMaxSpeedOnLane(), maxNextSpeed(oldV, veh), vSafe);
+    double vMin, vNext;
+    const double vMax = MIN3(veh->getMaxSpeedOnLane(), maxNextSpeed(oldV, veh), vSafe);
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         // we cannot rely on never braking harder than maxDecel because TraCI or strange cf models may decide to do so
         vMin = MIN2(minNextSpeed(oldV, veh), vMax);
@@ -225,7 +225,7 @@ SUMOReal MSCFModel_Rail::moveHelper(MSVehicle *const veh, SUMOReal vPos) const {
     return vNext;
 }
 
-SUMOReal MSCFModel_Rail::freeSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal dist, SUMOReal targetSpeed,
+double MSCFModel_Rail::freeSpeed(const MSVehicle *const veh, double speed, double dist, double targetSpeed,
                                    const bool onInsertion) const {
 
 //    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
@@ -241,22 +241,22 @@ SUMOReal MSCFModel_Rail::freeSpeed(const MSVehicle *const veh, SUMOReal speed, S
         // (drive with v in the final step)
         // g = (y^2 + y) * 0.5 * b + y * v
         // y = ((((sqrt((b + 2.0*v)*(b + 2.0*v) + 8.0*b*g)) - b)*0.5 - v)/b)
-        const SUMOReal v = SPEED2DIST(targetSpeed);
+        const double v = SPEED2DIST(targetSpeed);
         if (dist < v) {
             return targetSpeed;
         }
-        const SUMOReal b = ACCEL2DIST(myDecel);
-        const SUMOReal y = MAX2(0.0, ((sqrt((b + 2.0 * v) * (b + 2.0 * v) + 8.0 * b * dist) - b) * 0.5 - v) / b);
-        const SUMOReal yFull = floor(y);
-        const SUMOReal exactGap = (yFull * yFull + yFull) * 0.5 * b + yFull * v + (y > yFull ? v : 0.0);
-        const SUMOReal fullSpeedGain = (yFull + (onInsertion ? 1. : 0.)) * ACCEL2SPEED(myTrainParams.decl);
-        return DIST2SPEED(MAX2((SUMOReal)0.0, dist - exactGap) / (yFull + 1)) + fullSpeedGain + targetSpeed;
+        const double b = ACCEL2DIST(myDecel);
+        const double y = MAX2(0.0, ((sqrt((b + 2.0 * v) * (b + 2.0 * v) + 8.0 * b * dist) - b) * 0.5 - v) / b);
+        const double yFull = floor(y);
+        const double exactGap = (yFull * yFull + yFull) * 0.5 * b + yFull * v + (y > yFull ? v : 0.0);
+        const double fullSpeedGain = (yFull + (onInsertion ? 1. : 0.)) * ACCEL2SPEED(myTrainParams.decl);
+        return DIST2SPEED(MAX2(0.0, dist - exactGap) / (yFull + 1)) + fullSpeedGain + targetSpeed;
     } else {
         WRITE_ERROR("Anything else then semi implicit euler update is not yet implemented. Exiting!");
         throw ProcessError();
     }
 }
 
-SUMOReal MSCFModel_Rail::stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const {
+double MSCFModel_Rail::stopSpeed(const MSVehicle *const veh, const double speed, double gap) const {
     return 0;
 }

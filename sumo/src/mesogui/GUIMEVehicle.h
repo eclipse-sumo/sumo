@@ -68,7 +68,7 @@ public:
      * @exception ProcessError If a value is wrong
      */
     GUIMEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-                 const MSVehicleType* type, const SUMOReal speedFactor);
+                 const MSVehicleType* type, const double speedFactor);
 
 
     /// @brief destructor
@@ -79,7 +79,7 @@ public:
     *
     * @note implementation of abstract method does not work otherwise
     */
-    Position getPosition(const SUMOReal offset = 0) const {
+    Position getPosition(const double offset = 0) const {
         return MEVehicle::getPosition(offset);
     }
 
@@ -87,12 +87,12 @@ public:
     *
     * @note implementation of abstract method does not work otherwise
     */
-    SUMOReal getAngle() const {
+    double getAngle() const {
         return MEVehicle::getAngle();
     }
 
     /// @brief gets the color value according to the current scheme index
-    SUMOReal getColorValue(int activeScheme) const;
+    double getColorValue(int activeScheme) const;
 
     /// @brief draws the given guiShape if it has distinc carriages/modules and eturns true if so
     bool drawAction_drawCarriageClass(const GUIVisualizationSettings& s, SUMOVehicleShape guiShape, bool asImage) const;
@@ -101,12 +101,12 @@ public:
      * @see MSVehicle::myLastLaneChangeOffset
      * @return The time since the last lane change in seconds
      */
-    SUMOReal getLastLaneChangeOffset() const;
+    double getLastLaneChangeOffset() const;
 
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    void drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const;
+    void drawRouteHelper(const MSRoute& r, double exaggeration) const;
 
     /// @brief retrieve information about the current stop state
     std::string getStopInfo() const;

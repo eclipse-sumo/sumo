@@ -42,7 +42,7 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouterInterval::GNERerouterInterval(GNERerouter* rerouterParent, SUMOReal begin, SUMOReal end) :
+GNERerouterInterval::GNERerouterInterval(GNERerouter* rerouterParent, double begin, double end) :
     myRerouterParent(rerouterParent),
     myBegin(begin),
     myEnd(end),
@@ -167,26 +167,26 @@ GNERerouterInterval::getTag() const {
 }
 
 
-SUMOReal
+double
 GNERerouterInterval::getBegin() const {
     return myBegin;
 }
 
 
-SUMOReal
+double
 GNERerouterInterval::getEnd() const {
     return myEnd;
 }
 
 
 void
-GNERerouterInterval::setBegin(SUMOReal begin) {
+GNERerouterInterval::setBegin(double begin) {
     myBegin = begin;
 }
 
 
 void
-GNERerouterInterval::setEnd(SUMOReal end) {
+GNERerouterInterval::setEnd(double end) {
     myEnd = end;
 }
 

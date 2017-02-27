@@ -63,11 +63,11 @@
 // method definitions
 // ===========================================================================
 GUIContainerStop::GUIContainerStop(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
-                                   SUMOReal frompos, SUMOReal topos)
+                                   double frompos, double topos)
     : MSStoppingPlace(id, lines, lane, frompos, topos),
       GUIGlObject_AbstractAdd("containerStop", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
-    myFGShape.move2side((SUMOReal) 1.65);
+    myFGShape.move2side((double) 1.65);
     myFGShape = myFGShape.getSubpart(frompos, topos);
     myFGShapeRotations.reserve(myFGShape.size() - 1);
     myFGShapeLengths.reserve(myFGShape.size() - 1);
@@ -76,14 +76,14 @@ GUIContainerStop::GUIContainerStop(const std::string& id, const std::vector<std:
         const Position& f = myFGShape[i];
         const Position& s = myFGShape[i + 1];
         myFGShapeLengths.push_back(f.distanceTo(s));
-        myFGShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+        myFGShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
     }
     PositionVector tmp = myFGShape;
     tmp.move2side(1.5);
     myFGSignPos = tmp.getLineCenter();
     myFGSignRot = 0;
     if (tmp.length() != 0) {
-        myFGSignRot = myFGShape.rotationDegreeAtOffset(SUMOReal((myFGShape.length() / 2.)));
+        myFGSignRot = myFGShape.rotationDegreeAtOffset(double((myFGShape.length() / 2.)));
         myFGSignRot -= 90;
     }
 }
@@ -133,7 +133,7 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::setColor(blue);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw details unless zoomed out to far
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
     if (s.scale * exaggeration >= 10) {
         // draw the lines
         for (i = 0; i != (int)myLines.size(); ++i) {
@@ -156,10 +156,10 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
         }
         glScaled(exaggeration, exaggeration, 1);
-        GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
+        GLHelper::drawFilledCircle((double) 1.1, noPoints);
         glTranslated(0, 0, .1);
         GLHelper::setColor(grey);
-        GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
+        GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.scale * exaggeration >= 4.5) {
             GLHelper::drawText("C", Position(), .1, 1.6 * exaggeration, blue, myFGSignRot);
         }

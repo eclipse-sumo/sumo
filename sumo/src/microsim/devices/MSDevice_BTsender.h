@@ -117,7 +117,7 @@ public:
      *
      * @return True if vehicle hasn't passed the reminder completely.
      */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
+    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
 
 
     /** @brief Moves (the known) vehicle from running to arrived vehicles' list
@@ -130,7 +130,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOVehicle& veh, double lastPos, Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
     /// @}
 
 
@@ -146,21 +146,21 @@ public:
          * @param[in] _laneID The id of the lane the vehicle is located at
          * @param[in] _lanePos The position of the vehicle along the lane
          */
-        VehicleState(const SUMOReal _speed, const Position& _position, const std::string& _laneID,
-                     const SUMOReal _lanePos, const int _routePos)
+        VehicleState(const double _speed, const Position& _position, const std::string& _laneID,
+                     const double _lanePos, const int _routePos)
             : speed(_speed), position(_position), laneID(_laneID), lanePos(_lanePos), routePos(_routePos) {}
 
         /// @brief Destructor
         ~VehicleState() {}
 
         /// @brief The speed of the vehicle
-        SUMOReal speed;
+        double speed;
         /// @brief The position of the vehicle
         Position position;
         /// @brief The lane the vehicle was at
         std::string laneID;
         /// @brief The position at the lane of the vehicle
-        SUMOReal lanePos;
+        double lanePos;
         /// @brief The position in the route of the vehicle
         int routePos;
 

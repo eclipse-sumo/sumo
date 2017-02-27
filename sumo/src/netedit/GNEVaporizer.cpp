@@ -65,7 +65,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal startTime, SUMOReal end) :
+GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) :
     GNEAdditional(id, viewNet, Position(), SUMO_TAG_VAPORIZER, ICON_VAPORIZER),
     myStartTime(startTime),
     myEnd(end) {
@@ -133,13 +133,13 @@ GNEVaporizer::getPositionInView() const {
 
 
 void
-GNEVaporizer::moveAdditionalGeometry(SUMOReal, SUMOReal) {
+GNEVaporizer::moveAdditionalGeometry(double, double) {
     // This additional cannot be moved
 }
 
 
 void
-GNEVaporizer::commmitAdditionalGeometryMoved(SUMOReal, SUMOReal, GNEUndoList*) {
+GNEVaporizer::commmitAdditionalGeometryMoved(double, double, GNEUndoList*) {
     // This additional cannot be moved
 }
 
@@ -157,26 +157,26 @@ GNEVaporizer::writeAdditional(OutputDevice& device) const {
 }
 
 
-SUMOReal
+double
 GNEVaporizer::getStartTime() const {
     return myStartTime;
 }
 
 
-SUMOReal
+double
 GNEVaporizer::getEnd() const {
     return myEnd;
 }
 
 
 void
-GNEVaporizer::setStartTime(SUMOReal startTime) {
+GNEVaporizer::setStartTime(double startTime) {
     myStartTime = startTime;
 }
 
 
 void
-GNEVaporizer::setEndTime(SUMOReal end) {
+GNEVaporizer::setEndTime(double end) {
     myEnd = end;
 }
 
@@ -194,9 +194,9 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glLineWidth(1.0);
 
     // Declare auxiliar values
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
     int numberOfLanes = int(myEdge->getLanes().size());
-    SUMOReal width = (SUMOReal) 2.0 * s.scale;
+    double width = (double) 2.0 * s.scale;
 
     // draw shape
     glColor3ub(120, 216, 0);
@@ -313,9 +313,9 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTTIME:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         case SUMO_ATTR_END:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -332,10 +332,10 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeEdge(value);
             break;
         case SUMO_ATTR_STARTTIME:
-            myStartTime = parse<SUMOReal>(value);
+            myStartTime = parse<double>(value);
             break;
         case SUMO_ATTR_END:
-            myEnd = parse<SUMOReal>(value);
+            myEnd = parse<double>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

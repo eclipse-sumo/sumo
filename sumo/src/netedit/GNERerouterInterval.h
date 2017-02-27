@@ -50,7 +50,7 @@
 class GNERerouterInterval {
 public:
     /// @brief constructor
-    GNERerouterInterval(GNERerouter* rerouterParent, SUMOReal begin, SUMOReal end);
+    GNERerouterInterval(GNERerouter* rerouterParent, double begin, double end);
 
     /// @brief destructor
     ~GNERerouterInterval();
@@ -102,16 +102,16 @@ public:
     SumoXMLTag getTag() const;
 
     /// @brief get begin time
-    SUMOReal getBegin() const;
+    double getBegin() const;
 
     /// @brief get end time
-    SUMOReal getEnd() const;
+    double getEnd() const;
 
     /// @brief set begin time
-    void setBegin(SUMOReal begin);
+    void setBegin(double begin);
 
     /// @brief set end time
-    void setEnd(SUMOReal end);
+    void setEnd(double end);
 
     /// @brief get closing reroutes
     const std::vector<GNEClosingLaneReroute>& getClosingLaneReroutes() const;
@@ -145,10 +145,10 @@ protected:
     GNERerouter* myRerouterParent;
 
     /// @brief begin timeStep
-    SUMOReal myBegin;
+    double myBegin;
 
     /// @brief end timeStep
-    SUMOReal myEnd;
+    double myEnd;
 
     /// @brief XML Tag of a rerouter interval
     SumoXMLTag myTag;

@@ -50,8 +50,8 @@ public:
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's reaction time
      */
-    MSCFModel_PWag2009(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal dawdle,
-                       SUMOReal headwayTime, SUMOReal tauLast, SUMOReal apProb);
+    MSCFModel_PWag2009(const MSVehicleType* vtype, double accel, double decel, double dawdle,
+                       double headwayTime, double tauLast, double apProb);
 
 
     /// @brief Destructor
@@ -66,7 +66,7 @@ public:
      * @param[in] vPos The possible velocity
      * @return The velocity after applying interactions with stops and lane change model influences
      */
-    SUMOReal moveHelper(MSVehicle* const veh, SUMOReal vPos) const;
+    double moveHelper(MSVehicle* const veh, double vPos) const;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -77,7 +77,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    SUMOReal followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -87,7 +87,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap2pred) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const;
 
 
     /** @brief Returns the model's name
@@ -102,7 +102,7 @@ public:
     /** @brief Get the driver's imperfection
      * @return The imperfection of drivers of this class
      */
-    SUMOReal getImperfection() const {
+    double getImperfection() const {
         return myDawdle;
     }
     /// @}
@@ -126,7 +126,7 @@ public:
 private:
     class VehicleVariables : public MSCFModel::VehicleVariables {
     public:
-        SUMOReal aOld;
+        double aOld;
     };
 
     /** @brief Returns the next velocity
@@ -134,32 +134,32 @@ private:
      * @param[in] predSpeed The LEADER's speed
      * @return the safe velocity
      */
-    SUMOReal _v(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const;
+    double _v(const MSVehicle* const veh, double speed, double gap, double predSpeed) const;
 
 
     /** @brief Applies driver imperfection (dawdling / sigma)
      * @param[in] speed The speed with no dawdling
      * @return The speed after dawdling
      */
-    SUMOReal dawdle(SUMOReal speed) const;
+    double dawdle(double speed) const;
 
 private:
     /// @name model parameter
     /// @{
     /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
-    SUMOReal myDawdle;
+    double myDawdle;
 
     /// @brief The precomputed value for myDecel*myTau
-    SUMOReal myTauDecel;
+    double myTauDecel;
 
     /// @brief The precomputed value for myDecel/myTau
-    SUMOReal myDecelDivTau;
+    double myDecelDivTau;
 
     /// @brief The precomputed value for (minimum headway time)*myDecel
-    SUMOReal myTauLastDecel;
+    double myTauLastDecel;
 
     /// @brief The probability for any action
-    SUMOReal myActionPointProbability;
+    double myActionPointProbability;
     /// @}
 
 };

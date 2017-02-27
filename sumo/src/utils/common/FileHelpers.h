@@ -147,13 +147,13 @@ public:
 
     /** @brief Writes a float binary
      *
-     * This method behaves differently depending on the definition of SUMOReal at compile time.
+     * This method behaves differently depending on the definition of double at compile time.
      *
      * @param[in, out] strm The stream to write into
      * @param[in] value The float to write
      * @return Reference to the stream
      */
-    static std::ostream& writeFloat(std::ostream& strm, SUMOReal value);
+    static std::ostream& writeFloat(std::ostream& strm, double value);
 
 
     /** @brief Writes a byte binary

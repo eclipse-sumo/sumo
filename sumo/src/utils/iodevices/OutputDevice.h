@@ -136,7 +136,7 @@ public:
      * @param[in] precision the precision to achieve
      * @return The formatted string
      */
-    static std::string realString(const SUMOReal v, const int precision = gPrecision);
+    static std::string realString(const double v, const int precision = gPrecision);
 
 
 public:

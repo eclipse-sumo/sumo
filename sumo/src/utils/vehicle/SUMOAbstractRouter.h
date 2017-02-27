@@ -53,7 +53,7 @@ template<class E, class V>
 class SUMOAbstractRouter {
 public:
     /// Type of the function that is used to retrieve the edge effort.
-    typedef SUMOReal(* Operation)(const E* const, const V* const, SUMOReal);
+    typedef double(* Operation)(const E* const, const V* const, double);
 
     /// Constructor
     SUMOAbstractRouter(Operation operation, const std::string& type):
@@ -81,10 +81,10 @@ public:
     virtual bool compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*>& into) = 0;
 
-    virtual SUMOReal recomputeCosts(const std::vector<const E*>& edges,
+    virtual double recomputeCosts(const std::vector<const E*>& edges,
                                     const V* const v, SUMOTime msTime) const = 0;
 
-    inline SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) const {
+    inline double getEffort(const E* const e, const V* const v, double t) const {
         return (*myOperation)(e, v, t);
     }
 

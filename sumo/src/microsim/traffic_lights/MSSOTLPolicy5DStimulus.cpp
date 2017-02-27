@@ -40,7 +40,7 @@ MSSOTLPolicy5DStimulus::MSSOTLPolicy5DStimulus(std::string keyPrefix,
     stimCoxExpDispersionOutDVal = 0;
 }
 
-SUMOReal MSSOTLPolicy5DStimulus::computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure, SUMOReal vehInDispersionMeasure, SUMOReal vehOutDispersionMeasure) {
+double MSSOTLPolicy5DStimulus::computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure, double vehOutDispersionMeasure) {
     DBG(
         std::ostringstream str;
         str << "cox=" << getStimCox() << ", cox_exp_in=" << getStimCoxExpIn() << ", cox_exp_out=" << getStimCoxExpOut()
@@ -58,7 +58,7 @@ SUMOReal MSSOTLPolicy5DStimulus::computeDesirability(SUMOReal vehInMeasure, SUMO
         assert(-1);
         return -1;
     } else {
-        SUMOReal stimulus = getStimCox()
+        double stimulus = getStimCox()
                             * exp(
                                 -getStimCoxExpIn()
                                 * pow(vehInMeasure - getStimOffsetIn(), 2)
@@ -78,7 +78,7 @@ SUMOReal MSSOTLPolicy5DStimulus::computeDesirability(SUMOReal vehInMeasure, SUMO
     }
 }
 
-SUMOReal MSSOTLPolicy5DStimulus::computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure) {
+double MSSOTLPolicy5DStimulus::computeDesirability(double vehInMeasure, double vehOutMeasure) {
 
     return computeDesirability(vehInMeasure, vehOutMeasure, 0, 0);
 }

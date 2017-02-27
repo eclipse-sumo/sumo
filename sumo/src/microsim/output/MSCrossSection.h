@@ -55,7 +55,7 @@ public:
      * @param[in] lane The lane to cross
      * @param[in] pos The position at the lane
      */
-    MSCrossSection(MSLane* lane, SUMOReal pos) : myLane(lane) , myPosition(pos) {}
+    MSCrossSection(MSLane* lane, double pos) : myLane(lane) , myPosition(pos) {}
 
 
 public:
@@ -63,7 +63,7 @@ public:
     MSLane* myLane;
 
     /// @brief The position at the lane
-    SUMOReal myPosition;
+    double myPosition;
 
 };
 

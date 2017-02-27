@@ -151,7 +151,7 @@ NIFrame::fillOptions() {
     oc.doRegister("ignore-errors.edge-type", new Option_Bool(false));
     oc.addDescription("ignore-errors.edge-type", "Processing", "Continue on unknown edge types");
 
-    oc.doRegister("lanes-from-capacity.norm", new Option_Float((SUMOReal) 1800));
+    oc.doRegister("lanes-from-capacity.norm", new Option_Float((double) 1800));
     oc.addSynonyme("lanes-from-capacity.norm", "capacity-norm");
     oc.addDescription("lanes-from-capacity.norm", "Processing", "The factor for flow to no. lanes conversion");
 

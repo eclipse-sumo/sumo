@@ -90,7 +90,7 @@ GUIParameterTracker::~GUIParameterTracker() {
         delete(*i1);
     }
     // deleted by GUINet
-    for (std::vector<GLObjectValuePassConnector<SUMOReal>*>::iterator i2 = myValuePassers.begin(); i2 != myValuePassers.end(); i2++) {
+    for (std::vector<GLObjectValuePassConnector<double>*>::iterator i2 = myValuePassers.begin(); i2 != myValuePassers.end(); i2++) {
         delete(*i2);
     }
     delete myToolBarDrag;
@@ -128,11 +128,11 @@ GUIParameterTracker::buildToolBar() {
 
 
 void
-GUIParameterTracker::addTracked(GUIGlObject& o, ValueSource<SUMOReal>* src,
+GUIParameterTracker::addTracked(GUIGlObject& o, ValueSource<double>* src,
                                 TrackerValueDesc* newTracked) {
     myTracked.push_back(newTracked);
     // build connection (is automatically set into an execution map)
-    myValuePassers.push_back(new GLObjectValuePassConnector<SUMOReal>(o, src, newTracked));
+    myValuePassers.push_back(new GLObjectValuePassConnector<double>(o, src, newTracked));
 }
 
 
@@ -266,8 +266,8 @@ GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel() {}
 
 void
 GUIParameterTracker::GUIParameterTrackerPanel::drawValues() {
-    pfSetScale((SUMOReal) 0.1);
-    pfSetScaleXY((SUMOReal)(.1 * 300. / myWidthInPixels), (SUMOReal)(.1 * 300. / (SUMOReal) myHeightInPixels));
+    pfSetScale((double) 0.1);
+    pfSetScaleXY((double)(.1 * 300. / myWidthInPixels), (double)(.1 * 300. / (double) myHeightInPixels));
     //
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -278,7 +278,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues() {
     for (std::vector<TrackerValueDesc*>::iterator i = myParent->myTracked.begin(); i != myParent->myTracked.end(); i++) {
         TrackerValueDesc* desc = *i;
         drawValue(*desc,
-                  (SUMOReal) myWidthInPixels / (SUMOReal) myParent->myTracked.size() * (SUMOReal) run);
+                  (double) myWidthInPixels / (double) myParent->myTracked.size() * (double) run);
         run++;
     }
 }
@@ -286,14 +286,14 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues() {
 
 void
 GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
-        SUMOReal /*namePos*/) {
+        double /*namePos*/) {
     // apply scaling
     glPushMatrix();
 
     // apply the positiopn offset of the display
     glScaled(0.8, 0.8, 1);
     // apply value range scaling
-    SUMOReal ys = (SUMOReal) 2.0 / (SUMOReal) desc.getRange();
+    double ys = (double) 2.0 / (double) desc.getRange();
     glScaled(1.0, ys, 1.0);
     glTranslated(-1.0, -desc.getYCenter(), 0);
 
@@ -313,14 +313,14 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     glEnd();
     glColor4ub(red, green, blue, 77);
     for (int a = 1; a < 6; a++) {
-        SUMOReal ypos = (desc.getRange()) / (SUMOReal) 6.0 * (SUMOReal) a + desc.getMin();
+        double ypos = (desc.getRange()) / (double) 6.0 * (double) a + desc.getMin();
         glBegin(GL_LINES);
         glVertex2d(0, ypos);
         glVertex2d(2.0, ypos);
         glEnd();
     }
-    const std::vector<SUMOReal>& values = desc.getAggregatedValues();
-    SUMOReal latest = 0;
+    const std::vector<double>& values = desc.getAggregatedValues();
+    double latest = 0;
     if (values.size() < 2) {
         glPopMatrix();
         desc.unlockValues();
@@ -328,15 +328,15 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     } else {
         latest = values.back();
         // init values
-        SUMOReal xStep = (SUMOReal) 2.0 / (SUMOReal) values.size();
-        std::vector<SUMOReal>::const_iterator i = values.begin();
-        SUMOReal yp = (*i);
-        SUMOReal xp = 0;
+        double xStep = (double) 2.0 / (double) values.size();
+        std::vector<double>::const_iterator i = values.begin();
+        double yp = (*i);
+        double xp = 0;
         i++;
         glColor4ub(red, green, blue, 255);
         for (; i != values.end(); i++) {
-            SUMOReal yn = (*i);
-            SUMOReal xn = xp + xStep;
+            double yn = (*i);
+            double xn = xp + xStep;
             glBegin(GL_LINES);
             glVertex2d(xp, yp);
             glVertex2d(xn, yn);
@@ -354,7 +354,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     // draw min time
     SUMOTime beginStep = desc.getRecordingBegin();
     std::string begStr = time2string(beginStep);
-    SUMOReal w = pfdkGetStringWidth(begStr.c_str());
+    double w = pfdkGetStringWidth(begStr.c_str());
     glRotated(180, 1, 0, 0);
     pfSetPosition(0, 0);
     glTranslated(-0.8 - w / 2., 0.88, 0);
@@ -389,8 +389,8 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     // draw current value
     glRotated(180, 1, 0, 0);
     pfSetPosition(0, 0);
-    SUMOReal p = (SUMOReal) 0.8 -
-                 ((SUMOReal) 1.6 / (desc.getMax() - desc.getMin()) * (latest - desc.getMin()));
+    double p = (double) 0.8 -
+                 ((double) 1.6 / (desc.getMax() - desc.getMin()) * (latest - desc.getMin()));
     glTranslated(-0.98, p + .02, 0);
     pfDrawString(toString(latest).c_str());
     glTranslated(0.98, -(p + .02), 0);

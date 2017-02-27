@@ -109,7 +109,7 @@ public:
 
 
     /// @brief Returns the vehicle's maximum speed
-    inline SUMOReal getMaxSpeed() const {
+    inline double getMaxSpeed() const {
         return myType->maxSpeed;
     }
 

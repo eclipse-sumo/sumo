@@ -61,7 +61,7 @@ TrackerValueDesc::~TrackerValueDesc() {
 
 
 void
-TrackerValueDesc::addValue(SUMOReal value) {
+TrackerValueDesc::addValue(double value) {
     if (myValues.size() == 0) {
         myMin = value;
         myMax = value;
@@ -75,7 +75,7 @@ TrackerValueDesc::addValue(SUMOReal value) {
         myTmpLastAggValue += value;
         myValidNo++;
     }
-    const SUMOReal avg = myValidNo == 0 ? static_cast<SUMOReal>(0) : myTmpLastAggValue / static_cast<SUMOReal>(myValidNo);
+    const double avg = myValidNo == 0 ? static_cast<double>(0) : myTmpLastAggValue / static_cast<double>(myValidNo);
     if (myAggregationInterval == 1 || myValues.size() % myAggregationInterval == 1) {
         myAggregatedValues.push_back(avg);
     } else {
@@ -88,25 +88,25 @@ TrackerValueDesc::addValue(SUMOReal value) {
 }
 
 
-SUMOReal
+double
 TrackerValueDesc::getRange() const {
     return myMax - myMin;
 }
 
 
-SUMOReal
+double
 TrackerValueDesc::getMin() const {
     return myMin;
 }
 
 
-SUMOReal
+double
 TrackerValueDesc::getMax() const {
     return myMax;
 }
 
 
-SUMOReal
+double
 TrackerValueDesc::getYCenter() const {
     return (myMin + myMax) / 2.0f;
 }
@@ -118,14 +118,14 @@ TrackerValueDesc::getColor() const {
 }
 
 
-const std::vector<SUMOReal>&
+const std::vector<double>&
 TrackerValueDesc::getValues() {
     myLock.lock();
     return myValues;
 }
 
 
-const std::vector<SUMOReal>&
+const std::vector<double>&
 TrackerValueDesc::getAggregatedValues() {
     myLock.lock();
     return myAggregatedValues;
@@ -151,7 +151,7 @@ TrackerValueDesc::setAggregationSpan(SUMOTime as) {
         // ok, the aggregation has changed,
         //  let's recompute the list of aggregated values
         myAggregatedValues.clear();
-        std::vector<SUMOReal>::const_iterator i = myValues.begin();
+        std::vector<double>::const_iterator i = myValues.begin();
         while (i != myValues.end()) {
             myTmpLastAggValue = 0;
             myValidNo = 0;
@@ -164,7 +164,7 @@ TrackerValueDesc::setAggregationSpan(SUMOTime as) {
             if (myValidNo == 0) {
                 myAggregatedValues.push_back(0);
             } else {
-                myAggregatedValues.push_back(myTmpLastAggValue / static_cast<SUMOReal>(myValidNo));
+                myAggregatedValues.push_back(myTmpLastAggValue / static_cast<double>(myValidNo));
             }
         }
     }

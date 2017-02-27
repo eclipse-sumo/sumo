@@ -59,8 +59,8 @@ public:
      * - speed: included in MSVehicleType
      */
     MSCFModel_Wiedemann(const MSVehicleType* vtype,
-                        SUMOReal accel, SUMOReal decel,
-                        SUMOReal security, SUMOReal estimation);
+                        double accel, double decel,
+                        double security, double estimation);
 
 
     /// @brief Destructor
@@ -75,7 +75,7 @@ public:
      * @param[in] vPos The possible velocity
      * @return The velocity after applying interactions with stops and lane change model influences
      */
-    SUMOReal moveHelper(MSVehicle* const veh, SUMOReal vPos) const;
+    double moveHelper(MSVehicle* const veh, double vPos) const;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -86,7 +86,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    SUMOReal followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -96,7 +96,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap) const;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
@@ -108,7 +108,7 @@ public:
      * @todo evaluate signature
      * @see MSCFModel::interactionGap
      */
-    SUMOReal interactionGap(const MSVehicle* const , SUMOReal vL) const;
+    double interactionGap(const MSVehicle* const , double vL) const;
 
 
     /** @brief Returns the model's name
@@ -138,7 +138,7 @@ private:
     public:
         VehicleVariables() : accelSign(1) {}
         /// @brief state variable for remembering the drift direction
-        SUMOReal accelSign;
+        double accelSign;
     };
 
 
@@ -146,14 +146,14 @@ private:
     /* @brief the main enty point for the speed computation
      * @param[in] gap The netto gap (front bumper of ego to back bumper of leader)
      */
-    SUMOReal _v(const MSVehicle* veh, SUMOReal predSpeed, SUMOReal gap) const;
+    double _v(const MSVehicle* veh, double predSpeed, double gap) const;
 
     /// @name acceleration based on the 'driving regime'
     /// @{
-    SUMOReal fullspeed(SUMOReal v, SUMOReal vpref, SUMOReal dx, SUMOReal bx) const; // also 'WUNSCH'
-    SUMOReal following(SUMOReal sign) const; // also 'FOLGEN'
-    SUMOReal approaching(SUMOReal dv, SUMOReal dx, SUMOReal bx) const;  // also 'BREMSBX'
-    SUMOReal emergency(SUMOReal dv, SUMOReal dx) const; // also 'BREMSAX'
+    double fullspeed(double v, double vpref, double dx, double bx) const; // also 'WUNSCH'
+    double following(double sign) const; // also 'FOLGEN'
+    double approaching(double dv, double dx, double bx) const;  // also 'BREMSBX'
+    double emergency(double dv, double dx) const; // also 'BREMSAX'
     /// @}
 
 private:
@@ -161,27 +161,27 @@ private:
     /// @{
 
     /// @brief The driver's security parameter // also 'ZF1'
-    const SUMOReal mySecurity;
+    const double mySecurity;
 
     /// @brief The driver's estimation parameter // also 'ZF2'
-    const SUMOReal myEstimation;
+    const double myEstimation;
 
     /// @brief front-bumper to front-bumper distance
-    const SUMOReal myAX;
+    const double myAX;
 
     /// @brief perception threshold modifier
-    const SUMOReal myCX;
+    const double myCX;
 
     /// @brief The vehicle's minimum acceleration [m/s^2]
-    const SUMOReal myMinAccel;
+    const double myMinAccel;
 
     /// @brief free-flow distance in m
-    static const SUMOReal D_MAX;
+    static const double D_MAX;
     /// @}
 
     /// @brief vsafe from krauss since Wiedemann is deficient at approaching
     // standing obstacles (see MSCFModel_Krauss::_vsafe)
-    SUMOReal krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const;
+    double krauss_vsafe(double gap, double predSpeed) const;
 
 private:
     /// @brief Invalidated assignment operator

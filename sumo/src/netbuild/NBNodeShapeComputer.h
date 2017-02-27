@@ -135,15 +135,15 @@ private:
                               GeomsMap& geomsCCW,
                               EdgeVector::const_iterator& cwi,
                               EdgeVector::const_iterator& ccwi,
-                              SUMOReal& cad,
-                              SUMOReal& ccad);
+                              double& cad,
+                              double& ccad);
 
     /// @return whether trying to intersect these edges would probably fail
     bool badIntersection(const NBEdge* e1, const NBEdge* e2,
-                         const PositionVector& e1cw, const PositionVector& e2ccw, SUMOReal distance);
+                         const PositionVector& e1cw, const PositionVector& e2ccw, double distance);
 
     /// @brief return the intersection point closest to the given offset
-    SUMOReal closestIntersection(const PositionVector& geom1, const PositionVector& geom2, SUMOReal offset);
+    double closestIntersection(const PositionVector& geom1, const PositionVector& geom2, double offset);
 
 private:
     /// The node to compute the geometry for

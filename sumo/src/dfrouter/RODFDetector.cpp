@@ -64,7 +64,7 @@
 // method definitions
 // ===========================================================================
 RODFDetector::RODFDetector(const std::string& id, const std::string& laneID,
-                           SUMOReal pos, const RODFDetectorType type)
+                           double pos, const RODFDetectorType type)
     : Named(id), myLaneID(laneID), myPosition(pos), myType(type), myRoutes(0) {}
 
 
@@ -88,10 +88,10 @@ RODFDetector::setType(RODFDetectorType type) {
 }
 
 
-SUMOReal
+double
 RODFDetector::computeDistanceFactor(const RODFRouteDesc& rd) const {
-    SUMOReal distance = rd.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(rd.edges2Pass.back()->getToJunction()->getPosition());
-    SUMOReal length = 0;
+    double distance = rd.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(rd.edges2Pass.back()->getToJunction()->getPosition());
+    double length = 0;
     for (ROEdgeVector::const_iterator i = rd.edges2Pass.begin(); i != rd.edges2Pass.end(); ++i) {
         length += (*i)->getLength();
     }
@@ -129,7 +129,7 @@ RODFDetector::computeSplitProbabilities(const RODFNet* net, const RODFDetectorCo
             }
         }
     }
-    std::map<ROEdge*, SUMOReal> inFlows;
+    std::map<ROEdge*, double> inFlows;
     if (OptionsCont::getOptions().getBool("respect-concurrent-inflows")) {
         for (std::vector<RODFEdge*>::const_iterator i = nextDetEdges.begin(); i != nextDetEdges.end(); ++i) {
             std::set<ROEdge*> seen(preSplitEdges);
@@ -156,11 +156,11 @@ RODFDetector::computeSplitProbabilities(const RODFNet* net, const RODFDetectorCo
     // compute the probabilities to use a certain direction
     int index = 0;
     for (SUMOTime time = startTime; time < endTime; time += stepOffset, ++index) {
-        mySplitProbabilities.push_back(std::map<RODFEdge*, SUMOReal>());
-        SUMOReal overallProb = 0;
+        mySplitProbabilities.push_back(std::map<RODFEdge*, double>());
+        double overallProb = 0;
         // retrieve the probabilities
         for (std::vector<RODFEdge*>::const_iterator i = nextDetEdges.begin(); i != nextDetEdges.end(); ++i) {
-            SUMOReal flow = detectors.getAggFlowFor(*i, time, 60, flows) - inFlows[*i];
+            double flow = detectors.getAggFlowFor(*i, time, 60, flows) - inFlows[*i];
             overallProb += flow;
             mySplitProbabilities[index][*i] = flow;
         }
@@ -189,26 +189,26 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon& detectors,
     // iterate through time (in output interval steps)
     for (SUMOTime time = startTime; time < endTime; time += stepOffset) {
         into[time] = new RandomDistributor<int>();
-        std::map<ROEdge*, SUMOReal> flowMap;
+        std::map<ROEdge*, double> flowMap;
         // iterate through the routes
         int index = 0;
         for (std::vector<RODFRouteDesc>::iterator ri = descs.begin(); ri != descs.end(); ++ri, index++) {
-            SUMOReal prob = 1.;
+            double prob = 1.;
             for (ROEdgeVector::iterator j = (*ri).edges2Pass.begin(); j != (*ri).edges2Pass.end() && prob > 0;) {
                 if (!net.hasDetector(*j)) {
                     ++j;
                     continue;
                 }
                 const RODFDetector& det = detectors.getAnyDetectorForEdge(static_cast<RODFEdge*>(*j));
-                const std::vector<std::map<RODFEdge*, SUMOReal> >& probs = det.getSplitProbabilities();
+                const std::vector<std::map<RODFEdge*, double> >& probs = det.getSplitProbabilities();
                 if (probs.size() == 0) {
                     prob = 0;
                     ++j;
                     continue;
                 }
-                const std::map<RODFEdge*, SUMOReal>& tprobs = probs[(int)((time - startTime) / stepOffset)];
+                const std::map<RODFEdge*, double>& tprobs = probs[(int)((time - startTime) / stepOffset)];
                 RODFEdge* splitEdge = 0;
-                for (std::map<RODFEdge*, SUMOReal>::const_iterator k = tprobs.begin(); k != tprobs.end(); ++k) {
+                for (std::map<RODFEdge*, double>::const_iterator k = tprobs.begin(); k != tprobs.end(); ++k) {
                     if (find(j, (*ri).edges2Pass.end(), (*k).first) != (*ri).edges2Pass.end()) {
                         prob *= (*k).second;
                         splitEdge = (*k).first;
@@ -288,9 +288,9 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                                      SUMOTime startTime, SUMOTime endTime,
                                      SUMOTime stepOffset,
                                      bool includeUnusedRoutes,
-                                     SUMOReal scale,
+                                     double scale,
                                      bool insertionsOnly,
-                                     SUMOReal defaultSpeed) const {
+                                     double defaultSpeed) const {
     OutputDevice& out = OutputDevice::getDevice(file);
     OptionsCont& oc = OptionsCont::getOptions();
     if (getType() != SOURCE_DETECTOR) {
@@ -311,7 +311,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_REFID, (*i).routename).writeAttr(SUMO_ATTR_PROB, (*i).overallProb).closeTag();
             }
             if (isEmptyDist) {
-                out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_REFID, (*i).routename).writeAttr(SUMO_ATTR_PROB, SUMOReal(1)).closeTag();
+                out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_REFID, (*i).routename).writeAttr(SUMO_ATTR_PROB, double(1)).closeTag();
             }
         }
         out.closeTag(); // routeDistribution
@@ -335,11 +335,11 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
             int carNo = (int)((srcFD.qPKW + srcFD.qLKW) * scale);
             for (int car = 0; car < carNo; ++car) {
                 // get the vehicle parameter
-                SUMOReal v = -1;
+                double v = -1;
                 std::string vtype;
                 int destIndex = destDist != 0 && destDist->getOverallProb() > 0 ? (int) destDist->get() : -1;
                 if (srcFD.isLKW >= 1) {
-                    srcFD.isLKW = srcFD.isLKW - (SUMOReal) 1.;
+                    srcFD.isLKW = srcFD.isLKW - (double) 1.;
                     v = srcFD.vLKW;
                     vtype = "LKW";
                 } else {
@@ -350,10 +350,10 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 if (v <= 0 || v > 250) {
                     v = defaultSpeed;
                 } else {
-                    v = (SUMOReal)(v / 3.6);
+                    v = (double)(v / 3.6);
                 }
                 // compute the departure time
-                SUMOTime ctime = (SUMOTime)(time + ((SUMOReal) stepOffset * (SUMOReal) car / (SUMOReal) carNo));
+                SUMOTime ctime = (SUMOTime)(time + ((double) stepOffset * (double) car / (double) carNo));
 
                 // write
                 out.openTag(SUMO_TAG_VEHICLE);
@@ -374,12 +374,12 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 if (oc.isSet("departpos")) {
                     std::string posDesc = oc.getString("departpos");
                     if (posDesc.substr(0, 8) == "detector") {
-                        SUMOReal position = myPosition;
+                        double position = myPosition;
                         if (posDesc.length() > 8) {
                             if (posDesc[8] == '+') {
-                                position += TplConvert::_2SUMOReal(posDesc.substr(9).c_str());
+                                position += TplConvert::_2double(posDesc.substr(9).c_str());
                             } else if (posDesc[8] == '-') {
-                                position -= TplConvert::_2SUMOReal(posDesc.substr(9).c_str());
+                                position -= TplConvert::_2double(posDesc.substr(9).c_str());
                             } else {
                                 throw NumberFormatException();
                             }
@@ -436,7 +436,7 @@ void
 RODFDetector::writeSingleSpeedTrigger(const std::string& file,
                                       const RODFDetectorFlows& flows,
                                       SUMOTime startTime, SUMOTime endTime,
-                                      SUMOTime stepOffset, SUMOReal defaultSpeed) {
+                                      SUMOTime stepOffset, double defaultSpeed) {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional", "additional_file.xsd");
     const std::vector<FlowDef>& mflows = flows.getFlowDefs(myID);
@@ -444,11 +444,11 @@ RODFDetector::writeSingleSpeedTrigger(const std::string& file,
     for (SUMOTime t = startTime; t < endTime; t += stepOffset, index++) {
         assert(index < (int)mflows.size());
         const FlowDef& srcFD = mflows[index];
-        SUMOReal speed = MAX2(srcFD.vLKW, srcFD.vPKW);
+        double speed = MAX2(srcFD.vLKW, srcFD.vPKW);
         if (speed <= 0 || speed > 250) {
             speed = defaultSpeed;
         } else {
-            speed = (SUMOReal)(speed / 3.6);
+            speed = (double)(speed / 3.6);
         }
         out.openTag(SUMO_TAG_STEP).writeAttr(SUMO_ATTR_TIME, time2string(t)).writeAttr(SUMO_ATTR_SPEED, speed).closeTag();
     }
@@ -621,7 +621,7 @@ RODFDetectorCon::writeEmitters(const std::string& file,
                                SUMOTime stepOffset, const RODFNet& net,
                                bool writeCalibrators,
                                bool includeUnusedRoutes,
-                               SUMOReal scale,
+                               double scale,
                                bool insertionsOnly) {
     // compute turn probabilities at detector
     for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
@@ -637,7 +637,7 @@ RODFDetectorCon::writeEmitters(const std::string& file,
         vTypeOut.writeXMLHeader("additional", "additional_file.xsd");
     }
     const bool forceDev = !OptionsCont::getOptions().isDefault("speeddev");
-    const SUMOReal speedDev = OptionsCont::getOptions().getFloat("speeddev");
+    const double speedDev = OptionsCont::getOptions().getFloat("speeddev");
     if (OptionsCont::getOptions().getBool("vtype")) {
         // write separate types
         SUMOVTypeParameter pkwType = SUMOVTypeParameter("PKW", SVC_PASSENGER);
@@ -672,7 +672,7 @@ RODFDetectorCon::writeEmitters(const std::string& file,
             continue;
         }
         // try to write the definition
-        SUMOReal defaultSpeed = net.getEdge(det->getEdgeID())->getSpeed();
+        double defaultSpeed = net.getEdge(det->getEdgeID())->getSpeed();
         //  ... compute routes' distribution over time
         std::map<SUMOTime, RandomDistributor<int>* > dists;
         if (!insertionsOnly && flows.knows(det->getID())) {
@@ -698,7 +698,7 @@ RODFDetectorCon::writeEmitters(const std::string& file,
 }
 
 void
-RODFDetectorCon::setSpeedFactorAndDev(SUMOVTypeParameter& type, SUMOReal maxFactor, SUMOReal avgFactor, SUMOReal dev, bool forceDev) {
+RODFDetectorCon::setSpeedFactorAndDev(SUMOVTypeParameter& type, double maxFactor, double avgFactor, double dev, bool forceDev) {
     if (avgFactor > 1) {
         // systematically low speeds can easily be caused by traffic
         // conditions. Whereas elevated speeds probably reflect speeding
@@ -721,7 +721,7 @@ RODFDetectorCon::writeEmitterPOIs(const std::string& file,
     out.writeXMLHeader("additional", "additional_file.xsd");
     for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
         RODFDetector* det = *i;
-        SUMOReal flow = flows.getFlowSumSecure(det->getID());
+        double flow = flows.getFlowSumSecure(det->getID());
         const unsigned char col = static_cast<unsigned char>(128 * flow / flows.getMaxDetectorFlow() + 128);
         out.openTag(SUMO_TAG_POI).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML((*i)->getID()) + ":" + toString(flow));
         switch ((*i)->getType()) {
@@ -754,12 +754,12 @@ RODFDetectorCon::getAggFlowFor(const ROEdge* edge, SUMOTime time, SUMOTime perio
     if (edge == 0) {
         return 0;
     }
-//    SUMOReal stepOffset = 60; // !!!
-//    SUMOReal startTime = 0; // !!!
+//    double stepOffset = 60; // !!!
+//    double startTime = 0; // !!!
 //    cout << edge->getID() << endl;
     assert(myDetectorEdgeMap.find(edge->getID()) != myDetectorEdgeMap.end());
     const std::vector<FlowDef>& flows = static_cast<const RODFEdge*>(edge)->getFlows();
-    SUMOReal agg = 0;
+    double agg = 0;
     for (std::vector<FlowDef>::const_iterator i = flows.begin(); i != flows.end(); ++i) {
         const FlowDef& srcFD = *i;
         if (srcFD.qLKW >= 0) {
@@ -772,7 +772,7 @@ RODFDetectorCon::getAggFlowFor(const ROEdge* edge, SUMOTime time, SUMOTime perio
     return (int) agg;
     /* !!! make this time variable
     if (flows.size()!=0) {
-        SUMOReal agg = 0;
+        double agg = 0;
         int beginIndex = (int)((time/stepOffset) - startTime);  // !!! falsch!!!
         for (SUMOTime t=0; t<period&&beginIndex<flows.size(); t+=(SUMOTime) stepOffset) {
             const FlowDef &srcFD = flows[beginIndex++];
@@ -804,7 +804,7 @@ RODFDetectorCon::writeSpeedTrigger(const RODFNet* const net,
         if (det->getType() == SINK_DETECTOR && flows.knows(det->getID())) {
             std::string filename = FileHelpers::getFilePath(file) + "vss_" + det->getID() + ".def.xml";
             out.openTag(SUMO_TAG_VSS).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(det->getID())).writeAttr(SUMO_ATTR_LANES, det->getLaneID()).writeAttr(SUMO_ATTR_FILE, filename).closeTag();
-            SUMOReal defaultSpeed = net != 0 ? net->getEdge(det->getEdgeID())->getSpeed() : (SUMOReal) 200.;
+            double defaultSpeed = net != 0 ? net->getEdge(det->getEdgeID())->getSpeed() : (double) 200.;
             det->writeSingleSpeedTrigger(filename, flows, startTime, endTime, stepOffset, defaultSpeed);
         }
     }
@@ -821,7 +821,7 @@ RODFDetectorCon::writeEndRerouterDetectors(const std::string& file) {
         // write the declaration into the file
         if (det->getType() == SINK_DETECTOR) {
             out.openTag(SUMO_TAG_REROUTER).writeAttr(SUMO_ATTR_ID, "endrerouter_" + StringUtils::escapeXML(det->getID())).writeAttr(SUMO_ATTR_EDGES, det->getLaneID());
-            out.writeAttr(SUMO_ATTR_POSITION, SUMOReal(0)).writeAttr(SUMO_ATTR_FILE, "endrerouter_" + det->getID() + ".def.xml").closeTag();
+            out.writeAttr(SUMO_ATTR_POSITION, 0.).writeAttr(SUMO_ATTR_FILE, "endrerouter_" + det->getID() + ".def.xml").closeTag();
         }
     }
     out.close();
@@ -838,7 +838,7 @@ RODFDetectorCon::writeValidationDetectors(const std::string& file,
         RODFDetector* det = *i;
         // write the declaration into the file
         if (det->getType() != SOURCE_DETECTOR || includeSources) {
-            SUMOReal pos = det->getPos();
+            double pos = det->getPos();
             if (det->getType() == SOURCE_DETECTOR) {
                 pos += 1;
             }

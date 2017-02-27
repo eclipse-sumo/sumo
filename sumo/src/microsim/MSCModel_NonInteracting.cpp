@@ -49,7 +49,7 @@ MSCModel_NonInteracting* MSCModel_NonInteracting::myModel(0);
 const int CState::FORWARD(1);
 const int CState::BACKWARD(-1);
 const int CState::UNDEFINED_DIRECTION(0);
-const SUMOReal CState::LATERAL_OFFSET(0);
+const double CState::LATERAL_OFFSET(0);
 
 // ===========================================================================
 // MSCModel_NonInteracting method definitions
@@ -107,7 +107,7 @@ MSCModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
 }
 
 
-SUMOReal
+double
 CState::getEdgePos(const MSContainer::MSContainerStage_Tranship&, SUMOTime now) const {
     return myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime);
 }
@@ -115,15 +115,15 @@ CState::getEdgePos(const MSContainer::MSContainerStage_Tranship&, SUMOTime now) 
 
 Position
 CState::getPosition(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const {
-    const SUMOReal dist = myCurrentBeginPosition.distanceTo2D(myCurrentEndPosition);    //distance between begin and end position of this tranship stage
-    SUMOReal pos = MIN2(STEPS2TIME(now - myLastEntryTime) *  stage.getMaxSpeed(), dist);    //the containerd shall not go beyond its end position
+    const double dist = myCurrentBeginPosition.distanceTo2D(myCurrentEndPosition);    //distance between begin and end position of this tranship stage
+    double pos = MIN2(STEPS2TIME(now - myLastEntryTime) *  stage.getMaxSpeed(), dist);    //the containerd shall not go beyond its end position
     return PositionVector::positionAtOffset2D(myCurrentBeginPosition, myCurrentEndPosition, pos, 0);
 }
 
 
-SUMOReal
+double
 CState::getAngle(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const {
-    SUMOReal angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 1.5 * M_PI : 0.5 * M_PI);
+    double angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 1.5 * M_PI : 0.5 * M_PI);
     if (angle > M_PI) {
         angle -= 2 * M_PI;
     }
@@ -131,7 +131,7 @@ CState::getAngle(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime n
 }
 
 
-SUMOReal
+double
 CState::getSpeed(const MSContainer::MSContainerStage_Tranship& stage) const {
     return stage.getMaxSpeed();
 }

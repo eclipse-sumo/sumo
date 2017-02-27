@@ -52,37 +52,37 @@ extern "C"
     void    pfUnloadFont(pffont *f);
     char   *pfGetFontName();
     pffont *pfGetCurrentFont();
-    int     pfGetFontBBox(SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx, SUMOReal *maxy);
-    SUMOReal   pfGetFontHeight();
-    SUMOReal   pfGetFontWidth();
-    SUMOReal   pfGetFontAscent();
-    SUMOReal   pfGetFontDescent();
+    int     pfGetFontBBox(double *minx, double *miny, double *maxx, double *maxy);
+    double   pfGetFontHeight();
+    double   pfGetFontWidth();
+    double   pfGetFontAscent();
+    double   pfGetFontDescent();
 
     int     pfGetFontNumGlyphs();
     wchar_t pfGetChar(int glyph);
 
-    void    pfSetScale(SUMOReal s);
-    void    pfSetScaleXY(SUMOReal sx, SUMOReal sy);
-    int     pfSetScaleBox(char *c, SUMOReal w, SUMOReal h);
-    int     pfSetScaleBoxW(wchar_t *c, SUMOReal w, SUMOReal h);
+    void    pfSetScale(double s);
+    void    pfSetScaleXY(double sx, double sy);
+    int     pfSetScaleBox(char *c, double w, double h);
+    int     pfSetScaleBoxW(wchar_t *c, double w, double h);
 
-    void    pfSetPosition(SUMOReal x, SUMOReal y);
-    void    pfGetPosition(SUMOReal *x, SUMOReal *y);
+    void    pfSetPosition(double x, double y);
+    void    pfGetPosition(double *x, double *y);
 
-    void    pfSetSkew(SUMOReal s);
+    void    pfSetSkew(double s);
     void    pfSetWeight(int w);
-    void    pfSetAngleR(SUMOReal a);
-    void    pfSetAngleD(SUMOReal a);
+    void    pfSetAngleR(double a);
+    void    pfSetAngleD(double a);
     void    pfSetCenter(int onOff);
 
-    int     pfGetCharBBox(wchar_t c, SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx, SUMOReal *maxy);
-    SUMOReal   pfGetCharAdvance(wchar_t c);
-    SUMOReal   pfGetCharHeight(wchar_t c);
-    SUMOReal   pfGetCharWidth(wchar_t c);
-    SUMOReal   pfGetCharAscent(wchar_t c);
-    SUMOReal   pfGetCharDescent(wchar_t c);
+    int     pfGetCharBBox(wchar_t c, double *minx, double *miny, double *maxx, double *maxy);
+    double   pfGetCharAdvance(wchar_t c);
+    double   pfGetCharHeight(wchar_t c);
+    double   pfGetCharWidth(wchar_t c);
+    double   pfGetCharAscent(wchar_t c);
+    double   pfGetCharDescent(wchar_t c);
 
-    SUMOReal pfdkGetStringWidth(const char *c);
+    double pfdkGetStringWidth(const char *c);
 
     int     pfDrawChar(/*SDL_Surface *s,*/ wchar_t c);
 

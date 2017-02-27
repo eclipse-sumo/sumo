@@ -146,7 +146,7 @@ public:
     /** @brief Sets the vehicle class specific speed limits of the edge
      * @param[in] restrictions The restrictions for the edge
      */
-    inline void setRestrictions(const std::map<SUMOVehicleClass, SUMOReal>* restrictions) {
+    inline void setRestrictions(const std::map<SUMOVehicleClass, double>* restrictions) {
         myRestrictions = restrictions;
     }
 
@@ -195,7 +195,7 @@ public:
     /** @brief Returns the length of the edge
      * @return This edge's length
      */
-    SUMOReal getLength() const {
+    double getLength() const {
         return myLength;
     }
 
@@ -210,7 +210,7 @@ public:
     /** @brief Returns the speed allowed on this edge
      * @return The speed allowed on this edge
      */
-    SUMOReal getSpeed() const {
+    double getSpeed() const {
         return mySpeed;
     }
 
@@ -218,9 +218,9 @@ public:
      * @param[in] The vehicle to return the adapted speed limit for
      * @return This lane's resulting max. speed
      */
-    inline SUMOReal getVClassMaxSpeed(SUMOVehicleClass vclass) const {
+    inline double getVClassMaxSpeed(SUMOVehicleClass vclass) const {
         if (myRestrictions != 0) {
-            std::map<SUMOVehicleClass, SUMOReal>::const_iterator r = myRestrictions->find(vclass);
+            std::map<SUMOVehicleClass, double>::const_iterator r = myRestrictions->find(vclass);
             if (r != myRestrictions->end()) {
                 return r->second;
             }
@@ -278,7 +278,7 @@ public:
      * @param[in] timeBegin The begin time of the interval the given value is valid for [s]
      * @param[in] timeEnd The end time of the interval the given value is valid for [s]
      */
-    void addEffort(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd);
+    void addEffort(double value, double timeBegin, double timeEnd);
 
 
     /** @brief Adds a travel time value
@@ -287,7 +287,7 @@ public:
      * @param[in] timeBegin The begin time of the interval the given value is valid for [s]
      * @param[in] timeEnd The end time of the interval the given value is valid for [s]
      */
-    void addTravelTime(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd);
+    void addTravelTime(double value, double timeBegin, double timeEnd);
 
 
     /** @brief Returns the number of edges this edge is connected to
@@ -340,7 +340,7 @@ public:
      * @return The effort needed by the given vehicle to pass the edge at the given time
      * @todo Recheck whether the vehicle's maximum speed is considered
      */
-    SUMOReal getEffort(const ROVehicle* const veh, SUMOReal time) const;
+    double getEffort(const ROVehicle* const veh, double time) const;
 
 
     /** @brief Returns whether a travel time for this edge was loaded
@@ -348,7 +348,7 @@ public:
      * @param[in] time The time for which the travel time shall be returned [s]
      * @return whether a value was loaded
      */
-    bool hasLoadedTravelTime(SUMOReal time) const;
+    bool hasLoadedTravelTime(double time) const;
 
 
     /** @brief Returns the travel time for this edge
@@ -357,7 +357,7 @@ public:
      * @param[in] time The time for which the travel time shall be returned [s]
      * @return The travel time needed by the given vehicle to pass the edge at the given time
      */
-    SUMOReal getTravelTime(const ROVehicle* const veh, SUMOReal time) const;
+    double getTravelTime(const ROVehicle* const veh, double time) const;
 
 
     /** @brief Returns the effort for the given edge
@@ -368,7 +368,7 @@ public:
      * @return The effort needed by the given vehicle to pass the edge at the given time
      * @todo Recheck whether the vehicle's maximum speed is considered
      */
-    static inline SUMOReal getEffortStatic(const ROEdge* const edge, const ROVehicle* const veh, SUMOReal time) {
+    static inline double getEffortStatic(const ROEdge* const edge, const ROVehicle* const veh, double time) {
         return edge->getEffort(veh, time);
     }
 
@@ -380,7 +380,7 @@ public:
      * @param[in] time The time for which the travel time shall be returned [s]
      * @return The traveltime needed by the given vehicle to pass the edge at the given time
      */
-    static inline SUMOReal getTravelTimeStatic(const ROEdge* const edge, const ROVehicle* const veh, SUMOReal time) {
+    static inline double getTravelTimeStatic(const ROEdge* const edge, const ROVehicle* const veh, double time) {
         return edge->getTravelTime(veh, time);
     }
 
@@ -390,30 +390,30 @@ public:
      * @param[in] veh The vehicle for which the effort on this edge shall be retrieved
      * @param[in] time The time for which the effort shall be returned [s]
      */
-    inline SUMOReal getMinimumTravelTime(const ROVehicle* const veh) const {
+    inline double getMinimumTravelTime(const ROVehicle* const veh) const {
         return myLength / MIN2(veh->getType()->maxSpeed, veh->getChosenSpeedFactor() * mySpeed);
     }
 
 
     template<PollutantsInterface::EmissionType ET>
-    static SUMOReal getEmissionEffort(const ROEdge* const edge, const ROVehicle* const veh, SUMOReal time) {
-        SUMOReal ret = 0;
+    static double getEmissionEffort(const ROEdge* const edge, const ROVehicle* const veh, double time) {
+        double ret = 0;
         if (!edge->getStoredEffort(time, ret)) {
             const SUMOVTypeParameter* const type = veh->getType();
-            const SUMOReal vMax = MIN2(type->maxSpeed, edge->mySpeed);
-            const SUMOReal accel = type->getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
+            const double vMax = MIN2(type->maxSpeed, edge->mySpeed);
+            const double accel = type->getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
             ret = PollutantsInterface::computeDefault(type->emissionClass, ET, vMax, accel, 0, edge->getTravelTime(veh, time)); // @todo: give correct slope
         }
         return ret;
     }
 
 
-    static SUMOReal getNoiseEffort(const ROEdge* const edge, const ROVehicle* const veh, SUMOReal time);
+    static double getNoiseEffort(const ROEdge* const edge, const ROVehicle* const veh, double time);
     //@}
 
 
     /// @brief optimistic distance heuristic for use in routing
-    SUMOReal getDistanceTo(const ROEdge* other) const;
+    double getDistanceTo(const ROEdge* other) const;
 
 
     /** @brief Returns all ROEdges */
@@ -456,7 +456,7 @@ protected:
      * @param[in] time The tim for which the effort shall be returned
      * @return Whether the effort is given
      */
-    bool getStoredEffort(SUMOReal time, SUMOReal& ret) const;
+    bool getStoredEffort(double time, double& ret) const;
 
 
 
@@ -472,19 +472,19 @@ protected:
     const int myPriority;
 
     /// @brief The maximum speed allowed on this edge
-    SUMOReal mySpeed;
+    double mySpeed;
 
     /// @brief The length of the edge
-    SUMOReal myLength;
+    double myLength;
 
 
     /// @brief Container storing passing time varying over time for the edge
-    mutable ValueTimeLine<SUMOReal> myTravelTimes;
+    mutable ValueTimeLine<double> myTravelTimes;
     /// @brief Information whether the time line shall be used instead of the length value
     bool myUsingTTTimeLine;
 
     /// @brief Container storing passing time varying over time for the edge
-    mutable ValueTimeLine<SUMOReal> myEfforts;
+    mutable ValueTimeLine<double> myEfforts;
     /// @brief Information whether the time line shall be used instead of the length value
     bool myUsingETimeLine;
 
@@ -506,7 +506,7 @@ protected:
     EdgeFunc myFunc;
 
     /// The vClass speed restrictions for this edge
-    const std::map<SUMOVehicleClass, SUMOReal>* myRestrictions;
+    const std::map<SUMOVehicleClass, double>* myRestrictions;
 
     /// @brief This edge's lanes
     std::vector<ROLane*> myLanes;

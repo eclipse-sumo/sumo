@@ -67,7 +67,7 @@ NIVissimTL::NIVissimTLSignal::NIVissimTLSignal(int id,
         const std::vector<int>& groupids,
         int edgeid,
         int laneno,
-        SUMOReal position,
+        double position,
         const std::vector<int>& vehicleTypes)
     : myID(id), myName(name), myGroupIDs(groupids),
       myEdgeID(edgeid), myLane(laneno), myPosition(position),
@@ -212,7 +212,7 @@ NIVissimTL::GroupDictType NIVissimTL::NIVissimTLSignalGroup::myDict;
 NIVissimTL::NIVissimTLSignalGroup::NIVissimTLSignalGroup(
     int id,
     const std::string& name,
-    bool isGreenBegin, const std::vector<SUMOReal>& times,
+    bool isGreenBegin, const std::vector<double>& times,
     SUMOTime tredyellow, SUMOTime tyellow)
     : myID(id), myName(name), myTimes(times),
       myFirstIsRed(!isGreenBegin), myTRedYellow(tredyellow),
@@ -288,7 +288,7 @@ NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef* tl) const {
             ? NBTrafficLightDefinition::TLCOLOR_RED : NBTrafficLightDefinition::TLCOLOR_GREEN;
     std::string id = toString<int>(myID);
     tl->addSignalGroup(id); // !!! myTimes als SUMOTime
-    for (std::vector<SUMOReal>::const_iterator i = myTimes.begin(); i != myTimes.end(); i++) {
+    for (std::vector<double>::const_iterator i = myTimes.begin(); i != myTimes.end(); i++) {
         tl->addSignalGroupPhaseBegin(id, (SUMOTime) *i, color);
         color = color == NBTrafficLightDefinition::TLCOLOR_RED
                 ? NBTrafficLightDefinition::TLCOLOR_GREEN : NBTrafficLightDefinition::TLCOLOR_RED;

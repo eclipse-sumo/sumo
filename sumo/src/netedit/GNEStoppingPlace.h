@@ -58,7 +58,7 @@ public:
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      */
-    GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, SUMOReal startPos, SUMOReal endPos);
+    GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos);
 
     /// @brief Destructor
     ~GNEStoppingPlace();
@@ -70,10 +70,10 @@ public:
     Position getPositionInView() const;
 
     /// @brief change the position of the StoppingPlace geometry
-    void moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety);
+    void moveAdditionalGeometry(double offsetx, double offsety);
 
     /// @brief updated geometry changes in the attributes of additional
-    void commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList);
+    void commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList);
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
@@ -82,22 +82,22 @@ public:
     virtual void writeAdditional(OutputDevice& device) const = 0;
 
     /// @brief Returns the Start position of the stoppingPlace
-    SUMOReal getStartPosition() const;
+    double getStartPosition() const;
 
     /// @brief Returns the End position of the stoppingPlace
-    SUMOReal getEndPosition() const;
+    double getEndPosition() const;
 
     /**@brief Set a new Start position in StoppingPlace
      * @param[in] startPos new Start position of StoppingPlace
      * @throws InvalidArgument if value of startPos isn't valid
      */
-    void setStartPosition(SUMOReal startPos);
+    void setStartPosition(double startPos);
 
     /**@brief Set a new End position in StoppingPlace
      * @param[in] endPos new End position of StoppingPlace
      * @throws InvalidArgument if value of endPos isn't valid
      */
-    void setEndPosition(SUMOReal endPos);
+    void setEndPosition(double endPos);
 
     /// @name inherited from GNEAdditional
     /// @{
@@ -137,10 +137,10 @@ public:
 
 protected:
     /// @brief The start position this stopping place is located at
-    SUMOReal myStartPos;
+    double myStartPos;
 
     /// @brief The end position this stopping place is located at
-    SUMOReal myEndPos;
+    double myEndPos;
 
     /// @brief The position of the sign
     Position mySignPos;

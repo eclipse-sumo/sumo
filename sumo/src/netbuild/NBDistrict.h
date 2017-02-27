@@ -104,7 +104,7 @@ public:
      * @return Whether the source could be added (was not added before)
      * @todo Consider using only one list for sources/weights
      */
-    bool addSource(NBEdge* const source, SUMOReal weight);
+    bool addSource(NBEdge* const source, double weight);
 
 
     /** @brief Adds a sink
@@ -119,7 +119,7 @@ public:
      * @return Whether the sink could be added (was not added before)
      * @todo Consider using only one list for sinks/weights
      */
-    bool addSink(NBEdge* const sink, SUMOReal weight);
+    bool addSink(NBEdge* const sink, double weight);
 
 
     /** @brief Returns the position of this district's center
@@ -187,7 +187,7 @@ public:
     /** @brief Returns the weights of the sources
      * @return The source weights
      */
-    const std::vector<SUMOReal>& getSourceWeights() const {
+    const std::vector<double>& getSourceWeights() const {
         return mySourceWeights;
     }
 
@@ -203,7 +203,7 @@ public:
     /** @brief Returns the weights of the sinks
      * @return The sink weights
      */
-    const std::vector<SUMOReal>& getSinkWeights() const {
+    const std::vector<double>& getSinkWeights() const {
         return mySinkWeights;
     }
 
@@ -232,7 +232,7 @@ public:
      * @param[in] xoff The x-offset to apply
      * @param[in] yoff The y-offset to apply
      */
-    void reshiftPosition(SUMOReal xoff, SUMOReal yoff);
+    void reshiftPosition(double xoff, double yoff);
 
     /// @brief mirror coordinates along the x-axis
     void mirrorX();
@@ -244,7 +244,7 @@ public:
 
 private:
     /// @brief Definition of a vector of connection weights
-    typedef std::vector<SUMOReal> WeightsCont;
+    typedef std::vector<double> WeightsCont;
 
     /// @brief The sources (connection from district to network)
     EdgeVector mySources;

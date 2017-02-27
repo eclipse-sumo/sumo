@@ -53,7 +53,7 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
-                             SUMOReal position, const std::string& vTypes)
+                             double position, const std::string& vTypes)
     : MSInductLoop(id, lane, position, vTypes) {}
 
 
@@ -74,19 +74,19 @@ GUIInductLoop::reset() {
 
 
 void
-GUIInductLoop::enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) {
+GUIInductLoop::enterDetectorByMove(SUMOVehicle& veh, double entryTimestep) {
     AbstractMutex::ScopedLocker locker(myLock);
     MSInductLoop::enterDetectorByMove(veh, entryTimestep);
 }
 
 void
-GUIInductLoop::leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) {
+GUIInductLoop::leaveDetectorByMove(SUMOVehicle& veh, double leaveTimestep) {
     AbstractMutex::ScopedLocker locker(myLock);
     MSInductLoop::leaveDetectorByMove(veh, leaveTimestep);
 }
 
 void
-GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh, SUMOReal lastPos) {
+GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh, double lastPos) {
     AbstractMutex::ScopedLocker locker(myLock);
     MSInductLoop::leaveDetectorByLaneChange(veh, lastPos);
 }
@@ -102,12 +102,12 @@ GUIInductLoop::collectVehiclesOnDet(SUMOTime t, bool leaveTime) const {
 /* -------------------------------------------------------------------------
  * GUIInductLoop::MyWrapper-methods
  * ----------------------------------------------------------------------- */
-GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, SUMOReal pos)
+GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos)
     : GUIDetectorWrapper("induct loop", detector.getID()),
       myDetector(detector), myPosition(pos) {
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
-    myBoundary.add(myFGPosition.x() + (SUMOReal) 5.5, myFGPosition.y() + (SUMOReal) 5.5);
-    myBoundary.add(myFGPosition.x() - (SUMOReal) 5.5, myFGPosition.y() - (SUMOReal) 5.5);
+    myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);
+    myBoundary.add(myFGPosition.x() - (double) 5.5, myFGPosition.y() - (double) 5.5);
     myFGRotation = -detector.getLane()->getShape().rotationDegreeAtOffset(pos);
 }
 
@@ -136,13 +136,13 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("passed vehicles [#]", true,
                 new FunctionBinding<GUIInductLoop, int>(&myDetector, &GUIInductLoop::getCurrentPassedNumber));
     ret->mkItem("speed [m/s]", true,
-                new FunctionBinding<GUIInductLoop, SUMOReal>(&myDetector, &GUIInductLoop::getCurrentSpeed));
+                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getCurrentSpeed));
     ret->mkItem("occupancy [%]", true,
-                new FunctionBinding<GUIInductLoop, SUMOReal>(&myDetector, &GUIInductLoop::getCurrentOccupancy));
+                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getCurrentOccupancy));
     ret->mkItem("vehicle length [m]", true,
-                new FunctionBinding<GUIInductLoop, SUMOReal>(&myDetector, &GUIInductLoop::getCurrentLength));
+                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getCurrentLength));
     ret->mkItem("empty time [s]", true,
-                new FunctionBinding<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
+                new FunctionBinding<GUIInductLoop, double>(&(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
     // close building
     ret->closeBuilding();
     return ret;
@@ -152,9 +152,9 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
 void
 GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
-    SUMOReal width = (SUMOReal) 2.0 * s.scale;
+    double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
     // shape
     glColor3d(1, 1, 0);
     glPushMatrix();

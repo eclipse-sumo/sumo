@@ -27,7 +27,7 @@
 
 void PushButtonLogic::init(std::string prefix, const Parameterised* parameterised) {
     m_prefix = prefix;
-    m_pushButtonScaleFactor = TplConvert::_2SUMOReal(parameterised->getParameter("PUSH_BUTTON_SCALE_FACTOR", "1").c_str());
+    m_pushButtonScaleFactor = TplConvert::_2double(parameterised->getParameter("PUSH_BUTTON_SCALE_FACTOR", "1").c_str());
     WRITE_MESSAGE(m_prefix + "::PushButtonLogic::init use " + parameterised->getParameter("USE_PUSH_BUTTON", "0") + " scale " + parameterised->getParameter("PUSH_BUTTON_SCALE_FACTOR", "1"));
 }
 
@@ -48,12 +48,12 @@ bool PushButtonLogic::pushButtonLogic(SUMOTime elapsed, bool pushButtonPressed, 
 void SigmoidLogic::init(std::string prefix, const Parameterised* parameterised) {
     m_prefix = prefix;
     m_useSigmoid = parameterised->getParameter("PLATOON_USE_SIGMOID", "0") != "0";
-    m_k = TplConvert::_2SUMOReal(parameterised->getParameter("PLATOON_SIGMOID_K_VALUE", "1").c_str());
+    m_k = TplConvert::_2double(parameterised->getParameter("PLATOON_SIGMOID_K_VALUE", "1").c_str());
 //  DBG(
     WRITE_MESSAGE(m_prefix + "::SigmoidLogic::init use " + parameterised->getParameter("PLATOON_USE_SIGMOID", "0") + " k " + parameterised->getParameter("PLATOON_SIGMOID_K_VALUE", "1"));
 //    for (int elapsed = 10; elapsed < 51; ++elapsed)
 //    {
-//        SUMOReal sigmoidValue = 1.0 / (1.0 + exp(-m_k * (elapsed - 31)));
+//        double sigmoidValue = 1.0 / (1.0 + exp(-m_k * (elapsed - 31)));
 //        std::ostringstream oss;
 //        oss << "elapsed " << elapsed << " value " << sigmoidValue;
 //        WRITE_MESSAGE(oss.str())
@@ -64,8 +64,8 @@ void SigmoidLogic::init(std::string prefix, const Parameterised* parameterised) 
 bool SigmoidLogic::sigmoidLogic(SUMOTime elapsed, const MSPhaseDefinition* stage, int vehicleCount) {
     //use the sigmoid logic
     if (m_useSigmoid && vehicleCount == 0) {
-        SUMOReal sigmoidValue = 1.0 / (1.0 + exp(-m_k * (elapsed / 1000 - stage->duration / 1000)));
-        SUMOReal rnd = RandHelper::rand();
+        double sigmoidValue = 1.0 / (1.0 + exp(-m_k * (elapsed / 1000 - stage->duration / 1000)));
+        double rnd = RandHelper::rand();
 //    DBG(
         std::ostringstream oss;
         oss << m_prefix << "::sigmoidLogic [k=" << m_k << " elapsed " << elapsed << " stage->duration " << stage->duration << " ] value "
@@ -97,13 +97,13 @@ MSSOTLPolicy::MSSOTLPolicy(std::string name,
                            const std::map<std::string, std::string>& parameters) :
     Parameterised(parameters), myName(name), myDesirabilityAlgorithm(
         desirabilityAlgorithm) {
-    theta_sensitivity = TplConvert::_2SUMOReal(getParameter("THETA_INIT", "0.5").c_str());
+    theta_sensitivity = TplConvert::_2double(getParameter("THETA_INIT", "0.5").c_str());
 }
 
 MSSOTLPolicy::~MSSOTLPolicy(void) {
 }
 
-SUMOReal MSSOTLPolicy::computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure, SUMOReal vehInDispersionMeasure,	SUMOReal vehOutDispersionMeasure) {
+double MSSOTLPolicy::computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure,	double vehOutDispersionMeasure) {
 
     DBG(
         std::ostringstream str; str << "\nMSSOTLPolicy::computeStimulus\n" << getName(); WRITE_MESSAGE(str.str());)
@@ -112,7 +112,7 @@ SUMOReal MSSOTLPolicy::computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOu
 
 }
 
-SUMOReal MSSOTLPolicy::computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure) {
+double MSSOTLPolicy::computeDesirability(double vehInMeasure, double vehOutMeasure) {
 
     DBG(
         std::ostringstream str; str << "\nMSSOTLPolicy::computeStimulus\n" << getName(); WRITE_MESSAGE(str.str());)

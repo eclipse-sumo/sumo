@@ -96,12 +96,12 @@ NBLoadedTLDef::SignalGroup::patchTYellow(int tyellow, bool forced) {
 }
 
 
-std::vector<SUMOReal>
+std::vector<double>
 NBLoadedTLDef::SignalGroup::getTimes(SUMOTime cycleDuration) const {
     // within the phase container, we should have the green and red phases add their times
-    std::vector<SUMOReal> ret; // !!! time vector
+    std::vector<double> ret; // !!! time vector
     for (std::vector<PhaseDef>::const_iterator i = myPhases.begin(); i != myPhases.end(); i++) {
-        ret.push_back((SUMOReal)(*i).myTime);
+        ret.push_back((double)(*i).myTime);
     }
     // further, we possibly should set the yellow phases
     if (myTYellow > 0) {
@@ -111,7 +111,7 @@ NBLoadedTLDef::SignalGroup::getTimes(SUMOTime cycleDuration) const {
                 if (time > cycleDuration) {
                     time = time - cycleDuration;
                 }
-                ret.push_back((SUMOReal) time);
+                ret.push_back((double) time);
             }
         }
     }
@@ -296,7 +296,7 @@ NBLoadedTLDef::myCompute(int brakingTimeSeconds) {
     MsgHandler::getWarningInstance()->clear(); // !!!
     NBLoadedTLDef::SignalGroupCont::const_iterator i;
     // compute the switching times
-    std::set<SUMOReal> tmpSwitchTimes;
+    std::set<double> tmpSwitchTimes;
     for (i = mySignalGroups.begin(); i != mySignalGroups.end(); i++) {
         NBLoadedTLDef::SignalGroup* group = (*i).second;
         // needed later
@@ -306,12 +306,12 @@ NBLoadedTLDef::myCompute(int brakingTimeSeconds) {
         // copy the now valid times into the container
         //  both the given red and green phases are added and also the
         //  yellow times
-        std::vector<SUMOReal> gtimes = group->getTimes(myCycleDuration);
-        for (std::vector<SUMOReal>::const_iterator k = gtimes.begin(); k != gtimes.end(); k++) {
+        std::vector<double> gtimes = group->getTimes(myCycleDuration);
+        for (std::vector<double>::const_iterator k = gtimes.begin(); k != gtimes.end(); k++) {
             tmpSwitchTimes.insert(*k);
         }
     }
-    std::vector<SUMOReal> switchTimes;
+    std::vector<double> switchTimes;
     copy(tmpSwitchTimes.begin(), tmpSwitchTimes.end(), back_inserter(switchTimes));
     sort(switchTimes.begin(), switchTimes.end());
 
@@ -322,7 +322,7 @@ NBLoadedTLDef::myCompute(int brakingTimeSeconds) {
     }
     // build the phases
     NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), noSignals, myOffset, myType);
-    for (std::vector<SUMOReal>::iterator l = switchTimes.begin(); l != switchTimes.end(); l++) {
+    for (std::vector<double>::iterator l = switchTimes.begin(); l != switchTimes.end(); l++) {
         // compute the duration of the current phase
         int duration;
         if (l != switchTimes.end() - 1) {

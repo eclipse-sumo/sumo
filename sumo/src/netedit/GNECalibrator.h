@@ -58,8 +58,8 @@ public:
         /// @brief parameter constructor
         GNECalibratorFlow(GNECalibrator* calibratorParent, std::string type, std::string route, std::string color, std::string departLane, std::string departPos,
                           std::string departSpeed, std::string arrivalLane, std::string arrivalPos, std::string arrivalSpeed,
-                          std::string line, int personNumber, int containerNumber, SUMOReal begin, SUMOReal end,
-                          SUMOReal vehsPerHour, SUMOReal period, SUMOReal probability, int number);
+                          std::string line, int personNumber, int containerNumber, double begin, double end,
+                          double vehsPerHour, double period, double probability, int number);
 
         /// @brief destructor
         ~GNECalibratorFlow();
@@ -104,19 +104,19 @@ public:
         int getContainerNumber() const;
 
         /// @brief get begin time step
-        SUMOReal getBegin() const;
+        double getBegin() const;
 
         /// @brief get end time step
-        SUMOReal getEnd() const;
+        double getEnd() const;
 
         /// @brief get vehicles per hour
-        SUMOReal getVehsPerHour() const;
+        double getVehsPerHour() const;
 
         /// @brief get period of vehicle
-        SUMOReal getPeriod() const;
+        double getPeriod() const;
 
         /// @brief get probability of vehicle
-        SUMOReal getProbability() const;
+        double getProbability() const;
 
         /// @brief get number of vehicles
         int getNumber() const;
@@ -184,27 +184,27 @@ public:
         /**@brief set begin step
          * @return true if was sucesfully set, or false if value isn't valid
          */
-        bool setBegin(SUMOReal begin);
+        bool setBegin(double begin);
 
         /**@brief set end step
          * @return true if was sucesfully set, or false if value isn't valid
          */
-        bool setEnd(SUMOReal end);
+        bool setEnd(double end);
 
         /**@brief set vehicles per hour
          * @return true if was sucesfully set, or false if value isn't valid
          */
-        bool setVehsPerHour(SUMOReal vehsPerHour);
+        bool setVehsPerHour(double vehsPerHour);
 
         /**@brief set period of vehicles
          * @return true if was sucesfully set, or false if value isn't valid
          */
-        bool setPeriod(SUMOReal period);
+        bool setPeriod(double period);
 
         /**@brief set probability of vehicle
          * @return true if was sucesfully set, or false if value isn't valid
          */
-        bool setProbability(SUMOReal probability);
+        bool setProbability(double probability);
 
         /**@brief set number of vehicles
          * @return true if was sucesfully set, or false if value isn't valid
@@ -252,19 +252,19 @@ public:
         int myContainerNumber;
 
         /// @brief time step begin
-        SUMOReal myBegin;
+        double myBegin;
 
         /// @brief time step end
-        SUMOReal myEnd;
+        double myEnd;
 
         /// @brief vehicles per hour
-        SUMOReal myVehsPerHour;
+        double myVehsPerHour;
 
         /// @brief period
-        SUMOReal myPeriod;
+        double myPeriod;
 
         /// @brief probability
-        SUMOReal myProbability;
+        double myProbability;
 
         /// @brief number of vehicle
         int myNumber;
@@ -285,17 +285,17 @@ public:
      * @param[in] output The output file for writing calibrator information
      * @param[in] flowValues values with the flow of calibrator
      */
-    GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOReal frequency,
+    GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, double pos, double frequency,
                   const std::string& output, const std::vector<GNECalibrator::GNECalibratorFlow*>& flowValues);
 
     /// @brief Destructor
     ~GNECalibrator();
 
     /// @brief change the position of the calibrator geometry
-    void moveAdditionalGeometry(SUMOReal, SUMOReal);
+    void moveAdditionalGeometry(double, double);
 
     /// @brief updated geometry changes in the attributes of additional
-    void commmitAdditionalGeometryMoved(SUMOReal, SUMOReal, GNEUndoList*);
+    void commmitAdditionalGeometryMoved(double, double, GNEUndoList*);
 
     /// @brief update pre-computed geometry information
     /// @note: must be called when geometry c6hanges (i.e. lane moved)
@@ -362,7 +362,7 @@ public:
 
 protected:
     /// @brief Frequency of calibrator
-    SUMOReal myFrequency;
+    double myFrequency;
 
     /// @brief output of calibrator
     std::string myOutput;

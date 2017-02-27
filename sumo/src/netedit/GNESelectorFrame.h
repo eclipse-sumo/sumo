@@ -151,7 +151,7 @@ private:
 
     /// @brief return  objects of the given type with matching attrs
     /// @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
-    std::vector<GUIGlID> getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, SUMOReal val, const std::string& expr);
+    std::vector<GUIGlID> getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, double val, const std::string& expr);
 
     /// @brief the string that should be matched against if attr 'allowed' or 'disalloed' are set to "all"
     const std::string ALL_VCLASS_NAMES_MATCH_STRING;

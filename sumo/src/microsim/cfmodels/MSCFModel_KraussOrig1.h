@@ -51,7 +51,7 @@ public:
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's reaction time
      */
-    MSCFModel_KraussOrig1(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal dawdle, SUMOReal headwayTime);
+    MSCFModel_KraussOrig1(const MSVehicleType* vtype, double accel, double decel, double dawdle, double headwayTime);
 
 
     /// @brief Destructor
@@ -66,7 +66,7 @@ public:
      * @param[in] vPos The possible velocity
      * @return The velocity after applying interactions with stops and lane change model influences
      */
-    SUMOReal moveHelper(MSVehicle* const veh, SUMOReal vPos) const;
+    double moveHelper(MSVehicle* const veh, double vPos) const;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -77,7 +77,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    SUMOReal followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -87,7 +87,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    virtual SUMOReal stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap2pred) const;
+    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -102,7 +102,7 @@ public:
      * @param[in] predSpeed The speed of LEADER
      * @return EGO's safe speed
      */
-    SUMOReal insertionFollowSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+    double insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const;
 
 
     /** @brief Returns the model's name
@@ -117,7 +117,7 @@ public:
     /** @brief Get the driver's imperfection
      * @return The imperfection of drivers of this class
      */
-    SUMOReal getImperfection() const {
+    double getImperfection() const {
         return myDawdle;
     }
     /// @}
@@ -129,7 +129,7 @@ public:
     /** @brief Sets a new value for maximum deceleration [m/s^2]
      * @param[in] accel The new deceleration in m/s^2
      */
-    void setMaxDecel(SUMOReal decel) {
+    void setMaxDecel(double decel) {
         myDecel = decel;
         myTauDecel = myDecel * myHeadwayTime;
     }
@@ -138,7 +138,7 @@ public:
     /** @brief Sets a new value for driver imperfection
      * @param[in] accel The new driver imperfection
      */
-    void setImperfection(SUMOReal imperfection) {
+    void setImperfection(double imperfection) {
         myDawdle = imperfection;
     }
 
@@ -146,7 +146,7 @@ public:
     /** @brief Sets a new value for driver reaction time [s]
      * @param[in] headwayTime The new driver reaction time (in s)
      */
-    void setHeadwayTime(SUMOReal headwayTime) {
+    void setHeadwayTime(double headwayTime) {
         myHeadwayTime = headwayTime;
         myTauDecel = myDecel * headwayTime;
     }
@@ -166,21 +166,21 @@ private:
      * @param[in] predMaxDecel The LEADER's maximum deceleration
      * @return the safe velocity
      */
-    virtual SUMOReal vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+    virtual double vsafe(double gap, double predSpeed, double predMaxDecel) const;
 
 
     /** @brief Applies driver imperfection (dawdling / sigma)
      * @param[in] speed The speed with no dawdling
      * @return The speed after dawdling
      */
-    virtual SUMOReal dawdle(SUMOReal speed) const;
+    virtual double dawdle(double speed) const;
 
 protected:
     /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
-    SUMOReal myDawdle;
+    double myDawdle;
 
     /// @brief The precomputed value for myDecel*myTau
-    SUMOReal myTauDecel;
+    double myTauDecel;
 };
 
 #endif /* MSCFModel_KraussOrig1_H */

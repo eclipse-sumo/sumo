@@ -50,7 +50,7 @@ public:
      * @param[in] filename The path to the definition file
      * @param[in] VSSValues values with the interval and speeds of variable speed signal
      */
-    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<SUMOReal, SUMOReal>& vssValues);
+    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<double, double>& vssValues);
 
     /// @brief Destructor
     ~GNEVariableSpeedSign();
@@ -66,10 +66,10 @@ public:
     void openAdditionalDialog();
 
     /// @brief change the position of the rerouter geometry
-    void moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety);
+    void moveAdditionalGeometry(double offsetx, double offsety);
 
     /// @brief updated geometry changes in the attributes of additional
-    void commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList);
+    void commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList);
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
@@ -81,17 +81,17 @@ public:
     std::string getFilename() const;
 
     /// @brief get values of variable speed signal
-    std::map<SUMOReal, SUMOReal> getVariableSpeedSignSteps() const;
+    std::map<double, double> getVariableSpeedSignSteps() const;
 
     /// @brief set filename of rerouter
     void setFilename(std::string filename);
 
     /// @brief set values of variable speed signal
-    void setVariableSpeedSignSteps(const std::map<SUMOReal, SUMOReal>& vssValues);
+    void setVariableSpeedSignSteps(const std::map<double, double>& vssValues);
 
     /// @brief insert a new step in variable speed signal
     /// @return true if step was sucesfully inserted, false in other case (Time duplicated)
-    bool insertStep(const SUMOReal time, const SUMOReal speed);
+    bool insertStep(const double time, const double speed);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -134,7 +134,7 @@ protected:
     std::string myFilename;
 
     /// @brief values of variable speed signal
-    std::map<SUMOReal, SUMOReal> myVSSValues;
+    std::map<double, double> myVSSValues;
 
     /// @brief enable or disable save in external filename
     bool mySaveInFilename;

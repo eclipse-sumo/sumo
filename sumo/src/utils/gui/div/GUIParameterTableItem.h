@@ -82,11 +82,11 @@ public:
     virtual void update() = 0;
 
 
-    /** @brief Returns a SUMOReal-typed copy of the value-source
+    /** @brief Returns a double-typed copy of the value-source
      *
-     * @return A SUMOReal-typed copy of the value-source
+     * @return A double-typed copy of the value-source
      */
-    virtual ValueSource<SUMOReal>* getSUMORealSourceCopy() const = 0;
+    virtual ValueSource<double>* getdoubleSourceCopy() const = 0;
 
 
     /** @brief Returns the name of the value
@@ -254,15 +254,15 @@ public:
     }
 
 
-    /** @brief Returns a SUMOReal-typed copy of the source if the value is dynamic
+    /** @brief Returns a double-typed copy of the source if the value is dynamic
      *
-     * @return A SUMOReal-typed copy of the value source
+     * @return A double-typed copy of the value source
      */
-    ValueSource<SUMOReal>* getSUMORealSourceCopy() const {
+    ValueSource<double>* getdoubleSourceCopy() const {
         if (mySource == 0) {
             return 0;
         }
-        return mySource->makeSUMORealReturningCopy();
+        return mySource->makedoubleReturningCopy();
     }
 
 

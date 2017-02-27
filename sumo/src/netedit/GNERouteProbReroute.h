@@ -52,7 +52,7 @@ class GNERerouterInterval;
 class GNERouteProbReroute {
 public:
     /// @brief constructor
-    GNERouteProbReroute(GNERerouterInterval& rerouterIntervalParent, std::string newRouteId, SUMOReal probability);
+    GNERouteProbReroute(GNERerouterInterval& rerouterIntervalParent, std::string newRouteId, double probability);
 
     /// @brief destructor
     ~GNERouteProbReroute();
@@ -64,10 +64,10 @@ public:
     void setNewRouteId(std::string newRouteId);
 
     /// @brief get probability
-    SUMOReal getProbability() const;
+    double getProbability() const;
 
     /// @brief set probability, if the new probability is valid
-    bool setProbability(SUMOReal probability);
+    bool setProbability(double probability);
 
     /// @brief get tag
     SumoXMLTag getTag() const;
@@ -87,7 +87,7 @@ protected:
     std::string myNewRouteId;
 
     /// @brief probability with which a vehicle will use the given edge as destination
-    SUMOReal myProbability;
+    double myProbability;
 
     /// @brief XML Tag of route probability reroute
     SumoXMLTag myTag;

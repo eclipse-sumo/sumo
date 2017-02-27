@@ -48,7 +48,7 @@
  * This class contains the information needed to display a time line of
  *  float values.
  */
-class TrackerValueDesc : public ValueRetriever<SUMOReal> {
+class TrackerValueDesc : public ValueRetriever<double> {
 public:
     /// Constructor
     TrackerValueDesc(const std::string& name, const RGBColor& col,
@@ -58,16 +58,16 @@ public:
     ~TrackerValueDesc();
 
     /// returns the maximum value range
-    SUMOReal getRange() const;
+    double getRange() const;
 
     /// Returns the values minimum
-    SUMOReal getMin() const;
+    double getMin() const;
 
     /// Returns the values maximum
-    SUMOReal getMax() const;
+    double getMax() const;
 
     /// Returns the center of the value
-    SUMOReal getYCenter() const;
+    double getYCenter() const;
 
     /// Returns the color to use to display the value
     const RGBColor& getColor() const;
@@ -75,18 +75,18 @@ public:
     /** @brief returns the vector of collected values
         The values will be locked - no further addition will be perfomed until
         the method "unlockValues" will be called */
-    const std::vector<SUMOReal>& getValues();
+    const std::vector<double>& getValues();
 
     /** @brief returns the vector of aggregated values
         The values will be locked - no further addition will be perfomed until
         the method "unlockValues" will be called */
-    const std::vector<SUMOReal>& getAggregatedValues();
+    const std::vector<double>& getAggregatedValues();
 
     /// Returns the name of the value
     const std::string& getName() const;
 
     /// Adds a new value to the list
-    void addValue(SUMOReal value);
+    void addValue(double value);
 
     /// Releases the locking after the values have been drawn
     void unlockValues();
@@ -112,13 +112,13 @@ private:
     RGBColor myInactiveCol;
 
     /// Values collected
-    std::vector<SUMOReal> myValues;
+    std::vector<double> myValues;
 
     /// Collected values in their aggregated form
-    std::vector<SUMOReal> myAggregatedValues;
+    std::vector<double> myAggregatedValues;
 
     /// The minimum and the maximum of the value
-    SUMOReal myMin, myMax;
+    double myMin, myMax;
 
     // Mutex to avoid parallel drawing and insertion of new items
     MFXMutex myLock;
@@ -127,7 +127,7 @@ private:
     int myAggregationInterval;
 
     /// Values like this shall not be counted on aggregation
-    SUMOReal myInvalidValue;
+    double myInvalidValue;
 
     /// Counter for valid numbers within the current aggregation interval
     int myValidNo;
@@ -136,7 +136,7 @@ private:
     SUMOTime myRecordingBegin;
 
     /// Temporary storage for the last aggregation interval
-    SUMOReal myTmpLastAggValue;
+    double myTmpLastAggValue;
 
 };
 

@@ -59,7 +59,7 @@ class ROMAAssignments {
 public:
     /// Constructor
     ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
-                    const SUMOReal adaptionFactor, RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
+                    const double adaptionFactor, RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
 
     /// Destructor
     ~ROMAAssignments();
@@ -69,10 +69,10 @@ public:
     }
 
     // @brief calculate edge capacity for the given edge
-    static SUMOReal getCapacity(const ROEdge* edge);
+    static double getCapacity(const ROEdge* edge);
 
     // @brief calculate edge travel time for the given edge and number of vehicles per hour
-    SUMOReal capacityConstraintFunction(const ROEdge* edge, const SUMOReal flow) const;
+    double capacityConstraintFunction(const ROEdge* edge, const double flow) const;
 
     // @brief clear effort storage
     void resetFlows();
@@ -84,7 +84,7 @@ public:
     void ue();
 
     // @brief SUE method
-    void sue(const int maxOuterIteration, const int maxInnerIteration, const int kPaths, const SUMOReal penalty, const SUMOReal tolerance, const std::string routeChoiceMethod);
+    void sue(const int maxOuterIteration, const int maxInnerIteration, const int kPaths, const double penalty, const double tolerance, const std::string routeChoiceMethod);
 
     /** @brief Returns the effort to pass an edge including penalties
      *
@@ -97,7 +97,7 @@ public:
      * @return The effort (time to pass in this case) for an edge
      * @see DijkstraRouterTT_ByProxi
      */
-    static SUMOReal getPenalizedEffort(const ROEdge* const e, const ROVehicle* const v, SUMOReal t);
+    static double getPenalizedEffort(const ROEdge* const e, const ROVehicle* const v, double t);
 
     /** @brief Returns the traveltime on an edge including penalties
      *
@@ -110,7 +110,7 @@ public:
      * @return The effort (time to pass in this case) for an edge
      * @see DijkstraRouterTT_ByProxi
      */
-    static SUMOReal getPenalizedTT(const ROEdge* const e, const ROVehicle* const v, SUMOReal t);
+    static double getPenalizedTT(const ROEdge* const e, const ROVehicle* const v, double t);
 
     /** @brief Returns the traveltime on an edge without penalties
      *
@@ -123,38 +123,38 @@ public:
      * @return The effort (time to pass in this case) for an edge
      * @see DijkstraRouterTT_ByProxi
      */
-    static SUMOReal getTravelTime(const ROEdge* const e, const ROVehicle* const v, SUMOReal t);
+    static double getTravelTime(const ROEdge* const e, const ROVehicle* const v, double t);
 
 private:
     /// @brief add a route and check for duplicates
-    bool addRoute(ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, SUMOReal prob);
+    bool addRoute(ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, double prob);
 
     /// @brief get the k shortest paths
-    void getKPaths(const int kPaths, const SUMOReal penalty);
+    void getKPaths(const int kPaths, const double penalty);
 
 private:
     const SUMOTime myBegin;
     const SUMOTime myEnd;
     const bool myAdditiveTraffic;
-    const SUMOReal myAdaptionFactor;
+    const double myAdaptionFactor;
     RONet& myNet;
     ODMatrix& myMatrix;
     SUMOAbstractRouter<ROEdge, ROVehicle>& myRouter;
-    static std::map<const ROEdge* const, SUMOReal> myPenalties;
+    static std::map<const ROEdge* const, double> myPenalties;
     ROVehicle* myDefaultVehicle;
 
 #ifdef HAVE_FOX
 private:
     class RoutingTask : public FXWorkerThread::Task {
     public:
-        RoutingTask(ROMAAssignments& assign, ODCell* c, const SUMOTime begin, const SUMOReal linkFlow)
+        RoutingTask(ROMAAssignments& assign, ODCell* c, const SUMOTime begin, const double linkFlow)
             : myAssign(assign), myCell(c), myBegin(begin), myLinkFlow(linkFlow) {}
         void run(FXWorkerThread* context);
     private:
         ROMAAssignments& myAssign;
         ODCell* const myCell;
         const SUMOTime myBegin;
-        const SUMOReal myLinkFlow;
+        const double myLinkFlow;
     private:
         /// @brief Invalidated assignment operator.
         RoutingTask& operator=(const RoutingTask&);

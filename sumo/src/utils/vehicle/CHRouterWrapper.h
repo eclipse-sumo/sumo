@@ -73,7 +73,7 @@ class CHRouterWrapper: public SUMOAbstractRouter<E, V>, public PF {
 
 public:
     /// Type of the function that is used to retrieve the edge effort.
-    typedef SUMOReal(* Operation)(const E* const, const V* const, SUMOReal);
+    typedef double(* Operation)(const E* const, const V* const, double);
 
     /** @brief Constructor
      */
@@ -110,7 +110,7 @@ public:
 
     bool compute(const E* from, const E* to, const V* const vehicle,
                  SUMOTime msTime, std::vector<const E*>& into) {
-        const std::pair<const SUMOVehicleClass, const SUMOReal> svc = std::make_pair(vehicle->getVClass(), vehicle->getMaxSpeed());
+        const std::pair<const SUMOVehicleClass, const double> svc = std::make_pair(vehicle->getVClass(), vehicle->getMaxSpeed());
         int index = 0;
         int numIntervals = 1;
 #ifdef HAVE_FOX
@@ -149,10 +149,10 @@ public:
     }
 
 
-    SUMOReal recomputeCosts(const std::vector<const E*>& edges,
+    double recomputeCosts(const std::vector<const E*>& edges,
                             const V* const v, SUMOTime msTime) const {
-        const SUMOReal time = STEPS2TIME(msTime);
-        SUMOReal costs = 0;
+        const double time = STEPS2TIME(msTime);
+        double costs = 0;
         for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             if (PF::operator()(*i, v)) {
                 WRITE_WARNING("Vehicle '" + v->getID() + "' is restricted from using its assigned route.");
@@ -192,7 +192,7 @@ private:
 #endif
 
 private:
-    typedef std::map<std::pair<const SUMOVehicleClass, const SUMOReal>, std::vector<CHRouterType*> > RouterMap;
+    typedef std::map<std::pair<const SUMOVehicleClass, const double>, std::vector<CHRouterType*> > RouterMap;
 
     RouterMap myRouters;
 

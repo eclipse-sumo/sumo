@@ -108,7 +108,7 @@ public:
      * @param[in] offset An offset which can be applied in the case positions are blurred
      * @return The node at the given position, or 0 if no such node exists
      */
-    NBNode* retrieve(const Position& position, const SUMOReal offset = 0.) const;
+    NBNode* retrieve(const Position& position, const double offset = 0.) const;
 
     /// @brief Returns the pointer to the begin of the stored nodes
     std::map<std::string, NBNode*>::const_iterator begin() const {
@@ -139,7 +139,7 @@ public:
     int joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
     /// @brief Joins junctions that are very close together
-    int joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
+    int joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
     /// @}
 
     /// @name Adapting the input
@@ -204,7 +204,7 @@ public:
      * @param[in] maxdist The maximum distance between nodes for clustering
      * @todo Recheck exception handling
      */
-    void joinTLS(NBTrafficLightLogicCont& tlc, SUMOReal maxdist);
+    void joinTLS(NBTrafficLightLogicCont& tlc, double maxdist);
 
     /** @brief Sets the given node as being controlled by a tls
      * @param[in] node The node that shall be controlled by a tls
@@ -239,7 +239,7 @@ public:
     /** @brief Compute the junction shape for this node
      * @param[in] mismatchThreshold The threshold for warning about shapes which are away from myPosition
      */
-    void computeNodeShapes(SUMOReal mismatchThreshold = -1);
+    void computeNodeShapes(double mismatchThreshold = -1);
 
     /** @brief Prints statistics about built nodes
      *
@@ -284,7 +284,7 @@ public:
 private:
     /// @brief Definition of a node cluster container
     typedef std::vector<std::set<NBNode*> > NodeClusters;
-    typedef std::pair<NBNode*, SUMOReal> NodeAndDist;
+    typedef std::pair<NBNode*, double> NodeAndDist;
 
     /// @name Helper methods for for joining nodes
     /// @{
@@ -295,7 +295,7 @@ private:
      * @param[in] maxDist The maximum distance between two nodes for clustering
      * @param[in, filled] into The container to store the clusters in
      */
-    void generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const;
+    void generateNodeClusters(double maxDist, NodeClusters& into) const;
 
     /// @brief joins the given node clusters
     void joinNodeClusters(NodeClusters clusters, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);

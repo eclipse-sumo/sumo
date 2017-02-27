@@ -83,7 +83,7 @@ public:
         /// the first vehicle on this edge that wants to change to this lane
         MSVehicle*                firstBlocked;
 
-        SUMOReal dens;
+        double dens;
 
         /// @name Members which are used only by MSLaneChangerSublane
         /// @{
@@ -141,7 +141,7 @@ protected:
 
 
     /** try changing to the opposite direction edge. */
-    virtual bool changeOpposite(std::pair<MSVehicle*, SUMOReal> leader);
+    virtual bool changeOpposite(std::pair<MSVehicle*, double> leader);
 
     /** Update changer for vehicles that did not change */
     void registerUnchanged(MSVehicle* vehicle);
@@ -162,7 +162,7 @@ protected:
      * and possible */
     int checkChangeWithinEdge(
         int laneOffset,
-        const std::pair<MSVehicle* const, SUMOReal>& leader,
+        const std::pair<MSVehicle* const, double>& leader,
         const std::vector<MSVehicle::LaneQ>& preb) const;
 
     /* @brief check whether lane changing in the given direction is desirable
@@ -170,9 +170,9 @@ protected:
     int checkChange(
         int laneOffset,
         const MSLane* targetLane,
-        const std::pair<MSVehicle* const, SUMOReal>& leader,
-        const std::pair<MSVehicle* const, SUMOReal>& neighLead,
-        const std::pair<MSVehicle* const, SUMOReal>& neighFollow,
+        const std::pair<MSVehicle* const, double>& leader,
+        const std::pair<MSVehicle* const, double>& neighLead,
+        const std::pair<MSVehicle* const, double>& neighFollow,
         const std::vector<MSVehicle::LaneQ>& preb) const;
 
     ///  @brief start the lane change maneuver (and finish it instantly if gLaneChangeDuration == 0)
@@ -181,15 +181,15 @@ protected:
     ///  @brief continue a lane change maneuver and return whether the midpoint was passed in this step (used if gLaneChangeDuration > 0)
     bool continueChange(MSVehicle* vehicle, ChangerIt& from);
 
-    std::pair<MSVehicle* const, SUMOReal> getRealFollower(const ChangerIt& target) const;
+    std::pair<MSVehicle* const, double> getRealFollower(const ChangerIt& target) const;
 
-    std::pair<MSVehicle* const, SUMOReal> getRealLeader(const ChangerIt& target) const;
+    std::pair<MSVehicle* const, double> getRealLeader(const ChangerIt& target) const;
 
     /// @brief whether changing to the lane in the given direction should be considered
     bool mayChange(int direction) const;
 
     /// @brief return the closer follower of ego
-    static MSVehicle* getCloserFollower(const SUMOReal maxPos, MSVehicle* follow1, MSVehicle* follow2);
+    static MSVehicle* getCloserFollower(const double maxPos, MSVehicle* follow1, MSVehicle* follow2);
 
     /** @brief Compute the time and space required for overtaking the given leader
      * @param[in] vehicle The vehicle that wants to overtake
@@ -198,7 +198,7 @@ protected:
      * @param[out] timeToOvertake The time for overtaking
      * @param[out] spaceToOvertake The space for overtaking
      */
-    static void computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* leader, SUMOReal gap, SUMOReal& timeToOvertake, SUMOReal& spaceToOvertake);
+    static void computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* leader, double gap, double& timeToOvertake, double& spaceToOvertake);
 
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.

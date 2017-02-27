@@ -106,7 +106,7 @@ MFXAddEditTypedTable::editItem(FXTableItem* item,FXint how)
         {
             try {
                 myNumberEditor->setValue(
-                    TplConvert::_2SUMOReal(it->getText().text()));
+                    TplConvert::_2double(it->getText().text()));
             } catch (NumberFormatException &) {
             } catch (EmptyData &) {
             }
@@ -256,7 +256,7 @@ MFXAddEditTypedTable::getControlForItem(FXint r, FXint c) {
             }
             try {
                 if (getCellType(c) == CT_REAL) {
-                    field->setValue(TplConvert::_2SUMOReal(item->getText().text()));
+                    field->setValue(TplConvert::_2double(item->getText().text()));
                 } else {
                     field->setValue(TplConvert::_2int(item->getText().text()));
                 }

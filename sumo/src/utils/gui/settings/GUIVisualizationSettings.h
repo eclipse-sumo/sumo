@@ -55,11 +55,11 @@ class GUIVisualizationSettings;
 // cannot declare this as inner class because it needs to be used in forward
 // declaration (@todo fix inclusion order by removing references to guisim!)
 struct GUIVisualizationTextSettings {
-    GUIVisualizationTextSettings(bool _show, SUMOReal _size, RGBColor _color) :
+    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color) :
         show(_show), size(_size), color(_color) {}
 
     bool show;
-    SUMOReal size;
+    double size;
     RGBColor color;
 
     bool operator==(const GUIVisualizationTextSettings& other) {
@@ -80,13 +80,13 @@ struct GUIVisualizationTextSettings {
 
 
 struct GUIVisualizationSizeSettings {
-    GUIVisualizationSizeSettings(SUMOReal _minSize, SUMOReal _exaggeration = 1.0, bool _constantSize = false) :
+    GUIVisualizationSizeSettings(double _minSize, double _exaggeration = 1.0, bool _constantSize = false) :
         minSize(_minSize), exaggeration(_exaggeration), constantSize(_constantSize) {}
 
     /// @brief The minimum size to draw this object
-    SUMOReal minSize;
+    double minSize;
     /// @brief The size exaggeration (upscale)
-    SUMOReal exaggeration;
+    double exaggeration;
     // @brief whether the object shall be drawn with constant size regardless of zoom
     bool constantSize;
 
@@ -106,7 +106,7 @@ struct GUIVisualizationSizeSettings {
     }
 
     /// @brief return the drawing size including exaggeration and constantSize values
-    SUMOReal getExaggeration(const GUIVisualizationSettings& s, SUMOReal factor = 20) const;
+    double getExaggeration(const GUIVisualizationSettings& s, double factor = 20) const;
 };
 
 
@@ -136,7 +136,7 @@ public:
     /// @brief Information whether a grid shall be shown
     bool showGrid;
     /// @brief Information about the grid spacings
-    SUMOReal gridXSize, gridYSize;
+    double gridXSize, gridYSize;
     //@}
 
 
@@ -167,9 +167,9 @@ public:
 
     bool hideConnectors;
     /// @brief The lane exaggeration (upscale thickness)
-    SUMOReal laneWidthExaggeration;
+    double laneWidthExaggeration;
     /// @brief The minimum visual lane width for drawing
-    SUMOReal laneMinSize;
+    double laneMinSize;
     /// @brief Whether to show direction indicators for lanes
     bool showLaneDirection;
     /// @brief Whether to show sublane boundaries
@@ -280,7 +280,7 @@ public:
     bool showSizeLegend;
 
     /// @brief information about a lane's width (temporary, used for a single view)
-    SUMOReal scale;
+    double scale;
 
     /// @brief whether the application is in gaming mode or not
     bool gaming;
@@ -292,7 +292,7 @@ public:
     int editAdditionalMode;
 
     /// @brief the current selection scaling in NETEDIT (temporary)
-    SUMOReal selectionScale;
+    double selectionScale;
 
     /// @brief whether drawing is performed for the purpose of selecting objects
     bool drawForSelecting;

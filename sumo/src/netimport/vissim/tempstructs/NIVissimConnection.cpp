@@ -176,13 +176,13 @@ NIVissimConnection::getToEdgeID() const {
 }
 
 
-SUMOReal
+double
 NIVissimConnection::getFromPosition() const {
     return myFromDef.getPosition();
 }
 
 
-SUMOReal
+double
 NIVissimConnection::getToPosition() const {
     return myToDef.getPosition();
 }

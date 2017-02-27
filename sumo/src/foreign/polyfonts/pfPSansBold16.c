@@ -39,7 +39,7 @@ before using this file.
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
-#pragma warning(disable: 4305) // disable reporting SUMOReal 2 SUMOReal shortings
+#pragma warning(disable: 4305) // disable reporting double 2 double shortings
 
 
 

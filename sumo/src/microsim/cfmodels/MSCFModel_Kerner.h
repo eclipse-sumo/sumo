@@ -49,7 +49,7 @@ public:
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's reaction time
      */
-    MSCFModel_Kerner(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal headwayTime, SUMOReal k, SUMOReal phi);
+    MSCFModel_Kerner(const MSVehicleType* vtype, double accel, double decel, double headwayTime, double k, double phi);
 
 
     /// @brief Destructor
@@ -64,7 +64,7 @@ public:
      * @param[in] vPos The possible velocity
      * @return The velocity after applying interactions with stops and lane change model influences
      */
-    SUMOReal moveHelper(MSVehicle* const veh, SUMOReal vPos) const;
+    double moveHelper(MSVehicle* const veh, double vPos) const;
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * @param[in] veh The vehicle (EGO)
@@ -74,7 +74,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    SUMOReal followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -84,7 +84,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap2pred) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const;
 
 
     /** @brief Returns the model's name
@@ -111,7 +111,7 @@ public:
 private:
     class VehicleVariables : public MSCFModel::VehicleVariables {
     public:
-        SUMOReal rand;
+        double rand;
     };
 
     /** @brief Returns the "safe" velocity
@@ -119,7 +119,7 @@ private:
      * @param[in] predSpeed The LEADER's speed
      * @return the safe velocity
      */
-    SUMOReal _v(const MSVehicle* const veh, SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal predSpeed) const;
+    double _v(const MSVehicle* const veh, double speed, double vfree, double gap, double predSpeed) const;
 
 
 
@@ -127,13 +127,13 @@ private:
     /// @name model parameter
     /// @{
     /// @brief Kerner's k
-    SUMOReal myK;
+    double myK;
 
     /// @brief Kerner's phi
-    SUMOReal myPhi;
+    double myPhi;
 
     /// @brief The precomputed value for myDecel*myTau
-    SUMOReal myTauDecel;
+    double myTauDecel;
     /// @}
 
 };

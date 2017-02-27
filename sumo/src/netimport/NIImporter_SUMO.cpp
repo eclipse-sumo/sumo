@@ -452,7 +452,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge->type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     myCurrentEdge->shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok, PositionVector());
     NBNetBuilder::transformCoordinates(myCurrentEdge->shape, true, myLocation);
-    myCurrentEdge->length = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, id.c_str(), ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);
+    myCurrentEdge->length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);
     myCurrentEdge->maxSpeed = 0;
     myCurrentEdge->streetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     if (myCurrentEdge->streetName != "" && OptionsCont::getOptions().isDefault("output.street-names")) {
@@ -489,7 +489,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         // save the width and the lane id of the crossing but don't do anything else
         std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentEdge->id)];
         assert(crossings.size() > 0);
-        crossings.back().width = attrs.get<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok);
+        crossings.back().width = attrs.get<double>(SUMO_ATTR_WIDTH, id.c_str(), ok);
         return;
     } else if (myCurrentEdge->func == EDGEFUNC_INTERNAL || myCurrentEdge->func == EDGEFUNC_WALKINGAREA) {
         myHaveSeenInternalEdge = true;
@@ -499,7 +499,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         // !!! deprecated
         myCurrentLane->maxSpeed = attrs.getFloat("maxspeed");
     } else {
-        myCurrentLane->maxSpeed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, id.c_str(), ok);
+        myCurrentLane->maxSpeed = attrs.get<double>(SUMO_ATTR_SPEED, id.c_str(), ok);
     }
     try {
         myCurrentLane->allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "", false);
@@ -508,8 +508,8 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         myCurrentLane->allow = "";
     }
     myCurrentLane->disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
-    myCurrentLane->width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_WIDTH);
-    myCurrentLane->endOffset = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_OFFSET);
+    myCurrentLane->width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), ok, (double) NBEdge::UNSPECIFIED_WIDTH);
+    myCurrentLane->endOffset = attrs.getOpt<double>(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (double) NBEdge::UNSPECIFIED_OFFSET);
     myCurrentLane->shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     myCurrentLane->accelRamp = attrs.getOpt<bool>(SUMO_ATTR_ACCELERATION, id.c_str(), ok, false);
     // lane coordinates are derived (via lane spread) do not include them in convex boundary
@@ -553,7 +553,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_INTLANES, 0, ok, false), myCurrentJunction.intLanes);
     // set optional radius
     if (attrs.hasAttribute(SUMO_ATTR_RADIUS)) {
-        node->setRadius(attrs.get<SUMOReal>(SUMO_ATTR_RADIUS, id.c_str(), ok));
+        node->setRadius(attrs.get<double>(SUMO_ATTR_RADIUS, id.c_str(), ok));
     }
     // handle custom shape
     if (attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, 0, ok, false)) {
@@ -597,8 +597,8 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     conn.tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, 0, ok, "");
     conn.mayDefinitelyPass = attrs.getOpt<bool>(SUMO_ATTR_PASS, 0, ok, false);
     conn.keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, 0, ok, true);
-    conn.contPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_CONTPOS, 0, ok, NBEdge::UNSPECIFIED_CONTPOS);
-    conn.visibility = attrs.getOpt<SUMOReal>(SUMO_ATTR_VISIBILITY_DISTANCE, 0, ok, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
+    conn.contPos = attrs.getOpt<double>(SUMO_ATTR_CONTPOS, 0, ok, NBEdge::UNSPECIFIED_CONTPOS);
+    conn.visibility = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, 0, ok, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
     if (conn.tlID != "") {
         conn.tlLinkNo = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, 0, ok);
     }
@@ -685,7 +685,7 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedS
     }
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-    SUMOTime offset = TIME2STEPS(attrs.get<SUMOReal>(SUMO_ATTR_OFFSET, id.c_str(), ok));
+    SUMOTime offset = TIME2STEPS(attrs.get<double>(SUMO_ATTR_OFFSET, id.c_str(), ok));
     std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
     std::string typeS = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
     TrafficLightType type;
@@ -712,7 +712,7 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* cur
     const std::string& id = currentTL->getID();
     bool ok = true;
     std::string state = attrs.get<std::string>(SUMO_ATTR_STATE, id.c_str(), ok);
-    SUMOTime duration = TIME2STEPS(attrs.get<SUMOReal>(SUMO_ATTR_DURATION, id.c_str(), ok));
+    SUMOTime duration = TIME2STEPS(attrs.get<double>(SUMO_ATTR_DURATION, id.c_str(), ok));
     if (duration < 0) {
         WRITE_ERROR("Phase duration for tl-logic '" + id + "/" + currentTL->getProgramID() + "' must be positive.");
         return;
@@ -736,11 +736,11 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& fro
     // reverse logic of NBEdge::computeLaneShape
     // !!! this will only work for old-style constant width lanes
     const int noLanes = (int)edge->lanes.size();
-    SUMOReal offset;
+    double offset;
     if (edge->lsf == LANESPREAD_RIGHT) {
         offset = (SUMO_const_laneWidth + SUMO_const_laneOffset) / 2.; // @todo: why is the lane offset counted in here?
     } else {
-        offset = (SUMO_const_laneWidth) / 2. - (SUMO_const_laneWidth * (SUMOReal)noLanes - 1) / 2.; ///= -2.; // @todo: actually, when looking at the road networks, the center line is not in the center
+        offset = (SUMO_const_laneWidth) / 2. - (SUMO_const_laneWidth * (double)noLanes - 1) / 2.; ///= -2.; // @todo: actually, when looking at the road networks, the center line is not in the center
     }
     for (int i = 1; i < (int)firstLane.size() - 1; i++) {
         const Position& from = firstLane[i - 1];
@@ -785,11 +785,11 @@ NIImporter_SUMO::loadLocation(const SUMOSAXAttributes& attrs) {
 
 Position
 NIImporter_SUMO::readPosition(const SUMOSAXAttributes& attrs, const std::string& id, bool& ok) {
-    SUMOReal x = attrs.get<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok);
-    SUMOReal y = attrs.get<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok);
-    SUMOReal z = 0;
+    double x = attrs.get<double>(SUMO_ATTR_X, id.c_str(), ok);
+    double y = attrs.get<double>(SUMO_ATTR_Y, id.c_str(), ok);
+    double z = 0;
     if (attrs.hasAttribute(SUMO_ATTR_Z)) {
-        z = attrs.get<SUMOReal>(SUMO_ATTR_Z, id.c_str(), ok);
+        z = attrs.get<double>(SUMO_ATTR_Z, id.c_str(), ok);
     }
     return Position(x, y, z);
 }

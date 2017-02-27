@@ -51,8 +51,8 @@ public:
     static bool dictionary(int id, NIVissimTrafficDescription* o);
     static NIVissimTrafficDescription* dictionary(int id);
     static void clearDict();
-    static SUMOReal meanSpeed(int id);
-    SUMOReal meanSpeed() const;
+    static double meanSpeed(int id);
+    double meanSpeed() const;
 private:
     std::string myName;
     NIVissimVehicleClassVector myVehicleTypes;

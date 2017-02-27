@@ -42,8 +42,8 @@
 #define M_PI 3.1415926535897932384626433832795
 #endif
 
-#define DEG2RAD(x) static_cast<SUMOReal>((x) * M_PI / 180.)
-#define RAD2DEG(x) static_cast<SUMOReal>((x) * 180. / M_PI)
+#define DEG2RAD(x) static_cast<double>((x) * M_PI / 180.)
+#define RAD2DEG(x) static_cast<double>((x) * 180. / M_PI)
 
 
 // ===========================================================================
@@ -56,7 +56,7 @@ class GeomHelper {
 
 public:
     /// @brief a value to signify offsets outside the range of [0, Line.length()]
-    static const SUMOReal INVALID_OFFSET;
+    static const double INVALID_OFFSET;
 
     /** @brief Returns the positions the given circle is crossed by the given line
      * @param[in] c The center position of the circle
@@ -67,17 +67,17 @@ public:
      * @see http://blog.csharphelper.com/2010/03/28/determine-where-a-line-intersects-a-circle-in-c.aspx
      * @see http://gamedev.stackexchange.com/questions/18333/circle-line-collision-detection-problem (jazzdawg)
      */
-    static void findLineCircleIntersections(const Position& c, SUMOReal radius, const Position& p1, const Position& p2,
-                                            std::vector<SUMOReal>& into);
+    static void findLineCircleIntersections(const Position& c, double radius, const Position& p1, const Position& p2,
+                                            std::vector<double>& into);
 
 
     /** @brief Returns the angle between two vectors on a plane
        The angle is from vector 1 to vector 2, positive anticlockwise
        The result is between -pi and pi
     */
-    static SUMOReal angle2D(const Position& p1, const Position& p2);
+    static double angle2D(const Position& p1, const Position& p2);
 
-    static SUMOReal nearest_offset_on_line_to_point2D(
+    static double nearest_offset_on_line_to_point2D(
         const Position& lineStart, const Position& lineEnd,
         const Position& p, bool perpendicular = true);
 
@@ -89,7 +89,7 @@ public:
      * @param[in] angle2 The second angle
      * @return Angle (counter-clockwise) starting from first to second angle
      */
-    static SUMOReal getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2);
+    static double getCCWAngleDiff(double angle1, double angle2);
 
 
     /** @brief Returns the distance of second angle from first angle clockwise
@@ -97,7 +97,7 @@ public:
      * @param[in] angle2 The second angle
      * @return Angle (clockwise) starting from first to second angle
      */
-    static SUMOReal getCWAngleDiff(SUMOReal angle1, SUMOReal angle2);
+    static double getCWAngleDiff(double angle1, double angle2);
 
 
     /** @brief Returns the minimum distance (clockwise/counter-clockwise) between both angles
@@ -105,7 +105,7 @@ public:
      * @param[in] angle2 The second angle
      * @return The minimum distance between both angles
      */
-    static SUMOReal getMinAngleDiff(SUMOReal angle1, SUMOReal angle2);
+    static double getMinAngleDiff(double angle1, double angle2);
 
 
     /** @brief Returns the difference of the second angle to the first angle in radiants
@@ -117,7 +117,7 @@ public:
      * @param[in] angle2 The second angle
      * @return angle starting from first to second angle
      */
-    static SUMOReal angleDiff(const SUMOReal angle1, const SUMOReal angle2);
+    static double angleDiff(const double angle1, const double angle2);
 
 
     /** Converts an angle from mathematical radians where 0 is to the right and positive angles
@@ -126,7 +126,7 @@ public:
      * @param[in] angle The angle in radians to convert
      * @return the angle in degrees
      */
-    static SUMOReal naviDegree(const SUMOReal angle);
+    static double naviDegree(const double angle);
 
     /** Converts an angle from mathematical radians where 0 is to the right and positive angles
      *  are counterclockwise to the legacy degrees used in sumo where 0 is down and positive means clockwise.
@@ -134,7 +134,7 @@ public:
      * @param[in] angle The angle in radians to convert
      * @return the angle in degrees
      */
-    static SUMOReal legacyDegree(const SUMOReal angle, const bool positive = false);
+    static double legacyDegree(const double angle, const bool positive = false);
 
 };
 

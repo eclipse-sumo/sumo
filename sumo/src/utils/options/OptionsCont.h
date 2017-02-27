@@ -435,17 +435,17 @@ public:
     std::string getString(const std::string& name) const;
 
 
-    /** @brief Returns the SUMOReal-value of the named option (only for Option_Float)
+    /** @brief Returns the double-value of the named option (only for Option_Float)
      *
-     * This method returns the SUMOReal-value of an existing SUMOReal-option.
-     * If the named option does not exist or is not a SUMOReal-option, an
+     * This method returns the double-value of an existing double-option.
+     * If the named option does not exist or is not a double-option, an
      *  InvalidArgument is thrown.
      *
-     * @param[in] name The name of the option to return the SUMOReal-value of
-     * @return The SUMOReal-value of the named, existing SUMOReal-option
-     * @exception InvalidArgument If the option does not exist or is not a SUMOReal-option
+     * @param[in] name The name of the option to return the double-value of
+     * @return The double-value of the named, existing double-option
+     * @exception InvalidArgument If the option does not exist or is not a double-option
      */
-    SUMOReal getFloat(const std::string& name) const;
+    double getFloat(const std::string& name) const;
 
 
     /** @brief Returns the int-value of the named option (only for Option_Integer)

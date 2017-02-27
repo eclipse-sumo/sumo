@@ -73,7 +73,7 @@ public:
     class Stage {
     public:
         /// constructor
-        Stage(const MSEdge& destination, MSStoppingPlace* toStop, const SUMOReal arrivalPos, StageType type);
+        Stage(const MSEdge& destination, MSStoppingPlace* toStop, const double arrivalPos, StageType type);
 
         /// destructor
         virtual ~Stage();
@@ -86,20 +86,20 @@ public:
             return myDestinationStop;
         }
 
-        SUMOReal getArrivalPos() const {
+        double getArrivalPos() const {
             return myArrivalPos;
         }
 
         /// Returns the current edge
         virtual const MSEdge* getEdge() const = 0;
         virtual const MSEdge* getFromEdge() const = 0;
-        virtual SUMOReal getEdgePos(SUMOTime now) const = 0;
+        virtual double getEdgePos(SUMOTime now) const = 0;
 
         /// returns the position of the transportable
         virtual Position getPosition(SUMOTime now) const = 0;
 
         /// returns the angle of the transportable
-        virtual SUMOReal getAngle(SUMOTime now) const = 0;
+        virtual double getAngle(SUMOTime now) const = 0;
 
         ///
         StageType getStageType() const {
@@ -116,7 +116,7 @@ public:
         virtual void abort(MSTransportable*) {};
 
         /// sets the walking speed (ignored in other stages)
-        virtual void setSpeed(SUMOReal) {};
+        virtual void setSpeed(double) {};
 
         /// logs end of the step
         void setDeparted(SUMOTime now);
@@ -141,19 +141,19 @@ public:
         virtual SUMOTime getWaitingTime(SUMOTime now) const = 0;
 
         /// @brief the speed of the transportable
-        virtual SUMOReal getSpeed() const = 0;
+        virtual double getSpeed() const = 0;
 
         /// @brief the edges of the current stage
         virtual ConstMSEdgeVector getEdges() const = 0;
 
         /// @brief get position on edge e at length at with orthogonal offset
-        Position getEdgePosition(const MSEdge* e, SUMOReal at, SUMOReal offset) const;
+        Position getEdgePosition(const MSEdge* e, double at, double offset) const;
 
         /// @brief get position on lane at length at with orthogonal offset
-        Position getLanePosition(const MSLane* lane, SUMOReal at, SUMOReal offset) const;
+        Position getLanePosition(const MSLane* lane, double at, double offset) const;
 
         /// @brief get angle of the edge at a certain position
-        SUMOReal getEdgeAngle(const MSEdge* e, SUMOReal at) const;
+        double getEdgeAngle(const MSEdge* e, double at) const;
 
         /** @brief Called on writing tripinfo output
          * @param[in] os The stream to write the information into
@@ -187,7 +187,7 @@ public:
         MSStoppingPlace* const myDestinationStop;
 
         /// the position at which we want to arrive
-        SUMOReal myArrivalPos;
+        double myArrivalPos;
 
         /// the time at which this stage started
         SUMOTime myDeparted;
@@ -214,7 +214,7 @@ public:
     public:
         /// constructor
         Stage_Waiting(const MSEdge& destination, SUMOTime duration, SUMOTime until,
-                      SUMOReal pos, const std::string& actType, const bool initial);
+                      double pos, const std::string& actType, const bool initial);
 
         /// destructor
         virtual ~Stage_Waiting();
@@ -222,17 +222,17 @@ public:
         /// Returns the current edge
         const MSEdge* getEdge() const;
         const MSEdge* getFromEdge() const;
-        SUMOReal getEdgePos(SUMOTime now) const;
+        double getEdgePos(SUMOTime now) const;
         SUMOTime getUntil() const;
 
         ///
         Position getPosition(SUMOTime now) const;
 
-        SUMOReal getAngle(SUMOTime now) const;
+        double getAngle(SUMOTime now) const;
 
         SUMOTime getWaitingTime(SUMOTime now) const;
 
-        SUMOReal getSpeed() const;
+        double getSpeed() const;
 
         ConstMSEdgeVector getEdges() const;
 
@@ -299,7 +299,7 @@ public:
     public:
         /// constructor
         Stage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
-                      const SUMOReal arrivalPos, const std::vector<std::string>& lines);
+                      const double arrivalPos, const std::vector<std::string>& lines);
 
         /// destructor
         virtual ~Stage_Driving();
@@ -310,12 +310,12 @@ public:
         /// Returns the current edge
         const MSEdge* getEdge() const;
         const MSEdge* getFromEdge() const;
-        SUMOReal getEdgePos(SUMOTime now) const;
+        double getEdgePos(SUMOTime now) const;
 
         ///
         Position getPosition(SUMOTime now) const;
 
-        SUMOReal getAngle(SUMOTime now) const;
+        double getAngle(SUMOTime now) const;
 
         /// Whether the person waits for a vehicle of the line specified.
         bool isWaitingFor(const std::string& line) const;
@@ -331,7 +331,7 @@ public:
         /// @brief time spent waiting for a ride
         SUMOTime getWaitingTime(SUMOTime now) const;
 
-        SUMOReal getSpeed() const;
+        double getSpeed() const;
 
         ConstMSEdgeVector getEdges() const;
 
@@ -358,7 +358,7 @@ public:
         /// @brief The taken vehicle
         SUMOVehicle* myVehicle;
 
-        SUMOReal myWaitingPos;
+        double myWaitingPos;
         /// @brief The time since which this person is waiting for a ride
         SUMOTime myWaitingSince;
         const MSEdge* myWaitingEdge;
@@ -424,19 +424,19 @@ public:
     }
 
     /// @brief Return the position on the edge
-    virtual SUMOReal getEdgePos() const;
+    virtual double getEdgePos() const;
 
     /// @brief Return the Network coordinate of the transportable
     virtual Position getPosition() const;
 
     /// @brief return the current angle of the transportable
-    virtual SUMOReal getAngle() const;
+    virtual double getAngle() const;
 
     /// @brief the time this transportable spent waiting in seconds
-    virtual SUMOReal getWaitingSeconds() const;
+    virtual double getWaitingSeconds() const;
 
     /// @brief the current speed of the transportable
-    virtual SUMOReal getSpeed() const;
+    virtual double getSpeed() const;
 
     /// @brief the current stage type of the transportable
     StageType getCurrentStageType() const {
@@ -509,10 +509,10 @@ public:
     void removeStage(int next);
 
     /// sets the walking speed (ignored in other stages)
-    void setSpeed(SUMOReal speed);
+    void setSpeed(double speed);
 
     /// @brief returns the final arrival pos
-    SUMOReal getArrivalPos() const {
+    double getArrivalPos() const {
         return myPlan->back()->getArrivalPos();
     }
 
@@ -526,7 +526,7 @@ public:
 
 protected:
     /// @brief the offset for computing positions when standing at an edge
-    static const SUMOReal ROADSIDE_OFFSET;
+    static const double ROADSIDE_OFFSET;
 
     /// the plan of the transportable
     const SUMOVehicleParameter* myParameter;

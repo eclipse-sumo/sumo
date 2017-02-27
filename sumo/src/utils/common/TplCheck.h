@@ -62,9 +62,9 @@ public:
         return true;
     }
 
-    /// @brief check if a String can be parsed into a SUMOReal
+    /// @brief check if a String can be parsed into a double
     /// @ToDo check overflows
-    static bool _str2SUMOReal(const std::string& data) {
+    static bool _str2double(const std::string& data) {
         bool dot = false;
         if (data.size() == 0) {
             return false;

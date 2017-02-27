@@ -72,7 +72,7 @@ public:
                           PCTypeMap& tm);
 
 
-    Position getLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos);
+    Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos);
 
 protected:
     /** @brief Constructor

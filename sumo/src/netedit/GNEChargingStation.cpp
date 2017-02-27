@@ -64,7 +64,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal startPos, SUMOReal endPos, SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, const SUMOReal chargeDelay) :
+GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay) :
     GNEStoppingPlace(id, viewNet, SUMO_TAG_CHARGING_STATION, ICON_CHARGINGSTATION, lane, startPos, endPos),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
@@ -123,7 +123,7 @@ GNEChargingStation::updateGeometry() {
             myShapeLengths.push_back(f.distanceTo(s));
 
             // Save rotation (angle) of the vector constructed by points f and s
-            myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
         }
     }
 
@@ -171,13 +171,13 @@ GNEChargingStation::writeAdditional(OutputDevice& device) const {
 }
 
 
-SUMOReal
+double
 GNEChargingStation::getChargingPower() {
     return myChargingPower;
 }
 
 
-SUMOReal
+double
 GNEChargingStation::getEfficiency() {
     return myEfficiency;
 }
@@ -189,14 +189,14 @@ GNEChargingStation::getChargeInTransit() {
 }
 
 
-SUMOReal
+double
 GNEChargingStation::getChargeDelay() {
     return myChargeDelay;
 }
 
 
 void
-GNEChargingStation::setChargingPower(SUMOReal chargingPower) {
+GNEChargingStation::setChargingPower(double chargingPower) {
     if (chargingPower > 0) {
         myChargingPower = chargingPower;
     } else {
@@ -206,7 +206,7 @@ GNEChargingStation::setChargingPower(SUMOReal chargingPower) {
 
 
 void
-GNEChargingStation::setEfficiency(SUMOReal efficiency) {
+GNEChargingStation::setEfficiency(double efficiency) {
     if (efficiency >= 0 && efficiency <= 1) {
         myEfficiency = efficiency;
     } else {
@@ -222,7 +222,7 @@ GNEChargingStation::setChargeInTransit(bool chargeInTransit) {
 
 
 void
-GNEChargingStation::setChargeDelay(SUMOReal chargeDelay) {
+GNEChargingStation::setChargeDelay(double chargeDelay) {
     if (chargeDelay < 0) {
         throw InvalidArgument("Value of chargeDelay cannot be negative");
     }
@@ -249,7 +249,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // Get exaggeration
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
 
     // Draw base
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
@@ -318,7 +318,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         // Draw extern
-        GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
+        GLHelper::drawFilledCircle((double) 1.1, noPoints);
 
         // Move to top
         glTranslated(0, 0, .1);
@@ -330,7 +330,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(mySignColor);
         }
         // Draw internt sign
-        GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
+        GLHelper::drawFilledCircle((double) 0.9, noPoints);
 
         // Draw sign 'C'
         if (s.scale * exaggeration >= 4.5) {
@@ -424,11 +424,11 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) < (myEndPos - 1));
+            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) < (myEndPos - 1));
         case SUMO_ATTR_ENDPOS: {
-            if (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 1 && parse<SUMOReal>(value) > myStartPos) {
+            if (canParse<double>(value) && parse<double>(value) >= 1 && parse<double>(value) > myStartPos) {
                 // If extension is larger than Lane
-                if (parse<SUMOReal>(value) > myLane->getLaneParametricLenght()) {
+                if (parse<double>(value) > myLane->getLaneParametricLenght()) {
                     // Ask user if want to assign the lenght of lane as endPosition
                     FXuint answer = FXMessageBox::question(getViewNet()->getApp(), MBOX_YES_NO,
                                                            (toString(SUMO_ATTR_ENDPOS) + " exceeds the size of the " + toString(SUMO_TAG_LANE)).c_str(), "%s",
@@ -447,13 +447,13 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case SUMO_ATTR_CHARGINGPOWER:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0);
+            return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_EFFICIENCY:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) <= 1);
+            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1);
         case SUMO_ATTR_CHARGEINTRANSIT:
             return canParse<bool>(value);
         case SUMO_ATTR_CHARGEDELAY:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0);
+            return (canParse<double>(value) && parse<double>(value) >= 0);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
@@ -475,30 +475,30 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPos = parse<SUMOReal>(value);
+            myStartPos = parse<double>(value);
             updateGeometry();
             getViewNet()->update();
             break;
         case SUMO_ATTR_ENDPOS:
-            if (parse<SUMOReal>(value) > myLane->getLaneParametricLenght()) {
+            if (parse<double>(value) > myLane->getLaneParametricLenght()) {
                 myEndPos = myLane->getLaneParametricLenght();
             } else {
-                myEndPos = parse<SUMOReal>(value);
+                myEndPos = parse<double>(value);
             }
             updateGeometry();
             getViewNet()->update();
             break;
         case SUMO_ATTR_CHARGINGPOWER:
-            myChargingPower = parse<SUMOReal>(value);
+            myChargingPower = parse<double>(value);
             break;
         case SUMO_ATTR_EFFICIENCY:
-            myEfficiency = parse<SUMOReal>(value);
+            myEfficiency = parse<double>(value);
             break;
         case SUMO_ATTR_CHARGEINTRANSIT:
             myChargeInTransit = parse<bool>(value);
             break;
         case SUMO_ATTR_CHARGEDELAY:
-            myChargeDelay = parse<SUMOReal>(value);
+            myChargeDelay = parse<double>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);

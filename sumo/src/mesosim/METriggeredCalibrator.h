@@ -47,10 +47,10 @@ class METriggeredCalibrator : public MSCalibrator {
 public:
     /** constructor */
     METriggeredCalibrator(const std::string& id,
-                          const MSEdge* const edge, const SUMOReal pos,
+                          const MSEdge* const edge, const double pos,
                           const std::string& aXMLFilename,
                           const std::string& outputFilename,
-                          const SUMOTime freq, const SUMOReal length,
+                          const SUMOTime freq, const double length,
                           const MSRouteProbe* probe);
 
     /** destructor */
@@ -84,7 +84,7 @@ protected:
 
     /// @brief returns the maximum number of vehicles that could enter from upstream until the calibrator is activated again
     inline int maximumInflow() const {
-        return (int)std::ceil((SUMOReal)myFrequency / (SUMOReal)mySegment->getMinimumHeadwayTime());
+        return (int)std::ceil((double)myFrequency / (double)mySegment->getMinimumHeadwayTime());
     }
 
 private:

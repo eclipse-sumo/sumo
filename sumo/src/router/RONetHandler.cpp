@@ -114,7 +114,7 @@ RONetHandler::myStartElement(int element,
         case SUMO_TAG_RESTRICTION: {
             bool ok = true;
             const SUMOVehicleClass svc = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, myCurrentTypeID.c_str(), ok));
-            const SUMOReal speed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentTypeID.c_str(), ok);
+            const double speed = attrs.get<double>(SUMO_ATTR_SPEED, myCurrentTypeID.c_str(), ok);
             if (ok) {
                 myNet.addRestriction(myCurrentTypeID, svc, speed);
             }
@@ -242,8 +242,8 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     // get the speed
-    SUMOReal maxSpeed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, id.c_str(), ok);
-    SUMOReal length = attrs.get<SUMOReal>(SUMO_ATTR_LENGTH, id.c_str(), ok);
+    double maxSpeed = attrs.get<double>(SUMO_ATTR_SPEED, id.c_str(), ok);
+    double length = attrs.get<double>(SUMO_ATTR_LENGTH, id.c_str(), ok);
     std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     if (!ok) {
@@ -271,8 +271,8 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
         return;
     }
     // get the position of the node
-    SUMOReal x = attrs.get<SUMOReal>(SUMO_ATTR_X, id.c_str(), ok);
-    SUMOReal y = attrs.get<SUMOReal>(SUMO_ATTR_Y, id.c_str(), ok);
+    double x = attrs.get<double>(SUMO_ATTR_X, id.c_str(), ok);
+    double y = attrs.get<double>(SUMO_ATTR_Y, id.c_str(), ok);
     if (ok) {
         RONode* n = myNet.getNode(id);
         if (n == 0) {
@@ -332,8 +332,8 @@ RONetHandler::parseStoppingPlace(const SUMOSAXAttributes& attrs, const SumoXMLTa
         throw InvalidArgument("Unknown lane '" + myCurrentStoppingPlace->lane + "' for " + toString(element) + " '" + id + "'.");
     }
     // get the positions
-    myCurrentStoppingPlace->startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
-    myCurrentStoppingPlace->endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, id.c_str(), ok, edge->getLength());
+    myCurrentStoppingPlace->startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
+    myCurrentStoppingPlace->endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, edge->getLength());
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     if (!ok || !SUMORouteHandler::checkStopPos(myCurrentStoppingPlace->startPos, myCurrentStoppingPlace->endPos, edge->getLength(), POSITION_EPS, friendlyPos)) {
         throw InvalidArgument("Invalid position for " + toString(element) + " '" + id + "'.");
@@ -356,7 +356,7 @@ RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
     if (edge == 0) {
         throw InvalidArgument("Unknown lane '" + lane + "' for access.");
     }
-    const SUMOReal pos = attrs.getOpt<SUMOReal>(SUMO_ATTR_POSITION, "access", ok, 0);
+    const double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0);
     if (!ok) {
         throw ProcessError();
     }

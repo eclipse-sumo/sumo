@@ -182,7 +182,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdClose(FXObject*, FXSelector
 
 long
 GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdUserDef(FXObject*, FXSelector, void*) {
-    mySpeed = (SUMOReal)(myUserDefinedSpeed->getValue() / 3.6);
+    mySpeed = (double)(myUserDefinedSpeed->getValue() / 3.6);
     static_cast<GUILaneSpeedTrigger*>(myObject)->setOverridingValue(mySpeed);
     myParent->updateChildren();
     return 1;
@@ -201,7 +201,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdUserDef(FXObject* sender, F
 
 long
 GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdPreDef(FXObject*, FXSelector, void*) {
-    mySpeed = (SUMOReal)(SUMOReal)((myPredefinedValues->getCurrentItem() * 20 + 20) / 3.6);
+    mySpeed = (double)(double)((myPredefinedValues->getCurrentItem() * 20 + 20) / 3.6);
     static_cast<GUILaneSpeedTrigger*>(myObject)->setOverridingValue(mySpeed);
     myParent->updateChildren();
     return 1;
@@ -223,16 +223,16 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*, FXS
     static_cast<GUILaneSpeedTrigger*>(myObject)->setOverriding(true);
     switch (myChosenValue) {
         case 0:
-            mySpeed = (SUMOReal) static_cast<GUILaneSpeedTrigger*>(myObject)->getDefaultSpeed();
+            mySpeed = (double) static_cast<GUILaneSpeedTrigger*>(myObject)->getDefaultSpeed();
             break;
         case 1:
-            mySpeed = (SUMOReal) static_cast<GUILaneSpeedTrigger*>(myObject)->getLoadedSpeed();
+            mySpeed = (double) static_cast<GUILaneSpeedTrigger*>(myObject)->getLoadedSpeed();
             break;
         case 2:
-            mySpeed = (SUMOReal)((myPredefinedValues->getCurrentItem() * 20 + 20) / 3.6);
+            mySpeed = (double)((myPredefinedValues->getCurrentItem() * 20 + 20) / 3.6);
             break;
         case 3:
-            mySpeed = (SUMOReal)(myUserDefinedSpeed->getValue() / 3.6);
+            mySpeed = (double)(myUserDefinedSpeed->getValue() / 3.6);
             break;
         default:
             // hmmm, should not happen
@@ -317,7 +317,7 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow& app,
         new GUIParameterTableWindow(app, *this, 1);
     // add items
     ret->mkItem("speed [m/s]", true,
-                new FunctionBinding<GUILaneSpeedTrigger, SUMOReal>(this, &GUILaneSpeedTrigger::getCurrentSpeed));
+                new FunctionBinding<GUILaneSpeedTrigger, double>(this, &GUILaneSpeedTrigger::getCurrentSpeed));
     // close building
     ret->closeBuilding();
     return ret;
@@ -329,10 +329,10 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     glTranslated(0, 0, getType());
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
     for (int i = 0; i < (int)myFGPositions.size(); ++i) {
         const Position& pos = myFGPositions[i];
-        SUMOReal rot = myFGRotations[i];
+        double rot = myFGRotations[i];
         glPushMatrix();
         glScaled(exaggeration, exaggeration, 1);
         glTranslated(pos.x(), pos.y(), 0);
@@ -347,24 +347,24 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         glColor3d(1, 0, 0);
-        GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
+        GLHelper::drawFilledCircle((double) 1.3, noPoints);
         if (s.scale >= 5) {
             glTranslated(0, 0, .1);
             glColor3d(0, 0, 0);
-            GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
+            GLHelper::drawFilledCircle((double) 1.1, noPoints);
             // draw the speed string
             // not if scale to low
             // compute
-            SUMOReal value = (SUMOReal) getCurrentSpeed();
+            double value = (double) getCurrentSpeed();
             if (myShowAsKMH) {
                 value *= 3.6f;
                 if (((int) value + 1) % 10 == 0) {
-                    value = (SUMOReal)(((int) value + 1) / 10 * 10);
+                    value = (double)(((int) value + 1) / 10 * 10);
                 }
             }
             if (value != myLastValue) {
                 myLastValue = value;
-                myLastValueString = toString<SUMOReal>(myLastValue);
+                myLastValueString = toString<double>(myLastValue);
                 std::string::size_type idx = myLastValueString.find('.');
                 if (idx != std::string::npos) {
                     if (idx > myLastValueString.length()) {
@@ -379,7 +379,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             pfSetPosition(0, 0);
             pfSetScale(1.2f);
-            SUMOReal w = pfdkGetStringWidth(myLastValueString.c_str());
+            double w = pfdkGetStringWidth(myLastValueString.c_str());
             glRotated(180, 0, 1, 0);
             glTranslated(-w / 2., 0.3, 0);
             pfDrawString(myLastValueString.c_str());

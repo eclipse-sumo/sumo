@@ -44,7 +44,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-AGPosition::AGPosition(const AGStreet& str, SUMOReal pos) :
+AGPosition::AGPosition(const AGStreet& str, double pos) :
     street(&str), position(pos), pos2d(compute2dPosition()) {
 }
 
@@ -66,16 +66,16 @@ AGPosition::operator==(const AGPosition& pos) const {
 }
 
 
-SUMOReal
+double
 AGPosition::distanceTo(const AGPosition& otherPos) const {
     return pos2d.distanceTo(otherPos.pos2d);
 }
 
 
-SUMOReal
+double
 AGPosition::minDistanceTo(const std::list<AGPosition>& positions) const {
-    SUMOReal minDist = std::numeric_limits<SUMOReal>::infinity();
-    SUMOReal tempDist;
+    double minDist = std::numeric_limits<double>::infinity();
+    double tempDist;
     std::list<AGPosition>::const_iterator itt;
 
     for (itt = positions.begin(); itt != positions.end(); ++itt) {
@@ -88,10 +88,10 @@ AGPosition::minDistanceTo(const std::list<AGPosition>& positions) const {
 }
 
 
-SUMOReal
+double
 AGPosition::minDistanceTo(const std::map<int, AGPosition>& positions) const {
-    SUMOReal minDist = std::numeric_limits<SUMOReal>::infinity();
-    SUMOReal tempDist;
+    double minDist = std::numeric_limits<double>::infinity();
+    double tempDist;
     std::map<int, AGPosition>::const_iterator itt;
 
     for (itt = positions.begin(); itt != positions.end(); ++itt) {
@@ -110,13 +110,13 @@ AGPosition::getStreet() const {
 }
 
 
-SUMOReal
+double
 AGPosition::getPosition() const {
     return position;
 }
 
 
-SUMOReal
+double
 AGPosition::randomPositionInStreet(const AGStreet& s) {
     return RandHelper::rand(0.0, s.getLength());
 }

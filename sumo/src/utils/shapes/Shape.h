@@ -54,8 +54,8 @@ public:
      * @param[in] imgFile The raster image of the shape
      */
     Shape(const std::string& id, const std::string& type,
-          const RGBColor& color, SUMOReal layer,
-          SUMOReal angle, const std::string& imgFile);
+          const RGBColor& color, double layer,
+          double angle, const std::string& imgFile);
 
 
     /// @brief Destructor
@@ -84,14 +84,14 @@ public:
     /** @brief Returns the layer of the Shape
      * @return The Shape's layer
      */
-    inline SUMOReal getLayer() const {
+    inline double getLayer() const {
         return myLayer;
     }
 
     /** @brief Returns the angle of the Shape in navigational degrees
      * @return The Shape's rotation angle
      */
-    inline SUMOReal getNaviDegree() const {
+    inline double getNaviDegree() const {
         return myNaviDegreeAngle;
     }
 
@@ -126,7 +126,7 @@ public:
     /** @brief Sets a new layer
      * @param[in] layer The new layer to use
      */
-    inline void setLayer(const SUMOReal layer) {
+    inline void setLayer(const double layer) {
         myLayer = layer;
     }
 
@@ -134,7 +134,7 @@ public:
     /** @brief Sets a new angle in navigational degrees
      * @param[in] layer The new angle to use
      */
-    inline void setNaviDegree(const SUMOReal angle) {
+    inline void setNaviDegree(const double angle) {
         myNaviDegreeAngle = angle;
     }
 
@@ -147,11 +147,11 @@ public:
     /// @}
 
     static const std::string DEFAULT_TYPE;
-    static const SUMOReal DEFAULT_LAYER;
-    static const SUMOReal DEFAULT_ANGLE;
+    static const double DEFAULT_LAYER;
+    static const double DEFAULT_ANGLE;
     static const std::string DEFAULT_IMG_FILE;
-    static const SUMOReal DEFAULT_IMG_WIDTH;
-    static const SUMOReal DEFAULT_IMG_HEIGHT;
+    static const double DEFAULT_IMG_WIDTH;
+    static const double DEFAULT_IMG_HEIGHT;
 
 protected:
     /// @brief The type of the Shape
@@ -161,10 +161,10 @@ protected:
     RGBColor myColor;
 
     /// @brief The layer of the Shape
-    SUMOReal myLayer;
+    double myLayer;
 
     /// @brief The angle of the Shape
-    SUMOReal myNaviDegreeAngle;
+    double myNaviDegreeAngle;
 
     /// @brief The angle of the Shape
     std::string myImgFile;

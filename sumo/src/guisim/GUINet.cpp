@@ -72,8 +72,8 @@
 // ===========================================================================
 // definition of static variables used for visualisation of objects' values
 // ===========================================================================
-template std::vector< GLObjectValuePassConnector<SUMOReal>* > GLObjectValuePassConnector<SUMOReal>::myContainer;
-template MFXMutex GLObjectValuePassConnector<SUMOReal>::myLock;
+template std::vector< GLObjectValuePassConnector<double>* > GLObjectValuePassConnector<double>::myContainer;
+template MFXMutex GLObjectValuePassConnector<double>::myLock;
 
 template std::vector< GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >* > GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >::myContainer;
 template MFXMutex GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >::myLock;
@@ -221,7 +221,7 @@ GUINet::getLinkTLIndex(MSLink* link) const {
 
 void
 GUINet::guiSimulationStep() {
-    GLObjectValuePassConnector<SUMOReal>::updateAll();
+    GLObjectValuePassConnector<double>::updateAll();
     GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >::updateAll();
 }
 
@@ -336,39 +336,39 @@ GUINet::getVisDuration() const
 */
 
 
-SUMOReal
+double
 GUINet::getRTFactor() const {
     if (myLastSimDuration == 0) {
         return -1;
     }
-    return (SUMOReal) 1000. / (SUMOReal) myLastSimDuration;
+    return (double) 1000. / (double) myLastSimDuration;
 }
 
 
-SUMOReal
+double
 GUINet::getUPS() const {
     if (myLastSimDuration == 0) {
         return -1;
     }
-    return (SUMOReal) myLastVehicleMovementCount / (SUMOReal) myLastSimDuration * (SUMOReal) 1000.;
+    return (double) myLastVehicleMovementCount / (double) myLastSimDuration * (double) 1000.;
 }
 
 
-SUMOReal
+double
 GUINet::getMeanRTFactor(int duration) const {
     if (myOverallSimDuration == 0) {
         return -1;
     }
-    return ((SUMOReal)(duration) * (SUMOReal) 1000. / (SUMOReal)myOverallSimDuration);
+    return ((double)(duration) * (double) 1000. / (double)myOverallSimDuration);
 }
 
 
-SUMOReal
+double
 GUINet::getMeanUPS() const {
     if (myOverallSimDuration == 0) {
         return -1;
     }
-    return ((SUMOReal)myVehiclesMoved / (SUMOReal)myOverallSimDuration * (SUMOReal) 1000.);
+    return ((double)myVehiclesMoved / (double)myOverallSimDuration * (double) 1000.);
 }
 
 
@@ -448,24 +448,24 @@ GUINet::getParameterWindow(GUIMainWindow& app,
         ret->mkItem("simulation duration [ms]", true, new FunctionBinding<GUINet, int>(this, &GUINet::getSimDuration));
         /*
         ret->mkItem("visualisation duration [ms]", true,
-            new CastingFunctionBinding<GUINet, SUMOReal, int>(
+            new CastingFunctionBinding<GUINet, double, int>(
                 &(getNet()), &GUINet::getVisDuration));
         */
         ret->mkItem("idle duration [ms]", true, new FunctionBinding<GUINet, int>(this, &GUINet::getIdleDuration));
-        ret->mkItem("duration factor []", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getRTFactor));
+        ret->mkItem("duration factor []", true, new FunctionBinding<GUINet, double>(this, &GUINet::getRTFactor));
         /*
         ret->mkItem("mean duration factor []", true,
-            new FuncBinding_IntParam<GUINet, SUMOReal>(
+            new FuncBinding_IntParam<GUINet, double>(
                 &(getNet()), &GUINet::getMeanRTFactor), 1);
                 */
-        ret->mkItem("ups [#]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getUPS));
-        ret->mkItem("mean ups [#]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getMeanUPS));
+        ret->mkItem("ups [#]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getUPS));
+        ret->mkItem("mean ups [#]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getMeanUPS));
         if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
-            ret->mkItem("avg. trip length [m]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getAvgRouteLength));
-            ret->mkItem("avg. trip duration [s]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getAvgDuration));
-            ret->mkItem("avg. trip waiting time [s]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getAvgWaitingTime));
-            ret->mkItem("avg. trip time loss [s]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getAvgTimeLoss));
-            ret->mkItem("avg. trip depart delay [s]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getAvgDepartDelay));
+            ret->mkItem("avg. trip length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgRouteLength));
+            ret->mkItem("avg. trip duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDuration));
+            ret->mkItem("avg. trip waiting time [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWaitingTime));
+            ret->mkItem("avg. trip time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTimeLoss));
+            ret->mkItem("avg. trip depart delay [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDepartDelay));
         }
     }
     ret->mkItem("nodes [#]", false, (int)myJunctions->size());

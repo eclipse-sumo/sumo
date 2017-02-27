@@ -90,7 +90,7 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("vehicles within [#]", true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getVehiclesWithin));
     ret->mkItem("mean speed [m/s]", true,
-                new FunctionBinding<MSE3Collector, SUMOReal>(&myDetector, &MSE3Collector::getCurrentMeanSpeed));
+                new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getCurrentMeanSpeed));
     ret->mkItem("haltings [#]", true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getCurrentHaltingNumber));
     // close building
@@ -107,7 +107,7 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     glColor3d(0, .8, 0);
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
     for (i = myEntryDefinitions.begin(); i != myEntryDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, exaggeration);
     }
@@ -123,7 +123,7 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GUIE3Collector::MyWrapper::drawSingleCrossing(const Position& pos,
-        SUMOReal rot, SUMOReal upscale) const {
+        double rot, double upscale) const {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glPushMatrix();
     glScaled(upscale, upscale, 1);
@@ -142,10 +142,10 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position& pos,
     // arrows
     glTranslated(1.5, 0, 0);
     GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-    GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (SUMOReal) 1, (SUMOReal) .25);
+    GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
     glTranslated(-3, 0, 0);
     GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-    GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (SUMOReal) 1, (SUMOReal) .25);
+    GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
     glPopMatrix();
 }
 
@@ -169,7 +169,7 @@ GUIE3Collector::MyWrapper::getDetector() {
  * ----------------------------------------------------------------------- */
 GUIE3Collector::GUIE3Collector(const std::string& id,
                                const CrossSectionVector& entries,  const CrossSectionVector& exits,
-                               SUMOReal haltingSpeedThreshold,
+                               double haltingSpeedThreshold,
                                SUMOTime haltingTimeThreshold, const std::string& vTypes)
     : MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes) {}
 

@@ -66,7 +66,7 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, SUMOReal pos, SUMOReal frequency, const std::string& output, const std::vector<GNECalibrator::GNECalibratorFlow*>& flowValues) :
+GNECalibrator::GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, double pos, double frequency, const std::string& output, const std::vector<GNECalibrator::GNECalibratorFlow*>& flowValues) :
     GNEAdditional(id, viewNet, Position(pos, 0), SUMO_TAG_CALIBRATOR, ICON_CALIBRATOR),
     myFrequency(frequency),
     myOutput(output),
@@ -95,13 +95,13 @@ GNECalibrator::~GNECalibrator() {
 
 
 void
-GNECalibrator::moveAdditionalGeometry(SUMOReal, SUMOReal) {
+GNECalibrator::moveAdditionalGeometry(double, double) {
     // This additional cannot be moved
 }
 
 
 void
-GNECalibrator::commmitAdditionalGeometryMoved(SUMOReal, SUMOReal, GNEUndoList*) {
+GNECalibrator::commmitAdditionalGeometryMoved(double, double, GNEUndoList*) {
     // This additional cannot be moved
 }
 
@@ -252,12 +252,12 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // get values
     glPushName(getGlID());
     glLineWidth(1.0);
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
 
     glPushName(getGlID());
     for (int i = 0; i < (int)myShape.size(); ++i) {
         const Position& pos = myShape[i];
-        SUMOReal rot = myShapeRotations[i];
+        double rot = myShapeRotations[i];
         glPushMatrix();
         glTranslated(pos.x(), pos.y(), getType());
         glRotated(rot, 0, 0, 1);
@@ -282,7 +282,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
             glColor3d(0, 0, 0);
             pfSetPosition(0, 0);
             pfSetScale(3.f);
-            SUMOReal w = pfdkGetStringWidth("C");
+            double w = pfdkGetStringWidth("C");
             glRotated(180, 0, 1, 0);
             glTranslated(-w / 2., 2, 0);
             pfDrawString("C");
@@ -359,7 +359,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FREQUENCY:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0);
+            return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_OUTPUT:
             return isValidFileValue(value);
         case SUMO_ATTR_ROUTEPROBE:
@@ -387,12 +387,12 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPosition = Position(parse<SUMOReal>(value), 0);
+            myPosition = Position(parse<double>(value), 0);
             updateGeometry();
             getViewNet()->update();
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFrequency = parse<SUMOReal>(value);
+            myFrequency = parse<double>(value);
             break;
         case SUMO_ATTR_OUTPUT:
             myOutput = value;
@@ -420,7 +420,7 @@ GNECalibrator::GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorPar
 GNECalibrator::GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, std::string type, std::string route,
         std::string color, std::string departLane, std::string departPos, std::string departSpeed, std::string arrivalLane,
         std::string arrivalPos, std::string arrivalSpeed, std::string line, int personNumber, int containerNumber,
-        SUMOReal begin, SUMOReal end, SUMOReal vehsPerHour, SUMOReal period, SUMOReal probability, int number) :
+        double begin, double end, double vehsPerHour, double period, double probability, int number) :
     myCalibratorParent(calibratorParent), myType(type), myRoute(route), myColor(""), myDepartLane("first"),
     myDepartPos("base"), myDepartSpeed("0"), myArrivalLane("current"), myArrivalPos("max"), myArrivalSpeed("current"),
     myLine(""), myPersonNumber(0), myContainerNumber(0), myBegin(0), myEnd(0), myVehsPerHour(0), myPeriod(0), myProbability(0), myNumber(0) {
@@ -525,31 +525,31 @@ GNECalibrator::GNECalibratorFlow::getContainerNumber() const {
 }
 
 
-SUMOReal
+double
 GNECalibrator::GNECalibratorFlow::getBegin() const {
     return myBegin;
 }
 
 
-SUMOReal
+double
 GNECalibrator::GNECalibratorFlow::getEnd() const {
     return myEnd;
 }
 
 
-SUMOReal
+double
 GNECalibrator::GNECalibratorFlow::getVehsPerHour() const {
     return myVehsPerHour;
 }
 
 
-SUMOReal
+double
 GNECalibrator::GNECalibratorFlow::getPeriod() const {
     return myPeriod;
 }
 
 
-SUMOReal
+double
 GNECalibrator::GNECalibratorFlow::getProbability() const {
     return myProbability;
 }
@@ -608,9 +608,9 @@ GNECalibrator::GNECalibratorFlow::setDepartLane(std::string departLane) {
 
 bool
 GNECalibrator::GNECalibratorFlow::setDepartPos(std::string departPos) {
-    SUMOReal departPosFloat = -1;
-    if (GNEAttributeCarrier::canParse<SUMOReal>(departPos)) {
-        departPosFloat = GNEAttributeCarrier::parse<SUMOReal>(departPos);
+    double departPosFloat = -1;
+    if (GNEAttributeCarrier::canParse<double>(departPos)) {
+        departPosFloat = GNEAttributeCarrier::parse<double>(departPos);
     }
     if ((departPosFloat < 0) && (departPos != "random") && (departPos != "free") &&
             (departPos != "random_free") && (departPos != "base") && (departPos != "last")) {
@@ -624,9 +624,9 @@ GNECalibrator::GNECalibratorFlow::setDepartPos(std::string departPos) {
 
 bool
 GNECalibrator::GNECalibratorFlow::setDepartSpeed(std::string departSpeed) {
-    SUMOReal departSpeedDouble = -1;
-    if (GNEAttributeCarrier::canParse<SUMOReal>(departSpeed)) {
-        departSpeedDouble = GNEAttributeCarrier::parse<SUMOReal>(departSpeed);
+    double departSpeedDouble = -1;
+    if (GNEAttributeCarrier::canParse<double>(departSpeed)) {
+        departSpeedDouble = GNEAttributeCarrier::parse<double>(departSpeed);
     }
     if ((departSpeedDouble < 0) && (departSpeed != "random") && (departSpeed != "max")) {
         return false;
@@ -654,9 +654,9 @@ GNECalibrator::GNECalibratorFlow::setArrivalLane(std::string arrivalLane) {
 
 bool
 GNECalibrator::GNECalibratorFlow::setArrivalPos(std::string arrivalPos) {
-    SUMOReal arrivalPosFloat = -1;
-    if (GNEAttributeCarrier::canParse<SUMOReal>(arrivalPos)) {
-        arrivalPosFloat = GNEAttributeCarrier::parse<SUMOReal>(arrivalPos);
+    double arrivalPosFloat = -1;
+    if (GNEAttributeCarrier::canParse<double>(arrivalPos)) {
+        arrivalPosFloat = GNEAttributeCarrier::parse<double>(arrivalPos);
     }
     if ((arrivalPosFloat < 0) && (arrivalPos != "random") && (arrivalPos != "max")) {
         return false;
@@ -669,9 +669,9 @@ GNECalibrator::GNECalibratorFlow::setArrivalPos(std::string arrivalPos) {
 
 bool
 GNECalibrator::GNECalibratorFlow::setArrivalSpeed(std::string arrivalSpeed) {
-    SUMOReal arrivalSpeedDouble = -1;
-    if (GNEAttributeCarrier::canParse<SUMOReal>(arrivalSpeed)) {
-        arrivalSpeedDouble = GNEAttributeCarrier::parse<SUMOReal>(arrivalSpeed);
+    double arrivalSpeedDouble = -1;
+    if (GNEAttributeCarrier::canParse<double>(arrivalSpeed)) {
+        arrivalSpeedDouble = GNEAttributeCarrier::parse<double>(arrivalSpeed);
     }
     if ((arrivalSpeedDouble < 0) && (arrivalSpeed != "current")) {
         return false;
@@ -713,7 +713,7 @@ GNECalibrator::GNECalibratorFlow::setContainerNumber(int containerNumber) {
 
 
 bool
-GNECalibrator::GNECalibratorFlow::setBegin(SUMOReal begin) {
+GNECalibrator::GNECalibratorFlow::setBegin(double begin) {
     if (begin < 0) {
         return false;
     } else {
@@ -724,7 +724,7 @@ GNECalibrator::GNECalibratorFlow::setBegin(SUMOReal begin) {
 
 
 bool
-GNECalibrator::GNECalibratorFlow::setEnd(SUMOReal end) {
+GNECalibrator::GNECalibratorFlow::setEnd(double end) {
     if (end < 0) {
         return false;
     } else {
@@ -735,7 +735,7 @@ GNECalibrator::GNECalibratorFlow::setEnd(SUMOReal end) {
 
 
 bool
-GNECalibrator::GNECalibratorFlow::setVehsPerHour(SUMOReal vehsPerHour) {
+GNECalibrator::GNECalibratorFlow::setVehsPerHour(double vehsPerHour) {
     if (vehsPerHour < 0) {
         return false;
     } else {
@@ -746,7 +746,7 @@ GNECalibrator::GNECalibratorFlow::setVehsPerHour(SUMOReal vehsPerHour) {
 
 
 bool
-GNECalibrator::GNECalibratorFlow::setPeriod(SUMOReal period) {
+GNECalibrator::GNECalibratorFlow::setPeriod(double period) {
     if (period < 0) {
         return false;
     } else {
@@ -756,7 +756,7 @@ GNECalibrator::GNECalibratorFlow::setPeriod(SUMOReal period) {
 }
 
 bool
-GNECalibrator::GNECalibratorFlow::setProbability(SUMOReal probability) {
+GNECalibrator::GNECalibratorFlow::setProbability(double probability) {
     if ((probability < 0) || (probability > 1)) {
         return false;
     } else {

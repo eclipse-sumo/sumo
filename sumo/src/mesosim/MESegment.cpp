@@ -56,25 +56,25 @@
 
 #define DEFAULT_VEH_LENGHT_WITH_GAP (SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap)
 // avoid division by zero when driving very slowly
-#define MESO_MIN_SPEED ((SUMOReal)0.05)
+#define MESO_MIN_SPEED (0.05)
 
 // ===========================================================================
 // static member defintion
 // ===========================================================================
 MSEdge MESegment::myDummyParent("MESegmentDummyParent", -1, MSEdge::EDGEFUNCTION_UNKNOWN, "", "", -1);
 MESegment MESegment::myVaporizationTarget("vaporizationTarget");
-const SUMOReal MESegment::DO_NOT_PATCH_JAM_THRESHOLD(std::numeric_limits<SUMOReal>::max());
+const double MESegment::DO_NOT_PATCH_JAM_THRESHOLD(std::numeric_limits<double>::max());
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 MESegment::MESegment(const std::string& id,
                      const MSEdge& parent, MESegment* next,
-                     SUMOReal length, SUMOReal speed,
+                     double length, double speed,
                      int idx,
                      SUMOTime tauff, SUMOTime taufj,
                      SUMOTime taujf, SUMOTime taujj,
-                     SUMOReal jamThresh, bool multiQueue, bool junctionControl) :
+                     double jamThresh, bool multiQueue, bool junctionControl) :
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
     myTau_ff((SUMOTime)(tauff / parent.getLanes().size())),
@@ -143,15 +143,15 @@ MESegment::useMultiQueue(bool multiQueue, const MSEdge& parent) {
 }
 
 void
-MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
+MESegment::recomputeJamThreshold(double jamThresh) {
     if (jamThresh == DO_NOT_PATCH_JAM_THRESHOLD) {
         return;
     }
     if (jamThresh < 0) {
         // compute based on speed
-        SUMOReal speed = myEdge.getSpeedLimit();
+        double speed = myEdge.getSpeedLimit();
         if (myTLSPenalty || myMinorPenalty) {
-            SUMOReal travelTime = myLength / MAX2(speed, NUMERICAL_EPS) + getMaxPenaltySeconds();
+            double travelTime = myLength / MAX2(speed, NUMERICAL_EPS) + getMaxPenaltySeconds();
             speed = myLength / travelTime;
         }
         myJamThreshold = jamThresholdForSpeed(speed, jamThresh);
@@ -174,7 +174,7 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
     const SUMOTime tau_jf_withLength = tauWithVehLength(myTau_jf, DEFAULT_VEH_LENGHT_WITH_GAP);
     if (myJamThreshold < myCapacity) {
         // jamming is possible
-        const SUMOReal n_jam_threshold = myHeadwayCapacity * myJamThreshold / myCapacity; // number of vehicles above which the segment is jammed
+        const double n_jam_threshold = myHeadwayCapacity * myJamThreshold / myCapacity; // number of vehicles above which the segment is jammed
         // solving f(x) = a * x + b
         myA = (STEPS2TIME(myTau_jj) * myHeadwayCapacity - STEPS2TIME(tau_jf_withLength)) / (myHeadwayCapacity - n_jam_threshold);
         myB = myHeadwayCapacity * (STEPS2TIME(myTau_jj) - myA);
@@ -192,8 +192,8 @@ MESegment::recomputeJamThreshold(SUMOReal jamThresh) {
 }
 
 
-SUMOReal
-MESegment::jamThresholdForSpeed(SUMOReal speed, SUMOReal jamThresh) const {
+double
+MESegment::jamThresholdForSpeed(double speed, double jamThresh) const {
     // vehicles driving freely at maximum speed should not jam
     // we compute how many vehicles could possible enter the segment until the first vehicle leaves
     // and multiply by the space these vehicles would occupy
@@ -267,7 +267,7 @@ MESegment::hasSpaceFor(const MEVehicle* veh, SUMOTime entryTime, bool init) cons
         // we have always space for at least one vehicle
         return true;
     }
-    const SUMOReal newOccupancy = myOccupancy + veh->getVehicleType().getLengthWithGap();
+    const double newOccupancy = myOccupancy + veh->getVehicleType().getLengthWithGap();
     if (newOccupancy > myCapacity) {
         // we must ensure that occupancy remains below capacity
         return false;
@@ -313,13 +313,13 @@ MESegment::getCarNumber() const {
 }
 
 
-SUMOReal
+double
 MESegment::getMeanSpeed(bool useCached) const {
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     if (currentTime != myLastMeanSpeedUpdate || !useCached) {
         myLastMeanSpeedUpdate = currentTime;
         const SUMOTime tau = free() ? myTau_ff : myTau_jf;
-        SUMOReal v = 0;
+        double v = 0;
         int count = 0;
         for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
             SUMOTime earliestExitTime = currentTime;
@@ -332,7 +332,7 @@ MESegment::getMeanSpeed(bool useCached) const {
         if (count == 0) {
             myMeanSpeed = myEdge.getSpeedLimit();
         } else {
-            myMeanSpeed = v / (SUMOReal) count;
+            myMeanSpeed = v / (double) count;
         }
     }
     return myMeanSpeed;
@@ -351,7 +351,7 @@ MESegment::writeVehicles(OutputDevice& of) const {
 
 MEVehicle*
 MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, MESegment* next) {
-    myOccupancy = MAX2((SUMOReal)0, myOccupancy - v->getVehicleType().getLengthWithGap());
+    myOccupancy = MAX2(0., myOccupancy - v->getVehicleType().getLengthWithGap());
     std::vector<MEVehicle*>& cars = myCarQues[v->getQueIndex()];
     assert(std::find(cars.begin(), cars.end(), v) != cars.end());
     // One could be tempted to do  v->setSegment(next); here but position on lane will be invalid if next == 0
@@ -489,7 +489,7 @@ MESegment::addReminders(MEVehicle* veh) const {
 
 void
 MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTeleport) {
-    const SUMOReal speed = isDepart ? -1 : MAX2(veh->getSpeed(), MESO_MIN_SPEED); // on the previous segment
+    const double speed = isDepart ? -1 : MAX2(veh->getSpeed(), MESO_MIN_SPEED); // on the previous segment
     veh->setSegment(this); // for arrival checking
     veh->setLastEntryTime(time);
     veh->setBlockTime(SUMOTime_MAX);
@@ -507,8 +507,8 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
         return;
     }
     // route continues
-    const SUMOReal maxSpeedOnEdge = veh->getEdge()->getVehicleMaxSpeed(veh);
-    const SUMOReal uspeed = MAX2(maxSpeedOnEdge, MESO_MIN_SPEED);
+    const double maxSpeedOnEdge = veh->getEdge()->getVehicleMaxSpeed(veh);
+    const double uspeed = MAX2(maxSpeedOnEdge, MESO_MIN_SPEED);
     int nextQueIndex = 0;
     if (myCarQues.size() > 1) {
         const MSEdge* succ = veh->succEdge(1);
@@ -586,7 +586,7 @@ MESegment::vaporizeAnyCar(SUMOTime currentTime) {
 
 
 void
-MESegment::setSpeedForQueue(SUMOReal newSpeed, SUMOTime currentTime, SUMOTime blockTime, const std::vector<MEVehicle*>& vehs) {
+MESegment::setSpeedForQueue(double newSpeed, SUMOTime currentTime, SUMOTime blockTime, const std::vector<MEVehicle*>& vehs) {
     MEVehicle* v = vehs.back();
     v->updateDetectors(currentTime, false);
     SUMOTime newEvent = MAX2(newArrival(v, newSpeed, currentTime), blockTime);
@@ -605,16 +605,16 @@ MESegment::setSpeedForQueue(SUMOReal newSpeed, SUMOTime currentTime, SUMOTime bl
 
 
 SUMOTime
-MESegment::newArrival(const MEVehicle* const v, SUMOReal newSpeed, SUMOTime currentTime) {
+MESegment::newArrival(const MEVehicle* const v, double newSpeed, SUMOTime currentTime) {
     // since speed is only an upper bound pos may be to optimistic
-    const SUMOReal pos = MIN2(myLength, STEPS2TIME(currentTime - v->getLastEntryTime()) * v->getSpeed());
+    const double pos = MIN2(myLength, STEPS2TIME(currentTime - v->getLastEntryTime()) * v->getSpeed());
     // traveltime may not be 0
     return currentTime + MAX2(TIME2STEPS((myLength - pos) / newSpeed), SUMOTime(1));
 }
 
 
 void
-MESegment::setSpeed(SUMOReal newSpeed, SUMOTime currentTime, SUMOReal jamThresh) {
+MESegment::setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh) {
     recomputeJamThreshold(jamThresh);
     //myTau_length = MAX2(MESO_MIN_SPEED, newSpeed) * myEdge.getLanes().size() / TIME2STEPS(1);
     for (int i = 0; i < (int)myCarQues.size(); ++i) {
@@ -693,7 +693,7 @@ MESegment::hasBlockedLeader() const {
 }
 
 
-SUMOReal
+double
 MESegment::getFlow() const {
     return 3600 * getCarNumber() * getMeanSpeed() / myLength;
 }
@@ -720,7 +720,7 @@ MESegment::getLinkPenalty(const MEVehicle* veh) const {
 }
 
 
-SUMOReal
+double
 MESegment::getTLSCapacity(const MEVehicle* veh) const {
     if (myTLSPenalty) {
         const MSLink* link = getLink(veh, true);
@@ -734,9 +734,9 @@ MESegment::getTLSCapacity(const MEVehicle* veh) const {
 }
 
 
-SUMOReal
+double
 MESegment::getMaxPenaltySeconds() const {
-    SUMOReal maxPenalty = 0;
+    double maxPenalty = 0;
     for (std::vector<MSLane*>::const_iterator i = myEdge.getLanes().begin(); i != myEdge.getLanes().end(); ++i) {
         MSLane* l = *i;
         const MSLinkCont& lc = l->getLinkCont();

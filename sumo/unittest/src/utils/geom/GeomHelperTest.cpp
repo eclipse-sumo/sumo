@@ -86,12 +86,12 @@ TEST(GeomHelper, test_method_intersection_position2D) {
 
 TEST(GeomHelper, test_method_closestDistancePointLine_basic) {
     Position expected(1,0);
-    SUMOReal expectedDistance = 1;
+    double expectedDistance = 1;
     Position point(1,1);
     Position start(0,0);
     Position end(2,0);
     Position closestPoint;
-    SUMOReal result = GeomHelper::closestDistancePointLine2D(point, start, end, closestPoint);
+    double result = GeomHelper::closestDistancePointLine2D(point, start, end, closestPoint);
 	EXPECT_FLOAT_EQ(expected.x(), closestPoint.x());
 	EXPECT_FLOAT_EQ(expected.y(), closestPoint.y());
 	EXPECT_FLOAT_EQ(expected.z(), closestPoint.z());
@@ -99,12 +99,12 @@ TEST(GeomHelper, test_method_closestDistancePointLine_basic) {
 }
 TEST(GeomHelper, test_method_closestDistancePointLine_onLine) {
     Position expected(1,0);
-    SUMOReal expectedDistance = 0;
+    double expectedDistance = 0;
     Position point(1,0);
     Position start(0,0);
     Position end(2,0);
     Position closestPoint;
-    SUMOReal result = GeomHelper::closestDistancePointLine2D(point, start, end, closestPoint);
+    double result = GeomHelper::closestDistancePointLine2D(point, start, end, closestPoint);
 	EXPECT_FLOAT_EQ(expected.x(), closestPoint.x());
 	EXPECT_FLOAT_EQ(expected.y(), closestPoint.y());
 	EXPECT_FLOAT_EQ(expected.z(), closestPoint.z());
@@ -112,12 +112,12 @@ TEST(GeomHelper, test_method_closestDistancePointLine_onLine) {
 }
 TEST(GeomHelper, test_method_closestDistancePointLine_outside_after) {
     Position expected(2,0);
-    SUMOReal expectedDistance = 5;
+    double expectedDistance = 5;
     Position point(5,4);
     Position start(0,0);
     Position end(2,0);
     Position closestPoint;
-    SUMOReal result = GeomHelper::closestDistancePointLine2D(point, start, end, closestPoint);
+    double result = GeomHelper::closestDistancePointLine2D(point, start, end, closestPoint);
 	EXPECT_FLOAT_EQ(expected.x(), closestPoint.x());
 	EXPECT_FLOAT_EQ(expected.y(), closestPoint.y());
 	EXPECT_FLOAT_EQ(expected.z(), closestPoint.z());
@@ -125,12 +125,12 @@ TEST(GeomHelper, test_method_closestDistancePointLine_outside_after) {
 }
 TEST(GeomHelper, test_method_closestDistancePointLine_outside_before) {
     Position expected(0,0);
-    SUMOReal expectedDistance = 5;
+    double expectedDistance = 5;
     Position point(-3,4);
     Position start(0,0);
     Position end(2,0);
     Position closestPoint;
-    SUMOReal result = GeomHelper::closestDistancePointLine2D(point, start, end, closestPoint);
+    double result = GeomHelper::closestDistancePointLine2D(point, start, end, closestPoint);
 	EXPECT_FLOAT_EQ(expected.x(), closestPoint.x());
 	EXPECT_FLOAT_EQ(expected.y(), closestPoint.y());
 	EXPECT_FLOAT_EQ(expected.z(), closestPoint.z());

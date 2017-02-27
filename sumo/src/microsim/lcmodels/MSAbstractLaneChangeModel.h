@@ -117,11 +117,11 @@ public:
         // @brief LaneChangeAction flags
         int state;
         // @brief lateralDistance
-        SUMOReal latDist;
+        double latDist;
         // @brief direction that was checked
         int dir;
 
-        StateAndDist(int _state, SUMOReal _latDist, int _dir) :
+        StateAndDist(int _state, double _latDist, int _dir) :
             state(_state),
             latDist(_latDist),
             dir(_dir) {}
@@ -162,9 +162,9 @@ public:
     virtual int wantsChange(
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
-        const std::pair<MSVehicle*, SUMOReal>& leader,
-        const std::pair<MSVehicle*, SUMOReal>& neighLead,
-        const std::pair<MSVehicle*, SUMOReal>& neighFollow,
+        const std::pair<MSVehicle*, double>& leader,
+        const std::pair<MSVehicle*, double>& neighLead,
+        const std::pair<MSVehicle*, double>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
@@ -194,7 +194,7 @@ public:
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
         MSVehicle** firstBlocked,
-        SUMOReal& latDist, int& blocked) {
+        double& latDist, int& blocked) {
         UNUSED_PARAMETER(laneOffset);
         UNUSED_PARAMETER(&leaders);
         UNUSED_PARAMETER(&followers);
@@ -239,7 +239,7 @@ public:
      * @param cfModel The model used
      * @return the new speed of the vehicle as proposed by the lane changer
      */
-    virtual SUMOReal patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
+    virtual double patchSpeed(const double min, const double wanted, const double max,
                                 const MSCFModel& cfModel) = 0;
 
     /* @brief called once when the primary lane of the vehicle changes (updates
@@ -282,7 +282,7 @@ public:
         return myShadowFurtherLanes;
     }
 
-    const std::vector<SUMOReal>& getShadowFurtherLanesPosLat() const {
+    const std::vector<double>& getShadowFurtherLanesPosLat() const {
         return myShadowFurtherLanesPosLat;
     }
 
@@ -313,10 +313,10 @@ public:
     int getShadowDirection() const;
 
     /// @brief return the angle offset during a continuous change maneuver
-    SUMOReal getAngleOffset() const;
+    double getAngleOffset() const;
 
     /// @brief return the lateral speed of the current lane change maneuver
-    inline SUMOReal getLateralSpeed() const {
+    inline double getLateralSpeed() const {
         return myLateralspeed;
     }
 
@@ -350,7 +350,7 @@ public:
     void cleanupShadowLane();
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    virtual void saveBlockerLength(SUMOReal length) {
+    virtual void saveBlockerLength(double length) {
         UNUSED_PARAMETER(length);
     };
 
@@ -376,7 +376,7 @@ public:
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
 
-    virtual bool predInteraction(const std::pair<MSVehicle*, SUMOReal>& leader);
+    virtual bool predInteraction(const std::pair<MSVehicle*, double>& leader);
 
     /// @brief whether the influencer cancels the given request
     bool cancelRequest(int state);
@@ -390,13 +390,13 @@ protected:
     int myOwnState;
 
     /// @brief progress of the lane change maneuver 0:started, 1:complete
-    SUMOReal myLaneChangeCompletion;
+    double myLaneChangeCompletion;
 
     /// @brief direction of the lane change maneuver -1 means right, 1 means left
     int myLaneChangeDirection;
 
     /// @brief The lateral offset during a continuous LaneChangeManeuver
-    SUMOReal myLateralspeed;
+    double myLateralspeed;
 
     /// @brief whether the vehicle has already moved this step
     bool myAlreadyChanged;
@@ -407,7 +407,7 @@ protected:
     /* @brief Lanes that are parially (laterally) occupied by the back of the
      * vehicle (analogue to MSVehicle::myFurtherLanes) */
     std::vector<MSLane*> myShadowFurtherLanes;
-    std::vector<SUMOReal> myShadowFurtherLanesPosLat;
+    std::vector<double> myShadowFurtherLanesPosLat;
 
     /// @brief The vehicle's car following model
     const MSCFModel& myCarFollowModel;

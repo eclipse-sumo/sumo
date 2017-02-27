@@ -51,7 +51,7 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
-std::map<const ROEdge* const, SUMOReal> ROMAAssignments::myPenalties;
+std::map<const ROEdge* const, double> ROMAAssignments::myPenalties;
 
 
 // ===========================================================================
@@ -59,7 +59,7 @@ std::map<const ROEdge* const, SUMOReal> ROMAAssignments::myPenalties;
 // ===========================================================================
 
 ROMAAssignments::ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
-                                 const SUMOReal adaptionFactor, RONet& net, ODMatrix& matrix,
+                                 const double adaptionFactor, RONet& net, ODMatrix& matrix,
                                  SUMOAbstractRouter<ROEdge, ROVehicle>& router)
     : myBegin(begin), myEnd(end), myAdditiveTraffic(additiveTraffic), myAdaptionFactor(adaptionFactor), myNet(net), myMatrix(matrix), myRouter(router) {
     myDefaultVehicle = new ROVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
@@ -71,7 +71,7 @@ ROMAAssignments::~ROMAAssignments() {
 }
 
 // based on the definitions in PTV-Validate and in the VISUM-Cologne network
-SUMOReal
+double
 ROMAAssignments::getCapacity(const ROEdge* edge) {
     if (edge->getFunc() == ROEdge::ET_DISTRICT) {
         return 0;
@@ -123,13 +123,13 @@ ROMAAssignments::getCapacity(const ROEdge* edge) {
 
 
 // based on the definitions in PTV-Validate and in the VISUM-Cologne network
-SUMOReal
-ROMAAssignments::capacityConstraintFunction(const ROEdge* edge, const SUMOReal flow) const {
+double
+ROMAAssignments::capacityConstraintFunction(const ROEdge* edge, const double flow) const {
     if (edge->getFunc() == ROEdge::ET_DISTRICT) {
         return 0;
     }
     const int roadClass = -edge->getPriority();
-    const SUMOReal capacity = getCapacity(edge);
+    const double capacity = getCapacity(edge);
     // TODO: differ road class 1 from the unknown road class 1!!!
     if (edge->getLaneNo() == 0) {
         // TAZ have no cost
@@ -176,7 +176,7 @@ ROMAAssignments::capacityConstraintFunction(const ROEdge* edge, const SUMOReal f
 
 
 bool
-ROMAAssignments::addRoute(ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, SUMOReal prob) {
+ROMAAssignments::addRoute(ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, double prob) {
     std::vector<RORoute*>::iterator p;
     for (p = paths.begin(); p != paths.end(); p++) {
         if (edges == (*p)->getEdgeVector()) {
@@ -194,7 +194,7 @@ ROMAAssignments::addRoute(ConstROEdgeVector& edges, std::vector<RORoute*>& paths
 
 
 void
-ROMAAssignments::getKPaths(const int kPaths, const SUMOReal penalty) {
+ROMAAssignments::getKPaths(const int kPaths, const double penalty) {
     for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin(); i != myMatrix.getCells().end(); ++i) {
         ODCell* c = *i;
         myPenalties.clear();
@@ -213,7 +213,7 @@ ROMAAssignments::getKPaths(const int kPaths, const SUMOReal penalty) {
 
 void
 ROMAAssignments::resetFlows() {
-    const SUMOReal begin = STEPS2TIME(MIN2(myBegin, myMatrix.getCells().front()->begin));
+    const double begin = STEPS2TIME(MIN2(myBegin, myMatrix.getCells().front()->begin));
     for (std::map<std::string, ROEdge*>::const_iterator i = myNet.getEdgeMap().begin(); i != myNet.getEdgeMap().end(); ++i) {
         ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
         edge->setFlow(begin, STEPS2TIME(myEnd), 0.);
@@ -244,7 +244,7 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
         if (verbose) {
             WRITE_MESSAGE(" starting interval " + time2string(intervalStart));
         }
-        std::map<const ROMAEdge*, SUMOReal> loadedTravelTimes;
+        std::map<const ROMAEdge*, double> loadedTravelTimes;
         for (std::map<std::string, ROEdge*>::const_iterator i = myNet.getEdgeMap().begin(); i != myNet.getEdgeMap().end(); ++i) {
             ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
             if (edge->hasLoadedTravelTime(STEPS2TIME(intervalStart))) {
@@ -259,7 +259,7 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
             int workerIndex = 0;
             for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin() + (*offset); i != cellsEnd; i++) {
                 ODCell* const c = *i;
-                const SUMOReal linkFlow = c->vehicleNumber / numIter;
+                const double linkFlow = c->vehicleNumber / numIter;
                 const SUMOTime begin = myAdditiveTraffic ? myBegin : c->begin;
 #ifdef HAVE_FOX
                 if (myNet.getThreadPool().size() > 0) {
@@ -294,16 +294,16 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
 #endif
             for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin() + (*offset); i != cellsEnd; i++) {
                 ODCell* const c = *i;
-                const SUMOReal linkFlow = c->vehicleNumber / numIter;
+                const double linkFlow = c->vehicleNumber / numIter;
                 const SUMOTime begin = myAdditiveTraffic ? myBegin : c->begin;
                 const SUMOTime end = myAdditiveTraffic ? myEnd : c->end;
-                const SUMOReal intervalLengthInHours = STEPS2TIME(end - begin) / 3600.;
+                const double intervalLengthInHours = STEPS2TIME(end - begin) / 3600.;
                 const ConstROEdgeVector& edges = c->pathsVector.back()->getEdgeVector();
                 for (ConstROEdgeVector::const_iterator e = edges.begin(); e != edges.end(); e++) {
                     ROMAEdge* edge = static_cast<ROMAEdge*>(myNet.getEdge((*e)->getID()));
-                    const SUMOReal newFlow = edge->getFlow(STEPS2TIME(begin)) + linkFlow;
+                    const double newFlow = edge->getFlow(STEPS2TIME(begin)) + linkFlow;
                     edge->setFlow(STEPS2TIME(begin), STEPS2TIME(end), newFlow);
-                    SUMOReal travelTime = capacityConstraintFunction(edge, newFlow / intervalLengthInHours);
+                    double travelTime = capacityConstraintFunction(edge, newFlow / intervalLengthInHours);
                     if (lastBegin >= 0 && myAdaptionFactor > 0.) {
                         if (loadedTravelTimes.count(edge) != 0) {
                             travelTime = loadedTravelTimes[edge] * myAdaptionFactor + (1. - myAdaptionFactor) * travelTime;
@@ -321,9 +321,9 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
 
 
 void
-ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, const int kPaths, const SUMOReal penalty, const SUMOReal tolerance, const std::string /* routeChoiceMethod */) {
+ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, const int kPaths, const double penalty, const double tolerance, const std::string /* routeChoiceMethod */) {
     getKPaths(kPaths, penalty);
-    std::map<const SUMOReal, SUMOReal> intervals;
+    std::map<const double, double> intervals;
     if (myAdditiveTraffic) {
         intervals[STEPS2TIME(myBegin)] = STEPS2TIME(myEnd);
     } else {
@@ -348,7 +348,7 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
                 // calculate route flows
                 for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
                     RORoute* r = *j;
-                    const SUMOReal pathFlow = r->getProbability() * c->vehicleNumber;
+                    const double pathFlow = r->getProbability() * c->vehicleNumber;
                     // assign edge flow deltas
                     for (ConstROEdgeVector::const_iterator e = r->getEdgeVector().begin(); e != r->getEdgeVector().end(); e++) {
                         ROMAEdge* edge = static_cast<ROMAEdge*>(myNet.getEdge((*e)->getID()));
@@ -358,12 +358,12 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
             }
             // calculate new edge flows and check for stability
             int unstableEdges = 0;
-            for (std::map<const SUMOReal, SUMOReal>::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
-                const SUMOReal intervalLengthInHours = STEPS2TIME(i->second - i->first) / 3600.;
+            for (std::map<const double, double>::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
+                const double intervalLengthInHours = STEPS2TIME(i->second - i->first) / 3600.;
                 for (std::map<std::string, ROEdge*>::const_iterator e = myNet.getEdgeMap().begin(); e != myNet.getEdgeMap().end(); ++e) {
                     ROMAEdge* edge = static_cast<ROMAEdge*>(e->second);
-                    const SUMOReal oldFlow = edge->getFlow(i->first);
-                    SUMOReal newFlow = oldFlow;
+                    const double oldFlow = edge->getFlow(i->first);
+                    double newFlow = oldFlow;
                     if (inner == 0 && outer == 0) {
                         newFlow += edge->getHelpFlow(i->first);
                     } else {
@@ -383,7 +383,7 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
                         newFlow = 0.;
                     }
                     edge->setFlow(i->first, i->second, newFlow);
-                    const SUMOReal travelTime = capacityConstraintFunction(edge, newFlow / intervalLengthInHours);
+                    const double travelTime = capacityConstraintFunction(edge, newFlow / intervalLengthInHours);
                     edge->addTravelTime(travelTime, i->first, i->second);
                     edge->setHelpFlow(i->first, i->second, 0.);
                 }
@@ -426,22 +426,22 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
 }
 
 
-SUMOReal
-ROMAAssignments::getPenalizedEffort(const ROEdge* const e, const ROVehicle* const v, SUMOReal t) {
-    const std::map<const ROEdge* const, SUMOReal>::const_iterator i = myPenalties.find(e);
+double
+ROMAAssignments::getPenalizedEffort(const ROEdge* const e, const ROVehicle* const v, double t) {
+    const std::map<const ROEdge* const, double>::const_iterator i = myPenalties.find(e);
     return i == myPenalties.end() ? e->getEffort(v, t) : e->getEffort(v, t) + i->second;
 }
 
 
-SUMOReal
-ROMAAssignments::getPenalizedTT(const ROEdge* const e, const ROVehicle* const v, SUMOReal t) {
-    const std::map<const ROEdge* const, SUMOReal>::const_iterator i = myPenalties.find(e);
+double
+ROMAAssignments::getPenalizedTT(const ROEdge* const e, const ROVehicle* const v, double t) {
+    const std::map<const ROEdge* const, double>::const_iterator i = myPenalties.find(e);
     return i == myPenalties.end() ? e->getTravelTime(v, t) : e->getTravelTime(v, t) + i->second;
 }
 
 
-SUMOReal
-ROMAAssignments::getTravelTime(const ROEdge* const e, const ROVehicle* const v, SUMOReal t) {
+double
+ROMAAssignments::getTravelTime(const ROEdge* const e, const ROVehicle* const v, double t) {
     return e->getTravelTime(v, t);
 }
 

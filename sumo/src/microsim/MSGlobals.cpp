@@ -54,13 +54,13 @@ bool MSGlobals::gCheckRoutes;
 
 SUMOTime MSGlobals::gLaneChangeDuration;
 
-SUMOReal MSGlobals::gLateralResolution;
+double MSGlobals::gLateralResolution;
 
 bool MSGlobals::gStateLoaded;
 bool MSGlobals::gUseMesoSim;
 bool MSGlobals::gMesoLimitedJunctionControl;
 bool MSGlobals::gMesoOvertaking;
-SUMOReal MSGlobals::gMesoTLSPenalty;
+double MSGlobals::gMesoTLSPenalty;
 SUMOTime MSGlobals::gMesoMinorPenalty;
 MELoop* MSGlobals::gMesoNet;
 

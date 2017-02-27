@@ -233,7 +233,7 @@ private:
     Position myOrigPos;
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
-    SUMOReal myMaxSize;
+    double myMaxSize;
 
     /// @brief The represented junction's boundary
     Boundary myBoundary;
@@ -274,7 +274,7 @@ private:
     void setColor(const GUIVisualizationSettings& s, bool bubble) const;
 
     /// @brief determines color value
-    SUMOReal getColorValue(const GUIVisualizationSettings& s, bool bubble) const;
+    double getColorValue(const GUIVisualizationSettings& s, bool bubble) const;
 
     /// @brief adds a traffic light
     void addTrafficLight(NBTrafficLightDefinition* tlDef, bool forceInsert);

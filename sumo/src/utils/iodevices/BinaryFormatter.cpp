@@ -135,7 +135,7 @@ void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, cons
 
 
 template<>
-void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const SUMOReal& val) {
+void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val) {
     if (into.precision() == 2 && val < 2e7 && val > -2e7) { // 2e7 is roughly INT_MAX/100
         BinaryFormatter::writeAttrHeader(into, attr, BF_SCALED2INT);
         FileHelpers::writeInt(into, int(val * 100. + .5));

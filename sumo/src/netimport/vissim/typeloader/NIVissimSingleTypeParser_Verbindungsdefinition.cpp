@@ -74,12 +74,12 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
         if (y != "nach") {
             geom.push_back_noDoublePos(
                 Position(
-                    TplConvert::_2SUMOReal(x.c_str()),
-                    TplConvert::_2SUMOReal(y.c_str())
+                    TplConvert::_2double(x.c_str()),
+                    TplConvert::_2double(y.c_str())
                 ));
             tag = myRead(from);
             try {
-                TplConvert::_2SUMOReal(tag.c_str());
+                TplConvert::_2double(tag.c_str());
                 tag = myRead(from);
             } catch (NumberFormatException&) {}
         } else {
@@ -88,11 +88,11 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
     }
     NIVissimExtendedEdgePoint to_def = readExtEdgePointDef(from);
     // read some optional values until mandatory "Fahrzeugklassen" occurs
-    SUMOReal dxnothalt = 0;
-    SUMOReal dxeinordnen = 0;
-    SUMOReal zuschlag1, zuschlag2;
+    double dxnothalt = 0;
+    double dxeinordnen = 0;
+    double zuschlag1, zuschlag2;
     zuschlag1 = zuschlag2 = 0;
-    SUMOReal seglength = 0;
+    double seglength = 0;
     tag = myRead(from);
 //    NIVissimConnection::Direction direction = NIVissimConnection::NIVC_DIR_ALL;
     while (tag != "fahrzeugklassen" && tag != "sperrung" && tag != "auswertung" && tag != "DATAEND") {

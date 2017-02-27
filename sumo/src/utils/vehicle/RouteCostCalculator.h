@@ -57,7 +57,7 @@ public:
         myInstance = 0;
     }
 
-    virtual void setCosts(R* route, const SUMOReal costs, const bool isActive = false) const = 0;
+    virtual void setCosts(R* route, const double costs, const bool isActive = false) const = 0;
 
     /** @brief calculate the probabilities in the logit model */
     virtual void calculateProbabilities(std::vector<R*> alternatives, const V* const veh, const SUMOTime time) = 0;

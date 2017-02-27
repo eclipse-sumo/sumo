@@ -65,8 +65,8 @@ public:
      */
     GUIPointOfInterest(const std::string& id, const std::string& type,
                        const RGBColor& color, const Position& pos,
-                       SUMOReal layer, SUMOReal angle, const std::string& imgFile,
-                       SUMOReal width, SUMOReal height);
+                       double layer, double angle, const std::string& imgFile,
+                       double width, double height);
 
     /// @brief Destructor
     virtual ~GUIPointOfInterest();

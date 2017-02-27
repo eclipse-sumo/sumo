@@ -154,14 +154,14 @@ GNECalibratorDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     if (myTextFieldBegin->getText().empty()) {
         return 0;
     } else {
-        calibratorFlow->setBegin(GNEAttributeCarrier::parse<SUMOReal>(myTextFieldBegin->getText().text()));
+        calibratorFlow->setBegin(GNEAttributeCarrier::parse<double>(myTextFieldBegin->getText().text()));
     }
 
     // set End
     if (myTextFieldEnd->getText().empty()) {
         return 0;
     } else {
-        calibratorFlow->setEnd(GNEAttributeCarrier::parse<SUMOReal>(myTextFieldEnd->getText().text()));
+        calibratorFlow->setEnd(GNEAttributeCarrier::parse<double>(myTextFieldEnd->getText().text()));
     }
 
     // set Type
@@ -209,13 +209,13 @@ GNECalibratorDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     calibratorFlow->setContainerNumber(GNEAttributeCarrier::parse<int>(myTextFieldContainerNumber->getText().text()));
 
     // Set vehsPerHour
-    calibratorFlow->setVehsPerHour(GNEAttributeCarrier::parse<SUMOReal>(myTextFieldVehsPerHour->getText().text()));
+    calibratorFlow->setVehsPerHour(GNEAttributeCarrier::parse<double>(myTextFieldVehsPerHour->getText().text()));
 
     // set Period
-    calibratorFlow->setPeriod(GNEAttributeCarrier::parse<SUMOReal>(myTextFieldPeriod->getText().text()));
+    calibratorFlow->setPeriod(GNEAttributeCarrier::parse<double>(myTextFieldPeriod->getText().text()));
 
     // set Probability
-    calibratorFlow->setProbability(GNEAttributeCarrier::canParse<SUMOReal>(myTextFieldProbability->getText().text()));
+    calibratorFlow->setProbability(GNEAttributeCarrier::canParse<double>(myTextFieldProbability->getText().text()));
 
     // set Number
     calibratorFlow->setNumber(GNEAttributeCarrier::parse<int>(myTextFieldNumber->getText().text()));

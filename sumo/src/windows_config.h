@@ -50,14 +50,11 @@
 /* Define for dynamic Fox linkage */
 #define FOXDLL 1
 
-/* defines the precision of floats */
-#define SUMOReal double
-
 /* defines the epsilon to use on position comparison */
-#define POSITION_EPS (SUMOReal)0.1
+#define POSITION_EPS 0.1
 
 /* defines the epsilon to use on general floating point comparison */
-#define NUMERICAL_EPS (SUMOReal)0.001
+#define NUMERICAL_EPS 0.001
 
 /* Define if auto-generated version.h should be used. */
 #define HAVE_VERSION_H 1

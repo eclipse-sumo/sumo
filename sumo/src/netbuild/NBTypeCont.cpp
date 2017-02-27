@@ -49,8 +49,8 @@
 // ===========================================================================
 void
 NBTypeCont::setDefaults(int defaultNumLanes,
-                        SUMOReal defaultLaneWidth,
-                        SUMOReal defaultSpeed,
+                        double defaultLaneWidth,
+                        double defaultSpeed,
                         int defaultPriority,
                         SVCPermissions defaultPermissions) {
     myDefaultType.numLanes = defaultNumLanes;
@@ -62,8 +62,8 @@ NBTypeCont::setDefaults(int defaultNumLanes,
 
 
 void
-NBTypeCont::insert(const std::string& id, int numLanes, SUMOReal maxSpeed, int prio,
-                   SVCPermissions permissions, SUMOReal width, bool oneWayIsDefault, SUMOReal sidewalkWidth, SUMOReal bikeLaneWidth) {
+NBTypeCont::insert(const std::string& id, int numLanes, double maxSpeed, int prio,
+                   SVCPermissions permissions, double width, bool oneWayIsDefault, double sidewalkWidth, double bikeLaneWidth) {
 
     TypeDefinition newType(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth, bikeLaneWidth);
     TypesCont::iterator old = myTypes.find(id);
@@ -104,7 +104,7 @@ NBTypeCont::markAsSet(const std::string& id, const SumoXMLAttr attr) {
 
 
 bool
-NBTypeCont::addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed) {
+NBTypeCont::addRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed) {
     TypesCont::iterator i = myTypes.find(id);
     if (i == myTypes.end()) {
         return false;
@@ -160,7 +160,7 @@ NBTypeCont::writeTypes(OutputDevice& into) const {
         if (type.attrs.count(SUMO_ATTR_BIKELANEWIDTH) > 0) {
             into.writeAttr(SUMO_ATTR_BIKELANEWIDTH, type.bikeLaneWidth);
         }
-        for (std::map<SUMOVehicleClass, SUMOReal>::const_iterator j = type.restrictions.begin(); j != type.restrictions.end(); ++j) {
+        for (std::map<SUMOVehicleClass, double>::const_iterator j = type.restrictions.begin(); j != type.restrictions.end(); ++j) {
             into.openTag(SUMO_TAG_RESTRICTION);
             into.writeAttr(SUMO_ATTR_VCLASS, getVehicleClassNames(j->first));
             into.writeAttr(SUMO_ATTR_SPEED, j->second);
@@ -181,7 +181,7 @@ NBTypeCont::getNumLanes(const std::string& type) const {
 }
 
 
-SUMOReal
+double
 NBTypeCont::getSpeed(const std::string& type) const {
     return getType(type).speed;
 }
@@ -217,19 +217,19 @@ NBTypeCont::getPermissions(const std::string& type) const {
 }
 
 
-SUMOReal
+double
 NBTypeCont::getWidth(const std::string& type) const {
     return getType(type).width;
 }
 
 
-SUMOReal
+double
 NBTypeCont::getSidewalkWidth(const std::string& type) const {
     return getType(type).sidewalkWidth;
 }
 
 
-SUMOReal
+double
 NBTypeCont::getBikeLaneWidth(const std::string& type) const {
     return getType(type).bikeLaneWidth;
 }

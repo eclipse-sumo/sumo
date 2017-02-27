@@ -79,7 +79,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     std::string prefix = oc.getString("prefix");
     std::string type = oc.getString("type");
     RGBColor color = RGBColor::parseColor(oc.getString("color"));
-    SUMOReal layer = oc.getFloat("layer");
+    double layer = oc.getFloat("layer");
     std::string idField = oc.getString("shapefile.id-column");
     bool useRunningID = oc.getBool("shapefile.use-running-id");
     // start parsing
@@ -147,7 +147,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
         switch (gtype) {
             case wkbPoint: {
                 OGRPoint* cgeom = (OGRPoint*) poGeometry;
-                Position pos((SUMOReal) cgeom->getX(), (SUMOReal) cgeom->getY());
+                Position pos((double) cgeom->getX(), (double) cgeom->getY());
                 if (!geoConvHelper.x2cartesian(pos)) {
                     WRITE_ERROR("Unable to project coordinates for POI '" + id + "'.");
                 }
@@ -162,7 +162,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 OGRLineString* cgeom = (OGRLineString*) poGeometry;
                 PositionVector shape;
                 for (int j = 0; j < cgeom->getNumPoints(); j++) {
-                    Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+                    Position pos((double) cgeom->getX(j), (double) cgeom->getY(j));
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_ERROR("Unable to project coordinates for polygon '" + id + "'.");
                     }
@@ -179,7 +179,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 OGRLinearRing* cgeom = ((OGRPolygon*) poGeometry)->getExteriorRing();
                 PositionVector shape;
                 for (int j = 0; j < cgeom->getNumPoints(); j++) {
-                    Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+                    Position pos((double) cgeom->getX(j), (double) cgeom->getY(j));
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_ERROR("Unable to project coordinates for polygon '" + id + "'.");
                     }
@@ -195,7 +195,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 OGRMultiPoint* cgeom = (OGRMultiPoint*) poGeometry;
                 for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
                     OGRPoint* cgeom2 = (OGRPoint*) cgeom->getGeometryRef(i);
-                    Position pos((SUMOReal) cgeom2->getX(), (SUMOReal) cgeom2->getY());
+                    Position pos((double) cgeom2->getX(), (double) cgeom2->getY());
                     std::string tid = id + "#" + toString(i);
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_ERROR("Unable to project coordinates for POI '" + tid + "'.");
@@ -215,7 +215,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     PositionVector shape;
                     std::string tid = id + "#" + toString(i);
                     for (int j = 0; j < cgeom2->getNumPoints(); j++) {
-                        Position pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
+                        Position pos((double) cgeom2->getX(j), (double) cgeom2->getY(j));
                         if (!geoConvHelper.x2cartesian(pos)) {
                             WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
                         }
@@ -236,7 +236,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     PositionVector shape;
                     std::string tid = id + "#" + toString(i);
                     for (int j = 0; j < cgeom2->getNumPoints(); j++) {
-                        Position pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
+                        Position pos((double) cgeom2->getX(j), (double) cgeom2->getY(j));
                         if (!geoConvHelper.x2cartesian(pos)) {
                             WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
                         }

@@ -93,7 +93,7 @@ public:
     void unSet();
 
 
-    /** @brief Returns the stored SUMOReal value
+    /** @brief Returns the stored double value
      *
      * Option_Float returns the stored real number in this method's reimplementation.
      *  All other option classes do not override this method which throws an InvalidArgument-exception.
@@ -101,7 +101,7 @@ public:
      * @return Returns the stored real number if being an instance of Option_Float
      * @exception InvalidArgument If the class is not an instance of Option_Float
      */
-    virtual SUMOReal getFloat() const;
+    virtual double getFloat() const;
 
 
     /** @brief Returns the stored integer value
@@ -457,7 +457,7 @@ public:
      *
      * @param[in] value This option's default value
      */
-    Option_Float(SUMOReal value);
+    Option_Float(double value);
 
 
     /** @brief Copy constructor */
@@ -472,27 +472,27 @@ public:
     Option_Float& operator=(const Option_Float& s);
 
 
-    /** @brief Returns the stored SUMOReal value
-     * @see SUMOReal Option::getFloat()
+    /** @brief Returns the stored double value
+     * @see double Option::getFloat()
      * @return Returns the stored real number
      */
-    SUMOReal getFloat() const;
+    double getFloat() const;
 
 
-    /** @brief Stores the given value after parsing it into a SUMOReal
+    /** @brief Stores the given value after parsing it into a double
      *
-     *  The value is converted into a SUMOReal and stored in "myValue".
+     *  The value is converted into a double and stored in "myValue".
      *  Then, "markSet" is called in order to know that a value has been set.
      *
      * The method returns whether the value could be set (the return value from
      *  "markSet").
      *
-     * If the string could not be converted into a SUMOReal, an InvalidArgument
+     * If the string could not be converted into a double, an InvalidArgument
      *  is thrown.
      *
      * @see bool Option::set(std::string v)
      * @return Whether the new value could be set
-     * @exception InvalidArgument If the value could not be converted into a SUMOReal
+     * @exception InvalidArgument If the value could not be converted into a double
      */
     bool set(const std::string& v);
 
@@ -509,7 +509,7 @@ public:
 
 private:
     /** the value, valid only when the base-classes "myAmSet"-member is true */
-    SUMOReal       myValue;
+    double       myValue;
 
 };
 

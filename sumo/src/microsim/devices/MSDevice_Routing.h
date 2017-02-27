@@ -181,7 +181,7 @@ public:
     }
 
     /// @brief return current travel speed assumption
-    static SUMOReal getAssumedSpeed(const MSEdge* edge);
+    static double getAssumedSpeed(const MSEdge* edge);
 
 
 private:
@@ -279,7 +279,7 @@ private:
      * @return The effort (time to pass in this case) for an edge
      * @see DijkstraRouterTT_ByProxi
      */
-    static SUMOReal getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t);
+    static double getEffort(const MSEdge* const e, const SUMOVehicle* const v, double t);
 
 
 
@@ -321,10 +321,10 @@ private:
     static Command* myEdgeWeightSettingCommand;
 
     /// @brief The container of edge speeds
-    static std::vector<SUMOReal> myEdgeSpeeds;
+    static std::vector<double> myEdgeSpeeds;
 
     /// @brief Information which weight prior edge efforts have
-    static SUMOReal myAdaptationWeight;
+    static double myAdaptationWeight;
 
     /// @brief At which time interval the edge weights get updated
     static SUMOTime myAdaptationInterval;
@@ -339,7 +339,7 @@ private:
     static int myAdaptationStepsIndex;
 
     /// @brief The container of edge speeds
-    static std::vector<std::vector<SUMOReal> > myPastEdgeSpeeds;
+    static std::vector<std::vector<double> > myPastEdgeSpeeds;
 
     /// @brief whether taz shall be used at initial rerouting
     static bool myWithTaz;
@@ -354,7 +354,7 @@ private:
     static AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* myRouterWithProhibited;
 
     /// @brief Whether to disturb edge weights dynamically
-    static SUMOReal myRandomizeWeightsFactor;
+    static double myRandomizeWeightsFactor;
 
 #ifdef HAVE_FOX
     static FXWorkerThread::Pool myThreadPool;

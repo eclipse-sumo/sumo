@@ -231,23 +231,23 @@ ROMAFrame::addAssignmentOptions() {
     oc.doRegister("assignment-method", new Option_String("incremental"));
     oc.addDescription("assignment-method", "Processing", "Choose a assignment method: incremental, UE or SUE");
 
-    oc.doRegister("tolerance", new Option_Float(SUMOReal(0.001)));
+    oc.doRegister("tolerance", new Option_Float(double(0.001)));
     oc.addDescription("tolerance", "Processing", "Use FLOAT as tolerance when checking for SUE stability");
 
-    oc.doRegister("left-turn-penalty", new Option_Float(SUMOReal(0)));
+    oc.doRegister("left-turn-penalty", new Option_Float(0.));
     oc.addDescription("left-turn-penalty", "Processing", "Use left-turn penalty FLOAT to calculate link travel time when searching routes");
 
     oc.doRegister("paths",  new Option_Integer(1));
     oc.addDescription("paths", "Processing", "Use INTEGER as the number of paths needed to be searched for each OD pair at each iteration");
 
-    oc.doRegister("paths.penalty", new Option_Float(SUMOReal(1)));
+    oc.doRegister("paths.penalty", new Option_Float(double(1)));
     oc.addDescription("paths.penalty", "Processing", "Penalize existing routes with FLOAT to find secondary routes");
 
-    oc.doRegister("upperbound", new Option_Float(SUMOReal(0.5)));
+    oc.doRegister("upperbound", new Option_Float(double(0.5)));
     oc.addSynonyme("upperbound", "upper", true);
     oc.addDescription("upperbound", "Processing", "Use FLOAT as the upper bound to determine auxiliary link cost");
 
-    oc.doRegister("lowerbound", new Option_Float(SUMOReal(0.15)));
+    oc.doRegister("lowerbound", new Option_Float(double(0.15)));
     oc.addSynonyme("lowerbound", "lower", true);
     oc.addDescription("lowerbound", "Processing", "Use FLOAT as the lower bound to determine auxiliary link cost");
 
@@ -261,11 +261,11 @@ ROMAFrame::addAssignmentOptions() {
     oc.doRegister("route-choice-method", new Option_String("logit"));
     oc.addDescription("route-choice-method", "Processing", "Choose a route choice method: gawron, logit, or lohse");
 
-    oc.doRegister("gawron.beta", new Option_Float(SUMOReal(0.3)));
+    oc.doRegister("gawron.beta", new Option_Float(double(0.3)));
     oc.addSynonyme("gawron.beta", "gBeta", true);
     oc.addDescription("gawron.beta", "Processing", "Use FLOAT as Gawron's beta");
 
-    oc.doRegister("gawron.a", new Option_Float(SUMOReal(0.05)));
+    oc.doRegister("gawron.a", new Option_Float(double(0.05)));
     oc.addSynonyme("gawron.a", "gA", true);
     oc.addDescription("gawron.a", "Processing", "Use FLOAT as Gawron's a");
 
@@ -278,15 +278,15 @@ ROMAFrame::addAssignmentOptions() {
     oc.doRegister("skip-new-routes", new Option_Bool(false));
     oc.addDescription("skip-new-routes", "Processing", "Only reuse routes from input, do not calculate new ones");
 
-    oc.doRegister("logit.beta", new Option_Float(SUMOReal(0.15)));  // check: remove the default?
+    oc.doRegister("logit.beta", new Option_Float(double(0.15)));  // check: remove the default?
     oc.addSynonyme("logit.beta", "lBeta", true);
     oc.addDescription("logit.beta", "Processing", "Use FLOAT as (c-)logit's beta for the commonality factor");
 
-    oc.doRegister("logit.gamma", new Option_Float(SUMOReal(1)));
+    oc.doRegister("logit.gamma", new Option_Float(double(1)));
     oc.addSynonyme("logit.gamma", "lGamma", true);
     oc.addDescription("logit.gamma", "Processing", "Use FLOAT as (c-)logit's gamma for the commonality factor");
 
-    oc.doRegister("logit.theta", new Option_Float(SUMOReal(0.01)));
+    oc.doRegister("logit.theta", new Option_Float(double(0.01)));
     oc.addSynonyme("logit.theta", "lTheta", true);
     oc.addDescription("logit.theta", "Processing", "Use FLOAT as (c-)logit's theta");
 }

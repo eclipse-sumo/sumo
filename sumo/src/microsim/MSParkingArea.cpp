@@ -49,9 +49,9 @@
 MSParkingArea::MSParkingArea(const std::string& id,
                              const std::vector<std::string>& lines,
                              MSLane& lane,
-                             SUMOReal begPos, SUMOReal endPos,
+                             double begPos, double endPos,
                              unsigned int capacity,
-                             SUMOReal width, SUMOReal length, SUMOReal angle) :
+                             double width, double length, double angle) :
     MSStoppingPlace(id, lines, lane, begPos, endPos),
     myCapacity(capacity),
     myWidth(width),
@@ -81,7 +81,7 @@ MSParkingArea::MSParkingArea(const std::string& id,
 
             const Position& f = myShape.positionAtOffset(getSpaceDim() * (i - 1));
             const Position& s = myShape.positionAtOffset(getSpaceDim() * (i));
-            SUMOReal lot_angle = ((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI) + myAngle;
+            double lot_angle = ((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI) + myAngle;
             mySpaceOccupancies[i].myRotation = lot_angle;
             if (myAngle == 0) {
                 // parking parallel to the road
@@ -98,7 +98,7 @@ MSParkingArea::MSParkingArea(const std::string& id,
 
 MSParkingArea::~MSParkingArea() {}
 
-SUMOReal
+double
 MSParkingArea::getLastFreePos(const SUMOVehicle& /* forVehicle */) const {
     return myLastFreePos;
 }
@@ -114,27 +114,27 @@ MSParkingArea::getVehiclePosition(const SUMOVehicle& forVehicle) {
     return Position::INVALID;
 }
 
-SUMOReal
+double
 MSParkingArea::getVehicleAngle(const SUMOVehicle& forVehicle) {
     std::map<unsigned int, LotSpaceDefinition >::iterator i;
     for (i = mySpaceOccupancies.begin(); i != mySpaceOccupancies.end(); i++) {
         if ((*i).second.vehicle == &forVehicle) {
-            return (((*i).second.myRotation - 90.) * (SUMOReal) PI / (SUMOReal) 180.0);
+            return (((*i).second.myRotation - 90.) * (double) PI / (double) 180.0);
         }
     }
     return 0.;
 }
 
 
-SUMOReal
+double
 MSParkingArea::getSpaceDim() const {
     return (myEndPos - myBegPos) / myCapacity;
 }
 
 
 void
-MSParkingArea::addLotEntry(SUMOReal x, SUMOReal y, SUMOReal z,
-                           SUMOReal width, SUMOReal length, SUMOReal angle) {
+MSParkingArea::addLotEntry(double x, double y, double z,
+                           double width, double length, double angle) {
 
     const int i = (int)mySpaceOccupancies.size() + 1;
 
@@ -152,10 +152,10 @@ MSParkingArea::addLotEntry(SUMOReal x, SUMOReal y, SUMOReal z,
 
 
 void
-MSParkingArea::enter(SUMOVehicle* what, SUMOReal beg, SUMOReal end) {
+MSParkingArea::enter(SUMOVehicle* what, double beg, double end) {
     if (myLastFreeLot >= 1 && myLastFreeLot <= (int)mySpaceOccupancies.size()) {
         mySpaceOccupancies[myLastFreeLot].vehicle = what;
-        myEndPositions[what] = std::pair<SUMOReal, SUMOReal>(beg, end);
+        myEndPositions[what] = std::pair<double, double>(beg, end);
         computeLastFreePos();
     }
 }
@@ -191,19 +191,19 @@ MSParkingArea::computeLastFreePos() {
 }
 
 
-SUMOReal
+double
 MSParkingArea::getWidth() const {
     return myWidth;
 }
 
 
-SUMOReal
+double
 MSParkingArea::getLength() const {
     return myLength;
 }
 
 
-SUMOReal
+double
 MSParkingArea::getAngle() const {
     return myAngle;
 }

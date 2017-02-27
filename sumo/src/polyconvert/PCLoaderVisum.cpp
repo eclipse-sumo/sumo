@@ -103,8 +103,8 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
         if (what == "$PUNKT") {
             lineParser.parseLine(line);
             long long int id = TplConvert::_2long(lineParser.get("ID").c_str());
-            SUMOReal x = TplConvert::_2SUMOReal(lineParser.get("XKOORD").c_str());
-            SUMOReal y = TplConvert::_2SUMOReal(lineParser.get("YKOORD").c_str());
+            double x = TplConvert::_2double(lineParser.get("XKOORD").c_str());
+            double y = TplConvert::_2double(lineParser.get("YKOORD").c_str());
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for point '" + toString(id) + "'.");
@@ -125,8 +125,8 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             lineParser.parseLine(line);
             long long int id = TplConvert::_2long(lineParser.get("KANTEID").c_str());
             int index = TplConvert::_2int(lineParser.get("INDEX").c_str());
-            SUMOReal x = TplConvert::_2SUMOReal(lineParser.get("XKOORD").c_str());
-            SUMOReal y = TplConvert::_2SUMOReal(lineParser.get("YKOORD").c_str());
+            double x = TplConvert::_2double(lineParser.get("XKOORD").c_str());
+            double y = TplConvert::_2double(lineParser.get("YKOORD").c_str());
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
@@ -225,8 +225,8 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             std::string id = toString(idL);
             std::string catid = lineParser.get("CATID");
             // process read values
-            SUMOReal x = TplConvert::_2SUMOReal(lineParser.get("XKoord").c_str());
-            SUMOReal y = TplConvert::_2SUMOReal(lineParser.get("YKoord").c_str());
+            double x = TplConvert::_2double(lineParser.get("XKoord").c_str());
+            double y = TplConvert::_2double(lineParser.get("YKoord").c_str());
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
@@ -234,7 +234,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             std::string type = typemap[catid];
             // patch the values
             bool discard = oc.getBool("discard");
-            SUMOReal layer = oc.getFloat("layer");
+            double layer = oc.getFloat("layer");
             RGBColor color;
             if (tm.has(type)) {
                 const PCTypeMap::TypeDef& def = tm.get(type);
@@ -262,7 +262,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             if (!first && lastID != id) {
                 // we have parsed a polygon completely
                 RGBColor color;
-                SUMOReal layer = oc.getFloat("layer");
+                double layer = oc.getFloat("layer");
                 bool discard = oc.getBool("discard");
                 if (tm.has(polyType)) {
                     const PCTypeMap::TypeDef& def = tm.get(polyType);
@@ -288,7 +288,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             std::string index = st.next();
             std::string xpos = st.next();
             std::string ypos = st.next();
-            Position pos2D((SUMOReal) atof(xpos.c_str()), (SUMOReal) atof(ypos.c_str()));
+            Position pos2D((double) atof(xpos.c_str()), (double) atof(ypos.c_str()));
             if (!geoConvHelper.x2cartesian(pos2D)) {
                 WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
             }
@@ -302,12 +302,12 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             long long int idL = TplConvert::_2long(lineParser.get("NR").c_str());
             std::string id = toString(idL);
             long long int area = TplConvert::_2long(lineParser.get("FLAECHEID").c_str());
-            SUMOReal x = TplConvert::_2SUMOReal(lineParser.get("XKOORD").c_str());
-            SUMOReal y = TplConvert::_2SUMOReal(lineParser.get("YKOORD").c_str());
+            double x = TplConvert::_2double(lineParser.get("XKOORD").c_str());
+            double y = TplConvert::_2double(lineParser.get("YKOORD").c_str());
             // patch the values
             std::string type = "district";
             bool discard = oc.getBool("discard");
-            SUMOReal layer = oc.getFloat("layer");
+            double layer = oc.getFloat("layer");
             RGBColor color;
             if (tm.has(type)) {
                 const PCTypeMap::TypeDef& def = tm.get(type);

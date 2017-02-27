@@ -46,7 +46,7 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
 
 public:
-    CarEdge(int numericalID, const E* edge, const SUMOReal pos = -1.) :
+    CarEdge(int numericalID, const E* edge, const double pos = -1.) :
         _IntermodalEdge(edge->getID() + "_car" + toString(pos), numericalID, edge, "!car"),
         myStartPos(pos >= 0 ? pos : 0.) { }
 
@@ -83,9 +83,9 @@ public:
         return trip->vehicle == 0 || this->getEdge()->prohibits(trip->vehicle);
     }
 
-    SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const trip, SUMOReal time) const {
-        const SUMOReal travelTime = E::getTravelTimeStatic(this->getEdge(), trip->vehicle, time);
-        SUMOReal distTravelled = this->getLength();
+    double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
+        const double travelTime = E::getTravelTimeStatic(this->getEdge(), trip->vehicle, time);
+        double distTravelled = this->getLength();
         // checking arrivalPos first to have it correct for identical depart and arrival edge
         if (this->getEdge() == trip->to) {
             distTravelled = trip->arrivalPos - myStartPos;
@@ -98,7 +98,7 @@ public:
 
 private:
     /// @brief the starting position for split edges
-    const SUMOReal myStartPos;
+    const double myStartPos;
 
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, std::vector<_IntermodalEdge*> > myClassesSuccessorMap;
@@ -132,12 +132,12 @@ template<class E, class L, class N, class V>
 class PublicTransportEdge : public IntermodalEdge<E, L, N, V> {
 private:
     struct Schedule {
-        Schedule(const SUMOTime _begin, const SUMOTime _end, const SUMOTime _period, const SUMOReal _travelTimeSec)
+        Schedule(const SUMOTime _begin, const SUMOTime _end, const SUMOTime _period, const double _travelTimeSec)
             : begin(_begin), end(_end), period(_period), travelTimeSec(_travelTimeSec) {}
         const SUMOTime begin;
         const SUMOTime end;
         const SUMOTime period;
-        const SUMOReal travelTimeSec;
+        const double travelTimeSec;
     private:
         /// @brief Invalidated assignment operator
         Schedule& operator=(const Schedule& src);
@@ -155,16 +155,16 @@ public:
         return myEntryStop;
     }
 
-    void addSchedule(const SUMOTime begin, const SUMOTime end, const SUMOTime period, const SUMOReal travelTimeSec) {
+    void addSchedule(const SUMOTime begin, const SUMOTime end, const SUMOTime period, const double travelTimeSec) {
         //std::cout << " edge=" << myEntryStop->getID() << "->" << this->getID() << " beg=" << STEPS2TIME(begin) << " end=" << STEPS2TIME(end) 
         //    << " period=" << STEPS2TIME(period) 
         //    << " travelTime=" << travelTimeSec << "\n";
         mySchedules.insert(std::make_pair(STEPS2TIME(begin), Schedule(begin, end, period, travelTimeSec)));
     }
 
-    SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, SUMOReal time) const {
-        SUMOReal minArrivalSec = std::numeric_limits<SUMOReal>::max();
-        for (typename std::multimap<SUMOReal, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {
+    double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double time) const {
+        double minArrivalSec = std::numeric_limits<double>::max();
+        for (typename std::multimap<double, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {
             if (it->first > minArrivalSec) {
                 break;
             }
@@ -182,7 +182,7 @@ public:
     }
 
 private:
-    std::multimap<SUMOReal, Schedule> mySchedules;
+    std::multimap<double, Schedule> mySchedules;
     const IntermodalEdge<E, L, N, V>* const myEntryStop;
 
 };
@@ -196,16 +196,16 @@ private:
 
 public:
     AccessEdge(int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge,
-               const SUMOReal transferTime = NUMERICAL_EPS) :
+               const double transferTime = NUMERICAL_EPS) :
         _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID(), numericalID, outEdge->getEdge(), "!access"),
         myTransferTime(transferTime) { }
 
-    SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, SUMOReal /* time */) const {
+    double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
         return myTransferTime;
     }
 
 private:
-    const SUMOReal myTransferTime;
+    const double myTransferTime;
 
 };
 

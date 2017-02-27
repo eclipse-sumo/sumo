@@ -90,7 +90,7 @@ public:
         return new IntermodalRouter<E, L, N, V, INTERNALROUTER>(myIntermodalNet);
     }
 
-    void addAccess(const std::string& stopId, const E* stopEdge, const SUMOReal pos) {
+    void addAccess(const std::string& stopId, const E* stopEdge, const double pos) {
         assert(stopEdge != 0);
         if (myStopConnections.count(stopId) == 0) {
             myStopConnections[stopId] = new StopEdge<E, L, N, V>(stopId, myNumericalID++, stopEdge);
@@ -211,7 +211,7 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    bool compute(const E* from, const E* to, SUMOReal departPos, SUMOReal arrivalPos, SUMOReal speed,
+    bool compute(const E* from, const E* to, double departPos, double arrivalPos, double speed,
                  const V* const vehicle, const SVCPermissions modeSet, SUMOTime msTime,
                  std::vector<TripItem>& into) {
         createNet();
@@ -245,7 +245,7 @@ public:
             }
         }
 #ifdef IntermodalRouter_DEBUG_ROUTES
-        SUMOReal time = STEPS2TIME(msTime);
+        double time = STEPS2TIME(msTime);
         for (int i = 0; i < intoPed.size(); ++i) {
             time += myInternalRouter->getEffort(intoPed[i], &trip, time);
         }
@@ -267,7 +267,7 @@ public:
         throw ProcessError("Do not use this method");
     }
 
-    SUMOReal recomputeCosts(const std::vector<const E*>&, const _IntermodalTrip* const, SUMOTime) const {
+    double recomputeCosts(const std::vector<const E*>&, const _IntermodalTrip* const, SUMOTime) const {
         throw ProcessError("Do not use this method");
     }
 
@@ -287,7 +287,7 @@ private:
         myInternalRouter(new INTERNALROUTER(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
         myIntermodalNet(net), myNumericalID((int)net->getAllEdges().size()) {}
 
-    int splitEdge(_IntermodalEdge* const toSplit, _IntermodalEdge* afterSplit, const SUMOReal pos,
+    int splitEdge(_IntermodalEdge* const toSplit, _IntermodalEdge* afterSplit, const double pos,
                   _IntermodalEdge* const fwdConn, _IntermodalEdge* const backConn = 0) {
         int splitIndex = 1;
         std::vector<_IntermodalEdge*>& splitList = myAccessSplits[toSplit];
@@ -295,7 +295,7 @@ private:
             splitList.push_back(toSplit);
         }
         typename std::vector<_IntermodalEdge*>::iterator splitIt = splitList.begin();
-        SUMOReal relPos = pos;
+        double relPos = pos;
         while (splitIt != splitList.end() && relPos > (*splitIt)->getLength() + POSITION_EPS) {
             relPos -= (*splitIt)->getLength();
             ++splitIt;

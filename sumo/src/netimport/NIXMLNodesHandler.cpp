@@ -122,17 +122,17 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
         myPosition.set(0, 0, 0); // better to reset than to reuse the previous (z)-value
     }
     if (attrs.hasAttribute(SUMO_ATTR_X)) {
-        myPosition.set(attrs.get<SUMOReal>(SUMO_ATTR_X, myID.c_str(), ok), myPosition.y());
+        myPosition.set(attrs.get<double>(SUMO_ATTR_X, myID.c_str(), ok), myPosition.y());
         xOk = true;
         needConversion = true;
     }
     if (attrs.hasAttribute(SUMO_ATTR_Y)) {
-        myPosition.set(myPosition.x(), attrs.get<SUMOReal>(SUMO_ATTR_Y, myID.c_str(), ok));
+        myPosition.set(myPosition.x(), attrs.get<double>(SUMO_ATTR_Y, myID.c_str(), ok));
         yOk = true;
         needConversion = true;
     }
     if (attrs.hasAttribute(SUMO_ATTR_Z)) {
-        myPosition.set(myPosition.x(), myPosition.y(), attrs.get<SUMOReal>(SUMO_ATTR_Z, myID.c_str(), ok));
+        myPosition.set(myPosition.x(), myPosition.y(), attrs.get<double>(SUMO_ATTR_Z, myID.c_str(), ok));
     }
     if (xOk && yOk) {
         if (needConversion && !NBNetBuilder::transformCoordinate(myPosition, true, myLocation)) {
@@ -203,7 +203,7 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     }
     // set optional radius
     if (attrs.hasAttribute(SUMO_ATTR_RADIUS)) {
-        node->setRadius(attrs.get<SUMOReal>(SUMO_ATTR_RADIUS, nodeID.c_str(), ok));
+        node->setRadius(attrs.get<double>(SUMO_ATTR_RADIUS, nodeID.c_str(), ok));
     }
     // set optional keepClear flag
     if (attrs.hasAttribute(SUMO_ATTR_KEEP_CLEAR)) {

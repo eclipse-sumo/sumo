@@ -63,17 +63,17 @@
  * main
  * ----------------------------------------------------------------------- */
 void single(const std::string& of, const std::string& className, SUMOEmissionClass c,
-            SUMOReal vMin, SUMOReal vMax, SUMOReal vStep,
-            SUMOReal aMin, SUMOReal aMax, SUMOReal aStep,
-            SUMOReal sMin, SUMOReal sMax, SUMOReal sStep,
+            double vMin, double vMax, double vStep,
+            double aMin, double aMax, double aStep,
+            double sMin, double sMax, double sStep,
             bool verbose) {
     if (verbose) {
         WRITE_MESSAGE("Writing map of '" + className + "' into '" + of + "'.");
     }
     std::ofstream o(of.c_str());
-    for (SUMOReal v = vMin; v <= vMax; v += vStep) {
-        for (SUMOReal a = aMin; a <= aMax; a += aStep) {
-            for (SUMOReal s = sMin; s <= sMax; s += sStep) {
+    for (double v = vMin; v <= vMax; v += vStep) {
+        for (double a = aMin; a <= aMax; a += aStep) {
+            for (double s = sMin; s <= sMax; s += sStep) {
                 const PollutantsInterface::Emissions result = PollutantsInterface::computeAll(c, v, a, s);
                 o << v << ";" << a << ";" << s << ";" << "CO" << ";" << result.CO << std::endl;
                 o << v << ";" << a << ";" << s << ";" << "CO2" << ";" << result.CO2 << std::endl;
@@ -149,15 +149,15 @@ main(int argc, char** argv) {
             return 0;
         }
 
-        SUMOReal vMin = oc.getFloat("v-min");
-        SUMOReal vMax = oc.getFloat("v-max");
-        SUMOReal vStep = oc.getFloat("v-step");
-        SUMOReal aMin = oc.getFloat("a-min");
-        SUMOReal aMax = oc.getFloat("a-max");
-        SUMOReal aStep = oc.getFloat("a-step");
-        SUMOReal sMin = oc.getFloat("s-min");
-        SUMOReal sMax = oc.getFloat("s-max");
-        SUMOReal sStep = oc.getFloat("s-step");
+        double vMin = oc.getFloat("v-min");
+        double vMax = oc.getFloat("v-max");
+        double vStep = oc.getFloat("v-step");
+        double aMin = oc.getFloat("a-min");
+        double aMax = oc.getFloat("a-max");
+        double aStep = oc.getFloat("a-step");
+        double sMin = oc.getFloat("s-min");
+        double sMax = oc.getFloat("s-max");
+        double sStep = oc.getFloat("s-step");
         if (!oc.getBool("iterate")) {
             if (!oc.isSet("emission-class")) {
                 throw ProcessError("The emission class (-e) must be given.");

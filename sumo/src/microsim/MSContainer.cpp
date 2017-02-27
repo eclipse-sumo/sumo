@@ -56,7 +56,7 @@
  * MSContainer::MSContainerStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainerStage_Driving::MSContainerStage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toStop, const SUMOReal arrivalPos, const std::vector<std::string>& lines)
+        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines)
     : MSTransportable::Stage_Driving(destination, toStop, arrivalPos, lines) {}
 
 
@@ -113,8 +113,8 @@ MSContainer::MSContainerStage_Driving::routeOutput(OutputDevice& os) const {
  * ----------------------------------------------------------------------- */
 MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vector<const MSEdge*>& route,
         MSStoppingPlace* toStop,
-        SUMOReal speed,
-        SUMOReal departPos, SUMOReal arrivalPos) :
+        double speed,
+        double departPos, double arrivalPos) :
     MSTransportable::Stage(*route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
                                arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transhipped to " + route.back()->getID()), MOVING_WITHOUT_VEHICLE), myRoute(route),
     mySpeed(speed), myContainerState(0), myCurrentInternalEdge(0) {
@@ -153,7 +153,7 @@ MSContainer::MSContainerStage_Tranship::getToEdge() const {
     return myRoute.back();
 }
 
-SUMOReal
+double
 MSContainer::MSContainerStage_Tranship::getEdgePos(SUMOTime now) const {
     return myContainerState->getEdgePos(*this, now);
 }
@@ -163,7 +163,7 @@ MSContainer::MSContainerStage_Tranship::getPosition(SUMOTime now) const {
     return myContainerState->getPosition(*this, now);
 }
 
-SUMOReal
+double
 MSContainer::MSContainerStage_Tranship::getAngle(SUMOTime now) const {
     return myContainerState->getAngle(*this, now);
 }
@@ -173,7 +173,7 @@ MSContainer::MSContainerStage_Tranship::getWaitingTime(SUMOTime /* now */) const
     return 0;
 }
 
-SUMOReal
+double
 MSContainer::MSContainerStage_Tranship::getSpeed() const {
     return myContainerState->getSpeed(*this);
 }

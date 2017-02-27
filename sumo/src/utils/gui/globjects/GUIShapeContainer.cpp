@@ -54,8 +54,8 @@ GUIShapeContainer::~GUIShapeContainer() {}
 
 bool
 GUIShapeContainer::addPOI(const std::string& id, const std::string& type,
-                          const RGBColor& color, SUMOReal layer, SUMOReal angle, const std::string& imgFile,
-                          const Position& pos, SUMOReal width, SUMOReal height, bool /* ignorePruning */) {
+                          const RGBColor& color, double layer, double angle, const std::string& imgFile,
+                          const Position& pos, double width, double height, bool /* ignorePruning */) {
     GUIPointOfInterest* p = new GUIPointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height);
     AbstractMutex::ScopedLocker locker(myLock);
     if (!myPOIs.add(id, p)) {
@@ -70,8 +70,8 @@ GUIShapeContainer::addPOI(const std::string& id, const std::string& type,
 
 bool
 GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
-                              const RGBColor& color, SUMOReal layer,
-                              SUMOReal angle, const std::string& imgFile,
+                              const RGBColor& color, double layer,
+                              double angle, const std::string& imgFile,
                               const PositionVector& shape, bool fill, bool /* ignorePruning */) {
     GUIPolygon* p = new GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile);
     AbstractMutex::ScopedLocker locker(myLock);

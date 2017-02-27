@@ -82,7 +82,7 @@ public:
      * @param[in] includeInternal Whether to include lengths of internal edges
      * @param[in] eachLane Whether to count each lane separately
      */
-    static SUMOReal getTotalLength(bool includeInternal, bool eachLane);
+    static double getTotalLength(bool includeInternal, bool eachLane);
 
     /// Returns the street's geometry
     Boundary getBoundary() const;
@@ -95,8 +95,8 @@ public:
     /** returns the position on the line given by the coordinates where "prev"
         is the length of the line and "wanted" the distance from the begin
         !!! should be within another class */
-    static std::pair<SUMOReal, SUMOReal> getLaneOffsets(SUMOReal x1, SUMOReal y1,
-            SUMOReal x2, SUMOReal y2, SUMOReal prev, SUMOReal wanted);
+    static std::pair<double, double> getLaneOffsets(double x1, double y1,
+            double x2, double y2, double prev, double wanted);
 
     static void fill(std::vector<GUIEdge*>& netsWrappers);
 
@@ -166,12 +166,12 @@ public:
 
     int getVehicleNo() const;
     std::string getVehicleIDs() const;
-    SUMOReal getBruttoOccupancy() const;
-    SUMOReal getAllowedSpeed() const;
+    double getBruttoOccupancy() const;
+    double getAllowedSpeed() const;
     /// @brief return flow based on meanSpead @note: may produced incorrect results when jammed
-    SUMOReal getFlow() const;
+    double getFlow() const;
     /// @brief return meanSpead divided by allowedSpeed
-    SUMOReal getRelativeSpeed() const;
+    double getRelativeSpeed() const;
 
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
@@ -183,10 +183,10 @@ public:
     bool setMultiColor(const GUIColorer& c) const;
 
     /// @brief gets the color value according to the current scheme index
-    SUMOReal getColorValue(int activeScheme) const;
+    double getColorValue(int activeScheme) const;
 
     /// @brief gets the scaling value according to the current scheme index
-    SUMOReal getScaleValue(int activeScheme) const;
+    double getScaleValue(int activeScheme) const;
 
     /// @brief returns the segment closest to the given position
     MESegment* getSegmentAtPosition(const Position& pos);

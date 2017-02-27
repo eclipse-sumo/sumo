@@ -103,7 +103,7 @@ public:
      * @param[in] c the emission class
      * @return a reference weight
      */
-    SUMOReal getWeight(const SUMOEmissionClass c) const;
+    double getWeight(const SUMOEmissionClass c) const;
 
     /** @brief Returns the amount of emitted pollutant given the vehicle type and state (in mg/s or in ml/s for fuel)
      * @param[in] c The vehicle emission class
@@ -112,7 +112,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount of the pollutant emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
-    SUMOReal compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const;
+    double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const;
 
 private:
     /** @brief Returns the amount of emitted pollutant given the vehicle type and state (in mg/s or in ml/s for fuel)
@@ -122,7 +122,7 @@ private:
     * @param[in] v The vehicle's current velocity
     * @return The amount of the pollutant emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
     */
-    SUMOReal getEmission(const PHEMCEP* oldCep, PHEMlightdll::CEP* currCep, const std::string& e, const double p, const double v) const;
+    double getEmission(const PHEMCEP* oldCep, PHEMlightdll::CEP* currCep, const std::string& e, const double p, const double v) const;
 
     /// @brief the index of the next class
     int myIndex;

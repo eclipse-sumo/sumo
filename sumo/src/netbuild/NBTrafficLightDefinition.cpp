@@ -142,8 +142,8 @@ NBTrafficLightDefinition::amInvalid() const {
 
 
 int
-NBTrafficLightDefinition::computeBrakingTime(SUMOReal minDecel) const {
-    SUMOReal vmax = NBContHelper::maxSpeed(myIncomingEdges);
+NBTrafficLightDefinition::computeBrakingTime(double minDecel) const {
+    double vmax = NBContHelper::maxSpeed(myIncomingEdges);
     return (int)(vmax / minDecel);
 }
 

@@ -47,35 +47,35 @@ template<class R, class E, class V>
 class LogitCalculator : public RouteCostCalculator<R, E, V> {
 public:
     /// Constructor
-    LogitCalculator(const SUMOReal beta, const SUMOReal gamma,
-                    const SUMOReal theta) : myBeta(beta), myGamma(gamma), myTheta(theta) {}
+    LogitCalculator(const double beta, const double gamma,
+                    const double theta) : myBeta(beta), myGamma(gamma), myTheta(theta) {}
 
     /// Destructor
     virtual ~LogitCalculator() {}
 
-    void setCosts(R* route, const SUMOReal costs, const bool /* isActive */) const {
+    void setCosts(R* route, const double costs, const bool /* isActive */) const {
         route->setCosts(costs);
     }
 
     /** @brief calculate the probabilities in the logit model */
     void calculateProbabilities(std::vector<R*> alternatives, const V* const veh, const SUMOTime time) {
-        const SUMOReal theta = myTheta >= 0 ? myTheta : getThetaForCLogit(alternatives);
-        const SUMOReal beta = myBeta >= 0 ? myBeta : getBetaForCLogit(alternatives);
+        const double theta = myTheta >= 0 ? myTheta : getThetaForCLogit(alternatives);
+        const double beta = myBeta >= 0 ? myBeta : getBetaForCLogit(alternatives);
         if (beta > 0) {
             // calculate commonalities
             for (typename std::vector<R*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
                 const R* pR = *i;
-                SUMOReal lengthR = 0;
+                double lengthR = 0;
                 const std::vector<const E*>& edgesR = pR->getEdgeVector();
                 for (typename std::vector<const E*>::const_iterator edge = edgesR.begin(); edge != edgesR.end(); ++edge) {
                     //@todo we should use costs here
                     lengthR += (*edge)->getTravelTime(veh, STEPS2TIME(time));
                 }
-                SUMOReal overlapSum = 0;
+                double overlapSum = 0;
                 for (typename std::vector<R*>::const_iterator j = alternatives.begin(); j != alternatives.end(); j++) {
                     const R* pS = *j;
-                    SUMOReal overlapLength = 0.;
-                    SUMOReal lengthS = 0;
+                    double overlapLength = 0.;
+                    double lengthS = 0;
                     const std::vector<const E*>& edgesS = pS->getEdgeVector();
                     for (typename std::vector<const E*>::const_iterator edge = edgesS.begin(); edge != edgesS.end(); ++edge) {
                         lengthS += (*edge)->getTravelTime(veh, STEPS2TIME(time));
@@ -90,7 +90,7 @@ public:
         }
         for (typename std::vector<R*>::iterator i = alternatives.begin(); i != alternatives.end(); i++) {
             R* pR = *i;
-            SUMOReal weightedSum = 0;
+            double weightedSum = 0;
             for (typename std::vector<R*>::iterator j = alternatives.begin(); j != alternatives.end(); j++) {
                 R* pS = *j;
                 weightedSum += exp(theta * (pR->getCosts() - pS->getCosts() + myCommonalities[pR] - myCommonalities[pS]));
@@ -102,10 +102,10 @@ public:
 
 private:
     /** @brief calculate the scaling factor in the logit model */
-    SUMOReal getBetaForCLogit(const std::vector<R*> alternatives) const {
-        SUMOReal min = std::numeric_limits<SUMOReal>::max();
+    double getBetaForCLogit(const std::vector<R*> alternatives) const {
+        double min = std::numeric_limits<double>::max();
         for (typename std::vector<R*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
-            const SUMOReal cost = (*i)->getCosts() / 3600.;
+            const double cost = (*i)->getCosts() / 3600.;
             if (cost < min) {
                 min = cost;
             }
@@ -114,23 +114,23 @@ private:
     }
 
     /** @brief calculate the scaling factor in the logit model */
-    SUMOReal getThetaForCLogit(const std::vector<R*> alternatives) const {
+    double getThetaForCLogit(const std::vector<R*> alternatives) const {
         // @todo this calculation works for travel times only
-        SUMOReal sum = 0.;
-        SUMOReal diff = 0.;
-        SUMOReal min = std::numeric_limits<SUMOReal>::max();
+        double sum = 0.;
+        double diff = 0.;
+        double min = std::numeric_limits<double>::max();
         for (typename std::vector<R*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
-            const SUMOReal cost = (*i)->getCosts() / 3600.;
+            const double cost = (*i)->getCosts() / 3600.;
             sum += cost;
             if (cost < min) {
                 min = cost;
             }
         }
-        const SUMOReal meanCost = sum / SUMOReal(alternatives.size());
+        const double meanCost = sum / double(alternatives.size());
         for (typename std::vector<R*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
             diff += pow((*i)->getCosts() / 3600. - meanCost, 2);
         }
-        const SUMOReal cvCost = sqrt(diff / SUMOReal(alternatives.size())) / meanCost;
+        const double cvCost = sqrt(diff / double(alternatives.size())) / meanCost;
         // @todo re-evaluate function
         //    if (cvCost > 0.04) { // Magic numbers from Lohse book
         return 3.1415926535897932384626433832795 / (sqrt(6.) * cvCost * (min + 1.1)) / 3600.;
@@ -141,16 +141,16 @@ private:
 
 private:
     /// @brief logit beta - value
-    const SUMOReal myBeta;
+    const double myBeta;
 
     /// @brief logit gamma - value
-    const SUMOReal myGamma;
+    const double myGamma;
 
     /// @brief logit theta - value
-    const SUMOReal myTheta;
+    const double myTheta;
 
     /// @brief The route commonality factors for c-logit
-    std::map<const R*, SUMOReal> myCommonalities;
+    std::map<const R*, double> myCommonalities;
 
 private:
     /** @brief invalidated assignment operator */

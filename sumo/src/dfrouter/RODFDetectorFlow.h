@@ -47,19 +47,19 @@
  */
 struct FlowDef {
     // Number of passenger vehicles that passed within the described time
-    SUMOReal qPKW;
+    double qPKW;
     // Number of heavy duty vehicles that passed within the described time
-    SUMOReal qLKW;
+    double qLKW;
     // Mean velocity of passenger vehicles within the described time
-    SUMOReal vPKW;
+    double vPKW;
     // Mean velocity of heavy duty vehicles within the described time
-    SUMOReal vLKW;
+    double vLKW;
     // begin time (in s)
 //    int time;
     // probability for having a heavy duty vehicle(qKFZ!=0 ? (qLKW / qKFZ) : 0;)
-    SUMOReal fLKW;
+    double fLKW;
     // initialise with 0
-    mutable SUMOReal isLKW;
+    mutable double isLKW;
     //
     bool firstSet;
 };
@@ -84,8 +84,8 @@ public:
 
     const std::vector<FlowDef>& getFlowDefs(const std::string& id) const;
     bool knows(const std::string& det_id) const;
-    SUMOReal getFlowSumSecure(const std::string& id) const;
-    SUMOReal getMaxDetectorFlow() const;
+    double getFlowSumSecure(const std::string& id) const;
+    double getMaxDetectorFlow() const;
     void printAbsolute() const;
 
     void mesoJoin(const std::string& nid, const std::vector<std::string>& oldids);
@@ -93,7 +93,7 @@ public:
 protected:
     std::map<std::string, std::vector<FlowDef> > myFastAccessFlows;
     SUMOTime myBeginTime, myEndTime, myStepOffset;
-    mutable SUMOReal myMaxDetectorFlow;
+    mutable double myMaxDetectorFlow;
 
 private:
     /// @brief Invalidated copy constructor

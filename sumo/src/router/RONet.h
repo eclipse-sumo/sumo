@@ -97,7 +97,7 @@ public:
      * @param[in] svc The vehicle class the restriction refers to
      * @param[in] speed The restricted speed
      */
-    void addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed);
+    void addRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed);
 
 
     /** @brief Returns the restrictions for an edge type
@@ -105,7 +105,7 @@ public:
      * @param[in] id The id of the type
      * @return The mapping of vehicle classes to maximum speeds
      */
-    const std::map<SUMOVehicleClass, SUMOReal>* getRestrictions(const std::string& id) const;
+    const std::map<SUMOVehicleClass, double>* getRestrictions(const std::string& id) const;
 
 
     /// @name Insertion and retrieval of graph parts
@@ -574,7 +574,7 @@ private:
     bool myHavePermissions;
 
     /// @brief The vehicle class specific speed restrictions
-    std::map<std::string, std::map<SUMOVehicleClass, SUMOReal> > myRestrictions;
+    std::map<std::string, std::map<SUMOVehicleClass, double> > myRestrictions;
 
     /// @brief The number of internal edges in the dictionary
     int myNumInternalEdges;

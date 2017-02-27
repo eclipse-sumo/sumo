@@ -58,7 +58,7 @@ class GUIGlObject;
  *
  * A templated instance has some static member variables. They have to be defined
  *  in a cpp file. They may be found in GUINet.cpp. Two instances are used:
- * - one passing SUMOReal-values
+ * - one passing double-values
  * - one passing time tls phase definitions
  *
  * @see GUIGlObject

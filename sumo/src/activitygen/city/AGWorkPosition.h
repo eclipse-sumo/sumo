@@ -56,7 +56,7 @@ class AGDataAndStatistics;
 class AGWorkPosition {
 public:
     AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet);
-    AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet, SUMOReal pos);
+    AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet, double pos);
     ~AGWorkPosition();
 
     void take(AGAdult* ad);

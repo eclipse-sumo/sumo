@@ -131,13 +131,13 @@ public:
     friend BinaryInputDevice& operator>>(BinaryInputDevice& os, int& i);
 
 
-    /** @brief Reads a SUMOReal from the file (input operator)
+    /** @brief Reads a double from the file (input operator)
      *
-     * @param[in, out] os The BinaryInputDevice to read the SUMOReal from
-     * @param[in] i The SUMOReal to store the read value into
+     * @param[in, out] os The BinaryInputDevice to read the double from
+     * @param[in] i The double to store the read value into
      * @return The used BinaryInputDevice for further processing
      */
-    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, SUMOReal& f);
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, double& f);
 
 
     /** @brief Reads a bool from the file (input operator)

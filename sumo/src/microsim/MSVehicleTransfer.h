@@ -124,7 +124,7 @@ public:
     static MSVehicleTransfer* getInstance();
 
     /// @brief The minimum speed while teleporting
-    static const SUMOReal TeleportMinSpeed;
+    static const double TeleportMinSpeed;
 
 private:
     /// @brief Constructor

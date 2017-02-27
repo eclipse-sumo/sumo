@@ -80,7 +80,7 @@ public:
                            const std::vector<MSVehicle::LaneQ>& preb,
                            MSVehicle** lastBlocked,
                            MSVehicle** firstBlocked,
-                           SUMOReal& latDist, int& blocked);
+                           double& latDist, int& blocked);
 
     void* inform(void* info, MSVehicle* sender);
 
@@ -92,10 +92,10 @@ public:
      * @param cfModel The model used
      * @return the new speed of the vehicle as proposed by the lane changer
      */
-    SUMOReal patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
+    double patchSpeed(const double min, const double wanted, const double max,
                         const MSCFModel& cfModel);
     /** helper function which contains the actual logic */
-    SUMOReal _patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
+    double _patchSpeed(const double min, const double wanted, const double max,
                          const MSCFModel& cfModel);
 
     void changed();
@@ -125,36 +125,36 @@ protected:
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
         MSVehicle** firstBlocked,
-        SUMOReal& latDist, int& blocked);
+        double& latDist, int& blocked);
 
 
     /* @brief decide whether we will overtake or follow blocking leaders
      * and inform them accordingly (see informLeader)
      * If we decide to follow, myVSafes will be extended
      * returns the planned speed if following or -1 if overtaking */
-    SUMOReal informLeaders(int blocked, int dir,
+    double informLeaders(int blocked, int dir,
                            const std::vector<CLeaderDist>& blockers,
-                           SUMOReal remainingSeconds);
+                           double remainingSeconds);
 
     /// @brief call informFollower for multiple followers
     void informFollowers(int blocked, int dir,
                          const std::vector<CLeaderDist>& blockers,
-                         SUMOReal remainingSeconds,
-                         SUMOReal plannedSpeed);
+                         double remainingSeconds,
+                         double plannedSpeed);
 
     /* @brief decide whether we will overtake or follow a blocking leader
      * and inform it accordingly
      * If we decide to follow, myVSafes will be extended
      * returns the planned speed if following or -1 if overtaking */
-    SUMOReal informLeader(int blocked, int dir,
+    double informLeader(int blocked, int dir,
                           const CLeaderDist& neighLead,
-                          SUMOReal remainingSeconds);
+                          double remainingSeconds);
 
     /// @brief decide whether we will try cut in before the follower or allow to be overtaken
     void informFollower(int blocked, int dir,
                         const CLeaderDist& neighFollow,
-                        SUMOReal remainingSeconds,
-                        SUMOReal plannedSpeed);
+                        double remainingSeconds,
+                        double plannedSpeed);
 
 
     /// @brief compute useful slowdowns for blocked vehicles
@@ -164,7 +164,7 @@ protected:
     void saveBlockerLength(const MSVehicle* blocker, int lcaCounter);
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    inline void saveBlockerLength(SUMOReal length) {
+    inline void saveBlockerLength(double length) {
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
     };
 
@@ -180,15 +180,15 @@ protected:
     inline bool amBlockingFollowerPlusNB() {
         return (myOwnState & (LCA_AMBLOCKINGFOLLOWER | LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)) != 0;
     }
-    inline bool currentDistDisallows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
+    inline bool currentDistDisallows(double dist, int laneOffset, double lookForwardDist) {
         return dist / (abs(laneOffset)) < lookForwardDist;
     }
-    inline bool currentDistAllows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
+    inline bool currentDistAllows(double dist, int laneOffset, double lookForwardDist) {
         return dist / abs(laneOffset) > lookForwardDist;
     }
 
     /// @brief information regarding save velocity (unused) and state flags of the ego vehicle
-    typedef std::pair<SUMOReal, int> Info;
+    typedef std::pair<double, int> Info;
 
 
     /// @brief update expected speeds for each sublane of the current edge
@@ -200,7 +200,7 @@ protected:
 protected:
 
     /// @brief send a speed recommendation to the given vehicle
-    void msg(const CLeaderDist& cld, SUMOReal speed, int state);
+    void msg(const CLeaderDist& cld, double speed, int state);
 
     /// @brief compute shift so that prevSublane + shift = newSublane
     int computeSublaneShift(const MSEdge* prevEdge, const MSEdge* curEdge);
@@ -212,7 +212,7 @@ protected:
     static CLeaderDist getSlowest(const MSLeaderDistanceInfo& ldi);
 
     /// @brief restrict latDist to permissible speed and determine blocking state depending on that distance
-    int checkBlocking(const MSLane& neighLane, SUMOReal& latDist, int laneOffset,
+    int checkBlocking(const MSLane& neighLane, double& latDist, int laneOffset,
                       const MSLeaderDistanceInfo& leaders,
                       const MSLeaderDistanceInfo& followers,
                       const MSLeaderDistanceInfo& blockers,
@@ -225,14 +225,14 @@ protected:
 
     /// @brief check whether any of the vehicles overlaps with ego
     int checkBlockingVehicles(const MSVehicle* ego, const MSLeaderDistanceInfo& vehicles,
-                              SUMOReal latDist, SUMOReal foeOffset, bool leaders, LaneChangeAction blockType,
+                              double latDist, double foeOffset, bool leaders, LaneChangeAction blockType,
                               std::vector<CLeaderDist>* collectBlockers = 0) const;
 
     /// @brief return whether the given intervals overlap
-    static bool overlap(SUMOReal right, SUMOReal left, SUMOReal right2, SUMOReal left2);
+    static bool overlap(double right, double left, double right2, double left2);
 
     /// @brief compute lane change action from desired lateral distance
-    static LaneChangeAction getLCA(int state, SUMOReal latDist);
+    static LaneChangeAction getLCA(int state, double latDist);
 
     /// @brief compute strategic lane change actions
     int checkStrategicChange(int ret,
@@ -244,9 +244,9 @@ protected:
                              int bestLaneOffset,
                              bool changeToBest,
                              int lcaCounter,
-                             SUMOReal currentDist,
-                             SUMOReal neighDist,
-                             SUMOReal laDist,
+                             double currentDist,
+                             double neighDist,
+                             double laDist,
                              int roundaboutEdgesAhead
                             );
 
@@ -260,37 +260,37 @@ protected:
                    const MSLeaderDistanceInfo& neighBlockers,
                    const MSLane& neighLane,
                    int laneOffset,
-                   SUMOReal& latDist,
+                   double& latDist,
                    int& blocked);
 
 
     /// @brief check remaining lateral gaps for the given foe vehicles
-    void updateGaps(const MSLeaderDistanceInfo& others, SUMOReal foeOffset, SUMOReal newCenter, SUMOReal gapFactor,
-                    SUMOReal& surplusGapRight, SUMOReal& surplusGapLeft) const;
+    void updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double newCenter, double gapFactor,
+                    double& surplusGapRight, double& surplusGapLeft) const;
 
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
-    SUMOReal mySpeedGainProbabilityRight;
+    double mySpeedGainProbabilityRight;
     /// @brief a value for tracking the probability that a change to the left is beneficial
-    SUMOReal mySpeedGainProbabilityLeft;
+    double mySpeedGainProbabilityLeft;
 
     /* @brief a value for tracking the probability of following the/"Rechtsfahrgebot"
      * A larger negative value indicates higher probability for moving to the
      * right (as in mySpeedGainProbability) */
-    SUMOReal myKeepRightProbability;
+    double myKeepRightProbability;
 
-    SUMOReal myLeadingBlockerLength;
-    SUMOReal myLeftSpace;
+    double myLeadingBlockerLength;
+    double myLeftSpace;
 
     /*@brief the speed to use when computing the look-ahead distance for
      * determining urgency of strategic lane changes */
-    SUMOReal myLookAheadSpeed;
+    double myLookAheadSpeed;
 
     /// @brief speed adaptation requests by ego and surrounding vehicles
-    std::vector<SUMOReal> myVSafes;
+    std::vector<double> myVSafes;
 
     /// @brief expected travel speeds on all sublanes on the current edge(!)
-    std::vector<SUMOReal> myExpectedSublaneSpeeds;
+    std::vector<double> myExpectedSublaneSpeeds;
 
     /// @brief expected travel speeds on all sublanes on the current edge(!)
     const MSEdge* myLastEdge;
@@ -305,26 +305,26 @@ protected:
     int myPreviousState;
 
     /// @brief the complete lateral distance the vehicle wants to travel to finish its maneuver
-    SUMOReal myOrigLatDist;
+    double myOrigLatDist;
 
     /// @name user configurable model parameters
     //@{
-    const SUMOReal myStrategicParam;
-    const SUMOReal myCooperativeParam;
-    const SUMOReal mySpeedGainParam;
-    const SUMOReal myKeepRightParam;
-    const SUMOReal mySublaneParam;
+    const double myStrategicParam;
+    const double myCooperativeParam;
+    const double mySpeedGainParam;
+    const double myKeepRightParam;
+    const double mySublaneParam;
     // @brief willingness to encroach on other vehicles laterally (pushing them around)
-    const SUMOReal myPushy;
-    const SUMOReal myAssertive;
+    const double myPushy;
+    const double myAssertive;
     //@}
 
     /// @name derived parameters
     //@{
     // @brief willingness to encroach on other vehicles laterally (pushing them around)
-    const SUMOReal myChangeProbThresholdRight;
-    const SUMOReal myChangeProbThresholdLeft;
-    const SUMOReal mySpeedLossProbThreshold;
+    const double myChangeProbThresholdRight;
+    const double myChangeProbThresholdLeft;
+    const double mySpeedLossProbThreshold;
     //@}
 
 };

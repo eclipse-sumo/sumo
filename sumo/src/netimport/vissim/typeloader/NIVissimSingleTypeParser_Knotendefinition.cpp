@@ -77,7 +77,7 @@ NIVissimSingleTypeParser_Knotendefinition::parse(std::istream& from) {
         NIVissimNodeParticipatingEdgeVector edges;
         while (tag == "strecke") {
             int edgeid;
-            SUMOReal from_pos, to_pos;
+            double from_pos, to_pos;
             from_pos = to_pos = -1.0;
             from >> edgeid;
             tag = readEndSecure(from, "strecke");

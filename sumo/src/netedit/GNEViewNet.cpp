@@ -182,71 +182,71 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by permission code", RGBColor(240, 240, 240), "nobody");
-    scheme.addColor(RGBColor(10, 10, 10), (SUMOReal)SVC_PASSENGER, "passenger");
-    scheme.addColor(RGBColor(128, 128, 128), (SUMOReal)SVC_PEDESTRIAN, "pedestrian");
-    scheme.addColor(RGBColor(80, 80, 80), (SUMOReal)(SVC_PEDESTRIAN | SVC_DELIVERY), "pedestrian_delivery");
-    scheme.addColor(RGBColor(192, 66, 44), (SUMOReal)SVC_BICYCLE, "bicycle");
-    scheme.addColor(RGBColor(40, 100, 40), (SUMOReal)SVC_BUS, "bus");
-    scheme.addColor(RGBColor(166, 147, 26), (SUMOReal)SVC_TAXI, "taxi");
-    scheme.addColor(RGBColor::BLACK, (SUMOReal)(SVCAll & ~SVC_NON_ROAD), "normal_road");
-    scheme.addColor(RGBColor::BLACK, (SUMOReal)(SVCAll & ~(SVC_PEDESTRIAN | SVC_NON_ROAD)), "disallow_pedestrian");
-    scheme.addColor(RGBColor(255, 206, 0), (SUMOReal)(SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_MOPED | SVC_NON_ROAD)), "motorway");
-    scheme.addColor(RGBColor(150, 200, 200), (SUMOReal)SVC_SHIP, "waterway");
-    scheme.addColor(RGBColor::GREEN, (SUMOReal)SVCAll, "all");
+    scheme.addColor(RGBColor(10, 10, 10), (double)SVC_PASSENGER, "passenger");
+    scheme.addColor(RGBColor(128, 128, 128), (double)SVC_PEDESTRIAN, "pedestrian");
+    scheme.addColor(RGBColor(80, 80, 80), (double)(SVC_PEDESTRIAN | SVC_DELIVERY), "pedestrian_delivery");
+    scheme.addColor(RGBColor(192, 66, 44), (double)SVC_BICYCLE, "bicycle");
+    scheme.addColor(RGBColor(40, 100, 40), (double)SVC_BUS, "bus");
+    scheme.addColor(RGBColor(166, 147, 26), (double)SVC_TAXI, "taxi");
+    scheme.addColor(RGBColor::BLACK, (double)(SVCAll & ~SVC_NON_ROAD), "normal_road");
+    scheme.addColor(RGBColor::BLACK, (double)(SVCAll & ~(SVC_PEDESTRIAN | SVC_NON_ROAD)), "disallow_pedestrian");
+    scheme.addColor(RGBColor(255, 206, 0), (double)(SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_MOPED | SVC_NON_ROAD)), "motorway");
+    scheme.addColor(RGBColor(150, 200, 200), (double)SVC_SHIP, "waterway");
+    scheme.addColor(RGBColor::GREEN, (double)SVCAll, "all");
     laneColorer.addScheme(scheme);
 
     scheme = GUIColorScheme("by allowed speed (lanewise)", RGBColor::RED);
-    scheme.addColor(RGBColor::YELLOW, (SUMOReal)(30 / 3.6));
-    scheme.addColor(RGBColor::GREEN, (SUMOReal)(55 / 3.6));
-    scheme.addColor(RGBColor::CYAN, (SUMOReal)(80 / 3.6));
-    scheme.addColor(RGBColor::BLUE, (SUMOReal)(120 / 3.6));
-    scheme.addColor(RGBColor::MAGENTA, (SUMOReal)(150 / 3.6));
+    scheme.addColor(RGBColor::YELLOW, (double)(30 / 3.6));
+    scheme.addColor(RGBColor::GREEN, (double)(55 / 3.6));
+    scheme.addColor(RGBColor::CYAN, (double)(80 / 3.6));
+    scheme.addColor(RGBColor::BLUE, (double)(120 / 3.6));
+    scheme.addColor(RGBColor::MAGENTA, (double)(150 / 3.6));
     laneColorer.addScheme(scheme);
 
     scheme = GUIColorScheme("by lane number (streetwise)", RGBColor::RED);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal)5);
+    scheme.addColor(RGBColor::BLUE, (double)5);
     laneColorer.addScheme(scheme);
 
     scheme = GUIColorScheme("by given length/geometrical length", RGBColor::BLACK);
-    scheme.addColor(RGBColor::RED, (SUMOReal)0.25);
-    scheme.addColor(RGBColor::YELLOW, (SUMOReal)0.5);
-    scheme.addColor(RGBColor(179, 179, 179, 255), (SUMOReal)1.0);
-    scheme.addColor(RGBColor::GREEN, (SUMOReal)2.0);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal)4.0);
+    scheme.addColor(RGBColor::RED, 0.25);
+    scheme.addColor(RGBColor::YELLOW, 0.5);
+    scheme.addColor(RGBColor(179, 179, 179, 255), (double)1.0);
+    scheme.addColor(RGBColor::GREEN, (double)2.0);
+    scheme.addColor(RGBColor::BLUE, (double)4.0);
     laneColorer.addScheme(scheme);
     laneColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
 
     scheme = GUIColorScheme("by priority", RGBColor::YELLOW);
-    scheme.addColor(RGBColor::RED, (SUMOReal) - 20);
-    scheme.addColor(RGBColor::GREEN, (SUMOReal)20);
+    scheme.addColor(RGBColor::RED, (double) - 20);
+    scheme.addColor(RGBColor::GREEN, (double)20);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by height at start", RGBColor::RED);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal) - 10);
-    scheme.addColor(RGBColor::YELLOW, (SUMOReal)50);
-    scheme.addColor(RGBColor::GREEN, (SUMOReal)100);
-    scheme.addColor(RGBColor::MAGENTA, (SUMOReal)200);
+    scheme.addColor(RGBColor::BLUE, (double) - 10);
+    scheme.addColor(RGBColor::YELLOW, (double)50);
+    scheme.addColor(RGBColor::GREEN, (double)100);
+    scheme.addColor(RGBColor::MAGENTA, (double)200);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by height at segment start", RGBColor::RED);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal) - 10);
-    scheme.addColor(RGBColor::YELLOW, (SUMOReal)50);
-    scheme.addColor(RGBColor::GREEN, (SUMOReal)100);
-    scheme.addColor(RGBColor::MAGENTA, (SUMOReal)200);
+    scheme.addColor(RGBColor::BLUE, (double) - 10);
+    scheme.addColor(RGBColor::YELLOW, (double)50);
+    scheme.addColor(RGBColor::GREEN, (double)100);
+    scheme.addColor(RGBColor::MAGENTA, (double)200);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by inclination", RGBColor::GREY);
-    scheme.addColor(RGBColor::YELLOW, (SUMOReal) .1);
-    scheme.addColor(RGBColor::RED, (SUMOReal) .3);
-    scheme.addColor(RGBColor::GREEN, (SUMOReal) - .1);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal) - .3);
+    scheme.addColor(RGBColor::YELLOW, (double) .1);
+    scheme.addColor(RGBColor::RED, (double) .3);
+    scheme.addColor(RGBColor::GREEN, (double) - .1);
+    scheme.addColor(RGBColor::BLUE, (double) - .3);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by segment inclination", RGBColor::GREY);
-    scheme.addColor(RGBColor::YELLOW, (SUMOReal) .1);
-    scheme.addColor(RGBColor::RED, (SUMOReal) .3);
-    scheme.addColor(RGBColor::GREEN, (SUMOReal) - .1);
-    scheme.addColor(RGBColor::BLUE, (SUMOReal) - .3);
+    scheme.addColor(RGBColor::YELLOW, (double) .1);
+    scheme.addColor(RGBColor::RED, (double) .3);
+    scheme.addColor(RGBColor::GREEN, (double) - .1);
+    scheme.addColor(RGBColor::BLUE, (double) - .3);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
 
@@ -373,7 +373,7 @@ GNEViewNet::autoSelectNodes() {
 
 
 void
-GNEViewNet::setSelectionScaling(SUMOReal selectionScale) {
+GNEViewNet::setSelectionScaling(double selectionScale) {
     myVisualizationSettings->selectionScale = selectionScale;
 }
 
@@ -418,7 +418,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     }
 
     // compute lane width
-    SUMOReal lw = m2p(SUMO_const_laneWidth);
+    double lw = m2p(SUMO_const_laneWidth);
     // draw decals (if not in grabbing mode)
     if (!myUseToolTips) {
         drawDecals();
@@ -436,7 +436,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             //std::cout << " fixed: view=" << getWidth() << ", " << getHeight() << " app=" << myApp->getWidth() << ", " << myApp->getHeight() << "\n";
             // draw pink square in the upper left corner on top of everything
             glPushMatrix();
-            const SUMOReal size = p2m(32);
+            const double size = p2m(32);
             Position center = screenPos2NetPos(8, 8);
             GLHelper::setColor(RGBColor::MAGENTA);
             glTranslated(center.x(), center.y(), GLO_MAX - 1);
@@ -603,15 +603,15 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                             if (myAdditionalToMove->getLane()) {
                                 if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_STARTPOS)) {
                                     // Obtain start position
-                                    SUMOReal startPos = GNEAttributeCarrier::parse<SUMOReal>(myAdditionalToMove->getAttribute(SUMO_ATTR_STARTPOS));
+                                    double startPos = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_STARTPOS));
                                     if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_ENDPOS)) {
                                         // Obtain end position
-                                        SUMOReal endPos = GNEAttributeCarrier::parse<SUMOReal>(myAdditionalToMove->getAttribute(SUMO_ATTR_ENDPOS));
+                                        double endPos = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_ENDPOS));
                                         // Save both values in myOldAdditionalPosition
                                         myOldAdditionalPosition.set(startPos, endPos);
                                     } else if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_LENGTH)) {
                                         // Obtain length attribute
-                                        SUMOReal length = GNEAttributeCarrier::parse<SUMOReal>(myAdditionalToMove->getAttribute(SUMO_ATTR_LENGTH));
+                                        double length = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_LENGTH));
                                         // Save both values in myOldAdditionalPosition
                                         myOldAdditionalPosition.set(startPos, length);
                                     } else {
@@ -867,7 +867,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         } else if (myAdditionalToMove) {
             // If additional is placed over lane, move it across it
             if (myAdditionalToMove->getLane()) {
-                SUMOReal posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false);
+                double posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false);
                 myAdditionalToMove->moveAdditionalGeometry(posOfMouseOverLane - myAdditionalMovingReference.x(), 0);
                 myAdditionalMovingReference.set(posOfMouseOverLane, 0, 0);
             } else {

@@ -182,16 +182,16 @@ RORouteHandler::myStartElement(int element,
         case SUMO_TAG_WALK: {
             bool ok = true;
             const char* const objId = myVehicleParameter->id.c_str();
-            const SUMOReal duration = attrs.getOpt<SUMOReal>(SUMO_ATTR_DURATION, objId, ok, -1);
+            const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, objId, ok, -1);
             if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
                 throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
             }
-            const SUMOReal speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, objId, ok, -1.);
+            const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, objId, ok, -1.);
             if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
                 throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
             }
-            const SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, objId, ok, std::numeric_limits<SUMOReal>::infinity());
-            const SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, objId, ok, std::numeric_limits<SUMOReal>::infinity());
+            const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, objId, ok, std::numeric_limits<double>::infinity());
+            const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, objId, ok, std::numeric_limits<double>::infinity());
             const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, objId, ok, "");
             if (!ok) {
                 break;
@@ -323,13 +323,13 @@ RORouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     if (myCurrentAlternatives != 0 && !attrs.hasAttribute(SUMO_ATTR_PROB)) {
         WRITE_WARNING("No probability for a route in '" + rid + "', using default.");
     }
-    myActiveRouteProbability = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
+    myActiveRouteProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     if (ok && myActiveRouteProbability < 0) {
         myErrorOutput->inform("Invalid probability for route '" + myActiveRouteID + "'.");
     }
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? new RGBColor(attrs.get<RGBColor>(SUMO_ATTR_COLOR, myActiveRouteID.c_str(), ok)) : 0;
     ok = true;
-    myCurrentCosts = attrs.getOpt<SUMOReal>(SUMO_ATTR_COST, myActiveRouteID.c_str(), ok, -1);
+    myCurrentCosts = attrs.getOpt<double>(SUMO_ATTR_COST, myActiveRouteID.c_str(), ok, -1);
     if (ok && myCurrentCosts != -1 && myCurrentCosts < 0) {
         myErrorOutput->inform("Invalid cost for route '" + myActiveRouteID + "'.");
     }
@@ -648,8 +648,8 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             myErrorOutput->inform("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
             return;
         }
-        stop.endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, 0, ok, edge->getLength());
-        stop.startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, 0, ok, stop.endPos - 2 * POSITION_EPS);
+        stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, 0, ok, edge->getLength());
+        stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, 0, ok, stop.endPos - 2 * POSITION_EPS);
         const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
         if (!ok || !checkStopPos(stop.startPos, stop.endPos, edge->getLength(), POSITION_EPS, friendlyPos)) {
             myErrorOutput->inform("Invalid start or end position for stop" + errorSuffix);
@@ -715,8 +715,8 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                               + "\n The route can not be build.");
         ok = false;
     }
-    const SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, id, ok, 0);
-    const SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, id, ok, -NUMERICAL_EPS);
+    const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, id, ok, 0);
+    const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, id, ok, -NUMERICAL_EPS);
     SVCPermissions modeSet = 0;
     for (StringTokenizer st(modes); st.hasNext();) {
         const std::string mode = st.next();
@@ -730,7 +730,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             throw InvalidArgument("Unknown person mode '" + mode + "'.");
         }
     }
-    SUMOReal walkFactor = attrs.getOpt<SUMOReal>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
+    double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
     if (ok) {
         myActivePerson->addTrip(from, to, modeSet, types, departPos, arrivalPos, busStop, walkFactor);
     }

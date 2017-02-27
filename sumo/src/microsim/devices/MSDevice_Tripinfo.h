@@ -75,11 +75,11 @@ public:
     static std::string printStatistics();
 
     /// @brief accessors for GUINet-Parameters
-    static SUMOReal getAvgRouteLength();
-    static SUMOReal getAvgDuration();
-    static SUMOReal getAvgWaitingTime();
-    static SUMOReal getAvgTimeLoss();
-    static SUMOReal getAvgDepartDelay();
+    static double getAvgRouteLength();
+    static double getAvgDuration();
+    static double getAvgWaitingTime();
+    static double getAvgTimeLoss();
+    static double getAvgDepartDelay();
 
 public:
     /// @brief Destructor.
@@ -98,7 +98,7 @@ public:
      * @param[in] newSpeed Moving speed.
      * @return True (always).
      */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
+    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
 
 
     /** @brief Saves departure info on insertion
@@ -120,7 +120,7 @@ public:
      * @param[in] isLaneChange whether the vehicle changed from the lane
      * @return True if it did not leave the net.
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
     /// @}
 
 
@@ -150,29 +150,29 @@ private:
 
     /* @brief compute trip length and duration (depending on whether the
        vehicle arrived or not */
-    void computeLengthAndDuration(SUMOReal& routeLength, SUMOTime& duration) const;
+    void computeLengthAndDuration(double& routeLength, SUMOTime& duration) const;
 
 protected:
     /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()
      *
      */
     void notifyMoveInternal(const SUMOVehicle& veh,
-                            const SUMOReal frontOnLane,
-                            const SUMOReal timeOnLane,
-                            const SUMOReal meanSpeedFrontOnLane,
-                            const SUMOReal meanSpeedVehicleOnLane,
-                            const SUMOReal travelledDistanceFrontOnLane,
-                            const SUMOReal travelledDistanceVehicleOnLane);
+                            const double frontOnLane,
+                            const double timeOnLane,
+                            const double meanSpeedFrontOnLane,
+                            const double meanSpeedVehicleOnLane,
+                            const double travelledDistanceFrontOnLane,
+                            const double travelledDistanceVehicleOnLane);
 
 private:
     /// @brief The lane the vehicle departed at
     std::string myDepartLane;
 
     /// @brief The speed on departure
-    SUMOReal myDepartSpeed;
+    double myDepartSpeed;
 
     /// @brief The lateral depart position
-    SUMOReal myDepartPosLat;
+    double myDepartPosLat;
 
     /// @brief The overall waiting time
     SUMOTime myWaitingTime;
@@ -184,13 +184,13 @@ private:
     std::string myArrivalLane;
 
     /// @brief The position on the lane the vehicle arrived at
-    SUMOReal myArrivalPos;
+    double myArrivalPos;
 
     /// @brief The lateral position on the lane the vehicle arrived at
-    SUMOReal myArrivalPosLat;
+    double myArrivalPosLat;
 
     /// @brief The speed when arriving
-    SUMOReal myArrivalSpeed;
+    double myArrivalSpeed;
 
     /// @brief The time loss when compared to the desired and allowed speed
     SUMOTime myMesoTimeLoss;
@@ -201,8 +201,8 @@ private:
     static DeviceSet myPendingOutput;
 
     /// @brief global tripinfo statistics
-    static SUMOReal myVehicleCount;
-    static SUMOReal myTotalRouteLength;
+    static double myVehicleCount;
+    static double myTotalRouteLength;
     static SUMOTime myTotalDuration;
     static SUMOTime myTotalWaitingTime;
     static SUMOTime myTotalTimeLoss;

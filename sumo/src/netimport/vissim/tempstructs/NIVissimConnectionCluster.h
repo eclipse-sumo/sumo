@@ -71,15 +71,15 @@ public:
     ~NIVissimConnectionCluster();
 
     /// Returns the information whether the given cluster overlaps the current
-    bool overlapsWith(NIVissimConnectionCluster* c, SUMOReal offset = 0) const;
+    bool overlapsWith(NIVissimConnectionCluster* c, double offset = 0) const;
 
     bool hasNodeCluster() const;
 
     NBNode* getNBNode() const;
 
-    bool around(const Position& p, SUMOReal offset = 0) const;
+    bool around(const Position& p, double offset = 0) const;
 
-    SUMOReal getPositionForEdge(int edgeid) const;
+    double getPositionForEdge(int edgeid) const;
 
     friend class NIVissimEdge; // !!! debug
 
@@ -96,9 +96,9 @@ public:
 public:
     /** @brief Tries to joind clusters participating within a node
         This is done by joining clusters which overlap */
-    static void joinBySameEdges(SUMOReal offset);
+    static void joinBySameEdges(double offset);
 
-    static void joinByDisturbances(SUMOReal offset);
+    static void joinByDisturbances(double offset);
 
     static void buildNodeClusters();
 
@@ -119,7 +119,7 @@ private:
         void add(NIVissimConnection* c);
         void add(const NodeSubCluster& c);
         int size() const;
-        bool overlapsWith(const NodeSubCluster& c, SUMOReal offset = 0);
+        bool overlapsWith(const NodeSubCluster& c, double offset = 0);
         std::vector<int> getConnectionIDs() const;
         friend class NIVissimConnectionCluster;
     public:
@@ -130,11 +130,11 @@ private:
 
     class same_direction_sorter {
     private:
-        SUMOReal myAngle;
+        double myAngle;
 
     public:
         /// constructor
-        explicit same_direction_sorter(SUMOReal angle)
+        explicit same_direction_sorter(double angle)
             : myAngle(angle) { }
 
     public:
@@ -158,7 +158,7 @@ private:
 
     void recheckEdges();
 
-    bool joinable(NIVissimConnectionCluster* c2, SUMOReal offset);
+    bool joinable(NIVissimConnectionCluster* c2, double offset);
 
 
     std::vector<int> getDisturbanceParticipators();

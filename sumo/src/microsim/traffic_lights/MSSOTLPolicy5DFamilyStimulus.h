@@ -51,7 +51,7 @@ class MSSOTLPolicy5DFamilyStimulus: public MSSOTLPolicyDesirability {
 
 private:
 
-    /*SUMOReal stimCoxDVal,
+    /*double stimCoxDVal,
     stimOffsetInDVal, stimOffsetOutDVal, stimOffsetDispersionInDVal, stimOffsetDispersionOutDVal,
     stimDivInDVal, stimDivOutDVal, stimDivDispersionInDVal, stimDivDispersionOutDVal,
     stimCoxExpInDVal, stimCoxExpOutDVal, stimCoxExpDispersionInDVal, stimCoxExpDispersionOutDVal;*/
@@ -76,10 +76,10 @@ public:
      *	@brief Computes stimulus function
      *  stimulus = cox * exp(-pow(pheroIn - offsetIn, 2)/divisor -pow(pheroOut - offsetOut, 2)/divisor);
      */
-    virtual SUMOReal computeDesirability(SUMOReal vehInMeasure,
-                                         SUMOReal vehOutMeasure);
+    virtual double computeDesirability(double vehInMeasure,
+                                         double vehOutMeasure);
 
-    virtual SUMOReal computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure, SUMOReal vehInDispersionMeasure, SUMOReal vehOutDispersionMeasure);
+    virtual double computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure, double vehOutDispersionMeasure);
 };
 
 #endif /* MSSOTLPOLICY5DFAMILYSTIMULUS_H_ */

@@ -69,7 +69,7 @@ AGHousehold::generatePeople(int numAdults, int numChilds, bool firstRetired) {
 }
 
 void
-AGHousehold::generateCars(SUMOReal rate) {
+AGHousehold::generateCars(double rate) {
     int peopleInNeed = static_cast<int>(myAdults.size()) - static_cast<int>(myCars.size());
     while (peopleInNeed > 0) {
         if (RandHelper::rand() < rate) {
@@ -117,7 +117,7 @@ AGHousehold::getCars() const {
 
 bool
 AGHousehold::isCloseFromPubTransport(std::list<AGPosition>* pubTransport) {
-    SUMOReal distToPT = myLocation.minDistanceTo(*pubTransport);
+    double distToPT = myLocation.minDistanceTo(*pubTransport);
     if (distToPT > myCity->statData.maxFootDistance) {
         return false;
     }
@@ -126,7 +126,7 @@ AGHousehold::isCloseFromPubTransport(std::list<AGPosition>* pubTransport) {
 
 bool
 AGHousehold::isCloseFromPubTransport(std::map<int, AGPosition>* pubTransport) {
-    SUMOReal distToPT = myLocation.minDistanceTo(*pubTransport);
+    double distToPT = myLocation.minDistanceTo(*pubTransport);
     if (distToPT > myCity->statData.maxFootDistance) {
         return false;
     }

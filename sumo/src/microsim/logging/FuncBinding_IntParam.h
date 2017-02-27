@@ -58,7 +58,7 @@ public:
     /// Destructor.
     ~FuncBinding_IntParam() {}
 
-    SUMOReal getValue() const {
+    double getValue() const {
         return (mySource->*myOperation)(myParam);
     }
 
@@ -67,8 +67,8 @@ public:
                    mySource, myOperation, myParam);
     }
 
-    ValueSource<SUMOReal>* makeSUMORealReturningCopy() const {
-        return new FuncBinding_IntParam<T, SUMOReal>(mySource, myOperation, myParam);
+    ValueSource<double>* makedoubleReturningCopy() const {
+        return new FuncBinding_IntParam<T, double>(mySource, myOperation, myParam);
     }
 
 protected:

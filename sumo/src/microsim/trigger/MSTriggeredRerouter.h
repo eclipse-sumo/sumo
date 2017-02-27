@@ -81,7 +81,7 @@ public:
      */
     MSTriggeredRerouter(const std::string& id,
                         const MSEdgeVector& edges,
-                        SUMOReal prob, const std::string& file, bool off);
+                        double prob, const std::string& file, bool off);
 
 
     /** @brief Destructor */
@@ -142,7 +142,7 @@ public:
      * @param[in] newSpeed Moving speed.
      * @return True (always).
      */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
+    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
 
     /** @brief Removes the reminder
      *
@@ -152,7 +152,7 @@ public:
      * @param[in] isLaneChange whether the vehicle changed from the lane
      * @return false if the vehicle left th edge
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
 
     /// Returns the rerouting definition valid for the given time and vehicle, 0 if none
     const RerouteInterval* getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const;
@@ -167,18 +167,18 @@ public:
     void setUserMode(bool val);
 
     /// Sets the probability with which a vehicle is rerouted given by the user
-    void setUserUsageProbability(SUMOReal prob);
+    void setUserUsageProbability(double prob);
 
     /// Returns whether the user is setting the rerouting probability
     bool inUserMode() const;
 
     /// Returns the rerouting probability
-    SUMOReal getProbability() const;
+    double getProbability() const;
 
     /// Returns the rerouting probability given by the user
-    SUMOReal getUserProbability() const;
+    double getUserProbability() const;
 
-    SUMOReal getWeight(SUMOVehicle& veh, const std::string param, const SUMOReal defaultWeight) const;
+    double getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight) const;
 
     MSParkingArea* rerouteParkingZone(const MSTriggeredRerouter::RerouteInterval* rerouteDef, SUMOVehicle& veh) const;
 
@@ -211,7 +211,7 @@ protected:
     std::vector<RerouteInterval> myIntervals;
 
     /// The probability and the user-given probability
-    SUMOReal myProbability, myUserProbability;
+    double myProbability, myUserProbability;
 
     /// Information whether the current rerouting probability is the user-given
     bool myAmInUserMode;

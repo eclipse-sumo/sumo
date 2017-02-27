@@ -134,7 +134,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     ++cnt;
                     // opened
                     tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    const SUMOReal speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
+                    const double speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
                     tempContent.writeUnsignedByte(link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefault().length,
                                                   SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0) ? 1 : 0);
                     ++cnt;
@@ -249,7 +249,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             }
             break;
             case LAST_STEP_LENGTH: {
-                SUMOReal lengthSum = 0;
+                double lengthSum = 0;
                 const MSLane::VehCont& vehs = lane->getVehiclesSecure();
                 for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
                     lengthSum += (*j)->getVehicleType().getLength();
@@ -258,7 +258,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 if (vehs.size() == 0) {
                     tempMsg.writeDouble(0);
                 } else {
-                    tempMsg.writeDouble(lengthSum / (SUMOReal) vehs.size());
+                    tempMsg.writeDouble(lengthSum / (double) vehs.size());
                 }
                 lane->releaseVehicles();
             }
@@ -269,7 +269,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             }
             break;
             case VAR_CURRENT_TRAVELTIME: {
-                SUMOReal meanSpeed = lane->getMeanSpeed();
+                double meanSpeed = lane->getMeanSpeed();
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 if (meanSpeed != 0) {
                     tempMsg.writeDouble(lane->getLength() / meanSpeed);

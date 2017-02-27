@@ -66,7 +66,7 @@ public:
      * @param[in] end the end time of the time range (exclusive)
      * @param[in] value the value to store
      */
-    void add(SUMOReal begin, SUMOReal end, T value) {
+    void add(double begin, double end, T value) {
         assert(begin >= 0);
         assert(begin < end);
         // inserting strictly before the first or after the last interval (includes empty case)
@@ -100,7 +100,7 @@ public:
      * @param[in] the time for which the value should be retrieved
      * @return the value for the time
      */
-    T getValue(SUMOReal time) const {
+    T getValue(double time) const {
         assert(myValues.size() != 0);
         typename TimedValueMap::const_iterator it = myValues.upper_bound(time);
         assert(it != myValues.begin());
@@ -118,7 +118,7 @@ public:
      * @param[in] the time for which the value should be retrieved
      * @return whether a valid value was set
      */
-    bool describesTime(SUMOReal time) const {
+    bool describesTime(double time) const {
         typename TimedValueMap::const_iterator afterIt = myValues.upper_bound(time);
         if (afterIt == myValues.begin()) {
             return false;
@@ -137,7 +137,7 @@ public:
      * @param[in] high the time in the second interval
      * @return the split point
      */
-    SUMOReal getSplitTime(SUMOReal low, SUMOReal high) const {
+    double getSplitTime(double low, double high) const {
         typename TimedValueMap::const_iterator afterLow = myValues.upper_bound(low);
         typename TimedValueMap::const_iterator afterHigh = myValues.upper_bound(high);
         --afterHigh;
@@ -173,7 +173,7 @@ private:
     typedef std::pair<bool, T> ValidValue;
 
     /// @brief Sorted map from start of intervals to values.
-    typedef std::map<SUMOReal, ValidValue> TimedValueMap;
+    typedef std::map<double, ValidValue> TimedValueMap;
 
     /// @brief The list of time periods (with values)
     TimedValueMap myValues;

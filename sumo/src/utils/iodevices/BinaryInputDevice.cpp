@@ -121,14 +121,14 @@ operator>>(BinaryInputDevice& os, int& i) {
 
 
 BinaryInputDevice&
-operator>>(BinaryInputDevice& os, SUMOReal& f) {
+operator>>(BinaryInputDevice& os, double& f) {
     int t = os.checkType(BinaryFormatter::BF_FLOAT);
     if (t == BinaryFormatter::BF_SCALED2INT) {
         int v;
         os.myStream.read((char*) &v, sizeof(int));
         f = v / 100.;
     } else {
-        os.myStream.read((char*) &f, sizeof(SUMOReal));
+        os.myStream.read((char*) &f, sizeof(double));
     }
     return os;
 }
@@ -208,7 +208,7 @@ operator>>(BinaryInputDevice& os, std::vector< std::vector<int> >& v) {
 BinaryInputDevice&
 operator>>(BinaryInputDevice& os, Position& p) {
     int t = os.checkType(BinaryFormatter::BF_POSITION_2D);
-    SUMOReal x, y, z = 0;
+    double x, y, z = 0;
     if (t == BinaryFormatter::BF_SCALED2INT_POSITION_2D || t == BinaryFormatter::BF_SCALED2INT_POSITION_2D) {
         int v;
         os.myStream.read((char*) &v, sizeof(int));
@@ -220,10 +220,10 @@ operator>>(BinaryInputDevice& os, Position& p) {
             z = v / 100.;
         }
     } else {
-        os.myStream.read((char*) &x, sizeof(SUMOReal));
-        os.myStream.read((char*) &y, sizeof(SUMOReal));
+        os.myStream.read((char*) &x, sizeof(double));
+        os.myStream.read((char*) &y, sizeof(double));
         if (t == BinaryFormatter::BF_POSITION_3D) {
-            os.myStream.read((char*) &z, sizeof(SUMOReal));
+            os.myStream.read((char*) &z, sizeof(double));
         }
     }
     p.set(x, y, z);

@@ -230,13 +230,13 @@ NIImporter_VISUM::parse_Types() {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     // get the maximum speed
-    const SUMOReal speed = getNamedFloat("v0-IV", "V0IV");
+    const double speed = getNamedFloat("v0-IV", "V0IV");
     // get the priority
     const int priority = 1000 - TplConvert::_2int(myLineParser.get("Rang").c_str());
     // try to retrieve the number of lanes
     const int numLanes = myCapacity2Lanes.get(getNamedFloat("Kap-IV", "KAPIV"));
     // insert the type
-    myNetBuilder.getTypeCont().insert(myCurrentID, numLanes, speed / (SUMOReal) 3.6, priority, SVCAll, NBEdge::UNSPECIFIED_WIDTH, false, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_WIDTH);
+    myNetBuilder.getTypeCont().insert(myCurrentID, numLanes, speed / (double) 3.6, priority, SVCAll, NBEdge::UNSPECIFIED_WIDTH, false, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_WIDTH);
     myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_NUMLANES);
     myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_SPEED);
     myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_PRIORITY);
@@ -249,8 +249,8 @@ NIImporter_VISUM::parse_Nodes() {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     // get the position
-    SUMOReal x = getNamedFloat("XKoord");
-    SUMOReal y = getNamedFloat("YKoord");
+    double x = getNamedFloat("XKoord");
+    double y = getNamedFloat("YKoord");
     Position pos(x, y);
     if (!NBNetBuilder::transformCoordinate(pos)) {
         WRITE_ERROR("Unable to project coordinates for node " + myCurrentID + ".");
@@ -272,8 +272,8 @@ NIImporter_VISUM::parse_Districts() {
     //bool sourcesWeighted = getWeightedBool("Proz_Q");
     //bool destWeighted = getWeightedBool("Proz_Z");
     // get the node information
-    SUMOReal x = getNamedFloat("XKoord");
-    SUMOReal y = getNamedFloat("YKoord");
+    double x = getNamedFloat("XKoord");
+    double y = getNamedFloat("YKoord");
     Position pos(x, y);
     if (!NBNetBuilder::transformCoordinate(pos, false)) {
         WRITE_ERROR("Unable to project coordinates for district " + myCurrentID + ".");
@@ -296,8 +296,8 @@ NIImporter_VISUM::parse_Districts() {
 void
 NIImporter_VISUM::parse_Point() {
     long long int id = TplConvert::_2long(myLineParser.get("ID").c_str());
-    SUMOReal x = TplConvert::_2SUMOReal(myLineParser.get("XKOORD").c_str());
-    SUMOReal y = TplConvert::_2SUMOReal(myLineParser.get("YKOORD").c_str());
+    double x = TplConvert::_2double(myLineParser.get("XKOORD").c_str());
+    double y = TplConvert::_2double(myLineParser.get("YKOORD").c_str());
     Position pos(x, y);
     if (!NBNetBuilder::transformCoordinate(pos, false)) {
         WRITE_ERROR("Unable to project coordinates for point " + toString(id) + ".");
@@ -324,15 +324,15 @@ NIImporter_VISUM::parse_Edges() {
     // get the type
     std::string type = myLineParser.know("Typ") ? myLineParser.get("Typ") : myLineParser.get("TypNr");
     // get the speed
-    SUMOReal speed = myNetBuilder.getTypeCont().getSpeed(type);
+    double speed = myNetBuilder.getTypeCont().getSpeed(type);
     if (!OptionsCont::getOptions().getBool("visum.use-type-speed")) {
         try {
             std::string speedS = myLineParser.know("v0-IV") ? myLineParser.get("v0-IV") : myLineParser.get("V0IV");
             if (speedS.find("km/h") != std::string::npos) {
                 speedS = speedS.substr(0, speedS.find("km/h"));
             }
-            speed = TplConvert::_2SUMORealSec(speedS.c_str(), -1);
-            speed = speed / (SUMOReal) 3.6;
+            speed = TplConvert::_2doubleSec(speedS.c_str(), -1);
+            speed = speed / (double) 3.6;
         } catch (OutOfBoundsException) {}
     }
     if (speed <= 0) {
@@ -355,9 +355,9 @@ NIImporter_VISUM::parse_Edges() {
         } catch (UnknownElement) {
         }
     } else {
-        SUMOReal cap = myLineParser.know("KAPIV")
-                       ? TplConvert::_2SUMORealSec(myLineParser.get("KAPIV").c_str(), -1)
-                       : TplConvert::_2SUMORealSec(myLineParser.get("KAP-IV").c_str(), -1);
+        double cap = myLineParser.know("KAPIV")
+                       ? TplConvert::_2doubleSec(myLineParser.get("KAPIV").c_str(), -1)
+                       : TplConvert::_2doubleSec(myLineParser.get("KAP-IV").c_str(), -1);
         nolanes = myCapacity2Lanes.get(cap);
     }
     // check whether the id is already used
@@ -447,14 +447,14 @@ NIImporter_VISUM::parse_Connectors() {
         return;
     }
     // get the weight of the connection
-    SUMOReal proz = getWeightedFloat("Proz");
+    double proz = getWeightedFloat("Proz");
     if (proz > 0) {
         proz /= 100.;
     } else {
         proz = 1;
     }
     // get the duration to wait (unused)
-//     SUMOReal retard = -1;
+//     double retard = -1;
 //     if (myLineParser.know("t0-IV")) {
 //         retard = getNamedFloat("t0-IV", -1);
 //     }
@@ -593,7 +593,7 @@ NIImporter_VISUM::parse_EdgePolys() {
     }
     bool failed = false;
     int index;
-    SUMOReal x, y;
+    double x, y;
     try {
         index = TplConvert::_2int(myLineParser.get("INDEX").c_str());
         x = getNamedFloat("XKoord");
@@ -663,9 +663,9 @@ NIImporter_VISUM::parse_Lanes() {
     }
     // get the length
     std::string lengthS = NBHelpers::normalIDRepresentation(myLineParser.get("LAENGE"));
-    SUMOReal length = -1;
+    double length = -1;
     try {
-        length = TplConvert::_2SUMOReal(lengthS.c_str());
+        length = TplConvert::_2double(lengthS.c_str());
     } catch (NumberFormatException&) {
         WRITE_ERROR("A lane length for edge '" + edge->getID() + "' is not numeric (" + lengthS + ").");
         return;
@@ -702,14 +702,14 @@ NIImporter_VISUM::parse_Lanes() {
         // nope, we have to split the edge...
         //  maybe it is not the proper edge to split - VISUM seems not to sort the splits...
         bool mustRecheck = true;
-        SUMOReal seenLength = 0;
+        double seenLength = 0;
         while (mustRecheck) {
             if (edge->getID().substr(edge->getID().length() - node->getID().length() - 1) == "_" + node->getID()) {
                 // ok, we have a previously created edge here
                 std::string sub = edge->getID();
                 sub = sub.substr(sub.rfind('_', sub.rfind('_') - 1));
                 sub = sub.substr(1, sub.find('_', 1) - 1);
-                SUMOReal dist = TplConvert::_2SUMOReal(sub.c_str());
+                double dist = TplConvert::_2double(sub.c_str());
                 if (dist < length) {
                     seenLength += edge->getLength();
                     if (dirS == "1") {
@@ -729,7 +729,7 @@ NIImporter_VISUM::parse_Lanes() {
         }
         // compute position
         Position p;
-        SUMOReal useLength = length - seenLength;
+        double useLength = length - seenLength;
         useLength = edge->getLength() - useLength;
         std::string edgeID = edge->getID();
         p = edge->getGeometry().positionAtOffset(useLength);
@@ -781,9 +781,9 @@ void
 NIImporter_VISUM::parse_SignalGroups() {
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     std::string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
-    SUMOReal startTime = getNamedFloat("GzStart", "GRUENANF");
-    SUMOReal endTime = getNamedFloat("GzEnd", "GRUENENDE");
-    SUMOReal yellowTime = myLineParser.know("GELB") ? getNamedFloat("GELB") : -1;
+    double startTime = getNamedFloat("GzStart", "GRUENANF");
+    double endTime = getNamedFloat("GzEnd", "GRUENENDE");
+    double yellowTime = myLineParser.know("GELB") ? getNamedFloat("GELB") : -1;
     // add to the list
     if (myTLS.find(LSAid) == myTLS.end()) {
         WRITE_ERROR("Could not find TLS '" + LSAid + "' for setting the signal group.");
@@ -900,9 +900,9 @@ NIImporter_VISUM::parse_Phases() {
     // get the id
     std::string phaseid = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     std::string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
-    SUMOReal startTime = getNamedFloat("GzStart", "GRUENANF");
-    SUMOReal endTime = getNamedFloat("GzEnd", "GRUENENDE");
-    SUMOReal yellowTime = myLineParser.know("GELB") ? getNamedFloat("GELB") : -1;
+    double startTime = getNamedFloat("GzStart", "GRUENANF");
+    double endTime = getNamedFloat("GzEnd", "GRUENENDE");
+    double yellowTime = myLineParser.know("GELB") ? getNamedFloat("GELB") : -1;
     myTLS.find(LSAid)->second->addPhase(phaseid, (SUMOTime) startTime, (SUMOTime) endTime, (SUMOTime) yellowTime);
 }
 
@@ -1015,13 +1015,13 @@ void NIImporter_VISUM::parse_LanesConnections() {
 
 
 
-SUMOReal
+double
 NIImporter_VISUM::getWeightedFloat(const std::string& name) {
     try {
-        return TplConvert::_2SUMOReal(myLineParser.get(name).c_str());
+        return TplConvert::_2double(myLineParser.get(name).c_str());
     } catch (...) {}
     try {
-        return TplConvert::_2SUMOReal(myLineParser.get((name + "(IV)")).c_str());
+        return TplConvert::_2double(myLineParser.get((name + "(IV)")).c_str());
     } catch (...) {}
     return -1;
 }
@@ -1193,25 +1193,25 @@ NIImporter_VISUM::getEdge(NBNode* FromNode, NBNode* ToNode) {
 }
 
 
-SUMOReal
+double
 NIImporter_VISUM::getNamedFloat(const std::string& fieldName) {
     std::string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
-    return TplConvert::_2SUMOReal(valS.c_str());
+    return TplConvert::_2double(valS.c_str());
 }
 
 
-SUMOReal
-NIImporter_VISUM::getNamedFloat(const std::string& fieldName, SUMOReal defaultValue) {
+double
+NIImporter_VISUM::getNamedFloat(const std::string& fieldName, double defaultValue) {
     try {
         std::string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
-        return TplConvert::_2SUMOReal(valS.c_str());
+        return TplConvert::_2double(valS.c_str());
     } catch (...) {
         return defaultValue;
     }
 }
 
 
-SUMOReal
+double
 NIImporter_VISUM::getNamedFloat(const std::string& fieldName1, const std::string& fieldName2) {
     if (myLineParser.know(fieldName1)) {
         return getNamedFloat(fieldName1);
@@ -1221,9 +1221,9 @@ NIImporter_VISUM::getNamedFloat(const std::string& fieldName1, const std::string
 }
 
 
-SUMOReal
+double
 NIImporter_VISUM::getNamedFloat(const std::string& fieldName1, const std::string& fieldName2,
-                                SUMOReal defaultValue) {
+                                double defaultValue) {
     if (myLineParser.know(fieldName1)) {
         return getNamedFloat(fieldName1, defaultValue);
     } else {

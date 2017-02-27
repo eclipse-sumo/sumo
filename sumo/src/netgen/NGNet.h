@@ -91,7 +91,7 @@ public:
      * @param[in] phi The angle the position is located at
      * @return The x-position at the described circle at angle phi
      */
-    SUMOReal radialToX(SUMOReal radius, SUMOReal phi);
+    double radialToX(double radius, double phi);
 
 
     /** @brief Returns the y-position resulting from the given radius and angle
@@ -100,7 +100,7 @@ public:
      * @param[in] phi The angle the position is located at
      * @return The y-position at the described circle at angle phi
      */
-    SUMOReal radialToY(SUMOReal radius, SUMOReal phi);
+    double radialToY(double radius, double phi);
 
 
     /** @brief Creates a grid network
@@ -120,7 +120,7 @@ public:
      * @param[in] alphaIDs Whether to use alphanumerial node ids
      * @see NGNet::connect
      */
-    void createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, SUMOReal attachLength, bool alphaIDs);
+    void createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength, bool alphaIDs);
 
 
     /** @brief Creates a spider network
@@ -140,7 +140,7 @@ public:
      * @see NGNet::connect
      * @todo consolidate the name of the center node
      */
-    void createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool hasCenter);
+    void createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter);
 
 
     /** @brief Converts the stored network into its netbuilder-representation

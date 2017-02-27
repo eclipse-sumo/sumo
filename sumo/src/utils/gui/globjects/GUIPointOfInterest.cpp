@@ -53,8 +53,8 @@
 // ===========================================================================
 GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string& type,
                                        const RGBColor& color, const Position& pos,
-                                       SUMOReal layer, SUMOReal angle, const std::string& imgFile,
-                                       SUMOReal width, SUMOReal height) :
+                                       double layer, double angle, const std::string& imgFile,
+                                       double width, double height) :
     PointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
     GUIGlObject_AbstractAdd("poi", GLO_POI, id) {
 }
@@ -103,7 +103,7 @@ GUIPointOfInterest::getCenteringBoundary() const {
 
 void
 GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
-    const SUMOReal exaggeration = s.poiSize.getExaggeration(s);
+    const double exaggeration = s.poiSize.getExaggeration(s);
     if (s.scale * (1.3 / 3.0) *exaggeration < s.poiSize.minSize) {
         return;
     }
@@ -122,7 +122,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
         }
     } else {
         // fallback if no image is defined
-        GLHelper::drawFilledCircle((SUMOReal) 1.3 * exaggeration, 16);
+        GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 16);
     }
     glPopMatrix();
     const Position namePos = Position(x() + 1.32 * exaggeration, y() + 1.32 * exaggeration);

@@ -426,11 +426,11 @@ public:
      * @param[in] minSpeed The minimumSpeed to assume if traffic on this edge is stopped
      * @return The current effort (travel time) to pass the edge
      */
-    SUMOReal getCurrentTravelTime(const SUMOReal minSpeed = NUMERICAL_EPS) const;
+    double getCurrentTravelTime(const double minSpeed = NUMERICAL_EPS) const;
 
 
     /// @brief returns the minimum travel time for the given vehicle
-    inline SUMOReal getMinimumTravelTime(const SUMOVehicle* const veh) const {
+    inline double getMinimumTravelTime(const SUMOVehicle* const veh) const {
         if (myFunction == EDGEFUNCTION_DISTRICT) {
             return 0;
         } else if (veh != 0) {
@@ -448,13 +448,13 @@ public:
      * @param[in] time The time for which the travel time shall be returned [s]
      * @return The traveltime needed by the given vehicle to pass the edge at the given time
      */
-    static inline SUMOReal getTravelTimeStatic(const MSEdge* const edge, const SUMOVehicle* const veh, SUMOReal time) {
+    static inline double getTravelTimeStatic(const MSEdge* const edge, const SUMOVehicle* const veh, double time) {
         return MSNet::getInstance()->getTravelTime(edge, veh, time);
     }
 
     /** @brief Returns the averaged speed used by the routing device
      */
-    SUMOReal getRoutingSpeed() const;
+    double getRoutingSpeed() const;
 
 
     /// @name Methods releated to vehicle insertion
@@ -552,12 +552,12 @@ public:
     /** @brief Returns the edges's width (sum over all lanes)
      * @return This edges's width
      */
-    SUMOReal getWidth() const {
+    double getWidth() const {
         return myWidth;
     }
 
     /// @brief Returns the right side offsets of this edge's sublanes
-    const std::vector<SUMOReal> getSubLaneSides() const {
+    const std::vector<double> getSubLaneSides() const {
         return mySublaneSides;
     }
 
@@ -568,13 +568,13 @@ public:
      * @param[in] other The edge to which the distance shall be returned
      * @return The distance to the other edge
      */
-    SUMOReal getDistanceTo(const MSEdge* other) const;
+    double getDistanceTo(const MSEdge* other) const;
 
 
     /** @brief return the length of the edge
      * @return The edge's length
      */
-    inline SUMOReal getLength() const {
+    inline double getLength() const {
         return myLength;
     }
 
@@ -583,19 +583,19 @@ public:
      * @caution The speed limit of the first lane is retured; should probably be the fastest edge
      * @return The maximum speed allowed on this edge
      */
-    SUMOReal getSpeedLimit() const;
+    double getSpeedLimit() const;
 
     /** @brief Sets a new maximum speed for all lanes (used by TraCI and MSCalibrator)
      * @param[in] val the new speed in m/s
      */
-    void setMaxSpeed(SUMOReal val) const;
+    void setMaxSpeed(double val) const;
 
     /** @brief Returns the maximum speed the vehicle may use on this edge
      *
      * @caution Only the first lane is considered
      * @return The maximum velocity on this edge for the given vehicle
      */
-    SUMOReal getVehicleMaxSpeed(const SUMOVehicle* const veh) const;
+    double getVehicleMaxSpeed(const SUMOVehicle* const veh) const;
 
     virtual void addPerson(MSTransportable* p) const {
         myPersons.insert(p);
@@ -641,7 +641,7 @@ public:
     bool canChangeToOpposite();
 
     /// @brief get the mean speed
-    SUMOReal getMeanSpeed() const;
+    double getMeanSpeed() const;
 
     /// @brief whether any lane has a minor link
     bool hasMinorLink() const;
@@ -816,13 +816,13 @@ protected:
     const int myPriority;
 
     /// Edge width [m]
-    SUMOReal myWidth;
+    double myWidth;
 
     /// @brief the length of the edge (cached value for speedup)
-    SUMOReal myLength;
+    double myLength;
 
     /// @brief the traveltime on the empty edge (cached value for speedup)
-    SUMOReal myEmptyTraveltime;
+    double myEmptyTraveltime;
 
     /// @brief whether this edge had a vehicle with less than max speed on it
     mutable bool myAmDelayed;
@@ -831,7 +831,7 @@ protected:
     bool myAmRoundabout;
 
     /// @brief the right side for each sublane on this edge
-    std::vector<SUMOReal> mySublaneSides;
+    std::vector<double> mySublaneSides;
 
     /// @name Static edge container
     /// @{

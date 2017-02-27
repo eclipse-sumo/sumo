@@ -53,7 +53,7 @@ Distribution_Points::Distribution_Points(const std::string& id,
 Distribution_Points::~Distribution_Points() {}
 
 
-SUMOReal
+double
 Distribution_Points::getMax() const {
     assert(myPoints.size() > 0);
     const Position& p = myPoints[-1];
@@ -67,28 +67,28 @@ Distribution_Points::getAreaNo() const {
 }
 
 
-SUMOReal
+double
 Distribution_Points::getAreaBegin(int index) const {
     return myPoints[index].x();
 }
 
 
-SUMOReal
+double
 Distribution_Points::getAreaEnd(int index) const {
     return myPoints[index + 1].x();
 }
 
 
-SUMOReal
+double
 Distribution_Points::getAreaPerc(int index) const {
     if (!myProbabilitiesAreComputed) {
-        SUMOReal sum = 0;
+        double sum = 0;
         if (myInterpolateDist) {
             for (int i = 0; i < (int)myPoints.size() - 1; i++) {
-                SUMOReal width = getAreaEnd(i) - getAreaBegin(i);
-                SUMOReal minval = MIN2(myPoints[i].y(), myPoints[i].y());
-                SUMOReal maxval = MAX2(myPoints[i].y(), myPoints[i].y());
-                SUMOReal amount = minval * width + (maxval - minval) * width / (SUMOReal) 2.;
+                double width = getAreaEnd(i) - getAreaBegin(i);
+                double minval = MIN2(myPoints[i].y(), myPoints[i].y());
+                double maxval = MAX2(myPoints[i].y(), myPoints[i].y());
+                double amount = minval * width + (maxval - minval) * width / (double) 2.;
                 myProbabilities.push_back(amount);
                 sum += amount;
             }

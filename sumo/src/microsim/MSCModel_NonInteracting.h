@@ -108,16 +108,16 @@ public:
     static const int UNDEFINED_DIRECTION;
 
     /// @brief the offset for computing container positions when being transhiped
-    static const SUMOReal LATERAL_OFFSET;
+    static const double LATERAL_OFFSET;
 
     /// @brief return the offset from the start of the current edge measured in its natural direction
-    SUMOReal getEdgePos(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const;
+    double getEdgePos(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const;
     /// @brief return the network coordinate of the container
     Position getPosition(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const;
     /// @brief return the direction in which the container heading to
-    SUMOReal getAngle(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const;
+    double getAngle(const MSContainer::MSContainerStage_Tranship& stage, SUMOTime now) const;
     /// @brief return the current speed of the container
-    SUMOReal getSpeed(const MSContainer::MSContainerStage_Tranship& stage) const;
+    double getSpeed(const MSContainer::MSContainerStage_Tranship& stage) const;
     /// @brief compute tranship time on edge and update state members
     SUMOTime computeTranshipTime(const MSEdge* prev, const MSContainer::MSContainerStage_Tranship& stage, SUMOTime currentTime);
 
@@ -125,8 +125,8 @@ public:
 private:
     SUMOTime myLastEntryTime;
     SUMOTime myCurrentDuration;
-    SUMOReal myCurrentBeginPos;
-    SUMOReal myCurrentEndPos;
+    double myCurrentBeginPos;
+    double myCurrentEndPos;
     Position myCurrentBeginPosition;  //the position the container is moving from during its tranship stage
     Position myCurrentEndPosition;  //the position the container is moving to during its tranship stage
 

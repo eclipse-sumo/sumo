@@ -69,7 +69,7 @@ GUIDanielPerspectiveChanger::move(int xdiff, int ydiff) {
 
 
 void
-GUIDanielPerspectiveChanger::zoom(SUMOReal factor) {
+GUIDanielPerspectiveChanger::zoom(double factor) {
     if (myCallback.getApp()->reg().readIntEntry("gui", "zoomAtCenter", 1)) {
         myZoomBase = myViewPort.getCenter();
     }
@@ -88,57 +88,57 @@ void
 GUIDanielPerspectiveChanger::rotate(int /* diff */) {
     /*
     if (myCallback.allowRotation()) {
-        myRotation += (SUMOReal) diff / (SUMOReal) 10.0;
+        myRotation += (double) diff / (double) 10.0;
         myCallback.update();
     }
     */
 }
 
 
-SUMOReal
+double
 GUIDanielPerspectiveChanger::getRotation() const {
     return myRotation;
 }
 
 
-SUMOReal
+double
 GUIDanielPerspectiveChanger::getXPos() const {
     return myViewPort.getCenter().x();
 }
 
 
-SUMOReal
+double
 GUIDanielPerspectiveChanger::getYPos() const {
     return myViewPort.getCenter().y();
 }
 
 
-SUMOReal
+double
 GUIDanielPerspectiveChanger::getZoom() const {
     return myOrigWidth / myViewPort.getWidth() * 100;
 }
 
 
-SUMOReal
+double
 GUIDanielPerspectiveChanger::getZPos() const {
     return myViewPort.getWidth();
 }
 
 
-SUMOReal
-GUIDanielPerspectiveChanger::zoom2ZPos(SUMOReal zoom) const {
+double
+GUIDanielPerspectiveChanger::zoom2ZPos(double zoom) const {
     return myOrigWidth / (zoom / 100);
 }
 
 
-SUMOReal
-GUIDanielPerspectiveChanger::zPos2Zoom(SUMOReal zPos) const {
+double
+GUIDanielPerspectiveChanger::zPos2Zoom(double zPos) const {
     return (myOrigWidth / zPos) * 100;
 }
 
 
 void
-GUIDanielPerspectiveChanger::centerTo(const Position& pos, SUMOReal radius,
+GUIDanielPerspectiveChanger::centerTo(const Position& pos, double radius,
                                       bool applyZoom) {
     if (applyZoom) {
         myViewPort = Boundary();
@@ -203,9 +203,9 @@ GUIDanielPerspectiveChanger::onMouseWheel(void* data) {
         return;
     }
     // zoom scale relative delta and its inverse; is optimized (all literals)
-    const SUMOReal zScale_rDelta_norm = 0.1;
-    const SUMOReal zScale_rDelta_inv = -zScale_rDelta_norm / (1. + zScale_rDelta_norm);
-    SUMOReal zScale_rDelta = zScale_rDelta_norm ;
+    const double zScale_rDelta_norm = 0.1;
+    const double zScale_rDelta_inv = -zScale_rDelta_norm / (1. + zScale_rDelta_norm);
+    double zScale_rDelta = zScale_rDelta_norm ;
     if (e->code < 0) {
         // for inverse zooming direction
         zScale_rDelta = zScale_rDelta_inv;
@@ -260,9 +260,9 @@ GUIDanielPerspectiveChanger::onMouseMove(void* data) {
 
 
 void
-GUIDanielPerspectiveChanger::setViewport(SUMOReal zoom,
-        SUMOReal xPos, SUMOReal yPos) {
-    const SUMOReal zoomFactor = zoom / 50; // /100 to normalize, *2 because growth is added on both sides
+GUIDanielPerspectiveChanger::setViewport(double zoom,
+        double xPos, double yPos) {
+    const double zoomFactor = zoom / 50; // /100 to normalize, *2 because growth is added on both sides
     myViewPort = Boundary();
     myViewPort.add(Position(xPos, yPos));
     myViewPort.growHeight(myOrigHeight / zoomFactor);
@@ -272,7 +272,7 @@ GUIDanielPerspectiveChanger::setViewport(SUMOReal zoom,
 
 
 void
-GUIDanielPerspectiveChanger::setViewportFrom(SUMOReal xPos, SUMOReal yPos, SUMOReal zPos) {
+GUIDanielPerspectiveChanger::setViewportFrom(double xPos, double yPos, double zPos) {
     setViewport(zPos2Zoom(zPos), xPos, yPos);
 }
 
@@ -294,10 +294,10 @@ GUIDanielPerspectiveChanger::onKeyPress(void* data) {
         return 0;
     }
     FXEvent* e = (FXEvent*) data;
-    SUMOReal zoomDiff = 0.1;
-    SUMOReal moveX = 0;
-    SUMOReal moveY = 0;
-    SUMOReal moveFactor = 1;
+    double zoomDiff = 0.1;
+    double moveX = 0;
+    double moveY = 0;
+    double moveFactor = 1;
     bool pageVertical = true;
     bool ctrl = false;
     if (e->state & CONTROLMASK) {

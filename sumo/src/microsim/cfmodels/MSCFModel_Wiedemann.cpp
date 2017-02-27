@@ -46,15 +46,15 @@
 // ===========================================================================
 
 // magic constant proposed by Wiedemann (based on real world measurements)
-const SUMOReal MSCFModel_Wiedemann::D_MAX = 150;
+const double MSCFModel_Wiedemann::D_MAX = 150;
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype,
-        SUMOReal accel, SUMOReal decel,
-        SUMOReal security, SUMOReal estimation) :
+        double accel, double decel,
+        double security, double estimation) :
     MSCFModel(vtype, accel, decel, 1.0),
     mySecurity(security),
     myEstimation(estimation),
@@ -67,23 +67,23 @@ MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype,
 MSCFModel_Wiedemann::~MSCFModel_Wiedemann() {}
 
 
-SUMOReal
-MSCFModel_Wiedemann::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
-    const SUMOReal vNext = MSCFModel::moveHelper(veh, vPos);
+double
+MSCFModel_Wiedemann::moveHelper(MSVehicle* const veh, double vPos) const {
+    const double vNext = MSCFModel::moveHelper(veh, vPos);
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     vars->accelSign = vNext > veh->getSpeed() ? 1. : -1.;
     return vNext;
 }
 
 
-SUMOReal
-MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, SUMOReal /* speed */, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
+double
+MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, double /* speed */, double gap2pred, double predSpeed, double /*predMaxDecel*/) const {
     return _v(veh, predSpeed, gap2pred);
 }
 
 
-SUMOReal
-MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
+double
+MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
     /* Wiedemann does not handle approaching junctions or stops very well:
      * regime approaching() fails when dv = 0 (i.e. a vehicle inserted with speed 0 does not accelerate to reach a stop)
      * for dv ~ 0 the standard decision tree will switch to following() which
@@ -94,8 +94,8 @@ MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, const SUMOReal speed,
 }
 
 
-SUMOReal
-MSCFModel_Wiedemann::interactionGap(const MSVehicle* const , SUMOReal vL) const {
+double
+MSCFModel_Wiedemann::interactionGap(const MSVehicle* const , double vL) const {
     UNUSED_PARAMETER(vL);
     return D_MAX;
 }
@@ -107,22 +107,22 @@ MSCFModel_Wiedemann::duplicate(const MSVehicleType* vtype) const {
 }
 
 
-SUMOReal
-MSCFModel_Wiedemann::_v(const MSVehicle* veh, SUMOReal predSpeed, SUMOReal gap) const {
+double
+MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) const {
     const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
-    const SUMOReal dx = gap + myType->getLength(); // wiedemann uses brutto gap
-    const SUMOReal v = veh->getSpeed();
-    const SUMOReal vpref = veh->getMaxSpeed();
-    const SUMOReal dv = v - predSpeed;
-    const SUMOReal bx = myAX + (1 + 7 * mySecurity) * sqrt(v); // Harding propose a factor of  *.8 here
-    const SUMOReal ex = 2 - myEstimation; // + RandHelper::randNorm(0.5, 0.15)
-    const SUMOReal sdx = myAX + ex * (bx - myAX); /// the distance at which we drift out of following
-    const SUMOReal sdv_root = (dx - myAX) / myCX;
-    const SUMOReal sdv = sdv_root * sdv_root;
-    const SUMOReal cldv = sdv * ex * ex;
-    const SUMOReal opdv = cldv * (-1 - 2 * RandHelper::randNorm(0.5, 0.15));
+    const double dx = gap + myType->getLength(); // wiedemann uses brutto gap
+    const double v = veh->getSpeed();
+    const double vpref = veh->getMaxSpeed();
+    const double dv = v - predSpeed;
+    const double bx = myAX + (1 + 7 * mySecurity) * sqrt(v); // Harding propose a factor of  *.8 here
+    const double ex = 2 - myEstimation; // + RandHelper::randNorm(0.5, 0.15)
+    const double sdx = myAX + ex * (bx - myAX); /// the distance at which we drift out of following
+    const double sdv_root = (dx - myAX) / myCX;
+    const double sdv = sdv_root * sdv_root;
+    const double cldv = sdv * ex * ex;
+    const double opdv = cldv * (-1 - 2 * RandHelper::randNorm(0.5, 0.15));
     // select the regime, get new acceleration, compute new speed based
-    SUMOReal accel;
+    double accel;
     if (dx <= bx) {
         accel = emergency(dv, dx);
     } else if (dx < sdx) {
@@ -142,16 +142,16 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, SUMOReal predSpeed, SUMOReal gap) 
     }
     // since we have hard constrainst on accel we may as well use them here
     accel = MAX2(MIN2(accel, myAccel), -myDecel);
-    const SUMOReal vNew = MAX2(SUMOReal(0), v + ACCEL2SPEED(accel)); // don't allow negative speeds
+    const double vNew = MAX2(0., v + ACCEL2SPEED(accel)); // don't allow negative speeds
     return vNew;
 }
 
 
-SUMOReal
-MSCFModel_Wiedemann::fullspeed(SUMOReal v, SUMOReal vpref, SUMOReal dx, SUMOReal bx) const {
-    SUMOReal bmax = 0.2 + 0.8 * myAccel * (7 - sqrt(v));
+double
+MSCFModel_Wiedemann::fullspeed(double v, double vpref, double dx, double bx) const {
+    double bmax = 0.2 + 0.8 * myAccel * (7 - sqrt(v));
     // if veh just drifted out of a 'following' process the acceleration is reduced
-    SUMOReal accel = dx <= 2 * bx ? MIN2(myMinAccel, bmax * (dx - bx) / bx) : bmax;
+    double accel = dx <= 2 * bx ? MIN2(myMinAccel, bmax * (dx - bx) / bx) : bmax;
     if (v > vpref) {
         accel = - accel;
     }
@@ -159,27 +159,27 @@ MSCFModel_Wiedemann::fullspeed(SUMOReal v, SUMOReal vpref, SUMOReal dx, SUMOReal
 }
 
 
-SUMOReal
-MSCFModel_Wiedemann::following(SUMOReal sign) const {
+double
+MSCFModel_Wiedemann::following(double sign) const {
     return myMinAccel * sign;
 }
 
 
-SUMOReal
-MSCFModel_Wiedemann::approaching(SUMOReal dv, SUMOReal dx, SUMOReal bx) const {
+double
+MSCFModel_Wiedemann::approaching(double dv, double dx, double bx) const {
     // there is singularity in the formula. we do the sanity check outside
     assert(bx < dx);
     return 0.5 * dv * dv / (bx - dx); // + predAccel at t-reaction_time if this is value is above a treshold
 }
 
 
-SUMOReal
-MSCFModel_Wiedemann::emergency(SUMOReal /* dv */, SUMOReal /* dx */) const {
+double
+MSCFModel_Wiedemann::emergency(double /* dv */, double /* dx */) const {
     /* emergency according to A.Stebens
     // wiedemann assumes that dx will always be larger than myAX (sumo may
     // violate this assumption when crashing (-:
     if (dx > myAX) {
-        SUMOReal accel = 0.5 * dv * dv / (myAX - dx); // + predAccel at t-reaction_time if this is value is above a treshold
+        double accel = 0.5 * dv * dv / (myAX - dx); // + predAccel at t-reaction_time if this is value is above a treshold
         // one would assume that in an emergency accel must be negative. However the
         // wiedemann formula allows for accel = 0 whenever dv = 0
         assert(accel <= 0);
@@ -196,14 +196,14 @@ MSCFModel_Wiedemann::emergency(SUMOReal /* dv */, SUMOReal /* dx */) const {
 
 
 // XXX: This could be replaced by maximumSafeStopSpeed(), refs. #2575
-SUMOReal
-MSCFModel_Wiedemann::krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
+double
+MSCFModel_Wiedemann::krauss_vsafe(double gap, double predSpeed) const {
     if (predSpeed == 0 && gap < 0.01) {
         return 0;
     }
-    const SUMOReal tauDecel = myDecel * myHeadwayTime;
-    const SUMOReal speedReduction = ACCEL2SPEED(myDecel);
+    const double tauDecel = myDecel * myHeadwayTime;
+    const double speedReduction = ACCEL2SPEED(myDecel);
     const int predSteps = int(predSpeed / speedReduction);
-    const SUMOReal leaderContrib = 2. * myDecel * (gap + SPEED2DIST(predSteps * predSpeed - speedReduction * predSteps * (predSteps + 1) / 2));
-    return (SUMOReal)(-tauDecel + sqrt(tauDecel * tauDecel + leaderContrib));
+    const double leaderContrib = 2. * myDecel * (gap + SPEED2DIST(predSteps * predSpeed - speedReduction * predSteps * (predSteps + 1) / 2));
+    return (double)(-tauDecel + sqrt(tauDecel * tauDecel + leaderContrib));
 }

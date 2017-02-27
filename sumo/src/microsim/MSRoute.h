@@ -141,7 +141,7 @@ public:
      * @param[in] includeInternal Whether the lengths of internal edges shall be counted
      * @return             distance between the position fromPos on fromEdge and toPos on toEdge
      */
-    SUMOReal getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal = true) const;
+    double getDistanceBetween(double fromPos, double toPos, const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal = true) const;
 
     /** @brief Compute the distance between 2 given edges on this route, including the length of internal lanes.
      * This has the same semantics as above but uses iterators instead of edge
@@ -154,7 +154,7 @@ public:
      * @param[in] includeInternal Whether the lengths of internal edges shall be counted
      * @return             distance between the position fromPos on fromEdge and toPos on toEdge
      */
-    SUMOReal getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSRouteIterator& fromEdge, const MSRouteIterator& toEdge, bool includeInternal = true) const;
+    double getDistanceBetween(double fromPos, double toPos, const MSRouteIterator& fromEdge, const MSRouteIterator& toEdge, bool includeInternal = true) const;
 
     /// Returns the color
     const RGBColor& getColor() const;
@@ -163,7 +163,7 @@ public:
      *
      * @return The route's costs (normally the time needed to pass it)
      */
-    SUMOReal getCosts() const {
+    double getCosts() const {
         return myCosts;
     }
 
@@ -171,7 +171,7 @@ public:
      *
      * @param[in] costs The new route costs
      */
-    void setCosts(SUMOReal costs) {
+    void setCosts(double costs) {
         myCosts = costs;
     }
 
@@ -243,7 +243,7 @@ private:
     const RGBColor* const myColor;
 
     /// @brief The assigned or calculated costs
-    SUMOReal myCosts;
+    double myCosts;
 
     /// @brief List of the stops on the parsed route
     std::vector<SUMOVehicleParameter::Stop> myStops;

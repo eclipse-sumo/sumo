@@ -75,7 +75,7 @@ public:
      */
     MSStoppingPlace(const std::string& id,
                     const std::vector<std::string>& lines, MSLane& lane,
-                    SUMOReal begPos, SUMOReal endPos);
+                    double begPos, double endPos);
 
 
     /// @brief Destructor
@@ -93,14 +93,14 @@ public:
      *
      * @return The position the stop begins at
      */
-    SUMOReal getBeginLanePosition() const;
+    double getBeginLanePosition() const;
 
 
     /** @brief Returns the end position of this stop
      *
      * @return The position the stop ends at
      */
-    SUMOReal getEndLanePosition() const;
+    double getEndLanePosition() const;
 
 
     /** @brief Called if a vehicle enters this stop
@@ -114,7 +114,7 @@ public:
      * @param[in] what The end halting position of the vehicle
      * @see computeLastFreePos
      */
-    void enter(SUMOVehicle* what, SUMOReal beg, SUMOReal end);
+    void enter(SUMOVehicle* what, double beg, double end);
 
 
     /** @brief Called if a vehicle leaves this stop
@@ -133,7 +133,7 @@ public:
      *
      * @return The last free position of this bus stop
      */
-    SUMOReal getLastFreePos(const SUMOVehicle& forVehicle) const;
+    double getLastFreePos(const SUMOVehicle& forVehicle) const;
 
 
     /** @brief Returns the next free waiting place for pedestrians / containers
@@ -147,7 +147,7 @@ public:
      *         position of the vehicle. For all others the last free stopping position
      *
      */
-    SUMOReal getStoppingPosition(const SUMOVehicle* veh) const;
+    double getStoppingPosition(const SUMOVehicle* veh) const;
 
     /** @brief Returns the number of transportables waiting on this stop
     */
@@ -162,7 +162,7 @@ public:
     void removeTransportable(MSTransportable* p);
 
     /// @brief adds an access point to this stop
-    virtual void addAccess(MSLane* lane, const SUMOReal pos) {
+    virtual void addAccess(MSLane* lane, const double pos) {
         myAccessPos.insert(std::make_pair(lane, pos));
     }
 
@@ -184,28 +184,28 @@ protected:
     std::vector<std::string> myLines;
 
     /// @brief A map from objects (vehicles) to the areas they acquire after entering the stop
-    std::map<const SUMOVehicle*, std::pair<SUMOReal, SUMOReal> > myEndPositions;
+    std::map<const SUMOVehicle*, std::pair<double, double> > myEndPositions;
 
     /// @brief The lane this bus stop is located at
     const MSLane& myLane;
 
     /// @brief The begin position this bus stop is located at
-    const SUMOReal myBegPos;
+    const double myBegPos;
 
     /// @brief The end position this bus stop is located at
-    const SUMOReal myEndPos;
+    const double myEndPos;
 
     /// @brief The last free position at this stop (variable)
-    SUMOReal myLastFreePos;
+    double myLastFreePos;
 
     /// @brief The next free position for persons / containers
-    SUMOReal myWaitingPos;
+    double myWaitingPos;
 
     /// @brief Persons waiting at this stop
     std::vector<MSTransportable*> myWaitingTransportables;
 
     /// @brief lanes and positions connected to this stop
-    std::multimap<MSLane*, SUMOReal> myAccessPos;
+    std::multimap<MSLane*, double> myAccessPos;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -46,8 +46,8 @@ private:
     std::string myKeyPrefix;
 
 protected:
-    SUMOReal readParameter(std::string parName, SUMOReal defValue) {
-        return TplConvert::_2SUMORealSec(getParameter(parName, "").c_str(), defValue);
+    double readParameter(std::string parName, double defValue) {
+        return TplConvert::_2doubleSec(getParameter(parName, "").c_str(), defValue);
     }
 
 public:
@@ -59,14 +59,14 @@ public:
     /**
      * \brief Calculates the desirability of the policy
      */
-    virtual SUMOReal computeDesirability(SUMOReal vehInMeasure,
-                                         SUMOReal vehOutMeasure) = 0;
+    virtual double computeDesirability(double vehInMeasure,
+                                         double vehOutMeasure) = 0;
     /**
      * \brief Calculates the desirability of the policy
      */
-    virtual SUMOReal computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure,
-                                         SUMOReal vehInDispersionMeasure,
-                                         SUMOReal vehOutDispersionMeasure) = 0;
+    virtual double computeDesirability(double vehInMeasure, double vehOutMeasure,
+                                         double vehInDispersionMeasure,
+                                         double vehOutDispersionMeasure) = 0;
     virtual std::string getMessage() = 0;
     void setKeyPrefix(std::string val) {
         myKeyPrefix = val;

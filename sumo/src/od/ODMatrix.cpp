@@ -72,7 +72,7 @@ ODMatrix::~ODMatrix() {
 
 
 bool
-ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
+ODMatrix::add(double vehicleNumber, SUMOTime begin,
               SUMOTime end, const std::string& origin, const std::string& destination,
               const std::string& vehicleType) {
     myNumLoaded += vehicleNumber;
@@ -149,27 +149,27 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
 }
 
 
-SUMOReal
+double
 ODMatrix::computeDeparts(ODCell* cell,
                          int& vehName, std::vector<ODVehicle>& into,
                          const bool uniform, const bool differSourceSink,
                          const std::string& prefix) {
     int vehicles2insert = (int) cell->vehicleNumber;
     // compute whether the fraction forces an additional vehicle insertion
-    if (RandHelper::rand() < cell->vehicleNumber - (SUMOReal)vehicles2insert) {
+    if (RandHelper::rand() < cell->vehicleNumber - (double)vehicles2insert) {
         vehicles2insert++;
     }
     if (vehicles2insert == 0) {
         return cell->vehicleNumber;
     }
 
-    const SUMOReal offset = (SUMOReal)(cell->end - cell->begin) / (SUMOReal) vehicles2insert / (SUMOReal) 2.;
+    const double offset = (double)(cell->end - cell->begin) / (double) vehicles2insert / (double) 2.;
     for (int i = 0; i < vehicles2insert; ++i) {
         ODVehicle veh;
         veh.id = prefix + toString(vehName++);
 
         if (uniform) {
-            veh.depart = (SUMOTime)(offset + cell->begin + ((SUMOReal)(cell->end - cell->begin) * (SUMOReal) i / (SUMOReal) vehicles2insert));
+            veh.depart = (SUMOTime)(offset + cell->begin + ((double)(cell->end - cell->begin) * (double) i / (double) vehicles2insert));
         } else {
             veh.depart = (SUMOTime)RandHelper::rand(cell->begin, cell->end);
         }
@@ -225,7 +225,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
     if (myContainer.size() == 0) {
         return;
     }
-    std::map<std::pair<std::string, std::string>, SUMOReal> fractionLeft;
+    std::map<std::pair<std::string, std::string>, double> fractionLeft;
     int vehName = 0;
     sortByBeginTime();
     // recheck begin time
@@ -250,7 +250,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
             }
             // get the new departures (into tmp)
             const int oldSize = (int)vehicles.size();
-            const SUMOReal fraction = computeDeparts(*next, vehName, vehicles, uniform, differSourceSink, prefix);
+            const double fraction = computeDeparts(*next, vehName, vehicles, uniform, differSourceSink, prefix);
             if (oldSize != (int)vehicles.size()) {
                 changed = true;
             }
@@ -307,7 +307,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
             if (!asProbability) {
                 dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
             } else {
-                const SUMOReal probability = float(c->vehicleNumber) / STEPS2TIME(c->end - c->begin);
+                const double probability = float(c->vehicleNumber) / STEPS2TIME(c->end - c->begin);
                 if (probability > 1) {
                     WRITE_WARNING("Flow density of " + toString(probability) + " vehicles per second, cannot be represented with a simple probability. Falling back to even spacing.");
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
@@ -366,12 +366,12 @@ ODMatrix::readTime(LineReader& lr) {
     }
 }
 
-SUMOReal
-ODMatrix::readFactor(LineReader& lr, SUMOReal scale) {
+double
+ODMatrix::readFactor(LineReader& lr, double scale) {
     std::string line = getNextNonCommentLine(lr);
-    SUMOReal factor = -1;
+    double factor = -1;
     try {
-        factor = TplConvert::_2SUMOReal(line.c_str()) * scale;
+        factor = TplConvert::_2double(line.c_str()) * scale;
     } catch (NumberFormatException&) {
         throw ProcessError("Broken factor: '" + line + "'.");
     }
@@ -379,7 +379,7 @@ ODMatrix::readFactor(LineReader& lr, SUMOReal scale) {
 }
 
 void
-ODMatrix::readV(LineReader& lr, SUMOReal scale,
+ODMatrix::readV(LineReader& lr, double scale,
                 std::string vehType, bool matrixHasVehType) {
     PROGRESS_BEGIN_MESSAGE("Reading matrix '" + lr.getFileName() + "' stored as VMR");
     // parse first defs
@@ -397,7 +397,7 @@ ODMatrix::readV(LineReader& lr, SUMOReal scale,
     SUMOTime end = times.second;
 
     // factor
-    SUMOReal factor = readFactor(lr, scale);
+    double factor = readFactor(lr, scale);
 
     // districts
     line = getNextNonCommentLine(lr);
@@ -425,7 +425,7 @@ ODMatrix::readV(LineReader& lr, SUMOReal scale,
                 StringTokenizer st2(line, StringTokenizer::WHITECHARS);
                 while (st2.hasNext()) {
                     assert(di != names.end());
-                    SUMOReal vehNumber = TplConvert::_2SUMOReal(st2.next().c_str()) * factor;
+                    double vehNumber = TplConvert::_2double(st2.next().c_str()) * factor;
                     if (vehNumber != 0) {
                         add(vehNumber, begin, end, *si, *di, vehType);
                     }
@@ -447,7 +447,7 @@ ODMatrix::readV(LineReader& lr, SUMOReal scale,
 
 
 void
-ODMatrix::readO(LineReader& lr, SUMOReal scale,
+ODMatrix::readO(LineReader& lr, double scale,
                 std::string vehType, bool matrixHasVehType) {
     PROGRESS_BEGIN_MESSAGE("Reading matrix '" + lr.getFileName() + "' stored as OR");
     // parse first defs
@@ -466,7 +466,7 @@ ODMatrix::readO(LineReader& lr, SUMOReal scale,
     SUMOTime end = times.second;
 
     // factor
-    SUMOReal factor = readFactor(lr, scale);
+    double factor = readFactor(lr, scale);
 
     // parse the cells
     while (lr.hasMore()) {
@@ -481,7 +481,7 @@ ODMatrix::readO(LineReader& lr, SUMOReal scale,
         try {
             std::string sourceD = st2.next();
             std::string destD = st2.next();
-            SUMOReal vehNumber = TplConvert::_2SUMOReal(st2.next().c_str()) * factor;
+            double vehNumber = TplConvert::_2double(st2.next().c_str()) * factor;
             if (vehNumber != 0) {
                 add(vehNumber, begin, end, sourceD, destD, vehType);
             }
@@ -496,19 +496,19 @@ ODMatrix::readO(LineReader& lr, SUMOReal scale,
 
 
 
-SUMOReal
+double
 ODMatrix::getNumLoaded() const {
     return myNumLoaded;
 }
 
 
-SUMOReal
+double
 ODMatrix::getNumWritten() const {
     return myNumWritten;
 }
 
 
-SUMOReal
+double
 ODMatrix::getNumDiscarded() const {
     return myNumDiscarded;
 }
@@ -609,16 +609,16 @@ Distribution_Points
 ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInHours) {
     bool interpolating = !timelineDayInHours;
     PositionVector points;
-    SUMOReal prob = 0;
+    double prob = 0;
     if (timelineDayInHours) {
         if (def.size() != 24) {
             throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(def.size()) + ".");
         }
         for (int chour = 0; chour < 24; ++chour) {
-            prob = TplConvert::_2SUMOReal(def[chour].c_str());
-            points.push_back(Position((SUMOReal)(chour * 3600), prob));
+            prob = TplConvert::_2double(def[chour].c_str());
+            points.push_back(Position((double)(chour * 3600), prob));
         }
-        points.push_back(Position((SUMOReal)(24 * 3600), prob));
+        points.push_back(Position((double)(24 * 3600), prob));
     } else {
         int i = 0;
         while (i < (int)def.size()) {
@@ -626,8 +626,8 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
             if (st2.size() != 2) {
                 throw ProcessError("Broken time line definition: missing a value in '" + def[i - 1] + "'.");
             }
-            const SUMOReal time = TplConvert::_2SUMOReal(st2.next().c_str());
-            prob = TplConvert::_2SUMOReal(st2.next().c_str());
+            const double time = TplConvert::_2double(st2.next().c_str());
+            prob = TplConvert::_2double(st2.next().c_str());
             points.push_back(Position(time, prob));
         }
     }

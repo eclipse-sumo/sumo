@@ -216,8 +216,8 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
     bool ok = true;
     const bool mayDefinitelyPass = attrs.getOpt<bool>(SUMO_ATTR_PASS, 0, ok, false);
     const bool keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, 0, ok, true);
-    const SUMOReal contPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_CONTPOS, 0, ok, NBEdge::UNSPECIFIED_CONTPOS);
-    const SUMOReal visibility = attrs.getOpt<SUMOReal>(SUMO_ATTR_VISIBILITY_DISTANCE, 0, ok, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
+    const double contPos = attrs.getOpt<double>(SUMO_ATTR_CONTPOS, 0, ok, NBEdge::UNSPECIFIED_CONTPOS);
+    const double visibility = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, 0, ok, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
     if (!ok) {
         return;
     }
@@ -315,7 +315,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     NBNode* node = 0;
     EdgeVector edges;
     const std::string nodeID = attrs.get<std::string>(SUMO_ATTR_NODE, 0, ok);
-    const SUMOReal width = attrs.getOpt<SUMOReal>(SUMO_ATTR_WIDTH, nodeID.c_str(), ok, NBNode::DEFAULT_CROSSING_WIDTH, true);
+    const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nodeID.c_str(), ok, NBNode::DEFAULT_CROSSING_WIDTH, true);
     const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, nodeID.c_str(), ok, false, true);
     std::vector<std::string> edgeIDs;
     if (!attrs.hasAttribute(SUMO_ATTR_EDGES)) {

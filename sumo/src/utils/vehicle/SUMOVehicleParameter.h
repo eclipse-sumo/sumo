@@ -360,7 +360,7 @@ public:
      * @return Whether the given value is a valid departPos definition
      */
     static bool parseDepartPos(const std::string& val, const std::string& element, const std::string& id,
-                               SUMOReal& pos, DepartPosDefinition& dpd, std::string& error);
+                               double& pos, DepartPosDefinition& dpd, std::string& error);
 
 
     /** @brief Validates a given departPosLat value
@@ -373,7 +373,7 @@ public:
      * @return Whether the given value is a valid departPos definition
      */
     static bool parseDepartPosLat(const std::string& val, const std::string& element, const std::string& id,
-                                  SUMOReal& pos, DepartPosLatDefinition& dpd, std::string& error);
+                                  double& pos, DepartPosLatDefinition& dpd, std::string& error);
 
 
     /** @brief Validates a given departSpeed value
@@ -386,7 +386,7 @@ public:
      * @return Whether the given value is a valid departSpeed definition
      */
     static bool parseDepartSpeed(const std::string& val, const std::string& element, const std::string& id,
-                                 SUMOReal& speed, DepartSpeedDefinition& dsd, std::string& error);
+                                 double& speed, DepartSpeedDefinition& dsd, std::string& error);
 
 
     /** @brief Validates a given arrivalLane value
@@ -412,7 +412,7 @@ public:
      * @return Whether the given value is a valid arrivalPos definition
      */
     static bool parseArrivalPos(const std::string& val, const std::string& element, const std::string& id,
-                                SUMOReal& pos, ArrivalPosDefinition& apd, std::string& error);
+                                double& pos, ArrivalPosDefinition& apd, std::string& error);
 
 
     /** @brief Validates a given arrivalPosLat value
@@ -425,7 +425,7 @@ public:
      * @return Whether the given value is a valid arrivalPos definition
      */
     static bool parseArrivalPosLat(const std::string& val, const std::string& element, const std::string& id,
-                                   SUMOReal& pos, ArrivalPosLatDefinition& apd, std::string& error);
+                                   double& pos, ArrivalPosLatDefinition& apd, std::string& error);
 
 
     /** @brief Validates a given arrivalSpeed value
@@ -438,7 +438,7 @@ public:
      * @return Whether the given value is a valid arrivalSpeed definition
      */
     static bool parseArrivalSpeed(const std::string& val, const std::string& element, const std::string& id,
-                                  SUMOReal& speed, ArrivalSpeedDefinition& asd, std::string& error);
+                                  double& speed, ArrivalSpeedDefinition& asd, std::string& error);
     /// @}
 
 
@@ -449,7 +449,7 @@ public:
      * @param[in] id The id of the object to which this attribute belongs
      * @return Whether the interpreted position
      */
-    static SUMOReal interpretEdgePos(SUMOReal pos, SUMOReal maximumValue, SumoXMLAttr attr, const std::string& id);
+    static double interpretEdgePos(double pos, double maximumValue, SumoXMLAttr attr, const std::string& id);
 
     /// @brief The vehicle's id
     std::string id;
@@ -474,15 +474,15 @@ public:
     /// @brief Information how the vehicle shall choose the lane to depart from
     DepartLaneDefinition departLaneProcedure;
     /// @brief (optional) The position the vehicle shall depart from
-    SUMOReal departPos;
+    double departPos;
     /// @brief Information how the vehicle shall choose the departure position
     DepartPosDefinition departPosProcedure;
     /// @brief (optional) The lateral position the vehicle shall depart from
-    SUMOReal departPosLat;
+    double departPosLat;
     /// @brief Information how the vehicle shall choose the lateral departure position
     DepartPosLatDefinition departPosLatProcedure;
     /// @brief (optional) The initial speed of the vehicle
-    SUMOReal departSpeed;
+    double departSpeed;
     /// @brief Information how the vehicle's initial speed shall be chosen
     DepartSpeedDefinition departSpeedProcedure;
     /// @}
@@ -496,15 +496,15 @@ public:
     /// @brief Information how the vehicle shall choose the lane to arrive on
     ArrivalLaneDefinition arrivalLaneProcedure;
     /// @brief (optional) The position the vehicle shall arrive on
-    SUMOReal arrivalPos;
+    double arrivalPos;
     /// @brief Information how the vehicle shall choose the arrival position
     ArrivalPosDefinition arrivalPosProcedure;
     /// @brief (optional) The lateral position the vehicle shall arrive on
-    SUMOReal arrivalPosLat;
+    double arrivalPosLat;
     /// @brief Information how the vehicle shall choose the lateral arrival position
     ArrivalPosLatDefinition arrivalPosLatProcedure;
     /// @brief (optional) The final speed of the vehicle (not used yet)
-    SUMOReal arrivalSpeed;
+    double arrivalSpeed;
     /// @brief Information how the vehicle's end speed shall be chosen
     ArrivalSpeedDefinition arrivalSpeedProcedure;
     /// @}
@@ -520,7 +520,7 @@ public:
     /// @brief The time offset between vehicle reinsertions
     SUMOTime repetitionOffset;
     /// @brief The probability for emitting a vehicle per second
-    SUMOReal repetitionProbability;
+    double repetitionProbability;
     /// @brief The time at which the flow ends (only needed when using repetitionProbability)
     SUMOTime repetitionEnd;
     /// @}
@@ -550,9 +550,9 @@ public:
         /// @brief (Optional) charging station if one is assigned to the stop
         std::string chargingStation;
         /// @brief The stopping position start
-        SUMOReal startPos;
+        double startPos;
         /// @brief The stopping position end
-        SUMOReal endPos;
+        double endPos;
         /// @brief The stopping duration
         SUMOTime duration;
         /// @brief The time at which the vehicle may continue its journey
@@ -568,7 +568,7 @@ public:
         /// @brief IDs of containers the vehicle has to wait for until departing
         std::set<std::string> awaitedContainers;
         /// @brief lanes and positions connected to this stop
-        std::multimap<std::string, SUMOReal> accessPos;
+        std::multimap<std::string, double> accessPos;
         /// @brief at which position in the stops list
         int index;
         /// @brief Information for the output which parameter were set

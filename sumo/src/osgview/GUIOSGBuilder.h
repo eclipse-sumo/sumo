@@ -68,7 +68,7 @@ public:
 
     static void buildLight(const GUISUMOAbstractView::Decal& d, osg::Group& addTo);
 
-    static osg::PositionAttitudeTransform* getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const osg::Vec4& color, const SUMOReal size = 0.5);
+    static osg::PositionAttitudeTransform* getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const osg::Vec4& color, const double size = 0.5);
 
     static GUIOSGView::OSGMovable buildMovable(const MSVehicleType& type);
 

@@ -61,7 +61,7 @@ public:
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      */
-    GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, SUMOReal freq, const std::string& filename, const SUMOReal timeThreshold, SUMOReal speedThreshold);
+    GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, double freq, const std::string& filename, const double timeThreshold, double speedThreshold);
 
     /// @brief GNEDetectorE3 6Destructor
     ~GNEDetectorE3();
@@ -74,10 +74,10 @@ public:
     Position getPositionInView() const;
 
     /// @brief change the position of the E3 geometry
-    void moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety);
+    void moveAdditionalGeometry(double offsetx, double offsety);
 
     /// @brief updated geometry changes in the attributes of additional
-    void commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList);
+    void commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList);
 
     /**@brief writte additionals element into a xml file
      * @param[in] device device in which write parameters of additional element
@@ -146,16 +146,16 @@ public:
 
 protected:
     /// @brief frequency of E3 detector
-    SUMOReal myFreq;
+    double myFreq;
 
     /// @brief fielname of E3 detector
     std::string myFilename;
 
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
-    SUMOReal myTimeThreshold;
+    double myTimeThreshold;
 
     /// @brief The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
-    SUMOReal mySpeedThreshold;
+    double mySpeedThreshold;
 
     /// @brief vector with the GNEDetectorE3EntryExits of the detector
     std::vector<GNEDetectorEntry*> myGNEDetectorEntrys;

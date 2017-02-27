@@ -40,7 +40,7 @@
 
 
 NIVissimNodeParticipatingEdge::NIVissimNodeParticipatingEdge(
-    int edgeid, SUMOReal frompos, SUMOReal topos)
+    int edgeid, double frompos, double topos)
     : myEdgeID(edgeid), myFromPos(frompos), myToPos(topos) {}
 
 NIVissimNodeParticipatingEdge::~NIVissimNodeParticipatingEdge() {}
@@ -53,20 +53,20 @@ NIVissimNodeParticipatingEdge::getID() const {
 
 
 bool
-NIVissimNodeParticipatingEdge::positionLiesWithin(SUMOReal pos) const {
+NIVissimNodeParticipatingEdge::positionLiesWithin(double pos) const {
     return
         (myFromPos < myToPos && myFromPos >= pos && myToPos <= pos)
         ||
         (myFromPos > myToPos && myFromPos <= pos && myToPos >= pos);
 }
 
-SUMOReal
+double
 NIVissimNodeParticipatingEdge::getFromPos() const {
     return myFromPos;
 }
 
 
-SUMOReal
+double
 NIVissimNodeParticipatingEdge::getToPos() const {
     return myToPos;
 }

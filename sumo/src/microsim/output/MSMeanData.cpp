@@ -60,7 +60,7 @@
 // MSMeanData::MeanDataValues - methods
 // ---------------------------------------------------------------------------
 MSMeanData::MeanDataValues::MeanDataValues(
-    MSLane* const lane, const SUMOReal length, const bool doAdd,
+    MSLane* const lane, const double length, const bool doAdd,
     const MSMeanData* const parent) :
     MSMoveReminder("meandata_" + (lane == 0 ? "NULL" :  lane->getID()), lane, doAdd),
     myParent(parent),
@@ -81,37 +81,37 @@ MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notifi
 
 
 bool
-MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) {
+MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed) {
     // if the vehicle has arrived, the reminder must be kept so it can be
     // notified of the arrival subsequently
-    const SUMOReal oldSpeed = veh.getPreviousSpeed();
-    SUMOReal enterSpeed = MSGlobals::gSemiImplicitEulerUpdate ? newSpeed : oldSpeed; // NOTE: For the euler update, the vehicle is assumed to travel at constant speed for the whole time step
-    SUMOReal leaveSpeed = newSpeed, leaveSpeedFront = newSpeed;
+    const double oldSpeed = veh.getPreviousSpeed();
+    double enterSpeed = MSGlobals::gSemiImplicitEulerUpdate ? newSpeed : oldSpeed; // NOTE: For the euler update, the vehicle is assumed to travel at constant speed for the whole time step
+    double leaveSpeed = newSpeed, leaveSpeedFront = newSpeed;
 
     // These values will be further decreased below
-    SUMOReal timeOnLane = TS;
-    SUMOReal frontOnLane = oldPos > myLaneLength ? 0. : TS;
+    double timeOnLane = TS;
+    double frontOnLane = oldPos > myLaneLength ? 0. : TS;
     bool ret = true;
 
     // Treat the case that the vehicle entered the lane in the last step
     if (oldPos < 0 && newPos >= 0) {
         // Vehicle was not on this lane in the last time step
-        const SUMOReal timeBeforeEnter = MSCFModel::passingTime(oldPos, 0, newPos, oldSpeed, newSpeed);
+        const double timeBeforeEnter = MSCFModel::passingTime(oldPos, 0, newPos, oldSpeed, newSpeed);
         timeOnLane = TS - timeBeforeEnter;
         frontOnLane = timeOnLane;
         enterSpeed = MSCFModel::speedAfterTime(timeBeforeEnter, oldSpeed, newPos - oldPos);
     }
 
     // Treat the case that the vehicle's back left the lane in the last step
-    const SUMOReal oldBackPos = oldPos - veh.getVehicleType().getLength();
-    const SUMOReal newBackPos = newPos - veh.getVehicleType().getLength();
+    const double oldBackPos = oldPos - veh.getVehicleType().getLength();
+    const double newBackPos = newPos - veh.getVehicleType().getLength();
     if (newBackPos > myLaneLength // vehicle's back has left the lane
             && oldBackPos <= myLaneLength) { // and hasn't left the lane before, XXX: this shouldn't occur, should it? For instance, in the E2 code this is not checked (Leo)
         assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0); // how could it move across the lane boundary otherwise
 
         // (Leo) vehicle left this lane (it can also have skipped over it in one time step -> therefore we use "timeOnLane -= ..." and ( ... - timeOnLane) below)
-        const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myLaneLength, newBackPos, oldSpeed, newSpeed);
-        const SUMOReal timeAfterLeave = TS - timeBeforeLeave;
+        const double timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myLaneLength, newBackPos, oldSpeed, newSpeed);
+        const double timeAfterLeave = TS - timeBeforeLeave;
         timeOnLane -= timeAfterLeave;
         leaveSpeed = MSCFModel::speedAfterTime(timeBeforeLeave, oldSpeed, newPos - oldPos);
         // XXX: Do we really need this? Why would this "reduce rounding errors"? (Leo) Refs. #2579
@@ -126,8 +126,8 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
     if (newPos > myLaneLength && oldPos <= myLaneLength) {
         // vehicle's front has left the lane and has not left before
         assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0);
-        const SUMOReal timeBeforeLeave = MSCFModel::passingTime(oldPos, myLaneLength, newPos, oldSpeed, newSpeed);
-        const SUMOReal timeAfterLeave = TS - timeBeforeLeave;
+        const double timeBeforeLeave = MSCFModel::passingTime(oldPos, myLaneLength, newPos, oldSpeed, newSpeed);
+        const double timeAfterLeave = TS - timeBeforeLeave;
         frontOnLane -= timeAfterLeave;
         // XXX: Do we really need this? Why would this "reduce rounding errors"? (Leo) Refs. #2579
         if (fabs(frontOnLane) < NUMERICAL_EPS) { // reduce rounding errors
@@ -145,16 +145,16 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
     }
 
     // XXX: use this, when #2556 is fixed! Refs. #2575
-//    const SUMOReal travelledDistanceFrontOnLane = MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.);
-//    const SUMOReal travelledDistanceVehicleOnLane = MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.) + MIN2(MAX2(0., newPos-myLaneLength), veh.getVehicleType().getLength());
+//    const double travelledDistanceFrontOnLane = MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.);
+//    const double travelledDistanceVehicleOnLane = MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.) + MIN2(MAX2(0., newPos-myLaneLength), veh.getVehicleType().getLength());
     // XXX: #2556 fixed for ballistic update
-    const SUMOReal travelledDistanceFrontOnLane = MSGlobals::gSemiImplicitEulerUpdate ? frontOnLane * newSpeed
-            : MAX2((SUMOReal)0., MIN2(newPos, myLaneLength) - MAX2(oldPos, (SUMOReal)0.));
-    const SUMOReal travelledDistanceVehicleOnLane = MSGlobals::gSemiImplicitEulerUpdate ? timeOnLane * newSpeed
-            : MIN2(newPos, myLaneLength) - MAX2(oldPos, (SUMOReal)0.) + MIN2(MAX2((SUMOReal)0., newPos - myLaneLength), veh.getVehicleType().getLength());
+    const double travelledDistanceFrontOnLane = MSGlobals::gSemiImplicitEulerUpdate ? frontOnLane * newSpeed
+            : MAX2(0., MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.));
+    const double travelledDistanceVehicleOnLane = MSGlobals::gSemiImplicitEulerUpdate ? timeOnLane * newSpeed
+            : MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.) + MIN2(MAX2(0., newPos - myLaneLength), veh.getVehicleType().getLength());
 //    // XXX: no fix
-//    const SUMOReal travelledDistanceFrontOnLane = frontOnLane*newSpeed;
-//    const SUMOReal travelledDistanceVehicleOnLane = timeOnLane*newSpeed;
+//    const double travelledDistanceFrontOnLane = frontOnLane*newSpeed;
+//    const double travelledDistanceVehicleOnLane = timeOnLane*newSpeed;
 
     notifyMoveInternal(veh, frontOnLane, timeOnLane, (enterSpeed + leaveSpeedFront) / 2., (enterSpeed + leaveSpeed) / 2., travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane);
 //    notifyMoveInternal(veh, frontOnLane, timeOnLane, newSpeed, newSpeed, travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane);
@@ -163,7 +163,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
 
 
 bool
-MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& /*veh*/, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
+MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& /*veh*/, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     if (MSGlobals::gUseMesoSim) {
         return false; // reminder is re-added on every segment (@recheck for performance)
     }
@@ -182,7 +182,7 @@ MSMeanData::MeanDataValues::update() {
 }
 
 
-SUMOReal
+double
 MSMeanData::MeanDataValues::getSamples() const {
     return sampleSeconds;
 }
@@ -192,7 +192,7 @@ MSMeanData::MeanDataValues::getSamples() const {
 // MSMeanData::MeanDataValueTracker - methods
 // ---------------------------------------------------------------------------
 MSMeanData::MeanDataValueTracker::MeanDataValueTracker(MSLane* const lane,
-        const SUMOReal length,
+        const double length,
         const MSMeanData* const parent)
     : MSMeanData::MeanDataValues(lane, length, true, parent) {
     myCurrentData.push_back(new TrackerEntry(parent->createValues(lane, length, false)));
@@ -234,13 +234,13 @@ MSMeanData::MeanDataValueTracker::addTo(MSMeanData::MeanDataValues& val) const {
 
 
 void
-MSMeanData::MeanDataValueTracker::notifyMoveInternal(const SUMOVehicle& veh, const SUMOReal frontOnLane, const SUMOReal timeOnLane, const SUMOReal meanSpeedFrontOnLane, const SUMOReal meanSpeedVehicleOnLane, const SUMOReal travelledDistanceFrontOnLane, const SUMOReal travelledDistanceVehicleOnLane) {
+MSMeanData::MeanDataValueTracker::notifyMoveInternal(const SUMOVehicle& veh, const double frontOnLane, const double timeOnLane, const double meanSpeedFrontOnLane, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane) {
     myTrackedData[&veh]->myValues->notifyMoveInternal(veh, frontOnLane, timeOnLane, meanSpeedFrontOnLane, meanSpeedVehicleOnLane, travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane);
 }
 
 
 bool
-MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
+MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     if (myParent == 0 || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
         myTrackedData[&veh]->myNumVehicleLeft++;
     }
@@ -276,8 +276,8 @@ MSMeanData::MeanDataValueTracker::isEmpty() const {
 void
 MSMeanData::MeanDataValueTracker::write(OutputDevice& dev,
                                         const SUMOTime period,
-                                        const SUMOReal numLanes,
-                                        const SUMOReal defaultTravelTime,
+                                        const double numLanes,
+                                        const double defaultTravelTime,
                                         const int /*numVehicles*/) const {
     myCurrentData.front()->myValues->write(dev, period, numLanes,
                                            defaultTravelTime,
@@ -299,7 +299,7 @@ MSMeanData::MeanDataValueTracker::getNumReady() const {
 }
 
 
-SUMOReal
+double
 MSMeanData::MeanDataValueTracker::getSamples() const {
     return myCurrentData.front()->myValues->getSamples();
 }
@@ -312,8 +312,8 @@ MSMeanData::MSMeanData(const std::string& id,
                        const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                        const bool useLanes, const bool withEmpty,
                        const bool printDefaults, const bool withInternal, const bool trackVehicles,
-                       const SUMOReal maxTravelTime,
-                       const SUMOReal minSamples,
+                       const double maxTravelTime,
+                       const double minSamples,
                        const std::string& vTypes) :
     MSDetectorFileOutput(id, vTypes),
     myMinSamples(minSamples),
@@ -428,7 +428,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
         }
         if (writePrefix(dev, *data, SUMO_TAG_EDGE, getEdgeID(edge))) {
             data->write(dev, stopTime - startTime,
-                        (SUMOReal)edge->getLanes().size(),
+                        (double)edge->getLanes().size(),
                         myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
         }
         data->reset(true);
@@ -462,7 +462,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
         if (myTrackVehicles) {
             MeanDataValues& meanData = **edgeValues.begin();
             if (writePrefix(dev, meanData, SUMO_TAG_EDGE, edge->getID())) {
-                meanData.write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size(), myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
+                meanData.write(dev, stopTime - startTime, (double)edge->getLanes().size(), myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
             meanData.reset(true);
         } else {
@@ -473,7 +473,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
                 meanData.reset();
             }
             if (writePrefix(dev, *sumData, SUMO_TAG_EDGE, getEdgeID(edge))) {
-                sumData->write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size(), myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
+                sumData->write(dev, stopTime - startTime, (double)edge->getLanes().size(), myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
             delete sumData;
         }

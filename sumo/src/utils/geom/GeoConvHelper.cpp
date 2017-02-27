@@ -251,7 +251,7 @@ GeoConvHelper::cartesian2geo(Position& cartesian) const {
     //!!! check pj_errno
     p.u *= RAD_TO_DEG;
     p.v *= RAD_TO_DEG;
-    cartesian.set((SUMOReal) p.u, (SUMOReal) p.v);
+    cartesian.set((double) p.u, (double) p.v);
 #endif
 }
 
@@ -311,7 +311,7 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
         if (pj_transform(myInverseProjection, myGeoProjection, 1, 1, &x, &y, NULL)) {
             WRITE_WARNING("Could not transform (" + toString(x) + "," + toString(y) + ")");
         }
-        from.set(SUMOReal(x * RAD_TO_DEG), SUMOReal(y * RAD_TO_DEG));
+        from.set(double(x * RAD_TO_DEG), double(y * RAD_TO_DEG));
     }
 #endif
     // perform conversion
@@ -357,7 +357,7 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
             double ys = y;
             x *= 111320. * cos(DEG2RAD(ys));
             y *= 111136.;
-            from.set((SUMOReal)x, (SUMOReal)y);
+            from.set((double)x, (double)y);
             //!!! recheck whether the axes are mirrored
             from.add(myOffset);
         }
@@ -367,7 +367,7 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
         return false;
     }
     if (myProjectionMethod != SIMPLE) {
-        from.set((SUMOReal)x, (SUMOReal)y);
+        from.set((double)x, (double)y);
         from.add(myOffset);
     }
     return true;
@@ -375,7 +375,7 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
 
 
 void
-GeoConvHelper::moveConvertedBy(SUMOReal x, SUMOReal y) {
+GeoConvHelper::moveConvertedBy(double x, double y) {
     myOffset.add(x, y);
     myConvBoundary.moveby(x, y);
 }

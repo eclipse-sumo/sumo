@@ -49,54 +49,54 @@ public:
     Position() : myX(0.0), myY(0.0), myZ(0.0) { }
 
     /// @brief parametrised constructor
-    Position(SUMOReal x, SUMOReal y)
+    Position(double x, double y)
         : myX(x), myY(y), myZ(0) { }
 
     /// @brief parametrised constructor
-    Position(SUMOReal x, SUMOReal y, SUMOReal z)
+    Position(double x, double y, double z)
         : myX(x), myY(y), myZ(z) { }
 
     /// @brief Destructor
     ~Position() { }
 
     /// @brief Returns the x-position
-    SUMOReal x() const {
+    double x() const {
         return myX;
     }
 
     /// @brief Returns the y-position
-    SUMOReal y() const {
+    double y() const {
         return myY;
     }
 
     /// @brief Returns the z-position
-    SUMOReal z() const {
+    double z() const {
         return myZ;
     }
 
     /// @brief set position x
-    void setx(SUMOReal x) {
+    void setx(double x) {
         myX = x;
     }
 
     /// @brief set position y
-    void sety(SUMOReal y) {
+    void sety(double y) {
         myY = y;
     }
 
     /// @brief set position z
-    void setz(SUMOReal z) {
+    void setz(double z) {
         myZ = z;
     }
 
     /// @brief set positions x and y
-    void set(SUMOReal x, SUMOReal y) {
+    void set(double x, double y) {
         myX = x;
         myY = y;
     }
 
     /// @brief set positions x, y and z
-    void set(SUMOReal x, SUMOReal y, SUMOReal z) {
+    void set(double x, double y, double z) {
         myX = x;
         myY = y;
         myZ = z;
@@ -110,20 +110,20 @@ public:
     }
 
     /// @brief Multiplies both positions with the given value
-    void mul(SUMOReal val) {
+    void mul(double val) {
         myX *= val;
         myY *= val;
         myZ *= val;
     }
 
     /// @brief Multiplies position with the given values
-    void mul(SUMOReal mx, SUMOReal my) {
+    void mul(double mx, double my) {
         myX *= mx;
         myY *= my;
     }
 
     /// @brief Multiplies position with the given values
-    void mul(SUMOReal mx, SUMOReal my, SUMOReal mz) {
+    void mul(double mx, double my, double mz) {
         myX *= mx;
         myY *= my;
         myZ *= mz;
@@ -137,26 +137,26 @@ public:
     }
 
     /// @brief Adds the given position to this one
-    void add(SUMOReal dx, SUMOReal dy) {
+    void add(double dx, double dy) {
         myX += dx;
         myY += dy;
     }
 
     /// @brief Adds the given position to this one
-    void add(SUMOReal dx, SUMOReal dy, SUMOReal dz) {
+    void add(double dx, double dy, double dz) {
         myX += dx;
         myY += dy;
         myZ += dz;
     }
 
     /// @brief Substracts the given position from this one
-    void sub(SUMOReal dx, SUMOReal dy) {
+    void sub(double dx, double dy) {
         myX -= dx;
         myY -= dy;
     }
 
     /// @brief Substracts the given position from this one
-    void sub(SUMOReal dx, SUMOReal dy, SUMOReal dz) {
+    void sub(double dx, double dy, double dz) {
         myX -= dx;
         myY -= dy;
         myZ -= dz;
@@ -171,7 +171,7 @@ public:
 
     /// @brief
     void norm2d() {
-        SUMOReal val = sqrt(myX * myX + myY * myY);
+        double val = sqrt(myX * myX + myY * myY);
         myX = myX / val;
         myY = myY / val;
     }
@@ -179,7 +179,7 @@ public:
     /// @brief output operator
     friend std::ostream& operator<<(std::ostream& os, const Position& p) {
         os << p.x() << "," << p.y();
-        if (p.z() != SUMOReal(0.0)) {
+        if (p.z() != double(0.0)) {
             os << "," << p.z();
         }
         return os;
@@ -196,17 +196,17 @@ public:
     }
 
     /// @brief keep the direction but modify the length of the (location) vector to length * scalar
-    Position operator*(SUMOReal scalar) const {
+    Position operator*(double scalar) const {
         return Position(myX * scalar, myY * scalar, myZ * scalar);
     }
 
     /// @brief keep the direction but modify the length of the (location) vector to length + scalar
-    Position operator+(SUMOReal offset) const {
-        const SUMOReal length = distanceTo(Position(0, 0, 0));
+    Position operator+(double offset) const {
+        const double length = distanceTo(Position(0, 0, 0));
         if (length == 0) {
             return *this;
         }
-        const SUMOReal scalar = (length + offset) / length;
+        const double scalar = (length + offset) / length;
         return Position(myX * scalar, myY * scalar, myZ * scalar);
     }
 
@@ -232,32 +232,32 @@ public:
     }
 
     /// @brief checki if two position is almost the sme as other
-    bool almostSame(const Position& p2, SUMOReal maxDiv = POSITION_EPS) const {
+    bool almostSame(const Position& p2, double maxDiv = POSITION_EPS) const {
         return distanceTo(p2) < maxDiv;
     }
 
     /// @brief returns the euclidean distance in 3 dimension
-    inline SUMOReal distanceTo(const Position& p2) const {
+    inline double distanceTo(const Position& p2) const {
         return sqrt(distanceSquaredTo(p2));
     }
 
     /// @brief returns the square of the distance to another position
-    inline SUMOReal distanceSquaredTo(const Position& p2) const {
+    inline double distanceSquaredTo(const Position& p2) const {
         return (myX - p2.myX) * (myX - p2.myX) + (myY - p2.myY) * (myY - p2.myY) + (myZ - p2.myZ) * (myZ - p2.myZ);
     }
 
     /// @brief returns the euclidean distance in the x-y-plane
-    inline SUMOReal distanceTo2D(const Position& p2) const {
+    inline double distanceTo2D(const Position& p2) const {
         return sqrt(distanceSquaredTo2D(p2));
     }
 
     /// @brief returns the square of the distance to another position (Only using x and y positions)
-    inline SUMOReal distanceSquaredTo2D(const Position& p2) const {
+    inline double distanceSquaredTo2D(const Position& p2) const {
         return (myX - p2.myX) * (myX - p2.myX) + (myY - p2.myY) * (myY - p2.myY);
     }
 
     /// @brief returns the angle in the plane of the vector pointing from here to the other position
-    inline SUMOReal angleTo2D(const Position& other) const {
+    inline double angleTo2D(const Position& other) const {
         return atan2(other.myY - myY, other.myX - myX);
     }
 
@@ -270,7 +270,7 @@ public:
     }
 
     /// @brief returns the dot product (scalar product) between this point and the second one
-    inline SUMOReal dotProduct(const Position& pos) {
+    inline double dotProduct(const Position& pos) {
         return myX * pos.myX + myY * pos.myY + myZ * pos.myZ;
     }
 
@@ -279,13 +279,13 @@ public:
 
 private:
     /// @brief  The x-position
-    SUMOReal myX;
+    double myX;
 
     /// @brief  The y-position
-    SUMOReal myY;
+    double myY;
 
     /// @brief  The z-position
-    SUMOReal myZ;
+    double myZ;
 };
 
 

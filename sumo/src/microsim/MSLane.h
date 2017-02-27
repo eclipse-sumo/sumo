@@ -92,9 +92,9 @@ public:
 
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */
-    struct VehPosition : public std::binary_function < const MSVehicle*, SUMOReal, bool > {
+    struct VehPosition : public std::binary_function < const MSVehicle*, double, bool > {
         /// compares vehicle position to the detector position
-        bool operator()(const MSVehicle* cmp, SUMOReal pos) const;
+        bool operator()(const MSVehicle* cmp, double pos) const;
     };
 
     class AnyVehicleIterator {
@@ -180,8 +180,8 @@ public:
      * @param[in] isRampAccel Whether this lane is an acceleratin lane
      * @see SUMOVehicleClass
      */
-    MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge* const edge,
-           int numericalID, const PositionVector& shape, SUMOReal width,
+    MSLane(const std::string& id, double maxSpeed, double length, MSEdge* const edge,
+           int numericalID, const PositionVector& shape, double width,
            SVCPermissions permissions, int index, bool isRampAccel);
 
 
@@ -272,17 +272,17 @@ public:
      * @return Whether the vehicle could be inserted
      * @see MSVehicle::enterLaneAtInsertion
      */
-    bool isInsertionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos, SUMOReal posLat,
+    bool isInsertionSuccess(MSVehicle* vehicle, double speed, double pos, double posLat,
                             bool recheckNextLanes,
                             MSMoveReminder::Notification notification);
 
     // XXX: Documentation?
-    bool checkFailure(MSVehicle* aVehicle, SUMOReal& speed, SUMOReal& dist, const SUMOReal nspeed, const bool patchSpeed, const std::string errorMsg) const;
+    bool checkFailure(MSVehicle* aVehicle, double& speed, double& dist, const double nspeed, const bool patchSpeed, const std::string errorMsg) const;
 
     /** @brief inserts vehicle as close as possible to the last vehicle on this
      * lane (or at the end of the lane if there is no leader)
      */
-    bool lastInsertion(MSVehicle& veh, SUMOReal mspeed, bool patchSpeed);
+    bool lastInsertion(MSVehicle& veh, double mspeed, bool patchSpeed);
 
     /** @brief Tries to insert the given vehicle on any place
      *
@@ -291,7 +291,7 @@ public:
      * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      * @return Whether the vehicle could be inserted
      */
-    bool freeInsertion(MSVehicle& veh, SUMOReal speed,
+    bool freeInsertion(MSVehicle& veh, double speed,
                        MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 
 
@@ -304,7 +304,7 @@ public:
      * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      * @param[in] posLat The lateral position at which the vehicle shall be inserted
      */
-    void forceVehicleInsertion(MSVehicle* veh, SUMOReal pos, MSMoveReminder::Notification notification, SUMOReal posLat = 0);
+    void forceVehicleInsertion(MSVehicle* veh, double pos, MSMoveReminder::Notification notification, double posLat = 0);
     /// @}
 
 
@@ -318,7 +318,7 @@ public:
      * @param[in] v The vehicle which laps into this lane
      * @return This lane's length
      */
-    virtual SUMOReal setPartialOccupation(MSVehicle* v);
+    virtual double setPartialOccupation(MSVehicle* v);
 
     /** @brief Removes the information about a vehicle lapping into this lane
      * @param[in] v The vehicle which laps into this lane
@@ -335,10 +335,10 @@ public:
      * @param[in] allowCached Whether the cached value may be used
      * @return Information about the last vehicles
      */
-    const MSLeaderInfo& getLastVehicleInformation(const MSVehicle* ego, SUMOReal latOffset, SUMOReal minPos = 0, bool allowCached = true) const;
+    const MSLeaderInfo& getLastVehicleInformation(const MSVehicle* ego, double latOffset, double minPos = 0, bool allowCached = true) const;
 
     /// @brief analogue to getLastVehicleInformation but in the upstream direction
-    const MSLeaderInfo& getFirstVehicleInformation(const MSVehicle* ego, SUMOReal latOffset, bool onlyFrontOnLane, SUMOReal maxPos = std::numeric_limits<SUMOReal>::max(), bool allowCached = true) const;
+    const MSLeaderInfo& getFirstVehicleInformation(const MSVehicle* ego, double latOffset, bool onlyFrontOnLane, double maxPos = std::numeric_limits<double>::max(), bool allowCached = true) const;
 
     /// @}
 
@@ -428,7 +428,7 @@ public:
     }
 
     /// @brief return shape.length() / myLength
-    inline SUMOReal getLengthGeometryFactor() const {
+    inline double getLengthGeometryFactor() const {
         return myLengthGeometryFactor;
     }
 
@@ -439,19 +439,19 @@ public:
 
     /* @brief fit the given lane position to a visibly suitable geometry position
      * (lane length might differ from geometry length) */
-    inline SUMOReal interpolateLanePosToGeometryPos(SUMOReal lanePos) const {
+    inline double interpolateLanePosToGeometryPos(double lanePos) const {
         return lanePos * myLengthGeometryFactor;
     }
 
     /* @brief fit the given lane position to a visibly suitable geometry position
      * and return the coordinates */
-    inline const Position geometryPositionAtOffset(SUMOReal offset, SUMOReal lateralOffset = 0) const {
+    inline const Position geometryPositionAtOffset(double offset, double lateralOffset = 0) const {
         return myShape.positionAtOffset(interpolateLanePosToGeometryPos(offset), lateralOffset);
     }
 
     /* @brief fit the given geomtry position to a valid lane position
      * (lane length might differ from geometry length) */
-    inline SUMOReal interpolateGeometryPosToLanePos(SUMOReal geometryPos) const {
+    inline double interpolateGeometryPosToLanePos(double geometryPos) const {
         return geometryPos / myLengthGeometryFactor;
     }
 
@@ -459,9 +459,9 @@ public:
      * @param[in] The vehicle to return the adapted speed limit for
      * @return This lane's resulting max. speed
      */
-    inline SUMOReal getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
+    inline double getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
         if (myRestrictions != 0) {
-            std::map<SUMOVehicleClass, SUMOReal>::const_iterator r = myRestrictions->find(veh->getVClass());
+            std::map<SUMOVehicleClass, double>::const_iterator r = myRestrictions->find(veh->getVClass());
             if (r != myRestrictions->end()) {
                 return MIN2(veh->getMaxSpeed(), r->second * veh->getChosenSpeedFactor());
             }
@@ -473,7 +473,7 @@ public:
     /** @brief Returns the lane's maximum allowed speed
      * @return This lane's maximum allowed speed
      */
-    inline SUMOReal getSpeedLimit() const {
+    inline double getSpeedLimit() const {
         return myMaxSpeed;
     }
 
@@ -481,7 +481,7 @@ public:
     /** @brief Returns the lane's length
      * @return This lane's length
      */
-    inline SUMOReal getLength() const {
+    inline double getLength() const {
         return myLength;
     }
 
@@ -497,7 +497,7 @@ public:
     /** @brief Returns the lane's width
      * @return This lane's width
      */
-    SUMOReal getWidth() const {
+    double getWidth() const {
         return myWidth;
     }
 
@@ -565,12 +565,12 @@ public:
     /** @brief Sets a new maximum speed for the lane (used by TraCI and MSCalibrator)
      * @param[in] val the new speed in m/s
      */
-    void setMaxSpeed(SUMOReal val);
+    void setMaxSpeed(double val);
 
     /** @brief Sets a new length for the lane (used by TraCI only)
      * @param[in] val the new length in m
      */
-    void setLength(SUMOReal val);
+    void setLength(double val);
 
     /** @brief Returns the lane's edge
      * @return This lane's edge
@@ -708,7 +708,7 @@ public:
 
     struct IncomingLaneInfo {
         MSLane* lane;
-        SUMOReal length;
+        double length;
         MSLink* viaLink;
     };
 
@@ -724,14 +724,14 @@ public:
 
 
     /// @brief return the follower with the largest missing rear gap among all predecessor lanes (within dist)
-    std::pair<MSVehicle* const, SUMOReal> getFollowerOnConsecutive(
-        SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel, SUMOReal dist = -1, bool ignoreMinorLinks = false) const;
+    std::pair<MSVehicle* const, double> getFollowerOnConsecutive(
+        double backOffset, double leaderSpeed, double leaderMaxDecel, double dist = -1, bool ignoreMinorLinks = false) const;
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
     MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const;
 
     /// @brief return by how much further the leader must be inserted to avoid rear end collisions
-    SUMOReal getMissingRearGap(SUMOReal backOffset, SUMOReal leaderSpeed, SUMOReal leaderMaxDecel) const;
+    double getMissingRearGap(double backOffset, double leaderSpeed, double leaderMaxDecel) const;
 
     /** @brief Returns the immediate leader of veh and the distance to veh
      * starting on this lane
@@ -745,7 +745,7 @@ public:
      * @param[in] checkTmpVehicles Whether myTmpVehicles should be used instead of myVehicles
      * @return
      */
-    std::pair<MSVehicle* const, SUMOReal> getLeader(const MSVehicle* veh, const SUMOReal vehPos, const std::vector<MSLane*>& bestLaneConts, SUMOReal dist = -1, bool checkTmpVehicles = false) const;
+    std::pair<MSVehicle* const, double> getLeader(const MSVehicle* veh, const double vehPos, const std::vector<MSLane*>& bestLaneConts, double dist = -1, bool checkTmpVehicles = false) const;
 
     /** @brief Returns the immediate leader and the distance to him
      *
@@ -769,11 +769,11 @@ public:
      * @param[in] bestLaneConts The lanes the vehicle will use in future
      * @return
      */
-    std::pair<MSVehicle* const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
-            SUMOReal speed, const MSVehicle& veh, const std::vector<MSLane*>& bestLaneConts) const;
+    std::pair<MSVehicle* const, double> getLeaderOnConsecutive(double dist, double seen,
+            double speed, const MSVehicle& veh, const std::vector<MSLane*>& bestLaneConts) const;
 
     /// @brief Returns the immediate leaders and the distance to them (as getLeaderOnConsecutive but for the sublane case)
-    void getLeadersOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle* ego,
+    void getLeadersOnConsecutive(double dist, double seen, double speed, const MSVehicle* ego,
                                  const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result) const;
 
     /** @brief Returns the most dangerous leader and the distance to him
@@ -793,7 +793,7 @@ public:
      * @param[in] veh The (ego) vehicle for which the information shall be computed
      * @return
      */
-    std::pair<MSVehicle* const, SUMOReal> getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle& veh) const;
+    std::pair<MSVehicle* const, double> getCriticalLeader(double dist, double seen, double speed, const MSVehicle& veh) const;
 
     /* @brief return the partial vehicle closest behind ego or 0
      * if no such vehicle exists */
@@ -836,30 +836,30 @@ public:
     /** @brief Returns the mean speed on this lane
      * @return The average speed of vehicles during the last step; default speed if no vehicle was on this lane
      */
-    SUMOReal getMeanSpeed() const;
+    double getMeanSpeed() const;
 
     /** @brief Returns the overall waiting time on this lane
     * @return The sum of the waiting time of all vehicles during the last step;
     */
-    SUMOReal getWaitingSeconds() const;
+    double getWaitingSeconds() const;
 
 
     /** @brief Returns the brutto (including minGaps) occupancy of this lane during the last step
      * @return The occupancy during the last step
      */
-    SUMOReal getBruttoOccupancy() const;
+    double getBruttoOccupancy() const;
 
 
     /** @brief Returns the netto (excluding minGaps) occupancy of this lane during the last step (including minGaps)
      * @return The occupancy during the last step
      */
-    SUMOReal getNettoOccupancy() const;
+    double getNettoOccupancy() const;
 
 
     /** @brief Returns the sum of lengths of vehicles, including their minGaps, which were on the lane during the last step
      * @return The sum of vehicle lengths of vehicles in the last step
      */
-    inline SUMOReal getBruttoVehLenSum() const {
+    inline double getBruttoVehLenSum() const {
         return myBruttoVehicleLengthSum;
     }
 
@@ -867,52 +867,52 @@ public:
     /** @brief Returns the sum of last step CO2 emissions
      * @return CO2 emissions of vehicles on this lane during the last step
      */
-    SUMOReal getCO2Emissions() const;
+    double getCO2Emissions() const;
 
 
     /** @brief Returns the sum of last step CO emissions
      * @return CO emissions of vehicles on this lane during the last step
      */
-    SUMOReal getCOEmissions() const;
+    double getCOEmissions() const;
 
 
     /** @brief Returns the sum of last step PMx emissions
      * @return PMx emissions of vehicles on this lane during the last step
      */
-    SUMOReal getPMxEmissions() const;
+    double getPMxEmissions() const;
 
 
     /** @brief Returns the sum of last step NOx emissions
      * @return NOx emissions of vehicles on this lane during the last step
      */
-    SUMOReal getNOxEmissions() const;
+    double getNOxEmissions() const;
 
 
     /** @brief Returns the sum of last step HC emissions
      * @return HC emissions of vehicles on this lane during the last step
      */
-    SUMOReal getHCEmissions() const;
+    double getHCEmissions() const;
 
 
     /** @brief Returns the sum of last step fuel consumption
     * @return fuel consumption of vehicles on this lane during the last step
     */
-    SUMOReal getFuelConsumption() const;
+    double getFuelConsumption() const;
 
 
     /** @brief Returns the sum of last step electricity consumption
     * @return electricity consumption of vehicles on this lane during the last step
     */
-    SUMOReal getElectricityConsumption() const;
+    double getElectricityConsumption() const;
 
 
     /** @brief Returns the sum of last step noise emissions
      * @return noise emissions of vehicles on this lane during the last step
      */
-    SUMOReal getHarmonoise_NoiseEmissions() const;
+    double getHarmonoise_NoiseEmissions() const;
     /// @}
 
-    void setRightSideOnEdge(SUMOReal value, int rightmostSublane) {
+    void setRightSideOnEdge(double value, int rightmostSublane) {
         myRightSideOnEdge = value;
         myRightmostSublane = rightmostSublane;
     }
@@ -920,7 +920,7 @@ public:
     /// @brief initialized vClass-specific speed limits
     void initRestrictions();
 
-    SUMOReal getRightSideOnEdge() const {
+    double getRightSideOnEdge() const {
         return myRightSideOnEdge;
     }
 
@@ -928,7 +928,7 @@ public:
         return myRightmostSublane;
     }
 
-    SUMOReal getCenterOnEdge() const {
+    double getCenterOnEdge() const {
         return myRightSideOnEdge + 0.5 * myWidth;
     }
 
@@ -939,7 +939,7 @@ public:
     MSLane* getOpposite() const;
 
     /// @brief return the corresponding position on the opposite lane
-    SUMOReal getOppositePos(SUMOReal pos) const;
+    double getOppositePos(double pos) const;
 
     /* @brief find leader for a vehicle depending the relative driving direction
      * @param[in] ego The ego vehicle
@@ -947,13 +947,13 @@ public:
      * @param[in] oppositeDir Whether the lane has the opposite driving direction of ego
      * @return the leader vehicle and it's gap to ego
      */
-    std::pair<MSVehicle* const, SUMOReal> getOppositeLeader(const MSVehicle* ego, SUMOReal dist, bool oppositeDir) const;
+    std::pair<MSVehicle* const, double> getOppositeLeader(const MSVehicle* ego, double dist, bool oppositeDir) const;
 
     /* @brief find follower for a vehicle that is located on the opposite of this lane
      * @param[in] ego The ego vehicle
      * @return the follower vehicle and it's gap to ego
      */
-    std::pair<MSVehicle* const, SUMOReal> getOppositeFollower(const MSVehicle* ego) const;
+    std::pair<MSVehicle* const, double> getOppositeFollower(const MSVehicle* ego) const;
 
 
     /** @brief Find follower vehicle for the given ego vehicle (which may be on the opposite direction lane)
@@ -963,7 +963,7 @@ public:
      * @param[in] ignoreMinorLinks Whether backward search should stop at minor links
      * @return the follower vehicle and it's gap to ego
      */
-    std::pair<MSVehicle* const, SUMOReal> getFollower(const MSVehicle* ego, SUMOReal egoPos, SUMOReal dist, bool ignoreMinorLinks) const;
+    std::pair<MSVehicle* const, double> getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignoreMinorLinks) const;
 
     /// @name State saving/loading
     /// @{
@@ -1029,7 +1029,7 @@ protected:
      * @param[in] at
      * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      */
-    virtual void incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed, SUMOReal posLat,
+    virtual void incorporateVehicle(MSVehicle* veh, double pos, double speed, double posLat,
                                     const MSLane::VehCont::iterator& at,
                                     MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 
@@ -1041,26 +1041,26 @@ protected:
 
     /// @brief take action upon collision
     void handleCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
-                                SUMOReal gap, SUMOReal latGap,
+                                double gap, double latGap,
                                 std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
                                 std::set<const MSVehicle*>& toTeleport) const;
 
     /// @brief compute maximum braking distance on this lane
-    SUMOReal getMaximumBrakeDist() const;
+    double getMaximumBrakeDist() const;
 
     /* @brief determine depart speed and whether it may be patched
      * @param[in] veh The departing vehicle
      * @param[out] whether the speed may be patched to account for safety
      * @return the depart speed
      */
-    SUMOReal getDepartSpeed(const MSVehicle& veh, bool& patchSpeed);
+    double getDepartSpeed(const MSVehicle& veh, bool& patchSpeed);
 
     /** @brief return the maximum safe speed for insertion behind leaders
      * (a negative value indicates that safe insertion is impossible) */
-    SUMOReal safeInsertionSpeed(const MSVehicle* veh, const MSLeaderInfo& leaders, SUMOReal speed);
+    double safeInsertionSpeed(const MSVehicle* veh, const MSLeaderInfo& leaders, double speed);
 
     /// @brief departure position where the vehicle fits fully onto the lane (if possible)
-    SUMOReal basePos(const MSVehicle& veh) const;
+    double basePos(const MSVehicle& veh) const;
 
     /// Unique numerical ID (set on reading by netload)
     int myNumericalID;
@@ -1106,16 +1106,16 @@ protected:
 
 
     /// Lane length [m]
-    SUMOReal myLength;
+    double myLength;
 
     /// Lane width [m]
-    const SUMOReal myWidth;
+    const double myWidth;
 
     /// The lane's edge, for routing only.
     MSEdge* const myEdge;
 
     /// Lane-wide speedlimit [m/s]
-    SUMOReal myMaxSpeed;
+    double myMaxSpeed;
 
     /// The vClass permissions for this lane
     SVCPermissions myPermissions;
@@ -1124,7 +1124,7 @@ protected:
     SVCPermissions myOriginalPermissions;
 
     /// The vClass speed restrictions for this lane
-    const std::map<SUMOVehicleClass, SUMOReal>* myRestrictions;
+    const std::map<SUMOVehicleClass, double>* myRestrictions;
 
     /// All direct predecessor lanes
     std::vector<IncomingLaneInfo> myIncomingLanes;
@@ -1139,10 +1139,10 @@ protected:
     mutable MSLane* myCanonicalSuccessorLane;
 
     /// @brief The current length of all vehicles on this lane, including their minGaps
-    SUMOReal myBruttoVehicleLengthSum;
+    double myBruttoVehicleLengthSum;
 
     /// @brief The current length of all vehicles on this lane, excluding their minGaps
-    SUMOReal myNettoVehicleLengthSum;
+    double myNettoVehicleLengthSum;
 
     /** The lane's Links to it's succeeding lanes and the default
         right-of-way rule, i.e. blocked or not blocked. */
@@ -1164,13 +1164,13 @@ protected:
     mutable SUMOTime myFollowerInfoTime;
 
     /// @brief precomputed myShape.length / myLength
-    const SUMOReal myLengthGeometryFactor;
+    const double myLengthGeometryFactor;
 
     /// @brief whether this lane is an acceleration lane
     const bool myIsRampAccel;
 
     /// @brief the combined width of all lanes with lower index on myEdge
-    SUMOReal myRightSideOnEdge;
+    double myRightSideOnEdge;
     /// @brief the index of the rightmost sublane of this lane on myEdge
     int myRightmostSublane;
 
@@ -1256,7 +1256,7 @@ private:
         by_connections_to_sorter& operator=(const by_connections_to_sorter&); // just to avoid a compiler warning
     private:
         const MSEdge* const myEdge;
-        SUMOReal myLaneDir;
+        double myLaneDir;
     };
 
 
@@ -1277,7 +1277,7 @@ private:
         incoming_lane_priority_sorter& operator=(const incoming_lane_priority_sorter&); // just to avoid a compiler warning
     private:
         const MSLane* const myLane;
-        SUMOReal myLaneDir;
+        double myLaneDir;
     };
 
 
@@ -1297,7 +1297,7 @@ private:
         outgoing_lane_priority_sorter& operator=(const outgoing_lane_priority_sorter&); // just to avoid a compiler warning
     private:
         const MSLane* const myLane;
-        SUMOReal myLaneDir;
+        double myLaneDir;
     };
 
     /**

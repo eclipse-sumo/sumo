@@ -104,34 +104,34 @@ public:
     //@}
 
     /// @brief Returns the rotation of the canvas stored in this changer
-    virtual SUMOReal getRotation() const = 0;
+    virtual double getRotation() const = 0;
 
     /// @brief Returns the x-offset of the field to show stored in this changer
-    virtual SUMOReal getXPos() const = 0;
+    virtual double getXPos() const = 0;
 
     /// @brief Returns the y-offset of the field to show stored in this changer
-    virtual SUMOReal getYPos() const = 0;
+    virtual double getYPos() const = 0;
 
     /// @brief Returns the zoom factor computed stored in this changer
-    virtual SUMOReal getZoom() const = 0;
+    virtual double getZoom() const = 0;
 
     /// @brief Returns the camera height corresponding to the current zoom factor
-    virtual SUMOReal getZPos() const = 0;
+    virtual double getZPos() const = 0;
 
     /// @brief Returns the camera height at which the given zoom level is reached
-    virtual SUMOReal zoom2ZPos(SUMOReal zoom) const = 0;
+    virtual double zoom2ZPos(double zoom) const = 0;
 
     /// @brief Returns the zoom level that is achieved at a given camera height
-    virtual SUMOReal zPos2Zoom(SUMOReal zPos) const = 0;
+    virtual double zPos2Zoom(double zPos) const = 0;
 
     /// @brief Centers the view to the given position, setting it to a size that covers the radius. Used for: Centering of vehicles and junctions */
-    virtual void centerTo(const Position& pos, SUMOReal radius, bool applyZoom = true) = 0;
+    virtual void centerTo(const Position& pos, double radius, bool applyZoom = true) = 0;
 
     /// @brief Sets the viewport Used for: Adapting a new viewport
-    virtual void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos) = 0;
+    virtual void setViewport(double zoom, double xPos, double yPos) = 0;
 
     /// @brief Alternative method for setting the viewport
-    virtual void setViewportFrom(SUMOReal xPos, SUMOReal yPos, SUMOReal zPos) = 0;
+    virtual void setViewportFrom(double xPos, double yPos, double zPos) = 0;
 
     /// @brief Returns the last mouse x-position an event occured at
     FXint getMouseXPosition() const;

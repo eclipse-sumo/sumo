@@ -153,9 +153,9 @@ public:
      * @return True if vehicle hasn't passed the reminder completely.
      */
     virtual bool notifyMove(SUMOVehicle& veh,
-                            SUMOReal oldPos,
-                            SUMOReal newPos,
-                            SUMOReal newSpeed) {
+                            double oldPos,
+                            double newPos,
+                            double newSpeed) {
         UNUSED_PARAMETER(oldPos);
         UNUSED_PARAMETER(newPos);
         UNUSED_PARAMETER(newSpeed);
@@ -177,7 +177,7 @@ public:
      *
      * @return True if the reminder wants to receive further info.
      */
-    virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
+    virtual bool notifyLeave(SUMOVehicle& veh, double lastPos,
                              Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0) {
         UNUSED_PARAMETER(&veh);
         UNUSED_PARAMETER(lastPos);
@@ -189,7 +189,7 @@ public:
 
 
     // TODO: Documentation
-    void updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal leavePos,
+    void updateDetector(SUMOVehicle& veh, double entryPos, double leavePos,
                         SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime,
                         bool cleanUp);
 
@@ -210,12 +210,12 @@ public:
      * @param[in] travelledDistanceVehicleOnLane distance travelled while front was on the lane.
      */
     virtual void notifyMoveInternal(const SUMOVehicle& veh,
-                                    const SUMOReal frontOnLane,
-                                    const SUMOReal timeOnLane,
-                                    const SUMOReal meanSpeedFrontOnLane,
-                                    const SUMOReal meanSpeedVehicleOnLane,
-                                    const SUMOReal travelledDistanceFrontOnLane,
-                                    const SUMOReal travelledDistanceVehicleOnLane) {
+                                    const double frontOnLane,
+                                    const double timeOnLane,
+                                    const double meanSpeedFrontOnLane,
+                                    const double meanSpeedVehicleOnLane,
+                                    const double travelledDistanceFrontOnLane,
+                                    const double travelledDistanceVehicleOnLane) {
         UNUSED_PARAMETER(travelledDistanceFrontOnLane);
         UNUSED_PARAMETER(travelledDistanceVehicleOnLane);
         UNUSED_PARAMETER(meanSpeedVehicleOnLane);
@@ -244,7 +244,7 @@ protected:
     std::string myDescription;
 
 private:
-    std::map<SUMOVehicle*, std::pair<SUMOTime, SUMOReal> > myLastVehicleUpdateValues;
+    std::map<SUMOVehicle*, std::pair<SUMOTime, double> > myLastVehicleUpdateValues;
 
 
 private:

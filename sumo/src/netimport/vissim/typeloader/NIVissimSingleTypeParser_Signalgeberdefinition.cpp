@@ -101,7 +101,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream& from) {
     from >> laneno;
 
     from >> tag;
-    SUMOReal position;
+    double position;
     from >> position;
     //
     while (tag != "fahrzeugklassen") {

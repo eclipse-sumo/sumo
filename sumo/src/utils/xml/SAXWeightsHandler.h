@@ -95,7 +95,7 @@ public:
          * @param[in] end The end of the interval the weight is valid for
          */
         virtual void addEdgeWeight(const std::string& id,
-                                   SUMOReal val, SUMOReal beg, SUMOReal end) const = 0;
+                                   double val, double beg, double end) const = 0;
 
     private:
         EdgeFloatTimeLineRetriever& operator=(const EdgeFloatTimeLineRetriever&); // just to avoid a compiler warning
@@ -125,7 +125,7 @@ public:
         EdgeFloatTimeLineRetriever& myDestination;
 
         /// aggregated value over the lanes read within the current edge
-        SUMOReal myAggValue;
+        double myAggValue;
 
         /// The number of lanes read for the current edge
         int myNoLanes;
@@ -200,10 +200,10 @@ private:
     std::vector<ToRetrieveDefinition*> myDefinitions;
 
     /// the begin of the time period that is currently processed
-    SUMOReal myCurrentTimeBeg;
+    double myCurrentTimeBeg;
 
     /// the end of the time period that is currently processed
-    SUMOReal myCurrentTimeEnd;
+    double myCurrentTimeEnd;
 
     /// the edge which is currently being processed
     std::string myCurrentEdgeID;

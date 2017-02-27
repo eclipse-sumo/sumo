@@ -285,7 +285,7 @@ GUIOSGView::recenterView() {
 
 
 void
-GUIOSGView::centerTo(GUIGlID id, bool /* applyZoom */, SUMOReal /* zoomDist */) {
+GUIOSGView::centerTo(GUIGlID id, bool /* applyZoom */, double /* zoomDist */) {
     startTrack(id);
 }
 
@@ -359,8 +359,8 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         }
         osg::PositionAttitudeTransform* n = myVehicles[veh].pos;
         n->setPosition(osg::Vec3d(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()));
-        const SUMOReal dir = veh->getAngle() + PI / 2.;
-        const SUMOReal slope = veh->getSlope();
+        const double dir = veh->getAngle() + PI / 2.;
+        const double slope = veh->getSlope();
         n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)) *
                        osg::Quat(osg::DegreesToRadians(slope), osg::Vec3d(0, 1, 0)));
         /*
@@ -390,7 +390,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         lookAt[0] = myTracked->getPosition().x();
         lookAt[1] = myTracked->getPosition().y();
         lookAt[2] = myTracked->getPosition().z();
-        const SUMOReal angle = myTracked->getAngle();
+        const double angle = myTracked->getAngle();
         lookFrom[0] = lookAt[0] + 50. * cos(angle);
         lookFrom[1] = lookAt[1] + 50. * sin(angle);
         lookFrom[2] = lookAt[2] + 10.;
@@ -409,7 +409,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         osg::PositionAttitudeTransform* n = myPersons[person].pos;
         const Position pos = person->getPosition();
         n->setPosition(osg::Vec3d(pos.x(), pos.y(), pos.z()));
-        const SUMOReal dir = person->getAngle() + PI / 2.;
+        const double dir = person->getAngle() + PI / 2.;
         n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)));
     }
     if (myAdapter->makeCurrent()) {
@@ -519,7 +519,7 @@ GUIOSGView::onGamingClick(Position pos) {
     MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
     const std::vector<MSTrafficLightLogic*>& logics = tlsControl.getAllLogics();
     MSTrafficLightLogic* minTll = 0;
-    SUMOReal minDist = std::numeric_limits<SUMOReal>::infinity();
+    double minDist = std::numeric_limits<double>::infinity();
     for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
         // get the logic
         MSTrafficLightLogic* tll = (*i);

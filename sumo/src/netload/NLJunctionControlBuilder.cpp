@@ -101,7 +101,7 @@ void
 NLJunctionControlBuilder::openJunction(const std::string& id,
                                        const std::string& key,
                                        const SumoXMLNodeType type,
-                                       SUMOReal x, SUMOReal y,
+                                       double x, double y,
                                        const PositionVector& shape,
                                        const std::vector<MSLane*>& incomingLanes,
                                        const std::vector<MSLane*>& internalLanes) {

@@ -264,7 +264,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
             NBEdge* toEdge = 0;
             std::string internalEdgeID = "";
             // first pass: compute average lengths of non-via edges
-            std::map<NBEdge*, SUMOReal> lengthSum;
+            std::map<NBEdge*, double> lengthSum;
             std::map<NBEdge*, int> numLanes;
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
                 lengthSum[(*k).toEdge] += MAX2((*k).shape.length(), POSITION_EPS);
@@ -291,10 +291,10 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 // to avoid changing to an internal lane which has a successor
                 // with the wrong permissions we need to inherit them from the successor
                 const NBEdge::Lane& successor = (*k).toEdge->getLanes()[(*k).toLane];
-                const SUMOReal length = lengthSum[toEdge] / numLanes[toEdge];
+                const double length = lengthSum[toEdge] / numLanes[toEdge];
                 // @note the actual length should be used once sumo supports lanes of
                 // varying length within the same edge
-                //const SUMOReal length = MAX2((*k).shape.length(), POSITION_EPS);
+                //const double length = MAX2((*k).shape.length(), POSITION_EPS);
                 writeLane(into, (*k).getInternalLaneID(), (*k).vmax,
                           successor.permissions, successor.preferred,
                           NBEdge::UNSPECIFIED_OFFSET, successor.width, (*k).shape, (*k).origID,
@@ -381,7 +381,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
     // write the lanes
     const std::vector<NBEdge::Lane>& lanes = e.getLanes();
 
-    const SUMOReal length = e.getFinalLength();
+    const double length = e.getFinalLength();
     for (int i = 0; i < (int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
         writeLane(into, e.getLaneID(i), l.speed,
@@ -395,9 +395,9 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
 
 void
 NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
-                         SUMOReal speed, SVCPermissions permissions, SVCPermissions preferred,
-                         SUMOReal endOffset, SUMOReal width, PositionVector shape,
-                         const std::string& origID, SUMOReal length, int index, bool origNames,
+                         double speed, SVCPermissions permissions, SVCPermissions preferred,
+                         double endOffset, double width, PositionVector shape,
+                         const std::string& origID, double length, int index, bool origNames,
                          const std::string& oppositeID, const NBNode* node, bool accelRamp) {
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE).writeAttr(SUMO_ATTR_ID, lID);
@@ -718,10 +718,10 @@ NWWriter_SUMO::writeRoundabout(OutputDevice& into, const std::vector<std::string
 
 void
 NWWriter_SUMO::writeDistrict(OutputDevice& into, const NBDistrict& d) {
-    std::vector<SUMOReal> sourceW = d.getSourceWeights();
-    VectorHelper<SUMOReal>::normaliseSum(sourceW, 1.0);
-    std::vector<SUMOReal> sinkW = d.getSinkWeights();
-    VectorHelper<SUMOReal>::normaliseSum(sinkW, 1.0);
+    std::vector<double> sourceW = d.getSourceWeights();
+    VectorHelper<double>::normaliseSum(sourceW, 1.0);
+    std::vector<double> sinkW = d.getSinkWeights();
+    VectorHelper<double>::normaliseSum(sinkW, 1.0);
     // write the head and the id of the district
     into.openTag(SUMO_TAG_TAZ).writeAttr(SUMO_ATTR_ID, d.getID());
     if (d.getShape().size() > 0) {
@@ -748,7 +748,7 @@ NWWriter_SUMO::writeDistrict(OutputDevice& into, const NBDistrict& d) {
 
 std::string
 NWWriter_SUMO::writeSUMOTime(SUMOTime steps) {
-    SUMOReal time = STEPS2TIME(steps);
+    double time = STEPS2TIME(steps);
     if (time == std::floor(time)) {
         return toString(int(time));
     } else {

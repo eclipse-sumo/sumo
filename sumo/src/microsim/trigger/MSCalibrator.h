@@ -58,10 +58,10 @@ class MSCalibrator : public MSTrigger, public MSRouteHandler, public Command {
 public:
     /** constructor */
     MSCalibrator(const std::string& id,
-                 const MSEdge* const edge, const SUMOReal pos,
+                 const MSEdge* const edge, const double pos,
                  const std::string& aXMLFilename,
                  const std::string& outputFilename,
-                 const SUMOTime freq, const SUMOReal length,
+                 const SUMOTime freq, const double length,
                  const MSRouteProbe* probe, const bool addLaneMeanData = true);
 
     /** destructor */
@@ -143,8 +143,8 @@ protected:
         AspiredState() : begin(-1), end(-1), q(-1.), v(-1.), vehicleParameter(0) {}
         SUMOTime begin;
         SUMOTime end;
-        SUMOReal q;
-        SUMOReal v;
+        double q;
+        double v;
         SUMOVehicleParameter* vehicleParameter;
     };
 
@@ -210,7 +210,7 @@ protected:
     /// @brief the edge on which this calibrator lies
     const MSEdge* const myEdge;
     /// @brief the position on the edge where this calibrator lies
-    const SUMOReal myPos;
+    const double myPos;
     /// @brief the route probe to retrieve routes from
     const MSRouteProbe* const myProbe;
     /// @brief data collector for the calibrator
@@ -248,7 +248,7 @@ protected:
     /// @brief The information whether init was called
     bool myDidInit;
     /// @brief The default (maximum) speed on the segment
-    SUMOReal myDefaultSpeed;
+    double myDefaultSpeed;
     /// @brief The default (maximum) speed on the segment
     bool myHaveWarnedAboutClearingJam;
 

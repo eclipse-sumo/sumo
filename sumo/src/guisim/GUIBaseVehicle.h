@@ -82,20 +82,20 @@ public:
      * @return The current position (in cartesian coordinates)
      * @see myLane
      */
-    virtual Position getPosition(const SUMOReal offset = 0) const = 0;
+    virtual Position getPosition(const double offset = 0) const = 0;
 
     /** @brief Returns the vehicle's direction in radians
      * @return The vehicle's current angle
      */
-    virtual SUMOReal getAngle() const = 0;
+    virtual double getAngle() const = 0;
 
     /// @brief return the current angle in navigational degrees
-    SUMOReal getNaviDegree() const {
+    double getNaviDegree() const {
         return GeomHelper::naviDegree(getAngle());
     }
 
     /// @brief gets the color value according to the current scheme index
-    virtual SUMOReal getColorValue(int activeScheme) const = 0;
+    virtual double getColorValue(int activeScheme) const = 0;
 
     /// @brief draws the given guiShape if it has distinc carriages/modules and eturns true if so
     virtual bool drawAction_drawCarriageClass(const GUIVisualizationSettings& s, SUMOVehicleShape guiShape, bool asImage) const = 0;
@@ -104,12 +104,12 @@ public:
      * @see MSVehicle::myLastLaneChangeOffset
      * @return The time since the last lane change in seconds
      */
-    virtual SUMOReal getLastLaneChangeOffset() const = 0;
+    virtual double getLastLaneChangeOffset() const = 0;
 
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    virtual void drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const = 0;
+    virtual void drawRouteHelper(const MSRoute& r, double exaggeration) const = 0;
 
     /// @brief retrieve information about the current stop state
     virtual std::string getStopInfo() const = 0;
@@ -134,8 +134,8 @@ public:
      */
     virtual GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
 
-    virtual void drawAction_drawVehicleBlinker(SUMOReal /*length*/) const {}
-    virtual void drawAction_drawVehicleBrakeLight(SUMOReal length, bool onlyOne = false) const {
+    virtual void drawAction_drawVehicleBlinker(double /*length*/) const {}
+    virtual void drawAction_drawVehicleBrakeLight(double length, bool onlyOne = false) const {
         UNUSED_PARAMETER(length);
         UNUSED_PARAMETER(onlyOne);
     }
@@ -175,7 +175,7 @@ public:
      * @param[in] pos The position to draw the vehicle on
      * @param[in] angle The drawing angle of the vehicle
      */
-    void drawOnPos(const GUIVisualizationSettings& s, const Position& pos, const SUMOReal angle) const;
+    void drawOnPos(const GUIVisualizationSettings& s, const Position& pos, const double angle) const;
 
 
     /** @brief Draws the object
@@ -309,7 +309,7 @@ public:
      * @param[in] routeNo The route to show (0: the current, >0: prior)
      * @param[in] darken The amount to darken the route by
      */
-    void drawRoute(const GUIVisualizationSettings& s, int routeNo, SUMOReal darken) const;
+    void drawRoute(const GUIVisualizationSettings& s, int routeNo, double darken) const;
 
 
     /// @}
@@ -323,7 +323,7 @@ protected:
 
     /// @name drawing helper methods
     /// @{
-    static void drawPoly(double* poses, SUMOReal offset);
+    static void drawPoly(double* poses, double offset);
 
     void drawAction_drawVehicleAsBoxPlus() const;
     void drawAction_drawVehicleAsTrianglePlus() const;
@@ -333,13 +333,13 @@ protected:
      * @param[in] length The custom length of the vehicle
      *   (defaults to the * length specified in the vehicle type if -1 is passed)
     */
-    bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, SUMOReal length = -1) const;
+    bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, double length = -1) const;
     /// @}
 
     /// @brief returns the seat position for the person with the given index
     const Position& getSeatPosition(int personIndex) const;
 
-    static void drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal exagerate);
+    static void drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, double exagerate);
 
     /// @brief A shortcut to myVehicle.myType
     inline const MSVehicleType& getVType() const {
@@ -352,7 +352,7 @@ protected:
     mutable MFXMutex myLock;
 
     /// Variable to set with the length of the last drawn carriage or the vehicle length
-    mutable SUMOReal myCarriageLength;
+    mutable double myCarriageLength;
 
     /// @brief positions of seats in the vehicle (updated at every drawing step)
     mutable PositionVector mySeatPositions;

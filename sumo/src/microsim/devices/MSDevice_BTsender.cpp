@@ -111,7 +111,7 @@ MSDevice_BTsender::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLa
 
 
 bool
-MSDevice_BTsender::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOReal newPos, SUMOReal newSpeed) {
+MSDevice_BTsender::notifyMove(SUMOVehicle& veh, double /* oldPos */, double newPos, double newSpeed) {
     if (sVehicles.find(veh.getID()) == sVehicles.end()) {
         WRITE_WARNING("btsender: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
         return true;
@@ -123,7 +123,7 @@ MSDevice_BTsender::notifyMove(SUMOVehicle& veh, SUMOReal /* oldPos */, SUMOReal 
 
 
 bool
-MSDevice_BTsender::notifyLeave(SUMOVehicle& veh, SUMOReal /* lastPos */, Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
+MSDevice_BTsender::notifyLeave(SUMOVehicle& veh, double /* lastPos */, Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     if (reason < MSMoveReminder::NOTIFICATION_TELEPORT) {
         return true;
     }

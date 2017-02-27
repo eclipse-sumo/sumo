@@ -165,7 +165,7 @@ OutputDevice::closeAll() {
 
 
 std::string
-OutputDevice::realString(const SUMOReal v, const int precision) {
+OutputDevice::realString(const double v, const int precision) {
     std::ostringstream oss;
     if (v == 0) {
         return "0";

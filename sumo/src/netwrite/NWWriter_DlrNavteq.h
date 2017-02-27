@@ -127,7 +127,7 @@ private:
     static int getNavteqLaneCode(const int numLanes);
 
     /// @brief get the length of the edge when measured up to the junction center
-    static SUMOReal getGraphLength(NBEdge* edge);
+    static double getGraphLength(NBEdge* edge);
 
     static std::string getSinglePostalCode(const std::string& zipCode, const std::string edgeID);
 
@@ -135,7 +135,7 @@ private:
     static const std::string UNDEFINED;
 
     /// @brief get edge speed rounded to kmh
-    static inline int speedInKph(SUMOReal metersPerSecond) {
+    static inline int speedInKph(double metersPerSecond) {
         return (int)std::floor(metersPerSecond * 3.6 + 0.5);
     }
 };

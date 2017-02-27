@@ -116,7 +116,7 @@ public:
      * @return Whether the source could be added (the district exists and the suorce was not added to it before)
      */
     bool addSource(const std::string& dist, NBEdge* const source,
-                   SUMOReal weight);
+                   double weight);
 
 
     /** @brief Adds a sink to the named district
@@ -132,7 +132,7 @@ public:
      * @return Whether the source could be added (the district exists and the suorce was not added to it before)
      */
     bool addSink(const std::string& dist, NBEdge* const destination,
-                 SUMOReal weight);
+                 double weight);
 
 
     /** @brief Removes the given edge from the lists of sources and sinks in all stored districts

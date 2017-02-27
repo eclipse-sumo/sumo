@@ -57,7 +57,7 @@ class RORoute;
  */
 struct ODCell {
     /// @brief The number of vehicles
-    SUMOReal vehicleNumber;
+    double vehicleNumber;
 
     /// @brief The begin time this cell describes
     SUMOTime begin;

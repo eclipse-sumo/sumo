@@ -140,7 +140,7 @@ MSDevice_Vehroutes::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification r
 
 
 bool
-MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
+MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     if (mySaveExits && reason != NOTIFICATION_LANE_CHANGE) {
         if (reason != NOTIFICATION_TELEPORT && myLastSavedAt == veh.getEdge()) { // need to check this for internal lanes
             myExits.back() = MSNet::getInstance()->getCurrentTimeStep();
@@ -241,7 +241,7 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
         od.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
         if (myRouteLength) {
             const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
-            const SUMOReal routeLength = myHolder.getRoute().getDistanceBetween(myHolder.getDepartPos(), myHolder.getArrivalPos(),
+            const double routeLength = myHolder.getRoute().getDistanceBetween(myHolder.getDepartPos(), myHolder.getArrivalPos(),
                                          myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), includeInternalLengths);
             od.writeAttr("routeLength", routeLength);
         }
@@ -261,7 +261,7 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
                 ++index;
             }
             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, index);
-            const std::vector<SUMOReal>& probs = routeDist->getProbs();
+            const std::vector<double>& probs = routeDist->getProbs();
             for (int i = 0; i < (int)routes.size(); ++i) {
                 od.setPrecision();
                 od.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_COST, routes[i]->getCosts());

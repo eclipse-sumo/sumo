@@ -209,7 +209,7 @@ GUICompleteSchemeStorage::writeSettings(FXApp* app) {
 
 
 void
-GUICompleteSchemeStorage::saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal z) {
+GUICompleteSchemeStorage::saveViewport(const double x, const double y, const double z) {
     myLookFrom.set(x, y, z);
 }
 

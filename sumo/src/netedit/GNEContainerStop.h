@@ -65,7 +65,7 @@ public:
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] lines lines of the busStop
      */
-    GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal startPos, SUMOReal endPos, const std::vector<std::string>& lines);
+    GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::vector<std::string>& lines);
 
     /// @brief Destructor
     ~GNEContainerStop();

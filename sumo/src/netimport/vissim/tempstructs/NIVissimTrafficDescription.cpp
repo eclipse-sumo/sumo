@@ -107,7 +107,7 @@ NIVissimTrafficDescription::clearDict() {
 
 
 
-SUMOReal
+double
 NIVissimTrafficDescription::meanSpeed(int id) {
     NIVissimTrafficDescription* i = dictionary(id);
     assert(i != 0);
@@ -115,13 +115,13 @@ NIVissimTrafficDescription::meanSpeed(int id) {
 }
 
 
-SUMOReal
+double
 NIVissimTrafficDescription::meanSpeed() const {
-    SUMOReal speed = 0;
+    double speed = 0;
     for (NIVissimVehicleClassVector::const_iterator i = myVehicleTypes.begin(); i != myVehicleTypes.end(); i++) {
         speed += (*i)->getSpeed();
     }
-    return speed / (SUMOReal) myVehicleTypes.size();
+    return speed / (double) myVehicleTypes.size();
 }
 
 

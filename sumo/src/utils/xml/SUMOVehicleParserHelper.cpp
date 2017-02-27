@@ -109,7 +109,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     }
     if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-        const SUMOReal vph = attrs.get<SUMOReal>(SUMO_ATTR_VEHSPERHOUR, id.c_str(), ok);
+        const double vph = attrs.get<double>(SUMO_ATTR_VEHSPERHOUR, id.c_str(), ok);
         if (ok && vph <= 0) {
             delete ret;
             throw ProcessError("Invalid repetition rate in the definition of flow '" + id + "'.");
@@ -119,7 +119,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_PROB)) {
-        ret->repetitionProbability = attrs.get<SUMOReal>(SUMO_ATTR_PROB, id.c_str(), ok);
+        ret->repetitionProbability = attrs.get<double>(SUMO_ATTR_PROB, id.c_str(), ok);
         if (ok && (ret->repetitionProbability <= 0 || ret->repetitionProbability > 1)) {
             delete ret;
             throw ProcessError("Invalid repetition probability in the definition of flow '" + id + "'.");
@@ -172,7 +172,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
             if (ret->repetitionEnd == SUMOTime_MAX) {
                 ret->repetitionNumber = std::numeric_limits<int>::max();
             } else {
-                const SUMOReal repLength = (SUMOReal)(ret->repetitionEnd - ret->depart);
+                const double repLength = (double)(ret->repetitionEnd - ret->depart);
                 ret->repetitionNumber = (int)ceil(repLength / ret->repetitionOffset);
             }
         }
@@ -350,23 +350,23 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->setParameter |= VTYPEPARS_VEHICLECLASS_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
-        vtype->length = attrs.get<SUMOReal>(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
+        vtype->length = attrs.get<double>(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_LENGTH_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_MINGAP)) {
-        vtype->minGap = attrs.get<SUMOReal>(SUMO_ATTR_MINGAP, vtype->id.c_str(), ok);
+        vtype->minGap = attrs.get<double>(SUMO_ATTR_MINGAP, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_MINGAP_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED)) {
-        vtype->maxSpeed = attrs.get<SUMOReal>(SUMO_ATTR_MAXSPEED, vtype->id.c_str(), ok);
+        vtype->maxSpeed = attrs.get<double>(SUMO_ATTR_MAXSPEED, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_MAXSPEED_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_SPEEDFACTOR)) {
-        vtype->speedFactor = attrs.get<SUMOReal>(SUMO_ATTR_SPEEDFACTOR, vtype->id.c_str(), ok);
+        vtype->speedFactor = attrs.get<double>(SUMO_ATTR_SPEEDFACTOR, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_SPEEDFACTOR_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_SPEEDDEV)) {
-        vtype->speedDev = attrs.get<SUMOReal>(SUMO_ATTR_SPEEDDEV, vtype->id.c_str(), ok);
+        vtype->speedDev = attrs.get<double>(SUMO_ATTR_SPEEDDEV, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_SPEEDDEVIATION_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_EMISSIONCLASS)) {
@@ -375,18 +375,18 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
     }
     if (attrs.hasAttribute(SUMO_ATTR_IMPATIENCE)) {
         if (attrs.get<std::string>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), ok) == "off") {
-            vtype->impatience = -std::numeric_limits<SUMOReal>::max();
+            vtype->impatience = -std::numeric_limits<double>::max();
         } else {
-            vtype->impatience = attrs.get<SUMOReal>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), ok);
+            vtype->impatience = attrs.get<double>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), ok);
         }
         vtype->setParameter |= VTYPEPARS_IMPATIENCE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
-        vtype->width = attrs.get<SUMOReal>(SUMO_ATTR_WIDTH, vtype->id.c_str(), ok);
+        vtype->width = attrs.get<double>(SUMO_ATTR_WIDTH, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_WIDTH_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_HEIGHT)) {
-        vtype->height = attrs.get<SUMOReal>(SUMO_ATTR_HEIGHT, vtype->id.c_str(), ok);
+        vtype->height = attrs.get<double>(SUMO_ATTR_HEIGHT, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_HEIGHT_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_GUISHAPE)) {
@@ -411,7 +411,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->color = RGBColor::YELLOW;
     }
     if (attrs.hasAttribute(SUMO_ATTR_PROB)) {
-        vtype->defaultProbability = attrs.get<SUMOReal>(SUMO_ATTR_PROB, vtype->id.c_str(), ok);
+        vtype->defaultProbability = attrs.get<double>(SUMO_ATTR_PROB, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_PROBABILITY_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_LANE_CHANGE_MODEL)) {
@@ -454,11 +454,11 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->setParameter |= VTYPEPARS_LOADING_DURATION;
     }
     if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED_LAT)) {
-        vtype->maxSpeedLat = attrs.get<SUMOReal>(SUMO_ATTR_MAXSPEED_LAT, vtype->id.c_str(), ok);
+        vtype->maxSpeedLat = attrs.get<double>(SUMO_ATTR_MAXSPEED_LAT, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_MAXSPEED_LAT_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_MINGAP_LAT)) {
-        vtype->minGapLat = attrs.get<SUMOReal>(SUMO_ATTR_MINGAP_LAT, vtype->id.c_str(), ok);
+        vtype->minGapLat = attrs.get<double>(SUMO_ATTR_MINGAP_LAT, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_MINGAP_LAT_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_LATALIGNMENT)) {

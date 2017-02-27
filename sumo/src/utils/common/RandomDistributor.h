@@ -77,7 +77,7 @@ public:
      * @param[in] val The value to add to the distribution
      * @return true if a new value was added, false if just the probability of an existing one was updated
      */
-    bool add(SUMOReal prob, T val, bool checkDuplicates = true) {
+    bool add(double prob, T val, bool checkDuplicates = true) {
         assert(prob >= 0);
         myProb += prob;
         if (checkDuplicates) {
@@ -104,7 +104,7 @@ public:
         if (myProb == 0) {
             throw OutOfBoundsException();
         }
-        SUMOReal prob = which == 0 ? RandHelper::rand(myProb) : which->rand(myProb);
+        double prob = which == 0 ? RandHelper::rand(myProb) : which->rand(myProb);
         for (int i = 0; i < (int)myVals.size(); i++) {
             if (prob < myProbs[i]) {
                 return myVals[i];
@@ -120,7 +120,7 @@ public:
      *
      * @return the total probability
      */
-    SUMOReal getOverallProb() const {
+    double getOverallProb() const {
         return myProb;
     }
 
@@ -149,17 +149,17 @@ public:
      * @return the probabilities assigned to the distribution
      * @see RandomDistributor::getVals
      */
-    const std::vector<SUMOReal>& getProbs() const {
+    const std::vector<double>& getProbs() const {
         return myProbs;
     }
 
 private:
     /// @brief the total probability
-    SUMOReal myProb;
+    double myProb;
     /// @brief the members (acts as a ring buffer if myMaximumSize is reached)
     std::vector<T> myVals;
     /// @brief the corresponding probabilities (acts as a ring buffer if myMaximumSize is reached)
-    std::vector<SUMOReal> myProbs;
+    std::vector<double> myProbs;
 
 };
 

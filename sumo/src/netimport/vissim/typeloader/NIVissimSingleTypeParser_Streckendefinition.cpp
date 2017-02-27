@@ -64,7 +64,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream& from) {
     // the following elements may occure: "Name", "Beschriftung", "Typ",
     //  followed by the mandatory "Laenge"
     std::string name, label, type;
-    SUMOReal length = -1;
+    double length = -1;
     while (length < 0) {
         tag = overrideOptionalLabel(from);
         if (tag == "name") {
@@ -81,7 +81,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream& from) {
     from >> noLanes;
     // skip some parameter, except optional "Zuschlag" until "Von" (mandatory)
     //  occurs
-    SUMOReal zuschlag1, zuschlag2;
+    double zuschlag1, zuschlag2;
     zuschlag1 = zuschlag2 = 0;
     while (tag != "von") {
         tag = myRead(from);
@@ -99,7 +99,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream& from) {
         geom.push_back_noDoublePos(getPosition(from));
         tag = myRead(from);
         try {
-            TplConvert::_2SUMOReal(tag.c_str());
+            TplConvert::_2double(tag.c_str());
             tag = myRead(from);
         } catch (NumberFormatException&) {}
     }

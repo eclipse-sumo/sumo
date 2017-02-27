@@ -63,7 +63,7 @@ public:
      * @param[in] maxSpeed The maximum speed allowed on the lane
      * @param[in] permissions Vehicle classes that may pass this lane
      */
-    ROLane(const std::string& id, ROEdge* edge, SUMOReal length, SUMOReal maxSpeed, SVCPermissions permissions) :
+    ROLane(const std::string& id, ROEdge* edge, double length, double maxSpeed, SVCPermissions permissions) :
         Named(id), myEdge(edge), myLength(length), myMaxSpeed(maxSpeed), myPermissions(permissions) {
     }
 
@@ -75,7 +75,7 @@ public:
     /** @brief Returns the length of the lane
      * @return The length of this lane
      */
-    SUMOReal getLength() const {
+    double getLength() const {
         return myLength;
     }
 
@@ -83,7 +83,7 @@ public:
     /** @brief Returns the maximum speed allowed on this lane
      * @return The maximum speed allowed on this lane
      */
-    SUMOReal getSpeed() const {
+    double getSpeed() const {
         return myMaxSpeed;
     }
 
@@ -125,10 +125,10 @@ private:
     ROEdge* myEdge;
 
     /// @brief The length of the lane
-    SUMOReal myLength;
+    double myLength;
 
     /// @brief The maximum speed allowed on the lane
-    SUMOReal myMaxSpeed;
+    double myMaxSpeed;
 
     /// @brief The encoding of allowed vehicle classes
     SVCPermissions myPermissions;

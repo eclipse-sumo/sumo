@@ -86,8 +86,8 @@
 // ===========================================================================
 const int NBNode::FORWARD(1);
 const int NBNode::BACKWARD(-1);
-const SUMOReal NBNode::DEFAULT_CROSSING_WIDTH(4);
-const SUMOReal NBNode::UNSPECIFIED_RADIUS = -1;
+const double NBNode::DEFAULT_CROSSING_WIDTH(4);
+const double NBNode::UNSPECIFIED_RADIUS = -1;
 
 // ===========================================================================
 // method definitions
@@ -157,7 +157,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
                                    int dest) const {
     std::deque<int>* ret = new std::deque<int>();
     int noLanes = (int) approachingLanes.size();
-    // when only one lane is approached, we check, whether the SUMOReal-value
+    // when only one lane is approached, we check, whether the double-value
     //  is assigned more to the left or right lane
     if (noLanes == 1) {
         ret->push_back(dest);
@@ -180,7 +180,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
             return ret;
         }
 
-        // as due to the conversion of SUMOReal->uint the numbers will be lower
+        // as due to the conversion of double->uint the numbers will be lower
         //  than they should be, we try to append to the left side first
         //
         // check whether the left boundary of the approached street has
@@ -289,7 +289,7 @@ NBNode::reinit(const Position& position, SumoXMLNodeType type,
 
 // -----------  Applying offset
 void
-NBNode::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
+NBNode::reshiftPosition(double xoff, double yoff) {
     myPosition.add(xoff, yoff, 0);
     myPoly.add(xoff, yoff, 0);
 }
@@ -466,8 +466,8 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
                            const PositionVector& endShape,
                            int numPoints,
                            bool isTurnaround,
-                           SUMOReal extrapolateBeg,
-                           SUMOReal extrapolateEnd,
+                           double extrapolateBeg,
+                           double extrapolateEnd,
                            NBNode* recordError) const {
 
     bool ok = true;
@@ -492,15 +492,15 @@ NBNode::bezierControlPoints(
     const PositionVector& begShape,
     const PositionVector& endShape,
     bool isTurnaround,
-    SUMOReal extrapolateBeg,
-    SUMOReal extrapolateEnd,
+    double extrapolateBeg,
+    double extrapolateEnd,
     bool& ok,
     NBNode* recordError,
-    SUMOReal straightThresh) {
+    double straightThresh) {
 
     const Position beg = begShape.back();
     const Position end = endShape.front();
-    const SUMOReal dist = beg.distanceTo2D(end);
+    const double dist = beg.distanceTo2D(end);
     PositionVector init;
     if (dist < POSITION_EPS || beg.distanceTo2D(begShape[-2]) < POSITION_EPS || end.distanceTo2D(endShape[1]) < POSITION_EPS) {
 #ifdef DEBUG_SMOOTH_GEOM
@@ -519,20 +519,20 @@ NBNode::bezierControlPoints(
             //  - end of incoming lane
             //  - position between incoming/outgoing end/begin shifted by the distance orthogonally
             //  - begin of outgoing lane
-            Position center = PositionVector::positionAtOffset2D(beg, end, beg.distanceTo2D(end) / (SUMOReal) 2.);
+            Position center = PositionVector::positionAtOffset2D(beg, end, beg.distanceTo2D(end) / (double) 2.);
             center.sub(beg.y() - end.y(), end.x() - beg.x());
             init.push_back(center);
         } else {
-            const SUMOReal angle = GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0));
+            const double angle = GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0));
             PositionVector endShapeBegLine(endShape[0], endShape[1]);
             PositionVector begShapeEndLineRev(begShape[-1], begShape[-2]);
             endShapeBegLine.extrapolate2D(100, true);
             begShapeEndLineRev.extrapolate2D(100, true);
             if (fabs(angle) < M_PI / 4.) {
                 // very low angle: could be an s-shape or a straight line
-                const SUMOReal displacementAngle = GeomHelper::angleDiff(begShape.angleAt2D(-2), beg.angleTo2D(end));
-                const SUMOReal bendDeg = RAD2DEG(fabs(displacementAngle - angle));
-                const SUMOReal halfDistance = dist / 2;
+                const double displacementAngle = GeomHelper::angleDiff(begShape.angleAt2D(-2), beg.angleTo2D(end));
+                const double bendDeg = RAD2DEG(fabs(displacementAngle - angle));
+                const double halfDistance = dist / 2;
                 if (fabs(displacementAngle) <= straightThresh && fabs(angle) <= straightThresh) {
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND) std::cout << "   bezierControlPoints identified straight line beg=" << beg << " end=" << end
@@ -551,14 +551,14 @@ NBNode::bezierControlPoints(
 #endif
                     ok = false;
                     if (recordError != 0) {
-                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, (SUMOReal)fabs(sin(displacementAngle) * dist));
+                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, (double)fabs(sin(displacementAngle) * dist));
                     }
                     return PositionVector();
                 } else {
-                    const SUMOReal endLength = begShape[-2].distanceTo2D(begShape[-1]);
-                    const SUMOReal off1 = endLength + MIN2(extrapolateBeg, halfDistance);
+                    const double endLength = begShape[-2].distanceTo2D(begShape[-1]);
+                    const double off1 = endLength + MIN2(extrapolateBeg, halfDistance);
                     init.push_back(PositionVector::positionAtOffset2D(begShapeEndLineRev[1], begShapeEndLineRev[0], off1));
-                    const SUMOReal off2 = 100. - MIN2(extrapolateEnd, halfDistance);
+                    const double off2 = 100. - MIN2(extrapolateEnd, halfDistance);
                     init.push_back(PositionVector::positionAtOffset2D(endShapeBegLine[0], endShapeBegLine[1], off2));
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND) std::cout << "   bezierControlPoints found s-curve beg=" << beg << " end=" << end
@@ -582,11 +582,11 @@ NBNode::bezierControlPoints(
                     ok = false;
                     if (recordError != 0) {
                         // it's unclear if this error can be solved via stretching the intersection.
-                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, (SUMOReal)1.0);
+                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, (double)1.0);
                     }
                     return PositionVector();
                 }
-                const SUMOReal minControlLength = MIN2((SUMOReal)1.0, dist / 2);
+                const double minControlLength = MIN2((double)1.0, dist / 2);
                 const bool lengthenBeg = intersect.distanceTo2D(beg) <= minControlLength;
                 const bool lengthenEnd = intersect.distanceTo2D(end) <= minControlLength;
                 if (lengthenBeg && lengthenEnd) {
@@ -596,7 +596,7 @@ NBNode::bezierControlPoints(
 #endif
                     if (recordError != 0) {
                         // This should be fixable with minor stretching
-                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, (SUMOReal)1.0);
+                        recordError->myDisplacementError = MAX2(recordError->myDisplacementError, (double)1.0);
                     }
                     ok = false;
                     return PositionVector();
@@ -604,10 +604,10 @@ NBNode::bezierControlPoints(
                     init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - minControlLength));
                     init.push_back(endShapeBegLine.positionAtOffset2D(100 - minControlLength));
                 } else {
-                    SUMOReal z;
-                    const SUMOReal z1 = begShapeEndLineRev.positionAtOffset2D(begShapeEndLineRev.nearest_offset_to_point2D(intersect)).z();
-                    const SUMOReal z2 = endShapeBegLine.positionAtOffset2D(endShapeBegLine.nearest_offset_to_point2D(intersect)).z();
-                    const SUMOReal z3 = 0.5 * (beg.z() + end.z());
+                    double z;
+                    const double z1 = begShapeEndLineRev.positionAtOffset2D(begShapeEndLineRev.nearest_offset_to_point2D(intersect)).z();
+                    const double z2 = endShapeBegLine.positionAtOffset2D(endShapeBegLine.nearest_offset_to_point2D(intersect)).z();
+                    const double z3 = 0.5 * (beg.z() + end.z());
                     // if z1 and z2 are on the same side in regard to z3 then we
                     // can use their avarage. Otherwise, the intersection in 3D
                     // is not good and we are better of using z3
@@ -656,8 +656,8 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
 
     ret = computeSmoothShape(fromE->getLaneShape(con.fromLane), con.toEdge->getLaneShape(con.toLane),
                              numPoints, fromE->getTurnDestination() == con.toEdge,
-                             (SUMOReal) 5. * (SUMOReal) fromE->getNumLanes(),
-                             (SUMOReal) 5. * (SUMOReal) con.toEdge->getNumLanes(), recordError);
+                             (double) 5. * (double) fromE->getNumLanes(),
+                             (double) 5. * (double) con.toEdge->getNumLanes(), recordError);
     const NBEdge::Lane& lane = fromE->getLaneStruct(con.fromLane);
     if (lane.endOffset > 0) {
         PositionVector beg = lane.shape.getSubpart(lane.shape.length() - lane.endOffset, lane.shape.length());;
@@ -782,7 +782,7 @@ NBNode::writeLogic(OutputDevice& into, const bool checkLaneFoes) const {
 
 
 void
-NBNode::computeNodeShape(SUMOReal mismatchThreshold) {
+NBNode::computeNodeShape(double mismatchThreshold) {
     if (myHaveCustomPoly) {
         return;
     }
@@ -857,10 +857,10 @@ NBNode::computeLanes2Lanes() {
                 && in2->isConnectedTo(out)
                 && isLongEnough(out, MIN_WEAVE_LENGTH)) {
             // for internal: check which one is the rightmost
-            SUMOReal a1 = in1->getAngleAtNode(this);
-            SUMOReal a2 = in2->getAngleAtNode(this);
-            SUMOReal ccw = GeomHelper::getCCWAngleDiff(a1, a2);
-            SUMOReal cw = GeomHelper::getCWAngleDiff(a1, a2);
+            double a1 = in1->getAngleAtNode(this);
+            double a2 = in2->getAngleAtNode(this);
+            double ccw = GeomHelper::getCCWAngleDiff(a1, a2);
+            double cw = GeomHelper::getCWAngleDiff(a1, a2);
             if (ccw > cw) {
                 std::swap(in1, in2);
                 std::swap(in1Offset, in2Offset);
@@ -1038,8 +1038,8 @@ NBNode::computeLanes2Lanes() {
 }
 
 bool
-NBNode::isLongEnough(NBEdge* out, SUMOReal minLength) {
-    SUMOReal seen = out->getLoadedLength();
+NBNode::isLongEnough(NBEdge* out, double minLength) {
+    double seen = out->getLoadedLength();
     while (seen < minLength) {
         // advance along trivial continuations
         if (out->getToNode()->getOutgoingEdges().size() != 1
@@ -1102,7 +1102,7 @@ NBNode::replaceOutgoing(const EdgeVector& which, NBEdge* by) {
         replaceOutgoing(*i, by, laneOff);
         laneOff += (*i)->getNumLanes();
     }
-    // removed SUMOReal occurences
+    // removed double occurences
     removeDoubleEdges();
     // check whether this node belongs to a district and the edges
     //  must here be also remapped
@@ -1134,7 +1134,7 @@ NBNode::replaceIncoming(const EdgeVector& which, NBEdge* by) {
         replaceIncoming(*i, by, laneOff);
         laneOff += (*i)->getNumLanes();
     }
-    // removed SUMOReal occurences
+    // removed double occurences
     removeDoubleEdges();
     // check whether this node belongs to a district and the edges
     //  must here be also remapped
@@ -1329,17 +1329,17 @@ NBNode::getEmptyDir() const {
         NBNode* conn = (*i)->getFromNode();
         Position toAdd = conn->getPosition();
         toAdd.sub(myPosition);
-        toAdd.mul((SUMOReal) 1.0 / sqrt(toAdd.x()*toAdd.x() + toAdd.y()*toAdd.y()));
+        toAdd.mul((double) 1.0 / sqrt(toAdd.x()*toAdd.x() + toAdd.y()*toAdd.y()));
         pos.add(toAdd);
     }
     for (i = myOutgoingEdges.begin(); i != myOutgoingEdges.end(); i++) {
         NBNode* conn = (*i)->getToNode();
         Position toAdd = conn->getPosition();
         toAdd.sub(myPosition);
-        toAdd.mul((SUMOReal) 1.0 / sqrt(toAdd.x()*toAdd.x() + toAdd.y()*toAdd.y()));
+        toAdd.mul((double) 1.0 / sqrt(toAdd.x()*toAdd.x() + toAdd.y()*toAdd.y()));
         pos.add(toAdd);
     }
-    pos.mul((SUMOReal) - 1.0 / (myIncomingEdges.size() + myOutgoingEdges.size()));
+    pos.mul((double) - 1.0 / (myIncomingEdges.size() + myOutgoingEdges.size()));
     if (pos.x() == 0 && pos.y() == 0) {
         pos = Position(1, 0);
     }
@@ -1424,8 +1424,8 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
                 (lefthand && fromLane >= prohibitorFromLane)) {
             return false;
         }
-        const SUMOReal toAngleAtNode = fmod(to->getStartAngle() + 180, (SUMOReal)360.0);
-        const SUMOReal prohibitorToAngleAtNode = fmod(prohibitorTo->getStartAngle() + 180, (SUMOReal)360.0);
+        const double toAngleAtNode = fmod(to->getStartAngle() + 180, (double)360.0);
+        const double prohibitorToAngleAtNode = fmod(prohibitorTo->getStartAngle() + 180, (double)360.0);
         return (lefthand != (GeomHelper::getCWAngleDiff(from->getEndAngle(), toAngleAtNode) <
                              GeomHelper::getCWAngleDiff(from->getEndAngle(), prohibitorToAngleAtNode)));
     }
@@ -1439,10 +1439,10 @@ NBNode::isLeftMover(const NBEdge* const from, const NBEdge* const to) const {
     if (myIncomingEdges.size() == 1 || myOutgoingEdges.size() == 1) {
         return false;
     }
-    SUMOReal fromAngle = from->getAngleAtNode(this);
-    SUMOReal toAngle = to->getAngleAtNode(this);
-    SUMOReal cw = GeomHelper::getCWAngleDiff(fromAngle, toAngle);
-    SUMOReal ccw = GeomHelper::getCCWAngleDiff(fromAngle, toAngle);
+    double fromAngle = from->getAngleAtNode(this);
+    double toAngle = to->getAngleAtNode(this);
+    double cw = GeomHelper::getCWAngleDiff(fromAngle, toAngle);
+    double ccw = GeomHelper::getCCWAngleDiff(fromAngle, toAngle);
     std::vector<NBEdge*>::const_iterator i = std::find(myAllEdges.begin(), myAllEdges.end(), from);
     do {
         NBContHelper::nextCW(myAllEdges, i);
@@ -1560,7 +1560,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
         return leftHand ? LINKDIR_TURN_LEFTHAND : LINKDIR_TURN;
     }
     // get the angle between incoming/outgoing at the junction
-    SUMOReal angle =
+    double angle =
         NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outgoing->getAngleAtNode(this));
     // ok, should be a straight connection
     if (abs((int) angle) + 1 < 45) {
@@ -1901,10 +1901,10 @@ NBNode::checkCrossing(EdgeVector candidates) {
         return 0;
     } else {
         // check whether the edges may be part of a common crossing due to having similar angle
-        SUMOReal prevAngle = -100000; // dummy
+        double prevAngle = -100000; // dummy
         for (int i = 0; i < (int)candidates.size(); ++i) {
             NBEdge* edge = candidates[i];
-            SUMOReal angle = edge->getCrossingAngle(this);
+            double angle = edge->getCrossingAngle(this);
             // edges should be sorted by angle but this only holds true approximately
             if (i > 0 && fabs(angle - prevAngle) > EXTEND_CROSSING_ANGLE_THRESHOLD) {
                 if (gDebugFlag1) {
@@ -1928,16 +1928,16 @@ NBNode::checkCrossing(EdgeVector candidates) {
             return 1;
         } else {
             // check for intermediate walking areas
-            SUMOReal prevAngle = -100000; // dummy
+            double prevAngle = -100000; // dummy
             for (EdgeVector::iterator it = candidates.begin(); it != candidates.end(); ++it) {
-                SUMOReal angle = (*it)->getCrossingAngle(this);
+                double angle = (*it)->getCrossingAngle(this);
                 if (it != candidates.begin()) {
                     NBEdge* prev = *(it - 1);
                     NBEdge* curr = *it;
                     Position prevPos, currPos;
                     int laneI;
                     // compute distance between candiate edges
-                    SUMOReal intermediateWidth = 0;
+                    double intermediateWidth = 0;
                     if (prev->getToNode() == this) {
                         laneI = prev->getNumLanes() - 1;
                         prevPos = prev->getLanes()[laneI].shape[-1];
@@ -2090,10 +2090,10 @@ NBNode::buildCrossings() {
             std::cout << " sortedEdges=" << toString(edges) << "\n";
         };
         // rotate the edges so that the largest relative angle difference comes at the end
-        SUMOReal maxAngleDiff = 0;
+        double maxAngleDiff = 0;
         int maxAngleDiffIndex = 0; // index before maxDist
         for (int i = 0; i < (int) edges.size(); i++) {
-            SUMOReal diff = NBHelpers::relAngle(edges[i]->getAngleAtNodeToCenter(this),
+            double diff = NBHelpers::relAngle(edges[i]->getAngleAtNodeToCenter(this),
                                                 edges[(i + 1) % edges.size()]->getAngleAtNodeToCenter(this));
             if (diff < 0) {
                 diff += 360;
@@ -2259,8 +2259,8 @@ NBNode::buildWalkingAreas(int cornerDetail) {
         if (gDebugFlag1) {
             std::cout << "build walkingArea " << wa.id << " start=" << start << " end=" << end << " count=" << count << " prev=" << prev << ":\n";
         }
-        SUMOReal endCrossingWidth = 0;
-        SUMOReal startCrossingWidth = 0;
+        double endCrossingWidth = 0;
+        double startCrossingWidth = 0;
         PositionVector endCrossingShape;
         PositionVector startCrossingShape;
         // check for connected crossings
@@ -2418,7 +2418,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             }
         }
         // determine length (average of all possible connections)
-        SUMOReal lengthSum = 0;
+        double lengthSum = 0;
         int combinations = 0;
         for (std::vector<Position>::const_iterator it1 = connectedPoints.begin(); it1 != connectedPoints.end(); ++it1) {
             for (std::vector<Position>::const_iterator it2 = connectedPoints.begin(); it2 != connectedPoints.end(); ++it2) {
@@ -2523,8 +2523,8 @@ NBNode::geometryLike() const {
         NBEdge* out1 = myOutgoingEdges[1];
         for (EdgeVector::const_iterator it = myIncomingEdges.begin(); it != myIncomingEdges.end(); ++it) {
             NBEdge* inEdge = *it;
-            SUMOReal angle0 = fabs(NBHelpers::relAngle(inEdge->getAngleAtNode(this), out0->getAngleAtNode(this)));
-            SUMOReal angle1 = fabs(NBHelpers::relAngle(inEdge->getAngleAtNode(this), out1->getAngleAtNode(this)));
+            double angle0 = fabs(NBHelpers::relAngle(inEdge->getAngleAtNode(this), out0->getAngleAtNode(this)));
+            double angle1 = fabs(NBHelpers::relAngle(inEdge->getAngleAtNode(this), out1->getAngleAtNode(this)));
             if (MAX2(angle0, angle1) <= 160) {
                 // neither of the outgoing edges is parallel to inEdge
                 return false;
@@ -2545,7 +2545,7 @@ NBNode::setRoundabout() {
 
 
 void
-NBNode::addCrossing(EdgeVector edges, SUMOReal width, bool priority, bool fromSumoNet) {
+NBNode::addCrossing(EdgeVector edges, double width, bool priority, bool fromSumoNet) {
     myCrossings.push_back(Crossing(this, edges, width, priority));
     if (fromSumoNet) {
         myCrossingsLoadedFromSumoNet += 1;

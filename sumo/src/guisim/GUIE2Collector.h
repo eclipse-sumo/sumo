@@ -71,14 +71,14 @@ public:
     * @param[in] friendlyPositioning Whether positions should be corrected to "snap" on lane beginnings or ends if closer than POS_EPSILON
     * @param[in] showDetector Whether the detector should be visible in the GUI (@todo)
     *
-    * @note Exactly one of the arguments startPos, endPos and length should be invalid (i.e. equal to std::numeric_limits<SUMOReal>::max()).
+    * @note Exactly one of the arguments startPos, endPos and length should be invalid (i.e. equal to std::numeric_limits<double>::max()).
     *        If length is invalid, it is required that 0 <= startPos < endPos <= lane->length
     *        If endPos is invalid, the detector may span over several lanes downstream of the lane
     *        If pos is invalid, the detector may span over several lanes upstream of the lane
     */
     GUIE2Collector(const std::string& id, DetectorUsage usage,
-                        MSLane* lane, SUMOReal startPos, SUMOReal endPos, SUMOReal detLength,
-                        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+                        MSLane* lane, double startPos, double endPos, double detLength,
+                        SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
                         const std::string& vTypes, bool showDetector);
 
 
@@ -97,8 +97,8 @@ public:
     * @param[in] showDetector Whether the detector should be visible in the GUI (@todo)
     */
     GUIE2Collector(const std::string& id, DetectorUsage usage,
-                        std::vector<MSLane*> lanes, SUMOReal startPos, SUMOReal endPos,
-                        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+                        std::vector<MSLane*> lanes, double startPos, double endPos,
+                        SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
                         const std::string& vTypes, bool showDetector);
 
 
@@ -175,10 +175,10 @@ public:
         PositionVector myFullGeometry;
 
         /// @brief A sequence of lengths in full-geometry mode
-        std::vector<SUMOReal> myShapeLengths;
+        std::vector<double> myShapeLengths;
 
         /// @brief A sequence of rotations in full-geometry mode
-        std::vector<SUMOReal> myShapeRotations;
+        std::vector<double> myShapeRotations;
 
     private:
         /// @brief Invalidated copy constructor.

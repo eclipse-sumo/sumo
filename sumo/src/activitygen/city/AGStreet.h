@@ -80,25 +80,25 @@ public:
      *
      * @return the number of inhabitants
      */
-    SUMOReal getPopulation() const;
+    double getPopulation() const;
 
     /** @brief Modifies the number of persons living in this street.
      *
      * @param[in] pop the new number of inhabitants
      */
-    void setPopulation(const SUMOReal pop);
+    void setPopulation(const double pop);
 
     /** @brief Provides the number of work places in this street.
      *
      * @return the number of work places
      */
-    SUMOReal getWorkplaceNumber() const;
+    double getWorkplaceNumber() const;
 
     /** @brief Modifies the number of work places in this street.
      *
      * @param[in] work the new number of work places
      */
-    void setWorkplaceNumber(const SUMOReal work);
+    void setWorkplaceNumber(const double work);
 
     /** @brief Prints a summary of the properties of this street to standard
      * output.
@@ -113,8 +113,8 @@ public:
     bool allows(const SUMOVehicleClass vclass) const;
 
 private:
-    SUMOReal myPopulation;
-    SUMOReal myNumWorkplaces;
+    double myPopulation;
+    double myNumWorkplaces;
 };
 
 #endif

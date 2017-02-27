@@ -50,7 +50,7 @@ AGTime::convert(int days, int hours, int minutes, int seconds) {
 }
 
 int
-AGTime::getSecondsOf(SUMOReal minutes) {
+AGTime::getSecondsOf(double minutes) {
     return static_cast<int>(60.0 * minutes);
 }
 

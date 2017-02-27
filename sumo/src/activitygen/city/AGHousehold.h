@@ -101,7 +101,7 @@ public:
     /**
      * function allocating cars to this household in relation to the given rate for each adult
      */
-    void generateCars(SUMOReal rate);
+    void generateCars(double rate);
     int getCarNbr();
     /**
      * generates one (more) car in this household

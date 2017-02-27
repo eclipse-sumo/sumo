@@ -74,7 +74,7 @@ public:
     /** @brief Returns the vehicle's previous speed
      * @return The vehicle's speed
      */
-    virtual SUMOReal getPreviousSpeed() const = 0;
+    virtual double getPreviousSpeed() const = 0;
 
 
     typedef Named::NamedLikeComparatorIdLess<SUMOVehicle> ComparatorIdLess;
@@ -90,23 +90,23 @@ public:
     /** @brief Get the vehicle's position along the lane
      * @return The position of the vehicle (in m from the lane's begin)
      */
-    virtual SUMOReal getPositionOnLane() const = 0;
+    virtual double getPositionOnLane() const = 0;
 
     /** @brief Get the vehicle's back position along the given lane
      * @return The position of the vehicle (in m from the given lane's begin)
      */
-    virtual SUMOReal getBackPositionOnLane(const MSLane* lane) const = 0;
+    virtual double getBackPositionOnLane(const MSLane* lane) const = 0;
 
     /** @brief Get the vehicle's lateral position on the lane
      * @return The lateral position of the vehicle (in m relative to the
      * centerline of the lane)
      */
-    virtual SUMOReal getLateralPositionOnLane() const = 0;
+    virtual double getLateralPositionOnLane() const = 0;
 
     /** @brief Get the vehicle's angle
      * @return The angle of the vehicle (in degree)
      */
-    virtual SUMOReal getAngle() const = 0;
+    virtual double getAngle() const = 0;
 
     /** @brief Return current position (x/y, cartesian)
      *
@@ -115,17 +115,17 @@ public:
      * @return The current position (in cartesian coordinates)
      * @see myLane
      */
-    virtual Position getPosition(const SUMOReal offset = 0) const = 0;
+    virtual Position getPosition(const double offset = 0) const = 0;
 
     /** @brief Returns the vehicle's maximum speed
      * @return The vehicle's maximum speed
      */
-    virtual SUMOReal getMaxSpeed() const = 0;
+    virtual double getMaxSpeed() const = 0;
 
     /** @brief Returns the vehicle's current speed
      * @return The vehicle's speed
      */
-    virtual SUMOReal getSpeed() const = 0;
+    virtual double getSpeed() const = 0;
 
     /** @brief Returns the lane the vehicle is on
     * @return The vehicle's current lane
@@ -197,12 +197,12 @@ public:
     /** @brief Returns the vehicle's acceleration
      * @return The acceleration
      */
-    virtual SUMOReal getAcceleration() const = 0;
+    virtual double getAcceleration() const = 0;
 
     /** @brief Returns the slope of the road at vehicle's position
      * @return The slope
      */
-    virtual SUMOReal getSlope() const = 0;
+    virtual double getSlope() const = 0;
 
     /** @brief Returns the edge the vehicle is currently at
      *
@@ -252,17 +252,17 @@ public:
     /** @brief Returns this vehicle's real departure position
      * @return This vehicle's real departure position
      */
-    virtual SUMOReal getDepartPos() const = 0;
+    virtual double getDepartPos() const = 0;
 
     /** @brief Returns this vehicle's desired arrivalPos for its current route
      * (may change on reroute)
      * @return This vehicle's real arrivalPos
      */
-    virtual SUMOReal getArrivalPos() const = 0;
+    virtual double getArrivalPos() const = 0;
 
     /** @brief Sets this vehicle's desired arrivalPos for its current route
      */
-    virtual void setArrivalPos(SUMOReal arrivalPos) = 0;
+    virtual void setArrivalPos(double arrivalPos) = 0;
 
     /** @brief Returns whether this vehicle has departed
      */
@@ -335,16 +335,16 @@ public:
     virtual MSDevice* getDevice(const std::type_info& type) const = 0;
 
 
-    virtual SUMOReal getChosenSpeedFactor() const = 0;
+    virtual double getChosenSpeedFactor() const = 0;
 
-    virtual void setChosenSpeedFactor(const SUMOReal factor) = 0;
+    virtual void setChosenSpeedFactor(const double factor) = 0;
 
     virtual SUMOTime getWaitingTime() const = 0;
 
     virtual SUMOTime getDepartDelay() const = 0;
 
     /// @brief Returns this vehicles impatience
-    virtual SUMOReal getImpatience() const = 0;
+    virtual double getImpatience() const = 0;
 
     /// @name state io
     //@{

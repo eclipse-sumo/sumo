@@ -69,8 +69,8 @@ AGActivity::possibleTranspMean(AGPosition destination) {
             transp += BUS;
         }
     } else if (myHousehold->getCarNbr() == 0) {
-        SUMOReal d1 = destination.distanceTo(myHousehold->getPosition());
-        SUMOReal d2 = destination.minDistanceTo(myStatData->busStations) + myHousehold->getPosition().minDistanceTo(myStatData->busStations);
+        double d1 = destination.distanceTo(myHousehold->getPosition());
+        double d2 = destination.minDistanceTo(myStatData->busStations) + myHousehold->getPosition().minDistanceTo(myStatData->busStations);
 
         if (d1 > d2) {
             transp = BUS;
@@ -107,7 +107,7 @@ AGActivity::availableTranspMeans(AGPosition from, AGPosition to) {
 
 int
 AGActivity::timeToDrive(AGPosition from, AGPosition to) {
-    SUMOReal dist = from.distanceTo(to);
+    double dist = from.distanceTo(to);
     return (int)(timePerKm * dist / 1000.0);
 }
 

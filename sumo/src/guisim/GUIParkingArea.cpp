@@ -63,8 +63,8 @@
 // method definitions
 // ===========================================================================
 GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
-                               SUMOReal frompos, SUMOReal topos, unsigned int capacity,
-                               SUMOReal width, SUMOReal length, SUMOReal angle)
+                               double frompos, double topos, unsigned int capacity,
+                               double width, double length, double angle)
     : MSParkingArea(id, lines, lane, frompos, topos, capacity, width, length, angle),
       GUIGlObject_AbstractAdd("parkingArea", GLO_TRIGGER, id) {
 
@@ -75,14 +75,14 @@ GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::str
         const Position& f = myShape[i];
         const Position& s = myShape[i + 1];
         myShapeLengths.push_back(f.distanceTo(s));
-        myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+        myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
     }
     PositionVector tmp = myShape;
     tmp.move2side(lane.getWidth() + myWidth);
     mySignPos = tmp.getLineCenter();
     mySignRot = 0;
     if (tmp.length() != 0) {
-        mySignRot = myShape.rotationDegreeAtOffset(SUMOReal((myShape.length() / 2.)));
+        mySignRot = myShape.rotationDegreeAtOffset(double((myShape.length() / 2.)));
         mySignRot -= 90;
     }
 }
@@ -133,7 +133,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::setColor(blue);
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth / 2.);
     // draw details unless zoomed out to far
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
     if (s.scale * exaggeration >= 10) {
         // draw the lots
         glTranslated(0, 0, .1);
@@ -144,8 +144,8 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             glRotated((*i).second.myRotation, 0, 0, 1);
             Position pos = (*i).second.myPosition;
             PositionVector geom;
-            SUMOReal w = (*i).second.myWidth / 2.;
-            SUMOReal h = (*i).second.myLength;
+            double w = (*i).second.myWidth / 2.;
+            double h = (*i).second.myLength;
             geom.push_back(Position(- w, + 0, 0.));
             geom.push_back(Position(+ w, + 0, 0.));
             geom.push_back(Position(+ w, + h, 0.));
@@ -184,10 +184,10 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
         }
         glScaled(exaggeration, exaggeration, 1);
-        GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
+        GLHelper::drawFilledCircle((double) 1.1, noPoints);
         glTranslated(0, 0, .1);
         GLHelper::setColor(grey);
-        GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
+        GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.scale * exaggeration >= 4.5) {
             GLHelper::drawText("P", Position(), .1, 1.6 * exaggeration, blue, mySignRot);
         }

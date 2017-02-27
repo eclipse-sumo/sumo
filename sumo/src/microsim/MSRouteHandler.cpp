@@ -218,18 +218,18 @@ MSRouteHandler::myStartElement(int element,
                     if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
                         throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
                     }
-                    SUMOReal speed = DEFAULT_PEDESTRIAN_SPEED;
+                    double speed = DEFAULT_PEDESTRIAN_SPEED;
                     const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
                     // need to check for explicitly set speed since we might have // DEFAULT_VEHTYPE
                     if (vtype != 0) {
                         speed = vtype->getMaxSpeed() * vtype->computeChosenSpeedDeviation(&myParsingRNG);
                     }
-                    speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, 0, ok, speed);
+                    speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, 0, ok, speed);
                     if (speed <= 0) {
                         throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
                     }
-                    SUMOReal departPos = 0;
-                    SUMOReal arrivalPos = 0;
+                    double departPos = 0;
+                    double arrivalPos = 0;
                     MSStoppingPlace* bs = 0;
                     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
                         MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
@@ -272,7 +272,7 @@ MSRouteHandler::myStartElement(int element,
                         myActivePlan->push_back(new MSTransportable::Stage_Waiting(
                                                     *myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start", true));
                     }
-                    const SUMOReal departPosLat = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS_LAT, 0, ok, 0);
+                    const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, 0, ok, 0);
                     myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
                     myActiveRoute.clear();
                 } catch (ProcessError&) {
@@ -326,15 +326,15 @@ MSRouteHandler::myStartElement(int element,
             case SUMO_TAG_TRANSHIP: {
                 myActiveRoute.clear();
                 bool ok = true;
-                SUMOReal departPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_DEPARTPOS, myVehicleParameter->id.c_str(), ok, 0);
-                SUMOReal arrivalPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok, -NUMERICAL_EPS);
-                SUMOReal speed = DEFAULT_CONTAINER_TRANSHIP_SPEED;
+                double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, myVehicleParameter->id.c_str(), ok, 0);
+                double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok, -NUMERICAL_EPS);
+                double speed = DEFAULT_CONTAINER_TRANSHIP_SPEED;
                 const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid);
                 // need to check for explicitly set speed since we might have // DEFAULT_VEHTYPE
                 if (vtype != 0 && vtype->wasSet(VTYPEPARS_MAXSPEED_SET)) {
                     speed = vtype->getMaxSpeed();
                 }
-                speed = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, 0, ok, speed);
+                speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, 0, ok, speed);
                 if (speed <= 0) {
                     throw ProcessError("Non-positive tranship speed for container  '" + myVehicleParameter->id + "'.");
                 }
@@ -487,9 +487,9 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     if (myActiveRouteRefID != "" && MSRoute::dictionary(myActiveRouteRefID, &myParsingRNG) == 0) {
         WRITE_ERROR("Invalid reference to route '" + myActiveRouteRefID + "' in route " + rid + ".");
     }
-    myActiveRouteProbability = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
+    myActiveRouteProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? new RGBColor(attrs.get<RGBColor>(SUMO_ATTR_COLOR, myActiveRouteID.c_str(), ok)) : 0;
-    myCurrentCosts = attrs.getOpt<SUMOReal>(SUMO_ATTR_COST, myActiveRouteID.c_str(), ok, -1);
+    myCurrentCosts = attrs.getOpt<double>(SUMO_ATTR_COST, myActiveRouteID.c_str(), ok, -1);
     if (ok && myCurrentCosts != -1 && myCurrentCosts < 0) {
         WRITE_ERROR("Invalid cost for route '" + myActiveRouteID + "'.");
     }
@@ -616,12 +616,12 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
         }
     }
     myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
-    std::vector<SUMOReal> probs;
+    std::vector<double> probs;
     if (attrs.hasAttribute(SUMO_ATTR_PROBS)) {
         bool ok = true;
         StringTokenizer st(attrs.get<std::string>(SUMO_ATTR_PROBS, myCurrentRouteDistributionID.c_str(), ok));
         while (st.hasNext()) {
-            probs.push_back(TplConvert::_2SUMORealSec(st.next().c_str(), 1.0));
+            probs.push_back(TplConvert::_2doubleSec(st.next().c_str(), 1.0));
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {
@@ -634,7 +634,7 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
             if (route == 0) {
                 throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID + "'.");
             }
-            const SUMOReal prob = ((int)probs.size() > probIndex ? probs[probIndex] : 1.0);
+            const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : 1.0);
             if (myCurrentRouteDistribution->add(prob, route, false)) {
                 route->addReference();
             }
@@ -1021,12 +1021,12 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             myActiveContainerPlan->push_back(new MSTransportable::Stage_Waiting(
                                                  MSLane::dictionary(stop.lane)->getEdge(), -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
         }
-        stop.endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_ENDPOS, 0, ok, MSLane::dictionary(stop.lane)->getLength());
+        stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, 0, ok, MSLane::dictionary(stop.lane)->getLength());
         if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
             WRITE_WARNING("Deprecated attribute 'pos' in description of stop" + errorSuffix);
-            stop.endPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_POSITION, 0, ok, stop.endPos);
+            stop.endPos = attrs.getOpt<double>(SUMO_ATTR_POSITION, 0, ok, stop.endPos);
         }
-        stop.startPos = attrs.getOpt<SUMOReal>(SUMO_ATTR_STARTPOS, 0, ok, MAX2((SUMOReal)0., stop.endPos - 2 * POSITION_EPS));
+        stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, 0, ok, MAX2(0., stop.endPos - 2 * POSITION_EPS));
         const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
         if (!ok || !checkStopPos(stop.startPos, stop.endPos, MSLane::dictionary(stop.lane)->getLength(), POSITION_EPS, friendlyPos)) {
             WRITE_ERROR("Invalid start or end position for stop on lane '" + stop.lane + "'" + errorSuffix);
@@ -1035,7 +1035,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     }
     if (myActivePlan != 0) {
         std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, 0, ok, "waiting");
-        SUMOReal pos = (stop.startPos + stop.endPos) / 2.;
+        double pos = (stop.startPos + stop.endPos) / 2.;
         if (!myActivePlan->empty()) {
             pos = myActivePlan->back()->getArrivalPos();
         }
@@ -1060,7 +1060,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
 void
 MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
                                    const MSEdge* fromEdge, const MSEdge*& toEdge,
-                                   SUMOReal& departPos, SUMOReal& arrivalPos, MSStoppingPlace*& bs, bool& ok) {
+                                   double& departPos, double& arrivalPos, MSStoppingPlace*& bs, bool& ok) {
     const std::string description = "person '" + personID + "' walking from " + fromEdge->getID();
 
     departPos = parseWalkPos(SUMO_ATTR_DEPARTPOS, description, fromEdge,
@@ -1081,7 +1081,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         }
         arrivalPos = (bs->getBeginLanePosition() + bs->getEndLanePosition()) / 2.;
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-            const SUMOReal arrPos = parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge,
+            const double arrPos = parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge,
                                                  attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok));
             if (arrPos >= bs->getBeginLanePosition() && arrPos < bs->getEndLanePosition()) {
                 arrivalPos = arrPos;
@@ -1103,9 +1103,9 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
 }
 
 
-SUMOReal
+double
 MSRouteHandler::parseWalkPos(SumoXMLAttr attr, const std::string& id, const MSEdge* edge, const std::string& val) {
-    SUMOReal result;
+    double result;
     std::string error;
     ArrivalPosDefinition proc;
     // only supports 'random' and 'max'

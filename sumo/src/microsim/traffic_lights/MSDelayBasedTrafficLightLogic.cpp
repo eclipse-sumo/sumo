@@ -43,7 +43,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-#define INVALID_POSITION std::numeric_limits<SUMOReal>::max()
+#define INVALID_POSITION std::numeric_limits<double>::max()
 
 // ===========================================================================
 // parameter defaults definitions
@@ -63,10 +63,10 @@ MSDelayBasedTrafficLightLogic::MSDelayBasedTrafficLightLogic(MSTLLogicControl& t
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter) {
 
     myShowDetectors = TplConvert::_2bool(getParameter("show-detectors", "false").c_str());
-    myDetectionRange = TplConvert::_2SUMOReal(getParameter("detectorRange", "-1.0").c_str());
-    myTimeLossThreshold = TplConvert::_2SUMOReal(getParameter("minTimeloss", "1.0").c_str());
+    myDetectionRange = TplConvert::_2double(getParameter("detectorRange", "-1.0").c_str());
+    myTimeLossThreshold = TplConvert::_2double(getParameter("minTimeloss", "1.0").c_str());
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
-    myFreq = TIME2STEPS(TplConvert::_2SUMOReal(getParameter("freq", "300").c_str()));
+    myFreq = TIME2STEPS(TplConvert::_2double(getParameter("freq", "300").c_str()));
     myVehicleTypes = getParameter("vTypes", "");
 }
 
@@ -106,7 +106,7 @@ MSDelayBasedTrafficLightLogic::proposeProlongation() {
 #ifdef DEBUG_TIMELOSS_CONTROL
     std::cout << "\n" << SIMTIME << " MSDelayBasedTrafficLightLogic::proposeProlongation() for TLS '" << this->getID() << "' (current phase = " << myStep << ")" << std::endl;
 #endif
-    SUMOReal prolongationTime = 0.;
+    double prolongationTime = 0.;
     const std::string& state = getCurrentPhaseDef().getState();
     // iterate over green lanes, eventually increase the proposed prolongationTime to the estimated passing time for each lane.
     for (int i = 0; i < (int) state.size(); i++)  {
@@ -131,7 +131,7 @@ MSDelayBasedTrafficLightLogic::proposeProlongation() {
                 for (MSE2Collector::VehicleInfoMap::const_iterator iv = vehInfos.begin(); iv != vehInfos.end(); ++iv){
                     if (iv->second->onDetector){
                         if (iv->second->accumulatedTimeLoss > myTimeLossThreshold && iv->second->distToDetectorEnd > 0) {
-                            SUMOReal estimatedTimeToJunction = (iv->second->distToDetectorEnd)/(*j)->getSpeedLimit();
+                            double estimatedTimeToJunction = (iv->second->distToDetectorEnd)/(*j)->getSpeedLimit();
                             prolongationTime = MAX2(prolongationTime, estimatedTimeToJunction);
 #ifdef DEBUG_TIMELOSS_CONTROL
                             nrVehs++;

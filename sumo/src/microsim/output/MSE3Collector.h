@@ -96,7 +96,7 @@ public:
          * @see MSMoveReminder::notifyMove
          * @see MSE3Collector::enter
          */
-        bool notifyMove(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
+        bool notifyMove(SUMOVehicle& veh, double , double newPos, double);
 
 
         /** @brief Processes state changes of a vehicle
@@ -109,7 +109,7 @@ public:
         * @param[in] reason The reason for the state change
         * @see MSMoveReminder::notifyLeave
         */
-        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+        bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
         /// @}
 
 
@@ -118,7 +118,7 @@ public:
         MSE3Collector& myCollector;
 
         /// @brief The position on the lane
-        SUMOReal myPosition;
+        double myPosition;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -163,7 +163,7 @@ public:
          * @see MSMoveReminder::notifyMove
          * @see MSE3Collector::leave
          */
-        bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal);
+        bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double);
 
         /** @brief Processes state changes of a vehicle
         *
@@ -174,7 +174,7 @@ public:
         * @param[in] reason The reason for the state change
         * @see MSMoveReminder::notifyLeave
         */
-        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+        bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
         //@}
 
 
@@ -183,7 +183,7 @@ public:
         MSE3Collector& myCollector;
 
         /// @brief The position on the lane
-        SUMOReal myPosition;
+        double myPosition;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -207,7 +207,7 @@ public:
      */
     MSE3Collector(const std::string& id,
                   const CrossSectionVector& entries, const CrossSectionVector& exits,
-                  SUMOReal haltingSpeedThreshold,
+                  double haltingSpeedThreshold,
                   SUMOTime haltingTimeThreshold,
                   const std::string& vTypes);
 
@@ -229,7 +229,7 @@ public:
      *  @param[in] entryTimestep The time in seconds the vehicle entered the area
      *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle already spent on the detector
      */
-    void enter(const SUMOVehicle& veh, const SUMOReal entryTimestep, const SUMOReal fractionTimeOnDet);
+    void enter(const SUMOVehicle& veh, const double entryTimestep, const double fractionTimeOnDet);
 
 
     /** @brief Called if a vehicle front passes a leave-cross-section.
@@ -237,7 +237,7 @@ public:
     *  @param[in] veh The vehicle that left the area
     *  @param[in] leaveTimestep The time in seconds the vehicle started crossing the line
     */
-    void leaveFront(const SUMOVehicle& veh, const SUMOReal leaveTimestep);
+    void leaveFront(const SUMOVehicle& veh, const double leaveTimestep);
 
 
     /** @brief Called if a vehicle back passes a leave-cross-section.
@@ -248,7 +248,7 @@ public:
     *  @param[in] leaveTimestep The time in seconds the vehicle left the area
     *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle still spent on the detector
     */
-    void leave(const SUMOVehicle& veh, const SUMOReal leaveTimestep, const SUMOReal fractionTimeOnDet);
+    void leave(const SUMOVehicle& veh, const double leaveTimestep, const double fractionTimeOnDet);
 
 
     /// @name Methods returning current values
@@ -260,7 +260,7 @@ public:
      *
      * @return The mean speed [m/s] of all vehicles within the area, -1 if there is none
      */
-    SUMOReal getCurrentMeanSpeed() const;
+    double getCurrentMeanSpeed() const;
 
 
     /** @brief Returns the number of current haltings within the area
@@ -342,7 +342,7 @@ protected:
     SUMOTime myHaltingTimeThreshold;
 
     /// @brief Speed-threshold to determine if a vehicle is halting.
-    SUMOReal myHaltingSpeedThreshold;
+    double myHaltingSpeedThreshold;
 
     /**
      * @struct E3Values
@@ -354,19 +354,19 @@ protected:
      */
     struct E3Values {
         /// @brief The vehicle's entry time
-        SUMOReal entryTime;
+        double entryTime;
         /// @brief The time the vehicle's front was crossing the leave line
-        SUMOReal frontLeaveTime;
+        double frontLeaveTime;
         /// @brief The time the vehicle's back was crossing the leave line
-        SUMOReal backLeaveTime;
+        double backLeaveTime;
         /// @brief The sum of registered speeds the vehicle has/had inside the area
-        SUMOReal speedSum;
+        double speedSum;
         /// @brief The sum of haltings the vehicle has/had within the area
         int haltings;
         /// @brief Begin time of last halt begin
-        SUMOReal haltingBegin;
+        double haltingBegin;
         /// @brief The sum of registered speeds the vehicle has/had inside the area during the current interval
-        SUMOReal intervalSpeedSum;
+        double intervalSpeedSum;
         /// @brief The sum of haltings the vehicle has/had within the area during the current interval
         int intervalHaltings;
         /// @brief The timeLoss of the vehicle when entering. Updated to the actual time loss within the area when leaving
@@ -388,7 +388,7 @@ protected:
     /// @{
 
     /// @brief The current mean speed of known vehicles (inside)
-    SUMOReal myCurrentMeanSpeed;
+    double myCurrentMeanSpeed;
 
     /// @brief The current number of haltings (inside)
     int myCurrentHaltingsNumber;

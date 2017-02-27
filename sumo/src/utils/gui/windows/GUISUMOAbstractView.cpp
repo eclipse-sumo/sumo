@@ -180,9 +180,9 @@ GUISUMOAbstractView::getPositionInformation() const {
 Position
 GUISUMOAbstractView::screenPos2NetPos(int x, int y) const {
     Boundary bound = myChanger->getViewport();
-    SUMOReal xNet = bound.xmin() + bound.getWidth() * x / getWidth();
+    double xNet = bound.xmin() + bound.getWidth() * x / getWidth();
     // cursor origin is in the top-left corner
-    SUMOReal yNet = bound.ymin() + bound.getHeight() * (getHeight() - y) / getHeight();
+    double yNet = bound.ymin() + bound.getHeight() * (getHeight() - y) / getHeight();
     return Position(xNet, yNet);
 }
 
@@ -292,14 +292,14 @@ GUISUMOAbstractView::getObjectUnderCursor() {
 
 GUIGlID
 GUISUMOAbstractView::getObjectAtPosition(Position pos) {
-    const SUMOReal SENSITIVITY = 0.1; // meters
+    const double SENSITIVITY = 0.1; // meters
     Boundary selection;
     selection.add(pos);
     selection.grow(SENSITIVITY);
     const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
     // Interpret results
     int idMax = 0;
-    SUMOReal maxLayer = -std::numeric_limits<SUMOReal>::max();
+    double maxLayer = -std::numeric_limits<double>::max();
     for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         GUIGlID id = *it;
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
@@ -312,7 +312,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
         //std::cout << "point selection hit " << o->getMicrosimID() << "\n";
         GUIGlObjectType type = o->getType();
         if (type != 0) {
-            SUMOReal layer = (SUMOReal)type;
+            double layer = (double)type;
             // determine an "abstract" layer for shapes
             //  this "layer" resembles the layer of the shape
             //  taking into account the stac of other objects
@@ -336,7 +336,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
 
 
 std::vector<GUIGlID>
-GUISUMOAbstractView::getObjectsAtPosition(Position pos, SUMOReal radius) {
+GUISUMOAbstractView::getObjectsAtPosition(Position pos, double radius) {
     Boundary selection;
     selection.add(pos);
     selection.grow(radius);
@@ -421,12 +421,12 @@ GUISUMOAbstractView::paintGLGrid() {
     glEnable(GL_DEPTH_TEST);
     glLineWidth(1);
 
-    SUMOReal xmin = myGrid->xmin();
-    SUMOReal ymin = myGrid->ymin();
-    SUMOReal ypos = ymin;
-    SUMOReal xpos = xmin;
-    SUMOReal xend = myGrid->xmax();
-    SUMOReal yend = myGrid->ymax();
+    double xmin = myGrid->xmin();
+    double ymin = myGrid->ymin();
+    double ypos = ymin;
+    double xpos = xmin;
+    double xend = myGrid->xmax();
+    double yend = myGrid->ymax();
 
     glTranslated(0, 0, .55);
     glColor3d(0.5, 0.5, 0.5);
@@ -454,14 +454,14 @@ GUISUMOAbstractView::displayLegend() {
     int length = 1;
     const std::string text("10000000000");
     int noDigits = 1;
-    int pixelSize = (int) m2p((SUMOReal) length);
+    int pixelSize = (int) m2p((double) length);
     while (pixelSize <= 20) {
         length *= 10;
         noDigits++;
         if (noDigits > (int)text.length()) {
             return;
         }
-        pixelSize = (int) m2p((SUMOReal) length);
+        pixelSize = (int) m2p((double) length);
     }
     glLineWidth(1.0);
 
@@ -478,7 +478,7 @@ GUISUMOAbstractView::displayLegend() {
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
 
-    SUMOReal len = (SUMOReal) pixelSize / (SUMOReal)(getWidth() - 1) * (SUMOReal) 2.0;
+    double len = (double) pixelSize / (double)(getWidth() - 1) * (double) 2.0;
     glColor3d(0, 0, 0);
     double o = double(15) / double(getHeight());
     double o2 = o + o;
@@ -495,15 +495,15 @@ GUISUMOAbstractView::displayLegend() {
     glVertex2d(-.98 + len, -1. + o2);
     glEnd();
 
-    SUMOReal w = SUMOReal(35) / SUMOReal(getWidth());
-    SUMOReal h = SUMOReal(35) / SUMOReal(getHeight());
-    pfSetPosition(SUMOReal(-0.99), SUMOReal(1. - o2 - oo));
+    double w = double(35) / double(getWidth());
+    double h = double(35) / double(getHeight());
+    pfSetPosition(double(-0.99), double(1. - o2 - oo));
     pfSetScaleXY(w, h);
     glRotated(180, 1, 0, 0);
     pfDrawString("0m");
     glRotated(-180, 1, 0, 0);
 
-    pfSetPosition(SUMOReal(-.99 + len), SUMOReal(1. - o2 - oo));
+    pfSetPosition(double(-.99 + len), double(1. - o2 - oo));
     glRotated(180, 1, 0, 0);
     pfDrawString((text.substr(0, noDigits) + "m").c_str());
     glRotated(-180, 1, 0, 0);
@@ -516,14 +516,14 @@ GUISUMOAbstractView::displayLegend() {
 }
 
 
-SUMOReal
-GUISUMOAbstractView::m2p(SUMOReal meter) const {
+double
+GUISUMOAbstractView::m2p(double meter) const {
     return  meter * getWidth() / myChanger->getViewport().getWidth();
 }
 
 
-SUMOReal
-GUISUMOAbstractView::p2m(SUMOReal pixel) const {
+double
+GUISUMOAbstractView::p2m(double pixel) const {
     return pixel * myChanger->getViewport().getWidth() / getWidth();
 }
 
@@ -535,7 +535,7 @@ GUISUMOAbstractView::recenterView() {
 
 
 void
-GUISUMOAbstractView::centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist) {
+GUISUMOAbstractView::centerTo(GUIGlID id, bool applyZoom, double zoomDist) {
     GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (o != 0 && dynamic_cast<GUIGlObject*>(o) != 0) {
         if (applyZoom && zoomDist < 0) {
@@ -1038,13 +1038,13 @@ GUISUMOAbstractView::remove(GUIDialog_ViewSettings*) {
 }
 
 
-SUMOReal
+double
 GUISUMOAbstractView::getGridWidth() const {
     return myGrid->getWidth();
 }
 
 
-SUMOReal
+double
 GUISUMOAbstractView::getGridHeight() const {
     return myGrid->getHeight();
 }
@@ -1189,8 +1189,8 @@ GUISUMOAbstractView::drawDecals() {
         }
         glRotated(d.rot, 0, 0, 1);
         glColor3d(1, 1, 1);
-        SUMOReal halfWidth = d.width / 2.;
-        SUMOReal halfHeight = d.height / 2.;
+        double halfWidth = d.width / 2.;
+        double halfHeight = d.height / 2.;
         if (d.screenRelative) {
             halfWidth = p2m(halfWidth);
             halfHeight = p2m(halfHeight);
@@ -1256,21 +1256,21 @@ GUISUMOAbstractView::applyGLTransform(bool fixRatio) {
     glOrtho(0, getWidth(), 0, getHeight(), -GLO_MAX - 1, GLO_MAX + 1);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    SUMOReal scaleX = (SUMOReal)getWidth() / bound.getWidth();
-    SUMOReal scaleY = (SUMOReal)getHeight() / bound.getHeight();
+    double scaleX = (double)getWidth() / bound.getWidth();
+    double scaleY = (double)getHeight() / bound.getHeight();
     glScaled(scaleX, scaleY, 1);
     glTranslated(-bound.xmin(), -bound.ymin(), 0);
 }
 
 
-SUMOReal
+double
 GUISUMOAbstractView::getDelay() const {
     return myApp->getDelay();
 }
 
 
 void
-GUISUMOAbstractView::setDelay(SUMOReal delay) {
+GUISUMOAbstractView::setDelay(double delay) {
     myApp->setDelay(delay);
 }
 

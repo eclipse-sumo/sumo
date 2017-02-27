@@ -55,7 +55,7 @@ public:
     /// @brief Constructor
     GUIE3Collector(const std::string& id,
                    const CrossSectionVector& entries, const CrossSectionVector& exits,
-                   SUMOReal haltingSpeedThreshold,
+                   double haltingSpeedThreshold,
                    SUMOTime haltingTimeThreshold, const std::string& vTypes);
 
     /// @brief Destructor
@@ -137,7 +137,7 @@ public:
             /// @brief The position
             Position myFGPosition;
             /// @brief The rotation
-            SUMOReal myFGRotation;
+            double myFGRotation;
         };
 
     protected:
@@ -145,8 +145,8 @@ public:
         SingleCrossingDefinition buildDefinition(const MSCrossSection& section);
 
         /// @brief Draws a single entry/exit point
-        void drawSingleCrossing(const Position& pos, SUMOReal rot,
-                                SUMOReal upscale) const;
+        void drawSingleCrossing(const Position& pos, double rot,
+                                double upscale) const;
 
     private:
         /// @brief The wrapped detector

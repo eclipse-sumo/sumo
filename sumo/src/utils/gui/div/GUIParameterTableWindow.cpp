@@ -162,7 +162,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* sender,
         return 1;
     }
 
-    GUIParam_PopupMenuInterface* p = new GUIParam_PopupMenuInterface(*myApplication, *this, *myObject, i->getName(), i->getSUMORealSourceCopy());
+    GUIParam_PopupMenuInterface* p = new GUIParam_PopupMenuInterface(*myApplication, *this, *myObject, i->getName(), i->getdoubleSourceCopy());
     new FXMenuCommand(p, "Open in new Tracker", 0, p, MID_OPENTRACKER);
     // set geometry
     p->setX(static_cast<FXEvent*>(data)->root_x);
@@ -193,8 +193,8 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                ValueSource<SUMOReal>* src) {
-    GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOReal>(myTable, myCurrentPos++, name, dynamic, src);
+                                ValueSource<double>* src) {
+    GUIParameterTableItemInterface* i = new GUIParameterTableItem<double>(myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
 }
 
@@ -202,16 +202,16 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
                                 std::string value) {
-    // T = SUMOReal is only a dummy type here
-    GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOReal>(myTable, myCurrentPos++, name, dynamic, value);
+    // T = double is only a dummy type here
+    GUIParameterTableItemInterface* i = new GUIParameterTableItem<double>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
 
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                SUMOReal value) {
-    GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOReal>(myTable, myCurrentPos++, name, dynamic, value);
+                                double value) {
+    GUIParameterTableItemInterface* i = new GUIParameterTableItem<double>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
 

@@ -52,7 +52,7 @@ public:
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] pos position of the detector on the lane
      */
-    GNEDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, SUMOReal pos);
+    GNEDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos);
 
     /// @brief destructor
     ~GNEDetectorExit();
@@ -133,7 +133,7 @@ private:
     int getFrequency() const;
 
     /// @brief Invalidated set filename
-    void setFrequency(SUMOReal freq);
+    void setFrequency(double freq);
 
     /// @brief Invalidated
     void setFilename(std::string filename);

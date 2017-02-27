@@ -86,7 +86,7 @@ public:
     }
 
     /// @brief returns height for the given geo coordinate (WGS84)
-    SUMOReal getZ(const Position& geo) const;
+    double getZ(const Position& geo) const;
 
     class QueryResult;
     /* @brief content class for the rtree. Since we wish to be able to use the
@@ -107,7 +107,7 @@ public:
         bool contains(const Position& pos) const;
 
         /// @brief returns the projection of the give geoCoordinate (WGS84) onto triangle plane
-        SUMOReal getZ(const Position& geo) const;
+        double getZ(const Position& geo) const;
 
         /// @brief returns the normal vector for this triangles plane
         Position normalVector() const;

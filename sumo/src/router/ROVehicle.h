@@ -121,8 +121,8 @@ public:
      *
      * @return the maximum speed factor
      */
-    inline SUMOReal getChosenSpeedFactor() const {
-        return SUMOReal(2. * getType()->speedDev + 1.) * getType()->speedFactor;
+    inline double getChosenSpeedFactor() const {
+        return double(2. * getType()->speedDev + 1.) * getType()->speedFactor;
     }
 
 

@@ -72,7 +72,7 @@ public:
      * @param[in] offset The offset of the sign from the start of its edge
      * @param[in] label The (optional) label (for SPEED, SLOPE etc)
      */
-    NBSign(SignType type, SUMOReal offset, const std::string label = "");
+    NBSign(SignType type, double offset, const std::string label = "");
 
 
     /// @brief Destructor
@@ -87,7 +87,7 @@ private:
     SignType myType;
 
     /// @brief The offset of the sign from the start of its edge
-    SUMOReal myOffset;
+    double myOffset;
 
     /// @brief The (optional) label (for SPEED, SLOPE etc)
     std::string myLabel;

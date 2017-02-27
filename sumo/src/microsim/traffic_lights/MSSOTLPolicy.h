@@ -49,7 +49,7 @@ protected:
 
     bool pushButtonLogic(SUMOTime elapsed, bool pushButtonPressed, const MSPhaseDefinition* stage);
 
-    SUMOReal m_pushButtonScaleFactor;
+    double m_pushButtonScaleFactor;
     std::string m_prefix;
 };
 
@@ -60,7 +60,7 @@ protected:
     bool sigmoidLogic(SUMOTime elapsed, const MSPhaseDefinition* stage, int vehicleCount);
 
     bool m_useSigmoid;
-    SUMOReal m_k;
+    double m_k;
     std::string m_prefix;
 };
 
@@ -75,7 +75,7 @@ private:
     /**
      * \brief The sensitivity of this policy
      */
-    SUMOReal theta_sensitivity;
+    double theta_sensitivity;
     /**
      * \brief The name of the policy
      */
@@ -116,10 +116,10 @@ public:
                                 int currentPhaseIndex, int phaseMaxCTS, bool thresholdPassed, bool pushButtonPressed,
                                 int vehicleCount);
 
-    virtual SUMOReal getThetaSensitivity() {
+    virtual double getThetaSensitivity() {
         return theta_sensitivity;
     }
-    virtual void setThetaSensitivity(SUMOReal val) {
+    virtual void setThetaSensitivity(double val) {
         theta_sensitivity = val;
     }
     std::string getName() {
@@ -131,9 +131,9 @@ public:
     /**
      * @brief Computes the desirability of this policy, necessary when used in combination with an high level policy.
      */
-    SUMOReal computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure, SUMOReal vehInDispersionMeasure, SUMOReal vehOutDispersionMeasure);
+    double computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure, double vehOutDispersionMeasure);
 
-    SUMOReal computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure);
+    double computeDesirability(double vehInMeasure, double vehOutMeasure);
 };
 
 #endif

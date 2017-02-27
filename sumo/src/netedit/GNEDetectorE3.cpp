@@ -66,7 +66,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, SUMOReal freq, const std::string& filename, const SUMOReal timeThreshold, SUMOReal speedThreshold) :
+GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, double freq, const std::string& filename, const double timeThreshold, double speedThreshold) :
     GNEAdditional(id, viewNet, pos, SUMO_TAG_E3DETECTOR, ICON_E3),
     myFreq(freq),
     myFilename(filename),
@@ -131,7 +131,7 @@ GNEDetectorE3::getPositionInView() const {
 
 
 void
-GNEDetectorE3::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
+GNEDetectorE3::moveAdditionalGeometry(double offsetx, double offsety) {
     // change Position
     myPosition.set(offsetx, offsety);
     updateGeometry();
@@ -139,7 +139,7 @@ GNEDetectorE3::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
 
 
 void
-GNEDetectorE3::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList) {
+GNEDetectorE3::commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(myPosition.x()), true, toString(oldPosx)));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(myPosition.y()), true, toString(oldPosy)));
@@ -371,17 +371,17 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_X:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         case SUMO_ATTR_Y:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         case SUMO_ATTR_FREQUENCY:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) > 0);
+            return (canParse<double>(value) && parse<double>(value) > 0);
         case SUMO_ATTR_FILE:
             return isValidFileValue(value);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
@@ -404,26 +404,26 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_X:
-            myPosition.setx(parse<SUMOReal>(value));
+            myPosition.setx(parse<double>(value));
             updateGeometry();
             getViewNet()->update();
             break;
         case SUMO_ATTR_Y:
-            myPosition.sety(parse<SUMOReal>(value));
+            myPosition.sety(parse<double>(value));
             updateGeometry();
             getViewNet()->update();
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFreq = parse<SUMOReal>(value);
+            myFreq = parse<double>(value);
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            myTimeThreshold = parse<SUMOReal>(value);
+            myTimeThreshold = parse<double>(value);
             break;
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
-            mySpeedThreshold = parse<SUMOReal>(value);
+            mySpeedThreshold = parse<double>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);
@@ -441,8 +441,8 @@ GNEDetectorE3::updateGeometryConnections() {
     // Iterate over Entrys
     for (std::vector<GNEDetectorEntry*>::iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
         std::vector<Position> posConnection;
-        SUMOReal A = std::abs((*i)->getPositionInView().x() - getPositionInView().x());
-        SUMOReal B = std::abs((*i)->getPositionInView().y() - getPositionInView().y());
+        double A = std::abs((*i)->getPositionInView().x() - getPositionInView().x());
+        double B = std::abs((*i)->getPositionInView().y() - getPositionInView().y());
         // Set positions of connection's vertex. Connection is build from Entry to E3
         posConnection.push_back((*i)->getPositionInView());
         if (getPositionInView().x() > (*i)->getPositionInView().x()) {
@@ -464,8 +464,8 @@ GNEDetectorE3::updateGeometryConnections() {
     // Iterate over exits
     for (std::vector<GNEDetectorExit*>::iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
         std::vector<Position> posConnection;
-        SUMOReal A = std::abs((*i)->getPositionInView().x() - getPositionInView().x());
-        SUMOReal B = std::abs((*i)->getPositionInView().y() - getPositionInView().y());
+        double A = std::abs((*i)->getPositionInView().x() - getPositionInView().x());
+        double B = std::abs((*i)->getPositionInView().y() - getPositionInView().y());
         // Set positions of connection's vertex. Connection is build from Entry to E3
         posConnection.push_back((*i)->getPositionInView());
         if (getPositionInView().x() > (*i)->getPositionInView().x()) {

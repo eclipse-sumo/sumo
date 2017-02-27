@@ -68,7 +68,7 @@ public:
                            const std::string& name, SUMOTime absdur, SUMOTime offset);
     static bool dictionary(int id, NIVissimTL* o);
     static NIVissimTL* dictionary(int id);
-//    static std::vector<int> getWithin(const AbstractPoly &poly, SUMOReal offset);
+//    static std::vector<int> getWithin(const AbstractPoly &poly, double offset);
     static void clearDict();
     static bool dict_SetSignals(NBTrafficLightLogicCont& tlc,
                                 NBEdgeCont& ec);
@@ -88,7 +88,7 @@ public:
     public:
         NIVissimTLSignal(int id, const std::string& name,
                          const std::vector<int>& groupids, int edgeid, int laneno,
-                         SUMOReal position, const std::vector<int>& assignedVehicleTypes);
+                         double position, const std::vector<int>& assignedVehicleTypes);
         ~NIVissimTLSignal();
         bool isWithin(const PositionVector& poly) const;
         Position getPosition() const;
@@ -106,7 +106,7 @@ public:
         std::vector<int> myGroupIDs;
         int myEdgeID;
         int myLane;
-        SUMOReal myPosition;
+        double myPosition;
         std::vector<int> myVehicleTypes;
         static SignalDictType myDict;
     };
@@ -114,7 +114,7 @@ public:
     class NIVissimTLSignalGroup {
     public:
         NIVissimTLSignalGroup(int id, const std::string& name,
-                              bool isGreenBegin, const std::vector<SUMOReal>& times,
+                              bool isGreenBegin, const std::vector<double>& times,
                               SUMOTime tredyellow, SUMOTime tyellow);
         ~NIVissimTLSignalGroup();
         bool addTo(NBLoadedTLDef* node) const;
@@ -127,7 +127,7 @@ public:
     private:
         int myID;
         std::string myName;
-        std::vector<SUMOReal> myTimes;
+        std::vector<double> myTimes;
         bool myFirstIsRed;
         SUMOTime myTRedYellow, myTYellow;
         static GroupDictType myDict;

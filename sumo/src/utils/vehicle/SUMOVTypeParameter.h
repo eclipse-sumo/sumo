@@ -120,7 +120,7 @@ public:
      * @param[in] defaultValue The value to return if the given map does not contain the named variable
      * @return The named value from the map or the default if it does not exist there
      */
-    SUMOReal getCFParam(const SumoXMLAttr attr, const SUMOReal defaultValue) const;
+    double getCFParam(const SumoXMLAttr attr, const double defaultValue) const;
 
     /** @brief Returns the named value from the map, or the default if it is not contained there
     * @param[in] attr The corresponding xml attribute
@@ -134,24 +134,24 @@ public:
      * @param[in] defaultValue The value to return if the given map does not contain the named variable
      * @return The named value from the map or the default if it does not exist there
      */
-    SUMOReal getLCParam(const SumoXMLAttr attr, const SUMOReal defaultValue) const;
+    double getLCParam(const SumoXMLAttr attr, const double defaultValue) const;
 
 
     /// @brief The vehicle type's id
     std::string id;
 
     /// @brief The physical vehicle length
-    SUMOReal length;
+    double length;
     /// @brief This class' free space in front of the vehicle itself
-    SUMOReal minGap;
+    double minGap;
     /// @brief The vehicle type's maximum speed [m/s]
-    SUMOReal maxSpeed;
+    double maxSpeed;
     /// @brief The probability when being added to a distribution without an explicit probability
-    SUMOReal defaultProbability;
+    double defaultProbability;
     /// @brief The factor by which the maximum speed may deviate from the allowed max speed on the street
-    SUMOReal speedFactor;
+    double speedFactor;
     /// @brief The standard deviation for speed variations
-    SUMOReal speedDev;
+    double speedDev;
     /// @brief The emission class of this vehicle
     SUMOEmissionClass emissionClass;
     /// @brief The color
@@ -159,7 +159,7 @@ public:
     /// @brief The vehicle's class
     SUMOVehicleClass vehicleClass;
     /// @brief The vehicle's impatience (willingness to obstruct others)
-    SUMOReal impatience;
+    double impatience;
     /// @brief The person capacity of the vehicle
     int personCapacity;
     /// @brief The container capacity of the vehicle
@@ -173,10 +173,10 @@ public:
     /// @{
 
     /// @brief This class' width
-    SUMOReal width;
+    double width;
 
     /// @brief This class' height
-    SUMOReal height;
+    double height;
 
     /// @brief This class' shape
     SUMOVehicleShape shape;
@@ -203,11 +203,11 @@ public:
     LaneChangeModel lcModel;
 
     /// @brief The vehicle type's maximum lateral speed [m/s]
-    SUMOReal maxSpeedLat;
+    double maxSpeedLat;
     /// @brief The vehicles desired lateral alignment
     LateralAlignment latAlignment;
     /// @brief The vehicle type's minimum lateral gap [m]
-    SUMOReal minGapLat;
+    double minGapLat;
 
     /// @brief Information for the router which parameter were set
     int setParameter;
@@ -224,21 +224,21 @@ public:
      * @param[in] vc the vehicle class
      * @return the acceleration in m/s^2
      */
-    static SUMOReal getDefaultAccel(const SUMOVehicleClass vc = SVC_IGNORING);
+    static double getDefaultAccel(const SUMOVehicleClass vc = SVC_IGNORING);
 
     /** @brief Returns the default deceleration for the given vehicle class
      * This needs to be a function because the actual value is stored in the car following model
      * @param[in] vc the vehicle class
      * @return the deceleration in m/s^2
      */
-    static SUMOReal getDefaultDecel(const SUMOVehicleClass vc = SVC_IGNORING);
+    static double getDefaultDecel(const SUMOVehicleClass vc = SVC_IGNORING);
 
     /** @brief Returns the default driver's imperfection (sigma or epsilon in Krauss' model) for the given vehicle class
      * This needs to be a function because the actual value is stored in the car following model
      * @param[in] vc the vehicle class
      * @return the imperfection as a value between 0 and 1
      */
-    static SUMOReal getDefaultImperfection(const SUMOVehicleClass vc = SVC_IGNORING);
+    static double getDefaultImperfection(const SUMOVehicleClass vc = SVC_IGNORING);
 
     /// @brief return the default parameters, this is a function due to the http://www.parashift.com/c++-faq/static-init-order.html
     static const SUMOVTypeParameter &getDefault();

@@ -75,11 +75,11 @@ public:
      */
     MESegment(const std::string& id,
               const MSEdge& parent, MESegment* next,
-              SUMOReal length, SUMOReal speed,
+              double length, double speed,
               int idx,
               SUMOTime tauff, SUMOTime taufj,
               SUMOTime taujf, SUMOTime taujj,
-              SUMOReal jamThresh,
+              double jamThresh,
               bool multiQueue, bool junctionControl);
 
 
@@ -162,7 +162,7 @@ public:
      *
      * @return the length of the segment
      */
-    inline SUMOReal getLength() const {
+    inline double getLength() const {
         return myLength;
     }
 
@@ -170,7 +170,7 @@ public:
      *
      * @return the occupany of the segment in meters
      */
-    inline SUMOReal getBruttoOccupancy() const {
+    inline double getBruttoOccupancy() const {
         return myOccupancy;
     }
 
@@ -178,7 +178,7 @@ public:
     /** @brief Returns the relative occupany of the segment (percentage of road used))
      * @return the occupany of the segment in percent
      */
-    inline SUMOReal getRelativeOccupancy() const {
+    inline double getRelativeOccupancy() const {
         return myOccupancy / myCapacity;
     }
 
@@ -186,7 +186,7 @@ public:
      * at which the segment is considered jammed
      * @return the jam treshold of the segment in percent
      */
-    inline SUMOReal getRelativeJamThreshold() const {
+    inline double getRelativeJamThreshold() const {
         return myJamThreshold / myCapacity;
     }
 
@@ -200,10 +200,10 @@ public:
      * initializsation of vehicles onto the segment.
      * @return the average speed on the segment
      */
-    SUMOReal getMeanSpeed(bool useCache) const;
+    double getMeanSpeed(bool useCache) const;
 
     /// @brief wrapper to satisfy the FunctionBinding signature
-    inline SUMOReal getMeanSpeed() const {
+    inline double getMeanSpeed() const {
         return getMeanSpeed(true);
     }
 
@@ -277,7 +277,7 @@ public:
      * all vehicles in it. Also set/recompute myJamThreshold
      * @param[in] jamThresh follows the semantic of option meso-jam-threshold
      */
-    void setSpeed(SUMOReal newSpeed, SUMOTime currentTime, SUMOReal jamThresh = DO_NOT_PATCH_JAM_THRESHOLD);
+    void setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh = DO_NOT_PATCH_JAM_THRESHOLD);
 
     /** @brief Returns the (planned) time at which the next vehicle leaves this segment
      * @return The time the vehicle thinks it leaves
@@ -285,12 +285,12 @@ public:
     SUMOTime getEventTime() const;
 
     /// @brief Like getEventTime but returns seconds (for visualization)
-    inline SUMOReal getEventTimeSeconds() const {
+    inline double getEventTimeSeconds() const {
         return STEPS2TIME(getEventTime());
     }
 
     /// @brief get the last headway time in seconds
-    inline SUMOReal getLastHeadwaySeconds() const {
+    inline double getLastHeadwaySeconds() const {
         return STEPS2TIME(myLastHeadway);
     }
 
@@ -335,7 +335,7 @@ public:
     /** @brief returns flow based on headway
      * @note: returns magic number 10000 when headway cannot be computed
      */
-    SUMOReal getFlow() const;
+    double getFlow() const;
 
 
     /// @brief whether the given segment is 0 or encodes vaporization
@@ -353,7 +353,7 @@ public:
     }
 
     /// @brief return the remaining physical space on this segment
-    inline int remainingVehicleCapacity(const SUMOReal vehLength) const {
+    inline int remainingVehicleCapacity(const double vehLength) const {
         if (myOccupancy == 0. && myCapacity < vehLength) {
             // even small segments can hold at least one vehicle
             return 1;
@@ -376,7 +376,7 @@ public:
         return myTau_ff;
     }
 
-    static const SUMOReal DO_NOT_PATCH_JAM_THRESHOLD;
+    static const double DO_NOT_PATCH_JAM_THRESHOLD;
 
     /// @brief add this lanes MoveReminders to the given vehicle
     void addReminders(MEVehicle* veh) const;
@@ -391,7 +391,7 @@ public:
      * @param[in] veh The vehicle in question for determining the link
      * @return The green fraction or 1 if the vehicle does not continue after this edge
      */
-    SUMOReal getTLSCapacity(const MEVehicle* veh) const;
+    double getTLSCapacity(const MEVehicle* veh) const;
 
 private:
     /** @brief Updates data of all detectors for a leaving vehicle
@@ -406,12 +406,12 @@ private:
 
     SUMOTime getTimeHeadway(const MESegment* pred, const MEVehicle* veh);
 
-    void setSpeedForQueue(SUMOReal newSpeed, SUMOTime currentTime,
+    void setSpeedForQueue(double newSpeed, SUMOTime currentTime,
                           SUMOTime blockTime, const std::vector<MEVehicle*>& vehs);
 
     /** @brief compute the new arrival time when switching speed
      */
-    SUMOTime newArrival(const MEVehicle* const v, SUMOReal newSpeed, SUMOTime currentTime);
+    SUMOTime newArrival(const MEVehicle* const v, double newSpeed, SUMOTime currentTime);
 
     /// @brief whether a leader in any queue is blocked
     bool hasBlockedLeader() const;
@@ -420,22 +420,22 @@ private:
      * if jamThresh is negative, compute a value which allows free flow at mySpeed
      * interpret jamThresh as the relative occupation at which jam starts
      */
-    void recomputeJamThreshold(SUMOReal jamThresh);
+    void recomputeJamThreshold(double jamThresh);
 
     /// @brief compute jam threshold for the given speed and jam-threshold option
-    SUMOReal jamThresholdForSpeed(SUMOReal speed, SUMOReal jamThresh) const;
+    double jamThresholdForSpeed(double speed, double jamThresh) const;
 
     /// @brief whether the given link may be passed because the option meso-junction-control.limited is set
     bool limitedControlOverride(const MSLink* link) const;
 
     /// @brief return the maximum tls penalty for all links from this edge
-    SUMOReal getMaxPenaltySeconds() const;
+    double getMaxPenaltySeconds() const;
 
     /// @brief whether the segment requires use of multiple queues
     static bool useMultiQueue(bool multiQueue, const MSEdge& parent);
 
     /// @brief convert net time gap (leader back to follower front) to gross time gap (leader front to follower front)
-    inline SUMOTime tauWithVehLength(SUMOTime tau, SUMOReal lengthWithGap) const {
+    inline SUMOTime tauWithVehLength(SUMOTime tau, double lengthWithGap) const {
         return tau + (SUMOTime)(lengthWithGap / myTau_length);
     }
 
@@ -447,7 +447,7 @@ private:
     MESegment* myNextSegment;
 
     /// @brief The segment's length
-    const SUMOReal myLength;
+    const double myLength;
 
     /// @brief Running number of the segment in the edge
     const int myIndex;
@@ -455,20 +455,20 @@ private:
     /// @brief The time headway parameters, see the Eissfeldt thesis
     const SUMOTime myTau_ff, myTau_fj, myTau_jf, myTau_jj;
     /// @brief Headway parameter for computing gross time headyway from net time headway, length and edge speed
-    SUMOReal myTau_length;
+    double myTau_length;
 
     /// @brief slope and axis offset for the jam-jam headway function
-    SUMOReal myA, myB;
+    double myA, myB;
 
     /// @brief The capacity of the segment in number of cars, used only in time headway calculation
     /// This parameter has only an effect if tau_jf != tau_jj, which is not(!) the case per default
-    const SUMOReal myHeadwayCapacity;
+    const double myHeadwayCapacity;
 
     /// @brief The number of lanes * the length
-    const SUMOReal myCapacity;
+    const double myCapacity;
 
     /// @brief The occupied space (in m) on the segment
-    SUMOReal myOccupancy;
+    double myOccupancy;
 
     /// @brief Whether junction control is enabled
     const bool myJunctionControl;
@@ -480,7 +480,7 @@ private:
     const bool myMinorPenalty;
 
     /// @brief The space (in m) which needs to be occupied before the segment is considered jammed
-    SUMOReal myJamThreshold;
+    double myJamThreshold;
 
     /// @brief The data collection for all kinds of detectors
     std::vector<MSMoveReminder*> myDetectorData;
@@ -508,7 +508,7 @@ private:
     static MESegment myVaporizationTarget;
 
     /// @brief the mean speed on this segment. Updated at event time or on demand
-    mutable SUMOReal myMeanSpeed;
+    mutable double myMeanSpeed;
 
     /// @brief the time at which myMeanSpeed was last updated
     mutable SUMOTime myLastMeanSpeedUpdate;

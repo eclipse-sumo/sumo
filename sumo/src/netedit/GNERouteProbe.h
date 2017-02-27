@@ -55,16 +55,16 @@ public:
      * @param[in] filename The file for generated output
      * @param[in] begin The time at which to start generating output
      */
-    GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal frequency, const std::string& filename, SUMOReal begin);
+    GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double frequency, const std::string& filename, double begin);
 
     /// @brief Destructor
     ~GNERouteProbe();
 
     /// @brief change the position of the RouteProbe geometry
-    void moveAdditionalGeometry(SUMOReal, SUMOReal);
+    void moveAdditionalGeometry(double, double);
 
     /// @brief updated geometry changes in the attributes of additional
-    void commmitAdditionalGeometryMoved(SUMOReal, SUMOReal, GNEUndoList*);
+    void commmitAdditionalGeometryMoved(double, double, GNEUndoList*);
 
     /// @brief update pre-computed geometry information
     /// @note: must be called when geometry changes (i.e. lane moved)
@@ -86,19 +86,19 @@ public:
     std::string getFilename() const;
 
     /// @brief get frequency of RouteProbe
-    SUMOReal getFrequency() const;
+    double getFrequency() const;
 
     /// @brief get begin of RouteProbe
-    SUMOReal getBegin() const;
+    double getBegin() const;
 
     /// @brief set filename of RouteProbe
     void setFilename(std::string filename);
 
     /// @brief set frequency of RouteProbe
-    void setFrequency(SUMOReal frequency);
+    void setFrequency(double frequency);
 
     /// @brief set begin of RouteProbe
-    void setBegin(SUMOReal begin);
+    void setBegin(double begin);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -138,13 +138,13 @@ public:
 
 protected:
     /// @brief Frequency of RouteProbe
-    SUMOReal myFrequency;
+    double myFrequency;
 
     /// @brief filename of RouteProbe
     std::string myFilename;
 
     /// @brief begin of rerouter
-    SUMOReal myBegin;
+    double myBegin;
 
     /// @brief route probe logo offset
     Position myRouteProbeLogoOffset;

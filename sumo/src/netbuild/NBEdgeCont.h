@@ -160,7 +160,7 @@ public:
      * @return The searched edge
      * @todo Recheck usage
      */
-    NBEdge* retrievePossiblySplit(const std::string& id, SUMOReal pos) const;
+    NBEdge* retrievePossiblySplit(const std::string& id, double pos) const;
 
 
     /** @brief Removes the given edge from the container (deleting it)
@@ -227,7 +227,7 @@ public:
      *  edge to the given node. If this position is too near to the edges begin/end,
      *  false is returned.
      *
-     * Otherwise, "splitAt(NBDistrictCont &, NBEdge *, SUMOReal, NBNode *, const std::string &, const std::string &, int , int)"
+     * Otherwise, "splitAt(NBDistrictCont &, NBEdge *, double, NBNode *, const std::string &, const std::string &, int , int)"
      *  is used to perform the split.
      *
      * @param[in] dc The district container, in order to remove/add the edge from/to sources/sinks
@@ -242,12 +242,12 @@ public:
      *            (By default all added/removed lanes are assumed to be on the right when computing connections)
      * @return Whether the edge could be split
      * @exception ProcessError If connections between the edges can not be built
-     * @see NBEdge::splitAt(NBDistrictCont &, NBEdge *, SUMOReal, NBNode *, const std::string &, const std::string &, int , int)
+     * @see NBEdge::splitAt(NBDistrictCont &, NBEdge *, double, NBNode *, const std::string &, const std::string &, int , int)
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
                  int noLanesFirstEdge, int noLanesSecondEdge,
-                 const SUMOReal speed = -1., const int changedLeft = 0);
+                 const double speed = -1., const int changedLeft = 0);
 
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications
@@ -265,10 +265,10 @@ public:
      * @return Whether the edge could be split
      * @exception ProcessError If connections between the edges can not be built
      */
-    bool splitAt(NBDistrictCont& dc, NBEdge* edge, SUMOReal edgepos, NBNode* node,
+    bool splitAt(NBDistrictCont& dc, NBEdge* edge, double edgepos, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
                  int noLanesFirstEdge, int noLanesSecondEdge,
-                 const SUMOReal speed = -1., const int changedLeft = 0);
+                 const double speed = -1., const int changedLeft = 0);
     /// @}
 
 
@@ -326,7 +326,7 @@ public:
      * @param[in] nc The node container needed to build (geometry) nodes
      * @see NBEdge::reduceGeometry
      */
-    void reduceGeometries(const SUMOReal minDist);
+    void reduceGeometries(const double minDist);
 
 
     /** @brief
@@ -335,7 +335,7 @@ public:
      * @param[in] fix Whether to prune geometry points to avoid sharp turns at start and end
      * @see NBEdge::checkGeometry
      */
-    void checkGeometries(const SUMOReal maxAngle, const SUMOReal minRadius, bool fix);
+    void checkGeometries(const double maxAngle, const double minRadius, bool fix);
     /// @}
 
 
@@ -503,7 +503,7 @@ public:
      * @param[in] contPos Custom position for internal junction
      * @param[in] visibility Custom foe visiblity connection
      */
-    void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, bool keepClear, SUMOReal contPos, SUMOReal visibility);
+    void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, bool keepClear, double contPos, double visibility);
 
 
     /** @brief Try to set any stored connections
@@ -515,7 +515,7 @@ public:
     void generateStreetSigns();
 
     /// @brief add sidwalks to edges within the given limits or permissions and return the number of edges affected
-    int guessSidewalks(SUMOReal width, SUMOReal minSpeed, SUMOReal maxSpeed, bool fromPermissions);
+    int guessSidewalks(double width, double minSpeed, double maxSpeed, bool fromPermissions);
 
 
     /** @brief Returns the determined roundabouts
@@ -539,10 +539,10 @@ public:
     int remapIDs(bool numericaIDs, bool reservedIDs);
 
     /// @brief check whether edges overlap
-    void checkOverlap(SUMOReal threshold, SUMOReal zThreshold) const;
+    void checkOverlap(double threshold, double zThreshold) const;
 
     /// @brief check whether edges are to steep
-    void checkGrade(SUMOReal threshold) const;
+    void checkGrade(double threshold) const;
 
 private:
     /** @brief Returns the edges which have been built by splitting the edge of the given id
@@ -555,7 +555,7 @@ private:
 
 
     /// @brief compute the form factor for a loop of edges
-    static SUMOReal formFactor(const EdgeVector& loopEdges);
+    static double formFactor(const EdgeVector& loopEdges);
 
 private:
     /// @brief The network builder; used to obtain type information
@@ -573,7 +573,7 @@ private:
          * @param[in] toLane The number of the lane the connection ends at
          * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
          */
-        PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, SUMOReal contPos_, SUMOReal visibility_) :
+        PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_, double visibility_) :
             from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_), contPos(contPos_), visibility(visibility_) {
         }
         /// @brief The id of the edge the connection starts at
@@ -589,9 +589,9 @@ private:
         /// @brief Whether the connection may be passed without braking
         bool keepClear;
         /// @brief custom position for internal junction on this connection
-        SUMOReal contPos;
+        double contPos;
         /// @brief custom foe visiblity for connection
-        SUMOReal visibility;
+        double visibility;
     };
 
     /// @brief The list of connections to recheck
@@ -617,7 +617,7 @@ private:
     /// @{
 
     /// @brief The minimum speed an edge may have in order to be kept (default: -1)
-    SUMOReal myEdgesMinSpeed;
+    double myEdgesMinSpeed;
 
     /// @brief Whether edges shall be joined first, then removed
     bool myRemoveEdgesAfterJoining;

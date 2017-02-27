@@ -51,7 +51,7 @@
 // static member definitions
 // ===========================================================================
 MSVehicleTransfer* MSVehicleTransfer::myInstance = 0;
-const SUMOReal MSVehicleTransfer::TeleportMinSpeed = 1;
+const double MSVehicleTransfer::TeleportMinSpeed = 1;
 const std::set<const MSVehicle*> MSVehicleTransfer::myEmptyVehicleSet;
 
 // ===========================================================================

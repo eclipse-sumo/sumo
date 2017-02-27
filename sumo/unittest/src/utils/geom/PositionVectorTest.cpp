@@ -164,7 +164,7 @@ TEST_F(PositionVectorTest, test_method_splitAt) {
     vec.push_back(Position(0,0));
     vec.push_back(Position(2,0));
     vec.push_back(Position(5,0));
-    SUMOReal smallDiff = POSITION_EPS / 2;
+    double smallDiff = POSITION_EPS / 2;
     std::pair<PositionVector, PositionVector> result;
     // split in first segment
     result = vec.splitAt(1);
@@ -500,7 +500,7 @@ TEST_F(PositionVectorTest, test_method_distances) {
 
         PositionVector vec3;
 
-        std::vector<SUMOReal> res1;
+        std::vector<double> res1;
         res1.push_back(1);
         res1.push_back(0);
         res1.push_back(0);
@@ -510,7 +510,7 @@ TEST_F(PositionVectorTest, test_method_distances) {
         EXPECT_DOUBLEVEC_EQUAL(res1,  vec1.distances(vec2));
 
 
-        std::vector<SUMOReal> res2;
+        std::vector<double> res2;
         //invalid: res1.push_back(1);
         res2.push_back(0);
         res2.push_back(0);
@@ -520,7 +520,7 @@ TEST_F(PositionVectorTest, test_method_distances) {
         EXPECT_DOUBLEVEC_EQUAL(res2,  vec1.distances(vec2, true));
 
 
-        std::vector<SUMOReal> res3;
+        std::vector<double> res3;
         res3.push_back(std::numeric_limits<double>::max());
         res3.push_back(std::numeric_limits<double>::max());
         EXPECT_DOUBLEVEC_EQUAL(res3,  vec1.distances(vec3));

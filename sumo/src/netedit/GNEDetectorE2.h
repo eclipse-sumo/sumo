@@ -59,8 +59,8 @@ public:
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] speedThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
      */
-    GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal pos, SUMOReal length, SUMOReal freq, const std::string& filename,
-                  bool cont, const SUMOReal timeThreshold, SUMOReal speedThreshold, SUMOReal jamThreshold);
+    GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename,
+                  bool cont, const double timeThreshold, double speedThreshold, double jamThreshold);
 
     /// @brief Destructor
     ~GNEDetectorE2();
@@ -111,19 +111,19 @@ public:
 
 protected:
     /// @brief attribute lenght
-    SUMOReal myLength;
+    double myLength;
 
     /// @brief attribute to enable or disable splitByType
     bool myCont;
 
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
-    SUMOReal myTimeThreshold;
+    double myTimeThreshold;
 
     /// @brief     The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
-    SUMOReal mySpeedThreshold;
+    double mySpeedThreshold;
 
     /// @brief     The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
-    SUMOReal myJamThreshold;
+    double myJamThreshold;
 
 private:
     /// @brief set attribute after validation

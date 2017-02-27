@@ -68,7 +68,7 @@ public:
     virtual void remove(PedestrianState* state) = 0;
 
     /// @brief whether a pedestrian is blocking the crossing of lane at offset distToCrossing
-    virtual bool blockedAtDist(const MSLane* lane, SUMOReal distToCrossing, std::vector<const MSPerson*>* collectBlockers) = 0;
+    virtual bool blockedAtDist(const MSLane* lane, double distToCrossing, std::vector<const MSPerson*>* collectBlockers) = 0;
 
     virtual void cleanupHelper() {};
 
@@ -78,10 +78,10 @@ public:
     static const int UNDEFINED_DIRECTION;
 
     // @brief the safety gap to keep between the car and the pedestrian in all directions
-    static const SUMOReal SAFETY_GAP;
+    static const double SAFETY_GAP;
 
     /// @brief the offset for computing person positions when walking on edges without a sidewalk
-    static const SUMOReal SIDEWALK_OFFSET;
+    static const double SIDEWALK_OFFSET;
 
     /// @brief return whether the route may traversed with the given starting direction
     static bool canTraverse(int dir, const ConstMSEdgeVector& route);
@@ -98,19 +98,19 @@ public:
     virtual ~PedestrianState() {};
 
     /// @brief return the offset from the start of the current edge measured in its natural direction
-    virtual SUMOReal getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const = 0;
+    virtual double getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const = 0;
 
     /// @brief return the network coordinate of the person
     virtual Position getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const = 0;
 
     /// @brief return the direction in which the person faces in degrees
-    virtual SUMOReal getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const = 0;
+    virtual double getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const = 0;
 
     /// @brief return the time the person spent standing
     virtual SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const = 0;
 
     /// @brief return the current speed of the person
-    virtual SUMOReal getSpeed(const MSPerson::MSPersonStage_Walking& stage) const = 0;
+    virtual double getSpeed(const MSPerson::MSPersonStage_Walking& stage) const = 0;
 
     /// @brief return the list of internal edges if the pedestrian is on an intersection
     virtual const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const = 0;

@@ -147,7 +147,7 @@ public:
      * @param[in] zoomDist The distance in m to use for the zoom, values < 0 means: use the centeringBoundary
      * @note caller is responsible for calling update
      */
-    void centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist = 20);
+    void centerTo(GUIGlID id, bool applyZoom, double zoomDist = 20);
 
     void showViewportEditor();
 

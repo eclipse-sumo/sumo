@@ -109,12 +109,12 @@ protected:
      * @param[in] detectionGap The minimum detection gap for the current phase
      * @return The minimum duration of the current phase
      */
-    SUMOTime duration(const SUMOReal detectionGap) const;
+    SUMOTime duration(const double detectionGap) const;
 
 
-    /** @brief Return the minimum detection gap of all detectors if the current phase should be extended and SUMOReal::max otherwise
+    /** @brief Return the minimum detection gap of all detectors if the current phase should be extended and double::max otherwise
      */
-    SUMOReal gapControl();
+    double gapControl();
     /// @}
 
 
@@ -123,13 +123,13 @@ protected:
     InductLoopMap myInductLoops;
 
     /// The maximum gap to check in seconds
-    SUMOReal myMaxGap;
+    double myMaxGap;
 
     /// The passing time used in seconds
-    SUMOReal myPassingTime;
+    double myPassingTime;
 
     /// The detector distance in seconds
-    SUMOReal myDetectorGap;
+    double myDetectorGap;
 
     /// Whether the detectors shall be shown in the GUI
     bool myShowDetectors;

@@ -62,8 +62,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal pos, SUMOReal length, SUMOReal freq, const std::string& filename,
-                             bool cont, const SUMOReal timeThreshold, SUMOReal speedThreshold, SUMOReal jamThreshold) :
+GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename,
+                             bool cont, const double timeThreshold, double speedThreshold, double jamThreshold) :
     GNEDetector(id, viewNet, SUMO_TAG_E2DETECTOR, ICON_E2, lane, pos, freq, filename),
     myLength(length),
     myCont(cont),
@@ -117,7 +117,7 @@ GNEDetectorE2::updateGeometry() {
             myShapeLengths.push_back(f.distanceTo(s));
 
             // Save rotation (angle) of the vector constructed by points f and s
-            myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
         }
     }
 
@@ -187,7 +187,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // Obtain exaggeration of the draw
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
 
     // Draw the area using shape, shapeRotations, shapeLenghts and value of exaggeration
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
@@ -285,21 +285,21 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) <= (myLane->getLaneParametricLenght()));
+            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= (myLane->getLaneParametricLenght()));
         case SUMO_ATTR_FREQUENCY:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) > 0);
+            return (canParse<double>(value) && parse<double>(value) > 0);
         case SUMO_ATTR_LENGTH:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0);
+            return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_FILE:
             return isValidFileValue(value);
         case SUMO_ATTR_CONT:
             return canParse<bool>(value);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
@@ -321,15 +321,15 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPosition = Position(parse<SUMOReal>(value), 0);
+            myPosition = Position(parse<double>(value), 0);
             updateGeometry();
             getViewNet()->update();
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFreq = parse<SUMOReal>(value);
+            myFreq = parse<double>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = parse<SUMOReal>(value);
+            myLength = parse<double>(value);
             updateGeometry();
             getViewNet()->update();
             break;
@@ -340,13 +340,13 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myCont = parse<bool>(value);
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            myTimeThreshold = parse<SUMOReal>(value);
+            myTimeThreshold = parse<double>(value);
             break;
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
-            mySpeedThreshold = parse<SUMOReal>(value);
+            mySpeedThreshold = parse<double>(value);
             break;
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
-            myJamThreshold = parse<SUMOReal>(value);
+            myJamThreshold = parse<double>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);

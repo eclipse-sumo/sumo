@@ -46,21 +46,21 @@ class Distribution_MeanDev :
     public Distribution {
 public:
     /// Constructor
-    Distribution_MeanDev(const std::string& id, SUMOReal mean,
-                         SUMOReal deviation);
+    Distribution_MeanDev(const std::string& id, double mean,
+                         double deviation);
 
     /// Destructor
     virtual ~Distribution_MeanDev();
 
     /// Returns the maximum value of this distribution
-    SUMOReal getMax() const;
+    double getMax() const;
 
 private:
     /// The distribution's mean
-    SUMOReal myMeanValue;
+    double myMeanValue;
 
     /// The distribution's standard deviation
-    SUMOReal myDeviation;
+    double myDeviation;
 
 };
 

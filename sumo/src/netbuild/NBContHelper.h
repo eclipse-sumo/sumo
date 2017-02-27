@@ -65,9 +65,9 @@ public:
     static void nextCCW(const EdgeVector& edges,
                         EdgeVector::const_iterator& from);
 
-    static SUMOReal getMaxSpeed(const EdgeVector& edges);
+    static double getMaxSpeed(const EdgeVector& edges);
 
-    static SUMOReal getMinSpeed(const EdgeVector& edges);
+    static double getMinSpeed(const EdgeVector& edges);
 
     /** writes the vector of bools to the given stream */
     static std::ostream& out(std::ostream& os, const std::vector<bool>& v);
@@ -122,7 +122,7 @@ public:
     private:
         bool myRefIncoming;
         Position myReferencePos;
-        SUMOReal myReferenceAngle;
+        double myReferenceAngle;
     };
 
 
@@ -200,7 +200,7 @@ public:
          * @param[in] e The edge to compare the angle difference of
          * @return The angle difference
          */
-        SUMOReal getDiff(const NBEdge* const e) const {
+        double getDiff(const NBEdge* const e) const {
             return fabs(GeomHelper::angleDiff(getEdgeAngleAt(e, myNode), myAngle));
         }
 
@@ -210,7 +210,7 @@ public:
          * @param[in] e The edge to which the sorting relates
          * @param[in] n The node to consider
          */
-        SUMOReal getEdgeAngleAt(const NBEdge* const e, const NBNode* const n) const {
+        double getEdgeAngleAt(const NBEdge* const e, const NBNode* const n) const {
             if (e->getFromNode() == n) {
                 return e->getGeometry().angleAt2D(0);
             } else {
@@ -220,7 +220,7 @@ public:
 
     private:
         /// @brief The angle of the related edge at the given node
-        SUMOReal myAngle;
+        double myAngle;
 
         /// @brief The related node
         const NBNode* const myNode;
@@ -247,14 +247,14 @@ public:
 
         /// comparing operation
         int operator()(NBEdge* e1, NBEdge* e2) const {
-            SUMOReal d1 = GeomHelper::getMinAngleDiff(e1->getTotalAngle(), myAngle);
-            SUMOReal d2 = GeomHelper::getMinAngleDiff(e2->getTotalAngle(), myAngle);
+            double d1 = GeomHelper::getMinAngleDiff(e1->getTotalAngle(), myAngle);
+            double d2 = GeomHelper::getMinAngleDiff(e2->getTotalAngle(), myAngle);
             return d1 < d2;
         }
 
     private:
         /// the angle to find the edge with the opposite direction
-        SUMOReal myAngle;
+        double myAngle;
     };
 
 
@@ -324,7 +324,7 @@ public:
 
 
     /** returns the maximum speed allowed on the edges */
-    static SUMOReal maxSpeed(const EdgeVector& ev);
+    static double maxSpeed(const EdgeVector& ev);
 
     /**
      * same_connection_edge_sorter
@@ -339,8 +339,8 @@ public:
 
         /// comparing operation
         int operator()(NBEdge* e1, NBEdge* e2) const {
-            std::pair<SUMOReal, SUMOReal> mm1 = getMinMaxRelAngles(e1);
-            std::pair<SUMOReal, SUMOReal> mm2 = getMinMaxRelAngles(e2);
+            std::pair<double, double> mm1 = getMinMaxRelAngles(e1);
+            std::pair<double, double> mm2 = getMinMaxRelAngles(e2);
             if (mm1.first == mm2.first && mm1.second == mm2.second) {
                 // ok, let's simply sort them arbitrarily
                 return e1->getID() < e2->getID();
@@ -356,12 +356,12 @@ public:
         /**
          *
          */
-        std::pair<SUMOReal, SUMOReal> getMinMaxRelAngles(NBEdge* e) const {
-            SUMOReal min = 360;
-            SUMOReal max = 360;
+        std::pair<double, double> getMinMaxRelAngles(NBEdge* e) const {
+            double min = 360;
+            double max = 360;
             const EdgeVector& ev = e->getConnectedEdges();
             for (EdgeVector::const_iterator i = ev.begin(); i != ev.end(); ++i) {
-                SUMOReal angle = NBHelpers::normRelAngle(
+                double angle = NBHelpers::normRelAngle(
                                      e->getTotalAngle(), (*i)->getTotalAngle());
                 if (min == 360 || min > angle) {
                     min = angle;
@@ -370,7 +370,7 @@ public:
                     max = angle;
                 }
             }
-            return std::pair<SUMOReal, SUMOReal>(min, max);
+            return std::pair<double, double>(min, max);
         }
     };
 

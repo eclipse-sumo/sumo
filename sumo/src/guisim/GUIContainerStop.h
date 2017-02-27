@@ -79,7 +79,7 @@ public:
      */
     GUIContainerStop(const std::string& id,
                      const std::vector<std::string>& lines, MSLane& lane,
-                     SUMOReal frompos, SUMOReal topos);
+                     double frompos, double topos);
 
 
     /// @brief Destructor
@@ -132,10 +132,10 @@ public:
 
 private:
     /// @brief The rotations of the shape parts
-    std::vector<SUMOReal> myFGShapeRotations;
+    std::vector<double> myFGShapeRotations;
 
     /// @brief The lengths of the shape parts
-    std::vector<SUMOReal> myFGShapeLengths;
+    std::vector<double> myFGShapeLengths;
 
     /// @brief The shape
     PositionVector myFGShape;
@@ -144,7 +144,7 @@ private:
     Position myFGSignPos;
 
     /// @brief The rotation of the sign
-    SUMOReal myFGSignRot;
+    double myFGSignRot;
 
 
 };

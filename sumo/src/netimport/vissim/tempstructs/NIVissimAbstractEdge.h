@@ -45,11 +45,11 @@ class NIVissimAbstractEdge {
 public:
     NIVissimAbstractEdge(int id, const PositionVector& geom);
     virtual ~NIVissimAbstractEdge();
-    Position getGeomPosition(SUMOReal pos) const;
+    Position getGeomPosition(double pos) const;
     void splitAssigning();
     bool crossesEdge(NIVissimAbstractEdge* c) const;
     Position crossesEdgeAtPoint(NIVissimAbstractEdge* c) const;
-    bool overlapsWith(const AbstractPoly& p, SUMOReal offset = 0.0) const;
+    bool overlapsWith(const AbstractPoly& p, double offset = 0.0) const;
     virtual void setNodeCluster(int nodeid) = 0;
     bool hasNodeCluster() const;
 
@@ -65,7 +65,7 @@ public:
     static bool dictionary(int id, NIVissimAbstractEdge* e);
     static NIVissimAbstractEdge* dictionary(int id);
     static void splitAndAssignToNodes();
-    static std::vector<int> getWithin(const AbstractPoly& p, SUMOReal offset = 0.0);
+    static std::vector<int> getWithin(const AbstractPoly& p, double offset = 0.0);
     static void clearDict();
 
 

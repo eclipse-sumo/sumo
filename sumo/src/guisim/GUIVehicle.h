@@ -68,7 +68,7 @@ public:
      * @exception ProcessError If a value is wrong
      */
     GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-               const MSVehicleType* type, const SUMOReal speedFactor);
+               const MSVehicleType* type, const double speedFactor);
 
 
     /// @brief destructor
@@ -78,7 +78,7 @@ public:
      *
      * @note implementation of abstract method does not work otherwise
      */
-    Position getPosition(const SUMOReal offset = 0) const {
+    Position getPosition(const double offset = 0) const {
         return MSVehicle::getPosition(offset);
     }
 
@@ -86,17 +86,17 @@ public:
      *
      * @note implementation of abstract method does not work otherwise
      */
-    SUMOReal getAngle() const {
+    double getAngle() const {
         return MSVehicle::getAngle();
     }
 
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    void drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const;
+    void drawRouteHelper(const MSRoute& r, double exaggeration) const;
 
-    void drawAction_drawVehicleBlinker(SUMOReal length) const;
-    void drawAction_drawVehicleBrakeLight(SUMOReal length, bool onlyOne = 1) const;
+    void drawAction_drawVehicleBlinker(double length) const;
+    void drawAction_drawVehicleBrakeLight(double length, bool onlyOne = 1) const;
     void drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const;
     void drawAction_drawLinkItems(const GUIVisualizationSettings& s) const;
     void drawAction_drawVehicleBlueLight() const;
@@ -105,7 +105,7 @@ public:
      * @see MSVehicle::myLastLaneChangeOffset
      * @return The time since the last lane change in seconds
      */
-    SUMOReal getLastLaneChangeOffset() const;
+    double getLastLaneChangeOffset() const;
 
 
     /** @brief Draws the vehicle's best lanes
@@ -117,7 +117,7 @@ public:
     void selectBlockingFoes() const;
 
     /// @brief gets the color value according to the current scheme index
-    SUMOReal getColorValue(int activeScheme) const;
+    double getColorValue(int activeScheme) const;
 
     /** @brief Returns an own parameter window
      *
@@ -148,7 +148,7 @@ private:
     /* @brief draw train with individual carriages. The number of carriages is
      * determined from defaultLength of carriages and vehicle length
      * passengerSeats are computed beginning at firstPassengerCarriage */
-    void drawAction_drawRailCarriages(const GUIVisualizationSettings& s, SUMOReal defaultLength, SUMOReal carriageGap,
+    void drawAction_drawRailCarriages(const GUIVisualizationSettings& s, double defaultLength, double carriageGap,
                                       int firstPassengerCarriage, bool asImage) const;
     /// @}
 

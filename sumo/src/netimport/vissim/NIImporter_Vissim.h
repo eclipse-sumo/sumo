@@ -558,7 +558,7 @@ public:
 
 private:
     bool readContents(std::istream& strm);
-    void postLoadBuild(SUMOReal offset);
+    void postLoadBuild(double offset);
 
 
     /// adds name-to-id - relationships of known elements into myKnownElements

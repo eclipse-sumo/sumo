@@ -147,7 +147,7 @@ public:
     bool usingInverseGeoProjection() const;
 
     /// Shifts the converted boundary by the given amounts
-    void moveConvertedBy(SUMOReal x, SUMOReal y);
+    void moveConvertedBy(double x, double y);
 
     /// Returns the original boundary
     const Boundary& getOrigBoundary() const;

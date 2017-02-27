@@ -87,7 +87,7 @@ public:
      * @param[in] src The value source of the object
      * @param[in] newTracked The description of the tracked value
      */
-    void addTracked(GUIGlObject& o, ValueSource<SUMOReal>* src,
+    void addTracked(GUIGlObject& o, ValueSource<double>* src,
                     TrackerValueDesc* newTracked);
 
 
@@ -159,7 +159,7 @@ public:
          * @param[in] desc The tracked values to draw
          * @param[in] namePos Position to display the name at (currently unused)
          */
-        void drawValue(TrackerValueDesc& desc, SUMOReal namePos);
+        void drawValue(TrackerValueDesc& desc, double namePos);
 
 
     private:
@@ -197,7 +197,7 @@ protected:
     GUIParameterTrackerPanel* myPanel;
 
     /// @brief The value sources
-    std::vector<GLObjectValuePassConnector<SUMOReal>*> myValuePassers;
+    std::vector<GLObjectValuePassConnector<double>*> myValuePassers;
 
     /// @brief for some menu detaching fun
     FXToolBarShell* myToolBarDrag;

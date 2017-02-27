@@ -52,26 +52,26 @@ AGStreet::print() const {
 }
 
 
-SUMOReal
+double
 AGStreet::getPopulation() const {
     return myPopulation;
 }
 
 
 void
-AGStreet::setPopulation(const SUMOReal population) {
+AGStreet::setPopulation(const double population) {
     myPopulation = population;
 }
 
 
-SUMOReal
+double
 AGStreet::getWorkplaceNumber() const {
     return myNumWorkplaces;
 }
 
 
 void
-AGStreet::setWorkplaceNumber(const SUMOReal workPositions) {
+AGStreet::setWorkplaceNumber(const double workPositions) {
     myNumWorkplaces = workPositions;
 }
 

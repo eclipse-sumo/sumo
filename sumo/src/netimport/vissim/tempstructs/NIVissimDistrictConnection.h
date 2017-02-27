@@ -47,8 +47,8 @@ class NIVissimDistrictConnection {
 public:
     /// Contructor
     NIVissimDistrictConnection(int id, const std::string& name,
-                               const std::vector<int>& districts, const std::vector<SUMOReal>& percentages,
-                               int edgeid, SUMOReal position,
+                               const std::vector<int>& districts, const std::vector<double>& percentages,
+                               int edgeid, double position,
                                const std::vector<std::pair<int, int> >& assignedVehicles);
 
     // Destructor
@@ -64,17 +64,17 @@ public:
     }
 
     /// Returns the position of the connection at the edge
-    SUMOReal getPosition() const {
+    double getPosition() const {
         return myPosition;
     }
 
-    SUMOReal getMeanSpeed(/*NBDistribution &dc*/) const;
+    double getMeanSpeed(/*NBDistribution &dc*/) const;
 
 public:
     /// Inserts the connection into the dictionary after building it
     static bool dictionary(int id, const std::string& name,
-                           const std::vector<int>& districts, const std::vector<SUMOReal>& percentages,
-                           int edgeid, SUMOReal position,
+                           const std::vector<int>& districts, const std::vector<double>& percentages,
+                           int edgeid, double position,
                            const std::vector<std::pair<int, int> >& assignedVehicles);
 
     /// Inserts the build connection to the dictionary
@@ -105,7 +105,7 @@ public:
 
 private:
     void checkEdgeEnd();
-    SUMOReal getRealSpeed(/*NBDistribution &dc, */int distNo) const;
+    double getRealSpeed(/*NBDistribution &dc, */int distNo) const;
 
 private:
     /// The id of the connections
@@ -118,7 +118,7 @@ private:
     std::vector<int> myDistricts;
 
     /// Definition of a map of how many vehicles should leave to a certain district
-    typedef std::map<int, SUMOReal> DistrictPercentages;
+    typedef std::map<int, double> DistrictPercentages;
 
     /// A map how many vehicles (key, amount) should leave to a district (key)
     DistrictPercentages myPercentages;
@@ -127,7 +127,7 @@ private:
     int myEdgeID;
 
     /// The position on the edge
-    SUMOReal myPosition;
+    double myPosition;
 
     /// The vehicles using this connection
     std::vector<std::pair<int, int> > myAssignedVehicles;

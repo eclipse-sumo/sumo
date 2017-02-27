@@ -169,7 +169,7 @@ private:
         NBEdgeCont& myEdgeCont;
 
         /// @brief The capacity norming
-        SUMOReal myCapacityNorm;
+        double myCapacityNorm;
 
         /// @brief Whether the loaded lengths shal be used
         bool myKeepEdgeLengths;

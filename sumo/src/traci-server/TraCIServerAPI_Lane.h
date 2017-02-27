@@ -88,7 +88,7 @@ public:
     public:
         /// @brief Constructor
         StoringVisitor(std::set<std::string>& ids, const PositionVector& shape,
-                       const SUMOReal range, const int domain)
+                       const double range, const int domain)
             : myIDs(ids), myShape(shape), myRange(range), myDomain(domain) {}
 
         /// @brief Destructor
@@ -100,7 +100,7 @@ public:
         /// @brief The container
         std::set<std::string>& myIDs;
         const PositionVector& myShape;
-        const SUMOReal myRange;
+        const double myRange;
         const int myDomain;
 
     private:

@@ -68,7 +68,7 @@ AGAdult::print() const {
 
 
 void
-AGAdult::tryToWork(SUMOReal rate, std::vector<AGWorkPosition>* wps) {
+AGAdult::tryToWork(double rate, std::vector<AGWorkPosition>* wps) {
     if (decide(rate)) {
         // Select the new work position before giving up the current one.
         // This avoids that the current one is the same as the new one.

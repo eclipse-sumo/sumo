@@ -93,7 +93,7 @@ public:
      * @param[in] msTime The departure time of the vehicle
      * @return The route costs
      */
-    SUMOReal recomputeCosts(const ConstROEdgeVector& edges, const ROVehicle* const v, SUMOTime msTime) const;
+    double recomputeCosts(const ConstROEdgeVector& edges, const ROVehicle* const v, SUMOTime msTime) const;
     /// @}
 
 

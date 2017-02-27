@@ -104,7 +104,7 @@ mySurfaceCorrection[27] = { 0.7, 0.2, 3.6, -1.0, -1.8, -0.1, -0.9, -0.7, -1.1, -
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOReal
+double
 HelpersHarmonoise::computeNoise(SUMOEmissionClass c, double v, double a) {
     double* alphaT, *betaT, *alphaR, *betaR;
     double ac = 0;
@@ -142,7 +142,7 @@ HelpersHarmonoise::computeNoise(SUMOEmissionClass c, double v, double a) {
     }
     L_low = (10. * log10(L_low));
     L_high = (10. * log10(L_high));
-    SUMOReal v1 = (SUMOReal)(10. * log10(pow(10., L_low / 10.) + pow(10., L_high / 10.)));
+    double v1 = (double)(10. * log10(pow(10., L_low / 10.) + pow(10., L_high / 10.)));
     return v1;
 }
 

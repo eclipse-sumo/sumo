@@ -180,16 +180,16 @@ public:
 
 
     /// Returns the simulation speed as a factor to real time
-    SUMOReal getRTFactor() const;
+    double getRTFactor() const;
 
     /// Returns the update per seconds rate
-    SUMOReal getUPS() const;
+    double getUPS() const;
 
     /// Returns the simulation speed as a factor to real time
-    SUMOReal getMeanRTFactor(int duration) const;
+    double getMeanRTFactor(int duration) const;
 
     /// Returns the update per seconds rate
-    SUMOReal getMeanUPS() const;
+    double getMeanUPS() const;
 
     // Returns the duration of the last step's visualisation part (in ms)
     //int getVisDuration() const;
@@ -207,19 +207,19 @@ public:
     void setIdleDuration(int val);
     //}
 
-    SUMOReal getAvgRouteLength() const {
+    double getAvgRouteLength() const {
         return MSDevice_Tripinfo::getAvgRouteLength();
     }
-    SUMOReal getAvgDuration() const {
+    double getAvgDuration() const {
         return MSDevice_Tripinfo::getAvgDuration();
     }
-    SUMOReal getAvgWaitingTime() const {
+    double getAvgWaitingTime() const {
         return MSDevice_Tripinfo::getAvgWaitingTime();
     }
-    SUMOReal getAvgTimeLoss() const {
+    double getAvgTimeLoss() const {
         return MSDevice_Tripinfo::getAvgTimeLoss();
     }
-    SUMOReal getAvgDepartDelay() const {
+    double getAvgDepartDelay() const {
         return MSDevice_Tripinfo::getAvgDepartDelay();
     }
 

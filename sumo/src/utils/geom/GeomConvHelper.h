@@ -48,7 +48,7 @@ class GeomConvHelper {
 public:
     /** @brief Builds a PositionVector from a string representation, reporting occured errors
      *
-     * It is assumed, the vector is stored as "x,y[ x,y]*" where x and y are SUMOReals.
+     * It is assumed, the vector is stored as "x,y[ x,y]*" where x and y are doubles.
      * @param[in] shpdef The shape definition to parse
      * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
@@ -63,7 +63,7 @@ public:
 
     /** @brief Builds a boundary from its string representation, reporting occured errors
      *
-     * It is assumed that the boundary is stored as a quadruple of SUMOReal, divided by ','.
+     * It is assumed that the boundary is stored as a quadruple of double, divided by ','.
      * @param[in] def The boundary definition to parse
      * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation

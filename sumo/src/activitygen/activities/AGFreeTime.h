@@ -98,7 +98,7 @@ private:
     /**
      * frequency of going out or see family is assumed to be once a week (in mean)
      */
-    SUMOReal freqOut;
+    double freqOut;
     /**
      * number of days for the simulation
      * households are likely to go out some days but not others

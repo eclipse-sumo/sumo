@@ -208,7 +208,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The fifth polygon parameter must be the shape.", outputStorage);
             }
             //
-            if (!shapeCont.addPolygon(id, type, col, (SUMOReal)layer,
+            if (!shapeCont.addPolygon(id, type, col, (double)layer,
                                       Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, shape, fill)) {
                 delete p;
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "Could not add polygon.", outputStorage);

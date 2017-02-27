@@ -122,7 +122,7 @@ public:
      * @param[in] y The y-offset
      * @param[in] z The camera height
      */
-    void saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal z);
+    void saveViewport(const double x, const double y, const double z);
 
 
     /** @brief Sets the default viewport

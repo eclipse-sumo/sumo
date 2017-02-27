@@ -117,7 +117,7 @@ MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix
 }
 
 
-SUMOReal MSSOTLPolicy5DFamilyStimulus::computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure, SUMOReal vehInDispersionMeasure, SUMOReal vehOutDispersionMeasure) {
+double MSSOTLPolicy5DFamilyStimulus::computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure, double vehOutDispersionMeasure) {
     /*DBG(
     		std::ostringstream str;
     		str << "cox=" << getStimCox() << ", cox_exp_in=" << getStimCoxExpIn() << ", cox_exp_out=" << getStimCoxExpOut()
@@ -126,9 +126,9 @@ SUMOReal MSSOTLPolicy5DFamilyStimulus::computeDesirability(SUMOReal vehInMeasure
     //		it seems to be not enough, a strange segmentation fault appears...
     //	 if((getStimCoxExpIn()!=0.0 && getStimDivisorIn()==0.0)||(getStimCoxExpOut()!=0.0 && getStimDivisorOut()==0.0)){
 
-    SUMOReal best_stimulus = -1;
+    double best_stimulus = -1;
     for (std::vector<MSSOTLPolicy5DStimulus*>::const_iterator it  = family.begin(); it != family.end(); it++) {
-        SUMOReal temp_stimulus = (*it)->computeDesirability(vehInMeasure, vehOutMeasure, vehInDispersionMeasure, vehOutDispersionMeasure);
+        double temp_stimulus = (*it)->computeDesirability(vehInMeasure, vehOutMeasure, vehInDispersionMeasure, vehOutDispersionMeasure);
         DBG(
             std::ostringstream str;
             str << "STIMULUS: " << temp_stimulus;
@@ -148,7 +148,7 @@ SUMOReal MSSOTLPolicy5DFamilyStimulus::computeDesirability(SUMOReal vehInMeasure
 }
 
 
-SUMOReal MSSOTLPolicy5DFamilyStimulus::computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure) {
+double MSSOTLPolicy5DFamilyStimulus::computeDesirability(double vehInMeasure, double vehOutMeasure) {
 
     return computeDesirability(vehInMeasure, vehOutMeasure, 0, 0);
 }

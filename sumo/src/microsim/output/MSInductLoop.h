@@ -82,7 +82,7 @@ public:
      * @param[in] vTypes which vehicle types are considered
      */
     MSInductLoop(const std::string& id, MSLane* const lane,
-                 SUMOReal positionInMeters,
+                 double positionInMeters,
                  const std::string& vTypes);
 
 
@@ -98,7 +98,7 @@ public:
     /** @brief Returns the position of the detector on the lane
      * @return The detector's position in meters
      */
-    SUMOReal getPosition() const {
+    double getPosition() const {
         return myPosition;
     }
 
@@ -133,7 +133,7 @@ public:
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
+    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
 
 
     /** @brief Dismisses the vehicle if it is on the detector due to a lane change
@@ -150,7 +150,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
 
 
     //@}
@@ -167,7 +167,7 @@ public:
      *
      * @return The speed [m/s] of the vehicle if one is on the detector, -1 otherwise
      */
-    SUMOReal getCurrentSpeed() const;
+    double getCurrentSpeed() const;
 
 
     /** @brief Returns the length of the vehicle on the detector
@@ -177,7 +177,7 @@ public:
      *
      * @return The length [m] of the vehicle if one is on the detector, -1 otherwise
      */
-    SUMOReal getCurrentLength() const;
+    double getCurrentLength() const;
 
 
     /** @brief Returns the current occupancy
@@ -189,7 +189,7 @@ public:
      * @return This detector's current occupancy
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    SUMOReal getCurrentOccupancy() const;
+    double getCurrentOccupancy() const;
 
 
     /** @brief Returns the number of vehicles that have passed the detector
@@ -216,7 +216,7 @@ public:
      *
      * @return Timesteps from last leaving (detection) of the detector
      */
-    SUMOReal getTimestepsSinceLastDetection() const;
+    double getTimestepsSinceLastDetection() const;
     //@}
 
 
@@ -261,7 +261,7 @@ public:
          * @param[in] entryTimestep The time at which the vehicle entered the detector
          * @param[in] leaveTimestep The time at which the vehicle left the detector
          */
-        VehicleData(const std::string& id, SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep,
+        VehicleData(const std::string& id, double vehLength, double entryTimestep, double leaveTimestep,
                     const std::string& typeID)
             : idM(id), lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
               speedM(vehLength / MAX2(leaveTimestep - entryTimestep, NUMERICAL_EPS)), typeIDM(typeID) {}
@@ -269,13 +269,13 @@ public:
         /// @brief The id of the vehicle
         std::string idM;
         /// @brief Length of the vehicle
-        SUMOReal lengthM;
+        double lengthM;
         /// @brief Entry-time of the vehicle in [s]
-        SUMOReal entryTimeM;
+        double entryTimeM;
         /// @brief Leave-time of the vehicle in [s]
-        SUMOReal leaveTimeM;
+        double leaveTimeM;
         /// @brief Speed of the vehicle in [m/s]
-        SUMOReal speedM;
+        double speedM;
         /// @brief Type of the vehicle in
         std::string typeIDM;
     };
@@ -299,7 +299,7 @@ protected:
      * @param veh The entering vehicle.
      * @param entryTimestep Timestep (not necessary integer) of entrance.
      */
-    virtual void enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep);
+    virtual void enterDetectorByMove(SUMOVehicle& veh, double entryTimestep);
 
 
     /** @brief Processes a vehicle that leaves the detector
@@ -310,14 +310,14 @@ protected:
      * @param veh The leaving vehicle.
      * @param leaveTimestep Timestep (not necessary integer) of leaving.
      */
-    virtual void leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep);
+    virtual void leaveDetectorByMove(SUMOVehicle& veh, double leaveTimestep);
 
 
     /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
      * @param veh The leaving vehicle.
      * @param lastPos The last position of the leaving vehicle.
      */
-    virtual void leaveDetectorByLaneChange(SUMOVehicle& veh, SUMOReal lastPos);
+    virtual void leaveDetectorByLaneChange(SUMOVehicle& veh, double lastPos);
     /// @}
 
 
@@ -326,12 +326,12 @@ protected:
     ///@{
 
     /// @brief Adds up VehicleData::speedM
-    static inline SUMOReal speedSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) {
+    static inline double speedSum(double sumSoFar, const MSInductLoop::VehicleData& data) {
         return sumSoFar + data.speedM;
     }
 
     /// @brief Adds up VehicleData::lengthM
-    static inline SUMOReal lengthSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) {
+    static inline double lengthSum(double sumSoFar, const MSInductLoop::VehicleData& data) {
         return sumSoFar + data.lengthM;
     }
     ///@}
@@ -339,13 +339,13 @@ protected:
 
 protected:
     /// @brief Detector's position on lane [m]
-    const SUMOReal myPosition;
+    const double myPosition;
 
     /// @brief Leave-time of the last vehicle detected [s]
-    SUMOReal myLastLeaveTime;
+    double myLastLeaveTime;
 
     /// @brief Occupancy by the last vehicle detected.
-    SUMOReal myLastOccupancy;
+    double myLastOccupancy;
 
     /// @brief The number of entered vehicles
     int myEnteredVehicleNumber;
@@ -362,7 +362,7 @@ protected:
 
 
     /// @brief Type of myVehiclesOnDet
-    typedef std::map< SUMOVehicle*, SUMOReal > VehicleMap;
+    typedef std::map< SUMOVehicle*, double > VehicleMap;
 
     /// @brief Data for vehicles that have entered the detector (vehicle -> enter time)
     VehicleMap myVehiclesOnDet;

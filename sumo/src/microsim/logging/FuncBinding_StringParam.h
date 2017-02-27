@@ -65,7 +65,7 @@ public:
                    mySource, myOperation, myParam);
     }
 
-    ValueSource<SUMOReal>* makeSUMORealReturningCopy() const {
+    ValueSource<double>* makedoubleReturningCopy() const {
         throw 1;
     }
 

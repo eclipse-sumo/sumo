@@ -123,7 +123,7 @@ protected:
      * @param[in] dist The upstream distance for the cross sections to be determined.
      * @param[in/out] res Container to store the cross sections.
      */
-    void determineEntriesAndExits(SUMOReal range, CrossSectionVector& entries, CrossSectionVector& exits) const;
+    void determineEntriesAndExits(double range, CrossSectionVector& entries, CrossSectionVector& exits) const;
 
 
 protected:
@@ -134,12 +134,12 @@ protected:
     bool myShowDetectors;
 
     /// Range of the connected detector, which provides the information on approaching vehicles
-    SUMOReal myDetectionRange;
+    double myDetectionRange;
 
     /// If a vehicle's timeloss is below myTimeLossThreshold, this is counted as insignificant,
     /// since this may stem from dawdling, or driving only slightly slower than the maximal velocity on the lane.
     // (Idea: this might be adapted to the detector-length and the vehicle's maximal speed)
-    SUMOReal myTimeLossThreshold;
+    double myTimeLossThreshold;
 
     /// The output file for generated detectors
     std::string myFile;

@@ -123,20 +123,20 @@ public:
     //@{
 
     /// @brief return the offset from the start of the current edge
-    SUMOReal getEdgePos() const;
+    double getEdgePos() const;
 
     /// @brief return the Network coordinate of the container
     // @note overrides the base method and returns myPositionInVehicle while in driving stage
     Position getPosition() const;
 
     /// @brief return the current angle of the container
-    SUMOReal getAngle() const;
+    double getAngle() const;
 
     /// @brief the time this container spent waiting in seconds
-    SUMOReal getWaitingSeconds() const;
+    double getWaitingSeconds() const;
 
     /// @brief the current speed of the container
-    SUMOReal getSpeed() const;
+    double getSpeed() const;
 
     //@}
 
@@ -194,7 +194,7 @@ private:
     void setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief gets the color value according to the current scheme index
-    SUMOReal getColorValue(int activeScheme) const;
+    double getColorValue(int activeScheme) const;
 
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(int activeScheme) const;

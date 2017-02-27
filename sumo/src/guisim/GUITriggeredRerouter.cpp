@@ -160,7 +160,7 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdClose(FXObject*, FXSelect
 
 long
 GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdUserDef(FXObject*, FXSelector, void*) {
-    myUsageProbability = (SUMOReal)(myUsageProbabilityDial->getValue());
+    myUsageProbability = (double)(myUsageProbabilityDial->getValue());
     static_cast<GUITriggeredRerouter*>(myObject)->setUserUsageProbability(myUsageProbability);
     static_cast<GUITriggeredRerouter*>(myObject)->setUserMode(true);
     myParent->updateChildren();
@@ -228,7 +228,7 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
 GUITriggeredRerouter::GUITriggeredRerouter(
     const std::string& id,
     const MSEdgeVector& edges,
-    SUMOReal prob, const std::string& aXMLFilename, bool off,
+    double prob, const std::string& aXMLFilename, bool off,
     SUMORTree& rtree) :
     MSTriggeredRerouter(id, edges, prob, aXMLFilename, off),
     GUIGlObject_AbstractAdd("rerouter", GLO_TRIGGER, id) {
@@ -324,7 +324,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge
     myFGRotations.reserve(lanes.size());
     for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
         const PositionVector& v = (*i)->getShape();
-        const SUMOReal pos = closed ? 3 : v.length() - (SUMOReal) 6.;
+        const double pos = closed ? 3 : v.length() - (double) 6.;
         myFGPositions.push_back((*i)->geometryPositionAtOffset(pos));
         myFGRotations.push_back(-v.rotationDegreeAtOffset(pos));
         myBoundary.add(myFGPositions.back());
@@ -351,10 +351,10 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::getParameterWindow(GUIMainWindow
 
 void
 GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSettings& s) const {
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
     if (s.scale * exaggeration >= 3) {
         glPushName(getGlID());
-        const SUMOReal prob = myParent->getProbability();
+        const double prob = myParent->getProbability();
         if (myAmClosedEdge) {
             // draw closing symbol onto all lanes
             const RerouteInterval* const ri =
@@ -365,7 +365,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                     const int noLanes = (int)myFGPositions.size();
                     for (int j = 0; j < noLanes; ++j) {
                         Position pos = myFGPositions[j];
-                        SUMOReal rot = myFGRotations[j];
+                        double rot = myFGRotations[j];
                         glPushMatrix();
                         glTranslated(pos.x(), pos.y(), 0);
                         glRotated(rot, 0, 0, 1);
@@ -380,10 +380,10 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                         glTranslated(0, 0, getType());
                         //glScaled(exaggeration, exaggeration, 1);
                         glColor3d(0.7, 0, 0);
-                        GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
+                        GLHelper::drawFilledCircle((double) 1.3, noPoints);
                         glTranslated(0, 0, .1);
                         glColor3d(1, 0, 0);
-                        GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints, 0, prob * 360);
+                        GLHelper::drawFilledCircle((double) 1.3, noPoints, 0, prob * 360);
                         glTranslated(0, 0, .1);
                         glColor3d(1, 1, 1);
                         glRotated(-90, 0, 0, 1);
@@ -404,7 +404,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
             // draw rerouter symbol onto all lanes
             for (int i = 0; i < (int)myFGPositions.size(); ++i) {
                 const Position& pos = myFGPositions[i];
-                SUMOReal rot = myFGRotations[i];
+                double rot = myFGRotations[i];
                 glPushMatrix();
                 glTranslated(pos.x(), pos.y(), 0);
                 glRotated(rot, 0, 0, 1);
@@ -427,7 +427,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 glColor3d(0, 0, 0);
                 pfSetPosition(0, 0);
                 pfSetScale(3.f);
-                SUMOReal w = pfdkGetStringWidth("U");
+                double w = pfdkGetStringWidth("U");
                 glRotated(180, 0, 1, 0);
                 glTranslated(-w / 2., 2, 0);
                 pfDrawString("U");

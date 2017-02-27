@@ -53,7 +53,7 @@
 #pragma warning(disable: 4355)
 #endif
 GUIMEVehicle::GUIMEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-                           const MSVehicleType* type, const SUMOReal speedFactor) :
+                           const MSVehicleType* type, const double speedFactor) :
     MEVehicle(pars, route, type, speedFactor),
     GUIBaseVehicle((MSBaseVehicle&) * this) {
 }
@@ -73,22 +73,22 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     // add items
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("segment [#]", false, getSegment()->getIndex());
-    ret->mkItem("position [m]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getPositionOnLane));
-    ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getSpeed));
-    ret->mkItem("angle [degree]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &GUIBaseVehicle::getNaviDegree));
+    ret->mkItem("position [m]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getPositionOnLane));
+    ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getSpeed));
+    ret->mkItem("angle [degree]", true, new FunctionBinding<GUIMEVehicle, double>(this, &GUIBaseVehicle::getNaviDegree));
     ret->mkItem("waiting time [s]", true,
-                new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getWaitingSeconds));
+                new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getWaitingSeconds));
     if (getChosenSpeedFactor() != 1) {
         ret->mkItem("speed factor", false, getChosenSpeedFactor());
     }
     //ret->mkItem("time gap [s]", true,
-    //            new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MSVehicle::getTimeGap));
+    //            new FunctionBinding<GUIMEVehicle, double>(this, &MSVehicle::getTimeGap));
     //ret->mkItem("waiting time [s]", true,
-    //            new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MSVehicle::getWaitingSeconds));
+    //            new FunctionBinding<GUIMEVehicle, double>(this, &MSVehicle::getWaitingSeconds));
     //ret->mkItem("impatience", true,
-    //            new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MSVehicle::getImpatience));
+    //            new FunctionBinding<GUIMEVehicle, double>(this, &MSVehicle::getImpatience));
     //ret->mkItem("last lane change [s]", true,
-    //            new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &GUIMEVehicle::getLastLaneChangeOffset));
+    //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getLastLaneChangeOffset));
     ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
     ret->mkItem("depart delay [s]", false, time2string(getDepartDelay()));
     if (getParameter().repetitionNumber < INT_MAX) {
@@ -103,19 +103,19 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     //ret->mkItem("stop info", false, getStopInfo());
     ret->mkItem("line", false, myParameter->line);
     //ret->mkItem("CO2 [mg/s]", true,
-    //            new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &GUIMEVehicle::getCO2Emissions));
+    //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getCO2Emissions));
     //ret->mkItem("CO [mg/s]", true,
-    //            new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &GUIMEVehicle::getCOEmissions));
+    //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getCOEmissions));
     //ret->mkItem("HC [mg/s]", true,
-    //            new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &GUIMEVehicle::getHCEmissions));
+    //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getHCEmissions));
     //ret->mkItem("NOx [mg/s]", true,
-    //            new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &GUIMEVehicle::getNOxEmissions));
+    //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getNOxEmissions));
     //ret->mkItem("PMx [mg/s]", true,
-    //            new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &GUIMEVehicle::getPMxEmissions));
+    //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getPMxEmissions));
     //ret->mkItem("fuel [ml/s]", true,
-    //            new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &GUIMEVehicle::getFuelConsumption));
+    //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getFuelConsumption));
     //ret->mkItem("noise (Harmonoise) [dB]", true,
-    //            new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &GUIMEVehicle::getHarmonoise_NoiseEmissions));
+    //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getHarmonoise_NoiseEmissions));
     std::ostringstream str;
     for (std::vector<MSDevice*>::const_iterator i = myDevices.begin(); i != myDevices.end(); ++i) {
         if (i != myDevices.begin()) {
@@ -131,10 +131,10 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
 
     // meso specific values
-    ret->mkItem("event time [s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getEventTimeSeconds));
-    ret->mkItem("entry time [s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getLastEntryTimeSeconds));
-    ret->mkItem("block time [s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getBlockTimeSeconds));
-    ret->mkItem("link penalty [s]", true, new FunctionBinding<GUIMEVehicle, SUMOReal>(this, &MEVehicle::getCurrentLinkPenaltySeconds));
+    ret->mkItem("event time [s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getEventTimeSeconds));
+    ret->mkItem("entry time [s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getLastEntryTimeSeconds));
+    ret->mkItem("block time [s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getBlockTimeSeconds));
+    ret->mkItem("link penalty [s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getCurrentLinkPenaltySeconds));
     // close building
     ret->closeBuilding();
     return ret;
@@ -175,7 +175,7 @@ GUIMEVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& /* s 
 }
 
 
-SUMOReal
+double
 GUIMEVehicle::getColorValue(int activeScheme) const {
     switch (activeScheme) {
         case 8:
@@ -222,7 +222,7 @@ GUIMEVehicle::getColorValue(int activeScheme) const {
 
 
 void
-GUIMEVehicle::drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const {
+GUIMEVehicle::drawRouteHelper(const MSRoute& r, double exaggeration) const {
     MSRouteIterator i = r.begin();
     for (; i != r.end(); ++i) {
         const GUILane* lane = static_cast<GUILane*>((*i)->getLanes()[0]);
@@ -232,7 +232,7 @@ GUIMEVehicle::drawRouteHelper(const MSRoute& r, SUMOReal exaggeration) const {
 }
 
 
-SUMOReal
+double
 GUIMEVehicle::getLastLaneChangeOffset() const {
     // @todo possibly we could compute something reasonable here
     return 0;

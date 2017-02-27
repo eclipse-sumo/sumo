@@ -71,8 +71,8 @@ template<class E, class V, class PF>
 class AStarRouter : public SUMOAbstractRouter<E, V>, public PF {
 
 public:
-    typedef SUMOReal(* Operation)(const E* const, const V* const, SUMOReal);
-    typedef std::vector<std::vector<SUMOReal> > LookupTable;
+    typedef double(* Operation)(const E* const, const V* const, double);
+    typedef std::vector<std::vector<double> > LookupTable;
 
     /**
      * @struct EdgeInfo
@@ -84,8 +84,8 @@ public:
         /// Constructor
         EdgeInfo(const E* e) :
             edge(e),
-            traveltime(std::numeric_limits<SUMOReal>::max()),
-            heuristicTime(std::numeric_limits<SUMOReal>::max()),
+            traveltime(std::numeric_limits<double>::max()),
+            heuristicTime(std::numeric_limits<double>::max()),
             prev(0),
             visited(false) {
         }
@@ -94,10 +94,10 @@ public:
         const E* edge;
 
         /// Effort to reach the edge
-        SUMOReal traveltime;
+        double traveltime;
 
         /// Estimated time to reach the edge (traveltime + lower bound on remaining time)
-        SUMOReal heuristicTime;
+        double heuristicTime;
 
         /// The previous edge
         EdgeInfo* prev;
@@ -107,7 +107,7 @@ public:
 
         inline void reset() {
             // heuristicTime is set before adding to the frontier, thus no reset is needed
-            traveltime = std::numeric_limits<SUMOReal>::max();
+            traveltime = std::numeric_limits<double>::max();
             visited = false;
         }
 
@@ -159,7 +159,7 @@ public:
         BinaryInputDevice dev(filename);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                SUMOReal val;
+                double val;
                 dev >> val;
                 (*result)[i].push_back(val);
             }
@@ -195,7 +195,7 @@ public:
         }
         this->startQuery();
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
-        const SUMOReal time = STEPS2TIME(msTime);
+        const double time = STEPS2TIME(msTime);
         if (this->myBulkMode) {
             const EdgeInfo& toInfo = myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
@@ -228,9 +228,9 @@ public:
             myFrontierList.pop_back();
             myFound.push_back(minimumInfo);
             minimumInfo->visited = true;
-            const SUMOReal traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
+            const double traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // admissible A* heuristic: straight line distance at maximum speed
-            const SUMOReal heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / vehicle->getMaxSpeed() : (*myLookupTable)[minEdge->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
+            const double heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / vehicle->getMaxSpeed() : (*myLookupTable)[minEdge->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
             // check all ways from the node with the minimal length
             const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
             for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
@@ -240,7 +240,7 @@ public:
                 if (PF::operator()(follower, vehicle)) {
                     continue;
                 }
-                const SUMOReal oldEffort = followerInfo->traveltime;
+                const double oldEffort = followerInfo->traveltime;
                 if (!followerInfo->visited && traveltime < oldEffort) {
                     followerInfo->traveltime = traveltime;
                     followerInfo->heuristicTime = traveltime + heuristic_remaining;
@@ -256,7 +256,7 @@ public:
                         }
                     }*/
                     followerInfo->prev = minimumInfo;
-                    if (oldEffort == std::numeric_limits<SUMOReal>::max()) {
+                    if (oldEffort == std::numeric_limits<double>::max()) {
                         myFrontierList.push_back(followerInfo);
                         push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
                     } else {
@@ -273,9 +273,9 @@ public:
     }
 
 
-    SUMOReal recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
-        const SUMOReal time = STEPS2TIME(msTime);
-        SUMOReal costs = 0;
+    double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
+        const double time = STEPS2TIME(msTime);
+        double costs = 0;
         for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             if (PF::operator()(*i, v)) {
                 return -1;

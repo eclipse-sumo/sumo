@@ -166,21 +166,21 @@ public:
 
 
     /**
-     * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
+     * @brief Returns the double-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2SUMOReal.
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2SUMOReal throws an
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2double.
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2double throws an
      *  EmptyData-exception which is passed.
-     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMOReal throws a
+     * If the value can not be parsed to a double, TplConvert<XMLCh>::_2double throws a
      *  NumberFormatException-exception which is passed.
      *
      * @param[in] id The id of the attribute to return the value of
      * @return The attribute's value as a float, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
-     * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
+     * @exception NumberFormatException If the attribute value can not be parsed to an double
      */
-    SUMOReal getFloat(int id) const;
+    double getFloat(int id) const;
 
 
     /**
@@ -190,21 +190,21 @@ public:
 
 
     /**
-     * @brief Returns the SUMOReal-value of the named attribute
+     * @brief Returns the double-value of the named attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2SUMOReal.
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2SUMOReal throws an
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2double.
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2double throws an
      *  EmptyData-exception which is passed.
-     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMOReal throws a
+     * If the value can not be parsed to a double, TplConvert<XMLCh>::_2double throws a
      *  NumberFormatException-exception which is passed.
      *
      * @param[in] id The name of the attribute to return the value of
      * @return The attribute's value as a float, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
-     * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
+     * @exception NumberFormatException If the attribute value can not be parsed to an double
      */
-    SUMOReal getFloat(const std::string& id) const;
+    double getFloat(const std::string& id) const;
 
 
     /**
@@ -304,7 +304,7 @@ private:
     std::map<int, int> myIntValues;
 
     /// @brief Map of attribute ids to floats
-    std::map<int, SUMOReal> myFloatValues;
+    std::map<int, double> myFloatValues;
 
     /// @brief Map of attribute ids to string
     std::map<int, std::string> myStringValues;

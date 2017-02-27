@@ -83,8 +83,8 @@ public:
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in the charge
      */
-    GUIChargingStation(const std::string& id, MSLane& lane, SUMOReal frompos, SUMOReal topos,
-                       SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int chargeDelay);
+    GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,
+                       double chargingPower, double efficiency, bool chargeInTransit, int chargeDelay);
 
     /// @brief Destructor
     ~GUIChargingStation();
@@ -128,10 +128,10 @@ public:
 
 private:
     /// @brief The rotations of the shape parts
-    std::vector<SUMOReal> myFGShapeRotations;
+    std::vector<double> myFGShapeRotations;
 
     /// @brief The lengths of the shape parts
-    std::vector<SUMOReal> myFGShapeLengths;
+    std::vector<double> myFGShapeLengths;
 
     /// @brief The shape
     PositionVector myFGShape;
@@ -140,7 +140,7 @@ private:
     Position myFGSignPos;
 
     /// @brief The rotation of the sign
-    SUMOReal myFGSignRot;
+    double myFGSignRot;
 };
 
 #endif

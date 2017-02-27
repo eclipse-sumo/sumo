@@ -71,7 +71,7 @@ NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition::parse(std::istream&
     while (tag != "DATAEND") {
         int type;
         from >> type;
-        SUMOReal percentage;
+        double percentage;
         from >> tag;
         from >> percentage;
         int vwish;

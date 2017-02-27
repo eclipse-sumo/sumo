@@ -75,7 +75,7 @@ public:
 
     /**@brief change the position of the additional geometry
      * @param[in] offset offset of movement
-     * @note simply call the function moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety)
+     * @note simply call the function moveAdditionalGeometry(double offsetx, double offsety)
      */
     void moveAdditionalGeometry(const Position& offset);
 
@@ -85,12 +85,12 @@ public:
      * @note if additional belongs to a Lane, offsety is ignored
      * @note must be implemented in ALL childrens
      */
-    virtual void moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) = 0;
+    virtual void moveAdditionalGeometry(double offsetx, double offsety) = 0;
 
     /**@brief updated geometry changes in the attributes of additional
      * @param[in] oldPos old position X of additional
      * @param[in] undoList The undoList on which to register changes
-     * @note simply call function commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList)
+     * @note simply call function commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList)
      */
     void commmitAdditionalGeometryMoved(const Position& oldPos, GNEUndoList* undoList);
 
@@ -101,7 +101,7 @@ public:
      * @note if additional belongs to a Lane, oldPosy is ignored
      * @note must be implemented in ALL childrens
      */
-    virtual void commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal oldPosy, GNEUndoList* undoList) = 0;
+    virtual void commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList) = 0;
 
     /// @brief update pre-computed geometry information
     /// @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
@@ -256,10 +256,10 @@ protected:
     /// @name computed only once (for performance) in updateGeometry()
     /// @{
     /// The rotations of the shape parts
-    std::vector<SUMOReal> myShapeRotations;
+    std::vector<double> myShapeRotations;
 
     /// The lengths of the shape parts
-    std::vector<SUMOReal> myShapeLengths;
+    std::vector<double> myShapeLengths;
     /// @}
 
     /// @brief rotation depending of the option "Lefthand"
@@ -273,7 +273,7 @@ protected:
     void setBlockIconRotation(GNELane* lane = NULL);
 
     /// @brief draw lock icon
-    void drawLockIcon(SUMOReal size = 0.5) const;
+    void drawLockIcon(double size = 0.5) const;
 
     /// @brief draw connections between Parent and childrens
     void drawParentAndChildrenConnections() const;
@@ -285,7 +285,7 @@ protected:
     Position myBlockIconOffset;
 
     /// @brief The rotation of the block icon
-    SUMOReal myBlockIconRotation;
+    double myBlockIconRotation;
     /// @}
 
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)

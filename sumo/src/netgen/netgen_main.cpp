@@ -141,9 +141,9 @@ buildNetwork(NBNetBuilder& nb) {
         // get options
         int xNo = oc.getInt("grid.x-number");
         int yNo = oc.getInt("grid.y-number");
-        SUMOReal xLength = oc.getFloat("grid.x-length");
-        SUMOReal yLength = oc.getFloat("grid.y-length");
-        SUMOReal attachLength = oc.getFloat("grid.attach-length");
+        double xLength = oc.getFloat("grid.x-length");
+        double yLength = oc.getFloat("grid.y-length");
+        double attachLength = oc.getFloat("grid.attach-length");
         if (oc.isDefault("grid.x-number") && !oc.isDefault("grid.number")) {
             xNo = oc.getInt("grid.number");
         }

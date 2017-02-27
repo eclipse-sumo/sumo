@@ -123,9 +123,9 @@ const std::string MSNet::STAGE_INSERTIONS("insertion");
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-SUMOReal
-MSNet::getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t) {
-    SUMOReal value;
+double
+MSNet::getEffort(const MSEdge* const e, const SUMOVehicle* const v, double t) {
+    double value;
     const MSVehicle* const veh = dynamic_cast<const MSVehicle* const>(v);
     if (veh != 0 && veh->getWeightsStorage().retrieveExistingEffort(e, t, value)) {
         return value;
@@ -137,9 +137,9 @@ MSNet::getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t) 
 }
 
 
-SUMOReal
-MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t) {
-    SUMOReal value;
+double
+MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, double t) {
+    double value;
     const MSVehicle* const veh = dynamic_cast<const MSVehicle* const>(v);
     if (veh != 0 && veh->getWeightsStorage().retrieveExistingTravelTime(e, t, value)) {
         return value;
@@ -218,7 +218,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
                      bool hasInternalLinks,
                      bool hasNeighs,
                      bool lefthand,
-                     SUMOReal version) {
+                     double version) {
     myEdges = edges;
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;
@@ -287,14 +287,14 @@ MSNet::~MSNet() {
 
 
 void
-MSNet::addRestriction(const std::string& id, const SUMOVehicleClass svc, const SUMOReal speed) {
+MSNet::addRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed) {
     myRestrictions[id][svc] = speed;
 }
 
 
-const std::map<SUMOVehicleClass, SUMOReal>*
+const std::map<SUMOVehicleClass, double>*
 MSNet::getRestrictions(const std::string& id) const {
-    std::map<std::string, std::map<SUMOVehicleClass, SUMOReal> >::const_iterator i = myRestrictions.find(id);
+    std::map<std::string, std::map<SUMOVehicleClass, double> >::const_iterator i = myRestrictions.find(id);
     if (i == myRestrictions.end()) {
         return 0;
     }
@@ -361,10 +361,10 @@ MSNet::closeSimulation(SUMOTime start) {
         // print performance notice
         msg << "Performance: " << "\n" << " Duration: " << duration << "ms" << "\n";
         if (duration != 0) {
-            msg << " Real time factor: " << (STEPS2TIME(myStep - start) * 1000. / (SUMOReal)duration) << "\n";
+            msg << " Real time factor: " << (STEPS2TIME(myStep - start) * 1000. / (double)duration) << "\n";
             msg.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
             msg.setf(std::ios::showpoint);    // print decimal point
-            msg << " UPS: " << ((SUMOReal)myVehiclesMoved / ((SUMOReal)duration / 1000)) << "\n";
+            msg << " UPS: " << ((double)myVehiclesMoved / ((double)duration / 1000)) << "\n";
         }
         // print vehicle statistics
         const std::string discardNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
@@ -664,9 +664,9 @@ MSNet::writeOutput() {
     if (OptionsCont::getOptions().isSet("summary-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("summary-output");
         int departedVehiclesNumber = myVehicleControl->getDepartedVehicleNo();
-        const SUMOReal meanWaitingTime = departedVehiclesNumber != 0 ? myVehicleControl->getTotalDepartureDelay() / (SUMOReal) departedVehiclesNumber : -1.;
+        const double meanWaitingTime = departedVehiclesNumber != 0 ? myVehicleControl->getTotalDepartureDelay() / (double) departedVehiclesNumber : -1.;
         int endedVehicleNumber = myVehicleControl->getEndedVehicleNo();
-        const SUMOReal meanTravelTime = endedVehicleNumber != 0 ? myVehicleControl->getTotalTravelTime() / (SUMOReal) endedVehicleNumber : -1.;
+        const double meanTravelTime = endedVehicleNumber != 0 ? myVehicleControl->getTotalTravelTime() / (double) endedVehicleNumber : -1.;
         od.openTag("step").writeAttr("time", time2string(myStep)).writeAttr("loaded", myVehicleControl->getLoadedVehicleNo())
         .writeAttr("inserted", myVehicleControl->getDepartedVehicleNo()).writeAttr("running", myVehicleControl->getRunningVehicleNo())
         .writeAttr("waiting", myInserter->getWaitingVehicleNo()).writeAttr("ended", myVehicleControl->getEndedVehicleNo())
@@ -746,10 +746,10 @@ MSNet::postSimStepOutput() const {
         oss.setf(std::ios::showpoint);    // print decimal point
         oss << std::setprecision(gPrecision);
         if (mySimStepDuration != 0) {
-            const SUMOReal durationSec = (SUMOReal)mySimStepDuration / 1000.;
+            const double durationSec = (double)mySimStepDuration / 1000.;
             oss << " (" << mySimStepDuration << "ms ~= "
                 << (TS / durationSec) << "*RT, ~"
-                << ((SUMOReal) myVehicleControl->getRunningVehicleNo() / durationSec);
+                << ((double) myVehicleControl->getRunningVehicleNo() / durationSec);
         } else {
             oss << " (0ms ?*RT. ?";
         }
@@ -810,7 +810,7 @@ MSNet::getBusStop(const std::string& id) const {
 
 
 std::string
-MSNet::getBusStopID(const MSLane* lane, const SUMOReal pos) const {
+MSNet::getBusStopID(const MSLane* lane, const double pos) const {
     const std::map<std::string, MSStoppingPlace*>& vals = myBusStopDict.getMyMap();
     for (std::map<std::string, MSStoppingPlace*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
         MSStoppingPlace* stop = it->second;
@@ -833,7 +833,7 @@ MSNet::getContainerStop(const std::string& id) const {
 }
 
 std::string
-MSNet::getContainerStopID(const MSLane* lane, const SUMOReal pos) const {
+MSNet::getContainerStopID(const MSLane* lane, const double pos) const {
     const std::map<std::string, MSStoppingPlace*>& vals = myContainerStopDict.getMyMap();
     for (std::map<std::string, MSStoppingPlace*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
         MSStoppingPlace* stop = it->second;
@@ -856,7 +856,7 @@ MSNet::getParkingArea(const std::string& id) const {
 }
 
 std::string
-MSNet::getParkingAreaID(const MSLane* lane, const SUMOReal pos) const {
+MSNet::getParkingAreaID(const MSLane* lane, const double pos) const {
     const std::map<std::string, MSParkingArea*>& vals = myParkingAreaDict.getMyMap();
     for (std::map<std::string, MSParkingArea*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
         MSParkingArea* stop = it->second;
@@ -880,7 +880,7 @@ MSNet::getChargingStation(const std::string& id) const {
 
 
 std::string
-MSNet::getChargingStationID(const MSLane* lane, const SUMOReal pos) const {
+MSNet::getChargingStationID(const MSLane* lane, const double pos) const {
     const std::map<std::string, MSChargingStation*>& vals = myChargingStationDict.getMyMap();
     for (std::map<std::string, MSChargingStation*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
         MSChargingStation* chargingStation = it->second;

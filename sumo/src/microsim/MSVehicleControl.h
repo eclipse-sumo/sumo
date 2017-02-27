@@ -233,7 +233,7 @@ public:
      * (--scale)
      * @return the number of vehicles to create (something between 0 and ceil(frac))
      */
-    int getQuota(SUMOReal frac = -1) const;
+    int getQuota(double frac = -1) const;
 
 
     /** @brief Returns the number of build vehicles that have not been removed or
@@ -277,7 +277,7 @@ public:
     /** @brief Returns the total departure delay
      * @return Sum of steps vehicles had to wait until being inserted
      */
-    SUMOReal getTotalDepartureDelay() const {
+    double getTotalDepartureDelay() const {
         return myTotalDepartureDelay;
     }
 
@@ -285,7 +285,7 @@ public:
     /** @brief Returns the total travel time
      * @return Sum of travel times of arrived vehicles
      */
-    SUMOReal getTotalTravelTime() const {
+    double getTotalTravelTime() const {
         return myTotalTravelTime;
     }
     /// @}
@@ -361,7 +361,7 @@ public:
      * @param[in] position The vehicle shall be positioned in the interval [position - t, position + t], where t is some tolerance
      * @param[in] ridingID The id of the person or container that wants to ride
      */
-    SUMOVehicle* getWaitingVehicle(const MSEdge* const edge, const std::set<std::string>& lines, const SUMOReal position, const std::string ridingID);
+    SUMOVehicle* getWaitingVehicle(const MSEdge* const edge, const std::set<std::string>& lines, const double position, const std::string ridingID);
 
     /** @brief increases the count of vehicles waiting for a person to allow recogniztion of person related deadlocks
      */
@@ -417,7 +417,7 @@ public:
 
     /** @brief Sets the current state variables as loaded from the stream
      */
-    void setState(int runningVehNo, int loadedVehNo, int endedVehNo, SUMOReal totalDepartureDelay, SUMOReal totalTravelTime);
+    void setState(int runningVehNo, int loadedVehNo, int endedVehNo, double totalDepartureDelay, double totalTravelTime);
 
     /** @brief Saves the current state into the given stream
      */
@@ -444,12 +444,12 @@ public:
     SUMOTime computeRandomDepartOffset() const;
 
     /// @brief return the maximum speed factor for all vehicles that ever entered the network
-    SUMOReal getMaxSpeedFactor() const {
+    double getMaxSpeedFactor() const {
         return myMaxSpeedFactor;
     }
 
     /// @brief return the minimum deceleration capability for all vehicles that ever entered the network
-    SUMOReal getMinDeceleration() const {
+    double getMinDeceleration() const {
         return myMinDeceleration;
     }
 
@@ -500,10 +500,10 @@ protected:
     /// @{
 
     /// @brief The aggregated time vehicles had to wait for departure (in seconds)
-    SUMOReal myTotalDepartureDelay;
+    double myTotalDepartureDelay;
 
     /// @brief The aggregated time vehicles needed to aacomplish their route (in seconds)
-    SUMOReal myTotalTravelTime;
+    double myTotalTravelTime;
     /// @}
 
 
@@ -546,16 +546,16 @@ protected:
     int myWaitingForContainer;
 
     /// @brief The scaling factor (especially for inc-dua)
-    SUMOReal myScale;
+    double myScale;
 
     /// @brief The maximum random offset to be added to vehicles departure times (non-negative)
     SUMOTime myMaxRandomDepartOffset;
 
     /// @brief The maximum speed factor for all vehicles in the network
-    SUMOReal myMaxSpeedFactor;
+    double myMaxSpeedFactor;
 
     /// @brief The minimum deceleration capability for all vehicles in the network
-    SUMOReal myMinDeceleration;
+    double myMinDeceleration;
 
 private:
     /// @brief invalidated copy constructor

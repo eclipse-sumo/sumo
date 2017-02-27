@@ -202,10 +202,10 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     // speed, priority and the number of lanes have now default values;
     // try to read the real values from the file
     if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-        myCurrentSpeed = attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok);
+        myCurrentSpeed = attrs.get<double>(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok);
     }
     if (myOptions.getBool("speed-in-kmh") && myCurrentSpeed != NBEdge::UNSPECIFIED_SPEED) {
-        myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
+        myCurrentSpeed = myCurrentSpeed / (double) 3.6;
     }
     // try to get the number of lanes
     if (attrs.hasAttribute(SUMO_ATTR_NUMLANES)) {
@@ -217,11 +217,11 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     }
     // try to get the width
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
-        myCurrentWidth = attrs.get<SUMOReal>(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok);
+        myCurrentWidth = attrs.get<double>(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok);
     }
     // try to get the offset of the stop line from the intersection
     if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
-        myCurrentEndOffset = attrs.get<SUMOReal>(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok);
+        myCurrentEndOffset = attrs.get<double>(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok);
     }
     // try to get the street name
     if (attrs.hasAttribute(SUMO_ATTR_NAME)) {
@@ -248,11 +248,11 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     // try to get the spread type
     myLanesSpread = tryGetLaneSpread(attrs);
     // try to get the length
-    myLength = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, myCurrentID.c_str(), ok, myLength);
+    myLength = attrs.getOpt<double>(SUMO_ATTR_LENGTH, myCurrentID.c_str(), ok, myLength);
     // try to get the sidewalkWidth
-    mySidewalkWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_SIDEWALKWIDTH, myCurrentID.c_str(), ok, mySidewalkWidth);
+    mySidewalkWidth = attrs.getOpt<double>(SUMO_ATTR_SIDEWALKWIDTH, myCurrentID.c_str(), ok, mySidewalkWidth);
     // try to get the bikeLaneWidth
-    myBikeLaneWidth = attrs.getOpt<SUMOReal>(SUMO_ATTR_BIKELANEWIDTH, myCurrentID.c_str(), ok, myBikeLaneWidth);
+    myBikeLaneWidth = attrs.getOpt<double>(SUMO_ATTR_BIKELANEWIDTH, myCurrentID.c_str(), ok, myBikeLaneWidth);
     // insert the parsed edge into the edges map
     if (!ok) {
         return;
@@ -323,15 +323,15 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     }
     // try to get the width
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
-        myCurrentEdge->setLaneWidth(lane, attrs.get<SUMOReal>(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));
+        myCurrentEdge->setLaneWidth(lane, attrs.get<double>(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));
     }
     // try to get the end-offset (lane shortened due to pedestrian crossing etc..)
     if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
-        myCurrentEdge->setEndOffset(lane, attrs.get<SUMOReal>(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok));
+        myCurrentEdge->setEndOffset(lane, attrs.get<double>(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok));
     }
     // try to get lane specific speed (should not occur for german networks)
     if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-        myCurrentEdge->setSpeed(lane, attrs.get<SUMOReal>(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok));
+        myCurrentEdge->setSpeed(lane, attrs.get<double>(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok));
     }
     // check whether this is an acceleration lane
     if (attrs.hasAttribute(SUMO_ATTR_ACCELERATION)) {
@@ -349,7 +349,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
     }
     bool ok = true;
     Split e;
-    e.pos = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, 0, ok);
+    e.pos = attrs.get<double>(SUMO_ATTR_POSITION, 0, ok);
     if (ok) {
         if (fabs(e.pos) > myCurrentEdge->getGeometry().length()) {
             WRITE_ERROR("Edge '" + myCurrentID + "' has a split at invalid position " + toString(e.pos) + ".");
@@ -383,7 +383,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         }
         e.speed = attrs.getOpt(SUMO_ATTR_SPEED, 0, ok, myCurrentEdge->getSpeed());
         if (attrs.hasAttribute(SUMO_ATTR_SPEED) && myOptions.getBool("speed-in-kmh")) {
-            e.speed /= (SUMOReal) 3.6;
+            e.speed /= (double) 3.6;
         }
         e.idBefore = attrs.getOpt(SUMO_ATTR_ID_BEFORE, 0, ok, std::string(""));
         e.idAfter = attrs.getOpt(SUMO_ATTR_ID_AFTER, 0, ok, std::string(""));
@@ -541,7 +541,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
             }
 
             std::string firstID = "";
-            SUMOReal seen = 0;
+            double seen = 0;
             for (i = mySplits.begin(); i != mySplits.end(); ++i) {
                 const Split& exp = *i;
                 assert(exp.lanes.size() != 0);
@@ -619,7 +619,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
             i = mySplits.begin();
             for (; i != mySplits.end(); ++i) {
                 int maxLeft = (*i).lanes.back();
-                SUMOReal offset = 0;
+                double offset = 0;
                 if (maxLeft < noLanesMax) {
                     if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
                         offset = SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft);

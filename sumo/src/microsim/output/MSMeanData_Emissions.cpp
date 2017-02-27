@@ -51,7 +51,7 @@
 // MSMeanData_Emissions::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
 MSMeanData_Emissions::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
-        const SUMOReal length, const bool doAdd,
+        const double length, const bool doAdd,
         const MSMeanData_Emissions* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, parent),
       myEmissions() {}
@@ -79,7 +79,7 @@ MSMeanData_Emissions::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& va
 
 
 void
-MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& veh, const SUMOReal /* frontOnLane */, const SUMOReal timeOnLane, const SUMOReal /*meanSpeedFrontOnLane*/, const SUMOReal meanSpeedVehicleOnLane, const SUMOReal /*travelledDistanceFrontOnLane*/, const SUMOReal travelledDistanceVehicleOnLane) {
+MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& veh, const double /* frontOnLane */, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double meanSpeedVehicleOnLane, const double /*travelledDistanceFrontOnLane*/, const double travelledDistanceVehicleOnLane) {
     sampleSeconds += timeOnLane;
     travelledDistance += travelledDistanceVehicleOnLane;
     const double a = veh.getAcceleration();
@@ -91,8 +91,8 @@ MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle
 
 void
 MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
-        const SUMOReal /*numLanes*/, const SUMOReal defaultTravelTime, const int /*numVehicles*/) const {
-    const SUMOReal normFactor = SUMOReal(3600. / STEPS2TIME(period) / myLaneLength);
+        const double /*numLanes*/, const double defaultTravelTime, const int /*numVehicles*/) const {
+    const double normFactor = double(3600. / STEPS2TIME(period) / myLaneLength);
     dev << " CO_abs=\"" << OutputDevice::realString(myEmissions.CO, 6) <<
         "\" CO2_abs=\"" << OutputDevice::realString(myEmissions.CO2, 6) <<
         "\" HC_abs=\"" << OutputDevice::realString(myEmissions.HC, 6) <<
@@ -108,8 +108,8 @@ MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOT
         "\" fuel_normed=\"" << OutputDevice::realString(normFactor * myEmissions.fuel, 6) <<
         "\" electricity_normed=\"" << OutputDevice::realString(normFactor * myEmissions.electricity, 6);
     if (sampleSeconds > myParent->getMinSamples()) {
-        SUMOReal vehFactor = myParent->getMaxTravelTime() / sampleSeconds;
-        SUMOReal traveltime = myParent->getMaxTravelTime();
+        double vehFactor = myParent->getMaxTravelTime() / sampleSeconds;
+        double traveltime = myParent->getMaxTravelTime();
         if (travelledDistance > 0.f) {
             vehFactor = MIN2(vehFactor, myLaneLength / travelledDistance);
             traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
@@ -124,7 +124,7 @@ MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOT
             "\" electricity_perVeh=\"" << OutputDevice::realString(myEmissions.electricity * vehFactor, 6);
     } else if (defaultTravelTime >= 0.) {
         const MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType();
-        const SUMOReal speed = MIN2(myLaneLength / defaultTravelTime, t->getMaxSpeed());
+        const double speed = MIN2(myLaneLength / defaultTravelTime, t->getMaxSpeed());
         dev << "\"\n            traveltime=\"" << OutputDevice::realString(defaultTravelTime) <<
             "\" CO_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
             "\" CO2_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO2, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
@@ -150,8 +150,8 @@ MSMeanData_Emissions::MSMeanData_Emissions(const std::string& id,
         const bool printDefaults,
         const bool withInternal,
         const bool trackVehicles,
-        const SUMOReal maxTravelTime,
-        const SUMOReal minSamples,
+        const double maxTravelTime,
+        const double minSamples,
         const std::string& vTypes)
     : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
                  withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
@@ -162,7 +162,7 @@ MSMeanData_Emissions::~MSMeanData_Emissions() {}
 
 
 MSMeanData::MeanDataValues*
-MSMeanData_Emissions::createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const {
+MSMeanData_Emissions::createValues(MSLane* const lane, const double length, const bool doAdd) const {
     return new MSLaneMeanDataValues(lane, length, doAdd, this);
 }
 

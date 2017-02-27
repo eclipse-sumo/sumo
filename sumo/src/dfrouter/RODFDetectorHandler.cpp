@@ -80,7 +80,7 @@ RODFDetectorHandler::myStartElement(int element,
             if (edge == 0 || laneIndex >= edge->getLaneNo()) {
                 throw ProcessError("Unknown lane '" + lane + "' for detector '" + id + "' in '" + getFileName() + "'.");
             }
-            SUMOReal pos = attrs.get<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok);
+            double pos = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), ok);
             std::string mml_type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
             if (!ok) {
                 throw ProcessError();

@@ -233,11 +233,11 @@ RGBColor::parseColor(std::string coldef) {
                     throw NumberFormatException();
                 }
             } catch (NumberFormatException&) {
-                r = static_cast<unsigned char>(TplConvert::_2SUMOReal(st[0].c_str()) * 255. + 0.5);
-                g = static_cast<unsigned char>(TplConvert::_2SUMOReal(st[1].c_str()) * 255. + 0.5);
-                b = static_cast<unsigned char>(TplConvert::_2SUMOReal(st[2].c_str()) * 255. + 0.5);
+                r = static_cast<unsigned char>(TplConvert::_2double(st[0].c_str()) * 255. + 0.5);
+                g = static_cast<unsigned char>(TplConvert::_2double(st[1].c_str()) * 255. + 0.5);
+                b = static_cast<unsigned char>(TplConvert::_2double(st[2].c_str()) * 255. + 0.5);
                 if (st.size() == 4) {
-                    a = static_cast<unsigned char>(TplConvert::_2SUMOReal(st[3].c_str()) * 255. + 0.5);
+                    a = static_cast<unsigned char>(TplConvert::_2double(st[3].c_str()) * 255. + 0.5);
                 }
             }
         } else {
@@ -275,7 +275,7 @@ RGBColor::parseColorReporting(
 
 
 RGBColor
-RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, SUMOReal weight) {
+RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, double weight) {
     if (weight < 0) {
         weight = 0;
     }
@@ -291,11 +291,11 @@ RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, SUMORe
 
 
 RGBColor
-RGBColor::fromHSV(SUMOReal h, SUMOReal s, SUMOReal v) {
+RGBColor::fromHSV(double h, double s, double v) {
     // H is given on [0, 6] or UNDEFINED. S and V are given on [0, 1].
     // RGB are each returned on [0, 255].
     //float h = HSV.H, s = HSV.S, v = HSV.V,
-    SUMOReal f;
+    double f;
     h /= 60.;
     int i;
     //if (h == UNDEFINED) RETURN_RGB(v, v, v);

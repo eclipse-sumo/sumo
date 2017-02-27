@@ -117,7 +117,7 @@ MSEdge::initialize(const std::vector<MSLane*>* lanes) {
         myWidth += (*i)->getWidth();
     }
     if (MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0) {
-        SUMOReal widthBefore = 0;
+        double widthBefore = 0;
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
             (*i)->setRightSideOnEdge(widthBefore, (int)mySublaneSides.size());
             MSLeaderInfo ahead(*i);
@@ -397,9 +397,9 @@ MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass 
     }
     MSLane* res = 0;
     if (allowed != 0) {
-        SUMOReal leastOccupancy = std::numeric_limits<SUMOReal>::max();;
+        double leastOccupancy = std::numeric_limits<double>::max();;
         for (std::vector<MSLane*>::const_iterator i = allowed->begin(); i != allowed->end(); ++i) {
-            const SUMOReal occupancy = (*i)->getBruttoOccupancy();
+            const double occupancy = (*i)->getBruttoOccupancy();
             if (occupancy < leastOccupancy) {
                 res = (*i);
                 leastOccupancy = occupancy;
@@ -431,7 +431,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
         case DEPART_LANE_BEST_FREE: {
             veh.updateBestLanes(false, myLanes->front());
             const std::vector<MSVehicle::LaneQ>& bl = veh.getBestLanes();
-            SUMOReal bestLength = -1;
+            double bestLength = -1;
             for (std::vector<MSVehicle::LaneQ>::const_iterator i = bl.begin(); i != bl.end(); ++i) {
                 if ((*i).length > bestLength) {
                     bestLength = (*i).length;
@@ -501,7 +501,7 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
         }
     }
     if (MSGlobals::gUseMesoSim) {
-        SUMOReal pos = 0.0;
+        double pos = 0.0;
         switch (pars.departPosProcedure) {
             case DEPART_POS_GIVEN:
                 if (pars.departPos >= 0.) {
@@ -553,13 +553,13 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
                     WRITE_WARNING("could not insert vehicle '" + v.getID() + "' on any lane of edge '" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()));
                     return false;
                 }
-                const SUMOReal occupancy = insertionLane->getBruttoOccupancy();
-                return occupancy == (SUMOReal)0 || occupancy * myLength + v.getVehicleType().getLengthWithGap() <= myLength;
+                const double occupancy = insertionLane->getBruttoOccupancy();
+                return occupancy == 0 || occupancy * myLength + v.getVehicleType().getLengthWithGap() <= myLength;
             }
             default:
                 for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-                    const SUMOReal occupancy = (*i)->getBruttoOccupancy();
-                    if (occupancy == (SUMOReal)0 || occupancy * myLength + v.getVehicleType().getLengthWithGap() <= myLength) {
+                    const double occupancy = (*i)->getBruttoOccupancy();
+                    if (occupancy == 0 || occupancy * myLength + v.getVehicleType().getLengthWithGap() <= myLength) {
                         return true;
                     }
                 }
@@ -641,13 +641,13 @@ MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal) const {
 }
 
 
-SUMOReal
+double
 MSEdge::getMeanSpeed() const {
-    SUMOReal v = 0;
-    SUMOReal no = 0;
+    double v = 0;
+    double no = 0;
     if (MSGlobals::gUseMesoSim) {
         for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
-            const SUMOReal vehNo = (SUMOReal) segment->getCarNumber();
+            const double vehNo = (double) segment->getCarNumber();
             v += vehNo * segment->getMeanSpeed();
             no += vehNo;
         }
@@ -656,7 +656,7 @@ MSEdge::getMeanSpeed() const {
         }
     } else {
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-            const SUMOReal vehNo = (SUMOReal)(*i)->getVehicleNumber();
+            const double vehNo = (double)(*i)->getVehicleNumber();
             v += vehNo * (*i)->getMeanSpeed();
             no += vehNo;
         }
@@ -668,8 +668,8 @@ MSEdge::getMeanSpeed() const {
 }
 
 
-SUMOReal
-MSEdge::getCurrentTravelTime(SUMOReal minSpeed) const {
+double
+MSEdge::getCurrentTravelTime(double minSpeed) const {
     assert(minSpeed > 0);
     if (!myAmDelayed) {
         return myEmptyTraveltime;
@@ -678,7 +678,7 @@ MSEdge::getCurrentTravelTime(SUMOReal minSpeed) const {
 }
 
 
-SUMOReal
+double
 MSEdge::getRoutingSpeed() const {
     return MSDevice_Routing::getAssumedSpeed(this);
 }
@@ -771,7 +771,7 @@ MSEdge::parseEdgesList(const std::vector<std::string>& desc, ConstMSEdgeVector& 
 }
 
 
-SUMOReal
+double
 MSEdge::getDistanceTo(const MSEdge* other) const {
     if (getLanes().size() > 0 && other->getLanes().size() > 0) {
         return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
@@ -781,14 +781,14 @@ MSEdge::getDistanceTo(const MSEdge* other) const {
 }
 
 
-SUMOReal
+double
 MSEdge::getSpeedLimit() const {
     // @note lanes might have different maximum speeds in theory
     return getLanes()[0]->getSpeedLimit();
 }
 
 
-SUMOReal
+double
 MSEdge::getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
     // @note lanes might have different maximum speeds in theory
     return getLanes()[0]->getVehicleMaxSpeed(veh);
@@ -796,7 +796,7 @@ MSEdge::getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
 
 
 void
-MSEdge::setMaxSpeed(SUMOReal val) const {
+MSEdge::setMaxSpeed(double val) const {
     if (myLanes != 0) {
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
             (*i)->setMaxSpeed(val);
@@ -824,8 +824,8 @@ MSEdge::getSortedContainers(SUMOTime timestep) const {
 
 int
 MSEdge::transportable_by_position_sorter::operator()(const MSTransportable* const c1, const MSTransportable* const c2) const {
-    const SUMOReal pos1 = c1->getCurrentStage()->getEdgePos(myTime);
-    const SUMOReal pos2 = c2->getCurrentStage()->getEdgePos(myTime);
+    const double pos1 = c1->getCurrentStage()->getEdgePos(myTime);
+    const double pos2 = c2->getCurrentStage()->getEdgePos(myTime);
     if (pos1 != pos2) {
         return pos1 < pos2;
     }

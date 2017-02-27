@@ -82,9 +82,9 @@ public:
      * @see SUMOVehicleClass
      * @see MSLane
      */
-    GUILane(const std::string& id, SUMOReal maxSpeed,
-            SUMOReal length, MSEdge* const edge, int numericalID,
-            const PositionVector& shape, SUMOReal width,
+    GUILane(const std::string& id, double maxSpeed,
+            double length, MSEdge* const edge, int numericalID,
+            const PositionVector& shape, double width,
             SVCPermissions permissions, int index, bool isRampAccel);
 
 
@@ -159,7 +159,7 @@ public:
      * @param[in] v The vehicle which laps into this lane
      * @return This lane's length
      */
-    SUMOReal setPartialOccupation(MSVehicle* v);
+    double setPartialOccupation(MSVehicle* v);
 
     /** @brief Removes the information about a vehicle lapping into this lane
      * @param[in] v The vehicle which laps into this lane
@@ -210,32 +210,32 @@ public:
 
 
     const PositionVector& getShape() const;
-    const std::vector<SUMOReal>& getShapeRotations() const;
-    const std::vector<SUMOReal>& getShapeLengths() const;
+    const std::vector<double>& getShapeRotations() const;
+    const std::vector<double>& getShapeLengths() const;
 
-    SUMOReal firstWaitingTime() const;
+    double firstWaitingTime() const;
 
     /// @brief draw lane borders and white markings
-    void drawMarkings(const GUIVisualizationSettings& s, SUMOReal scale) const;
+    void drawMarkings(const GUIVisualizationSettings& s, double scale) const;
 
     /// @brief bike lane markings on top of an intersection
     void drawBikeMarkings() const;
 
     /// @brief draw crossties for railroads or pedestrian crossings
-    void drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const;
+    void drawCrossties(double length, double spacing, double halfWidth) const;
 
     /// @brief direction indicators for lanes
     void drawDirectionIndicators() const;
 
-    SUMOReal getEdgeLaneNumber() const;
+    double getEdgeLaneNumber() const;
 
     /** @brief Returns the stored traveltime for the edge of this lane
      */
-    SUMOReal getStoredEdgeTravelTime() const;
+    double getStoredEdgeTravelTime() const;
 
     /** @brief Returns the loaded weight (effort) for the edge of this lane
      */
-    SUMOReal getLoadedEdgeWeight() const;
+    double getLoadedEdgeWeight() const;
 
 #ifdef HAVE_OSG
     void setGeometry(osg::Geometry* geom) {
@@ -269,7 +269,7 @@ protected:
      * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      * @see MSLane::incorporateVehicle
      */
-    virtual void incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed, SUMOReal posLat,
+    virtual void incorporateVehicle(MSVehicle* veh, double pos, double speed, double posLat,
                                     const MSLane::VehCont::iterator& at,
                                     MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 
@@ -277,9 +277,9 @@ private:
     /// @brief helper methods
     void drawLinkNo(const GUIVisualizationSettings& s) const;
     void drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) const;
-    void drawTextAtEnd(const std::string& text, const PositionVector& shape, SUMOReal x, const GUIVisualizationTextSettings& settings) const;
+    void drawTextAtEnd(const std::string& text, const PositionVector& shape, double x, const GUIVisualizationTextSettings& settings) const;
     void drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) const;
-    void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLink* link, const PositionVector& shape, SUMOReal x1, SUMOReal x2) const;
+    void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLink* link, const PositionVector& shape, double x1, double x2) const;
     void drawArrows() const;
     void drawLane2LaneConnections() const;
 
@@ -289,10 +289,10 @@ private:
 
 private:
     /// @brief gets the color value according to the current scheme index
-    SUMOReal getColorValue(int activeScheme) const;
+    double getColorValue(int activeScheme) const;
 
     /// @brief gets the scaling value according to the current scheme index
-    SUMOReal getScaleValue(int activeScheme) const;
+    double getScaleValue(int activeScheme) const;
 
     /// @brief sets the color according to the current scheme index and some lane function
     bool setFunctionalColor(int activeScheme) const;
@@ -310,10 +310,10 @@ private:
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
 
     /// The rotations of the shape parts
-    std::vector<SUMOReal> myShapeRotations;
+    std::vector<double> myShapeRotations;
 
     /// The lengths of the shape parts
-    std::vector<SUMOReal> myShapeLengths;
+    std::vector<double> myShapeLengths;
 
     /// The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;
@@ -322,10 +322,10 @@ private:
     std::vector<int> myShapeSegments;
 
     /// @brief Half of lane width, for speed-up
-    SUMOReal myHalfLaneWidth;
+    double myHalfLaneWidth;
 
     /// @brief Quarter of lane width, for speed-up
-    SUMOReal myQuarterLaneWidth;
+    double myQuarterLaneWidth;
 
 #ifdef HAVE_OSG
     osg::Geometry* myGeom;

@@ -86,7 +86,7 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    bool compute(const E* from, const E* to, SUMOReal departPos, SUMOReal arrivalPos, SUMOReal speed,
+    bool compute(const E* from, const E* to, double departPos, double arrivalPos, double speed,
                  SUMOTime msTime, const N* onlyNode, std::vector<const E*>& into, bool allEdges = false) {
         //startQuery();
         if (getSidewalk<E, L>(from) == 0) {
@@ -110,7 +110,7 @@ public:
             }
         }
 #ifdef PedestrianRouter_DEBUG_ROUTES
-        SUMOReal time = msTime;
+        double time = msTime;
         for (int i = 0; i < intoPed.size(); ++i) {
             time += myInternalRouter->getEffort(intoPed[i], &trip, time);
         }
@@ -134,7 +134,7 @@ public:
         throw ProcessError("Do not use this method");
     }
 
-    SUMOReal recomputeCosts(const std::vector<const E*>&, const _IntermodalTrip* const, SUMOTime) const {
+    double recomputeCosts(const std::vector<const E*>&, const _IntermodalTrip* const, SUMOTime) const {
         throw ProcessError("Do not use this method");
     }
 

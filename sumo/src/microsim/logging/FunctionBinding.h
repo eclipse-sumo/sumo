@@ -66,8 +66,8 @@ public:
         return new FunctionBinding<T, R>(mySource, myOperation, myScale);
     }
 
-    ValueSource<SUMOReal>* makeSUMORealReturningCopy() const {
-        return new CastingFunctionBinding<T, SUMOReal, R>(mySource, myOperation, myScale);
+    ValueSource<double>* makedoubleReturningCopy() const {
+        return new CastingFunctionBinding<T, double, R>(mySource, myOperation, myScale);
     }
 
 private:

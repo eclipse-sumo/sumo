@@ -108,7 +108,7 @@ public:
      * @param[in] vehicleType The vehicle type to use for the cell's flows
      * @return whether the cell could be added
      */
-    bool add(SUMOReal vehicleNumber, SUMOTime begin,
+    bool add(double vehicleNumber, SUMOTime begin,
              SUMOTime end, const std::string& origin, const std::string& destination,
              const std::string& vehicleType);
 
@@ -189,7 +189,7 @@ public:
      *
      * @return The number of loaded vehicles
      */
-    SUMOReal getNumLoaded() const;
+    double getNumLoaded() const;
 
 
     /** @brief Returns the number of written vehicles
@@ -198,7 +198,7 @@ public:
      *
      * @return The number of written vehicles
      */
-    SUMOReal getNumWritten() const;
+    double getNumWritten() const;
 
 
     /** @brief Returns the number of discarded vehicles
@@ -207,7 +207,7 @@ public:
      *
      * @return The number of discarded vehicles
      */
-    SUMOReal getNumDiscarded() const;
+    double getNumDiscarded() const;
 
 
     /** @brief Splits the stored cells dividing them on the given time line
@@ -219,13 +219,13 @@ public:
     /** @brief read a VISUM-matrix with the O Format
      *  @todo Describe
      */
-    void readO(LineReader& lr, SUMOReal scale,
+    void readO(LineReader& lr, double scale,
                std::string vehType, bool matrixHasVehType);
 
     /** @brief read a VISUM-matrix with the V Format
      *  @todo Describe
      */
-    void readV(LineReader& lr, SUMOReal scale,
+    void readV(LineReader& lr, double scale,
                std::string vehType, bool matrixHasVehType);
 
     /** @brief read a matrix in one of several formats
@@ -294,7 +294,7 @@ protected:
      * @param[in] prefix A prefix for the vehicle names
      * @return The number of left vehicles to insert
      */
-    SUMOReal computeDeparts(ODCell* cell,
+    double computeDeparts(ODCell* cell,
                             int& vehName, std::vector<ODVehicle>& into,
                             const bool uniform, const bool differSourceSink,
                             const std::string& prefix);
@@ -338,7 +338,7 @@ private:
     /** @used in the functions readV and readO
      * @todo Describe
      */
-    SUMOReal readFactor(LineReader& lr, SUMOReal scale);
+    double readFactor(LineReader& lr, double scale);
 
 
 private:
@@ -355,13 +355,13 @@ private:
     std::set<std::string> myMissingDistricts;
 
     /// @brief Number of loaded vehicles
-    SUMOReal myNumLoaded;
+    double myNumLoaded;
 
     /// @brief Number of written vehicles
-    SUMOReal myNumWritten;
+    double myNumWritten;
 
     /// @brief Number of discarded vehicles
-    SUMOReal myNumDiscarded;
+    double myNumDiscarded;
 
 
     /**

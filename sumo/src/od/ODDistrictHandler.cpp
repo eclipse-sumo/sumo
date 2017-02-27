@@ -107,7 +107,7 @@ ODDistrictHandler::openDistrict(const SUMOSAXAttributes& attrs) {
 
 void
 ODDistrictHandler::addSource(const SUMOSAXAttributes& attrs) {
-    std::pair<std::string, SUMOReal> vals = parseTAZ(attrs);
+    std::pair<std::string, double> vals = parseTAZ(attrs);
     if (vals.second >= 0) {
         myCurrentDistrict->addSource(vals.first, vals.second);
     }
@@ -116,7 +116,7 @@ ODDistrictHandler::addSource(const SUMOSAXAttributes& attrs) {
 
 void
 ODDistrictHandler::addSink(const SUMOSAXAttributes& attrs) {
-    std::pair<std::string, SUMOReal> vals = parseTAZ(attrs);
+    std::pair<std::string, double> vals = parseTAZ(attrs);
     if (vals.second >= 0) {
         myCurrentDistrict->addSink(vals.first, vals.second);
     }
@@ -124,28 +124,28 @@ ODDistrictHandler::addSink(const SUMOSAXAttributes& attrs) {
 
 
 
-std::pair<std::string, SUMOReal>
+std::pair<std::string, double>
 ODDistrictHandler::parseTAZ(const SUMOSAXAttributes& attrs) {
     // check the current district first
     if (myCurrentDistrict == 0) {
-        return std::pair<std::string, SUMOReal>("", -1);
+        return std::pair<std::string, double>("", -1);
     }
     // get the id, report an error if not given or empty...
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
-        return std::pair<std::string, SUMOReal>("", -1);
+        return std::pair<std::string, double>("", -1);
     }
     // get the weight
-    SUMOReal weight = attrs.get<SUMOReal>(SUMO_ATTR_WEIGHT, id.c_str(), ok);
+    double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, id.c_str(), ok);
     if (ok) {
         if (weight < 0) {
             WRITE_ERROR("'probability' must be positive (in definition of " + attrs.getObjectType() + " '" + id + "').");
         } else {
-            return std::pair<std::string, SUMOReal>(id, weight);
+            return std::pair<std::string, double>(id, weight);
         }
     }
-    return std::pair<std::string, SUMOReal>("", -1);
+    return std::pair<std::string, double>("", -1);
 }
 
 

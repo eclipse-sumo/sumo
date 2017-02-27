@@ -252,13 +252,13 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
     // Obtain position attribute
     if (pointed_edge) {
         // Obtain position of the mouse over edge
-        SUMOReal positionOfTheMouseOverEdge = pointed_edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(parent->getPositionInformation());
+        double positionOfTheMouseOverEdge = pointed_edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(parent->getPositionInformation());
         // If element has a StartPosition and EndPosition over edge, extract attributes
         if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
             // First check that current length is valid
             if (myEditorParameters->isCurrentLenghtValid()) {
-                SUMOReal startPos = setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLenght());
-                SUMOReal endPos = setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLenght(), positionOfTheMouseOverEdge, myEditorParameters->getLenght());
+                double startPos = setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLenght());
+                double endPos = setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLenght(), positionOfTheMouseOverEdge, myEditorParameters->getLenght());
                 // Only set start position if are valid (!= -1)
                 if (startPos != -1) {
                     valuesOfElement[SUMO_ATTR_STARTPOS] = toString(startPos);
@@ -281,13 +281,13 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverEdge);
     } else if (pointed_lane) {
         // Obtain position of the mouse over lane
-        SUMOReal positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(parent->getPositionInformation());
+        double positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(parent->getPositionInformation());
         // If element has a StartPosition and EndPosition over lane, extract attributes
         if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
             // First check that current length is valid
             if (myEditorParameters->isCurrentLenghtValid()) {
-                SUMOReal startPos = setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLenght());
-                SUMOReal endPos = setEndPosition(pointed_lane->getLaneShapeLenght(), positionOfTheMouseOverLane, myEditorParameters->getLenght());
+                double startPos = setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLenght());
+                double endPos = setEndPosition(pointed_lane->getLaneShapeLenght(), positionOfTheMouseOverLane, myEditorParameters->getLenght());
                 // Only set start position if are valid (!= -1)
                 if (startPos != -1) {
                     valuesOfElement[SUMO_ATTR_STARTPOS] = toString(startPos);
@@ -484,8 +484,8 @@ GNEAdditionalFrame::generateID(GNENetElement* netElement) const {
 }
 
 
-SUMOReal
-GNEAdditionalFrame::setStartPosition(SUMOReal positionOfTheMouseOverLane, SUMOReal lenghtOfAdditional) {
+double
+GNEAdditionalFrame::setStartPosition(double positionOfTheMouseOverLane, double lenghtOfAdditional) {
     switch (myEditorParameters->getActualReferencePoint()) {
         case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT:
             return positionOfTheMouseOverLane;
@@ -513,8 +513,8 @@ GNEAdditionalFrame::setStartPosition(SUMOReal positionOfTheMouseOverLane, SUMORe
 }
 
 
-SUMOReal
-GNEAdditionalFrame::setEndPosition(SUMOReal laneLenght, SUMOReal positionOfTheMouseOverLane, SUMOReal lenghtOfAdditional) {
+double
+GNEAdditionalFrame::setEndPosition(double laneLenght, double positionOfTheMouseOverLane, double lenghtOfAdditional) {
     switch (myEditorParameters->getActualReferencePoint()) {
         case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT: {
             if (positionOfTheMouseOverLane + lenghtOfAdditional <= laneLenght - 0.01) {
@@ -590,7 +590,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLTag addition
 
 
 void
-GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, SUMOReal value, bool isTime) {
+GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, double value, bool isTime) {
     myAdditionalTag = additionalTag;
     myAdditionalAttr = additionalAttr;
     myLabel->setText(toString(myAdditionalAttr).c_str());
@@ -684,15 +684,15 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
             myCurrentValueValid = false;
         }
     } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, myAdditionalAttr)) {
-        if (GNEAttributeCarrier::canParse<SUMOReal>(myTextField->getText().text())) {
+        if (GNEAttributeCarrier::canParse<double>(myTextField->getText().text())) {
             myCurrentValueValid = true;
             // convert string to double
-            SUMOReal SUMORealValue = GNEAttributeCarrier::parse<SUMOReal>(myTextField->getText().text());
+            double doubleValue = GNEAttributeCarrier::parse<double>(myTextField->getText().text());
             // Check if double value must be positive
-            if (GNEAttributeCarrier::isPositive(myAdditionalTag, myAdditionalAttr) && (SUMORealValue < 0)) {
+            if (GNEAttributeCarrier::isPositive(myAdditionalTag, myAdditionalAttr) && (doubleValue < 0)) {
                 myCurrentValueValid = false;
                 // check if double value is a probability
-            } else if (GNEAttributeCarrier::isProbability(myAdditionalTag, myAdditionalAttr) && ((SUMORealValue < 0) || SUMORealValue > 1)) {
+            } else if (GNEAttributeCarrier::isProbability(myAdditionalTag, myAdditionalAttr) && ((doubleValue < 0) || doubleValue > 1)) {
                 myCurrentValueValid = false;
             }
         } else {
@@ -764,7 +764,7 @@ GNEAdditionalFrame::AdditionalAttributeList::showListParameter(SumoXMLTag additi
 
 
 void
-GNEAdditionalFrame::AdditionalAttributeList::showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<SUMOReal> /* value */, bool /*isTime*/) {
+GNEAdditionalFrame::AdditionalAttributeList::showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<double> /* value */, bool /*isTime*/) {
     myAdditionalTag = additionalTag;
     myAdditionalAttr = additionalAttr;
     std::cout << "FINISH" << std::endl;
@@ -925,9 +925,9 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLTag additionalTag,
             if (GNEAttributeCarrier::isInt(myAdditionalTag, AdditionalAttributeSingle)) {
                 myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue< std::vector<int> >(myAdditionalTag, AdditionalAttributeSingle));
             } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, AdditionalAttributeSingle)) {
-                myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue< std::vector<SUMOReal> >(myAdditionalTag, AdditionalAttributeSingle));
+                myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue< std::vector<double> >(myAdditionalTag, AdditionalAttributeSingle));
             } else if (GNEAttributeCarrier::isTime(myAdditionalTag, AdditionalAttributeSingle)) {
-                myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue< std::vector<SUMOReal> >(myAdditionalTag, AdditionalAttributeSingle), true);
+                myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue< std::vector<double> >(myAdditionalTag, AdditionalAttributeSingle), true);
             } else if (GNEAttributeCarrier::isBool(myAdditionalTag, AdditionalAttributeSingle)) {
                 myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue< std::vector<bool> >(myAdditionalTag, AdditionalAttributeSingle));
             } else if (GNEAttributeCarrier::isString(myAdditionalTag, AdditionalAttributeSingle)) {
@@ -944,9 +944,9 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLTag additionalTag,
             if (GNEAttributeCarrier::isInt(myAdditionalTag, AdditionalAttributeSingle)) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(myAdditionalTag, AdditionalAttributeSingle));
             } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, AdditionalAttributeSingle)) {
-                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<SUMOReal>(myAdditionalTag, AdditionalAttributeSingle));
+                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(myAdditionalTag, AdditionalAttributeSingle));
             } else if (GNEAttributeCarrier::isTime(myAdditionalTag, AdditionalAttributeSingle)) {
-                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<SUMOReal>(myAdditionalTag, AdditionalAttributeSingle), true);
+                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(myAdditionalTag, AdditionalAttributeSingle), true);
             } else if (GNEAttributeCarrier::isBool(myAdditionalTag, AdditionalAttributeSingle)) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<bool>(myAdditionalTag, AdditionalAttributeSingle));
             } else if (GNEAttributeCarrier::isString(myAdditionalTag, AdditionalAttributeSingle)) {
@@ -1177,9 +1177,9 @@ GNEAdditionalFrame::NeteditAttributes::getActualReferencePoint() {
 }
 
 
-SUMOReal
+double
 GNEAdditionalFrame::NeteditAttributes::getLenght() {
-    return GNEAttributeCarrier::parse<SUMOReal>(myLengthTextField->getText().text());
+    return GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
 }
 
 
@@ -1203,8 +1203,8 @@ GNEAdditionalFrame::NeteditAttributes::isCurrentLenghtValid() const {
 long
 GNEAdditionalFrame::NeteditAttributes::onCmdSetLength(FXObject*, FXSelector, void*) {
     // change color of text field depending of the input lenght
-    if (GNEAttributeCarrier::canParse<SUMOReal>(myLengthTextField->getText().text()) &&
-        GNEAttributeCarrier::parse<SUMOReal>(myLengthTextField->getText().text()) > 0) {
+    if (GNEAttributeCarrier::canParse<double>(myLengthTextField->getText().text()) &&
+        GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text()) > 0) {
         myLengthTextField->setTextColor(FXRGB(0, 0, 0));
         myLengthTextField->killFocus();
         myCurrentLengthValid = true;

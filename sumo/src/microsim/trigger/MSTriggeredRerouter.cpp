@@ -75,7 +75,7 @@ MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_te
 // ===========================================================================
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
         const MSEdgeVector& edges,
-        SUMOReal prob, const std::string& file, bool off) :
+        double prob, const std::string& file, bool off) :
     MSTrigger(id),
     MSMoveReminder(id),
     SUMOSAXHandler(file),
@@ -130,7 +130,7 @@ MSTriggeredRerouter::myStartElement(int element,
         }
         // get the probability to reroute
         bool ok = true;
-        SUMOReal prob = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
+        double prob = attrs.getOpt<double>(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
         if (!ok) {
             throw ProcessError();
         }
@@ -190,7 +190,7 @@ MSTriggeredRerouter::myStartElement(int element,
 
         // get the probability to reroute
         bool ok = true;
-        SUMOReal prob = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
+        double prob = attrs.getOpt<double>(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
         if (!ok) {
             throw ProcessError();
         }
@@ -214,7 +214,7 @@ MSTriggeredRerouter::myStartElement(int element,
         }
         // get the probability to reroute
         bool ok = true;
-        SUMOReal prob = attrs.getOpt<SUMOReal>(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
+        double prob = attrs.getOpt<double>(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
         if (!ok) {
             throw ProcessError();
         }
@@ -342,14 +342,14 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const {
 
 
 bool
-MSTriggeredRerouter::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/,
-                                SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) {
+MSTriggeredRerouter::notifyMove(SUMOVehicle& veh, double /*oldPos*/,
+                                double /*newPos*/, double /*newSpeed*/) {
     return notifyEnter(veh, NOTIFICATION_JUNCTION);
 }
 
 
 bool
-MSTriggeredRerouter::notifyLeave(SUMOVehicle& /*veh*/, SUMOReal /*lastPos*/,
+MSTriggeredRerouter::notifyLeave(SUMOVehicle& /*veh*/, double /*lastPos*/,
                                  MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
     return reason == NOTIFICATION_LANE_CHANGE;
 }
@@ -363,7 +363,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     if (rerouteDef == 0) {
         return true; // an active interval could appear later
     }
-    SUMOReal prob = myAmInUserMode ? myUserProbability : myProbability;
+    double prob = myAmInUserMode ? myUserProbability : myProbability;
     if (RandHelper::rand() > prob) {
         return false; // XXX another interval could appear later but we would have to track whether the current interval was already tried
     }
@@ -429,7 +429,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     }
     const MSEdge* newEdge = lastEdge;
     // ok, try using a new destination
-    SUMOReal newArrivalPos = -1;
+    double newArrivalPos = -1;
     const bool destUnreachable = std::find(rerouteDef->closed.begin(), rerouteDef->closed.end(), lastEdge) != rerouteDef->closed.end();
     // if we have a closingReroute, only assign new destinations to vehicles which cannot reach their original destination
     // if we have a closingLaneReroute, no new destinations should be assigned
@@ -487,7 +487,7 @@ MSTriggeredRerouter::setUserMode(bool val) {
 
 
 void
-MSTriggeredRerouter::setUserUsageProbability(SUMOReal prob) {
+MSTriggeredRerouter::setUserUsageProbability(double prob) {
     myUserProbability = prob;
 }
 
@@ -498,24 +498,24 @@ MSTriggeredRerouter::inUserMode() const {
 }
 
 
-SUMOReal
+double
 MSTriggeredRerouter::getProbability() const {
     return myAmInUserMode ? myUserProbability : myProbability;
 }
 
 
-SUMOReal
+double
 MSTriggeredRerouter::getUserProbability() const {
     return myUserProbability;
 }
 
 
-SUMOReal
-MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const SUMOReal defaultWeight) const {
+double
+MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight) const {
     // get custom vehicle parameter
     if (veh.getParameter().knowsParameter(param)) {
         try {
-            return TplConvert::_2SUMOReal(veh.getParameter().getParameter(param, "-1").c_str());
+            return TplConvert::_2double(veh.getParameter().getParameter(param, "-1").c_str());
         } catch (...) {
             WRITE_WARNING("Invalid value '" + veh.getParameter().getParameter(param, "-1") + "' for vehicle parameter '" + param + "'");
         }
@@ -523,7 +523,7 @@ MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const 
         // get custom vType parameter
         if (veh.getVehicleType().getParameter().knowsParameter(param)) {
             try {
-                return TplConvert::_2SUMOReal(veh.getVehicleType().getParameter().getParameter(param, "-1").c_str());
+                return TplConvert::_2double(veh.getVehicleType().getParameter().getParameter(param, "-1").c_str());
             } catch (...) {
                 WRITE_WARNING("Invalid value '" + veh.getVehicleType().getParameter().getParameter(param, "-1") + "' for vType parameter '" + param + "'");
             }
@@ -548,7 +548,7 @@ MSTriggeredRerouter::rerouteParkingZone(const MSTriggeredRerouter::RerouteInterv
     if (destParkArea != 0 &&
             destParkArea->getOccupancy() == destParkArea->getCapacity()) {
 
-        typedef std::map<std::string, SUMOReal> ParkingParamMap_t;
+        typedef std::map<std::string, double> ParkingParamMap_t;
         typedef std::map<MSParkingArea*, ParkingParamMap_t> MSParkingAreaMap_t;
 
         ParkingParamMap_t weights;
@@ -595,11 +595,11 @@ MSTriggeredRerouter::rerouteParkingZone(const MSTriggeredRerouter::RerouteInterv
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSNet::getInstance()->getRouterTT(rerouteDef->closed);
 
         std::vector<MSParkingArea*> parks = rerouteDef->parkProbs.getVals();
-        std::vector<SUMOReal> probs = rerouteDef->parkProbs.getProbs();
+        std::vector<double> probs = rerouteDef->parkProbs.getProbs();
 
         for (int i = 0; i < (int)parks.size(); ++i) {
             MSParkingArea* pa = parks[i];
-            const SUMOReal prob = probs[i];
+            const double prob = probs[i];
             if (pa->getOccupancy() < pa->getCapacity()) {
 
                 // a map stores the parking values
@@ -684,7 +684,7 @@ MSTriggeredRerouter::rerouteParkingZone(const MSTriggeredRerouter::RerouteInterv
         }
 
         // minimum cost to get the parking area
-        SUMOReal minParkingCost = 0.0;
+        double minParkingCost = 0.0;
 
         for (MSParkingAreaMap_t::iterator it = parkAreas.begin(); it != parkAreas.end(); ++it) {
             // get the parking values
@@ -703,7 +703,7 @@ MSTriggeredRerouter::rerouteParkingZone(const MSTriggeredRerouter::RerouteInterv
             parkValues["timefrom"] = maxValues["timefrom"] > 0.0 ? parkValues["timefrom"] / maxValues["timefrom"] : 0.0;
 
             // get the parking area cost
-            SUMOReal parkingCost = 0.0;
+            double parkingCost = 0.0;
 
             // sum every index with its weight
             for (ParkingParamMap_t::iterator pc = parkValues.begin(); pc != parkValues.end(); ++pc) {

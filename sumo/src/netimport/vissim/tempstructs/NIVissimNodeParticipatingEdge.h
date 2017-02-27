@@ -44,15 +44,15 @@
 class NIVissimNodeParticipatingEdge {
 public:
     NIVissimNodeParticipatingEdge(int edgeid,
-                                  SUMOReal frompos, SUMOReal topos);
+                                  double frompos, double topos);
     ~NIVissimNodeParticipatingEdge();
     int getID() const;
-    bool positionLiesWithin(SUMOReal pos) const;
-    SUMOReal getFromPos() const;
-    SUMOReal getToPos() const;
+    bool positionLiesWithin(double pos) const;
+    double getFromPos() const;
+    double getToPos() const;
 private:
     int myEdgeID;
-    SUMOReal myFromPos, myToPos;
+    double myFromPos, myToPos;
 };
 
 

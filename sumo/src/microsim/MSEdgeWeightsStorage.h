@@ -64,7 +64,7 @@ public:
      * @param[in] value The value if the requested edge/time is described
      * @return Whether the requested edge/time is described
      */
-    bool retrieveExistingTravelTime(const MSEdge* const e, const SUMOReal t, SUMOReal& value) const;
+    bool retrieveExistingTravelTime(const MSEdge* const e, const double t, double& value) const;
 
 
     /** @brief Returns an effort for an edge and time if stored
@@ -73,7 +73,7 @@ public:
      * @param[in] value The value if the requested edge/time is described
      * @return Whether the requested edge/time is described
      */
-    bool retrieveExistingEffort(const MSEdge* const e, const SUMOReal t, SUMOReal& value) const;
+    bool retrieveExistingEffort(const MSEdge* const e, const double t, double& value) const;
 
 
     /** @brief Adds a travel time information for an edge and a time span
@@ -82,7 +82,7 @@ public:
      * @param[in] end The end of the described time span
      * @param[in] value The travel time value for this edge and time span
      */
-    void addTravelTime(const MSEdge* const e, SUMOReal begin, SUMOReal end, SUMOReal value);
+    void addTravelTime(const MSEdge* const e, double begin, double end, double value);
 
 
     /** @brief Adds an effort information for an edge and a time span
@@ -91,7 +91,7 @@ public:
      * @param[in] end The end of the described time span
      * @param[in] value Theeffort value for this edge and time span
      */
-    void addEffort(const MSEdge* const e, SUMOReal begin, SUMOReal end, SUMOReal value);
+    void addEffort(const MSEdge* const e, double begin, double end, double value);
 
 
     /** @brief Removes the travel time information for an edge
@@ -122,10 +122,10 @@ public:
 
 private:
     /// @brief A map of edge->time->travel time
-    std::map<const MSEdge*, ValueTimeLine<SUMOReal> > myTravelTimes;
+    std::map<const MSEdge*, ValueTimeLine<double> > myTravelTimes;
 
     /// @brief A map of edge->time->effort
-    std::map<const MSEdge*, ValueTimeLine<SUMOReal> > myEfforts;
+    std::map<const MSEdge*, ValueTimeLine<double> > myEfforts;
 
 
 private:

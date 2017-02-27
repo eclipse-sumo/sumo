@@ -126,14 +126,14 @@ public:
 
     /// @brief Returns the information whether the position vector describes a polygon lying around the given point
     /// @note The optional offset is added to the polygon's boundaries
-    bool around(const Position& p, SUMOReal offset = 0) const;
+    bool around(const Position& p, double offset = 0) const;
 
     /// @brief Returns the information whether the given polygon overlaps with this
     /// @note Again a boundary may be specified
-    bool overlapsWith(const AbstractPoly& poly, SUMOReal offset = 0) const;
+    bool overlapsWith(const AbstractPoly& poly, double offset = 0) const;
 
     /// @brief Returns the maximum overlaps between this and the given polygon (when not separated by at least zThreshold)
-    SUMOReal getOverlapWith(const PositionVector& poly, SUMOReal zThreshold) const;
+    double getOverlapWith(const PositionVector& poly, double zThreshold) const;
 
     /// @brief Returns the information whether this list of points interesects the given line
     bool intersects(const Position& p1, const Position& p2) const;
@@ -142,13 +142,13 @@ public:
     bool intersects(const PositionVector& v1) const;
 
     /// @brief Returns the position of the intersection
-    Position intersectionPosition2D(const Position& p1, const Position& p2, const SUMOReal withinDist = 0.) const;
+    Position intersectionPosition2D(const Position& p1, const Position& p2, const double withinDist = 0.) const;
 
     /// @brief For all intersections between this vector and other, return the 2D-length of the subvector from this vectors start to the intersection
-    std::vector<SUMOReal> intersectsAtLengths2D(const PositionVector& other) const;
+    std::vector<double> intersectsAtLengths2D(const PositionVector& other) const;
 
     /// @brief For all intersections between this vector and line, return the 2D-length of the subvector from this vectors start to the intersection
-    std::vector<SUMOReal> intersectsAtLengths2D(const Position& lp1, const Position& lp2) const;
+    std::vector<double> intersectsAtLengths2D(const Position& lp1, const Position& lp2) const;
 
     /// @brief Returns the position of the intersection
     Position intersectionPosition2D(const PositionVector& v1) const;
@@ -165,25 +165,25 @@ public:
     Position& operator[](int index);
 
     /// @brief Returns the position at the given length
-    Position positionAtOffset(SUMOReal pos, SUMOReal lateralOffset = 0) const;
+    Position positionAtOffset(double pos, double lateralOffset = 0) const;
 
     /// @brief Returns the position at the given length
-    Position positionAtOffset2D(SUMOReal pos, SUMOReal lateralOffset = 0) const;
+    Position positionAtOffset2D(double pos, double lateralOffset = 0) const;
 
     /// @brief Returns the rotation at the given length
-    SUMOReal rotationAtOffset(SUMOReal pos) const;
+    double rotationAtOffset(double pos) const;
 
     /// @brief Returns the rotation at the given length
-    SUMOReal rotationDegreeAtOffset(SUMOReal pos) const;
+    double rotationDegreeAtOffset(double pos) const;
 
     /// @brief Returns the slope at the given length
-    SUMOReal slopeDegreeAtOffset(SUMOReal pos) const;
+    double slopeDegreeAtOffset(double pos) const;
 
     /// @brief Returns the position between the two given point at the specified position
-    static Position positionAtOffset(const Position& p1, const Position& p2, SUMOReal pos, SUMOReal lateralOffset = 0.);
+    static Position positionAtOffset(const Position& p1, const Position& p2, double pos, double lateralOffset = 0.);
 
     /// Returns the position between the two given point at the specified position
-    static Position positionAtOffset2D(const Position& p1, const Position& p2, SUMOReal pos, SUMOReal lateralOffset = 0.);
+    static Position positionAtOffset2D(const Position& p1, const Position& p2, double pos, double lateralOffset = 0.);
 
     /// @brief Returns a boundary enclosing this list of lines
     Boundary getBoxBoundary() const;
@@ -196,28 +196,28 @@ public:
     Position getCentroid() const;
 
     /// @brief enlarges/shrinks the polygon by a factor based at the centroid
-    void scaleRelative(SUMOReal factor);
+    void scaleRelative(double factor);
 
     /// @brief enlarges/shrinks the polygon by an absolute offset based at the centroid
-    void scaleAbsolute(SUMOReal offset);
+    void scaleAbsolute(double offset);
 
     /// @brief get line center
     Position getLineCenter() const;
 
     /// @brief Returns the length
-    SUMOReal length() const;
+    double length() const;
 
     /// @brief Returns the length
-    SUMOReal length2D() const;
+    double length2D() const;
 
     /// @brief Returns the area (0 for non-closed)
-    SUMOReal area() const;
+    double area() const;
 
     /// @brief Returns the information whether this polygon lies partially within the given polygon
-    bool partialWithin(const AbstractPoly& poly, SUMOReal offset = 0) const;
+    bool partialWithin(const AbstractPoly& poly, double offset = 0) const;
 
     /// @brief Returns the two lists made when this list vector is splitted at the given point
-    std::pair<PositionVector, PositionVector> splitAt(SUMOReal where) const;
+    std::pair<PositionVector, PositionVector> splitAt(double where) const;
 
     //// @brief Output operator
     friend std::ostream& operator<<(std::ostream& os, const PositionVector& geom);
@@ -226,7 +226,7 @@ public:
     bool crosses(const Position& p1, const Position& p2) const;
 
     //// @brief add a position
-    void add(SUMOReal xoff, SUMOReal yoff, SUMOReal zoff);
+    void add(double xoff, double yoff, double zoff);
 
     //// @brief add a position
     void add(const Position& offset);
@@ -235,19 +235,19 @@ public:
     void mirrorX();
 
     //// @brief rotate all points around (0,0) in the plane by the given angle
-    void rotate2D(SUMOReal angle);
+    void rotate2D(double angle);
 
     //// @brief get a convex Hull of position vector
     PositionVector convexHull() const;
 
     //// @brief append the given vector to this one
-    void append(const PositionVector& v, SUMOReal sameThreshold = 2.0);
+    void append(const PositionVector& v, double sameThreshold = 2.0);
 
     /// @brief get subpart of a position vector
-    PositionVector getSubpart(SUMOReal beginOffset, SUMOReal endOffset) const;
+    PositionVector getSubpart(double beginOffset, double endOffset) const;
 
     /// @brief get subpart of a position vector in two dimensions (Z is ignored)
-    PositionVector getSubpart2D(SUMOReal beginOffset, SUMOReal endOffset) const;
+    PositionVector getSubpart2D(double beginOffset, double endOffset) const;
 
     /// @brief get subpart of a position vector using index and a cout
     PositionVector getSubpartByIndex(int beginIndex, int count) const;
@@ -259,22 +259,22 @@ public:
     void sortByIncreasingXY();
 
     /// @brief extrapolate position vector
-    void extrapolate(const SUMOReal val, const bool onlyFirst = false);
+    void extrapolate(const double val, const bool onlyFirst = false);
 
     /// @brief extrapolate position vector in two dimensions (Z is ignored)
-    void extrapolate2D(const SUMOReal val, const bool onlyFirst = false);
+    void extrapolate2D(const double val, const bool onlyFirst = false);
 
     /// @brief reverse position vector
     PositionVector reverse() const;
 
     /// @brief get a side position of position vector using a offset
-    static Position sideOffset(const Position& beg, const Position& end, const SUMOReal amount);
+    static Position sideOffset(const Position& beg, const Position& end, const double amount);
 
     /// @brief move position vector to side using certain ammount
-    void move2side(SUMOReal amount);
+    void move2side(double amount);
 
     /// @brief get angle  in certain position of position vector
-    SUMOReal angleAt2D(int pos) const;
+    double angleAt2D(int pos) const;
 
     /// @brief inserts p between the two closest positions and returns the insertion index
     int insertAtClosest(const Position& p);
@@ -307,13 +307,13 @@ public:
 
     /// @brief get left
     /// @note previously marked with "!!!"
-    SUMOReal isLeft(const Position& P0, const Position& P1, const Position& P2) const;
+    double isLeft(const Position& P0, const Position& P1, const Position& P2) const;
 
     /// @brief returns the angle in radians of the line connecting the first and the last position
-    SUMOReal beginEndAngle() const;
+    double beginEndAngle() const;
 
     /// @brief return the nearest offest to point 2D
-    SUMOReal nearest_offset_to_point2D(const Position& p, bool perpendicular = true) const;
+    double nearest_offset_to_point2D(const Position& p, bool perpendicular = true) const;
 
     /** @brief return position p within the length-wise coordinate system
      * defined by this position vector. The x value is the same as that returned
@@ -330,10 +330,10 @@ public:
 
     /// @brief distances of all my points to s and all of s points to myself
     /// @note if perpendicular is set to true, only the perpendicular distances are returned
-    std::vector<SUMOReal> distances(const PositionVector& s, bool perpendicular = false) const;
+    std::vector<double> distances(const PositionVector& s, bool perpendicular = false) const;
 
     /// @brief closest 2D-distance to point p (or -1 if perpendicular is true and the point is beyond this vector)
-    SUMOReal distance2D(const Position& p, bool perpendicular = false) const;
+    double distance2D(const Position& p, bool perpendicular = false) const;
 
     /// @brief insert in back a non double position
     void push_back_noDoublePos(const Position& p);
@@ -348,7 +348,7 @@ public:
      * @param[in] minDist The minimum accepted distance; default: POSITION_EPS
      * @param[in] assertLength Whether the result must at least contain two points (be a line); default: false, to ensure original behaviour
      */
-    void removeDoublePoints(SUMOReal minDist = POSITION_EPS, bool assertLength = false);
+    void removeDoublePoints(double minDist = POSITION_EPS, bool assertLength = false);
 
     /// @brief return whether two positions differ in z-coordinate
     bool hasElevation() const;
@@ -361,21 +361,21 @@ public:
      * @param[in] extend how long to extend this vector for finding an orthogonal
      * @param[out] distToClosest Distance between the intersection point and the closest geometry point
      */
-    PositionVector getOrthogonal(const Position& p, SUMOReal extend, SUMOReal& distToClosest) const;
+    PositionVector getOrthogonal(const Position& p, double extend, double& distToClosest) const;
 
 
     /// @brief returned vector that is smoothed at the front (within dist)
-    PositionVector smoothedZFront(SUMOReal dist = std::numeric_limits<SUMOReal>::max()) const;
+    PositionVector smoothedZFront(double dist = std::numeric_limits<double>::max()) const;
 
     /// @brief return the offset at the given index
-    SUMOReal offsetAtIndex2D(int index) const;
+    double offsetAtIndex2D(int index) const;
 
     /// @brief return the maximum grade of all segments as a fraction of zRange/length2D
-    SUMOReal getMaxGrade() const;
+    double getMaxGrade() const;
 
 private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect
-    static bool intersects(const Position& p11, const Position& p12, const Position& p21, const Position& p22, const SUMOReal withinDist = 0., SUMOReal* x = 0, SUMOReal* y = 0, SUMOReal* mu = 0);
+    static bool intersects(const Position& p11, const Position& p12, const Position& p21, const Position& p22, const double withinDist = 0., double* x = 0, double* y = 0, double* mu = 0);
 };
 
 

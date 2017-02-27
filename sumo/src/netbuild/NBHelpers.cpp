@@ -52,8 +52,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOReal
-NBHelpers::relAngle(SUMOReal angle1, SUMOReal angle2) {
+double
+NBHelpers::relAngle(double angle1, double angle2) {
     angle2 -= angle1;
     if (angle2 > 180) {
         angle2 = (360 - angle2) * -1;
@@ -65,9 +65,9 @@ NBHelpers::relAngle(SUMOReal angle1, SUMOReal angle2) {
 }
 
 
-SUMOReal
-NBHelpers::normRelAngle(SUMOReal angle1, SUMOReal angle2) {
-    SUMOReal rel = relAngle(angle1, angle2);
+double
+NBHelpers::normRelAngle(double angle1, double angle2) {
+    double rel = relAngle(angle1, angle2);
     if (rel + NUMERICAL_EPS >= 180) {
         return -180;
     } else {
@@ -87,7 +87,7 @@ NBHelpers::normalIDRepresentation(const std::string& id) {
 }
 
 
-SUMOReal
+double
 NBHelpers::distance(NBNode* node1, NBNode* node2) {
     return node1->getPosition().distanceTo(node2->getPosition());
 }

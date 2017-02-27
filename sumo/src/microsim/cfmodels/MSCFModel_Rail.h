@@ -27,8 +27,8 @@ class MSCFModel_Rail : public MSCFModel {
 
 public:
 
-    SUMOReal followSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed,
-                         SUMOReal predMaxDecel) const;
+    double followSpeed(const MSVehicle *const veh, double speed, double gap2pred, double predSpeed,
+                         double predMaxDecel) const;
 
     virtual int getModelID() const;
 
@@ -42,39 +42,39 @@ public:
 
     virtual ~MSCFModel_Rail();
 
-    virtual SUMOReal maxNextSpeed(SUMOReal speed, const MSVehicle *const veh) const;
+    virtual double maxNextSpeed(double speed, const MSVehicle *const veh) const;
 
-    virtual SUMOReal minNextSpeed(SUMOReal speed, const MSVehicle *const veh) const;
+    virtual double minNextSpeed(double speed, const MSVehicle *const veh) const;
 
-    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const;
+    double getSpeedAfterMaxDecel(double v) const;
 
     MSCFModel::VehicleVariables *createVehicleVariables() const;
 
-    SUMOReal moveHelper(MSVehicle *const veh, SUMOReal vPos) const;
+    double moveHelper(MSVehicle *const veh, double vPos) const;
 
-    SUMOReal freeSpeed(const MSVehicle *const veh, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed,
+    double freeSpeed(const MSVehicle *const veh, double speed, double seen, double maxSpeed,
                        const bool onInsertion) const;
 
 private:
 
-    typedef std::map<SUMOReal, SUMOReal> LookUpMap;
+    typedef std::map<double, double> LookUpMap;
 
     struct TrainParams {
-        SUMOReal weight;
-        SUMOReal mf;
-        SUMOReal length;
-        SUMOReal decl;
-        SUMOReal vmax;
-        SUMOReal recovery;
-        SUMOReal rotWeight;
+        double weight;
+        double mf;
+        double length;
+        double decl;
+        double vmax;
+        double recovery;
+        double rotWeight;
         LookUpMap traction;
         LookUpMap resistance;
     };
 
-    SUMOReal getInterpolatedValueFromLookUpMap(SUMOReal speed, const LookUpMap *lookUpMap) const;
+    double getInterpolatedValueFromLookUpMap(double speed, const LookUpMap *lookUpMap) const;
 
 public:
-    SUMOReal stopSpeed(const MSVehicle *const veh, const SUMOReal speed, SUMOReal gap) const;
+    double stopSpeed(const MSVehicle *const veh, const double speed, double gap) const;
 
 //    class VehicleVariables : public MSCFModel::VehicleVariables {
 //

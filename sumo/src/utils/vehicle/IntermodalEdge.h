@@ -68,8 +68,8 @@ inline const L* getSidewalk(const E* edge) {
 template<class E, class N, class V>
 struct IntermodalTrip {
 
-    IntermodalTrip(const E* _from, const E* _to, SUMOReal _departPos, SUMOReal _arrivalPos,
-                   SUMOReal _speed, SUMOTime _departTime, const N* _node,
+    IntermodalTrip(const E* _from, const E* _to, double _departPos, double _arrivalPos,
+                   double _speed, SUMOTime _departTime, const N* _node,
                    const V* _vehicle = 0, const SVCPermissions _modeSet = SVC_PEDESTRIAN) :
         from(_from),
         to(_to),
@@ -94,9 +94,9 @@ struct IntermodalTrip {
 
     const E* const from;
     const E* const to;
-    const SUMOReal departPos;
-    const SUMOReal arrivalPos;
-    const SUMOReal speed;
+    const double departPos;
+    const double arrivalPos;
+    const double speed;
     const SUMOTime departTime;
     const N* const node; // indicates whether only routing across this node shall be performed
     const V* const vehicle; // indicates which vehicle may be used
@@ -161,19 +161,19 @@ public:
         return false;
     }
 
-    virtual SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, SUMOReal /* time */) const {
+    virtual double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
         return 0;
     }
 
-    static SUMOReal getTravelTimeStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, SUMOReal time) {
+    static double getTravelTimeStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
         return edge->getTravelTime(trip, time);
     }
 
-    inline SUMOReal getLength() const {
+    inline double getLength() const {
         return myLength;
     }
 
-    inline void setLength(const SUMOReal length) {
+    inline void setLength(const double length) {
         myLength = length;
     }
 
@@ -192,7 +192,7 @@ private:
     const std::string myLine;
 
     /// @brief adaptable length (for splitted edges)
-    SUMOReal myLength;
+    double myLength;
 
 private:
     /// @brief Invalidated copy constructor
@@ -208,7 +208,7 @@ private:
 template<class E, class L, class N, class V>
 class PedestrianEdge : public IntermodalEdge<E, L, N, V> {
 public:
-    PedestrianEdge(int numericalID, const E* edge, const L* lane, bool forward, const SUMOReal pos = -1.) :
+    PedestrianEdge(int numericalID, const E* edge, const L* lane, bool forward, const double pos = -1.) :
         IntermodalEdge<E, L, N, V>(edge->getID() + (edge->isWalkingArea() ? "" : (forward ? "_fwd" : "_bwd")) + toString(pos), numericalID, edge, "!ped"),
         myLane(lane),
         myForward(forward),
@@ -229,8 +229,8 @@ public:
         }
     }
 
-    virtual SUMOReal getTravelTime(const IntermodalTrip<E, N, V>* const trip, SUMOReal time) const {
-        SUMOReal length = this->getLength();
+    virtual double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
+        double length = this->getLength();
         if (this->getEdge() == trip->from && !myForward) {
             length = trip->departPos - myStartPos;
         }
@@ -245,11 +245,11 @@ public:
         }
         // ensure that 'normal' edges always have a higher weight than connector edges
         length = MAX2(length, POSITION_EPS);
-        SUMOReal tlsDelay = 0;
+        double tlsDelay = 0;
         // @note pedestrian traffic lights should never have LINKSTATE_TL_REDYELLOW
         if (this->getEdge()->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
             // red traffic lights occurring later in the route may be green by the time we arive
-            tlsDelay += MAX2(SUMOReal(0), TL_RED_PENALTY - (time - STEPS2TIME(trip->departTime)));
+            tlsDelay += MAX2(double(0), TL_RED_PENALTY - (time - STEPS2TIME(trip->departTime)));
         }
 #ifdef IntermodalRouter_DEBUG_EFFORTS
         std::cout << " effort for " << trip->getID() << " at " << time << " edge=" << edge->getID() << " effort=" << length / trip->speed + tlsDelay << " l=" << length << " s=" << trip->speed << " tlsDelay=" << tlsDelay << "\n";
@@ -265,7 +265,7 @@ private:
     const bool myForward;
 
     /// @brief the starting position for split edges
-    const SUMOReal myStartPos;
+    const double myStartPos;
 
 };
 

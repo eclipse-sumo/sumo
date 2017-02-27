@@ -49,7 +49,7 @@ class MSSOTLPolicy5DStimulus: public MSSOTLPolicyDesirability {
 
 private:
 
-    SUMOReal stimCoxDVal,
+    double stimCoxDVal,
              stimOffsetInDVal, stimOffsetOutDVal, stimOffsetDispersionInDVal, stimOffsetDispersionOutDVal,
              stimDivInDVal, stimDivOutDVal, stimDivDispersionInDVal, stimDivDispersionOutDVal,
              stimCoxExpInDVal, stimCoxExpOutDVal, stimCoxExpDispersionInDVal, stimCoxExpDispersionOutDVal;
@@ -58,104 +58,104 @@ public:
 
     MSSOTLPolicy5DStimulus(std::string keyPrefix, const std::map<std::string, std::string>& parameters);
 
-    SUMOReal getStimCox() {
+    double getStimCox() {
         std::string key = getKeyPrefix() + "_STIM_COX";
         return readParameter(key, stimCoxDVal);
     }
-    void setStimCoxDefVal(SUMOReal defVal) {
+    void setStimCoxDefVal(double defVal) {
         stimCoxDVal = defVal;
     }
-    SUMOReal getStimOffsetIn() {
+    double getStimOffsetIn() {
         std::string key = getKeyPrefix() + "_STIM_OFFSET_IN";
         return readParameter(key, stimOffsetInDVal);
     }
-    void setStimOffsetInDefVal(SUMOReal defVal) {
+    void setStimOffsetInDefVal(double defVal) {
         stimOffsetInDVal = defVal;
     }
-    SUMOReal getStimOffsetOut() {
+    double getStimOffsetOut() {
         std::string key = getKeyPrefix() + "_STIM_OFFSET_OUT";
         return readParameter(key, stimOffsetOutDVal);
     }
 
-    void setStimOffsetOutDefVal(SUMOReal defVal) {
+    void setStimOffsetOutDefVal(double defVal) {
         stimOffsetOutDVal = defVal;
     }
 
-    SUMOReal getStimOffsetDispersionIn() {
+    double getStimOffsetDispersionIn() {
         std::string key = getKeyPrefix() + "_STIM_OFFSET_DISPERSION_IN";
         return readParameter(key, stimOffsetDispersionInDVal);
     }
-    void setStimOffsetDispersionInDefVal(SUMOReal defVal) {
+    void setStimOffsetDispersionInDefVal(double defVal) {
         stimOffsetDispersionInDVal = defVal;
     }
-    SUMOReal getStimOffsetDispersionOut() {
+    double getStimOffsetDispersionOut() {
         std::string key = getKeyPrefix() + "_STIM_OFFSET_DISPERSION_OUT";
         return readParameter(key, stimOffsetDispersionOutDVal);
     }
-    void setStimOffsetDispersionOutDefVal(SUMOReal defVal) {
+    void setStimOffsetDispersionOutDefVal(double defVal) {
         stimOffsetDispersionOutDVal = defVal;
     }
-    SUMOReal getStimDivisorIn() {
+    double getStimDivisorIn() {
         std::string key = getKeyPrefix() + "_STIM_DIVISOR_IN";
         return readParameter(key, stimDivInDVal);
     }
 
-    void setStimDivisorInDefVal(SUMOReal defVal) {
+    void setStimDivisorInDefVal(double defVal) {
         stimDivInDVal = defVal;
     }
 
-    SUMOReal getStimDivisorOut() {
+    double getStimDivisorOut() {
         std::string key = getKeyPrefix() + "_STIM_DIVISOR_OUT";
         return readParameter(key, stimDivOutDVal);
     }
 
-    void setStimDivisorOutDefVal(SUMOReal defVal) {
+    void setStimDivisorOutDefVal(double defVal) {
         stimDivOutDVal = defVal;
     }
 
-    SUMOReal getStimDivisorDispersionIn() {
+    double getStimDivisorDispersionIn() {
         std::string key = getKeyPrefix() + "_STIM_DIVISOR_DISPERSION_IN";
         return readParameter(key, stimDivDispersionInDVal);
     }
 
-    void setStimDivisorDispersionInDefVal(SUMOReal defVal) {
+    void setStimDivisorDispersionInDefVal(double defVal) {
         stimDivDispersionInDVal = defVal;
     }
-    SUMOReal getStimDivisorDispersionOut() {
+    double getStimDivisorDispersionOut() {
         std::string key = getKeyPrefix() + "_STIM_DIVISOR_DISPERSION_OUT";
         return readParameter(key, stimDivDispersionOutDVal);
     }
 
-    void setStimDivisorDispersionOutDefVal(SUMOReal defVal) {
+    void setStimDivisorDispersionOutDefVal(double defVal) {
         stimDivDispersionOutDVal = defVal;
     }
-    SUMOReal getStimCoxExpIn() {
+    double getStimCoxExpIn() {
         std::string key = getKeyPrefix() + "_STIM_COX_EXP_IN";
         return readParameter(key, stimCoxExpInDVal);
     }
-    void setStimCoxExpInDefVal(SUMOReal defVal) {
+    void setStimCoxExpInDefVal(double defVal) {
         stimCoxExpInDVal = defVal;
     }
-    SUMOReal getStimCoxExpOut() {
+    double getStimCoxExpOut() {
         std::string key = getKeyPrefix() + "_STIM_COX_EXP_OUT";
         return readParameter(key, stimCoxExpOutDVal);
     }
-    void setStimCoxExpOutDefVal(SUMOReal defVal) {
+    void setStimCoxExpOutDefVal(double defVal) {
         stimCoxExpOutDVal = defVal;
     }
 
-    SUMOReal getStimCoxExpDispersionIn() {
+    double getStimCoxExpDispersionIn() {
         std::string key = getKeyPrefix() + "_STIM_COX_EXP_DISPERSION_IN";
         return readParameter(key, stimCoxExpDispersionInDVal);
     }
-    void setStimCoxExpDispersionInDefVal(SUMOReal defVal) {
+    void setStimCoxExpDispersionInDefVal(double defVal) {
         stimCoxExpDispersionInDVal = defVal;
     }
-    SUMOReal getStimCoxExpDispersionOut() {
+    double getStimCoxExpDispersionOut() {
         std::string key = getKeyPrefix() + "_STIM_COX_EXP_DISPERSION_OUT";
         return readParameter(key, stimCoxExpDispersionOutDVal);
     }
-    void setStimCoxExpDispersionOutDefVal(SUMOReal defVal) {
+    void setStimCoxExpDispersionOutDefVal(double defVal) {
         stimCoxExpDispersionOutDVal = defVal;
     }
     std::string getMessage();
@@ -163,10 +163,10 @@ public:
      *	@brief Computes stimulus function
      *  stimulus = cox * exp(-pow(pheroIn - offsetIn, 2)/divisor -pow(pheroOut - offsetOut, 2)/divisor);
      */
-    virtual SUMOReal computeDesirability(SUMOReal vehInMeasure,
-                                         SUMOReal vehOutMeasure);
+    virtual double computeDesirability(double vehInMeasure,
+                                         double vehOutMeasure);
 
-    virtual SUMOReal computeDesirability(SUMOReal vehInMeasure, SUMOReal vehOutMeasure, SUMOReal vehInDispersionMeasure, SUMOReal vehOutDispersionMeasure);
+    virtual double computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure, double vehOutDispersionMeasure);
 };
 
 #endif /* MSSOTLPOLICYSTIMULUS_H_ */

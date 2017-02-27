@@ -117,7 +117,7 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
         for (MSTrafficLightLogic::LaneVectorVector::const_iterator j = lanes.begin(); j != lanes.end(); ++j, ++idx) {
             const MSLane* const lane = (*j)[0];
             const Position pos = lane->getShape().back();
-            const SUMOReal angle =  osg::DegreesToRadians(lane->getShape().rotationDegreeAtOffset(-1.) + 90.);
+            const double angle =  osg::DegreesToRadians(lane->getShape().rotationDegreeAtOffset(-1.) + 90.);
             d.centerZ = pos.z() + 4.;
             if (lane == lastLane) {
                 d.centerX += 1.2 * sin(angle);
@@ -278,9 +278,9 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
     pLoadedModel->accept(bboxCalc);
     const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
     WRITE_MESSAGE("Loaded decal '" + d.filename + "' with bounding box " + toString(Position(bbox.xMin(), bbox.yMin(), bbox.zMin())) + " " + toString(Position(bbox.xMax(), bbox.yMax(), bbox.zMax())) + ".");
-    SUMOReal xScale = d.width > 0 ? d.width / (bbox.xMax() - bbox.xMin()) : 1.;
-    SUMOReal yScale = d.height > 0 ? d.height / (bbox.yMax() - bbox.yMin()) : 1.;
-    const SUMOReal zScale = d.altitude > 0 ? d.altitude / (bbox.zMax() - bbox.zMin()) : 1.;
+    double xScale = d.width > 0 ? d.width / (bbox.xMax() - bbox.xMin()) : 1.;
+    double yScale = d.height > 0 ? d.height / (bbox.yMax() - bbox.yMin()) : 1.;
+    const double zScale = d.altitude > 0 ? d.altitude / (bbox.zMax() - bbox.zMin()) : 1.;
     if (d.width < 0 && d.height < 0 && d.altitude > 0) {
         xScale = yScale = zScale;
     }
@@ -294,7 +294,7 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
 
 
 osg::PositionAttitudeTransform*
-GUIOSGBuilder::getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const osg::Vec4& color, const SUMOReal size) {
+GUIOSGBuilder::getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const osg::Vec4& color, const double size) {
     osg::PositionAttitudeTransform* ret = new osg::PositionAttitudeTransform();
     if (tl != 0) {
         osg::PositionAttitudeTransform* base = new osg::PositionAttitudeTransform();
@@ -302,9 +302,9 @@ GUIOSGBuilder::getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* t
         GUIOSGBoundingBoxCalculator bboxCalc;
         tl->accept(bboxCalc);
         const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
-        SUMOReal xScale = d.width > 0 ? d.width / (bbox.xMax() - bbox.xMin()) : 1.;
-        SUMOReal yScale = d.height > 0 ? d.height / (bbox.yMax() - bbox.yMin()) : 1.;
-        const SUMOReal zScale = d.altitude > 0 ? d.altitude / (bbox.zMax() - bbox.zMin()) : 1.;
+        double xScale = d.width > 0 ? d.width / (bbox.xMax() - bbox.xMin()) : 1.;
+        double yScale = d.height > 0 ? d.height / (bbox.yMax() - bbox.yMin()) : 1.;
+        const double zScale = d.altitude > 0 ? d.altitude / (bbox.zMax() - bbox.zMin()) : 1.;
         if (d.width < 0 && d.height < 0 && d.altitude > 0) {
             xScale = yScale = zScale;
         }
@@ -345,7 +345,7 @@ GUIOSGView::OSGMovable
 GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
     GUIOSGView::OSGMovable m;
     m.pos = new osg::PositionAttitudeTransform();
-    SUMOReal enlarge = 0.;
+    double enlarge = 0.;
     const std::string& osgFile = type.getOSGFile();
     if (myCars.find(osgFile) == myCars.end()) {
         myCars[osgFile] = osgDB::readNodeFile(osgFile);
@@ -368,7 +368,7 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
         enlarge = type.getMinGap() / 2.;
     }
     m.lights = new osg::Switch();
-    for (SUMOReal offset = -0.3; offset < 0.5; offset += 0.6) {
+    for (double offset = -0.3; offset < 0.5; offset += 0.6) {
         osg::Geode* geode = new osg::Geode();
         osg::ShapeDrawable* right = new osg::ShapeDrawable(new osg::Sphere(osg::Vec3d(offset, (type.getLength() - .9) / 2., (type.getHeight() - .5) / 2.), .1f));
         geode->addDrawable(right);

@@ -54,16 +54,16 @@ class Position;
 class NBHelpers {
 public:
     /// @brief computes the relative angle between the two angles
-    static SUMOReal relAngle(SUMOReal angle1, SUMOReal angle2);
+    static double relAngle(double angle1, double angle2);
 
     /// @brief ensure that reverse relAngles (>=179.999) always count as turnarounds (-180)
-    static SUMOReal normRelAngle(SUMOReal angle1, SUMOReal angle2);
+    static double normRelAngle(double angle1, double angle2);
 
     /// @brief converts the numerical id to its "normal" string representation
     static std::string normalIDRepresentation(const std::string& id);
 
     /// @brief returns the distance between both nodes
-    static SUMOReal distance(NBNode* node1, NBNode* node2);
+    static double distance(NBNode* node1, NBNode* node2);
 
     /// @brief Add edge ids defined in file (either ID or edge:ID per line) into the given set
     static void loadEdgesFromFile(const std::string& file, std::set<std::string>& into);

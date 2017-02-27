@@ -69,8 +69,8 @@ public:
      * @return whether the polygon could be added
      */
     virtual bool addPolygon(const std::string& id, const std::string& type,
-                            const RGBColor& color, SUMOReal layer,
-                            SUMOReal angle, const std::string& imgFile,
+                            const RGBColor& color, double layer,
+                            double angle, const std::string& imgFile,
                             const PositionVector& shape, bool fill,
                             bool ignorePruning = false);
 
@@ -88,8 +88,8 @@ public:
      * @return whether the poi could be added
      */
     virtual bool addPOI(const std::string& id, const std::string& type,
-                        const RGBColor& color, SUMOReal layer, SUMOReal angle, const std::string& imgFile,
-                        const Position& pos, SUMOReal width, SUMOReal height, bool ignorePruning = false);
+                        const RGBColor& color, double layer, double angle, const std::string& imgFile,
+                        const Position& pos, double width, double height, bool ignorePruning = false);
 
 
 

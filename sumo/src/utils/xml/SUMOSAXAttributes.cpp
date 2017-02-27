@@ -198,10 +198,10 @@ long long int SUMOSAXAttributes::getInternal(const int attr) const {
 }
 
 
-template<> const SUMOReal invalid_return<SUMOReal>::value = -1;
-template<> const std::string invalid_return<SUMOReal>::type = "float";
+template<> const double invalid_return<double>::value = -1;
+template<> const std::string invalid_return<double>::type = "float";
 template<>
-SUMOReal SUMOSAXAttributes::getInternal(const int attr) const {
+double SUMOSAXAttributes::getInternal(const int attr) const {
     return getFloat(attr);
 }
 

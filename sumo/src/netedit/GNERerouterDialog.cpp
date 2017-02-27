@@ -93,7 +93,7 @@ GNERerouterDialog::getRerouterParent() const {
 
 
 bool
-GNERerouterDialog::findInterval(SUMOReal begin, SUMOReal end) const {
+GNERerouterDialog::findInterval(double begin, double end) const {
     // Iterate over intervals
     for (std::vector<GNERerouterInterval>::const_iterator i = myCopyOfRerouterIntervals.begin(); i != myCopyOfRerouterIntervals.end(); i++) {
         if ((i->getBegin() == begin) && (i->getEnd() == end)) {
@@ -105,7 +105,7 @@ GNERerouterDialog::findInterval(SUMOReal begin, SUMOReal end) const {
 
 
 bool
-GNERerouterDialog::checkInterval(SUMOReal begin, SUMOReal end) const {
+GNERerouterDialog::checkInterval(double begin, double end) const {
     if ((begin < 0) || (end < 0)) {
         return false;
     } else if ((begin == 0) && (end == 0)) {
@@ -120,7 +120,7 @@ GNERerouterDialog::checkInterval(SUMOReal begin, SUMOReal end) const {
 
 
 bool
-GNERerouterDialog::checkModifyInterval(SUMOReal oldBegin, SUMOReal oldEnd, SUMOReal newBegin, SUMOReal newEnd) const {
+GNERerouterDialog::checkModifyInterval(double oldBegin, double oldEnd, double newBegin, double newEnd) const {
     // Iterate over intervals
     for (std::vector<GNERerouterInterval>::const_iterator i = myCopyOfRerouterIntervals.begin(); i != myCopyOfRerouterIntervals.end(); i++) {
         if ((i->getBegin() == oldBegin) && (i->getEnd() == oldEnd)) {

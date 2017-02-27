@@ -40,10 +40,10 @@ class MSCFModelTest : public testing::Test {
     protected :
         MSVehicleType* type;
         MSCFModel* m;
-        SUMOReal accel;
-        SUMOReal decel;
-        SUMOReal dawdle;
-        SUMOReal tau; // headway time
+        double accel;
+        double decel;
+        double dawdle;
+        double tau; // headway time
 
         virtual void SetUp(){
             accel = 2;
@@ -66,14 +66,14 @@ class MSCFModelTest : public testing::Test {
 
 TEST_F(MSCFModelTest, test_method_brakeGap) {
     // discrete braking model. keep driving for 1 s
-    const SUMOReal v = 3;
+    const double v = 3;
     EXPECT_DOUBLE_EQ(tau * v, m->brakeGap(v));
 }
 
 TEST_F(MSCFModelTest, test_method_static_brakeGap) {
-    const SUMOReal v = 3;
-    const SUMOReal b = 4;
-    const SUMOReal tau = 1;
+    const double v = 3;
+    const double b = 4;
+    const double tau = 1;
     EXPECT_DOUBLE_EQ(3, MSCFModel::brakeGap(v, b, tau));
     EXPECT_DOUBLE_EQ(0, MSCFModel::brakeGap(v, b, 0));
     EXPECT_DOUBLE_EQ(3, MSCFModel::brakeGap(7, b, 0));
@@ -83,10 +83,10 @@ TEST_F(MSCFModelTest, test_method_static_brakeGap) {
 }
 
 TEST_F(MSCFModelTest, test_method_static_freeSpeed) {
-    const SUMOReal vCur = 10;
-    const SUMOReal b = 4;
-    const SUMOReal v = 0;
-    const SUMOReal g = 4;
+    const double vCur = 10;
+    const double b = 4;
+    const double v = 0;
+    const double g = 4;
     EXPECT_DOUBLE_EQ(4, MSCFModel::freeSpeed(vCur, b, g, v, false));
     EXPECT_DOUBLE_EQ(8, MSCFModel::freeSpeed(vCur, b, g, v, true));
     EXPECT_DOUBLE_EQ(17.5, MSCFModel::freeSpeed(vCur, 5, 30, 10, false));
@@ -99,9 +99,9 @@ TEST_F(MSCFModelTest, test_method_static_freeSpeed) {
 #ifdef HAVE_SUBSECOND_TIMESTEPS
 TEST_F(MSCFModelTest, test_method_static_freeSpeed_half) {
     DELTA_T = 500;
-    const SUMOReal b = 4;
-    const SUMOReal v = 0;
-    const SUMOReal g = 4;
+    const double b = 4;
+    const double v = 0;
+    const double g = 4;
     EXPECT_DOUBLE_EQ(14./3., MSCFModel::freeSpeed(b, g, v, false));
     EXPECT_DOUBLE_EQ(6., MSCFModel::freeSpeed(b, 6, v, false));
     EXPECT_DOUBLE_EQ(18.75, MSCFModel::freeSpeed(5, 30, 10, false));

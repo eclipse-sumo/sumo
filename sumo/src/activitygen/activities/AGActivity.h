@@ -115,11 +115,11 @@ protected:
     std::list<AGTrip> myPartialActivityTrips;
     int activityPriority;
     bool genDone;
-    SUMOReal timePerKm;
+    double timePerKm;
     /**
      * rate of taking the car instead of the bus because of personal preference
      */
-    SUMOReal carPreference;
+    double carPreference;
 
 };
 

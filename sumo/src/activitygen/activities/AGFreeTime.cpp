@@ -76,8 +76,8 @@ AGFreeTime::decideTypeOfTrip() {
         if (num_poss == 0) {
             return 0;
         }
-        SUMOReal alea = RandHelper::rand(); //(float)(rand() % 1000) / 1000.0;
-        int decision = (int)floor(alea * (SUMOReal)num_poss);
+        double alea = RandHelper::rand(); //(float)(rand() % 1000) / 1000.0;
+        int decision = (int)floor(alea * (double)num_poss);
 
         if (possibleType & DAY) {
             if (decision == 0) {

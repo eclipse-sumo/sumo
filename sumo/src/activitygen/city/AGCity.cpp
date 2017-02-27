@@ -61,23 +61,23 @@ AGCity::completeStreets() {
         streetsCompleted = true;
     }
 
-    SUMOReal pop = 0, work = 0;
+    double pop = 0, work = 0;
     std::vector<AGStreet*>::iterator it;
 
     for (it = streets.begin(); it != streets.end(); ++it) {
         pop += (*it)->getPopulation();
         work += (*it)->getWorkplaceNumber();
     }
-    statData.factorInhabitants = (SUMOReal)statData.inhabitants / pop;
+    statData.factorInhabitants = (double)statData.inhabitants / pop;
     //can be improved with other input data
-    SUMOReal neededWorkPositionsInCity = (1.0 - statData.unemployement)
-                                         * ((SUMOReal)statData.getPeopleYoungerThan(statData.limitAgeRetirement)
-                                            - (SUMOReal)statData.getPeopleYoungerThan(statData.limitAgeChildren))
-                                         + (SUMOReal)statData.incomingTraffic;
+    double neededWorkPositionsInCity = (1.0 - statData.unemployement)
+                                         * ((double)statData.getPeopleYoungerThan(statData.limitAgeRetirement)
+                                            - (double)statData.getPeopleYoungerThan(statData.limitAgeChildren))
+                                         + (double)statData.incomingTraffic;
     // we generate 5% more work positions that really needed: to avoid any expensive research of random work positions
-    neededWorkPositionsInCity *= SUMOReal(1.05);
+    neededWorkPositionsInCity *= double(1.05);
     statData.workPositions = (int)neededWorkPositionsInCity;
-    statData.factorWorkPositions = neededWorkPositionsInCity / (SUMOReal) work;
+    statData.factorWorkPositions = neededWorkPositionsInCity / (double) work;
 
     for (it = streets.begin(); it != streets.end(); ++it) {
         (*it)->setPopulation((*it)->getPopulation() * statData.factorInhabitants);
@@ -132,7 +132,7 @@ AGCity::generateWorkPositions() {
 void
 AGCity::generateOutgoingWP() {
     // work positions outside the city
-    SUMOReal nbrWorkers = static_cast<SUMOReal>(statData.getPeopleYoungerThan(statData.limitAgeRetirement) - statData.getPeopleYoungerThan(statData.limitAgeChildren));
+    double nbrWorkers = static_cast<double>(statData.getPeopleYoungerThan(statData.limitAgeRetirement) - statData.getPeopleYoungerThan(statData.limitAgeChildren));
     if (nbrWorkers <= 0) {
         return;
     }
@@ -140,7 +140,7 @@ AGCity::generateOutgoingWP() {
     /**
      * N_out = N_in * (ProportionOut / (1 - ProportionOut)) = N_out = N_in * (Noutworkers / (Nworkers - Noutworkers))
      */
-    int nbrOutWorkPositions = static_cast<int>(workPositions.size() * (static_cast<SUMOReal>(statData.outgoingTraffic)) / (nbrWorkers - static_cast<SUMOReal>(statData.outgoingTraffic)));
+    int nbrOutWorkPositions = static_cast<int>(workPositions.size() * (static_cast<double>(statData.outgoingTraffic)) / (nbrWorkers - static_cast<double>(statData.outgoingTraffic)));
 
     if (cityGates.empty()) {
         return;
@@ -169,13 +169,13 @@ AGCity::completeBusLines() {
 void
 AGCity::generatePopulation() {
     std::vector<AGStreet*>::iterator it;
-    SUMOReal people = 0;
+    double people = 0;
     nbrCars = 0;
     int idHouseholds = 0;
     std::vector<int> numAdults(statData.households);
     std::vector<int> numChilds(statData.households);
     int totalChildrenLeft = statData.inhabitants - statData.getPeopleOlderThan(statData.limitAgeChildren);
-    const SUMOReal retiredProb = statData.getPeopleOlderThan(statData.limitAgeRetirement) / statData.getPeopleOlderThan(statData.limitAgeChildren);
+    const double retiredProb = statData.getPeopleOlderThan(statData.limitAgeRetirement) / statData.getPeopleOlderThan(statData.limitAgeChildren);
     for (int i = 0; i < statData.households; i++) {
         numAdults[i] = 1;
         numChilds[i] = 0;
@@ -370,7 +370,7 @@ AGCity::carAllocation() {
     }
     // new rate: the rate on the people that have'nt any car yet:
     // nR = (R * Drivers - AlreadyCars) / (Drivers - AlreadyCars)
-    SUMOReal newRate = statData.carRate * statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT;
+    double newRate = statData.carRate * statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT;
     if (statData.getPeopleOlderThan(statData.limitAgeChildren) == statData.hhFarFromPT) {
         newRate = 0.;
     } else {
@@ -395,7 +395,7 @@ AGCity::carAllocation() {
     //std::cout << "number of people far from public transport: " << statData.hhFarFromPT << std::endl;
     //std::cout << "original rate: " << setprecision(4) << statData.carRate << std::endl;
     //std::cout << "new rate: " << setprecision(4) << newRate << std::endl;
-    //std::cout << "real rate: " << setprecision(4) << (SUMOReal)nbrCars / (SUMOReal)statData.getPeopleOlderThan(statData.limitAgeChildren) << std::endl;
+    //std::cout << "real rate: " << setprecision(4) << (double)nbrCars / (double)statData.getPeopleOlderThan(statData.limitAgeChildren) << std::endl;
     //END TEST RESULTS
 }
 

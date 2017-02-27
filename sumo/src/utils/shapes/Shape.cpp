@@ -39,18 +39,18 @@
 // static member definitions
 // ===========================================================================
 const std::string Shape::DEFAULT_TYPE = "";
-const SUMOReal Shape::DEFAULT_LAYER = 128;
-const SUMOReal Shape::DEFAULT_ANGLE = 0;
+const double Shape::DEFAULT_LAYER = 128;
+const double Shape::DEFAULT_ANGLE = 0;
 const std::string Shape::DEFAULT_IMG_FILE = "";
-const SUMOReal Shape::DEFAULT_IMG_WIDTH = 1;
-const SUMOReal Shape::DEFAULT_IMG_HEIGHT = 1;
+const double Shape::DEFAULT_IMG_WIDTH = 1;
+const double Shape::DEFAULT_IMG_HEIGHT = 1;
 
 // ===========================================================================
 // member definitions
 // ===========================================================================
 Shape::Shape(const std::string& id, const std::string& type,
-             const RGBColor& color, SUMOReal layer,
-             SUMOReal angle, const std::string& imgFile) :
+             const RGBColor& color, double layer,
+             double angle, const std::string& imgFile) :
     Named(id),
     myType(type),
     myColor(color),

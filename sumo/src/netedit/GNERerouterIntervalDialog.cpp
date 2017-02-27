@@ -211,8 +211,8 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         myRerouterInterval->setClosingReroutes(myCopyOfClosingReroutes);
         myRerouterInterval->setDestProbReroutes(myCopyOfDestProbReroutes);
         myRerouterInterval->setRouteProbReroutes(myCopyOfRouteProbReroutes);
-        myRerouterInterval->setBegin(GNEAttributeCarrier::parse<SUMOReal>(myBeginTextField->getText().text()));
-        myRerouterInterval->setEnd(GNEAttributeCarrier::parse<SUMOReal>(myEndTextField->getText().text()));
+        myRerouterInterval->setBegin(GNEAttributeCarrier::parse<double>(myBeginTextField->getText().text()));
+        myRerouterInterval->setEnd(GNEAttributeCarrier::parse<double>(myEndTextField->getText().text()));
 
         // Stop Modal
         getApp()->stopModal(this, TRUE);
@@ -407,10 +407,10 @@ GNERerouterIntervalDialog::onCmdEditDestProbReroute(FXObject*, FXSelector, void*
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myDestProbRerouteList->getNumRows(); i++) {
         GNEEdge* edge = myRerouterInterval->getRerouterParent()->getViewNet()->getNet()->retrieveEdge(myDestProbRerouteList->getItem(i, 0)->getText().text(), false);
-        SUMOReal probability = -1;
+        double probability = -1;
         // try to parse probability
-        if (GNEAttributeCarrier::canParse<SUMOReal>(myDestProbRerouteList->getItem(i, 1)->getText().text())) {
-            probability = GNEAttributeCarrier::parse<SUMOReal>(myDestProbRerouteList->getItem(i, 1)->getText().text());
+        if (GNEAttributeCarrier::canParse<double>(myDestProbRerouteList->getItem(i, 1)->getText().text())) {
+            probability = GNEAttributeCarrier::parse<double>(myDestProbRerouteList->getItem(i, 1)->getText().text());
         }
         // check if values are valid
         if (edge == NULL) {
@@ -437,11 +437,11 @@ GNERerouterIntervalDialog::onCmdEditRouteProbReroute(FXObject*, FXSelector, void
     myRouteProbReroutesValid = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myRouteProbRerouteList->getNumRows(); i++) {
-        SUMOReal probability = -1;
+        double probability = -1;
         std::string route = myRouteProbRerouteList->getItem(i, 0)->getText().text();
         // try to parse probability
-        if (GNEAttributeCarrier::canParse<SUMOReal>(myRouteProbRerouteList->getItem(i, 1)->getText().text())) {
-            probability = GNEAttributeCarrier::parse<SUMOReal>(myRouteProbRerouteList->getItem(i, 1)->getText().text());
+        if (GNEAttributeCarrier::canParse<double>(myRouteProbRerouteList->getItem(i, 1)->getText().text())) {
+            probability = GNEAttributeCarrier::parse<double>(myRouteProbRerouteList->getItem(i, 1)->getText().text());
         }
         // check if values are valid
         if (route.empty()) {
@@ -465,8 +465,8 @@ GNERerouterIntervalDialog::onCmdEditRouteProbReroute(FXObject*, FXSelector, void
 
 long
 GNERerouterIntervalDialog::onCmdChangeBegin(FXObject*, FXSelector, void*) {
-    if (GNEAttributeCarrier::canParse<SUMOReal>(myBeginTextField->getText().text()) &&
-            myRerouterDialogParent->checkInterval(GNEAttributeCarrier::parse<SUMOReal>(myBeginTextField->getText().text()), myRerouterInterval->getEnd())) {
+    if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text()) &&
+            myRerouterDialogParent->checkInterval(GNEAttributeCarrier::parse<double>(myBeginTextField->getText().text()), myRerouterInterval->getEnd())) {
         myBeginEndValid = true;
         myCheckLabel->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         return 1;
@@ -480,8 +480,8 @@ GNERerouterIntervalDialog::onCmdChangeBegin(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterIntervalDialog::onCmdChangeEnd(FXObject*, FXSelector, void*) {
-    if (GNEAttributeCarrier::canParse<SUMOReal>(myEndTextField->getText().text()) &&
-            myRerouterDialogParent->checkInterval(myRerouterInterval->getBegin(), GNEAttributeCarrier::parse<SUMOReal>(myEndTextField->getText().text()))) {
+    if (GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text()) &&
+            myRerouterDialogParent->checkInterval(myRerouterInterval->getBegin(), GNEAttributeCarrier::parse<double>(myEndTextField->getText().text()))) {
         myBeginEndValid = true;
         myCheckLabel->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         return 1;

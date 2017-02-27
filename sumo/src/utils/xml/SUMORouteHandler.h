@@ -67,8 +67,8 @@ public:
     SUMOTime getLastDepart() const;
 
     /// check start and end position of a stop
-    static bool checkStopPos(SUMOReal& startPos, SUMOReal& endPos, const SUMOReal laneLength,
-                             const SUMOReal minLength, const bool friendlyPos);
+    static bool checkStopPos(double& startPos, double& endPos, const double laneLength,
+                             const double minLength, const bool friendlyPos);
 
     /// @brief returns the first departure time that was ever read
     SUMOTime getFirstDepart() const {
@@ -163,13 +163,13 @@ protected:
     std::string myActiveRouteRefID;
 
     /// @brief The probability of the current route
-    SUMOReal myActiveRouteProbability;
+    double myActiveRouteProbability;
 
     /// @brief The currently parsed route's color
     const RGBColor* myActiveRouteColor;
 
     /// @brief The currently parsed route costs
-    SUMOReal myCurrentCosts;
+    double myCurrentCosts;
 
     /// @brief List of the stops on the parsed route
     std::vector<SUMOVehicleParameter::Stop> myActiveRouteStops;

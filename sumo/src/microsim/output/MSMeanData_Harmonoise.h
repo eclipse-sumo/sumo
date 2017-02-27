@@ -69,7 +69,7 @@ public:
     class MSLaneMeanDataValues : public MSMeanData::MeanDataValues {
     public:
         /** @brief Constructor */
-        MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
+        MSLaneMeanDataValues(MSLane* const lane, const double length, const bool doAdd,
                              const MSMeanData_Harmonoise* parent);
 
         /** @brief Destructor */
@@ -101,7 +101,7 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice& dev, const SUMOTime period,
-                   const SUMOReal numLanes, const SUMOReal defaultTravelTime,
+                   const double numLanes, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
 
@@ -109,17 +109,17 @@ public:
         /** @brief Internal notification about the vehicle moves
          *  @see MSMoveReminder::notifyMoveInternal()
          */
-        void notifyMoveInternal(const SUMOVehicle& veh, const SUMOReal /* frontOnLane */, const SUMOReal timeOnLane, const SUMOReal meanSpeedFrontOnLane, const SUMOReal meanSpeedVehicleOnLane, const SUMOReal travelledDistanceFrontOnLane, const SUMOReal travelledDistanceVehicleOnLane);
+        void notifyMoveInternal(const SUMOVehicle& veh, const double /* frontOnLane */, const double timeOnLane, const double meanSpeedFrontOnLane, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane);
 
     private:
         /// @name Collected values
         /// @{
 
         /// @brief Sum of produced noise at this time step(pow(10, (<NOISE>/10.)))
-        SUMOReal currentTimeN;
+        double currentTimeN;
 
         /// @brief Sum of produced noise over time (pow(10, (<NOISE>/10.)))
-        SUMOReal meanNTemp;
+        double meanNTemp;
         //@}
 
 
@@ -148,7 +148,7 @@ public:
                           const bool useLanes, const bool withEmpty,
                           const bool printDefaults, const bool withInternal,
                           const bool trackVehicles,
-                          const SUMOReal minSamples, const SUMOReal maxTravelTime,
+                          const double minSamples, const double maxTravelTime,
                           const std::string& vTypes);
 
 
@@ -166,7 +166,7 @@ protected:
      * @param[in] lane The lane to create for
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const;
+    MSMeanData::MeanDataValues* createValues(MSLane* const lane, const double length, const bool doAdd) const;
 
 private:
     /// @brief Invalidated copy constructor.

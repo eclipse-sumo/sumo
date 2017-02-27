@@ -151,8 +151,8 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
     // get the id, report a warning if not given or empty...
     bool ok = true;
     std::string id = attrs.get<std::string>(MATSIM_ATTR_ID, 0, ok);
-    SUMOReal x = attrs.get<SUMOReal>(MATSIM_ATTR_X, id.c_str(), ok);
-    SUMOReal y = attrs.get<SUMOReal>(MATSIM_ATTR_Y, id.c_str(), ok);
+    double x = attrs.get<double>(MATSIM_ATTR_X, id.c_str(), ok);
+    double y = attrs.get<double>(MATSIM_ATTR_Y, id.c_str(), ok);
     if (!ok) {
         return;
     }
@@ -195,7 +195,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         if (attrs.hasAttribute(MATSIM_ATTR_CAPDIVIDER)) {
             int capDivider = attrs.get<int>(MATSIM_ATTR_CAPDIVIDER, "network", ok);
             if (ok) {
-                myCapacityNorm = (SUMOReal)(capDivider * 3600);
+                myCapacityNorm = (double)(capDivider * 3600);
             }
         }
     }
@@ -211,7 +211,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
             int hours = TplConvert::_2int(st.next().c_str());
             int minutes = TplConvert::_2int(st.next().c_str());
             int seconds = TplConvert::_2int(st.next().c_str());
-            myCapacityNorm = (SUMOReal)(hours * 3600 + minutes * 60 + seconds);
+            myCapacityNorm = (double)(hours * 3600 + minutes * 60 + seconds);
         } catch (NumberFormatException&) {
         } catch (EmptyData&) {
         }
@@ -225,10 +225,10 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     std::string id = attrs.get<std::string>(MATSIM_ATTR_ID, 0, ok);
     std::string fromNodeID = attrs.get<std::string>(MATSIM_ATTR_FROM, id.c_str(), ok);
     std::string toNodeID = attrs.get<std::string>(MATSIM_ATTR_TO, id.c_str(), ok);
-    SUMOReal length = attrs.get<SUMOReal>(MATSIM_ATTR_LENGTH, id.c_str(), ok); // override computed?
-    SUMOReal freeSpeed = attrs.get<SUMOReal>(MATSIM_ATTR_FREESPEED, id.c_str(), ok); //
-    SUMOReal capacity = attrs.get<SUMOReal>(MATSIM_ATTR_CAPACITY, id.c_str(), ok); // override permLanes?
-    SUMOReal permLanes = attrs.get<SUMOReal>(MATSIM_ATTR_PERMLANES, id.c_str(), ok);
+    double length = attrs.get<double>(MATSIM_ATTR_LENGTH, id.c_str(), ok); // override computed?
+    double freeSpeed = attrs.get<double>(MATSIM_ATTR_FREESPEED, id.c_str(), ok); //
+    double capacity = attrs.get<double>(MATSIM_ATTR_CAPACITY, id.c_str(), ok); // override permLanes?
+    double permLanes = attrs.get<double>(MATSIM_ATTR_PERMLANES, id.c_str(), ok);
     //bool oneWay = attrs.getOpt<bool>(MATSIM_ATTR_ONEWAY, id.c_str(), ok, true); // mandatory?
     std::string modes = attrs.getOpt<std::string>(MATSIM_ATTR_MODES, id.c_str(), ok, ""); // which values?
     std::string origid = attrs.getOpt<std::string>(MATSIM_ATTR_ORIGID, id.c_str(), ok, "");

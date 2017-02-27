@@ -66,10 +66,10 @@ std::vector<SUMOVehicleParameter*> MSCalibrator::LeftoverVehicleParameters;
 // method definitions
 // ===========================================================================
 MSCalibrator::MSCalibrator(const std::string& id,
-                           const MSEdge* const edge, const SUMOReal pos,
+                           const MSEdge* const edge, const double pos,
                            const std::string& aXMLFilename,
                            const std::string& outputFilename,
-                           const SUMOTime freq, const SUMOReal length,
+                           const SUMOTime freq, const double length,
                            const MSRouteProbe* probe,
                            const bool addLaneMeanData) :
     MSTrigger(id),
@@ -149,8 +149,8 @@ MSCalibrator::myStartElement(int element,
         }
         try {
             bool ok = true;
-            state.q = attrs.getOpt<SUMOReal>(SUMO_ATTR_VEHSPERHOUR, 0, ok, -1.);
-            state.v = attrs.getOpt<SUMOReal>(SUMO_ATTR_SPEED, 0, ok, -1.);
+            state.q = attrs.getOpt<double>(SUMO_ATTR_VEHSPERHOUR, 0, ok, -1.);
+            state.v = attrs.getOpt<double>(SUMO_ATTR_SPEED, 0, ok, -1.);
             state.begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, myID.c_str(), ok);
             if (state.begin < lastEnd) {
                 WRITE_ERROR("Overlapping or unsorted intervals in calibrator '" + myID + "'.");
@@ -209,7 +209,7 @@ MSCalibrator::writeXMLOutput() {
         const int discrepancy = myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myEdgeMeanData.nVehVaporized - passed();
         assert(discrepancy >= 0);
         const std::string ds = (discrepancy > 0 ? "\" vaporizedOnNextEdge=\"" + toString(discrepancy) : "");
-        const SUMOReal durationSeconds = STEPS2TIME(myCurrentStateInterval->end - myCurrentStateInterval->begin);
+        const double durationSeconds = STEPS2TIME(myCurrentStateInterval->end - myCurrentStateInterval->begin);
         (*myOutput) << "    <interval begin=\"" << time2string(myCurrentStateInterval->begin) <<
                     "\" end=\"" << time2string(myCurrentStateInterval->end) <<
                     "\" id=\"" << myID <<
@@ -246,7 +246,7 @@ MSCalibrator::isCurrentStateActive(SUMOTime time) {
 int
 MSCalibrator::totalWished() const {
     if (myCurrentStateInterval != myIntervals.end()) {
-        const SUMOReal totalHourFraction = STEPS2TIME(myCurrentStateInterval->end - myCurrentStateInterval->begin) / (SUMOReal) 3600.;
+        const double totalHourFraction = STEPS2TIME(myCurrentStateInterval->end - myCurrentStateInterval->begin) / (double) 3600.;
         return (int)std::floor(myCurrentStateInterval->q * totalHourFraction + 0.5); // round to closest int
     } else {
         return -1;
@@ -327,7 +327,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
 #endif
     if (calibrateFlow && adaptedNum < totalWishedNum && !hadRemovals) {
         // we need to insert some vehicles
-        const SUMOReal hourFraction = STEPS2TIME(currentTime - myCurrentStateInterval->begin + DELTA_T) / (SUMOReal) 3600.;
+        const double hourFraction = STEPS2TIME(currentTime - myCurrentStateInterval->begin + DELTA_T) / (double) 3600.;
         const int wishedNum = (int)std::floor(myCurrentStateInterval->q * hourFraction + 0.5); // round to closest int
         // only the difference between inflow and aspiredFlow should be added, thus
         // we should not count vehicles vaporized from a jam here
@@ -443,7 +443,7 @@ MSCalibrator::remainingVehicleCapacity(int laneIndex) const {
     MSVehicle* last = lane->getLastFullVehicle();
     const SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
     const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
-    const SUMOReal spacePerVehicle = vtype->getLengthWithGap() + myEdge->getSpeedLimit() * vtype->getCarFollowModel().getHeadwayTime();
+    const double spacePerVehicle = vtype->getLengthWithGap() + myEdge->getSpeedLimit() * vtype->getCarFollowModel().getHeadwayTime();
     if (last == 0) {
         // ensure vehicles can be inserted on short edges
         return MAX2(1, (int)(myEdge->getLength() / spacePerVehicle));

@@ -45,29 +45,29 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOReal
+double
 NINavTeqHelper::getSpeed(const std::string& id, const std::string& speedClassS) {
     try {
         int speedClass = TplConvert::_2int(speedClassS.c_str());
         switch (speedClass) {
             case -1:
-                return (SUMOReal) 1.0 / (SUMOReal) 3.6;
+                return (double) 1.0 / (double) 3.6;
             case 1:
-                return (SUMOReal) 200 / (SUMOReal) 3.6; //> 130 KPH / > 80 MPH
+                return (double) 200 / (double) 3.6; //> 130 KPH / > 80 MPH
             case 2:
-                return (SUMOReal) 120 / (SUMOReal) 3.6; //101-130 KPH / 65-80 MPH
+                return (double) 120 / (double) 3.6; //101-130 KPH / 65-80 MPH
             case 3:
-                return (SUMOReal) 100 / (SUMOReal) 3.6; // 91-100 KPH / 55-64 MPH
+                return (double) 100 / (double) 3.6; // 91-100 KPH / 55-64 MPH
             case 4:
-                return (SUMOReal) 80 / (SUMOReal) 3.6; // 71-90 KPH / 41-54 MPH
+                return (double) 80 / (double) 3.6; // 71-90 KPH / 41-54 MPH
             case 5:
-                return (SUMOReal) 70 / (SUMOReal) 3.6; // 51-70 KPH / 31-40 MPH
+                return (double) 70 / (double) 3.6; // 51-70 KPH / 31-40 MPH
             case 6:
-                return (SUMOReal) 50 / (SUMOReal) 3.6; // 31-50 KPH / 21-30 MPH
+                return (double) 50 / (double) 3.6; // 31-50 KPH / 21-30 MPH
             case 7:
-                return (SUMOReal) 30 / (SUMOReal) 3.6; // 11-30 KPH / 6-20 MPH
+                return (double) 30 / (double) 3.6; // 11-30 KPH / 6-20 MPH
             case 8:
-                return (SUMOReal) 5 / (SUMOReal) 3.6; //< 11 KPH / < 6 MPH
+                return (double) 5 / (double) 3.6; //< 11 KPH / < 6 MPH
             default:
                 throw ProcessError("Invalid speed code (edge '" + id + "').");
         }
@@ -78,7 +78,7 @@ NINavTeqHelper::getSpeed(const std::string& id, const std::string& speedClassS) 
 
 
 int
-NINavTeqHelper::getLaneNumber(const std::string& id, const std::string& laneNoS, SUMOReal speed) {
+NINavTeqHelper::getLaneNumber(const std::string& id, const std::string& laneNoS, double speed) {
     try {
         int nolanes = TplConvert::_2int(laneNoS.c_str());
         if (nolanes < 0) {

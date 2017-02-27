@@ -54,8 +54,8 @@ public:
      * @param[in] delta a model constant
      * @param[in] internalStepping internal time step size
      */
-    MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
-                  SUMOReal headwayTime, SUMOReal delta, SUMOReal internalStepping);
+    MSCFModel_IDM(const MSVehicleType* vtype, double accel, double decel,
+                  double headwayTime, double delta, double internalStepping);
 
 
     /** @brief Constructor
@@ -66,9 +66,9 @@ public:
      * @param[in] adaptationTime a model constant
      * @param[in] internalStepping internal time step size
      */
-    MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
-                  SUMOReal headwayTime, SUMOReal adaptationFactor, SUMOReal adaptationTime,
-                  SUMOReal internalStepping);
+    MSCFModel_IDM(const MSVehicleType* vtype, double accel, double decel,
+                  double headwayTime, double adaptationFactor, double adaptationTime,
+                  double internalStepping);
 
 
     /// @brief Destructor
@@ -83,7 +83,7 @@ public:
      * @param[in] vPos The possible velocity
      * @return The velocity after applying interactions with stops and lane change model influences
      */
-    SUMOReal moveHelper(MSVehicle* const veh, SUMOReal vPos) const;
+    double moveHelper(MSVehicle* const veh, double vPos) const;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -94,7 +94,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    SUMOReal followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -104,7 +104,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap2pred) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
@@ -116,7 +116,7 @@ public:
      * @todo evaluate signature
      * @see MSCFModel::interactionGap
      */
-    SUMOReal interactionGap(const MSVehicle* const , SUMOReal vL) const;
+    double interactionGap(const MSVehicle* const , double vL) const;
 
 
     /** @brief Returns the model's name
@@ -150,30 +150,30 @@ private:
     public:
         VehicleVariables() : levelOfService(1.) {}
         /// @brief state variable for remembering speed deviation history (lambda)
-        SUMOReal levelOfService;
+        double levelOfService;
     };
 
 
 private:
-    SUMOReal _v(const MSVehicle* const veh, const SUMOReal gap2pred, const SUMOReal mySpeed,
-                const SUMOReal predSpeed, const SUMOReal desSpeed, const bool respectMinGap = true) const;
+    double _v(const MSVehicle* const veh, const double gap2pred, const double mySpeed,
+                const double predSpeed, const double desSpeed, const bool respectMinGap = true) const;
 
 
 private:
     /// @brief The IDM delta exponent
-    const SUMOReal myDelta;
+    const double myDelta;
 
     /// @brief The IDMM adaptation factor beta
-    const SUMOReal myAdaptationFactor;
+    const double myAdaptationFactor;
 
     /// @brief The IDMM adaptation time tau
-    const SUMOReal myAdaptationTime;
+    const double myAdaptationTime;
 
     /// @brief The number of iterations in speed calculations
     const int myIterations;
 
     /// @brief A computational shortcut
-    const SUMOReal myTwoSqrtAccelDecel;
+    const double myTwoSqrtAccelDecel;
 
 private:
     /// @brief Invalidated assignment operator

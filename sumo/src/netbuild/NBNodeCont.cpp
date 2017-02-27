@@ -117,8 +117,8 @@ NBNodeCont::retrieve(const std::string& id) const {
 
 
 NBNode*
-NBNodeCont::retrieve(const Position& position, const SUMOReal offset) const {
-    const SUMOReal extOffset = offset + POSITION_EPS;
+NBNodeCont::retrieve(const Position& position, const double offset) const {
+    const double extOffset = offset + POSITION_EPS;
     const float cmin[2] = {(float)(position.x() - extOffset), (float)(position.y() - extOffset)};
     const float cmax[2] = {(float)(position.x() + extOffset), (float)(position.y() + extOffset)};
     std::set<std::string> into;
@@ -180,8 +180,8 @@ NBNodeCont::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLo
 void
 NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     // magic values
-    SUMOReal distanceThreshold = 7; // don't merge edges further apart
-    SUMOReal lengthThreshold = 0.10; // don't merge edges with higher relative length-difference
+    double distanceThreshold = 7; // don't merge edges further apart
+    double lengthThreshold = 0.10; // don't merge edges with higher relative length-difference
 
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         // count the edges to other nodes outgoing from the current node
@@ -203,7 +203,7 @@ NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightL
             const NBEdge* const first = ev.front();
             EdgeVector::const_iterator jci; // join candidate iterator
             for (jci = ev.begin() + 1; jci != ev.end(); ++jci) {
-                const SUMOReal relativeLengthDifference = fabs(first->getLoadedLength() - (*jci)->getLoadedLength()) / first->getLoadedLength();
+                const double relativeLengthDifference = fabs(first->getLoadedLength() - (*jci)->getLoadedLength()) / first->getLoadedLength();
                 if ((!first->isNearEnough2BeJoined2(*jci, distanceThreshold)) ||
                         (relativeLengthDifference > lengthThreshold) ||
                         (fabs(first->getSpeed() - (*jci)->getSpeed()) >= 0.01) || // output accuracy
@@ -395,7 +395,7 @@ NBNodeCont::avoidOverlap() {
 
 // ----------- (Helper) methods for joining nodes
 void
-NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const {
+NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
     std::set<NBNode*> visited;
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         std::vector<NodeAndDist> toProc;
@@ -407,7 +407,7 @@ NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const {
         while (!toProc.empty()) {
             NodeAndDist nodeAndDist = toProc.back();
             NBNode* n = nodeAndDist.first;
-            SUMOReal dist = nodeAndDist.second;
+            double dist = nodeAndDist.second;
             toProc.pop_back();
             if (visited.find(n) != visited.end()) {
                 continue;
@@ -505,7 +505,7 @@ NBNodeCont::joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLigh
 
 
 int
-NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
+NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     NodeClusters cands;
     NodeClusters clusters;
     generateNodeClusters(maxDist, cands);
@@ -529,7 +529,7 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                 ++j;
 
                 // compute clusterDist for node (length of shortest edge which connects this node to the cluster)
-                SUMOReal clusterDist = std::numeric_limits<SUMOReal>::max();
+                double clusterDist = std::numeric_limits<double>::max();
                 for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
                     NBNode* neighbor = (*it_edge)->getToNode();
                     if (cluster.count(neighbor) != 0) {
@@ -546,7 +546,7 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
                 // (they have 1 neighbor in the cluster and at most 1 neighbor outside the cluster)
                 std::set<NBNode*> neighbors;
                 std::set<NBNode*> clusterNeigbors;
-                const SUMOReal pedestrianFringeThreshold = 1.0;
+                const double pedestrianFringeThreshold = 1.0;
                 for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
                     NBNode* neighbor = (*it_edge)->getToNode();
                     if (cluster.count(neighbor) == 0) {
@@ -595,8 +595,8 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
         }
         // check for clusters which are to complex and probably won't work very well
         // we count the incoming edges of the final junction
-        std::map<std::string, SUMOReal> finalIncomingAngles;
-        std::map<std::string, SUMOReal> finalOutgoingAngles;
+        std::map<std::string, double> finalIncomingAngles;
+        std::map<std::string, double> finalOutgoingAngles;
         std::vector<std::string> nodeIDs;
         for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
             nodeIDs.push_back((*j)->getID());
@@ -622,10 +622,10 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
             continue;
         }
         // check for incoming parallel edges
-        const SUMOReal PARALLEL_INCOMING_THRESHOLD = 10.0;
+        const double PARALLEL_INCOMING_THRESHOLD = 10.0;
         bool foundParallel = false;
-        for (std::map<std::string, SUMOReal>::const_iterator j = finalIncomingAngles.begin(); j != finalIncomingAngles.end() && !foundParallel; ++j) {
-            std::map<std::string, SUMOReal>::const_iterator k = j;
+        for (std::map<std::string, double>::const_iterator j = finalIncomingAngles.begin(); j != finalIncomingAngles.end() && !foundParallel; ++j) {
+            std::map<std::string, double>::const_iterator k = j;
             for (++k; k != finalIncomingAngles.end() && !foundParallel; ++k) {
                 if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
                     WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel incoming "
@@ -635,8 +635,8 @@ NBNodeCont::joinJunctions(SUMOReal maxDist, NBDistrictCont& dc, NBEdgeCont& ec, 
             }
         }
         // check for outgoing parallel edges
-        for (std::map<std::string, SUMOReal>::const_iterator j = finalOutgoingAngles.begin(); j != finalOutgoingAngles.end() && !foundParallel; ++j) {
-            std::map<std::string, SUMOReal>::const_iterator k = j;
+        for (std::map<std::string, double>::const_iterator j = finalOutgoingAngles.begin(); j != finalOutgoingAngles.end() && !foundParallel; ++j) {
+            std::map<std::string, double>::const_iterator k = j;
             for (++k; k != finalOutgoingAngles.end() && !foundParallel; ++k) {
                 if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
                     WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel outgoing "
@@ -812,7 +812,7 @@ NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*>& c) const {
     int noIncoming = 0;
     int noOutgoing = 0;
     bool tooFast = false;
-    SUMOReal f = 0;
+    double f = 0;
     std::set<NBEdge*> seen;
     for (std::set<NBNode*>::const_iterator j = c.begin(); j != c.end(); ++j) {
         const EdgeVector& edges = (*j)->getEdges();
@@ -822,7 +822,7 @@ NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*>& c) const {
             }
             if ((*j)->hasIncoming(*k)) {
                 ++noIncoming;
-                f += (SUMOReal)(*k)->getNumLanes() * (*k)->getLaneSpeed(0);
+                f += (double)(*k)->getNumLanes() * (*k)->getLaneSpeed(0);
             } else {
                 ++noOutgoing;
             }
@@ -871,7 +871,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
     // This assumes nodes are already joined
     if (oc.exists("tls.guess-signals") && oc.getBool("tls.guess-signals")) {
         // prepare candidate edges
-        const SUMOReal signalDist = oc.getFloat("tls.guess-signals.dist");
+        const double signalDist = oc.getFloat("tls.guess-signals.dist");
         for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
             NBNode* node = (*i).second;
             if (node->isTLControlled() && node->geometryLike()) {
@@ -1001,7 +1001,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
 
 
 void
-NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, SUMOReal maxdist) {
+NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
     std::vector<std::set<NBNode*> > cands;
     generateNodeClusters(maxdist, cands);
     int index = 0;
@@ -1108,7 +1108,7 @@ NBNodeCont::getFreeID() {
 
 
 void
-NBNodeCont::computeNodeShapes(SUMOReal mismatchThreshold) {
+NBNodeCont::computeNodeShapes(double mismatchThreshold) {
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         (*i).second->computeNodeShape(mismatchThreshold);
     }

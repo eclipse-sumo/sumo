@@ -80,12 +80,12 @@ MSQueueExport::writeEdge(OutputDevice& of) {
 void
 MSQueueExport::writeLane(OutputDevice& of, const MSLane& lane) {
     // maximum of all vehicle waiting times
-    SUMOReal queueing_time = 0.0;
+    double queueing_time = 0.0;
     // back of last stopped vehicle (XXX does not check for continuous queue)
-    SUMOReal queueing_length = 0.0;
+    double queueing_length = 0.0;
     // back of last slow vehicle (XXX does not check for continuous queue)
-    SUMOReal queueing_length2 = 0.0;
-    const SUMOReal threshold_velocity = 5 / 3.6; // slow
+    double queueing_length2 = 0.0;
+    const double threshold_velocity = 5 / 3.6; // slow
 
     if (!lane.empty()) {
         for (MSLane::VehCont::const_iterator it_veh = lane.myVehicles.begin(); it_veh != lane.myVehicles.end(); ++it_veh) {
@@ -96,13 +96,13 @@ MSQueueExport::writeLane(OutputDevice& of, const MSLane& lane) {
 
             if (veh.getWaitingSeconds() > 0) {
                 queueing_time = MAX2(veh.getWaitingSeconds(), queueing_time);
-                const SUMOReal veh_back_to_lane_end = (lane.getLength() - veh.getPositionOnLane()) + veh.getVehicleType().getLength();
+                const double veh_back_to_lane_end = (lane.getLength() - veh.getPositionOnLane()) + veh.getVehicleType().getLength();
                 queueing_length = MAX2(veh_back_to_lane_end, queueing_length);
             }
 
             //Experimental
             if (veh.getSpeed() < (threshold_velocity) && (veh.getPositionOnLane() > (veh.getLane()->getLength()) * 0.25)) {
-                const SUMOReal veh_back_to_lane_end = (lane.getLength() - veh.getPositionOnLane()) + veh.getVehicleType().getLength();
+                const double veh_back_to_lane_end = (lane.getLength() - veh.getPositionOnLane()) + veh.getVehicleType().getLength();
                 queueing_length2 = MAX2(veh_back_to_lane_end, queueing_length2);
             }
         }

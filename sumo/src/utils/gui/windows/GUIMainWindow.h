@@ -106,13 +106,13 @@ public:
     /** @brief Returns the delay (should be overwritten by subclasses if applicable)
      * @return parsed delay in milliseconds
      */
-    virtual SUMOReal getDelay() const {
+    virtual double getDelay() const {
         return 0;
     }
 
     /** @brief Sets the delay of the parent application
      */
-    virtual void setDelay(SUMOReal) {}
+    virtual void setDelay(double) {}
 
     /** @brief Sends an event from the application thread to the GUI and waits until it is handled
      * @param event the event to send

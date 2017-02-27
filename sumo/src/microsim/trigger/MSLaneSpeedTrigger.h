@@ -88,16 +88,16 @@ public:
 
     SUMOTime processCommand(bool move2next, SUMOTime currentTime);
 
-    SUMOReal getDefaultSpeed() const;
+    double getDefaultSpeed() const;
 
     void setOverriding(bool val);
 
-    void setOverridingValue(SUMOReal val);
+    void setOverridingValue(double val);
 
-    SUMOReal getLoadedSpeed();
+    double getLoadedSpeed();
 
     /// Returns the current speed
-    SUMOReal getCurrentSpeed() const;
+    double getCurrentSpeed() const;
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -128,19 +128,19 @@ protected:
     std::vector<MSLane*> myDestLanes;
 
     /** the speed that will be set on the next call */
-    SUMOReal myCurrentSpeed;
+    double myCurrentSpeed;
 
     /// The original speed allowed on the lanes
-    SUMOReal myDefaultSpeed;
+    double myDefaultSpeed;
 
     /// The information whether the read speed shall be overridden
     bool myAmOverriding;
 
     /// The speed to use if overriding the read speed
-    SUMOReal mySpeedOverrideValue;
+    double mySpeedOverrideValue;
 
-    std::vector<std::pair<SUMOTime, SUMOReal> > myLoadedSpeeds;
-    std::vector<std::pair<SUMOTime, SUMOReal> >::iterator myCurrentEntry;
+    std::vector<std::pair<SUMOTime, double> > myLoadedSpeeds;
+    std::vector<std::pair<SUMOTime, double> >::iterator myCurrentEntry;
 
 private:
     /// @brief Invalidated copy constructor.

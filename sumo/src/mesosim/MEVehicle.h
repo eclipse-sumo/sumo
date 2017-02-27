@@ -59,31 +59,31 @@ public:
      * @exception ProcessError If a value is wrong
      */
     MEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-              const MSVehicleType* type, const SUMOReal speedFactor);
+              const MSVehicleType* type, const double speedFactor);
 
 
     /** @brief Get the vehicle's position along the lane
      * @return The position of the vehicle (in m from the lane's begin)
      */
-    SUMOReal getPositionOnLane() const;
+    double getPositionOnLane() const;
 
 
     /** @brief Get the vehicle's position relative to the given lane
      *  @return The back position of the vehicle (in m from the given lane's begin)
      */
-    SUMOReal getBackPositionOnLane(const MSLane* lane) const;
+    double getBackPositionOnLane(const MSLane* lane) const;
 
 
     /** @brief Returns the vehicle's direction in degrees
      * @return The vehicle's current angle
      */
-    SUMOReal getAngle() const;
+    double getAngle() const;
 
 
     /** @brief Returns the slope of the road at vehicle's position
      * @return The slope
      */
-    SUMOReal getSlope() const;
+    double getSlope() const;
 
     /** @brief Returns the lane the vehicle is on
     * @return The vehicle's current lane
@@ -99,23 +99,23 @@ public:
      * @return The current position (in cartesian coordinates)
      * @see myLane
      */
-    Position getPosition(const SUMOReal offset = 0) const;
+    Position getPosition(const double offset = 0) const;
 
 
     /** @brief Returns the vehicle's estimated speed assuming no delays
      * @return The vehicle's estimated speed
      * @note This is only an upper bound. The speed will be lower if the preceeding vehicle is delayed
      */
-    SUMOReal getSpeed() const;
+    double getSpeed() const;
 
     /** @brief Returns the vehicle's estimated average speed on the segment assuming no further delays
      * @return The vehicle's estimated average speed
      * @note This is only an upper bound. The speed will be lower if the preceeding vehicle is delayed
      */
-    SUMOReal getAverageSpeed() const;
+    double getAverageSpeed() const;
 
     /// @brief Returns the vehicle's estimated speed after driving accross the link
-    SUMOReal estimateLeaveSpeed(const MSLink* link) const;
+    double estimateLeaveSpeed(const MSLink* link) const;
 
 
     /** @brief Returns the vehicle's estimated speed taking into account delays
@@ -123,7 +123,7 @@ public:
      * @param[in, out] earliestArrival A lower bound on leaveTime, modified to contain new lower bound on leave Time
      * @note This is only an upper bound. The speed may be even lower if there are further delays downstream
      */
-    SUMOReal getConservativeSpeed(SUMOTime& earliestArrival) const;
+    double getConservativeSpeed(SUMOTime& earliestArrival) const;
 
 
     /** @brief Update when the vehicle enters a new edge in the move step.
@@ -280,28 +280,28 @@ public:
      * Intentional stopping does not count towards this time.
      * @return The time the vehicle is standing
      */
-    SUMOReal getWaitingSeconds() const {
+    double getWaitingSeconds() const {
         return STEPS2TIME(getWaitingTime());
     }
 
 
     /// @brief Returns the earliest leave time for the current segment
-    SUMOReal getEventTimeSeconds() const {
+    double getEventTimeSeconds() const {
         return STEPS2TIME(getEventTime());
     }
 
     /// @brief Returns the entry time for the current segment
-    SUMOReal getLastEntryTimeSeconds() const {
+    double getLastEntryTimeSeconds() const {
         return STEPS2TIME(getLastEntryTime());
     }
 
     /// @brief Returns the time at which the vehicle was blocked on the current segment
-    SUMOReal getBlockTimeSeconds() const {
+    double getBlockTimeSeconds() const {
         return STEPS2TIME(getBlockTime());
     }
 
     /// @brief Returns the delay that is accrued due to option --meso-tls-penalty or --meso-minor-penalty
-    SUMOReal getCurrentLinkPenaltySeconds() const;
+    double getCurrentLinkPenaltySeconds() const;
 
 
     /// Replaces the current route by the given one

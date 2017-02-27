@@ -52,7 +52,7 @@ public:
     static bool dictionary(int id, NIVissimVehTypeClass* o);
     static NIVissimVehTypeClass* dictionary(int name);
     static void clearDict();
-    SUMOReal meanSpeed() const;
+    double meanSpeed() const;
 private:
     int myID;
     std::string myName;

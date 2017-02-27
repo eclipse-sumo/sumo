@@ -47,8 +47,8 @@
 // member method definitions
 // ===========================================================================
 
-MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLane& lane, SUMOReal startPos, SUMOReal endPos,
-                                     SUMOReal chargingPower, SUMOReal efficency, bool chargeInTransit, int chargeDelay) :
+MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
+                                     double chargingPower, double efficency, bool chargeInTransit, int chargeDelay) :
     MSStoppingPlace(chargingStationID, std::vector<std::string>(), lane, startPos, endPos),
     myChargingPower(0),
     myEfficiency(0),
@@ -83,13 +83,13 @@ MSChargingStation::~MSChargingStation() {
 }
 
 
-SUMOReal
+double
 MSChargingStation::getChargingPower() const {
     return myChargingPower;
 }
 
 
-SUMOReal
+double
 MSChargingStation::getEfficency() const {
     return myEfficiency;
 }
@@ -101,14 +101,14 @@ MSChargingStation::getChargeInTransit() const {
 }
 
 
-SUMOReal
+double
 MSChargingStation::getChargeDelay() const {
     return myChargeDelay;
 }
 
 
 void
-MSChargingStation::setChargingPower(SUMOReal chargingPower) {
+MSChargingStation::setChargingPower(double chargingPower) {
     if (chargingPower < 0)
         WRITE_WARNING("new charging power for Chargin Station with ID = " + getID() + " not valid (" + TplConvert::_2str(chargingPower) + ").")
         else {
@@ -118,7 +118,7 @@ MSChargingStation::setChargingPower(SUMOReal chargingPower) {
 
 
 void
-MSChargingStation::setEfficency(SUMOReal efficency) {
+MSChargingStation::setEfficency(double efficency) {
     if (efficency < 0 || efficency > 1)
         WRITE_WARNING("new efficiency for Chargin Station with ID = " + getID() + " not valid (" + TplConvert::_2str(efficency) + ").")
         else {
@@ -150,7 +150,7 @@ MSChargingStation::setChargingVehicle(bool value) {
 
 
 bool
-MSChargingStation::vehicleIsInside(const SUMOReal position) const {
+MSChargingStation::vehicleIsInside(const double position) const {
     if ((position >= getBeginLanePosition()) && (position <= getEndLanePosition())) {
         return true;
     } else {

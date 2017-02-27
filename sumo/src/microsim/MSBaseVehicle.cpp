@@ -61,13 +61,13 @@ std::set<std::string> MSBaseVehicle::myShallTraceMoveReminders;
 // method definitions
 // ===========================================================================
 
-SUMOReal
+double
 MSBaseVehicle::getPreviousSpeed() const {
     throw ProcessError("getPreviousSpeed() is not available for non-MSVehicles.");
 }
 
 MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-                             const MSVehicleType* type, const SUMOReal speedFactor) :
+                             const MSVehicleType* type, const double speedFactor) :
     myParameter(pars),
     myRoute(route),
     myType(type),
@@ -122,7 +122,7 @@ MSBaseVehicle::getParameter() const {
 }
 
 
-SUMOReal
+double
 MSBaseVehicle::getMaxSpeed() const {
     return myType->getMaxSpeed();
 }
@@ -248,13 +248,13 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit, bool che
 }
 
 
-SUMOReal
+double
 MSBaseVehicle::getAcceleration() const {
     return 0;
 }
 
 
-SUMOReal
+double
 MSBaseVehicle::getSlope() const {
     return 0;
 }
@@ -370,7 +370,7 @@ MSBaseVehicle::calculateArrivalParams() {
         return;
     }
     const std::vector<MSLane*>& lanes = myRoute->getLastEdge()->getLanes();
-    const SUMOReal lastLaneLength = lanes[0]->getLength();
+    const double lastLaneLength = lanes[0]->getLength();
     switch (myParameter->arrivalPosProcedure) {
         case ARRIVAL_POS_GIVEN:
             if (fabs(myParameter->arrivalPos) > lastLaneLength) {
@@ -379,11 +379,11 @@ MSBaseVehicle::calculateArrivalParams() {
             // Maybe we should warn the user about invalid inputs!
             myArrivalPos = MIN2(myParameter->arrivalPos, lastLaneLength);
             if (myArrivalPos < 0) {
-                myArrivalPos = MAX2(myArrivalPos + lastLaneLength, static_cast<SUMOReal>(0));
+                myArrivalPos = MAX2(myArrivalPos + lastLaneLength, 0.);
             }
             break;
         case ARRIVAL_POS_RANDOM:
-            myArrivalPos = RandHelper::rand(static_cast<SUMOReal>(0), lastLaneLength);
+            myArrivalPos = RandHelper::rand(0., lastLaneLength);
             break;
         default:
             myArrivalPos = lastLaneLength;
@@ -406,12 +406,12 @@ MSBaseVehicle::calculateArrivalParams() {
 }
 
 
-SUMOReal
+double
 MSBaseVehicle::getImpatience() const {
-    return MAX2((SUMOReal)0, MIN2((SUMOReal)1, getVehicleType().getImpatience() +
-                                  (MSGlobals::gTimeToGridlock > 0 ? (SUMOReal)getWaitingTime() / MSGlobals::gTimeToGridlock : 0)));
+    return MAX2(0., MIN2(1., getVehicleType().getImpatience() +
+                                  (MSGlobals::gTimeToGridlock > 0 ? (double)getWaitingTime() / MSGlobals::gTimeToGridlock : 0)));
 //    Alternavite to avoid time to teleport effect on the simulation. No effect if time to teleport is -1
-//    return MAX2((SUMOReal)0, MIN2((SUMOReal)1, getVehicleType().getImpatience()));
+//    return MAX2(0, MIN2((double)1, getVehicleType().getImpatience()));
 }
 
 
@@ -471,7 +471,7 @@ MSBaseVehicle::initMoveReminderOutput(const OptionsCont& oc) {
 
 
 void
-MSBaseVehicle::traceMoveReminder(const std::string& type, MSMoveReminder* rem, SUMOReal pos, bool keep) const {
+MSBaseVehicle::traceMoveReminder(const std::string& type, MSMoveReminder* rem, double pos, bool keep) const {
     OutputDevice& od = OutputDevice::getDeviceByOption("movereminder-output");
     od.openTag("movereminder");
     od.writeAttr(SUMO_ATTR_TIME, STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()));

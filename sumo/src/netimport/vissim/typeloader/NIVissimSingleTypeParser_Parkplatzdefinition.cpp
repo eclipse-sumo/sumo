@@ -72,10 +72,10 @@ NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream& from) {
     //  A district may be already saved when another parking place with
     //  the same district was already build.
     std::vector<int> districts;
-    std::vector<SUMOReal> percentages;
+    std::vector<double> percentages;
     readUntil(from, "bezirke"); // "Bezirke"
     while (tag != "ort") {
-        SUMOReal perc = -1;
+        double perc = -1;
         int districtid;
         from >> districtid;
         tag = myRead(from);
@@ -91,11 +91,11 @@ NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream& from) {
     int edgeid;
     from >> edgeid;
 
-    SUMOReal position;
+    double position;
     from >> tag; // "bei"
     from >> position;
 
-    SUMOReal length;
+    double length;
     from >> tag;
     from >> length;
 

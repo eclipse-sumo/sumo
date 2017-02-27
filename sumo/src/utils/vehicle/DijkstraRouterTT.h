@@ -71,7 +71,7 @@ template<class E, class V, class PF>
 class DijkstraRouterTT : public SUMOAbstractRouter<E, V>, public PF {
 
 public:
-    typedef SUMOReal(* Operation)(const E* const, const V* const, SUMOReal);
+    typedef double(* Operation)(const E* const, const V* const, double);
 
     /**
      * @struct EdgeInfo
@@ -82,13 +82,13 @@ public:
     public:
         /// Constructor
         EdgeInfo(const E* e)
-            : edge(e), traveltime(std::numeric_limits<SUMOReal>::max()), prev(0), visited(false) {}
+            : edge(e), traveltime(std::numeric_limits<double>::max()), prev(0), visited(false) {}
 
         /// The current edge
         const E* edge;
 
         /// Effort to reach the edge
-        SUMOReal traveltime;
+        double traveltime;
 
         /// The previous edge
         EdgeInfo* prev;
@@ -97,7 +97,7 @@ public:
         bool visited;
 
         inline void reset() {
-            traveltime = std::numeric_limits<SUMOReal>::max();
+            traveltime = std::numeric_limits<double>::max();
             visited = false;
         }
     };
@@ -173,7 +173,7 @@ public:
         std::cout << "DEBUG: starting search for '" << vehicle->getID() << "' time: " << STEPS2TIME(msTime) << "\n";
 #endif
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
-        const SUMOReal time = STEPS2TIME(msTime);
+        const double time = STEPS2TIME(msTime);
         if (this->myBulkMode) {
             const EdgeInfo& toInfo = myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
@@ -216,7 +216,7 @@ public:
             }
             std::cout << "\n";
 #endif
-            const SUMOReal traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
+            const double traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // check all ways from the node with the minimal length
             const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
             for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
@@ -226,11 +226,11 @@ public:
                 if (PF::operator()(follower, vehicle)) {
                     continue;
                 }
-                const SUMOReal oldEffort = followerInfo->traveltime;
+                const double oldEffort = followerInfo->traveltime;
                 if (!followerInfo->visited && traveltime < oldEffort) {
                     followerInfo->traveltime = traveltime;
                     followerInfo->prev = minimumInfo;
-                    if (oldEffort == std::numeric_limits<SUMOReal>::max()) {
+                    if (oldEffort == std::numeric_limits<double>::max()) {
                         myFrontierList.push_back(followerInfo);
                         push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
                     } else {
@@ -252,9 +252,9 @@ public:
     }
 
 
-    SUMOReal recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
-        const SUMOReal time = STEPS2TIME(msTime);
-        SUMOReal costs = 0;
+    double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
+        const double time = STEPS2TIME(msTime);
+        double costs = 0;
         for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             if (PF::operator()(*i, v)) {
                 return -1;

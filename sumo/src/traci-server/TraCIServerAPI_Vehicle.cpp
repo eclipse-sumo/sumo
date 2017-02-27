@@ -255,7 +255,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingDouble(inputStorage, dist)) {
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Leader retrieval requires a double.", outputStorage);
                 }
-                std::pair<const MSVehicle* const, SUMOReal> leaderInfo = v->getLeader(dist);
+                std::pair<const MSVehicle* const, double> leaderInfo = v->getLeader(dist);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tempMsg.writeInt(2);
                 tempMsg.writeUnsignedByte(TYPE_STRING);
@@ -291,7 +291,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 // retrieve
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                SUMOReal value;
+                double value;
                 if (!v->getWeightsStorage().retrieveExistingTravelTime(edge, time, value)) {
                     tempMsg.writeDouble(INVALID_DOUBLE_VALUE);
                 } else {
@@ -323,7 +323,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 // retrieve
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                SUMOReal value;
+                double value;
                 if (!v->getWeightsStorage().retrieveExistingEffort(edge, time, value)) {
                     tempMsg.writeDouble(INVALID_DOUBLE_VALUE);
                 } else {
@@ -397,7 +397,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 if (onRoad) {
                     const MSLane* lane = v->getLane();
                     const std::vector<MSLane*>& bestLaneConts = v->getBestLanesContinuation(lane);
-                    SUMOReal seen = v->getLane()->getLength() - v->getPositionOnLane();
+                    double seen = v->getLane()->getLength() - v->getPositionOnLane();
                     int view = 1;
                     MSLinkCont::const_iterator link = MSLane::succLinkSec(*v, view, *lane, bestLaneConts);
                     while (!lane->isLinkEnd(link)) {
@@ -450,8 +450,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             break;
             case VAR_DISTANCE: {
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                SUMOReal distance = onRoad ? v->getRoute().getDistanceBetween(v->getDepartPos(), v->getPositionOnLane(), v->getRoute().getEdges()[0],  &v->getLane()->getEdge()) : INVALID_DOUBLE_VALUE;
-                if (distance == std::numeric_limits<SUMOReal>::max()) {
+                double distance = onRoad ? v->getRoute().getDistanceBetween(v->getDepartPos(), v->getPositionOnLane(), v->getRoute().getEdges()[0],  &v->getLane()->getEdge()) : INVALID_DOUBLE_VALUE;
+                if (distance == std::numeric_limits<double>::max()) {
                     distance = INVALID_DOUBLE_VALUE;
                 }
                 tempMsg.writeDouble(distance);
@@ -741,7 +741,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (duration < 0 || STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) + STEPS2TIME(duration) > STEPS2TIME(SUMOTime_MAX - DELTA_T)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid time interval", outputStorage);
             }
-            std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
+            std::vector<std::pair<SUMOTime, double> > speedTimeLine;
             speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), v->getSpeed()));
             speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + duration, newSpeed));
             v->getInfluencer().setSpeedTimeLine(speedTimeLine);
@@ -869,7 +869,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 while (v->getWeightsStorage().knowsTravelTime(edge)) {
                     v->getWeightsStorage().removeTravelTime(edge);
                 }
-                v->getWeightsStorage().addTravelTime(edge, SUMOReal(0), SUMOReal(SUMOTime_MAX), value);
+                v->getWeightsStorage().addTravelTime(edge, 0., double(SUMOTime_MAX), value);
             } else if (parameterCount == 1) {
                 // edge
                 std::string edgeID;
@@ -939,7 +939,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 while (v->getWeightsStorage().knowsEffort(edge)) {
                     v->getWeightsStorage().removeEffort(edge);
                 }
-                v->getWeightsStorage().addEffort(edge, SUMOReal(0), SUMOReal(SUMOTime_MAX), value);
+                v->getWeightsStorage().addEffort(edge, 0., double(SUMOTime_MAX), value);
             } else if (parameterCount == 1) {
                 // edge
                 std::string edgeID;
@@ -1046,7 +1046,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (!server.readTypeCheckingDouble(inputStorage, speed)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting speed requires a double.", outputStorage);
             }
-            std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
+            std::vector<std::pair<SUMOTime, double> > speedTimeLine;
             if (speed >= 0) {
                 speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), speed));
                 speedTimeLine.push_back(std::make_pair(SUMOTime_MAX - DELTA_T, speed));
@@ -1379,7 +1379,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             const std::string origID = edgeID + "_" + toString(laneNum);
             // @todo add an interpretation layer for OSM derived origID values (without lane index)
             Position pos(x, y);
-            SUMOReal angle = origAngle;
+            double angle = origAngle;
             // angle must be in [0,360] because it will be compared against those returned by naviDegree()
             while (angle >= 360.) {
                 angle -= 360.;
@@ -1396,12 +1396,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
             ConstMSEdgeVector edges;
             MSLane* lane = 0;
-            SUMOReal lanePos;
-            SUMOReal lanePosLat = 0;
-            SUMOReal bestDistance = std::numeric_limits<SUMOReal>::max();
+            double lanePos;
+            double lanePosLat = 0;
+            double bestDistance = std::numeric_limits<double>::max();
             int routeOffset = 0;
             bool found;
-            SUMOReal maxRouteDistance = 100;
+            double maxRouteDistance = 100;
             /* EGO vehicle is known to have a fixed route. @todo make this into a parameter of the TraCI call */
             if (keepRoute) {
                 // case a): vehicle is on its earlier route
@@ -1415,11 +1415,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
                 // optionally compute lateral offset
                 if (found && (MSGlobals::gLateralResolution > 0 || mayLeaveNetwork)) {
-                    const SUMOReal perpDist = lane->getShape().distance2D(pos, true);
+                    const double perpDist = lane->getShape().distance2D(pos, true);
                     if (perpDist != GeomHelper::INVALID_OFFSET) {
                         lanePosLat = perpDist;
                         if (!mayLeaveNetwork) {
-                            lanePosLat = MIN2(lanePosLat, (SUMOReal)0.5 * (lane->getWidth() + v->getVehicleType().getWidth() - MSGlobals::gLateralResolution));
+                            lanePosLat = MIN2(lanePosLat, 0.5 * (lane->getWidth() + v->getVehicleType().getWidth() - MSGlobals::gLateralResolution));
                         }
                         // figure out whether the offset is to the left or to the right
                         PositionVector tmp = lane->getShape();
@@ -1510,15 +1510,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
 
 bool
-TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, const std::string& origID, const SUMOReal angle,  MSVehicle& v, TraCIServer& server,
-                               SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
+TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, const std::string& origID, const double angle,  MSVehicle& v, TraCIServer& server,
+                               double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
     // collect edges around the vehicle
-    SUMOReal speed = pos.distanceTo2D(v.getPosition()); // !!!v.getSpeed();
+    double speed = pos.distanceTo2D(v.getPosition()); // !!!v.getSpeed();
     std::set<std::string> into;
     PositionVector shape;
     shape.push_back(pos);
     server.collectObjectsInRange(CMD_GET_EDGE_VARIABLE, shape, maxRouteDistance, into);
-    SUMOReal maxDist = 0;
+    double maxDist = 0;
     std::map<MSLane*, LaneUtility> lane2utility;
     // compute utility for all candidate edges
     for (std::set<std::string>::const_iterator j = into.begin(); j != into.end(); ++j) {
@@ -1591,9 +1591,9 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
         const bool perpendicular = true;
         for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end(); ++k) {
             MSLane* lane = *k;
-            SUMOReal off = lane->getShape().nearest_offset_to_point2D(pos, perpendicular);
-            SUMOReal langle = 180.;
-            SUMOReal dist = 1000.;
+            double off = lane->getShape().nearest_offset_to_point2D(pos, perpendicular);
+            double langle = 180.;
+            double dist = 1000.;
             if (off >= 0) {
                 dist = lane->getShape().distance2D(pos, perpendicular);
                 if (dist > lane->getLength()) { // this is a workaround
@@ -1626,17 +1626,17 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
     }
 
     // get the best lane given the previously computed values
-    SUMOReal bestValue = 0;
+    double bestValue = 0;
     MSLane* bestLane = 0;
     for (std::map<MSLane*, LaneUtility>::iterator i = lane2utility.begin(); i != lane2utility.end(); ++i) {
         MSLane* l = (*i).first;
         const LaneUtility& u = (*i).second;
-        SUMOReal distN = u.dist > 999 ? -10 : 1. - (u.dist / maxDist);
-        SUMOReal angleDiffN = 1. - (u.angleDiff / 180.);
-        SUMOReal idN = u.ID ? 1 : 0;
-        SUMOReal onRouteN = u.onRoute ? 1 : 0;
-        SUMOReal sameEdgeN = u.sameEdge ? MIN2(v.getEdge()->getLength() / speed, (SUMOReal)1.) : 0;
-        SUMOReal value = (distN * .5 // distance is more important than angle because the vehicle might be driving in the opposite direction
+        double distN = u.dist > 999 ? -10 : 1. - (u.dist / maxDist);
+        double angleDiffN = 1. - (u.angleDiff / 180.);
+        double idN = u.ID ? 1 : 0;
+        double onRouteN = u.onRoute ? 1 : 0;
+        double sameEdgeN = u.sameEdge ? MIN2(v.getEdge()->getLength() / speed, (double)1.) : 0;
+        double value = (distN * .5 // distance is more important than angle because the vehicle might be driving in the opposite direction
                           + angleDiffN * 0.35 /*.5 */
                           + idN * 1
                           + onRouteN * 0.1
@@ -1692,7 +1692,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, SUMOReal maxRouteDistance, c
 
 
 bool
-TraCIServerAPI_Vehicle::findCloserLane(const MSEdge* edge, const Position& pos, SUMOReal& bestDistance, MSLane** lane) {
+TraCIServerAPI_Vehicle::findCloserLane(const MSEdge* edge, const Position& pos, double& bestDistance, MSLane** lane) {
     if (edge == 0) {
         return false;
     }
@@ -1700,7 +1700,7 @@ TraCIServerAPI_Vehicle::findCloserLane(const MSEdge* edge, const Position& pos, 
     bool newBest = false;
     for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end() && bestDistance > POSITION_EPS; ++k) {
         MSLane* candidateLane = *k;
-        const SUMOReal dist = candidateLane->getShape().distance2D(pos); // get distance
+        const double dist = candidateLane->getShape().distance2D(pos); // get distance
 #ifdef DEBUG_MOVEXY
         std::cout << "   b at lane " << candidateLane->getID() << " dist:" << dist << " best:" << bestDistance << std::endl;
 #endif
@@ -1716,7 +1716,7 @@ TraCIServerAPI_Vehicle::findCloserLane(const MSEdge* edge, const Position& pos, 
 
 bool
 TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID, MSVehicle& v,
-        SUMOReal& bestDistance, MSLane** lane, SUMOReal& lanePos, int& routeOffset, ConstMSEdgeVector& /*edges*/) {
+        double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& /*edges*/) {
 
     const ConstMSEdgeVector& edges = v.getRoute().getEdges();
     routeOffset = 0;
@@ -1777,7 +1777,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
         }
     }
     // check position, stuff, we should have the best lane along the route
-    lanePos = MAX2(SUMOReal(0), MIN2(SUMOReal((*lane)->getLength() - POSITION_EPS),
+    lanePos = MAX2(0., MIN2(double((*lane)->getLength() - POSITION_EPS),
                                      (*lane)->interpolateGeometryPosToLanePos(
                                          (*lane)->getShape().nearest_offset_to_point2D(pos, false))));
     //std::cout << SIMTIME << " vtdMap_matchingRoutePosition vehicle=" << v.getID() << " currLane=" << v.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(edges) << " lane=" << (*lane)->getID() << "\n";
@@ -1799,7 +1799,7 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(TraCIServer& server, tcpip::Stora
     }
 
     Position pos;
-    std::pair<const MSLane*, SUMOReal> roadPos;
+    std::pair<const MSLane*, double> roadPos;
 
     // read position
     int posType = inputStorage.readUnsignedByte();
@@ -1832,12 +1832,12 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(TraCIServer& server, tcpip::Stora
     // read distance type
     int distType = inputStorage.readUnsignedByte();
 
-    SUMOReal distance = INVALID_DOUBLE_VALUE;
+    double distance = INVALID_DOUBLE_VALUE;
     if (v->isOnRoad()) {
         if (distType == REQUEST_DRIVINGDIST) {
             distance = v->getRoute().getDistanceBetween(v->getPositionOnLane(), roadPos.second,
                        v->getEdge(), &roadPos.first->getEdge());
-            if (distance == std::numeric_limits<SUMOReal>::max()) {
+            if (distance == std::numeric_limits<double>::max()) {
                 distance = INVALID_DOUBLE_VALUE;
             }
         } else {

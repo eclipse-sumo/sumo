@@ -52,7 +52,7 @@ NIVissimBoundedClusterObject::~NIVissimBoundedClusterObject() {
 
 bool
 NIVissimBoundedClusterObject::crosses(const AbstractPoly& poly,
-                                      SUMOReal offset) const {
+                                      double offset) const {
     assert(myBoundary != 0 && myBoundary->xmax() >= myBoundary->xmin());
     return myBoundary->overlapsWith(poly, offset);
 }

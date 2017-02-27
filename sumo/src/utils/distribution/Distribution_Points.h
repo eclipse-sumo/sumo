@@ -55,12 +55,12 @@ public:
     virtual ~Distribution_Points();
 
     /// Returns the maximum value of this distribution
-    SUMOReal getMax() const;
+    double getMax() const;
 
     int getAreaNo() const;
-    SUMOReal getAreaBegin(int index) const;
-    SUMOReal getAreaEnd(int index) const;
-    SUMOReal getAreaPerc(int index) const;
+    double getAreaBegin(int index) const;
+    double getAreaEnd(int index) const;
+    double getAreaPerc(int index) const;
 
 
 protected:
@@ -69,7 +69,7 @@ protected:
 
     mutable bool myProbabilitiesAreComputed;
 
-    mutable std::vector<SUMOReal> myProbabilities;
+    mutable std::vector<double> myProbabilities;
 
     bool myInterpolateDist;
 

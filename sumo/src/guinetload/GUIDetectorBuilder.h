@@ -82,7 +82,7 @@ public:
      * @param[in] show Whether to show the detector in the gui if available
      */
     virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
-            MSLane* lane, SUMOReal pos, const std::string& vTypes, bool show = true);
+            MSLane* lane, double pos, const std::string& vTypes, bool show = true);
 
 
     /** @brief Creates an instance of an e1 detector using the given values
@@ -95,7 +95,7 @@ public:
      * @param[in] od The output device the loop shall use
      */
     virtual MSDetectorFileOutput* createInstantInductLoop(const std::string& id,
-            MSLane* lane, SUMOReal pos, const std::string& od, const std::string& vTypes);
+            MSLane* lane, double pos, const std::string& od, const std::string& vTypes);
 
     /** @brief Creates a GUIE2Collector instance, overrides MSE2Collector::createE2Detector()
      *
@@ -104,13 +104,13 @@ public:
      *  @see  GUIE2Collector Constructor documentation
      */
     virtual MSE2Collector* createE2Detector(const std::string& id,
-            DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal endPos, SUMOReal length,
-            SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+            DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
+            SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
             const std::string& vTypes, bool showDetector);
 
     virtual MSE2Collector* createE2Detector(const std::string& id,
-            DetectorUsage usage, std::vector<MSLane*> lanes, SUMOReal pos, SUMOReal endPos,
-            SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+            DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
+            SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
             const std::string& vTypes, bool showDetector);
 
 
@@ -127,7 +127,7 @@ public:
     virtual MSDetectorFileOutput* createE3Detector(const std::string& id,
             const CrossSectionVector& entries,
             const CrossSectionVector& exits,
-            SUMOReal haltingSpeedThreshold,
+            double haltingSpeedThreshold,
             SUMOTime haltingTimeThreshold, const std::string& vTypes);
     /// @}
 

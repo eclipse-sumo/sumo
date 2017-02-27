@@ -149,7 +149,7 @@ private:
     std::string myCurrentID;
 
     /// @brief The current edge's maximum speed
-    SUMOReal myCurrentSpeed;
+    double myCurrentSpeed;
 
     /// @brief The current edge's priority
     int myCurrentPriority;
@@ -158,10 +158,10 @@ private:
     int myCurrentLaneNo;
 
     /// @brief The current edge's lane width
-    SUMOReal myCurrentWidth;
+    double myCurrentWidth;
 
     /// @brief The current edge's offset till the destination node
-    SUMOReal myCurrentEndOffset;
+    double myCurrentEndOffset;
 
     /// @brief The current edge's street name
     std::string myCurrentStreetName;
@@ -173,7 +173,7 @@ private:
     NBNode* myFromNode, *myToNode;
 
     /// @brief The current edge's length
-    SUMOReal myLength;
+    double myLength;
 
     /// @brief The shape of the edge
     PositionVector myShape;
@@ -188,10 +188,10 @@ private:
     bool myReinitKeepEdgeShape;
 
     /// @brief The width of the sidewalk that shall be added to the current edge
-    SUMOReal mySidewalkWidth;
+    double mySidewalkWidth;
 
     /// @brief The width of the bike lane that shall be added to the current edge
-    SUMOReal myBikeLaneWidth;
+    double myBikeLaneWidth;
 
     /// @}
 
@@ -231,9 +231,9 @@ private:
         /// @brief The lanes after this change
         std::vector<int> lanes;
         /// @brief The position of this change
-        SUMOReal pos;
+        double pos;
         /// @brief The speed after this change
-        SUMOReal speed;
+        double speed;
         /// @brief The new node that is created for this split
         NBNode* node;
         /// @brief The id for the edge before the split
@@ -267,7 +267,7 @@ private:
     class split_by_pos_finder {
     public:
         /// @brief Constructor
-        explicit split_by_pos_finder(SUMOReal pos)
+        explicit split_by_pos_finder(double pos)
             : myPosition(pos) { }
 
         /// @brief Comparing operator
@@ -277,7 +277,7 @@ private:
 
     private:
         /// @brief The position to search for
-        SUMOReal myPosition;
+        double myPosition;
 
     };
 

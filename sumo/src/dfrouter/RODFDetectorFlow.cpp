@@ -127,9 +127,9 @@ RODFDetectorFlows::getFlowDefs(const std::string& id) const {
 }
 
 
-SUMOReal
+double
 RODFDetectorFlows::getFlowSumSecure(const std::string& id) const {
-    SUMOReal ret = 0;
+    double ret = 0;
     if (knows(id)) {
         const std::vector<FlowDef>& flows = getFlowDefs(id);
         for (std::vector<FlowDef>::const_iterator i = flows.begin(); i != flows.end(); ++i) {
@@ -141,13 +141,13 @@ RODFDetectorFlows::getFlowSumSecure(const std::string& id) const {
 }
 
 
-SUMOReal
+double
 RODFDetectorFlows::getMaxDetectorFlow() const {
     if (myMaxDetectorFlow < 0) {
-        SUMOReal max = 0;
+        double max = 0;
         std::map<std::string, std::vector<FlowDef> >::const_iterator j;
         for (j = myFastAccessFlows.begin(); j != myFastAccessFlows.end(); ++j) {
-            SUMOReal curr = 0;
+            double curr = 0;
             const std::vector<FlowDef>& flows = (*j).second;
             for (std::vector<FlowDef>::const_iterator i = flows.begin(); i != flows.end(); ++i) {
                 curr += (*i).qPKW;
@@ -185,8 +185,8 @@ RODFDetectorFlows::printAbsolute() const {
     for (std::map<std::string, std::vector<FlowDef> >::const_iterator i = myFastAccessFlows.begin(); i != myFastAccessFlows.end(); ++i) {
         std::cout << (*i).first << ":";
         const std::vector<FlowDef>& flows = (*i).second;
-        SUMOReal qPKW = 0;
-        SUMOReal qLKW = 0;
+        double qPKW = 0;
+        double qLKW = 0;
         for (std::vector<FlowDef>::const_iterator j = flows.begin(); j != flows.end(); ++j) {
             qPKW += (*j).qPKW;
             qLKW += (*j).qLKW;

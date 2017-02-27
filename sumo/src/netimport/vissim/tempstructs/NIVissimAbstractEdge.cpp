@@ -89,14 +89,14 @@ NIVissimAbstractEdge::dictionary(int id) {
 
 
 Position
-NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const {
+NIVissimAbstractEdge::getGeomPosition(double pos) const {
     if (myGeom.length() > pos) {
         return myGeom.positionAtOffset(pos);
     } else if (myGeom.length() == pos) {
         return myGeom[-1];
     } else {
         PositionVector g(myGeom);
-        const SUMOReal amount = pos - myGeom.length();
+        const double amount = pos - myGeom.length();
         g.extrapolate(amount * 2);
         return g.positionAtOffset(pos + amount * 2);
     }
@@ -131,7 +131,7 @@ NIVissimAbstractEdge::crossesEdgeAtPoint(NIVissimAbstractEdge* c) const {
 
 
 std::vector<int>
-NIVissimAbstractEdge::getWithin(const AbstractPoly& p, SUMOReal offset) {
+NIVissimAbstractEdge::getWithin(const AbstractPoly& p, double offset) {
     std::vector<int> ret;
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimAbstractEdge* e = (*i).second;
@@ -144,7 +144,7 @@ NIVissimAbstractEdge::getWithin(const AbstractPoly& p, SUMOReal offset) {
 
 
 bool
-NIVissimAbstractEdge::overlapsWith(const AbstractPoly& p, SUMOReal offset) const {
+NIVissimAbstractEdge::overlapsWith(const AbstractPoly& p, double offset) const {
     return myGeom.overlapsWith(p, offset);
 }
 

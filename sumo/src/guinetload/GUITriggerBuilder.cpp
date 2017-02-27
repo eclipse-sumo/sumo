@@ -70,7 +70,7 @@ GUITriggerBuilder::buildLaneSpeedTrigger(MSNet& net,
 MSTriggeredRerouter*
 GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
                                  MSEdgeVector& edges,
-                                 SUMOReal prob, const std::string& file, bool off) {
+                                 double prob, const std::string& file, bool off) {
     GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, file, off,
             dynamic_cast<GUINet&>(net).getVisualisationSpeedUp());
     return rr;
@@ -79,7 +79,7 @@ GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
 
 void
 GUITriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id, const std::vector<std::string>& lines,
-                                      MSLane* lane, SUMOReal frompos, SUMOReal topos, const SumoXMLTag element) {
+                                      MSLane* lane, double frompos, double topos, const SumoXMLTag element) {
     bool success = false;
     GUIGlObject* o = 0;
     if (element == SUMO_TAG_CONTAINER_STOP) {
@@ -105,9 +105,9 @@ void
 GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
                                     const std::vector<std::string>& lines,
                                     MSLane* lane,
-                                    SUMOReal frompos, SUMOReal topos,
+                                    double frompos, double topos,
                                     unsigned int capacity,
-                                    SUMOReal width, SUMOReal length, SUMOReal angle) {
+                                    double width, double length, double angle) {
     assert(myParkingArea == 0);
 
     GUIParkingArea* stop = new GUIParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle);
@@ -121,8 +121,8 @@ GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
 }
 
 void
-GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, SUMOReal frompos, SUMOReal topos,
-                                        SUMOReal chargingPower, SUMOReal efficiency, bool chargeInTransit, int chargeDelay) {
+GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
+                                        double chargingPower, double efficiency, bool chargeInTransit, int chargeDelay) {
     GUIChargingStation* chargingStation = new GUIChargingStation(id, *lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay);
 
     if (!net.addChargingStation(chargingStation)) {
@@ -135,7 +135,7 @@ GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLan
 
 MSCalibrator*
 GUITriggerBuilder::buildCalibrator(MSNet& net, const std::string& id,
-                                   MSEdge* edge, SUMOReal pos,
+                                   MSEdge* edge, double pos,
                                    const std::string& file,
                                    const std::string& outfile,
                                    const SUMOTime freq,

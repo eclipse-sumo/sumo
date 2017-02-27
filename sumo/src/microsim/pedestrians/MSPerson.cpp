@@ -59,8 +59,8 @@
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const ConstMSEdgeVector& route,
         MSStoppingPlace* toStop,
-        SUMOTime walkingTime, SUMOReal speed,
-        SUMOReal departPos, SUMOReal arrivalPos, SUMOReal departPosLat) :
+        SUMOTime walkingTime, double speed,
+        double departPos, double arrivalPos, double departPosLat) :
     MSTransportable::Stage(*route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
                                arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "person walking to " + route.back()->getID()), MOVING_WITHOUT_VEHICLE), myWalkingTime(walkingTime), myRoute(route),
     myCurrentInternalEdge(0),
@@ -96,7 +96,7 @@ MSPerson::MSPersonStage_Walking::getFromEdge() const {
 }
 
 
-SUMOReal
+double
 MSPerson::MSPersonStage_Walking::getEdgePos(SUMOTime now) const {
     return myPedestrianState->getEdgePos(*this, now);
 }
@@ -108,7 +108,7 @@ MSPerson::MSPersonStage_Walking::getPosition(SUMOTime now) const {
 }
 
 
-SUMOReal
+double
 MSPerson::MSPersonStage_Walking::getAngle(SUMOTime now) const {
     return myPedestrianState->getAngle(*this, now);
 }
@@ -120,7 +120,7 @@ MSPerson::MSPersonStage_Walking::getWaitingTime(SUMOTime now) const {
 }
 
 
-SUMOReal
+double
 MSPerson::MSPersonStage_Walking::getSpeed() const {
     return myPedestrianState->getSpeed(*this);
 }
@@ -158,14 +158,14 @@ MSPerson::MSPersonStage_Walking::abort(MSTransportable*) {
 }
 
 void
-MSPerson::MSPersonStage_Walking::setSpeed(SUMOReal speed) {
+MSPerson::MSPersonStage_Walking::setSpeed(double speed) {
     mySpeed = speed;
 }
 
 
-SUMOReal
+double
 MSPerson::MSPersonStage_Walking::computeAverageSpeed() const {
-    SUMOReal length = 0;
+    double length = 0;
     for (ConstMSEdgeVector::const_iterator i = myRoute.begin(); i != myRoute.end(); ++i) {
         length += (*i)->getLength();
     }
@@ -238,7 +238,7 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
  * MSPerson::MSPersonStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toStop, const SUMOReal arrivalPos, const std::vector<std::string>& lines)
+        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines)
     : MSTransportable::Stage_Driving(destination, toStop, arrivalPos, lines) {}
 
 

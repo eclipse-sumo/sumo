@@ -270,7 +270,7 @@ GUIBaseVehicle::~GUIBaseVehicle() {
         while (i->first->removeAdditionalGLVisualisation(this));
     }
     myLock.unlock();
-    GLObjectValuePassConnector<SUMOReal>::removeObject(*this);
+    GLObjectValuePassConnector<double>::removeObject(*this);
     delete myRoutes;
 }
 
@@ -347,7 +347,7 @@ GUIBaseVehicle::drawAction_drawVehicleAsBoxPlus() const {
 
 void
 GUIBaseVehicle::drawAction_drawVehicleAsTrianglePlus() const {
-    const SUMOReal length = getVType().getLength();
+    const double length = getVType().getLength();
     if (length >= 8.) {
         drawAction_drawVehicleAsBoxPlus();
         return;
@@ -364,7 +364,7 @@ GUIBaseVehicle::drawAction_drawVehicleAsTrianglePlus() const {
 
 
 void
-GUIBaseVehicle::drawPoly(double* poses, SUMOReal offset) {
+GUIBaseVehicle::drawPoly(double* poses, double offset) {
     glPushMatrix();
     glTranslated(0, 0, offset * .1);
     glPolygonOffset(0, (GLfloat) - offset);
@@ -385,8 +385,8 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
     RGBColor lighter = current.changedBrightness(51);
     RGBColor darker = current.changedBrightness(-51);
 
-    const SUMOReal length = getVType().getLength();
-    const SUMOReal width = getVType().getWidth();
+    const double length = getVType().getLength();
+    const double width = getVType().getWidth();
     glPushMatrix();
     glRotated(90, 0, 0, 1);
     glScaled(length, width, 1.);
@@ -481,7 +481,7 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
         case SVS_BUS:
         case SVS_BUS_COACH:
         case SVS_BUS_TROLLEY: {
-            SUMOReal ml = length;
+            double ml = length;
             glScaled(1. / (length), 1, 1.);
             glTranslated(0, 0, .04);
             glBegin(GL_TRIANGLE_FAN);
@@ -691,7 +691,7 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
             break;
         case SVS_TRUCK_1TRAILER: {
             GLHelper::setColor(current);
-            SUMOReal l = length - 2.3;
+            double l = length - 2.3;
             l = l / 2.;
             GLHelper::drawBoxLine(Position(2.3, 0), 90., l, .5);
             GLHelper::drawBoxLine(Position(2.3 + l + .5, 0), 90., l - .5, .5);
@@ -801,16 +801,16 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
 
 
 bool
-GUIBaseVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, SUMOReal length) const {
+GUIBaseVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, double length) const {
     const std::string& file = getVType().getImgFile();
     if (file != "") {
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            const SUMOReal exaggeration = s.vehicleSize.getExaggeration(s);
+            const double exaggeration = s.vehicleSize.getExaggeration(s);
             if (length < 0) {
                 length = getVType().getLength() * exaggeration;
             }
-            const SUMOReal halfWidth = getVType().getWidth() / 2.0 * exaggeration;
+            const double halfWidth = getVType().getWidth() / 2.0 * exaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, 0, halfWidth, length);
             return true;
         }
@@ -820,11 +820,11 @@ GUIBaseVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s,
 
 
 void
-GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos, const SUMOReal angle) const {
+GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos, const double angle) const {
     glPushName(getGlID());
     glPushMatrix();
     Position p1 = pos;
-    const SUMOReal degAngle = RAD2DEG(angle + PI / 2.);
+    const double degAngle = RAD2DEG(angle + PI / 2.);
     // one seat in the center of the vehicle by default
     if (myVehicle.getLane() != 0) {
         mySeatPositions[0] = myVehicle.getLane()->geometryPositionAtOffset(myVehicle.getPositionOnLane() - getVType().getLength() / 2);
@@ -836,7 +836,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     // set lane color
     setColor(s);
     // scale
-    const SUMOReal upscale = s.vehicleSize.getExaggeration(s);
+    const double upscale = s.vehicleSize.getExaggeration(s);
     glScaled(upscale, upscale, 1);
     /*
         MSLCM_DK2004 &m2 = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
@@ -877,7 +877,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             break;
     }
     if (s.drawMinGap) {
-        const SUMOReal minGap = -getVType().getMinGap();
+        const double minGap = -getVType().getMinGap();
         glColor3d(0., 1., 0.);
         glBegin(GL_LINES);
         glVertex2d(0., 0);
@@ -943,10 +943,10 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     /*
     if (true) {
         const MSLane &l = veh->getLane();
-        SUMOReal r1 = veh->allowedContinuationsLength(&l, 0);
-        SUMOReal r2 = l.getLeftLane()!=0 ? veh->allowedContinuationsLength(l.getLeftLane(), 0) : 0;
-        SUMOReal r3 = l.getRightLane()!=0 ? veh->allowedContinuationsLength(l.getRightLane(), 0) : 0;
-        SUMOReal mmax = MAX3(r1, r2, r3);
+        double r1 = veh->allowedContinuationsLength(&l, 0);
+        double r2 = l.getLeftLane()!=0 ? veh->allowedContinuationsLength(l.getLeftLane(), 0) : 0;
+        double r3 = l.getRightLane()!=0 ? veh->allowedContinuationsLength(l.getRightLane(), 0) : 0;
+        double mmax = MAX3(r1, r2, r3);
         glBegin(GL_LINES);
         glVertex2f(0, 0);
         glVertex2f(0, r1/mmax/2.);
@@ -961,7 +961,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         glEnd();
     }
     */
-    glTranslated(0, MIN2(getVType().getLength() / 2, SUMOReal(5)), -getType()); // drawing name at GLO_MAX fails unless translating z
+    glTranslated(0, MIN2(getVType().getLength() / 2, double(5)), -getType()); // drawing name at GLO_MAX fails unless translating z
     glRotated(-degAngle, 0, 0, 1);
     glScaled(1 / upscale, 1 / upscale, 1);
     drawName(Position(0, 0), s.scale,
@@ -1001,7 +1001,7 @@ GUIBaseVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVis
         if (myVehicle.getNumberReroutes() > 0) {
             const int noReroutePlus1 = myVehicle.getNumberReroutes() + 1;
             for (int i = noReroutePlus1 - 1; i >= 0; i--) {
-                SUMOReal darken = SUMOReal(0.4) / SUMOReal(noReroutePlus1) * SUMOReal(i);
+                double darken = double(0.4) / double(noReroutePlus1) * double(i);
                 drawRoute(s, i, darken);
             }
         } else {
@@ -1017,7 +1017,7 @@ GUIBaseVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVis
 
 
 void
-GUIBaseVehicle::drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, SUMOReal exagerate) {
+GUIBaseVehicle::drawLinkItem(const Position& pos, SUMOTime arrivalTime, SUMOTime leaveTime, double exagerate) {
     glTranslated(pos.x(), pos.y(), -.1);
     GLHelper::drawFilledCircle(1);
     std::string times = toString(STEPS2TIME(arrivalTime)) + "/" + toString(STEPS2TIME(leaveTime));
@@ -1078,8 +1078,8 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
             Position p = veh->getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
             const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
             Position center = b.getCenter();
-            SUMOReal hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / PI;
-            SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
+            double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / PI;
+            double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }
@@ -1087,8 +1087,8 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
             Position p = veh->getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
             const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
             Position center = b.getCenter();
-            SUMOReal hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / PI;
-            SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
+            double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / PI;
+            double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }
@@ -1096,16 +1096,16 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
             Position pb = veh->getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
             Position pe = veh->getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
             const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
-            SUMOReal hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / PI;
+            double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / PI;
             Position minp(b.xmin(), b.ymin());
             Position maxp(b.xmax(), b.ymax());
-            SUMOReal sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
+            double sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }
         case 28: { // color randomly (by pointer)
-            const SUMOReal hue = (long)veh % 360; // [0-360]
-            const SUMOReal sat = (((long)veh / 360) % 67) / 100.0 + 0.33; // [0.33-1]
+            const double hue = (long)veh % 360; // [0-360]
+            const double sat = (((long)veh / 360) % 67) / 100.0 + 0.33; // [0.33-1]
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }
@@ -1139,7 +1139,7 @@ GUIBaseVehicle::removeActiveAddVisualisation(GUISUMOAbstractView* const parent, 
 
 
 void
-GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, SUMOReal darken) const {
+GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double darken) const {
     setColor(s);
     GLdouble colors[4];
     glGetDoublev(GL_CURRENT_COLOR, colors);
@@ -1160,7 +1160,7 @@ GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, SUMORe
         colors[3] = 0;
     }
     glColor3dv(colors);
-    const SUMOReal exaggeration = s.vehicleSize.getExaggeration(s);
+    const double exaggeration = s.vehicleSize.getExaggeration(s);
     if (routeNo == 0) {
         drawRouteHelper(myVehicle.getRoute(), exaggeration);
         return;

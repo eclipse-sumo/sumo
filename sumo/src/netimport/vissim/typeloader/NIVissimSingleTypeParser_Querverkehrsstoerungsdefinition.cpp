@@ -87,14 +87,14 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePositionDescribed
         from >> tag; // "Strecke"
         NIVissimExtendedEdgePoint by = parsePos(from);
         //
-        SUMOReal timegap;
+        double timegap;
         from >> timegap;
 
         from >> tag;
-        SUMOReal waygap;
+        double waygap;
         from >> waygap;
 
-        SUMOReal vmax = -1;
+        double vmax = -1;
         tag = readEndSecure(from);
         if (tag == "vmax") {
             from >> vmax;
@@ -131,14 +131,14 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseNumbered(std::ist
         from >> tag; // "Strecke"
         NIVissimExtendedEdgePoint by = parsePos(from);
         //
-        SUMOReal timegap;
+        double timegap;
         from >> timegap;
 
-        SUMOReal waygap;
+        double waygap;
         from >> tag;
         from >> waygap;
 
-        SUMOReal vmax = -1;
+        double vmax = -1;
         tag = readEndSecure(from);
         if (tag == "vmax") {
             from >> vmax;
@@ -169,7 +169,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream&
         lanes.push_back(TplConvert::_2int(tag.c_str()));
     }
     //
-    SUMOReal position;
+    double position;
     from >> tag;
     from >> position;
     // assigned vehicle types

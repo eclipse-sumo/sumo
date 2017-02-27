@@ -63,11 +63,11 @@ public:
      */
     PointOfInterest(const std::string& id, const std::string& type,
                     const RGBColor& color, const Position& pos,
-                    SUMOReal layer = DEFAULT_LAYER,
-                    SUMOReal angle = DEFAULT_ANGLE,
+                    double layer = DEFAULT_LAYER,
+                    double angle = DEFAULT_ANGLE,
                     const std::string& imgFile = DEFAULT_IMG_FILE,
-                    SUMOReal width = DEFAULT_IMG_WIDTH,
-                    SUMOReal height = DEFAULT_IMG_HEIGHT) :
+                    double width = DEFAULT_IMG_WIDTH,
+                    double height = DEFAULT_IMG_HEIGHT) :
         Shape(id, type, color, layer, angle, imgFile),
         Position(pos),
         myHalfImgWidth(width / 2.0),
@@ -84,12 +84,12 @@ public:
     /// @{
 
     /// @brief Returns the image width of the POI
-    inline SUMOReal getWidth() const {
+    inline double getWidth() const {
         return myHalfImgWidth * 2.0;
     }
 
     /// @brief Returns the image height of the POI
-    inline SUMOReal getHeight() const {
+    inline double getHeight() const {
         return myHalfImgHeight * 2.0;
     }
     /// @}
@@ -100,12 +100,12 @@ public:
     /// @{
 
     /// @brief set the image width of the POI
-    inline void setWidth(SUMOReal width) {
+    inline void setWidth(double width) {
         myHalfImgWidth = width / 2.0;
     }
 
     /// @brief set the image height of the POI
-    inline void setHeight(SUMOReal height) {
+    inline void setHeight(double height) {
         myHalfImgHeight = height / 2.0;
     }
     /// @}
@@ -114,7 +114,7 @@ public:
     /* @brief POI definition to the given device
      * @param[in] geo  Whether to write the output in geo-coordinates
      */
-    void writeXML(OutputDevice& out, const bool geo = false, const SUMOReal zOffset = 0., const std::string laneID = "", const SUMOReal pos = 0.) {
+    void writeXML(OutputDevice& out, const bool geo = false, const double zOffset = 0., const std::string laneID = "", const double pos = 0.) {
         out.openTag(SUMO_TAG_POI);
         out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
         out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getType()));
@@ -158,10 +158,10 @@ public:
 
 protected:
     ///@brief The half width of the image when rendering this POI
-    SUMOReal myHalfImgWidth;
+    double myHalfImgWidth;
 
     ///@brief The half height of the image when rendering this POI
-    SUMOReal myHalfImgHeight;
+    double myHalfImgHeight;
 
 };
 

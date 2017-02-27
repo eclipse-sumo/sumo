@@ -49,7 +49,7 @@
 MSStoppingPlace::MSStoppingPlace(const std::string& id,
                                  const std::vector<std::string>& lines,
                                  MSLane& lane,
-                                 SUMOReal begPos, SUMOReal endPos)
+                                 double begPos, double endPos)
     : Named(id), myLines(lines), myLane(lane),
       myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos), myWaitingPos(endPos) {
     computeLastFreePos();
@@ -65,26 +65,26 @@ MSStoppingPlace::getLane() const {
 }
 
 
-SUMOReal
+double
 MSStoppingPlace::getBeginLanePosition() const {
     return myBegPos;
 }
 
 
-SUMOReal
+double
 MSStoppingPlace::getEndLanePosition() const {
     return myEndPos;
 }
 
 
 void
-MSStoppingPlace::enter(SUMOVehicle* what, SUMOReal beg, SUMOReal end) {
-    myEndPositions[what] = std::pair<SUMOReal, SUMOReal>(beg, end);
+MSStoppingPlace::enter(SUMOVehicle* what, double beg, double end) {
+    myEndPositions[what] = std::pair<double, double>(beg, end);
     computeLastFreePos();
 }
 
 
-SUMOReal
+double
 MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
     if (myLastFreePos != myEndPos) {
         return myLastFreePos - forVehicle.getVehicleType().getMinGap();
@@ -99,9 +99,9 @@ MSStoppingPlace::getWaitPosition() const {
 }
 
 
-SUMOReal
+double
 MSStoppingPlace::getStoppingPosition(const SUMOVehicle* veh) const {
-    std::map<const SUMOVehicle*, std::pair<SUMOReal, SUMOReal> >::const_iterator i = myEndPositions.find(veh);
+    std::map<const SUMOVehicle*, std::pair<double, double> >::const_iterator i = myEndPositions.find(veh);
     if (i != myEndPositions.end()) {
         return i->second.second;
     } else {
@@ -142,7 +142,7 @@ MSStoppingPlace::leaveFrom(SUMOVehicle* what) {
 void
 MSStoppingPlace::computeLastFreePos() {
     myLastFreePos = myEndPos;
-    std::map<const SUMOVehicle*, std::pair<SUMOReal, SUMOReal> >::iterator i;
+    std::map<const SUMOVehicle*, std::pair<double, double> >::iterator i;
     for (i = myEndPositions.begin(); i != myEndPositions.end(); i++) {
         if (myLastFreePos > (*i).second.second) {
             myLastFreePos = (*i).second.second;
@@ -156,7 +156,7 @@ MSStoppingPlace::hasAccess(const MSEdge* edge) const {
     if (edge == &myLane.getEdge()) {
         return true;
     }
-    for (std::multimap<MSLane*, SUMOReal>::const_iterator i = myAccessPos.begin(); i != myAccessPos.end(); ++i) {
+    for (std::multimap<MSLane*, double>::const_iterator i = myAccessPos.begin(); i != myAccessPos.end(); ++i) {
         if (edge == &i->first->getEdge()) {
             return true;
         }

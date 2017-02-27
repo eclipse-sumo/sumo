@@ -63,7 +63,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, SUMOReal posOverLane, SUMOReal freq, const std::string& filename) :
+GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double posOverLane, double freq, const std::string& filename) :
     GNEAdditional(id, viewNet, Position(posOverLane, 0), tag, icon),
     myFreq(freq),
     myFilename(filename) {
@@ -77,15 +77,15 @@ GNEDetector::~GNEDetector() {
 
 
 void
-GNEDetector::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
+GNEDetector::moveAdditionalGeometry(double offsetx, double offsety) {
     // Due a detector is placed over an lane ignore Warning of posy
     UNUSED_PARAMETER(offsety);
     // declare start and end positions
-    SUMOReal startPos = myPosition.x();
-    SUMOReal endPos = 0;
+    double startPos = myPosition.x();
+    double endPos = 0;
     // set endPos if additional has the attribute lenght
     if (GNEAttributeCarrier::hasAttribute(getTag(), SUMO_ATTR_LENGTH)) {
-        endPos = startPos + GNEAttributeCarrier::parse<SUMOReal>(getAttribute(SUMO_ATTR_LENGTH));
+        endPos = startPos + GNEAttributeCarrier::parse<double>(getAttribute(SUMO_ATTR_LENGTH));
     }
     // Move to Right if distance is positive, to left if distance is negative
     if (((offsetx > 0) && ((endPos + offsetx) < myLane->getLaneShapeLenght())) || ((offsetx < 0) && ((startPos + offsetx) > 0))) {
@@ -98,7 +98,7 @@ GNEDetector::moveAdditionalGeometry(SUMOReal offsetx, SUMOReal offsety) {
 
 
 void
-GNEDetector::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal, GNEUndoList* undoList) {
+GNEDetector::commmitAdditionalGeometryMoved(double oldPosx, double, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition.x()), true, toString(oldPosx)));
     undoList->p_end();
@@ -107,13 +107,13 @@ GNEDetector::commmitAdditionalGeometryMoved(SUMOReal oldPosx, SUMOReal, GNEUndoL
 }
 
 
-SUMOReal
+double
 GNEDetector::getPositionOverLane() const {
     return myPosition.x();
 }
 
 
-SUMOReal
+double
 GNEDetector::getFrequency() const {
     return myFreq;
 }
@@ -126,7 +126,7 @@ GNEDetector::getFilename() const {
 
 
 void
-GNEDetector::setPositionOverLane(SUMOReal pos) {
+GNEDetector::setPositionOverLane(double pos) {
     if (pos < 0) {
         throw InvalidArgument("Position '" + toString(pos) + "' of " + toString(getTag()) + " not allowed. Must be greater than 0");
     } else if (pos > myLane->getLaneShapeLenght()) {
@@ -138,7 +138,7 @@ GNEDetector::setPositionOverLane(SUMOReal pos) {
 
 
 void
-GNEDetector::setFrequency(const SUMOReal freq) {
+GNEDetector::setFrequency(const double freq) {
     if (freq > 0) {
         myFreq = freq;
     } else {
@@ -160,7 +160,7 @@ GNEDetector::getParentName() const {
 
 
 void
-GNEDetector::drawDetectorIcon(const int GNELogoID, SUMOReal sizex, SUMOReal sizey) const {
+GNEDetector::drawDetectorIcon(const int GNELogoID, double sizex, double sizey) const {
     // Add a draw matrix
     glPushMatrix();
     // Traslate to center

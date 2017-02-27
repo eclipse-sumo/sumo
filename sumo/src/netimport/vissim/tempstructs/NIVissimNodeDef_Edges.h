@@ -47,7 +47,7 @@ public:
                            const NIVissimNodeParticipatingEdgeVector& edges);
 //    virtual void computeBounding();
 //    virtual void searchAndSetConnections();
-    virtual SUMOReal getEdgePosition(int edgeid) const;
+    virtual double getEdgePosition(int edgeid) const;
 
     /**
      *

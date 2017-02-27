@@ -46,7 +46,7 @@
 /* -------------------------------------------------------------------------
 * static member definitions
 * ----------------------------------------------------------------------- */
-const SUMOReal MSTransportable::ROADSIDE_OFFSET(3);
+const double MSTransportable::ROADSIDE_OFFSET(3);
 
 // ===========================================================================
 // method definitions
@@ -54,7 +54,7 @@ const SUMOReal MSTransportable::ROADSIDE_OFFSET(3);
 /* -------------------------------------------------------------------------
  * MSTransportable::Stage - methods
  * ----------------------------------------------------------------------- */
-MSTransportable::Stage::Stage(const MSEdge& destination, MSStoppingPlace* toStop, const SUMOReal arrivalPos, StageType type)
+MSTransportable::Stage::Stage(const MSEdge& destination, MSStoppingPlace* toStop, const double arrivalPos, StageType type)
     : myDestination(destination), myDestinationStop(toStop), myArrivalPos(arrivalPos), myDeparted(-1), myArrived(-1), myType(type) {}
 
 MSTransportable::Stage::~Stage() {}
@@ -83,17 +83,17 @@ MSTransportable::Stage::isWaitingFor(const std::string& /*line*/) const {
 }
 
 Position
-MSTransportable::Stage::getEdgePosition(const MSEdge* e, SUMOReal at, SUMOReal offset) const {
+MSTransportable::Stage::getEdgePosition(const MSEdge* e, double at, double offset) const {
     return getLanePosition(e->getLanes()[0], at, offset);
 }
 
 Position
-MSTransportable::Stage::getLanePosition(const MSLane* lane, SUMOReal at, SUMOReal offset) const {
+MSTransportable::Stage::getLanePosition(const MSLane* lane, double at, double offset) const {
     return lane->getShape().positionAtOffset(lane->interpolateLanePosToGeometryPos(at), offset);
 }
 
-SUMOReal
-MSTransportable::Stage::getEdgeAngle(const MSEdge* e, SUMOReal at) const {
+double
+MSTransportable::Stage::getEdgeAngle(const MSEdge* e, double at) const {
     return e->getLanes()[0]->getShape().rotationAtOffset(at);
 }
 
@@ -102,7 +102,7 @@ MSTransportable::Stage::getEdgeAngle(const MSEdge* e, SUMOReal at) const {
 * MSTransportable::Stage_Waiting - methods
 * ----------------------------------------------------------------------- */
 MSTransportable::Stage_Waiting::Stage_Waiting(const MSEdge& destination,
-        SUMOTime duration, SUMOTime until, SUMOReal pos, const std::string& actType,
+        SUMOTime duration, SUMOTime until, double pos, const std::string& actType,
         const bool initial) :
     MSTransportable::Stage(destination, 0, SUMOVehicleParameter::interpretEdgePos(
                                pos, destination.getLength(), SUMO_ATTR_DEPARTPOS, "stopping at " + destination.getID()),
@@ -128,7 +128,7 @@ MSTransportable::Stage_Waiting::getFromEdge() const {
 }
 
 
-SUMOReal
+double
 MSTransportable::Stage_Waiting::getEdgePos(SUMOTime /* now */) const {
     return myArrivalPos;
 }
@@ -146,7 +146,7 @@ MSTransportable::Stage_Waiting::getPosition(SUMOTime /* now */) const {
 }
 
 
-SUMOReal
+double
 MSTransportable::Stage_Waiting::getAngle(SUMOTime /* now */) const {
     return getEdgeAngle(&myDestination, myArrivalPos) + M_PI / 2;
 }
@@ -209,7 +209,7 @@ MSTransportable::Stage_Waiting::getWaitingTime(SUMOTime now) const {
 }
 
 
-SUMOReal
+double
 MSTransportable::Stage_Waiting::getSpeed() const {
     return 0;
 }
@@ -228,7 +228,7 @@ MSTransportable::Stage_Waiting::getEdges() const {
 * MSTransportable::Stage_Driving - methods
 * ----------------------------------------------------------------------- */
 MSTransportable::Stage_Driving::Stage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toStop, const SUMOReal arrivalPos, const std::vector<std::string>& lines)
+        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines)
     : MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING), myLines(lines.begin(), lines.end()),
       myVehicle(0), myStopWaitPos(Position::INVALID) {}
 
@@ -251,7 +251,7 @@ MSTransportable::Stage_Driving::getFromEdge() const {
 }
 
 
-SUMOReal
+double
 MSTransportable::Stage_Driving::getEdgePos(SUMOTime /* now */) const {
     if (isWaiting4Vehicle()) {
         return myWaitingPos;
@@ -273,7 +273,7 @@ MSTransportable::Stage_Driving::getPosition(SUMOTime /* now */) const {
 }
 
 
-SUMOReal
+double
 MSTransportable::Stage_Driving::getAngle(SUMOTime /* now */) const {
     if (!isWaiting4Vehicle()) {
         MSVehicle* veh = dynamic_cast<MSVehicle*>(myVehicle);
@@ -305,7 +305,7 @@ MSTransportable::Stage_Driving::getWaitingTime(SUMOTime now) const {
 }
 
 
-SUMOReal
+double
 MSTransportable::Stage_Driving::getSpeed() const {
     return isWaiting4Vehicle() ? 0 : myVehicle->getSpeed();
 }
@@ -376,7 +376,7 @@ MSTransportable::setDeparted(SUMOTime now) {
     (*myStep)->setDeparted(now);
 }
 
-SUMOReal
+double
 MSTransportable::getEdgePos() const {
     return (*myStep)->getEdgePos(MSNet::getInstance()->getCurrentTimeStep());
 }
@@ -386,17 +386,17 @@ MSTransportable::getPosition() const {
     return (*myStep)->getPosition(MSNet::getInstance()->getCurrentTimeStep());
 }
 
-SUMOReal
+double
 MSTransportable::getAngle() const {
     return (*myStep)->getAngle(MSNet::getInstance()->getCurrentTimeStep());
 }
 
-SUMOReal
+double
 MSTransportable::getWaitingSeconds() const {
     return STEPS2TIME((*myStep)->getWaitingTime(MSNet::getInstance()->getCurrentTimeStep()));
 }
 
-SUMOReal
+double
 MSTransportable::getSpeed() const {
     return (*myStep)->getSpeed();
 }
@@ -443,7 +443,7 @@ MSTransportable::removeStage(int next) {
 
 
 void
-MSTransportable::setSpeed(SUMOReal speed) {
+MSTransportable::setSpeed(double speed) {
     for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
         (*i)->setSpeed(speed);
     }

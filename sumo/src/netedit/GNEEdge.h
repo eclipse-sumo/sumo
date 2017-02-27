@@ -236,7 +236,7 @@ public:
     bool hasRestrictedLane(SUMOVehicleClass vclass) const;
 
     // the radius in which to register clicks for geometry nodes
-    static const SUMOReal SNAP_RADIUS;
+    static const double SNAP_RADIUS;
 
     /// @brief clear current connections
     void clearGNEConnections();

@@ -95,10 +95,10 @@ protected:
 
 
     /// @brief get position for a given laneID
-    virtual Position getLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos) = 0;
+    virtual Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos) = 0;
 
 protected:
-    void setDefaults(const std::string& prefix, const RGBColor& color, const SUMOReal layer, const bool fill = false);
+    void setDefaults(const std::string& prefix, const RGBColor& color, const double layer, const bool fill = false);
 
     /// adds a POI
     void addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing);
@@ -115,7 +115,7 @@ private:
     /// @brief The default color to use
     RGBColor myDefaultColor;
     /// @brief The default layer to use
-    SUMOReal myDefaultLayer;
+    double myDefaultLayer;
     /// @brief Information whether polygons should be filled
     bool myDefaultFill;
 

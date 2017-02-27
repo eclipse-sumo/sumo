@@ -96,20 +96,20 @@ GNEVariableSpeedSignDialog::~GNEVariableSpeedSignDialog() {
 long
 GNEVariableSpeedSignDialog::onCmdAddRow(FXObject*, FXSelector, void*) {
     // Declare variables for time and speed
-    SUMOReal time, speed;
+    double time, speed;
 
     // Get Time
-    if (GNEAttributeCarrier::canParse<SUMOReal>(myRowStep->getText().text()) == false) {
+    if (GNEAttributeCarrier::canParse<double>(myRowStep->getText().text()) == false) {
         return 0;
     } else {
-        time = GNEAttributeCarrier::parse<SUMOReal>(myRowStep->getText().text());
+        time = GNEAttributeCarrier::parse<double>(myRowStep->getText().text());
     }
 
     // get SPeed
-    if (GNEAttributeCarrier::canParse<SUMOReal>(myRowSpeed->getText().text()) == false) {
+    if (GNEAttributeCarrier::canParse<double>(myRowSpeed->getText().text()) == false) {
         return 0;
     } else {
-        speed = GNEAttributeCarrier::parse<SUMOReal>(myRowSpeed->getText().text());
+        speed = GNEAttributeCarrier::parse<double>(myRowSpeed->getText().text());
     }
 
     // Set new time and their speed if don't exist already
@@ -188,7 +188,7 @@ GNEVariableSpeedSignDialog::updateTable() {
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over values
-    for (std::map<SUMOReal, SUMOReal>::iterator i = myVSSValues.begin(); i != myVSSValues.end(); i++) {
+    for (std::map<double, double>::iterator i = myVSSValues.begin(); i != myVSSValues.end(); i++) {
         // Set time
         item = new FXTableItem(toString(i->first).c_str());
         myDataList->setItem(indexRow, 0, item);

@@ -75,7 +75,7 @@ public:
      * @param pos cartesian position that is to be converted
      * @return the closest road map position to the cartesian position
      */
-    static std::pair<MSLane*, SUMOReal> convertCartesianToRoadMap(Position pos);
+    static std::pair<MSLane*, double> convertCartesianToRoadMap(Position pos);
 
     /**
      * Converts a road map position to a cartesian position
@@ -83,7 +83,7 @@ public:
      * @param pos road map position that is to be convertes
      * @return closest 2D position
      */
-    static const MSLane* getLaneChecking(std::string roadID, int laneIndex, SUMOReal pos);
+    static const MSLane* getLaneChecking(std::string roadID, int laneIndex, double pos);
 
     static bool commandPositionConversion(TraCIServer& server, tcpip::Storage& inputStorage,
                                           tcpip::Storage& outputStorage, int commandId);

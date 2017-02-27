@@ -158,16 +158,16 @@ protected:
         return TplConvert::_2int(getParameter("THRESHOLD", "10").c_str());
     }
 
-    SUMOReal getSpeedThreshold() {
-        return TplConvert::_2SUMOReal(getParameter("THRESHOLDSPEED", "2").c_str());
+    double getSpeedThreshold() {
+        return TplConvert::_2double(getParameter("THRESHOLDSPEED", "2").c_str());
     }
 
-    SUMOReal getInputSensorsLength() {
-        return TplConvert::_2SUMOReal(getParameter("INSENSORSLENGTH", "100").c_str());
+    double getInputSensorsLength() {
+        return TplConvert::_2double(getParameter("INSENSORSLENGTH", "100").c_str());
     }
 
-    SUMOReal getOutputSensorsLength() {
-        return TplConvert::_2SUMOReal(getParameter("OUTSENSORSLENGTH", "80").c_str());
+    double getOutputSensorsLength() {
+        return TplConvert::_2double(getParameter("OUTSENSORSLENGTH", "80").c_str());
     }
 
     /*
@@ -240,7 +240,7 @@ private:
      */
     int lastChain;
 
-    SUMOReal decayThreshold;
+    double decayThreshold;
     /*
      * @brief Check for phases compliancy
      */
@@ -289,8 +289,8 @@ private:
         return TplConvert::_2bool(getParameter("DECAY_THRESHOLD", "0").c_str());
     }
 
-    SUMOReal getDecayConstant() {
-        return TplConvert::_2SUMOReal(getParameter("DECAY_CONSTANT", "-0.001").c_str());
+    double getDecayConstant() {
+        return TplConvert::_2double(getParameter("DECAY_CONSTANT", "-0.001").c_str());
     }
 
 };

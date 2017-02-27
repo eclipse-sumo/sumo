@@ -757,11 +757,11 @@ protected:
          */
         struct StretchBereichDef {
             /// @brief The begin of a stretch/cut area (time, in s)
-            SUMOReal begin;
+            double begin;
             /// @brief The end of a stretch/cut area (time, in s)
-            SUMOReal end;
+            double end;
             /// @brief The weight factor of a stretch/cut area
-            SUMOReal fac;
+            double fac;
 
         };
 

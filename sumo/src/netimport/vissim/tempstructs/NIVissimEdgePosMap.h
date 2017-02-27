@@ -43,11 +43,11 @@ class NIVissimEdgePosMap {
 public:
     NIVissimEdgePosMap();
     ~NIVissimEdgePosMap();
-    void add(int edgeid, SUMOReal pos);
-    void add(int edgeid, SUMOReal from, SUMOReal to);
+    void add(int edgeid, double pos);
+    void add(int edgeid, double from, double to);
     void join(NIVissimEdgePosMap& with);
 private:
-    typedef std::pair<SUMOReal, SUMOReal> Range;
+    typedef std::pair<double, double> Range;
     typedef std::map<int, Range> ContType;
     ContType myCont;
 };

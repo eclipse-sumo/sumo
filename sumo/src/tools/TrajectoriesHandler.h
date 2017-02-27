@@ -55,29 +55,29 @@ public:
      */
     TrajectoriesHandler(const bool computeA, const bool computeAForward, const bool accelZeroCorrection,
                         const SUMOEmissionClass defaultClass,
-                        const SUMOReal defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut);
+                        const double defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut);
 
 
     /// @brief Destructor
     ~TrajectoriesHandler();
 
     const PollutantsInterface::Emissions computeEmissions(const std::string id,
-            const SUMOEmissionClass c, SUMOReal& v,
-            SUMOReal& a, SUMOReal& s);
+            const SUMOEmissionClass c, double& v,
+            double& a, double& s);
 
     bool writeEmissions(std::ostream& o, const std::string id,
                         const SUMOEmissionClass c,
-                        SUMOReal t, SUMOReal& v,
-                        SUMOReal& a, SUMOReal& s);
+                        double t, double& v,
+                        double& a, double& s);
 
     bool writeXMLEmissions(const std::string id,
                            const SUMOEmissionClass c,
-                           SUMOTime t, SUMOReal& v,
-                           SUMOReal a = INVALID_VALUE, SUMOReal s = INVALID_VALUE);
+                           SUMOTime t, double& v,
+                           double a = INVALID_VALUE, double s = INVALID_VALUE);
 
     void writeSums(std::ostream& o, const std::string id);
 
-    void writeNormedSums(std::ostream& o, const std::string id, const SUMOReal factor);
+    void writeNormedSums(std::ostream& o, const std::string id, const double factor);
 
 
 protected:
@@ -103,12 +103,12 @@ private:
     const bool myComputeAForward;
     const bool myAccelZeroCorrection;
     const SUMOEmissionClass myDefaultClass;
-    const SUMOReal myDefaultSlope;
+    const double myDefaultSlope;
     std::ostream* myStdOut;
     OutputDevice* myXMLOut;
-    std::map<std::string, SUMOReal> myLastV;
+    std::map<std::string, double> myLastV;
     SUMOTime myCurrentTime;
-    SUMOReal myStepSize;
+    double myStepSize;
     std::map<std::string, PollutantsInterface::Emissions> mySums;
     std::map<std::string, SUMOEmissionClass> myEmissionClassByType;
     std::map<std::string, SUMOEmissionClass> myEmissionClassByVehicle;

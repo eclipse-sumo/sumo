@@ -245,14 +245,14 @@ public:
     }
 
     /// @brief Returns the departing Intermodal edge
-    _IntermodalEdge* getDepartEdge(const E* e, const SUMOReal pos = -1.) {
+    _IntermodalEdge* getDepartEdge(const E* e, const double pos = -1.) {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myDepartLookup.find(e);
         if (it == myDepartLookup.end()) {
             throw ProcessError("Depart edge '" + e->getID() + "' not found in pedestrian network.");
         }
         const std::vector<_IntermodalEdge*>& splitList = it->second;
         typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
-        SUMOReal totalLength = 0.;
+        double totalLength = 0.;
         while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() + POSITION_EPS < pos) {
             totalLength += (*splitIt)->getLength();
             ++splitIt;
@@ -261,14 +261,14 @@ public:
     }
 
     /// @brief Returns the arriving Intermodal edge
-    _IntermodalEdge* getArrivalEdge(const E* e, const SUMOReal pos = -1.) {
+    _IntermodalEdge* getArrivalEdge(const E* e, const double pos = -1.) {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myArrivalLookup.find(e);
         if (it == myArrivalLookup.end()) {
             throw ProcessError("Arrival edge '" + e->getID() + "' not found in pedestrian network.");
         }
         const std::vector<_IntermodalEdge*>& splitList = it->second;
         typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
-        SUMOReal totalLength = 0.;
+        double totalLength = 0.;
         while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() + POSITION_EPS < pos) {
             totalLength += (*splitIt)->getLength();
             ++splitIt;

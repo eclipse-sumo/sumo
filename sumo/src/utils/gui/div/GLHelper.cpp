@@ -44,12 +44,12 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-#define CIRCLE_RESOLUTION (SUMOReal)10 // inverse in degrees
+#define CIRCLE_RESOLUTION (double)10 // inverse in degrees
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-std::vector<std::pair<SUMOReal, SUMOReal> > GLHelper::myCircleCoords;
+std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
 
 
 void APIENTRY combCallback(GLdouble coords[3],
@@ -127,8 +127,8 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
 
 
 void
-GLHelper::drawBoxLine(const Position& beg, SUMOReal rot, SUMOReal visLength,
-                      SUMOReal width, SUMOReal offset) {
+GLHelper::drawBoxLine(const Position& beg, double rot, double visLength,
+                      double width, double offset) {
     glPushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
     glRotated(rot, 0, 0, 1);
@@ -144,8 +144,8 @@ GLHelper::drawBoxLine(const Position& beg, SUMOReal rot, SUMOReal visLength,
 
 void
 GLHelper::drawBoxLine(const Position& beg1, const Position& beg2,
-                      SUMOReal rot, SUMOReal visLength,
-                      SUMOReal width) {
+                      double rot, double visLength,
+                      double width) {
     glPushMatrix();
     glTranslated((beg2.x() + beg1.x())*.5, (beg2.y() + beg1.y())*.5, 0);
     glRotated(rot, 0, 0, 1);
@@ -160,8 +160,8 @@ GLHelper::drawBoxLine(const Position& beg1, const Position& beg2,
 
 
 bool
-GLHelper::rightTurn(SUMOReal angle1, SUMOReal angle2) {
-    SUMOReal delta = angle2 - angle1;
+GLHelper::rightTurn(double angle1, double angle2) {
+    double delta = angle2 - angle1;
     while (delta > 180) {
         delta -= 360;
     }
@@ -174,9 +174,9 @@ GLHelper::rightTurn(SUMOReal angle1, SUMOReal angle2) {
 
 void
 GLHelper::drawBoxLines(const PositionVector& geom,
-                       const std::vector<SUMOReal>& rots,
-                       const std::vector<SUMOReal>& lengths,
-                       SUMOReal width, int cornerDetail, SUMOReal offset) {
+                       const std::vector<double>& rots,
+                       const std::vector<double>& lengths,
+                       double width, int cornerDetail, double offset) {
     // draw the lane
     int e = (int) geom.size() - 1;
     for (int i = 0; i < e; i++) {
@@ -192,8 +192,8 @@ GLHelper::drawBoxLines(const PositionVector& geom,
                 drawFilledCircle(MIN2(lengths[i], width - offset), cornerDetail);
             } else {
                 // outside corner, make sure to only draw a segment of the circle
-                SUMOReal angleBeg = -rots[i - 1];
-                SUMOReal angleEnd = 180 - rots[i];
+                double angleBeg = -rots[i - 1];
+                double angleEnd = 180 - rots[i];
                 // avoid drawing more than 360 degrees
                 if (angleEnd - angleBeg > 360) {
                     angleBeg += 360;
@@ -216,10 +216,10 @@ GLHelper::drawBoxLines(const PositionVector& geom,
 
 void
 GLHelper::drawBoxLines(const PositionVector& geom,
-                       const std::vector<SUMOReal>& rots,
-                       const std::vector<SUMOReal>& lengths,
+                       const std::vector<double>& rots,
+                       const std::vector<double>& lengths,
                        const std::vector<RGBColor>& cols,
-                       SUMOReal width, int cornerDetail, SUMOReal offset) {
+                       double width, int cornerDetail, double offset) {
     int e = (int) geom.size() - 1;
     for (int i = 0; i < e; i++) {
         setColor(cols[i]);
@@ -241,9 +241,9 @@ GLHelper::drawBoxLines(const PositionVector& geom,
 void
 GLHelper::drawBoxLines(const PositionVector& geom1,
                        const PositionVector& geom2,
-                       const std::vector<SUMOReal>& rots,
-                       const std::vector<SUMOReal>& lengths,
-                       SUMOReal width) {
+                       const std::vector<double>& rots,
+                       const std::vector<double>& lengths,
+                       double width) {
     int minS = (int) MIN4(rots.size(), lengths.size(), geom1.size(), geom2.size());
     for (int i = 0; i < minS; i++) {
         GLHelper::drawBoxLine(geom1[i], geom2[i], rots[i], lengths[i], width);
@@ -252,7 +252,7 @@ GLHelper::drawBoxLines(const PositionVector& geom1,
 
 
 void
-GLHelper::drawBoxLines(const PositionVector& geom, SUMOReal width) {
+GLHelper::drawBoxLines(const PositionVector& geom, double width) {
     int e = (int) geom.size() - 1;
     for (int i = 0; i < e; i++) {
         const Position& f = geom[i];
@@ -266,7 +266,7 @@ GLHelper::drawBoxLines(const PositionVector& geom, SUMOReal width) {
 
 
 void
-GLHelper::drawLine(const Position& beg, SUMOReal rot, SUMOReal visLength) {
+GLHelper::drawLine(const Position& beg, double rot, double visLength) {
     glPushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
     glRotated(rot, 0, 0, 1);
@@ -280,7 +280,7 @@ GLHelper::drawLine(const Position& beg, SUMOReal rot, SUMOReal visLength) {
 
 void
 GLHelper::drawLine(const Position& beg1, const Position& beg2,
-                   SUMOReal rot, SUMOReal visLength) {
+                   double rot, double visLength) {
     glPushMatrix();
     glTranslated((beg2.x() + beg1.x())*.5, (beg2.y() + beg1.y())*.5, 0);
     glRotated(rot, 0, 0, 1);
@@ -329,7 +329,7 @@ GLHelper::drawLine(const Position& beg, const Position& end) {
 
 
 int
-GLHelper::angleLookup(SUMOReal angleDeg) {
+GLHelper::angleLookup(double angleDeg) {
     const int numCoords = (int)myCircleCoords.size() - 1;
     int index = ((int)(floor(angleDeg * CIRCLE_RESOLUTION + 0.5))) % numCoords;
     if (index < 0) {
@@ -341,26 +341,26 @@ GLHelper::angleLookup(SUMOReal angleDeg) {
 
 
 void
-GLHelper::drawFilledCircle(SUMOReal width, int steps) {
+GLHelper::drawFilledCircle(double width, int steps) {
     drawFilledCircle(width, steps, 0, 360);
 }
 
 
 void
-GLHelper::drawFilledCircle(SUMOReal width, int steps, SUMOReal beg, SUMOReal end) {
+GLHelper::drawFilledCircle(double width, int steps, double beg, double end) {
     if (myCircleCoords.size() == 0) {
         for (int i = 0; i <= (int)(360 * CIRCLE_RESOLUTION); ++i) {
-            const SUMOReal x = (SUMOReal) sin(DEG2RAD(i / CIRCLE_RESOLUTION));
-            const SUMOReal y = (SUMOReal) cos(DEG2RAD(i / CIRCLE_RESOLUTION));
-            myCircleCoords.push_back(std::pair<SUMOReal, SUMOReal>(x, y));
+            const double x = (double) sin(DEG2RAD(i / CIRCLE_RESOLUTION));
+            const double y = (double) cos(DEG2RAD(i / CIRCLE_RESOLUTION));
+            myCircleCoords.push_back(std::pair<double, double>(x, y));
         }
     }
-    const SUMOReal inc = (end - beg) / (SUMOReal)steps;
+    const double inc = (end - beg) / (double)steps;
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    std::pair<SUMOReal, SUMOReal> p1 = myCircleCoords[angleLookup(beg)];
+    std::pair<double, double> p1 = myCircleCoords[angleLookup(beg)];
 
     for (int i = 0; i <= steps; ++i) {
-        const std::pair<SUMOReal, SUMOReal>& p2 = myCircleCoords[angleLookup(beg + i * inc)];
+        const std::pair<double, double>& p2 = myCircleCoords[angleLookup(beg + i * inc)];
         glBegin(GL_TRIANGLES);
         glVertex2d(p1.first * width, p1.second * width);
         glVertex2d(p2.first * width, p2.second * width);
@@ -372,27 +372,27 @@ GLHelper::drawFilledCircle(SUMOReal width, int steps, SUMOReal beg, SUMOReal end
 
 
 void
-GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps) {
+GLHelper::drawOutlineCircle(double width, double iwidth, int steps) {
     drawOutlineCircle(width, iwidth, steps, 0, 360);
 }
 
 
 void
-GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps,
-                            SUMOReal beg, SUMOReal end) {
+GLHelper::drawOutlineCircle(double width, double iwidth, int steps,
+                            double beg, double end) {
     if (myCircleCoords.size() == 0) {
         for (int i = 0; i < 360; i += 10) {
-            SUMOReal x = (SUMOReal) sin(DEG2RAD(i));
-            SUMOReal y = (SUMOReal) cos(DEG2RAD(i));
-            myCircleCoords.push_back(std::pair<SUMOReal, SUMOReal>(x, y));
+            double x = (double) sin(DEG2RAD(i));
+            double y = (double) cos(DEG2RAD(i));
+            myCircleCoords.push_back(std::pair<double, double>(x, y));
         }
     }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    std::pair<SUMOReal, SUMOReal> p1 =
+    std::pair<double, double> p1 =
         beg == 0 ? myCircleCoords[0] : myCircleCoords[((int) beg / 10) % 36];
-    for (int i = (int)(beg / 10); i < steps && (36.0 / (SUMOReal) steps * (SUMOReal) i) * 10 < end; i++) {
-        const std::pair<SUMOReal, SUMOReal>& p2 =
-            myCircleCoords[(int)(36.0 / (SUMOReal) steps * (SUMOReal) i)];
+    for (int i = (int)(beg / 10); i < steps && (36.0 / (double) steps * (double) i) * 10 < end; i++) {
+        const std::pair<double, double>& p2 =
+            myCircleCoords[(int)(36.0 / (double) steps * (double) i)];
         glBegin(GL_TRIANGLES);
         glVertex2d(p1.first * width, p1.second * width);
         glVertex2d(p2.first * width, p2.second * width);
@@ -404,7 +404,7 @@ GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps,
         glEnd();
         p1 = p2;
     }
-    const std::pair<SUMOReal, SUMOReal>& p2 =
+    const std::pair<double, double>& p2 =
         end == 360 ? myCircleCoords[0] : myCircleCoords[((int) end / 10) % 36];
     glBegin(GL_TRIANGLES);
     glVertex2d(p1.first * width, p1.second * width);
@@ -420,8 +420,8 @@ GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps,
 
 void
 GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2,
-                            SUMOReal tLength, SUMOReal tWidth) {
-    const SUMOReal length = p1.distanceTo(p2);
+                            double tLength, double tWidth) {
+    const double length = p1.distanceTo(p2);
     if (length < tLength) {
         tWidth *= length / tLength;
         tLength = length;
@@ -458,15 +458,15 @@ GLHelper::getColor() {
 
 void
 GLHelper::drawText(const std::string& text, const Position& pos,
-                   const SUMOReal layer, const SUMOReal size,
-                   const RGBColor& col, const SUMOReal angle) {
+                   const double layer, const double size,
+                   const RGBColor& col, const double angle) {
     glPushMatrix();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     setColor(col);
     glTranslated(pos.x(), pos.y(), layer);
     pfSetPosition(0, 0);
     pfSetScale(size);
-    SUMOReal w = pfdkGetStringWidth(text.c_str());
+    double w = pfdkGetStringWidth(text.c_str());
     glRotated(180, 1, 0, 0);
     glRotated(angle, 0, 0, 1);
     glTranslated(-w / 2., size / 4, 0);
@@ -476,18 +476,18 @@ GLHelper::drawText(const std::string& text, const Position& pos,
 
 void
 GLHelper::drawTextBox(const std::string& text, const Position& pos,
-                      const SUMOReal layer, const SUMOReal size,
+                      const double layer, const double size,
                       const RGBColor& txtColor, const RGBColor& bgColor, const RGBColor& borderColor,
-                      const SUMOReal angle) {
-    SUMOReal boxAngle = angle + 90;
+                      const double angle) {
+    double boxAngle = angle + 90;
     if (boxAngle > 360) {
         boxAngle -= 360;
     }
     pfSetScale(size);
-    const SUMOReal stringWidth = pfdkGetStringWidth(text.c_str());
-    const SUMOReal borderWidth = size / 20;
-    const SUMOReal boxHeight = size * 0.8;
-    const SUMOReal boxWidth = stringWidth + size / 2;
+    const double stringWidth = pfdkGetStringWidth(text.c_str());
+    const double borderWidth = size / 20;
+    const double boxHeight = size * 0.8;
+    const double boxWidth = stringWidth + size / 2;
     glPushMatrix();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glTranslated(0, 0, layer);
@@ -515,7 +515,7 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
 
 
 void
-GLHelper::debugVertices(const PositionVector& shape, SUMOReal size, SUMOReal layer) {
+GLHelper::debugVertices(const PositionVector& shape, double size, double layer) {
     RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
     for (int i = 0; i < (int)shape.size(); ++i) {
         GLHelper::drawText(toString(i), shape[i], layer, size, color, 0);

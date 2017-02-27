@@ -96,7 +96,7 @@ void
 ROEdge::addLane(ROLane* lane) {
     assert(myLanes.empty() || lane->getLength() == myLength);
     myLength = lane->getLength();
-    const SUMOReal speed = lane->getSpeed();
+    const double speed = lane->getSpeed();
     mySpeed = speed > mySpeed ? speed : mySpeed;
     myLanes.push_back(lane);
 
@@ -115,22 +115,22 @@ ROEdge::addSuccessor(ROEdge* s, std::string) {
 
 
 void
-ROEdge::addEffort(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) {
+ROEdge::addEffort(double value, double timeBegin, double timeEnd) {
     myEfforts.add(timeBegin, timeEnd, value);
     myUsingETimeLine = true;
 }
 
 
 void
-ROEdge::addTravelTime(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) {
+ROEdge::addTravelTime(double value, double timeBegin, double timeEnd) {
     myTravelTimes.add(timeBegin, timeEnd, value);
     myUsingTTTimeLine = true;
 }
 
 
-SUMOReal
-ROEdge::getEffort(const ROVehicle* const veh, SUMOReal time) const {
-    SUMOReal ret = 0;
+double
+ROEdge::getEffort(const ROVehicle* const veh, double time) const {
+    double ret = 0;
     if (!getStoredEffort(time, ret)) {
         return myLength / MIN2(veh->getType()->maxSpeed, mySpeed);
     }
@@ -138,7 +138,7 @@ ROEdge::getEffort(const ROVehicle* const veh, SUMOReal time) const {
 }
 
 
-SUMOReal
+double
 ROEdge::getDistanceTo(const ROEdge* other) const {
     if (getToJunction() != 0 && other->getFromJunction() != 0) {
         return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
@@ -150,21 +150,21 @@ ROEdge::getDistanceTo(const ROEdge* other) const {
 
 
 bool
-ROEdge::hasLoadedTravelTime(SUMOReal time) const {
+ROEdge::hasLoadedTravelTime(double time) const {
     return myUsingTTTimeLine && myTravelTimes.describesTime(time);
 }
 
 
-SUMOReal
-ROEdge::getTravelTime(const ROVehicle* const veh, SUMOReal time) const {
+double
+ROEdge::getTravelTime(const ROVehicle* const veh, double time) const {
     if (myUsingTTTimeLine) {
         if (myTravelTimes.describesTime(time)) {
-            SUMOReal lineTT = myTravelTimes.getValue(time);
+            double lineTT = myTravelTimes.getValue(time);
             if (myInterpolate) {
-                const SUMOReal inTT = lineTT;
-                const SUMOReal split = (SUMOReal)(myTravelTimes.getSplitTime(time, time + inTT) - time);
+                const double inTT = lineTT;
+                const double split = (double)(myTravelTimes.getSplitTime(time, time + inTT) - time);
                 if (split >= 0) {
-                    lineTT = myTravelTimes.getValue(time + inTT) * ((SUMOReal)1. - split / inTT) + split;
+                    lineTT = myTravelTimes.getValue(time + inTT) * ((double)1. - split / inTT) + split;
                 }
             }
             return MAX2(getMinimumTravelTime(veh), lineTT);
@@ -179,11 +179,11 @@ ROEdge::getTravelTime(const ROVehicle* const veh, SUMOReal time) const {
 }
 
 
-SUMOReal
-ROEdge::getNoiseEffort(const ROEdge* const edge, const ROVehicle* const veh, SUMOReal time) {
-    SUMOReal ret = 0;
+double
+ROEdge::getNoiseEffort(const ROEdge* const edge, const ROVehicle* const veh, double time) {
+    double ret = 0;
     if (!edge->getStoredEffort(time, ret)) {
-        const SUMOReal v = MIN2(veh->getType()->maxSpeed, edge->mySpeed);
+        const double v = MIN2(veh->getType()->maxSpeed, edge->mySpeed);
         ret = HelpersHarmonoise::computeNoise(veh->getType()->emissionClass, v, 0);
     }
     return ret;
@@ -191,7 +191,7 @@ ROEdge::getNoiseEffort(const ROEdge* const edge, const ROVehicle* const veh, SUM
 
 
 bool
-ROEdge::getStoredEffort(SUMOReal time, SUMOReal& ret) const {
+ROEdge::getStoredEffort(double time, double& ret) const {
     if (myUsingETimeLine) {
         if (!myEfforts.describesTime(time)) {
             if (!myHaveEWarned) {
@@ -201,8 +201,8 @@ ROEdge::getStoredEffort(SUMOReal time, SUMOReal& ret) const {
             return false;
         }
         if (myInterpolate) {
-            SUMOReal inTT = myTravelTimes.getValue(time);
-            SUMOReal ratio = (SUMOReal)(myEfforts.getSplitTime(time, time + (SUMOTime)inTT) - time) / inTT;
+            double inTT = myTravelTimes.getValue(time);
+            double ratio = (double)(myEfforts.getSplitTime(time, time + (SUMOTime)inTT) - time) / inTT;
             if (ratio >= 0) {
                 ret = ratio * myEfforts.getValue(time) + (1 - ratio) * myEfforts.getValue(time + (SUMOTime)inTT);
                 return true;
@@ -236,7 +236,7 @@ ROEdge::getNumPredecessors() const {
 void
 ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride) {
     if (myUsingETimeLine) {
-        SUMOReal value = myLength / mySpeed;
+        double value = myLength / mySpeed;
         const SUMOEmissionClass c = PollutantsInterface::getClassByName("unknown");
         if (measure == "CO") {
             value = PollutantsInterface::compute(c, PollutantsInterface::CO, mySpeed, 0, 0) * value; // @todo: give correct slope

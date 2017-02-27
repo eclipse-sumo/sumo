@@ -153,7 +153,7 @@ MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
 
 
 void
-MSVehicleControl::setState(int runningVehNo, int loadedVehNo, int endedVehNo, SUMOReal totalDepartureDelay, SUMOReal totalTravelTime) {
+MSVehicleControl::setState(int runningVehNo, int loadedVehNo, int endedVehNo, double totalDepartureDelay, double totalTravelTime) {
     myRunningVehNo = runningVehNo;
     myLoadedVehNo = loadedVehNo;
     myEndedVehNo = endedVehNo;
@@ -325,13 +325,13 @@ MSVehicleControl::removeWaiting(const MSEdge* const edge, SUMOVehicle* vehicle) 
 
 
 SUMOVehicle*
-MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std::string>& lines, const SUMOReal position, const std::string ridingID) {
+MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std::string>& lines, const double position, const std::string ridingID) {
     if (myWaiting.find(edge) != myWaiting.end()) {
         // for every vehicle waiting vehicle at this edge
         std::vector<SUMOVehicle*> waitingTooFarAway;
         for (std::vector<SUMOVehicle*>::const_iterator it = myWaiting[edge].begin(); it != myWaiting[edge].end(); ++it) {
             const std::string& line = (*it)->getParameter().line == "" ? (*it)->getParameter().id : (*it)->getParameter().line;
-            SUMOReal vehiclePosition = (*it)->getPositionOnLane();
+            double vehiclePosition = (*it)->getPositionOnLane();
             // if the line of the vehicle is contained in the set of given lines and the vehicle is stopped and is positioned
             // in the interval [position - t, position + t] for a tolerance t=10
             if (lines.count(line)) {
@@ -366,7 +366,7 @@ MSVehicleControl::abortWaiting() {
 
 
 int
-MSVehicleControl::getQuota(SUMOReal frac) const {
+MSVehicleControl::getQuota(double frac) const {
     frac = frac < 0 ? myScale : frac;
     if (frac < 0 || frac == 1.) {
         return 1;

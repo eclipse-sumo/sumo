@@ -71,12 +71,12 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const std::string& basePath) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter) {
 
-    myMaxGap = TplConvert::_2SUMOReal(getParameter("max-gap", DEFAULT_MAX_GAP).c_str());
-    myPassingTime = TplConvert::_2SUMOReal(getParameter("passing-time", DEFAULT_PASSING_TIME).c_str()); // passing-time seems obsolete... (Leo)
-    myDetectorGap = TplConvert::_2SUMOReal(getParameter("detector-gap", DEFAULT_DETECTOR_GAP).c_str());
+    myMaxGap = TplConvert::_2double(getParameter("max-gap", DEFAULT_MAX_GAP).c_str());
+    myPassingTime = TplConvert::_2double(getParameter("passing-time", DEFAULT_PASSING_TIME).c_str()); // passing-time seems obsolete... (Leo)
+    myDetectorGap = TplConvert::_2double(getParameter("detector-gap", DEFAULT_DETECTOR_GAP).c_str());
     myShowDetectors = TplConvert::_2bool(getParameter("show-detectors", "false").c_str());
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
-    myFreq = TIME2STEPS(TplConvert::_2SUMOReal(getParameter("freq", "300").c_str()));
+    myFreq = TIME2STEPS(TplConvert::_2double(getParameter("freq", "300").c_str()));
     myVehicleTypes = getParameter("vTypes", "");
 }
 
@@ -94,11 +94,11 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         const LaneVector& lanes = *i2;
         for (i = lanes.begin(); i != lanes.end(); i++) {
             MSLane* lane = (*i);
-            SUMOReal length = lane->getLength();
-            SUMOReal speed = lane->getSpeedLimit();
-            SUMOReal inductLoopPosition = myDetectorGap * speed;
+            double length = lane->getLength();
+            double speed = lane->getSpeedLimit();
+            double inductLoopPosition = myDetectorGap * speed;
             // check whether the lane is long enough
-            SUMOReal ilpos = length - inductLoopPosition;
+            double ilpos = length - inductLoopPosition;
             if (ilpos < 0) {
                 ilpos = 0;
             }
@@ -123,8 +123,8 @@ MSActuatedTrafficLightLogic::trySwitch() {
     // @note any vehicles which arrived during the previous phases which are now waiting between the detector and the stop line are not
     // considere here. RiLSA recommends to set minDuration in a way that lets all vehicles pass the detector
     // @todo: it would be nice to warn users if (inductLoopPosition / defaultLengthWithGap * myPassingTime > minDuration)
-    const SUMOReal detectionGap = gapControl();
-    if (detectionGap < std::numeric_limits<SUMOReal>::max()) {
+    const double detectionGap = gapControl();
+    if (detectionGap < std::numeric_limits<double>::max()) {
         return duration(detectionGap);
     }
     // increment the index to the current phase
@@ -142,7 +142,7 @@ MSActuatedTrafficLightLogic::trySwitch() {
 
 // ------------ "actuated" algorithm methods
 SUMOTime
-MSActuatedTrafficLightLogic::duration(const SUMOReal detectionGap) const {
+MSActuatedTrafficLightLogic::duration(const double detectionGap) const {
     assert(getCurrentPhaseDef().isGreenPhase());
     assert((int)myPhases.size() > myStep);
     const SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
@@ -161,11 +161,11 @@ MSActuatedTrafficLightLogic::duration(const SUMOReal detectionGap) const {
 }
 
 
-SUMOReal
+double
 MSActuatedTrafficLightLogic::gapControl() {
     //intergreen times should not be lenghtend
     assert((int)myPhases.size() > myStep);
-    SUMOReal result = std::numeric_limits<SUMOReal>::max();
+    double result = std::numeric_limits<double>::max();
     if (!getCurrentPhaseDef().isGreenPhase()) {
         return result; // end current phase
     }
@@ -186,7 +186,7 @@ MSActuatedTrafficLightLogic::gapControl() {
                     continue;
                 }
                 if (!MSGlobals::gUseMesoSim) { // why not check outside the loop? (Leo)
-                    const SUMOReal actualGap = static_cast<MSInductLoop*>(myInductLoops.find(*j)->second)->getTimestepsSinceLastDetection();
+                    const double actualGap = static_cast<MSInductLoop*>(myInductLoops.find(*j)->second)->getTimestepsSinceLastDetection();
                     if (actualGap < myMaxGap) {
                         result = MIN2(result, actualGap);
                     }

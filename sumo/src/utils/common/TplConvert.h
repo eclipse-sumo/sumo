@@ -47,7 +47,7 @@
 /**
  * TplConvert
  * Some methods that convert 0-terminated char-arrays of any type into other values (numerical/boolean) or into std::strings
- * Also convert strings into any type of values (SUMOReal, int, bool...)
+ * Also convert strings into any type of values (double, int, bool...)
  */
 class TplConvert {
 public:
@@ -60,8 +60,8 @@ public:
         return convert.str();
     }
 
-    /// @brief convert SUMOReal to string
-    static inline std::string _2str(const SUMOReal var) {
+    /// @brief convert double to string
+    static inline std::string _2str(const double var) {
         std::ostringstream convert;
         convert << var;
         return convert.str();
@@ -288,18 +288,18 @@ public:
     }
     //@}
 
-    /// @name Conversion to basic type SUMOReal (Double)
+    /// @name Conversion to basic type double (Double)
     //@{
-    /// @brief converts a char-type array into the SUMOReal value described by it
+    /// @brief converts a char-type array into the double value described by it
     /// @throw an EmptyData - exception if the given string is empty
-    /// @throw a NumberFormatException - exception when the string does not contain a SUMOReal
+    /// @throw a NumberFormatException - exception when the string does not contain a double
     template<class E>
-    static SUMOReal _2SUMOReal(const E* const data) {
+    static double _2double(const E* const data) {
         if (data == 0 || data[0] == 0) {
             throw EmptyData();
         }
         int i = 0;
-        SUMOReal sgn = 1;
+        double sgn = 1;
         if (data[0] == '+') {
             i++;
         }
@@ -331,32 +331,32 @@ public:
         }
         // check what has happened - end of string or exponent
         if (data[i] == 0) {
-            return ret * sgn * (SUMOReal) pow(10.0, exponent);
+            return ret * sgn * (double) pow(10.0, exponent);
         }
         // now the exponent
         try {
-            return ret * sgn * (SUMOReal) pow(10.0, _2int(data + i + 1) + exponent);
+            return ret * sgn * (double) pow(10.0, _2int(data + i + 1) + exponent);
         } catch (EmptyData&) {
             // the exponent was empty
             throw NumberFormatException();
         }
     }
 
-    /// @brief converts a string into the SUMOReal value described by it by calling the char-type converter
+    /// @brief converts a string into the double value described by it by calling the char-type converter
     /// @throw an EmptyData - exception if the given string is empty
-    /// @throw a NumberFormatException - exception when the string does not contain a SUMOReal
-    static SUMOReal _str2SUMOReal(const std::string& sData) {
-        return _2SUMOReal(sData.c_str());
+    /// @throw a NumberFormatException - exception when the string does not contain a double
+    static double _str2double(const std::string& sData) {
+        return _2double(sData.c_str());
     }
 
-    /// @brief converts a 0-terminated char-type array into the SUMOReal value described by it
+    /// @brief converts a 0-terminated char-type array into the double value described by it
     /// @return the default value if the data is empty
     template<class E>
-    static SUMOReal _2SUMORealSec(const E* const data, SUMOReal def) {
+    static double _2doubleSec(const E* const data, double def) {
         if (data == 0 || data[0] == 0) {
             return def;
         }
-        return _2SUMOReal(data);
+        return _2double(data);
     }
     //@}
 
@@ -390,7 +390,7 @@ public:
         return _2bool(sData.c_str());
     }
 
-    /// @brief converts a 0-terminated char-type array into the SUMOReal value described by it
+    /// @brief converts a 0-terminated char-type array into the double value described by it
     /// @return true if the data* is one of the following (case insensitive): '1', 'x', 'true', 'yes', 'on'
     /// @return false if the data* is one of the following (case insensitive): '0', '-', 'false', 'no', 'off'
     /// @return the default value if the data is empty */

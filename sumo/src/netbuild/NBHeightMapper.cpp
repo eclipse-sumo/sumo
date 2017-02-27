@@ -82,18 +82,18 @@ NBHeightMapper::ready() const {
 }
 
 
-SUMOReal
+double
 NBHeightMapper::getZ(const Position& geo) const {
     if (!ready()) {
         WRITE_WARNING("Cannot supply height since no height data was loaded");
         return 0;
     }
     if (myRaster != 0) {
-        SUMOReal result = -1e6;
+        double result = -1e6;
         if (myBoundary.around(geo)) {
             const int xSize = int((myBoundary.xmax() - myBoundary.xmin()) / mySizeOfPixel.x() + .5);
-            const SUMOReal normX = (geo.x() - myBoundary.xmin()) / mySizeOfPixel.x();
-            const SUMOReal normY = (geo.y() - myBoundary.ymax()) / mySizeOfPixel.y();
+            const double normX = (geo.x() - myBoundary.xmin()) / mySizeOfPixel.x();
+            const double normY = (geo.y() - myBoundary.ymax()) / mySizeOfPixel.y();
             PositionVector corners;
             corners.push_back(Position(floor(normX) + 0.5, floor(normY) + 0.5, myRaster[(int)normY * xSize + (int)normX]));
             if (normX - floor(normX) > 0.5) {
@@ -218,7 +218,7 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
         assert(cgeom->getNumPoints() == 4);
         PositionVector corners;
         for (int j = 0; j < 3; j++) {
-            Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j), (SUMOReal) cgeom->getZ(j));
+            Position pos((double) cgeom->getX(j), (double) cgeom->getY(j), (double) cgeom->getZ(j));
             corners.push_back(pos);
             myBoundary.add(pos);
         }
@@ -364,7 +364,7 @@ NBHeightMapper::Triangle::contains(const Position& pos) const {
 }
 
 
-SUMOReal
+double
 NBHeightMapper::Triangle::getZ(const Position& geo) const {
     // en.wikipedia.org/wiki/Line-plane_intersection
     Position p0 = myCorners.front();

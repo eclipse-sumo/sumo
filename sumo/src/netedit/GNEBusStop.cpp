@@ -64,7 +64,7 @@
 // method definitions
 // ===========================================================================
 
-GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, SUMOReal startPos, SUMOReal endPos, const std::vector<std::string>& lines) :
+GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::vector<std::string>& lines) :
     GNEStoppingPlace(id, viewNet, SUMO_TAG_BUS_STOP, ICON_BUSSTOP, lane, startPos, endPos),
     myLines(lines) {
     // When a new additional element is created, updateGeometry() must be called
@@ -89,7 +89,7 @@ GNEBusStop::updateGeometry() {
     myShapeLengths.clear();
 
     // Get value of option "lefthand"
-    SUMOReal offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+    double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Get shape of lane parent
     myShape = myLane->getShape();
@@ -123,7 +123,7 @@ GNEBusStop::updateGeometry() {
             myShapeLengths.push_back(f.distanceTo(s));
 
             // Save rotation (angle) of the vector constructed by points f and s
-            myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
         }
     }
 
@@ -191,7 +191,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // Obtain exaggeration of the draw
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s);
 
     // Draw the area using shape, shapeRotations, shapeLenghts and value of exaggeration
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
@@ -203,7 +203,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
 
         // Obtain rotation of the sing depeding of the option "lefthand"
-        SUMOReal rotSign = OptionsCont::getOptions().getBool("lefthand");
+        double rotSign = OptionsCont::getOptions().getBool("lefthand");
 
         // Set color of the lines
         if (isAdditionalSelected()) {
@@ -260,7 +260,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
 
         // Draw green circle
-        GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
+        GLHelper::drawFilledCircle((double) 1.1, noPoints);
 
         // Traslate to front
         glTranslated(0, 0, .1);
@@ -273,7 +273,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         // draw another circle in the same position, but a little bit more small
-        GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
+        GLHelper::drawFilledCircle((double) 0.9, noPoints);
 
         // If the scale * exageration is equal or more than 4.5, draw H
         if (s.scale * exaggeration >= 4.5) {
@@ -360,11 +360,11 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            return (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 0 && parse<SUMOReal>(value) < (myEndPos - 1));
+            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) < (myEndPos - 1));
         case SUMO_ATTR_ENDPOS: {
-            if (canParse<SUMOReal>(value) && parse<SUMOReal>(value) >= 1 && parse<SUMOReal>(value) > myStartPos) {
+            if (canParse<double>(value) && parse<double>(value) >= 1 && parse<double>(value) > myStartPos) {
                 // If extension is larger than Lane
-                if (parse<SUMOReal>(value) > myLane->getLaneParametricLenght()) {
+                if (parse<double>(value) > myLane->getLaneParametricLenght()) {
                     // Ask user if want to assign the lenght of lane as endPosition
                     FXuint answer = FXMessageBox::question(getViewNet()->getApp(), MBOX_YES_NO,
                                                            (toString(SUMO_ATTR_ENDPOS) + " exceeds the size of the " + toString(SUMO_TAG_LANE)).c_str(), "%s",
@@ -405,15 +405,15 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPos = parse<SUMOReal>(value);
+            myStartPos = parse<double>(value);
             updateGeometry();
             getViewNet()->update();
             break;
         case SUMO_ATTR_ENDPOS:
-            if (parse<SUMOReal>(value) > myLane->getLaneParametricLenght()) {
+            if (parse<double>(value) > myLane->getLaneParametricLenght()) {
                 myEndPos = myLane->getLaneParametricLenght();
             } else {
-                myEndPos = parse<SUMOReal>(value);
+                myEndPos = parse<double>(value);
             }
             updateGeometry();
             getViewNet()->update();

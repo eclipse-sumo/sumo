@@ -288,7 +288,7 @@ GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
             compOp = '=';
         }
         try {
-            handleIDs(getMatches(tag, attr, compOp, GNEAttributeCarrier::parse<SUMOReal>(expr.c_str()), expr), false);
+            handleIDs(getMatches(tag, attr, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr), false);
         } catch (EmptyData&) {
             valid = false;
         } catch (NumberFormatException&) {
@@ -474,7 +474,7 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdges, SetOpera
 
 
 std::vector<GUIGlID>
-GNESelectorFrame::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, SUMOReal val, const std::string& expr) {
+GNESelectorFrame::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, double val, const std::string& expr) {
     GUIGlObject* object;
     GNEAttributeCarrier* ac;
     std::vector<GUIGlID> result;
@@ -491,7 +491,7 @@ GNESelectorFrame::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, SUMO
             if (expr == "") {
                 result.push_back(id);
             } else if (numerical) {
-                SUMOReal acVal;
+                double acVal;
                 std::istringstream buf(ac->getAttribute(attr));
                 buf >> acVal;
                 switch (compOp) {

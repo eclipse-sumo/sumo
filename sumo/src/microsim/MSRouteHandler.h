@@ -146,8 +146,8 @@ protected:
     ///@ brief parse depart- and arrival positions of a walk
     void parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
                             const MSEdge* fromEdge, const MSEdge*& toEdge,
-                            SUMOReal& departPos, SUMOReal& arrivalPos, MSStoppingPlace*& bs, bool& ok);
-    SUMOReal parseWalkPos(SumoXMLAttr attr, const std::string& id, const MSEdge* edge, const std::string& val);
+                            double& departPos, double& arrivalPos, MSStoppingPlace*& bs, bool& ok);
+    double parseWalkPos(SumoXMLAttr attr, const std::string& id, const MSEdge* edge, const std::string& val);
 
 protected:
     /// @brief The current route

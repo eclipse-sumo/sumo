@@ -106,7 +106,7 @@ PCPolyContainer::add(PointOfInterest* poi, bool ignorePruning) {
 
 
 void
-PCPolyContainer::addLanePos(const std::string& poiID, const std::string& laneID, SUMOReal lanePos) {
+PCPolyContainer::addLanePos(const std::string& poiID, const std::string& laneID, double lanePos) {
     myLanePosPois[poiID] = std::make_pair(laneID, lanePos);
 }
 
@@ -130,9 +130,9 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
         i->second->writeXML(out, useGeo);
     }
     // write pois
-    const SUMOReal zOffset = OptionsCont::getOptions().getFloat("poi-layer-offset");
+    const double zOffset = OptionsCont::getOptions().getFloat("poi-layer-offset");
     for (std::map<std::string, PointOfInterest*>::const_iterator i = myPOIs.getMyMap().begin(); i != myPOIs.getMyMap().end(); ++i) {
-        std::map<std::string, std::pair<std::string, SUMOReal> >::const_iterator it = myLanePosPois.find(i->first);
+        std::map<std::string, std::pair<std::string, double> >::const_iterator it = myLanePosPois.find(i->first);
         if (it == myLanePosPois.end()) {
             i->second->writeXML(out, useGeo, zOffset);
         } else {
@@ -169,7 +169,7 @@ PCPolyContainer::saveDlrTDP(const std::string& prefix) {
     const OptionsCont& oc = OptionsCont::getOptions();
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     const bool haveGeo = gch.usingGeoProjection();
-    const SUMOReal geoScale = pow(10.0f, haveGeo ? 5 : 2); // see NIImporter_DlrNavteq::GEO_SCALE
+    const double geoScale = pow(10.0f, haveGeo ? 5 : 2); // see NIImporter_DlrNavteq::GEO_SCALE
     // write pois
     OutputDevice& out = OutputDevice::getDevice(prefix + "_points_of_interest.txt");
     out.setPrecision(0);

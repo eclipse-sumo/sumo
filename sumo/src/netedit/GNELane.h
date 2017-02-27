@@ -123,10 +123,10 @@ public:
     const PositionVector& getShape() const;
 
     /// @brief returns the vector with the shape rotations
-    const std::vector<SUMOReal>& getShapeRotations() const;
+    const std::vector<double>& getShapeRotations() const;
 
     /// @brief returns the vector with the shape lengths
-    const std::vector<SUMOReal>& getShapeLengths() const;
+    const std::vector<double>& getShapeLengths() const;
 
     /// @brief returns the boundry (including lanes)
     Boundary getBoundary() const;
@@ -139,7 +139,7 @@ public:
     int getIndex() const;
 
     /// @nrief returns the current speed of lane
-    SUMOReal getSpeed() const;
+    double getSpeed() const;
 
     /* @brief method for setting the index of the lane
      * @param[in] index The new index of lane
@@ -148,24 +148,24 @@ public:
 
     /// @brief returns the parameteric length of the lane
     /// @note is the same as their Edge parent
-    SUMOReal getLaneParametricLenght() const;
+    double getLaneParametricLenght() const;
 
     /// @brief returns the length of the lane's shape
-    SUMOReal getLaneShapeLenght() const;
+    double getLaneShapeLenght() const;
 
     /* @brief returns the relative position of an element in the lane's shape depending of the parametric lenght
      *        Examples: Lane with Parametric lenght = 100 and Shape lenght = 250. Position 50 returns 125, Position 80 returns 200
      * @param[in] position to calculate their relative position in the lane's shape [0 < position < LaneParametricLenght()]
      * @return the relative position in the lane's shape
      */
-    SUMOReal getPositionRelativeToParametricLenght(SUMOReal position) const;
+    double getPositionRelativeToParametricLenght(double position) const;
 
     /* @brief returns the relative position of an element in the lane's shape depending of the shape's lenght
      *        Examples: Lane with Parametric lenght = 100 and Shape lenght = 250. Position = 100 returns 40, Position 220 returns 88
      * @param[in] position to calculate their relative position in the lane's shape [0 < position < LaneShapeLenght]
      * @return the relative position in the lane's shape
      */
-    SUMOReal getPositionRelativeToShapeLenght(SUMOReal position) const;
+    double getPositionRelativeToShapeLenght(double position) const;
 
     /// @brief add additional child to this lane
     void addAdditionalChild(GNEAdditional* additional);
@@ -220,16 +220,16 @@ protected:
     /// @name computed only once (for performance) in updateGeometry()
     /// @{
     /// @brief The rotations of the shape parts
-    std::vector<SUMOReal> myShapeRotations;
+    std::vector<double> myShapeRotations;
 
     /// @brief The lengths of the shape parts
-    std::vector<SUMOReal> myShapeLengths;
+    std::vector<double> myShapeLengths;
 
     /// @brief Position of textures of restricted lanes
     std::vector<Position> myLaneRestrictedTexturePositions;
 
     /// @brief Rotations of textures of restricted lanes
-    std::vector<SUMOReal> myLaneRestrictedTextureRotations;
+    std::vector<double> myLaneRestrictedTextureRotations;
     /// @}
 
     /// @brief list with the additonals vinculated with this lane
@@ -255,7 +255,7 @@ private:
     GNELane& operator=(const GNELane&);
 
     /// @brief draw lane markings
-    void drawMarkings(const bool& selectedEdge, SUMOReal scale) const;
+    void drawMarkings(const bool& selectedEdge, double scale) const;
 
     /// @brief draw link Number
     void drawLinkNo() const;
@@ -273,7 +273,7 @@ private:
     void drawLane2LaneConnections() const;
 
     /// @brief return value for lane coloring according to the given scheme
-    SUMOReal getColorValue(int activeScheme) const;
+    double getColorValue(int activeScheme) const;
 
     /// @brief sets the color according to the current scheme index and some lane function
     bool setFunctionalColor(int activeScheme) const;
@@ -289,7 +289,7 @@ private:
 
     /// @brief draw crossties for railroads
     /// @todo: XXX This duplicates the code of GUILane::drawCrossties and needs to be
-    void drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const;
+    void drawCrossties(double length, double spacing, double halfWidth) const;
 
     /// @brief direction indicators for lanes
     void drawDirectionIndicators() const;

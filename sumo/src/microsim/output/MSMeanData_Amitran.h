@@ -75,7 +75,7 @@ public:
         /** @brief Constructor
          * @param[in] length The length of the object for which the data gets collected
          */
-        MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
+        MSLaneMeanDataValues(MSLane* const lane, const double length, const bool doAdd,
                              const MSMeanData_Amitran* parent);
 
         /** @brief Destructor */
@@ -120,14 +120,14 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice& dev, const SUMOTime period,
-                   const SUMOReal numLanes, const SUMOReal defaultTravelTime,
+                   const double numLanes, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
     protected:
         /** @brief Internal notification about the vehicle moves
          *  @see MSMoveReminder::notifyMoveInternal()
          */
-        void notifyMoveInternal(const SUMOVehicle& veh, const SUMOReal /* frontOnLane */, const SUMOReal timeOnLane, const SUMOReal /*meanSpeedFrontOnLane*/, const SUMOReal meanSpeedVehicleOnLane, const SUMOReal travelledDistanceFrontOnLane, const SUMOReal travelledDistanceVehicleOnLane);
+        void notifyMoveInternal(const SUMOVehicle& veh, const double /* frontOnLane */, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane);
 
     private:
         /// @name Collected values
@@ -139,10 +139,10 @@ public:
         std::map<const MSVehicleType*, int> typedAmount;
 
         /// @brief The number of sampled vehicle movements by type (in s)
-        std::map<const MSVehicleType*, SUMOReal> typedSamples;
+        std::map<const MSVehicleType*, double> typedSamples;
 
         /// @brief The sum of the distances the vehicles travelled by type
-        std::map<const MSVehicleType*, SUMOReal> typedTravelDistance;
+        std::map<const MSVehicleType*, double> typedTravelDistance;
         //@}
 
     };
@@ -168,8 +168,8 @@ public:
                        const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                        const bool useLanes, const bool withEmpty, const bool printDefaults,
                        const bool withInternal, const bool trackVehicles,
-                       const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                       const SUMOReal haltSpeed, const std::string& vTypes);
+                       const double maxTravelTime, const double minSamples,
+                       const double haltSpeed, const std::string& vTypes);
 
 
     /// @brief Destructor
@@ -219,7 +219,7 @@ protected:
      * @param[in] lane The lane to create for
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const;
+    MSMeanData::MeanDataValues* createValues(MSLane* const lane, const double length, const bool doAdd) const;
 
     /** @brief Resets network value in order to allow processing of the next interval
      *
@@ -230,7 +230,7 @@ protected:
 
 private:
     /// @brief the minimum sample seconds
-    const SUMOReal myHaltSpeed;
+    const double myHaltSpeed;
 
     /// @brief Invalidated copy constructor.
     MSMeanData_Amitran(const MSMeanData_Amitran&);

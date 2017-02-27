@@ -43,7 +43,7 @@
 /// @brief text field extended over Frame with thick frame and limited to Integers
 #define GUIDesignTextFieldInt           (FRAME_THICK | LAYOUT_FILL_X | TEXTFIELD_INTEGER)
 
-/// @brief text field extended over Frame with thick frame and limited to Doubles/SUMOReals
+/// @brief text field extended over Frame with thick frame and limited to Doubles/doubles
 #define GUIDesignTextFieldReal          (FRAME_THICK | LAYOUT_FILL_X | TEXTFIELD_REAL)
 
 /// @brief Num of column of text field

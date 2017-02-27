@@ -149,7 +149,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
         }  else if (lineCommand.compare("subscribecontext") == 0) {
             // trigger command SubscribeXXXVariable
             int domID, varNo, domain;
-            SUMOReal range;
+            double range;
             std::string beginTime, endTime;
             std::string objID;
             defFile >> domID >> objID >> beginTime >> endTime >> domain >> range >> varNo;
@@ -292,7 +292,7 @@ TraCITestClient::commandSubscribeObjectVariable(int domID, const std::string& ob
 
 void
 TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime,
-        int domain, SUMOReal range, int varNo, std::ifstream& defFile) {
+        int domain, double range, int varNo, std::ifstream& defFile) {
     std::vector<int> vars;
     for (int i = 0; i < varNo; ++i) {
         int var;
@@ -579,10 +579,10 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         double doublev = inMsg.readDouble();
         answerLog << " Double value: " << doublev << std::endl;
     } else if (valueDataType == TYPE_BOUNDINGBOX) {
-        SUMOReal lowerLeftX = inMsg.readDouble();
-        SUMOReal lowerLeftY = inMsg.readDouble();
-        SUMOReal upperRightX = inMsg.readDouble();
-        SUMOReal upperRightY = inMsg.readDouble();
+        double lowerLeftX = inMsg.readDouble();
+        double lowerLeftY = inMsg.readDouble();
+        double upperRightX = inMsg.readDouble();
+        double upperRightY = inMsg.readDouble();
         answerLog << " BoundaryBoxValue: lowerLeft x=" << lowerLeftX
                   << " y=" << lowerLeftY << " upperRight x=" << upperRightX
                   << " y=" << upperRightY << std::endl;
@@ -590,21 +590,21 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         int length = inMsg.readUnsignedByte();
         answerLog << " PolygonValue: ";
         for (int i = 0; i < length; i++) {
-            SUMOReal x = inMsg.readDouble();
-            SUMOReal y = inMsg.readDouble();
+            double x = inMsg.readDouble();
+            double y = inMsg.readDouble();
             answerLog << "(" << x << "," << y << ") ";
         }
         answerLog << std::endl;
     } else if (valueDataType == POSITION_3D) {
-        SUMOReal x = inMsg.readDouble();
-        SUMOReal y = inMsg.readDouble();
-        SUMOReal z = inMsg.readDouble();
+        double x = inMsg.readDouble();
+        double y = inMsg.readDouble();
+        double z = inMsg.readDouble();
         answerLog << " Position3DValue: " << std::endl;
         answerLog << " x: " << x << " y: " << y
                   << " z: " << z << std::endl;
     } else if (valueDataType == POSITION_ROADMAP) {
         std::string roadId = inMsg.readString();
-        SUMOReal pos = inMsg.readDouble();
+        double pos = inMsg.readDouble();
         int laneId = inMsg.readUnsignedByte();
         answerLog << " RoadMapPositionValue: roadId=" << roadId
                   << " pos=" << pos
@@ -656,8 +656,8 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         }
         answerLog << " ]" << std::endl;
     } else if (valueDataType == POSITION_2D) {
-        SUMOReal xv = inMsg.readDouble();
-        SUMOReal yv = inMsg.readDouble();
+        double xv = inMsg.readDouble();
+        double yv = inMsg.readDouble();
         answerLog << " position value: (" << xv << "," << yv << ")" << std::endl;
     } else if (valueDataType == TYPE_COLOR) {
         int r = inMsg.readUnsignedByte();

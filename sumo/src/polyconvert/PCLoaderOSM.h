@@ -79,9 +79,9 @@ protected:
         /// @brief The node's id
         long long int id;
         /// @brief The longitude the node is located at
-        SUMOReal lon;
+        double lon;
         /// @brief The latitude the node is located at
-        SUMOReal lat;
+        double lat;
         /// @brief Additional attributes
         std::map<std::string, std::string> myAttributes;
     };

@@ -77,7 +77,7 @@ public:
     /** @brief Returns the configured range
      * @return the device range
      */
-    static SUMOReal getRange() {
+    static double getRange() {
         return myRange;
     }
 
@@ -116,7 +116,7 @@ public:
      *
      * @return True if vehicle hasn't passed the reminder completely.
      */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
+    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
 
 
     /** @brief Moves (the known) vehicle from running to arrived vehicles' list
@@ -129,7 +129,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOVehicle& veh, double lastPos, Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
     //@}
 
 
@@ -144,7 +144,7 @@ public:
          * @param[in] _observerState The position, speed, lane etc. the observer had at the time
          * @param[in] _seenState The position, speed, lane etc. the seen vehicle had at the time
          */
-        MeetingPoint(SUMOReal _t, const MSDevice_BTsender::VehicleState& _observerState,
+        MeetingPoint(double _t, const MSDevice_BTsender::VehicleState& _observerState,
                      const MSDevice_BTsender::VehicleState& _seenState)
             : t(_t), observerState(_observerState), seenState(_seenState) {}
 
@@ -153,7 +153,7 @@ public:
 
     public:
         /// @brief The time of the meeting
-        const SUMOReal t;
+        const double t;
         /// @brief The state the observer had at the time
         const MSDevice_BTsender::VehicleState observerState;
         /// @brief The state the seen vehicle had at the time
@@ -194,9 +194,9 @@ public:
         /// @brief Description of the meeting's end
         MeetingPoint* meetingEnd;
         /// @brief Last recognition point
-        SUMOReal lastView;
+        double lastView;
         /// @brief Next possible recognition point
-        SUMOReal nextView;
+        double nextView;
         /// @brief List of recognition points
         std::vector<MeetingPoint*> recognitionPoints;
         /// @brief string of travelled receiver edges
@@ -235,10 +235,10 @@ private:
     static bool myWasInitialised;
 
     /// @brief The range of the device
-    static SUMOReal myRange;
+    static double myRange;
 
     /// @brief The offtime of the device
-    static SUMOReal myOffTime;
+    static double myOffTime;
 
 
     /** @class VehicleInformation
@@ -250,7 +250,7 @@ private:
          * @param[in] id The id of the vehicle
          * @param[in] range Recognition range of the vehicle
          */
-        VehicleInformation(const std::string& id, const SUMOReal _range) : MSDevice_BTsender::VehicleInformation(id), range(_range) {}
+        VehicleInformation(const std::string& id, const double _range) : MSDevice_BTsender::VehicleInformation(id), range(_range) {}
 
         /// @brief Destructor
         ~VehicleInformation() {
@@ -268,7 +268,7 @@ private:
         }
 
         /// @brief Recognition range of the vehicle
-        const SUMOReal range;
+        const double range;
 
         /// @brief The map of devices seen by the vehicle at removal time
         std::map<std::string, SeenDevice*> currentlySeen;
@@ -319,7 +319,7 @@ private:
          * @param[in] senderState The position, speed, lane etc. the seen vehicle had at the time
          * @param[in] currentlySeen The container storing episodes
          */
-        void enterRange(SUMOReal atOffset, const MSDevice_BTsender::VehicleState& receiverState,
+        void enterRange(double atOffset, const MSDevice_BTsender::VehicleState& receiverState,
                         const std::string& senderID, const MSDevice_BTsender::VehicleState& senderState,
                         std::map<std::string, SeenDevice*>& currentlySeen);
 
@@ -333,7 +333,7 @@ private:
          */
         void leaveRange(VehicleInformation& receiverInfo, const MSDevice_BTsender::VehicleState& receiverState,
                         MSDevice_BTsender::VehicleInformation& senderInfo, const MSDevice_BTsender::VehicleState& senderState,
-                        SUMOReal tOffset);
+                        double tOffset);
 
 
 
@@ -344,7 +344,7 @@ private:
          * @param[in] senderState The position, speed, lane etc. the seen vehicle had at the time
          * @param[in] senderDevice The device of the entering sender
          */
-        void addRecognitionPoint(const SUMOReal tEnd, const MSDevice_BTsender::VehicleState& receiverState,
+        void addRecognitionPoint(const double tEnd, const MSDevice_BTsender::VehicleState& receiverState,
                                  const MSDevice_BTsender::VehicleState& senderState,
                                  SeenDevice* senderDevice) const;
 
@@ -363,7 +363,7 @@ private:
     };
 
 
-    static SUMOReal inquiryDelaySlots(const int backoffLimit);
+    static double inquiryDelaySlots(const int backoffLimit);
 
     /// @brief A random number generator used to determine whether the opposite was recognized
     static MTRand sRecognitionRNG;

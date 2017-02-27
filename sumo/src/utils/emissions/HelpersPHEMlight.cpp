@@ -220,7 +220,7 @@ HelpersPHEMlight::getEuroClass(const SUMOEmissionClass c) const {
 }
 
 
-SUMOReal
+double
 HelpersPHEMlight::getWeight(const SUMOEmissionClass c) const {
     const std::string name = myEmissionClassStrings.getString(c);
     if (name.find("LNF_") != std::string::npos) {
@@ -243,7 +243,7 @@ HelpersPHEMlight::getWeight(const SUMOEmissionClass c) const {
 }
 
 
-SUMOReal
+double
 HelpersPHEMlight::getEmission(const PHEMCEP* oldCep, PHEMlightdll::CEP* currCep, const std::string& e, const double p, const double v) const {
     if (oldCep != 0) {
         return oldCep->GetEmission(e, p, v);
@@ -252,7 +252,7 @@ HelpersPHEMlight::getEmission(const PHEMCEP* oldCep, PHEMlightdll::CEP* currCep,
 }
 
 
-SUMOReal
+double
 HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const {
     if (c == PHEMLIGHT_BASE) { // zero emission class
         return 0.;

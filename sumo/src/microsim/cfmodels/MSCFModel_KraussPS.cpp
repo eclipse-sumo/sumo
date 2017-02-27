@@ -41,8 +41,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_KraussPS::MSCFModel_KraussPS(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
-                                       SUMOReal dawdle, SUMOReal headwayTime)
+MSCFModel_KraussPS::MSCFModel_KraussPS(const MSVehicleType* vtype, double accel, double decel,
+                                       double dawdle, double headwayTime)
     : MSCFModel_Krauss(vtype, accel, decel, dawdle, headwayTime) {
 }
 
@@ -50,13 +50,13 @@ MSCFModel_KraussPS::MSCFModel_KraussPS(const MSVehicleType* vtype, SUMOReal acce
 MSCFModel_KraussPS::~MSCFModel_KraussPS() {}
 
 
-SUMOReal
-MSCFModel_KraussPS::maxNextSpeed(SUMOReal speed, const MSVehicle* const veh) const {
-    const SUMOReal gravity = 9.80665;
-    const SUMOReal aMax = MAX2(0., getMaxAccel() - gravity * sin(DEG2RAD(veh->getSlope())));
+double
+MSCFModel_KraussPS::maxNextSpeed(double speed, const MSVehicle* const veh) const {
+    const double gravity = 9.80665;
+    const double aMax = MAX2(0., getMaxAccel() - gravity * sin(DEG2RAD(veh->getSlope())));
     // assuming drag force is proportional to the square of speed
-    const SUMOReal vMax = sqrt(aMax / getMaxAccel()) * myType->getMaxSpeed();
-    return MIN2(speed + (SUMOReal) ACCEL2SPEED(aMax), vMax);
+    const double vMax = sqrt(aMax / getMaxAccel()) * myType->getMaxSpeed();
+    return MIN2(speed + (double) ACCEL2SPEED(aMax), vMax);
 }
 
 

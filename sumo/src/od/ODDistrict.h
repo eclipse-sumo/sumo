@@ -75,7 +75,7 @@ public:
      * @param[in] id The id of the source
      * @param[in] weight The weight (probability to be chosen) of the source
      */
-    void addSource(const std::string& id, SUMOReal weight);
+    void addSource(const std::string& id, double weight);
 
 
     /** @brief Adds a sink connection
@@ -91,7 +91,7 @@ public:
      * @param[in] id The id of the sink
      * @param[in] weight The weight (probability to be chosen) of the sink
      */
-    void addSink(const std::string& id, SUMOReal weight);
+    void addSink(const std::string& id, double weight);
 
 
     /** @brief Returns the id of a source to use

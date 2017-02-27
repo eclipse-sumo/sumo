@@ -160,7 +160,7 @@ private:
      * @param[in] type The type of the currntly processed connection (sink/source)
      * @return The id and the weight of a taz
      */
-    std::pair<std::string, SUMOReal> parseTAZ(const SUMOSAXAttributes& attrs);
+    std::pair<std::string, double> parseTAZ(const SUMOSAXAttributes& attrs);
 
 private:
     /// The container to add read districts to

@@ -54,16 +54,16 @@ public:
      * @param[in] startTime start time of vaporizer
      * @param[in] end end time of vaporizer
      */
-    GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, SUMOReal startTime, SUMOReal end);
+    GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end);
 
     /// @brief Destructor
     ~GNEVaporizer();
 
     /// @brief change the position of the RouteProbe geometry
-    void moveAdditionalGeometry(SUMOReal, SUMOReal);
+    void moveAdditionalGeometry(double, double);
 
     /// @brief updated geometry changes in the attributes of additional
-    void commmitAdditionalGeometryMoved(SUMOReal, SUMOReal, GNEUndoList*);
+    void commmitAdditionalGeometryMoved(double, double, GNEUndoList*);
 
     /// @brief update pre-computed geometry information
     /// @note: must be called when geometry changes (i.e. lane moved)
@@ -82,16 +82,16 @@ public:
     void removeEdgeReference();
 
     /// @brief get start time
-    SUMOReal getStartTime() const;
+    double getStartTime() const;
 
     /// @brief get end
-    SUMOReal getEnd() const;
+    double getEnd() const;
 
     /// @brief set start time
-    void setStartTime(SUMOReal startTime);
+    void setStartTime(double startTime);
 
     /// @brief set end
-    void setEndTime(SUMOReal end);
+    void setEndTime(double end);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -131,10 +131,10 @@ public:
 
 protected:
     /// @brief start time of vaporizer
-    SUMOReal myStartTime;
+    double myStartTime;
 
     /// @brief end time in which this vaporizer is placed
-    SUMOReal myEnd;
+    double myEnd;
 
 private:
     /// @brief set attribute after validation

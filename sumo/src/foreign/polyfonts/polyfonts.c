@@ -99,18 +99,18 @@ static pffont *pfDefaultFont = NULL;
 
 /*-----------------------------------------------*/
 
-static SUMOReal pfScaleX = 20.0;
-static SUMOReal pfScaleY = 20.0;
+static double pfScaleX = 20.0;
+static double pfScaleY = 20.0;
 
-static SUMOReal pfTextX = 0.0;
-static SUMOReal pfTextY = 0.0;
+static double pfTextX = 0.0;
+static double pfTextY = 0.0;
 
-static SUMOReal pfTextSkew = 0.0;
+static double pfTextSkew = 0.0;
 static int pfTextWeight = 1;
 
 typedef struct
 {
-  SUMOReal x, y;
+  double x, y;
 } vertex;
 
 vertex weightOffset[] = {
@@ -128,21 +128,21 @@ vertex weightOffset[] = {
 
 #define numWeights (sizeof(weightOffset) / sizeof(vertex))
 
-static SUMOReal pfTextSin = 0.0;
-static SUMOReal pfTextCos = 1.0;
+static double pfTextSin = 0.0;
+static double pfTextCos = 1.0;
 
 static int pfCenter = 0;
 
-#define unfix(value) ((SUMOReal)(value)) / ((SUMOReal)pfFixScale)
+#define unfix(value) ((double)(value)) / ((double)pfFixScale)
 
 /*-----------------------------------------------*/
 
 static pfglyph *pfGetGlyph(wchar_t c);
-static SUMOReal getCharAdvance(wchar_t c);
+static double getCharAdvance(wchar_t c);
 
 /*-----------------------------------------------*/
 
-static SUMOReal pfSkew(SUMOReal x, SUMOReal y)
+static double pfSkew(double x, double y)
 {
   return x + (pfTextSkew * y);
 }
@@ -307,7 +307,7 @@ pffont *pfLoadFont(char *fileName)
   FILE *f = NULL;
   char buf[1024];
 
-  SUMOReal version = 0;
+  double version = 0;
   int glyphcount = 0;
   char *fontname = NULL;
   pffont *fontinfo = NULL;
@@ -462,14 +462,14 @@ pffont *pfLoadFont(char *fileName)
 
 /*-----------------------------------------------*/
 
-void pfSetScale(SUMOReal s)
+void pfSetScale(double s)
 {
   pfScaleX = pfScaleY = s;
 }
 
 /*-----------------------------------------------*/
 
-void pfSetScaleXY(SUMOReal sx, SUMOReal sy)
+void pfSetScaleXY(double sx, double sy)
 {
   pfScaleX = sx;
   pfScaleY = sy;
@@ -477,7 +477,7 @@ void pfSetScaleXY(SUMOReal sx, SUMOReal sy)
 
 /*-----------------------------------------------*/
 
-void pfSetPosition(SUMOReal x, SUMOReal y)
+void pfSetPosition(double x, double y)
 {
   pfTextX = x;
   pfTextY = y;
@@ -485,7 +485,7 @@ void pfSetPosition(SUMOReal x, SUMOReal y)
 
 /*-----------------------------------------------*/
 
-void pfGetPosition(SUMOReal *x, SUMOReal *y)
+void pfGetPosition(double *x, double *y)
 {
   *x = pfTextX;
   *y = pfTextY;
@@ -493,7 +493,7 @@ void pfGetPosition(SUMOReal *x, SUMOReal *y)
 
 /*-----------------------------------------------*/
 
-void pfSetSkew(SUMOReal s)
+void pfSetSkew(double s)
 {
   pfTextSkew = min(1.0, max(-1.0, s));
 }
@@ -507,7 +507,7 @@ void pfSetWeight(int w)
 
 /*-----------------------------------------------*/
 
-void pfSetAngleR(SUMOReal a)
+void pfSetAngleR(double a)
 {
   pfTextSin = sin(a);
   pfTextCos = cos(a);
@@ -515,7 +515,7 @@ void pfSetAngleR(SUMOReal a)
 
 /*-----------------------------------------------*/
 
-void pfSetAngleD(SUMOReal a)
+void pfSetAngleD(double a)
 {
   pfSetAngleR(a * DtoR);
 }
@@ -529,7 +529,7 @@ void pfSetCenter(int onOff)
 
 /*-----------------------------------------------*/
 
-static int getCharBBox(wchar_t c, SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx, SUMOReal *maxy)
+static int getCharBBox(wchar_t c, double *minx, double *miny, double *maxx, double *maxy)
 {
   if (NULL != pfCurrentFont)
   {
@@ -555,9 +555,9 @@ static int getCharBBox(wchar_t c, SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx
 
 /*-----------------------------------------------*/
 
-static int getStringBox(char *c, SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx, SUMOReal *maxy)
+static int getStringBox(char *c, double *minx, double *miny, double *maxx, double *maxy)
 {
-  SUMOReal x1, y1, x2, y2;
+  double x1, y1, x2, y2;
 
   if (NULL == c)
   {
@@ -595,9 +595,9 @@ static int getStringBox(char *c, SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx,
 
 /*-----------------------------------------------*/
 
-static int getStringBoxW(wchar_t *c, SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx, SUMOReal *maxy)
+static int getStringBoxW(wchar_t *c, double *minx, double *miny, double *maxx, double *maxy)
 {
-  SUMOReal x1, y1, x2, y2;
+  double x1, y1, x2, y2;
 
   if (NULL == c)
   {
@@ -635,9 +635,9 @@ static int getStringBoxW(wchar_t *c, SUMOReal *minx, SUMOReal *miny, SUMOReal *m
 
 /*-----------------------------------------------*/
 
-int pfSetScaleBox(char *c, SUMOReal w, SUMOReal h)
+int pfSetScaleBox(char *c, double w, double h)
 {
-  SUMOReal x1, y1, x2, y2;
+  double x1, y1, x2, y2;
 
   if (NULL == c)
   {
@@ -655,9 +655,9 @@ int pfSetScaleBox(char *c, SUMOReal w, SUMOReal h)
 
 /*-----------------------------------------------*/
 
-int pfSetScaleBoxW(wchar_t *c, SUMOReal w, SUMOReal h)
+int pfSetScaleBoxW(wchar_t *c, double w, double h)
 {
-  SUMOReal x1, y1, x2, y2;
+  double x1, y1, x2, y2;
 
   if (NULL == c)
   {
@@ -696,7 +696,7 @@ pffont *pfGetCurrentFont()
 
 /*-----------------------------------------------*/
 
-int pfGetFontBBox(SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx, SUMOReal *maxy)
+int pfGetFontBBox(double *minx, double *miny, double *maxx, double *maxy)
 {
   if (NULL != pfCurrentFont)
   {
@@ -730,9 +730,9 @@ int pfGetFontBBox(SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx, SUMOReal *maxy
 
 /*-----------------------------------------------*/
 
-SUMOReal pfGetFontHeight()
+double pfGetFontHeight()
 {
-  SUMOReal minx, miny, maxx, maxy;
+  double minx, miny, maxx, maxy;
 
   if (-1 != pfGetFontBBox(&minx, &miny, &maxx, &maxy))
   {
@@ -744,9 +744,9 @@ SUMOReal pfGetFontHeight()
 
 /*-----------------------------------------------*/
 
-SUMOReal pfGetFontWidth()
+double pfGetFontWidth()
 {
-  SUMOReal minx, miny, maxx, maxy;
+  double minx, miny, maxx, maxy;
 
   if (-1 != pfGetFontBBox(&minx, &miny, &maxx, &maxy))
   {
@@ -758,9 +758,9 @@ SUMOReal pfGetFontWidth()
 
 /*-----------------------------------------------*/
 
-SUMOReal pfGetFontAscent()
+double pfGetFontAscent()
 {
-  SUMOReal minx, miny, maxx, maxy;
+  double minx, miny, maxx, maxy;
 
   if (-1 != pfGetFontBBox(&minx, &miny, &maxx, &maxy))
   {
@@ -772,9 +772,9 @@ SUMOReal pfGetFontAscent()
 
 /*-----------------------------------------------*/
 
-SUMOReal pfGetFontDescent()
+double pfGetFontDescent()
 {
-  SUMOReal minx, miny, maxx, maxy;
+  double minx, miny, maxx, maxy;
 
   if (-1 != pfGetFontBBox(&minx, &miny, &maxx, &maxy))
   {
@@ -852,7 +852,7 @@ static pfglyph *pfGetGlyph(wchar_t c)
 
 /*-----------------------------------------------*/
 
-static SUMOReal getCharAdvance(wchar_t c)
+static double getCharAdvance(wchar_t c)
 {
   pfglyph *g = pfGetGlyph(c);
 
@@ -866,7 +866,7 @@ static SUMOReal getCharAdvance(wchar_t c)
 
 /*-----------------------------------------------*/
 
-SUMOReal pfGetCharAdvance(wchar_t c)
+double pfGetCharAdvance(wchar_t c)
 {
   pfglyph *g = pfGetGlyph(c);
 
@@ -880,7 +880,7 @@ SUMOReal pfGetCharAdvance(wchar_t c)
 
 /*-----------------------------------------------*/
 
-int pfGetCharBBox(wchar_t c, SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx, SUMOReal *maxy)
+int pfGetCharBBox(wchar_t c, double *minx, double *miny, double *maxx, double *maxy)
 {
   if (0 == getCharBBox(c, minx, miny, maxx, maxy))
   {
@@ -915,9 +915,9 @@ int pfGetCharBBox(wchar_t c, SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx, SUM
 
 /*-----------------------------------------------*/
 
-SUMOReal pfGetCharHeight(wchar_t c)
+double pfGetCharHeight(wchar_t c)
 {
-  SUMOReal minx, miny, maxx, maxy;
+  double minx, miny, maxx, maxy;
 
   if (-1 != pfGetCharBBox(c, &minx, &miny, &maxx, &maxy))
   {
@@ -929,9 +929,9 @@ SUMOReal pfGetCharHeight(wchar_t c)
 
 /*-----------------------------------------------*/
 
-SUMOReal pfGetCharWidth(wchar_t c)
+double pfGetCharWidth(wchar_t c)
 {
-  SUMOReal minx, miny, maxx, maxy;
+  double minx, miny, maxx, maxy;
 
   if (-1 != pfGetCharBBox(c, &minx, &miny, &maxx, &maxy))
   {
@@ -943,9 +943,9 @@ SUMOReal pfGetCharWidth(wchar_t c)
 
 /*-----------------------------------------------*/
 
-SUMOReal pfGetCharAscent(wchar_t c)
+double pfGetCharAscent(wchar_t c)
 {
-  SUMOReal minx, miny, maxx, maxy;
+  double minx, miny, maxx, maxy;
 
   if (-1 != pfGetCharBBox(c, &minx, &miny, &maxx, &maxy))
   {
@@ -957,9 +957,9 @@ SUMOReal pfGetCharAscent(wchar_t c)
 
 /*-----------------------------------------------*/
 
-SUMOReal pfGetCharDescent(wchar_t c)
+double pfGetCharDescent(wchar_t c)
 {
-  SUMOReal minx, miny, maxx, maxy;
+  double minx, miny, maxx, maxy;
 
   if (-1 != pfGetCharBBox(c, &minx, &miny, &maxx, &maxy))
   {
@@ -981,9 +981,9 @@ static int drawWideChar(/*SDL_Surface *s,*/ wchar_t c)
   int segs = 0;
   int prim = 0;
   int points = 0;
-  SUMOReal gx, gy;
-  SUMOReal ox, oy;
-  SUMOReal tmp = -100.0;
+  double gx, gy;
+  double ox, oy;
+  double tmp = -100.0;
 
   if (NULL == g)
   {
@@ -1109,10 +1109,10 @@ int pfDrawStringW(/*SDL_Surface *s, */wchar_t *c)
 
 /*-----------------------------------------------*/
 
-SUMOReal
+double
 pfdkGetStringWidth(const char *c)
 {
-    SUMOReal w = 0;
+    double w = 0;
     while (0 != *c) {
         w += pfGetCharAdvance(/*s,*/ *c);
         c++;

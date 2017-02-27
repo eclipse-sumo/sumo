@@ -145,7 +145,7 @@ public:
     RORouteDef* copy(const std::string& id, const SUMOTime stopOffset) const;
 
     /** @brief Returns the sum of the probablities of the contained routes */
-    SUMOReal getOverallProb() const;
+    double getOverallProb() const;
 
     static void setUsingJTRR() {
         myUsingJTRR = true;

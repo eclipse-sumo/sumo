@@ -264,17 +264,17 @@ TraCIServerAPI_Simulation::writeVehicleStateIDs(TraCIServer& server, tcpip::Stor
 }
 
 
-std::pair<MSLane*, SUMOReal>
+std::pair<MSLane*, double>
 TraCIServerAPI_Simulation::convertCartesianToRoadMap(Position pos) {
-    std::pair<MSLane*, SUMOReal> result;
+    std::pair<MSLane*, double> result;
     std::vector<std::string> allEdgeIds;
-    SUMOReal minDistance = std::numeric_limits<SUMOReal>::max();
+    double minDistance = std::numeric_limits<double>::max();
 
     allEdgeIds = MSNet::getInstance()->getEdgeControl().getEdgeNames();
     for (std::vector<std::string>::iterator itId = allEdgeIds.begin(); itId != allEdgeIds.end(); itId++) {
         const std::vector<MSLane*>& allLanes = MSEdge::dictionary((*itId))->getLanes();
         for (std::vector<MSLane*>::const_iterator itLane = allLanes.begin(); itLane != allLanes.end(); itLane++) {
-            const SUMOReal newDistance = (*itLane)->getShape().distance2D(pos);
+            const double newDistance = (*itLane)->getShape().distance2D(pos);
             if (newDistance < minDistance) {
                 minDistance = newDistance;
                 result.first = (*itLane);
@@ -288,7 +288,7 @@ TraCIServerAPI_Simulation::convertCartesianToRoadMap(Position pos) {
 
 
 const MSLane*
-TraCIServerAPI_Simulation::getLaneChecking(std::string roadID, int laneIndex, SUMOReal pos) {
+TraCIServerAPI_Simulation::getLaneChecking(std::string roadID, int laneIndex, double pos) {
     const MSEdge* edge = MSEdge::dictionary(roadID);
     if (edge == 0) {
         throw TraCIException("Unknown edge " + roadID);
@@ -307,10 +307,10 @@ TraCIServerAPI_Simulation::getLaneChecking(std::string roadID, int laneIndex, SU
 bool
 TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip::Storage& inputStorage,
         tcpip::Storage& outputStorage, int commandId) {
-    std::pair<MSLane*, SUMOReal> roadPos;
+    std::pair<MSLane*, double> roadPos;
     Position cartesianPos;
     Position geoPos;
-    SUMOReal z = 0;
+    double z = 0;
 
     // actual position type that will be converted
     int srcPosType = inputStorage.readUnsignedByte();
@@ -320,8 +320,8 @@ TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip:
         case POSITION_3D:
         case POSITION_LON_LAT:
         case POSITION_LON_LAT_ALT: {
-            SUMOReal x = inputStorage.readDouble();
-            SUMOReal y = inputStorage.readDouble();
+            double x = inputStorage.readDouble();
+            double y = inputStorage.readDouble();
             if (srcPosType != POSITION_2D && srcPosType != POSITION_LON_LAT) {
                 z = inputStorage.readDouble();
             }
@@ -336,7 +336,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip:
         break;
         case POSITION_ROADMAP: {
             std::string roadID = inputStorage.readString();
-            SUMOReal pos = inputStorage.readDouble();
+            double pos = inputStorage.readDouble();
             int laneIdx = inputStorage.readUnsignedByte();
             try {
                 // convert edge,offset,laneIdx to cartesian position
@@ -402,8 +402,8 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
         tcpip::Storage& outputStorage, int commandId) {
     Position pos1;
     Position pos2;
-    std::pair<const MSLane*, SUMOReal> roadPos1;
-    std::pair<const MSLane*, SUMOReal> roadPos2;
+    std::pair<const MSLane*, double> roadPos1;
+    std::pair<const MSLane*, double> roadPos2;
 
     // read position 1
     int posType = inputStorage.readUnsignedByte();
@@ -421,8 +421,8 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
             break;
         case POSITION_2D:
         case POSITION_3D: {
-            SUMOReal p1x = inputStorage.readDouble();
-            SUMOReal p1y = inputStorage.readDouble();
+            double p1x = inputStorage.readDouble();
+            double p1y = inputStorage.readDouble();
             pos1.set(p1x, p1y);
         }
         if (posType == POSITION_3D) {
@@ -451,8 +451,8 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
             break;
         case POSITION_2D:
         case POSITION_3D: {
-            SUMOReal p2x = inputStorage.readDouble();
-            SUMOReal p2y = inputStorage.readDouble();
+            double p2x = inputStorage.readDouble();
+            double p2y = inputStorage.readDouble();
             pos2.set(p2x, p2y);
         }
         if (posType == POSITION_3D) {
@@ -468,7 +468,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
     // read distance type
     int distType = inputStorage.readUnsignedByte();
 
-    SUMOReal distance = 0.0;
+    double distance = 0.0;
     if (distType == REQUEST_DRIVINGDIST) {
         // compute driving distance
         if ((roadPos1.first == roadPos2.first) && (roadPos1.second <= roadPos2.second)) {

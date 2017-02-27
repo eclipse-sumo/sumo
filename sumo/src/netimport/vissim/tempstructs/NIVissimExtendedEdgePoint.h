@@ -56,10 +56,10 @@ public:
      * @param[in] assignedVehicles Vehicle (type) indices which should be regarded by this point
      */
     NIVissimExtendedEdgePoint(int edgeid, const std::vector<int>& lanes,
-                              SUMOReal position, const std::vector<int>& assignedVehicles);
+                              double position, const std::vector<int>& assignedVehicles);
     ~NIVissimExtendedEdgePoint();
     int getEdgeID() const;
-    SUMOReal getPosition() const;
+    double getPosition() const;
     Position getGeomPosition() const;
     const std::vector<int>& getLanes() const;
 
@@ -76,7 +76,7 @@ public:
 private:
     int myEdgeID;
     std::vector<int> myLanes;
-    SUMOReal myPosition;
+    double myPosition;
     std::vector<int> myAssignedVehicles;
 };
 

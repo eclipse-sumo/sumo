@@ -187,9 +187,9 @@ main(int argc, char** argv) {
             int skip = oc.getBool("skip-first") ? 1 : oc.getInt("timeline-file.skip");
             const bool inKMH = oc.getBool("kmh");
             const bool haveSlope = oc.getBool("have-slope");
-            SUMOReal l = 0;
-            SUMOReal totalA = 0;
-            SUMOReal totalS = 0;
+            double l = 0;
+            double totalA = 0;
+            double totalS = 0;
             int time = 0;
 
             LineReader lr(oc.getString("timeline-file"));
@@ -202,10 +202,10 @@ main(int argc, char** argv) {
                 StringTokenizer st(StringUtils::prune(line), oc.getString("timeline-file.separator"));
                 if (st.hasNext()) {
                     try {
-                        SUMOReal t = TplConvert::_2SUMOReal<char>(st.next().c_str());
-                        SUMOReal v = 0;
+                        double t = TplConvert::_2double<char>(st.next().c_str());
+                        double v = 0;
                         if (st.hasNext()) {
-                            v = TplConvert::_2SUMOReal<char>(st.next().c_str());
+                            v = TplConvert::_2double<char>(st.next().c_str());
                         } else {
                             v = t;
                             t = time;
@@ -213,8 +213,8 @@ main(int argc, char** argv) {
                         if (inKMH) {
                             v /= 3.6;
                         }
-                        SUMOReal a = !computeA && st.hasNext() ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
-                        SUMOReal s = haveSlope && st.hasNext() ? TplConvert::_2SUMOReal<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
+                        double a = !computeA && st.hasNext() ? TplConvert::_2double<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
+                        double s = haveSlope && st.hasNext() ? TplConvert::_2double<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
                         if (handler.writeEmissions(*out, "", defaultClass, t, v, a, s)) {
                             l += v;
                             totalA += a;

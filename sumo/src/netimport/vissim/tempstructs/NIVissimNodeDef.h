@@ -44,14 +44,14 @@ public:
     virtual ~NIVissimNodeDef();
     int buildNodeCluster();
 //    virtual void computeBounding() = 0;
-//    bool partialWithin(const AbstractPoly &p, SUMOReal off=0.0) const;
+//    bool partialWithin(const AbstractPoly &p, double off=0.0) const;
 //    virtual void searchAndSetConnections() = 0;
-    virtual SUMOReal getEdgePosition(int edgeid) const = 0;
+    virtual double getEdgePosition(int edgeid) const = 0;
 
 public:
     static bool dictionary(int id, NIVissimNodeDef* o);
     static NIVissimNodeDef* dictionary(int id);
-//    static std::vector<int> getWithin(const AbstractPoly &p, SUMOReal off=0.0);
+//    static std::vector<int> getWithin(const AbstractPoly &p, double off=0.0);
 //    static void buildNodeClusters();
 //    static void dict_assignConnectionsToNodes();
     static int dictSize();

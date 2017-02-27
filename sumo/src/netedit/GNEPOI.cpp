@@ -70,8 +70,8 @@
 // method definitions
 // ===========================================================================
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type,
-               const RGBColor& color, SUMOReal layer, SUMOReal angle, const std::string& imgFile,
-               const Position& pos, SUMOReal width, SUMOReal height) :
+               const RGBColor& color, double layer, double angle, const std::string& imgFile,
+               const Position& pos, double width, double height) :
     GUIPointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
     GNEAttributeCarrier(SUMO_TAG_POI, ICON_LOCATEPOI),
     myNet(net) {

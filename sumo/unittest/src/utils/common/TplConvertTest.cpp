@@ -58,22 +58,22 @@ TEST(TplConvert, test_2long) {
 }
 
 
-/* Test the method '_2SUMOReal'.*/
-TEST(TplConvert, test_2SUMOReal) {
-    EXPECT_EQ(0, TplConvert::_2SUMOReal("0"));
-    EXPECT_EQ(1, TplConvert::_2SUMOReal("+1"));
-    EXPECT_EQ(-1, TplConvert::_2SUMOReal("-1"));
-    EXPECT_EQ(1, TplConvert::_2SUMOReal("1e0"));
-    EXPECT_EQ(10, TplConvert::_2SUMOReal("1e1"));
-    EXPECT_EQ(1, TplConvert::_2SUMOReal("1."));
-    EXPECT_EQ(1.1, TplConvert::_2SUMOReal("1.1"));
-    EXPECT_EQ(.1, TplConvert::_2SUMOReal(".1"));
-    EXPECT_EQ(1.1, TplConvert::_2SUMOReal("1,1"));
-    EXPECT_EQ(.1, TplConvert::_2SUMOReal(",1"));
-    EXPECT_EQ(100000000000, TplConvert::_2SUMOReal("100000000000"));
-    EXPECT_THROW(TplConvert::_2SUMOReal(""), EmptyData);
-    EXPECT_THROW(TplConvert::_2SUMOReal("1e0x"), NumberFormatException);
-    EXPECT_THROW(TplConvert::_2SUMOReal("1x"), NumberFormatException);
+/* Test the method '_2double'.*/
+TEST(TplConvert, test_2double) {
+    EXPECT_EQ(0, TplConvert::_2double("0"));
+    EXPECT_EQ(1, TplConvert::_2double("+1"));
+    EXPECT_EQ(-1, TplConvert::_2double("-1"));
+    EXPECT_EQ(1, TplConvert::_2double("1e0"));
+    EXPECT_EQ(10, TplConvert::_2double("1e1"));
+    EXPECT_EQ(1, TplConvert::_2double("1."));
+    EXPECT_EQ(1.1, TplConvert::_2double("1.1"));
+    EXPECT_EQ(.1, TplConvert::_2double(".1"));
+    EXPECT_EQ(1.1, TplConvert::_2double("1,1"));
+    EXPECT_EQ(.1, TplConvert::_2double(",1"));
+    EXPECT_EQ(100000000000, TplConvert::_2double("100000000000"));
+    EXPECT_THROW(TplConvert::_2double(""), EmptyData);
+    EXPECT_THROW(TplConvert::_2double("1e0x"), NumberFormatException);
+    EXPECT_THROW(TplConvert::_2double("1x"), NumberFormatException);
 }
 
 

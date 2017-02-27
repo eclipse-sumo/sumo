@@ -197,7 +197,7 @@ protected:
         bool myTryIgnoreNodePositions;
 
         /// @brief version number of current file
-        SUMOReal myVersion;
+        double myVersion;
 
         /// @brief the version number of the edge file being parsed
         std::vector<int> myColumns;
@@ -454,7 +454,7 @@ protected:
         /// @brief The edge container to store loaded edges into
         NBEdgeCont& myEdgeCont;
         const std::string myFile;
-        SUMOReal myVersion;
+        double myVersion;
         time_t myConstructionTime;
 
 
@@ -516,7 +516,7 @@ protected:
     };
 
 
-    static SUMOReal readVersion(const std::string& line, const std::string& file);
+    static double readVersion(const std::string& line, const std::string& file);
     static int readPrefixedInt(const std::string& s, const std::string& prefix, int fallBack = 0);
     static time_t readTimeRec(const std::string& start, const std::string& duration);
     static time_t readDate(const std::string& yyyymmdd);

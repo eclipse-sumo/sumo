@@ -76,7 +76,7 @@ public:
     class MeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const MSMeanData* const parent);
+        MeanDataValues(MSLane* const lane, const double length, const bool doAdd, const MSMeanData* const parent);
 
         /** @brief Destructor */
         virtual ~MeanDataValues();
@@ -117,8 +117,8 @@ public:
          *
          * @return True if vehicle hasn't passed the reminder completely.
          */
-        bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                        SUMOReal newPos, SUMOReal newSpeed);
+        bool notifyMove(SUMOVehicle& veh, double oldPos,
+                        double newPos, double newSpeed);
 
 
         /** @brief Called if the vehicle leaves the reminder's lane
@@ -129,7 +129,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
+        virtual bool notifyLeave(SUMOVehicle& veh, double lastPos,
                                  MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
 
 
@@ -152,18 +152,18 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         virtual void write(OutputDevice& dev, const SUMOTime period,
-                           const SUMOReal numLanes, const SUMOReal defaultTravelTime,
+                           const double numLanes, const double defaultTravelTime,
                            const int numVehicles = -1) const = 0;
 
         /** @brief Returns the number of collected sample seconds.
         * @return the number of collected sample seconds
         */
-        virtual SUMOReal getSamples() const;
+        virtual double getSamples() const;
 
         /** @brief Returns the total travelled distance.
         * @return the total travelled distance
         */
-        SUMOReal getTravelledDistance() const {
+        double getTravelledDistance() const {
             return travelledDistance;
         }
 
@@ -172,15 +172,15 @@ public:
         const MSMeanData* const myParent;
 
         /// @brief The length of the lane / edge the data collector is on
-        const SUMOReal myLaneLength;
+        const double myLaneLength;
 
         /// @name Collected values
         /// @{
         /// @brief The number of sampled vehicle movements (in s)
-        SUMOReal sampleSeconds;
+        double sampleSeconds;
 
         /// @brief The sum of the distances the vehicles travelled
-        SUMOReal travelledDistance;
+        double travelledDistance;
         //@}
 
     };
@@ -193,7 +193,7 @@ public:
     class MeanDataValueTracker : public MeanDataValues {
     public:
         /** @brief Constructor */
-        MeanDataValueTracker(MSLane* const lane, const SUMOReal length,
+        MeanDataValueTracker(MSLane* const lane, const double length,
                              const MSMeanData* const parent);
 
         /** @brief Destructor */
@@ -215,7 +215,7 @@ public:
         /** @brief Internal notification about the vehicle moves
          *  @see MSMoveReminder::notifyMoveInternal().
          */
-        void notifyMoveInternal(const SUMOVehicle& veh, const SUMOReal frontOnLane, const SUMOReal timeOnLane, const SUMOReal meanSpeedFrontOnLane, const SUMOReal meanSpeedVehicleOnLane, const SUMOReal travelledDistanceFrontOnLane, const SUMOReal travelledDistanceVehicleOnLane);
+        void notifyMoveInternal(const SUMOVehicle& veh, const double frontOnLane, const double timeOnLane, const double meanSpeedFrontOnLane, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane);
 
 
         /** @brief Called if the vehicle leaves the reminder's lane
@@ -227,7 +227,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+        bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
 
 
         /** @brief Computes current values and adds them to their sums
@@ -254,14 +254,14 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice& dev, const SUMOTime period,
-                   const SUMOReal numLanes, const SUMOReal defaultTravelTime,
+                   const double numLanes, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
         int getNumReady() const;
 
         void clearFirst();
 
-        SUMOReal getSamples() const;
+        double getSamples() const;
 
     private:
         class TrackerEntry {
@@ -313,8 +313,8 @@ public:
                const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                const bool useLanes, const bool withEmpty,
                const bool printDefaults, const bool withInternal,
-               const bool trackVehicles, const SUMOReal minSamples,
-               const SUMOReal maxTravelTime,
+               const bool trackVehicles, const double minSamples,
+               const double maxTravelTime,
                const std::string& vTypes);
 
 
@@ -357,11 +357,11 @@ public:
      */
     virtual void detectorUpdate(const SUMOTime step);
 
-    SUMOReal getMinSamples() const {
+    double getMinSamples() const {
         return myMinSamples;
     }
 
-    SUMOReal getMaxTravelTime() const {
+    double getMaxTravelTime() const {
         return myMaxTravelTime;
     }
 
@@ -372,7 +372,7 @@ protected:
      * @param[in] lane The lane to create for
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    virtual MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const = 0;
+    virtual MSMeanData::MeanDataValues* createValues(MSLane* const lane, const double length, const bool doAdd) const = 0;
 
     /** @brief Resets network value in order to allow processing of the next interval
      *
@@ -426,10 +426,10 @@ protected:
 
 protected:
     /// @brief the minimum sample seconds
-    const SUMOReal myMinSamples;
+    const double myMinSamples;
 
     /// @brief the maximum travel time to write
-    const SUMOReal myMaxTravelTime;
+    const double myMaxTravelTime;
 
     /// @brief Value collectors; sorted by edge, then by lane
     std::vector<std::vector<MeanDataValues*> > myMeasures;

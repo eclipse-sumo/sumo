@@ -43,7 +43,7 @@
 // method definitions
 // ===========================================================================
 NIVissimExtendedEdgePoint::NIVissimExtendedEdgePoint(
-    int edgeid, const std::vector<int>& lanes, SUMOReal position,
+    int edgeid, const std::vector<int>& lanes, double position,
     const std::vector<int>& assignedVehicles)
     : myEdgeID(edgeid), myLanes(lanes), myPosition(position),
       myAssignedVehicles(assignedVehicles) {}
@@ -58,7 +58,7 @@ NIVissimExtendedEdgePoint::getEdgeID() const {
 }
 
 
-SUMOReal
+double
 NIVissimExtendedEdgePoint::getPosition() const {
     return myPosition;
 }

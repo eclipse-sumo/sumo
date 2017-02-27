@@ -185,7 +185,7 @@ protected:
      * @return This stream's weight
      * @todo There are several magic numbers; describe
      */
-    SUMOReal getDirectionalWeight(LinkDirection dir);
+    double getDirectionalWeight(LinkDirection dir);
 
 
     /** @brief Returns this edge's priority at the node it ends at
@@ -200,7 +200,7 @@ protected:
      * @param[in] e2 The second edge
      * @todo There are several magic numbers; describe
      */
-    SUMOReal computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const NBEdge* const e2);
+    double computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const NBEdge* const e2);
 
 
     /** @brief Returns the combination of two edges from the given which has most unblocked streams

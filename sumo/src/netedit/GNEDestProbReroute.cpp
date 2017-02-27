@@ -40,7 +40,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval& rerouterIntervalParent, GNEEdge* newEdgeDestination, SUMOReal probability):
+GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval& rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
     myRerouterIntervalParent(&rerouterIntervalParent),
     myNewEdgeDestination(newEdgeDestination),
     myProbability(0),
@@ -66,14 +66,14 @@ GNEDestProbReroute::setNewDestination(GNEEdge* edge) {
 }
 
 
-SUMOReal
+double
 GNEDestProbReroute::getProbability() const {
     return myProbability;
 }
 
 
 bool
-GNEDestProbReroute::setProbability(SUMOReal probability) {
+GNEDestProbReroute::setProbability(double probability) {
     if (probability >= 0 && probability <= 1) {
         myProbability = probability;
         return true;

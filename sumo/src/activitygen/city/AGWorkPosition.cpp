@@ -55,7 +55,7 @@ AGWorkPosition::AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet
 }
 
 
-AGWorkPosition::AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet, SUMOReal pos) :
+AGWorkPosition::AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet, double pos) :
     myStatData(ds),
     myLocation(inStreet, pos),
     myAdult(0),
@@ -79,10 +79,10 @@ AGWorkPosition::print() const {
 
 int
 AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) {
-    SUMOReal choice = RandHelper::rand();
-    SUMOReal cumul = 0;
+    double choice = RandHelper::rand();
+    double cumul = 0;
 
-    for (std::map<int, SUMOReal>::const_iterator it = ds.beginWorkHours.begin();
+    for (std::map<int, double>::const_iterator it = ds.beginWorkHours.begin();
             it != ds.beginWorkHours.end(); ++it) {
         cumul += it->second;
         if (cumul >= choice) {
@@ -96,9 +96,9 @@ AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) {
 
 int
 AGWorkPosition::generateClosingTime(const AGDataAndStatistics& ds) {
-    SUMOReal choice = RandHelper::rand();
-    SUMOReal cumul = 0;
-    for (std::map<int, SUMOReal>::const_iterator it = ds.endWorkHours.begin();
+    double choice = RandHelper::rand();
+    double cumul = 0;
+    for (std::map<int, double>::const_iterator it = ds.endWorkHours.begin();
             it != ds.endWorkHours.end(); ++it) {
         cumul += it->second;
         if (cumul >= choice) {

@@ -78,7 +78,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyMove
      */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
+    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
 
 
     /** @brief Adds passengers on vehicle insertion
@@ -101,7 +101,7 @@ public:
      *
      * @return True if it did not leave the net.
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
+    bool notifyLeave(SUMOVehicle& veh, double lastPos,
                      MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
     /// @}
 

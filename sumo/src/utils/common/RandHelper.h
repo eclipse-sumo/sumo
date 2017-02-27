@@ -59,17 +59,17 @@ public:
     static void initRandGlobal(MTRand* which = 0);
 
     /// @brief Returns a random real number in [0, 1)
-    static inline SUMOReal rand() {
-        return (SUMOReal) RandHelper::myRandomNumberGenerator.randExc();
+    static inline double rand() {
+        return (double) RandHelper::myRandomNumberGenerator.randExc();
     }
 
     /// @brief Returns a random real number in [0, maxV)
-    static inline SUMOReal rand(SUMOReal maxV) {
+    static inline double rand(double maxV) {
         return maxV * rand();
     }
 
     /// @brief Returns a random real number in [minV, maxV)
-    static inline SUMOReal rand(SUMOReal minV, SUMOReal maxV) {
+    static inline double rand(double minV, double maxV) {
         return minV + (maxV - minV) * rand();
     }
 
@@ -94,7 +94,7 @@ public:
     }
 
     /// @brief Access to a random number from a normal distribution
-    static inline SUMOReal randNorm(SUMOReal mean, SUMOReal variance, MTRand* rng = 0) {
+    static inline double randNorm(double mean, double variance, MTRand* rng = 0) {
         if (rng == 0) {
             rng = &myRandomNumberGenerator;
         }
@@ -105,7 +105,7 @@ public:
             const double v = rng->randExc(2.0) - 1;
             q  = u * u + v * v;
         } while (q == 0.0 || q >= 1.0);
-        return (SUMOReal)(mean + variance * u * sqrt(-2 * log(q) / q));
+        return (double)(mean + variance * u * sqrt(-2 * log(q) / q));
     }
 
     /// @brief Returns a random element from the given vector

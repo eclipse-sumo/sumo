@@ -167,7 +167,7 @@ GNEJunction::getCenteringBoundary() const {
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
-    SUMOReal exaggeration = gSelected.isSelected(getType(), getGlID()) ? s.selectionScale : 1;
+    double exaggeration = gSelected.isSelected(getType(), getGlID()) ? s.selectionScale : 1;
     exaggeration *= s.junctionSize.getExaggeration(s);
     if (s.scale * exaggeration * myMaxSize < 1.) {
         // draw something simple so that selection still works
@@ -231,8 +231,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             Position pos = myNBNode.getPosition();
             glTranslated(pos.x(), pos.y(), getType() + 0.1);
             glColor3d(1, 1, 1);
-            const SUMOReal halfWidth = 32 / s.scale;
-            const SUMOReal halfHeight = 64 / s.scale;
+            const double halfWidth = 32 / s.scale;
+            const double halfHeight = 64 / s.scale;
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_TLS), -halfWidth, -halfHeight, halfWidth, halfHeight);
             glPopMatrix();
         }
@@ -683,7 +683,7 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_RADIUS:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
             break;
         case SUMO_ATTR_TLTYPE:
             return myNBNode.isTLControlled() && SUMOXMLDefinitions::TrafficLightTypes.hasString(value);
@@ -742,7 +742,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_RADIUS:
-            myNBNode.setRadius(parse<SUMOReal>(value));
+            myNBNode.setRadius(parse<double>(value));
             break;
         case SUMO_ATTR_TLTYPE: {
             const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
@@ -772,7 +772,7 @@ GNEJunction::setPosition(Position pos) {
 }
 
 
-SUMOReal
+double
 GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const {
     switch (s.junctionColorer.getActive()) {
         case 0:

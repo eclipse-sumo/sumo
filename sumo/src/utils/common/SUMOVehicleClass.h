@@ -331,11 +331,11 @@ extern bool isForbidden(SVCPermissions permissions);
 extern const std::string DEFAULT_VTYPE_ID;
 extern const std::string DEFAULT_PEDTYPE_ID;
 
-extern const SUMOReal DEFAULT_VEH_PROB; // !!! does this belong here?
+extern const double DEFAULT_VEH_PROB; // !!! does this belong here?
 
-extern const SUMOReal DEFAULT_PEDESTRIAN_SPEED;
+extern const double DEFAULT_PEDESTRIAN_SPEED;
 
-extern const SUMOReal DEFAULT_CONTAINER_TRANSHIP_SPEED;
+extern const double DEFAULT_CONTAINER_TRANSHIP_SPEED;
 
 #endif
 

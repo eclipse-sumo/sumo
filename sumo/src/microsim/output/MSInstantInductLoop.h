@@ -69,7 +69,7 @@ public:
      * @param[in] position Position of the detector within the lane.
      */
     MSInstantInductLoop(const std::string& id, OutputDevice& od,
-                        MSLane* const lane, SUMOReal positionInMeters,
+                        MSLane* const lane, double positionInMeters,
                         const std::string& vTypes);
 
 
@@ -97,7 +97,7 @@ public:
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
+    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
 
 
     /** @brief Dismisses the vehicle if it is on the detector due to a lane change
@@ -114,7 +114,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
     //@}
 
 
@@ -156,7 +156,7 @@ protected:
      * @param[in] add An optional attribute to report
      * @param[in] addValue The value of the optional attribute
      */
-    void write(const char* state, SUMOReal t, SUMOVehicle& veh, SUMOReal speed, const char* add = 0, SUMOReal addValue = -1);
+    void write(const char* state, double t, SUMOVehicle& veh, double speed, const char* add = 0, double addValue = -1);
 
 
 protected:
@@ -164,13 +164,13 @@ protected:
     OutputDevice& myOutputDevice;
 
     /// @brief Detector's position on lane [m]
-    const SUMOReal myPosition;
+    const double myPosition;
 
     /// @brief The last exit time
-    SUMOReal myLastExitTime;
+    double myLastExitTime;
 
     /// @brief The last exit time
-    std::map<SUMOVehicle*, SUMOReal> myEntryTimes;
+    std::map<SUMOVehicle*, double> myEntryTimes;
 
 private:
     /// @brief Invalidated copy constructor.

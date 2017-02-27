@@ -133,7 +133,7 @@ public:
     /** @brief Parses a color information
      *
      * It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"
-     *  and each color is represented as a SUMOReal.
+     *  and each color is represented as a double.
      *  Alternatively the color can be stored as "<RED>,<GREEN>,<BLUE>,<ALPHA>"
      *  and each color is represented as an unsigned byte.
      * @param[in] coldef The color definition to parse
@@ -147,7 +147,7 @@ public:
     /** @brief Parses a color information
      *
      * It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"
-     *  and each color is represented as a SUMOReal.
+     *  and each color is represented as a double.
      *  Alternatively the color can be stored as "<RED>,<GREEN>,<BLUE>,<ALPHA>"
      *  and each color is represented as an unsigned byte.
      * @param[in] coldef The color definition to parse
@@ -173,7 +173,7 @@ public:
      * @param[in] weight The weight of the first color
      * @return The interpolated color
      */
-    static RGBColor interpolate(const RGBColor& minColor, const RGBColor& maxColor, SUMOReal weight);
+    static RGBColor interpolate(const RGBColor& minColor, const RGBColor& maxColor, double weight);
 
 
     /** @brief Converts the given hsv-triplet to rgb
@@ -183,7 +183,7 @@ public:
      * @return The color as RGB
      * @author Alvy Ray Smith (http://www.alvyray.com/default.htm)
      */
-    static RGBColor fromHSV(SUMOReal h, SUMOReal s, SUMOReal v);
+    static RGBColor fromHSV(double h, double s, double v);
 
 
     static const RGBColor RED;

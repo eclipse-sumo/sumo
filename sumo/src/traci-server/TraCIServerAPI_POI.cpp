@@ -186,7 +186,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The fourth PoI parameter must be the position.", outputStorage);
             }
             //
-            if (!shapeCont.addPOI(id, type, col, (SUMOReal)layer,
+            if (!shapeCont.addPOI(id, type, col, (double)layer,
                                   Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, pos,
                                   Shape::DEFAULT_IMG_WIDTH, Shape::DEFAULT_IMG_HEIGHT)) {
                 delete p;

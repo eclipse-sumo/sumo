@@ -134,7 +134,7 @@ public:
      */
     struct Crossing {
         /// @brief constructor
-        Crossing(const NBNode* _node, const EdgeVector& _edges, SUMOReal _width, bool _priority) :
+        Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority) :
             node(_node),
             edges(_edges),
             width(_width),
@@ -148,7 +148,7 @@ public:
         /// @brief The lane's shape
         PositionVector shape;
         /// @brief This lane's width
-        SUMOReal width;
+        double width;
         /// @brief the (edge)-id of this crossing
         std::string id;
         /// @brief the lane-id of the previous walkingArea
@@ -169,7 +169,7 @@ public:
      */
     struct WalkingArea {
         /// @brief constructor
-        WalkingArea(const std::string& _id, SUMOReal _width) :
+        WalkingArea(const std::string& _id, double _width) :
             id(_id),
             width(_width),
             nextCrossing("") {
@@ -177,9 +177,9 @@ public:
         /// @brief the (edge)-id of this walkingArea
         std::string id;
         /// @brief This lane's width
-        SUMOReal width;
+        double width;
         /// @brief This lane's width
-        SUMOReal length;
+        double length;
         /// @brief The polygonal shape
         PositionVector shape;
         /// @brief the lane-id of the next crossing
@@ -194,10 +194,10 @@ public:
     static const int FORWARD;
     static const int BACKWARD;
     /// @brief default width of pedetrian crossings
-    static const SUMOReal DEFAULT_CROSSING_WIDTH;
+    static const double DEFAULT_CROSSING_WIDTH;
 
     /// @brief unspecified lane width
-    static const SUMOReal UNSPECIFIED_RADIUS;
+    static const double UNSPECIFIED_RADIUS;
 
 public:
     /**@brief Constructor
@@ -259,7 +259,7 @@ public:
     }
 
     /// @brief Returns the turning radius of this node
-    SUMOReal getRadius() const {
+    double getRadius() const {
         return myRadius;
     }
 
@@ -329,7 +329,7 @@ public:
      * @param[in] xoff The x-offset to apply
      * @param[in] yoff The y-offset to apply
      */
-    void reshiftPosition(SUMOReal xoff, SUMOReal yoff);
+    void reshiftPosition(double xoff, double yoff);
 
     /// @brief mirror coordinates along the x-axis
     void mirrorX();
@@ -463,7 +463,7 @@ public:
     /**@brief Compute the junction shape for this node
      * @param[in] mismatchThreshold The threshold for warning about shapes which are away from myPosition
      */
-    void computeNodeShape(SUMOReal mismatchThreshold);
+    void computeNodeShape(double mismatchThreshold);
 
     /// @brief retrieve the junction shape
     const PositionVector& getShape() const;
@@ -480,7 +480,7 @@ public:
     }
 
     /// @brief set the turning radius
-    void setRadius(SUMOReal radius) {
+    void setRadius(double radius) {
         myRadius = radius;
     }
 
@@ -530,16 +530,16 @@ public:
      * @return The shape of the internal lane
      */
     PositionVector computeSmoothShape(const PositionVector& begShape, const PositionVector& endShape, int numPoints,
-                                      bool isTurnaround, SUMOReal extrapolateBeg, SUMOReal extrapolateEnd,
+                                      bool isTurnaround, double extrapolateBeg, double extrapolateEnd,
                                       NBNode* recordError = 0) const;
     /// @brief get bezier control points
     static PositionVector bezierControlPoints(const PositionVector& begShape, const PositionVector& endShape,
-            bool isTurnaround, SUMOReal extrapolateBeg, SUMOReal extrapolateEnd,
-            bool& ok, NBNode* recordError = 0, SUMOReal straightThresh = DEG2RAD(5));
+            bool isTurnaround, double extrapolateBeg, double extrapolateEnd,
+            bool& ok, NBNode* recordError = 0, double straightThresh = DEG2RAD(5));
 
 
     /// @brief compute the displacement error during s-curve computation
-    SUMOReal getDisplacementError() const {
+    double getDisplacementError() const {
         return myDisplacementError;
     }
 
@@ -601,7 +601,7 @@ public:
     void setRoundabout();
 
     /// @brief add a pedestrian crossing to this node
-    void addCrossing(EdgeVector edges, SUMOReal width, bool priority, bool fromSumoNet = false);
+    void addCrossing(EdgeVector edges, double width, bool priority, bool fromSumoNet = false);
 
     /// @brief remove a pedestrian crossing from this node (identified by its edges)
     void removeCrossing(const EdgeVector& edges);
@@ -713,7 +713,7 @@ private:
     EdgeVector getEdgesSortedByAngleAtNodeCenter() const;
 
     /// @brief check if is long enough
-    static bool isLongEnough(NBEdge* out, SUMOReal minLength);
+    static bool isLongEnough(NBEdge* out, double minLength);
 
 private:
     /// @brief The position the node lies at
@@ -756,7 +756,7 @@ private:
     std::set<NBTrafficLightDefinition*> myTrafficLights;
 
     /// @brief the turning radius (for all corners) at this node in m.
-    SUMOReal myRadius;
+    double myRadius;
 
     /// @brief whether the junction area must be kept clear
     bool myKeepClear;
@@ -771,7 +771,7 @@ private:
     int myCrossingsLoadedFromSumoNet;
 
     /// @brief geometry error after computation of internal lane shapes
-    SUMOReal myDisplacementError;
+    double myDisplacementError;
 
 private:
     /// @brief invalidated copy constructor

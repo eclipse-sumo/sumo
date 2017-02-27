@@ -88,7 +88,7 @@ NGNet::findNode(int xID, int yID) {
 
 
 void
-NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, SUMOReal attachLength, bool alphaIDs) {
+NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength, bool alphaIDs) {
     for (int ix = 0; ix < numX; ix++) {
         for (int iy = 0; iy < numY; iy++) {
             // create Node
@@ -142,20 +142,20 @@ NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, 
 }
 
 
-SUMOReal
-NGNet::radialToX(SUMOReal radius, SUMOReal phi) {
+double
+NGNet::radialToX(double radius, double phi) {
     return cos(phi) * radius;
 }
 
 
-SUMOReal
-NGNet::radialToY(SUMOReal radius, SUMOReal phi) {
+double
+NGNet::radialToY(double radius, double phi) {
     return sin(phi) * radius;
 }
 
 
 void
-NGNet::createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool hasCenter) {
+NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter) {
     if (numRadDiv < 3) {
         numRadDiv = 3;
     }
@@ -164,7 +164,7 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool ha
     }
 
     int ir, ic;
-    SUMOReal angle = (SUMOReal)(2 * M_PI / numRadDiv); // angle between radial divisions
+    double angle = (double)(2 * M_PI / numRadDiv); // angle between radial divisions
     NGNode* Node;
     for (ir = 1; ir < numRadDiv + 1; ir++) {
         for (ic = 1; ic < numCircles + 1; ic++) {
@@ -224,7 +224,7 @@ NGNet::toNB() const {
         myNetBuilder.getEdgeCont().insert(edge);
     }
     // now, let's append the reverse directions...
-    SUMOReal bidiProb = OptionsCont::getOptions().getFloat("rand.bidi-probability");
+    double bidiProb = OptionsCont::getOptions().getFloat("rand.bidi-probability");
     for (std::vector<NBNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
         NBNode* node = *i;
         EdgeVector incoming = node->getIncomingEdges();

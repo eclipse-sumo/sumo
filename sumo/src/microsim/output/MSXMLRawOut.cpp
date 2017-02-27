@@ -153,7 +153,7 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
             const MSVehicle& microVeh = static_cast<const MSVehicle&>(veh);
             // microsim-specific stuff
             if (MSGlobals::gLateralResolution > 0) {
-                const SUMOReal posLat = microVeh.getLateralPositionOnLane();
+                const double posLat = microVeh.getLateralPositionOnLane();
                 of.writeAttr(SUMO_ATTR_POSITION_LAT, posLat);
             }
             const int personNumber = microVeh.getPersonNumber();

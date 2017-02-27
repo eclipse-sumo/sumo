@@ -71,7 +71,7 @@ public:
      * param[in] str the street on which the AGPosition is located
      * param[in] pos the distance from the from node of the street
      */
-    AGPosition(const AGStreet& str, SUMOReal pos);
+    AGPosition(const AGStreet& str, double pos);
     /** @brief Constructs an AGPosition at a random point on a street.
      *
      * This constructor determines the distance from the from node with
@@ -94,7 +94,7 @@ public:
      *
      * @return the relative position
      */
-    SUMOReal getPosition() const;
+    double getPosition() const;
 
     /** @brief Tests whether two positions are at the same place.
      *
@@ -111,7 +111,7 @@ public:
      * @param[in] the other position the distance in computed to
      * @return the distance
      */
-    SUMOReal distanceTo(const AGPosition& otherPos) const;
+    double distanceTo(const AGPosition& otherPos) const;
 
     /** @brief Computes the distance to the closest position in a list.
      *
@@ -121,7 +121,7 @@ public:
      * @param[in] positions the list of positions the distances are computed to
      * @return the minimal distance
      */
-    SUMOReal minDistanceTo(const std::list<AGPosition>& positions) const;
+    double minDistanceTo(const std::list<AGPosition>& positions) const;
 
     /** @brief Computes the distance to the closest position in a map.
      *
@@ -131,7 +131,7 @@ public:
      * @param[in] positions the map of positions the distances are computed to
      * @return the minimal distance
      */
-    SUMOReal minDistanceTo(const std::map<int, AGPosition>& positions) const;
+    double minDistanceTo(const std::map<int, AGPosition>& positions) const;
 
     /** @brief Prints out a summary of the properties of this class
      * on standard output.
@@ -140,14 +140,14 @@ public:
 
 private:
     const AGStreet* street;
-    SUMOReal position;
+    double position;
     Position pos2d;
 
     /** @brief Determines a random relative position on a street.
      *
      * @return the random relative position
      */
-    static SUMOReal randomPositionInStreet(const AGStreet& street);
+    static double randomPositionInStreet(const AGStreet& street);
 
     /** Creates a Position object to the street and position attribute of
      * this class.

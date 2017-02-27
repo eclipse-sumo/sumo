@@ -82,8 +82,8 @@ NLEdgeControlBuilder::beginEdgeParsing(
 
 MSLane*
 NLEdgeControlBuilder::addLane(const std::string& id,
-                              SUMOReal maxSpeed, SUMOReal length,
-                              const PositionVector& shape, SUMOReal width,
+                              double maxSpeed, double length,
+                              const PositionVector& shape, double width,
                               SVCPermissions permissions, int index, bool isRampAccel) {
     MSLane* lane = new MSLane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, index, isRampAccel);
     myLaneStorage->push_back(lane);

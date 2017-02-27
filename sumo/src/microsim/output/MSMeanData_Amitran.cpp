@@ -51,7 +51,7 @@
 // MSMeanData_Amitran::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
 MSMeanData_Amitran::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
-        const SUMOReal length,
+        const double length,
         const bool doAdd,
         const MSMeanData_Amitran* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, parent), amount(0) {}
@@ -79,17 +79,17 @@ MSMeanData_Amitran::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val)
     for (std::map<const MSVehicleType*, int>::const_iterator it = typedAmount.begin(); it != typedAmount.end(); ++it) {
         v.typedAmount[it->first] += it->second;
     }
-    for (std::map<const MSVehicleType*, SUMOReal>::const_iterator it = typedSamples.begin(); it != typedSamples.end(); ++it) {
+    for (std::map<const MSVehicleType*, double>::const_iterator it = typedSamples.begin(); it != typedSamples.end(); ++it) {
         v.typedSamples[it->first] += it->second;
     }
-    for (std::map<const MSVehicleType*, SUMOReal>::const_iterator it = typedTravelDistance.begin(); it != typedTravelDistance.end(); ++it) {
+    for (std::map<const MSVehicleType*, double>::const_iterator it = typedTravelDistance.begin(); it != typedTravelDistance.end(); ++it) {
         v.typedTravelDistance[it->first] += it->second;
     }
 }
 
 
 void
-MSMeanData_Amitran::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& veh, const SUMOReal /* frontOnLane */, const SUMOReal timeOnLane, const SUMOReal /*meanSpeedFrontOnLane*/, const SUMOReal /*meanSpeedVehicleOnLane*/, const SUMOReal /*travelledDistanceFrontOnLane*/, const SUMOReal travelledDistanceVehicleOnLane) {
+MSMeanData_Amitran::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& veh, const double /* frontOnLane */, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double /*meanSpeedVehicleOnLane*/, const double /*travelledDistanceFrontOnLane*/, const double travelledDistanceVehicleOnLane) {
     sampleSeconds += timeOnLane;
     travelledDistance += travelledDistanceVehicleOnLane;
     typedSamples[&veh.getVehicleType()] += timeOnLane;
@@ -120,7 +120,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::isEmpty() const {
 
 void
 MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime /* period */,
-        const SUMOReal /* numLanes */, const SUMOReal defaultTravelTime, const int /* numVehicles */) const {
+        const double /* numLanes */, const double defaultTravelTime, const int /* numVehicles */) const {
     if (sampleSeconds > 0) {
         dev.writeAttr("amount", amount).writeAttr("averageSpeed", int(100 * travelledDistance / sampleSeconds));
     } else if (defaultTravelTime >= 0.) {
@@ -147,9 +147,9 @@ MSMeanData_Amitran::MSMeanData_Amitran(const std::string& id,
                                        const bool withEmpty, const bool printDefaults,
                                        const bool withInternal,
                                        const bool trackVehicles,
-                                       const SUMOReal maxTravelTime,
-                                       const SUMOReal minSamples,
-                                       const SUMOReal haltSpeed,
+                                       const double maxTravelTime,
+                                       const double minSamples,
+                                       const double haltSpeed,
                                        const std::string& vTypes)
     : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
                  withInternal, trackVehicles, maxTravelTime, minSamples, vTypes),
@@ -190,7 +190,7 @@ MSMeanData_Amitran::writePrefix(OutputDevice& dev, const MeanDataValues& values,
 
 
 MSMeanData::MeanDataValues*
-MSMeanData_Amitran::createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const {
+MSMeanData_Amitran::createValues(MSLane* const lane, const double length, const bool doAdd) const {
     return new MSLaneMeanDataValues(lane, length, doAdd, this);
 }
 

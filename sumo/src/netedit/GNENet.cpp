@@ -92,7 +92,7 @@
 const RGBColor GNENet::selectionColor(0, 0, 204, 255);
 const RGBColor GNENet::selectedLaneColor(0, 0, 128, 255);
 const RGBColor GNENet::selectedConnectionColor(0, 0, 100, 255);
-const SUMOReal GNENet::Z_INITIALIZED = 1;
+const double GNENet::Z_INITIALIZED = 1;
 
 // ===========================================================================
 // member method definitions
@@ -278,12 +278,12 @@ GNENet::createEdge(
         edge = new GNEEdge(*nbe, this, wasSplit);
     } else {
         // default if no template is given
-        SUMOReal defaultSpeed = 50 / 3.6;
+        double defaultSpeed = 50 / 3.6;
         std::string defaultType = "";
         int defaultNrLanes = 1;
         int defaultPriority = 1;
-        SUMOReal defaultWidth = NBEdge::UNSPECIFIED_WIDTH;
-        SUMOReal defaultOffset = NBEdge::UNSPECIFIED_OFFSET;
+        double defaultWidth = NBEdge::UNSPECIFIED_WIDTH;
+        double defaultOffset = NBEdge::UNSPECIFIED_OFFSET;
         NBEdge* nbe = new NBEdge(id, src->getNBNode(), dest->getNBNode(),
                                  defaultType, defaultSpeed,
                                  defaultNrLanes, defaultPriority,
@@ -533,7 +533,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     deleteEdge(edge, undoList); // still exists. we delete it so we can reuse the name in case of resplit
     // compute geometry
     const PositionVector& oldGeom = edge->getNBEdge()->getGeometry();
-    const SUMOReal linePos = oldGeom.nearest_offset_to_point2D(pos, false);
+    const double linePos = oldGeom.nearest_offset_to_point2D(pos, false);
     std::pair<PositionVector, PositionVector> newGeoms = oldGeom.splitAt(linePos);
     // figure out the new name
     int posBase = 0;
@@ -615,7 +615,7 @@ GNENet::addReversedEdge(GNEEdge* edge, GNEUndoList* undoList) {
         // make it easy to move and reconnect it
         PositionVector orig = edge->getNBEdge()->getGeometry();
         PositionVector origInner = edge->getNBEdge()->getInnerGeometry();
-        const SUMOReal tentativeShift = edge->getNBEdge()->getTotalWidth() + 2;
+        const double tentativeShift = edge->getNBEdge()->getTotalWidth() + 2;
         orig.move2side(-tentativeShift);
         origInner.move2side(-tentativeShift);
         GNEJunction* src = createJunction(orig.back(), undoList);
@@ -1273,7 +1273,7 @@ GNENet::getAdditional(SumoXMLTag type, const std::string& id) const {
 
 
 std::string
-GNENet::getAdditionalID(SumoXMLTag type, const GNELane* lane, const SUMOReal pos) const {
+GNENet::getAdditionalID(SumoXMLTag type, const GNELane* lane, const double pos) const {
     for (GNEAdditionals::const_iterator it = myAdditionals.begin(); it != myAdditionals.end(); ++it) {
         if ((it->second->getTag() == type) && (it->second->getLane() != NULL) && (it->second->getLane() == lane) && (fabs(it->second->getPositionInView().x() - pos) < POSITION_EPS)) {
             return it->second->getID();
@@ -1336,7 +1336,7 @@ GNENet::registerJunction(GNEJunction* junction) {
     myGrid.add(junction->getBoundary());
     myGrid.addAdditionalGLObject(junction);
     // @todo let Boundary class track z-coordinate natively
-    const SUMOReal z = junction->getNBNode()->getPosition().z();
+    const double z = junction->getNBNode()->getPosition().z();
     if (z != 0) {
         myZBoundary.add(z, Z_INITIALIZED);
     }

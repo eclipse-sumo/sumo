@@ -76,7 +76,7 @@ public:
         /** @brief Constructor
          * @param[in] length The length of the object for which the data gets collected
          */
-        MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
+        MSLaneMeanDataValues(MSLane* const lane, const double length, const bool doAdd,
                              const MSMeanData_Net* parent);
 
         /** @brief Destructor */
@@ -104,7 +104,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+        bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
 
 
         /** @brief Computes current values and adds them to their sums
@@ -133,14 +133,14 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice& dev, const SUMOTime period,
-                   const SUMOReal numLanes, const SUMOReal defaultTravelTime,
+                   const double numLanes, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
     protected:
         /** @brief Internal notification about the vehicle moves
          *  @see MSMoveReminder::notifyMoveInternal
          */
-        void notifyMoveInternal(const SUMOVehicle& veh, const SUMOReal frontOnLane, const SUMOReal timeOnLane, const SUMOReal meanSpeedFrontOnLane, const SUMOReal meanSpeedVehicleOnLane, const SUMOReal travelledDistanceFrontOnLane, const SUMOReal travelledDistanceVehicleOnLane);
+        void notifyMoveInternal(const SUMOVehicle& veh, const double frontOnLane, const double timeOnLane, const double meanSpeedFrontOnLane, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane);
 
     public:
         /// @name Collected values
@@ -161,7 +161,7 @@ public:
         int nVehVaporized;
 
         /// @brief The number of vehicle probes with small speed
-        SUMOReal waitSeconds;
+        double waitSeconds;
 
     private:
         /// @brief The number of vehicles that changed from this lane
@@ -171,13 +171,13 @@ public:
         int nVehLaneChangeTo;
 
         /// @brief The number of vehicle probes regarding the vehicle front
-        SUMOReal frontSampleSeconds;
+        double frontSampleSeconds;
 
         /// @brief The travelled distance regarding the vehicle front
-        SUMOReal frontTravelledDistance;
+        double frontTravelledDistance;
 
         /// @brief The sum of the lengths the vehicles had
-        SUMOReal vehLengthSum;
+        double vehLengthSum;
         //@}
 
         /// @brief The meandata parent
@@ -206,8 +206,8 @@ public:
                    const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                    const bool useLanes, const bool withEmpty, const bool printDefaults,
                    const bool withInternal, const bool trackVehicles,
-                   const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                   const SUMOReal haltSpeed, const std::string& vTypes);
+                   const double maxTravelTime, const double minSamples,
+                   const double haltSpeed, const std::string& vTypes);
 
 
     /// @brief Destructor
@@ -219,7 +219,7 @@ protected:
      * @param[in] lane The lane to create for
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const;
+    MSMeanData::MeanDataValues* createValues(MSLane* const lane, const double length, const bool doAdd) const;
 
     /** @brief Resets network value in order to allow processing of the next interval
      *
@@ -230,7 +230,7 @@ protected:
 
 private:
     /// @brief the minimum sample seconds
-    const SUMOReal myHaltSpeed;
+    const double myHaltSpeed;
 
     /// @brief Invalidated copy constructor.
     MSMeanData_Net(const MSMeanData_Net&);

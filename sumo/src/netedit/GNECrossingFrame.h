@@ -168,7 +168,7 @@ public:
         bool getCrossingPriority() const;
 
         /// @brief get crossing width
-        SUMOReal getCrossingWidth() const;
+        double getCrossingWidth() const;
 
         /// @brief get candidate color
         const RGBColor& getCandidateColor() const;

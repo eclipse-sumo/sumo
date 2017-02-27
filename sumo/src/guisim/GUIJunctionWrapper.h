@@ -148,14 +148,14 @@ public:
 #endif
 
 private:
-    SUMOReal getColorValue(const GUIVisualizationSettings& s) const;
+    double getColorValue(const GUIVisualizationSettings& s) const;
 
 private:
     /// @brief A reference to the represented junction
     MSJunction& myJunction;
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
-    SUMOReal myMaxSize;
+    double myMaxSize;
 
     /// @brief The represented junction's boundary
     Boundary myBoundary;

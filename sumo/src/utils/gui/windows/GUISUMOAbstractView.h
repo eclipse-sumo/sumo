@@ -100,7 +100,7 @@ public:
      * @param[in] zoomDist The distance in m to use for the zoom, values < 0 means: use the centeringBoundary
      * @note caller is responsible for calling update
      */
-    virtual void centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist = 20);
+    virtual void centerTo(GUIGlID id, bool applyZoom, double zoomDist = 20);
 
     ///@brief centers to the chosen artifact
     void centerTo(const Boundary& bound);
@@ -112,10 +112,10 @@ public:
     virtual void copyViewportTo(GUISUMOAbstractView* view);
 
     ///@brief meter-to-pixels conversion method
-    SUMOReal m2p(SUMOReal meter) const;
+    double m2p(double meter) const;
 
     ///@brief pixels-to-meters conversion method
-    SUMOReal p2m(SUMOReal pixel) const;
+    double p2m(double pixel) const;
 
     ///@brief Returns the information whether rotation is allowd
     ///@note disabled
@@ -219,11 +219,11 @@ public:
 
     ///@brief get grid width
     // @todo: check why this is here
-    SUMOReal getGridWidth() const;
+    double getGridWidth() const;
 
     ///@brief get grid Height
     // @todo: check why this is here
-    SUMOReal getGridHeight() const;
+    double getGridHeight() const;
 
     ///@brief star track
     virtual void startTrack(int /*id*/);
@@ -273,25 +273,25 @@ public:
         ///@brief The path to the file the image is located at
         std::string filename;
         ///@brief The center of the image in x-direction (net coordinates, in m)
-        SUMOReal centerX;
+        double centerX;
         ///@brief The center of the image in y-direction (net coordinates, in m)
-        SUMOReal centerY;
+        double centerY;
         ///@brief The center of the image in z-direction (net coordinates, in m)
-        SUMOReal centerZ;
+        double centerZ;
         ///@brief The width of the image (net coordinates in x-direction, in m)
-        SUMOReal width;
+        double width;
         ///@brief The height of the image (net coordinates in y-direction, in m)
-        SUMOReal height;
+        double height;
         ///@brief The altitude of the image (net coordinates in z-direction, in m)
-        SUMOReal altitude;
+        double altitude;
         ///@brief The rotation of the image in the ground plane (in degrees)
-        SUMOReal rot;
+        double rot;
         ///@brief The tilt of the image to the ground plane (in degrees)
-        SUMOReal tilt;
+        double tilt;
         ///@brief The roll of the image to the ground plane (in degrees)
-        SUMOReal roll;
+        double roll;
         ///@brief The layer of the image
-        SUMOReal layer;
+        double layer;
         ///@brief Whether this image was initialised (inserted as a texture)
         bool initialised;
         ///@brief Whether this image should be skipped in 2D-views
@@ -321,10 +321,10 @@ public:
     GUIVisualizationSettings* getVisualisationSettings();
 
     ///@brief Returns the delay of the parent application
-    SUMOReal getDelay() const;
+    double getDelay() const;
 
     /// @brief Sets the delay of the parent application
-    void setDelay(SUMOReal delay);
+    void setDelay(double delay);
 
 protected:
     ///@brief performs the painting of the simulation
@@ -352,7 +352,7 @@ protected:
     GUIGlID getObjectAtPosition(Position pos);
 
     ///@brief returns the ids of the object at position within the given (rectangular) radius using GL_SELECT
-    std::vector<GUIGlID> getObjectsAtPosition(Position pos, SUMOReal radius);
+    std::vector<GUIGlID> getObjectsAtPosition(Position pos, double radius);
 
     ///@brief returns the ids of all objects in the given boundary
     std::vector<GUIGlID> getObjectsInBoundary(const Boundary& bound);

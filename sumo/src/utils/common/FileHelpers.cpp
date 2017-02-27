@@ -160,8 +160,8 @@ FileHelpers::writeInt(std::ostream& strm, int value) {
 
 
 std::ostream&
-FileHelpers::writeFloat(std::ostream& strm, SUMOReal value) {
-    strm.write((char*) &value, sizeof(SUMOReal));
+FileHelpers::writeFloat(std::ostream& strm, double value) {
+    strm.write((char*) &value, sizeof(double));
     return strm;
 }
 

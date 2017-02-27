@@ -165,7 +165,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string& file) {
             times.push_back(time);
         }
 
-        Position pos((SUMOReal)(posX / 1000.), -(SUMOReal)(posY / 1000.));
+        Position pos((double)(posX / 1000.), -(double)(posY / 1000.));
         NBNetBuilder::transformCoordinate(pos);
         NBNode* node = new NBNode(toString(id), pos);
         myNodeCont.insert(node);
@@ -195,7 +195,7 @@ NIImporter_RobocupRescue::loadEdges(const std::string& file) {
             >> median >> linesToHead >> linesToTail >> widthForWalkers;
         NBNode* fromNode = myNodeCont.retrieve(toString(begNode));
         NBNode* toNode = myNodeCont.retrieve(toString(endNode));
-        SUMOReal speed = (SUMOReal)(50. / 3.6);
+        double speed = (double)(50. / 3.6);
         int priority = -1;
         LaneSpreadFunction spread = linesToHead > 0 && linesToTail > 0 ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
         if (linesToHead > 0) {

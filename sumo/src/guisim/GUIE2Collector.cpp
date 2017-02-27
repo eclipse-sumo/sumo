@@ -53,9 +53,9 @@
  * GUIE2Collector-methods
  * ----------------------------------------------------------------------- */
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
-        MSLane* lane, SUMOReal startPos, SUMOReal endPos, SUMOReal detLength,
-        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold, const std::string& vTypes, bool showDetector)
+        MSLane* lane, double startPos, double endPos, double detLength,
+        SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
+        double jamDistThreshold, const std::string& vTypes, bool showDetector)
     : MSE2Collector(id, usage, lane, startPos, endPos, detLength, haltingTimeThreshold,
                     haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector),
                     myShowDetectorInGUI(showDetector) {
@@ -64,9 +64,9 @@ GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
 }
 
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
-        std::vector<MSLane*> lanes, SUMOReal startPos, SUMOReal endPos,
-        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold, const std::string& vTypes, bool showDetector)
+        std::vector<MSLane*> lanes, double startPos, double endPos,
+        SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
+        double jamDistThreshold, const std::string& vTypes, bool showDetector)
     : MSE2Collector(id, usage, lanes, startPos, endPos, haltingTimeThreshold,
                     haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector),
                     myShowDetectorInGUI(showDetector) {}
@@ -98,7 +98,7 @@ GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector)
         const Position& f = myFullGeometry[i];
         const Position& s = myFullGeometry[i + 1];
         myShapeLengths.push_back(f.distanceTo(s));
-        myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+        myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
     }
     //
     myBoundary = myFullGeometry.getBoxBoundary();
@@ -130,21 +130,21 @@ GUIE2Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("vehicles [#]", true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentVehicleNumber));
     ret->mkItem("occupancy [%]", true,
-                new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentOccupancy));
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getCurrentOccupancy));
     ret->mkItem("mean speed [m/s]", true,
-                new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentMeanSpeed));
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getCurrentMeanSpeed));
     ret->mkItem("mean vehicle length [m]", true,
-                new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentMeanLength));
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getCurrentMeanLength));
     ret->mkItem("jam number [#]", true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentJamNumber));
     ret->mkItem("max jam length [veh]", true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentMaxJamLengthInVehicles));
     ret->mkItem("max jam length [m]", true,
-                new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentMaxJamLengthInMeters));
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getCurrentMaxJamLengthInMeters));
     ret->mkItem("jam length sum [veh]", true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentJamLengthInVehicles));
     ret->mkItem("jam length sum [m]", true,
-                new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentJamLengthInMeters));
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getCurrentJamLengthInMeters));
     ret->mkItem("started halts [#]", true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentStartedHalts));
     // close building
@@ -158,16 +158,16 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     glTranslated(0, 0, getType());
-    SUMOReal dwidth = 1;
-    const SUMOReal exaggeration = s.addSize.getExaggeration(s);
+    double dwidth = 1;
+    const double exaggeration = s.addSize.getExaggeration(s);
     if (exaggeration > 0) {
         if (myDetector.getUsageType() == DU_TL_CONTROL) {
-            dwidth = (SUMOReal) 0.3;
-            glColor3d(0, (SUMOReal) .6, (SUMOReal) .8);
+            dwidth = (double) 0.3;
+            glColor3d(0, (double) .6, (double) .8);
         } else {
-            glColor3d(0, (SUMOReal) .8, (SUMOReal) .8);
+            glColor3d(0, (double) .8, (double) .8);
         }
-        SUMOReal width = (SUMOReal) 2.0 * s.scale;
+        double width = (double) 2.0 * s.scale;
         if (width * exaggeration > 1.0) {
             GLHelper::drawBoxLines(myFullGeometry, myShapeRotations, myShapeLengths, dwidth * exaggeration);
         } else {

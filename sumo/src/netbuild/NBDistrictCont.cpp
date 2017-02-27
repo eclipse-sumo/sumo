@@ -85,7 +85,7 @@ NBDistrictCont::size() const {
 
 bool
 NBDistrictCont::addSource(const std::string& dist, NBEdge* const source,
-                          SUMOReal weight) {
+                          double weight) {
     NBDistrict* o = retrieve(dist);
     if (o == 0) {
         return false;
@@ -96,7 +96,7 @@ NBDistrictCont::addSource(const std::string& dist, NBEdge* const source,
 
 bool
 NBDistrictCont::addSink(const std::string& dist, NBEdge* const destination,
-                        SUMOReal weight) {
+                        double weight) {
     NBDistrict* o = retrieve(dist);
     if (o == 0) {
         return false;

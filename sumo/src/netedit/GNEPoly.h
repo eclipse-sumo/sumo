@@ -103,8 +103,8 @@ public:
     /**@brief Constructor
      */
     GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
-            const RGBColor& color, SUMOReal layer,
-            SUMOReal angle = 0, const std::string& imgFile = "");
+            const RGBColor& color, double layer,
+            double angle = 0, const std::string& imgFile = "");
 
     /// @brief Destructor
     virtual ~GNEPoly();

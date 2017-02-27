@@ -117,7 +117,7 @@ void
 GNELane::drawArrows() const {
     const Position& end = getShape().back();
     const Position& f = getShape()[-2];
-    SUMOReal rot = (SUMOReal) atan2((end.x() - f.x()), (f.y() - end.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
+    double rot = (double) atan2((end.x() - f.x()), (f.y() - end.y())) * (double) 180.0 / (double) PI;
     glPushMatrix();
     glPushName(0);
     glTranslated(0, 0, GLO_JUNCTION + .1); // must draw on top of junction shape
@@ -134,39 +134,39 @@ GNELane::drawArrows() const {
             switch (dir) {
                 case LINKDIR_STRAIGHT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-                    GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
                     break;
                 case LINKDIR_LEFT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                     GLHelper::drawBoxLine(Position(0, 2.5), 90, 1, .05);
-                    GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(1.5, 2.5), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(1.5, 2.5), (double) 1, (double) .25);
                     break;
                 case LINKDIR_RIGHT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                     GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
-                    GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(-1.5, 2.5), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(-1.5, 2.5), (double) 1, (double) .25);
                     break;
                 case LINKDIR_TURN:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                     GLHelper::drawBoxLine(Position(0, 2.5), 90, .5, .05);
                     GLHelper::drawBoxLine(Position(0.5, 2.5), 180, 1, .05);
-                    GLHelper::drawTriangleAtEnd(Position(0.5, 2.5), Position(0.5, 4), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(0.5, 2.5), Position(0.5, 4), (double) 1, (double) .25);
                     break;
                 case LINKDIR_TURN_LEFTHAND:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                     GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
                     GLHelper::drawBoxLine(Position(-0.5, 2.5), -180, 1, .05);
-                    GLHelper::drawTriangleAtEnd(Position(-0.5, 2.5), Position(-0.5, 4), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(-0.5, 2.5), Position(-0.5, 4), (double) 1, (double) .25);
                     break;
                 case LINKDIR_PARTLEFT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                     GLHelper::drawBoxLine(Position(0, 2.5), 45, .7, .05);
-                    GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(1.2, 1.3), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(1.2, 1.3), (double) 1, (double) .25);
                     break;
                 case LINKDIR_PARTRIGHT:
                     GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                     GLHelper::drawBoxLine(Position(0, 2.5), -45, .7, .05);
-                    GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(-1.2, 1.3), (SUMOReal) 1, (SUMOReal) .25);
+                    GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(-1.2, 1.3), (double) 1, (double) .25);
                     break;
                 case LINKDIR_NODIR:
                     GLHelper::drawBoxLine(Position(1, 5.8), 245, 2, .05);
@@ -226,7 +226,7 @@ GNELane::drawLane2LaneConnections() const {
         glVertex2d(startPos.x(), startPos.y());
         glVertex2d(endPos.x(), endPos.y());
         glEnd();
-        GLHelper::drawTriangleAtEnd(startPos, endPos, (SUMOReal) 1.5, (SUMOReal) .2);
+        GLHelper::drawTriangleAtEnd(startPos, endPos, (double) 1.5, (double) .2);
     }
     glPopName();
     glPopMatrix();
@@ -263,8 +263,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // start drawing lane checking whether it is not too small
-    const SUMOReal selectionScale = selected || selectedEdge ? s.selectionScale : 1;
-    SUMOReal exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
+    const double selectionScale = selected || selectedEdge ? s.selectionScale : 1;
+    double exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     // XXX apply usefull scale values
     //exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
 
@@ -286,7 +286,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         if (drawAsRailway(s)) {
             // draw as railway
-            const SUMOReal halfRailWidth = 0.725 * exaggeration;
+            const double halfRailWidth = 0.725 * exaggeration;
             // Draw box depending of myShapeColors
             if (myShapeColors.size() > 0) {
                 GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
@@ -307,7 +307,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             drawCrossties(0.3 * exaggeration, 1 * exaggeration, 1 * exaggeration);
         } else {
             // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
-            const SUMOReal halfWidth = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - (selectedEdge ? .3 : 0));
+            const double halfWidth = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - (selectedEdge ? .3 : 0));
             if (myShapeColors.size() > 0) {
                 GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, myShapeColors, halfWidth);
             } else {
@@ -366,21 +366,21 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawMarkings(const bool& selectedEdge, SUMOReal scale) const {
+GNELane::drawMarkings(const bool& selectedEdge, double scale) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_EDGE);
 
-    const SUMOReal halfWidth = myParentEdge.getNBEdge()->getLaneWidth(myIndex) * 0.5;
+    const double halfWidth = myParentEdge.getNBEdge()->getLaneWidth(myIndex) * 0.5;
     // optionally draw inverse markings
     if (myIndex > 0 && (myParentEdge.getNBEdge()->getPermissions(myIndex - 1) & myParentEdge.getNBEdge()->getPermissions(myIndex)) != 0) {
-        SUMOReal mw = (halfWidth + SUMO_const_laneOffset + .01) * scale;
+        double mw = (halfWidth + SUMO_const_laneOffset + .01) * scale;
         int e = (int) getShape().size() - 1;
         for (int i = 0; i < e; ++i) {
             glPushMatrix();
             glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
             glRotated(myShapeRotations[i], 0, 0, 1);
-            for (SUMOReal t = 0; t < myShapeLengths[i]; t += 6) {
-                const SUMOReal length = MIN2((SUMOReal)3, myShapeLengths[i] - t);
+            for (double t = 0; t < myShapeLengths[i]; t += 6) {
+                const double length = MIN2((double)3, myShapeLengths[i] - t);
                 glBegin(GL_QUADS);
                 glVertex2d(-mw, -t);
                 glVertex2d(-mw, -t - length);
@@ -545,8 +545,8 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     // buildShowParamsPopupEntry(ret, false);
     new FXMenuSeparator(ret);
-    const SUMOReal pos = getShape().nearest_offset_to_point2D(parent.getPositionInformation());
-    const SUMOReal height = getShape().positionAtOffset2D(getShape().nearest_offset_to_point2D(parent.getPositionInformation())).z();
+    const double pos = getShape().nearest_offset_to_point2D(parent.getPositionInformation());
+    const double height = getShape().positionAtOffset2D(getShape().nearest_offset_to_point2D(parent.getPositionInformation())).z();
     new FXMenuCommand(ret, ("Shape pos: " + toString(pos)).c_str(), 0, 0, 0);
     new FXMenuCommand(ret, ("Length pos: " + toString(getPositionRelativeToShapeLenght(pos))).c_str(), 0, 0, 0);
     new FXMenuCommand(ret, ("Height: " + toString(height)).c_str(), 0, 0, 0);
@@ -585,13 +585,13 @@ GNELane::getShape() const {
 }
 
 
-const std::vector<SUMOReal>&
+const std::vector<double>&
 GNELane::getShapeRotations() const {
     return myShapeRotations;
 }
 
 
-const std::vector<SUMOReal>&
+const std::vector<double>&
 GNELane::getShapeLengths() const {
     return myShapeLengths;
 }
@@ -610,7 +610,7 @@ GNELane::updateGeometry() {
     myShapeLengths.clear();
     myLaneRestrictedTexturePositions.clear();
     myLaneRestrictedTextureRotations.clear();
-    //SUMOReal length = myParentEdge.getLength(); // @todo see ticket #448
+    //double length = myParentEdge.getLength(); // @todo see ticket #448
     // may be different from length
 
     // Obtain lane and shape rotations
@@ -622,7 +622,7 @@ GNELane::updateGeometry() {
             const Position& f = getShape()[i];
             const Position& s = getShape()[i + 1];
             myShapeLengths.push_back(f.distanceTo2D(s));
-            myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
+            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
         }
     }
     // Update geometry of additionals vinculated with this lane
@@ -667,32 +667,32 @@ GNELane::setIndex(int index) {
 }
 
 
-SUMOReal
+double
 GNELane::getSpeed() const {
     return myParentEdge.getNBEdge()->getLaneSpeed(myIndex);
 }
 
 
-SUMOReal
+double
 GNELane::getLaneParametricLenght() const  {
     return myParentEdge.getNBEdge()->getLoadedLength();
 }
 
 
-SUMOReal
+double
 GNELane::getLaneShapeLenght() const {
     return getShape().length();
 }
 
 
-SUMOReal
-GNELane::getPositionRelativeToParametricLenght(SUMOReal position) const {
+double
+GNELane::getPositionRelativeToParametricLenght(double position) const {
     return (position * getLaneShapeLenght()) / getLaneParametricLenght();
 }
 
 
-SUMOReal
-GNELane::getPositionRelativeToShapeLenght(SUMOReal position) const {
+double
+GNELane::getPositionRelativeToShapeLenght(double position) const {
     return (position * getLaneParametricLenght()) / getLaneShapeLenght();
 }
 
@@ -797,7 +797,7 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return false;
         case SUMO_ATTR_SPEED:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
@@ -805,10 +805,10 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
             if (value == "default") {
                 return true;
             } else {
-                return canParse<SUMOReal>(value) && (isPositive<SUMOReal>(value) || parse<SUMOReal>(value) == NBEdge::UNSPECIFIED_WIDTH);
+                return canParse<double>(value) && (isPositive<double>(value) || parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH);
             }
         case SUMO_ATTR_ENDOFFSET:
-            return canParse<SUMOReal>(value);
+            return canParse<double>(value);
         case SUMO_ATTR_ACCELERATION:
             return canParse<bool>(value);
         case SUMO_ATTR_INDEX:
@@ -835,7 +835,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(getTag()) + " isn't allowed");
         case SUMO_ATTR_SPEED:
-            edge->setSpeed(myIndex, parse<SUMOReal>(value));
+            edge->setSpeed(myIndex, parse<double>(value));
             break;
         case SUMO_ATTR_ALLOW:
             edge->setPermissions(parseVehicleClasses(value), myIndex);
@@ -851,13 +851,13 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (value == "default") {
                 edge->setLaneWidth(myIndex, NBEdge::UNSPECIFIED_WIDTH);
             } else {
-                edge->setLaneWidth(myIndex, parse<SUMOReal>(value));
+                edge->setLaneWidth(myIndex, parse<double>(value));
             }
             updateGeometry();
             myNet->getViewNet()->update();
             break;
         case SUMO_ATTR_ENDOFFSET:
-            edge->setEndOffset(myIndex, parse<SUMOReal>(value));
+            edge->setEndOffset(myIndex, parse<double>(value));
             break;
         case SUMO_ATTR_ACCELERATION:
             edge->setAcceleration(myIndex, parse<bool>(value));
@@ -872,7 +872,7 @@ bool
 GNELane::setFunctionalColor(int activeScheme) const {
     switch (activeScheme) {
         case 6: {
-            SUMOReal hue = GeomHelper::naviDegree(getShape().beginEndAngle()); // [0-360]
+            double hue = GeomHelper::naviDegree(getShape().beginEndAngle()); // [0-360]
             GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
             return true;
         }
@@ -894,7 +894,7 @@ GNELane::setMultiColor(const GUIColorer& c) const {
             return true;
         case 11: // color by inclination  at segment start
             for (int ii = 1; ii < (int)getShape().size(); ++ii) {
-                const SUMOReal inc = (getShape()[ii].z() - getShape()[ii - 1].z()) / MAX2(POSITION_EPS, getShape()[ii].distanceTo2D(getShape()[ii - 1]));
+                const double inc = (getShape()[ii].z() - getShape()[ii - 1].z()) / MAX2(POSITION_EPS, getShape()[ii].distanceTo2D(getShape()[ii - 1]));
                 myShapeColors.push_back(c.getScheme().getColor(inc));
             }
             return true;
@@ -904,7 +904,7 @@ GNELane::setMultiColor(const GUIColorer& c) const {
 }
 
 
-SUMOReal
+double
 GNELane::getColorValue(int activeScheme) const {
     const SVCPermissions myPermissions = myParentEdge.getNBEdge()->getPermissions(myIndex);
     switch (activeScheme) {
@@ -930,7 +930,7 @@ GNELane::getColorValue(int activeScheme) const {
             return gSelected.isSelected(getType(), getGlID()) ||
                    gSelected.isSelected(GLO_EDGE, dynamic_cast<GNEEdge*>(&myParentEdge)->getGlID());
         case 2:
-            return (SUMOReal)myPermissions;
+            return (double)myPermissions;
         case 3:
             return myParentEdge.getNBEdge()->getLaneSpeed(myIndex);
         case 4:
@@ -969,7 +969,7 @@ GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) const {
+GNELane::drawCrossties(double length, double spacing, double halfWidth) const {
     glPushMatrix();
     // draw on top of of the white area between the rails
     glTranslated(0, 0, 0.1);
@@ -978,7 +978,7 @@ GNELane::drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) co
         glPushMatrix();
         glTranslated(getShape()[i].x(), getShape()[i].y(), 0.0);
         glRotated(myShapeRotations[i], 0, 0, 1);
-        for (SUMOReal t = 0; t < myShapeLengths[i]; t += spacing) {
+        for (double t = 0; t < myShapeLengths[i]; t += spacing) {
             glBegin(GL_QUADS);
             glVertex2d(-halfWidth, -t);
             glVertex2d(-halfWidth, -t - length);
@@ -994,7 +994,7 @@ GNELane::drawCrossties(SUMOReal length, SUMOReal spacing, SUMOReal halfWidth) co
 
 void
 GNELane::drawDirectionIndicators() const {
-    const SUMOReal width = myParentEdge.getNBEdge()->getLaneWidth(myIndex);
+    const double width = myParentEdge.getNBEdge()->getLaneWidth(myIndex);
     glColor3d(0.3, 0.3, 0.3);
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION + 0.1);
@@ -1003,8 +1003,8 @@ GNELane::drawDirectionIndicators() const {
         glPushMatrix();
         glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
         glRotated(myShapeRotations[i], 0, 0, 1);
-        for (SUMOReal t = 0; t < myShapeLengths[i]; t += width) {
-            const SUMOReal length = MIN2(width * (SUMOReal)0.5, myShapeLengths[i] - t);
+        for (double t = 0; t < myShapeLengths[i]; t += width) {
+            const double length = MIN2(width * 0.5, myShapeLengths[i] - t);
             glBegin(GL_TRIANGLES);
             glVertex2d(0, -t - length);
             glVertex2d(-width * 0.25, -t);

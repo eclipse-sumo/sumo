@@ -86,26 +86,26 @@ public:
      */
     virtual void addSuccessor(ROEdge* s, std::string dir = "");
 
-    void setFlow(const SUMOReal begin, const SUMOReal end, const SUMOReal flow) {
+    void setFlow(const double begin, const double end, const double flow) {
         myFlow.add(begin, end, flow);
     }
 
-    SUMOReal getFlow(const SUMOReal time) const {
+    double getFlow(const double time) const {
         return myFlow.getValue(time);
     }
 
-    void setHelpFlow(const SUMOReal begin, const SUMOReal end, const SUMOReal flow) {
+    void setHelpFlow(const double begin, const double end, const double flow) {
         myHelpFlow.add(begin, end, flow);
     }
 
-    SUMOReal getHelpFlow(const SUMOReal time) const {
+    double getHelpFlow(const double time) const {
         return myHelpFlow.getValue(time);
     }
 
 private:
     std::set<ROMAEdge*> myLeftTurns;
-    ValueTimeLine<SUMOReal> myFlow;
-    ValueTimeLine<SUMOReal> myHelpFlow;
+    ValueTimeLine<double> myFlow;
+    ValueTimeLine<double> myHelpFlow;
 
 private:
     /// @brief Invalidated copy constructor

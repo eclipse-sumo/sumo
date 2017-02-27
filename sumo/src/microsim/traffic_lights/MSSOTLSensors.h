@@ -107,7 +107,7 @@ public:
      * Vehicles speed is effectively sensed or guessed in the space from the sensor.
      * @param[in] lane The lane to count vehicles
      */
-    virtual SUMOReal meanVehiclesSpeed(MSLane* lane) = 0;
+    virtual double meanVehiclesSpeed(MSLane* lane) = 0;
 
     /*
      * Returns the average speed of vehicles currently approaching the
@@ -115,13 +115,13 @@ public:
      * Vehicles speed is effectively sensed or guessed in the space from the sensor.
      * @param[in] laneId The lane to count vehicles by ID
      */
-    virtual SUMOReal meanVehiclesSpeed(std::string laneId) = 0;
+    virtual double meanVehiclesSpeed(std::string laneId) = 0;
 
     /*
     * @param[in] laneId The lane given by Id
     * @return The maximum speed allowed for the given laneId
     */
-    virtual SUMOReal getMaxSpeed(std::string laneId) = 0;
+    virtual double getMaxSpeed(std::string laneId) = 0;
 
     /*
      * @brief Indicate which lane has given green

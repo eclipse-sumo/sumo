@@ -299,23 +299,23 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // draw the horizontal lines dividing the signal groups
     glColor3d(1, 1, 1);
     // compute some values needed more than once
-    const SUMOReal height = (SUMOReal) caller.getHeight();
-    const SUMOReal width = (SUMOReal) caller.getWidth();
-    pfSetScaleXY((SUMOReal)(.08 * 300. / width), (SUMOReal)(.08 * 300. / height));
-    const SUMOReal h4 = ((SUMOReal) 4 / height);
-    const SUMOReal h9 = ((SUMOReal) 9 / height);
-    const SUMOReal h10 = ((SUMOReal) 10 / height);
-    const SUMOReal h11 = ((SUMOReal) 11 / height);
-    const SUMOReal h16 = ((SUMOReal) 16 / height);
-    const SUMOReal h20 = ((SUMOReal) 20 / height);
+    const double height = (double) caller.getHeight();
+    const double width = (double) caller.getWidth();
+    pfSetScaleXY((double)(.08 * 300. / width), (double)(.08 * 300. / height));
+    const double h4 = ((double) 4 / height);
+    const double h9 = ((double) 9 / height);
+    const double h10 = ((double) 10 / height);
+    const double h11 = ((double) 11 / height);
+    const double h16 = ((double) 16 / height);
+    const double h20 = ((double) 20 / height);
     // draw the link names and the lines dividing them
-    SUMOReal h = (SUMOReal)(1.0 - h10);
-    SUMOReal h2 = 12;
+    double h = (double)(1.0 - h10);
+    double h2 = 12;
     for (int i = 0; i < (int)myTLLogic->getLinks().size() + 1; ++i) {
         // draw the bar
         glBegin(GL_LINES);
         glVertex2d(0, h);
-        glVertex2d((SUMOReal)(30. / width), h);
+        glVertex2d((double)(30. / width), h);
         glEnd();
         // draw the name
         if (i < (int)myTLLogic->getLinks().size()) {
@@ -335,11 +335,11 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     glEnd();
 
     // draw the names closure (vertical line)
-    h += (SUMOReal) 20 / height;
+    h += (double) 20 / height;
     glColor3d(1, 1, 1);
     glBegin(GL_LINES);
-    glVertex2d((SUMOReal) 30 / width, 1.0);
-    glVertex2d((SUMOReal) 30 / width, h);
+    glVertex2d((double) 30 / width, 1.0);
+    glVertex2d((double) 30 / width, h);
     glEnd();
 
 
@@ -347,9 +347,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // disable value addition while drawing
     myLock.lock();
     // determine the initial offset
-    SUMOReal x = ((SUMOReal) 31. / width);
-    SUMOReal ta = (SUMOReal) leftOffset / width;
-    ta *= (SUMOReal)(((width - 31.0) / ((SUMOReal)(myLastTime - myBeginTime))));
+    double x = ((double) 31. / width);
+    double ta = (double) leftOffset / width;
+    ta *= (double)(((width - 31.0) / ((double)(myLastTime - myBeginTime))));
     x += ta;
 
     // and the initial phase information
@@ -363,10 +363,10 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         // the first phase may be drawn incompletely
         SUMOTime duration = *pd - fpo;
         // compute the heigh and the width of the phase
-        h = (SUMOReal)(1.0 - h10);
-        SUMOReal a = (SUMOReal) duration / width;
-        a *= (SUMOReal)(((width - 31.0) / ((SUMOReal)(myLastTime - myBeginTime))));
-        const SUMOReal x2 = x + a;
+        h = (double)(1.0 - h10);
+        double a = (double) duration / width;
+        a *= (double)(((width - 31.0) / ((double)(myLastTime - myBeginTime))));
+        const double x2 = x + a;
 
         // go through the links
         for (int j = 0; j < (int) myTLLogic->getLinks().size(); ++j) {
@@ -412,23 +412,23 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     if (myPhases.size() != 0) {
         SUMOTime tickDist = TIME2STEPS(10);
         // patch distances - hack
-        SUMOReal t = myBeginOffset != 0 ? (SUMOReal) myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
+        double t = myBeginOffset != 0 ? (double) myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
         while (t > (width - 31.) / 4.) {
             tickDist += TIME2STEPS(10);
-            t -= (SUMOReal)((width - 31.) / 4.);
+            t -= (double)((width - 31.) / 4.);
         }
         // draw time information
-        //h = (SUMOReal)(myTLLogic->getLinks().size() * 20 + 12);
-        SUMOReal glh = (SUMOReal)(1.0 - myTLLogic->getLinks().size() * h20 - h10);
+        //h = (double)(myTLLogic->getLinks().size() * 20 + 12);
+        double glh = (double)(1.0 - myTLLogic->getLinks().size() * h20 - h10);
         // current begin time
-        pfSetScaleXY((SUMOReal)(.05 * 300. / width), (SUMOReal)(.05 * 300. / height));
+        pfSetScaleXY((double)(.05 * 300. / width), (double)(.05 * 300. / height));
         // time ticks
         SUMOTime currTime = myFirstTime2Show;
         int pos = 31;// + /*!!!currTime*/ - myFirstTime2Show;
-        SUMOReal glpos = (SUMOReal) pos / width;
+        double glpos = (double) pos / width;
         while (pos < width + 50) {
             const std::string timeStr = time2string(currTime);
-            const SUMOReal w = pfdkGetStringWidth(timeStr.c_str());
+            const double w = pfdkGetStringWidth(timeStr.c_str());
             glRotated(180, 1, 0, 0);
             pfSetPosition(0, 0);
             glTranslated(glpos - w / 2., -glh + h20 - h4, 0);
@@ -441,7 +441,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             glVertex2d(glpos, glh - h4);
             glEnd();
 
-            const SUMOReal a = STEPS2TIME(tickDist) * (width - 31.0) / STEPS2TIME(myLastTime - myBeginTime);
+            const double a = STEPS2TIME(tickDist) * (width - 31.0) / STEPS2TIME(myLastTime - myBeginTime);
             pos += (int) a;
             glpos += a / width;
             currTime += tickDist;

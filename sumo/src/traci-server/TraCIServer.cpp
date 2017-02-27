@@ -220,7 +220,7 @@ TraCIServer::wasClosed() {
 
 
 void
-TraCIServer::setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, SUMOReal pos, SUMOReal posLat, SUMOReal angle,
+TraCIServer::setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                               int edgeOffset, ConstMSEdgeVector route, SUMOTime t) {
     myVTDControlledVehicles[v->getID()] = v;
     v->getInfluencer().setVTDControlled(xyPos, l, pos, posLat, angle, edgeOffset, route, t);
@@ -702,7 +702,7 @@ TraCIServer::findObjectShape(int domain, const std::string& id, PositionVector& 
 }
 
 void
-TraCIServer::collectObjectsInRange(int domain, const PositionVector& shape, SUMOReal range, std::set<std::string>& into) {
+TraCIServer::collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into) {
     // build the look-up tree if not yet existing
     if (myObjects.find(domain) == myObjects.end()) {
         switch (domain) {
@@ -858,7 +858,7 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
     const SUMOTime endTime = myInputStorage.readInt();
     const std::string id = myInputStorage.readString();
     const int domain = hasContext ? myInputStorage.readUnsignedByte() : 0;
-    const SUMOReal range = hasContext ? myInputStorage.readDouble() : 0.;
+    const double range = hasContext ? myInputStorage.readDouble() : 0.;
     const int num = myInputStorage.readUnsignedByte();
     std::vector<int> variables;
     std::vector<std::vector<unsigned char> > parameters;
@@ -953,8 +953,8 @@ TraCIServer::readTypeCheckingPosition2D(tcpip::Storage& inputStorage, Position& 
     if (inputStorage.readUnsignedByte() != POSITION_2D) {
         return false;
     }
-    SUMOReal x = inputStorage.readDouble();
-    SUMOReal y = inputStorage.readDouble();
+    double x = inputStorage.readDouble();
+    double y = inputStorage.readDouble();
     into.set(x, y, 0);
     return true;
 }
@@ -965,10 +965,10 @@ TraCIServer::readTypeCheckingBoundary(tcpip::Storage& inputStorage, Boundary& in
     if (inputStorage.readUnsignedByte() != TYPE_BOUNDINGBOX) {
         return false;
     }
-    const SUMOReal xmin = inputStorage.readDouble();
-    const SUMOReal ymin = inputStorage.readDouble();
-    const SUMOReal xmax = inputStorage.readDouble();
-    const SUMOReal ymax = inputStorage.readDouble();
+    const double xmin = inputStorage.readDouble();
+    const double ymin = inputStorage.readDouble();
+    const double xmax = inputStorage.readDouble();
+    const double ymax = inputStorage.readDouble();
     into.set(xmin, ymin, xmax, ymax);
     return true;
 }
@@ -1003,8 +1003,8 @@ TraCIServer::readTypeCheckingPolygon(tcpip::Storage& inputStorage, PositionVecto
     int noEntries = inputStorage.readUnsignedByte();
     PositionVector shape;
     for (int i = 0; i < noEntries; ++i) {
-        SUMOReal x = inputStorage.readDouble();
-        SUMOReal y = inputStorage.readDouble();
+        double x = inputStorage.readDouble();
+        double y = inputStorage.readDouble();
         into.push_back(Position(x, y));
     }
     return true;

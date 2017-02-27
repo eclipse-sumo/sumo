@@ -73,9 +73,9 @@ public:
     int wantsChange(
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
-        const std::pair<MSVehicle*, SUMOReal>& leader,
-        const std::pair<MSVehicle*, SUMOReal>& neighLead,
-        const std::pair<MSVehicle*, SUMOReal>& neighFollow,
+        const std::pair<MSVehicle*, double>& leader,
+        const std::pair<MSVehicle*, double>& neighLead,
+        const std::pair<MSVehicle*, double>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
@@ -91,7 +91,7 @@ public:
      * @param cfModel The model used
      * @return the new speed of the vehicle as proposed by the lane changer
      */
-    virtual SUMOReal patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
+    virtual double patchSpeed(const double min, const double wanted, const double max,
                                 const MSCFModel& cfModel);
 
     virtual void changed();
@@ -105,9 +105,9 @@ protected:
         and whether another lane may be more preferable */
     virtual int wantsChangeToRight(
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
-        const std::pair<MSVehicle*, SUMOReal>& leader,
-        const std::pair<MSVehicle*, SUMOReal>& neighLead,
-        const std::pair<MSVehicle*, SUMOReal>& neighFollow,
+        const std::pair<MSVehicle*, double>& leader,
+        const std::pair<MSVehicle*, double>& neighLead,
+        const std::pair<MSVehicle*, double>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
@@ -118,9 +118,9 @@ protected:
         and whether another lane may be more preferable */
     virtual int wantsChangeToLeft(
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
-        const std::pair<MSVehicle*, SUMOReal>& leader,
-        const std::pair<MSVehicle*, SUMOReal>& neighLead,
-        const std::pair<MSVehicle*, SUMOReal>& neighFollow,
+        const std::pair<MSVehicle*, double>& leader,
+        const std::pair<MSVehicle*, double>& neighLead,
+        const std::pair<MSVehicle*, double>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
@@ -128,8 +128,8 @@ protected:
 
     void informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                        int& blocked, int dir,
-                       const std::pair<MSVehicle*, SUMOReal>& neighLead,
-                       const std::pair<MSVehicle*, SUMOReal>& neighFollow);
+                       const std::pair<MSVehicle*, double>& neighLead,
+                       const std::pair<MSVehicle*, double>& neighFollow);
 
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;
@@ -143,24 +143,24 @@ protected:
     inline bool amBlockingFollowerPlusNB() {
         return (myOwnState & (LCA_AMBLOCKINGFOLLOWER | LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)) != 0;
     }
-    inline bool currentDistDisallows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
+    inline bool currentDistDisallows(double dist, int laneOffset, double lookForwardDist) {
         return dist / (abs(laneOffset)) < lookForwardDist;
     }
-    inline bool currentDistAllows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
+    inline bool currentDistAllows(double dist, int laneOffset, double lookForwardDist) {
         return dist / abs(laneOffset) > lookForwardDist;
     }
 
-    typedef std::pair<SUMOReal, int> Info;
+    typedef std::pair<double, int> Info;
 
 
 
 protected:
-    SUMOReal myChangeProbability;
+    double myChangeProbability;
 
-    SUMOReal myLeadingBlockerLength;
-    SUMOReal myLeftSpace;
+    double myLeadingBlockerLength;
+    double myLeftSpace;
 
-    std::vector<SUMOReal> myVSafes;
+    std::vector<double> myVSafes;
     bool myDontBrake;
 
 };

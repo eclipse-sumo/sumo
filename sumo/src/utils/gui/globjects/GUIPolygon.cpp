@@ -51,7 +51,7 @@
 // ===========================================================================
 GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
                        const RGBColor& color, const PositionVector& shape, bool fill,
-                       SUMOReal layer, SUMOReal angle, const std::string& imgFile):
+                       double layer, double angle, const std::string& imgFile):
     Polygon(id, type, color, shape, fill, layer, angle, imgFile),
     GUIGlObject_AbstractAdd("poly", GLO_POLYGON, id),
     myDisplayList(0),
@@ -228,7 +228,7 @@ GUIPolygon::setShape(const PositionVector& shape) {
 
 
 void
-GUIPolygon::performTesselation(SUMOReal lineWidth) const {
+GUIPolygon::performTesselation(double lineWidth) const {
     if (getFill()) {
         // draw the tesselated shape
         double* points = new double[myShape.size() * 3];
@@ -262,7 +262,7 @@ GUIPolygon::performTesselation(SUMOReal lineWidth) const {
 
 
 void
-GUIPolygon::storeTesselation(SUMOReal lineWidth) const {
+GUIPolygon::storeTesselation(double lineWidth) const {
     if (myDisplayList > 0) {
         glDeleteLists(myDisplayList, 1);
     }

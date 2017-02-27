@@ -71,7 +71,7 @@ public:
      *
      * @todo Are costs/prob really mandatory?
      */
-    RORoute(const std::string& id, SUMOReal costs, SUMOReal prob,
+    RORoute(const std::string& id, double costs, double prob,
             const ConstROEdgeVector& route, const RGBColor* const color,
             const std::vector<SUMOVehicleParameter::Stop>& stops);
 
@@ -117,7 +117,7 @@ public:
      * @return The route's costs (normally the time needed to pass it)
      * @todo Recheck why the costs are stored in a route
      */
-    SUMOReal getCosts() const {
+    double getCosts() const {
         return myCosts;
     }
 
@@ -127,7 +127,7 @@ public:
      * @return The probability to choose the route
      * @todo Recheck why the probability is stored in a route
      */
-    SUMOReal getProbability() const {
+    double getProbability() const {
         return myProbability;
     }
 
@@ -136,14 +136,14 @@ public:
      *
      * @todo Recheck why the costs are stored in a route
      */
-    void setCosts(SUMOReal costs);
+    void setCosts(double costs);
 
 
     /** @brief Sets the probability of the route
      *
      * @todo Recheck why the probability is stored in a route
      */
-    void setProbability(SUMOReal prob);
+    void setProbability(double prob);
 
 
     /** @brief Returns the number of edges in this route
@@ -182,7 +182,7 @@ public:
 
     /** @brief add additional vehicles/probability
      */
-    void addProbability(SUMOReal prob);
+    void addProbability(double prob);
 
     /** @brief Returns the list of stops this route contains
      *
@@ -204,10 +204,10 @@ public:
 
 private:
     /// @brief The costs of the route
-    SUMOReal myCosts;
+    double myCosts;
 
     /// @brief The probability the driver will take this route with
-    SUMOReal myProbability;
+    double myProbability;
 
     /// @brief The edges the route consists of
     ConstROEdgeVector myRoute;

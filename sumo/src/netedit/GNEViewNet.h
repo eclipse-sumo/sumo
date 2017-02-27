@@ -280,7 +280,7 @@ public:
     bool autoSelectNodes();
 
     /// @brief set selection scaling
-    void setSelectionScaling(SUMOReal selectionScale);
+    void setSelectionScaling(double selectionScale);
 
     /// @brief update control contents after undo/redo or recompute
     void updateControls();

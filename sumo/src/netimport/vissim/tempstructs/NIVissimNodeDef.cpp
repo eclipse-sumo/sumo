@@ -97,7 +97,7 @@ NIVissimNodeDef::buildNodeClusters()
 /*
 
 std::vector<int>
-NIVissimNodeDef::getWithin(const AbstractPoly &p, SUMOReal off)
+NIVissimNodeDef::getWithin(const AbstractPoly &p, double off)
 {
     std::vector<int> ret;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
@@ -110,7 +110,7 @@ NIVissimNodeDef::getWithin(const AbstractPoly &p, SUMOReal off)
 }
 
 bool
-NIVissimNodeDef::partialWithin(const AbstractPoly &p, SUMOReal off) const
+NIVissimNodeDef::partialWithin(const AbstractPoly &p, double off) const
 {
     assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
     return myBoundary->partialWithin(p, off);

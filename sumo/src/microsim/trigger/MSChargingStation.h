@@ -58,29 +58,29 @@ class MSChargingStation : public MSStoppingPlace {
 public:
 
     /// @brief constructor
-    MSChargingStation(const std::string& chargingStationID, MSLane& lane, SUMOReal startPos, SUMOReal endPos,
-                      SUMOReal chargingPower, SUMOReal efficency, bool chargeInTransit, int chargeDelay);
+    MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
+                      double chargingPower, double efficency, bool chargeInTransit, int chargeDelay);
 
     /// @brief destructor
     ~MSChargingStation();
 
     /// @brief Get charging station's charging power
-    SUMOReal getChargingPower() const;
+    double getChargingPower() const;
 
     /// @brief Get efficiency of the charging station
-    SUMOReal getEfficency() const;
+    double getEfficency() const;
 
     /// @brief Get chargeInTransit
     bool getChargeInTransit() const;
 
     /// @brief Get Charge Delay
-    SUMOReal getChargeDelay() const;
+    double getChargeDelay() const;
 
     /// @brief Set charging station's charging power
-    void setChargingPower(SUMOReal chargingPower);
+    void setChargingPower(double chargingPower);
 
     /// @brief Set efficiency of the charging station
-    void setEfficency(SUMOReal efficency);
+    void setEfficency(double efficency);
 
     /// @brief Set charge in transit of the charging station
     void setChargeInTransit(bool chargeInTransit);
@@ -95,7 +95,7 @@ public:
      * @param[in] position Position of vehicle in the LANE
      * @return true if is between StartPostion and EndPostion
      */
-    bool vehicleIsInside(const SUMOReal position) const;
+    bool vehicleIsInside(const double position) const;
 
     /// @brief Return true if in the current time step charging station is charging a vehicle
     bool isCharging() const;
@@ -103,10 +103,10 @@ public:
 protected:
 
     /// @brief Charging station's charging power
-    SUMOReal myChargingPower;
+    double myChargingPower;
 
     /// @brief Efficiency of the charging station
-    SUMOReal myEfficiency;
+    double myEfficiency;
 
     /// @brief Allow charge in transit
     bool myChargeInTransit;

@@ -51,7 +51,7 @@
 // ===========================================================================
 TrajectoriesHandler::TrajectoriesHandler(const bool computeA, const bool computeAForward,
         const bool accelZeroCorrection, const SUMOEmissionClass defaultClass,
-        const SUMOReal defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut)
+        const double defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut)
     : SUMOSAXHandler(""), myComputeA(computeA), myComputeAForward(computeAForward), myAccelZeroCorrection(accelZeroCorrection), myDefaultClass(defaultClass),
       myDefaultSlope(defaultSlope), myStdOut(stdOut), myXMLOut(xmlOut), myCurrentTime(-1), myStepSize(TS) {}
 
@@ -72,9 +72,9 @@ TrajectoriesHandler::myStartElement(int element,
             break;
         case SUMO_TAG_VEHICLE:
             if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-                SUMOReal v = attrs.getFloat(SUMO_ATTR_SPEED);
-                SUMOReal a = INVALID_VALUE;
-                SUMOReal s = INVALID_VALUE;
+                double v = attrs.getFloat(SUMO_ATTR_SPEED);
+                double a = INVALID_VALUE;
+                double s = INVALID_VALUE;
                 writeEmissions(std::cout, attrs.getString(SUMO_ATTR_ID), myDefaultClass, STEPS2TIME(myCurrentTime), v, a, s);
             } else {
                 const std::string acId = attrs.getString(SUMO_ATTR_ACTORCONFIG);
@@ -91,7 +91,7 @@ TrajectoriesHandler::myStartElement(int element,
             const std::string vClass = attrs.getString(SUMO_ATTR_VEHICLECLASS);
             const std::string fuel = attrs.getString(SUMO_ATTR_FUEL);
             const std::string eClass = attrs.getString(SUMO_ATTR_EMISSIONCLASS);
-            const SUMOReal weight = attrs.getOpt<SUMOReal>(SUMO_ATTR_WEIGHT, id.c_str(), ok, 0.) * 10.;
+            const double weight = attrs.getOpt<double>(SUMO_ATTR_WEIGHT, id.c_str(), ok, 0.) * 10.;
             myEmissionClassByType[id] = PollutantsInterface::getClass(myDefaultClass, vClass, fuel, eClass, weight);
             break;
         }
@@ -102,9 +102,9 @@ TrajectoriesHandler::myStartElement(int element,
                 myEmissionClassByVehicle[id] = myDefaultClass;
             }
             const SUMOEmissionClass c = myEmissionClassByVehicle[id];
-            SUMOReal v = attrs.getFloat(SUMO_ATTR_SPEED) / 100.;
-            SUMOReal a = attrs.hasAttribute(SUMO_ATTR_ACCELERATION) ? attrs.get<SUMOReal>(SUMO_ATTR_ACCELERATION, id.c_str(), ok) / 1000. : INVALID_VALUE;
-            SUMOReal s = attrs.hasAttribute(SUMO_ATTR_SLOPE) ? RAD2DEG(asin(attrs.get<SUMOReal>(SUMO_ATTR_SLOPE, id.c_str(), ok) / 10000.)) : INVALID_VALUE;
+            double v = attrs.getFloat(SUMO_ATTR_SPEED) / 100.;
+            double a = attrs.hasAttribute(SUMO_ATTR_ACCELERATION) ? attrs.get<double>(SUMO_ATTR_ACCELERATION, id.c_str(), ok) / 1000. : INVALID_VALUE;
+            double s = attrs.hasAttribute(SUMO_ATTR_SLOPE) ? RAD2DEG(asin(attrs.get<double>(SUMO_ATTR_SLOPE, id.c_str(), ok) / 10000.)) : INVALID_VALUE;
             const SUMOTime time = attrs.getOpt<int>(SUMO_ATTR_TIME, id.c_str(), ok, INVALID_VALUE);
             if (myXMLOut != 0) {
                 writeXMLEmissions(id, c, time, v, a, s);
@@ -122,7 +122,7 @@ TrajectoriesHandler::myStartElement(int element,
 
 const PollutantsInterface::Emissions
 TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionClass c,
-                                      SUMOReal& v, SUMOReal& a, SUMOReal& s) {
+                                      double& v, double& a, double& s) {
 
     if (myComputeA) {
         if (myLastV.count(id) == 0) {
@@ -156,8 +156,8 @@ TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionCl
 bool
 TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
                                     const SUMOEmissionClass c,
-                                    SUMOReal t, SUMOReal& v,
-                                    SUMOReal& a, SUMOReal& s) {
+                                    double t, double& v,
+                                    double& a, double& s) {
     if (myComputeA && myLastV.count(id) == 0) {
         myLastV[id] = v;
         return false;
@@ -176,8 +176,8 @@ TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
 bool
 TrajectoriesHandler::writeXMLEmissions(const std::string id,
                                        const SUMOEmissionClass c,
-                                       SUMOTime t, SUMOReal& v,
-                                       SUMOReal a, SUMOReal s) {
+                                       SUMOTime t, double& v,
+                                       double a, double s) {
     if (myComputeA && myLastV.count(id) == 0) {
         myLastV[id] = v;
         return false;
@@ -211,7 +211,7 @@ TrajectoriesHandler::writeSums(std::ostream& o, const std::string id) {
 
 
 void
-TrajectoriesHandler::writeNormedSums(std::ostream& o, const std::string id, const SUMOReal factor) {
+TrajectoriesHandler::writeNormedSums(std::ostream& o, const std::string id, const double factor) {
     o << mySums[id].fuel / factor << ","
       << mySums[id].electricity / factor << ","
       << mySums[id].CO2 / factor << ","

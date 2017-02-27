@@ -209,7 +209,7 @@ GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
 }
 
 void
-GUIDialog_EditViewport::setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) {
+GUIDialog_EditViewport::setValues(double zoom, double xoff, double yoff) {
     myZoom->setValue(zoom);
     myXOff->setValue(xoff);
     myYOff->setValue(yoff);

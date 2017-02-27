@@ -52,7 +52,7 @@
 // ===========================================================================
 MEInductLoop::MEInductLoop(const std::string& id,
                            MESegment* s,
-                           SUMOReal positionInMeters,
+                           double positionInMeters,
                            const std::string& vTypes) :
     MSDetectorFileOutput(id, vTypes), mySegment(s),
     myPosition(positionInMeters),
@@ -71,7 +71,7 @@ MEInductLoop::writeXMLOutput(OutputDevice& dev,
     mySegment->prepareDetectorForWriting(myMeanData);
     dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, time2string(startTime)).writeAttr(SUMO_ATTR_END, time2string(stopTime));
     dev.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(myID)).writeAttr("sampledSeconds", myMeanData.getSamples());
-    myMeanData.write(dev, stopTime - startTime, (SUMOReal)mySegment->getEdge().getLanes().size(), -1.0);
+    myMeanData.write(dev, stopTime - startTime, (double)mySegment->getEdge().getLanes().size(), -1.0);
     myMeanData.reset();
 }
 

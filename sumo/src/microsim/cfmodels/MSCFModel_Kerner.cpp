@@ -39,8 +39,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype, SUMOReal accel,
-                                   SUMOReal decel, SUMOReal headwayTime, SUMOReal k, SUMOReal phi)
+MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype, double accel,
+                                   double decel, double headwayTime, double k, double phi)
     : MSCFModel(vtype, accel, decel, headwayTime), myK(k), myPhi(phi),
       myTauDecel(decel * headwayTime) {
 }
@@ -49,23 +49,23 @@ MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype, SUMOReal accel,
 MSCFModel_Kerner::~MSCFModel_Kerner() {}
 
 
-SUMOReal
-MSCFModel_Kerner::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
-    const SUMOReal vNext = MSCFModel::moveHelper(veh, vPos);
+double
+MSCFModel_Kerner::moveHelper(MSVehicle* const veh, double vPos) const {
+    const double vNext = MSCFModel::moveHelper(veh, vPos);
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     vars->rand = RandHelper::rand();
     return vNext;
 }
 
 
-SUMOReal
-MSCFModel_Kerner::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
+double
+MSCFModel_Kerner::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double /*predMaxDecel*/) const {
     return MIN2(_v(veh, speed, maxNextSpeed(speed, veh), gap, predSpeed), maxNextSpeed(speed, veh));
 }
 
 
-SUMOReal
-MSCFModel_Kerner::stopSpeed(const MSVehicle* const veh, const SUMOReal speed, SUMOReal gap) const {
+double
+MSCFModel_Kerner::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
     return MIN2(_v(veh, speed, maxNextSpeed(speed, veh), gap, 0), maxNextSpeed(speed, veh));
 }
 
@@ -78,18 +78,18 @@ MSCFModel_Kerner::createVehicleVariables() const {
 }
 
 
-SUMOReal
-MSCFModel_Kerner::_v(const MSVehicle* const veh, SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal predSpeed) const {
+double
+MSCFModel_Kerner::_v(const MSVehicle* const veh, double speed, double vfree, double gap, double predSpeed) const {
     if (predSpeed == 0 && gap < 0.01) {
         return 0;
     }
     // !!! in the following, the prior step is not considered!!!
-    SUMOReal G = MAX2((SUMOReal) 0, (SUMOReal)(SPEED2DIST(myK * speed) + myPhi / myAccel * speed * (speed - predSpeed)));
-    SUMOReal vcond = gap > G ? speed + ACCEL2SPEED(myAccel) : speed + MAX2(ACCEL2SPEED(-myDecel), MIN2(ACCEL2SPEED(myAccel), predSpeed - speed));
-    SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel + sqrt(myTauDecel * myTauDecel + (predSpeed * predSpeed) + (2. * myDecel * gap)));
+    double G = MAX2((double) 0, (double)(SPEED2DIST(myK * speed) + myPhi / myAccel * speed * (speed - predSpeed)));
+    double vcond = gap > G ? speed + ACCEL2SPEED(myAccel) : speed + MAX2(ACCEL2SPEED(-myDecel), MIN2(ACCEL2SPEED(myAccel), predSpeed - speed));
+    double vsafe = (double)(-1. * myTauDecel + sqrt(myTauDecel * myTauDecel + (predSpeed * predSpeed) + (2. * myDecel * gap)));
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
-    SUMOReal va = MAX2((SUMOReal) 0, MIN3(vfree, vsafe, vcond)) + vars->rand;
-    SUMOReal v = MAX2((SUMOReal) 0, MIN4(vfree, va, speed + ACCEL2SPEED(myAccel), vsafe));
+    double va = MAX2((double) 0, MIN3(vfree, vsafe, vcond)) + vars->rand;
+    double v = MAX2((double) 0, MIN4(vfree, va, speed + ACCEL2SPEED(myAccel), vsafe));
     return v;
 }
 

@@ -85,7 +85,7 @@ protected:
     GNEVariableSpeedSign* myVariableSpeedSignParent;
 
     /// @brief Map with the temporal VSSValues
-    std::map<SUMOReal, SUMOReal> myVSSValues;
+    std::map<double, double> myVSSValues;
 
     /// @brief Table with the data
     FXTable* myDataList;
