@@ -25,9 +25,6 @@ make -f Makefile.cvs clean &> /dev/null
 basename $MAKELOG >> $STATUSLOG
 svn up &> $MAKELOG || (echo "svn up failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 SVNREV=`grep -io 'revision [0-9]*' $MAKELOG | cut -d ' ' -f 2 | tail -1`
-if test -d "$NIGHTDIR"; then
-  tools/build/checkSvnProps.py
-fi
 make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 ./configure --prefix=$PREFIX/sumo $CONFIGURE_OPT >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 if make >> $MAKELOG 2>&1; then
@@ -87,7 +84,6 @@ echo "--" >> $STATUSLOG
 basename $MAKEALLLOG >> $STATUSLOG
 export CXXFLAGS="$CXXFLAGS -Wall -W -pedantic -Wno-long-long -Wformat -Wformat-security"
 ./configure --prefix=$PREFIX/sumo --program-suffix=A --with-python \
-  --disable-double-precision --disable-internal-lanes \
   --enable-memcheck $CONFIGURE_OPT &> $MAKEALLLOG || (echo "configure with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
 if make >> $MAKEALLLOG 2>&1; then
   make install >> $MAKEALLLOG 2>&1 || (echo "make install with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
