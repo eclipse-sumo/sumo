@@ -199,6 +199,9 @@
     <None Include="..\..\..\src\utils\gui\images\fileopen.xpm" />
     <None Include="..\..\..\src\utils\gui\images\fileprint.xpm" />
     <None Include="..\..\..\src\utils\gui\images\filesave.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\grid1.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\grid2.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\grid3.xpm" />
     <None Include="..\..\..\src\utils\gui\images\junction.xpm" />
     <None Include="..\..\..\src\utils\gui\images\lane.xpm" />
     <None Include="..\..\..\src\utils\gui\images\modeadditional.xpm" />

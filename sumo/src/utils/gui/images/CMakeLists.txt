@@ -30,6 +30,7 @@ set(EXTRA_DIST
 	windows_cascade.xpm windows_tile_horizontally.xpm windows_tile_vertically.xpm
 	yellow_edge.xpm yellow_person.xpm yellow_vehicle.xpm
 	yes.xpm lock.xpm add.xpm remove.xpm
+	grid1.xpm grid2.xpm grid3.xpm
 	GNETexture_Rerouter.cpp GNETexture_RerouterSelected.cpp
 	GNETexture_RouteProbe.cpp GNETexture_RouteProbeSelected.cpp
 	GNETexture_VariableSpeedSignal.cpp GNETexture_VariableSpeedSignalSelected.cpp

@@ -203,6 +203,10 @@
 #include "reset.xpm"
 #include "warning.xpm"
 
+#include "grid1.xpm"
+#include "grid2.xpm"
+#include "grid3.xpm"
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -389,6 +393,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_ERROR] = new FXXPMIcon(a, error_xpm);
     myIcons[ICON_RESET] = new FXXPMIcon(a, reset_xpm);
     myIcons[ICON_WARNING] = new FXXPMIcon(a, warning_xpm);
+
+    myIcons[ICON_GRID1] = new FXXPMIcon(a, grid1_xpm);
+    myIcons[ICON_GRID2] = new FXXPMIcon(a, grid2_xpm);
+    myIcons[ICON_GRID3] = new FXXPMIcon(a, grid3_xpm);
 
     // ... and create them
     for (int i = 0; i < ICON_MAX; i++) {

@@ -603,5 +603,14 @@
     <None Include="..\..\..\src\utils\gui\images\cancel.xpm">
       <Filter>Icons</Filter>
     </None>
+    <None Include="..\..\..\src\utils\gui\images\grid2.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\grid3.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\grid1.xpm">
+      <Filter>Icons</Filter>
+    </None>
   </ItemGroup>
 </Project>

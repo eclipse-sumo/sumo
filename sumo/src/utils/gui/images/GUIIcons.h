@@ -283,6 +283,13 @@ enum GUIIcon {
     ICON_WARNING,
     /// @}
 
+    /// @name icons for grid
+    /// @{
+    ICON_GRID1,
+    ICON_GRID2,
+    ICON_GRID3,
+    /// @}
+
     /// @brief max number of icons
     ICON_MAX
 };
