@@ -43,6 +43,7 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+#define INVALID_POSITION std::numeric_limits<SUMOReal>::max()
 
 // ===========================================================================
 // parameter defaults definitions
@@ -86,7 +87,7 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             // Build the detectors and register them at the detector control
             std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
             if (myLaneDetectors.find(lane) == myLaneDetectors.end()) {
-                myLaneDetectors[lane] = new MSE2Collector(id, DU_TL_CONTROL, lane, std::numeric_limits<SUMOReal>::max(), lane->getLength(), myDetectionRange, 0, 0, 0, myVehicleTypes);
+                myLaneDetectors[lane] = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), myDetectionRange, 0, 0, 0, myVehicleTypes, myShowDetectors);
                 MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_E2DETECTOR, myLaneDetectors[lane], myFile, myFreq);
             }
         }

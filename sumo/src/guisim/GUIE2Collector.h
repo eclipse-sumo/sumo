@@ -78,8 +78,8 @@ public:
     */
     GUIE2Collector(const std::string& id, DetectorUsage usage,
                         MSLane* lane, SUMOReal startPos, SUMOReal endPos, SUMOReal detLength,
-                        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-                        SUMOReal jamDistThreshold, const std::string& vTypes);
+                        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+                        const std::string& vTypes, bool showDetector);
 
 
     /** @brief Constructor with a sequence of lanes and given start and end position on the first and last lanes
@@ -98,8 +98,8 @@ public:
     */
     GUIE2Collector(const std::string& id, DetectorUsage usage,
                         std::vector<MSLane*> lanes, SUMOReal startPos, SUMOReal endPos,
-                        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-                        SUMOReal jamDistThreshold, const std::string& vTypes);
+                        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+                        const std::string& vTypes, bool showDetector);
 
 
     /// @brief Destructor
@@ -112,6 +112,9 @@ public:
      */
     virtual GUIDetectorWrapper* buildDetectorGUIRepresentation();
 
+private:
+    /// @brief Whether the detector shall be drawn in the gui
+    bool myShowDetectorInGUI;
 
 public:
     /**

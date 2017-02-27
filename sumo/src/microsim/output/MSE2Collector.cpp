@@ -69,7 +69,7 @@
 MSE2Collector::MSE2Collector(const std::string& id,
         DetectorUsage usage, MSLane* lane, SUMOReal startPos, SUMOReal endPos, SUMOReal length,
         SUMOReal haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
-        const std::string& vTypes, bool /*showDetector*/) :
+        const std::string& vTypes, bool /* showDetector */) :
     MSMoveReminder(id, lane, false),
     MSDetectorFileOutput(id, vTypes),
     myUsage(usage),

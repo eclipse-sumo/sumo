@@ -82,24 +82,20 @@ GUIDetectorBuilder::createInstantInductLoop(const std::string& id,
 
 
 MSE2Collector*
-GUIDetectorBuilder::createSingleLaneE2Detector(const std::string& id,
-        DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
-        SUMOTime haltingTimeThreshold,
-        SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold, const std::string& vTypes) {
-    return new GUIE2Collector(id, usage, lane, pos, std::numeric_limits<SUMOReal>::max(), length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
+GUIDetectorBuilder::createE2Detector(const std::string& id,
+        DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal endPos, SUMOReal length,
+        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+        const std::string& vTypes, bool showDetector) {
+    return new GUIE2Collector(id, usage, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
 }
 
-
-MSDetectorFileOutput*
-GUIDetectorBuilder::createMultiLaneE2Detector(const std::string& id,
-        DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
-        SUMOTime haltingTimeThreshold,
-        SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold, const std::string& vTypes) {
-    return new GUIE2Collector(id, usage, lane, pos, std::numeric_limits<SUMOReal>::max(), length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
+MSE2Collector*
+GUIDetectorBuilder::createE2Detector(const std::string& id,
+        DetectorUsage usage, std::vector<MSLane*> lanes, SUMOReal pos, SUMOReal endPos,
+        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+        const std::string& vTypes, bool showDetector) {
+    return new GUIE2Collector(id, usage, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
 }
-
 
 MSDetectorFileOutput*
 GUIDetectorBuilder::createE3Detector(const std::string& id,

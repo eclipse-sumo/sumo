@@ -97,44 +97,21 @@ public:
     virtual MSDetectorFileOutput* createInstantInductLoop(const std::string& id,
             MSLane* lane, SUMOReal pos, const std::string& od, const std::string& vTypes);
 
-
-    /** @brief Creates an instance of an e2-detector (areal detector) using the given values
+    /** @brief Creates a GUIE2Collector instance, overrides MSE2Collector::createE2Detector()
      *
-     * Simply calls the GUI_E2_ZS_Collector constructor
+     * Simply calls the GUIE2Collector constructor
      *
-     * @param[in] id The id the detector shall have
-     * @param[in] lane The lane the detector is placed at
-     * @param[in] pos The position on the lane the detector is placed at
-     * @param[in] length The length the detector has
-     * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
-     * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
-     * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
+     *  @see  GUIE2Collector Constructor documentation
      */
-    virtual MSE2Collector* createSingleLaneE2Detector(const std::string& id,
-            DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
-            SUMOTime haltingTimeThreshold,
-            SUMOReal haltingSpeedThreshold,
-            SUMOReal jamDistThreshold, const std::string& vTypes);
+    virtual MSE2Collector* createE2Detector(const std::string& id,
+            DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal endPos, SUMOReal length,
+            SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+            const std::string& vTypes, bool showDetector);
 
-
-    /** @brief Creates an instance of an e2ol-detector using the given values
-     *
-     * Simply calls the GUI_E2_ZS_CollectorOverLanes constructor. After this call,
-     *  the detector must be initialised.
-     *
-     * @param[in] id The id the detector shall have
-     * @param[in] lane The lane the detector is placed at
-     * @param[in] pos The position on the lane the detector is placed at
-     * @param[in] length The length the detector has
-     * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
-     * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
-     * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
-     */
-    virtual MSDetectorFileOutput* createMultiLaneE2Detector(
-        const std::string& id, DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
-        SUMOTime haltingTimeThreshold,
-        SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold, const std::string& vTypes);
+    virtual MSE2Collector* createE2Detector(const std::string& id,
+            DetectorUsage usage, std::vector<MSLane*> lanes, SUMOReal pos, SUMOReal endPos,
+            SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+            const std::string& vTypes, bool showDetector);
 
 
     /** @brief Creates an instance of an e3 detector using the given values

@@ -883,6 +883,8 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     SUMOReal position = attrs.getOpt<SUMOReal>(SUMO_ATTR_POSITION, id.c_str(), ok, std::numeric_limits<SUMOReal>::max());
     const SUMOReal length = attrs.getOpt<SUMOReal>(SUMO_ATTR_LENGTH, id.c_str(), ok, std::numeric_limits<SUMOReal>::max());
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    //    const bool showDetector = attrs.getOpt<bool>(SUMO_ATTR_SHOW_DETECTOR, id.c_str(), ok, true);
+    const bool showDetector = true;
     const std::string contStr = attrs.getOpt<std::string>(SUMO_ATTR_CONT, id.c_str(), ok, "");
     if (contStr != "") {
         WRITE_WARNING("Ignoring deprecated argument 'cont' for E2 detector '" + id + "'");
@@ -1044,13 +1046,13 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
         // specification by a lane sequence
         myDetectorBuilder.buildE2Detector(id, clanes, position, endPosition, filename, frequency,
                                       haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                      friendlyPos, vTypes,
+                                      vTypes, friendlyPos, showDetector,
                                       tlls, cToLane);
     } else {
         // specification by start or end lane
         myDetectorBuilder.buildE2Detector(id, clane, position, endPosition, length, filename, frequency,
                                       haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                      friendlyPos, vTypes,
+                                      vTypes, friendlyPos, showDetector,
                                       tlls, cToLane);
     }
 

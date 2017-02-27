@@ -123,21 +123,29 @@ public:
                                 const std::string& vTypes);
 
 
-    /// @note We demand that either pos == numeric_limits::max() or endPos == numeric_limits::max()
-    /// pos == numeric_limits::max() indicates, endPos should be used and lane is interpreted as endLane.
-    ///
-    /// Further, if tlls != 0 we must have frequency == -1, and for tlls == 0, we have toLane == 0 and frequency > 0
-    ///
+
+
+    /** @brief Builds a new E2 detector and adds it to the net's detector control. Also performs some
+    *          consistency checks for the detector positioning and applies "friendly positioning"
+    *
+    *   @param[in] tlls Traffic light logic associated to the detector
+    *   @param[in] toLane Lane associated to the detector (only for tlls != 0)
+    *   @param[in] friendlyPos Whether automatic adjustments of the detector position shall be applied in case of erroneous specification
+    *   @see For the other parameters see the MSE2Collector constructors
+    *
+    *   @todo Add parameter showDetector to indicate whether the detector should be visible in the GUI
+    *
+    */
     void buildE2Detector(const std::string& id, MSLane* lane, SUMOReal pos, SUMOReal endPos, SUMOReal length,
                          const std::string& device, SUMOTime frequency,
                          SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
-                         bool friendlyPos, const std::string& vTypes,
+                         const std::string& vTypes, bool friendlyPos, bool showDetector,
                          MSTLLogicControl::TLSLogicVariants* tlls = 0, MSLane* toLane = 0);
 
     void buildE2Detector(const std::string& id, std::vector<MSLane*> lanes, SUMOReal pos, SUMOReal endPos,
                          const std::string& device, SUMOTime frequency,
                          SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
-                         bool friendlyPos, const std::string& vTypes,
+                         const std::string& vTypes, bool friendlyPos, bool showDetector,
                          MSTLLogicControl::TLSLogicVariants* tlls = 0, MSLane* toLane = 0);
 
 
@@ -284,25 +292,22 @@ public:
             MSLane* lane, SUMOReal pos, const std::string& od,
             const std::string& vTypes);
 
-    /** @brief Creates an instance of an e2 detector using the given values
+
+    /** @brief Creates a MSE2Collector instance, overridden by GUIE2Collector::createE2Detector()
      *
      * Simply calls the MSE2Collector constructor
      *
-     * @param[in] id The id the detector shall have
-     * @param[in] lane The lane the detector is placed at
-     * @param[in] pos The position on the lane the detector is placed at
-     * @param[in] length The length the detector has
-     * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
-     * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
-     * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
-     * @param[in] vTypes Vehicle types, that the detector takes into account
+     *  @see  MSE2Collector Constructor documentation
      */
-    virtual MSE2Collector* createSingleLaneE2Detector(const std::string& id,
-            DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
-            SUMOTime haltingTimeThreshold,
-            SUMOReal haltingSpeedThreshold,
-            SUMOReal jamDistThreshold,
-            const std::string& vTypes);
+    virtual MSE2Collector* createE2Detector(const std::string& id,
+            DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal endPos, SUMOReal length,
+            SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+            const std::string& vTypes, bool showDetector = true);
+
+    virtual MSE2Collector* createE2Detector(const std::string& id,
+            DetectorUsage usage, std::vector<MSLane*> lanes, SUMOReal pos, SUMOReal endPos,
+            SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
+            const std::string& vTypes, bool showDetector = true);
 
     /** @brief Creates an instance of an e3 detector using the given values
      *

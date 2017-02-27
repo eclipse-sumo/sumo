@@ -55,9 +55,21 @@
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
         MSLane* lane, SUMOReal startPos, SUMOReal endPos, SUMOReal detLength,
         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold, const std::string& vTypes)
+        SUMOReal jamDistThreshold, const std::string& vTypes, bool showDetector)
     : MSE2Collector(id, usage, lane, startPos, endPos, detLength, haltingTimeThreshold,
-                    haltingSpeedThreshold, jamDistThreshold, vTypes) {}
+                    haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector),
+                    myShowDetectorInGUI(showDetector) {
+
+    std::cout << "Building GUIE2Collector (showDetector = " << myShowDetectorInGUI << ")" << std::endl;
+}
+
+GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
+        std::vector<MSLane*> lanes, SUMOReal startPos, SUMOReal endPos,
+        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
+        SUMOReal jamDistThreshold, const std::string& vTypes, bool showDetector)
+    : MSE2Collector(id, usage, lanes, startPos, endPos, haltingTimeThreshold,
+                    haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector),
+                    myShowDetectorInGUI(showDetector) {}
 
 GUIE2Collector::~GUIE2Collector() {}
 

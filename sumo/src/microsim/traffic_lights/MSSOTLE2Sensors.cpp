@@ -26,6 +26,8 @@
 #include <microsim/MSVehicleType.h>
 #include "MSSOTLE2Sensors.h"
 
+#define INVALID_POSITION std::numeric_limits<SUMOReal>::max()
+
 MSSOTLE2Sensors::MSSOTLE2Sensors(std::string tlLogicID,
                                  const MSTrafficLightLogic::Phases* phases) :
     MSSOTLSensors(tlLogicID, phases) {
@@ -148,12 +150,11 @@ void MSSOTLE2Sensors::buildCountSensorForLane(MSLane* lane, NLDetectorBuilder& n
 //        )
 
         //Create sensor for lane and insert it into the map<MSLane*, MSE2Collector*>
-        newSensor = nb.buildSingleLaneE2Det(
+        newSensor = nb.createE2Detector(
                         "SOTL_E2_lane:" + lane->getID() + "_tl:" + tlLogicID,
                         DU_TL_CONTROL, lane,
-                        (lane->getLength() - sensorPos - lensorLength), lensorLength,
+                        (lane->getLength() - sensorPos - lensorLength), INVALID_POSITION, lensorLength,
                         HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "");
-        //newSensor = nb.buildSingleLaneE2Det("SOTL_E2_lane:"+lane->getID()+"_tl:"+tlLogicID, DU_TL_CONTROL, lane, (lane->getLength() - sensorPos- 5), lensorLength, HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS);
 
         MSNet::getInstance()->getDetectorControl().add(
             SUMO_TAG_LANE_AREA_DETECTOR, newSensor);
@@ -193,12 +194,11 @@ void MSSOTLE2Sensors::buildCountSensorForOutLane(MSLane* lane, NLDetectorBuilder
 //        )
 
         //Create sensor for lane and insert it into the map<MSLane*, MSE2Collector*>
-        newSensor = nb.buildSingleLaneE2Det(
+        newSensor = nb.createE2Detector(
                         "SOTL_E2_lane:" + lane->getID() + "_tl:" + tlLogicID,
                         DU_TL_CONTROL, lane,
-                        (lane->getLength() - sensorPos - lensorLength), lensorLength,
+                        (lane->getLength() - sensorPos - lensorLength), INVALID_POSITION, lensorLength,
                         HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "");
-        //newSensor = nb.buildSingleLaneE2Det("SOTL_E2_lane:"+lane->getID()+"_tl:"+tlLogicID, DU_TL_CONTROL, lane, (lane->getLength() - sensorPos- 5), lensorLength, HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS);
 
         MSNet::getInstance()->getDetectorControl().add(
             SUMO_TAG_LANE_AREA_DETECTOR, newSensor);
@@ -293,12 +293,11 @@ void MSSOTLE2Sensors::buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb, SU
 //        )
 
         //Create sensor for lane and insert it into the map<MSLane*, MSE2Collector*>
-        newSensor = nb.buildSingleLaneE2Det(
+        newSensor = nb.createE2Detector(
                         "SOTL_E2_lane:" + lane->getID() + "_tl:" + tlLogicID,
                         DU_TL_CONTROL, lane,
-                        (lane->getLength() - sensorPos - lensorLength), lensorLength,
+                        (lane->getLength() - sensorPos - lensorLength), INVALID_POSITION, lensorLength,
                         HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "");
-//newSensor = nb.buildSingleLaneE2Det("SOTL_E2_lane:"+lane->getID()+"_tl:"+tlLogicID, DU_TL_CONTROL, lane, (lane->getLength() - sensorPos- 5), lensorLength, HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS);
 
         MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, newSensor);
 
@@ -323,10 +322,10 @@ void MSSOTLE2Sensors::buildContinueSensior(MSLane* lane, NLDetectorBuilder& nb, 
     SUMOReal availableLength = sensorLength - usedLength;
     if (m_sensorMap.find(continueOnLane->getID()) == m_sensorMap.end()) {
         SUMOReal length = availableLength <= continueOnLane->getLength() ? availableLength : continueOnLane->getLength();
-        MSE2Collector* newSensor = nb.buildSingleLaneE2Det(
+        MSE2Collector* newSensor = nb.createE2Detector(
                                        "SOTL_E2_lane:" + continueOnLane->getID() + "_tl:" + tlLogicID,
                                        DU_TL_CONTROL, continueOnLane,
-                                       (continueOnLane->getLength() - length), length,
+                                       (continueOnLane->getLength() - length), INVALID_POSITION, length,
                                        HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "");
         MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, newSensor);
         m_sensorMap.insert(MSLaneID_MSE2Collector(continueOnLane->getID(), newSensor));
@@ -382,12 +381,11 @@ void MSSOTLE2Sensors::buildSensorForOutLane(MSLane* lane,
 //        )
 
         //Create sensor for lane and insert it into the map<MSLane*, MSE2Collector*>
-        newSensor = nb.buildSingleLaneE2Det(
+        newSensor = nb.createE2Detector(
                         "SOTL_E2_lane:" + lane->getID() + "_tl:" + tlLogicID,
                         DU_TL_CONTROL, lane,
-                        (lane->getLength() - sensorPos - lensorLength), lensorLength,
+                        (lane->getLength() - sensorPos - lensorLength), INVALID_POSITION, lensorLength,
                         HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "");
-        //newSensor = nb.buildSingleLaneE2Det("SOTL_E2_lane:"+lane->getID()+"_tl:"+tlLogicID, DU_TL_CONTROL, lane, (lane->getLength() - sensorPos- 5), lensorLength, HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS);
 
         MSNet::getInstance()->getDetectorControl().add(
             SUMO_TAG_LANE_AREA_DETECTOR, newSensor);
@@ -544,7 +542,6 @@ int MSSOTLE2Sensors::count(MSE2Collector* sensor) {
         return totCars;
     }
     int number = 0;
-//    const std::vector<MSE2Collector::VehicleInfo> vehicles = sensor->getCurrentVehicles();
     const std::vector<MSE2Collector::VehicleInfo*> vehicles = sensor->getCurrentVehicles();
     std::ostringstream logstr;
     logstr << "[MSSOTLE2Sensors::count]";
