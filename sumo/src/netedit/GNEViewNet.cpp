@@ -839,6 +839,12 @@ GNEViewNet::onDoubleClicked(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onMouseMove(obj, sel, data);
+    // limit position depending of myShowGrid
+    Position currentPosition = getPositionInformation();
+    if(myShowGrid->getCheck()) {
+        currentPosition.setx(currentPosition.x() - std::fmod(currentPosition.x(), myVisualizationSettings->gridXSize)); 
+        currentPosition.sety(currentPosition.y() - std::fmod(currentPosition.y(), myVisualizationSettings->gridYSize)); 
+    }
     // in delete mode object under cursor must be checked in every mouse movement
     if (myEditMode == GNE_MODE_DELETE) {
         setFocus();
@@ -857,13 +863,13 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         }
     } else {
         if (myPolyToMove) {
-            myMoveSrc = myPolyToMove->moveGeometry(myMoveSrc, getPositionInformation());
+            myMoveSrc = myPolyToMove->moveGeometry(myMoveSrc, currentPosition);
         } else if (myPoiToMove) {
-            myPoiToMove->move(getPositionInformation());
+            myPoiToMove->move(currentPosition);
         } else if (myJunctionToMove) {
-            myJunctionToMove->move(getPositionInformation());
+            myJunctionToMove->move(currentPosition);
         } else if (myEdgeToMove) {
-            myMoveSrc = myEdgeToMove->moveGeometry(myMoveSrc, getPositionInformation());
+            myMoveSrc = myEdgeToMove->moveGeometry(myMoveSrc, currentPosition);
         } else if (myAdditionalToMove) {
             // If additional is placed over lane, move it across it
             if (myAdditionalToMove->getLane()) {
@@ -872,16 +878,16 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
                 myAdditionalMovingReference.set(posOfMouseOverLane, 0, 0);
             } else {
                 // Calculate offset movement
-                Position offsetPosition = getPositionInformation() - myOldAdditionalPosition;
+                Position offsetPosition = currentPosition - myOldAdditionalPosition;
                 myAdditionalToMove->moveAdditionalGeometry(myOldAdditionalPosition + offsetPosition + myAdditionalMovingReference);
             }
             update();
         } else if (myMoveSelection) {
-            Position moveTarget = getPositionInformation();
+            Position moveTarget = currentPosition;
             myNet->moveSelection(myMoveSrc, moveTarget);
             myMoveSrc = moveTarget;
         } else if (myAmInRectSelect) {
-            mySelCorner2 = getPositionInformation();
+            mySelCorner2 = currentPosition;
             update();
         }
     }
@@ -1788,6 +1794,8 @@ GNEViewNet::buildEditModeControls() {
 
 void
 GNEViewNet::updateModeSpecificControls() {
+    // hide grid
+    myVisualizationSettings->showGrid = false;
     // hide all controls (checkboxs)
     myChainCreateEdge->hide();
     myAutoCreateOppositeEdge->hide();
@@ -1816,12 +1824,18 @@ GNEViewNet::updateModeSpecificControls() {
             myAutoCreateOppositeEdge->show();
             myEditModeCreateEdge->setChecked(true);
             myShowGrid->show();
+            if(myShowGrid->getCheck()) {
+                myVisualizationSettings->showGrid = true;
+            }
             break;
         case GNE_MODE_MOVE:
             myWarnAboutMerge->show();
             myShowBubbleOverJunction->show();
             myEditModeMove->setChecked(true);
             myShowGrid->show();
+            if(myShowGrid->getCheck()) {
+                myVisualizationSettings->showGrid = true;
+            }
             break;
         case GNE_MODE_DELETE:
             myViewParent->getDeleteFrame()->show();
@@ -1855,10 +1869,14 @@ GNEViewNet::updateModeSpecificControls() {
             myViewParent->getAdditionalFrame()->show();
             myEditModeAdditional->setChecked(true);
             myShowGrid->show();
+            if(myShowGrid->getCheck()) {
+                myVisualizationSettings->showGrid = true;
+            }
             break;
         case GNE_MODE_CROSSING:
             myViewParent->getCrossingFrame()->show();
             myEditModeCrossing->setChecked(true);
+            myShowGrid->setCheck(false);
             break;
         default:
             break;
