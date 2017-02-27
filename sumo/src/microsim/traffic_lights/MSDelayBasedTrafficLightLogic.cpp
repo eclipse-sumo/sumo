@@ -48,7 +48,7 @@
 // parameter defaults definitions
 // ===========================================================================
 
-#define DEBUG_TIMELOSS_CONTROL
+//#define DEBUG_TIMELOSS_CONTROL
 
 // ===========================================================================
 // method definitions
