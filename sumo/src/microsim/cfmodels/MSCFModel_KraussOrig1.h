@@ -159,7 +159,7 @@ public:
      */
     virtual MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
-private:
+protected:
     /** @brief Returns the "safe" velocity
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] predSpeed The LEADER's speed

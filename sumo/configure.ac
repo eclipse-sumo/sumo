@@ -80,14 +80,6 @@ else
     ac_disabled="$ac_disabled MemoryChecks"
 fi
 
-AC_ARG_ENABLE([internal-lanes], [AS_HELP_STRING([--disable-internal-lanes],[Disable junction internal lanes.])])
-if test x$enable_internal_lanes != xno; then
-    AC_DEFINE(HAVE_INTERNAL_LANES, 1, [Define to 1 if you want junction internal lanes])
-    ac_enabled="$ac_enabled InternalLanes"
-else
-    ac_disabled="$ac_disabled InternalLanes"
-fi
-
 AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([NUMERICAL_EPS], [0.001], [defines the epsilon to use on general floating point comparison])
 

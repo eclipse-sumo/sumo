@@ -44,6 +44,7 @@
 #include "cfmodels/MSCFModel_Krauss.h"
 #include "cfmodels/MSCFModel_KraussOrig1.h"
 #include "cfmodels/MSCFModel_KraussPS.h"
+#include "cfmodels/MSCFModel_KraussX.h"
 #include "cfmodels/MSCFModel_SmartSK.h"
 #include "cfmodels/MSCFModel_Daniel1.h"
 #include "cfmodels/MSCFModel_PWag2009.h"
@@ -234,6 +235,10 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             break;
         case SUMO_TAG_CF_KRAUSS_PLUS_SLOPE:
             vtype->myCarFollowModel = new MSCFModel_KraussPS(vtype, accel, decel, sigma, tau);
+            break;
+        case SUMO_TAG_CF_KRAUSSX:
+            vtype->myCarFollowModel = new MSCFModel_KraussX(vtype, accel, decel, sigma, tau,
+                    from.getCFParam(SUMO_ATTR_TMP1, 0.));
             break;
         case SUMO_TAG_CF_SMART_SK:
             vtype->myCarFollowModel = new MSCFModel_SmartSK(vtype, accel, decel, sigma, tau,

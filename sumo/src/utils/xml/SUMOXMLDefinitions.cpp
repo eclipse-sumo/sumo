@@ -627,6 +627,7 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = 
     { "Krauss",      SUMO_TAG_CF_KRAUSS },
     { "KraussPS",    SUMO_TAG_CF_KRAUSS_PLUS_SLOPE },
     { "KraussOrig1", SUMO_TAG_CF_KRAUSS_ORIG1 },
+    { "KraussX",     SUMO_TAG_CF_KRAUSSX }, // experimental extensions to the Krauss model
     { "SmartSK",     SUMO_TAG_CF_SMART_SK },
     { "Daniel1",     SUMO_TAG_CF_DANIEL1 },
     { "PWagner2009", SUMO_TAG_CF_PWAGNER2009 },
