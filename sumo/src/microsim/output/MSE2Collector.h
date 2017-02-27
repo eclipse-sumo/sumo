@@ -241,7 +241,7 @@ public:
     */
     MSE2Collector(const std::string& id,
             DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
-            double haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+            SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
             const std::string& vTypes, bool showDetector = false);
 
 
@@ -260,7 +260,7 @@ public:
     */
     MSE2Collector(const std::string& id,
             DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
-            double haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+            SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
             const std::string& vTypes, bool showDetector = false);
 
 
