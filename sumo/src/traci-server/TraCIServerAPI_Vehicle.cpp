@@ -1727,14 +1727,12 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
     const MSEdge* prev = 0;
     UNUSED_PARAMETER(prev); // silence 'unused variable' warning when built without INTERNAL_LANES
     for (ConstMSEdgeVector::const_iterator i = v.getCurrentRouteEdge(); i != edges.end(); ++i) {
-#ifdef HAVE_INTERNAL_LANES
         while (prev != 0) {
             // check internal edge(s)
             const MSEdge* internalCand = prev->getInternalFollowingEdge(*i);
             findCloserLane(internalCand, pos, bestDistance, lane);
             prev = internalCand;
         }
-#endif
         if (findCloserLane(*i, pos, bestDistance, lane)) {
             routeOffset = (int)std::distance(edges.begin(), i);
         }
@@ -1745,14 +1743,12 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
     UNUSED_PARAMETER(next); // silence 'unused variable' warning when built without INTERNAL_LANES
     for (ConstMSEdgeVector::const_iterator i = v.getCurrentRouteEdge(); i != edges.begin(); --i) {
         prev = *i;
-#ifdef HAVE_INTERNAL_LANES
         while (prev != 0) {
             // check internal edge(s)
             const MSEdge* internalCand = prev->getInternalFollowingEdge(next);
             findCloserLane(internalCand, pos, bestDistance, lane);
             prev = internalCand;
         }
-#endif
         if (findCloserLane(*i, pos, bestDistance, lane)) {
             routeOffset = (int)std::distance(edges.begin(), i);
         }

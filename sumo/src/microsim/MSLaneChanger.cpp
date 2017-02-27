@@ -728,13 +728,9 @@ MSLaneChanger::checkChange(
                 state |= LCA_INSUFFICIENT_SPACE;
                 break;
             }
-#ifdef HAVE_INTERNAL_LANES
             if ((*link)->getViaLane() == 0) {
                 view++;
             }
-#else
-            view++;
-#endif
             nextLane = (*link)->getViaLaneOrLane();
             seen += nextLane->getLength();
             // get the next link used
@@ -773,13 +769,9 @@ MSLaneChanger::checkChange(
                         break;
                     }
                 }
-#ifdef HAVE_INTERNAL_LANES
                 if ((*link)->getViaLane() == 0) {
                     view++;
                 }
-#else
-                view++;
-#endif
                 seen += nextLane->getLength();
                 // get the next link used
                 link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);

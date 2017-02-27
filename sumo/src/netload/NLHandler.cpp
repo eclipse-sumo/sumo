@@ -492,11 +492,9 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
     parseLanes(id, attrs.getStringSecure(SUMO_ATTR_INCLANES, ""), incomingLanes, ok);
     // internal lanes
     std::vector<MSLane*> internalLanes;
-#ifdef HAVE_INTERNAL_LANES
     if (MSGlobals::gUsingInternalLanes) {
         parseLanes(id, attrs.getStringSecure(SUMO_ATTR_INTLANES, ""), internalLanes, ok);
     }
-#endif
     if (!ok) {
         myCurrentIsBroken = true;
     } else {
@@ -623,9 +621,7 @@ NLHandler::addRequest(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     int request = attrs.get<int>(SUMO_ATTR_INDEX, 0, ok);
     bool cont = false;
-#ifdef HAVE_INTERNAL_LANES
     cont = attrs.getOpt<bool>(SUMO_ATTR_CONT, 0, ok, false);
-#endif
     std::string response = attrs.get<std::string>(SUMO_ATTR_RESPONSE, 0, ok);
     std::string foes = attrs.get<std::string>(SUMO_ATTR_FOES, 0, ok);
     if (!ok) {
@@ -1165,9 +1161,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         LinkState state = parseLinkState(attrs.get<std::string>(SUMO_ATTR_STATE, 0, ok));
         bool keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, 0, ok, true);
         std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, 0, ok, "");
-#ifdef HAVE_INTERNAL_LANES
         std::string viaID = attrs.getOpt<std::string>(SUMO_ATTR_VIA, 0, ok, "");
-#endif
 
         MSEdge* from = MSEdge::dictionary(fromID);
         if (from == 0) {
@@ -1209,7 +1203,6 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         SUMOReal length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);
 
         // build the link
-#ifdef HAVE_INTERNAL_LANES
         MSLane* via = 0;
         if (viaID != "" && MSGlobals::gUsingInternalLanes) {
             via = MSLane::dictionary(viaID);
@@ -1226,10 +1219,6 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         } else {
             toLane->addIncomingLane(fromLane, link);
         }
-#else
-        link = new MSLink(fromLane, toLane, dir, state, length, foeVisibilityDistance, keepClear, logic, tlLinkIdx);
-        toLane->addIncomingLane(fromLane, link);
-#endif
         toLane->addApproachingLane(fromLane, myNetworkVersion < 0.25);
 
         // if a traffic light is responsible for it, inform the traffic light

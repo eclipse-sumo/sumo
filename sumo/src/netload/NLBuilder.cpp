@@ -125,11 +125,9 @@ NLBuilder::build() {
         return false;
     }
     // check whether the loaded net agrees with the simulation options
-#ifdef HAVE_INTERNAL_LANES
     if (myOptions.getBool("no-internal-links") && myXMLHandler.haveSeenInternalEdge()) {
         WRITE_WARNING("Network contains internal links but option --no-internal-links is set. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.");
     }
-#endif
     if (myOptions.getString("lanechange.duration") != "0" && myXMLHandler.haveSeenNeighs()) {
         throw ProcessError("Network contains explicit neigh lanes which do not work together with option --lanechange.duration.");
     }

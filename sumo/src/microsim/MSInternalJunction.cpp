@@ -48,7 +48,6 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-#ifdef HAVE_INTERNAL_LANES
 MSInternalJunction::MSInternalJunction(const std::string& id,
                                        SumoXMLNodeType type,
                                        const Position& position,
@@ -121,9 +120,6 @@ MSInternalJunction::postloadInit() {
         (*k)->addBlockedLink(thisLink);
     }
 }
-
-
-#endif
 
 
 /****************************************************************************/

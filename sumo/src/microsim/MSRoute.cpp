@@ -327,7 +327,6 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos,
             break;
         } else {
             distance += (*it)->getLength();
-#ifdef HAVE_INTERNAL_LANES
             if (includeInternal) {
                 // add length of internal lanes to the result
                 const MSEdge* internal = (*it)->getInternalFollowingEdge(*(it + 1));
@@ -335,9 +334,6 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos,
                     distance += internal->getLength();
                 }
             }
-#else
-            UNUSED_PARAMETER(includeInternal);
-#endif
         }
         isFirstIteration = false;
     }

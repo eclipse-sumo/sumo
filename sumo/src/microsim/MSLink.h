@@ -143,17 +143,6 @@ public:
     };
 
 
-#ifndef HAVE_INTERNAL_LANES
-    /** @brief Constructor for simulation not using internal lanes
-     *
-     * @param[in] succLane The lane approached by this link
-     * @param[in] dir The direction of this link
-     * @param[in] state The state of this link
-     * @param[in] length The length of this link
-     * @param[in] keepClear Whether the junction after this link must be kept clear
-     */
-    MSLink(MSLane* predLane, MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length, SUMOReal foeVisibilityDistance, bool keepClear, MSTrafficLightLogic* logic, int tlLinkIdx);
-#else
     /** @brief Constructor for simulation which uses internal lanes
      *
      * @param[in] succLane The lane approached by this link
@@ -163,7 +152,6 @@ public:
      * @param[in] length The length of this link
      */
     MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, SUMOReal foeVisibilityDistance, bool keepClear, MSTrafficLightLogic* logic, int tlLinkIdx);
-#endif
 
 
     /// @brief Destructor
@@ -381,7 +369,6 @@ public:
      */
     SUMOReal getInternalLengthsAfter() const;
 
-#ifdef HAVE_INTERNAL_LANES
     /** @brief Returns the following inner lane
      *
      * @return The inner lane to use to cross the junction
@@ -396,7 +383,6 @@ public:
      * @return The all vehicles on foeLanes and their (virtual) distances to the asking vehicle
      */
     LinkLeaders getLeaderInfo(const MSVehicle* ego, SUMOReal dist, std::vector<const MSPerson*>* collectBlockers = 0) const;
-#endif
 
     /// @brief return the speed at which ego vehicle must approach the zipper link
     SUMOReal getZipperSpeed(const MSVehicle* ego, const SUMOReal dist, SUMOReal vSafe,
@@ -533,7 +519,6 @@ private:
     SUMOTime myMesoTLSPenalty;
     SUMOReal myGreenFraction;
 
-#ifdef HAVE_INTERNAL_LANES
     /// @brief The following junction-internal lane if used
     MSLane* const myInternalLane;
 
@@ -549,7 +534,6 @@ private:
      * empty vector for entry links
      * */
     std::vector<std::pair<SUMOReal, SUMOReal> > myLengthsBehindCrossing;
-#endif
 
     std::vector<MSLink*> myFoeLinks;
     std::vector<const MSLane*> myFoeLanes;

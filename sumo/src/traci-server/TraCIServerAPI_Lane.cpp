@@ -126,11 +126,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     ++cnt;
                     // approached "via", internal lane (if any)
                     tempContent.writeUnsignedByte(TYPE_STRING);
-#ifdef HAVE_INTERNAL_LANES
                     tempContent.writeString(link->getViaLane() != 0 ? link->getViaLane()->getID() : "");
-#else
-                    tempContent.writeString("");
-#endif
                     ++cnt;
                     // priority
                     tempContent.writeUnsignedByte(TYPE_UBYTE);

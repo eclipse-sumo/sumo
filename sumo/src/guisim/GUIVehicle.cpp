@@ -677,7 +677,6 @@ GUIVehicle::selectBlockingFoes() const {
         for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
             gSelected.select(static_cast<const GUIVehicle*>(*it)->getGlID());
         }
-#ifdef HAVE_INTERNAL_LANES
         const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(this, dist, &blockingPersons);
         for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
             // the vehicle to enter the junction first has priority
@@ -696,7 +695,6 @@ GUIVehicle::selectBlockingFoes() const {
                 }
             }
         }
-#endif
         dist += dpi.myLink->getViaLaneOrLane()->getLength();
     }
 }

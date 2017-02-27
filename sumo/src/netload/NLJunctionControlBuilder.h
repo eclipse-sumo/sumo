@@ -333,7 +333,6 @@ protected:
     virtual MSJunction* buildLogicJunction();
 
 
-#ifdef HAVE_INTERNAL_LANES
     /** @brief Builds an internal junction
      *
      * Builds a MSInternalJunction
@@ -341,7 +340,6 @@ protected:
      * @return The built junction
      */
     virtual MSJunction* buildInternalJunction();
-#endif
     /// @}
 
 
@@ -382,10 +380,8 @@ protected:
     /// @brief The list of the incoming lanes of the currently chosen junction
     LaneVector myActiveIncomingLanes;
 
-#ifdef HAVE_INTERNAL_LANES
     /// @brief The list of the internal lanes of the currently chosen junction
     LaneVector myActiveInternalLanes;
-#endif
 
     /// @brief The id of the currently chosen junction
     std::string myActiveID;

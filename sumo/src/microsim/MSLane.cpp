@@ -713,11 +713,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, NUMERICAL_EPS));
             seen += nextLane->getLength();
             currentLane = nextLane;
-#ifdef HAVE_INTERNAL_LANES
             if ((*link)->getViaLane() == 0) {
-#else
-            if (true) {
-#endif
                 nRouteSuccs++;
                 ++ce;
                 ++ri;
@@ -1892,7 +1888,6 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
             nextLane->releaseVehicles();
             break;
         }
-#ifdef HAVE_INTERNAL_LANES
         // check for link leaders
         const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(&veh, seen);
         nextLane->releaseVehicles();
@@ -1907,7 +1902,6 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
             return linkLeaders[0].vehAndGap;
         }
         bool nextInternal = (*link)->getViaLane() != 0;
-#endif
         nextLane = (*link)->getViaLaneOrLane();
         if (nextLane == 0) {
             break;
@@ -1933,13 +1927,9 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
             // delaying the update of arrivalTime and making it conditional to avoid possible integer overflows
             arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, NUMERICAL_EPS));
         }
-#ifdef HAVE_INTERNAL_LANES
         if (!nextInternal) {
             view++;
         }
-#else
-        view++;
-#endif
     } while (seen <= dist);
     return std::make_pair(static_cast<MSVehicle*>(0), -1);
 }
@@ -1963,7 +1953,6 @@ MSLane::getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MS
                 veh.getImpatience(), veh.getCarFollowModel().getMaxDecel(), 0, veh.getLateralPositionOnLane()) || (*link)->haveRed()) {
             return result;
         }
-#ifdef HAVE_INTERNAL_LANES
         // check for link leaders
         const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(&veh, seen);
         for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
@@ -1980,7 +1969,6 @@ MSLane::getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MS
             }
         }
         bool nextInternal = (*link)->getViaLane() != 0;
-#endif
         nextLane = (*link)->getViaLaneOrLane();
         if (nextLane == 0) {
             break;
@@ -2002,13 +1990,9 @@ MSLane::getCriticalLeader(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MS
             // delaying the update of arrivalTime and making it conditional to avoid possible integer overflows
             arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, NUMERICAL_EPS));
         }
-#ifdef HAVE_INTERNAL_LANES
         if (!nextInternal) {
             view++;
         }
-#else
-        view++;
-#endif
     } while (seen <= dist);
     return result;
 }
@@ -2651,7 +2635,6 @@ MSLane::getLeadersOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, co
                 ego->getImpatience(), ego->getCarFollowModel().getMaxDecel(), 0, ego->getLateralPositionOnLane()) || (*link)->haveRed()) {
             break;
         }
-#ifdef HAVE_INTERNAL_LANES
         // check for link leaders
         const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(ego, seen);
         if (linkLeaders.size() > 0) {
@@ -2666,7 +2649,6 @@ MSLane::getLeadersOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, co
             } // XXX else, deal with pedestrians
         }
         bool nextInternal = (*link)->getViaLane() != 0;
-#endif
         nextLane = (*link)->getViaLaneOrLane();
         if (nextLane == 0) {
             break;
@@ -2703,13 +2685,9 @@ MSLane::getLeadersOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, co
             // delaying the update of arrivalTime and making it conditional to avoid possible integer overflows
             arrivalTime += TIME2STEPS(nextLane->getLength() / MAX2(speed, NUMERICAL_EPS));
         }
-#ifdef HAVE_INTERNAL_LANES
         if (!nextInternal) {
             view++;
         }
-#else
-        view++;
-#endif
     }
 }
 

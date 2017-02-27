@@ -40,7 +40,6 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-#ifdef HAVE_INTERNAL_LANES
 const MSEdge*
 MSLinkContHelper::getInternalFollowingEdge(const MSLane* fromLane,
         const MSEdge* followerAfterInternal) {
@@ -77,7 +76,6 @@ MSLinkContHelper::getInternalFollowingLane(const MSLane* fromLane,
     }
     return 0;
 }
-#endif
 
 
 MSLink*

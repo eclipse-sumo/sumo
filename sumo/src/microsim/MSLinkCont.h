@@ -58,7 +58,6 @@ typedef std::vector<MSLink*> MSLinkCont;
  */
 class MSLinkContHelper {
 public:
-#ifdef HAVE_INTERNAL_LANES
     /** @brief Returns the internal lane that must be passed in order to get to the desired edge
         Returns 0 if no such edge exists */
     static const MSEdge* getInternalFollowingEdge(const MSLane* fromLane,
@@ -66,7 +65,6 @@ public:
 
     static const MSLane* getInternalFollowingLane(const MSLane* fromLane,
             const MSLane* followerAfterInternal);
-#endif
 
     /** @brief Returns the link connecting both lanes
         Both lanes have to be non-internal; 0 may be returned if no connection

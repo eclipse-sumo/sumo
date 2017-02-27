@@ -1699,7 +1699,6 @@ MSLCM_LC2013::getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::L
     // have access to the right initial lane (neigh.lane is only the first non-null lane of neigh.bestContinuations).
     roundaboutDistanceAheadNeigh = 0;
     SUMOReal neighPosition = pos;
-#ifdef HAVE_INTERNAL_LANES
     if (veh.getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
         // take care of the distance on internal lanes
         neighPosition = 0.;
@@ -1720,7 +1719,6 @@ MSLCM_LC2013::getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::L
             roundaboutDistanceAheadNeigh += link->getInternalLengthsAfter();
         }
     }
-#endif
     // add roundabout distance from neigh.lane on
     roundaboutDistanceAheadNeigh += distanceAlongNextRoundabout(neighPosition, neigh.lane, neigh.bestContinuations);
 

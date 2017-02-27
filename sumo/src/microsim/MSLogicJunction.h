@@ -81,20 +81,16 @@ protected:
                     SumoXMLNodeType type,
                     const Position& position,
                     const PositionVector& shape,
-                    std::vector<MSLane*> incoming
-#ifdef HAVE_INTERNAL_LANES
-                    , std::vector<MSLane*> internal
-#endif
+                    std::vector<MSLane*> incoming, 
+                    std::vector<MSLane*> internal
                    );
 
 protected:
     /// list of incoming lanes
     std::vector<MSLane*> myIncomingLanes;
 
-#ifdef HAVE_INTERNAL_LANES
     /// list of incoming lanes
     std::vector<MSLane*> myInternalLanes;
-#endif
 
 private:
     /// @brief Invalidated copy constructor.

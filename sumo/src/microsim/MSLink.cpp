@@ -66,28 +66,6 @@ const SUMOReal MSLink::ZIPPER_ADAPT_DIST(100);
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-#ifndef HAVE_INTERNAL_LANES
-MSLink::MSLink(MSLane* predLane, MSLane* succLane, LinkDirection dir, LinkState state, SUMOReal length, SUMOReal foeVisibilityDistance, bool keepClear, MSTrafficLightLogic* logic, int tlIndex) :
-    myLane(succLane),
-    myLaneBefore(predLane),
-    myIndex(-1),
-    myTLIndex(tlIndex),
-    myLogic(logic),
-    myState(state),
-    myLastStateChange(SUMOTime_MIN),
-    myDirection(dir),
-    myLength(length),
-    myFoeVisibilityDistance(foeVisibilityDistance),
-    myHasFoes(false),
-    myAmCont(false),
-    myKeepClear(keepClear),
-    myMesoTLSPenalty(0),
-    myGreenFraction(1),
-    myParallelRight(0),
-    myParallelLeft(0),
-    myJunction(0) {
-}
-#else
 MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection dir, LinkState state, SUMOReal length, SUMOReal foeVisibilityDistance, bool keepClear, MSTrafficLightLogic* logic, int tlIndex) :
     myLane(succLane),
     myLaneBefore(predLane),
@@ -110,7 +88,6 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myParallelLeft(0),
     myJunction(0) {
 }
-#endif
 
 
 MSLink::~MSLink() {}
@@ -130,7 +107,6 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         myFoeLanes.push_back(*it_lane);
     }
     myJunction = const_cast<MSJunction*>(myLane->getEdge().getFromJunction()); // junctionGraph is initialized after the whole network is loaded
-#ifdef HAVE_INTERNAL_LANES
     myInternalLaneBefore = internalLaneBefore;
     MSLane* lane = 0;
     if (internalLaneBefore != 0) {
@@ -246,9 +222,6 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
             }
         }
     }
-#else
-    UNUSED_PARAMETER(internalLaneBefore);
-#endif
     if (MSGlobals::gLateralResolution > 0) {
         // check for links with the same origin lane and the same destination edge
         const MSEdge* myTarget = &myLane->getEdge();
@@ -497,7 +470,6 @@ MSLink::getLane() const {
 
 bool
 MSLink::lastWasContMajor() const {
-#ifdef HAVE_INTERNAL_LANES
     if (myInternalLane == 0 || myAmCont) {
         return false;
     } else {
@@ -512,9 +484,6 @@ MSLink::lastWasContMajor() const {
             return predLink->havePriority();
         }
     }
-#else
-    return false;
-#endif
 }
 
 
@@ -523,11 +492,7 @@ MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
     if (myApproachingVehicles.size() > 0) {
         od.openTag("link");
         od.writeAttr(SUMO_ATTR_FROM, fromLaneID);
-#ifdef HAVE_INTERNAL_LANES
         const std::string via = getViaLane() == 0 ? "" : getViaLane()->getID();
-#else
-        const std::string via = "";
-#endif
         od.writeAttr(SUMO_ATTR_VIA, via);
         od.writeAttr(SUMO_ATTR_TO, getLane() == 0 ? "" : getLane()->getID());
         std::vector<std::pair<SUMOTime, const SUMOVehicle*> > toSort; // stabilize output
@@ -557,19 +522,16 @@ MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
 SUMOReal
 MSLink::getInternalLengthsAfter() const {
     SUMOReal len = 0.;
-#ifdef HAVE_INTERNAL_LANES
     MSLane* lane = myInternalLane;
 
     while (lane != 0 && lane->isInternal()) {
         len += lane->getLength();
         lane = lane->getLinkCont()[0]->getViaLane();
     }
-#endif
     return len;
 }
 
 
-#ifdef HAVE_INTERNAL_LANES
 MSLane*
 MSLink::getViaLane() const {
     return myInternalLane;
@@ -680,29 +642,24 @@ MSLink::getLeaderInfo(const MSVehicle* ego, SUMOReal dist, std::vector<const MSP
     }
     return result;
 }
-#endif
 
 
 MSLane*
 MSLink::getViaLaneOrLane() const {
-#ifdef HAVE_INTERNAL_LANES
     if (myInternalLane != 0) {
         return myInternalLane;
     }
-#endif
     return myLane;
 }
 
 
 const MSLane*
 MSLink::getLaneBefore() const {
-#ifdef HAVE_INTERNAL_LANES
     if (myInternalLaneBefore != 0) {
         if (myLaneBefore != myInternalLaneBefore) {
             throw ProcessError("lane before mismatch!");
         }
     }
-#endif
     return myLaneBefore;
 }
 
@@ -751,11 +708,7 @@ MSLink::isLeader(const MSVehicle* ego, const MSVehicle* foe) {
 
 const MSLane*
 MSLink::getInternalLaneBefore() const {
-#ifdef HAVE_INTERNAL_LANES
     return myInternalLaneBefore;
-#else
-    return 0;
-#endif
 }
 
 

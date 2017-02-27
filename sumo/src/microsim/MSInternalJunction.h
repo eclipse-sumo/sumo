@@ -56,7 +56,6 @@ class MSLink;
  * The rules for the right-of-way themselves are stored within the associated
  * "MSJunctionLogic" - structure.
  */
-#ifdef HAVE_INTERNAL_LANES
 class MSInternalJunction : public MSLogicJunction {
 public:
     /** @brief Constructor
@@ -100,7 +99,6 @@ private:
 };
 
 
-#endif
 #endif
 
 /****************************************************************************/

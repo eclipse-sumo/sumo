@@ -184,7 +184,6 @@ MSEdge::closeBuilding() {
                 }
                 myAllowed[&to]->push_back(*i);
             }
-#ifdef HAVE_INTERNAL_LANES
             toL = (*j)->getViaLane();
             if (toL != 0) {
                 MSEdge& to = toL->getEdge();
@@ -192,7 +191,6 @@ MSEdge::closeBuilding() {
                     to.myPredecessors.push_back(this);
                 }
             }
-#endif
         }
     }
     std::sort(mySuccessors.begin(), mySuccessors.end(), by_id_sorter());
@@ -622,7 +620,6 @@ MSEdge::changeLanes(SUMOTime t) {
 
 
 
-#ifdef HAVE_INTERNAL_LANES
 const MSEdge*
 MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal) const {
     //@todo to be optimized
@@ -642,7 +639,6 @@ MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal) const {
     }
     return 0;
 }
-#endif
 
 
 SUMOReal

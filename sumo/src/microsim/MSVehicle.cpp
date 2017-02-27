@@ -804,11 +804,9 @@ MSVehicle::getRerouteOrigin() const {
             myState.myPos > myLane->getLength() - getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.)) {
         return *(myCurrEdge + 1);
     }
-#ifdef HAVE_INTERNAL_LANES
     if (myLane != 0) {
         return myLane->getNextNormal();
     }
-#endif
     return *myCurrEdge;
 }
 
@@ -1430,11 +1428,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     }
 #endif
     assert(bestLaneConts.size() > 0);
-#ifdef HAVE_INTERNAL_LANES
     bool hadNonInternal = false;
-#else
-    bool hadNonInternal = true;
-#endif
     SUMOReal seen = opposite ? myState.myPos : myLane->getLength() - myState.myPos; // the distance already "seen"; in the following always up to the end of the current "lane"
     SUMOReal seenNonInternal = 0;
     SUMOReal vLinkPass = MIN2(cfModel.estimateSpeedAfterDistance(seen, v, cfModel.getMaxAccel()), laneMaxV); // upper bound
@@ -1600,7 +1594,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             break;
         }
 
-#ifdef HAVE_INTERNAL_LANES
         if (MSGlobals::gUsingInternalLanes) {
             // we want to pass the link but need to check for foes on internal lanes
             const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(this, seen);
@@ -1627,7 +1620,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             // if this is the link between two internal lanes we may have to slow down for pedestrians
             vLinkWait = MIN2(vLinkWait, v);
         }
-#endif
 
         if (lastLink != 0) {
             lastLink->adaptLeaveSpeed(laneMaxV);
@@ -1694,14 +1686,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                                            arrivalTimeBraking, arrivalSpeedBraking,
                                            seen,
                                            estimateLeaveSpeed(*link, arrivalSpeed)));
-#ifdef HAVE_INTERNAL_LANES
         if ((*link)->getViaLane() == 0) {
             hadNonInternal = true;
             ++view;
         }
-#else
-        ++view;
-#endif
         // we need to look ahead far enough to see available space for checkRewindLinkLanes
         if ((!setRequest || v <= 0 || seen > dist) && hadNonInternal && seenNonInternal > vehicleLength * CRLL_LOOK_AHEAD) {
             break;
@@ -2166,14 +2154,12 @@ MSVehicle::executeMove() {
                     assert(myState.myPos > 0);
                     enterLaneAtMove(approachedLane);
                     myLane = approachedLane;
-#ifdef HAVE_INTERNAL_LANES
                     if (MSGlobals::gUsingInternalLanes) {
                         // erase leaders when past the junction
                         if (link->getViaLane() == 0) {
                             link->passedJunction(this);
                         }
                     }
-#endif
                     if (hasArrived()) {
                         break;
                     }
@@ -2458,7 +2444,6 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
         int bla = 0;
     }
 #endif
-#ifdef HAVE_INTERNAL_LANES
     if (MSGlobals::gUsingInternalLanes && !myLane->getEdge().isRoundabout() && !getLaneChangeModel().isOpposite()) {
         bool hadVehicle = false;
         SUMOReal seenSpace = -lengthsInFront;
@@ -2634,9 +2619,6 @@ MSVehicle::checkRewindLinkLanes(const SUMOReal lengthsInFront, DriveItemVector& 
             }
         }
     }
-#else
-    UNUSED_PARAMETER(lengthsInFront);
-#endif
     for (DriveItemVector::iterator i = lfLinks.begin(); i != lfLinks.end(); ++i) {
         if ((*i).myLink != 0) {
             if ((*i).myLink->getState() == LINKSTATE_ALLWAY_STOP) {

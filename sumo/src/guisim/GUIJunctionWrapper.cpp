@@ -74,11 +74,7 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction)
         myBoundary = myJunction.getShape().getBoxBoundary();
     }
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
-#ifdef HAVE_INTERNAL_LANES
     myIsInner = dynamic_cast<MSInternalJunction*>(&myJunction) != 0;
-#else
-    myIsInner = false;
-#endif
     myAmWaterway = myJunction.getIncoming().size() + myJunction.getOutgoing().size() > 0;
     for (ConstMSEdgeVector::const_iterator it = myJunction.getIncoming().begin(); it != myJunction.getIncoming().end(); ++it) {
         if (!(*it)->isInternal() && !isWaterway((*it)->getPermissions())) {

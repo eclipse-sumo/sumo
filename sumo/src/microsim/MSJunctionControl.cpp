@@ -53,7 +53,6 @@ MSJunctionControl::~MSJunctionControl() {
 void
 MSJunctionControl::postloadInitContainer() {
     const std::vector<MSJunction*>& junctions = buildAndGetStaticVector();
-#ifdef HAVE_INTERNAL_LANES
     // initialize normal junctions before internal junctions
     // (to allow calling getIndex() during initialization of internal junction links)
     for (std::vector<MSJunction*>::const_iterator i = junctions.begin(); i != junctions.end(); ++i) {
@@ -66,11 +65,6 @@ MSJunctionControl::postloadInitContainer() {
             (*i)->postloadInit();
         }
     }
-#else
-    for (std::vector<MSJunction*>::const_iterator i = junctions.begin(); i != junctions.end(); ++i) {
-        (*i)->postloadInit();
-    }
-#endif
 }
 
 

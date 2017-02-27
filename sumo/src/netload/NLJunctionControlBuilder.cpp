@@ -105,11 +105,7 @@ NLJunctionControlBuilder::openJunction(const std::string& id,
                                        const PositionVector& shape,
                                        const std::vector<MSLane*>& incomingLanes,
                                        const std::vector<MSLane*>& internalLanes) {
-#ifdef HAVE_INTERNAL_LANES
     myActiveInternalLanes = internalLanes;
-#else
-    UNUSED_PARAMETER(internalLanes);
-#endif
     myActiveIncomingLanes = incomingLanes;
     myActiveID = id;
     myActiveKey = key;
@@ -143,11 +139,9 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
             junction = buildLogicJunction();
             break;
         case NODETYPE_INTERNAL:
-#ifdef HAVE_INTERNAL_LANES
             if (MSGlobals::gUsingInternalLanes) {
                 junction = buildInternalJunction();
             }
-#endif
             break;
         case NODETYPE_RAIL_SIGNAL:
         case NODETYPE_RAIL_CROSSING:
@@ -179,11 +173,8 @@ NLJunctionControlBuilder::build() const {
 
 MSJunction*
 NLJunctionControlBuilder::buildNoLogicJunction() {
-    return new MSNoLogicJunction(myActiveID, myType, myPosition, myShape, myActiveIncomingLanes
-#ifdef HAVE_INTERNAL_LANES
-                                 , myActiveInternalLanes
-#endif
-                                );
+    return new MSNoLogicJunction(myActiveID, myType, myPosition, myShape, 
+            myActiveIncomingLanes, myActiveInternalLanes);
 }
 
 
@@ -192,21 +183,17 @@ NLJunctionControlBuilder::buildLogicJunction() {
     MSJunctionLogic* jtype = getJunctionLogicSecure();
     // build the junction
     return new MSRightOfWayJunction(myActiveID, myType, myPosition, myShape, myActiveIncomingLanes,
-#ifdef HAVE_INTERNAL_LANES
                                     myActiveInternalLanes,
-#endif
                                     jtype);
 }
 
 
-#ifdef HAVE_INTERNAL_LANES
 MSJunction*
 NLJunctionControlBuilder::buildInternalJunction() {
     // build the junction
     return new MSInternalJunction(myActiveID, myType, myPosition, myShape, myActiveIncomingLanes,
                                   myActiveInternalLanes);
 }
-#endif
 
 
 MSJunctionLogic*

@@ -533,10 +533,8 @@ public:
     virtual void changeLanes(SUMOTime t);
 
 
-#ifdef HAVE_INTERNAL_LANES
     /// @todo extension: inner junctions are not filled
     const MSEdge* getInternalFollowingEdge(const MSEdge* followerAfterInternal) const;
-#endif
 
     /// @brief Returns whether the vehicle (class) is not allowed on the edge
     inline bool prohibits(const SUMOVehicle* const vehicle) const {
