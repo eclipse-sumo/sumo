@@ -476,6 +476,13 @@ long
 GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
     FXEvent* e = (FXEvent*) data;
     setFocus();
+    // limit position depending of myShowGrid
+    Position currentPosition = getPositionInformation();
+    if(myShowGrid->getCheck()) {
+        currentPosition.setx(currentPosition.x() - std::fmod(currentPosition.x(), myVisualizationSettings->gridXSize)); 
+        currentPosition.sety(currentPosition.y() - std::fmod(currentPosition.y(), myVisualizationSettings->gridYSize)); 
+    }
+
     // interpret object under curser
     if (makeCurrent()) {
         int id = getObjectUnderCursor();
@@ -531,7 +538,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                         myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
                     }
                     if (!pointed_junction) {
-                        pointed_junction = myNet->createJunction(getPositionInformation(), myUndoList);
+                        pointed_junction = myNet->createJunction(currentPosition, myUndoList);
                     }
                     if (myCreateEdgeSource == 0) {
                         myCreateEdgeSource = pointed_junction;
@@ -575,24 +582,24 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
             case GNE_MODE_MOVE: {
                 if (pointed_poly) {
                     myPolyToMove = pointed_poly;
-                    myMoveSrc = getPositionInformation();
+                    myMoveSrc = currentPosition;
                 } else if (pointed_poi) {
                     myPoiToMove = pointed_poi;
-                    myMoveSrc = getPositionInformation();
+                    myMoveSrc = currentPosition;
                 } else if (pointed_junction) {
                     if (gSelected.isSelected(GLO_JUNCTION, pointed_junction->getGlID())) {
                         myMoveSelection = true;
                     } else {
                         myJunctionToMove = pointed_junction;
                     }
-                    myMoveSrc = getPositionInformation();
+                    myMoveSrc = currentPosition;
                 } else if (pointed_edge) {
                     if (gSelected.isSelected(GLO_EDGE, pointed_edge->getGlID())) {
                         myMoveSelection = true;
                     } else {
                         myEdgeToMove = pointed_edge;
                     }
-                    myMoveSrc = getPositionInformation();
+                    myMoveSrc = currentPosition;
                 } else if (pointed_additional) {
                     if (gSelected.isSelected(GLO_ADDITIONAL, pointed_additional->getGlID())) {
                         myMoveSelection = true;
@@ -620,11 +627,11 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                                     }
                                 }
                                 // Set myAdditionalMovingReference
-                                myAdditionalMovingReference.set(pointed_additional->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false), 0, 0);
+                                myAdditionalMovingReference.set(pointed_additional->getLane()->getShape().nearest_offset_to_point2D(currentPosition, false), 0, 0);
                             } else {
                                 // Set myOldAdditionalPosition and myAdditionalMovingReference
-                                myOldAdditionalPosition = getPositionInformation();
-                                myAdditionalMovingReference = pointed_additional->getPositionInView() - getPositionInformation();
+                                myOldAdditionalPosition = currentPosition;
+                                myAdditionalMovingReference = pointed_additional->getPositionInView() - currentPosition;
                             }
                         }
                     }
@@ -709,8 +716,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
 
                 myAmInRectSelect = (((FXEvent*)data)->state & SHIFTMASK) != 0;
                 if (myAmInRectSelect) {
-                    mySelCorner1 = getPositionInformation();
-                    mySelCorner2 = getPositionInformation();
+                    mySelCorner1 = currentPosition;
+                    mySelCorner2 = currentPosition;
                 } else {
                     GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
                 }
@@ -1795,7 +1802,7 @@ GNEViewNet::buildEditModeControls() {
 void
 GNEViewNet::updateModeSpecificControls() {
     // hide grid
-    myVisualizationSettings->showGrid = false;
+    myShowGrid->setCheck(myVisualizationSettings->showGrid);
     // hide all controls (checkboxs)
     myChainCreateEdge->hide();
     myAutoCreateOppositeEdge->hide();
@@ -1824,18 +1831,12 @@ GNEViewNet::updateModeSpecificControls() {
             myAutoCreateOppositeEdge->show();
             myEditModeCreateEdge->setChecked(true);
             myShowGrid->show();
-            if(myShowGrid->getCheck()) {
-                myVisualizationSettings->showGrid = true;
-            }
             break;
         case GNE_MODE_MOVE:
             myWarnAboutMerge->show();
             myShowBubbleOverJunction->show();
             myEditModeMove->setChecked(true);
             myShowGrid->show();
-            if(myShowGrid->getCheck()) {
-                myVisualizationSettings->showGrid = true;
-            }
             break;
         case GNE_MODE_DELETE:
             myViewParent->getDeleteFrame()->show();
@@ -1869,9 +1870,6 @@ GNEViewNet::updateModeSpecificControls() {
             myViewParent->getAdditionalFrame()->show();
             myEditModeAdditional->setChecked(true);
             myShowGrid->show();
-            if(myShowGrid->getCheck()) {
-                myVisualizationSettings->showGrid = true;
-            }
             break;
         case GNE_MODE_CROSSING:
             myViewParent->getCrossingFrame()->show();
