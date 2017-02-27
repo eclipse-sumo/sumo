@@ -180,8 +180,8 @@ NBNodeCont::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLo
 void
 NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     // magic values
-    double distanceThreshold = 7; // don't merge edges further apart
-    double lengthThreshold = 0.10; // don't merge edges with higher relative length-difference
+    const double distanceThreshold = 7.; // don't merge edges further apart
+    const double lengthThreshold = 0.10; // don't merge edges with higher relative length-difference
 
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         // count the edges to other nodes outgoing from the current node

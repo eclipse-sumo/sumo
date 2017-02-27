@@ -97,7 +97,6 @@ MSE2Collector::MSE2Collector(const std::string& id,
     bool lengthInvalid = length == std::numeric_limits<double>::max() || length <= 0;
     bool endPosInvalid = endPos == std::numeric_limits<double>::max();
     bool posInvalid = startPos == std::numeric_limits<double>::max();
-    int numInvalid = (int) lengthInvalid + (int) endPosInvalid + (int) posInvalid;
 
     // check and normalize positions (assure positive values for pos and endPos, snap to lane-ends)
     if (lengthInvalid) {
