@@ -1745,6 +1745,28 @@ GNEViewNet::buildEditModeControls() {
 
     // @ToDo add here new FXToolBarGrip(myNavigationToolBar, NULL, 0, GUIDesignToolbarGrip);
 
+    // initialize grid controls
+    myGridPopup = new FXPopup(myToolbar, POPUP_VERTICAL);
+    myGridButton = new FXMenuButton(myToolbar, "\tShow grid\tShow grid over view net.", GUIIconSubSys::getIcon(ICON_GRID1), myGridPopup, GUIDesignButtonToolbarLocator);
+
+    myGridSize1Button = new FXButton(myGridPopup, "1x1\tShow a grid of size 1x1", 
+                            GUIIconSubSys::getIcon(ICON_GRID1), this, MID_LOCATEJUNCTION,
+                            ICON_BEFORE_TEXT | JUSTIFY_LEFT | FRAME_THICK | FRAME_RAISED);
+
+
+    myGridSize10Button = new FXButton(myGridPopup, "10x10\tShow a grid of size 10x10", 
+                            GUIIconSubSys::getIcon(ICON_GRID2), this, MID_LOCATEJUNCTION,
+                            ICON_BEFORE_TEXT | JUSTIFY_LEFT | FRAME_THICK | FRAME_RAISED);
+
+
+    myGridSize100Button = new FXButton(myGridPopup, "100x100\tShow a grid of size 100x100", 
+                            GUIIconSubSys::getIcon(ICON_GRID3), this, MID_LOCATEJUNCTION,
+                            ICON_BEFORE_TEXT | JUSTIFY_LEFT | FRAME_THICK | FRAME_RAISED);
+
+    myGridSizeCustomButton = new FXButton(myGridPopup, "Custom\tShow a grid of custom size", 
+                            GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_LOCATEJUNCTION,
+                            ICON_BEFORE_TEXT | JUSTIFY_LEFT | FRAME_THICK | FRAME_RAISED);
+
     // initialize mode specific controls
     myChainCreateEdge = new FXMenuCheck(myToolbar, "chain\t\tCreate consecutive edges with a single click (hit ESC to cancel chain).", this, 0);
     myAutoCreateOppositeEdge = new FXMenuCheck(myToolbar, "two-way\t\tAutomatically create an edge in the opposite direction", this, 0);

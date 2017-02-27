@@ -389,7 +389,7 @@ private:
     /// @brief a reference to the toolbar in myParent
     FXToolBar* myToolbar;
 
-    /// @name buttons  for selecting the edit mode
+    /// @name buttons for selecting the edit mode
     /// @{
     /// @brief chekable button for edit mode create edge
     MFXCheckableButton* myEditModeCreateEdge;
@@ -419,7 +419,28 @@ private:
     MFXCheckableButton* myEditModeCrossing;
     /// @}
 
-    /// @brief since we cannot switch on strings we map the mode names to an enum
+    /// @name menu and buttons for grid
+    /// @{
+    /// @brief popup menu for different grids
+    FXPopup* myGridPopup;
+
+    /// @brief grid button
+    FXMenuButton* myGridButton;
+
+    /// @brief button for grid of size 1x1
+    FXButton *myGridSize1Button;
+
+    /// @brief button for grid of size 10x10
+    FXButton *myGridSize10Button;
+
+    /// @brief button for grid of size 100x100
+    FXButton *myGridSize100Button;
+
+    /// @brief button for grid of size custom
+    FXButton *myGridSizeCustomButton;
+    /// @}
+
+    /// @name since we cannot switch on strings we map the mode names to an enum
     /// @{
     /// @brief stringBijection for edit mode names
     StringBijection<EditMode> myEditModeNames;
