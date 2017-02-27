@@ -554,6 +554,8 @@ enum {
     MID_GNE_SHOW_CONNECTIONS,
     /// @brief show junctions as bubbles
     MID_GNE_SHOW_BUBBLES,
+    /// @brief show grid
+    MID_GNE_SHOW_GRID,
     /// @brief attribute edited
     MID_GNE_SET_ATTRIBUTE,
     /// @brief attribute blocking

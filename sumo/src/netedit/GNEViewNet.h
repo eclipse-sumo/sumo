@@ -233,6 +233,9 @@ public:
     /// @brief toogle show bubbles
     long onCmdToogleShowBubbles(FXObject*, FXSelector, void*);
 
+    /// @brief toogle show grid
+    long onCmdShowGrid(FXObject*, FXSelector, void*);
+
     /// @brief sets edit mode (from hotkey)
     /// @param[in] selid An id MID_GNE_MODE_<foo> as defined in GUIAppEnum
     void setEditModeFromHotkey(FXushort selid);
@@ -325,6 +328,9 @@ private:
 
     /// @brief menu check to set change all phases
     FXMenuCheck* myChangeAllPhases;
+
+    /// @brief show grid button
+    FXMenuCheck* myShowGrid;
 
     /// @name the state-variables of the create-edge state-machine
     // @{

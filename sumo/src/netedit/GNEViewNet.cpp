@@ -119,7 +119,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NODE_SHAPE,              GNEViewNet::onCmdNodeShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NODE_REPLACE,            GNEViewNet::onCmdNodeReplace),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_BUBBLES,            GNEViewNet::onCmdToogleShowBubbles)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_BUBBLES,            GNEViewNet::onCmdToogleShowBubbles),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_GRID,               GNEViewNet::onCmdShowGrid)
 };
 
 // Object implementation
@@ -1683,6 +1684,19 @@ GNEViewNet::onCmdToogleShowBubbles(FXObject*, FXSelector, void*) {
 }
 
 
+long
+GNEViewNet::onCmdShowGrid(FXObject*, FXSelector, void*) {
+    // show or hidde grid depending of myShowGrid
+    if(myShowGrid->getCheck()) {
+        myVisualizationSettings->showGrid = true;
+    } else {
+        myVisualizationSettings->showGrid = false;
+    }
+    update();
+    return 1;
+}
+
+
 // ===========================================================================
 // private
 // ===========================================================================
@@ -1745,6 +1759,8 @@ GNEViewNet::buildEditModeControls() {
 
     // @ToDo add here new FXToolBarGrip(myNavigationToolBar, NULL, 0, GUIDesignToolbarGrip);
 
+
+
     // initialize mode specific controls
     myChainCreateEdge = new FXMenuCheck(myToolbar, "chain\t\tCreate consecutive edges with a single click (hit ESC to cancel chain).", this, 0);
     myAutoCreateOppositeEdge = new FXMenuCheck(myToolbar, "two-way\t\tAutomatically create an edge in the opposite direction", this, 0);
@@ -1764,6 +1780,9 @@ GNEViewNet::buildEditModeControls() {
 
     myChangeAllPhases = new FXMenuCheck(myToolbar, "apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current traffic light plan", this, 0);
     myChangeAllPhases->setCheck(false);
+
+    myShowGrid = new FXMenuCheck(myToolbar, "show grid\t\tshow grid with size defined in visualization options", this, MID_GNE_SHOW_GRID);
+    myShowGrid->setCheck(false);
 }
 
 
@@ -1778,6 +1797,7 @@ GNEViewNet::updateModeSpecificControls() {
     myChangeAllPhases->hide();
     myWarnAboutMerge->hide();
     myShowBubbleOverJunction->hide();
+    myShowGrid->hide();
     // unckeck all edit modes
     myEditModeCreateEdge->setChecked(false);
     myEditModeMove->setChecked(false);
@@ -1795,11 +1815,13 @@ GNEViewNet::updateModeSpecificControls() {
             myChainCreateEdge->show();
             myAutoCreateOppositeEdge->show();
             myEditModeCreateEdge->setChecked(true);
+            myShowGrid->show();
             break;
         case GNE_MODE_MOVE:
             myWarnAboutMerge->show();
             myShowBubbleOverJunction->show();
             myEditModeMove->setChecked(true);
+            myShowGrid->show();
             break;
         case GNE_MODE_DELETE:
             myViewParent->getDeleteFrame()->show();
@@ -1832,6 +1854,7 @@ GNEViewNet::updateModeSpecificControls() {
         case GNE_MODE_ADDITIONAL:
             myViewParent->getAdditionalFrame()->show();
             myEditModeAdditional->setChecked(true);
+            myShowGrid->show();
             break;
         case GNE_MODE_CROSSING:
             myViewParent->getCrossingFrame()->show();
