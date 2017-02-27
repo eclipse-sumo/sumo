@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 17 Sep 2014 02:22:34 PM CEST by Netedit Version dev-SVN-r17066I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="debug.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="debug.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/largeNodeShape/small2"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E"/>
+    <edge id="CN" from="C" to="N"/>
+    <edge id="CW" from="C" to="W"/>
+    <edge id="EC" from="E" to="C"/>
+    <edge id="NC" from="N" to="C"/>
+    <edge id="WC" from="W" to="C"/>
+</edges>
