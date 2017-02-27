@@ -100,6 +100,10 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     if self._fix:
                         subprocess.call(
                             ["svn", "ps", "svn:keywords", _KEYWORDS, self._file])
+                try:
+                    open(self._file).read().decode('utf8')
+                except UnicodeDecodeError:
+                    print(self._file, "Unicode Error")
             if ext in _VS_EXT:
                 if name == 'property' and self._property == "svn:eol-style" and self._value != "CRLF"\
                    or name == "target" and not self._hadEOL:
@@ -107,6 +111,8 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     if self._fix:
                         subprocess.call(
                             ["svn", "ps", "svn:eol-style", "CRLF", self._file])
+            if ext == ".py":
+                subprocess.call(["flake8", "--max-line-length", "120", self._file])
         if name == 'property':
             self._value = ""
             self._property = None
