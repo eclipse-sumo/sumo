@@ -209,7 +209,7 @@ MSE2Collector::checkPositioning(bool posGiven, SUMOReal desiredLength){
     if (myDetectorLength < POSITION_EPS && (myStartPos > 0. || myEndPos < myLastLane->getLength())) {
         // assure minimal detector length
         SUMOReal prolong = POSITION_EPS - myDetectorLength;
-        SUMOReal startPos = MAX2(0., myStartPos-prolong); // new startPos
+        SUMOReal startPos = MAX2((SUMOReal)0., myStartPos-prolong); // new startPos
         prolong -= myStartPos - startPos;
         myStartPos = startPos;
         if (prolong > 0.){
@@ -882,13 +882,13 @@ MSE2Collector::makeMoveNotification(const SUMOVehicle& veh, SUMOReal oldPos, SUM
 
     // The length of the part of the vehicle on the detector at the end of the last time step
     // may be shorter than vehicle's length if its back reaches out
-    SUMOReal lengthOnDetector = MAX2(MIN2(vehInfo.length, newPos + vehInfo.entryOffset), 0.);
+    SUMOReal lengthOnDetector = MAX2(MIN2(vehInfo.length, newPos + vehInfo.entryOffset), (SUMOReal)0.);
 
     // XXX: Fulfulling the specifications of the documentation (lengthOnDetector = time integral
     //      over length of the vehicle's part on the detector) would be much more cumbersome.
     SUMOReal distToExit = vehInfo.exitOffset - vehInfo.entryOffset - newPos;
     // Eventually decrease further to account for the front reaching out
-    lengthOnDetector = MAX2(0., lengthOnDetector + MIN2(0., distToExit));
+    lengthOnDetector = MAX2((SUMOReal)0., lengthOnDetector + MIN2((SUMOReal)0., distToExit));
 
     // whether the vehicle is still on the detector at the end of the time step
     bool stillOnDetector = -distToExit < vehInfo.length;
@@ -1063,7 +1063,7 @@ MSE2Collector::calculateTimeLossAndTimeOnDetector(const SUMOVehicle& veh, SUMORe
     }
 
     // Eventual positional offset of the detector start from the lane's start
-    SUMOReal entryPos = MAX2(-vi.entryOffset,0.);
+    SUMOReal entryPos = MAX2(-vi.entryOffset, (SUMOReal)0.);
     // Time of this vehicle entering the detector in the last time step
     SUMOReal entryTime = 0;
     // Take into account the time before entering the detector, if there is.
@@ -1095,7 +1095,7 @@ MSE2Collector::calculateTimeLossAndTimeOnDetector(const SUMOVehicle& veh, SUMORe
 
     // Time loss suffered on the detector
     timeOnDetector = exitTime - entryTime;
-    timeLoss = MAX2(0., timeOnDetector*(vmax - (entrySpeed + exitSpeed)/2)/vmax);
+    timeLoss = MAX2((SUMOReal)0., timeOnDetector*(vmax - (entrySpeed + exitSpeed)/2)/vmax);
 
 #ifdef DEBUG_E2_TIME_ON_DETECTOR
     std::cout << SIMTIME << " calculateTimeLoss() for vehicle '" << veh.getID() << "'"
