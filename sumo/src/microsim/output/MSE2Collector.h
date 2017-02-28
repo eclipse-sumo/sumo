@@ -99,14 +99,14 @@ public:
             type(type),
             length(length),
             minGap(minGap),
-            currentLane(entryLane),
-            currentOffsetIndex(currentOffsetIndex),
             entryLaneID(entryLane->getID()),
             entryOffset(entryOffset),
+            currentLane(entryLane),
+            currentOffsetIndex(currentOffsetIndex),
             exitOffset(exitOffset),
+            distToDetectorEnd(distToDetectorEnd),
             totalTimeOnDetector(0.),
             accumulatedTimeLoss(0.),
-            distToDetectorEnd(distToDetectorEnd),
             onDetector(onDetector),
             lastAccel(0),
             lastSpeed(0),
@@ -124,25 +124,23 @@ public:
         double minGap;
         /// ID of the lane, on which the vehicle entered the detector
         std::string entryLaneID;
-        /// Lane, on which the vehicle currently resides (always the one for which the last notifyEnter was received)
-        const MSLane* currentLane;
-        /// Index of currentLane in the detector's myLanes vector.
-        std::size_t currentOffsetIndex;
         /// Distance of the vehicle's entry lane's beginning to the detector start (can be negative for the first lane)
         /// In notifyMove(), the positional input arguments are relative to that position (since the vehicle picks up the MoveReminder
         /// on the entry lane)
         double entryOffset;
+        /// Lane, on which the vehicle currently resides (always the one for which the last notifyEnter was received)
+        const MSLane* currentLane;
+        /// Index of currentLane in the detector's myLanes vector.
+        std::size_t currentOffsetIndex;
         /// Offset from the detector start, where the vehicle has leaves the detector (defaults to detector length and is updated
         /// if the vehicle leaves the detector via a junction before reaching its end, i.e. enters a lane not part of the detector)
         double exitOffset;
+        /// Distance left till the detector end after the last integration step (may become negative if the vehicle passes beyond the detector end)
+        double distToDetectorEnd;
         /// Accumulated time that this vehicle has spent on the detector since its last entry
         double totalTimeOnDetector;
         /// Accumulated time loss that this vehicle suffered since it entered the detector
         double accumulatedTimeLoss;
-        /// Distance left till the detector end after the last integration step (may become negative if the vehicle passes beyond the detector end)
-        double distToDetectorEnd;
-
-
 
         /// whether the vehicle is on the detector at the end of the current timestep
         bool onDetector;
@@ -190,14 +188,14 @@ private:
         double speed;
         /// Acceleration in the last integration step
         double accel;
+        /// Distance left till the detector end after the last integration step (may become negative if the vehicle passes beyond the detector end)
+        double distToDetectorEnd;
         /// Time spent on the detector during the last integration step
         double timeOnDetector;
         /// The length of the part of the vehicle on the detector at the end of the last time step
         double lengthOnDetector;
         /// timeloss during the last integration step
         double timeLoss;
-        /// Distance left till the detector end after the last integration step (may become negative if the vehicle passes beyond the detector end)
-        double distToDetectorEnd;
         /// whether the vehicle is on the detector at the end of the current timestep
         bool onDetector;
     };
