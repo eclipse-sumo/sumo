@@ -492,7 +492,7 @@ public:
      *
      * @return number of cars passed over the sensor
      */
-    size_t getPassedVeh() {
+    int getPassedVeh() {
         return myNumberOfEnteredVehicles;
     }
 
@@ -719,7 +719,7 @@ private:
     /// @brief The total amount of all time losses [time x vehicle] since the last reset
     double myTotalTimeLoss;
     /// @brief The number of vehicles, which have entered the detector since the last reset
-    std::size_t myNumberOfEnteredVehicles;
+    int myNumberOfEnteredVehicles;
     /// @brief The sum of collected vehicle speeds [m/s]
     double mySpeedSum;
     /// @brief The number of started halts [#]
@@ -750,9 +750,9 @@ private:
     /// @name Values generated describing the current state
     /// @{
     /// @brief The number of vehicles, which have left the detector since the last reset
-    std::size_t myNumberOfLeftVehicles;
+    int myNumberOfLeftVehicles;
     /// @brief The maximal number of vehicles located on the detector simultaneously since the last reset
-    std::size_t myMaxVehicleNumber;
+    int myMaxVehicleNumber;
 
     /// @brief The current occupancy
     double myCurrentOccupancy;

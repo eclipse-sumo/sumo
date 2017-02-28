@@ -58,10 +58,7 @@ GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
         double jamDistThreshold, const std::string& vTypes, bool showDetector)
     : MSE2Collector(id, usage, lane, startPos, endPos, detLength, haltingTimeThreshold,
                     haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector),
-                    myShowDetectorInGUI(showDetector) {
-
-    std::cout << "Building GUIE2Collector (showDetector = " << myShowDetectorInGUI << ")" << std::endl;
-}
+                    myShowDetectorInGUI(showDetector) {}
 
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
         std::vector<MSLane*> lanes, double startPos, double endPos,

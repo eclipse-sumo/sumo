@@ -810,7 +810,7 @@ void
 MSE2Collector::aggregateOutputValues(){
     myTimeSamples += 1;
     // compute occupancy values (note myCurrentMeanLength is still not normalized here, but holds the sum of all vehicle lengths)
-    double currentOccupancy = myCurrentMeanLength / myDetectorLength * (double) 100.;
+    const double currentOccupancy = myCurrentMeanLength / myDetectorLength * (double) 100.;
     myCurrentOccupancy = currentOccupancy;
     myOccupancySum += currentOccupancy;
     myMaxOccupancy = MAX2(myMaxOccupancy, currentOccupancy);
@@ -820,7 +820,7 @@ MSE2Collector::aggregateOutputValues(){
     myMaxJamInVehicles = MAX2(myMaxJamInVehicles, myCurrentMaxJamLengthInVehicles);
     myMaxJamInMeters = MAX2(myMaxJamInMeters, myCurrentMaxJamLengthInMeters);
     // compute information about vehicle numbers
-    size_t numVehicles = myMoveNotifications.size();
+    const int numVehicles = (int)myMoveNotifications.size();
     myMeanVehicleNumber += numVehicles;
     myMaxVehicleNumber = MAX2(numVehicles, myMaxVehicleNumber);
     // norm current values
