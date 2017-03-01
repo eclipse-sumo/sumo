@@ -59,7 +59,6 @@ netedit.cancelEdge()
 netedit.leftClick(match, 300, 250)
 netedit.cancelEdge()
 
-
 # create a circular road
 netedit.leftClick(match, 300, 150)
 netedit.leftClick(match, 400, 150)
