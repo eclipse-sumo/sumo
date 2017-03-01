@@ -14,7 +14,6 @@ neteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
 textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
 referenceImage = os.path.join("imageResources", "reference.png")
 
-
 def setup(neteditTests):
     # Open current environment file to obtain path to the netedit app,
     # textTestSandBox
@@ -30,7 +29,6 @@ def setup(neteditTests):
     global referenceImage
     referenceImage = os.path.join(
         neteditTests, "imageResources", "reference.png")
-
 
 def Popen(newNet):
     # set the default parameters of netedit
@@ -63,7 +61,6 @@ def Popen(newNet):
 
     return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
-
 # obtain match
 def getReferenceMatch(neProcess, waitTime):
     try:
@@ -73,8 +70,6 @@ def getReferenceMatch(neProcess, waitTime):
         sys.exit("Killed netedit process. 'reference.png' not found")
 
 # setup and start netedit
-
-
 def setupAndStart(testRoot, newNet=False, searchReference=True, waitTime=20):
     setup(testRoot)
     # Open netedit
@@ -89,11 +84,9 @@ def setupAndStart(testRoot, newNet=False, searchReference=True, waitTime=20):
         wait(1)
         return neteditProcess
 
-
 # rebuild network
 def rebuildNetwork():
     type(Key.F5)
-
 
 # netedit undo
 def undo(match, number):
@@ -102,7 +95,6 @@ def undo(match, number):
     click(match)
     for x in range(0, number):
         type("z", Key.CTRL)
-
 
 # netedit redo
 def redo(match, number):
@@ -117,7 +109,6 @@ def redo(match, number):
 def leftClick(match, positionx, positiony):
     click(match.getTarget().offset(positionx, positiony))
 
-
 # zoom in
 def zoomIn(position, level):
     # set mouse over position
@@ -125,7 +116,6 @@ def zoomIn(position, level):
     # apply zoom it using key +
     for x in range(level):
         type(Key.ADD)
-
 
 # zoom out
 def zoomOut(position, level):
@@ -135,14 +125,12 @@ def zoomOut(position, level):
     for x in range(level):
         type(Key.MINUS)
 
-
 # netedit wait question
 def waitQuestion(answer):
     # wait 0.5 second to question dialog
     wait(0.5)
     # Answer can be "y" or "n"
     type(answer, Key.ALT)
-
 
 # netedit quit
 def quit(neteditProcess, mustBeSaved, save):
@@ -169,12 +157,10 @@ def quit(neteditProcess, mustBeSaved, save):
     neteditProcess.kill()
     print("error closing netedit")
 
-
 # save network
 def saveNetwork():
     # save newtork using hotkey
     type("s", Key.CTRL)
-
 
 # save additionals
 def saveAdditionals():
@@ -192,7 +178,7 @@ def createEdgeMode():
 # Cancel current created edge (used in chain mode)
 def cancelEdge():
 	type(Key.ESC)
-	
+
 # Change chain option
 def changeChainOption(match):
 	click(match.getTarget().offset(350, -50))
@@ -235,25 +221,12 @@ def modifyBoolAttribute(parametersReference, attributeNumber):
     # change value
     type(Key.SPACE)
 
-# change type of junction
-def changeTypeOfJunction(parametersReference, junctionType):
-    click(parametersReference)
-    # jump to type attribute
-    for x in range(0, 2):
-        type(Key.TAB)
-    # change value
-    for x in range(0, junctionType):
-        type(Key.DOWN)
-	# save changed value
-	type(Key.TAB)
 	
 #################################################
 # Move mode
 #################################################
 
 # set move mode
-
-
 def moveMode():
     type("m")
 
@@ -285,7 +258,6 @@ def createCrossing(match):
     # type enter to create crossing
     type(Key.SPACE)
 
-
 def modifyCrossingEdges(match, value):
     # select edges attribute
     click(match.getTarget().offset(-100, 250))
@@ -296,7 +268,6 @@ def modifyCrossingEdges(match, value):
     # type enter to save change
     type(Key.ENTER)
 
-
 def modifyCrossingPriority(match):
     # select edges attribute
     click(match.getTarget().offset(-100, 250))
@@ -304,7 +275,6 @@ def modifyCrossingPriority(match):
     type(Key.TAB)
     # type enter to save change
     type(Key.SPACE)
-
 
 def modifyCrossingWidth(match, value):
     # select edges attribute
@@ -319,7 +289,6 @@ def modifyCrossingWidth(match, value):
     # type enter to save change
     type(Key.ENTER)
 
-
 def clearCrossings(match):
     # select edges attribute
     click(match.getTarget().offset(-100, 250))
@@ -328,7 +297,6 @@ def clearCrossings(match):
         type(Key.TAB, Key.SHIFT)
     # type space to activate button
     type(Key.SPACE)
-
 
 def invertCrossings(match):
     # select edges attribute
@@ -344,16 +312,14 @@ def invertCrossings(match):
 #################################################
 
 # Change to create additional mode
-
-
 def additionalMode():
     type("a")
 
-
+# get reference to combobox additional (to change type of additional)
 def getComboBoxAdditional(match):
     return match.getTarget().offset(-75, 50)
 
-
+# change additional
 def changeAdditional(comboboxAdditional, number):
     click(comboboxAdditional)
     # select type of additionals depending of number
@@ -364,7 +330,6 @@ def changeAdditional(comboboxAdditional, number):
         for x in range(-1 * number):
             type(Key.UP)
 
-
 # block additional
 def changeBlockAdditional(comboboxAdditional, numTabs):
     click(comboboxAdditional)
@@ -374,7 +339,7 @@ def changeBlockAdditional(comboboxAdditional, numTabs):
     # Change current value
     type(Key.SPACE)
 
-
+# modify stopping place lenght
 def modifyStoppingPlaceLength(comboboxAdditional, numTabs, length):
     click(comboboxAdditional)
     # go to length textfield
@@ -382,7 +347,6 @@ def modifyStoppingPlaceLength(comboboxAdditional, numTabs, length):
         type(Key.TAB)
     # paste new lenght
     paste(length)
-
 
 # force position
 def modifyStoppingPlaceForcePosition(comboboxAdditional, numTabs):
@@ -392,7 +356,6 @@ def modifyStoppingPlaceForcePosition(comboboxAdditional, numTabs):
         type(Key.TAB)
     # Change current value
     type(Key.SPACE)
-
 
 # modify stopping place reference
 def modifyStoppingPlaceReference(comboboxAdditional, numTabs, numDowns):
@@ -407,7 +370,6 @@ def modifyStoppingPlaceReference(comboboxAdditional, numTabs, numDowns):
     for x in range(numDowns):
         type(Key.DOWN)
 
-
 # modify stopping place lines
 def modifyNumberOfStoppingPlaceLines(comboboxAdditional, numTabs, numLines):
     click(comboboxAdditional)
@@ -418,7 +380,7 @@ def modifyNumberOfStoppingPlaceLines(comboboxAdditional, numTabs, numLines):
     for x in range(0, numLines):
         type(Key.SPACE)
 
-
+# add lines to stopping places
 def addStoppingPlaceLines(comboboxAdditional, numTabs, numLines):
     click(comboboxAdditional)
     # place cursor in the first line
@@ -429,7 +391,7 @@ def addStoppingPlaceLines(comboboxAdditional, numTabs, numLines):
         paste("Line" + str(x))
         type(Key.TAB)
 
-
+# select child of additional
 def selectChild(comboboxAdditional, numTabs, childNumber):
     # first is needed to select childs with space
     click(comboboxAdditional)
@@ -456,12 +418,10 @@ def deleteMode():
     type("d")
 
 # Enable or disable 'automatically delete Additionals'
-
-
 def changeAutomaticallyDeleteAdditionals(match):
     click(match.getTarget().offset(-120, 100))
 
-
+# close warning about automatically delete additionals
 def waitAutomaticallyDeleteAdditionalsWarning():
     # wait 0.5 second to question dialog
     wait(0.5)
