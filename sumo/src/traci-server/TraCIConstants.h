@@ -687,7 +687,7 @@
 // edge index in current route (get: vehicle)
 #define VAR_ROUTE_INDEX 0x69
 
-//current waiting time (get: vehicle, lane)
+// current waiting time (get: vehicle, lane)
 #define VAR_WAITING_TIME 0x7a
 
 // upcoming traffic lights (get: vehicle)

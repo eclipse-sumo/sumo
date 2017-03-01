@@ -149,11 +149,23 @@ public:
         return myOwnState;
     }
 
-    virtual void setOwnState(int state) {
+    virtual void setOwnState(const int state) {
         myOwnState = state;
     }
 
-    virtual void prepareStep() { }
+    const std::pair<int, int>& getSavedState(const int dir) const {
+        return mySavedStates.find(dir)->second;
+    }
+
+    void saveState(const int dir, const int stateWithoutTraCI, const int state) {
+        mySavedStates[dir] = std::make_pair(stateWithoutTraCI, state);
+    }
+
+    virtual void prepareStep() {
+        saveState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
+        saveState(0, LCA_UNKNOWN, LCA_UNKNOWN);
+        saveState(1, LCA_UNKNOWN, LCA_UNKNOWN);
+    }
 
     /** @brief Called to examine whether the vehicle wants to change
      * using the given laneOffset.
@@ -388,6 +400,7 @@ protected:
 
     /// @brief The current state of the vehicle
     int myOwnState;
+    std::map<int, std::pair<int, int> > mySavedStates;
 
     /// @brief progress of the lane change maneuver 0:started, 1:complete
     double myLaneChangeCompletion;

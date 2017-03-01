@@ -105,8 +105,8 @@ public:
     /// @brief whether the current vehicles shall be debugged
     bool debugVehicle() const;
 
-    void setOwnState(int state) {
-        myOwnState = state;
+    void setOwnState(const int state) {
+        MSAbstractLaneChangeModel::setOwnState(state);
         myPreviousState = state;
     }
 

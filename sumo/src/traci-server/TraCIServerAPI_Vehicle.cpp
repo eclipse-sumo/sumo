@@ -106,7 +106,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_HEIGHT
             && variable != VAR_LINE
             && variable != VAR_VIA
-       ) {
+            && variable != CMD_CHANGELANE
+            ) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // begin response building
@@ -489,6 +490,19 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 tempMsg.writeUnsignedByte(TYPE_STRING);
                 tempMsg.writeString(v->getParameter().getParameter(paramName, ""));
+            }
+            break;
+            case CMD_CHANGELANE: {
+                int direction = 0;
+                if (!server.readTypeCheckingInt(inputStorage, direction)) {
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of lane change state requires a direction as int.", outputStorage);
+                }
+                tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+                tempMsg.writeInt(2);
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(v->getLaneChangeModel().getSavedState(direction).first);
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(v->getLaneChangeModel().getSavedState(direction).second);
             }
             break;
             default:

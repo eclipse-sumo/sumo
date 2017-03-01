@@ -266,17 +266,16 @@ MSLaneChanger::change() {
     }
     const std::vector<MSVehicle::LaneQ>& preb = vehicle->getBestLanes();
     // check whether the vehicle wants and is able to change to right lane
-    int state1 = 0;
+    int stateRight = 0;
     if (mayChange(-1)) {
-        state1 = checkChangeWithinEdge(-1, leader, preb);
-        bool changingAllowed1 = (state1 & LCA_BLOCKED) == 0;
+        stateRight = checkChangeWithinEdge(-1, leader, preb);
         // change if the vehicle wants to and is allowed to change
-        if ((state1 & LCA_RIGHT) != 0 && changingAllowed1) {
-            vehicle->getLaneChangeModel().setOwnState(state1);
+        if ((stateRight & LCA_RIGHT) != 0 && (stateRight & LCA_BLOCKED) == 0) {
+            vehicle->getLaneChangeModel().setOwnState(stateRight);
             startChange(vehicle, myCandi, -1);
             return true;
         }
-        if ((state1 & LCA_RIGHT) != 0 && (state1 & LCA_URGENT) != 0) {
+        if ((stateRight & LCA_RIGHT) != 0 && (stateRight & LCA_URGENT) != 0) {
             (myCandi - 1)->lastBlocked = vehicle;
             if ((myCandi - 1)->firstBlocked == 0) {
                 (myCandi - 1)->firstBlocked = vehicle;
@@ -284,20 +283,17 @@ MSLaneChanger::change() {
         }
     }
 
-
-
     // check whether the vehicle wants and is able to change to left lane
-    int state2 = 0;
+    int stateLeft = 0;
     if (mayChange(1)) {
-        state2 = checkChangeWithinEdge(1, leader, preb);
-        bool changingAllowed2 = (state2 & LCA_BLOCKED) == 0;
+        stateLeft = checkChangeWithinEdge(1, leader, preb);
         // change if the vehicle wants to and is allowed to change
-        if ((state2 & LCA_LEFT) != 0 && changingAllowed2) {
-            vehicle->getLaneChangeModel().setOwnState(state2);
+        if ((stateLeft & LCA_LEFT) != 0 && (stateLeft & LCA_BLOCKED) == 0) {
+            vehicle->getLaneChangeModel().setOwnState(stateLeft);
             startChange(vehicle, myCandi, 1);
             return true;
         }
-        if ((state2 & LCA_LEFT) != 0 && (state2 & LCA_URGENT) != 0) {
+        if ((stateLeft & LCA_LEFT) != 0 && (stateLeft & LCA_URGENT) != 0) {
             (myCandi + 1)->lastBlocked = vehicle;
             if ((myCandi + 1)->firstBlocked == 0) {
                 (myCandi + 1)->firstBlocked = vehicle;
@@ -305,12 +301,12 @@ MSLaneChanger::change() {
         }
     }
 
-    if ((state1 & (LCA_URGENT)) != 0 && (state2 & (LCA_URGENT)) != 0) {
+    if ((stateRight & LCA_URGENT) != 0 && (stateLeft & LCA_URGENT) != 0) {
         // ... wants to go to the left AND to the right
         // just let them go to the right lane...
-        state2 = 0;
+        stateLeft = 0;
     }
-    vehicle->getLaneChangeModel().setOwnState(state2 | state1);
+    vehicle->getLaneChangeModel().setOwnState(stateRight | stateLeft);
 
     // only emergency vehicles should change to the opposite side on a
     // multi-lane road
@@ -778,10 +774,8 @@ MSLaneChanger::checkChange(
             }
         }
     }
-#ifndef NO_TRACI
-#ifdef DEBUG_CHECK_CHANGE
     const int oldstate = state;
-#endif
+#ifndef NO_TRACI
     // let TraCI influence the wish to change lanes and the security to take
     state = vehicle->influenceChangeDecision(state);
 #endif
@@ -796,6 +790,7 @@ MSLaneChanger::checkChange(
                   << "\n";
     }
 #endif
+    vehicle->getLaneChangeModel().saveState(laneOffset, oldstate, state);
     return state;
 }
 

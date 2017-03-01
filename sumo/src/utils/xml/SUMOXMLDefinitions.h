@@ -929,6 +929,8 @@ enum LaneChangeAction {
     LCA_TRACI = 1 << 7,
     /// @brief The action is urgent (to be defined by lc-model)
     LCA_URGENT = 1 << 8,
+    /// @brief The action has not been determined
+    LCA_UNKNOWN = 1 << 30,
     /// @}
 
     /// @name External state

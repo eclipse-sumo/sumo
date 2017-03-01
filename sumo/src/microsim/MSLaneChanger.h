@@ -211,7 +211,7 @@ protected:
 
     /* @brief Whether vehicles may start to change lanes on this edge
      * (finishing a change in progress is always permitted) */
-    bool myAllowsChanging;
+    const bool myAllowsChanging;
 
     /// @brief whether this edge allows changing to the opposite direction edge
     const bool myChangeToOpposite;

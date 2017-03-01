@@ -682,6 +682,7 @@ MSLCM_SL2015::informFollowers(int blocked, int dir,
 
 void
 MSLCM_SL2015::prepareStep() {
+    MSAbstractLaneChangeModel::prepareStep();
     // keep information about strategic change direction
     myOwnState = (myOwnState & LCA_STRATEGIC) ? (myOwnState & LCA_WANTS_LANECHANGE) : 0;
     if (myCanChangeFully) {
