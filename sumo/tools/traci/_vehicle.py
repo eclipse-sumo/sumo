@@ -598,6 +598,35 @@ class VehicleDomain(Domain):
         """
         return (self.getStopState(vehID) & 32) == 32
 
+    def getLaneChangeState(self, vehID, direction):
+        """getLaneChangeState(string, int) -> (int, int)
+        Return the lane change state for the vehicle
+        """
+        self._connection._beginMessage(
+            tc.CMD_GET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, direction)
+        result = self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID)
+        return result.read("!iBiBi")[2::2] # ignore num compounds and type int
+
+    def couldChangeLane(self, vehID, direction):
+        """couldChangeLane(string, int) -> bool
+        Return whether the vehicle could change lanes in the specified direction
+        """
+        state = self.getLaneChangeState(vehID, direction)[0]
+        return state != tc.LCA_UNKNOWN and (state & tc.LCA_BLOCKED == 0);
+
+    def wantsAndCouldChangeLane(self, vehID, direction):
+        """wantsAndCouldChangeLane(string, int) -> bool
+        Return whether the vehicle wants to and could change lanes in the specified direction
+        """
+        state = self.getLaneChangeState(vehID, direction)[0]
+        if state & tc.LCA_BLOCKED == 0:
+            if direction == -1:
+                return state & tc.LCA_RIGHT != 0;
+            if direction == 1:
+                return state & tc.LCA_LEFT != 0;
+        return False
+
     def setMaxSpeed(self, vehID, speed):
         """setMaxSpeed(string, double) -> None
 

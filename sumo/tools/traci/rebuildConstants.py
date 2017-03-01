@@ -62,31 +62,37 @@ if options.java:
 else:
     print('"""\n', file=fdo)
 
-fdi = open(
-    os.path.join(dirname, "..", "..", "src", "traci-server", "TraCIConstants.h"))
-started = False
-for line in fdi:
-    if started:
-        if line.find("#endif") >= 0:
-            started = False
-            if options.java:
-                fdo.write("}")
-            continue
-        if line.find("#define ") >= 0:
-            vals = line.split(" ")
-            if options.java:
-                line = "    public static final int " + \
-                    vals[1] + " = " + vals[2].strip() + ";\n"
-            else:
-                line = vals[1] + " = " + vals[2]
-        if options.java:
-            line = line.replace("//", "    //")
-        else:
-            line = line.replace("//", "#")
-        fdo.write(line)
-    if line.find("#define TRACICONSTANTS_H") >= 0:
-        started = True
-        if options.java:
-            fdo.write("public class TraCIConstants {")
-fdi.close()
+def translateFile(filePath, fdo, start, item, end):
+    with open(filePath) as fdi:
+        started = False
+        for line in fdi:
+            if started:
+                if line.find(end) >= 0:
+                    started = False
+                    if options.java:
+                        fdo.write("}")
+                    continue
+                if options.java:
+                    line = line.replace("//", "    //")
+                else:
+                    line = line.replace("//", "#").lstrip(" ")
+                if line.find(item) >= 0:
+                    if "=" in line:
+                        fdo.write(line.strip().rstrip(",") + "\n")
+                        continue
+                    vals = line.split(" ")
+                    if options.java:
+                        line = "    public static final int " + \
+                            vals[1] + " = " + vals[2].strip() + ";\n"
+                    else:
+                        line = vals[1] + " = " + vals[2]
+                fdo.write(line)
+            if line.find(start) >= 0:
+                started = True
+                if options.java:
+                    fdo.write("public class TraCIConstants {")
+
+srcDir = os.path.join(dirname, "..", "..", "src")
+translateFile(os.path.join(srcDir, "traci-server", "TraCIConstants.h"), fdo, "#define TRACICONSTANTS_H", "#define ", "#endif")
+translateFile(os.path.join(srcDir, "utils", "xml", "SUMOXMLDefinitions.h"), fdo, "enum LaneChangeAction {", "LCA_", "};")
 fdo.close()
