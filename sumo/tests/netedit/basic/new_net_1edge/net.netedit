@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 06 Jan 2017 10:38:39 AM CET by Netedit Version dev-SVN-r22484
+<!-- generated on 01/03/2017 13:11:20 by Netedit Version dev-SVN-r22880
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <new value="true"/>
-        <additionals-output value="/home/erdm_ja/.texttest/tmp/netedit.server.06Jan103833.30439/netedit.server/basic/new_net_1edge/additionals.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar131101.7152/netedit.server/basic/new_net_1edge\additionals.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/erdm_ja/.texttest/tmp/netedit.server.06Jan103833.30439/netedit.server/basic/new_net_1edge/net.net.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar131101.7152/netedit.server/basic/new_net_1edge\net.net.xml"/>
     </output>
 
     <processing>
@@ -21,12 +21,13 @@
 
     <visualisation>
         <window-size value="700,500"/>
+        <window-pos value="50,50"/>
         <gui-testing value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/erdm_ja/.texttest/tmp/netedit.server.06Jan103833.30439/netedit.server/basic/new_net_1edge/log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar131101.7152/netedit.server/basic/new_net_1edge\log.txt"/>
     </report>
 
 </configuration>
@@ -40,7 +41,7 @@
         <lane id="gneE0_0" index="0" speed="13.89" length="80.00" shape="27.20,33.35 107.20,33.35"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="27.20" y="35.00" incLanes="" intLanes="" shape="27.20,34.95 27.20,31.75"/>
-    <junction id="gneJ1" type="unregulated" x="107.20" y="35.00" incLanes="gneE0_0" intLanes="" shape="107.20,31.75 107.20,34.95"/>
+    <junction id="gneJ0" type="dead_end" x="27.20" y="35.00" incLanes="" intLanes="" shape="27.20,34.95 27.20,31.75"/>
+    <junction id="gneJ1" type="dead_end" x="107.20" y="35.00" incLanes="gneE0_0" intLanes="" shape="107.20,31.75 107.20,34.95"/>
 
 </net>

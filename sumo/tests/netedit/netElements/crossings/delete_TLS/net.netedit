@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/02/2017 13:06:42 by Netedit Version dev-SVN-r22880
+<!-- generated on 01/03/2017 13:30:46 by Netedit Version dev-SVN-r22880
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.10Feb130634.5360/netedit.server/netElements/crossings/delete_TLS\additionals.xml"/>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.10Feb130634.5360/netedit.server/netElements/crossings/delete_TLS\input_net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.1_from_01Mar133011.6652/netedit.server/netElements/crossings/delete_TLS\additionals.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.1_from_01Mar133011.6652/netedit.server/netElements/crossings/delete_TLS\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.10Feb130634.5360/netedit.server/netElements/crossings/delete_TLS\net.net.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.1_from_01Mar133011.6652/netedit.server/netElements/crossings/delete_TLS\net.net.xml"/>
     </output>
 
     <processing>
@@ -20,16 +20,18 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <visualisation>
         <window-size value="700,500"/>
+        <window-pos value="50,50"/>
         <gui-testing value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.10Feb130634.5360/netedit.server/netElements/crossings/delete_TLS\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.1_from_01Mar133011.6652/netedit.server/netElements/crossings/delete_TLS\log.txt"/>
     </report>
 
 </configuration>
@@ -182,9 +184,15 @@
         <lane id="8_1" index="1" speed="13.90" length="41.95" shape="100.00,51.65 58.05,51.65"/>
     </edge>
 
-    <junction id="A" type="unregulated" x="50.00" y="0.00" incLanes="1_0 1_1" intLanes=":A_0_0" shape="50.05,0.00 43.45,0.00 49.95,0.00"/>
-    <junction id="B" type="unregulated" x="50.00" y="100.00" incLanes="2_0 2_1" intLanes=":B_0_0" shape="49.95,100.00 56.55,100.00 50.05,100.00"/>
-    <junction id="C" type="unregulated" x="0.00" y="50.00" incLanes="3_0 3_1" intLanes=":C_0_0" shape="0.00,49.95 0.00,56.55 0.00,50.05"/>
+    <junction id="A" type="priority" x="50.00" y="0.00" incLanes="1_0 1_1" intLanes=":A_0_0" shape="50.05,0.00 43.45,0.00 49.95,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="B" type="priority" x="50.00" y="100.00" incLanes="2_0 2_1" intLanes=":B_0_0" shape="49.95,100.00 56.55,100.00 50.05,100.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="C" type="priority" x="0.00" y="50.00" incLanes="3_0 3_1" intLanes=":C_0_0" shape="0.00,49.95 0.00,56.55 0.00,50.05">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
     <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1 :Center_w3_0 :Center_w2_0" intLanes=":Center_0_0 :Center_1_0 :Center_1_1 :Center_20_0 :Center_21_0 :Center_5_0 :Center_6_0 :Center_6_1 :Center_8_0 :Center_9_0 :Center_22_0 :Center_11_0 :Center_11_1 :Center_23_0 :Center_24_0 :Center_15_0 :Center_16_0 :Center_16_1 :Center_18_0 :Center_19_0 :Center_c0_0 :Center_c1_0" shape="43.45,58.05 56.55,58.05 58.05,56.55 58.05,43.45 56.55,41.95 43.45,41.95 41.95,43.45 41.95,56.55">
         <request index="0" response="1000000000000000000000" foes="1010000010000011000000" cont="0"/>
         <request index="1" response="0000000000000000000000" foes="0001111110000111000000" cont="0"/>
@@ -209,7 +217,9 @@
         <request index="20" response="0000000000000000000000" foes="0000110000011111101000" cont="0"/>
         <request index="21" response="0000000000000000000000" foes="0011111010000011000001" cont="0"/>
     </junction>
-    <junction id="D" type="unregulated" x="100.00" y="50.00" incLanes="4_0 4_1" intLanes=":D_0_0" shape="100.00,50.05 100.00,43.45 100.00,49.95"/>
+    <junction id="D" type="priority" x="100.00" y="50.00" incLanes="4_0 4_1" intLanes=":D_0_0" shape="100.00,50.05 100.00,43.45 100.00,49.95">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
 
     <junction id=":Center_20_0" type="internal" x="50.05" y="51.98" incLanes=":Center_3_0 5_0 5_1" intLanes=":Center_6_0 :Center_6_1 :Center_8_0 :Center_9_0 :Center_10_0 :Center_11_0 :Center_11_1 :Center_16_0 :Center_16_1 :Center_18_0 :Center_c0_0"/>
     <junction id=":Center_21_0" type="internal" x="50.00" y="56.40" incLanes=":Center_4_0 5_0 5_1 7_1 8_0" intLanes=":Center_5_0 :Center_11_0 :Center_11_1 :Center_18_0"/>

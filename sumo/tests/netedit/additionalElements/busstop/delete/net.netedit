@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 30/01/2017 13:25:32 by Netedit Version dev-SVN-r22736
+<!-- generated on 01/03/2017 13:14:38 by Netedit Version dev-SVN-r22880
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.30Jan132524.6180/netedit.server/additionalElements/busstop/delete\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.30Jan132524.6180/netedit.server/additionalElements/busstop/delete\additionals.xml"/>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.30Jan132524.6180/netedit.server/additionalElements/busstop/delete\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar131101.7152/netedit.server/additionalElements/busstop/delete\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar131101.7152/netedit.server/additionalElements/busstop/delete\additionals.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar131101.7152/netedit.server/additionalElements/busstop/delete\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.30Jan132524.6180/netedit.server/additionalElements/busstop/delete\net.net.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar131101.7152/netedit.server/additionalElements/busstop/delete\net.net.xml"/>
     </output>
 
     <processing>
@@ -20,16 +20,18 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <visualisation>
         <window-size value="700,500"/>
+        <window-pos value="50,50"/>
         <gui-testing value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.30Jan132524.6180/netedit.server/additionalElements/busstop/delete\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar131101.7152/netedit.server/additionalElements/busstop/delete\log.txt"/>
     </report>
 
 </configuration>
@@ -43,7 +45,7 @@
         <lane id="gneE0_0" index="0" speed="13.89" length="50.00" shape="0.00,-1.65 50.00,-1.65"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
-    <junction id="gneJ1" type="unregulated" x="50.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="50.00,-3.25 50.00,-0.05"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
+    <junction id="gneJ1" type="dead_end" x="50.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="50.00,-3.25 50.00,-0.05"/>
 
 </net>
