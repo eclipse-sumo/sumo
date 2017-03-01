@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16/02/2017 13:56:44 by Netedit Version dev-SVN-r22880
+<!-- generated on 01/03/2017 12:36:40 by Netedit Version dev-SVN-r22880
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <new value="true"/>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.16Feb135616.6668/netedit.server/netElements/junctions/create\additionals.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar123615.1012/netedit.server/netElements/junctions/create\additionals.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.16Feb135616.6668/netedit.server/netElements/junctions/create\net.net.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar123615.1012/netedit.server/netElements/junctions/create\net.net.xml"/>
     </output>
 
     <processing>
@@ -21,12 +21,13 @@
 
     <visualisation>
         <window-size value="700,500"/>
+        <window-pos value="50,50"/>
         <gui-testing value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.16Feb135616.6668/netedit.server/netElements/junctions/create\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar123615.1012/netedit.server/netElements/junctions/create\log.txt"/>
     </report>
 
 </configuration>
@@ -211,7 +212,7 @@
         <lane id=":gneJ19_1_0" index="0" speed="13.89" length="12.41" shape="65.55,54.35 65.07,50.98 63.63,48.57 61.22,47.13 57.85,46.65"/>
     </edge>
     <edge id=":gneJ19_2" function="internal">
-        <lane id=":gneJ19_2_0" index="0" speed="13.89" length="16.43" shape="65.55,54.35 65.17,50.17 64.02,46.32 62.10,42.78 59.42,39.56"/>
+        <lane id=":gneJ19_2_0" index="0" speed="13.89" length="16.34" shape="65.55,54.35 65.09,50.42 63.81,46.40 61.87,42.66 59.42,39.56"/>
     </edge>
     <edge id=":gneJ19_3" function="internal">
         <lane id=":gneJ19_3_0" index="0" speed="13.89" length="18.69" shape="65.55,54.35 65.55,35.65"/>
@@ -241,7 +242,7 @@
         <lane id=":gneJ19_8_0" index="0" speed="13.89" length="12.41" shape="72.64,52.78 69.92,50.73 67.20,50.05 64.48,50.73 61.76,52.78"/>
     </edge>
     <edge id=":gneJ19_9" function="internal">
-        <lane id=":gneJ19_9_0" index="0" speed="13.89" length="16.34" shape="72.64,52.78 69.54,50.33 65.80,48.39 61.78,47.11 57.85,46.65"/>
+        <lane id=":gneJ19_9_0" index="0" speed="13.89" length="16.43" shape="72.64,52.78 69.42,50.10 65.88,48.18 62.03,47.03 57.85,46.65"/>
     </edge>
     <edge id=":gneJ19_10" function="internal">
         <lane id=":gneJ19_10_0" index="0" speed="13.89" length="18.69" shape="72.64,52.78 59.42,39.56"/>
@@ -310,7 +311,7 @@
         <lane id=":gneJ19_31_0" index="0" speed="13.89" length="18.69" shape="68.85,35.65 68.85,54.35"/>
     </edge>
     <edge id=":gneJ19_32" function="internal">
-        <lane id=":gneJ19_32_0" index="0" speed="13.89" length="9.25" shape="68.85,35.65 68.41,40.49 67.15,44.70"/>
+        <lane id=":gneJ19_32_0" index="0" speed="13.89" length="7.77" shape="68.85,35.65 68.24,39.94 67.15,43.20"/>
     </edge>
     <edge id=":gneJ19_33" function="internal">
         <lane id=":gneJ19_33_0" index="0" speed="13.89" length="6.83" shape="68.85,35.65 68.16,40.46 67.15,42.15"/>
@@ -319,7 +320,7 @@
         <lane id=":gneJ19_34_0" index="0" speed="13.89" length="7.15" shape="68.85,35.65 68.26,40.90 67.15,42.40"/>
     </edge>
     <edge id=":gneJ19_59" function="internal">
-        <lane id=":gneJ19_59_0" index="0" speed="13.89" length="9.77" shape="67.15,44.70 67.08,44.95 64.86,49.05 61.76,52.78"/>
+        <lane id=":gneJ19_59_0" index="0" speed="13.89" length="11.06" shape="67.15,43.20 66.63,44.76 64.36,49.31 61.76,52.78"/>
     </edge>
     <edge id=":gneJ19_60" function="internal">
         <lane id=":gneJ19_60_0" index="0" speed="13.89" length="10.91" shape="67.15,42.15 66.10,43.90 62.66,45.96 57.85,46.65"/>
@@ -334,7 +335,7 @@
         <lane id=":gneJ19_36_0" index="0" speed="13.89" length="12.41" shape="61.76,37.22 64.48,39.27 67.20,39.95 69.92,39.27 72.64,37.22"/>
     </edge>
     <edge id=":gneJ19_37" function="internal">
-        <lane id=":gneJ19_37_0" index="0" speed="13.89" length="16.43" shape="61.76,37.22 64.98,39.90 68.52,41.82 72.37,42.97 76.55,43.35"/>
+        <lane id=":gneJ19_37_0" index="0" speed="13.89" length="16.34" shape="61.76,37.22 64.86,39.67 68.60,41.61 72.62,42.89 76.55,43.35"/>
     </edge>
     <edge id=":gneJ19_38" function="internal">
         <lane id=":gneJ19_38_0" index="0" speed="13.89" length="18.69" shape="61.76,37.22 74.98,50.44"/>
@@ -361,7 +362,7 @@
         <lane id=":gneJ19_45_0" index="0" speed="13.89" length="18.69" shape="57.85,43.35 76.55,43.35"/>
     </edge>
     <edge id=":gneJ19_46" function="internal">
-        <lane id=":gneJ19_46_0" index="0" speed="13.89" length="19.02" shape="57.85,43.35 62.69,43.79 67.15,45.12 71.25,47.34 74.98,50.44"/>
+        <lane id=":gneJ19_46_0" index="0" speed="13.89" length="18.83" shape="57.85,43.35 62.14,43.96 66.96,45.57 71.51,47.84 74.98,50.44"/>
     </edge>
     <edge id=":gneJ19_47" function="internal">
         <lane id=":gneJ19_47_0" index="0" speed="13.89" length="17.73" shape="57.85,43.35 62.66,44.04 66.10,46.10 68.16,49.54 68.85,54.35"/>
@@ -376,7 +377,7 @@
         <lane id=":gneJ19_50_0" index="0" speed="13.89" length="12.41" shape="59.42,50.44 61.47,47.72 62.15,45.00 61.47,42.28 59.42,39.56"/>
     </edge>
     <edge id=":gneJ19_51" function="internal">
-        <lane id=":gneJ19_51_0" index="0" speed="13.89" length="16.34" shape="59.42,50.44 61.87,47.34 63.81,43.60 65.09,39.58 65.55,35.65"/>
+        <lane id=":gneJ19_51_0" index="0" speed="13.89" length="16.43" shape="59.42,50.44 62.10,47.22 64.02,43.68 65.17,39.83 65.55,35.65"/>
     </edge>
     <edge id=":gneJ19_52" function="internal">
         <lane id=":gneJ19_52_0" index="0" speed="13.89" length="18.69" shape="59.42,50.44 72.64,37.22"/>
@@ -551,8 +552,8 @@
         <lane id="gneE9_0" index="0" speed="13.89" length="5.90" shape="85.55,55.65 85.55,49.75"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="-2.80" y="85.00" incLanes="" intLanes="" shape="-2.80,84.95 -2.80,81.75"/>
-    <junction id="gneJ1" type="unregulated" x="17.20" y="85.00" incLanes="gneE0_0" intLanes="" shape="17.20,81.75 17.20,84.95"/>
+    <junction id="gneJ0" type="dead_end" x="-2.80" y="85.00" incLanes="" intLanes="" shape="-2.80,84.95 -2.80,81.75"/>
+    <junction id="gneJ1" type="dead_end" x="17.20" y="85.00" incLanes="gneE0_0" intLanes="" shape="17.20,81.75 17.20,84.95"/>
     <junction id="gneJ11" type="priority" x="67.20" y="65.00" incLanes="-gneE8_0 gneE16_0 gneE15_0" intLanes=":gneJ11_0_0 :gneJ11_6_0 :gneJ11_2_0 :gneJ11_3_0 :gneJ11_4_0 :gneJ11_5_0" shape="71.95,68.25 71.95,61.75 70.45,60.25 63.95,60.25 62.45,61.75 62.45,68.25">
         <request index="0" response="000000" foes="001000" cont="0"/>
         <request index="1" response="110000" foes="111000" cont="1"/>
@@ -707,7 +708,7 @@
     <junction id=":gneJ19_56_0" type="internal" x="67.25" y="45.30" incLanes=":gneJ19_4_0 -gneE20_0" intLanes=":gneJ19_8_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0 :gneJ19_12_0 :gneJ19_16_0 :gneJ19_17_0 :gneJ19_18_0 :gneJ19_19_0 :gneJ19_20_0 :gneJ19_24_0 :gneJ19_25_0 :gneJ19_26_0 :gneJ19_27_0 :gneJ19_28_0 :gneJ19_29_0 :gneJ19_30_0 :gneJ19_31_0 :gneJ19_36_0 :gneJ19_37_0 :gneJ19_38_0 :gneJ19_39_0 :gneJ19_44_0 :gneJ19_45_0 :gneJ19_46_0 :gneJ19_47_0 :gneJ19_52_0 :gneJ19_53_0 :gneJ19_54_0 :gneJ19_55_0"/>
     <junction id=":gneJ19_57_0" type="internal" x="67.25" y="47.85" incLanes=":gneJ19_5_0 -gneE20_0" intLanes=":gneJ19_8_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0 :gneJ19_12_0 :gneJ19_13_0 :gneJ19_16_0 :gneJ19_17_0 :gneJ19_18_0 :gneJ19_19_0 :gneJ19_20_0 :gneJ19_21_0 :gneJ19_22_0 :gneJ19_23_0 :gneJ19_29_0 :gneJ19_30_0 :gneJ19_31_0 :gneJ19_37_0 :gneJ19_38_0 :gneJ19_39_0 :gneJ19_45_0 :gneJ19_46_0 :gneJ19_47_0 :gneJ19_53_0 :gneJ19_54_0 :gneJ19_55_0"/>
     <junction id=":gneJ19_58_0" type="internal" x="67.25" y="47.60" incLanes=":gneJ19_6_0 -gneE20_0" intLanes=":gneJ19_8_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0 :gneJ19_12_0 :gneJ19_13_0 :gneJ19_14_0 :gneJ19_15_0 :gneJ19_22_0 :gneJ19_23_0 :gneJ19_30_0 :gneJ19_31_0 :gneJ19_38_0 :gneJ19_39_0 :gneJ19_46_0 :gneJ19_47_0 :gneJ19_54_0 :gneJ19_55_0"/>
-    <junction id=":gneJ19_59_0" type="internal" x="67.15" y="44.70" incLanes=":gneJ19_32_0 -gneE16_0" intLanes=":gneJ19_0_0 :gneJ19_1_0 :gneJ19_2_0 :gneJ19_3_0 :gneJ19_8_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0 :gneJ19_16_0 :gneJ19_17_0 :gneJ19_18_0 :gneJ19_19_0 :gneJ19_24_0 :gneJ19_25_0 :gneJ19_26_0 :gneJ19_27_0 :gneJ19_36_0 :gneJ19_37_0 :gneJ19_38_0 :gneJ19_39_0 :gneJ19_40_0 :gneJ19_44_0 :gneJ19_45_0 :gneJ19_46_0 :gneJ19_47_0 :gneJ19_48_0 :gneJ19_52_0 :gneJ19_53_0 :gneJ19_54_0 :gneJ19_55_0"/>
+    <junction id=":gneJ19_59_0" type="internal" x="67.15" y="43.20" incLanes=":gneJ19_32_0 -gneE16_0" intLanes=":gneJ19_0_0 :gneJ19_1_0 :gneJ19_2_0 :gneJ19_3_0 :gneJ19_8_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0 :gneJ19_16_0 :gneJ19_17_0 :gneJ19_18_0 :gneJ19_19_0 :gneJ19_24_0 :gneJ19_25_0 :gneJ19_26_0 :gneJ19_27_0 :gneJ19_36_0 :gneJ19_37_0 :gneJ19_38_0 :gneJ19_39_0 :gneJ19_40_0 :gneJ19_44_0 :gneJ19_45_0 :gneJ19_46_0 :gneJ19_47_0 :gneJ19_48_0 :gneJ19_52_0 :gneJ19_53_0 :gneJ19_54_0 :gneJ19_55_0"/>
     <junction id=":gneJ19_60_0" type="internal" x="67.15" y="42.15" incLanes=":gneJ19_33_0 -gneE16_0" intLanes=":gneJ19_1_0 :gneJ19_2_0 :gneJ19_3_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0 :gneJ19_17_0 :gneJ19_18_0 :gneJ19_19_0 :gneJ19_25_0 :gneJ19_26_0 :gneJ19_27_0 :gneJ19_36_0 :gneJ19_37_0 :gneJ19_38_0 :gneJ19_39_0 :gneJ19_40_0 :gneJ19_41_0 :gneJ19_44_0 :gneJ19_45_0 :gneJ19_46_0 :gneJ19_47_0 :gneJ19_48_0 :gneJ19_49_0 :gneJ19_50_0 :gneJ19_51_0"/>
     <junction id=":gneJ19_61_0" type="internal" x="67.15" y="42.40" incLanes=":gneJ19_34_0 -gneE16_0" intLanes=":gneJ19_2_0 :gneJ19_3_0 :gneJ19_10_0 :gneJ19_11_0 :gneJ19_18_0 :gneJ19_19_0 :gneJ19_26_0 :gneJ19_27_0 :gneJ19_36_0 :gneJ19_37_0 :gneJ19_38_0 :gneJ19_39_0 :gneJ19_40_0 :gneJ19_41_0 :gneJ19_42_0 :gneJ19_43_0 :gneJ19_50_0 :gneJ19_51_0"/>
 
