@@ -101,6 +101,12 @@ def check(vehID):
         "driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.))
     print("line", traci.vehicle.getLine(vehID))
     print("via", traci.vehicle.getVia(vehID))
+    print("lane change state right", traci.vehicle.getLaneChangeState(vehID, -1))
+    print("lane change state left", traci.vehicle.getLaneChangeState(vehID, 1))
+    print("lane change able right", traci.vehicle.couldChangeLane(vehID, -1))
+    print("lane change able left", traci.vehicle.couldChangeLane(vehID, 1))
+    print("lane change wish right", traci.vehicle.wantsAndCouldChangeLane(vehID, -1))
+    print("lane change wish left", traci.vehicle.wantsAndCouldChangeLane(vehID, 1))
 
 
 def checkOffRoad(vehID):
