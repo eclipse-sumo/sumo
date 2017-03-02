@@ -1,1 +1,3 @@
---no-internal-links --opendrive opendrive.xodr -v
+--opendrive opendrive.xodr -v
+--roundabouts.guess 
+--junctions.corner-detail 5
