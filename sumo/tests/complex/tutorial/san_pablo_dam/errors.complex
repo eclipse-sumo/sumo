@@ -1,4 +1,4 @@
-Warning: Value of tau=0.92 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Value of tau=0.923223304703 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
 Warning: Teleporting vehicle '891'; collision with vehicle '890', lane='1to7_0', gap=-0.03, time=26924.00 stage=move.
 Warning: Teleporting vehicle '860'; collision with vehicle '859', lane='1to7_0', gap=-0.13, time=26932.00 stage=move.
 Warning: Vehicle '891' teleports beyond arrival edge '7to8', time 26963.00.
@@ -37,7 +37,7 @@ Warning: Teleporting vehicle '1285'; collision with vehicle '1284', lane='1to7_0
 Warning: Vehicle '1285' ends teleporting on edge '7to8', time 28221.00.
 Warning: Teleporting vehicle '1908'; collision with vehicle '1907', lane='1to7_0', gap=-0.12, time=30664.00 stage=move.
 Warning: Vehicle '1908' ends teleporting on edge '7to8', time 30672.00.
-Warning: Value of tau=0.92 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Value of tau=0.923223304703 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
 Warning: Teleporting vehicle '148'; collision with vehicle '147', lane='1to7_0', gap=-0.22, time=25078.00 stage=move.
 Warning: Vehicle '148' ends teleporting on edge '7to8', time 25078.00.
 Warning: Teleporting vehicle '343'; collision with vehicle '342', lane='1to7_0', gap=-1.26, time=25574.00 stage=move.
@@ -388,4 +388,4 @@ Warning: Teleporting vehicle '2092'; collision with vehicle '2091', lane='1to7_0
 Warning: Vehicle '2099' ends teleporting on edge '7to8', time 31502.00.
 Warning: Vehicle '2087' teleports beyond arrival edge '7to8', time 31508.00.
 Warning: Vehicle '2092' ends teleporting on edge '7to8', time 31567.00.
-Warning: Value of tau=1.00 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Value of tau=0.99844020776 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
