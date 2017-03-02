@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:51 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Thu Mar  2 11:11:46 2017 by SUMO netconvert Version dev-SVN-r23174
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,7 +31,7 @@
     <location netOffset="-392704.85,-5815104.73" convBoundary="0.00,0.00,259.16,356.63" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-53477973" from="cluster_61042033_61042034" to="61042031" name="Selchower Strasse" priority="-4" shape="102.39,354.75 85.34,351.78">
-        <lane id="-53477973_0" index="0" speed="8.33" length="30.27" shape="112.92,358.26 89.72,354.22"/>
+        <lane id="-53477973_0" index="0" speed="8.33" length="23.81" shape="102.11,356.38 89.72,354.22"/>
     </edge>
     <edge id="-53478295" from="61042031" to="61041996" name="Schillerpromenade" priority="-4" spreadType="center">
         <lane id="-53478295_0" index="0" speed="8.33" length="135.68" shape="84.50,346.84 106.04,219.49"/>
@@ -60,11 +60,11 @@
         <lane id="-923797612_0" index="0" speed="8.33" length="29.92" shape="170.75,6.63 160.98,4.57 147.99,2.41"/>
     </edge>
     <edge id="53477973" from="61042031" to="cluster_61042033_61042034" name="Selchower Strasse" priority="-4" shape="85.34,351.78 102.39,354.75">
-        <lane id="53477973_0" index="0" speed="8.33" length="30.27" shape="90.29,350.97 113.48,355.01"/>
+        <lane id="53477973_0" index="0" speed="8.33" length="23.81" shape="90.29,350.97 102.67,353.12"/>
     </edge>
     <edge id="53478287" from="61042005" to="cluster_61042033_61042034" name="Schillerpromenade" priority="-4" spreadType="center" shape="139.54,220.41 118.06,356.63">
-        <lane id="53478287_0" index="0" speed="8.33" length="137.31" shape="140.63,224.08 120.31,352.97"/>
-        <lane id="53478287_1" index="1" speed="8.33" length="137.31" shape="137.37,223.57 117.05,352.46"/>
+        <lane id="53478287_0" index="0" speed="8.33" length="142.90" shape="140.63,224.08 120.31,352.97"/>
+        <lane id="53478287_1" index="1" speed="8.33" length="142.90" shape="137.37,223.57 117.05,352.46"/>
     </edge>
     <edge id="53478384" from="61042004" to="61042083" name="Herrfurthstrasse" priority="-4">
         <lane id="53478384_0" index="0" speed="8.33" length="76.57" shape="186.26,178.15 259.41,189.46"/>
@@ -137,7 +137,7 @@
     <junction id="61042083" type="priority" x="259.16" y="191.09" incLanes="53478384_0" intLanes="" shape="259.15,191.14 259.66,187.88 259.17,191.04">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="cluster_61042033_61042034" type="right_before_left" x="110.22" y="355.69" incLanes="53478287_0 53478287_1 53477973_0" intLanes="" shape="121.89,353.22 115.47,352.21 113.76,353.43 112.64,359.83">
+    <junction id="cluster_61042033_61042034" type="right_before_left" x="110.22" y="355.69" incLanes="53478287_0 53478287_1 53477973_0" intLanes="" shape="121.89,353.22 115.47,352.21 102.95,351.55 101.83,357.95">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>

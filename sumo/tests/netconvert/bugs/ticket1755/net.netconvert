@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:12 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Thu Mar  2 11:11:46 2017 by SUMO netconvert Version dev-SVN-r23174
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -115,16 +115,13 @@
         <lane id=":1596765963_1_0" index="0" allow="rail rail_electric" speed="83.33" length="2.79" shape="53.30,394.28 53.33,393.46 53.33,392.89 53.29,392.32 53.23,391.50"/>
     </edge>
     <edge id=":cluster_1596765862_1596765895_0" function="internal">
-        <lane id=":cluster_1596765862_1596765895_0_0" index="0" allow="rail rail_electric" speed="83.33" length="0.43" shape="56.72,305.44 56.73,305.00"/>
+        <lane id=":cluster_1596765862_1596765895_0_0" index="0" allow="rail rail_electric" speed="83.33" length="27.11" shape="56.79,303.40 55.75,330.49"/>
     </edge>
     <edge id=":cluster_1596765862_1596765895_1" function="internal">
-        <lane id=":cluster_1596765862_1596765895_1_0" index="0" allow="rail rail_electric" speed="83.33" length="2.42" shape="56.72,305.44 56.74,304.45 56.74,303.51 56.72,303.02"/>
-    </edge>
-    <edge id=":cluster_1596765862_1596765895_3" function="internal">
-        <lane id=":cluster_1596765862_1596765895_3_0" index="0" speed="83.33" length="1.21" shape="56.72,303.02 56.71,302.63 56.66,301.81"/>
+        <lane id=":cluster_1596765862_1596765895_1_0" index="0" allow="rail rail_electric" speed="83.33" length="2.00" shape="56.79,303.40 56.77,303.60 56.74,303.20 56.70,302.51 56.66,301.81"/>
     </edge>
     <edge id=":cluster_1596765862_1596765895_2" function="internal">
-        <lane id=":cluster_1596765862_1596765895_2_0" index="0" allow="rail rail_electric" speed="83.33" length="4.85" shape="52.82,302.14 56.73,305.00"/>
+        <lane id=":cluster_1596765862_1596765895_2_0" index="0" allow="rail rail_electric" speed="83.33" length="28.51" shape="52.82,302.14 53.58,307.96 54.60,316.30 55.47,324.65 55.75,330.49"/>
     </edge>
 
     <edge id="146404892#0" from="1596766027" to="1596765963" priority="15" type="railway.rail" spreadType="center" shape="49.54,498.49 50.54,462.56 52.20,421.43 52.71,408.75 53.35,392.98">
@@ -152,10 +149,10 @@
         <lane id="146404896#4_0" index="0" allow="rail rail_electric" speed="83.33" length="63.11" shape="50.09,183.69 51.98,189.90 57.08,215.14 58.36,242.66 58.31,245.98"/>
     </edge>
     <edge id="146404896#5" from="1596765849" to="cluster_1596765862_1596765895" priority="15" type="railway.rail" spreadType="center" shape="57.83,276.30 56.79,303.40">
-        <lane id="146404896#5_0" index="0" allow="rail rail_electric" speed="83.33" length="27.55" shape="57.77,277.90 56.72,305.44"/>
+        <lane id="146404896#5_0" index="0" allow="rail rail_electric" speed="83.33" length="25.52" shape="57.77,277.90 56.79,303.40"/>
     </edge>
     <edge id="146404896#7" from="cluster_1596765862_1596765895" to="1596765923" priority="15" type="railway.rail" spreadType="center" shape="55.75,330.49 54.81,354.91">
-        <lane id="146404896#7_0" index="0" allow="rail rail_electric" speed="83.33" length="48.36" shape="56.73,305.00 54.87,353.33"/>
+        <lane id="146404896#7_0" index="0" allow="rail rail_electric" speed="83.33" length="22.86" shape="55.75,330.49 54.87,353.33"/>
     </edge>
     <edge id="146404896#8" from="1596765923" to="1596765963" priority="15" type="railway.rail" spreadType="center">
         <lane id="146404896#8_0" index="0" allow="rail rail_electric" speed="83.33" length="35.43" shape="54.77,356.07 53.41,391.48"/>
@@ -205,16 +202,15 @@
         <request index="1" response="00" foes="01" cont="0"/>
     </junction>
     <junction id="1596766027" type="dead_end" x="49.54" y="498.49" incLanes="" intLanes="" shape="51.14,498.53 47.94,498.44"/>
-    <junction id="cluster_1596765862_1596765895" type="priority" x="56.27" y="316.95" incLanes="146404896#5_0 146404904_0" intLanes=":cluster_1596765862_1596765895_0_0 :cluster_1596765862_1596765895_3_0 :cluster_1596765862_1596765895_2_0" shape="58.31,305.50 55.12,305.37 54.41,302.00 55.06,301.95 55.13,304.94 58.33,305.06">
-        <request index="0" response="100" foes="100" cont="0"/>
-        <request index="1" response="100" foes="100" cont="1"/>
-        <request index="2" response="000" foes="011" cont="0"/>
+    <junction id="cluster_1596765862_1596765895" type="priority" x="56.27" y="316.95" incLanes="146404896#5_0 146404904_0" intLanes=":cluster_1596765862_1596765895_0_0 :cluster_1596765862_1596765895_1_0 :cluster_1596765862_1596765895_2_0" shape="58.39,303.46 55.19,303.34 54.41,302.00 55.06,301.95 54.15,330.43 57.35,330.55">
+        <request index="0" response="000" foes="100" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="001" foes="001" cont="0"/>
     </junction>
 
     <junction id=":1596765684_2_0" type="internal" x="18.60" y="82.87" incLanes=":1596765684_0_0 146404896#0_0" intLanes=":1596765684_1_0"/>
     <junction id=":1596765735_2_0" type="internal" x="35.53" y="137.32" incLanes=":1596765735_0_0 146404896#2_0" intLanes=":1596765735_1_0"/>
     <junction id=":1596765963_2_0" type="internal" x="53.37" y="391.55" incLanes=":1596765963_0_0 146404892#0_0" intLanes=":1596765963_1_0"/>
-    <junction id=":cluster_1596765862_1596765895_3_0" type="internal" x="56.72" y="303.02" incLanes=":cluster_1596765862_1596765895_1_0 146404904_0" intLanes=":cluster_1596765862_1596765895_2_0"/>
 
     <connection from="146404892#0" to="146404892#1" fromLane="0" toLane="0" via=":1596765963_1_0" dir="s" state="M"/>
     <connection from="146404892#1" to="146404892#2" fromLane="0" toLane="0" via=":1596765647_0_0" dir="s" state="M"/>
@@ -225,13 +221,13 @@
     <connection from="146404896#3" to="146404896#4" fromLane="0" toLane="0" via=":1596765757_0_0" dir="s" state="M"/>
     <connection from="146404896#3" to="146404902" fromLane="0" toLane="0" via=":1596765757_1_0" dir="s" state="M"/>
     <connection from="146404896#4" to="146404896#5" fromLane="0" toLane="0" via=":1596765849_0_0" dir="s" state="M"/>
-    <connection from="146404896#5" to="146404896#7" fromLane="0" toLane="0" via=":cluster_1596765862_1596765895_0_0" dir="s" state="m"/>
-    <connection from="146404896#5" to="146404901" fromLane="0" toLane="0" via=":cluster_1596765862_1596765895_1_0" dir="L" state="m"/>
+    <connection from="146404896#5" to="146404896#7" fromLane="0" toLane="0" via=":cluster_1596765862_1596765895_0_0" dir="s" state="M"/>
+    <connection from="146404896#5" to="146404901" fromLane="0" toLane="0" via=":cluster_1596765862_1596765895_1_0" dir="l" state="M"/>
     <connection from="146404896#7" to="146404896#8" fromLane="0" toLane="0" via=":1596765923_0_0" dir="s" state="M"/>
     <connection from="146404896#8" to="146404892#1" fromLane="0" toLane="0" via=":1596765963_0_0" dir="t" state="m"/>
     <connection from="146404901" to="146404896#3" fromLane="0" toLane="0" via=":1596765735_0_0" dir="t" state="m"/>
     <connection from="146404902" to="146404896#5" fromLane="0" toLane="0" via=":1596765849_1_0" dir="s" state="m"/>
-    <connection from="146404904" to="146404896#7" fromLane="0" toLane="0" via=":cluster_1596765862_1596765895_2_0" dir="s" state="M"/>
+    <connection from="146404904" to="146404896#7" fromLane="0" toLane="0" via=":cluster_1596765862_1596765895_2_0" dir="s" state="m"/>
     <connection from="146404905" to="146404896#1" fromLane="0" toLane="0" via=":1596765684_0_0" dir="t" state="m"/>
 
     <connection from=":1596765647_0" to="146404892#2" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -252,8 +248,7 @@
     <connection from=":1596765963_2" to="146404892#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1596765963_1" to="146404892#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_1596765862_1596765895_0" to="146404896#7" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":cluster_1596765862_1596765895_1" to="146404901" fromLane="0" toLane="0" via=":cluster_1596765862_1596765895_3_0" dir="s" state="m"/>
-    <connection from=":cluster_1596765862_1596765895_3" to="146404901" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_1596765862_1596765895_1" to="146404901" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_1596765862_1596765895_2" to="146404896#7" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>
