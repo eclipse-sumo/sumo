@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:03 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Thu Mar  2 08:59:42 2017 by SUMO netconvert Version dev-SVN-r23174
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -2071,11 +2071,11 @@
         <lane id=":835806371_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="4.82" shape="1.07,807.15 -0.41,807.32 -1.26,806.96 -1.48,806.07 -1.07,804.63"/>
     </edge>
     <edge id=":846231372_0" function="internal">
-        <lane id=":846231372_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="7.30" shape="1550.36,599.21 1549.18,597.39 1547.91,595.98 1546.56,594.99 1545.11,594.40"/>
+        <lane id=":846231372_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="5.75" shape="1550.36,599.21 1549.28,597.42 1548.32,596.09 1547.49,595.22 1546.77,594.83"/>
     </edge>
     <edge id=":846231372_1" function="internal">
-        <lane id=":846231372_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="7.45" shape="1552.34,596.23 1545.11,594.40"/>
-        <lane id=":846231372_1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="7.45" shape="1553.15,593.03 1545.92,591.21"/>
+        <lane id=":846231372_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="5.74" shape="1552.34,596.23 1546.77,594.83"/>
+        <lane id=":846231372_1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="5.74" shape="1553.15,593.03 1547.58,591.63"/>
     </edge>
     <edge id=":851572284_0" function="internal">
         <lane id=":851572284_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="5.04" shape="1438.07,470.64 1433.05,470.28"/>
@@ -2676,8 +2676,8 @@
         <lane id="415852905_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="627.58" shape="2062.85,947.59 2054.26,939.27 2039.66,923.95 2032.69,917.24 2026.17,910.51 2015.47,900.13 1975.77,861.23 1969.84,855.10 1949.63,834.53 1934.60,819.85 1921.67,808.09 1908.35,798.43 1896.88,791.42 1887.29,785.55 1877.15,779.48 1852.76,764.86 1795.73,730.37 1777.97,718.88 1754.57,701.46 1716.79,673.61 1703.95,664.43 1682.77,648.98 1676.25,644.16 1673.09,641.50 1656.70,630.19 1650.10,625.89 1646.41,624.19 1633.47,618.20 1605.87,607.64 1594.43,604.09 1575.28,598.59 1553.15,593.03"/>
     </edge>
     <edge id="415852906" from="846231372" to="4167993268" priority="7" type="highway.secondary" spreadType="center" shape="1546.97,593.18 1498.80,580.95 1488.91,578.32">
-        <lane id="415852906_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="53.74" shape="1545.11,594.40 1498.39,582.55 1493.06,581.13"/>
-        <lane id="415852906_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="53.74" shape="1545.92,591.21 1499.22,579.35 1493.83,577.92"/>
+        <lane id="415852906_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="55.45" shape="1546.77,594.83 1498.39,582.55 1493.06,581.13"/>
+        <lane id="415852906_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="55.45" shape="1547.58,591.63 1499.22,579.35 1493.83,577.92"/>
     </edge>
     <edge id="415852907" from="664166095" to="1560223943" priority="5" type="highway.unclassified" shape="1276.93,835.11 1282.46,767.46 1284.53,749.09 1293.14,629.02">
         <lane id="415852907_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="202.34" shape="1275.29,834.97 1280.82,767.30 1282.89,748.93 1291.18,633.27"/>
@@ -3836,7 +3836,7 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="837777441" type="dead_end" x="1557.80" y="624.50" incLanes="" intLanes="" shape="1558.80,624.48 1556.80,624.52"/>
-    <junction id="846231372" type="priority" x="1546.97" y="593.18" incLanes="70139065_0 415852905_0 415852905_1" intLanes=":846231372_0_0 :846231372_1_0 :846231372_1_1" shape="1549.48,599.70 1551.23,598.72 1551.95,597.78 1553.54,591.47 1546.32,589.66 1544.72,595.96">
+    <junction id="846231372" type="priority" x="1546.97" y="593.18" incLanes="70139065_0 415852905_0 415852905_1" intLanes=":846231372_0_0 :846231372_1_0 :846231372_1_1" shape="1549.48,599.70 1551.23,598.72 1551.95,597.78 1553.54,591.47 1547.97,590.08 1546.38,596.38">
         <request index="0" response="110" foes="110" cont="0"/>
         <request index="1" response="000" foes="001" cont="0"/>
         <request index="2" response="000" foes="001" cont="0"/>

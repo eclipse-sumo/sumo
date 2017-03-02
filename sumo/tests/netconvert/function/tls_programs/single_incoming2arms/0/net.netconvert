@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:07 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Thu Mar  2 08:59:45 2017 by SUMO netconvert Version dev-SVN-r23174
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -30,14 +30,14 @@
         <lane id=":15030043_0_0" index="0" speed="13.20" length="5.01" shape="125.28,68.70 123.91,68.58 122.84,68.93 122.05,69.75 121.57,71.03"/>
     </edge>
     <edge id=":15030043_1" function="internal">
-        <lane id=":15030043_1_0" index="0" speed="13.89" length="6.30" shape="122.93,64.88 121.57,71.03"/>
+        <lane id=":15030043_1_0" index="0" speed="13.89" length="6.18" shape="122.90,64.99 121.57,71.03"/>
     </edge>
 
     <edge id="15030608" from="15030238" to="15030043" priority="-1">
         <lane id="15030608_0" index="0" speed="12.50" length="134.93" shape="256.62,99.61 125.28,68.70"/>
     </edge>
     <edge id="15030858" from="15030435" to="15030043" priority="-1">
-        <lane id="15030858_0" index="0" speed="13.89" length="65.97" shape="136.61,0.34 122.93,64.88"/>
+        <lane id="15030858_0" index="0" speed="13.89" length="66.09" shape="136.61,0.34 122.90,64.99"/>
     </edge>
     <edge id="153122148" from="15030043" to="15031475" priority="-1">
         <lane id="153122148_0" index="0" speed="13.89" length="550.55" shape="121.57,71.03 1.61,608.36"/>
@@ -50,7 +50,7 @@
         <phase duration="4" state="ry"/>
     </tlLogic>
 
-    <junction id="15030043" type="traffic_light" x="121.00" y="66.00" incLanes="15030608_0 15030858_0" intLanes=":15030043_0_0 :15030043_1_0" shape="124.92,70.26 125.65,67.15 124.49,65.21 121.36,64.54 120.01,70.68 123.13,71.38">
+    <junction id="15030043" type="traffic_light" x="121.00" y="66.00" incLanes="15030608_0 15030858_0" intLanes=":15030043_0_0 :15030043_1_0" shape="124.92,70.26 125.65,67.15 124.47,65.33 121.33,64.66 120.01,70.68 123.13,71.38">
         <request index="0" response="10" foes="10" cont="0"/>
         <request index="1" response="00" foes="01" cont="0"/>
     </junction>

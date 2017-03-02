@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:02 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Thu Mar  2 08:59:41 2017 by SUMO netconvert Version dev-SVN-r23174
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -31,22 +31,22 @@
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="CE" from="C" to="E" priority="2">
-        <lane id="CE_0" index="0" speed="27.78" length="100.00" shape="111.28,91.75 200.00,91.75"/>
-        <lane id="CE_1" index="1" speed="27.78" length="100.00" shape="111.28,95.05 200.00,95.05"/>
-        <lane id="CE_2" index="2" speed="27.78" length="100.00" shape="111.28,98.35 200.00,98.35"/>
+        <lane id="CE_0" index="0" speed="27.78" length="97.84" shape="111.28,91.75 200.00,91.75"/>
+        <lane id="CE_1" index="1" speed="27.78" length="97.84" shape="111.28,95.05 200.00,95.05"/>
+        <lane id="CE_2" index="2" speed="27.78" length="97.84" shape="111.28,98.35 200.00,98.35"/>
     </edge>
     <edge id="CS" from="C" to="S" priority="1">
-        <lane id="CS_0" index="0" speed="13.89" length="141.42" shape="107.38,85.62 196.50,-3.50"/>
-        <lane id="CS_1" index="1" speed="13.89" length="141.42" shape="109.71,87.96 198.83,-1.17"/>
+        <lane id="CS_0" index="0" speed="13.89" length="130.39" shape="107.38,85.62 196.50,-3.50"/>
+        <lane id="CS_1" index="1" speed="13.89" length="130.39" shape="109.71,87.96 198.83,-1.17"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="2">
-        <lane id="WC_0" index="0" speed="27.78" length="100.00" shape="0.00,88.45 98.50,88.45"/>
-        <lane id="WC_1" index="1" speed="27.78" length="100.00" shape="0.00,91.75 98.50,91.75"/>
-        <lane id="WC_2" index="2" speed="27.78" length="100.00" shape="0.00,95.05 98.50,95.05"/>
-        <lane id="WC_3" index="3" speed="27.78" length="100.00" shape="0.00,98.35 98.50,98.35"/>
+        <lane id="WC_0" index="0" speed="27.78" length="112.04" shape="0.00,88.45 102.39,88.45"/>
+        <lane id="WC_1" index="1" speed="27.78" length="112.04" shape="0.00,91.75 102.39,91.75"/>
+        <lane id="WC_2" index="2" speed="27.78" length="112.04" shape="0.00,95.05 102.39,95.05"/>
+        <lane id="WC_3" index="3" speed="27.78" length="112.04" shape="0.00,98.35 102.39,98.35"/>
     </edge>
 
-    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="WC_0 WC_1 WC_2 WC_3" intLanes="" shape="111.28,99.95 111.28,90.15 110.84,89.09 106.24,84.49 98.50,86.85 98.50,99.95">
+    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="WC_0 WC_1 WC_2 WC_3" intLanes="" shape="111.28,99.95 111.28,90.15 110.84,89.09 106.24,84.49 102.39,86.85 102.39,99.95">
         <request index="0" response="00000" foes="00000"/>
         <request index="1" response="00000" foes="00000"/>
         <request index="2" response="00000" foes="00000"/>

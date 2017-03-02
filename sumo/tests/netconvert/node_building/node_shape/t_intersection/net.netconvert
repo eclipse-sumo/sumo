@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 27 16:29:41 2017 by SUMO netconvert Version dev-SVN-r23157
+<!-- generated on Mon Feb 27 16:31:08 2017 by SUMO netconvert Version dev-SVN-r23144
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -34,7 +34,7 @@
         <lane id="CN_0" index="0" speed="13.90" length="11.97" shape="41.36,4.75 41.36,11.97"/>
     </edge>
     <edge id="CW" from="C" to="W" priority="-1">
-        <lane id="CW_0" index="0" speed="13.90" length="39.71" shape="30.07,1.65 -0.00,1.65"/>
+        <lane id="CW_0" index="0" speed="13.90" length="39.71" shape="34.96,1.65 -0.00,1.65"/>
     </edge>
     <edge id="EC" from="E" to="C" priority="-1">
         <lane id="EC_0" index="0" speed="13.90" length="23.43" shape="63.14,1.65 44.46,1.65"/>
@@ -43,10 +43,10 @@
         <lane id="NC_0" index="0" speed="13.90" length="11.97" shape="38.06,11.97 38.06,4.75"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="-1">
-        <lane id="WC_0" index="0" speed="13.90" length="39.71" shape="-0.00,-1.65 30.07,-1.65"/>
+        <lane id="WC_0" index="0" speed="13.90" length="39.71" shape="-0.00,-1.65 34.96,-1.65"/>
     </edge>
 
-    <junction id="C" type="priority" x="39.71" y="0.00" incLanes="NC_0 EC_0 WC_0" intLanes="" shape="36.46,4.75 42.96,4.75 44.46,3.25 44.46,-3.25 30.07,-3.25 30.07,3.25">
+    <junction id="C" type="priority" x="39.71" y="0.00" incLanes="NC_0 EC_0 WC_0" intLanes="" shape="36.46,4.75 42.96,4.75 44.46,3.25 44.46,-3.25 34.96,-3.25 34.96,3.25">
         <request index="0" response="001000" foes="001000"/>
         <request index="1" response="111000" foes="111000"/>
         <request index="2" response="000000" foes="100000"/>

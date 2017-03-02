@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov 29 13:36:05 2016" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Mar  2 08:59:44 2017" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
     <road name="" length="70.65625000" id="100" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -115,13 +115,13 @@
         <signals/>
         <userData code="sumoId" value="on"/>
     </road>
-    <road name="" length="498.50000000" id="103" junction="-1">
+    <road name="" length="504.44277407" id="103" junction="-1">
         <link>
             <successor elementType="junction" elementId="3"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="2000.00000000" y="0.05000000" hdg="3.14159265" length="498.50000000">
+            <geometry s="0.00000000" x="2000.00000000" y="0.05000000" hdg="3.14159265" length="504.44277407">
                 <line/>
             </geometry>
         </planView>
@@ -371,14 +371,14 @@
         <signals/>
         <userData code="sumoId" value="s3-AddedOffRampEdge"/>
     </road>
-    <road name="" length="469.15625000" id="108" junction="-1">
+    <road name="" length="475.09902407" id="108" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="2"/>
             <successor elementType="junction" elementId="1"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="498.50000000" y="0.05000000" hdg="3.14159265" length="469.15625000">
+            <geometry s="0.00000000" x="504.44277407" y="0.05000000" hdg="3.14159265" length="475.09902407">
                 <line/>
             </geometry>
         </planView>
@@ -573,14 +573,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_1_0" length="9.06550392" id="113" junction="2">
+    <road name=":2_1_0" length="3.12272985" id="113" junction="2">
         <link>
             <predecessor elementType="road" elementId="107" contactPoint="end"/>
             <successor elementType="road" elementId="108" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="507.56550392" y="6.45000000" hdg="3.14159265" length="9.06550392">
+            <geometry s="0.00000000" x="507.56550392" y="6.45000000" hdg="3.14159265" length="3.12272985">
                 <line/>
             </geometry>
         </planView>
@@ -611,14 +611,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_1_1" length="9.06550392" id="114" junction="2">
+    <road name=":2_1_1" length="3.12272985" id="114" junction="2">
         <link>
             <predecessor elementType="road" elementId="107" contactPoint="end"/>
             <successor elementType="road" elementId="108" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="507.56550392" y="3.25000000" hdg="3.14159265" length="9.06550392">
+            <geometry s="0.00000000" x="507.56550392" y="3.25000000" hdg="3.14159265" length="3.12272985">
                 <line/>
             </geometry>
         </planView>
@@ -649,14 +649,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":2_1_2" length="9.06550392" id="115" junction="2">
+    <road name=":2_1_2" length="3.12272985" id="115" junction="2">
         <link>
             <predecessor elementType="road" elementId="107" contactPoint="end"/>
             <successor elementType="road" elementId="108" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="507.56550392" y="0.05000000" hdg="3.14159265" length="9.06550392">
+            <geometry s="0.00000000" x="507.56550392" y="0.05000000" hdg="3.14159265" length="3.12272985">
                 <line/>
             </geometry>
         </planView>
@@ -839,14 +839,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":4_1_0" length="9.06550392" id="120" junction="3">
+    <road name=":4_1_0" length="3.12272985" id="120" junction="3">
         <link>
             <predecessor elementType="road" elementId="103" contactPoint="end"/>
             <successor elementType="road" elementId="105" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="1501.50000000" y="6.45000000" hdg="3.14159265" length="9.06550392">
+            <geometry s="0.00000000" x="1495.55722593" y="6.45000000" hdg="3.14159265" length="3.12272985">
                 <line/>
             </geometry>
         </planView>
@@ -877,14 +877,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":4_1_1" length="9.06550392" id="121" junction="3">
+    <road name=":4_1_1" length="3.12272985" id="121" junction="3">
         <link>
             <predecessor elementType="road" elementId="103" contactPoint="end"/>
             <successor elementType="road" elementId="105" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="1501.50000000" y="3.25000000" hdg="3.14159265" length="9.06550392">
+            <geometry s="0.00000000" x="1495.55722593" y="3.25000000" hdg="3.14159265" length="3.12272985">
                 <line/>
             </geometry>
         </planView>
@@ -915,14 +915,14 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":4_1_2" length="9.06550392" id="122" junction="3">
+    <road name=":4_1_2" length="3.12272985" id="122" junction="3">
         <link>
             <predecessor elementType="road" elementId="103" contactPoint="end"/>
             <successor elementType="road" elementId="105" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="1501.50000000" y="0.05000000" hdg="3.14159265" length="9.06550392">
+            <geometry s="0.00000000" x="1495.55722593" y="0.05000000" hdg="3.14159265" length="3.12272985">
                 <line/>
             </geometry>
         </planView>

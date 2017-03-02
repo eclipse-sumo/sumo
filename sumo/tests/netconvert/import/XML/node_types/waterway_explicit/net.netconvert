@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:43:59 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Thu Mar  2 08:59:38 2017 by SUMO netconvert Version dev-SVN-r23174
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -22,14 +22,14 @@
     <location netOffset="100.00,0.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-100.00,0.00,100.00,100.00" projParameter="!"/>
 
     <edge id=":C_0" function="internal">
-        <lane id=":C_0_0" index="0" allow="ship" speed="13.90" length="5.04" shape="98.35,1.45 98.55,0.09 99.14,-0.88 100.12,-1.46 101.50,-1.65"/>
+        <lane id=":C_0_0" index="0" allow="ship" speed="13.90" length="5.00" shape="98.35,1.45 98.54,0.09 99.12,-0.88 100.09,-1.46 101.45,-1.65"/>
     </edge>
     <edge id=":C_1" function="internal">
-        <lane id=":C_1_0" index="0" allow="ship" speed="13.90" length="6.25" shape="95.25,-1.65 101.50,-1.65"/>
+        <lane id=":C_1_0" index="0" allow="ship" speed="13.90" length="6.20" shape="95.25,-1.65 101.45,-1.65"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="-1">
-        <lane id="CE_0" index="0" allow="ship" speed="13.90" length="98.50" shape="101.50,-1.65 200.00,-1.65"/>
+        <lane id="CE_0" index="0" allow="ship" speed="13.90" length="98.55" shape="101.45,-1.65 200.00,-1.65"/>
     </edge>
     <edge id="NC" from="N" to="C" priority="-1">
         <lane id="NC_0" index="0" allow="ship" speed="13.90" length="98.55" shape="98.35,100.00 98.35,1.45"/>
@@ -38,7 +38,7 @@
         <lane id="WC_0" index="0" allow="ship" speed="13.90" length="95.25" shape="0.00,-1.65 95.25,-1.65"/>
     </edge>
 
-    <junction id="C" type="right_before_left" x="100.00" y="0.00" incLanes="NC_0 WC_0" intLanes=":C_0_0 :C_1_0" shape="96.75,1.45 99.95,1.45 101.50,-0.05 101.50,-3.25 95.25,-3.25 95.25,-0.05">
+    <junction id="C" type="right_before_left" x="100.00" y="0.00" incLanes="NC_0 WC_0" intLanes=":C_0_0 :C_1_0" shape="96.75,1.45 99.95,1.45 101.45,-0.05 101.45,-3.25 95.25,-3.25 95.25,-0.05">
         <request index="0" response="10" foes="10" cont="0"/>
         <request index="1" response="00" foes="01" cont="0"/>
     </junction>
