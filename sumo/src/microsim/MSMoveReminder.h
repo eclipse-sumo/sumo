@@ -34,6 +34,7 @@
 #include <config.h>
 #endif
 
+#include <iostream>
 #include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StdDefs.h>
@@ -177,12 +178,10 @@ public:
      *
      * @return True if the reminder wants to receive further info.
      */
-    virtual bool notifyLeave(SUMOVehicle& veh, double lastPos,
-                             Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0) {
+    virtual bool notifyLeave(SUMOVehicle& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0) {
         UNUSED_PARAMETER(&veh);
         UNUSED_PARAMETER(lastPos);
         UNUSED_PARAMETER(reason);
-        UNUSED_PARAMETER(leftLane);
         UNUSED_PARAMETER(enteredLane);
         return true;
     }

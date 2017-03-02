@@ -2820,7 +2820,7 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
 void
 MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* approachedLane) {
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
-        if (rem->first->notifyLeave(*this, myState.myPos + rem->second, reason, myLane, approachedLane)) {
+        if (rem->first->notifyLeave(*this, myState.myPos + rem->second, reason, approachedLane)) {
 #ifdef _DEBUG
             if (myTraceMoveReminders) {
                 traceMoveReminder("notifyLeave", rem->first, rem->second, true);

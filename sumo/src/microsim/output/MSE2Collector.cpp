@@ -608,7 +608,7 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
 }
 
 bool
-MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* leftLane, const MSLane* enteredLane) {
+MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
         std::cout << "\n" << SIMTIME << " notifyLeave() called by vehicle '" << veh.getID() << "'" << std::endl;
 #endif
@@ -655,6 +655,8 @@ MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /* rea
 
     // notifyEnter() should only be called for lanes of the detector
     assert(std::find(myLanes.begin(), myLanes.end(), enteredLane->getID()) != myLanes.end());
+
+    assert(veh.getLane() == enteredLane);
 
     if (!vehicleApplies(veh)) {
         // That's not my type...

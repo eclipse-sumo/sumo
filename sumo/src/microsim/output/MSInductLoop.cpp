@@ -145,7 +145,7 @@ MSInductLoop::notifyMove(SUMOVehicle& veh, double oldPos,
 
 
 bool
-MSInductLoop::notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
+MSInductLoop::notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
         leaveDetectorByLaneChange(veh, lastPos);
         return false;

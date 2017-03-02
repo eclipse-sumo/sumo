@@ -163,7 +163,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
 
 
 bool
-MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& /*veh*/, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
+MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& /*veh*/, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (MSGlobals::gUseMesoSim) {
         return false; // reminder is re-added on every segment (@recheck for performance)
     }
@@ -240,7 +240,7 @@ MSMeanData::MeanDataValueTracker::notifyMoveInternal(const SUMOVehicle& veh, con
 
 
 bool
-MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
+MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (myParent == 0 || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
         myTrackedData[&veh]->myNumVehicleLeft++;
     }

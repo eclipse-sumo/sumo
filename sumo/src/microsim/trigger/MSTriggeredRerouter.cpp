@@ -350,7 +350,7 @@ MSTriggeredRerouter::notifyMove(SUMOVehicle& veh, double /*oldPos*/,
 
 bool
 MSTriggeredRerouter::notifyLeave(SUMOVehicle& /*veh*/, double /*lastPos*/,
-                                 MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
+                                 MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     return reason == NOTIFICATION_LANE_CHANGE;
 }
 

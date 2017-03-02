@@ -129,8 +129,8 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, double lastPos, Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
-    //@}
+    bool notifyLeave(SUMOVehicle& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0);
+    ///@}
 
 
 

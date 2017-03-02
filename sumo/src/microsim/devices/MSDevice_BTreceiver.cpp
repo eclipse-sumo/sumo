@@ -423,7 +423,7 @@ MSDevice_BTreceiver::notifyMove(SUMOVehicle& veh, double /* oldPos */, double ne
 
 
 bool
-MSDevice_BTreceiver::notifyLeave(SUMOVehicle& veh, double /* lastPos */, Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
+MSDevice_BTreceiver::notifyLeave(SUMOVehicle& veh, double /* lastPos */, Notification reason, const MSLane* /* enteredLane */) {
     if (reason < MSMoveReminder::NOTIFICATION_TELEPORT) {
         return true;
     }

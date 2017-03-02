@@ -129,7 +129,7 @@ MSInstantInductLoop::write(const char* state, double t, SUMOVehicle& veh, double
 
 
 bool
-MSInstantInductLoop::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* /* leftLane */, const MSLane* /* enteredLane */) {
+MSInstantInductLoop::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
         // vehicle might have jumped over detector at the end of the lane. we need
         // one more notifyMove to register it

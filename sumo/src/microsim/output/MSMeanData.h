@@ -130,7 +130,7 @@ public:
          * @see MSMoveReminder::notifyLeave
          */
         virtual bool notifyLeave(SUMOVehicle& veh, double lastPos,
-                                 MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+                                 MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
         /** @brief Returns whether any data was collected.
@@ -227,7 +227,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* leftLane = 0, const MSLane* enteredLane = 0);
+        bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
         /** @brief Computes current values and adds them to their sums
