@@ -85,7 +85,7 @@ public:
 
     /** @brief Returns the lane the reminder works on.
      *
-     * @return The lane the reminder works on.
+     * @return The lane the reminder is anchored on.
      */
     const MSLane* getLane() const {
         return myLane;

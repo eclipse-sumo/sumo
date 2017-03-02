@@ -84,9 +84,17 @@ GUIE2Collector::buildDetectorGUIRepresentation() {
 GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector)
     : GUIDetectorWrapper("E2 detector", detector.getID()),
       myDetector(detector) {
-    const PositionVector& v = detector.getLane()->getShape();
+
+    // collect detector shape into one vector (v)
+    PositionVector v;
+    const std::vector<MSLane*> lanes = detector.getLanes();
+    for (std::vector<MSLane*>::const_iterator li = lanes.begin(); li != lanes.end(); ++li) {
+        const PositionVector& shape = (*li)->getShape();
+        v.insert(v.end(), shape.begin(), shape.end());
+    }
+
     // build geometry
-    myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getEndPos());
+    myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getStartPos() + detector.getLength());
     //
     myShapeRotations.reserve(myFullGeometry.size() - 1);
     myShapeLengths.reserve(myFullGeometry.size() - 1);

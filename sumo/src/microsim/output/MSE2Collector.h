@@ -386,6 +386,14 @@ public:
         return myEndPos;
     }
 
+    /** @brief Returns the length of the detector
+     *
+     * @return The detector's length
+     */
+    double getLength() const {
+        return myDetectorLength;
+    }
+
 
     /** @brief Returns the id of the detector's last lane
      *
@@ -395,6 +403,10 @@ public:
         return myLastLane;
     }
 
+
+    /** @brief Returns a vector containing pointers to the lanes covered by the detector ordered from its first to its last lane
+     */
+    std::vector<MSLane*> getLanes();
 
     /** @brief Resets all values
      *
@@ -567,9 +579,6 @@ private:
      */
     void recalculateDetectorLength();
 
-    /** Returns a vector containing pointers to the lanes covered by the detector ordered from its first to its last lane
-     */
-    std::vector<MSLane*> getLanePointers();
 
 
     /** @brief This is called if no lane sequence is given to the constructor. Builds myLanes from the given information.

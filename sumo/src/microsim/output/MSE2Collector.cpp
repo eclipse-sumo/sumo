@@ -540,12 +540,12 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes){
 #endif
 
     // make lanes a complete list including internal lanes
-    lanes = getLanePointers();
+    lanes = getLanes();
 }
 
 
 std::vector<MSLane*>
-MSE2Collector::getLanePointers() {
+MSE2Collector::getLanes() {
     std::vector<MSLane*> res;
     for (std::vector<std::string>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
         res.push_back(MSLane::dictionary(*i));
