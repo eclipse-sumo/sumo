@@ -7,7 +7,7 @@ Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|cycl
 Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.lane|cycleway.opposite_lane|highway.tertiary' (first occurence for edge '238219468').
 Warning: Shape for junction '1890531930' has distance 73.28 to its given position
 Warning: Shape for junction '477601189' has distance 75.34 to its given position
-Warning: Shape for junction '477606370' has distance 29.81 to its given position
+Warning: Shape for junction '477606370' has distance 26.90 to its given position
 Warning: Edge '-160079263' overlaps with edge '11635095#2' by 3.73.
 Warning: Edge '-160079263' overlaps with edge '11635117' by 3.25.
 Warning: Edge '10358635' overlaps with edge '160077493' by 6.20.
