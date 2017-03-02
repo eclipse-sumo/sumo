@@ -913,7 +913,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     bool lsaGiven = lsaid != "";
     bool toLaneGiven = toLane != "";
 
-    MSLane* clane;
+    MSLane* clane = 0;
     std::vector<MSLane*> clanes;
     if (lanesGiven){
         // If lanes is given, endPos and startPos are required. lane, endLane and length are ignored
@@ -929,34 +929,26 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
             clane = myDetectorBuilder.getLaneChecking(nextLaneID, SUMO_TAG_E2DETECTOR, id);
             clanes.push_back(clane);
         }
-        if(clanes.size() == 0){
+        if (clanes.size() == 0){
             throw InvalidArgument("Malformed argument 'lanes' for E2Detector '" + id + "'.\nSpecify 'lanes' as a sequence of lane-IDs seperated by whitespace or comma (',')");
         }
         if (laneGiven) {
-            std::stringstream ss;
-            ss << "Ignoring argument 'lane' for E2Detector '" << id << "' since argument 'lanes' was given."
-                    << "\nUsage combinations for positional specification: [lane, pos, length], [endLane/lane, endPos, length], or [lanes, pos, endPos]";
-            WRITE_WARNING(ss.str());
+            WRITE_WARNING("Ignoring argument 'lane' for E2Detector '" + id + "' since argument 'lanes' was given.\n"
+                          "Usage combinations for positional specification: [lane, pos, length], [endLane/lane, endPos, length], or [lanes, pos, endPos]");
         }
         if (lengthGiven) {
-            std::stringstream ss;
-            ss << "Ignoring argument 'length' for E2Detector '" << id << "' since argument 'lanes' was given."
-                    << "\nUsage combinations for positional specification: [lane, pos, length], [lane, endPos, length], or [lanes, pos, endPos]";
-            WRITE_WARNING(ss.str());
+            WRITE_WARNING("Ignoring argument 'length' for E2Detector '" + id + "' since argument 'lanes' was given.\n"
+                          "Usage combinations for positional specification: [lane, pos, length], [lane, endPos, length], or [lanes, pos, endPos]");
         }
         if (!posGiven) {
             // assuming start pos == lane start
             position = 0;
-            std::stringstream ss;
-            ss << "Missing argument 'pos' for E2Detector '" << id << "'. Assuming detector start == lane start of lane '" << clanes[0]->getID() << "'.";
-            WRITE_WARNING(ss.str());
+            WRITE_WARNING("Missing argument 'pos' for E2Detector '" + id + "'. Assuming detector start == lane start of lane '" + clanes[0]->getID() + "'.");
         }
         if (!endPosGiven) {
             // assuming end pos == lane end
             endPosition = clanes[clanes.size()-1]->getLength();
-            std::stringstream ss;
-            ss << "Missing argument 'endPos' for E2Detector '" << id << "'. Assuming detector end == lane end of lane '" << clanes[clanes.size()-1]->getID() << "'.";
-            WRITE_WARNING(ss.str());
+            WRITE_WARNING("Missing argument 'endPos' for E2Detector '" + id + "'. Assuming detector end == lane end of lane '" + clanes[clanes.size() - 1]->getID() + "'.");
         }
 
     } else {

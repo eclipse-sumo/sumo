@@ -2,7 +2,9 @@
 /// @file    MSCFModel_Rail.cpp
 /// @author  Gregor L\"ammel
 /// @date    Tue, 08 Feb 2017
+/// @version $Id$
 ///
+// <description missing>
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2012-2017 DLR (http://www.dlr.de/) and contributors
@@ -15,14 +17,21 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <iostream>
 #include <utils/common/MsgHandler.h>
-#include <microsim/MSVehicle.h>
 #include <utils/geom/GeomHelper.h>
-#include "MSCFModel_Rail.h"
+#include <microsim/MSVehicle.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
-
-
+#include "MSCFModel_Rail.h"
 
 #define G  9.80665
 

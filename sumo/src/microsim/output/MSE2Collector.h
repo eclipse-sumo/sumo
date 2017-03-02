@@ -108,10 +108,10 @@ public:
             totalTimeOnDetector(0.),
             accumulatedTimeLoss(0.),
             onDetector(onDetector),
+            hasEntered(false),
             lastAccel(0),
             lastSpeed(0),
-            lastPos(0),
-            hasEntered(false)
+            lastPos(0)
         {}
         virtual ~VehicleInfo(){};
         /// vehicle's ID
@@ -499,7 +499,6 @@ public:
      * @param[in] passed - int that indicates the number of vehicles to subtract
      */
     void subtractPassedVeh(int passed) {
-        std::cout << "substract" << std::endl;
         myNumberOfEnteredVehicles -= passed;
     }
 

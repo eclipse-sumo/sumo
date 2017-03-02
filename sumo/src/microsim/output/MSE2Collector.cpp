@@ -309,7 +309,7 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir){
     assert(dir == "fw" || dir == "bw");
     bool fw = dir == "fw";
     double linkLength = 0; // linkLength (used if no internal lanes are present)
-    bool substractedLinkLength; // whether linkLenght was substracted during the last iteration.
+    bool substractedLinkLength = false; // whether linkLength was substracted during the last iteration.
 
 #ifdef DEBUG_E2_CONSTRUCTOR
     std::cout << "\n" << "selectLanes()" << (fw ? "(forward)" : "(backward)") << std::endl;
@@ -1263,7 +1263,7 @@ MSE2Collector::getCurrentVehicles() const {
 int
 MSE2Collector::getEstimatedCurrentVehicleNumber(double speedThreshold) const {
 
-    double distance = std::numeric_limits<double>::max();
+//    double distance = std::numeric_limits<double>::max();
     double thresholdSpeed = myLane->getSpeedLimit() / speedThreshold;
 
     int count = 0;
