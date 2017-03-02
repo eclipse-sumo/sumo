@@ -441,7 +441,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_LCA_SUBLANE_PARAM,
     SUMO_ATTR_LCA_PUSHY,
     SUMO_ATTR_LCA_ASSERTIVE,
-    SUMO_ATTR_LCA_EXPERIMANTAL1,
+    SUMO_ATTR_LCA_EXPERIMENTAL1,
     /// @}
 
     /// @name route alternatives / distribution attributes
