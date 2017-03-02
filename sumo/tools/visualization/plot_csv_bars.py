@@ -66,7 +66,7 @@ def main(args=None):
     # parse
     options, remaining_args = optParser.parse_args(args=args)
 
-    if options.input == None:
+    if options.input is None:
         print("Error: at least one csv file must be given")
         sys.exit(1)
 

@@ -110,14 +110,14 @@ def main(args=None):
     # parse
     options, remaining_args = optParser.parse_args(args=args)
 
-    if options.net == None:
+    if options.net is None:
         print("Error: a network to load must be given.")
         return 1
     if options.verbose:
         print("Reading network from '%s'" % options.net)
     net = sumolib.net.readNet(options.net)
 
-    if options.measures == None:
+    if options.measures is None:
         print("Error: a dump file must be given.")
         return 1
 
@@ -172,18 +172,18 @@ def main(args=None):
         minColorValue = None
         for e in net._id2edge:
             if hc and t in hc._edge2value and e in hc._edge2value[t]:
-                if options.colorMax != None and hc._edge2value[t][e] > options.colorMax:
+                if options.colorMax is not None and hc._edge2value[t][e] > options.colorMax:
                     hc._edge2value[t][e] = options.colorMax
-                if options.colorMin != None and hc._edge2value[t][e] < options.colorMin:
+                if options.colorMin is not None and hc._edge2value[t][e] < options.colorMin:
                     hc._edge2value[t][e] = options.colorMin
-                if maxColorValue == None or maxColorValue < hc._edge2value[t][e]:
+                if maxColorValue is None or maxColorValue < hc._edge2value[t][e]:
                     maxColorValue = hc._edge2value[t][e]
-                if minColorValue == None or minColorValue > hc._edge2value[t][e]:
+                if minColorValue is None or minColorValue > hc._edge2value[t][e]:
                     minColorValue = hc._edge2value[t][e]
                 colors[e] = hc._edge2value[t][e]
-        if options.colorMax != None:
+        if options.colorMax is not None:
             maxColorValue = options.colorMax
-        if options.colorMin != None:
+        if options.colorMin is not None:
             minColorValue = options.colorMin
         if options.logColors:
             helpers.logNormalise(colors, maxColorValue)
@@ -201,18 +201,18 @@ def main(args=None):
         for e in net._id2edge:
             if hw and t in hw._edge2value and e in hw._edge2value[t]:
                 v = abs(hw._edge2value[t][e])
-                if options.widthMax != None and v > options.widthMax:
+                if options.widthMax is not None and v > options.widthMax:
                     v = options.widthMax
-                if options.widthMin != None and v < options.widthMin:
+                if options.widthMin is not None and v < options.widthMin:
                     v = options.widthMin
                 if not maxWidthValue or maxWidthValue < v:
                     maxWidthValue = v
                 if not minWidthValue or minWidthValue > v:
                     minWidthValue = v
                 widths[e] = v
-        if options.widthMax != None:
+        if options.widthMax is not None:
             maxWidthValue = options.widthMax
-        if options.widthMin != None:
+        if options.widthMin is not None:
             minWidthValue = options.widthMin
         if options.logWidths:
             helpers.logNormalise(widths, options.colorMax)

@@ -425,11 +425,11 @@ optParser.add_option("--color-map", dest="colormap",
 # axes/legend
 optParser.add_option("--xticks", dest="xticks", type="string", default="",
                      help="defines ticks on x-axis")
-optParser.add_option("--yticks", dest="yticks", type="string",  default="",
+optParser.add_option("--yticks", dest="yticks", type="string", default="",
                      help="defines ticks on y-axis")
-optParser.add_option("--xlim", dest="xlim", type="string",  default="",
+optParser.add_option("--xlim", dest="xlim", type="string", default="",
                      help="defines x-axis range")
-optParser.add_option("--ylim", dest="ylim", type="string",  default="",
+optParser.add_option("--ylim", dest="ylim", type="string", default="",
                      help="defines y-axis range")
 # output
 optParser.add_option("--size", dest="size", type="string", default="",

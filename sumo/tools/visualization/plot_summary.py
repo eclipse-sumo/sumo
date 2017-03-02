@@ -61,7 +61,7 @@ def main(args=None):
     # parse
     options, remaining_args = optParser.parse_args(args=args)
 
-    if options.summary == None:
+    if options.summary is None:
         print("Error: at least one summary file must be given")
         sys.exit(1)
 

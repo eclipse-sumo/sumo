@@ -48,9 +48,9 @@ def toColor(val):
 
 
 def updateMinMax(min, max, value):
-    if min == None or min > value:
+    if min is None or min > value:
         min = value
-    if max == None or max < value:
+    if max is None or max < value:
         max = value
     return (min, max)
 
@@ -101,11 +101,11 @@ optParser.add_option("-C", "--time-coloring", action="store_true", dest="time_co
 # axes/legend
 optParser.add_option("--xticks", dest="xticks", type="string", default="",
                      help="defines ticks on x-axis")
-optParser.add_option("--yticks", dest="yticks", type="string",  default="",
+optParser.add_option("--yticks", dest="yticks", type="string", default="",
                      help="defines ticks on y-axis")
-optParser.add_option("--xlim", dest="xlim", type="string",  default="",
+optParser.add_option("--xlim", dest="xlim", type="string", default="",
                      help="defines x-axis range")
-optParser.add_option("--ylim", dest="ylim", type="string",  default="",
+optParser.add_option("--ylim", dest="ylim", type="string", default="",
                      help="defines y-axis range")
 # parse options
 (options, args) = optParser.parse_args()

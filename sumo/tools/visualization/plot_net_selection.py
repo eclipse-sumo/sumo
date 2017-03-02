@@ -56,10 +56,10 @@ def main(args=None):
     # parse
     options, remaining_args = optParser.parse_args(args=args)
 
-    if options.net == None:
+    if options.net is None:
         print("Error: a network to load must be given.")
         return 1
-    if options.selection == None:
+    if options.selection is None:
         print("Error: a selection to load must be given.")
         return 1
     if options.verbose:

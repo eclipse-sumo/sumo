@@ -54,7 +54,7 @@ def main(args=None):
     # parse
     options, remaining_args = optParser.parse_args(args=args)
 
-    if options.net == None:
+    if options.net is None:
         print("Error: a network to load must be given.")
         return 1
     if options.verbose:
@@ -66,14 +66,14 @@ def main(args=None):
     maxV = None
     for e in net._id2edge:
         v = net._id2edge[e]._speed
-        if minV == None or minV > v:
+        if minV is None or minV > v:
             minV = v
-        if maxV == None or maxV < v:
+        if maxV is None or maxV < v:
             maxV = v
         speeds[e] = v
-    if options.minV != None:
+    if options.minV is not None:
         minV = options.minV
-    if options.maxV != None:
+    if options.maxV is not None:
         maxV = options.maxV
     # if options.logColors:
 #    helpers.logNormalise(colors, maxColorValue)

@@ -44,7 +44,7 @@ def readValues(file, verbose, columns):
     with open(file, 'rb') as f:
         reader = csv.reader(f, delimiter=';')
         for row in reader:
-            if columns == None:
+            if columns is None:
                 columns = range(0, len(row))
             for i in columns:
                 if i not in ret:
@@ -70,13 +70,13 @@ def main(args=None):
     # parse
     options, remaining_args = optParser.parse_args(args=args)
 
-    if options.input == None:
+    if options.input is None:
         print("Error: an input file must be given")
         sys.exit(1)
 
     minV = 0
     maxV = 0
-    if options.columns != None:
+    if options.columns is not None:
         options.columns = [int(i) for i in options.columns.split(",")]
     nums = readValues(options.input, options.verbose, options.columns)
     for f in nums:
@@ -87,7 +87,7 @@ def main(args=None):
     for i in nums:
         v = nums[i]
         ci = i
-        if options.columns != None:
+        if options.columns is not None:
             ci = options.columns.index(i)
         c = helpers.getColor(options, ci, len(nums))
         l = helpers.getLabel(str(i), ci, options)

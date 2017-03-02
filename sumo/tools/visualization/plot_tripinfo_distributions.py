@@ -8,7 +8,7 @@
 
 This script plots measures from the tripinfo output, classified into bins
 matplotlib (http://matplotlib.org/) has to be installed for this purpose
- 
+
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2013-2017 DLR (http://www.dlr.de/) and contributors
@@ -59,7 +59,7 @@ def main(args=None):
     # parse
     options, remaining_args = optParser.parse_args(args=args)
 
-    if options.tripinfos == None:
+    if options.tripinfos is None:
         print("Error: at least one tripinfo file must be given")
         sys.exit(1)
 
@@ -77,7 +77,7 @@ def main(args=None):
         sumolib.output.prune(fv, options.minV, options.maxV)
 
         values[f] = fv
-        if minV == None:
+        if minV is None:
             minV = fv[0]
             maxV = fv[0]
         minV = min(minV, min(fv))
