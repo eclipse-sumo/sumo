@@ -90,12 +90,12 @@ private:
 
     /** @brief Applies driver imperfection (dawdling / sigma)
      * @param[in] vOld The previous speed
-     * @param[in] vSafe The speed with no dawdling
+     * @param[in] speed The speed with no dawdling
      * @return The speed after dawdling
      *
-     * @note: This is the dawdling of Krauss extended by a model for overbraking
+     * @note: This is the dawdling of Krauss extended by a model for overbraking / slow-to-start
      */
-    double dawdle(double prevAccel, double speed) const;
+    double dawdle(double vOld, double speed) const;
 
     /// @brief extension parameter nr1
     double myTmp1;
