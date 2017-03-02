@@ -79,8 +79,9 @@
                     <xsd:enumeration value="yellow"/>
                     <xsd:enumeration value="cyan"/>
                     <xsd:enumeration value="magenta"/>
-                    <xsd:enumeration value="black"/>
+                    <xsd:enumeration value="orange"/>
                     <xsd:enumeration value="white"/>
+                    <xsd:enumeration value="black"/>
                     <xsd:enumeration value="grey"/>
                 </xsd:restriction>
             </xsd:simpleType>
