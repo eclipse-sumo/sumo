@@ -402,6 +402,9 @@
         <!-- Whether lane widths shall be ignored. -->
         <opendrive.ignore-widths value="false" type="BOOL"/>
 
+        <!-- The geometry resolution in m when importing curved geometries as line segments. -->
+        <opendrive.curve-resolution value="2" type="FLOAT"/>
+
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
 

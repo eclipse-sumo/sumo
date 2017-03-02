@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r22796
+SUMO netconvert Version dev-SVN-r23174
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -231,6 +231,9 @@ Processing Options:
                                          to the side instead of centered
   --opendrive.import-all-lanes         Imports all lane types
   --opendrive.ignore-widths            Whether lane widths shall be ignored.
+  --opendrive.curve-resolution FLOAT   The geometry resolution in m when
+                                         importing curved geometries as line
+                                         segments.
   --no-internal-links                  Omits internal links
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                          edges to ensure that all IDs are
