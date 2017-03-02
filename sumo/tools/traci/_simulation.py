@@ -24,28 +24,28 @@ from .storage import Storage
 import struct
 from . import constants as tc
 
-_RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP:                         Storage.readInt,
-                      tc.VAR_LOADED_VEHICLES_NUMBER:            Storage.readInt,
-                      tc.VAR_LOADED_VEHICLES_IDS:               Storage.readStringList,
-                      tc.VAR_DEPARTED_VEHICLES_NUMBER:          Storage.readInt,
-                      tc.VAR_DEPARTED_VEHICLES_IDS:             Storage.readStringList,
-                      tc.VAR_ARRIVED_VEHICLES_NUMBER:           Storage.readInt,
-                      tc.VAR_ARRIVED_VEHICLES_IDS:              Storage.readStringList,
-                      tc.VAR_PARKING_STARTING_VEHICLES_NUMBER:  Storage.readInt,
-                      tc.VAR_PARKING_STARTING_VEHICLES_IDS:     Storage.readStringList,
-                      tc.VAR_PARKING_ENDING_VEHICLES_NUMBER:    Storage.readInt,
-                      tc.VAR_PARKING_ENDING_VEHICLES_IDS:       Storage.readStringList,
-                      tc.VAR_STOP_STARTING_VEHICLES_NUMBER:     Storage.readInt,
-                      tc.VAR_STOP_STARTING_VEHICLES_IDS:        Storage.readStringList,
-                      tc.VAR_STOP_ENDING_VEHICLES_NUMBER:       Storage.readInt,
-                      tc.VAR_STOP_ENDING_VEHICLES_IDS:          Storage.readStringList,
-                      tc.VAR_MIN_EXPECTED_VEHICLES:             Storage.readInt,
-                      tc.VAR_BUS_STOP_WAITING:                  Storage.readInt,
+_RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP: Storage.readInt,
+                      tc.VAR_LOADED_VEHICLES_NUMBER: Storage.readInt,
+                      tc.VAR_LOADED_VEHICLES_IDS: Storage.readStringList,
+                      tc.VAR_DEPARTED_VEHICLES_NUMBER: Storage.readInt,
+                      tc.VAR_DEPARTED_VEHICLES_IDS: Storage.readStringList,
+                      tc.VAR_ARRIVED_VEHICLES_NUMBER: Storage.readInt,
+                      tc.VAR_ARRIVED_VEHICLES_IDS: Storage.readStringList,
+                      tc.VAR_PARKING_STARTING_VEHICLES_NUMBER: Storage.readInt,
+                      tc.VAR_PARKING_STARTING_VEHICLES_IDS: Storage.readStringList,
+                      tc.VAR_PARKING_ENDING_VEHICLES_NUMBER: Storage.readInt,
+                      tc.VAR_PARKING_ENDING_VEHICLES_IDS: Storage.readStringList,
+                      tc.VAR_STOP_STARTING_VEHICLES_NUMBER: Storage.readInt,
+                      tc.VAR_STOP_STARTING_VEHICLES_IDS: Storage.readStringList,
+                      tc.VAR_STOP_ENDING_VEHICLES_NUMBER: Storage.readInt,
+                      tc.VAR_STOP_ENDING_VEHICLES_IDS: Storage.readStringList,
+                      tc.VAR_MIN_EXPECTED_VEHICLES: Storage.readInt,
+                      tc.VAR_BUS_STOP_WAITING: Storage.readInt,
                       tc.VAR_TELEPORT_STARTING_VEHICLES_NUMBER: Storage.readInt,
-                      tc.VAR_TELEPORT_STARTING_VEHICLES_IDS:    Storage.readStringList,
-                      tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER:   Storage.readInt,
-                      tc.VAR_TELEPORT_ENDING_VEHICLES_IDS:      Storage.readStringList,
-                      tc.VAR_DELTA_T:                           Storage.readInt,
+                      tc.VAR_TELEPORT_STARTING_VEHICLES_IDS: Storage.readStringList,
+                      tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER: Storage.readInt,
+                      tc.VAR_TELEPORT_ENDING_VEHICLES_IDS: Storage.readStringList,
+                      tc.VAR_DELTA_T: Storage.readInt,
                       tc.VAR_NET_BOUNDING_BOX: lambda result: (result.read("!dd"), result.read("!dd"))}
 
 
@@ -74,7 +74,7 @@ class SimulationDomain(Domain):
     def getLoadedIDList(self):
         """getLoadedIDList() -> list(string)
 
-        Returns a list of ids of vehicles which were loaded in this time step. 
+        Returns a list of ids of vehicles which were loaded in this time step.
         """
         return self._getUniversal(tc.VAR_LOADED_VEHICLES_IDS)
 
@@ -88,77 +88,77 @@ class SimulationDomain(Domain):
     def getDepartedIDList(self):
         """getDepartedIDList() -> list(string)
 
-        Returns a list of ids of vehicles which departed (were inserted into the road network) in this time step. 
+        Returns a list of ids of vehicles which departed (were inserted into the road network) in this time step.
         """
         return self._getUniversal(tc.VAR_DEPARTED_VEHICLES_IDS)
 
     def getArrivedNumber(self):
         """getArrivedNumber() -> integer
 
-        Returns the number of vehicles which arrived (have reached their destination and are removed from the road network) in this time step. 
+        Returns the number of vehicles which arrived (have reached their destination and are removed from the road network) in this time step.
         """
         return self._getUniversal(tc.VAR_ARRIVED_VEHICLES_NUMBER)
 
     def getArrivedIDList(self):
         """getArrivedIDList() -> list(string)
 
-        Returns a list of ids of vehicles which arrived (have reached their destination and are removed from the road network) in this time step. 
+        Returns a list of ids of vehicles which arrived (have reached their destination and are removed from the road network) in this time step.
         """
         return self._getUniversal(tc.VAR_ARRIVED_VEHICLES_IDS)
 
     def getParkingStartingVehiclesNumber(self):
         """getParkingStartingVehiclesNumber() -> integer
 
-        . 
+        .
         """
         return self._getUniversal(tc.VAR_PARKING_STARTING_VEHICLES_NUMBER)
 
     def getParkingStartingVehiclesIDList(self):
         """getParkingStartingVehiclesIDList() -> list(string)
 
-        . 
+        .
         """
         return self._getUniversal(tc.VAR_PARKING_STARTING_VEHICLES_IDS)
 
     def getParkingEndingVehiclesNumber(self):
         """getParkingEndingVehiclesNumber() -> integer
 
-        . 
+        .
         """
         return self._getUniversal(tc.VAR_PARKING_ENDING_VEHICLES_NUMBER)
 
     def getParkingEndingVehiclesIDList(self):
         """getParkingEndingVehiclesIDList() -> list(string)
 
-        . 
+        .
         """
         return self._getUniversal(tc.VAR_PARKING_ENDING_VEHICLES_IDS)
 
     def getStopStartingVehiclesNumber(self):
         """getStopStartingVehiclesNumber() -> integer
 
-        . 
+        .
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_NUMBER)
 
     def getStopStartingVehiclesIDList(self):
         """getStopStartingVehiclesIDList() -> list(string)
 
-        . 
+        .
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_IDS)
 
     def getStopEndingVehiclesNumber(self):
         """getStopEndingVehiclesNumber() -> integer
 
-        . 
+        .
         """
         return self._getUniversal(tc.VAR_STOP_ENDING_VEHICLES_NUMBER)
 
     def getStopEndingVehiclesIDList(self):
         """getStopEndingVehiclesIDList() -> list(string)
 
-        . 
+        .
         """
         return self._getUniversal(tc.VAR_STOP_ENDING_VEHICLES_IDS)
 
@@ -183,28 +183,28 @@ class SimulationDomain(Domain):
     def getStartingTeleportNumber(self):
         """getStartingTeleportNumber() -> integer
 
-        Returns the number of vehicles which started to teleport in this time step. 
+        Returns the number of vehicles which started to teleport in this time step.
         """
         return self._getUniversal(tc.VAR_TELEPORT_STARTING_VEHICLES_NUMBER)
 
     def getStartingTeleportIDList(self):
         """getStartingTeleportIDList() -> list(string)
 
-        Returns a list of ids of vehicles which started to teleport in this time step. 
+        Returns a list of ids of vehicles which started to teleport in this time step.
         """
         return self._getUniversal(tc.VAR_TELEPORT_STARTING_VEHICLES_IDS)
 
     def getEndingTeleportNumber(self):
         """getEndingTeleportNumber() -> integer
 
-        Returns the number of vehicles which ended to be teleported in this time step. 
+        Returns the number of vehicles which ended to be teleported in this time step.
         """
         return self._getUniversal(tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER)
 
     def getEndingTeleportIDList(self):
         """getEndingTeleportIDList() -> list(string)
 
-        Returns a list of ids of vehicles which ended to be teleported in this time step. 
+        Returns a list of ids of vehicles which ended to be teleported in this time step.
         """
         return self._getUniversal(tc.VAR_TELEPORT_ENDING_VEHICLES_IDS)
 

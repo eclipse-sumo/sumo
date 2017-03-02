@@ -24,7 +24,7 @@ from .storage import Storage
 from . import constants as tc
 
 _RETURN_VALUE_FUNC = {tc.VAR_POSITION: lambda result: result.read("!dd"),
-                      tc.VAR_SHAPE:     Storage.readShape}
+                      tc.VAR_SHAPE: Storage.readShape}
 
 
 class JunctionDomain(Domain):

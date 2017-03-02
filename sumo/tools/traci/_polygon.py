@@ -22,7 +22,7 @@ from .domain import Domain
 from .storage import Storage
 from . import constants as tc
 
-_RETURN_VALUE_FUNC = {tc.VAR_TYPE:  Storage.readString,
+_RETURN_VALUE_FUNC = {tc.VAR_TYPE: Storage.readString,
                       tc.VAR_SHAPE: Storage.readShape,
                       tc.VAR_FILL: lambda result: bool(result.read("!B")[0]),
                       tc.VAR_COLOR: lambda result: result.read("!BBBB")}

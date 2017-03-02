@@ -23,9 +23,9 @@ from .domain import Domain
 from .storage import Storage
 from . import constants as tc
 
-_RETURN_VALUE_FUNC = {tc.VAR_VIEW_ZOOM:     Storage.readDouble,
+_RETURN_VALUE_FUNC = {tc.VAR_VIEW_ZOOM: Storage.readDouble,
                       tc.VAR_VIEW_OFFSET: lambda result: result.read("!dd"),
-                      tc.VAR_VIEW_SCHEMA:   Storage.readString,
+                      tc.VAR_VIEW_SCHEMA: Storage.readString,
                       tc.VAR_VIEW_BOUNDARY: lambda result: (result.read("!dd"), result.read("!dd"))}
 
 
@@ -107,7 +107,7 @@ class GuiDomain(Domain):
         """screenshot(string, string) -> None
 
         Save a screenshot for the given view to the given filename.
-        The fileformat is guessed from the extension, the available 
+        The fileformat is guessed from the extension, the available
         formats differ from platform to platform but should at least
         include ps, svg and pdf, on linux probably gif, png and jpg as well.
         """

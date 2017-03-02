@@ -30,22 +30,22 @@ def _TIME2STEPS(time):
     return int(time * 1000)
 
 
-_RETURN_VALUE_FUNC = {tc.VAR_EDGE_TRAVELTIME:       Storage.readDouble,
-                      tc.VAR_WAITING_TIME:          Storage.readDouble,
-                      tc.VAR_EDGE_EFFORT:           Storage.readDouble,
-                      tc.VAR_CO2EMISSION:           Storage.readDouble,
-                      tc.VAR_COEMISSION:            Storage.readDouble,
-                      tc.VAR_HCEMISSION:            Storage.readDouble,
-                      tc.VAR_PMXEMISSION:           Storage.readDouble,
-                      tc.VAR_NOXEMISSION:           Storage.readDouble,
-                      tc.VAR_FUELCONSUMPTION:       Storage.readDouble,
-                      tc.VAR_NOISEEMISSION:         Storage.readDouble,
+_RETURN_VALUE_FUNC = {tc.VAR_EDGE_TRAVELTIME: Storage.readDouble,
+                      tc.VAR_WAITING_TIME: Storage.readDouble,
+                      tc.VAR_EDGE_EFFORT: Storage.readDouble,
+                      tc.VAR_CO2EMISSION: Storage.readDouble,
+                      tc.VAR_COEMISSION: Storage.readDouble,
+                      tc.VAR_HCEMISSION: Storage.readDouble,
+                      tc.VAR_PMXEMISSION: Storage.readDouble,
+                      tc.VAR_NOXEMISSION: Storage.readDouble,
+                      tc.VAR_FUELCONSUMPTION: Storage.readDouble,
+                      tc.VAR_NOISEEMISSION: Storage.readDouble,
                       tc.VAR_ELECTRICITYCONSUMPTION: Storage.readDouble,
-                      tc.LAST_STEP_MEAN_SPEED:      Storage.readDouble,
-                      tc.LAST_STEP_OCCUPANCY:       Storage.readDouble,
-                      tc.LAST_STEP_LENGTH:          Storage.readDouble,
-                      tc.VAR_CURRENT_TRAVELTIME:    Storage.readDouble,
-                      tc.LAST_STEP_VEHICLE_NUMBER:  Storage.readInt,
+                      tc.LAST_STEP_MEAN_SPEED: Storage.readDouble,
+                      tc.LAST_STEP_OCCUPANCY: Storage.readDouble,
+                      tc.LAST_STEP_LENGTH: Storage.readDouble,
+                      tc.VAR_CURRENT_TRAVELTIME: Storage.readDouble,
+                      tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
                       tc.LAST_STEP_VEHICLE_HALTING_NUMBER: Storage.readInt,
                       tc.LAST_STEP_VEHICLE_ID_LIST: Storage.readStringList,
                       tc.LAST_STEP_PERSON_ID_LIST: Storage.readStringList,
@@ -63,7 +63,7 @@ class EdgeDomain(Domain):
     def getAdaptedTraveltime(self, edgeID, time):
         """getAdaptedTraveltime(string, double) -> double
 
-        Returns the travel time value (in s) used for (re-)routing 
+        Returns the travel time value (in s) used for (re-)routing
         which is valid on the edge at the given time.
         """
         self._connection._beginMessage(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME,
@@ -74,7 +74,7 @@ class EdgeDomain(Domain):
                                              tc.VAR_EDGE_TRAVELTIME, edgeID).readDouble()
 
     def getWaitingTime(self, edgeID):
-        """getWaitingTime() -> double 
+        """getWaitingTime() -> double
         Returns the sum of the waiting time of all vehicles currently on
         that edge (see traci.vehicle.getWaitingTime).
         """
@@ -83,7 +83,7 @@ class EdgeDomain(Domain):
     def getEffort(self, edgeID, time):
         """getEffort(string, double) -> double
 
-        Returns the effort value used for (re-)routing 
+        Returns the effort value used for (re-)routing
         which is valid on the edge at the given time.
         """
         self._connection._beginMessage(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT,

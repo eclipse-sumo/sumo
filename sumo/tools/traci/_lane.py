@@ -52,29 +52,29 @@ def _readLinks(result):
     return links
 
 
-_RETURN_VALUE_FUNC = {tc.VAR_LENGTH:                Storage.readDouble,
-                      tc.VAR_MAXSPEED:              Storage.readDouble,
-                      tc.VAR_WIDTH:                 Storage.readDouble,
-                      tc.LANE_ALLOWED:              Storage.readStringList,
-                      tc.LANE_DISALLOWED:           Storage.readStringList,
+_RETURN_VALUE_FUNC = {tc.VAR_LENGTH: Storage.readDouble,
+                      tc.VAR_MAXSPEED: Storage.readDouble,
+                      tc.VAR_WIDTH: Storage.readDouble,
+                      tc.LANE_ALLOWED: Storage.readStringList,
+                      tc.LANE_DISALLOWED: Storage.readStringList,
                       tc.LANE_LINK_NUMBER: lambda result: result.read("!B")[0],
-                      tc.LANE_LINKS:                _readLinks,
-                      tc.VAR_SHAPE:                 Storage.readShape,
-                      tc.LANE_EDGE_ID:              Storage.readString,
-                      tc.VAR_CO2EMISSION:           Storage.readDouble,
-                      tc.VAR_COEMISSION:            Storage.readDouble,
-                      tc.VAR_HCEMISSION:            Storage.readDouble,
-                      tc.VAR_PMXEMISSION:           Storage.readDouble,
-                      tc.VAR_NOXEMISSION:           Storage.readDouble,
-                      tc.VAR_FUELCONSUMPTION:       Storage.readDouble,
-                      tc.VAR_NOISEEMISSION:         Storage.readDouble,
+                      tc.LANE_LINKS: _readLinks,
+                      tc.VAR_SHAPE: Storage.readShape,
+                      tc.LANE_EDGE_ID: Storage.readString,
+                      tc.VAR_CO2EMISSION: Storage.readDouble,
+                      tc.VAR_COEMISSION: Storage.readDouble,
+                      tc.VAR_HCEMISSION: Storage.readDouble,
+                      tc.VAR_PMXEMISSION: Storage.readDouble,
+                      tc.VAR_NOXEMISSION: Storage.readDouble,
+                      tc.VAR_FUELCONSUMPTION: Storage.readDouble,
+                      tc.VAR_NOISEEMISSION: Storage.readDouble,
                       tc.VAR_ELECTRICITYCONSUMPTION: Storage.readDouble,
-                      tc.LAST_STEP_MEAN_SPEED:      Storage.readDouble,
-                      tc.LAST_STEP_OCCUPANCY:       Storage.readDouble,
-                      tc.LAST_STEP_LENGTH:          Storage.readDouble,
-                      tc.VAR_WAITING_TIME:          Storage.readDouble,
-                      tc.VAR_CURRENT_TRAVELTIME:    Storage.readDouble,
-                      tc.LAST_STEP_VEHICLE_NUMBER:  Storage.readInt,
+                      tc.LAST_STEP_MEAN_SPEED: Storage.readDouble,
+                      tc.LAST_STEP_OCCUPANCY: Storage.readDouble,
+                      tc.LAST_STEP_LENGTH: Storage.readDouble,
+                      tc.VAR_WAITING_TIME: Storage.readDouble,
+                      tc.VAR_CURRENT_TRAVELTIME: Storage.readDouble,
+                      tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
                       tc.LAST_STEP_VEHICLE_HALTING_NUMBER: Storage.readInt,
                       tc.LAST_STEP_VEHICLE_ID_LIST: Storage.readStringList}
 
@@ -134,7 +134,7 @@ class LaneDomain(Domain):
         A list containing id of successor lane together with priority, open and foe
         for each link.
         if extended=True, each result tuple contains
-        (string approachedLane, bool hasPrio, bool isOpen, bool hasFoe, 
+        (string approachedLane, bool hasPrio, bool isOpen, bool hasFoe,
         string approachedInternal, string state, string direction, float length)
         """
         complete_data = self._getUniversal(tc.LANE_LINKS, laneID)

@@ -21,9 +21,9 @@ from .domain import Domain
 from .storage import Storage
 from . import constants as tc
 
-_RETURN_VALUE_FUNC = {tc.LAST_STEP_VEHICLE_NUMBER:         Storage.readInt,
-                      tc.LAST_STEP_MEAN_SPEED:             Storage.readDouble,
-                      tc.LAST_STEP_VEHICLE_ID_LIST:        Storage.readStringList,
+_RETURN_VALUE_FUNC = {tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
+                      tc.LAST_STEP_MEAN_SPEED: Storage.readDouble,
+                      tc.LAST_STEP_VEHICLE_ID_LIST: Storage.readStringList,
                       tc.LAST_STEP_VEHICLE_HALTING_NUMBER: Storage.readInt}
 
 
@@ -45,7 +45,7 @@ class MultiEntryExitDomain(Domain):
     def getLastStepMeanSpeed(self, detID):
         """getLastStepMeanSpeed(string) -> double
 
-        Returns the mean speed in m/s of vehicles that have been within the named multi-entry/multi-exit detector within the last simulation step. 
+        Returns the mean speed in m/s of vehicles that have been within the named multi-entry/multi-exit detector within the last simulation step.
         """
         return self._getUniversal(tc.LAST_STEP_MEAN_SPEED, detID)
 

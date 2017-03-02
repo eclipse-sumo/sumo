@@ -55,7 +55,7 @@ class SubscriptionResults:
         self._results[refID][varID] = self._parse(varID, data)
 
     def get(self, refID=None):
-        if refID == None:
+        if refID is None:
             return self._results
         return self._results.get(refID, None)
 
@@ -64,12 +64,12 @@ class SubscriptionResults:
             self._contextResults[refID] = {}
         if objID not in self._contextResults[refID]:
             self._contextResults[refID][objID] = {}
-        if varID != None and data != None:
+        if varID is not None and data is not None:
             self._contextResults[refID][objID][
                 varID] = domain._parse(varID, data)
 
     def getContext(self, refID=None):
-        if refID == None:
+        if refID is None:
             return self._contextResults
         return self._contextResults.get(refID, None)
 

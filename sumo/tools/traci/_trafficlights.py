@@ -103,14 +103,14 @@ def _readLinks(result):
     return signals
 
 
-_RETURN_VALUE_FUNC = {tc.TL_RED_YELLOW_GREEN_STATE:   Storage.readString,
-                      tc.TL_COMPLETE_DEFINITION_RYG:  _readLogics,
-                      tc.TL_CONTROLLED_LANES:         Storage.readStringList,
-                      tc.TL_CONTROLLED_LINKS:         _readLinks,
-                      tc.TL_CURRENT_PROGRAM:          Storage.readString,
-                      tc.TL_CURRENT_PHASE:            Storage.readInt,
-                      tc.TL_NEXT_SWITCH:              Storage.readInt,
-                      tc.TL_PHASE_DURATION:           Storage.readInt}
+_RETURN_VALUE_FUNC = {tc.TL_RED_YELLOW_GREEN_STATE: Storage.readString,
+                      tc.TL_COMPLETE_DEFINITION_RYG: _readLogics,
+                      tc.TL_CONTROLLED_LANES: Storage.readStringList,
+                      tc.TL_CONTROLLED_LINKS: _readLinks,
+                      tc.TL_CURRENT_PROGRAM: Storage.readString,
+                      tc.TL_CURRENT_PHASE: Storage.readInt,
+                      tc.TL_NEXT_SWITCH: Storage.readInt,
+                      tc.TL_PHASE_DURATION: Storage.readInt}
 
 
 class TrafficLightsDomain(Domain):
@@ -129,7 +129,7 @@ class TrafficLightsDomain(Domain):
         return self._getUniversal(tc.TL_RED_YELLOW_GREEN_STATE, tlsID)
 
     def getCompleteRedYellowGreenDefinition(self, tlsID):
-        """getCompleteRedYellowGreenDefinition(string) -> 
+        """getCompleteRedYellowGreenDefinition(string) ->
 
         .
         """

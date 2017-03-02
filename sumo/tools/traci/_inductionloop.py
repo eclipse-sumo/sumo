@@ -41,15 +41,15 @@ def readVehicleData(result):
         data.append([vehID, length, entryTime, leaveTime, typeID])
     return data
 
-_RETURN_VALUE_FUNC = {tc.VAR_POSITION:                   Storage.readDouble,
-                      tc.VAR_LANE_ID:                    Storage.readString,
-                      tc.LAST_STEP_VEHICLE_NUMBER:       Storage.readInt,
-                      tc.LAST_STEP_MEAN_SPEED:           Storage.readDouble,
-                      tc.LAST_STEP_VEHICLE_ID_LIST:      Storage.readStringList,
-                      tc.LAST_STEP_OCCUPANCY:            Storage.readDouble,
-                      tc.LAST_STEP_LENGTH:               Storage.readDouble,
+_RETURN_VALUE_FUNC = {tc.VAR_POSITION: Storage.readDouble,
+                      tc.VAR_LANE_ID: Storage.readString,
+                      tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
+                      tc.LAST_STEP_MEAN_SPEED: Storage.readDouble,
+                      tc.LAST_STEP_VEHICLE_ID_LIST: Storage.readStringList,
+                      tc.LAST_STEP_OCCUPANCY: Storage.readDouble,
+                      tc.LAST_STEP_LENGTH: Storage.readDouble,
                       tc.LAST_STEP_TIME_SINCE_DETECTION: Storage.readDouble,
-                      tc.LAST_STEP_VEHICLE_DATA:         readVehicleData}
+                      tc.LAST_STEP_VEHICLE_DATA: readVehicleData}
 
 
 class InductionLoopDomain(Domain):

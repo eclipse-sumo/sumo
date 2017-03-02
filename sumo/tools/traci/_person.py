@@ -23,25 +23,25 @@ from .storage import Storage
 from . import constants as tc
 
 
-_RETURN_VALUE_FUNC = {tc.ID_LIST:             Storage.readStringList,
-                      tc.ID_COUNT:            Storage.readInt,
-                      tc.VAR_SPEED:           Storage.readDouble,
+_RETURN_VALUE_FUNC = {tc.ID_LIST: Storage.readStringList,
+                      tc.ID_COUNT: Storage.readInt,
+                      tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_POSITION: lambda result: result.read("!dd"),
-                      tc.VAR_ANGLE:           Storage.readDouble,
-                      tc.VAR_ROAD_ID:         Storage.readString,
-                      tc.VAR_TYPE:            Storage.readString,
-                      tc.VAR_ROUTE_ID:        Storage.readString,
+                      tc.VAR_ANGLE: Storage.readDouble,
+                      tc.VAR_ROAD_ID: Storage.readString,
+                      tc.VAR_TYPE: Storage.readString,
+                      tc.VAR_ROUTE_ID: Storage.readString,
                       tc.VAR_COLOR: lambda result: result.read("!BBBB"),
-                      tc.VAR_LANEPOSITION:    Storage.readDouble,
-                      tc.VAR_LENGTH:          Storage.readDouble,
-                      tc.VAR_WAITING_TIME:    Storage.readDouble,
-                      tc.VAR_WIDTH:           Storage.readDouble,
-                      tc.VAR_MINGAP:          Storage.readDouble,
-                      tc.VAR_NEXT_EDGE:       Storage.readString,
-                      tc.VAR_STAGE:           Storage.readInt,
+                      tc.VAR_LANEPOSITION: Storage.readDouble,
+                      tc.VAR_LENGTH: Storage.readDouble,
+                      tc.VAR_WAITING_TIME: Storage.readDouble,
+                      tc.VAR_WIDTH: Storage.readDouble,
+                      tc.VAR_MINGAP: Storage.readDouble,
+                      tc.VAR_NEXT_EDGE: Storage.readString,
+                      tc.VAR_STAGE: Storage.readInt,
                       tc.VAR_STAGES_REMAINING: Storage.readInt,
-                      tc.VAR_VEHICLE:         Storage.readString,
-                      tc.VAR_EDGES:           Storage.readStringList,
+                      tc.VAR_VEHICLE: Storage.readString,
+                      tc.VAR_EDGES: Storage.readStringList,
                       }
 
 
@@ -78,7 +78,7 @@ class PersonDomain(Domain):
     def getAngle(self, personID):
         """getAngle(string) -> double
 
-        Returns the angle in degrees of the named person within the last step. 
+        Returns the angle in degrees of the named person within the last step.
         """
         return self._getUniversal(tc.VAR_ANGLE, personID)
 
@@ -121,7 +121,7 @@ class PersonDomain(Domain):
         """getWaitingTime() -> double
         The waiting time of a person is defined as the time (in seconds) spent with a
         speed below 0.1m/s since the last time it was faster than 0.1m/s.
-        (basically, the waiting time of a person is reset to 0 every time it moves). 
+        (basically, the waiting time of a person is reset to 0 every time it moves).
         """
         return self._getUniversal(tc.VAR_WAITING_TIME, personID)
 
@@ -198,7 +198,7 @@ class PersonDomain(Domain):
 
     def removeStages(self, personID):
         """remove(string)
-        Removes all stages of the person. If no new phases are appended, 
+        Removes all stages of the person. If no new phases are appended,
         the person will be removed from the simulation in the next simulationStep().
         """
         # remove all stages after the current and then abort the current stage
@@ -357,7 +357,7 @@ class PersonDomain(Domain):
     def setColor(self, personID, color):
         """setColor(string, (integer, integer, integer, integer))
         sets color for person with the given ID.
-        i.e. (255,0,0,0) for the color red. 
+        i.e. (255,0,0,0) for the color red.
         The fourth integer (alpha) is only used when drawing persons with raster images
         """
         self._connection._beginMessage(

@@ -23,20 +23,20 @@ from .storage import Storage
 import struct
 from . import constants as tc
 
-_RETURN_VALUE_FUNC = {tc.VAR_LENGTH:          Storage.readDouble,
-                      tc.VAR_MAXSPEED:        Storage.readDouble,
-                      tc.VAR_SPEED_FACTOR:    Storage.readDouble,
+_RETURN_VALUE_FUNC = {tc.VAR_LENGTH: Storage.readDouble,
+                      tc.VAR_MAXSPEED: Storage.readDouble,
+                      tc.VAR_SPEED_FACTOR: Storage.readDouble,
                       tc.VAR_SPEED_DEVIATION: Storage.readDouble,
-                      tc.VAR_ACCEL:           Storage.readDouble,
-                      tc.VAR_DECEL:           Storage.readDouble,
-                      tc.VAR_IMPERFECTION:    Storage.readDouble,
-                      tc.VAR_TAU:             Storage.readDouble,
-                      tc.VAR_VEHICLECLASS:    Storage.readString,
-                      tc.VAR_EMISSIONCLASS:   Storage.readString,
-                      tc.VAR_SHAPECLASS:      Storage.readString,
-                      tc.VAR_MINGAP:          Storage.readDouble,
-                      tc.VAR_WIDTH:           Storage.readDouble,
-                      tc.VAR_HEIGHT:          Storage.readDouble,
+                      tc.VAR_ACCEL: Storage.readDouble,
+                      tc.VAR_DECEL: Storage.readDouble,
+                      tc.VAR_IMPERFECTION: Storage.readDouble,
+                      tc.VAR_TAU: Storage.readDouble,
+                      tc.VAR_VEHICLECLASS: Storage.readString,
+                      tc.VAR_EMISSIONCLASS: Storage.readString,
+                      tc.VAR_SHAPECLASS: Storage.readString,
+                      tc.VAR_MINGAP: Storage.readDouble,
+                      tc.VAR_WIDTH: Storage.readDouble,
+                      tc.VAR_HEIGHT: Storage.readDouble,
                       tc.VAR_COLOR: lambda result: result.read("!BBBB")}
 
 
@@ -121,7 +121,7 @@ class VehicleTypeDomain(Domain):
     def getShapeClass(self, typeID):
         """getShapeClass(string) -> string
 
-        Returns the shape class of vehicles of this type. 
+        Returns the shape class of vehicles of this type.
         """
         return self._getUniversal(tc.VAR_SHAPECLASS, typeID)
 
@@ -228,7 +228,7 @@ class VehicleTypeDomain(Domain):
     def setShapeClass(self, typeID, clazz):
         """setShapeClass(string, string) -> None
 
-        Sets the shape class of vehicles of this type. 
+        Sets the shape class of vehicles of this type.
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SHAPECLASS, typeID, clazz)

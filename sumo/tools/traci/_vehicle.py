@@ -69,59 +69,59 @@ def _readNextTLS(result):
     return nextTLS
 
 
-_RETURN_VALUE_FUNC = {tc.VAR_SPEED:           Storage.readDouble,
+_RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_SPEED_WITHOUT_TRACI: Storage.readDouble,
                       tc.VAR_POSITION: lambda result: result.read("!dd"),
                       tc.VAR_POSITION3D: lambda result: result.read("!ddd"),
-                      tc.VAR_ANGLE:           Storage.readDouble,
-                      tc.VAR_ROAD_ID:         Storage.readString,
-                      tc.VAR_LANE_ID:         Storage.readString,
-                      tc.VAR_LANE_INDEX:      Storage.readInt,
-                      tc.VAR_TYPE:            Storage.readString,
-                      tc.VAR_ROUTE_ID:        Storage.readString,
-                      tc.VAR_ROUTE_INDEX:     Storage.readInt,
+                      tc.VAR_ANGLE: Storage.readDouble,
+                      tc.VAR_ROAD_ID: Storage.readString,
+                      tc.VAR_LANE_ID: Storage.readString,
+                      tc.VAR_LANE_INDEX: Storage.readInt,
+                      tc.VAR_TYPE: Storage.readString,
+                      tc.VAR_ROUTE_ID: Storage.readString,
+                      tc.VAR_ROUTE_INDEX: Storage.readInt,
                       tc.VAR_COLOR: lambda result: result.read("!BBBB"),
-                      tc.VAR_LANEPOSITION:    Storage.readDouble,
-                      tc.VAR_CO2EMISSION:     Storage.readDouble,
-                      tc.VAR_COEMISSION:      Storage.readDouble,
-                      tc.VAR_HCEMISSION:      Storage.readDouble,
-                      tc.VAR_PMXEMISSION:     Storage.readDouble,
-                      tc.VAR_NOXEMISSION:     Storage.readDouble,
+                      tc.VAR_LANEPOSITION: Storage.readDouble,
+                      tc.VAR_CO2EMISSION: Storage.readDouble,
+                      tc.VAR_COEMISSION: Storage.readDouble,
+                      tc.VAR_HCEMISSION: Storage.readDouble,
+                      tc.VAR_PMXEMISSION: Storage.readDouble,
+                      tc.VAR_NOXEMISSION: Storage.readDouble,
                       tc.VAR_FUELCONSUMPTION: Storage.readDouble,
-                      tc.VAR_NOISEEMISSION:   Storage.readDouble,
+                      tc.VAR_NOISEEMISSION: Storage.readDouble,
                       tc.VAR_ELECTRICITYCONSUMPTION: Storage.readDouble,
-                      tc.VAR_PERSON_NUMBER:   Storage.readInt,
+                      tc.VAR_PERSON_NUMBER: Storage.readInt,
                       tc.VAR_EDGE_TRAVELTIME: Storage.readDouble,
-                      tc.VAR_EDGE_EFFORT:     Storage.readDouble,
+                      tc.VAR_EDGE_EFFORT: Storage.readDouble,
                       tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!B")[0]),
-                      tc.VAR_EDGES:           Storage.readStringList,
-                      tc.VAR_SIGNALS:         Storage.readInt,
-                      tc.VAR_LENGTH:          Storage.readDouble,
-                      tc.VAR_MAXSPEED:        Storage.readDouble,
-                      tc.VAR_ALLOWED_SPEED:   Storage.readDouble,
-                      tc.VAR_VEHICLECLASS:    Storage.readString,
-                      tc.VAR_SPEED_FACTOR:    Storage.readDouble,
+                      tc.VAR_EDGES: Storage.readStringList,
+                      tc.VAR_SIGNALS: Storage.readInt,
+                      tc.VAR_LENGTH: Storage.readDouble,
+                      tc.VAR_MAXSPEED: Storage.readDouble,
+                      tc.VAR_ALLOWED_SPEED: Storage.readDouble,
+                      tc.VAR_VEHICLECLASS: Storage.readString,
+                      tc.VAR_SPEED_FACTOR: Storage.readDouble,
                       tc.VAR_SPEED_DEVIATION: Storage.readDouble,
-                      tc.VAR_EMISSIONCLASS:   Storage.readString,
-                      tc.VAR_WAITING_TIME:    Storage.readDouble,
-                      tc.VAR_SPEEDSETMODE:    Storage.readInt,
-                      tc.VAR_SLOPE:           Storage.readDouble,
-                      tc.VAR_WIDTH:           Storage.readDouble,
-                      tc.VAR_HEIGHT:          Storage.readDouble,
-                      tc.VAR_LINE:            Storage.readString,
-                      tc.VAR_VIA:             Storage.readStringList,
-                      tc.VAR_MINGAP:          Storage.readDouble,
-                      tc.VAR_SHAPECLASS:      Storage.readString,
-                      tc.VAR_ACCEL:           Storage.readDouble,
-                      tc.VAR_DECEL:           Storage.readDouble,
-                      tc.VAR_IMPERFECTION:    Storage.readDouble,
-                      tc.VAR_TAU:             Storage.readDouble,
-                      tc.VAR_BEST_LANES:      _readBestLanes,
-                      tc.VAR_LEADER:          _readLeader,
-                      tc.VAR_NEXT_TLS:        _readNextTLS,
-                      tc.DISTANCE_REQUEST:    Storage.readDouble,
+                      tc.VAR_EMISSIONCLASS: Storage.readString,
+                      tc.VAR_WAITING_TIME: Storage.readDouble,
+                      tc.VAR_SPEEDSETMODE: Storage.readInt,
+                      tc.VAR_SLOPE: Storage.readDouble,
+                      tc.VAR_WIDTH: Storage.readDouble,
+                      tc.VAR_HEIGHT: Storage.readDouble,
+                      tc.VAR_LINE: Storage.readString,
+                      tc.VAR_VIA: Storage.readStringList,
+                      tc.VAR_MINGAP: Storage.readDouble,
+                      tc.VAR_SHAPECLASS: Storage.readString,
+                      tc.VAR_ACCEL: Storage.readDouble,
+                      tc.VAR_DECEL: Storage.readDouble,
+                      tc.VAR_IMPERFECTION: Storage.readDouble,
+                      tc.VAR_TAU: Storage.readDouble,
+                      tc.VAR_BEST_LANES: _readBestLanes,
+                      tc.VAR_LEADER: _readLeader,
+                      tc.VAR_NEXT_TLS: _readNextTLS,
+                      tc.DISTANCE_REQUEST: Storage.readDouble,
                       tc.VAR_STOPSTATE: lambda result: result.read("!B")[0],
-                      tc.VAR_DISTANCE:        Storage.readDouble}
+                      tc.VAR_DISTANCE: Storage.readDouble}
 
 
 class VehicleDomain(Domain):
@@ -183,7 +183,7 @@ class VehicleDomain(Domain):
     def getAngle(self, vehID):
         """getAngle(string) -> double
 
-        Returns the angle in degrees of the named vehicle within the last step. 
+        Returns the angle in degrees of the named vehicle within the last step.
         """
         return self._getUniversal(tc.VAR_ANGLE, vehID)
 
@@ -406,13 +406,13 @@ class VehicleDomain(Domain):
         """getWaitingTime() -> double
         The waiting time of a vehicle is defined as the time (in seconds) spent with a
         speed below 0.1m/s since the last time it was faster than 0.1m/s.
-        (basically, the waiting time of a vehicle is reset to 0 every time it moves). 
+        (basically, the waiting time of a vehicle is reset to 0 every time it moves).
         """
         return self._getUniversal(tc.VAR_WAITING_TIME, vehID)
 
     def getSpeedMode(self, vehID):
         """getSpeedMode -> int
-        The speed mode of a vehicle 
+        The speed mode of a vehicle
         """
         return self._getUniversal(tc.VAR_SPEEDSETMODE, vehID)
 
@@ -493,7 +493,7 @@ class VehicleDomain(Domain):
         return self._getUniversal(tc.VAR_TAU, vehID)
 
     def getBestLanes(self, vehID):
-        """getBestLanes(string) -> 
+        """getBestLanes(string) ->
 
         Information about the wish to use subsequent edges' lanes.
         """
@@ -511,7 +511,7 @@ class VehicleDomain(Domain):
         return _readLeader(self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID))
 
     def getNextTLS(self, vehID):
-        """getNextTLS(string) -> 
+        """getNextTLS(string) ->
 
         Return list of upcoming traffic lights [(tlsID, tlsIndex, distance, state), ...]
         """
@@ -635,7 +635,8 @@ class VehicleDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED, vehID, speed)
 
-    def setStop(self, vehID, edgeID, pos=1., laneIndex=0, duration=2**31 - 1, flags=STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE, until=-1):
+    def setStop(self, vehID, edgeID, pos=1., laneIndex=0, duration=2**31 - 1,
+                flags=STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE, until=-1):
         """setStop(string, string, double, integer, integer, integer, double, integer) -> None
 
         Adds or modifies a stop with the given parameters. The duration and the until attribute are
@@ -683,7 +684,7 @@ class VehicleDomain(Domain):
         """changeLane(string, int, int) -> None
 
         Forces a lane change to the lane with the given index; if successful,
-        the lane will be chosen for the given amount of time (in ms). 
+        the lane will be chosen for the given amount of time (in ms).
         """
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 4)
@@ -695,7 +696,7 @@ class VehicleDomain(Domain):
         """slowDown(string, double, int) -> None
 
         Changes the speed smoothly to the given value over the given amount
-        of time in ms (can also be used to increase speed). 
+        of time in ms (can also be used to increase speed).
         """
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_SLOWDOWN, vehID, 1 + 4 + 1 + 8 + 1 + 4)
@@ -706,7 +707,7 @@ class VehicleDomain(Domain):
     def changeTarget(self, vehID, edgeID):
         """changeTarget(string, string) -> None
 
-        The vehicle's destination edge is set to the given edge id. The route is rebuilt. 
+        The vehicle's destination edge is set to the given edge id. The route is rebuilt.
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGETARGET, vehID, edgeID)
@@ -787,7 +788,7 @@ class VehicleDomain(Domain):
 
         When rerouteTravelTime has been called once with option
         currentTravelTimes=True, all edge weights are set to the current travel
-        times at the time of that call (even for subsequent simulation steps). 
+        times at the time of that call (even for subsequent simulation steps).
         """
         if currentTravelTimes:
             time = self._connection.simulation.getCurrentTime()
@@ -834,7 +835,7 @@ class VehicleDomain(Domain):
     def setColor(self, vehID, color):
         """setColor(string, (integer, integer, integer, integer))
         sets color for vehicle with the given ID.
-        i.e. (255,0,0,0) for the color red. 
+        i.e. (255,0,0,0) for the color red.
         The fourth integer (alpha) is only used when drawing vehicles with raster images
         """
         self._connection._beginMessage(
@@ -1020,7 +1021,7 @@ class VehicleDomain(Domain):
         self._connection._sendExact()
 
     def remove(self, vehID, reason=tc.REMOVE_VAPORIZED):
-        '''Remove vehicle with the given ID for the give reason. 
+        '''Remove vehicle with the given ID for the give reason.
            Reasons are defined in module constants and start with REMOVE_'''
         self._connection._sendByteCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.REMOVE, vehID, reason)
@@ -1053,7 +1054,8 @@ class VehicleDomain(Domain):
         """
         Domain.subscribe(self, objectID, varIDs, begin, end)
 
-    def subscribeContext(self, objectID, domain, dist, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):
+    def subscribeContext(self, objectID, domain, dist, varIDs=(
+            tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):
         """subscribe(string, int, double, list(integer), int, int) -> None
 
         Subscribe to one or more object values of the given domain around the

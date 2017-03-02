@@ -23,9 +23,9 @@ from .domain import Domain
 from .storage import Storage
 from . import constants as tc
 
-_RETURN_VALUE_FUNC = {tc.ID_LIST:      Storage.readStringList,
-                      tc.ID_COUNT:     Storage.readInt,
-                      tc.VAR_TYPE:     Storage.readString,
+_RETURN_VALUE_FUNC = {tc.ID_LIST: Storage.readStringList,
+                      tc.ID_COUNT: Storage.readInt,
+                      tc.VAR_TYPE: Storage.readString,
                       tc.VAR_POSITION: lambda result: result.read("!dd"),
                       tc.VAR_COLOR: lambda result: result.read("!BBBB")}
 
@@ -48,7 +48,7 @@ class PoiDomain(Domain):
     def getPosition(self, poiID):
         """getPosition(string) -> (double, double)
 
-        Returns the position coordinates of the given poi. 
+        Returns the position coordinates of the given poi.
         """
         return self._getUniversal(tc.VAR_POSITION, poiID)
 
@@ -72,7 +72,7 @@ class PoiDomain(Domain):
     def setPosition(self, poiID, x, y):
         """setPosition(string, (double, double)) -> None
 
-        Sets the position coordinates of the poi. 
+        Sets the position coordinates of the poi.
         """
         self._connection._beginMessage(
             tc.CMD_SET_POI_VARIABLE, tc.VAR_POSITION, poiID, 1 + 8 + 8)
