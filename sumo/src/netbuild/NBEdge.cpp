@@ -499,6 +499,16 @@ NBEdge::hasDefaultGeometryEndpoints() const {
 }
 
 
+bool
+NBEdge::hasDefaultGeometryEndpointAtNode(const NBNode* node) const {
+    if (node == myFrom) {
+        return myGeom.front() == node->getPosition();
+    } else {
+        assert(node == myTo);
+        return myGeom.back() == node->getPosition();
+    }
+}
+
 void
 NBEdge::setGeometry(const PositionVector& s, bool inner) {
     Position begin = myGeom.front(); // may differ from node position

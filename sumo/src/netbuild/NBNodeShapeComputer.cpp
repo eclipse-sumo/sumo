@@ -371,9 +371,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     // (may happen with near-parallel edges)
     const double minDistSum = 2 * (100 + radius);
     for (i = newAll.begin(); i != newAll.end(); ++i) {
-        if (distances[*i] < 100 && (*i)->hasDefaultGeometryEndpoints()) {
+        if (distances[*i] < 100 && (*i)->hasDefaultGeometryEndpointAtNode(&myNode)) {
             for (EdgeVector::const_iterator j = newAll.begin(); j != newAll.end(); ++j) {
-                if (distances[*j] > 100 && (*j)->hasDefaultGeometryEndpoints() && distances[*i] + distances[*j] < minDistSum) {
+                if (distances[*j] > 100 && (*j)->hasDefaultGeometryEndpointAtNode(&myNode) && distances[*i] + distances[*j] < minDistSum) {
                     const double angleDiff = fabs(NBHelpers::relAngle((*i)->getAngleAtNode(&myNode), (*j)->getAngleAtNode(&myNode)));
                     if (angleDiff > 160 || angleDiff < 20) {
 #ifdef DEBUG_NODE_SHAPE
