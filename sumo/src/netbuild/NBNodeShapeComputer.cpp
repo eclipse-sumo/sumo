@@ -399,6 +399,10 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         const PositionVector& cwBound = geomsCW[*i];
         //double offset = MIN3(distances[*i], cwBound.length2D() - POSITION_EPS, ccwBound.length2D() - POSITION_EPS);
         double offset = distances[*i];
+        if (!(*i)->hasDefaultGeometryEndpointAtNode(&myNode)) {
+            // for non geometry-endpoints, only shorten but never extend the geometry
+            offset = MAX2(100.0, offset);
+        }
         if (offset == -1) {
             WRITE_WARNING("Fixing offset for edge '" + (*i)->getID() + "' at node '" + myNode.getID() + ".");
             offset = (double) - .1;
