@@ -239,26 +239,6 @@ MSSOTLE2Sensors::subtractPassedVeh(std::string laneId, int passed) {
 }
 
 /*******************************************************************************/
-/* @brief Builds an e2 detector that lies on only one lane
- *
- * @param[in] id The id the detector shall have
- * @param[in] usage Information how the detector is used within the simulation
- * @param[in] lane The lane the detector is placed at
- * @param[in] pos The position on the lane the detector is placed at
- * @param[in] length The length the detector has
- * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
- * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
- * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
- * @todo Check whether this method is really needful
- */
-/*
- Using
- MSE2Collector* buildSingleLaneE2Det(const std::string& id,
- DetectorUsage usage, MSLane* lane, double pos, double length,
- SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
- double jamDistThreshold);
-
- */
 
 void MSSOTLE2Sensors::buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb) {
     buildSensorForLane(lane, nb, INPUT_SENSOR_LENGTH);

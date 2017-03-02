@@ -476,16 +476,6 @@ public:
      */
     std::vector<VehicleInfo*> getCurrentVehicles() const;
 
-
-    /** @brief Returns the vehicles registered at the detector (may still or yet not be on the detector)
-     * @note Whether the corresponding vehicle is on the detector can be tested from VehicleInfo->onDetector,
-     * @see getCurrentVehicleNumber() and getCurrentVehicleIDs() for methods restricted to vehicles on the detector
-     * @return The vehicles that have passed the entry, but not yet an exit point.
-     */
-    const VehicleInfoMap& getVehicleInfos() const{
-        return myVehicleInfos;
-    }
-
     /** \brief Returns the number of vehicles passed over the sensor (i.e. entered the sensor)
      *
      * @return number of cars passed over the sensor
