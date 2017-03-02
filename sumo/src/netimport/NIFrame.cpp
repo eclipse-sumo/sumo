@@ -271,6 +271,8 @@ NIFrame::fillOptions() {
     oc.addDescription("opendrive.import-all-lanes", "Processing", "Imports all lane types");
     oc.doRegister("opendrive.ignore-widths", new Option_Bool(false));
     oc.addDescription("opendrive.ignore-widths", "Processing", "Whether lane widths shall be ignored.");
+    oc.doRegister("opendrive.curve-resolution", new Option_Float(2.0));
+    oc.addDescription("opendrive.curve-resolution", "Processing", "The geometry resolution in m when importing curved geometries as line segments.");
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));

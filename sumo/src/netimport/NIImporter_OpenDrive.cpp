@@ -65,10 +65,6 @@
 // ===========================================================================
 // definitions
 // ===========================================================================
-#define C_LENGTH 10.
-#define POLY_RES 2.
-#define PARAMPOLY3_RES 2.
-#define SPIRAL_RES 1.
 
 // ===========================================================================
 // static variables
@@ -807,6 +803,7 @@ NIImporter_OpenDrive::setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
 void
 NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges) {
     OptionsCont& oc = OptionsCont::getOptions();
+    const double res = oc.getFloat("opendrive.curve-resolution");
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         OpenDriveEdge& e = *(*i).second;
         GeometryType prevType = OPENDRIVE_GT_UNKNOWN;
@@ -820,16 +817,16 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                     geom = geomFromLine(e, g);
                     break;
                 case OPENDRIVE_GT_SPIRAL:
-                    geom = geomFromSpiral(e, g);
+                    geom = geomFromSpiral(e, g, res);
                     break;
                 case OPENDRIVE_GT_ARC:
-                    geom = geomFromArc(e, g);
+                    geom = geomFromArc(e, g, res);
                     break;
                 case OPENDRIVE_GT_POLY3:
-                    geom = geomFromPoly(e, g);
+                    geom = geomFromPoly(e, g, res);
                     break;
                 case OPENDRIVE_GT_PARAMPOLY3:
-                    geom = geomFromParamPoly(e, g);
+                    geom = geomFromParamPoly(e, g, res);
                     break;
                 default:
                     break;
@@ -990,7 +987,7 @@ NIImporter_OpenDrive::geomFromLine(const OpenDriveEdge& e, const OpenDriveGeomet
 
 
 PositionVector
-NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
+NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution) {
     UNUSED_PARAMETER(e);
     PositionVector ret;
     double curveStart = g.params[0];
@@ -999,7 +996,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
     try {
         EulerSpiral s(Point2D<double>(g.x, g.y), g.hdg, curveStart, (curveEnd - curveStart) / g.length, g.length);
         std::vector<Point2D<double> > into;
-        s.computeSpiral(into, SPIRAL_RES);
+        s.computeSpiral(into, resolution);
         for (std::vector<Point2D<double> >::iterator i = into.begin(); i != into.end(); ++i) {
             ret.push_back(Position((*i).getX(), (*i).getY()));
         }
@@ -1012,7 +1009,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
 
 
 PositionVector
-NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
+NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution) {
     UNUSED_PARAMETER(e);
     PositionVector ret;
     double dist = 0.0;
@@ -1031,7 +1028,7 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometr
     double geo_posE = g.s;
     bool end = false;
     do {
-        geo_posE += C_LENGTH;
+        geo_posE += resolution;
         if (geo_posE - g.s > g.length) {
             geo_posE = g.s + g.length;
         }
@@ -1057,12 +1054,12 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometr
 
 
 PositionVector
-NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
+NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution) {
     UNUSED_PARAMETER(e);
     const double s = sin(g.hdg);
     const double c = cos(g.hdg);
     PositionVector ret;
-    for (double off = 0; off < g.length + 2.; off += POLY_RES) {
+    for (double off = 0; off < g.length + 2.; off += resolution) {
         double x = off;
         double y = g.params[0] + g.params[1] * off + g.params[2] * pow(off, 2.) + g.params[3] * pow(off, 3.);
         double xnew = x * c - y * s;
@@ -1074,12 +1071,12 @@ NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeomet
 
 
 PositionVector
-NIImporter_OpenDrive::geomFromParamPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
+NIImporter_OpenDrive::geomFromParamPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution) {
     UNUSED_PARAMETER(e);
     const double s = sin(g.hdg);
     const double c = cos(g.hdg);
     const double pMax = g.params[8];
-    const double pStep = pMax / ceil(g.length / PARAMPOLY3_RES);
+    const double pStep = pMax / ceil(g.length / resolution);
     PositionVector ret;
     for (double p = 0; p <= pMax + pStep; p += pStep) {
         double x = g.params[0] + g.params[1] * p + g.params[2] * pow(p, 2.) + g.params[3] * pow(p, 3.);

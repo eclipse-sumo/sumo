@@ -548,10 +548,10 @@ protected:
 
 
     static PositionVector geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g);
-    static PositionVector geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g);
-    static PositionVector geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g);
-    static PositionVector geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g);
-    static PositionVector geomFromParamPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g);
+    static PositionVector geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution);
+    static PositionVector geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution);
+    static PositionVector geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution);
+    static PositionVector geomFromParamPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution);
     static Position calculateStraightEndPoint(double hdg, double length, const Position& start);
     static void calculateCurveCenter(double* ad_x, double* ad_y, double ad_radius, double ad_hdg);
     static void calcPointOnCurve(double* ad_x, double* ad_y, double ad_centerX, double ad_centerY,
