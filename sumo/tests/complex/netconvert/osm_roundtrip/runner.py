@@ -39,7 +39,7 @@ import texttestlib.default.fpdiff
 
 osm_input = 'osm.xml'
 net_output = 'from_osm'
-net_output2 = 'reloaded'
+net_output2 = 'net'
 
 netconvert = checkBinary('netconvert')
 assert(netconvert)
