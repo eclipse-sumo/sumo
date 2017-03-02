@@ -47,6 +47,9 @@ class NLDetectorBuilder;
  * @class MSDelayBasedTrafficLightLogic
  * @brief An actuated traffic light logic based on time delay of approaching vehicles
  * @todo Validate against the original algorithm's details.
+ * @note The current phase is not prolonged if the passing time of the next approaching vehicle
+ * is larger than the remaining greentime (in contrast to the original algorithm)
+ * @note The maximal green time can be exceeded if no vehicles are present on other approaches;
  */
 class MSDelayBasedTrafficLightLogic : public MSSimpleTrafficLightLogic {
 public:
@@ -99,7 +102,6 @@ protected:
     /// @name "actuated" algorithm methods
     /// @{
 
-
     /**
      * @brief Checks for approaching vehicles on the lanes associated with green signals
      *        and returns the minimal time to keep the green phase going.
@@ -112,19 +114,12 @@ protected:
     /**
      * @brief The returned, proposed prolongation for the green phase is oriented on the
      *        largest estimated passing time among the vehicles with waiting time.
+     * @param actDuration Duration of the current phase
+     * @param maxDuration Maximal duration of the current phase
+     * @param[in/out] othersEmpty Whether there are vehicles on another approach, which is not part of a green signal group for the current phase
      * @return The proposed prolongation time for the current phase
      */
-    SUMOTime proposeProlongation();
-
-    /**
-     * @brief Calculates the points lie at distance dist upstream (measured from the lane's end).
-     *        Note that this uses the distance along the road network, not the Euclidean distance.
-     *        If the lane has no predecessors, the cross section is placed at its beginning.
-     * @param[in] dist The upstream distance for the cross sections to be determined.
-     * @param[in/out] res Container to store the cross sections.
-     */
-    void determineEntriesAndExits(double range, CrossSectionVector& entries, CrossSectionVector& exits) const;
-
+    SUMOTime proposeProlongation(double actDuration, double maxDuration, bool& othersEmpty);
 
 protected:
     /// A map from lanes to the corresponding lane detectors
