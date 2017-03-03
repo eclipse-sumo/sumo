@@ -1323,13 +1323,14 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildSpeedChanges(const NBTypeCont& 
 // ---------------------------------------------------------------------------
 int
 NIImporter_OpenDrive::OpenDriveEdge::getPriority(OpenDriveXMLTag dir) const {
+    // for signal interpretations see https://de.wikipedia.org/wiki/Bildtafel_der_Verkehrszeichen_in_der_Bundesrepublik_Deutschland_seit_2013
     int prio = 1;
     for (std::vector<OpenDriveSignal>::const_iterator i = signals.begin(); i != signals.end(); ++i) {
         int tmp = 1;
-        if ((*i).type == "301" || (*i).type == "306") {
+        if ((*i).type == "301" || (*i).type == "306") { // priority road or local priority
             tmp = 2;
         }
-        if ((*i).type == "205") {
+        if ((*i).type == "205" /*|| (*i).type == "206"*/) { // yield or stop
             tmp = 0;
         }
         if (tmp != 1 && dir == OPENDRIVE_TAG_RIGHT && (*i).orientation > 0) {
