@@ -413,7 +413,7 @@ def selectChild(comboboxAdditional, numTabs, childNumber):
 # delete
 #################################################
 
-# Change to delete  mode
+# Change to delete mode
 def deleteMode():
     type("d")
 
@@ -427,3 +427,91 @@ def waitAutomaticallyDeleteAdditionalsWarning():
     wait(0.5)
     # press enter to close dialog
     type(Key.ENTER)
+
+#################################################
+# select mode
+#################################################
+
+# Change to select mode
+def selectMode():
+    type("s")	
+	
+# netedit selection reference
+def getSelectReference(match):
+    return match.getTarget().offset(-120, 270)
+		
+# select items
+def selectItems(selectType, elementClass, elementType, attribute, value):
+    click(selectType)
+    # select all
+    type("a", Key.CTRL)
+    # paste the new elementClass
+    paste(elementClass)
+    # type two times enter to set elementClass
+    for x in range(0, 2):
+        type(Key.ENTER)
+	
+	# jump to element
+    for x in range(0, 2):
+        type(Key.TAB)
+	# select all
+    type("a", Key.CTRL)
+    # paste the new elementType
+    paste(elementType)
+    # type enter to set elementType
+    type(Key.ENTER)
+	
+	# jump to attribute
+    for x in range(0, 2):
+        type(Key.TAB)
+	# select all
+    type("a", Key.CTRL)
+    # paste the new attribute
+    paste(attribute)
+    # type enter to set attribute
+    type(Key.ENTER)
+	
+	# jump to value
+    for x in range(0, 2):
+        type(Key.TAB)
+	# select all
+    type("a", Key.CTRL)
+    # paste the new value
+    paste(value)
+    # type enter to set value and select items
+    type(Key.ENTER)
+
+# delete selected items
+def deleteSelectedItems():
+	type(Key.DELETE)
+	
+# set modification mode "add"
+def modificationModeAdd(match):
+    click(match.getTarget().offset(-225, 150))
+	
+# set modification mode "remove"
+def modificationModeRemove(match):
+    click(match.getTarget().offset(-225, 150))
+	# jump to value
+    for x in range(0, 1):
+        type(Key.TAB)
+	# change value
+    type(Key.SPACE)
+	
+# set modification mode "keep"
+def modificationModeKeep(match):
+    click(match.getTarget().offset(-225, 150))
+	# jump to value
+    for x in range(0, 2):
+        type(Key.TAB)
+	# change value
+    type(Key.SPACE)
+	
+# set modification mode "replace"
+def modificationModeReplace(match):
+    click(match.getTarget().offset(-225, 150))
+	# jump to value
+    for x in range(0, 3):
+        type(Key.TAB)
+	# change value
+    type(Key.SPACE)
