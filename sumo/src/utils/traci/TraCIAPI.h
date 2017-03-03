@@ -98,6 +98,7 @@ public:
             TraCIColor color;
         };
         std::string string;
+        std::vector<std::string> stringList;
     };
 
     class TraCIPhase {
@@ -588,11 +589,11 @@ public:
         void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
         void subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const;
 
-        SubscribedValues getSubscriptionResults();
-        TraCIValues getSubscriptionResults(const std::string& objID);
+        const SubscribedValues& getSubscriptionResults() const;
+        const TraCIValues& getSubscriptionResults(const std::string& objID) const;
 
-        SubscribedContextValues getContextSubscriptionResults();
-        SubscribedValues getContextSubscriptionResults(const std::string& objID);
+        const SubscribedContextValues& getContextSubscriptionResults() const;
+        const SubscribedValues& getContextSubscriptionResults(const std::string& objID) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -723,6 +724,7 @@ public:
         std::vector<std::string> getIDList() const;
         int getIDCount() const;
         double getSpeed(const std::string& vehicleID) const;
+        double getMaxSpeed(const std::string& vehicleID) const;
         TraCIPosition getPosition(const std::string& vehicleID) const;
         double getAngle(const std::string& vehicleID) const;
         std::string getRoadID(const std::string& vehicleID) const;
@@ -763,7 +765,6 @@ public:
         int getBestLanes(const std::string& vehicleID) const;
         int getStopState(const std::string& vehicleID) const;
         double getLength(const std::string& vehicleID) const;
-        double getMaxSpeed(const std::string& vehicleID) const;
         double getAccel(const std::string& vehicleID) const;
         double getDecel(const std::string& vehicleID) const;
         double getTau(const std::string& vehicleID) const;
@@ -795,6 +796,7 @@ public:
         void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) const;
         void slowDown(const std::string& vehicleID, double speed, int duration) const;
         void setSpeed(const std::string& vehicleID, double speed) const;
+        void setMaxSpeed(const std::string& vehicleID, double speed) const;
         void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED) const;
         void setColor(const std::string& vehicleID, const TraCIColor& c) const;
         void setLine(const std::string& vehicleID, const std::string& line) const;

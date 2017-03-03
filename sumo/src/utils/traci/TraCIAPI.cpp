@@ -498,6 +498,12 @@ TraCIAPI::readVariables(tcpip::Storage& inMsg, const std::string& objectID, int 
                 case TYPE_INTEGER:
                     v.scalar = inMsg.readInt();
                     break;
+                case TYPE_STRINGLIST: {
+                    int n = inMsg.readInt();
+                    for (int i = 0; i < n; ++i) {
+                        v.stringList.push_back(inMsg.readString());
+                    }}
+                    break;
 
                 // TODO Other data types
 
@@ -1413,8 +1419,10 @@ TraCIAPI::SimulationScope::subscribe(int domID, const std::string& objID, SUMOTi
     myParent.send_commandSubscribeObjectVariable(domID, objID, beginTime, endTime, vars);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, domID);
-    myParent.check_commandGetResult(inMsg, domID);
-    myParent.readVariableSubscription(inMsg);
+    if (vars.size() > 0) {
+        myParent.check_commandGetResult(inMsg, domID);
+        myParent.readVariableSubscription(inMsg);
+    }
 }
 
 void
@@ -1427,14 +1435,14 @@ TraCIAPI::SimulationScope::subscribeContext(int domID, const std::string& objID,
     myParent.readContextSubscription(inMsg);
 }
 
-TraCIAPI::SubscribedValues
-TraCIAPI::SimulationScope::getSubscriptionResults() {
+const TraCIAPI::SubscribedValues&
+TraCIAPI::SimulationScope::getSubscriptionResults() const {
     return myParent.mySubscribedValues;
 }
 
 
-TraCIAPI::TraCIValues
-TraCIAPI::SimulationScope::getSubscriptionResults(const std::string& objID) {
+const TraCIAPI::TraCIValues&
+TraCIAPI::SimulationScope::getSubscriptionResults(const std::string& objID) const {
     if (myParent.mySubscribedValues.find(objID) != myParent.mySubscribedValues.end()) {
         return myParent.mySubscribedValues[objID];
     } else {
@@ -1443,14 +1451,14 @@ TraCIAPI::SimulationScope::getSubscriptionResults(const std::string& objID) {
 }
 
 
-TraCIAPI::SubscribedContextValues
-TraCIAPI::SimulationScope::getContextSubscriptionResults() {
+const TraCIAPI::SubscribedContextValues&
+TraCIAPI::SimulationScope::getContextSubscriptionResults() const {
     return myParent.mySubscribedContextValues;
 }
 
 
-TraCIAPI::SubscribedValues
-TraCIAPI::SimulationScope::getContextSubscriptionResults(const std::string& objID) {
+const TraCIAPI::SubscribedValues&
+TraCIAPI::SimulationScope::getContextSubscriptionResults(const std::string& objID) const {
     if (myParent.mySubscribedContextValues.find(objID) != myParent.mySubscribedContextValues.end()) {
         return myParent.mySubscribedContextValues[objID];
     } else {
@@ -1895,6 +1903,11 @@ TraCIAPI::VehicleScope::getSpeed(const std::string& vehicleID) const {
     return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_SPEED, vehicleID);
 }
 
+double
+TraCIAPI::VehicleScope::getMaxSpeed(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_MAXSPEED, vehicleID);
+}
+
 TraCIAPI::TraCIPosition
 TraCIAPI::VehicleScope::getPosition(const std::string& vehicleID) const {
     return myParent.getPosition(CMD_GET_VEHICLE_VARIABLE, VAR_POSITION, vehicleID);
@@ -2173,6 +2186,16 @@ TraCIAPI::VehicleScope::setSpeed(const std::string& vehicleID, double speed) con
     content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(speed);
     myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_SPEED, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
+void
+TraCIAPI::VehicleScope::setMaxSpeed(const std::string& vehicleID, double speed) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(speed);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_MAXSPEED, vehicleID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
