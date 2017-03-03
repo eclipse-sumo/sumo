@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:08 2017 by SUMO netgenerate Version dev-SVN-r23047
+<!-- generated on Fri Mar  3 09:24:45 2017 by SUMO netgenerate Version dev-SVN-r23174
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -244,7 +244,7 @@
         <lane id="1935_0" index="0" speed="13.90" length="239.62" shape="688.19,637.77 457.68,610.86"/>
     </edge>
     <edge id="1941" from="1772" to="1940" priority="-1">
-        <lane id="1941_0" index="0" speed="13.90" length="132.54" shape="807.36,1059.40 719.09,1150.87"/>
+        <lane id="1941_0" index="0" speed="13.90" length="132.54" shape="807.39,1059.37 719.09,1150.87"/>
     </edge>
     <edge id="1942" from="1782" to="1796" priority="-1">
         <lane id="1942_0" index="0" speed="13.90" length="187.51" shape="1181.49,443.38 1011.71,381.75"/>
@@ -1042,7 +1042,7 @@
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="1772" type="priority" x="807.22" y="1057.16" incLanes="1798_0 1773_0" intLanes="" shape="813.57,1055.35 811.30,1053.10 810.12,1052.68 806.93,1052.94 806.21,1058.29 808.51,1060.51">
+    <junction id="1772" type="priority" x="807.22" y="1057.16" incLanes="1798_0 1773_0" intLanes="" shape="813.57,1055.35 811.30,1053.10 810.12,1052.68 806.93,1052.94 806.23,1058.26 808.54,1060.48">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>

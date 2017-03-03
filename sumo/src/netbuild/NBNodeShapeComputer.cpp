@@ -311,7 +311,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                         //}
                         if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
                             // do nothing. 
-                        } else if (farAngleDist < DEG2RAD(135) || (farAngleDist < DEG2RAD(179) && fabs(a2 - a1) < 10)) {
+                        } else if (farAngleDist < DEG2RAD(135) || (fabs(RAD2DEG(farAngleDist) - 180) > 1 && fabs(a2 - a1) < 10)) {
                             distances[*i] = MAX2(a1, a2);
                         }
 #ifdef DEBUG_NODE_SHAPE
