@@ -932,6 +932,8 @@ GNEViewNet::hotkeyDel() {
         myUndoList->p_begin("delete selection");
         deleteSelectedJunctions();
         deleteSelectedEdges();
+        deleteSelectedAdditionals();
+        /// @todo impelent deleteSelectedCrossings, deleteSelectdConnections
         myUndoList->p_end();
     }
 }
@@ -1921,6 +1923,17 @@ GNEViewNet::deleteSelectedEdges() {
         for (std::vector<GNELane*>::iterator it = lanes.begin(); it != lanes.end(); it++) {
             myNet->deleteLane(*it, myUndoList);
         }
+    }
+    myUndoList->p_end();
+}
+
+
+void
+GNEViewNet::deleteSelectedAdditionals() {
+    myUndoList->p_begin("delete selected " + toString(SUMO_TAG_VIEWSETTINGS_ADDITIONALS));
+    std::vector<GNEAdditional*> additionals = myNet->retrieveAdditionals(true);
+    for (std::vector<GNEAdditional*>::iterator it = additionals.begin(); it != additionals.end(); it++) {
+        getViewParent()->getAdditionalFrame()->removeAdditional(*it);
     }
     myUndoList->p_end();
 }

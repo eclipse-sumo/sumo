@@ -1260,6 +1260,18 @@ GNENet::retrieveAdditional(const std::string& id, bool hardFail) const {
 }
 
 
+std::vector<GNEAdditional*> 
+GNENet::retrieveAdditionals(bool onlySelected) {
+    std::vector<GNEAdditional*> result;
+    for (GNEAdditionals::const_iterator it = myAdditionals.begin(); it != myAdditionals.end(); ++it) {
+        if (!onlySelected || gSelected.isSelected(GLO_ADDITIONAL, it->second->getGlID())) {
+            result.push_back(it->second);
+        }
+    }
+    return result;
+}
+
+
 GNEAdditional*
 GNENet::getAdditional(SumoXMLTag type, const std::string& id) const {
     if (myAdditionals.empty()) {

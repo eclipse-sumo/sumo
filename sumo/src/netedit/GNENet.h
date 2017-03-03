@@ -456,6 +456,11 @@ public:
      */
     GNEAdditional* retrieveAdditional(const std::string& idl, bool hardFail = true) const;
 
+    /**@brief return all additionals
+     * @param[in] onlySelected Whether to return only selected additionals
+     * */
+    std::vector<GNEAdditional*> retrieveAdditionals(bool onlySelected = false);
+
     /**@brief Returns the named additional
      * @param[in] type tag with the type of additional
      * @param[in] id The id of the additional to return.
