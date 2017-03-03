@@ -707,6 +707,8 @@ TraCITestClient::testAPI() {
     answerLog << "    getSlope: " << vehicle.getSlope("0") << "\n";
     answerLog << "    getLine: " << vehicle.getLine("0") << "\n";
     answerLog << "    getVia: " << joinToString(vehicle.getVia("0"), ",") << "\n";
+    vehicle.setMaxSpeed("0", 30);
+    answerLog << "    getMaxSpeed: " << vehicle.getMaxSpeed("0") << "\n";
     TraCIColor col1;
     col1.r = 255;
     col1.g = 255;
