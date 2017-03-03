@@ -64,15 +64,16 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNESelectorFrame) GNESelectorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,   GNESelectorFrame::onCmdSubset),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,       GNESelectorFrame::onCmdLoad),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,       GNESelectorFrame::onCmdSave),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,     GNESelectorFrame::onCmdInvert),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,      GNESelectorFrame::onCmdClear),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELMB_TAG,      GNESelectorFrame::onCmdSelMBTag),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELMB_STRING,   GNESelectorFrame::onCmdSelMBString),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNESelectorFrame::onCmdHelp),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT_SCALE,   GNESelectorFrame::onCmdScaleSelection)
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,       GNESelectorFrame::onCmdSubset),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,           GNESelectorFrame::onCmdLoad),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,           GNESelectorFrame::onCmdSave),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,         GNESelectorFrame::onCmdInvert),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,          GNESelectorFrame::onCmdClear),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELMB_TAG,          GNESelectorFrame::onCmdSelMBTag),
+    FXMAPFUNC(SEL_COMMAND,  MID_GME_SELMB_ATTRIBUTE,    GNESelectorFrame::onCmdSelMBAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELMB_STRING,       GNESelectorFrame::onCmdSelMBString),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                   GNESelectorFrame::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT_SCALE,       GNESelectorFrame::onCmdScaleSelection)
 };
 
 // Object implementation
@@ -85,7 +86,10 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     GNEFrame(horizontalFrameParent, viewNet, getStats().c_str()),
     mySetOperation(SET_ADD),
     mySetOperationTarget(mySetOperation),
-    ALL_VCLASS_NAMES_MATCH_STRING("all " + joinToString(SumoVehicleClassStrings.getStrings(), " ")) {
+    ALL_VCLASS_NAMES_MATCH_STRING("all " + joinToString(SumoVehicleClassStrings.getStrings(), " ")),
+    myCurrentTag(SUMO_TAG_NOTHING),
+    myCurrentAttribute(SUMO_ATTR_NOTHING)
+    {
     // selection modification mode
     FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame);
     // Create all options buttons
@@ -109,15 +113,13 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // Create MatchTagBox for tags
     myMatchTagComboBox = new FXComboBox(matchBox, GUIDesignComboBoxNCol, this, MID_GNE_SELMB_TAG, GUIDesignComboBox);
     // Create listBox for Attributes
-    myMatchAttrComboBox = new FXComboBox(matchBox, GUIDesignComboBoxNCol, NULL, 0, GUIDesignComboBox);
-    // Set netElements as default tag
-    mySetComboBox->setCurrentItem(0);
+    myMatchAttrComboBox = new FXComboBox(matchBox, GUIDesignComboBoxNCol, this, MID_GME_SELMB_ATTRIBUTE, GUIDesignComboBox);
+    // Create TextField for Match string
+    myMatchString = new FXTextField(matchBox, GUIDesignTextFieldNCol, this, MID_GNE_SELMB_STRING, GUIDesignTextField);
     // Fill list of sub-items
     onCmdSubset(0, 0, 0);
     // Set speed as default attribute
     myMatchAttrComboBox->setCurrentItem(3);
-    // Create TextField for Match string
-    myMatchString = new FXTextField(matchBox, GUIDesignTextFieldNCol, this, MID_GNE_SELMB_STRING, GUIDesignTextField);
     // Set default value for Match string
     myMatchString->setText(">10.0");
     // Create help button
@@ -155,19 +157,31 @@ GNESelectorFrame::~GNESelectorFrame() {
 
 long
 GNESelectorFrame::onCmdSubset(FXObject*, FXSelector, void*) {
-    // Clear items of myMatchTagComboBox
-    myMatchTagComboBox->clearItems();
-    // Set items depending of current items
-    const bool netElements = mySetComboBox->getCurrentItem() == 0;
-    const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags(netElements);
-    for (std::vector<SumoXMLTag>::const_iterator it = tags.begin(); it != tags.end(); it++) {
-        myMatchTagComboBox->appendItem(toString(*it).c_str());
+    if((mySetComboBox->getText() == "Net Element") || (mySetComboBox->getText() == "Additional")) {
+        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+        myMatchTagComboBox->enable();
+        myMatchAttrComboBox->enable();
+        myMatchString->enable();
+        // Clear items of myMatchTagComboBox
+        myMatchTagComboBox->clearItems();
+        // Set items depending of current items
+        const bool netElements = mySetComboBox->getText() == "Net Element";
+        const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags(netElements);
+        for (std::vector<SumoXMLTag>::const_iterator it = tags.begin(); it != tags.end(); it++) {
+            myMatchTagComboBox->appendItem(toString(*it).c_str());
+        }
+        myMatchTagComboBox->setCurrentItem(0); // edges
+        myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
+        // Fill attributes with the current element type
+        onCmdSelMBTag(0, 0, 0);
+        return 1;
+    } else {
+        mySetComboBox->setTextColor(FXRGB(255, 0, 0));
+        myMatchTagComboBox->disable();
+        myMatchAttrComboBox->disable();
+        myMatchString->disable();
+        return 1;
     }
-    myMatchTagComboBox->setCurrentItem(0); // edges
-    myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
-    // Fill attributes with the current element type
-    onCmdSelMBTag(0, 0, 0);
-    return 1;
 }
 
 
@@ -246,36 +260,66 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
-    const bool netElements = mySetComboBox->getCurrentItem() == 0;
+    const bool netElements = mySetComboBox->getText() == "Net Element";
+    myCurrentTag = SUMO_TAG_NOTHING;
     const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags(netElements);
-    SumoXMLTag tag = tags[myMatchTagComboBox->getCurrentItem()];
-    myMatchAttrComboBox->clearItems();
-    const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = GNEAttributeCarrier::allowedAttributes(tag);
-    for (std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator it = attrs.begin(); it != attrs.end(); it++) {
-        myMatchAttrComboBox->appendItem(toString(it->first).c_str());
+    for(std::vector<SumoXMLTag>::const_iterator i = tags.begin(); (i != tags.end()) && (myCurrentTag == SUMO_TAG_NOTHING); i++) {
+        if(toString(*i) == myMatchTagComboBox->getText().text()) {
+            myCurrentTag = *i;
+        }
     }
-
-    // @ToDo: Here can be placed a butto to set the default value
-    myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
+    // check that typed by user value is correct
+    if(myCurrentTag != SUMO_TAG_NOTHING) {
+        // set color and enable items
+        myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
+        myMatchAttrComboBox->enable();
+        myMatchString->enable();
+        myMatchAttrComboBox->clearItems();
+        const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
+        for (std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator it = attrs.begin(); it != attrs.end(); it++) {
+            myMatchAttrComboBox->appendItem(toString(it->first).c_str());
+        }
+        // @ToDo: Here can be placed a butto to set the default value
+        myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
+    } else {
+        // change color to red and disable items
+        myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
+        myMatchAttrComboBox->disable();
+        myMatchString->disable();
+    }
     update();
     return 1;
 }
 
 
 long
+GNESelectorFrame::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
+    const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
+    myCurrentAttribute = SUMO_ATTR_NOTHING;
+    for(std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator i = attrs.begin(); (i != attrs.end()) && (myCurrentAttribute == SUMO_ATTR_NOTHING); i++) {
+        if(toString(i->first) == myMatchAttrComboBox->getText().text()) {
+            myCurrentAttribute = i->first;
+        }
+    }
+    if(myCurrentAttribute != SUMO_ATTR_NOTHING) {
+        myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));
+        myMatchString->enable();
+    } else {
+        myMatchAttrComboBox->setTextColor(FXRGB(255, 0, 0));
+        myMatchString->disable();
+    }
+    return 1;
+}
+
+
+long
 GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
-    const bool netElements = mySetComboBox->getCurrentItem() == 0;
-    const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags(netElements);
-    SumoXMLTag tag = tags[myMatchTagComboBox->getCurrentItem()];
-    const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = GNEAttributeCarrier::allowedAttributes(tag);
-    SumoXMLAttr attr = attrs.at(myMatchAttrComboBox->getCurrentItem()).first;
     std::string expr(myMatchString->getText().text());
     bool valid = true;
-
     if (expr == "") {
         // the empty expression matches all objects
-        handleIDs(getMatches(tag, attr, '@', 0, expr), false);
-    } else if (GNEAttributeCarrier::isNumerical(tag, attr)) {
+        handleIDs(getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr), false);
+    } else if (GNEAttributeCarrier::isNumerical(myCurrentTag, myCurrentAttribute)) {
         // The expression must have the form
         //  <val matches if attr < val
         //  >val matches if attr > val
@@ -288,7 +332,7 @@ GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
             compOp = '=';
         }
         try {
-            handleIDs(getMatches(tag, attr, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr), false);
+            handleIDs(getMatches(myCurrentTag, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr), false);
         } catch (EmptyData&) {
             valid = false;
         } catch (NumberFormatException&) {
@@ -307,7 +351,7 @@ GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
         } else {
             compOp = '@';
         }
-        handleIDs(getMatches(tag, attr, compOp, 0, expr), false);
+        handleIDs(getMatches(myCurrentTag, myCurrentAttribute, compOp, 0, expr), false);
     }
     if (valid) {
         myMatchString->setTextColor(FXRGB(0, 0, 0));
@@ -315,7 +359,6 @@ GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
     } else {
         myMatchString->setTextColor(FXRGB(255, 0, 0));
     }
-
     return 1;
 }
 

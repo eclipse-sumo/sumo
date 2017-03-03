@@ -100,6 +100,10 @@ public:
     /// @note updates the attr listbox and repaints itself
     long onCmdSelMBTag(FXObject*, FXSelector, void*);
 
+    /// @brief Called when the user selectes a tag in the match box
+    /// @note updates the attr listbox and repaints itself
+    long onCmdSelMBAttribute(FXObject*, FXSelector, void*);
+
     /// @brief Called when the user enters a new selection expression
     /// @note validates expression and modifies current selection
     long onCmdSelMBString(FXObject*, FXSelector, void*);
@@ -144,6 +148,12 @@ private:
 
     /// @brief selection scaling
     FXRealSpinDial* mySelectionScaling;
+
+    /// @brief current SumoXMLTag tag
+    SumoXMLTag myCurrentTag;
+
+    /// @brief current SumoXMLTag Attribute
+    SumoXMLAttr myCurrentAttribute;
 
 private:
     /// @brief get stats

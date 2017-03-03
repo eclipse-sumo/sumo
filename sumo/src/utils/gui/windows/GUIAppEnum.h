@@ -453,6 +453,7 @@ enum {
 
     /// @brief selector match box messages
     MID_GNE_SELMB_TAG,
+    MID_GME_SELMB_ATTRIBUTE,
     MID_GNE_SELMB_STRING,
 
     /// @brief additional match box messages
