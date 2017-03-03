@@ -173,20 +173,20 @@ def saveAdditionals():
 
 # Change to delete  mode
 def createEdgeMode():
-	type("e")
+    type("e")
 
 # Cancel current created edge (used in chain mode)
 def cancelEdge():
-	type(Key.ESC)
+    type(Key.ESC)
 
 # Change chain option
 def changeChainOption(match):
-	click(match.getTarget().offset(350, -50))
+    click(match.getTarget().offset(350, -50))
 
 # Change two-way mode
 def changeTwoWayOption(match):
-	click(match.getTarget().offset(400, -50))
-	
+    click(match.getTarget().offset(400, -50))
+    
 #################################################
 # Inspect mode
 #################################################
@@ -221,7 +221,7 @@ def modifyBoolAttribute(parametersReference, attributeNumber):
     # change value
     type(Key.SPACE)
 
-	
+    
 #################################################
 # Move mode
 #################################################
@@ -434,12 +434,12 @@ def waitAutomaticallyDeleteAdditionalsWarning():
 
 # Change to select mode
 def selectMode():
-    type("s")	
-	
+    type("s")    
+    
 # netedit selection reference
 def getSelectReference(match):
     return match.getTarget().offset(-120, 270)
-		
+        
 # select items
 def selectItems(selectType, elementClass, elementType, attribute, value):
     click(selectType)
@@ -450,31 +450,31 @@ def selectItems(selectType, elementClass, elementType, attribute, value):
     # type two times enter to set elementClass
     for x in range(0, 2):
         type(Key.ENTER)
-	
-	# jump to element
+    
+    # jump to element
     for x in range(0, 2):
         type(Key.TAB)
-	# select all
+    # select all
     type("a", Key.CTRL)
     # paste the new elementType
     paste(elementType)
     # type enter to set elementType
     type(Key.ENTER)
-	
-	# jump to attribute
+    
+    # jump to attribute
     for x in range(0, 2):
         type(Key.TAB)
-	# select all
+    # select all
     type("a", Key.CTRL)
     # paste the new attribute
     paste(attribute)
     # type enter to set attribute
     type(Key.ENTER)
-	
-	# jump to value
+    
+    # jump to value
     for x in range(0, 2):
         type(Key.TAB)
-	# select all
+    # select all
     type("a", Key.CTRL)
     # paste the new value
     paste(value)
@@ -483,35 +483,35 @@ def selectItems(selectType, elementClass, elementType, attribute, value):
 
 # delete selected items
 def deleteSelectedItems():
-	type(Key.DELETE)
-	
+    type(Key.DELETE)
+    
 # set modification mode "add"
 def modificationModeAdd(match):
     click(match.getTarget().offset(-225, 150))
-	
+    
 # set modification mode "remove"
 def modificationModeRemove(match):
     click(match.getTarget().offset(-225, 150))
-	# jump to value
+    # jump to value
     for x in range(0, 1):
         type(Key.TAB)
-	# change value
+    # change value
     type(Key.SPACE)
-	
+    
 # set modification mode "keep"
 def modificationModeKeep(match):
     click(match.getTarget().offset(-225, 150))
-	# jump to value
+    # jump to value
     for x in range(0, 2):
         type(Key.TAB)
-	# change value
+    # change value
     type(Key.SPACE)
-	
+    
 # set modification mode "replace"
 def modificationModeReplace(match):
     click(match.getTarget().offset(-225, 150))
-	# jump to value
+    # jump to value
     for x in range(0, 3):
         type(Key.TAB)
-	# change value
+    # change value
     type(Key.SPACE)
