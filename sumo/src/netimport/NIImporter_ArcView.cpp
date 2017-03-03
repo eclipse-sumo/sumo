@@ -202,7 +202,7 @@ NIImporter_ArcView::load() {
                 speed = myTypeCont.getSpeed("");
             } else {
                 OGRFeature::DestroyFeature(poFeature);
-                WRITE_ERROR("The description seems to be invalid. Please recheck usage of types.");
+                WRITE_ERROR("Required field 'nolanes' or 'speed' is missing (add fields or set option --shapefile.use-defaults-on-failure).");
                 return;
             }
         }
@@ -214,8 +214,11 @@ NIImporter_ArcView::load() {
         // read in the geometry
         OGRGeometry* poGeometry = poFeature->GetGeometryRef();
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
-        assert(gtype == wkbLineString);
-        UNUSED_PARAMETER(gtype); // ony used for assertion
+        if (gtype != wkbLineString) {
+            OGRFeature::DestroyFeature(poFeature);
+            WRITE_ERROR("Road geometry must be of type 'linestring'.");
+            return;
+        }
         OGRLineString* cgeom = (OGRLineString*) poGeometry;
         if (poCT != 0) {
             // try transform to wgs84
