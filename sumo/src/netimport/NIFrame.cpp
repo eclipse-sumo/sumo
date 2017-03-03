@@ -273,6 +273,8 @@ NIFrame::fillOptions() {
     oc.addDescription("opendrive.ignore-widths", "Processing", "Whether lane widths shall be ignored.");
     oc.doRegister("opendrive.curve-resolution", new Option_Float(2.0));
     oc.addDescription("opendrive.curve-resolution", "Processing", "The geometry resolution in m when importing curved geometries as line segments.");
+    oc.doRegister("opendrive.advance-stopline", new Option_Float(12.0));
+    oc.addDescription("opendrive.advance-stopline", "Processing", "Allow stop lines to be built beyond the start of the junction if the geometries allow so");
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));

@@ -259,7 +259,7 @@ public:
     void sortByIncreasingXY();
 
     /// @brief extrapolate position vector
-    void extrapolate(const double val, const bool onlyFirst = false);
+    void extrapolate(const double val, const bool onlyFirst = false, const bool onlyLast = false);
 
     /// @brief extrapolate position vector in two dimensions (Z is ignored)
     void extrapolate2D(const double val, const bool onlyFirst = false);

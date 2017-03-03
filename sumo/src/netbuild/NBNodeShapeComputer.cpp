@@ -142,12 +142,21 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         return PositionVector();
     }
     // magic values
+    const OptionsCont& oc = OptionsCont::getOptions();
     const bool defaultRadius = myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS;
-    const double radius = (defaultRadius ? OptionsCont::getOptions().getFloat("default.junctions.radius") : myNode.getRadius());
-    const int cornerDetail = OptionsCont::getOptions().getInt("junctions.corner-detail");
-    const double sCurveStretch = OptionsCont::getOptions().getFloat("junctions.scurve-stretch");
-    const bool rectangularCut = OptionsCont::getOptions().getBool("rectangular-lane-cut");
-    const bool openDriveOutput = OptionsCont::getOptions().isSet("opendrive-output");
+    const double radius = (defaultRadius ? oc.getFloat("default.junctions.radius") : myNode.getRadius());
+    const int cornerDetail = oc.getInt("junctions.corner-detail");
+    const double sCurveStretch = oc.getFloat("junctions.scurve-stretch");
+    const bool rectangularCut = oc.getBool("rectangular-lane-cut");
+    const bool openDriveOutput = oc.isSet("opendrive-output");
+
+    // Extend geometries to move the stop line forward. 
+    // In OpenDrive the junction starts whenever the geometry changes. Stop
+    // line information is not given or ambiguous (sign positions at most)
+    // In SUMO, stop lines are where the junction starts. This is computed
+    // heuristically from intersecting the junctions roads geometries.
+    const double advanceStopLine = oc.exists("opendrive-files") && oc.isSet("opendrive-files") ? oc.getFloat("opendrive.advance-stopline") : 0;
+
 
 #ifdef DEBUG_NODE_SHAPE
     if (DEBUGCOND) {
@@ -401,7 +410,17 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         double offset = distances[*i];
         if (!(*i)->hasDefaultGeometryEndpointAtNode(&myNode)) {
             // for non geometry-endpoints, only shorten but never extend the geometry
-            offset = MAX2(100.0, offset);
+            if (advanceStopLine > 0 && offset < 100) {
+#ifdef DEBUG_NODE_SHAPE
+                std::cout << " i=" << (*i)->getID() << " offset=" << offset << " advanceStopLine=" << advanceStopLine << "\n";
+#endif
+                // fixate extended geometry for repeated computation
+                (*i)->extendGeometryAtNode(&myNode, advanceStopLine);
+                for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
+                    (*k)->extendGeometryAtNode(&myNode, advanceStopLine);
+                }
+            }
+            offset = MAX2(100.0 - advanceStopLine, offset);
         }
         if (offset == -1) {
             WRITE_WARNING("Fixing offset for edge '" + (*i)->getID() + "' at node '" + myNode.getID() + ".");

@@ -635,6 +635,9 @@ public:
      */
     void addGeometryPoint(int index, const Position& p);
 
+    /// @brief linearly extend the geometry at the given node
+    void extendGeometryAtNode(const NBNode* node, double maxExtent);
+
     /// @brief shift geometry at the given node to avoid overlap
     void shiftPositionAtNode(NBNode* node, NBEdge* opposite);
 

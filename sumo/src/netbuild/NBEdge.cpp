@@ -501,6 +501,7 @@ NBEdge::hasDefaultGeometryEndpoints() const {
 
 bool
 NBEdge::hasDefaultGeometryEndpointAtNode(const NBNode* node) const {
+    // do not extend past the node position
     if (node == myFrom) {
         return myGeom.front() == node->getPosition();
     } else {
@@ -521,6 +522,30 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
     computeLaneShapes();
     computeAngle();
 }
+
+
+void 
+NBEdge::extendGeometryAtNode(const NBNode* node, double maxExtent) {
+    //std::cout << "extendGeometryAtNode edge=" << getID() << " node=" << node->getID() << " nodePos=" << node->getPosition() << " extent=" << maxExtent << " geom=" << myGeom;
+    if (node == myFrom) {
+        myGeom.extrapolate(maxExtent, true);
+        double offset = myGeom.nearest_offset_to_point2D(node->getPosition());
+        //std::cout << " geom2=" << myGeom << " offset=" << offset;
+        if (offset != GeomHelper::INVALID_OFFSET) {
+            myGeom = myGeom.getSubpart2D(offset, myGeom.length2D());
+        }
+    } else {
+        assert(node == myTo);
+        myGeom.extrapolate(maxExtent, false, true);
+        double offset = myGeom.nearest_offset_to_point2D(node->getPosition());
+        //std::cout << " geom2=" << myGeom << " offset=" << offset;
+        if (offset != GeomHelper::INVALID_OFFSET) {
+            myGeom = myGeom.getSubpart2D(0, offset);
+        }
+    }
+    //std::cout << " geom3=" << myGeom << "\n";
+}
+
 
 void
 NBEdge::setNodeBorder(const NBNode* node, const Position& p, const Position& p2, bool rectangularCut) {
