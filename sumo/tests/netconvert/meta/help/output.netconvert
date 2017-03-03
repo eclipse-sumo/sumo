@@ -234,6 +234,9 @@ Processing Options:
   --opendrive.curve-resolution FLOAT   The geometry resolution in m when
                                          importing curved geometries as line
                                          segments.
+  --opendrive.advance-stopline FLOAT   Allow stop lines to be built beyond the
+                                         start of the junction if the geometries
+                                         allow so
   --no-internal-links                  Omits internal links
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                          edges to ensure that all IDs are
