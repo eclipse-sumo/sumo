@@ -5,10 +5,10 @@
     <e2Detector id="3i_l0" lane="3i_0" pos="-500" length="500" freq="60" file="results/e2_output.xml" friendlyPos="true"/>
     <e2Detector id="4i_l0" lane="4i_0" pos="-500" length="500" freq="60" file="results/e2_output.xml" friendlyPos="true"/>
     
-    <e2Detector id="1i_tl0_l0" lane="1i_0" tl="0" pos="-500" length="500" freq="60" file="results/e2_tl0_output.xml" friendlyPos="true"/>
-    <e2Detector id="2i_tl0_l0" lane="2i_0" tl="0" pos="-500" length="500" freq="60" file="results/e2_tl0_output.xml" friendlyPos="true"/>
-    <e2Detector id="3i_tl0_l0" lane="3i_0" tl="0" pos="-500" length="500" freq="60" file="results/e2_tl0_output.xml" friendlyPos="true"/>
-    <e2Detector id="4i_tl0_l0" lane="4i_0" tl="0" pos="-500" length="500" freq="60" file="results/e2_tl0_output.xml" friendlyPos="true"/>
+    <e2Detector id="1i_tl0_l0" lane="1i_0" tl="0" pos="-500" length="500" file="results/e2_tl0_output.xml" friendlyPos="true"/>
+    <e2Detector id="2i_tl0_l0" lane="2i_0" tl="0" pos="-500" length="500" file="results/e2_tl0_output.xml" friendlyPos="true"/>
+    <e2Detector id="3i_tl0_l0" lane="3i_0" tl="0" pos="-500" length="500" file="results/e2_tl0_output.xml" friendlyPos="true"/>
+    <e2Detector id="4i_tl0_l0" lane="4i_0" tl="0" pos="-500" length="500" file="results/e2_tl0_output.xml" friendlyPos="true"/>
     
     <edgeData id="edges" freq="3600" file="results/edgeData_3600.xml"/>
     <laneData id="lanes" freq="3600" file="results/laneData_3600.xml"/>
