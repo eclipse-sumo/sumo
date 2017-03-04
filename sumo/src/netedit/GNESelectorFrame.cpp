@@ -88,8 +88,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     mySetOperationTarget(mySetOperation),
     ALL_VCLASS_NAMES_MATCH_STRING("all " + joinToString(SumoVehicleClassStrings.getStrings(), " ")),
     myCurrentTag(SUMO_TAG_NOTHING),
-    myCurrentAttribute(SUMO_ATTR_NOTHING)
-    {
+    myCurrentAttribute(SUMO_ATTR_NOTHING) {
     // selection modification mode
     FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame);
     // Create all options buttons
@@ -118,8 +117,10 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myMatchString = new FXTextField(matchBox, GUIDesignTextFieldNCol, this, MID_GNE_SELMB_STRING, GUIDesignTextField);
     // Fill list of sub-items
     onCmdSubset(0, 0, 0);
-    // Set speed as default attribute
+    // Set speed of edge as default attribute
+    myCurrentTag = SUMO_TAG_EDGE;
     myMatchAttrComboBox->setCurrentItem(3);
+    myCurrentAttribute = SUMO_ATTR_SPEED;
     // Set default value for Match string
     myMatchString->setText(">10.0");
     // Create help button
