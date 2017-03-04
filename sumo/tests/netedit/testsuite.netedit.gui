@@ -10,5 +10,8 @@ routeElements
 # tests for additional elements (Busstops, charging stations, etc.)
 additionalElements
 
+# test for select elements 
+selection
+
 # bugs
 bugs
