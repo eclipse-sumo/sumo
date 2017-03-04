@@ -11,9 +11,6 @@ inspect
 # load additional
 load
 
-# select additional
-select
-
 # move additional
 move
 
