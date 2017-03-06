@@ -5,7 +5,7 @@
 @date    2016-11-25
 @version $Id$
 
-Simply writing of sikulix test scripts for netedit
+Simplify writing of sikulix test scripts for netedit
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2009-2017 DLR/TS, Germany
