@@ -37,14 +37,13 @@
 
 
 MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType *vtype, std::string trainType) : MSCFModel(vtype, -1, -1, -1) {
-
     if (trainType.compare("RB425") == 0) {
         myTrainParams = initRB425Params();
     } else if (trainType.compare("RB628") == 0) {
         myTrainParams = initRB628Params();
     } else if (trainType.compare("NGT400") == 0) {
         myTrainParams = initNGT400Params();
-    }else if (trainType.compare("NGT400_16") == 0) {
+    } else if (trainType.compare("NGT400_16") == 0) {
         myTrainParams = initNGT400_16Params();
     } else if (trainType.compare("ICE1") == 0) {
         myTrainParams = initICE1Params();
@@ -58,20 +57,16 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType *vtype, std::string trainType
         WRITE_ERROR("Unknown train type: " + trainType + ". Exiting!");
         throw ProcessError();
     }
-
     setMaxDecel(myTrainParams.decl);
-
-
 }
 
 MSCFModel_Rail::~MSCFModel_Rail() {
-
 }
 
 
 
-double MSCFModel_Rail::followSpeed(const MSVehicle *const veh, double speed, double gap2pred, double predSpeed,
-                                     double predMaxDecel) const {
+double MSCFModel_Rail::followSpeed(const MSVehicle* const /* veh */, double /* speed */, double /* gap2pred */,
+                                   double /* predSpeed */, double /* predMaxDecel */) const {
 //TODO: impossible to answer unless the pred vehicle is known [Gregor Feb '17]
     return 0;
 }
@@ -84,7 +79,7 @@ int MSCFModel_Rail::getModelID() const {
 }
 
 MSCFModel*
-MSCFModel_Rail::duplicate(const MSVehicleType *vtype) const {
+MSCFModel_Rail::duplicate(const MSVehicleType* /* vtype */) const {
     /// XXX Fixme
     throw ProcessError("not yet implemented");
 }
@@ -185,7 +180,7 @@ double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const Loo
 //
 //}
 
-double MSCFModel_Rail::getSpeedAfterMaxDecel(double speed) const {
+double MSCFModel_Rail::getSpeedAfterMaxDecel(double /* speed */) const {
 
 //    //TODO neither vehicle nor train is known here, so spd aftr mx decl cannot be calculated! [Gregor Feb '17]
 //    double gr = 0; //trainParams.weight * 9.81 * edge.grade
@@ -234,8 +229,8 @@ double MSCFModel_Rail::moveHelper(MSVehicle *const veh, double vPos) const {
     return vNext;
 }
 
-double MSCFModel_Rail::freeSpeed(const MSVehicle *const veh, double speed, double dist, double targetSpeed,
-                                   const bool onInsertion) const {
+double MSCFModel_Rail::freeSpeed(const MSVehicle *const /* veh */, double /* speed */, double dist, double targetSpeed,
+                                 const bool onInsertion) const {
 
 //    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
 //    if (vars->isNotYetInitialized()) {
@@ -266,6 +261,6 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle *const veh, double speed, doubl
     }
 }
 
-double MSCFModel_Rail::stopSpeed(const MSVehicle *const veh, const double speed, double gap) const {
+double MSCFModel_Rail::stopSpeed(const MSVehicle* const /* veh */, const double /* speed */, double /* gap */) const {
     return 0;
 }

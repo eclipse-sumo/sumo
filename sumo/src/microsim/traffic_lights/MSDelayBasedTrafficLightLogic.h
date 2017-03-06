@@ -119,7 +119,7 @@ protected:
      * @param[in/out] othersEmpty Whether there are vehicles on another approach, which is not part of a green signal group for the current phase
      * @return The proposed prolongation time for the current phase
      */
-    SUMOTime proposeProlongation(double actDuration, double maxDuration, bool& othersEmpty);
+    SUMOTime proposeProlongation(const SUMOTime actDuration, const SUMOTime maxDuration, bool& othersEmpty);
 
 protected:
     /// A map from lanes to the corresponding lane detectors

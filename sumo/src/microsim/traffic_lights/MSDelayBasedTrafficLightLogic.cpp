@@ -102,11 +102,11 @@ MSDelayBasedTrafficLightLogic::~MSDelayBasedTrafficLightLogic() { }
 
 
 SUMOTime
-MSDelayBasedTrafficLightLogic::proposeProlongation(double actDuration, double maxDuration, bool& othersEmpty) {
+MSDelayBasedTrafficLightLogic::proposeProlongation(const SUMOTime actDuration, const SUMOTime maxDuration, bool& othersEmpty) {
 #ifdef DEBUG_TIMELOSS_CONTROL
     std::cout << "\n" << SIMTIME << " MSDelayBasedTrafficLightLogic::proposeProlongation() for TLS '" << this->getID() << "' (current phase = " << myStep << ")" << std::endl;
 #endif
-    double prolongationTime = 0.;
+    SUMOTime prolongation = 0;
     const std::string& state = getCurrentPhaseDef().getState();
     // iterate over green lanes, eventually increase the proposed prolongationTime to the estimated passing time for each lane.
     for (int i = 0; i < (int) state.size(); i++)  {
@@ -132,10 +132,10 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(double actDuration, double ma
                     for (std::vector<MSE2Collector::VehicleInfo*>::const_iterator ivp = vehInfos.begin(); ivp != vehInfos.end(); ++ivp){
                         MSE2Collector::VehicleInfo* iv = *ivp;
                         if (iv->accumulatedTimeLoss > myTimeLossThreshold && iv->distToDetectorEnd > 0) {
-                            double estimatedTimeToJunction = (iv->distToDetectorEnd)/(*j)->getSpeedLimit();
+                            const SUMOTime estimatedTimeToJunction = TIME2STEPS((iv->distToDetectorEnd) / (*j)->getSpeedLimit());
                             if (actDuration + estimatedTimeToJunction  <= maxDuration){
                                 // only prolong if vehicle has a chance to pass until max duration is reached
-                                prolongationTime = MAX2(prolongationTime, estimatedTimeToJunction);
+                                prolongation = MAX2(prolongation, estimatedTimeToJunction);
                             }
 #ifdef DEBUG_TIMELOSS_CONTROL
                             nrVehs++;
@@ -160,7 +160,7 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(double actDuration, double ma
                             std::cout << "Actual duration exceeds maxDuration and a vehicle is on concurrent approach: " << nrVehs << std::endl;
 #endif
                             // don't prolong
-                            return 0.;
+                            return 0;
                         }
                         break;
                     }
@@ -171,9 +171,9 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(double actDuration, double ma
         }
     }
 #ifdef DEBUG_TIMELOSS_CONTROL
-    std::cout << "Proposed prolongation (maximal estimated passing time): " << prolongationTime << std::endl; // debug
+    std::cout << "Proposed prolongation (maximal estimated passing time): " << prolongation << std::endl; // debug
 #endif
-    return TIME2STEPS(prolongationTime);
+    return prolongation;
 };
 
 
