@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 23 13:57:57 2017 by SUMO netconvert Version dev-SVN-r22674
+<!-- generated on 03/06/17 12:58:01 by SUMO netconvert Version dev-SVN-r22880
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="input_net.nod.xml"/>
-        <edge-files value="input_net.edg.xml"/>
+        <node-files value=".\netedit\selection\select_setoperators\input_net.nod.xml"/>
+        <edge-files value=".\netedit\selection\select_setoperators\input_net.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value=".\netedit\selection\select_setoperators\input_net.net.xml"/>
     </output>
 
     <processing>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
     </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
