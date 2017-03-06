@@ -145,17 +145,18 @@ MSE2Collector::MSE2Collector(const std::string& id,
     addDetectorToLanes(lanes);
 }
 
+
 MSE2Collector::MSE2Collector(const std::string& id,
         DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
         SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
         const std::string& vTypes, bool /*showDetector*/) :
     MSMoveReminder(id, lanes[lanes.size()-1], false), // assure that lanes.size() > 0 at caller side!!!
     MSDetectorFileOutput(id, vTypes),
+    myUsage(usage),
     myFirstLane(lanes[0]),
     myLastLane(lanes[lanes.size()-1]),
     myStartPos(startPos),
     myEndPos(endPos),
-    myUsage(usage),
     myJamHaltingSpeedThreshold(haltingSpeedThreshold),
     myJamHaltingTimeThreshold(haltingTimeThreshold),
     myJamDistanceThreshold(jamDistThreshold)
@@ -193,6 +194,7 @@ MSE2Collector::MSE2Collector(const std::string& id,
     checkPositioning();
     addDetectorToLanes(lanes);
 }
+
 
 void
 MSE2Collector::checkPositioning(bool posGiven, double desiredLength){
@@ -253,6 +255,7 @@ MSE2Collector::snap(double value, double snapPoint, double snapDist){
     }
 }
 
+
 void
 MSE2Collector::recalculateDetectorLength() {
     std::vector<std::string>::const_iterator i;
@@ -298,9 +301,7 @@ MSE2Collector::~MSE2Collector() {
         delete j->second;
     }
     myVehicleInfos.clear();
-};
-
-
+}
 
 
 std::vector<MSLane*>
