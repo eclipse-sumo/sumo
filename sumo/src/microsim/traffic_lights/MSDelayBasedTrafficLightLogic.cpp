@@ -174,8 +174,7 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(const SUMOTime actDuration, c
     std::cout << "Proposed prolongation (maximal estimated passing time): " << prolongation << std::endl; // debug
 #endif
     return prolongation;
-};
-
+}
 
 
 SUMOTime

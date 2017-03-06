@@ -170,6 +170,8 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
     myPermissions(permissions),
     myOriginalPermissions(permissions),
     myLogicalPredecessorLane(0),
+    myCanonicalPredecessorLane(0),
+    myCanonicalSuccessorLane(0),
     myBruttoVehicleLengthSum(0), myNettoVehicleLengthSum(0),
     myLeaderInfo(this, 0, 0),
     myFollowerInfo(this, 0, 0),
@@ -179,9 +181,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
     myLengthGeometryFactor(MAX2(POSITION_EPS, myShape.length()) / myLength), // factor should not be 0
     myIsRampAccel(isRampAccel),
     myRightSideOnEdge(0), // initialized in MSEdge::initialize
-    myRightmostSublane(0),
-    myCanonicalPredecessorLane(0),
-    myCanonicalSuccessorLane(0)
+    myRightmostSublane(0)
 { // initialized in MSEdge::initialize
         initRestrictions();// may be reloaded again from initialized in MSEdge::closeBuilding
 }
