@@ -6,3 +6,6 @@ wrong_parameters
 
 # select differents busstops
 selectadditional_basic
+
+# check set operators clear and invert
+select_setoperators
