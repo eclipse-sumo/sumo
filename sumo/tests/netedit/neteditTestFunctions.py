@@ -515,3 +515,13 @@ def modificationModeReplace(match):
         type(Key.TAB)
     # change value
     type(Key.SPACE)
+
+def selectionRectangle(match, startX, startY, endX, endY):
+	keyDown(Key.SHIFT)
+	# change mouse move delay
+	Settings.MoveMouseDelay = 0.5
+	# move element
+	dragDrop(match.getTarget().offset(startX, startY), match.getTarget().offset(endX, endY))
+	# set back mouse move delay
+	Settings.MoveMouseDelay = 0.1
+	keyUp(Key.SHIFT)
