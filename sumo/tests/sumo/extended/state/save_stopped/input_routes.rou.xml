@@ -9,6 +9,7 @@
         <stop lane="middle_0" duration="20" endPos="60" parking="false"/>
         <!-- this stop is yet to come when saving state -->
         <stop lane="middle_0" duration="20" endPos="150" parking="false"/>
+        <stop busStop="busstop" duration="20" parking="true"/>
     </vehicle>
 
 </routes>
