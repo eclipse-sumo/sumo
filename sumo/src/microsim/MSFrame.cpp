@@ -445,7 +445,7 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("link-output", "link-output");
     OutputDevice::createDeviceByOption("bt-output", "bt-output");
     OutputDevice::createDeviceByOption("lanechange-output", "lanechanges");
-    OutputDevice::createDeviceByOption("stop-output", "stops");
+    OutputDevice::createDeviceByOption("stop-output", "stops", "stopinfo_file.xsd");
 
 #ifdef _DEBUG
     OutputDevice::createDeviceByOption("movereminder-output", "movereminder-output");
