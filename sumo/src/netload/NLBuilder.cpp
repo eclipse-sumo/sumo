@@ -132,24 +132,10 @@ NLBuilder::build() {
         throw ProcessError("Network contains explicit neigh lanes which do not work together with option --lanechange.duration.");
     }
     buildNet();
-    // load the previous state if wished
-    if (myOptions.isSet("load-state")) {
-        long before = SysUtils::getCurrentMillis();
-        const std::string& f = myOptions.getString("load-state");
-        PROGRESS_BEGIN_MESSAGE("Loading state from '" + f + "'");
-        MSStateHandler h(f, string2time(OptionsCont::getOptions().getString("load-state.offset")));
-        XMLSubSys::runParser(h, f);
-        if (myOptions.isDefault("begin")) {
-            myOptions.set("begin", time2string(h.getTime()));
-        }
-        if (MsgHandler::getErrorInstance()->wasInformed()) {
-            return false;
-        }
-        if (h.getTime() != string2time(myOptions.getString("begin"))) {
-            WRITE_WARNING("State was written at a different time " + time2string(h.getTime()) + " than the begin time " + myOptions.getString("begin") + "!");
-        }
-        PROGRESS_TIME_MESSAGE(before);
-    }
+    // @note on loading order constraints:
+    // - additional-files before route-files and state-files due to referencing
+    // - weight-files before additional-files since the latter might contain trips which depend on the weights
+
     // load weights if wished
     if (myOptions.isSet("weight-files")) {
         if (!myOptions.isUsableFileList("weight-files")) {
@@ -182,12 +168,6 @@ NLBuilder::build() {
             }
         }
     }
-    // load routes
-    if (myOptions.isSet("route-files") && string2time(myOptions.getString("route-steps")) <= 0) {
-        if (!load("route-files")) {
-            return false;
-        }
-    }
     // load additional net elements (sources, detectors, ...)
     if (myOptions.isSet("additional-files")) {
         if (!load("additional-files")) {
@@ -200,6 +180,30 @@ NLBuilder::build() {
         }
         if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
             myNet.getEdgeControl().setAdditionalRestrictions();
+        }
+    }
+    // load the previous state if wished
+    if (myOptions.isSet("load-state")) {
+        long before = SysUtils::getCurrentMillis();
+        const std::string& f = myOptions.getString("load-state");
+        PROGRESS_BEGIN_MESSAGE("Loading state from '" + f + "'");
+        MSStateHandler h(f, string2time(OptionsCont::getOptions().getString("load-state.offset")));
+        XMLSubSys::runParser(h, f);
+        if (myOptions.isDefault("begin")) {
+            myOptions.set("begin", time2string(h.getTime()));
+        }
+        if (MsgHandler::getErrorInstance()->wasInformed()) {
+            return false;
+        }
+        if (h.getTime() != string2time(myOptions.getString("begin"))) {
+            WRITE_WARNING("State was written at a different time " + time2string(h.getTime()) + " than the begin time " + myOptions.getString("begin") + "!");
+        }
+        PROGRESS_TIME_MESSAGE(before);
+    }
+    // load routes
+    if (myOptions.isSet("route-files") && string2time(myOptions.getString("route-steps")) <= 0) {
+        if (!load("route-files")) {
+            return false;
         }
     }
     // optionally switch off traffic lights
