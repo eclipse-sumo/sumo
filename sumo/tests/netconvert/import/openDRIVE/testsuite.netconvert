@@ -18,6 +18,9 @@ C8C_roundtrip_nointernal
 # a round-trip test with no widths import
 Crossing8Course_no_widths
 
+# example networks from VIRES; 
+CulDeSac
+
 # own examples (roundtrip)
 simple1
 simple1_remove
