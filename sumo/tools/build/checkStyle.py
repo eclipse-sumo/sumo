@@ -23,6 +23,7 @@ import os
 import subprocess
 import sys
 import xml.sax
+import codecs
 from optparse import OptionParser
 
 _SOURCE_EXT = [".h", ".cpp", ".py", ".pl", ".java", ".am"]
@@ -100,10 +101,11 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     if self._fix:
                         subprocess.call(
                             ["svn", "ps", "svn:keywords", _KEYWORDS, self._file])
-                try:
-                    open(self._file).read().decode('utf8')
-                except UnicodeDecodeError:
-                    print(self._file, "Unicode Error")
+                if name == 'target':
+                    try:
+                        codecs.open(self._file, 'r', 'utf8').read()
+                    except UnicodeDecodeError as e:
+                        print(self._file, e)
             if ext in _VS_EXT:
                 if name == 'property' and self._property == "svn:eol-style" and self._value != "CRLF"\
                    or name == "target" and not self._hadEOL:
@@ -111,7 +113,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     if self._fix:
                         subprocess.call(
                             ["svn", "ps", "svn:eol-style", "CRLF", self._file])
-            if ext == ".py" and os.path.getsize(self._file) < 1000000: # flake hangs on very large files
+            if name == 'target' and ext == ".py" and os.path.getsize(self._file) < 1000000: # flake hangs on very large files
                 subprocess.call(["flake8", "--max-line-length", "120", self._file])
         if name == 'property':
             self._value = ""

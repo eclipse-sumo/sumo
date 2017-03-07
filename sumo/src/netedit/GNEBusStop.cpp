@@ -248,7 +248,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // Start drawing sign traslating matrix to signal position
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
 
-        // Define nº points (for efficiency)
+        // Define number of points (for efficiency)
         int noPoints = 9;
 
         // If the scale * exaggeration is more than 25, recalculate nº points

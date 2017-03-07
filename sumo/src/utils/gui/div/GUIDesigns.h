@@ -205,7 +205,7 @@
 /// @brief design for the content frame of every frame
 #define GUIDesignContentsScrollWindow       (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
 
-/// @brief design for ºar (Without borders) frames used to pack another frames extended in all directions
+/// @brief design for auxiliar (Without borders) frames used to pack another frames extended in all directions
 #define GUIDesignAuxiliarFrame              (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames

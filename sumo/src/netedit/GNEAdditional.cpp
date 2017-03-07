@@ -302,7 +302,7 @@ GNEAdditional::drawLockIcon(double size) const {
         glColor3d(1, 1, 1);
         // Rotate depending of myBlockIconRotation
         glRotated(myBlockIconRotation, 0, 0, -1);
-        // Rotate 180º
+        // Rotate 180 degrees
         glRotated(180, 0, 0, 1);
         // Traslate depending of the offset
         glTranslated(myBlockIconOffset.x(), myBlockIconOffset.y(), 0);
