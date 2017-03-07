@@ -150,20 +150,19 @@ else:
 for svnRoot in svnRoots:
     if options.verbose:
         print("checking", svnRoot)
-    output = subprocess.Popen(
-        ["svn", "pl", "-v", "-R", "--xml", svnRoot], stdout=subprocess.PIPE).communicate()[0]
+    output = subprocess.check_output(["svn", "pl", "-v", "-R", "--xml", svnRoot])
     xml.sax.parseString(output, PropertyReader(options.fix))
 
 if options.verbose:
     print("re-checking tree at", options.recheck)
 for root, dirs, files in os.walk(options.recheck):
     for name in files:
-        fullName = os.path.join(root, name)
-        if fullName in seen or subprocess.call(["svn", "ls", fullName], stdout=open(os.devnull, 'w'), stderr=subprocess.STDOUT):
-            continue
         ext = os.path.splitext(name)[1]
         if name not in _IGNORE:
             if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
+                fullName = os.path.join(root, name)
+                if fullName in seen or subprocess.call(["svn", "ls", fullName], stdout=open(os.devnull, 'w'), stderr=subprocess.STDOUT):
+                    continue
                 print(fullName, "svn:eol-style")
                 if options.fix:
                     if ext in _VS_EXT:
