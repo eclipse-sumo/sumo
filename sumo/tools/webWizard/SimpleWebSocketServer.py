@@ -268,7 +268,7 @@ class WebSocket(object):
                     if 'Sec-WebSocket-Key'.lower() in self.request.headers:
                         key = self.request.headers['Sec-WebSocket-Key'.lower()]
                         hStr = HANDSHAKE_STR % {
-                            'acceptstr':  base64.b64encode(hashlib.sha1(key + GUID_STR).digest())}
+                            'acceptstr': base64.b64encode(hashlib.sha1(key + GUID_STR).digest())}
                         self.sendq.append((BINARY, hStr))
                         self.handshaked = True
                         self.headerbuffer = ''

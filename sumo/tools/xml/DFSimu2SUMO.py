@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
 import numpy as np
-import sys, getopt
+import sys
+import getopt
 import csv
 
 
@@ -149,7 +150,7 @@ def runTimeTable(timetable, outputdir, places):
                 currentTrain.id = row[1]
                 currentTrain.fr = link
                 dep = row[4]
-                currentTrain.dep = (int(dep[:-3]) * 60 + int(dep[-2:]))*60 - 26160
+                currentTrain.dep = (int(dep[:-3]) * 60 + int(dep[-2:])) * 60 - 26160
                 trains.append(currentTrain)
             else:
                 currentTrain.to = link
@@ -162,7 +163,7 @@ def runTimeTable(timetable, outputdir, places):
     for trainType in trainTypes:
         f.writelines('\t<vType id="%s" vClass="rail" carFollowModel="Rail" trainType="%s"/>\n' % (trainType, trainType))
 
-    trains.sort(key = lambda x : x.dep,reverse=False)
+    trains.sort(key=lambda x: x.dep, reverse=False)
 
     for train in trains:
         fr = train.fr

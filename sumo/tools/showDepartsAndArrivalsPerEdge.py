@@ -97,7 +97,7 @@ def main():
         allEdges = set(departCounts.keys())
         allEdges.update(arrivalCounts.keys())
         for e in sorted(allEdges):
-            outf.write('      <edge id="%s" departed="%s" arrived="%s" delta="%s"/>\n' % \
+            outf.write('      <edge id="%s" departed="%s" arrived="%s" delta="%s"/>\n' %
                        (e, departCounts[e], arrivalCounts[e], arrivalCounts[e] - departCounts[e]))
         outf.write("   </interval>\n")
         outf.write("</edgedata>\n")

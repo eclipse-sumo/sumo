@@ -6,7 +6,7 @@
 @date    2008-07-17
 @version $Id$
 
-Converts a given CSV-file that contains a list of pois to 
+Converts a given CSV-file that contains a list of pois to
  an XML-file that may be read by POLYCONVERT.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
