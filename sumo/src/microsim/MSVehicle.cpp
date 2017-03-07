@@ -1587,7 +1587,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     << " brakeDist=" << brakeDist
                     << "\n";
 #endif
-        if (yellowOrRed && seen >= brakeDist) {
+        if (yellowOrRed && seen >= brakeDist && (myInfluencer == 0 || myInfluencer->getEmergencyBrakeRedLight())) {
             // the vehicle is able to brake in front of a yellow/red traffic light
             lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / MAX2(vLinkWait, NUMERICAL_EPS)), vLinkWait, 0, 0, seen));
             //lfLinks.push_back(DriveProcessItem(0, vLinkWait, vLinkWait, false, 0, 0, stopDist));
