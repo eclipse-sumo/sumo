@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    generateITetrisNetworkMetrics.py 
+@file    generateITetrisNetworkMetrics.py
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2007-10-25
@@ -59,7 +59,8 @@ class Vehicle:
         self.vtype = None
 
     def __repr__(self):
-        return "%s_%s_%s_%s_%s_%s<%s>" % (self.label, self.depart, self.arrival, self.speed, self.traveltime, self.travellength)
+        return "%s_%s_%s_%s_%s_%s<%s>" % (
+            self.label, self.depart, self.arrival, self.speed, self.traveltime, self.travellength)
 
 
 class VehInformationReader(handler.ContentHandler):
@@ -505,7 +506,7 @@ interval = options.interval
 netfile = options.netfile
 vehroutefile = os.path.join(options.path, 'vehroutes.xml')
 
-if interval == None:
+if interval is None:
     interval = 10000000
 
 
@@ -514,7 +515,7 @@ parser = make_parser()
 parser.setContentHandler(VehInformationReader(vehicles))
 parser.parse(os.path.join(options.path, 'tripinfos.xml'))
 
-if options.vehicle_types == None:
+if options.vehicle_types is None:
     vehicle_types = ['all']
 else:
     vehicle_types = options.vehicle_types.split(',')

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    generateE1TLSDetectors.py 
+@file    generateE1TLSDetectors.py
 @author  Daniel Krajzewicz
 @author  Karol Stosiek
 @author  Michael Behrisch
@@ -72,7 +72,7 @@ def adjust_detector_position(final_detector_length,
                              lane_length):
     """ Adjusts the detector's position. If the detector's length
         and the requested distance to TLS together are longer than
-        the lane itself, the position will be 0; it will be 
+        the lane itself, the position will be 0; it will be
         the maximum distance from lane end otherwise (taking detector's length
         and requested distance to TLS into accout). """
 

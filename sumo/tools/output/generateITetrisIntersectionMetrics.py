@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    generateITetrisIntersectionMetrics.py 
+@file    generateITetrisIntersectionMetrics.py
 @author  Daniel Krajzewicz
 @author  Lena Kalleske
 @author  Michael Behrisch

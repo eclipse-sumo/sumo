@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    generateTLSE3Detectors.py 
+@file    generateTLSE3Detectors.py
 @author  Daniel Krajzewicz
 @author  Karol Stosiek
 @author  Michael Behrisch

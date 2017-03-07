@@ -63,8 +63,7 @@ def parse_log(logfile, edges=True, aggregate=3600):
 
 
 def print_counts(countDict, label):
-    counts = [(v, k) for k, v in countDict.items()]
-    counts.sort()
+    counts = sorted([(v, k) for k, v in countDict.items()])
     print(counts)
     print(label, 'total:', sum(countDict.values()))
 

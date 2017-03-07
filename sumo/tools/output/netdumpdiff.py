@@ -7,8 +7,8 @@
 @version $Id$
 
 
-This script reads two network dumps 
- and subtracts the values of the second 
+This script reads two network dumps
+ and subtracts the values of the second
  from the first writing the results
  into the output file
 
