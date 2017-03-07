@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar  2 10:22:47 2017 by SUMO netconvert Version dev-SVN-r23174
+<!-- generated on Tue Mar  7 13:49:16 2017 by SUMO netconvert Version dev-SVN-r23239
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -208,7 +208,7 @@
         <lane id="-5784968#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="93.75" shape="938.92,545.52 993.91,486.35"/>
     </edge>
     <edge id="-5784968#3" from="cluster_306982585_36268398_38920778" to="cluster_283719904_36268403" priority="4" type="highway.residential" shape="903.89,592.25 931.27,556.55">
-        <lane id="-5784968#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="58.63" shape="904.66,588.53 930.72,554.55"/>
+        <lane id="-5784968#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="58.63" shape="904.66,588.53 929.96,555.55"/>
     </edge>
     <edge id="-6137233#0" from="38919880" to="38919927" priority="4" type="highway.residential">
         <lane id="-6137233#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="42.56" shape="334.83,455.14 297.07,447.63"/>
@@ -539,7 +539,7 @@
         <lane id="5784968#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="93.75" shape="996.33,488.59 941.34,547.76"/>
     </edge>
     <edge id="5784968#3" from="cluster_283719904_36268403" to="cluster_306982585_36268398_38920778" priority="4" type="highway.residential" shape="931.27,556.55 903.89,592.25">
-        <lane id="5784968#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="58.63" shape="933.34,556.56 907.28,590.54"/>
+        <lane id="5784968#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="58.63" shape="932.58,557.55 907.28,590.54"/>
     </edge>
     <edge id="6137233#0" from="38919927" to="38919880" priority="4" type="highway.residential">
         <lane id="6137233#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="42.56" shape="297.71,444.39 335.47,451.90"/>
@@ -1210,7 +1210,7 @@
     <junction id="94487954" type="traffic_light" x="1737.68" y="19.68" incLanes="-7216737#0_0 -7216737#0_1" intLanes="" shape="1737.66,19.72 1740.57,13.80 1737.70,19.64">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="cluster_283719904_36268403" type="traffic_light" x="934.12" y="553.29" incLanes="26004787#2_0 5784968#1_0 -5198596#0_0 -5784968#3_0" intLanes="" shape="940.22,554.96 939.66,553.05 942.51,548.85 937.75,544.43 935.23,544.23 930.97,549.14 929.45,553.58 934.61,557.53">
+    <junction id="cluster_283719904_36268403" type="traffic_light" x="934.12" y="553.29" incLanes="26004787#2_0 5784968#1_0 -5198596#0_0 -5784968#3_0" intLanes="" shape="940.22,554.96 939.66,553.05 942.51,548.85 937.75,544.43 935.23,544.23 930.97,549.14 928.69,554.57 933.85,558.53">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="011000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
