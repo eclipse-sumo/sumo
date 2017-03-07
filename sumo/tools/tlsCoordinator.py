@@ -83,8 +83,8 @@ def get_options(args=None):
 
 
 def locate(tlsToFind, sets):
-    """return 
-        - the set in which the given traffic light exists 
+    """return
+        - the set in which the given traffic light exists
         - the pair in which it was found
         - the index within the pair
         """
@@ -143,19 +143,19 @@ def computePairOffsets(TLSPList, verbose):
         l1, l1Pair, l1Index = locate(TLSP.otl, sets)
         l2, l2Pair, l2Index = locate(TLSP.tl, sets)
         # print(l1)
-        if l1 == None and l2 == None:
+        if l1 is None and l2 is None:
             # new set
             newlist = []
             newlist.append(TLSP)
             sets.append(newlist)
             c1 += 1
             operation = "newSet"
-        elif l2 == None and not l1 == None:
+        elif l2 is None and not l1 is None:
             # add to set 1 - add after existing set
             TLSP = coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
             c2 += 1
             operation = "addAfterSet"
-        elif l1 == None and not l2 == None:
+        elif l1 is None and not l2 is None:
             # add to set 2 - add before existing set
             TLSP = coordinateBeforeSet(TLSP, l2, l2Pair, l2Index)
             c3 += 1
@@ -285,7 +285,7 @@ def getTLPairs(net, routeFile, speedFactor):
             betweenOffset = travelTime + ogreen - green
             startOffset = 0
             # relevant data for a pair of traffic lights
-            TLPairs[key] = PairData(otl, oconnection,  tl, connection, betweenOffset, startOffset, travelTime,
+            TLPairs[key] = PairData(otl, oconnection, tl, connection, betweenOffset, startOffset, travelTime,
                                     edge.getPriority(), numVehicles + 1, ogreen, green)
 
     return TLPairs

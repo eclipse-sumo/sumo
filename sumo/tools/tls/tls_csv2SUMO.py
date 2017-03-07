@@ -176,7 +176,7 @@ for keyIndex, key in enumerate(allKeys):
             if valid:
                 linkMap[tl_c[2]] = l[2]
                 laneMap[tl_c[2]] = (li, lo)
-        if laneMap[tl_c[2]] == None:
+        if laneMap[tl_c[2]] is None:
             print("Warning: No link definition for connection (%s, %s)!. Using 'g' by default" % (
                 li.getID(), lo.getID()), file=sys.stderr)
             linkMap[tl_c[2]] = -1

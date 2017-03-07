@@ -90,7 +90,7 @@ class UniformDestinationWeightCalculator():
                          source_lane_no,
                          source_total_lanes,
                          destination_total_lanes):
-        """ Calculates the weight assigned to a single destination 
+        """ Calculates the weight assigned to a single destination
             from given lane in an uniform way. See class docs
             for explanation. """
 
@@ -124,7 +124,7 @@ class Connections:
             source,
             source_lane,
             destination):
-        """ Adds a connection. If a connection is readded, 
+        """ Adds a connection. If a connection is readded,
             a warning is issued. """
 
         self.logger.debug("Adding connection %s (%s) -> %s" %
@@ -151,8 +151,7 @@ class Connections:
             contains. Incoming edges are sorted alphabetically
             in ascending order. """
 
-        sources = list(self.connections_map.keys())
-        sources.sort()
+        sources = sorted(self.connections_map.keys())
         return sources
 
     def get_lanes(self, source):

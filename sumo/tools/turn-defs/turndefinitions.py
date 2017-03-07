@@ -63,8 +63,7 @@ class TurnDefinitions():
         """ Returns all of the turn definitions incoming edges. The result
             will be sorted in alphabetical. """
 
-        sources = list(self.turn_definitions.keys())
-        sources.sort()
+        sources = sorted(self.turn_definitions.keys())
         return sources
 
     def get_destinations(self, source):
@@ -73,8 +72,7 @@ class TurnDefinitions():
             have been added before. The result will be sorted in alphabetical
             order."""
 
-        destinations = self.turn_definitions[source].keys()
-        destinations.sort()
+        destinations = sorted(self.turn_definitions[source].keys())
         return destinations
 
     def get_turning_probability(self,
