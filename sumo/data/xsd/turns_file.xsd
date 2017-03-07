@@ -7,8 +7,8 @@
 
     <xsd:complexType name="turnsType">
         <xsd:choice maxOccurs="unbounded">
-	  <xsd:element name="source" type="sourceType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-	  <xsd:element name="sink" type="sinkType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="source" type="sourceType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="sink" type="sinkType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="interval" type="intervalType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
         </xsd:choice>
     </xsd:complexType>
