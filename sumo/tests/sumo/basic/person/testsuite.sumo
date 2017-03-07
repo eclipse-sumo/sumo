@@ -31,6 +31,9 @@ public
 # person waiting for a public transport ride
 public_wait
 
+# bus arrives past it's until time but still picks up person
+public_brief_stop
+
 # person waiting to get a lift
 triggered
 
