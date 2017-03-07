@@ -8,10 +8,10 @@
 
 
 This script reads in the network given as first parameter.
-It extracts nodes given on the command line as well as the edges 
+It extracts nodes given on the command line as well as the edges
  that participate in these nodes and the nodes these edges
  start/end at. Write the so obtained nodes and edges
- into "<prefix>_nodes.nod.xml" and "<prefix>_edges.edg.xml" 
+ into "<prefix>_nodes.nod.xml" and "<prefix>_edges.edg.xml"
  for their reuse in NETCONVERT
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/

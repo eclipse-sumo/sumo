@@ -8,7 +8,7 @@
 
 Reads in a file where junctions controlled by
  tls are stored and one which contains correct
- lane numbers. Applies the information on 
+ lane numbers. Applies the information on
  the given edge and node file and saves them.
 
 todo:

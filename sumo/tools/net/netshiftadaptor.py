@@ -12,7 +12,7 @@ This class performs a network reprojection
 
 This means: the class is initialised with two
  networks and two lists of node ids (should be
- exactly three). The according nodes should be 
+ exactly three). The according nodes should be
  the "same" nodes in both networks.
 When "reproject" is called, all nodes' position
  of the second network are reprojected so that

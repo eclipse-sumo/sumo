@@ -6,7 +6,7 @@
 @date    2007
 @version $Id$
 
-Applies the transformation on all nets in the given folder or 
+Applies the transformation on all nets in the given folder or
  - if no folder is given - in the base folder (../..).
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/

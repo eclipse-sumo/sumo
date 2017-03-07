@@ -8,8 +8,8 @@
 @version $Id$
 
 This script reads in the network given as
- first parameter and extracts nodes and edges 
- from it which are saved into "nodes.xml" and 
+ first parameter and extracts nodes and edges
+ from it which are saved into "nodes.xml" and
  "edges.xml" for their reuse in NETCONVERT
 
 todo:

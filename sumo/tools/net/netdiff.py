@@ -235,7 +235,7 @@ class AttributeStore:
     def diff(self, name, sourceValue, destValue):
         if sourceValue == destValue:
             return None
-        elif destValue == None:
+        elif destValue is None:
             return DEFAULT_VALUES[name]
         else:
             return destValue
@@ -326,7 +326,7 @@ class AttributeStore:
         file.write(item)
 
     def attr_string(self, names, values):
-        return ' '.join(['%s="%s"' % (n, v) for n, v in sorted(zip(names, values)) if v != None])
+        return ' '.join(['%s="%s"' % (n, v) for n, v in sorted(zip(names, values)) if v is not None])
 
     def id_string(self, tag, id):
         idattrs = IDATTRS[tag]
