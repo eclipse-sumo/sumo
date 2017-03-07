@@ -1,6 +1,15 @@
 # Tests whether stops can be handled
 simple_stop
 
+# tests  behavior when duration 0 is set
+duration_0
+
+# tests  behavior when vehicle reaches stop after the 'until' time
+arrive_after_until
+
+# tests behavior when until and duration are set
+until_and_duration
+
 # Tests whether stops can be in wrong order
 out_of_order
 
@@ -58,4 +67,3 @@ bestLaneStop0
 not_allowed
 too_short
 until_order
-
