@@ -82,7 +82,7 @@ class PoIReader(handler.ContentHandler):
             self._id2poi[poi.id] = poi
             self._pois.append(poi)
             self._lastPOI = poi
-        if name == 'param' and self._lastPOI != None:
+        if name == 'param' and self._lastPOI is not None:
             self._lastPOI.attributes[attrs['key']] = attrs['value']
 
     def endElement(self, name):

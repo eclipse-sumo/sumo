@@ -49,7 +49,7 @@ def _prefix_keyword(name, warn=False):
 
 
 def compound_object(element_name, attrnames, warn=False):
-    """return a class which delegates bracket access to an internal dict. 
+    """return a class which delegates bracket access to an internal dict.
        Missing attributes are delegated to the child dict for convenience.
        @note: Care must be taken when child nodes and attributes have the same names"""
     class CompoundObject():
@@ -135,9 +135,9 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
     case attr_names maps element names to a list of attributes which are
     supplied. If attr_conversions is not empty it must map attribute names to
     callables which will be called upon the attribute value before storing under
-    the attribute name. 
+    the attribute name.
     The compound objects gives dictionary style access to list of compound
-    objects o for any children with the given element name 
+    objects o for any children with the given element name
     o['child_element_name'] = [osub0, osub1, ...]
     As a shorthand, attribute style access to the list of child elements is
     provided unless an attribute with the same name as the child elements
@@ -296,9 +296,9 @@ def toList(mapList, attr):
 
 
 def prune(fv, minV, maxV):
-    if minV != None:
+    if minV is not None:
         for i, v in enumerate(fv):
             fv[i] = max(v, minV)
-    if maxV != None:
+    if maxV is not None:
         for i, v in enumerate(fv):
             fv[i] = min(v, maxV)

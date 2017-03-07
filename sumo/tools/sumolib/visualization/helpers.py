@@ -245,9 +245,9 @@ def closeFigure(fig, ax, options, haveLabels=True, optOut=None):
         else:
             legend()
     applyPlotOptions(fig, ax, options)
-    if options.output or optOut != None:
+    if options.output or optOut is not None:
         n = options.output
-        if optOut != None:
+        if optOut is not None:
             n = optOut
         for o in n.split(","):
             savefig(o)

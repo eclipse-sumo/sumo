@@ -55,9 +55,9 @@ class Edge:
         return self._name
 
     def isSpecial(self):
-        """ Check if the edge has a special function. 
+        """ Check if the edge has a special function.
 
-        Returns False if edge's function is 'normal', else False, e.g. for 
+        Returns False if edge's function is 'normal', else False, e.g. for
         internal edges or connector edges """
 
         return self._function != ""

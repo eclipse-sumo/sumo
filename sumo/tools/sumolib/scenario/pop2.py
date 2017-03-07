@@ -99,7 +99,7 @@ class ScenarioSet:
         return float(self.params[name])
 
     def addTLSParameterFromFile(self, tlsProg, paramFile):
-        if paramFile == None:
+        if paramFile is None:
             return
         fd = open(paramFile)
         for l in fd.readlines():
@@ -418,7 +418,7 @@ class ScenarioSet_RiLSA1LoadCurves(ScenarioSet):
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
         print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
-        if uID == None:
+        if uID is None:
             sID = "RiLSA1LoadCurves(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
             sID = "RiLSA1LoadCurves(%s)" % (uID)
@@ -598,7 +598,7 @@ class ScenarioSet_RiLSA1LoadCurvesSampled(ScenarioSet):
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
         print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
-        if uID == None:
+        if uID is None:
             sID = "RiLSA1LoadCurvesSampled(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
             sID = "RiLSA1LoadCurvesSampled(%s)" % (uID)
@@ -1535,7 +1535,8 @@ class ScenarioSet_DemandStep(ScenarioSet):
         for f1 in range(self.getInt("f1from"), self.getInt("f1to"), self.getInt("f1step")):
             for f2begin in range(self.getInt("f2beginFrom"), self.getInt("f2beginTo"), self.getInt("f2beginStep")):
                 for f2end in range(self.getInt("f2endFrom"), self.getInt("f2endTo"), self.getInt("f2endStep")):
-                    for f2duration in range(self.getInt("f2durationFrom"), self.getInt("f2durationTo"), self.getInt("f2durationStep")):
+                    for f2duration in range(
+                            self.getInt("f2durationFrom"), self.getInt("f2durationTo"), self.getInt("f2durationStep")):
                         if f1 == 0 and f2begin == 0 and f2end == 0:
                             continue
                         print("Computing for %s<->%s->%s@%s" %
@@ -1614,7 +1615,8 @@ class ScenarioSet_DemandStep(ScenarioSet):
                 i = i + 1
                 j = 0
                 for f2end in range(self.getInt("f2endFrom"), self.getInt("f2endTo"), self.getInt("f2endStep")):
-                    for f2duration in range(self.getInt("f2durationFrom"), self.getInt("f2durationTo"), self.getInt("f2durationStep")):
+                    for f2duration in range(
+                            self.getInt("f2durationFrom"), self.getInt("f2durationTo"), self.getInt("f2durationStep")):
                         ret[-1].append({"f1": str(f1), "f2begin": str(f2begin), "f2end": str(
                             f2end), "f2duration": str(f2duration), "scenario": "DemandStep"})
                         ranges[-1].append("%s/%s" % (f2end, f2duration))
@@ -2325,7 +2327,7 @@ class ScenarioSet_RiLSA1LoadCurvesOutTLS(ScenarioSet):
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
         print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
-        if uID == None:
+        if uID is None:
             sID = "RiLSA1LoadCurvesOutTLS(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
             sID = "RiLSA1LoadCurvesOutTLS(%s)" % (uID)
@@ -2503,7 +2505,7 @@ class ScenarioSet_RiLSA1LoadCurvesOutTLS24(ScenarioSet):
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
         print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
-        if uID == None:
+        if uID is None:
             sID = "RiLSA1LoadCurvesOutTLS24(%s-%s-%s-%s)" % (
                 iWE, iNS, iEW, iSN)
         else:
@@ -2683,7 +2685,7 @@ class ScenarioSet_RiLSA1LoadCurvesBothTLS(ScenarioSet):
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
         print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
-        if uID == None:
+        if uID is None:
             sID = "RiLSA1LoadCurvesBothTLS(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
             sID = "RiLSA1LoadCurvesBothTLS(%s)" % (uID)
@@ -2862,7 +2864,7 @@ class ScenarioSet_RiLSA1LoadCurvesBothTLS24(ScenarioSet):
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
         print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
-        if uID == None:
+        if uID is None:
             sID = "RiLSA1LoadCurvesBothTLS24(%s-%s-%s-%s)" % (
                 iWE, iNS, iEW, iSN)
         else:
@@ -3043,7 +3045,7 @@ class ScenarioSet_BasicRiLSANet(ScenarioSet):
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
         print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
-        if uID == None:
+        if uID is None:
             sID = "BasicRiLSANet(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
             sID = "BasicRiLSANet(%s)" % (uID)
@@ -3209,7 +3211,7 @@ class ScenarioSet_BasicRiLSANet2x2(ScenarioSet):
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
         print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
-        if uID == None:
+        if uID is None:
             sID = "BasicRiLSANet(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
             sID = "BasicRiLSANet(%s)" % (uID)
@@ -3386,7 +3388,7 @@ class ScenarioSet_BasicRiLSACorridor3(ScenarioSet):
         cEW = RWScurves[iEW]
         cSN = RWScurves[iSN]
         print("Computing for %s %s %s %s" % (iWE, iNS, iEW, iSN))
-        if uID == None:
+        if uID is None:
             sID = "BasicRiLSACorridor3(%s-%s-%s-%s)" % (iWE, iNS, iEW, iSN)
         else:
             sID = "BasicRiLSACorridor3(%s)" % (uID)

@@ -48,7 +48,7 @@ class Lane:
         self.dirs = dirs
         self.allowed = allowed
         self.disallowed = disallowed
-        if self.dirs == None:
+        if self.dirs is None:
             self.dirs = []
 
 
@@ -68,21 +68,21 @@ class Edge:
         self.numLanes = numLanes
         self.maxSpeed = maxSpeed
         self.lanes = lanes
-        if self.lanes == None:
+        if self.lanes is None:
             self.lanes = []
             for i in range(0, self.numLanes):
                 self.lanes.append(Lane())
         self.splits = splits
-        if self.splits == None:
+        if self.splits is None:
             self.splits = []
-        if numLanes == None:
+        if numLanes is None:
             numLanes = len(self.lanes)
 
     def addSplit(self, distance, lanesToRight=None, lanesToLeft=None):
         if len(self.splits) == 0:
-            if lanesToRight == None:
+            if lanesToRight is None:
                 lanesToRight = 0
-            if lanesToLeft == None:
+            if lanesToLeft is None:
                 lanesToLeft = 0
             lanes = range(lanesToRight, self.numLanes + lanesToRight)
             self.splits.append(Split(0, lanes))
@@ -104,7 +104,7 @@ class Edge:
                 if d not in seen:
                     seen[d] = 0
                 c = net.dir2connection(d, self, i, seen[d])
-                if c != None:
+                if c is not None:
                     ret.append(c)
                 seen[d] = seen[d] + 1
         return ret
@@ -140,10 +140,10 @@ class Net:
         self._nodes = {}
         self._edges = {}
         self._defaultEdge = defaultEdge
-        if self._defaultEdge == None:
+        if self._defaultEdge is None:
             self._defaultEdge = Edge(None, None, None, 2, 13.89)
         self._defaultNode = defaultNode
-        if self._defaultNode == None:
+        if self._defaultNode is None:
             self._defaultNode = Node(None, None, None, "traffic_light")
         self._e1 = {}
         self.netName = None
@@ -224,7 +224,7 @@ class Net:
 
     def dir2connection(self, direction, edge, lane, seen):
         toEdge = self.getMatchingOutgoing(edge, direction)
-        if toEdge != None:
+        if toEdge is not None:
             if toEdge.lanes[seen].allowed != edge.lanes[lane].allowed:
                 seen = seen + 1
             return Connection(edge, lane, toEdge, seen)
@@ -268,7 +268,7 @@ class Net:
 
             hadConstraints = False
             for i, l in enumerate(e.lanes):
-                if l.allowed == None and l.disallowed == None:
+                if l.allowed is None and l.disallowed is None:
                     continue
                 hadConstraints = True
             if hadConstraints:
@@ -280,12 +280,12 @@ class Net:
                     for i, l in enumerate(e.lanes):
                         # if i not in s.lanes:
                         #    continue
-                        if l.allowed == None and l.disallowed == None:
+                        if l.allowed is None and l.disallowed is None:
                             continue
                         ls = '        <lane index="%s" ' % (i)
-                        if l.allowed != None:
+                        if l.allowed is not None:
                             ls = ls + 'allow="%s"' % l.allowed
-                        if l.disallowed != None:
+                        if l.disallowed is not None:
                             ls = ls + 'disallow="%s"' % l.disallowed
                         print(ls + '/>', file=edgesFile)
                     print('    </edge>', file=edgesFile)

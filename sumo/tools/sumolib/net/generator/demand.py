@@ -38,7 +38,8 @@ class LinearChange:
         self.endTime = endTime
 
     def depart(self, t):
-        return random.random() < (self.beginFlow + (self.endFlow - self.beginFlow) / (self.endTime - self.beginTime) * (t - self.beginTime))
+        return random.random() < (
+            self.beginFlow + (self.endFlow - self.beginFlow) / (self.endTime - self.beginTime) * (t - self.beginTime))
 
 
 class WaveComposition:
@@ -71,7 +72,8 @@ class Vehicle:
 
 class Stream:
 
-    def __init__(self, sid, validFrom, validUntil, numberModel, departEdgeModel, arrivalEdgeModel, vTypeModel, via=None):
+    def __init__(self, sid, validFrom, validUntil, numberModel,
+                 departEdgeModel, arrivalEdgeModel, vTypeModel, via=None):
         self.sid = sid
         self._numberModel = numberModel
         self._departEdgeModel = departEdgeModel
@@ -82,14 +84,16 @@ class Stream:
         self._via = via
 
     def getVehicleDepartures(self, b, e, sampleFactor=None, seenRatio=None):
-        if self._validFrom != None and self._validUntil != None and (e < self._validFrom or b > self._validUntil):
+        if self._validFrom is not None and self._validUntil is not None and (
+                e < self._validFrom or b > self._validUntil):
             return []
         ret = []
         for i in range(b, e):
-            if self._validFrom != None and self._validUntil != None and (i < self._validFrom or i > self._validUntil):
+            if self._validFrom is not None and self._validUntil is not None and (
+                    i < self._validFrom or i > self._validUntil):
                 continue
             depart = i
-            if sampleFactor != None:
+            if sampleFactor is not None:
                 off = i % (sampleFactor * 24)
                 if not off < sampleFactor:
                     continue
@@ -129,7 +133,7 @@ class Stream:
             toEdge = self.getFrom(self._arrivalEdgeModel, i, number)
             vType = self.getFrom(self._vTypeModel, i, number)
             sid = self.sid
-            if sid == None:
+            if sid is None:
                 sid = fromEdge + "_to_" + toEdge + "_" + str(i)
             vehicles.append(
                 Vehicle(sid + "#" + str(i + offset), int(d), fromEdge, toEdge, vType, self._via))
@@ -153,7 +157,7 @@ class Demand:
         fdo.write("<routes>\n")
         for v in sorted(vehicles, key=lambda veh: veh.depart):
             via = ""
-            if v._via != None:
+            if v._via is not None:
                 via = ' via="%s"' % v._via
             if v.vType == "pedestrian":
                 fdo.write('    <person id="%s" depart="%s" type="pedestrian"><walk from="%s" to="%s"/></person>\n' %
@@ -168,6 +172,6 @@ class Demand:
         print("routesName > %s" % routesName)
         # aeh, implicitly setting --no-warnings is not nice, is it?; and the
         # need to dump generated vtypes to a temporary file as well
-        retCode = subprocess.call([duarouter, "-v", "-n", netName,  "-t", fdo.name, "-o", routesName,
+        retCode = subprocess.call([duarouter, "-v", "-n", netName, "-t", fdo.name, "-o", routesName,
                                    "--no-warnings", "--additional-files", "vtypes.add.xml", "--vtype-output", "tmp.add.xml"])
         os.remove(fdo.name)

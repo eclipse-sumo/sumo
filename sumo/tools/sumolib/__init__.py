@@ -204,7 +204,7 @@ class TeeFile:
         """flushes all file contents to disc"""
         for fp in self.files:
             fp.flush()
-            if type(fp) is int or hasattr(fp, "fileno"):
+            if isinstance(fp, int) or hasattr(fp, "fileno"):
                 try:
                     os.fsync(fp)
                 except OSError:

@@ -122,16 +122,16 @@ class Lane:
     def getShape(self, includeJunctions=False):
         """Returns the shape of the lane in 2d.
 
-        This function returns the shape of the lane, as defined in the net.xml 
+        This function returns the shape of the lane, as defined in the net.xml
         file. The returned shape is a list containing numerical
         2-tuples representing the x,y coordinates of the shape points.
 
-        For includeJunctions=True the returned list will contain 
-        additionally the coords (x,y) of the fromNode of the 
-        corresponding edge as first element and the coords (x,y) 
-        of the toNode as last element. 
+        For includeJunctions=True the returned list will contain
+        additionally the coords (x,y) of the fromNode of the
+        corresponding edge as first element and the coords (x,y)
+        of the toNode as last element.
 
-        For internal lanes, includeJunctions is ignored and the unaltered 
+        For internal lanes, includeJunctions is ignored and the unaltered
         shape of the lane is returned.
         """
 
@@ -146,17 +146,17 @@ class Lane:
     def getShape3D(self, includeJunctions=False):
         """Returns the shape of the lane in 3d.
 
-        This function returns the shape of the lane, as defined in the net.xml 
-        file. The returned shape is a list containing numerical 
-        3-tuples representing the x,y,z coordinates of the shape points 
-        where z defaults to zero. 
+        This function returns the shape of the lane, as defined in the net.xml
+        file. The returned shape is a list containing numerical
+        3-tuples representing the x,y,z coordinates of the shape points
+        where z defaults to zero.
 
-        For includeJunction=True the returned list will contain 
-        additionally the coords (x,y,z) of the fromNode of the 
-        corresponding edge as first element and the coords (x,y,z) 
-        of the toNode as last element. 
+        For includeJunction=True the returned list will contain
+        additionally the coords (x,y,z) of the fromNode of the
+        corresponding edge as first element and the coords (x,y,z)
+        of the toNode as last element.
 
-        For internal lanes, includeJunctions is ignored and the unaltered 
+        For internal lanes, includeJunctions is ignored and the unaltered
         shape of the lane is returned.
         """
 

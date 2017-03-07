@@ -6,7 +6,7 @@
 @date    2010-02-18
 @version $Id$
 
-Library for reading and storing Inductive Loop detector representations and 
+Library for reading and storing Inductive Loop detector representations and
  measurements.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -34,7 +34,8 @@ class InductiveLoop:
         self.friendlyPos = friendlyPos
 
     def toXML(self):
-        return '<e1Detector id="%s" lane="%s" pos="%s" freq="%s" file="%s" friendlyPos="%s"/>' % (self.id, self.lane, self.pos, self.frequency, self.file, self.friendlyPos)
+        return '<e1Detector id="%s" lane="%s" pos="%s" freq="%s" file="%s" friendlyPos="%s"/>' % (
+            self.id, self.lane, self.pos, self.frequency, self.file, self.friendlyPos)
 
 
 class InductiveLoopReader(handler.ContentHandler):
@@ -52,7 +53,7 @@ class InductiveLoopReader(handler.ContentHandler):
             self._id2il[poi.id] = poi
             self._ils.append(poi)
             self._lastIL = poi
-        if name == 'param' and self._lastIL != None:
+        if name == 'param' and self._lastIL is not None:
             self._lastIL.attributes[attrs['key']] = attrs['value']
 
     def endElement(self, name):

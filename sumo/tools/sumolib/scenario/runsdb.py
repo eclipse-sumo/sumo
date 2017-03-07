@@ -47,7 +47,7 @@ class RunsDB:
         self.cursor = self.conn.cursor()
         self.cursor.execute("SELECT MAX(id) FROM run")
         v = self.cursor.fetchall()
-        if len(v) != 0 and v[0][0] != None:
+        if len(v) != 0 and v[0][0] is not None:
             self.run = v[0][0] + 1
         else:
             self.run = 0
@@ -97,7 +97,7 @@ class RunsDB:
         return self.toList(self.cursor.fetchall())
 
     def getRunsData(self, runs=None):
-        if runs == None:
+        if runs is None:
             runs = self.getRunIDs()
         ret = {}
         for r in runs:
@@ -125,16 +125,16 @@ class RunsDB:
   """
 
     def fetchResults(self, runs=None, measure=None, denominator=None):
-        if runs == None:
+        if runs is None:
             runs = self.getRunIDs()
         ret = {}
         for r in runs:
             ret[r] = {}
-            if measure == None:
+            if measure is None:
                 i = self.cursor.execute(
                     "SELECT * FROM result WHERE runID=?", (r,))
             else:
-                if denominator == None:
+                if denominator is None:
                     i = self.cursor.execute(
                         "SELECT * FROM result WHERE runID=? AND key=?", (r, measure))
                 else:

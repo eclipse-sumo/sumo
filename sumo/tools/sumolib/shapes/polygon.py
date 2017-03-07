@@ -98,7 +98,7 @@ class PolygonReader(handler.ContentHandler):
             self._id2poly[poly.id] = poly
             self._polys.append(poly)
             self._lastPoly = poly
-        if name == 'param' and self._lastPoly != None:
+        if name == 'param' and self._lastPoly is not None:
             self._lastPoly.attributes[attrs['key']] = attrs['value']
 
     def endElement(self, name):

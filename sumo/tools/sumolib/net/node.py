@@ -56,8 +56,8 @@ class Node:
     def getShape(self):
         """Returns the shape of the node in 2d.
 
-        This function returns the shape of the node, as defined in the net.xml 
-        file. The returned shape is a list containing numerical 
+        This function returns the shape of the node, as defined in the net.xml
+        file. The returned shape is a list containing numerical
         2-tuples representing the x,y coordinates of the shape points.
 
         If no shape is defined in the xml, an empty list will be returned.
@@ -68,8 +68,8 @@ class Node:
     def getShape3D(self):
         """Returns the shape of the node in 3d.
 
-        This function returns the shape of the node, as defined in the net.xml 
-        file. The returned shape is a list containing numerical 
+        This function returns the shape of the node, as defined in the net.xml
+        file. The returned shape is a list containing numerical
         3-tuples representing the x,y,z coordinates of the shape points.
 
         If no shape is defined in the xml, an empty list will be returned.

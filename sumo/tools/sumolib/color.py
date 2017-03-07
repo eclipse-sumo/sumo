@@ -30,7 +30,7 @@ class RGBAColor:
         self.a = a
 
     def toXML(self):
-        if self.a != None:
+        if self.a is not None:
             return "%s,%s,%s,%s" % (self.r, self.g, self.b, self.a)
         else:
             return "%s,%s,%s" % (self.r, self.g, self.b)

@@ -47,7 +47,7 @@ def maxIndexValue_unset(l, l2):
         if l2[i] != 0:
             i = i + 1
             continue
-        if max_val == None or max_val < l[i]:
+        if max_val is None or max_val < l[i]:
             max_idx = i
             max_val = l[i]
         i = i + 1
@@ -62,7 +62,7 @@ def minIndexValue_unset(l, l2):
         if l2[i] != 0:
             i = i + 1
             continue
-        if min_val == None or min_val > l[i]:
+        if min_val is None or min_val > l[i]:
             min_idx = i
             min_val = l[i]
         i = i + 1
@@ -179,9 +179,9 @@ class Scenario:
         fdo.close()
 
     def getNet(self):
-        if self.net != None:
+        if self.net is not None:
             return self.net
-        if self.netName != None:
+        if self.netName is not None:
             self.net = sumolib.net.readNet(self.netName)
             return self.net
         raise "network is unknown"
@@ -265,7 +265,8 @@ class Scenario:
                 program[i] = MORNING
                 i = i - 1
             i = maxIdx + 1
-            while i < len(rel) and rel[i] > IREL_THRESHOLD and program[i] == 0 and streamsNS[i] + streamsWE[i] > MORNING_MIN:
+            while i < len(rel) and rel[i] > IREL_THRESHOLD and program[
+                    i] == 0 and streamsNS[i] + streamsWE[i] > MORNING_MIN:
                 program[i] = MORNING
                 i = i + 1
         else:
@@ -281,7 +282,8 @@ class Scenario:
             i = minIdx + 1
             print("  %s %s %s %s" %
                   (i, rel[i], program[i], streamsNS[i] + streamsWE[i]))
-            while i < len(rel) and rel[i] < REL_THRESHOLD and program[i] == 0 and streamsNS[i] + streamsWE[i] > MORNING_MIN:
+            while i < len(rel) and rel[i] < REL_THRESHOLD and program[
+                    i] == 0 and streamsNS[i] + streamsWE[i] > MORNING_MIN:
                 program[i] = MORNING
                 i = i + 1
                 print("  %s %s %s %s" %
@@ -298,20 +300,24 @@ class Scenario:
             if maxVal > 1 - minVal:
                 i = maxIdx
                 # and rel[i]>.6
-                while i > 0 and rel[i] > IREL_THRESHOLD and program[i] == 0 and streamsNS[i] + streamsWE[i] > AFTERNOON_MIN:
+                while i > 0 and rel[i] > IREL_THRESHOLD and program[
+                        i] == 0 and streamsNS[i] + streamsWE[i] > AFTERNOON_MIN:
                     program[i] = AFTERNOON
                     i = i - 1
                 i = maxIdx + 1
-                while i < len(rel) and rel[i] > IREL_THRESHOLD and program[i] == 0 and streamsNS[i] + streamsWE[i] > AFTERNOON_MIN:
+                while i < len(rel) and rel[i] > IREL_THRESHOLD and program[
+                        i] == 0 and streamsNS[i] + streamsWE[i] > AFTERNOON_MIN:
                     program[i] = AFTERNOON
                     i = i + 1
             else:
                 i = minIdx
-                while i > 0 and rel[i] < REL_THRESHOLD and program[i] == 0 and streamsNS[i] + streamsWE[i] > AFTERNOON_MIN:
+                while i > 0 and rel[i] < REL_THRESHOLD and program[
+                        i] == 0 and streamsNS[i] + streamsWE[i] > AFTERNOON_MIN:
                     program[i] = AFTERNOON
                     i = i - 1
                 i = minIdx + 1
-                while i < len(rel) and rel[i] < REL_THRESHOLD and program[i] == 0 and streamsNS[i] + streamsWE[i] > AFTERNOON_MIN:
+                while i < len(rel) and rel[i] < REL_THRESHOLD and program[
+                        i] == 0 and streamsNS[i] + streamsWE[i] > AFTERNOON_MIN:
                     program[i] = AFTERNOON
                     i = i + 1
         for i, x in enumerate(program):
@@ -330,7 +336,7 @@ class Scenario:
             for j, v in enumerate(rel):
                 if program[j] != i:
                     continue
-                if maxV == None:
+                if maxV is None:
                     maxV = rel[j]
                     maxI = j
                 elif maxV < rel[j]:

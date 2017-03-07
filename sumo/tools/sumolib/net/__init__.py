@@ -152,17 +152,17 @@ class Net:
         return self._id2node[id]
 
     def setAdditionalNodeInfo(self, node, type, coord, incLanes, intLanes=None):
-        if coord != None and node._coord == None:
+        if coord is not None and node._coord is None:
             node._coord = coord
             self._ranges[0][0] = min(self._ranges[0][0], coord[0])
             self._ranges[0][1] = max(self._ranges[0][1], coord[0])
             self._ranges[1][0] = min(self._ranges[1][0], coord[1])
             self._ranges[1][1] = max(self._ranges[1][1], coord[1])
-        if incLanes != None and node._incLanes == None:
+        if incLanes is not None and node._incLanes is None:
             node._incLanes = incLanes
-        if intLanes != None and node._intLanes == None:
+        if intLanes is not None and node._intLanes is None:
             node._intLanes = intLanes
-        if type != None and node._type == None:
+        if type is not None and node._type is None:
             node._type = type
 
     def addEdge(self, id, fromID, toID, prio, function, name):
@@ -427,7 +427,7 @@ class NetReader(handler.ContentHandler):
                 if function in ['crossing', 'walkingarea']:
                     self._net._crossings_and_walkingAreas.add(attrs['id'])
                 self._currentEdge = None
-        if name == 'lane' and self._currentEdge != None:
+        if name == 'lane' and self._currentEdge is not None:
             self._currentLane = self._net.addLane(
                 self._currentEdge,
                 float(attrs['speed']),
@@ -524,7 +524,7 @@ class NetReader(handler.ContentHandler):
             self._net.addRoundabout(
                 attrs['nodes'].split(), attrs['edges'].split())
         if name == 'param':
-            if self._currentLane != None:
+            if self._currentLane is not None:
                 self._currentLane.setParam(attrs['key'], attrs['value'])
 
     def endElement(self, name):
