@@ -28,7 +28,7 @@ net = sumolib.net.readNet(sys.argv[1], withInternal=True)
 lane = net.getLane("SC_0")
 
 
-print(map(str, lane.getOutgoing()))
+print(list(map(str, lane.getOutgoing())))
 
 internal_edge = net.getEdge(":C_0")
 internal_lane = net.getLane(":C_0_0")

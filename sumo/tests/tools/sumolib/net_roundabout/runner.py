@@ -26,6 +26,6 @@ import sumolib.net
 
 net = sumolib.net.readNet(sys.argv[1])
 for r in net.getRoundabouts():
-    print("nodes=%s edges=%s" % (
-        [n for n in r.getNodes()],
-        [e for e in r.getEdges()]))
+    print("nodes=['%s'] edges=['%s']" % (
+        "', '".join(r.getNodes()),
+        "', '".join(r.getEdges())))
