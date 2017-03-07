@@ -511,7 +511,7 @@ private:
                  const std::string& contactPoint);
     void addGeometryShape(GeometryType type, const std::vector<double>& vals);
     static void setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string, OpenDriveEdge*>& edges);
-    static void buildConnectionsToOuter(const Connection& c, const std::map<std::string, OpenDriveEdge*>& innerEdges, std::vector<Connection>& into);
+    static void buildConnectionsToOuter(const Connection& c, const std::map<std::string, OpenDriveEdge*>& innerEdges, std::vector<Connection>& into, std::set<Connection>& seen);
     friend bool operator<(const Connection& c1, const Connection& c2);
     static std::string revertID(const std::string& id);
     const NBTypeCont& myTypeContainer;

@@ -482,7 +482,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 continue;
             }
             if (innerEdges.find((*i).toEdge) != innerEdges.end()) {
-                buildConnectionsToOuter(*i, innerEdges, connections2);
+                std::set<Connection> seen;
+                buildConnectionsToOuter(*i, innerEdges, connections2, seen);
             } else {
                 connections2.push_back(*i);
             }
@@ -648,26 +649,47 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 
 void
-NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::map<std::string, OpenDriveEdge*>& innerEdges, std::vector<Connection>& into) {
+NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::map<std::string, OpenDriveEdge*>& innerEdges, std::vector<Connection>& into, std::set<Connection>& seen) {
+    //std::cout << "buildConnectionsToOuter "
+    //    << " seen=" << seen.size()
+    //    << " from=" << c.fromEdge
+    //    << " to=" << c.toEdge 
+    //    << " fromLane=" << c.fromLane
+    //    << " toLane=" << c.toLane 
+    //    << " fromCP=" << c.fromCP
+    //    << " toCP=" << c.toCP 
+    //    << " all=" << c.all
+    //    << " origID=" << c.origID
+    //    << " origLane=" << c.origLane
+    //    << " seenlist="; 
+    //for (std::set<Connection>::const_iterator i = seen.begin(); i != seen.end(); ++i) {
+    //    std::cout << (*i).fromEdge << "," << (*i).toEdge << " ";
+    //}
+    //std::cout << "\n";
 
     OpenDriveEdge* dest = innerEdges.find(c.toEdge)->second;
     if (dest == 0) {
         /// !!! should not, look in all?
         return;
     }
+    seen.insert(c);
     const std::set<Connection>& conts = dest->connections;
     for (std::set<Connection>::const_iterator i = conts.begin(); i != conts.end(); ++i) {
         if (innerEdges.find((*i).toEdge) != innerEdges.end()) {
             std::vector<Connection> t;
-            buildConnectionsToOuter(*i, innerEdges, t);
-            for (std::vector<Connection>::const_iterator j = t.begin(); j != t.end(); ++j) {
-                // @todo this section is unverified
-                Connection cn = (*j);
-                cn.fromEdge = c.fromEdge;
-                cn.fromLane = c.fromLane;
-                cn.fromCP = c.fromCP;
-                cn.all = c.all; // @todo "all" is a hack trying to avoid the "from is zero" problem;
-                into.push_back(cn);
+            if (seen.count(*i) == 0) {
+                buildConnectionsToOuter(*i, innerEdges, t, seen);
+                for (std::vector<Connection>::const_iterator j = t.begin(); j != t.end(); ++j) {
+                    // @todo this section is unverified
+                    Connection cn = (*j);
+                    cn.fromEdge = c.fromEdge;
+                    cn.fromLane = c.fromLane;
+                    cn.fromCP = c.fromCP;
+                    cn.all = c.all; // @todo "all" is a hack trying to avoid the "from is zero" problem;
+                    into.push_back(cn);
+                }
+            } else {
+                WRITE_WARNING("Circular connections in junction including roads '" + c.fromEdge + "' and '" + c.toEdge + "', loop size " + toString(seen.size()));
             }
         } else {
             if ((*i).fromLane == c.toLane) {
