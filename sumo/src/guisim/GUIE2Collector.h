@@ -4,7 +4,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Okt 2003
-/// @version $Id: GUIE2Collector.h 22608 2017-01-17 06:28:54Z behrisch $
+/// @version $Id$
 ///
 // The gui-version of the MS_E2_ZS_Collector
 /****************************************************************************/

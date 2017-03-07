@@ -5,7 +5,7 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Okt 2003
-/// @version $Id: GUIE2Collector.cpp 22608 2017-01-17 06:28:54Z behrisch $
+/// @version $Id$
 ///
 // The gui-version of the MSE2Collector
 /****************************************************************************/

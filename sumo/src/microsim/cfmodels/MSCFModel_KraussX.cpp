@@ -6,7 +6,7 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Mon, 04 Aug 2009
-/// @version $Id: MSCFModel_KraussX.cpp 22608 2017-01-17 06:28:54Z behrisch $
+/// @version $Id$
 ///
 // Krauss car-following model, changing accel and speed by slope
 /****************************************************************************/

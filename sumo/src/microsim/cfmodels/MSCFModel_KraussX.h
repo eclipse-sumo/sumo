@@ -2,7 +2,7 @@
 /// @file    MSCFModel_KraussX.h
 /// @author  Jakob Erdmann
 /// @date    27 Feb 2017
-/// @version $Id: MSCFModel_KraussX.h 22608 2017-01-17 06:28:54Z behrisch $
+/// @version $Id$
 ///
 // Experimental extensions to the Krauss car-following model
 /****************************************************************************/
