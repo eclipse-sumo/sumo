@@ -35,7 +35,7 @@ class DetectorGroupData:
         self.totalFlow = 0
         self.avgSpeed = 0
         self.entryCount = 0
-        if id != None:
+        if id is not None:
             self.ids.append(id)
 
     def addDetFlow(self, flow, speed):

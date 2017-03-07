@@ -5,7 +5,7 @@
 @date    2013-06-12
 @version $Id$
 
-This script validates detector data resulting from dfrouter 
+This script validates detector data resulting from dfrouter
 validation detectors against the original data fed into dfrouter
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/

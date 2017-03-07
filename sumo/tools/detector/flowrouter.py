@@ -416,7 +416,7 @@ class Net:
                         if firstReal == '':
                             firstReal = redge.label
                         lastReal = redge
-                assert firstReal != '' and lastReal != None
+                assert firstReal != '' and lastReal is not None
                 routeID = "%s.%s%s" % (firstReal, id, suffix)
                 print('    <route id="%s" edges="%s"/>' % (
                     routeID, routeString.strip()), file=routeOut)
