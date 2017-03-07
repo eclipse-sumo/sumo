@@ -11,7 +11,7 @@ A map file with the following syntax is read first:
  <EDGE_ID>-><EDGE_ID>
 It describes at which edges the networks overlapped and which edge
  was kept in the resulting one.
-Vehicles from both given route files starting at the first of those 
+Vehicles from both given route files starting at the first of those
  edges will be at first not regarded, but their routes are kept in memory.
 All other vehicles are kept, but if they pass one of the mapped edges, the
  route is continued by choosing a random route from the list of previously

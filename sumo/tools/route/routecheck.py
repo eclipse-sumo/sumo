@@ -211,7 +211,7 @@ class RouteReader(handler.ContentHandler):
             if len(edgeList) == 0:
                 print("Warning: Route %s is empty" % self._routeID)
                 return False
-            if net == None:
+            if net is None:
                 return True
             doConnectivityTest = True
             cleanedEdgeList = []

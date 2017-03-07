@@ -5,7 +5,7 @@
 @date    2014-12-18
 @version $Id$
 
-compute statistics on route lengths for a single route or 
+compute statistics on route lengths for a single route or
 for the lenght-difference between two sets of routes.
 Routes must be children of <vehicle> elements and when comparing two sets of
 routes, the same vehicle ids must appear.

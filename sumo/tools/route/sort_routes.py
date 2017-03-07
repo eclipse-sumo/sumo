@@ -144,8 +144,7 @@ def main(args=None):
     options = get_options(args=args)
     if options.big:
         line_offsets = create_line_index(options.routefile)
-        element_lines = get_element_lines(options.routefile)
-        element_lines.sort()
+        element_lines = sorted(get_element_lines(options.routefile))
         copy_elements(
             options.routefile, options.outfile, element_lines, line_offsets)
     else:

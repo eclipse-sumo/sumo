@@ -268,7 +268,8 @@ def buildTripGenerator(net, options):
         else:
             via_generator = None
 
-    return RandomTripGenerator(source_generator, sink_generator, via_generator, options.intermediate, options.pedestrians)
+    return RandomTripGenerator(
+        source_generator, sink_generator, via_generator, options.intermediate, options.pedestrians)
 
 
 def is_walk_attribute(attr):
