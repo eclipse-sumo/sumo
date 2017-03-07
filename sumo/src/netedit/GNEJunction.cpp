@@ -375,14 +375,19 @@ void
 GNEJunction::registerMove(GNEUndoList* undoList) {
     Position newPos = myNBNode.getPosition();
     std::string newPosValue = getAttribute(SUMO_ATTR_POSITION);
-    // actually the geometry is already up to date
-    // set the restore point to the end of the last change-set
-    setPosition(myOrigPos);
-    // do not execute the command to avoid changing the edge geometry twice
-    undoList->add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, newPosValue), false);
-    setPosition(newPos);
-    // Refresh element to avoid grabbing problems
-    myNet->refreshElement(this);
+    if (isValid(SUMO_ATTR_POSITION, newPosValue)) {
+        // actually the geometry is already up to date
+        // set the restore point to the end of the last change-set
+        setPosition(myOrigPos);
+        // do not execute the command to avoid changing the edge geometry twice
+        undoList->add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, newPosValue), false);
+        setPosition(newPos);
+        // Refresh element to avoid grabbing problems
+        myNet->refreshElement(this);
+    } else {
+        // tried to set an invalid position, revert back to the previous one
+        move(myOrigPos);
+    }
 }
 
 
