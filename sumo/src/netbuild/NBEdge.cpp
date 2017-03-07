@@ -60,7 +60,8 @@
 
 //#define DEBUG_CONNECTION_GUESSING
 //#define DEBUG_ANGLES
-#define DEBUGCOND true
+//#define DEBUG_NODE_BORDER
+#define DEBUGCOND (getID() == "disabled")
 
 // ===========================================================================
 // static members
@@ -549,23 +550,10 @@ NBEdge::extendGeometryAtNode(const NBNode* node, double maxExtent) {
 
 void
 NBEdge::setNodeBorder(const NBNode* node, const Position& p, const Position& p2, bool rectangularCut) {
-    const double extend = 200;
     PositionVector border;
     if (rectangularCut) {
-        const double distanceOfClosestThreshold = 1.0; // very rough heuristic, actually depends on angle
-        double distanceOfClosest = distanceOfClosestThreshold;
-        border = myGeom.getOrthogonal(p, extend, distanceOfClosest);
-        if (distanceOfClosest < distanceOfClosestThreshold) {
-            // shift border forward / backward
-            const double shiftDirection = (node == myFrom ? 1.0 : -1.0);
-            double base = myGeom.nearest_offset_to_point2D(p);
-            if (base != GeomHelper::INVALID_OFFSET) {
-                base += shiftDirection * (distanceOfClosestThreshold - distanceOfClosest);
-                PositionVector tmp = myGeom;
-                tmp.move2side(1.0);
-                border = myGeom.getOrthogonal(tmp.positionAtOffset2D(base), extend, distanceOfClosest);
-            }
-        }
+        const double extend = 100;
+        border = myGeom.getOrthogonal(p, extend, node == myTo);
     } else {
         border.push_back(p);
         border.push_back(p2);
@@ -575,7 +563,7 @@ NBEdge::setNodeBorder(const NBNode* node, const Position& p, const Position& p2,
         for (int i = 0; i < (int)myLanes.size(); i++) {
             edgeWidth += getLaneWidth(i);
         }
-        border.extrapolate2D(edgeWidth);
+        border.extrapolate2D(getTotalWidth());
         if (node == myFrom) {
             myFromBorder = border;
         } else {
@@ -583,6 +571,16 @@ NBEdge::setNodeBorder(const NBNode* node, const Position& p, const Position& p2,
             myToBorder = border;
         }
     }
+#ifdef DEBUG_NODE_BORDER
+    gDebugFlag1 = DEBUGCOND;
+    if (DEBUGCOND) std::cout << "setNodeBorder edge=" << getID() << " node=" << node->getID() 
+        << " rect=" << rectangularCut
+        << " p=" << p << " p2=" << p2 
+        << " border=" << border 
+        << " myGeom=" << myGeom
+        << "\n";
+    
+#endif
 }
 
 

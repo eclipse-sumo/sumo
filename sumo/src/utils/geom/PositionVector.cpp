@@ -1235,21 +1235,40 @@ PositionVector::simplified() const {
 
 
 PositionVector
-PositionVector::getOrthogonal(const Position& p, double extend, double& distToClosest) const {
+PositionVector::getOrthogonal(const Position& p, double extend, bool before, double length) const {
     PositionVector result;
     PositionVector tmp = *this;
     tmp.extrapolate2D(extend);
     const double baseOffset = tmp.nearest_offset_to_point2D(p);
-    if (baseOffset == GeomHelper::INVALID_OFFSET) {
+    if (baseOffset == GeomHelper::INVALID_OFFSET || size() < 2) {
         // fail
         return result;
     }
     Position base = tmp.positionAtOffset2D(baseOffset);
-    distToClosest = tmp[tmp.indexOfClosest(base)].distanceTo2D(base);
-    if (p.distanceTo2D(base) > NUMERICAL_EPS) {
-        result.push_back(p);
-        result.push_back(base);
+    const int closestIndex = tmp.indexOfClosest(base);
+    result.push_back(base);
+    if (fabs(baseOffset - tmp.offsetAtIndex2D(closestIndex)) > NUMERICAL_EPS) {
+        result.push_back(tmp[closestIndex]);
+    } else if (before) {
+        // take the segment before closestIndex if possible
+        if (closestIndex > 0) {
+            result.push_back(tmp[closestIndex - 1]);
+        } else {
+            result.push_back(tmp[1]);
+        }
+    } else {
+        // take the segment after closestIndex if possible
+        if (closestIndex < (size() - 1)) {
+            result.push_back(tmp[closestIndex + 1]);
+        } else {
+            result.push_back(tmp[-1]);
+        }
     }
+    result = result.getSubpart2D(0, length);
+    // rotate around base
+    result.add(base * -1);
+    result.rotate2D(DEG2RAD(90));
+    result.add(base);
     return result;
 }
 

@@ -359,9 +359,10 @@ public:
     /** @brief return orthogonal through p (extending this vector if necessary)
      * @param[in] p The point through which to draw the orthogonal
      * @param[in] extend how long to extend this vector for finding an orthogonal
-     * @param[out] distToClosest Distance between the intersection point and the closest geometry point
+     * @param[in] front Whether to take the segment before or after the base point in case of ambiguity
+     * @param[in] length the length of the orthogonal
      */
-    PositionVector getOrthogonal(const Position& p, double extend, double& distToClosest) const;
+    PositionVector getOrthogonal(const Position& p, double extend, bool before, double length = 1.0) const;
 
 
     /// @brief returned vector that is smoothed at the front (within dist)
