@@ -15,17 +15,17 @@ converted in subsequent steps.
 
 For each of the pages to convert, the HTML-representation of the
 page is downloaded and stripped from wiki-header/footer, first.
-Then, the image-links are extracted from the HTML page and stored 
+Then, the image-links are extracted from the HTML page and stored
 temporarily, the links themselves are patched to point to local pages/images
 (if the page behind the link exists).
-The page is saved into options.mirror/<PAGE_PATH>. 
+The page is saved into options.mirror/<PAGE_PATH>.
 
-After parsing all pages, the images are downloaded and stored into 
+After parsing all pages, the images are downloaded and stored into
 options.mirror/images.
 
 After downloading all data, the title page is extracted and the content
 included in this page is extracted. This content is embedded into "index.html"
-between the <!-- nav begins --> / <!-- nav ends --> markers. 
+between the <!-- nav begins --> / <!-- nav ends --> markers.
 All pages downloaded earlier are loaded, and embedded into the index.html
 between the <!-- content begins --> / <!-- content ends --> markers. Then,
 the page is saved into options.output/<PAGE_PATH>. All images are copied

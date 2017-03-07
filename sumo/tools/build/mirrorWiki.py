@@ -15,11 +15,11 @@ converted in subsequent steps.
 
 For each of the pages to mirror, the page is downloaded as for
 being edited and is stripped from wiki-header/footer, first.
-Then, the image-links are extracted from the HTML page and stored 
+Then, the image-links are extracted from the HTML page and stored
 temporarily.
-The page is saved into MIRROR_FOLDER/<PAGE_PATH>. 
+The page is saved into MIRROR_FOLDER/<PAGE_PATH>.
 
-After mirroring all pages, the images are downloaded and stored into 
+After mirroring all pages, the images are downloaded and stored into
 MIRROR_FOLDER/images.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/

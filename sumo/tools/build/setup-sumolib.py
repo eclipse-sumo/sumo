@@ -53,7 +53,7 @@ setup(
     packages=find_packages(include=["sumolib", "sumolib.*"]),
 
     script_name='./build/setup-sumolib.py',
-    data_files = ['./build/setup-sumolib.py'],
+    data_files=['./build/setup-sumolib.py'],
 
     # TODO: check requirements
     install_requires=[''],

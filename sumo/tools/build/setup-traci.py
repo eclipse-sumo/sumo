@@ -55,7 +55,7 @@ setup(
     packages=find_packages(include=["traci", "traci.*"]),
 
     script_name='./build/setup-traci.py',
-    data_files = ['./build/setup-traci.py'],
+    data_files=['./build/setup-traci.py'],
 
     # TODO: check requirements
     install_requires=['sumolib>=%s' % VERSION],

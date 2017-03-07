@@ -5,7 +5,7 @@
 @date    2015-07-06
 @version $Id$
 
-This script rebuilds "../../src/netimport/typemap.h", the file 
+This script rebuilds "../../src/netimport/typemap.h", the file
 representing the default typemaps.
 It does this by parsing the data from the sumo data dir.
 

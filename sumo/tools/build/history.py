@@ -41,7 +41,8 @@ if os.path.exists(LOCK):
 open(LOCK, 'w').close()
 try:
     if not options.end:
-        for line in subprocess.check_output('svn info http://svn.code.sf.net/p/sumo/code/trunk/sumo', shell=True).splitlines():
+        for line in subprocess.check_output(
+                'svn info http://svn.code.sf.net/p/sumo/code/trunk/sumo', shell=True).splitlines():
             l = line.split()
             if len(l) == 2 and l[0] == "Revision:":
                 options.end = int(l[1])
