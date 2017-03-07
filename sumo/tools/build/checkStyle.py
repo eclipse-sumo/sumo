@@ -25,6 +25,11 @@ import sys
 import xml.sax
 import codecs
 from optparse import OptionParser
+try:
+    import flake8
+    HAVE_FLAKE = True
+except ImportError:
+    HAVE_FLAKE = False
 
 _SOURCE_EXT = [".h", ".cpp", ".py", ".pl", ".java", ".am"]
 _TESTDATA_EXT = [".xml", ".prog", ".csv",
@@ -113,7 +118,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     if self._fix:
                         subprocess.call(
                             ["svn", "ps", "svn:eol-style", "CRLF", self._file])
-            if name == 'target' and ext == ".py" and os.path.getsize(self._file) < 1000000: # flake hangs on very large files
+            if HAVE_FLAKE and name == 'target' and ext == ".py" and os.path.getsize(self._file) < 1000000: # flake hangs on very large files
                 subprocess.call(["flake8", "--max-line-length", "120", self._file])
         if name == 'property':
             self._value = ""

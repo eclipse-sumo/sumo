@@ -302,7 +302,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // Define number of points (for efficiency)
         int noPoints = 9;
 
-        // If the scale * exaggeration is more than 25, recalculate nº points
+        // If the scale * exaggeration is more than 25, recalculate number of points
         if (s.scale * exaggeration > 25) {
             noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
         }
