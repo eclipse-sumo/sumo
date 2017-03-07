@@ -515,10 +515,6 @@ private:
 
     bool myKeepClear;
 
-    /// @brief penalty time for mesoscopic simulation
-    SUMOTime myMesoTLSPenalty;
-    double myGreenFraction;
-
     /// @brief The following junction-internal lane if used
     MSLane* const myInternalLane;
 
@@ -527,6 +523,11 @@ private:
      * - internal junction links (from internal lane to internal lane)
      */
     const MSLane* myInternalLaneBefore;
+
+    /// @brief penalty time at tls for mesoscopic simulation
+    SUMOTime myMesoTLSPenalty;
+    /// @brief green fraction at tls for mesoscopic simulation
+    double myGreenFraction;
 
     /* @brief lengths after the crossing point with foeLane
      * (lengthOnThis, lengthOnFoe)

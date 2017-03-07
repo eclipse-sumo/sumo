@@ -86,9 +86,9 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     GNEFrame(horizontalFrameParent, viewNet, getStats().c_str()),
     mySetOperation(SET_ADD),
     mySetOperationTarget(mySetOperation),
-    ALL_VCLASS_NAMES_MATCH_STRING("all " + joinToString(SumoVehicleClassStrings.getStrings(), " ")),
     myCurrentTag(SUMO_TAG_NOTHING),
-    myCurrentAttribute(SUMO_ATTR_NOTHING) {
+    myCurrentAttribute(SUMO_ATTR_NOTHING),
+    ALL_VCLASS_NAMES_MATCH_STRING("all " + joinToString(SumoVehicleClassStrings.getStrings(), " ")) {
     // selection modification mode
     FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame);
     // Create all options buttons

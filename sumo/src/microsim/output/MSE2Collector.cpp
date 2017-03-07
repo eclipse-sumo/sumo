@@ -458,7 +458,14 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes){
     std::cout << "\n" << "Initializing offsets:"<<std::endl;
 #endif
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4127) // do not warn about constant conditional expression
+#endif
     while (true) {
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
         // Consider the next internal lanes
         while(internal != 0){
             myLanes.push_back(internal->getID());
