@@ -1222,7 +1222,18 @@ GNEAdditionalFrame::NeteditAttributes::onCmdSetLength(FXObject*, FXSelector, voi
 long
 GNEAdditionalFrame::NeteditAttributes::onCmdSelectReferencePoint(FXObject*, FXSelector, void*) {
     // Cast actual reference point type
-    myActualAdditionalReferencePoint = static_cast<additionalReferencePoint>(myReferencePointMatchBox->getCurrentItem());
+    if(myReferencePointMatchBox->getText() == "reference left") {
+        myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
+        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_LEFT;
+    } else if (myReferencePointMatchBox->getText() == "reference right") {
+        myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
+        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_RIGHT;
+    } else if (myReferencePointMatchBox->getText() == "reference center") {
+        myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
+        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_CENTER;
+    } else {
+        myReferencePointMatchBox->setTextColor(FXRGB(255, 0, 0));
+    }
     return 1;
 }
 
