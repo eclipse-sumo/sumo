@@ -1258,7 +1258,7 @@ PositionVector::getOrthogonal(const Position& p, double extend, bool before, dou
         }
     } else {
         // take the segment after closestIndex if possible
-        if (closestIndex < (size() - 1)) {
+        if (closestIndex < (int)size() - 1) {
             result.push_back(tmp[closestIndex + 1]);
         } else {
             result.push_back(tmp[-1]);
