@@ -427,7 +427,9 @@ TraCIServer::dispatchCommand() {
                     for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myInstance->myVehicleStateChanges.begin(); i != myInstance->myVehicleStateChanges.end(); ++i) {
                         (*i).second.clear();
                     }
-                    MSNet::getInstance()->simulationStep();
+                    while (MSNet::getInstance()->getCurrentTimeStep() < myTargetTime) {
+                        MSNet::getInstance()->simulationStep();
+                    }
                     postProcessSimulationStep2();
                 }
                 return commandId;
