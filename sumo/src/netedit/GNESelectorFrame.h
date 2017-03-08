@@ -131,6 +131,18 @@ private:
     /// @brief how to modify selection
     FXuint mySetOperation;
 
+    /// @brief add radio button
+    FXRadioButton *myAddRadioButton;
+
+    /// @brief remove radio button
+    FXRadioButton *myRemoveRadioButton;
+
+    /// @brief keep button
+    FXRadioButton *myKeepRadioButton;
+
+    /// @brief replace radio button
+    FXRadioButton *myReplaceRadioButton;
+
     /// @brief target of modify selection
     FXDataTarget mySetOperationTarget;
 

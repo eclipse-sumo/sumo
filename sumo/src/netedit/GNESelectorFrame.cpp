@@ -92,14 +92,14 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // selection modification mode
     FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame);
     // Create all options buttons
-    new FXRadioButton(selBox, "add\t\tSelected objects are added to the previous selection",
-                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_ADD, GUIDesignRadioButton);
-    new FXRadioButton(selBox, "remove\t\tSelected objects are removed from the previous selection",
-                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_SUB, GUIDesignRadioButton);
-    new FXRadioButton(selBox, "keep\t\tRestrict previous selection by the current selection",
-                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_RESTRICT, GUIDesignRadioButton);
-    new FXRadioButton(selBox, "replace\t\tReplace previous selection by the current selection",
-                      &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_REPLACE, GUIDesignRadioButton);
+    myAddRadioButton = new FXRadioButton(selBox, "add\t\tSelected objects are added to the previous selection",
+                                         &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_ADD, GUIDesignRadioButton);
+    myRemoveRadioButton = new FXRadioButton(selBox, "remove\t\tSelected objects are removed from the previous selection",
+                                            &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_SUB, GUIDesignRadioButton);
+    myKeepRadioButton = new FXRadioButton(selBox, "keep\t\tRestrict previous selection by the current selection",
+                                          &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_RESTRICT, GUIDesignRadioButton);
+    myReplaceRadioButton = new FXRadioButton(selBox, "replace\t\tReplace previous selection by the current selection",
+                                             &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_REPLACE, GUIDesignRadioButton);
     // Create groupBox for selection by expression matching (match box)
     FXGroupBox* elementBox = new FXGroupBox(myContentFrame, "type of element", GUIDesignGroupBoxFrame);
     // Create MatchTagBox for tags and fill it

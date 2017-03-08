@@ -176,6 +176,7 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {
     gSelected.remove2Update();
 }
 
+
 bool
 GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView* parent) {
     // Declare map to keep values

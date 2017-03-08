@@ -157,6 +157,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     mySetTemplateButton->hide();
 }
 
+
 GNEInspectorFrame::~GNEInspectorFrame() {
     if (myEdgeTemplate) {
         myEdgeTemplate->decRef("GNEInspectorFrame::~GNEInspectorFrame");
