@@ -497,7 +497,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingInt(inputStorage, direction)) {
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of lane change state requires a direction as int.", outputStorage);
                 }
-                const std::pair<int, int> state = onRoad ? v->getLaneChangeModel().getSavedState(direction) : std::make_pair(LCA_UNKNOWN, LCA_UNKNOWN);
+                const std::pair<int, int> state = onRoad ? v->getLaneChangeModel().getSavedState(direction) : std::make_pair((int)LCA_UNKNOWN, (int)LCA_UNKNOWN);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tempMsg.writeInt(2);
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
