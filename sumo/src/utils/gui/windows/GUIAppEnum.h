@@ -421,6 +421,8 @@ enum {
     MID_GNE_HOTKEY_DEL,
     /// @brief hot key <ENTER>
     MID_GNE_HOTKEY_ENTER,
+    /// brief hot key <TAB>
+    MID_GNE_HOTKEY_TAB,
     /// @}
 
     /// @name NETEDIT edit modes

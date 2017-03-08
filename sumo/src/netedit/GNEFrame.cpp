@@ -96,6 +96,12 @@ GNEFrame::~GNEFrame() {
 }
 
 
+void 
+GNEFrame::focusUpperElement() {
+    myFrameHeaderLabel->setFocus();
+}
+
+
 void
 GNEFrame::show() {
     // show scroll window

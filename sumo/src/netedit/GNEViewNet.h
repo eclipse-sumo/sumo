@@ -79,6 +79,7 @@ class GNEUndoList;
 class GNEAdditional;
 class GNEPoly;
 class GNEPOI;
+class GNEFrame;
 
 // ===========================================================================
 // class definitions
@@ -249,6 +250,9 @@ public:
     /// @brief handle enter keypress
     void hotkeyEnter();
 
+     /// @brief handle tab keypress
+    void hotkeyTab();
+
     /// @brief store the position where a popup-menu was requested
     void markPopupPosition();
 
@@ -310,6 +314,9 @@ private:
 
     /// @brief the current edit mode
     EditMode myEditMode;
+
+    /// @brief the current frame
+    GNEFrame *myCurrentFrame;
 
     /// @brief the previous edit mode used for toggling
     EditMode myPreviousEditMode;

@@ -160,6 +160,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORT,                 GNEApplicationWindow::onCmdAbort),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_DEL,            GNEApplicationWindow::onCmdDel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ENTER,          GNEApplicationWindow::onCmdEnter),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_TAB,            GNEApplicationWindow::onCmdTab),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                      GNEApplicationWindow::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_COMPUTE_JUNCTIONS,     GNEApplicationWindow::onCmdComputeJunctions),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_COMPUTE_JUNCTIONS,     GNEApplicationWindow::onUpdNeedsNetwork),
@@ -267,6 +268,7 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(parseAccel("Esc"), this, FXSEL(SEL_COMMAND, MID_GNE_ABORT));
     getAccelTable()->addAccel(parseAccel("Del"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
     getAccelTable()->addAccel(parseAccel("Enter"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
+    getAccelTable()->addAccel(parseAccel("Tab"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_TAB));
 }
 
 void
@@ -1065,6 +1067,14 @@ GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
+long 
+GNEApplicationWindow::onCmdTab(FXObject*, FXSelector, void*) {
+    if (getView()) {
+        getView()->hotkeyTab();
+    }
+    return 1;
+}
 
 long
 GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {

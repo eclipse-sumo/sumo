@@ -137,6 +137,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNet(net),
     myEditMode(GNE_MODE_MOVE),
     myPreviousEditMode(GNE_MODE_MOVE),
+    myCurrentFrame(0),
     myShowConnectionActivated(false),
     myCreateEdgeSource(0),
     myJunctionToMove(0),
@@ -704,6 +705,10 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 // Inspect seleted ACs, or single clicked AC
                 myViewParent->getInspectorFrame()->inspectMultisection(selected);
                 GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
+                // focus upper element of inspector frame
+                if(selected.size() > 0) {
+                    myViewParent->getInspectorFrame()->focusUpperElement();
+                }
                 update();
                 break;
             }
@@ -951,6 +956,15 @@ GNEViewNet::hotkeyEnter() {
             removeCurrentPoly();
             update();
         }
+    }
+}
+
+
+void
+GNEViewNet::hotkeyTab() {
+    // if current focus is placed over GNEViewnet, set focus to current frame
+    if(hasFocus() && (myCurrentFrame != NULL)) {
+        myCurrentFrame->focusUpperElement();
     }
 }
 
@@ -1722,6 +1736,9 @@ GNEViewNet::setEditMode(EditMode mode) {
     abortOperation(false);
     if (mode == myEditMode) {
         setStatusBarText("Mode already selected");
+        if(myCurrentFrame != NULL) {
+            myCurrentFrame->focusUpperElement();
+        }
     } else {
         myPreviousEditMode = myEditMode;
         myEditMode = mode;
@@ -1734,8 +1751,8 @@ GNEViewNet::setEditMode(EditMode mode) {
             default:
                 break;
         }
+        updateModeSpecificControls();
     }
-    updateModeSpecificControls();
 }
 
 
@@ -1756,7 +1773,7 @@ GNEViewNet::buildEditModeControls() {
     myEditModeCreateEdge = new MFXCheckableButton(false, myToolbar, "\tset create edge mode\tMode for creating junction and edges.",
             GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), this, MID_GNE_MODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
     myEditModeMove = new MFXCheckableButton(false, myToolbar, "\tset move mode\tMode for move elements.",
-                                            GUIIconSubSys::getIcon(ICON_MODEMOVE), this, MID_GNE_MODE_MOVE, GUIDesignButtonToolbarCheckable);
+            GUIIconSubSys::getIcon(ICON_MODEMOVE), this, MID_GNE_MODE_MOVE, GUIDesignButtonToolbarCheckable);
     myEditModeDelete = new MFXCheckableButton(false, myToolbar, "\tset delete mode\tMode for delete elements.",
             GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_MODE_DELETE, GUIDesignButtonToolbarCheckable);
     myEditModeInspect = new MFXCheckableButton(false, myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.",
@@ -1842,18 +1859,24 @@ GNEViewNet::updateModeSpecificControls() {
             break;
         case GNE_MODE_DELETE:
             myViewParent->getDeleteFrame()->show();
+            myViewParent->getDeleteFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getDeleteFrame();
             mySelectEdges->show();
             myShowConnections->show();
             myEditModeDelete->setChecked(true);
             break;
         case GNE_MODE_INSPECT:
             myViewParent->getInspectorFrame()->show();
+            myViewParent->getInspectorFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getInspectorFrame();
             mySelectEdges->show();
             myShowConnections->show();
             myEditModeInspect->setChecked(true);
             break;
         case GNE_MODE_SELECT:
             myViewParent->getSelectorFrame()->show();
+            myViewParent->getSelectorFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getSelectorFrame();
             mySelectEdges->show();
             myShowConnections->show();
             myExtendToEdgeNodes->show();
@@ -1861,20 +1884,28 @@ GNEViewNet::updateModeSpecificControls() {
             break;
         case GNE_MODE_CONNECT:
             myViewParent->getConnectorFrame()->show();
+            myViewParent->getConnectorFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getConnectorFrame();
             myEditModeConnection->setChecked(true);
             break;
         case GNE_MODE_TLS:
             myViewParent->getTLSEditorFrame()->show();
+            myViewParent->getTLSEditorFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getTLSEditorFrame();
             myChangeAllPhases->show();
             myEditModeTrafficLight->setChecked(true);
             break;
         case GNE_MODE_ADDITIONAL:
             myViewParent->getAdditionalFrame()->show();
+            myViewParent->getAdditionalFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getAdditionalFrame();
             myEditModeAdditional->setChecked(true);
             myShowGrid->show();
             break;
         case GNE_MODE_CROSSING:
             myViewParent->getCrossingFrame()->show();
+            myViewParent->getCrossingFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getCrossingFrame();
             myEditModeCrossing->setChecked(true);
             myShowGrid->setCheck(false);
             break;

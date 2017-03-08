@@ -62,6 +62,9 @@ public:
     /// @brief destructor
     ~GNEFrame();
 
+    /// @brief focus upper element of frame
+    void focusUpperElement();
+
     /**@brief show Frame
      * @note some GNEFrames needs a re-implementation
      */
