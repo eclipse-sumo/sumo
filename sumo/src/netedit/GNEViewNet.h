@@ -250,9 +250,6 @@ public:
     /// @brief handle enter keypress
     void hotkeyEnter();
 
-     /// @brief handle tab keypress
-    void hotkeyTab();
-
     /// @brief store the position where a popup-menu was requested
     void markPopupPosition();
 

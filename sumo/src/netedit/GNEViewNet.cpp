@@ -961,15 +961,6 @@ GNEViewNet::hotkeyEnter() {
 
 
 void
-GNEViewNet::hotkeyTab() {
-    // if current focus is placed over GNEViewnet, set focus to current frame
-    if(hasFocus() && (myCurrentFrame != NULL)) {
-        myCurrentFrame->focusUpperElement();
-    }
-}
-
-
-void
 GNEViewNet::setEditModeFromHotkey(FXushort selid) {
     switch (selid) {
         case MID_GNE_MODE_CREATE_EDGE:

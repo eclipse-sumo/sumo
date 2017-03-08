@@ -224,9 +224,6 @@ public:
     /// @brief called if the user hits enter
     long onCmdEnter(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief called if the user hits tab
-    long onCmdTab(FXObject* sender, FXSelector sel, void* ptr);
-
     /// @brief called if the user selects help->Documentation
     long onCmdHelp(FXObject* sender, FXSelector sel, void* ptr);
 
