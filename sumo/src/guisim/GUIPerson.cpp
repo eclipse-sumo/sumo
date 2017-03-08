@@ -136,9 +136,8 @@ GUIPerson::GUIPersonPopupMenu::onCmdHideWalkingareaPath(FXObject*, FXSelector, v
 long
 GUIPerson::GUIPersonPopupMenu::onCmdStartTrack(FXObject*, FXSelector, void*) {
     assert(myObject->getType() == GLO_PERSON);
-    if (!static_cast<GUIPerson*>(myObject)->hasActiveAddVisualisation(myParent, VO_TRACKED)) {
+    if (myParent->getTrackedID() != static_cast<GUIPerson*>(myObject)->getGlID()) {
         myParent->startTrack(static_cast<GUIPerson*>(myObject)->getGlID());
-        static_cast<GUIPerson*>(myObject)->addActiveAddVisualisation(myParent, VO_TRACKED);
     }
     return 1;
 }
@@ -146,7 +145,6 @@ GUIPerson::GUIPersonPopupMenu::onCmdStartTrack(FXObject*, FXSelector, void*) {
 long
 GUIPerson::GUIPersonPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*) {
     assert(myObject->getType() == GLO_PERSON);
-    static_cast<GUIPerson*>(myObject)->removeActiveAddVisualisation(myParent, VO_TRACKED);
     myParent->stopTrack();
     return 1;
 }
@@ -165,6 +163,14 @@ GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtyp
 
 
 GUIPerson::~GUIPerson() {
+    myLock.lock();
+    for (std::map<GUISUMOAbstractView*, int>::iterator i = myAdditionalVisualizations.begin(); i != myAdditionalVisualizations.end(); ++i) {
+        if (i->first->getTrackedID() == getGlID()) {
+            i->first->stopTrack();
+        }
+        while (i->first->removeAdditionalGLVisualisation(this));
+    }
+    myLock.unlock();
 }
 
 

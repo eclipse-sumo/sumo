@@ -209,9 +209,8 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdHideBestLanes(FXObject*, FXSelecto
 long
 GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdStartTrack(FXObject*, FXSelector, void*) {
     assert(myObject->getType() == GLO_VEHICLE);
-    if (!static_cast<GUIBaseVehicle*>(myObject)->hasActiveAddVisualisation(myParent, VO_TRACKED)) {
+    if (myParent->getTrackedID() != static_cast<GUIBaseVehicle*>(myObject)->getGlID()) {
         myParent->startTrack(static_cast<GUIBaseVehicle*>(myObject)->getGlID());
-        static_cast<GUIBaseVehicle*>(myObject)->addActiveAddVisualisation(myParent, VO_TRACKED);
     }
     return 1;
 }
@@ -219,7 +218,6 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdStartTrack(FXObject*, FXSelector, 
 long
 GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*) {
     assert(myObject->getType() == GLO_VEHICLE);
-    static_cast<GUIBaseVehicle*>(myObject)->removeActiveAddVisualisation(myParent, VO_TRACKED);
     myParent->stopTrack();
     return 1;
 }
@@ -267,6 +265,9 @@ GUIBaseVehicle::GUIBaseVehicle(MSBaseVehicle& vehicle) :
 GUIBaseVehicle::~GUIBaseVehicle() {
     myLock.lock();
     for (std::map<GUISUMOAbstractView*, int>::iterator i = myAdditionalVisualizations.begin(); i != myAdditionalVisualizations.end(); ++i) {
+        if (i->first->getTrackedID() == getGlID()) {
+            i->first->stopTrack();
+        }
         while (i->first->removeAdditionalGLVisualisation(this));
     }
     myLock.unlock();

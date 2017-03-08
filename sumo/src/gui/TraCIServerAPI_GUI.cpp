@@ -192,9 +192,8 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (veh == 0) {
                     return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Could not find vehicle '" + id + "'.", outputStorage);
                 }
-                if (!static_cast<GUIVehicle*>(veh)->hasActiveAddVisualisation(v, GUIBaseVehicle::VO_TRACKED)) {
+                if (v->getTrackedID() != static_cast<GUIVehicle*>(veh)->getGlID()) {
                     v->startTrack(static_cast<GUIVehicle*>(veh)->getGlID());
-                    static_cast<GUIVehicle*>(veh)->addActiveAddVisualisation(v, GUIBaseVehicle::VO_TRACKED);
                 }
             }
         }
