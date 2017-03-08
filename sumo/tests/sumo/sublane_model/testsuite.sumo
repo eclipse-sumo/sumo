@@ -41,6 +41,10 @@ push_for_merge
 # 
 nopush_for_merge
 
+# a vehicle urgently needs to change lanes but is configured to refrain from pushing. nevertheless it undercuts the lateral gap
+# 
+nopushy_encroach
+
 # a vehicle urgently needs to change lanes but is configured to refrain from pushing. Instead it becomes impatient and forces braking in a (potentially) unsafe maneuver
 # 
 nopush_for_merge_impatience
