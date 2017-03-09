@@ -11,17 +11,11 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select busStop
-netedit.changeAdditional(comboboxAdditional, 0)
+netedit.changeAdditional("busStop")
 
 # change reference to center
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 2)
+netedit.modifyAdditionalDefaultValue(6, "reference center")
 
 # create busStop in mode "reference center"
 netedit.leftClick(match, 250, 250)
