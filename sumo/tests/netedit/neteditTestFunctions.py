@@ -109,7 +109,7 @@ def rebuildNetwork():
 # netedit undo
 def undo(match, number):
     # needed to avoid errors with undo/redo
-    inspectMode()
+    type("i")
     click(match)
     for x in range(0, number):
         type("z", Key.CTRL)
@@ -117,7 +117,7 @@ def undo(match, number):
 # netedit redo
 def redo(match, number):
     # needed to avoid errors with undo/redo
-    inspectMode()
+    type("i")
     click(match)
     for x in range(0, number):
         type("y", Key.CTRL)
@@ -209,36 +209,31 @@ def changeTwoWayOption(match):
 # Inspect mode
 #################################################
 
-# set inspect mode
+# go to inspect mode
 def inspectMode():
     type("i")
 
-# netedit parameters reference
-def getParametersReference(match):
-    return match.getTarget().offset(-75, 50)
-
 # netedit modify int/float/string
-def modifyAttribute(parametersReference, attributeNumber, value):
-    click(parametersReference)
+def modifyAttribute(attributeNumber, value):
+    type("i")
     # jump to attribute
-    for x in range(0, attributeNumber):
+    for x in range(0, attributeNumber + 1):
         type(Key.TAB)
     # select all values
     type("a", Key.CTRL)
     # paste the new value
     paste(value)
-    # type enter to save change
-    type(Key.ENTER)
+    # type ESC to save changea and avoid edit accidentally
+    type(Key.ESC)
 
-# netedit modify bool
-def modifyBoolAttribute(parametersReference, attributeNumber):
-    click(parametersReference)
-    # jump to bool attribute
-    for x in range(0, attributeNumber):
+# netedit modify bool attribute
+def modifyBoolAttribute(attributeNumber):
+    type("i")
+    # jump to attribute
+    for x in range(0, attributeNumber + 1):
         type(Key.TAB)
-    # change value
+    # type SPACE to change value
     type(Key.SPACE)
-
     
 #################################################
 # Move mode
@@ -329,92 +324,72 @@ def invertCrossings(match):
 # additionals
 #################################################
 
-# Change to create additional mode
-def additionalMode():
-    type("a")
-
-# get reference to combobox additional (to change type of additional)
-def getComboBoxAdditional(match):
-    return match.getTarget().offset(-75, 50)
-
 # change additional
-def changeAdditional(comboboxAdditional, number):
-    click(comboboxAdditional)
-    # select type of additionals depending of number
-    if(number >= 0):
-        for x in range(number):
-            type(Key.DOWN)
-    else:
-        for x in range(-1 * number):
-            type(Key.UP)
+def changeAdditional(additional):
+    type('a')
+    type(Key.TAB)
+    # select current value
+    type("a", Key.CTRL)
+    # paste the new value
+    paste(additional)
+    # type enter to save change
+    type(Key.ENTER)
+    # type ESC to avoid edit combobox accidentally
+    type(Key.ESC)
 
-# block additional
-def changeBlockAdditional(comboboxAdditional, numTabs):
-    click(comboboxAdditional)
-    # place cursor in block movement checkbox
-    for x in range(numTabs):
-        type(Key.TAB)
-    # Change current value
-    type(Key.SPACE)
 
-# modify stopping place lenght
-def modifyStoppingPlaceLength(comboboxAdditional, numTabs, length):
-    click(comboboxAdditional)
+# modify default int/double/string value of an additional
+def modifyAdditionalDefaultValue(numTabs, length):
+    type('a')
     # go to length textfield
-    for x in range(0, numTabs):
+    for x in range(0, numTabs + 1):
         type(Key.TAB)
+    # select current value
+    type("a", Key.CTRL)
     # paste new lenght
     paste(length)
-
-# force position
-def modifyStoppingPlaceForcePosition(comboboxAdditional, numTabs):
-    click(comboboxAdditional)
+    # type enter to save new lenght
+    type(Key.ENTER)
+    # type ESC to avoid edit combobox accidentally
+    type(Key.ESC)
+    
+# modify default boolean value of an additional
+def modifyAdditionalDefaultBoolValue(numTabs):
+    type('a')
     # place cursor in force position checkbox
-    for x in range(numTabs):
+    for x in range(numTabs + 1):
         type(Key.TAB)
     # Change current value
     type(Key.SPACE)
 
-# modify stopping place reference
-def modifyStoppingPlaceReference(comboboxAdditional, numTabs, numDowns):
-    click(comboboxAdditional)
-    # place cursor in comboBox Reference
-    for x in range(numTabs):
-        type(Key.TAB)
-    # Set comboBox in the first element
-    for x in range(3):
-        type(Key.UP)
-    # select new reference
-    for x in range(numDowns):
-        type(Key.DOWN)
-
-# modify stopping place lines
-def modifyNumberOfStoppingPlaceLines(comboboxAdditional, numTabs, numLines):
-    click(comboboxAdditional)
+# modify number of stopping place lines
+def modifyStoppingPlaceLines(numTabs, numLines):
+    type('a')
     # go to add line
-    for x in range(0, numTabs):
+    for x in range(0, numTabs+1):
         type(Key.TAB)
     # add lines
     for x in range(0, numLines):
         type(Key.SPACE)
 
-# add lines to stopping places
-def addStoppingPlaceLines(comboboxAdditional, numTabs, numLines):
-    click(comboboxAdditional)
+# fill lines to stopping places
+def fillStoppingPlaceLines(numTabs, numLines):
+    type('a')
     # place cursor in the first line
-    for x in range(0, 2):
+    for x in range(0, numTabs + 1):
         type(Key.TAB)
     # fill lines
     for x in range(0, numLines):
         paste("Line" + str(x))
         type(Key.TAB)
+    # type ESC to avoid edit combobox accidentally
+    type(Key.ESC)
 
 # select child of additional
-def selectChild(comboboxAdditional, numTabs, childNumber):
-    # first is needed to select childs with space
-    click(comboboxAdditional)
+def selectAdditionalChild(numTabs, childNumber):
+    type('a')
     # place cursor in the list of childs
-    for x in range(0, numTabs):
+    for x in range(0, numTabs + 1):
         type(Key.TAB)
     type(Key.SPACE)
     # now child can be selected
@@ -535,11 +510,11 @@ def modificationModeReplace(match):
     type(Key.SPACE)
 
 def selectionRectangle(match, startX, startY, endX, endY):
-	keyDown(Key.SHIFT)
-	# change mouse move delay
-	Settings.MoveMouseDelay = 0.5
-	# move element
-	dragDrop(match.getTarget().offset(startX, startY), match.getTarget().offset(endX, endY))
-	# set back mouse move delay
-	Settings.MoveMouseDelay = 0.1
-	keyUp(Key.SHIFT)
+    keyDown(Key.SHIFT)
+    # change mouse move delay
+    Settings.MoveMouseDelay = 0.5
+    # move element
+    dragDrop(match.getTarget().offset(startX, startY), match.getTarget().offset(endX, endY))
+    # set back mouse move delay
+    Settings.MoveMouseDelay = 0.1
+    keyUp(Key.SHIFT)
