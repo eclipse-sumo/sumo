@@ -2049,23 +2049,32 @@ MSLCM_SL2015::keepLatGap(int state,
     const double halfWidth = myVehicle.getVehicleType().getWidth() * 0.5;
     // if the current maneuver is blocked we will stay where we are
     const double newCenter = myVehicle.getCenterOnEdge() + (blocked == 0 ? latDist : 0);
-    // surplus gaps after the context-dependend value of currentMinGap has ben subtracted
+    // surplus gaps. these are used to collect various constraints
     // if this value goes negative, we should override the current maneuver to better maintain distance
+
+    // stay within the current edge
     double surplusGapRight = newCenter - halfWidth;
     double surplusGapLeft = myVehicle.getLane()->getEdge().getWidth() - newCenter - halfWidth;
 
+    // maintain gaps to vehicles on the current lane
     updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), newCenter, gapFactor, surplusGapRight, surplusGapLeft);
     updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), newCenter, gapFactor, surplusGapRight, surplusGapLeft);
+
     if (laneOffset != 0) {
+        // maintain gaps to vehicles on the target lane
         updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), newCenter, gapFactor, surplusGapRight, surplusGapLeft);
         updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), newCenter, gapFactor, surplusGapRight, surplusGapLeft);
     }
-    if (stayInLane) {
-        // stay fully within the current lane
-        const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
+    const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
+    if (stayInLane || laneOffset == 1) {
+        // do not move past the right boundary of the current lane (traffic wasn't check there)
         surplusGapRight = MIN2(surplusGapRight, halfLaneWidth + myVehicle.getLateralPositionOnLane() - halfWidth);
+    }
+    if (stayInLane || laneOffset == -1) {
+        // do not move past the left boundary of the current lane (traffic wasn't check there)
         surplusGapLeft = MIN2(surplusGapLeft, halfLaneWidth - myVehicle.getLateralPositionOnLane() - halfWidth);
     }
+
     if (gDebugFlag2) {
         std::cout << "    keepLatGap laneOffset=" << laneOffset
                   << " latDist=" << latDist
