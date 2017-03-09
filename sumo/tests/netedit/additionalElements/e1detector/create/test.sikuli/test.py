@@ -11,26 +11,20 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select E1
-netedit.changeAdditional(comboboxAdditional, 6)
+netedit.changeAdditional("e1Detector")
 
 # create E1 with default parameters
 netedit.leftClick(match, 200, 250)
 
 # Change frequency
-netedit.modifyAttribute(comboboxAdditional, 2, "150")
+netedit.modifyAdditionalDefaultValue(2, "150")
 
 # create E1 with different frequency
 netedit.leftClick(match, 250, 250)
 
 # Change frequency
-netedit.modifyBoolAttribute(comboboxAdditional, 3)
+netedit.modifyAdditionalDefaultBoolValue(3)
 
 # create E1 with different split by type
 netedit.leftClick(match, 300, 250)
