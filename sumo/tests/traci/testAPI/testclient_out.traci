@@ -1,12 +1,12 @@
-TraCITestClient output file. Date: Fri Mar  3 12:09:11 2017
+TraCITestClient output file. Date: Thu Mar  9 08:28:20 2017
 
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
 testAPI:
   edge:
-    getIDList: e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6 e_o0 e_o1 e_shape0 e_shape1 e_u0 e_u1 e_vo0 e_vo1 e_vo2 e_vu0 e_vu1 e_vu2 e_x0 e_x1
-    getIDCount: 21
+    getIDList: :n_m1_0 :n_m2_0 :n_m3_0 :n_m4_0 :n_m4_2 :n_m4_4 :n_m4_7 :n_m5_0 :n_m5_2 :n_m5_4 :n_m6_0 :n_m6_2 :n_m6_4 :n_m7_0 :n_m7_3 :n_o0_0 :n_o1_0 :n_o1_3 :n_o2_0 :n_o2_3 :n_u0_0 :n_u1_0 :n_u1_2 :n_u2_0 :n_u2_2 :n_x1_0 e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6 e_o0 e_o1 e_shape0 e_shape1 e_u0 e_u1 e_vo0 e_vo1 e_vo2 e_vu0 e_vu1 e_vu2 e_x0 e_x1
+    getIDCount: 47
     currentTraveltime: 8.33
     adaptedTravelTime: 42.00
     effort: 420.00
@@ -27,7 +27,7 @@ testAPI:
     getMaxSpeed: 30.00
     getColor: 255r=255 g=255 b=0 a=128
     getNextTLS:
-      tls=n_m4 tlIndex=4 dist=375.56 state=r
+      tls=n_m4 tlIndex=4 dist=351.95 state=r
     moveToXY, simStep:
     getRoadID: e_m4
     getLaneID: e_m4_2
@@ -53,7 +53,7 @@ testAPI:
     getRoadID: e_m3
     getTypeID: stilts
     getWaitingTime: 0.00
-    getNextEdge: e_m4
+    getNextEdge: :n_m4_4
     getStage: 2
     getRemainingStages: 1
     getVehicle: 
@@ -63,6 +63,21 @@ testAPI:
     getRemainingStages: 3
     getRemainingStages: 1
     getStage: 1
+  trafficlights:
+    getIDList: n_m4
+    state: ggGGrrr
+    program: 0
+    phase: 0
+    nextSwitch: 12000
+    controlledLanes: e_vo0_0 e_vo0_1 e_vu0_0 e_vu0_1 e_m3_0 e_m3_1 e_m3_2
+    controlledLinks:
+      index=0 from=e_vo0_0 via=:n_m4_0_0 to=e_m4_1
+      index=1 from=e_vo0_1 via=:n_m4_0_1 to=e_m4_2
+      index=2 from=e_vu0_0 via=:n_m4_2_0 to=e_m4_0
+      index=3 from=e_vu0_1 via=:n_m4_2_1 to=e_m4_1
+      index=4 from=e_m3_0 via=:n_m4_4_0 to=e_m4_0
+      index=5 from=e_m3_1 via=:n_m4_4_1 to=e_m4_1
+      index=6 from=e_m3_2 via=:n_m4_4_2 to=e_m4_2
   gui:
     setScheme: 
     no support for gui commands
