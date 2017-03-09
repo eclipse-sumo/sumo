@@ -759,8 +759,6 @@ GNEInspectorFrame::AttributeInput::showAttribute(GNEAttributeCarrier *ac, SumoXM
     // Set actual Tag and attribute
     myTag = tag;
     myAttr = attr;
-    // If we have an junction without traffic light, we musn't show the traffic light values
-    GNEJunction *gne = dynamic_cast<GNEJunction*>(ac);
     // Show attribute Label
     myLabel->setText(toString(myAttr).c_str());
     myLabel->show();
@@ -776,7 +774,7 @@ GNEInspectorFrame::AttributeInput::showAttribute(GNEAttributeCarrier *ac, SumoXM
         myCheckBox->show();
     } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
         // Obtain choices
-        std::vector<std::string> choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
+        const std::vector<std::string> choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
         // Check if are combinable coices
         if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
             // hide label
@@ -789,22 +787,6 @@ GNEInspectorFrame::AttributeInput::showAttribute(GNEAttributeCarrier *ac, SumoXM
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->show();
         } else {
-            // If we have an junction without traffic light, remove TLS Choices
-            if((tag == SUMO_TAG_JUNCTION) && (gne != NULL) && (gne->getNBNode()->getControllingTLS().empty())) {
-                std::vector<std::string>::iterator it;
-                it = std::find(choices.begin(), choices.end(), toString(NODETYPE_TRAFFIC_LIGHT));
-                if(it != choices.end()) {
-                    choices.erase(it);
-                }
-                it = std::find(choices.begin(), choices.end(), toString(NODETYPE_TRAFFIC_LIGHT_NOJUNCTION));
-                if(it != choices.end()) {
-                    choices.erase(it);
-                }
-                it = std::find(choices.begin(), choices.end(), toString(NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED));
-                if(it != choices.end()) {
-                    choices.erase(it);
-                }
-            }
             // fill comboBox
             myChoicesCombo->clearItems();
             for (std::vector<std::string>::const_iterator it = choices.begin(); it != choices.end(); ++it) {
