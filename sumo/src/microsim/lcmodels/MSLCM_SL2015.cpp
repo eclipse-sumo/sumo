@@ -160,7 +160,7 @@ MSLCM_SL2015::wantsChangeSublane(
 
     if (gDebugFlag2) {
         std::cout << "\n" << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
-                  //<< std::setprecision(10)
+                  << std::setprecision(gPrecision)
                   << " veh=" << myVehicle.getID()
                   << " lane=" << myVehicle.getLane()->getID()
                   << " pos=" << myVehicle.getPositionOnLane()
@@ -2068,11 +2068,11 @@ MSLCM_SL2015::keepLatGap(int state,
     const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
     if (stayInLane || laneOffset == 1) {
         // do not move past the right boundary of the current lane (traffic wasn't check there)
-        surplusGapRight = MIN2(surplusGapRight, halfLaneWidth + myVehicle.getLateralPositionOnLane() - halfWidth);
+        surplusGapRight = MIN2(surplusGapRight, halfLaneWidth + myVehicle.getLateralPositionOnLane() + latDist - halfWidth);
     }
     if (stayInLane || laneOffset == -1) {
         // do not move past the left boundary of the current lane (traffic wasn't check there)
-        surplusGapLeft = MIN2(surplusGapLeft, halfLaneWidth - myVehicle.getLateralPositionOnLane() - halfWidth);
+        surplusGapLeft = MIN2(surplusGapLeft, halfLaneWidth - myVehicle.getLateralPositionOnLane() - latDist - halfWidth);
     }
 
     if (gDebugFlag2) {
