@@ -11,17 +11,11 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select containerStop
-netedit.changeAdditional(comboboxAdditional, 3)
+netedit.changeAdditional("containerStop")
 
 # change reference to center
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 2)
+netedit.modifyAdditionalDefaultValue(6, "reference center")
 
 # create containerStop in mode "reference center"
 netedit.leftClick(match, 250, 250)
@@ -32,17 +26,14 @@ netedit.moveMode()
 # move containerStop to right
 netedit.moveElement(match, 150, 275, 250, 275)
 
-# Change to inspect mode
+# go to inspect mode
 netedit.inspectMode()
 
 # inspect containerStop
 netedit.leftClick(match, 300, 250)
 
-# obtain parameters reference
-parametersReference = netedit.getParametersReference(match)
-
 # block additional
-netedit.changeBlockAdditional(comboboxAdditional, 5)
+netedit.modifyBoolAttribute(5)
 
 # change to move mode
 netedit.moveMode()
@@ -50,17 +41,14 @@ netedit.moveMode()
 # try to move containerStop to right (must be blocked)
 netedit.moveElement(match, 250, 275, 350, 275)
 
-# Change to inspect mode
+# go to inspect mode
 netedit.inspectMode()
 
 # inspect containerStop
 netedit.leftClick(match, 300, 250)
 
-# obtain parameters reference
-parametersReference = netedit.getParametersReference(match)
-
 # unblock additional
-netedit.changeBlockAdditional(comboboxAdditional, 5)
+netedit.modifyBoolAttribute(5)
 
 # change to move mode
 netedit.moveMode()

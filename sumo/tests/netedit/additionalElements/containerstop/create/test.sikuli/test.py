@@ -11,65 +11,59 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select containerStop
-netedit.changeAdditional(comboboxAdditional, 3)
+netedit.changeAdditional("containerStop")
 
 # Add three extra lines
-netedit.modifyNumberOfStoppingPlaceLines(comboboxAdditional, 3, 3)
+netedit.modifyStoppingPlaceLines(3, 3)
 
 # fill extra lines
-netedit.addStoppingPlaceLines(comboboxAdditional, 2, 4)
+netedit.fillStoppingPlaceLines(2, 4)
 
 # remove last line (line 4)
-netedit.modifyNumberOfStoppingPlaceLines(comboboxAdditional, 7, 1)
+netedit.modifyStoppingPlaceLines(7, 1)
 
 # create containerStop in mode "reference left"
 netedit.leftClick(match, 250, 250)
 
 # change reference to right
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 1)
+netedit.modifyAdditionalDefaultValue(8, "reference right")
 
 # create containerStop in mode "reference right"
 netedit.leftClick(match, 240, 250)
 
 # change reference to center
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 2)
+netedit.modifyAdditionalDefaultValue(8, "reference center")
 
 # create containerStop in mode "reference center"
 netedit.leftClick(match, 425, 250)
 
 # return to mode "reference left"
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 0)
+netedit.modifyAdditionalDefaultValue(8, "reference left")
 
 # Change length
-netedit.modifyStoppingPlaceLength(comboboxAdditional, 10, "30")
+netedit.modifyAdditionalDefaultValue(10, "30")
 
 # try to create a containerStop in mode "reference left" (Warning)
 netedit.leftClick(match, 500, 250)
 
 # change reference to right
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 1)
+netedit.modifyAdditionalDefaultValue(8, "reference right")
 
 # try containerStop in mode "reference right" (Warning)
 netedit.leftClick(match, 110, 250)
 
 # enable force position
-netedit.modifyStoppingPlaceForcePosition(comboboxAdditional, 11)
+netedit.modifyAdditionalDefaultBoolValue(11)
 
 # change reference to "reference left"
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 0)
+netedit.modifyAdditionalDefaultValue(8, "reference left")
 
 # create a containerStop in mode "reference left" forcing poisition
 netedit.leftClick(match, 500, 250)
 
 # change reference to "reference right"
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 8, 1)
+netedit.modifyAdditionalDefaultValue(8, "reference right")
 
 # create a containerStop in mode "reference right" forcing position
 netedit.leftClick(match, 110, 250)
