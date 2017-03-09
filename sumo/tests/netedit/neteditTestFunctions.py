@@ -262,61 +262,67 @@ def crossingMode():
     type("r")
 
 # create crossing
-def createCrossing(match):
-    # select edges attribute
-    click(match.getTarget().offset(-100, 250))
-    # jump to create edge
-    for x in range(0, 4):
+def createCrossing():
+    # go to te upper element of frame (temporally use 'r')
+    type("r")
+    # jump to create crossing button
+    for x in range(0, 8):
         type(Key.TAB)
     # type enter to create crossing
     type(Key.SPACE)
 
-def modifyCrossingEdges(match, value):
-    # select edges attribute
-    click(match.getTarget().offset(-100, 250))
-    # select all values
-    type("a", Key.CTRL)
-    # paste the new value
-    paste(value)
-    # type enter to save change
-    type(Key.ENTER)
-
-def modifyCrossingPriority(match):
-    # select edges attribute
-    click(match.getTarget().offset(-100, 250))
-    # jump to priority
-    type(Key.TAB)
-    # type enter to save change
-    type(Key.SPACE)
-
-def modifyCrossingWidth(match, value):
-    # select edges attribute
-    click(match.getTarget().offset(-100, 250))
-    # jump to create edge
-    for x in range(0, 2):
+# change default int/real/string crossing default value
+def modifyCrossingDefaultValue(numtabs, value):
+    # go to te upper element of frame (temporally use 'r')
+    type("r")
+    # jump to value
+    for x in range(0, numtabs + 1):
         type(Key.TAB)
-    # select all values
+    # select all value
     type("a", Key.CTRL)
     # paste the new value
     paste(value)
-    # type enter to save change
+    # type enter to save change and ESC to avoid accidentally changes
     type(Key.ENTER)
+    type(Key.ESC)
 
-def clearCrossings(match):
-    # select edges attribute
-    click(match.getTarget().offset(-100, 250))
-    # jump to clear button
-    for x in range(0, 3):
-        type(Key.TAB, Key.SHIFT)
+# change default boolean crossing default value
+def modifyCrossingDefaultBoolValue(numtabs):
+    # go to te upper element of frame (temporally use 'r')
+    type("r")
+    # jump to value
+    for x in range(0, numtabs + 1):
+        type(Key.TAB)
+    # type space to change value
+    type(Key.SPACE)
+    
+# clear crossing
+def crossingClearEdges(useSelectedEdges = False):
+    # go to te upper element of frame (temporally use 'r')
+    type("r")
+    if(useSelectedEdges):
+        # jump to clear button
+        for x in range(0, 1):
+            type(Key.TAB)
+    else:
+        # jump to clear button
+        for x in range(0, 2):
+            type(Key.TAB)
     # type space to activate button
     type(Key.SPACE)
 
-def invertCrossings(match):
-    # select edges attribute
-    click(match.getTarget().offset(-100, 250))
-    # jump to invert button
-    for x in range(0, 2):
-        type(Key.TAB, Key.SHIFT)
+#invert crossing
+def crossingInvertEdges(useSelectedEdges = False):
+    # go to te upper element of frame (temporally use 'r')
+    type("r")
+    if(useSelectedEdges):
+        # jump to clear button
+        for x in range(0, 2):
+            type(Key.TAB)
+    else:
+        # jump to clear button
+        for x in range(0, 3):
+            type(Key.TAB)
     # type space to activate button
     type(Key.SPACE)
 
@@ -555,3 +561,10 @@ def selectionInvert():
         type(Key.TAB)
     type(Key.SPACE)
 
+#################################################
+# traffic light
+#################################################
+
+# Change to traffic light mode
+def selectTLS():
+    type("t")    
