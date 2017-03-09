@@ -312,11 +312,11 @@ private:
     /// @brief the current edit mode
     EditMode myEditMode;
 
-    /// @brief the current frame
-    GNEFrame *myCurrentFrame;
-
     /// @brief the previous edit mode used for toggling
     EditMode myPreviousEditMode;
+
+    /// @brief the current frame
+    GNEFrame *myCurrentFrame;
 
     /// @brief menu check to select only edges
     FXMenuCheck* mySelectEdges;
