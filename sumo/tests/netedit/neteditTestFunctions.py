@@ -428,15 +428,19 @@ def waitAutomaticallyDeleteAdditionalsWarning():
 # Change to select mode
 def selectMode():
     type("s")    
+
+# select elements with default frame values
+def selectDefault():
+    for x in range(0, 11):
+        type(Key.TAB)
+    type(Key.ENTER)
     
-# netedit selection reference
-def getSelectReference(match):
-    return match.getTarget().offset(-120, 270)
-        
 # select items
-def selectItems(selectType, elementClass, elementType, attribute, value):
-    click(selectType)
-    # select all
+def selectItems(elementClass, elementType, attribute, value):
+    # go to te upper element of frame (temporally use 's')
+    type("s")
+    for x in range(0, 5):
+        type(Key.TAB)
     type("a", Key.CTRL)
     # paste the new elementClass
     paste(elementClass)
@@ -479,36 +483,52 @@ def deleteSelectedItems():
     type(Key.DELETE)
     
 # set modification mode "add"
-def modificationModeAdd(match):
-    click(match.getTarget().offset(-225, 150))
+def modificationModeAdd():
+    # go to te upper element of frame (temporally use 's')
+    type("s")
+    type(Key.TAB)
+    # select it
+    type(Key.SPACE)
+    # press ESC to avoid change it accidentally
+    type(Key.ESC)
     
 # set modification mode "remove"
-def modificationModeRemove(match):
-    click(match.getTarget().offset(-225, 150))
-    # jump to value
-    for x in range(0, 1):
-        type(Key.TAB)
-    # change value
-    type(Key.SPACE)
-    
-# set modification mode "keep"
-def modificationModeKeep(match):
-    click(match.getTarget().offset(-225, 150))
+def modificationModeRemove():
+    # go to te upper element of frame (temporally use 's')
+    type("s")
     # jump to value
     for x in range(0, 2):
         type(Key.TAB)
-    # change value
+    # select it
     type(Key.SPACE)
+    # press ESC to avoid change it accidentally
+    type(Key.ESC)
     
-# set modification mode "replace"
-def modificationModeReplace(match):
-    click(match.getTarget().offset(-225, 150))
+# set modification mode "keep"
+def modificationModeKeep():
+    # go to te upper element of frame (temporally use 's')
+    type("s")
     # jump to value
     for x in range(0, 3):
         type(Key.TAB)
-    # change value
+    # select it
     type(Key.SPACE)
+    # press ESC to avoid change it accidentally
+    type(Key.ESC)
+    
+# set modification mode "replace"
+def modificationModeReplace():
+    # go to te upper element of frame (temporally use 's')
+    type("s")
+    # jump to value
+    for x in range(0, 4):
+        type(Key.TAB)
+    # select it
+    type(Key.SPACE)
+    # press ESC to avoid change it accidentally
+    type(Key.ESC)
 
+# select using an rectangle
 def selectionRectangle(match, startX, startY, endX, endY):
     keyDown(Key.SHIFT)
     # change mouse move delay
@@ -518,3 +538,20 @@ def selectionRectangle(match, startX, startY, endX, endY):
     # set back mouse move delay
     Settings.MoveMouseDelay = 0.1
     keyUp(Key.SHIFT)
+
+# clear selection
+def selectionClear():
+    # go to te upper element of frame (temporally use 's')
+    type("s")
+    for x in range(0, 14):
+        type(Key.TAB)
+    type(Key.SPACE)
+    
+# invert selection
+def selectionInvert():
+    # go to te upper element of frame (temporally use 's')
+    type("s")
+    for x in range(0, 15):
+        type(Key.TAB)
+    type(Key.SPACE)
+
