@@ -14,78 +14,66 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 # apply zoom
 netedit.zoomIn(match.getTarget().offset(325, 200), 10)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select E3
-netedit.changeAdditional(comboboxAdditional, 8)
+netedit.changeAdditional("e3Detector")
 
 # create E3
 netedit.leftClick(match, 100, 100)
 
 # select entry detector
-netedit.changeAdditional(comboboxAdditional, -4)
+netedit.changeAdditional("detEntry")
 
 # Create Entry detector for E3
-netedit.selectChild(comboboxAdditional, 4, 3)
+netedit.selectAdditionalChild(4, 3)
 netedit.leftClick(match, 100, 250)
 
 # select Exit detector
-netedit.changeAdditional(comboboxAdditional, 1)
+netedit.changeAdditional("detExit")
 
 # Create Exit detector for E3
-netedit.selectChild(comboboxAdditional, 4, 3)
+netedit.selectAdditionalChild(4, 3)
 netedit.leftClick(match, 250, 250)
 
 # Undo creation of E3, Entry and Exit
 netedit.leftClick(match, 0, 0)
 netedit.undo(match, 3)
 
-# Change to create additional
-netedit.additionalMode()
-
 # select E3
-netedit.changeAdditional(comboboxAdditional, 3)
+netedit.changeAdditional("e3Detector")
 
 # create E3
 netedit.leftClick(match, 100, 100)
 
 # select entry detector
-netedit.changeAdditional(comboboxAdditional, -4)
+netedit.changeAdditional("detEntry")
 
 # Create Entry detector for E3
-netedit.selectChild(comboboxAdditional, 4, 3)
+netedit.selectAdditionalChild(4, 3)
 netedit.leftClick(match, 100, 250)
 
 # select Exit detector
-netedit.changeAdditional(comboboxAdditional, 1)
+netedit.changeAdditional("detExit")
 
 # Create Exit detector for E3
-netedit.selectChild(comboboxAdditional, 4, 3)
+netedit.selectAdditionalChild(4, 3)
 netedit.leftClick(match, 250, 250)
 
 # Undo creation of Entry and Exit
 netedit.leftClick(match, 0, 0)
 netedit.undo(match, 2)
 
-# Change to create additional
-netedit.additionalMode()
-
 # select entry detector
-netedit.changeAdditional(comboboxAdditional, -1)
+netedit.changeAdditional("detEntry")
 
 # Create Entry detector for E3
-netedit.selectChild(comboboxAdditional, 4, 3)
+netedit.selectAdditionalChild(4, 3)
 netedit.leftClick(match, 100, 250)
 
 # select Exit detector
-netedit.changeAdditional(comboboxAdditional, 1)
+netedit.changeAdditional("detExit")
 
 # Create Exit detector for E3
-netedit.selectChild(comboboxAdditional, 4, 3)
+netedit.selectAdditionalChild(4, 3)
 netedit.leftClick(match, 250, 250)
 
 # Change to delete

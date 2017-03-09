@@ -14,14 +14,8 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 # apply zoom
 netedit.zoomIn(match.getTarget().offset(325, 200), 10)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select E3
-netedit.changeAdditional(comboboxAdditional, 8)
+netedit.changeAdditional("e3Detector")
 
 # create E3 1
 netedit.leftClick(match, 100, 100)
@@ -30,10 +24,10 @@ netedit.leftClick(match, 100, 100)
 netedit.leftClick(match, 300, 100)
 
 # select entry detector
-netedit.changeAdditional(comboboxAdditional, -4)
+netedit.changeAdditional("detEntry")
 
 # Create Entry detectors for E3 2
-netedit.selectChild(comboboxAdditional, 4, 3)
+netedit.selectAdditionalChild(4, 3)
 netedit.leftClick(match, 150, 250)
 
 # Change to delete
