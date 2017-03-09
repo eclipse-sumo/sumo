@@ -39,6 +39,7 @@
 #include <cmath>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/geom/GeomHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -153,7 +154,6 @@ MSLaneChangerSublane::checkChangeHelper(MSVehicle* vehicle, int laneOffset) {
 
 bool
 MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, double latDist) {
-    //gDebugFlag4 = vehicle->getID() == "Togliatti_80_26";
     // 1) update vehicles lateral position according to latDist and target lane
     vehicle->myState.myPosLat += latDist;
     vehicle->myCachedPosition = Position::INVALID;
@@ -191,9 +191,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         const double latOffset = vehicle->getLane()->getRightSideOnEdge() - shadowLane->getRightSideOnEdge();
         (myChanger.begin() + shadowLane->getIndex())->ahead.addLeader(vehicle, false, latOffset);
     }
-    if (gDebugFlag4) std::cout << SIMTIME << " startChangeSublane shadowLane"
-                                   << " old=" << Named::getIDSecure(oldShadowLane)
-                                   << " new=" << Named::getIDSecure(vehicle->getLaneChangeModel().getShadowLane()) << "\n";
+
 
     // compute new angle of the vehicle from the x- and y-distances travelled within last time step
     // (should happen last because primaryLaneChanged() also triggers angle computation)
@@ -206,6 +204,15 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         // avoid extreme angles by using vehicle length as a proxy for turning radius
         changeAngle = atan2(latDist, SPEED2DIST(MAX2(vehicle->getVehicleType().getLength(), vehicle->getSpeed())));
     }
+    if (vehicle->getLaneChangeModel().debugVehicle()) std::cout << SIMTIME << " startChangeSublane shadowLane"
+                                   << " latDist=" << latDist
+                                   << " old=" << Named::getIDSecure(oldShadowLane)
+                                   << " new=" << Named::getIDSecure(vehicle->getLaneChangeModel().getShadowLane()) 
+                                   << " laneA=" << RAD2DEG(laneAngle)
+                                   << " changeA=" << RAD2DEG(changeAngle)
+                                   << " oldA=" << RAD2DEG(vehicle->getAngle())
+                                   << " newA=" << RAD2DEG(laneAngle + changeAngle)
+                                   << "\n";
     vehicle->setAngle(laneAngle + changeAngle);
 
     return changedToNewLane;
