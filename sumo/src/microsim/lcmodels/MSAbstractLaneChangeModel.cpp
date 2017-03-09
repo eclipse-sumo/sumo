@@ -259,7 +259,7 @@ MSAbstractLaneChangeModel::initLastLaneChangeOffset(int dir) {
 void
 MSAbstractLaneChangeModel::updateShadowLane() {
     if (myShadowLane != 0) {
-        if (gDebugFlag4) {
+        if (debugVehicle()) {
             std::cout << SIMTIME << " updateShadowLane\n";
         }
         myShadowLane->resetPartialOccupation(&myVehicle);
@@ -271,10 +271,11 @@ MSAbstractLaneChangeModel::updateShadowLane() {
         const std::vector<MSLane*>& further = myVehicle.getFurtherLanes();
         const std::vector<double>& furtherPosLat = myVehicle.getFurtherLanesPosLat();
         assert(further.size() == furtherPosLat.size());
-        for (int i = (int)further.size() - 1; i >= 0; --i) {
+        passed.push_back(myShadowLane);
+        for (int i = 0; i < (int)further.size(); ++i) {
             if (furtherPosLat[i] == myVehicle.getLateralPositionOnLane()) {
                 MSLane* shadowFurther = getShadowLane(further[i]);
-                if (shadowFurther != 0) {
+                if (shadowFurther != 0 && MSLinkContHelper::getConnectingLink(*shadowFurther, *passed.back()) != 0) {
                     passed.push_back(shadowFurther);
                 }
             } else {
@@ -282,7 +283,7 @@ MSAbstractLaneChangeModel::updateShadowLane() {
                 break;
             }
         }
-        passed.push_back(myShadowLane);
+        std::reverse(passed.begin(), passed.end());
     } else {
         if (isChangingLanes() && myVehicle.getLateralOverlap() > NUMERICAL_EPS) {
             WRITE_WARNING("Vehicle '" + myVehicle.getID() + "' could not finish continuous lane change (lane disappeared) time=" +
@@ -290,12 +291,12 @@ MSAbstractLaneChangeModel::updateShadowLane() {
             endLaneChangeManeuver();
         }
     }
-    if (gDebugFlag4) std::cout << SIMTIME << " updateShadowLane veh=" << myVehicle.getID()
+    if (debugVehicle()) std::cout << SIMTIME << " updateShadowLane veh=" << myVehicle.getID()
                                    << " newShadowLane=" << Named::getIDSecure(myShadowLane)
-                                   << "\n   before:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << " passed=" << toString(passed)
+                                   << "\n   before:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << " further=" << toString(myVehicle.getFurtherLanes()) << " passed=" << toString(passed)
                                    << "\n";
     myVehicle.updateFurtherLanes(myShadowFurtherLanes, myShadowFurtherLanesPosLat, passed);
-    if (gDebugFlag4) std::cout
+    if (debugVehicle()) std::cout
                 << "\n   after:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << "\n";
 }
 
