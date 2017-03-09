@@ -189,7 +189,7 @@ GUIParameterTableWindow*
 GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                    GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 14);
+        new GUIParameterTableWindow(app, *this, 19);
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());
@@ -204,7 +204,14 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
     ret->mkItem("reaction time (tau)", false, getCarFollowModel().getHeadwayTime());
     ret->mkItem("person capacity", false, myType->getPersonCapacity());
+    ret->mkItem("boarding time", false, STEPS2TIME(myType->getBoardingDuration()));
     ret->mkItem("container capacity", false, myType->getContainerCapacity());
+    ret->mkItem("loading time", false, STEPS2TIME(myType->getLoadingDuration()));
+    if (MSGlobals::gLateralResolution > 0) {
+        ret->mkItem("minGapLat", false, myType->getMinGapLat());
+        ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
+        ret->mkItem("latAlignment", false, toString(myType->getPreferredLateralAlignment()));
+    }
 
     ret->mkItem("type parameters [key:val]", false, toString(myType->getParameter().getMap()));
     // close building
