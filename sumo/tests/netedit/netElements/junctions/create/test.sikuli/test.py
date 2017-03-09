@@ -33,14 +33,14 @@ netedit.leftClick(match, 250, 50)
 netedit.leftClick(match, 150, 50)
 
 #select two-way mode
-netedit.changeTwoWayOption(match)
+netedit.changeTwoWayOption()
 
 # Create two way edges
 netedit.leftClick(match, 350, 50)
 netedit.leftClick(match, 450, 50)
 
 # select chain mode
-netedit.changeChainOption(match)
+netedit.changeChainOption()
 
 # create square
 netedit.leftClick(match, -50, 150)
@@ -72,7 +72,7 @@ netedit.leftClick(match, 300, 150)
 netedit.cancelEdge()
 
 # disable chain mode
-netedit.changeChainOption(match)
+netedit.changeChainOption()
 
 # create a complex intersection
 netedit.leftClick(match, 300, 250)
