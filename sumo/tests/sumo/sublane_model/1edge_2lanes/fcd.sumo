@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 12 16:19:53 2016 by SUMO Version dev-SVN-r22256
+<!-- generated on Thu Mar  9 16:05:39 2017 by SUMO Version dev-SVN-r23260
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -439,7 +439,7 @@
         <vehicle id="cars.4" x="414.12" y="-1.55" angle="90.00" type="car" speed="12.10" pos="414.12" lane="beg_1" slope="0.00"/>
         <vehicle id="cars.5" x="259.56" y="-4.95" angle="90.00" type="car" speed="8.73" pos="259.56" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.6" x="391.21" y="-1.65" angle="90.00" type="car" speed="13.87" pos="391.21" lane="beg_1" slope="0.00"/>
-        <vehicle id="cars.7" x="241.52" y="-1.85" angle="83.55" type="car" speed="8.84" pos="241.52" lane="beg_1" slope="0.00"/>
+        <vehicle id="cars.7" x="241.52" y="-2.35" angle="86.76" type="car" speed="8.84" pos="241.52" lane="beg_1" slope="0.00"/>
         <vehicle id="cars.8" x="273.14" y="-1.65" angle="90.00" type="car" speed="11.02" pos="273.14" lane="beg_1" slope="0.00"/>
         <vehicle id="cars.9" x="206.18" y="-4.95" angle="90.00" type="car" speed="8.80" pos="206.18" lane="beg_0" slope="0.00"/>
     </timestep>
@@ -449,7 +449,7 @@
         <vehicle id="cars.4" x="425.91" y="-1.55" angle="90.00" type="car" speed="11.79" pos="425.91" lane="beg_1" slope="0.00"/>
         <vehicle id="cars.5" x="267.97" y="-4.95" angle="90.00" type="car" speed="8.41" pos="267.97" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.6" x="404.10" y="-1.65" angle="90.00" type="car" speed="12.89" pos="404.10" lane="beg_1" slope="0.00"/>
-        <vehicle id="cars.7" x="251.02" y="-1.65" angle="88.79" type="car" speed="9.51" pos="251.02" lane="beg_1" slope="0.00"/>
+        <vehicle id="cars.7" x="251.02" y="-1.65" angle="85.79" type="car" speed="9.51" pos="251.02" lane="beg_1" slope="0.00"/>
         <vehicle id="cars.8" x="285.01" y="-1.65" angle="90.00" type="car" speed="11.87" pos="285.01" lane="beg_1" slope="0.00"/>
         <vehicle id="cars.9" x="214.98" y="-4.95" angle="90.00" type="car" speed="8.80" pos="214.98" lane="beg_0" slope="0.00"/>
     </timestep>
