@@ -11,50 +11,44 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select E2
-netedit.changeAdditional(comboboxAdditional, 7)
+netedit.changeAdditional("e2Detector")
 
 # create E2 with default parameters
 netedit.leftClick(match, 125, 250)
 
 # Change lenght
-netedit.modifyAttribute(comboboxAdditional, 2, "5")
+netedit.modifyAdditionalDefaultValue(2, "5")
 
 # create E2 with different lenght
 netedit.leftClick(match, 250, 250)
 
 # Change frequency
-netedit.modifyAttribute(comboboxAdditional, 3, "120")
+netedit.modifyAdditionalDefaultValue(3, "120")
 
 # create E2 with different frequency
 netedit.leftClick(match, 350, 250)
 
 # Change cont
-netedit.modifyBoolAttribute(comboboxAdditional, 4)
+netedit.modifyAdditionalDefaultBoolValue(4)
 
 # create E2 with different cont
 netedit.leftClick(match, 450, 250)
 
 # Change time threshold
-netedit.modifyAttribute(comboboxAdditional, 5, "10")
+netedit.modifyAdditionalDefaultValue(5, "10")
 
 # create E2 with different time threshold
 netedit.leftClick(match, 150, 220)
 
 # Change speed threshold
-netedit.modifyAttribute(comboboxAdditional, 6, "2.5")
+netedit.modifyAdditionalDefaultValue(6, "2.5")
 
 # create E2 with different speed threshold
 netedit.leftClick(match, 250, 220)
 
 # Change jam threshold
-netedit.modifyAttribute(comboboxAdditional, 7, "15.5")
+netedit.modifyAdditionalDefaultValue(7, "15.5")
 
 # create E2 with different jam threshold
 netedit.leftClick(match, 350, 220)

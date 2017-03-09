@@ -11,14 +11,8 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select E2
-netedit.changeAdditional(comboboxAdditional, 7)
+netedit.changeAdditional("e2Detector")
 
 # create E2
 netedit.leftClick(match, 250, 250)

@@ -11,14 +11,8 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select E2
-netedit.changeAdditional(comboboxAdditional, 7)
+netedit.changeAdditional("e2Detector")
 
 # create E2
 netedit.leftClick(match, 240, 250)
@@ -29,17 +23,14 @@ netedit.moveMode()
 # move E2 to right
 netedit.moveElement(match, 120, 250, 250, 250)
 
-# Change to inspect mode
+# go to inspect mode
 netedit.inspectMode()
 
 # inspect E2
 netedit.leftClick(match, 350, 250)
 
-# obtain parameters reference
-parametersReference = netedit.getParametersReference(match)
-
 # block additional
-netedit.changeBlockAdditional(comboboxAdditional, 10)
+netedit.modifyBoolAttribute(10)
 
 # change to move mode
 netedit.moveMode()
@@ -47,17 +38,14 @@ netedit.moveMode()
 # try to move E2 to right (must be blocked)
 netedit.moveElement(match, 250, 250, 350, 250)
 
-# Change to inspect mode
+# go to inspect mode
 netedit.inspectMode()
 
 # inspect E2
 netedit.leftClick(match, 350, 250)
 
-# obtain parameters reference
-parametersReference = netedit.getParametersReference(match)
-
 # unblock additional
-netedit.changeBlockAdditional(comboboxAdditional, 10)
+netedit.modifyBoolAttribute(10)
 
 # change to move mode
 netedit.moveMode()

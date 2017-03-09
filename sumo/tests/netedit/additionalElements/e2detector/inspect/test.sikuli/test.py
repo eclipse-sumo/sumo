@@ -11,14 +11,8 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select E2
-netedit.changeAdditional(comboboxAdditional, 7)
+netedit.changeAdditional("e2Detector")
 
 # create E2 1
 netedit.leftClick(match, 250, 150)
@@ -26,98 +20,95 @@ netedit.leftClick(match, 250, 150)
 # create E2 2
 netedit.leftClick(match, 450, 150)
 
-# Change to inspect mode
+# go to inspect mode
 netedit.inspectMode()
 
 # inspect first E2
 netedit.leftClick(match, 260, 150)
 
-# obtain parameters reference
-parametersReference = netedit.getParametersReference(match)
-
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(parametersReference, 0, "e2Detector_gneE2_1_1")
+netedit.modifyAttribute(0, "e2Detector_gneE2_1_1")
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(parametersReference, 0, "correct ID")
+netedit.modifyAttribute(0, "correct ID")
 
 # Change parameter 1 with a non valid value (dummy lane)
-netedit.modifyAttribute(parametersReference, 1, "dummy lane")
+netedit.modifyAttribute(1, "dummy lane")
 
 # Change parameter 1 with a valid value (different edge)
-netedit.modifyAttribute(parametersReference, 1, "gneE0_0")
+netedit.modifyAttribute(1, "gneE0_0")
 
 # Change parameter 1 with a valid value (original edge, same lane)
-netedit.modifyAttribute(parametersReference, 1, "gneE2_1")
+netedit.modifyAttribute(1, "gneE2_1")
 
 # Change parameter 1 with a valid value (original edge, different lane)
-netedit.modifyAttribute(parametersReference, 1, "gneE2_0")
+netedit.modifyAttribute(1, "gneE2_0")
 
 # Change parameter 2 with a non valid value (negative)
-netedit.modifyAttribute(parametersReference, 2, "-5")
+netedit.modifyAttribute(2, "-5")
 
 # Change parameter 2 with a non valid value (> endPos)
-netedit.modifyAttribute(parametersReference, 2, "400")
+netedit.modifyAttribute(2, "400")
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(parametersReference, 2, "20")
+netedit.modifyAttribute(2, "20")
 
 # Change parameter 3 with a non valid value
-netedit.modifyAttribute(parametersReference, 3, "dummyLength")
+netedit.modifyAttribute(3, "dummyLength")
 
 # Change parameter 3 with a non valid value
-netedit.modifyAttribute(parametersReference, 3, "-5")
+netedit.modifyAttribute(3, "-5")
 
 # Change parameter 3 with a valid value
-netedit.modifyAttribute(parametersReference, 3, "5")
+netedit.modifyAttribute(3, "5")
 
 # Change parameter 4 with a non valid value (non numeral)
-netedit.modifyAttribute(parametersReference, 4, "dummyFrequency")
+netedit.modifyAttribute(4, "dummyFrequency")
 
 # Change parameter 4 with a non valid value (negative)
-netedit.modifyAttribute(parametersReference, 4, "-100")
+netedit.modifyAttribute(4, "-100")
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(parametersReference, 4, "120")
+netedit.modifyAttribute(4, "120")
 
 # Change parameter 5 with an empty value
-netedit.modifyAttribute(parametersReference, 5, "")
+netedit.modifyAttribute(5, "")
 
 # Change parameter 5 with a duplicated value
-netedit.modifyAttribute(parametersReference, 5, "E2Detector_gneE2_1_1.txt")
+netedit.modifyAttribute(5, "E2Detector_gneE2_1_1.txt")
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(parametersReference, 5, "myOwnOutput.txt")
+netedit.modifyAttribute(5, "myOwnOutput.txt")
 
 # Change boolean parameter 6
-netedit.modifyBoolAttribute(parametersReference, 6)
+netedit.modifyBoolAttribute(6)
 
 # Change parameter 7 with a non valid value
-netedit.modifyAttribute(parametersReference, 7, "dummyTimeTreshold")
+netedit.modifyAttribute(7, "dummyTimeTreshold")
 
 # Change parameter 7 with a non valid value
-netedit.modifyAttribute(parametersReference, 7, "-5")
+netedit.modifyAttribute(7, "-5")
 
 # Change parameter 7 with a valid value
-netedit.modifyAttribute(parametersReference, 7, "4")
+netedit.modifyAttribute(7, "4")
 
 # Change parameter 8 with a non valid value
-netedit.modifyAttribute(parametersReference, 8, "dummySpeedTreshold")
+netedit.modifyAttribute(8, "dummySpeedTreshold")
 
 # Change parameter 8 with a non valid value
-netedit.modifyAttribute(parametersReference, 8, "-12.1")
+netedit.modifyAttribute(8, "-12.1")
 
 # Change parameter 8 with a valid value
-netedit.modifyAttribute(parametersReference, 8, "6.3")
+netedit.modifyAttribute(8, "6.3")
 
 # Change parameter 9 with a non valid value
-netedit.modifyAttribute(parametersReference, 9, "dummyJamThreshold")
+netedit.modifyAttribute(9, "dummyJamThreshold")
 
 # Change parameter 9 with a non valid value
-netedit.modifyAttribute(parametersReference, 9, "-8")
+netedit.modifyAttribute(9, "-8")
 
 # Change parameter 9 with a valid value
-netedit.modifyAttribute(parametersReference, 9, "12.5")
+netedit.modifyAttribute(9, "12.5")
 
 # go to a empty area
 click(match)
