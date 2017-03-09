@@ -11,56 +11,50 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select chargingStation
-netedit.changeAdditional(comboboxAdditional, 2)
+netedit.changeAdditional("chargingStation")
 
 # create chargingStation in mode "reference left"
 netedit.leftClick(match, 250, 250)
 
 # change reference to right
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 7, 1)
+netedit.modifyAdditionalDefaultValue(7, "reference right")
 
 # create chargingStation in mode "reference right"
 netedit.leftClick(match, 240, 250)
 
 # change reference to center
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 7, 2)
+netedit.modifyAdditionalDefaultValue(7, "reference center")
 
 # create chargingStation in mode "reference center"
 netedit.leftClick(match, 425, 250)
 
 # return to mode "reference left"
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 7, 0)
+netedit.modifyAdditionalDefaultValue(7, "reference left")
 
 # Change length
-netedit.modifyStoppingPlaceLength(comboboxAdditional, 9, "30")
+netedit.modifyAdditionalDefaultValue(9, "30")
 
 # try to create a chargingStation in mode "reference left" (Warning)
 netedit.leftClick(match, 500, 250)
 
 # change reference to right
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 7, 1)
+netedit.modifyAdditionalDefaultValue(7, "reference right")
 
 # try chargingStation in mode "reference right" (Warning)
 netedit.leftClick(match, 110, 250)
 
 # enable force position
-netedit.modifyStoppingPlaceForcePosition(comboboxAdditional, 10)
+netedit.modifyAdditionalDefaultBoolValue(10)
 
 # change reference to "reference left"
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 7, 0)
+netedit.modifyAdditionalDefaultValue(7, "reference left")
 
 # create a chargingStation in mode "reference left" forcing poisition
 netedit.leftClick(match, 500, 250)
 
 # change reference to "reference right"
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 7, 1)
+netedit.modifyAdditionalDefaultValue(7, "reference right")
 
 # create a chargingStation in mode "reference right" forcing position
 netedit.leftClick(match, 110, 250)

@@ -11,14 +11,8 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select chargingStation
-netedit.changeAdditional(comboboxAdditional, 2)
+netedit.changeAdditional("chargingStation")
 
 # create chargingStation in mode "reference left"
 netedit.leftClick(match, 250, 250)

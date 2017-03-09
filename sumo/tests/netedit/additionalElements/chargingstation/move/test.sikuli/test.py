@@ -11,17 +11,11 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select chargingStation
-netedit.changeAdditional(comboboxAdditional, 2)
+netedit.changeAdditional("chargingStation")
 
 # change reference to center
-netedit.modifyStoppingPlaceReference(comboboxAdditional, 7, 2)
+netedit.modifyAdditionalDefaultValue(7, "reference center")
 
 # create chargingStation in mode "reference center"
 netedit.leftClick(match, 250, 250)
