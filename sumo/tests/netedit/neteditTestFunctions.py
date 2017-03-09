@@ -198,12 +198,24 @@ def cancelEdge():
     type(Key.ESC)
 
 # Change chain option
-def changeChainOption(match):
-    click(match.getTarget().offset(350, -50))
+def changeChainOption():
+    # cancel current created edge
+    cancelEdge()
+    # jump to chain
+    for x in range(0, 3):
+        type(Key.TAB, Key.SHIFT)
+    # change chain mode
+    type(Key.SPACE)
 
 # Change two-way mode
-def changeTwoWayOption(match):
-    click(match.getTarget().offset(400, -50))
+def changeTwoWayOption():
+    # cancel current created edge
+    cancelEdge()
+    # jump to two way
+    for x in range(0, 2):
+        type(Key.TAB, Key.SHIFT)
+    # change two way mode
+    type(Key.SPACE)
     
 #################################################
 # Inspect mode
