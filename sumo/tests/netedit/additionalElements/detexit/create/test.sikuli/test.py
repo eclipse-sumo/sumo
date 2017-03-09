@@ -14,32 +14,26 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 # apply zoom
 netedit.zoomIn(match.getTarget().offset(325, 200), 10)
 
-# Change to create additional
-netedit.additionalMode()
-
-# obtain match for comboboxAdditional
-comboboxAdditional = netedit.getComboBoxAdditional(match)
-
 # select E3
-netedit.changeAdditional(comboboxAdditional, 8)
+netedit.changeAdditional("e3Detector")
 
 # create E3 with default parameters
 netedit.leftClick(match, 275, 100)
 
 # select Exit detector
-netedit.changeAdditional(comboboxAdditional, -3)
+netedit.changeAdditional("detExit")
 
 # try to create Exit without select child
 netedit.leftClick(match, 50, 250)
 
 # Create four Exit detectors
-netedit.selectChild(comboboxAdditional, 4, 1)
+netedit.selectAdditionalChild(4, 0)
 netedit.leftClick(match, 50, 250)
-netedit.selectChild(comboboxAdditional, 4, 1)
+netedit.selectAdditionalChild(4, 0)
 netedit.leftClick(match, 200, 250)
-netedit.selectChild(comboboxAdditional, 4, 1)
+netedit.selectAdditionalChild(4, 0)
 netedit.leftClick(match, 350, 250)
-netedit.selectChild(comboboxAdditional, 4, 1)
+netedit.selectAdditionalChild(4, 0)
 netedit.leftClick(match, 500, 250)
 
 # Check undo redo
