@@ -391,15 +391,15 @@ def selectAdditionalChild(numTabs, childNumber):
     # place cursor in the list of childs
     for x in range(0, numTabs + 1):
         type(Key.TAB)
-    type(Key.SPACE)
-    # now child can be selected
-    click(comboboxAdditional)
-    # place cursor in the list of childs
-    for x in range(0, numTabs):
-        type(Key.TAB)
     # select child
-    for x in range(0, childNumber):
-        type(Key.DOWN)
+    if(childNumber == 0):
+        type(Key.SPACE)
+    else:
+        for x in range(0, childNumber):
+            type(Key.DOWN)
+    # type ESC and key to avoid change additional child accidentally
+    type(Key.TAB)
+    type(Key.ESC)
 
 
 #################################################
