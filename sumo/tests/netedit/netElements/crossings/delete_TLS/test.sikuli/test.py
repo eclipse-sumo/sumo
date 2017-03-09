@@ -17,11 +17,11 @@ netedit.rebuildNetwork()
 # zoom in central node
 netedit.zoomIn(match.getTarget().offset(325, 225), 10)
 
-# set delete mode
-type("d")
+# go to delete mode
+netedit.deleteMode()
 
 # delete junction
-click(match.getTarget().offset(300, 250))
+netedit.leftClick(match, 300, 250)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -32,17 +32,17 @@ netedit.undo(match, 1)
 # Rebuild network
 netedit.rebuildNetwork()
 
-# set traffic light mode
-type("t")
+# go to  traffic light mode
+netedit.selectTLS()
 
 # select traffic light
-click(match.getTarget().offset(300, 250))
+netedit.leftClick(match, 300, 250)
 
 # delete traffic light
-click(match.getTarget().offset(-120, 150))
+netedit.leftClick(match, -120, 150)
 
 # go to reference
-click(match.getTarget().offset(0, 0))
+netedit.leftClick(match, 0, 0)
 
 # Rebuild network
 netedit.rebuildNetwork()

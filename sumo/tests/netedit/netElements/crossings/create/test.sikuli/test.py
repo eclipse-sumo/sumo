@@ -21,49 +21,49 @@ netedit.zoomIn(match.getTarget().offset(325, 225), 10)
 type("r")
 
 # select central node
-click(match.getTarget().offset(325, 225))
+netedit.leftClick(match, 325, 225)
 
 # select two left edges and create crossing in edges 3 and 7
-click(match.getTarget().offset(150, 200))
-click(match.getTarget().offset(150, 250))
-netedit.createCrossing(match)
+netedit.leftClick(match, 150, 200)
+netedit.leftClick(match, 150, 250)
+netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # create manual crossing
-netedit.modifyCrossingEdges(match, "1 5")
-netedit.createCrossing(match)
+netedit.modifyCrossingDefaultValue(3, "1 5")
+netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # try to create again the same crossing (cannot be possible, show warning
 # instead)
-netedit.modifyCrossingEdges(match, "1 5")
-netedit.createCrossing(match)
+netedit.modifyCrossingDefaultValue(3, "1 5")
+netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # create single crossing (fail)
-netedit.modifyCrossingEdges(match, "4")
-netedit.createCrossing(match)
+netedit.modifyCrossingDefaultValue(3, "4")
+netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # create split crossing
-netedit.modifyCrossingEdges(match, "4")
-netedit.createCrossing(match)
-netedit.modifyCrossingEdges(match, "8")
-netedit.createCrossing(match)
+netedit.modifyCrossingDefaultValue(3, "4")
+netedit.createCrossing()
+netedit.modifyCrossingDefaultValue(3, "8")
+netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # create manual crossing with different priority and width
-netedit.modifyCrossingEdges(match, "6 2")
-netedit.modifyCrossingPriority(match)
-netedit.modifyCrossingWidth(match, "5")
-netedit.createCrossing(match)
+netedit.modifyCrossingDefaultValue(3, "6 2")
+netedit.modifyCrossingDefaultBoolValue(4)
+netedit.modifyCrossingDefaultValue(5, "5")
+netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # Check buttons
-click(match.getTarget().offset(150, 200))
-click(match.getTarget().offset(150, 250))
-netedit.invertCrossings(match)
-netedit.clearCrossings(match)
+netedit.leftClick(match, 150, 200)
+netedit.leftClick(match, 150, 250)
+netedit.crossingInvertEdges()
+netedit.crossingClearEdges()
 
 # save newtork
 netedit.saveNetwork()

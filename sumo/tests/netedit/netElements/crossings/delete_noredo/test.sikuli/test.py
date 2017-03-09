@@ -17,14 +17,14 @@ netedit.rebuildNetwork()
 # zoom in central node
 netedit.zoomIn(match.getTarget().offset(325, 225), 10)
 
-# set delete mode
-type("d")
+# go to delete mode
+netedit.deleteMode()
 
 # delete first crossing
-click(match.getTarget().offset(250, 225))
+netedit.leftClick(match, 250, 225)
 
 # delete second crossing
-click(match.getTarget().offset(385, 225))
+netedit.leftClick(match, 385, 225)
 
 # check undo redo
 netedit.undo(match, 2)

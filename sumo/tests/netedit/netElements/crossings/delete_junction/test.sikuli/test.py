@@ -17,11 +17,11 @@ netedit.rebuildNetwork()
 # zoom in central node
 netedit.zoomIn(match.getTarget().offset(325, 225), 10)
 
-# set delete mode
-type("d")
+# go to delete mode
+netedit.deleteMode()
 
 # delete junction
-click(match.getTarget().offset(300, 250))
+netedit.leftClick(match, 300, 250)
 
 # check undo
 netedit.undo(match, 1)
