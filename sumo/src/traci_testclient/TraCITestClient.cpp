@@ -804,6 +804,18 @@ TraCITestClient::testAPI() {
     person.removeStages("p1");
     answerLog << "    getRemainingStages: " << person.getRemainingStages("p1") << "\n";
     answerLog << "    getStage: " << person.getStage("p1") << "\n";
+    answerLog << "  trafficlights:\n";
+    answerLog << "    getIDList: " << joinToString(trafficlights.getIDList(), " ") << "\n";
+    answerLog << "    state: " << trafficlights.getRedYellowGreenState("n_m4") << "\n";
+    answerLog << "    program: " << trafficlights.getProgram("n_m4") << "\n";
+    answerLog << "    phase: " << trafficlights.getPhase("n_m4") << "\n";
+    answerLog << "    nextSwitch: " << trafficlights.getNextSwitch("n_m4") << "\n";
+    answerLog << "    controlledLanes: " << joinToString(trafficlights.getControlledLanes("n_m4"), " ") << "\n";
+    std::vector<TraCIAPI::TraCILink> links = trafficlights.getControlledLinks("n_m4");
+    answerLog << "    controlledLinks:\n";
+    for (int i = 0; i < (int)links.size(); ++i) {
+        answerLog << "      index=" << i << " from=" << links[i].from << " via=" << links[i].via << " to=" << links[i].to << "\n";
+    }
 
     answerLog << "  gui:\n";
     try {

@@ -1543,8 +1543,8 @@ TraCIAPI::TrafficLightScope::getControlledLinks(const std::string& tlsID) const 
             inMsg.readUnsignedByte();
             inMsg.readInt();
             std::string from = inMsg.readString();
-            std::string via = inMsg.readString();
             std::string to = inMsg.readString();
+            std::string via = inMsg.readString();
             ret.push_back(TraCIAPI::TraCILink(from, via, to));
         }
 
