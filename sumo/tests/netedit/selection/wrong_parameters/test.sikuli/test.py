@@ -14,68 +14,65 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 # go to select mode
 netedit.selectMode()
 
-# netedit selection reference
-selectType = netedit.getSelectReference(match)
-
 # try to select node gneJ0 and delete it (Error in type of element)
-click(selectType)
+# go to te upper element of frame (temporally use 's')
+type("s")
+for x in range(0, 5):
+    type(Key.TAB)
 # select all
 type("a", Key.CTRL)
 # paste the new elementClass
 paste("dummyElement")
-# type two times enter to set elementClass
-for x in range(0, 2):
-	type(Key.ENTER)
+# set elementClass
+type(Key.TAB)
 
 # try to select node gneJ0 and delete it (Error in type of element)
-click(selectType)
+# go to te upper element of frame (temporally use 's')
+type("s")
+for x in range(0, 5):
+    type(Key.TAB)
 # select all
 type("a", Key.CTRL)
 # paste the new elementClass
 paste("Net Element")
-# type two times enter to set elementClass
-for x in range(0, 2):
-	type(Key.ENTER)
 # jump to element
 for x in range(0, 2):
-	type(Key.TAB)
+    type(Key.TAB)
 # select all
 type("a", Key.CTRL)
 # paste the new elementType
 paste("dummyType")
-# type enter to set elementType
-type(Key.ENTER)
+# type tab to set elementType
+type(Key.TAB)
 
 # try to select node gneJ0 and delete it (Error in type of element)
-click(selectType)
+# go to te upper element of frame (temporally use 's')
+type("s")
+for x in range(0, 5):
+    type(Key.TAB)
 # select all
 type("a", Key.CTRL)
 # paste the new elementClass
 paste("Net Element")
-# type two times enter to set elementClass
-for x in range(0, 2):
-	type(Key.ENTER)
 # jump to element
 for x in range(0, 2):
-	type(Key.TAB)
+    type(Key.TAB)
 # select all
 type("a", Key.CTRL)
 # paste the new elementType
 paste("junction")
-# type enter to set elementType
-type(Key.ENTER)
 # jump to attribute
 for x in range(0, 2):
-	type(Key.TAB)
+    type(Key.TAB)
 # select all
 type("a", Key.CTRL)
 # paste the new attribute
 paste("dummyAttribute")
 # type enter to set attribute
-type(Key.ENTER)
+type(Key.TAB)
 
 # try to select node gneJ0 and delete it (Error in type of element)
-netedit.selectItems(selectType, "Net Element", "junction", "id", "gneJ0")
+netedit.selectItems("Net Element", "junction", "id", "gneJ0")
 netedit.deleteSelectedItems()
 
 # save newtork

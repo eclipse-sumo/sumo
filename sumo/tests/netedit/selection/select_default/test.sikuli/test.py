@@ -14,14 +14,8 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 # go to select mode
 netedit.selectMode()
 
-# netedit selection reference
-selectType = netedit.getSelectReference(match)
-
 # select edges with speed < 10 and delete it (only one)
-click(selectType)
-for x in range(0, 6):
-	type(Key.TAB)
-type(Key.ENTER)
+netedit.selectDefault()
 netedit.deleteSelectedItems()
 
 # save newtork

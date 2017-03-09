@@ -17,40 +17,22 @@ netedit.rebuildNetwork()
 # go to select mode
 netedit.selectMode()
 
-# netedit selection reference
-selectType = netedit.getSelectReference(match)
-
 # first check that invert works
-click(selectType)
-for x in range(0, 10):
-	type(Key.TAB)
-type(Key.SPACE)
+netedit.selectionInvert()
 
 # invert again and delete selected items (all must be unselected)
-click(selectType)
-for x in range(0, 10):
-	type(Key.TAB)
-type(Key.SPACE)
+netedit.selectionInvert()
 netedit.deleteSelectedItems()
 
 # invert again and clear selection
-click(selectType)
-for x in range(0, 10):
-	type(Key.TAB)
-type(Key.SPACE)
-click(selectType)
-for x in range(0, 9):
-	type(Key.TAB)
-type(Key.SPACE)
+netedit.selectionInvert()
+netedit.selectionClear()
 
 # use a rectangle to select central elements 
 netedit.selectionRectangle(match, 250, 150, 400, 300)
 
 # invert selection to select only extern nodes and delete it
-click(selectType)
-for x in range(0, 10):
-	type(Key.TAB)
-type(Key.SPACE)
+netedit.selectionInvert()
 netedit.deleteSelectedItems()
 
 # check undo and redo
