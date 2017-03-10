@@ -368,8 +368,6 @@ enum {
     MID_GNE_DELETEFRAME_INSPECT,
     /// @brief In GNEDeleteFrame, delete element
     MID_GNE_DELETEFRAME_DELETE,
-    /// @brief tree list with the childs
-    MID_GNEINSPECT_CHILDS,
     /// @brief In GNEInspectFrame, center element
     MID_GNE_INSPECTFRAME_CENTER,
     /// @brief In GNEInspectFrame, inspect element
