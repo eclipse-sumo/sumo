@@ -2035,7 +2035,7 @@ MSLCM_SL2015::keepLatGap(int state,
      * */
 
     /// XXX to be made configurable
-    const double gapFactor = (state & LCA_STRATEGIC) != 0 ? 0.0 : 1.0;
+    double gapFactor = (state & LCA_STRATEGIC) != 0 ? 0.0 : 1.0;
     const bool stayInLane = laneOffset == 0 || ((state & LCA_STRATEGIC) != 0 && (state & LCA_STAY) != 0);
     const double oldLatDist = latDist;
 
@@ -2048,13 +2048,29 @@ MSLCM_SL2015::keepLatGap(int state,
     // compute gaps after maneuver
     const double halfWidth = myVehicle.getVehicleType().getWidth() * 0.5;
     // if the current maneuver is blocked we will stay where we are
-    const double newCenter = myVehicle.getCenterOnEdge() + (blocked == 0 ? latDist : 0);
+    const double effectiveLatDist = blocked == 0 ? latDist : 0;
+    const double newCenter = myVehicle.getCenterOnEdge() + effectiveLatDist;
     // surplus gaps. these are used to collect various constraints
     // if this value goes negative, we should override the current maneuver to better maintain distance
 
     // stay within the current edge
     double surplusGapRight = newCenter - halfWidth;
     double surplusGapLeft = myVehicle.getLane()->getEdge().getWidth() - newCenter - halfWidth;
+    if (gDebugFlag2) {
+        std::cout << "    keepLatGap laneOffset=" << laneOffset
+                  << " latDist=" << latDist
+                  << " effectiveLatDist=" << effectiveLatDist
+                  << " gapFactor=" << gapFactor
+                  << " stayInLane=" << stayInLane
+                  << "\n"
+                  << "       surplusGapRight (stay in edge) =" << surplusGapRight
+                  << "       surplusGapLeft (stay in edge) =" << surplusGapLeft
+                  << "\n";
+    }
+    // staying within the edge overrides all minGap considerations
+    if (surplusGapLeft < 0 || surplusGapRight < 0) {
+        gapFactor = 0;
+    }
 
     // maintain gaps to vehicles on the current lane
     updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), newCenter, gapFactor, surplusGapRight, surplusGapLeft);
@@ -2065,38 +2081,40 @@ MSLCM_SL2015::keepLatGap(int state,
         updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), newCenter, gapFactor, surplusGapRight, surplusGapLeft);
         updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), newCenter, gapFactor, surplusGapRight, surplusGapLeft);
     }
+    if (gDebugFlag2) {
+        std::cout << "       surplusGapRight (minGapLat) =" << surplusGapRight
+                  << "       surplusGapLeft (minGapLat) =" << surplusGapLeft
+                  << "\n";
+    }
     const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
     if (stayInLane || laneOffset == 1) {
         // do not move past the right boundary of the current lane (traffic wasn't check there)
-        surplusGapRight = MIN2(surplusGapRight, halfLaneWidth + myVehicle.getLateralPositionOnLane() + latDist - halfWidth);
+        // but assume it's ok to be where we are in case we are already beyond
+        surplusGapRight = MIN2(surplusGapRight, MAX2(0.0, halfLaneWidth + myVehicle.getLateralPositionOnLane() + effectiveLatDist - halfWidth));
     }
     if (stayInLane || laneOffset == -1) {
         // do not move past the left boundary of the current lane (traffic wasn't check there)
-        surplusGapLeft = MIN2(surplusGapLeft, halfLaneWidth - myVehicle.getLateralPositionOnLane() - latDist - halfWidth);
+        // but assume it's ok to be where we are in case we are already beyond
+        surplusGapLeft = MIN2(surplusGapLeft, MAX2(0.0, halfLaneWidth - myVehicle.getLateralPositionOnLane() - effectiveLatDist - halfWidth));
+    }
+    if (gDebugFlag2) {
+        std::cout << "       surplusGapRight (stayInLane) =" << surplusGapRight
+                  << "       surplusGapLeft (stayInLane) =" << surplusGapLeft
+                  << "\n";
     }
 
-    if (gDebugFlag2) {
-        std::cout << "    keepLatGap laneOffset=" << laneOffset
-                  << " latDist=" << latDist
-                  << " gapFactor=" << gapFactor
-                  << " stayInLane=" << stayInLane
-                  << " surplusGapRight=" << surplusGapRight
-                  << " surplusGapLeft=" << surplusGapLeft
-                  << " state=" << toString((LaneChangeAction)state)
-                  << " blockedBefore=" << toString((LaneChangeAction)blocked);
-    }
     const double maxDist = SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat());
     if (surplusGapRight < -NUMERICAL_EPS) {
         if (surplusGapLeft > 0) {
             // move left to increase gap
-            latDist = MIN3(latDist - surplusGapRight, latDist + surplusGapLeft, maxDist);
+            latDist = MIN3(effectiveLatDist - surplusGapRight, effectiveLatDist + surplusGapLeft, maxDist);
         } else {
             blocked |= LCA_OVERLAPPING | LCA_BLOCKED_RIGHT;
         }
     } else if (surplusGapLeft < -NUMERICAL_EPS) {
         if (surplusGapRight > 0) {
             // move right to increase gap
-            latDist = MAX3(latDist + surplusGapLeft, latDist - surplusGapRight, -maxDist);
+            latDist = MAX3(effectiveLatDist + surplusGapLeft, effectiveLatDist - surplusGapRight, -maxDist);
         } else {
             blocked |= LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
         }
@@ -2109,9 +2127,8 @@ MSLCM_SL2015::keepLatGap(int state,
         state = (state & ~LCA_STAY);
     }
     if (gDebugFlag2) {
-        std::cout << "    keepLatGap (checked)"
-                  << " latDist2=" << latDist
-                  << " blockedAfter=" << toString((LaneChangeAction)blocked)
+        std::cout << "       latDist2=" << latDist
+                  << "       blockedAfter=" << toString((LaneChangeAction)blocked)
                   << "\n";
     }
     return state;
