@@ -15,8 +15,7 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 netedit.selectMode()
 
 # try to select node gneJ0 and delete it (Error in type of element)
-# go to te upper element of frame (temporally use 's')
-type("s")
+netedit.focusOnFrame()
 for x in range(0, 5):
     type(Key.TAB)
 # select all
@@ -25,10 +24,11 @@ type("a", Key.CTRL)
 paste("dummyElement")
 # set elementClass
 type(Key.TAB)
+# abort current selection
+netedit.abortSelection()
 
 # try to select node gneJ0 and delete it (Error in type of element)
-# go to te upper element of frame (temporally use 's')
-type("s")
+netedit.focusOnFrame()
 for x in range(0, 5):
     type(Key.TAB)
 # select all
@@ -44,10 +44,11 @@ type("a", Key.CTRL)
 paste("dummyType")
 # type tab to set elementType
 type(Key.TAB)
+# abort current selection
+netedit.abortSelection()
 
 # try to select node gneJ0 and delete it (Error in type of element)
-# go to te upper element of frame (temporally use 's')
-type("s")
+netedit.focusOnFrame()
 for x in range(0, 5):
     type(Key.TAB)
 # select all
@@ -70,6 +71,8 @@ type("a", Key.CTRL)
 paste("dummyAttribute")
 # type enter to set attribute
 type(Key.TAB)
+# abort current selection
+netedit.abortSelection()
 
 # try to select node gneJ0 and delete it (Error in type of element)
 netedit.selectItems("Net Element", "junction", "id", "gneJ0")

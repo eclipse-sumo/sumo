@@ -38,18 +38,22 @@ netedit.selectItems("Additional", "busStop", "startPos", ">24")
 # change to add mode and remove selected busStops
 netedit.modificationModeAdd()
 netedit.deleteSelectedItems()
+netedit.abortSelection()
 
 # select all busStops with endPos minor that 30 and delete it 
 netedit.selectItems("Additional", "busStop", "endPos", "<36")
 netedit.deleteSelectedItems()
+netedit.abortSelection()
 
 # select all busStops with lines that contains "lineToRemove" and remove it
 netedit.selectItems("Additional", "busStop", "lines", "lineToRemove")
 netedit.deleteSelectedItems()
+netedit.abortSelection()
 
 # select all busStops with lines that contains "linetoRemove" and remove it
 netedit.selectItems("Additional", "busStop", "lines", "linetoRemove")
 netedit.deleteSelectedItems()
+netedit.abortSelection()
 
 # save additionals
 netedit.saveAdditionals()
