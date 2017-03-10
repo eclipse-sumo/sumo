@@ -108,7 +108,7 @@ def rebuildNetwork():
 
 # netedit undo
 def undo(match, number):
-    # needed to avoid errors with undo/redo
+    # needed to avoid errors with undo/redo (Provisionally)
     type("i")
     click(match)
     for x in range(0, number):
@@ -116,7 +116,7 @@ def undo(match, number):
 
 # netedit redo
 def redo(match, number):
-    # needed to avoid errors with undo/redo
+    # needed to avoid errors with undo/redo (Provisionally)
     type("i")
     click(match)
     for x in range(0, number):
@@ -275,8 +275,8 @@ def crossingMode():
 
 # create crossing
 def createCrossing():
-    # go to te upper element of frame (temporally use 'r')
-    type("r")
+    # focus current frame
+    type('f')
     # jump to create crossing button
     for x in range(0, 8):
         type(Key.TAB)
@@ -285,8 +285,8 @@ def createCrossing():
 
 # change default int/real/string crossing default value
 def modifyCrossingDefaultValue(numtabs, value):
-    # go to te upper element of frame (temporally use 'r')
-    type("r")
+    # focus current frame
+    type('f')
     # jump to value
     for x in range(0, numtabs + 1):
         type(Key.TAB)
@@ -300,8 +300,8 @@ def modifyCrossingDefaultValue(numtabs, value):
 
 # change default boolean crossing default value
 def modifyCrossingDefaultBoolValue(numtabs):
-    # go to te upper element of frame (temporally use 'r')
-    type("r")
+    # focus current frame
+    type('f')
     # jump to value
     for x in range(0, numtabs + 1):
         type(Key.TAB)
@@ -310,8 +310,8 @@ def modifyCrossingDefaultBoolValue(numtabs):
     
 # clear crossing
 def crossingClearEdges(useSelectedEdges = False):
-    # go to te upper element of frame (temporally use 'r')
-    type("r")
+    # focus current frame
+    type('f')
     if(useSelectedEdges):
         # jump to clear button
         for x in range(0, 1):
@@ -325,8 +325,8 @@ def crossingClearEdges(useSelectedEdges = False):
 
 #invert crossing
 def crossingInvertEdges(useSelectedEdges = False):
-    # go to te upper element of frame (temporally use 'r')
-    type("r")
+    # focus current frame
+    type('f')
     if(useSelectedEdges):
         # jump to clear button
         for x in range(0, 2):
@@ -342,9 +342,15 @@ def crossingInvertEdges(useSelectedEdges = False):
 # additionals
 #################################################
 
+# change to additional mode
+def additionalMode():
+    type('a')
+
 # change additional
 def changeAdditional(additional):
-    type('a')
+    # focus current frame
+    type('f')
+    # go to first editable element of frame
     type(Key.TAB)
     # select current value
     type("a", Key.CTRL)
@@ -355,10 +361,10 @@ def changeAdditional(additional):
     # type ESC to avoid edit combobox accidentally
     type(Key.ESC)
 
-
 # modify default int/double/string value of an additional
 def modifyAdditionalDefaultValue(numTabs, length):
-    type('a')
+    # focus current frame
+    type('f')
     # go to length textfield
     for x in range(0, numTabs + 1):
         type(Key.TAB)
@@ -373,26 +379,33 @@ def modifyAdditionalDefaultValue(numTabs, length):
     
 # modify default boolean value of an additional
 def modifyAdditionalDefaultBoolValue(numTabs):
-    type('a')
+    # focus current frame
+    type('f')
     # place cursor in force position checkbox
     for x in range(numTabs + 1):
         type(Key.TAB)
     # Change current value
     type(Key.SPACE)
+    # type ESC to avoid edit combobox accidentally
+    type(Key.ESC)
 
 # modify number of stopping place lines
 def modifyStoppingPlaceLines(numTabs, numLines):
-    type('a')
+    # focus current frame
+    type('f')
     # go to add line
-    for x in range(0, numTabs+1):
+    for x in range(0, numTabs + 1):
         type(Key.TAB)
     # add lines
     for x in range(0, numLines):
         type(Key.SPACE)
+    # type ESC to avoid edit lines accidentally
+    type(Key.ESC)
 
 # fill lines to stopping places
 def fillStoppingPlaceLines(numTabs, numLines):
-    type('a')
+    # focus current frame
+    type('f')
     # place cursor in the first line
     for x in range(0, numTabs + 1):
         type(Key.TAB)
@@ -405,7 +418,8 @@ def fillStoppingPlaceLines(numTabs, numLines):
 
 # select child of additional
 def selectAdditionalChild(numTabs, childNumber):
-    type('a')
+    # focus current frame
+    type('f')
     # place cursor in the list of childs
     for x in range(0, numTabs + 1):
         type(Key.TAB)
@@ -455,8 +469,8 @@ def selectDefault():
     
 # select items
 def selectItems(elementClass, elementType, attribute, value):
-    # go to te upper element of frame (temporally use 's')
-    type("s")
+    # focus current frame
+    type('f')
     for x in range(0, 5):
         type(Key.TAB)
     type("a", Key.CTRL)
@@ -502,8 +516,9 @@ def deleteSelectedItems():
     
 # set modification mode "add"
 def modificationModeAdd():
-    # go to te upper element of frame (temporally use 's')
-    type("s")
+    # focus current frame
+    type('f')
+    # go to first editable element of frame
     type(Key.TAB)
     # select it
     type(Key.SPACE)
@@ -512,8 +527,8 @@ def modificationModeAdd():
     
 # set modification mode "remove"
 def modificationModeRemove():
-    # go to te upper element of frame (temporally use 's')
-    type("s")
+    # focus current frame
+    type('f')
     # jump to value
     for x in range(0, 2):
         type(Key.TAB)
@@ -524,8 +539,8 @@ def modificationModeRemove():
     
 # set modification mode "keep"
 def modificationModeKeep():
-    # go to te upper element of frame (temporally use 's')
-    type("s")
+    # focus current frame
+    type('f')
     # jump to value
     for x in range(0, 3):
         type(Key.TAB)
@@ -536,8 +551,8 @@ def modificationModeKeep():
     
 # set modification mode "replace"
 def modificationModeReplace():
-    # go to te upper element of frame (temporally use 's')
-    type("s")
+    # focus current frame
+    type('f')
     # jump to value
     for x in range(0, 4):
         type(Key.TAB)
@@ -559,16 +574,16 @@ def selectionRectangle(match, startX, startY, endX, endY):
 
 # clear selection
 def selectionClear():
-    # go to te upper element of frame (temporally use 's')
-    type("s")
+    # focus current frame
+    type('f')
     for x in range(0, 14):
         type(Key.TAB)
     type(Key.SPACE)
     
 # invert selection
 def selectionInvert():
-    # go to te upper element of frame (temporally use 's')
-    type("s")
+    # focus current frame
+    type('f')
     for x in range(0, 15):
         type(Key.TAB)
     type(Key.SPACE)
