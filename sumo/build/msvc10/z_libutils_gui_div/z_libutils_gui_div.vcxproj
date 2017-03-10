@@ -135,6 +135,7 @@
     <ClInclude Include="..\..\..\src\utils\gui\div\GUIParameterTableWindow.h" />
     <ClInclude Include="..\..\..\src\utils\gui\div\GUISelectedStorage.h" />
     <ClInclude Include="..\..\..\src\utils\gui\div\GUIUserIO.h" />
+    <ClInclude Include="..\..\..\src\utils\gui\div\GUIVideoEncoder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

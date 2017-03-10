@@ -76,5 +76,8 @@
     <ClInclude Include="..\..\..\src\utils\gui\div\GUIDesigns.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\gui\div\GUIVideoEncoder.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
