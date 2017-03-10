@@ -40,8 +40,15 @@
 
 #define __STDC_CONSTANT_MACROS
 
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4244) // do not warn about integer conversions
+#endif
+#if __GNUC__ > 3
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
+#pragma GCC diagnostic ignored "-Wvariadic-macros"
+#endif
 extern "C"
 {
 #include <libavutil/opt.h>
@@ -50,7 +57,12 @@ extern "C"
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
 }
+#ifdef _MSC_VER
 #pragma warning(pop) 
+#endif
+#if __GNUC__ > 3
+#pragma GCC diagnostic pop
+#endif
 
 
 class GUIVideoEncoder {

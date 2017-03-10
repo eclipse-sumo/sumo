@@ -95,7 +95,7 @@ private:
      *
      * @note: This is the dawdling of Krauss extended by a model for overbraking / slow-to-start
      */
-    double dawdle(double vOld, double speed) const;
+    double dawdleX(double vOld, double speed) const;
 
     /// @brief extension parameter nr1
     double myTmp1;

@@ -77,7 +77,7 @@ public:
 
 
     /// @brief Function-object for stable sorting in containers
-    // @note Numbers of different lenghts will not be ordered by alphanumerical sorting
+    // @note Numbers of different lengths will not be ordered by alphanumerical sorting
     struct ComparatorIdLess {
         bool operator()(Named* const a, Named* const b) const {
             return a->getID() < b->getID();

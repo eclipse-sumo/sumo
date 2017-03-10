@@ -77,7 +77,7 @@ MSCFModel_KraussX::moveHelper(MSVehicle* const veh, double vPos) const {
     //}
 #endif
 
-    const double vDawdle = MAX2(vMin, dawdle(oldV, vMax));
+    const double vDawdle = MAX2(vMin, dawdleX(oldV, vMax));
 
     double vNext = veh->getLaneChangeModel().patchSpeed(vMin, vDawdle, vMax, *this);
 
@@ -103,7 +103,7 @@ MSCFModel_KraussX::moveHelper(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_KraussX::dawdle(double vOld, double speed) const {
+MSCFModel_KraussX::dawdleX(double vOld, double speed) const {
     if (!MSGlobals::gSemiImplicitEulerUpdate) {
         // in case of the ballistic update, negative speeds indicate
         // a desired stop before the completion of the next timestep.

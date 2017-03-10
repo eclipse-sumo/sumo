@@ -53,7 +53,14 @@
 #include "NIImporter_ArcView.h"
 
 #ifdef HAVE_GDAL
+#if __GNUC__ > 3
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
+#endif
 #include <ogrsf_frmts.h>
+#if __GNUC__ > 3
+#pragma GCC diagnostic pop
+#endif
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS

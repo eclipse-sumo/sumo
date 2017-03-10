@@ -755,7 +755,7 @@ GNEInspectorFrame::AttributeInput::AttributeInput(FXComposite* parent, GNEInspec
 
 
 void
-GNEInspectorFrame::AttributeInput::showAttribute(GNEAttributeCarrier *ac, SumoXMLTag tag, SumoXMLAttr attr, const std::string& value) {
+GNEInspectorFrame::AttributeInput::showAttribute(GNEAttributeCarrier* /* ac */, SumoXMLTag tag, SumoXMLAttr attr, const std::string& value) {
     // Set actual Tag and attribute
     myTag = tag;
     myAttr = attr;
