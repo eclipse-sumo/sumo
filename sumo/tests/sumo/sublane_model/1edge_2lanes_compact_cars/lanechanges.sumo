@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  8 15:52:24 2017 by SUMO Version dev-SVN-r23260
+<!-- generated on Fri Mar 10 09:19:18 2017 by SUMO Version dev-SVN-r23260
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -46,15 +46,11 @@
     <change id="cars.17" time="58.00" from="beg_0" to="beg_1" dir="1" speed="11.71" reason="sublane"/>
     <change id="cars.12" time="71.00" from="beg_1" to="beg_0" dir="-1" speed="0.00" reason="sublane"/>
     <change id="cars.18" time="71.00" from="beg_0" to="beg_1" dir="1" speed="0.00" reason="speedGain"/>
-    <change id="cars.4" time="205.00" from="end_0" to="end_1" dir="1" speed="8.20" reason="speedGain"/>
-    <change id="cars.4" time="206.00" from="end_1" to="end_0" dir="-1" speed="10.48" reason="sublane"/>
     <change id="cars.16" time="208.00" from="beg_0" to="beg_1" dir="1" speed="1.96" reason="speedGain"/>
-    <change id="cars.2" time="210.00" from="end_1" to="end_0" dir="-1" speed="14.08" reason="sublane"/>
-    <change id="cars.12" time="215.00" from="end_0" to="end_1" dir="1" speed="11.62" reason="sublane"/>
-    <change id="cars.16" time="220.00" from="end_1" to="end_0" dir="-1" speed="10.00" reason="sublane"/>
-    <change id="cars.19" time="224.00" from="end_1" to="end_0" dir="-1" speed="12.64" reason="sublane"/>
-    <change id="cars.19" time="226.00" from="end_0" to="end_1" dir="1" speed="13.05" reason="sublane"/>
-    <change id="cars.8" time="229.00" from="end_0" to="end_1" dir="1" speed="11.13" reason="sublane"/>
-    <change id="cars.15" time="234.00" from="end_0" to="end_1" dir="1" speed="9.54" reason="speedGain"/>
-    <change id="cars.15" time="236.00" from="end_1" to="end_0" dir="-1" speed="11.04" reason="sublane"/>
+    <change id="cars.3" time="212.00" from="end_1" to="end_0" dir="-1" speed="15.84" reason="sublane"/>
+    <change id="cars.12" time="216.00" from="end_0" to="end_1" dir="1" speed="12.17" reason="sublane"/>
+    <change id="cars.19" time="220.00" from="end_1" to="end_0" dir="-1" speed="11.89" reason="sublane"/>
+    <change id="cars.16" time="220.00" from="end_1" to="end_0" dir="-1" speed="10.42" reason="sublane"/>
+    <change id="cars.19" time="227.00" from="end_0" to="end_1" dir="1" speed="12.77" reason="sublane"/>
+    <change id="cars.8" time="228.00" from="end_0" to="end_1" dir="1" speed="11.63" reason="sublane"/>
 </lanechanges>
