@@ -14,6 +14,9 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 # apply zoom
 netedit.zoomIn(match.getTarget().offset(325, 200), 10)
 
+# go to additional mode
+netedit.additionalMode()
+
 # select E3
 netedit.changeAdditional("e3Detector")
 
@@ -38,6 +41,9 @@ netedit.leftClick(match, 250, 250)
 netedit.leftClick(match, 0, 0)
 netedit.undo(match, 3)
 
+# go to additional mode
+netedit.additionalMode()
+
 # select E3
 netedit.changeAdditional("e3Detector")
 
@@ -61,6 +67,9 @@ netedit.leftClick(match, 250, 250)
 # Undo creation of Entry and Exit
 netedit.leftClick(match, 0, 0)
 netedit.undo(match, 2)
+
+# go to additional mode
+netedit.additionalMode()
 
 # select entry detector
 netedit.changeAdditional("detEntry")

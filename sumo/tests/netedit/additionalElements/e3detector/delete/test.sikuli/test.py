@@ -14,6 +14,9 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 # apply zoom
 netedit.zoomIn(match.getTarget().offset(325, 200), 10)
 
+# go to additional mode
+netedit.additionalMode()
+
 # select E3
 netedit.changeAdditional("e3Detector")
 

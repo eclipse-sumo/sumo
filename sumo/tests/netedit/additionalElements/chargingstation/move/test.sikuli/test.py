@@ -11,6 +11,9 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
+# go to additional mode
+netedit.additionalMode()
+
 # select chargingStation
 netedit.changeAdditional("chargingStation")
 
