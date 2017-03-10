@@ -75,6 +75,9 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+    /// @brief called when user change type of selction operation
+    long onCmdSelectOperation(FXObject*, FXSelector, void*);
+
     /// @brief Called when the user change the type of element to search (netElement or Additional)
     long onCmdSubset(FXObject*, FXSelector, void*);
 
@@ -129,7 +132,7 @@ protected:
 
 private:
     /// @brief how to modify selection
-    FXuint mySetOperation;
+    SetOperation mySetOperation;
 
     /// @brief add radio button
     FXRadioButton *myAddRadioButton;
@@ -142,9 +145,6 @@ private:
 
     /// @brief replace radio button
     FXRadioButton *myReplaceRadioButton;
-
-    /// @brief target of modify selection
-    FXDataTarget mySetOperationTarget;
 
     /// @brief tag of the sets of elements
     FXComboBox* mySetComboBox;

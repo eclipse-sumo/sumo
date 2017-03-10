@@ -339,6 +339,8 @@ enum {
     /// @name GLChosenEditor - Dialog IDs
     /// @{
 
+    /// @brief set type of selection
+    MID_CHOOSEN_OPERATION,
     /// @brief set subset of elements
     MID_CHOOSEN_ELEMENTS,
     /// @brief Load set

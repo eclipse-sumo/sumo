@@ -64,6 +64,7 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNESelectorFrame) GNESelectorFrameMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,      GNESelectorFrame::onCmdSelectOperation),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,       GNESelectorFrame::onCmdSubset),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,           GNESelectorFrame::onCmdLoad),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,           GNESelectorFrame::onCmdSave),
@@ -85,7 +86,6 @@ FXIMPLEMENT(GNESelectorFrame, FXVerticalFrame, GNESelectorFrameMap, ARRAYNUMBER(
 GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, getStats().c_str()),
     mySetOperation(SET_ADD),
-    mySetOperationTarget(mySetOperation),
     myCurrentTag(SUMO_TAG_NOTHING),
     myCurrentAttribute(SUMO_ATTR_NOTHING),
     ALL_VCLASS_NAMES_MATCH_STRING("all " + joinToString(SumoVehicleClassStrings.getStrings(), " ")) {
@@ -93,13 +93,14 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame);
     // Create all options buttons
     myAddRadioButton = new FXRadioButton(selBox, "add\t\tSelected objects are added to the previous selection",
-                                         &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_ADD, GUIDesignRadioButton);
+                                         this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myRemoveRadioButton = new FXRadioButton(selBox, "remove\t\tSelected objects are removed from the previous selection",
-                                            &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_SUB, GUIDesignRadioButton);
+                                            this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myKeepRadioButton = new FXRadioButton(selBox, "keep\t\tRestrict previous selection by the current selection",
-                                          &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_RESTRICT, GUIDesignRadioButton);
+                                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myReplaceRadioButton = new FXRadioButton(selBox, "replace\t\tReplace previous selection by the current selection",
-                                             &mySetOperationTarget, FXDataTarget::ID_OPTION + SET_REPLACE, GUIDesignRadioButton);
+                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myAddRadioButton->setCheck(true);
     // Create groupBox for selection by expression matching (match box)
     FXGroupBox* elementBox = new FXGroupBox(myContentFrame, "type of element", GUIDesignGroupBoxFrame);
     // Create MatchTagBox for tags and fill it
@@ -153,6 +154,42 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
 
 GNESelectorFrame::~GNESelectorFrame() {
     gSelected.remove2Update();
+}
+
+
+long
+GNESelectorFrame::onCmdSelectOperation(FXObject* obj, FXSelector, void*) {
+    if(obj == myAddRadioButton) {
+        mySetOperation = SET_ADD;
+        myAddRadioButton->setCheck(true);
+        myRemoveRadioButton->setCheck(false);
+        myKeepRadioButton->setCheck(false);
+        myReplaceRadioButton->setCheck(false);
+        return 1;
+    } else if(obj == myRemoveRadioButton) {
+        mySetOperation = SET_SUB;
+        myAddRadioButton->setCheck(false);
+        myRemoveRadioButton->setCheck(true);
+        myKeepRadioButton->setCheck(false);
+        myReplaceRadioButton->setCheck(false);
+        return 1;
+    } else if(obj == myKeepRadioButton) {
+        mySetOperation = SET_RESTRICT;
+        myAddRadioButton->setCheck(false);
+        myRemoveRadioButton->setCheck(false);
+        myKeepRadioButton->setCheck(true);
+        myReplaceRadioButton->setCheck(false);
+        return 1;
+    } else if(obj == myReplaceRadioButton) {
+        mySetOperation = SET_REPLACE;
+        myAddRadioButton->setCheck(false);
+        myRemoveRadioButton->setCheck(false);
+        myKeepRadioButton->setCheck(false);
+        myReplaceRadioButton->setCheck(true);
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 
