@@ -69,7 +69,7 @@ main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("GUI version of the simulation SUMO.");
-    oc.setApplicationName("sumo-gui.exe", "SUMO gui Version " VERSION_STRING);
+    oc.setApplicationName("sumo-gui", "SUMO gui Version " VERSION_STRING);
     int ret = 0;
     try {
         // initialise subsystems

@@ -72,7 +72,7 @@ main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Graphical editor for SUMO networks.");
-    oc.setApplicationName("netedit.exe", "Netedit Version " VERSION_STRING);
+    oc.setApplicationName("netedit", "Netedit Version " VERSION_STRING);
     int ret = 0;
 #ifndef _DEBUG
     try {

@@ -766,7 +766,15 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                                 const bool complete, const bool addComments,
                                 const bool maskDoubleHyphen) const {
     os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
-    os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/" << myAppName << "Configuration.xsd\">" << std::endl << std::endl;
+    os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/";
+    if (myAppName == "sumo-gui") {
+        os << "sumo";
+    } else if (myAppName == "netedit") {
+        os << "netconvert";
+    } else {
+        os << myAppName;
+    }
+    os << "Configuration.xsd\">" << std::endl << std::endl;
     for (std::vector<std::string>::const_iterator i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
         std::string subtopic = *i;
         if (subtopic == "Configuration" && !complete) {
