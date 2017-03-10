@@ -417,6 +417,8 @@ enum {
 
     /// @brief abort current edit operation
     MID_GNE_ABORT,
+    /// @brief focus upper element of current frame
+    MID_GNE_FOCUS_FRAME,
     /// @brief hot key <DEL>
     MID_GNE_HOTKEY_DEL,
     /// @brief hot key <ENTER>
