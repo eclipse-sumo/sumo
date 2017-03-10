@@ -47,14 +47,17 @@ def parse_args(args):
     optParser.add_option("--blur", type="float",
                          default=0, help="maximum random disturbance to route geometry")
     options, args = optParser.parse_args(args=args)
+    if len(args) < 2:
+        sys.exit(USAGE)
     try:
-        options.net, options.routefile = args
+        options.net = args[0]
+        options.routefiles = args[1:]
         options.colorgen = Colorgen(
             (options.hue, options.saturation, options.brightness))
     except:
         sys.exit(USAGE)
     if options.outfile is None:
-        options.outfile = options.routefile + ".poly.xml"
+        options.outfile = options.routefiles[0] + ".poly.xml"
     return options
 
 
@@ -80,12 +83,26 @@ def generate_poly(net, id, color, layer, geo, edges, blur, outf):
 def main(args):
     options = parse_args(args)
     net = readNet(options.net)
+    known_ids = set()
+    def unique_id(cand, index=0):
+        cand2 = cand
+        if index > 0:
+            cand2 = "%s#%s" % (cand, index)
+        if cand2 in known_ids:
+            return unique_id(cand, index + 1)
+        else:
+            known_ids.add(cand2)
+            return cand2
+
     with open(options.outfile, 'w') as outf:
         outf.write('<polygons>\n')
-        for vehicle in parse(options.routefile, 'vehicle'):
-            generate_poly(net, vehicle.id, options.colorgen(),
-                          options.layer, options.geo,
-                          vehicle.route[0].edges.split(), options.blur, outf)
+        for routefile in options.routefiles:
+            print("parsing %s" % routefile)
+            for vehicle in parse(routefile, 'vehicle'):
+                #print("found veh", vehicle.id)
+                generate_poly(net, unique_id(vehicle.id), options.colorgen(),
+                              options.layer, options.geo,
+                              vehicle.route[0].edges.split(), options.blur, outf)
         outf.write('</polygons>\n')
 
 if __name__ == "__main__":
