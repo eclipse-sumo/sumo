@@ -91,6 +91,8 @@ def get_options(args=None):
                          default=None, help="require start and end edges for each trip to be at most <FLOAT> m appart (default 0 which disables any checks)")
     optParser.add_option("-i", "--intermediate", type="int",
                          default=0, help="generates the given number of intermediate way points")
+    optParser.add_option("--flows", type="int",
+                         default=0, help="generates INT flows that together output vehicles with the specified period")
     optParser.add_option("--maxtries", type="int",
                          default=100, help="number of attemps for finding a trip which meets the distance constraints")
     optParser.add_option("--binomial", type="int", metavar="N",
@@ -114,6 +116,9 @@ def get_options(args=None):
 
     if options.pedestrians:
         options.vclass = 'pedestrian'
+        if options.flows > 0:
+            print("Error: Person flows are not supported yet", file=sys.stderr)
+            sys.exit(1)
 
     if options.validate and options.routefile is None:
         options.routefile = "routes.rou.xml"
@@ -347,6 +352,14 @@ def main(options):
                     fouttrips.write(
                         '        <walk from="%s" to="%s"%s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
                 fouttrips.write('    </person>\n')
+            elif options.flows > 0:
+                if options.binomial:
+                    for j in range(options.binomial):
+                        fouttrips.write('    <flow id="%s#%s" begin="%s" end="%s" probability="%s" from="%s" to="%s"%s%s/>\n' % (
+                            label, j, options.begin, options.end, 1.0/options.period/options.binomial, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
+                else:
+                    fouttrips.write('    <flow id="%s" begin="%s" end="%s" period="%s" from="%s" to="%s"%s%s/>\n' % (
+                        label, options.begin, options.end, options.period * options.flows, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
             else:
                 fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s"%s%s/>\n' % (
                     label, depart, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
@@ -363,19 +376,24 @@ def main(options):
             options.tripattrs += ' type="%s"' % options.vehicle_class
         depart = options.begin
         if trip_generator:
-            while depart < options.end:
-                if options.binomial is None:
-                    # generate with constant spacing
+            if options.flows == 0:
+                while depart < options.end:
+                    if options.binomial is None:
+                        # generate with constant spacing
+                        idx = generate_one(idx)
+                        depart += options.period
+                    else:
+                        # draw n times from a bernouli distribution
+                        # for an average arrival rate of 1 / period
+                        prob = 1.0 / options.period / options.binomial
+                        for i in range(options.binomial):
+                            if random.random() < prob:
+                                idx = generate_one(idx)
+                        depart += 1
+            else:
+                for i in range(options.flows):
                     idx = generate_one(idx)
-                    depart += options.period
-                else:
-                    # draw n times from a bernouli distribution
-                    # for an average arrival rate of 1 / period
-                    prob = 1.0 / options.period / options.binomial
-                    for i in range(options.binomial):
-                        if random.random() < prob:
-                            idx = generate_one(idx)
-                    depart += 1
+
         fouttrips.write("</routes>\n")
 
     if options.routefile:
