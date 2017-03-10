@@ -106,7 +106,11 @@ def setupAndStart(testRoot, newNet=False, searchReference=True, waitTime=20):
 def rebuildNetwork():
     type(Key.F5)
 
-# netedit undo
+# select focus on upper element of current frame
+def focusOnFrame():
+    type('f')
+    
+# undo last operation
 def undo(match, number):
     # needed to avoid errors with undo/redo (Provisionally)
     type("i")
@@ -114,7 +118,7 @@ def undo(match, number):
     for x in range(0, number):
         type("z", Key.CTRL)
 
-# netedit redo
+# undo last operation
 def redo(match, number):
     # needed to avoid errors with undo/redo (Provisionally)
     type("i")
@@ -276,7 +280,7 @@ def crossingMode():
 # create crossing
 def createCrossing():
     # focus current frame
-    type('f')
+    focusOnFrame()
     # jump to create crossing button
     for x in range(0, 8):
         type(Key.TAB)
@@ -286,7 +290,7 @@ def createCrossing():
 # change default int/real/string crossing default value
 def modifyCrossingDefaultValue(numtabs, value):
     # focus current frame
-    type('f')
+    focusOnFrame()
     # jump to value
     for x in range(0, numtabs + 1):
         type(Key.TAB)
@@ -301,7 +305,7 @@ def modifyCrossingDefaultValue(numtabs, value):
 # change default boolean crossing default value
 def modifyCrossingDefaultBoolValue(numtabs):
     # focus current frame
-    type('f')
+    focusOnFrame()
     # jump to value
     for x in range(0, numtabs + 1):
         type(Key.TAB)
@@ -311,7 +315,7 @@ def modifyCrossingDefaultBoolValue(numtabs):
 # clear crossing
 def crossingClearEdges(useSelectedEdges = False):
     # focus current frame
-    type('f')
+    focusOnFrame()
     if(useSelectedEdges):
         # jump to clear button
         for x in range(0, 1):
@@ -326,7 +330,7 @@ def crossingClearEdges(useSelectedEdges = False):
 #invert crossing
 def crossingInvertEdges(useSelectedEdges = False):
     # focus current frame
-    type('f')
+    focusOnFrame()
     if(useSelectedEdges):
         # jump to clear button
         for x in range(0, 2):
@@ -349,7 +353,7 @@ def additionalMode():
 # change additional
 def changeAdditional(additional):
     # focus current frame
-    type('f')
+    focusOnFrame()
     # go to first editable element of frame
     type(Key.TAB)
     # select current value
@@ -364,7 +368,7 @@ def changeAdditional(additional):
 # modify default int/double/string value of an additional
 def modifyAdditionalDefaultValue(numTabs, length):
     # focus current frame
-    type('f')
+    focusOnFrame()
     # go to length textfield
     for x in range(0, numTabs + 1):
         type(Key.TAB)
@@ -380,7 +384,7 @@ def modifyAdditionalDefaultValue(numTabs, length):
 # modify default boolean value of an additional
 def modifyAdditionalDefaultBoolValue(numTabs):
     # focus current frame
-    type('f')
+    focusOnFrame()
     # place cursor in force position checkbox
     for x in range(numTabs + 1):
         type(Key.TAB)
@@ -392,7 +396,7 @@ def modifyAdditionalDefaultBoolValue(numTabs):
 # modify number of stopping place lines
 def modifyStoppingPlaceLines(numTabs, numLines):
     # focus current frame
-    type('f')
+    focusOnFrame()
     # go to add line
     for x in range(0, numTabs + 1):
         type(Key.TAB)
@@ -405,7 +409,7 @@ def modifyStoppingPlaceLines(numTabs, numLines):
 # fill lines to stopping places
 def fillStoppingPlaceLines(numTabs, numLines):
     # focus current frame
-    type('f')
+    focusOnFrame()
     # place cursor in the first line
     for x in range(0, numTabs + 1):
         type(Key.TAB)
@@ -419,7 +423,7 @@ def fillStoppingPlaceLines(numTabs, numLines):
 # select child of additional
 def selectAdditionalChild(numTabs, childNumber):
     # focus current frame
-    type('f')
+    focusOnFrame()
     # place cursor in the list of childs
     for x in range(0, numTabs + 1):
         type(Key.TAB)
@@ -461,6 +465,10 @@ def waitAutomaticallyDeleteAdditionalsWarning():
 def selectMode():
     type("s")    
 
+# abort current selection
+def abortSelection():
+    type(Key.ESC)
+
 # select elements with default frame values
 def selectDefault():
     for x in range(0, 11):
@@ -470,16 +478,13 @@ def selectDefault():
 # select items
 def selectItems(elementClass, elementType, attribute, value):
     # focus current frame
-    type('f')
+    focusOnFrame()
+    #jump to elementClass
     for x in range(0, 5):
         type(Key.TAB)
     type("a", Key.CTRL)
     # paste the new elementClass
     paste(elementClass)
-    # type two times enter to set elementClass
-    for x in range(0, 2):
-        type(Key.ENTER)
-    
     # jump to element
     for x in range(0, 2):
         type(Key.TAB)
@@ -487,9 +492,6 @@ def selectItems(elementClass, elementType, attribute, value):
     type("a", Key.CTRL)
     # paste the new elementType
     paste(elementType)
-    # type enter to set elementType
-    type(Key.ENTER)
-    
     # jump to attribute
     for x in range(0, 2):
         type(Key.TAB)
@@ -497,9 +499,6 @@ def selectItems(elementClass, elementType, attribute, value):
     type("a", Key.CTRL)
     # paste the new attribute
     paste(attribute)
-    # type enter to set attribute
-    type(Key.ENTER)
-    
     # jump to value
     for x in range(0, 2):
         type(Key.TAB)
@@ -507,8 +506,11 @@ def selectItems(elementClass, elementType, attribute, value):
     type("a", Key.CTRL)
     # paste the new value
     paste(value)
-    # type enter to set value and select items
+    # type enter to select it
     type(Key.ENTER)
+    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
+    for x in range(0, 10):
+        type(Key.TAB, Key.SHIFT)
 
 # delete selected items
 def deleteSelectedItems():
@@ -517,49 +519,52 @@ def deleteSelectedItems():
 # set modification mode "add"
 def modificationModeAdd():
     # focus current frame
-    type('f')
+    focusOnFrame()
     # go to first editable element of frame
     type(Key.TAB)
     # select it
     type(Key.SPACE)
-    # press ESC to avoid change it accidentally
-    type(Key.ESC)
+    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
+    type(Key.TAB, Key.SHIFT)
     
 # set modification mode "remove"
 def modificationModeRemove():
     # focus current frame
-    type('f')
+    focusOnFrame()
     # jump to value
     for x in range(0, 2):
         type(Key.TAB)
     # select it
     type(Key.SPACE)
-    # press ESC to avoid change it accidentally
-    type(Key.ESC)
+    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
+    for x in range(0, 2):
+        type(Key.TAB, Key.SHIFT)
     
 # set modification mode "keep"
 def modificationModeKeep():
     # focus current frame
-    type('f')
+    focusOnFrame()
     # jump to value
     for x in range(0, 3):
         type(Key.TAB)
     # select it
     type(Key.SPACE)
-    # press ESC to avoid change it accidentally
-    type(Key.ESC)
+    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
+    for x in range(0, 3):
+        type(Key.TAB, Key.SHIFT)
     
 # set modification mode "replace"
 def modificationModeReplace():
     # focus current frame
-    type('f')
+    focusOnFrame()
     # jump to value
     for x in range(0, 4):
         type(Key.TAB)
     # select it
     type(Key.SPACE)
-    # press ESC to avoid change it accidentally
-    type(Key.ESC)
+    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
+    for x in range(0, 4):
+        type(Key.TAB, Key.SHIFT)
 
 # select using an rectangle
 def selectionRectangle(match, startX, startY, endX, endY):
@@ -573,20 +578,28 @@ def selectionRectangle(match, startX, startY, endX, endY):
     keyUp(Key.SHIFT)
 
 # clear selection
-def selectionClear():
+def selectionClear(previouslyInserted = False):
     # focus current frame
-    type('f')
+    focusOnFrame()
     for x in range(0, 14):
         type(Key.TAB)
+    # type space to select clear option
     type(Key.SPACE)
-    
+    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
+    for x in range(0, 11):
+        type(Key.TAB, Key.SHIFT)
+
 # invert selection
 def selectionInvert():
     # focus current frame
-    type('f')
+    focusOnFrame()
     for x in range(0, 15):
         type(Key.TAB)
+    # type space to select invert opetion
     type(Key.SPACE)
+    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
+    for x in range(0, 12):
+        type(Key.TAB, Key.SHIFT)
 
 #################################################
 # traffic light
