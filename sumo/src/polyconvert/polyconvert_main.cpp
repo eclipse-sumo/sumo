@@ -139,7 +139,7 @@ fillOptions() {
     oc.addDescription("shapefile.use-running-id", "Input", "A running number will be used as id");
 
     oc.doRegister("shapefile.add-param", new Option_Bool(false));
-    oc.addDescription("shapefile.add-param", "Input", "Extract all additonal columns as params");
+    oc.addDescription("shapefile.add-param", "Input", "Extract all additional columns as params");
 
     oc.doRegister("shapefile.fill", new Option_String());
     oc.addDescription("shapefile.fill", "Input", "[auto|true|false]. Forces the 'fill' status to the given value. Default 'auto' tries to determine it from the data type");
