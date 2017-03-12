@@ -302,7 +302,8 @@ public:
         enum additionalReferencePoint {
             GNE_ADDITIONALREFERENCEPOINT_LEFT,
             GNE_ADDITIONALREFERENCEPOINT_RIGHT,
-            GNE_ADDITIONALREFERENCEPOINT_CENTER
+            GNE_ADDITIONALREFERENCEPOINT_CENTER,
+            GNE_ADDITIONALREFERENCEPOINT_INVALID
         };
 
         /// @brief constructor
@@ -380,7 +381,7 @@ public:
         FXLabel* myForcePositionLabel;
 
         /// @brief checkBox for the option "force position"
-        FXMenuCheck* myCheckForcePosition;
+        FXMenuCheck* myForcePositionCheckBox;
 
         /// @brief Label for block movement
         FXLabel* myBlockLabel;
