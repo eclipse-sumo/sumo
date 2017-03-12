@@ -179,9 +179,14 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {
 
 bool
 GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView* parent) {
+    // check if current selected additional is valid
+    if(myActualAdditionalType == SUMO_TAG_NOTHING) {
+        WRITE_WARNING("Current selected additional isn't valid.");
+        return false;
+    }
+    
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement;
-
     if (myadditionalParameters->areValuesValid()) {
         valuesOfElement = myadditionalParameters->getAttributesAndValues();
     } else {
@@ -397,12 +402,28 @@ GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
 
 long
 GNEAdditionalFrame::onCmdSelectAdditional(FXObject*, FXSelector, void*) {
-    // set myActualAdditionalType
+    // obtain current allowed additional tags
     const std::vector<SumoXMLTag>& additionalTags = GNEAttributeCarrier::allowedTags(false);
+    bool additionalNameCorrect = false;
+    // set parameters of additional, if it's correct
     for (std::vector<SumoXMLTag>::const_iterator i = additionalTags.begin(); i != additionalTags.end(); i++) {
         if (toString(*i) == myAdditionalMatchBox->getText().text()) {
+            myAdditionalMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myadditionalParameters->show();
+            myEditorParameters->show();
             setParametersOfAdditional(*i);
+            additionalNameCorrect = true;
         }
+    }
+    // if additional name isn't correct, hidde all
+    if(additionalNameCorrect == false) {
+        myActualAdditionalType = SUMO_TAG_NOTHING;
+        myAdditionalMatchBox->setTextColor(FXRGB(255, 0, 0));
+        myadditionalParameters->hide();
+        myEditorParameters->hide();
+        myAdditionalParentSelector->hide();
+        myedgeParentsSelector->hide();
+        mylaneParentsSelector->hide();
     }
     return 1;
 }
@@ -1161,6 +1182,7 @@ GNEAdditionalFrame::NeteditAttributes::hideLengthField() {
 void
 GNEAdditionalFrame::NeteditAttributes::showReferencePoint() {
     myReferencePointMatchBox->show();
+    myForcePositionLabel->show();
     myCheckForcePosition->show();
 }
 
@@ -1168,6 +1190,7 @@ GNEAdditionalFrame::NeteditAttributes::showReferencePoint() {
 void
 GNEAdditionalFrame::NeteditAttributes::hideReferencePoint() {
     myReferencePointMatchBox->hide();
+    myForcePositionLabel->hide();
     myCheckForcePosition->hide();
 }
 
