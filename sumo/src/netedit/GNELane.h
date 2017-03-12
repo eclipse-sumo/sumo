@@ -232,7 +232,7 @@ protected:
     std::vector<double> myLaneRestrictedTextureRotations;
     /// @}
 
-    /// @brief list with the additonals vinculated with this lane
+    /// @brief list with the additionals vinculated with this lane
     AdditionalVector myAdditionals;
 
     /// @brief optional special color

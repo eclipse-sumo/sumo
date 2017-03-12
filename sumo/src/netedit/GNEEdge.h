@@ -268,7 +268,7 @@ protected:
     /// @brief modification status of the connections
     std::string myConnectionStatus;
 
-    /// @brief list with the additonals vinculated with this edge
+    /// @brief list with the additionals vinculated with this edge
     AdditionalVector myAdditionals;
 
 private:
