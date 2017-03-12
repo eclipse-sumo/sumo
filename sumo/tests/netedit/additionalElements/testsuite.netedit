@@ -1,39 +1,42 @@
-#bus stops
+# basic additional test
+basic
+
+# bus stops
 busstop
 
-#container stops
+# container stops
 containerstop
 
-#charging station
+# charging station
 chargingstation
 
-#e1 detector
+# e1 detector
 e1detector
 
-#e2 detector
+# e2 detector
 e2detector
 
-#e3 detector
+# e3 detector
 e3detector
 
-#det entry
+# det entry
 detentry
 
-#det exit
+# det exit
 detexit
 
-#variable speed sign
+# variable speed sign
 #variablespeedsign
 
+# calibrator
 #calibrator
-#calibrator
 
+# rerouter
 #rerouter
-#rerouter
 
-#routeprobe
+# routeprobe
 #routeprobe
 
-#vaporizer
+# vaporizer
 #vaporizer
 
