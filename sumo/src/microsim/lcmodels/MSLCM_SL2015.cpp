@@ -2035,7 +2035,7 @@ MSLCM_SL2015::keepLatGap(int state,
      * */
 
     /// XXX to be made configurable
-    double gapFactor = (state & LCA_STRATEGIC) != 0 ? 0.0 : 1.0;
+    double gapFactor = (state & LCA_STRATEGIC) != 0 ? MAX2(0.0, (1.0 - myPushy)) : 1.0;
     const bool stayInLane = laneOffset == 0 || ((state & LCA_STRATEGIC) != 0 && (state & LCA_STAY) != 0);
     const double oldLatDist = latDist;
 
