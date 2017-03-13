@@ -435,6 +435,11 @@ protected:
      * (when changing to a lane that has no predecessor) */
     std::vector<MSLane*> myNoPartiallyOccupatedByShadow;
 
+    /// @brief the minimum lateral gaps to other vehicles that were found when last changing to the left and right 
+    double myLastLateralGapLeft;
+    double myLastLateralGapRight;
+
+
     /* @brief to be called by derived classes in their changed() method.
      * If dir=0 is given, the current value remains unchanged */
     void initLastLaneChangeOffset(int dir);
@@ -456,7 +461,6 @@ private:
 
     /// @brief whether the vehicle is driving in the opposite direction
     bool myAmOpposite;
-
 
 private:
     /// @brief Invalidated assignment operator

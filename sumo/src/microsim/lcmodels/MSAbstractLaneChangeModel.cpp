@@ -93,7 +93,8 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myCarFollowModel(v.getCarFollowModel()),
     myModel(model),
     myLastLaneChangeOffset(0),
-    myAmOpposite(false) {
+    myAmOpposite(false)
+{
 }
 
 
@@ -170,6 +171,10 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
         of.writeAttr(SUMO_ATTR_DIR, direction);
         of.writeAttr(SUMO_ATTR_SPEED, myVehicle.getSpeed());
         of.writeAttr("reason", toString((LaneChangeAction)(myOwnState & ~(LCA_RIGHT | LCA_LEFT))));
+        if (MSGlobals::gLateralResolution > 0) {
+            const double latGap = direction < 0 ? myLastLateralGapRight : myLastLateralGapLeft;
+            of.writeAttr("latGap", latGap == std::numeric_limits<double>::max() ? "None" : toString(latGap));
+        }
         of.closeTag();
     }
     changed();
