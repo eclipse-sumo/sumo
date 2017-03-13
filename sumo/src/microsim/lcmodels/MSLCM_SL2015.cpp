@@ -89,6 +89,9 @@
 
 #define ARRIVALPOS_LAT_THRESHOLD 100.0
 
+// the speed at which the desired lateral gap grows now further
+#define LATGAP_SPEED_THRESHOLD (50 / 3.6)
+
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "A")
 #define DEBUG_COND (myVehicle.getID() == "disabled")
@@ -2148,7 +2151,7 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                 const double foeLeft = foeRight + MSGlobals::gLateralResolution;
                 const double foeCenter = foeRight + 0.5 * MSGlobals::gLateralResolution;
                 const double gap = MIN2(fabs(foeRight - newCenter), fabs(foeLeft - newCenter)) - halfWidth;
-                const double currentMinGap = baseMinGap * MIN2(1.0, MAX2(myVehicle.getSpeed(), (double)fabs(myVehicle.getSpeed() - foe->getSpeed())) / (100 / 3.6)) * gapFactor;
+                const double currentMinGap = baseMinGap * MIN2(1.0, MAX2(myVehicle.getSpeed(), (double)fabs(myVehicle.getSpeed() - foe->getSpeed())) / LATGAP_SPEED_THRESHOLD) * gapFactor;
                 if (gDebugFlag2 && false) std::cout << "  updateGaps"
                                                         << " foe=" << foe->getID()
                                                         << " foeRight=" << foeRight
