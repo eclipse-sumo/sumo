@@ -1621,7 +1621,7 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
     const double maxDist = SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat());
     latDist = MAX2(MIN2(latDist, maxDist), -maxDist);
 
-    // reduce latDist to avoid blockage with overlapping vehicles
+    // reduce latDist to avoid blockage with overlapping vehicles (no minGapLat constraints)
     const double halfWidth = myVehicle.getVehicleType().getWidth() * 0.5;
     const double center = myVehicle.getCenterOnEdge();
     double surplusGapRight = MIN2(maxDist, center - halfWidth);
@@ -1636,13 +1636,13 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
         std::cout << "    checkBlocking latDist=" << latDist << " surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n";
     }
     if (latDist < 0) {
-        if (surplusGapRight <= 0) {
+        if (surplusGapRight <= NUMERICAL_EPS) {
             return LCA_BLOCKED_RIGHT | LCA_OVERLAPPING;
         } else {
             latDist = MAX2(latDist, -surplusGapRight);
         }
     } else {
-        if (surplusGapLeft <= 0) {
+        if (surplusGapLeft <= NUMERICAL_EPS) {
             return LCA_BLOCKED_LEFT | LCA_OVERLAPPING;
         } else {
             latDist = MIN2(latDist, surplusGapLeft);
@@ -2044,12 +2044,6 @@ MSLCM_SL2015::keepLatGap(int state,
     const bool stayInLane = laneOffset == 0 || ((state & LCA_STRATEGIC) != 0 && (state & LCA_STAY) != 0);
     const double oldLatDist = latDist;
 
-    /// XXX todo
-    // - compute lateral gap after executing the current maneuver (may be LCA_NONE)
-    // - decide if override is needed
-    //   - compute alternative maneuver to improve lateralGap
-    //   - update blocking (checkBlocking)
-
     // compute gaps after maneuver
     const double halfWidth = myVehicle.getVehicleType().getWidth() * 0.5;
     // if the current maneuver is blocked we will stay where we are
@@ -2091,12 +2085,12 @@ MSLCM_SL2015::keepLatGap(int state,
     }
     const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
     if (stayInLane || laneOffset == 1) {
-        // do not move past the right boundary of the current lane (traffic wasn't check there)
+        // do not move past the right boundary of the current lane (traffic wasn't checked there)
         // but assume it's ok to be where we are in case we are already beyond
         surplusGapRight = MIN2(surplusGapRight, MAX2(0.0, halfLaneWidth + myVehicle.getLateralPositionOnLane() + effectiveLatDist - halfWidth));
     }
     if (stayInLane || laneOffset == -1) {
-        // do not move past the left boundary of the current lane (traffic wasn't check there)
+        // do not move past the left boundary of the current lane (traffic wasn't checked there)
         // but assume it's ok to be where we are in case we are already beyond
         surplusGapLeft = MIN2(surplusGapLeft, MAX2(0.0, halfLaneWidth - myVehicle.getLateralPositionOnLane() - effectiveLatDist - halfWidth));
     }
@@ -2107,14 +2101,14 @@ MSLCM_SL2015::keepLatGap(int state,
 
     const double maxDist = SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat());
     if (surplusGapRight < -NUMERICAL_EPS) {
-        if (surplusGapLeft > 0) {
+        if (surplusGapLeft > NUMERICAL_EPS) {
             // move left to increase gap
             latDist = MIN3(effectiveLatDist - surplusGapRight, effectiveLatDist + surplusGapLeft, maxDist);
         } else {
             blocked |= LCA_OVERLAPPING | LCA_BLOCKED_RIGHT;
         }
     } else if (surplusGapLeft < -NUMERICAL_EPS) {
-        if (surplusGapRight > 0) {
+        if (surplusGapRight > NUMERICAL_EPS) {
             // move right to increase gap
             latDist = MAX3(effectiveLatDist + surplusGapLeft, effectiveLatDist - surplusGapRight, -maxDist);
         } else {
