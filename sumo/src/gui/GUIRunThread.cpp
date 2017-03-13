@@ -66,7 +66,7 @@ GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent,
                            FXRealSpinDial& simDelay, MFXEventQue<GUIEvent*>& eq,
                            FXEX::FXThreadEvent& ev)
     : FXSingleEventThread(app, parent),
-      myNet(0), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true),
+      myNet(0), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true), myHaveSignaledEnd(false),
       mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev) {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MT_MESSAGE);
@@ -201,9 +201,12 @@ GUIRunThread::makeStep() {
             case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
             case MSNet::SIMSTATE_CONNECTION_CLOSED:
             case MSNet::SIMSTATE_TOO_MANY_VEHICLES:
-                WRITE_MESSAGE("Simulation ended at time: " + time2string(myNet->getCurrentTimeStep()));
-                WRITE_MESSAGE("Reason: " + MSNet::getStateMessage(state));
-                e = new GUIEvent_SimulationEnded(state, myNet->getCurrentTimeStep() - DELTA_T);
+                if (!myHaveSignaledEnd || state != MSNet::SIMSTATE_END_STEP_REACHED) {
+                    WRITE_MESSAGE("Simulation ended at time: " + time2string(myNet->getCurrentTimeStep()));
+                    WRITE_MESSAGE("Reason: " + MSNet::getStateMessage(state));
+                    e = new GUIEvent_SimulationEnded(state, myNet->getCurrentTimeStep() - DELTA_T);
+                    myHaveSignaledEnd = true;
+                } 
                 break;
             default:
                 break;

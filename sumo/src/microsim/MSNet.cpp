@@ -535,9 +535,9 @@ MSNet::simulationState(SUMOTime stopTime) const {
     if (TraCIServer::wasClosed()) {
         return SIMSTATE_CONNECTION_CLOSED;
     }
-    if (stopTime < 0 && OptionsCont::getOptions().getInt("remote-port") == 0) {
+    if ((stopTime < 0 || myStep > stopTime) && OptionsCont::getOptions().getInt("remote-port") == 0) {
 #else
-    if (stopTime < 0) {
+    if (stopTime < 0 || myStep > stopTime) {
 #endif
         if (myInsertionEvents->isEmpty()
                 && (myVehicleControl->getActiveVehicleCount() == 0)

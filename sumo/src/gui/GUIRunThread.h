@@ -147,6 +147,9 @@ protected:
     /** information whether the thread is running in single step mode */
     bool mySingle;
 
+    /// @brief whether the simulation already ended 
+    bool myHaveSignaledEnd;
+
     /** @brief The instances of message retriever encapsulations
         Needed to be deleted from the handler later on */
     OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
