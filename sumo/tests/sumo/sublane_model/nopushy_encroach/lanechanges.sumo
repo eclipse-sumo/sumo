@@ -29,5 +29,5 @@
 -->
 
 <lanechanges>
-    <change id="A" time="3.00" from="beg_0" to="beg_1" dir="1" speed="13.89" reason="strategic|urgent" latGap="-0.00"/>
+    <change id="A" time="3.00" from="beg_0" to="beg_1" dir="1" speed="13.89" reason="strategic|urgent" latGap="1.00"/>
 </lanechanges>
