@@ -41,7 +41,6 @@
 #include "NBTrafficLightLogicCont.h"
 #include "NBDistrictCont.h"
 #include "NBDistrict.h"
-#include "NBDistribution.h"
 #include "NBRequest.h"
 #include "NBTypeCont.h"
 #include <utils/options/OptionsCont.h>

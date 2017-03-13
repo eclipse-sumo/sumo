@@ -425,7 +425,7 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
                 if (type == 0) {
                     throw ProcessError("Unknown vtype '" + vtypeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
                 }
-                myCurrentVTypeDistribution->add(type->getDefaultProbability(), type);
+                myCurrentVTypeDistribution->add(type, type->getDefaultProbability());
             }
         }
     }
@@ -512,7 +512,7 @@ MSRouteHandler::myEndElement(int element) {
                 }
             } else {
                 if (myCurrentVTypeDistribution != 0) {
-                    myCurrentVTypeDistribution->add(vehType->getDefaultProbability(), vehType);
+                    myCurrentVTypeDistribution->add(vehType, vehType->getDefaultProbability());
                 }
             }
         }
@@ -549,7 +549,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
             if (myActiveRouteRefID != "" && myCurrentRouteDistribution != 0) {
                 const MSRoute* route = MSRoute::dictionary(myActiveRouteRefID, &myParsingRNG);
                 if (route != 0) {
-                    if (myCurrentRouteDistribution->add(myActiveRouteProbability, route)) {
+                    if (myCurrentRouteDistribution->add(route, myActiveRouteProbability)) {
                         route->addReference();
                     }
                 }
@@ -586,7 +586,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
             }
         } else {
             if (myCurrentRouteDistribution != 0) {
-                if (myCurrentRouteDistribution->add(myActiveRouteProbability, route)) {
+                if (myCurrentRouteDistribution->add(route, myActiveRouteProbability)) {
                     route->addReference();
                 }
             }
@@ -635,7 +635,7 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
                 throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID + "'.");
             }
             const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : 1.0);
-            if (myCurrentRouteDistribution->add(prob, route, false)) {
+            if (myCurrentRouteDistribution->add(route, prob, false)) {
                 route->addReference();
             }
             probIndex++;

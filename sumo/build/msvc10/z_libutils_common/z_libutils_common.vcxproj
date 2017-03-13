@@ -164,7 +164,6 @@
     <ClInclude Include="..\..\..\src\utils\common\NamedRTree.h" />
     <ClInclude Include="..\..\..\src\utils\common\Parameterised.h" />
     <ClInclude Include="..\..\..\src\utils\common\RandHelper.h" />
-    <ClInclude Include="..\..\..\src\utils\common\RandomDistributor.h" />
     <ClInclude Include="..\..\..\src\utils\common\RGBColor.h" />
     <ClInclude Include="..\..\..\src\utils\common\StaticCommand.h" />
     <ClInclude Include="..\..\..\src\utils\common\StdDefs.h" />

@@ -52,6 +52,9 @@ public:
     static Distribution* dictionary(const std::string& type,
                                     const std::string& id);
 
+    /// delete all stored distributions
+    static void clear();
+
 private:
     /// Definition of a map from distribution ids to distributions
     typedef std::map<std::string, Distribution*> DistDict;

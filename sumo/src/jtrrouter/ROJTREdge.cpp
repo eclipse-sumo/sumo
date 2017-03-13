@@ -36,7 +36,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RandHelper.h>
 #include "ROJTREdge.h"
-#include <utils/common/RandomDistributor.h>
+#include <utils/distribution/RandomDistributor.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -92,7 +92,7 @@ ROJTREdge::chooseNext(const ROVehicle* const veh, double time, const std::set<co
     for (FollowerUsageCont::const_iterator i = myFollowingDefs.begin(); i != myFollowingDefs.end(); ++i) {
         if (avoid.count(i->first) == 0) {
             if ((veh == 0 || !(*i).first->prohibits(veh)) && (*i).second->describesTime(time)) {
-                dist.add((*i).second->getValue(time), (*i).first);
+                dist.add((*i).first, (*i).second->getValue(time));
             }
         }
     }
@@ -101,7 +101,7 @@ ROJTREdge::chooseNext(const ROVehicle* const veh, double time, const std::set<co
         for (int i = 0; i < (int)myParsedTurnings.size(); ++i) {
             if (avoid.count(myFollowingEdges[i]) == 0) {
                 if (veh == 0 || !myFollowingEdges[i]->prohibits(veh)) {
-                    dist.add(myParsedTurnings[i], static_cast<ROJTREdge*>(myFollowingEdges[i]));
+                    dist.add(static_cast<ROJTREdge*>(myFollowingEdges[i]), myParsedTurnings[i]);
                 }
             }
         }

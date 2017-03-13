@@ -37,7 +37,7 @@
 #include <vector>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/NamedObjectCont.h>
-#include <utils/common/RandomDistributor.h>
+#include <utils/distribution/RandomDistributor.h>
 #include <utils/vehicle/PedestrianRouter.h>
 #include <utils/vehicle/SUMOAbstractRouter.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>

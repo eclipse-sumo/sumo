@@ -49,8 +49,7 @@
 #include <netbuild/NBDistrict.h>
 #include <netbuild/NBDistrictCont.h>
 #include "NIVissimDistrictConnection.h"
-#include <utils/distribution/Distribution.h>
-#include <netbuild/NBDistribution.h>
+#include <utils/distribution/DistributionCont.h>
 #include <utils/common/MsgHandler.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -194,8 +193,7 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes(NBDistrictCont& dc,
 void
 NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
         NBEdgeCont& ec,
-        NBNodeCont& nc/*,
-                                                                                NBDistribution &distc*/) {
+        NBNodeCont& nc) {
     // add the sources and sinks
     //  their normalised probability is computed within NBDistrict
     //   to avoid double code writing and more securty within the converter
@@ -369,7 +367,7 @@ NIVissimDistrictConnection::clearDict() {
 
 
 double
-NIVissimDistrictConnection::getMeanSpeed(/*NBDistribution &dc*/) const {
+NIVissimDistrictConnection::getMeanSpeed() const {
     //assert(myAssignedVehicles.size()!=0);
     if (myAssignedVehicles.size() == 0) {
         WRITE_WARNING("No streams assigned at district'" + toString(myID) + "'.\n Using default speed 200km/h");
@@ -378,16 +376,16 @@ NIVissimDistrictConnection::getMeanSpeed(/*NBDistribution &dc*/) const {
     double speed = 0;
     std::vector<std::pair<int, int> >::const_iterator i;
     for (i = myAssignedVehicles.begin(); i != myAssignedVehicles.end(); i++) {
-        speed += getRealSpeed(/*dc, */(*i).second);
+        speed += getRealSpeed((*i).second);
     }
     return speed / (double) myAssignedVehicles.size();
 }
 
 
 double
-NIVissimDistrictConnection::getRealSpeed(/*NBDistribution &dc, */int distNo) const {
+NIVissimDistrictConnection::getRealSpeed(int distNo) const {
     std::string id = toString<int>(distNo);
-    Distribution* dist = NBDistribution::dictionary("speed", id);
+    Distribution* dist = DistributionCont::dictionary("speed", id);
     if (dist == 0) {
         WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
         WRITE_WARNING(". Using default.");

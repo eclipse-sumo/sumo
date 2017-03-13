@@ -561,7 +561,7 @@ GUIEdge::addRerouter() {
     MSTriggeredRerouter::RerouteInterval ri;
     ri.begin = MSNet::getInstance()->getCurrentTimeStep();
     ri.end = SUMOTime_MAX;
-    ri.edgeProbs.add(1, &MSTriggeredRerouter::mySpecialDest_keepDestination);
+    ri.edgeProbs.add(&MSTriggeredRerouter::mySpecialDest_keepDestination, 1.);
     rr->myIntervals.push_back(ri);
 
     // trigger rerouting for vehicles already on this edge

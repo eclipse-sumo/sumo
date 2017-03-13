@@ -148,6 +148,7 @@
     <ClInclude Include="..\..\..\src\utils\distribution\Distribution_Parameterized.h" />
     <ClInclude Include="..\..\..\src\utils\distribution\Distribution_Points.h" />
     <ClInclude Include="..\..\..\src\utils\distribution\DistributionCont.h" />
+    <ClInclude Include="..\..\..\src\utils\distribution\RandomDistributor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

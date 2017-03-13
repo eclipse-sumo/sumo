@@ -614,7 +614,7 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
             throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(def.size()) + ".");
         }
         for (int chour = 0; chour < 24; ++chour) {
-            result.add(TplConvert::_2double(def[chour].c_str()), chour * 3600.);
+            result.add(chour * 3600., TplConvert::_2double(def[chour].c_str()));
         }
         result.add(0., 24 * 3600.); // dummy value to finish the last interval
     } else {
@@ -624,7 +624,7 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
                 throw ProcessError("Broken time line definition: missing a value in '" + def[i] + "'.");
             }
             const double time = TplConvert::_2double(st2.next().c_str());
-            result.add(TplConvert::_2double(st2.next().c_str()), time);
+            result.add(time, TplConvert::_2double(st2.next().c_str()));
         }
     }
     return result;

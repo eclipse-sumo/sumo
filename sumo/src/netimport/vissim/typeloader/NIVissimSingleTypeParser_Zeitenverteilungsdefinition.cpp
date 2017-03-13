@@ -36,7 +36,7 @@
 #include "../NIImporter_Vissim.h"
 #include <utils/distribution/Distribution_Parameterized.h>
 #include <utils/distribution/Distribution_Points.h>
-#include <netbuild/NBDistribution.h>
+#include <utils/distribution/DistributionCont.h>
 #include "NIVissimSingleTypeParser_Zeitenverteilungsdefinition.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -70,17 +70,17 @@ NIVissimSingleTypeParser_Zeitenverteilungsdefinition::parse(std::istream& from) 
             from >> tag;
             from >> deviation;
             delete points;
-            return NBDistribution::dictionary("times", id,
+            return DistributionCont::dictionary("times", id,
                 new Distribution_Parameterized(id, mean, deviation));
         }
         if (tag != "DATAEND") {
             double p1 = TplConvert::_2double(tag.c_str());
             from >> tag;
             double p2 = TplConvert::_2double(tag.c_str());
-            points->add(p2, p1);
+            points->add(p1, p2);
         }
     } while (tag != "DATAEND");
-    return NBDistribution::dictionary("times", id, points);
+    return DistributionCont::dictionary("times", id, points);
 }
 
 

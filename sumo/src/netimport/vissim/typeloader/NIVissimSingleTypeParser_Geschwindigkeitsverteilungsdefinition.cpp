@@ -34,8 +34,8 @@
 #include <utils/geom/PositionVector.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
-#include <netbuild/NBDistribution.h>
 #include <utils/distribution/Distribution_Points.h>
+#include <utils/distribution/DistributionCont.h>
 #include "../NIImporter_Vissim.h"
 #include "NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.h"
 
@@ -72,10 +72,10 @@ NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::parse(std::istre
             const double p1 = TplConvert::_2double(tag.c_str());
             from >> tag;
             const double p2 = TplConvert::_2double(tag.c_str());
-            points->add(p2, p1);
+            points->add(p1, p2);
         }
     } while (tag != "DATAEND");
-    NBDistribution::dictionary("speed", id, points);
+    DistributionCont::dictionary("speed", id, points);
     return true;
 }
 

@@ -39,7 +39,7 @@
 #include <vector>
 #include <algorithm>
 #include <utils/common/Named.h>
-#include <utils/common/RandomDistributor.h>
+#include <utils/distribution/RandomDistributor.h>
 #include <utils/common/RGBColor.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/common/Parameterised.h>

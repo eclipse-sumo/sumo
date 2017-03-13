@@ -17,9 +17,6 @@
     <ClCompile Include="..\..\..\src\netbuild\NBContHelper.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netbuild\NBDistribution.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netbuild\NBDistrict.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -101,9 +98,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netbuild\NBContHelper.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netbuild\NBDistribution.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netbuild\NBDistrict.h">

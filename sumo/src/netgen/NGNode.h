@@ -100,7 +100,7 @@ public:
      *
      * @return The maximum neighbour number of the node
      */
-    double getMaxNeighbours() {
+    int getMaxNeighbours() {
         return myMaxNeighbours;
     }
 
@@ -109,7 +109,7 @@ public:
      *
      * @param[in] value The new maximum neighbour number of the node
      */
-    void setMaxNeighbours(double value) {
+    void setMaxNeighbours(int value) {
         myMaxNeighbours = value;
     }
 
@@ -201,7 +201,7 @@ private:
     Position myPosition;
 
     /// @brief The maximum number of neighbours
-    double myMaxNeighbours;
+    int myMaxNeighbours;
 
     /// @brief Information whether this is the center of a cpider-net
     bool myAmCenter;

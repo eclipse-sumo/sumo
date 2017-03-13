@@ -139,7 +139,6 @@
     <ClCompile Include="..\..\..\src\netbuild\NBAlgorithms_Ramps.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBConnection.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBContHelper.cpp" />
-    <ClCompile Include="..\..\..\src\netbuild\NBDistribution.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBDistrict.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBDistrictCont.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBEdge.cpp" />
@@ -169,7 +168,6 @@
     <ClInclude Include="..\..\..\src\netbuild\NBConnectionDefs.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBCont.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBContHelper.h" />
-    <ClInclude Include="..\..\..\src\netbuild\NBDistribution.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBDistrict.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBDistrictCont.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBEdge.h" />

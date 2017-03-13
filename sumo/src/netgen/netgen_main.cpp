@@ -53,6 +53,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
+#include <utils/distribution/RandomDistributor.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -185,7 +186,7 @@ buildNetwork(NBNetBuilder& nb) {
         return net;
     }
     // random net
-    TNeighbourDistribution neighborDist;
+    RandomDistributor<int> neighborDist;
     neighborDist.add(1, oc.getFloat("rand.neighbor-dist1"));
     neighborDist.add(2, oc.getFloat("rand.neighbor-dist2"));
     neighborDist.add(3, oc.getFloat("rand.neighbor-dist3"));

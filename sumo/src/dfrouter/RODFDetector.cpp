@@ -46,7 +46,7 @@
 #include "RODFRouteCont.h"
 #include "RODFDetectorFlow.h"
 #include <utils/vehicle/SUMOVTypeParameter.h>
-#include <utils/common/RandomDistributor.h>
+#include <utils/distribution/RandomDistributor.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/TplConvert.h>
 #include <utils/geom/GeomHelper.h>
@@ -221,7 +221,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon& detectors,
                     ++j;
                 }
             }
-            into[time]->add(prob, index);
+            into[time]->add(index, prob);
             (*ri).overallProb = prob;
         }
     }

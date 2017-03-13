@@ -44,7 +44,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
-#include <utils/common/RandomDistributor.h>
+#include <utils/distribution/RandomDistributor.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include "MELoop.h"
 #include "MESegment.h"

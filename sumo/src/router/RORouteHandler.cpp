@@ -263,7 +263,7 @@ RORouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
             StringTokenizer st(vTypes);
             while (st.hasNext()) {
                 SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(st.next());
-                myCurrentVTypeDistribution->add(1., type);
+                myCurrentVTypeDistribution->add(type, 1.);
             }
         }
     }
@@ -343,7 +343,7 @@ RORouteHandler::myEndElement(int element) {
         case SUMO_TAG_VTYPE:
             if (myNet.addVehicleType(myCurrentVType)) {
                 if (myCurrentVTypeDistribution != 0) {
-                    myCurrentVTypeDistribution->add(myCurrentVType->defaultProbability, myCurrentVType);
+                    myCurrentVTypeDistribution->add(myCurrentVType, myCurrentVType->defaultProbability);
                 }
             }
             myCurrentVType = 0;

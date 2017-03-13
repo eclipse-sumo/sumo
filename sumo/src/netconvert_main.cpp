@@ -40,7 +40,6 @@
 #include <netimport/NILoader.h>
 #include <netbuild/NBFrame.h>
 #include <netbuild/NBNetBuilder.h>
-#include <netbuild/NBDistribution.h>
 #include <netwrite/NWFrame.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/options/OptionsCont.h>
@@ -48,6 +47,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/distribution/DistributionCont.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -162,7 +162,7 @@ main(int argc, char** argv) {
         ret = 1;
 #endif
     }
-    NBDistribution::clear();
+    DistributionCont::clear();
     SystemFrame::close();
     // report about ending
     if (ret == 0) {

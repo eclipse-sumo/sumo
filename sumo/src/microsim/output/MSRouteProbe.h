@@ -35,7 +35,7 @@
 #include <string>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <microsim/MSMoveReminder.h>
-#include <utils/common/RandomDistributor.h>
+#include <utils/distribution/RandomDistributor.h>
 
 
 // ===========================================================================

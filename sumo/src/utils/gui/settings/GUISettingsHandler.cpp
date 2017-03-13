@@ -303,7 +303,7 @@ GUISettingsHandler::myStartElement(int element,
             const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
             const std::string cmd = attrs.get<std::string>(SUMO_ATTR_COMMAND, 0, ok);
             const double prob = attrs.get<double>(SUMO_ATTR_PROB, id.c_str(), ok);
-            myEventDistributions[id].add(prob, cmd);
+            myEventDistributions[id].add(cmd, prob);
         }
         break;
         case SUMO_TAG_VIEWSETTINGS_EVENT_JAM_TIME:
@@ -416,7 +416,7 @@ GUISettingsHandler::getEventDistribution(const std::string& id) {
     RandomDistributor<std::string> result = myEventDistributions[id];
     if (result.getOverallProb() > 0 && result.getOverallProb() < 1) {
         // unscaled probabilities are assumed, fill up with dummy event
-        result.add(1 - result.getOverallProb(), "");
+        result.add("", 1. - result.getOverallProb());
     }
     return result;
 }

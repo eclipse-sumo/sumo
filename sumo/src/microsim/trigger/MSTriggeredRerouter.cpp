@@ -138,7 +138,7 @@ MSTriggeredRerouter::myStartElement(int element,
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for destination '" + dest + "' is negative (must not).");
         }
         // add
-        myCurrentEdgeProb.add(prob, to);
+        myCurrentEdgeProb.add(to, prob);
     }
 
 
@@ -198,7 +198,7 @@ MSTriggeredRerouter::myStartElement(int element,
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for route '" + routeStr + "' is negative (must not).");
         }
         // add
-        myCurrentRouteProb.add(prob, route);
+        myCurrentRouteProb.add(route, prob);
     }
 
     if (element == SUMO_TAG_PARKING_ZONE_REROUTE) {
@@ -214,7 +214,7 @@ MSTriggeredRerouter::myStartElement(int element,
         }
         // get the probability to reroute
         bool ok = true;
-        double prob = attrs.getOpt<double>(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
+        const double prob = attrs.getOpt<double>(SUMO_ATTR_PROB, getID().c_str(), ok, 1.);
         if (!ok) {
             throw ProcessError();
         }
@@ -222,7 +222,7 @@ MSTriggeredRerouter::myStartElement(int element,
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for destination '" + parkingarea + "' is negative (must not).");
         }
         // add
-        myCurrentParkProb.add(prob, pa);
+        myCurrentParkProb.add(pa, prob);
         //MSEdge* to = &(pa->getLane().getEdge());
         //myCurrentEdgeProb.add(prob, to);
     }

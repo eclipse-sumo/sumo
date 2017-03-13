@@ -46,9 +46,8 @@
 // class declarations
 // ===========================================================================
 class NBNode;
-class NIVissimDistrictConnection;
-class NBDistribution;
 class NBDistrictCont;
+class NIVissimDistrictConnection;
 
 
 // ===========================================================================
@@ -149,7 +148,7 @@ public:
     static void dict_buildNBEdges(NBDistrictCont& dc, NBNodeCont& nc,
                                   NBEdgeCont& ec, double offset);
 
-    static void dict_propagateSpeeds(/* NBDistribution &dc */);
+    static void dict_propagateSpeeds();
 
     static void dict_checkEdges2Join();
 
@@ -197,13 +196,13 @@ private:
 
     std::vector<NIVissimConnection*> getOutgoingConnected(int lane) const;
 
-    void propagateSpeed(/* NBDistribution &dc */double speed, std::vector<int> forLanes);
+    void propagateSpeed(double speed, std::vector<int> forLanes);
 
 
-    void setDistrictSpeed(/* NBDistribution &dc */);
-    double getRealSpeed(/* NBDistribution &dc */int distNo);
-    void checkUnconnectedLaneSpeeds(/* NBDistribution &dc */);
-    void propagateOwn(/* NBDistribution &dc */);
+    void setDistrictSpeed();
+    double getRealSpeed(int distNo);
+    void checkUnconnectedLaneSpeeds();
+    void propagateOwn();
 
 
 

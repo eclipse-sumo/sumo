@@ -42,8 +42,7 @@
 #include <utils/common/ToString.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/distribution/Distribution.h>
-#include <netbuild/NBDistribution.h>
+#include <utils/distribution/DistributionCont.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <utils/options/OptionsCont.h>
@@ -257,31 +256,31 @@ NIVissimEdge::dict_buildNBEdges(NBDistrictCont& dc, NBNodeCont& nc,
 
 
 void
-NIVissimEdge::dict_propagateSpeeds(/* NBDistribution &dc */) {
+NIVissimEdge::dict_propagateSpeeds() {
     DictType::iterator i;
     for (i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimEdge* edge = (*i).second;
-        edge->setDistrictSpeed(/* dc */);
+        edge->setDistrictSpeed();
     }
     for (i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimEdge* edge = (*i).second;
-        edge->propagateSpeed(/* dc */ -1, std::vector<int>());
+        edge->propagateSpeed( -1, std::vector<int>());
     }
     for (int j = 0; j < 3; j++) {
         for (i = myDict.begin(); i != myDict.end(); i++) {
             NIVissimEdge* edge = (*i).second;
-            edge->propagateOwn(/* dc */);
+            edge->propagateOwn();
         }
         for (i = myDict.begin(); i != myDict.end(); i++) {
             NIVissimEdge* edge = (*i).second;
-            edge->checkUnconnectedLaneSpeeds(/* dc */);
+            edge->checkUnconnectedLaneSpeeds();
         }
     }
 }
 
 
 void
-NIVissimEdge::checkUnconnectedLaneSpeeds(/* NBDistribution &dc */) {
+NIVissimEdge::checkUnconnectedLaneSpeeds() {
     for (int i = 0; i < (int) myLaneSpeeds.size(); i++) {
         if (myLaneSpeeds[i] == -1) {
             double speed = -1;
@@ -318,7 +317,7 @@ NIVissimEdge::checkUnconnectedLaneSpeeds(/* NBDistribution &dc */) {
 
 
 void
-NIVissimEdge::propagateOwn(/* NBDistribution &dc */) {
+NIVissimEdge::propagateOwn() {
     for (int i = 0; i < (int) myLaneSpeeds.size(); i++) {
         if (myLaneSpeeds[i] == -1) {
             continue;
@@ -335,7 +334,7 @@ NIVissimEdge::propagateOwn(/* NBDistribution &dc */) {
 
 
 void
-NIVissimEdge::propagateSpeed(/* NBDistribution &dc */ double speed, std::vector<int> forLanes) {
+NIVissimEdge::propagateSpeed(double speed, std::vector<int> forLanes) {
     // if no lane is given, all set be set
     if (forLanes.size() == 0) {
         for (int i = 0; i < myNoLanes; i++) {
@@ -378,7 +377,7 @@ NIVissimEdge::propagateSpeed(/* NBDistribution &dc */ double speed, std::vector<
 
 
 void
-NIVissimEdge::setDistrictSpeed(/* NBDistribution &dc */) {
+NIVissimEdge::setDistrictSpeed() {
     if (myDistrictConnections.size() > 0) {
         double pos = *(myDistrictConnections.begin());
         if (pos < getLength() - pos) {
@@ -529,9 +528,9 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
 
 
 double
-NIVissimEdge::getRealSpeed(/* NBDistribution &dc */ int distNo) {
+NIVissimEdge::getRealSpeed(int distNo) {
     std::string id = toString<int>(distNo);
-    Distribution* dist = NBDistribution::dictionary("speed", id);
+    Distribution* dist = DistributionCont::dictionary("speed", id);
     if (dist == 0) {
         WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
         return -1;

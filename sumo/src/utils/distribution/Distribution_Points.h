@@ -31,7 +31,7 @@
 #include <config.h>
 #endif
 
-#include <utils/common/RandomDistributor.h>
+#include "RandomDistributor.h"
 #include "Distribution.h"
 
 

@@ -33,7 +33,7 @@
 #endif
 
 #include <utils/xml/SUMOSAXHandler.h>
-#include <utils/common/RandomDistributor.h>
+#include <utils/distribution/RandomDistributor.h>
 
 
 // ===========================================================================

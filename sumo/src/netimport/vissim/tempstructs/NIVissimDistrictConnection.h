@@ -68,7 +68,7 @@ public:
         return myPosition;
     }
 
-    double getMeanSpeed(/*NBDistribution &dc*/) const;
+    double getMeanSpeed() const;
 
 public:
     /// Inserts the connection into the dictionary after building it
@@ -89,7 +89,7 @@ public:
 
     /// Builds the districts
     static void dict_BuildDistricts(NBDistrictCont& dc,
-                                    NBEdgeCont& ec, NBNodeCont& nc/*, NBDistribution &distc*/);
+                                    NBEdgeCont& ec, NBNodeCont& nc);
 
     /** @brief Returns the connection to a district placed at the given node
         Yep, there onyl should be one, there is no need to build a single edge as connection between two parking places */
@@ -105,7 +105,7 @@ public:
 
 private:
     void checkEdgeEnd();
-    double getRealSpeed(/*NBDistribution &dc, */int distNo) const;
+    double getRealSpeed(int distNo) const;
 
 private:
     /// The id of the connections

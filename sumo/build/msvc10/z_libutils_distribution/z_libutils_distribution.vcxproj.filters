@@ -34,5 +34,8 @@
     <ClInclude Include="..\..\..\src\utils\distribution\Distribution_Parameterized.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\distribution\RandomDistributor.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

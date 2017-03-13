@@ -71,11 +71,11 @@ public:
      * The probability has to be non-negative but values larger than one are
      * allowed (and scaled accordingly when an element is drawn).
      *
-     * @param[in] prob The probability assigned to the value
      * @param[in] val The value to add to the distribution
+     * @param[in] prob The probability assigned to the value
      * @return true if a new value was added, false if just the probability of an existing one was updated
      */
-    bool add(double prob, T val, bool checkDuplicates = true) {
+    bool add(T val, double prob, bool checkDuplicates = true) {
         assert(prob >= 0);
         myProb += prob;
         if (checkDuplicates) {

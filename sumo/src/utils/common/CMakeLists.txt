@@ -9,7 +9,7 @@ set(common_files
 	MsgRetrievingFunction.h
 	Named.h NamedObjectCont.h NamedRTree.h
 	Parameterised.cpp Parameterised.h
-	RandHelper.h RandHelper.cpp RandomDistributor.h
+	RandHelper.h RandHelper.cpp
 	RGBColor.cpp RGBColor.h
 	StaticCommand.h StdDefs.h StdDefs.cpp
 	StringBijection.h

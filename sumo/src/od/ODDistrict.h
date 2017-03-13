@@ -36,7 +36,7 @@
 #include <utility>
 #include <utils/common/Named.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/RandomDistributor.h>
+#include <utils/distribution/RandomDistributor.h>
 
 
 // ===========================================================================

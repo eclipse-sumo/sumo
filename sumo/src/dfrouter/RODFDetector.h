@@ -37,7 +37,7 @@
 #include <vector>
 #include <set>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/RandomDistributor.h>
+#include <utils/distribution/RandomDistributor.h>
 #include <utils/common/Named.h>
 #include "RODFRouteCont.h"
 

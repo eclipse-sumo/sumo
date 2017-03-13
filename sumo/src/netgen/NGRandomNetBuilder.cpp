@@ -46,41 +46,11 @@
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
-// TNeighbourDistribution-definitions
-// ---------------------------------------------------------------------------
-void
-TNeighbourDistribution::add(int NumNeighbours, double ratio) {
-    myNeighbours[NumNeighbours] = ratio;
-}
-
-
-int
-TNeighbourDistribution::num() {
-    double sum = 0, RandValue;
-    std::map<int, double>::iterator i;
-    // total sum of ratios
-    for (i = myNeighbours.begin(); i != myNeighbours.end(); ++i) {
-        sum += (*i).second;
-    }
-    // RandValue = [0,sum]
-    RandValue = RandHelper::rand(sum);
-    // find selected item
-    i = myNeighbours.begin();
-    sum = (*i).second;
-    while ((i != myNeighbours.end()) && (sum < RandValue)) {
-        ++i;
-        sum += (*i).second;
-    }
-    return (*i).first;
-}
-
-
-// ---------------------------------------------------------------------------
 // NGRandomNetBuilder-definitions
 // ---------------------------------------------------------------------------
 NGRandomNetBuilder::NGRandomNetBuilder(NGNet& net, double minAngle, double minDistance,
                                        double maxDistance, double connectivity,
-                                       int numTries, const TNeighbourDistribution& neighborDist)
+                                       int numTries, const RandomDistributor<int>& neighborDist)
     : myNet(net), myMinLinkAngle(minAngle), myMinDistance(minDistance),
       myMaxDistance(maxDistance), myConnectivity(connectivity), myNumTries(numTries),
       myNeighbourDistribution(neighborDist) {
@@ -198,8 +168,8 @@ NGRandomNetBuilder::findPossibleOuterNodes(NGNode* node) {
     for (ni = myOuterNodes.begin(); ni != myOuterNodes.end(); ++ni) {
         NGNode* on = *ni;
         if (!node->connected(on)) {
-            if ((node->getMaxNeighbours() > node->LinkList.size()) &&
-                    ((on)->getMaxNeighbours() > (on)->LinkList.size())) {
+            if ((node->getMaxNeighbours() > (int)node->LinkList.size()) &&
+                (on->getMaxNeighbours() > (int)on->LinkList.size())) {
                 if (canConnect(node, on)) {
                     myConNodes.push_back(on);
                 }
@@ -219,7 +189,7 @@ NGRandomNetBuilder::createNewNode(NGNode* baseNode) {
     NGNode* newNode = new NGNode(myNet.getNextFreeID());
     newNode->setX(x);
     newNode->setY(y);
-    newNode->setMaxNeighbours((double) myNeighbourDistribution.num());
+    newNode->setMaxNeighbours(myNeighbourDistribution.get());
     NGEdge* newLink = new NGEdge(myNet.getNextFreeID(), baseNode, newNode);
     if (canConnect(baseNode, newNode)) {
         // add node
@@ -229,7 +199,7 @@ NGRandomNetBuilder::createNewNode(NGNode* baseNode) {
         myNet.add(newLink);
         myOuterLinks.push_back(newLink);
         // check basenode for being outer node
-        if (baseNode->LinkList.size() >= baseNode->getMaxNeighbours()) {
+        if ((int)baseNode->LinkList.size() >= baseNode->getMaxNeighbours()) {
             removeOuterNode(baseNode);
         }
         return true;
@@ -270,10 +240,10 @@ NGRandomNetBuilder::createNet(int numNodes) {
                 myNet.add(newLink);
                 myOuterLinks.push_back(newLink);
                 // check nodes for being outer node
-                if (outerNode->LinkList.size() >= outerNode->getMaxNeighbours()) {
+                if ((int)outerNode->LinkList.size() >= outerNode->getMaxNeighbours()) {
                     removeOuterNode(outerNode);
                 }
-                if (myConNodes.back()->LinkList.size() >= myConNodes.back()->getMaxNeighbours()) {
+                if ((int)myConNodes.back()->LinkList.size() >= myConNodes.back()->getMaxNeighbours()) {
                     removeOuterNode(myConNodes.back());
                 }
                 created = true;
@@ -287,7 +257,7 @@ NGRandomNetBuilder::createNet(int numNodes) {
                 count++;
             } while ((count <= myNumTries) && !created);
             if (!created) {
-                outerNode->setMaxNeighbours((double) outerNode->LinkList.size());
+                outerNode->setMaxNeighbours((int)outerNode->LinkList.size());
                 myOuterNodes.remove(outerNode);
             }
         }

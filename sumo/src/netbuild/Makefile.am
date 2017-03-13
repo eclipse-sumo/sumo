@@ -4,7 +4,7 @@ libnetbuild_a_SOURCES = NBAlgorithms.cpp NBAlgorithms.h \
 NBAlgorithms_Ramps.cpp NBAlgorithms_Ramps.h \
 NBCapacity2Lanes.h NBConnection.cpp NBConnection.h \
 NBConnectionDefs.h NBCont.h NBContHelper.cpp NBContHelper.h \
-NBDistribution.cpp NBDistribution.h NBDistrict.cpp NBDistrict.h \
+NBDistrict.cpp NBDistrict.h \
 NBDistrictCont.cpp NBDistrictCont.h NBEdge.cpp NBEdge.h \
 NBEdgeCont.cpp NBEdgeCont.h NBFrame.cpp NBFrame.h \
 NBHeightMapper.cpp NBHeightMapper.h \

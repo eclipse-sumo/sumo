@@ -117,9 +117,9 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/distribution/Distribution_Points.h>
+#include <utils/distribution/DistributionCont.h>
 
 #include <netbuild/NBEdgeCont.h> // !!! only for debugging purposes
-#include <netbuild/NBDistribution.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -573,9 +573,9 @@ NIImporter_Vissim::NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition::myE
             std::vector<std::string> sPos_v(StringTokenizer(
                                                 myElemData["points"].front(), " ").getVector());
             myElemData["points"].pop_front();
-            points->add(TplConvert::_str2double(sPos_v[1]), TplConvert::_str2double(sPos_v[0]));
+            points->add(TplConvert::_str2double(sPos_v[0]), TplConvert::_str2double(sPos_v[1]));
         }
-        NBDistribution::dictionary("speed", myElemData["id"].front(), points);
+        DistributionCont::dictionary("speed", myElemData["id"].front(), points);
         myElemData.clear();
     }
     --myHierarchyLevel;

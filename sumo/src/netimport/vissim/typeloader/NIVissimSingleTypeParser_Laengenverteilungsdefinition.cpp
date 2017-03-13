@@ -34,7 +34,7 @@
 #include <utils/geom/PositionVector.h>
 #include "../NIImporter_Vissim.h"
 #include <utils/distribution/Distribution_Points.h>
-#include <netbuild/NBDistribution.h>
+#include <utils/distribution/DistributionCont.h>
 #include "NIVissimSingleTypeParser_Laengenverteilungsdefinition.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -66,10 +66,10 @@ NIVissimSingleTypeParser_Laengenverteilungsdefinition::parse(std::istream& from)
             double p1 = TplConvert::_2double(tag.c_str());
             from >> tag;
             double p2 = TplConvert::_2double(tag.c_str());
-            points->add(p2, p1);
+            points->add(p1, p2);
         }
     } while (tag != "DATAEND");
-    NBDistribution::dictionary("length", id, points);
+    DistributionCont::dictionary("length", id, points);
     return true;
 }
 
