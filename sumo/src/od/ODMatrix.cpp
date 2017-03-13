@@ -616,7 +616,7 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
         for (int chour = 0; chour < 24; ++chour) {
             result.add(chour * 3600., TplConvert::_2double(def[chour].c_str()));
         }
-        result.add(0., 24 * 3600.); // dummy value to finish the last interval
+        result.add(24 * 3600., 0.); // dummy value to finish the last interval
     } else {
         for (int i = 0; i < (int)def.size(); i++) {
             StringTokenizer st2(def[i], ":");
