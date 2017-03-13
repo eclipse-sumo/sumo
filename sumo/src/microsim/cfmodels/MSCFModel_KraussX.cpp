@@ -110,8 +110,7 @@ MSCFModel_KraussX::dawdleX(double vOld, double speed) const {
     if (vOld < myAccel) {
         speed -= ACCEL2SPEED(myTmp1 * myAccel);
     }
-    // symmetric imperfection
-    const double random = RandHelper::rand(-1.0, 1.0);
+    const double random = RandHelper::rand();
     speed -= ACCEL2SPEED(myDawdle * myAccel * random);
     return MAX2(0., speed);
 }
