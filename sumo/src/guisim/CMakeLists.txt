@@ -5,6 +5,7 @@ set(guisim_files
         GUIContainer.cpp GUIContainer.h
         GUIContainerStop.cpp GUIContainerStop.h
         GUIDetectorWrapper.cpp GUIDetectorWrapper.h
+        GUIE2Collector.cpp GUIE2Collector.h
         GUIE3Collector.cpp GUIE3Collector.h GUIEdge.cpp GUIEdge.h
         GUIEventControl.cpp GUIEventControl.h
         GUIInductLoop.cpp GUIInductLoop.h
@@ -21,8 +22,6 @@ set(guisim_files
         GUIChargingStation.cpp GUIChargingStation.h
         GUIBaseVehicle.cpp GUIBaseVehicle.h
         GUIVehicle.cpp GUIVehicle.h GUIVehicleControl.cpp GUIVehicleControl.h
-        GUI_E2_ZS_Collector.cpp GUI_E2_ZS_Collector.h
-        GUI_E2_ZS_CollectorOverLanes.cpp GUI_E2_ZS_CollectorOverLanes.h
         GUITransportableControl.cpp GUITransportableControl.h)
 
 add_library(guisim STATIC ${guisim_files})

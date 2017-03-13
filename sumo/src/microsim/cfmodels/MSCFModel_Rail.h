@@ -2,9 +2,7 @@
 /// @file    MSCFModel_Rail.h
 /// @author  Gregor L\"ammel
 /// @date    Tue, 08 Feb 2017
-/// @version $Id$
 ///
-// <description missing>
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2012-2017 DLR (http://www.dlr.de/) and contributors
@@ -59,6 +57,7 @@ public:
 
 private:
 
+
     typedef std::map<double, double> LookUpMap;
 
     struct TrainParams {
@@ -74,6 +73,7 @@ private:
     };
 
     double getInterpolatedValueFromLookUpMap(double speed, const LookUpMap *lookUpMap) const;
+
 
 public:
     double stopSpeed(const MSVehicle *const veh, const double speed, double gap) const;

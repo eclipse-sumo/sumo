@@ -5,7 +5,6 @@ set(output_files
         MSDetectorControl.cpp MSDetectorControl.h
         MSDetectorFileOutput.h
         MSE2Collector.cpp MSE2Collector.h
-        MS_E2_ZS_CollectorOverLanes.cpp MS_E2_ZS_CollectorOverLanes.h
         MSE3Collector.cpp MSE3Collector.h
         MSInductLoop.cpp MSInductLoop.h
         MSInstantInductLoop.cpp MSInstantInductLoop.h
