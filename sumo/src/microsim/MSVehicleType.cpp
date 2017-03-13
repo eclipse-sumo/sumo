@@ -238,7 +238,9 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             break;
         case SUMO_TAG_CF_KRAUSSX:
             vtype->myCarFollowModel = new MSCFModel_KraussX(vtype, accel, decel, sigma, tau,
-                    from.getCFParam(SUMO_ATTR_TMP1, 0.));
+                    from.getCFParam(SUMO_ATTR_TMP1, 0.),
+                    from.getCFParam(SUMO_ATTR_TMP2, 0.)
+                    );
             break;
         case SUMO_TAG_CF_SMART_SK:
             vtype->myCarFollowModel = new MSCFModel_SmartSK(vtype, accel, decel, sigma, tau,

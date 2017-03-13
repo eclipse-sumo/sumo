@@ -50,7 +50,7 @@ public:
      * @param[in] headwayTime The driver's reaction time
      */
     MSCFModel_KraussX(const MSVehicleType* vtype, double accel, double decel, double dawdle, double headwayTime,
-            double tmp1);
+            double tmp1, double tmp2);
 
 
     /// @brief Destructor
@@ -90,15 +90,16 @@ private:
 
     /** @brief Applies driver imperfection (dawdling / sigma)
      * @param[in] vOld The previous speed
-     * @param[in] speed The speed with no dawdling
+     * @param[in] vMin The minimum speed (due to braking constraints)
+     * @param[in] vMax The maximum speed that may be driven (all constraints)
      * @return The speed after dawdling
      *
-     * @note: This is the dawdling of Krauss extended by a model for overbraking / slow-to-start
      */
-    double dawdleX(double vOld, double speed) const;
+    double dawdleX(double vOld, double vMin, double vMax) const;
 
     /// @brief extension parameter nr1
     double myTmp1;
+    double myTmp2;
 
 };
 
