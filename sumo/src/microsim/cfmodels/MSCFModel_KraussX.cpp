@@ -34,6 +34,7 @@
 
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSNet.h>
 #include "MSCFModel_KraussX.h"
 
 
@@ -67,37 +68,30 @@ MSCFModel_KraussX::moveHelper(MSVehicle* const veh, double vPos) const {
     //  in this case, we neglect dawdling, nonetheless, using
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
-    const double vMin = minNextSpeed(oldV, veh);
-    // do not exceed max decel even if it is unsafe
-    double vMax = MAX2(vMin,
-                         MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe));
-#ifdef _DEBUG
-    //if (vMin > vMax) {
-    //    WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
-    //}
-#endif
-
-    const double vDawdle = MAX2(vMin, dawdleX(oldV, vMax));
-
-    double vNext = veh->getLaneChangeModel().patchSpeed(vMin, vDawdle, vMax, *this);
-
-#ifdef DEBUG_EXECUTE_MOVE
-    if DEBUG_COND {
-    std::cout << "\nMOVE_HELPER\n"
-    << "veh '" << veh->getID() << "' vMin=" << vMin
-        << " vMax=" << vMax << " vDawdle=" << vDawdle
-        << " vSafe" << vSafe << " vNext=" << vNext
-        << "\n";
+    double vMin, vNext;
+    const double vMax = MIN3(veh->getMaxSpeedOnLane(), maxNextSpeed(oldV, veh), vSafe);
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        // we do not rely on never braking harder than maxDecel because TraCI or strange cf models may decide to do so
+        vMin = MIN2(getSpeedAfterMaxDecel(oldV), vMax);
+        const double vDawdle = MAX2(vMin, dawdleX(oldV, vMax));
+        vNext = veh->getLaneChangeModel().patchSpeed(vMin, vDawdle, vMax, *this);
+        //std::cout << SIMTIME << " veh=" << veh->getID() 
+        //    << " vOld=" << oldV << " vPos=" << vPos << " vSafe=" << vSafe 
+        //    << " vMax=" << vMax << " vMin=" << vMin << " vDawdle=" << vDawdle << " vNext=" << vNext 
+        //    << "\n";
+    } else {
+        // for ballistic update, negative vnext must be allowed to
+        // indicate a stop within the coming timestep (i.e., to attain negative values)
+        vMin =  MIN2(minNextSpeed(oldV, veh), vMax);
+        const double vDawdle = MAX2(vMin, dawdleX(oldV, vMax));
+        vNext = veh->getLaneChangeModel().patchSpeed(vMin, vDawdle, vMax, *this);
+        // (Leo) moveHelper() is responsible for assuring that the next
+        // velocity is chosen in accordance with maximal decelerations.
+        // At this point vNext may also be negative indicating a stop within next step.
+        // Moreover, because maximumSafeStopSpeed() does not consider deceleration bounds
+        // vNext can be a large negative value at this point. We cap vNext here.
+        vNext = MAX2(vNext, vMin);
     }
-#endif
-
-    // (Leo) At this point vNext may also be negative indicating a stop within next step.
-    // This would have resulted from a call to maximumSafeStopSpeed(), which does not
-    // consider deceleration bounds. Therefore, we cap vNext here.
-    if (!MSGlobals::gSemiImplicitEulerUpdate) {
-        vNext = MAX2(vNext, veh->getSpeed() - ACCEL2SPEED(getMaxDecel()));
-    }
-
     return vNext;
 }
 
@@ -112,10 +106,14 @@ MSCFModel_KraussX::dawdleX(double vOld, double speed) const {
             return speed;
         }
     }
+    // extra slow to start
     if (vOld < myAccel) {
         speed -= ACCEL2SPEED(myTmp1 * myAccel);
     }
-    return MSCFModel_Krauss::dawdle(MAX2(0.0, speed));
+    // symmetric imperfection
+    const double random = RandHelper::rand(-1.0, 1.0);
+    speed -= ACCEL2SPEED(myDawdle * myAccel * random);
+    return MAX2(0., speed);
 }
 
 
