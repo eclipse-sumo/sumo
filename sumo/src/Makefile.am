@@ -18,6 +18,7 @@ bin_PROGRAMS = od2trips sumo netconvert $(GUI_APPS)
 
 COMMON_LIBS = ./utils/options/liboptions.a \
 ./utils/xml/libxml.a \
+./utils/geom/libgeom.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
 ./utils/iodevices/libiodevices.a \
@@ -34,7 +35,6 @@ od2trips_LDADD   = ./od/libod.a \
 ./utils/distribution/libdistribution.a \
 ./utils/vehicle/libvehicle.a \
 ./utils/common/libcommon.a \
-./utils/geom/libgeom.a \
 $(COMMON_LIBS) $(XERCES_LDFLAGS)
 
 
@@ -52,7 +52,6 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/traffic_lights/libmicrosimtls.a \
 ./microsim/pedestrians/libmicrosimpeds.a \
 ./mesosim/libmesosim.a \
-./utils/geom/libgeom.a \
 ./utils/vehicle/libvehicle.a \
 ./utils/shapes/libshapes.a \
 ./utils/emissions/libemissions.a \
@@ -71,7 +70,6 @@ netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netbuild/libnetbuild.a \
 ./netwrite/libnetwrite.a \
 ./utils/distribution/libdistribution.a \
-./utils/geom/libgeom.a \
 ./foreign/eulerspiral/libeulerspiral.a \
 $(COMMON_LIBS) \
 $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
