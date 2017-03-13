@@ -1,10 +1,11 @@
 /****************************************************************************/
-/// @file    Distribution_MeanDev.h
+/// @file    Distribution_Parameterized.h
 /// @author  Daniel Krajzewicz
+/// @author  Michael Behrisch
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A distribution described by the mean value and std-dev amount
+// A distribution described by parameters such as the mean value and std-dev
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors
@@ -30,37 +31,52 @@
 #include <config.h>
 #endif
 
+#include <vector>
+#include <utils/common/RandHelper.h>
 #include "Distribution.h"
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class Distribution_MeanDev
+ * @class Distribution_Parameterized
  * A description of distribution by the distribution's mean value and a
  *  standard deviation.
  * Incomplete and unused yet. This class should be overridden by derived
  *  classes
  */
-class Distribution_MeanDev :
+class Distribution_Parameterized :
     public Distribution {
 public:
-    /// Constructor
-    Distribution_MeanDev(const std::string& id, double mean,
-                         double deviation);
+    /// Constructor for parsable distribution description
+    Distribution_Parameterized(const std::string& description);
+
+    /// Constructor for standard normal distribution
+    Distribution_Parameterized(const std::string& id, double mean,
+        double deviation);
 
     /// Destructor
-    virtual ~Distribution_MeanDev();
+    virtual ~Distribution_Parameterized();
+
+    /** @brief Draw a sample of the distribution.
+    *
+    * A random sample is drawn according to the assigned probabilities.
+    *
+    * @param[in] which The random number generator to use; the static one will be used if 0 is passed
+    * @return the drawn member
+    */
+    double sample(MTRand* which = 0) const;
 
     /// Returns the maximum value of this distribution
     double getMax() const;
 
-private:
-    /// The distribution's mean
-    double myMeanValue;
+    /// Returns the string representation of this distribution
+    std::string toStr() const;
 
-    /// The distribution's standard deviation
-    double myDeviation;
+private:
+    /// The distribution's parameters
+    std::vector<double> myParameter;
 
 };
 

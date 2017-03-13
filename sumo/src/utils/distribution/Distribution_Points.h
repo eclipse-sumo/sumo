@@ -31,8 +31,8 @@
 #include <config.h>
 #endif
 
+#include <utils/common/RandomDistributor.h>
 #include "Distribution.h"
-#include <utils/geom/PositionVector.h>
 
 
 // ===========================================================================
@@ -41,38 +41,34 @@
 /**
  * @class Distribution_Points
  * A description of a distribution that uses a set of points in a 2d-space
- *  to describe the values (each points x-value) and theri possibilities
+ *  to describe the values (each points x-value) and their possibilities
  *  (each points y-value)
  */
 class Distribution_Points :
-    public Distribution {
+    public Distribution, public RandomDistributor<double> {
 public:
     /// Constructor
-    Distribution_Points(const std::string& id,
-                        const PositionVector& points, bool interpolating = false);
+    Distribution_Points(const std::string& id);
 
     /// Destructor
     virtual ~Distribution_Points();
 
+    /** @brief Draw a sample of the distribution.
+    *
+    * A random sample is drawn according to the assigned probabilities.
+    *
+    * @param[in] which The random number generator to use; the static one will be used if 0 is passed
+    * @return the drawn member
+    */
+    double sample(MTRand* which = 0) const {
+        return get(which);
+    }
+
     /// Returns the maximum value of this distribution
     double getMax() const;
 
-    int getAreaNo() const;
-    double getAreaBegin(int index) const;
-    double getAreaEnd(int index) const;
-    double getAreaPerc(int index) const;
-
-
-protected:
-    /// The list of points that describe the distribution
-    PositionVector myPoints;
-
-    mutable bool myProbabilitiesAreComputed;
-
-    mutable std::vector<double> myProbabilities;
-
-    bool myInterpolateDist;
-
+    /// Returns the string representation of this distribution
+    std::string toStr() const;
 };
 
 

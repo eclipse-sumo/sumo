@@ -56,8 +56,6 @@ template<class T>
 class RandomDistributor {
 public:
     /** @brief Constructor for an empty distribution
-     * @param[in] maximumSize The maximum size to maintain
-     *   older entrys will be removed when adding more than the maximumSize
      */
     RandomDistributor() :
         myProb(0) {
@@ -156,9 +154,9 @@ public:
 private:
     /// @brief the total probability
     double myProb;
-    /// @brief the members (acts as a ring buffer if myMaximumSize is reached)
+    /// @brief the members
     std::vector<T> myVals;
-    /// @brief the corresponding probabilities (acts as a ring buffer if myMaximumSize is reached)
+    /// @brief the corresponding probabilities
     std::vector<double> myProbs;
 
 };

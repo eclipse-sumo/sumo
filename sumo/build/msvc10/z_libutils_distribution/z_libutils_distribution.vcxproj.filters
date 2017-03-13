@@ -11,13 +11,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\utils\distribution\Distribution_MeanDev.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\utils\distribution\Distribution_Points.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\utils\distribution\DistributionCont.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\distribution\Distribution_Parameterized.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -25,13 +25,13 @@
     <ClInclude Include="..\..\..\src\utils\distribution\Distribution.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\distribution\Distribution_MeanDev.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\utils\distribution\Distribution_Points.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\distribution\DistributionCont.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\distribution\Distribution_Parameterized.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

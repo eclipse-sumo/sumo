@@ -58,7 +58,7 @@ NIVissimSingleTypeParser_Laengenverteilungsdefinition::parse(std::istream& from)
     std::string id;
     from >> id;
     // list of points
-    PositionVector points;
+    Distribution_Points* points = new Distribution_Points(id);
     std::string tag;
     do {
         tag = readEndSecure(from);
@@ -66,11 +66,10 @@ NIVissimSingleTypeParser_Laengenverteilungsdefinition::parse(std::istream& from)
             double p1 = TplConvert::_2double(tag.c_str());
             from >> tag;
             double p2 = TplConvert::_2double(tag.c_str());
-            points.push_back(Position(p1, p2));
+            points->add(p2, p1);
         }
     } while (tag != "DATAEND");
-    NBDistribution::dictionary("length",
-                               id, new Distribution_Points(id, points));
+    NBDistribution::dictionary("length", id, points);
     return true;
 }
 

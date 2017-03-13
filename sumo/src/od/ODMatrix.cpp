@@ -516,14 +516,15 @@ ODMatrix::getNumDiscarded() const {
 
 void
 ODMatrix::applyCurve(const Distribution_Points& ps, ODCell* cell, std::vector<ODCell*>& newCells) {
-    for (int i = 0; i < ps.getAreaNo(); ++i) {
+    const std::vector<double>& times = ps.getVals();
+    for (int i = 0; i < (int)times.size() - 1; ++i) {
         ODCell* ncell = new ODCell();
-        ncell->begin = TIME2STEPS(ps.getAreaBegin(i));
-        ncell->end = TIME2STEPS(ps.getAreaEnd(i));
+        ncell->begin = TIME2STEPS(times[i]);
+        ncell->end = TIME2STEPS(times[i+1]);
         ncell->origin = cell->origin;
         ncell->destination = cell->destination;
         ncell->vehicleType = cell->vehicleType;
-        ncell->vehicleNumber = cell->vehicleNumber * ps.getAreaPerc(i);
+        ncell->vehicleNumber = cell->vehicleNumber * ps.getProbs()[i] / ps.getOverallProb();
         newCells.push_back(ncell);
     }
 }
@@ -607,31 +608,26 @@ ODMatrix::loadRoutes(OptionsCont& oc, SUMOSAXHandler& handler) {
 
 Distribution_Points
 ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInHours) {
-    bool interpolating = !timelineDayInHours;
-    PositionVector points;
-    double prob = 0;
+    Distribution_Points result("N/A");
     if (timelineDayInHours) {
         if (def.size() != 24) {
             throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(def.size()) + ".");
         }
         for (int chour = 0; chour < 24; ++chour) {
-            prob = TplConvert::_2double(def[chour].c_str());
-            points.push_back(Position((double)(chour * 3600), prob));
+            result.add(TplConvert::_2double(def[chour].c_str()), chour * 3600.);
         }
-        points.push_back(Position((double)(24 * 3600), prob));
+        result.add(0., 24 * 3600.); // dummy value to finish the last interval
     } else {
-        int i = 0;
-        while (i < (int)def.size()) {
-            StringTokenizer st2(def[i++], ":");
+        for (int i = 0; i < (int)def.size(); i++) {
+            StringTokenizer st2(def[i], ":");
             if (st2.size() != 2) {
-                throw ProcessError("Broken time line definition: missing a value in '" + def[i - 1] + "'.");
+                throw ProcessError("Broken time line definition: missing a value in '" + def[i] + "'.");
             }
             const double time = TplConvert::_2double(st2.next().c_str());
-            prob = TplConvert::_2double(st2.next().c_str());
-            points.push_back(Position(time, prob));
+            result.add(TplConvert::_2double(st2.next().c_str()), time);
         }
     }
-    return Distribution_Points("N/A", points, interpolating);
+    return result;
 }
 
 

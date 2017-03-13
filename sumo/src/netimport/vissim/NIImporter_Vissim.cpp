@@ -568,22 +568,14 @@ NIImporter_Vissim::NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition::myS
 void
 NIImporter_Vissim::NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition::myEndElement(int element) {
     if (element == VISSIM_TAG_SPEED_DIST && myHierarchyLevel == 3) {
-        PositionVector points;
+        Distribution_Points* points = new Distribution_Points(myElemData["id"].front());
         while (!myElemData["points"].empty()) {
             std::vector<std::string> sPos_v(StringTokenizer(
                                                 myElemData["points"].front(), " ").getVector());
             myElemData["points"].pop_front();
-            std::vector<double> pos_v(2);
-
-            // doing a transform with explicit hint on function signature
-            std::transform(sPos_v.begin(), sPos_v.end(), pos_v.begin(),
-                           TplConvert::_str2double);
-            points.push_back_noDoublePos(Position(pos_v[0], pos_v[1]));
+            points->add(TplConvert::_str2double(sPos_v[1]), TplConvert::_str2double(sPos_v[0]));
         }
-        NBDistribution::dictionary("speed",
-                                   myElemData["id"].front(),
-                                   new Distribution_Points(myElemData["id"].front(),
-                                           points));
+        NBDistribution::dictionary("speed", myElemData["id"].front(), points);
         myElemData.clear();
     }
     --myHierarchyLevel;

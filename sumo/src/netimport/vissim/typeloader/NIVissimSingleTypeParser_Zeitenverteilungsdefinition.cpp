@@ -34,8 +34,8 @@
 #include <utils/geom/PositionVector.h>
 #include <utils/common/TplConvert.h>
 #include "../NIImporter_Vissim.h"
+#include <utils/distribution/Distribution_Parameterized.h>
 #include <utils/distribution/Distribution_Points.h>
-#include <utils/distribution/Distribution_MeanDev.h>
 #include <netbuild/NBDistribution.h>
 #include "NIVissimSingleTypeParser_Zeitenverteilungsdefinition.h"
 
@@ -60,7 +60,7 @@ NIVissimSingleTypeParser_Zeitenverteilungsdefinition::parse(std::istream& from) 
     std::string id;
     from >> id;
     // list of points
-    PositionVector points;
+    Distribution_Points* points = new Distribution_Points(id);
     std::string tag;
     do {
         tag = readEndSecure(from);
@@ -69,21 +69,19 @@ NIVissimSingleTypeParser_Zeitenverteilungsdefinition::parse(std::istream& from) 
             from >> mean;
             from >> tag;
             from >> deviation;
+            delete points;
             return NBDistribution::dictionary("times", id,
-                                              new Distribution_MeanDev(id, mean, deviation));
+                new Distribution_Parameterized(id, mean, deviation));
         }
         if (tag != "DATAEND") {
             double p1 = TplConvert::_2double(tag.c_str());
             from >> tag;
             double p2 = TplConvert::_2double(tag.c_str());
-            points.push_back(Position(p1, p2));
+            points->add(p2, p1);
         }
     } while (tag != "DATAEND");
-    return NBDistribution::dictionary("times",
-                                      id, new Distribution_Points(id, points));
+    return NBDistribution::dictionary("times", id, points);
 }
 
 
-
 /****************************************************************************/
-

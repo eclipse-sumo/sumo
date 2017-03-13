@@ -139,13 +139,13 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\utils\distribution\Distribution_MeanDev.cpp" />
+    <ClCompile Include="..\..\..\src\utils\distribution\Distribution_Parameterized.cpp" />
     <ClCompile Include="..\..\..\src\utils\distribution\Distribution_Points.cpp" />
     <ClCompile Include="..\..\..\src\utils\distribution\DistributionCont.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\distribution\Distribution.h" />
-    <ClInclude Include="..\..\..\src\utils\distribution\Distribution_MeanDev.h" />
+    <ClInclude Include="..\..\..\src\utils\distribution\Distribution_Parameterized.h" />
     <ClInclude Include="..\..\..\src\utils\distribution\Distribution_Points.h" />
     <ClInclude Include="..\..\..\src\utils\distribution\DistributionCont.h" />
   </ItemGroup>

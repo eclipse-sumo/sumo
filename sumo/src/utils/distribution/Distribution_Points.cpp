@@ -30,10 +30,9 @@
 #endif
 
 #include <cassert>
-#include "Distribution.h"
-#include <utils/geom/PositionVector.h>
-#include "Distribution_Points.h"
+#include <sstream>
 #include <utils/common/StdDefs.h>
+#include "Distribution_Points.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -43,11 +42,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Distribution_Points::Distribution_Points(const std::string& id,
-        const PositionVector& points,
-        bool interpolating)
-    : Distribution(id), myPoints(points), myProbabilitiesAreComputed(false),
-      myInterpolateDist(interpolating) {}
+Distribution_Points::Distribution_Points(const std::string& id)
+    : Distribution(id) {}
 
 
 Distribution_Points::~Distribution_Points() {}
@@ -55,65 +51,23 @@ Distribution_Points::~Distribution_Points() {}
 
 double
 Distribution_Points::getMax() const {
-    assert(myPoints.size() > 0);
-    const Position& p = myPoints[-1];
-    return p.x();
+    assert(getVals().size() > 0);
+    return getVals().back();
 }
 
 
-int
-Distribution_Points::getAreaNo() const {
-    return (int)myPoints.size() - 1;
-}
-
-
-double
-Distribution_Points::getAreaBegin(int index) const {
-    return myPoints[index].x();
-}
-
-
-double
-Distribution_Points::getAreaEnd(int index) const {
-    return myPoints[index + 1].x();
-}
-
-
-double
-Distribution_Points::getAreaPerc(int index) const {
-    if (!myProbabilitiesAreComputed) {
-        double sum = 0;
-        if (myInterpolateDist) {
-            for (int i = 0; i < (int)myPoints.size() - 1; i++) {
-                double width = getAreaEnd(i) - getAreaBegin(i);
-                double minval = MIN2(myPoints[i].y(), myPoints[i].y());
-                double maxval = MAX2(myPoints[i].y(), myPoints[i].y());
-                double amount = minval * width + (maxval - minval) * width / (double) 2.;
-                myProbabilities.push_back(amount);
-                sum += amount;
-            }
-        } else {
-            for (int i = 0; i < (int)myPoints.size() - 1; i++) {
-                myProbabilities.push_back(myPoints[i].y());
-                sum += myPoints[i].y();
-            }
+std::string
+Distribution_Points::toStr() const {
+    std::stringstream oss;
+    const std::vector<double> vals = getVals();
+    for (int i = 0; i < (int)vals.size(); i++) {
+        if (i > 0) {
+            oss << ",";
         }
-        // normalize
-        if (myInterpolateDist) {
-            for (int i = 0; i < (int)myPoints.size() - 1; i++) {
-                myProbabilities[i] = myProbabilities[i] / sum;
-            }
-        } else {
-            for (int i = 0; i < (int)myPoints.size() - 1; i++) {
-                myProbabilities[i] = myProbabilities[i] / sum;
-            }
-        }
-        myProbabilitiesAreComputed = true;
+        oss << vals[i] << ":" << getProbs()[i];
     }
-    return myProbabilities[index];
+    return "points(" + oss.str() + ")";
 }
-
 
 
 /****************************************************************************/
-
