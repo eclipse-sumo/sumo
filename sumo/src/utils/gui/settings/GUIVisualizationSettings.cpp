@@ -348,10 +348,12 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by acceleration", RGBColor(179, 179, 179, 255), "0");
+    scheme.addColor(RGBColor(64,    0, 0, 255), -9.0);
     scheme.addColor(RGBColor(255,   0, 0, 255), -4.5 /* -SUMOVTypeParameter::getDefaultDecel() */);
     scheme.addColor(RGBColor(255, 255, 0, 255), -0.1);
     scheme.addColor(RGBColor(0, 255, 255, 255),  0.1);
     scheme.addColor(RGBColor(0,   0, 255, 255),  2.6 /* SUMOVTypeParameter::getDefaultAccel() */);
+    scheme.addColor(RGBColor(255, 0, 255, 255),  5.2);
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by time gap on lane", RGBColor(255, 255, 0, 255), "0");
