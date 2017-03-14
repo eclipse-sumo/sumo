@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul 28 08:24:34 2016 by SUMO dfrouter Version dev-SVN-r21246
+<!-- generated on 03/13/17 14:56:32 by SUMO dfrouter Version dev-SVN-r23331
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -29,6 +29,6 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <vType id="PKW" speedDev="0.20" vClass="passenger"/>
-    <vType id="LKW" speedDev="0.20" vClass="truck"/>
+    <vType id="PKW" speedFactor="normc(1.00,0.20,0.20,2.00)" vClass="passenger"/>
+    <vType id="LKW" speedFactor="normc(1.00,0.20,0.20,2.00)" vClass="truck"/>
 </additional>
