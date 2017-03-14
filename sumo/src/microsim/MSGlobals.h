@@ -69,6 +69,9 @@ public:
     /** The time to detect grid locks on highways */
     static SUMOTime gTimeToGridlockHighways;
 
+    /** Information how long a vehicle must wait for impatience to grow from 0 to 1 */
+    static SUMOTime gTimeToImpatience;
+
     /// Information whether the simulation regards internal lanes
     static bool gUsingInternalLanes;
 

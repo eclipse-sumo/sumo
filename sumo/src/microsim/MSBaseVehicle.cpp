@@ -409,9 +409,7 @@ MSBaseVehicle::calculateArrivalParams() {
 double
 MSBaseVehicle::getImpatience() const {
     return MAX2(0., MIN2(1., getVehicleType().getImpatience() +
-                                  (MSGlobals::gTimeToGridlock > 0 ? (double)getWaitingTime() / MSGlobals::gTimeToGridlock : 0)));
-//    Alternavite to avoid time to teleport effect on the simulation. No effect if time to teleport is -1
-//    return MAX2(0, MIN2((double)1, getVehicleType().getImpatience()));
+                                  (MSGlobals::gTimeToImpatience > 0 ? (double)getWaitingTime() / MSGlobals::gTimeToImpatience : 0)));
 }
 
 
