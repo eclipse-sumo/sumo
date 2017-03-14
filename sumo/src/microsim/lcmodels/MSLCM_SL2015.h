@@ -265,7 +265,7 @@ protected:
 
 
     /// @brief check remaining lateral gaps for the given foe vehicles and optionally update minimum lateral gaps
-    void updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double newCenter, double gapFactor,
+    void updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double oldCenter, double gapFactor,
                     double& surplusGapRight, double& surplusGapLeft, bool saveMinGap = false);
 
 protected:

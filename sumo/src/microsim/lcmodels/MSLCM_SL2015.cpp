@@ -2047,23 +2047,18 @@ MSLCM_SL2015::keepLatGap(int state,
     // compute gaps after maneuver
     const double halfWidth = myVehicle.getVehicleType().getWidth() * 0.5;
     // if the current maneuver is blocked we will stay where we are
-    const double effectiveLatDist = blocked == 0 ? latDist : 0;
-    const double newCenter = myVehicle.getCenterOnEdge() + effectiveLatDist;
+    const double oldCenter = myVehicle.getCenterOnEdge();
     // surplus gaps. these are used to collect various constraints
-    // if this value goes negative, we should override the current maneuver to better maintain distance
-
+    // if they do not permit the desired manoeuvre, should override it to better maintain distance
     // stay within the current edge
-    double surplusGapRight = newCenter - halfWidth;
-    double surplusGapLeft = myVehicle.getLane()->getEdge().getWidth() - newCenter - halfWidth;
+    double surplusGapRight = oldCenter - halfWidth;
+    double surplusGapLeft = myVehicle.getLane()->getEdge().getWidth() - oldCenter - halfWidth;
     if (gDebugFlag2) {
         std::cout << "    keepLatGap laneOffset=" << laneOffset
                   << " latDist=" << latDist
-                  << " effectiveLatDist=" << effectiveLatDist
                   << " gapFactor=" << gapFactor
-                  << " stayInLane=" << stayInLane
-                  << "\n"
-                  << "       stayInEdge: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft
-                  << "\n";
+                  << " stayInLane=" << stayInLane << "\n"
+                  << "       stayInEdge: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n";
     }
     // staying within the edge overrides all minGap considerations
     if (surplusGapLeft < 0 || surplusGapRight < 0) {
@@ -2071,68 +2066,71 @@ MSLCM_SL2015::keepLatGap(int state,
     }
 
     // maintain gaps to vehicles on the current lane
-    updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), newCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
-    updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), newCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
+    updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
+    updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
 
     if (laneOffset != 0) {
         // maintain gaps to vehicles on the target lane
-        updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), newCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
-        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), newCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
+        updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
+        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
     }
     if (gDebugFlag2) {
-        std::cout << "       minGapLat: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft
-                  << "\n";
+        std::cout << "       minGapLat: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n"
+                  << "       lastGaps: right=" << myLastLateralGapRight << " left=" << myLastLateralGapLeft << "\n";
     }
     const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
     if (stayInLane || laneOffset == 1) {
         // do not move past the right boundary of the current lane (traffic wasn't checked there)
         // but assume it's ok to be where we are in case we are already beyond
-        surplusGapRight = MIN2(surplusGapRight, MAX2(0.0, halfLaneWidth + myVehicle.getLateralPositionOnLane() + effectiveLatDist - halfWidth));
+        surplusGapRight = MIN2(surplusGapRight, MAX2(0.0, halfLaneWidth + myVehicle.getLateralPositionOnLane() - halfWidth));
     }
     if (stayInLane || laneOffset == -1) {
         // do not move past the left boundary of the current lane (traffic wasn't checked there)
         // but assume it's ok to be where we are in case we are already beyond
-        surplusGapLeft = MIN2(surplusGapLeft, MAX2(0.0, halfLaneWidth - myVehicle.getLateralPositionOnLane() - effectiveLatDist - halfWidth));
+        surplusGapLeft = MIN2(surplusGapLeft, MAX2(0.0, halfLaneWidth - myVehicle.getLateralPositionOnLane() - halfWidth));
     }
-    if (gDebugFlag2) {
-        std::cout << "       stayInLane: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft
-                  << "\n";
+    if (gDebugFlag2) { 
+        std::cout << "       stayInLane: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n";
     }
 
-    const double maxDist = SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat());
-    if (surplusGapRight < -NUMERICAL_EPS) {
-        if (surplusGapLeft > NUMERICAL_EPS) {
-            // move left to increase gap
-            latDist = MIN3(effectiveLatDist - surplusGapRight, effectiveLatDist + surplusGapLeft, maxDist);
+    if (surplusGapRight + surplusGapLeft < 0) {
+        // insufficient lateral space to fulfill all requirements. apportion space proportionally 
+        // if there is no neighbor vehicle, the surplus gap is already the physical gap to a lane or edge boundary
+        const double leftGap = myLastLateralGapLeft == NO_LATERAL_NEIGHBOR ? surplusGapLeft : myLastLateralGapLeft;
+        const double rightGap = myLastLateralGapRight == NO_LATERAL_NEIGHBOR ? surplusGapRight : myLastLateralGapRight;
+        const double equalDeficit = 0.5 * (surplusGapLeft + surplusGapRight);
+        if (surplusGapRight < surplusGapLeft) {
+            // shift further to the left but no further than there is physical space
+            const double delta = MIN2(equalDeficit - surplusGapRight, leftGap);
+            latDist = delta;
+            if (gDebugFlag2) std::cout << "    insufficient latSpace, move left: delta=" << delta << "\n";
         } else {
-            blocked |= LCA_OVERLAPPING | LCA_BLOCKED_RIGHT;
+            // shift further to the right but no further than there is physical space
+            const double delta = MIN2(equalDeficit - surplusGapLeft, rightGap);
+            latDist = -delta;
+            if (gDebugFlag2) std::cout << "    insufficient latSpace, move right: delta=" << delta << "\n";
         }
-    } else if (surplusGapLeft < -NUMERICAL_EPS) {
-        if (surplusGapRight > NUMERICAL_EPS) {
-            // move right to increase gap
-            latDist = MAX3(effectiveLatDist + surplusGapLeft, effectiveLatDist - surplusGapRight, -maxDist);
-        } else {
-            blocked |= LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
-        }
+    } else {
+        // sufficient space. move as far as the gaps permit
+        latDist = MAX2(MIN2(latDist, surplusGapLeft), -surplusGapRight);
     }
-    /// XXX if the surplusGap is negative on both sides, the vehicle should still try to equalize the gaps
+    // if we cannot move in the desired direction, consider the maneuver blocked
+    if (latDist < NUMERICAL_EPS && oldLatDist > NUMERICAL_EPS) {
+        blocked |= LCA_OVERLAPPING | LCA_BLOCKED_RIGHT;
+    } else if (latDist > NUMERICAL_EPS && oldLatDist < NUMERICAL_EPS) {
+        blocked |= LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
+    }
+    // update blocked status
     if (latDist != oldLatDist) {
         blocked = checkBlocking(neighLane, latDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, true);
     }
     if (latDist != 0) {
         state = (state & ~LCA_STAY);
-        // account for distance-keeping maneuver
-        if (myLastLateralGapRight != NO_LATERAL_NEIGHBOR) {
-            myLastLateralGapRight += latDist - oldLatDist;
-        }
-        if (myLastLateralGapLeft != NO_LATERAL_NEIGHBOR) {
-            myLastLateralGapLeft -= latDist - oldLatDist;
-        }
     }
     if (gDebugFlag2) {
         std::cout << "       latDist2=" << latDist
-                  << " totalGapLeft=" << myLastLateralGapLeft
-                  << " totalGapRight=" << myLastLateralGapRight
+                  << " lastGapLeft=" << myLastLateralGapLeft
+                  << " lastGapRight=" << myLastLateralGapRight
                   << " blockedAfter=" << toString((LaneChangeAction)blocked)
                   << "\n";
     }
@@ -2141,7 +2139,8 @@ MSLCM_SL2015::keepLatGap(int state,
 
 
 void
-MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double newCenter, double gapFactor, double& surplusGapRight, double& surplusGapLeft, bool saveMinGap) {
+MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double oldCenter, double gapFactor, double& surplusGapRight, double& surplusGapLeft, bool saveMinGap) {
+    double minGap = NO_LATERAL_NEIGHBOR;
     if (others.hasVehicles()) {
         const double halfWidth = myVehicle.getVehicleType().getWidth() * 0.5 + NUMERICAL_EPS;
         const double baseMinGap = myVehicle.getVehicleType().getMinGapLat();
@@ -2152,27 +2151,30 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                 const double foeRight = i * MSGlobals::gLateralResolution + foeOffset;
                 const double foeLeft = foeRight + MSGlobals::gLateralResolution;
                 const double foeCenter = foeRight + 0.5 * MSGlobals::gLateralResolution;
-                const double gap = MIN2(fabs(foeRight - newCenter), fabs(foeLeft - newCenter)) - halfWidth;
+                const double gap = MIN2(fabs(foeRight - oldCenter), fabs(foeLeft - oldCenter)) - halfWidth;
                 const double currentMinGap = baseMinGap * MIN2(1.0, MAX2(myVehicle.getSpeed(), (double)fabs(myVehicle.getSpeed() - foe->getSpeed())) / LATGAP_SPEED_THRESHOLD) * gapFactor;
-                if (gDebugFlag2 && false) std::cout << "  updateGaps"
+                if (gDebugFlag2) std::cout << "  updateGaps"
                                                         << " foe=" << foe->getID()
                                                         << " foeRight=" << foeRight
                                                         << " foeLeft=" << foeLeft
+                                                        << " oldCenter=" << oldCenter
                                                         << " gap=" << others[i].second
                                                         << " latgap=" << gap
                                                         << " currentMinGap=" << currentMinGap
                                                         << " surplusGapRight=" << surplusGapRight
                                                         << " surplusGapLeft=" << surplusGapLeft
                                                         << "\n";
-                if (foeCenter < newCenter) {
+                if (foeCenter < oldCenter) {
                     surplusGapRight = MIN2(surplusGapRight, gap - currentMinGap);
                 } else {
                     surplusGapLeft = MIN2(surplusGapLeft, gap - currentMinGap);
                 }
                 if (saveMinGap) {
-                    if (foeCenter < newCenter) {
+                    if (foeCenter < oldCenter) {
+                        if (gDebugFlag2 && gap < myLastLateralGapRight) std::cout << "    new minimum rightGap=" << gap << "\n";
                         myLastLateralGapRight = MIN2(myLastLateralGapRight, gap);
                     } else {
+                        if (gDebugFlag2 && gap < myLastLateralGapLeft) std::cout << "    new minimum leftGap=" << gap << "\n";
                         myLastLateralGapLeft = MIN2(myLastLateralGapLeft, gap);
                     }
                 }
