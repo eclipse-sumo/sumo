@@ -879,6 +879,13 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         } else if (myPoiToMove) {
             myPoiToMove->move(currentPosition);
         } else if (myJunctionToMove) {
+            // check if  one of their junctions neighboors is in the position objective
+            std::vector<GNEJunction*> junctionNeighbours = myJunctionToMove->getJunctionNeighbours();
+            for(std::vector<GNEJunction*>::iterator i = junctionNeighbours.begin(); i != junctionNeighbours.end(); i++) {
+                if((*i)->getPosition() == currentPosition) {
+                    return 0;
+                }
+            }
             myJunctionToMove->move(currentPosition);
         } else if (myEdgeToMove) {
             myMoveSrc = myEdgeToMove->moveGeometry(myMoveSrc, currentPosition);

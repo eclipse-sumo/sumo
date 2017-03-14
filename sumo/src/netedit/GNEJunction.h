@@ -108,6 +108,12 @@ public:
     /// @brief Return net build node
     NBNode* getNBNode() const;
 
+    /// @brief Return current position
+    Position getPosition() const;
+
+    /// @brief return GNEJunction neighbours
+    std::vector<GNEJunction*> getJunctionNeighbours() const;
+
     /// @brief add incoming GNEEdge
     void addIncomingGNEEdge(GNEEdge* edge);
 

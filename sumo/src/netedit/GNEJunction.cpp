@@ -260,6 +260,25 @@ GNEJunction::getNBNode() const {
 }
 
 
+Position 
+GNEJunction::getPosition() const {
+    return myNBNode.getPosition();
+}
+
+
+std::vector<GNEJunction*>
+GNEJunction::getJunctionNeighbours() const {
+    // use set to avoid duplicates junctions
+    std::set<GNEJunction*> junctions;
+    for( std::vector<GNEEdge*>::const_iterator i = myGNEIncomingEdges.begin(); i != myGNEIncomingEdges.end(); i++) {
+        junctions.insert((*i)->getGNEJunctionSource());
+    }
+    for( std::vector<GNEEdge*>::const_iterator i = myGNEOutgoingEdges.begin(); i != myGNEOutgoingEdges.end(); i++) {
+        junctions.insert((*i)->getGNEJunctionDestiny());
+    }
+    return std::vector<GNEJunction*>(junctions.begin(), junctions.end()); 
+}
+
 
 void
 GNEJunction::addIncomingGNEEdge(GNEEdge* edge) {
