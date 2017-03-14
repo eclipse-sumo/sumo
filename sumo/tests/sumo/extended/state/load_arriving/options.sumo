@@ -1,0 +1,4 @@
+--no-step-log --no-duration-log -v --net-file=net.net.xml 
+--route-files input_routes.rou.xml
+-b 26 --load-state input_state.xml --tripinfo-output tripinfos.xml
+

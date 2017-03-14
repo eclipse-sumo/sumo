@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 14 16:47:56 2017 by SUMO Version dev-SVN-r23369
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="../net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="26"/>
+        <save-state.files value="input_state.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<snapshot version="dev-SVN-r23369" time="26.00">
+    <route id="r0" state="1" edges="beg middle end"/>
+    <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vType id="type0">
+        <carFollowing-Krauss sigma="0"/>
+    </vType>
+    <vehicle id="v0" type="type0" depart="0.00" route="r0" state="0 2" pos="94.01" speed="13.89" posLat="0.00"/>
+    <lane id="beg_0">
+        <vehicles value=""/>
+    </lane>
+    <lane id="end_0">
+        <vehicles value="v0"/>
+    </lane>
+    <lane id="middle_0">
+        <vehicles value=""/>
+    </lane>
+</snapshot>
