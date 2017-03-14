@@ -2142,7 +2142,6 @@ MSLCM_SL2015::keepLatGap(int state,
 
 void
 MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double newCenter, double gapFactor, double& surplusGapRight, double& surplusGapLeft, bool saveMinGap) {
-    double minGap = NO_LATERAL_NEIGHBOR;
     if (others.hasVehicles()) {
         const double halfWidth = myVehicle.getVehicleType().getWidth() * 0.5 + NUMERICAL_EPS;
         const double baseMinGap = myVehicle.getVehicleType().getMinGapLat();
