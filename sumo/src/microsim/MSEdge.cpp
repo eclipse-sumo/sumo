@@ -489,18 +489,6 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
                                "' is too high for the departure edge '" + getID() + "'.");
         }
     }
-    if (!checkOnly) {
-        std::string msg;
-        if (!v.hasValidRoute(msg)) {
-            if (MSGlobals::gCheckRoutes) {
-                throw ProcessError("Vehicle '" + v.getID() + "' has no valid route. " + msg);
-            } else if (v.getEdge()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
-                WRITE_WARNING("Removing vehicle '" + pars.id + "' which has no valid route.");
-                MSNet::getInstance()->getInsertionControl().descheduleDeparture(&v);
-                return false;
-            }
-        }
-    }
     if (MSGlobals::gUseMesoSim) {
         double pos = 0.0;
         switch (pars.departPosProcedure) {

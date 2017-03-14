@@ -273,9 +273,6 @@ MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
             if (myCachedRoutes[key]->size() > 2) {
                 myHolder.replaceRoute(myCachedRoutes[key], true);
                 return myPreInsertionPeriod;
-            } else {
-                WRITE_WARNING("No route for vehicle '" + myHolder.getID() + "' found.");
-                return myPreInsertionPeriod;
             }
         }
     }

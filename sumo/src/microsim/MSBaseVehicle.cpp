@@ -44,6 +44,7 @@
 #include "MSBaseVehicle.h"
 #include "MSNet.h"
 #include "devices/MSDevice.h"
+#include "MSInsertionControl.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -65,6 +66,7 @@ double
 MSBaseVehicle::getPreviousSpeed() const {
     throw ProcessError("getPreviousSpeed() is not available for non-MSVehicles.");
 }
+
 
 MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                              const MSVehicleType* type, const double speedFactor) :
@@ -95,8 +97,15 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myRoute->addReference();
     if (!pars->wasSet(VEHPARS_FORCE_REROUTE)) {
         calculateArrivalParams();
+        if (MSGlobals::gCheckRoutes) {
+            std::string msg;
+            if (!hasValidRoute(msg)) {
+                throw ProcessError("Vehicle '" + pars->id + "' has no valid route. " + msg);
+            }
+        }
     }
 }
+
 
 MSBaseVehicle::~MSBaseVehicle() {
     myRoute->release();
@@ -181,15 +190,24 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
         }
     }
     router.compute(source, sink, this, t, edges);
-    if (!edges.empty() && edges.front()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
+    if (!edges.empty() && edges.front()->isTaz()) {
         edges.erase(edges.begin());
     }
-    if (!edges.empty() && edges.back()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
+    if (!edges.empty() && edges.back()->isTaz()) {
         edges.pop_back();
     }
     replaceRouteEdges(edges, onInit);
     // this must be called even if the route could not be replaced
     if (onInit) {
+        if (edges.empty()) {
+            if (MSGlobals::gCheckRoutes) {
+                throw ProcessError("Vehicle '" + getID() + "' has no valid route.");
+            } else if (source->isTaz()) {
+                WRITE_WARNING("Removing vehicle '" + getID() + "' which has no valid route.");
+                MSNet::getInstance()->getInsertionControl().descheduleDeparture(this);
+                return;
+            }
+        }
         calculateArrivalParams();
     }
 }
