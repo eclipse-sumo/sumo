@@ -427,10 +427,6 @@ void
 GUISUMOAbstractView::paintGLGrid() {
     // obtain minimum grid
     double minimumSizeGrid = (myVisualizationSettings->gridXSize < myVisualizationSettings->gridYSize)? myVisualizationSettings->gridXSize : myVisualizationSettings->gridYSize;
-    
-    double S1 = myVisualizationSettings->scale;
-    double S2 = myVisualizationSettings->addSize.getExaggeration(*myVisualizationSettings);
-    
     // Check if the distance is enought to draw grid
     if (myVisualizationSettings->scale * myVisualizationSettings->addSize.getExaggeration(*myVisualizationSettings) >= (25/minimumSizeGrid)) {
         glEnable(GL_DEPTH_TEST);
