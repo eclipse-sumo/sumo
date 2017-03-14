@@ -46,6 +46,7 @@
  * ----------------------------------------------------------------------- */
 bool MSAbstractLaneChangeModel::myAllowOvertakingRight(false);
 bool MSAbstractLaneChangeModel::myLCOutput(false);
+const double MSAbstractLaneChangeModel::NO_LATERAL_NEIGHBOR(std::numeric_limits<double>::max());
 
 /* -------------------------------------------------------------------------
  * MSAbstractLaneChangeModel-methods
@@ -173,7 +174,7 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
         of.writeAttr("reason", toString((LaneChangeAction)(myOwnState & ~(LCA_RIGHT | LCA_LEFT))));
         if (MSGlobals::gLateralResolution > 0) {
             const double latGap = direction < 0 ? myLastLateralGapRight : myLastLateralGapLeft;
-            of.writeAttr("latGap", latGap == std::numeric_limits<double>::max() ? "None" : toString(latGap));
+            of.writeAttr("latGap", latGap == NO_LATERAL_NEIGHBOR ? "None" : toString(latGap));
         }
         of.closeTag();
     }

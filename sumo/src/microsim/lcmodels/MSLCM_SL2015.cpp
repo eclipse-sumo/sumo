@@ -688,8 +688,8 @@ MSLCM_SL2015::prepareStep() {
     MSAbstractLaneChangeModel::prepareStep();
     // keep information about strategic change direction
     myOwnState = (myOwnState & LCA_STRATEGIC) ? (myOwnState & LCA_WANTS_LANECHANGE) : 0;
-    myLastLateralGapRight = std::numeric_limits<double>::max();
-    myLastLateralGapLeft = std::numeric_limits<double>::max();
+    myLastLateralGapRight = NO_LATERAL_NEIGHBOR;
+    myLastLateralGapLeft = NO_LATERAL_NEIGHBOR;
     if (myCanChangeFully) {
         myOrigLatDist = 0;
     }
@@ -2122,10 +2122,10 @@ MSLCM_SL2015::keepLatGap(int state,
     if (latDist != 0) {
         state = (state & ~LCA_STAY);
         // account for distance-keeping maneuver
-        if (myLastLateralGapRight != std::numeric_limits<double>::max()) {
+        if (myLastLateralGapRight != NO_LATERAL_NEIGHBOR) {
             myLastLateralGapRight += latDist - oldLatDist;
         }
-        if (myLastLateralGapLeft != std::numeric_limits<double>::max()) {
+        if (myLastLateralGapLeft != NO_LATERAL_NEIGHBOR) {
             myLastLateralGapLeft -= latDist - oldLatDist;
         }
     }
@@ -2142,7 +2142,7 @@ MSLCM_SL2015::keepLatGap(int state,
 
 void
 MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double newCenter, double gapFactor, double& surplusGapRight, double& surplusGapLeft, bool saveMinGap) {
-    double minGap = std::numeric_limits<double>::max();
+    double minGap = NO_LATERAL_NEIGHBOR;
     if (others.hasVehicles()) {
         const double halfWidth = myVehicle.getVehicleType().getWidth() * 0.5 + NUMERICAL_EPS;
         const double baseMinGap = myVehicle.getVehicleType().getMinGapLat();

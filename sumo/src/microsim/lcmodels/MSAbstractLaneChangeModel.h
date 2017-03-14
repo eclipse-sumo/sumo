@@ -450,6 +450,8 @@ protected:
     /// @brief whether to record lane-changing
     static bool myLCOutput;
 
+    static const double NO_LATERAL_NEIGHBOR;
+
 private:
     /* @brief information how long ago the vehicle has performed a lane-change,
      * sign indicates direction of the last change
@@ -461,6 +463,7 @@ private:
 
     /// @brief whether the vehicle is driving in the opposite direction
     bool myAmOpposite;
+
 
 private:
     /// @brief Invalidated assignment operator
