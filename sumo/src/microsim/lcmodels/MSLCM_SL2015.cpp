@@ -2078,16 +2078,22 @@ MSLCM_SL2015::keepLatGap(int state,
         std::cout << "       minGapLat: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n"
                   << "       lastGaps: right=" << myLastLateralGapRight << " left=" << myLastLateralGapLeft << "\n";
     }
+    // we also need to track the physical gap, in addition to the psychological gap
+    double physicalGapLeft = myLastLateralGapLeft == NO_LATERAL_NEIGHBOR ? surplusGapLeft : myLastLateralGapLeft;
+    double physicalGapRight = myLastLateralGapRight == NO_LATERAL_NEIGHBOR ? surplusGapRight : myLastLateralGapRight;
+
     const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
     if (stayInLane || laneOffset == 1) {
         // do not move past the right boundary of the current lane (traffic wasn't checked there)
         // but assume it's ok to be where we are in case we are already beyond
-        surplusGapRight = MIN2(surplusGapRight, MAX2(0.0, halfLaneWidth + myVehicle.getLateralPositionOnLane() - halfWidth));
+        surplusGapRight  = MIN2(surplusGapRight,  MAX2(0.0, halfLaneWidth + myVehicle.getLateralPositionOnLane() - halfWidth));
+        physicalGapRight = MIN2(physicalGapRight, MAX2(0.0, halfLaneWidth + myVehicle.getLateralPositionOnLane() - halfWidth));
     }
     if (stayInLane || laneOffset == -1) {
         // do not move past the left boundary of the current lane (traffic wasn't checked there)
         // but assume it's ok to be where we are in case we are already beyond
-        surplusGapLeft = MIN2(surplusGapLeft, MAX2(0.0, halfLaneWidth - myVehicle.getLateralPositionOnLane() - halfWidth));
+        surplusGapLeft  = MIN2(surplusGapLeft,  MAX2(0.0, halfLaneWidth - myVehicle.getLateralPositionOnLane() - halfWidth));
+        physicalGapLeft = MIN2(physicalGapLeft, MAX2(0.0, halfLaneWidth - myVehicle.getLateralPositionOnLane() - halfWidth));
     }
     if (gDebugFlag2) { 
         std::cout << "       stayInLane: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n";
@@ -2095,18 +2101,15 @@ MSLCM_SL2015::keepLatGap(int state,
 
     if (surplusGapRight + surplusGapLeft < 0) {
         // insufficient lateral space to fulfill all requirements. apportion space proportionally 
-        // if there is no neighbor vehicle, the surplus gap is already the physical gap to a lane or edge boundary
-        const double leftGap = myLastLateralGapLeft == NO_LATERAL_NEIGHBOR ? surplusGapLeft : myLastLateralGapLeft;
-        const double rightGap = myLastLateralGapRight == NO_LATERAL_NEIGHBOR ? surplusGapRight : myLastLateralGapRight;
         const double equalDeficit = 0.5 * (surplusGapLeft + surplusGapRight);
         if (surplusGapRight < surplusGapLeft) {
             // shift further to the left but no further than there is physical space
-            const double delta = MIN2(equalDeficit - surplusGapRight, leftGap);
+            const double delta = MIN2(equalDeficit - surplusGapRight, physicalGapLeft);
             latDist = delta;
             if (gDebugFlag2) std::cout << "    insufficient latSpace, move left: delta=" << delta << "\n";
         } else {
             // shift further to the right but no further than there is physical space
-            const double delta = MIN2(equalDeficit - surplusGapLeft, rightGap);
+            const double delta = MIN2(equalDeficit - surplusGapLeft, physicalGapRight);
             latDist = -delta;
             if (gDebugFlag2) std::cout << "    insufficient latSpace, move right: delta=" << delta << "\n";
         }
