@@ -46,6 +46,7 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleTransfer.h>
+#include <microsim/MSInsertionControl.h>
 #include <microsim/MSRoute.h>
 #include "MSStateHandler.h"
 
@@ -212,6 +213,7 @@ MSStateHandler::closeVehicle() {
             if (routingDevice != 0) {
                 routingDevice->notifyEnter(*v, MSMoveReminder::NOTIFICATION_DEPARTED);
             }
+            MSNet::getInstance()->getInsertionControl().alreadyDeparted(v);
         }
     } else {
         vc.discountStateLoaded(true);
