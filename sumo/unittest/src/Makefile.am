@@ -52,6 +52,7 @@ $(MESO_LIBS) \
 ../../src/utils/shapes/libshapes.a \
 ../../src/utils/emissions/libemissions.a \
 ../../src/utils/xml/libxml.a \
+../../src/utils/distribution/libdistribution.a \
 ../../src/utils/vehicle/libvehicle.a \
 ../../src/utils/common/libcommon.a \
 ../../src/utils/options/liboptions.a \

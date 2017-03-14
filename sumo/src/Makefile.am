@@ -18,6 +18,7 @@ bin_PROGRAMS = od2trips sumo netconvert $(GUI_APPS)
 
 COMMON_LIBS = ./utils/options/liboptions.a \
 ./utils/xml/libxml.a \
+./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
@@ -32,9 +33,7 @@ od2trips_SOURCES = od2trips_main.cpp
 
 od2trips_LDADD   = ./od/libod.a \
 ./utils/options/liboptions.a \
-./utils/distribution/libdistribution.a \
 ./utils/vehicle/libvehicle.a \
-./utils/common/libcommon.a \
 $(COMMON_LIBS) $(XERCES_LDFLAGS)
 
 
@@ -69,7 +68,6 @@ netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/vissim/tempstructs/libvissimtmpstr.a \
 ./netbuild/libnetbuild.a \
 ./netwrite/libnetwrite.a \
-./utils/distribution/libdistribution.a \
 ./foreign/eulerspiral/libeulerspiral.a \
 $(COMMON_LIBS) \
 $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)

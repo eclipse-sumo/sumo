@@ -17,6 +17,7 @@ dfrouter_LDFLAGS = $(XERCES_LDFLAGS)
 dfrouter_LDADD   = ../router/librouter.a \
 ../utils/options/liboptions.a \
 ../utils/xml/libxml.a \
+../utils/distribution/libdistribution.a \
 ../utils/vehicle/libvehicle.a \
 ../utils/common/libcommon.a \
 ../utils/importio/libimportio.a \
