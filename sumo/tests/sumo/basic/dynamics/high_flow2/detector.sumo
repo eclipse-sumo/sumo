@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb  1 16:13:50 2017 by SUMO Version dev-SVN-r22813
+<!-- generated on 03/14/17 11:02:39 by SUMO Version dev-SVN-r23360
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -26,10 +26,10 @@
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
-    <interval begin="0.00" end="900.00" id="beg2_0" nVehContrib="505" flow="2020.00" occupancy="9.75" speed="28.97" length="5.00" nVehEntered="505"/>
-    <interval begin="0.00" end="900.00" id="beg2_1" nVehContrib="567" flow="2268.00" occupancy="9.83" speed="32.15" length="5.00" nVehEntered="567"/>
-    <interval begin="900.00" end="1800.00" id="beg2_0" nVehContrib="538" flow="2152.00" occupancy="10.38" speed="28.94" length="5.00" nVehEntered="538"/>
-    <interval begin="900.00" end="1800.00" id="beg2_1" nVehContrib="595" flow="2380.00" occupancy="10.26" speed="32.32" length="5.00" nVehEntered="595"/>
-    <interval begin="1800.00" end="1911.00" id="beg2_0" nVehContrib="59" flow="1913.51" occupancy="9.51" speed="28.03" length="5.00" nVehEntered="59"/>
-    <interval begin="1800.00" end="1911.00" id="beg2_1" nVehContrib="65" flow="2108.11" occupancy="9.16" speed="32.04" length="5.00" nVehEntered="65"/>
+    <interval begin="0.00" end="900.00" id="beg2_0" nVehContrib="502" flow="2008.00" occupancy="9.72" speed="28.87" length="5.00" nVehEntered="502"/>
+    <interval begin="0.00" end="900.00" id="beg2_1" nVehContrib="556" flow="2224.00" occupancy="9.64" speed="32.12" length="5.00" nVehEntered="556"/>
+    <interval begin="900.00" end="1800.00" id="beg2_0" nVehContrib="527" flow="2108.00" occupancy="10.36" speed="28.70" length="5.00" nVehEntered="527"/>
+    <interval begin="900.00" end="1800.00" id="beg2_1" nVehContrib="594" flow="2376.00" occupancy="10.31" speed="32.08" length="5.00" nVehEntered="594"/>
+    <interval begin="1800.00" end="1911.00" id="beg2_0" nVehContrib="61" flow="1978.38" occupancy="9.24" speed="29.89" length="5.00" nVehEntered="62"/>
+    <interval begin="1800.00" end="1911.00" id="beg2_1" nVehContrib="61" flow="1978.38" occupancy="9.40" speed="31.95" length="5.00" nVehEntered="61"/>
 </detector>
