@@ -507,6 +507,14 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
 }
 
 
+void 
+GUIDialog_ViewSettings::show() {
+    // update buttons that can be changed externally
+    myShowGrid->setCheck(mySettings->showGrid);
+    FXDialogBox::show();
+}
+
+
 void
 GUIDialog_ViewSettings::setCurrent(GUIVisualizationSettings* settings) {
     mySettings = settings;

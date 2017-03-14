@@ -102,6 +102,8 @@ public:
     /// @brief Destructor
     ~GUIDialog_ViewSettings();
 
+    /// @brief show view settings dialog
+    void show();
 
     /** @brief Sets current settings (called if reopened)
      * @param[in, out] settings The current settings that can be changed
