@@ -1,6 +1,6 @@
 message("entering netimport")
 
-#add_subdirectory(vissim)
+add_subdirectory(vissim)
 
 set(netimport_files
      NIFrame.cpp NIFrame.h

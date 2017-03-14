@@ -1,1 +1,33 @@
 message("entering tempstructs")
+
+set(vitempstructs_files
+        NIVissimAbstractEdge.cpp NIVissimAbstractEdge.h
+        NIVissimBoundedClusterObject.cpp NIVissimBoundedClusterObject.h
+        NIVissimClosedLaneDef.cpp NIVissimClosedLaneDef.h
+        NIVissimClosedLanesVector.h
+        NIVissimClosures.cpp NIVissimClosures.h
+        NIVissimConflictArea.cpp NIVissimConflictArea.h
+        NIVissimConnection.cpp NIVissimConnection.h
+        NIVissimConnectionCluster.cpp NIVissimConnectionCluster.h
+        NIVissimDistrictConnection.cpp NIVissimDistrictConnection.h
+        NIVissimDisturbance.cpp NIVissimDisturbance.h
+        NIVissimEdge.cpp NIVissimEdge.h
+        NIVissimEdgePosMap.cpp NIVissimEdgePosMap.h
+        NIVissimExtendedEdgePoint.cpp NIVissimExtendedEdgePoint.h
+        NIVissimExtendedEdgePointVector.h
+        NIVissimNodeCluster.cpp NIVissimNodeCluster.h
+        NIVissimNodeDef.cpp NIVissimNodeDef.h
+        NIVissimNodeDef_Edges.cpp NIVissimNodeDef_Edges.h
+        NIVissimNodeDef_Poly.cpp NIVissimNodeDef_Poly.h
+        NIVissimNodeParticipatingEdge.cpp NIVissimNodeParticipatingEdge.h
+        NIVissimNodeParticipatingEdgeVector.h
+        NIVissimSource.cpp NIVissimSource.h
+        NIVissimTL.cpp NIVissimTL.h
+        NIVissimTrafficDescription.cpp NIVissimTrafficDescription.h
+        NIVissimVehicleClass.cpp NIVissimVehicleClass.h
+        NIVissimVehicleClassVector.h
+        NIVissimVehicleType.cpp NIVissimVehicleType.h
+        NIVissimVehTypeClass.cpp NIVissimVehTypeClass.h
+        )
+
+add_library(vitempstructs STATIC ${vitempstructs_files})

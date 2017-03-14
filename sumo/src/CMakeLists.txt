@@ -17,7 +17,7 @@ add_subdirectory(microsim)
 add_subdirectory(netbuild)
 #add_subdirectory(netedit)
 
-#add_subdirectory(netimport)
+add_subdirectory(netimport)
 add_subdirectory(netload)
 add_subdirectory(netwrite)
 #add_subdirectory(od)
@@ -50,16 +50,23 @@ endif ()
 
 add_executable(sumo ${sumoexec})
 target_link_libraries(sumo netload ms mscfmodels mslcmodels msdevices msoutput mspedestrians mstrigger msactions
-        mstraffic_lights utdistirbutions mesosim utgeom utvehicle utshapes utemissions traci-server uttraci utoptions utxml
-        utcommon utimportio utiodevices foreignphemlight foreigntcpip xerces-c ${FOX_LIBRARIES} proj ${GRPC_LIBS} ${PYTHON_LIBRARIES})
+        mstraffic_lights utdistirbutions mesosim utgeom utvehicle utshapes utemissions traci-server uttraci utoptions
+        utxml utcommon utimportio utiodevices foreignphemlight foreigntcpip xerces-c ${FOX_LIBRARIES} proj ${GRPC_LIBS}
+        ${PYTHON_LIBRARIES})
 
 add_executable(sumo-gui ${sumoguiexec})
 target_link_libraries(sumo-gui gui guinetload guisim guidialogs utguiwindows utguiglobjects utguidiv utguisettings
-        utguiimages utdistirbutions utguitracker utfoxtools osgview netload ms mscfmodels mslcmodels msdevices msoutput mspedestrians
-        mstrigger msactions mstraffic_lights mesosim mesogui utgeom utvehicle utshapes utemissions traci-server
-        uttraci utoptions utxml utcommon utimportio utiodevices foreignphemlight foreigntcpip xerces-c ${FOX_LIBRARY}
-        proj ${FOX_LIBRARIES} gdal ${FFMPEG_LIBRARIES} gl2ps foreignpolyfonts ${GRPC_LIBS} ${PYTHON_LIBRARIES})
+        utguiimages utdistirbutions utguitracker utfoxtools osgview netload ms mscfmodels mslcmodels msdevices msoutput
+        mspedestrians mstrigger msactions mstraffic_lights mesosim mesogui utgeom utvehicle utshapes utemissions
+        traci-server uttraci utoptions utxml utcommon utimportio utiodevices foreignphemlight foreigntcpip xerces-c
+        ${FOX_LIBRARY} proj ${FOX_LIBRARIES} gdal ${FFMPEG_LIBRARIES} gl2ps foreignpolyfonts ${GRPC_LIBS}
+        ${PYTHON_LIBRARIES})
 
+set(netconvertexec
+        netconvert_main.cpp)
+add_executable(netconvert ${netconvertexec})
+target_link_libraries(netconvert nb nw ni foreigneulerspiral utcommon xerces-c gdal proj utxml utgeom utoptions
+        utiodevices utdistirbutions foreigntcpip utimportio vi vitypeloader vitempstructs)
 
 add_subdirectory(netgen)
 
