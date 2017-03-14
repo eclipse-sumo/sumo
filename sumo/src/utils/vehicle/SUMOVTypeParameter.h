@@ -40,6 +40,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/distribution/Distribution_Parameterized.h>
 
 // ===========================================================================
 // class declarations
@@ -53,29 +54,28 @@ class OptionsCont;
 // value definitions
 // ===========================================================================
 const int VTYPEPARS_LENGTH_SET = 1;
-const int VTYPEPARS_MINGAP_SET = 2;
-const int VTYPEPARS_MAXSPEED_SET = 2 << 2;
-const int VTYPEPARS_PROBABILITY_SET = 2 << 3;
-const int VTYPEPARS_SPEEDFACTOR_SET = 2 << 4;
-const int VTYPEPARS_SPEEDDEVIATION_SET = 2 << 5;
-const int VTYPEPARS_EMISSIONCLASS_SET = 2 << 6;
-const int VTYPEPARS_COLOR_SET = 2 << 7;
-const int VTYPEPARS_VEHICLECLASS_SET = 2 << 8;
-const int VTYPEPARS_WIDTH_SET = 2 << 9;
-const int VTYPEPARS_HEIGHT_SET = 2 << 10;
-const int VTYPEPARS_SHAPE_SET = 2 << 11;
-const int VTYPEPARS_OSGFILE_SET = 2 << 12;
-const int VTYPEPARS_IMGFILE_SET = 2 << 13;
-const int VTYPEPARS_IMPATIENCE_SET = 2 << 14;
-const int VTYPEPARS_LANE_CHANGE_MODEL_SET = 2 << 15;
-const int VTYPEPARS_PERSON_CAPACITY = 2 << 16;
-const int VTYPEPARS_BOARDING_DURATION = 2 << 17;
-const int VTYPEPARS_CONTAINER_CAPACITY = 2 << 18;
-const int VTYPEPARS_LOADING_DURATION = 2 << 19;
-const int VTYPEPARS_CAR_FOLLOW_MODEL = 2 << 20;
-const int VTYPEPARS_MAXSPEED_LAT_SET = 2 << 21;
-const int VTYPEPARS_LATALIGNMENT_SET = 2 << 22;
-const int VTYPEPARS_MINGAP_LAT_SET = 2 << 23;
+const int VTYPEPARS_MINGAP_SET = 1 << 1;
+const int VTYPEPARS_MAXSPEED_SET = 1 << 2;
+const int VTYPEPARS_PROBABILITY_SET = 1 << 3;
+const int VTYPEPARS_SPEEDFACTOR_SET = 1 << 4;
+const int VTYPEPARS_EMISSIONCLASS_SET = 1 << 5;
+const int VTYPEPARS_COLOR_SET = 1 << 6;
+const int VTYPEPARS_VEHICLECLASS_SET = 1 << 7;
+const int VTYPEPARS_WIDTH_SET = 1 << 8;
+const int VTYPEPARS_HEIGHT_SET = 1 << 9;
+const int VTYPEPARS_SHAPE_SET = 1 << 10;
+const int VTYPEPARS_OSGFILE_SET = 1 << 11;
+const int VTYPEPARS_IMGFILE_SET = 1 << 12;
+const int VTYPEPARS_IMPATIENCE_SET = 1 << 13;
+const int VTYPEPARS_LANE_CHANGE_MODEL_SET = 1 << 14;
+const int VTYPEPARS_PERSON_CAPACITY = 1 << 15;
+const int VTYPEPARS_BOARDING_DURATION = 1 << 16;
+const int VTYPEPARS_CONTAINER_CAPACITY = 1 << 17;
+const int VTYPEPARS_LOADING_DURATION = 1 << 18;
+const int VTYPEPARS_CAR_FOLLOW_MODEL = 1 << 19;
+const int VTYPEPARS_MAXSPEED_LAT_SET = 1 << 20;
+const int VTYPEPARS_LATALIGNMENT_SET = 1 << 21;
+const int VTYPEPARS_MINGAP_LAT_SET = 1 << 22;
 
 
 // ===========================================================================
@@ -149,9 +149,7 @@ public:
     /// @brief The probability when being added to a distribution without an explicit probability
     double defaultProbability;
     /// @brief The factor by which the maximum speed may deviate from the allowed max speed on the street
-    double speedFactor;
-    /// @brief The standard deviation for speed variations
-    double speedDev;
+    Distribution_Parameterized speedFactor;
     /// @brief The emission class of this vehicle
     SUMOEmissionClass emissionClass;
     /// @brief The color

@@ -78,14 +78,8 @@ MSVehicleType::~MSVehicleType() {
 
 
 double
-MSVehicleType::computeChosenSpeedDeviation(MTRand* rng, const double minDevFactor) const {
-    if (myParameter.speedDev == 0) {
-        return myParameter.speedFactor;
-    }
-    // for speedDev = 0.1, most 95% of the vehicles will drive between 80% and 120% of speedLimit * speedFactor
-    const double devA = MIN2(double(2.), RandHelper::randNorm(0, 1., rng));
-    // avoid voluntary speeds below 20% of the requested speedFactor
-    return MAX2(minDevFactor, double(devA * myParameter.speedDev + 1.)) * myParameter.speedFactor;
+MSVehicleType::computeChosenSpeedDeviation(MTRand* rng, const double minDev) const {
+    return MAX2(minDev, myParameter.speedFactor.sample(rng));
 }
 
 
@@ -149,9 +143,9 @@ MSVehicleType::setDefaultProbability(const double& prob) {
 void
 MSVehicleType::setSpeedFactor(const double& factor) {
     if (myOriginalType != 0 && factor < 0) {
-        myParameter.speedFactor = myOriginalType->getSpeedFactor();
+        myParameter.speedFactor.getParameter()[0] = myOriginalType->myParameter.speedFactor.getParameter()[0];
     } else {
-        myParameter.speedFactor = factor;
+        myParameter.speedFactor.getParameter()[0] = factor;
     }
 }
 
@@ -159,9 +153,9 @@ MSVehicleType::setSpeedFactor(const double& factor) {
 void
 MSVehicleType::setSpeedDeviation(const double& dev) {
     if (myOriginalType != 0 && dev < 0) {
-        myParameter.speedDev = myOriginalType->getSpeedDeviation();
+        myParameter.speedFactor.getParameter()[1] = myOriginalType->myParameter.speedFactor.getParameter()[1];
     } else {
-        myParameter.speedDev = dev;
+        myParameter.speedFactor.getParameter()[1] = dev;
     }
 }
 

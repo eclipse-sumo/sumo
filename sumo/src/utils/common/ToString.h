@@ -40,6 +40,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/Named.h>
+#include <utils/distribution/Distribution_Parameterized.h>
 #include <utils/geom/Position.h>
 #include "StdDefs.h"
 
@@ -162,6 +163,11 @@ inline std::string toString<LaneChangeAction>(const LaneChangeAction& action, st
         }
     }
     return oss.str();
+}
+
+template <>
+inline std::string toString<Distribution_Parameterized>(const Distribution_Parameterized& dist, std::streamsize accuracy) {
+    return dist.toStr(accuracy);
 }
 
 template <typename V>

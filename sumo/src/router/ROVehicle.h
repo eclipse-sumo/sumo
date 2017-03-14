@@ -122,7 +122,7 @@ public:
      * @return the maximum speed factor
      */
     inline double getChosenSpeedFactor() const {
-        return double(2. * getType()->speedDev + 1.) * getType()->speedFactor;
+        return getType()->speedFactor.getMax();
     }
 
 

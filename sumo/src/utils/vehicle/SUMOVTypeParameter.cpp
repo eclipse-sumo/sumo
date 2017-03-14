@@ -53,7 +53,7 @@
 SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass)
     : id(vtid), length(5./*4.3*/), minGap(2.5), maxSpeed(200. / 3.6),
       defaultProbability(DEFAULT_VEH_PROB),
-      speedFactor(1.0), speedDev(0.0),
+      speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
       emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), color(RGBColor::DEFAULT_COLOR),
       vehicleClass(vclass), impatience(0.0), personCapacity(4), containerCapacity(0), boardingDuration(500),
       loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN), osgFile("car-normal-citrus.obj"),
@@ -235,9 +235,6 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     }
     if (wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
         dev.writeAttr(SUMO_ATTR_SPEEDFACTOR, speedFactor);
-    }
-    if (wasSet(VTYPEPARS_SPEEDDEVIATION_SET)) {
-        dev.writeAttr(SUMO_ATTR_SPEEDDEV, speedDev);
     }
     if (wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
         dev.writeAttr(SUMO_ATTR_VCLASS, toString(vehicleClass));

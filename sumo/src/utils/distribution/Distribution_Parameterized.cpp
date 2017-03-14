@@ -49,6 +49,12 @@ Distribution_Parameterized::Distribution_Parameterized(const std::string& descri
         std::vector<std::string> params = StringTokenizer(description.substr(description.find('(') + 1, description.find(')')), ',').getVector();
         std::transform(params.begin(), params.end(), myParameter.begin(), TplConvert::_str2double);
         setID(distName);
+    } else {
+        myParameter.push_back(TplConvert::_str2double(description));
+    }
+    assert(!myParameter.empty());
+    if (myParameter.size() == 1) {
+        myParameter.push_back(0.);
     }
 }
 
@@ -61,12 +67,22 @@ Distribution_Parameterized::Distribution_Parameterized(const std::string& id,
 }
 
 
+Distribution_Parameterized::Distribution_Parameterized(const std::string& id,
+    double mean, double deviation, double min, double max)
+    : Distribution(id) {
+    myParameter.push_back(mean);
+    myParameter.push_back(deviation);
+    myParameter.push_back(min);
+    myParameter.push_back(max);
+}
+
+
 Distribution_Parameterized::~Distribution_Parameterized() {}
 
 
 double
 Distribution_Parameterized::sample(MTRand* which) const {
-    if (myParameter.size() == 1) {
+    if (myParameter[1] == 0.) {
         return myParameter[0];
     }
     double val = which == 0 ? RandHelper::randNorm(myParameter[0], myParameter[1]) : which->randNorm(myParameter[0], myParameter[1]);
@@ -83,7 +99,7 @@ Distribution_Parameterized::sample(MTRand* which) const {
 
 double
 Distribution_Parameterized::getMax() const {
-    if (myParameter.size() == 1) {
+    if (myParameter[1] == 0.) {
         return myParameter[0];
     }
     return myParameter.size() > 3 ? myParameter[3] : std::numeric_limits<double>::infinity();
@@ -91,8 +107,8 @@ Distribution_Parameterized::getMax() const {
 
 
 std::string
-Distribution_Parameterized::toStr() const {
-    return myID == "" ? toString(myParameter[0]) : myID + "(" + joinToString(myParameter, ",") + ")";
+Distribution_Parameterized::toStr(std::streamsize accuracy) const {
+    return myParameter[1] == 0. ? toString(myParameter[0]) : myID + "(" + joinToString(myParameter, ",", accuracy) + ")";
 }
 
 

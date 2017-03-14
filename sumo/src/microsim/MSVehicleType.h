@@ -175,7 +175,7 @@ public:
     /** @brief Computes and returns the speed deviation
      * @return A new, random speed deviation
      */
-    double computeChosenSpeedDeviation(MTRand* rng, const double minDevFactor = 0.2) const;
+    double computeChosenSpeedDeviation(MTRand* rng, const double minDev=-1.) const;
 
 
     /** @brief Get the default probability of this vehicle type
@@ -215,16 +215,8 @@ public:
     /** @brief Returns this type's speed factor
      * @return The speed factor of this type
      */
-    double getSpeedFactor() const {
+    const Distribution_Parameterized& getSpeedFactor() const {
         return myParameter.speedFactor;
-    }
-
-
-    /** @brief Returns this type's speed deviation
-     * @return The speed deviation of this type
-     */
-    double getSpeedDeviation() const {
-        return myParameter.speedDev;
     }
 
 

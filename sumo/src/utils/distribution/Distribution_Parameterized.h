@@ -56,6 +56,10 @@ public:
     Distribution_Parameterized(const std::string& id, double mean,
         double deviation);
 
+    /// Constructor for normal distribution with cutoff
+    Distribution_Parameterized(const std::string& id, double mean,
+        double deviation, double min, double max);
+
     /// Destructor
     virtual ~Distribution_Parameterized();
 
@@ -71,8 +75,18 @@ public:
     /// Returns the maximum value of this distribution
     double getMax() const;
 
+    /// Returns the parameters of this distribution
+    std::vector<double>& getParameter() {
+        return myParameter;
+    }
+
+    /// Returns the unmodifiable parameters of this distribution
+    const std::vector<double>& getParameter() const {
+        return myParameter;
+    }
+
     /// Returns the string representation of this distribution
-    std::string toStr() const;
+    std::string toStr(std::streamsize accuracy) const;
 
 private:
     /// The distribution's parameters

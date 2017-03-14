@@ -31,6 +31,7 @@
 
 #include <cassert>
 #include <sstream>
+#include <iomanip>
 #include <utils/common/StdDefs.h>
 #include "Distribution_Points.h"
 
@@ -57,8 +58,9 @@ Distribution_Points::getMax() const {
 
 
 std::string
-Distribution_Points::toStr() const {
+Distribution_Points::toStr(std::streamsize accuracy) const {
     std::stringstream oss;
+    oss << std::setprecision(accuracy);
     const std::vector<double> vals = getVals();
     for (int i = 0; i < (int)vals.size(); i++) {
         if (i > 0) {

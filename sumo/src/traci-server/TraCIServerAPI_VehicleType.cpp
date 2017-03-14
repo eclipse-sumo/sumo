@@ -142,11 +142,11 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType&
             break;
         case VAR_SPEED_FACTOR:
             tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getSpeedFactor());
+            tempMsg.writeDouble(v.getSpeedFactor().getParameter()[0]);
             break;
         case VAR_SPEED_DEVIATION:
             tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getSpeedDeviation());
+            tempMsg.writeDouble(v.getSpeedFactor().getParameter()[1]);
             break;
         case VAR_VEHICLECLASS:
             tempMsg.writeUnsignedByte(TYPE_STRING);

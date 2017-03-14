@@ -68,7 +68,7 @@ public:
     double getMax() const;
 
     /// Returns the string representation of this distribution
-    std::string toStr() const;
+    std::string toStr(std::streamsize accuracy) const;
 };
 
 
