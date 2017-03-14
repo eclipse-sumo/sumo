@@ -328,7 +328,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
         myJunctionGraph[id] = std::make_pair(
                                   attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok),
                                   attrs.get<std::string>(SUMO_ATTR_TO, 0, ok));
-    } else {
+    } else if (id[0] == ':') {
         // must be an internal edge
         std::string junctionID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(id);
         myJunctionGraph[id] = std::make_pair(junctionID, junctionID);
