@@ -237,6 +237,9 @@
         <!-- Switches off all traffic lights. -->
         <tls.all-off value="false" type="BOOL"/>
 
+        <!-- Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth -->
+        <time-to-impatience value="300" type="TIME"/>
+
         <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;] -->
         <pedestrian.model value="striping" type="STR"/>
 

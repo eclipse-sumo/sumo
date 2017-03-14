@@ -3,7 +3,7 @@ impatience_zero
 impatience_0.5
 impatience_1
 
-# tests setting time-to-teleport to 60
+# tests faster impatience growth
 impatience_zero_ttt_60
 
 # disable growing impatience

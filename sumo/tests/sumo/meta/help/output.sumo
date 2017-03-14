@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r22796
+SUMO Version dev-SVN-r23369
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -149,6 +149,10 @@ Processing Options:
   --lanechange.overtake-right          Whether overtaking on the right on
                                          motorways is permitted
   --tls.all-off                        Switches off all traffic lights.
+  --time-to-impatience TIME            Specify how long a vehicle may wait
+                                         until impatience grows from 0 to 1,
+                                         defaults to 300, non-positive values
+                                         disable impatience growth
   --pedestrian.model STR               Select among pedestrian models
                                          ['nonInteracting', 'striping']
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
