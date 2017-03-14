@@ -61,6 +61,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 
 #include "GUISUMOAbstractView.h"
 #include "GUIMainWindow.h"
@@ -424,38 +425,47 @@ GUISUMOAbstractView::showToolTipFor(const GUIGlID id) {
 
 void
 GUISUMOAbstractView::paintGLGrid() {
-    glEnable(GL_DEPTH_TEST);
-    glLineWidth(1);
-    // get multiplication values (2 is the marging)
-    int multXmin = (int)(myChanger->getViewport().xmin() / myVisualizationSettings->gridXSize) - 2;
-    int multYmin = (int)(myChanger->getViewport().ymin() / myVisualizationSettings->gridYSize) - 2;
-    int multXmax = (int)(myChanger->getViewport().xmax() / myVisualizationSettings->gridXSize) + 2;
-    int multYmax = (int)(myChanger->getViewport().ymax() / myVisualizationSettings->gridYSize) + 2;
-    // obtain references
-    double xmin = myVisualizationSettings->gridXSize * multXmin;
-    double ymin = myVisualizationSettings->gridYSize * multYmin;
-    double xmax = myVisualizationSettings->gridXSize * multXmax;
-    double ymax = myVisualizationSettings->gridYSize * multYmax;
-    double xpos = xmin;
-    double ypos = ymin;
-    // move drawing matrix
-    glTranslated(0, 0, .55);
-    glColor3d(0.5, 0.5, 0.5);
-    // draw horizontal lines
-    glBegin(GL_LINES);
-    while (ypos <= ymax) {
-        glVertex2d(xmin, ypos);
-        glVertex2d(xmax, ypos);
-        ypos += myVisualizationSettings->gridYSize;
+    // obtain minimum grid
+    double minimumSizeGrid = (myVisualizationSettings->gridXSize < myVisualizationSettings->gridYSize)? myVisualizationSettings->gridXSize : myVisualizationSettings->gridYSize;
+    
+    double S1 = myVisualizationSettings->scale;
+    double S2 = myVisualizationSettings->addSize.getExaggeration(*myVisualizationSettings);
+    
+    // Check if the distance is enought to draw grid
+    if (myVisualizationSettings->scale * myVisualizationSettings->addSize.getExaggeration(*myVisualizationSettings) >= (25/minimumSizeGrid)) {
+        glEnable(GL_DEPTH_TEST);
+        glLineWidth(1);
+        // get multiplication values (2 is the marging)
+        int multXmin = (int)(myChanger->getViewport().xmin() / myVisualizationSettings->gridXSize) - 2;
+        int multYmin = (int)(myChanger->getViewport().ymin() / myVisualizationSettings->gridYSize) - 2;
+        int multXmax = (int)(myChanger->getViewport().xmax() / myVisualizationSettings->gridXSize) + 2;
+        int multYmax = (int)(myChanger->getViewport().ymax() / myVisualizationSettings->gridYSize) + 2;
+        // obtain references
+        double xmin = myVisualizationSettings->gridXSize * multXmin;
+        double ymin = myVisualizationSettings->gridYSize * multYmin;
+        double xmax = myVisualizationSettings->gridXSize * multXmax;
+        double ymax = myVisualizationSettings->gridYSize * multYmax;
+        double xpos = xmin;
+        double ypos = ymin;
+        // move drawing matrix
+        glTranslated(0, 0, .55);
+        glColor3d(0.5, 0.5, 0.5);
+        // draw horizontal lines
+        glBegin(GL_LINES);
+        while (ypos <= ymax) {
+            glVertex2d(xmin, ypos);
+            glVertex2d(xmax, ypos);
+            ypos += myVisualizationSettings->gridYSize;
+        }
+        // draw vertical lines
+        while (xpos <= xmax) {
+            glVertex2d(xpos, ymin);
+            glVertex2d(xpos, ymax);
+            xpos += myVisualizationSettings->gridXSize;
+        }
+        glEnd();
+        glTranslated(0, 0, -.55);
     }
-    // draw vertical lines
-    while (xpos <= xmax) {
-        glVertex2d(xpos, ymin);
-        glVertex2d(xpos, ymax);
-        xpos += myVisualizationSettings->gridXSize;
-    }
-    glEnd();
-    glTranslated(0, 0, -.55);
 }
 
 
