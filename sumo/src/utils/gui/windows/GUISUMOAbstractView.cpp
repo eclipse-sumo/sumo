@@ -116,8 +116,7 @@ FXIMPLEMENT_ABSTRACT(GUISUMOAbstractView, FXGLCanvas, GUISUMOAbstractViewMap, AR
  * GUISUMOAbstractView - methods
  * ----------------------------------------------------------------------- */
 GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUIGlChildWindow* parent, const SUMORTree& grid, FXGLVisual* glVis, FXGLCanvas* share) :
-    FXGLCanvas(p, glVis, share, p, MID_GLCANVAS,
-               LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0),
+    FXGLCanvas(p, glVis, share, p, MID_GLCANVAS, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0),
     myApp(&app),
     myParent(parent),
     myGrid(&((SUMORTree&)grid)),
@@ -427,27 +426,32 @@ void
 GUISUMOAbstractView::paintGLGrid() {
     glEnable(GL_DEPTH_TEST);
     glLineWidth(1);
-
-    double xmin = myGrid->xmin();
-    double ymin = myGrid->ymin();
-    double ypos = ymin;
+    // get multiplication values (2 is the marging)
+    int multXmin = (int)(myChanger->getViewport().xmin() / myVisualizationSettings->gridXSize) - 2;
+    int multYmin = (int)(myChanger->getViewport().ymin() / myVisualizationSettings->gridYSize) - 2;
+    int multXmax = (int)(myChanger->getViewport().xmax() / myVisualizationSettings->gridXSize) + 2;
+    int multYmax = (int)(myChanger->getViewport().ymax() / myVisualizationSettings->gridYSize) + 2;
+    // obtain references
+    double xmin = myVisualizationSettings->gridXSize * multXmin;
+    double ymin = myVisualizationSettings->gridYSize * multYmin;
+    double xmax = myVisualizationSettings->gridXSize * multXmax;
+    double ymax = myVisualizationSettings->gridYSize * multYmax;
     double xpos = xmin;
-    double xend = myGrid->xmax();
-    double yend = myGrid->ymax();
-
+    double ypos = ymin;
+    // move drawing matrix
     glTranslated(0, 0, .55);
     glColor3d(0.5, 0.5, 0.5);
     // draw horizontal lines
     glBegin(GL_LINES);
-    for (; ypos < yend;) {
+    while (ypos <= ymax) {
         glVertex2d(xmin, ypos);
-        glVertex2d(xend, ypos);
+        glVertex2d(xmax, ypos);
         ypos += myVisualizationSettings->gridYSize;
     }
     // draw vertical lines
-    for (; xpos < xend;) {
+    while (xpos <= xmax) {
         glVertex2d(xpos, ymin);
-        glVertex2d(xpos, yend);
+        glVertex2d(xpos, ymax);
         xpos += myVisualizationSettings->gridXSize;
     }
     glEnd();
