@@ -286,6 +286,9 @@ def createCrossing():
         type(Key.TAB)
     # type enter to create crossing
     type(Key.SPACE)
+    # go back to avoid errors
+    for x in range(0, 8):
+        type(Key.TAB, Key.SHIFT)
 
 # change default int/real/string crossing default value
 def modifyCrossingDefaultValue(numtabs, value):
