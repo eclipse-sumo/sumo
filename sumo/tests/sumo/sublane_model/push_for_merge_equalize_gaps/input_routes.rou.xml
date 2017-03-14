@@ -1,0 +1,11 @@
+<routes>
+    <vType id="t0" vClass="passenger" latAlignment="center" sigma="0" minGapLat="1.0" lcPushy="1.0" lcStrategic="1.0" lcSpeedGain="1.0"/>
+    <vType id="t1" vClass="passenger" latAlignment="center" sigma="0" minGapLat="1.0"/>
+
+    <route id="r0" edges="beg end"/>
+
+    <vehicle id="merge"     type="t0"  route="r0" departSpeed="max" departPos="0"  departLane="0" departPosLat="center" depart="0"/>
+    <vehicle id="blocker1"  type="t1"  route="r0" departSpeed="max" departPos="0"  departLane="1" departPosLat="center" depart="0"/>
+    <vehicle id="blocker2"  type="t1"  route="r0" departSpeed="max" departPos="0"  departLane="2" departPosLat="center" depart="0"/>
+
+</routes>
