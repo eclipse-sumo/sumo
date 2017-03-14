@@ -158,15 +158,8 @@ Warning: Found sharp turn with radius 1.08 at the end of edge '88462837'.
 Warning: Found sharp turn with radius 5.62 at the end of edge '88462843'.
 Warning: Found sharp turn with radius 0.83 at the start of edge '88462848'.
 Warning: Found sharp turn with radius 2.54 at the start of edge '88462862'.
-Warning: Shape for junction '196721246' has distance 41.43 to its given position
-Warning: Shape for junction '2071374815' has distance 33.58 to its given position
-Warning: Shape for junction '2071374842' has distance 23.60 to its given position
-Warning: Shape for junction '2071374916' has distance 34.53 to its given position
-Warning: Shape for junction '2095738463' has distance 21.78 to its given position
-Warning: Shape for junction '29805117' has distance 34.84 to its given position
-Warning: Shape for junction '30731520' has distance 20.71 to its given position
-Warning: Shape for junction '3091127668' has distance 24.80 to its given position
-Warning: Shape for junction '588181284' has distance 25.38 to its given position
+Warning: Discarding invalid crossing ':341340973_c0' at junction '341340973' with edges '24915060#0'.
+Warning: Discarding invalid crossing ':cluster_262467975_3180211038_3182192539_c0' at junction 'cluster_262467975_3180211038_3182192539' with edges '48923244'.
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '1615477665' does not have any roads.
 Warning: The rail crossing '1673527106' does not have any roads.
@@ -196,6 +189,7 @@ Warning: The rail crossing '506357654' does not have any roads.
 Warning: The rail crossing '506357655' does not have any roads.
 Warning: The rail crossing '997027037' does not have any roads.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
+Warning: Connection '19801644#1_1->311690284_2' is only 0.04 short.
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
@@ -356,16 +350,6 @@ Warning: Found sharp turn with radius 1.08 at the end of edge '88462837'.
 Warning: Found sharp turn with radius 5.62 at the end of edge '88462843'.
 Warning: Found sharp turn with radius 0.83 at the start of edge '88462848'.
 Warning: Found sharp turn with radius 2.54 at the start of edge '88462862'.
-Warning: Shape for junction '196721246' has distance 41.43 to its given position
-Warning: Shape for junction '2071374815' has distance 33.58 to its given position
-Warning: Shape for junction '2071374842' has distance 23.60 to its given position
-Warning: Shape for junction '2071374916' has distance 34.53 to its given position
-Warning: Shape for junction '2095738463' has distance 21.78 to its given position
-Warning: Shape for junction '29805117' has distance 34.84 to its given position
-Warning: Shape for junction '30731520' has distance 20.71 to its given position
-Warning: Shape for junction '3091127668' has distance 24.80 to its given position
-Warning: Shape for junction '588181284' has distance 25.38 to its given position
-Warning: Discarding invalid crossing ':1350637319_c1' at junction '1350637319' with edges '-195397561#5'.
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '1615477665' does not have any roads.
 Warning: The rail crossing '1673527106' does not have any roads.
@@ -395,3 +379,4 @@ Warning: The rail crossing '506357654' does not have any roads.
 Warning: The rail crossing '506357655' does not have any roads.
 Warning: The rail crossing '997027037' does not have any roads.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
+Warning: Connection '19801644#1_1->311690284_2' is only 0.04 short.
