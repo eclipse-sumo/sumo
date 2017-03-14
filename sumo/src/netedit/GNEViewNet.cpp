@@ -423,8 +423,12 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // draw decals (if not in grabbing mode)
     if (!myUseToolTips) {
         drawDecals();
+        // depending of the visualizationSettings, enable or disable check box show grid
         if (myVisualizationSettings->showGrid) {
+            myShowGrid->setCheck(true);
             paintGLGrid();
+        } else {
+            myShowGrid->setCheck(false);
         }
         if (myTestingMode) {
             if (myTestingWidth > 0 && (getWidth() != myTestingWidth || getHeight() != myTestingHeight)) {
