@@ -28,10 +28,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
-
 #include <utils/foxtools/FXLinkLabel.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/images/GUIIconSubSys.h>
