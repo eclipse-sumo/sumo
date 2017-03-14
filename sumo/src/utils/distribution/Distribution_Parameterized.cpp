@@ -46,7 +46,8 @@ Distribution_Parameterized::Distribution_Parameterized(const std::string& descri
     : Distribution("") {
     const std::string distName = description.substr(0, description.find('('));
     if (distName == "norm" || distName == "normc") {
-        std::vector<std::string> params = StringTokenizer(description.substr(description.find('(') + 1, description.find(')')), ',').getVector();
+        std::vector<std::string> params = StringTokenizer(description.substr(distName.size() + 1, description.size() - distName.size() - 2), ',').getVector();
+        myParameter.resize(params.size());
         std::transform(params.begin(), params.end(), myParameter.begin(), TplConvert::_str2double);
         setID(distName);
     } else {
