@@ -28,5 +28,8 @@ speed_basic
 # tests the effect of using speedDev > 0
 speedDev
 
+# tests the effect of using speedFactor distributions
+speedFactorNormc
+
 # testing for error messages
 errors
