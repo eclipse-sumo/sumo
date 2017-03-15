@@ -78,6 +78,9 @@
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Junction.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Route.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\traci-server\TraCIConstants.h">
@@ -147,6 +150,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Junction.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Route.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
