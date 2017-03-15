@@ -27,7 +27,7 @@
         <xsd:attribute name="minGap" type="nonNegativeFloatType"/>
         <xsd:attribute name="maxSpeed" type="positiveFloatType"/>
         <xsd:attribute name="probability" type="nonNegativeFloatType"/>
-        <xsd:attribute name="speedFactor" type="positiveFloatType"/>
+        <xsd:attribute name="speedFactor" type="nonNegativeDistributionType"/>
         <xsd:attribute name="speedDev" type="nonNegativeFloatType"/>
         <xsd:attribute name="vClass" type="xsd:string"/>
         <xsd:attribute name="emissionClass" type="xsd:string"/>

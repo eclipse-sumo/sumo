@@ -30,6 +30,16 @@
         </xsd:union>
     </xsd:simpleType>
 
+    <xsd:simpleType name="nonNegativeDistributionType">
+        <xsd:union memberTypes="nonNegativeFloatType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="norm|normc\(&FloatPattern;,&FloatPattern;(,&FloatPattern;(,&FloatPattern;)?)?\)"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
+
     <xsd:simpleType name="positiveIntType">
         <xsd:restriction base="xsd:int">
             <xsd:minExclusive value="0"/>
