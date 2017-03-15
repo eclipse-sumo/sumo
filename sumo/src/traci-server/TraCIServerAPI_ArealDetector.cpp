@@ -80,11 +80,13 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
     try {
         switch (variable) {
             case ID_LIST:
-                    tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                    tempMsg.writeStringList(TraCI_LaneAreaDetector::getIDList());
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                tempMsg.writeStringList(TraCI_LaneAreaDetector::getIDList());
+                break;
             case ID_COUNT:
-                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                    tempMsg.writeInt(TraCI_LaneAreaDetector::getIDCount());
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(TraCI_LaneAreaDetector::getIDCount());
+                break;
             case LAST_STEP_VEHICLE_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt(TraCI_LaneAreaDetector::getLastStepVehicleNumber(id));
