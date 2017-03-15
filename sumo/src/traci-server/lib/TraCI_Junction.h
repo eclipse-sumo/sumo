@@ -65,10 +65,9 @@ public:
 
     static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
     static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
-
-private:
     static MSJunction* getJunction(const std::string& id);
 
+private:
     /// @brief invalidated standard constructor
     TraCI_Junction();
 
