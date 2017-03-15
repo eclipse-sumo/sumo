@@ -40,18 +40,19 @@
 // ===========================================================================
 // member definitions
 // ===========================================================================
+
 VehiclentOfInterest* getVehicle(const std::string& id) {
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
     if (sumoVehicle == 0) {
-        return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Vehicle '" + id + "' is not known", outputStorage);
+        throw TraCIException("Vehicle '" + id + "' is not known");
     }
     MSVehicle* v = dynamic_cast<MSVehicle*>(sumoVehicle);
     if (v == 0) {
-        return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Vehicle '" + id + "' is not a micro-simulation vehicle", outputStorage);
+        throw TraCIException("Vehicle '" + id +  "' is not a micro-simulation vehicle");
     }
-    const bool onRoad = v->isOnRoad();
-    const bool visible = onRoad || v->isParking();
+    return v;
 }
+
 
 bool 
 isVisible(const MSVehicle* veh) {
@@ -77,6 +78,7 @@ getIDCount() {
 
 double
 getSpeed(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getSpeed();
 }
 
 double

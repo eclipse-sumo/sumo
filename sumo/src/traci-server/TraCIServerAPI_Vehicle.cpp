@@ -118,18 +118,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     // process request
-    if (variable == ID_LIST || variable == ID_COUNT) {
-    } else {
-        SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
-        if (sumoVehicle == 0) {
-            return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Vehicle '" + id + "' is not known", outputStorage);
-        }
-        MSVehicle* v = dynamic_cast<MSVehicle*>(sumoVehicle);
-        if (v == 0) {
-            return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Vehicle '" + id + "' is not a micro-simulation vehicle", outputStorage);
-        }
-        const bool onRoad = v->isOnRoad();
-        const bool visible = onRoad || v->isParking();
+    try {
         switch (variable) {
             case ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
@@ -504,6 +493,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 TraCIServerAPI_VehicleType::getVariable(variable, v->getVehicleType(), tempMsg);
                 break;
         }
+    } catch (TraCIException& e) {
+        return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);
