@@ -48,7 +48,7 @@
 // ===========================================================================
 
 MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
-                                     double chargingPower, double efficency, bool chargeInTransit, int chargeDelay) :
+    double chargingPower, double efficency, bool chargeInTransit, int chargeDelay) :
     MSStoppingPlace(chargingStationID, std::vector<std::string>(), lane, startPos, endPos),
     myChargingPower(0),
     myEfficiency(0),
@@ -56,25 +56,25 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
     myChargeDelay(0),
     myChargingVehicle(false) {
     if (chargingPower < 0)
-        WRITE_WARNING("Parameter 'charging power' for Charging Station with ID = " + getID() + " is invalid (" + TplConvert::_2str(getChargingPower()) + ").")
+        WRITE_WARNING("Parameter " + toString(SUMO_ATTR_CHARGINGPOWER) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " is invalid (" + toString(getChargingPower()) + ").")
         else {
             myChargingPower = chargingPower;
         }
 
-    if (efficency < 0 || efficency > 1)
-        WRITE_WARNING("Parameter 'efficiency' for Charging Station with ID = " + getID() + " is invalid (" + TplConvert::_2str(getEfficency()) + ").")
-        else {
-            myEfficiency = efficency;
-        }
+    if (efficency < 0 || efficency > 1) {
+        WRITE_WARNING("Parameter " + toString(SUMO_ATTR_EFFICIENCY) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " is invalid (" + toString(getEfficency()) + ").")
+    } else {
+        myEfficiency = efficency;
+    }
 
-    if (chargeDelay < 0)
-        WRITE_WARNING("Parameter 'charge delay' for Charging Station with ID = " + getID() + " is invalid (" + TplConvert::_2str(getEfficency()) + ").")
-        else {
-            myChargeDelay = chargeDelay;
-        }
+    if (chargeDelay < 0) {
+        WRITE_WARNING("Parameter " + toString(SUMO_ATTR_CHARGEDELAY) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " is invalid (" + toString(getEfficency()) + ").")
+    } else {
+        myChargeDelay = chargeDelay;
+    }
 
     if (getBeginLanePosition() > getEndLanePosition()) {
-        WRITE_WARNING("Charging Station with ID = " + getID() + " don't have a valid range (" + TplConvert::_2str(getBeginLanePosition()) + " < " + TplConvert::_2str(getEndLanePosition()) + ").");
+        WRITE_WARNING(toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " doesn't have a valid range (" + toString(getBeginLanePosition()) + " < " + toString(getEndLanePosition()) + ").");
     }
 }
 
@@ -109,21 +109,21 @@ MSChargingStation::getChargeDelay() const {
 
 void
 MSChargingStation::setChargingPower(double chargingPower) {
-    if (chargingPower < 0)
-        WRITE_WARNING("new charging power for Chargin Station with ID = " + getID() + " not valid (" + TplConvert::_2str(chargingPower) + ").")
-        else {
-            myChargingPower = chargingPower;
-        }
+    if (chargingPower < 0) {
+        WRITE_WARNING("New " + toString(SUMO_ATTR_CHARGINGPOWER) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " isn't valid (" + toString(chargingPower) + ").")
+    } else {
+        myChargingPower = chargingPower;
+    }
 }
 
 
 void
 MSChargingStation::setEfficency(double efficency) {
-    if (efficency < 0 || efficency > 1)
-        WRITE_WARNING("new efficiency for Chargin Station with ID = " + getID() + " not valid (" + TplConvert::_2str(efficency) + ").")
-        else {
-            myEfficiency = efficency;
-        }
+    if (efficency < 0 || efficency > 1) {
+        WRITE_WARNING("New " + toString(SUMO_ATTR_EFFICIENCY) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " isn't valid (" + toString(efficency) + ").")
+    } else {
+        myEfficiency = efficency;
+    }
 }
 
 
@@ -135,11 +135,11 @@ MSChargingStation::setChargeInTransit(bool chargeInTransit) {
 
 void
 MSChargingStation::setChargeDelay(int chargeDelay) {
-    if (chargeDelay < 0)
-        WRITE_WARNING("new charge delay for Chargin Station with ID = " + getID() + " not valid (" + TplConvert::_2str(chargeDelay) + ").")
-        else {
-            myChargeDelay = chargeDelay;
-        }
+    if (chargeDelay < 0) {
+        WRITE_WARNING("New " + toString(SUMO_ATTR_CHARGEDELAY) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " isn't valid (" + toString(chargeDelay) + ").")
+    } else {
+        myChargeDelay = chargeDelay;
+    }
 }
 
 
