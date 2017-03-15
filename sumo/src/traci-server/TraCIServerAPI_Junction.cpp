@@ -108,7 +108,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
 
 bool
 TraCIServerAPI_Junction::getPosition(const std::string& id, Position& p) {
-    MSJunction* j = MSNet::getInstance()->getJunctionControl().get(id);
+    MSJunction* j = TraCI_Junction::getJunction(id);
     if (j == 0) {
         return false;
     }
