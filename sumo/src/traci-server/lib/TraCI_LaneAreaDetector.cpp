@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCI_ArealDetector.h
+/// @file    TraCI_LaneAreaDetector.h
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
@@ -33,7 +33,7 @@
 
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSNet.h>
-#include "TraCI_ArealDetector.h"
+#include "TraCI_LaneAreaDetector.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -44,10 +44,62 @@
 // member definitions
 // ===========================================================================
 std::vector<std::string>
-TraCI_ArealDetector::getIDList() {
+TraCI_LaneAreaDetector::getIDList() {
     std::vector<std::string> ids;
     MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).insertIDs(ids);
     return ids;
+}
+
+
+int
+TraCI_LaneAreaDetector::getIDCount() {
+    std::vector<std::string> ids;
+    return (int)MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).size();
+}
+
+
+int
+TraCI_LaneAreaDetector::getJamLengthVehicle(const std::string& detID) {
+}
+
+
+double
+TraCI_LaneAreaDetector::getJamLengthMeters(const std::string& detID) {
+}
+
+
+double
+TraCI_LaneAreaDetector::getLastStepMeanSpeed(const std::string& detID) {
+}
+
+
+std::vector<std::string>
+TraCI_LaneAreaDetector::getLastStepVehicleIDs(const std::string& detID) {
+}
+
+
+double
+TraCI_LaneAreaDetector::getLastStepOccupancy(const std::string& detID) {
+}
+
+
+double
+TraCI_LaneAreaDetector::getPosition(const std::string& detID) {
+}
+
+
+std::string
+TraCI_LaneAreaDetector::getLaneID(const std::string& detID) {
+}
+
+
+double
+TraCI_LaneAreaDetector::getLength(const std::string& detID) {
+}
+
+
+int
+TraCI_LaneAreaDetector::getLastStepVehicleNumber(const std::string& detID) {
 }
 
 

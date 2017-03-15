@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCI_ArealDetector.h
+/// @file    TraCI_LaneAreaDetector.h
 /// @author  Michael Behrisch
 /// @date    15.03.2017
 /// @version $Id$
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef TraCI_ArealDetector_h
-#define TraCI_ArealDetector_h
+#ifndef TraCI_LaneAreaDetector_h
+#define TraCI_LaneAreaDetector_h
 
 
 // ===========================================================================
@@ -37,24 +37,34 @@
 // class definitions
 // ===========================================================================
 /**
- * @class TraCI_ArealDetector
+ * @class TraCI_LaneAreaDetector
  * @brief C++ TraCI client API implementation
  */
-class TraCI_ArealDetector {
+class TraCI_LaneAreaDetector {
 public:
     static std::vector<std::string> getIDList();
-    static int getJamLengthVehicle(const std::string& laneID);
-    static double getJamLengthMeters(const std::string& laneID);
+    static int getIDCount();
+    static int getJamLengthVehicle(const std::string& detID);
+    static double getJamLengthMeters(const std::string& detID);
+    static double getLastStepMeanSpeed(const std::string& detID);
+    static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
+    static double getLastStepOccupancy(const std::string& detID);
+    static double getPosition(const std::string& detID);
+    static std::string getLaneID(const std::string& detID);
+    static double getLength(const std::string& detID);
+    static int getLastStepVehicleNumber(const std::string& detID);
 
 private:
+    static getDetector();
+
     /// @brief invalidated standard constructor
-    TraCI_ArealDetector();
+    TraCI_LaneAreaDetector();
 
     /// @brief invalidated copy constructor
-    TraCI_ArealDetector(const TraCI_ArealDetector& src);
+    TraCI_LaneAreaDetector(const TraCI_LaneAreaDetector& src);
 
     /// @brief invalidated assignment operator
-    TraCI_ArealDetector& operator=(const TraCI_ArealDetector& src);
+    TraCI_LaneAreaDetector& operator=(const TraCI_LaneAreaDetector& src);
 
 };
 
