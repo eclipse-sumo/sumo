@@ -35,6 +35,7 @@ sumo_unittest_LDADD   = \
 $(GUI_TESTS) \
 ../../src/netbuild/libnetbuild.a \
 ../../src/traci-server/libtraciserver.a \
+../../src/traci-server/lib/libtraci.a \
 ../../src/microsim/libmicrosim.a \
 ../../src/traci-server/TraCIServer.o \
 ../../src/microsim/devices/libmicrosimdevs.a \
