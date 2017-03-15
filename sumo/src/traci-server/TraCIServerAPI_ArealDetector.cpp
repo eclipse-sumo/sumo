@@ -36,6 +36,7 @@
 #include <microsim/output/MSDetectorControl.h>
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
+#include "lib/TraCI_LaneAreaDetector.h"
 #include "TraCIServerAPI_ArealDetector.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -77,14 +78,12 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
     tempMsg.writeString(id);
     if (variable == ID_LIST) {
         std::vector<std::string> ids;
-        MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
+        tempMsg.writeStringList(TraCI_LaneAreaDetector::getIDList());
     } else if (variable == ID_COUNT) {
         std::vector<std::string> ids;
-        MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt((int) ids.size());
+        tempMsg.writeInt(TraCI_LaneAreaDetector::getIDCount());
     } else {
         MSE2Collector* e2 = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(id));
         if (e2 == 0) {
@@ -92,8 +91,6 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
         }
         std::vector<std::string> ids;
         switch (variable) {
-            case ID_LIST:
-                break;
             case LAST_STEP_VEHICLE_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt((int) e2->getCurrentVehicleNumber());

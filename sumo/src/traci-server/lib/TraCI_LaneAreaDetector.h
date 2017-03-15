@@ -55,7 +55,7 @@ public:
     static int getLastStepVehicleNumber(const std::string& detID);
 
 private:
-    static getDetector();
+//    static getDetector();
 
     /// @brief invalidated standard constructor
     TraCI_LaneAreaDetector();
