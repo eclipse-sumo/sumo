@@ -30,6 +30,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSNet.h>
 #include <traci-server/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 #include "TraCI_Vehicle.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -78,16 +79,32 @@ getIDCount() {
 
 double
 getSpeed(const std::string& vehicleID) {
-    return getVehicle(vehicleID)->getSpeed();
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getSpeed() : INVALID_DOUBLE_VALUE;
 }
 
+
 double
-getMaxSpeed(const std::string& vehicleID) {
+getSpeedWithoutTraCI(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getSpeedWithoutTraciInfluence() : INVALID_DOUBLE_VALUE;
 }
+
 
 TraCIPosition
 getPosition(const std::string& vehicleID) {
+    TraCIPosition result;
+    MSVehicle* veh = getVehicle(vehicleID);
+    if (isVisible(veh)) {
+        result.x = veh.getPosition().x();
+        result.y = veh.getPosition().y();
+    } else {
+        result.x = INVALID_DOUBLE_VALUE;
+        result.y = INVALID_DOUBLE_VALUE;
+    }
+    return result;
 }
+
 
 double
 getAngle(const std::string& vehicleID) {
@@ -270,6 +287,11 @@ getMinGap(const std::string& vehicleID) {
 }
 
 double
+getMaxSpeed(const std::string& vehicleID) {
+}
+
+
+double
 getWidth(const std::string& vehicleID) {
 }
 
@@ -313,7 +335,7 @@ setMaxSpeed(const std::string& vehicleID, double speed) {
 }
 
 void
-remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED) {
+remove(const std::string& vehicleID, char reason) {
 }
 
 void

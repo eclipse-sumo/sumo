@@ -119,6 +119,9 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
     tempMsg.writeString(id);
     // process request
     try {
+        bool visible = true; // XXX fix compile
+        bool onRoad = true; // XXX fix compile
+        MSVehicle* v = 0; // XXX fix compile
         switch (variable) {
             case ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
@@ -129,17 +132,19 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeInt(TraCI_Vehicle::getIDCount());
             case VAR_SPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(visible ? v->getSpeed() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getSpeed(id));
                 break;
             case VAR_SPEED_WITHOUT_TRACI:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(visible ? v->getSpeedWithoutTraciInfluence() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getSpeedWithoutTraCI(id));
                 break;
-            case VAR_POSITION:
+            case VAR_POSITION: {
                 tempMsg.writeUnsignedByte(POSITION_2D);
-                tempMsg.writeDouble(visible ? v->getPosition().x() : INVALID_DOUBLE_VALUE);
-                tempMsg.writeDouble(visible ? v->getPosition().y() : INVALID_DOUBLE_VALUE);
+                TraCIPosition pos = TraCI_Vehicle::getPosition(id);
+                tempMsg.writeDouble(pos.x);
+                tempMsg.writeDouble(pos.y);
                 break;
+            }
             case VAR_POSITION3D:
                 tempMsg.writeUnsignedByte(POSITION_3D);
                 tempMsg.writeDouble(visible ? v->getPosition().x() : INVALID_DOUBLE_VALUE);

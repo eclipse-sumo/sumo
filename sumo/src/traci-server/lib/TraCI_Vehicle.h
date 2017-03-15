@@ -33,6 +33,7 @@
 
 #include <vector>
 #include <traci-server/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 
 
 // ===========================================================================
@@ -69,8 +70,9 @@ public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
     static double getSpeed(const std::string& vehicleID);
-    static double getMaxSpeed(const std::string& vehicleID);
+    static double getSpeedWithoutTraCI(const std::string& vehicleID);
     static TraCIPosition getPosition(const std::string& vehicleID);
+    static TraCIPosition getPosition3D(const std::string& vehicleID);
     static double getAngle(const std::string& vehicleID);
     static std::string getRoadID(const std::string& vehicleID);
     static std::string getLaneID(const std::string& vehicleID);
@@ -98,13 +100,6 @@ public:
     static std::vector<std::string> getVia(const std::string& vehicleID);
     static std::string getEmissionClass(const std::string& vehicleID);
     static std::string getShapeClass(const std::string& vehicleID);
-    static double getCO2Emissions(const std::string& vehicleID);
-    static double getCOEmissions(const std::string& vehicleID);
-    static double getHCEmissions(const std::string& vehicleID);
-    static double getPMxEmissions(const std::string& vehicleID);
-    static double getNOxEmissions(const std::string& vehicleID);
-    static double getFuelConsumption(const std::string& vehicleID);
-    static double getNoiseEmission(const std::string& vehicleID);
     static int getBestLanes(const std::string& vehicleID);
     static int getStopState(const std::string& vehicleID);
     static double getLength(const std::string& vehicleID);
@@ -116,6 +111,7 @@ public:
     static double getSpeedDeviation(const std::string& vehicleID);
     static std::string getVClass(const std::string& vehicleID);
     static double getMinGap(const std::string& vehicleID);
+    static double getMaxSpeed(const std::string& vehicleID);
     static double getWidth(const std::string& vehicleID);
     /// @}
 
