@@ -6,3 +6,6 @@ half_equipped
 
 # Vehicle taking different chargingStations and busstops, every with a different configuration 
 chargingStations
+
+# Vehicle with a different stoppingTreshold taking different chargingStations, every with a different configuration 
+stoppingTreshold
