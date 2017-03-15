@@ -238,80 +238,61 @@ public:
     void increaseVehicleStoppedTimer();
 
 protected:
-    /// @brief Parameter, The actual vehicles's Battery Capacity in kWh
-    /// @condition [myActualBatteryCapacity <= myMaximumBatteryCapacity]
+    /// @brief Parameter, The actual vehicles's Battery Capacity in kWh, [myActualBatteryCapacity <= myMaximumBatteryCapacity]
     double myActualBatteryCapacity;
 
-    /// @brief Parameter, The total vehicles's Battery Capacity in kWh
-    /// @condition [myMaximumBatteryCapacity >= 0]
+    /// @brief Parameter, The total vehicles's Battery Capacity in kWh, [myMaximumBatteryCapacity >= 0]
     double myMaximumBatteryCapacity;
 
-    /// @brief Parameter, The Maximum Power when accelerating
-    /// @condition [myPowerMax >= 0]
+    /// @brief Parameter, The Maximum Power when accelerating, [myPowerMax >= 0]
     double myPowerMax;
 
-    /// @brief Parameter, Vehicle's myMass
-    /// @condition [myMass >= 0]
+    /// @brief Parameter, Vehicle's myMass, [myMass >= 0]
     double myMass;
 
-    /// @brief Parameter, Vehicle's front surface Area
-    /// @condition [myFrontSurfaceArea >= 0]
+    /// @brief Parameter, Vehicle's front surface Area, [myFrontSurfaceArea >= 0]
     double myFrontSurfaceArea;
 
-    /// @brief Parameter, Vehicle's drag coefficient
-    /// @condition [myAirDragCoefficient >=0]
+    /// @brief Parameter, Vehicle's drag coefficient, [myAirDragCoefficient >=0]
     double myAirDragCoefficient;
 
-    /// @brief Parameter, Vehicle's internal moment of inertia
-    /// @condition [myInternalMomentOfInertia >= 0]
+    /// @brief Parameter, Vehicle's internal moment of inertia, [myInternalMomentOfInertia >= 0]
     double myInternalMomentOfInertia;
 
-    /// @brief Parameter, Vehicle's radial friction coefficient
-    /// @condition [myRadialDragCoefficient >=0]
+    /// @brief Parameter, Vehicle's radial friction coefficient, [myRadialDragCoefficient >=0]
     double myRadialDragCoefficient;
 
-    /// @brief Parameter, Vehicle's roll friction coefficient
-    /// @condition [myRollDragCoefficient >= 0]
+    /// @brief Parameter, Vehicle's roll friction coefficient, [myRollDragCoefficient >= 0]
     double myRollDragCoefficient;
 
-    /// @brief Parameter, Vehicle's constant power intake
-    /// @condition [myConstantPowerIntake >= 0]
+    /// @brief Parameter, Vehicle's constant power intake, [myConstantPowerIntake >= 0]
     double myConstantPowerIntake;
 
-    /// @brief Parameter, Vehicle's propulsion efficiency
-    /// @condition [1 >= myPropulsionEfficiency >= 0]
+    /// @brief Parameter, Vehicle's propulsion efficiency, [1 >= myPropulsionEfficiency >= 0]
     double myPropulsionEfficiency;
 
-    /// @brief Parameter, Vehicle's recuparation efficiency
-    /// @condition [1 >= myRecuperationEfficiency >= 0]
+    /// @brief Parameter, Vehicle's recuparation efficiency, [1 >= myRecuperationEfficiency >= 0]
     double myRecuperationEfficiency;
 
     /// @brief Parameter, Vehicle's last angle
-    /// @condition none
     double myLastAngle;
 
     /// @brief Parameter, Vehicle's last energy
-    /// @condition none
     double myLastEnergy;
 
-    /// @brief Parameter, Flag: Vehicles it's charging stopped
-    /// @condition by default is false.
+    /// @brief Parameter, Flag: Vehicles it's charging stopped (by default is false)
     bool myChargingStopped;
 
-    /// @brief Parameter, Flag: Vehicles it's charging in transit
-    /// @condition by default is false.
+    /// @brief Parameter, Flag: Vehicles it's charging in transit (by default is false)
     bool myChargingInTransit;
 
     /// @brief Parameter, Moment, wich the vehicle has beging to charging
-    /// @condition none
     double myChargingStartTime;
 
-    /// @brief Parameter, Vehicle consum during a time step
-    /// @condition by default is 0.
+    /// @brief Parameter, Vehicle consum during a time step (by default is 0.)
     double myConsum;
 
-    /// @brief Parameter, Pointer to current charging station in which vehicle is placed
-    /// @condition by default is NULL.
+    /// @brief Parameter, Pointer to current charging station in which vehicle is placed (by default is NULL)
     MSChargingStation* myActChargingStation;
 
     /// @brief Parameter, Energy charged in each timestep
