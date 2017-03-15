@@ -32,6 +32,7 @@
 #endif
 
 #include <microsim/output/MSDetectorControl.h>
+#include <microsim/output/MSE2Collector.h>
 #include <microsim/MSNet.h>
 #include <traci-server/TraCIDefs.h>
 #include "TraCI_LaneAreaDetector.h"
