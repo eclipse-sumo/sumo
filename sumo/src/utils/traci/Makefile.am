@@ -1,3 +1,3 @@
-noinst_LIBRARIES = libtraci.a
+noinst_LIBRARIES = libtraciclient.a
 
-libtraci_a_SOURCES = TraCIAPI.cpp TraCIAPI.h
+libtraciclient_a_SOURCES = TraCIAPI.cpp TraCIAPI.h
