@@ -35,6 +35,7 @@
 
 #include <microsim/output/MSDetectorControl.h>
 #include "TraCIConstants.h"
+#include "TraCIDefs.h"
 #include "TraCIServer.h"
 #include "lib/TraCI_LaneAreaDetector.h"
 #include "TraCIServerAPI_ArealDetector.h"
@@ -76,65 +77,59 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
     tempMsg.writeUnsignedByte(RESPONSE_GET_AREAL_DETECTOR_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
-    if (variable == ID_LIST) {
-        std::vector<std::string> ids;
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(TraCI_LaneAreaDetector::getIDList());
-    } else if (variable == ID_COUNT) {
-        std::vector<std::string> ids;
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt(TraCI_LaneAreaDetector::getIDCount());
-    } else {
-        MSE2Collector* e2 = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(id));
-        if (e2 == 0) {
-            return server.writeErrorStatusCmd(CMD_GET_AREAL_DETECTOR_VARIABLE, "Areal detector '" + id + "' is not known", outputStorage);
-        }
-        std::vector<std::string> ids;
+    try {
         switch (variable) {
+            case ID_LIST:
+                    tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                    tempMsg.writeStringList(TraCI_LaneAreaDetector::getIDList());
+            case ID_COUNT:
+                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                    tempMsg.writeInt(TraCI_LaneAreaDetector::getIDCount());
             case LAST_STEP_VEHICLE_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int) e2->getCurrentVehicleNumber());
+                tempMsg.writeInt(TraCI_LaneAreaDetector::getLastStepVehicleNumber(id));
                 break;
             case LAST_STEP_MEAN_SPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(e2->getCurrentMeanSpeed());
+                tempMsg.writeDouble(TraCI_LaneAreaDetector::getLastStepMeanSpeed(id));
                 break;
             case LAST_STEP_VEHICLE_ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                ids = e2->getCurrentVehicleIDs();
-                tempMsg.writeStringList(ids);
+                tempMsg.writeStringList(TraCI_LaneAreaDetector::getLastStepVehicleIDs(id));
                 break;
             case LAST_STEP_VEHICLE_HALTING_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(e2->getCurrentHaltingNumber());
+                tempMsg.writeInt(TraCI_LaneAreaDetector::getLastStepHaltingNumber(id));
                 break;
             case JAM_LENGTH_VEHICLE:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int) e2->getCurrentJamLengthInVehicles());
+                tempMsg.writeInt(TraCI_LaneAreaDetector::getJamLengthVehicle(id));
                 break;
             case JAM_LENGTH_METERS:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(e2->getCurrentJamLengthInMeters());
+                tempMsg.writeDouble(TraCI_LaneAreaDetector::getJamLengthMeters(id));
                 break;
             case LAST_STEP_OCCUPANCY:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(e2->getCurrentOccupancy());
+                tempMsg.writeDouble(TraCI_LaneAreaDetector::getLastStepOccupancy(id));
                 break;
             case VAR_POSITION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(e2->getStartPos());
+                tempMsg.writeDouble(TraCI_LaneAreaDetector::getPosition(id));
                 break;
             case VAR_LANE_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(e2->getLane()->getID());
+                tempMsg.writeString(TraCI_LaneAreaDetector::getLaneID(id));
                 break;
             case VAR_LENGTH:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(e2->getEndPos() - e2->getStartPos());
+                tempMsg.writeDouble(TraCI_LaneAreaDetector::getLength(id));
                 break;
             default:
                 break;
         }
+    } catch (TraCIException& e) {
+            return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_AREAL_DETECTOR_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);

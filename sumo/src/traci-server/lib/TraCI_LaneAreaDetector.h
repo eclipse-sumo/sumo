@@ -34,6 +34,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class MSE2Collector;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -53,9 +59,10 @@ public:
     static std::string getLaneID(const std::string& detID);
     static double getLength(const std::string& detID);
     static int getLastStepVehicleNumber(const std::string& detID);
+    static int getLastStepHaltingNumber(const std::string& detID);
 
 private:
-//    static getDetector();
+    static MSE2Collector* getDetector(const std::string& detID);
 
     /// @brief invalidated standard constructor
     TraCI_LaneAreaDetector();

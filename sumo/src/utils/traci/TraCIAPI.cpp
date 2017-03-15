@@ -53,7 +53,7 @@ const double TraCIAPI::DEPART_NOW = -3;
 #endif
 TraCIAPI::TraCIAPI()
     : edge(*this), gui(*this), inductionloop(*this),
-      junction(*this), lane(*this), multientryexit(*this), poi(*this),
+      junction(*this), lane(*this), lanearea(*this), multientryexit(*this), poi(*this),
       polygon(*this), route(*this), simulation(*this), trafficlights(*this),
       vehicletype(*this), vehicle(*this), person(*this),
       mySocket(0) {}
@@ -1080,10 +1080,10 @@ TraCIAPI::LaneScope::setLength(const std::string& laneID, double length) const {
 
 
 // ---------------------------------------------------------------------------
-// TraCIAPI::AreaDetector-methods
+// TraCIAPI::LaneAreaDetector-methods
 // ---------------------------------------------------------------------------
 std::vector<std::string>
-TraCIAPI::AreaScope::getIDList() const {
+TraCIAPI::LaneAreaScope::getIDList() const {
     return myParent.getStringVector(CMD_GET_AREAL_DETECTOR_VARIABLE, ID_LIST, "");
 }
 

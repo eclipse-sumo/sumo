@@ -421,24 +421,22 @@ public:
     };
 
 
-    /** @class AreaScope
-    * @brief Scope for interaction with areal detectors
+    /** @class LaneAreaScope
+    * @brief Scope for interaction with lane area detectors
     */
-    class AreaScope : public TraCIScopeWrapper {
+    class LaneAreaScope : public TraCIScopeWrapper {
     public:
-        AreaScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
-        virtual ~AreaScope() {}
+        LaneAreaScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
+        virtual ~LaneAreaScope() {}
 
         std::vector<std::string> getIDList() const;
-        int getJamLengthVehicle(const std::string& laneID) const;
-        double getJamLengthMeters(const std::string& laneID) const;
 
     private:
         /// @brief invalidated copy constructor
-        AreaScope(const AreaScope& src);
+        LaneAreaScope(const LaneAreaScope& src);
 
         /// @brief invalidated assignment operator
-        AreaScope& operator=(const AreaScope& src);
+        LaneAreaScope& operator=(const LaneAreaScope& src);
 
     };
 
@@ -869,8 +867,12 @@ public:
     JunctionScope junction;
     /// @brief Scope for interaction with lanes
     LaneScope lane;
+    /// @brief Scope for interaction with lanes
+    LaneAreaScope lanearea;
     /// @brief Scope for interaction with multi-entry/-exit detectors
     MeMeScope multientryexit;
+    /// @brief Scope for interaction with persons
+    PersonScope person;
     /// @brief Scope for interaction with POIs
     POIScope poi;
     /// @brief Scope for interaction with polygons
@@ -885,8 +887,6 @@ public:
     VehicleTypeScope vehicletype;
     /// @brief Scope for interaction with vehicles
     VehicleScope vehicle;
-    /// @brief Scope for interaction with persons
-    PersonScope person;
 
 
 protected:
