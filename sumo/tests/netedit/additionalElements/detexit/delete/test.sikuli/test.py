@@ -47,12 +47,12 @@ netedit.leftClick(match, 200, 100)
 # select Exit detector
 netedit.changeAdditional("detExit")
 
-# Create Exit detector for E3 1
+# Create Exit detector for E3 3
 netedit.selectAdditionalChild(4, 2)
 netedit.leftClick(match, 75, 250)
 
-# Create Exit detectors for E3 2
-netedit.selectAdditionalChild(4, 0)
+# Create Exit detectors for E3 4
+netedit.selectAdditionalChild(4, 3)
 netedit.leftClick(match, 250, 250)
 
 # Change to delete
