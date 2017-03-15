@@ -90,6 +90,7 @@ TraCI::getContextSubscriptionResults(const std::string& objID) const {
         throw; // Something?
     }
 }
+
 TraCIPositionVector TraCI::makeTraCIPositionVector(const PositionVector& positionVector) const
 {
     TraCIPositionVector tp;
@@ -100,6 +101,14 @@ TraCIPositionVector TraCI::makeTraCIPositionVector(const PositionVector& positio
         tp.push_back(pos);
     }
     return tp;
+}
+
+TraCIPosition TraCI::makeTraCIPosition(const Position& position) const
+{
+    TraCIPosition p;
+    p.x = position.x();
+    p.y = position.y();
+    return p;
 }
 
 

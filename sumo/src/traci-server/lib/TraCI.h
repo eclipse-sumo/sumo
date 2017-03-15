@@ -82,6 +82,7 @@ public:
     const SubscribedValues& getContextSubscriptionResults(const std::string& objID) const;
 
     static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector) const;
+    static TraCIPosition makeTraCIPosition(const Position& position) const;
 
 private:
     /// @brief invalidated copy constructor
