@@ -89,29 +89,29 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
 	    break;
 	case VAR_COLOR:
 	    tempMsg.writeUnsignedByte(TYPE_COLOR);
-	    tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).red());
-	    tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).green());
-	    tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).blue());
-	    tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).alpha());
+	    tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).r);
+	    tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).g);
+	    tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).b);
+	    tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).a);
 	    break;
 	case VAR_POSITION:
 	    tempMsg.writeUnsignedByte(POSITION_2D);
-	    tempMsg.writeDouble(TraCI_POI::getPosition(id)->x());
-	    tempMsg.writeDouble(TraCI_POI::getPosition(id)->y());
+	    tempMsg.writeDouble(TraCI_POI::getPosition(id).x);
+	    tempMsg.writeDouble(TraCI_POI::getPosition(id).y);
 	    break;
 	case VAR_POSITION3D:
 	    tempMsg.writeUnsignedByte(POSITION_3D);
-	    tempMsg.writeDouble(TraCI_POI::getPosition(id)->x());
-	    tempMsg.writeDouble(TraCI_POI::getPosition(id)->y());
-    	    tempMsg.writeDouble(TraCI_POI::getPosition(id)->z());
+	    tempMsg.writeDouble(TraCI_POI::getPosition(id).x);
+	    tempMsg.writeDouble(TraCI_POI::getPosition(id).y);
+    	    tempMsg.writeDouble(TraCI_POI::getPosition(id).z);
 	    break;
 	case VAR_PARAMETER: 
-	    std::string paramName = "";
-	    if (!server.readTypeCheckingString(inputStorage, paramName)) {
-		return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-	    }
-	    tempMsg.writeUnsignedByte(TYPE_STRING);
-	    tempMsg.writeString(p->getParameter(paramName, ""));
+	    // std::string paramName = "";
+	    // if (!server.readTypeCheckingString(inputStorage, paramName)) {
+	    // 	return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+	    // }
+	    // tempMsg.writeUnsignedByte(TYPE_STRING);
+	    // tempMsg.writeString(p->getParameter(paramName, ""));
 	    break;
 	default:
 	    break;
