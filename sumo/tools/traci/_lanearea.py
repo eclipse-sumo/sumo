@@ -31,7 +31,8 @@ _RETURN_VALUE_FUNC = {tc.JAM_LENGTH_METERS: Storage.readDouble,
                       tc.VAR_LANE_ID: Storage.readString,
                       tc.LAST_STEP_VEHICLE_ID_LIST: Storage.readStringList,
                       tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
-                      tc.LAST_STEP_OCCUPANCY: Storage.readDouble}
+                      tc.LAST_STEP_OCCUPANCY: Storage.readDouble,
+                      tc.LAST_STEP_VEHICLE_HALTING_NUMBER: Storage.readInt}
 
 
 class LaneAreaDomain(Domain):
@@ -104,6 +105,13 @@ class LaneAreaDomain(Domain):
         Returns the number of vehicles that were on the named detector within the last simulation step.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, detID)
+
+    def getLastStepHaltingNumber(self, detID):
+        """getLastStepHaltingNumber(string) -> integer
+
+        Returns the number of vehicles which were halting during the last time step.
+        """
+        return self._getUniversal(tc.LAST_STEP_VEHICLE_HALTING_NUMBER, detID)
 
 
 LaneAreaDomain()
