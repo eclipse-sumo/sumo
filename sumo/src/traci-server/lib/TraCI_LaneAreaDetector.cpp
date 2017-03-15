@@ -121,7 +121,8 @@ TraCI_LaneAreaDetector::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
-MSE2Collector* getDetector(const std::string& id) {
+MSE2Collector*
+TraCI_LaneAreaDetector::getDetector(const std::string& id) {
     MSE2Collector* e2 = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(id));
     if (e2 == 0) {
         throw TraCIException("Lane area detector '" + id + "' is not known");
