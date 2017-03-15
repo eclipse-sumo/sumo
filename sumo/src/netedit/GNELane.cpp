@@ -702,7 +702,7 @@ GNELane::addAdditionalChild(GNEAdditional* additional) {
     // First check that additional wasn't already inserted
     for (AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
         if (*i == additional) {
-            throw ProcessError(toString(getTag()) + "  with ID='" + additional->getID() + "' was already inserted in lane with ID='" + getID() + "'");
+            throw ProcessError(toString(getTag()) + " with ID='" + additional->getID() + "' was already inserted in lane with ID='" + getID() + "'");
         }
     }
     myAdditionals.push_back(additional);
@@ -719,7 +719,7 @@ GNELane::removeAdditionalChild(GNEAdditional* additional) {
     }
     // If additional was found, remove it
     if (i == myAdditionals.end()) {
-        throw ProcessError(toString(getTag()) + "  with ID='" + additional->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
+        throw ProcessError(toString(getTag()) + " with ID='" + additional->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
     } else {
         myAdditionals.erase(i);
     }

@@ -943,7 +943,7 @@ void
 GNEEdge::addAdditionalChild(GNEAdditional* additional) {
     // First check that additional wasn't already inserted
     if (std::find(myAdditionals.begin(), myAdditionals.end(), additional) != myAdditionals.end()) {
-        throw ProcessError(toString(additional->getTag()) + "  with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myAdditionals.push_back(additional);
     }
@@ -955,7 +955,7 @@ GNEEdge::removeAdditionalChild(GNEAdditional* additional) {
     // First check that additional was already inserted
     AdditionalVector::iterator it = std::find(myAdditionals.begin(), myAdditionals.end(), additional);
     if (it == myAdditionals.end()) {
-        throw ProcessError(toString(additional->getTag()) + "  with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myAdditionals.erase(it);
     }

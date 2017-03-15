@@ -1208,7 +1208,7 @@ GNENet::insertAdditional(GNEAdditional* additional, bool hardFail) {
     if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())) != myAdditionals.end()) {
         // Throw exception only if hardFail is enabled
         if (hardFail) {
-            throw ProcessError(toString(additional->getTag()) + "  with ID='" + additional->getID() + "' already exist");
+            throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' already exist");
         }
     } else {
         myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
@@ -1223,7 +1223,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
     GNEAdditionals::iterator additionalToRemove = myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag()));
     // Check if additional element exists before deletion
     if (additionalToRemove == myAdditionals.end()) {
-        throw ProcessError(toString(additional->getTag()) + "  with ID='" + additional->getID() + "' doesn't exist");
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist");
     } else {
         myAdditionals.erase(additionalToRemove);
         myGrid.removeAdditionalGLObject(additional);
