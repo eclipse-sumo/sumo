@@ -5,6 +5,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @author  Christoph Sommer
+/// @author  Gregor L\"ammel
 /// @date    Sept 2002
 /// @version $Id$
 ///
@@ -80,50 +81,50 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
             tempMsg.writeInt((int) ids.size());
         }
     } else {
-        SUMO::Polygon* p = getPolygon(id);
-        if (p==0) {
-            return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE, "Polygon '"+id+"' is not known", outputStorage);
-        }
-        switch (variable) {
-        case VAR_TYPE: {
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(TraCI_Polygon::getType(id));
-        }
-            break;
-        case VAR_COLOR: {
-            TraCIColor tc = TraCI_Polygon::getColor(id);
-            tempMsg.writeUnsignedByte(TYPE_COLOR);
-            tempMsg.writeUnsignedByte(tc.r);
-            tempMsg.writeUnsignedByte(tc.g);
-            tempMsg.writeUnsignedByte(tc.b);
-            tempMsg.writeUnsignedByte(tc.a);
-        }
-            break;
-        case VAR_SHAPE: {
-            tempMsg.writeUnsignedByte(TYPE_POLYGON);
-            TraCIPositionVector tp = TraCI_Polygon::getShape(id);
-            tempMsg.writeUnsignedByte((int) tp.size());
-            for (int iPoint = 0; iPoint<tp.size(); ++iPoint) {
-                tempMsg.writeDouble(tp[iPoint].x);
-                tempMsg.writeDouble(tp[iPoint].y);
+        try {
+            switch (variable) {
+            case VAR_TYPE: {
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(TraCI_Polygon::getType(id));
             }
-        }
-            break;
-        case VAR_FILL: {
-            tempMsg.writeUnsignedByte(TYPE_UBYTE);
-            tempMsg.writeUnsignedByte(TraCI_Polygon::getFilled(id) ? 1 : 0);
-        }
-            break;
-        case VAR_PARAMETER: {
-            std::string paramName = "";
-            if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                break;
+            case VAR_COLOR: {
+                TraCIColor tc = TraCI_Polygon::getColor(id);
+                tempMsg.writeUnsignedByte(TYPE_COLOR);
+                tempMsg.writeUnsignedByte(tc.r);
+                tempMsg.writeUnsignedByte(tc.g);
+                tempMsg.writeUnsignedByte(tc.b);
+                tempMsg.writeUnsignedByte(tc.a);
             }
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(TraCI_Polygon::getParameter(id, paramName));
-        }
-            break;
-        default:break;
+                break;
+            case VAR_SHAPE: {
+                tempMsg.writeUnsignedByte(TYPE_POLYGON);
+                TraCIPositionVector tp = TraCI_Polygon::getShape(id);
+                tempMsg.writeUnsignedByte((int) tp.size());
+                for (int iPoint = 0; iPoint<tp.size(); ++iPoint) {
+                    tempMsg.writeDouble(tp[iPoint].x);
+                    tempMsg.writeDouble(tp[iPoint].y);
+                }
+            }
+                break;
+            case VAR_FILL: {
+                tempMsg.writeUnsignedByte(TYPE_UBYTE);
+                tempMsg.writeUnsignedByte(TraCI_Polygon::getFilled(id) ? 1 : 0);
+            }
+                break;
+            case VAR_PARAMETER: {
+                std::string paramName = "";
+                if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                    return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                }
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(TraCI_Polygon::getParameter(id, paramName));
+            }
+                break;
+            default:break;
+            }
+        } catch (TraCIException traCIException) {
+            return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, traCIException.what(), outputStorage);
         }
     }
     server.writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_OK, "", outputStorage);
@@ -145,119 +146,109 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
     }
     // id
     std::string id = inputStorage.readString();
-    SUMO::Polygon* p = 0;
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    if (variable!=ADD && variable!=REMOVE) {
-        p = getPolygon(id);
-        if (p==0) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "Polygon '"+id+"' is not known", outputStorage);
+    try {
+        // process
+        switch (variable) {
+        case VAR_TYPE: {
+            std::string type;
+            if (!server.readTypeCheckingString(inputStorage, type)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", outputStorage);
+            }
+            TraCI_Polygon::setType(id, type);
         }
-    }
-    // process
-    switch (variable) {
-    case VAR_TYPE: {
-        std::string type;
-        if (!server.readTypeCheckingString(inputStorage, type)) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", outputStorage);
+            break;
+        case VAR_COLOR: {
+            RGBColor col;
+            if (!server.readTypeCheckingColor(inputStorage, col)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The color must be given using an according type.", outputStorage);
+            }
+            TraCIColor tc = TraCI::makeTraCIColor(col);
+            TraCI_Polygon::setColor(id, tc);
         }
-        TraCI_Polygon::setType(id, type);
-    }
-        break;
-    case VAR_COLOR: {
-        RGBColor col;
-        if (!server.readTypeCheckingColor(inputStorage, col)) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The color must be given using an according type.", outputStorage);
+            break;
+        case VAR_SHAPE: {
+            PositionVector shape;
+            if (!server.readTypeCheckingPolygon(inputStorage, shape)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The shape must be given using an accoring type.", outputStorage);
+            }
+            TraCI_Polygon::setShape(id, TraCI::makeTraCIPositionVector(shape));
         }
-        TraCIColor tc = TraCI::makeTraCIColor(col);
-        TraCI_Polygon::setColor(id, tc);
-    }
-        break;
-    case VAR_SHAPE: {
-        PositionVector shape;
-        if (!server.readTypeCheckingPolygon(inputStorage, shape)) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The shape must be given using an accoring type.", outputStorage);
+            break;
+        case VAR_FILL: {
+            int value = 0;
+            if (!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "'fill' must be defined using an unsigned byte.", outputStorage);
+            }
+            TraCI_Polygon::setFilled(id, value!=0);
         }
-        shapeCont.reshapePolygon(id, shape);
-    }
-        break;
-    case VAR_FILL: {
-        int value = 0;
-        if (!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "'fill' must be defined using an unsigned byte.", outputStorage);
-        }
-        TraCI_Polygon::setFilled(id, value!=0);
-    }
-        break;
-    case ADD: {
-        if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "A compound object is needed for setting a new polygon.", outputStorage);
-        }
-        //readt itemNo
-        inputStorage.readInt();
-        std::string type;
-        if (!server.readTypeCheckingString(inputStorage, type)) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", outputStorage);
-        }
-        RGBColor col;
-        if (!server.readTypeCheckingColor(inputStorage, col)) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The second polygon parameter must be the color.", outputStorage);
-        }
-        TraCIColor tcol = TraCI::makeTraCIColor(col);
+            break;
+        case ADD: {
+            if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "A compound object is needed for setting a new polygon.", outputStorage);
+            }
+            //readt itemNo
+            inputStorage.readInt();
+            std::string type;
+            if (!server.readTypeCheckingString(inputStorage, type)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", outputStorage);
+            }
+            RGBColor col;
+            if (!server.readTypeCheckingColor(inputStorage, col)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The second polygon parameter must be the color.", outputStorage);
+            }
+            TraCIColor tcol = TraCI::makeTraCIColor(col);
 
-        int value = 0;
-        if (!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);
-        }
-        bool fill = value!=0;
-        int layer = 0;
-        if (!server.readTypeCheckingInt(inputStorage, layer)) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The fourth polygon parameter must be the layer encoded as int.", outputStorage);
-        }
-        PositionVector shape;
-        if (!server.readTypeCheckingPolygon(inputStorage, shape)) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The fifth polygon parameter must be the shape.", outputStorage);
-        }
-        TraCIPositionVector tp = TraCI::makeTraCIPositionVector(shape);
-        try {
+            int value = 0;
+            if (!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);
+            }
+            bool fill = value!=0;
+            int layer = 0;
+            if (!server.readTypeCheckingInt(inputStorage, layer)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The fourth polygon parameter must be the layer encoded as int.", outputStorage);
+            }
+            PositionVector shape;
+            if (!server.readTypeCheckingPolygon(inputStorage, shape)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The fifth polygon parameter must be the shape.", outputStorage);
+            }
+            TraCIPositionVector tp = TraCI::makeTraCIPositionVector(shape);
+
             TraCI_Polygon::add(id, tp, tcol, fill, type, layer);
-        } catch (TraCIException traCIException) {
-            delete p;
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "Could not add Polygon", outputStorage);
-        }
-    }
-        break;
-    case REMOVE: {
-        int layer = 0; // !!! layer not used yet (shouldn't the id be enough?)
-        if (!server.readTypeCheckingInt(inputStorage, layer)) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The layer must be given using an int.", outputStorage);
-        }
-        try {
-            TraCI_Polygon::remove(id,layer);
-        } catch (TraCIException traCIException) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE,"Could not remove polygon '"+id+"'", outputStorage);
-        }
 
-    }
-        break;
-    case VAR_PARAMETER: {
-        if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
         }
-        //readt itemNo
-        inputStorage.readInt();
-        std::string name;
-        if (!server.readTypeCheckingString(inputStorage, name)) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
-        }
-        std::string value;
-        if (!server.readTypeCheckingString(inputStorage, value)) {
-            return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
-        }
-        TraCI_Polygon::setParameter(id, name, value);
+            break;
+        case REMOVE: {
+            int layer = 0; // !!! layer not used yet (shouldn't the id be enough?)
+            if (!server.readTypeCheckingInt(inputStorage, layer)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The layer must be given using an int.", outputStorage);
+            }
 
-    }
-        break;
-    default:break;
+            TraCI_Polygon::remove(id, layer);
+
+        }
+            break;
+        case VAR_PARAMETER: {
+            if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
+            }
+            //readt itemNo
+            inputStorage.readInt();
+            std::string name;
+            if (!server.readTypeCheckingString(inputStorage, name)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The name of the parameter must be given as a string.", outputStorage);
+            }
+            std::string value;
+            if (!server.readTypeCheckingString(inputStorage, value)) {
+                return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
+            }
+            TraCI_Polygon::setParameter(id, name, value);
+
+        }
+            break;
+        default:break;
+        }
+    } catch (TraCIException traCIException) {
+        return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, traCIException.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;

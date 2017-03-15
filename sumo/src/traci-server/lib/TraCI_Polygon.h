@@ -48,7 +48,7 @@ public:
     static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
 
     static void setFilled(std::string polygonID, bool filled);
-    static void setParameter(std::string name, std::string value, std::string string);
+    static void setParameter(std::string& name, std::string& value, std::string& string);
 private:
 
     static SUMO::Polygon * getPolygon(const std::string& id);
