@@ -36,6 +36,9 @@
 #include <map>
 #include <traci-server/TraCIDefs.h>
 
+class Position;
+class PositionVector;
+
 
 // ===========================================================================
 // class definitions
@@ -77,6 +80,8 @@ public:
 
     const SubscribedContextValues& getContextSubscriptionResults() const;
     const SubscribedValues& getContextSubscriptionResults(const std::string& objID) const;
+
+    static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector) const;
 
 private:
     /// @brief invalidated copy constructor

@@ -38,6 +38,7 @@
 #include <microsim/MSNet.h>
 #include <utils/shapes/Polygon.h>
 #include <utils/shapes/ShapeContainer.h>
+#include <traci-server/lib/TraCI_Polygon.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Polygon.h"
 
@@ -68,9 +69,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
     tempMsg.writeString(id);
     // process request
     if (variable == ID_LIST || variable == ID_COUNT) {
-        std::vector<std::string> ids;
-        ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-        shapeCont.getPolygons().insertIDs(ids);
+        std::vector<std::string> ids = TraCI_Polygon::getIDList();
         if (variable == ID_LIST) {
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             tempMsg.writeStringList(ids);
@@ -86,26 +85,28 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
         switch (variable) {
             case VAR_TYPE:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(p->getType());
+                tempMsg.writeString(TraCI_Polygon::getType(id));
                 break;
             case VAR_COLOR:
+                TraCIColor tc = TraCI_Polygon::getColor(id);
                 tempMsg.writeUnsignedByte(TYPE_COLOR);
-                tempMsg.writeUnsignedByte(p->getColor().red());
-                tempMsg.writeUnsignedByte(p->getColor().green());
-                tempMsg.writeUnsignedByte(p->getColor().blue());
-                tempMsg.writeUnsignedByte(p->getColor().alpha());
+                tempMsg.writeUnsignedByte(tc.r);
+                tempMsg.writeUnsignedByte(tc.g);
+                tempMsg.writeUnsignedByte(tc.b);
+                tempMsg.writeUnsignedByte(tc.a);
                 break;
             case VAR_SHAPE:
                 tempMsg.writeUnsignedByte(TYPE_POLYGON);
-                tempMsg.writeUnsignedByte(MIN2(255, (int)p->getShape().size()));
-                for (int iPoint = 0; iPoint < MIN2(255, (int)p->getShape().size()); ++iPoint) {
-                    tempMsg.writeDouble(p->getShape()[iPoint].x());
-                    tempMsg.writeDouble(p->getShape()[iPoint].y());
+                TraCIPositionVector tp = TraCI_Polygon::getShape(id);
+                tempMsg.writeUnsignedByte((int)tp.size());
+                for (int iPoint = 0; iPoint < tp.size(); ++iPoint) {
+                    tempMsg.writeDouble(tp[iPoint].x);
+                    tempMsg.writeDouble(tp[iPoint].y);
                 }
                 break;
             case VAR_FILL:
                 tempMsg.writeUnsignedByte(TYPE_UBYTE);
-                tempMsg.writeUnsignedByte(p->getFill() ? 1 : 0);
+                tempMsg.writeUnsignedByte(TraCI_Polygon::getFilled(id) ? 1 : 0);
                 break;
             case VAR_PARAMETER: {
                 std::string paramName = "";
@@ -113,7 +114,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                 }
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(p->getParameter(paramName, ""));
+                tempMsg.writeString(TraCI_Polygon::getParameter(id,paramName));
             }
             break;
             default:

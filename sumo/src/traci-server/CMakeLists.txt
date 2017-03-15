@@ -19,6 +19,7 @@ set(traci-server_files
         TraCIServerAPI_Simulation.h TraCIServerAPI_Simulation.cpp
         TraCIServerAPI_TLS.h TraCIServerAPI_TLS.cpp
         TraCIServerAPI_Vehicle.h TraCIServerAPI_Vehicle.cpp
-        TraCIServerAPI_VehicleType.h TraCIServerAPI_VehicleType.cpp)
+        TraCIServerAPI_VehicleType.h TraCIServerAPI_VehicleType.cpp
+        TraCIDefs.h)
 
 add_library(traci-server STATIC ${traci-server_files})

@@ -31,6 +31,7 @@
 #include "../../config.h"
 #endif
 
+#include <utils/geom/PositionVector.h>
 #include "TraCI.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -88,6 +89,17 @@ TraCI::getContextSubscriptionResults(const std::string& objID) const {
     } else {
         throw; // Something?
     }
+}
+TraCIPositionVector TraCI::makeTraCIPositionVector(const PositionVector& positionVector) const
+{
+    TraCIPositionVector tp;
+    for (int i = 0; i<positionVector.size(); ++i) {
+        TraCIPosition pos;
+        pos.x = positionVector[i].x();
+        pos.y = positionVector[i].y();
+        tp.push_back(pos);
+    }
+    return tp;
 }
 
 
