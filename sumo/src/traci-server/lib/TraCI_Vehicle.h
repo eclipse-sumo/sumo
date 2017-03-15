@@ -74,6 +74,7 @@ public:
     static TraCIPosition getPosition(const std::string& vehicleID);
     static TraCIPosition getPosition3D(const std::string& vehicleID);
     static double getAngle(const std::string& vehicleID);
+    static double getSlope(const std::string& vehicleID);
     static std::string getRoadID(const std::string& vehicleID);
     static std::string getLaneID(const std::string& vehicleID);
     static int getLaneIndex(const std::string& vehicleID);
@@ -95,7 +96,6 @@ public:
     static double getWaitingTime(const std::string& vehicleID);
     static std::vector<NextTLSData> getNextTLS(const std::string& vehID);
     static int getSpeedMode(const std::string& vehicleID);
-    static double getSlope(const std::string& vehicleID);
     static std::string getLine(const std::string& vehicleID);
     static std::vector<std::string> getVia(const std::string& vehicleID);
     static std::string getEmissionClass(const std::string& vehicleID);

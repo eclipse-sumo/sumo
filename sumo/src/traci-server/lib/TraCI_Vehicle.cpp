@@ -113,8 +113,16 @@ TraCI_Vehicle::getPosition(const std::string& vehicleID) {
 double
 TraCI_Vehicle::getAngle(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getAngle() : INVALID_DOUBLE_VALUE;
+}
+
+
+double
+TraCI_Vehicle::getSlope(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
     return isVisible(veh) ? veh->getSlope() : INVALID_DOUBLE_VALUE;
 }
+
 
 std::string
 TraCI_Vehicle::getRoadID(const std::string& vehicleID) {
@@ -231,10 +239,6 @@ TraCI_Vehicle::getNextTLS(const std::string& vehID) {
 
 int
 TraCI_Vehicle::getSpeedMode(const std::string& vehicleID) {
-}
-
-double
-TraCI_Vehicle::getSlope(const std::string& vehicleID) {
 }
 
 std::string
