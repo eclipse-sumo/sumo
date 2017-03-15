@@ -39,53 +39,56 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-
 // ===========================================================================
 // member definitions
 // ===========================================================================
 void
-TraCI::connect(const std::string& host, int port) {
-}
-
-
-void
-TraCI::close() {
-}
-
-
-void
-TraCI::subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const {
+TraCI::connect(const std::string& host, int port)
+{
 }
 
 void
-TraCI::subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const {
+TraCI::close()
+{
+}
+
+void
+TraCI::subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const
+{
+}
+
+void
+TraCI::subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<
+        int>& vars) const
+{
 }
 
 const TraCI::SubscribedValues&
-TraCI::getSubscriptionResults() const {
+TraCI::getSubscriptionResults() const
+{
     return mySubscribedValues;
 }
 
-
 const TraCI::TraCIValues&
-TraCI::getSubscriptionResults(const std::string& objID) const {
-    if (mySubscribedValues.find(objID) != mySubscribedValues.end()) {
+TraCI::getSubscriptionResults(const std::string& objID) const
+{
+    if (mySubscribedValues.find(objID)!=mySubscribedValues.end()) {
         return mySubscribedValues.find(objID)->second;
     } else {
         throw; // Something?
     }
 }
 
-
 const TraCI::SubscribedContextValues&
-TraCI::getContextSubscriptionResults() const {
+TraCI::getContextSubscriptionResults() const
+{
     return mySubscribedContextValues;
 }
 
-
 const TraCI::SubscribedValues&
-TraCI::getContextSubscriptionResults(const std::string& objID) const {
-    if (mySubscribedContextValues.find(objID) != mySubscribedContextValues.end()) {
+TraCI::getContextSubscriptionResults(const std::string& objID) const
+{
+    if (mySubscribedContextValues.find(objID)!=mySubscribedContextValues.end()) {
         return mySubscribedContextValues.find(objID)->second;
     } else {
         throw; // Something?
@@ -103,7 +106,33 @@ TraCIPositionVector TraCI::makeTraCIPositionVector(const PositionVector& positio
     }
     return tp;
 }
+PositionVector TraCI::makePositionVector(const TraCIPositionVector& vector)
+{
 
+    PositionVector pv;
+    for (int i = 0; i<vector.size(); i++) {
+        Position p;
+        p.setx(vector[i].x);
+        p.sety(vector[i].y);
+        pv.push_back(p);
+    }
+    return pv;
+}
+TraCIColor TraCI::makeTraCIColor(RGBColor color)
+{
+    TraCIColor tc;
+    tc.a = color.alpha();
+    tc.b = color.blue();
+    tc.g = color.green();
+    tc.r = color.red();
+    return tc;
+}
+RGBColor TraCI::makeRGBColor(const TraCIColor& c)
+{
+    RGBColor rgbColor;
+    rgbColor.set((unsigned char)c.r,(unsigned char)c.g,(unsigned char)c.b,(unsigned char)c.a);
+    return rgbColor;
+}
 TraCIPosition TraCI::makeTraCIPosition(const Position& position) {
     TraCIPosition p;
     p.x = position.x();

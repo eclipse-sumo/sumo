@@ -35,6 +35,7 @@
 #include <vector>
 #include <map>
 #include <traci-server/TraCIDefs.h>
+#include <utils/common/RGBColor.h>
 
 class Position;
 class PositionVector;
@@ -84,6 +85,9 @@ public:
     static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector);
     static TraCIPosition makeTraCIPosition(const Position& position);
 
+    static PositionVector makePositionVector(const TraCIPositionVector& vector);
+    static TraCIColor makeTraCIColor(RGBColor color);
+    static RGBColor makeRGBColor(const TraCIColor& color);
 private:
     /// @brief invalidated copy constructor
     TraCI(const TraCI& src);
