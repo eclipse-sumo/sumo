@@ -114,7 +114,11 @@ private:
     * @param[in] period The period with which a new route shall be searched
     * @param[in] preInsertionPeriod The route search period before insertion
     */
-    MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity, const double powerMax, const double mass, const double frontSurfaceArea, const double airDragCoefficient, const double internalMomentOfInertia, const double radialDragCoefficient, const double rollDragCoefficient, const double constantPowerIntake, const double propulsionEfficiency, const double recuperationEfficiency, const double lastAngle, const double lastEnergy);
+    MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity, 
+                     const double powerMax, const double mass, const double frontSurfaceArea, const double airDragCoefficient, 
+                     const double internalMomentOfInertia, const double radialDragCoefficient, const double rollDragCoefficient, 
+                     const double constantPowerIntake, const double propulsionEfficiency, const double recuperationEfficiency, 
+                     const double stoppingTreshold, const double lastAngle, const double lastEnergy);
 
 public:
     /// @brief Get the actual vehicle's Battery Capacity in kWh
@@ -180,6 +184,9 @@ public:
     /// @brief Get number of timestep that vehicle is stopped
     int getVehicleStopped() const;
 
+    /// @brief Get stopping treshold
+    double getStoppingTreshold() const;
+
     /// @brief get propulsion energy
     double getPropEnergy(SUMOVehicle& veh);
 
@@ -224,6 +231,9 @@ public:
 
     /// @brief Set vehicle's last Energy
     void setLastEnergy(const double lastEnergy);
+
+    /// @brief Set vehicle's stopping treshold
+    void setStoppingTreshold(const double stoppingTreshold);
 
     /// @brief Reset charging start time
     void resetChargingStartTime();
@@ -300,6 +310,9 @@ protected:
 
     /// @brief Parameter, How many timestep the vehicle is stopped
     int myVehicleStopped;
+
+    /// @brief Parameter, stopping vehicle treshold [myStoppingTreshold >= 0]
+    double myStoppingTreshold;
 
 private:
     /// @brief Invalidated copy constructor.
