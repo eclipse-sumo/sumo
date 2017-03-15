@@ -3,6 +3,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Michael Behrisch
+/// @author  Robert Hilbrich
 /// @date    30.05.2012
 /// @version $Id$
 ///
@@ -34,6 +35,7 @@
 
 #include <vector>
 #include <map>
+#include <string>
 
 
 // ===========================================================================
