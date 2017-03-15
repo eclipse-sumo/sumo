@@ -71,7 +71,11 @@ TraCI_Junction::getShape(const std::string& junctionID) {
 
 MSJunction*
 TraCI_Junction::getJunction(const std::string& id) {
-    return MSNet::getInstance()->getJunctionControl().get(id);
+    MSJunction* j = MSNet::getInstance()->getJunctionControl().get(id);
+    if (j == 0) {
+        throw TraCIException("Junction '" + id + "' is not known");
+    }
+    return j;
 }
 
 

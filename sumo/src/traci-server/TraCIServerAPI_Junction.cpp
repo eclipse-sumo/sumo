@@ -66,43 +66,41 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
     tempMsg.writeUnsignedByte(RESPONSE_GET_JUNCTION_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
-    if (variable == ID_LIST) {
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(TraCI_Junction::getIDList());
-    } else if (variable == ID_COUNT) {
-        std::vector<std::string> ids;
-        MSNet::getInstance()->getJunctionControl().insertIDs(ids);
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt((int) ids.size());
-    } else {
-        MSJunction* j = MSNet::getInstance()->getJunctionControl().get(id);
-        if (j == 0) {
-            return server.writeErrorStatusCmd(CMD_GET_JUNCTION_VARIABLE, "Junction '" + id + "' is not known", outputStorage);
-        }
+
+    try{
         switch (variable) {
-            case ID_LIST:
-                break;
-            case VAR_POSITION:{
-                tempMsg.writeUnsignedByte(POSITION_2D);
-                TraCIPosition p = TraCI_Junction::getPosition(id);
-                tempMsg.writeDouble(p.x);
-                tempMsg.writeDouble(p.y);
-                break;}
-            case VAR_SHAPE:{
-                tempMsg.writeUnsignedByte(TYPE_POLYGON);
-                const TraCIPositionVector shp = TraCI_Junction::getShape(id);
-                tempMsg.writeUnsignedByte(MIN2(255, (int) shp.size()));
-                for (int iPoint = 0; iPoint < MIN2(255, (int) shp.size()); ++iPoint) {
-                    tempMsg.writeDouble(shp[iPoint].x);
-                    tempMsg.writeDouble(shp[iPoint].y);
-                }
-                break;}
-            default:
-                break;
+        case ID_LIST:
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(TraCI_Junction::getIDList());
+            break;
+        case ID_COUNT:
+            tempMsg.writeInt((int) TraCI_Junction::getIDCount());
+            break;
+        case VAR_POSITION:{
+            tempMsg.writeUnsignedByte(POSITION_2D);
+            TraCIPosition p = TraCI_Junction::getPosition(id);
+            tempMsg.writeDouble(p.x);
+            tempMsg.writeDouble(p.y);
+            break;}
+        case VAR_SHAPE:{
+            tempMsg.writeUnsignedByte(TYPE_POLYGON);
+            const TraCIPositionVector shp = TraCI_Junction::getShape(id);
+            tempMsg.writeUnsignedByte(MIN2(255, (int) shp.size()));
+            for (int iPoint = 0; iPoint < MIN2(255, (int) shp.size()); ++iPoint) {
+                tempMsg.writeDouble(shp[iPoint].x);
+                tempMsg.writeDouble(shp[iPoint].y);
+            }
+            break;}
+        default:
+            break;
+
         }
+    } catch (TraCIException& e) {
+        return server.writeErrorStatusCmd(CMD_GET_JUNCTION_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);
+
     return true;
 }
 
