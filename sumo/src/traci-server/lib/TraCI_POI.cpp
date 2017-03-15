@@ -53,6 +53,11 @@ TraCI_POI::getIDList() {
     return ids;
 }
 
+int
+TraCI_POI::getIDCount() {
+    return (int)getIDList().size();
+}
+
 std::string
 TraCI_POI::getType(const std::string& poiID) {
     return getPoI(poiID)->getType();

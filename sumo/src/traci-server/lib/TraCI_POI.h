@@ -52,6 +52,7 @@ class PointOfInterest;
 class TraCI_POI {
 public:
     static std::vector<std::string> getIDList();
+    static int getIDCount();
     static std::string getType(const std::string& poiID);
     static TraCIPosition getPosition(const std::string& poiID);
     static TraCIColor getColor(const std::string& poiID);

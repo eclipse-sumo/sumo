@@ -500,6 +500,7 @@ src/jtrrouter/Makefile
 src/tools/Makefile
 src/traci_testclient/Makefile
 src/traci-server/Makefile
+src/traci-server/lib/Makefile
 src/utils/Makefile
 src/utils/common/Makefile
 src/utils/distribution/Makefile
