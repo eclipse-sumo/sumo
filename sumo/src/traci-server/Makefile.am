@@ -18,4 +18,5 @@ TraCIServerAPI_TLS.h TraCIServerAPI_TLS.cpp \
 TraCIServerAPI_Vehicle.h TraCIServerAPI_Vehicle.cpp \
 TraCIServerAPI_VehicleType.h TraCIServerAPI_VehicleType.cpp
 
+SUBDIRS = lib
 

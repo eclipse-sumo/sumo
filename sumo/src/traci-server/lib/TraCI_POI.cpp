@@ -4,13 +4,14 @@
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Robert Hilbrich
 /// @date    30.05.2012
 /// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2012-2017 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2017-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -46,7 +47,10 @@
 // ===========================================================================
 std::vector<std::string>
 TraCI_POI::getIDList() {
-    return std::vector<std::string>();
+    std::vector<std::string> ids;
+    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+    shapeCont.getPOIs().insertIDs(ids);
+    return ids;
 }
 
 std::string

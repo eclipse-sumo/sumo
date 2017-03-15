@@ -4,13 +4,14 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
+/// @author  Robert Hilbrich
 /// @date    07.05.2009
 /// @version $Id$
 ///
 // APIs for getting/setting POI values via TraCI
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 20019-2017 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2017-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -67,15 +68,12 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     tempMsg.writeString(id);
     // process request
     if (variable == ID_LIST || variable == ID_COUNT) {
-        std::vector<std::string> ids;
-        ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-        shapeCont.getPOIs().insertIDs(ids);
         if (variable == ID_LIST) {
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(ids);
+            tempMsg.writeStringList(TraCI_POI::getIDList());
         } else {
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int) ids.size());
+            tempMsg.writeInt((int) TraCI_POI::getIDList().size());
         }
     } else {
         PointOfInterest* p = getPoI(id);
