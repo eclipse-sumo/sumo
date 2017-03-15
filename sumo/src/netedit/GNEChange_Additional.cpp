@@ -96,9 +96,13 @@ GNEChange_Additional::undo() {
         // If additional is an E3 Detector, delete Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
             for (std::vector<GNEDetectorEntry*>::iterator i = myEntryChilds.begin(); i != myEntryChilds.end(); i++) {
+                // delete entry of their lane parent before remove
+                (*i)->getLane()->removeAdditionalChild(*i);
                 myNet->deleteAdditional(*i);
             }
             for (std::vector<GNEDetectorExit*>::iterator i = myExitChilds.begin(); i != myExitChilds.end(); i++) {
+                // delete entry of their lane parent before remove
+                (*i)->getLane()->removeAdditionalChild(*i);
                 myNet->deleteAdditional(*i);
             }
         }
@@ -126,9 +130,13 @@ GNEChange_Additional::undo() {
         // If additional is an E3 detector, add it their Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
             for (std::vector<GNEDetectorEntry*>::iterator i = myEntryChilds.begin(); i != myEntryChilds.end(); i++) {
+                // add entry of their lane parent before insert
+                (*i)->getLane()->addAdditionalChild(*i);
                 myNet->insertAdditional(*i);
             }
             for (std::vector<GNEDetectorExit*>::iterator i = myExitChilds.begin(); i != myExitChilds.end(); i++) {
+                // add entry of their lane parent before insert
+                (*i)->getLane()->addAdditionalChild(*i);
                 myNet->insertAdditional(*i);
             }
         }
@@ -162,9 +170,13 @@ GNEChange_Additional::redo() {
         // If additional is an E3 detector, add it their Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
             for (std::vector<GNEDetectorEntry*>::iterator i = myEntryChilds.begin(); i != myEntryChilds.end(); i++) {
+                // add entry of their lane parent before insert
+                (*i)->getLane()->addAdditionalChild(*i);
                 myNet->insertAdditional(*i);
             }
             for (std::vector<GNEDetectorExit*>::iterator i = myExitChilds.begin(); i != myExitChilds.end(); i++) {
+                // add entry of their lane parent before insert
+                (*i)->getLane()->addAdditionalChild(*i);
                 myNet->insertAdditional(*i);
             }
         }
@@ -192,9 +204,13 @@ GNEChange_Additional::redo() {
         // If additional is an E3 Detector, delete Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
             for (std::vector<GNEDetectorEntry*>::iterator i = myEntryChilds.begin(); i != myEntryChilds.end(); i++) {
+                // delete entry of their lane parent before remove
+                (*i)->getLane()->removeAdditionalChild(*i);
                 myNet->deleteAdditional(*i);
             }
             for (std::vector<GNEDetectorExit*>::iterator i = myExitChilds.begin(); i != myExitChilds.end(); i++) {
+                // delete entry of their lane parent before remove
+                (*i)->getLane()->removeAdditionalChild(*i);
                 myNet->deleteAdditional(*i);
             }
         }
