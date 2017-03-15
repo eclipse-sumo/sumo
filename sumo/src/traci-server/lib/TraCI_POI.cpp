@@ -36,10 +36,13 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
 #include "TraCI_POI.h"
+#include "TraCI.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
+
+
 
 
 // ===========================================================================
@@ -65,13 +68,7 @@ TraCI_POI::getType(const std::string& poiID) {
 
 TraCIColor
 TraCI_POI::getColor(const std::string& poiID) {
-    TraCIColor col;
-    PointOfInterest* p = getPoI(poiID);
-    col.r = p->getColor().red();
-    col.g = p->getColor().green();
-    col.b = p->getColor().blue();
-    col.a = p->getColor().alpha();
-    return col;
+    return TraCI::makeTraCIColor(getPoI(poiID)->getColor());
 }
 
 TraCIPosition
