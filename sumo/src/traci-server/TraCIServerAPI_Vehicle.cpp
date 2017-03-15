@@ -145,44 +145,41 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeDouble(pos.y);
                 break;
             }
-            case VAR_POSITION3D:
+            case VAR_POSITION3D: {
                 tempMsg.writeUnsignedByte(POSITION_3D);
-                tempMsg.writeDouble(visible ? v->getPosition().x() : INVALID_DOUBLE_VALUE);
-                tempMsg.writeDouble(visible ? v->getPosition().y() : INVALID_DOUBLE_VALUE);
-                tempMsg.writeDouble(visible ? v->getPosition().z() : INVALID_DOUBLE_VALUE);
+                TraCIPosition pos = TraCI_Vehicle::getPosition(id);
+                tempMsg.writeDouble(pos.x);
+                tempMsg.writeDouble(pos.y);
+                tempMsg.writeDouble(pos.z);
                 break;
+            }
             case VAR_ANGLE:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(visible ? GeomHelper::naviDegree(v->getAngle()) : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getAngle(id));
                 break;
             case VAR_SLOPE:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(onRoad ? v->getSlope() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getSlope(id));
                 break;
             case VAR_ROAD_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(visible ? v->getLane()->getEdge().getID() : "");
+                tempMsg.writeString(TraCI_Vehicle::getRoadID(id));
                 break;
             case VAR_LANE_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(onRoad ? v->getLane()->getID() : "");
+                tempMsg.writeString(TraCI_Vehicle::getLaneID(id));
                 break;
             case VAR_LANE_INDEX:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                if (onRoad) {
-                    const std::vector<MSLane*>& lanes = v->getLane()->getEdge().getLanes();
-                    tempMsg.writeInt((int)std::distance(lanes.begin(), std::find(lanes.begin(), lanes.end(), v->getLane())));
-                } else {
-                    tempMsg.writeInt(INVALID_INT_VALUE);
-                }
+                tempMsg.writeInt(TraCI_Vehicle::getLaneIndex(id));
                 break;
             case VAR_TYPE:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(v->getVehicleType().getID());
+                tempMsg.writeString(TraCI_Vehicle::getTypeID(id));
                 break;
             case VAR_ROUTE_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(v->getRoute().getID());
+                tempMsg.writeString(TraCI_Vehicle::getRouteID(id));
                 break;
             case VAR_ROUTE_INDEX:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);

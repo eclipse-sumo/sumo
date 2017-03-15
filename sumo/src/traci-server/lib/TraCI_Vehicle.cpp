@@ -29,6 +29,8 @@
 
 #include <microsim/MSVehicle.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
 #include <traci-server/TraCIDefs.h>
 #include <traci-server/TraCIConstants.h>
 #include "TraCI.h"
@@ -110,30 +112,44 @@ TraCI_Vehicle::getPosition(const std::string& vehicleID) {
 
 double
 TraCI_Vehicle::getAngle(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getSlope() : INVALID_DOUBLE_VALUE;
 }
 
 std::string
 TraCI_Vehicle::getRoadID(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getLane()->getEdge().getID() : "";
 }
+
 
 std::string
 TraCI_Vehicle::getLaneID(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getLane()->getID() : "";
 }
+
 
 int
 TraCI_Vehicle::getLaneIndex(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return veh->isOnRoad() ? veh->getLane()->getIndex() : INVALID_INT_VALUE;
 }
 
 std::string
 TraCI_Vehicle::getTypeID(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getVehicleType().getID();
 }
 
 std::string
 TraCI_Vehicle::getRouteID(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getRoute().getID();
 }
 
 int
 TraCI_Vehicle::getRouteIndex(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return veh->hasDeparted() ? veh->getRoutePosition() : INVALID_INT_VALUE;
 }
 
 std::vector<std::string>
@@ -146,6 +162,8 @@ TraCI_Vehicle::getColor(const std::string& vehicleID) {
 
 double
 TraCI_Vehicle::getLanePosition(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return veh->isOnRoad() ? veh->getPositionOnLane() : INVALID_DOUBLE_VALUE;
 }
 
 double
