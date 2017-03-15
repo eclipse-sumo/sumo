@@ -85,6 +85,8 @@ private:
     /// @brief invalidated assignment operator
     TraCI& operator=(const TraCI& src);
 
+    SubscribedValues mySubscribedValues;
+    SubscribedContextValues mySubscribedContextValues;
 };
 
 

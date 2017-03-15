@@ -67,8 +67,8 @@ TraCI::getSubscriptionResults() const {
 
 const TraCI::TraCIValues&
 TraCI::getSubscriptionResults(const std::string& objID) const {
-    if (myParent.mySubscribedValues.find(objID) != myParent.mySubscribedValues.end()) {
-        return myParent.mySubscribedValues[objID];
+    if (mySubscribedValues.find(objID) != mySubscribedValues.end()) {
+        return mySubscribedValues.find(objID)->second;
     } else {
         throw; // Something?
     }
@@ -77,14 +77,14 @@ TraCI::getSubscriptionResults(const std::string& objID) const {
 
 const TraCI::SubscribedContextValues&
 TraCI::getContextSubscriptionResults() const {
-    return myParent.mySubscribedContextValues;
+    return mySubscribedContextValues;
 }
 
 
 const TraCI::SubscribedValues&
 TraCI::getContextSubscriptionResults(const std::string& objID) const {
-    if (myParent.mySubscribedContextValues.find(objID) != myParent.mySubscribedContextValues.end()) {
-        return myParent.mySubscribedContextValues[objID];
+    if (mySubscribedContextValues.find(objID) != mySubscribedContextValues.end()) {
+        return mySubscribedContextValues.find(objID)->second;
     } else {
         throw; // Something?
     }

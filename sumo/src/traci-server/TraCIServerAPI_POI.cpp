@@ -37,6 +37,7 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include "TraCIConstants.h"
+#include "lib/TraCI_POI.h"
 #include "TraCIServerAPI_POI.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -84,7 +85,7 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
         switch (variable) {
             case VAR_TYPE:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(p->getType());
+                tempMsg.writeString(TraCI_POI::getType(id));
                 break;
             case VAR_COLOR:
                 tempMsg.writeUnsignedByte(TYPE_COLOR);

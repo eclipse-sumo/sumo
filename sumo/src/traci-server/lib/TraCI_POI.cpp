@@ -46,6 +46,7 @@
 // ===========================================================================
 std::vector<std::string>
 TraCI_POI::getIDList() {
+    return std::vector<std::string>();
 }
 
 std::string
@@ -55,10 +56,12 @@ TraCI_POI::getType(const std::string& poiID) {
 
 TraCIPosition
 TraCI_POI::getPosition(const std::string& poiID) {
+    return TraCIPosition();
 }
 
 TraCIColor
 TraCI_POI::getColor(const std::string& poiID) {
+    return TraCIColor();
 }
 
 
