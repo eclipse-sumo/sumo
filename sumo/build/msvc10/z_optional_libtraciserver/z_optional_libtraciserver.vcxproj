@@ -115,6 +115,8 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   </PropertyGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI.cpp" />
+    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_POI.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServer.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.cpp" />
@@ -132,7 +134,10 @@
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_VehicleType.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI.h" />
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_POI.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIConstants.h" />
+    <ClInclude Include="..\..\..\src\traci-server\TraCIDefs.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServer.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.h" />
