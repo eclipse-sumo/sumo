@@ -43,7 +43,8 @@
 // member definitions
 // ===========================================================================
 
-MSVehicle* getVehicle(const std::string& id) {
+MSVehicle* 
+TraCI_Vehicle::getVehicle(const std::string& id) {
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
     if (sumoVehicle == 0) {
         throw TraCIException("Vehicle '" + id + "' is not known");
@@ -57,12 +58,12 @@ MSVehicle* getVehicle(const std::string& id) {
 
 
 bool 
-isVisible(const MSVehicle* veh) {
+TraCI_Vehicle::isVisible(const MSVehicle* veh) {
     return veh->isOnRoad() || veh->isParking();
 }
 
 std::vector<std::string>
-getIDList() {
+TraCI_Vehicle::getIDList() {
     std::vector<std::string> ids;
     MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
@@ -74,26 +75,26 @@ getIDList() {
 }
 
 int
-getIDCount() {
+TraCI_Vehicle::getIDCount() {
     return (int)getIDList().size();
 }
 
 double
-getSpeed(const std::string& vehicleID) {
+TraCI_Vehicle::getSpeed(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
     return isVisible(veh) ? veh->getSpeed() : INVALID_DOUBLE_VALUE;
 }
 
 
 double
-getSpeedWithoutTraCI(const std::string& vehicleID) {
+TraCI_Vehicle::getSpeedWithoutTraCI(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
     return isVisible(veh) ? veh->getSpeedWithoutTraciInfluence() : INVALID_DOUBLE_VALUE;
 }
 
 
 TraCIPosition
-getPosition(const std::string& vehicleID) {
+TraCI_Vehicle::getPosition(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (isVisible(veh)) {
         return TraCI::makeTraCIPosition(veh->getPosition());
@@ -108,197 +109,170 @@ getPosition(const std::string& vehicleID) {
 
 
 double
-getAngle(const std::string& vehicleID) {
+TraCI_Vehicle::getAngle(const std::string& vehicleID) {
 }
 
 std::string
-getRoadID(const std::string& vehicleID) {
+TraCI_Vehicle::getRoadID(const std::string& vehicleID) {
 }
 
 std::string
-getLaneID(const std::string& vehicleID) {
+TraCI_Vehicle::getLaneID(const std::string& vehicleID) {
 }
 
 int
-getLaneIndex(const std::string& vehicleID) {
+TraCI_Vehicle::getLaneIndex(const std::string& vehicleID) {
 }
 
 std::string
-getTypeID(const std::string& vehicleID) {
+TraCI_Vehicle::getTypeID(const std::string& vehicleID) {
 }
 
 std::string
-getRouteID(const std::string& vehicleID) {
+TraCI_Vehicle::getRouteID(const std::string& vehicleID) {
 }
 
 int
-getRouteIndex(const std::string& vehicleID) {
+TraCI_Vehicle::getRouteIndex(const std::string& vehicleID) {
 }
 
 std::vector<std::string>
-getEdges(const std::string& vehicleID) {
+TraCI_Vehicle::getEdges(const std::string& vehicleID) {
 }
 
 TraCIColor
-getColor(const std::string& vehicleID) {
+TraCI_Vehicle::getColor(const std::string& vehicleID) {
 }
 
 double
-getLanePosition(const std::string& vehicleID) {
+TraCI_Vehicle::getLanePosition(const std::string& vehicleID) {
 }
 
 double
-getCO2Emission(const std::string& vehicleID) {
+TraCI_Vehicle::getCO2Emission(const std::string& vehicleID) {
 }
 
 double
-getCOEmission(const std::string& vehicleID) {
+TraCI_Vehicle::getCOEmission(const std::string& vehicleID) {
 }
 
 double
-getHCEmission(const std::string& vehicleID) {
+TraCI_Vehicle::getHCEmission(const std::string& vehicleID) {
 }
 
 double
-getPMxEmission(const std::string& vehicleID) {
+TraCI_Vehicle::getPMxEmission(const std::string& vehicleID) {
 }
 
 double
-getNOxEmission(const std::string& vehicleID) {
+TraCI_Vehicle::getNOxEmission(const std::string& vehicleID) {
 }
 
 double
-getFuelConsumption(const std::string& vehicleID) {
+TraCI_Vehicle::getFuelConsumption(const std::string& vehicleID) {
 }
 
 double
-getNoiseEmission(const std::string& vehicleID) {
+TraCI_Vehicle::getNoiseEmission(const std::string& vehicleID) {
 }
 
 double
-getElectricityConsumption(const std::string& vehicleID) {
+TraCI_Vehicle::getElectricityConsumption(const std::string& vehicleID) {
 }
 
 int
-getSignalStates(const std::string& vehicleID) {
+TraCI_Vehicle::getSignalStates(const std::string& vehicleID) {
 }
 
 double
-getWaitingTime(const std::string& vehicleID) {
+TraCI_Vehicle::getWaitingTime(const std::string& vehicleID) {
 }
 
-std::vector<NextTLSData>
-getNextTLS(const std::string& vehID) {
+std::vector<TraCI_Vehicle::NextTLSData>
+TraCI_Vehicle::getNextTLS(const std::string& vehID) {
 }
 
 int
-getSpeedMode(const std::string& vehicleID) {
+TraCI_Vehicle::getSpeedMode(const std::string& vehicleID) {
 }
 
 double
-getSlope(const std::string& vehicleID) {
+TraCI_Vehicle::getSlope(const std::string& vehicleID) {
 }
 
 std::string
-getLine(const std::string& vehicleID) {
+TraCI_Vehicle::getLine(const std::string& vehicleID) {
 }
 
 std::vector<std::string>
-getVia(const std::string& vehicleID) {
+TraCI_Vehicle::getVia(const std::string& vehicleID) {
 }
 
 std::string
-getEmissionClass(const std::string& vehicleID) {
+TraCI_Vehicle::getEmissionClass(const std::string& vehicleID) {
 }
 
 std::string
-getShapeClass(const std::string& vehicleID) {
+TraCI_Vehicle::getShapeClass(const std::string& vehicleID) {
 }
 
-double
-getCO2Emissions(const std::string& vehicleID) {
-}
 
-double
-getCOEmissions(const std::string& vehicleID) {
-}
-
-double
-getHCEmissions(const std::string& vehicleID) {
-}
-
-double
-getPMxEmissions(const std::string& vehicleID) {
-}
-
-double
-getNOxEmissions(const std::string& vehicleID) {
-}
-
-double
-getFuelConsumption(const std::string& vehicleID) {
-}
-
-double
-getNoiseEmission(const std::string& vehicleID) {
+int
+TraCI_Vehicle::getBestLanes(const std::string& vehicleID) {
 }
 
 int
-getBestLanes(const std::string& vehicleID) {
-}
-
-int
-getStopState(const std::string& vehicleID) {
+TraCI_Vehicle::getStopState(const std::string& vehicleID) {
 }
 
 double
-getLength(const std::string& vehicleID) {
+TraCI_Vehicle::getLength(const std::string& vehicleID) {
 }
 
 double
-getAccel(const std::string& vehicleID) {
+TraCI_Vehicle::getAccel(const std::string& vehicleID) {
 }
 
 double
-getDecel(const std::string& vehicleID) {
+TraCI_Vehicle::getDecel(const std::string& vehicleID) {
 }
 
 double
-getTau(const std::string& vehicleID) {
+TraCI_Vehicle::getTau(const std::string& vehicleID) {
 }
 
 double
-getImperfection(const std::string& vehicleID) {
+TraCI_Vehicle::getImperfection(const std::string& vehicleID) {
 }
 
 double
-getSpeedFactor(const std::string& vehicleID) {
+TraCI_Vehicle::getSpeedFactor(const std::string& vehicleID) {
 }
 
 double
-getSpeedDeviation(const std::string& vehicleID) {
+TraCI_Vehicle::getSpeedDeviation(const std::string& vehicleID) {
 }
 
 std::string
-getVClass(const std::string& vehicleID) {
+TraCI_Vehicle::getVClass(const std::string& vehicleID) {
 }
 
 double
-getMinGap(const std::string& vehicleID) {
+TraCI_Vehicle::getMinGap(const std::string& vehicleID) {
 }
 
 double
-getMaxSpeed(const std::string& vehicleID) {
+TraCI_Vehicle::getMaxSpeed(const std::string& vehicleID) {
 }
 
 
 double
-getWidth(const std::string& vehicleID) {
+TraCI_Vehicle::getWidth(const std::string& vehicleID) {
 }
 
 
 void 
-add(const std::string& vehicleID,
+TraCI_Vehicle::add(const std::string& vehicleID,
  const std::string& routeID,
  const std::string& typeID,
  std::string depart,
@@ -316,47 +290,47 @@ add(const std::string& vehicleID,
 }
 
 void
-moveTo(const std::string& vehicleID, const std::string& laneID, double position) {
+TraCI_Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double position) {
 }
 
 void
-moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) {
+TraCI_Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) {
 }
 
 void
-slowDown(const std::string& vehicleID, double speed, int duration) {
+TraCI_Vehicle::slowDown(const std::string& vehicleID, double speed, int duration) {
 }
 
 void
-setSpeed(const std::string& vehicleID, double speed) {
+TraCI_Vehicle::setSpeed(const std::string& vehicleID, double speed) {
 }
 
 void
-setMaxSpeed(const std::string& vehicleID, double speed) {
+TraCI_Vehicle::setMaxSpeed(const std::string& vehicleID, double speed) {
 }
 
 void
-remove(const std::string& vehicleID, char reason) {
+TraCI_Vehicle::remove(const std::string& vehicleID, char reason) {
 }
 
 void
-setColor(const std::string& vehicleID, const TraCIColor& c) {
+TraCI_Vehicle::setColor(const std::string& vehicleID, const TraCIColor& c) {
 }
 
 void
-setLine(const std::string& vehicleID, const std::string& line) {
+TraCI_Vehicle::setLine(const std::string& vehicleID, const std::string& line) {
 }
 
 void
-setVia(const std::string& vehicleID, const std::vector<std::string>& via) {
+TraCI_Vehicle::setVia(const std::string& vehicleID, const std::vector<std::string>& via) {
 }
 
 void
-setShapeClass(const std::string& vehicleID, const std::string& clazz) {
+TraCI_Vehicle::setShapeClass(const std::string& vehicleID, const std::string& clazz) {
 }
 
 void
-setEmissionClass(const std::string& vehicleID, const std::string& clazz) {
+TraCI_Vehicle::setEmissionClass(const std::string& vehicleID, const std::string& clazz) {
 }
 
 
