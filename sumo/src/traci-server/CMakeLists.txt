@@ -4,7 +4,7 @@ add_subdirectory(lib)
 
 set(traci-server_files
         TraCIConstants.h
-        TraCIException.h
+        TraCIDefs.h
         TraCIServer.h TraCIServer.cpp
         TraCIServerAPI_Edge.h TraCIServerAPI_Edge.cpp
         TraCIServerAPI_InductionLoop.h TraCIServerAPI_InductionLoop.cpp

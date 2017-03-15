@@ -49,13 +49,13 @@ endif ()
 
 
 add_executable(sumo ${sumoexec})
-target_link_libraries(sumo netload ms mscfmodels mslcmodels msdevices msoutput mspedestrians mstrigger msactions
+target_link_libraries(sumo tracilib netload ms mscfmodels mslcmodels msdevices msoutput mspedestrians mstrigger msactions
         mstraffic_lights utdistirbutions mesosim utgeom utvehicle utshapes utemissions traci-server uttraci utoptions
         utxml utcommon utimportio utiodevices foreignphemlight foreigntcpip xerces-c ${FOX_LIBRARIES} proj ${GRPC_LIBS}
         ${PYTHON_LIBRARIES})
 
 add_executable(sumo-gui ${sumoguiexec})
-target_link_libraries(sumo-gui gui guinetload guisim guidialogs utguiwindows utguiglobjects utguidiv utguisettings
+target_link_libraries(sumo-gui tracilib gui guinetload guisim guidialogs utguiwindows utguiglobjects utguidiv utguisettings
         utguiimages utdistirbutions utguitracker utfoxtools osgview netload ms mscfmodels mslcmodels msdevices msoutput
         mspedestrians mstrigger msactions mstraffic_lights mesosim mesogui utgeom utvehicle utshapes utemissions
         traci-server uttraci utoptions utxml utcommon utimportio utiodevices foreignphemlight foreigntcpip xerces-c
