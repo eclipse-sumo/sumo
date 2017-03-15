@@ -32,6 +32,7 @@
 #endif
 
 #include <utils/geom/PositionVector.h>
+#include <utils/geom/Position.h>
 #include "TraCI.h"
 
 #ifdef CHECK_MEMORY_LEAKS
