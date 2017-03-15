@@ -106,12 +106,12 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     	    tempMsg.writeDouble(TraCI_POI::getPosition(id).z);
 	    break;
 	case VAR_PARAMETER: 
-	    // std::string paramName = "";
-	    // if (!server.readTypeCheckingString(inputStorage, paramName)) {
-	    // 	return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-	    // }
-	    // tempMsg.writeUnsignedByte(TYPE_STRING);
-	    // tempMsg.writeString(p->getParameter(paramName, ""));
+	    std::string paramName = "";
+	    if (!server.readTypeCheckingString(inputStorage, paramName)) {
+	     	return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+	    }
+	    tempMsg.writeUnsignedByte(TYPE_STRING);
+	    tempMsg.writeString(TraCI_POI::getParameter(id, paramName));
 	    break;
 	default:
 	    break;

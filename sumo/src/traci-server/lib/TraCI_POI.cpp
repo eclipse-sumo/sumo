@@ -84,6 +84,12 @@ TraCI_POI::getPosition(const std::string& poiID) {
     return pos;
 }
 
+std::string
+TraCI_POI::getParameter(const std::string& poiID, const std::string& param) {
+    PointOfInterest* p = getPoI(poiID);
+    return p->getParameter(param, "");
+}
+
 void
 TraCI_POI::setType(const std::string& poiID, const std::string& setType) {
 }

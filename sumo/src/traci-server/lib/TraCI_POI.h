@@ -56,7 +56,9 @@ public:
     static std::string getType(const std::string& poiID);
     static TraCIPosition getPosition(const std::string& poiID);
     static TraCIColor getColor(const std::string& poiID);
+    static std::string getParameter(const std::string& poiID, const std::string& param);
 
+    
     static void setType(const std::string& poiID, const std::string& setType);
     static void setPosition(const std::string& poiID, double x, double y);
     static void setColor(const std::string& poiID, const TraCIColor& c);
