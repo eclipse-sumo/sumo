@@ -31,6 +31,7 @@
 #include <microsim/MSNet.h>
 #include <traci-server/TraCIDefs.h>
 #include <traci-server/TraCIConstants.h>
+#include "TraCI.h"
 #include "TraCI_Vehicle.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -42,7 +43,7 @@
 // member definitions
 // ===========================================================================
 
-VehiclentOfInterest* getVehicle(const std::string& id) {
+MSVehicle* getVehicle(const std::string& id) {
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
     if (sumoVehicle == 0) {
         throw TraCIException("Vehicle '" + id + "' is not known");
@@ -93,16 +94,16 @@ getSpeedWithoutTraCI(const std::string& vehicleID) {
 
 TraCIPosition
 getPosition(const std::string& vehicleID) {
-    TraCIPosition result;
     MSVehicle* veh = getVehicle(vehicleID);
     if (isVisible(veh)) {
-        result.x = veh.getPosition().x();
-        result.y = veh.getPosition().y();
+        return TraCI::makeTraCIPosition(veh->getPosition());
     } else {
+        TraCIPosition result;
         result.x = INVALID_DOUBLE_VALUE;
         result.y = INVALID_DOUBLE_VALUE;
+        result.z = INVALID_DOUBLE_VALUE;
+        return result;
     }
-    return result;
 }
 
 
