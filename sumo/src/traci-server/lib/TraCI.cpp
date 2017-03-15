@@ -99,9 +99,7 @@ TraCI::getContextSubscriptionResults(const std::string& objID) const
 TraCIPositionVector TraCI::makeTraCIPositionVector(const PositionVector& positionVector) {
     TraCIPositionVector tp;
     for (int i = 0; i<positionVector.size(); ++i) {
-        TraCIPosition pos;
-        pos.x = positionVector[i].x();
-        pos.y = positionVector[i].y();
+        TraCIPosition pos = makeTraCIPosition(positionVector[i]);
         tp.push_back(pos);
     }
     return tp;
