@@ -40,6 +40,7 @@
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSNet.h>
 #include "TraCIServerAPI_Junction.h"
+#include "lib/TraCI_Junction.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -66,10 +67,8 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     if (variable == ID_LIST) {
-        std::vector<std::string> ids;
-        MSNet::getInstance()->getJunctionControl().insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
+        tempMsg.writeStringList(TraCI_Junction::getIDList());
     } else if (variable == ID_COUNT) {
         std::vector<std::string> ids;
         MSNet::getInstance()->getJunctionControl().insertIDs(ids);
@@ -83,20 +82,21 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
         switch (variable) {
             case ID_LIST:
                 break;
-            case VAR_POSITION:
+            case VAR_POSITION:{
                 tempMsg.writeUnsignedByte(POSITION_2D);
-                tempMsg.writeDouble(j->getPosition().x());
-                tempMsg.writeDouble(j->getPosition().y());
-                break;
-            case VAR_SHAPE:
+                TraCIPosition p = TraCI_Junction::getPosition(id);
+                tempMsg.writeDouble(p.x);
+                tempMsg.writeDouble(p.y);
+                break;}
+            case VAR_SHAPE:{
                 tempMsg.writeUnsignedByte(TYPE_POLYGON);
-                tempMsg.writeUnsignedByte(MIN2(255, (int)j->getShape().size()));
-                for (int iPoint = 0; iPoint < MIN2(255, (int)j->getShape().size()); ++iPoint) {
-                    tempMsg.writeDouble(j->getShape()[iPoint].x());
-                    tempMsg.writeDouble(j->getShape()[iPoint].y());
+                const TraCIPositionVector shp = TraCI_Junction::getShape(id);
+                tempMsg.writeUnsignedByte(MIN2(255, (int) shp.size()));
+                for (int iPoint = 0; iPoint < MIN2(255, (int) shp.size()); ++iPoint) {
+                    tempMsg.writeDouble(shp[iPoint].x);
+                    tempMsg.writeDouble(shp[iPoint].y);
                 }
-                break;
-
+                break;}
             default:
                 break;
         }
