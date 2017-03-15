@@ -66,6 +66,18 @@
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Vehicle.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_LaneAreaDetector.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Polygon.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Junction.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\traci-server\TraCIConstants.h">
@@ -123,6 +135,18 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Vehicle.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_LaneAreaDetector.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Polygon.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Junction.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
