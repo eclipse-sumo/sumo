@@ -77,6 +77,12 @@ def Popen(newNet):
     neteditCall += ['--additionals-output',
                     os.path.join(textTestSandBox, "additionals.xml")]
 
+    # check if a gui settings file has to be load
+    if os.path.exists(os.path.join(textTestSandBox, "gui-settings.xml")):
+        neteditCall += ['--gui-settings-file',
+                        os.path.join(textTestSandBox, "gui-settings.xml")]
+
+    # return a subprocess with netedit
     return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
 # obtain match
