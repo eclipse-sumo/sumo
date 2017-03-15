@@ -63,16 +63,26 @@ TraCI_POI::getType(const std::string& poiID) {
     return getPoI(poiID)->getType();
 }
 
-TraCIPosition
-TraCI_POI::getPosition(const std::string& poiID) {
-    return TraCIPosition();
-}
-
 TraCIColor
 TraCI_POI::getColor(const std::string& poiID) {
-    return TraCIColor();
+    TraCIColor col;
+    PointOfInterest* p = getPoI(poiID);
+    col.r = p->getColor().red();
+    col.g = p->getColor().green();
+    col.b = p->getColor().blue();
+    col.a = p->getColor().alpha();
+    return col;
 }
 
+TraCIPosition
+TraCI_POI::getPosition(const std::string& poiID) {
+    TraCIPosition pos;
+    PointOfInterest* p = getPoI(poiID);
+    pos.x = p->x();
+    pos.y = p->y();
+    pos.z = p->z();
+    return pos;
+}
 
 void
 TraCI_POI::setType(const std::string& poiID, const std::string& setType) {

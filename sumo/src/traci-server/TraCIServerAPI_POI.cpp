@@ -52,12 +52,18 @@
 bool
 TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                tcpip::Storage& outputStorage) {
+
     // variable & id
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable != ID_LIST && variable != VAR_TYPE && variable != VAR_COLOR && variable != VAR_POSITION && variable != ID_COUNT
-            && variable != VAR_PARAMETER) {
+    if (variable != ID_LIST &&
+	variable != VAR_TYPE &&
+	variable != VAR_COLOR &&
+	variable != VAR_POSITION &&
+	variable != VAR_POSITION3D &&
+	variable != ID_COUNT &&
+	variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Get PoI Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // begin response building
@@ -66,52 +72,57 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     tempMsg.writeUnsignedByte(RESPONSE_GET_POI_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
-    // process request
-    if (variable == ID_LIST || variable == ID_COUNT) {
-        if (variable == ID_LIST) {
+    // process request    
+    try {
+	switch (variable) {
+	case ID_LIST:
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             tempMsg.writeStringList(TraCI_POI::getIDList());
-        } else {
+	    break;
+	case ID_COUNT:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int) TraCI_POI::getIDList().size());
+            tempMsg.writeInt((int) TraCI_POI::getIDCount());
+	    break;
+        case VAR_TYPE:
+	    tempMsg.writeUnsignedByte(TYPE_STRING);
+	    tempMsg.writeString(TraCI_POI::getType(id));
+	    break;
+	case VAR_COLOR:
+	    tempMsg.writeUnsignedByte(TYPE_COLOR);
+	    tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).red());
+	    tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).green());
+	    tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).blue());
+	    tempMsg.writeUnsignedByte(TraCI_POI::getColor(id).alpha());
+	    break;
+	case VAR_POSITION:
+	    tempMsg.writeUnsignedByte(POSITION_2D);
+	    tempMsg.writeDouble(TraCI_POI::getPosition(id)->x());
+	    tempMsg.writeDouble(TraCI_POI::getPosition(id)->y());
+	    break;
+	case VAR_POSITION3D:
+	    tempMsg.writeUnsignedByte(POSITION_3D);
+	    tempMsg.writeDouble(TraCI_POI::getPosition(id)->x());
+	    tempMsg.writeDouble(TraCI_POI::getPosition(id)->y());
+    	    tempMsg.writeDouble(TraCI_POI::getPosition(id)->z());
+	    break;
+	case VAR_PARAMETER: 
+	    std::string paramName = "";
+	    if (!server.readTypeCheckingString(inputStorage, paramName)) {
+		return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+	    }
+	    tempMsg.writeUnsignedByte(TYPE_STRING);
+	    tempMsg.writeString(p->getParameter(paramName, ""));
+	    break;
+	default:
+	    break;
         }
-    } else {
-        PointOfInterest* p = getPoI(id);
-        if (p == 0) {
-            return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "POI '" + id + "' is not known", outputStorage);
-        }
-        switch (variable) {
-            case VAR_TYPE:
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(TraCI_POI::getType(id));
-                break;
-            case VAR_COLOR:
-                tempMsg.writeUnsignedByte(TYPE_COLOR);
-                tempMsg.writeUnsignedByte(p->getColor().red());
-                tempMsg.writeUnsignedByte(p->getColor().green());
-                tempMsg.writeUnsignedByte(p->getColor().blue());
-                tempMsg.writeUnsignedByte(p->getColor().alpha());
-                break;
-            case VAR_POSITION:
-                tempMsg.writeUnsignedByte(POSITION_2D);
-                tempMsg.writeDouble(p->x());
-                tempMsg.writeDouble(p->y());
-                break;
-            case VAR_PARAMETER: {
-                std::string paramName = "";
-                if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                    return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-                }
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(p->getParameter(paramName, ""));
-            }
-            break;
-            default:
-                break;
-        }
+    } catch (TraCIException& e) {
+        return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, e.what(), outputStorage);
     }
+    
     server.writeStatusCmd(CMD_GET_POI_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);
+
     return true;
 }
 
