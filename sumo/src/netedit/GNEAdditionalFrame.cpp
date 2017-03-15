@@ -190,6 +190,13 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         return false;
     }
 
+    // limit position depending if show grid is enabled
+    Position currentPosition = parent->getPositionInformation();
+    if(parent->getVisualisationSettings()->showGrid) {
+        currentPosition.setx(currentPosition.x() - std::fmod(currentPosition.x(), parent->getVisualisationSettings()->gridXSize)); 
+        currentPosition.sety(currentPosition.y() - std::fmod(currentPosition.y(), parent->getVisualisationSettings()->gridYSize)); 
+    }
+
     // Declare pointer to netElements
     GNEJunction* pointed_junction = NULL;
     GNEEdge* pointed_edge = NULL;
@@ -254,7 +261,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
     // Obtain position attribute
     if (pointed_edge) {
         // Obtain position of the mouse over edge
-        double positionOfTheMouseOverEdge = pointed_edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(parent->getPositionInformation());
+        double positionOfTheMouseOverEdge = pointed_edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(currentPosition);
         // If element has a StartPosition and EndPosition over edge, extract attributes
         if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
             // First check that current length is valid
@@ -287,7 +294,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverEdge);
     } else if (pointed_lane) {
         // Obtain position of the mouse over lane
-        double positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(parent->getPositionInformation());
+        double positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(currentPosition);
         // If element has a StartPosition and EndPosition over lane, extract attributes
         if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
             // First check that current length is valid
@@ -320,7 +327,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverLane);
     } else {
         // get position in map
-        valuesOfElement[SUMO_ATTR_POSITION] = toString(parent->getPositionInformation());
+        valuesOfElement[SUMO_ATTR_POSITION] = toString(currentPosition);
     }
 
     // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.txt

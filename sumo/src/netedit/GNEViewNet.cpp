@@ -896,7 +896,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         } else if (myAdditionalToMove) {
             // If additional is placed over lane, move it across it
             if (myAdditionalToMove->getLane()) {
-                double posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false);
+                double posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(currentPosition, false);
                 myAdditionalToMove->moveAdditionalGeometry(posOfMouseOverLane - myAdditionalMovingReference.x(), 0);
                 myAdditionalMovingReference.set(posOfMouseOverLane, 0, 0);
             } else {
