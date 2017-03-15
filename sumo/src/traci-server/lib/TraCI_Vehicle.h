@@ -80,7 +80,6 @@ public:
     static std::string getTypeID(const std::string& vehicleID);
     static std::string getRouteID(const std::string& vehicleID);
     static int getRouteIndex(const std::string& vehicleID);
-    static std::vector<std::string> getEdges(const std::string& vehicleID);
     static TraCIColor getColor(const std::string& vehicleID);
     static double getLanePosition(const std::string& vehicleID);
     static double getCO2Emission(const std::string& vehicleID);
@@ -91,6 +90,7 @@ public:
     static double getFuelConsumption(const std::string& vehicleID);
     static double getNoiseEmission(const std::string& vehicleID);
     static double getElectricityConsumption(const std::string& vehicleID);
+    static std::vector<std::string> getEdges(const std::string& vehicleID);
     static int getSignalStates(const std::string& vehicleID);
     static double getWaitingTime(const std::string& vehicleID);
     static std::vector<NextTLSData> getNextTLS(const std::string& vehID);

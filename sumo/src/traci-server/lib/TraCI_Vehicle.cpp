@@ -152,12 +152,9 @@ TraCI_Vehicle::getRouteIndex(const std::string& vehicleID) {
     return veh->hasDeparted() ? veh->getRoutePosition() : INVALID_INT_VALUE;
 }
 
-std::vector<std::string>
-TraCI_Vehicle::getEdges(const std::string& vehicleID) {
-}
-
 TraCIColor
 TraCI_Vehicle::getColor(const std::string& vehicleID) {
+    return TraCI::makeTraCIColor(getVehicle(vehicleID)->getParameter().color);
 }
 
 double
@@ -168,35 +165,57 @@ TraCI_Vehicle::getLanePosition(const std::string& vehicleID) {
 
 double
 TraCI_Vehicle::getCO2Emission(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getCO2Emissions() : INVALID_DOUBLE_VALUE;
 }
 
 double
 TraCI_Vehicle::getCOEmission(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getCOEmissions() : INVALID_DOUBLE_VALUE;
 }
 
 double
 TraCI_Vehicle::getHCEmission(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getHCEmissions() : INVALID_DOUBLE_VALUE;
 }
 
 double
 TraCI_Vehicle::getPMxEmission(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getPMxEmissions() : INVALID_DOUBLE_VALUE;
 }
 
 double
 TraCI_Vehicle::getNOxEmission(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getNOxEmissions() : INVALID_DOUBLE_VALUE;
 }
 
 double
 TraCI_Vehicle::getFuelConsumption(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getFuelConsumption() : INVALID_DOUBLE_VALUE;
 }
 
 double
 TraCI_Vehicle::getNoiseEmission(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getHarmonoise_NoiseEmissions() : INVALID_DOUBLE_VALUE;
 }
 
 double
 TraCI_Vehicle::getElectricityConsumption(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getElectricityConsumption() : INVALID_DOUBLE_VALUE;
 }
+
+
+std::vector<std::string>
+TraCI_Vehicle::getEdges(const std::string& vehicleID) {
+}
+
 
 int
 TraCI_Vehicle::getSignalStates(const std::string& vehicleID) {

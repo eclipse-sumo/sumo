@@ -183,54 +183,52 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 break;
             case VAR_ROUTE_INDEX:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                if (v->hasDeparted()) {
-                    tempMsg.writeInt((int)v->getRoutePosition());
-                } else {
-                    tempMsg.writeInt(INVALID_INT_VALUE);
-                }
+                tempMsg.writeInt(TraCI_Vehicle::getRouteIndex(id));
                 break;
-            case VAR_COLOR:
+            case VAR_COLOR: {
+                TraCIColor color = TraCI_Vehicle::getColor(id);
                 tempMsg.writeUnsignedByte(TYPE_COLOR);
-                tempMsg.writeUnsignedByte(v->getParameter().color.red());
-                tempMsg.writeUnsignedByte(v->getParameter().color.green());
-                tempMsg.writeUnsignedByte(v->getParameter().color.blue());
-                tempMsg.writeUnsignedByte(v->getParameter().color.alpha());
+                tempMsg.writeUnsignedByte(color.r);
+                tempMsg.writeUnsignedByte(color.g);
+                tempMsg.writeUnsignedByte(color.b);
+                tempMsg.writeUnsignedByte(color.a);
                 break;
+            }
             case VAR_LANEPOSITION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(onRoad ? v->getPositionOnLane() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getLanePosition(id));
                 break;
             case VAR_CO2EMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(visible ? v->getCO2Emissions() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getCO2Emission(id));
                 break;
             case VAR_COEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(visible ? v->getCOEmissions() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getCOEmission(id));
                 break;
             case VAR_HCEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(visible ? v->getHCEmissions() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getHCEmission(id));
                 break;
             case VAR_PMXEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(visible ? v->getPMxEmissions() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getPMxEmission(id));
                 break;
             case VAR_NOXEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(visible ? v->getNOxEmissions() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getNOxEmission(id));
                 break;
             case VAR_FUELCONSUMPTION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(visible ? v->getFuelConsumption() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getFuelConsumption(id));
                 break;
             case VAR_NOISEEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(visible ? v->getHarmonoise_NoiseEmissions() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getNoiseEmission(id));
                 break;
             case VAR_ELECTRICITYCONSUMPTION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(visible ? v->getElectricityConsumption() : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getElectricityConsumption(id));
                 break;
             case VAR_PERSON_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
