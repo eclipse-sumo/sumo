@@ -51,6 +51,15 @@
 typedef long long int SUMOTime; // <utils/common/SUMOTime.h>
 #define SUMOTime_MAX std::numeric_limits<SUMOTime>::max()
 
+/**
+* @class TraCIException
+*/
+class TraCIException : public std::runtime_error {
+public:
+    /** constructor */
+    TraCIException(std::string what)
+        : std::runtime_error(what) {}
+};
 
 /// @name Structures definitions
 /// @{

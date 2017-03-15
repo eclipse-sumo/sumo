@@ -33,7 +33,7 @@
 
 #ifndef NO_TRACI
 
-#include "TraCIException.h"
+#include "TraCIDefs.h"
 #include <microsim/MSEdgeWeightsStorage.h>
 #include "TraCIServer.h"
 #include <foreign/tcpip/storage.h>

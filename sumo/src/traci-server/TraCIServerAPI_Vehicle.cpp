@@ -50,6 +50,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
+#include <traci-server/lib/TraCI_Vehicle.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Simulation.h"
 #include "TraCIServerAPI_Vehicle.h"
@@ -118,20 +119,6 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
     tempMsg.writeString(id);
     // process request
     if (variable == ID_LIST || variable == ID_COUNT) {
-        std::vector<std::string> ids;
-        MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
-        for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
-            if ((*i).second->isOnRoad() || (*i).second->isParking()) {
-                ids.push_back((*i).first);
-            }
-        }
-        if (variable == ID_LIST) {
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(ids);
-        } else {
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int) ids.size());
-        }
     } else {
         SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
         if (sumoVehicle == 0) {
@@ -144,6 +131,13 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
         const bool onRoad = v->isOnRoad();
         const bool visible = onRoad || v->isParking();
         switch (variable) {
+            case ID_LIST:
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                tempMsg.writeStringList(TraCI_Vehicle::getIDList());
+                break;
+            case ID_COUNT:
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(TraCI_Vehicle::getIDCount());
             case VAR_SPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(visible ? v->getSpeed() : INVALID_DOUBLE_VALUE);

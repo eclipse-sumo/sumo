@@ -36,7 +36,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "TraCIException.h"
+#include "TraCIDefs.h"
 #include "TraCIServer.h"
 #include <foreign/tcpip/storage.h>
 
