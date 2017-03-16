@@ -78,10 +78,6 @@ public:
      */
     void writeAdditional(OutputDevice& device) const;
 
-    /// @brief remove reference to edge
-    /// @note this function will be called automatically in destructor of GNEEdge
-    void removeEdgeReference();
-
     /// @brief get filename of RouteProbe
     std::string getFilename() const;
 
@@ -150,7 +146,10 @@ protected:
     Position myRouteProbeLogoOffset;
 
     /// @brief number of lanes of edge (To improve efficiency)
-    int numberOfLanes;
+    int myNumberOfLanes;
+
+    /// @brief relative position regarding to other route probes
+    int myRelativePosition;
 
 private:
     /// @brief set attribute after validation

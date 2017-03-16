@@ -69,7 +69,9 @@ GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge
     GNEAdditional(id, viewNet, Position(), SUMO_TAG_ROUTEPROBE, ICON_ROUTEPROBE),
     myFrequency(frequency),
     myFilename(filename),
-    myBegin(begin) {
+    myBegin(begin),
+    myNumberOfLanes(0),
+    myRelativePosition(0) {
     // This additional belongs to a edge
     myEdge = edge;
     // this additional ISN'T movable
@@ -94,11 +96,14 @@ GNERouteProbe::updateGeometry() {
     // clear Shape
     myShape.clear();
 
+    // obtain relative position of routeProbe in edge
+    myRelativePosition = 2 * myEdge->getRouteProbeRelativePosition(this);
+
     // get lanes of edge
     GNELane* firstLane = myEdge->getLanes().at(0);
 
     // Save number of lanes
-    numberOfLanes = int(myEdge->getLanes().size());
+    myNumberOfLanes = int(myEdge->getLanes().size());
 
     // Get shape of lane parent
     myShape.push_back(firstLane->getShape().positionAtOffset(5));
@@ -116,7 +121,7 @@ GNERouteProbe::updateGeometry() {
     myBlockIconPosition = myShape.getLineCenter();
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(1.1, -3.06);
+    myBlockIconOffset = Position(1.1, (-3.06) - myRelativePosition);
 
     // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(firstLane);
@@ -224,8 +229,8 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     glBegin(GL_QUADS);
     glVertex2d(0,  0.25);
     glVertex2d(0, -0.25);
-    glVertex2d((numberOfLanes * 3.3), -0.25);
-    glVertex2d((numberOfLanes * 3.3),  0.25);
+    glVertex2d((myNumberOfLanes * 3.3), -0.25);
+    glVertex2d((myNumberOfLanes * 3.3),  0.25);
     glEnd();
     glTranslated(0, 0, .01);
     glBegin(GL_LINES);
@@ -239,7 +244,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         glColor3d(1, 1, 1);
         glBegin(GL_LINES);
         glVertex2d(0, 0);
-        glVertex2d(0, (numberOfLanes * 3.3));
+        glVertex2d(0, (myNumberOfLanes * 3.3));
         glEnd();
     }
 
@@ -250,7 +255,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(myShape[0].x(), myShape[0].y(), getType());
     glRotated(myShapeRotations[0], 0, 0, 1);
-    glTranslated(-2.56, - 1.6, 0);
+    glTranslated((-2.56) - myRelativePosition, (-1.6), 0);
     glColor3d(1, 1, 1);
     glRotated(-90, 0, 0, 1);
 

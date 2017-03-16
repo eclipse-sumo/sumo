@@ -51,6 +51,7 @@
 #include "GNELane.h"
 #include "GNEAdditional.h"
 #include "GNEConnection.h"
+#include "GNERouteProbe.h"
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -440,6 +441,24 @@ GNEEdge::clearGNEConnections() {
         }
     }
     myGNEConnections.clear();
+}
+
+
+int 
+GNEEdge::getRouteProbeRelativePosition(GNERouteProbe *routeProbe) const {
+    AdditionalVector routeProbes;
+    for(AdditionalVector::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+        if((*i)->getTag() == routeProbe->getTag()) {
+            routeProbes.push_back(*i);
+        }
+    }
+    // return index of routeProbe in routeProbes vector
+    AdditionalVector::const_iterator it = std::find(routeProbes.begin(), routeProbes.end(), routeProbe);
+    if (it == routeProbes.end()) {
+        return -1;
+    } else {
+        return (int)(it - routeProbes.begin());
+    }
 }
 
 
@@ -946,6 +965,8 @@ GNEEdge::addAdditionalChild(GNEAdditional* additional) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myAdditionals.push_back(additional);
+        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
+        updateGeometry();
     }
 }
 
@@ -958,6 +979,8 @@ GNEEdge::removeAdditionalChild(GNEAdditional* additional) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myAdditionals.erase(it);
+        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
+        updateGeometry();
     }
 }
 

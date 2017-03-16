@@ -41,6 +41,7 @@ class GNEJunction;
 class GNELane;
 class GNEConnection;
 class GNEAdditional;
+class GNERouteProbe;
 
 // ===========================================================================
 // class definitions
@@ -240,6 +241,10 @@ public:
 
     /// @brief clear current connections
     void clearGNEConnections();
+
+    /// @brief clear current connections
+    int getRouteProbeRelativePosition(GNERouteProbe *routeProbe) const;
+
 protected:
     /// @brief the underlying NBEdge
     NBEdge& myNBEdge;
