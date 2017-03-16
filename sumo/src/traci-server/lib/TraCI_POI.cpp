@@ -113,7 +113,7 @@ PointOfInterest*
 TraCI_POI::getPoI(const std::string& id) {
     PointOfInterest* sumoPoi = MSNet::getInstance()->getShapeContainer().getPOIs().get(id);
     if (sumoPoi == 0) {
-        throw TraCIException("POI '" + id + "' is not known");
+        throw TraCIException("PoI '" + id + "' is not known");
     }
     return sumoPoi;
 }
