@@ -93,11 +93,17 @@ GNEVaporizer::updateGeometry() {
     // clear Shape
     myShape.clear();
 
+    // obtain relative position of vaporizer in edge
+    myRelativePosition = 2 * myEdge->getVaporizerRelativePosition(this);
+
     // get lanes of edge
     GNELane* firstLane = myEdge->getLanes().at(0);
 
+    // Save number of lanes
+    myNumberOfLanes = int(myEdge->getLanes().size());
+
     // Get shape of lane parent
-    myShape.push_back(firstLane->getShape().positionAtOffset(3));
+    myShape.push_back(firstLane->getShape().positionAtOffset(5));
 
     // Obtain first position
     Position f = myShape[0] - Position(1, 0);
@@ -112,7 +118,7 @@ GNEVaporizer::updateGeometry() {
     myBlockIconPosition = myShape.getLineCenter();
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(1.1, -3.06);
+    myBlockIconOffset = Position(1.1, (-3.06) - myRelativePosition);
 
     // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(firstLane);
@@ -191,12 +197,9 @@ void
 GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // get values
     glPushName(getGlID());
-    glLineWidth(1.0);
-
-    // Declare auxiliar values
-    const double exaggeration = s.addSize.getExaggeration(s);
-    int numberOfLanes = int(myEdge->getLanes().size());
     double width = (double) 2.0 * s.scale;
+    glLineWidth(1.0);
+    const double exaggeration = s.addSize.getExaggeration(s);
 
     // draw shape
     glColor3ub(120, 216, 0);
@@ -209,8 +212,8 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glBegin(GL_QUADS);
     glVertex2d(0,  0.25);
     glVertex2d(0, -0.25);
-    glVertex2d((numberOfLanes * 3.3), -0.25);
-    glVertex2d((numberOfLanes * 3.3),  0.25);
+    glVertex2d((myNumberOfLanes * 3.3), -0.25);
+    glVertex2d((myNumberOfLanes * 3.3),  0.25);
     glEnd();
     glTranslated(0, 0, .01);
     glBegin(GL_LINES);
@@ -224,7 +227,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         glColor3d(1, 1, 1);
         glBegin(GL_LINES);
         glVertex2d(0, 0);
-        glVertex2d(0, (numberOfLanes * 3.3));
+        glVertex2d(0, (myNumberOfLanes * 3.3));
         glEnd();
     }
 
@@ -235,7 +238,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(myShape[0].x(), myShape[0].y(), getType());
     glRotated(myShapeRotations[0], 0, 0, 1);
-    glTranslated(-2.56, - 1.6, 0);
+    glTranslated((-2.56) - myRelativePosition, (-1.6), 0);
     glColor3d(1, 1, 1);
     glRotated(-90, 0, 0, 1);
 

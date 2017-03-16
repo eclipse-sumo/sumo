@@ -42,6 +42,7 @@ class GNELane;
 class GNEConnection;
 class GNEAdditional;
 class GNERouteProbe;
+class GNEVaporizer;
 
 // ===========================================================================
 // class definitions
@@ -242,8 +243,11 @@ public:
     /// @brief clear current connections
     void clearGNEConnections();
 
-    /// @brief clear current connections
+    /// @brief obtain relative positions of RouteProbes
     int getRouteProbeRelativePosition(GNERouteProbe *routeProbe) const;
+
+    /// @brief obtain relative positions of Vaporizer
+    int getVaporizerRelativePosition(GNEVaporizer *vaporizer) const;
 
 protected:
     /// @brief the underlying NBEdge

@@ -136,6 +136,12 @@ protected:
     /// @brief end time in which this vaporizer is placed
     double myEnd;
 
+    /// @brief number of lanes of edge (To improve efficiency)
+    int myNumberOfLanes;
+
+    /// @brief relative position regarding to other route probes
+    int myRelativePosition;
+
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

@@ -52,6 +52,7 @@
 #include "GNEAdditional.h"
 #include "GNEConnection.h"
 #include "GNERouteProbe.h"
+#include "GNEVaporizer.h"
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -458,6 +459,24 @@ GNEEdge::getRouteProbeRelativePosition(GNERouteProbe *routeProbe) const {
         return -1;
     } else {
         return (int)(it - routeProbes.begin());
+    }
+}
+
+
+int
+GNEEdge::getVaporizerRelativePosition(GNEVaporizer *vaporizer) const {
+    AdditionalVector vaporizers;
+    for(AdditionalVector::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+        if((*i)->getTag() == vaporizer->getTag()) {
+            vaporizers.push_back(*i);
+        }
+    }
+    // return index of routeProbe in routeProbes vector
+    AdditionalVector::const_iterator it = std::find(vaporizers.begin(), vaporizers.end(), vaporizer);
+    if (it == vaporizers.end()) {
+        return -1;
+    } else {
+        return (int)(it - vaporizers.begin());
     }
 }
 
