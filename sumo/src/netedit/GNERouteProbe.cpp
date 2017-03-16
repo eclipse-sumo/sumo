@@ -338,7 +338,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return isValidFileValue(value);
         case SUMO_ATTR_FREQUENCY:
-            return canParse<int>(value);
+            return canParse<double>(value);
         case SUMO_ATTR_BEGIN:
             return canParse<double>(value);
         default:
@@ -360,7 +360,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFilename = value;
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFrequency = parse<int>(value);
+            myFrequency = parse<double>(value);
             break;
         case SUMO_ATTR_BEGIN:
             myBegin = parse<double>(value);
