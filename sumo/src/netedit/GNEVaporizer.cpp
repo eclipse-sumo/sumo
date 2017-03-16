@@ -154,7 +154,6 @@ void
 GNEVaporizer::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());
     device.writeAttr(SUMO_ATTR_STARTTIME, myStartTime);
     device.writeAttr(SUMO_ATTR_END, myEnd);
