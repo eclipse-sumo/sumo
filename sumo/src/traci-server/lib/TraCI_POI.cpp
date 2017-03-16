@@ -68,7 +68,9 @@ TraCI_POI::getType(const std::string& poiID) {
 
 TraCIColor
 TraCI_POI::getColor(const std::string& poiID) {
-    return TraCI::makeTraCIColor(getPoI(poiID)->getColor());
+    PointOfInterest* sumoPoi = getPoI(poiID);
+    RGBColor col = sumoPoi->getColor();
+    return TraCI::makeTraCIColor(col);
 }
 
 TraCIPosition
@@ -109,10 +111,9 @@ TraCI_POI::remove(const std::string& poiID, int layer) {
 
 PointOfInterest*
 TraCI_POI::getPoI(const std::string& id) {
-
     PointOfInterest* sumoPoi = MSNet::getInstance()->getShapeContainer().getPOIs().get(id);
     if (sumoPoi == 0) {
-        throw TraCIException("PoI '" + id + "' is not known");
+        throw TraCIException("POI '" + id + "' is not known");
     }
     return sumoPoi;
 }
