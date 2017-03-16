@@ -245,13 +245,13 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
                     oss << " ";
                 }
                 oss << *it_val;
-                // Show attribute 
-                if(((disableTLSinJunctions == true) && (tag == SUMO_TAG_JUNCTION) && ((*it == SUMO_ATTR_TLTYPE) || (*it == SUMO_ATTR_TLID))) == false) {
-                    (*itAttrs)->showAttribute(myACs.front(), myACs.front()->getTag(), *it, oss.str());
-                }
-                // update attribute iterator
-                itAttrs++;
             }
+            // Show attribute 
+            if(((disableTLSinJunctions == true) && (tag == SUMO_TAG_JUNCTION) && ((*it == SUMO_ATTR_TLTYPE) || (*it == SUMO_ATTR_TLID))) == false) {
+                (*itAttrs)->showAttribute(myACs.front(), myACs.front()->getTag(), *it, oss.str());
+            }
+            // update attribute iterator
+            itAttrs++;
         }
 
         // If attributes correspond to an Additional
