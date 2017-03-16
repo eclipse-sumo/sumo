@@ -80,7 +80,7 @@ TraCI_Polygon::add(const std::string& polygonID, const TraCIPositionVector& shap
     PositionVector pShape = TraCI::makePositionVector(shape);
     RGBColor col = TraCI::makeRGBColor(c);
     if (!shapeCont.addPolygon(polygonID,type,col,(double)layer,Shape::DEFAULT_ANGLE,Shape::DEFAULT_IMG_FILE,pShape,fill)){
-        throw TraCIException("Could not add Polygon");
+        throw TraCIException("Could not add polygon '" + polygonID + "'");
     }
 }
 void TraCI_Polygon::remove(const std::string& polygonID, int layer)
@@ -102,7 +102,7 @@ SUMO::Polygon* TraCI_Polygon::getPolygon(const std::string& id)
 {
     SUMO::Polygon* p = MSNet::getInstance()->getShapeContainer().getPolygons().get(id);
     if (p == 0) {
-        throw TraCIException("Polygon '" + id +  "' does not exist");
+        throw TraCIException("Polygon '" + id +  "' is not known");
     }
     return p;
 }

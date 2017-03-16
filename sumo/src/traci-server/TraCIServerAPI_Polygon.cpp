@@ -123,8 +123,8 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 break;
             default:break;
             }
-        } catch (TraCIException traCIException) {
-            return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE, traCIException.what(), outputStorage);
+        } catch (TraCIException& e) {
+            return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE, e.what(), outputStorage);
         }
     }
     server.writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_OK, "", outputStorage);

@@ -103,7 +103,7 @@ const MSRoute*
 TraCI_Route::getRoute(const std::string& id) {
     const MSRoute* r = MSRoute::dictionary(id);
     if (r == 0) {
-        throw TraCIException("Junction '" + id + "' is not known");
+        throw TraCIException("Route '" + id + "' is not known");
     }
     return r;
 }
