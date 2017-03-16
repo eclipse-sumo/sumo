@@ -182,7 +182,7 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, co
     std::string edgeId = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_EDGE, abort);
     double freq = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_FREQUENCY, abort);
     std::string file = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_FILE, abort);
-    int begin = getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_BEGIN, abort);
+    double begin = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_BEGIN, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get edge
