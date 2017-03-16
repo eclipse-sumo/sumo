@@ -1,0 +1,12 @@
+Warning: Essential string attribute 'edge' of vaporizer is missing; Additional cannot be created
+Warning: The edge 'dummyEdge' to use within the vaporizer is not known.
+Warning: Optional time attribute 'startTime' of vaporizer is missing; Default value '0.00' will be used.
+Warning: Optional time attribute 'startTime' of vaporizer is missing; Default value '0.00' will be used.
+Warning: Format of optional time attribute 'startTime' of vaporizer is invalid; Cannot be parsed to time; Default value '0.00' will be used.
+Warning: Format of optional time attribute 'startTime' of vaporizer is invalid; Time cannot be negative; Default value '0.00' will be used.
+Warning: Optional time attribute 'end' of vaporizer is missing; Default value '10.00' will be used.
+Warning: Optional time attribute 'end' of vaporizer is missing; Default value '10.00' will be used.
+Warning: Time interval of vaporizer isn't valid. Attribute 'startTime' is greater than attribute 'end'.
+Warning: Format of optional time attribute 'end' of vaporizer is invalid; Cannot be parsed to time; Default value '10.00' will be used.
+Warning: Format of optional time attribute 'end' of vaporizer is invalid; Time cannot be negative; Default value '10.00' will be used.
+Warning: Time interval of vaporizer isn't valid. Attribute 'startTime' is greater than attribute 'end'.
