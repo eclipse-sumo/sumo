@@ -30,6 +30,7 @@
 #include "GNEChange_Additional.h"
 #include "GNENet.h"
 #include "GNELane.h"
+#include "GNEEdge.h"
 #include "GNEAdditional.h"
 #include "GNEViewNet.h"
 #include "GNEDetectorE3.h"
@@ -55,12 +56,17 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
     GNEChange(additional->getViewNet()->getNet(), forward),
     myAdditional(additional),
     myLaneParent(NULL),
+    myEdgeParent(NULL),
     myE3Parent(NULL) {
     assert(myNet);
     myAdditional->incRef("GNEChange_Additional");
     // handle additionals with lane parent
     if (myAdditional->getLane() != NULL) {
         myLaneParent = myAdditional->getLane();
+    }
+    // handle additionals with edge parent
+    if (myAdditional->getEdge() != NULL) {
+        myEdgeParent = myAdditional->getEdge();
     }
     // handle additional with childs
     if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
@@ -88,10 +94,15 @@ void
 GNEChange_Additional::undo() {
     if (myForward) {
         myNet->deleteAdditional(myAdditional);
-        // If additional own a Lane parent, remove it from lane
+        // If additional own a lane parent, remove it from lane
         if (myAdditional->getLane() != NULL) {
             assert(myLaneParent);
             myAdditional->getLane()->removeAdditionalChild(myAdditional);
+        }
+        // If additional own a lane parent, remove it from edge
+        if (myAdditional->getEdge() != NULL) {
+            assert(myEdgeParent);
+            myAdditional->getEdge()->removeAdditionalChild(myAdditional);
         }
         // If additional is an E3 Detector, delete Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
@@ -106,14 +117,14 @@ GNEChange_Additional::undo() {
                 myNet->deleteAdditional(*i);
             }
         }
-        // if additiona is an Entry detector, remove it from E3 parent
+        // If additiona is an Entry detector, remove it from E3 parent
         if (myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
             assert(myE3Parent);
             myE3Parent->removeEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
             myE3Parent->updateGeometry();
             myNet->getViewNet()->update();
         }
-        // if additiona is an Exit detector, remove it from E3 parent
+        // If additiona is an Exit detector, remove it from E3 parent
         if (myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
             assert(myE3Parent);
             myE3Parent->removeExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));
@@ -126,6 +137,11 @@ GNEChange_Additional::undo() {
         if (myAdditional->getLane() != NULL) {
             assert(myLaneParent);
             myAdditional->getLane()->addAdditionalChild(myAdditional);
+        }
+        // If additional own a lane parent, add it to edge
+        if (myAdditional->getEdge() != NULL) {
+            assert(myEdgeParent);
+            myAdditional->getEdge()->addAdditionalChild(myAdditional);
         }
         // If additional is an E3 detector, add it their Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
@@ -167,6 +183,11 @@ GNEChange_Additional::redo() {
             assert(myLaneParent);
             myAdditional->getLane()->addAdditionalChild(myAdditional);
         }
+        // If additional own a lane parent, add it to edge
+        if (myAdditional->getEdge() != NULL) {
+            assert(myEdgeParent);
+            myAdditional->getEdge()->addAdditionalChild(myAdditional);
+        }
         // If additional is an E3 detector, add it their Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
             for (std::vector<GNEDetectorEntry*>::iterator i = myEntryChilds.begin(); i != myEntryChilds.end(); i++) {
@@ -196,10 +217,15 @@ GNEChange_Additional::redo() {
         }
     } else {
         myNet->deleteAdditional(myAdditional);
-        // if additionl own a Lane Parent, remove it from lane
+        // If additionl own a Lane Parent, remove it from lane
         if (myAdditional->getLane() != NULL) {
             assert(myLaneParent);
             myAdditional->getLane()->removeAdditionalChild(myAdditional);
+        }
+        // If additional own a lane parent, remove it from lane
+        if (myAdditional->getEdge() != NULL) {
+            assert(myEdgeParent);
+            myAdditional->getEdge()->removeAdditionalChild(myAdditional);
         }
         // If additional is an E3 Detector, delete Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
@@ -214,14 +240,14 @@ GNEChange_Additional::redo() {
                 myNet->deleteAdditional(*i);
             }
         }
-        // if additiona is an Entry detector, remove it from E3 parent
+        // If additiona is an Entry detector, remove it from E3 parent
         if (myAdditional->getTag() == SUMO_TAG_DET_ENTRY) {
             assert(myE3Parent);
             myE3Parent->removeEntryChild(dynamic_cast<GNEDetectorEntry*>(myAdditional));
             myE3Parent->updateGeometry();
             myNet->getViewNet()->update();
         }
-        // if additiona is an Exit detector, remove it from E3 parent
+        // If additiona is an Exit detector, remove it from E3 parent
         if (myAdditional->getTag() == SUMO_TAG_DET_EXIT) {
             assert(myE3Parent);
             myE3Parent->removeExitChild(dynamic_cast<GNEDetectorExit*>(myAdditional));

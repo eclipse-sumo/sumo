@@ -88,6 +88,9 @@ private:
     /// @brief pointer to lane (used by additionals with lane parent)
     GNELane* myLaneParent;
 
+    /// @brief pointer to edge (used by additionals with edge parent)
+    GNEEdge* myEdgeParent;
+
     /// @brief pointer to E3 parent (used by Entry/exits)
     GNEDetectorE3* myE3Parent;
 
