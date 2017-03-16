@@ -137,6 +137,7 @@ TraCI::makeTraCIPosition(const Position& position) {
     TraCIPosition p;
     p.x = position.x();
     p.y = position.y();
+    p.z = position.z();
     return p;
 }
 

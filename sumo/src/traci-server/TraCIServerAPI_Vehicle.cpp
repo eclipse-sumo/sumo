@@ -126,6 +126,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             case ID_COUNT:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt(TraCI_Vehicle::getIDCount());
+                break;
             case VAR_SPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(TraCI_Vehicle::getSpeed(id));
@@ -357,15 +358,13 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 }
             }
             break;
-            case VAR_STOPSTATE: {
+            case VAR_STOPSTATE:
                 tempMsg.writeUnsignedByte(TYPE_UBYTE);
                 tempMsg.writeUnsignedByte(TraCI_Vehicle::getStopState(id));
-            }
             break;
-            case VAR_DISTANCE: {
+            case VAR_DISTANCE:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(TraCI_Vehicle::getDistance(id));
-            }
             break;
             case DISTANCE_REQUEST: {
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
@@ -386,8 +385,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                             std::string roadID = inputStorage.readString();
                             edgePos = inputStorage.readDouble();
                             laneIndex = inputStorage.readUnsignedByte();
-                            outputStorage.writeUnsignedByte(TYPE_DOUBLE);
-                            outputStorage.writeDouble(TraCI_Vehicle::getDrivingDistance(id, roadID, edgePos, laneIndex));
+                            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                            tempMsg.writeDouble(TraCI_Vehicle::getDrivingDistance(id, roadID, edgePos, laneIndex));
                             break;
                         } catch (TraCIException& e) {
                             return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, e.what(), outputStorage);
@@ -399,8 +398,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                         if (posType == POSITION_3D) {
                             inputStorage.readDouble();        // z value is ignored
                         }
-                        outputStorage.writeUnsignedByte(TYPE_DOUBLE);
-                        outputStorage.writeDouble(TraCI_Vehicle::getDrivingDistance2D(id, p1x, p1y));
+                        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                        tempMsg.writeDouble(TraCI_Vehicle::getDrivingDistance2D(id, p1x, p1y));
                        }
                         break;
                     default:
