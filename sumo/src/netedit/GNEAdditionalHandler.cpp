@@ -990,7 +990,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, const std::string& id, 
 
 bool
 GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, double freq, const std::string& file, double begin) {
-    if (viewNet->getNet()->getAdditional(SUMO_TAG_REROUTER, id) == NULL) {
+    if (viewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_ROUTEPROBE));
         GNERouteProbe* routeProbe = new GNERouteProbe(id, viewNet, edge, freq, file, begin);
         viewNet->getUndoList()->add(new GNEChange_Additional(routeProbe, true), true);
