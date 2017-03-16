@@ -131,7 +131,7 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
                 break;
         }
     } catch (TraCIException& e) {
-            return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, e.what(), outputStorage);
+        return server.writeErrorStatusCmd(CMD_GET_AREAL_DETECTOR_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_AREAL_DETECTOR_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);

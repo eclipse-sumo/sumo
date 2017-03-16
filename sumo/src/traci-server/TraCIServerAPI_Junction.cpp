@@ -74,15 +74,17 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
             tempMsg.writeStringList(TraCI_Junction::getIDList());
             break;
         case ID_COUNT:
-            tempMsg.writeInt((int) TraCI_Junction::getIDCount());
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt(TraCI_Junction::getIDCount());
             break;
-        case VAR_POSITION:{
+        case VAR_POSITION: {
             tempMsg.writeUnsignedByte(POSITION_2D);
             TraCIPosition p = TraCI_Junction::getPosition(id);
             tempMsg.writeDouble(p.x);
             tempMsg.writeDouble(p.y);
-            break;}
-        case VAR_SHAPE:{
+            break;
+        }
+        case VAR_SHAPE: {
             tempMsg.writeUnsignedByte(TYPE_POLYGON);
             const TraCIPositionVector shp = TraCI_Junction::getShape(id);
             tempMsg.writeUnsignedByte(MIN2(255, (int) shp.size()));
@@ -90,7 +92,8 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
                 tempMsg.writeDouble(shp[iPoint].x);
                 tempMsg.writeDouble(shp[iPoint].y);
             }
-            break;}
+            break;
+        }
         default:
             break;
 

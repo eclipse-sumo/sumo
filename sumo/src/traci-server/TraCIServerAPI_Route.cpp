@@ -71,17 +71,13 @@ TraCIServerAPI_Route::processGet(TraCIServer& server, tcpip::Storage& inputStora
             tempMsg.writeStringList(TraCI_Route::getIDList());
             break;
         case ID_COUNT:
-            tempMsg.writeInt((int) TraCI_Route::getIDCount());
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt(TraCI_Route::getIDCount());
             break;
-        case VAR_EDGES: {
-            std::vector<std::string> edges = TraCI_Route::getEdges(id);
+        case VAR_EDGES:
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeInt((int) edges.size());
-            for (std::vector<std::string>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-                tempMsg.writeString(*i);
-            }
+            tempMsg.writeStringList(TraCI_Route::getEdges(id));
             break;
-        }
         case VAR_PARAMETER: {
             std::string paramName = "";
             if (!server.readTypeCheckingString(inputStorage, paramName)) {
@@ -94,7 +90,6 @@ TraCIServerAPI_Route::processGet(TraCIServer& server, tcpip::Storage& inputStora
         default:
             break;
         }
-
     } catch (TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, e.what(), outputStorage);
     }
