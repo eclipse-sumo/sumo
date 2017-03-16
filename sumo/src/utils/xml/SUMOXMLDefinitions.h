@@ -415,6 +415,54 @@ enum SumoXMLAttr {
     /// @brief Delay in the charge of charging stations
     SUMO_ATTR_CHARGEDELAY,
     /// @}
+    
+    /// @name battery device parameters
+    /// @{
+    /// @brief Actual battery capacity
+    SUMO_ATTR_ACTUALBATTERYCAPACITY,
+    /// @brief Maxium battery capacity
+    SUMO_ATTR_MAXIMUMBATTERYCAPACITY,
+    /// @brief Maximum Power
+    SUMO_ATTR_MAXIMUMPOWER,
+    /// @brief Vehicle mass
+    SUMO_ATTR_VEHICLEMASS,
+    /// @brief Front surface area
+    SUMO_ATTR_FRONTSURFACEAREA,
+    /// @brief Air drag coefficient
+    SUMO_ATTR_AIRDRAGCOEFFICIENT,
+    /// @brief Internal moment of inertia
+    SUMO_ATTR_INTERNALMOMENTOFINERTIA,
+    /// @brief Radial drag coefficient
+    SUMO_ATTR_RADIALDRAGCOEFFICIENT,
+    /// @brief Roll Drag coefficient
+    SUMO_ATTR_ROLLDRAGCOEFFICIENT,
+    /// @brief Constant Power Intake
+    SUMO_ATTR_CONSTANTPOWERINTAKE,
+    /// @brief Propulsion efficiency
+    SUMO_ATTR_PROPULSIONEFFICIENCY,
+    /// @brief Recuperation efficiency
+    SUMO_ATTR_RECUPERATIONEFFICIENCY,
+    /// @brief Stopping treshold
+    SUMO_ATTR_STOPPINGTRESHOLD,
+    /// @}
+    
+    /// @name battery export parameters
+    /// @{
+    /// @brief Energy consumed
+    SUMO_ATTR_ENERGYCONSUMED,
+    /// @brief Charging Station ID
+    SUMO_ATTR_CHARGINGSTATIONID,
+    /// @brief tgotal of Energy charged
+    SUMO_ATTR_ENERGYCHARGED,
+    /// @brief Energy charged in transit
+    SUMO_ATTR_ENERGYCHARGEDINTRANSIT,
+    /// @brief Energy charged stopped
+    SUMO_ATTR_ENERGYCHARGEDSTOPPED,
+    /// @brief Position on lane
+    SUMO_ATTR_POSONLANE,
+    /// @brief Time stopped
+    SUMO_ATTR_TIMESTOPPED,
+    /// @}
 
     /// @name Car following model attributes
     /// @{
