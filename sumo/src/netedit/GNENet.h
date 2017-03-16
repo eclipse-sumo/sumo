@@ -215,7 +215,6 @@ public:
      */
     void duplicateLane(GNELane* lane, GNEUndoList* undoList);
 
-
     /**@brief transform lane to restricted lane
      * @param[in] vclass vehicle class to restrict
      * @param[in] lane The lane to be transformed
@@ -355,6 +354,9 @@ public:
     /// @brief refreshes boundary information of an additional after a geometry update
     /// @note only non removed additional will be refresh
     void refreshAdditional(GNEAdditional* additional);
+
+    /// @brief generate an ID for vaporizers
+    std::string generateVaporizerID() const;
 
     /// @brief updates the map and reserves new id
     void renameEdge(GNEEdge* edge, const std::string& newID);

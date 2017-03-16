@@ -821,6 +821,16 @@ GNENet::refreshAdditional(GNEAdditional* additional) {
 }
 
 
+std::string 
+GNENet::generateVaporizerID() const {
+    int counter = 0;
+    while(myAdditionals.find(std::pair<std::string, SumoXMLTag>("vaporizer_" + toString(counter), SUMO_TAG_VAPORIZER)) != myAdditionals.end()) {
+        counter++;
+    }
+    return "vaporizer_" + toString(counter);
+}
+
+
 std::vector<GNEAttributeCarrier*>
 GNENet::retrieveAttributeCarriers(const std::set<GUIGlID>& ids, GUIGlObjectType type) {
     std::vector<GNEAttributeCarrier*> result;

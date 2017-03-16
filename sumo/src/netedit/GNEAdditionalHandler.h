@@ -340,14 +340,13 @@ public:
 
     /**@brief Builds a vaporizer (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted
-     * @param[in] id The id of the lane speed trigger
      * @param[in] edge edge in which tis vaporizer is placed
      * @param[in] startTime time in which this vaporizer start
      * @param[in] end time in which this vaporizer ends
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static bool buildVaporizer(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, double startTime, double end);
+    static bool buildVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end);
 
     /**@brief Helper method to obtain the filename
      * @param[in] attrs The attributes to obtain the file name from

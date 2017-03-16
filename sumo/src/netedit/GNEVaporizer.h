@@ -48,13 +48,12 @@ class GNEEdge;
 class GNEVaporizer : public GNEAdditional {
 public:
     /**@brief Constructor
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] edge edge in which this vaporizer is placed
      * @param[in] startTime start time of vaporizer
      * @param[in] end end time of vaporizer
      */
-    GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end);
+    GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end);
 
     /// @brief Destructor
     ~GNEVaporizer();

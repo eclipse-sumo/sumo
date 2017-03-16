@@ -65,8 +65,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) :
-    GNEAdditional(id, viewNet, Position(), SUMO_TAG_VAPORIZER, ICON_VAPORIZER),
+GNEVaporizer::GNEVaporizer( GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) :
+    GNEAdditional(viewNet->getNet()->generateVaporizerID(), viewNet, Position(), SUMO_TAG_VAPORIZER, ICON_VAPORIZER),
     myStartTime(startTime),
     myEnd(end) {
     // This additional belongs to a edge

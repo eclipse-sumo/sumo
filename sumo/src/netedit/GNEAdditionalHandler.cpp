@@ -154,7 +154,6 @@ void
 GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of Vaporizer
-    std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
     const std::string edgeId = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_EDGE, abort);
     double startTime = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_STARTTIME, abort);
     double endTime = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_END, abort);
@@ -164,10 +163,13 @@ GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, con
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
         if (edge == NULL) {
             // Write error if lane isn't valid
-            WRITE_WARNING("The edge '" + edgeId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+            WRITE_WARNING("The edge '" + edgeId + "' to use within the " + toString(tag) + " is not known.");
+        } else if(startTime > endTime) {
+            // write error if time interval ins't valid
+            WRITE_WARNING("Time interval of " + toString(tag) + " isn't valid. Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
         } else {
             // build Vaporizer
-            buildVaporizer(myViewNet, id, edge, startTime, endTime);
+            buildVaporizer(myViewNet, edge, startTime, endTime);
         }
     }
 }
@@ -798,13 +800,12 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
         }
         case SUMO_TAG_VAPORIZER: {
             // obtain specify attributes of vaporizer
-            std::string id = values[SUMO_ATTR_ID];
             GNEEdge* edge = viewNet->getNet()->retrieveEdge(values[SUMO_ATTR_EDGE], false);
             double startTime = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_STARTTIME]);
             double end = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_END]);
             // Build RouteProbe
             if (edge) {
-                return buildVaporizer(viewNet, id, edge, startTime, end);
+                return buildVaporizer(viewNet, edge, startTime, end);
             } else {
                 return false;
             }
@@ -1019,17 +1020,12 @@ GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, const std::str
 
 
 bool
-GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, double startTime, double end) {
-    if (viewNet->getNet()->getAdditional(SUMO_TAG_VAPORIZER, id) == NULL) {
-        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_VAPORIZER));
-        GNEVaporizer* vaporizer = new GNEVaporizer(id, viewNet, edge, startTime, end);
-        viewNet->getUndoList()->add(new GNEChange_Additional(vaporizer, true), true);
-        viewNet->getUndoList()->p_end();
-        return true;
-    } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_VAPORIZER) + " with ID '" + id + "' in netedit; probably declared twice.");
-        return false;
-    }
+GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) {
+    viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_VAPORIZER));
+    GNEVaporizer* vaporizer = new GNEVaporizer(viewNet, edge, startTime, end);
+    viewNet->getUndoList()->add(new GNEChange_Additional(vaporizer, true), true);
+    viewNet->getUndoList()->p_end();
+    return true;
 }
 
 
