@@ -30,7 +30,7 @@ gui
 inductionloop
 
 # test lanearea detector
-areal
+lanearea
 
 # Tests the multientryexit API
 multientryexit
