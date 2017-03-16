@@ -458,9 +458,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             default:
                 /// XXX replace by a TraCI_VehicleType function
                 TraCIServerAPI_VehicleType::getVariable(variable, 
-                        *MSNet::getInstance()->getVehicleControl().getVType(
-                            TraCI_Vehicle::getTypeID(id)), 
-                        tempMsg);
+                        TraCI_Vehicle::getVehicleType(id), tempMsg);
                 break;
         }
     } catch (TraCIException& e) {

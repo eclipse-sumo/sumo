@@ -40,6 +40,7 @@
 // class declarations
 // ===========================================================================
 class MSVehicle;
+class MSVehicleType;
 
 
 // ===========================================================================
@@ -129,16 +130,17 @@ public:
     static std::pair<int, int> getLaneChangeState(const std::string& vehicleID, int direction);
     static std::string getParameter(const std::string& vehicleID, const std::string& key);
 
+    static const MSVehicleType& getVehicleType(const std::string& vehicleID);
     /* Type requests not yet implemented
     static std::string getEmissionClass(const std::string& vehicleID);
     static std::string getShapeClass(const std::string& vehicleID);
+    static std::string getVClass(const std::string& vehicleID);
     static double getLength(const std::string& vehicleID);
     static double getAccel(const std::string& vehicleID);
     static double getDecel(const std::string& vehicleID);
     static double getTau(const std::string& vehicleID);
     static double getImperfection(const std::string& vehicleID);
     static double getSpeedDeviation(const std::string& vehicleID);
-    static std::string getVClass(const std::string& vehicleID);
     static double getMinGap(const std::string& vehicleID);
     static double getMaxSpeed(const std::string& vehicleID);
     static double getWidth(const std::string& vehicleID);

@@ -32,6 +32,7 @@
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSVehicleType.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -450,6 +451,12 @@ std::string
 TraCI_Vehicle::getParameter(const std::string& vehicleID, const std::string& key) {
     return getVehicle(vehicleID)->getParameter().getParameter(key, "");
 }
+
+const MSVehicleType& 
+TraCI_Vehicle::getVehicleType(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getVehicleType();
+}
+
 
 
 /*
