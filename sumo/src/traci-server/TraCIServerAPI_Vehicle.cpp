@@ -232,25 +232,25 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 break;
             case VAR_PERSON_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(v->getPersonNumber());
+                tempMsg.writeInt(TraCI_Vehicle::getPersonNumber(id));
                 break;
             case VAR_LEADER: {
                 double dist = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, dist)) {
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Leader retrieval requires a double.", outputStorage);
                 }
-                std::pair<const MSVehicle* const, double> leaderInfo = v->getLeader(dist);
+                std::pair<std::string, double> leaderInfo = TraCI_Vehicle::getLeader(id, dist);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tempMsg.writeInt(2);
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(leaderInfo.first != 0 ? leaderInfo.first->getID() : "");
+                tempMsg.writeString(leaderInfo.first);
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(leaderInfo.second);
             }
             break;
             case VAR_WAITING_TIME:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(v->getWaitingSeconds());
+                tempMsg.writeDouble(TraCI_Vehicle::getWaitingTime(id));
                 break;
             case VAR_EDGE_TRAVELTIME: {
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
@@ -269,19 +269,9 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingString(inputStorage, edgeID)) {
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires the referenced edge as second parameter.", outputStorage);
                 }
-                MSEdge* edge = MSEdge::dictionary(edgeID);
-                if (edge == 0) {
-                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
-                }
                 // retrieve
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                double value;
-                if (!v->getWeightsStorage().retrieveExistingTravelTime(edge, time, value)) {
-                    tempMsg.writeDouble(INVALID_DOUBLE_VALUE);
-                } else {
-                    tempMsg.writeDouble(value);
-                }
-
+                tempMsg.writeDouble(TraCI_Vehicle::getAdaptedTraveltime(id, edgeID, time));
             }
             break;
             case VAR_EDGE_EFFORT: {

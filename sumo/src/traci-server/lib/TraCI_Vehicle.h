@@ -91,9 +91,12 @@ public:
     static double getFuelConsumption(const std::string& vehicleID);
     static double getNoiseEmission(const std::string& vehicleID);
     static double getElectricityConsumption(const std::string& vehicleID);
+    static int getPersonNumber(const std::string& vehicleID);
+    static std::pair<std::string, double> getLeader(const std::string& vehicleID, double dist);
+    static double getWaitingTime(const std::string& vehicleID);
+    static double getAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID, int time);
     static std::vector<std::string> getEdges(const std::string& vehicleID);
     static int getSignalStates(const std::string& vehicleID);
-    static double getWaitingTime(const std::string& vehicleID);
     static std::vector<NextTLSData> getNextTLS(const std::string& vehID);
     static int getSpeedMode(const std::string& vehicleID);
     static std::string getLine(const std::string& vehicleID);

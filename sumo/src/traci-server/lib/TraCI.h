@@ -35,10 +35,11 @@
 #include <vector>
 #include <map>
 #include <traci-server/TraCIDefs.h>
-#include <utils/common/RGBColor.h>
 
 class Position;
 class PositionVector;
+class RGBColor;
+class MSEdge;
 
 
 // ===========================================================================
@@ -88,6 +89,8 @@ public:
     static PositionVector makePositionVector(const TraCIPositionVector& vector);
     static TraCIColor makeTraCIColor(RGBColor color);
     static RGBColor makeRGBColor(const TraCIColor& color);
+    static MSEdge* getEdge(const std::string& edgeID);
+
 private:
     /// @brief invalidated copy constructor
     TraCI(const TraCI& src);

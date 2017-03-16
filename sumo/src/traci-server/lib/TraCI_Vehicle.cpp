@@ -27,6 +27,8 @@
 #include "../../config.h"
 #endif
 
+#include <utils/geom/GeomHelper.h>
+#include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -113,7 +115,7 @@ TraCI_Vehicle::getPosition(const std::string& vehicleID) {
 double
 TraCI_Vehicle::getAngle(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
-    return isVisible(veh) ? veh->getAngle() : INVALID_DOUBLE_VALUE;
+    return isVisible(veh) ? GeomHelper::naviDegree(veh->getAngle()) : INVALID_DOUBLE_VALUE;
 }
 
 
@@ -219,6 +221,40 @@ TraCI_Vehicle::getElectricityConsumption(const std::string& vehicleID) {
     return isVisible(veh) ? veh->getElectricityConsumption() : INVALID_DOUBLE_VALUE;
 }
 
+int 
+TraCI_Vehicle::getPersonNumber(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getPersonNumber();
+}
+
+
+std::pair<std::string, double> 
+TraCI_Vehicle::getLeader(const std::string& vehicleID, double dist) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    if (veh->isOnRoad()) {
+        std::pair<const MSVehicle* const, double> leaderInfo = veh->getLeader(dist);
+        return std::make_pair<std::string, double>(
+                leaderInfo.first != 0 ? leaderInfo.first->getID() : "",
+                leaderInfo.second);
+
+    } else {
+        return std::make_pair<std::string, double>("", -1);
+    }
+}
+
+double
+TraCI_Vehicle::getWaitingTime(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getWaitingSeconds();
+}
+
+
+double
+TraCI_Vehicle::getAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID, int time) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    MSEdge* edge = TraCI::getEdge(edgeID);
+    double value = INVALID_DOUBLE_VALUE;;
+    veh->getWeightsStorage().retrieveExistingTravelTime(edge, time, value);
+    return value;
+}
 
 std::vector<std::string>
 TraCI_Vehicle::getEdges(const std::string& vehicleID) {
@@ -227,10 +263,6 @@ TraCI_Vehicle::getEdges(const std::string& vehicleID) {
 
 int
 TraCI_Vehicle::getSignalStates(const std::string& vehicleID) {
-}
-
-double
-TraCI_Vehicle::getWaitingTime(const std::string& vehicleID) {
 }
 
 std::vector<TraCI_Vehicle::NextTLSData>

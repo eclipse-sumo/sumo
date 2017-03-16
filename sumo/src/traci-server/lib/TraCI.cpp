@@ -33,6 +33,8 @@
 
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Position.h>
+#include <utils/common/RGBColor.h>
+#include <microsim/MSEdge.h>
 #include "TraCI.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -43,35 +45,29 @@
 // member definitions
 // ===========================================================================
 void
-TraCI::connect(const std::string& host, int port)
-{
+TraCI::connect(const std::string& host, int port) {
 }
 
 void
-TraCI::close()
-{
+TraCI::close() {
 }
 
 void
-TraCI::subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const
-{
+TraCI::subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const {
 }
 
 void
 TraCI::subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<
-        int>& vars) const
-{
+        int>& vars) const {
 }
 
 const TraCI::SubscribedValues&
-TraCI::getSubscriptionResults() const
-{
+TraCI::getSubscriptionResults() const {
     return mySubscribedValues;
 }
 
 const TraCI::TraCIValues&
-TraCI::getSubscriptionResults(const std::string& objID) const
-{
+TraCI::getSubscriptionResults(const std::string& objID) const {
     if (mySubscribedValues.find(objID)!=mySubscribedValues.end()) {
         return mySubscribedValues.find(objID)->second;
     } else {
@@ -80,14 +76,12 @@ TraCI::getSubscriptionResults(const std::string& objID) const
 }
 
 const TraCI::SubscribedContextValues&
-TraCI::getContextSubscriptionResults() const
-{
+TraCI::getContextSubscriptionResults() const {
     return mySubscribedContextValues;
 }
 
 const TraCI::SubscribedValues&
-TraCI::getContextSubscriptionResults(const std::string& objID) const
-{
+TraCI::getContextSubscriptionResults(const std::string& objID) const {
     if (mySubscribedContextValues.find(objID)!=mySubscribedContextValues.end()) {
         return mySubscribedContextValues.find(objID)->second;
     } else {
@@ -96,7 +90,8 @@ TraCI::getContextSubscriptionResults(const std::string& objID) const
 }
 
 
-TraCIPositionVector TraCI::makeTraCIPositionVector(const PositionVector& positionVector) {
+TraCIPositionVector 
+TraCI::makeTraCIPositionVector(const PositionVector& positionVector) {
     TraCIPositionVector tp;
     for (int i = 0; i<positionVector.size(); ++i) {
         TraCIPosition pos = makeTraCIPosition(positionVector[i]);
@@ -104,9 +99,10 @@ TraCIPositionVector TraCI::makeTraCIPositionVector(const PositionVector& positio
     }
     return tp;
 }
-PositionVector TraCI::makePositionVector(const TraCIPositionVector& vector)
-{
 
+
+PositionVector 
+TraCI::makePositionVector(const TraCIPositionVector& vector) {
     PositionVector pv;
     for (int i = 0; i<vector.size(); i++) {
         Position p;
@@ -116,8 +112,10 @@ PositionVector TraCI::makePositionVector(const TraCIPositionVector& vector)
     }
     return pv;
 }
-TraCIColor TraCI::makeTraCIColor(RGBColor color)
-{
+
+
+TraCIColor 
+TraCI::makeTraCIColor(RGBColor color) {
     TraCIColor tc;
     tc.a = color.alpha();
     tc.b = color.blue();
@@ -125,18 +123,31 @@ TraCIColor TraCI::makeTraCIColor(RGBColor color)
     tc.r = color.red();
     return tc;
 }
-RGBColor TraCI::makeRGBColor(const TraCIColor& c)
-{
+
+RGBColor 
+TraCI::makeRGBColor(const TraCIColor& c) {
     RGBColor rgbColor;
     rgbColor.set((unsigned char)c.r,(unsigned char)c.g,(unsigned char)c.b,(unsigned char)c.a);
     return rgbColor;
 }
-TraCIPosition TraCI::makeTraCIPosition(const Position& position) {
+
+
+TraCIPosition 
+TraCI::makeTraCIPosition(const Position& position) {
     TraCIPosition p;
     p.x = position.x();
     p.y = position.y();
     return p;
 }
 
+
+MSEdge* 
+TraCI::getEdge(const std::string& edgeID) {
+    MSEdge* edge = MSEdge::dictionary(edgeID);
+    if (edge == 0) {
+        throw TraCIException("Referenced edge '" + edgeID + "' is not known.");
+    }
+    return edge;
+}
 
 /****************************************************************************/
