@@ -109,7 +109,12 @@ TraCI_POI::remove(const std::string& poiID, int layer) {
 
 PointOfInterest*
 TraCI_POI::getPoI(const std::string& id) {
-    return MSNet::getInstance()->getShapeContainer().getPOIs().get(id);
+
+    PointOfInterest* sumoPoi = MSNet::getInstance()->getShapeContainer().getPOIs().get(id);
+    if (sumoPoi == 0) {
+        throw TraCIException("PoI '" + id + "' is not known");
+    }
+    return sumoPoi;
 }
 
 
