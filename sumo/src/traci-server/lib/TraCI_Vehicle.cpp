@@ -132,7 +132,7 @@ TraCI_Vehicle::getSlope(const std::string& vehicleID) {
 std::string
 TraCI_Vehicle::getRoadID(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
-    return isVisible(veh) ? veh->getLane()->getEdge().getID() : "";
+    return veh->isOnRoad() ? veh->getLane()->getEdge().getID() : "";
 }
 
 
