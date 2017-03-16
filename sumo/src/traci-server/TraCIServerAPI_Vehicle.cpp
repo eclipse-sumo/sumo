@@ -41,7 +41,6 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
-#include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/geom/PositionVector.h>
@@ -119,9 +118,6 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
     tempMsg.writeString(id);
     // process request
     try {
-        bool visible = true; // XXX fix compile
-        bool onRoad = true; // XXX fix compile
-        MSVehicle* v = 0; // XXX fix compile
         switch (variable) {
             case ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
@@ -291,73 +287,51 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingString(inputStorage, edgeID)) {
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires the referenced edge as second parameter.", outputStorage);
                 }
-                MSEdge* edge = MSEdge::dictionary(edgeID);
-                if (edge == 0) {
-                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
-                }
-                // retrieve
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                double value;
-                if (!v->getWeightsStorage().retrieveExistingEffort(edge, time, value)) {
-                    tempMsg.writeDouble(INVALID_DOUBLE_VALUE);
-                } else {
-                    tempMsg.writeDouble(value);
-                }
-
+                tempMsg.writeDouble(TraCI_Vehicle::getAdaptedTraveltime(id, edgeID, time));
             }
             break;
             case VAR_ROUTE_VALID: {
                 std::string msg;
                 tempMsg.writeUnsignedByte(TYPE_UBYTE);
-                tempMsg.writeUnsignedByte(v->hasValidRoute(msg));
+                tempMsg.writeUnsignedByte(TraCI_Vehicle::isRouteValid(id));
             }
             break;
-            case VAR_EDGES: {
-                const MSRoute& r = v->getRoute();
+            case VAR_EDGES: 
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeInt(r.size());
-                for (MSRouteIterator i = r.begin(); i != r.end(); ++i) {
-                    tempMsg.writeString((*i)->getID());
-                }
-            }
+                tempMsg.writeStringList(TraCI_Vehicle::getEdges(id));
             break;
             case VAR_SIGNALS:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(v->getSignals());
+                tempMsg.writeInt(TraCI_Vehicle::getSignalStates(id));
                 break;
             case VAR_BEST_LANES: {
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tcpip::Storage tempContent;
                 int cnt = 0;
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
-                const std::vector<MSVehicle::LaneQ>& bestLanes = onRoad ? v->getBestLanes() : std::vector<MSVehicle::LaneQ>();
+                std::vector<TraCI_Vehicle::BestLanesData> bestLanes = TraCI_Vehicle::getBestLanes(id);
                 tempContent.writeInt((int) bestLanes.size());
                 ++cnt;
-                for (std::vector<MSVehicle::LaneQ>::const_iterator i = bestLanes.begin(); i != bestLanes.end(); ++i) {
-                    const MSVehicle::LaneQ& lq = *i;
+                for (std::vector<TraCI_Vehicle::BestLanesData>::const_iterator i = bestLanes.begin(); i != bestLanes.end(); ++i) {
+                    const TraCI_Vehicle::BestLanesData& bld = *i;
                     tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString(lq.lane->getID());
+                    tempContent.writeString(bld.laneID);
                     ++cnt;
                     tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                    tempContent.writeDouble(lq.length);
+                    tempContent.writeDouble(bld.length);
                     ++cnt;
                     tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                    tempContent.writeDouble(lq.nextOccupation);
+                    tempContent.writeDouble(bld.nextOccupation);
                     ++cnt;
                     tempContent.writeUnsignedByte(TYPE_BYTE);
-                    tempContent.writeByte(lq.bestLaneOffset);
+                    tempContent.writeByte(bld.bestLaneOffset);
                     ++cnt;
                     tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    lq.allowsContinuation ? tempContent.writeUnsignedByte(1) : tempContent.writeUnsignedByte(0);
+                    bld.allowsContinuation ? tempContent.writeUnsignedByte(1) : tempContent.writeUnsignedByte(0);
                     ++cnt;
-                    std::vector<std::string> bestContIDs;
-                    for (std::vector<MSLane*>::const_iterator j = lq.bestContinuations.begin(); j != lq.bestContinuations.end(); ++j) {
-                        if ((*j) != 0) {
-                            bestContIDs.push_back((*j)->getID());
-                        }
-                    }
                     tempContent.writeUnsignedByte(TYPE_STRINGLIST);
-                    tempContent.writeStringList(bestContIDs);
+                    tempContent.writeStringList(bld.continuationLanes);
                     ++cnt;
                 }
                 tempMsg.writeInt((int) cnt);
@@ -365,112 +339,106 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case VAR_NEXT_TLS: {
-                int cnt = 0; // number of elements in compound message
-                int tlsLinks = 0; // number of tls links within bestlanes range
-                tcpip::Storage tempContent;
-                if (onRoad) {
-                    const MSLane* lane = v->getLane();
-                    const std::vector<MSLane*>& bestLaneConts = v->getBestLanesContinuation(lane);
-                    double seen = v->getLane()->getLength() - v->getPositionOnLane();
-                    int view = 1;
-                    MSLinkCont::const_iterator link = MSLane::succLinkSec(*v, view, *lane, bestLaneConts);
-                    while (!lane->isLinkEnd(link)) {
-                        if (!lane->getEdge().isInternal()) {
-                            if ((*link)->isTLSControlled()) {
-                                tlsLinks++;
-                                tempContent.writeUnsignedByte(TYPE_STRING);
-                                tempContent.writeString((*link)->getTLLogic()->getID());
-                                ++cnt;
-                                tempContent.writeUnsignedByte(TYPE_INTEGER);
-                                tempContent.writeInt((*link)->getTLIndex());
-                                ++cnt;
-                                tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                                tempContent.writeDouble(seen);
-                                ++cnt;
-                                tempContent.writeUnsignedByte(TYPE_BYTE);
-                                tempContent.writeByte((*link)->getState());
-                                ++cnt;
-                            }
-                        }
-                        lane = (*link)->getViaLaneOrLane();
-                        if (!lane->getEdge().isInternal()) {
-                            view++;
-                        }
-                        seen += lane->getLength();
-                        link = MSLane::succLinkSec(*v, view, *lane, bestLaneConts);
-                    }
-                }
-                ++cnt; // tlsLinks, everyting else was already included
+                std::vector<TraCI_Vehicle::NextTLSData> nextTLS = TraCI_Vehicle::getNextTLS(id);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-                tempMsg.writeInt((int) cnt);
+                const int cnt = 1 + nextTLS.size() * 4;
+                tempMsg.writeInt(cnt);
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(tlsLinks);
-                tempMsg.writeStorage(tempContent);
+                tempMsg.writeInt((int)nextTLS.size());
+                for (std::vector<TraCI_Vehicle::NextTLSData>::iterator it = nextTLS.begin(); it != nextTLS.end(); ++it) {
+                    tempMsg.writeUnsignedByte(TYPE_STRING);
+                    tempMsg.writeString(it->id);
+                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                    tempMsg.writeInt(it->tlIndex);
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(it->dist);
+                    tempMsg.writeUnsignedByte(TYPE_BYTE);
+                    tempMsg.writeByte(it->state);
+                }
             }
             break;
             case VAR_STOPSTATE: {
-                char b = 0;
-                if (v->isStopped()) {
-                    const MSVehicle::Stop& stop = v->getNextStop();
-                    b = 1 + (stop.parking ? 2 : 0) +
-                        (stop.triggered ? 4 : 0) +
-                        (stop.containerTriggered ? 8 : 0) +
-                        (stop.busstop != 0 ? 16 : 0) +
-                        (stop.containerstop != 0 ? 32 : 0);
-                }
                 tempMsg.writeUnsignedByte(TYPE_UBYTE);
-                tempMsg.writeUnsignedByte(b);
+                tempMsg.writeUnsignedByte(TraCI_Vehicle::getStopState(id));
             }
             break;
             case VAR_DISTANCE: {
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                double distance = onRoad ? v->getRoute().getDistanceBetween(v->getDepartPos(), v->getPositionOnLane(), v->getRoute().getEdges()[0],  &v->getLane()->getEdge()) : INVALID_DOUBLE_VALUE;
-                if (distance == std::numeric_limits<double>::max()) {
-                    distance = INVALID_DOUBLE_VALUE;
-                }
-                tempMsg.writeDouble(distance);
+                tempMsg.writeDouble(TraCI_Vehicle::getDistance(id));
             }
             break;
-            case DISTANCE_REQUEST:
-                if (!commandDistanceRequest(server, inputStorage, tempMsg, v)) {
-                    return false;
+            case DISTANCE_REQUEST: {
+                if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires a compound object.", outputStorage);
+                }
+                if (inputStorage.readInt() != 2) {
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires position and distance type as parameter.", outputStorage);
+                }
+
+                double edgePos;
+                std::string roadID;
+                int laneIndex;
+                // read position
+                int posType = inputStorage.readUnsignedByte();
+                switch (posType) {
+                    case POSITION_ROADMAP:
+                        try {
+                            std::string roadID = inputStorage.readString();
+                            edgePos = inputStorage.readDouble();
+                            laneIndex = inputStorage.readUnsignedByte();
+                            outputStorage.writeUnsignedByte(TYPE_DOUBLE);
+                            outputStorage.writeDouble(TraCI_Vehicle::getDrivingDistance(id, roadID, edgePos, laneIndex));
+                            break;
+                        } catch (TraCIException& e) {
+                            return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, e.what(), outputStorage);
+                        }
+                    case POSITION_2D:
+                    case POSITION_3D: {
+                        const double p1x = inputStorage.readDouble();
+                        const double p1y = inputStorage.readDouble();
+                        if (posType == POSITION_3D) {
+                            inputStorage.readDouble();        // z value is ignored
+                        }
+                        outputStorage.writeUnsignedByte(TYPE_DOUBLE);
+                        outputStorage.writeDouble(TraCI_Vehicle::getDrivingDistance2D(id, p1x, p1y));
+                       }
+                        break;
+                    default:
+                        return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Unknown position format used for distance request", outputStorage);
+                }
+                // read distance type
+                int distType = inputStorage.readUnsignedByte();
+                if (distType != REQUEST_DRIVINGDIST) {
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Only driving distance is supported for vehicles.", outputStorage);
                 }
                 break;
+            }
             case VAR_ALLOWED_SPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(onRoad ? v->getLane()->getVehicleMaxSpeed(v) : INVALID_DOUBLE_VALUE);
+                tempMsg.writeDouble(TraCI_Vehicle::getAllowedSpeed(id));
                 break;
             case VAR_SPEED_FACTOR:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(v->getChosenSpeedFactor());
+                tempMsg.writeDouble(TraCI_Vehicle::getSpeedFactor(id));
                 break;
             case VAR_SPEEDSETMODE:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(v->getInfluencer().getSpeedMode());
+                tempMsg.writeDouble(TraCI_Vehicle::getSpeedMode(id));
                 break;
             case VAR_LINE:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(v->getParameter().line);
+                tempMsg.writeString(TraCI_Vehicle::getLine(id));
                 break;
             case VAR_VIA:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(v->getParameter().via);
+                tempMsg.writeStringList(TraCI_Vehicle::getVia(id));
                 break;
-            case VAR_PARAMETER: {
-                std::string paramName = "";
-                if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-                }
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(v->getParameter().getParameter(paramName, ""));
-            }
-            break;
             case CMD_CHANGELANE: {
                 int direction = 0;
                 if (!server.readTypeCheckingInt(inputStorage, direction)) {
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of lane change state requires a direction as int.", outputStorage);
                 }
-                const std::pair<int, int> state = onRoad ? v->getLaneChangeModel().getSavedState(direction) : std::make_pair((int)LCA_UNKNOWN, (int)LCA_UNKNOWN);
+                const std::pair<int, int> state = TraCI_Vehicle::getLaneChangeState(id, direction);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tempMsg.writeInt(2);
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
@@ -479,8 +447,21 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeInt(state.second);
             }
             break;
+            case VAR_PARAMETER: {
+                std::string paramName = "";
+                if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                }
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(TraCI_Vehicle::getParameter(id, paramName));
+            }
+            break;
             default:
-                TraCIServerAPI_VehicleType::getVariable(variable, v->getVehicleType(), tempMsg);
+                /// XXX replace by a TraCI_VehicleType function
+                TraCIServerAPI_VehicleType::getVariable(variable, 
+                        *MSNet::getInstance()->getVehicleControl().getVType(
+                            TraCI_Vehicle::getTypeID(id)), 
+                        tempMsg);
                 break;
         }
     } catch (TraCIException& e) {
@@ -1777,69 +1758,6 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
     return true;
 }
 
-
-bool
-TraCIServerAPI_Vehicle::commandDistanceRequest(TraCIServer& server, tcpip::Storage& inputStorage,
-        tcpip::Storage& outputStorage, const MSVehicle* v) {
-    if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-        return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires a compound object.", outputStorage);
-    }
-    if (inputStorage.readInt() != 2) {
-        return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires position and distance type as parameter.", outputStorage);
-    }
-
-    Position pos;
-    std::pair<const MSLane*, double> roadPos;
-
-    // read position
-    int posType = inputStorage.readUnsignedByte();
-    switch (posType) {
-        case POSITION_ROADMAP:
-            try {
-                std::string roadID = inputStorage.readString();
-                roadPos.second = inputStorage.readDouble();
-                roadPos.first = TraCIServerAPI_Simulation::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos.second);
-                pos = roadPos.first->getShape().positionAtOffset(roadPos.second);
-            } catch (TraCIException& e) {
-                return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, e.what(), outputStorage);
-            }
-            break;
-        case POSITION_2D:
-        case POSITION_3D: {
-            const double p1x = inputStorage.readDouble();
-            const double p1y = inputStorage.readDouble();
-            pos.set(p1x, p1y);
-        }
-        if (posType == POSITION_3D) {
-            inputStorage.readDouble();        // z value is ignored
-        }
-        roadPos = TraCIServerAPI_Simulation::convertCartesianToRoadMap(pos);
-        break;
-        default:
-            return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Unknown position format used for distance request", outputStorage);
-    }
-
-    // read distance type
-    int distType = inputStorage.readUnsignedByte();
-
-    double distance = INVALID_DOUBLE_VALUE;
-    if (v->isOnRoad()) {
-        if (distType == REQUEST_DRIVINGDIST) {
-            distance = v->getRoute().getDistanceBetween(v->getPositionOnLane(), roadPos.second,
-                       v->getEdge(), &roadPos.first->getEdge());
-            if (distance == std::numeric_limits<double>::max()) {
-                distance = INVALID_DOUBLE_VALUE;
-            }
-        } else {
-            // compute air distance (default)
-            distance = v->getPosition().distanceTo(pos);
-        }
-    }
-    // write response command
-    outputStorage.writeUnsignedByte(TYPE_DOUBLE);
-    outputStorage.writeDouble(distance);
-    return true;
-}
 
 
 // ------ helper functions ------

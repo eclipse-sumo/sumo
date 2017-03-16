@@ -64,6 +64,23 @@ public:
         char state;
     };
 
+    struct BestLanesData {
+        /* @brief Constructor */
+        BestLanesData() {}
+        /// @brief The id of the lane
+        std::string laneID;
+        /// @brief The length than can be driven from that lane without lane change
+        double length;
+        /// @brief The traffic density along length
+        double nextOccupation;
+        /// @brief The offset of this lane from the best lane
+        int bestLaneOffset;
+        /// @brief Whether this lane allows continuing the route
+        bool allowsContinuation;
+        /// @brief The sequence of lanes that best allows continuing the route without lane change
+        std::vector<std::string> continuationLanes;
+    };
+
 
     /// @name Value retrieval
     /// @{
@@ -95,27 +112,37 @@ public:
     static std::pair<std::string, double> getLeader(const std::string& vehicleID, double dist);
     static double getWaitingTime(const std::string& vehicleID);
     static double getAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID, int time);
+    static bool isRouteValid(const std::string& vehicleID);
     static std::vector<std::string> getEdges(const std::string& vehicleID);
     static int getSignalStates(const std::string& vehicleID);
-    static std::vector<NextTLSData> getNextTLS(const std::string& vehID);
+    static std::vector<BestLanesData> getBestLanes(const std::string& vehicleID);
+    static std::vector<NextTLSData> getNextTLS(const std::string& vehicleID);
+    static int getStopState(const std::string& vehicleID);
+    static double getDistance(const std::string& vehicleID);
+    static double getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int laneIndex);
+    static double getDrivingDistance2D(const std::string& vehicleID, double x, double y);
+    static double getAllowedSpeed(const std::string& vehicleID);
+    static double getSpeedFactor(const std::string& vehicleID);
     static int getSpeedMode(const std::string& vehicleID);
     static std::string getLine(const std::string& vehicleID);
     static std::vector<std::string> getVia(const std::string& vehicleID);
+    static std::pair<int, int> getLaneChangeState(const std::string& vehicleID, int direction);
+    static std::string getParameter(const std::string& vehicleID, const std::string& key);
+
+    /* Type requests not yet implemented
     static std::string getEmissionClass(const std::string& vehicleID);
     static std::string getShapeClass(const std::string& vehicleID);
-    static int getBestLanes(const std::string& vehicleID);
-    static int getStopState(const std::string& vehicleID);
     static double getLength(const std::string& vehicleID);
     static double getAccel(const std::string& vehicleID);
     static double getDecel(const std::string& vehicleID);
     static double getTau(const std::string& vehicleID);
     static double getImperfection(const std::string& vehicleID);
-    static double getSpeedFactor(const std::string& vehicleID);
     static double getSpeedDeviation(const std::string& vehicleID);
     static std::string getVClass(const std::string& vehicleID);
     static double getMinGap(const std::string& vehicleID);
     static double getMaxSpeed(const std::string& vehicleID);
     static double getWidth(const std::string& vehicleID);
+    */
     /// @}
 
     /// @name State Changing

@@ -40,6 +40,7 @@ class Position;
 class PositionVector;
 class RGBColor;
 class MSEdge;
+class MSLane;
 
 
 // ===========================================================================
@@ -83,13 +84,17 @@ public:
     const SubscribedContextValues& getContextSubscriptionResults() const;
     const SubscribedValues& getContextSubscriptionResults(const std::string& objID) const;
 
+    /// @brief helper functions
     static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector);
     static TraCIPosition makeTraCIPosition(const Position& position);
 
     static PositionVector makePositionVector(const TraCIPositionVector& vector);
     static TraCIColor makeTraCIColor(const RGBColor& color);
     static RGBColor makeRGBColor(const TraCIColor& color);
+
     static MSEdge* getEdge(const std::string& edgeID);
+    static const MSLane* getLaneChecking(const std::string& edgeID, int laneIndex, double pos);
+    static std::pair<MSLane*, double> convertCartesianToRoadMap(Position pos); 
 
 private:
     /// @brief invalidated copy constructor

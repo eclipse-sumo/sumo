@@ -83,7 +83,6 @@ public:
      * @param pos road map position that is to be convertes
      * @return closest 2D position
      */
-    static const MSLane* getLaneChecking(std::string roadID, int laneIndex, double pos);
 
     static bool commandPositionConversion(TraCIServer& server, tcpip::Storage& inputStorage,
                                           tcpip::Storage& outputStorage, int commandId);

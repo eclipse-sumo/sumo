@@ -35,6 +35,8 @@
 #include <utils/geom/Position.h>
 #include <utils/common/RGBColor.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSEdgeControl.h>
+#include <microsim/MSLane.h>
 #include "TraCI.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -147,5 +149,46 @@ TraCI::getEdge(const std::string& edgeID) {
     }
     return edge;
 }
+
+const MSLane*
+TraCI::getLaneChecking(const std::string& edgeID, int laneIndex, double pos) {
+    const MSEdge* edge = MSEdge::dictionary(edgeID);
+    if (edge == 0) {
+        throw TraCIException("Unknown edge " + edgeID);
+    }
+    if (laneIndex < 0 || laneIndex >= (int)edge->getLanes().size()) {
+        throw TraCIException("Invalid lane index for " + edgeID);
+    }
+    const MSLane* lane = edge->getLanes()[laneIndex];
+    if (pos < 0 || pos > lane->getLength()) {
+        throw TraCIException("Position on lane invalid");
+    }
+    return lane;
+}
+
+std::pair<MSLane*, double>
+TraCI::convertCartesianToRoadMap(Position pos) {
+    /// XXX use rtree instead
+    std::pair<MSLane*, double> result;
+    std::vector<std::string> allEdgeIds;
+    double minDistance = std::numeric_limits<double>::max();
+
+    allEdgeIds = MSNet::getInstance()->getEdgeControl().getEdgeNames();
+    for (std::vector<std::string>::iterator itId = allEdgeIds.begin(); itId != allEdgeIds.end(); itId++) {
+        const std::vector<MSLane*>& allLanes = MSEdge::dictionary((*itId))->getLanes();
+        for (std::vector<MSLane*>::const_iterator itLane = allLanes.begin(); itLane != allLanes.end(); itLane++) {
+            const double newDistance = (*itLane)->getShape().distance2D(pos);
+            if (newDistance < minDistance) {
+                minDistance = newDistance;
+                result.first = (*itLane);
+            }
+        }
+    }
+    // @todo this may be a place where 3D is required but 2D is delivered
+    result.second = result.first->getShape().nearest_offset_to_point2D(pos, false);
+    return result;
+}
+
+
 
 /****************************************************************************/

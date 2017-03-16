@@ -28,6 +28,8 @@
 #endif
 
 #include <utils/geom/GeomHelper.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSNet.h>
@@ -255,31 +257,202 @@ TraCI_Vehicle::getAdaptedTraveltime(const std::string& vehicleID, const std::str
     return value;
 }
 
+bool 
+TraCI_Vehicle::isRouteValid(const std::string& vehicleID) {
+    std::string msg;
+    return getVehicle(vehicleID)->hasValidRoute(msg);
+}
+
 std::vector<std::string>
 TraCI_Vehicle::getEdges(const std::string& vehicleID) {
+    std::vector<std::string> result;
+    MSVehicle* veh = getVehicle(vehicleID);
+    const MSRoute& r = veh->getRoute();
+    for (MSRouteIterator i = r.begin(); i != r.end(); ++i) {
+        result.push_back((*i)->getID());
+    }
+    return result;
 }
 
 
 int
 TraCI_Vehicle::getSignalStates(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getSignals();
 }
 
+std::vector<TraCI_Vehicle::BestLanesData>
+TraCI_Vehicle::getBestLanes(const std::string& vehicleID) {
+    std::vector<BestLanesData> result;
+    MSVehicle* veh = getVehicle(vehicleID);
+    if (veh->isOnRoad()) {
+        const std::vector<MSVehicle::LaneQ>& bestLanes = veh->getBestLanes();
+        for (std::vector<MSVehicle::LaneQ>::const_iterator i = bestLanes.begin(); i != bestLanes.end(); ++i) {
+            BestLanesData bld;
+            const MSVehicle::LaneQ& lq = *i;
+            bld.laneID = lq.lane->getID();
+            bld.length = lq.length;
+            bld.nextOccupation = lq.nextOccupation;
+            bld.bestLaneOffset = lq.bestLaneOffset;
+            bld.allowsContinuation = lq.allowsContinuation;
+            for (std::vector<MSLane*>::const_iterator j = lq.bestContinuations.begin(); j != lq.bestContinuations.end(); ++j) {
+                if ((*j) != 0) {
+                    bld.continuationLanes.push_back((*j)->getID());
+                }
+            }
+            result.push_back(bld);
+        }
+    }
+    return result;
+}
+
+
 std::vector<TraCI_Vehicle::NextTLSData>
-TraCI_Vehicle::getNextTLS(const std::string& vehID) {
+TraCI_Vehicle::getNextTLS(const std::string& vehicleID) {
+    std::vector<NextTLSData> result;
+    MSVehicle* veh = getVehicle(vehicleID);
+    if (veh->isOnRoad()) {
+        const MSLane* lane = veh->getLane();
+        const std::vector<MSLane*>& bestLaneConts = veh->getBestLanesContinuation(lane);
+        double seen = veh->getLane()->getLength() - veh->getPositionOnLane();
+        int view = 1;
+        MSLinkCont::const_iterator link = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
+        while (!lane->isLinkEnd(link)) {
+            if (!lane->getEdge().isInternal()) {
+                if ((*link)->isTLSControlled()) {
+                    NextTLSData ntd;
+                    ntd.id = (*link)->getTLLogic()->getID();
+                    ntd.tlIndex = (*link)->getTLIndex();
+                    ntd.dist = seen;
+                    ntd.state = (*link)->getState();
+                    result.push_back(ntd);
+                }
+            }
+            lane = (*link)->getViaLaneOrLane();
+            if (!lane->getEdge().isInternal()) {
+                view++;
+            }
+            seen += lane->getLength();
+            link = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
+        }
+    }
+    return result;
 }
 
 int
+TraCI_Vehicle::getStopState(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    int result = 0;
+    if (veh->isStopped()) {
+        const MSVehicle::Stop& stop = veh->getNextStop();
+        result = 1 + (stop.parking ? 2 : 0) +
+            (stop.triggered ? 4 : 0) +
+            (stop.containerTriggered ? 8 : 0) +
+            (stop.busstop != 0 ? 16 : 0) +
+            (stop.containerstop != 0 ? 32 : 0);
+    }
+    return result;
+}
+
+double 
+TraCI_Vehicle::getDistance(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    if (veh->isOnRoad()) {
+        double distance = veh->getRoute().getDistanceBetween(veh->getDepartPos(), veh->getPositionOnLane(), veh->getRoute().getEdges()[0],  &veh->getLane()->getEdge());
+        if (distance == std::numeric_limits<double>::max()) {
+            return INVALID_DOUBLE_VALUE;
+        } else {
+            return distance;
+        }
+    } else {
+        return INVALID_DOUBLE_VALUE;
+    }
+}
+
+
+double 
+TraCI_Vehicle::getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int laneIndex) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    if (veh->isOnRoad()) {
+        double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), position,
+                veh->getEdge(), TraCI::getEdge(edgeID));
+        if (distance == std::numeric_limits<double>::max()) {
+            return INVALID_DOUBLE_VALUE;
+        }
+        return distance;
+    } else {
+        return INVALID_DOUBLE_VALUE;
+    }
+}
+
+
+double 
+TraCI_Vehicle::getDrivingDistance2D(const std::string& vehicleID, double x, double y) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    if (veh->isOnRoad()) {
+        std::pair<MSLane*, double> roadPos = TraCI::convertCartesianToRoadMap(Position(x, y));
+        double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), roadPos.second,
+                veh->getEdge(), &roadPos.first->getEdge());
+        if (distance == std::numeric_limits<double>::max()) {
+            return INVALID_DOUBLE_VALUE;
+        }
+        return distance;
+    } else {
+        return INVALID_DOUBLE_VALUE;
+    }
+}
+
+
+
+double 
+TraCI_Vehicle::getAllowedSpeed(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    if (veh->isOnRoad()) {
+        return veh->getLane()->getVehicleMaxSpeed(veh);
+    } else {
+        return INVALID_DOUBLE_VALUE;
+    }
+}
+
+double
+TraCI_Vehicle::getSpeedFactor(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getChosenSpeedFactor();
+}
+
+
+int
 TraCI_Vehicle::getSpeedMode(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getInfluencer().getSpeedMode();
 }
 
 std::string
 TraCI_Vehicle::getLine(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getParameter().line;
 }
 
 std::vector<std::string>
 TraCI_Vehicle::getVia(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getParameter().via;
 }
 
+
+std::pair<int, int> 
+TraCI_Vehicle::getLaneChangeState(const std::string& vehicleID, int direction) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    if (veh->isOnRoad()) {
+        return veh->getLaneChangeModel().getSavedState(direction);
+    } else {
+        return std::make_pair((int)LCA_UNKNOWN, (int)LCA_UNKNOWN);
+    }
+}
+
+
+std::string 
+TraCI_Vehicle::getParameter(const std::string& vehicleID, const std::string& key) {
+    return getVehicle(vehicleID)->getParameter().getParameter(key, "");
+}
+
+
+/*
 std::string
 TraCI_Vehicle::getEmissionClass(const std::string& vehicleID) {
 }
@@ -289,13 +462,6 @@ TraCI_Vehicle::getShapeClass(const std::string& vehicleID) {
 }
 
 
-int
-TraCI_Vehicle::getBestLanes(const std::string& vehicleID) {
-}
-
-int
-TraCI_Vehicle::getStopState(const std::string& vehicleID) {
-}
 
 double
 TraCI_Vehicle::getLength(const std::string& vehicleID) {
@@ -318,10 +484,6 @@ TraCI_Vehicle::getImperfection(const std::string& vehicleID) {
 }
 
 double
-TraCI_Vehicle::getSpeedFactor(const std::string& vehicleID) {
-}
-
-double
 TraCI_Vehicle::getSpeedDeviation(const std::string& vehicleID) {
 }
 
@@ -341,6 +503,7 @@ TraCI_Vehicle::getMaxSpeed(const std::string& vehicleID) {
 double
 TraCI_Vehicle::getWidth(const std::string& vehicleID) {
 }
+*/
 
 
 void 
