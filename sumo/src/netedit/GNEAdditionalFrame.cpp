@@ -330,6 +330,16 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         valuesOfElement[SUMO_ATTR_POSITION] = toString(currentPosition);
     }
 
+    // If additional has a interval defined by a begin or end, check that is valid
+    if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTTIME) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_END)) {
+        double begin = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_STARTTIME]);
+        double end = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_END]);
+        if(begin > end) {
+            WRITE_WARNING("Time interval of additional '" + toString(myActualAdditionalType) + "' isn't valid. Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
+            return false;
+        }
+    }
+
     // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.txt
     if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_FILE) && valuesOfElement[SUMO_ATTR_FILE] == "") {
         valuesOfElement[SUMO_ATTR_FILE] = (valuesOfElement[SUMO_ATTR_ID] + ".txt");
