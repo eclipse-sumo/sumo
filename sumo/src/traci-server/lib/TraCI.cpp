@@ -115,7 +115,7 @@ TraCI::makePositionVector(const TraCIPositionVector& vector) {
 
 
 TraCIColor 
-TraCI::makeTraCIColor(RGBColor color) {
+TraCI::makeTraCIColor(const RGBColor& color) {
     TraCIColor tc;
     tc.a = color.alpha();
     tc.b = color.blue();
@@ -126,9 +126,7 @@ TraCI::makeTraCIColor(RGBColor color) {
 
 RGBColor 
 TraCI::makeRGBColor(const TraCIColor& c) {
-    RGBColor rgbColor;
-    rgbColor.set((unsigned char)c.r,(unsigned char)c.g,(unsigned char)c.b,(unsigned char)c.a);
-    return rgbColor;
+    return RGBColor((unsigned char)c.r, (unsigned char)c.g, (unsigned char)c.b, (unsigned char)c.a);
 }
 
 

@@ -87,7 +87,7 @@ public:
     static TraCIPosition makeTraCIPosition(const Position& position);
 
     static PositionVector makePositionVector(const TraCIPositionVector& vector);
-    static TraCIColor makeTraCIColor(RGBColor color);
+    static TraCIColor makeTraCIColor(const RGBColor& color);
     static RGBColor makeRGBColor(const TraCIColor& color);
     static MSEdge* getEdge(const std::string& edgeID);
 

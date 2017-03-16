@@ -232,12 +232,11 @@ TraCI_Vehicle::getLeader(const std::string& vehicleID, double dist) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
         std::pair<const MSVehicle* const, double> leaderInfo = veh->getLeader(dist);
-        return std::make_pair<std::string, double>(
+        return std::make_pair(
                 leaderInfo.first != 0 ? leaderInfo.first->getID() : "",
                 leaderInfo.second);
-
     } else {
-        return std::make_pair<std::string, double>("", -1);
+        return std::make_pair("", -1);
     }
 }
 
