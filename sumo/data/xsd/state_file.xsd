@@ -7,8 +7,8 @@
         <xsd:complexType>
 			<xsd:choice maxOccurs="unbounded">
 				<xsd:element name="delay" type="delayStateType" minOccurs="1"/>
-				<xsd:element name="vTypeDistribution" type="vTypeDistributionType" minOccurs="0"/>
-				<xsd:element name="routeDistribution" type="routeDistributionType" minOccurs="0"/>
+				<xsd:element name="vTypeDistribution" type="vTypeDistributionStateType" minOccurs="0"/>
+				<xsd:element name="routeDistribution" type="routeDistributionStateType" minOccurs="0"/>
 				<xsd:element name="vType" type="vTypeType" minOccurs="0"/>
 				<xsd:element name="vehicle" type="vehicleStateType" minOccurs="0"/>
 				<xsd:element name="route" type="routeStateType" minOccurs="0"/>
@@ -25,6 +25,20 @@
         <xsd:attribute name="end" type="xsd:int" use="required"/>
         <xsd:attribute name="depart" type="nonNegativeFloatType" use="required"/>
         <xsd:attribute name="time" type="nonNegativeFloatType" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="vTypeDistributionStateType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="vTypes" type="xsd:string" use="required"/>
+        <xsd:attribute name="probabilities" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="routeDistributionStateType">
+        <xsd:complexContent>
+            <xsd:extension base="routeDistributionType">
+				<xsd:attribute name="state" type="xsd:string" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:complexType name="vehicleStateType">
