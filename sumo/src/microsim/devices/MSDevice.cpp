@@ -140,5 +140,15 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
 }
 
 
-/****************************************************************************/
+void
+MSDevice::saveState(OutputDevice& /* out */) const {
+    WRITE_WARNING("Device '" + getID() + "' cannot save state");
+}
 
+
+void
+MSDevice::loadState(const SUMOSAXAttributes& /* attrs */) {
+}
+
+
+/****************************************************************************/

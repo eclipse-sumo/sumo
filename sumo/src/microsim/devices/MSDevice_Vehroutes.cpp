@@ -39,6 +39,7 @@
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice_String.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include "MSDevice_Vehroutes.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -357,5 +358,37 @@ MSDevice_Vehroutes::generateOutputForUnfinished() {
 }
 
 
-/****************************************************************************/
+void
+MSDevice_Vehroutes::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_DEVICE);
+    out.writeAttr(SUMO_ATTR_ID, getID());
+    std::vector<std::string> internals;
+    internals.push_back(toString(myReplacedRoutes.size()));
+    for (int i = 0; i < (int)myReplacedRoutes.size(); ++i) {
+        internals.push_back(myReplacedRoutes[i].edge->getID());
+        internals.push_back(toString(myReplacedRoutes[i].time));
+        internals.push_back(myReplacedRoutes[i].route->getID());
+    }
+    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    out.closeTag();
+}
 
+
+void
+MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    int size;
+    bis >> size;
+    for (int i = 0; i < size; ++i) {
+        std::string edgeID;
+        SUMOTime time;
+        std::string routeID;
+        bis >> edgeID;
+        bis >> time;
+        bis >> routeID;
+        myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, MSRoute::dictionary(routeID)));
+    }
+}
+
+
+/****************************************************************************/

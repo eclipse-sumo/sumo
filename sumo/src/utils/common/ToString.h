@@ -260,6 +260,12 @@ inline std::string joinToString(const std::set<T>& s, const T_BETWEEN& between, 
 
 
 template <>
+inline std::string toString(const std::vector<std::string>& v, std::streamsize) {
+    return joinToString(v, " ");
+}
+
+
+template <>
 inline std::string toString(const std::set<std::string>& v, std::streamsize) {
     return joinToString(v, " ");
 }

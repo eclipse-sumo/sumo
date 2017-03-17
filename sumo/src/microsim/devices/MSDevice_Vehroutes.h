@@ -79,7 +79,6 @@ public:
     static void generateOutputForUnfinished();
 
 
-
 public:
     /// @brief Destructor.
     ~MSDevice_Vehroutes();
@@ -129,6 +128,18 @@ public:
      */
     const MSRoute* getRoute(int index) const;
 
+
+    /** @brief Saves the state of the device
+    *
+    * @param[in] out The OutputDevice to write the information into
+    */
+    void saveState(OutputDevice& out) const;
+
+    /** @brief Loads the state of the device from the given description
+    *
+    * @param[in] attrs XML attributes describing the current state
+    */
+    void loadState(const SUMOSAXAttributes& attrs);
 
 
 private:

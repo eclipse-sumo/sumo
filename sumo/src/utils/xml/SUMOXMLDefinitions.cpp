@@ -161,6 +161,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "scalingScheme",              SUMO_TAG_SCALINGSCHEME },
     { "entry",                      SUMO_TAG_ENTRY },
     { "vehicleTransfer",            SUMO_TAG_VEHICLETRANSFER },
+    { "device",                     SUMO_TAG_DEVICE },
     // Cars
     { "carFollowing-IDM",           SUMO_TAG_CF_IDM },
     { "carFollowing-IDMM",          SUMO_TAG_CF_IDMM },

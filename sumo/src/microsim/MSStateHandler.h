@@ -104,6 +104,9 @@ private:
     /// @brief cached attrs (used when loading vehicles)
     SUMOSAXAttributes* myAttrs;
 
+    /// @brief cached device attrs (used when loading vehicles)
+    std::vector<SUMOSAXAttributes*> myDeviceAttrs;
+
     /// @brief the last object that potentially carries parameters
     Parameterised* myLastParameterised;
 

@@ -124,7 +124,6 @@ public:
     /// @}
 
 
-
     /** @brief Called on writing tripinfo output
      *
      * @param[in] os The stream to write the information into
@@ -133,6 +132,17 @@ public:
      */
     void generateOutput() const;
 
+    /** @brief Saves the state of the device
+     *
+     * @param[in] out The OutputDevice to write the information into
+     */
+    void saveState(OutputDevice& out) const;
+
+    /** @brief Loads the state of the device from the given description
+     *
+     * @param[in] attrs XML attributes describing the current state
+     */
+    void loadState(const SUMOSAXAttributes& attrs);
 
 
 private:

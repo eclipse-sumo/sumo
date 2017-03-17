@@ -342,7 +342,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             case VAR_NEXT_TLS: {
                 std::vector<TraCI_Vehicle::NextTLSData> nextTLS = TraCI_Vehicle::getNextTLS(id);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-                const int cnt = 1 + nextTLS.size() * 4;
+                const int cnt = 1 + (int)nextTLS.size() * 4;
                 tempMsg.writeInt(cnt);
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt((int)nextTLS.size());

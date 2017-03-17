@@ -47,6 +47,7 @@
 class OutputDevice;
 class SUMOVehicle;
 class OptionsCont;
+class SUMOSAXAttributes;
 
 
 // ===========================================================================
@@ -121,12 +122,25 @@ public:
      * The device should use the openTag / closeTag methods of the OutputDevice
      *  for correct indentation.
      *
-     * @param[in] os The stream to write the information into
      * @exception IOError not yet implemented
      */
     virtual void generateOutput() const {
     }
 
+    /** @brief Saves the state of the device
+     *
+     * The default implementation writes a warning and does nothing.
+     * @param[in] out The OutputDevice to write the information into
+     */
+    virtual void saveState(OutputDevice& out) const;
+
+
+    /** @brief Loads the state of the device from the given description
+     *
+     * The default implementation does nothing.
+     * @param[in] attrs XML attributes describing the current state
+     */
+    virtual void loadState(const SUMOSAXAttributes& attrs);
 
 
 protected:

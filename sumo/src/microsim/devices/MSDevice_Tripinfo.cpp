@@ -37,6 +37,7 @@
 #include <microsim/MSVehicle.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include "MSDevice_Tripinfo.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -315,6 +316,7 @@ MSDevice_Tripinfo::getAvgWaitingTime() {
     }
 }
 
+
 double
 MSDevice_Tripinfo::getAvgTimeLoss() {
     if (myVehicleCount > 0) {
@@ -323,6 +325,7 @@ MSDevice_Tripinfo::getAvgTimeLoss() {
         return 0;
     }
 }
+
 
 double
 MSDevice_Tripinfo::getAvgDepartDelay() {
@@ -334,5 +337,26 @@ MSDevice_Tripinfo::getAvgDepartDelay() {
 }
 
 
-/****************************************************************************/
+void
+MSDevice_Tripinfo::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_DEVICE);
+    out.writeAttr(SUMO_ATTR_ID, getID());
+    std::vector<std::string> internals;
+    internals.push_back(myDepartLane);
+    internals.push_back(toString(myDepartPosLat));
+    internals.push_back(toString(myDepartSpeed));
+    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    out.closeTag();
+}
 
+
+void
+MSDevice_Tripinfo::loadState(const SUMOSAXAttributes& attrs) {
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myDepartLane;
+    bis >> myDepartPosLat;
+    bis >> myDepartSpeed;
+}
+
+
+/****************************************************************************/

@@ -324,7 +324,7 @@ TraCI_Vehicle::getNextTLS(const std::string& vehicleID) {
                     ntd.id = (*link)->getTLLogic()->getID();
                     ntd.tlIndex = (*link)->getTLIndex();
                     ntd.dist = seen;
-                    ntd.state = (*link)->getState();
+                    ntd.state = (char)(*link)->getState();
                     result.push_back(ntd);
                 }
             }
@@ -371,7 +371,7 @@ TraCI_Vehicle::getDistance(const std::string& vehicleID) {
 
 
 double 
-TraCI_Vehicle::getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int laneIndex) {
+TraCI_Vehicle::getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int /* laneIndex */) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
         double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), position,

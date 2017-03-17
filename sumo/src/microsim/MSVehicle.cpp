@@ -3999,10 +3999,12 @@ void
 MSVehicle::saveState(OutputDevice& out) {
     MSBaseVehicle::saveState(out);
     // here starts the vehicle internal part (see loading)
-    std::vector<SUMOTime> internals;
-    internals.push_back(myDeparture);
-    internals.push_back((SUMOTime)distance(myRoute->begin(), myCurrEdge));
-    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    std::vector<std::string> internals;
+    internals.push_back(toString(myDeparture));
+    internals.push_back(toString(distance(myRoute->begin(), myCurrEdge)));
+    internals.push_back(toString(myDepartPos));
+    internals.push_back(toString(myWaitingTime));
+    out.writeAttr(SUMO_ATTR_STATE, internals);
     out.writeAttr(SUMO_ATTR_POSITION, myState.myPos);
     out.writeAttr(SUMO_ATTR_SPEED, myState.mySpeed);
     out.writeAttr(SUMO_ATTR_POSITION_LAT, myState.myPosLat);
@@ -4011,6 +4013,9 @@ MSVehicle::saveState(OutputDevice& out) {
         (*it).write(out);
     }
     myParameter->writeParams(out);
+    for (std::vector<MSDevice*>::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
+         (*dev)->saveState(out);
+    }
     out.closeTag();
 }
 
@@ -4028,10 +4033,13 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         myDeparture -= offset;
         myCurrEdge += routeOffset;
     }
+    bis >> myDepartPos;
+    bis >> myWaitingTime;
     myState.myPos = attrs.getFloat(SUMO_ATTR_POSITION);
     myState.mySpeed = attrs.getFloat(SUMO_ATTR_SPEED);
     myState.myPosLat = attrs.getFloat(SUMO_ATTR_POSITION_LAT);
     // no need to reset myCachedPosition here since state loading happens directly after creation
 }
+
 
 /****************************************************************************/
