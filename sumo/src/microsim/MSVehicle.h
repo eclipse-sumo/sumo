@@ -329,7 +329,7 @@ public:
      * This method goes through the best continuation lanes of the current lane and
      * computes the safe velocities for passing/stopping at the next link as a DriveProcessItem
      *
-     * Afterwards it checks if any DriveProcessItem should be discared to avoid
+     * Afterwards it checks if any DriveProcessItem should be discarded to avoid
      * blocking a junction (checkRewindLinkLanes).
      *
      * Finally the ApproachingVehicleInformation is registered for all links that
@@ -593,6 +593,14 @@ public:
      */
     double getAngle() const {
         return myAngle;
+    }
+
+
+    /** @brief Returns the vehicle's direction in radians
+     * @return The vehicle's current angle
+     */
+    Position getVelocityVector() const {
+        return Position(std::cos(myAngle)*myState.speed(), std::sin(myAngle)*myState.speed());
     }
     //@}
 
