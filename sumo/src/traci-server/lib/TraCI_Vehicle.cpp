@@ -132,14 +132,14 @@ TraCI_Vehicle::getSlope(const std::string& vehicleID) {
 std::string
 TraCI_Vehicle::getRoadID(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
-    return veh->isOnRoad() ? veh->getLane()->getEdge().getID() : "";
+    return isVisible(veh) ? veh->getLane()->getEdge().getID() : "";
 }
 
 
 std::string
 TraCI_Vehicle::getLaneID(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
-    return isVisible(veh) ? veh->getLane()->getID() : "";
+    return veh->isOnRoad() ? veh->getLane()->getID() : "";
 }
 
 
@@ -243,6 +243,7 @@ TraCI_Vehicle::getLeader(const std::string& vehicleID, double dist) {
     }
 }
 
+
 double
 TraCI_Vehicle::getWaitingTime(const std::string& vehicleID) {
     return getVehicle(vehicleID)->getWaitingSeconds();
@@ -258,7 +259,18 @@ TraCI_Vehicle::getAdaptedTraveltime(const std::string& vehicleID, const std::str
     return value;
 }
 
-bool 
+
+double
+TraCI_Vehicle::getEffort(const std::string& vehicleID, const std::string& edgeID, int time) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    MSEdge* edge = TraCI::getEdge(edgeID);
+    double value = INVALID_DOUBLE_VALUE;;
+    veh->getWeightsStorage().retrieveExistingEffort(edge, time, value);
+    return value;
+}
+
+
+bool
 TraCI_Vehicle::isRouteValid(const std::string& vehicleID) {
     std::string msg;
     return getVehicle(vehicleID)->hasValidRoute(msg);

@@ -254,7 +254,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires a compound object.", outputStorage);
                 }
                 if (inputStorage.readInt() != 2) {
-                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires time, and edge as parameter.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires time and edge as parameter.", outputStorage);
                 }
                 // time
                 int time = 0;
@@ -273,10 +273,10 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             break;
             case VAR_EDGE_EFFORT: {
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires a compound object.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires a compound object.", outputStorage);
                 }
                 if (inputStorage.readInt() != 2) {
-                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires time, and edge as parameter.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires time and edge as parameter.", outputStorage);
                 }
                 // time
                 int time = 0;
@@ -289,7 +289,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires the referenced edge as second parameter.", outputStorage);
                 }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_Vehicle::getAdaptedTraveltime(id, edgeID, time));
+                tempMsg.writeDouble(TraCI_Vehicle::getEffort(id, edgeID, time));
             }
             break;
             case VAR_ROUTE_VALID: {
