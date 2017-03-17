@@ -68,6 +68,12 @@ public:
     /// initialises the junction after the whole net has been loaded
     virtual void postloadInit();
 
+    /** @brief Returns all internal lanes on the junction
+     */
+    virtual const std::vector<MSLane*>& getInternalLanes() const{
+        return myInternalLanes;
+    }
+
 protected:
     /** @brief Constructor
      * @param[in] id The id of the junction
@@ -89,7 +95,7 @@ protected:
     /// list of incoming lanes
     std::vector<MSLane*> myIncomingLanes;
 
-    /// list of incoming lanes
+    /// list of internal lanes
     std::vector<MSLane*> myInternalLanes;
 
 private:

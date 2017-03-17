@@ -110,6 +110,12 @@ public:
         return myOutgoing;
     }
 
+    /** @brief Returns all internal lanes on the junction
+     */
+    virtual const std::vector<MSLane*>& getInternalLanes() const{
+        return myEmptyLanes;
+    }
+
     void addIncoming(MSEdge* edge) {
         myIncoming.push_back(edge);
     }
