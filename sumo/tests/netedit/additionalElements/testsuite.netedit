@@ -28,6 +28,9 @@ detexit
 # routeprobe
 routeprobe
 
+# vaporizer
+vaporizer
+
 # variable speed sign
 #variablespeedsign
 
@@ -36,8 +39,4 @@ routeprobe
 
 # rerouter
 #rerouter
-
-
-# vaporizer
-#vaporizer
 
