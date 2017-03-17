@@ -369,6 +369,11 @@ public:
      */
     double getInternalLengthsAfter() const;
 
+    /** @brief Returns the complete internal lengths from the link until the crossing point with the given foe link's lane
+     *         The crossing point is the intersection of the lane's central reference lines.
+     */
+    double getLengthBeforeCrossing(const MSLink* foeEntryLink) const;
+
     /** @brief Returns the following inner lane
      *
      * @return The inner lane to use to cross the junction
@@ -536,6 +541,7 @@ private:
      * */
     std::vector<std::pair<double, double> > myLengthsBehindCrossing;
 
+    // TODO: documentation
     std::vector<MSLink*> myFoeLinks;
     std::vector<const MSLane*> myFoeLanes;
 

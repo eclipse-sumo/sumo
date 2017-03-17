@@ -63,6 +63,8 @@ const double MSLink::ZIPPER_ADAPT_DIST(100);
 // time to link in seconds below which adaptation should take place
 #define ZIPPER_ADAPT_TIME 10
 
+#define INVALID_DOUBLE std::numeric_limits<double>::max()
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -98,6 +100,11 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                               const std::vector<MSLink*>& foeLinks,
                               const std::vector<MSLane*>& foeLanes,
                               MSLane* internalLaneBefore) {
+//#ifdef MSLink_DEBUG_CROSSING_POINTS
+//    std::cout << " setRequestInformation() for junction " << getViaLaneOrLane()->getEdge().getFromJunction()->getID()
+//            << "\nInternalLanes = " << toString(getViaLaneOrLane()->getEdge().getFromJunction()->getInternalLanes())
+//            << std::endl;
+//#endif
     myIndex = index;
     myHasFoes = hasFoes;
     myAmCont = isCont;
@@ -118,7 +125,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         //    lane = myLane;
     }
 #ifdef MSLink_DEBUG_CROSSING_POINTS
-    std::cout << " link " << myIndex << " to " << getViaLaneOrLane()->getID() << " internalLane=" << (lane == 0 ? "NULL" : lane->getID()) << " has foes: " << toString(foeLanes) << "\n";
+    std::cout << " link " << myIndex << " to " << getViaLaneOrLane()->getID() << " internalLaneBefore=" << (lane == 0 ? "NULL" : lane->getID()) << " has foes: " << toString(foeLanes) << "\n";
 #endif
     if (lane != 0) {
         const bool beforeInternalJunction = lane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal();
@@ -142,7 +149,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
             } else {
                 std::vector<double> intersections1 = lane->getShape().intersectsAtLengths2D((*it_lane)->getShape());
 #ifdef MSLink_DEBUG_CROSSING_POINTS
-                //std::cout << " intersections1=" << toString(intersections1) << "\n";
+//                std::cout << " intersections1=" << toString(intersections1) << "\n";
 #endif
                 bool haveIntersection = true;
                 if (intersections1.size() == 0) {
@@ -164,7 +171,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     // lane width affects the crossing point
                     intersections1.back() -= (*it_lane)->getWidth() / 2;
                     intersections2.back() -= lane->getWidth() / 2;
-                    // also length/geometry factor
+                    // also length/geometry factor. (XXX: Why subtract width/2 *before* converting geometric position to lane pos?)
                     intersections1.back() = lane->interpolateGeometryPosToLanePos(intersections1.back());
                     intersections2.back() = (*it_lane)->interpolateGeometryPosToLanePos(intersections2.back());
 
@@ -529,6 +536,69 @@ MSLink::getInternalLengthsAfter() const {
         lane = lane->getLinkCont()[0]->getViaLane();
     }
     return len;
+}
+
+
+double
+MSLink::getLengthBeforeCrossing(const MSLink* foeEntryLink) const {
+    // to be called for entry links
+    assert(foeEntryLink->getInternalLaneBefore() == 0);
+
+    // TODO: Understand myLengthsBehindCrossing and extract relevant information -> take a look at getLeaderInfo()!
+    // -> myLengthsBehindCrossing does not treat lanes behind internal junctions, these should be extracted from the internal lane of that junction?!
+
+    // first internal lane for foe after entering the junction
+    const MSLane* foeEntryLane = foeEntryLink->getViaLane();
+    assert(foeEntryLane != 0);
+
+    // first internal lane for ego after entering the junction
+    const MSLane* egoEntryLane = getViaLane();
+    assert(egoEntryLane != 0);
+
+    int foe_ix = 0;
+    double res = INVALID_DOUBLE;
+    for (std::vector<const MSLane*>::const_iterator i = myFoeLanes.begin(); i != myFoeLanes.end(); ++i) {
+        if (*i == foeEntryLane) {
+            // Found foe lane index
+            // note: myLengthsBehindcrossing is the length behind the foe lane's border, not its center
+            //       (therefore the term -foeEntryLane->getWidth()/2.)
+            // XXX: recheck definition of myLengthsBehindCrossing in setRequestInformation(), especially order of position scaling and subtracting the lane width/2
+            res = egoEntryLane->getLength() - myLengthsBehindCrossing[foe_ix].first - foeEntryLane->getWidth()/2.;
+            break;
+        }
+        ++foe_ix;
+    }
+
+
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+    std::cout << "getLengthBeforeCrossing() for link " << toString(getLaneBefore()) << "->" << toString(getViaLane())
+            << " and foeLink " << toString(foeEntryLink->getLaneBefore()) << "->" << toString(foeEntryLink->getViaLane())
+            << "\nLength on toString(getLaneBefore()) before crossing = " << res
+            << std::endl;
+#endif
+
+    if (foe_ix == myFoeLanes.size() && egoEntryLane->getLinkCont().size() > 0){
+        // Did not find crossing for first egoLane. Check internal cont lanes
+        assert(egoEntryLane->getLinkCont().size() == 1);
+        MSLink* contLink = egoEntryLane->getLinkCont()[0];
+        MSLane* contLane = contLink->getViaLane();
+        if (contLane != 0) {
+            // Yes, there is another internal lane after the entry lane
+            // Assert, there are no more internal lanes than two along the conection (in case the code should be modified)
+            assert(contLane->getLinkCont().size()==0
+                    || (contLane->getLinkCont().size()==1 && contLane->getLinkCont()[0]->getViaLane()==0));
+            const std::vector<const MSLane*>& contFoeLanes = contLink->getFoeLanes();
+
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+    std::cout << "No crossing with entryLane.\nChecking crossing of contLane '" << contLane->getID()
+            << "' with '" << toString(foeEntryLink->getLaneBefore()) << "'"
+            << std::endl;
+#endif
+            // TODO: really check for crossing as above
+        }
+    }
+
+    return res;
 }
 
 

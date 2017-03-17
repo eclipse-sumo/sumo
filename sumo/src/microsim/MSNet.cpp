@@ -70,6 +70,7 @@
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDevice_BTsender.h>
+#include <microsim/devices/MSDevice_SSM.h>
 #include "traffic_lights/MSTrafficLightLogic.h"
 #include <utils/shapes/Polygon.h>
 #include <utils/shapes/ShapeContainer.h>
@@ -595,6 +596,7 @@ MSNet::clearAll() {
     MSPModel::cleanup();
     MSCModel_NonInteracting::cleanup();
     MSDevice_BTsender::cleanup();
+    MSDevice_SSM::cleanup();
 }
 
 
@@ -696,6 +698,12 @@ MSNet::writeOutput() {
             }
         }
         od.closeTag();
+    }
+
+    // write SSM output
+    for (std::set<MSDevice*>::iterator di = MSDevice_SSM::getInstances().begin(); di != MSDevice_SSM::getInstances().end(); ++di) {
+        MSDevice_SSM* dev = static_cast<MSDevice_SSM*>(*di);
+        dev->updateAndWriteOutput();
     }
 }
 

@@ -165,13 +165,9 @@ protected:
     static bool equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::string& deviceName, SUMOVehicle& v);
     /// @}
 
-
-
 protected:
     /// @brief The vehicle that stores the device
     SUMOVehicle& myHolder;
-
-
 
 private:
     /// @brief vehicles which explicitly carry a device, sorted by device, first
