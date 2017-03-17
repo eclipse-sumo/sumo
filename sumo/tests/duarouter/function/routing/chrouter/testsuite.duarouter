@@ -12,3 +12,6 @@ restrictions2
 
 # test for rebuilding the hirarchy for a new weight interval
 weights
+
+# test for rebuilding the hierarchy and cloning afterwards for parallel processing
+weights_parallel

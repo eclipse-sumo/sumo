@@ -34,7 +34,7 @@ net_state:<!--{[->]}-->
 fcd:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 simstate:<!--{[->]}-->
-simstate:<snapshot version="[^"]*"{REPLACE <snapshot version="<version>"}
+simstate:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 output:port
 errors:Socket
 
