@@ -556,6 +556,10 @@ public:
     /// returns the link to the given lane or 0, if it is not connected
     MSLink* getLinkTo(const MSLane*) const;
 
+    /// Returns the entry link if this is an internal lane, else 0
+    MSLink* getEntryLink() const;
+
+
     /// Returns true if there is not a single vehicle on the lane.
     bool empty() const {
         assert(myVehBuffer.size() == 0);

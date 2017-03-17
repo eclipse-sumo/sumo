@@ -1557,13 +1557,36 @@ MSLane::getLinkCont() const {
 MSLink*
 MSLane::getLinkTo(const MSLane* target) const {
     MSLinkCont::const_iterator l = myLinks.begin();
-    while(l != myLinks.end()){
-        if ((*l)->getLane()->getID() == target->getID()){
-            return *l;
+    if(target->isInternal()){
+        while(l != myLinks.end()){
+            if ((*l)->getViaLane()->getID() == target->getID()){
+                return *l;
+            }
+            ++l;
         }
-        ++l;
+    } else {
+        while(l != myLinks.end()){
+            if ((*l)->getLane()->getID() == target->getID()){
+                return *l;
+            }
+            ++l;
+        }
     }
     return 0;
+}
+
+MSLink*
+MSLane::getEntryLink() const {
+    if (!isInternal()) return 0;
+    const MSLane* internal = this;
+    const MSLane* lane = this->getCanonicalPredecessorLane();
+    assert(lane != 0);
+    while (lane->isInternal()) {
+        internal = lane;
+        lane = lane->getCanonicalPredecessorLane();
+        assert(lane != 0);
+    }
+    return lane->getLinkTo(internal);
 }
 
 
