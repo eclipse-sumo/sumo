@@ -166,6 +166,11 @@ class Domain:
         return self._connection._getSubscriptionResults(self._subscribeResponseID).get(objectID)
 
     def subscribeContext(self, objectID, domain, dist, varIDs=None, begin=0, end=2**31 - 1):
+        """subscribeContext(string, int, double, list(integer), double, double) -> None
+
+        Subscribe to objects of the given domain (specified as domain=traci.constants.CMD_GET_<DOMAIN>_VARIABLE),
+        which are closer than dist to the object specified by objectID.
+        """
         if varIDs is None:
             if tc.LAST_STEP_VEHICLE_NUMBER in self._retValFunc:
                 varIDs = (tc.LAST_STEP_VEHICLE_NUMBER,)
