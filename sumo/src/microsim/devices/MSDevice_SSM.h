@@ -164,7 +164,7 @@ private:
         /// @brief Invalidated Constructor.
         Encounter(const Encounter&);
         /// @brief Invalidated assignment operator.
-        MSDevice_SSM& operator=(const MSDevice_SSM&);
+        Encounter& operator=(const Encounter&);
         ///
     };
 
@@ -391,7 +391,7 @@ private:
     double myFrequency;
     double myRange;
     /// @brief Corresponding maximal trajectory size in points, derived from myFrequency
-    size_t maxTrajectorySize;
+    int maxTrajectorySize;
     /// Flags for switching on / off comutation of different SSMs, derived from myMeasures
     bool myComputeTTC, myComputeDRAC, myComputePET;
     MSVehicle* myHolderMS;

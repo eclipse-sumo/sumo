@@ -587,8 +587,6 @@ MSLink::getLengthBeforeCrossing(const MSLink* foeEntryLink) const {
             // Assert, there are no more internal lanes than two along the conection (in case the code should be modified)
             assert(contLane->getLinkCont().size()==0
                     || (contLane->getLinkCont().size()==1 && contLane->getLinkCont()[0]->getViaLane()==0));
-            const std::vector<const MSLane*>& contFoeLanes = contLink->getFoeLanes();
-
 #ifdef MSLink_DEBUG_CROSSING_POINTS
     std::cout << "No crossing with entryLane.\nChecking crossing of contLane '" << contLane->getID()
             << "' with '" << toString(foeEntryLink->getLaneBefore()) << "'"

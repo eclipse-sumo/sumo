@@ -666,7 +666,7 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     myComputeDRAC = find(myMeasures.begin(), myMeasures.end(), "DRAC") != myMeasures.end();
     myComputePET = find(myMeasures.begin(), myMeasures.end(), "PET") != myMeasures.end();
 
-    maxTrajectorySize = std::ceil(myFrequency/TS)+1;
+    maxTrajectorySize = (int)std::ceil(myFrequency/TS)+1;
     myActiveEncounters = EncounterVector();
     myPastConflicts = EncounterQueue();
 
@@ -716,7 +716,7 @@ MSDevice_SSM::notifyLeave(SUMOVehicle& veh, double /*lastPos*/,
 }
 
 bool
-MSDevice_SSM::notifyMove(SUMOVehicle& veh, double /* oldPos */,
+MSDevice_SSM::notifyMove(SUMOVehicle& /* veh */, double /* oldPos */,
                              double /* newPos */, double newSpeed) {
 #ifdef DEBUG_SSM
     std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
@@ -740,7 +740,6 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
     // The requesting vehicle's current route
     // XXX: Restriction to route scanning may have to be generalized to scanning of possible continuations when
     //      considering situations involving sudden route changes. See also the definition of the EncounterTypes.
-    const ConstMSEdgeVector& routeEdges = veh.getRoute().getEdges();
 
     // If veh is on an internal edge, the edgeIter points towards the last edge before the junction
     ConstMSEdgeVector::const_iterator edgeIter = veh.getCurrentRouteEdge();
@@ -1013,7 +1012,6 @@ MSDevice_SSM::generateOutput() const {
 // ---------------------------------------------------------------------------
 std::string
 MSDevice_SSM::getOutputFilename(const SUMOVehicle& v, std::string deviceID) {
-    OptionsCont& oc = OptionsCont::getOptions();
     std::string file = deviceID + ".xml";
     if (v.getParameter().knowsParameter("device.ssm.file")) {
         try {
@@ -1032,6 +1030,7 @@ MSDevice_SSM::getOutputFilename(const SUMOVehicle& v, std::string deviceID) {
     }
     return file;
 }
+
 
 double
 MSDevice_SSM::getDetectionRange(const SUMOVehicle& v) {
