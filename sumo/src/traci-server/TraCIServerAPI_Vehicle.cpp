@@ -422,7 +422,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 break;
             case VAR_SPEEDSETMODE:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeDouble(TraCI_Vehicle::getSpeedMode(id));
+                tempMsg.writeInt(TraCI_Vehicle::getSpeedMode(id));
                 break;
             case VAR_LINE:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
