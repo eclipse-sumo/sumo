@@ -142,11 +142,11 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(const SUMOTime actDuration, c
 #endif
 
 #ifdef DEBUG_TIMELOSS_CONTROL
-                            std::cout << "vehicle '" << iv->second->id << "' with accumulated timeloss: " << iv->second->accumulatedTimeLoss
+                            std::cout << "vehicle '" << iv->id << "' with accumulated timeloss: " << iv->accumulatedTimeLoss
                                     << "\nestimated passing time: " << estimatedTimeToJunction << std::endl;
                         } else {
-                            std::string reason = iv->second->accumulatedTimeLoss <= myTimeLossThreshold ? " (time loss below threshold)" : " (front already left detector)";
-                            std::cout << "disregarded: (vehicle '" << iv->second->id << "' with accumulated timeloss " << iv->second->accumulatedTimeLoss << ")" << reason << std::endl;
+                            std::string reason = iv->accumulatedTimeLoss <= myTimeLossThreshold ? " (time loss below threshold)" : " (front already left detector)";
+                            std::cout << "disregarded: (vehicle '" << iv->id << "' with accumulated timeloss " << iv->accumulatedTimeLoss << ")" << reason << std::endl;
 #endif
                         }
                     }
