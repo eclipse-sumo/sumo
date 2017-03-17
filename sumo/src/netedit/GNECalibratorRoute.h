@@ -82,7 +82,7 @@ public:
     /**@brief set edges of route using IDs
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setEdges(const std::vector<std::string>& edges);
+    bool setEdges(const std::vector<std::string>& edgeIDs);
 
     /**@brief set edges of route using pointers
     * @return true if was sucesfully set, or false if value isn't valid

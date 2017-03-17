@@ -50,6 +50,8 @@
 #include "GNECalibratorRoute.h"
 #include "GNECalibrator.h"
 #include "GNEEdge.h"
+#include "GNEViewNet.h"
+#include "GNENet.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -131,14 +133,25 @@ GNECalibratorRoute::setRouteID(std::string routeID) {
 
 
 bool 
-GNECalibratorRoute::setEdges(const std::vector<std::string>& edges) {
-
+GNECalibratorRoute::setEdges(const std::vector<std::string>& edgeIDs) {
+    std::vector<GNEEdge*> edges;
+    GNEEdge* edgeTmp;
+    for(std::vector<std::string>::const_iterator i = edgeIDs.begin(); i != edgeIDs.end(); i++) {
+        edgeTmp = myCalibratorParent->getViewNet()->getNet()->retrieveEdge((*i), false);
+        if(edgeTmp != NULL) {
+            edges.push_back(edgeTmp);
+        } else {
+            return false;
+        }
+    }
+    return setEdges(edges);
 }
 
 
 bool 
 GNECalibratorRoute::setEdges(const std::vector<GNEEdge*>& edges) {
-
+    myEdges = edges;
+    return true;
 }
 
 
