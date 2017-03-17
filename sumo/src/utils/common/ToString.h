@@ -71,6 +71,12 @@ inline std::string toHex(const T i, std::streamsize numDigits = 0) {
 }
 
 
+inline std::string toString(const Named* obj, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    if (obj == 0) return "NULL";
+    return obj->getID();
+}
+
 template <>
 inline std::string toString<SumoXMLTag>(const SumoXMLTag& tag, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
@@ -166,6 +172,12 @@ inline std::string toString<LaneChangeAction>(const LaneChangeAction& action, st
 }
 
 template <>
+inline std::string toString<Position>(const Position& pos, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return toString(pos.x(), accuracy) + "," + toString(pos.y(), accuracy);
+}
+
+template <>
 inline std::string toString<Distribution_Parameterized>(const Distribution_Parameterized& dist, std::streamsize accuracy) {
     return dist.toStr(accuracy);
 }
@@ -188,6 +200,26 @@ inline std::string toString(const typename std::vector<V*>::const_iterator& b, c
     }
     return oss.str();
 }
+
+
+//template <typename V>
+//inline std::string toString(const std::vector<V>& v, std::streamsize accuracy = gPrecision) {
+//    return toString<V>(v.begin(), v.end(), accuracy);
+//}
+//
+//
+//template <typename V>
+//inline std::string toString(const typename std::vector<V>::const_iterator& b, const typename std::vector<V>::const_iterator& e, std::streamsize accuracy = gPrecision) {
+//    UNUSED_PARAMETER(accuracy);
+//    std::ostringstream oss;
+//    for (typename std::vector<V>::const_iterator it = b; it != e; ++it) {
+//        if (it != b) {
+//            oss << " ";
+//        }
+//        oss << Named::getIDSecure(*it);
+//    }
+//    return oss.str();
+//}
 
 
 template <typename T, typename T_BETWEEN>
