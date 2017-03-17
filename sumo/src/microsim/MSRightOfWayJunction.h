@@ -94,6 +94,7 @@ protected:
     /** the type of the junction (its logic) */
     MSJunctionLogic* myLogic;
 
+    // TODO: Documentation
     std::map<const MSLink*, std::vector<MSLink*> > myLinkFoeLinks;
     std::map<const MSLink*, std::vector<MSLane*> > myLinkFoeInternalLanes;
 
