@@ -536,6 +536,10 @@ public:
     /// @todo extension: inner junctions are not filled
     const MSEdge* getInternalFollowingEdge(const MSEdge* followerAfterInternal) const;
 
+
+    /// @brief returns the length of all internal edges on the junction until reaching the non-internal edge followerAfterInternal.
+    double getInternalFollowingLengthTo(const MSEdge* followerAfterInternal) const;
+
     /// @brief Returns whether the vehicle (class) is not allowed on the edge
     inline bool prohibits(const SUMOVehicle* const vehicle) const {
         if (vehicle == 0) {

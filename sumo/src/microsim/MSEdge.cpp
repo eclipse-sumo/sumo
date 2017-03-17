@@ -629,6 +629,19 @@ MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal) const {
     return 0;
 }
 
+double
+MSEdge::getInternalFollowingLengthTo(const MSEdge* followerAfterInternal) const {
+    assert(followerAfterInternal != 0);
+    assert(!followerAfterInternal->isInternal());
+    double dist = 0.;
+    const MSEdge* edge = getInternalFollowingEdge(followerAfterInternal);
+    // Take into account non-internal lengths until next non-internal edge
+    while (edge != 0 && edge->isInternal()) {
+        dist += edge->getLength();
+        edge = edge->getInternalFollowingEdge(followerAfterInternal);
+    }
+    return dist;
+}
 
 double
 MSEdge::getMeanSpeed() const {
