@@ -224,36 +224,34 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
         abort = true;
     }
     // Declare calibrator flow
-    GNECalibrator::GNECalibratorFlow* flow = new GNECalibrator::GNECalibratorFlow(0, type, route);
+    GNECalibratorFlow calibratorFlow(0, type, route);
 
     // Load rest of parameters
-    flow->setColor(attrs.getOpt<std::string>(SUMO_ATTR_COLOR, flowId.c_str(), ok, "", false));
-    flow->setDepartLane(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTLANE, flowId.c_str(), ok, "first", false));
-    flow->setDepartPos(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, flowId.c_str(), ok, "base", false));
-    flow->setDepartSpeed(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTSPEED, flowId.c_str(), ok, "0", false));
-    flow->setArrivalLane(attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALLANE, flowId.c_str(), ok, "current", false));
-    flow->setArrivalPos(attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS, flowId.c_str(), ok, "max", false));
-    flow->setArrivalSpeed(attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALSPEED, flowId.c_str(), ok, "current", false));
-    flow->setLine(attrs.getOpt<std::string>(SUMO_ATTR_LINE, flowId.c_str(), ok, "", false));
-    flow->setPersonNumber(attrs.getOpt<int>(SUMO_ATTR_PERSON_NUMBER, flowId.c_str(), ok, 0, false));
-    flow->setContainerNumber(attrs.getOpt<int>(SUMO_ATTR_CONTAINER_NUMBER, flowId.c_str(), ok, 0, false));
-    flow->setBegin(attrs.getOpt<double>(SUMO_ATTR_BEGIN, flowId.c_str(), ok, 0, false));
-    flow->setEnd(attrs.getOpt<double>(SUMO_ATTR_END, flowId.c_str(), ok, 0, false));
-    flow->setVehsPerHour(attrs.getOpt<double>(SUMO_ATTR_VEHSPERHOUR, flowId.c_str(), ok, 0, false));
-    flow->setPeriod(attrs.getOpt<double>(SUMO_ATTR_PERIOD, flowId.c_str(), ok, 0, false));
-    flow->setProbability(attrs.getOpt<double>(SUMO_ATTR_PROB, flowId.c_str(), ok, 0, false));
-    flow->setNumber(attrs.getOpt<int>(SUMO_ATTR_NUMBER, flowId.c_str(), ok, 0, false));
+    calibratorFlow.setColor(attrs.getOpt<std::string>(SUMO_ATTR_COLOR, flowId.c_str(), ok, "", false));
+    calibratorFlow.setDepartLane(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTLANE, flowId.c_str(), ok, "first", false));
+    calibratorFlow.setDepartPos(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, flowId.c_str(), ok, "base", false));
+    calibratorFlow.setDepartSpeed(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTSPEED, flowId.c_str(), ok, "0", false));
+    calibratorFlow.setArrivalLane(attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALLANE, flowId.c_str(), ok, "current", false));
+    calibratorFlow.setArrivalPos(attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS, flowId.c_str(), ok, "max", false));
+    calibratorFlow.setArrivalSpeed(attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALSPEED, flowId.c_str(), ok, "current", false));
+    calibratorFlow.setLine(attrs.getOpt<std::string>(SUMO_ATTR_LINE, flowId.c_str(), ok, "", false));
+    calibratorFlow.setPersonNumber(attrs.getOpt<int>(SUMO_ATTR_PERSON_NUMBER, flowId.c_str(), ok, 0, false));
+    calibratorFlow.setContainerNumber(attrs.getOpt<int>(SUMO_ATTR_CONTAINER_NUMBER, flowId.c_str(), ok, 0, false));
+    calibratorFlow.setBegin(attrs.getOpt<double>(SUMO_ATTR_BEGIN, flowId.c_str(), ok, 0, false));
+    calibratorFlow.setEnd(attrs.getOpt<double>(SUMO_ATTR_END, flowId.c_str(), ok, 0, false));
+    calibratorFlow.setVehsPerHour(attrs.getOpt<double>(SUMO_ATTR_VEHSPERHOUR, flowId.c_str(), ok, 0, false));
+    calibratorFlow.setPeriod(attrs.getOpt<double>(SUMO_ATTR_PERIOD, flowId.c_str(), ok, 0, false));
+    calibratorFlow.setProbability(attrs.getOpt<double>(SUMO_ATTR_PROB, flowId.c_str(), ok, 0, false));
+    calibratorFlow.setNumber(attrs.getOpt<int>(SUMO_ATTR_NUMBER, flowId.c_str(), ok, 0, false));
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // Obtain calibrator
         GNECalibrator* calibratorToInsertFlow = /*dynamic_cast<GNECalibrator*>(myViewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, myAdditionalParent))*/ NULL;
         if (calibratorToInsertFlow == NULL) {
             WRITE_WARNING("A " + toString(SUMO_TAG_CALIBRATOR) + " must be inserter before insertion of the " + toString(tag) + " '" + flowId + "'");
-            delete flow;
         } else {
-            calibratorToInsertFlow->insertFlow(flow);
+            ; //calibratorToInsertFlow->insertFlow(calibratorFlow);
         }
-        delete flow;
     }
 }
 
@@ -456,6 +454,8 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
     double position = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_POSITION, abort);
     double freq = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_FREQUENCY, abort);
     // std::string routeProbe = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
+    std::vector<GNECalibratorRoute> calibratorRoutes;
+    std::vector<GNECalibratorFlow> calibratorFlows;
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to edge
@@ -463,7 +463,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         if (edge == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (buildCalibrator(myViewNet, id, edge, position, outfile, freq, std::vector<GNECalibrator::GNECalibratorFlow*>())) {
+        } else if (buildCalibrator(myViewNet, id, edge, position, outfile, freq, calibratorRoutes, calibratorFlows)) {
             myLastTag = tag;
         }
     }
@@ -751,11 +751,12 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             double pos = 0;
             std::string outfile = values[SUMO_ATTR_OUTPUT];
             double freq = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_FREQUENCY]);
-            // get flow values
-            std::vector<GNECalibrator::GNECalibratorFlow*> flowValues;
+            // get Calibrator values
+            std::vector<GNECalibratorRoute> calibratorRoutes;
+            std::vector<GNECalibratorFlow> calibratorFlows;
             // Build calibrator
             if (edge) {
-                return buildCalibrator(viewNet, id, edge, pos, outfile, freq, flowValues);
+                return buildCalibrator(viewNet, id, edge, pos, outfile, freq, calibratorRoutes, calibratorFlows);
             } else {
                 return false;
             }
@@ -960,10 +961,11 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* E3Pa
 
 
 bool
-GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, double pos, const std::string& outfile, const double freq, const std::vector<GNECalibrator::GNECalibratorFlow*>& flowValues) {
+GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, double pos, const std::string& outfile, const double freq, 
+                                      const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CALIBRATOR));
-        GNECalibrator* calibrator = new GNECalibrator(id, edge, viewNet, pos, freq, outfile, flowValues);
+        GNECalibrator* calibrator = new GNECalibrator(id, edge, viewNet, pos, freq, outfile, calibratorRoutes, calibratorFlows);
         viewNet->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
         viewNet->getUndoList()->p_end();
         return true;

@@ -302,7 +302,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildCalibrator(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, double pos, const std::string& outfile, double freq, const std::vector<GNECalibrator::GNECalibratorFlow*>& flowValues);
+    static bool buildCalibrator(GNEViewNet* viewNet, const std::string& id, GNEEdge* edge, double pos, const std::string& outfile, double freq, const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows);
 
     /**@brief builds a rerouter
      * @param[in] viewNet viewNet in which element will be inserted
