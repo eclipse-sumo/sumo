@@ -54,6 +54,8 @@
         <bt-output value="" type="FILE" help="Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)"/>
         <lanechange-output value="" type="FILE" help="Record lane changes and their motivations for all vehicles into FILE"/>
         <stop-output value="" type="FILE" help="Record stops and loading/unloading of passenger and containers for all vehicles into FILE"/>
+        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
+        <movereminder-output.vehicles value="" type="STR" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
@@ -162,9 +164,19 @@
         <device.example.parameter value="0" type="FLOAT" help="An exemplary parameter which can be used by all instances of the example device"/>
     </example_device>
 
+    <ssm_device>
+        <device.ssm.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;ssm&apos; device"/>
+        <device.ssm.explicit value="" synonymes="device.ssm.knownveh" type="STR" help="Assign a &apos;ssm&apos; device to named vehicles"/>
+        <device.ssm.deterministic value="false" type="BOOL" help="The &apos;ssm&apos; devices are set deterministic using a fraction of 1000"/>
+        <device.ssm.measures value="" type="STR" help="Specifies which measures will be logged (as a space seperated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;))."/>
+        <device.ssm.thresholds value="" type="STR" help="Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged."/>
+        <device.ssm.trajectories value="false" type="BOOL" help="Specifies whether trajectories will be logged (if false, only the extremal values and times are reported)."/>
+        <device.ssm.frequency value="30" type="FLOAT" help="Specifies the maximal length of stored conflict trajectories in seconds (the frequency of logging, default is 30.00s.)."/>
+        <device.ssm.range value="50" type="FLOAT" help="Specifies the detection range in meters (default is 50.00m.). For vehicles below this distance from the equipped vehicle, SSM values are traced."/>
+    </ssm_device>
+
     <traci_server>
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
-        <python-script value="" type="STR" help="Runs TraCI script with embedded python"/>
     </traci_server>
 
     <mesoscopic>
@@ -198,7 +210,6 @@
         <disable-textures value="false" synonymes="T" type="BOOL" help="Do not load background pictures"/>
         <window-size value="" type="STR" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR" help="Create initial window at the given x,y position"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
     </gui_only>
 
 </configuration>
