@@ -150,7 +150,7 @@ protected:
     virtual void updateChanger(bool vehHasChanged);
 
     /** During lane-change a temporary vehicle container is filled within
-        the lanes (bad pratice to modify foreign members, I know). Swap
+        the lanes (bad practice to modify foreign members, I know). Swap
         this container with the real one. */
     void updateLanes(SUMOTime t);
 
