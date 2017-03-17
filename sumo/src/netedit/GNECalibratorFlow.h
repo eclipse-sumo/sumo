@@ -30,6 +30,9 @@
 #include <config.h>
 #endif
 
+#include <utils/common/UtilExceptions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+
 // ===========================================================================
 // class declaration
 // ===========================================================================
@@ -41,7 +44,7 @@ class GNECalibrator;
 // ===========================================================================
 /**
  * @class GNECalibratorFlow
- * vehicle flow used by GNECalibrators
+ * flow flow used by GNECalibrators
  */
 class GNECalibratorFlow {
 
@@ -61,7 +64,13 @@ public:
     /// @brief get pointer to calibrator parent
     GNECalibrator* getCalibratorParent() const;
 
-    /// @brief get type of vehicle
+    /// @brief get tag
+    SumoXMLTag getTag() const;
+
+    /// @brief get ID of flow
+    const std::string& getFlowID() const;
+
+    /// @brief get type of flow
     const std::string& getType() const;
 
     /// @brief get route in which this flow is used
@@ -103,19 +112,24 @@ public:
     /// @brief get end time step
     double getEnd() const;
 
-    /// @brief get vehicles per hour
+    /// @brief get flows per hour
     double getVehsPerHour() const;
 
-    /// @brief get period of vehicle
+    /// @brief get period of flow
     double getPeriod() const;
 
-    /// @brief get probability of vehicle
+    /// @brief get probability of flow
     double getProbability() const;
 
-    /// @brief get number of vehicles
+    /// @brief get number of flows
     int getNumber() const;
 
-    /**@brief set type of vehicle
+    /**@brief set ID of flow
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setFlowID(std::string ID);
+
+    /**@brief set type of flow
     * @return true if was sucesfully set, or false if value isn't valid
     */
     bool setType(std::string type);
@@ -185,22 +199,22 @@ public:
     */
     bool setEnd(double end);
 
-    /**@brief set vehicles per hour
+    /**@brief set flows per hour
     * @return true if was sucesfully set, or false if value isn't valid
     */
     bool setVehsPerHour(double vehsPerHour);
 
-    /**@brief set period of vehicles
+    /**@brief set period of flows
     * @return true if was sucesfully set, or false if value isn't valid
     */
     bool setPeriod(double period);
 
-    /**@brief set probability of vehicle
+    /**@brief set probability of flow
     * @return true if was sucesfully set, or false if value isn't valid
     */
     bool setProbability(double probability);
 
-    /**@brief set number of vehicles
+    /**@brief set number of flows
     * @return true if was sucesfully set, or false if value isn't valid
     */
     bool setNumber(int number);
@@ -208,6 +222,9 @@ public:
 private:
     /// @brief pointer to calibrator parent
     GNECalibrator* myCalibratorParent;
+
+    /// @brief ID of flow
+    std::string myFlowID;
 
     /// @brief type of flow
     std::string myType;
@@ -251,7 +268,7 @@ private:
     /// @brief time step end
     double myEnd;
 
-    /// @brief vehicles per hour
+    /// @brief flows per hour
     double myVehsPerHour;
 
     /// @brief period
@@ -260,7 +277,7 @@ private:
     /// @brief probability
     double myProbability;
 
-    /// @brief number of vehicle
+    /// @brief number of flow
     int myNumber;
 };
 

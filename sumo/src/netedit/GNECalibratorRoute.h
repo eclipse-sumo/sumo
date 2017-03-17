@@ -30,6 +30,9 @@
 #include <config.h>
 #endif
 
+#include <utils/common/UtilExceptions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+
 // ===========================================================================
 // class declaration
 // ===========================================================================
@@ -61,6 +64,9 @@ public:
 
     /// @brief get pointer to calibrator parent
     GNECalibrator* getCalibratorParent() const;
+
+    /// @brief get tag
+    SumoXMLTag getTag() const;
 
     /// @brief get route ID
     const std::string& getRouteID() const;

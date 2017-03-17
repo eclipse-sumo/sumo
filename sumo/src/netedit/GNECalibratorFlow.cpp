@@ -101,6 +101,18 @@ GNECalibratorFlow::getCalibratorParent() const {
 }
 
 
+SumoXMLTag
+GNECalibratorFlow::getTag() const {
+    return SUMO_TAG_FLOW;
+}
+
+
+const std::string& 
+GNECalibratorFlow::getFlowID() const {
+    return myFlowID;
+}
+
+
 const std::string&
 GNECalibratorFlow::getType() const {
     return myType;
@@ -206,6 +218,17 @@ GNECalibratorFlow::getProbability() const {
 int
 GNECalibratorFlow::getNumber() const {
     return myNumber;
+}
+
+
+bool
+GNECalibratorFlow::setFlowID(std::string flowID) {
+    if (flowID.empty()) {                             // CHECK THAT FLOW ID ISN'T DUPLICATED!
+        return false;
+    } else {
+        myFlowID = flowID;
+        return true;
+    }
 }
 
 

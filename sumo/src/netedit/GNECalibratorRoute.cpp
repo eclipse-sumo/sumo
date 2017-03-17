@@ -93,6 +93,12 @@ GNECalibratorRoute::getCalibratorParent() const {
 }
 
 
+SumoXMLTag
+GNECalibratorRoute::getTag() const {
+    return SUMO_TAG_ROUTE;
+}
+
+
 const std::string&
 GNECalibratorRoute::getRouteID() const {
     return myRouteID;
