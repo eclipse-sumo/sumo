@@ -315,9 +315,27 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTTIME:
-            return canParse<double>(value);
+            if(canParse<double>(value)) {
+                double startTime = parse<double>(value);
+                if(startTime <= myEnd) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         case SUMO_ATTR_END:
-            return canParse<double>(value);
+            if(canParse<double>(value)) {
+                double end = parse<double>(value);
+                if(myStartTime <= end) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
