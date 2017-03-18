@@ -33,6 +33,7 @@
 #include "GNEAdditional.h"
 #include "GNECalibratorRoute.h"
 #include "GNECalibratorFlow.h"
+#include "GNECalibratorVehicleType.h"
 
 // ===========================================================================
 // class declaration
@@ -59,9 +60,11 @@ public:
      * @param[in] output The output file for writing calibrator information
      * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
      * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
+     * @param[in] calibratorVehicleTypes vector with the CalibratorVehicleType of calibrator
      */
     GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, double pos, double frequency, const std::string& output, 
-                  const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows);
+                  const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
+                  const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes);
 
     /// @brief Destructor
     ~GNECalibrator();
@@ -87,23 +90,35 @@ public:
      */
     void writeAdditional(OutputDevice& device) const;
 
-    /// @brief get calibrator routes
-    std::vector<GNECalibratorRoute> getCalibratorRoutes() const;
+    /// @brief get calibrator vehicleTypes
+    std::vector<GNECalibratorVehicleType> getCalibratorVehicleTypes() const;
 
     /// @brief get calibrator flows
     std::vector<GNECalibratorFlow> getCalibratorFlows() const;
 
-    /// @brief set GNECalibratorRoute values
+    /// @brief get calibrator routes
+    std::vector<GNECalibratorRoute> getCalibratorRoutes() const;
+
+    /// @brief set calibrator vehicleTypes values
+    void setCalibratorVehicleTypes(std::vector<GNECalibratorVehicleType> calibratorVehicleType);
+
+    /// @brief set calibrator flow values
+    void setCalibratorFlows(std::vector<GNECalibratorFlow> calibratorFlows);
+
+    /// @brief set calibrator route values
     void setCalibratorRoutes(std::vector<GNECalibratorRoute> calibratorRoutes);
 
-    /// @brief set GNECalibratorFlow values
-    void setCalibratorFlows(std::vector<GNECalibratorFlow> calibratorFlows);
+    /// @brief generate a vehicleType ID
+    std::string generateVehicleTypeID() const;
 
     /// @brief generate a flow ID
     std::string generateFlowID() const;
 
     /// @brief generate a route ID
     std::string generateRouteID() const;
+
+    /// @brief check if a vehicelType with ID = vehicleTypeID exists
+    bool vehicleTypeExists(std::string vehicleTypeID) const;
 
     /// @brief check if a flow with ID = flowID exists
     bool flowExists(std::string flowID) const;
@@ -157,11 +172,14 @@ protected:
     /// @brief pointer to current RouteProbe
     GNERouteProbe* myRouteProbe;
 
-    /// @brief CalibratorRoute values
-    std::vector<GNECalibratorRoute> myCalibratorRoutes;
+    /// @brief calibrator vehicleType values
+    std::vector<GNECalibratorVehicleType> myCalibratorVehicleTypes;
 
-    /// @brief CalibratorFlow values
+    /// @brief calibrator flow values
     std::vector<GNECalibratorFlow> myCalibratorFlows;
+
+    /// @brief calibrator route values
+    std::vector<GNECalibratorRoute> myCalibratorRoutes;
 
 private:
     /// @brief set attribute after validation
