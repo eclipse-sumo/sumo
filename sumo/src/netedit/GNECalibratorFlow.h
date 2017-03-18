@@ -47,16 +47,23 @@ class GNECalibrator;
  * flow flow used by GNECalibrators
  */
 class GNECalibratorFlow {
-
 public:
 
+    /// @brief type of flow
+    enum typeOfFlow {
+        GNE_CALIBRATORFLOW_VEHSPERHOUR,
+        GNE_CALIBRATORFLOW_PERIOD,
+        GNE_CALIBRATORFLOW_PROBABILITY,
+    };
+
     /// @brief constructor
-    GNECalibratorFlow(GNECalibrator* calibratorParent, std::string type, std::string route);
+    GNECalibratorFlow(GNECalibrator* calibratorParent);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNECalibrator* calibratorParent, std::string type, std::string route, std::string color, std::string departLane, std::string departPos,
-                        std::string departSpeed, std::string arrivalLane, std::string arrivalPos, std::string arrivalSpeed, std::string line, int personNumber, 
-                        int containerNumber, double begin, double end, double vehsPerHour, double period, double probability, int number);
+    GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string type, std::string route, std::string color, std::string departLane, 
+                      std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos, std::string arrivalSpeed, std::string line, 
+                      int personNumber, int containerNumber, bool reroute, std::string departPosLat, std::string arrivalPosLat, double begin, double end, 
+                      double vehsPerHour, double period, double probability, int number);
 
     /// @brief destructor
     ~GNECalibratorFlow();
@@ -106,6 +113,17 @@ public:
     /// @brief get number of containers
     int getContainerNumber() const;
 
+    /// @brief get reroute
+    bool getReroute() const;
+
+    /// @brief get departPosLat
+    std::string getDepartPosLat() const;
+
+    //// @brief set arrivalPosLat
+    std::string getArrivalPosLat() const;
+
+    /// @name value specific of 
+    ///{
     /// @brief get begin time step
     double getBegin() const;
 
@@ -123,6 +141,10 @@ public:
 
     /// @brief get number of flows
     int getNumber() const;
+
+    /// @brief get type of flow
+    typeOfFlow getFlowType() const;
+    /// @}
 
     /**@brief set ID of flow
     * @return true if was sucesfully set, or false if value isn't valid
@@ -142,82 +164,145 @@ public:
     /**@brief set color of flow
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setColor(std::string color);
+    bool setColor(std::string color = "");
 
     /**@brief set depart lane
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setDepartLane(std::string departLane);
+    bool setDepartLane(std::string departLane = "first");
 
     /**@brief set depart position
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setDepartPos(std::string departPos);
+    bool setDepartPos(std::string departPos = "base");
 
     /**@brief set depart speed
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setDepartSpeed(std::string departSpeed);
+    bool setDepartSpeed(std::string departSpeed = "0");
 
     /**@brief set arrival lane
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setArrivalLane(std::string arrivalLane);
+    bool setArrivalLane(std::string arrivalLane = "current");
 
     /**@brief set arrival position
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setArrivalPos(std::string arrivalPos);
+    bool setArrivalPos(std::string arrivalPos = "max");
 
     /**@brief set arrival speed
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setArrivalSpeed(std::string arrivalSpeed);
+    bool setArrivalSpeed(std::string arrivalSpeed = "current");
 
     /**@brief set line of busStop/containerStop
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setLine(std::string line);
+    bool setLine(std::string line = "");
 
     /**@brief set number of persons
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setPersonNumber(int personNumber);
+    bool setPersonNumber(int personNumber = 0);
+
+    /**@brief set number of persons (String)
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setPersonNumber(std::string personNumber = "0");
 
     /**@brief set number of container
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setContainerNumber(int containerNumber);
+    bool setContainerNumber(int containerNumber = 0);
 
+    /**@brief set number of container (string)
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setContainerNumber(std::string containerNumber = "0");
+
+    /**@brief set reroute
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setReroute(bool value);
+
+    /**@brief set reroute (string)
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setReroute(std::string value);
+
+    /**@brief set departPosLat
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setDepartPosLat(std::string departPosLat = "center");
+
+    /**@brief set arrivalPosLat
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setArrivalPosLat(std::string arrivalPosLat = "");
+
+    /// @name values specific of Flows
+    /// @{
     /**@brief set begin step
     * @return true if was sucesfully set, or false if value isn't valid
     */
     bool setBegin(double begin);
+
+    /**@brief set begin step (string)
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setBegin(std::string begin);
 
     /**@brief set end step
     * @return true if was sucesfully set, or false if value isn't valid
     */
     bool setEnd(double end);
 
+    /**@brief set end step (string)
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setEnd(std::string end);
+
     /**@brief set flows per hour
     * @return true if was sucesfully set, or false if value isn't valid
     */
     bool setVehsPerHour(double vehsPerHour);
+
+    /**@brief set flows per hour (string)
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setVehsPerHour(std::string vehsPerHour);
 
     /**@brief set period of flows
     * @return true if was sucesfully set, or false if value isn't valid
     */
     bool setPeriod(double period);
 
+    /**@brief set period of flows (string)
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setPeriod(std::string period);
+
     /**@brief set probability of flow
     * @return true if was sucesfully set, or false if value isn't valid
     */
     bool setProbability(double probability);
 
+    /**@brief set probability of flow (string)
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setProbability(std::string probability);
+
     /**@brief set number of flows
     * @return true if was sucesfully set, or false if value isn't valid
     */
     bool setNumber(int number);
+
+    /**@brief set number of flows (string)
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setNumber(std::string number);
+    /// @}
 
 private:
     /// @brief pointer to calibrator parent
@@ -262,6 +347,17 @@ private:
     /// @brief number of container
     int myContainerNumber;
 
+    /// @brief reroute
+    bool myReroute;
+
+    /// @brief departPosLat
+    std::string myDepartPosLat;
+
+    //// @brief arrivalPosLat
+    std::string myArrivalPosLat;
+
+    /// @name specific of flows
+    /// @{
     /// @brief time step begin
     double myBegin;
 
@@ -279,6 +375,10 @@ private:
 
     /// @brief number of flow
     int myNumber;
+    /// @}
+
+    /// @brief type of flow
+    typeOfFlow myTypeOfFlow;
 };
 
 #endif

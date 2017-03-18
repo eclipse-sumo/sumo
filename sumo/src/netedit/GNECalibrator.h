@@ -45,7 +45,7 @@ class GNERouteProbe;
 // ===========================================================================
 /**
  * @class GNECalibrator
- * ------------
+ * class for represent Calibratos in netedit
  */
 class GNECalibrator : public GNEAdditional {
 public:
@@ -98,6 +98,18 @@ public:
 
     /// @brief set GNECalibratorFlow values
     void setCalibratorFlows(std::vector<GNECalibratorFlow> calibratorFlows);
+
+    /// @brief generate a flow ID
+    std::string generateFlowID() const;
+
+    /// @brief generate a route ID
+    std::string generateRouteID() const;
+
+    /// @brief check if a flow with ID = flowID exists
+    bool flowExists(std::string flowID) const;
+
+    /// @brief check if a route with ID = routeID exists
+    bool routeExists(std::string routeID) const;
 
     /// @name inherited from GUIGlObject
     /// @{

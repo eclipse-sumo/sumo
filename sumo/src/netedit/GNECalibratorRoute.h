@@ -53,10 +53,10 @@ public:
     /// @brief default constructor
     GNECalibratorRoute(GNECalibrator* calibratorParent);
 
-    /// @brief parameter constructor 1
+    /// @brief parameter constructor 1 (Using edges IDs)
     GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, std::string color);
 
-    /// @brief parameter constructor
+    /// @brief parameter constructor 2 (Using GNEEdges)
     GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<GNEEdge*> edges, std::string color);
 
     /// @brief destructor
@@ -98,7 +98,7 @@ public:
     /**@brief set color of route
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setColor(std::string color);
+    bool setColor(std::string color = "");
 
 private:
     /// @brief pointer to calibrator parent

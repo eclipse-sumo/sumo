@@ -59,12 +59,12 @@
 // ===========================================================================
 
 GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent) :
-    myCalibratorParent(calibratorParent), myRouteID(""), myColor("") {  /// AUTOMATIC ID!!!
+    myCalibratorParent(calibratorParent), myRouteID(calibratorParent->generateRouteID()), myColor("") {
 }
 
 
 GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, std::string color) :
-    myCalibratorParent(calibratorParent), myRouteID(""), myColor("") {
+    myCalibratorParent(calibratorParent), myRouteID(calibratorParent->generateRouteID()), myColor("") {
     // set values using set functions to avoid non-valid values
     setRouteID(routeID);
     setEdges(edges);
@@ -125,7 +125,9 @@ GNECalibratorRoute::getColor() const {
 
 bool
 GNECalibratorRoute::setRouteID(std::string routeID) {
-    if (routeID.empty()) {  /// CHECK THAT ISN'T DUPLICATED
+    if (routeID.empty()) {
+        return false;
+    } else if (myCalibratorParent->routeExists(routeID) == true) {
         return false;
     } else {
         myRouteID = routeID;
@@ -139,6 +141,7 @@ GNECalibratorRoute::setEdges(const std::vector<std::string>& edgeIDs) {
     std::vector<GNEEdge*> edges;
     GNEEdge* edgeTmp;
     for(std::vector<std::string>::const_iterator i = edgeIDs.begin(); i != edgeIDs.end(); i++) {
+        // check that current edges exist in the net
         edgeTmp = myCalibratorParent->getViewNet()->getNet()->retrieveEdge((*i), false);
         if(edgeTmp != NULL) {
             edges.push_back(edgeTmp);

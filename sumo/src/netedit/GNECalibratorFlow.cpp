@@ -56,19 +56,24 @@
 // ===========================================================================
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, std::string type, std::string route) :
-    myCalibratorParent(calibratorParent), myType(type), myRoute(route), myColor(""), myDepartLane("first"),
+GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent) :
+    myCalibratorParent(calibratorParent), myFlowID(calibratorParent->generateFlowID()), myType(""), myRoute(""), myColor(""), myDepartLane("first"),
     myDepartPos("base"), myDepartSpeed("0"), myArrivalLane("current"), myArrivalPos("max"), myArrivalSpeed("current"),
-    myLine(""), myPersonNumber(0), myContainerNumber(0), myBegin(0), myEnd(0), myVehsPerHour(0), myPeriod(0), myProbability(0), myNumber(0) {}
+    myLine(""), myPersonNumber(0), myContainerNumber(0), myReroute(false), myDepartPosLat("center"), myArrivalPosLat(""), 
+    myBegin(0), myEnd(0), myVehsPerHour(0), myPeriod(0), myProbability(0), myNumber(0), myTypeOfFlow(GNE_CALIBRATORFLOW_VEHSPERHOUR) {}
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, std::string type, std::string route,
-    std::string color, std::string departLane, std::string departPos, std::string departSpeed, std::string arrivalLane,
-    std::string arrivalPos, std::string arrivalSpeed, std::string line, int personNumber, int containerNumber,
-    double begin, double end, double vehsPerHour, double period, double probability, int number) :
-    myCalibratorParent(calibratorParent), myType(type), myRoute(route), myColor(""), myDepartLane("first"),
+
+GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string type, std::string route,
+    std::string color, std::string departLane, std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos, 
+    std::string arrivalSpeed, std::string line, int personNumber, int containerNumber, bool reroute, std::string departPosLat, 
+    std::string arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability, int number) :
+    myCalibratorParent(calibratorParent), myFlowID(calibratorParent->generateFlowID()), myType(type), myRoute(route), myColor(""), myDepartLane("first"),
     myDepartPos("base"), myDepartSpeed("0"), myArrivalLane("current"), myArrivalPos("max"), myArrivalSpeed("current"),
-    myLine(""), myPersonNumber(0), myContainerNumber(0), myBegin(0), myEnd(0), myVehsPerHour(0), myPeriod(0), myProbability(0), myNumber(0) {
+    myLine(""), myPersonNumber(0), myContainerNumber(0), myReroute(false), myDepartPosLat("center"), myArrivalPosLat(""), 
+    myBegin(0), myEnd(0), myVehsPerHour(0), myPeriod(0), myProbability(0), myNumber(0), myTypeOfFlow(GNE_CALIBRATORFLOW_VEHSPERHOUR) {
     // set parameters using the set functions, to avoid non valid values
+    setFlowID(flowID);
+    setType(type);
     setColor(color);
     setDepartLane(departLane);
     setDepartPos(departPos);
@@ -79,6 +84,9 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, std::strin
     setLine(line);
     setPersonNumber(personNumber);
     setContainerNumber(containerNumber);
+    setReroute(reroute);
+    setDepartPosLat(departPosLat);
+    setArrivalPosLat(arrivalPosLat);
     setBegin(begin);
     setEnd(end);
     setVehsPerHour(vehsPerHour);
@@ -181,6 +189,24 @@ GNECalibratorFlow::getContainerNumber() const {
 }
 
 
+bool 
+GNECalibratorFlow::getReroute() const {
+    return myReroute;
+}
+
+
+std::string 
+GNECalibratorFlow::getDepartPosLat() const {
+    return myDepartPosLat;
+}
+
+
+std::string 
+GNECalibratorFlow::getArrivalPosLat() const {
+    return myArrivalPosLat;
+}
+
+
 double
 GNECalibratorFlow::getBegin() const {
     return myBegin;
@@ -217,9 +243,17 @@ GNECalibratorFlow::getNumber() const {
 }
 
 
+GNECalibratorFlow::typeOfFlow
+GNECalibratorFlow::getFlowType() const {
+    return myTypeOfFlow;
+}
+
+
 bool
 GNECalibratorFlow::setFlowID(std::string flowID) {
-    if (flowID.empty()) {                             // CHECK THAT FLOW ID ISN'T DUPLICATED!
+    if (flowID.empty()) {
+        return false;
+    } else if(myCalibratorParent->flowExists(flowID) == true) {
         return false;
     } else {
         myFlowID = flowID;
@@ -242,6 +276,8 @@ GNECalibratorFlow::setType(std::string type) {
 bool
 GNECalibratorFlow::setRoute(std::string route) {
     if (route.empty()) {
+        return false;
+    } else if(myCalibratorParent->routeExists(route) == true) {
         return false;
     } else {
         myRoute = route;
@@ -351,7 +387,6 @@ GNECalibratorFlow::setArrivalSpeed(std::string arrivalSpeed) {
 
 bool
 GNECalibratorFlow::setLine(std::string line) {
-    /// @todo check if line exists
     myLine = line;
     return true;
 }
@@ -369,11 +404,95 @@ GNECalibratorFlow::setPersonNumber(int personNumber) {
 
 
 bool
+GNECalibratorFlow::setPersonNumber(std::string personNumber) {
+    if (GNEAttributeCarrier::canParse<int>(personNumber)) {
+        return setPersonNumber(GNEAttributeCarrier::parse<int>(personNumber));
+    } else if (GNEAttributeCarrier::canParse<double>(personNumber)) {
+        double personNumberDouble = GNEAttributeCarrier::parse<double>(personNumber);
+        // check if double is an integer
+        if (fmod(personNumberDouble, 1) == 0) {
+            return setPersonNumber((int)personNumberDouble);
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
+bool
 GNECalibratorFlow::setContainerNumber(int containerNumber) {
     if (containerNumber < 0) {
         return false;
     } else {
         myContainerNumber = containerNumber;
+        return true;
+    }
+}
+
+
+bool
+GNECalibratorFlow::setContainerNumber(std::string ContainerNumber) {
+    if (GNEAttributeCarrier::canParse<int>(ContainerNumber)) {
+        return setContainerNumber(GNEAttributeCarrier::parse<int>(ContainerNumber));
+    } else if (GNEAttributeCarrier::canParse<double>(ContainerNumber)) {
+        double ContainerNumberDouble = GNEAttributeCarrier::parse<double>(ContainerNumber);
+        // check if double is an integer
+        if (fmod(ContainerNumberDouble, 1) == 0) {
+            return setContainerNumber((int)ContainerNumberDouble);
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNECalibratorFlow::setReroute(bool value) {
+    myReroute = value;
+    return true;
+}
+
+
+bool 
+GNECalibratorFlow::setReroute(std::string value) {
+    if (GNEAttributeCarrier::canParse<bool>(value)) {
+        return setReroute(GNEAttributeCarrier::parse<bool>(value));
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNECalibratorFlow::setDepartPosLat(std::string departPosLat) {
+    double departPosLatFloat = -1;
+    if (GNEAttributeCarrier::canParse<double>(departPosLat)) {
+        departPosLatFloat = GNEAttributeCarrier::parse<double>(departPosLat);
+    }
+    if ((departPosLatFloat < 0) && (departPosLat != "random") && (departPosLat != "random_free") && 
+        (departPosLat != "left") && (departPosLat != "right") && (departPosLat != "center")) {
+        return false;
+    } else {
+        myDepartPos = departPosLat;
+        return true;
+    }
+}
+
+
+bool 
+GNECalibratorFlow::setArrivalPosLat(std::string arrivalPosLat) {
+    double arrivalPosLatFloat = -1;
+    if (GNEAttributeCarrier::canParse<double>(arrivalPosLat)) {
+        arrivalPosLatFloat = GNEAttributeCarrier::parse<double>(arrivalPosLat);
+    }
+    if ((arrivalPosLatFloat < 0) && (arrivalPosLat != "left") && (arrivalPosLat != "right") && (arrivalPosLat != "center")) {
+        return false;
+    } else {
+        myDepartPos = arrivalPosLat;
         return true;
     }
 }
@@ -391,6 +510,16 @@ GNECalibratorFlow::setBegin(double begin) {
 
 
 bool
+GNECalibratorFlow::setBegin(std::string begin) {
+    if (GNEAttributeCarrier::canParse<double>(begin)) {
+        return setBegin(GNEAttributeCarrier::parse<double>(begin));
+    } else {
+        return false;
+    }
+}
+
+
+bool
 GNECalibratorFlow::setEnd(double end) {
     if (end < 0) {
         return false;
@@ -402,12 +531,33 @@ GNECalibratorFlow::setEnd(double end) {
 
 
 bool
+GNECalibratorFlow::setEnd(std::string end) {
+    if (GNEAttributeCarrier::canParse<double>(end)) {
+        return setEnd(GNEAttributeCarrier::parse<double>(end));
+    } else {
+        return false;
+    }
+}
+
+
+bool
 GNECalibratorFlow::setVehsPerHour(double vehsPerHour) {
     if (vehsPerHour < 0) {
         return false;
     } else {
         myVehsPerHour = vehsPerHour;
+        myTypeOfFlow = GNE_CALIBRATORFLOW_VEHSPERHOUR;
         return true;
+    }
+}
+
+
+bool
+GNECalibratorFlow::setVehsPerHour(std::string vehsPerHour) {
+    if (GNEAttributeCarrier::canParse<double>(vehsPerHour)) {
+        return setVehsPerHour(GNEAttributeCarrier::parse<double>(vehsPerHour));
+    } else {
+        return false;
     }
 }
 
@@ -418,7 +568,18 @@ GNECalibratorFlow::setPeriod(double period) {
         return false;
     } else {
         myPeriod = period;
+        myTypeOfFlow = GNE_CALIBRATORFLOW_PERIOD;
         return true;
+    }
+}
+
+
+bool
+GNECalibratorFlow::setPeriod(std::string period) {
+    if (GNEAttributeCarrier::canParse<double>(period)) {
+        return setPeriod(GNEAttributeCarrier::parse<double>(period));
+    } else {
+        return false;
     }
 }
 
@@ -428,7 +589,18 @@ GNECalibratorFlow::setProbability(double probability) {
         return false;
     } else {
         myProbability = probability;
+        myTypeOfFlow = GNE_CALIBRATORFLOW_PROBABILITY;
         return true;
+    }
+}
+
+
+bool
+GNECalibratorFlow::setProbability(std::string probability) {
+    if (GNEAttributeCarrier::canParse<double>(probability)) {
+        return setProbability(GNEAttributeCarrier::parse<double>(probability));
+    } else {
+        return false;
     }
 }
 
@@ -443,5 +615,22 @@ GNECalibratorFlow::setNumber(int number) {
     }
 }
 
+
+bool
+GNECalibratorFlow::setNumber(std::string number) {
+    if (GNEAttributeCarrier::canParse<int>(number)) {
+        return setNumber(GNEAttributeCarrier::parse<int>(number));
+    } else if (GNEAttributeCarrier::canParse<double>(number)) {
+        double numberDouble = GNEAttributeCarrier::parse<double>(number);
+        // check if double is an integer
+        if (fmod(numberDouble, 1) == 0) {
+            return setNumber((int)numberDouble);
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
 
 /****************************************************************************/
