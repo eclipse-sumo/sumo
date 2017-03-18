@@ -43,10 +43,6 @@
 #include <process.h>
 #endif
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif
-
 #ifndef WIN32
 # define PIPE_READ 0
 # define PIPE_WRITE 1

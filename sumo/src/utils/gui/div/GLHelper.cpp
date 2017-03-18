@@ -39,10 +39,6 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include "GLHelper.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 
 #define CIRCLE_RESOLUTION (double)10 // inverse in degrees
 

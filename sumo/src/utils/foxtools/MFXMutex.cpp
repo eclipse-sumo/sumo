@@ -42,10 +42,6 @@ using namespace FX;
 #include <pthread.h>
 #endif
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 // MFXMutex constructor
 MFXMutex::MFXMutex() : lock_(0) {
 #ifndef WIN32

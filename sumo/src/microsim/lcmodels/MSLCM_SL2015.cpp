@@ -36,10 +36,6 @@
 #include <microsim/MSGlobals.h>
 #include "MSLCM_SL2015.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 //#define DEBUG_VEHICLE_GUI_SELECTION 1
 
 // ===========================================================================

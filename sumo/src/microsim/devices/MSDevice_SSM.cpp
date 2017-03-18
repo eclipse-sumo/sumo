@@ -42,10 +42,6 @@
 #include <microsim/MSVehicle.h>
 #include "MSDevice_SSM.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 
 // Debug constants
 #define DEBUG_SSM

@@ -32,9 +32,6 @@
 #include "GNEClosingLaneReroute.h"
 #include "GNELane.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif
 
 // ===========================================================================
 // member method definitions

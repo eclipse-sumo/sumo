@@ -52,10 +52,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif
-
 
 // ===========================================================================
 // main function

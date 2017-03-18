@@ -48,10 +48,6 @@
 #include <utils/common/StringUtils.h>
 #include <utils/iodevices/OutputDevice.h>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 #define HAS_NOT_LEFT_DETECTOR -1
 
 // ===========================================================================

@@ -33,10 +33,6 @@
 #include <utils/common/VectorHelper.h>
 #include "NIVissimClosures.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 
 NIVissimClosures::DictType NIVissimClosures::myDict;
 

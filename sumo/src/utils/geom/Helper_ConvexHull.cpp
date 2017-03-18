@@ -40,10 +40,6 @@
 #include <utils/common/UtilExceptions.h>
 #include <iostream>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 
 // Assume that a class is already given for the object:
 //    Position with coordinates {double x, y;}

@@ -5,10 +5,6 @@ GUI_APPS = sumo-gui
 GUI_DIRS = gui guinetload guisim netedit mesogui osgview
 endif
 
-if CHECK_MEMORY_LEAKS
-MEM_LIBS  = ./foreign/nvwa/libnvwa.a
-endif
-
 if TRACI
 TRACI_LIBS = ./traci-server/libtraciserver.a ./traci-server/lib/libtraci.a ./utils/traci/libtraciclient.a  
 TRACI_DIRS = traci-server traci_testclient
@@ -25,7 +21,6 @@ COMMON_LIBS = ./utils/options/liboptions.a \
 ./utils/iodevices/libiodevices.a \
 ./foreign/PHEMlight/cpp/libphemlight.a \
 ./foreign/tcpip/libtcpip.a \
-$(MEM_LIBS) \
 $(XERCES_LIBS)
 
 

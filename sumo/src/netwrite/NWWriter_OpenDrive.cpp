@@ -46,10 +46,6 @@
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 //#define DEBUG_SMOOTH_GEOM
 #define DEBUGCOND true
 

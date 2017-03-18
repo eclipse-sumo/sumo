@@ -40,10 +40,6 @@
 #include <utils/xml/SUMOSAXAttributes.h>
 #include "MSDevice_Tripinfo.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 #define NOT_ARRIVED TIME2STEPS(-1)
 
 

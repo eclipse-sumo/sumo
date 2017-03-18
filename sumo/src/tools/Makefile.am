@@ -1,7 +1,3 @@
-if CHECK_MEMORY_LEAKS
-MEM_LIBS  = ../foreign/nvwa/libnvwa.a
-endif
-
 bin_PROGRAMS = emissionsDrivingCycle emissionsMap
 
 emissionsDrivingCycle_SOURCES = emissionsDrivingCycle_main.cpp \
@@ -18,7 +14,6 @@ emissionsDrivingCycle_LDADD   = ../utils/options/liboptions.a \
 ../utils/iodevices/libiodevices.a \
 ../foreign/PHEMlight/cpp/libphemlight.a \
 ../foreign/tcpip/libtcpip.a \
-$(MEM_LIBS) \
 -l$(LIB_XERCES)
 
 

@@ -44,10 +44,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 #define MIN_GREEN_TIME 5
 
 // ===========================================================================

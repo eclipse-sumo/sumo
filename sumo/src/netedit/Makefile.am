@@ -6,10 +6,6 @@ if WITH_GUI
 GUI_APPS = netedit
 endif
 
-if CHECK_MEMORY_LEAKS
-MEM_LIBS  = ../foreign/nvwa/libnvwa.a
-endif
-
 if TRACI
 TRACI_LIBS = ../traci-server/libtraciserver.a
 endif
@@ -117,7 +113,6 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../utils/importio/libimportio.a \
 ../utils/iodevices/libiodevices.a \
 ../foreign/tcpip/libtcpip.a \
-$(MEM_LIBS) \
 $(XERCES_LIBS) $(FFMPEG_LIBS) \
 $(FOX_LDFLAGS) $(XERCES_LDFLAGS) $(PROJ_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)
 endif

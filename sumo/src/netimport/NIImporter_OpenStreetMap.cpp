@@ -57,10 +57,6 @@
 #include "NILoader.h"
 #include "NIImporter_OpenStreetMap.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 //#define DEBUG_LAYER_ELEVATION
 
 // ---------------------------------------------------------------------------

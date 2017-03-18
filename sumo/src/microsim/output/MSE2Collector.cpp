@@ -53,10 +53,6 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 //#define DEBUG_E2_CONSTRUCTOR
 //#define DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
 //#define DEBUG_E2_NOTIFY_MOVE

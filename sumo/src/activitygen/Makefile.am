@@ -2,10 +2,6 @@ SUBDIRS = activities city
 
 XERCES_LIBS = -l$(LIB_XERCES)
 
-if CHECK_MEMORY_LEAKS
-MEM_LIBS  = ../foreign/nvwa/libnvwa.a
-endif
-
 COMMON_LIBS = ../utils/options/liboptions.a \
 ../utils/xml/libxml.a \
 ../utils/distribution/libdistribution.a \
@@ -17,7 +13,6 @@ COMMON_LIBS = ../utils/options/liboptions.a \
 ../utils/emissions/libemissions.a \
 ../foreign/PHEMlight/cpp/libphemlight.a \
 ../foreign/tcpip/libtcpip.a \
-$(MEM_LIBS) \
 $(XERCES_LIBS)
 
 bin_PROGRAMS = activitygen

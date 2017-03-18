@@ -45,10 +45,6 @@
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/MSTransportableControl.h>
 #include <microsim/MSContainer.h>
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 
 // ===========================================================================
 // method definitions

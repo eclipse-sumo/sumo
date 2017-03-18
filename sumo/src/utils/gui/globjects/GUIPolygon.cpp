@@ -40,10 +40,6 @@
 #include <utils/gui/div/GLHelper.h>
 #include <foreign/polyfonts/polyfonts.h>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 //#define GUIPolygon_DEBUG_DRAW_VERTICES
 
 // ===========================================================================

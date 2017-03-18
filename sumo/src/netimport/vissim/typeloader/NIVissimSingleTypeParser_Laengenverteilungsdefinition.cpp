@@ -37,10 +37,6 @@
 #include <utils/distribution/DistributionCont.h>
 #include "NIVissimSingleTypeParser_Laengenverteilungsdefinition.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 
 // ===========================================================================
 // method definitions

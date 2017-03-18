@@ -53,12 +53,9 @@ using namespace FX;
 #include "fxexdefs.h"
 #include "FXThreadEvent.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-#endif // _DEBUG
 using namespace FXEX;
 namespace FXEX {
 

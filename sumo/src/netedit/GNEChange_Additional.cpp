@@ -38,10 +38,6 @@
 #include "GNEDetectorExit.h"
 #include "GNEStoppingPlace.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif
-
 
 // ===========================================================================
 // FOX-declarations

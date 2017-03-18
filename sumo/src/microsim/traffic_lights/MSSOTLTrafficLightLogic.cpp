@@ -25,10 +25,6 @@
 #include "../MSEdge.h"
 #include "MSPushButton.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 #if 1
 #define ANALYSIS_DBG(X) {X}
 #else

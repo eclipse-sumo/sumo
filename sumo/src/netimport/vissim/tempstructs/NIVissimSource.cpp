@@ -33,10 +33,6 @@
 #include <map>
 #include "NIVissimSource.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 NIVissimSource::DictType NIVissimSource::myDict;
 
 NIVissimSource::NIVissimSource(const std::string& id, const std::string& name,

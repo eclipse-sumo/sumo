@@ -89,10 +89,6 @@
 #include "GUIOSGBuilder.h"
 #include "GUIOSGView.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 
 FXDEFMAP(GUIOSGView) GUIOSGView_Map[] = {
     //________Message_Type_________        ___ID___                        ________Message_Handler________

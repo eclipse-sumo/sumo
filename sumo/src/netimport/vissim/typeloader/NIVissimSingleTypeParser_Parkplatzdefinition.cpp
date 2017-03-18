@@ -43,10 +43,6 @@
 #include "../tempstructs/NIVissimDistrictConnection.h"
 #include "NIVissimSingleTypeParser_Parkplatzdefinition.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 
 // ===========================================================================
 // method definitions

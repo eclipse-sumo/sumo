@@ -64,22 +64,6 @@ AC_PROG_RANLIB
 AM_PROG_LIBTOOL
 
 
-dnl Check for enable-features that shall go into config.h
-AC_ARG_ENABLE([memcheck], [AS_HELP_STRING([--enable-memcheck],[enable compilation of memory leak checks [default=no].])])
-if test x$enable_memcheck = xyes; then
-    if test x$CXX = xclang++; then
-        AC_MSG_WARN([--enable-memcheck does not work with clang yet])
-        enable_memcheck="no"
-    fi
-fi
-AM_CONDITIONAL(CHECK_MEMORY_LEAKS, test x$enable_memcheck = xyes)
-if test x$enable_memcheck = xyes; then
-    AC_DEFINE(CHECK_MEMORY_LEAKS, 1, [Define to 1 in order to enable memory checks.])
-    ac_enabled="$ac_enabled MemoryChecks"
-else
-    ac_disabled="$ac_disabled MemoryChecks"
-fi
-
 AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([NUMERICAL_EPS], [0.001], [defines the epsilon to use on general floating point comparison])
 
@@ -458,7 +442,6 @@ src/foreign/Makefile
 src/foreign/eulerspiral/Makefile
 src/foreign/gl2ps/Makefile
 src/foreign/mersenne/Makefile
-src/foreign/nvwa/Makefile
 src/foreign/PHEMlight/Makefile
 src/foreign/PHEMlight/cpp/Makefile
 src/foreign/polyfonts/Makefile

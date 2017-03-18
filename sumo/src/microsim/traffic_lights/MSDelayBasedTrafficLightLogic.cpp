@@ -39,10 +39,6 @@
 #include <netload/NLDetectorBuilder.h>
 #include <utils/common/TplConvert.h>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 #define INVALID_POSITION std::numeric_limits<double>::max()
 
 // ===========================================================================

@@ -47,10 +47,6 @@
 #include "NWFrame.h"
 #include "NWWriter_DlrNavteq.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 #define OUTPUT_VERSION "6.5"
 
 

@@ -39,10 +39,6 @@
 #include <utils/options/OptionsCont.h>
 #include "HelpersPHEMlight.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 // idle speed is usually given in rpm (but may depend on electrical consumers). Actual speed depends on the gear so this number is only a rough estimate
 #define IDLE_SPEED (10 / 3.6)
 

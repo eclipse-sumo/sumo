@@ -32,10 +32,6 @@
 #include <fxkeys.h>
 #include "MFXEditableTable.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 FXDEFMAP(MFXEditableTable) MFXEditableTableMap[] = {
     FXMAPFUNC(SEL_LEFTBUTTONPRESS, 0, MFXEditableTable::onLeftBtnPress),
     FXMAPFUNC(SEL_LEFTBUTTONRELEASE, 0, MFXEditableTable::onLeftBtnRelease),

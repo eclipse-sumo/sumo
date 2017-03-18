@@ -33,12 +33,8 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOSAXAttributes.h>
-
 #include "GNEDialog_AllowDisallow.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif
 
 // ===========================================================================
 // FOX callback mapping

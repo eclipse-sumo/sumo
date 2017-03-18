@@ -45,10 +45,6 @@
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/common/MsgHandler.h>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 #define OPPOSITE_OVERTAKING_SAFE_TIMEGAP 0.0
 // XXX maxLookAhead should be higher if all leaders are stopped and lower when they are jammed/queued
 #define OPPOSITE_OVERTAKING_MAX_LOOKAHEAD 150.0 // just a guess

@@ -43,10 +43,6 @@
 #include "NBNode.h"
 #include "NBNodeShapeComputer.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 //#define DEBUG_NODE_SHAPE
 #define DEBUGCOND (myNode.getID() == "disabled")
 

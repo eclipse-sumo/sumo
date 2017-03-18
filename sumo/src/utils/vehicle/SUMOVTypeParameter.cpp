@@ -40,10 +40,6 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/emissions/PollutantsInterface.h>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 #define EMPREFIX std::string("HBEFA3/")
 
 

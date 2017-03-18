@@ -40,10 +40,6 @@
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include "TraCIServerAPI_TLS.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 
 // ===========================================================================
 // method definitions

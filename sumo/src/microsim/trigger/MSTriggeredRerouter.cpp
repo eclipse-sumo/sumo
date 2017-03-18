@@ -57,10 +57,6 @@
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 //#define DEBUG_REROUTER
 #define DEBUGCOND (veh.getID() == "disabled")
 

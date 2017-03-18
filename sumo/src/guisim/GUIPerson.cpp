@@ -59,10 +59,6 @@
 #include "GUIEdge.h"
 #include "GUIPerson.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 //#define GUIPerson_DEBUG_DRAW_WALKINGAREA_PATHS 1
 
 // ===========================================================================

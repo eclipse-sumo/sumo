@@ -70,10 +70,6 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 /* -------------------------------------------------------------------------
  * GUIViewTraffic - FOX callback mapping
  * ----------------------------------------------------------------------- */

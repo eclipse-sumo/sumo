@@ -65,10 +65,6 @@
 #include "NBTrafficLightLogicCont.h"
 #include "NBTrafficLightDefinition.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 // allow to extend a crossing across multiple edges
 #define EXTEND_CROSSING_ANGLE_THRESHOLD 35.0 // degrees
 // create intermediate walking areas if either of the following thresholds is exceeded

@@ -57,10 +57,6 @@
 #include <utils/shapes/Shape.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 
 // ===========================================================================
 // method definitions

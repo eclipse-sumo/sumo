@@ -26,10 +26,6 @@
 #include "StdDefs.h"
 
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 // set by option --precision (see SystemFrame.cpp)
 int gPrecision = 2;
 int gPrecisionGeo = 6;

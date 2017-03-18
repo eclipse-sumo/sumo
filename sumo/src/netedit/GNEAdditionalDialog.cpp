@@ -36,10 +36,6 @@
 #include "GNEAdditional.h"
 #include "GNEViewNet.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif
-
 
 // ===========================================================================
 // FOX callback mapping

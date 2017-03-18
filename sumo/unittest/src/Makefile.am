@@ -2,10 +2,6 @@ XERCES_LIBS = -l$(LIB_XERCES)
 
 MESO_LIBS = ../../src/mesosim/libmesosim.a
 
-if CHECK_MEMORY_LEAKS
-MEM_LIBS = ../../src/foreign/nvwa/libnvwa.a
-endif
-
 if WITH_GUI
 GUI_TESTS = ./utils/foxtools/FXWorkerThreadTest.o
 endif
@@ -61,7 +57,6 @@ $(MESO_LIBS) \
 ../../src/utils/common/FileHelpers.o \
 ../../src/foreign/PHEMlight/cpp/libphemlight.a \
 ../../src/foreign/tcpip/libtcpip.a \
-$(MEM_LIBS) \
 $(PYTHON_LIBS) \
 $(XERCES_LIBS) \
 $(FOX_LDFLAGS)

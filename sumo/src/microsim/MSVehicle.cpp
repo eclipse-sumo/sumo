@@ -80,10 +80,6 @@
 #include "MSLinkCont.h"
 #include "MSLeaderInfo.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 // enable here and in utils/gui/globjects/GUIGLObjectPopupMenu.cpp
 //#define DEBUG_VEHICLE_GUI_SELECTION 1
 

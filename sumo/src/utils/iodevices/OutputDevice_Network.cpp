@@ -40,10 +40,6 @@
 #include "foreign/tcpip/socket.h"
 #include "utils/common/ToString.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // #ifdef CHECK_MEMORY_LEAKS
-
 
 // ==========================================================================
 // method definitions

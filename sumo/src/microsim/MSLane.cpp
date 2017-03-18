@@ -70,10 +70,6 @@
 #include "MSLeaderInfo.h"
 #include "MSVehicle.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 //#define DEBUG_INSERTION
 //#define DEBUG_PLAN_MOVE
 //#define DEBUG_CONTEXT

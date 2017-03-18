@@ -39,10 +39,6 @@
 #include <microsim/MSNet.h>
 #include "MSLCM_DK2008.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 //#define DEBUG_VEHICLE_GUI_SELECTION 1
 
 // ===========================================================================

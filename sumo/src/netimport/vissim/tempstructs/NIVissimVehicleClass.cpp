@@ -31,10 +31,6 @@
 
 #include "NIVissimVehicleClass.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 NIVissimVehicleClass::NIVissimVehicleClass(int vwish)
     : myVWish(vwish) {}
 

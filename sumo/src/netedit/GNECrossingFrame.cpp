@@ -53,10 +53,6 @@
 #include "GNEChange_Crossing.h"
 #include "GNECrossing.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 
 // ===========================================================================
 // FOX callback mapping

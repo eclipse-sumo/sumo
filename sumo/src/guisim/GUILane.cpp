@@ -65,10 +65,6 @@
 #include <osg/Geometry>
 #endif
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 //#define GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
 //#define GUILane_DEBUG_DRAW_VERTICES
 

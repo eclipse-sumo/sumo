@@ -31,10 +31,6 @@
 
 #include "NIVissimVehicleType.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 NIVissimVehicleType::DictType NIVissimVehicleType::myDict;
 
 NIVissimVehicleType::NIVissimVehicleType(const std::string& name,
