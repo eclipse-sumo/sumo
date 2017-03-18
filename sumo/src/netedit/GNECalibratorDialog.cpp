@@ -175,7 +175,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
     // create empty calibrator flow and configure it with GNECalibratorFlowDialog
-    GNECalibratorFlow newFlow(myCalibratorParent, 0, 0);
+    GNECalibratorFlow newFlow(myCalibratorParent);
     if (GNECalibratorFlowDialog(this, newFlow).execute() == TRUE) {
         // if new flow was sucesfully configured, add it to myCopyOfCalibratorFlows
         myCopyOfCalibratorFlows.push_back(newFlow);

@@ -220,7 +220,7 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
         abort = true;
     }
     // Declare calibrator flow
-    GNECalibratorFlow calibratorFlow(0, type, route);
+    GNECalibratorFlow calibratorFlow(0);
 
     // Load rest of parameters
     calibratorFlow.setColor(attrs.getOpt<std::string>(SUMO_ATTR_COLOR, flowId.c_str(), ok, "", false));
