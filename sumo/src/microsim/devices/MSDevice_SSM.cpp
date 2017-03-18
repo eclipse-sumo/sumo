@@ -85,11 +85,14 @@ MSDevice_SSM::getInstances() {
 void
 MSDevice_SSM::cleanup() {
     // Close current encounters and flush conflicts to file for all existing devices
-    for (std::set<MSDevice*>::iterator ii = instances->begin(); ii != instances->end(); ++ii){
-        static_cast<MSDevice_SSM*>(*ii)->resetEncounters();
-        static_cast<MSDevice_SSM*>(*ii)->flushConflicts(true);
+    if (instances != 0) {
+        for (std::set<MSDevice*>::iterator ii = instances->begin(); ii != instances->end(); ++ii){
+            static_cast<MSDevice_SSM*>(*ii)->resetEncounters();
+            static_cast<MSDevice_SSM*>(*ii)->flushConflicts(true);
+        }
+        delete instances;
+        instances = 0;
     }
-    delete instances;
 }
 
 void
