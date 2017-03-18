@@ -6,7 +6,7 @@
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @date    30.05.2012
-/// @version $Id: TraCI_Route.cpp 23414 2017-03-15 11:56:48Z rhilbrich $
+/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

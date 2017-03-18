@@ -2,7 +2,7 @@
 /// @file    TraCIAPI.h
 /// @author  Gregor L\"ammel
 /// @date    15.03.2017
-/// @version $Id: TraCI_Polygon.h 23205 2017-03-03 11:10:37Z namdre $
+/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

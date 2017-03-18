@@ -6,7 +6,7 @@
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @date    30.05.2012
-/// @version $Id: TraCI_Junction.cpp 23407 2017-03-15 10:19:40Z rhilbrich $
+/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

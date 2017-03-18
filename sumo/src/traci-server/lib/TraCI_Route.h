@@ -4,7 +4,7 @@
 /// @author  Mario Krumnow
 /// @author  Michael Behrisch
 /// @date    30.05.2012
-/// @version $Id: TraCI_Route.h 23414 2017-03-15 11:56:48Z rhilbrich $
+/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

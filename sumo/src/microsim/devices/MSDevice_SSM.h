@@ -3,7 +3,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    11.06.2013
-/// @version $Id: MSDevice_SSM.h 23150 2017-02-27 12:08:30Z behrisch $
+/// @version $Id$
 ///
 // A device which stands as an implementation example and which outputs movereminder calls
 /****************************************************************************/
