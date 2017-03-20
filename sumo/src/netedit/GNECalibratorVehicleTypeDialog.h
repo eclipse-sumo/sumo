@@ -78,14 +78,101 @@ protected:
     /// @brief pointer to GNECalibratorDialog parent
     GNECalibratorDialog* myCalibratorDialogParent;
 
-    /// @brief pointer to rerouter interval
+    /// @brief pointer to original calibrator vehicle type
     GNECalibratorVehicleType* myCalibratorVehicleType;
+
+    /// @brief pointer in which save modifications of CalibratorVehicleType
+    GNECalibratorVehicleType* myCopyOfCalibratorVehicleType;
 
     /// @brief flag to check if current calibrator vehicleType is valid
     bool myCalibratorVehicleTypeValid;
 
     /// @brief update data fields
     void updateCalibratorVehicleTypeValues();
+
+    /// @brief FXTextfield for vehicleTypeID
+    FXTextField* myTextFieldVehicleTypeID;
+
+    /// @brief FXComboBox for VClass
+    FXComboBox* myComboBoxVClass;
+    
+    /// @brief label with image of VClass
+    FXLabel *myComboBoxVClassLabelImage;
+
+    /// @brief FXComboBox for Shape
+    FXComboBox* myComboBoxShape;
+
+    /// @brief label with image of Shape
+    FXLabel *myComboBoxShapeLabelImage;
+
+    /// @brief FXTextfield for Accel
+    FXTextField* myTextFieldAccel;
+
+    /// @brief FXTextfield for Decel
+    FXTextField* myTextFieldDecel;
+
+    /// @brief FXTextfield for Sigma
+    FXTextField* myTextFieldSigma;
+
+    /// @brief FXTextfield for Tau
+    FXTextField* myTextFieldTau;
+
+    /// @brief FXTextfield for Length
+    FXTextField* myTextFieldLength;
+
+    /// @brief FXTextfield for MinGap
+    FXTextField* myTextFieldMinGap;
+
+    /// @brief FXTextfield for MaxSpeed
+    FXTextField* myTextFieldMaxSpeed;
+
+    /// @brief FXTextfield for SpeedFactor
+    FXTextField* myTextFieldSpeedFactor;
+
+    /// @brief FXTextfield for SpeedDev
+    FXTextField* myTextFieldSpeedDev;
+
+    /// @brief FXTextfield for Color
+    FXTextField* myTextFieldColor;
+
+    /// @brief FXTextfield for EmissionClass
+    FXTextField* myTextFieldEmissionClass;
+
+    /// @brief FXTextfield for Width
+    FXTextField* myTextFieldWidth;
+
+    /// @brief FXTextfield for Filename
+    FXTextField* myTextFieldFilename;
+
+    /// @brief FXTextfield for Impatience
+    FXTextField* myTextFieldImpatience;
+
+    /// @brief FXTextfield for LaneChangeModel
+    FXTextField* myTextFieldLaneChangeModel;
+
+    /// @brief FXTextfield for CarFollowModel
+    FXTextField* myTextFieldCarFollowModel;
+
+    /// @brief FXTextfield for PersonCapacity
+    FXTextField* myTextFieldPersonCapacity;
+
+    /// @brief FXTextfield for ContainerCapacity
+    FXTextField* myTextFieldContainerCapacity;
+
+    /// @brief FXTextfield for BoardingDuration
+    FXTextField* myTextFieldBoardingDuration;
+
+    /// @brief FXTextfield for LoadingDuration
+    FXTextField* myTextFieldLoadingDuration;
+
+    /// @brief FXTextfield for LatAlignment
+    FXTextField* myTextFieldLatAlignment;
+
+    /// @brief FXTextfield for MinGapLat
+    FXTextField* myTextFieldMinGapLat;
+
+    /// @brief FXTextfield for MaxSpeedLat
+    FXTextField* myTextFieldMaxSpeedLat;
 
 private:
     /// @brief Invalidated copy constructor.
