@@ -135,6 +135,13 @@ double vehiclePoly_EmergencySign[] =   { .2, .5,  -.2, .5,  -.2, -.5,  .2, -.5, 
 double vehiclePoly_Emergency[] =   { .1, .1,  -.1, .1,  -.1, -.1,  .1, -.1, -10000 };
 double vehiclePoly_Emergency2[] =   { .04, .3,  -.04, .3,  -.04, -.3,  .04, -.3, -10000 };
 
+double vehiclePoly_EmergencyLadder[] =   { -.5,.3, .5, .3, .5, .2, -.5, .2, -10000 };
+double vehiclePoly_EmergencyLadder2[] =   { -.5,-.3, .5, -.3, .5, -.2, -.5, -.2, -10000 };
+double vehiclePoly_EmergencyLadder3[] =   { -.45,.3, -.4, .3, -.4, -.3, -.45, -.3, -10000 };
+double vehiclePoly_EmergencyLadder4[] =   { .45,.3, .4, .3, .4, -.3, .45, -.3, -10000 };
+double vehiclePoly_EmergencyLadder5[] =   { .05,.3, .0, .3, .0, -.3, .05, -.3, -10000 };
+double vehiclePoly_EmergencyLadder6[] =   { -.25,.3, -.2, .3, -.2, -.3, -.25, -.3, -10000 };
+double vehiclePoly_EmergencyLadder7[] =   { .25,.3, .2, .3, .2, -.3, .25, -.3, -10000 };
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -613,6 +620,43 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
             drawPoly(vehiclePoly_Emergency, 5);
             drawPoly(vehiclePoly_Emergency2, 5);
             break;
+        case SVS_FIREBRIGADE: // similar to delivery in red orange
+            glColor3d(1, 0, 0);
+            drawPoly(vehiclePoly_PassengerVanBody, 4);
+            glColor3d(1, .5, 0);
+            drawPoly(vehiclePoly_PassengerVanBodyFront, 4.5);
+            glColor3d(0, 0, 0);
+            drawPoly(vehiclePoly_PassengerVanFrontGlass, 4.5);
+            drawPoly(vehiclePoly_DeliveryMediumRightGlass, 4.5);
+            drawPoly(vehiclePoly_DeliveryMediumLeftGlass, 4.5);
+            // draw ladder
+            glTranslated(0.7, 0, 0);
+            glColor3d(1, .5, 0);
+            drawPoly(vehiclePoly_EmergencySign, 4.5);
+            glColor3d(.5, .5, .5);
+            drawPoly(vehiclePoly_EmergencyLadder, 5);
+            drawPoly(vehiclePoly_EmergencyLadder2, 5);
+            drawPoly(vehiclePoly_EmergencyLadder3, 5);
+            drawPoly(vehiclePoly_EmergencyLadder4, 5);
+            drawPoly(vehiclePoly_EmergencyLadder5, 5);
+            drawPoly(vehiclePoly_EmergencyLadder6, 5);
+            drawPoly(vehiclePoly_EmergencyLadder7, 5);
+            break;
+        case SVS_POLICE: // similar to passenger grey with blue
+            glColor3d(.5, .5, .5);
+            drawPoly(vehiclePoly_PassengerCarBody, 4);
+            glColor3d(0, 0, 1);
+            drawPoly(vehiclePoly_PassengerCarBodyFront, 4.5);
+            glColor3d(0, 0, 0);
+            drawPoly(vehiclePoly_PassengerFrontGlass, 4.5);
+            // first aid sign 
+            glTranslated(0.7, 0, 0);
+            glColor3d(0, 0, 1);
+            drawPoly(vehiclePoly_EmergencySign, 4.5);
+            glColor3d(.5, .5, .5);
+            drawPoly(vehiclePoly_Emergency, 5);
+            drawPoly(vehiclePoly_Emergency2, 5);
+            break;
         default: // same as passenger
             drawPoly(vehiclePoly_PassengerCarBody, 4);
             glColor3d(1, 1, 1);
@@ -717,6 +761,8 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
         case SVS_ANT:
         case SVS_SHIP:
         case SVS_EMERGENCY:
+        case SVS_FIREBRIGADE:
+        case SVS_POLICE:
             break;
         default: // same as passenger/sedan
             drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);

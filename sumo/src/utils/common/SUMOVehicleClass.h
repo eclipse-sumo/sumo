@@ -4,6 +4,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
+/// @author  Laura Bieker
 /// @date    2006-01-24
 /// @version $Id$
 ///
@@ -104,7 +105,11 @@ enum SUMOVehicleShape {
     /// @brief render as a arbitrary ship
     SVS_SHIP,
     /// @brief render as an emergency vehicle
-    SVS_EMERGENCY
+    SVS_EMERGENCY,
+    /// @brief render as a fire brigade 
+    SVS_FIREBRIGADE,
+    /// @brief render as a police car
+    SVS_POLICE
 };
 
 
