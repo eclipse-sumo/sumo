@@ -111,13 +111,11 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
 
 void
 MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
-    if (MSGlobals::gUseMesoSim) {
-        WRITE_WARNING("SSM Device for vehicle '"+ v.getID()+"' will not be built. (SSMs not supported in MESO)");
-        return;
-    }
-
-    OptionsCont& oc = OptionsCont::getOptions();
-    if (equippedByDefaultAssignmentOptions(oc, "ssm", v)) {
+    if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "ssm", v)) {
+        if (MSGlobals::gUseMesoSim) {
+            WRITE_WARNING("SSM Device for vehicle '" + v.getID() + "' will not be built. (SSMs not supported in MESO)");
+            return;
+        }
         // ID for the device
         std::string deviceID = "ssm_" + v.getID();
 
