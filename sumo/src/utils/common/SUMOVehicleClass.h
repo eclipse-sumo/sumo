@@ -235,13 +235,11 @@ typedef int SUMOEmissionClass;
  */
 extern std::string getVehicleClassNames(SVCPermissions permissions, bool expand=false);
 
-
 /** @brief Returns the ids of the given classes, divided using a ' '
  * @param[in] the permissions to encode
  * @return The string representation of these classes as a vector
  */
 extern std::vector<std::string> getVehicleClassNamesList(SVCPermissions permissions);
-
 
 /** @brief Returns the class id of the abstract class given by its name
  * @param[in] name The name of the abstract vehicle class
@@ -265,9 +263,7 @@ extern int getVehicleClassCompoundID(const std::string& name);
  */
 extern SVCPermissions parseVehicleClasses(const std::string& allowedS);
 
-
-/** @brief Checks whether the given string contains only known vehicle classes
- */
+/// @brief Checks whether the given string contains only known vehicle classes
 extern bool canParseVehicleClasses(const std::string& classes);
 
 /** @brief Encodes the given vector of allowed and disallowed classes into a bitset
@@ -276,13 +272,11 @@ extern bool canParseVehicleClasses(const std::string& classes);
  */
 extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS);
 
-
 /** @brief Encodes the given vector of allowed classs into a bitset
  * Unlike the methods which parse a string it gives immediately a warning output on deprecated vehicle classes.
  * @param[in] classesS The names vector to parse
  */
 extern SVCPermissions parseVehicleClasses(const std::vector<std::string>& allowedS);
-
 
 /// @brief writes allowed disallowed attributes if needed;
 extern void writePermissions(OutputDevice& into, SVCPermissions permissions);
@@ -299,13 +293,14 @@ extern void writePreferences(OutputDevice& into, SVCPermissions preferred);
  */
 extern std::string getVehicleShapeName(SUMOVehicleShape id);
 
-
 /** @brief Returns the class id of the shape class given by its name
  * @param[in] name The name of the shape class
  * @return The internal representation of this class
  */
 extern SUMOVehicleShape getVehicleShapeID(const std::string& name);
 
+/// @brief Checks whether the given string contains only known vehicle shape
+extern bool canParseVehicleShape(const std::string& shape);
 
 /** @brief Returns whether an edge with the given permission is a railway edge
  * @param[in] permissions The permissions of the edge

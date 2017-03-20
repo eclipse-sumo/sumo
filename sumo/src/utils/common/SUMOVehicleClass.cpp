@@ -41,10 +41,10 @@
 #include <utils/iodevices/OutputDevice.h>
 
 
-
 // ===========================================================================
 // static members
 // ===========================================================================
+
 StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
     {"ignoring",          SVC_IGNORING},
     {"private",           SVC_PRIVATE},
@@ -85,6 +85,7 @@ StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
 
 StringBijection<SUMOVehicleClass> SumoVehicleClassStrings(
     sumoVehicleClassStringInitializer, SVC_CUSTOM2, false);
+
 
 std::set<std::string> deprecatedVehicleClassesSeen;
 
@@ -299,6 +300,11 @@ getVehicleShapeID(const std::string& name) {
     } else {
         throw InvalidArgument("Unknown vehicle shape '" + name + "'.");
     }
+}
+
+
+bool canParseVehicleShape(const std::string& shape) {
+    return SumoVehicleShapeStrings.hasString(shape);
 }
 
 
