@@ -20,15 +20,13 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 
-
 import os
 import subprocess
 import sys
-import time
 import xml.dom.minidom as dom
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', "tools"))
-from sumolib import checkBinary
+from sumolib import checkBinary # noqa
 
 changes = [
     ["net/edge[0]@from", ""],
