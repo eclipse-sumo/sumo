@@ -63,34 +63,56 @@ FXIMPLEMENT(GNECalibratorDialog, FXDialogBox, GNECalibratorDialogMap, ARRAYNUMBE
 // ===========================================================================
 
 GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* calibratorParent) :
-    GNEAdditionalDialog(calibratorParent, 320, 240),
+    GNEAdditionalDialog(calibratorParent, 640, 480),
     myCalibratorParent(calibratorParent) {
-
-    // create add buton and label for flows
-    FXHorizontalFrame* buttonAndLabelFlow = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAddFlow = new FXButton(buttonAndLabelFlow, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_FLOW, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelFlow, ("Add new " + toString(SUMO_TAG_FLOW) + "s").c_str(), 0, GUIDesignLabelThick);
-
-    // Create table, copy flows and update table
-    myFlowList = new FXTable(myContentFrame, this, MID_GNE_CALIBRATORDIALOG_TABLE_FLOW, GUIDesignTableAdditionals);
-    myFlowList->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myFlowList->setSelTextColor(FXRGBA(0, 0, 0, 255));
-    myFlowList->setEditable(false);
+    
+    // Create two columns, one for Routes and VehicleTypes, and other for Flows
+    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
+    FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
+    FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
 
     // create add buton and label for routes
-    FXHorizontalFrame* buttonAndLabelRoute = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* buttonAndLabelRoute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
     myAddRoute = new FXButton(buttonAndLabelRoute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_ROUTE, GUIDesignButtonIcon);
     new FXLabel(buttonAndLabelRoute, ("Add new " + toString(SUMO_TAG_ROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
 
-    // Create table, copy routes and update table
-    myRouteList = new FXTable(myContentFrame, this, MID_GNE_CALIBRATORDIALOG_TABLE_ROUTE, GUIDesignTableAdditionals);
+    // Create table in left frame
+    myRouteList = new FXTable(columnLeft, this, MID_GNE_CALIBRATORDIALOG_TABLE_ROUTE, GUIDesignTableAdditionals);
     myRouteList->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myRouteList->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myRouteList->setEditable(false);
 
+    // create add buton and label for vehicle types
+    FXHorizontalFrame* buttonAndLabelVehicleType = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
+    myAddVehicleType = new FXButton(buttonAndLabelVehicleType, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_ROUTE, GUIDesignButtonIcon);
+    new FXLabel(buttonAndLabelVehicleType, ("Add new " + toString(SUMO_TAG_VTYPE) + "s").c_str(), 0, GUIDesignLabelThick);
+
+    // Create table in left frame
+    myVehicleTypeList = new FXTable(columnLeft, this, MID_GNE_CALIBRATORDIALOG_TABLE_ROUTE, GUIDesignTableAdditionals);
+    myVehicleTypeList->setSelBackColor(FXRGBA(255, 255, 255, 255));
+    myVehicleTypeList->setSelTextColor(FXRGBA(0, 0, 0, 255));
+    myVehicleTypeList->setEditable(false);
+
+    // create add buton and label for flows in right frame
+    FXHorizontalFrame* buttonAndLabelFlow = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
+    myAddFlow = new FXButton(buttonAndLabelFlow, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_FLOW, GUIDesignButtonIcon);
+    myLabelFlow = new FXLabel(buttonAndLabelFlow, ("Add new " + toString(SUMO_TAG_FLOW) + "s").c_str(), 0, GUIDesignLabelThick);
+
+    // Create table in right frame
+    myFlowList = new FXTable(columnRight, this, MID_GNE_CALIBRATORDIALOG_TABLE_FLOW, GUIDesignTableAdditionals);
+    myFlowList->setSelBackColor(FXRGBA(255, 255, 255, 255));
+    myFlowList->setSelTextColor(FXRGBA(0, 0, 0, 255));
+    myFlowList->setEditable(false);
+
+    // obtain copy of calibrator values
     myCopyOfCalibratorRoutes = myCalibratorParent->getCalibratorRoutes();
     myCopyOfCalibratorFlows = myCalibratorParent->getCalibratorFlows();
+    myCopyOfCalibratorVehicleTypes = myCalibratorParent->getCalibratorVehicleTypes();
+
+    // update tables
+    updateRouteTable();
     updateFlowTable();
+    updateVehicleTypeTable();
 
     // Execute additional dialog (To make it modal)
     execute();
@@ -323,6 +345,22 @@ GNECalibratorDialog::updateFlowTable() {
         myFlowList->setItem(indexRow, 2, item);
         // Update index
         indexRow++;
+    }
+    // Enable or disable Add button and list depending of  currently there are routes and vehicle types defined
+    std::string errorMsg;
+    if(myCopyOfCalibratorRoutes.empty() && myCopyOfCalibratorVehicleTypes.empty()) {
+        errorMsg = " and ";
+    }
+    if(myCopyOfCalibratorRoutes.size() == 0 || myCopyOfCalibratorVehicleTypes.size() == 0) {
+        myAddFlow->disable();
+        myFlowList->disable();
+        std::string errorMessage = "No " + (myCopyOfCalibratorRoutes.empty()?(toString(SUMO_TAG_ROUTE) + "s"):("")) + errorMsg + 
+                                   (myCopyOfCalibratorVehicleTypes.empty()?(toString(SUMO_TAG_VTYPE) + "s"):("")) + " defined";
+        myLabelFlow->setText(errorMessage.c_str());
+    } else {
+        myAddFlow->enable();
+        myFlowList->enable();
+        myLabelFlow->setText(("Add new " + toString(SUMO_TAG_FLOW) + "s").c_str());
     }
 }
 
