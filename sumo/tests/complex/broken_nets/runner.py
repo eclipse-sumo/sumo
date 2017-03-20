@@ -26,7 +26,7 @@ import sys
 import xml.dom.minidom as dom
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', "tools"))
-from sumolib import checkBinary # noqa
+from sumolib import checkBinary  # noqa
 
 changes = [
     ["net/edge[0]@from", ""],

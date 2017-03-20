@@ -55,7 +55,7 @@ for line in open('nefz_phemlightV4/output.complex'):
         maxVal[l[0]] = max(maxVal[l[0]], val)
 
 marker = {"PC_G_": "s", "PC_D_": "^", "LDV_G": "o", "LDV_D": "v"}
-#color = {"0": "k", "1": "r", "2": "y", "3": "g", "4": "m", "5": "b", "6": "c"}
+# color = {"0": "k", "1": "r", "2": "y", "3": "g", "4": "m", "5": "b", "6": "c"}
 color = {"0": "0", "1": "0.3", "2": "0.45",
          "3": "0.6", "4": "0.75", "5": "0.9", "6": "1"}
 limit = {"CO": 100000, "CO2": 5e6, "HC": 30000, "PMx": 6000, "fuel": 1700}

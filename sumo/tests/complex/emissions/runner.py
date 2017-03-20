@@ -24,7 +24,7 @@ import sys
 import os
 import subprocess
 sys.path.append(
-    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', "tools"))
+    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', "tools"))  # noqa
 from sumolib import checkBinary
 
 EDC = checkBinary("emissionsDrivingCycle", os.path.join(
