@@ -77,6 +77,7 @@ GNECalibratorRoute.h GNECalibratorRoute.cpp \
 GNECalibratorDialog.h GNECalibratorDialog.cpp \
 GNECalibratorFlowDialog.h GNECalibratorFlowDialog.cpp \
 GNECalibratorRouteDialog.h GNECalibratorRouteDialog.cpp \
+GNECalibratorVehicleTypeDialog.h GNECalibratorVehicleTypeDialog.cpp \
 GNEVariableSpeedSign.h GNEVariableSpeedSign.cpp \
 GNEVariableSpeedSignDialog.h GNEVariableSpeedSignDialog.cpp \
 GNEClosingLaneReroute.h GNEClosingLaneReroute.cpp \

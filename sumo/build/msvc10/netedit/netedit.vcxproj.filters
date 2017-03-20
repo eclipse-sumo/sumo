@@ -324,6 +324,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNECalibratorVehicleType.cpp">
       <Filter>Quellcodedateien\Items\Additionals\Calibrator</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorVehicleTypeDialog.cpp">
+      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -546,6 +549,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNECalibratorVehicleType.h">
       <Filter>Header-Dateien\Items\Additionals\Calibrator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorVehicleTypeDialog.h">
+      <Filter>Header-Dateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
