@@ -40,6 +40,7 @@
 class GNECalibrator;
 class GNECalibratorRoute;
 class GNECalibratorFlow;
+class GNECalibratorVehicleType;
 
 // ===========================================================================
 // class definitions
@@ -85,6 +86,12 @@ public:
 
     /// @brief remove or edit flow
     long onCmdClickedFlow(FXObject*, FXSelector, void*);
+
+    /// @brief add new vehicle type
+    long onCmdAddVehicleType(FXObject*, FXSelector, void*);
+
+    /// @brief remove or edit vehicle type
+    long onCmdClickedVehicleType(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
@@ -106,17 +113,29 @@ protected:
     /// @brief list with flows
     FXTable* myFlowList;
 
+    /// @brief button for add new vehicle type
+    FXButton* myAddVehicleType;
+
+    /// @brief list with vehicle types
+    FXTable* myVehicleTypeList;
+
     /// @brief vector with a copy of calibrator routes
     std::vector<GNECalibratorRoute> myCopyOfCalibratorRoutes;
 
     /// @brief vector with a copy of calibrator flows
     std::vector<GNECalibratorFlow> myCopyOfCalibratorFlows;
 
-    /// @brief update data table
+    /// @brief vector with a copy of calibrator vehicle types
+    std::vector<GNECalibratorVehicleType> myCopyOfCalibratorVehicleTypes;
+
+    /// @brief update data table with routes
     void updateRouteTable();
 
-    /// @brief update data table
+    /// @brief update data table with flows
     void updateFlowTable();
+
+    /// @brief update data table with vehicle types
+    void updateVehicleTypeTable();
 
 private:
     /// @brief Invalidated copy constructor.

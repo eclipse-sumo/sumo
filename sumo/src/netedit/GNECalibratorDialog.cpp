@@ -36,6 +36,7 @@
 #include "GNECalibrator.h"
 #include "GNECalibratorFlowDialog.h"
 #include "GNECalibratorRouteDialog.h"
+#include "GNECalibratorVehicleTypeDialog.h"
 
 
 // ===========================================================================
@@ -43,13 +44,15 @@
 // ===========================================================================
 
 FXDEFMAP(GNECalibratorDialog) GNECalibratorDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_ADD_ROUTE,        GNECalibratorDialog::onCmdAddRoute),
-    FXMAPFUNC(SEL_CLICKED,  MID_GNE_CALIBRATORDIALOG_TABLE_ROUTE,      GNECalibratorDialog::onCmdClickedRoute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_ADD_FLOW,         GNECalibratorDialog::onCmdAddFlow),
-    FXMAPFUNC(SEL_CLICKED,  MID_GNE_CALIBRATORDIALOG_TABLE_FLOW,       GNECalibratorDialog::onCmdClickedFlow),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,   GNECalibratorDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,   GNECalibratorDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_RESET,    GNECalibratorDialog::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_ADD_ROUTE,         GNECalibratorDialog::onCmdAddRoute),
+    FXMAPFUNC(SEL_CLICKED,  MID_GNE_CALIBRATORDIALOG_TABLE_ROUTE,       GNECalibratorDialog::onCmdClickedRoute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_ADD_FLOW,          GNECalibratorDialog::onCmdAddFlow),
+    FXMAPFUNC(SEL_CLICKED,  MID_GNE_CALIBRATORDIALOG_TABLE_FLOW,        GNECalibratorDialog::onCmdClickedFlow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_ADD_VEHICLETYPE,   GNECalibratorDialog::onCmdAddVehicleType),
+    FXMAPFUNC(SEL_CLICKED,  MID_GNE_CALIBRATORDIALOG_TABLE_VEHICLETYPE, GNECalibratorDialog::onCmdClickedVehicleType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,       GNECalibratorDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,       GNECalibratorDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_RESET,        GNECalibratorDialog::onCmdReset),
 };
 
 // Object implementation
@@ -211,6 +214,45 @@ GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
 }
 
 
+long
+GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
+    // create empty calibrator flow and configure it with GNECalibratorVehicleTypeDialog
+    GNECalibratorVehicleType newVehicleType(myCalibratorParent);
+    if (GNECalibratorVehicleTypeDialog(this, newVehicleType).execute() == TRUE) {
+        // if new flow was sucesfully configured, add it to myCopyOfCalibratorVehicleTypes
+        myCopyOfCalibratorVehicleTypes.push_back(newVehicleType);
+        updateVehicleTypeTable();
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+long
+GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
+    // check if some delete button was pressed
+    for (int i = 0; i < (int)myCopyOfCalibratorVehicleTypes.size(); i++) {
+        if (myVehicleTypeList->getItem(i, 2)->hasFocus()) {
+            // remove row
+            myVehicleTypeList->removeRows(i);
+            myCopyOfCalibratorVehicleTypes.erase(myCopyOfCalibratorVehicleTypes.begin() + i);
+            return 1;
+        }
+    }
+    // check if some begin or o end  button was pressed
+    for (int i = 0; i < (int)myCopyOfCalibratorVehicleTypes.size(); i++) {
+        if (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus()) {
+            // edit flow
+            GNECalibratorVehicleTypeDialog(this, *(myCopyOfCalibratorVehicleTypes.begin() + i)).execute();
+            return 1;
+        }
+    }
+    // nothing to do
+    return 0;
+}
+
+
 void
 GNECalibratorDialog::updateRouteTable() {
     // clear table
@@ -284,4 +326,40 @@ GNECalibratorDialog::updateFlowTable() {
     }
 }
 
+
+void
+GNECalibratorDialog::updateVehicleTypeTable() {
+    // clear table
+    myVehicleTypeList->clearItems();
+    // set number of rows
+    myVehicleTypeList->setTableSize(int(myCopyOfCalibratorVehicleTypes.size()), 3);
+    // Configure list
+    myVehicleTypeList->setVisibleColumns(4);
+    myVehicleTypeList->setColumnWidth(0, 137);
+    myVehicleTypeList->setColumnWidth(1, 136);
+    myVehicleTypeList->setColumnWidth(2, GUIDesignTableIconCellWidth);
+    myVehicleTypeList->setColumnText(0, toString(SUMO_ATTR_BEGIN).c_str());
+    myVehicleTypeList->setColumnText(1, toString(SUMO_ATTR_END).c_str());
+    myVehicleTypeList->setColumnText(2, "");
+    myVehicleTypeList->getRowHeader()->setWidth(0);
+    // Declare index for rows and pointer to FXTableItem
+    int indexRow = 0;
+    FXTableItem* item = 0;
+    // iterate over values
+    for (std::vector<GNECalibratorVehicleType>::iterator i = myCopyOfCalibratorVehicleTypes.begin(); i != myCopyOfCalibratorVehicleTypes.end(); i++) {
+        // Set id
+        item = new FXTableItem(toString(i->getVehicleTypeID()).c_str());
+        myVehicleTypeList->setItem(indexRow, 0, item);
+        // Set route
+        item = new FXTableItem(toString(i->getVClass()).c_str());
+        myVehicleTypeList->setItem(indexRow, 1, item);
+        // set remove
+        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
+        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
+        item->setEnabled(false);
+        myVehicleTypeList->setItem(indexRow, 2, item);
+        // Update index
+        indexRow++;
+    }
+}
 /****************************************************************************/
