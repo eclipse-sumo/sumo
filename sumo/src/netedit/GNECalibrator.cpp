@@ -114,7 +114,7 @@ GNECalibrator::updateGeometry() {
     for (int i = 0; i < (int)myEdge->getLanes().size(); i++) {
 
         // Get shape of lane parent
-        myShape.push_back(myEdge->getLanes().at(i)->getShape().positionAtOffset(myEdge->getLanes().at(i)->getPositionRelativeToParametricLenght(myPosition.x())));
+        myShape.push_back(myEdge->getLanes().at(i)->getShape().positionAtOffset(myEdge->getLanes().at(i)->getPositionRelativeToParametricLength(myPosition.x())));
 
         // Obtain first position
         Position f = myShape[i] - Position(1, 0);
@@ -123,7 +123,7 @@ GNECalibrator::updateGeometry() {
         Position s = myShape[i] + Position(1, 0);
 
         // Save rotation (angle) of the vector constructed by points f and s
-        myShapeRotations.push_back(myEdge->getLanes().at(i)->getShape().rotationDegreeAtOffset(myEdge->getLanes().at(i)->getPositionRelativeToParametricLenght(myPosition.x())) * -1);
+        myShapeRotations.push_back(myEdge->getLanes().at(i)->getShape().rotationDegreeAtOffset(myEdge->getLanes().at(i)->getPositionRelativeToParametricLength(myPosition.x())) * -1);
     }
 
     // Refresh element (neccesary to avoid grabbing problems)

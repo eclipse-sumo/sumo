@@ -327,8 +327,8 @@ public:
         /// @brief get actual reference point
         additionalReferencePoint getActualReferencePoint();
 
-        /// @brief get value of lenght
-        double getLenght();
+        /// @brief get value of length
+        double getLength();
 
         /// @brief check if block is enabled
         bool isBlockEnabled();
@@ -336,12 +336,12 @@ public:
         /// @brief check if force position is enabled
         bool isForcePositionEnabled();
 
-        /// @brief check if current lenght is valid
-        bool isCurrentLenghtValid() const;
+        /// @brief check if current length is valid
+        bool isCurrentLengthValid() const;
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when user enters a new lenght
+        /// @brief Called when user enters a new length
         long onCmdSetLength(FXObject*, FXSelector, void*);
 
         /// @brief Called when user enters another reference point
@@ -371,10 +371,10 @@ public:
         /// @brief actual additional reference point selected in the match Box
         additionalReferencePoint myActualAdditionalReferencePoint;
 
-        /// @brief Label for lenght
+        /// @brief Label for length
         FXLabel* myLengthLabel;
 
-        /// @brief textField for lenght
+        /// @brief textField for length
         FXTextField* myLengthTextField;
 
         /// @brief Label for force position
@@ -389,7 +389,7 @@ public:
         /// @brief checkBox for block movement
         FXMenuCheck* myCheckBlock;
 
-        /// @brief Flag to check if current lenght is valid
+        /// @brief Flag to check if current length is valid
         bool myCurrentLengthValid;
     };
 
@@ -649,10 +649,10 @@ private:
     std::string generateID(GNENetElement* netElement) const;
 
     /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
-    double setStartPosition(double positionOfTheMouseOverLane, double lenghtOfAdditional);
+    double setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional);
 
     /// @brief obtain the End position values of StoppingPlaces and E2 detector over the lane
-    double setEndPosition(double laneLenght, double positionOfTheMouseOverLane, double lenghtOfAdditional);
+    double setEndPosition(double laneLength, double positionOfTheMouseOverLane, double lengthOfAdditional);
 
     /// @brief groupBox for Match Box of additionals
     FXGroupBox* myGroupBoxForMyAdditionalMatchBox;

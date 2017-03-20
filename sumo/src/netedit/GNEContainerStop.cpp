@@ -94,7 +94,7 @@ GNEContainerStop::updateGeometry() {
     myShape.move2side(1.65 * offsetSign);
 
     // Cut shape using as delimitators from start position and end position
-    myShape = myShape.getSubpart(myLane->getPositionRelativeToParametricLenght(myStartPos), myLane->getPositionRelativeToParametricLenght(myEndPos));
+    myShape = myShape.getSubpart(myLane->getPositionRelativeToParametricLength(myStartPos), myLane->getPositionRelativeToParametricLength(myEndPos));
 
     // Get number of parts of the shape
     int numberOfSegments = (int) myShape.size() - 1;
@@ -189,7 +189,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s);
 
-    // Draw the area using shape, shapeRotations, shapeLenghts and value of exaggeration
+    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
 
     // Check if the distance is enought to draw details
@@ -360,12 +360,12 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ENDPOS: {
             if (canParse<double>(value) && parse<double>(value) >= 1 && parse<double>(value) > myStartPos) {
                 // If extension is larger than Lane
-                if (parse<double>(value) > myLane->getLaneParametricLenght()) {
-                    // Ask user if want to assign the lenght of lane as endPosition
+                if (parse<double>(value) > myLane->getLaneParametricLength()) {
+                    // Ask user if want to assign the length of lane as endPosition
                     FXuint answer = FXMessageBox::question(getViewNet()->getApp(), MBOX_YES_NO,
                                                            (toString(SUMO_ATTR_ENDPOS) + " exceeds the size of the " + toString(SUMO_TAG_LANE)).c_str(), "%s",
                                                            (toString(SUMO_ATTR_ENDPOS) + " exceeds the size of the " + toString(SUMO_TAG_LANE) +
-                                                            ". Do you want to assign the lenght of the " + toString(SUMO_TAG_LANE) + " as " + toString(SUMO_ATTR_ENDPOS) + "?").c_str());
+                                                            ". Do you want to assign the length of the " + toString(SUMO_TAG_LANE) + " as " + toString(SUMO_ATTR_ENDPOS) + "?").c_str());
                     if (answer == 1) { //1:yes, 2:no, 4:esc
                         return true;
                     } else {
@@ -406,8 +406,8 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             getViewNet()->update();
             break;
         case SUMO_ATTR_ENDPOS:
-            if (parse<double>(value) > myLane->getLaneParametricLenght()) {
-                myEndPos = myLane->getLaneParametricLenght();
+            if (parse<double>(value) > myLane->getLaneParametricLength()) {
+                myEndPos = myLane->getLaneParametricLength();
             } else {
                 myEndPos = parse<double>(value);
             }

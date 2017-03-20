@@ -115,7 +115,7 @@ GNEConnection::updateGeometry() {
         myShape.push_back(laneShapeTo.positionAtOffset(1));
     }
 
-    // Obtain lenghts and shape rotations
+    // Obtain lengths and shape rotations
     int segments = (int) myShape.size() - 1;
     if (segments >= 0) {
         myShapeRotations.reserve(segments);

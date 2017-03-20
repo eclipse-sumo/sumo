@@ -544,7 +544,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     const double pos = getShape().nearest_offset_to_point2D(parent.getPositionInformation());
     const double height = getShape().positionAtOffset2D(getShape().nearest_offset_to_point2D(parent.getPositionInformation())).z();
     new FXMenuCommand(ret, ("Shape pos: " + toString(pos)).c_str(), 0, 0, 0);
-    new FXMenuCommand(ret, ("Length pos: " + toString(getPositionRelativeToShapeLenght(pos))).c_str(), 0, 0, 0);
+    new FXMenuCommand(ret, ("Length pos: " + toString(getPositionRelativeToShapeLength(pos))).c_str(), 0, 0, 0);
     new FXMenuCommand(ret, ("Height: " + toString(height)).c_str(), 0, 0, 0);
     // new FXMenuSeparator(ret);
     // buildPositionCopyEntry(ret, false);
@@ -638,12 +638,12 @@ GNELane::updateGeometry() {
             (*i)->updateGeometry();
         }
     }
-    // If lane has enought lenght for show textures of restricted lanes
-    if ((getLaneShapeLenght() > 4)) {
+    // If lane has enought length for show textures of restricted lanes
+    if ((getLaneShapeLength() > 4)) {
         // if lane is restricted
         if (isRestricted(SVC_PEDESTRIAN) || isRestricted(SVC_BICYCLE) || isRestricted(SVC_BUS)) {
             // get values for position and rotation of icons
-            for (int i = 2; i < getLaneShapeLenght() - 1; i += 15) {
+            for (int i = 2; i < getLaneShapeLength() - 1; i += 15) {
                 myLaneRestrictedTexturePositions.push_back(getShape().positionAtOffset(i));
                 myLaneRestrictedTextureRotations.push_back(getShape().rotationDegreeAtOffset(i));
             }
@@ -670,26 +670,26 @@ GNELane::getSpeed() const {
 
 
 double
-GNELane::getLaneParametricLenght() const  {
+GNELane::getLaneParametricLength() const  {
     return myParentEdge.getNBEdge()->getLoadedLength();
 }
 
 
 double
-GNELane::getLaneShapeLenght() const {
+GNELane::getLaneShapeLength() const {
     return getShape().length();
 }
 
 
 double
-GNELane::getPositionRelativeToParametricLenght(double position) const {
-    return (position * getLaneShapeLenght()) / getLaneParametricLenght();
+GNELane::getPositionRelativeToParametricLength(double position) const {
+    return (position * getLaneShapeLength()) / getLaneParametricLength();
 }
 
 
 double
-GNELane::getPositionRelativeToShapeLenght(double position) const {
-    return (position * getLaneParametricLenght()) / getLaneShapeLenght();
+GNELane::getPositionRelativeToShapeLength(double position) const {
+    return (position * getLaneParametricLength()) / getLaneShapeLength();
 }
 
 

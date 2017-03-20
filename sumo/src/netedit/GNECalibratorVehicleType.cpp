@@ -88,7 +88,7 @@ GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorPare
 
 
 GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID, 
-    double accel, double decel, double sigma, double tau, double lenght, double minGap, double maxSpeed, 
+    double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed, 
     double speedFactor, double speedDev, const std::string& color, SUMOVehicleClass vClass, const std::string& emissionClass, 
     SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel, 
     const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration, 
@@ -100,7 +100,7 @@ GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorPare
     setDecel(decel);
     setSigma(sigma);
     setTau(tau);
-    setLength(lenght);
+    setLength(length);
     setMinGap(minGap);
     setMaxSpeed(maxSpeed);
     setSpeedFactor(speedFactor);
@@ -392,11 +392,11 @@ GNECalibratorVehicleType::setTau(std::string tau) {
 
 
 bool 
-GNECalibratorVehicleType::setLength(double lenght) {
-    if(lenght < 0) {
+GNECalibratorVehicleType::setLength(double length) {
+    if(length < 0) {
         return false;
     } else {
-        myLength = lenght;
+        myLength = length;
         return true;
     }
 }

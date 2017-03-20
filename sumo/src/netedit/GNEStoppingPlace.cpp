@@ -80,7 +80,7 @@ GNEStoppingPlace::~GNEStoppingPlace() {
 
 Position
 GNEStoppingPlace::getPositionInView() const {
-    return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLenght(myPosition.x()));
+    return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLength(myPosition.x()));
 }
 
 
@@ -90,8 +90,8 @@ GNEStoppingPlace::moveAdditionalGeometry(double offsetx, double offsety) {
     UNUSED_PARAMETER(offsety);
     // Move to Right if distance is positive, to left if distance is negative
     if (((offsetx > 0) &&
-            ((myLane->getPositionRelativeToParametricLenght(myEndPos) + offsetx) < myLane->getLaneParametricLenght())) ||
-            ((offsetx < 0) && ((myLane->getPositionRelativeToParametricLenght(myStartPos) + offsetx) > 0))) {
+            ((myLane->getPositionRelativeToParametricLength(myEndPos) + offsetx) < myLane->getLaneParametricLength())) ||
+            ((offsetx < 0) && ((myLane->getPositionRelativeToParametricLength(myStartPos) + offsetx) > 0))) {
         // change attribute
         myStartPos += offsetx;
         myEndPos += offsetx;
@@ -131,7 +131,7 @@ GNEStoppingPlace::setStartPosition(double startPos) {
     } else if (startPos >= myEndPos) {
         throw InvalidArgument(toString(SUMO_ATTR_STARTPOS) + " '" + toString(startPos) + "' not allowed. Must be smaller than endPos '" + toString(myEndPos) + "'");
     } else if ((myEndPos - startPos) < 1) {
-        throw InvalidArgument(toString(SUMO_ATTR_STARTPOS) + " '" + toString(startPos) + "' not allowed. Lenght of StoppingPlace must be equal or greater than 1");
+        throw InvalidArgument(toString(SUMO_ATTR_STARTPOS) + " '" + toString(startPos) + "' not allowed. Length of StoppingPlace must be equal or greater than 1");
     } else {
         myStartPos = startPos;
     }
@@ -140,12 +140,12 @@ GNEStoppingPlace::setStartPosition(double startPos) {
 
 void
 GNEStoppingPlace::setEndPosition(double endPos) {
-    if (endPos > myLane->getLaneShapeLenght()) {
+    if (endPos > myLane->getLaneShapeLength()) {
         throw InvalidArgument(toString(SUMO_ATTR_ENDPOS) + " '" + toString(endPos) + "' not allowed. Must be smaller than lane length");
     } else if (myStartPos >= endPos) {
         throw InvalidArgument(toString(SUMO_ATTR_ENDPOS) + " '" + toString(endPos) + "' not allowed. Must be smaller than endPos '" + toString(myEndPos) + "'");
     } else if ((endPos - myStartPos) < 1) {
-        throw InvalidArgument(toString(SUMO_ATTR_ENDPOS) + " '" + toString(endPos) + "' not allowed. Lenght of StoppingPlace must be equal or greater than 1");
+        throw InvalidArgument(toString(SUMO_ATTR_ENDPOS) + " '" + toString(endPos) + "' not allowed. Length of StoppingPlace must be equal or greater than 1");
     } else {
         myEndPos = endPos;
     }

@@ -261,13 +261,13 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         // If element has a StartPosition and EndPosition over edge, extract attributes
         if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
             // First check that current length is valid
-            if (myEditorParameters->isCurrentLenghtValid()) {
+            if (myEditorParameters->isCurrentLengthValid()) {
                 // check if current reference point is valid
                 if(myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
                     WRITE_WARNING("Current selected reference point isn't valid. Additional '" + toString(myActualAdditionalType) + "' cannot be created.");
                 }
-                double startPos = setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLenght());
-                double endPos = setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLenght(), positionOfTheMouseOverEdge, myEditorParameters->getLenght());
+                double startPos = setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLength());
+                double endPos = setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLength(), positionOfTheMouseOverEdge, myEditorParameters->getLength());
                 // Only set start position if are valid (!= -1)
                 if (startPos != -1) {
                     valuesOfElement[SUMO_ATTR_STARTPOS] = toString(startPos);
@@ -294,13 +294,13 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         // If element has a StartPosition and EndPosition over lane, extract attributes
         if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
             // First check that current length is valid
-            if (myEditorParameters->isCurrentLenghtValid()) {
+            if (myEditorParameters->isCurrentLengthValid()) {
                 // check if current reference point is valid
                 if(myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
                     WRITE_WARNING("Current selected reference point isn't valid. Additional '" + toString(myActualAdditionalType) + "' cannot be created.");
                 }
-                double startPos = setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLenght());
-                double endPos = setEndPosition(pointed_lane->getLaneShapeLenght(), positionOfTheMouseOverLane, myEditorParameters->getLenght());
+                double startPos = setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLength());
+                double endPos = setEndPosition(pointed_lane->getLaneShapeLength(), positionOfTheMouseOverLane, myEditorParameters->getLength());
                 // Only set start position if are valid (!= -1)
                 if (startPos != -1) {
                     valuesOfElement[SUMO_ATTR_STARTPOS] = toString(startPos);
@@ -463,7 +463,7 @@ GNEAdditionalFrame::setParametersOfAdditional(SumoXMLTag actualAdditionalType) {
     myActualAdditionalType = actualAdditionalType;
     // Clear internal attributes
     myadditionalParameters->clearAttributes();
-    // Hide lenght field and reference point
+    // Hide length field and reference point
     myEditorParameters->hideLengthField();
     myEditorParameters->hideReferencePoint();
     // Obtain attributes of actual myActualAdditionalType
@@ -524,13 +524,13 @@ GNEAdditionalFrame::generateID(GNENetElement* netElement) const {
 
 
 double
-GNEAdditionalFrame::setStartPosition(double positionOfTheMouseOverLane, double lenghtOfAdditional) {
+GNEAdditionalFrame::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) {
     switch (myEditorParameters->getActualReferencePoint()) {
         case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT:
             return positionOfTheMouseOverLane;
         case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_RIGHT: {
-            if (positionOfTheMouseOverLane - lenghtOfAdditional >= 0.01) {
-                return positionOfTheMouseOverLane - lenghtOfAdditional;
+            if (positionOfTheMouseOverLane - lengthOfAdditional >= 0.01) {
+                return positionOfTheMouseOverLane - lengthOfAdditional;
             } else if (myEditorParameters->isForcePositionEnabled()) {
                 return 0.01;
             } else {
@@ -538,8 +538,8 @@ GNEAdditionalFrame::setStartPosition(double positionOfTheMouseOverLane, double l
             }
         }
         case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_CENTER: {
-            if (positionOfTheMouseOverLane - lenghtOfAdditional / 2 >= 0.01) {
-                return positionOfTheMouseOverLane - lenghtOfAdditional / 2;
+            if (positionOfTheMouseOverLane - lengthOfAdditional / 2 >= 0.01) {
+                return positionOfTheMouseOverLane - lengthOfAdditional / 2;
             } else if (myEditorParameters->isForcePositionEnabled()) {
                 return 0;
             } else {
@@ -553,13 +553,13 @@ GNEAdditionalFrame::setStartPosition(double positionOfTheMouseOverLane, double l
 
 
 double
-GNEAdditionalFrame::setEndPosition(double laneLenght, double positionOfTheMouseOverLane, double lenghtOfAdditional) {
+GNEAdditionalFrame::setEndPosition(double laneLength, double positionOfTheMouseOverLane, double lengthOfAdditional) {
     switch (myEditorParameters->getActualReferencePoint()) {
         case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT: {
-            if (positionOfTheMouseOverLane + lenghtOfAdditional <= laneLenght - 0.01) {
-                return positionOfTheMouseOverLane + lenghtOfAdditional;
+            if (positionOfTheMouseOverLane + lengthOfAdditional <= laneLength - 0.01) {
+                return positionOfTheMouseOverLane + lengthOfAdditional;
             } else if (myEditorParameters->isForcePositionEnabled()) {
-                return laneLenght - 0.01;
+                return laneLength - 0.01;
             } else {
                 return -1;
             }
@@ -567,10 +567,10 @@ GNEAdditionalFrame::setEndPosition(double laneLenght, double positionOfTheMouseO
         case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_RIGHT:
             return positionOfTheMouseOverLane;
         case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_CENTER: {
-            if (positionOfTheMouseOverLane + lenghtOfAdditional / 2 <= laneLenght - 0.01) {
-                return positionOfTheMouseOverLane + lenghtOfAdditional / 2;
+            if (positionOfTheMouseOverLane + lengthOfAdditional / 2 <= laneLength - 0.01) {
+                return positionOfTheMouseOverLane + lengthOfAdditional / 2;
             } else if (myEditorParameters->isForcePositionEnabled()) {
-                return laneLenght - 0.01;
+                return laneLength - 0.01;
             } else {
                 return -1;
             }
@@ -1219,7 +1219,7 @@ GNEAdditionalFrame::NeteditAttributes::getActualReferencePoint() {
 
 
 double
-GNEAdditionalFrame::NeteditAttributes::getLenght() {
+GNEAdditionalFrame::NeteditAttributes::getLength() {
     return GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
 }
 
@@ -1236,14 +1236,14 @@ GNEAdditionalFrame::NeteditAttributes::isForcePositionEnabled() {
 }
 
 bool
-GNEAdditionalFrame::NeteditAttributes::isCurrentLenghtValid() const {
+GNEAdditionalFrame::NeteditAttributes::isCurrentLengthValid() const {
     return myCurrentLengthValid;
 }
 
 
 long
 GNEAdditionalFrame::NeteditAttributes::onCmdSetLength(FXObject*, FXSelector, void*) {
-    // change color of text field depending of the input lenght
+    // change color of text field depending of the input length
     if (GNEAttributeCarrier::canParse<double>(myLengthTextField->getText().text()) &&
         GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text()) > 0) {
         myLengthTextField->setTextColor(FXRGB(0, 0, 0));
@@ -1317,13 +1317,13 @@ GNEAdditionalFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     std::ostringstream help;
     help
             << "Referece point: Mark the initial position of the additional element.\n"
-            << "Example: If you want to create a busStop with a lenght of 30 in the point 100 of the lane:\n"
+            << "Example: If you want to create a busStop with a length of 30 in the point 100 of the lane:\n"
             << "- Reference Left will create it with startPos = 70 and endPos = 100.\n"
             << "- Reference Right will create it with startPos = 100 and endPos = 130.\n"
             << "- Reference Center will create it with startPos = 85 and endPos = 115.\n"
             << "\n"
             << "Force position: if is enabled, will create the additional adapting size of additional element to lane.\n"
-            << "Example: If you have a lane with lenght = 100, but you try to create a busStop with size = 50\n"
+            << "Example: If you have a lane with length = 100, but you try to create a busStop with size = 50\n"
             << "in the position 80 of the lane, a busStop with startPos = 80 and endPos = 100 will be created\n"
             << "instead of a busStop with startPos = 80 and endPos = 130.\n"
             << "\n"

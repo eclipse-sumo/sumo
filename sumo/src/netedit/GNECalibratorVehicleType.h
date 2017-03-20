@@ -54,7 +54,7 @@ public:
 
     /// @brief parameter constructor
     GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID, 
-        double accel, double decel, double sigma, double tau, double lenght, double minGap, 
+        double accel, double decel, double sigma, double tau, double length, double minGap, 
         double maxSpeed, double speedFactor, double speedDev, const std::string& color, 
         SUMOVehicleClass vClass, const std::string& emissionClass, SUMOVehicleShape shape, 
         double width, const std::string& filename, double impatience, const std::string& laneChangeModel, 
@@ -85,7 +85,7 @@ public:
     /// @brief get tau
     double getTau() const;
 
-    /// @brief get lenght
+    /// @brief get length
     double getLength() const;
 
     /// @brief get min gap
@@ -193,15 +193,15 @@ public:
      */
     bool setTau(std::string tau);
 
-    /**@brief set lenght
+    /**@brief set length
      * @return true if was sucesfully set, or false if value isn't valid
      */
-    bool setLength(double lenght = 5.0);
+    bool setLength(double length = 5.0);
 
-    /**@brief set lenght (string version)
+    /**@brief set length (string version)
      * @return true if was sucesfully set, or false if value isn't valid
      */
-    bool setLength(std::string lenght);
+    bool setLength(std::string length);
 
     /**@brief set min gap
      * @return true if was sucesfully set, or false if value isn't valid

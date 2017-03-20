@@ -89,7 +89,7 @@ GNEDetectorE2::updateGeometry() {
     myShape = myLane->getShape();
 
     // Cut shape using as delimitators myPos and their length (myPos + length)
-    myShape = myShape.getSubpart(myLane->getPositionRelativeToParametricLenght(myPosition.x()), myLane->getPositionRelativeToParametricLenght(myPosition.x() + myLength));
+    myShape = myShape.getSubpart(myLane->getPositionRelativeToParametricLength(myPosition.x()), myLane->getPositionRelativeToParametricLength(myPosition.x() + myLength));
 
     // Get number of parts of the shape
     int numberOfSegments = (int) myShape.size() - 1;
@@ -137,7 +137,7 @@ GNEDetectorE2::updateGeometry() {
 
 Position
 GNEDetectorE2::getPositionInView() const {
-    return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLenght(myPosition.x()));
+    return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLength(myPosition.x()));
 }
 
 
@@ -186,7 +186,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s);
 
-    // Draw the area using shape, shapeRotations, shapeLenghts and value of exaggeration
+    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
 
     // Pop last matrix
@@ -282,7 +282,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= (myLane->getLaneParametricLenght()));
+            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= (myLane->getLaneParametricLength()));
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && parse<double>(value) > 0);
         case SUMO_ATTR_LENGTH:

@@ -79,12 +79,12 @@ GNEDetector::moveAdditionalGeometry(double offsetx, double offsety) {
     // declare start and end positions
     double startPos = myPosition.x();
     double endPos = 0;
-    // set endPos if additional has the attribute lenght
+    // set endPos if additional has the attribute length
     if (GNEAttributeCarrier::hasAttribute(getTag(), SUMO_ATTR_LENGTH)) {
         endPos = startPos + GNEAttributeCarrier::parse<double>(getAttribute(SUMO_ATTR_LENGTH));
     }
     // Move to Right if distance is positive, to left if distance is negative
-    if (((offsetx > 0) && ((endPos + offsetx) < myLane->getLaneShapeLenght())) || ((offsetx < 0) && ((startPos + offsetx) > 0))) {
+    if (((offsetx > 0) && ((endPos + offsetx) < myLane->getLaneShapeLength())) || ((offsetx < 0) && ((startPos + offsetx) > 0))) {
         // change attribute
         myPosition.set(myPosition.x() + offsetx, 0);
         // Update geometry
@@ -125,7 +125,7 @@ void
 GNEDetector::setPositionOverLane(double pos) {
     if (pos < 0) {
         throw InvalidArgument("Position '" + toString(pos) + "' of " + toString(getTag()) + " not allowed. Must be greater than 0");
-    } else if (pos > myLane->getLaneShapeLenght()) {
+    } else if (pos > myLane->getLaneShapeLength()) {
         throw InvalidArgument("Position '" + toString(pos) + "' of " + toString(getTag()) + " not allowed. Must be smaller than lane length");
     } else {
         myPosition = Position(pos, 0);

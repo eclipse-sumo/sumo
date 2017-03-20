@@ -110,7 +110,7 @@ public:
     /// @}
 
 protected:
-    /// @brief attribute lenght
+    /// @brief attribute length
     double myLength;
 
     /// @brief attribute to enable or disable splitByType

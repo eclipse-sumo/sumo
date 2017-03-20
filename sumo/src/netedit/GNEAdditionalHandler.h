@@ -373,7 +373,7 @@ public:
     /**@brief check if the position of an stoppingPlace over a lane is valid
     * @param[in] startPos Start position of stoppingPlace
     * @param[in] endPos End position of stoppingPlace
-    * @param[in] laneLength Lenght of the lane
+    * @param[in] laneLength Length of the lane
     * @param[in] minLength Min length of the stoppingPlace
     * @param[in] friendlyPos Attribute of stoppingPlace
     * @return true if the stoppingPlace position is valid, false in otherweise
