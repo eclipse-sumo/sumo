@@ -933,27 +933,26 @@ TraCIServer::readTypeCheckingStringList(tcpip::Storage& inputStorage, std::vecto
 
 
 bool
-TraCIServer::readTypeCheckingColor(tcpip::Storage& inputStorage, RGBColor& into) {
+TraCIServer::readTypeCheckingColor(tcpip::Storage& inputStorage, TraCIColor& into) {
     if (inputStorage.readUnsignedByte() != TYPE_COLOR) {
         return false;
     }
-    unsigned char r = static_cast<unsigned char>(inputStorage.readUnsignedByte());
-    unsigned char g = static_cast<unsigned char>(inputStorage.readUnsignedByte());
-    unsigned char b = static_cast<unsigned char>(inputStorage.readUnsignedByte());
-    unsigned char a = static_cast<unsigned char>(inputStorage.readUnsignedByte());
-    into.set(r, g, b, a);
+    into.r = static_cast<unsigned char>(inputStorage.readUnsignedByte());
+    into.g = static_cast<unsigned char>(inputStorage.readUnsignedByte());
+    into.b = static_cast<unsigned char>(inputStorage.readUnsignedByte());
+    into.a = static_cast<unsigned char>(inputStorage.readUnsignedByte());
     return true;
 }
 
 
 bool
-TraCIServer::readTypeCheckingPosition2D(tcpip::Storage& inputStorage, Position& into) {
+TraCIServer::readTypeCheckingPosition2D(tcpip::Storage& inputStorage, TraCIPosition& into) {
     if (inputStorage.readUnsignedByte() != POSITION_2D) {
         return false;
     }
-    double x = inputStorage.readDouble();
-    double y = inputStorage.readDouble();
-    into.set(x, y, 0);
+    into.x = inputStorage.readDouble();
+    into.y = inputStorage.readDouble();
+    into.z = 0;
     return true;
 }
 

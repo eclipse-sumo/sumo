@@ -87,6 +87,7 @@ public:
     /// @brief helper functions
     static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector);
     static TraCIPosition makeTraCIPosition(const Position& position);
+    static Position makePosition(const TraCIPosition& position);
 
     static PositionVector makePositionVector(const TraCIPositionVector& vector);
     static TraCIColor makeTraCIColor(const RGBColor& color);

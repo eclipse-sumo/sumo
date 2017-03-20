@@ -3,6 +3,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Mario Krumnow
 /// @author  Michael Behrisch
+/// @author  Robert Hilbrich
 /// @date    30.05.2012
 /// @version $Id$
 ///
@@ -58,15 +59,15 @@ public:
     static TraCIColor getColor(const std::string& poiID);
     static std::string getParameter(const std::string& poiID, const std::string& param);
 
-    
     static void setType(const std::string& poiID, const std::string& setType);
-    static void setPosition(const std::string& poiID, double x, double y);
     static void setColor(const std::string& poiID, const TraCIColor& c);
-    static void add(const std::string& poiID, double x, double y, const TraCIColor& c, const std::string& type, int layer);
-    static void remove(const std::string& poiID, int layer = 0);
+    static void setPosition(const std::string& poiID, const TraCIPosition& p);
+    static bool add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer);
+    static bool remove(const std::string& poiID, int layer = 0);
 
     static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
     static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+    static void addParameter(const std::string& poiID, const std::string& param, const std::string& value);
 
 private:
     static PointOfInterest* getPoI(const std::string& id);

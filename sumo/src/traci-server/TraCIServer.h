@@ -43,6 +43,7 @@
 #include <string>
 #include <set>
 
+#include "TraCIDefs.h"
 #include "TraCIConstants.h"
 
 #define BUILD_TCPIP
@@ -209,7 +210,7 @@ public:
      * @param[out] into Holder of the read value
      * @return Whether a color was given (by data type)
      */
-    bool readTypeCheckingColor(tcpip::Storage& inputStorage, RGBColor& into);
+    bool readTypeCheckingColor(tcpip::Storage& inputStorage, TraCIColor& into);
 
 
     /** @brief Reads the value type and a 2D position, verifying the type
@@ -218,7 +219,7 @@ public:
      * @param[out] into Holder of the read value
      * @return Whether a 2D position was given (by data type)
      */
-    bool readTypeCheckingPosition2D(tcpip::Storage& inputStorage, Position& into);
+    bool readTypeCheckingPosition2D(tcpip::Storage& inputStorage, TraCIPosition& into);
 
 
     /** @brief Reads the value type and a 2D bounding box, verifying the type

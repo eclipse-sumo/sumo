@@ -7,6 +7,7 @@
 /// @author  Bjoern Hendriks
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
+/// @author  Robert Hilbrich
 /// @date    07.05.2009
 /// @version $Id$
 ///
@@ -1035,11 +1036,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
         break;
         case VAR_COLOR: {
-            RGBColor col;
+            TraCIColor col;
             if (!server.readTypeCheckingColor(inputStorage, col)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The color must be given using the according type.", outputStorage);
             }
-            v->getParameter().color.set(col.red(), col.green(), col.blue(), col.alpha());
+            v->getParameter().color.set(col.r, col.g, col.b, col.a);
             v->getParameter().setParameter |= VEHPARS_COLOR_SET;
         }
         break;

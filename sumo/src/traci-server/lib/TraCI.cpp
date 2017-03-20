@@ -4,6 +4,7 @@
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Robert Hilbrich
 /// @date    30.05.2012
 /// @version $Id$
 ///
@@ -133,6 +134,12 @@ TraCI::makeTraCIPosition(const Position& position) {
     return p;
 }
 
+Position
+TraCI::makePosition(const TraCIPosition& tpos) {
+    Position p;
+    p.set(tpos.x, tpos.y, tpos.z);
+    return p;
+}
 
 MSEdge* 
 TraCI::getEdge(const std::string& edgeID) {

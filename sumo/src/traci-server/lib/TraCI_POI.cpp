@@ -86,24 +86,46 @@ TraCI_POI::getParameter(const std::string& poiID, const std::string& param) {
 }
 
 void
-TraCI_POI::setType(const std::string& poiID, const std::string& setType) {
+TraCI_POI::setType(const std::string& poiID, const std::string& type) {
+    PointOfInterest* p = getPoI(poiID);
+    p->setType(type);
 }
 
 void
-TraCI_POI::setPosition(const std::string& poiID, double x, double y) {
+TraCI_POI::setPosition(const std::string& poiID, const TraCIPosition& p) {
+   ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+   shapeCont.movePOI(poiID, TraCI::makePosition(p));
 }
 
 void
 TraCI_POI::setColor(const std::string& poiID, const TraCIColor& c) {
+    PointOfInterest* p = getPoI(poiID);
+    p->setColor(TraCI::makeRGBColor(c));
 }
 
-void
-TraCI_POI::add(const std::string& poiID, double x, double y, const TraCIColor& c, const std::string& type, int layer) {
+bool
+TraCI_POI::add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer) {
+    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+    return shapeCont.addPOI(poiID, type, TraCI::makeRGBColor(c), (double) layer,
+			    Shape::DEFAULT_ANGLE,
+			    Shape::DEFAULT_IMG_FILE,
+			    TraCI::makePosition(pos),
+			    Shape::DEFAULT_IMG_WIDTH,
+			    Shape::DEFAULT_IMG_HEIGHT);
 }
 
-void
+bool
 TraCI_POI::remove(const std::string& poiID, int layer) {
+     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+     return shapeCont.removePOI(poiID);
 }
+
+void
+TraCI_POI::addParameter(const std::string& poiID, const std::string& param, const std::string& value) {
+    PointOfInterest* p = getPoI(poiID);
+    p->addParameter(param, value);
+}
+
 
 PointOfInterest*
 TraCI_POI::getPoI(const std::string& id) {

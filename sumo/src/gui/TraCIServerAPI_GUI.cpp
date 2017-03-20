@@ -45,7 +45,6 @@
 #include "GUIEvent_Screenshot.h"
 #include "TraCIServerAPI_GUI.h"
 
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -141,12 +140,14 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         break;
         case VAR_VIEW_OFFSET: {
-            Position off, p;
-            if (!server.readTypeCheckingPosition2D(inputStorage, off)) {
+	    TraCIPosition tp;
+            if (!server.readTypeCheckingPosition2D(inputStorage, tp)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The view port must be given as a position.", outputStorage);
             }
-            off.set(off.x(), off.y(), v->getChanger().getZPos());
-            p.set(off.x(), off.y(), 0);
+	    
+            Position off, p;
+            off.set(tp.x, tp.y, v->getChanger().getZPos());
+            p.set(tp.x, tp.y, 0);
             v->setViewportFromTo(off, p);
         }
         break;

@@ -154,12 +154,11 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
         }
             break;
         case VAR_COLOR: {
-            RGBColor col;
+            TraCIColor col;
             if (!server.readTypeCheckingColor(inputStorage, col)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The color must be given using an according type.", outputStorage);
             }
-            TraCIColor tc = TraCI::makeTraCIColor(col);
-            TraCI_Polygon::setColor(id, tc);
+            TraCI_Polygon::setColor(id, col);
         }
             break;
         case VAR_SHAPE: {
@@ -188,12 +187,10 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (!server.readTypeCheckingString(inputStorage, type)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", outputStorage);
             }
-            RGBColor col;
+            TraCIColor col;
             if (!server.readTypeCheckingColor(inputStorage, col)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The second polygon parameter must be the color.", outputStorage);
             }
-            TraCIColor tcol = TraCI::makeTraCIColor(col);
-
             int value = 0;
             if (!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);
@@ -209,7 +206,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             TraCIPositionVector tp = TraCI::makeTraCIPositionVector(shape);
 
-            TraCI_Polygon::add(id, tp, tcol, fill, type, layer);
+            TraCI_Polygon::add(id, tp, col, fill, type, layer);
 
         }
             break;

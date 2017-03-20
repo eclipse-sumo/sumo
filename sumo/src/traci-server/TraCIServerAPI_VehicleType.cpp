@@ -4,6 +4,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
+/// @author  Robert Hilbrich
 /// @date    07.05.2009
 /// @version $Id$
 ///
@@ -39,6 +40,7 @@
 #include <microsim/MSVehicleType.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_VehicleType.h"
+#include "lib/TraCI.h"
 
 
 // ===========================================================================
@@ -371,11 +373,11 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
         }
         break;
         case VAR_COLOR: {
-            RGBColor col;
+            TraCIColor col;
             if (!server.readTypeCheckingColor(inputStorage, col)) {
                 return server.writeErrorStatusCmd(cmd, "The color must be given using the according type.", outputStorage);
             }
-            v.setColor(col);
+            v.setColor(TraCI::makeRGBColor(col));
         }
         break;
         case VAR_PARAMETER: {
