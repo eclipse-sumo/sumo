@@ -2,7 +2,7 @@
 /// @file    GNECalibratorVehicleType.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
-/// @version $Id: GNECalibratorVehicleType.h 23530 2017-03-18 11:20:40Z palcraft $
+/// @version $Id$
 ///
 /// VehicleType used by GNECalibrators
 /****************************************************************************/
