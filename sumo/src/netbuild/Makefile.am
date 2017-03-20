@@ -12,6 +12,8 @@ NBHelpers.cpp NBHelpers.h \
 NBLinkPossibilityMatrix.h NBNode.cpp NBNode.h \
 NBNodeCont.cpp NBNodeCont.h \
 NBNodeShapeComputer.cpp NBNodeShapeComputer.h \
+NBPTStop.cpp NBPTStop.h \
+NBPTStopCont.cpp NBPTStopCont.h \
 NBRequest.cpp NBRequest.h \
 NBTrafficLightDefinition.cpp NBTrafficLightDefinition.h \
 NBTrafficLightLogic.cpp NBTrafficLightLogic.h \

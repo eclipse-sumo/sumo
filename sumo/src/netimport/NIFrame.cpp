@@ -3,6 +3,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Gregor Laemmel
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
@@ -261,6 +262,9 @@ NIFrame::fillOptions() {
 
     oc.doRegister("osm.oneway-spread-right", new Option_Bool(false));
     oc.addDescription("osm.oneway-spread-right", "Processing", "Whether one-way roads should be spread to the side instead of centered");
+
+    oc.doRegister("osm.stop-output.length", new Option_Float(100));
+    oc.addDescription("osm.stop-output.length", "Processing", "The default length of a bus/train stop in FLOAT m");
 
     // register opendrive options
     oc.doRegister("opendrive.import-all-lanes", new Option_Bool(false));

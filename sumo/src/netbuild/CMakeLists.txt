@@ -29,6 +29,6 @@ set(netbuild_files
         NBTrafficLightLogic.cpp NBTrafficLightLogic.h
         NBTrafficLightLogicCont.cpp NBTrafficLightLogicCont.h
         NBTypeCont.cpp NBTypeCont.h
-        )
+        NBPTStopCont.cpp NBPTStopCont.h NBPTStop.cpp NBPTStop.h)
 
 add_library(nb STATIC ${netbuild_files})

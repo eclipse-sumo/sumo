@@ -4,6 +4,7 @@
 /// @author  Jakob Erdmann
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
+/// @author  Gregor Laemmel
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
@@ -43,6 +44,7 @@
 #include "NBNode.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBDistrictCont.h"
+#include "NBPTStopCont.h"
 #include <utils/common/UtilExceptions.h>
 
 
@@ -164,6 +166,12 @@ public:
     NBDistrictCont& getDistrictCont() {
         return myDistrictCont;
     }
+
+
+    /// @brief Returns a reference to the pt stop container
+    NBPTStopCont& getPTStopCont() {
+        return myPTStopCont;
+    }
     /// @}
 
     /// @brief notify about style of loaded network (Without internal edges
@@ -219,6 +227,9 @@ protected:
 
     /// @brief The used container for districts
     NBDistrictCont myDistrictCont;
+
+    /// @brief The used container for pt stops
+    NBPTStopCont myPTStopCont;
 
     /// @brief whether a .net.xml without internal edges was loaded
     bool myHaveLoadedNetworkWithoutInternalEdges;

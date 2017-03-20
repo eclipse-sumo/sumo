@@ -4,6 +4,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
+/// @author  Gregor Laemmel
 /// @date    Mon, 14.04.2008
 /// @version $Id$
 ///
@@ -82,7 +83,7 @@ protected:
      */
     struct NIOSMNode {
         NIOSMNode(long long int _id, double _lon, double _lat) :
-            id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), railwayCrossing(false), node(0) {}
+            id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), railwayCrossing(false), ptStopPostion(false), ptStopLength(0), node(0) {}
 
         /// @brief The node's id
         const long long int id;
@@ -96,6 +97,10 @@ protected:
         bool tlsControlled;
         /// @brief Whether this is a railway crossing
         bool railwayCrossing;
+        /// @brief Whether this is a public transport stop position
+        bool ptStopPostion;
+        /// @brief The length of the pt stop
+        double ptStopLength;
         /// @brief the NBNode that was instantiated
         NBNode* node;
 
@@ -255,9 +260,8 @@ protected:
          * @param[in, out] uniqueNodes The nodes container for ensuring uniqueness
          * @param[in] options The options to use
          */
-        NodesHandler(std::map<long long int, NIOSMNode*>& toFill,
-                     std::set<NIOSMNode*, CompareNodes>& uniqueNodes,
-                     bool importElevation);
+        NodesHandler(std::map<long long int, NIOSMNode*>& toFill, std::set<NIOSMNode*,
+                                                                          CompareNodes>& uniqueNodes, const OptionsCont& cont);
 
 
         /// @brief Destructor
@@ -307,6 +311,9 @@ protected:
 
         /// @brief whether elevation data should be imported
         const bool myImportElevation;
+
+        /// @brief the options
+        const OptionsCont & myOptionsCont;
 
 
     private:
