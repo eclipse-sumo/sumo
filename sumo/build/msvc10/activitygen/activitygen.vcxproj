@@ -130,14 +130,6 @@
       <Project>{a003a0ed-38c6-4e03-84d1-ba42d25abc4d}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">
-      <Project>{fc5b65e0-a0b1-40d7-8687-c2fc79e3da47}</Project>
-      <Private>true</Private>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
     <ProjectReference Include="..\zz_foreign_phemlight\zz_foreign_phemlight.vcxproj">
       <Project>{7c75d510-d70a-11e5-a837-0800200c9a66}</Project>
       <Private>false</Private>

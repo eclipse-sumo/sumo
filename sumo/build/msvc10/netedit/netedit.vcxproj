@@ -270,9 +270,6 @@
     <ProjectReference Include="..\zz_foreign_gl2ps\zz_foreign_gl2ps.vcxproj">
       <Project>{272d2367-13fe-45c2-84ad-8480861db43e}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">
-      <Project>{fc5b65e0-a0b1-40d7-8687-c2fc79e3da47}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\zz_foreign_polyfonts\zz_foreign_polyfonts.vcxproj">
       <Project>{306768a4-b73e-4b81-9ec0-b4836efe0504}</Project>
     </ProjectReference>
