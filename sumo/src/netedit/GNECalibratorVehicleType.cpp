@@ -57,13 +57,70 @@
 
 
 GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorParent) :
-    myCalibratorParent(calibratorParent), myVehicleTypeID(calibratorParent->generateVehicleTypeID()) {}
+    myCalibratorParent(calibratorParent), myVehicleTypeID(calibratorParent->generateVehicleTypeID()) {
+    // setset default parameters
+    setAccel();
+    setDecel();
+    setSigma();
+    setTau();
+    setLength();
+    setMinGap();
+    setMaxSpeed();
+    setSpeedFactor();
+    setSpeedDev();
+    setColor();
+    setVClass();
+    setEmissionClass();
+    setShape();
+    setWidth();
+    setFilename();
+    setImpatience();
+    setLaneChangeModel();
+    setCarFollowModel();
+    setPersonCapacity();
+    setContainerCapacity();
+    setBoardingDuration();
+    setLoadingDuration();
+    setLatAlignment();
+    setMinGapLat();
+    setMaxSpeedLat();
+}
 
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID) :
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID, 
+    double accel, double decel, double sigma, double tau, double lenght, double minGap, double maxSpeed, 
+    double speedFactor, double speedDev, const std::string& color, SUMOVehicleClass vClass, const std::string& emissionClass, 
+    SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel, 
+    const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration, 
+    double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) :
     myCalibratorParent(calibratorParent), myVehicleTypeID(calibratorParent->generateVehicleTypeID()) {
     // set parameters using the set functions, to avoid non valid values
     setVehicleTypeID(vehicleTypeID);
+    setAccel(accel);
+    setDecel(decel);
+    setSigma(sigma);
+    setTau(tau);
+    setLength(lenght);
+    setMinGap(minGap);
+    setMaxSpeed(maxSpeed);
+    setSpeedFactor(speedFactor);
+    setSpeedDev(speedDev);
+    setColor(color);
+    setVClass(vClass);
+    setEmissionClass(emissionClass);
+    setShape(shape);
+    setWidth(width);
+    setFilename(filename);
+    setImpatience(impatience);
+    setLaneChangeModel(laneChangeModel);
+    setCarFollowModel(carFollowModel);
+    setPersonCapacity(personCapacity);
+    setContainerCapacity(containerCapacity);
+    setBoardingDuration(boardingDuration);
+    setLoadingDuration(loadingDuration);
+    setLatAlignment(latAlignment);
+    setMinGapLat(minGapLat);
+    setMaxSpeedLat(maxSpeedLat);
 }
 
 
@@ -648,8 +705,8 @@ GNECalibratorVehicleType::setLoadingDuration(std::string loadingDuration) {
 
 bool 
 GNECalibratorVehicleType::setLatAlignment(std::string latAlignment) {
-    if((latAlignment == "left") && (latAlignment == "right") && (latAlignment == "center") &&
-       (latAlignment == "compact") && (latAlignment == "nice") && (latAlignment == "arbitrary")) {
+    if((latAlignment == "left") || (latAlignment == "right") || (latAlignment == "center") ||
+       (latAlignment == "compact") || (latAlignment == "nice") || (latAlignment == "arbitrary")) {
            myLatAlignment = latAlignment;
            return true;
     } else {

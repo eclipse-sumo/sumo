@@ -53,7 +53,13 @@ public:
     GNECalibratorVehicleType(GNECalibrator* calibratorParent);
 
     /// @brief parameter constructor
-    GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID);
+    GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID, 
+        double accel, double decel, double sigma, double tau, double lenght, double minGap, 
+        double maxSpeed, double speedFactor, double speedDev, const std::string& color, 
+        SUMOVehicleClass vClass, const std::string& emissionClass, SUMOVehicleShape shape, 
+        double width, const std::string& filename, double impatience, const std::string& laneChangeModel, 
+        const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration, 
+        double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat);
 
     /// @brief destructor
     ~GNECalibratorVehicleType();
