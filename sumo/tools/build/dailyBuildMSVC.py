@@ -245,24 +245,31 @@ for platform, dllDir in platformDlls:
         subprocess.call(compiler + " /rebuild Debug|%s %s\\%s /out %s" %
                         (platform, options.rootDir, options.addSln, makeAllLog))
     if sumoAllZip:
-        debugZip = sumoAllZip.replace("-all-", "Debug-%s-" % env["FILEPREFIX"])
-        zipf = zipfile.ZipFile(debugZip, 'w', zipfile.ZIP_DEFLATED)
-        debugDllPath = os.path.join(options.rootDir, "..", "debugDll")
-        if platform == "x64":
-            debugDllPath += "64"
-        for dllPath in (os.path.join(options.rootDir, dllDir), debugDllPath):
-            for f in glob.glob(os.path.join(dllPath, "*.dll")) + glob.glob(os.path.join(dllPath, "*", "*.dll")):
-                zipf.write(f, os.path.join(binDir, f[len(dllPath) + 1:]))
-        buildDir = os.path.dirname(os.path.join(options.rootDir, options.project))
-        for f in glob.glob(os.path.join(options.rootDir, options.binDir, "*D.exe")):
-            exe = os.path.basename(f)
-            pdb = exe[:-3] + "pdb"
-            zipf.write(f, os.path.join(binDir, exe))
+        try:
+            debugZip = sumoAllZip.replace("-all-", "Debug-%s-" % env["FILEPREFIX"])
+            zipf = zipfile.ZipFile(debugZip, 'w', zipfile.ZIP_DEFLATED)
+            debugDllPath = os.path.join(options.rootDir, "..", "debugDll")
             if platform == "x64":
-                zipf.write(os.path.join(buildDir, exe[:-5], "x64", "Debug", pdb), os.path.join(binDir, pdb))
-            else:
-                zipf.write(os.path.join(buildDir, exe[:-5], "Debug", pdb), os.path.join(binDir, pdb))
-        zipf.close()
+                debugDllPath += "64"
+            for dllPath in (os.path.join(options.rootDir, dllDir), debugDllPath):
+                for f in glob.glob(os.path.join(dllPath, "*.dll")) + glob.glob(os.path.join(dllPath, "*", "*.dll")):
+                    zipf.write(f, os.path.join(binDir, f[len(dllPath) + 1:]))
+            buildDir = os.path.dirname(os.path.join(options.rootDir, options.project))
+            for f in glob.glob(os.path.join(options.rootDir, options.binDir, "*D.exe")):
+                exe = os.path.basename(f)
+                pdb = exe[:-3] + "pdb"
+                zipf.write(f, os.path.join(binDir, exe))
+                if platform == "x64":
+                    pdbPath = os.path.join(buildDir, exe[:-5], "x64", "Debug", pdb)
+                else:
+                    pdbPath = os.path.join(buildDir, exe[:-5], "Debug", pdb)
+                if os.path.exists(pdbPath):
+                    zipf.write(pdbPath, os.path.join(binDir, pdb))
+            zipf.close()
+        except IOError as ziperr:
+            (errno, strerror) = ziperr.args
+            print("Warning: Could not zip to %s!" % binaryZip, file=log)
+            print("I/O error(%s): %s" % (errno, strerror), file=log)
     runTests(options, env, svnrev)
     log = open(statusLog, 'w')
     status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
