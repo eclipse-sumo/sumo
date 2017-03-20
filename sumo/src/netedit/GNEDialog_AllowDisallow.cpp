@@ -58,7 +58,7 @@ FXIMPLEMENT(GNEDialog_AllowDisallow, FXDialogBox, GNEDialog_AllowDisallowMap, AR
 // ===========================================================================
 
 GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(FXApp* app, std::string *allow) :
-    FXDialogBox(app, ("Edit allowed and disallowed " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBoxExplicit, 0, 0, 1100, 590, 0, 0, 0, 0), 
+    FXDialogBox(app, ("Edit allowed and disallowed " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBoxExplicit, 0, 0, 1100, 580, 0, 0, 0, 0), 
     myAllow(allow),
     myCopyOfAllow(*allow) {
     // set vehicle icon for this dialog
@@ -228,9 +228,9 @@ GNEDialog_AllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
 
 void 
 GNEDialog_AllowDisallow::buildVClass(FXVerticalFrame *contentsFrame, SUMOVehicleClass vclass, GUIIcon icon, const std::string &description) {
-    // add vehicle frame for SVC_PRIVATE
+    // add frame for vehicle icons
     FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(icon), GUIDesignLabelIconVClass);
+    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(icon), GUIDesignLabelIconBig);
     labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
     // create frame for information and button
     FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);
