@@ -151,7 +151,10 @@
 #define GUIDesignLabelOnlyIcon          (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH), 0, 0, 24, 0, 2, 2, 2, 2
 
 /// @brief label ticked filled used for VClasses. It uses icons of 64x32 pixels
-#define GUIDesignLabelIconVClass        (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 94, 47, 2, 2, 2, 2
+#define GUIDesignLabelIconBig        (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 94, 46, 2, 2, 2, 2
+
+/// @brief label ticked filled extended over frame used for VClasses. can be used by icons of 64x32 pixels
+#define GUIDesignLabelIconBigExtended      (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 46, 2, 2, 2, 2
 /// @}
 
 
