@@ -260,30 +260,30 @@ GNECalibrator::setCalibratorRoutes(std::vector<GNECalibratorRoute> calibratorRou
 std::string 
 GNECalibrator::generateVehicleTypeID() const {
     int counter = 0;
-    while(flowExists("calibratorVehicleType_" + toString(counter)) == true) {
+    while(flowExists(toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_VTYPE) + toString(counter)) == true) {
         counter++;
     }
-    return ("calibratorVehicleType_" + toString(counter));
+    return (toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_VTYPE) + toString(counter));
 }
 
 
 std::string 
 GNECalibrator::generateFlowID() const {
     int counter = 0;
-    while(flowExists("calibratorFlow_" + toString(counter)) == true) {
+    while(flowExists(toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_FLOW) + toString(counter)) == true) {
         counter++;
     }
-    return ("calibratorFlow_" + toString(counter));
+    return (toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_FLOW) + toString(counter));
 }
 
 
 std::string 
 GNECalibrator::generateRouteID() const {
     int counter = 0;
-    while(routeExists("calibratorRoute_" + toString(counter)) == true) {
+    while(routeExists(toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_ROUTE) + toString(counter)) == true) {
         counter++;
     }
-    return ("calibratorRoute_" + toString(counter));
+    return (toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_ROUTE) + toString(counter));
 }
 
 
