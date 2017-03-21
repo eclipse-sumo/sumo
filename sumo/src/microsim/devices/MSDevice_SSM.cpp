@@ -86,8 +86,7 @@ MSDevice_SSM::cleanup() {
             static_cast<MSDevice_SSM*>(*ii)->resetEncounters();
             static_cast<MSDevice_SSM*>(*ii)->flushConflicts(true);
         }
-        delete instances;
-        instances = 0;
+        instances->clear();
     }
 }
 
