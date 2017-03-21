@@ -439,13 +439,13 @@ NBNetBuilder::compute(OptionsCont& oc,
         PROGRESS_TIME_MESSAGE(before);
     }
 
+    for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
+        (*i).second->sortOutgoingConnectionsByIndex();
+    }
     // FINISHING INNER EDGES
     if (!oc.getBool("no-internal-links")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Building inner edges");
-        for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
-            (*i).second->sortOutgoingConnectionsByIndex();
-        }
         // walking areas shall only be built if crossings are wished as well
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             (*i).second->buildInnerEdges();
