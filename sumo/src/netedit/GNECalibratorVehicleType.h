@@ -251,7 +251,7 @@ public:
     /**@brief set VClass
      * @return true if was sucesfully set, or false if value isn't valid
      */
-    bool setVClass(SUMOVehicleClass vClass = SVC_IGNORING);
+    bool setVClass(SUMOVehicleClass vClass = SVC_PRIVATE);
 
     /**@brief set VClass (string version)
      * @return true if was sucesfully set, or false if value isn't valid
@@ -271,7 +271,7 @@ public:
     /**@brief set shape
      * @return true if was sucesfully set, or false if value isn't valid
      */
-    bool setShape(SUMOVehicleShape shape = SVS_UNKNOWN);
+    bool setShape(SUMOVehicleShape shape = SVS_PASSENGER);
 
     /**@brief set width
      * @return true if was sucesfully set, or false if value isn't valid
