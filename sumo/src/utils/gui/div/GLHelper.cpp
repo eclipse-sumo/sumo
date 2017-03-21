@@ -511,6 +511,20 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
 
 
 void
+GLHelper::drawTextAtEnd(const std::string& text, const PositionVector& shape, double x, double size, RGBColor color) {
+    glPushMatrix();
+    const Position& end = shape.back();
+    const Position& f = shape[-2];
+    const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
+    glTranslated(end.x(), end.y(), 0);
+    glRotated(rot, 0, 0, 1);
+    GLHelper::drawText(text, Position(x, 0.26), 0, .6 * size / 50, color, 180);
+    glPopMatrix();
+}
+
+
+
+void
 GLHelper::debugVertices(const PositionVector& shape, double size, double layer) {
     RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
     for (int i = 0; i < (int)shape.size(); ++i) {

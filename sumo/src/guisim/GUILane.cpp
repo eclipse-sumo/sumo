@@ -200,8 +200,8 @@ GUILane::drawLinkNo(const GUIVisualizationSettings& s) const {
         MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
         PositionVector shape = getShape();
         shape.extrapolate(0.5); // draw on top of the walking area
-        drawTextAtEnd(toString(link->getIndex()), shape, 0, s.drawLinkJunctionIndex);
-        drawTextAtEnd(toString(link->getIndex()), shape.reverse(), 0, s.drawLinkJunctionIndex);
+        GLHelper::drawTextAtEnd(toString(link->getIndex()), shape, 0, s.drawLinkJunctionIndex.size, s.drawLinkJunctionIndex.color);
+        GLHelper::drawTextAtEnd(toString(link->getIndex()), shape.reverse(), 0, s.drawLinkJunctionIndex.size, s.drawLinkJunctionIndex.color);
         return;
     }
     // draw all links
@@ -210,7 +210,7 @@ GUILane::drawLinkNo(const GUIVisualizationSettings& s) const {
     const bool lefthand = MSNet::getInstance()->lefthand();
     for (int i = noLinks; --i >= 0;) {
         double x2 = x1 - (double)(w / 2.);
-        drawTextAtEnd(toString(myLinks[lefthand ? noLinks - 1 - i : i]->getIndex()), getShape(), x2, s.drawLinkJunctionIndex);
+        GLHelper::drawTextAtEnd(toString(myLinks[lefthand ? noLinks - 1 - i : i]->getIndex()), getShape(), x2, s.drawLinkJunctionIndex.size, s.drawLinkJunctionIndex.color);
         x1 -= w;
     }
 }
@@ -229,8 +229,8 @@ GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) con
         if (linkNo >= 0) {
             PositionVector shape = getShape();
             shape.extrapolate(0.5); // draw on top of the walking area
-            drawTextAtEnd(toString(linkNo), shape, 0, s.drawLinkTLIndex);
-            drawTextAtEnd(toString(linkNo), shape.reverse(), 0, s.drawLinkTLIndex);
+            GLHelper::drawTextAtEnd(toString(linkNo), shape, 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
+            GLHelper::drawTextAtEnd(toString(linkNo), shape.reverse(), 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
         }
         return;
     }
@@ -244,22 +244,9 @@ GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) con
         if (linkNo < 0) {
             continue;
         }
-        drawTextAtEnd(toString(linkNo), getShape(), x2, s.drawLinkTLIndex);
+        GLHelper::drawTextAtEnd(toString(linkNo), getShape(), x2, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
         x1 -= w;
     }
-}
-
-
-void
-GUILane::drawTextAtEnd(const std::string& text, const PositionVector& shape, double x, const GUIVisualizationTextSettings& settings) const {
-    glPushMatrix();
-    const Position& end = shape.back();
-    const Position& f = shape[-2];
-    const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
-    glTranslated(end.x(), end.y(), 0);
-    glRotated(rot, 0, 0, 1);
-    GLHelper::drawText(text, Position(x, 0.26), 0, .6 * settings.size / 50, settings.color, 180);
-    glPopMatrix();
 }
 
 
