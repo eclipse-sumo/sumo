@@ -541,8 +541,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             bool parking = false;
             bool triggered = false;
             bool containerTriggered = false;
-            bool isBusStop = false;
-            bool isContainerStop = false;
+            SumoXMLTag stoppingPlaceType = SUMO_TAG_NOTHING;
             if (compoundSize >= 5) {
                 int stopFlags;
                 if (!server.readTypeCheckingByte(inputStorage, stopFlags)) {
@@ -551,8 +550,18 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 parking = ((stopFlags & 1) != 0);
                 triggered = ((stopFlags & 2) != 0);
                 containerTriggered = ((stopFlags & 4) != 0);
-                isBusStop = ((stopFlags & 8) != 0);
-                isContainerStop = ((stopFlags & 16) != 0);
+                if ((stopFlags & 8) != 0) {
+                    stoppingPlaceType = SUMO_TAG_BUS_STOP;
+                }
+                if ((stopFlags & 16) != 0) {
+                    stoppingPlaceType = SUMO_TAG_BUS_STOP;
+                }
+                if ((stopFlags & 32) != 0) {
+                    stoppingPlaceType = SUMO_TAG_CHARGING_STATION;
+                }
+                if ((stopFlags & 64) != 0) {
+                    stoppingPlaceType = SUMO_TAG_PARKING_AREA;
+                }
             }
             double startPos = pos - POSITION_EPS;
             if (compoundSize >= 6) {
@@ -571,9 +580,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
             }
             std::string error;
-            if (isBusStop || isContainerStop) {
+            if (stoppingPlaceType != SUMO_TAG_NOTHING) {
                 // Forward command to vehicle
-                if (!v->addTraciBusOrContainerStop(roadId, waitTime, until, parking, triggered, containerTriggered, isContainerStop, error)) {
+                if (!v->addTraciStopAtStoppingPlace(roadId, waitTime, until, parking, triggered, containerTriggered, stoppingPlaceType, error)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, error, outputStorage);
                 }
             } else {

@@ -3784,11 +3784,27 @@ MSVehicle::addTraciStop(MSLane* const lane, const double startPos, const double 
 
 
 bool
-MSVehicle::addTraciBusOrContainerStop(const std::string& stopId, const SUMOTime duration, const SUMOTime until, const bool parking,
-                                      const bool triggered, const bool containerTriggered, const bool isContainerStop, std::string& errorMsg) {
+MSVehicle::addTraciStopAtStoppingPlace(const std::string& stopId, const SUMOTime duration, const SUMOTime until, const bool parking,
+                                      const bool triggered, const bool containerTriggered, const SumoXMLTag stoppingPlaceType, std::string& errorMsg) {
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
-        const Named* const stop = isContainerStop ? (Named*)iter->containerstop : iter->busstop;
+        Named* stop = 0;
+        switch (stoppingPlaceType) {
+            case SUMO_TAG_BUS_STOP:
+                stop = iter->busstop;
+                break;
+            case SUMO_TAG_CONTAINER_STOP:
+                stop = iter->containerstop;
+                break;
+            case SUMO_TAG_CHARGING_STATION:
+                stop = iter->chargingStation;
+                break;
+            case SUMO_TAG_PARKING_AREA:
+                stop = iter->parkingarea;
+                break;
+            default:
+                throw ProcessError("Invalid Stopping place type '" + toString(stoppingPlaceType) + "'");
+        }
         if (stop != 0 && stop->getID() == stopId) {
             if (duration == 0 && !iter->reached) {
                 myStops.erase(iter);
@@ -3801,20 +3817,41 @@ MSVehicle::addTraciBusOrContainerStop(const std::string& stopId, const SUMOTime 
 
     SUMOVehicleParameter::Stop newStop;
     MSStoppingPlace* bs = 0;
-    if (isContainerStop) {
-        newStop.containerstop = stopId;
-        bs = MSNet::getInstance()->getContainerStop(stopId);
-        if (bs == 0) {
-            errorMsg = "The container stop '" + stopId + "' is not known for vehicle '" + getID() + "'";
-            return false;
-        }
-    } else {
-        newStop.busstop = stopId;
-        bs = MSNet::getInstance()->getBusStop(stopId);
-        if (bs == 0) {
-            errorMsg = "The bus stop '" + stopId + "' is not known for vehicle '" + getID() + "'";
-            return false;
-        }
+    switch (stoppingPlaceType) {
+        case SUMO_TAG_BUS_STOP:
+            newStop.busstop = stopId;
+            bs = MSNet::getInstance()->getBusStop(stopId);
+            if (bs == 0) {
+                errorMsg = "The bus stop '" + stopId + "' is not known for vehicle '" + getID() + "'";
+                return false;
+            }
+            break;
+        case SUMO_TAG_CONTAINER_STOP:
+            newStop.containerstop = stopId;
+            bs = MSNet::getInstance()->getContainerStop(stopId);
+            if (bs == 0) {
+                errorMsg = "The container stop '" + stopId + "' is not known for vehicle '" + getID() + "'";
+                return false;
+            }
+            break;
+        case SUMO_TAG_CHARGING_STATION:
+            newStop.chargingStation = stopId;
+            bs = MSNet::getInstance()->getChargingStation(stopId);
+            if (bs == 0) {
+                errorMsg = "The charging station '" + stopId + "' is not known for vehicle '" + getID() + "'";
+                return false;
+            }
+            break;
+        case SUMO_TAG_PARKING_AREA:
+            newStop.parkingarea = stopId;
+            bs = MSNet::getInstance()->getParkingArea(stopId);
+            if (bs == 0) {
+                errorMsg = "The parking area '" + stopId + "' is not known for vehicle '" + getID() + "'";
+                return false;
+            }
+            break;
+        default:
+            throw ProcessError("Invalid Stopping place type '" + toString(stoppingPlaceType) + "'");
     }
     newStop.duration = duration;
     newStop.until = until;

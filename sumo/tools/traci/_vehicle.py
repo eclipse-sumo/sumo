@@ -139,6 +139,8 @@ class VehicleDomain(Domain):
     STOP_CONTAINER_TRIGGERED = 4
     STOP_BUS_STOP = 8
     STOP_CONTAINER_STOP = 16
+    STOP_CHARGING_STATION = 32
+    STOP_PARKING_AREA = 64
 
     DEPART_LANE_RANDOM = -2
     DEPART_LANE_FREE = -3
@@ -669,6 +671,24 @@ class VehicleDomain(Domain):
         """
         self.setStop(vehID, stopID, duration=duration, until=until,
                      flags=flags | self.STOP_CONTAINER_STOP)
+
+    def setChargingStationStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_DEFAULT):
+        """setContainerStop(string, string, integer, integer, integer) -> None
+
+        Adds or modifies a container stop with the given parameters. The duration and the until attribute are
+        in milliseconds.
+        """
+        self.setStop(vehID, stopID, duration=duration, until=until,
+                     flags=flags | self.STOP_CHARGING_STATION)
+
+    def setParkingAreaStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_PARKING):
+        """setContainerStop(string, string, integer, integer, integer) -> None
+
+        Adds or modifies a container stop with the given parameters. The duration and the until attribute are
+        in milliseconds.
+        """
+        self.setStop(vehID, stopID, duration=duration, until=until,
+                     flags=flags | self.STOP_PARKING_AREA)
 
     def resume(self, vehID):
         """resume(string) -> None

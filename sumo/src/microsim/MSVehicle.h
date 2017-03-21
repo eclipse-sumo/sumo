@@ -1174,10 +1174,10 @@ public:
      * @param parking   a flag indicating whether the traci stop is used for parking or not
      * @param triggered a flag indicating whether the traci stop is triggered or not
      * @param containerTriggered a flag indicating whether the traci stop is triggered by a container or not
-     * @param isContainerStop a flag indicating whether the stop is a container stop
+     * @param stoppingPlaceType a flag indicating the type of stopping place
      */
-    bool addTraciBusOrContainerStop(const std::string& stopId, const SUMOTime duration, const SUMOTime until, const bool parking,
-                                    const bool triggered, const bool containerTriggered, const bool isContainerStop, std::string& errorMsg);
+    bool addTraciStopAtStoppingPlace(const std::string& stopId, const SUMOTime duration, const SUMOTime until, const bool parking,
+                                    const bool triggered, const bool containerTriggered, const SumoXMLTag stoppingPlaceType, std::string& errorMsg);
 
     /**
     * returns the next imminent stop in the stop queue

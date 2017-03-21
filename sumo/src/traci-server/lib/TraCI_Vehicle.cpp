@@ -353,11 +353,13 @@ TraCI_Vehicle::getStopState(const std::string& vehicleID) {
     int result = 0;
     if (veh->isStopped()) {
         const MSVehicle::Stop& stop = veh->getNextStop();
-        result = 1 + (stop.parking ? 2 : 0) +
+        result = (1 + (stop.parking ? 2 : 0) +
             (stop.triggered ? 4 : 0) +
             (stop.containerTriggered ? 8 : 0) +
             (stop.busstop != 0 ? 16 : 0) +
-            (stop.containerstop != 0 ? 32 : 0);
+            (stop.containerstop != 0 ? 32 : 0) +
+            (stop.chargingStation != 0 ? 64 : 0) +
+            (stop.parkingarea != 0 ? 128 : 0));
     }
     return result;
 }
