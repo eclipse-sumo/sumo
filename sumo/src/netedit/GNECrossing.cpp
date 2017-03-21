@@ -146,6 +146,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // pop three draw matrix
             glPopMatrix();
         }
+        // XXX draw junction index / tls index
         // pop second draw matrix
         glPopMatrix();
         // traslate to back

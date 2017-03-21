@@ -258,10 +258,10 @@ private:
     void drawMarkings(const bool& selectedEdge, double scale) const;
 
     /// @brief draw link Number
-    void drawLinkNo() const;
+    void drawLinkNo(const GUIVisualizationSettings& s) const;
 
     /// @brief draw TLS Link Number
-    void drawTLSLinkNo() const;
+    void drawTLSLinkNo(const GUIVisualizationSettings& s) const;
 
     /// @brief draw link rules
     void drawLinkRules() const;

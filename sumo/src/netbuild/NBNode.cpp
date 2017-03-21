@@ -2598,6 +2598,26 @@ NBNode::numNormalConnections() const {
     return myRequest->getSizes().second;
 }
 
+
+int 
+NBNode::getConnectionIndex(const NBEdge* from, const NBEdge::Connection& con) const {
+    int result = 0;
+    for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
+        const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
+        for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
+            const NBEdge::Connection& cand = *k;
+            if (*i == from 
+                    && cand.fromLane == con.fromLane
+                    && cand.toLane == con.toLane
+                    && cand.toEdge == con.toEdge) {
+                return result;
+            };
+            result++;
+        }
+    }
+    return -1;
+}
+
 Position
 NBNode::getCenter() const {
     /* Conceptually, the center point would be identical with myPosition.

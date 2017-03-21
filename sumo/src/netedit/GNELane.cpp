@@ -95,12 +95,46 @@ GNELane::~GNELane() {
 
 
 void
-GNELane::drawLinkNo() const {
+GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
+    const std::vector<NBEdge::Connection>& cons = myParentEdge.getNBEdge()->getConnectionsFromLane(myIndex);
+    int noLinks = (int)cons.size();
+    if (noLinks == 0) {
+        return;
+    }
+    // draw all links
+    glPushMatrix();
+    glTranslated(0, 0, GLO_LANE + 0.1);
+    double w = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
+    double x1 = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2;
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+    for (int i = noLinks; --i >= 0;) {
+        double x2 = x1 - (double)(w / 2.);
+        const int linkIndex = myParentEdge.getNBEdge()->getToNode()->getConnectionIndex(myParentEdge.getNBEdge(), 
+                cons[lefthand ? noLinks - 1 - i : i]);
+        GLHelper::drawTextAtEnd(toString(linkIndex), getShape(), x2, s.drawLinkJunctionIndex.size, s.drawLinkJunctionIndex.color);
+        x1 -= w;
+    }
+    glPopMatrix();
 }
 
 
 void
-GNELane::drawTLSLinkNo() const {
+GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
+    /*
+    // draw all links
+    double w = myWidth / (double) noLinks;
+    double x1 = myHalfLaneWidth;
+    const bool lefthand = MSNet::getInstance()->lefthand();
+    for (int i = noLinks; --i >= 0;) {
+        double x2 = x1 - (double)(w / 2.);
+        int linkNo = net.getLinkTLIndex(myLinks[lefthand ? noLinks - 1 - i : i]);
+        if (linkNo < 0) {
+            continue;
+        }
+        GLHelper::drawTextAtEnd(toString(linkNo), getShape(), x2, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
+        x1 -= w;
+    }
+    */
 }
 
 
@@ -323,6 +357,12 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Draw direction indicators if the correspondient option is enabled
         if (s.showLaneDirection) {
             drawDirectionIndicators();
+        }
+        if (s.drawLinkJunctionIndex.show) {
+            drawLinkNo(s);
+        }
+        if (s.drawLinkTLIndex.show) {
+            drawTLSLinkNo(s);
         }
         // If there are texture of restricted lanes to draw, and draw lane icons is enabled in options
         if ((OptionsCont::getOptions().getBool("disable-laneIcons") == false) && myLaneRestrictedTexturePositions.size() > 0) {

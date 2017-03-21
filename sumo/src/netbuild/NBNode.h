@@ -647,6 +647,9 @@ public:
     /// @brief sort all edge containers for this node
     void sortEdges(bool useNodeShape);
 
+    /// @brief return the index of the given connection
+    int getConnectionIndex(const NBEdge* from, const NBEdge::Connection& con) const;
+
     /**
      * @class nodes_by_id_sorter
      * @brief Used for sorting the cells by the begin time they describe
