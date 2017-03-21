@@ -46,6 +46,7 @@ class NBEdgeCont;
 class NBNetBuilder;
 class NBNode;
 class NBNodeCont;
+class NBPTStopCont;
 class NBTrafficLightLogicCont;
 class NBTypeCont;
 class OptionsCont;
