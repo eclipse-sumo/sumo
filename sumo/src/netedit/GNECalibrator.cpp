@@ -221,38 +221,38 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
 }
 
 
-std::vector<GNECalibratorVehicleType>
+const std::vector<GNECalibratorVehicleType>&
 GNECalibrator::getCalibratorVehicleTypes() const {
     return myCalibratorVehicleTypes;
 }
 
 
-std::vector<GNECalibratorFlow>
+const std::vector<GNECalibratorFlow>&
 GNECalibrator::getCalibratorFlows() const {
     return myCalibratorFlows;
 }
 
 
-std::vector<GNECalibratorRoute> 
+const std::vector<GNECalibratorRoute>&
 GNECalibrator::getCalibratorRoutes() const {
     return myCalibratorRoutes;
 }
 
 
 void 
-GNECalibrator::setCalibratorVehicleTypes(std::vector<GNECalibratorVehicleType> calibratorVehicleTypes) {
+GNECalibrator::setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType> &calibratorVehicleTypes) {
     myCalibratorVehicleTypes = calibratorVehicleTypes;
 }
 
 
 void 
-GNECalibrator::setCalibratorFlows(std::vector<GNECalibratorFlow> calibratorFlows) {
+GNECalibrator::setCalibratorFlows(const std::vector<GNECalibratorFlow> &calibratorFlows) {
     myCalibratorFlows = calibratorFlows;
 }
 
 
 void 
-GNECalibrator::setCalibratorRoutes(std::vector<GNECalibratorRoute> calibratorRoutes) {
+GNECalibrator::setCalibratorRoutes(const std::vector<GNECalibratorRoute> &calibratorRoutes) {
     myCalibratorRoutes = calibratorRoutes;
 }
 
@@ -260,7 +260,7 @@ GNECalibrator::setCalibratorRoutes(std::vector<GNECalibratorRoute> calibratorRou
 std::string 
 GNECalibrator::generateVehicleTypeID() const {
     int counter = 0;
-    while(flowExists(toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_VTYPE) + toString(counter)) == true) {
+    while(vehicleTypeExists(toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_VTYPE) + toString(counter)) == true) {
         counter++;
     }
     return (toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_VTYPE) + toString(counter));

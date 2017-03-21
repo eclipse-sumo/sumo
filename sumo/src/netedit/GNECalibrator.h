@@ -91,22 +91,22 @@ public:
     void writeAdditional(OutputDevice& device) const;
 
     /// @brief get calibrator vehicleTypes
-    std::vector<GNECalibratorVehicleType> getCalibratorVehicleTypes() const;
+    const std::vector<GNECalibratorVehicleType>& getCalibratorVehicleTypes() const;
 
     /// @brief get calibrator flows
-    std::vector<GNECalibratorFlow> getCalibratorFlows() const;
+    const std::vector<GNECalibratorFlow>& getCalibratorFlows() const;
 
     /// @brief get calibrator routes
-    std::vector<GNECalibratorRoute> getCalibratorRoutes() const;
+    const std::vector<GNECalibratorRoute>& getCalibratorRoutes() const;
 
     /// @brief set calibrator vehicleTypes values
-    void setCalibratorVehicleTypes(std::vector<GNECalibratorVehicleType> calibratorVehicleType);
+    void setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType> &calibratorVehicleType);
 
     /// @brief set calibrator flow values
-    void setCalibratorFlows(std::vector<GNECalibratorFlow> calibratorFlows);
+    void setCalibratorFlows(const std::vector<GNECalibratorFlow> &calibratorFlows);
 
     /// @brief set calibrator route values
-    void setCalibratorRoutes(std::vector<GNECalibratorRoute> calibratorRoutes);
+    void setCalibratorRoutes(const std::vector<GNECalibratorRoute> &calibratorRoutes);
 
     /// @brief generate a vehicleType ID
     std::string generateVehicleTypeID() const;
