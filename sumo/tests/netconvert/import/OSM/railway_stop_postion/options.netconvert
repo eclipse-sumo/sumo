@@ -1,0 +1,1 @@
+--osm-files osm.xml -o net.net.xml  --osm.stop-output.length 200 --pt-stop-output additional.xml
