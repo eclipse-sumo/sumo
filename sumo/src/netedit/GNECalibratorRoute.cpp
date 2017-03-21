@@ -159,6 +159,16 @@ GNECalibratorRoute::setEdges(const std::vector<GNEEdge*>& edges) {
     return true;
 }
 
+bool 
+GNECalibratorRoute::setEdges(const std::string& edgeIDs) {
+    if(GNEAttributeCarrier::isValidStringVector(edgeIDs)) {
+        std::vector<std::string> edges;
+        SUMOSAXAttributes::parseStringVector(edgeIDs, edges);
+        return setEdges(edges);
+    } else {
+        return false;
+    }
+}
 
 bool
 GNECalibratorRoute::setColor(std::string color) {

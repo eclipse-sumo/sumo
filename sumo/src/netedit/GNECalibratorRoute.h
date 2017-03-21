@@ -95,6 +95,11 @@ public:
     */
     bool setEdges(const std::vector<GNEEdge*>& edges);
 
+    /**@brief set edges of route using a single string
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setEdges(const std::string& edgeIDs);
+
     /**@brief set color of route
     * @return true if was sucesfully set, or false if value isn't valid
     */
