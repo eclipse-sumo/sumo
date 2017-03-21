@@ -129,7 +129,7 @@ public:
         SUMOAbstractRouter<E, V>(effortOperation, "DijkstraRouterEffort"), myTTOperation(ttOperation),
         myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
         for (typename std::vector<EdgeInfo>::const_iterator i = edgeInfos.begin(); i != edgeInfos.end(); ++i) {
-            myEdgeInfos.push_back(*i);
+            myEdgeInfos.push_back(EdgeInfo(i->edge));
         }
     }
 
