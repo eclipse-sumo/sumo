@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    NBPtStopCont.h
+/// @file    NBPTStopCont.h
 /// @author  Gregor Laemmel
 /// @date    Tue, 20 Mar 2017
 /// @version $Id: NBPTStopCont.h 23150 2017-02-27 12:08:30Z behrisch $
@@ -24,6 +24,9 @@
 #include <string>
 #include <map>
 #include "NBPTStop.h"
+
+class NBEdgeCont;
+
 class NBPTStopCont {
 
 public:
@@ -39,6 +42,23 @@ public:
         return (int) myPTStops.size();
     }
 
+    /** @brief Returns the pointer to the begin of the stored pt stops
+    * @return The iterator to the beginning of stored pt stops
+    */
+    std::map<std::string, NBPTStop*>::const_iterator begin() const {
+        return myPTStops.begin();
+    }
+
+
+    /** @brief Returns the pointer to the end of the stored pt stops
+     * @return The iterator to the end of stored pt stops
+     */
+    std::map<std::string, NBPTStop*>::const_iterator end() const {
+        return myPTStops.end();
+    }
+
+
+    void process(NBEdgeCont& cont);
 private:
     /// @brief Definition of the map of names to pt stops
     typedef std::map<std::string, NBPTStop*> PTStopsCont;

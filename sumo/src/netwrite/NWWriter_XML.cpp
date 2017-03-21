@@ -70,6 +70,9 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (oc.isSet("street-sign-output")) {
         writeStreetSigns(oc, nb.getEdgeCont());
     }
+    if (oc.isSet("pt-stop-output")){
+        writePTStops(oc,nb.getPTStopCont());
+    }
 }
 
 
@@ -365,6 +368,18 @@ NWWriter_XML::writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec) {
     }
     device.close();
 }
+void
+NWWriter_XML::writePTStops(const OptionsCont& oc, NBPTStopCont& sc) {
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("pt-stop-output"));
+    device.writeXMLHeader("additional", "additional_file.xsd");
+    for (std::map<std::string,NBPTStop*>::const_iterator i = sc.begin(); i != sc.end(); ++i) {
+        i->second->write(device);
+    }
+    device.close();
+}
+
+
+/****************************************************************************/
 
 
 /****************************************************************************/

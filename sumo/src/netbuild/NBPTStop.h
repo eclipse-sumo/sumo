@@ -27,6 +27,8 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
+class OutputDevice;
 /**
 * @class NBPTStop
 * @brief The representation of a single pt stop
@@ -43,16 +45,26 @@ public:
     NBPTStop(std::string ptStopId, Position position, std::string edgeId, double length);
     std::string getID() const;
 
+    const std::string getEdgeId();
+    const Position& getPosition();
+    void computExtent(double center, double d);
+    void setLaneID(const std::string& laneId);
+    void write(OutputDevice& device);
+    void reshiftPostion(const double offsetX, const double offsetY);
 private:
     const std::string myPTStopId;
-    const Position myPosition;
+    Position myPosition;
     const std::string myEdgeId;
     const double myPTStopLength;
-
+    std::string myLaneId;
+    double myFrom;
+    double myTo;
+    bool friendlyPos = false;
 
 private:
     /// @brief Invalidated assignment operator.
     NBPTStop& operator=(const NBPTStop&);
+
 
 };
 

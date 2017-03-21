@@ -458,6 +458,8 @@ public:
     /// @brief Returns the edge with negated id if it exists
     NBEdge* getOppositeByID(const std::string& edgeID) const;
 
+    /// @brief Returns the edge with id if it exists
+    NBEdge* getByID(const std::string& edgeID) const;
 
     /** @brief Determines which edges belong to roundabouts and increases their priority
      * @param[out] marked Edges which belong to a roundabout are stored here
@@ -544,7 +546,7 @@ public:
     /// @brief check whether edges are to steep
     void checkGrade(double threshold) const;
 
-private:
+
     /** @brief Returns the edges which have been built by splitting the edge of the given id
      *
      * @param[in] id The id of the original edge
@@ -553,7 +555,7 @@ private:
      */
     EdgeVector getGeneratedFrom(const std::string& id) const;
 
-
+private:
     /// @brief compute the form factor for a loop of edges
     static double formFactor(const EdgeVector& loopEdges);
 

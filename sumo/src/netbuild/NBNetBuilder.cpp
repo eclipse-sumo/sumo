@@ -482,6 +482,12 @@ NBNetBuilder::compute(OptionsCont& oc,
         myEdgeCont.checkGrade(oc.getFloat("geometry.max-grade") / 100);
         PROGRESS_TIME_MESSAGE(before);
     }
+    if (oc.isSet("pt-stop-output")) {
+        before = SysUtils::getCurrentMillis();
+        PROGRESS_BEGIN_MESSAGE("Processing pt stops");
+        myPTStopCont.process(myEdgeCont);
+        PROGRESS_TIME_MESSAGE(before);
+    }
 
     // report
     WRITE_MESSAGE("-----------------------------------------------------");
@@ -519,6 +525,9 @@ NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper, bool lefthand) {
     }
     for (std::map<std::string, NBDistrict*>::const_iterator i = myDistrictCont.begin(); i != myDistrictCont.end(); ++i) {
         (*i).second->reshiftPosition(x, y);
+    }
+    for (std::map<std::string,NBPTStop*>::const_iterator i = myPTStopCont.begin(); i != myPTStopCont.end(); ++i) {
+        (*i).second->reshiftPostion(x,y);
     }
     geoConvHelper.moveConvertedBy(x, y);
     PROGRESS_TIME_MESSAGE(before);

@@ -826,6 +826,11 @@ NBEdgeCont::getOppositeByID(const std::string& edgeID) const {
     return it != myEdges.end() ? it->second : (NBEdge*)0;
 }
 
+NBEdge*
+NBEdgeCont::getByID(const std::string& edgeID) const {
+    EdgeCont::const_iterator it = myEdges.find(edgeID);
+    return it != myEdges.end() ? it->second : (NBEdge*)0;
+}
 
 // ----- other
 void

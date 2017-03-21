@@ -17,6 +17,7 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
+#include <utils/iodevices/OutputDevice.h>
 #include "NBPTStop.h"
 NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, double length):
     myPTStopId(ptStopId),
@@ -29,4 +30,38 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
 std::string
 NBPTStop::getID() const {
     return myPTStopId;
+}
+
+const std::string
+NBPTStop::getEdgeId() {
+    return myEdgeId;
+}
+const Position& NBPTStop::getPosition() {
+    return myPosition;
+}
+void NBPTStop::computExtent(double center, double edgeLength) {
+    myFrom = center - myPTStopLength/2.;
+    myTo = center + myPTStopLength/2.;
+    if (myFrom < 0 || myTo > edgeLength) {
+        friendlyPos = true;
+    }
+}
+void NBPTStop::setLaneID(const std::string& laneId) {
+    myLaneId = laneId;
+}
+void NBPTStop::write(OutputDevice& device) {
+    device.openTag(SUMO_TAG_BUS_STOP);
+    device.writeAttr(SUMO_ATTR_ID,myPTStopId);
+    device.writeAttr(SUMO_ATTR_LANE,myLaneId);
+    device.writeAttr(SUMO_ATTR_STARTPOS,myFrom);
+    device.writeAttr(SUMO_ATTR_ENDPOS,myTo);
+    if (friendlyPos) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS,"true");
+    }
+    device.closeTag();
+
+}
+void NBPTStop::reshiftPostion(const double offsetX, const double offsetY) {
+    myPosition.add(offsetX, offsetY, 0);
+
 }
