@@ -69,23 +69,47 @@ public:
 
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
+
+    /// @brief event after change value
+    long onCmdSetVariable(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
     /// @brief FOX needs this
     GNECalibratorRouteDialog() {}
 
+    /// @brief update data fields
+    void updateCalibratorRouteValues();
+
     /// @brief pointer to GNECalibratorDialog parent
     GNECalibratorDialog* myCalibratorDialogParent;
 
-    /// @brief pointer to rerouter interval
+    /// @brief pointer to modified rerouter interval
     GNECalibratorRoute* myCalibratorRoute;
 
-    /// @brief flag to check if current calibrator route is valid
+    /// @brief pointer in which save modifications of CalibratorRoute
+    GNECalibratorRoute* myCopyOfCalibratorRoute;
+
+    /// @brief flag to check if current calibrator vehicleType is valid
     bool myCalibratorRouteValid;
 
-    /// @brief update data fields
-    void updateCalibratorRouteValues();
+    /// @brief current sumo attribute invalid
+    SumoXMLAttr myInvalidAttr;
+
+    /// @brief route ID
+    FXTextField *myTextFieldRouteID;
+
+    /// @brief list of edges (string)
+    FXTextField *myTextFieldEdges;
+
+    /// @brief color of route
+    FXTextField *myTextFieldColor;
+
+    /// @brief list of edges of net
+    FXList* myListOfEdgesOfNet;
+
+    /// @brief list of edges of route
+    FXList* myListOfEdgesOfRoute;
 
 private:
     /// @brief Invalidated copy constructor.

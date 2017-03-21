@@ -46,9 +46,10 @@
 // ===========================================================================
 
 FXDEFMAP(GNECalibratorRouteDialog) GNECalibratorRouteDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,           GNECalibratorRouteDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,           GNECalibratorRouteDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_RESET,            GNECalibratorRouteDialog::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,   GNECalibratorRouteDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,   GNECalibratorRouteDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_RESET,    GNECalibratorRouteDialog::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_SET_VARIABLE,  GNECalibratorRouteDialog::onCmdSetVariable),
 };
 
 // Object implementation
@@ -59,7 +60,7 @@ FXIMPLEMENT(GNECalibratorRouteDialog, FXDialogBox, GNECalibratorRouteDialogMap, 
 // ===========================================================================
 
 GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute &calibratorRoute) :
-    GNEAdditionalDialog(calibratorRoute.getCalibratorParent(), 640, 480),
+    GNEAdditionalDialog(calibratorRoute.getCalibratorParent(), 400, 300),
     myCalibratorDialogParent(calibratorDialog),
     myCalibratorRoute(&calibratorRoute),
     myCalibratorRouteValid(true) {
@@ -67,68 +68,51 @@ GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorDialog* calibrat
     changeAdditionalDialogHeader("Edit " + toString(calibratorRoute.getTag()) + " of " + toString(calibratorRoute.getCalibratorParent()->getTag()) +
                                  " '" + calibratorRoute.getCalibratorParent()->getID() + "'");
 
-    /*
-    // Create auxiliar frames for tables
+    // Create auxiliar frames for data
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     
-    // create horizontal frame for begin and end label
-    FXHorizontalFrame* beginEndElementsLeft = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " of " + toString(calibratorRoute.getTag())).c_str(), 0, GUIDesignLabelLeftThick);
-    myCheckLabel = new FXLabel(beginEndElementsLeft, "", 0, GUIDesignLabelOnlyIcon);
+    // create ID's elements
+    new FXLabel(columnLeft, toString(SUMO_ATTR_ID).c_str(), 0, GUIDesignLabelLeftThick);
+    myTextFieldRouteID = new FXTextField(columnRight, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    
+    // create list of edge's elements
+    new FXLabel(columnLeft, toString(SUMO_ATTR_EDGES).c_str(), 0, GUIDesignLabelLeftThick);
+    myTextFieldEdges = new FXTextField(columnRight, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    
+    // create color's elements
+    new FXLabel(columnLeft, toString(SUMO_ATTR_COLOR).c_str(), 0, GUIDesignLabelLeftThick);
+    myTextFieldColor = new FXTextField(columnRight, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    
+    // create Edges of net's elements
+    new FXLabel(columnLeft, (toString(SUMO_TAG_EDGE) + "s of " + toString(SUMO_TAG_NET)).c_str(), 0, GUIDesignLabelLeftThick);
+    myListOfEdgesOfNet = new FXList(columnLeft, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignListExtended);
 
-    // create horizontal frame for begin and end text fields
-    FXHorizontalFrame* beginEndElementsRight = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myBeginTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_CHANGESTART, GUIDesignTextFieldReal);
-    myBeginTextField->setText(toString(myCalibratorRoute->getBegin()).c_str());
-    myEndTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_CHANGEEND, GUIDesignTextFieldReal);
-    myEndTextField->setText(toString(myCalibratorRoute->getEnd()).c_str());
+    // create Edges of route's elements
+    new FXLabel(columnRight, ("current " + toString(SUMO_TAG_EDGE) + "s of " + toString(SUMO_TAG_ROUTE)).c_str(), 0, GUIDesignLabelLeftThick);
+    myListOfEdgesOfRoute = new FXList(columnRight, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignListExtended);
 
-    // set interval flag depending if interval exists
-    if (myCalibratorDialogParent->findInterval(myCalibratorRoute->getBegin(), myCalibratorRoute->getEnd())) {
-        myCheckLabel->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
-        myBeginEndValid = true;
-    } else {
-        myCheckLabel->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
-        myBeginEndValid = false;
+    // fill list of net's edges
+    std::vector<GNEEdge*> edgesOfNet = calibratorRoute.getCalibratorParent()->getViewNet()->getNet()->retrieveEdges();
+    for(std::vector<GNEEdge*>::iterator i = edgesOfNet.begin(); i != edgesOfNet.end(); i++) {
+        myListOfEdgesOfNet->appendItem((*i)->getID().c_str());
     }
 
-    // Create labels and tables
-    FXHorizontalFrame* buttonAndLabelClosingLaneReroute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myAddCalibratorRoute = new FXButton(buttonAndLabelClosingLaneReroute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGLANEREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelClosingLaneReroute, ("Add new " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
-    myClosingLaneRerouteList = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGLANEREROUTE, GUIDesignTableAdditionals);
-    myClosingLaneRerouteList->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myClosingLaneRerouteList->setSelTextColor(FXRGBA(0, 0, 0, 255));
+    // create copy of GNECalibratorRoute
+    myCopyOfCalibratorRoute = new GNECalibratorRoute(myCalibratorRoute->getCalibratorParent());
 
-    FXHorizontalFrame* buttonAndLabelClosinReroute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myAddClosingReroutes = new FXButton(buttonAndLabelClosinReroute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelClosinReroute, ("Add new " + toString(SUMO_TAG_CLOSING_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
-    myClosingRerouteList = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGREROUTE, GUIDesignTableAdditionals);
-    myClosingRerouteList->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myClosingRerouteList->setSelTextColor(FXRGBA(0, 0, 0, 255));
+    // copy all values of myCalibratorRoute into myCopyOfCalibratorRoute to set initial values
+    (*myCopyOfCalibratorRoute) = (*myCalibratorRoute);
 
-    FXHorizontalFrame* buttonAndLabelDestProbReroute = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myAddDestProbReroutes = new FXButton(buttonAndLabelDestProbReroute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelDestProbReroute, ("Add new " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
-    myDestProbRerouteList = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE, GUIDesignTableAdditionals);
-    myDestProbRerouteList->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myDestProbRerouteList->setSelTextColor(FXRGBA(0, 0, 0, 255));
-
-    FXHorizontalFrame* buttonAndLabelRouteProbReroute = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myAddRouteProbReroute = new FXButton(buttonAndLabelRouteProbReroute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelRouteProbReroute, ("Add new " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
-    myRouteProbRerouteList = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE, GUIDesignTableAdditionals);
-    myRouteProbRerouteList->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myRouteProbRerouteList->setSelTextColor(FXRGBA(0, 0, 0, 255));
-    */
     // update tables
     updateCalibratorRouteValues();
 }
 
 
 GNECalibratorRouteDialog::~GNECalibratorRouteDialog() {
+    // delete copy
+    delete myCopyOfCalibratorRoute;
 }
 
 
@@ -141,9 +125,8 @@ GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                                " cannot be updated because " + toString(myCalibratorRoute->getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
         return 0;
     } else {
-        // set new calibrator route
-        // myCalibratorRoute->set....
-        // Stop Modal
+        // copy all values of myCopyOfCalibratorRoute into myCalibratorRoute
+        (*myCalibratorRoute) = (*myCopyOfCalibratorRoute);
         getApp()->stopModal(this, TRUE);
         return 1;
     }
@@ -160,73 +143,65 @@ GNECalibratorRouteDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorRouteDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // set default values
-    // fields->set(---)
-    // update tables
+    // copy all values of myCalibratorRoute into myCopyOfCalibratorRoute to set initial values
+    (*myCopyOfCalibratorRoute) = (*myCalibratorRoute);
+    // update fields
     updateCalibratorRouteValues();
+    return 1;
+}
+
+
+long 
+GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
+ // At start we assumed, that all values are valid
+    myCalibratorRouteValid = true;
+    myInvalidAttr = SUMO_ATTR_NOTHING;
+
+    // set color of myTextFieldRouteID, depending if current value is valid or not
+    if(myCopyOfCalibratorRoute->getRouteID() == myTextFieldRouteID->getText().text()) {
+        myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));
+    } else if(myCopyOfCalibratorRoute->setRouteID(myTextFieldRouteID->getText().text()) == true) {
+        myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldRouteID->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorRouteValid = false;
+        myInvalidAttr = SUMO_ATTR_ID;
+    }
+
+    // set color of myTextFieldRouteEdges, depending if current value is valEdges or not
+    if(myCopyOfCalibratorRoute->setEdges(myTextFieldEdges->getText().text()) == true) {
+        myTextFieldEdges->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldEdges->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorRouteValid = false;
+        myInvalidAttr = SUMO_ATTR_EDGES;
+    }
+
+    // set color of myTextFieldColor, depending if current value is valid or not
+    if(myCopyOfCalibratorRoute->getColor() == myTextFieldColor->getText().text()) {
+        myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
+    } else if(myCopyOfCalibratorRoute->setColor(myTextFieldColor->getText().text()) == true) {
+        myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorRouteValid = false;
+        myInvalidAttr = SUMO_ATTR_COLOR;
+    }
     return 1;
 }
 
 
 void
 GNECalibratorRouteDialog::updateCalibratorRouteValues() {
-    /*
-    // clear table
-    myClosingLaneRerouteList->clearItems();
-    // set number of rows
-    myClosingLaneRerouteList->setTableSize(int(myCopyOfCalibratorRoute.size()), 5);
-    // Configure list
-    myClosingLaneRerouteList->setVisibleColumns(5);
-    myClosingLaneRerouteList->setColumnWidth(0, 83);
-    myClosingLaneRerouteList->setColumnWidth(1, 83);
-    myClosingLaneRerouteList->setColumnWidth(2, 82);
-    myClosingLaneRerouteList->setColumnWidth(3, GUIDesignTableIconCellWidth);
-    myClosingLaneRerouteList->setColumnWidth(4, GUIDesignTableIconCellWidth);
-    myClosingLaneRerouteList->setColumnText(0, toString(SUMO_ATTR_LANE).c_str());
-    myClosingLaneRerouteList->setColumnText(1, toString(SUMO_ATTR_ALLOW).c_str());
-    myClosingLaneRerouteList->setColumnText(2, toString(SUMO_ATTR_DISALLOW).c_str());
-    myClosingLaneRerouteList->setColumnText(3, "");
-    myClosingLaneRerouteList->setColumnText(4, "");
-    myClosingLaneRerouteList->getRowHeader()->setWidth(0);
-    // Declare index for rows and pointer to FXTableItem
-    int indexRow = 0;
-    FXTableItem* item = 0;
-    // iterate over values
-    for (GNECalibratorRoute::iterator i = myCopyOfCalibratorRoute.begin(); i != myCopyOfCalibratorRoute.end(); i++) {
-        // Set closing edge
-        if (i->getClosedLane() != NULL) {
-            item = new FXTableItem(i->getClosedLane()->getID().c_str());
-            myClosingLaneRerouteList->setItem(indexRow, 0, item);
-        } else {
-            item = new FXTableItem("");
-            myClosingLaneRerouteList->setItem(indexRow, 0, item);
-        }
-        // set allow vehicles
-        item = new FXTableItem(getVehicleClassNames(i->getAllowedVehicles()).c_str());
-        myClosingLaneRerouteList->setItem(indexRow, 1, item);
-        // set disallow vehicles
-        item = new FXTableItem(getVehicleClassNames(i->getDisallowedVehicles()).c_str());
-        myClosingLaneRerouteList->setItem(indexRow, 2, item);
-        // set valid icon
-        item = new FXTableItem("");
-        if (myCalibratorRouteValid) {
-            item->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
-        } else {
-            item->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
-        }
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myClosingLaneRerouteList->setItem(indexRow, 3, item);
-        // set remove
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myClosingLaneRerouteList->setItem(indexRow, 4, item);
-        // Update index
-        indexRow++;
+    myTextFieldRouteID->setText(myCopyOfCalibratorRoute->getRouteID().c_str());
+    myTextFieldEdges->setText(joinToString(myCopyOfCalibratorRoute->getEdgesIDs(), " ").c_str());
+    myTextFieldColor->setText(myCopyOfCalibratorRoute->getColor().c_str());
+    // fill list of router's edges
+    myListOfEdgesOfRoute->clearItems();
+    std::vector<GNEEdge*> edgesOfNet = myCopyOfCalibratorRoute->getEdges();
+    for(std::vector<GNEEdge*>::iterator i = edgesOfNet.begin(); i != edgesOfNet.end(); i++) {
+        myListOfEdgesOfNet->appendItem((*i)->getID().c_str());
     }
-    */
 }
-
 
 /****************************************************************************/
