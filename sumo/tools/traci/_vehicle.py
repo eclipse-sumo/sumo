@@ -673,18 +673,18 @@ class VehicleDomain(Domain):
                      flags=flags | self.STOP_CONTAINER_STOP)
 
     def setChargingStationStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_DEFAULT):
-        """setContainerStop(string, string, integer, integer, integer) -> None
+        """setChargingStationStop(string, string, integer, integer, integer) -> None
 
-        Adds or modifies a container stop with the given parameters. The duration and the until attribute are
+        Adds or modifies a stop at a chargingStation with the given parameters. The duration and the until attribute are
         in milliseconds.
         """
         self.setStop(vehID, stopID, duration=duration, until=until,
                      flags=flags | self.STOP_CHARGING_STATION)
 
     def setParkingAreaStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_PARKING):
-        """setContainerStop(string, string, integer, integer, integer) -> None
+        """setParkingAreaStop(string, string, integer, integer, integer) -> None
 
-        Adds or modifies a container stop with the given parameters. The duration and the until attribute are
+        Adds or modifies a stop at a parkingArea with the given parameters. The duration and the until attribute are
         in milliseconds.
         """
         self.setStop(vehID, stopID, duration=duration, until=until,
