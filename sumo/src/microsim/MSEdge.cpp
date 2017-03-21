@@ -464,11 +464,8 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
 bool
 MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const bool forceCheck) const {
     // when vaporizing, no vehicles are inserted, but checking needs to be successful to trigger removal
-    if (isVaporizing()) {
+    if (isVaporizing() || isTaz()) {
         return checkOnly;
-    }
-    if (isTaz() && checkOnly) {
-        return true;
     }
     const SUMOVehicleParameter& pars = v.getParameter();
     const MSVehicleType& type = v.getVehicleType();
