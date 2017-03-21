@@ -264,7 +264,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
             if (myEditorParameters->isCurrentLengthValid()) {
                 // check if current reference point is valid
                 if(myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
-                    WRITE_WARNING("Current selected reference point isn't valid. Additional '" + toString(myActualAdditionalType) + "' cannot be created.");
+                    WRITE_WARNING("Current selected reference point isn't valid; Additional '" + toString(myActualAdditionalType) + "' cannot be created.");
                 }
                 double startPos = setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLength());
                 double endPos = setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLength(), positionOfTheMouseOverEdge, myEditorParameters->getLength());
@@ -272,14 +272,14 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
                 if (startPos != -1) {
                     valuesOfElement[SUMO_ATTR_STARTPOS] = toString(startPos);
                 } else {
-                    WRITE_WARNING("Additional '" + toString(myActualAdditionalType) + "' cannot be placed over edge. Attribute '" + toString(SUMO_ATTR_STARTPOS) + "' isn't valid");
+                    WRITE_WARNING("Additional '" + toString(myActualAdditionalType) + "' cannot be placed over " + toString(SUMO_TAG_EDGE) + "; Attribute '" + toString(SUMO_ATTR_STARTPOS) + "' isn't valid.");
                     return false;
                 }
                 // Only set end position if are valid (!= -1)
                 if (endPos != -1) {
                     valuesOfElement[SUMO_ATTR_ENDPOS] = toString(endPos);
                 } else {
-                    WRITE_WARNING("Additional '" + toString(myActualAdditionalType) + "' cannot be placed over edge. Attribute '" + toString(SUMO_ATTR_ENDPOS) + "' isn't valid");
+                    WRITE_WARNING("Additional '" + toString(myActualAdditionalType) + "' cannot be placed over " + toString(SUMO_TAG_EDGE) + "; Attribute '" + toString(SUMO_ATTR_ENDPOS) + "' isn't valid.");
                     return false;
                 }
             } else {
@@ -297,7 +297,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
             if (myEditorParameters->isCurrentLengthValid()) {
                 // check if current reference point is valid
                 if(myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
-                    WRITE_WARNING("Current selected reference point isn't valid. Additional '" + toString(myActualAdditionalType) + "' cannot be created.");
+                    WRITE_WARNING("Current selected reference point isn't valid; Additional '" + toString(myActualAdditionalType) + "' cannot be created.");
                 }
                 double startPos = setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLength());
                 double endPos = setEndPosition(pointed_lane->getLaneShapeLength(), positionOfTheMouseOverLane, myEditorParameters->getLength());
@@ -305,14 +305,14 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
                 if (startPos != -1) {
                     valuesOfElement[SUMO_ATTR_STARTPOS] = toString(startPos);
                 } else {
-                    WRITE_WARNING("Additional '" + toString(myActualAdditionalType) + "' cannot be placed over lane. Attribute '" + toString(SUMO_ATTR_STARTPOS) + "' isn't valid");
+                    WRITE_WARNING("Additional '" + toString(myActualAdditionalType) + "' cannot be placed over " + toString(SUMO_TAG_LANE) + "; Attribute '" + toString(SUMO_ATTR_STARTPOS) + "' isn't valid.");
                     return false;
                 }
                 // Only set end position if are valid (!= -1)
                 if (endPos != -1) {
                     valuesOfElement[SUMO_ATTR_ENDPOS] = toString(endPos);
                 } else {
-                    WRITE_WARNING("Additional '" + toString(myActualAdditionalType) + "' cannot be placed over lane. Attribute '" + toString(SUMO_ATTR_ENDPOS) + "' isn't valid");
+                    WRITE_WARNING("Additional '" + toString(myActualAdditionalType) + "' cannot be placed over " + toString(SUMO_TAG_LANE) + "; Attribute '" + toString(SUMO_ATTR_ENDPOS) + "' isn't valid.");
                     return false;
                 }
             } else {
@@ -331,7 +331,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         double begin = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_STARTTIME]);
         double end = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_END]);
         if(begin > end) {
-            WRITE_WARNING("Time interval of additional '" + toString(myActualAdditionalType) + "' isn't valid. Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
+            WRITE_WARNING("Time interval of additional '" + toString(myActualAdditionalType) + "' isn't valid; Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
             return false;
         }
     }
@@ -991,7 +991,7 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLTag additionalTag,
             } else if (GNEAttributeCarrier::isString(myAdditionalTag, AdditionalAttributeSingle)) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<std::string>(myAdditionalTag, AdditionalAttributeSingle));
             } else {
-                WRITE_WARNING("Attribute '" + toString(AdditionalAttributeSingle) + "' don't have a defined type. Check definition in GNEAttributeCarrier");
+                WRITE_WARNING("Attribute '" + toString(AdditionalAttributeSingle) + "' doesn't have a defined type. Check definition in GNEAttributeCarrier");
             }
             // Update index parameter
             myIndexParameter++;
@@ -1433,7 +1433,7 @@ GNEAdditionalFrame::SelectorParentEdges::SelectorParentEdges(FXComposite* parent
     FXGroupBox(parent, "Edges", GUIDesignGroupBoxFrame),
     myViewNet(viewNet) {
     // Create menuCheck for selected edges
-    myUseSelectedEdges = new FXMenuCheck(this, "Use selected Edges", this, MID_GNE_SHOWONLYSELECTEDEDGES, GUIDesignMenuCheck);
+    myUseSelectedEdges = new FXMenuCheck(this, ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_SHOWONLYSELECTEDEDGES, GUIDesignMenuCheck);
 
     // Create search box
     myEdgesSearch = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SEARCHEDGE, GUIDesignTextField);
@@ -1594,7 +1594,7 @@ GNEAdditionalFrame::SelectorParentLanes::SelectorParentLanes(FXComposite* parent
     FXGroupBox(parent, "Lanes", GUIDesignGroupBoxFrame),
     myViewNet(viewNet) {
     // Create CheckBox for selected lanes
-    myUseSelectedLanes = new FXMenuCheck(this, "Use selected Lanes", this, MID_GNE_USESELECTEDLANES, GUIDesignMenuCheck);
+    myUseSelectedLanes = new FXMenuCheck(this, ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_USESELECTEDLANES, GUIDesignMenuCheck);
 
     // Create search box
     myLanesSearch = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SEARCHLANE, GUIDesignTextField);
