@@ -153,6 +153,8 @@
     <ClCompile Include="..\..\..\src\netbuild\NBNodeCont.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBNodeShapeComputer.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBOwnTLDef.cpp" />
+    <ClCompile Include="..\..\..\src\netbuild\NBPTStop.cpp" />
+    <ClCompile Include="..\..\..\src\netbuild\NBPTStopCont.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBRequest.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBSign.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBTrafficLightDefinition.cpp" />
@@ -183,6 +185,8 @@
     <ClInclude Include="..\..\..\src\netbuild\NBNodeCont.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBNodeShapeComputer.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBOwnTLDef.h" />
+    <ClInclude Include="..\..\..\src\netbuild\NBPTStop.h" />
+    <ClInclude Include="..\..\..\src\netbuild\NBPTStopCont.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBRequest.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBSign.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBTrafficLightDefinition.h" />
