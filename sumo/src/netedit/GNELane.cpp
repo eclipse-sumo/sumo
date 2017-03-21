@@ -120,21 +120,24 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
 
 void
 GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
-    /*
+    const std::vector<NBEdge::Connection>& cons = myParentEdge.getNBEdge()->getConnectionsFromLane(myIndex);
+    int noLinks = (int)cons.size();
+    if (noLinks == 0) {
+        return;
+    }
     // draw all links
-    double w = myWidth / (double) noLinks;
-    double x1 = myHalfLaneWidth;
-    const bool lefthand = MSNet::getInstance()->lefthand();
+    glPushMatrix();
+    glTranslated(0, 0, GLO_LANE + 0.1);
+    double w = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
+    double x1 = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2;
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     for (int i = noLinks; --i >= 0;) {
         double x2 = x1 - (double)(w / 2.);
-        int linkNo = net.getLinkTLIndex(myLinks[lefthand ? noLinks - 1 - i : i]);
-        if (linkNo < 0) {
-            continue;
-        }
+        int linkNo = cons[lefthand ? noLinks - 1 - i : i].tlLinkNo;
         GLHelper::drawTextAtEnd(toString(linkNo), getShape(), x2, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
         x1 -= w;
     }
-    */
+    glPopMatrix();
 }
 
 
