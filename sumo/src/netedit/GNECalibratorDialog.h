@@ -64,6 +64,8 @@ public:
     /// @brief get calibrator parent
     GNECalibrator* getCalibratorParent() const;
 
+
+
     /// @name FOX-callbacks
     /// @{
     /// @brief event after press accept button
@@ -122,13 +124,13 @@ protected:
     /// @brief list with vehicle types
     FXTable* myVehicleTypeList;
 
-    /// @brief vector with a copy of calibrator routes
+    /// @brief vector with a copy of calibrator routes (used by reset)
     std::vector<GNECalibratorRoute> myCopyOfCalibratorRoutes;
 
-    /// @brief vector with a copy of calibrator flows
+    /// @brief vector with a copy of calibrator flows (used by reset)
     std::vector<GNECalibratorFlow> myCopyOfCalibratorFlows;
 
-    /// @brief vector with a copy of calibrator vehicle types
+    /// @brief vector with a copy of calibrator vehicle types (used by reset)
     std::vector<GNECalibratorVehicleType> myCopyOfCalibratorVehicleTypes;
 
     /// @brief update data table with routes
