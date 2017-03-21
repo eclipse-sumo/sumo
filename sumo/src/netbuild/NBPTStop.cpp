@@ -19,16 +19,14 @@
 /****************************************************************************/
 #include "NBPTStop.h"
 NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, double length):
-myPTStopId(ptStopId),
-myPosition(position),
-myEdgeId(edgeId),
-myPTStopLength(length)
-{
+    myPTStopId(ptStopId),
+    myPosition(position),
+    myEdgeId(edgeId),
+    myPTStopLength(length) {
 
 }
 
 std::string
-NBPTStop::getID() const
-{
+NBPTStop::getID() const {
     return myPTStopId;
 }

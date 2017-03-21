@@ -18,8 +18,7 @@
 //
 /****************************************************************************/
 #include "NBPTStopCont.h"
-bool NBPTStopCont::insert(NBPTStop* ptStop)
-{
+bool NBPTStopCont::insert(NBPTStop* ptStop) {
     std::string id = ptStop->getID();
     PTStopsCont::iterator i = myPTStops.find(id);
     if (i != myPTStops.end()) {

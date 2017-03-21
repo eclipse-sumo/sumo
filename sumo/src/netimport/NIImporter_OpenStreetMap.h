@@ -261,7 +261,7 @@ protected:
          * @param[in] options The options to use
          */
         NodesHandler(std::map<long long int, NIOSMNode*>& toFill, std::set<NIOSMNode*,
-                                                                          CompareNodes>& uniqueNodes, const OptionsCont& cont);
+                     CompareNodes>& uniqueNodes, const OptionsCont& cont);
 
 
         /// @brief Destructor
@@ -313,7 +313,7 @@ protected:
         const bool myImportElevation;
 
         /// @brief the options
-        const OptionsCont & myOptionsCont;
+        const OptionsCont& myOptionsCont;
 
 
     private:
