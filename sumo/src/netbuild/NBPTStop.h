@@ -22,6 +22,15 @@
 
 #include <string>
 #include <utils/geom/Position.h>
+
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+* @class NBPTStop
+* @brief The representation of a single pt stop
+*/
 class NBPTStop {
 
 public:
@@ -39,6 +48,12 @@ private:
     const Position myPosition;
     const std::string myEdgeId;
     const double myPTStopLength;
+
+
+private:
+    /// @brief Invalidated assignment operator.
+    NBPTStop& operator=(const NBPTStop&);
+
 };
 
 #endif //SUMO_NBPTSTOP_H
