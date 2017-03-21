@@ -69,6 +69,9 @@ public:
 
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
+
+    /// @event after change a variable of vehicle type
+    long onCmdSetVariable(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
@@ -87,8 +90,14 @@ protected:
     /// @brief flag to check if current calibrator vehicleType is valid
     bool myCalibratorVehicleTypeValid;
 
+    /// @brief current sumo attribute invalid
+    SumoXMLAttr myInvalidAttr;
+
     /// @brief update data fields
     void updateCalibratorVehicleTypeValues();
+
+    /// @brief set VClass texture
+    void setVClassLabelImage();
 
     /// @brief FXTextfield for vehicleTypeID
     FXTextField* myTextFieldVehicleTypeID;
