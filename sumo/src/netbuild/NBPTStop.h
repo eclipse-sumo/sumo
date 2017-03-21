@@ -59,7 +59,7 @@ private:
     std::string myLaneId;
     double myFrom;
     double myTo;
-    bool friendlyPos = false;
+    bool friendlyPos;
 
 private:
     /// @brief Invalidated assignment operator.

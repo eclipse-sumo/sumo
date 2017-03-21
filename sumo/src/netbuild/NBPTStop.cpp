@@ -23,6 +23,7 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myPTStopId(ptStopId),
     myPosition(position),
     myEdgeId(edgeId),
+    friendlyPos(false),
     myPTStopLength(length) {
 
 }
