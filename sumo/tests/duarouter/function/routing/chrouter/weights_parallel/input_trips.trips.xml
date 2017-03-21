@@ -1,0 +1,4 @@
+<trips>
+    <flow id="early" begin="0" end="100" number="100" from="src" to="dest"/>
+    <flow id="later" begin="3600" end="3700" number="100"  from="src" to="dest"/>
+</trips>

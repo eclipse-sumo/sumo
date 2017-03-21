@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!-- generated on Thu 22 Mar 2012 10:09:59 AM CET by SUMO gui Version dev-SVN-r12151
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumo-gui.exeConfiguration.xsd">
+
+    <input>
+        <net-file value="road.net.xml"/>
+        <route-files value="restricted.rou.xml.affected"/>
+        <additional-files value="ecodetectors.xml"/>
+    </input>
+
+    <time>
+        <begin value="2520"/>
+    </time>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<netstats>
+    <interval begin="0" end="3600" id="earlier">
+        <edge id="short" traveltime="5"/>
+    </interval>
+    <interval begin="3600" end="7200" id="later">
+        <edge id="short" traveltime="500"/>
+    </interval>
+</netstats>
