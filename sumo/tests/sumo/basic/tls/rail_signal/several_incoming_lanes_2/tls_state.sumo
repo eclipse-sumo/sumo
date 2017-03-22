@@ -28,7 +28,7 @@
 </configuration>
 -->
 
-<tls-states xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstate_file.xsd">
+<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsStates_file.xsd">
     <tlsState time="0.00" id="gneJ2" programID="0" phase="0" state="GGG"/>
     <tlsState time="1.00" id="gneJ2" programID="0" phase="0" state="rrG"/>
     <tlsState time="2.00" id="gneJ2" programID="0" phase="0" state="rrG"/>
@@ -229,4 +229,4 @@
     <tlsState time="197.00" id="gneJ2" programID="0" phase="0" state="GGG"/>
     <tlsState time="198.00" id="gneJ2" programID="0" phase="0" state="GGG"/>
     <tlsState time="199.00" id="gneJ2" programID="0" phase="0" state="GGG"/>
-</tls-states>
+</tlsStates>

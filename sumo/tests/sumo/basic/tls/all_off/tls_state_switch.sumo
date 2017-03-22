@@ -29,6 +29,6 @@
 </configuration>
 -->
 
-<tls-states xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstate_file.xsd">
-    <tlsstate time="0.00" id="0" programID="off" phase="0" state="oooooooooooooooo"/>
-</tls-states>
+<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsStates_file.xsd">
+    <tlsState time="0.00" id="0" programID="off" phase="0" state="oooooooooooooooo"/>
+</tlsStates>

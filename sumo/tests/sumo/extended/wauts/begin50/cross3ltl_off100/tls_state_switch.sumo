@@ -25,11 +25,11 @@
 </configuration>
 -->
 
-<tls-states xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstate_file.xsd">
-    <tlsstate time="50.00" id="0" programID="0" phase="4" state="rrrrGGggrrrrGGgg"/>
-    <tlsstate time="76.00" id="0" programID="0" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsstate time="80.00" id="0" programID="0" phase="6" state="rrrrrrGGrrrrrrGG"/>
-    <tlsstate time="86.00" id="0" programID="0" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsstate time="90.00" id="0" programID="0" phase="0" state="GGggrrrrGGggrrrr"/>
-    <tlsstate time="100.00" id="0" programID="off" phase="0" state="oooooooooooooooo"/>
-</tls-states>
+<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
+    <tlsState time="50.00" id="0" programID="0" phase="4" state="rrrrGGggrrrrGGgg"/>
+    <tlsState time="76.00" id="0" programID="0" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="80.00" id="0" programID="0" phase="6" state="rrrrrrGGrrrrrrGG"/>
+    <tlsState time="86.00" id="0" programID="0" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="90.00" id="0" programID="0" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsState time="100.00" id="0" programID="off" phase="0" state="oooooooooooooooo"/>
+</tlsStates>
