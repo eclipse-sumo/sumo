@@ -92,9 +92,9 @@ TraCI_POI::setType(const std::string& poiID, const std::string& type) {
 }
 
 void
-TraCI_POI::setPosition(const std::string& poiID, const TraCIPosition& p) {
-   ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-   shapeCont.movePOI(poiID, TraCI::makePosition(p));
+TraCI_POI::setPosition(const std::string& poiID, const TraCIPosition& pos) {
+    PointOfInterest* p = getPoI(poiID);
+    p->set(TraCI::makePosition(pos));
 }
 
 void
@@ -131,7 +131,7 @@ PointOfInterest*
 TraCI_POI::getPoI(const std::string& id) {
     PointOfInterest* sumoPoi = MSNet::getInstance()->getShapeContainer().getPOIs().get(id);
     if (sumoPoi == 0) {
-        throw TraCIException("PoI '" + id + "' is not known");
+        throw TraCIException("POI '" + id + "' is not known");
     }
     return sumoPoi;
 }

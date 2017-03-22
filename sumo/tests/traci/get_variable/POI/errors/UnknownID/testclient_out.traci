@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu Mar 16 10:30:11 2017
+TraCITestClient output file. Date: Wed Mar 22 08:30:50 2017
 
 
 -> Command sent: <SimulationStep2>:
@@ -6,7 +6,7 @@ TraCITestClient output file. Date: Thu Mar 16 10:30:11 2017
 
 -> Command sent: <GetVariable>:
   domID=167 varID=69 objID=xxx
-.. Answered with error to command (167), [description: PoI 'xxx' is not known]
+.. Answered with error to command (167), [description: POI 'xxx' is not known]
 
 -> Command sent: <SimulationStep2>:
 .. Command acknowledged (2), [description: ]
