@@ -60,7 +60,7 @@ public:
     GNECalibratorFlow(GNECalibrator* calibratorParent);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string type, std::string route, std::string color, std::string departLane, 
+    GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string vehicleType, std::string route, std::string color, std::string departLane, 
                       std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos, std::string arrivalSpeed, std::string line, 
                       int personNumber, int containerNumber, bool reroute, std::string departPosLat, std::string arrivalPosLat, double begin, double end, 
                       double vehsPerHour, double period, double probability, int number);
@@ -154,7 +154,7 @@ public:
     /**@brief set type of flow
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setType(std::string type);
+    bool setVehicleType(std::string type);
 
     /**@brief set route in which this flow is used
     * @return true if was sucesfully set, or false if value isn't valid
@@ -317,7 +317,7 @@ private:
     std::string myFlowID;
 
     /// @brief type of flow
-    std::string myType;
+    std::string myVehicleType;
 
     /// @brief route in which this flow is used
     std::string myRoute;

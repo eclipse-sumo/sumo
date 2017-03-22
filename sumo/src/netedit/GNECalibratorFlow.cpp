@@ -57,23 +57,31 @@
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent) :
-    myCalibratorParent(calibratorParent), myFlowID(calibratorParent->generateFlowID()), myType(""), myRoute(""), myColor(""), myDepartLane("first"),
+    myCalibratorParent(calibratorParent), myFlowID(calibratorParent->generateFlowID()), myVehicleType(""), myRoute(""), myColor(""), myDepartLane("first"),
     myDepartPos("base"), myDepartSpeed("0"), myArrivalLane("current"), myArrivalPos("max"), myArrivalSpeed("current"),
     myLine(""), myPersonNumber(0), myContainerNumber(0), myReroute(false), myDepartPosLat("center"), myArrivalPosLat(""), 
-    myBegin(0), myEnd(0), myVehsPerHour(0), myPeriod(0), myProbability(0), myNumber(0), myTypeOfFlow(GNE_CALIBRATORFLOW_VEHSPERHOUR) {}
+    myBegin(0), myEnd(0), myVehsPerHour(0), myPeriod(0), myProbability(0), myNumber(0), myTypeOfFlow(GNE_CALIBRATORFLOW_VEHSPERHOUR) {
+    if(myCalibratorParent->getCalibratorRoutes().size() > 0) {
+        myRoute = myCalibratorParent->getCalibratorRoutes().front().getRouteID();
+    }
+    if(myCalibratorParent->getCalibratorVehicleTypes().size() > 0) {
+        myVehicleType = myCalibratorParent->getCalibratorVehicleTypes().front().getVehicleTypeID();
+    }
+}
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string type, std::string route,
+GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string vehicleType, std::string route,
     std::string color, std::string departLane, std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos, 
     std::string arrivalSpeed, std::string line, int personNumber, int containerNumber, bool reroute, std::string departPosLat, 
     std::string arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability, int number) :
-    myCalibratorParent(calibratorParent), myFlowID(calibratorParent->generateFlowID()), myType(type), myRoute(route), myColor(""), myDepartLane("first"),
+    myCalibratorParent(calibratorParent), myFlowID(calibratorParent->generateFlowID()), myVehicleType(vehicleType), myRoute(route), myColor(""), myDepartLane("first"),
     myDepartPos("base"), myDepartSpeed("0"), myArrivalLane("current"), myArrivalPos("max"), myArrivalSpeed("current"),
     myLine(""), myPersonNumber(0), myContainerNumber(0), myReroute(false), myDepartPosLat("center"), myArrivalPosLat(""), 
     myBegin(0), myEnd(0), myVehsPerHour(0), myPeriod(0), myProbability(0), myNumber(0), myTypeOfFlow(GNE_CALIBRATORFLOW_VEHSPERHOUR) {
     // set parameters using the set functions, to avoid non valid values
     setFlowID(flowID);
-    setType(type);
+    setVehicleType(vehicleType);
+    setRoute(route);
     setColor(color);
     setDepartLane(departLane);
     setDepartPos(departPos);
@@ -119,7 +127,7 @@ GNECalibratorFlow::getFlowID() const {
 
 const std::string&
 GNECalibratorFlow::getType() const {
-    return myType;
+    return myVehicleType;
 }
 
 
@@ -263,11 +271,11 @@ GNECalibratorFlow::setFlowID(std::string flowID) {
 
 
 bool
-GNECalibratorFlow::setType(std::string type) {
+GNECalibratorFlow::setVehicleType(std::string type) {
     if (type.empty()) {
         return false;
     } else {
-        myType = type;
+        myVehicleType = type;
         return true;
     }
 }
