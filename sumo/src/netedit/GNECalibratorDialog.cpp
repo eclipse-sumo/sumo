@@ -346,7 +346,9 @@ GNECalibratorDialog::updateRouteTable() {
         myRouteList->setItem(indexRow, 2, item);
         // Update index
         indexRow++;
-    }
+    }    
+    // enable or disable flow and label button
+    updateFlowAndLabelButton();
 }
 
 
@@ -384,22 +386,8 @@ GNECalibratorDialog::updateFlowTable() {
         // Update index
         indexRow++;
     }
-    // Enable or disable Add button and list depending of  currently there are routes and vehicle types defined
-    std::string errorMsg;
-    if(myCalibratorParent->getCalibratorRoutes().empty() && myCalibratorParent->getCalibratorVehicleTypes().empty()) {
-        errorMsg = " and ";
-    }
-    if(myCalibratorParent->getCalibratorRoutes().size() == 0 || myCalibratorParent->getCalibratorVehicleTypes().size() == 0) {
-        myAddFlow->disable();
-        myFlowList->disable();
-        std::string errorMessage = "No " + (myCalibratorParent->getCalibratorRoutes().empty()?(toString(SUMO_TAG_ROUTE) + "s"):("")) + errorMsg + 
-                                   (myCalibratorParent->getCalibratorVehicleTypes().empty()?(toString(SUMO_TAG_VTYPE) + "s"):("")) + " defined";
-        myLabelFlow->setText(errorMessage.c_str());
-    } else {
-        myAddFlow->enable();
-        myFlowList->enable();
-        myLabelFlow->setText(("Add new " + toString(SUMO_TAG_FLOW) + "s").c_str());
-    }
+    // enable or disable flow and label button
+    updateFlowAndLabelButton();
 }
 
 
@@ -437,5 +425,28 @@ GNECalibratorDialog::updateVehicleTypeTable() {
         // Update index
         indexRow++;
     }
+     // enable or disable flow and label button
+    updateFlowAndLabelButton();
 }
+
+void 
+GNECalibratorDialog::updateFlowAndLabelButton() {
+    // Enable or disable AddFlow button and flow list depending of currently there are routes and vehicle types defined
+    std::string errorMsg;
+    if(myCalibratorParent->getCalibratorRoutes().empty() && myCalibratorParent->getCalibratorVehicleTypes().empty()) {
+        errorMsg = " and ";
+    }
+    if(myCalibratorParent->getCalibratorRoutes().size() == 0 || myCalibratorParent->getCalibratorVehicleTypes().size() == 0) {
+        myAddFlow->disable();
+        myFlowList->disable();
+        std::string errorMessage = "No " + (myCalibratorParent->getCalibratorRoutes().empty()?(toString(SUMO_TAG_ROUTE) + "s"):("")) + errorMsg + 
+                                   (myCalibratorParent->getCalibratorVehicleTypes().empty()?(toString(SUMO_TAG_VTYPE) + "s"):("")) + " defined";
+        myLabelFlow->setText(errorMessage.c_str());
+    } else {
+        myAddFlow->enable();
+        myFlowList->enable();
+        myLabelFlow->setText(("Add new " + toString(SUMO_TAG_FLOW) + "s").c_str());
+    }
+}
+
 /****************************************************************************/

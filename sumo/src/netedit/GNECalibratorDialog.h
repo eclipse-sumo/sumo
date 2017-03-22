@@ -142,6 +142,9 @@ protected:
     /// @brief update data table with vehicle types
     void updateVehicleTypeTable();
 
+    /// @brief update flow and label button
+    void updateFlowAndLabelButton();
+
 private:
     /// @brief Invalidated copy constructor.
     GNECalibratorDialog(const GNECalibratorDialog&);
