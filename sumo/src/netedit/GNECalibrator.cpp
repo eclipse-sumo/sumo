@@ -165,6 +165,65 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
         // Close flow tag
         device.closeTag();
     }
+    // write all vehicle types of this calibrator
+    for (std::vector<GNECalibratorVehicleType>::const_iterator i = myCalibratorVehicleTypes.begin(); i != myCalibratorVehicleTypes.end(); ++i) {
+        // Open vehicle type tag
+        device.openTag(i->getTag());
+        // write id
+        device.writeAttr(SUMO_ATTR_ID, i->getVehicleTypeID());
+        //write accel
+        device.writeAttr(SUMO_ATTR_ACCEL, i->getAccel());
+        // write decel
+        device.writeAttr(SUMO_ATTR_DECEL, i->getDecel());
+        // write sigma
+        device.writeAttr(SUMO_ATTR_SIGMA, i->getSigma());
+        // write tau
+        device.writeAttr(SUMO_ATTR_TAU, i->getTau());
+        // write lenght
+        device.writeAttr(SUMO_ATTR_LENGTH, i->getLength());
+        // write min gap
+        device.writeAttr(SUMO_ATTR_MINGAP, i->getMinGap());
+        // write max speed
+        device.writeAttr(SUMO_ATTR_MAXSPEED, i->getMaxSpeed());
+        // write speed factor
+        device.writeAttr(SUMO_ATTR_SPEEDFACTOR, i->getSpeedFactor());
+        // write speed dev
+        device.writeAttr(SUMO_ATTR_SPEEDDEV, i->getSpeedDev());
+        // write color
+        device.writeAttr(SUMO_ATTR_COLOR, i->getColor());
+        // write vehicle class
+        device.writeAttr(SUMO_ATTR_VCLASS, i->getVClass());
+        // write emission class
+        device.writeAttr(SUMO_ATTR_EMISSIONCLASS, i->getEmissionClass());
+        // write shape
+        device.writeAttr(SUMO_ATTR_SHAPE, i->getShape());
+        // write width
+        device.writeAttr(SUMO_ATTR_WIDTH, i->getWidth());
+        // write filename
+        device.writeAttr(SUMO_ATTR_FILE, i->getFilename());
+        // write impatience
+        device.writeAttr(SUMO_ATTR_IMPATIENCE, i->getImpatience());
+        // write lane change model
+        device.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, i->getLaneChangeModel());
+        // write car follow model
+        device.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, i->getCarFollowModel());
+        // write person capacity
+        device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, i->getPersonCapacity());
+        // write container capacity
+        device.writeAttr(SUMO_ATTR_CONTAINER_CAPACITY, i->getContainerCapacity());
+        // write boarding duration
+        device.writeAttr(SUMO_ATTR_BOARDING_DURATION, i->getBoardingDuration());
+        // write loading duration
+        device.writeAttr(SUMO_ATTR_LOADING_DURATION, i->getLoadingDuration());
+        // write get lat alignment
+        device.writeAttr(SUMO_ATTR_LATALIGNMENT, i->getLatAlignment());
+        // write min gap lat
+        device.writeAttr(SUMO_ATTR_MINGAP_LAT, i->getMinGapLat());
+        // write max speed lat
+        device.writeAttr(SUMO_ATTR_MAXSPEED_LAT, i->getMaxSpeedLat());
+        // Close vehicle type tag
+        device.closeTag();
+    }
     // Write all flows of this calibrator
     for (std::vector<GNECalibratorFlow>::const_iterator i = myCalibratorFlows.begin(); i != myCalibratorFlows.end(); ++i) {
         // Open flow tag
@@ -203,16 +262,19 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_DEPARTPOS_LAT, i->getDepartPosLat());
         // Write arrivalPosLat
         device.writeAttr(SUMO_ATTR_ARRIVALPOS_LAT, i->getArrivalPosLat());
-        // Write type of flow
-        if(i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
-            device.writeAttr(SUMO_ATTR_PERIOD, i->getPeriod());
-        } else if(i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
-            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, i->getVehsPerHour());
-        } else if(i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
-        device.writeAttr(SUMO_ATTR_PROB, i->getProbability());
-        }
         // Write number
         device.writeAttr(SUMO_ATTR_NUMBER, i->getNumber());
+        // Write type of flow
+        if(i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
+            // write period
+            device.writeAttr(SUMO_ATTR_PERIOD, i->getPeriod());
+        } else if(i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
+            // write vehs per hour
+            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, i->getVehsPerHour());
+        } else if(i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
+            // write probability
+            device.writeAttr(SUMO_ATTR_PROB, i->getProbability());
+        }
         // Close flow tag
         device.closeTag();
     }
