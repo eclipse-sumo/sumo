@@ -66,9 +66,9 @@
         <xsd:attribute name="routeLength" type="nonNegativeFloatType"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
-        <xsd:attribute name="pos" type="nonNegativeFloatType" use="required"/>
-        <xsd:attribute name="posLat" type="xsd:float" use="required"/>
-        <xsd:attribute name="speed" type="nonNegativeFloatType" use="required"/>
+        <xsd:attribute name="pos" type="nonNegativeFloatType"/>
+        <xsd:attribute name="posLat" type="xsd:float"/>
+        <xsd:attribute name="speed" type="nonNegativeFloatType"/>
         <xsd:attribute name="state" type="xsd:string" use="required"/>
     </xsd:complexType>
 

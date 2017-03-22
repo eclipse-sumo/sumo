@@ -3,7 +3,7 @@
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
 
-    <xsd:element name="tls-states">
+    <xsd:element name="tlsStates">
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element maxOccurs="unbounded" ref="tlsState"/>

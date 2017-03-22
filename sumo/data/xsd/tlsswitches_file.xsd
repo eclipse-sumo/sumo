@@ -3,7 +3,7 @@
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
 
-    <xsd:element name="tls-switches">
+    <xsd:element name="tlsSwitches">
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element maxOccurs="unbounded" ref="tlsSwitch"/>
