@@ -104,8 +104,10 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.doRegister("street-sign-output", new Option_FileName());
     oc.addDescription("street-sign-output", "Output", "Writes street signs as POIs to FILE");
 
-    oc.doRegister("pt-stop-output", new Option_FileName());
-    oc.addDescription("pt-stop-output", "Output", "Writes pt stops to FILE");
+    if (!forNetgen) {
+        oc.doRegister("pt-stop-output", new Option_FileName());
+        oc.addDescription("pt-stop-output", "Output", "Writes public transport stops to FILE");
+    }
 
     // register opendrive options
     oc.doRegister("opendrive-output.straight-threshold", new Option_Float(0.00000001)); // matching the angular output precision in NWWriter_OpenDrive

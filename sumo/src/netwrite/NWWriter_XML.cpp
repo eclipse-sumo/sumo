@@ -70,7 +70,7 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (oc.isSet("street-sign-output")) {
         writeStreetSigns(oc, nb.getEdgeCont());
     }
-    if (oc.isSet("pt-stop-output")){
+    if (oc.exists("pt-stop-output") && oc.isSet("pt-stop-output")){
         writePTStops(oc,nb.getPTStopCont());
     }
 }
