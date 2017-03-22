@@ -210,7 +210,7 @@ class Builder(object):
             batchFile = "build.bat"
             with open(batchFile, 'w') as f:
                 for opts in sorted(randomTripsCalls):
-                    f.write("python %s %s\n" %
+                    f.write("python \"%s\" %s\n" %
                             (randomTripsPath, " ".join(map(quoted_str, opts))))
 
     def parseTripOpts(self, vehicle, options):
