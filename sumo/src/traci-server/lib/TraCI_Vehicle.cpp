@@ -62,7 +62,7 @@ TraCI_Vehicle::getVehicle(const std::string& id) {
 
 bool 
 TraCI_Vehicle::isVisible(const MSVehicle* veh) {
-    return veh->isOnRoad() || veh->isParking();
+    return veh->isOnRoad() || veh->isParking() || veh->wasRemoteControlled();
 }
 
 std::vector<std::string>
@@ -121,7 +121,7 @@ TraCI_Vehicle::getAngle(const std::string& vehicleID) {
 double
 TraCI_Vehicle::getSlope(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
-    return isVisible(veh) ? veh->getSlope() : INVALID_DOUBLE_VALUE;
+    return veh->isOnRoad() ? veh->getSlope() : INVALID_DOUBLE_VALUE;
 }
 
 

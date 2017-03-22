@@ -904,6 +904,11 @@ public:
      */
     bool isRemoteControlled() const;
 
+    /** @brief Returns the information whether the vehicle is fully controlled via TraCI
+     * within the lookBack time
+     */
+    bool wasRemoteControlled(SUMOTime lookBack=DELTA_T) const;
+
     /// @brief return the distance to the next stop or doubleMax if there is none.
     double nextStopDist() const {
         return myStopDist;

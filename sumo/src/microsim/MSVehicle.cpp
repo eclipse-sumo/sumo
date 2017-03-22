@@ -3989,6 +3989,12 @@ MSVehicle::isRemoteControlled() const {
 }
 
 
+bool
+MSVehicle::wasRemoteControlled(SUMOTime lookBack) const {
+    return myInfluencer != 0 && myInfluencer->getLastAccessTimeStep() + lookBack >= MSNet::getInstance()->getCurrentTimeStep();
+}
+
+
 void
 MSVehicle::Stop::write(OutputDevice& dev) const {
     // lots of duplication with SUMOVehicleParameter::Stop::write()
