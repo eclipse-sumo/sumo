@@ -1568,14 +1568,9 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, con
             double off = lane->getShape().nearest_offset_to_point2D(pos, perpendicular);
             double langle = 180.;
             double dist = 1000.;
-            if (off >= 0) {
+            if (off != GeomHelper::INVALID_OFFSET) {
                 dist = lane->getShape().distance2D(pos, perpendicular);
-                if (dist > lane->getLength()) { // this is a workaround
-                    // a SmartDB, running at :49_2 delivers off=~9.24 while dist>24.?
-                    dist = 1000.;
-                } else {
-                    langle = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(off));
-                }
+                langle = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(off));
             }
             bool sameEdge = v.isOnRoad() && &lane->getEdge() == &v.getLane()->getEdge() && v.getEdge()->getLanes()[0]->getLength() > v.getPositionOnLane() + SPEED2DIST(speed);
             /*
@@ -1586,7 +1581,9 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, con
             }
             */
 #ifdef DEBUG_MOVEXY_ANGLE
-            std::cout << lane->getID() << " langle:" << langle << " angleDiff:" << GeomHelper::getMinAngleDiff(angle, langle) << " off:" << off << std::endl;
+            std::cout << lane->getID() << " lAngle:" << langle << " lLength=" << lane->getLength() 
+                << " angleDiff:" << GeomHelper::getMinAngleDiff(angle, langle) 
+                << " off:" << off << " dist=" << dist << "\n";
             std::cout << lane->getID() << " param=" << lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) << " origID='" << origID << "\n";
 #endif
             lane2utility[lane] = LaneUtility(
@@ -1650,15 +1647,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, con
         }
         routeOffset = 0;
 #ifdef DEBUG_MOVEXY_ANGLE
-        std::cout << "internal2:" << " prev:";
-        if (u.prevEdge != 0) {
-            std::cout << u.prevEdge->getID();
-        }
-        std::cout << " next:";
-        if (u.nextEdge != 0) {
-            std::cout << u.nextEdge->getID();
-        }
-        std::cout << std::endl;
+        std::cout << "internal2: lane=" << bestLane->getID() << " prev=" << Named::getIDSecure(u.prevEdge) << " next=" << Named::getIDSecure(u.nextEdge) << "\n";;
 #endif
     }
     return true;
