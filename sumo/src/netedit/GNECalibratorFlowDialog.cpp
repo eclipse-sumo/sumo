@@ -46,9 +46,11 @@
 // ===========================================================================
 
 FXDEFMAP(GNECalibratorFlowDialog) GNECalibratorFlowDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,           GNECalibratorFlowDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,           GNECalibratorFlowDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_RESET,            GNECalibratorFlowDialog::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,   GNECalibratorFlowDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,   GNECalibratorFlowDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_RESET,    GNECalibratorFlowDialog::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_SET_VARIABLE,  GNECalibratorFlowDialog::onCmdSetVariable),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE,  GNECalibratorFlowDialog::onCmdSetTypeOfFlow),
 };
 
 // Object implementation
@@ -59,75 +61,105 @@ FXIMPLEMENT(GNECalibratorFlowDialog, FXDialogBox, GNECalibratorFlowDialogMap, AR
 // ===========================================================================
 
 GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow &calibratorFlow) :
-    GNEAdditionalDialog(calibratorFlow.getCalibratorParent(), 640, 480),
+    GNEAdditionalDialog(calibratorFlow.getCalibratorParent(), 600, 300),
     myCalibratorDialogParent(calibratorDialog),
     myCalibratorFlow(&calibratorFlow),
     myCalibratorFlowValid(true) {
     // change default header
     changeAdditionalDialogHeader("Edit " + toString(calibratorFlow.getTag()) + " of " + toString(calibratorFlow.getCalibratorParent()->getTag()) +
                                  " '" + calibratorFlow.getCalibratorParent()->getID() + "'");
-    /*
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
-    FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-    FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-    
-    // create horizontal frame for begin and end label
-    FXHorizontalFrame* beginEndElementsLeft = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " of " + toString(calibratorFlow.getTag())).c_str(), 0, GUIDesignLabelLeftThick);
-    myCheckLabel = new FXLabel(beginEndElementsLeft, "", 0, GUIDesignLabelOnlyIcon);
+    FXVerticalFrame* columnLeftLabel = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
+    FXVerticalFrame* columnLeftValue = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
+    FXVerticalFrame* columnRightLabel = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
+    FXVerticalFrame* columnRightValue = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
 
-    // create horizontal frame for begin and end text fields
-    FXHorizontalFrame* beginEndElementsRight = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myBeginTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_CHANGESTART, GUIDesignTextFieldReal);
-    myBeginTextField->setText(toString(myCalibratorFlow->getBegin()).c_str());
-    myEndTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_CHANGEEND, GUIDesignTextFieldReal);
-    myEndTextField->setText(toString(myCalibratorFlow->getEnd()).c_str());
+    // 1 create textfield for flowID
+    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_ID).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldFlowID = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    // 2 create combobox for type
+    new FXLabel(columnLeftLabel, toString(SUMO_TAG_VTYPE).c_str(), 0, GUIDesignLabelThick);
+    myComboBoxType = new FXComboBox(columnLeftValue, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
+    // 3 create combobox for route
+    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_ROUTE).c_str(), 0, GUIDesignLabelThick);
+    myComboBoxRoute = new FXComboBox(columnLeftValue, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
+    // 4 create textfield for color
+    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_COLOR).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldColor = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    // 5 create textfield for lane
+    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_DEPARTLANE).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldDepartLane = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    // 6 create textfield for pos
+    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_DEPARTPOS).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldDepartPos = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    // 7 create textfield for speed
+    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_DEPARTSPEED).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldDepartSpeed = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    // 8 create textfield for lane
+    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_ARRIVALLANE).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldArrivalLane = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    // 9 create textfield for arrival pos
+    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_ARRIVALPOS).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldArrivalPos = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    // 10 create textfield for arrival speed
+    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_ARRIVALSPEED).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldArrivalSpeed = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    // 11 create textfield for arrival line
+    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_LINE).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldLine = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    // 1 create textfield for person number
+    new FXLabel(columnRightLabel, toString(SUMO_ATTR_PERSON_NUMBER).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldPersonNumber = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldInt);
+    // 2 create textfield for container number
+    new FXLabel(columnRightLabel, toString(SUMO_ATTR_CONTAINER_NUMBER).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldContainerNumber = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldInt);
+    // 3 create textfield for reroute
+    new FXLabel(columnRightLabel, toString(SUMO_ATTR_REROUTE).c_str(), 0, GUIDesignLabelThick);
+    myCheckBoxdReroute = new FXMenuCheck(columnRightValue, "Disabled", this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignMenuCheckFixedHeight);
+    myCheckBoxdReroute->setHeight(23);
+    // 4 create textfield for depart pos lat
+    new FXLabel(columnRightLabel, toString(SUMO_ATTR_DEPARTPOS_LAT).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldDepartPosLat = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    // 5 create textfield for arrival pos lat
+    new FXLabel(columnRightLabel, toString(SUMO_ATTR_ARRIVALPOS_LAT).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldArrivalPosLat = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    // 6 create textfield for begin
+    new FXLabel(columnRightLabel, toString(SUMO_ATTR_BEGIN).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldBegin = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    // 7 create textfield for end
+    new FXLabel(columnRightLabel, toString(SUMO_ATTR_END).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldEnd = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    // 8 create textfield for vehicle number
+    new FXLabel(columnRightLabel, toString(SUMO_ATTR_NUMBER).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldNumber = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldInt);
+    // 9 create textfield for vehs per hour
+    myRadioButtonVehsPerHour = new FXRadioButton(columnRightLabel, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), this, MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE, GUIDesignRadioButtonFixedHeight);
+    myTextFieldVehsPerHour = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myRadioButtonVehsPerHour->setHeight(23);
+    // 10 create textfield for period
+    myRadioButtonPeriod = new FXRadioButton(columnRightLabel, toString(SUMO_ATTR_PERIOD).c_str(), this, MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE, GUIDesignRadioButtonFixedHeight);
+    myTextFieldPeriod = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myRadioButtonPeriod->setHeight(23);
+    // 11 create textfield for probability
+    myRadioButtonProbability = new FXRadioButton(columnRightLabel, toString(SUMO_ATTR_PROB).c_str(), this, MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE, GUIDesignRadioButtonFixedHeight);
+    myTextFieldProbability = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myRadioButtonProbability->setHeight(23);
 
-    // set interval flag depending if interval exists
-    if (myCalibratorDialogParent->findInterval(myCalibratorFlow->getBegin(), myCalibratorFlow->getEnd())) {
-        myCheckLabel->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
-        myBeginEndValid = true;
-    } else {
-        myCheckLabel->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
-        myBeginEndValid = false;
-    }
+    // create copy of GNECalibratorFlow
+    myCopyOfCalibratorFlow = new GNECalibratorFlow(myCalibratorFlow->getCalibratorParent());
 
-    // Create labels and tables
-    FXHorizontalFrame* buttonAndLabelClosingLaneReroute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myAddCalibratorFlow = new FXButton(buttonAndLabelClosingLaneReroute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGLANEREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelClosingLaneReroute, ("Add new " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
-    myClosingLaneRerouteList = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGLANEREROUTE, GUIDesignTableAdditionals);
-    myClosingLaneRerouteList->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myClosingLaneRerouteList->setSelTextColor(FXRGBA(0, 0, 0, 255));
+    // copy all values of myCalibratorFlow into myCopyOfCalibratorFlow to set initial values
+    (*myCopyOfCalibratorFlow) = (*myCalibratorFlow);
 
-    FXHorizontalFrame* buttonAndLabelClosinReroute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myAddClosingReroutes = new FXButton(buttonAndLabelClosinReroute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelClosinReroute, ("Add new " + toString(SUMO_TAG_CLOSING_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
-    myClosingRerouteList = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGREROUTE, GUIDesignTableAdditionals);
-    myClosingRerouteList->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myClosingRerouteList->setSelTextColor(FXRGBA(0, 0, 0, 255));
-
-    FXHorizontalFrame* buttonAndLabelDestProbReroute = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myAddDestProbReroutes = new FXButton(buttonAndLabelDestProbReroute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelDestProbReroute, ("Add new " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
-    myDestProbRerouteList = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE, GUIDesignTableAdditionals);
-    myDestProbRerouteList->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myDestProbRerouteList->setSelTextColor(FXRGBA(0, 0, 0, 255));
-
-    FXHorizontalFrame* buttonAndLabelRouteProbReroute = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myAddRouteProbReroute = new FXButton(buttonAndLabelRouteProbReroute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelRouteProbReroute, ("Add new " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
-    myRouteProbRerouteList = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE, GUIDesignTableAdditionals);
-    myRouteProbRerouteList->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myRouteProbRerouteList->setSelTextColor(FXRGBA(0, 0, 0, 255));
-    */
     // update tables
     updateCalibratorFlowValues();
 }
 
 
 GNECalibratorFlowDialog::~GNECalibratorFlowDialog() {
+    // delete copy
+    delete myCopyOfCalibratorFlow;
 }
 
 
@@ -140,9 +172,8 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                                " cannot be updated because " + toString(myCalibratorFlow->getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
         return 0;
     } else {
-        // set new calibrator flow
-        // myCalibratorFlow->set....
-        // Stop Modal
+        // copy all values of myCopyOfCalibratorFlow into myCalibratorFlow
+        (*myCalibratorFlow) = (*myCopyOfCalibratorFlow);
         getApp()->stopModal(this, TRUE);
         return 1;
     }
@@ -159,72 +190,53 @@ GNECalibratorFlowDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorFlowDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // set default values
-    // fields->set(---)
-    // update tables
+    // copy all values of myCalibratorFlow into myCopyOfCalibratorFlow to set initial values
+    (*myCopyOfCalibratorFlow) = (*myCalibratorFlow);
+    // update fields
     updateCalibratorFlowValues();
+    return 1;
+}
+
+
+long
+GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
+
+    return 1;
+}
+
+
+long
+GNECalibratorFlowDialog::onCmdSetTypeOfFlow(FXObject*, FXSelector, void*) {
+
     return 1;
 }
 
 
 void
 GNECalibratorFlowDialog::updateCalibratorFlowValues() {
-    /*
-    // clear table
-    myClosingLaneRerouteList->clearItems();
-    // set number of rows
-    myClosingLaneRerouteList->setTableSize(int(myCopyOfCalibratorFlow.size()), 5);
-    // Configure list
-    myClosingLaneRerouteList->setVisibleColumns(5);
-    myClosingLaneRerouteList->setColumnWidth(0, 83);
-    myClosingLaneRerouteList->setColumnWidth(1, 83);
-    myClosingLaneRerouteList->setColumnWidth(2, 82);
-    myClosingLaneRerouteList->setColumnWidth(3, GUIDesignTableIconCellWidth);
-    myClosingLaneRerouteList->setColumnWidth(4, GUIDesignTableIconCellWidth);
-    myClosingLaneRerouteList->setColumnText(0, toString(SUMO_ATTR_LANE).c_str());
-    myClosingLaneRerouteList->setColumnText(1, toString(SUMO_ATTR_ALLOW).c_str());
-    myClosingLaneRerouteList->setColumnText(2, toString(SUMO_ATTR_DISALLOW).c_str());
-    myClosingLaneRerouteList->setColumnText(3, "");
-    myClosingLaneRerouteList->setColumnText(4, "");
-    myClosingLaneRerouteList->getRowHeader()->setWidth(0);
-    // Declare index for rows and pointer to FXTableItem
-    int indexRow = 0;
-    FXTableItem* item = 0;
-    // iterate over values
-    for (GNECalibratorFlow::iterator i = myCopyOfCalibratorFlow.begin(); i != myCopyOfCalibratorFlow.end(); i++) {
-        // Set closing edge
-        if (i->getClosedLane() != NULL) {
-            item = new FXTableItem(i->getClosedLane()->getID().c_str());
-            myClosingLaneRerouteList->setItem(indexRow, 0, item);
-        } else {
-            item = new FXTableItem("");
-            myClosingLaneRerouteList->setItem(indexRow, 0, item);
-        }
-        // set allow vehicles
-        item = new FXTableItem(getVehicleClassNames(i->getAllowedVehicles()).c_str());
-        myClosingLaneRerouteList->setItem(indexRow, 1, item);
-        // set disallow vehicles
-        item = new FXTableItem(getVehicleClassNames(i->getDisallowedVehicles()).c_str());
-        myClosingLaneRerouteList->setItem(indexRow, 2, item);
-        // set valid icon
-        item = new FXTableItem("");
-        if (myCalibratorFlowValid) {
-            item->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
-        } else {
-            item->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
-        }
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myClosingLaneRerouteList->setItem(indexRow, 3, item);
-        // set remove
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
-        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
-        item->setEnabled(false);
-        myClosingLaneRerouteList->setItem(indexRow, 4, item);
-        // Update index
-        indexRow++;
-    }
-    */
+    // update fields
+    myTextFieldFlowID->setText(myCopyOfCalibratorFlow->getFlowID().c_str());
+    myComboBoxType->setText(myCopyOfCalibratorFlow->getType().c_str());
+    myComboBoxRoute->setText(myCopyOfCalibratorFlow->getRoute().c_str());
+    myTextFieldColor->setText(myCopyOfCalibratorFlow->getColor().c_str());
+    myTextFieldDepartLane->setText(myCopyOfCalibratorFlow->getDepartLane().c_str());
+    myTextFieldDepartPos->setText(myCopyOfCalibratorFlow->getDepartPos().c_str());
+    myTextFieldDepartSpeed->setText(myCopyOfCalibratorFlow->getDepartSpeed().c_str());
+    myTextFieldArrivalLane->setText(myCopyOfCalibratorFlow->getArrivalLane().c_str());
+    myTextFieldArrivalPos->setText(myCopyOfCalibratorFlow->getArrivalPos().c_str());
+    myTextFieldArrivalSpeed->setText(myCopyOfCalibratorFlow->getArrivalSpeed().c_str());
+    myTextFieldLine->setText(myCopyOfCalibratorFlow->getLine().c_str());
+    myTextFieldPersonNumber->setText(toString(myCopyOfCalibratorFlow->getPersonNumber()).c_str());
+    myTextFieldContainerNumber->setText(toString(myCopyOfCalibratorFlow->getContainerNumber()).c_str());
+    myCheckBoxdReroute->setCheck(myCopyOfCalibratorFlow->getReroute());
+    myTextFieldDepartPosLat->setText(myCopyOfCalibratorFlow->getDepartPosLat().c_str());
+    myTextFieldArrivalPosLat->setText(myCopyOfCalibratorFlow->getArrivalPosLat().c_str());
+    myTextFieldBegin->setText(toString(myCopyOfCalibratorFlow->getBegin()).c_str());
+    myTextFieldEnd->setText(toString(myCopyOfCalibratorFlow->getEnd()).c_str());
+    myTextFieldNumber->setText(toString(myCopyOfCalibratorFlow->getNumber()).c_str());
+    myTextFieldVehsPerHour->setText(toString(myCopyOfCalibratorFlow->getVehsPerHour()).c_str());
+    myTextFieldPeriod->setText(toString(myCopyOfCalibratorFlow->getPeriod()).c_str());
+    myTextFieldProbability->setText(toString(myCopyOfCalibratorFlow->getProbability()).c_str());
 }
 
 

@@ -69,6 +69,12 @@ public:
 
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
+
+    /// @brief event after change value
+    long onCmdSetVariable(FXObject*, FXSelector, void*);
+
+    /// @brief event after change type of flow
+    long onCmdSetTypeOfFlow(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
@@ -81,11 +87,89 @@ protected:
     /// @brief pointer to rerouter interval
     GNECalibratorFlow* myCalibratorFlow;
 
+    /// @brief pointer in which save modifications of CalibratorFlow
+    GNECalibratorFlow* myCopyOfCalibratorFlow;
+
     /// @brief flag to check if current calibrator flow is valid
     bool myCalibratorFlowValid;
 
     /// @brief update data fields
     void updateCalibratorFlowValues();
+
+    /// @brief TextField for flow ID
+    FXTextField* myTextFieldFlowID;
+    
+    /// @brief ComboBox for Type
+    FXComboBox* myComboBoxType;
+
+    /// @brief TextField for Route
+    FXComboBox* myComboBoxRoute;
+
+    /// @brief TextField for Color
+    FXTextField* myTextFieldColor;
+
+    /// @brief TextField for Depart Lane
+    FXTextField* myTextFieldDepartLane;
+
+    /// @brief TextField for Depart Pos
+    FXTextField* myTextFieldDepartPos;
+
+    /// @brief TextField for Depart Speed
+    FXTextField* myTextFieldDepartSpeed;
+
+    /// @brief TextField for Arrival Lane
+    FXTextField* myTextFieldArrivalLane;
+
+    /// @brief TextField for Arrival Pos
+    FXTextField* myTextFieldArrivalPos;
+
+    /// @brief TextField for Arrival Speed
+    FXTextField* myTextFieldArrivalSpeed;
+
+    /// @brief TextField for Line
+    FXTextField* myTextFieldLine;
+
+    /// @brief TextField for PersonNumber
+    FXTextField* myTextFieldPersonNumber;
+
+    /// @brief TextField for Container Number
+    FXTextField* myTextFieldContainerNumber;
+
+    /// @brief chekBox for Reroute
+    FXMenuCheck* myCheckBoxdReroute;
+
+    /// @brief TextField for DepartPosLat
+    FXTextField* myTextFieldDepartPosLat;
+
+    /// @brief TextField for ArrivalPosLat
+    FXTextField* myTextFieldArrivalPosLat;
+
+    /// @brief TextField for Begin
+    FXTextField* myTextFieldBegin;
+
+    /// @brief TextField for End
+    FXTextField* myTextFieldEnd;
+
+    /// @brief TextField for Number
+    FXTextField* myTextFieldNumber;
+
+    /// @brief RadioButton for VehsPerHour
+    FXRadioButton* myRadioButtonVehsPerHour;
+
+    /// @brief TextField for VehsPerHour
+    FXTextField* myTextFieldVehsPerHour;
+
+    /// @brief RadioButton for Period
+    FXRadioButton* myRadioButtonPeriod;
+
+    /// @brief TextField for Period
+    FXTextField* myTextFieldPeriod;
+
+    /// @brief RadioButton for Probability
+    FXRadioButton* myRadioButtonProbability;
+
+    /// @brief TextField for Probability
+    FXTextField* myTextFieldProbability;
 
 private:
     /// @brief Invalidated copy constructor.
