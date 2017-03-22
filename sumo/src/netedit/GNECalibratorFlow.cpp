@@ -546,7 +546,6 @@ GNECalibratorFlow::setVehsPerHour(double vehsPerHour) {
         return false;
     } else {
         myVehsPerHour = vehsPerHour;
-        myTypeOfFlow = GNE_CALIBRATORFLOW_VEHSPERHOUR;
         return true;
     }
 }
@@ -568,7 +567,6 @@ GNECalibratorFlow::setPeriod(double period) {
         return false;
     } else {
         myPeriod = period;
-        myTypeOfFlow = GNE_CALIBRATORFLOW_PERIOD;
         return true;
     }
 }
@@ -589,7 +587,6 @@ GNECalibratorFlow::setProbability(double probability) {
         return false;
     } else {
         myProbability = probability;
-        myTypeOfFlow = GNE_CALIBRATORFLOW_PROBABILITY;
         return true;
     }
 }
@@ -628,6 +625,17 @@ GNECalibratorFlow::setNumber(std::string number) {
         } else {
             return false;
         }
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNECalibratorFlow::setTypeOfFlow(typeOfFlow type) {
+    if((type == GNE_CALIBRATORFLOW_VEHSPERHOUR) || (type == GNE_CALIBRATORFLOW_PERIOD) ||(type == GNE_CALIBRATORFLOW_PROBABILITY)) {
+        myTypeOfFlow = type;
+        return true;
     } else {
         return false;
     }

@@ -302,6 +302,11 @@ public:
     * @return true if was sucesfully set, or false if value isn't valid
     */
     bool setNumber(std::string number);
+
+    /**@brief set type of flow
+    * @return true if was sucesfully set, or false if value isn't valid
+    */
+    bool setTypeOfFlow(typeOfFlow type);
     /// @}
 
 private:
