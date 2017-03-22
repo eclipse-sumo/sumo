@@ -850,6 +850,8 @@ public:
         SUMOTime timeToBoardNextPerson;
         /// @brief The time at which the vehicle is able to load another container
         SUMOTime timeToLoadNextContainer;
+        /// @brief Whether this stop was triggered by a collision
+        bool collision;
 
         void write(OutputDevice& dev) const;
 
@@ -864,7 +866,7 @@ public:
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
      */
-    bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0);
+    bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0, bool collision = false);
 
     /** @brief replace the current parking area stop with a new stop with merge duration
      */
@@ -886,6 +888,11 @@ public:
      * @return Whether the vehicle has stopped
      */
     bool isStopped() const;
+
+    /** @brief Returns the remaining time a vehicle needs to stop due to a
+     * collision. A negative value indicates that the vehicle is not stopping due to a collision (or at all)
+     */
+    SUMOTime collisionStopTime() const;
 
     /** @brief Returns whether the vehicle is parking
      * @return whether the vehicle is parking
@@ -1537,6 +1544,9 @@ protected:
 
     /// @brief distance to the next stop or -1 if there is none
     double myStopDist;
+
+    /// @brief amount of time for which the vehicle is immune from collisions
+    SUMOTime myCollisionImmunity;
 
     mutable Position myCachedPosition;
 

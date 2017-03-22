@@ -259,6 +259,9 @@ MSFrame::fillOptions() {
     oc.doRegister("collision.action", new Option_String("teleport"));
     oc.addDescription("collision.action", "Processing", "How to deal with collisions: [none,warn,teleport,remove]");
 
+    oc.doRegister("collision.stoptime", new Option_String("0", "TIME"));
+    oc.addDescription("collision.stoptime", "Processing", "Let vehicle stop for TIME before performing collision.action (except for action 'none')");
+
     oc.doRegister("collision.check-junctions", new Option_Bool(false));
     oc.addDescription("collision.check-junctions", "Processing", "Enables collisions checks on junctions");
 

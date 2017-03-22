@@ -1015,6 +1015,10 @@ public:
         return myCollisionAction == COLLISION_ACTION_TELEPORT;
     }
 
+    static CollisionAction getCollisionAction() {
+        return myCollisionAction;
+    }
+
     static const long CHANGE_PERMISSIONS_PERMANENT = 0;
     static const long CHANGE_PERMISSIONS_GUI = 1;
 
@@ -1039,12 +1043,12 @@ protected:
 
 
     /// @brief detect whether there is a collision between the two vehicles
-    bool detectCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
+    bool detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                 std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
                                 std::set<const MSVehicle*>& toTeleport) const;
 
     /// @brief take action upon collision
-    void handleCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
+    void handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                 double gap, double latGap,
                                 std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
                                 std::set<const MSVehicle*>& toTeleport) const;
@@ -1197,6 +1201,7 @@ private:
     /// @brief the action to take on collisions
     static CollisionAction myCollisionAction;
     static bool myCheckJunctionCollisions;
+    static SUMOTime myCollisionStopTime;
 
     /**
      * @class vehicle_position_sorter

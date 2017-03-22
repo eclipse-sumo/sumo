@@ -534,6 +534,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myHaveToWaitOnNextLink(false),
     myAngle(0),
     myStopDist(std::numeric_limits<double>::max()),
+    myCollisionImmunity(-1),
     myCachedPosition(Position::INVALID),
     myEdgeWeights(0)
 #ifndef NO_TRACI
@@ -878,7 +879,7 @@ MSVehicle::getBackPosition() const {
 
 // ------------
 bool
-MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset) {
+MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset, bool collision) {
     Stop stop;
     stop.lane = MSLane::dictionary(stopPar.lane);
     if (!stop.lane->allowsVehicleClass(myType->getVehicleClass())) {
@@ -903,6 +904,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     stop.triggered = stopPar.triggered;
     stop.containerTriggered = stopPar.containerTriggered;
     stop.parking = stopPar.parking;
+    stop.collision = collision;
     stop.reached = false;
     if (stop.startPos < 0 || stop.endPos > stop.lane->getLength()) {
         if (stop.busstop != 0) {
@@ -957,7 +959,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         }
     }
     if (stop.edge == myRoute->end() || prevStopEdge > stop.edge ||
-            (prevStopEdge == stop.edge && prevStopPos > stop.endPos)) {
+            (prevStopEdge == stop.edge && prevStopPos > stop.endPos && !collision)) {
         if (stop.busstop != 0) {
             errorMsg = "Bus stop '" + stop.busstop->getID() + "'";
         } else {
@@ -968,7 +970,11 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     }
     // David.C:
     //if (!stop.parking && (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed))) {
-    if (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed)) {
+    if (collision) {
+        assert(myCurrEdge == stop.edge);
+        myState.myPos = stop.endPos;
+        myState.mySpeed = 0;
+    } else if (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed)) {
         errorMsg = "Stop for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is too close to break.";
         return false;
     }
@@ -1100,6 +1106,12 @@ MSVehicle::isStopped() const {
 }
 
 
+SUMOTime
+MSVehicle::collisionStopTime() const {
+    return (myStops.empty() || !myStops.front().collision) ? myCollisionImmunity : MAX2((SUMOTime)0, myStops.front().duration);
+}
+
+
 bool
 MSVehicle::isParking() const {
     return isStopped() && myStops.begin()->parking;
@@ -1185,7 +1197,7 @@ MSVehicle::processNextStop(double currentVelocity) {
 #endif
             }
         }
-        if (stop.duration <= 0 && !stop.triggered && !stop.containerTriggered) {
+        if (stop.duration <= 0 && !stop.triggered && !stop.containerTriggered && !stop.collision) {
 #ifdef DEBUG_STOPS
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " vehicle '" << getID() << "' resumes from stopping." << std::endl;
@@ -2184,6 +2196,7 @@ MSVehicle::executeMove() {
             myTimeLoss += TIME2STEPS(TS * (vmax - vNext) / vmax);
         }
     }
+    myCollisionImmunity = MAX2((SUMOTime)-1, myCollisionImmunity - DELTA_T);
 
     if (!hasArrived() && !myLane->getEdge().isVaporizing()) {
         if (myState.myPos > myLane->getLength()) {
@@ -3902,6 +3915,9 @@ MSVehicle::resumeFromStopping() {
         MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
         if (MSStopOut::active()) {
             MSStopOut::getInstance()->stopEnded(this, myStops.front());
+        }
+        if (myStops.front().collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
+            myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
         }
         myStops.pop_front();
         // do not count the stopping time towards gridlock time.
