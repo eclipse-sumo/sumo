@@ -43,7 +43,7 @@ Command_SaveTLSSwitchStates::Command_SaveTLSSwitchStates(const MSTLLogicControl:
         OutputDevice& od)
     : myOutputDevice(od), myLogics(logics) {
     MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(this, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
-    myOutputDevice.writeXMLHeader("tls-states", "tlsstate_file.xsd");
+    myOutputDevice.writeXMLHeader("tlsStates", "tlsstates_file.xsd");
 }
 
 
@@ -55,7 +55,7 @@ SUMOTime
 Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) {
     const std::string& state = myLogics.getActive()->getCurrentPhaseDef().getState();
     if (state != myPreviousState || myLogics.getActive()->getProgramID() != myPreviousProgramID) {
-        myOutputDevice << "    <tlsstate time=\"" << time2string(currentTime)
+        myOutputDevice << "    <tlsState time=\"" << time2string(currentTime)
                        << "\" id=\"" << myLogics.getActive()->getID()
                        << "\" programID=\"" << myLogics.getActive()->getProgramID()
                        << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
