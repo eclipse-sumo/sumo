@@ -63,8 +63,11 @@ class RouteReader(handler.ContentHandler):
             if 'edges' in attrs:
                 self._routeString = attrs['edges']
         elif name == 'vType':
-            # XXX does not handle child elements
-            print('    <vType %s/>' % (' '.join(['%s="%s"' % (key, value) for key, value in sorted(dict(attrs).items())])),
+            # XXX does not handle child elements (for carFollowing, the next case copies the input)
+            print('    <vType %s>' % (' '.join(['%s="%s"' % (key, value) for key, value in sorted(dict(attrs).items())])),
+                  file=self.outfile)
+        elif name[0:12] == 'carFollowing':
+            print('        <%s %s />' % (name, ' '.join(['%s="%s"' % (key, value) for key, value in sorted(dict(attrs).items())])),
                   file=self.outfile)
         elif name == 'routes':
             sumolib.writeXMLHeader(
@@ -96,6 +99,8 @@ class RouteReader(handler.ContentHandler):
             self._routeString = ''
         elif name == 'routes':
             print("</routes>", file=self.outfile)
+        elif name == 'vType':
+            print("    </vType>", file=self.outfile)
 
     def characters(self, content):
         self._routeString += content
