@@ -70,7 +70,7 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (oc.isSet("street-sign-output")) {
         writeStreetSigns(oc, nb.getEdgeCont());
     }
-    if (oc.exists("pt-stop-output") && oc.isSet("pt-stop-output")){
+    if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")){
         writePTStops(oc,nb.getPTStopCont());
     }
 }
@@ -370,7 +370,7 @@ NWWriter_XML::writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec) {
 }
 void
 NWWriter_XML::writePTStops(const OptionsCont& oc, NBPTStopCont& sc) {
-    OutputDevice& device = OutputDevice::getDevice(oc.getString("pt-stop-output"));
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("ptstop-output"));
     device.writeXMLHeader("additional", "additional_file.xsd");
     for (std::map<std::string,NBPTStop*>::const_iterator i = sc.begin(); i != sc.end(); ++i) {
         i->second->write(device);

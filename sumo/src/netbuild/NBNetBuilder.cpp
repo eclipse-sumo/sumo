@@ -482,7 +482,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         myEdgeCont.checkGrade(oc.getFloat("geometry.max-grade") / 100);
         PROGRESS_TIME_MESSAGE(before);
     }
-    if (oc.exists("pt-stop-output") && oc.isSet("pt-stop-output")) {
+    if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Processing public transport stops");
         myPTStopCont.process(myEdgeCont);

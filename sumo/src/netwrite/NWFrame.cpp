@@ -105,8 +105,8 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.addDescription("street-sign-output", "Output", "Writes street signs as POIs to FILE");
 
     if (!forNetgen) {
-        oc.doRegister("pt-stop-output", new Option_FileName());
-        oc.addDescription("pt-stop-output", "Output", "Writes public transport stops to FILE");
+        oc.doRegister("ptstop-output", new Option_FileName());
+        oc.addDescription("ptstop-output", "Output", "Writes public transport stops to FILE");
     }
 
     // register opendrive options

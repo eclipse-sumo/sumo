@@ -64,7 +64,7 @@ Output Options:
   --output.original-names              Writes original names, if given, as
                                          parameter
   --street-sign-output FILE            Writes street signs as POIs to FILE
-  --pt-stop-output FILE                Writes public transport stops to FILE
+  --ptstop-output FILE                Writes public transport stops to FILE
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
                                          whenever the angular change  between
                                          straight segments exceeds FLOAT degrees

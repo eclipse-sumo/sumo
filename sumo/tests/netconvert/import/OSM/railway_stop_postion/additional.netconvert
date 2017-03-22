@@ -11,7 +11,7 @@
 
     <output>
         <output-file value="net.net.xml"/>
-        <pt-stop-output value="additional.xml"/>
+        <ptstop-output value="additional.xml"/>
     </output>
 
     <projection>
