@@ -70,6 +70,8 @@
 
 /// @brief button used in breakpoint editor
 #define GUIDesignButtonBreakpoint       (ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED), 0, 0, 0, 0, 4, 4, 3, 3
+/// @}
+
 
 /// @name FXButtons for toolbar
 /// @{
@@ -81,10 +83,11 @@
 
 /// @brief little checkable button with icon placed in navigation toolbar used specify for Locator
 #define GUIDesignButtonToolbarLocator   (BUTTON_TOOLBAR | MENUBUTTON_RIGHT | LAYOUT_TOP | FRAME_RAISED | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
-/// @}
 
 /// @brief little checkable button with icon placed in navigation toolbar
 #define GUIDesignButtonToolbarCheckable (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+/// @}
+
 
 /// @name FXButtons for dialogs
 /// @{
@@ -101,6 +104,11 @@
 #define GUIDesignButtonReset            (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, 23, 2, 2, 2, 2
 /// @}
 
+
+/// @name FXCheckButtons for dialogs
+/// @{
+/// @brief CheckButton for Frames without thick extended over the frame
+#define GUIDesignCheckButton            (CHECKBUTTON_NORMAL | LAYOUT_CENTER_Y)
 /// @}
 
 
@@ -114,10 +122,23 @@
 /// @}
 
 
-/// @name FXMenu Checks
+/// @name FXMenuChecks
 /// @{
 /// @brief MenuCheck extended over Frame
 #define GUIDesignMenuCheck              (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
+
+/// @brief MenuCheck extended over Frame with fixed height
+#define GUIDesignMenuCheckFixedHeight   (LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | ICON_BEFORE_TEXT)
+/// @}
+
+
+/// @name FXMenuChecks
+/// @{
+/// @brief design for radio button
+#define GUIDesignRadioButton            (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | JUSTIFY_NORMAL)
+
+/// @brief design for radio button with fixed height
+#define GUIDesignRadioButtonFixedHeight (LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | JUSTIFY_CENTER_Y | ICON_BEFORE_TEXT)
 /// @}
 
 
@@ -176,7 +197,6 @@
 
 /// @name FXPackers
 /// @{
-
 /// @brief Horizontal frame extended over frame parent
 #define GUIDesignHorizontalFrame            (LAYOUT_FILL_X)
 
@@ -303,7 +323,6 @@
 
 /// @name design for view settings dialog
 /// @{
-
 /// @rbrief dialog
 #define GUIDesignViewSettingsMainDialog         (DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
@@ -414,11 +433,6 @@
 
 /// @brief Tree list used in frames to represent childs of elements
 #define GUIDesignTreeListFrame              (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
-
-/// @brief CheckButton for Frames extended over the frame
-#define GUIDesignCheckButton                (CHECKBUTTON_NORMAL | LAYOUT_CENTER_Y)
-
-#define GUIDesignRadioButton                (RADIOBUTTON_NORMAL)
 
 /// @brief design for FXLists
 #define GUIDesignList                       (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_NORMAL)
