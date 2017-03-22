@@ -74,7 +74,7 @@ public:
     long onCmdSetVariable(FXObject*, FXSelector, void*);
 
     /// @brief event after change type of flow
-    long onCmdSetTypeOfFlow(FXObject*, FXSelector, void*);
+    long onCmdSetTypeOfFlow(FXObject* radioButton, FXSelector, void*);
     /// @}
 
 protected:
@@ -100,7 +100,7 @@ protected:
     FXTextField* myTextFieldFlowID;
     
     /// @brief ComboBox for Type
-    FXComboBox* myComboBoxType;
+    FXComboBox* myComboBoxVehicleType;
 
     /// @brief TextField for Route
     FXComboBox* myComboBoxRoute;

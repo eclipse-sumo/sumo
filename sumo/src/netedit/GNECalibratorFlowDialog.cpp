@@ -80,7 +80,7 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibrator
     myTextFieldFlowID = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
     // 2 create combobox for type
     new FXLabel(columnLeftLabel, toString(SUMO_TAG_VTYPE).c_str(), 0, GUIDesignLabelThick);
-    myComboBoxType = new FXComboBox(columnLeftValue, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
+    myComboBoxVehicleType = new FXComboBox(columnLeftValue, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
     // 3 create combobox for route
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_ROUTE).c_str(), 0, GUIDesignLabelThick);
     myComboBoxRoute = new FXComboBox(columnLeftValue, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
@@ -146,6 +146,20 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibrator
     myTextFieldProbability = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
     myRadioButtonProbability->setHeight(23);
 
+    // fill comboBox of VTypes
+    const std::vector<GNECalibratorVehicleType>& vtypes = myCalibratorFlow->getCalibratorParent()->getCalibratorVehicleTypes();
+    for(std::vector<GNECalibratorVehicleType>::const_iterator i = vtypes.begin(); i != vtypes.end(); i++) {
+        myComboBoxVehicleType->appendItem(i->getVehicleTypeID().c_str());
+    }
+    myComboBoxVehicleType->setNumVisible(10);
+
+    // fill comboBox of Routes
+    const std::vector<GNECalibratorRoute>& routes = myCalibratorFlow->getCalibratorParent()->getCalibratorRoutes();
+    for(std::vector<GNECalibratorRoute>::const_iterator i = routes.begin(); i != routes.end(); i++) {
+        myComboBoxRoute->appendItem(i->getRouteID().c_str());
+    }
+    myComboBoxRoute->setNumVisible(10);
+
     // create copy of GNECalibratorFlow
     myCopyOfCalibratorFlow = new GNECalibratorFlow(myCalibratorFlow->getCalibratorParent());
 
@@ -206,9 +220,40 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
 
 
 long
-GNECalibratorFlowDialog::onCmdSetTypeOfFlow(FXObject*, FXSelector, void*) {
-
-    return 1;
+GNECalibratorFlowDialog::onCmdSetTypeOfFlow(FXObject* radioButton, FXSelector, void*) {
+    if(radioButton == myRadioButtonVehsPerHour) {
+        myRadioButtonVehsPerHour->setCheck(true);
+        myTextFieldVehsPerHour->enable();
+        myCopyOfCalibratorFlow->setTypeOfFlow(GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR);
+        // disable other options
+        myRadioButtonPeriod->setCheck(false);
+        myTextFieldPeriod->disable();
+        myRadioButtonProbability->setCheck(false);
+        myTextFieldProbability->disable();
+        return 1;
+    } else if(radioButton == myRadioButtonPeriod) {
+        myRadioButtonPeriod->setCheck(true);
+        myTextFieldPeriod->enable();
+        myCopyOfCalibratorFlow->setTypeOfFlow(GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD);
+        // disable other options
+        myRadioButtonVehsPerHour->setCheck(false);
+        myTextFieldVehsPerHour->disable();
+        myRadioButtonProbability->setCheck(false);
+        myTextFieldProbability->disable();
+        return 1;
+    } else if(radioButton == myRadioButtonProbability) {
+        myRadioButtonProbability->setCheck(true);
+        myTextFieldProbability->enable();
+        myCopyOfCalibratorFlow->setTypeOfFlow(GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY);
+        // disable other options
+        myRadioButtonVehsPerHour->setCheck(false);
+        myTextFieldVehsPerHour->disable();
+        myRadioButtonPeriod->setCheck(false);
+        myTextFieldPeriod->disable();
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 
@@ -216,7 +261,7 @@ void
 GNECalibratorFlowDialog::updateCalibratorFlowValues() {
     // update fields
     myTextFieldFlowID->setText(myCopyOfCalibratorFlow->getFlowID().c_str());
-    myComboBoxType->setText(myCopyOfCalibratorFlow->getType().c_str());
+    myComboBoxVehicleType->setText(myCopyOfCalibratorFlow->getType().c_str());
     myComboBoxRoute->setText(myCopyOfCalibratorFlow->getRoute().c_str());
     myTextFieldColor->setText(myCopyOfCalibratorFlow->getColor().c_str());
     myTextFieldDepartLane->setText(myCopyOfCalibratorFlow->getDepartLane().c_str());
@@ -237,6 +282,14 @@ GNECalibratorFlowDialog::updateCalibratorFlowValues() {
     myTextFieldVehsPerHour->setText(toString(myCopyOfCalibratorFlow->getVehsPerHour()).c_str());
     myTextFieldPeriod->setText(toString(myCopyOfCalibratorFlow->getPeriod()).c_str());
     myTextFieldProbability->setText(toString(myCopyOfCalibratorFlow->getProbability()).c_str());
+    // upsate type of flow
+    if(myCopyOfCalibratorFlow->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
+        onCmdSetTypeOfFlow(myRadioButtonVehsPerHour, 0, 0);
+    } else if(myCopyOfCalibratorFlow->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
+        onCmdSetTypeOfFlow(myRadioButtonPeriod,0,0);
+    } else if(myCopyOfCalibratorFlow->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
+        onCmdSetTypeOfFlow(myRadioButtonProbability, 0, 0);
+    }
 }
 
 
