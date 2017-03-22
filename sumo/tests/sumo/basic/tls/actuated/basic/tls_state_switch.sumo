@@ -20,7 +20,7 @@
 </configuration>
 -->
 
-<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsStates_file.xsd">
+<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
     <tlsState time="0.00" id="0" programID="0" phase="0" state="GGggrrrrGGggrrrr"/>
     <tlsState time="9.00" id="0" programID="0" phase="1" state="yyggrrrryyggrrrr"/>
     <tlsState time="13.00" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>

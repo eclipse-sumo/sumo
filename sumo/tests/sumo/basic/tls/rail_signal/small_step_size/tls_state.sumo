@@ -29,7 +29,7 @@
 </configuration>
 -->
 
-<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsStates_file.xsd">
+<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
     <tlsState time="0.00" id="gneJ1" programID="0" phase="0" state="G"/>
     <tlsState time="0.00" id="gneJ3" programID="0" phase="0" state="G"/>
     <tlsState time="0.00" id="gneJ5" programID="0" phase="0" state="G"/>

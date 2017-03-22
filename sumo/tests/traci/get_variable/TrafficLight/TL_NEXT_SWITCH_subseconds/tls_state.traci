@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/14/16 16:41:58 by SUMO Version dev-SVN-r21978
+<!-- generated on 03/22/17 15:55:28 by SUMO Version dev-SVN-r23592
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -24,13 +24,13 @@
     </report>
 
     <traci_server>
-        <remote-port value="53788"/>
+        <remote-port value="51846"/>
     </traci_server>
 
 </configuration>
 -->
 
-<tls-states xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstate_file.xsd">
+<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
     <tlsState time="0.00" id="0" programID="0" phase="0" state="GGggrrrrGGggrrrr"/>
     <tlsState time="0.10" id="0" programID="0" phase="0" state="GGggrrrrGGggrrrr"/>
     <tlsState time="0.20" id="0" programID="0" phase="0" state="GGggrrrrGGggrrrr"/>
@@ -432,4 +432,4 @@
     <tlsState time="39.80" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
     <tlsState time="39.90" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
     <tlsState time="40.00" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
-</tls-states>
+</tlsStates>
