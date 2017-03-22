@@ -204,6 +204,9 @@
         <!-- How to deal with collisions: [none,warn,teleport,remove] -->
         <collision.action value="teleport" type="STR"/>
 
+        <!-- Let vehicle stop for TIME before performing collision.action (except for action &apos;none&apos;) -->
+        <collision.stoptime value="0" type="TIME"/>
+
         <!-- Enables collisions checks on junctions -->
         <collision.check-junctions value="false" type="BOOL"/>
 
@@ -533,6 +536,9 @@
 
         <!-- Create initial window at the given x,y position -->
         <window-pos value="" type="STR"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
     </gui_only>
 

@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r23393
+SUMO Version dev-SVN-r23599
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -122,6 +122,9 @@ Processing Options:
   --ignore-accidents                   Do not check whether accidents occur
   --collision.action STR               How to deal with collisions:
                                          [none,warn,teleport,remove]
+  --collision.stoptime TIME            Let vehicle stop for TIME before
+                                         performing collision.action (except for
+                                         action 'none')
   --collision.check-junctions          Enables collisions checks on junctions
   --max-num-vehicles INT               Delay vehicle insertion to stay within
                                          the given maximum number
@@ -356,6 +359,8 @@ GUI Only Options:
                                          size
   --window-pos STR                     Create initial window at the given x,y
                                          position
+  --osg-view                           Start with an OpenSceneGraph view
+                                         instead of the regular 2D view
 
 
 Examples:
