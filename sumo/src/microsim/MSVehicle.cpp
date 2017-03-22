@@ -464,7 +464,7 @@ MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
         if (!wasOnRoad) {
             v->drawOutsideNetwork(false);
         }
-        //std::cout << "on road network p=" << myVTDXYPos << " a=" << myVTDAngle << " l=" << Named::getIDSecure(myVTDLane) << "\n";
+        //std::cout << "on road network p=" << myVTDXYPos << " a=" << myVTDAngle << " l=" << Named::getIDSecure(myVTDLane) << " pos=" << myVTDPos << " posLat=" << myVTDPosLat << "\n";
     } else {
         if (v->getDeparture() == NOT_YET_DEPARTED) {
             v->onDepart();
