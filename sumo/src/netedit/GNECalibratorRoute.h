@@ -105,6 +105,11 @@ public:
     */
     bool setColor(std::string color = "");
 
+    /**@brief check if a list of edges is valid to set a route
+    * @return "" if is correct, a error string in other case
+    */
+    std::string checkEdgeRoute(const std::vector<std::string>& edge) const;
+
 private:
     /// @brief pointer to calibrator parent
     GNECalibrator* myCalibratorParent;

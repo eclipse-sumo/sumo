@@ -52,6 +52,7 @@
 #include "GNEEdge.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
+#include "GNEJunction.h"
 
 
 // ===========================================================================
@@ -159,6 +160,7 @@ GNECalibratorRoute::setEdges(const std::vector<GNEEdge*>& edges) {
     return true;
 }
 
+
 bool 
 GNECalibratorRoute::setEdges(const std::string& edgeIDs) {
     if(GNEAttributeCarrier::isValidStringVector(edgeIDs)) {
@@ -170,11 +172,41 @@ GNECalibratorRoute::setEdges(const std::string& edgeIDs) {
     }
 }
 
+
 bool
 GNECalibratorRoute::setColor(std::string color) {
     myColor = color;
     return true;
 }
 
+
+std::string 
+GNECalibratorRoute::checkEdgeRoute(const std::vector<std::string>& edgeIDs) const {
+    std::vector<GNEEdge*> edges;
+    // check that there aren't to equal adjacent edges
+    for(std::vector<std::string>::const_iterator i = edgeIDs.begin() + 1; i != edgeIDs.end(); i++) {
+        GNEEdge* retrievedEdge = myCalibratorParent->getViewNet()->getNet()->retrieveEdge((*i), false);
+        if(retrievedEdge != NULL) {
+            edges.push_back(retrievedEdge);
+        } else {
+            return (toString(SUMO_TAG_EDGE) + " '" + *i + "' doesn't exist");
+        }
+    }
+    // check that there aren't to equal adjacent edges
+    for(std::vector<GNEEdge*>::const_iterator i = edges.begin() + 1; i != edges.end(); i++) {
+        if((*(i-1))->getID() == (*i)->getID()) {
+            return (toString(SUMO_TAG_EDGE) + " '" + (*i)->getID() + "' is adjacent to itself");
+        }
+    }
+    // check that edges are adjacents
+    for(std::vector<GNEEdge*>::const_iterator i = edges.begin() + 1; i != edges.end(); i++) {
+        std::vector<GNEEdge*> adyacents = (*(i-1))->getGNEJunctionDestiny()->getGNEOutgoingEdges();
+        if(std::find(adyacents.begin(), adyacents.end(), (*i)) == adyacents.end()) {
+            return (toString(SUMO_TAG_EDGE) + " '" + (*(i-1))->getID() + "' isn't adjacent to " + toString(SUMO_TAG_EDGE) + " '" + (*i)->getID() + "'");
+        }
+    }
+    // all ok, then return ""
+    return "";
+}
 
 /****************************************************************************/
