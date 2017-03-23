@@ -53,6 +53,9 @@ params
 # test setting up multiple connections
 multiconnect
 
+# test loading a simulation
+load
+
 # test various functions and options for influencing the behavior of rerouting functions
 rerouting
 bugs
