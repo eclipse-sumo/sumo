@@ -18,13 +18,9 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 
-import os
 import subprocess
 import sys
-import time
-import shutil
 import sumodump
-import sumoInductLoop
 import sumotripinfos
 import sumodetectors
 
@@ -60,8 +56,7 @@ def iterateGreenTimes(emissionClass, outputFile, T, MIN_GREEN, log):
         print('<additional>', file=fd)
         print('   <vType id="t1" accel="0.8" decel="4.5" sigma="0.5" length="7.5" maxSpeed="36" aemissionClass="%s"/>' %
               emissionClass, file=fd)
-        print(
-            '   <tlLogic id="c" type="static" programID="my" offset="0.00">', file=fd)
+        print('   <tlLogic id="c" type="static" programID="my" offset="0.00">', file=fd)
         print('      <phase duration="%s" state="GGrr"/>' % (i), file=fd)
         print('      <phase duration="%s" state="rrGG"/>' % (T - i), file=fd)
         print('   </tlLogic>', file=fd)
@@ -89,14 +84,14 @@ def iterateGreenTimes(emissionClass, outputFile, T, MIN_GREEN, log):
 #    shutil.copy("e2_tls.xml", "backup/" + str(i) + "_e2_tls.xml")
 #    shutil.copy("netstate.xml", "backup/" + str(i) + "_netstate.xml")
 
-        dumpEmissions = sumodump.readDump("aggregated_emissions.xml", [
-                                          "CO_perVeh", "CO2_perVeh", "HC_perVeh", "PMx_perVeh", "NOx_perVeh", "fuel_perVeh"])
+        dumpEmissions = sumodump.readDump("aggregated_emissions.xml", ["CO_perVeh", "CO2_perVeh", "HC_perVeh",
+                                                                       "PMx_perVeh", "NOx_perVeh", "fuel_perVeh"])
         dumpNoise = sumodump.readDump("aggregated_noise.xml", ["noise"])
         dumpTraffic = sumodump.readDump(
             "aggregated_traffic.xml", ["waitingTime", "speed"])
         tripinfos = sumotripinfos.readTripinfos("tripinfos.xml", ["waitSteps"])
-        e2 = sumodetectors.readAreal("e2.xml", [
-                                     "maxJamLengthInVehicles", "jamLengthInVehiclesSum", "meanHaltingDuration", "startedHalts"])
+        e2 = sumodetectors.readAreal("e2.xml", ["maxJamLengthInVehicles", "jamLengthInVehiclesSum",
+                                                "meanHaltingDuration", "startedHalts"])
 
         vals = tripinfos.get("waitSteps")
         meanV = 0
@@ -120,7 +115,8 @@ def iterateGreenTimes(emissionClass, outputFile, T, MIN_GREEN, log):
         shv = e2.get("startedHalts")[-1]["e2"]
 
         print("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s" % (
-            T - i, wtv, nv, cov, co2v, hcv, pmv, nov, fv, meanV, msv, 10000. / msv - 10000. / 13.82, mjlv, jlsv, mhdv, shv), file=fdo)
+            T - i, wtv, nv, cov, co2v, hcv, pmv, nov, fv, meanV, msv, 
+            10000. / msv - 10000. / 13.82, mjlv, jlsv, mhdv, shv), file=fdo)
     fdo.close()
 
 
