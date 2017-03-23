@@ -89,6 +89,13 @@ def isEmbedded():
     return _embedded
 
 
+def load(args):
+    """
+    Let sumo load a simulation using the given command line like options.
+    """
+    return _connections[""].load(args)
+
+
 def simulationStep(step=0):
     """
     Make a simulation step and simulate up to the given millisecond in sim time.
