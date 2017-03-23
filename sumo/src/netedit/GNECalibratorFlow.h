@@ -151,10 +151,10 @@ public:
     */
     bool setFlowID(std::string ID);
 
-    /**@brief set type of flow
+    /**@brief set vehicleType of flow
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setVehicleType(std::string type);
+    bool setVehicleType(std::string vehicleType);
 
     /**@brief set route in which this flow is used
     * @return true if was sucesfully set, or false if value isn't valid

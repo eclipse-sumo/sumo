@@ -271,11 +271,13 @@ GNECalibratorFlow::setFlowID(std::string flowID) {
 
 
 bool
-GNECalibratorFlow::setVehicleType(std::string type) {
-    if (type.empty()) {
+GNECalibratorFlow::setVehicleType(std::string vehicleType) {
+    if (vehicleType.empty()) {
+        return false;
+    } else if(myCalibratorParent->vehicleTypeExists(vehicleType) == false) {
         return false;
     } else {
-        myVehicleType = type;
+        myVehicleType = vehicleType;
         return true;
     }
 }
@@ -285,7 +287,7 @@ bool
 GNECalibratorFlow::setRoute(std::string route) {
     if (route.empty()) {
         return false;
-    } else if(myCalibratorParent->routeExists(route) == true) {
+    } else if(myCalibratorParent->routeExists(route) == false) {
         return false;
     } else {
         myRoute = route;
@@ -357,7 +359,7 @@ GNECalibratorFlow::setArrivalLane(std::string arrivalLane) {
     if ((arrivalLaneInt < 0) && (arrivalLane != "current")) {
         return false;
     } else {
-        myDepartLane = arrivalLane;
+        myArrivalLane = arrivalLane;
         return true;
     }
 }
@@ -372,7 +374,7 @@ GNECalibratorFlow::setArrivalPos(std::string arrivalPos) {
     if ((arrivalPosFloat < 0) && (arrivalPos != "random") && (arrivalPos != "max")) {
         return false;
     } else {
-        myDepartPos = arrivalPos;
+        myArrivalPos = arrivalPos;
         return true;
     }
 }
@@ -387,7 +389,7 @@ GNECalibratorFlow::setArrivalSpeed(std::string arrivalSpeed) {
     if ((arrivalSpeedDouble < 0) && (arrivalSpeed != "current")) {
         return false;
     } else {
-        myDepartSpeed = arrivalSpeed;
+        myArrivalSpeed = arrivalSpeed;
         return true;
     }
 }
@@ -485,7 +487,7 @@ GNECalibratorFlow::setDepartPosLat(std::string departPosLat) {
         (departPosLat != "left") && (departPosLat != "right") && (departPosLat != "center")) {
         return false;
     } else {
-        myDepartPos = departPosLat;
+        myDepartPosLat = departPosLat;
         return true;
     }
 }
@@ -497,10 +499,10 @@ GNECalibratorFlow::setArrivalPosLat(std::string arrivalPosLat) {
     if (GNEAttributeCarrier::canParse<double>(arrivalPosLat)) {
         arrivalPosLatFloat = GNEAttributeCarrier::parse<double>(arrivalPosLat);
     }
-    if ((arrivalPosLatFloat < 0) && (arrivalPosLat != "left") && (arrivalPosLat != "right") && (arrivalPosLat != "center")) {
+    if ((arrivalPosLatFloat < 0) && (arrivalPosLat != "left") && (arrivalPosLat != "right") && (arrivalPosLat != "center") && (arrivalPosLat != "")) {
         return false;
     } else {
-        myDepartPos = arrivalPosLat;
+        myArrivalPosLat = arrivalPosLat;
         return true;
     }
 }
