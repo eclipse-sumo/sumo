@@ -621,10 +621,10 @@ GNECalibratorVehicleType::setPersonCapacity(int personCapacity) {
 bool 
 GNECalibratorVehicleType::setPersonCapacity(std::string personCapacity) {
     if (GNEAttributeCarrier::canParse<double>(personCapacity)) {
-        double impatienceD = GNEAttributeCarrier::canParse<double>(personCapacity);
+        double personCapacityD = GNEAttributeCarrier::parse<double>(personCapacity);
         // Check that double doesn't have decimals
-        if(fmod(impatienceD, 1) == 0) {
-            return setImpatience((int)impatienceD);
+        if(fmod(personCapacityD, 1) == 0) {
+            return setPersonCapacity((int)personCapacityD);
         } else {
             return false;
         }
@@ -648,10 +648,10 @@ GNECalibratorVehicleType::setContainerCapacity(int containerCapacity) {
 bool 
 GNECalibratorVehicleType::setContainerCapacity(std::string containerCapacity) {
     if (GNEAttributeCarrier::canParse<double>(containerCapacity)) {
-        double containerCapacityD = GNEAttributeCarrier::canParse<double>(containerCapacity);
+        double containerCapacityD = GNEAttributeCarrier::parse<double>(containerCapacity);
         // Check that double doesn't have decimals
         if(fmod(containerCapacityD, 1) == 0) {
-            return setImpatience((int)containerCapacityD);
+            return setContainerCapacity((int)containerCapacityD);
         } else {
             return false;
         }
