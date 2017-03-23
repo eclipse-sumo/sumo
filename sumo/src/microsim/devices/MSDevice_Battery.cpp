@@ -729,10 +729,10 @@ double MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
         EnergyLoss = EnergyLoss * getRecuperationEfficiency();
     }
 
-    // convert from [Ws] to [kWh] (3600s / 1h):
-    EnergyLoss = EnergyLoss / 3600 ; // EnergyLoss[Ws] * 1[h]/3600[s] * 1[k]/1000
+    // convert from [Ws] to [Wh] (3600s / 1h):
+    EnergyLoss = EnergyLoss / 3600 ; // EnergyLoss[Ws] * 1[h]/3600[s]
 
-    // Return calculated energy
+    // Return calculated energy in [Wh]
     return EnergyLoss;
 }
 

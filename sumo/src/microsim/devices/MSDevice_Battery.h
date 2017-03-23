@@ -187,7 +187,7 @@ public:
     /// @brief Get stopping treshold
     double getStoppingTreshold() const;
 
-    /// @brief get propulsion energy
+    /// @brief get propulsion energy in [Wh]
     double getPropEnergy(SUMOVehicle& veh);
 
     /// @brief Set actual vehicle's Battery Capacity in kWh
