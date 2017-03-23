@@ -1046,9 +1046,12 @@ class VehicleDomain(Domain):
         self._connection._sendByteCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.REMOVE, vehID, reason)
 
-    def moveToXY(self, vehID, edgeID, lane, x, y, angle, keepRoute=1):
+    def moveToXY(self, vehID, edgeID, lane, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1):
         '''Place vehicle at the given x,y coordinates and force it's angle to
-        the given value (for drawing). If keepRoute is set to 1, the closest position
+        the given value (for drawing). 
+        If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
+        natural angle of the edge on which it is driving.
+        If keepRoute is set to 1, the closest position
         within the existing route is taken. If keepRoute is set to 0, the vehicle may move to
         any edge in the network but it's route then only consists of that edge.
         If keepRoute is set to 2 the vehicle has all the freedom of keepRoute=0

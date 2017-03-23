@@ -1355,11 +1355,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             Position pos(x, y);
             double angle = origAngle;
             // angle must be in [0,360] because it will be compared against those returned by naviDegree()
-            while (angle >= 360.) {
-                angle -= 360.;
-            }
-            while (angle < 0.) {
-                angle += 360.;
+            // angle set to INVALID_DOUBLE_VALUE is ignored in the evaluated and later set to the angle of the matched lane
+            if (angle != INVALID_DOUBLE_VALUE) {
+                while (angle >= 360.) {
+                    angle -= 360.;
+                }
+                while (angle < 0.) {
+                    angle += 360.;
+                }
             }
 
             Position vehPos = v->getPosition();
@@ -1405,6 +1408,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     }
                 }
                 assert((found && lane != 0) || (!found && lane == 0));
+                if (angle == INVALID_DOUBLE_VALUE) {
+                    if (lane != 0) {
+                        angle = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(lanePos));
+                    } else {
+                        // compute angle outside road network from old and new position
+                        angle = GeomHelper::naviDegree(v->getPosition().angleTo2D(pos));
+                    }
+                }
                 // use the best we have
                 server.setVTDControlled(v, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
                 if (!v->isOnRoad()) {
@@ -1580,14 +1591,15 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, con
                 rNextEdge = next == 0 ? 0 : &next->getEdge();
             }
             */
+            const double angleDiff = (angle == INVALID_DOUBLE_VALUE ? 0 : GeomHelper::getMinAngleDiff(angle, langle));
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << lane->getID() << " lAngle:" << langle << " lLength=" << lane->getLength() 
-                << " angleDiff:" << GeomHelper::getMinAngleDiff(angle, langle) 
+                << " angleDiff:" << angleDiff
                 << " off:" << off << " dist=" << dist << "\n";
             std::cout << lane->getID() << " param=" << lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) << " origID='" << origID << "\n";
 #endif
             lane2utility[lane] = LaneUtility(
-                                     dist, GeomHelper::getMinAngleDiff(angle, langle),
+                                     dist, angleDiff,
                                      lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) == origID,
                                      onRoute, sameEdge, prevEdge, nextEdge);
             // update scaling value
