@@ -116,7 +116,7 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibrator
     myTextFieldContainerNumber = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldInt);
     // 3 create textfield for reroute
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_REROUTE).c_str(), 0, GUIDesignLabelThick);
-    myCheckBoxdReroute = new FXMenuCheck(columnRightValue, "Disabled", this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignMenuCheckFixedHeight);
+    myCheckBoxdReroute = new FXMenuCheck(columnRightValue, "false", this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignMenuCheckFixedHeight);
     myCheckBoxdReroute->setHeight(23);
     // 4 create textfield for depart pos lat
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_DEPARTPOS_LAT).c_str(), 0, GUIDesignLabelThick);
@@ -183,7 +183,7 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error updating " + toString(myCalibratorFlow->getTag()) + " of " + toString(myCalibratorFlow->getCalibratorParent()->getTag())).c_str(), "%s",
                               (toString(myCalibratorFlow->getCalibratorParent()->getTag()) + "'s " + toString(myCalibratorFlow->getTag()) +
-                               " cannot be updated because " + toString(myCalibratorFlow->getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
+                               " cannot be updated because parameter " + toString(myInvalidAttr) + " is invalid.").c_str());
         return 0;
     } else {
         // copy all values of myCopyOfCalibratorFlow into myCalibratorFlow
@@ -214,7 +214,196 @@ GNECalibratorFlowDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
-
+    // At start we assumed, that all values are valid
+    myCalibratorFlowValid = true;
+    myInvalidAttr = SUMO_ATTR_NOTHING;
+    // set color of myTextFieldFlowID, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->getFlowID() == myTextFieldFlowID->getText().text()) {
+        myTextFieldFlowID->setTextColor(FXRGB(0, 0, 0));
+    } else if(myCopyOfCalibratorFlow->setFlowID(myTextFieldFlowID->getText().text()) == true) {
+        myTextFieldFlowID->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldFlowID->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_ID;
+    }
+    // set color of myComboBoxVehicleType, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setVehicleType(myComboBoxVehicleType->getText().text()) == true) {
+        myComboBoxVehicleType->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myComboBoxVehicleType->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_TYPE;
+    }
+    // set color of myComboBoxRoute, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setRoute(myComboBoxRoute->getText().text()) == true) {
+        myComboBoxRoute->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myComboBoxRoute->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_ROUTE;
+    }
+    // set color of myTextFieldColor, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setColor(myTextFieldColor->getText().text()) == true) {
+        myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_COLOR;
+    }
+    // set color of myTextFieldDepartLane, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setDepartLane(myTextFieldDepartLane->getText().text()) == true) {
+        myTextFieldDepartLane->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldDepartLane->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_DEPARTLANE;
+    }
+    // set color of myTextFieldDepartPos, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setDepartPos(myTextFieldDepartPos->getText().text()) == true) {
+        myTextFieldDepartPos->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldDepartPos->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_DEPARTPOS;
+    }
+    // set color of setDepartSpeed, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setDepartSpeed(myTextFieldDepartSpeed->getText().text()) == true) {
+        myTextFieldDepartSpeed->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldDepartSpeed->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_DEPARTSPEED;
+    }
+    // set color of myTextFieldArrivalLane, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setArrivalLane(myTextFieldArrivalLane->getText().text()) == true) {
+        myTextFieldArrivalLane->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldArrivalLane->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_ARRIVALLANE;
+    }
+    // set color of myTextFieldArrivalPos, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setArrivalPos(myTextFieldArrivalPos->getText().text()) == true) {
+        myTextFieldArrivalPos->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldArrivalPos->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_ARRIVALPOS;
+    }
+    // set color of setArrivalSpeed, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setArrivalSpeed(myTextFieldArrivalSpeed->getText().text()) == true) {
+        myTextFieldArrivalSpeed->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldArrivalSpeed->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_ARRIVALSPEED;
+    }
+    // set color of myTextFieldLine, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setLine(myTextFieldLine->getText().text()) == true) {
+        myTextFieldLine->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldLine->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_LINE;
+    }
+    // set color of myTextFieldPersonNumber, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setPersonNumber(myTextFieldPersonNumber->getText().text()) == true) {
+        myTextFieldPersonNumber->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldPersonNumber->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_PERSON_NUMBER;
+    }
+    // set color of myTextFieldContainerNumber, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setContainerNumber(myTextFieldContainerNumber->getText().text()) == true) {
+        myTextFieldContainerNumber->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldContainerNumber->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_CONTAINER_NUMBER;
+    }
+    // set reroute
+    if(myCheckBoxdReroute->getCheck()) {
+        myCopyOfCalibratorFlow->setReroute(true);
+        myCheckBoxdReroute->setText("true");
+    } else {
+        myCopyOfCalibratorFlow->setReroute(false);
+        myCheckBoxdReroute->setText("false");
+    }
+    // set color of myTextFieldDepartPosLat, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setDepartPosLat(myTextFieldDepartPosLat->getText().text()) == true) {
+        myTextFieldDepartPosLat->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldDepartPosLat->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_DEPARTPOS_LAT;
+    }
+    // set color of myTextFieldArrivalPosLat, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setArrivalPosLat(myTextFieldArrivalPosLat->getText().text()) == true) {
+        myTextFieldArrivalPosLat->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldArrivalPosLat->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_ARRIVALPOS_LAT;
+    }
+    // set color of myTextFieldBegin, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setBegin(myTextFieldBegin->getText().text()) == true) {
+        myTextFieldBegin->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldBegin->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_END;
+    }
+    // set color of myTextFieldEnd, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setEnd(myTextFieldEnd->getText().text()) == true) {
+        myTextFieldEnd->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldEnd->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_BEGIN;
+    }
+    // set color of myTextFieldNumber, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setNumber(myTextFieldNumber->getText().text()) == true) {
+        myTextFieldNumber->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldNumber->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_NUMBER;
+    }
+    // set color of myTextFieldVehsPerHour, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setVehsPerHour(myTextFieldVehsPerHour->getText().text()) == true) {
+        myTextFieldVehsPerHour->setTextColor(FXRGB(0, 0, 0));
+    } else if(myRadioButtonVehsPerHour->getCheck()) {
+        myTextFieldVehsPerHour->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_VEHSPERHOUR;
+    } else {
+        // if radio button is disabled, set default color
+        myTextFieldVehsPerHour->setTextColor(FXRGB(0, 0, 0));
+    }
+    // set color of myTextFieldPeriod, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setPeriod(myTextFieldPeriod->getText().text()) == true) {
+        myTextFieldPeriod->setTextColor(FXRGB(0, 0, 0));
+    } else if(myRadioButtonPeriod->getCheck()) {
+        myTextFieldPeriod->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_PERIOD;
+    } else {
+        // if radio button is disabled, set default color
+        myTextFieldPeriod->setTextColor(FXRGB(0, 0, 0));
+    }
+    // set color of myTextFieldProbability, depending if current value is valid or not
+    if(myCopyOfCalibratorFlow->setProbability(myTextFieldProbability->getText().text()) == true) {
+        myTextFieldProbability->setTextColor(FXRGB(0, 0, 0));
+    } else if(myRadioButtonProbability->getCheck()) {
+        myTextFieldProbability->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_PROB;
+    } else {
+        // if radio button is disabled, set default color
+        myTextFieldProbability->setTextColor(FXRGB(0, 0, 0));
+    }
     return 1;
 }
 
@@ -230,6 +419,7 @@ GNECalibratorFlowDialog::onCmdSetTypeOfFlow(FXObject* radioButton, FXSelector, v
         myTextFieldPeriod->disable();
         myRadioButtonProbability->setCheck(false);
         myTextFieldProbability->disable();
+        onCmdSetVariable(0,0,0);
         return 1;
     } else if(radioButton == myRadioButtonPeriod) {
         myRadioButtonPeriod->setCheck(true);
@@ -240,6 +430,7 @@ GNECalibratorFlowDialog::onCmdSetTypeOfFlow(FXObject* radioButton, FXSelector, v
         myTextFieldVehsPerHour->disable();
         myRadioButtonProbability->setCheck(false);
         myTextFieldProbability->disable();
+        onCmdSetVariable(0,0,0);
         return 1;
     } else if(radioButton == myRadioButtonProbability) {
         myRadioButtonProbability->setCheck(true);
@@ -250,6 +441,7 @@ GNECalibratorFlowDialog::onCmdSetTypeOfFlow(FXObject* radioButton, FXSelector, v
         myTextFieldVehsPerHour->disable();
         myRadioButtonPeriod->setCheck(false);
         myTextFieldPeriod->disable();
+        onCmdSetVariable(0,0,0);
         return 1;
     } else {
         return 0;

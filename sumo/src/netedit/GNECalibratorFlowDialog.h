@@ -81,6 +81,9 @@ protected:
     /// @brief FOX needs this
     GNECalibratorFlowDialog() {}
 
+    /// @brief update data fields
+    void updateCalibratorFlowValues();
+
     /// @brief pointer to GNECalibratorDialog parent
     GNECalibratorDialog* myCalibratorDialogParent;
 
@@ -93,8 +96,8 @@ protected:
     /// @brief flag to check if current calibrator flow is valid
     bool myCalibratorFlowValid;
 
-    /// @brief update data fields
-    void updateCalibratorFlowValues();
+    /// @brief current sumo attribute invalid
+    SumoXMLAttr myInvalidAttr;
 
     /// @brief TextField for flow ID
     FXTextField* myTextFieldFlowID;
