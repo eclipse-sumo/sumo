@@ -78,6 +78,12 @@ protected:
     /// @brief FOX needs this
     GNECalibratorVehicleTypeDialog() {}
 
+    /// @brief update data fields
+    void updateCalibratorVehicleTypeValues();
+
+    /// @brief set VClass texture
+    void setVClassLabelImage();
+
     /// @brief pointer to GNECalibratorDialog parent
     GNECalibratorDialog* myCalibratorDialogParent;
 
@@ -92,12 +98,6 @@ protected:
 
     /// @brief current sumo attribute invalid
     SumoXMLAttr myInvalidAttr;
-
-    /// @brief update data fields
-    void updateCalibratorVehicleTypeValues();
-
-    /// @brief set VClass texture
-    void setVClassLabelImage();
 
     /// @brief FXTextfield for vehicleTypeID
     FXTextField* myTextFieldVehicleTypeID;
