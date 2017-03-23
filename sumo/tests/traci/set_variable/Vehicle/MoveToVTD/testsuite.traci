@@ -43,6 +43,9 @@ set_speed
 # call moveToVTD and also set a custom angle
 set_angle
 
+# call moveToVTD and set an angle value that shall be ignored
+set_ignored_angle
+
 # position with sublane precision
 sublane
 
