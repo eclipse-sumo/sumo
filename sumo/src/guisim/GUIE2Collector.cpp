@@ -124,7 +124,7 @@ GUIE2Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
         new GUIParameterTableWindow(app, *this, 13);
     // add items
     // parameter
-    ret->mkItem("length [m]", false, myDetector.getEndPos() - myDetector.getStartPos());
+    ret->mkItem("length [m]", false, myDetector.getLength());
     ret->mkItem("position [m]", false, myDetector.getStartPos());
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values

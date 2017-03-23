@@ -57,13 +57,24 @@ MSDelayBasedTrafficLightLogic::MSDelayBasedTrafficLightLogic(MSTLLogicControl& t
         const std::map<std::string, std::string>& parameter,
         const std::string& basePath) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay, parameter) {
-
+#ifdef DEBUG_TIMELOSS_CONTROL
+    std::cout << "Building delay based tls logic '" << id << "'" << std::endl;
+#endif
     myShowDetectors = TplConvert::_2bool(getParameter("show-detectors", "false").c_str());
     myDetectionRange = TplConvert::_2double(getParameter("detectorRange", "-1.0").c_str());
     myTimeLossThreshold = TplConvert::_2double(getParameter("minTimeloss", "1.0").c_str());
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(TplConvert::_2double(getParameter("freq", "300").c_str()));
     myVehicleTypes = getParameter("vTypes", "");
+#ifdef DEBUG_TIMELOSS_CONTROL
+    std::cout << "show-detectors: " << myShowDetectors
+            << " detectorRange: " << myDetectionRange
+            << " minTimeLoss: " << myTimeLossThreshold
+            << " file: " << myFile
+            << " freq: " << myFreq
+            << " vTypes: " << myVehicleTypes
+            << std::endl;
+#endif
 }
 
 
