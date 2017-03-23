@@ -61,6 +61,13 @@ public:
     static void setArgs(int argc, char** argv);
 
 
+    /** @brief Return the number of command line arguments
+    */
+    static int getArgC() {
+        return myArgC;
+    }
+
+
     /** @brief Parses the command line arguments and loads the configuration
      *
      * Command line arguments are parsed, first, throwing a ProcessError
