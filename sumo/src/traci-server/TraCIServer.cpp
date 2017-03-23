@@ -72,6 +72,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include "lib/TraCI.h"
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
 #include "TraCIServerAPI_InductionLoop.h"
@@ -166,7 +167,6 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port)
 
 
 TraCIServer::~TraCIServer() {
-    MSNet::getInstance()->removeVehicleStateListener(this);
     if (mySocket != NULL) {
         mySocket->close();
         delete mySocket;
@@ -259,7 +259,8 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
         // Simulation should run until
         // 1. end time reached or
         // 2. got CMD_CLOSE or
-        // 3. Client closes socket connection
+        // 3. got CMD_LOAD or
+        // 4. Client closes socket connection
         if (myInstance->myDoingSimStep) {
             myInstance->postProcessSimulationStep2();
             myInstance->myDoingSimStep = false;
@@ -283,6 +284,9 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
                     for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myInstance->myVehicleStateChanges.begin(); i != myInstance->myVehicleStateChanges.end(); ++i) {
                         (*i).second.clear();
                     }
+                    return;
+                }
+                if (cmd == CMD_LOAD) {
                     return;
                 }
             }
@@ -408,10 +412,24 @@ TraCIServer::dispatchCommand() {
         success = myExecutors[commandId](*this, myInputStorage, myOutputStorage);
     } else {
         switch (commandId) {
-            case CMD_GETVERSION:
-                success = commandGetVersion();
-                break;
-            case CMD_SIMSTEP2: {
+        case CMD_GETVERSION:
+            success = commandGetVersion();
+            break;
+        case CMD_LOAD: {
+            std::vector<std::string> args;
+            if (!readTypeCheckingStringList(myInputStorage, args)) {
+                return writeErrorStatusCmd(CMD_LOAD, "A load command needs a list of string arguments.", myOutputStorage);
+            }
+            try {
+                TraCI::load(args);
+                success = true;
+                writeStatusCmd(CMD_LOAD, RTYPE_OK, "");
+            } catch (TraCIException& e) {
+                return writeErrorStatusCmd(CMD_LOAD, e.what(), myOutputStorage);
+            }
+            break;
+        }
+        case CMD_SIMSTEP2: {
                 SUMOTime nextT = myInputStorage.readInt();
                 success = true;
                 if (nextT != 0) {

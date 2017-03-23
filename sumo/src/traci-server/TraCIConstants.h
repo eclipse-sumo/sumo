@@ -43,6 +43,9 @@
 // command: get version
 #define CMD_GETVERSION 0x00
 
+// command: load
+#define CMD_LOAD 0x01
+
 // command: simulation step
 #define CMD_SIMSTEP2 0x02
 

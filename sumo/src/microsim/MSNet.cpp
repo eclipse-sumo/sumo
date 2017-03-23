@@ -44,8 +44,55 @@
 #include <cassert>
 #include <vector>
 #include <ctime>
+
+#include "trigger/MSTrigger.h"
+#include "trigger/MSCalibrator.h"
+#include "traffic_lights/MSTLLogicControl.h"
+#include "MSVehicleControl.h"
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include <utils/common/SysUtils.h>
 #include <utils/common/UtilExceptions.h>
-#include "MSNet.h"
+#include <utils/common/WrappingCommand.h>
+#include <utils/common/SystemFrame.h>
+#include <utils/geom/GeoConvHelper.h>
+#include <utils/iodevices/OutputDevice_File.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
+#include <utils/shapes/Polygon.h>
+#include <utils/shapes/ShapeContainer.h>
+#include <utils/vehicle/PedestrianRouter.h>
+#include <utils/xml/SUMORouteLoaderControl.h>
+#include <utils/xml/XMLSubSys.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MEVehicleControl.h>
+#include <microsim/output/MSDetectorControl.h>
+#include <microsim/MSCModel_NonInteracting.h>
+#include <microsim/MSVehicleTransfer.h>
+#include <microsim/devices/MSDevice_Routing.h>
+#include <microsim/devices/MSDevice_Vehroutes.h>
+#include <microsim/devices/MSDevice_Tripinfo.h>
+#include <microsim/devices/MSDevice_BTsender.h>
+#include <microsim/devices/MSDevice_SSM.h>
+#include <microsim/output/MSBatteryExport.h>
+#include <microsim/output/MSEmissionExport.h>
+#include <microsim/output/MSFCDExport.h>
+#include <microsim/output/MSFullExport.h>
+#include <microsim/output/MSQueueExport.h>
+#include <microsim/output/MSVTKExport.h>
+#include <microsim/output/MSXMLRawOut.h>
+#include <microsim/output/MSAmitranTrajectories.h>
+#include <microsim/pedestrians/MSPModel.h>
+#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <netload/NLBuilder.h>
+#include <netload/NLHandler.h>
+#include <netload/NLTriggerBuilder.h>
+#include <netload/NLEdgeControlBuilder.h>
+#include <netload/NLJunctionControlBuilder.h>
+#include <netload/NLDetectorBuilder.h>
+
 #include "MSTransportableControl.h"
 #include "MSEdgeControl.h"
 #include "MSJunctionControl.h"
@@ -57,53 +104,16 @@
 #include "MSLane.h"
 #include "MSVehicleTransfer.h"
 #include "MSRoute.h"
-#include <utils/xml/SUMORouteLoaderControl.h>
-#include "trigger/MSTrigger.h"
-#include "trigger/MSCalibrator.h"
-#include "traffic_lights/MSTLLogicControl.h"
-#include "MSVehicleControl.h"
-#include <utils/common/MsgHandler.h>
-#include <utils/common/ToString.h>
-#include <microsim/output/MSDetectorControl.h>
-#include <microsim/MSVehicleTransfer.h>
-#include <microsim/devices/MSDevice_Routing.h>
-#include <microsim/devices/MSDevice_Vehroutes.h>
-#include <microsim/devices/MSDevice_Tripinfo.h>
-#include <microsim/devices/MSDevice_BTsender.h>
-#include <microsim/devices/MSDevice_SSM.h>
-#include "traffic_lights/MSTrafficLightLogic.h"
-#include <utils/shapes/Polygon.h>
-#include <utils/shapes/ShapeContainer.h>
-
-#include <utils/iodevices/OutputDevice_File.h>
-#include "output/MSFCDExport.h"
-#include "output/MSEmissionExport.h"
-
-#include "output/MSBatteryExport.h"
-
-#include "output/MSFullExport.h"
-#include "output/MSQueueExport.h"
-#include "output/MSVTKExport.h"
-#include "output/MSXMLRawOut.h"
-#include "output/MSAmitranTrajectories.h"
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/common/SysUtils.h>
-#include <utils/common/WrappingCommand.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/vehicle/PedestrianRouter.h>
 #include "MSGlobals.h"
-#include <microsim/pedestrians/MSPModel.h>
-#include <microsim/MSCModel_NonInteracting.h>
-#include <utils/geom/GeoConvHelper.h>
-#include <microsim/pedestrians/MSPerson.h>
 #include "MSContainer.h"
 #include "MSEdgeWeightsStorage.h"
 #include "MSStateHandler.h"
-
-#include <mesosim/MELoop.h>
+#include "MSFrame.h"
+#include "MSNet.h"
 
 #ifndef NO_TRACI
 #include <traci-server/TraCIServer.h>
+#include <traci-server/lib/TraCI.h>
 #endif
 
 
@@ -118,7 +128,7 @@ const std::string MSNet::STAGE_LANECHANGE("laneChange");
 const std::string MSNet::STAGE_INSERTIONS("insertion");
 
 // ===========================================================================
-// member method definitions
+// static member method definitions
 // ===========================================================================
 double
 MSNet::getEffort(const MSEdge* const e, const SUMOVehicle* const v, double t) {
@@ -147,6 +157,57 @@ MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, double t
     return e->getMinimumTravelTime(v);
 }
 
+
+int
+MSNet::loadAndRun() {
+    SimulationState state = SIMSTATE_LOADING;
+    while (state == SIMSTATE_LOADING) {
+        OptionsCont& oc = OptionsCont::getOptions();
+        oc.clear();
+        MSFrame::fillOptions();
+        OptionsIO::getOptions();
+        if (oc.processMetaOptions(OptionsIO::getArgC() < 2)) {
+            SystemFrame::close();
+            return 0;
+        }
+        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+        if (!MSFrame::checkOptions()) {
+            throw ProcessError();
+        }
+        MsgHandler::initOutputOptions();
+        RandHelper::initRandGlobal();
+        RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
+        MSFrame::setMSGlobals(oc);
+        MSVehicleControl* vc = 0;
+        if (MSGlobals::gUseMesoSim) {
+            vc = new MEVehicleControl();
+        } else {
+            vc = new MSVehicleControl();
+        }
+        MSNet* net = new MSNet(vc, new MSEventControl(), new MSEventControl(), new MSEventControl());
+#ifndef NO_TRACI
+        // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
+        TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
+#endif
+
+        NLEdgeControlBuilder eb;
+        NLDetectorBuilder db(*net);
+        NLJunctionControlBuilder jb(*net, db);
+        NLTriggerBuilder tb;
+        NLHandler handler("", *net, db, tb, eb, jb);
+        tb.setHandler(&handler);
+        NLBuilder builder(oc, *net, eb, jb, db, handler);
+        if (builder.build()) {
+            state = net->simulate(string2time(oc.getString("begin")), string2time(oc.getString("end")));
+            delete net;
+        } else {
+            MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+            delete net;
+            return 1;
+        }
+    }
+    return 0;
+}
 
 
 // ---------------------------------------------------------------------------
@@ -202,8 +263,6 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     }
     myInstance = this;
 }
-
-
 
 
 void
@@ -299,12 +358,12 @@ MSNet::getRestrictions(const std::string& id) const {
 }
 
 
-int
+MSNet::SimulationState
 MSNet::simulate(SUMOTime start, SUMOTime stop) {
     // report the begin when wished
     WRITE_MESSAGE("Simulation started with time: " + time2string(start));
     // the simulation loop
-    MSNet::SimulationState state = SIMSTATE_RUNNING;
+    SimulationState state = SIMSTATE_RUNNING;
     myStep = start;
     // preload the routes especially for TraCI
     loadRoutes();
@@ -315,7 +374,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         closeSimulation(start);
         WRITE_MESSAGE("Simulation ended at time: " + time2string(getCurrentTimeStep()));
         WRITE_MESSAGE("Reason: Script ended");
-        return 0;
+        return state;
     }
 #endif
 #endif
@@ -329,7 +388,17 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         }
         state = simulationState(stop);
 #ifndef NO_TRACI
-        if (state != SIMSTATE_RUNNING) {
+        if (state == SIMSTATE_LOADING) {
+            std::vector<std::string>& args = TraCI::getLoadArgs();
+            char** argv = new char*[args.size() + 1];
+            argv[0] = "sumo";
+            for (int i = 0; i < (int)args.size(); i++) {
+                argv[i + 1] = new char[args[i].size() + 1];
+                std::strcpy(argv[i + 1], args[i].c_str());
+            }
+            OptionsIO::setArgs((int)args.size() + 1, argv);
+            TraCI::getLoadArgs().clear();
+        } else if (state != SIMSTATE_RUNNING) {
             if (OptionsCont::getOptions().getInt("remote-port") != 0 && !TraCIServer::wasClosed()) {
                 state = SIMSTATE_RUNNING;
             }
@@ -341,7 +410,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     WRITE_MESSAGE("Reason: " + getStateMessage(state));
     // exit simulation loop
     closeSimulation(start);
-    return 0;
+    return state;
 }
 
 void
@@ -411,9 +480,6 @@ MSNet::closeSimulation(SUMOTime start) {
     if (OptionsCont::getOptions().getBool("tripinfo-output.write-unfinished")) {
         MSDevice_Tripinfo::generateOutputForUnfinished();
     }
-#ifndef NO_TRACI
-    TraCIServer::close();
-#endif
 }
 
 
@@ -531,6 +597,9 @@ MSNet::simulationState(SUMOTime stopTime) const {
 #ifndef NO_TRACI
     if (TraCIServer::wasClosed()) {
         return SIMSTATE_CONNECTION_CLOSED;
+    }
+    if (!TraCI::getLoadArgs().empty()) {
+        return SIMSTATE_LOADING;
     }
     if ((stopTime < 0 || myStep > stopTime) && OptionsCont::getOptions().getInt("remote-port") == 0) {
 #else

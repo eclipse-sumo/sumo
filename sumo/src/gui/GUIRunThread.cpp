@@ -44,6 +44,7 @@
 #include "GUIGlobals.h"
 #include <microsim/MSVehicleControl.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
 #include <utils/common/SysUtils.h>
 #include <utils/common/MsgRetrievingFunction.h>
 #include <utils/common/MsgHandler.h>
@@ -52,6 +53,7 @@
 
 #ifndef NO_TRACI
 #include <traci-server/TraCIServer.h>
+#include <traci-server/lib/TraCI.h>
 #endif
 
 
@@ -186,13 +188,24 @@ GUIRunThread::makeStep() {
         e = 0;
         MSNet::SimulationState state = myNet->simulationState(mySimEndTime);
 #ifndef NO_TRACI
-        if (state != MSNet::SIMSTATE_RUNNING) {
+        if (state == MSNet::SIMSTATE_LOADING) {
+            std::vector<std::string>& args = TraCI::getLoadArgs();
+            char** argv = new char*[args.size() + 1];
+            argv[0] = "sumo";
+            for (int i = 0; i < (int)args.size(); i++) {
+                argv[i + 1] = new char[args[i].size() + 1];
+                std::strcpy(argv[i + 1], args[i].c_str());
+            }
+            OptionsIO::setArgs((int)args.size() + 1, argv);
+            TraCI::getLoadArgs().clear();
+        } else if (state != MSNet::SIMSTATE_RUNNING) {
             if (OptionsCont::getOptions().getInt("remote-port") != 0 && !TraCIServer::wasClosed()) {
                 state = MSNet::SIMSTATE_RUNNING;
             }
         }
 #endif
         switch (state) {
+            case MSNet::SIMSTATE_LOADING:
             case MSNet::SIMSTATE_END_STEP_REACHED:
             case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
             case MSNet::SIMSTATE_CONNECTION_CLOSED:

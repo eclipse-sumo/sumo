@@ -97,6 +97,8 @@ public:
      * @brief Possible states of a simulation - running or stopped with different reasons
      */
     enum SimulationState {
+        /// @brief The simulation is loading
+        SIMSTATE_LOADING,
         /// @brief The simulation is running
         SIMSTATE_RUNNING,
         /// @brief The final simulation step has been performed
@@ -123,6 +125,11 @@ public:
      */
     static MSNet* getInstance();
 
+
+    /**
+    * loads the net, additional routes and the detectors
+    */
+    static int loadAndRun();
 
     /** @brief Constructor
      *
@@ -212,7 +219,7 @@ public:
      * @todo Recheck return value
      * @todo What exceptions may occure?
      */
-    int simulate(SUMOTime start, SUMOTime stop);
+    SimulationState simulate(SUMOTime start, SUMOTime stop);
 
 
     /** @brief Performs a single simulation step

@@ -1345,7 +1345,9 @@ void
 GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
     GUIEvent_SimulationEnded* ec = static_cast<GUIEvent_SimulationEnded*>(e);
     onCmdStop(0, 0, 0);
-    if (GUIGlobals::gQuitOnEnd) {
+    if (ec->getReason() == MSNet::SIMSTATE_LOADING) {
+        onCmdReload(0, 0, 0);
+    } else if (GUIGlobals::gQuitOnEnd) {
         closeAllWindows();
         getApp()->exit(ec->getReason() == MSNet::SIMSTATE_ERROR_IN_SIM);
     } else if (GUIGlobals::gDemoAutoReload) {

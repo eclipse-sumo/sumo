@@ -39,30 +39,14 @@
 #include <ctime>
 #include <string>
 #include <iostream>
-#include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
-#include <microsim/MSRoute.h>
-#include <microsim/MSVehicleControl.h>
-#include <netload/NLBuilder.h>
-#include <netload/NLHandler.h>
-#include <netload/NLTriggerBuilder.h>
-#include <netload/NLEdgeControlBuilder.h>
-#include <netload/NLJunctionControlBuilder.h>
-#include <netload/NLDetectorBuilder.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/FileHelpers.h>
-#include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
-#include <microsim/MSFrame.h>
-#include <microsim/output/MSDetectorControl.h>
-#include <utils/iodevices/OutputDevice.h>
-
-#include <mesosim/MEVehicleControl.h>
 
 #ifndef NO_TRACI
 #include <traci-server/TraCIServer.h>
@@ -73,43 +57,6 @@
 // functions
 // ===========================================================================
 /* -------------------------------------------------------------------------
- * data processing methods
- * ----------------------------------------------------------------------- */
-/**
- * loads the net, additional routes and the detectors
- */
-MSNet*
-load(OptionsCont& oc) {
-    MSFrame::setMSGlobals(oc);
-    MSVehicleControl* vc = 0;
-    if (MSGlobals::gUseMesoSim) {
-        vc = new MEVehicleControl();
-    } else {
-        vc = new MSVehicleControl();
-    }
-    MSNet* net = new MSNet(vc, new MSEventControl(),
-                           new MSEventControl(), new MSEventControl());
-#ifndef NO_TRACI
-    // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
-    TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
-#endif
-
-    NLEdgeControlBuilder eb;
-    NLDetectorBuilder db(*net);
-    NLJunctionControlBuilder jb(*net, db);
-    NLTriggerBuilder tb;
-    NLHandler handler("", *net, db, tb, eb, jb);
-    tb.setHandler(&handler);
-    NLBuilder builder(oc, *net, eb, jb, db, handler);
-    if (!builder.build()) {
-        delete net;
-        throw ProcessError();
-    }
-    return net;
-}
-
-
-/* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
 int
@@ -119,29 +66,12 @@ main(int argc, char** argv) {
     oc.setApplicationDescription("A microscopic road traffic simulation.");
     oc.setApplicationName("sumo", "SUMO Version " VERSION_STRING);
     int ret = 0;
-    MSNet* net = 0;
     try {
         // initialise subsystems
         XMLSubSys::init();
-        MSFrame::fillOptions();
         OptionsIO::setArgs(argc, argv);
-        OptionsIO::getOptions();
-        if (oc.processMetaOptions(argc < 2)) {
-            SystemFrame::close();
-            return 0;
-        }
-        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
-        if (!MSFrame::checkOptions()) {
-            throw ProcessError();
-        }
-        MsgHandler::initOutputOptions();
-        RandHelper::initRandGlobal();
-        RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
         // load the net
-        net = load(oc);
-        if (net != 0) {
-            ret = net->simulate(string2time(oc.getString("begin")), string2time(oc.getString("end")));
-        }
+        ret = MSNet::loadAndRun();
     } catch (const ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
@@ -160,7 +90,9 @@ main(int argc, char** argv) {
         ret = 1;
 #endif
     }
-    delete net;
+#ifndef NO_TRACI
+    TraCIServer::close();
+#endif
     SystemFrame::close();
     return ret;
 }

@@ -35,16 +35,31 @@
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Position.h>
 #include <utils/common/RGBColor.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
+#include <utils/xml/XMLSubSys.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
+#include <microsim/MSFrame.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSRouteHandler.h>
 #include "TraCI.h"
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
+std::vector<std::string> TraCI::myLoadArgs;
 
 // ===========================================================================
 // member definitions
 // ===========================================================================
 void
 TraCI::connect(const std::string& host, int port) {
+}
+
+void
+TraCI::load(const std::vector<std::string>& args) {
+    myLoadArgs = args;
 }
 
 void

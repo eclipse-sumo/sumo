@@ -76,7 +76,7 @@ struct TraCIPosition {
     * @brief A color
     */
 struct TraCIColor {
-    int r, g, b, a;
+    unsigned char r, g, b, a;
 };
 
 /** @struct TraCIPositionVector
