@@ -34,8 +34,10 @@ $(COMMON_LIBS) $(XERCES_LDFLAGS)
 
 sumo_SOURCES = sumo_main.cpp
 
-sumo_LDADD   = ./netload/libnetload.a \
-./microsim/libmicrosim.a \
+sumo_LDADD   = ./microsim/libmicrosim.a \
+./netload/libnetload.a \
+./microsim/MSJunctionLogic.o \
+./microsim/MSNoLogicJunction.o \
 ./microsim/cfmodels/libmicrosimcfmodels.a \
 ./microsim/lcmodels/libmicrosimlcmodels.a \
 ./microsim/devices/libmicrosimdevs.a \

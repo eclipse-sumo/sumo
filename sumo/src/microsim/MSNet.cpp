@@ -37,6 +37,7 @@
 #endif
 
 #include <string>
+#include <cstring>
 #include <iostream>
 #include <sstream>
 #include <typeinfo>

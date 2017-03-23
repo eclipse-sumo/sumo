@@ -30,9 +30,12 @@ sumo_unittest_LDADD   = \
 ./microsim/MSEventControlTest.o \
 $(GUI_TESTS) \
 ../../src/netbuild/libnetbuild.a \
+../../src/microsim/libmicrosim.a \
+../../src/netload/libnetload.a \
+../../src/microsim/MSJunctionLogic.o \
+../../src/microsim/MSNoLogicJunction.o \
 ../../src/traci-server/libtraciserver.a \
 ../../src/traci-server/lib/libtraci.a \
-../../src/microsim/libmicrosim.a \
 ../../src/traci-server/TraCIServer.o \
 ../../src/microsim/devices/libmicrosimdevs.a \
 ../../src/microsim/trigger/libmicrosimtrigger.a \
@@ -41,7 +44,6 @@ $(GUI_TESTS) \
 ../../src/microsim/pedestrians/libmicrosimpeds.a \
 ../../src/microsim/output/libmicrosimoutput.a \
 ../../src/microsim/MSMoveReminder.o \
-../../src/microsim/MSRouteHandler.o \
 ../../src/microsim/actions/libmsactions.a \
 ../../src/microsim/traffic_lights/libmicrosimtls.a \
 $(MESO_LIBS) \
