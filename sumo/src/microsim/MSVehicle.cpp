@@ -4084,12 +4084,12 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myDeparture;
     bis >> routeOffset;
-    if (hasDeparted()) {
-        myDeparture -= offset;
-        myCurrEdge += routeOffset;
-    }
     bis >> myDepartPos;
     bis >> myWaitingTime;
+    if (hasDeparted()) {
+        myCurrEdge += routeOffset;
+        myDeparture -= offset;
+    }
     myState.myPos = attrs.getFloat(SUMO_ATTR_POSITION);
     myState.mySpeed = attrs.getFloat(SUMO_ATTR_SPEED);
     myState.myPosLat = attrs.getFloat(SUMO_ATTR_POSITION_LAT);

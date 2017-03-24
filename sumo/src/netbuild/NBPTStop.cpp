@@ -66,7 +66,9 @@ void NBPTStop::setLaneID(const std::string& laneId) {
 void NBPTStop::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_BUS_STOP);
     device.writeAttr(SUMO_ATTR_ID,myPTStopId);
-    device.writeAttr(SUMO_ATTR_NAME,myName);
+    if (myName != "") {
+        device.writeAttr(SUMO_ATTR_NAME,myName);
+    }
     device.writeAttr(SUMO_ATTR_LANE,myLaneId);
     device.writeAttr(SUMO_ATTR_STARTPOS,myFrom);
     device.writeAttr(SUMO_ATTR_ENDPOS,myTo);

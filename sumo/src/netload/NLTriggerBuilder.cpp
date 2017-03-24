@@ -192,11 +192,8 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
         throw ProcessError();
     }
 
-    //get the name set to id if not given or empty
-    std::string ptStopName = attrs.get<std::string>(SUMO_ATTR_NAME,0,ok);
-    if (!ok) {
-        ptStopName = id;
-    }
+    //get the name, leave blank if not given
+    const std::string ptStopName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
     // get the lane
     MSLane* lane = getLane(attrs, toString(element), id);
