@@ -77,8 +77,8 @@ public:
     /// @brief get ID of flow
     const std::string& getFlowID() const;
 
-    /// @brief get type of flow
-    const std::string& getType() const;
+    /// @brief get vehicle type of flow
+    const std::string& getVehicleType() const;
 
     /// @brief get route in which this flow is used
     const std::string& getRoute() const;
@@ -308,6 +308,9 @@ public:
     */
     bool setTypeOfFlow(typeOfFlow type);
     /// @}
+
+    /// @brief overload operator ==
+    bool operator==(const GNECalibratorFlow& calibratorFlow) const;
 
 private:
     /// @brief pointer to calibrator parent

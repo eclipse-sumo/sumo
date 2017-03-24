@@ -60,10 +60,11 @@ FXIMPLEMENT(GNECalibratorFlowDialog, FXDialogBox, GNECalibratorFlowDialogMap, AR
 // member method definitions
 // ===========================================================================
 
-GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow &calibratorFlow) :
+GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow &calibratorFlow, bool updatingElement) :
     GNEAdditionalDialog(calibratorFlow.getCalibratorParent(), 600, 300),
     myCalibratorDialogParent(calibratorDialog),
     myCalibratorFlow(&calibratorFlow),
+    myUpdatingElement(updatingElement),
     myCalibratorFlowValid(true) {
     // change default header
     changeAdditionalDialogHeader("Edit " + toString(calibratorFlow.getTag()) + " of " + toString(calibratorFlow.getCalibratorParent()->getTag()) +
@@ -181,9 +182,11 @@ long
 GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myCalibratorFlowValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myCalibratorFlow->getTag()) + " of " + toString(myCalibratorFlow->getCalibratorParent()->getTag())).c_str(), "%s",
+                              ("Error " + std::string((myUpdatingElement == true)?("updating"):("creating")) + " " + toString(myCalibratorFlow->getCalibratorParent()->getTag()) + 
+                               "'s " + toString(myCalibratorFlow->getTag())).c_str(), "%s",
                               (toString(myCalibratorFlow->getCalibratorParent()->getTag()) + "'s " + toString(myCalibratorFlow->getTag()) +
-                               " cannot be updated because parameter " + toString(myInvalidAttr) + " is invalid.").c_str());
+                               " cannot be " + std::string((myUpdatingElement == true)?("updated"):("created")) + " because parameter " + toString(myInvalidAttr) + 
+                               " is invalid.").c_str());
         return 0;
     } else {
         // copy all values of myCopyOfCalibratorFlow into myCalibratorFlow
@@ -453,7 +456,7 @@ void
 GNECalibratorFlowDialog::updateCalibratorFlowValues() {
     // update fields
     myTextFieldFlowID->setText(myCopyOfCalibratorFlow->getFlowID().c_str());
-    myComboBoxVehicleType->setText(myCopyOfCalibratorFlow->getType().c_str());
+    myComboBoxVehicleType->setText(myCopyOfCalibratorFlow->getVehicleType().c_str());
     myComboBoxRoute->setText(myCopyOfCalibratorFlow->getRoute().c_str());
     myTextFieldColor->setText(myCopyOfCalibratorFlow->getColor().c_str());
     myTextFieldDepartLane->setText(myCopyOfCalibratorFlow->getDepartLane().c_str());
