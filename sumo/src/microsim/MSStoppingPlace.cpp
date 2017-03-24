@@ -45,9 +45,9 @@
 MSStoppingPlace::MSStoppingPlace(const std::string& id,
                                  const std::vector<std::string>& lines,
                                  MSLane& lane,
-                                 double begPos, double endPos)
+                                 double begPos, double endPos, const std::string name)
     : Named(id), myLines(lines), myLane(lane),
-      myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos), myWaitingPos(endPos) {
+      myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos), myWaitingPos(endPos), myName(name) {
     computeLastFreePos();
 }
 
@@ -158,6 +158,12 @@ MSStoppingPlace::hasAccess(const MSEdge* edge) const {
         }
     }
     return false;
+}
+
+
+const std::string&
+MSStoppingPlace::getMyName() const {
+    return myName;
 }
 
 /****************************************************************************/

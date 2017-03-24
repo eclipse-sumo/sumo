@@ -75,7 +75,7 @@ public:
      */
     MSStoppingPlace(const std::string& id,
                     const std::vector<std::string>& lines, MSLane& lane,
-                    double begPos, double endPos);
+                    double begPos, double endPos, const std::string name = "");
 
 
     /// @brief Destructor
@@ -200,6 +200,12 @@ protected:
 
     /// @brief The next free position for persons / containers
     double myWaitingPos;
+
+    /// @brief The name of the stopping place
+    const std::string myName;
+public:
+    const std::string& getMyName() const;
+protected:
 
     /// @brief Persons waiting at this stop
     std::vector<MSTransportable*> myWaitingTransportables;

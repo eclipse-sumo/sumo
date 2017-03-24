@@ -101,6 +101,8 @@ protected:
         bool ptStopPostion;
         /// @brief The length of the pt stop
         double ptStopLength;
+        /// @brief The name of the node
+        std::string name;
         /// @brief the NBNode that was instantiated
         NBNode* node;
 

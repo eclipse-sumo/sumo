@@ -19,12 +19,15 @@
 /****************************************************************************/
 #include <utils/iodevices/OutputDevice.h>
 #include "NBPTStop.h"
-NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, double length):
+NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name):
     myPTStopId(ptStopId),
     myPosition(position),
     myEdgeId(edgeId),
+    myOrigEdgeId(origEdgeId),
     friendlyPos(false),
-    myPTStopLength(length) {
+    myPTStopLength(length),
+    myName(name)
+{
 
 }
 
@@ -34,8 +37,18 @@ NBPTStop::getID() const {
 }
 
 const std::string
+NBPTStop::getOrigEdgeId() {
+    return myOrigEdgeId;
+}
+
+const std::string
 NBPTStop::getEdgeId() {
     return myEdgeId;
+}
+
+const std::string
+NBPTStop::getName() {
+    return myName;
 }
 const Position& NBPTStop::getPosition() {
     return myPosition;
@@ -53,6 +66,7 @@ void NBPTStop::setLaneID(const std::string& laneId) {
 void NBPTStop::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_BUS_STOP);
     device.writeAttr(SUMO_ATTR_ID,myPTStopId);
+    device.writeAttr(SUMO_ATTR_NAME,myName);
     device.writeAttr(SUMO_ATTR_LANE,myLaneId);
     device.writeAttr(SUMO_ATTR_STARTPOS,myFrom);
     device.writeAttr(SUMO_ATTR_ENDPOS,myTo);

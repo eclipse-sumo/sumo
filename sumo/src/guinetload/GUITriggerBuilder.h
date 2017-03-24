@@ -115,9 +115,8 @@ protected:
      * @param[in] element which kind of stop is to be built
      * @exception InvalidArgument If the stop can not be added to the net (is duplicate)
      */
-    virtual void buildStoppingPlace(MSNet& net, const std::string& id,
-                                    const std::vector<std::string>& lines, MSLane* lane,
-                                    double frompos, double topos, const SumoXMLTag element);
+    virtual void buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
+                                    double frompos, double topos, const SumoXMLTag element, std::string string);
 
 
     /** @brief Builds a parking area

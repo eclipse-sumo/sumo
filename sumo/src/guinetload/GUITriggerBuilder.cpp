@@ -74,17 +74,18 @@ GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
 
 
 void
-GUITriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id, const std::vector<std::string>& lines,
-                                      MSLane* lane, double frompos, double topos, const SumoXMLTag element) {
+GUITriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
+                                      double frompos, double topos, const SumoXMLTag element, std::string name) {
     bool success = false;
     GUIGlObject* o = 0;
     if (element == SUMO_TAG_CONTAINER_STOP) {
+        //TODO: shall we also allow names for container stops? might make sense [GL March '17]
         GUIContainerStop* stop = new GUIContainerStop(id, lines, *lane, frompos, topos);
         success = net.addContainerStop(stop);
         o = stop;
         myCurrentStop = stop;
     } else {
-        GUIBusStop* stop = new GUIBusStop(id, lines, *lane, frompos, topos);
+        GUIBusStop* stop = new GUIBusStop(id, lines, *lane, frompos, topos, name);
         success = net.addBusStop(stop);
         o = stop;
         myCurrentStop = stop;

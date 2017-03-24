@@ -191,6 +191,13 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     if (!ok) {
         throw ProcessError();
     }
+
+    //get the name set to id if not given or empty
+    std::string ptStopName = attrs.get<std::string>(SUMO_ATTR_NAME,0,ok);
+    if (!ok) {
+        ptStopName = id;
+    }
+
     // get the lane
     MSLane* lane = getLane(attrs, toString(element), id);
     // get the positions
@@ -204,7 +211,7 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     std::vector<std::string> lines;
     SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
     // build the bus stop
-    buildStoppingPlace(net, id, lines, lane, frompos, topos, element);
+    buildStoppingPlace(net, id, lines, lane, frompos, topos, element, ptStopName);
 }
 
 
@@ -396,10 +403,9 @@ NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
 
 
 void
-NLTriggerBuilder::buildStoppingPlace(MSNet& net, const std::string& id,
-                                     const std::vector<std::string>& lines,
-                                     MSLane* lane, double frompos, double topos, const SumoXMLTag element) {
-    myCurrentStop = new MSStoppingPlace(id, lines, *lane, frompos, topos);
+NLTriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
+                                     double frompos, double topos, const SumoXMLTag element, std::string ptStopName) {
+    myCurrentStop = new MSStoppingPlace(id, lines, *lane, frompos, topos, ptStopName);
     const bool success = element == SUMO_TAG_CONTAINER_STOP ? net.addContainerStop(myCurrentStop) : net.addBusStop(myCurrentStop);
     if (!success) {
         delete myCurrentStop;

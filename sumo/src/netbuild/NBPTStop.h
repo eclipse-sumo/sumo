@@ -42,10 +42,12 @@ public:
     * @param[in] edgeId The edge id of the pt stop
     * @param[in] length The length of the pt stop
     */
-    NBPTStop(std::string ptStopId, Position position, std::string edgeId, double length);
+    NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name);
     std::string getID() const;
 
     const std::string getEdgeId();
+    const std::string getOrigEdgeId();
+    const std::string getName();
     const Position& getPosition();
     void computExtent(double center, double d);
     void setLaneID(const std::string& laneId);
@@ -55,11 +57,16 @@ private:
     const std::string myPTStopId;
     Position myPosition;
     const std::string myEdgeId;
+    const std::string myOrigEdgeId;
     const double myPTStopLength;
+    const std::string myName;
     std::string myLaneId;
+
+
     double myFrom;
     double myTo;
     bool friendlyPos;
+
 
 private:
     /// @brief Invalidated assignment operator.

@@ -272,6 +272,7 @@
             </xsd:element>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
         <xsd:attribute name="startPos" type="xsd:float"/>
         <xsd:attribute name="endPos" type="xsd:float"/>
