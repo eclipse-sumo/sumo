@@ -30,39 +30,46 @@
 #include <config.h>
 #endif
 
-#include "NLBuilder.h"
+#include <iostream>
+#include <vector>
+#include <string>
+#include <map>
+
+#include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/SystemFrame.h>
+#include <utils/iodevices/BinaryInputDevice.h>
+#include <utils/options/Option.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/SysUtils.h>
+#include <utils/common/ToString.h>
+#include <utils/xml/SUMORouteLoaderControl.h>
+#include <utils/xml/SUMORouteLoader.h>
+#include <utils/xml/XMLSubSys.h>
+#include <mesosim/MEVehicleControl.h>
+#include <microsim/MSVehicleControl.h>
+#include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSGlobals.h>
-#include <iostream>
-#include <vector>
-#include <xercesc/parsers/SAXParser.hpp>
-#include <xercesc/sax2/SAX2XMLReader.hpp>
-#include <string>
-#include <map>
+#include <microsim/output/MSDetectorControl.h>
+#include <microsim/MSFrame.h>
+#include <microsim/MSEdgeWeightsStorage.h>
+#include <microsim/MSStateHandler.h>
+
 #include "NLHandler.h"
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
 #include "NLDetectorBuilder.h"
 #include "NLTriggerBuilder.h"
-#include <microsim/MSVehicleControl.h>
-#include <microsim/MSVehicleTransfer.h>
-#include <utils/xml/SUMORouteLoaderControl.h>
-#include <utils/xml/SUMORouteLoader.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/options/Option.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/common/TplConvert.h>
-#include <utils/common/FileHelpers.h>
-#include <utils/common/SysUtils.h>
-#include <utils/common/ToString.h>
-#include <utils/xml/XMLSubSys.h>
-#include <microsim/output/MSDetectorControl.h>
-#include <microsim/MSFrame.h>
-#include <microsim/MSEdgeWeightsStorage.h>
-#include <microsim/MSStateHandler.h>
-#include <utils/iodevices/BinaryInputDevice.h>
+#include "NLBuilder.h"
+
+#ifndef NO_TRACI
+#include <traci-server/TraCIServer.h>
+#endif
 
 // ===========================================================================
 // method definitions
@@ -208,6 +215,58 @@ NLBuilder::build() {
     }
     WRITE_MESSAGE("Loading done.");
     return true;
+}
+
+
+int
+NLBuilder::loadAndRun() {
+    MSNet::SimulationState state = MSNet::SIMSTATE_LOADING;
+    while (state == MSNet::SIMSTATE_LOADING) {
+        OptionsCont& oc = OptionsCont::getOptions();
+        oc.clear();
+        MSFrame::fillOptions();
+        OptionsIO::getOptions();
+        if (oc.processMetaOptions(OptionsIO::getArgC() < 2)) {
+            SystemFrame::close();
+            return 0;
+        }
+        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+        if (!MSFrame::checkOptions()) {
+            throw ProcessError();
+        }
+        MsgHandler::initOutputOptions();
+        RandHelper::initRandGlobal();
+        RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
+        MSFrame::setMSGlobals(oc);
+        MSVehicleControl* vc = 0;
+        if (MSGlobals::gUseMesoSim) {
+            vc = new MEVehicleControl();
+        } else {
+            vc = new MSVehicleControl();
+        }
+        MSNet* net = new MSNet(vc, new MSEventControl(), new MSEventControl(), new MSEventControl());
+#ifndef NO_TRACI
+        // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
+        TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
+#endif
+
+        NLEdgeControlBuilder eb;
+        NLDetectorBuilder db(*net);
+        NLJunctionControlBuilder jb(*net, db);
+        NLTriggerBuilder tb;
+        NLHandler handler("", *net, db, tb, eb, jb);
+        tb.setHandler(&handler);
+        NLBuilder builder(oc, *net, eb, jb, db, handler);
+        if (builder.build()) {
+            state = net->simulate(string2time(oc.getString("begin")), string2time(oc.getString("end")));
+            delete net;
+        } else {
+            MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+            delete net;
+            return 1;
+        }
+    }
+    return 0;
 }
 
 

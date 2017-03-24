@@ -39,7 +39,7 @@
 #include <ctime>
 #include <string>
 #include <iostream>
-#include <microsim/MSNet.h>
+#include <netload/NLBuilder.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/MsgHandler.h>
@@ -71,7 +71,7 @@ main(int argc, char** argv) {
         XMLSubSys::init();
         OptionsIO::setArgs(argc, argv);
         // load the net
-        ret = MSNet::loadAndRun();
+        ret = NLBuilder::loadAndRun();
     } catch (const ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());

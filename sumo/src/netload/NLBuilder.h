@@ -100,6 +100,11 @@ public:
      */
     virtual bool build();
 
+    /**
+    * loads the net, additional routes and the detectors and starts the simulation
+    */
+    static int loadAndRun();
+
 
 protected:
     /** @brief Loads a described subpart form the given list of files

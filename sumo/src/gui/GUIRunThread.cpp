@@ -31,7 +31,6 @@
 #endif
 
 #include <cassert>
-#include <cstring>
 #include <string>
 #include <iostream>
 #include <algorithm>
@@ -190,14 +189,7 @@ GUIRunThread::makeStep() {
         MSNet::SimulationState state = myNet->simulationState(mySimEndTime);
 #ifndef NO_TRACI
         if (state == MSNet::SIMSTATE_LOADING) {
-            std::vector<std::string>& args = TraCI::getLoadArgs();
-            char** argv = new char*[args.size() + 1];
-            argv[0] = "sumo";
-            for (int i = 0; i < (int)args.size(); i++) {
-                argv[i + 1] = new char[args[i].size() + 1];
-                std::strcpy(argv[i + 1], args[i].c_str());
-            }
-            OptionsIO::setArgs((int)args.size() + 1, argv);
+            OptionsIO::setArgs(TraCI::getLoadArgs());
             TraCI::getLoadArgs().clear();
         } else if (state != MSNet::SIMSTATE_RUNNING) {
             if (OptionsCont::getOptions().getInt("remote-port") != 0 && !TraCIServer::wasClosed()) {

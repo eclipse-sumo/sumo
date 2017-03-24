@@ -126,11 +126,6 @@ public:
     static MSNet* getInstance();
 
 
-    /**
-    * loads the net, additional routes and the detectors
-    */
-    static int loadAndRun();
-
     /** @brief Constructor
      *
      * This constructor builds a net of which only some basic structures are initialised.

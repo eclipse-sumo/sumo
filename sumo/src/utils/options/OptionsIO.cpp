@@ -31,6 +31,8 @@
 
 #include <string>
 #include <iostream>
+#include <cstdlib>
+#include <cstring>
 #include <xercesc/framework/XMLPScanToken.hpp>
 #include <xercesc/parsers/SAXParser.hpp>
 #include <xercesc/sax/HandlerBase.hpp>
@@ -38,7 +40,6 @@
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <xercesc/sax/SAXException.hpp>
-#include <cstdlib>
 #include "OptionsIO.h"
 #include "OptionsCont.h"
 #include "OptionsLoader.h"
@@ -60,6 +61,19 @@ char** OptionsIO::myArgV;
 void
 OptionsIO::setArgs(int argc, char** argv) {
     myArgC = argc;
+    myArgV = argv;
+}
+
+
+void
+OptionsIO::setArgs(const std::vector<std::string>& args) {
+    myArgC = (int)args.size() + 1;
+    char** argv = new char*[myArgC];
+    argv[0] = myArgV[0];
+    for (int i = 1; i < myArgC; i++) {
+        argv[i] = new char[args[i-1].size() + 1];
+        std::strcpy(argv[i], args[i-1].c_str());
+    }
     myArgV = argv;
 }
 

@@ -37,7 +37,6 @@
 #endif
 
 #include <string>
-#include <cstring>
 #include <iostream>
 #include <sstream>
 #include <typeinfo>
@@ -67,7 +66,6 @@
 #include <utils/xml/SUMORouteLoaderControl.h>
 #include <utils/xml/XMLSubSys.h>
 #include <mesosim/MELoop.h>
-#include <mesosim/MEVehicleControl.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSCModel_NonInteracting.h>
 #include <microsim/MSVehicleTransfer.h>
@@ -87,12 +85,6 @@
 #include <microsim/pedestrians/MSPModel.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include <netload/NLBuilder.h>
-#include <netload/NLHandler.h>
-#include <netload/NLTriggerBuilder.h>
-#include <netload/NLEdgeControlBuilder.h>
-#include <netload/NLJunctionControlBuilder.h>
-#include <netload/NLDetectorBuilder.h>
 
 #include "MSTransportableControl.h"
 #include "MSEdgeControl.h"
@@ -156,58 +148,6 @@ MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, double t
         return value;
     }
     return e->getMinimumTravelTime(v);
-}
-
-
-int
-MSNet::loadAndRun() {
-    SimulationState state = SIMSTATE_LOADING;
-    while (state == SIMSTATE_LOADING) {
-        OptionsCont& oc = OptionsCont::getOptions();
-        oc.clear();
-        MSFrame::fillOptions();
-        OptionsIO::getOptions();
-        if (oc.processMetaOptions(OptionsIO::getArgC() < 2)) {
-            SystemFrame::close();
-            return 0;
-        }
-        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
-        if (!MSFrame::checkOptions()) {
-            throw ProcessError();
-        }
-        MsgHandler::initOutputOptions();
-        RandHelper::initRandGlobal();
-        RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
-        MSFrame::setMSGlobals(oc);
-        MSVehicleControl* vc = 0;
-        if (MSGlobals::gUseMesoSim) {
-            vc = new MEVehicleControl();
-        } else {
-            vc = new MSVehicleControl();
-        }
-        MSNet* net = new MSNet(vc, new MSEventControl(), new MSEventControl(), new MSEventControl());
-#ifndef NO_TRACI
-        // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
-        TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
-#endif
-
-        NLEdgeControlBuilder eb;
-        NLDetectorBuilder db(*net);
-        NLJunctionControlBuilder jb(*net, db);
-        NLTriggerBuilder tb;
-        NLHandler handler("", *net, db, tb, eb, jb);
-        tb.setHandler(&handler);
-        NLBuilder builder(oc, *net, eb, jb, db, handler);
-        if (builder.build()) {
-            state = net->simulate(string2time(oc.getString("begin")), string2time(oc.getString("end")));
-            delete net;
-        } else {
-            MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
-            delete net;
-            return 1;
-        }
-    }
-    return 0;
 }
 
 
@@ -390,14 +330,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         state = simulationState(stop);
 #ifndef NO_TRACI
         if (state == SIMSTATE_LOADING) {
-            std::vector<std::string>& args = TraCI::getLoadArgs();
-            char** argv = new char*[args.size() + 1];
-            argv[0] = "sumo";
-            for (int i = 0; i < (int)args.size(); i++) {
-                argv[i + 1] = new char[args[i].size() + 1];
-                std::strcpy(argv[i + 1], args[i].c_str());
-            }
-            OptionsIO::setArgs((int)args.size() + 1, argv);
+            OptionsIO::setArgs(TraCI::getLoadArgs());
             TraCI::getLoadArgs().clear();
         } else if (state != SIMSTATE_RUNNING) {
             if (OptionsCont::getOptions().getInt("remote-port") != 0 && !TraCIServer::wasClosed()) {
