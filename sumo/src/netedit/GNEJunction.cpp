@@ -622,6 +622,16 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_TYPE: {
             undoList->p_begin("change " + toString(getTag()) + " type");
             if (NBNode::isTrafficLight(SUMOXMLDefinitions::NodeTypes.get(value))) {
+                if (getNBNode()->isTLControlled() && 
+                        // if switching changing from or to traffic_light_right_on_red we need to remove the old plan
+                        (getNBNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED
+                         || SUMOXMLDefinitions::NodeTypes.get(value) == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED)
+                        ) {
+                    const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
+                    for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
+                        undoList->add(new GNEChange_TLS(this, *it, false), true);
+                    }
+                }
                 if (!getNBNode()->isTLControlled()) {
                     // create new traffic light
                     undoList->add(new GNEChange_TLS(this, 0, true), true);
