@@ -198,6 +198,7 @@ MSStateHandler::myEndElement(int element) {
 void
 MSStateHandler::closeVehicle() {
     assert(myVehicleParameter != 0);
+    myVehicleParameter->depart -= myOffset;
     // the vehicle was already counted in MSVehicleControl::setState
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     // make a copy because myVehicleParameter is reset in closeVehicle()
