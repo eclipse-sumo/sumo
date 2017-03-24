@@ -48,6 +48,7 @@ class OutputDevice;
 class SUMOVehicle;
 class OptionsCont;
 class SUMOSAXAttributes;
+class MTRand;
 
 
 // ===========================================================================
@@ -87,6 +88,9 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
+    static MTRand* getEquipmentRNG() {
+        return &myEquipmentRNG;
+    }
 
 
 public:
@@ -172,6 +176,9 @@ protected:
 private:
     /// @brief vehicles which explicitly carry a device, sorted by device, first
     static std::map<std::string, std::set<std::string> > myExplicitIDs;
+
+    /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
+    static MTRand myEquipmentRNG;
 
 
 private:

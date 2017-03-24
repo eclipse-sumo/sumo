@@ -53,6 +53,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSNet.h>
+#include <microsim/devices/MSDevice.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -237,6 +238,7 @@ NLBuilder::loadAndRun() {
         MsgHandler::initOutputOptions();
         RandHelper::initRandGlobal();
         RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
+        RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
         MSFrame::setMSGlobals(oc);
         MSVehicleControl* vc = 0;
         if (MSGlobals::gUseMesoSim) {

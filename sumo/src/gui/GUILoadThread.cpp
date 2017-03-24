@@ -55,6 +55,7 @@
 #include <guinetload/GUIDetectorBuilder.h>
 #include <guinetload/GUITriggerBuilder.h>
 #include <microsim/output/MSDetectorControl.h>
+#include <microsim/devices/MSDevice.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSFrame.h>
 #include <microsim/MSRouteHandler.h>
@@ -159,6 +160,7 @@ GUILoadThread::run() {
     // initialise global settings
     RandHelper::initRandGlobal();
     RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
+    RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
     MSFrame::setMSGlobals(oc);
     GUITexturesHelper::allowTextures(!oc.getBool("disable-textures"));
     if (oc.getBool("game")) {

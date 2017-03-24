@@ -47,7 +47,7 @@
 // static member variables
 // ===========================================================================
 std::map<std::string, std::set<std::string> > MSDevice::myExplicitIDs;
-
+MTRand MSDevice::myEquipmentRNG;
 
 // ===========================================================================
 // method definitions
@@ -111,7 +111,7 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
         haveByNumber = MSNet::getInstance()->getVehicleControl().getQuota(oc.getFloat("device." + deviceName + ".probability")) == 1;
     } else {
         if (oc.exists("device." + deviceName + ".probability") && oc.getFloat("device." + deviceName + ".probability") != 0) {
-            haveByNumber = RandHelper::rand() <= oc.getFloat("device." + deviceName + ".probability");
+            haveByNumber = myEquipmentRNG.rand() <= oc.getFloat("device." + deviceName + ".probability");
         }
     }
     // assignment by name
