@@ -233,7 +233,7 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
         // Write end
         device.writeAttr(SUMO_ATTR_END, i->getEnd());
         // Write type
-        device.writeAttr(SUMO_ATTR_TYPE, i->getType());
+        device.writeAttr(SUMO_ATTR_TYPE, i->getVehicleType());
         // Write route
         device.writeAttr(SUMO_ATTR_ROUTE, i->getRoute());
         // Write color
@@ -322,30 +322,30 @@ GNECalibrator::setCalibratorRoutes(const std::vector<GNECalibratorRoute> &calibr
 std::string 
 GNECalibrator::generateVehicleTypeID() const {
     int counter = 0;
-    while(vehicleTypeExists(toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_VTYPE) + toString(counter)) == true) {
+    while(vehicleTypeExists(toString(SUMO_TAG_VTYPE) + toString(counter)) == true) {
         counter++;
     }
-    return (toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_VTYPE) + toString(counter));
+    return (toString(SUMO_TAG_VTYPE) + toString(counter));
 }
 
 
 std::string 
 GNECalibrator::generateFlowID() const {
     int counter = 0;
-    while(flowExists(toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_FLOW) + toString(counter)) == true) {
+    while(flowExists(toString(SUMO_TAG_FLOW) + toString(counter)) == true) {
         counter++;
     }
-    return (toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_FLOW) + toString(counter));
+    return (toString(SUMO_TAG_FLOW) + toString(counter));
 }
 
 
 std::string 
 GNECalibrator::generateRouteID() const {
     int counter = 0;
-    while(routeExists(toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_ROUTE) + toString(counter)) == true) {
+    while(routeExists(toString(SUMO_TAG_ROUTE) + toString(counter)) == true) {
         counter++;
     }
-    return (toString(SUMO_TAG_CALIBRATOR) + toString(SUMO_TAG_ROUTE) + toString(counter));
+    return (toString(SUMO_TAG_ROUTE) + toString(counter));
 }
 
 
