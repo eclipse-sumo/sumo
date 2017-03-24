@@ -59,10 +59,11 @@ FXIMPLEMENT(GNECalibratorVehicleTypeDialog, FXDialogBox, GNECalibratorVehicleTyp
 // member method definitions
 // ===========================================================================
 
-GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorVehicleType &calibratorVehicleType) :
+GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorVehicleType &calibratorVehicleType, bool updatingElement) :
     GNEAdditionalDialog(calibratorVehicleType.getCalibratorParent(), 500, 375),
     myCalibratorDialogParent(calibratorDialog),
     myCalibratorVehicleType(&calibratorVehicleType),
+    myUpdatingElement(updatingElement),
     myCalibratorVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
     // change default header
@@ -221,9 +222,11 @@ long
 GNECalibratorVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myCalibratorVehicleTypeValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myCalibratorVehicleType->getTag()) + " of " + toString(myCalibratorVehicleType->getCalibratorParent()->getTag())).c_str(), "%s",
+                              ("Error " + std::string((myUpdatingElement == true)?("updating"):("creating")) + " " + toString(myCalibratorVehicleType->getCalibratorParent()->getTag()) + 
+                               "'s " + toString(myCalibratorVehicleType->getTag())).c_str(), "%s",
                               (toString(myCalibratorVehicleType->getCalibratorParent()->getTag()) + "'s " + toString(myCalibratorVehicleType->getTag()) +
-                               " cannot be updated because parameter " + toString(myInvalidAttr) + " is invalid.").c_str());
+                               " cannot be " + std::string((myUpdatingElement == true)?("updated"):("created")) + " because parameter " + toString(myInvalidAttr) + 
+                               " is invalid.").c_str());
         return 0;
     } else {
         // copy all values of myCopyOfCalibratorVehicleType into myCalibratorVehicleType

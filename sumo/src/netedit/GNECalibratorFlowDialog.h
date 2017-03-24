@@ -54,7 +54,7 @@ class GNECalibratorFlowDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow &calibratorFlow);
+    GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow &calibratorFlow, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorFlowDialog();
@@ -89,6 +89,9 @@ protected:
 
     /// @brief pointer to rerouter interval
     GNECalibratorFlow* myCalibratorFlow;
+
+    /// @brief flag to indicate if flow are being created or modified
+    bool myUpdatingElement;
 
     /// @brief pointer in which save modifications of CalibratorFlow
     GNECalibratorFlow* myCopyOfCalibratorFlow;

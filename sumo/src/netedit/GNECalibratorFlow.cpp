@@ -126,7 +126,7 @@ GNECalibratorFlow::getFlowID() const {
 
 
 const std::string&
-GNECalibratorFlow::getType() const {
+GNECalibratorFlow::getVehicleType() const {
     return myVehicleType;
 }
 
@@ -649,6 +649,12 @@ GNECalibratorFlow::setTypeOfFlow(typeOfFlow type) {
     } else {
         return false;
     }
+}
+
+
+bool 
+GNECalibratorFlow::operator==(const GNECalibratorFlow& calibratorFlow) const {
+    return (myFlowID == calibratorFlow.getFlowID());
 }
 
 /****************************************************************************/

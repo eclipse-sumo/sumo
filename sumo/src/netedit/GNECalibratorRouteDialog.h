@@ -54,7 +54,7 @@ class GNECalibratorRouteDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute &calibratorRoute);
+    GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute &calibratorRoute, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorRouteDialog();
@@ -86,6 +86,9 @@ protected:
 
     /// @brief pointer to modified rerouter interval
     GNECalibratorRoute* myCalibratorRoute;
+
+    /// @brief flag to indicate if flow are being created or modified
+    bool myUpdatingElement;
 
     /// @brief pointer in which save modifications of CalibratorRoute
     GNECalibratorRoute* myCopyOfCalibratorRoute;

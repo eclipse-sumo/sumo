@@ -59,10 +59,11 @@ FXIMPLEMENT(GNECalibratorRouteDialog, FXDialogBox, GNECalibratorRouteDialogMap, 
 // member method definitions
 // ===========================================================================
 
-GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute &calibratorRoute) :
+GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute &calibratorRoute, bool updatingElement) :
     GNEAdditionalDialog(calibratorRoute.getCalibratorParent(), 400, 300),
     myCalibratorDialogParent(calibratorDialog),
     myCalibratorRoute(&calibratorRoute),
+    myUpdatingElement(updatingElement),
     myCalibratorRouteValid(true) {
     // change default header
     changeAdditionalDialogHeader("Edit " + toString(calibratorRoute.getTag()) + " of " + toString(calibratorRoute.getCalibratorParent()->getTag()) +
@@ -120,9 +121,11 @@ long
 GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myCalibratorRouteValid == false) {
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error updating " + toString(myCalibratorRoute->getTag()) + " of " + toString(myCalibratorRoute->getCalibratorParent()->getTag())).c_str(), "%s",
+                              ("Error " + std::string((myUpdatingElement == true)?("updating"):("creating")) + " " + toString(myCalibratorRoute->getCalibratorParent()->getTag()) + 
+                               "'s " + toString(myCalibratorRoute->getTag())).c_str(), "%s",
                               (toString(myCalibratorRoute->getCalibratorParent()->getTag()) + "'s " + toString(myCalibratorRoute->getTag()) +
-                               " cannot be updated because " + toString(myCalibratorRoute->getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
+                               " cannot be " + std::string((myUpdatingElement == true)?("updated"):("created")) + " because parameter " + toString(myInvalidAttr) + 
+                               " is invalid.").c_str());
         return 0;
     } else {
         // copy all values of myCopyOfCalibratorRoute into myCalibratorRoute
@@ -153,7 +156,7 @@ GNECalibratorRouteDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 long 
 GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
- // At start we assumed, that all values are valid
+    // At start we assumed, that all values are valid
     myCalibratorRouteValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
 
@@ -171,6 +174,12 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldRouteEdges, depending if current value is valEdges or not
     if(myCopyOfCalibratorRoute->setEdges(myTextFieldEdges->getText().text()) == true) {
         myTextFieldEdges->setTextColor(FXRGB(0, 0, 0));
+        // fill list of router's edges
+        myListOfEdgesOfRoute->clearItems();
+        std::vector<GNEEdge*> edgesOfRouter = myCopyOfCalibratorRoute->getEdges();
+        for(std::vector<GNEEdge*>::iterator i = edgesOfRouter.begin(); i != edgesOfRouter.end(); i++) {
+            myListOfEdgesOfRoute->appendItem((*i)->getID().c_str());
+    }
     } else {
         myTextFieldEdges->setTextColor(FXRGB(255, 0, 0));
         myCalibratorRouteValid = false;
@@ -198,9 +207,9 @@ GNECalibratorRouteDialog::updateCalibratorRouteValues() {
     myTextFieldColor->setText(myCopyOfCalibratorRoute->getColor().c_str());
     // fill list of router's edges
     myListOfEdgesOfRoute->clearItems();
-    std::vector<GNEEdge*> edgesOfNet = myCopyOfCalibratorRoute->getEdges();
-    for(std::vector<GNEEdge*>::iterator i = edgesOfNet.begin(); i != edgesOfNet.end(); i++) {
-        myListOfEdgesOfNet->appendItem((*i)->getID().c_str());
+    std::vector<GNEEdge*> edgesOfRouter = myCopyOfCalibratorRoute->getEdges();
+    for(std::vector<GNEEdge*>::iterator i = edgesOfRouter.begin(); i != edgesOfRouter.end(); i++) {
+        myListOfEdgesOfRoute->appendItem((*i)->getID().c_str());
     }
 }
 

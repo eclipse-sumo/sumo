@@ -54,7 +54,7 @@ class GNECalibratorVehicleTypeDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorVehicleTypeDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorVehicleType &calibratorVehicleType);
+    GNECalibratorVehicleTypeDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorVehicleType &calibratorVehicleType, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorVehicleTypeDialog();
@@ -89,6 +89,9 @@ protected:
 
     /// @brief pointer to original calibrator vehicle type
     GNECalibratorVehicleType* myCalibratorVehicleType;
+
+    /// @brief flag to indicate if flow are being created or modified
+    bool myUpdatingElement;
 
     /// @brief pointer in which save modifications of CalibratorVehicleType
     GNECalibratorVehicleType* myCopyOfCalibratorVehicleType;
