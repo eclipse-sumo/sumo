@@ -197,6 +197,7 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app,
     new FXMenuSeparator(ret);
     //
     buildShowParamsPopupEntry(ret);
+    buildShowTypeParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
     return ret;
 }
@@ -208,7 +209,6 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 16);
     // add items
-    //ret->mkItem("type [NAME]", false, myType->getID());
     ret->mkItem("stage", false, getCurrentStageDescription());
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
     ret->mkItem("dest edge [id]", false, getDestination().getID());
@@ -219,10 +219,23 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getWaitingSeconds));
 
     ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
-    ret->mkItem("", false, "");
+    // close building
+    ret->closeBuilding();
+    return ret;
+}
+
+
+GUIParameterTableWindow*
+GUIPerson::getTypeParameterWindow(GUIMainWindow& app,
+                                   GUISUMOAbstractView&) {
+    GUIParameterTableWindow* ret =
+        new GUIParameterTableWindow(app, *this, 9);
+    // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myVType->getID());
     ret->mkItem("length", false, myVType->getLength());
+    ret->mkItem("width", false, myVType->getWidth());
+    ret->mkItem("height", false, myVType->getHeight());
     ret->mkItem("minGap", false, myVType->getMinGap());
     ret->mkItem("maximum speed [m/s]", false, myVType->getMaxSpeed());
 
@@ -231,6 +244,7 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->closeBuilding();
     return ret;
 }
+
 
 
 Boundary
