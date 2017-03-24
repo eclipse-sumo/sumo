@@ -75,7 +75,7 @@ public:
     const GNERerouterInterval& getRerouterIntervalParent() const;
 
     /// @brief overload operator ==
-    bool operator==(const GNEDestProbReroute& destProbReroute);
+    bool operator==(const GNEDestProbReroute& destProbReroute) const;
 
 protected:
     /// @brief reference to rerouter interval parent

@@ -93,7 +93,7 @@ GNEDestProbReroute::getRerouterIntervalParent() const {
 
 
 bool
-GNEDestProbReroute::operator==(const GNEDestProbReroute& destProbReroute) {
+GNEDestProbReroute::operator==(const GNEDestProbReroute& destProbReroute) const {
     if ((myRerouterIntervalParent == destProbReroute.myRerouterIntervalParent) &&
             (myNewEdgeDestination == destProbReroute.myNewEdgeDestination) &&
             (myProbability == destProbReroute.myProbability)) {

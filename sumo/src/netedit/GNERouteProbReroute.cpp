@@ -93,7 +93,7 @@ GNERouteProbReroute::getRerouterIntervalParent() const {
 
 
 bool
-GNERouteProbReroute::operator==(const GNERouteProbReroute& routeProbReroute) {
+GNERouteProbReroute::operator==(const GNERouteProbReroute& routeProbReroute) const {
     if ((myRerouterIntervalParent == routeProbReroute.myRerouterIntervalParent) &&
             (myNewRouteId == routeProbReroute.myNewRouteId) &&
             (myProbability && routeProbReroute.myProbability)) {

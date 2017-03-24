@@ -84,7 +84,7 @@ public:
     const GNERerouterInterval& getRerouterIntervalParent() const;
 
     /// @brief overload operator ==
-    bool operator==(const GNEClosingReroute& closingReroute);
+    bool operator==(const GNEClosingReroute& closingReroute) const;
 
 protected:
     /// @brief reference to rerouter interval parent

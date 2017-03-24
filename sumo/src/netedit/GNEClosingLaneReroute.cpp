@@ -98,7 +98,7 @@ GNEClosingLaneReroute::getRerouterIntervalParent() const {
 
 
 bool
-GNEClosingLaneReroute::operator==(const GNEClosingLaneReroute& closingReroute) {
+GNEClosingLaneReroute::operator==(const GNEClosingLaneReroute& closingReroute) const {
     if ((myRerouterIntervalParent == closingReroute.myRerouterIntervalParent) &&
             (myClosedLane == closingReroute.myClosedLane) &&
             (myAllowedVehicles == closingReroute.myAllowedVehicles) &&
