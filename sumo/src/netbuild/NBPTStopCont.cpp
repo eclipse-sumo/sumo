@@ -35,7 +35,7 @@ bool NBPTStopCont::insert(NBPTStop* ptStop) {
 }
 void NBPTStopCont::process(NBEdgeCont& cont) {
 
-    for (PTStopsCont::const_iterator i = myPTStops.begin(); i != myPTStops.end(); ) {
+    for (PTStopsCont::iterator i = myPTStops.begin(); i != myPTStops.end(); ) {
         std::string edgeId = i->second->getEdgeId();
         NBEdge* edge = cont.getByID(edgeId);
 
@@ -49,8 +49,8 @@ void NBPTStopCont::process(NBEdgeCont& cont) {
         } else {
             WRITE_WARNING("Could not find corresponding edge for pt stop: " + i->second->getName() + ". Thus, it will be removed!");
             EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());
-            std::cout << edgeVector.size() << std::endl;
-            i = myPTStops.erase(i);
+            //std::cout << edgeVector.size() << std::endl;
+            myPTStops.erase(i++);
         }
 
     }
