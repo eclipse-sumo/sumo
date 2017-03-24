@@ -64,8 +64,6 @@ public:
     /// @brief get calibrator parent
     GNECalibrator* getCalibratorParent() const;
 
-
-
     /// @name FOX-callbacks
     /// @{
     /// @brief event after press accept button
