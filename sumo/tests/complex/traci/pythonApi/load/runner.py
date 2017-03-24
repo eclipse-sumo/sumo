@@ -40,3 +40,16 @@ traci.load(["sumo.sumocfg"])
 traci.simulationStep()
 traci.close()
 sumoProcess.wait()
+
+
+sumoBinary = sumolib.checkBinary('sumo-gui')
+
+PORT = sumolib.miscutils.getFreeSocketPort()
+sumoProcess = subprocess.Popen(
+    "%s -S -Q -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
+traci.init(PORT)
+traci.simulationStep()
+traci.load(["-S", "-Q", "-c", "sumo.sumocfg"])
+traci.simulationStep()
+traci.close()
+sumoProcess.wait()
