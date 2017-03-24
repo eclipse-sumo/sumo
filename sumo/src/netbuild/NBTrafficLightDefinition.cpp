@@ -476,6 +476,10 @@ NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
             (*i)->removeTrafficLight(&dummy);
         }
         myRightOnRedConflictsReady = true;
+        //std::cout << " rightOnRedConflicts tls=" << getID() << " pro=" << getProgramID() << "\n";
+        //for (RightOnRedConflicts::const_iterator it = myRightOnRedConflicts.begin(); it != myRightOnRedConflicts.end(); ++it) {
+        //    std::cout << "   " << it->first << ", " << it->second << "\n";
+        //}
     }
     return std::find(myRightOnRedConflicts.begin(), myRightOnRedConflicts.end(), std::make_pair(index, foeIndex)) != myRightOnRedConflicts.end();
 }
