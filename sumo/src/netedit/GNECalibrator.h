@@ -53,7 +53,7 @@ public:
 
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] edge Lane of this StoppingPlace belongs
+     * @param[in] lane Lane of this calibrator belongs
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] pos position of the calibrator on the edge (Currently not used)
      * @param[in] frequency the aggregation interval in which to calibrate the flows
@@ -62,7 +62,7 @@ public:
      * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
      * @param[in] calibratorVehicleTypes vector with the CalibratorVehicleType of calibrator
      */
-    GNECalibrator(const std::string& id, GNEEdge* edge, GNEViewNet* viewNet, double pos, double frequency, const std::string& output, 
+    GNECalibrator(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double frequency, const std::string& output, 
                   const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
                   const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes);
 
