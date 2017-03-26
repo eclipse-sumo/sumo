@@ -1,26 +1,37 @@
-message("entering foxtools")
+set(utils_foxtools_STAT_SRCS
+   FXBaseObject.cpp
+   FXBaseObject.h
+   fxexdefs.h
+   MFXImageHelper.cpp
+   MFXImageHelper.h
+   FXLCDLabel.cpp
+   FXLCDLabel.h
+   FXLinkLabel.cpp
+   FXLinkLabel.h
+   FXRealSpinDial.cpp
+   FXRealSpinDial.h
+   FXSevenSegment.cpp
+   FXSevenSegment.h
+   FXSingleEventThread.cpp
+   FXSingleEventThread.h
+   FXThreadEvent.cpp
+   FXThreadEvent.h
+   FXWorkerThread.h
+   MFXCheckableButton.cpp
+   MFXCheckableButton.h
+   MFXEventQue.cpp
+   MFXEventQue.h
+   MFXInterThreadEventClient.h
+   MFXAddEditTypedTable.cpp
+   MFXAddEditTypedTable.h
+   MFXEditableTable.cpp
+   MFXEditableTable.h
+   MFXMenuHeader.cpp
+   MFXMenuHeader.h
+   MFXMutex.cpp
+   MFXMutex.h
+   MFXUtils.cpp
+   MFXUtils.h
+)
 
-set(utfoxtools_files
-	FXBaseObject.cpp FXBaseObject.h
-	fxexdefs.h
-	MFXImageHelper.cpp MFXImageHelper.h
-	FXLCDLabel.cpp FXLCDLabel.h
-	FXLinkLabel.cpp FXLinkLabel.h
-	FXRealSpinDial.cpp FXRealSpinDial.h
-	FXSevenSegment.cpp FXSevenSegment.h
-	FXSingleEventThread.cpp FXSingleEventThread.h
-	FXThreadEvent.cpp FXThreadEvent.h
-	FXWorkerThread.h
-	MFXCheckableButton.cpp MFXCheckableButton.h
-	MFXEventQue.cpp MFXEventQue.h
-	MFXInterThreadEventClient.h
-	MFXAddEditTypedTable.cpp MFXAddEditTypedTable.h
-	MFXEditableTable.cpp MFXEditableTable.h
-	MFXMenuHeader.cpp MFXMenuHeader.h
-	MFXMutex.cpp MFXMutex.h
-	MFXUtils.cpp MFXUtils.h)
-
-set(EXTRA_DIST
-	FXThreadMessageRetriever.h)
-
-add_library(utfoxtools STATIC ${utfoxtools_files})
+add_library(utils_foxtools STATIC ${utils_foxtools_STAT_SRCS})

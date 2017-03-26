@@ -1,10 +1,13 @@
-message("entering shapes")
+set(utils_shapes_STAT_SRCS
+   PointOfInterest.h
+   Shape.cpp
+   Shape.h
+   Polygon.cpp
+   Polygon.h
+   ShapeHandler.cpp
+   ShapeHandler.h
+   ShapeContainer.cpp
+   ShapeContainer.h
+)
 
-set(shapes_files
-	PointOfInterest.h
-	Shape.cpp Shape.h
-	Polygon.cpp Polygon.h
-	ShapeHandler.cpp ShapeHandler.h
-	ShapeContainer.cpp ShapeContainer.h)
-
-add_library(utshapes STATIC ${shapes_files})
+add_library(utils_shapes STATIC ${utils_shapes_STAT_SRCS})

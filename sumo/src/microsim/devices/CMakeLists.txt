@@ -1,16 +1,26 @@
-message("entering devices")
+set(microsim_devices_STAT_SRCS
+   MSDevice.cpp
+   MSDevice.h
+   MSDevice_SSM.cpp
+   MSDevice_SSM.h
+   MSDevice_BTreceiver.cpp
+   MSDevice_BTreceiver.h
+   MSDevice_BTsender.cpp
+   MSDevice_BTsender.h
+   MSDevice_Emissions.cpp
+   MSDevice_Emissions.h
+   MSDevice_Transportable.cpp
+   MSDevice_Transportable.h
+   MSDevice_Routing.cpp
+   MSDevice_Routing.h
+   MSDevice_Tripinfo.cpp
+   MSDevice_Tripinfo.h
+   MSDevice_Battery.cpp
+   MSDevice_Battery.h
+   MSDevice_Example.cpp
+   MSDevice_Example.h
+   MSDevice_Vehroutes.cpp
+   MSDevice_Vehroutes.h
+)
 
-set(devices_files
-        MSDevice.cpp MSDevice.h
-        MSDevice_BTreceiver.cpp MSDevice_BTreceiver.h
-        MSDevice_BTsender.cpp MSDevice_BTsender.h
-        MSDevice_Emissions.cpp MSDevice_Emissions.h
-        MSDevice_Transportable.cpp MSDevice_Transportable.h
-        MSDevice_Routing.cpp MSDevice_Routing.h
-        MSDevice_Tripinfo.cpp MSDevice_Tripinfo.h
-        MSDevice_Battery.cpp MSDevice_Battery.h
-        MSDevice_Example.cpp MSDevice_Example.h
-        MSDevice_Vehroutes.cpp MSDevice_Vehroutes.h
-        MSDevice_SSM.cpp MSDevice_SSM.h)
-
-add_library(msdevices STATIC ${devices_files})
+add_library(microsim_devices STATIC ${microsim_devices_STAT_SRCS})

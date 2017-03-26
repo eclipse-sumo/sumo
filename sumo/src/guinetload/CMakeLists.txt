@@ -1,9 +1,27 @@
-message("entering guinetload")
 
-set(guinetload_files
-	GUIDetectorBuilder.cpp GUIDetectorBuilder.h
-	GUIEdgeControlBuilder.cpp GUIEdgeControlBuilder.h
-	GUITriggerBuilder.cpp GUITriggerBuilder.h)
+########### next target ###############
 
-add_library(guinetload STATIC ${guinetload_files})
+SET(guinetload_STAT_SRCS
+   GUIDetectorBuilder.cpp
+   GUIDetectorBuilder.h
+   GUIEdgeControlBuilder.cpp
+   GUIEdgeControlBuilder.h
+   GUITriggerBuilder.cpp
+   GUITriggerBuilder.h
+)
 
+add_library(guinetload STATIC ${guinetload_STAT_SRCS})
+
+
+########### install files ###############
+
+
+
+
+#original Makefile.am contents follow:
+
+#noinst_LIBRARIES = libguinetload.a
+#
+#libguinetload_a_SOURCES = GUIDetectorBuilder.cpp GUIDetectorBuilder.h \
+#GUIEdgeControlBuilder.cpp GUIEdgeControlBuilder.h \
+#GUITriggerBuilder.cpp GUITriggerBuilder.h

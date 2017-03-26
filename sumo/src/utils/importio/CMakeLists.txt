@@ -1,9 +1,8 @@
-message("entering importio")
+set(utils_importio_STAT_SRCS
+   LineReader.cpp
+   NamedColumnsParser.cpp
+   LineReader.h
+   NamedColumnsParser.h
+)
 
-set(importio_files
-	LineReader.cpp
-	NamedColumnsParser.cpp
-	LineReader.h
-	NamedColumnsParser.h)
-
-add_library(utimportio STATIC ${importio_files})
+add_library(utils_importio STATIC ${utils_importio_STAT_SRCS})

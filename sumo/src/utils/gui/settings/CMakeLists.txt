@@ -1,10 +1,27 @@
-message("entering settings")
+set(utils_gui_settings_STAT_SRCS
+   GUICompleteSchemeStorage.cpp
+   GUICompleteSchemeStorage.h
+   GUIPropertyScheme.h
+   GUIPropertySchemeStorage.h
+   GUISettingsHandler.cpp
+   GUISettingsHandler.h
+   GUIVisualizationSettings.cpp
+   GUIVisualizationSettings.h
+)
 
-set(utguisettings_files
-	 GUICompleteSchemeStorage.cpp GUICompleteSchemeStorage.h
-	 GUIPropertyScheme.h GUIPropertySchemeStorage.h
-	 GUISettingsHandler.cpp GUISettingsHandler.h
-	 GUIVisualizationSettings.cpp GUIVisualizationSettings.h)
+add_library(utils_gui_settings STATIC ${utils_gui_settings_STAT_SRCS})
 
-add_library(utguisettings STATIC ${utguisettings_files})
 
+########### install files ###############
+
+
+
+
+#original Makefile.am contents follow:
+
+#noinst_LIBRARIES = libguiutilssettings.a
+#
+#libguiutilssettings_a_SOURCES = GUICompleteSchemeStorage.cpp GUICompleteSchemeStorage.h \
+#GUIPropertyScheme.h GUIPropertySchemeStorage.h \
+#GUISettingsHandler.cpp GUISettingsHandler.h \
+#GUIVisualizationSettings.cpp GUIVisualizationSettings.h

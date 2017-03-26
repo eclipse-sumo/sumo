@@ -1,8 +1,10 @@
-message("entering eulerspiral")
+set(foreign_eulerspiral_STAT_SRCS
+   angles.h
+   BiArc.cpp
+   BiArc.h
+   euler.cpp
+   euler.h
+   points.h
+)
 
-set(eulerspiral_files
-        euler.cpp euler.h
-        BiArc.cpp BiArc.h
-        angles.h)
-
-add_library(foreigneulerspiral STATIC ${eulerspiral_files})
+add_library(foreign_eulerspiral STATIC ${foreign_eulerspiral_STAT_SRCS})

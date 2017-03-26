@@ -1,28 +1,48 @@
-message("entering output")
+set(microsim_output_STAT_SRCS
+   MSCrossSection.h
+   MSDetectorControl.cpp
+   MSDetectorControl.h
+   MSDetectorFileOutput.h
+   MSE2Collector.cpp
+   MSE2Collector.h
+   MSE3Collector.cpp
+   MSE3Collector.h
+   MSInductLoop.cpp
+   MSInductLoop.h
+   MSInstantInductLoop.cpp
+   MSInstantInductLoop.h
+   MSMeanData.cpp
+   MSMeanData.h
+   MSMeanData_Emissions.cpp
+   MSMeanData_Emissions.h
+   MSMeanData_Harmonoise.cpp
+   MSMeanData_Harmonoise.h
+   MSMeanData_Net.cpp
+   MSMeanData_Net.h
+   MSMeanData_Amitran.cpp
+   MSMeanData_Amitran.h
+   MSRouteProbe.cpp
+   MSRouteProbe.h
+   MSVTypeProbe.cpp
+   MSVTypeProbe.h
+   MSXMLRawOut.cpp
+   MSXMLRawOut.h
+   MSFCDExport.cpp
+   MSFCDExport.h
+   MSAmitranTrajectories.cpp
+   MSAmitranTrajectories.h
+   MSBatteryExport.cpp
+   MSBatteryExport.h
+   MSStopOut.cpp
+   MSStopOut.h
+   MSEmissionExport.cpp
+   MSEmissionExport.h
+   MSVTKExport.cpp
+   MSVTKExport.h
+   MSFullExport.cpp
+   MSFullExport.h
+   MSQueueExport.cpp
+   MSQueueExport.h
+)
 
-set(output_files
-        MSCrossSection.h
-        MSDetectorControl.cpp MSDetectorControl.h
-        MSDetectorFileOutput.h
-        MSE2Collector.cpp MSE2Collector.h
-        MSE3Collector.cpp MSE3Collector.h
-        MSInductLoop.cpp MSInductLoop.h
-        MSInstantInductLoop.cpp MSInstantInductLoop.h
-        MSMeanData.cpp MSMeanData.h
-        MSMeanData_Emissions.cpp MSMeanData_Emissions.h
-        MSMeanData_Harmonoise.cpp MSMeanData_Harmonoise.h
-        MSMeanData_Net.cpp MSMeanData_Net.h
-        MSMeanData_Amitran.cpp MSMeanData_Amitran.h
-        MSRouteProbe.cpp MSRouteProbe.h
-        MSVTypeProbe.cpp MSVTypeProbe.h
-        MSXMLRawOut.cpp MSXMLRawOut.h
-        MSFCDExport.cpp MSFCDExport.h
-        MSAmitranTrajectories.cpp MSAmitranTrajectories.h
-        MSBatteryExport.cpp MSBatteryExport.h
-        MSEmissionExport.cpp MSEmissionExport.h
-        MSVTKExport.cpp MSVTKExport.h
-        MSFullExport.cpp MSFullExport.h
-        MSStopOut.cpp MSStopOut.h
-        MSQueueExport.cpp MSQueueExport.h)
-
-add_library(msoutput STATIC ${output_files})
+add_library(microsim_output STATIC ${microsim_output_STAT_SRCS})

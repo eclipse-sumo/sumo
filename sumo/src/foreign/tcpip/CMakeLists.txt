@@ -1,6 +1,8 @@
-message("entering tcpip")
+set(foreign_tcpip_STAT_SRCS
+   socket.h
+   socket.cpp
+   storage.h
+   storage.cpp
+)
 
-set(tcpip_files
-	socket.h socket.cpp storage.h storage.cpp)
-
-add_library(foreigntcpip STATIC ${tcpip_files})
+add_library(foreign_tcpip STATIC ${foreign_tcpip_STAT_SRCS})
