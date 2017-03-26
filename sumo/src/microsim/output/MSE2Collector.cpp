@@ -64,7 +64,7 @@
 MSE2Collector::MSE2Collector(const std::string& id,
         DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
         SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-        const std::string& vTypes, bool /* showDetector */) :
+        const std::string& vTypes) :
     MSMoveReminder(id, lane, false),
     MSDetectorFileOutput(id, vTypes),
     myUsage(usage),
@@ -146,7 +146,7 @@ MSE2Collector::MSE2Collector(const std::string& id,
 MSE2Collector::MSE2Collector(const std::string& id,
         DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
         SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-        const std::string& vTypes, bool /*showDetector*/) :
+        const std::string& vTypes) :
     MSMoveReminder(id, lanes[lanes.size()-1], false), // assure that lanes.size() > 0 at caller side!!!
     MSDetectorFileOutput(id, vTypes),
     myUsage(usage),

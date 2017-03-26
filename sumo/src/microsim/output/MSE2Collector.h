@@ -230,7 +230,6 @@ public:
     * @param[in] haltingSpeedThreshold The speed a vehicle's speed must be below to be assigned as jammed
     * @param[in] jamDistThreshold The distance between two vehicles in order to not count them to one jam
     * @param[in] vTypes Vehicle types, that the detector takes into account
-    * @param[in] showDetector Whether the detector should be visible in the GUI (@todo)
     *
     * @note Exactly one of the arguments startPos, endPos and length should be invalid (i.e. equal to std::numeric_limits<double>::max()).
     *        If length is invalid, it is required that 0 <= startPos < endPos <= lane->length
@@ -240,7 +239,7 @@ public:
     MSE2Collector(const std::string& id,
             DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
             SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-            const std::string& vTypes, bool showDetector = false);
+            const std::string& vTypes);
 
 
     /** @brief Constructor with a sequence of lanes and given start and end position on the first and last lanes
@@ -254,12 +253,11 @@ public:
     * @param[in] haltingSpeedThreshold The speed a vehicle's speed must be below to be assigned as jammed
     * @param[in] jamDistThreshold The distance between two vehicles in order to not count them to one jam
     * @param[in] vTypes Vehicle types, that the detector takes into account
-    * @param[in] showDetector Whether the detector should be visible in the GUI (@todo)
     */
     MSE2Collector(const std::string& id,
             DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
             SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-            const std::string& vTypes, bool showDetector = false);
+            const std::string& vTypes);
 
 
     /// @brief Destructor

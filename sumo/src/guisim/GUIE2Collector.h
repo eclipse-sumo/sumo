@@ -41,7 +41,7 @@
 // ===========================================================================
 /**
  * @class GUIE2Collector
- * @brief The gui-version of the MS_E2_ZS_Collector
+ * @brief The gui-version of the MSE2Collector
  *
  * Allows the building of a wrapper (also declared herein) which draws the
  *  detector on the gl-canvas. Beside this, the method "amVisible" is
@@ -63,7 +63,7 @@ public:
     * @param[in] jamDistThreshold The distance between two vehicles in order to not count them to one jam
     * @param[in] vTypes Vehicle types, that the detector takes into account
     * @param[in] friendlyPositioning Whether positions should be corrected to "snap" on lane beginnings or ends if closer than POS_EPSILON
-    * @param[in] showDetector Whether the detector should be visible in the GUI (@todo)
+    * @param[in] showDetector Whether the detector should be visible in the GUI
     *
     * @note Exactly one of the arguments startPos, endPos and length should be invalid (i.e. equal to std::numeric_limits<double>::max()).
     *        If length is invalid, it is required that 0 <= startPos < endPos <= lane->length
@@ -88,7 +88,7 @@ public:
     * @param[in] jamDistThreshold The distance between two vehicles in order to not count them to one jam
     * @param[in] vTypes Vehicle types, that the detector takes into account
     * @param[in] friendlyPositioning Whether positions should be corrected to "snap" on lane beginnings or ends if closer than POS_EPSILON
-    * @param[in] showDetector Whether the detector should be visible in the GUI (@todo)
+    * @param[in] showDetector Whether the detector should be visible in the GUI
     */
     GUIE2Collector(const std::string& id, DetectorUsage usage,
                         std::vector<MSLane*> lanes, double startPos, double endPos,
