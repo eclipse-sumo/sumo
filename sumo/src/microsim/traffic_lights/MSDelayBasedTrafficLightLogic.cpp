@@ -82,11 +82,9 @@ void
 MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     MSTrafficLightLogic::init(nb);
     assert(myLanes.size() > 0);
-    // change values for setting the loops and lanestate-detectors, here
-    //SUMOTime inductLoopInterval = 1; //
     LaneVectorVector::const_iterator i2;
     LaneVector::const_iterator i;
-    // build the induct loops
+    // build the E2 detectors
     for (i2 = myLanes.begin(); i2 != myLanes.end(); ++i2) {
         const LaneVector& lanes = *i2;
         for (i = lanes.begin(); i != lanes.end(); i++) {

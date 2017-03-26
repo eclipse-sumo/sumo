@@ -77,7 +77,7 @@ public:
      * Adds reminder to MSLane.
      *
      * @param[in] id Unique id
-     * @param[in] lane Lane where detector woks on
+     * @param[in] lane Lane where detector works on
      * @param[in] position Position of the detector within the lane
      * @param[in] vTypes which vehicle types are considered
      */
