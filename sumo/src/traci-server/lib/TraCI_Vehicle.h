@@ -101,6 +101,7 @@ public:
     static int getRouteIndex(const std::string& vehicleID);
     static TraCIColor getColor(const std::string& vehicleID);
     static double getLanePosition(const std::string& vehicleID);
+    static double getLateralLanePosition(const std::string& vehicleID);
     static double getCO2Emission(const std::string& vehicleID);
     static double getCOEmission(const std::string& vehicleID);
     static double getHCEmission(const std::string& vehicleID);

@@ -111,6 +111,16 @@ MSVehicleType::setMinGap(const double& minGap) {
 
 
 void
+MSVehicleType::setMinGapLat(const double& minGapLat) {
+    if (myOriginalType != 0 && minGapLat < 0) {
+        myParameter.minGapLat = myOriginalType->getMinGapLat();
+    } else {
+        myParameter.minGapLat = minGapLat;
+    }
+}
+
+
+void
 MSVehicleType::setMaxSpeed(const double& maxSpeed) {
     if (myOriginalType != 0 && maxSpeed < 0) {
         myParameter.maxSpeed = myOriginalType->getMaxSpeed();
@@ -121,8 +131,23 @@ MSVehicleType::setMaxSpeed(const double& maxSpeed) {
 
 
 void
+MSVehicleType::setMaxSpeedLat(const double& maxSpeedLat) {
+    if (myOriginalType != 0 && maxSpeedLat < 0) {
+        myParameter.maxSpeedLat = myOriginalType->getMaxSpeedLat();
+    } else {
+        myParameter.maxSpeedLat = maxSpeedLat;
+    }
+}
+
+
+void
 MSVehicleType::setVClass(SUMOVehicleClass vclass) {
     myParameter.vehicleClass = vclass;
+}
+
+void
+MSVehicleType::setPreferredLateralAlignment(LateralAlignment latAlignment) {
+    myParameter.latAlignment = latAlignment;
 }
 
 

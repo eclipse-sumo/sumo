@@ -349,6 +349,15 @@ public:
     void setMinGap(const double& minGap);
 
 
+    /** @brief Set a new value for this type's minimum lataral gap
+     *
+     * If the given value<0 then the one from the original type will
+     *  be used.
+     *
+     * @param[in] minGapLat The new minimum lateral gap of this type
+     */
+    void setMinGapLat(const double& minGapLat);
+
     /** @brief Set a new value for this type's maximum speed
      *
      * If the given value<0 then the one from the original type will
@@ -358,6 +367,14 @@ public:
      */
     void setMaxSpeed(const double& maxSpeed);
 
+    /** @brief Set a new value for this type's maximum lateral speed
+     *
+     * If the given value<0 then the one from the original type will
+     *  be used.
+     *
+     * @param[in] maxSpeedLat The new maximum lateral speed of this type
+     */
+    void setMaxSpeedLat(const double& maxSpeedLat);
 
     /** @brief Set a new value for this type's vehicle class
      * @param[in] vclass The new vehicle class of this type
@@ -427,6 +444,10 @@ public:
      * @param[in] impatience The new impatience of this type
      */
     void setImpatience(const double impatience);
+
+    /** @brief Set vehicle's preferred lateral alignment
+     */
+    void setPreferredLateralAlignment(LateralAlignment latAlignment);
     /// @}
 
 

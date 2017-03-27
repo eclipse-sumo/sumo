@@ -666,6 +666,9 @@ public:
         double getWidth(const std::string& typeID) const;
         double getHeight(const std::string& typeID) const;
         TraCIColor getColor(const std::string& typeID) const;
+        double getMinGapLat(const std::string& typeID) const;
+        double getMaxSpeedLat(const std::string& typeID) const;
+        std::string getLateralAlignment(const std::string& typeID) const;
 
         void setLength(const std::string& typeID, double length) const;
         void setMaxSpeed(const std::string& typeID, double speed) const;
@@ -682,6 +685,9 @@ public:
         void setImperfection(const std::string& typeID, double imperfection) const;
         void setTau(const std::string& typeID, double tau) const;
         void setColor(const std::string& typeID, const TraCIColor& c) const;
+        void setMinGapLat(const std::string& typeID, double minGapLat) const;
+        void setMaxSpeedLat(const std::string& typeID, double speed) const;
+        void setLateralAlignment(const std::string& typeID, const std::string& latAlignment) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -734,6 +740,7 @@ public:
         std::vector<std::string> getEdges(const std::string& vehicleID) const;
         TraCIColor getColor(const std::string& vehicleID) const;
         double getLanePosition(const std::string& vehicleID) const;
+        double getLateralLanePosition(const std::string& vehicleID) const;
         double getCO2Emission(const std::string& vehicleID) const;
         double getCOEmission(const std::string& vehicleID) const;
         double getHCEmission(const std::string& vehicleID) const;

@@ -175,6 +175,12 @@ TraCI_Vehicle::getLanePosition(const std::string& vehicleID) {
 }
 
 double
+TraCI_Vehicle::getLateralLanePosition(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return veh->isOnRoad() ? veh->getLateralPositionOnLane() : INVALID_DOUBLE_VALUE;
+}
+
+double
 TraCI_Vehicle::getCO2Emission(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
     return isVisible(veh) ? veh->getCO2Emissions() : INVALID_DOUBLE_VALUE;

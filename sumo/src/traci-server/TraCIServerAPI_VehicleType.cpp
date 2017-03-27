@@ -58,6 +58,9 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
             && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_IMPERFECTION
             && variable != VAR_MINGAP && variable != VAR_WIDTH && variable != VAR_COLOR && variable != ID_COUNT
             && variable != VAR_HEIGHT
+            && variable != VAR_MINGAP_LAT
+            && variable != VAR_MAXSPEED_LAT
+            && variable != VAR_LATALIGNMENT
             && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Get Vehicle Type Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -169,6 +172,18 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType&
             tempMsg.writeUnsignedByte(v.getColor().blue());
             tempMsg.writeUnsignedByte(v.getColor().alpha());
             break;
+        case VAR_MINGAP_LAT:
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(v.getMinGapLat());
+            break;
+        case VAR_MAXSPEED_LAT:
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+            tempMsg.writeDouble(v.getMaxSpeedLat());
+            break;
+        case VAR_LATALIGNMENT:
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString(toString(v.getPreferredLateralAlignment()));
+            break;
         default:
             break;
     }
@@ -187,6 +202,9 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
             && variable != VAR_TAU && variable != VAR_COLOR
             && variable != VAR_HEIGHT
+            && variable != VAR_MINGAP_LAT
+            && variable != VAR_MAXSPEED_LAT
+            && variable != VAR_LATALIGNMENT
             && variable != VAR_PARAMETER
        ) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, "Change Vehicle Type State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
@@ -314,6 +332,40 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                 return server.writeErrorStatusCmd(cmd, "Invalid minimum gap.", outputStorage);
             }
             v.setMinGap(value);
+        }
+        break;
+        case VAR_MINGAP_LAT: {
+            double value = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting minimum lateral gap requires a double.", outputStorage);
+            }
+            if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+                return server.writeErrorStatusCmd(cmd, "Invalid minimum lateral gap.", outputStorage);
+            }
+            v.setMinGapLat(value);
+        }
+        break;
+        case VAR_MAXSPEED_LAT: {
+            double value = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting maximum lateral speed requires a double.", outputStorage);
+            }
+            if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+                return server.writeErrorStatusCmd(cmd, "Invalid maximum lateral speed.", outputStorage);
+            }
+            v.setMaxSpeedLat(value);
+        }
+        break;
+        case VAR_LATALIGNMENT: {
+            std::string latAlign;
+            if (!server.readTypeCheckingString(inputStorage, latAlign)) {
+                return server.writeErrorStatusCmd(cmd, "Setting preferred lateral alignment requires a string.", outputStorage);
+            }
+            if (SUMOXMLDefinitions::LateralAlignments.hasString(latAlign)) {
+                v.setPreferredLateralAlignment(SUMOXMLDefinitions::LateralAlignments.get(latAlign));
+            } else {
+                return server.writeErrorStatusCmd(cmd, "Unknown lateral alignment " + latAlign + "'.", outputStorage);
+            }
         }
         break;
         case VAR_SHAPECLASS: {

@@ -692,6 +692,13 @@ TraCITestClient::testAPI() {
     answerLog << "    getWidth: " << vehicletype.getWidth("t1") << "\n";
     vehicletype.setHeight("t1", 1.8);
     answerLog << "    getHeight: " << vehicletype.getHeight("t1") << "\n";
+    vehicletype.setMinGapLat("t1", 1.5);
+    answerLog << "    setMinGapLat: " << vehicletype.getMinGapLat("t1") << "\n";
+    vehicletype.setMaxSpeedLat("t1", 1.2);
+    answerLog << "    setMaxSpeedLat: " << vehicletype.getMaxSpeedLat("t1") << "\n";
+    vehicletype.setLateralAlignment("t1", "compact");
+    answerLog << "    getLateralAlignment: " << vehicletype.getLateralAlignment("t1") << "\n";
+
     answerLog << "  vehicle:\n";
     vehicle.setLine("0", "S42");
     std::vector<std::string> via;
@@ -699,6 +706,8 @@ TraCITestClient::testAPI() {
     vehicle.setVia("0", via);
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
+    answerLog << "    getLanePosition: " << vehicle.getLanePosition("0") << "\n";
+    answerLog << "    getLateralLanePosition: " << vehicle.getLateralLanePosition("0") << "\n";
     answerLog << "    getSpeedMode: " << vehicle.getSpeedMode("0") << "\n";
     answerLog << "    getSlope: " << vehicle.getSlope("0") << "\n";
     answerLog << "    getLine: " << vehicle.getLine("0") << "\n";
