@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:52734 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:44482 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -74,6 +74,7 @@ step 15
 {0: ['horiz', 'newPerson']}
 step 16
 {0: ['horiz', 'newPerson']}
+riding in vehicle: 'newPerson'
 :0_w1
 10.217046835
 :0_c0

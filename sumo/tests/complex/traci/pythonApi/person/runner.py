@@ -109,6 +109,8 @@ for i in range(10):
     print("step", step())
     print(traci.person.getSubscriptionResults(personID))
 
+print("riding in vehicle: '%s'" % traci.vehicle.getParameter("veh0", "device.person.IDList"))
+
 traci.person.removeStages("newPerson")
 traci.person.appendWaitingStage(
     "newPerson", 10, "Jumped out of a moving vehicle. Ouch!")

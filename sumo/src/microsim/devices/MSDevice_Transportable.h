@@ -111,6 +111,9 @@ public:
         return myAmContainer ? "container" : "person";
     }
 
+    /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
+    std::string getParameter(const std::string& key) const; 
+
     /** @brief Add a passenger
      *
      * @param[in] transportable The passenger / container to add.

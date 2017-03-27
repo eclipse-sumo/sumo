@@ -168,5 +168,18 @@ MSDevice_Transportable::removeTransportable(MSTransportable* transportable) {
 }
 
 
+std::string 
+MSDevice_Transportable::getParameter(const std::string& key) const {
+    if (key == "IDList") {
+        std::vector<std::string> ids;
+        for (std::vector<MSTransportable*>::const_iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
+            ids.push_back((*i)->getID());
+        }
+        return toString(ids);
+    }
+    throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+}
+
+
 /****************************************************************************/
 
