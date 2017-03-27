@@ -119,6 +119,10 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_BEST_LANES: _readBestLanes,
                       tc.VAR_LEADER: _readLeader,
                       tc.VAR_NEXT_TLS: _readNextTLS,
+                      tc.VAR_LANEPOSITION_LAT: Storage.readDouble,
+                      tc.VAR_MAXSPEED_LAT: Storage.readDouble,
+                      tc.VAR_MINGAP_LAT: Storage.readDouble,
+                      tc.VAR_LATALIGNMENT: Storage.readString,
                       tc.DISTANCE_REQUEST: Storage.readDouble,
                       tc.VAR_STOPSTATE: lambda result: result.read("!B")[0],
                       tc.VAR_DISTANCE: Storage.readDouble}
@@ -368,6 +372,34 @@ class VehicleDomain(Domain):
         Returns the maximum speed in m/s of this vehicle.
         """
         return self._getUniversal(tc.VAR_MAXSPEED, vehID)
+
+    def getLateralLanePosition(self, vehID):
+        """getLateralLanePosition(string) -> double
+
+        Returns The lateral position of the vehicle on its current lane measured in m.
+        """
+        return self._getUniversal(tc.VAR_LANEPOSITION_LAT, vehID)
+
+    def getMaxSpeedLat(self, vehID):
+        """getMaxSpeedLat(string) -> double
+
+        Returns the maximum lateral speed in m/s of this vehicle.
+        """
+        return self._getUniversal(tc.VAR_MAXSPEED_LAT, vehID)
+
+    def getLateralAlignment(self, vehID):
+        """getLateralAlignment(string) -> string
+
+        Returns The preferred lateral alignment of the vehicle
+        """
+        return self._getUniversal(tc.VAR_LATALIGNMENT, vehID)
+
+    def getMinGapLat(self, vehID):
+        """getMinGapLat(string) -> double
+
+        Returns The desired lateral gap of this vehicle at 50km/h in m
+        """
+        return self._getUniversal(tc.VAR_MINGAP_LAT, vehID)
 
     def getAllowedSpeed(self, vehID):
         """getAllowedSpeed(string) -> double
@@ -636,6 +668,14 @@ class VehicleDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED, vehID, speed)
+
+    def setMaxSpeedLat(self, vehID, speed):
+        """setMaxSpeedLat(string, double) -> None
+
+        Sets the maximum lateral speed in m/s for this vehicle.
+        """
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED_LAT, vehID, speed)
 
     def setStop(self, vehID, edgeID, pos=1., laneIndex=0, duration=2**31 - 1,
                 flags=STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE, until=-1):
@@ -943,6 +983,22 @@ class VehicleDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MINGAP, vehID, minGap)
+
+    def setMinGapLat(self, vehID, minGapLat):
+        """setMinGapLat(string, double) -> None
+
+        Sets the minimum lateral gap of the vehicle at 50km/h in m
+        """
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MINGAP_LAT, vehID, minGapLat)
+
+    def setLateralAlignment(self, vehID, align):
+        """setLateralAlignment(string, string) -> None
+
+        Sets the preferred lateral alignment for this vehicle.
+        """
+        self._connection._sendStringCmd(
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_LATALIGNMENT, vehID, align)
 
     def setShapeClass(self, vehID, clazz):
         """setShapeClass(string, string) -> None

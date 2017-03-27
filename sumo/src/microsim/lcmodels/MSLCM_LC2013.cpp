@@ -1965,5 +1965,21 @@ MSLCM_LC2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
         }
     }
 }
+
+
+std::string 
+MSLCM_LC2013::getParameter(const std::string& key) const {
+    if (key == toString(SUMO_ATTR_LCA_STRATEGIC_PARAM)) {
+        return toString(myStrategicParam);
+    } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_PARAM)) {
+        return toString(myCooperativeParam);
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_PARAM)) {
+        return toString(mySpeedGainParam);
+    } else if (key == toString(LCA_KEEPRIGHT)) {
+        return toString(myKeepRightParam);
+    }
+    throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
+}
+
 /****************************************************************************/
 

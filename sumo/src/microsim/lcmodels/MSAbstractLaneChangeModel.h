@@ -385,6 +385,11 @@ public:
         return myAmOpposite;
     }
 
+    /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
+    virtual std::string getParameter(const std::string& key) const {
+        throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
+    }
+
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
 

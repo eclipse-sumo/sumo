@@ -478,6 +478,13 @@ TraCI_Vehicle::getParameter(const std::string& vehicleID, const std::string& key
         } catch (InvalidArgument& e) {
             throw TraCIException("Vehicle '" + vehicleID + "' does not support device parameter '" + key + "' (" + e.what() + ").");
         }
+    } else if (StringUtils::startsWith(key, "laneChangeModel.")) {
+        const std::string attrName = key.substr(16);
+        try {
+            return veh->getLaneChangeModel().getParameter(attrName); 
+        } catch (InvalidArgument& e) {
+            throw TraCIException("Vehicle '" + vehicleID + "' does not support laneChangeModel parameter '" + key + "' (" + e.what() + ").");
+        }
     } else {
         return veh->getParameter().getParameter(key, "");
     }

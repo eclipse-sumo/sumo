@@ -37,6 +37,9 @@ _RETURN_VALUE_FUNC = {tc.VAR_LENGTH: Storage.readDouble,
                       tc.VAR_MINGAP: Storage.readDouble,
                       tc.VAR_WIDTH: Storage.readDouble,
                       tc.VAR_HEIGHT: Storage.readDouble,
+                      tc.VAR_MAXSPEED_LAT: Storage.readDouble,
+                      tc.VAR_MINGAP_LAT: Storage.readDouble,
+                      tc.VAR_LATALIGNMENT: Storage.readString,
                       tc.VAR_COLOR: lambda result: result.read("!BBBB")}
 
 
@@ -153,6 +156,28 @@ class VehicleTypeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_COLOR, typeID)
 
+    def getMaxSpeedLat(self, vehID):
+        """getMaxSpeedLat(string) -> double
+
+        Returns the maximum lateral speed in m/s of this type.
+        """
+        return self._getUniversal(tc.VAR_MAXSPEED_LAT, vehID)
+
+    def getLateralAlignment(self, vehID):
+        """getLateralAlignment(string) -> string
+
+        Returns The preferred lateral alignment of the type
+        """
+        return self._getUniversal(tc.VAR_LATALIGNMENT, vehID)
+
+    def getMinGapLat(self, vehID):
+        """getMinGapLat(string) -> double
+
+        Returns The desired lateral gap of this type at 50km/h in m
+        """
+        return self._getUniversal(tc.VAR_MINGAP_LAT, vehID)
+
+
     def setLength(self, typeID, length):
         """setLength(string, double) -> None
 
@@ -224,6 +249,30 @@ class VehicleTypeDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_MINGAP, typeID, minGap)
+
+    def setMinGapLat(self, typeID, minGapLat):
+        """setMinGapLat(string, double) -> None
+
+        Sets the minimum lateral gap at 50km/h of this type.
+        """
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_MINGAP_LAT, typeID, minGapLat)
+
+    def setMaxSpeedLat(self, typeID, speed):
+        """setMaxSpeedLat(string, double) -> None
+
+        Sets the maximum lateral speed of this type.
+        """
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_MAXSPEED_LAT, typeID, speed)
+
+    def setLateralAlignment(self, typeID, latAlignment):
+        """setLateralAlignment(string, string) -> None
+
+        Sets the preferred lateral alignment of this type.
+        """
+        self._connection._sendStringCmd(
+            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_LATALIGNMENT, typeID, clazz)
 
     def setShapeClass(self, typeID, clazz):
         """setShapeClass(string, string) -> None

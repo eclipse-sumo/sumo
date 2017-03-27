@@ -2181,5 +2181,24 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
     }
 }
 
+std::string 
+MSLCM_SL2015::getParameter(const std::string& key) const {
+    if (key == toString(SUMO_ATTR_LCA_STRATEGIC_PARAM)) {
+        return toString(myStrategicParam);
+    } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_PARAM)) {
+        return toString(myCooperativeParam);
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_PARAM)) {
+        return toString(mySpeedGainParam);
+    } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_PARAM)) {
+        return toString(myKeepRightParam);
+    } else if (key == toString(SUMO_ATTR_LCA_SUBLANE_PARAM)) {
+        return toString(mySublaneParam);
+    } else if (key == toString(SUMO_ATTR_LCA_PUSHY)) {
+        return toString(myPushy);
+    } else if (key == toString(SUMO_ATTR_LCA_ASSERTIVE)) {
+        return toString(myAssertive);
+    }
+    throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
+}
 
 /****************************************************************************/
