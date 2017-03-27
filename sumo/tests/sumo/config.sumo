@@ -44,6 +44,7 @@ vtk:vtk.txt
 queue:queue.xml
 emissions:emissions.xml
 battery:battery.xml
+chargingstations:chargingstations.xml
 tol_sql:tol_sql.txt
 tol_plain:tol_plain.txt
 tol_la_sql:tol_la_sql.txt
