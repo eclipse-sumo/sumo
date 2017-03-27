@@ -138,6 +138,7 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\utils\emissions\HelpersEnergy.cpp" />
     <ClCompile Include="..\..\..\src\utils\emissions\HelpersHarmonoise.cpp" />
     <ClCompile Include="..\..\..\src\utils\emissions\HelpersHBEFA.cpp" />
     <ClCompile Include="..\..\..\src\utils\emissions\HelpersHBEFA3.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="..\..\..\src\utils\emissions\PollutantsInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\utils\emissions\HelpersEnergy.h" />
     <ClInclude Include="..\..\..\src\utils\emissions\HelpersHarmonoise.h" />
     <ClInclude Include="..\..\..\src\utils\emissions\HelpersHBEFA.h" />
     <ClInclude Include="..\..\..\src\utils\emissions\HelpersHBEFA3.h" />
