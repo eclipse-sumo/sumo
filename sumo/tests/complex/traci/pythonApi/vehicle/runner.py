@@ -346,10 +346,28 @@ for i in range(18):
                 traci.vehicle.getLanePosition(parkingAreaVeh), 
                 traci.vehicle.getStopState(parkingAreaVeh) 
                 ))
+
+electricVeh = "elVeh"
+traci.vehicle.add(electricVeh, "horizontal", typeID="electric")
 try:
-    traci.vehicle.getParameter(parkingAreaVeh, "device.foo.bar")
+    print(traci.vehicle.getParameter(electricVeh, "device.foo.bar"))
 except traci.TraCIException as e:
     print("recovering from exception (%s)" % e)
+try:
+    print(traci.vehicle.getParameter(electricVeh, "device.battery.foobar"))
+except traci.TraCIException as e:
+    print("recovering from exception (%s)" % e)
+
+for i in range(10):
+    step()
+    print('%s speed="%s" consumed="%s" charged="%s" cap="%s" maxCap="%s" station="%s"' % (
+        electricVeh,
+        traci.vehicle.getSpeed(electricVeh),
+        traci.vehicle.getParameter(electricVeh, "device.battery.energyConsumed"),
+        traci.vehicle.getParameter(electricVeh, "device.battery.energyCharged"),
+        traci.vehicle.getParameter(electricVeh, "device.battery.actualBatteryCapacity"),
+        traci.vehicle.getParameter(electricVeh, "device.battery.maximumBatteryCapacity"),
+        traci.vehicle.getParameter(electricVeh, "device.battery.chargingStationId")))
 # done
 traci.close()
 sumoProcess.wait()

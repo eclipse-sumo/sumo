@@ -5,4 +5,5 @@ Warning: Departure time for vehicle 'departInThePast' is in the past; using curr
 Warning: Vehicle 'parking2' aborts stop.
 Warning: Teleporting vehicle 'collider'; collision with vehicle 'blocker', lane='2fi_0', gap=-4.52, time=117.00 stage=events.
 Warning: Vehicle 'collider' ends teleporting on edge '2si', time 118.00.
-Error: Answered with error to command 0xa4: Vehicle 'pav' does not support device parameter 'device.foo.bar' (No device off type 'foo' exists).
+Error: Answered with error to command 0xa4: Vehicle 'elVeh' does not support device parameter 'device.foo.bar' (No device off type 'foo' exists).
+Error: Answered with error to command 0xa4: Vehicle 'elVeh' does not support device parameter 'device.battery.foobar' (Parameter 'foobar' is not supported for device of type 'battery').

@@ -739,6 +739,17 @@ double MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
 
 std::string 
 MSDevice_Battery::getParameter(const std::string& key) const {
+    if (key == toString(SUMO_ATTR_ACTUALBATTERYCAPACITY)) {
+        return toString(getActualBatteryCapacity());
+    } else if (key == toString(SUMO_ATTR_ENERGYCONSUMED)) {
+        return toString(getConsum());
+    } else if (key == toString(SUMO_ATTR_ENERGYCHARGED)) {
+        return toString(getEnergyCharged());
+    } else if (key == toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY)) {
+        return toString(getMaximumBatteryCapacity());
+    } else if (key == toString(SUMO_ATTR_CHARGINGSTATIONID)) {
+        return getChargingStationID();
+    }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
 
