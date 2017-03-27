@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:49699 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:55650 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -47,6 +47,10 @@ shape passenger
 MinGap 2.5
 width 1.8
 height 1.5
+maxSpeedLat 1.0
+minGapLat 1.0
+lateralAlignment center
+lanePosLat 0.0
 person number 0
 waiting time 0.0
 driving dist 2992.34286403
@@ -109,6 +113,10 @@ shape bicycle
 MinGap 1.1
 width 1.1
 height 1.6
+maxSpeedLat 1.5
+minGapLat 0.5
+lateralAlignment compact
+lanePosLat 0.0
 person number 0
 waiting time 0.0
 driving dist 2969.61859065
@@ -168,6 +176,10 @@ shape passenger
 MinGap 2.5
 width 1.8
 height 1.5
+maxSpeedLat 1.0
+minGapLat 1.0
+lateralAlignment center
+lanePosLat -1001.0
 person number 0
 waiting time 0.0
 driving dist -1001.0
@@ -239,6 +251,10 @@ shape passenger
 MinGap 2.5
 width 1.8
 height 1.5
+maxSpeedLat 1.0
+minGapLat 1.0
+lateralAlignment center
+lanePosLat 0.0
 person number 0
 waiting time 0.0
 driving dist 2991.71057563
@@ -531,6 +547,10 @@ shape passenger
 MinGap 2.5
 width 1.8
 height 1.5
+maxSpeedLat 1.0
+minGapLat 1.0
+lateralAlignment center
+lanePosLat 0.0
 person number 0
 waiting time 0.0
 driving dist -1001.0

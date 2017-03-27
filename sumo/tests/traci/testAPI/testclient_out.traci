@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu Mar  9 08:28:20 2017
+TraCITestClient output file. Date: Mon Mar 27 15:04:37 2017
 
 
 -> Command sent: <SimulationStep2>:
@@ -17,9 +17,14 @@ testAPI:
     getIDList: DEFAULT_PEDTYPE DEFAULT_VEHTYPE stilts t1
     getWidth: 1.90
     getHeight: 1.80
+    setMinGapLat: 1.50
+    setMaxSpeedLat: 1.20
+    getLateralAlignment: compact
   vehicle:
     getRoadID: e_m3
     getLaneID: e_m3_0
+    getLanePosition: 140.00
+    getLateralLanePosition: 0.00
     getSpeedMode: 31
     getSlope: 0.00
     getLine: S42
