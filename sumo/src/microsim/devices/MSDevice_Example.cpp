@@ -150,6 +150,18 @@ MSDevice_Example::generateOutput() const {
     }
 }
 
+std::string 
+MSDevice_Example::getParameter(const std::string& key) const {
+    if (key == "customValue1") {
+        return toString(myCustomValue1);
+    } else if (key == "customValue2") {
+        return toString(myCustomValue2);
+    } else if (key == "meaningOfLife") {
+        return "42";
+    }
+    throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+}
+
 
 
 /****************************************************************************/
