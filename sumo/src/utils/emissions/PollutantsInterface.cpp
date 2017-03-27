@@ -32,10 +32,11 @@
 #include <limits>
 #include <cmath>
 #include <utils/common/SUMOVehicleClass.h>
-#include "PollutantsInterface.h"
 #include "HelpersHBEFA.h"
 #include "HelpersHBEFA3.h"
 #include "HelpersPHEMlight.h"
+#include "HelpersEnergy.h"
+#include "PollutantsInterface.h"
 
 
 // ===========================================================================
@@ -44,7 +45,9 @@
 HelpersHBEFA PollutantsInterface::myHBEFA2Helper;
 HelpersHBEFA3 PollutantsInterface::myHBEFA3Helper;
 HelpersPHEMlight PollutantsInterface::myPHEMlightHelper;
-PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {&PollutantsInterface::myHBEFA2Helper, &PollutantsInterface::myHBEFA3Helper, &PollutantsInterface::myPHEMlightHelper};
+HelpersEnergy PollutantsInterface::myEnergyHelper;
+PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = { &PollutantsInterface::myHBEFA2Helper, &PollutantsInterface::myHBEFA3Helper,
+                                                                  &PollutantsInterface::myPHEMlightHelper, &PollutantsInterface::myEnergyHelper };
 
 
 // ===========================================================================
@@ -56,7 +59,7 @@ PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicle
     if (sep != std::string::npos) {
         const std::string model = eClass.substr(0, sep);
         const std::string subClass = eClass.substr(sep + 1);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             if (myHelpers[i]->getName() == model) {
                 return myHelpers[i]->getClassByName(subClass, vc);
             }
@@ -129,24 +132,24 @@ PollutantsInterface::getWeight(const SUMOEmissionClass c) {
 
 
 double
-PollutantsInterface::compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope) {
-    return myHelpers[c >> 16]->compute(c, e, v, a, slope);
+PollutantsInterface::compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) {
+    return myHelpers[c >> 16]->compute(c, e, v, a, slope, param);
 }
 
 
 PollutantsInterface::Emissions
-PollutantsInterface::computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope) {
+PollutantsInterface::computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const std::map<int, double>* param) {
     const Helper* const h = myHelpers[c >> 16];
-    return Emissions(h->compute(c, CO2, v, a, slope), h->compute(c, CO, v, a, slope), h->compute(c, HC, v, a, slope),
-                     h->compute(c, FUEL, v, a, slope), h->compute(c, NO_X, v, a, slope), h->compute(c, PM_X, v, a, slope),
-                     h->compute(c, ELEC, v, a, slope));
+    return Emissions(h->compute(c, CO2, v, a, slope, param), h->compute(c, CO, v, a, slope, param), h->compute(c, HC, v, a, slope, param),
+        h->compute(c, FUEL, v, a, slope, param), h->compute(c, NO_X, v, a, slope, param), h->compute(c, PM_X, v, a, slope, param),
+        h->compute(c, ELEC, v, a, slope, param));
 }
 
 
 double
-PollutantsInterface::computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt) {
+PollutantsInterface::computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const std::map<int, double>* param) {
     const Helper* const h = myHelpers[c >> 16];
-    return (h->compute(c, e, v, 0, slope) + h->compute(c, e, v - a, a, slope)) * tt / 2.;
+    return (h->compute(c, e, v, 0, slope, param) + h->compute(c, e, v - a, a, slope, param)) * tt / 2.;
 }
 
 

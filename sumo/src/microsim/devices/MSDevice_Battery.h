@@ -86,25 +86,7 @@ public:
     * @return True (always).
     */
     bool notifyMove(SUMOVehicle& veh, double oldPos,  double newPos, double newSpeed);
-
-    /** @brief Saves departure info on insertion
-    *
-    * @param[in] veh The entering vehicle.
-    * @param[in] reason how the vehicle enters the lane
-    * @return Always true
-    * @see MSMoveReminder::notifyEnter
-    * @see MSMoveReminder::Notification
-    */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
     /// @}
-
-    /** @brief Called on writing tripinfo output
-    *
-    * @param[in] os The stream to write the information into
-    * @exception IOError not yet implemented
-    * @see MSDevice::generateOutput
-    */
-    void generateOutput() const;
 
     /// @brief return the name for this type of device
     const std::string deviceName() const {
@@ -123,10 +105,9 @@ private:
     * @param[in] preInsertionPeriod The route search period before insertion
     */
     MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity, 
-                     const double powerMax, const double mass, const double frontSurfaceArea, const double airDragCoefficient, 
-                     const double internalMomentOfInertia, const double radialDragCoefficient, const double rollDragCoefficient, 
-                     const double constantPowerIntake, const double propulsionEfficiency, const double recuperationEfficiency, 
-                     const double stoppingTreshold, const double lastAngle, const double lastEnergy);
+        const double powerMax, const double stoppingTreshold, const std::map<int, double>& param);
+
+    void checkParam(const SumoXMLAttr paramKey, const double lower=0., const double upper=std::numeric_limits<double>::infinity());
 
 public:
     /// @brief Get the actual vehicle's Battery Capacity in kWh
@@ -137,39 +118,6 @@ public:
 
     /// @brief Get the maximum power when accelerating
     double getMaximumPower() const;
-
-    /// @brief Get vehicle's mass
-    double getMass() const;
-
-    /// @brief Get vehicle's front surface Area
-    double getFrontSurfaceArea() const;
-
-    /// @brief Get vehicle's drag coefficient
-    double getAirDragCoefficient() const;
-
-    /// @brief Get vehicles's internal moment of inertia
-    double getInternalMomentOfInertia() const;
-
-    /// @brief Get vehicles's radial friction coefficient
-    double getRadialDragCoefficient() const;
-
-    /// @brief Get vehicles's roll friction coefficient
-    double getRollDragCoefficient() const;
-
-    /// @brief Get vehicles's constant power intake
-    double getConstantPowerIntake() const;
-
-    /// @brief Get vehicles's Propulsion efficiency
-    double getPropulsionEfficiency() const;
-
-    /// @brief Get vehicles's Recuparation efficiency
-    double getRecuperationEfficiency() const;
-
-    /// @brief Get vehicles's last angle
-    double getLastAngle() const;
-
-    /// @brief Get vehicles's last Energy
-    double getLastEnergy() const;
 
     /// @brief Get true if Vehicle is charging, false if not.
     bool isChargingStopped() const;
@@ -195,9 +143,6 @@ public:
     /// @brief Get stopping treshold
     double getStoppingTreshold() const;
 
-    /// @brief get propulsion energy in [Wh]
-    double getPropEnergy(SUMOVehicle& veh);
-
     /// @brief Set actual vehicle's Battery Capacity in kWh
     void setActualBatteryCapacity(const double actualBatteryCapacity);
 
@@ -206,39 +151,6 @@ public:
 
     /// @brief Set maximum power when accelerating
     void setPowerMax(const double new_Pmax);
-
-    /// @brief Set vehicle's myMass
-    void setMass(const double mass);
-
-    /// @brief Set vehicle's front surface Area
-    void setFrontSurfaceArea(const double frontSurfaceArea);
-
-    /// @brief Set vehicle's drag coefficient
-    void setAirDragCoefficient(const double new_C_Veh);
-
-    /// @brief Set vehicle's internal moment of inertia
-    void setInternalMomentOfInertia(const double internalMomentOfInertia);
-
-    /// @brief Set vehicle's radial friction coefficient
-    void setRadialDragCoefficient(const double radialDragCoefficient);
-
-    /// @brief Set vehicle's roll friction coefficient
-    void setRollDragCoefficient(const double rollDragCoefficient);
-
-    /// @brief Set vehicle's constant power intake
-    void setConstantPowerIntake(const double constantPowerIntake);
-
-    /// @brief Set vehicle's Propulsion efficiency
-    void setPropulsionEfficiency(const double propulsionEfficiency);
-
-    /// @brief Set vehicle's Recuparation efficiency
-    void setRecuperationEfficiency(const double recuperationEfficiency);
-
-    /// @brief Set vehicle's last Angle
-    void setLastAngle(const double lastAngle);
-
-    /// @brief Set vehicle's last Energy
-    void setLastEnergy(const double lastEnergy);
 
     /// @brief Set vehicle's stopping treshold
     void setStoppingTreshold(const double stoppingTreshold);
@@ -265,38 +177,14 @@ protected:
     /// @brief Parameter, The Maximum Power when accelerating, [myPowerMax >= 0]
     double myPowerMax;
 
-    /// @brief Parameter, Vehicle's myMass, [myMass >= 0]
-    double myMass;
+    /// @brief Parameter, stopping vehicle treshold [myStoppingTreshold >= 0]
+    double myStoppingTreshold;
 
-    /// @brief Parameter, Vehicle's front surface Area, [myFrontSurfaceArea >= 0]
-    double myFrontSurfaceArea;
-
-    /// @brief Parameter, Vehicle's drag coefficient, [myAirDragCoefficient >=0]
-    double myAirDragCoefficient;
-
-    /// @brief Parameter, Vehicle's internal moment of inertia, [myInternalMomentOfInertia >= 0]
-    double myInternalMomentOfInertia;
-
-    /// @brief Parameter, Vehicle's radial friction coefficient, [myRadialDragCoefficient >=0]
-    double myRadialDragCoefficient;
-
-    /// @brief Parameter, Vehicle's roll friction coefficient, [myRollDragCoefficient >= 0]
-    double myRollDragCoefficient;
-
-    /// @brief Parameter, Vehicle's constant power intake, [myConstantPowerIntake >= 0]
-    double myConstantPowerIntake;
-
-    /// @brief Parameter, Vehicle's propulsion efficiency, [1 >= myPropulsionEfficiency >= 0]
-    double myPropulsionEfficiency;
-
-    /// @brief Parameter, Vehicle's recuparation efficiency, [1 >= myRecuperationEfficiency >= 0]
-    double myRecuperationEfficiency;
+    /// @brief Parameter collection
+    std::map<int, double> myParam;
 
     /// @brief Parameter, Vehicle's last angle
     double myLastAngle;
-
-    /// @brief Parameter, Vehicle's last energy
-    double myLastEnergy;
 
     /// @brief Parameter, Flag: Vehicles it's charging stopped (by default is false)
     bool myChargingStopped;
@@ -318,9 +206,6 @@ protected:
 
     /// @brief Parameter, How many timestep the vehicle is stopped
     int myVehicleStopped;
-
-    /// @brief Parameter, stopping vehicle treshold [myStoppingTreshold >= 0]
-    double myStoppingTreshold;
 
 private:
     /// @brief Invalidated copy constructor.

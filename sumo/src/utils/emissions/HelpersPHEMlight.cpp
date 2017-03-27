@@ -249,7 +249,7 @@ HelpersPHEMlight::getEmission(const PHEMCEP* oldCep, PHEMlightdll::CEP* currCep,
 
 
 double
-HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope) const {
+HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* /* param */) const {
     if (c == PHEMLIGHT_BASE) { // zero emission class
         return 0.;
     }
@@ -316,4 +316,3 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
 
 
 /****************************************************************************/
-

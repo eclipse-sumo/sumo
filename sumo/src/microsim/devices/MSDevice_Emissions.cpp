@@ -93,6 +93,7 @@ MSDevice_Emissions::generateOutput() const {
          "\" PMx_abs=\"" << OutputDevice::realString(myEmissions.PMx, 6) <<
          "\" NOx_abs=\"" << OutputDevice::realString(myEmissions.NOx, 6) <<
          "\" fuel_abs=\"" << OutputDevice::realString(myEmissions.fuel, 6) <<
+         "\" electricity_abs=\"" << OutputDevice::realString(myEmissions.electricity, 6) <<
          "\"").closeTag();
     }
 }

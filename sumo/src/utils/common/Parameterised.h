@@ -100,6 +100,14 @@ public:
     const std::string& getParameter(const std::string& key, const std::string& defaultValue) const;
 
 
+    /** @brief Returns the value for a given key converted to a double
+     * @param[in] key The key to ask for
+     * @param[in] defaultValue The default value to return if no value is stored under the key
+     * @return The value stored under the key
+     */
+    double getDouble(const std::string& key, const double defaultValue) const;
+
+
     /** @brief Clears the parameter map
      */
     void clearParameter();

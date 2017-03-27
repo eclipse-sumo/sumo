@@ -1,4 +1,6 @@
 set(utils_emissions_STAT_SRCS
+   HelpersEnergy.cpp
+   HelpersEnergy.h
    HelpersHarmonoise.cpp
    HelpersHarmonoise.h
    HelpersHBEFA.cpp
