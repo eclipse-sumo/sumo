@@ -78,6 +78,9 @@
         <!-- Write battery values with the given precision (default 2) -->
         <battery-output.precision value="2" type="INT"/>
 
+        <!-- Write data of charging stations -->
+        <chargingstations-output value="" type="FILE"/>
+
         <!-- Save the Floating Car Data -->
         <fcd-output value="" type="FILE"/>
 
@@ -143,12 +146,6 @@
 
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
-
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR"/>
 
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
@@ -455,6 +452,9 @@
     <traci_server>
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>
+
+        <!-- Runs TraCI script with embedded python -->
+        <python-script value="" type="STR"/>
 
     </traci_server>
 
