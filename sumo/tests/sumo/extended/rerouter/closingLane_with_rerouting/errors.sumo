@@ -1,0 +1,1 @@
+Warning: Vehicle 'flow.43' performs emergency stop at the end of lane 'beg_2' because there is no connection to the next edge (decel=-11.41, offset = 1.85), time=41.00.

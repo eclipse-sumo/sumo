@@ -1,10 +1,17 @@
-vehicle 'prob.1' does not supply vehicle parameter 'example'. Using default of -1.00
-vehicle 'prob.1' does not supply vType parameter 'example'. Using default of -1.00
-initialized device 'example_prob.1' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
-device 'example_prob.1' notifyEnter: reason=0 currentEdge=beg
-device 'example_prob.1' notifyMove: newSpeed=2.60
-  veh 'prob.1 has device 'tripinfo_prob.1'
-device 'example_prob.1' notifyLeave: reason=6 currentEdge=beg
+vehicle 'prob.2' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'prob.2' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_prob.2' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_prob.2' notifyEnter: reason=0 currentEdge=beg
+device 'example_prob.2' notifyMove: newSpeed=2.60
+  veh 'prob.2 has device 'tripinfo_prob.2'
+device 'example_prob.2' notifyLeave: reason=6 currentEdge=beg
+vehicle 'prob.3' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'prob.3' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_prob.3' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_prob.3' notifyEnter: reason=0 currentEdge=beg
+device 'example_prob.3' notifyMove: newSpeed=2.60
+  veh 'prob.3 has device 'tripinfo_prob.3'
+device 'example_prob.3' notifyLeave: reason=6 currentEdge=beg
 vehicle 'prob.5' does not supply vehicle parameter 'example'. Using default of -1.00
 vehicle 'prob.5' does not supply vType parameter 'example'. Using default of -1.00
 initialized device 'example_prob.5' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
@@ -12,27 +19,13 @@ device 'example_prob.5' notifyEnter: reason=0 currentEdge=beg
 device 'example_prob.5' notifyMove: newSpeed=2.60
   veh 'prob.5 has device 'tripinfo_prob.5'
 device 'example_prob.5' notifyLeave: reason=6 currentEdge=beg
-vehicle 'prob.6' does not supply vehicle parameter 'example'. Using default of -1.00
-vehicle 'prob.6' does not supply vType parameter 'example'. Using default of -1.00
-initialized device 'example_prob.6' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
-device 'example_prob.6' notifyEnter: reason=0 currentEdge=beg
-device 'example_prob.6' notifyMove: newSpeed=2.60
-  veh 'prob.6 has device 'tripinfo_prob.6'
-device 'example_prob.6' notifyLeave: reason=6 currentEdge=beg
-vehicle 'prob.8' does not supply vehicle parameter 'example'. Using default of -1.00
-vehicle 'prob.8' does not supply vType parameter 'example'. Using default of -1.00
-initialized device 'example_prob.8' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
-device 'example_prob.8' notifyEnter: reason=0 currentEdge=beg
-device 'example_prob.8' notifyMove: newSpeed=2.60
-  veh 'prob.8 has device 'tripinfo_prob.8'
-device 'example_prob.8' notifyLeave: reason=6 currentEdge=beg
-vehicle 'prob.9' does not supply vehicle parameter 'example'. Using default of -1.00
-vehicle 'prob.9' does not supply vType parameter 'example'. Using default of -1.00
-initialized device 'example_prob.9' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
-device 'example_prob.9' notifyEnter: reason=0 currentEdge=beg
-device 'example_prob.9' notifyMove: newSpeed=2.60
-  veh 'prob.9 has device 'tripinfo_prob.9'
-device 'example_prob.9' notifyLeave: reason=6 currentEdge=beg
+vehicle 'prob.7' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'prob.7' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_prob.7' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_prob.7' notifyEnter: reason=0 currentEdge=beg
+device 'example_prob.7' notifyMove: newSpeed=2.60
+  veh 'prob.7 has device 'tripinfo_prob.7'
+device 'example_prob.7' notifyLeave: reason=6 currentEdge=beg
 vehicle 'always.0' does not supply vehicle parameter 'example'. Using default of -1.00
 vehicle 'always.0' does not supply vType parameter 'example'. Using default of -1.00
 initialized device 'example_always.0' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
