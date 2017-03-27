@@ -161,4 +161,11 @@ MSChargingStation::isCharging() const {
 }
 
 
+void 
+MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
+    output.openTag(SUMO_TAG_CHARGING_STATION);
+    output.writeAttr(SUMO_ATTR_ID, myID);
+    output.closeTag();
+}
+
 /****************************************************************************/

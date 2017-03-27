@@ -414,6 +414,9 @@ MSNet::closeSimulation(SUMOTime start) {
     if (OptionsCont::getOptions().getBool("tripinfo-output.write-unfinished")) {
         MSDevice_Tripinfo::generateOutputForUnfinished();
     }
+    if (OptionsCont::getOptions().isSet("chargingstations-output")) {
+        writeChargingStationOutput();
+    }
 }
 
 
@@ -896,6 +899,15 @@ MSNet::getChargingStationID(const MSLane* lane, const double pos) const {
         }
     }
     return "";
+}
+
+
+void 
+MSNet::writeChargingStationOutput() const {
+    OutputDevice& output = OutputDevice::getDeviceByOption("chargingstations-output");
+    for (std::map<std::string, MSChargingStation*>::const_iterator it = myChargingStationDict.getMyMap().begin(); it != myChargingStationDict.getMyMap().end(); it++) {
+        it->second->writeChargingStationOutput(output);
+    }
 }
 
 

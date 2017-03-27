@@ -136,6 +136,9 @@ MSFrame::fillOptions() {
     oc.doRegister("battery-output.precision", new Option_Integer(2));
     oc.addDescription("battery-output.precision", "Output", "Write battery values with the given precision (default 2)");
 
+    oc.doRegister("chargingstations-output", new Option_FileName());
+    oc.addDescription("chargingstations-output", "Output", "Write data of charging stations");
+
     oc.doRegister("fcd-output", new Option_FileName());
     oc.addDescription("fcd-output", "Output", "Save the Floating Car Data");
     oc.doRegister("fcd-output.geo", new Option_Bool(false));
@@ -440,6 +443,7 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("fcd-output", "fcd-export", "fcd_file.xsd");
     OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
     OutputDevice::createDeviceByOption("battery-output", "battery-export");
+    OutputDevice::createDeviceByOption("chargingstations-output", "chargingstations-export");
     OutputDevice::createDeviceByOption("full-output", "full-export", "full_file.xsd");
     OutputDevice::createDeviceByOption("queue-output", "queue-export", "queue_file.xsd");
     OutputDevice::createDeviceByOption("amitran-output", "trajectories", "amitran/trajectories.xsd\" timeStepSize=\"" + toString(STEPS2MS(DELTA_T)));

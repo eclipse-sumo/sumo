@@ -100,6 +100,9 @@ public:
     /// @brief Return true if in the current time step charging station is charging a vehicle
     bool isCharging() const;
 
+    /// @brief write charging station values 
+    void writeChargingStationOutput(OutputDevice& output);
+
 protected:
 
     /// @brief Charging station's charging power

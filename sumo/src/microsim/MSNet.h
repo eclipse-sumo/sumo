@@ -535,6 +535,9 @@ public:
     std::string getParkingAreaID(const MSLane* lane, const double pos) const;
     /// @}
 
+    /// @name Insertion and retrieval of charging stations
+    /// @{
+
     /** @brief Adds a chargingg station
      *
      * If another charging station with the same id exists, false is returned.
@@ -560,6 +563,9 @@ public:
      * @return The charging station id on the location, or "" if no such stop exists
      */
     std::string getChargingStationID(const MSLane* lane, const double pos) const;
+
+    /// @brief write charging station output
+    void writeChargingStationOutput() const;
     /// @}
 
 
