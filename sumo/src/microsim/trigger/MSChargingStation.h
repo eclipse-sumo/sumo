@@ -58,42 +58,6 @@ class MSDevice_Battery;
 class MSChargingStation : public MSStoppingPlace {
 public:
 
-    /// @brief struct to save information for the cahrgingStation output
-    struct charge {
-        /// @brief constructor
-        charge(SUMOTime _timeStep, std::string _vehicleID, std::string _vehicleType, std::string _status,
-            double _WCharged, double _actualBatteryCapacity, double _maxBatteryCapacity, double _chargingPower,
-            double _chargingEfficiency) :
-            timeStep(_timeStep),
-            vehicleID(_vehicleID),
-            vehicleType(_vehicleType),
-            status(_status),
-            WCharged(_WCharged),
-            actualBatteryCapacity(_actualBatteryCapacity),
-            maxBatteryCapacity(_maxBatteryCapacity),
-            chargingPower(_chargingPower),
-            chargingEfficiency(_chargingEfficiency) {}
-
-        // @brief vehicle TimeStep
-        SUMOTime timeStep;
-        // @brief vehicle ID
-        std::string vehicleID;
-        // @brief vehicle Type
-        std::string vehicleType;
-        /// @brief status
-        std::string status;
-        // @brief W charged
-        double WCharged;
-        // @brief actual battery capacity AFTER charging
-        double actualBatteryCapacity;
-        // @brief battery max capacity
-        double maxBatteryCapacity;
-        // @brief current charging power of charging station
-        double chargingPower;
-        // @brief current efficiency of charging station
-        double chargingEfficiency;
-    };
-
     /// @brief constructor
     MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
                       double chargingPower, double efficency, bool chargeInTransit, int chargeDelay);
@@ -144,6 +108,45 @@ public:
     void writeChargingStationOutput(OutputDevice& output);
 
 protected:
+
+    /// @brief struct to save information for the cahrgingStation output
+    struct charge {
+        /// @brief constructor
+        charge(SUMOTime _timeStep, std::string _vehicleID, std::string _vehicleType, std::string _status,
+            double _WCharged, double _actualBatteryCapacity, double _maxBatteryCapacity, double _chargingPower,
+            double _chargingEfficiency, double _totalEnergyCharged) :
+            timeStep(_timeStep),
+            vehicleID(_vehicleID),
+            vehicleType(_vehicleType),
+            status(_status),
+            WCharged(_WCharged),
+            actualBatteryCapacity(_actualBatteryCapacity),
+            maxBatteryCapacity(_maxBatteryCapacity),
+            chargingPower(_chargingPower),
+            chargingEfficiency(_chargingEfficiency),
+            totalEnergyCharged(_totalEnergyCharged) {}
+
+        // @brief vehicle TimeStep
+        SUMOTime timeStep;
+        // @brief vehicle ID
+        std::string vehicleID;
+        // @brief vehicle Type
+        std::string vehicleType;
+        /// @brief status
+        std::string status;
+        // @brief W charged
+        double WCharged;
+        // @brief actual battery capacity AFTER charging
+        double actualBatteryCapacity;
+        // @brief battery max capacity
+        double maxBatteryCapacity;
+        // @brief current charging power of charging station
+        double chargingPower;
+        // @brief current efficiency of charging station
+        double chargingEfficiency;
+        // @brief current energy charged by charging stations AFTER charging
+        double totalEnergyCharged;
+    };
 
     /// @brief Charging station's charging power
     double myChargingPower;
