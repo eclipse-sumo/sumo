@@ -118,29 +118,29 @@ Computing turning directions...
 done (1ms).
 Guessing and setting on-/off-ramps... done (2ms).
 Sorting nodes' edges... done (2ms).
-Computing node shapes... done (66ms).
-Computing edge shapes... done (32ms).
+Computing node shapes... done (61ms).
+Computing edge shapes... done (27ms).
 Computing node types... done (1ms).
 Guessed 865 pedestrian crossings.
 Computing priorities... done (2ms).
-Computing approached edges... done (2ms).
+Computing approached edges... done (1ms).
 Guessing and setting roundabouts... 
  Guessed 4 roundabout(s).
 done (1ms).
-Computing approaching lanes... done (9ms).
+Computing approaching lanes... done (8ms).
 Dividing of lanes on approached lanes... done (4ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
-Joining traffic light nodes... done (2ms).
+Joining traffic light nodes... done (1ms).
 Computing traffic light control information... 
 done (1ms).
-Computing node logics... done (14ms).
+Computing node logics... done (15ms).
 Computing traffic light logics... 
 done (4ms).
  48 traffic light(s) computed.
 Building inner edges... 
-done (35ms).
+done (34ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -153,15 +153,15 @@ Summary:
   Applied offset     : -388415.86,-5817979.56
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
-Writing network... done (521ms).
+Writing network... done (477ms).
 Success.
-Written configuration to '/scr2/texttest_tmp/tools.03Mar094729.20526/tools/import/OSM/webWizard/2017-03-03-09-47-30/osm.netccfg'
-Parsing network projection from '/scr2/texttest_tmp/tools.03Mar094729.20526/tools/import/OSM/webWizard/2017-03-03-09-47-30/osm.net.xml'... done.
+Written configuration to '/scr2/texttest_tmp/tools.27Mar132857.30659/tools/import/OSM/webWizard/2017-03-27-13-28-58/osm.netccfg'
+Parsing network projection from '/scr2/texttest_tmp/tools.27Mar132857.30659/tools/import/OSM/webWizard/2017-03-27-13-28-58/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
-Written configuration to '/scr2/texttest_tmp/tools.03Mar094729.20526/tools/import/OSM/webWizard/2017-03-03-09-47-30/osm.polycfg'
+Written configuration to '/scr2/texttest_tmp/tools.27Mar132857.30659/tools/import/OSM/webWizard/2017-03-27-13-28-58/osm.polycfg'
 Success.
 Success.
 Success.
@@ -169,16 +169,16 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'... done (561ms).
-Loading additional-files from 'osm.poly.xml'... done (91ms).
+Loading net-file from 'osm.net.xml'... done (564ms).
+Loading additional-files from 'osm.poly.xml'... done (119ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 3052.00
+Simulation ended at time: 3054.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 9073ms
- Real time factor: 336.383
- UPS: 12333.737463
+ Duration: 8964ms
+ Real time factor: 340.696
+ UPS: 12490.294511
 Vehicles: 
  Inserted: 345
  Running: 0
@@ -188,16 +188,16 @@ Persons:
  Running: 0
 Statistics (avg):
  RouteLength: 1914.87
- Duration: 324.36
- WaitingTime: 63.01
- TimeLoss: 104.83
+ Duration: 324.53
+ WaitingTime: 63.14
+ TimeLoss: 105.00
  DepartDelay: -0.34
 
-DijkstraRouterTT answered 18415 queries and explored 11.90 edges on average.
-DijkstraRouterTT spent 55ms answering queries (0.00ms on average).
+DijkstraRouterTT answered 18263 queries and explored 11.89 edges on average.
+DijkstraRouterTT spent 51ms answering queries (0.00ms on average).
 DijkstraRouterTT answered 395 queries and explored 625.68 edges on average.
-DijkstraRouterTT spent 88ms answering queries (0.22ms on average).
-Building scenario in '/scr2/texttest_tmp/tools.03Mar094729.20526/tools/import/OSM/webWizard/2017-03-03-09-47-30'
+DijkstraRouterTT spent 91ms answering queries (0.23ms on average).
+Building scenario in '/scr2/texttest_tmp/tools.27Mar132857.30659/tools/import/OSM/webWizard/2017-03-27-13-28-58'
 calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
 calling route2trips
 calling  /scr1/sumoI/sumo/bin/duarouter -n osm.net.xml -t osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
