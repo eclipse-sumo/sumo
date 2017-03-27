@@ -472,6 +472,17 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors) {
     }
 }
 
+std::string 
+MSBaseVehicle::getDeviceParameter(const std::string& deviceName, const std::string& key) const {
+    for (std::vector<MSDevice* >::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
+        if ((*dev)->deviceName() == deviceName) {
+            return (*dev)->getParameter(key);
+        }
+    }
+    throw InvalidArgument("No device off type '" + deviceName + "' exists");
+}
+
+
 #ifdef _DEBUG
 void
 MSBaseVehicle::initMoveReminderOutput(const OptionsCont& oc) {

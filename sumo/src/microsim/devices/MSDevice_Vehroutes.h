@@ -113,6 +113,11 @@ public:
     bool notifyLeave(SUMOVehicle& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0);
     /// @}
 
+    /// @brief return the name for this type of device
+    const std::string deviceName() const {
+        return "vehroute";
+    }
+
 
     /** @brief Called on writing vehroutes output
      *

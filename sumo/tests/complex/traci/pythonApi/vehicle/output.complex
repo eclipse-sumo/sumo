@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:43640 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:58622 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -595,3 +595,4 @@ step 150
 pav edge=2fi pos=47.2666811078 stopState=0
 step 151
 pav edge=2fi pos=52.1420388769 stopState=0
+recovering from exception (Vehicle 'pav' does not support device parameter 'device.foo.bar' (No device off type 'foo' exists).)

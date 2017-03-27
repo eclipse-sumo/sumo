@@ -346,6 +346,10 @@ for i in range(18):
                 traci.vehicle.getLanePosition(parkingAreaVeh), 
                 traci.vehicle.getStopState(parkingAreaVeh) 
                 ))
+try:
+    traci.vehicle.getParameter(parkingAreaVeh, "device.foo.bar")
+except traci.TraCIException as e:
+    print("recovering from exception (%s)" % e)
 # done
 traci.close()
 sumoProcess.wait()

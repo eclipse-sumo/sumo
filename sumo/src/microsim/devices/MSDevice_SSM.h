@@ -294,6 +294,10 @@ public:
     /// @}
 
 
+    /// @brief return the name for this type of device
+    const std::string deviceName() const {
+        return "ssm";
+    }
 
     /** @brief Finalizes output. Called on vehicle removal
      *

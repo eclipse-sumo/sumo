@@ -124,6 +124,11 @@ public:
     /// @}
 
 
+    /// @brief return the name for this type of device
+    const std::string deviceName() const {
+        return "tripinfo";
+    }
+
     /** @brief Called on writing tripinfo output
      *
      * @param[in] os The stream to write the information into

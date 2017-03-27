@@ -106,6 +106,14 @@ public:
     */
     void generateOutput() const;
 
+    /// @brief return the name for this type of device
+    const std::string deviceName() const {
+        return "battery";
+    }
+
+    /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
+    std::string getParameter(const std::string& key) const; 
+
 private:
     /** @brief Constructor
     *

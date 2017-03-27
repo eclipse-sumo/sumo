@@ -90,6 +90,8 @@ public:
      */
     const SUMOVehicleParameter& getParameter() const;
 
+    /// @brief try to retrieve the given parameter from any of the vehicles devices, raise InvalidArgument if no device parameter by that name exists
+    std::string getDeviceParameter(const std::string& deviceName, const std::string& key) const;
 
     /** @brief Returns the current route
      * @return The route the vehicle uses

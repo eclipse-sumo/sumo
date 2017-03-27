@@ -736,3 +736,9 @@ double MSDevice_Battery::getPropEnergy(SUMOVehicle& veh) {
     return EnergyLoss;
 }
 
+
+std::string 
+MSDevice_Battery::getParameter(const std::string& key) const {
+    throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+}
+

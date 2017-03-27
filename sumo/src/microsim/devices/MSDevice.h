@@ -92,6 +92,9 @@ public:
         return &myEquipmentRNG;
     }
 
+    /// @brief return the name for this type of device
+    virtual const std::string deviceName() const = 0;
+
 
 public:
     /** @brief Constructor
@@ -146,6 +149,10 @@ public:
      */
     virtual void loadState(const SUMOSAXAttributes& attrs);
 
+    /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
+    virtual std::string getParameter(const std::string& key) const {
+        throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+    }
 
 protected:
     /// @name Helper methods for device assignment

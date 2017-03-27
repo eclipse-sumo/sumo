@@ -28,6 +28,8 @@
 #endif
 
 #include <utils/geom/GeomHelper.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/MSEdgeWeightsStorage.h>
@@ -459,8 +461,22 @@ TraCI_Vehicle::getLaneChangeState(const std::string& vehicleID, int direction) {
 
 std::string 
 TraCI_Vehicle::getParameter(const std::string& vehicleID, const std::string& key) {
-    return getVehicle(vehicleID)->getParameter().getParameter(key, "");
+    MSVehicle* veh = getVehicle(vehicleID);
+    if (StringUtils::startsWith(key, "device.")) {
+        StringTokenizer tok(key, ".");
+        if (tok.size() < 3) {
+            throw TraCIException("Invalid device parameter '" + key + "' for vehicle '" + vehicleID + "'");
+        }
+        try {
+            return veh->getDeviceParameter(tok.get(1), key.substr(tok.get(0).size() + tok.get(1).size() + 2)); 
+        } catch (InvalidArgument& e) {
+            throw TraCIException("Vehicle '" + vehicleID + "' does not support device parameter '" + key + "' (" + e.what() + ").");
+        }
+    } else {
+        return veh->getParameter().getParameter(key, "");
+    }
 }
+
 
 const MSVehicleType& 
 TraCI_Vehicle::getVehicleType(const std::string& vehicleID) {

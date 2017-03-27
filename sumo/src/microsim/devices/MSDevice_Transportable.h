@@ -106,6 +106,10 @@ public:
     /// @}
 
 
+    /// @brief return the name for this type of device
+    const std::string deviceName() const {
+        return myAmContainer ? "container" : "person";
+    }
 
     /** @brief Add a passenger
      *

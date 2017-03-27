@@ -120,6 +120,10 @@ public:
     /// @}
 
 
+    /// @brief return the name for this type of device
+    const std::string deviceName() const {
+        return "example";
+    }
 
     /** @brief Called on writing tripinfo output
      *
