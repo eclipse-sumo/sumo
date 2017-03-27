@@ -45,6 +45,7 @@
 class MSLane;
 class MSBusStop;
 class OptionsCont;
+class MSDevice_Battery;
 
 
 // ===========================================================================
@@ -56,6 +57,42 @@ class OptionsCont;
  */
 class MSChargingStation : public MSStoppingPlace {
 public:
+
+    /// @brief struct to save information for the cahrgingStation output
+    struct charge {
+        /// @brief constructor
+        charge(SUMOTime _timeStep, std::string _vehicleID, std::string _vehicleType, std::string _status,
+            double _WCharged, double _actualBatteryCapacity, double _maxBatteryCapacity, double _chargingPower,
+            double _chargingEfficiency) :
+            timeStep(_timeStep),
+            vehicleID(_vehicleID),
+            vehicleType(_vehicleType),
+            status(_status),
+            WCharged(_WCharged),
+            actualBatteryCapacity(_actualBatteryCapacity),
+            maxBatteryCapacity(_maxBatteryCapacity),
+            chargingPower(_chargingPower),
+            chargingEfficiency(_chargingEfficiency) {}
+
+        // @brief vehicle TimeStep
+        SUMOTime timeStep;
+        // @brief vehicle ID
+        std::string vehicleID;
+        // @brief vehicle Type
+        std::string vehicleType;
+        /// @brief status
+        std::string status;
+        // @brief W charged
+        double WCharged;
+        // @brief actual battery capacity AFTER charging
+        double actualBatteryCapacity;
+        // @brief battery max capacity
+        double maxBatteryCapacity;
+        // @brief current charging power of charging station
+        double chargingPower;
+        // @brief current efficiency of charging station
+        double chargingEfficiency;
+    };
 
     /// @brief constructor
     MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
@@ -100,6 +137,9 @@ public:
     /// @brief Return true if in the current time step charging station is charging a vehicle
     bool isCharging() const;
 
+    /// @brief add charge value for output
+    void addChargeValueForOutput(double WCharged, MSDevice_Battery *battery);
+
     /// @brief write charging station values 
     void writeChargingStationOutput(OutputDevice& output);
 
@@ -120,8 +160,13 @@ protected:
     /// @brief Check if in the current TimeStep chargingStation is charging a vehicle
     bool myChargingVehicle;
 
-private:
+    /// @brief total energy charged by this charging station
+    double myTotalCharge;
 
+    /// @brief vector with the charges of this charging station
+    std::vector<charge> myChargeValues;
+
+private:
     /// @brief Invalidated copy constructor.
     MSChargingStation(const MSChargingStation&);
 

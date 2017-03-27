@@ -35,6 +35,8 @@
 #include <utils/vehicle/SUMOVehicle.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/devices/MSDevice_Battery.h>
+#include <microsim/MSNet.h>
 #include "MSChargingStation.h"
 #include "MSTrigger.h"
 
@@ -50,7 +52,8 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
     myEfficiency(0),
     myChargeInTransit(chargeInTransit),
     myChargeDelay(0),
-    myChargingVehicle(false) {
+    myChargingVehicle(false),
+    myTotalCharge(0) {
     if (chargingPower < 0)
         WRITE_WARNING("Parameter " + toString(SUMO_ATTR_CHARGINGPOWER) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " is invalid (" + toString(getChargingPower()) + ").")
         else {
@@ -160,6 +163,16 @@ MSChargingStation::isCharging() const {
     return myChargingVehicle;
 }
 
+
+void 
+MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery *battery) {
+    std::string status = "";
+    charge C(MSNet::getInstance()->getCurrentTimeStep(), battery->getHolder().getID(), battery->getHolder().getVehicleType().getID(), 
+            status, WCharged, battery->getActualBatteryCapacity(), battery->getMaximumBatteryCapacity(), 
+            myChargingPower, myEfficiency);
+
+    myChargeValues.push_back(C);
+}
 
 void 
 MSChargingStation::writeChargingStationOutput(OutputDevice& output) {

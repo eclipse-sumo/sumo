@@ -181,10 +181,10 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
                 // Enable charging vehicle
                 myActChargingStation->setChargingVehicle(true);
 
-                // Calulate energy charged
+                // Calulate energy charged in W/s
                 myEnergyCharged = myActChargingStation->getChargingPower() * myActChargingStation->getEfficency();
 
-                // Convert from [kWs] to [kWh] (3600s / 1h):
+                // Convert from [Ws] to [Wh] (3600s / 1h):
                 myEnergyCharged /= 3600;
 
                 // Update Battery charge
@@ -194,6 +194,8 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
                     setActualBatteryCapacity(getActualBatteryCapacity() + myEnergyCharged);
                 }
             }
+            // add charge value for output to myActChargingStation
+            myActChargingStation->addChargeValueForOutput(myEnergyCharged, this);
         }
     }
     // In other case, vehicle will be not charged
