@@ -122,11 +122,8 @@ if (X11_FOUND)
 endif (X11_FOUND)
 #find_package(OpenGL REQUIRED)
 
-#find_package(FFMPEG REQUIRED)
-#if (FFMPEG_FOUND)
-#    message(${FFMPEG_LIBRARIES})
-#    include_directories(${FFMPEG_INCLUDE_DIR})
-#endif ()
+find_package(FFMPEG REQUIRED)
+
 
 #find_package(PythonLibs REQUIRED)
 #if (PYTHONLIBS_FOUND)
