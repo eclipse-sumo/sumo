@@ -175,6 +175,12 @@ public:
     /// @brief called when user toogle the blocking button
     long onCmdSetBlocking(FXObject*, FXSelector, void*);
 
+    /// @brief called when user change the the begShape of edge
+    long onCmdSetBegShape(FXObject*, FXSelector, void*);
+
+    /// @brief called when user change the the endShape of edge
+    long onCmdSetEndShape(FXObject*, FXSelector, void*);
+
     /// @brief called when user toogle the go back button
     long onCmdGoBack(FXObject*, FXSelector, void*);
 
@@ -232,8 +238,23 @@ private:
     /// @brief pointer to menu check block
     FXMenuCheck* myCheckBlocked;
 
+    /// @brief pointer to shape begin label
+    FXLabel *myShapeBegLabel;
+
+    /// @brief pointer to shape begin textfield
+    FXTextField *myShapeBegTextField;
+
+    /// @brief pointer to shape end label
+    FXLabel *myShapeEndLabel;
+
+    /// @brief pointer to shape end textfield
+    FXTextField *myShapeEndTextField;
+
     /// @brief pointer to additional element
     GNEAdditional* myAdditional;
+
+    /// @brief pointer to edge element
+    GNEEdge* myEdge;
 
     /// @brief pointer to previous element called by Inspector Frame
     GNEAttributeCarrier* myPreviousElementInspect;

@@ -155,6 +155,12 @@ public:
      */
     bool deleteGeometry(const Position& pos, GNEUndoList* undoList);
 
+    /// @brief makes pos the new geometry beginpoint at the appropriate begin
+    void setBeginpoint(Position pos, GNEUndoList* undoList);
+
+    /// @brief restores the beginpoint to the junction position at the appropriate begin
+    void resetBeginpoint(const Position& pos, GNEUndoList* undoList);
+
     /// @brief makes pos the new geometry endpoint at the appropriate end
     void setEndpoint(Position pos, GNEUndoList* undoList);
 

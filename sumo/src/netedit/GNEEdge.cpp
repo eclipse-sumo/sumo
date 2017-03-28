@@ -355,6 +355,44 @@ GNEEdge::deleteGeometry(const Position& pos, GNEUndoList* undoList) {
 }
 
 
+
+void 
+GNEEdge::setBeginpoint(Position pos, GNEUndoList* undoList) {
+    undoList->p_begin("set beginpoint");
+    PositionVector geom = myNBEdge.getGeometry();
+    int index = geom.indexOfClosest(pos);
+    if (geom[index].distanceTo(pos) < SNAP_RADIUS) { // snap to existing geometry
+        pos = geom[index];
+    }
+    Position destPos = myGNEJunctionDestiny->getNBNode()->getPosition();
+    Position sourcePos = myGNEJunctionSource->getNBNode()->getPosition();
+    if (pos.distanceTo2D(destPos) > pos.distanceTo2D(sourcePos)) {
+        setAttribute(GNE_ATTR_SHAPE_END, toString(pos), undoList);
+        myGNEJunctionDestiny->invalidateShape();
+    } else {
+        setAttribute(GNE_ATTR_SHAPE_START, toString(pos), undoList);
+        myGNEJunctionSource->invalidateShape();
+    }
+    // possibly existing inner point is no longer needed
+    deleteGeometry(pos, undoList);
+    undoList->p_end();
+}
+
+
+void 
+GNEEdge::resetBeginpoint(const Position& pos, GNEUndoList* undoList) {
+    Position destPos = myGNEJunctionDestiny->getNBNode()->getPosition();
+    Position sourcePos = myGNEJunctionSource->getNBNode()->getPosition();
+    if (pos.distanceTo2D(destPos) > pos.distanceTo2D(sourcePos)) {
+        setAttribute(GNE_ATTR_SHAPE_START, toString(sourcePos), undoList);
+        myGNEJunctionDestiny->invalidateShape();
+    } else {
+        setAttribute(GNE_ATTR_SHAPE_START, toString(destPos), undoList);
+        myGNEJunctionSource->invalidateShape();
+    }
+}
+
+
 void
 GNEEdge::setEndpoint(Position pos, GNEUndoList* undoList) {
     undoList->p_begin("set endpoint");

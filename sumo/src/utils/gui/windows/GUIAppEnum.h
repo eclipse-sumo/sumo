@@ -569,6 +569,10 @@ enum {
     MID_GNE_SET_ATTRIBUTE,
     /// @brief attribute blocking
     MID_GNE_SET_BLOCKING,
+    /// @brief set shape begin of edges
+    MID_GNE_SET_SHAPEBEG,
+    /// @brief set shape end of edges
+    MID_GNE_SET_SHAPEEND,
     /// @brief show connection
     MID_GNE_SHOW_CONNECTION,
     /// @brief inspect connection
