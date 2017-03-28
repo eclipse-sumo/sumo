@@ -110,6 +110,7 @@ for i in range(10):
     print(traci.person.getSubscriptionResults(personID))
 
 print("riding in vehicle: '%s'" % traci.vehicle.getParameter("veh0", "device.person.IDList"))
+print("persons on edge: '%s'" % traci.edge.getLastStepPersonIDs(traci.person.getRoadID("newPerson")))
 
 traci.person.removeStages("newPerson")
 traci.person.appendWaitingStage(
