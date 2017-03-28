@@ -32,6 +32,7 @@
 #include <utils/common/StringUtils.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
+#include <microsim/devices/MSDevice.h>
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>
@@ -485,6 +486,12 @@ TraCI_Vehicle::getParameter(const std::string& vehicleID, const std::string& key
         } catch (InvalidArgument& e) {
             throw TraCIException("Vehicle '" + vehicleID + "' does not support laneChangeModel parameter '" + key + "' (" + e.what() + ").");
         }
+    } else if (StringUtils::startsWith(key, "has.") && StringUtils::endsWith(key, ".device")) {
+        StringTokenizer tok(key, ".");
+        if (tok.size() != 3) {
+            throw TraCIException("Invalid check for device. Expected format is 'has.DEVICENAME.device'");
+        }
+        return veh->hasDevice(tok.get(1)) ? "true" : "false";
     } else {
         return veh->getParameter().getParameter(key, "");
     }

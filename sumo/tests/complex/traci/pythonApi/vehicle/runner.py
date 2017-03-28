@@ -362,6 +362,9 @@ for i in range(18):
 electricVeh = "elVeh"
 traci.vehicle.add(electricVeh, "horizontal", typeID="electric")
 traci.vehicle.setParameter(electricVeh, "device.battery.maximumBatteryCapacity", "40000")
+print("has battery device: %s" % traci.vehicle.getParameter(electricVeh, "has.battery.device"))
+print("has vehroute device: %s" % traci.vehicle.getParameter(electricVeh, "has.vehroute.device"))
+
 try:
     print(traci.vehicle.getParameter(electricVeh, "device.foo.bar"))
 except traci.TraCIException as e:

@@ -472,6 +472,18 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors) {
     }
 }
 
+
+bool 
+MSBaseVehicle::hasDevice(const std::string& deviceName) const {
+    for (std::vector<MSDevice* >::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
+        if ((*dev)->deviceName() == deviceName) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 std::string 
 MSBaseVehicle::getDeviceParameter(const std::string& deviceName, const std::string& key) const {
     for (std::vector<MSDevice* >::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {

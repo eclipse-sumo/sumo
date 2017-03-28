@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:39651 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:34869 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -630,6 +630,8 @@ step 150
 pav edge=2fi pos=47.2666811078 stopState=0
 step 151
 pav edge=2fi pos=52.1420388769 stopState=0
+has battery device: true
+has vehroute device: false
 recovering from exception (Vehicle 'elVeh' does not support device parameter 'device.foo.bar' (No device off type 'foo' exists).)
 recovering from exception (Vehicle 'elVeh' does not support device parameter 'device.battery.foobar' (Parameter 'foobar' is not supported for device of type 'battery').)
 elVeh speed="0.0" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL"
