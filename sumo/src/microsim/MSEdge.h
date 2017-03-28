@@ -206,14 +206,14 @@ public:
      *
      * @return This edge's persons sorted by pos
      */
-    std::vector<MSTransportable*> getSortedPersons(SUMOTime timestep) const;
+    std::vector<MSTransportable*> getSortedPersons(SUMOTime timestep, bool includeRiding=false) const;
 
 
     /** @brief Returns this edge's containers sorted by pos
      *
      * @return This edge's containers sorted by pos
      */
-    std::vector<MSTransportable*> getSortedContainers(SUMOTime timestep) const;
+    std::vector<MSTransportable*> getSortedContainers(SUMOTime timestep, bool includeRiding=false) const;
 
     /** @brief Get the allowed lanes to reach the destination-edge.
      *

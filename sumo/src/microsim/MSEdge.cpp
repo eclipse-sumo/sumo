@@ -802,15 +802,25 @@ MSEdge::setMaxSpeed(double val) const {
 
 
 std::vector<MSTransportable*>
-MSEdge::getSortedPersons(SUMOTime timestep) const {
+MSEdge::getSortedPersons(SUMOTime timestep, bool includeRiding) const {
     std::vector<MSTransportable*> result(myPersons.begin(), myPersons.end());
+    if (includeRiding) {
+        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+            const MSLane::VehCont& vehs = (*i)->getVehiclesSecure();
+            for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
+                const std::vector<MSTransportable*>& persons = (*j)->getPersons();
+                result.insert(result.end(), persons.begin(), persons.end());
+            }
+            (*i)->releaseVehicles();
+        }
+    }
     sort(result.begin(), result.end(), transportable_by_position_sorter(timestep));
     return result;
 }
 
 
 std::vector<MSTransportable*>
-MSEdge::getSortedContainers(SUMOTime timestep) const {
+MSEdge::getSortedContainers(SUMOTime timestep, bool includeRiding) const {
     std::vector<MSTransportable*> result(myContainers.begin(), myContainers.end());
     sort(result.begin(), result.end(), transportable_by_position_sorter(timestep));
     return result;
