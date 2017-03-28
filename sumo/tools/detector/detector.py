@@ -87,7 +87,7 @@ class DetectorReader(handler.ContentHandler):
         self._det2edge[id] = edge
 
     def startElement(self, name, attrs):
-        if name == 'detectorDefinition':
+        if name == 'detectorDefinition' or name == 'e1Detector':
             self.addDetector(attrs['id'], float(attrs['pos']),
                              self._laneMap.get(attrs['lane'], self._currentEdge))
         elif name == 'group':

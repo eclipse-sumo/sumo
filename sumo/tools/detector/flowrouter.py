@@ -227,8 +227,8 @@ class Net:
     def initNet(self):
         edgeRestriction = {}
         routeRestriction = {}
-        if options.restrictionFile:
-            for line in open(options.restrictionFile):
+        if options.restrictionfile:
+            for line in open(options.restrictionfile):
                 l = line.split()
                 if len(l) == 2:
                     edgeRestriction[l[1]] = float(l[0])
@@ -368,13 +368,14 @@ class Net:
             if currVertex == self._source or currVertex == self._sink:
                 self.savePulledPath(currVertex, unsatEdge, pred)
                 return self.findPath(unsatEdge.target, currVertex)
-            for edge in currVertex.inEdges:
+            # checking for path continuation preferring edges with many lanes
+            for edge in sorted(currVertex.inEdges, key=lambda x: x.numLanes, reverse=True):
                 if edge.source not in pred and edge.flow < edge.capacity:
                     queue.append(edge.source)
                     pred[edge.source] = edge
                     edge.source.flowDelta = min(
                         currVertex.flowDelta, edge.capacity - edge.flow)
-            for edge in currVertex.outEdges:
+            for edge in sorted(currVertex.outEdges, key=lambda x: x.numLanes, reverse=True):
                 if edge.target not in pred and edge.flow > 0:
                     queue.append(edge.target)
                     pred[edge.target] = edge
