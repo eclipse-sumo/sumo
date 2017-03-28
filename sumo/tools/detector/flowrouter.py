@@ -82,6 +82,7 @@ class Edge:
         self.kind = kind
         self.maxSpeed = 0.0
         self.length = 0.0
+        self.numLanes = 0
         self.detGroup = []
         self.reset()
 
@@ -224,6 +225,15 @@ class Net:
         return True
 
     def initNet(self):
+        edgeRestriction = {}
+        routeRestriction = {}
+        if options.restrictionFile:
+            for line in open(options.restrictionFile):
+                l = line.split()
+                if len(l) == 2:
+                    edgeRestriction[l[1]] = float(l[0])
+                else:
+                    routeRestriction.setdefault(l[1], []).append((float(l[0]), l[1:]))
         for edge in self._internalEdges:
             edge.reset()
         for edge in self._edges.values():
@@ -236,6 +246,12 @@ class Net:
             if not options.respectzero and edge.capacity == 0:
                 edge.capacity = sys.maxsize
             edge.startCapacity = edge.capacity
+            flowRestriction = sys.maxsize
+            if options.maxflow:
+                flowRestriction = options.maxflow * edge.numLanes * options.interval / 60
+            if edge.label in edgeRestriction:
+                flowRestriction = edgeRestriction[edge.label] * options.interval / 60
+            edge.capacity = min(edge.capacity, flowRestriction)
         if options.verbose:
             unlimitedSource = 0
             for edgeObj in self._source.outEdges:
@@ -375,7 +391,7 @@ class Net:
             pathFound = self.findPath(self._source, self._source)
             if not pathFound:
                 for edge in sorted(self._edges.values()):
-                    if edge.capacity < sys.maxsize:
+                    if edge.startCapacity < sys.maxsize:
                         while edge.flow < edge.capacity and self.pullFlow(edge):
                             pathFound = True
         # the rest of this function only tests assertions
@@ -502,6 +518,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
             edgeObj = self._net.getEdge(self._edge)
             edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['speed']))
             edgeObj.length = float(attrs['length'])
+            edgeObj.numLanes += 1
 
     def endElement(self, name):
         if name == 'edge':
@@ -560,6 +577,8 @@ optParser.add_option("-n", "--net-file", dest="netfile",
                      help="read SUMO network from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-d", "--detector-file", dest="detfile",
                      help="read detectors from FILE (mandatory)", metavar="FILE")
+optParser.add_option("--revalidate-detectors", action="store_true", dest="revalidate",
+                     default=False, help="ignore source and sink information in detector file")
 optParser.add_option("-f", "--detector-flow-files", dest="flowfiles",
                      action="callback", callback=addFlowFile, type="string",
                      help="read detector flows from FILE(s) (mandatory)", metavar="FILE")
@@ -577,14 +596,17 @@ optParser.add_option("-p", "--flow-poi-output", dest="flowpoifile",
                      help="write resulting flows as SUMO POIs to FILE", metavar="FILE")
 optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
                      default=0.0, help="only consider edges where the fastest lane allows at least this maxspeed (m/s)")
+optParser.add_option("-M", "--max-flow", type="int", dest="maxflow",
+                     help="limit the number of vehicles per lane and hour to this value")
+optParser.add_option("-r", "--flow-restrictions", dest="restrictionfile",
+                     help="read edge and route restrictions from FILE", metavar="FILE")
 optParser.add_option("-D", "--keep-det", action="store_true", dest="keepdet",
                      default=False, help='keep edges with detectors when deleting "slow" edges')
 optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectzero",
                      default=False, help="respect detectors without data (or with permanent zero) with zero flow")
 optParser.add_option("-l", "--lane-based", action="store_true", dest="lanebased",
                      default=False, help="do not aggregate detector data and connections to edges")
-optParser.add_option(
-    "-i", "--interval", type="int", help="aggregation interval in minutes")
+optParser.add_option("-i", "--interval", type="int", help="aggregation interval in minutes")
 optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
                      default=False, help="suppress warnings")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
@@ -607,6 +629,8 @@ if options.verbose:
     print(len(net._edges), "edges read")
     print("Reading detectors")
 sources, sinks = reader.readDetectors(options.detfile)
+if options.revalidate:
+    sources = sinks = []
 if net.detectSourceSink(sources, sinks):
     routeOut = None
     if options.routefile:
@@ -624,7 +648,7 @@ if net.detectSourceSink(sources, sinks):
         haveFlows = True
         start = 0
         while haveFlows:
-            suffix = ".%s" % start
+            suffix = "%s.%s" % (options.flowcol, start)
             if options.verbose:
                 print("Reading flows")
             for flow in options.flowfiles:
@@ -654,12 +678,12 @@ if net.detectSourceSink(sources, sinks):
             print("Calculating routes")
         net.calcRoutes()
         if routeOut:
-            net.writeRoutes(routeOut)
+            net.writeRoutes(routeOut, options.flowcol)
         else:
             for edge in net._source.outEdges:
                 for route in edge.routes:
                     print(route)
-        net.writeEmitters(emitOut)
+        net.writeEmitters(emitOut, options.flowcol)
         net.writeFlowPOIs(poiOut)
     if routeOut:
         print("</routes>", file=routeOut)

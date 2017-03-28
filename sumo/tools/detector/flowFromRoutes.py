@@ -45,6 +45,14 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         self._edgeFlow = {}
         self._parser = make_parser()
         self._parser.setContentHandler(self)
+        self._begin = None
+        self._end = None
+
+    def reset(self, start, end):
+        self._routes = {}
+        self._edgeFlow = {}
+        self._begin = 60 * start
+        self._end = 60 * end
 
     def addRouteFlow(self, route, flow):
         for edge in self._routes[route]:
@@ -57,10 +65,12 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             if 'id' in attrs:
                 self._routes[attrs['id']] = attrs['edges'].split()
         if name == 'vehicle':
-            self.addRouteFlow(attrs['route'], 1)
+            if self._begin is None or float(attrs['depart']) >= self._begin:
+                self.addRouteFlow(attrs['route'], 1)
         if name == 'flow':
             if 'route' in attrs:
-                self.addRouteFlow(attrs['route'], float(attrs['number']))
+                if self._begin is None or float(attrs['begin']) >= self._begin and float(attrs['end']) <= self._end:
+                    self.addRouteFlow(attrs['route'], float(attrs['number']))
         if name == 'routeDistribution':
             if 'routes' in attrs:
                 routes = attrs['routes'].split()
@@ -68,8 +78,14 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                 for r, n in zip(routes, nums):
                     self.addRouteFlow(r, float(n))
 
-    def readDetFlows(self, flowFile):
-        self._detReader.readFlows(flowFile)
+    def readDetFlows(self, flowFile, flowCol):
+        if self._begin is None:
+            return self._detReader.readFlows(flowFile, flow=flowCol)
+        else:
+            return self._detReader.readFlows(flowFile, flow=options.flowcol, time="Time", timeVal=self._begin / 60, timeMax=self._end / 60)
+
+    def clearFlows(self):
+        self._detReader.clearFlows()
 
     def calcStatistics(self):
         rSum = 0
@@ -92,6 +108,8 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                         if dFlow > 0:
                             sumSquaredPercent += dev * dev / dFlow / dFlow
                         n += 1
+        if self._begin is not None:
+            print('# interval', self._begin)
         print('# avgRouteFlow avgDetFlow avgDev RMSE RMSPE')
         print('#', rSum / n, dSum / n, sumAbsDev / n,
               math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n))
@@ -135,10 +153,13 @@ optParser.add_option("-e", "--emitters", dest="emitfile",
                      help="read emitters from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-f", "--detector-flow-file", dest="flowfile",
                      help="read detector flows to compare to from FILE", metavar="FILE")
+optParser.add_option("-c", "--flow-column", dest="flowcol", default="qPKW",
+                     help="which column contains flows", metavar="STRING")
 optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectzero",
                      default=False, help="respect detectors without data (or with permanent zero) with zero flow")
 optParser.add_option("-D", "--dfrouter-style", action="store_true", dest="dfrstyle",
                      default=False, help="emitter files in dfrouter style (explicit routes)")
+optParser.add_option("-i", "--interval", type="int", help="aggregation interval in minutes")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 (options, args) = optParser.parse_args()
@@ -150,14 +171,33 @@ if options.verbose:
     print("Reading detectors")
 reader = DetectorRouteEmitterReader(options.detfile)
 parser.setContentHandler(reader)
-if options.verbose:
-    print("Reading routes")
-parser.parse(options.routefile)
-if options.verbose:
-    print("Reading emitters")
-parser.parse(options.emitfile)
-if options.flowfile:
-    reader.readDetFlows(options.flowfile)
-reader.printFlows(bool(options.flowfile))
-if options.flowfile:
-    reader.calcStatistics()
+if options.interval:
+    haveFlows = True
+    start = 0
+    while haveFlows:
+        reader.reset(start, start + options.interval)
+        if options.verbose:
+            print("Reading routes")
+        parser.parse(options.routefile)
+        if options.verbose:
+            print("Reading flows")
+        if options.flowfile:
+            haveFlows = reader.readDetFlows(options.flowfile, options.flowcol)
+        if haveFlows:
+            reader.printFlows(bool(options.flowfile))
+            if options.flowfile:
+                reader.calcStatistics()
+            reader.clearFlows()
+        start += options.interval
+else:
+    if options.verbose:
+        print("Reading routes")
+    parser.parse(options.routefile)
+    if options.verbose:
+        print("Reading emitters")
+    parser.parse(options.emitfile)
+    if options.flowfile:
+        reader.readDetFlows(options.flowfile, options.flowcol)
+    reader.printFlows(bool(options.flowfile))
+    if options.flowfile:
+        reader.calcStatistics()
