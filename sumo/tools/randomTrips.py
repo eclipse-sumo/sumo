@@ -36,6 +36,7 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib
 import route2trips
+from sumolib.miscutils import euclidean
 
 DUAROUTER = sumolib.checkBinary('duarouter')
 
@@ -127,11 +128,6 @@ def get_options(args=None):
         print("Error: Period must be positive", file=sys.stderr)
         sys.exit(1)
     return options
-
-
-# euclidean distance between two coordinates in the plane
-def euclidean(a, b):
-    return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
 
 
 class InvalidGenerator(Exception):
