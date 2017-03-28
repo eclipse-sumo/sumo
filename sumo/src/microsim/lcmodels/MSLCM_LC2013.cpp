@@ -37,6 +37,7 @@
 
 #include <iostream>
 #include <utils/common/RandHelper.h>
+#include <utils/common/TplConvert.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
@@ -1979,6 +1980,28 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(myKeepRightParam);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
+}
+
+
+void
+MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
+    double doubleValue;
+    try {
+        doubleValue = TplConvert::_2double(value.c_str());
+    } catch (NumberFormatException) {
+        throw InvalidArgument("Setting parameter '" + key + "' requires a number for laneChangeModel of type '" + toString(myModel) + "'");
+    }
+    if (key == toString(SUMO_ATTR_LCA_STRATEGIC_PARAM)) {
+        myStrategicParam = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_PARAM)) {
+        myCooperativeParam = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_PARAM)) {
+        mySpeedGainParam = doubleValue;
+    } else if (key == toString(LCA_KEEPRIGHT)) {
+        myKeepRightParam = doubleValue;
+    } else {
+        throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
+    }
 }
 
 /****************************************************************************/

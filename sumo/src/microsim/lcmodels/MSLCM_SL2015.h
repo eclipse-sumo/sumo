@@ -113,6 +113,9 @@ public:
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const; 
 
+    /// @brief try to set the given parameter for this laneChangeModel. Throw exception for unsupported key
+    void setParameter(const std::string& key, const std::string& value);
+
 protected:
 
     /// @brief helper function for doing the actual work
@@ -310,16 +313,16 @@ protected:
     /// @brief the complete lateral distance the vehicle wants to travel to finish its maneuver
     double myOrigLatDist;
 
-    /// @name user configurable model parameters
+    /// @name user configurable model parameters (can be changed via TraCI)
     //@{
-    const double myStrategicParam;
-    const double myCooperativeParam;
-    const double mySpeedGainParam;
-    const double myKeepRightParam;
-    const double mySublaneParam;
+    double myStrategicParam;
+    double myCooperativeParam;
+    double mySpeedGainParam;
+    double myKeepRightParam;
+    double mySublaneParam;
     // @brief willingness to encroach on other vehicles laterally (pushing them around)
-    const double myPushy;
-    const double myAssertive;
+    double myPushy;
+    double myAssertive;
     //@}
 
     /// @name derived parameters

@@ -1487,7 +1487,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (!server.readTypeCheckingString(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
             }
-            ((SUMOVehicleParameter&) v->getParameter()).addParameter(name, value);
+            try {
+                /// XXX but a big try/catch around all retrieval cases
+                TraCI_Vehicle::setParameter(id, name, value);
+            } catch (TraCIException& e) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
+            }
         }
         break;
         default:

@@ -128,6 +128,9 @@ public:
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const; 
 
+    /// @brief try to set the given parameter for this device. Throw exception for unsupported key
+    void setParameter(const std::string& key, const std::string& value); 
+
     /** @brief Called on writing tripinfo output
      *
      * @param[in] os The stream to write the information into

@@ -615,4 +615,30 @@ TraCI_Vehicle::setEmissionClass(const std::string& vehicleID, const std::string&
 }
 
 
+void
+TraCI_Vehicle::setParameter(const std::string& vehicleID, const std::string& key, const std::string& value) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    if (StringUtils::startsWith(key, "device.")) {
+        StringTokenizer tok(key, ".");
+        if (tok.size() < 3) {
+            throw TraCIException("Invalid device parameter '" + key + "' for vehicle '" + vehicleID + "'");
+        }
+        try {
+            veh->setDeviceParameter(tok.get(1), key.substr(tok.get(0).size() + tok.get(1).size() + 2), value); 
+        } catch (InvalidArgument& e) {
+            throw TraCIException("Vehicle '" + vehicleID + "' does not support device parameter '" + key + "' (" + e.what() + ").");
+        }
+    } else if (StringUtils::startsWith(key, "laneChangeModel.")) {
+        const std::string attrName = key.substr(16);
+        try {
+            veh->getLaneChangeModel().setParameter(attrName, value); 
+        } catch (InvalidArgument& e) {
+            throw TraCIException("Vehicle '" + vehicleID + "' does not support laneChangeModel parameter '" + key + "' (" + e.what() + ").");
+        }
+    } else {
+        ((SUMOVehicleParameter&) veh->getParameter()).addParameter(key, value);
+    }
+}
+
+
 /****************************************************************************/

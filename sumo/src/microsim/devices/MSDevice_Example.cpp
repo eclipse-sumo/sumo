@@ -163,6 +163,21 @@ MSDevice_Example::getParameter(const std::string& key) const {
 }
 
 
+void
+MSDevice_Example::setParameter(const std::string& key, const std::string& value) {
+    double doubleValue;
+    try {
+        doubleValue = TplConvert::_2double(value.c_str());
+    } catch (NumberFormatException) {
+        throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
+    }
+    if (key == "customValue1") {
+        myCustomValue1 = doubleValue;
+    } else {
+        throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+    }
+}
+
 
 /****************************************************************************/
 

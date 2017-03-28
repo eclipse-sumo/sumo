@@ -115,6 +115,9 @@ public:
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const; 
 
+    /// @brief try to set the given parameter for this laneChangeModel. Throw exception for unsupported key
+    void setParameter(const std::string& key, const std::string& value);
+
 protected:
 
     /// @brief helper function for doing the actual work
@@ -242,12 +245,12 @@ protected:
     std::vector<double> myVSafes;
     bool myDontBrake; // XXX: myDontBrake is initialized as false and seems not to be changed anywhere... What's its purpose???
 
-    /// @name user configurable model parameters
+    /// @name user configurable model parameters (can be changed via TraCI)
     //@{
-    const double myStrategicParam;
-    const double myCooperativeParam; // in [0,1]
-    const double mySpeedGainParam;
-    const double myKeepRightParam;
+    double myStrategicParam;
+    double myCooperativeParam; // in [0,1]
+    double mySpeedGainParam;
+    double myKeepRightParam;
 
     const double myExperimentalParam1; // for feature testing
     //@}

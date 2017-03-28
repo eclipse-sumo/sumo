@@ -178,6 +178,7 @@ public:
     static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);
     static void setShapeClass(const std::string& vehicleID, const std::string& clazz);
     static void setEmissionClass(const std::string& vehicleID, const std::string& clazz);
+    static void setParameter(const std::string& vehicleID, const std::string& key, const std::string& value);
     /// @}
 
 
