@@ -24,7 +24,7 @@
 #ifdef _MSC_VER
 #include <windows_config.h>
 #else
-#include "../../config.h"
+#include <config.h>
 #endif
 
 #include <utils/geom/GeomHelper.h>

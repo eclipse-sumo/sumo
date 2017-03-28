@@ -50,6 +50,8 @@ if (NOT CMAKE_GENERATOR MATCHES "Xcode|Visual Studio")
 endif ()
 message(STATUS "")
 
+set(ENABLED_FEATURES "${CMAKE_HOST_SYSTEM}")
+
 #http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
 if (APPLE)
     # Detect if the "port" command is valid on this system; if so, return full path
@@ -96,6 +98,8 @@ if (PROJ_FOUND)
     link_directories(${PROJ_LIBRARY})
     include_directories(${PROJ_INCLUDE_DIR})
     #target_link_libraries ( ${PROJECT_NAME} ${PROJ_LIBRARY} )
+    set(HAVE_PROJ 1)
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} Proj")
 endif (PROJ_FOUND)
 
 find_package(GDAL REQUIRED)
@@ -106,6 +110,8 @@ if (GDAL_FOUND)
     include_directories(${GDAL_INCLUDE_DIR})
     link_directories(${GDAL_LIBRARIES})
     #target_link_libraries ( ${PROJECT_NAME} ${GDAL_LIBRARY} )
+    set(HAVE_GDAL 1)
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} GDAL")
 endif (GDAL_FOUND)
 
 
@@ -113,6 +119,8 @@ find_package(FOX REQUIRED)
 if (FOX_FOUND)
     message(STATUS "Found Fox Toolkit")
     add_definitions(${FOX_CXX_FLAGS})
+    set(HAVE_FOX 1)
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} GUI")
 endif (FOX_FOUND)
 
 find_package(X11)

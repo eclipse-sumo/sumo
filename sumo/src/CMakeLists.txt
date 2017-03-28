@@ -1,4 +1,5 @@
 include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_BINARY_DIR}/src)
 
 set(commonlibs
         utils_distribution utils_shapes utils_options
@@ -72,3 +73,5 @@ target_link_libraries(netconvert ${netconvertlibs})
 
 add_executable(od2trips od2trips_main.cpp)
 target_link_libraries(od2trips od utils_vehicle ${commonlibs})
+
+configure_file(config.h.cmake config.h)
