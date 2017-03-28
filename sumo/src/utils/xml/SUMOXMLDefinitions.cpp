@@ -304,6 +304,14 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 	{ "energyChargedStopped",   SUMO_ATTR_ENERGYCHARGEDSTOPPED },
 	{ "posOnLane",              SUMO_ATTR_POSONLANE },
 	{ "timeStopped",            SUMO_ATTR_TIMESTOPPED },
+    // ChargingStation output
+    { "chargingStatus",         SUMO_ATTR_CHARGING_STATUS },
+    { "totalEnergyCharged",     SUMO_ATTR_TOTALENERGYCHARGED },
+    { "chargingSteps",          SUMO_ATTR_CHARGINGSTEPS },
+    { "totalEnergyChargedIntoVehicle",  SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE },
+    { "chargingBegin",          SUMO_ATTR_CHARGINGBEGIN },
+    { "chargingEnd",            SUMO_ATTR_CHARGINGEND },
+    { "partialCharge",          SUMO_ATTR_PARTIALCHARGE },
 
     { "sigma",                  SUMO_ATTR_SIGMA },
     { "tau",                    SUMO_ATTR_TAU },

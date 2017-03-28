@@ -449,6 +449,8 @@ enum SumoXMLAttr {
     
     /// @name battery export parameters
     /// @{
+    /// @brief charging status
+    SUMO_ATTR_CHARGING_STATUS,
     /// @brief Energy consumed
     SUMO_ATTR_ENERGYCONSUMED,
     /// @brief Charging Station ID
@@ -463,6 +465,22 @@ enum SumoXMLAttr {
     SUMO_ATTR_POSONLANE,
     /// @brief Time stopped
     SUMO_ATTR_TIMESTOPPED,
+    /// @}
+
+    /// @name chargingStations export parameters
+    /// @{
+    /// @brief total energy charged by charging station
+    SUMO_ATTR_TOTALENERGYCHARGED,
+    /// @brief number of steps that a vehicle is charging
+    SUMO_ATTR_CHARGINGSTEPS,
+    /// @brief total energy charged into a single vehicle
+    SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE,
+    /// @brief timestep in which charging begins
+    SUMO_ATTR_CHARGINGBEGIN,
+    /// @brief timesteps in which charging ends
+    SUMO_ATTR_CHARGINGEND,
+    /// @brief energy provied by charging station at certain timestep
+    SUMO_ATTR_PARTIALCHARGE,
     /// @}
 
     /// @name Car following model attributes

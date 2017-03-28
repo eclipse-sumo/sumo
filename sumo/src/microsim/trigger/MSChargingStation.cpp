@@ -198,8 +198,8 @@ void
 MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
     output.openTag(SUMO_TAG_CHARGING_STATION);
     output.writeAttr(SUMO_ATTR_ID, myID);
-    output.writeAttr("totalEnergyCharged", myTotalCharge);
-    output.writeAttr("chargingSteps", myChargeValues.size());
+    output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED, myTotalCharge);
+    output.writeAttr(SUMO_ATTR_CHARGINGSTEPS, myChargeValues.size());
     // start writting
     if(myChargeValues.size() > 0) {
         // First calculate charge for every vehicle
@@ -232,18 +232,18 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
         output.openTag(SUMO_TAG_VEHICLE);
         output.writeAttr(SUMO_ATTR_ID, myChargeValues.at(0).vehicleID);
         output.writeAttr(SUMO_ATTR_TYPE, myChargeValues.at(0).vehicleType);
-        output.writeAttr("totalEnergyChargedIntoVehicle", charge.at(0));
-        output.writeAttr("chargingBegin", vectorBeginEndCharge.at(0).first);
-        output.writeAttr("chargingEnd", vectorBeginEndCharge.at(0).second);
+        output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, charge.at(0));
+        output.writeAttr(SUMO_ATTR_CHARGINGBEGIN, vectorBeginEndCharge.at(0).first);
+        output.writeAttr(SUMO_ATTR_CHARGINGEND, vectorBeginEndCharge.at(0).second);
         // iterate over charging values
         for(std::vector<MSChargingStation::charge>::const_iterator i = myChargeValues.begin(); i != myChargeValues.end(); i++) {
             // open tag for timestep and write all parameters
             output.openTag(SUMO_TAG_STEP);
             output.writeAttr(SUMO_ATTR_TIME, i->timeStep);
             // charge values
-            output.writeAttr("chargingStatus", i->status);
+            output.writeAttr(SUMO_ATTR_CHARGING_STATUS, i->status);
             output.writeAttr(SUMO_ATTR_ENERGYCHARGED, i->WCharged); 
-            output.writeAttr("partialCharge", i->totalEnergyCharged);
+            output.writeAttr(SUMO_ATTR_PARTIALCHARGE, i->totalEnergyCharged);
             // charging values of charging station in this timestep
             output.writeAttr(SUMO_ATTR_CHARGINGPOWER, i->chargingPower);
             output.writeAttr(SUMO_ATTR_EFFICIENCY, i->chargingEfficiency);
@@ -266,9 +266,9 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
                 output.openTag(SUMO_TAG_VEHICLE);
                 output.writeAttr(SUMO_ATTR_ID, (i+1)->vehicleID);
                 output.writeAttr(SUMO_ATTR_TYPE, (i+1)->vehicleType);
-                output.writeAttr("totalEnergyChargedIntoVehicle", charge.at(vehicleCounter));
-                output.writeAttr("chargingBegin", vectorBeginEndCharge.at(vehicleCounter).first);
-                output.writeAttr("chargingEnd", vectorBeginEndCharge.at(vehicleCounter).second);
+                output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, charge.at(vehicleCounter));
+                output.writeAttr(SUMO_ATTR_CHARGINGBEGIN, vectorBeginEndCharge.at(vehicleCounter).first);
+                output.writeAttr(SUMO_ATTR_CHARGINGEND, vectorBeginEndCharge.at(vehicleCounter).second);
             }
         }
         // close vehicle tag
