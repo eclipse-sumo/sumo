@@ -155,6 +155,8 @@ traci.vehicle.setColor(vehID, (255, 0, 0, 255))
 traci.vehicle.setLine(vehID, "S46")
 traci.vehicle.setVia(vehID, ["3o", "4o"])
 traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
+traci.vehicle.setParameter(vehID, "foo", "bar")
+traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
 traci.vehicle.setStop(
     vehID, "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
 check(vehID)
@@ -359,6 +361,7 @@ for i in range(18):
 
 electricVeh = "elVeh"
 traci.vehicle.add(electricVeh, "horizontal", typeID="electric")
+traci.vehicle.setParameter(electricVeh, "device.battery.maximumBatteryCapacity", "40000")
 try:
     print(traci.vehicle.getParameter(electricVeh, "device.foo.bar"))
 except traci.TraCIException as e:

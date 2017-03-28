@@ -9,17 +9,5 @@
 
     <vType id="electric">
         <param key="has.battery.device" value="true"/>
-		<param key="maximumBatteryCapacity" value="35000"/>
-		<param key="maximumPower" value="100000"/>
-		<param key="vehicleMass" value="1600"/>
-		<param key="internalMomentOfInertia" value="30"/>
-		<param key="frontSurfaceArea" value="2.2"/>
-		<param key="airDragCoefficient" value="0.33"/>
-		<param key="radialDragCoefficient" value="0"/>
-		<param key="rollDragCoefficient" value="0.1"/>
-		<param key="constantPowerIntake" value="40"/>
-		<param key="propulsionEfficiency" value="0.8"/>
-		<param key="recuperationEfficiency" value="0.8"/>
-		<param key="stoppingTreshold" value="0.5"/>
     </vType>
 </add>
