@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:47682 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:39651 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -632,13 +632,13 @@ step 151
 pav edge=2fi pos=52.1420388769 stopState=0
 recovering from exception (Vehicle 'elVeh' does not support device parameter 'device.foo.bar' (No device off type 'foo' exists).)
 recovering from exception (Vehicle 'elVeh' does not support device parameter 'device.battery.foobar' (Parameter 'foobar' is not supported for device of type 'battery').)
-elVeh speed="0.0" consumed="0.00" charged="0.00" cap="0.00" maxCap="40000.00" station="NULL"
-elVeh speed="1.65090168689" consumed="5.28" charged="0.00" cap="0.00" maxCap="40000.00" station="NULL"
-elVeh speed="3.99752460115" consumed="19.18" charged="0.00" cap="0.00" maxCap="40000.00" station="NULL"
-elVeh speed="6.25754488341" consumed="23.69" charged="0.00" cap="0.00" maxCap="40000.00" station="NULL"
-elVeh speed="7.82445030983" consumed="27.71" charged="0.00" cap="0.00" maxCap="40000.00" station="NULL"
-elVeh speed="9.93102647497" consumed="37.93" charged="0.00" cap="0.00" maxCap="40000.00" station="NULL"
-elVeh speed="11.0593673231" consumed="37.21" charged="0.00" cap="0.00" maxCap="40000.00" station="NULL"
-elVeh speed="10.375461159" consumed="24.42" charged="0.00" cap="0.00" maxCap="40000.00" station="NULL"
-elVeh speed="10.9483979427" consumed="33.65" charged="0.00" cap="0.00" maxCap="40000.00" station="NULL"
-elVeh speed="10.142997031" consumed="23.11" charged="0.00" cap="0.00" maxCap="40000.00" station="NULL"
+elVeh speed="0.0" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL"
+elVeh speed="1.65090168689" consumed="5.28" charged="0.00" cap="17494.72" maxCap="40000.00" station="NULL"
+elVeh speed="3.99752460115" consumed="19.18" charged="0.00" cap="17475.54" maxCap="40000.00" station="NULL"
+elVeh speed="6.25754488341" consumed="23.69" charged="0.00" cap="17451.85" maxCap="40000.00" station="NULL"
+elVeh speed="7.82445030983" consumed="27.71" charged="0.00" cap="17424.15" maxCap="40000.00" station="NULL"
+elVeh speed="9.93102647497" consumed="37.93" charged="0.00" cap="17386.22" maxCap="40000.00" station="NULL"
+elVeh speed="11.0593673231" consumed="37.21" charged="0.00" cap="17349.00" maxCap="40000.00" station="NULL"
+elVeh speed="10.375461159" consumed="24.42" charged="0.00" cap="17324.58" maxCap="40000.00" station="NULL"
+elVeh speed="10.9483979427" consumed="33.65" charged="0.00" cap="17290.93" maxCap="40000.00" station="NULL"
+elVeh speed="10.142997031" consumed="23.11" charged="0.00" cap="17267.82" maxCap="40000.00" station="NULL"

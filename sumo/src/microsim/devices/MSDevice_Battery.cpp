@@ -41,6 +41,9 @@
 #include "MSDevice_Tripinfo.h"
 #include "MSDevice_Battery.h"
 
+#define DEFAULT_MAX_CAPACITY 35000
+#define DEFAULT_CHARGE_RATIO 0.5
+
 
 // ===========================================================================
 // method definitions
@@ -62,12 +65,12 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
         const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter();
         std::map<int, double> param;
         // obtain maximumBatteryCapacity
-        const double maximumBatteryCapacity = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY), 0);
+        const double maximumBatteryCapacity = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY), DEFAULT_MAX_CAPACITY);
 
         // obtain actualBatteryCapacity
         double actualBatteryCapacity = 0;
         if (v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "-") == "-") {
-            actualBatteryCapacity = maximumBatteryCapacity / 2.0;
+            actualBatteryCapacity = maximumBatteryCapacity * DEFAULT_CHARGE_RATIO;
         } else {
             actualBatteryCapacity = TplConvert::_2double(v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "0").c_str());
         }
