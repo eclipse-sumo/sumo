@@ -45,3 +45,6 @@ _deprecated_
 
 # test different emission models
 models
+
+# four vehicles with different emission classes
+emissionClasses
