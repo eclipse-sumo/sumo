@@ -44,6 +44,7 @@
 #include "MSBaseVehicle.h"
 #include "MSNet.h"
 #include "devices/MSDevice.h"
+#include "devices/MSDevice_Routing.h"
 #include "MSInsertionControl.h"
 
 // ===========================================================================
@@ -481,6 +482,25 @@ MSBaseVehicle::hasDevice(const std::string& deviceName) const {
         }
     }
     return false;
+}
+
+
+void 
+MSBaseVehicle::createDevice(const std::string& deviceName) {
+    if (!hasDevice(deviceName)) {
+        if (deviceName == "rerouting") {
+            ((SUMOVehicleParameter*)myParameter)->addParameter("has." + deviceName + ".device", "true");
+            MSDevice_Routing::buildVehicleDevices(*this, myDevices);
+            if (hasDeparted()) {
+                // vehicle already departed: disable pre-insertion rerouting and enable regular routing behavior
+                MSDevice_Routing* routingDevice = static_cast<MSDevice_Routing*>(getDevice(typeid(MSDevice_Routing)));
+                assert(routingDevice != 0);
+                routingDevice->notifyEnter(*this, MSMoveReminder::NOTIFICATION_DEPARTED);
+            }
+        } else {
+            throw InvalidArgument("Creating device of type '" + deviceName + "' is not supported");
+        }
+    }
 }
 
 

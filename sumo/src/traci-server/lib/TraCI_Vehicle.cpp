@@ -30,6 +30,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/TplConvert.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice.h>
@@ -641,6 +642,26 @@ TraCI_Vehicle::setParameter(const std::string& vehicleID, const std::string& key
             veh->getLaneChangeModel().setParameter(attrName, value); 
         } catch (InvalidArgument& e) {
             throw TraCIException("Vehicle '" + vehicleID + "' does not support laneChangeModel parameter '" + key + "' (" + e.what() + ").");
+        }
+    } else if (StringUtils::startsWith(key, "has.") && StringUtils::endsWith(key, ".device")) {
+        StringTokenizer tok(key, ".");
+        if (tok.size() != 3) {
+            throw TraCIException("Invalid request for device status change. Expected format is 'has.DEVICENAME.device'");
+        }
+        const std::string deviceName = tok.get(1);
+        bool create;
+        try {
+            create = TplConvert::_2bool(value.c_str());
+        } catch (BoolFormatException) { 
+            throw TraCIException("Changing device status requires a 'true' or 'false'");
+        }
+        if (!create) {
+            throw TraCIException("Device removal is not supported for device of type '" + deviceName + "'");
+        }
+        try {
+            veh->createDevice(deviceName);
+        } catch (InvalidArgument& e) {
+            throw TraCIException("Cannot create vehicle device (" + std::string(e.what()) + ").");
         }
     } else {
         ((SUMOVehicleParameter&) veh->getParameter()).addParameter(key, value);

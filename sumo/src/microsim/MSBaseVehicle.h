@@ -93,6 +93,9 @@ public:
     /// @brief check whether the vehicle is equiped with a device of the given type
     bool hasDevice(const std::string& deviceName) const;
 
+    /// @brief create device of the given type
+    void createDevice(const std::string& deviceName);
+
     /// @brief try to retrieve the given parameter from any of the vehicles devices, raise InvalidArgument if no device parameter by that name exists
     std::string getDeviceParameter(const std::string& deviceName, const std::string& key) const;
 

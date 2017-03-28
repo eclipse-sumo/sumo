@@ -364,6 +364,9 @@ traci.vehicle.add(electricVeh, "horizontal", typeID="electric")
 traci.vehicle.setParameter(electricVeh, "device.battery.maximumBatteryCapacity", "40000")
 print("has battery device: %s" % traci.vehicle.getParameter(electricVeh, "has.battery.device"))
 print("has vehroute device: %s" % traci.vehicle.getParameter(electricVeh, "has.vehroute.device"))
+print("has rerouting device: %s" % traci.vehicle.getParameter(electricVeh, "has.rerouting.device"))
+traci.vehicle.setParameter(electricVeh, "has.rerouting.device", "true")
+print("has rerouting device: %s" % traci.vehicle.getParameter(electricVeh, "has.rerouting.device"))
 
 try:
     print(traci.vehicle.getParameter(electricVeh, "device.foo.bar"))
