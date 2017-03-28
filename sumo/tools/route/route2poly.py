@@ -46,6 +46,8 @@ def parse_args(args):
                          default=False, help="write polgyons with geo-coordinates")
     optParser.add_option("--blur", type="float",
                          default=0, help="maximum random disturbance to route geometry")
+    optParser.add_option("--standalone", action="store_true",
+                         default=False, help="Parse stand-alone routes that are not define as child-element of a vehicle")
     options, args = optParser.parse_args(args=args)
     if len(args) < 2:
         sys.exit(USAGE)
@@ -98,11 +100,18 @@ def main(args):
         outf.write('<polygons>\n')
         for routefile in options.routefiles:
             print("parsing %s" % routefile)
-            for vehicle in parse(routefile, 'vehicle'):
-                #print("found veh", vehicle.id)
-                generate_poly(net, unique_id(vehicle.id), options.colorgen(),
-                              options.layer, options.geo,
-                              vehicle.route[0].edges.split(), options.blur, outf)
+            if options.standalone:
+                for route in parse(routefile, 'route'):
+                    #print("found veh", vehicle.id)
+                    generate_poly(net, unique_id(route.id), options.colorgen(),
+                                  options.layer, options.geo,
+                                  route.edges.split(), options.blur, outf)
+            else:
+                for vehicle in parse(routefile, 'vehicle'):
+                    #print("found veh", vehicle.id)
+                    generate_poly(net, unique_id(vehicle.id), options.colorgen(),
+                                  options.layer, options.geo,
+                                  vehicle.route[0].edges.split(), options.blur, outf)
         outf.write('</polygons>\n')
 
 if __name__ == "__main__":
