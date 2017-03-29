@@ -1096,12 +1096,17 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
     undoList->p_end();
 }
 
+
 void
 GNENet::renameEdge(GNEEdge* edge, const std::string& newID) {
     myEdges.erase(edge->getNBEdge()->getID());
     myNetBuilder->getEdgeCont().rename(edge->getNBEdge(), newID);
     edge->setMicrosimID(newID);
     myEdges[newID] = edge;
+    // rename all connections related to this edge
+    for(std::vector<GNELane*>::const_iterator i = edge->getLanes().begin(); i != edge->getLanes().end(); i++) {
+        (*i)->updateConnectionIDs();
+    }
 }
 
 

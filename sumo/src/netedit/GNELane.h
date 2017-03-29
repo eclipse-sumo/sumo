@@ -69,6 +69,18 @@ public:
     /// @brief Destructor
     ~GNELane();
 
+    /// @brief Returns underlying parent edge
+    GNEEdge& getParentEdge();
+
+    /// @brief returns a vector with the incoming GNEConnections of this lane
+    std::vector<GNEConnection*> getGNEIncomingConnections();
+
+    /// @brief returns a vector with the outgoing GNEConnections of this lane
+    std::vector<GNEConnection*> getGNEOutcomingConnections();
+
+    // update IDs of incoming connections of this lane 
+    void updateConnectionIDs();
+
     /// @name inherited from GUIGlObject
     /// @{
     // @brief Returns the name of the parent object (if any)
@@ -95,15 +107,6 @@ public:
 
     /// @brief multiplexes message to two targets
     long onDefault(FXObject*, FXSelector, void*);
-
-    /// @brief Returns underlying parent edge
-    GNEEdge& getParentEdge();
-
-    /// @brief returns a vector with the incoming GNEConnections of this lane
-    std::vector<GNEConnection*> getGNEIncomingConnections();
-
-    /// @brief returns a vector with the outgoing GNEConnections of this lane
-    std::vector<GNEConnection*> getGNEOutcomingConnections();
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
      *

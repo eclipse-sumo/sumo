@@ -88,6 +88,9 @@ public:
     /// @brief get LinkState
     LinkState getLinkState() const;
 
+    /// @brief update internal ID of Connection
+    void updateID();
+
     /// @brief recompute cached myLinkState
     void updateLinkState();
 

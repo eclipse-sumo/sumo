@@ -1113,4 +1113,19 @@ GNELane::getGNEOutcomingConnections() {
     return outcomingConnections;
 }
 
+
+void
+GNELane::updateConnectionIDs() {
+    // update incoming connections of lane
+    std::vector<GNEConnection*> incomingConnections = getGNEIncomingConnections();
+    for(std::vector<GNEConnection*>::iterator i = incomingConnections.begin(); i != incomingConnections.end(); i++) {
+        (*i)->updateID();
+    }
+    // update outocming connections of lane
+    std::vector<GNEConnection*> outcomingConnections = getGNEOutcomingConnections();
+    for(std::vector<GNEConnection*>::iterator i = outcomingConnections.begin(); i != outcomingConnections.end(); i++) {
+        (*i)->updateID();
+    }
+}
+
 /****************************************************************************/
