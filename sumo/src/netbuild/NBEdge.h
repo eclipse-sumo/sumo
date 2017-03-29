@@ -638,6 +638,9 @@ public:
     /// @brief linearly extend the geometry at the given node
     void extendGeometryAtNode(const NBNode* node, double maxExtent);
 
+    /// @brief linearly extend the geometry at the given node
+    void shortenGeometryAtNode(const NBNode* node, double reduction);
+
     /// @brief shift geometry at the given node to avoid overlap
     void shiftPositionAtNode(NBNode* node, NBEdge* opposite);
 

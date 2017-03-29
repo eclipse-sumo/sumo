@@ -544,6 +544,19 @@ NBEdge::extendGeometryAtNode(const NBNode* node, double maxExtent) {
 }
 
 
+void 
+NBEdge::shortenGeometryAtNode(const NBNode* node, double reduction) {
+    //std::cout << "shortenGeometryAtNode edge=" << getID() << " node=" << node->getID() << " nodePos=" << node->getPosition() << " reduction=" << reduction << " geom=" << myGeom;
+    reduction = MIN2(reduction, myGeom.length2D() - 2 * POSITION_EPS);
+    if (node == myFrom) {
+        myGeom = myGeom.getSubpart2D(reduction, myGeom.length2D());
+    } else {
+        myGeom = myGeom.getSubpart2D(0, myGeom.length2D() - reduction);
+    }
+    //std::cout << " geom2=" << myGeom << "\n";
+}
+
+
 void
 NBEdge::setNodeBorder(const NBNode* node, const Position& p, const Position& p2, bool rectangularCut) {
     PositionVector border;

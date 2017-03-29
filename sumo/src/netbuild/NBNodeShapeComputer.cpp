@@ -354,14 +354,21 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             double sCurveWidth = myNode.getDisplacementError();
             if (sCurveWidth > 0) {
                 const double sCurveRadius = radius + sCurveWidth / SUMO_const_laneWidth * sCurveStretch * pow((*i)->getSpeed(), 2 + sCurveStretch) / 1000;
-                distances[*i] = MAX2(distances[*i], 100 + sCurveRadius);
-                // @dirty: update radius so it is exported to the network
-                const_cast<NBNode&>(myNode).setRadius(sCurveRadius);
+                const double stretch = 100 + sCurveRadius - distances[*i];
+                if (stretch > 0) {
+                    distances[*i] += stretch;
+                    // fixate extended geometry for repeated computation
+                    const double shorten = distances[*i] - 100;
+                    (*i)->shortenGeometryAtNode(&myNode, shorten);
+                    for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
+                        (*k)->shortenGeometryAtNode(&myNode, shorten);
+                    }
 #ifdef DEBUG_NODE_SHAPE
-                if (DEBUGCOND) {
-                    std::cout << "   stretching junction: sCurveWidth=" << sCurveWidth << " sCurveRadius=" << sCurveRadius << " dist=" << distances[*i]  << "\n";
-                }
+                    if (DEBUGCOND) {
+                        std::cout << "   stretching junction: sCurveWidth=" << sCurveWidth << " sCurveRadius=" << sCurveRadius << " stretch=" << stretch << " dist=" << distances[*i]  << "\n";
+                    }
 #endif
+                }
             }
         }
     }
