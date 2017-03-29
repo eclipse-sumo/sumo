@@ -1248,6 +1248,11 @@ public:
          */
         void setLaneTimeLine(const std::vector<std::pair<SUMOTime, int> >& laneTimeLine);
 
+        /** @brief Sets a new sublane-change request
+         * @param[in] latDist The lateral distance for changing
+         */
+        void setSublaneChange(double latDist);
+
         /// @brief return the current speed mode
         int getSpeedMode() const;
 
@@ -1308,11 +1313,9 @@ public:
 
 
         /** @brief Returns the originally longitudinal speed to use
-         * @return The speed given before influence
+         * @return The speed given before influence or -1 if no influence is active
          */
-        inline double getOriginalSpeed() const {
-            return myOriginalSpeed;
-        }
+        double getOriginalSpeed() const; 
 
         void setVTDControlled(Position xyPos, MSLane* l, double pos, double posLat, double angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t);
 
@@ -1340,6 +1343,10 @@ public:
             return myTraCISignals;
         }
 
+        double getLatDist() const {
+            return myLatDist;
+        }
+
     private:
         /// @brief The velocity time line to apply
         std::vector<std::pair<SUMOTime, double> > mySpeedTimeLine;
@@ -1349,6 +1356,9 @@ public:
 
         /// @brief The velocity before influence
         double myOriginalSpeed;
+
+        /// @brief The requested lateral change
+        double myLatDist;
 
         /// @brief Whether influencing the speed has already started
         bool mySpeedAdaptationStarted;

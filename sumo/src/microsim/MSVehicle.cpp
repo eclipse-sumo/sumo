@@ -231,6 +231,7 @@ MSVehicle::WaitingTimeCollector::passTime(SUMOTime dt, bool waiting) {
  * ----------------------------------------------------------------------- */
 #ifndef NO_TRACI
 MSVehicle::Influencer::Influencer() :
+    myLatDist(0),
     mySpeedAdaptationStarted(true),
     myConsiderSafeVelocity(true),
     myConsiderMaxAcceleration(true),
@@ -263,6 +264,10 @@ MSVehicle::Influencer::setLaneTimeLine(const std::vector<std::pair<SUMOTime, int
     myLaneTimeLine = laneTimeLine;
 }
 
+void
+MSVehicle::Influencer::setSublaneChange(double latDist) {
+    myLatDist = latDist;
+}
 
 int
 MSVehicle::Influencer::getSpeedMode() const {
@@ -304,6 +309,12 @@ MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, double speed, double
         speed = MAX2(speed, vMin);
     }
     return speed;
+}
+
+
+double 
+MSVehicle::Influencer::getOriginalSpeed() const {
+    return mySpeedTimeLine.empty() ? -1 : myOriginalSpeed;
 }
 
 
@@ -3956,7 +3967,7 @@ MSVehicle::getInfluencer() const {
 
 double
 MSVehicle::getSpeedWithoutTraciInfluence() const {
-    if (myInfluencer != 0) {
+    if (myInfluencer != 0 && myInfluencer->getOriginalSpeed() != -1) {
         return myInfluencer->getOriginalSpeed();
     }
     return myState.mySpeed;
