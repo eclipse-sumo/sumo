@@ -24,10 +24,9 @@ import logging
 import optparse
 import os
 import sys
-import xml.dom.minidom
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
+import sumolib.xml
 
 
 def get_net_file_directory(net_file):
@@ -132,7 +131,7 @@ if __name__ == "__main__":
     net = sumolib.net.readNet(options.net_file)
 
     logging.info("Generating detectors...")
-    detectors_xml = xml.dom.minidom.Element("additional")
+    detectors_xml = sumolib.xml.create_document("additional")
     lanes_with_detectors = set()
     for tls in net._tlss:
         for connection in tls._connections:
@@ -158,21 +157,19 @@ if __name__ == "__main__":
                 options.requested_distance_to_tls,
                 lane_length)
 
-            detector_xml = xml.dom.minidom.Element("e2Detector")
+            detector_xml = detectors_xml.addChild("e2Detector")
             detector_xml.setAttribute("file", options.results)
             detector_xml.setAttribute("freq", str(options.frequency))
             detector_xml.setAttribute("friendlyPos", "x")
             detector_xml.setAttribute("id", "e2det_" + str(lane_id))
             detector_xml.setAttribute("lane", str(lane_id))
-            detector_xml.setAttribute("pos", str(final_detector_position))
             detector_xml.setAttribute("length", str(final_detector_length))
-
-            detectors_xml.appendChild(detector_xml)
+            detector_xml.setAttribute("pos", str(final_detector_position))
 
     detector_file = open_detector_file(
         get_net_file_directory(options.net_file),
         options.output)
-    detector_file.write(detectors_xml.toprettyxml())
+    detector_file.write(detectors_xml.toXML())
     detector_file.close()
 
     logging.info("%d e2 detectors generated!" % len(lanes_with_detectors))

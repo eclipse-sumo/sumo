@@ -23,10 +23,9 @@ import logging
 import optparse
 import os
 import sys
-import xml.dom.minidom
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
+import sumolib
 
 
 def get_net_file_directory(net_file):
@@ -93,11 +92,11 @@ if __name__ == "__main__":
     network = sumolib.net.readNet(options.net_file)
 
     logging.info("Generating detectors...")
-    detectors_xml = xml.dom.minidom.Element("additional")
+    detectors_xml = sumolib.xml.create_document("additional")
     generated_detectors = 0
     for tls in network._tlss:
         for edge in sorted(tls.getEdges(), key=sumolib.net.edge.Edge.getID):
-            detector_xml = xml.dom.minidom.Element("e3Detector")
+            detector_xml = detectors_xml.addChild("e3Detector")
             detector_xml.setAttribute(
                 "id", "e3_" + str(tls._id) + "_" + str(edge._id))
             detector_xml.setAttribute("freq", str(options.frequency))
@@ -110,24 +109,21 @@ if __name__ == "__main__":
                 if input_edge[3]:
                     position = .1
                 for lane in input_edge[0]._lanes:
-                    detector_entry_xml = xml.dom.minidom.Element("detEntry")
+                    detector_entry_xml = detector_xml.addChild("detEntry")
                     detector_entry_xml.setAttribute("lane", str(lane.getID()))
                     detector_entry_xml.setAttribute("pos", str(position))
-                    detector_xml.appendChild(detector_entry_xml)
 
             for lane in edge._lanes:
-                detector_exit_xml = xml.dom.minidom.Element("detExit")
+                detector_exit_xml = detector_xml.addChild("detExit")
                 detector_exit_xml.setAttribute("lane", str(lane.getID()))
                 detector_exit_xml.setAttribute("pos", "-.1")
-                detector_xml.appendChild(detector_exit_xml)
 
-            detectors_xml.appendChild(detector_xml)
             generated_detectors += 1
 
     detector_file = open_detector_file(
         get_net_file_directory(options.net_file),
         options.output)
-    detector_file.write(detectors_xml.toprettyxml())
+    detector_file.write(detectors_xml.toXML())
     detector_file.close()
 
     logging.info("%d e3 detectors generated!" % (generated_detectors))

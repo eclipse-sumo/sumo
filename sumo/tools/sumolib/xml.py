@@ -77,6 +77,16 @@ def compound_object(element_name, attrnames, warn=False):
         def getChild(self, name):
             return self._child_dict[name]
 
+        def addChild(self, name, attrs=None):
+            if attrs is None:
+                attrs = {}
+            clazz = compound_object(name, attrs.keys())
+            child = clazz([attrs.get(a) for a in attrs.keys()], _NO_CHILDREN)
+            if len(self._child_dict) == 0:
+                self._child_dict = OrderedDict()
+            self._child_dict.setdefault(name, []).append(child)
+            return child
+
         def __getattr__(self, name):
             if name[:2] != "__":
                 return self._child_dict.get(name, None)
@@ -183,6 +193,15 @@ def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_c
     return elementTypes[element_name](
         [attr_conversions.get(a, _IDENTITY)(node.get(a)) for a in attrnames],
         child_dict)
+
+def create_document(root_element_name, attrs=None, schema=None):
+    if attrs is None:
+        attrs = {}
+    if schema is None:
+        attrs["xmlns:xsi"] = "http://www.w3.org/2001/XMLSchema-instance"
+        attrs["xsi:noNamespaceSchemaLocation"] = "http://sumo.dlr.de/xsd/" + root_element_name + "_file.xsd"
+    clazz = compound_object(root_element_name, attrs.keys())
+    return clazz([attrs.get(a) for a in attrs.keys()], OrderedDict())
 
 
 def sum(elements, attrname):
