@@ -752,6 +752,15 @@ class VehicleDomain(Domain):
             "!BiBBBi", tc.TYPE_COMPOUND, 2, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration)
         self._connection._sendExact()
 
+    def changeSublane(self, vehID, latDist):
+        """changeLane(string, double) -> None
+        Forces a lateral change by the given ammount (negative values indicate changing to the right, positive to the left)
+        This will override any other lane change motivations but conform to
+        safety-constraints as configured by laneChangeMode.
+        """
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGESUBLANE, vehID, latDist)
+
     def slowDown(self, vehID, speed, duration):
         """slowDown(string, double, int) -> None
 

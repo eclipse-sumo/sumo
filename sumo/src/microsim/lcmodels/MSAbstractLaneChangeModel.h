@@ -149,9 +149,7 @@ public:
         return myOwnState;
     }
 
-    virtual void setOwnState(const int state) {
-        myOwnState = state;
-    }
+    virtual void setOwnState(const int state);
 
     const std::pair<int, int>& getSavedState(const int dir) const {
         return mySavedStates.find(dir)->second;

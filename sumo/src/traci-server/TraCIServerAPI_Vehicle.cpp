@@ -482,6 +482,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable != CMD_STOP && variable != CMD_CHANGELANE
+            && variable != CMD_CHANGESUBLANE
             && variable != CMD_SLOWDOWN && variable != CMD_CHANGETARGET && variable != CMD_RESUME
             && variable != VAR_TYPE && variable != VAR_ROUTE_ID && variable != VAR_ROUTE
             && variable != VAR_EDGE_TRAVELTIME && variable != VAR_EDGE_EFFORT
@@ -671,6 +672,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
             laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + stickyTime, laneIndex));
             v->getInfluencer().setLaneTimeLine(laneTimeLine);
+        }
+        break;
+        case CMD_CHANGESUBLANE: {
+            double latDist = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, latDist)) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Sublane-changing requires a double.", outputStorage);
+            }
+            v->getInfluencer().setSublaneChange(latDist);
         }
         break;
         /*

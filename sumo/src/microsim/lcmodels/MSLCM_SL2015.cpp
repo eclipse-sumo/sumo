@@ -2120,6 +2120,11 @@ MSLCM_SL2015::keepLatGap(int state,
     } else if (latDist > NUMERICAL_EPS && oldLatDist < NUMERICAL_EPS) {
         blocked |= LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
     }
+    // take into account overriding traci sublane-request
+    if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0) {
+        // @note: the influence is reset in MSAbstractLaneChangeModel::setOwnState at the end of the lane-changing code for this vehicle
+        latDist = myVehicle.getInfluencer().getLatDist();
+    }
     // update blocked status
     if (latDist != oldLatDist) {
         blocked = checkBlocking(neighLane, latDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, true);

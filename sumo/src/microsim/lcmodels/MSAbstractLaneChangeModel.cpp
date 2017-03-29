@@ -102,6 +102,14 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
 MSAbstractLaneChangeModel::~MSAbstractLaneChangeModel() {
 }
 
+void 
+MSAbstractLaneChangeModel::setOwnState(const int state) {
+    myOwnState = state;
+    // reset lateral influence after step is completed
+    if (myVehicle.hasInfluencer()) {
+        myVehicle.getInfluencer().setSublaneChange(0);
+    }
+}
 
 bool
 MSAbstractLaneChangeModel::congested(const MSVehicle* const neighLeader) {
