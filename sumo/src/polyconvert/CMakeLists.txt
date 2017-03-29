@@ -18,6 +18,7 @@ set(polyconvert_SRCS
    PCTypeDefHandler.h
    PCTypeMap.cpp
    PCTypeMap.h
+   pc_typemap.h
 )
 
 add_executable(polyconvert ${polyconvert_SRCS})
@@ -26,7 +27,6 @@ target_link_libraries(polyconvert ${commonlibs} gdal)
 
 install(TARGETS polyconvert DESTINATION bin)
 
-#BUILT_SOURCES = pc_typemap.h
-#EXTRA_DIST = pc_typemap.h
-#pc_typemap.h:
-#	../../tools/build/typemap.py poly
+add_custom_command(OUTPUT pc_typemap.h
+                   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/typemap.py poly
+                   )

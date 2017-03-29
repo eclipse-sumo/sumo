@@ -61,17 +61,22 @@ set(sumolibs
         microsim_traffic_lights mesosim traciserver traciserver_lib ${commonvehiclelibs} proj ${GRPC_LIBS}
         ${PYTHON_LIBRARIES})
 
-add_executable(sumo ${sumoexec})
+add_executable(sumo version.h ${sumoexec})
 target_link_libraries(sumo ${sumolibs})
 
-add_executable(sumo-gui ${sumoguiexec})
+add_executable(sumo-gui version.h ${sumoguiexec})
 target_link_libraries(sumo-gui gui guinetload guisim gui_dialogs utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
         utils_gui_images utils_gui_tracker utils_foxtools osgview ${sumolibs} mesogui gdal ${FFMPEG_LIBRARIES} foreign_gl2ps foreign_polyfonts)
 
-add_executable(netconvert netconvert_main.cpp)
+add_executable(netconvert version.h netconvert_main.cpp)
 target_link_libraries(netconvert ${netconvertlibs})
 
-add_executable(od2trips od2trips_main.cpp)
+add_executable(od2trips version.h od2trips_main.cpp)
 target_link_libraries(od2trips od utils_vehicle ${commonlibs})
 
 configure_file(config.h.cmake config.h)
+
+add_custom_command(OUTPUT version.h
+                   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/../tools/build/version.py ${CMAKE_CURRENT_SOURCE_DIR}
+                   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../.svn/wc.db
+                   )

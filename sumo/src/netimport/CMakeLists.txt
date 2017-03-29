@@ -37,11 +37,11 @@ set(netimport_STAT_SRCS
    NIXMLTrafficLightsHandler.h
    NINavTeqHelper.cpp
    NINavTeqHelper.h
+   typemap.h
 )
 
 add_library(netimport STATIC ${netimport_STAT_SRCS})
 
-#BUILT_SOURCES = typemap.h
-#EXTRA_DIST = typemap.h
-#typemap.h:
-#	../../tools/build/typemap.py
+add_custom_command(OUTPUT typemap.h
+                   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/typemap.py
+                   )
