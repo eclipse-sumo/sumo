@@ -730,12 +730,12 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_SHAPE_START: {
             bool ok;
-            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+            return value == "" || GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
             break;
         }
         case GNE_ATTR_SHAPE_END: {
             bool ok;
-            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+            return value == "" || GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
             break;
         }
         default:
