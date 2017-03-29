@@ -132,6 +132,8 @@ vehID = "horiz"
 check(vehID)
 traci.vehicle.subscribe(vehID)
 print(traci.vehicle.getSubscriptionResults(vehID))
+traci.vehicle.setLateralAlignment(vehID, "arbitrary")
+traci.vehicle.changeSublane(vehID, 0.2)
 for i in range(3):
     print("step", step())
     print(traci.vehicle.getSubscriptionResults(vehID))
@@ -150,7 +152,6 @@ traci.vehicle.setWidth(vehID, 1.1)
 traci.vehicle.setHeight(vehID, 1.6)
 traci.vehicle.setMinGapLat(vehID, 0.5)
 traci.vehicle.setMaxSpeedLat(vehID, 1.5)
-traci.vehicle.setLateralAlignment(vehID, "compact")
 traci.vehicle.setColor(vehID, (255, 0, 0, 255))
 traci.vehicle.setLine(vehID, "S46")
 traci.vehicle.setVia(vehID, ["3o", "4o"])
@@ -159,6 +160,7 @@ traci.vehicle.setParameter(vehID, "foo", "bar")
 traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
 traci.vehicle.setStop(
     vehID, "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
+
 check(vehID)
 try:
     check("bla")

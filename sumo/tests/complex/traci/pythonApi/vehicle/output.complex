@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:46383 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:59775 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -121,7 +121,7 @@ lcCooperative 1.00
 lcSpeedGain 1.00
 maxSpeedLat 1.5
 minGapLat 0.5
-lateralAlignment compact
+lateralAlignment arbitrary
 lanePosLat 0.0
 person number 0
 waiting time 0.0

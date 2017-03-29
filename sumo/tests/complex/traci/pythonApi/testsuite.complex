@@ -7,6 +7,9 @@ edge
 # Tests the vehicle API
 vehicle
 
+# Tests the vehicle API for the sublane-case. This uses the same runner as the 'vehicle' test case
+vehicle_sublane
+
 # Tests the vehicletype API
 vehicletype
 person
