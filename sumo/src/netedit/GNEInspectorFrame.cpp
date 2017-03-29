@@ -43,7 +43,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/geom/GeomConvHelper.h>
 
 #include "GNEAdditional.h"
 #include "GNEAdditionalFrame.h"
@@ -73,8 +72,7 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_COPY_TEMPLATE,          GNEInspectorFrame::onCmdCopyTemplate),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_TEMPLATE,           GNEInspectorFrame::onCmdSetTemplate),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_COPY_TEMPLATE,          GNEInspectorFrame::onUpdCopyTemplate),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_SHAPEBEG,           GNEInspectorFrame::onCmdSetBegShape),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_SHAPEEND,           GNEInspectorFrame::onCmdSetEndShape),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_SET_BLOCKING,           GNEInspectorFrame::onCmdSetBlocking),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT_GOBACK,         GNEInspectorFrame::onCmdGoBack),
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_CHILDS,                 GNEInspectorFrame::onCmdShowChildMenu),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTFRAME_CENTER,    GNEInspectorFrame::onCmdCenterItem),
@@ -100,7 +98,6 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     GNEFrame(horizontalFrameParent, viewNet, "Inspector"),
     myEdgeTemplate(NULL),
     myAdditional(NULL),
-    myEdge(NULL),
     myPreviousElementInspect(NULL),
     myPreviousElementDelete(NULL) {
 
@@ -127,20 +124,6 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myCheckBlockedLabel = new FXLabel(blockMovementHorizontalFrame, "block movement", 0, GUIDesignLabelAttribute);
     myCheckBlocked = new FXMenuCheck(blockMovementHorizontalFrame, "", this, MID_GNE_SET_BLOCKING, GUIDesignMenuCheck);
     myCheckBlocked->hide();
-
-    // create label and textfield for edit shapeBeg of edges
-    FXHorizontalFrame *shapeBegHorizontalFrame = new FXHorizontalFrame(myGroupBoxForEditor, GUIDesignAuxiliarHorizontalFrame);
-    myShapeBegLabel = new FXLabel(shapeBegHorizontalFrame, "shape begin", 0, GUIDesignLabelAttribute);
-    myShapeBegTextField = new FXTextField(shapeBegHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_SHAPEBEG, GUIDesignTextField);
-    myShapeBegLabel->hide();
-    myShapeBegTextField->hide();
-
-    // create label and textfield for edit shapeEnd of edges
-    FXHorizontalFrame *shapeEndHorizontalFrame = new FXHorizontalFrame(myGroupBoxForEditor, GUIDesignAuxiliarHorizontalFrame);
-    myShapeEndLabel = new FXLabel(shapeEndHorizontalFrame, "shape end", 0, GUIDesignLabelAttribute);
-    myShapeEndTextField = new FXTextField(shapeEndHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_SHAPEEND, GUIDesignTextField);
-    myShapeEndLabel->hide();
-    myShapeEndTextField->hide();
 
     // Create groupbox and tree list
     myGroupBoxForTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
@@ -203,12 +186,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     mySetTemplateButton->hide();
     myGroupBoxForEditor->hide();
     myGroupBoxForEditor->hide();
-    myCheckBlockedLabel->hide();
     myCheckBlocked->hide();
-    myShapeBegLabel->hide();
-    myShapeBegTextField->hide();
-    myShapeEndLabel->hide();
-    myShapeEndTextField->hide();
     myGroupBoxForTreeList->hide();
     // If vector of attribute Carriers contain data
     if (myACs.size() > 0) {
@@ -296,29 +274,10 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
 
         // If attributes correspond to an Edge
         if (dynamic_cast<GNEEdge*>(myACs.front())) {
-            myEdge = dynamic_cast<GNEEdge*>(myACs.front());
-            // show and fill begin shape
-            myShapeBegLabel->show();
-            myShapeBegTextField->show();
-            if(myEdge->getNBEdge()->getGeometry()[0] == myEdge->getGNEJunctionSource()->getNBNode()->getPosition()) {
-                myShapeBegTextField->setText("");
-            } else {
-                myShapeBegTextField->setText(toString(myEdge->getNBEdge()->getGeometry()[0]).c_str());
-            }
-            // show and fill end shape
-            myShapeEndLabel->show();
-            myShapeEndTextField->show();
-            if(myEdge->getNBEdge()->getGeometry()[-1] == myEdge->getGNEJunctionDestiny()->getNBNode()->getPosition()) {
-                myShapeEndTextField->setText("");
-            } else {
-                myShapeEndTextField->setText(toString(myEdge->getNBEdge()->getGeometry()[-1]).c_str());
-            }
             // show groupBox for templates
             myGroupBoxForTemplates->show();
             // show "Copy Template" (caption supplied via onUpdate)
             myCopyTemplateButton->show();
-            // show groupbox for editor
-            myGroupBoxForEditor->show();
             // show "Set As Template"
             if (myACs.size() == 1) {
                 mySetTemplateButton->show();
@@ -427,34 +386,6 @@ GNEInspectorFrame::onCmdSetBlocking(FXObject*, FXSelector, void*) {
         }
     }
     return 1;
-}
-
-
-long 
-GNEInspectorFrame::onCmdSetBegShape(FXObject*, FXSelector, void*) {
-    bool ok = true;
-    Position begShape = GeomConvHelper::parseShapeReporting(myShapeBegTextField->getText().text(), "netedit-given", 0, ok, false)[0];
-    if(ok) {
-        myEdge->setBeginpoint(begShape, myViewNet->getUndoList());
-        myViewNet->getNet()->refreshElement(myEdge);
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-
-long 
-GNEInspectorFrame::onCmdSetEndShape(FXObject*, FXSelector, void*) {
-    bool ok = true;
-    Position endShape = GeomConvHelper::parseShapeReporting(myShapeEndTextField->getText().text(), "netedit-given", 0, ok, false)[0];
-    if(ok) {
-        myEdge->setEndpoint(endShape, myViewNet->getUndoList());
-        myViewNet->getNet()->refreshElement(myEdge);
-        return 1;
-    } else {
-        return 0;
-    }
 }
 
 
