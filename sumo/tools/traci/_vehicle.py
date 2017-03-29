@@ -754,7 +754,7 @@ class VehicleDomain(Domain):
 
     def changeSublane(self, vehID, latDist):
         """changeLane(string, double) -> None
-        Forces a lateral change by the given ammount (negative values indicate changing to the right, positive to the left)
+        Forces a lateral change by the given amount (negative values indicate changing to the right, positive to the left)
         This will override any other lane change motivations but conform to
         safety-constraints as configured by laneChangeMode.
         """
