@@ -327,6 +327,12 @@
     <ClCompile Include="..\..\..\src\netedit\GNECalibratorVehicleTypeDialog.cpp">
       <Filter>Quellcodedateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_RerouterInterval.cpp">
+      <Filter>Quellcodedateien\Items\Changes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_CalibratorItem.cpp">
+      <Filter>Quellcodedateien\Items\Changes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -552,6 +558,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNECalibratorVehicleTypeDialog.h">
       <Filter>Header-Dateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_RerouterInterval.h">
+      <Filter>Header-Dateien\Items\Changes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_CalibratorItem.h">
+      <Filter>Header-Dateien\Items\Changes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

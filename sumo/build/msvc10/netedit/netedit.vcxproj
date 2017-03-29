@@ -123,11 +123,13 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Attribute.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Additional.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_CalibratorItem.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Connection.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Crossing.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Edge.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Junction.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Lane.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_RerouterInterval.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Selection.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_TLS.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChargingStation.cpp" />
@@ -200,11 +202,13 @@
     <ClInclude Include="..\..\..\src\netedit\GNEChange.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Attribute.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Additional.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_CalibratorItem.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Connection.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Crossing.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Edge.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Junction.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Lane.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_RerouterInterval.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Selection.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_TLS.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChargingStation.h" />
