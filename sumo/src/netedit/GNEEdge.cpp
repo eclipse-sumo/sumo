@@ -584,9 +584,17 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_MODIFICATION_STATUS:
             return myConnectionStatus;
         case GNE_ATTR_SHAPE_START:
-            return toString(myNBEdge.getGeometry()[0]);
+            if(myNBEdge.getGeometry()[0] == myGNEJunctionSource->getPosition()) {
+                return "";
+            } else {
+                return toString(myNBEdge.getGeometry()[0]);
+            }
         case GNE_ATTR_SHAPE_END:
-            return toString(myNBEdge.getGeometry()[-1]);
+            if(myNBEdge.getGeometry()[-1] == myGNEJunctionDestiny->getPosition()) {
+                return "";
+            } else {
+                return toString(myNBEdge.getGeometry()[-1]);
+            }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -720,6 +728,16 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ENDOFFSET:
             return canParse<double>(value);
             break;
+        case GNE_ATTR_SHAPE_START: {
+            bool ok;
+            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+            break;
+        }
+        case GNE_ATTR_SHAPE_END: {
+            bool ok;
+            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+            break;
+        }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -809,16 +827,26 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case GNE_ATTR_SHAPE_START: {
+            // get geometry of NBEdge, remove FIRST element with the new value (or with the Junction Source position) and set it back to edge
             PositionVector geom = myNBEdge.getGeometry();
             geom.erase(geom.begin());
-            geom.push_front_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
+            if(value == "") {
+                geom.push_front_noDoublePos(myGNEJunctionSource->getPosition());
+            } else {
+                geom.push_front_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
+            }
             setGeometry(geom, false);
             break;
         }
         case GNE_ATTR_SHAPE_END: {
+            // get geometry of NBEdge, remove LAST element with the new value (or with the Junction Destiny position) and set it back to edge
             PositionVector geom = myNBEdge.getGeometry();
             geom.pop_back();
-            geom.push_back_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
+            if(value == "") {
+                geom.push_back_noDoublePos(myGNEJunctionDestiny->getPosition());
+            } else {
+                geom.push_back_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
+            }
             setGeometry(geom, false);
             break;
         }
