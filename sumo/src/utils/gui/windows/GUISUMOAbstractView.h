@@ -311,6 +311,9 @@ public:
     ///@brief Returns the cursor's x/y position within the network
     Position getPositionInformation() const;
 
+    ///@brief Returns a position that is mapped to the closest grid point if the grid is active
+    Position snapToActiveGrid(const Position& pos) const;
+
     ///@brief Translate screen position to network position
     Position screenPos2NetPos(int x, int y) const;
 

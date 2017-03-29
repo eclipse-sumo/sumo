@@ -180,6 +180,19 @@ GUISUMOAbstractView::getPositionInformation() const {
 }
 
 
+Position 
+GUISUMOAbstractView::snapToActiveGrid(const Position& pos) const {
+    Position result = pos;
+    if (myVisualizationSettings->showGrid) {
+        const double xRest = std::fmod(pos.x(), myVisualizationSettings->gridXSize) + (pos.x() < 0 ? myVisualizationSettings->gridXSize : 0);
+        const double yRest = std::fmod(pos.y(), myVisualizationSettings->gridYSize) + (pos.y() < 0 ? myVisualizationSettings->gridYSize : 0);
+        result.setx(pos.x() - xRest + (xRest < myVisualizationSettings->gridXSize * 0.5 ? 0 : myVisualizationSettings->gridXSize));
+        result.sety(pos.y() - yRest + (yRest < myVisualizationSettings->gridYSize * 0.5 ? 0 : myVisualizationSettings->gridYSize));
+    }
+    return result;
+}
+
+
 Position
 GUISUMOAbstractView::screenPos2NetPos(int x, int y) const {
     Boundary bound = myChanger->getViewport();

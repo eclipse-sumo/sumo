@@ -187,11 +187,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
     }
 
     // limit position depending if show grid is enabled
-    Position currentPosition = parent->getPositionInformation();
-    if(parent->getVisualisationSettings()->showGrid) {
-        currentPosition.setx(currentPosition.x() - std::fmod(currentPosition.x(), parent->getVisualisationSettings()->gridXSize)); 
-        currentPosition.sety(currentPosition.y() - std::fmod(currentPosition.y(), parent->getVisualisationSettings()->gridYSize)); 
-    }
+    Position currentPosition = parent->snapToActiveGrid(parent->getPositionInformation());
 
     // Declare pointer to netElements
     GNEJunction* pointed_junction = NULL;

@@ -478,11 +478,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
     FXEvent* e = (FXEvent*) data;
     setFocus();
     // limit position depending of myShowGrid
-    Position clickedPosition = getPositionInformation();
-    if(myShowGrid->getCheck()) {
-        clickedPosition.setx(clickedPosition.x() - std::fmod(clickedPosition.x(), myVisualizationSettings->gridXSize)); 
-        clickedPosition.sety(clickedPosition.y() - std::fmod(clickedPosition.y(), myVisualizationSettings->gridYSize)); 
-    }
+    Position clickedPosition = snapToActiveGrid(getPositionInformation());
 
     // interpret object under curser
     if (makeCurrent()) {
@@ -852,11 +848,7 @@ long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onMouseMove(obj, sel, data);
     // limit position depending of myShowGrid
-    Position clickedPosition = getPositionInformation();
-    if(myShowGrid->getCheck()) {
-        clickedPosition.setx(clickedPosition.x() - std::fmod(clickedPosition.x(), myVisualizationSettings->gridXSize)); 
-        clickedPosition.sety(clickedPosition.y() - std::fmod(clickedPosition.y(), myVisualizationSettings->gridYSize)); 
-    }
+    Position clickedPosition = snapToActiveGrid(getPositionInformation());
     // in delete mode object under cursor must be checked in every mouse movement
     if (myEditMode == GNE_MODE_DELETE) {
         setFocus();
