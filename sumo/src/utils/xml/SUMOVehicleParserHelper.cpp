@@ -524,6 +524,8 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         std::set<SumoXMLAttr> krausParams;
         krausParams.insert(SUMO_ATTR_ACCEL);
         krausParams.insert(SUMO_ATTR_DECEL);
+        krausParams.insert(SUMO_ATTR_APPARENTDECEL);
+        krausParams.insert(SUMO_ATTR_EMERGENCYDECEL);
         krausParams.insert(SUMO_ATTR_SIGMA);
         krausParams.insert(SUMO_ATTR_TAU);
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS] = krausParams;
@@ -540,6 +542,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         std::set<SumoXMLAttr> smartSKParams;
         smartSKParams.insert(SUMO_ATTR_ACCEL);
         smartSKParams.insert(SUMO_ATTR_DECEL);
+        smartSKParams.insert(SUMO_ATTR_EMERGENCYDECEL);
         smartSKParams.insert(SUMO_ATTR_SIGMA);
         smartSKParams.insert(SUMO_ATTR_TAU);
         smartSKParams.insert(SUMO_ATTR_TMP1);
@@ -552,6 +555,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         std::set<SumoXMLAttr> daniel1Params;
         daniel1Params.insert(SUMO_ATTR_ACCEL);
         daniel1Params.insert(SUMO_ATTR_DECEL);
+        daniel1Params.insert(SUMO_ATTR_EMERGENCYDECEL);
         daniel1Params.insert(SUMO_ATTR_SIGMA);
         daniel1Params.insert(SUMO_ATTR_TAU);
         daniel1Params.insert(SUMO_ATTR_TMP1);
@@ -564,6 +568,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         std::set<SumoXMLAttr> pwagParams;
         pwagParams.insert(SUMO_ATTR_ACCEL);
         pwagParams.insert(SUMO_ATTR_DECEL);
+        pwagParams.insert(SUMO_ATTR_EMERGENCYDECEL);
         pwagParams.insert(SUMO_ATTR_SIGMA);
         pwagParams.insert(SUMO_ATTR_TAU);
         pwagParams.insert(SUMO_ATTR_CF_PWAGNER2009_TAULAST);
@@ -573,6 +578,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         std::set<SumoXMLAttr> idmParams;
         idmParams.insert(SUMO_ATTR_ACCEL);
         idmParams.insert(SUMO_ATTR_DECEL);
+        idmParams.insert(SUMO_ATTR_EMERGENCYDECEL);
         idmParams.insert(SUMO_ATTR_TAU);
         idmParams.insert(SUMO_ATTR_CF_IDM_DELTA);
         idmParams.insert(SUMO_ATTR_CF_IDM_STEPPING);
@@ -581,6 +587,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         std::set<SumoXMLAttr> idmmParams;
         idmmParams.insert(SUMO_ATTR_ACCEL);
         idmmParams.insert(SUMO_ATTR_DECEL);
+        idmmParams.insert(SUMO_ATTR_EMERGENCYDECEL);
         idmmParams.insert(SUMO_ATTR_TAU);
         idmmParams.insert(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR);
         idmmParams.insert(SUMO_ATTR_CF_IDMM_ADAPT_TIME);
@@ -590,6 +597,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         std::set<SumoXMLAttr> bkernerParams;
         bkernerParams.insert(SUMO_ATTR_ACCEL);
         bkernerParams.insert(SUMO_ATTR_DECEL);
+        bkernerParams.insert(SUMO_ATTR_EMERGENCYDECEL);
         bkernerParams.insert(SUMO_ATTR_TAU);
         bkernerParams.insert(SUMO_ATTR_K);
         bkernerParams.insert(SUMO_ATTR_CF_KERNER_PHI);
@@ -598,6 +606,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         std::set<SumoXMLAttr> wiedemannParams;
         wiedemannParams.insert(SUMO_ATTR_ACCEL);
         wiedemannParams.insert(SUMO_ATTR_DECEL);
+        wiedemannParams.insert(SUMO_ATTR_EMERGENCYDECEL);
         wiedemannParams.insert(SUMO_ATTR_CF_WIEDEMANN_SECURITY);
         wiedemannParams.insert(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION);
         allowedCFModelAttrs[SUMO_TAG_CF_WIEDEMANN] = wiedemannParams;

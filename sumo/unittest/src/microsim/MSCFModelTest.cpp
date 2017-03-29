@@ -52,7 +52,7 @@ class MSCFModelTest : public testing::Test {
             tau = 1;
             type = new MSVehicleType(SUMOVTypeParameter("0"));
             m = new MSCFModel_Krauss(type,
-                    accel, decel, dawdle, tau);
+                    accel, decel, decel, decel, dawdle, tau);
             MSGlobals::gSemiImplicitEulerUpdate = true;
         }
 

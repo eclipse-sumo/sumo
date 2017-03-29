@@ -43,9 +43,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, double accel, double decel,
-                                   double dawdle, double headwayTime)
-    : MSCFModel_KraussOrig1(vtype, accel, decel, dawdle, headwayTime) {
+MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, double accel, double decel, 
+                                   double emergencyDecel, double apparentDecel,
+                                   double dawdle, double headwayTime) : 
+    MSCFModel_KraussOrig1(vtype, accel, decel, emergencyDecel, apparentDecel, dawdle, headwayTime) {
 }
 
 
@@ -103,7 +104,7 @@ MSCFModel_Krauss::dawdle(double speed) const {
 
 MSCFModel*
 MSCFModel_Krauss::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_Krauss(vtype, myAccel, myDecel, myDawdle, myHeadwayTime);
+    return new MSCFModel_Krauss(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, myDawdle, myHeadwayTime);
 }
 
 

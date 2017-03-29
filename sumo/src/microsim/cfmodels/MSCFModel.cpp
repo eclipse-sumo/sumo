@@ -45,9 +45,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel::MSCFModel(const MSVehicleType* vtype, const double accel,
-                     const double decel, const double headwayTime)
-    : myType(vtype), myAccel(accel), myDecel(decel), myHeadwayTime(headwayTime) {
+MSCFModel::MSCFModel(const MSVehicleType* vtype, double accel,
+                     double decel, double emergencyDecel, double apparentDecel, double headwayTime) : 
+    myType(vtype), 
+    myAccel(accel), 
+    myDecel(decel), 
+    myEmergencyDecel(emergencyDecel), 
+    myApparentDecel(apparentDecel), 
+    myHeadwayTime(headwayTime) {
 }
 
 

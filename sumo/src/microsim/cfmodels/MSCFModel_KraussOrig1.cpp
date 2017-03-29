@@ -45,9 +45,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_KraussOrig1::MSCFModel_KraussOrig1(const MSVehicleType* vtype,  double accel, double decel,
-        double dawdle, double headwayTime)
-    : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel * headwayTime) {}
+MSCFModel_KraussOrig1::MSCFModel_KraussOrig1(const MSVehicleType* vtype,  double accel, double decel, 
+        double emergencyDecel, double apparentDecel,
+        double dawdle, double headwayTime) : 
+    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), myDawdle(dawdle), 
+    myTauDecel(decel * headwayTime) {}
 
 
 MSCFModel_KraussOrig1::~MSCFModel_KraussOrig1() {}
@@ -164,7 +166,7 @@ double MSCFModel_KraussOrig1::vsafe(double gap, double predSpeed, double /* pred
 
 MSCFModel*
 MSCFModel_KraussOrig1::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_KraussOrig1(vtype, myAccel, myDecel, myDawdle, myHeadwayTime);
+    return new MSCFModel_KraussOrig1(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, myDawdle, myHeadwayTime);
 }
 
 

@@ -231,6 +231,13 @@ public:
      */
     static double getDefaultDecel(const SUMOVehicleClass vc = SVC_IGNORING);
 
+    /** @brief Returns the default emergency deceleration for the given vehicle class
+     * This needs to be a function because the actual value is stored in the car following model
+     * @param[in] vc the vehicle class
+     * @return the deceleration in m/s^2
+     */
+    static double getDefaultEmergencyDecel(const SUMOVehicleClass vc = SVC_IGNORING);
+
     /** @brief Returns the default driver's imperfection (sigma or epsilon in Krauss' model) for the given vehicle class
      * This needs to be a function because the actual value is stored in the car following model
      * @param[in] vc the vehicle class

@@ -40,10 +40,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Daniel1::MSCFModel_Daniel1(const MSVehicleType* vtype,  double accel, double decel,
+MSCFModel_Daniel1::MSCFModel_Daniel1(const MSVehicleType* vtype,  double accel, double decel, double emergencyDecel,
                                      double dawdle, double headwayTime,
                                      double tmp1, double tmp2, double tmp3, double tmp4, double tmp5)
-    : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel * headwayTime),
+    : MSCFModel(vtype, accel, decel, emergencyDecel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel * headwayTime),
       myTmp1(tmp1), myTmp2(tmp2), myTmp3(tmp3), myTmp4(tmp4), myTmp5(tmp5) {
 }
 
@@ -106,6 +106,6 @@ double MSCFModel_Daniel1::_vsafe(double gap, double predSpeed) const {
 
 MSCFModel*
 MSCFModel_Daniel1::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_Daniel1(vtype, myAccel, myDecel, myDawdle, myHeadwayTime,
+    return new MSCFModel_Daniel1(vtype, myAccel, myDecel, myEmergencyDecel, myDawdle, myHeadwayTime,
                                  myTmp1, myTmp2, myTmp3, myTmp4, myTmp5);
 }

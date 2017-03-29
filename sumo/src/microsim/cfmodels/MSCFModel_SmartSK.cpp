@@ -43,12 +43,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_SmartSK::MSCFModel_SmartSK(const MSVehicleType* vtype,  double accel, double decel,
+MSCFModel_SmartSK::MSCFModel_SmartSK(const MSVehicleType* vtype,  double accel, double decel, double emergencyDecel,
                                      double dawdle, double headwayTime,
                                      double tmp1, double tmp2, double tmp3, double tmp4, double tmp5)
 // check whether setting these variables here with default values is ''good'' SUMO design
 //        double tmp1=0.0, double tmp2=5.0, double tmp3=0.0, double tmp4, double tmp5)
-    : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel * headwayTime),
+    : MSCFModel(vtype, accel, decel, emergencyDecel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel * headwayTime),
       myTmp1(tmp1), myTmp2(tmp2), myTmp3(tmp3), myTmp4(tmp4), myTmp5(tmp5) {
     // the variable tmp1 is the acceleration delay time, e.g. two seconds (or something like this).
     // for use in the upate process, a rule like if (v<myTmp1) vsafe = 0; is needed.
@@ -177,6 +177,6 @@ double MSCFModel_SmartSK::_vsafe(const MSVehicle* const veh, double gap, double 
 
 MSCFModel*
 MSCFModel_SmartSK::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_SmartSK(vtype, myAccel, myDecel, myDawdle, myHeadwayTime,
+    return new MSCFModel_SmartSK(vtype, myAccel, myDecel, myEmergencyDecel, myDawdle, myHeadwayTime,
                                  myTmp1, myTmp2, myTmp3, myTmp4, myTmp5);
 }

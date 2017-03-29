@@ -46,10 +46,11 @@ public:
     /** @brief Constructor
      * @param[in] accel The maximum acceleration
      * @param[in] decel The maximum deceleration
+     * @param[in] emergencyDecel The maximum emergency deceleration
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's reaction time
      */
-    MSCFModel_Kerner(const MSVehicleType* vtype, double accel, double decel, double headwayTime, double k, double phi);
+    MSCFModel_Kerner(const MSVehicleType* vtype, double accel, double decel, double emergencyDecel, double headwayTime, double k, double phi);
 
 
     /// @brief Destructor

@@ -69,7 +69,7 @@ public:
     /** @brief Constructor
      *  @param[in] rvtype a reference to the corresponding vtype
      */
-    MSCFModel(const MSVehicleType* vtype, double accel, double decel, double headwayTime);
+    MSCFModel(const MSVehicleType* vtype, double accel, double decel, double emergencyDecel, double apparentDecel, double headwayTime);
 
 
     /// @brief Destructor
@@ -467,6 +467,10 @@ protected:
 
     /// @brief The vehicle's maximum deceleration [m/s^2]
     double myDecel;
+    /// @brief The vehicle's maximum emergency deceleration [m/s^2]
+    double myEmergencyDecel;
+    /// @brief The vehicle's deceleration as expected by surrounding traffic [m/s^2]
+    double myApparentDecel;
 
     /// @brief The driver's desired time headway (aka reaction time tau) [s]
     double myHeadwayTime;

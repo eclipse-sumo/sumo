@@ -35,8 +35,8 @@
 
 #define G  9.80665
 
-MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype, std::string trainType)
-        :MSCFModel(vtype, -1, -1, -1)
+MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype, std::string trainType) :
+    MSCFModel(vtype, -1, -1, -1, -1, -1)
 {
 
     if (trainType.compare("RB425")==0) {

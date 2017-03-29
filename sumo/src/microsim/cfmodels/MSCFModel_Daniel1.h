@@ -46,10 +46,11 @@ public:
     /** @brief Constructor
      * @param[in] accel The maximum acceleration
      * @param[in] decel The maximum deceleration
+     * @param[in] emergencyDecel The maximum emergency deceleration
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's reaction time
      */
-    MSCFModel_Daniel1(const MSVehicleType* vtype, double accel, double decel, double dawdle, double headwayTime,
+    MSCFModel_Daniel1(const MSVehicleType* vtype, double accel, double decel, double emergencyDecel, double dawdle, double headwayTime,
                       double tmp1, double tmp2, double tmp3, double tmp4, double tmp5);
 
 

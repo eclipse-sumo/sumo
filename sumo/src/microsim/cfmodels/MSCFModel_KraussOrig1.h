@@ -48,10 +48,13 @@ public:
     /** @brief Constructor
      * @param[in] accel The maximum acceleration
      * @param[in] decel The maximum deceleration
+     * @param[in] emergencyDecel The maximum emergency deceleration
+     * @param[in] apparentDecel The deceleration as expected by others (always equal to decel for the original model)
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's reaction time
      */
-    MSCFModel_KraussOrig1(const MSVehicleType* vtype, double accel, double decel, double dawdle, double headwayTime);
+    MSCFModel_KraussOrig1(const MSVehicleType* vtype, double accel, double decel, 
+            double emergencyDecel, double apparentDecel, double dawdle, double headwayTime);
 
 
     /// @brief Destructor

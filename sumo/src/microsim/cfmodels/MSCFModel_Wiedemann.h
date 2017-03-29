@@ -54,12 +54,13 @@ public:
      * @param[in] estimation The estimation capability parameter in [0,1] (dimensionless)
      * @param[in] accel The maximum acceleration
      * @param[in] decel The maximum deceleration
+     * @param[in] emergencyDecel The maximum emergency deceleration
      *
      * @note other parameters of the wiedemann model:
      * - speed: included in MSVehicleType
      */
     MSCFModel_Wiedemann(const MSVehicleType* vtype,
-                        double accel, double decel,
+                        double accel, double decel, double emergencyDecel,
                         double security, double estimation);
 
 
