@@ -272,7 +272,7 @@ protected:
 
     /// @brief check remaining lateral gaps for the given foe vehicles and optionally update minimum lateral gaps
     void updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double oldCenter, double gapFactor,
-                    double& surplusGapRight, double& surplusGapLeft, bool saveMinGap = false);
+                    double& surplusGapRight, double& surplusGapLeft, bool saveMinGap = false, double netOverlap = 0);
 
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial

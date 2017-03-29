@@ -2063,13 +2063,15 @@ MSLCM_SL2015::keepLatGap(int state,
     }
 
     // maintain gaps to vehicles on the current lane
+    // ignore vehicles that are too far behind
+    const double netOverlap = -myVehicle.getVehicleType().getLength() * 0.5;
     updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
-    updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
+    updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true, netOverlap);
 
     if (laneOffset != 0) {
         // maintain gaps to vehicles on the target lane
         updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
-        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true);
+        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), oldCenter, gapFactor, surplusGapRight, surplusGapLeft, true, netOverlap);
     }
     if (gDebugFlag2) {
         std::cout << "       minGapLat: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n"
@@ -2144,12 +2146,13 @@ MSLCM_SL2015::keepLatGap(int state,
 
 
 void
-MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double oldCenter, double gapFactor, double& surplusGapRight, double& surplusGapLeft, bool saveMinGap) {
+MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double oldCenter, double gapFactor, double& surplusGapRight, double& surplusGapLeft, bool saveMinGap, double netOverlap) {
     if (others.hasVehicles()) {
         const double halfWidth = myVehicle.getVehicleType().getWidth() * 0.5 + NUMERICAL_EPS;
         const double baseMinGap = myVehicle.getVehicleType().getMinGapLat();
         for (int i = 0; i < others.numSublanes(); ++i) {
-            if (others[i].first != 0 && others[i].second <= 0) {
+            if (others[i].first != 0 && others[i].second <= 0 
+                    && (netOverlap == 0 || others[i].second + others[i].first->getVehicleType().getMinGap() < netOverlap )) {
                 /// foe vehicle occupies full sublanes
                 const MSVehicle* foe = others[i].first;
                 const double foeRight = i * MSGlobals::gLateralResolution + foeOffset;
