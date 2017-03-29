@@ -478,10 +478,10 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
     FXEvent* e = (FXEvent*) data;
     setFocus();
     // limit position depending of myShowGrid
-    Position currentPosition = getPositionInformation();
+    Position clickedPosition = getPositionInformation();
     if(myShowGrid->getCheck()) {
-        currentPosition.setx(currentPosition.x() - std::fmod(currentPosition.x(), myVisualizationSettings->gridXSize)); 
-        currentPosition.sety(currentPosition.y() - std::fmod(currentPosition.y(), myVisualizationSettings->gridYSize)); 
+        clickedPosition.setx(clickedPosition.x() - std::fmod(clickedPosition.x(), myVisualizationSettings->gridXSize)); 
+        clickedPosition.sety(clickedPosition.y() - std::fmod(clickedPosition.y(), myVisualizationSettings->gridYSize)); 
     }
 
     // interpret object under curser
@@ -539,7 +539,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                         myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
                     }
                     if (!pointed_junction) {
-                        pointed_junction = myNet->createJunction(currentPosition, myUndoList);
+                        pointed_junction = myNet->createJunction(clickedPosition, myUndoList);
                     }
                     if (myCreateEdgeSource == 0) {
                         myCreateEdgeSource = pointed_junction;
@@ -569,10 +569,10 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                                     myCreateEdgeSource = 0;
                                 }
                             } else {
-                                setStatusBarText("An edge with the same geometry already exists!");
+                                setStatusBarText("An " + toString(SUMO_TAG_EDGE) + " with the same geometry already exists!");
                             }
                         } else {
-                            setStatusBarText("Start- and endpoint for an edge must be distinct!");
+                            setStatusBarText("Start- and endpoint for an " + toString(SUMO_TAG_EDGE) + " must be distinct!");
                         }
                         update();
                     }
@@ -583,24 +583,24 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
             case GNE_MODE_MOVE: {
                 if (pointed_poly) {
                     myPolyToMove = pointed_poly;
-                    myMoveSrc = currentPosition;
+                    myMoveSrc = getPositionInformation();
                 } else if (pointed_poi) {
                     myPoiToMove = pointed_poi;
-                    myMoveSrc = currentPosition;
+                    myMoveSrc = getPositionInformation();
                 } else if (pointed_junction) {
                     if (gSelected.isSelected(GLO_JUNCTION, pointed_junction->getGlID())) {
                         myMoveSelection = true;
                     } else {
                         myJunctionToMove = pointed_junction;
                     }
-                    myMoveSrc = currentPosition;
+                    myMoveSrc = getPositionInformation();
                 } else if (pointed_edge) {
                     if (gSelected.isSelected(GLO_EDGE, pointed_edge->getGlID())) {
                         myMoveSelection = true;
                     } else {
                         myEdgeToMove = pointed_edge;
                     }
-                    myMoveSrc = currentPosition;
+                    myMoveSrc = getPositionInformation();
                 } else if (pointed_additional) {
                     if (gSelected.isSelected(GLO_ADDITIONAL, pointed_additional->getGlID())) {
                         myMoveSelection = true;
@@ -628,11 +628,11 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                                     }
                                 }
                                 // Set myAdditionalMovingReference
-                                myAdditionalMovingReference.set(pointed_additional->getLane()->getShape().nearest_offset_to_point2D(currentPosition, false), 0, 0);
+                                myAdditionalMovingReference.set(pointed_additional->getLane()->getShape().nearest_offset_to_point2D(clickedPosition, false), 0, 0);
                             } else {
                                 // Set myOldAdditionalPosition and myAdditionalMovingReference
-                                myOldAdditionalPosition = currentPosition;
-                                myAdditionalMovingReference = pointed_additional->getPositionInView() - currentPosition;
+                                myOldAdditionalPosition = getPositionInformation();
+                                myAdditionalMovingReference = pointed_additional->getPositionInView() - clickedPosition;
                             }
                         }
                     }
@@ -721,8 +721,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
 
                 myAmInRectSelect = (((FXEvent*)data)->state & SHIFTMASK) != 0;
                 if (myAmInRectSelect) {
-                    mySelCorner1 = currentPosition;
-                    mySelCorner2 = currentPosition;
+                    mySelCorner1 = getPositionInformation();
+                    mySelCorner2 = getPositionInformation();
                 } else {
                     GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
                 }
@@ -852,10 +852,10 @@ long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onMouseMove(obj, sel, data);
     // limit position depending of myShowGrid
-    Position currentPosition = getPositionInformation();
+    Position clickedPosition = getPositionInformation();
     if(myShowGrid->getCheck()) {
-        currentPosition.setx(currentPosition.x() - std::fmod(currentPosition.x(), myVisualizationSettings->gridXSize)); 
-        currentPosition.sety(currentPosition.y() - std::fmod(currentPosition.y(), myVisualizationSettings->gridYSize)); 
+        clickedPosition.setx(clickedPosition.x() - std::fmod(clickedPosition.x(), myVisualizationSettings->gridXSize)); 
+        clickedPosition.sety(clickedPosition.y() - std::fmod(clickedPosition.y(), myVisualizationSettings->gridYSize)); 
     }
     // in delete mode object under cursor must be checked in every mouse movement
     if (myEditMode == GNE_MODE_DELETE) {
@@ -875,38 +875,38 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         }
     } else {
         if (myPolyToMove) {
-            myMoveSrc = myPolyToMove->moveGeometry(myMoveSrc, currentPosition);
+            myMoveSrc = myPolyToMove->moveGeometry(myMoveSrc, clickedPosition);
         } else if (myPoiToMove) {
-            myPoiToMove->move(currentPosition);
+            myPoiToMove->move(clickedPosition);
         } else if (myJunctionToMove) {
             // check if  one of their junctions neighboors is in the position objective
             std::vector<GNEJunction*> junctionNeighbours = myJunctionToMove->getJunctionNeighbours();
             for(std::vector<GNEJunction*>::iterator i = junctionNeighbours.begin(); i != junctionNeighbours.end(); i++) {
-                if((*i)->getPosition() == currentPosition) {
+                if((*i)->getPosition() == clickedPosition) {
                     return 0;
                 }
             }
-            myJunctionToMove->move(currentPosition);
+            myJunctionToMove->move(clickedPosition);
         } else if (myEdgeToMove) {
-            myMoveSrc = myEdgeToMove->moveGeometry(myMoveSrc, currentPosition);
+            myMoveSrc = myEdgeToMove->moveGeometry(myMoveSrc, clickedPosition);
         } else if (myAdditionalToMove) {
             // If additional is placed over lane, move it across it
             if (myAdditionalToMove->getLane()) {
-                double posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(currentPosition, false);
+                double posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(clickedPosition, false);
                 myAdditionalToMove->moveAdditionalGeometry(posOfMouseOverLane - myAdditionalMovingReference.x(), 0);
                 myAdditionalMovingReference.set(posOfMouseOverLane, 0, 0);
             } else {
                 // Calculate offset movement
-                Position offsetPosition = currentPosition - myOldAdditionalPosition;
+                Position offsetPosition = clickedPosition - myOldAdditionalPosition;
                 myAdditionalToMove->moveAdditionalGeometry(myOldAdditionalPosition + offsetPosition + myAdditionalMovingReference);
             }
             update();
         } else if (myMoveSelection) {
-            Position moveTarget = currentPosition;
+            Position moveTarget = clickedPosition;
             myNet->moveSelection(myMoveSrc, moveTarget);
             myMoveSrc = moveTarget;
         } else if (myAmInRectSelect) {
-            mySelCorner2 = currentPosition;
+            mySelCorner2 = getPositionInformation();
             update();
         }
     }
