@@ -40,6 +40,9 @@ push_for_merge
 # a vehicle urgently needs to change lanes and pushes a blocker by using a lower minGapLat. The blocker is constraint by a neighboring vehicle to the left and equalizes left and right lateral gaps
 push_for_merge_equalize_gaps
 
+# a vehicle urgently needs to change lanes and attempts pushes a blocker by using a lower minGapLat. The blocker ignores the manoeuvre because the pushing vehicle is too far behind
+push_for_merge_ignored
+
 # a vehicle urgently needs to change lanes but is configured to refrain from pushing 
 # 
 nopush_for_merge
