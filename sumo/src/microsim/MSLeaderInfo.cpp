@@ -182,6 +182,14 @@ MSLeaderDistanceInfo::MSLeaderDistanceInfo(const MSLane* lane, const MSVehicle* 
 }
 
 
+MSLeaderDistanceInfo::MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const MSLane* dummy) :
+    MSLeaderInfo(dummy, 0, 0),
+    myDistances(1, cLeaderDist.second) 
+{
+    assert(myVehicles.size() == 1);
+    myVehicles[0] = cLeaderDist.first;
+}
+
 MSLeaderDistanceInfo::~MSLeaderDistanceInfo() { }
 
 

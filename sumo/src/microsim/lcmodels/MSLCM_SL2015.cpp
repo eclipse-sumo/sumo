@@ -123,9 +123,6 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myChangeProbThresholdRight(2.0 * myKeepRightParam / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     myChangeProbThresholdLeft(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     mySpeedLossProbThreshold(-0.01 + (1 - mySublaneParam)) {
-    if (MSGlobals::gLateralResolution <= 0) {
-        throw ProcessError("laneChangeModel 'MSLCM_SL2015' is only meant to be used when simulating with '--lateral-resoluion' > 0");
-    }
 }
 
 MSLCM_SL2015::~MSLCM_SL2015() {
@@ -1718,8 +1715,9 @@ MSLCM_SL2015::checkBlockingVehicles(
         CLeaderDist vehDist = vehicles[i];
         if (vehDist.first != 0) {
             // only check the current stripe occuped by foe (transform into edge-coordinates)
-            const double foeRight = i * MSGlobals::gLateralResolution + foeOffset;
-            const double foeLeft = foeRight + MSGlobals::gLateralResolution;
+            const double res = MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : vehDist.first->getLane()->getWidth();
+            const double foeRight = i * res + foeOffset;
+            const double foeLeft = foeRight + res;
             if (gDebugFlag2 && false) {
                 const MSVehicle* leader = vehDist.first;
                 const MSVehicle* follower = ego;
@@ -2155,9 +2153,10 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                     && (netOverlap == 0 || others[i].second + others[i].first->getVehicleType().getMinGap() < netOverlap )) {
                 /// foe vehicle occupies full sublanes
                 const MSVehicle* foe = others[i].first;
-                const double foeRight = i * MSGlobals::gLateralResolution + foeOffset;
-                const double foeLeft = foeRight + MSGlobals::gLateralResolution;
-                const double foeCenter = foeRight + 0.5 * MSGlobals::gLateralResolution;
+                const double res = MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : others[i].first->getLane()->getWidth();
+                const double foeRight = i * res + foeOffset;
+                const double foeLeft = foeRight + res;
+                const double foeCenter = foeRight + 0.5 * res;
                 const double gap = MIN2(fabs(foeRight - oldCenter), fabs(foeLeft - oldCenter)) - halfWidth;
                 const double currentMinGap = baseMinGap * MIN2(1.0, MAX2(myVehicle.getSpeed(), (double)fabs(myVehicle.getSpeed() - foe->getSpeed())) / LATGAP_SPEED_THRESHOLD) * gapFactor;
                 if (gDebugFlag2) std::cout << "  updateGaps"
@@ -2237,5 +2236,76 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
     }
 }
 
+
+int
+MSLCM_SL2015::wantsChange(
+    int laneOffset,
+    MSAbstractLaneChangeModel::MSLCMessager& msgPass,
+    int blocked,
+    const std::pair<MSVehicle*, double>& leader,
+    const std::pair<MSVehicle*, double>& neighLead,
+    const std::pair<MSVehicle*, double>& neighFollow,
+    const MSLane& neighLane,
+    const std::vector<MSVehicle::LaneQ>& preb,
+    MSVehicle** lastBlocked,
+    MSVehicle** firstBlocked) {
+
+#ifdef DEBUG_WANTS_CHANGE
+    if (DEBUG_COND) {
+        std::cout << "\nWANTS_CHANGE\n" << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                  //<< std::setprecision(10)
+                  << " veh=" << myVehicle.getID()
+                  << " lane=" << myVehicle.getLane()->getID()
+                  << " pos=" << myVehicle.getPositionOnLane()
+                  << " posLat=" << myVehicle.getLateralPositionOnLane()
+                  << " speed=" << myVehicle.getSpeed()
+                  << " considerChangeTo=" << (laneOffset == -1  ? "right" : "left")
+                  << "\n";
+    }
+#endif
+
+    double latDist = 0;
+    const MSLane* dummy = myVehicle.getLane();
+    MSLeaderDistanceInfo leaders(leader, dummy);
+    MSLeaderDistanceInfo followers(std::make_pair((MSVehicle*)0, -1), dummy);
+    MSLeaderDistanceInfo blockers(std::make_pair((MSVehicle*)0, -1), dummy);
+    MSLeaderDistanceInfo neighLeaders(neighLead, dummy);
+    MSLeaderDistanceInfo neighFollowers(neighFollow, dummy);
+    MSLeaderDistanceInfo neighBlockers(std::make_pair((MSVehicle*)0, -1), dummy);
+
+    int result = _wantsChangeSublane(laneOffset,
+                                     leaders, followers, blockers,
+                                     neighLeaders, neighFollowers, neighBlockers,
+                                     neighLane, preb,
+                                     lastBlocked, firstBlocked, latDist, blocked);
+
+    myOrigLatDist = 0;
+    myCanChangeFully = true;
+    // ignore sublane motivation
+    result &= ~LCA_SUBLANE;
+    result |= getLCA(result, latDist);
+
+#ifdef DEBUG_WANTS_CHANGE
+    if (DEBUG_COND) {
+        if (result & LCA_WANTS_LANECHANGE) {
+            std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
+                      << " veh=" << myVehicle.getID()
+                      << " wantsChangeTo=" << (laneOffset == -1  ? "right" : "left")
+                      << ((result & LCA_URGENT) ? " (urgent)" : "")
+                      << ((result & LCA_CHANGE_TO_HELP) ? " (toHelp)" : "")
+                      << ((result & LCA_STRATEGIC) ? " (strat)" : "")
+                      << ((result & LCA_COOPERATIVE) ? " (coop)" : "")
+                      << ((result & LCA_SPEEDGAIN) ? " (speed)" : "")
+                      << ((result & LCA_KEEPRIGHT) ? " (keepright)" : "")
+                      << ((result & LCA_TRACI) ? " (traci)" : "")
+                      << ((blocked & LCA_BLOCKED) ? " (blocked)" : "")
+                      << ((blocked & LCA_OVERLAPPING) ? " (overlap)" : "")
+                      << "\n\n\n";
+        }
+    }
+#endif
+
+    return result;
+}
 
 /****************************************************************************/

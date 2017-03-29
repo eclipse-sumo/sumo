@@ -112,16 +112,14 @@ MSEdge::initialize(const std::vector<MSLane*>* lanes) {
     for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
         myWidth += (*i)->getWidth();
     }
-    if (MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0) {
-        double widthBefore = 0;
-        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-            (*i)->setRightSideOnEdge(widthBefore, (int)mySublaneSides.size());
-            MSLeaderInfo ahead(*i);
-            for (int j = 0; j < ahead.numSublanes(); ++j) {
-                mySublaneSides.push_back(widthBefore + j * MSGlobals::gLateralResolution);
-            }
-            widthBefore += (*i)->getWidth();
+    double widthBefore = 0;
+    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+        (*i)->setRightSideOnEdge(widthBefore, (int)mySublaneSides.size());
+        MSLeaderInfo ahead(*i);
+        for (int j = 0; j < ahead.numSublanes(); ++j) {
+            mySublaneSides.push_back(widthBefore + j * MSGlobals::gLateralResolution);
         }
+        widthBefore += (*i)->getWidth();
     }
 }
 

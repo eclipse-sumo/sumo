@@ -129,6 +129,9 @@ public:
     /// Constructor
     MSLeaderDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset);
 
+    /// @brief Construct for the non-sublane-case
+    MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const MSLane* dummy);
+
     /// Destructor
     virtual ~MSLeaderDistanceInfo();
 

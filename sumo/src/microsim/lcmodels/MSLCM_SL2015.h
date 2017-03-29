@@ -66,7 +66,7 @@ public:
     virtual ~MSLCM_SL2015();
 
     /** @brief Called to examine whether the vehicle wants to change
-     * using the given laneOffset.
+     * with the given laneOffset (using the sublane model)
      * This method gets the information about the surrounding vehicles
      * and whether another lane may be more preferable */
     int wantsChangeSublane(int laneOffset,
@@ -81,6 +81,21 @@ public:
                            MSVehicle** lastBlocked,
                            MSVehicle** firstBlocked,
                            double& latDist, int& blocked);
+
+    /** @brief Called to examine whether the vehicle wants to change
+     * using the given laneOffset (this is a wrapper around wantsChangeSublane).
+     * This method gets the information about the surrounding vehicles
+     * and whether another lane may be more preferable */
+    int wantsChange(
+        int laneOffset,
+        MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
+        const std::pair<MSVehicle*, double>& leader,
+        const std::pair<MSVehicle*, double>& neighLead,
+        const std::pair<MSVehicle*, double>& neighFollow,
+        const MSLane& neighLane,
+        const std::vector<MSVehicle::LaneQ>& preb,
+        MSVehicle** lastBlocked,
+        MSVehicle** firstBlocked);
 
     void* inform(void* info, MSVehicle* sender);
 
