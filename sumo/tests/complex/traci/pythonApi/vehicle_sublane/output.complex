@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:55758 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:49621 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -646,3 +646,5 @@ elVeh speed="9.87268337001" consumed="25.58" charged="0.00" cap="17356.75" maxCa
 elVeh speed="10.9657606758" consumed="36.69" charged="0.00" cap="17320.05" maxCap="40000.00" station="NULL"
 elVeh speed="11.043873201" consumed="30.95" charged="0.00" cap="17289.10" maxCap="40000.00" station="NULL"
 elVeh speed="9.82582975138" consumed="19.83" charged="0.00" cap="17269.27" maxCap="40000.00" station="NULL"
+triptest route: ['3si', '4si']
+triptest route: ['3si', '4o', '4fi', '4si']

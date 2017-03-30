@@ -10,4 +10,8 @@
     <vType id="electric">
         <param key="has.battery.device" value="true"/>
     </vType>
+
+    <vType id="reroutingType">
+        <param key="has.rerouting.device" value="true"/>
+    </vType>
 </add>

@@ -389,6 +389,12 @@ for i in range(10):
         traci.vehicle.getParameter(electricVeh, "device.battery.actualBatteryCapacity"),
         traci.vehicle.getParameter(electricVeh, "device.battery.maximumBatteryCapacity"),
         traci.vehicle.getParameter(electricVeh, "device.battery.chargingStationId")))
+# test for adding a trip
+traci.route.add("trip2", ["3si", "4si"])
+traci.vehicle.add("triptest2", "trip2", typeID="reroutingType")
+print("triptest route:", traci.vehicle.getRoute("triptest2"))
+step()
+print("triptest route:", traci.vehicle.getRoute("triptest2"))
 # done
 traci.close()
 sumoProcess.wait()
