@@ -57,7 +57,11 @@ def get_options():
     optParser.add_option("--standalone", action="store_true",
                          default=False, help="Parse stand-alone routes that are not define as child-element of a vehicle")
     optParser.add_option("--blur", type="float", default=0, 
-            help="maximum random disturbance to output polygon  geometry")
+            help="maximum random disturbance to output polygon geometry")
+    optParser.add_option("--ignore-routes", dest="ignore_routes",
+            help="List of route IDs (one per line) that are filtered when generating polygons and command line output (they will still be added to restrictions-output)")
+    optParser.add_option("--restriction-output", dest="restrictions_output",
+            help="Write flow-restriction output suitable for passing to flowrouter.py to FILE")
     options, args = optParser.parse_args()
 
     if len(args) != 2:
@@ -138,23 +142,47 @@ def main():
                 routeInfos[vehicle.id].detourRatio = oldCosts / newCosts
 
     implausible = []
+    allRoutesStats = Statistics("overal implausiblity")
+    implausibleRoutesStats = Statistics("implausiblity above threshold")
     for rID in sorted(routeInfos.keys()):
         ri = routeInfos[rID]
         ri.implausibility = (options.airdist_ratio_factor * ri.airDistRatio
                 + options.detour_factor * ri.detour
                 + options.detour_ratio_factor * ri.detourRatio)
+        allRoutesStats.add(ri.implausibility, rID)
         if ri.implausibility > options.threshold:
             implausible.append((ri.implausibility, rID, ri))
+            implausibleRoutesStats.add(ri.implausibility, rID)
 
+    # generate restrictions
+    if options.restrictions_output is not None:
+        with open(options.restrictions_output, 'w') as outf:
+            for score, rID, ri in sorted(implausible):
+                outf.write("0 %s\n" % " ".join(ri.edges))
+
+    if options.ignore_routes is not None:
+        numImplausible = len(implausible)
+        ignored = set([r.strip() for r in open(options.ignore_routes)])
+        implausible = [r for r in implausible if not r in ignored]
+        print("Loadeded %s routes to ignore. Reducing implausible from %s to %s" % (
+            len(ignored), numImplausible, len(implausible)))
+
+    # generate polygons
     polyOutput = options.routeFile + '.implausible.add.xml'
     colorgen = Colorgen(("random", 1, 1))
     with open(polyOutput, 'w') as outf:
         outf.write('<additional>\n')
         for score, rID, ri in sorted(implausible):
-            sys.stdout.write('%s\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio, ri.detour))) #, ' '.join(ri.edges)))
             generate_poly(net, rID, colorgen(), 100, False, ri.edges, options.blur, outf, score)
         outf.write('</additional>\n')
 
+
+    for score, rID, ri in sorted(implausible):
+        sys.stdout.write('%s\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio, ri.detour))) #, ' '.join(ri.edges)))
+
+    print(allRoutesStats)
+    print(implausibleRoutesStats)
+    
 
 if __name__ == "__main__":
     main()
