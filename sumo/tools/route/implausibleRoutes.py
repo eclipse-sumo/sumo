@@ -109,7 +109,11 @@ def main():
     duarouterOutput = options.routeFile + '.rerouted.rou.xml'
     duarouterAltOutput = options.routeFile + '.rerouted.rou.alt.xml'
 
-    subprocess.call([DUAROUTER, '-n', options.network, '-r', duarouterInput, '-o', duarouterOutput]) 
+    subprocess.call([DUAROUTER, 
+        '-n', options.network, 
+        '-r', duarouterInput,
+        '-o', duarouterOutput, 
+        '--no-step-log']) 
 
     for vehicle in parse(duarouterAltOutput, 'vehicle'):
         routeAlts = vehicle.routeDistribution[0].route
