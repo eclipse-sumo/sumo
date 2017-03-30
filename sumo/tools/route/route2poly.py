@@ -67,7 +67,7 @@ def randomize_pos(pos, blur):
     return tuple([val + random.uniform(-blur, blur) for val in pos])
 
 
-def generate_poly(net, id, color, layer, geo, edges, blur, outf):
+def generate_poly(net, id, color, layer, geo, edges, blur, outf, type="route"):
     shape = list(itertools.chain(*list(net.getEdge(e).getLane(0).getShape()
                                        for e in edges)))
     if blur > 0:
@@ -78,8 +78,8 @@ def generate_poly(net, id, color, layer, geo, edges, blur, outf):
         shape = [net.convertXY2LonLat(*pos) for pos in shape]
         geoFlag = ' geo="true"'
     shapeString = ' '.join('%s,%s' % (x, y) for x, y in shape)
-    outf.write('<poly id="%s" color="%s" layer="%s" type="route" shape="%s"%s/>\n' % (
-        id, color, layer, shapeString, geoFlag))
+    outf.write('<poly id="%s" color="%s" layer="%s" type="%s" shape="%s"%s/>\n' % (
+        id, color, layer, type, shapeString, geoFlag))
 
 
 def main(args):
