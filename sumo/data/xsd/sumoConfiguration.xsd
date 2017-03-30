@@ -114,6 +114,7 @@
             <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.jamtime" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="lateral-resolution" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
