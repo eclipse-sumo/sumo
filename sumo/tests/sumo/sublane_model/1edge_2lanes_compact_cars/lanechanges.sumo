@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 29 13:12:40 2017 by SUMO Version dev-SVN-r23697
+<!-- generated on Thu Mar 30 15:43:30 2017 by SUMO Version dev-SVN-r23727
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -49,7 +49,9 @@
     <change id="cars.12" time="58.00" from="beg_0" to="beg_1" dir="1" speed="2.74" reason="speedGain" latGap="None"/>
     <change id="cars.10" time="59.00" from="beg_1" to="beg_0" dir="-1" speed="1.55" reason="sublane" latGap="0.64"/>
     <change id="cars.18" time="69.00" from="beg_0" to="beg_1" dir="1" speed="2.50" reason="speedGain" latGap="None"/>
-    <change id="cars.15" time="78.00" from="beg_1" to="beg_0" dir="-1" speed="0.00" reason="sublane" latGap="0.70"/>
+    <change id="cars.15" time="79.00" from="beg_1" to="beg_0" dir="-1" speed="0.00" reason="sublane" latGap="0.70"/>
+    <change id="cars.19" time="79.00" from="beg_0" to="beg_1" dir="1" speed="0.06" reason="speedGain" latGap="None"/>
+    <change id="cars.19" time="90.00" from="beg_1" to="beg_0" dir="-1" speed="0.00" reason="sublane" latGap="0.64"/>
     <change id="cars.19" time="208.00" from="beg_0" to="beg_1" dir="1" speed="2.34" reason="speedGain" latGap="None"/>
     <change id="cars.8" time="218.00" from="end_0" to="end_1" dir="1" speed="13.50" reason="sublane" latGap="None"/>
     <change id="cars.7" time="221.00" from="end_0" to="end_1" dir="1" speed="13.03" reason="sublane" latGap="0.70"/>
