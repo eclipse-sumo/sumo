@@ -120,10 +120,7 @@ public:
     /// @brief whether the current vehicles shall be debugged
     bool debugVehicle() const;
 
-    void setOwnState(const int state) {
-        MSAbstractLaneChangeModel::setOwnState(state);
-        myPreviousState = state;
-    }
+    void setOwnState(const int state);
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const; 

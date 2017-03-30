@@ -90,7 +90,7 @@
 #define LATGAP_SPEED_THRESHOLD (50 / 3.6)
 
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
-//#define DEBUG_COND (myVehicle.getID() == "A")
+//#define DEBUG_COND (myVehicle.getID() == "E1")
 #define DEBUG_COND (myVehicle.isSelected())
 //#define DEBUG_COND (myVehicle.getID() == "pkw150478" || myVehicle.getID() == "pkw150494" || myVehicle.getID() == "pkw150289")
 //#define DEBUG_COND (myVehicle.getID() == "A" || myVehicle.getID() == "B") // fail change to left
@@ -173,13 +173,6 @@ MSLCM_SL2015::wantsChangeSublane(
                                      neighLane, preb,
                                      lastBlocked, firstBlocked, latDist, blocked);
 
-    if ((result & LCA_STAY) != 0) {
-        // checkBlocking was not called yet
-        assert(latDist == 0);
-        myOrigLatDist = 0;
-        myCanChangeFully = true;
-    }
-
     result = keepLatGap(result, leaders, followers, blockers,
                         neighLeaders, neighFollowers, neighBlockers,
                         neighLane, laneOffset, latDist, blocked);
@@ -207,6 +200,17 @@ MSLCM_SL2015::wantsChangeSublane(
     return result;
 }
 
+void 
+MSLCM_SL2015::setOwnState(const int state) {
+    MSAbstractLaneChangeModel::setOwnState(state);
+    myPreviousState = state;
+    if ((state & LCA_STAY) != 0) {
+        myOrigLatDist = 0;
+        myCanChangeFully = true;
+        if (DEBUG_COND) std::cout << SIMTIME << " veh=" << myVehicle.getID() << " setOwnState: myCanChangeFully=true\n";
+    }
+
+}
 
 double
 MSLCM_SL2015::patchSpeed(const double min, const double wanted, const double max, const MSCFModel& cfModel) {
@@ -1338,8 +1342,9 @@ MSLCM_SL2015::_wantsChangeSublane(
         }
     }
 
-    // factor in preferred lateral alignment (unless we are in the middle of an unfinished non-alignment maneuver)
-    if (fabs(latDist) <= NUMERICAL_EPS && (myCanChangeFully || (myPreviousState | LCA_SUBLANE) != 0)) {
+    // only factor in preferred lateral alignment if there is no speedGain motivation
+    if (fabs(latDist) <= NUMERICAL_EPS) {
+        double latDistSublane;
         const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
         const double halfVehWidth = myVehicle.getVehicleType().getWidth() * 0.5;
         if (myVehicle.getParameter().arrivalPosLatProcedure != ARRIVAL_POSLAT_DEFAULT
@@ -1350,16 +1355,16 @@ MSLCM_SL2015::_wantsChangeSublane(
             // its arrival position. Change to the desired lateral position
             switch (myVehicle.getParameter().arrivalPosLatProcedure) {
                 case ARRIVAL_POSLAT_GIVEN:
-                    latDist = myVehicle.getParameter().arrivalPosLat - myVehicle.getLateralPositionOnLane();
+                    latDistSublane = myVehicle.getParameter().arrivalPosLat - myVehicle.getLateralPositionOnLane();
                     break;
                 case ARRIVAL_POSLAT_RIGHT:
-                    latDist = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
+                    latDistSublane = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
                     break;
                 case ARRIVAL_POSLAT_CENTER:
-                    latDist = -myVehicle.getLateralPositionOnLane();
+                    latDistSublane = -myVehicle.getLateralPositionOnLane();
                     break;
                 case ARRIVAL_POSLAT_LEFT:
-                    latDist = halfLaneWidth - halfVehWidth - myVehicle.getLateralPositionOnLane();
+                    latDistSublane = halfLaneWidth - halfVehWidth - myVehicle.getLateralPositionOnLane();
                     break;
                 default:
                     assert(false);
@@ -1371,19 +1376,19 @@ MSLCM_SL2015::_wantsChangeSublane(
         } else {
             switch (myVehicle.getVehicleType().getPreferredLateralAlignment()) {
                 case LATALIGN_RIGHT:
-                    latDist = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
+                    latDistSublane = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
                     break;
                 case LATALIGN_LEFT:
-                    latDist = halfLaneWidth - halfVehWidth - myVehicle.getLateralPositionOnLane();
+                    latDistSublane = halfLaneWidth - halfVehWidth - myVehicle.getLateralPositionOnLane();
                     break;
                 case LATALIGN_CENTER:
-                    latDist = -myVehicle.getLateralPositionOnLane();
+                    latDistSublane = -myVehicle.getLateralPositionOnLane();
                     break;
                 case LATALIGN_NICE:
-                    latDist = latDistNice;
+                    latDistSublane = latDistNice;
                     break;
                 case LATALIGN_COMPACT:
-                    latDist = sublaneSides[sublaneCompact] - rightVehSide;
+                    latDistSublane = sublaneSides[sublaneCompact] - rightVehSide;
                     break;
                 case LATALIGN_ARBITRARY:
                     break;
@@ -1394,14 +1399,22 @@ MSLCM_SL2015::_wantsChangeSublane(
                                        << " mySpeedGainR=" << mySpeedGainProbabilityRight
                                        << " mySpeedGainL=" << mySpeedGainProbabilityLeft
                                        << " latDist=" << latDist
+                                       << " latDistSublane=" << latDistSublane
                                        << " myCanChangeFully=" << myCanChangeFully
                                        << " prevState=" << toString((LaneChangeAction)myPreviousState)
                                        << "\n";
-        if ((latDist < 0 && mySpeedGainProbabilityRight < mySpeedLossProbThreshold)
-                || (latDist > 0 && mySpeedGainProbabilityLeft < mySpeedLossProbThreshold)) {
+
+        if ((latDistSublane < 0 && mySpeedGainProbabilityRight < mySpeedLossProbThreshold)
+                || (latDistSublane > 0 && mySpeedGainProbabilityLeft < mySpeedLossProbThreshold)) {
             // do not risk losing speed
-            latDist = 0;
+            latDistSublane = 0;
         }
+        // Ignore preferred lateral alignment if we are in the middle of an unfinished non-alignment maneuver into the opposite direction
+        if (!myCanChangeFully && (myPreviousState & LCA_SUBLANE) == 0 
+                && ((myOrigLatDist < 0 && latDistSublane > 0) || (myOrigLatDist > 0 && latDistSublane < 0))) {
+            latDistSublane = 0;
+        }
+        latDist = latDistSublane;
         // XXX first compute preferred adaptation and then override with speed
         // (this way adaptation is still done if changing for speedgain is
         // blocked)
