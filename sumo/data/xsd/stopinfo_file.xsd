@@ -14,6 +14,7 @@
     <xsd:element name="stopinfo">
         <xsd:complexType>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
+            <xsd:attribute name="type" use="required" type="xsd:string"/>
             <xsd:attribute name="lane" use="required" type="xsd:string"/>
             <xsd:attribute name="pos" use="required" type="xsd:string"/>
             <xsd:attribute name="parking" use="required" type="boolType"/>
