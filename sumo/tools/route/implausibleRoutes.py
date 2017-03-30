@@ -35,7 +35,8 @@ if 'SUMO_HOME' in os.environ:
     import sumolib
     from sumolib.output import parse, parse_fast
     from sumolib.net import readNet
-    from sumolib.miscutils import Statistics, euclidean
+    from sumolib.miscutils import Statistics, euclidean, Colorgen
+    from route2poly import generate_poly
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
@@ -55,6 +56,8 @@ def get_options():
             help="Implausibility factor for the absolute detour time in (routeDuration-shortestDuration) in seconds")
     optParser.add_option("--standalone", action="store_true",
                          default=False, help="Parse stand-alone routes that are not define as child-element of a vehicle")
+    optParser.add_option("--blur", type="float", default=0, 
+            help="maximum random disturbance to output polygon  geometry")
     options, args = optParser.parse_args()
 
     if len(args) != 2:
@@ -143,8 +146,14 @@ def main():
         if ri.implausibility > options.threshold:
             implausible.append((ri.implausibility, rID, ri))
 
-    for score, rID, ri in sorted(implausible):
-        sys.stdout.write('%s\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio, ri.detour))) #, ' '.join(ri.edges)))
+    polyOutput = options.routeFile + '.implausible.add.xml'
+    colorgen = Colorgen(("random", 1, 1))
+    with open(polyOutput, 'w') as outf:
+        outf.write('<additional>\n')
+        for score, rID, ri in sorted(implausible):
+            sys.stdout.write('%s\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio, ri.detour))) #, ' '.join(ri.edges)))
+            generate_poly(net, rID, colorgen(), 100, False, ri.edges, options.blur, outf, score)
+        outf.write('</additional>\n')
 
 
 if __name__ == "__main__":
