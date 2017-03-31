@@ -2225,9 +2225,12 @@ MSVehicle::executeMove() {
             passedLanes.clear(); // ignore back occupation
         }
         myState.myBackPos = updateFurtherLanes(myFurtherLanes, myFurtherLanesPosLat, passedLanes);
-        updateBestLanes();
         // bestLanes need to be updated before lane changing starts
-        if (getLaneChangeModel().getShadowLane() != 0 && (moved || oldBackLane != getBackLane())) {
+        updateBestLanes();
+        // shadow lane must be updated if the front or back lane changed
+        // either if we already have a shadowLane or if there is lateral overlap
+        if ((getLaneChangeModel().getShadowLane() != 0 || getLateralOverlap() > POSITION_EPS) 
+                && (moved || oldBackLane != getBackLane())) {
             getLaneChangeModel().updateShadowLane();
         }
         setBlinkerInformation(); // needs updated bestLanes
