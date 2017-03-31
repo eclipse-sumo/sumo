@@ -2139,7 +2139,8 @@ MSLCM_SL2015::keepLatGap(int state,
         latDist = myVehicle.getInfluencer().getLatDist();
     }
     // update blocked status
-    if (latDist != oldLatDist) {
+    if (fabs(latDist - oldLatDist) > NUMERICAL_EPS) {
+        if (gDebugFlag2) std::cout << "     latDistUpdated=" << (oldLatDist - latDist) << "\n";
         blocked = checkBlocking(neighLane, latDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, true);
     }
     if (latDist != 0) {
