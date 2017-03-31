@@ -35,3 +35,6 @@ rail_signal
 
 # load another offset value for an existing traffic light
 offset_only
+
+# load another offset value for a non existing traffic light
+offset_unknown
