@@ -1538,9 +1538,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             lfLinks.push_back(DriveProcessItem(v, seen));
             break;
         }
-        // check whether the lane or the shadowLane is a dead end
+        // check whether the lane or the shadowLane is a dead end (allow some leeway on intersections)
         if (lane->isLinkEnd(link) ||
-                (getLaneChangeModel().getShadowLane() != 0 && getLaneChangeModel().getShadowLane((*link)->getLane()) == 0)) {
+                (getLaneChangeModel().getShadowLane() != 0 && (*link)->getViaLane() == 0 && getLaneChangeModel().getShadowLane((*link)->getLane()) == 0)) {
             double va = MIN2(cfModel.stopSpeed(this, getSpeed(), seen), laneMaxV);
             if (lastLink != 0) {
                 lastLink->adaptLeaveSpeed(va);

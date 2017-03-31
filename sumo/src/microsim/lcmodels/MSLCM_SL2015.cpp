@@ -1003,7 +1003,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                    latDist);
     }
 
-    if ((ret & LCA_STAY) != 0) {
+    if ((ret & LCA_STAY) != 0 && latDist == 0) {
         return ret;
     }
     if ((ret & LCA_URGENT) != 0) {
@@ -2011,7 +2011,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
         }
         if (currentShadowDist < requiredDist && currentShadowDist < usableDist) {
             latDist = myVehicle.getLateralPositionOnLane() < 0 ? myVehicle.getLateralOverlap() : - myVehicle.getLateralOverlap();
-            ret |= LCA_STRATEGIC | LCA_URGENT;
+            ret |= LCA_STRATEGIC | LCA_URGENT | LCA_STAY ;
         }
     }
 
