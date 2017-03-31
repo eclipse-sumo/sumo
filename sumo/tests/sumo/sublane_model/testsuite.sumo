@@ -55,6 +55,10 @@ nopush_for_merge_impatience
 # test whether cooperative changing works fluidly
 cooperative_change
 
+# a vehicle cannot drive when partly off the road 
+# 
+stay_on_road
+
 # test angles during lane-changing
 angles
 bugs
