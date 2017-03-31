@@ -265,7 +265,9 @@ protected:
                              double currentDist,
                              double neighDist,
                              double laDist,
-                             int roundaboutEdgesAhead
+                             int roundaboutEdgesAhead,
+                             double latLaneDist,
+                             double& latDist
                             );
 
     /// @brief check whether lateral gap requirements are met override the current maneuver if necessary

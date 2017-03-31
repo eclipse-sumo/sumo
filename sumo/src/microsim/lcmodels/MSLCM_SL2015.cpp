@@ -998,7 +998,9 @@ MSLCM_SL2015::_wantsChangeSublane(
                                    currentDist,
                                    neighDist,
                                    laDist,
-                                   roundaboutEdgesAhead);
+                                   roundaboutEdgesAhead,
+                                   latLaneDist,
+                                   latDist);
     }
 
     if ((ret & LCA_STAY) != 0) {
@@ -1023,7 +1025,6 @@ MSLCM_SL2015::_wantsChangeSublane(
         if (*firstBlocked != neighLeadLongest) {
             saveBlockerLength(*firstBlocked, lcaCounter);
         }
-        latDist = latLaneDist;
         std::vector<CLeaderDist> collectLeadBlockers;
         std::vector<CLeaderDist> collectFollowBlockers;
 
@@ -1883,7 +1884,9 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                                    double currentDist,
                                    double neighDist,
                                    double laDist,
-                                   int roundaboutEdgesAhead
+                                   int roundaboutEdgesAhead,
+                                   double latLaneDist,
+                                   double& latDist
                                   ) {
     const bool right = (laneOffset == -1);
     const bool left = (laneOffset == 1);
@@ -1913,6 +1916,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     if (laneOffset != 0 && changeToBest && bestLaneOffset == curr.bestLaneOffset
             && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
         /// @brief we urgently need to change lanes to follow our route
+        latDist = latLaneDist;
         ret |= LCA_STRATEGIC | LCA_URGENT;
     } else {
         // VARIANT_20 (noOvertakeRight)
@@ -1987,6 +1991,27 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             ret |= LCA_STAY | LCA_STRATEGIC;
         }
     }
+    if ((ret & LCA_URGENT) == 0 && getShadowLane() != 0 ) {
+        // no decision or decision to stay
+        // make sure to stay within lane bounds in case the shadow lane ends
+        const double requiredDist = 2 * myVehicle.getLateralOverlap() / SUMO_const_laneWidth * laDist;
+        double currentShadowDist = -myVehicle.getPositionOnLane();
+        for (std::vector<MSLane*>::const_iterator it = curr.bestContinuations.begin(); it != curr.bestContinuations.end(); ++it) {
+            MSLane* shadow = getShadowLane(*it);
+            if (shadow == 0 || currentShadowDist >= requiredDist) {
+                break;
+            }
+            currentShadowDist += shadow->getLength();
+        }
+        if (gDebugFlag2) {
+            std::cout << " veh=" << myVehicle.getID() << " currentShadowDist=" << currentShadowDist << " requiredDist=" << requiredDist << " overlap=" << myVehicle.getLateralOverlap() << "\n";
+        }
+        if (currentShadowDist < requiredDist && currentShadowDist < usableDist) {
+            latDist = myVehicle.getLateralPositionOnLane() < 0 ? myVehicle.getLateralOverlap() : - myVehicle.getLateralOverlap();
+            ret |= LCA_STRATEGIC | LCA_URGENT;
+        }
+    }
+
     // check for overriding TraCI requests
     if (gDebugFlag2) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ret=" << ret;

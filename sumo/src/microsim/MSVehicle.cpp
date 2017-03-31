@@ -1540,7 +1540,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
         // check whether the lane or the shadowLane is a dead end
         if (lane->isLinkEnd(link) ||
-                (getLaneChangeModel().getShadowLane() != 0 && getLaneChangeModel().getShadowLane(lane) == 0)) {
+                (getLaneChangeModel().getShadowLane() != 0 && getLaneChangeModel().getShadowLane((*link)->getLane()) == 0)) {
             double va = MIN2(cfModel.stopSpeed(this, getSpeed(), seen), laneMaxV);
             if (lastLink != 0) {
                 lastLink->adaptLeaveSpeed(va);
