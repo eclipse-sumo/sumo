@@ -1997,6 +1997,9 @@ MSLCM_SL2015::checkStrategicChange(int ret,
         const double requiredDist = 2 * myVehicle.getLateralOverlap() / SUMO_const_laneWidth * laDist;
         double currentShadowDist = -myVehicle.getPositionOnLane();
         for (std::vector<MSLane*>::const_iterator it = curr.bestContinuations.begin(); it != curr.bestContinuations.end(); ++it) {
+            if (*it == 0) {
+                continue;
+            }
             MSLane* shadow = getShadowLane(*it);
             if (shadow == 0 || currentShadowDist >= requiredDist) {
                 break;
