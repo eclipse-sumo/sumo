@@ -259,10 +259,12 @@ NLHandler::myEndElement(int element) {
             }
             break;
         case SUMO_TAG_TLLOGIC:
-            try {
-                myJunctionControlBuilder.closeTrafficLightLogic(getFileName());
-            } catch (InvalidArgument& e) {
-                WRITE_ERROR(e.what());
+            if (!myCurrentIsBroken) {
+                try {
+                    myJunctionControlBuilder.closeTrafficLightLogic(getFileName());
+                } catch (InvalidArgument& e) {
+                    WRITE_ERROR(e.what());
+                }
             }
             myAmInTLLogicMode = false;
             break;
@@ -650,6 +652,7 @@ NLHandler::initJunctionLogic(const SUMOSAXAttributes& attrs) {
 
 void
 NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
+    myCurrentIsBroken = false;
     myAmInTLLogicMode = true;
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
@@ -660,6 +663,10 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
         // SUMO_ATTR_TYPE is not needed when only modifying the offset of an
         // existing program
         typeS = attrs.get<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok);
+        if (!ok) {
+            myCurrentIsBroken = true;
+            return;
+        }
         if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
             type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
         } else {
@@ -667,8 +674,9 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
         }
     }
     //
-    SUMOTime offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
+    const SUMOTime offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
     if (!ok) {
+        myCurrentIsBroken = true;
         return;
     }
     myJunctionControlBuilder.initTrafficLightLogic(id, programID, type, offset);
