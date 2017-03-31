@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar 13 12:34:17 2017 by SUMO Version dev-SVN-r23341
+<!-- generated on Fri Mar 31 10:33:10 2017 by SUMO Version dev-SVN-r23742
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -13,6 +13,7 @@
     <output>
         <fcd-output value="fcd.xml"/>
         <tripinfo-output value="tripinfos.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
     </output>
 
     <processing>
@@ -85,36 +86,39 @@
         <vehicle id="B" x="179.22" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="180.57" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="14.00">
-        <vehicle id="A" x="193.00" y="-3.95" angle="90.00" type="t0" speed="13.89" pos="194.46" lane="beg_1" slope="0.00"/>
+        <vehicle id="A" x="190.11" y="-3.74" angle="88.91" type="t0" speed="10.98" pos="191.55" lane="beg_1" slope="0.00"/>
         <vehicle id="B" x="193.00" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="194.46" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="15.00">
-        <vehicle id="A" x="209.72" y="-3.15" angle="86.70" type="t0" speed="13.89" pos="8.35" lane="end_0" slope="0.00"/>
+        <vehicle id="A" x="196.54" y="-3.15" angle="84.78" type="t0" speed="6.48" pos="198.02" lane="beg_1" slope="0.00"/>
         <vehicle id="B" x="209.72" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="8.35" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="A" x="223.41" y="-3.15" angle="90.00" type="t0" speed="13.89" pos="22.24" lane="end_0" slope="0.00"/>
+        <vehicle id="A" x="208.49" y="-3.15" angle="90.00" type="t0" speed="9.08" pos="7.10" lane="end_0" slope="0.00"/>
         <vehicle id="B" x="223.41" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="22.24" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="17.00">
-        <vehicle id="A" x="237.09" y="-3.15" angle="90.00" type="t0" speed="13.89" pos="36.13" lane="end_0" slope="0.00"/>
+        <vehicle id="A" x="219.99" y="-3.15" angle="90.00" type="t0" speed="11.68" pos="18.78" lane="end_0" slope="0.00"/>
         <vehicle id="B" x="237.09" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="36.13" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="18.00">
-        <vehicle id="A" x="250.77" y="-3.15" angle="90.00" type="t0" speed="13.89" pos="50.02" lane="end_0" slope="0.00"/>
+        <vehicle id="A" x="233.68" y="-3.15" angle="90.00" type="t0" speed="13.89" pos="32.67" lane="end_0" slope="0.00"/>
         <vehicle id="B" x="250.77" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="50.02" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="19.00">
-        <vehicle id="A" x="264.45" y="-3.15" angle="90.00" type="t0" speed="13.89" pos="63.91" lane="end_0" slope="0.00"/>
+        <vehicle id="A" x="247.36" y="-3.15" angle="90.00" type="t0" speed="13.89" pos="46.56" lane="end_0" slope="0.00"/>
         <vehicle id="B" x="264.45" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="63.91" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="20.00">
-        <vehicle id="A" x="278.13" y="-3.15" angle="90.00" type="t0" speed="13.89" pos="77.80" lane="end_0" slope="0.00"/>
+        <vehicle id="A" x="261.04" y="-3.15" angle="90.00" type="t0" speed="13.89" pos="60.45" lane="end_0" slope="0.00"/>
         <vehicle id="B" x="278.13" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="77.80" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="21.00">
-        <vehicle id="A" x="291.81" y="-3.15" angle="90.00" type="t0" speed="13.89" pos="91.69" lane="end_0" slope="0.00"/>
+        <vehicle id="A" x="274.72" y="-3.15" angle="90.00" type="t0" speed="13.89" pos="74.34" lane="end_0" slope="0.00"/>
         <vehicle id="B" x="291.81" y="-0.95" angle="90.00" type="t1" speed="13.89" pos="91.69" lane="end_0" slope="0.00"/>
     </timestep>
-    <timestep time="22.00"/>
+    <timestep time="22.00">
+        <vehicle id="A" x="288.40" y="-3.15" angle="90.00" type="t0" speed="13.89" pos="88.23" lane="end_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.00"/>
 </fcd-export>

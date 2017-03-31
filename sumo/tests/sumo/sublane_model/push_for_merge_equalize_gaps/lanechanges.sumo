@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 14 13:18:56 2017 by SUMO Version dev-SVN-r23369
+<!-- generated on Fri Mar 31 10:48:59 2017 by SUMO Version dev-SVN-r23742
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -17,7 +17,7 @@
     </output>
 
     <processing>
-        <lateral-resolution value="0.4"/>
+        <lateral-resolution value="0.2"/>
     </processing>
 
     <report>
@@ -29,6 +29,6 @@
 -->
 
 <lanechanges>
-    <change id="merge" time="2.00" from="beg_0" to="beg_1" dir="1" speed="13.89" reason="strategic|urgent" latGap="0.90"/>
-    <change id="blocker1" time="17.00" from="end_0" to="end_1" dir="1" speed="13.89" reason="sublane" latGap="0.50"/>
+    <change id="merge" time="2.00" from="beg_0" to="beg_1" dir="1" speed="13.89" reason="strategic|urgent" latGap="1.10"/>
+    <change id="blocker1" time="9.00" from="beg_1" to="beg_2" dir="1" speed="13.89" reason="sublane" latGap="0.70"/>
 </lanechanges>
