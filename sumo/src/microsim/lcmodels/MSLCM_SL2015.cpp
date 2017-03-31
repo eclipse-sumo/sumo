@@ -1753,6 +1753,10 @@ MSLCM_SL2015::checkBlockingVehicles(
                           << " overlapDest=" << overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)
                           << "\n";
             }
+            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft)) {
+                // ignore vehicles that area already in a car-following relationship
+                continue;
+            }
             if (overlap(rightNoOverlap, leftNoOverlap, foeRight, foeLeft)) {
                 if (vehDist.second < 0) {
                     if (gDebugFlag2) {
@@ -1779,7 +1783,7 @@ MSLCM_SL2015::checkBlockingVehicles(
                                                     - MSCFModel::brakeGap(leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), 0));
                     if (vehDist.second < secureGap) {
                         if (gDebugFlag2) {
-                            std::cout << "    blocked decelFactor=" << decelFactor << "\n";
+                            std::cout << "    blocked by " << vehDist.first->getID() << " gap=" << vehDist.second<< " secGap=" << secureGap << " decelFactor=" << decelFactor << "\n";
                         }
                         result |= blockType;
                         if (collectBlockers == 0) {
