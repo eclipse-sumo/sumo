@@ -67,6 +67,7 @@
 #include "GUILane.h"
 
 //#define DRAW_BOUNDING_BOX
+//#define DEBUG_FOES
 
 // ===========================================================================
 // FOX callback mapping
@@ -668,17 +669,33 @@ GUIVehicle::selectBlockingFoes() const {
         }
         std::vector<const SUMOVehicle*> blockingFoes;
         std::vector<const MSPerson*> blockingPersons;
-        dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLength(),
+        const bool isOpen = dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLength(),
                            getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes);
+#ifdef DEBUG_FOES
+        if (!isOpen) {
+            std::cout << SIMTIME << " veh=" << getID() << " foes at link=" << dpi.myLink->getViaLaneOrLane()->getID() << ":\n";
+            for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
+                std::cout << "   " << (*it)->getID() << "\n";
+            }
+        }
+#endif
         if (getLaneChangeModel().getShadowLane() != 0) {
             MSLink* parallelLink = dpi.myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
             if (parallelLink != 0) {
                 const double shadowLatPos = getLateralPositionOnLane() - getLaneChangeModel().getShadowDirection() * 0.5 * (
                                                   myLane->getWidth() + getLaneChangeModel().getShadowLane()->getWidth());
-                parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
+                const bool isShadowOpen = parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                      getVehicleType().getLength(), getImpatience(),
                                      getCarFollowModel().getMaxDecel(),
                                      getWaitingTime(), shadowLatPos, &blockingFoes);
+#ifdef DEBUG_FOES
+                if (!isShadowOpen) {
+                    std::cout << SIMTIME << " veh=" << getID() << " foes at shadow link=" << parallelLink->getViaLaneOrLane()->getID() << ":\n";
+                    for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
+                        std::cout << "   " << (*it)->getID() << "\n";
+                    }
+                }
+#endif
             }
         }
         for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
@@ -691,6 +708,9 @@ GUIVehicle::selectBlockingFoes() const {
             if (leader != 0) {
                 if (dpi.myLink->isLeader(this, leader)) {
                     gSelected.select(leader->getGlID());
+#ifdef DEBUG_FOES
+                    std::cout << SIMTIME << " veh=" << getID() << " linkLeader at link=" << dpi.myLink->getViaLaneOrLane()->getID() << " foe=" << leader->getID() << "\n";
+#endif
                 }
             } else {
                 for (std::vector<const MSPerson*>::iterator it_p = blockingPersons.begin(); it_p != blockingPersons.end(); ++it_p) {
