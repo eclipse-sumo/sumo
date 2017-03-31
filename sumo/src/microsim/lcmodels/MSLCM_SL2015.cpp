@@ -1991,7 +1991,9 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             ret |= LCA_STAY | LCA_STRATEGIC;
         }
     }
-    if ((ret & LCA_URGENT) == 0 && getShadowLane() != 0 ) {
+    if ((ret & LCA_URGENT) == 0 && getShadowLane() != 0 &&
+            // ignore overlap if it goes in the correct direction 
+            bestLaneOffset * myVehicle.getLateralPositionOnLane() <= 0) {
         // no decision or decision to stay
         // make sure to stay within lane bounds in case the shadow lane ends
         const double requiredDist = 2 * myVehicle.getLateralOverlap() / SUMO_const_laneWidth * laDist;
