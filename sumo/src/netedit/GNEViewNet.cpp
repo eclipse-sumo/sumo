@@ -135,7 +135,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditMode(GNE_MODE_MOVE),
     myPreviousEditMode(GNE_MODE_MOVE),
     myCurrentFrame(0),
-    myShowConnectionActivated(false),
+    myShowConnections(false),
+    mySelectEdges(false),
     myCreateEdgeSource(0),
     myJunctionToMove(0),
     myEdgeToMove(0),
@@ -348,7 +349,7 @@ GNEViewNet::setStatusBarText(const std::string& text) {
 
 bool
 GNEViewNet::selectEdges() {
-    return myMenuCheckSelectEdges->getCheck() != 0;
+    return mySelectEdges;
 }
 
 
@@ -356,17 +357,17 @@ bool
 GNEViewNet::showConnections() {
     if (myEditMode == GNE_MODE_CONNECT) {
         return true;
-    } else if (myShowConnections->shown() == false) {
+    } else if (myMenuCheckShowConnections->shown() == false) {
         return false;
     } else {
-        return (myShowConnections->getCheck() == 1);
+        return myMenuCheckShowConnections->getCheck();
     }
 }
 
 
 bool
 GNEViewNet::autoSelectNodes() {
-    return myExtendToEdgeNodes->getCheck() != 0;
+    return (myMenuCheckExtendToEdgeNodes->getCheck() != 0);
 }
 
 
@@ -378,13 +379,13 @@ GNEViewNet::setSelectionScaling(double selectionScale) {
 
 bool
 GNEViewNet::changeAllPhases() const {
-    return myChangeAllPhases->getCheck() != FALSE;
+    return (myMenuCheckChangeAllPhases->getCheck() != 0);
 }
 
 
 bool
 GNEViewNet::showJunctionAsBubbles() const {
-    return (myEditMode == GNE_MODE_MOVE) && (myShowBubbleOverJunction->getCheck());
+    return (myEditMode == GNE_MODE_MOVE) && (myMenuCheckShowBubbleOverJunction->getCheck());
 }
 
 
@@ -422,10 +423,10 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         drawDecals();
         // depending of the visualizationSettings, enable or disable check box show grid
         if (myVisualizationSettings->showGrid) {
-            myShowGrid->setCheck(true);
+            myMenuCheckShowGrid->setCheck(true);
             paintGLGrid();
         } else {
-            myShowGrid->setCheck(false);
+            myMenuCheckShowGrid->setCheck(false);
         }
         if (myTestingMode) {
             if (myTestingWidth > 0 && (getWidth() != myTestingWidth || getHeight() != myTestingHeight)) {
@@ -478,7 +479,7 @@ long
 GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
     FXEvent* e = (FXEvent*) data;
     setFocus();
-    // limit position depending of myShowGrid
+    // limit position depending of myMenuCheckShowGrid
     Position clickedPosition = snapToActiveGrid(getPositionInformation());
 
     // interpret object under curser
@@ -643,7 +644,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 // Check if Control key is pressed
                 bool markElementMode = (((FXEvent*)data)->state & CONTROLMASK) != 0;
                 GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(pointed);
-                if (pointed_lane && myMenuCheckSelectEdges->getCheck()) {
+                if ((pointed_lane != NULL) && (mySelectEdges == true)) {
                     ac = pointed_edge;
                 }
                 if (ac) {
@@ -848,7 +849,7 @@ GNEViewNet::onDoubleClicked(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onMouseMove(obj, sel, data);
-    // limit position depending of myShowGrid
+    // limit position depending of myMenuCheckShowGrid
     Position clickedPosition = snapToActiveGrid(getPositionInformation());
     // in delete mode object under cursor must be checked in every mouse movement
     if (myEditMode == GNE_MODE_DELETE) {
@@ -1693,9 +1694,9 @@ GNEViewNet::onCmdNodeReplace(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdToogleShowConnection(FXObject*, FXSelector, void*) {
-    if (!myShowConnectionActivated) {
+    if (!myShowConnections) {
         getNet()->initGNEConnections();
-        myShowConnectionActivated = true;
+        myShowConnections = true;
     }
     // Update viewnNet to show/hide conections
     update();
@@ -1726,8 +1727,8 @@ GNEViewNet::onCmdToogleShowBubbles(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdShowGrid(FXObject*, FXSelector, void*) {
-    // show or hidde grid depending of myShowGrid
-    if(myShowGrid->getCheck()) {
+    // show or hidde grid depending of myMenuCheckShowGrid
+    if(myMenuCheckShowGrid->getCheck()) {
         myVisualizationSettings->showGrid = true;
     } else {
         myVisualizationSettings->showGrid = false;
@@ -1812,39 +1813,39 @@ GNEViewNet::buildEditModeControls() {
     myMenuCheckSelectEdges = new FXMenuCheck(myToolbar, ("select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_SELECT_EDGES);
     myMenuCheckSelectEdges->setCheck(true);
 
-    myShowConnections = new FXMenuCheck(myToolbar, ("show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, MID_GNE_SHOW_CONNECTIONS);
-    myShowConnections->setCheck(false);
+    myMenuCheckShowConnections = new FXMenuCheck(myToolbar, ("show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, MID_GNE_SHOW_CONNECTIONS);
+    myMenuCheckShowConnections->setCheck(false);
 
-    myExtendToEdgeNodes = new FXMenuCheck(myToolbar, ("auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, 0);
+    myMenuCheckExtendToEdgeNodes = new FXMenuCheck(myToolbar, ("auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, 0);
 
-    myWarnAboutMerge = new FXMenuCheck(myToolbar, ("ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), this, 0);
-    myWarnAboutMerge->setCheck(true);
+    myMenuCheckWarnAboutMerge = new FXMenuCheck(myToolbar, ("ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), this, 0);
+    myMenuCheckWarnAboutMerge->setCheck(true);
 
-    myShowBubbleOverJunction = new FXMenuCheck(myToolbar, ("Show bubbles over " + toString(SUMO_TAG_JUNCTION) + "s \t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(), this, MID_GNE_SHOW_BUBBLES);
-    myShowBubbleOverJunction->setCheck(false);
+    myMenuCheckShowBubbleOverJunction = new FXMenuCheck(myToolbar, ("Show bubbles over " + toString(SUMO_TAG_JUNCTION) + "s \t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(), this, MID_GNE_SHOW_BUBBLES);
+    myMenuCheckShowBubbleOverJunction->setCheck(false);
 
-    myChangeAllPhases = new FXMenuCheck(myToolbar, ("apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " plan").c_str(), this, 0);
-    myChangeAllPhases->setCheck(false);
+    myMenuCheckChangeAllPhases = new FXMenuCheck(myToolbar, ("apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " plan").c_str(), this, 0);
+    myMenuCheckChangeAllPhases->setCheck(false);
 
-    myShowGrid = new FXMenuCheck(myToolbar, "show grid\t\tshow grid with size defined in visualization options", this, MID_GNE_SHOW_GRID);
-    myShowGrid->setCheck(false);
+    myMenuCheckShowGrid = new FXMenuCheck(myToolbar, "show grid\t\tshow grid with size defined in visualization options", this, MID_GNE_SHOW_GRID);
+    myMenuCheckShowGrid->setCheck(false);
 }
 
 
 void
 GNEViewNet::updateModeSpecificControls() {
     // hide grid
-    myShowGrid->setCheck(myVisualizationSettings->showGrid);
+    myMenuCheckShowGrid->setCheck(myVisualizationSettings->showGrid);
     // hide all controls (checkboxs)
     myChainCreateEdge->hide();
     myAutoCreateOppositeEdge->hide();
     myMenuCheckSelectEdges->hide();
-    myShowConnections->hide();
-    myExtendToEdgeNodes->hide();
-    myChangeAllPhases->hide();
-    myWarnAboutMerge->hide();
-    myShowBubbleOverJunction->hide();
-    myShowGrid->hide();
+    myMenuCheckShowConnections->hide();
+    myMenuCheckExtendToEdgeNodes->hide();
+    myMenuCheckChangeAllPhases->hide();
+    myMenuCheckWarnAboutMerge->hide();
+    myMenuCheckShowBubbleOverJunction->hide();
+    myMenuCheckShowGrid->hide();
     // unckeck all edit modes
     myEditModeCreateEdge->setChecked(false);
     myEditModeMove->setChecked(false);
@@ -1862,19 +1863,19 @@ GNEViewNet::updateModeSpecificControls() {
             myChainCreateEdge->show();
             myAutoCreateOppositeEdge->show();
             myEditModeCreateEdge->setChecked(true);
-            myShowGrid->show();
+            myMenuCheckShowGrid->show();
             break;
         case GNE_MODE_MOVE:
-            myWarnAboutMerge->show();
-            myShowBubbleOverJunction->show();
+            myMenuCheckWarnAboutMerge->show();
+            myMenuCheckShowBubbleOverJunction->show();
             myEditModeMove->setChecked(true);
-            myShowGrid->show();
+            myMenuCheckShowGrid->show();
             break;
         case GNE_MODE_DELETE:
             myViewParent->getDeleteFrame()->show();
             myViewParent->getDeleteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getDeleteFrame();
-            myShowConnections->show();
+            myMenuCheckShowConnections->show();
             myMenuCheckSelectEdges->show();
             myEditModeDelete->setChecked(true);
             break;
@@ -1883,7 +1884,7 @@ GNEViewNet::updateModeSpecificControls() {
             myViewParent->getInspectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getInspectorFrame();
             myMenuCheckSelectEdges->show();
-            myShowConnections->show();
+            myMenuCheckShowConnections->show();
             myEditModeInspect->setChecked(true);
             break;
         case GNE_MODE_SELECT:
@@ -1891,8 +1892,8 @@ GNEViewNet::updateModeSpecificControls() {
             myViewParent->getSelectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getSelectorFrame();
             myMenuCheckSelectEdges->show();
-            myShowConnections->show();
-            myExtendToEdgeNodes->show();
+            myMenuCheckShowConnections->show();
+            myMenuCheckExtendToEdgeNodes->show();
             myEditModeSelect->setChecked(true);
             break;
         case GNE_MODE_CONNECT:
@@ -1905,7 +1906,7 @@ GNEViewNet::updateModeSpecificControls() {
             myViewParent->getTLSEditorFrame()->show();
             myViewParent->getTLSEditorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getTLSEditorFrame();
-            myChangeAllPhases->show();
+            myMenuCheckChangeAllPhases->show();
             myEditModeTrafficLight->setChecked(true);
             break;
         case GNE_MODE_ADDITIONAL:
@@ -1913,14 +1914,14 @@ GNEViewNet::updateModeSpecificControls() {
             myViewParent->getAdditionalFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getAdditionalFrame();
             myEditModeAdditional->setChecked(true);
-            myShowGrid->show();
+            myMenuCheckShowGrid->show();
             break;
         case GNE_MODE_CROSSING:
             myViewParent->getCrossingFrame()->show();
             myViewParent->getCrossingFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getCrossingFrame();
             myEditModeCrossing->setChecked(true);
-            myShowGrid->setCheck(false);
+            myMenuCheckShowGrid->setCheck(false);
             break;
         default:
             break;
@@ -2011,7 +2012,7 @@ GNEViewNet::mergeJunctions(GNEJunction* moved) {
     }
     if (mergeTarget) {
         // optionally ask for confirmation
-        if (myWarnAboutMerge->getCheck()) {
+        if (myMenuCheckWarnAboutMerge->getCheck()) {
             FXuint answer = FXMessageBox::question(this, MBOX_YES_NO,
                                                    "Confirm Junction Merger", "%s",
                                                    ("Do you wish to merge junctions '" + moved->getMicrosimID() +
