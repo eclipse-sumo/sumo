@@ -309,7 +309,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CONTPOS:
             return toString(nbCon.contPos);
         case SUMO_ATTR_UNCONTROLLED:
-            return toString(!getEdgeFrom()->getNBEdge()->mayBeTLSControlled(nbCon.fromLane, nbCon.toEdge, nbCon.toLane));
+            return toString(nbCon.uncontrolled);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return toString(nbCon.visibility);
         default:
@@ -355,8 +355,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CONTPOS:
             return canParse<double>(value);
         case SUMO_ATTR_UNCONTROLLED:
-            return false; // XXX see #2599
-        //return canParse<bool>(value);
+            return canParse<double>(value);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return isPositive<double>(value);
         default:
@@ -375,11 +374,9 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_KEEP_CLEAR:
             nbCon.keepClear = parse<bool>(value);
             break;
-        /*
         case SUMO_ATTR_UNCONTROLLED:
-        // XXX see @2599
-        break;
-        */
+            nbCon.uncontrolled = parse<bool>(value);
+            break;
         case SUMO_ATTR_CONTPOS:
             nbCon.contPos = parse<double>(value);
             break;
