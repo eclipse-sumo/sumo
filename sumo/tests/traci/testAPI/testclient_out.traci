@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Mar 27 15:04:37 2017
+TraCITestClient output file. Date: Sat Apr  1 21:33:20 2017
 
 
 -> Command sent: <SimulationStep2>:
@@ -28,7 +28,7 @@ testAPI:
     getSpeedMode: 31
     getSlope: 0.00
     getLine: S42
-    getVia: e_m1
+    getVia: e_shape1
     getMaxSpeed: 30.00
     getColor: 255r=255 g=255 b=0 a=128
     getNextTLS:
@@ -36,6 +36,7 @@ testAPI:
     moveToXY, simStep:
     getRoadID: e_m4
     getLaneID: e_m4_2
+    edges: e_m3 e_m4 e_m5 e_m6 e_shape1 e_vu2 e_m6 e_shape0 e_o1 e_o0
     add:
     getIDList: 0 1
     getWaitingTime: 0.00

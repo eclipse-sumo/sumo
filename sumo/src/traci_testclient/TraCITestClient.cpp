@@ -702,7 +702,7 @@ TraCITestClient::testAPI() {
     answerLog << "  vehicle:\n";
     vehicle.setLine("0", "S42");
     std::vector<std::string> via;
-    via.push_back("e_m1");
+    via.push_back("e_shape1");
     vehicle.setVia("0", via);
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
@@ -733,6 +733,8 @@ TraCITestClient::testAPI() {
     simulationStep();
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
+    vehicle.changeTarget("0", "e_o0");
+    answerLog << "    edges: " << joinToString(vehicle.getEdges("0"), " ") << "\n";
     answerLog << "    add:\n";
     vehicle.add("1", "e_u1");
     simulationStep();

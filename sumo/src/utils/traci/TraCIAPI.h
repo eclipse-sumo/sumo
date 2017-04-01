@@ -797,6 +797,7 @@ public:
                  int personCapacity = 0,
                  int personNumber = 0) const;
 
+        void changeTarget(const std::string& vehicleID, const std::string& edgeID) const;
         void moveTo(const std::string& vehicleID, const std::string& laneID, double position) const;
         void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) const;
         void slowDown(const std::string& vehicleID, double speed, int duration) const;

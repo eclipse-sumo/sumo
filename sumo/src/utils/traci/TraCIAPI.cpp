@@ -2191,6 +2191,15 @@ TraCIAPI::VehicleScope::remove(const std::string& vehicleID, char reason) const 
 
 }
 
+void
+TraCIAPI::VehicleScope::changeTarget(const std::string& vehicleID, const std::string& edgeID) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(edgeID);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, CMD_CHANGETARGET, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
 
 void
 TraCIAPI::VehicleScope::moveTo(const std::string& vehicleID, const std::string& laneID, double position) const {
