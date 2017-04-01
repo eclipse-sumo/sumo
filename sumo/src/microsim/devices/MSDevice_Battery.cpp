@@ -113,10 +113,10 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
         myParam[SUMO_ATTR_ANGLE] = myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
         myConsum = PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, veh.getSpeed(), veh.getAcceleration(), veh.getSlope(), &myParam);
 
-        // Energy lost/gained from vehicle movement (via vehicle energy model) [kWh]
+        // Energy lost/gained from vehicle movement (via vehicle energy model) [Wh]
         setActualBatteryCapacity(getActualBatteryCapacity() - myConsum);
 
-        // saturate between 0 and myMaximumBatteryCapacity [kWh]
+        // saturate between 0 and myMaximumBatteryCapacity [Wh]
         if (getActualBatteryCapacity() < 0) {
             setActualBatteryCapacity(0);
             if (getMaximumBatteryCapacity() > 0) {
@@ -168,7 +168,7 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
                 // Calulate energy charged
                 myEnergyCharged = myActChargingStation->getChargingPower() * myActChargingStation->getEfficency();
 
-                // Convert from [kWs] to [kWh] (3600s / 1h):
+                // Convert from [Ws] to [Wh] (3600s / 1h):
                 myEnergyCharged /= 3600;
 
                 // Update Battery charge
@@ -178,6 +178,8 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
                     setActualBatteryCapacity(getActualBatteryCapacity() + myEnergyCharged);
                 }
             }
+            // add charge value for output to myActChargingStation
+            myActChargingStation->addChargeValueForOutput(myEnergyCharged, this);
         }
     }
     // In other case, vehicle will be not charged
