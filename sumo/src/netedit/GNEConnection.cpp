@@ -355,7 +355,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CONTPOS:
             return canParse<double>(value);
         case SUMO_ATTR_UNCONTROLLED:
-            return canParse<double>(value);
+            return canParse<bool>(value);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return isPositive<double>(value);
         default:
