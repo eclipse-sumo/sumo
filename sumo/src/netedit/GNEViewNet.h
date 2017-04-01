@@ -230,6 +230,9 @@ public:
 
     /// @brief toogle show connections
     long onCmdToogleShowConnection(FXObject*, FXSelector, void*);
+    
+    /// @brief toogle selet edges
+    long onCmdToogleSelectEdges(FXObject*, FXSelector, void*);
 
     /// @brief toogle show bubbles
     long onCmdToogleShowBubbles(FXObject*, FXSelector, void*);
@@ -322,13 +325,16 @@ private:
     GNEFrame *myCurrentFrame;
 
     /// @brief menu check to select only edges
-    FXMenuCheck* mySelectEdges;
+    FXMenuCheck* myMenuCheckSelectEdges;
 
     /// @brief menu check to show connections
     FXMenuCheck* myShowConnections;
 
     /// @brief whether show connections has been activated once
     bool myShowConnectionActivated;
+
+    /// @brief flag to check if select edges is enabled
+    bool mySelectEdges;
 
     /// @brief menu check to extend to edge nodes
     FXMenuCheck* myExtendToEdgeNodes;

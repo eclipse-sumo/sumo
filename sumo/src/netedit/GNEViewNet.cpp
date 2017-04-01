@@ -115,6 +115,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NODE_SHAPE,              GNEViewNet::onCmdNodeShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NODE_REPLACE,            GNEViewNet::onCmdNodeReplace),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECT_EDGES,            GNEViewNet::onCmdToogleSelectEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_BUBBLES,            GNEViewNet::onCmdToogleShowBubbles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHOW_GRID,               GNEViewNet::onCmdShowGrid)
 };
@@ -347,7 +348,7 @@ GNEViewNet::setStatusBarText(const std::string& text) {
 
 bool
 GNEViewNet::selectEdges() {
-    return mySelectEdges->getCheck() != 0;
+    return myMenuCheckSelectEdges->getCheck() != 0;
 }
 
 
@@ -642,7 +643,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                 // Check if Control key is pressed
                 bool markElementMode = (((FXEvent*)data)->state & CONTROLMASK) != 0;
                 GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(pointed);
-                if (pointed_lane && mySelectEdges->getCheck()) {
+                if (pointed_lane && myMenuCheckSelectEdges->getCheck()) {
                     ac = pointed_edge;
                 }
                 if (ac) {
@@ -1704,6 +1705,17 @@ GNEViewNet::onCmdToogleShowConnection(FXObject*, FXSelector, void*) {
 }
 
 
+long 
+GNEViewNet::onCmdToogleSelectEdges(FXObject*, FXSelector, void*) {
+    if(myMenuCheckSelectEdges->getCheck()) {
+        mySelectEdges = true;
+    } else {
+        mySelectEdges = false;
+    }
+    return 1;
+}
+
+
 long
 GNEViewNet::onCmdToogleShowBubbles(FXObject*, FXSelector, void*) {
     // Update view net Shapes
@@ -1790,26 +1802,28 @@ GNEViewNet::buildEditModeControls() {
 
     // @ToDo add here new FXToolBarGrip(myNavigationToolBar, NULL, 0, GUIDesignToolbarGrip);
 
-
-
     // initialize mode specific controls
-    myChainCreateEdge = new FXMenuCheck(myToolbar, "chain\t\tCreate consecutive edges with a single click (hit ESC to cancel chain).", this, 0);
-    myAutoCreateOppositeEdge = new FXMenuCheck(myToolbar, "two-way\t\tAutomatically create an edge in the opposite direction", this, 0);
-    mySelectEdges = new FXMenuCheck(myToolbar, "select edges\t\tToggle whether clicking should select edges or lanes", this, 0);
-    mySelectEdges->setCheck();
+    myChainCreateEdge = new FXMenuCheck(myToolbar, ("chain\t\tCreate consecutive " + toString(SUMO_TAG_EDGE) + "s with a single click (hit ESC to cancel chain).").c_str(), this, 0);
+    myChainCreateEdge->setCheck(false);
+    
+    myAutoCreateOppositeEdge = new FXMenuCheck(myToolbar, ("two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(), this, 0);
+    myAutoCreateOppositeEdge->setCheck(false);
 
-    myShowConnections = new FXMenuCheck(myToolbar, "show connections\t\tToggle show connections over junctions", this, MID_GNE_SHOW_CONNECTIONS);
+    myMenuCheckSelectEdges = new FXMenuCheck(myToolbar, ("select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_SELECT_EDGES);
+    myMenuCheckSelectEdges->setCheck(true);
+
+    myShowConnections = new FXMenuCheck(myToolbar, ("show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, MID_GNE_SHOW_CONNECTIONS);
     myShowConnections->setCheck(false);
 
-    myExtendToEdgeNodes = new FXMenuCheck(myToolbar, "auto-select junctions\t\tToggle whether selecting multiple edges should automatically select their junctions", this, 0);
+    myExtendToEdgeNodes = new FXMenuCheck(myToolbar, ("auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, 0);
 
-    myWarnAboutMerge = new FXMenuCheck(myToolbar, "ask for merge\t\tAsk for confirmation before merging junctions.", this, 0);
+    myWarnAboutMerge = new FXMenuCheck(myToolbar, ("ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), this, 0);
     myWarnAboutMerge->setCheck(true);
 
-    myShowBubbleOverJunction = new FXMenuCheck(myToolbar, "Show bubbles over junction \t\tShow bubbles over juntion's shapes.", this, MID_GNE_SHOW_BUBBLES);
+    myShowBubbleOverJunction = new FXMenuCheck(myToolbar, ("Show bubbles over " + toString(SUMO_TAG_JUNCTION) + "s \t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(), this, MID_GNE_SHOW_BUBBLES);
     myShowBubbleOverJunction->setCheck(false);
 
-    myChangeAllPhases = new FXMenuCheck(myToolbar, "apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current traffic light plan", this, 0);
+    myChangeAllPhases = new FXMenuCheck(myToolbar, ("apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " plan").c_str(), this, 0);
     myChangeAllPhases->setCheck(false);
 
     myShowGrid = new FXMenuCheck(myToolbar, "show grid\t\tshow grid with size defined in visualization options", this, MID_GNE_SHOW_GRID);
@@ -1824,7 +1838,7 @@ GNEViewNet::updateModeSpecificControls() {
     // hide all controls (checkboxs)
     myChainCreateEdge->hide();
     myAutoCreateOppositeEdge->hide();
-    mySelectEdges->hide();
+    myMenuCheckSelectEdges->hide();
     myShowConnections->hide();
     myExtendToEdgeNodes->hide();
     myChangeAllPhases->hide();
@@ -1860,15 +1874,15 @@ GNEViewNet::updateModeSpecificControls() {
             myViewParent->getDeleteFrame()->show();
             myViewParent->getDeleteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getDeleteFrame();
-            mySelectEdges->show();
             myShowConnections->show();
+            myMenuCheckSelectEdges->show();
             myEditModeDelete->setChecked(true);
             break;
         case GNE_MODE_INSPECT:
             myViewParent->getInspectorFrame()->show();
             myViewParent->getInspectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getInspectorFrame();
-            mySelectEdges->show();
+            myMenuCheckSelectEdges->show();
             myShowConnections->show();
             myEditModeInspect->setChecked(true);
             break;
@@ -1876,7 +1890,7 @@ GNEViewNet::updateModeSpecificControls() {
             myViewParent->getSelectorFrame()->show();
             myViewParent->getSelectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getSelectorFrame();
-            mySelectEdges->show();
+            myMenuCheckSelectEdges->show();
             myShowConnections->show();
             myExtendToEdgeNodes->show();
             myEditModeSelect->setChecked(true);
@@ -1941,7 +1955,7 @@ GNEViewNet::deleteSelectedJunctions() {
 
 void
 GNEViewNet::deleteSelectedEdges() {
-    if (mySelectEdges->getCheck()) {
+    if (mySelectEdges) {
         myUndoList->p_begin("delete selected " + toString(SUMO_TAG_EDGE) + "s");
         std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
         for (std::vector<GNEEdge*>::iterator it = edges.begin(); it != edges.end(); it++) {

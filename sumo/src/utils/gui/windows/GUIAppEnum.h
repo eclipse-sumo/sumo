@@ -561,6 +561,8 @@ enum {
     MID_GNE_INSERT_NETWORK,
     /// @brief show connections
     MID_GNE_SHOW_CONNECTIONS,
+    /// @brief select edges
+    MID_GNE_SELECT_EDGES,
     /// @brief show junctions as bubbles
     MID_GNE_SHOW_BUBBLES,
     /// @brief show grid
