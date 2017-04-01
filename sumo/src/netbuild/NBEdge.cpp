@@ -98,12 +98,12 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     visibility(UNSPECIFIED_VISIBILITY_DISTANCE),
     id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
     haveVia(false),
-    internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX)
+    internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX),
+    uncontrolled(false) {
+}
 
-{}
 
-
-NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_, double visibility_, bool haveVia_) :
+NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_, double visibility_, bool haveVia_, bool uncontrolled_) :
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
@@ -113,8 +113,10 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     visibility(visibility_),
     id(toEdge_ == 0 ? "" : toEdge->getFromNode()->getID()),
     haveVia(haveVia_),
-    internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX) {
+    internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX),
+    uncontrolled(uncontrolled_) {
 }
+
 
 NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
     speed(e->getSpeed()),
@@ -123,8 +125,7 @@ NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
     endOffset(e->getEndOffset()), width(e->getLaneWidth()),
     origID(origID_),
     accelRamp(false),
-    connectionsDone(false)
-{
+    connectionsDone(false) {
 }
 
 

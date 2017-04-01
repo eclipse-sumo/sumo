@@ -174,7 +174,8 @@ public:
                    bool keepClear_ = true,
                    double contPos_ = UNSPECIFIED_CONTPOS,
                    double visibility_ = UNSPECIFIED_VISIBILITY_DISTANCE,
-                   bool haveVia_ = false);
+                   bool haveVia_ = false,
+                   bool uncontrolled_ = false);
 
         /// @brief destructor
         ~Connection() { }
@@ -238,6 +239,9 @@ public:
 
         /// @brief The lane index of this internal lane within the internal edge
         int internalLaneIndex;
+
+        /// @brief check if Connection is uncontrolled
+        bool uncontrolled;
 
         /// @brief get ID of internal lane
         std::string getInternalLaneID() const;
