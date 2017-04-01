@@ -103,6 +103,7 @@ full:<!--{[->]}-->
 queue:<!--{[->]}-->
 emissions:<!--{[->]}-->
 battery:<!--{[->]}-->
+chargingstations:<!--{[->]}-->
 links:<!--{[->]}-->
 vtk:<!--{[->]}-->
 vehroutes_ignore_arrival:<!--{[->]}-->
