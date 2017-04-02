@@ -196,7 +196,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
             }
             // if there are flows that has route to remove as "route" parameter
             if (calibratorFlowsToErase.size() > 0) {
-                FXuint answer = FXMessageBox::question(myCalibratorParent->getViewNet()->getApp(), MBOX_YES_NO, ("Remove " + toString(SUMO_TAG_FLOW) + "s").c_str(),
+                FXuint answer = FXMessageBox::question(myCalibratorParent->getViewNet()->getApp(), MBOX_YES_NO, ("Remove " + toString(SUMO_TAG_FLOW) + "s").c_str(), "%s",
                                                       ("Deletion of " + toString(SUMO_TAG_ROUTE) + " '" + myRouteList->getItem(i, 0)->getText().text() + 
                                                        "' will remove " + toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW) + (calibratorFlowsToErase.size() > 1?("s"):("")) + 
                                                        ". Continue?").c_str());
@@ -326,7 +326,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
             }
             // if there are flows that has vehicle type to remove as "vehicle type" parameter
             if (calibratorFlowsToErase.size() > 0) {
-                FXuint answer = FXMessageBox::question(myCalibratorParent->getViewNet()->getApp(), MBOX_YES_NO, ("Remove " + toString(SUMO_TAG_FLOW) + "s").c_str(),
+                FXuint answer = FXMessageBox::question(myCalibratorParent->getViewNet()->getApp(), MBOX_YES_NO, ("Remove " + toString(SUMO_TAG_FLOW) + "s").c_str(), "%s",
                                                       ("Deletion of " + toString(SUMO_TAG_ROUTE) + " '" + myRouteList->getItem(i, 0)->getText().text() + 
                                                        "' will remove " + toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW) + (calibratorFlowsToErase.size() > 1?("s"):("")) + 
                                                        ". Continue?").c_str());

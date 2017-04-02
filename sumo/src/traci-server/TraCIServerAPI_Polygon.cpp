@@ -97,7 +97,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeUnsignedByte(TYPE_POLYGON);
                 TraCIPositionVector tp = TraCI_Polygon::getShape(id);
                 tempMsg.writeUnsignedByte((int) tp.size());
-                for (int iPoint = 0; iPoint<tp.size(); ++iPoint) {
+                for (int iPoint = 0; iPoint<(int)tp.size(); ++iPoint) {
                     tempMsg.writeDouble(tp[iPoint].x);
                     tempMsg.writeDouble(tp[iPoint].y);
                 }
