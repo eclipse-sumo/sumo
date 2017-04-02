@@ -390,6 +390,7 @@ public:
 
     /// @brief try to set the given parameter for this laneChangeModel. Throw exception for unsupported key
     virtual void setParameter(const std::string& key, const std::string& value) {
+        UNUSED_PARAMETER(value);
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
 

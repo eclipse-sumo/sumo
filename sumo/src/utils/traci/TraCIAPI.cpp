@@ -49,9 +49,10 @@ const double TraCIAPI::DEPART_NOW = -3;
 #endif
 TraCIAPI::TraCIAPI()
     : edge(*this), gui(*this), inductionloop(*this),
-      junction(*this), lane(*this), lanearea(*this), multientryexit(*this), poi(*this),
-      polygon(*this), route(*this), simulation(*this), trafficlights(*this),
-      vehicletype(*this), vehicle(*this), person(*this),
+      junction(*this), lane(*this), lanearea(*this), multientryexit(*this),
+      person(*this), poi(*this), polygon(*this), route(*this),
+      simulation(*this), trafficlights(*this),
+      vehicle(*this), vehicletype(*this),
       mySocket(0) {}
 #ifdef _MSC_VER
 #pragma warning(pop)

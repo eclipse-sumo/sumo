@@ -760,13 +760,6 @@ public:
         std::string getShapeClass(const std::string& vehicleID) const;
 
         /* /// not yet implemented
-        double getCO2Emissions(const std::string& vehicleID) const;
-        double getCOEmissions(const std::string& vehicleID) const;
-        double getHCEmissions(const std::string& vehicleID) const;
-        double getPMxEmissions(const std::string& vehicleID) const;
-        double getNOxEmissions(const std::string& vehicleID) const;
-        double getFuelConsumption(const std::string& vehicleID) const;
-        double getNoiseEmission(const std::string& vehicleID) const;
         int getBestLanes(const std::string& vehicleID) const;
         int getStopState(const std::string& vehicleID) const;
         double getLength(const std::string& vehicleID) const;
@@ -891,10 +884,10 @@ public:
     SimulationScope simulation;
     /// @brief Scope for interaction with traffic lights
     TrafficLightScope trafficlights;
-    /// @brief Scope for interaction with vehicle types
-    VehicleTypeScope vehicletype;
     /// @brief Scope for interaction with vehicles
     VehicleScope vehicle;
+    /// @brief Scope for interaction with vehicle types
+    VehicleTypeScope vehicletype;
 
 
 protected:

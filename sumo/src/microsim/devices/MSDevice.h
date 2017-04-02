@@ -156,6 +156,7 @@ public:
 
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
     virtual void setParameter(const std::string& key, const std::string& value) {
+        UNUSED_PARAMETER(value);
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
 
