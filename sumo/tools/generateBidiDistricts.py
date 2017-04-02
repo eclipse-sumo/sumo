@@ -35,10 +35,8 @@ def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <netfile> [options]"
     optParser = OptionParser()
     optParser.add_option("-o", "--outfile", help="name of output file")
-    optParser.add_option(
-        "-r", "--radius", type=float, default=10., help="radius around the edge")
-    optParser.add_option("-t", "--travel-distance", action="store_true",
-                         default=False, help="use travel distance in the graph")
+    optParser.add_option("-r", "--radius", type=float, default=10., help="maximum air distance around the edge")
+    optParser.add_option("-t", "--travel-distance", type=float, help="maximum travel distance in the graph")
     optParser.add_option("--symmetrical", action="store_true",
                          default=False, help="extend the bidi-relationship to be symmetrical")
     options, args = optParser.parse_args()
@@ -74,15 +72,15 @@ def computeBidiTazAsymByRadius(edge, net, radius):
     return ASYM_BIDI_CACHE[edge]
 
 
-def computeAllBidiTaz(net, radius, useTravelDist, symmetrical):
+def computeAllBidiTaz(net, radius, travelDist, symmetrical):
     for edge in net.getEdges():
-        if useTravelDist:
-            opposites = set()
+        travelOpposites = set()
+        if travelDist is not None:
             queue = [(edge, -1.)]
             while not len(queue) == 0:
                 edge2, dist = queue.pop()
-                if edge2 not in opposites and dist < radius:
-                    opposites.add(edge2)
+                if edge2 not in travelOpposites and dist < travelDist:
+                    travelOpposites.add(edge2)
                     if dist == -1.:
                         dist = 0.
                     else:
@@ -91,7 +89,7 @@ def computeAllBidiTaz(net, radius, useTravelDist, symmetrical):
                     fromN = edge2.getFromNode()
                     for e in toN.getOutgoing() + toN.getIncoming() + fromN.getOutgoing() + fromN.getIncoming():
                         queue.append((e, dist))
-        else:
+        if radius is not None and radius > 0.:
             opposites = computeBidiTazAsymByRadius(edge, net, radius)
             if symmetrical:
                 candidates = reduce(
@@ -99,17 +97,18 @@ def computeAllBidiTaz(net, radius, useTravelDist, symmetrical):
                 for cand in candidates:
                     if edge in computeBidiTazAsymByRadius(cand, net, radius):
                         opposites.add(cand)
+            travelOpposites.update(opposites)
 
-        yield edge, opposites
+        yield edge, travelOpposites
 
 
-def main(netFile, outFile, radius, useTravelDist, symmetrical):
+def main(netFile, outFile, radius, travelDist, symmetrical):
     net = sumolib.net.readNet(netFile, withConnections=False, withFoes=False)
     with open(outFile, 'w') as outf:
         sumolib.writeXMLHeader(
             outf, "$Id$")
         outf.write('<tazs>\n')
-        for taz, edges in computeAllBidiTaz(net, radius, useTravelDist, symmetrical):
+        for taz, edges in computeAllBidiTaz(net, radius, travelDist, symmetrical):
             outf.write('    <taz id="%s" edges="%s"/>\n' % (
                 taz.getID(), ' '.join(sorted([e.getID() for e in edges]))))
         outf.write('</tazs>\n')
