@@ -360,7 +360,7 @@ GNEViewNet::showConnections() {
     } else if (myMenuCheckShowConnections->shown() == false) {
         return false;
     } else {
-        return myMenuCheckShowConnections->getCheck();
+        return (myMenuCheckShowConnections->getCheck() != 0);
     }
 }
 
