@@ -3,7 +3,7 @@
 @file    routeUsage.py.py
 @author  Jakob Erdmann
 @date    2017-03-30
-@version $Id: routeUsage.py.py 23688 2017-03-28 12:16:12Z behrisch $
+@version $Id$
 
 This script computes route usage statistics from emitters.
 

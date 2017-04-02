@@ -2,7 +2,7 @@
 /// @file    NBPtStop.h
 /// @author  Gregor Laemmel
 /// @date    Tue, 20 Mar 2017
-/// @version $Id: NBPtStopCont.h 23150 2017-02-27 12:08:30Z behrisch $
+/// @version $Id$
 ///
 // The representation of a single pt stop
 /****************************************************************************/

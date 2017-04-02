@@ -2,7 +2,7 @@
 /// @file    GNECalibratorVehicleTypeDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2017
-/// @version $Id: GNECalibratorVehicleTypeDialog.h 23521 2017-03-17 14:40:17Z palcraft $
+/// @version $Id$
 ///
 /// Dialog for edit calibrator vehicleTypes
 /****************************************************************************/

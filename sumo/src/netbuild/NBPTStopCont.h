@@ -2,7 +2,7 @@
 /// @file    NBPTStopCont.h
 /// @author  Gregor Laemmel
 /// @date    Tue, 20 Mar 2017
-/// @version $Id: NBPTStopCont.h 23150 2017-02-27 12:08:30Z behrisch $
+/// @version $Id$
 ///
 // Container for pt stops during the netbuilding process
 /****************************************************************************/
