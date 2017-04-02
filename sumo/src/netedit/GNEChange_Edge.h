@@ -34,6 +34,7 @@
 #include <utils/foxtools/fxexdefs.h>
 #include <vector>
 #include <map>
+#include <netbuild/NBEdge.h>
 #include "GNEChange.h"
 
 // ===========================================================================
@@ -98,6 +99,12 @@ private:
 
     /// @brief we need to preserve the additional sets in which the edge of lanes are childs
     std::map<GNELane*, std::vector<GNEAdditional*> > myAdditionalsLanes;
+
+     /// @brief we need to preserve the previous connections from incoming edges of junction source
+    std::map<GNEEdge*, std::vector<NBEdge::Connection> > myEdgesIncomingConnections;
+
+    /// @brief we need to preserve the previous connections from outgoing edges of junction destiny
+    std::map<GNEEdge*, std::vector<NBEdge::Connection> > myEdgesOutgoingConnections;
 };
 
 #endif
