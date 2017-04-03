@@ -69,14 +69,10 @@ public:
      * @param[in] x x-position to show the dialog at
      * @param[in] y y-position to show the dialog at
      */
-    GUIDialog_EditViewport(GUISUMOAbstractView* parent,  const char* name,
-                           int x, int y);
-
+    GUIDialog_EditViewport(GUISUMOAbstractView* parent,  const char* name, int x, int y);
 
     /// @brief Destructor
     ~GUIDialog_EditViewport();
-
-
 
     /// @name FOX-callbacks
     /// @{
