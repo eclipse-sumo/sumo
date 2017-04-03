@@ -1745,12 +1745,12 @@ MSLCM_SL2015::checkBlockingVehicles(
                           << " secGap=" << follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
                           << " foeRight=" << foeRight
                           << " foeLeft=" << foeLeft
-                          << " rightVehSide=" << rightVehSide
-                          << " leftVehSide=" << leftVehSide
+                          << " vehRight=" << rightVehSide
+                          << " vehLeft=" << leftVehSide
                           << " rightNoOverlap=" << rightNoOverlap
                           << " leftNoOverlap=" << leftNoOverlap
-                          << " rightVehSideDest=" << rightVehSideDest
-                          << " leftVehSideDest=" << leftVehSideDest
+                          << " destRight=" << rightVehSideDest
+                          << " destLeft=" << leftVehSideDest
                           << " overlapBefore=" << overlap(rightVehSide, leftVehSide, foeRight, foeLeft)
                           << " overlap=" << overlap(rightNoOverlap, leftNoOverlap, foeRight, foeLeft)
                           << " overlapDest=" << overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)
@@ -2176,15 +2176,15 @@ MSLCM_SL2015::keepLatGap(int state,
         blocked = checkBlocking(neighLane, latDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, true);
     }
     // if we cannot move in the desired direction, consider the maneuver blocked anyway
-    /*
-    if (state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN) != 0) {
-        if (latDist < NUMERICAL_EPS && oldLatDist > NUMERICAL_EPS) {
+    if ((state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN)) != 0) {
+        if ((latDist < -NUMERICAL_EPS) && (oldLatDist > NUMERICAL_EPS)) {
+            if (gDebugFlag2) std::cout << "     wanted changeToLeft oldLatDist=" << oldLatDist << ", blocked latGap changeToRight\n";
             blocked |= LCA_OVERLAPPING | LCA_BLOCKED_RIGHT;
-        } else if (latDist > NUMERICAL_EPS && oldLatDist < NUMERICAL_EPS) {
+        } else if ((latDist > NUMERICAL_EPS) && (oldLatDist < -NUMERICAL_EPS)) {
+            if (gDebugFlag2) std::cout << "     wanted changeToRight oldLatDist=" << oldLatDist << ", blocked latGap changeToLeft\n";
             blocked |= LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
         }
     }
-    */
     if (latDist != 0) {
         state = (state & ~LCA_STAY);
     }
