@@ -134,6 +134,15 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
 }
 
 
+void 
+MSLeaderInfo::getSublaneBorders(int sublane, double latOffset, double& rightSide, double& leftSide) const {
+    assert(sublane >= 0);
+    assert(sublane < myVehicles.size());
+    rightSide = sublane * MSGlobals::gLateralResolution + latOffset;
+    leftSide = MIN2((sublane + 1) * MSGlobals::gLateralResolution, myWidth) + latOffset;
+}
+
+
 const MSVehicle*
 MSLeaderInfo::operator[](int sublane) const {
     assert(sublane >= 0);

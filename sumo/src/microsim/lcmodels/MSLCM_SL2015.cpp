@@ -1730,9 +1730,9 @@ MSLCM_SL2015::checkBlockingVehicles(
         if (vehDist.first != 0) {
             // only check the current stripe occuped by foe (transform into edge-coordinates)
             const double res = MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : vehDist.first->getLane()->getWidth();
-            const double foeRight = i * res + foeOffset;
-            const double foeLeft = foeRight + res;
-            if (gDebugFlag2 && false) {
+            double foeRight, foeLeft;
+            vehicles.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
+            if (gDebugFlag2) {
                 const MSVehicle* leader = vehDist.first;
                 const MSVehicle* follower = ego;
                 if (!leaders) {
@@ -1745,10 +1745,13 @@ MSLCM_SL2015::checkBlockingVehicles(
                           << " secGap=" << follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
                           << " foeRight=" << foeRight
                           << " foeLeft=" << foeLeft
+                          << " rightVehSide=" << rightVehSide
+                          << " leftVehSide=" << leftVehSide
                           << " rightNoOverlap=" << rightNoOverlap
                           << " leftNoOverlap=" << leftNoOverlap
                           << " rightVehSideDest=" << rightVehSideDest
                           << " leftVehSideDest=" << leftVehSideDest
+                          << " overlapBefore=" << overlap(rightVehSide, leftVehSide, foeRight, foeLeft)
                           << " overlap=" << overlap(rightNoOverlap, leftNoOverlap, foeRight, foeLeft)
                           << " overlapDest=" << overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)
                           << "\n";
@@ -2098,6 +2101,7 @@ MSLCM_SL2015::keepLatGap(int state,
     if (gDebugFlag2) {
         std::cout << "    keepLatGap laneOffset=" << laneOffset
                   << " latDist=" << latDist
+                  << " state=" << toString((LaneChangeAction)state)
                   << " gapFactor=" << gapFactor
                   << " stayInLane=" << stayInLane << "\n"
                   << "       stayInEdge: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n";
@@ -2161,12 +2165,6 @@ MSLCM_SL2015::keepLatGap(int state,
         // sufficient space. move as far as the gaps permit
         latDist = MAX2(MIN2(latDist, surplusGapLeft), -surplusGapRight);
     }
-    // if we cannot move in the desired direction, consider the maneuver blocked
-    if (latDist < NUMERICAL_EPS && oldLatDist > NUMERICAL_EPS) {
-        blocked |= LCA_OVERLAPPING | LCA_BLOCKED_RIGHT;
-    } else if (latDist > NUMERICAL_EPS && oldLatDist < NUMERICAL_EPS) {
-        blocked |= LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
-    }
     // take into account overriding traci sublane-request
     if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0) {
         // @note: the influence is reset in MSAbstractLaneChangeModel::setOwnState at the end of the lane-changing code for this vehicle
@@ -2177,11 +2175,22 @@ MSLCM_SL2015::keepLatGap(int state,
         if (gDebugFlag2) std::cout << "     latDistUpdated=" << (oldLatDist - latDist) << "\n";
         blocked = checkBlocking(neighLane, latDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, true);
     }
+    // if we cannot move in the desired direction, consider the maneuver blocked anyway
+    /*
+    if (state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN) != 0) {
+        if (latDist < NUMERICAL_EPS && oldLatDist > NUMERICAL_EPS) {
+            blocked |= LCA_OVERLAPPING | LCA_BLOCKED_RIGHT;
+        } else if (latDist > NUMERICAL_EPS && oldLatDist < NUMERICAL_EPS) {
+            blocked |= LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
+        }
+    }
+    */
     if (latDist != 0) {
         state = (state & ~LCA_STAY);
     }
     if (gDebugFlag2) {
         std::cout << "       latDist2=" << latDist
+                  << " state2=" << toString((LaneChangeAction)state)
                   << " lastGapLeft=" << myLastLateralGapLeft
                   << " lastGapRight=" << myLastLateralGapRight
                   << " blockedAfter=" << toString((LaneChangeAction)blocked)
@@ -2202,12 +2211,13 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                 /// foe vehicle occupies full sublanes
                 const MSVehicle* foe = others[i].first;
                 const double res = MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : others[i].first->getLane()->getWidth();
-                const double foeRight = i * res + foeOffset;
-                const double foeLeft = foeRight + res;
+                double foeRight, foeLeft;
+                others.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
                 const double foeCenter = foeRight + 0.5 * res;
                 const double gap = MIN2(fabs(foeRight - oldCenter), fabs(foeLeft - oldCenter)) - halfWidth;
                 const double currentMinGap = baseMinGap * MIN2(1.0, MAX2(myVehicle.getSpeed(), (double)fabs(myVehicle.getSpeed() - foe->getSpeed())) / LATGAP_SPEED_THRESHOLD) * gapFactor;
                 if (gDebugFlag2) std::cout << "  updateGaps"
+                                                        << " i=" << i
                                                         << " foe=" << foe->getID()
                                                         << " foeRight=" << foeRight
                                                         << " foeLeft=" << foeLeft

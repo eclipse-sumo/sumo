@@ -75,10 +75,19 @@ public:
 
     /* @brief returns sublanes occupied by veh
      * @param[in] veh The vehicle to check
+     * @param[in] latOffset The offset value to add to the vehicle position
      * @param[out] rightmost The rightmost sublane occupied by veh
      * @param[out] leftmost The rightmost sublane occupied by veh
      */
     void getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost, int& leftmost) const;
+
+    /* @brief returns the sublane boundaries of the ith sublane
+     * @param[in] sublane The sublane to check
+     * @param[in] latOffset The offset value to add to the result
+     * @param[out] rightSide The right border of the given sublane
+     * @param[out] leftSide The left border of the given sublane
+     */
+    void getSublaneBorders(int sublane, double latOffset, double& rightSide, double& leftSide) const;
 
     /// @brief return the vehicle for the given sublane
     const MSVehicle* operator[](int sublane) const;
