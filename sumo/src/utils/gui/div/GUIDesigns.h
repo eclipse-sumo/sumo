@@ -76,10 +76,13 @@
 /// @name FXButtons for toolbar
 /// @{
 /// @brief little button with text placed in navigation toolbar
-#define GUIDesignButtonToolbarText      (BUTTON_TOOLBAR | ICON_ABOVE_TEXT | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_Y | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23
+#define GUIDesignButtonToolbarText      (BUTTON_TOOLBAR | ICON_BEFORE_TEXT | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_Y | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23
 
 /// @brief little button with icon placed in navigation toolbar
-#define GUIDesignButtonToolbar          (BUTTON_TOOLBAR | ICON_ABOVE_TEXT | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+#define GUIDesignButtonToolbar          (BUTTON_TOOLBAR | ICON_BEFORE_TEXT | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+
+/// @brief little button with text and icon
+#define GUIDesignButtonToolbarWithText  (BUTTON_TOOLBAR | ICON_BEFORE_TEXT | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, 23
 
 /// @brief little checkable button with icon placed in navigation toolbar used specify for Locator
 #define GUIDesignButtonToolbarLocator   (BUTTON_TOOLBAR | MENUBUTTON_RIGHT | LAYOUT_TOP | FRAME_RAISED | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
@@ -199,6 +202,9 @@
 /// @{
 /// @brief Horizontal frame extended over frame parent
 #define GUIDesignHorizontalFrame            (LAYOUT_FILL_X)
+
+/// @brief Horizontal frame used for pack icons
+#define GUIDesignHorizontalFrameIcons       (LAYOUT_FILL_X | FRAME_THICK), 0, 0, 0, 0, 0, 0, 0, 0, 2, 2
 
 /// @brief Horizontal frame used in status bar
 #define GUIDesignHorizontalFrameStatusBar   (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN), 0, 0, 20, 0, 0, 0, 0, 0, 0, 0
