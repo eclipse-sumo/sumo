@@ -136,7 +136,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myPreviousEditMode(GNE_MODE_MOVE),
     myCurrentFrame(0),
     myShowConnections(false),
-    mySelectEdges(false),
+    mySelectEdges(true),
     myCreateEdgeSource(0),
     myJunctionToMove(0),
     myEdgeToMove(0),
