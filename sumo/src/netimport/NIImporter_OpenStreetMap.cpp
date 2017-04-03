@@ -437,7 +437,6 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     int numLanesBackward = tc.getNumLanes(type);
     double speed = tc.getSpeed(type);
     bool defaultsToOneWay = tc.getIsOneWay(type);
-//    if (e->getParameter("railway:preferred_direction","") == "both")
     SVCPermissions forwardPermissions = tc.getPermissions(type);
     SVCPermissions backwardPermissions = tc.getPermissions(type);
     double forwardWidth = tc.getWidth(type);
