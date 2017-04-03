@@ -1204,9 +1204,9 @@ MSLCM_SL2015::_wantsChangeSublane(
             if (gDebugFlag2) {
                 std::cout << "    i=" << i << " rightmostOnEdge=" << rightmostOnEdge << " vMin=" << vMin << " relGain=" << relativeGain << " sublaneCompact=" << sublaneCompact << "\n";
             }
-            if (i < rightmostOnEdge) {
+            if (latDist < 0) {
                 maxGainRight = MAX2(maxGainRight, relativeGain);
-            } else if (i > rightmostOnEdge) {
+            } else if (latDist > 0) {
                 maxGainLeft = MAX2(maxGainLeft, relativeGain);
             }
             const double subAlignDist = sublaneSides[i] - rightVehSide;
