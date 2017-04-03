@@ -747,6 +747,11 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
             // connections to removed edges will be ignored
             for (std::vector<NBEdge::Connection>::iterator k = conns.begin(); k != conns.end(); ++k) {
                 e->addLane2LaneConnection((*k).fromLane, (*k).toEdge, (*k).toLane, NBEdge::L2L_USER, false, (*k).mayDefinitelyPass);
+                if ((*k).fromLane >= 0 && (*k).fromLane < e->getNumLanes() && e->getLaneStruct((*k).fromLane).connectionsDone) {
+                    // @note (see NIImporter_DlrNavteq::ConnectedLanesHandler)
+                    std::cout << " e=" << e->getID() << " declareConnectionsAsLoaded\n";
+                    e->declareConnectionsAsLoaded(NBEdge::INIT);
+                }
             }
         }
         // remove original nodes
