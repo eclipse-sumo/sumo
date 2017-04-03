@@ -31,7 +31,7 @@
 #include "GNENet.h"
 #include "GNEEdge.h"
 #include "GNELane.h"
-#include "GNEJunction.h"
+
 
 // ===========================================================================
 // FOX-declarations
@@ -51,16 +51,6 @@ GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
     edge->incRef("GNEChange_Edge");
     // Save additionals of edge
     myAdditionalChilds = myEdge->getAdditionalChilds();
-    // get connections from incoming edges of junction source
-    const std::vector<GNEEdge*> &incomingEdges = myEdge->getGNEJunctionSource()->getGNEIncomingEdges();
-    for(std::vector<GNEEdge*>::const_iterator i = incomingEdges.begin(); i != incomingEdges.end(); i++) {
-        myEdgesIncomingConnections[*i] = (*i)->getNBEdge()->getConnections();
-    }
-    // get connections from outgoing edges of junction source
-    const std::vector<GNEEdge*> &outgoingEdges = myEdge->getGNEJunctionSource()->getGNEOutgoingEdges();
-    for(std::vector<GNEEdge*>::const_iterator i = outgoingEdges.begin(); i != outgoingEdges.end(); i++) {
-        myEdgesOutgoingConnections[*i] = (*i)->getNBEdge()->getConnections();
-    }
 }
 
 
@@ -87,14 +77,6 @@ GNEChange_Edge::undo() {
         for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
             myNet->insertAdditional(*i);
         }
-        // 2 restore connections of incoming edges
-        for(std::map<GNEEdge*, std::vector<NBEdge::Connection> >::const_iterator i = myEdgesIncomingConnections.begin(); i != myEdgesIncomingConnections.end(); i++) {
-            i->first->getNBEdge()->getConnections() = i->second;
-        }
-        // 3 restore connections of outgoing edges
-        for(std::map<GNEEdge*, std::vector<NBEdge::Connection> >::const_iterator i = myEdgesOutgoingConnections.begin(); i != myEdgesOutgoingConnections.end(); i++) {
-            i->first->getNBEdge()->getConnections() = i->second;
-        }
     }
 }
 
@@ -106,14 +88,6 @@ GNEChange_Edge::redo() {
         // 1 - Add additional sets vinculated with this edge to the net
         for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
             myNet->insertAdditional(*i);
-        }
-        // 2 restore connections of incoming edges
-        for(std::map<GNEEdge*, std::vector<NBEdge::Connection> >::const_iterator i = myEdgesIncomingConnections.begin(); i != myEdgesIncomingConnections.end(); i++) {
-            i->first->getNBEdge()->getConnections() = i->second;
-        }
-        // 3 restore connections of outgoing edges
-        for(std::map<GNEEdge*, std::vector<NBEdge::Connection> >::const_iterator i = myEdgesOutgoingConnections.begin(); i != myEdgesOutgoingConnections.end(); i++) {
-            i->first->getNBEdge()->getConnections() = i->second;
         }
     } else {
         myNet->deleteSingleEdge(myEdge);

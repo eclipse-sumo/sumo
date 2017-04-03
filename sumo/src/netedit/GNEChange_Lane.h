@@ -95,12 +95,6 @@ private:
 
     /// @brief we need to preserve the list of additional sets in which this lane is a child
     std::vector<GNEAdditional*> myAdditionalParents;
-
-     /// @brief we need to preserve the previous connections from incoming edges of junction source
-    std::map<GNEEdge*, std::vector<NBEdge::Connection> > myEdgesIncomingConnections;
-
-    /// @brief we need to preserve the previous connections from outgoing edges of junction destiny
-    std::map<GNEEdge*, std::vector<NBEdge::Connection> > myEdgesOutgoingConnections;
 };
 
 #endif
