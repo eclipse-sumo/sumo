@@ -78,5 +78,5 @@ configure_file(config.h.cmake config.h)
 
 add_custom_command(OUTPUT version.h
                    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/../tools/build/version.py ${CMAKE_CURRENT_SOURCE_DIR}
-                   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../.svn/wc.db
+#                   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../.svn/wc.db
                    )
