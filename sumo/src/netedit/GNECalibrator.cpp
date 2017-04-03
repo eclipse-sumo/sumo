@@ -390,7 +390,6 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     glLineWidth(1.0);
     const double exaggeration = s.addSize.getExaggeration(s);
 
-    glPushName(getGlID());
     for (int i = 0; i < (int)myShape.size(); ++i) {
         const Position& pos = myShape[i];
         double rot = myShapeRotations[i];
