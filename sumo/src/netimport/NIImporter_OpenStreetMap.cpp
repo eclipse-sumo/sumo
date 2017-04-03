@@ -437,6 +437,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     int numLanesBackward = tc.getNumLanes(type);
     double speed = tc.getSpeed(type);
     bool defaultsToOneWay = tc.getIsOneWay(type);
+//    if (e->getParameter("railway:preferred_direction","") == "both")
     SVCPermissions forwardPermissions = tc.getPermissions(type);
     SVCPermissions backwardPermissions = tc.getPermissions(type);
     double forwardWidth = tc.getWidth(type);
@@ -447,7 +448,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     bool addForward = true;
     bool addBackward = true;
     if (e->myIsOneWay == "true" || e->myIsOneWay == "yes" || e->myIsOneWay == "1"
-            || (defaultsToOneWay && e->myIsOneWay != "no" && e->myIsOneWay != "false" && e->myIsOneWay != "0")) {
+            || (defaultsToOneWay && e->myIsOneWay != "no" && e->myIsOneWay != "false" && e->myIsOneWay != "0" &&
+                    e->getParameter("railway:preferred_direction","") != "both")) {
         addBackward = false;
     }
     if (e->myIsOneWay == "-1" || e->myIsOneWay == "reverse") {
@@ -810,7 +812,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes")
                 && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks" && key != "layer" && key != "route"
-                && key != "postal_code") {
+                && key != "postal_code" && key != "railway:preferred_direction") {
             return;
         }
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
@@ -939,6 +941,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             }
         } else if (key == "postal_code") {
             myCurrentEdge->addParameter(key, value);
+        } else if (key == "railway:preferred_direction") {
+            myCurrentEdge->addParameter(key,value);
         }
     }
 }
