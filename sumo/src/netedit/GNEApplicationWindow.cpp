@@ -164,6 +164,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_JOIN_JUNCTIONS,        GNEApplicationWindow::onCmdJoinJunctions),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_JOIN_JUNCTIONS,        GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPTIONS,               GNEApplicationWindow::onCmdOptions),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,              GNEApplicationWindow::onCmdEditViewport),
 };
 
 // Object implementation
@@ -264,6 +265,7 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(parseAccel("Del"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
     getAccelTable()->addAccel(parseAccel("Enter"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
     getAccelTable()->addAccel(parseAccel("f"), this, FXSEL(SEL_COMMAND, MID_GNE_FOCUS_FRAME));
+    getAccelTable()->addAccel(parseAccel("v"), this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));
 }
 
 void
@@ -1070,6 +1072,16 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
     }
     return 1;
 }
+
+
+long 
+GNEApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
+    if (getView()) {
+        getView()->showViewportEditor();
+    }
+    return 1;
+}
+
 
 long
 GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
