@@ -73,7 +73,7 @@ public:
     /// @brief discard all information
     virtual void clear();
 
-    /* @brief adds this vehicle as a leader in the appropriate sublanes
+    /* @brief returns sublanes occupied by veh
      * @param[in] veh The vehicle to check
      * @param[out] rightmost The rightmost sublane occupied by veh
      * @param[out] leftmost The rightmost sublane occupied by veh
