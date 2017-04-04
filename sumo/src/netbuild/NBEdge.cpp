@@ -2574,6 +2574,7 @@ NBEdge::append(NBEdge* e) {
         if (myLanes[i].origID != e->myLanes[i].origID) {
             myLanes[i].origID += " " + e->myLanes[i].origID;
         }
+        myLanes[i].connectionsDone = e->myLanes[i].connectionsDone;
     }
     // recompute length
     myLength += e->myLength;
