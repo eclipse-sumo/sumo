@@ -1530,7 +1530,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                                            myParameter->arrivalSpeed : laneMaxV);
             // subtract the arrival speed from the remaining distance so we get one additional driving step with arrival speed
             const double distToArrival = seen + myArrivalPos - lane->getLength() - SPEED2DIST(arrivalSpeed);
-            const double va = cfModel.freeSpeed(this, getSpeed(), distToArrival, arrivalSpeed);
+            const double va = MAX2(NUMERICAL_EPS, cfModel.freeSpeed(this, getSpeed(), distToArrival, arrivalSpeed));
             v = MIN2(v, va);
             if (lastLink != 0) {
                 lastLink->adaptLeaveSpeed(va);
