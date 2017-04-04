@@ -108,8 +108,6 @@ public:
     /// @}
 
 
-    static const double DEPART_NOW;
-
     /** @class TraCIScopeWrapper
      * @brief An abstract interface for accessing type-dependent values
      *
@@ -740,7 +738,7 @@ public:
         std::vector<std::string> getEdges(const std::string& personID, int nextStageIndex = 0) const;
 
         void removeStages(const std::string& personID) const;
-        void add(const std::string& personID, const std::string& edgeID, double pos, double depart = DEPART_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
+        void add(const std::string& personID, const std::string& edgeID, double pos, double depart = DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
         void appendWaitingStage(const std::string& personID, double duration, const std::string& description = "waiting", const std::string& stopID = "");
         void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, double arrivalPos, double duration = -1, double speed = -1, const std::string& stopID = "");
         void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID = "");

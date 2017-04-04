@@ -415,18 +415,18 @@
 // ****************************************
 // Departure Flags
 // ****************************************
-#define DEPART_TRIGGERED -0x01
-#define DEPART_CONTAINER_TRIGGERED -0x02
-#define DEPART_NOW -0x03
+#define DEPARTFLAG_TRIGGERED -0x01
+#define DEPARTFLAG_CONTAINER_TRIGGERED -0x02
+#define DEPARTFLAG_NOW -0x03
 
-#define DEPART_SPEED_RANDOM -0x02
-#define DEPART_SPEED_MAX -0x03
+#define DEPARTFLAG_SPEED_RANDOM -0x02
+#define DEPARTFLAG_SPEED_MAX -0x03
 
-#define DEPART_LANE_RANDOM -0x02
-#define DEPART_LANE_FREE -0x03
-#define DEPART_LANE_ALLOWED_FREE -0x04
-#define DEPART_LANE_BEST_FREE -0x05
-#define DEPART_LANE_FIRST_ALLOWED -0x06
+#define DEPARTFLAG_LANE_RANDOM -0x02
+#define DEPARTFLAG_LANE_FREE -0x03
+#define DEPARTFLAG_LANE_ALLOWED_FREE -0x04
+#define DEPARTFLAG_LANE_BEST_FREE -0x05
+#define DEPARTFLAG_LANE_FIRST_ALLOWED -0x06
 
 // ****************************************
 // VARIABLE TYPES (for CMD_GET_*_VARIABLE)
