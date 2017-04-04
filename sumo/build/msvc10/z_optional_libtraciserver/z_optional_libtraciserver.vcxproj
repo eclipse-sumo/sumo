@@ -151,7 +151,7 @@
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Polygon.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Route.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Vehicle.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_VehicleType.h" /
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_VehicleType.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIConstants.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIDefs.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServer.h" />
