@@ -72,6 +72,9 @@
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_VehicleType.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Lane.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_LaneAreaDetector.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -153,6 +156,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_VehicleType.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Lane.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_LaneAreaDetector.h">
