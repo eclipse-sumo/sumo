@@ -33,10 +33,11 @@
 
 #ifndef NO_TRACI
 
-#include "TraCIConstants.h"
 #include <microsim/MSNet.h>
 #include <microsim/output/MSDetectorControl.h>
 #include "lib/TraCI_InductionLoop.h"
+#include "TraCIConstants.h"
+#include "TraCIDefs.h"
 #include "TraCIServerAPI_InductionLoop.h"
 
 

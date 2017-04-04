@@ -116,6 +116,7 @@ TraCI_InductionLoop::getVehicleData(const std::string& detID) {
         tvd.back().leaveTime = vdi->leaveTimeM;
         tvd.back().typeID = vdi->typeIDM;
     }
+    return tvd;
 
 }
 

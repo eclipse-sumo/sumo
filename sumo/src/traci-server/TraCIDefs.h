@@ -126,6 +126,7 @@ public:
     std::vector<TraCIPhase> phases;
 };
 
+
 class TraCILink {
 public:
     TraCILink(const std::string& _from, const std::string& _via, const std::string& _to)
@@ -137,7 +138,9 @@ public:
     std::string to;
 };
 
-struct TraCIVehicleData {
+
+class TraCIVehicleData {
+public:
     /* @brief Constructor
     (mirrors MSInductLoop::VehicleData) */
     TraCIVehicleData() {}
