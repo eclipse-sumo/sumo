@@ -192,7 +192,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                 tempMsg.writeString(p->getParameter().getParameter(paramName, ""));
             }
             default:
-                TraCIServerAPI_VehicleType::getVariable(variable, p->getVehicleType(), tempMsg);
+                TraCIServerAPI_VehicleType::getVariable(variable, p->getVehicleType().getID(), tempMsg);
                 break;
         }
     }
@@ -240,7 +240,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             // set the speed for all (walking) stages
             p->setSpeed(speed);
             // modify the vType so that stages added later are also affected
-            TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, getSingularType(p), server, inputStorage, outputStorage);
+            TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, getSingularType(p).getID(), server, inputStorage, outputStorage);
         }
         break;
         case VAR_TYPE: {
@@ -492,7 +492,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
         break;
         default:
             try {
-                if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_PERSON_VARIABLE, variable, getSingularType(p), server, inputStorage, outputStorage)) {
+                if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_PERSON_VARIABLE, variable, getSingularType(p).getID(), server, inputStorage, outputStorage)) {
                     return false;
                 }
             } catch (ProcessError& e) {

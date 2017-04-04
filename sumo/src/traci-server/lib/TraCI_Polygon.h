@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCIAPI.h
+/// @file    TraCI_Polygon.h
 /// @author  Gregor L\"ammel
 /// @date    15.03.2017
 /// @version $Id$

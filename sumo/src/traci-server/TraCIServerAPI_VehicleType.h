@@ -63,7 +63,7 @@ public:
      * @param[in] v The vehicle type to get the value from
      * @param[out] tempMsg The storage to write the result to
      */
-    static bool getVariable(const int variable, const MSVehicleType& v, tcpip::Storage& tempMsg);
+    static bool getVariable(const int variable,const std::string& v, tcpip::Storage& tempMsg);
 
 
     /** @brief Processes a set value command (Command 0xc5: Change Vehicle Type State)
@@ -79,7 +79,7 @@ public:
     /** @brief Processes a set value for the given type
      */
     static bool setVariable(const int cmd, const int variable,
-                            MSVehicleType& v, TraCIServer& server,
+                            const std::string& id, TraCIServer& server,
                             tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
 
 

@@ -16,4 +16,6 @@ TraCI_Vehicle.cpp \
 TraCI_Polygon.h \
 TraCI_Polygon.cpp \
 TraCI_Route.h \
-TraCI_Route.cpp
+TraCI_Route.cpp \
+TraCI_VehicleType.h \
+TraCI_VehicleType.cpp

@@ -5,6 +5,7 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @author  Robert Hilbrich
+/// @author  Gregor Laemmel
 /// @date    07.05.2009
 /// @version $Id$
 ///
@@ -38,6 +39,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
+#include <traci-server/lib/TraCI_VehicleType.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_VehicleType.h"
 #include "lib/TraCI.h"
@@ -53,8 +55,10 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable != ID_LIST && variable != VAR_LENGTH && variable != VAR_MAXSPEED && variable != VAR_ACCEL && variable != VAR_DECEL
-            && variable != VAR_TAU && variable != VAR_VEHICLECLASS && variable != VAR_EMISSIONCLASS && variable != VAR_SHAPECLASS
+    if (variable != ID_LIST && variable != VAR_LENGTH && variable != VAR_MAXSPEED && variable != VAR_ACCEL
+            && variable != VAR_DECEL
+            && variable != VAR_TAU && variable != VAR_VEHICLECLASS && variable != VAR_EMISSIONCLASS
+            && variable != VAR_SHAPECLASS
             && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_IMPERFECTION
             && variable != VAR_MINGAP && variable != VAR_WIDTH && variable != VAR_COLOR && variable != ID_COUNT
             && variable != VAR_HEIGHT
@@ -62,7 +66,9 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
             && variable != VAR_MAXSPEED_LAT
             && variable != VAR_LATALIGNMENT
             && variable != VAR_PARAMETER) {
-        return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Get Vehicle Type Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+        return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE,
+                                          "Get Vehicle Type Variable: unsupported variable " + toHex(variable, 2)
+                                                  + " specified", outputStorage);
     }
     // begin response building
     tcpip::Storage tempMsg;
@@ -72,33 +78,32 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
     tempMsg.writeString(id);
     // process request
     if (variable == ID_LIST) {
-        std::vector<std::string> ids;
-        MSNet::getInstance()->getVehicleControl().insertVTypeIDs(ids);
+        std::vector<std::string> ids = TraCI_VehicleType::getIDList();
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     } else if (variable == ID_COUNT) {
-        std::vector<std::string> ids;
-        MSNet::getInstance()->getVehicleControl().insertVTypeIDs(ids);
+        std::vector<std::string> ids = TraCI_VehicleType::getIDList();
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     } else {
-        MSVehicleType* v = MSNet::getInstance()->getVehicleControl().getVType(id);
+        MSVehicleType* v = TraCI_VehicleType::getVType(id);
         if (v == 0) {
-            return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Vehicle type '" + id + "' is not known", outputStorage);
+            return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Vehicle type '" + id + "' is not known",
+                                              outputStorage);
         }
         switch (variable) {
-            case VAR_PARAMETER: {
-                std::string paramName = "";
-                if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                    return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-                }
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(v->getParameter().getParameter(paramName, ""));
+        case VAR_PARAMETER: {
+            std::string paramName = "";
+            if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE,
+                                                  "Retrieval of a parameter requires its name.", outputStorage);
             }
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString(v->getParameter().getParameter(paramName, ""));
+        }
             break;
-            default:
-                getVariable(variable, *v, tempMsg);
-                break;
+        default:getVariable(variable, id, tempMsg);
+            break;
         }
     }
     server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_OK, "", outputStorage);
@@ -107,85 +112,103 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
 }
 
 bool
-TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType& v, tcpip::Storage& tempMsg) {
+TraCIServerAPI_VehicleType::getVariable(const int variable, const std::string& id, tcpip::Storage& tempMsg) {
     switch (variable) {
-        case VAR_LENGTH:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getLength());
-            break;
-        case VAR_HEIGHT:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getHeight());
-            break;
-        case VAR_MINGAP:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getMinGap());
-            break;
-        case VAR_MAXSPEED:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getMaxSpeed());
-            break;
-        case VAR_ACCEL:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getCarFollowModel().getMaxAccel());
-            break;
-        case VAR_DECEL:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getCarFollowModel().getMaxDecel());
-            break;
-        case VAR_IMPERFECTION:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getCarFollowModel().getImperfection());
-            break;
-        case VAR_TAU:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getCarFollowModel().getHeadwayTime());
-            break;
-        case VAR_SPEED_FACTOR:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getSpeedFactor().getParameter()[0]);
-            break;
-        case VAR_SPEED_DEVIATION:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getSpeedFactor().getParameter()[1]);
-            break;
-        case VAR_VEHICLECLASS:
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(toString(v.getVehicleClass()));
-            break;
-        case VAR_EMISSIONCLASS:
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(PollutantsInterface::getName(v.getEmissionClass()));
-            break;
-        case VAR_SHAPECLASS:
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(getVehicleShapeName(v.getGuiShape()));
-            break;
-        case VAR_WIDTH:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getWidth());
-            break;
-        case VAR_COLOR:
-            tempMsg.writeUnsignedByte(TYPE_COLOR);
-            tempMsg.writeUnsignedByte(v.getColor().red());
-            tempMsg.writeUnsignedByte(v.getColor().green());
-            tempMsg.writeUnsignedByte(v.getColor().blue());
-            tempMsg.writeUnsignedByte(v.getColor().alpha());
-            break;
-        case VAR_MINGAP_LAT:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getMinGapLat());
-            break;
-        case VAR_MAXSPEED_LAT:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getMaxSpeedLat());
-            break;
-        case VAR_LATALIGNMENT:
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(toString(v.getPreferredLateralAlignment()));
-            break;
-        default:
-            break;
+    case VAR_LENGTH: {
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(TraCI_VehicleType::getLength(id));
+    }
+        break;
+    case VAR_HEIGHT: {
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(TraCI_VehicleType::getHeight(id));
+    }
+        break;
+    case VAR_MINGAP: {
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(TraCI_VehicleType::getMinGap(id));
+    }
+        break;
+    case VAR_MAXSPEED: {
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(TraCI_VehicleType::getMaxSpeed(id));
+    }
+        break;
+    case VAR_ACCEL: {
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(TraCI_VehicleType::getAccel(id));
+    }
+        break;
+    case VAR_DECEL: {
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(TraCI_VehicleType::getDecel(id));
+    }
+        break;
+    case VAR_IMPERFECTION: {
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(TraCI_VehicleType::getImperfection(id));
+    }
+        break;
+    case VAR_TAU: {
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(TraCI_VehicleType::getTau(id));
+    }
+        break;
+    case VAR_SPEED_FACTOR: {
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(TraCI_VehicleType::getSpeedFactor(id));
+    }
+        break;
+    case VAR_SPEED_DEVIATION: {
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(TraCI_VehicleType::getSpeedDeviation(id));
+    }
+        break;
+    case VAR_VEHICLECLASS: {
+        tempMsg.writeUnsignedByte(TYPE_STRING);
+        tempMsg.writeString(TraCI_VehicleType::getVehicleClass(id));
+    }
+        break;
+    case VAR_EMISSIONCLASS: {
+        tempMsg.writeUnsignedByte(TYPE_STRING);
+        tempMsg.writeString(TraCI_VehicleType::getEmissionClass(id));
+    }
+        break;
+    case VAR_SHAPECLASS: {
+        tempMsg.writeUnsignedByte(TYPE_STRING);
+        tempMsg.writeString(TraCI_VehicleType::getShapeClass(id));
+    }
+        break;
+    case VAR_WIDTH: {
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(TraCI_VehicleType::getWidth(id));
+    }
+        break;
+    case VAR_COLOR: {
+        tempMsg.writeUnsignedByte(TYPE_COLOR);
+        const TraCIColor& col = TraCI_VehicleType::getColor(id);
+        tempMsg.writeUnsignedByte(col.r);
+        tempMsg.writeUnsignedByte(col.g);
+        tempMsg.writeUnsignedByte(col.b);
+        tempMsg.writeUnsignedByte(col.a);
+    }
+        break;
+    case VAR_MINGAP_LAT: {
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(TraCI_VehicleType::getMinGapLat(id));
+    }
+        break;
+    case VAR_MAXSPEED_LAT: {
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(TraCI_VehicleType::getMaxSpeedLat(id));
+    }
+        break;
+    case VAR_LATALIGNMENT: {
+        tempMsg.writeUnsignedByte(TYPE_STRING);
+        tempMsg.writeString(TraCI_VehicleType::getLateralAlignment(id));
+    }
+        break;
+    default: break;
     }
     return true;
 }
@@ -206,22 +229,26 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
             && variable != VAR_MAXSPEED_LAT
             && variable != VAR_LATALIGNMENT
             && variable != VAR_PARAMETER
-       ) {
-        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, "Change Vehicle Type State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+            ) {
+        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE,
+                                          "Change Vehicle Type State: unsupported variable " + toHex(variable, 2)
+                                                  + " specified", outputStorage);
     }
     // id
     std::string id = inputStorage.readString();
-    MSVehicleType* v = MSNet::getInstance()->getVehicleControl().getVType(id);
+    MSVehicleType* v = TraCI_VehicleType::getVType(id);
     if (v == 0) {
-        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, "Vehicle type '" + id + "' is not known", outputStorage);
+        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, "Vehicle type '" + id + "' is not known",
+                                          outputStorage);
     }
     // process
     try {
-        if (setVariable(CMD_SET_VEHICLETYPE_VARIABLE, variable, *v, server, inputStorage, outputStorage)) {
+        if (setVariable(CMD_SET_VEHICLETYPE_VARIABLE, variable, id, server, inputStorage, outputStorage)) {
             server.writeStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, RTYPE_OK, warning, outputStorage);
             return true;
         }
-    } catch (ProcessError& e) {
+    }
+    catch (ProcessError& e) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
     }
     return false;
@@ -230,227 +257,233 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
 
 bool
 TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
-                                        MSVehicleType& v, TraCIServer& server,
+                                        const std::string& id, TraCIServer& server,
                                         tcpip::Storage& inputStorage, tcpip::Storage& outputStorage) {
     switch (variable) {
-        case VAR_LENGTH: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting length requires a double.", outputStorage);
-            }
-            if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid length.", outputStorage);
-            }
-            v.setLength(value);
+    case VAR_LENGTH: {
+        double value = 0;
+        if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "Setting length requires a double.", outputStorage);
         }
-        break;
-        case VAR_HEIGHT: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting height requires a double.", outputStorage);
-            }
-            if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid height.", outputStorage);
-            }
-            v.setHeight(value);
+        if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+            return server.writeErrorStatusCmd(cmd, "Invalid length.", outputStorage);
         }
+        TraCI_VehicleType::setLength(id, value);
+    }
         break;
-        case VAR_MAXSPEED: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting maximum speed requires a double.", outputStorage);
-            }
-            if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid maximum speed.", outputStorage);
-            }
-            v.setMaxSpeed(value);
+    case VAR_HEIGHT: {
+        double value = 0;
+        if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "Setting height requires a double.", outputStorage);
         }
-        break;
-        case VAR_VEHICLECLASS: {
-            std::string vclass;
-            if (!server.readTypeCheckingString(inputStorage, vclass)) {
-                return server.writeErrorStatusCmd(cmd, "Setting vehicle class requires a string.", outputStorage);
-            }
-            try {
-                v.setVClass(getVehicleClassID(vclass));
-            } catch (InvalidArgument e) {
-                return server.writeErrorStatusCmd(cmd, "Unknown vehicle class '" + vclass + "'.", outputStorage);
-            }
+        if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+            return server.writeErrorStatusCmd(cmd, "Invalid height.", outputStorage);
         }
+        TraCI_VehicleType::setHeight(id, value);
+    }
         break;
-        case VAR_SPEED_FACTOR: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting speed factor requires a double.", outputStorage);
-            }
-            if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid speed factor.", outputStorage);
-            }
-            v.setSpeedFactor(value);
+    case VAR_MAXSPEED: {
+        double value = 0;
+        if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "Setting maximum speed requires a double.", outputStorage);
         }
-        break;
-        case VAR_SPEED_DEVIATION: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting speed deviation requires a double.", outputStorage);
-            }
-            if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid speed deviation.", outputStorage);
-            }
-            v.setSpeedDeviation(value);
+        if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+            return server.writeErrorStatusCmd(cmd, "Invalid maximum speed.", outputStorage);
         }
+        TraCI_VehicleType::setMaxSpeed(id, value);
+    }
         break;
-        case VAR_EMISSIONCLASS: {
-            std::string eclass;
-            if (!server.readTypeCheckingString(inputStorage, eclass)) {
-                return server.writeErrorStatusCmd(cmd, "Setting emission class requires a string.", outputStorage);
-            }
-            try {
-                v.setEmissionClass(PollutantsInterface::getClassByName(eclass));
-            } catch (InvalidArgument e) {
-                return server.writeErrorStatusCmd(cmd, "Unknown emission class '" + eclass + "'.", outputStorage);
-            }
+    case VAR_VEHICLECLASS: {
+        std::string vclass;
+        if (!server.readTypeCheckingString(inputStorage, vclass)) {
+            return server.writeErrorStatusCmd(cmd, "Setting vehicle class requires a string.", outputStorage);
         }
-        break;
-        case VAR_WIDTH: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage,  value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting width requires a double.", outputStorage);
-            }
-            if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid width.", outputStorage);
-            }
-            v.setWidth(value);
+        try {
+            TraCI_VehicleType::setVehicleClass(id, vclass);
         }
-        break;
-        case VAR_MINGAP: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting minimum gap requires a double.", outputStorage);
-            }
-            if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid minimum gap.", outputStorage);
-            }
-            v.setMinGap(value);
+        catch (InvalidArgument e) {
+            return server.writeErrorStatusCmd(cmd, "Unknown vehicle class '" + vclass + "'.", outputStorage);
         }
+    }
         break;
-        case VAR_MINGAP_LAT: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting minimum lateral gap requires a double.", outputStorage);
-            }
-            if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid minimum lateral gap.", outputStorage);
-            }
-            v.setMinGapLat(value);
+    case VAR_SPEED_FACTOR: {
+        double value = 0;
+        if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "Setting speed factor requires a double.", outputStorage);
         }
-        break;
-        case VAR_MAXSPEED_LAT: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting maximum lateral speed requires a double.", outputStorage);
-            }
-            if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid maximum lateral speed.", outputStorage);
-            }
-            v.setMaxSpeedLat(value);
+        if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+            return server.writeErrorStatusCmd(cmd, "Invalid speed factor.", outputStorage);
         }
+        TraCI_VehicleType::setSpeedFactor(id, value);
+    }
         break;
-        case VAR_LATALIGNMENT: {
-            std::string latAlign;
-            if (!server.readTypeCheckingString(inputStorage, latAlign)) {
-                return server.writeErrorStatusCmd(cmd, "Setting preferred lateral alignment requires a string.", outputStorage);
-            }
-            if (SUMOXMLDefinitions::LateralAlignments.hasString(latAlign)) {
-                v.setPreferredLateralAlignment(SUMOXMLDefinitions::LateralAlignments.get(latAlign));
-            } else {
-                return server.writeErrorStatusCmd(cmd, "Unknown lateral alignment " + latAlign + "'.", outputStorage);
-            }
+    case VAR_SPEED_DEVIATION: {
+        double value = 0;
+        if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "Setting speed deviation requires a double.", outputStorage);
         }
-        break;
-        case VAR_SHAPECLASS: {
-            std::string sclass;
-            if (!server.readTypeCheckingString(inputStorage, sclass)) {
-                return server.writeErrorStatusCmd(cmd, "Setting vehicle shape requires a string.", outputStorage);
-            }
-            try {
-                v.setShape(getVehicleShapeID(sclass));
-            } catch (InvalidArgument e) {
-                return server.writeErrorStatusCmd(cmd, "Unknown vehicle shape " + sclass + "'.", outputStorage);
-            }
+        if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+            return server.writeErrorStatusCmd(cmd, "Invalid speed deviation.", outputStorage);
         }
+        TraCI_VehicleType::setSpeedDeviation(id, value);
+    }
         break;
-        case VAR_ACCEL: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting acceleration requires a double.", outputStorage);
-            }
-            if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid acceleration.", outputStorage);
-            }
-            v.getCarFollowModel().setMaxAccel(value);
+    case VAR_EMISSIONCLASS: {
+        std::string eclass;
+        if (!server.readTypeCheckingString(inputStorage, eclass)) {
+            return server.writeErrorStatusCmd(cmd, "Setting emission class requires a string.", outputStorage);
         }
-        break;
-        case VAR_DECEL: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting deceleration requires a double.", outputStorage);
-            }
-            if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid deceleration.", outputStorage);
-            }
-            v.getCarFollowModel().setMaxDecel(value);
+        try {
+            TraCI_VehicleType::setEmissionClass(id, eclass);
         }
-        break;
-        case VAR_IMPERFECTION: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting driver imperfection requires a double.", outputStorage);
-            }
-            if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid driver imperfection.", outputStorage);
-            }
-            v.getCarFollowModel().setImperfection(value);
+        catch (InvalidArgument e) {
+            return server.writeErrorStatusCmd(cmd, "Unknown emission class '" + eclass + "'.", outputStorage);
         }
+    }
         break;
-        case VAR_TAU: {
-            double value = 0;
-            if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "Setting headway time requires a double.", outputStorage);
-            }
-            if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(cmd, "Invalid headway time.", outputStorage);
-            }
-            v.getCarFollowModel().setHeadwayTime(value);
+    case VAR_WIDTH: {
+        double value = 0;
+        if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "Setting width requires a double.", outputStorage);
         }
-        break;
-        case VAR_COLOR: {
-            TraCIColor col;
-            if (!server.readTypeCheckingColor(inputStorage, col)) {
-                return server.writeErrorStatusCmd(cmd, "The color must be given using the according type.", outputStorage);
-            }
-            v.setColor(TraCI::makeRGBColor(col));
+        if (value <= 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+            return server.writeErrorStatusCmd(cmd, "Invalid width.", outputStorage);
         }
+        TraCI_VehicleType::setWidth(id, value);
+    }
         break;
-        case VAR_PARAMETER: {
-            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-                return server.writeErrorStatusCmd(cmd, "A compound object is needed for setting a parameter.", outputStorage);
-            }
-            //readt itemNo
-            inputStorage.readInt();
-            std::string name;
-            if (!server.readTypeCheckingString(inputStorage, name)) {
-                return server.writeErrorStatusCmd(cmd, "The name of the parameter must be given as a string.", outputStorage);
-            }
-            std::string value;
-            if (!server.readTypeCheckingString(inputStorage, value)) {
-                return server.writeErrorStatusCmd(cmd, "The value of the parameter must be given as a string.", outputStorage);
-            }
-            ((SUMOVTypeParameter&) v.getParameter()).addParameter(name, value);
+    case VAR_MINGAP: {
+        double value = 0;
+        if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "Setting minimum gap requires a double.", outputStorage);
         }
+        if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+            return server.writeErrorStatusCmd(cmd, "Invalid minimum gap.", outputStorage);
+        }
+        TraCI_VehicleType::setMinGap(id, value);
+    }
         break;
-        default:
-            break;
+    case VAR_MINGAP_LAT: {
+        double value = 0;
+        if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "Setting minimum lateral gap requires a double.", outputStorage);
+        }
+        if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+            return server.writeErrorStatusCmd(cmd, "Invalid minimum lateral gap.", outputStorage);
+        }
+        TraCI_VehicleType::setMinGapLat(id, value);
+    }
+        break;
+    case VAR_MAXSPEED_LAT: {
+        double value = 0;
+        if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "Setting maximum lateral speed requires a double.", outputStorage);
+        }
+        if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+            return server.writeErrorStatusCmd(cmd, "Invalid maximum lateral speed.", outputStorage);
+        }
+        TraCI_VehicleType::setMaxSpeedLat(id, value);
+    }
+        break;
+    case VAR_LATALIGNMENT: {
+        std::string latAlign;
+        if (!server.readTypeCheckingString(inputStorage, latAlign)) {
+            return server.writeErrorStatusCmd(cmd, "Setting preferred lateral alignment requires a string.",
+                                              outputStorage);
+        }
+        if (SUMOXMLDefinitions::LateralAlignments.hasString(latAlign)) {
+            TraCI_VehicleType::setLateralAlignment(id, latAlign);
+        } else {
+            return server.writeErrorStatusCmd(cmd, "Unknown lateral alignment " + latAlign + "'.", outputStorage);
+        }
+    }
+        break;
+    case VAR_SHAPECLASS: {
+        std::string sclass;
+        if (!server.readTypeCheckingString(inputStorage, sclass)) {
+            return server.writeErrorStatusCmd(cmd, "Setting vehicle shape requires a string.", outputStorage);
+        }
+        try {
+            TraCI_VehicleType::setShapeClass(id, sclass);
+        }
+        catch (InvalidArgument e) {
+            return server.writeErrorStatusCmd(cmd, "Unknown vehicle shape " + sclass + "'.", outputStorage);
+        }
+    }
+        break;
+    case VAR_ACCEL: {
+        double value = 0;
+        if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "Setting acceleration requires a double.", outputStorage);
+        }
+        if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+            return server.writeErrorStatusCmd(cmd, "Invalid acceleration.", outputStorage);
+        }
+        TraCI_VehicleType::setAccel(id, value);
+    }
+        break;
+    case VAR_DECEL: {
+        double value = 0;
+        if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "Setting deceleration requires a double.", outputStorage);
+        }
+        if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+            return server.writeErrorStatusCmd(cmd, "Invalid deceleration.", outputStorage);
+        }
+        TraCI_VehicleType::setDecel(id, value);
+    }
+        break;
+    case VAR_IMPERFECTION: {
+        double value = 0;
+        if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "Setting driver imperfection requires a double.", outputStorage);
+        }
+        if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+            return server.writeErrorStatusCmd(cmd, "Invalid driver imperfection.", outputStorage);
+        }
+        TraCI_VehicleType::setImperfection(id, value);
+    }
+        break;
+    case VAR_TAU: {
+        double value = 0;
+        if (!server.readTypeCheckingDouble(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "Setting headway time requires a double.", outputStorage);
+        }
+        if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+            return server.writeErrorStatusCmd(cmd, "Invalid headway time.", outputStorage);
+        }
+        TraCI_VehicleType::setTau(id, value);
+    }
+        break;
+    case VAR_COLOR: {
+        TraCIColor col;
+        if (!server.readTypeCheckingColor(inputStorage, col)) {
+            return server.writeErrorStatusCmd(cmd, "The color must be given using the according type.", outputStorage);
+        }
+        TraCI_VehicleType::setColor(id, col);
+    }
+        break;
+    case VAR_PARAMETER: {
+        if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+            return server.writeErrorStatusCmd(cmd, "A compound object is needed for setting a parameter.",
+                                              outputStorage);
+        }
+        //readt itemNo
+        inputStorage.readInt();
+        std::string name;
+        if (!server.readTypeCheckingString(inputStorage, name)) {
+            return server.writeErrorStatusCmd(cmd, "The name of the parameter must be given as a string.",
+                                              outputStorage);
+        }
+        std::string value;
+        if (!server.readTypeCheckingString(inputStorage, value)) {
+            return server.writeErrorStatusCmd(cmd, "The value of the parameter must be given as a string.",
+                                              outputStorage);
+        }
+        TraCI_VehicleType::addParameter(id, name, value);
+    }
+        break;
+    default:break;
     }
     return true;
 }

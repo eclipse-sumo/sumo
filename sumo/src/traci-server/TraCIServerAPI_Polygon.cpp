@@ -117,7 +117,6 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeString(TraCI_Polygon::getParameter(id, paramName));
             }
                 break;
-            default:break;
             }
         } catch (TraCIException& e) {
             return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE, e.what(), outputStorage);
