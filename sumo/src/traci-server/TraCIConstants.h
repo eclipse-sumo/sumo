@@ -34,8 +34,7 @@
 // ****************************************
 // VERSION
 // ****************************************
-#define TRACI_VERSION 14
-
+#define TRACI_VERSION 15
 
 // ****************************************
 // COMMANDS
@@ -401,6 +400,33 @@
 // person riding / container being transported
 #define STAGE_DRIVING 0x03
 
+// ****************************************
+// Stop Flags
+// ****************************************
+#define STOP_DEFAULT 0x00
+#define STOP_PARKING 0x01
+#define STOP_TRIGGERED 0x02
+#define STOP_CONTAINER_TRIGGERED 0x04
+#define STOP_BUS_STOP 0x08
+#define STOP_CONTAINER_STOP 0x10
+#define STOP_CHARGING_STATION 0x20
+#define STOP_PARKING_AREA 0x40
+
+// ****************************************
+// Departure Flags
+// ****************************************
+#define DEPART_TRIGGERED -0x01
+#define DEPART_CONTAINER_TRIGGERED -0x02
+#define DEPART_NOW -0x03
+
+#define DEPART_SPEED_RANDOM -0x02
+#define DEPART_SPEED_MAX -0x03
+
+#define DEPART_LANE_RANDOM -0x02
+#define DEPART_LANE_FREE -0x03
+#define DEPART_LANE_ALLOWED_FREE -0x04
+#define DEPART_LANE_BEST_FREE -0x05
+#define DEPART_LANE_FIRST_ALLOWED -0x06
 
 // ****************************************
 // VARIABLE TYPES (for CMD_GET_*_VARIABLE)

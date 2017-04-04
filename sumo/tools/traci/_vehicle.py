@@ -129,28 +129,25 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
 
 
 class VehicleDomain(Domain):
-
-    DEPART_TRIGGERED = -1
-    DEPART_CONTAINER_TRIGGERED = -2
-    DEPART_NOW = -3
-
-    DEPART_SPEED_RANDOM = -2
-    DEPART_SPEED_MAX = -3
-
-    STOP_DEFAULT = 0
-    STOP_PARKING = 1
-    STOP_TRIGGERED = 2
-    STOP_CONTAINER_TRIGGERED = 4
-    STOP_BUS_STOP = 8
-    STOP_CONTAINER_STOP = 16
-    STOP_CHARGING_STATION = 32
-    STOP_PARKING_AREA = 64
-
-    DEPART_LANE_RANDOM = -2
-    DEPART_LANE_FREE = -3
-    DEPART_LANE_ALLOWED_FREE = -4
-    DEPART_LANE_BEST_FREE = -5
-    DEPART_LANE_FIRST_ALLOWED = -6
+    # imported for backwards compatibility
+    STOP_DEFAULT = tc.STOP_DEFAULT
+    STOP_PARKING = tc.STOP_PARKING
+    STOP_TRIGGERED = tc.STOP_TRIGGERED
+    STOP_CONTAINER_TRIGGERED = tc.STOP_CONTAINER_TRIGGERED
+    STOP_BUS_STOP = tc.STOP_BUS_STOP
+    STOP_CONTAINER_STOP = tc.STOP_CONTAINER_STOP
+    STOP_CHARGING_STATION = tc.STOP_CHARGING_STATION
+    STOP_PARKING_AREA = tc.STOP_PARKING_AREA
+    DEPART_TRIGGERED = tc.DEPART_TRIGGERED
+    DEPART_CONTAINER_TRIGGERED = tc.DEPART_CONTAINER_TRIGGERED
+    DEPART_NOW = tc.DEPART_NOW
+    DEPART_SPEED_RANDOM = tc.DEPART_SPEED_RANDOM
+    DEPART_SPEED_MAX = tc.DEPART_SPEED_MAX
+    DEPART_LANE_RANDOM = tc.DEPART_LANE_RANDOM
+    DEPART_LANE_FREE = tc.DEPART_LANE_FREE
+    DEPART_LANE_ALLOWED_FREE = tc.DEPART_LANE_ALLOWED_FREE
+    DEPART_LANE_BEST_FREE = tc.DEPART_LANE_BEST_FREE
+    DEPART_LANE_FIRST_ALLOWED = tc.DEPART_LANE_FIRST_ALLOWED
 
     def __init__(self):
         Domain.__init__(self, "vehicle", tc.CMD_GET_VEHICLE_VARIABLE, tc.CMD_SET_VEHICLE_VARIABLE,
@@ -678,7 +675,7 @@ class VehicleDomain(Domain):
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED_LAT, vehID, speed)
 
     def setStop(self, vehID, edgeID, pos=1., laneIndex=0, duration=2**31 - 1,
-                flags=STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE, until=-1):
+                flags=tc.STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE, until=-1):
         """setStop(string, string, double, integer, integer, integer, double, integer) -> None
 
         Adds or modifies a stop with the given parameters. The duration and the until attribute are
@@ -694,41 +691,41 @@ class VehicleDomain(Domain):
                                                 tc.TYPE_DOUBLE, startPos, tc.TYPE_INTEGER, until)
         self._connection._sendExact()
 
-    def setBusStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_DEFAULT):
+    def setBusStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=tc.STOP_DEFAULT):
         """setBusStop(string, string, integer, integer, integer) -> None
 
         Adds or modifies a bus stop with the given parameters. The duration and the until attribute are
         in milliseconds.
         """
         self.setStop(vehID, stopID, duration=duration,
-                     until=until, flags=flags | self.STOP_BUS_STOP)
+                     until=until, flags=flags | tc.STOP_BUS_STOP)
 
-    def setContainerStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_DEFAULT):
+    def setContainerStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=tc.STOP_DEFAULT):
         """setContainerStop(string, string, integer, integer, integer) -> None
 
         Adds or modifies a container stop with the given parameters. The duration and the until attribute are
         in milliseconds.
         """
         self.setStop(vehID, stopID, duration=duration, until=until,
-                     flags=flags | self.STOP_CONTAINER_STOP)
+                     flags=flags | tc.STOP_CONTAINER_STOP)
 
-    def setChargingStationStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_DEFAULT):
+    def setChargingStationStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=tc.STOP_DEFAULT):
         """setChargingStationStop(string, string, integer, integer, integer) -> None
 
         Adds or modifies a stop at a chargingStation with the given parameters. The duration and the until attribute are
         in milliseconds.
         """
         self.setStop(vehID, stopID, duration=duration, until=until,
-                     flags=flags | self.STOP_CHARGING_STATION)
+                     flags=flags | tc.STOP_CHARGING_STATION)
 
-    def setParkingAreaStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=STOP_PARKING):
+    def setParkingAreaStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=tc.STOP_PARKING):
         """setParkingAreaStop(string, string, integer, integer, integer) -> None
 
         Adds or modifies a stop at a parkingArea with the given parameters. The duration and the until attribute are
         in milliseconds.
         """
         self.setStop(vehID, stopID, duration=duration, until=until,
-                     flags=flags | self.STOP_PARKING_AREA)
+                     flags=flags | tc.STOP_PARKING_AREA)
 
     def resume(self, vehID):
         """resume(string) -> None
@@ -1065,8 +1062,8 @@ class VehicleDomain(Domain):
         self._connection._sendIntCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEEDSETMODE, vehID, sm)
 
-    def add(self, vehID, routeID, depart=DEPART_NOW, pos=0, speed=0,
-            lane=DEPART_LANE_FIRST_ALLOWED, typeID="DEFAULT_VEHTYPE"):
+    def add(self, vehID, routeID, depart=tc.DEPART_NOW, pos=0, speed=0,
+            lane=tc.DEPART_LANE_FIRST_ALLOWED, typeID="DEFAULT_VEHTYPE"):
         """
         Add a new vehicle (old style)
         """
