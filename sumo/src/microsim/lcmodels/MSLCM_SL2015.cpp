@@ -204,10 +204,11 @@ void
 MSLCM_SL2015::setOwnState(const int state) {
     MSAbstractLaneChangeModel::setOwnState(state);
     myPreviousState = state;
+    if (DEBUG_COND) std::cout << SIMTIME << " veh=" << myVehicle.getID() << " setOwnState=" << toString((LaneChangeAction)state) << "\n";
     if ((state & LCA_STAY) != 0) {
         myOrigLatDist = 0;
         myCanChangeFully = true;
-        if (DEBUG_COND) std::cout << SIMTIME << " veh=" << myVehicle.getID() << " setOwnState: myCanChangeFully=true\n";
+        if (DEBUG_COND) std::cout << "    myCanChangeFully=true\n";
     }
 
 }
@@ -1725,7 +1726,19 @@ MSLCM_SL2015::checkBlockingVehicles(
     const double leftVehSideDest = leftVehSide + latDist;
     const double rightNoOverlap = MIN2(rightVehSideDest, rightVehSide);
     const double leftNoOverlap = MAX2(leftVehSideDest, leftVehSide);
-
+    if (gDebugFlag2) {
+        std::cout << "  checkBlocking"
+            << " latDist=" << latDist
+            << " foeOffset=" << foeOffset
+            << " vehRight=" << rightVehSide
+            << " vehLeft=" << leftVehSide
+            << " rightNoOverlap=" << rightNoOverlap
+            << " leftNoOverlap=" << leftNoOverlap
+            << " destRight=" << rightVehSideDest
+            << " destLeft=" << leftVehSideDest
+            << " leaders=" << leaders
+            << "\n";
+    }
     int result = 0;
     for (int i = 0; i < vehicles.numSublanes(); ++i) {
         CLeaderDist vehDist = vehicles[i];
@@ -1740,19 +1753,11 @@ MSLCM_SL2015::checkBlockingVehicles(
                 if (!leaders) {
                     std::swap(leader, follower);
                 }
-                std::cout << "  checkBlocking"
-                          << " leaders=" << leaders
-                          << " foe=" << vehDist.first->getID()
+                std::cout << "   foe=" << vehDist.first->getID()
                           << " gap=" << vehDist.second
                           << " secGap=" << follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
                           << " foeRight=" << foeRight
                           << " foeLeft=" << foeLeft
-                          << " vehRight=" << rightVehSide
-                          << " vehLeft=" << leftVehSide
-                          << " rightNoOverlap=" << rightNoOverlap
-                          << " leftNoOverlap=" << leftNoOverlap
-                          << " destRight=" << rightVehSideDest
-                          << " destLeft=" << leftVehSideDest
                           << " overlapBefore=" << overlap(rightVehSide, leftVehSide, foeRight, foeLeft)
                           << " overlap=" << overlap(rightNoOverlap, leftNoOverlap, foeRight, foeLeft)
                           << " overlapDest=" << overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)
