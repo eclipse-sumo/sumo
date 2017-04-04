@@ -24,14 +24,8 @@ from pylab import *
 import numpy as np
 from mpl_toolkits.mplot3d import axes3d
 
+from runner import types,flow1def,flow2def,fillSteps,measureSteps,simSteps
 
-flow1def = "0;2000;200".split(";")
-flow2def = "0;2000;200".split(";")
-# ["static", "agentbased", "actuated", "sotl_phase", "sotl_platoon", "sotl_wave", "sotl_marching", "swarm"]
-types = ["static", "actuated", "swarm"]
-fillSteps = 3600  # 3600
-measureSteps = 3600  # 36000
-simSteps = fillSteps + measureSteps
 
 durationM = {}
 waitStepsM = {}
