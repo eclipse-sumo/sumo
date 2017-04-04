@@ -5,6 +5,7 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @author  Mario Krumnow
+/// @author  Leonhard Luecken
 /// @date    07.05.2009
 /// @version $Id$
 ///
@@ -42,6 +43,7 @@
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
 #include "TraCIServerAPI_Lane.h"
+#include "lib/TraCI_Lane.h"
 
 
 // ===========================================================================
@@ -74,15 +76,11 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     if (variable == ID_LIST) {
-        std::vector<std::string> ids;
-        MSLane::insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
+        tempMsg.writeStringList(TraCI_Lane::getIDList());
     } else if (variable == ID_COUNT) {
-        std::vector<std::string> ids;
-        MSLane::insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt((int) ids.size());
+        tempMsg.writeInt(TraCI_Lane::getIDCount());
     } else {
         MSLane* lane = MSLane::dictionary(id);
         if (lane == 0) {
@@ -91,64 +89,61 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
         switch (variable) {
             case LANE_LINK_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_UBYTE);
-                tempMsg.writeUnsignedByte((int) lane->getLinkCont().size());
+                tempMsg.writeUnsignedByte(TraCI_Lane::getLinkNumber(id));
                 break;
             case LANE_EDGE_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(lane->getEdge().getID());
+                tempMsg.writeString(TraCI_Lane::getEdgeID(id));
                 break;
             case VAR_LENGTH:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getLength());
+                tempMsg.writeDouble(TraCI_Lane::getLength(id));
                 break;
             case VAR_MAXSPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getSpeedLimit());
+                tempMsg.writeDouble(TraCI_Lane::getMaxSpeed(id));
                 break;
             case LANE_LINKS: {
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+                const std::vector<TraCIConnection> links = TraCI_Lane::getLinks(id);
                 tcpip::Storage tempContent;
                 int cnt = 0;
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
-                const MSLinkCont& links = lane->getLinkCont();
                 tempContent.writeInt((int) links.size());
                 ++cnt;
                 const SUMOTime currTime = MSNet::getInstance()->getCurrentTimeStep();
-                for (MSLinkCont::const_iterator i = links.begin(); i != links.end(); ++i) {
-                    MSLink* link = (*i);
+                for (std::vector<TraCIConnection>::const_iterator i = links.begin(); i != links.end(); ++i) {
                     // approached non-internal lane (if any)
                     tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString(link->getLane() != 0 ? link->getLane()->getID() : "");
+                    tempContent.writeString(i->approachedLane);
                     ++cnt;
                     // approached "via", internal lane (if any)
                     tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString(link->getViaLane() != 0 ? link->getViaLane()->getID() : "");
+                    tempContent.writeString(i->approachedInternal);
                     ++cnt;
                     // priority
                     tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    tempContent.writeUnsignedByte(link->havePriority() ? 1 : 0);
+                    tempContent.writeUnsignedByte(i->hasPrio);
                     ++cnt;
                     // opened
                     tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    const double speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
-                    tempContent.writeUnsignedByte(link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefault().length,
-                                                  SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0) ? 1 : 0);
+                    tempContent.writeUnsignedByte(i->isOpen);
                     ++cnt;
                     // approaching foe
                     tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    tempContent.writeUnsignedByte(link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel()) ? 1 : 0);
+                    tempContent.writeUnsignedByte(i->hasFoe);
                     ++cnt;
                     // state (not implemented, yet)
                     tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString(SUMOXMLDefinitions::LinkStates.getString(link->getState()));
+                    tempContent.writeString(i->state);
                     ++cnt;
                     // direction
                     tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString(SUMOXMLDefinitions::LinkDirections.getString(link->getDirection()));
+                    tempContent.writeString(i->direction);
                     ++cnt;
                     // length
                     tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                    tempContent.writeDouble(link->getLength());
+                    tempContent.writeDouble(i->length);
                     ++cnt;
                 }
                 tempMsg.writeInt((int) cnt);
@@ -157,126 +152,96 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             break;
             case LANE_ALLOWED: {
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                SVCPermissions permissions = lane->getPermissions();
-                if (permissions == SVCAll) {  // special case: write nothing
-                    permissions = 0;
-                }
-                tempMsg.writeStringList(getVehicleClassNamesList(permissions));
-            }
-            case LANE_DISALLOWED: {
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(getVehicleClassNamesList(~(lane->getPermissions()))); // negation yields disallowed
+                tempMsg.writeStringList(TraCI_Lane::getAllowed(id));
             }
             break;
-            case VAR_SHAPE:
+            case LANE_DISALLOWED: {
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                tempMsg.writeStringList(TraCI_Lane::getDisallowed(id));
+            }
+            break;
+            case VAR_SHAPE: {
                 tempMsg.writeUnsignedByte(TYPE_POLYGON);
-                tempMsg.writeUnsignedByte(MIN2(255, (int)lane->getShape().size()));
-                for (int iPoint = 0; iPoint < MIN2(255, (int)lane->getShape().size()); ++iPoint) {
-                    tempMsg.writeDouble(lane->getShape()[iPoint].x());
-                    tempMsg.writeDouble(lane->getShape()[iPoint].y());
+                TraCIPositionVector shp = TraCI_Lane::getShape(id);
+                tempMsg.writeUnsignedByte(MIN2(255, (int) shp.size()));
+                for (int iPoint = 0; iPoint < MIN2(255, (int) shp.size()); ++iPoint) {
+                    tempMsg.writeDouble(shp[iPoint].x);
+                    tempMsg.writeDouble(shp[iPoint].y);
                 }
-                break;
+            }
+            break;
             case VAR_CO2EMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getCO2Emissions());
+                tempMsg.writeDouble(TraCI_Lane::getCO2Emission(id));
                 break;
             case VAR_COEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getCOEmissions());
+                tempMsg.writeDouble(TraCI_Lane::getCOEmission(id));
                 break;
             case VAR_HCEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getHCEmissions());
+                tempMsg.writeDouble(TraCI_Lane::getHCEmission(id));
                 break;
             case VAR_PMXEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getPMxEmissions());
+                tempMsg.writeDouble(TraCI_Lane::getPMxEmission(id));
                 break;
             case VAR_NOXEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getNOxEmissions());
+                tempMsg.writeDouble(TraCI_Lane::getNOxEmission(id));
                 break;
             case VAR_FUELCONSUMPTION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getFuelConsumption());
+                tempMsg.writeDouble(TraCI_Lane::getFuelConsumption(id));
                 break;
             case VAR_NOISEEMISSION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getHarmonoise_NoiseEmissions());
+                tempMsg.writeDouble(TraCI_Lane::getNoiseEmission(id));
                 break;
             case VAR_ELECTRICITYCONSUMPTION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getElectricityConsumption());
+                tempMsg.writeDouble(TraCI_Lane::getElectricityConsumption(id));
                 break;
             case LAST_STEP_VEHICLE_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int) lane->getVehicleNumber());
+                tempMsg.writeInt(TraCI_Lane::getLastStepVehicleNumber(id));
                 break;
             case LAST_STEP_MEAN_SPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getMeanSpeed());
+                tempMsg.writeDouble(TraCI_Lane::getLastStepMeanSpeed(id));
                 break;
             case LAST_STEP_VEHICLE_ID_LIST: {
-                std::vector<std::string> vehIDs;
-                const MSLane::VehCont& vehs = lane->getVehiclesSecure();
-                for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-                    vehIDs.push_back((*j)->getID());
-                }
-                lane->releaseVehicles();
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(vehIDs);
+                tempMsg.writeStringList(TraCI_Lane::getLastStepVehicleIDs(id));
             }
             break;
             case LAST_STEP_OCCUPANCY:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getNettoOccupancy());
+                tempMsg.writeDouble(TraCI_Lane::getLastStepOccupancy(id));
                 break;
             case LAST_STEP_VEHICLE_HALTING_NUMBER: {
-                int halting = 0;
-                const MSLane::VehCont& vehs = lane->getVehiclesSecure();
-                for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-                    if ((*j)->getSpeed() < SUMO_const_haltingSpeed) {
-                        ++halting;
-                    }
-                }
-                lane->releaseVehicles();
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(halting);
+                tempMsg.writeInt(TraCI_Lane::getLastStepHaltingNumber(id));
             }
             break;
             case LAST_STEP_LENGTH: {
-                double lengthSum = 0;
-                const MSLane::VehCont& vehs = lane->getVehiclesSecure();
-                for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-                    lengthSum += (*j)->getVehicleType().getLength();
-                }
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                if (vehs.size() == 0) {
-                    tempMsg.writeDouble(0);
-                } else {
-                    tempMsg.writeDouble(lengthSum / (double) vehs.size());
-                }
-                lane->releaseVehicles();
+                tempMsg.writeDouble(TraCI_Lane::getLastStepLength(id));
             }
             break;
             case VAR_WAITING_TIME: {
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getWaitingSeconds());
+                tempMsg.writeDouble(TraCI_Lane::getWaitingTime(id));
             }
             break;
             case VAR_CURRENT_TRAVELTIME: {
-                double meanSpeed = lane->getMeanSpeed();
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                if (meanSpeed != 0) {
-                    tempMsg.writeDouble(lane->getLength() / meanSpeed);
-                } else {
-                    tempMsg.writeDouble(1000000.);
-                }
+                tempMsg.writeDouble(TraCI_Lane::getTraveltime(id));
             }
             break;
             case VAR_WIDTH:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getWidth());
+                tempMsg.writeDouble(TraCI_Lane::getWidth(id));
                 break;
             case VAR_PARAMETER: {
                 std::string paramName = "";
@@ -284,7 +249,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     return server.writeErrorStatusCmd(RESPONSE_GET_LANE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                 }
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(lane->getParameter(paramName, ""));
+                tempMsg.writeString(TraCI_Lane::getParameter(id, paramName));
             }
             break;
             default:
@@ -320,7 +285,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "The speed must be given as a double.", outputStorage);
             }
-            l->setMaxSpeed(value);
+            TraCI_Lane::setMaxSpeed(id,value);
         }
         break;
         case VAR_LENGTH: {
@@ -328,7 +293,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "The length must be given as a double.", outputStorage);
             }
-            l->setLength(value);
+            TraCI_Lane::setLength(id,value);
         }
         break;
         case LANE_ALLOWED: {
@@ -336,8 +301,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             if (!server.readTypeCheckingStringList(inputStorage, classes)) {
                 return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "Allowed classes must be given as a list of strings.", outputStorage);
             }
-            l->setPermissions(parseVehicleClasses(classes), MSLane::CHANGE_PERMISSIONS_PERMANENT);
-            l->getEdge().rebuildAllowedLanes();
+            TraCI_Lane::setAllowed(id, classes);
         }
         break;
         case LANE_DISALLOWED: {
@@ -345,8 +309,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             if (!server.readTypeCheckingStringList(inputStorage, classes)) {
                 return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "Not allowed classes must be given as a list of strings.", outputStorage);
             }
-            l->setPermissions(~parseVehicleClasses(classes), MSLane::CHANGE_PERMISSIONS_PERMANENT); // negation yields allowed
-            l->getEdge().rebuildAllowedLanes();
+            TraCI_Lane::setDisallowed(id, classes);
         }
         break;
         case VAR_PARAMETER: {
@@ -363,7 +326,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             if (!server.readTypeCheckingString(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "The value of the parameter must be given as a string.", outputStorage);
             }
-            l->addParameter(name, value);
+            TraCI_Lane::setParameter(id, name, value);
         }
         break;
         default:

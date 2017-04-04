@@ -6,6 +6,8 @@ TraCI_InductionLoop.cpp \
 TraCI_InductionLoop.h \
 TraCI_Junction.cpp \
 TraCI_Junction.h \
+TraCI_Lane.cpp \
+TraCI_Lane.h \
 TraCI_LaneAreaDetector.cpp \
 TraCI_LaneAreaDetector.h \
 TraCI_MultiEntryExit.cpp \
