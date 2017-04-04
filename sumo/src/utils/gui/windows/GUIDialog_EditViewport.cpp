@@ -104,11 +104,14 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     // create buttons ok/cancel
     new FXHorizontalSeparator(contentsFrame, GUIDesignHorizontalSeparator);
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXHorizontalFrame(frameButtons, GUIDesignAuxiliarHorizontalFrame);
     FXButton* buttonOk = new FXButton(frameButtons, "&OK\t\taccept", GUIIconSubSys::getIcon(ICON_ACCEPT), this, GUIDialog_EditViewport::MID_OK, GUIDesignButtonOK);
     new FXButton(frameButtons, "&Cancel\t\tclose", GUIIconSubSys::getIcon(ICON_CANCEL), this, GUIDialog_EditViewport::MID_CANCEL, GUIDesignButtonCancel);
+    new FXHorizontalFrame(frameButtons, GUIDesignAuxiliarHorizontalFrame);
     // set focus in OK button
     buttonOk->setFocus();
-    setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    // set dialog icon
+    setIcon(GUIIconSubSys::getIcon(ICON_EDITVIEWPORT));
 }
 
 
