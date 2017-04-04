@@ -84,6 +84,9 @@
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_InductionLoop.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_MultiEntryExit.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\traci-server\TraCIConstants.h">
@@ -159,6 +162,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_InductionLoop.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_MultiEntryExit.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

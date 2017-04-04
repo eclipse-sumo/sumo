@@ -33,6 +33,7 @@
 
 #include "TraCIConstants.h"
 #include <microsim/output/MSDetectorControl.h>
+#include "lib/TraCI_MultiEntryExit.h"
 #include "TraCIServerAPI_MeMeDetector.h"
 
 
@@ -57,45 +58,37 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer& server, tcpip::Storage& inp
     tempMsg.writeUnsignedByte(RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
-    if (variable == ID_LIST) {
-        std::vector<std::string> ids;
-        MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).insertIDs(ids);
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
-    } else if (variable == ID_COUNT) {
-        std::vector<std::string> ids;
-        MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).insertIDs(ids);
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt((int) ids.size());
-    } else {
-        MSE3Collector* e3 = static_cast<MSE3Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).get(id));
-        if (e3 == 0) {
-            return server.writeErrorStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, "Areal detector '" + id + "' is not known", outputStorage);
-        }
+    try {
         switch (variable) {
             case ID_LIST:
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                tempMsg.writeStringList(TraCI_MultiEntryExit::getIDList());
+                break;
+            case ID_COUNT:
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(TraCI_MultiEntryExit::getIDCount());
                 break;
             case LAST_STEP_VEHICLE_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(e3->getVehiclesWithin());
+                tempMsg.writeInt(TraCI_MultiEntryExit::getLastStepVehicleNumber(id));
                 break;
             case LAST_STEP_MEAN_SPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(e3->getCurrentMeanSpeed());
+                tempMsg.writeDouble(TraCI_MultiEntryExit::getLastStepMeanSpeed(id));
                 break;
-            case LAST_STEP_VEHICLE_ID_LIST: {
+            case LAST_STEP_VEHICLE_ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                std::vector<std::string> ids = e3->getCurrentVehicleIDs();
-                tempMsg.writeStringList(ids);
-            }
-            break;
+                tempMsg.writeStringList(TraCI_MultiEntryExit::getLastStepVehicleIDs(id));
+                break;
             case LAST_STEP_VEHICLE_HALTING_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(e3->getCurrentHaltingNumber());
+                tempMsg.writeInt(TraCI_MultiEntryExit::getLastStepHaltingNumber(id));
                 break;
             default:
                 break;
         }
+    } catch (TraCIException& e) {
+        return server.writeErrorStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);

@@ -8,9 +8,10 @@ TraCI_Junction.cpp \
 TraCI_Junction.h \
 TraCI_LaneAreaDetector.cpp \
 TraCI_LaneAreaDetector.h \
+TraCI_MultiEntryExit.cpp \
+TraCI_MultiEntryExit.h \
 TraCI_POI.cpp \
 TraCI_POI.h \
-TraCI_POI.cpp \
 TraCI_Vehicle.h \
 TraCI_Vehicle.cpp \
 TraCI_Polygon.h \
