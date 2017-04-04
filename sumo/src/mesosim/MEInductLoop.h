@@ -80,13 +80,13 @@ public:
 
     /**
      * Get the XML-formatted output of all the get*-methods except
-     * getTimestepsSinceLastDetection.
+     * getTimeSinceLastDetection.
      *
      * @param lastNTimesteps take data out of the interval
      * (now-lastNTimesteps, now].
      *
      * @return XML-formatted output of all the get*-methods except
-     * getTimestepsSinceLastDetection.
+     * getTimeSinceLastDetection.
      *
      * @see MSDetector2File
      */

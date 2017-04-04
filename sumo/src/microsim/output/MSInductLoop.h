@@ -216,7 +216,7 @@ public:
      *
      * @return Timesteps from last leaving (detection) of the detector
      */
-    double getTimestepsSinceLastDetection() const;
+    double getTimeSinceLastDetection() const;
     //@}
 
 
@@ -362,6 +362,7 @@ protected:
 
 
     /// @brief Type of myVehiclesOnDet
+
     typedef std::map< SUMOVehicle*, double > VehicleMap;
 
     /// @brief Data for vehicles that have entered the detector (vehicle -> enter time)

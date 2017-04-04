@@ -116,6 +116,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI.cpp" />
+    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_InductionLoop.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Junction.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_LaneAreaDetector.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_POI.cpp" />
@@ -140,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI.h" />
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_InductionLoop.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Junction.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_LaneAreaDetector.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_POI.h" />

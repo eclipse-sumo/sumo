@@ -205,12 +205,12 @@ MSInductLoop::getCurrentVehicleIDs() const {
 
 
 double
-MSInductLoop::getTimestepsSinceLastDetection() const {
+MSInductLoop::getTimeSinceLastDetection() const {
     if (myVehiclesOnDet.size() != 0) {
         // detector is occupied
         return 0;
     }
-    return STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) - myLastLeaveTime;
+    return SIMTIME - myLastLeaveTime;
 }
 
 

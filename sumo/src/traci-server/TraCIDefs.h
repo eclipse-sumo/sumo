@@ -137,6 +137,22 @@ public:
     std::string to;
 };
 
+struct TraCIVehicleData {
+    /* @brief Constructor
+    (mirrors MSInductLoop::VehicleData) */
+    TraCIVehicleData() {}
+    /// @brief The id of the vehicle
+    std::string id;
+    /// @brief Length of the vehicle
+    double length;
+    /// @brief Entry-time of the vehicle in [s]
+    double entryTime;
+    /// @brief Leave-time of the vehicle in [s]
+    double leaveTime;
+    /// @brief Type of the vehicle in
+    std::string typeID;
+};
+
 /// @}
 
 

@@ -39,6 +39,7 @@
 #include <iomanip>
 #include <foreign/tcpip/socket.h>
 #include <traci-server/TraCIConstants.h>
+#include <traci-server/TraCIDefs.h>
 
 // ===========================================================================
 // global definitions
@@ -61,85 +62,6 @@ typedef long long int SUMOTime; // <utils/common/SUMOTime.h>
 
 class TraCIAPI {
 public:
-    /// @name Structures definitions
-    /// @{
-
-    /** @struct TraCIPosition
-     * @brief A 3D-position
-     */
-    struct TraCIPosition {
-        double x, y, z;
-    };
-
-    /** @struct TraCIPosition
-     * @brief A color
-     */
-    struct TraCIColor {
-        int r, g, b, a;
-    };
-
-    /** @struct TraCIPositionVector
-     * @brief A list of positions
-     */
-    typedef std::vector<TraCIPosition> TraCIPositionVector;
-
-    /** @struct TraCIBoundary
-     * @brief A 3D-bounding box
-     */
-    struct TraCIBoundary {
-        double xMin, yMin, zMin;
-        double xMax, yMax, zMax;
-    };
-
-    struct TraCIValue {
-        union {
-            double scalar;
-            TraCIPosition position;
-            TraCIColor color;
-        };
-        std::string string;
-        std::vector<std::string> stringList;
-    };
-
-    class TraCIPhase {
-    public:
-        TraCIPhase(const SUMOTime _duration, const SUMOTime _duration1, const SUMOTime _duration2, const std::string& _phase)
-            : duration(_duration), duration1(_duration1), duration2(_duration2), phase(_phase) {}
-        ~TraCIPhase() {}
-
-        SUMOTime duration, duration1, duration2;
-        std::string phase;
-    };
-
-
-    class TraCILogic {
-    public:
-        TraCILogic(const std::string& _subID, int _type, const std::map<std::string, double>& _subParameter, int _currentPhaseIndex, const std::vector<TraCIPhase>& _phases)
-            : subID(_subID), type(_type), subParameter(_subParameter), currentPhaseIndex(_currentPhaseIndex), phases(_phases) {}
-        ~TraCILogic() {}
-
-        std::string subID;
-        int type;
-        std::map<std::string, double> subParameter;
-        int currentPhaseIndex;
-        std::vector<TraCIPhase> phases;
-    };
-
-    class TraCILink {
-    public:
-        TraCILink(const std::string& _from, const std::string& _via, const std::string& _to)
-            : from(_from), via(_via), to(_to) {}
-        ~TraCILink() {}
-
-        std::string from;
-        std::string via;
-        std::string to;
-    };
-
-    /// @}
-
-
-
     /** @brief Constructor
      */
     TraCIAPI();
@@ -308,22 +230,6 @@ public:
         InductionLoopScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~InductionLoopScope() {}
 
-        struct VehicleData {
-            /* @brief Constructor
-              (mirrors MSInductLoop::VehicleData) */
-            VehicleData() {}
-            /// @brief The id of the vehicle
-            std::string id;
-            /// @brief Length of the vehicle
-            double length;
-            /// @brief Entry-time of the vehicle in [s]
-            double entryTime;
-            /// @brief Leave-time of the vehicle in [s]
-            double leaveTime;
-            /// @brief Type of the vehicle in
-            std::string typeID;
-        };
-
         std::vector<std::string> getIDList() const;
         double  getPosition(const std::string& loopID) const;
         std::string getLaneID(const std::string& loopID) const;
@@ -333,7 +239,7 @@ public:
         double getLastStepOccupancy(const std::string& loopID) const;
         double getLastStepMeanLength(const std::string& loopID) const;
         double getTimeSinceDetection(const std::string& loopID) const;
-        std::vector<VehicleData> getVehicleData(const std::string& loopID) const;
+        std::vector<TraCIVehicleData> getVehicleData(const std::string& loopID) const;
 
 
     private:
@@ -616,9 +522,9 @@ public:
 
         std::vector<std::string> getIDList() const;
         std::string getRedYellowGreenState(const std::string& tlsID) const;
-        std::vector<TraCIAPI::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) const;
+        std::vector<TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) const;
         std::vector<std::string> getControlledLanes(const std::string& tlsID) const;
-        std::vector<TraCIAPI::TraCILink> getControlledLinks(const std::string& tlsID) const;
+        std::vector<TraCILink> getControlledLinks(const std::string& tlsID) const;
         std::string getProgram(const std::string& tlsID) const;
         int getPhase(const std::string& tlsID) const;
         int getNextSwitch(const std::string& tlsID) const;
@@ -627,7 +533,7 @@ public:
         void setPhase(const std::string& tlsID, int index) const;
         void setProgram(const std::string& tlsID, const std::string& programID) const;
         void setPhaseDuration(const std::string& tlsID, int phaseDuration) const;
-        void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCIAPI::TraCILogic& logic) const;
+        void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic) const;
 
     private:
         /// @brief invalidated copy constructor

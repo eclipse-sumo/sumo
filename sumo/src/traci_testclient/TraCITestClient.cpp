@@ -44,6 +44,7 @@
 #include <foreign/tcpip/socket.h>
 
 #include <traci-server/TraCIConstants.h>
+#include <traci-server/TraCIDefs.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 #include "TraCITestClient.h"
@@ -749,9 +750,9 @@ TraCITestClient::testAPI() {
     answerLog << "  inductionloop:\n";
     answerLog << "    getIDList: " << joinToString(inductionloop.getIDList(), " ") << "\n";
     answerLog << "    getVehicleData:\n";
-    std::vector<InductionLoopScope::VehicleData> result2 = inductionloop.getVehicleData("det1");
+    std::vector<TraCIVehicleData> result2 = inductionloop.getVehicleData("det1");
     for (int i = 0; i < (int)result2.size(); ++i) {
-        const InductionLoopScope::VehicleData& vd = result2[i];
+        const TraCIVehicleData& vd = result2[i];
         answerLog << "      veh=" << vd.id << " length=" << vd.length << " entered=" << vd.entryTime << " left=" << vd.leaveTime << " type=" << vd.typeID << "\n";
     }
 
@@ -818,7 +819,7 @@ TraCITestClient::testAPI() {
     answerLog << "    phase: " << trafficlights.getPhase("n_m4") << "\n";
     answerLog << "    nextSwitch: " << trafficlights.getNextSwitch("n_m4") << "\n";
     answerLog << "    controlledLanes: " << joinToString(trafficlights.getControlledLanes("n_m4"), " ") << "\n";
-    std::vector<TraCIAPI::TraCILink> links = trafficlights.getControlledLinks("n_m4");
+    std::vector<TraCILink> links = trafficlights.getControlledLinks("n_m4");
     answerLog << "    controlledLinks:\n";
     for (int i = 0; i < (int)links.size(); ++i) {
         answerLog << "      index=" << i << " from=" << links[i].from << " via=" << links[i].via << " to=" << links[i].to << "\n";

@@ -36,6 +36,7 @@
 #include "TraCIConstants.h"
 #include <microsim/MSNet.h>
 #include <microsim/output/MSDetectorControl.h>
+#include "lib/TraCI_InductionLoop.h"
 #include "TraCIServerAPI_InductionLoop.h"
 
 
@@ -63,52 +64,50 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     // process request
-    if (variable == ID_LIST) {
-        std::vector<std::string> ids;
-        MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).insertIDs(ids);
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
-    } else if (variable == ID_COUNT) {
-        std::vector<std::string> ids;
-        MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).insertIDs(ids);
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt((int) ids.size());
-    } else {
-        MSInductLoop* il = dynamic_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(id));
-        if (il == 0) {
-            return server.writeErrorStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, "Induction loop '" + id + "' is not known", outputStorage);
-        }
+    try {
         switch (variable) {
             case ID_LIST:
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                tempMsg.writeStringList(TraCI_InductionLoop::getIDList());
+                break;
+            case ID_COUNT:
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(TraCI_InductionLoop::getIDCount());
+                break;
+            case VAR_POSITION:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(TraCI_InductionLoop::getPosition(id));
+                break;
+            case VAR_LANE_ID:
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(TraCI_InductionLoop::getLaneID(id));
                 break;
             case LAST_STEP_VEHICLE_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int)(il->getCurrentPassedNumber()));
+                tempMsg.writeInt(TraCI_InductionLoop::getLastStepVehicleNumber(id));
                 break;
             case LAST_STEP_MEAN_SPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(il->getCurrentSpeed());
+                tempMsg.writeDouble(TraCI_InductionLoop::getLastStepMeanSpeed(id));
                 break;
-            case LAST_STEP_VEHICLE_ID_LIST: {
+            case LAST_STEP_VEHICLE_ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                std::vector<std::string> ids = il->getCurrentVehicleIDs();
-                tempMsg.writeStringList(ids);
-            }
-            break;
+                tempMsg.writeStringList(TraCI_InductionLoop::getLastStepVehicleIDs(id));
+                break;
             case LAST_STEP_OCCUPANCY:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(il->getCurrentOccupancy());
+                tempMsg.writeDouble(TraCI_InductionLoop::getLastStepOccupancy(id));
                 break;
             case LAST_STEP_LENGTH:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(il->getCurrentLength());
+                tempMsg.writeDouble(TraCI_InductionLoop::getLastStepMeanLength(id));
                 break;
             case LAST_STEP_TIME_SINCE_DETECTION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(il->getTimestepsSinceLastDetection());
+                tempMsg.writeDouble(TraCI_InductionLoop::getTimeSinceDetection(id));
                 break;
             case LAST_STEP_VEHICLE_DATA: {
-                std::vector<MSInductLoop::VehicleData> vd = il->collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T, true);
+                std::vector<TraCIVehicleData> vd = TraCI_InductionLoop::getVehicleData(id);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tcpip::Storage tempContent;
                 int cnt = 0;
@@ -116,21 +115,21 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
                 tempContent.writeInt((int) vd.size());
                 ++cnt;
                 for (int i = 0; i < (int)vd.size(); ++i) {
-                    MSInductLoop::VehicleData& svd = vd[i];
+                    TraCIVehicleData& svd = vd[i];
                     tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString(svd.idM);
+                    tempContent.writeString(svd.id);
                     ++cnt;
                     tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                    tempContent.writeDouble(svd.lengthM);
+                    tempContent.writeDouble(svd.length);
                     ++cnt;
                     tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                    tempContent.writeDouble(svd.entryTimeM);
+                    tempContent.writeDouble(svd.entryTime);
                     ++cnt;
                     tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                    tempContent.writeDouble(svd.leaveTimeM);
+                    tempContent.writeDouble(svd.leaveTime);
                     ++cnt;
                     tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString(svd.typeIDM);
+                    tempContent.writeString(svd.typeID);
                     ++cnt;
                 }
 
@@ -138,17 +137,11 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
                 tempMsg.writeStorage(tempContent);
                 break;
             }
-            case VAR_POSITION:
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(il->getPosition());
-                break;
-            case VAR_LANE_ID:
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(il->getLane()->getID());
-                break;
             default:
                 break;
         }
+    } catch (TraCIException& e) {
+        return server.writeErrorStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);

@@ -182,7 +182,7 @@ MSActuatedTrafficLightLogic::gapControl() {
                     continue;
                 }
                 if (!MSGlobals::gUseMesoSim) { // why not check outside the loop? (Leo)
-                    const double actualGap = static_cast<MSInductLoop*>(myInductLoops.find(*j)->second)->getTimestepsSinceLastDetection();
+                    const double actualGap = static_cast<MSInductLoop*>(myInductLoops.find(*j)->second)->getTimeSinceLastDetection();
                     if (actualGap < myMaxGap) {
                         result = MIN2(result, actualGap);
                     }

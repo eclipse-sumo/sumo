@@ -138,7 +138,7 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("vehicle length [m]", true,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getCurrentLength));
     ret->mkItem("empty time [s]", true,
-                new FunctionBinding<GUIInductLoop, double>(&(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
+                new FunctionBinding<GUIInductLoop, double>(&(getLoop()), &GUIInductLoop::getTimeSinceLastDetection));
     // close building
     ret->closeBuilding();
     return ret;

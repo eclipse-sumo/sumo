@@ -109,7 +109,7 @@ GUIMEInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
             &(getLoop()), &GUIMEInductLoop::getMeanVehicleLength, 1));
     ret->mkItem("empty time [s]", true,
         new FunctionBinding<GUIMEInductLoop, double>(
-            &(getLoop()), &GUIMEInductLoop::getTimestepsSinceLastDetection));
+            &(getLoop()), &GUIMEInductLoop::getTimeSinceLastDetection));
             */
     //
     ret->mkItem("position [m]", false, myPosition);
