@@ -524,8 +524,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
 
     if (ok) {
-        LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right"))
-                                 ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+        LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
+                e->getParameter("railway:preferred_direction","") != "both" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+
         id = StringUtils::escapeXML(id);
         if (addForward) {
             assert(numLanesForward > 0);
