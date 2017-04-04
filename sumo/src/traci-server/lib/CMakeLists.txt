@@ -11,7 +11,6 @@ set(traciserver_lib_STAT_SRCS
         TraCI_MultiEntryExit.cpp
         TraCI_POI.cpp
         TraCI_POI.h
-        TraCI_POI.cpp
         TraCI_Polygon.h
         TraCI_Polygon.cpp
         TraCI_Route.h
