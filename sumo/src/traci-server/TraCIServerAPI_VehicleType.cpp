@@ -236,11 +236,11 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
     }
     // id
     std::string id = inputStorage.readString();
-    MSVehicleType* v = TraCI_VehicleType::getVType(id);
-    if (v == 0) {
-        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, "Vehicle type '" + id + "' is not known",
-                                          outputStorage);
-    }
+//    MSVehicleType* v = TraCI_VehicleType::getVType(id);
+//    if (v == 0) {
+//        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, "Vehicle type '" + id + "' is not known",
+//                                          outputStorage);
+//    }
     // process
     try {
         if (setVariable(CMD_SET_VEHICLETYPE_VARIABLE, variable, id, server, inputStorage, outputStorage)) {
@@ -250,6 +250,8 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
     }
     catch (ProcessError& e) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
+    } catch (TraCIException& e) {
+        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
     }
     return false;
 }

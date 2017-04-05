@@ -19,6 +19,8 @@ set(traciserver_lib_STAT_SRCS
         TraCI_Vehicle.cpp
         TraCI_VehicleType.cpp
         TraCI_VehicleType.h
+        TraCI_Lane.cpp
+        TraCI_Lane.h
         )
 
 add_library(traciserver_lib STATIC ${traciserver_lib_STAT_SRCS})

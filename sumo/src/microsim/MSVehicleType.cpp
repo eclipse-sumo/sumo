@@ -305,6 +305,7 @@ MSVehicleType::build(const std::string& id, const MSVehicleType* from) {
     vtype->myParameter.id = id;
     vtype->myCarFollowModel = from->myCarFollowModel->duplicate(vtype);
     vtype->myOriginalType = from->myOriginalType != 0 ? from->myOriginalType : from;
+    MSNet::getInstance()->getVehicleControl().addVType(vtype);
     return vtype;
 }
 

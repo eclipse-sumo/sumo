@@ -462,7 +462,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             break;
             default:
                 /// XXX replace by a TraCI_VehicleType function
-                TraCIServerAPI_VehicleType::getVariable(variable,id, tempMsg);
+                TraCIServerAPI_VehicleType::getVariable(variable,TraCI_Vehicle::getVehicleType(id).getID(), tempMsg);
                 break;
         }
     } catch (TraCIException& e) {
@@ -1505,13 +1505,16 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
         break;
         default:
             try {
-                if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, getSingularType(v).getID(), server, inputStorage, outputStorage)) {
+                const MSVehicleType& type = getSingularType(v);
+                if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, type.getID(), server, inputStorage, outputStorage)) {
                     return false;
                 }
             } catch (ProcessError& e) {
                 return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
+            } catch (TraCIException& e) {
+                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
             }
-            break;
+        break;
     }
     server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;

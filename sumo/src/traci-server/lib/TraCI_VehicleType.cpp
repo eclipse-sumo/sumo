@@ -149,7 +149,7 @@ void TraCI_VehicleType::setDecel(const std::string& typeID, double decel)  {
 }
 void TraCI_VehicleType::setImperfection(const std::string& typeID, double imperfection)  {
     MSVehicleType* v = getVType(typeID);
-    v->setImpatience(imperfection);
+    v->getCarFollowModel().setImperfection(imperfection);
 }
 void TraCI_VehicleType::setTau(const std::string& typeID, double tau)  {
     MSVehicleType* v = getVType(typeID);
@@ -178,5 +178,9 @@ void TraCI_VehicleType::addParameter(const std::string& typeID, const std::strin
     ((SUMOVTypeParameter&) v->getParameter()).addParameter(name, value);
 }
 MSVehicleType* TraCI_VehicleType::getVType(std::string id) {
-    return MSNet::getInstance()->getVehicleControl().getVType(id);
+    MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType(id);
+    if (t == 0) {
+        throw TraCIException("VehicleType '" + id + "' is not known");
+    }
+    return t;
 }
