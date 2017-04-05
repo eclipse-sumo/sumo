@@ -1815,10 +1815,6 @@ MSLane::getFollowerOnConsecutive(
                     }
                 } else {
                     agap = (*i).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
-                    if (!(*i).viaLink->havePriority()) {
-                        // if v comes from a minor side road it should not block lane changing
-                        agap = MAX2(agap, 0.0);
-                    }
                 }
 #ifdef DEBUG_CONTEXT
                 if (DEBUG_COND) std::cout << SIMTIME << "    "
@@ -2648,10 +2644,6 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const 
                             }
                         } else {
                             agap = (*it).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
-                            if (!(*it).viaLink->havePriority()) {
-                                // if v comes from a minor side road it should not block lane changing
-                                agap = MAX2(agap, 0.0);
-                            }
                         }
                         result.addFollower(v, ego, agap, 0, i);
 #ifdef DEBUG_CONTEXT
