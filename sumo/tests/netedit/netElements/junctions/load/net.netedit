@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/03/2017 12:54:33 by Netedit Version dev-SVN-r22880
+<!-- generated on 04/04/2017 16:50:38 by Netedit Version dev-SVN-r22880
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar125428.5488/netedit.server/netElements/junctions/load\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar125428.5488/netedit.server/netElements/junctions/load\additionals.xml"/>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar125428.5488/netedit.server/netElements/junctions/load\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.04Apr164903.3752/netedit.server/netElements/junctions/load\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.04Apr164903.3752/netedit.server/netElements/junctions/load\additionals.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.04Apr164903.3752/netedit.server/netElements/junctions/load\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar125428.5488/netedit.server/netElements/junctions/load\net.net.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.04Apr164903.3752/netedit.server/netElements/junctions/load\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,7 +31,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.01Mar125428.5488/netedit.server/netElements/junctions/load\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.04Apr164903.3752/netedit.server/netElements/junctions/load\log.txt"/>
     </report>
 
 </configuration>
@@ -679,7 +679,7 @@
         <request index="1" response="110000" foes="111000" cont="1"/>
         <request index="2" response="100000" foes="100000" cont="0"/>
         <request index="3" response="100011" foes="100011" cont="0"/>
-        <request index="4" response="000000" foes="000010" cont="0"/>
+        <request index="4" response="000010" foes="000010" cont="0"/>
         <request index="5" response="000000" foes="001110" cont="0"/>
     </junction>
     <junction id="gneJ19" type="zipper" x="70.00" y="20.00" incLanes="-gneE16_0 -gneE17_0 -gneE18_0 -gneE19_0 -gneE20_0 -gneE21_0 -gneE22_0 -gneE23_0" intLanes=":gneJ19_0_0 :gneJ19_1_0 :gneJ19_2_0 :gneJ19_3_0 :gneJ19_56_0 :gneJ19_57_0 :gneJ19_58_0 :gneJ19_7_0 :gneJ19_8_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0 :gneJ19_12_0 :gneJ19_13_0 :gneJ19_14_0 :gneJ19_15_0 :gneJ19_16_0 :gneJ19_17_0 :gneJ19_18_0 :gneJ19_19_0 :gneJ19_20_0 :gneJ19_21_0 :gneJ19_22_0 :gneJ19_23_0 :gneJ19_24_0 :gneJ19_25_0 :gneJ19_26_0 :gneJ19_27_0 :gneJ19_28_0 :gneJ19_29_0 :gneJ19_30_0 :gneJ19_31_0 :gneJ19_59_0 :gneJ19_60_0 :gneJ19_61_0 :gneJ19_35_0 :gneJ19_36_0 :gneJ19_37_0 :gneJ19_38_0 :gneJ19_39_0 :gneJ19_40_0 :gneJ19_41_0 :gneJ19_42_0 :gneJ19_43_0 :gneJ19_44_0 :gneJ19_45_0 :gneJ19_46_0 :gneJ19_47_0 :gneJ19_48_0 :gneJ19_49_0 :gneJ19_50_0 :gneJ19_51_0 :gneJ19_52_0 :gneJ19_53_0 :gneJ19_54_0 :gneJ19_55_0" shape="66.75,29.35 73.25,29.35 74.31,28.91 78.91,24.31 79.35,23.25 79.35,16.75 78.91,15.69 74.31,11.09 73.25,10.65 66.75,10.65 65.69,11.09 61.09,15.69 60.65,16.75 60.65,23.25 61.09,24.31 65.69,28.91">

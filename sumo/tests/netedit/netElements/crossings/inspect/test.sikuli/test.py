@@ -33,7 +33,7 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 netedit.rebuildNetwork()
 
 # zoom in central node
-netedit.zoomIn(match.getTarget().offset(325, 225), 10)
+netedit.setZoom("50", "50", "50")
 
 # go to inspect mode
 netedit.inspectMode()
