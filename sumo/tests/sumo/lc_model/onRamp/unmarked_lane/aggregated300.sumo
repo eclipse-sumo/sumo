@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/14/17 11:13:46 by SUMO Version dev-SVN-r23360
+<!-- generated on Wed Apr  5 10:22:46 2017 by SUMO Version dev-SVN-r23818
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -28,7 +28,7 @@
             <lane id="beg_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
         <edge id="beg2">
-            <lane id="beg2_0" sampledSeconds="2421.86" traveltime="97.00" overlapTraveltime="97.92" density="0.78" occupancy="0.39" waitingTime="0.00" speed="30.66" departed="394" arrived="0" entered="0" left="293" laneChangedFrom="101" laneChangedTo="0"/>
+            <lane id="beg2_0" sampledSeconds="2421.83" traveltime="97.00" overlapTraveltime="97.92" density="0.78" occupancy="0.39" waitingTime="0.00" speed="30.66" departed="394" arrived="0" entered="0" left="293" laneChangedFrom="101" laneChangedTo="0"/>
             <lane id="beg2_1" sampledSeconds="2031.31" traveltime="88.41" overlapTraveltime="88.59" density="0.66" occupancy="0.33" waitingTime="0.00" speed="33.89" departed="304" arrived="0" entered="0" left="405" laneChangedFrom="0" laneChangedTo="101"/>
         </edge>
         <edge id="end">
@@ -43,7 +43,7 @@
         </edge>
         <edge id="merge">
             <lane id="merge_0" sampledSeconds="1652.47" traveltime="11.76" overlapTraveltime="12.36" density="16.54" occupancy="8.27" waitingTime="520.00" speed="8.25" departed="0" arrived="0" entered="191" left="0" laneChangedFrom="191" laneChangedTo="0"/>
-            <lane id="merge_1" sampledSeconds="2437.73" traveltime="6.97" overlapTraveltime="7.45" density="24.40" occupancy="12.20" waitingTime="31.00" speed="13.69" departed="0" arrived="0" entered="293" left="441" laneChangedFrom="44" laneChangedTo="192"/>
+            <lane id="merge_1" sampledSeconds="2437.75" traveltime="6.97" overlapTraveltime="7.45" density="24.40" occupancy="12.20" waitingTime="31.00" speed="13.69" departed="0" arrived="0" entered="293" left="441" laneChangedFrom="44" laneChangedTo="192"/>
             <lane id="merge_2" sampledSeconds="1339.24" traveltime="2.97" overlapTraveltime="3.13" density="13.40" occupancy="6.70" waitingTime="0.00" speed="32.60" departed="0" arrived="0" entered="405" left="448" laneChangedFrom="1" laneChangedTo="44"/>
         </edge>
         <edge id="offRamp">
