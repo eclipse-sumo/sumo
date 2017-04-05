@@ -727,15 +727,12 @@ public:
 
 
 
-    /// @brief return the follower with the largest missing rear gap among all predecessor lanes (within dist)
-    std::pair<MSVehicle* const, double> getFollowerOnConsecutive(
-        double backOffset, double leaderSpeed, double leaderMaxDecel, double dist = -1, bool ignoreMinorLinks = false) const;
-
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
-    MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const;
+    MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, double backOffset, 
+            bool allSublanes, double searchDist = -1, bool ignoreMinorLinks = false) const;
 
     /// @brief return by how much further the leader must be inserted to avoid rear end collisions
-    double getMissingRearGap(double backOffset, double leaderSpeed, double leaderMaxDecel) const;
+    double getMissingRearGap(const MSVehicle* leader, double backOffset, double leaderSpeed) const;
 
     /** @brief Returns the immediate leader of veh and the distance to veh
      * starting on this lane

@@ -516,9 +516,7 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
     neighFollow = getCloserFollower(candiPos, neighFollow, target->lane->getPartialBehind(candi));
 
     if (neighFollow == 0) {
-        std::pair<MSVehicle* const, double> consecutiveFollower = target->lane->getFollowerOnConsecutive(
-                    candi->getPositionOnLane() - candi->getVehicleType().getLength(),
-                    candi->getSpeed(), candi->getCarFollowModel().getMaxDecel());
+        CLeaderDist consecutiveFollower = target->lane->getFollowersOnConsecutive(candi, candi->getBackPositionOnLane(), true)[0];
 #ifdef DEBUG_SURROUNDING_VEHICLES
         if (DEBUG_COND) {
             if (consecutiveFollower.first == 0) {
@@ -528,7 +526,7 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
             }
         }
 #endif
-        return consecutiveFollower;
+        return std::make_pair(const_cast<MSVehicle*>(consecutiveFollower.first), consecutiveFollower.second);
     } else {
 #ifdef DEBUG_SURROUNDING_VEHICLES
         if (DEBUG_COND) {

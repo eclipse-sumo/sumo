@@ -280,10 +280,10 @@ MSLaneChangerSublane::checkChangeSublane(
     //gDebugFlag1 = vehicle->getLaneChangeModel().debugVehicle();
 
     MSLeaderDistanceInfo neighLeaders = getLeaders(target, vehicle);
-    MSLeaderDistanceInfo neighFollowers = target->lane->getFollowersOnConsecutive(vehicle, true);
+    MSLeaderDistanceInfo neighFollowers = target->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
     MSLeaderDistanceInfo neighBlockers(&neighLane, vehicle, vehicle->getLane()->getRightSideOnEdge() - neighLane.getRightSideOnEdge());
     MSLeaderDistanceInfo leaders = getLeaders(myCandi, vehicle);
-    MSLeaderDistanceInfo followers = myCandi->lane->getFollowersOnConsecutive(vehicle, true);
+    MSLeaderDistanceInfo followers = myCandi->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
     MSLeaderDistanceInfo blockers(vehicle->getLane(), vehicle, 0);
 
     if (gDebugFlag1) std::cout << SIMTIME

@@ -316,11 +316,11 @@ MSLane::freeInsertion(MSVehicle& veh, double mspeed,
     // try to insert teleporting vehicles fully on this lane
     const double minPos = (notification == MSMoveReminder::NOTIFICATION_TELEPORT ?
                              MIN2(myLength, veh.getVehicleType().getLength()) : 0);
-
+    veh.setTentativeLaneAndPosition(this, minPos, 0);
     if (myVehicles.size() == 0) {
         // ensure sufficient gap to followers on predecessor lanes
         const double backOffset = minPos - veh.getVehicleType().getLength();
-        const double missingRearGap = getMissingRearGap(backOffset, mspeed, veh.getCarFollowModel().getMaxDecel());
+        const double missingRearGap = getMissingRearGap(&veh, backOffset, mspeed);
         if (missingRearGap > 0) {
             if (minPos + missingRearGap <= myLength) {
                 // @note. The rear gap is tailored to mspeed. If it changes due
@@ -749,7 +749,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                              << std::endl;
 #endif
 
-    MSLeaderDistanceInfo followers = getFollowersOnConsecutive(aVehicle, false);
+    MSLeaderDistanceInfo followers = getFollowersOnConsecutive(aVehicle, aVehicle->getBackPositionOnLane(), false);
     for (int i = 0; i < followers.numSublanes(); ++i) {
         const MSVehicle* follower = followers[i].first;
         if (follower != 0) {
@@ -777,7 +777,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     if (followers.numFreeSublanes() > 0) {
         // check approaching vehicles to prevent rear-end collisions
         const double backOffset = pos - aVehicle->getVehicleType().getLength();
-        const double missingRearGap = getMissingRearGap(backOffset, speed, aVehicle->getCarFollowModel().getMaxDecel());
+        const double missingRearGap = getMissingRearGap(aVehicle, backOffset, speed);
         if (missingRearGap > 0) {
             // too close to a follower
 #ifdef DEBUG_INSERTION
@@ -1734,16 +1734,16 @@ public:
 };
 
 
-double MSLane::getMissingRearGap(
-    double backOffset, double leaderSpeed, double leaderMaxDecel) const {
+double MSLane::getMissingRearGap(const MSVehicle* leader, double backOffset, double leaderSpeed) const {
     // this follows the same logic as getFollowerOnConsecutive. we do a tree
     // search and check for the vehicle with the largest missing rear gap within
     // relevant range
     double result = 0;
-    std::pair<MSVehicle* const, double> followerInfo = getFollowerOnConsecutive(backOffset, leaderSpeed, leaderMaxDecel);
-    MSVehicle* v = followerInfo.first;
+    const double leaderDecel = leader->getCarFollowModel().getMaxDecel();
+    CLeaderDist followerInfo = getFollowersOnConsecutive(leader, backOffset, false)[0];
+    const MSVehicle* v = followerInfo.first;
     if (v != 0) {
-        result = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderMaxDecel) - followerInfo.second;
+        result = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderDecel) - followerInfo.second;
     }
     return result;
 }
@@ -1758,100 +1758,6 @@ MSLane::getMaximumBrakeDist() const {
 }
 
 
-std::pair<MSVehicle* const, double>
-MSLane::getFollowerOnConsecutive(
-    double backOffset, double leaderSpeed, double leaderMaxDecel, double dist, bool ignoreMinorLinks) const {
-    // do a tree search among all follower lanes and check for the most
-    // important vehicle (the one requiring the largest reargap)
-    // to get a safe bound on the necessary search depth, we need to consider the maximum speed and minimum
-    // deceleration of potential follower vehicles
-    if (dist == -1) {
-        dist = getMaximumBrakeDist() - backOffset;
-    }
-#ifdef DEBUG_CONTEXT
-    if (DEBUG_COND) std::cout << SIMTIME << " getFollowerOnConsecutive"
-                                  << " backOffset=" << backOffset
-                                  << " leaderSpeed=" << leaderSpeed
-                                  << " dist=" << dist
-                                  << "\n";
-#endif
-    std::pair<MSVehicle*, double> result(static_cast<MSVehicle*>(0), -1);
-    double missingRearGapMax = -std::numeric_limits<double>::max();
-    std::set<MSLane*> visited;
-    std::vector<MSLane::IncomingLaneInfo> newFound;
-    std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;
-    while (toExamine.size() != 0) {
-        for (std::vector<MSLane::IncomingLaneInfo>::iterator i = toExamine.begin(); i != toExamine.end(); ++i) {
-            MSLane* next = (*i).lane;
-#ifdef DEBUG_CONTEXT
-            if (DEBUG_COND) {
-                std::cout << SIMTIME << "     nextLane=" << next->getID() << "\n";
-            }
-#endif
-            // XXX: why take a MAX here? Even if some upcoming lane allows to go faster, the follower should be able
-            // to brake in time if we only consider 'next->getMaximumBrakeDist() - backOffset'.
-            dist = MAX2(dist, next->getMaximumBrakeDist() - backOffset);
-            // Checking the first vehicle on the considered lane.
-            // XXX: Could there be a problem if someone fast is just overtaking a a slow first vehicle, e.g.? (Leo) Refs.#2578
-            MSVehicle* v = next->getFirstAnyVehicle();
-            double agap = 0;
-            if (v != 0) {
-                // the front of v is already on divergent trajectory from the ego vehicle
-                // for which this method is called (in the context of MSLaneChanger).
-                // Therefore, technically v is not a follower but only an obstruction and
-                // the gap is not between the front of v and the back of ego
-                // but rather between the flank of v and the back of ego.
-                if (!v->isFrontOnLane(next)) {
-                    agap = (*i).length - next->getLength() + backOffset
-                           /// XXX dubious term. here for backwards compatibility
-                           - v->getVehicleType().getMinGap();
-                    if (agap > 0) {
-                        // Only if ego overlaps we treat v as if it were a real follower
-                        // Otherwise we ignore it and look for another follower
-                        v = next->getFirstFullVehicle();
-                        if (v != 0) {
-                            agap = (*i).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
-                        }
-                    }
-                } else {
-                    agap = (*i).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
-                }
-#ifdef DEBUG_CONTEXT
-                if (DEBUG_COND) std::cout << SIMTIME << "    "
-                                              << " v=" << Named::getIDSecure(v)
-                                              << " agap=" << agap
-                                              << " dist=" << dist
-                                              << "\n";
-#endif
-            }
-            if (v != 0) {
-                const double missingRearGap = v->getCarFollowModel().getSecureGap(v->getSpeed(), leaderSpeed, leaderMaxDecel) - agap;
-                if (missingRearGap > missingRearGapMax) {
-                    missingRearGapMax = missingRearGap;
-                    result.first = v;
-                    result.second = agap;
-                }
-            } else {
-                if ((*i).length < dist) {
-                    const std::vector<MSLane::IncomingLaneInfo>& followers = next->getIncomingLanes();
-                    for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j = followers.begin(); j != followers.end(); ++j) {
-                        if (visited.find((*j).lane) == visited.end() && ((*j).viaLink->havePriority() || !ignoreMinorLinks)) {
-                            visited.insert((*j).lane);
-                            MSLane::IncomingLaneInfo ili;
-                            ili.lane = (*j).lane;
-                            ili.length = (*j).length + (*i).length;
-                            ili.viaLink = (*j).viaLink;
-                            newFound.push_back(ili);
-                        }
-                    }
-                }
-            }
-        }
-        toExamine.clear();
-        swap(newFound, toExamine);
-    }
-    return result;
-}
 
 std::pair<MSVehicle* const, double>
 MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<MSLane*>& bestLaneConts, double dist, bool checkTmpVehicles) const {
@@ -2561,11 +2467,13 @@ MSLane::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc) {
 
 
 MSLeaderDistanceInfo
-MSLane::getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const {
+MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset, 
+        bool allSublanes, double searchDist, bool ignoreMinorLinks) const {
     // get the follower vehicle on the lane to change to
+    const double egoPos = backOffset + ego->getVehicleType().getLength();
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(ego)) {
-        std::cout << SIMTIME << " getFollowers lane=" << getID() << " ego=" << ego->getID() << " pos=" << ego->getPositionOnLane() << "\n";
+        std::cout << SIMTIME << " getFollowers lane=" << getID() << " ego=" << ego->getID() << " pos=" << egoPos << "\n";
     }
 #endif
     assert(ego != 0);
@@ -2580,10 +2488,10 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const 
             std::cout << "  veh=" << veh->getID() << " lane=" << veh->getLane()->getID() << " pos=" << veh->getPositionOnLane(this) << "\n";
         }
 #endif
-        if (veh != ego && veh->getPositionOnLane(this) <= ego->getPositionOnLane()) {
+        if (veh != ego && veh->getPositionOnLane(this) <= egoPos) {
             //const double latOffset = veh->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
             const double latOffset = veh->getLatOffset(this);
-            const double dist = ego->getBackPositionOnLane() - veh->getPositionOnLane(this) - veh->getVehicleType().getMinGap();
+            const double dist = backOffset - veh->getPositionOnLane(this) - veh->getVehicleType().getMinGap();
             result.addFollower(veh, ego, dist, latOffset);
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(ego)) {
@@ -2598,12 +2506,13 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const 
     }
 #endif
     if (result.numFreeSublanes() > 0) {
-        const double backOffset = ego->getBackPositionOnLane(ego->getLane());
         // do a tree search among all follower lanes and check for the most
         // important vehicle (the one requiring the largest reargap)
         // to get a safe bound on the necessary search depth, we need to consider the maximum speed and minimum
         // deceleration of potential follower vehicles
-        double dist = getMaximumBrakeDist() - backOffset;
+        if (searchDist == -1) {
+            searchDist = getMaximumBrakeDist() - backOffset;
+        }
 
         std::set<MSLane*> visited;
         std::vector<MSLane::IncomingLaneInfo> newFound;
@@ -2611,7 +2520,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const 
         while (toExamine.size() != 0) {
             for (std::vector<MSLane::IncomingLaneInfo>::iterator it = toExamine.begin(); it != toExamine.end(); ++it) {
                 MSLane* next = (*it).lane;
-                dist = MAX2(dist, next->getMaximumBrakeDist() - backOffset);
+                searchDist = MAX2(searchDist, next->getMaximumBrakeDist() - backOffset);
                 MSLeaderInfo first = next->getFirstVehicleInformation(0, 0, false, std::numeric_limits<double>::max(), false);
                 MSLeaderInfo firstFront = next->getFirstVehicleInformation(0, 0, true);
 #ifdef DEBUG_CONTEXT
@@ -2653,10 +2562,10 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, bool allSublanes) const 
 #endif
                     }
                 }
-                if ((*it).length < dist) {
+                if ((*it).length < searchDist) {
                     const std::vector<MSLane::IncomingLaneInfo>& followers = next->getIncomingLanes();
                     for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j = followers.begin(); j != followers.end(); ++j) {
-                        if (visited.find((*j).lane) == visited.end()) {
+                        if (visited.find((*j).lane) == visited.end() && ((*j).viaLink->havePriority() || !ignoreMinorLinks)) {
                             visited.insert((*j).lane);
                             MSLane::IncomingLaneInfo ili;
                             ili.lane = (*j).lane;
@@ -2821,9 +2730,9 @@ MSLane::getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignor
             return std::pair<MSVehicle* const, double>(pred, egoPos - pred->getPositionOnLane(this) - ego->getVehicleType().getLength() - pred->getVehicleType().getMinGap());
         }
     }
-    return getFollowerOnConsecutive(
-               egoPos - ego->getVehicleType().getLength(),
-               ego->getSpeed(), ego->getCarFollowModel().getMaxDecel(), dist, ignoreMinorLinks);
+    const double backOffset = egoPos - ego->getVehicleType().getLength();
+    CLeaderDist result = getFollowersOnConsecutive(ego, backOffset, true,  dist, ignoreMinorLinks)[0];
+    return std::make_pair(const_cast<MSVehicle*>(result.first), result.second);
 }
 
 std::pair<MSVehicle* const, double>
