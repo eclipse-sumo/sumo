@@ -137,21 +137,26 @@ def redo(match, number):
 def leftClick(match, positionx, positiony):
     click(match.getTarget().offset(positionx, positiony))
 
-# zoom in
-def zoomIn(position, level):
-    # set mouse over position
-    hover(position)
-    # apply zoom it using key +
-    for x in range(level):
-        type(Key.ADD)
-
-# zoom out
-def zoomOut(position, level):
-    # set mouse over position
-    hover(position)
-    # apply zoom it using key -
-    for x in range(level):
-        type(Key.MINUS)
+# set Zoom
+def setZoom(positionX, positionY, zoomLevel):
+    # open edit viewport dialog
+    type("v")
+    # go to zoom level
+    type(Key.TAB, Key.SHIFT)
+    # Paste zoomLevel
+    paste(zoomLevel)
+    # go to Y
+    type(Key.TAB, Key.SHIFT)
+    # Paste positionY
+    paste(positionY)
+    # go to X
+    type(Key.TAB, Key.SHIFT)
+    # Paste positionX
+    paste(positionX)
+    # Go to OK Button and press it
+    for t in xrange(3):
+        type(Key.TAB)
+    type(Key.SPACE)
 
 # netedit wait question
 def waitQuestion(answer):
@@ -290,7 +295,7 @@ def createCrossing():
     # jump to create crossing button
     for x in range(0, 8):
         type(Key.TAB)
-    # type enter to create crossing
+    # type space to create crossing
     type(Key.SPACE)
     # go back to avoid errors
     for x in range(0, 8):
@@ -318,8 +323,9 @@ def modifyCrossingDefaultBoolValue(numtabs):
     # jump to value
     for x in range(0, numtabs + 1):
         type(Key.TAB)
-    # type space to change value
+    # type space to change value and ESC to avoid accidentally changes
     type(Key.SPACE)
+    type(Key.ESC)
     
 # clear crossing
 def crossingClearEdges(useSelectedEdges = False):
