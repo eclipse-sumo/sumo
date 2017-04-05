@@ -3781,6 +3781,17 @@ MSVehicle::getBoundingPoly() const {
 }
 
 
+bool 
+MSVehicle::onFurtherEdge(const MSEdge* edge) const {
+    for (std::vector<MSLane*>::const_iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
+        if (&(*i)->getEdge() == edge) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 #ifndef NO_TRACI
 bool
 MSVehicle::addTraciStop(MSLane* const lane, const double startPos, const double endPos, const SUMOTime duration, const SUMOTime until,

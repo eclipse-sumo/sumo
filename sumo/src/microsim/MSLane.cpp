@@ -2553,6 +2553,10 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                             }
                         } else {
                             agap = (*it).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
+                            if (!(*it).viaLink->havePriority() && !ego->onFurtherEdge(&(*it).lane->getEdge())) {
+                                // if v comes from a minor side road it should not block lane changing
+                                agap = MAX2(agap, 0.0);
+                            }
                         }
                         result.addFollower(v, ego, agap, 0, i);
 #ifdef DEBUG_CONTEXT

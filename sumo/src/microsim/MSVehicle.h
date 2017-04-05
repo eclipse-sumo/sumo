@@ -688,6 +688,10 @@ public:
         return myFurtherLanesPosLat;
     }
 
+
+    /// @brief whether this vehicle has its back (and no its front) on the given edge
+    bool onFurtherEdge(const MSEdge* edge) const;
+
     /// @name strategical/tactical lane choosing methods
     /// @{
 
