@@ -141,21 +141,31 @@ def leftClick(match, positionx, positiony):
 def setZoom(positionX, positionY, zoomLevel):
     # open edit viewport dialog
     type("v")
+    # wait 0.1 second before every change
+    wait(0.1)
     # go to zoom level
     type(Key.TAB, Key.SHIFT)
     # Paste zoomLevel
     paste(zoomLevel)
+    # wait 0.1 second before every change
+    wait(0.1)
     # go to Y
     type(Key.TAB, Key.SHIFT)
     # Paste positionY
     paste(positionY)
+    # wait 0.1 second before every change
+    wait(0.1)
     # go to X
     type(Key.TAB, Key.SHIFT)
     # Paste positionX
     paste(positionX)
-    # Go to OK Button and press it
+    # wait 0.1 second before every change
+    wait(0.1)
+    # Go to OK Button
     for t in xrange(3):
         type(Key.TAB)
+    # wait 0.1 second before press (To avoid errors in linux)
+    wait(0.1)
     type(Key.SPACE)
 
 # netedit wait question
