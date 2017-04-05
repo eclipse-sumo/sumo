@@ -125,7 +125,7 @@ MSInductLoop*
 TraCI_InductionLoop::getDetector(const std::string& id) {
     MSInductLoop* il = dynamic_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(id));
     if (il == 0) {
-        throw TraCIException("Induction loop detector '" + id + "' is not known");
+        throw TraCIException("Induction loop '" + id + "' is not known");
     }
     return il;
 }
