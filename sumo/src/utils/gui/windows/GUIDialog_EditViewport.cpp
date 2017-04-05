@@ -63,7 +63,7 @@ FXIMPLEMENT(GUIDialog_EditViewport, FXDialogBox, GUIDialog_EditViewportMap, ARRA
 // method definitions
 // ===========================================================================
 GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, const char* name, int x, int y) : 
-    FXDialogBox(parent, name, GUIDesignDialogBoxExplicit, x, y, 200, 180, 0, 0, 0, 0),
+    FXDialogBox(parent, name, GUIDesignDialogBoxExplicit, x, y, 200, 176, 0, 0, 0, 0),
     myParent(parent) {
     // create contents frame
     FXVerticalFrame* contentsFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
@@ -92,30 +92,39 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     new FXLabel(ZFrame, "Z:", 0, GUIDesignLabelLeftThick);
     myZOff = new FXRealSpinDial(ZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
 #ifdef HAVE_OSG
-    new FXLabel(XFrame, "LookAtX:", 0, GUIDesignLabelLeftThick);
-    myLookAtX = new FXRealSpinDial(XFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
-    new FXLabel(YFrame, "LookAtY:", 0, GUIDesignLabelLeftThick);
-    myLookAtY = new FXRealSpinDial(YFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
-    new FXLabel(ZFrame, "LookAtZ:", 0, GUIDesignLabelLeftThick);
-    myLookAtZ = new FXRealSpinDial(ZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    FXHorizontalFrame* lookAtXFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(lookAtXFrame, "LookAtX:", 0, GUIDesignLabelLeftThick);
+    myLookAtX = new FXRealSpinDial(lookAtXFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    FXHorizontalFrame* lookAtYFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(lookAtYFrame, "LookAtY:", 0, GUIDesignLabelLeftThick);
+    myLookAtY = new FXRealSpinDial(lookAtYFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
+    FXHorizontalFrame* lookAtZFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(lookAtZFrame, "LookAtZ:", 0, GUIDesignLabelLeftThick);
+    myLookAtZ = new FXRealSpinDial(lookAtZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPINDIAL_NOMIN | SPINDIAL_NOMAX);
     // update width of dialog for the new elements
-    setWidth(350);
+    setHeight(257);
 #endif
     // create buttons ok/cancel
     new FXHorizontalSeparator(contentsFrame, GUIDesignHorizontalSeparator);
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXHorizontalFrame(frameButtons, GUIDesignAuxiliarHorizontalFrame);
-    FXButton* buttonOk = new FXButton(frameButtons, "&OK\t\taccept", GUIIconSubSys::getIcon(ICON_ACCEPT), this, GUIDialog_EditViewport::MID_OK, GUIDesignButtonOK);
+    buttonOk = new FXButton(frameButtons, "&OK\t\taccept", GUIIconSubSys::getIcon(ICON_ACCEPT), this, GUIDialog_EditViewport::MID_OK, GUIDesignButtonOK);
     new FXButton(frameButtons, "&Cancel\t\tclose", GUIIconSubSys::getIcon(ICON_CANCEL), this, GUIDialog_EditViewport::MID_CANCEL, GUIDesignButtonCancel);
     new FXHorizontalFrame(frameButtons, GUIDesignAuxiliarHorizontalFrame);
-    // set focus in OK button
-    buttonOk->setFocus();
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(ICON_EDITVIEWPORT));
 }
 
 
 GUIDialog_EditViewport::~GUIDialog_EditViewport() {}
+
+
+void 
+GUIDialog_EditViewport::show() {
+    // set focus in OK button before opening
+    buttonOk->setFocus();
+    FXDialogBox::show();
+}
 
 
 long

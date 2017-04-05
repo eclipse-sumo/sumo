@@ -74,6 +74,9 @@ public:
     /// @brief Destructor
     ~GUIDialog_EditViewport();
 
+    /// @brief overload show function to focus always in OK Button
+    void show();
+
     /// @name FOX-callbacks
     /// @{
 
@@ -103,20 +106,17 @@ public:
      */
     void setValues(double zoom, double xoff, double yoff);
 
-
     /** @brief Sets the given values into the dialog
      * @param[in] lookFrom Current viewport's from
      * @param[in] lookAt Current viewport's at
      */
     void setValues(const Position& lookFrom, const Position& lookAt);
 
-
     /** @brief Resets old values
      * @param[in] lookFrom Current viewport's from
      * @param[in] lookAt Current viewport's at
      */
     void setOldValues(const Position& lookFrom, const Position& lookAt);
-
 
     /** @brief Returns the information whether one of the spin dialers is grabbed
      * @return Whether the spin dialers are currently used
@@ -133,6 +133,9 @@ protected:
 
     /// @brief The spin dialers used to change the view
     FXRealSpinDial* myZoom, *myXOff, *myYOff, *myZOff;
+
+    /// @brief OK button
+    FXButton* buttonOk;
 
 #ifdef HAVE_OSG
     /// @brief The spin dialers used to change the view at (osg only)
