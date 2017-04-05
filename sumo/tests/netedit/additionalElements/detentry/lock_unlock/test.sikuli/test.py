@@ -12,7 +12,7 @@ import neteditTestFunctions as netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
 # apply zoom
-netedit.zoomIn(match.getTarget().offset(325, 200), 10)
+netedit.setZoom("25", "0", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -21,26 +21,26 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3
-netedit.leftClick(match, 250, 100)
+netedit.leftClick(match, 250, 50)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector
 netedit.selectAdditionalChild(4, 0)
-netedit.leftClick(match, 100, 250)
+netedit.leftClick(match, 100, 200)
 
 # change to move mode
 netedit.moveMode()
 
 # move Entry to right
-netedit.moveElement(match, 15, 250, 150, 250)
+netedit.moveElement(match, 15, 200, 150, 200)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(match, 200, 250)
+netedit.leftClick(match, 200, 200)
 
 # block additional
 netedit.modifyBoolAttribute(2)
@@ -49,13 +49,13 @@ netedit.modifyBoolAttribute(2)
 netedit.moveMode()
 
 # try to move Entry to right (must be blocked)
-netedit.moveElement(match, 150, 250, 300, 250)
+netedit.moveElement(match, 150, 200, 300, 200)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(match, 200, 250)
+netedit.leftClick(match, 200, 200)
 
 # unblock additional
 netedit.modifyBoolAttribute(2)
@@ -64,7 +64,7 @@ netedit.modifyBoolAttribute(2)
 netedit.moveMode()
 
 # move Entry to right (must be allowed)
-netedit.moveElement(match, 150, 250, 300, 250)
+netedit.moveElement(match, 150, 200, 300, 200)
 
 # Check undos and redos
 netedit.undo(match, 6)

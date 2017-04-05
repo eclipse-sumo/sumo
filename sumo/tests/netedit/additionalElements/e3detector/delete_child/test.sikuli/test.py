@@ -30,7 +30,7 @@ import neteditTestFunctions as netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
 # apply zoom
-netedit.zoomIn(match.getTarget().offset(325, 200), 10)
+netedit.setZoom("25", "0", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -39,21 +39,21 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3
-netedit.leftClick(match, 100, 100)
+netedit.leftClick(match, 100, 50)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector for E3
 netedit.selectAdditionalChild(4, 3)
-netedit.leftClick(match, 100, 250)
+netedit.leftClick(match, 100, 200)
 
 # select Exit detector
 netedit.changeAdditional("detExit")
 
 # Create Exit detector for E3
 netedit.selectAdditionalChild(4, 3)
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(match, 250, 200)
 
 # Undo creation of E3, Entry and Exit
 netedit.leftClick(match, 0, 0)
@@ -66,21 +66,21 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3
-netedit.leftClick(match, 100, 100)
+netedit.leftClick(match, 100, 50)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector for E3
 netedit.selectAdditionalChild(4, 3)
-netedit.leftClick(match, 100, 250)
+netedit.leftClick(match, 100, 200)
 
 # select Exit detector
 netedit.changeAdditional("detExit")
 
 # Create Exit detector for E3
 netedit.selectAdditionalChild(4, 3)
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(match, 250, 200)
 
 # Undo creation of Entry and Exit
 netedit.leftClick(match, 0, 0)
@@ -94,23 +94,23 @@ netedit.changeAdditional("detEntry")
 
 # Create Entry detector for E3
 netedit.selectAdditionalChild(4, 3)
-netedit.leftClick(match, 100, 250)
+netedit.leftClick(match, 100, 200)
 
 # select Exit detector
 netedit.changeAdditional("detExit")
 
 # Create Exit detector for E3
 netedit.selectAdditionalChild(4, 3)
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(match, 250, 200)
 
 # Change to delete
 netedit.deleteMode()
 
 # Delete the four Entry/exits
-netedit.leftClick(match, 100, 250)
-netedit.leftClick(match, 250, 250)
-netedit.leftClick(match, 450, 250)
-netedit.leftClick(match, 600, 250)
+netedit.leftClick(match, 100, 200)
+netedit.leftClick(match, 250, 200)
+netedit.leftClick(match, 450, 200)
+netedit.leftClick(match, 600, 200)
 
 # Check undo redo
 netedit.undo(match, 7)

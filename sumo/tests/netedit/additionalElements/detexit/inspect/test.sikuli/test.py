@@ -30,7 +30,7 @@ import neteditTestFunctions as netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
 # apply zoom
-netedit.zoomIn(match.getTarget().offset(325, 100), 10)
+netedit.setZoom("25", "25", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -41,18 +41,18 @@ netedit.changeAdditional("e3Detector")
 # create E3
 netedit.leftClick(match, 250, 400)
 
-# select Exit detector
+# select exit detector
 netedit.changeAdditional("detExit")
 
 # Create Exit detector E3
 netedit.selectAdditionalChild(4, 0)
-netedit.leftClick(match, 200, 180)
+netedit.leftClick(match, 200, 200)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Exit
-netedit.leftClick(match, 250, 180)
+netedit.leftClick(match, 250, 200)
 
 # Change parameter 0 with a non valid value (dummy Lane)
 netedit.modifyAttribute(0, "dummyLane")

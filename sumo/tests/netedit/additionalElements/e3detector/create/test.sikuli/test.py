@@ -30,7 +30,7 @@ import neteditTestFunctions as netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
 # apply zoom
-netedit.zoomIn(match.getTarget().offset(325, 200), 10)
+netedit.setZoom("25", "0", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -67,11 +67,11 @@ netedit.changeAdditional("detEntry")
 
 # Create Entry detectors for all E3 detectors except for the first
 netedit.selectAdditionalChild(4, 1)
-netedit.leftClick(match, 50, 250)
+netedit.leftClick(match, 50, 200)
 netedit.selectAdditionalChild(4, 1)
 netedit.leftClick(match, 200, 250)
 netedit.selectAdditionalChild(4, 1)
-netedit.leftClick(match, 350, 250)
+netedit.leftClick(match, 350, 200)
 netedit.selectAdditionalChild(4, 1)
 netedit.leftClick(match, 500, 250)
 

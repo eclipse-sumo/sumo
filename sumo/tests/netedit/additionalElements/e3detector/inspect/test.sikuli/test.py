@@ -30,7 +30,7 @@ import neteditTestFunctions as netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
 # apply zoom
-netedit.zoomIn(match.getTarget().offset(325, 100), 10)
+netedit.setZoom("25", "25", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -39,25 +39,25 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3 1
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(match, 250, 100)
 
 # create E3 2 (for check duplicated ID)
-netedit.leftClick(match, 450, 250)
+netedit.leftClick(match, 450, 100)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector E3 (for saving)
 netedit.selectAdditionalChild(4, 0)
-netedit.leftClick(match, 100, 180)
+netedit.leftClick(match, 100, 200)
 netedit.selectAdditionalChild(4, 1)
-netedit.leftClick(match, 400, 180)
+netedit.leftClick(match, 400, 300)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E3
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(match, 250, 100)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "e3Detector_1")

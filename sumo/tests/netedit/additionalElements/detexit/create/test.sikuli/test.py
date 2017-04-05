@@ -30,7 +30,7 @@ import neteditTestFunctions as netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
 # apply zoom
-netedit.zoomIn(match.getTarget().offset(325, 200), 10)
+netedit.setZoom("25", "0", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -39,23 +39,23 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3 with default parameters
-netedit.leftClick(match, 275, 100)
+netedit.leftClick(match, 275, 50)
 
-# select Exit detector
+# select exit detector
 netedit.changeAdditional("detExit")
 
 # try to create Exit without select child
-netedit.leftClick(match, 50, 250)
+netedit.leftClick(match, 50, 200)
 
 # Create four Exit detectors
 netedit.selectAdditionalChild(4, 0)
-netedit.leftClick(match, 50, 250)
+netedit.leftClick(match, 50, 200)
 netedit.selectAdditionalChild(4, 0)
-netedit.leftClick(match, 200, 250)
+netedit.leftClick(match, 200, 200)
 netedit.selectAdditionalChild(4, 0)
-netedit.leftClick(match, 350, 250)
+netedit.leftClick(match, 350, 200)
 netedit.selectAdditionalChild(4, 0)
-netedit.leftClick(match, 500, 250)
+netedit.leftClick(match, 500, 200)
 
 # Check undo redo
 netedit.undo(match, 5)

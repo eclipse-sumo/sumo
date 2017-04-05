@@ -30,7 +30,7 @@ import neteditTestFunctions as netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
 # apply zoom
-netedit.zoomIn(match.getTarget().offset(325, 200), 10)
+netedit.setZoom("25", "0", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -39,36 +39,36 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3 1
-netedit.leftClick(match, 100, 100)
+netedit.leftClick(match, 100, 50)
 
 # create E3 2
-netedit.leftClick(match, 200, 100)
+netedit.leftClick(match, 200, 50)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector for E3 3
 netedit.selectAdditionalChild(4, 2)
-netedit.leftClick(match, 75, 250)
+netedit.leftClick(match, 75, 200)
 
 # Create Entry detectors for E3 4
 netedit.selectAdditionalChild(4, 3)
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(match, 250, 200)
 
 # Change to delete
 netedit.deleteMode()
 
 # delete created E3 1
-netedit.leftClick(match, 100, 100)
+netedit.leftClick(match, 100, 50)
 
 # delete Entry detector of E3 2 (E3 will not be removed)
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(match, 250, 200)
 
 # delete loaded E3 1
-netedit.leftClick(match, 400, 100)
+netedit.leftClick(match, 400, 50)
 
 # delete Entry detector of loaded E3 2 (E3 will not be removed)
-netedit.leftClick(match, 500, 250)
+netedit.leftClick(match, 550, 200)
 
 # Check undo redo
 netedit.undo(match, 4)

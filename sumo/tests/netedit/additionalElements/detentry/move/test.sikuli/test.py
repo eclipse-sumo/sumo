@@ -30,7 +30,7 @@ import neteditTestFunctions as netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
 # apply zoom
-netedit.zoomIn(match.getTarget().offset(325, 200), 10)
+netedit.setZoom("25", "0", "25")
 
 # go to additional mode
 netedit.additionalMode()
@@ -39,17 +39,17 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3
-netedit.leftClick(match, 250, 100)
+netedit.leftClick(match, 250, 50)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector
 netedit.selectAdditionalChild(4, 0)
-netedit.leftClick(match, 100, 250)
+netedit.leftClick(match, 100, 200)
 
 # apply zoom out
-netedit.zoomOut(match.getTarget().offset(325, 200), 10)
+netedit.setZoom("25", "0", "70")
 
 # change to move mode
 netedit.moveMode()
@@ -70,7 +70,7 @@ netedit.moveElement(match, 250, 200, 120, 200)
 netedit.moveElement(match, 120, 200, -150, 200)
 
 # move back
-netedit.moveElement(match, -80, 200, 120, 200)
+netedit.moveElement(match, -100, 200, 120, 200)
 
 # move Entry to right overpassing lane
 netedit.moveElement(match, 120, 200, 580, 200)
