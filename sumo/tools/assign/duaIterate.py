@@ -608,9 +608,9 @@ def main(args=None):
             costmemory.write_costs(get_weightfilename(options, step, "dump"))
             print(">>> Updated %s edges" % costmemory.loaded())
             print(">>> Decayed %s unseen edges" % costmemory.decayed())
-            print(">>> Error avg:%s mean:%s" %
+            print(">>> Error avg:%.12g mean:%.12g" %
                   (costmemory.avg_error(), costmemory.mean_error()))
-            print(">>> Absolute Error avg:%s mean:%s" %
+            print(">>> Absolute Error avg:%.12g mean:%.12g" %
                   (costmemory.avg_abs_error(), costmemory.mean_abs_error()))
 
         if options.costmodifier != 'None':
