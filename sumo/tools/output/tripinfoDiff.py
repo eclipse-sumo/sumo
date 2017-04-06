@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-@file    vehrouteDiff.py
+@file    tripinfoDiff.py
 @author  Jakob Erdmann
 @date    2016-15-04
 @version $Id$
@@ -21,14 +21,14 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse
 from sumolib.miscutils import uMax, Statistics
 
 
 def write_diff(orig, new, out):
-    vehicles_orig = dict([(v.id, v) for v in parse(orig, 'tripinfo')])
+    vehicles_orig = OrderedDict([(v.id, v) for v in parse(orig, 'tripinfo')])
     origDurations = Statistics('original durations')
     durations = Statistics('new durations')
     durationDiffs = Statistics('duration differences')
