@@ -576,6 +576,7 @@ GNEAttributeCarrier::isTime(SumoXMLTag tag, SumoXMLAttr attr) {
         myTimeAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_FREQUENCY);
         myTimeAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_HALTING_TIME_THRESHOLD);
         // E3
+        myTimeAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_FREQUENCY);
         myTimeAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_HALTING_TIME_THRESHOLD);
         // RouteProbe
         myTimeAttrs[SUMO_TAG_ROUTEPROBE].insert(SUMO_ATTR_BEGIN);
@@ -778,6 +779,7 @@ GNEAttributeCarrier::isPositive(SumoXMLTag tag, SumoXMLAttr attr) {
         // E2
         myPositiveAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_POSITION);
         myPositiveAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_LENGTH);
+        myPositiveAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_HALTING_SPEED_THRESHOLD);
         myPositiveAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_JAM_DIST_THRESHOLD);
         // entry
         myPositiveAttrs[SUMO_TAG_DET_ENTRY].insert(SUMO_ATTR_POSITION);
