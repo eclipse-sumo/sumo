@@ -128,7 +128,7 @@ def readConfigFile(filePath):
                     'uniform': 'uniform\(\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\)',
                     'gamma': 'gamma\(\s*([0-9]+(\.[0-9]+)?)\s*,\s*([0-9]+(\.[0-9]+)?)\s*\)'}
 
-    with open(filePath, 'rb') as f:
+    with open(filePath) as f:
         reader = csv.reader(f, delimiter=';')
         for row in reader:
             parName = None
@@ -220,13 +220,10 @@ def main(options):
             "xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/additional_file.xsd")
         additionalNode.appendChild(vTypeDistNode)
         domTree.appendChild(additionalNode)
-    try:
-        fileHandle = open(options.outputFile, "wb")
-        domTree.documentElement.writexml(
-            fileHandle, addindent="    ", newl="\n")
-        fileHandle.close()
-    except Exception as e:
-        sys.exit(str(e))
+    fileHandle = open(options.outputFile, "w")
+    domTree.documentElement.writexml(
+        fileHandle, addindent="    ", newl="\n")
+    fileHandle.close()
     sys.stdout.write("Output written to %s" % options.outputFile)
 
 
