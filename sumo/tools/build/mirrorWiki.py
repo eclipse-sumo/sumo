@@ -33,7 +33,10 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import urllib
+try:
+    from urllib import urlopen
+except ImportError:
+    from urllib.request import urlopen
 import os
 import sys
 import shutil
@@ -41,8 +44,8 @@ from optparse import OptionParser
 
 
 def readParsePage(page):
-    f = urllib.urlopen("http://sumo.dlr.de/wiki/%s" % page)
-    c = f.read()
+    f = urlopen("http://sumo.dlr.de/wiki/%s" % page)
+    c = f.read().decode('utf8')
     b = c.find("This page was last modified on")
     e = c.find("<", b)
     lastMod = c[b:e]
@@ -56,9 +59,9 @@ def readParsePage(page):
 
 
 def readParseEditPage(page):
-    f = urllib.urlopen(
+    f = urlopen(
         "http://sumo.dlr.de/w/index.php?title=%s&action=edit" % page)
-    c = f.read()
+    c = f.read().decode('utf8')
     b = c.find("wpTextbox1")
     b = c.find('>', b) + 1
     e = c.find("</textarea>")
@@ -113,21 +116,21 @@ if __name__ == "__main__":
             images.update(getImages(c))
         name = name + ".txt"
         fd = open(os.path.join(options.output, name), "w")
-        fd.write(c)
+        fd.write(c.encode("utf8"))
         fd.close()
 
     for i in images:
         print("Fetching image %s" % i)
         if i.find(":") >= 0:
-            f = urllib.urlopen("http://sumo.dlr.de/wiki/%s" % i)
+            f = urlopen("http://sumo.dlr.de/wiki/%s" % i)
             c = f.read()
             b = c.find("<div class=\"fullImageLink\" id=\"file\">")
             b = c.find("href=", b) + 6
             e = c.find("\"", b + 1)
-            f = urllib.urlopen("http://sourceforge.net/%s" % c[b:e])
+            f = urlopen("http://sourceforge.net/%s" % c[b:e])
             i = i[i.find(":") + 1:]
         else:
-            f = urllib.urlopen("http://sourceforge.net/%s" % i)
+            f = urlopen("http://sourceforge.net/%s" % i)
             i = i[i.rfind("/") + 1:]
         if i.find("px-") >= 0:
             i = i[:i.find('-') + 1]

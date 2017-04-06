@@ -200,8 +200,8 @@ def create_document(root_element_name, attrs=None, schema=None):
     if schema is None:
         attrs["xmlns:xsi"] = "http://www.w3.org/2001/XMLSchema-instance"
         attrs["xsi:noNamespaceSchemaLocation"] = "http://sumo.dlr.de/xsd/" + root_element_name + "_file.xsd"
-    clazz = compound_object(root_element_name, attrs.keys())
-    return clazz([attrs.get(a) for a in attrs.keys()], OrderedDict())
+    clazz = compound_object(root_element_name, sorted(attrs.keys()))
+    return clazz([attrs.get(a) for a in sorted(attrs.keys())], OrderedDict())
 
 
 def sum(elements, attrname):

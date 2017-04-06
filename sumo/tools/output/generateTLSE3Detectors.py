@@ -110,12 +110,12 @@ if __name__ == "__main__":
                     position = .1
                 for lane in input_edge[0]._lanes:
                     detector_entry_xml = detector_xml.addChild("detEntry")
-                    detector_entry_xml.setAttribute("lane", str(lane.getID()))
-                    detector_entry_xml.setAttribute("pos", str(position))
+                    detector_entry_xml.setAttribute("lane", lane.getID())
+                    detector_entry_xml.setAttribute("pos", "%.2f" % position)
 
             for lane in edge._lanes:
                 detector_exit_xml = detector_xml.addChild("detExit")
-                detector_exit_xml.setAttribute("lane", str(lane.getID()))
+                detector_exit_xml.setAttribute("lane", lane.getID())
                 detector_exit_xml.setAttribute("pos", "-.1")
 
             generated_detectors += 1
