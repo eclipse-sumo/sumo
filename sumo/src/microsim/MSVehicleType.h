@@ -468,7 +468,7 @@ public:
      * @param[in] from The vehicle type
      * @return The built vehicle type
      */
-    static MSVehicleType* build(const std::string& id, const MSVehicleType* from);
+    static MSVehicleType* buildSingularType(const std::string& id, const MSVehicleType* from);
     /// @}
 
 

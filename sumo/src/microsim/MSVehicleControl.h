@@ -309,6 +309,12 @@ public:
      */
     bool addVType(MSVehicleType* vehType);
 
+    /*
+     * @param[in] vehType The vehicle type to remove
+     * @return Whether the vehicle type could be removed
+     */
+    void removeVType(const MSVehicleType* vehType);
+
 
     /** @brief Adds a vehicle type distribution
      *

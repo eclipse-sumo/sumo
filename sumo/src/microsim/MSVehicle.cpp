@@ -3550,9 +3550,6 @@ MSVehicle::setEmergencyBlueLight(SUMOTime currentTime) {
 
 void
 MSVehicle::replaceVehicleType(MSVehicleType* type) {
-    if (myType->amVehicleSpecific()) {
-        delete myType;
-    }
     myType = type;
 }
 

@@ -520,7 +520,7 @@ MSVehicleType&
 TraCIServerAPI_Person::getSingularType(MSTransportable* const t) {
     const MSVehicleType& oType = t->getVehicleType();
     std::string newID = oType.getID().find('@') == std::string::npos ? oType.getID() + "@" + t->getID() : oType.getID();
-    MSVehicleType* type = MSVehicleType::build(newID, &oType);
+    MSVehicleType* type = MSVehicleType::buildSingularType(newID, &oType);
     t->replaceVehicleType(type);
     return *type;
 }

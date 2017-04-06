@@ -300,12 +300,19 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
 
 
 MSVehicleType*
-MSVehicleType::build(const std::string& id, const MSVehicleType* from) {
+MSVehicleType::buildSingularType(const std::string& id, const MSVehicleType* from) {
     MSVehicleType* vtype = new MSVehicleType(from->myParameter);
     vtype->myParameter.id = id;
     vtype->myCarFollowModel = from->myCarFollowModel->duplicate(vtype);
-    vtype->myOriginalType = from->myOriginalType != 0 ? from->myOriginalType : from;
-    MSNet::getInstance()->getVehicleControl().addVType(vtype);
+    if (from->myOriginalType != 0) {
+        vtype->myOriginalType = from->myOriginalType;
+        MSNet::getInstance()->getVehicleControl().removeVType(from);
+    } else {
+        vtype->myOriginalType = from;
+    }
+    if (!MSNet::getInstance()->getVehicleControl().addVType(vtype)) {
+        throw ProcessError("could not add singular type " + vtype->getID());
+    }
     return vtype;
 }
 

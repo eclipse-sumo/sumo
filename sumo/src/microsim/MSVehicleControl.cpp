@@ -90,7 +90,7 @@ MSVehicleControl::~MSVehicleControl() {
     myVTypeDistDict.clear();
     // delete vehicle types
     for (VTypeDictType::iterator i = myVTypeDict.begin(); i != myVTypeDict.end(); ++i) {
-        delete(*i).second;
+        //delete(*i).second;
     }
     myVTypeDict.clear();
 }
@@ -250,6 +250,15 @@ MSVehicleControl::addVType(MSVehicleType* vehType) {
         return true;
     }
     return false;
+}
+
+
+void
+MSVehicleControl::removeVType(const MSVehicleType* vehType) {
+    assert(vehType != 0);
+    assert(myVTypeDict.find(vehType->getID()) != myVTypeDict.end());
+    myVTypeDict.erase(vehType->getID());
+    delete vehType;
 }
 
 
