@@ -35,6 +35,61 @@ neteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
 textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
 referenceImage = os.path.join("imageResources", "reference.png")
 
+#################################################
+# interaction functions
+#################################################
+
+# type escape key
+def typeEscape():
+    wait(DELAY)
+    type(Key.ESC)
+
+# type enter  key
+def typeEnter():
+    wait(DELAY)
+    type(Key.ENTER)
+
+# type space key
+def typeSpace():
+    wait(DELAY)
+    type(Key.SPACE)
+
+# type tab key
+def typeTab():
+    wait(DELAY)
+    type(Key.TAB)
+
+# type Shift + Tab keys
+def typeInvertTab():
+    wait(DELAY)
+    type(Key.TAB, Key.SHIFT)
+    
+# type single key
+def typeKey(key):
+    wait(DELAY)
+    type(key)
+
+# type two keys at the same time
+def typeTowKeys(key1, key2):
+    wait(DELAY)
+    type(key1, key2)
+    
+# paste value into current text field
+def pasteIntoTextField(value):
+    wait(DELAY)
+    paste(value)
+    
+# do left click over a position relative to match (pink square)
+def leftClick(match, positionx, positiony):
+    # wait before every operation
+    wait(DELAY)
+    # click respect to offset
+    click(match.getTarget().offset(positionx, positiony))
+    
+#################################################
+# basic functions
+#################################################
+
 def setup(neteditTests):
     # Open current environment file to obtain path to the netedit app,
     # textTestSandBox
@@ -113,90 +168,58 @@ def setupAndStart(testRoot, newNet=False, searchReference=True, waitTime=20):
 
 # rebuild network
 def rebuildNetwork():
-    # wait before every operation
-    wait(DELAY)
-    type(Key.F5)
+    typeKey(Key.F5)
 
 # select focus on upper element of current frame
 def focusOnFrame():
-    # wait before every operation
-    wait(DELAY)
-    type('f')
+    typeKey('f')
     
 # undo last operation
 def undo(match, number):
-    # wait before every operation
-    wait(DELAY)
     # needed to avoid errors with undo/redo (Provisionally)
-    type("i")
-    # wait before every operation
-    wait(DELAY)
-    click(match)
+    typeKey("i")
+    # click over match
+    leftClick(match, 0, 0)
     for x in range(0, number):
-        # wait before every operation
-        wait(DELAY)
-        type("z", Key.CTRL)
+        typeTowKeys("z", Key.CTRL)
 
 # undo last operation
 def redo(match, number):
-    # wait before every operation
-    wait(DELAY)
     # needed to avoid errors with undo/redo (Provisionally)
-    type("i")
-    # wait before every operation
-    wait(DELAY)
-    click(match)
+    typeKey("i")
+    # click over match
+    leftClick(match, 0, 0)
     for x in range(0, number):
-        # wait before every operation
-        wait(DELAY)
-        type("y", Key.CTRL)
-
-
-# def left click over element
-def leftClick(match, positionx, positiony):
-    # wait before every operation
-    wait(DELAY)
-    click(match.getTarget().offset(positionx, positiony))
+        typeTowKeys("y", Key.CTRL)
 
 # set Zoom
 def setZoom(positionX, positionY, zoomLevel):
-    # wait before every operation
-    wait(DELAY)
     # open edit viewport dialog
-    type("v")
-    # wait before every operation
-    wait(DELAY)
+    typeKey("v")
     # go to zoom level
-    type(Key.TAB, Key.SHIFT)
+    typeInvertTab()
     # Paste zoomLevel
-    paste(zoomLevel)
-    # wait before every operation
-    wait(DELAY)
+    pasteIntoTextField(zoomLevel)
     # go to Y
-    type(Key.TAB, Key.SHIFT)
+    typeInvertTab()
     # Paste positionY
-    paste(positionY)
-    # wait before every operation
-    wait(DELAY)
+    pasteIntoTextField(positionY)
     # go to X
-    type(Key.TAB, Key.SHIFT)
+    typeInvertTab()
     # Paste positionX
-    paste(positionX)
-    # wait before every operation
-    wait(DELAY)
+    pasteIntoTextField(positionX)
     # Go to OK Button
     for t in xrange(3):
-        type(Key.TAB)
-    # wait 0.1 second before press (To avoid errors in linux)
-    wait(DELAY)
-    type(Key.SPACE)
+        typeTab()
+    # press OK Button
+    typeSpace()
 
 # netedit wait question
 def waitQuestion(answer):
     # wait 0.5 second to question dialog
     wait(0.5)
     # Answer can be "y" or "n"
-    type(answer, Key.ALT)
+    typeTowKeys(answer, Key.ALT)
 
 # netedit quit
 def quit(neteditProcess, mustBeSaved, save):
@@ -205,7 +228,7 @@ def quit(neteditProcess, mustBeSaved, save):
         return
 
     # quit using hotkey
-    type("q", Key.CTRL)
+    typeTowKeys("q", Key.CTRL)
 
     # Check if net must be saved
     if mustBeSaved:
@@ -225,17 +248,13 @@ def quit(neteditProcess, mustBeSaved, save):
 
 # save network
 def saveNetwork():
-    # wait before every operation
-    wait(DELAY)
     # save newtork using hotkey
-    type("s", Key.CTRL)
+    typeTowKeys("s", Key.CTRL)
 
 # save additionals
 def saveAdditionals():
-    # wait before every operation
-    wait(DELAY)
     # save additionals using hotkey
-    type("d", Key.CTRL + Key.SHIFT)
+    typeTowKeys("d", Key.CTRL + Key.SHIFT)
 
 #################################################
 # Create edge
@@ -243,47 +262,32 @@ def saveAdditionals():
 
 # Change to delete  mode
 def createEdgeMode():
-    # wait before every operation
-    wait(DELAY)
-    type("e")
+    typeKey("e")
 
 # Cancel current created edge (used in chain mode)
 def cancelEdge():
-    # wait before every operation
-    wait(DELAY)
-    type(Key.ESC)
+    #type ESC to cancel current edge
+    typeEscape()
 
 # Change chain option
 def changeChainOption():
-    # wait before every operation
-    wait(DELAY)
     # cancel current created edge
     cancelEdge()
     # jump to chain
     for x in range(0, 3):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB, Key.SHIFT)
-        # wait before every operation
-    wait(DELAY)
+        typeInvertTab()
     # change chain mode
-    type(Key.SPACE)
+    typeSpace()
 
 # Change two-way mode
 def changeTwoWayOption():
-    # wait before every operation
-    wait(DELAY)
     # cancel current created edge
     cancelEdge()
     # jump to two way
     for x in range(0, 2):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB, Key.SHIFT)
-    # wait before every operation
-    wait(DELAY)
+        typeInvertTab()
     # change two way mode
-    type(Key.SPACE)
+    typeSpace()
     
 #################################################
 # Inspect mode
@@ -291,47 +295,29 @@ def changeTwoWayOption():
 
 # go to inspect mode
 def inspectMode():
-    # wait before every operation
-    wait(DELAY)
-    type("i")
+    typeKey("i")
 
 # netedit modify int/float/string
 def modifyAttribute(attributeNumber, value):
-    # wait before every operation
-    wait(DELAY)
-    type("i")
+    typeKey("i")
     # jump to attribute
     for x in range(0, attributeNumber + 1):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # select all values
-    type("a", Key.CTRL)
-    # wait before every operation
-    wait(DELAY)
+    typeTowKeys("a", Key.CTRL)
     # paste the new value
-    paste(value)
-    # wait before every operation
-    wait(DELAY)
+    pasteIntoTextField(value)
     # type ESC to save changea and avoid edit accidentally
-    type(Key.ESC)
+    typeEscape()
 
 # netedit modify bool attribute
 def modifyBoolAttribute(attributeNumber):
-    # wait before every operation
-    wait(DELAY)
-    type("i")
+    typeKey("i")
     # jump to attribute
     for x in range(0, attributeNumber + 1):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # type SPACE to change value
-    type(Key.SPACE)
+    typeSpace()
     
 #################################################
 # Move mode
@@ -339,9 +325,7 @@ def modifyBoolAttribute(attributeNumber):
 
 # set move mode
 def moveMode():
-    # wait before every operation
-    wait(DELAY)
-    type("m")
+    typeKey("m")
 
 # move element
 def moveElement(match, startX, startY, endX, endY):
@@ -359,9 +343,7 @@ def moveElement(match, startX, startY, endX, endY):
 
 # Change to crossing mode
 def crossingMode():
-    # wait before every operation
-    wait(DELAY)
-    type("r")
+    typeKey("r")
 
 # create crossing
 def createCrossing():
@@ -369,18 +351,12 @@ def createCrossing():
     focusOnFrame()
     # jump to create crossing button
     for x in range(0, 8):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # type space to create crossing
-    type(Key.SPACE)
+    typeSpace()
     # go back to avoid errors
     for x in range(0, 8):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB, Key.SHIFT)
+        typeInvertTab()
 
 # change default int/real/string crossing default value
 def modifyCrossingDefaultValue(numtabs, value):
@@ -388,23 +364,15 @@ def modifyCrossingDefaultValue(numtabs, value):
     focusOnFrame()
     # jump to value
     for x in range(0, numtabs + 1):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
+        typeTab()
     # select all value
-    type("a", Key.CTRL)
-    # wait before every operation
-    wait(DELAY)
+    typeTowKeys("a", Key.CTRL)
     # paste the new value
-    paste(value)
-    # wait before every operation
-    wait(DELAY)
+    pasteIntoTextField(value)
     # type enter to save change
-    type(Key.ENTER)
-    # wait before every operation
-    wait(DELAY)
+    typeEnter()
     # type ESC to avoid accidentally changes
-    type(Key.ESC)
+    typeEscape()
 
 # change default boolean crossing default value
 def modifyCrossingDefaultBoolValue(numtabs):
@@ -412,17 +380,11 @@ def modifyCrossingDefaultBoolValue(numtabs):
     focusOnFrame()
     # jump to value
     for x in range(0, numtabs + 1):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # type space to change value
-    type(Key.SPACE)
-    # wait before every operation
-    wait(DELAY)
+    typeSpace()
     # type ESC to avoid accidentally changes
-    type(Key.ESC)
+    typeEscape()
     
 # clear crossing
 def crossingClearEdges(useSelectedEdges = False):
@@ -431,19 +393,13 @@ def crossingClearEdges(useSelectedEdges = False):
     if(useSelectedEdges):
         # jump to clear button
         for x in range(0, 1):
-            # wait before every operation
-            wait(DELAY)
-            type(Key.TAB)
+            typeTab()
     else:
         # jump to clear button
         for x in range(0, 2):
-            # wait before every operation
-            wait(DELAY)
-            type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+            typeTab()
     # type space to activate button
-    type(Key.SPACE)
+    typeSpace()
 
 #invert crossing
 def crossingInvertEdges(useSelectedEdges = False):
@@ -452,19 +408,13 @@ def crossingInvertEdges(useSelectedEdges = False):
     if(useSelectedEdges):
         # jump to clear button
         for x in range(0, 2):
-            # wait before every operation
-            wait(DELAY)
-            type(Key.TAB)
+            typeTab()
     else:
         # jump to clear button
         for x in range(0, 3):
-            # wait before every operation
-            wait(DELAY)
-            type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+            typeTab()
     # type space to activate button
-    type(Key.SPACE)
+    typeSpace()
 
 #################################################
 # additionals
@@ -472,34 +422,22 @@ def crossingInvertEdges(useSelectedEdges = False):
 
 # change to additional mode
 def additionalMode():
-    # wait before every operation
-    wait(DELAY)
-    type('a')
+    typeKey('a')
 
 # change additional
 def changeAdditional(additional):
     # focus current frame
     focusOnFrame()
-    # wait before every operation
-    wait(DELAY)
     # go to first editable element of frame
-    type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+    typeTab();
     # select current value
-    type("a", Key.CTRL)
-    # wait before every operation
-    wait(DELAY)
+    typeTowKeys("a", Key.CTRL)
     # paste the new value
-    paste(additional)
-    # wait before every operation
-    wait(DELAY)
+    pasteIntoTextField(additional)
     # type enter to save change
-    type(Key.ENTER)
-    # wait before every operation
-    wait(DELAY)
+    typeEnter()
     # type ESC to avoid edit combobox accidentally
-    type(Key.ESC)
+    typeEscape()
 
 # modify default int/double/string value of an additional
 def modifyAdditionalDefaultValue(numTabs, length):
@@ -507,25 +445,15 @@ def modifyAdditionalDefaultValue(numTabs, length):
     focusOnFrame()
     # go to length textfield
     for x in range(0, numTabs + 1):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # select current value
-    type("a", Key.CTRL)
-        # wait before every operation
-    wait(DELAY)
+    typeTowKeys("a", Key.CTRL)
     # paste new lenght
-    paste(length)
-    # wait before every operation
-    wait(DELAY)
+    pasteIntoTextField(length)
     # type enter to save new lenght
-    type(Key.ENTER)
-    # wait before every operation
-    wait(DELAY)
+    typeEnter()
     # type ESC to avoid edit combobox accidentally
-    type(Key.ESC)
+    typeEscape()
     
 # modify default boolean value of an additional
 def modifyAdditionalDefaultBoolValue(numTabs):
@@ -533,17 +461,11 @@ def modifyAdditionalDefaultBoolValue(numTabs):
     focusOnFrame()
     # place cursor in force position checkbox
     for x in range(numTabs + 1):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # Change current value
-    type(Key.SPACE)
-    # wait before every operation
-    wait(DELAY)
+    typeSpace()
     # type ESC to avoid edit combobox accidentally
-    type(Key.ESC)
+    typeEscape()
 
 # modify number of stopping place lines
 def modifyStoppingPlaceLines(numTabs, numLines):
@@ -551,18 +473,12 @@ def modifyStoppingPlaceLines(numTabs, numLines):
     focusOnFrame()
     # go to add line
     for x in range(0, numTabs + 1):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # add lines
+        typeTab()
+    # add lines using space
     for x in range(0, numLines):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.SPACE)
-    # wait before every operation
-    wait(DELAY)
+        typeSpace()
     # type ESC to avoid edit lines accidentally
-    type(Key.ESC)
+    typeEscape()
 
 # fill lines to stopping places
 def fillStoppingPlaceLines(numTabs, numLines):
@@ -570,19 +486,15 @@ def fillStoppingPlaceLines(numTabs, numLines):
     focusOnFrame()
     # place cursor in the first line
     for x in range(0, numTabs + 1):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
+        typeTab()
     # fill lines
     for x in range(0, numLines):
-        # wait before every operation
-        wait(DELAY)
-        paste("Line" + str(x))
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        # paste line and number
+        pasteIntoTextField("Line" + str(x))
+        # go to next field
+        typeTab()
     # type ESC to avoid edit combobox accidentally
-    type(Key.ESC)
+    typeEscape()
 
 # select child of additional
 def selectAdditionalChild(numTabs, childNumber):
@@ -590,27 +502,17 @@ def selectAdditionalChild(numTabs, childNumber):
     focusOnFrame()
     # place cursor in the list of childs
     for x in range(0, numTabs + 1):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
+        typeTab()
     # select child
     if(childNumber == 0):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.SPACE)
+        typeSpace()
     else:
         for x in range(0, childNumber):
-            # wait before every operation
-            wait(DELAY)
-            type(Key.DOWN)
-    # wait before every operation
-    wait(DELAY)
+            typeKey(Key.DOWN)
     # use TAB to select additional child
-    type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+    typeTab()
     # type ESC and key to avoid change additional child accidentally
-    type(Key.ESC)
+    typeEscape()
 
 
 #################################################
@@ -619,9 +521,7 @@ def selectAdditionalChild(numTabs, childNumber):
 
 # Change to delete mode
 def deleteMode():
-    # wait before every operation
-    wait(DELAY)
-    type("d")
+    typeKey("d")
 
 # Enable or disable 'automatically delete Additionals'
 def changeAutomaticallyDeleteAdditionals(match):
@@ -632,7 +532,7 @@ def waitAutomaticallyDeleteAdditionalsWarning():
     # wait 0.5 second to question dialog
     wait(0.5)
     # press enter to close dialog
-    type(Key.ENTER)
+    typeEnter()
 
 #################################################
 # select mode
@@ -640,25 +540,19 @@ def waitAutomaticallyDeleteAdditionalsWarning():
 
 # Change to select mode
 def selectMode():
-    # wait before every operation
-    wait(DELAY)
-    type("s")    
+    typeKey("s")    
 
 # abort current selection
 def abortSelection():
-    # wait before every operation
-    wait(DELAY)
-    type(Key.ESC)
+    # type ESC to abort current selection
+    typeEscape()
 
 # select elements with default frame values
 def selectDefault():
     for x in range(0, 11):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
-    type(Key.ENTER)
+        typeTab()
+    # type enter to select it
+    typeEnter()
     
 # select items
 def selectItems(elementClass, elementType, attribute, value):
@@ -666,87 +560,52 @@ def selectItems(elementClass, elementType, attribute, value):
     focusOnFrame()
     #jump to elementClass
     for x in range(0, 5):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
-    type("a", Key.CTRL)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
+    # select all
+    typeTowKeys("a", Key.CTRL)
     # paste the new elementClass
-    paste(elementClass)
+    pasteIntoTextField(elementClass)
     # jump to element
     for x in range(0, 2):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # select all
-    type("a", Key.CTRL)
-    # wait before every operation
-    wait(DELAY)
+    typeTowKeys("a", Key.CTRL)
     # paste the new elementType
-    paste(elementType)
+    pasteIntoTextField(elementType)
     # jump to attribute
     for x in range(0, 2):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # select all
-    type("a", Key.CTRL)
-    # wait before every operation
-    wait(DELAY)
+    typeTowKeys("a", Key.CTRL)
     # paste the new attribute
-    paste(attribute)
+    pasteIntoTextField(attribute)
     # jump to value
     for x in range(0, 2):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # select all
-    type("a", Key.CTRL)
-    # wait before every operation
-    wait(DELAY)
+    typeTowKeys("a", Key.CTRL)
     # paste the new value
-    paste(value)
-    # wait before every operation
-    wait(DELAY)
+    pasteIntoTextField(value)
     # type enter to select it
-    type(Key.ENTER)
+    typeEnter()
     # go back to avoid focus errors (ESC cannot be used because unselect selected items)
     for x in range(0, 10):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB, Key.SHIFT)
+        typeInvertTab()
 
 # delete selected items
 def deleteSelectedItems():
-    # wait before every operation
-    wait(DELAY)
-    type(Key.DELETE)
+    typeKey(Key.DELETE)
     
 # set modification mode "add"
 def modificationModeAdd():
     # focus current frame
     focusOnFrame()
-    # wait before every operation
-    wait(DELAY)
     # go to first editable element of frame
-    type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+    typeTab()
     # select it
-    type(Key.SPACE)
-    # wait before every operation
-    wait(DELAY)
+    typeSpace()
     # go back to avoid focus errors (ESC cannot be used because unselect selected items)
-    type(Key.TAB, Key.SHIFT)
+    typeInvertTab()
     
 # set modification mode "remove"
 def modificationModeRemove():
@@ -754,18 +613,12 @@ def modificationModeRemove():
     focusOnFrame()
     # jump to value
     for x in range(0, 2):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # select it
-    type(Key.SPACE)
+    typeSpace()
     # go back to avoid focus errors (ESC cannot be used because unselect selected items)
     for x in range(0, 2):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB, Key.SHIFT)
+        typeInvertTab()
     
 # set modification mode "keep"
 def modificationModeKeep():
@@ -773,18 +626,12 @@ def modificationModeKeep():
     focusOnFrame()
     # jump to value
     for x in range(0, 3):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # select it
-    type(Key.SPACE)
+    typeSpace()
     # go back to avoid focus errors (ESC cannot be used because unselect selected items)
     for x in range(0, 3):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB, Key.SHIFT)
+        typeInvertTab()
     
 # set modification mode "replace"
 def modificationModeReplace():
@@ -792,18 +639,12 @@ def modificationModeReplace():
     focusOnFrame()
     # jump to value
     for x in range(0, 4):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # select it
-    type(Key.SPACE)
+    typeSpace()
     # go back to avoid focus errors (ESC cannot be used because unselect selected items)
     for x in range(0, 4):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB, Key.SHIFT)
+        typeInvertTab()
 
 # select using an rectangle
 def selectionRectangle(match, startX, startY, endX, endY):
@@ -821,36 +662,24 @@ def selectionClear(previouslyInserted = False):
     # focus current frame
     focusOnFrame()
     for x in range(0, 14):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # type space to select clear option
-    type(Key.SPACE)
+    typeSpace()
     # go back to avoid focus errors (ESC cannot be used because unselect selected items)
     for x in range(0, 11):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB, Key.SHIFT)
+        typeInvertTab()
 
 # invert selection
 def selectionInvert():
     # focus current frame
     focusOnFrame()
     for x in range(0, 15):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB)
-    # wait before every operation
-    wait(DELAY)
+        typeTab()
     # type space to select invert opetion
-    type(Key.SPACE)
+    typeSpace()
     # go back to avoid focus errors (ESC cannot be used because unselect selected items)
     for x in range(0, 12):
-        # wait before every operation
-        wait(DELAY)
-        type(Key.TAB, Key.SHIFT)
+        typeInvertTab()
 
 #################################################
 # traffic light
@@ -858,6 +687,4 @@ def selectionInvert():
 
 # Change to traffic light mode
 def selectTLS():
-    # wait before every operation
-    wait(DELAY)
-    type("t")    
+    typeKey("t")    
