@@ -57,13 +57,13 @@ netedit.moveElement(match, 250, 250, 120, 250)
 netedit.moveElement(match, 120, 250, -150, 250)
 
 # move back
-netedit.moveElement(match, -100, 250, 120, 250)
+netedit.moveElement(match, -80, 250, 120, 250)
 
 # move E2 to right overpassing lane
 netedit.moveElement(match, 120, 250, 580, 250)
 
 # move back to another different position of initial
-netedit.moveElement(match, 520, 250, 300, 250)
+netedit.moveElement(match, 500, 250, 300, 250)
 
 # Check undos and redos
 netedit.undo(match, 10)
