@@ -86,25 +86,25 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     } else {
-        MSVehicleType* v = TraCI_VehicleType::getVType(id);
-        if (v == 0) {
-            return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, "Vehicle type '" + id + "' is not known",
-                                              outputStorage);
-        }
-        switch (variable) {
-        case VAR_PARAMETER: {
-            std::string paramName = "";
-            if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE,
-                                                  "Retrieval of a parameter requires its name.", outputStorage);
+        try {
+            switch (variable) {
+                case VAR_PARAMETER: {
+                    std::string paramName = "";
+                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                        return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE,
+                                "Retrieval of a parameter requires its name.", outputStorage);
+                    }
+                    tempMsg.writeUnsignedByte(TYPE_STRING);
+                    tempMsg.writeString(TraCI_VehicleType::getParameter(id, paramName));
+                }
+                break;
+                default:
+                getVariable(variable, id, tempMsg);
+                break;
             }
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(v->getParameter().getParameter(paramName, ""));
-        }
-            break;
-        default:getVariable(variable, id, tempMsg);
-            break;
-        }
+         } catch (TraCIException& e) {
+             return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
+         }
     }
     server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);
@@ -247,11 +247,10 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
             server.writeStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, RTYPE_OK, warning, outputStorage);
             return true;
         }
-    }
-    catch (ProcessError& e) {
+    } catch (ProcessError& e) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
     } catch (TraCIException& e) {
-        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
+        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
     }
     return false;
 }

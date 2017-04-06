@@ -48,6 +48,7 @@ public:
     static double getMinGapLat(const std::string& typeID);
     static double getMaxSpeedLat(const std::string& typeID);
     static std::string getLateralAlignment(const std::string& typeID);
+    static std::string getParameter(const std::string& typeID, const std::string& key);
 
     static void setLength(const std::string& typeID, double length);
     static void setMaxSpeed(const std::string& typeID, double speed);

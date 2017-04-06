@@ -99,6 +99,15 @@ std::string TraCI_VehicleType::getLateralAlignment(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return toString(v->getPreferredLateralAlignment());
 }
+
+
+std::string 
+TraCI_VehicleType::getParameter(const std::string& typeID, const std::string& key) {
+    MSVehicleType* v = getVType(typeID);
+    return v->getParameter().getParameter(key, "");
+}
+
+
 void TraCI_VehicleType::setLength(const std::string& typeID, double length)  {
     MSVehicleType* v = getVType(typeID);
     v->setLength(length);
@@ -180,7 +189,7 @@ void TraCI_VehicleType::addParameter(const std::string& typeID, const std::strin
 MSVehicleType* TraCI_VehicleType::getVType(std::string id) {
     MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType(id);
     if (t == 0) {
-        throw TraCIException("VehicleType '" + id + "' is not known");
+        throw TraCIException("Vehicle type '" + id + "' is not known");
     }
     return t;
 }
