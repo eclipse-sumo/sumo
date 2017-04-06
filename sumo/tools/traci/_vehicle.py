@@ -535,6 +535,7 @@ class VehicleDomain(Domain):
 
         Return the leading vehicle id together with the distance.
         The dist parameter defines the maximum lookahead, 0 calculates a lookahead from the brake gap.
+        Note that the returned leader may be farther away than the given dist.
         """
         self._connection._beginMessage(
             tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID, 1 + 8)
