@@ -31,7 +31,7 @@ from __future__ import print_function
 import sys
 import optparse
 import random
-
+import codecs
 
 def getName(vals, beg):
     name = vals[beg]
@@ -141,7 +141,7 @@ if options.edgemap:
         orig, renamed = entry.split(":")
         edgemap[orig] = renamed
 print("Parsing Vissim input...")
-fd = open(sys.argv[1])
+fd = codecs.open(sys.argv[1], encoding='latin1')
 routeDecisions = []
 haveRouteDecision = False
 currentRouteDecision = ""
