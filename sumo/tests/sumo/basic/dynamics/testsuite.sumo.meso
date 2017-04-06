@@ -34,11 +34,5 @@ approach_slow_lane_dawdle
 # one vehicle approaching a lane with a lower max speed and step-length 0.1
 approach_slow_subsecond
 
-# very high flow on 1 lane
-high_flow1
-
-# very high flow on 2 lanes
-high_flow2
-
-# very high flow on 2-lanes
-high_flow1_extreme
+# tests for vehicle insertion (especially for high flows)
+insertion
