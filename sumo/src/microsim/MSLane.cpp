@@ -2477,7 +2477,6 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
     }
 #endif
     assert(ego != 0);
-    assert(&ego->getLane()->getEdge() == &getEdge());
     const double egoLatDist = ego->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
     MSCriticalFollowerDistanceInfo result(this, allSublanes ? 0 : ego, allSublanes ? 0 : egoLatDist);
     /// XXX iterate in reverse and abort when there are no more freeSublanes
