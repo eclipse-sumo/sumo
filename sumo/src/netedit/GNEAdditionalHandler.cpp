@@ -281,7 +281,7 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
         // obtain type of distribution
         GNECalibratorFlow::typeOfFlow flowType = getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability);
         // check if distributions are correct and calibrator parent is defined
-        if((flowType != GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_INVALID) && (myCalibratorParent != NULL)) {
+        if((flowType != GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID) && (myCalibratorParent != NULL)) {
             // create Flow and add it to calibrator parent
             GNECalibratorFlow flow(myCalibratorParent, flowID, vehicleType, route, color, departLane,departPos, departSpeed, 
                                    arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute, 
@@ -1263,7 +1263,7 @@ GNEAdditionalHandler::getTypeOfFlowDistribution(std::string flowID, double vehsP
     if ((vehsPerHour == -1) && (period == -1) && (probability == -1)) {
         WRITE_WARNING("A type of distribution (" + toString(SUMO_ATTR_VEHSPERHOUR) + ", " +  toString(SUMO_ATTR_PERIOD) + " or " + 
                       toString(SUMO_ATTR_PROB) + ") must be defined in " + toString(SUMO_TAG_FLOW) +  " '" + flowID + "'");
-        return GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_INVALID;
+        return GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID;
     } else {
         int vehsPerHourDefined = (vehsPerHour != -1)? 1 : 0;
         int periodDefined = (period != -1)? 1 : 0;
@@ -1272,15 +1272,15 @@ GNEAdditionalHandler::getTypeOfFlowDistribution(std::string flowID, double vehsP
         if((vehsPerHourDefined + periodDefined + probabilityDefined) != 1) {
             WRITE_WARNING("Only a type of distribution (" + toString(SUMO_ATTR_VEHSPERHOUR) + ", " +  toString(SUMO_ATTR_PERIOD) + " or " + 
                           toString(SUMO_ATTR_PROB) + ") can be defined at the same time in " + toString(SUMO_TAG_FLOW) + " '" + flowID + "'");
-            return GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_INVALID;
+            return GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID;
         } else if (vehsPerHourDefined == 1) {
-            return GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR;
+            return GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR;
         } else if (periodDefined == 1) {
-            return GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_PERIOD;
+            return GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD;
         } else if (probabilityDefined == 1) {
-            return GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_PROBABILITY;
+            return GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY;
         } else {
-            return GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_INVALID;
+            return GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID;
         }
     }
 }
