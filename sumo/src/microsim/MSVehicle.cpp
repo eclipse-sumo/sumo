@@ -1624,6 +1624,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         if (MSGlobals::gUsingInternalLanes) {
             // we want to pass the link but need to check for foes on internal lanes
             checkLinkLeader(*link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
+            if (getLaneChangeModel().getShadowLane() != 0) {
+                MSLink* parallelLink = (*link)->getParallelLink(getLaneChangeModel().getShadowDirection());
+                if (parallelLink != 0) {
+                    checkLinkLeader(parallelLink, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
+                }
+            }
         }
 
         if (lastLink != 0) {
