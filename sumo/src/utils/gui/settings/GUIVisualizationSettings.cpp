@@ -256,7 +256,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by electricity consumption", RGBColor::GREEN);
     scheme.addColor(RGBColor::RED, (double)(1 / 7.5 / 5.));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by insertion-backlog (streetwise)", RGBColor::GREY);
+    scheme = GUIColorScheme("by insertion-backlog (streetwise)", RGBColor(204, 204, 204));
     scheme.addColor(RGBColor::GREEN, (double)1);
     scheme.addColor(RGBColor::YELLOW, (double)10);
     scheme.addColor(RGBColor::RED, (double)100);
