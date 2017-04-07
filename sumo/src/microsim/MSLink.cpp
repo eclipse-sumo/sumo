@@ -761,7 +761,7 @@ MSLink::passedJunction(const MSVehicle* vehicle) {
 
 
 bool
-MSLink::isLeader(const MSVehicle* ego, const MSVehicle* foe) {
+MSLink::isLeader(const MSVehicle* ego, const MSVehicle* foe) const {
     if (myJunction != 0) {
         return myJunction->isLeader(ego, foe);
     } else {

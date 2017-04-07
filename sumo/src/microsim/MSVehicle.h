@@ -1676,6 +1676,10 @@ protected:
                         const double seen, DriveProcessItem* const lastLink,
                         const MSLane* const lane, double& v, double& vLinkPass) const;
 
+    /// @brief checks for link leaders on the given link
+    void checkLinkLeader(const MSLink* link, const MSLane* lane, double seen, 
+            DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const;
+
 
     // @brief return the lane on which the back of this vehicle resides
     const MSLane* getBackLane() const;
