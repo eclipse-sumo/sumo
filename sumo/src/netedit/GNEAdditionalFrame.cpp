@@ -794,7 +794,7 @@ void
 GNEAdditionalFrame::AdditionalAttributeList::showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<int> /* value */) {
     myAdditionalTag = additionalTag;
     myAdditionalAttr = additionalAttr;
-    std::cout << "FINISH" << std::endl;
+    // @todo finish
 }
 
 
@@ -802,7 +802,7 @@ void
 GNEAdditionalFrame::AdditionalAttributeList::showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<double> /* value */, bool /*isTime*/) {
     myAdditionalTag = additionalTag;
     myAdditionalAttr = additionalAttr;
-    std::cout << "FINISH" << std::endl;
+    // @todo finish
 }
 
 
@@ -810,7 +810,7 @@ void
 GNEAdditionalFrame::AdditionalAttributeList::showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<bool> /* value */) {
     myAdditionalTag = additionalTag;
     myAdditionalAttr = additionalAttr;
-    std::cout << "FINISH" << std::endl;
+    // @todo finish
 }
 
 

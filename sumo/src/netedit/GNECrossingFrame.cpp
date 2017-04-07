@@ -194,7 +194,7 @@ GNECrossingFrame::edgesSelector::onCmdInvertSelection(FXObject*, FXSelector, voi
 
 long
 GNECrossingFrame::edgesSelector::onCmdHelp(FXObject*, FXSelector, void*) {
-    std::cout << "finish" << std::endl; // @todo finish
+    // @todo finish
     return 0;
 }
 
