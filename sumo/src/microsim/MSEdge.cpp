@@ -417,7 +417,7 @@ MSEdge::getUpperDepartPosBound(const MSVehicle& veh) const {
             }
             break;
         case DEPART_POS_RANDOM:
-            pos = RandHelper::rand(getLength());
+            // could be any position on the edge
             break;
         case DEPART_POS_RANDOM_FREE: 
             // could be any position on the edge due to multiple random attempts
