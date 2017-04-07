@@ -50,6 +50,7 @@ std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myUniqueAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNonEditableAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myPositiveAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myProbabilityAttrs;
+std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myEmptyAttrs;
 std::map<SumoXMLTag, SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalWithParentTags;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > GNEAttributeCarrier::myDiscreteChoices;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::string > > GNEAttributeCarrier::myAttrDefinitions;
@@ -353,7 +354,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
             case SUMO_TAG_CALIBRATOR:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
-                // Currently unused attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ROUTEPROBE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_OUTPUT, ""));
@@ -383,10 +384,10 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ROUTE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_BEGIN, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_END, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_VEHSPERHOUR, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PERIOD, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_NUMBER, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_VEHSPERHOUR, "-1"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PERIOD, "-1"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "-1"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_NUMBER, "100"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DEPARTLANE, "first"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DEPARTPOS, "base"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DEPARTSPEED, "0"));
@@ -492,6 +493,7 @@ GNEAttributeCarrier::isInt(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PROB);
         myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PERSON_NUMBER);
         myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_CONTAINER_NUMBER);
+        myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_NUMBER);
         // vehicle type
         myNumericalIntAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_PERSON_CAPACITY);
         myNumericalIntAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_CONTAINER_CAPACITY);
@@ -539,6 +541,8 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalFloatAttrs[SUMO_TAG_LANE].insert(SUMO_ATTR_SPEED);
         // Rerouter
         myNumericalFloatAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_PROB);
+        // Calibrator
+        myNumericalFloatAttrs[SUMO_TAG_CALIBRATOR].insert(SUMO_ATTR_POSITION);
         // vehicle type
         myNumericalFloatAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_ACCEL);
         myNumericalFloatAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_DECEL);
@@ -812,6 +816,7 @@ GNEAttributeCarrier::isPositive(SumoXMLTag tag, SumoXMLAttr attr) {
     return myPositiveAttrs[tag].count(attr) == 1;
 }
 
+
 bool
 GNEAttributeCarrier::isProbability(SumoXMLTag tag, SumoXMLAttr attr) {
     // define on first access
@@ -824,6 +829,17 @@ GNEAttributeCarrier::isProbability(SumoXMLTag tag, SumoXMLAttr attr) {
         myProbabilityAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PROB);
     }
     return myProbabilityAttrs[tag].count(attr) == 1;
+}
+
+
+bool
+GNEAttributeCarrier::isEmpty(SumoXMLTag tag, SumoXMLAttr attr) {
+    // define on first access
+    if (myEmptyAttrs.empty()) {
+        // calibrator
+        myEmptyAttrs[SUMO_TAG_CALIBRATOR].insert(SUMO_ATTR_OUTPUT);
+    }
+    return myEmptyAttrs[tag].count(attr) == 1;
 }
 
 
