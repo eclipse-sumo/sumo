@@ -51,6 +51,7 @@ public:
 
     /// @brief type of flow
     enum typeOfFlow {
+        GNE_CALIBRATORFLOW_INVALID,
         GNE_CALIBRATORFLOW_VEHSPERHOUR,
         GNE_CALIBRATORFLOW_PERIOD,
         GNE_CALIBRATORFLOW_PROBABILITY,
