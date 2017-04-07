@@ -51,6 +51,7 @@ class GNEJunction;
 class GNEEdge;
 class GNELane;
 class GNEDetectorE3;
+class GNECalibrator;
 
 // ===========================================================================
 // class definitions
@@ -161,6 +162,18 @@ public:
      * @param[in] tag of the additional
      */
     void parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
+    /**@brief Parses route values of Calibrators
+     * @param[in] attrs SAX-attributes which define the routes
+     * @param[in] tag of the additional
+     */
+    void parseCalibratorRoute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
+    /**@brief Parses vehicle type values of Calibrators
+     * @param[in] attrs SAX-attributes which define the vehicle types
+     * @param[in] tag of the additional
+     */
+    void parseCalibratorVehicleType(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses flow values of Calibrators
      * @param[in] attrs SAX-attributes which define the flows
@@ -392,14 +405,21 @@ protected:
     /// @brief Pointer to the last inserted E3
     GNEDetectorE3* myE3Parent;
 
-    /// @brief pointer to rerouterInterval in which insert GNEClosingReroute, GNEDestProbReroute, etc.
-    GNERerouterInterval* rerouterIntervalToInsertValues;
+    /// @brief Pointer to the last inserted Calibrator
+    GNECalibrator* myCalibratorParent;
 
     /// @brief last used Tag
     SumoXMLTag myLastTag;
 
+    /// @brief pointer to rerouterInterval in which insert GNEClosingReroute, GNEDestProbReroute, etc.
+    GNERerouterInterval* rerouterIntervalToInsertValues;
+
+    /// @brief vector in wich save calibratorVehicleTypes during loading calibrators
+    std::vector<GNECalibratorVehicleType> myLoadingCalibratorVehicleTypes;
+
     /// @brief used to check hierarchy of aditionals with parents and childs (for example, E3)
     bool checkAdditionalParent(SumoXMLTag currentTag);
+
 
 private:
     /// @brief get parsed attribute of XML and show warnings if there are problems
@@ -408,6 +428,9 @@ private:
 
     /// @brief get special attribute friendly position, used in stopping places
     bool getFriendlyPosition(const SUMOSAXAttributes& attrs, const char* objectid);
+
+    /// @brief get a error message, if configuration of flow distribution is invalid
+    GNECalibratorFlow::typeOfFlow getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability);
 };
 
 

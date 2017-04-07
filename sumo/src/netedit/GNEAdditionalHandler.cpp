@@ -53,6 +53,7 @@
 #include "GNEUndoList.h"
 #include "GNEVaporizer.h"
 #include "GNEViewNet.h"
+#include "GNECalibrator.h"
 
 
 // ===========================================================================
@@ -63,6 +64,7 @@ GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* 
     SUMOSAXHandler(file),
     myViewNet(viewNet),
     myE3Parent(NULL),
+    myCalibratorParent(NULL),
     rerouterIntervalToInsertValues(NULL),
     myLastTag(SUMO_TAG_NOTHING) {
 }
@@ -81,62 +83,102 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
         switch (element) {
             case SUMO_TAG_BUS_STOP:
                 parseAndBuildBusStop(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
                 myE3Parent = NULL;
                 break;
             case SUMO_TAG_CONTAINER_STOP:
                 parseAndBuildContainerStop(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
                 myE3Parent = NULL;
                 break;
             case SUMO_TAG_CHARGING_STATION:
                 parseAndBuildChargingStation(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
                 myE3Parent = NULL;
                 break;
             case SUMO_TAG_E1DETECTOR:
             case SUMO_TAG_INDUCTION_LOOP:
                 parseAndBuildDetectorE1(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
                 myE3Parent = NULL;
                 break;
             case SUMO_TAG_E2DETECTOR:
             case SUMO_TAG_LANE_AREA_DETECTOR:
                 parseAndBuildDetectorE2(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
                 myE3Parent = NULL;
                 break;
             case SUMO_TAG_E3DETECTOR:
             case SUMO_TAG_ENTRY_EXIT_DETECTOR:
                 parseAndBuildDetectorE3(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
                 break;
             case SUMO_TAG_DET_ENTRY:
                 parseAndBuildDetectorEntry(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
                 break;
             case SUMO_TAG_DET_EXIT:
                 parseAndBuildDetectorExit(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
                 break;
             case SUMO_TAG_VSS:
                 parseAndBuildVariableSpeedSign(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
                 myE3Parent = NULL;
                 break;
             case SUMO_TAG_REROUTER:
                 parseAndBuildRerouter(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
                 myE3Parent = NULL;
                 break;
             case SUMO_TAG_CALIBRATOR:
                 parseAndBuildCalibrator(attrs, tag);
+                // disable other additional parents
                 myE3Parent = NULL;
                 break;
             case SUMO_TAG_VAPORIZER:
                 parseAndBuildVaporizer(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
                 myE3Parent = NULL;
                 break;
             case SUMO_TAG_ROUTEPROBE:
                 parseAndBuildRouteProbe(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
+                myE3Parent = NULL;
+                break;
+            case SUMO_TAG_VTYPE:
+                parseCalibratorVehicleType(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
+                break;
+            case SUMO_TAG_ROUTE:
+                parseCalibratorRoute(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
+                // disable other additional parents
                 myE3Parent = NULL;
                 break;
             case SUMO_TAG_FLOW:
                 parseCalibratorFlow(attrs, tag);
+                // disable other additional parents
                 myE3Parent = NULL;
                 break;
             case SUMO_TAG_STEP:
                 parseVariableSpeedSignStep(attrs, tag);
+                // disable other additional parents
+                myCalibratorParent = NULL;
                 myE3Parent = NULL;
                 break;
             default:
@@ -196,57 +238,55 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, co
 }
 
 
+void 
+GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+
+}
+
+
+void 
+GNEAdditionalHandler::parseCalibratorVehicleType(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+
+}
+
+
 void
 GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
-    bool ok = true;
     bool abort = false;
-    // Load non empty values
-    std::string flowId = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok, false);
-    if (!ok) {
-        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ID) + "' of " + toString(tag) + "'s " + toString(SUMO_TAG_CALIBRATOR) + " is missing");
-        ok = true;
-        abort = true;
-    }
-    std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, flowId.c_str(), ok, false);
-    if (!ok) {
-        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_TYPE) + "' of " + toString(tag) + "'s " + toString(SUMO_TAG_CALIBRATOR) + " is missing");
-        ok = true;
-        abort = true;
-    }
-    std::string route = attrs.get<std::string>(SUMO_ATTR_ROUTE, flowId.c_str(), ok, false);
-    if (!ok) {
-        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_ROUTE) + "' of " + toString(tag) + "'s " + toString(SUMO_TAG_CALIBRATOR) + " is missing");
-        ok = true;
-        abort = true;
-    }
-    // Declare calibrator flow
-    GNECalibratorFlow calibratorFlow(0);
-
-    // Load rest of parameters
-    calibratorFlow.setColor(attrs.getOpt<std::string>(SUMO_ATTR_COLOR, flowId.c_str(), ok, "", false));
-    calibratorFlow.setDepartLane(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTLANE, flowId.c_str(), ok, "first", false));
-    calibratorFlow.setDepartPos(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, flowId.c_str(), ok, "base", false));
-    calibratorFlow.setDepartSpeed(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTSPEED, flowId.c_str(), ok, "0", false));
-    calibratorFlow.setArrivalLane(attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALLANE, flowId.c_str(), ok, "current", false));
-    calibratorFlow.setArrivalPos(attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALPOS, flowId.c_str(), ok, "max", false));
-    calibratorFlow.setArrivalSpeed(attrs.getOpt<std::string>(SUMO_ATTR_ARRIVALSPEED, flowId.c_str(), ok, "current", false));
-    calibratorFlow.setLine(attrs.getOpt<std::string>(SUMO_ATTR_LINE, flowId.c_str(), ok, "", false));
-    calibratorFlow.setPersonNumber(attrs.getOpt<int>(SUMO_ATTR_PERSON_NUMBER, flowId.c_str(), ok, 0, false));
-    calibratorFlow.setContainerNumber(attrs.getOpt<int>(SUMO_ATTR_CONTAINER_NUMBER, flowId.c_str(), ok, 0, false));
-    calibratorFlow.setBegin(attrs.getOpt<double>(SUMO_ATTR_BEGIN, flowId.c_str(), ok, 0, false));
-    calibratorFlow.setEnd(attrs.getOpt<double>(SUMO_ATTR_END, flowId.c_str(), ok, 0, false));
-    calibratorFlow.setVehsPerHour(attrs.getOpt<double>(SUMO_ATTR_VEHSPERHOUR, flowId.c_str(), ok, 0, false));
-    calibratorFlow.setPeriod(attrs.getOpt<double>(SUMO_ATTR_PERIOD, flowId.c_str(), ok, 0, false));
-    calibratorFlow.setProbability(attrs.getOpt<double>(SUMO_ATTR_PROB, flowId.c_str(), ok, 0, false));
-    calibratorFlow.setNumber(attrs.getOpt<int>(SUMO_ATTR_NUMBER, flowId.c_str(), ok, 0, false));
+    // parse attributes of Flows
+    std::string flowID = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    std::string vehicleType = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_TYPE, abort);
+    std::string route = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ROUTE, abort);
+    std::string color = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_COLOR, abort);
+    std::string departLane = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTLANE, abort);
+    std::string departPos = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTPOS, abort);
+    std::string departSpeed = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTSPEED, abort);
+    std::string arrivalLane = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ARRIVALLANE, abort);
+    std::string arrivalPos = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ARRIVALPOS, abort);
+    std::string arrivalSpeed = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ARRIVALSPEED, abort);
+    std::string line = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LINE, abort);
+    int personNumber = getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_PERSON_NUMBER, abort);
+    int containerNumber = getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_CONTAINER_NUMBER, abort);
+    bool reroute = getParsedAttribute<bool>(attrs, 0, tag, SUMO_ATTR_REROUTE, abort);
+    std::string departPosLat = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTPOS_LAT, abort);
+    std::string arrivalPosLat = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ARRIVALPOS_LAT, abort);
+    double begin = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_BEGIN, abort);
+    double end = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_END, abort);
+    double vehsPerHour = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_VEHSPERHOUR, abort);
+    double period = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_PERIOD, abort);
+    double probability = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_PROB, abort);
+    int number = getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_NUMBER, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // Obtain calibrator
-        GNECalibrator* calibratorToInsertFlow = /*dynamic_cast<GNECalibrator*>(myViewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, myAdditionalParent))*/ NULL;
-        if (calibratorToInsertFlow == NULL) {
-            WRITE_WARNING("A " + toString(SUMO_TAG_CALIBRATOR) + " must be inserter before insertion of the " + toString(tag) + " '" + flowId + "'");
-        } else {
-            ; //calibratorToInsertFlow->insertFlow(calibratorFlow);
+        // obtain type of distribution
+        GNECalibratorFlow::typeOfFlow flowType = getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability);
+        // check if distributions are correct and calibrator parent is defined
+        if((flowType != GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_INVALID) && (myCalibratorParent != NULL)) {
+            // create Flow and add it to calibrator parent
+            GNECalibratorFlow flow(myCalibratorParent, flowID, vehicleType, route, color, departLane,departPos, departSpeed, 
+                                   arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute, 
+                                   departPosLat, arrivalPosLat, begin, end, vehsPerHour, period, probability, number);
+            myCalibratorParent->addCalibratorFlow(flow);
         }
     }
 }
@@ -1218,6 +1258,34 @@ GNEAdditionalHandler::getFriendlyPosition(const SUMOSAXAttributes& attrs, const 
 }
 
 
+GNECalibratorFlow::typeOfFlow 
+GNEAdditionalHandler::getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability) {
+    if ((vehsPerHour == -1) && (period == -1) && (probability == -1)) {
+        WRITE_WARNING("A type of distribution (" + toString(SUMO_ATTR_VEHSPERHOUR) + ", " +  toString(SUMO_ATTR_PERIOD) + " or " + 
+                      toString(SUMO_ATTR_PROB) + ") must be defined in " + toString(SUMO_TAG_FLOW) +  " '" + flowID + "'");
+        return GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_INVALID;
+    } else {
+        int vehsPerHourDefined = (vehsPerHour != -1)? 1 : 0;
+        int periodDefined = (period != -1)? 1 : 0;
+        int probabilityDefined = (probability != -1)? 1 : 0;
+
+        if((vehsPerHourDefined + periodDefined + probabilityDefined) != 1) {
+            WRITE_WARNING("Only a type of distribution (" + toString(SUMO_ATTR_VEHSPERHOUR) + ", " +  toString(SUMO_ATTR_PERIOD) + " or " + 
+                          toString(SUMO_ATTR_PROB) + ") can be defined at the same time in " + toString(SUMO_TAG_FLOW) + " '" + flowID + "'");
+            return GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_INVALID;
+        } else if (vehsPerHourDefined == 1) {
+            return GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR;
+        } else if (periodDefined == 1) {
+            return GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_PERIOD;
+        } else if (probabilityDefined == 1) {
+            return GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_PROBABILITY;
+        } else {
+            return GNECalibratorFlow::typeOfFlow::GNE_CALIBRATORFLOW_INVALID;
+        }
+    }
+}
+
+
 void
 GNEAdditionalHandler::resetLastTag() {
     myLastTag = SUMO_TAG_NOTHING;
@@ -1257,10 +1325,22 @@ GNEAdditionalHandler::checkAdditionalParent(SumoXMLTag currentTag) {
             // return false to stop procesing current entry or exit and go to the next tag (this avoid some useless warnings)
             return false;
         }
-    } else {
-        // all OK
-        return true;
     }
+
+
+    // if last tag wasn't an Calibrator but next tag is a vehicle type, route or flow
+    if (!(myLastTag == SUMO_TAG_CALIBRATOR) && ((currentTag == SUMO_TAG_ROUTE) || (currentTag == SUMO_TAG_FLOW) || (currentTag == SUMO_TAG_VTYPE))) {
+        if (myCalibratorParent != NULL) {
+            // In this case, we're loading a Calibrator with multiple entry exits, then continue
+            return true;
+        } else {
+            // return false to stop procesing current entry or exit and go to the next tag (this avoid some useless warnings)
+            return false;
+        }
+    }
+
+    // all OK
+    return true;
 }
 
 /****************************************************************************/
