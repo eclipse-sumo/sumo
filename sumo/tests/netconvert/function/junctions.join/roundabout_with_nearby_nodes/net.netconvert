@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:42 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on 04/07/17 13:25:59 by SUMO netconvert Version dev-SVN-r23852
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -16,6 +16,7 @@
         <lefthand value="false"/>
         <junctions.join value="true"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <report>
@@ -92,8 +93,9 @@
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="293433420" type="priority" x="185.89" y="552.14" incLanes="94587485#1_0 75642183_0" intLanes="" shape="185.71,556.95 188.90,555.93 187.88,547.84 184.69,547.55 182.85,549.29 183.78,555.73">
-        <request index="0" response="00" foes="10"/>
-        <request index="1" response="01" foes="01"/>
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="100"/>
+        <request index="2" response="010" foes="010"/>
     </junction>
     <junction id="293433422" type="priority" x="203.76" y="540.43" incLanes="-26751739.539_0 26751740#0_0" intLanes="" shape="206.02,544.66 208.21,542.07 206.66,535.80 200.18,536.29 198.85,537.38 197.98,540.49">
         <request index="0" response="100" foes="100"/>
@@ -130,6 +132,7 @@
     <connection from="8166420" to="94587485#1" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="94587485#0" to="-8166420" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="94587485#0" to="94587485#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="94587485#1" to="-75642183" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="94587485#1" to="26751740#0" fromLane="0" toLane="0" dir="s" state="M"/>
 
     <roundabout nodes="26052297 293433420 293433422 671780782" edges="26751740#0 26751740#1 94587485#0 94587485#1"/>

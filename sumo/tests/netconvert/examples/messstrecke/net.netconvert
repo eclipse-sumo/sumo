@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:08 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on 04/06/17 11:28:07 by SUMO netconvert Version dev-SVN-r23833
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -76,7 +76,7 @@
         <lane id=":ErnstRuskaEinstein_0_0" index="0" speed="16.50" length="5.00" shape="293.26,208.05 293.07,206.69 292.49,205.72 291.52,205.14 290.16,204.95"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_1" function="internal">
-        <lane id=":ErnstRuskaEinstein_1_0" index="0" speed="16.50" length="13.09" shape="293.26,208.05 293.66,203.81 294.87,200.77 296.87,198.96 299.66,198.35"/>
+        <lane id=":ErnstRuskaEinstein_1_0" index="0" speed="16.50" length="13.09" shape="293.26,208.05 293.66,203.81 294.87,200.78 296.87,198.96 299.66,198.35"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_2" function="internal">
         <lane id=":ErnstRuskaEinstein_2_0" index="0" speed="16.50" length="5.00" shape="299.66,204.95 298.31,205.14 297.34,205.72 296.76,206.69 296.56,208.05"/>
@@ -131,10 +131,10 @@
         <lane id=":ErnstRuskaHavestadt_6_1" index="1" speed="19.00" length="16.10" shape="1007.20,195.05 1023.30,195.05"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_8" function="internal">
-        <lane id=":ErnstRuskaHavestadt_8_0" index="0" speed="16.50" length="8.40" shape="1007.20,198.35 1012.89,198.96 1015.33,200.05"/>
+        <lane id=":ErnstRuskaHavestadt_8_0" index="0" speed="16.50" length="6.41" shape="1007.20,198.35 1011.44,198.96 1013.27,200.05"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_9" function="internal">
-        <lane id=":ErnstRuskaHavestadt_9_0" index="0" speed="16.50" length="9.98" shape="1015.33,200.05 1016.95,200.77 1019.39,203.81 1020.20,208.05"/>
+        <lane id=":ErnstRuskaHavestadt_9_0" index="0" speed="16.50" length="9.23" shape="1013.27,200.05 1014.48,200.77 1016.29,203.81 1016.90,208.05"/>
     </edge>
     <edge id=":ErnstRuskaHavestadtDiv1_0" function="internal">
         <lane id=":ErnstRuskaHavestadtDiv1_0_0" index="0" speed="19.00" length="3.00" shape="986.75,204.95 983.75,204.95"/>
@@ -157,7 +157,7 @@
         <lane id=":ErnstRuskaVolmer_0_0" index="0" speed="16.50" length="5.00" shape="1583.10,208.05 1582.91,206.69 1582.32,205.72 1581.36,205.14 1580.00,204.95"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_1" function="internal">
-        <lane id=":ErnstRuskaVolmer_1_0" index="0" speed="16.50" length="13.09" shape="1583.10,208.05 1583.50,203.81 1584.70,200.78 1586.70,198.96 1589.50,198.35"/>
+        <lane id=":ErnstRuskaVolmer_1_0" index="0" speed="16.50" length="13.09" shape="1583.10,208.05 1583.50,203.81 1584.70,200.77 1586.70,198.96 1589.50,198.35"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_2" function="internal">
         <lane id=":ErnstRuskaVolmer_2_0" index="0" speed="16.50" length="5.00" shape="1589.50,204.95 1588.14,205.14 1587.18,205.72 1586.59,206.69 1586.40,208.05"/>
@@ -387,12 +387,12 @@
         <request index="0" response="000110000" foes="000110000" cont="0"/>
         <request index="1" response="111110000" foes="111110000" cont="0"/>
         <request index="2" response="111110000" foes="111110000" cont="0"/>
-        <request index="3" response="000000000" foes="100000000" cont="0"/>
+        <request index="3" response="000000000" foes="000000000" cont="0"/>
         <request index="4" response="000000000" foes="100000111" cont="0"/>
         <request index="5" response="000000000" foes="100000111" cont="0"/>
         <request index="6" response="000000000" foes="000000110" cont="0"/>
         <request index="7" response="000000000" foes="000000110" cont="0"/>
-        <request index="8" response="000111000" foes="000111110" cont="1"/>
+        <request index="8" response="000110000" foes="000110110" cont="1"/>
     </junction>
     <junction id="ErnstRuskaHavestadtDiv1" type="priority" x="985.25" y="200.00" incLanes="ErnstRuska231W_0 ErnstRuska231W_1 ErnstRuska2O_0 ErnstRuska2O_1" intLanes=":ErnstRuskaHavestadtDiv1_0_0 :ErnstRuskaHavestadtDiv1_0_1 :ErnstRuskaHavestadtDiv1_2_0 :ErnstRuskaHavestadtDiv1_2_1 :ErnstRuskaHavestadtDiv1_2_2" shape="986.75,206.55 986.75,190.15 983.75,193.45 983.75,206.55">
         <request index="0" response="00000" foes="00000" cont="0"/>
@@ -434,7 +434,7 @@
 
     <junction id=":ErnstRuskaAltglienicker_8_0" type="internal" x="1910.45" y="199.95" incLanes=":ErnstRuskaAltglienicker_2_0 ErnstRuska4O_0 ErnstRuska4O_1" intLanes=":ErnstRuskaAltglienicker_4_0 :ErnstRuskaAltglienicker_5_0 :ErnstRuskaAltglienicker_6_0 :ErnstRuskaAltglienicker_6_1"/>
     <junction id=":ErnstRuskaEinstein_8_0" type="internal" x="294.17" y="200.05" incLanes=":ErnstRuskaEinstein_7_0 ErnstRuska2W_0 ErnstRuska2W_1" intLanes=":ErnstRuskaEinstein_1_0 :ErnstRuskaEinstein_2_0 :ErnstRuskaEinstein_3_0 :ErnstRuskaEinstein_3_1"/>
-    <junction id=":ErnstRuskaHavestadt_9_0" type="internal" x="1015.33" y="200.05" incLanes=":ErnstRuskaHavestadt_8_0 ErnstRuska232W_0 ErnstRuska232W_1" intLanes=":ErnstRuskaHavestadt_1_0 :ErnstRuskaHavestadt_1_1 :ErnstRuskaHavestadt_3_0 :ErnstRuskaHavestadt_4_0 :ErnstRuskaHavestadt_4_1"/>
+    <junction id=":ErnstRuskaHavestadt_9_0" type="internal" x="1013.27" y="200.05" incLanes=":ErnstRuskaHavestadt_8_0 ErnstRuska232W_0 ErnstRuska232W_1" intLanes=":ErnstRuskaHavestadt_1_0 :ErnstRuskaHavestadt_1_1 :ErnstRuskaHavestadt_4_0 :ErnstRuskaHavestadt_4_1"/>
     <junction id=":ErnstRuskaVolmer_8_0" type="internal" x="1584.00" y="200.05" incLanes=":ErnstRuskaVolmer_7_0 ErnstRuska4W_0 ErnstRuska4W_1" intLanes=":ErnstRuskaVolmer_1_0 :ErnstRuskaVolmer_2_0 :ErnstRuskaVolmer_3_0 :ErnstRuskaVolmer_3_1"/>
 
     <connection from="AltglienickerBreitN" to="ErnstRuska5O" fromLane="0" toLane="0" via=":ErnstRuskaAltglienicker_3_0" tl="ErnstRuskaAltglienicker" linkIndex="3" dir="r" state="o"/>
@@ -455,7 +455,7 @@
     <connection from="ErnstRuska1W" to="ErnstRuskaSink1W" fromLane="1" toLane="1" via=":ErnstRuskaEnd1_0_1" dir="s" state="M"/>
     <connection from="ErnstRuska231O" to="ErnstRuska232O" fromLane="0" toLane="0" via=":ErnstRuskaHavestadt_6_0" dir="s" state="M"/>
     <connection from="ErnstRuska231O" to="ErnstRuska232O" fromLane="1" toLane="1" via=":ErnstRuskaHavestadt_6_1" dir="s" state="M"/>
-    <connection from="ErnstRuska231O" to="HavestadtN" fromLane="2" toLane="0" via=":ErnstRuskaHavestadt_8_0" dir="l" state="m"/>
+    <connection from="ErnstRuska231O" to="HavestadtN" fromLane="2" toLane="1" via=":ErnstRuskaHavestadt_8_0" dir="l" state="m"/>
     <connection from="ErnstRuska231W" to="ErnstRuska2W" fromLane="0" toLane="0" via=":ErnstRuskaHavestadtDiv1_0_0" dir="s" state="M"/>
     <connection from="ErnstRuska231W" to="ErnstRuska2W" fromLane="1" toLane="1" via=":ErnstRuskaHavestadtDiv1_0_1" dir="s" state="M"/>
     <connection from="ErnstRuska232O" to="ErnstRuska3O" fromLane="0" toLane="0" via=":ErnstRuskaHavestadtDiv2_2_0" dir="s" state="M"/>
@@ -544,8 +544,8 @@
     <connection from=":ErnstRuskaHavestadt_4" to="ErnstRuska231W" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":ErnstRuskaHavestadt_6" to="ErnstRuska232O" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":ErnstRuskaHavestadt_6" to="ErnstRuska232O" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":ErnstRuskaHavestadt_8" to="HavestadtN" fromLane="0" toLane="0" via=":ErnstRuskaHavestadt_9_0" dir="s" state="m"/>
-    <connection from=":ErnstRuskaHavestadt_9" to="HavestadtN" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":ErnstRuskaHavestadt_8" to="HavestadtN" fromLane="0" toLane="1" via=":ErnstRuskaHavestadt_9_0" dir="s" state="m"/>
+    <connection from=":ErnstRuskaHavestadt_9" to="HavestadtN" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":ErnstRuskaHavestadtDiv1_0" to="ErnstRuska2W" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":ErnstRuskaHavestadtDiv1_0" to="ErnstRuska2W" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":ErnstRuskaHavestadtDiv1_2" to="ErnstRuska231O" fromLane="0" toLane="0" dir="s" state="M"/>
