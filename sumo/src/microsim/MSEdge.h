@@ -751,6 +751,9 @@ protected:
     const std::vector<MSLane*>* getAllowedLanesWithDefault(const AllowedLanesCont& c, const MSEdge* dest) const;
 
 
+    /// @brief return upper bound for the depart position on this edge
+    double getUpperDepartPosBound(const MSVehicle& veh) const;
+
 protected:
     /// @brief This edge's numerical id
     const int myNumericalID;

@@ -57,6 +57,7 @@
 #include <mesosim/MESegment.h>
 #include <mesosim/MEVehicle.h>
 
+#define BEST_LANE_LOOKAHEAD 3000.0
 
 // ===========================================================================
 // static member definitions
@@ -403,6 +404,45 @@ MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass 
     return res;
 }
 
+double 
+MSEdge::getUpperDepartPosBound(const MSVehicle& veh) const {
+    const SUMOVehicleParameter& pars = veh.getParameter();
+    double pos = getLength();
+    // determine the position
+    switch (pars.departPosProcedure) {
+        case DEPART_POS_GIVEN:
+            pos = pars.departPos;
+            if (pos < 0.) {
+                pos += myLength;
+            }
+            break;
+        case DEPART_POS_RANDOM:
+            pos = RandHelper::rand(getLength());
+            break;
+        case DEPART_POS_RANDOM_FREE: 
+            // could be any position on the edge due to multiple random attempts
+            break;
+        case DEPART_POS_FREE:
+            // many candidate positions, upper bound could be computed exactly
+            // with much effort
+            break;
+        case DEPART_POS_LAST:
+            for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+                MSVehicle* last = (*i)->getLastFullVehicle();
+                if (last != 0) {
+                    pos = MIN2(pos, last->getPositionOnLane());
+                }
+            }
+        case DEPART_POS_BASE:
+        case DEPART_POS_DEFAULT:
+            break;
+        default:
+            pos = MIN2(pos, veh.getVehicleType().getLength());
+            break;
+    }
+    return pos;
+}
+
 
 MSLane*
 MSEdge::getDepartLane(MSVehicle& veh) const {
@@ -431,9 +471,17 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
                     bestLength = (*i).length;
                 }
             }
+            // beyond a certain length, all lanes are suitable
+            // however, we still need to check departPos to avoid unsuitable insertion
+            // (this is only possible in some cases)
+            double departPos = 0;
+            if (bestLength > BEST_LANE_LOOKAHEAD) {
+                departPos = getUpperDepartPosBound(veh);
+                bestLength = MIN2(bestLength - departPos, BEST_LANE_LOOKAHEAD);
+            }
             std::vector<MSLane*>* bestLanes = new std::vector<MSLane*>();
             for (std::vector<MSVehicle::LaneQ>::const_iterator i = bl.begin(); i != bl.end(); ++i) {
-                if ((*i).length == bestLength) {
+                if (((*i).length - departPos) >= bestLength) {
                     bestLanes->push_back((*i).lane);
                 }
             }
