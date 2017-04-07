@@ -278,6 +278,24 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
 }
 
 
+void 
+GNECalibrator::addCalibratorVehicleType(const GNECalibratorVehicleType &vehicleType) {
+    myCalibratorVehicleTypes.push_back(vehicleType);
+}
+
+
+void 
+GNECalibrator::addCalibratorFlow(const GNECalibratorFlow &flow) {
+    myCalibratorFlows.push_back(flow);
+}
+
+
+void 
+GNECalibrator::addCalibratorRoute(const GNECalibratorRoute &route) {
+    myCalibratorRoutes.push_back(route);
+}
+
+
 const std::vector<GNECalibratorVehicleType>&
 GNECalibrator::getCalibratorVehicleTypes() const {
     return myCalibratorVehicleTypes;

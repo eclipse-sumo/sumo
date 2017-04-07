@@ -90,6 +90,15 @@ public:
      */
     void writeAdditional(OutputDevice& device) const;
 
+    /// @brief add calibrator vehicleType
+    void addCalibratorVehicleType(const GNECalibratorVehicleType &vehicleType);
+
+    /// @brief add calibrator flow
+    void addCalibratorFlow(const GNECalibratorFlow &flow);
+
+    /// @brief add calibrator route
+    void addCalibratorRoute(const GNECalibratorRoute &route);
+
     /// @brief get calibrator vehicleTypes
     const std::vector<GNECalibratorVehicleType>& getCalibratorVehicleTypes() const;
 
