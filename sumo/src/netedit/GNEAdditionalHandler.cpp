@@ -1165,6 +1165,10 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
         if (attrs.hasAttribute(attribute)) {
             // Parse attribute as string
             parsedAttribute = attrs.get<std::string>(attribute, objectid, ok, false);
+            // Check if can be a empty attribute
+            if (!ok && GNEAttributeCarrier::isEmpty(tag, attribute)) {
+                ok = true;
+            }
             // check that parsed attribute can be converted to type T
             if (ok && !GNEAttributeCarrier::canParse<T>(parsedAttribute)) {
                 ok = false;

@@ -836,8 +836,20 @@ bool
 GNEAttributeCarrier::isEmpty(SumoXMLTag tag, SumoXMLAttr attr) {
     // define on first access
     if (myEmptyAttrs.empty()) {
+        // E1
+        myEmptyAttrs[SUMO_TAG_E1DETECTOR].insert(SUMO_ATTR_FILE);
+        // E2
+        myEmptyAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_FILE);
+        // E3
+        myEmptyAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_FILE);
         // calibrator
         myEmptyAttrs[SUMO_TAG_CALIBRATOR].insert(SUMO_ATTR_OUTPUT);
+        // rerouter
+        myEmptyAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_FILE);
+        // routeprobe
+        myEmptyAttrs[SUMO_TAG_ROUTEPROBE].insert(SUMO_ATTR_FILE);
+        // Variable Speed Signal
+        myEmptyAttrs[SUMO_TAG_VSS].insert(SUMO_ATTR_FILE);
     }
     return myEmptyAttrs[tag].count(attr) == 1;
 }
