@@ -1,1 +1,2 @@
-Error: Answered with error to command 0xa1: Areal detector 'xxx' is not known
+#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
+Error: Answered with error to command 0xa1: Multi entry exit detector 'xxx' is not known
