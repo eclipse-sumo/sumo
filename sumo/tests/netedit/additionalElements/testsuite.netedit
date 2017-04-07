@@ -31,12 +31,11 @@ routeprobe
 # vaporizer
 vaporizer
 
-# variable speed sign
-#variablespeedsign
-
 # calibrator
-#calibrator
+calibrator
 
 # rerouter
 #rerouter
 
+# variable speed sign
+#variablespeedsign
