@@ -1191,16 +1191,14 @@ NIImporter_VISUM::getEdge(NBNode* FromNode, NBNode* ToNode) {
 
 double
 NIImporter_VISUM::getNamedFloat(const std::string& fieldName) {
-    std::string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
-    return TplConvert::_2double(valS.c_str());
+    return TplConvert::_2double(myLineParser.get(fieldName).c_str());
 }
 
 
 double
 NIImporter_VISUM::getNamedFloat(const std::string& fieldName, double defaultValue) {
     try {
-        std::string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
-        return TplConvert::_2double(valS.c_str());
+        return TplConvert::_2double(myLineParser.get(fieldName).c_str());
     } catch (...) {
         return defaultValue;
     }
