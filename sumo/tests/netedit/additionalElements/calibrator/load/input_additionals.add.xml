@@ -1,0 +1,76 @@
+<additionals>
+	<!-- default calibrator -->
+    <calibrator id="calibrator01" lane="gneE0_0" pos="0.00" freq="100.00" output="calibrator01.txt"/>
+	
+	<!-- non valid ID (Missing) -->
+    <calibrator lane="gneE0_0" pos="0.00" freq="100.00" output="calibrator02a.txt"/>
+	
+	<!-- non valid ID (empty) -->
+    <calibrator id="" lane="gneE0_0" pos="0.00" freq="100.00" output="calibrator02b.txt"/>
+	
+	<!-- non valid ID (duplicated) -->
+    <calibrator id="calibrator01" lane="gneE0_0" pos="0.00" freq="100.00" output="calibrator02c.txt"/>
+	
+	<!-- valid ID -->
+    <calibrator id="calibrator02" lane="gneE0_0" pos="0.00" freq="100.00" output="calibrator02d.txt"/>
+	
+	<!-- non valid lane (missing) -->
+    <calibrator id="calibrator03" pos="0.00" freq="100.00" output="calibrator03.txt"/>
+	
+	<!-- non valid lane (dummy) -->
+	<calibrator id="calibrator04" lane="gneE0_0" pos="0.00" freq="100.00" output="calibrator04.txt"/>
+	
+	<!-- valid lane -->
+	<calibrator id="calibrator05" lane="gneE1_0" pos="0.00" freq="100.00" output="calibrator05.txt"/>
+	
+	<!-- non valid position (missing) -->
+    <calibrator id="calibrator06" lane="gneE0_0" freq="100.00" output="calibrator06.txt"/>
+	
+	<!-- non valid position (dummy) -->
+	<calibrator id="calibrator07" lane="gneE0_0" pos="dummyPosition" freq="100.00" output="calibrator07.txt"/>
+	
+	<!-- non valid position (negative) -->
+	<calibrator id="calibrator08" lane="gneE0_0" pos="-5" freq="100.00" output="calibrator08.txt"/>
+	
+	<!-- valid position -->
+	<calibrator id="calibrator09" lane="gneE0_0" pos="10" freq="100.00" output="calibrator09.txt"/>
+	
+	<!-- non valid frequency (missing) -->
+	<calibrator id="calibrator10" lane="gneE0_0" pos="0.00" output="calibrator10.txt"/>
+	
+	<!-- non valid frequency (dummy) -->
+	<calibrator id="calibrator11" lane="gneE0_0" pos="0.00" freq="dummyFrequency" output="calibrator11.txt"/>
+	
+	<!-- non valid frequency (negative) -->
+	<calibrator id="calibrator12" lane="gneE0_0" pos="0.00" freq="-50.00" output="calibrator12.txt"/>
+	
+	<!-- valid frequency -->
+	<calibrator id="calibrator13" lane="gneE0_0" pos="0.00" freq="120.00" output="calibrator13.txt"/>
+	
+	<!-- non valid output (missing) -->
+	<calibrator id="calibrator14" lane="gneE0_0" pos="0.00" freq="100.00"/>
+	
+	<!-- valid output (but empty)-->
+	<calibrator id="calibrator15" lane="gneE0_0" pos="0.00" freq="100.00" output=""/>
+	
+	<!-- valid output -->
+	<calibrator id="calibrator15" lane="gneE0_0" pos="0.00" freq="100.00" output="ownOutput.txt"/>
+	
+	<!-- Calibrator with Routes -->
+	<calibrator id="calibratorRoutes" lane="gneE0_0" pos="0.00" freq="100.00" output="calibratorRoutes.txt">
+	
+
+	</calibrator>
+	
+	<!-- Calibrator with vehicleTypes -->
+	<calibrator id="calibratorVehicleTypes" lane="gneE0_0" pos="0.00" freq="100.00" output="calibratorVehicleTypes.txt">
+	
+	</calibrator>
+	
+	
+	<!-- Calibrator with Flows (and one Route and one Vehicle type) -->
+	<calibrator id="calibratorFlows" lane="gneE0_0" pos="0.00" freq="100.00" output="calibratorFlows.txt">
+	
+	</calibrator>
+    
+</additionals>
