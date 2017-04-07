@@ -1035,8 +1035,9 @@ MSLCM_SL2015::_wantsChangeSublane(
                                 leaders, followers, blockers,
                                 neighLeaders, neighFollowers, neighBlockers, &collectLeadBlockers, &collectFollowBlockers);
 
+        const double absLaneOffset = fabs(bestLaneOffset != 0 ? bestLaneOffset : latDist / SUMO_const_laneWidth);
         const double remainingSeconds = ((ret & LCA_TRACI) == 0 ?
-                                           MAX2(STEPS2TIME(TS), myLeftSpace / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / abs(bestLaneOffset) / URGENCY) :
+                                           MAX2(STEPS2TIME(TS), myLeftSpace / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / absLaneOffset / URGENCY) :
                                            myVehicle.getInfluencer().changeRequestRemainingSeconds(currentTime));
         const double plannedSpeed = informLeaders(blocked, myLca, collectLeadBlockers, remainingSeconds);
         // coordinate with direct obstructions
