@@ -1895,6 +1895,29 @@ NBEdge::recheckLanes() {
     for (std::vector<Connection>::iterator it = myConnectionsToDelete.begin(); it != myConnectionsToDelete.end(); ++it) {
         removeFromConnections(it->toEdge, it->fromLane, it->toLane);
     }
+    // check involuntary dead end at "real" junctions
+    if (getPermissions() != SVC_PEDESTRIAN) {
+        if (myConnections.empty() && myTo->getOutgoingEdges().size() > 1) {
+            WRITE_WARNING("Edge '" + getID() + "' is not connected to outgoing edges at junction '" + myTo->getID() + "'.");
+        }
+        const EdgeVector& incoming = myFrom->getIncomingEdges();
+        if (incoming.size() > 1) {
+            for (int i = 0; i < (int)myLanes.size(); i++) {
+                if (getPermissions(i) != 0 && getPermissions(i) != SVC_PEDESTRIAN) {
+                    bool connected = false;
+                    for (std::vector<NBEdge*>::const_iterator in = incoming.begin(); in != incoming.end(); ++in) {
+                        if ((*in)->hasConnectionTo(this, i)) {
+                            connected = true;
+                            break;
+                        }
+                    }
+                    if (!connected) {
+                        WRITE_WARNING("Lane '" + getID() + "_" + toString(i) + "' is not connected from any incoming edge at junction '" + myFrom->getID() + "'.");
+                    }
+                }
+            }
+        }
+    }
     return true;
 }
 
