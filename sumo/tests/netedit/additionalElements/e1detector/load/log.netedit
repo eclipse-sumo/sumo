@@ -10,6 +10,5 @@ Warning: Optional time attribute 'freq' of e1Detector with ID 'E1_08' is missing
 Warning: Format of optional time attribute 'freq' of e1Detector with ID 'E1_09' is invalid; Cannot be parsed to time; Default value '100.00' will be used.
 Warning: Format of optional time attribute 'freq' of e1Detector with ID 'E1_10' is invalid; Time cannot be negative; Default value '100.00' will be used.
 Warning: Optional string attribute 'file' of e1Detector with ID 'E1_12' is missing; Default value '' will be used.
-Warning: Format of optional string attribute 'file' of e1Detector with ID 'E1_13' is invalid; Default value '' will be used.
 Warning: Optional bool attribute 'splitByType' of e1Detector with ID 'E1_16' is missing; Default value '0' will be used.
 Warning: Format of optional bool attribute 'splitByType' of e1Detector with ID 'E1_17' is invalid; Default value '0' will be used.
