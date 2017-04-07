@@ -115,7 +115,7 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow& v) {
                 v.getColoringSchemesCombo().setCurrentItem(v.getColoringSchemesCombo().getNumItems() - 1);
             }
         }
-        v.getColoringSchemesCombo().setNumVisible(5);
+        v.getColoringSchemesCombo().setNumVisible(MAX2(5, (int)names.size() + 1));
     }
     // for junctions
     new FXButton(v.getLocatorPopup(),
