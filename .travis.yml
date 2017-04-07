@@ -8,7 +8,7 @@ compiler:
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install Caskroom/cask/xquartz gdal xerces-c homebrew/x11/fox; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install xerces-c fox; fi
 script:
   - cd sumo
   - make -f Makefile.cvs
