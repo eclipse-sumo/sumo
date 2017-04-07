@@ -484,8 +484,12 @@ public:
 
     /** @brief Finds the emptiest lane allowing the vehicle class
      *
-     * The emptiest lane is the one with the fewest vehicles on.
-     *  If there is more than one, the first according to its
+     * The emptiest lane is the one which vehicle insertion is most likely to succeed.
+     *
+     * If there are no vehicles before departPos, then the lane with the largest
+     * gap between departPos and the last vehicle is 
+     * Otheriwise the lane with lowes occupancy is selected
+     * If there is more than one, the first according to its
      *  index in the lane container is chosen.
      *
      * If allowed==0, the lanes allowed for the given vehicle class
@@ -493,10 +497,11 @@ public:
      *
      * @param[in] allowed The lanes to choose from
      * @param[in] vclass The vehicle class to look for
+     * @param[in] departPos An upper bound on vehicle depart position
      * @return the least occupied lane
      * @see allowedLanes
      */
-    MSLane* getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass vclass) const;
+    MSLane* getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass vclass, double departPos) const;
 
 
     /** @brief Finds a depart lane for the given vehicle parameters
@@ -752,7 +757,7 @@ protected:
 
 
     /// @brief return upper bound for the depart position on this edge
-    double getUpperDepartPosBound(const MSVehicle& veh) const;
+    double getDepartPosBound(const MSVehicle& veh, bool upper=true) const;
 
 protected:
     /// @brief This edge's numerical id

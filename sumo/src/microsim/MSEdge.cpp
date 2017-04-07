@@ -386,12 +386,14 @@ MSEdge::decVaporization(SUMOTime) {
 
 
 MSLane*
-MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass vclass) const {
+MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass vclass, double departPos) const {
     if (allowed == 0) {
         allowed = allowedLanes(vclass);
     }
     MSLane* res = 0;
     if (allowed != 0) {
+        double largestGap = 0;
+        MSLane* resByGap = 0;
         double leastOccupancy = std::numeric_limits<double>::max();;
         for (std::vector<MSLane*>::const_iterator i = allowed->begin(); i != allowed->end(); ++i) {
             const double occupancy = (*i)->getBruttoOccupancy();
@@ -399,13 +401,23 @@ MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass 
                 res = (*i);
                 leastOccupancy = occupancy;
             }
+            const MSVehicle* last = (*i)->getLastFullVehicle();
+            const double lastGap = (last != 0 ? last->getPositionOnLane() : myLength) - departPos;
+            if (lastGap > largestGap) {
+                largestGap = lastGap;
+                resByGap = (*i);
+            }
+        }
+        if (resByGap != 0) {
+            //if (res != resByGap) std::cout << SIMTIME << " edge=" << getID() << " departPos=" << departPos << " res=" << Named::getIDSecure(res) << " resByGap=" << Named::getIDSecure(resByGap) << " largestGap=" << largestGap << "\n";
+            res = resByGap;
         }
     }
     return res;
 }
 
 double 
-MSEdge::getUpperDepartPosBound(const MSVehicle& veh) const {
+MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
     const SUMOVehicleParameter& pars = veh.getParameter();
     double pos = getLength();
     // determine the position
@@ -427,11 +439,15 @@ MSEdge::getUpperDepartPosBound(const MSVehicle& veh) const {
             // with much effort
             break;
         case DEPART_POS_LAST:
-            for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-                MSVehicle* last = (*i)->getLastFullVehicle();
-                if (last != 0) {
-                    pos = MIN2(pos, last->getPositionOnLane());
+            if (upper) {
+                for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+                    MSVehicle* last = (*i)->getLastFullVehicle();
+                    if (last != 0) {
+                        pos = MIN2(pos, last->getPositionOnLane());
+                    }
                 }
+            } else {
+                pos = 0;
             }
         case DEPART_POS_BASE:
         case DEPART_POS_DEFAULT:
@@ -455,12 +471,12 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
         case DEPART_LANE_RANDOM:
             return RandHelper::getRandomFrom(*allowedLanes(veh.getVehicleType().getVehicleClass()));
         case DEPART_LANE_FREE:
-            return getFreeLane(0, veh.getVehicleType().getVehicleClass());
+            return getFreeLane(0, veh.getVehicleType().getVehicleClass(), getDepartPosBound(veh, false));
         case DEPART_LANE_ALLOWED_FREE:
             if (veh.getRoute().size() == 1) {
-                return getFreeLane(0, veh.getVehicleType().getVehicleClass());
+                return getFreeLane(0, veh.getVehicleType().getVehicleClass(), getDepartPosBound(veh, false));
             } else {
-                return getFreeLane(allowedLanes(**(veh.getRoute().begin() + 1)), veh.getVehicleType().getVehicleClass());
+                return getFreeLane(allowedLanes(**(veh.getRoute().begin() + 1)), veh.getVehicleType().getVehicleClass(), getDepartPosBound(veh, false));
             }
         case DEPART_LANE_BEST_FREE: {
             veh.updateBestLanes(false, myLanes->front());
@@ -476,7 +492,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
             // (this is only possible in some cases)
             double departPos = 0;
             if (bestLength > BEST_LANE_LOOKAHEAD) {
-                departPos = getUpperDepartPosBound(veh);
+                departPos = getDepartPosBound(veh);
                 bestLength = MIN2(bestLength - departPos, BEST_LANE_LOOKAHEAD);
             }
             std::vector<MSLane*>* bestLanes = new std::vector<MSLane*>();
@@ -485,7 +501,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
                     bestLanes->push_back((*i).lane);
                 }
             }
-            MSLane* ret = getFreeLane(bestLanes, veh.getVehicleType().getVehicleClass());
+            MSLane* ret = getFreeLane(bestLanes, veh.getVehicleType().getVehicleClass(), getDepartPosBound(veh, false));
             delete bestLanes;
             return ret;
         }

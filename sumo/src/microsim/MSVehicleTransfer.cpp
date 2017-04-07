@@ -116,12 +116,13 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
         //   then pick the one which is least occupied
         // @todo maybe parking vehicles should always continue on the rightmost lane?
         const MSLane* oldLane = desc.myVeh->getLane();
-        MSLane* l = (nextEdge != 0 ? e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass) :
-                     e->getFreeLane(0, vclass));
+        const double departPos = desc.myParking ? desc.myVeh->getPositionOnLane() : 0;
+        MSLane* l = (nextEdge != 0 ? e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass, departPos) :
+                     e->getFreeLane(0, vclass, departPos));
 
         if (desc.myParking) {
             // handle parking vehicles
-            if (l->isInsertionSuccess(desc.myVeh, 0, desc.myVeh->getPositionOnLane(), desc.myVeh->getLateralPositionOnLane(), false, MSMoveReminder::NOTIFICATION_PARKING)) {
+            if (l->isInsertionSuccess(desc.myVeh, 0, departPos, desc.myVeh->getLateralPositionOnLane(), false, MSMoveReminder::NOTIFICATION_PARKING)) {
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_PARKING);
                 myParkingVehicles[oldLane].erase(desc.myVeh);
                 i = myVehicles.erase(i);
