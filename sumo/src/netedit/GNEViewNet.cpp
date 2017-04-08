@@ -624,6 +624,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                                         // Save only startpos in myOldAdditionalPosition
                                         myOldAdditionalPosition.set(startPos, 0);
                                     }
+                                } else if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_POSITION)) {
+                                    myOldAdditionalPosition.set(GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_POSITION)), 0);
                                 }
                                 // Set myAdditionalMovingReference
                                 myAdditionalMovingReference.set(pointed_additional->getLane()->getShape().nearest_offset_to_point2D(clickedPosition, false), 0, 0);
