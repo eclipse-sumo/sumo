@@ -210,6 +210,55 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
 }
 
 
+void 
+NBNodeTypeComputer::computeSingleNodeType(NBNode *node) {
+    // the type may already be set from the data
+    if (node->myType != NODETYPE_UNKNOWN && node->myType != NODETYPE_DEAD_END) {
+    }
+    // check whether the node is a waterway node. Set to unregulated by default
+    bool waterway = true;
+    for (EdgeVector::const_iterator i = node->getEdges().begin(); i != node->getEdges().end(); ++i) {
+        if (!isWaterway((*i)->getPermissions())) {
+            waterway = false;
+            break;
+        }
+    }
+    if (waterway && (node->myType == NODETYPE_UNKNOWN || node->myType == NODETYPE_DEAD_END)) {
+        node->myType = NODETYPE_NOJUNCTION;
+    }
+
+    // check whether the junction is not a real junction
+    if (node->myIncomingEdges.size() == 1) {
+        node->myType = NODETYPE_PRIORITY;
+    }
+    // @todo "isSimpleContinuation" should be revalidated
+    if (node->isSimpleContinuation()) {
+        node->myType = NODETYPE_PRIORITY;
+    }
+    // determine the type
+    SumoXMLNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
+    for (EdgeVector::const_iterator i = node->myIncomingEdges.begin(); i != node->myIncomingEdges.end(); i++) {
+        for (EdgeVector::const_iterator j = i + 1; j != node->myIncomingEdges.end(); j++) {
+            // @todo "getOppositeIncoming" should probably be refactored into something the edge knows
+            if (node->getOppositeIncoming(*j) == *i && node->myIncomingEdges.size() > 2) {
+                continue;
+            }
+            // @todo check against a legal document
+            // @todo figure out when NODETYPE_PRIORITY_STOP is appropriate
+            const double s1 = (*i)->getSpeed() * (double) 3.6;
+            const double s2 = (*j)->getSpeed() * (double) 3.6;
+            const int p1 = (*i)->getPriority();
+            const int p2 = (*j)->getPriority();
+            if (fabs(s1 - s2) > (double) 9.5 || MAX2(s1, s2) >= (double) 49. || p1 != p2) {
+                type = NODETYPE_PRIORITY;
+                break;
+            }
+        }
+    }
+    // save type
+    node->myType = type;
+}
+
 // ---------------------------------------------------------------------------
 // NBEdgePriorityComputer
 // ---------------------------------------------------------------------------
@@ -229,6 +278,22 @@ NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
         if (n->myType != NODETYPE_RIGHT_BEFORE_LEFT) {
             setPriorityJunctionPriorities(*n);
         }
+    }
+}
+
+
+void
+NBEdgePriorityComputer::computeEdgePrioritiesSingleNode(NBNode *node) {
+    // preset all junction's edge priorities to zero
+    for (EdgeVector::iterator j = node->myAllEdges.begin(); j != node->myAllEdges.end(); ++j) {
+        (*j)->setJunctionPriority(node, NBEdge::MINOR_ROAD);
+    }
+    // check if the junction is not a real junction
+    if (node->myIncomingEdges.size() == 1 && node->myOutgoingEdges.size() == 1) {
+    }
+    // compute the priorities on junction when needed
+    if (node->getType() != NODETYPE_RIGHT_BEFORE_LEFT) {
+        setPriorityJunctionPriorities(*node);
     }
 }
 

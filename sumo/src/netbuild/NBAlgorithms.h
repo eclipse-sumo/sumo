@@ -208,6 +208,10 @@ public:
      */
     static void computeNodeTypes(NBNodeCont& nc);
 
+    /** @brief Computes a single node type
+     * @param[in] node the single node to compute node type
+     */
+    static void computeSingleNodeType(NBNode *node);
 };
 
 
@@ -224,6 +228,11 @@ public:
      * @param[in] nc The container of nodes to loop along
      */
     static void computeEdgePriorities(NBNodeCont& nc);
+
+    /** @brief Computes edge priorities within a single node
+     * @param[in] node the single node
+     */
+    static void computeEdgePrioritiesSingleNode(NBNode *node);
 
 private:
     /** @brief Sets the priorites in case of a priority junction
