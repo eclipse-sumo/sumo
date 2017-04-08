@@ -514,38 +514,18 @@ NBNetBuilder::computeSingleNode(NBNode *node, OptionsCont& oc, const std::set<st
         mirrorX();
     };
 
-    // obtain all edges of node
-    NBEdgeCont edgesOfNode(myTypeCont);
-    for(EdgeVector::const_iterator i = node->getOutgoingEdges().begin(); i != node->getOutgoingEdges().end(); i++) {
-        edgesOfNode.insert(*i);
-    }
-    for(EdgeVector::const_iterator i = node->getOutgoingEdges().begin(); i != node->getOutgoingEdges().end(); i++) {
-        edgesOfNode.insert(*i);
-    }
-
-
     // MODIFYING THE SETS OF NODES AND EDGES
 
     // Removes edges that are connecting the same node
-    long before = SysUtils::getCurrentMillis();
-
-    PROGRESS_BEGIN_MESSAGE("Removing self-loops");
-    node->removeSelfLoops(myDistrictCont, edgesOfNode, myTLLCont);
-    PROGRESS_TIME_MESSAGE(before);
+    node->removeSelfLoops(myDistrictCont, myEdgeCont, myTLLCont);
     //
     if (oc.exists("remove-edges.isolated") && oc.getBool("remove-edges.isolated")) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Finding isolated roads");
-        myNodeCont.removeIsolatedRoads(myDistrictCont, edgesOfNode, myTLLCont);
-        PROGRESS_TIME_MESSAGE(before);
+        myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont, myTLLCont);
     }
     //
     if (oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
         if (oc.isSet("keep-edges.explicit") || oc.isSet("keep-edges.input-file")) {
-            before = SysUtils::getCurrentMillis();
-            PROGRESS_BEGIN_MESSAGE("Removing unwished edges");
-            edgesOfNode.removeUnwishedEdges(myDistrictCont);
-            PROGRESS_TIME_MESSAGE(before);
+            myEdgeCont.removeUnwishedEdges(myDistrictCont);
         }
     }
     if (oc.getBool("junctions.join") || (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))) {
@@ -555,13 +535,13 @@ NBNetBuilder::computeSingleNode(NBNode *node, OptionsCont& oc, const std::set<st
         // preliminary roundabout computations to avoid damaging roundabouts via junctions.join or ramps.guess
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(node, false);
         node->sortEdges(false);
-        edgesOfNode.computeLaneShapes();
+        myEdgeCont.computeLaneShapes();
         node->computeNodeShape(-1);
-        edgesOfNode.computeEdgeShapes();
+        myEdgeCont.computeEdgeShapes();
         if (oc.getBool("roundabouts.guess")) {
-            edgesOfNode.guessRoundabouts();
+            myEdgeCont.guessRoundabouts();
         }
-        const std::set<EdgeSet>& roundabouts = edgesOfNode.getRoundabouts();
+        const std::set<EdgeSet>& roundabouts = myEdgeCont.getRoundabouts();
         for (std::set<EdgeSet>::const_iterator it_round = roundabouts.begin();
                 it_round != roundabouts.end(); ++it_round) {
             std::vector<std::string> nodeIDs;
@@ -575,39 +555,28 @@ NBNetBuilder::computeSingleNode(NBNode *node, OptionsCont& oc, const std::set<st
     if (oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
         myNodeCont.addJoinExclusion(oc.getStringVector("junctions.join-exclude"));
     }
-    int numJoined = myNodeCont.joinLoadedClusters(myDistrictCont, edgesOfNode, myTLLCont);
+    int numJoined = myNodeCont.joinLoadedClusters(myDistrictCont, myEdgeCont, myTLLCont);
     if (oc.getBool("junctions.join")) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Joining junction clusters");
-        numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, edgesOfNode, myTLLCont);
-        PROGRESS_TIME_MESSAGE(before);
+        numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
     }
     if (oc.getBool("junctions.join") || (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))) {
         // reset geometry to avoid influencing subsequent steps (ramps.guess)
-        edgesOfNode.computeLaneShapes();
-    }
-    if (numJoined > 0) {
-        // bit of a misnomer since we're already done
-        WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");
+        myEdgeCont.computeLaneShapes();
     }
     //
     if (mayAddOrRemove) {
         int no = 0;
         const bool removeGeometryNodes = oc.exists("geometry.remove") && oc.getBool("geometry.remove");
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Removing empty nodes" + std::string(removeGeometryNodes ? " and geometry nodes" : ""));
         // removeUnwishedNodes needs turnDirections. @todo: try to call this less often
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(node, false);
-        no = myNodeCont.removeUnwishedNodes(myDistrictCont, edgesOfNode, myTLLCont, removeGeometryNodes);
-        PROGRESS_TIME_MESSAGE(before);
-        WRITE_MESSAGE("   " + toString(no) + " nodes removed.");
+        no = myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont, removeGeometryNodes);
     }
 
     // MOVE TO ORIGIN
     // compute new boundary after network modifications have taken place
     Boundary boundary;
     boundary.add(node->getPosition());
-    for (std::map<std::string, NBEdge*>::const_iterator it = edgesOfNode.begin(); it != edgesOfNode.end(); ++it) {
+    for (std::map<std::string, NBEdge*>::const_iterator it = myEdgeCont.begin(); it != myEdgeCont.end(); ++it) {
         boundary.add(it->second->getGeometry().getBoxBoundary());
     }
     geoConvHelper.setConvBoundary(boundary);
@@ -618,70 +587,49 @@ NBNetBuilder::computeSingleNode(NBNode *node, OptionsCont& oc, const std::set<st
     geoConvHelper.computeFinal(lefthand); // information needed for location element fixed at this point
 
     if (oc.exists("geometry.min-dist") && !oc.isDefault("geometry.min-dist")) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Reducing geometries");
-        edgesOfNode.reduceGeometries(oc.getFloat("geometry.min-dist"));
-        PROGRESS_TIME_MESSAGE(before);
+        myEdgeCont.reduceGeometries(oc.getFloat("geometry.min-dist"));
     }
     // @note: removing geometry can create similar edges so joinSimilarEdges  must come afterwards
     // @note: likewise splitting can destroy similarities so joinSimilarEdges must come before
     if (mayAddOrRemove && oc.getBool("edges.join")) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Joining similar edges");
-        myNodeCont.joinSimilarEdges(myDistrictCont, edgesOfNode, myTLLCont);
-        PROGRESS_TIME_MESSAGE(before);
+        myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
     }
     if (oc.getBool("opposites.guess")) {
-        PROGRESS_BEGIN_MESSAGE("guessing opposite direction edges");
-        edgesOfNode.guessOpposites();
-        PROGRESS_DONE_MESSAGE();
+        myEdgeCont.guessOpposites();
     }
     //
     if (mayAddOrRemove && oc.exists("geometry.split") && oc.getBool("geometry.split")) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Splitting geometry edges");
-        edgesOfNode.splitGeometry(myNodeCont);
-        PROGRESS_TIME_MESSAGE(before);
+        myEdgeCont.splitGeometry(myNodeCont);
     }
     // turning direction
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Computing turning directions");
     NBTurningDirectionsComputer::computeTurnDirectionsForNode(node, true);
-    PROGRESS_TIME_MESSAGE(before);
     // correct edge geometries to avoid overlap
     node->avoidOverlap();
     // guess ramps
     if (mayAddOrRemove) {
         if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
-            before = SysUtils::getCurrentMillis();
-            PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
             node->sortEdges(false);
             NBRampsComputer::computeRamps(*this, oc);
-            PROGRESS_TIME_MESSAGE(before);
         }
     }
     // guess sidewalks
     if (oc.getBool("sidewalks.guess") || oc.getBool("sidewalks.guess.from-permissions")) {
-        const int sidewalks = edgesOfNode.guessSidewalks(oc.getFloat("default.sidewalk-width"),
+        const int sidewalks = myEdgeCont.guessSidewalks(oc.getFloat("default.sidewalk-width"),
                               oc.getFloat("sidewalks.guess.min-speed"),
                               oc.getFloat("sidewalks.guess.max-speed"),
                               oc.getBool("sidewalks.guess.from-permissions"));
-        WRITE_MESSAGE("Guessed " + toString(sidewalks) + " sidewalks.");
     }
 
     // check whether any not previously setable connections may be set now
-    edgesOfNode.recheckPostProcessConnections();
+    myEdgeCont.recheckPostProcessConnections();
 
     // remap ids if wished
-    int numChangedEdges = edgesOfNode.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"));
+    int numChangedEdges = myEdgeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"));
     int numChangedNodes = myNodeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"));
-    if (numChangedEdges + numChangedNodes > 0) {
-        WRITE_MESSAGE("Remapped " + toString(numChangedEdges) + " edge IDs and " + toString(numChangedNodes) + " node IDs.");
-    }
 
     //
     if (oc.exists("geometry.max-angle")) {
-        edgesOfNode.checkGeometries(
+        myEdgeCont.checkGeometries(
             DEG2RAD(oc.getFloat("geometry.max-angle")),
             oc.getFloat("geometry.min-radius"),
             oc.getBool("geometry.min-radius.fix"));
@@ -689,25 +637,16 @@ NBNetBuilder::computeSingleNode(NBNode *node, OptionsCont& oc, const std::set<st
 
     // GEOMETRY COMPUTATION
     //
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Sorting nodes' edges");
     node->sortEdges(false);
-    PROGRESS_TIME_MESSAGE(before);
-    edgesOfNode.computeLaneShapes();
+    myEdgeCont.computeLaneShapes();
     //
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Computing node shapes");
     if (oc.exists("geometry.junction-mismatch-threshold")) {
         node->computeNodeShape(oc.getFloat("geometry.junction-mismatch-threshold"));
     } else {
         node->computeNodeShape(-1);
     }
-    PROGRESS_TIME_MESSAGE(before);
     //
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Computing edge shapes");
-    edgesOfNode.computeEdgeShapes();
-    PROGRESS_TIME_MESSAGE(before);
+    myEdgeCont.computeEdgeShapes();
     // resort edges based on the node and edge shapes
     node->sortEdges(true);
     NBTurningDirectionsComputer::computeTurnDirectionsForNode(node, false);
@@ -718,28 +657,21 @@ NBNetBuilder::computeSingleNode(NBNode *node, OptionsCont& oc, const std::set<st
         const double speedFactor = oc.getFloat("speed.factor");
         if (speedOffset != 0 || speedFactor != 1) {
             const double speedMin = oc.getFloat("speed.minimum");
-            before = SysUtils::getCurrentMillis();
-            PROGRESS_BEGIN_MESSAGE("Applying speed modifications");
-            for (std::map<std::string, NBEdge*>::const_iterator i = edgesOfNode.begin(); i != edgesOfNode.end(); ++i) {
+            for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
                 (*i).second->setSpeed(-1, MAX2((*i).second->getSpeed() * speedFactor + speedOffset, speedMin));
             }
-            PROGRESS_TIME_MESSAGE(before);
         }
     }
 
     // CONNECTIONS COMPUTATION
     //
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Computing node types");
     NBNodeTypeComputer::computeSingleNodeType(node);
-    PROGRESS_TIME_MESSAGE(before);
     //
     myNetworkHaveCrossings = false;
     if (oc.getBool("crossings.guess")) {
         myNetworkHaveCrossings = true;
         int crossings = 0;
         crossings += node->guessCrossings();
-        WRITE_MESSAGE("Guessed " + toString(crossings) + " pedestrian crossings.");
     }
     if (!myNetworkHaveCrossings) {
         // recheck whether we had crossings in the input
@@ -757,154 +689,93 @@ NBNetBuilder::computeSingleNode(NBNode *node, OptionsCont& oc, const std::set<st
     }
 
     //
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Computing priorities");
     NBEdgePriorityComputer::computeEdgePrioritiesSingleNode(node);
-    PROGRESS_TIME_MESSAGE(before);
     //
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Computing approached edges");
-    edgesOfNode.computeEdge2Edges(oc.getBool("no-left-connections"));
-    PROGRESS_TIME_MESSAGE(before);
+    myEdgeCont.computeEdge2Edges(oc.getBool("no-left-connections"));
     //
     if (oc.getBool("roundabouts.guess")) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Guessing and setting roundabouts");
-        const int numGuessed = edgesOfNode.guessRoundabouts();
-        if (numGuessed > 0) {
-            WRITE_MESSAGE(" Guessed " + toString(numGuessed) + " roundabout(s).");
-        }
-        PROGRESS_TIME_MESSAGE(before);
+        myEdgeCont.guessRoundabouts();
     }
-    edgesOfNode.markRoundabouts();
+    myEdgeCont.markRoundabouts();
     //
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Computing approaching lanes");
-    edgesOfNode.computeLanes2Edges();
-    PROGRESS_TIME_MESSAGE(before);
+    myEdgeCont.computeLanes2Edges();
     //
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Dividing of lanes on approached lanes");
     node->computeLanes2Lanes();
-    edgesOfNode.sortOutgoingLanesConnections();
-    PROGRESS_TIME_MESSAGE(before);
+    myEdgeCont.sortOutgoingLanesConnections();
     //
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Processing turnarounds");
     if (!oc.getBool("no-turnarounds")) {
-        edgesOfNode.appendTurnarounds(oc.getBool("no-turnarounds.tls"));
+        myEdgeCont.appendTurnarounds(oc.getBool("no-turnarounds.tls"));
     } else {
-        edgesOfNode.appendTurnarounds(explicitTurnarounds, oc.getBool("no-turnarounds.tls"));
+        myEdgeCont.appendTurnarounds(explicitTurnarounds, oc.getBool("no-turnarounds.tls"));
     }
-    PROGRESS_TIME_MESSAGE(before);
     //
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Rechecking of lane endings");
-    edgesOfNode.recheckLanes();
-    PROGRESS_TIME_MESSAGE(before);
+    myEdgeCont.recheckLanes();
 
     if (myNetworkHaveCrossings && !oc.getBool("no-internal-links")) {
         node->buildCrossingsAndWalkingAreas();
     }
 
     // GUESS TLS POSITIONS
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Assigning nodes to traffic lights");
     if (oc.isSet("tls.set")) {
         std::vector<std::string> tlControlledNodes = oc.getStringVector("tls.set");
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(oc.getString("tls.default-type"));
         for (std::vector<std::string>::const_iterator i = tlControlledNodes.begin(); i != tlControlledNodes.end(); ++i) {
-            if (node == 0) {
-                WRITE_WARNING("Building a tl-logic for junction '" + *i + "' is not possible." + "\n The junction '" + *i + "' is not known.");
-            } else {
+            if (node != 0) {
                 myNodeCont.setAsTLControlled(node, myTLLCont, type);
             }
         }
     }
     myNodeCont.guessTLs(oc, myTLLCont);
-    PROGRESS_TIME_MESSAGE(before);
     //
     if (oc.getBool("tls.join")) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Joining traffic light nodes");
         myNodeCont.joinTLS(myTLLCont, oc.getFloat("tls.join-dist"));
-        PROGRESS_TIME_MESSAGE(before);
     }
-
 
     // COMPUTING RIGHT-OF-WAY AND TRAFFIC LIGHT PROGRAMS
     //
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Computing traffic light control information");
-    myTLLCont.setTLControllingInformation(edgesOfNode, myNodeCont);
-    PROGRESS_TIME_MESSAGE(before);
+    myTLLCont.setTLControllingInformation(myEdgeCont, myNodeCont);
     //
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Computing node logics");
-    node->computeLogic(edgesOfNode, oc);
-    PROGRESS_TIME_MESSAGE(before);
+    node->computeLogic(myEdgeCont, oc);
     //
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Computing traffic light logics");
     std::pair<int, int> numbers = myTLLCont.computeLogics(oc);
-    PROGRESS_TIME_MESSAGE(before);
     std::string progCount = "";
     if (numbers.first != numbers.second) {
         progCount = "(" + toString(numbers.second) + " programs) ";
     }
-    WRITE_MESSAGE(" " + toString(numbers.first) + " traffic light(s) " + progCount + "computed.");
     //
     if (oc.isSet("street-sign-output")) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Generating street signs");
-        edgesOfNode.generateStreetSigns();
-        PROGRESS_TIME_MESSAGE(before);
+        myEdgeCont.generateStreetSigns();
     }
 
-    for (std::map<std::string, NBEdge*>::const_iterator i = edgesOfNode.begin(); i != edgesOfNode.end(); ++i) {
+    for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
         (*i).second->sortOutgoingConnectionsByIndex();
     }
     // FINISHING INNER EDGES
     if (!oc.getBool("no-internal-links")) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Building inner edges");
         // walking areas shall only be built if crossings are wished as well
         node->buildInnerEdges();
-        PROGRESS_TIME_MESSAGE(before);
     }
     // PATCH NODE SHAPES
     if (oc.getFloat("junctions.scurve-stretch") > 0) {
         // @note: nodes have collected correction hints in buildInnerEdges()
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("stretching junctions to smooth geometries");
-        edgesOfNode.computeLaneShapes();
+        myEdgeCont.computeLaneShapes();
         node->computeNodeShape(-1);
-        edgesOfNode.computeEdgeShapes();
+        myEdgeCont.computeEdgeShapes();
         node->buildInnerEdges();
-        PROGRESS_TIME_MESSAGE(before);
     }
     if (lefthand) {
         mirrorX();
     };
 
     if (oc.exists("geometry.check-overlap")  && oc.getFloat("geometry.check-overlap") > 0) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Checking overlapping edges");
-        edgesOfNode.checkOverlap(oc.getFloat("geometry.check-overlap"), oc.getFloat("geometry.check-overlap.vertical-threshold"));
-        PROGRESS_TIME_MESSAGE(before);
+        myEdgeCont.checkOverlap(oc.getFloat("geometry.check-overlap"), oc.getFloat("geometry.check-overlap.vertical-threshold"));
     }
     if (oc.exists("geometry.max-grade") && oc.getFloat("geometry.max-grade") > 0 && geoConvHelper.getConvBoundary().getZRange() > 0) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Checking edge grade");
         // user input is in %
-        edgesOfNode.checkGrade(oc.getFloat("geometry.max-grade") / 100);
-        PROGRESS_TIME_MESSAGE(before);
+        myEdgeCont.checkGrade(oc.getFloat("geometry.max-grade") / 100);
     }
     if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
-        before = SysUtils::getCurrentMillis();
-        PROGRESS_BEGIN_MESSAGE("Processing public transport stops");
-        myPTStopCont.process(edgesOfNode);
-        PROGRESS_TIME_MESSAGE(before);
+        myPTStopCont.process(myEdgeCont);
     }
 }
 
