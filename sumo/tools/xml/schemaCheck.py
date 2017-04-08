@@ -27,7 +27,10 @@ import sys
 import subprocess
 import glob
 import traceback
-import urllib
+try:
+    from urllib.request import unquote
+except ImportError:
+    from urllib import unquote
 try:
     from lxml import etree
     haveLxml = True
@@ -56,7 +59,7 @@ def validate(root, f):
             schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
             schemes[schemaLoc].validate(doc)
             for entry in schemes[schemaLoc].error_log:
-                s = urllib.unquote(str(entry))
+                s = unquote(str(entry))
                 # remove everything before (and including) the filename
                 s = s[s.find(f.replace('\\', '/')) + len(f):]
                 print(os.path.abspath(

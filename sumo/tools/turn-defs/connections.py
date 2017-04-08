@@ -20,9 +20,10 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 
 import logging
-import xml.dom.minidom
-import collectinghandler
 import unittest
+
+import sumolib
+import collectinghandler
 
 LOGGER = logging.getLogger(__name__)
 
@@ -188,66 +189,6 @@ class Connections:
         return weight
 
 
-class ConnectionXML():
-
-    """ Represents a raw, xml-defined connection. """
-
-    def __init__(self, connection_xml):
-        """ Constructor. The connection_xml argument must be a well-formed
-            connection XML entity string. See SUMO docs for information on
-            connection XML format. """
-
-        self.connection_xml = connection_xml
-
-    def get_source(self):
-        """ Returns the connection's incoming edge. Raises AttributeError
-            if the incoming edge is missing. """
-
-        source = self.connection_xml.getAttribute("from")
-        if source is '':
-            raise AttributeError
-        return source
-
-    def get_source_lane(self):
-        """ Returns the connection's incoming edge's lane.
-            Raises AttributeError if the incoming edge's lane is missing. """
-
-        source_lane = self.connection_xml.getAttribute("fromLane")
-        if source_lane is '':
-            raise AttributeError
-        return source_lane
-
-    def get_destination(self):
-        """ Returns the connection's outgoing edge. Raises AttributeError
-            if the outgoing edge is missing. """
-
-        destination = self.connection_xml.getAttribute("to")
-        if destination is '':
-            raise AttributeError
-        return destination
-
-
-class ConnectionsXMLReader():
-
-    """ Reads the XML connection definitions. """
-    # pylint: disable=R0903
-
-    logger = logging.getLogger("ConnectionsXMLReader")
-
-    def __init__(self, connections_xml_stream):
-        """ Constructor. The connections_xml_stream argument may be
-            a filename or an opened file. """
-
-        self.connections_xml = xml.dom.minidom.parse(connections_xml_stream)
-
-    def get_connections(self):
-        """ Returns connections defined in the XML stream provided in
-            the constructor. """
-
-        return [ConnectionXML(connection_xml) for connection_xml in
-                self.connections_xml.getElementsByTagName("connection")]
-
-
 def from_stream(input_connections):
     """ Constructs Connections object from connections defined in the given
         stream. The input_connections argument may be a filename or an opened
@@ -256,11 +197,10 @@ def from_stream(input_connections):
     LOGGER.info("Reading connections from input stream")
 
     connections = Connections()
-    connections_xml_reader = ConnectionsXMLReader(input_connections)
-    for xml_connection in connections_xml_reader.get_connections():
-        connections.add(xml_connection.get_source(),
-                        xml_connection.get_source_lane(),
-                        xml_connection.get_destination())
+    for xml_connection in sumolib.xml.parse(input_connections, "connection"):
+        connections.add(xml_connection.attr_from,
+                        xml_connection.fromLane,
+                        xml_connection.to)
 
     return connections
 

@@ -19,11 +19,12 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 
-import connections
 import logging
-import xml.dom.minidom
-import collectinghandler
 import unittest
+
+import sumolib
+import connections
+import collectinghandler
 
 LOGGER = logging.getLogger(__name__)
 
@@ -126,12 +127,11 @@ def to_xml(turn_definitions):
     LOGGER.debug("Turn definitions sources number: %i" %
                  (len(turn_definitions.get_sources())))
 
-    turn_definitions_xml = xml.dom.minidom.Element("turn-defs")
+    turn_definitions_xml = sumolib.xml.create_document("turns")
     for source in turn_definitions.get_sources():
         LOGGER.debug("Converting turn definition with source %s" % (source))
 
-        from_edge_element = xml.dom.minidom.Element("fromEdge")
-        from_edge_element.setAttribute("id", source)
+        from_edge_element = turn_definitions_xml.addChild("fromEdge", {"id": source})
 
         for destination in turn_definitions.get_destinations(source):
             probability = turn_definitions.get_turning_probability(source,
@@ -140,14 +140,11 @@ def to_xml(turn_definitions):
             LOGGER.debug("Converting turn definition destination %s "
                          "with probability %f" % (destination, probability))
 
-            to_edge_element = xml.dom.minidom.Element("toEdge")
+            to_edge_element = from_edge_element.addChild("toEdge")
             to_edge_element.setAttribute("id", destination)
-            to_edge_element.setAttribute("probability", str(probability))
-            from_edge_element.appendChild(to_edge_element)
+            to_edge_element.setAttribute("probability", "%.10g" % probability)
 
-        turn_definitions_xml.appendChild(from_edge_element)
-
-    return turn_definitions_xml.toprettyxml()
+    return turn_definitions_xml.toXML()
 
 
 class TurnDefinitionsTestCase(unittest.TestCase):

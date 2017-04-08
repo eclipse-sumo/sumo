@@ -19,10 +19,13 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 
-import connections
-import turndefinitions
+import os
+import sys
 import logging
 import optparse
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import connections
+import turndefinitions
 
 LOGGER = logging.getLogger(__name__)
 
