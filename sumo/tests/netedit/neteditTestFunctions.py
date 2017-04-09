@@ -260,7 +260,7 @@ def saveAdditionals():
 # Create edge
 #################################################
 
-# Change to delete  mode
+# Change to create edge mode
 def createEdgeMode():
     typeKey("e")
 
@@ -525,7 +525,12 @@ def deleteMode():
 
 # Enable or disable 'automatically delete Additionals'
 def changeAutomaticallyDeleteAdditionals(match):
-    click(match.getTarget().offset(-120, 100))
+    # select delete mode again to set mode
+    deleteMode()
+    # use TAB to go to check box
+    typeTab()
+    # type SPACE to change value 
+    typeSpace()
 
 # close warning about automatically delete additionals
 def waitAutomaticallyDeleteAdditionalsWarning():
