@@ -251,7 +251,7 @@ GNECalibratorFlow::getNumber() const {
 }
 
 
-GNECalibratorFlow::typeOfFlow
+GNECalibratorFlow::TypeOfFlow
 GNECalibratorFlow::getFlowType() const {
     return myTypeOfFlow;
 }
@@ -642,7 +642,7 @@ GNECalibratorFlow::setNumber(std::string number) {
 
 
 bool 
-GNECalibratorFlow::setTypeOfFlow(typeOfFlow type) {
+GNECalibratorFlow::setTypeOfFlow(TypeOfFlow type) {
     if((type == GNE_CALIBRATORFLOW_VEHSPERHOUR) || (type == GNE_CALIBRATORFLOW_PERIOD) ||(type == GNE_CALIBRATORFLOW_PROBABILITY)) {
         myTypeOfFlow = type;
         return true;

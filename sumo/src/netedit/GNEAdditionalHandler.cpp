@@ -279,7 +279,7 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain type of distribution
-        GNECalibratorFlow::typeOfFlow flowType = getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability);
+        GNECalibratorFlow::TypeOfFlow flowType = getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability);
         // check if distributions are correct and calibrator parent is defined
         if((flowType != GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID) && (myCalibratorParent != NULL)) {
             // create Flow and add it to calibrator parent
@@ -1262,7 +1262,7 @@ GNEAdditionalHandler::getFriendlyPosition(const SUMOSAXAttributes& attrs, const 
 }
 
 
-GNECalibratorFlow::typeOfFlow 
+GNECalibratorFlow::TypeOfFlow 
 GNEAdditionalHandler::getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability) {
     if ((vehsPerHour == -1) && (period == -1) && (probability == -1)) {
         WRITE_WARNING("A type of distribution (" + toString(SUMO_ATTR_VEHSPERHOUR) + ", " +  toString(SUMO_ATTR_PERIOD) + " or " + 

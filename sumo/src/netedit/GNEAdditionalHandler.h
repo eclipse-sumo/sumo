@@ -430,7 +430,7 @@ private:
     bool getFriendlyPosition(const SUMOSAXAttributes& attrs, const char* objectid);
 
     /// @brief get a error message, if configuration of flow distribution is invalid
-    GNECalibratorFlow::typeOfFlow getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability);
+    GNECalibratorFlow::TypeOfFlow getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability);
 };
 
 

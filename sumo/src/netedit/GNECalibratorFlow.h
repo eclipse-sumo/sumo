@@ -50,7 +50,7 @@ class GNECalibratorFlow {
 public:
 
     /// @brief type of flow
-    enum typeOfFlow {
+    enum TypeOfFlow {
         GNE_CALIBRATORFLOW_INVALID,
         GNE_CALIBRATORFLOW_VEHSPERHOUR,
         GNE_CALIBRATORFLOW_PERIOD,
@@ -144,7 +144,7 @@ public:
     int getNumber() const;
 
     /// @brief get type of flow
-    typeOfFlow getFlowType() const;
+    TypeOfFlow getFlowType() const;
     /// @}
 
     /**@brief set ID of flow
@@ -307,7 +307,7 @@ public:
     /**@brief set type of flow
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setTypeOfFlow(typeOfFlow type);
+    bool setTypeOfFlow(TypeOfFlow type);
     /// @}
 
     /// @brief overload operator ==
@@ -387,7 +387,7 @@ private:
     /// @}
 
     /// @brief type of flow
-    typeOfFlow myTypeOfFlow;
+    TypeOfFlow myTypeOfFlow;
 };
 
 #endif
