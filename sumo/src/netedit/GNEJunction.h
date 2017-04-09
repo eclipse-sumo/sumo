@@ -150,6 +150,9 @@ public:
     /// @brief Update the boundary of the junction
     void updateGeometry();
 
+    /// @brief recompute neighbors junctions
+    void recomputeNeighborsJunctions();
+
     /**@brief reposition the node at pos and informs the edges
      * @param[in] pos The new position
      * @note: those operations are not added to the undoList. This is handled in

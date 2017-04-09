@@ -85,6 +85,8 @@ GNEJunction::~GNEJunction() {
 
 void
 GNEJunction::updateGeometry() {
+    //myNet->getNetBuilder()->computeSingleNode(&myNBNode, OptionsCont::getOptions());
+
     const double EXTENT = 2;
     myBoundary = Boundary(
                      myOrigPos.x() - EXTENT, myOrigPos.y() - EXTENT,
@@ -372,6 +374,23 @@ GNEJunction::selectTLS(bool selected) {
 }
 
 
+void 
+GNEJunction::recomputeNeighborsJunctions() {
+    std::set<GNEJunction*> neighborsJunctions;
+    // obtain all neighbors junctions
+    for(std::vector<GNEEdge*>::const_iterator i = myGNEIncomingEdges.begin(); i != myGNEIncomingEdges.end(); i++) {
+        neighborsJunctions.insert((*i)->getGNEJunctionSource());
+    }
+    for(std::vector<GNEEdge*>::const_iterator i = myGNEOutgoingEdges.begin(); i != myGNEOutgoingEdges.end(); i++) {
+        neighborsJunctions.insert((*i)->getGNEJunctionDestiny());
+    }
+    // recompute all neighbors junctions
+    for(std::set<GNEJunction*>::iterator i = neighborsJunctions.begin(); i != neighborsJunctions.end(); i++) {
+        myNet->getNetBuilder()->computeSingleNode((*i)->getNBNode(), OptionsCont::getOptions());
+    }
+}
+
+
 void
 GNEJunction::move(Position pos) {
     const Position orig = myNBNode.getPosition();
@@ -381,6 +400,10 @@ GNEJunction::move(Position pos) {
         GNEEdge* edge = myNet->retrieveEdge((*it)->getID());
         edge->updateJunctionPosition(this, orig);
     }
+    // recompute neighbors junctions
+    recomputeNeighborsJunctions();
+    // recompute junction
+    myNet->getNetBuilder()->computeSingleNode(&myNBNode, OptionsCont::getOptions());
     // Update shapes without include connections, because the aren't showed in Move mode
     updateShapesAndGeometries();
 }
@@ -427,19 +450,11 @@ GNEJunction::updateShapesAndGeometries() {
     }
     // Iterate over affected Junctions
     for (std::set<GNEJunction*>::iterator i = affectedJunctions.begin(); i != affectedJunctions.end(); i++) {
-        // Check that Node doesn't have a custom shape
-        if ((*i)->getNBNode()->hasCustomShape() == false) {
-            // Compute polygon
-            (*i)->getNBNode()->sortEdges(false);
-            (*i)->getNBNode()->computeNodeShape(-1);
-        }
         // Update geometry of Junction
         (*i)->updateGeometry();
     }
     // Iterate over affected Edges
     for (std::set<GNEEdge*>::iterator i = affectedEdges.begin(); i != affectedEdges.end(); i++) {
-        // Compute full edge shape because this funcion is related to computeNodeShape
-        (*i)->getNBEdge()->computeEdgeShape();
         // Update edge geometry
         (*i)->updateGeometry();
     }
@@ -751,6 +766,10 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             bool ok;
             myOrigPos = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
             move(myOrigPos);
+            // recompute neighbors junctions
+            recomputeNeighborsJunctions();
+            // recompute junction
+            myNet->getNetBuilder()->computeSingleNode(&myNBNode, OptionsCont::getOptions());
             // Refresh element to avoid grabbing problems
             myNet->refreshElement(this);
             break;
