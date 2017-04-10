@@ -240,20 +240,95 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, co
 
 void 
 GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+    bool abort = false;
+    // parse attribute of calibrator routes
+    std::string routeID = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    std::vector<std::string> edgeIDs = getParsedAttribute<std::vector<std::string> >(attrs, 0, tag, SUMO_ATTR_EDGES, abort);
+    std::string color = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_COLOR, abort);
 
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+
+        /***** @TODO check if calibrator vehicle type is duplicated **/
+
+        // declare vector with pointers to GNEEdges
+        std::vector<GNEEdge*> edges;
+        for(std::vector<std::string>::const_iterator i = edgeIDs.begin(); (i != edgeIDs.end()) && (abort == false); i++) {
+            GNEEdge *retrievedEdge = myViewNet->getNet()->retrieveEdge((*i), false);
+            // stop 
+            if(retrievedEdge != NULL) {
+                edges.push_back(retrievedEdge);
+            } else {
+                WRITE_WARNING(toString(SUMO_TAG_CALIBRATOR) + "'s "+ toString(SUMO_TAG_ROUTE) + " '" + routeID + "' cannot be created; " + 
+                              toString(SUMO_TAG_EDGE) + " with id '" + (*i) + "' doesn't exist in net");
+            }
+        }
+
+        // create vehicle type if calibrator parent is currently defined
+        if((abort == true) && myCalibratorParent != NULL) {
+            // create vehicle type and add it to calibrator parent
+            GNECalibratorRoute route(myCalibratorParent, routeID, edges, color);
+            myCalibratorParent->addCalibratorRoute(route);
+        }
+    }
 }
 
 
 void 
 GNEAdditionalHandler::parseCalibratorVehicleType(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+    bool abort = false;
 
+    // parse attribute of calibrator vehicle types
+    std::string vehicleTypeID = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    double accel = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_ACCEL, abort);
+    double decel = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_DECEL, abort);
+    double sigma = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_SIGMA, abort);
+    double tau = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_TAU, abort);
+    double length = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_LENGTH, abort);
+    double minGap = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_MINGAP, abort);
+    double maxSpeed = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_MAXSPEED, abort);
+    double speedFactor = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_SPEEDFACTOR, abort);
+    double speedDev = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_SPEEDDEV, abort);
+    std::string color = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_COLOR, abort);
+    SUMOVehicleClass vClass = getParsedAttribute<SUMOVehicleClass>(attrs, 0, tag, SUMO_ATTR_VCLASS, abort);
+    std::string emissionClass = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_EMISSIONCLASS, abort);
+    SUMOVehicleShape shape = getParsedAttribute<SUMOVehicleShape>(attrs, 0, tag, SUMO_ATTR_SHAPE, abort);
+    double width = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_WIDTH, abort);
+    std::string filename = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_FILE, abort);
+    double impatience = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_IMPATIENCE, abort);
+    std::string laneChangeModel = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LANE_CHANGE_MODEL, abort);
+    std::string carFollowModel = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_CAR_FOLLOW_MODEL, abort);
+    int personCapacity = getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_PERSON_CAPACITY, abort);
+    int containerCapacity = getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_CONTAINER_CAPACITY, abort);
+    double boardingDuration = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_BOARDING_DURATION, abort);
+    double loadingDuration = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_LOADING_DURATION, abort);
+    std::string latAlignment = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LATALIGNMENT, abort);
+    double minGapLat = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_MINGAP_LAT, abort);
+    double maxSpeedLat = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_MAXSPEED_LAT, abort);
+
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+
+        /***** @TODO check if calibrator vehicle type is duplicated **/
+
+        // create vehicle type if calibrator parent is currently defined
+        if(myCalibratorParent != NULL) {
+            // create vehicle type and add it to calibrator parent
+            GNECalibratorVehicleType vehicleType(myCalibratorParent, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed, 
+                                                 speedFactor, speedDev, color, vClass, emissionClass, shape, width, filename, impatience, 
+                                                 laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration, 
+                                                 loadingDuration, latAlignment, minGapLat, maxSpeedLat);
+            myCalibratorParent->addCalibratorVehicleType(vehicleType);
+        }
+    }
 }
 
 
 void
 GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
-    // parse attributes of Flows
+
+    // parse attributes of calibrator flows
     std::string flowID = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
     std::string vehicleType = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_TYPE, abort);
     std::string route = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ROUTE, abort);
@@ -276,8 +351,16 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
     double period = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_PERIOD, abort);
     double probability = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_PROB, abort);
     int number = getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_NUMBER, abort);
+
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
+
+
+        /***** @TODO check if calibrator flow is duplicated **/
+        // check if route exists
+
+        // check if flow exists
+
         // obtain type of distribution
         GNECalibratorFlow::TypeOfFlow flowType = getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability);
         // check if distributions are correct and calibrator parent is defined
