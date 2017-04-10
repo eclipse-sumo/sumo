@@ -248,9 +248,12 @@ GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const
 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-
-        /***** @TODO check if calibrator vehicle type is duplicated **/
-
+        // check if already exist a route with the same ID
+        if(myViewNet->getNet()->routeExists(routeID)) {
+            WRITE_WARNING(toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' cannot be created; Another " + 
+                          toString(SUMO_TAG_ROUTE) + " with the same ID was previously declared");
+            abort = true;
+        }
         // declare vector with pointers to GNEEdges
         std::vector<GNEEdge*> edges;
         for(std::vector<std::string>::const_iterator i = edgeIDs.begin(); (i != edgeIDs.end()) && (abort == false); i++) {
@@ -259,13 +262,12 @@ GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const
             if(retrievedEdge != NULL) {
                 edges.push_back(retrievedEdge);
             } else {
-                WRITE_WARNING(toString(SUMO_TAG_CALIBRATOR) + "'s "+ toString(SUMO_TAG_ROUTE) + " '" + routeID + "' cannot be created; " + 
+                WRITE_WARNING(toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' cannot be created; " + 
                               toString(SUMO_TAG_EDGE) + " with id '" + (*i) + "' doesn't exist in net");
             }
         }
-
         // create vehicle type if calibrator parent is currently defined
-        if((abort == true) && myCalibratorParent != NULL) {
+        if((myCalibratorParent != NULL) && (abort == false)) {
             // create vehicle type and add it to calibrator parent
             GNECalibratorRoute route(myCalibratorParent, routeID, edges, color);
             myCalibratorParent->addCalibratorRoute(route);
@@ -292,9 +294,9 @@ GNEAdditionalHandler::parseCalibratorVehicleType(const SUMOSAXAttributes& attrs,
     std::string color = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_COLOR, abort);
     SUMOVehicleClass vClass = getParsedAttribute<SUMOVehicleClass>(attrs, 0, tag, SUMO_ATTR_VCLASS, abort);
     std::string emissionClass = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_EMISSIONCLASS, abort);
-    SUMOVehicleShape shape = getParsedAttribute<SUMOVehicleShape>(attrs, 0, tag, SUMO_ATTR_SHAPE, abort);
+    SUMOVehicleShape shape = getParsedAttribute<SUMOVehicleShape>(attrs, 0, tag, SUMO_ATTR_GUISHAPE, abort);
     double width = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_WIDTH, abort);
-    std::string filename = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_FILE, abort);
+    std::string filename = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_IMGFILE, abort);
     double impatience = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_IMPATIENCE, abort);
     std::string laneChangeModel = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LANE_CHANGE_MODEL, abort);
     std::string carFollowModel = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_CAR_FOLLOW_MODEL, abort);
@@ -308,11 +310,10 @@ GNEAdditionalHandler::parseCalibratorVehicleType(const SUMOSAXAttributes& attrs,
 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-
-        /***** @TODO check if calibrator vehicle type is duplicated **/
-
-        // create vehicle type if calibrator parent is currently defined
-        if(myCalibratorParent != NULL) {
+        // check if already exist a vehicleType with the same ID
+        if(myViewNet->getNet()->vehicleTypeExists(vehicleTypeID)) {
+            WRITE_WARNING(toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' cannot be created; Another " + toString(SUMO_TAG_VTYPE) + " with the same ID was previously declared");
+        } else if(myCalibratorParent != NULL) {
             // create vehicle type and add it to calibrator parent
             GNECalibratorVehicleType vehicleType(myCalibratorParent, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed, 
                                                  speedFactor, speedDev, color, vClass, emissionClass, shape, width, filename, impatience, 
@@ -354,22 +355,30 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-
-
-        /***** @TODO check if calibrator flow is duplicated **/
-        // check if route exists
-
-        // check if flow exists
-
-        // obtain type of distribution
-        GNECalibratorFlow::TypeOfFlow flowType = getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability);
+        // check if flowID, route and vehicle type already exists
+        if(myViewNet->getNet()->flowExists(flowID) == false) {
+            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " with ID = '" + flowID + "' cannot be created; Another " + toString(SUMO_TAG_FLOW) + " with the same ID was previously declared");
+            abort = true;
+        } else if(myViewNet->getNet()->routeExists(route) == false) {
+            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " with ID = '" + flowID + "' cannot be created; their "+ toString(SUMO_TAG_ROUTE) + " with ID = '" + route + "' doesn't exist");
+            abort = true;
+        } else if(myViewNet->getNet()->vehicleTypeExists(vehicleType) == false) {
+            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " with ID = '" + flowID + "' cannot be created; their "+ toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleType + "' doesn't exist");
+            abort = true;
+        }
         // check if distributions are correct and calibrator parent is defined
-        if((flowType != GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID) && (myCalibratorParent != NULL)) {
-            // create Flow and add it to calibrator parent
-            GNECalibratorFlow flow(myCalibratorParent, flowID, vehicleType, route, color, departLane,departPos, departSpeed, 
-                                   arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute, 
-                                   departPosLat, arrivalPosLat, begin, end, vehsPerHour, period, probability, number);
-            myCalibratorParent->addCalibratorFlow(flow);
+        if((myCalibratorParent != NULL) && (abort == false)) {
+            // obtain type of distribution
+            GNECalibratorFlow::TypeOfFlow flowType = getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability);
+            if (flowType == GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID) {
+                WRITE_WARNING(toString(SUMO_TAG_FLOW) + " with ID = '" + flowID + "' cannot be created; Type of distribution undefined");
+            } else {
+                // create Flow and add it to calibrator parent
+                GNECalibratorFlow flow(myCalibratorParent, flowID, vehicleType, route, color, departLane,departPos, departSpeed, 
+                                       arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute, 
+                                       departPosLat, arrivalPosLat, begin, end, vehsPerHour, period, probability, number);
+                myCalibratorParent->addCalibratorFlow(flow);
+            }
         }
     }
 }
