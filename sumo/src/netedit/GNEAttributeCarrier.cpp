@@ -96,6 +96,74 @@ GNEAttributeCarrier::parse(const std::string& string) {
 }
 
 
+template<> SUMOVehicleClass
+GNEAttributeCarrier::parse(const std::string& string) {
+    if(string.size() == 0) {
+        throw EmptyData();
+    } else if(SumoVehicleClassStrings.hasString(string) == false) {
+        throw UnknownElement();
+    } else {
+        return SumoVehicleClassStrings.get(string);
+    }
+}
+
+
+template<> SUMOVehicleShape
+GNEAttributeCarrier::parse(const std::string& string) {
+    if(string.size() == 0) {
+        throw EmptyData();
+    } else if(SumoVehicleShapeStrings.hasString(string) == false) {
+        throw UnknownElement();
+    } else {
+        return SumoVehicleShapeStrings.get(string);
+    }
+}
+
+
+template<> std::vector<int>
+GNEAttributeCarrier::parse(const std::string& string) {
+    std::vector<std::string> parsedValues;
+    std::vector<int> parsedIntValues;
+    SUMOSAXAttributes::parseStringVector(string, parsedValues);
+    for(std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
+        parsedIntValues.push_back(parse<int>(*i));
+    }
+    return parsedIntValues;
+}
+
+
+template<> std::vector<double>
+GNEAttributeCarrier::parse(const std::string& string) {
+    std::vector<std::string> parsedValues;
+    std::vector<double> parsedDoubleValues;
+    SUMOSAXAttributes::parseStringVector(string, parsedValues);
+    for(std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
+        parsedDoubleValues.push_back(parse<double>(*i));
+    }
+    return parsedDoubleValues;
+}
+
+
+template<> std::vector<bool>
+GNEAttributeCarrier::parse(const std::string& string) {
+    std::vector<std::string> parsedValues;
+    std::vector<bool> parsedBoolValues;
+    SUMOSAXAttributes::parseStringVector(string, parsedValues);
+    for(std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
+        parsedBoolValues.push_back(parse<bool>(*i));
+    }
+    return parsedBoolValues;
+}
+
+
+template<> std::vector<std::string>
+GNEAttributeCarrier::parse(const std::string& string) {
+    std::vector<std::string> parsedValues;
+    SUMOSAXAttributes::parseStringVector(string, parsedValues);
+    return parsedValues;
+}
+
+
 bool
 GNEAttributeCarrier::isValid(SumoXMLAttr key, const std::string& value) {
     UNUSED_PARAMETER(value);
@@ -1176,7 +1244,7 @@ template<> int
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
         if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return TplConvert::_str2int((*i).second);
+            return parse<int>((*i).second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -1188,7 +1256,7 @@ template<> double
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
         if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return TplConvert::_str2double((*i).second);
+            return parse<double>((*i).second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -1200,7 +1268,7 @@ template<> bool
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
         if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return TplConvert::_str2Bool((*i).second);
+            return parse<bool>((*i).second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
@@ -1220,8 +1288,38 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
+template<> SUMOVehicleClass
+GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
+    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
+        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
+            return parse<SUMOVehicleClass>((*i).second);
+        }
+    }
+    // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
+    throw ProcessError("attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' doesn't have a default value");
+}
+
+
+
+template<> SUMOVehicleShape
+GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
+    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
+        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
+            return parse<SUMOVehicleShape>((*i).second);
+        }
+    }
+    // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
+    throw ProcessError("attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' doesn't have a default value");
+}
+
+
 template<> std::vector<int>
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
+    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
+        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
+            return parse<std::vector<int> >((*i).second);
+        }
+    }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
     throw ProcessError("attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' doesn't have a default value");
 }
@@ -1229,6 +1327,11 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> std::vector<double>
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
+    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
+        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
+            return parse<std::vector<double> >((*i).second);
+        }
+    }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
     throw ProcessError("attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' doesn't have a default value");
 }
@@ -1236,6 +1339,11 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 
 template<> std::vector<bool>
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
+    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
+        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
+            return parse<std::vector<bool> >((*i).second);
+        }
+    }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
     throw ProcessError("attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' doesn't have a default value");
 }
@@ -1245,9 +1353,7 @@ template<> std::vector<std::string>
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
         if ((*i).first == attr) {
-            std::vector<std::string> myVectorString;
-            SUMOSAXAttributes::parseStringVector((*i).second, myVectorString);
-            return myVectorString;
+            return parse<std::vector<std::string> >((*i).second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
