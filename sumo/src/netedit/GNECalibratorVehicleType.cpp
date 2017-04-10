@@ -757,4 +757,9 @@ GNECalibratorVehicleType::setMaxSpeedLat(std::string maxSpeedLat) {
 }
 
 
+bool 
+GNECalibratorVehicleType::operator==(const GNECalibratorVehicleType& calibratorVehicleType) const {
+    return (myVehicleTypeID == calibratorVehicleType.getVehicleTypeID());
+}
+
 /****************************************************************************/

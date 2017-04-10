@@ -395,6 +395,38 @@ GNECalibrator::routeExists(std::string routeID) const {
 }
 
 
+const GNECalibratorVehicleType& 
+GNECalibrator::getCalibratorVehicleType(const std::string &vehicleTypeID) {
+    for(std::vector<GNECalibratorVehicleType>::iterator i = myCalibratorVehicleTypes.begin(); i != myCalibratorVehicleTypes.end(); i++) {
+        if(i->getVehicleTypeID() == vehicleTypeID) {
+            return (*i);
+        }
+    }
+    throw InvalidArgument(toString(getTag()) + " " + getID() + " doesn't have a " + toString(SUMO_TAG_VTYPE) + " with id = '" + vehicleTypeID + "'");
+}
+
+
+const GNECalibratorFlow& 
+GNECalibrator::getCalibratorFlow(const std::string &flowID) {
+    for(std::vector<GNECalibratorFlow>::iterator i = myCalibratorFlows.begin(); i != myCalibratorFlows.end(); i++) {
+        if(i->getFlowID() == flowID) {
+            return (*i);
+        }
+    }
+    throw InvalidArgument(toString(getTag()) + " " + getID() + " doesn't have a " + toString(SUMO_TAG_FLOW) + " with id = '" + flowID + "'");
+}
+
+
+const GNECalibratorRoute& 
+GNECalibrator::getCalibratorRoute(const std::string &routeID) {
+    for(std::vector<GNECalibratorRoute>::iterator i = myCalibratorRoutes.begin(); i != myCalibratorRoutes.end(); i++) {
+        if(i->getRouteID() == routeID) {
+            return (*i);
+        }
+    }
+    throw InvalidArgument(toString(getTag()) + " " + getID() + " doesn't have a " + toString(SUMO_TAG_ROUTE) + " with id = '" + routeID + "'");
+}
+
 const std::string&
 GNECalibrator::getParentName() const {
     return myLane->getMicrosimID();

@@ -110,6 +110,9 @@ public:
     */
     std::string checkEdgeRoute(const std::vector<std::string>& edge) const;
 
+    /// @brief overload operator ==
+    bool operator==(const GNECalibratorRoute& calibratorRoute) const;
+
 private:
     /// @brief pointer to calibrator parent
     GNECalibrator* myCalibratorParent;

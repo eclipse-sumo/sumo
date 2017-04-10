@@ -207,4 +207,10 @@ GNECalibratorRoute::checkEdgeRoute(const std::vector<std::string>& edgeIDs) cons
     return "";
 }
 
+
+bool 
+GNECalibratorRoute::operator==(const GNECalibratorRoute& calibratorRoute) const {
+    return (myRouteID == calibratorRoute.getRouteID());
+}
+
 /****************************************************************************/

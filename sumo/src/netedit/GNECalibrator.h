@@ -135,6 +135,21 @@ public:
     /// @brief check if a route with ID = routeID exists
     bool routeExists(std::string routeID) const;
 
+    /**@brief get reference to calibrator vehicle type
+     * @throw ivalid argument if calibrator doesn't exist
+     */
+    const GNECalibratorVehicleType& getCalibratorVehicleType(const std::string &vehicleTypeID);
+
+    /**@brief get reference to calibrator flow
+     * @throw ivalid argument if calibrator doesn't exist
+     */
+    const GNECalibratorFlow& getCalibratorFlow(const std::string &flowID);
+
+    /**@brief get reference calibrator route
+     * @throw ivalid argument if calibrator doesn't exist
+     */
+    const GNECalibratorRoute& getCalibratorRoute(const std::string &routeID);
+
     /// @name inherited from GUIGlObject
     /// @{
     /// @brief Returns the name of the parent object

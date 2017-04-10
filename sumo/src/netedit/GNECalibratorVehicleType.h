@@ -373,6 +373,9 @@ public:
      */
     bool setMaxSpeedLat(std::string maxSpeedLat);
 
+    /// @brief overload operator ==
+    bool operator==(const GNECalibratorVehicleType& calibratorVehicleType) const;
+
 private:
     /// @brief pointer to calibrator parent
     GNECalibrator* myCalibratorParent;
