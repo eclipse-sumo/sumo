@@ -918,7 +918,8 @@ GNEAttributeCarrier::hasAttribute(SumoXMLTag tag, SumoXMLAttr attr) {
 
 bool
 GNEAttributeCarrier::hasDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
+    const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = allowedAttributes(tag);
+    for (std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator i = attrs.begin(); i != attrs.end(); i++) {
         if ((*i).first == attr) {
             if ((*i).second != NODEFAULTVALUE) {
                 return true;
