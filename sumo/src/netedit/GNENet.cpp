@@ -1308,9 +1308,9 @@ GNENet::getAdditionalID(SumoXMLTag type, const GNELane* lane, const double pos) 
 
 
 std::vector<GNEAdditional*>
-GNENet::getAdditionals(SumoXMLTag type) {
+GNENet::getAdditionals(SumoXMLTag type) const {
     std::vector<GNEAdditional*> vectorOfAdditionals;
-    for (GNEAdditionals::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+    for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
         if (type == SUMO_TAG_NOTHING || type == i->second->getTag()) {
             vectorOfAdditionals.push_back(i->second);
         }
@@ -1320,14 +1320,92 @@ GNENet::getAdditionals(SumoXMLTag type) {
 
 
 int
-GNENet::getNumberOfAdditionals(SumoXMLTag type) {
+GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
     int counter = 0;
-    for (GNEAdditionals::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+    for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
         if (type == SUMO_TAG_NOTHING || type == i->second->getTag()) {
             counter++;
         }
     }
     return counter;
+}
+
+
+const GNECalibratorRoute&
+GNENet::getGNECalibratorRoute(const std::string &calibratorRouteID) const {
+    std::vector<GNEAdditional*> calibrators = getAdditionals(SUMO_TAG_CALIBRATOR);
+    for(std::vector<GNEAdditional*>::iterator i = calibrators.begin(); i != calibrators.end(); i++) {
+        GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(*i);
+        if(calibrator->routeExists(calibratorRouteID)) {
+            return calibrator->getCalibratorRoute(calibratorRouteID);
+        }
+    }
+    throw InvalidArgument("A " + toString(SUMO_TAG_VTYPE) + "'s " + toString(SUMO_TAG_VTYPE) + " with ID = '" + calibratorRouteID + "' doesn't exists");
+}
+
+
+const GNECalibratorVehicleType&
+GNENet::getGNECalibratorVehicleType(const std::string &calibratorVehicleTypeID) const {
+    std::vector<GNEAdditional*> calibrators = getAdditionals(SUMO_TAG_CALIBRATOR);
+    for(std::vector<GNEAdditional*>::iterator i = calibrators.begin(); i != calibrators.end(); i++) {
+        GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(*i);
+        if(calibrator->vehicleTypeExists(calibratorVehicleTypeID)) {
+            return calibrator->getCalibratorVehicleType(calibratorVehicleTypeID);
+        }
+    }
+    throw InvalidArgument("A " + toString(SUMO_TAG_VTYPE) + "'s " + toString(SUMO_TAG_VTYPE) + " with ID = '" + calibratorVehicleTypeID + "' doesn't exists");
+}
+
+
+const GNECalibratorFlow&
+GNENet::getGNECalibratorFlow(const std::string &calibratorFlowID) const {
+    std::vector<GNEAdditional*> calibrators = getAdditionals(SUMO_TAG_CALIBRATOR);
+    for(std::vector<GNEAdditional*>::iterator i = calibrators.begin(); i != calibrators.end(); i++) {
+        GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(*i);
+        if(calibrator->flowExists(calibratorFlowID)) {
+            return calibrator->getCalibratorFlow(calibratorFlowID);
+        }
+    }
+    throw InvalidArgument("A " + toString(SUMO_TAG_VTYPE) + "'s " + toString(SUMO_TAG_VTYPE) + " with ID = '" + calibratorFlowID + "' doesn't exists");
+}
+
+
+bool 
+GNENet::routeExists(const std::string &routeID) const {
+    std::vector<GNEAdditional*> calibrators = getAdditionals(SUMO_TAG_CALIBRATOR);
+    for(std::vector<GNEAdditional*>::iterator i = calibrators.begin(); i != calibrators.end(); i++) {
+        GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(*i);
+        if(calibrator->routeExists(routeID)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool 
+GNENet::vehicleTypeExists(const std::string &vehicleTypeID) const {
+    std::vector<GNEAdditional*> calibrators = getAdditionals(SUMO_TAG_CALIBRATOR);
+    for(std::vector<GNEAdditional*>::iterator i = calibrators.begin(); i != calibrators.end(); i++) {
+        GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(*i);
+        if(calibrator->vehicleTypeExists(vehicleTypeID)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool 
+GNENet::flowExists(const std::string &flowID) const {
+    std::vector<GNEAdditional*> calibrators = getAdditionals(SUMO_TAG_CALIBRATOR);
+    for(std::vector<GNEAdditional*>::iterator i = calibrators.begin(); i != calibrators.end(); i++) {
+        GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(*i);
+        if(calibrator->flowExists(flowID)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // ===========================================================================

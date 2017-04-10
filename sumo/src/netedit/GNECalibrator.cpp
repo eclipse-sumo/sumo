@@ -335,7 +335,7 @@ GNECalibrator::setCalibratorRoutes(const std::vector<GNECalibratorRoute> &calibr
 std::string 
 GNECalibrator::generateVehicleTypeID() const {
     int counter = 0;
-    while(vehicleTypeExists(toString(SUMO_TAG_VTYPE) + toString(counter)) == true) {
+    while(myViewNet->getNet()->vehicleTypeExists(toString(SUMO_TAG_VTYPE) + toString(counter)) == true) {
         counter++;
     }
     return (toString(SUMO_TAG_VTYPE) + toString(counter));
@@ -345,7 +345,7 @@ GNECalibrator::generateVehicleTypeID() const {
 std::string 
 GNECalibrator::generateFlowID() const {
     int counter = 0;
-    while(flowExists(toString(SUMO_TAG_FLOW) + toString(counter)) == true) {
+    while(myViewNet->getNet()->flowExists(toString(SUMO_TAG_FLOW) + toString(counter)) == true) {
         counter++;
     }
     return (toString(SUMO_TAG_FLOW) + toString(counter));
@@ -355,7 +355,7 @@ GNECalibrator::generateFlowID() const {
 std::string 
 GNECalibrator::generateRouteID() const {
     int counter = 0;
-    while(routeExists(toString(SUMO_TAG_ROUTE) + toString(counter)) == true) {
+    while(myViewNet->getNet()->routeExists(toString(SUMO_TAG_ROUTE) + toString(counter)) == true) {
         counter++;
     }
     return (toString(SUMO_TAG_ROUTE) + toString(counter));

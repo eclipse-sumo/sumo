@@ -47,6 +47,8 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
+#include "GNEViewNet.h"
+#include "GNENet.h"
 #include "GNECalibratorFlow.h"
 #include "GNECalibrator.h"
 
@@ -261,7 +263,7 @@ bool
 GNECalibratorFlow::setFlowID(std::string flowID) {
     if (flowID.empty()) {
         return false;
-    } else if(myCalibratorParent->flowExists(flowID) == true) {
+    } else if(myCalibratorParent->getViewNet()->getNet()->flowExists(flowID) == true) {
         return false;
     } else {
         myFlowID = flowID;
@@ -274,7 +276,7 @@ bool
 GNECalibratorFlow::setVehicleType(std::string vehicleType) {
     if (vehicleType.empty()) {
         return false;
-    } else if(myCalibratorParent->vehicleTypeExists(vehicleType) == false) {
+    } else if(myCalibratorParent->getViewNet()->getNet()->vehicleTypeExists(vehicleType) == false) {
         return false;
     } else {
         myVehicleType = vehicleType;
@@ -287,7 +289,7 @@ bool
 GNECalibratorFlow::setRoute(std::string route) {
     if (route.empty()) {
         return false;
-    } else if(myCalibratorParent->routeExists(route) == false) {
+    } else if(myCalibratorParent->getViewNet()->getNet()->routeExists(route) == false) {
         return false;
     } else {
         myRoute = route;

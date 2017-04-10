@@ -49,6 +49,8 @@
 
 #include "GNECalibratorVehicleType.h"
 #include "GNECalibrator.h"
+#include "GNEViewNet.h"
+#include "GNENet.h"
 
 
 // ===========================================================================
@@ -298,7 +300,7 @@ bool
 GNECalibratorVehicleType::setVehicleTypeID(std::string vehicleTypeID) {
     if (vehicleTypeID.empty()) {
         return false;
-    } else if(myCalibratorParent->vehicleTypeExists(vehicleTypeID) == true) {
+    } else if(myCalibratorParent->getViewNet()->getNet()->vehicleTypeExists(vehicleTypeID) == true) {
         return false;
     } else {
         myVehicleTypeID = vehicleTypeID;

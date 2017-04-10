@@ -56,6 +56,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "GNEDetectorE3.h"
+#include "GNECalibrator.h"
 
 
 // ===========================================================================
@@ -482,13 +483,31 @@ public:
      * @param[in] type type of additional to get. SUMO_TAG_NOTHING will get all additionals
      * @return vector with pointers to additionals.
      */
-    std::vector<GNEAdditional*> getAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING);
+    std::vector<GNEAdditional*> getAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
     /**@brief Returns the number of additionals of the net
      * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals
      * @return Number of additionals of the net
      */
-    int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING);
+    int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
+
+    /// @brief Returns a reference to a calibrator route finding in all calibrators of net
+    const GNECalibratorRoute &getGNECalibratorRoute(const std::string &calibratorRouteID) const;
+
+    /// @brief Returns a reference to a calibrator vehicle type finding in all calibrators of net
+    const GNECalibratorVehicleType &getGNECalibratorVehicleType(const std::string &calibratorVehicleTypeID) const;
+
+    /// @brief Returns a reference to a calibrator flow finding in all calibrators of net
+    const GNECalibratorFlow &getGNECalibratorFlow(const std::string &calibratorFlowID) const;
+
+    /// @brief Check if exist a route with these ID
+    bool routeExists(const std::string &routeID) const;
+
+    /// @brief Check if exist a vehicle type with these ID
+    bool vehicleTypeExists(const std::string &vehicleTypeID) const;
+
+    /// @brief Check if exist a flow with these ID
+    bool flowExists(const std::string &flowID) const;
 
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
