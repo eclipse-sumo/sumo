@@ -110,8 +110,8 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> SUMOVehicleShape
 GNEAttributeCarrier::parse(const std::string& string) {
-    if(string.size() == 0) {
-        throw EmptyData();
+    if(string == "unknown") {
+        return SVS_UNKNOWN;
     } else if(SumoVehicleShapeStrings.hasString(string) == false) {
         throw UnknownElement();
     } else {
@@ -463,6 +463,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LATALIGNMENT, "center"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_MINGAP_LAT, "0.12"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_MAXSPEED_LAT, "1.0"));
+                break;
             default:
                 // Throw exception if tag isn't defined
                 throw ProcessError("allowed attributes for tag '" + toString(tag) + "' not defined");
@@ -880,6 +881,8 @@ GNEAttributeCarrier::isEmpty(SumoXMLTag tag, SumoXMLAttr attr) {
         myEmptyAttrs[SUMO_TAG_ROUTEPROBE].insert(SUMO_ATTR_FILE);
         // Variable Speed Signal
         myEmptyAttrs[SUMO_TAG_VSS].insert(SUMO_ATTR_FILE);
+        // route
+        myEmptyAttrs[SUMO_TAG_ROUTE].insert(SUMO_ATTR_COLOR);
     }
     return myEmptyAttrs[tag].count(attr) == 1;
 }
