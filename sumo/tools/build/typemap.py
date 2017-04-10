@@ -27,7 +27,7 @@ from os.path import dirname, exists, getmtime, join
 
 def writeTypeMap(typemapFile, typemap):
     with open(typemapFile, 'w') as f:
-        for format, mapFile in sorted(typemap.iteritems()):
+        for format, mapFile in sorted(typemap.items()):
             print("const std::string %sTypemap =" % format, file=f)
             for line in open(mapFile):
                 print('"%s"' %
