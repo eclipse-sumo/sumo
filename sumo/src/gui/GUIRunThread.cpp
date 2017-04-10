@@ -202,7 +202,7 @@ GUIRunThread::makeStep() {
             case MSNet::SIMSTATE_END_STEP_REACHED:
             case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
             case MSNet::SIMSTATE_CONNECTION_CLOSED:
-            case MSNet::SIMSTATE_TOO_MANY_VEHICLES:
+            case MSNet::SIMSTATE_TOO_MANY_TELEPORTS:
                 if (!myHaveSignaledEnd || state != MSNet::SIMSTATE_END_STEP_REACHED) {
                     WRITE_MESSAGE("Simulation ended at time: " + time2string(myNet->getCurrentTimeStep()));
                     WRITE_MESSAGE("Reason: " + MSNet::getStateMessage(state));

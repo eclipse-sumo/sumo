@@ -271,6 +271,9 @@ MSFrame::fillOptions() {
     oc.doRegister("max-num-vehicles", new Option_Integer(-1));
     oc.addDescription("max-num-vehicles", "Processing", "Delay vehicle insertion to stay within the given maximum number");
 
+    oc.doRegister("max-num-teleports", new Option_Integer(-1));
+    oc.addDescription("max-num-teleports", "Processing", "Abort the simulation if the given maximum number of teleports is exceeded");
+
     oc.doRegister("scale", new Option_Float(1.));
     oc.addDescription("scale", "Processing", "Scale demand by the given factor (by discarding or duplicating vehicles)");
 

@@ -109,8 +109,8 @@ public:
         SIMSTATE_CONNECTION_CLOSED,
         /// @brief An error occured during the simulation step
         SIMSTATE_ERROR_IN_SIM,
-        /// @brief The simulation contains too many vehicles (@deprecated)
-        SIMSTATE_TOO_MANY_VEHICLES
+        /// @brief The simulation had too many teleports
+        SIMSTATE_TOO_MANY_TELEPORTS
     };
 
     //typedef PedestrianRouterDijkstra<MSEdge, MSLane> MSPedestrianRouterDijkstra;
@@ -712,6 +712,9 @@ protected:
 
     /// @brief Current time step.
     SUMOTime myStep;
+
+    /// @brief Maximum number of teleports.
+    int myMaxTeleports;
 
 
 

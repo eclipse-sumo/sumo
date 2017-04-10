@@ -180,6 +180,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     }
     OptionsCont& oc = OptionsCont::getOptions();
     myStep = string2time(oc.getString("begin"));
+    myMaxTeleports = oc.getInt("max-num-teleports");
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
     myInserter = new MSInsertionControl(*vc, string2time(oc.getString("max-depart-delay")), oc.getBool("eager-insert"), oc.getInt("max-num-vehicles"));
@@ -560,6 +561,9 @@ MSNet::simulationState(SUMOTime stopTime) const {
     if (stopTime >= 0 && myStep >= stopTime) {
         return SIMSTATE_END_STEP_REACHED;
     }
+    if (myMaxTeleports >= 0 && myVehicleControl->getTeleportCount() > myMaxTeleports) {
+        return SIMSTATE_TOO_MANY_TELEPORTS;
+    }
     return SIMSTATE_RUNNING;
 }
 
@@ -577,8 +581,8 @@ MSNet::getStateMessage(MSNet::SimulationState state) {
             return "TraCI requested termination.";
         case MSNet::SIMSTATE_ERROR_IN_SIM:
             return "An error occured (see log).";
-        case MSNet::SIMSTATE_TOO_MANY_VEHICLES:
-            return "Too many vehicles.";
+        case MSNet::SIMSTATE_TOO_MANY_TELEPORTS:
+            return "Too many teleports.";
         default:
             return "Unknown reason.";
     }
