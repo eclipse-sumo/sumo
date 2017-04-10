@@ -1,0 +1,5 @@
+<additionals>
+    <calibrator id="calibratorFlows" lane="gneE0_0" pos="20.00" freq="100.00" output="calibratorFlows.txt"/>
+    <calibrator id="calibratorRoutes" lane="gneE0_0" pos="0.00" freq="100.00" output="calibratorRoutes.txt"/>
+    <calibrator id="calibratorVehicleTypes" lane="gneE0_0" pos="10.00" freq="100.00" output="calibratorVehicleTypes.txt"/>
+</additionals>

@@ -1,0 +1,7 @@
+Warning: Essential string attribute 'id' of route is missing; Additional cannot be created
+Warning: Format of essential string attribute 'id' of route is invalid; Additional cannot be created
+Warning: Essential string attribute 'edges' of route is missing; Additional cannot be created
+Warning: route with ID = 'route04' cannot be created; edge with id 'dummyEdge1' doesn't exist in net
+Warning: route with ID = 'route04' cannot be created; edge with id 'dummyEdge2' doesn't exist in net
+Warning: route with ID = 'route05' cannot be created; edge with id 'dummyEdge1' doesn't exist in net
+Warning: Optional string attribute 'color' of route is missing; Default value '' will be used.
