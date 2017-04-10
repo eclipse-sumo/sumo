@@ -379,7 +379,7 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case SUMO_ATTR_LINES:
-            return isValidStringVector(value);
+            return canParse<std::vector<std::string> >(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
@@ -415,8 +415,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             getViewNet()->update();
             break;
         case SUMO_ATTR_LINES:
-            myLines.clear();
-            SUMOSAXAttributes::parseStringVector(value, myLines);
+            myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             getViewNet()->update();
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:

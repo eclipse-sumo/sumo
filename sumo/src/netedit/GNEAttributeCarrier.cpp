@@ -120,11 +120,18 @@ GNEAttributeCarrier::parse(const std::string& string) {
 }
 
 
-template<> std::vector<int>
+template<> std::vector<std::string>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> parsedValues;
-    std::vector<int> parsedIntValues;
     SUMOSAXAttributes::parseStringVector(string, parsedValues);
+    return parsedValues;
+}
+
+
+template<> std::vector<int>
+GNEAttributeCarrier::parse(const std::string& string) {
+    std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
+    std::vector<int> parsedIntValues;
     for(std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
         parsedIntValues.push_back(parse<int>(*i));
     }
@@ -134,9 +141,8 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::vector<double>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> parsedValues;
+    std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
     std::vector<double> parsedDoubleValues;
-    SUMOSAXAttributes::parseStringVector(string, parsedValues);
     for(std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
         parsedDoubleValues.push_back(parse<double>(*i));
     }
@@ -146,21 +152,12 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::vector<bool>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> parsedValues;
+    std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
     std::vector<bool> parsedBoolValues;
-    SUMOSAXAttributes::parseStringVector(string, parsedValues);
     for(std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
         parsedBoolValues.push_back(parse<bool>(*i));
     }
     return parsedBoolValues;
-}
-
-
-template<> std::vector<std::string>
-GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> parsedValues;
-    SUMOSAXAttributes::parseStringVector(string, parsedValues);
-    return parsedValues;
 }
 
 
@@ -244,41 +241,6 @@ GNEAttributeCarrier::isValidFileValue(const std::string& value) {
     return value.find_first_of("\t\n\r@$%^&|\\{}*'\";:<>") == std::string::npos;
 }
 
-
-bool
-GNEAttributeCarrier::isValidStringVector(const std::string& value) {
-    // 1) check if value is empty
-    if (value.empty()) {
-        return true;
-    }
-    // 2) Check if there are duplicated spaces
-    for (int i = 1; i < (int)value.size(); i++) {
-        if (value.at(i - 1) == ' ' && value.at(i) == ' ') {
-            return false;
-        }
-    }
-    // 3) Check if the first and last character aren't spaces
-    if ((value.at(0) == ' ') || (value.at(value.size() - 1) == ' ')) {
-        return false;
-    }
-    // 4) Check if every sub-string is valid
-    int index = 0;
-    std::string subString;
-    while (index < (int)value.size()) {
-        if (value.at(index) == ' ') {
-            if (!isValidFileValue(subString)) {
-                return false;
-            } else {
-                subString.clear();
-            }
-        } else {
-            subString.push_back(value.at(index));
-        }
-        index++;
-    }
-    // 5) All right, then return true
-    return true;
-}
 
 // ===========================================================================
 // static methods

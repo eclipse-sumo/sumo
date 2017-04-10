@@ -210,9 +210,6 @@ public:
     /// @brief true if value is a valid file value
     static bool isValidFileValue(const std::string& value);
 
-    /// @brief true if value is a valid string vector
-    static bool isValidStringVector(const std::string& value);
-
     /// @brief feature is still unchanged after being loaded (implies approval)
     static const std::string LOADED;
 

@@ -232,8 +232,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return false;
         case SUMO_ATTR_EDGES: {
-            std::vector<std::string> NBEdgeIDs;
-            SUMOSAXAttributes::parseStringVector(value, NBEdgeIDs);
+            std::vector<std::string> NBEdgeIDs = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
             // Obtain NBEdges of GNENet and check if exists
             for (std::vector<std::string>::iterator i = NBEdgeIDs.begin(); i != NBEdgeIDs.end(); i++) {
                 if (myNet->retrieveEdge((*i), false) == NULL) {
@@ -263,8 +262,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EDGES: {
             // remove edges of crossing
             myCrossing.edges.clear();
-            std::vector<std::string> NBEdgeIDs;
-            SUMOSAXAttributes::parseStringVector(value, NBEdgeIDs);
+            std::vector<std::string> NBEdgeIDs = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
             // Obtain NBEdges of GNENet and insert it in the crossing
             for (std::vector<std::string>::iterator i = NBEdgeIDs.begin(); i != NBEdgeIDs.end(); i++) {
                 myCrossing.edges.push_back(myNet->retrieveEdge(*i)->getNBEdge());

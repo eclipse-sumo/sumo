@@ -289,8 +289,7 @@ GNECrossingFrame::crossingParameters::markEdge(GNEEdge* edge) {
         // Check if edge belongs to junction's edge
         if (std::find(currentJunction->getGNEEdges().begin(), currentJunction->getGNEEdges().end(), edge) != currentJunction->getGNEEdges().end()) {
             // Update text field with the new edge
-            std::vector<std::string> crossingEdges;
-            SUMOSAXAttributes::parseStringVector(myCrossingEdges->getText().text(), crossingEdges);
+            std::vector<std::string> crossingEdges = GNEAttributeCarrier::parse<std::vector<std::string> > (myCrossingEdges->getText().text());
             // Check if new edge must be added or removed
             std::vector<std::string>::iterator itFinder = std::find(crossingEdges.begin(), crossingEdges.end(), edge->getID());
             if (itFinder == crossingEdges.end()) {
@@ -391,9 +390,7 @@ long
 GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     myCurrentParametersValid = true;
     // get string vector with the edges
-    std::vector<std::string> crossingEdges;
-    SUMOSAXAttributes::parseStringVector(myCrossingEdges->getText().text(), crossingEdges);
-
+    std::vector<std::string> crossingEdges = GNEAttributeCarrier::parse<std::vector<std::string> > (myCrossingEdges->getText().text());
     // Clear selected edges
     myCurrentSelectedEdges.clear();
     // iterate over vector of edge IDs

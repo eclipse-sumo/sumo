@@ -402,8 +402,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_EDGES: {
-            std::vector<std::string> edgeIds;
-            SUMOSAXAttributes::parseStringVector(value, edgeIds);
+            std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
             // Empty Edges aren't valid
             if (edgeIds.empty()) {
                 return false;
@@ -442,11 +441,10 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_EDGES: {
             // Declare variables
-            std::vector<std::string> edgeIds;
+            std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
             GNEEdge* edge;
             // clear previous edges
             myEdges.clear();
-            SUMOSAXAttributes::parseStringVector(value, edgeIds);
             // Iterate over parsed edges and obtain pointer to edges
             for (int i = 0; i < (int)edgeIds.size(); i++) {
                 edge = myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false);

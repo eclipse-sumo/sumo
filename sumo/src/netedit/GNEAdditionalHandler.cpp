@@ -410,14 +410,11 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
     // parse attributes of VSS
     std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
     std::string file = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_FILE, abort);
-    std::string listOfLanes = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANES, abort);
+    std::vector<std::string> lanesID = getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_LANES, abort);
     double posx = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_X, abort);
     double posy = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_Y, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // Obtain lanes
-        std::vector<std::string> lanesID;
-        SUMOSAXAttributes::parseStringVector(listOfLanes, lanesID);
         // obtain VSS Values
         // @todo
         std::map<double, double> VSSValues;
@@ -444,7 +441,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
     bool abort = false;
     // parse attributes of Rerouter
     std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::string edgesAttribute = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_EDGES, abort);
+    std::vector<std::string> edgesID = getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_EDGES, abort);
     std::string file = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_FILE, abort);
     double probability = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_PROB, abort);
     bool off = getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_OFF, abort);
@@ -452,10 +449,6 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
     double posy = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_Y, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // Obtain edges
-        std::vector<std::string> edgesID;
-        bool ok = false;
-        SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_EDGES, id.c_str(), ok, "", false), edgesID);
         // obtain Rerouter values Values
 
         // Obtain pointer to edges
@@ -484,12 +477,9 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
     std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
     double startPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
     double endPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
-    std::string linesAttribute = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LINES, abort, false);
+    std::vector<std::string> lines = getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_LINES, abort, false);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // Parse lines
-        std::vector<std::string> lines;
-        SUMOSAXAttributes::parseStringVector(linesAttribute, lines);
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
         if (lane == NULL) {
@@ -513,12 +503,9 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
     std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
     double startPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
     double endPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
-    std::string linesAttribute = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LINES, abort, false);
+    std::vector<std::string> lines = getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_LINES, abort, false);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // Parse lines
-        std::vector<std::string> lines;
-        SUMOSAXAttributes::parseStringVector(linesAttribute, lines);
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
         if (lane == NULL) {
@@ -725,8 +712,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
             double startPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_STARTPOS]);
             double endPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_ENDPOS]);
-            std::vector<std::string> lines;
-            SUMOSAXAttributes::parseStringVector(values[SUMO_ATTR_LINES], lines);
+            std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_LINES]);
             // Build busStop
             if (lane) {
                 return buildBusStop(viewNet, id, lane, startPos, endPos, lines);
@@ -740,8 +726,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
             double startPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_STARTPOS]);
             double endPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_ENDPOS]);
-            std::vector<std::string> lines;
-            SUMOSAXAttributes::parseStringVector(values[SUMO_ATTR_LINES], lines);
+            std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_LINES]);
             // Build containerStop
             if (lane) {
                 return buildContainerStop(viewNet, id, lane, startPos, endPos, lines);
@@ -846,8 +831,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             bool ok;
             PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
             // Parse lane Ids
-            std::vector<std::string> laneIds;
-            SUMOSAXAttributes::parseStringVector(values[SUMO_ATTR_LANES], laneIds);
+            std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_LANES]);
             // By default, VSSValues are empty
             std::map<double, double> VSSValues;
             // Obtain pointers to lanes
@@ -888,8 +872,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             bool ok;
             PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
             // Parse edges Ids
-            std::vector<std::string> edgeIds;
-            SUMOSAXAttributes::parseStringVector(values[SUMO_ATTR_EDGES], edgeIds);
+            std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_EDGES]);
             // Get rest of parameters
             bool off = GNEAttributeCarrier::parse<bool>(values[SUMO_ATTR_OFF]);
             double prob = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_PROB]);

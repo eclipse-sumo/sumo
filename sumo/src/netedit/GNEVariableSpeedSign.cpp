@@ -367,8 +367,7 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
             bool ok;
             return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
         case SUMO_ATTR_LANES: {
-            std::vector<std::string> laneIds;
-            SUMOSAXAttributes::parseStringVector(value, laneIds);
+            std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
             // Empty Lanes aren't valid
             if (laneIds.empty()) {
                 return false;
@@ -399,10 +398,9 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LANES: {
             // Declare variables
-            std::vector<std::string> laneIds;
+            std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
             std::vector<GNELane*> lanes;
             GNELane* lane;
-            SUMOSAXAttributes::parseStringVector(value, laneIds);
             // Iterate over parsed lanes and obtain pointer to lanes
             for (int i = 0; i < (int)laneIds.size(); i++) {
                 lane = myViewNet->getNet()->retrieveLane(laneIds.at(i), false);
