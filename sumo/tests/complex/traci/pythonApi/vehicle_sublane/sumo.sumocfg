@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -7,6 +9,7 @@
     </input>
 
     <processing>
+        <lateral-resolution value="0.64"/>
         <time-to-teleport value="-1"/>
     </processing>
 
@@ -14,8 +17,5 @@
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
-
-    <lateral-resolution value="0.64"/>
-
 
 </configuration>
