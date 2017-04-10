@@ -30,6 +30,9 @@ invalid_float
 invalid_bool
 invalid_step_length
 
+# exit on too many teleports
+too_many_teleports
+
 # Tests for broken routes
 routes
 

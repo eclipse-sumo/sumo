@@ -1,0 +1,15 @@
+Loading net-file from 'net.net.xml'... done (3ms).
+Loading done.
+Simulation started with time: 0.00
+Simulation ended at time: 2687.00
+Reason: Too many teleports.
+Performance: 
+ Duration: 1141ms
+ Real time factor: 2354.95
+ UPS: 278898.334794
+Vehicles: 
+ Inserted: 204 (Loaded: 259)
+ Running: 202
+ Waiting: 55
+Teleports: 6 (Jam: 1, Yield: 3, Wrong Lane: 2)
+
