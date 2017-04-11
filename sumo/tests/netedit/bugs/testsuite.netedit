@@ -1,2 +1,5 @@
 # netedit crash due selection of multiple edges and junctions
 ticket2948
+
+# warm about unsaved additionals
+ticket2593
