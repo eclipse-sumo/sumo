@@ -1286,7 +1286,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
                         gCurrentFolder);
         if (file == "") {
             // None additionals file was selected, then stop function
-            return 1;
+            return 0;
         } else {
             myAdditionalsFile = file.text();
         }
@@ -1347,18 +1347,42 @@ GNEApplicationWindow::getView() {
 
 
 bool
-GNEApplicationWindow::continueWithUnsavedChanges() {
+GNEApplicationWindow::continueWithUnsavedChanges() {    
+    FXuint answer = 0;
     if (myUndoList->canUndo() && !myUndoList->marked()) {
-        FXuint answer = FXMessageBox::question(this, MBOX_YES_NO,
-                                               "Confirm Closing Network", "%s",
-                                               "You have unsaved changes. Do you wish to close the network and discard all changes?");
+        answer = FXMessageBox::question(this, MBOX_YES_NO,
+                                               "Confirm closing Network", "%s",
+                                               "You have unsaved changes in the network. Do you wish to close the network and discard all changes?");
         if (answer == 1) { //1:yes, 2:no, 4:esc
-            myUndoList->p_clear(); // only ask once
+            // Check if there are non saved additionals
+            if((myNet != NULL) && (myNet->getNumberOfAdditionals() > 0) && (myNet->isAdditionalsSaved() == false)) {
+                answer = FXMessageBox::question(this, MBOX_YES_NO,
+                                        "Save additionals before exit", "%s",
+                                        "You have unsaved additionals. Do you wish to save it before closing network?");
+                // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
+                if ((answer == 1) && (onCmdSaveAdditionals(0,0,0)) == 0) {
+                    return false;
+                }
+            }
+            // clear undo list and return true to continue with closing/reload
+            myUndoList->p_clear(); //only ask once
             return true;
         } else {
+            // return false to stop closing/reloading
             return false;
         }
     } else {
+        // Check if there are non saved additionals
+        if((myNet != NULL) && (myNet->getNumberOfAdditionals() > 0) && (myNet->isAdditionalsSaved() == false)) {
+            answer = FXMessageBox::question(this, MBOX_YES_NO,
+                                            "Save additionals before exit", "%s",
+                                            "You have unsaved additionals. Do you wish to save it before closing network?");
+            // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
+            if ((answer == 1) && (onCmdSaveAdditionals(0,0,0)) == 0) {
+                return false;
+            }
+        }
+        // return true to continue closing/reloading
         return true;
     }
 }

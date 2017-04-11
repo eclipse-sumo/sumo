@@ -385,6 +385,12 @@ public:
     /// @brief recompute the network and update lane geometries
     void computeAndUpdate(OptionsCont& oc);
 
+    /// @brief check if additional are saved
+    bool isAdditionalsSaved() const;
+
+    /// @brief set manually the flag of additionals
+    void setAdditionalSaved(bool value);
+
     /* @brief trigger full netbuild computation
      * param[in] window The window to inform about delay
      * param[in] force Whether to force recomputation even if not needed
@@ -549,6 +555,9 @@ protected:
 
     /// @brief whether the net needs recomputation
     bool myNeedRecompute;
+
+    /// @brief Flag to check if additionals must be saved
+    bool myAdditionalsSaved;
 
 private:
     /// @brief Initialises the detector wrappers

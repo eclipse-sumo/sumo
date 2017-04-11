@@ -102,7 +102,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myEdgeIDSupplier("gneE", netBuilder->getEdgeCont().getAllNames()),
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myShapeContainer(myGrid),
-    myNeedRecompute(true) {
+    myNeedRecompute(true),
+    myAdditionalsSaved(true) {
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 
     // init junctions (by default Crossing and walking areas aren't created)
@@ -688,6 +689,8 @@ GNENet::saveAdditionals(const std::string& filename) {
         i->second->writeAdditional(device);
     }
     device.close();
+    // change value of flag
+    myAdditionalsSaved = true;
 }
 
 
@@ -1226,6 +1229,7 @@ GNENet::insertAdditional(GNEAdditional* additional, bool hardFail) {
         myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
         myGrid.addAdditionalGLObject(additional);
         update();
+        myAdditionalsSaved = false;
     }
 }
 
@@ -1240,6 +1244,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
         myAdditionals.erase(additionalToRemove);
         myGrid.removeAdditionalGLObject(additional);
         update();
+        myAdditionalsSaved = false;
     }
 }
 
@@ -1253,6 +1258,7 @@ GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) 
         // remove an insert additional again into container
         myAdditionals.erase(additionalToUpdate);
         myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
+        myAdditionalsSaved = false;
     }
 }
 
@@ -1571,6 +1577,18 @@ GNENet::computeAndUpdate(OptionsCont& oc) {
     }
 
     myNeedRecompute = false;
+}
+
+
+bool 
+GNENet::isAdditionalsSaved() const {
+    return myAdditionalsSaved;
+}
+
+
+void 
+GNENet::setAdditionalSaved(bool value) {
+    myAdditionalsSaved = value;
 }
 
 
