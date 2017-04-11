@@ -481,10 +481,15 @@ NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
     NBEdge* edge = myEdgeCont.retrieve(myCurrentID);
     if (edge == 0) {
         WRITE_WARNING("Ignoring tag '" + toString(SUMO_TAG_DELETE) + "' for unknown edge '" +
-                      myCurrentID + "'");
+            myCurrentID + "'");
         return;
     }
-    myEdgeCont.extract(myDistrictCont, edge, true);
+    const int lane = attrs.getOpt<int>(SUMO_ATTR_INDEX, myCurrentID.c_str(), ok, -1);
+    if (lane < 0) {
+        myEdgeCont.extract(myDistrictCont, edge, true);
+    } else {
+        edge->deleteLane(lane);
+    }
 }
 
 
@@ -637,6 +642,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
                 }
             }
         }
+        myCurrentEdge = 0;
     }
 }
 

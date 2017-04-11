@@ -301,8 +301,8 @@ private:
      */
     void addEdge(const SUMOSAXAttributes& attrs);
 
-    /** @brief parses delete tag and deletes the specified edge
-     * @param[in] attrs The attributes to get the edge's id from
+    /** @brief parses delete tag and deletes the specified edge or lane
+     * @param[in] attrs The attributes to get the edge id and the optional lane index from
      */
     void deleteEdge(const SUMOSAXAttributes& attrs);
 
