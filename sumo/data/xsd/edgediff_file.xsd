@@ -75,6 +75,7 @@
 
     <xsd:complexType name="deleteType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="roundaboutType">
