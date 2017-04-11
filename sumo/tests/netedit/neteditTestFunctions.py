@@ -222,7 +222,7 @@ def waitQuestion(answer):
     typeTowKeys(answer, Key.ALT)
 
 # netedit quit
-def quit(neteditProcess, mustBeSaved, save):
+def quit(neteditProcess, netNonSavedDialog = False, saveNet = False, additionalsNonSavedDialog = False, saveAdditionals = False):
     if neteditProcess.poll() is not None:
         # already quit
         return
@@ -231,8 +231,15 @@ def quit(neteditProcess, mustBeSaved, save):
     typeTowKeys("q", Key.CTRL)
 
     # Check if net must be saved
-    if mustBeSaved:
-        if save:
+    if netNonSavedDialog:
+        if saveNet:
+            waitQuestion("y")
+        else:
+            waitQuestion("n")
+            
+    # Check if additionals must be saved
+    if additionalsNonSavedDialog:
+        if saveAdditionals:
             waitQuestion("y")
         else:
             waitQuestion("n")
