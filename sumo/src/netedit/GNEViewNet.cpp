@@ -293,34 +293,46 @@ GNEViewNet::doInit() {}
 
 void
 GNEViewNet::buildViewToolBars(GUIGlChildWindow& cw) {
-    /*
     // build coloring tools
     {
-        const std::vector<std::string> &names = gSchemeStorage.getNames();
-        for (std::vector<std::string>::const_iterator i=names.begin(); i!=names.end(); ++i) {
-            v.getColoringSchemesCombo().appendItem((*i).c_str());
+        const std::vector<std::string>& names = gSchemeStorage.getNames();
+        for (std::vector<std::string>::const_iterator i = names.begin(); i != names.end(); ++i) {
+            cw.getColoringSchemesCombo().appendItem((*i).c_str());
             if ((*i) == myVisualizationSettings->name) {
-                v.getColoringSchemesCombo().setCurrentItem(v.getColoringSchemesCombo().getNumItems()-1);
+                cw.getColoringSchemesCombo().setCurrentItem(cw.getColoringSchemesCombo().getNumItems() - 1);
             }
         }
-        v.getColoringSchemesCombo().setNumVisible(5);
+        cw.getColoringSchemesCombo().setNumVisible(MAX2(5, (int)names.size() + 1));
     }
-    */
-
-    // locator button for junctions
+    // for junctions
     new FXButton(cw.getLocatorPopup(),
                  "\tLocate Junction\tLocate a junction within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), &cw, MID_LOCATEJUNCTION,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-    // locator button for edges
+    // for edges
     new FXButton(cw.getLocatorPopup(),
                  "\tLocate Street\tLocate a street within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &cw, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-    // locator button for tls
+    // for tls
     new FXButton(cw.getLocatorPopup(),
-                 "\tLocate TLS\tLocate a traffic light within the network.",
+                 "\tLocate TLS\tLocate a tls within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATETLS), &cw, MID_LOCATETLS,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+    // for additional stuff
+    new FXButton(cw.getLocatorPopup(),
+                 "\tLocate Additional\tLocate an additional structure within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATEADD), &cw, MID_LOCATEADD,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+    // for pois
+    new FXButton(cw.getLocatorPopup(),
+                 "\tLocate PoI\tLocate a PoI within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATEPOI), &cw, MID_LOCATEPOI,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+    // for polygons
+    new FXButton(cw.getLocatorPopup(),
+                 "\tLocate Polygon\tLocate a Polygon within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATEPOLY), &cw, MID_LOCATEPOLY,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 }
 
