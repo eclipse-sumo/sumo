@@ -3,7 +3,8 @@
 @file    cutRoutes.py
 @author  Jakob Erdmann
 @author  Michael Behrisch
-@date    2012-08-15
+@author  Leonhard Luecken
+@date    2017-04-11
 @version $Id$
 
 Cut down routes from a large scenario to a sub-scenario optionally using exitTimes
@@ -24,6 +25,8 @@ from __future__ import print_function
 import os
 import sys
 import codecs
+import copy
+
 from optparse import OptionParser
 from collections import defaultdict
 import sort_routes
@@ -60,7 +63,7 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
                          help="Perform out-of-memory sort using module sort_routes (slower but more memory efficient)")
     optParser.add_option("-d", "--disconnected-action", type='choice', default='discard',
                          choices=['discard', 'keep'],  # XXX 'split', 'longest'
-                         help="How to deal with routes that are disconnected in the subnetwork. If 'keep' is chosen the route file must be processed with DUAROUTER with option --repair")
+                         help="How to deal with routes that are disconnected in the subnetwork. If 'keep' is chosen a disconnected route generates several routes in the subnetwork corresponding to its parts.")
     #optParser.add_option("--orig-weights", help="weight file for the original network for extrapolating new departure times")
     options, args = optParser.parse_args()
     try:
@@ -98,62 +101,77 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
         for vehicle in parse(routeFile, 'vehicle'):
             num_vehicles += 1
             edges = vehicle.route[0].edges.split()
-            fromIndex = getFirstIndex(areaEdges, edges)
-            if fromIndex is None:
+            firstIndex = getFirstIndex(areaEdges, edges)
+            if firstIndex is None:
                 continue  # route does not touch the area
-            toIndex = len(edges) - 1 - \
+            lastIndex = len(edges) - 1 - \
                 getFirstIndex(areaEdges, reversed(edges))
-            # check for minimum length
-            if toIndex - fromIndex + 1 < options.min_length:
-                too_short += 1
-                continue
             # check for connectivity
-            if missingEdges(areaEdges, edges[fromIndex:toIndex], missingEdgeOccurences):
+            route_parts = [(firstIndex + i, firstIndex + j) for (i, j) in missingEdges(areaEdges, edges[firstIndex:(lastIndex+1)], missingEdgeOccurences)]
+#             print("areaEdges: %s"%str(areaEdges))
+#             print("routeEdges: %s"%str(edges))
+#             print("firstIndex = %d"%firstIndex)
+#             print("route_parts = %s"%str(route_parts))
+            if len(route_parts) > 1:
                 multiAffectedRoutes += 1
                 if options.disconnected_action == 'discard':
                     continue
-            # compute new departure
-            if vehicle.route[0].exitTimes is None:
-                if orig_net is not None:
-                    # extrapolate new departure using default speed
-                    newDepart = (float(vehicle.depart) +
-                                 sum([(orig_net.getEdge(e).getLength() /
-                                       (orig_net.getEdge(e).getSpeed() * options.speed_factor))
-                                      for e in edges[:fromIndex]]))
+            # loop over different route parts
+            for ix_part, ix_interval in enumerate(route_parts):
+                fromIndex, toIndex = ix_interval 
+                #print("(fromIndex,toIndex) = (%d,%d)"%(fromIndex,toIndex))
+                # check for minimum length
+                if toIndex - fromIndex + 1 < options.min_length:
+                    too_short += 1
+                    continue
+                # compute new departure
+                if vehicle.route[0].exitTimes is None:
+                    if orig_net is not None:
+                        # extrapolate new departure using default speed
+                        newDepart = (float(vehicle.depart) +
+                                     sum([(orig_net.getEdge(e).getLength() /
+                                           (orig_net.getEdge(e).getSpeed() * options.speed_factor))
+                                          for e in edges[:fromIndex]]))
+                    else:
+                        print(
+                            "Could not reconstruct new departure time for vehicle '%s'. Using old departure time." % vehicle.id)
+                        newDepart = float(vehicle.depart)
                 else:
-                    print(
-                        "Could not reconstruct new departure time for vehicle '%s'. Using old departure time." % vehicle.id)
-                    newDepart = float(vehicle.depart)
-            else:
-                exitTimes = vehicle.route[0].exitTimes.split()
-                departTimes = [vehicle.depart] + exitTimes[:-1]
-                teleportFactor = len(departTimes) / float(len(edges))
-                teleportFactorSum += teleportFactor
-                # assume teleports were spread evenly across the vehicles route
-                newDepart = float(departTimes[int(fromIndex * teleportFactor)])
-                del vehicle.route[0].exitTimes
-            remaining = edges[fromIndex:toIndex + 1]
-            stops = []
-            if vehicle.stop:
-                for stop in vehicle.stop:
-                    if stop.busStop:
-                        if not busStopEdges:
-                            print(
-                                "No bus stop locations parsed, skipping bus stop '%s'." % stop.busStop)
-                            continue
-                        if stop.busStop not in busStopEdges:
-                            print(
-                                "Skipping bus stop '%s', which could not be located." % stop.busStop)
-                            continue
-                        if busStopEdges[stop.busStop] in remaining:
+                    exitTimes = vehicle.route[0].exitTimes.split()
+                    departTimes = [vehicle.depart] + exitTimes[:-1]
+                    teleportFactor = len(departTimes) / float(len(edges))
+                    teleportFactorSum += teleportFactor
+                    # assume teleports were spread evenly across the vehicles route
+                    newDepart = float(departTimes[int(fromIndex * teleportFactor)])
+                    del vehicle.route[0].exitTimes
+                remaining = edges[fromIndex:toIndex + 1]
+                stops = []
+                if vehicle.stop:
+                    for stop in vehicle.stop:
+                        if stop.busStop:
+                            if not busStopEdges:
+                                print(
+                                    "No bus stop locations parsed, skipping bus stop '%s'." % stop.busStop)
+                                continue
+                            if stop.busStop not in busStopEdges:
+                                print(
+                                    "Skipping bus stop '%s', which could not be located." % stop.busStop)
+                                continue
+                            if busStopEdges[stop.busStop] in remaining:
+                                stops.append(stop)
+                        elif stop.lane[:-2] in remaining:
                             stops.append(stop)
-                    elif stop.lane[:-2] in remaining:
-                        stops.append(stop)
-            vehicle.route[0].edges = " ".join(remaining)
-            vehicle.stop = stops
-            vehicle.depart = "%.2f" % newDepart
-            yield newDepart, vehicle
-            num_returned += 1
+                vehicle.route[0].edges = " ".join(remaining)
+                vehicle.stop = stops           
+                vehicle.depart = "%.2f" % newDepart
+                if len(route_parts) > 1:
+                    # return copies of the vehicle for each route part
+                    yield_veh = copy.deepcopy(vehicle)
+                    yield_veh.id = vehicle.id + "_part" +str(ix_part)
+                    yield newDepart, yield_veh
+                else:
+                    yield newDepart, vehicle
+                num_returned += 1
 
     if teleportFactorSum > 0:
         teleports = " (avg teleportFactor %s)" % (
@@ -179,12 +197,30 @@ def getFirstIndex(areaEdges, edges):
 
 
 def missingEdges(areaEdges, edges, missingEdgeOccurences):
-    hasBeenAffectedOnce = False
-    for edge in edges:
+    ''' 
+    Returns a list of intervals corresponding to the overlapping parts of the route with the area
+    '''
+    # store present edge-intervals
+    route_intervals=[]
+    start = 0
+    lastEdgePresent = False # assert: first edge is always in areaEdges
+    for j, edge in enumerate(edges):
         if not edge in areaEdges:
-            hasBeenAffectedOnce = True
-            missingEdgeOccurences[edge] += 1
-    return hasBeenAffectedOnce
+            if lastEdgePresent:
+                # this is the end of a present interval
+                route_intervals.append((start,j-1))
+#                 print("edge '%s' not in area."%edge)                
+                lastEdgePresent=False
+            missingEdgeOccurences[edge] += 1            
+        else:
+            if not lastEdgePresent:
+                # this is a start of a present interval
+                start=j
+                lastEdgePresent=True
+    if lastEdgePresent:
+#         print("edges = %s"%str(edges))
+        route_intervals.append((start, len(edges)-1))
+    return route_intervals
 
 
 def printTop(missingEdgeOccurences, num=1000):
