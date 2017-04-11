@@ -10,6 +10,9 @@ priority
 # overwriting lanes
 lanes
 
+# deleting lane 0
+lane_0
+
 # overwriting speed
 speed
 
