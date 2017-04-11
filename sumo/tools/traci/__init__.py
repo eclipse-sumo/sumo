@@ -25,6 +25,7 @@ from __future__ import absolute_import
 import socket
 import time
 import subprocess
+import warnings
 
 import sumolib
 from .domain import _defaultDomains
@@ -35,6 +36,7 @@ from . import _lane, _vehicle, _vehicletype, _person, _route
 from . import _poi, _polygon, _junction, _edge, _simulation, _gui
 
 _connections = {}
+_stepListeners = []
 
 
 def _STEPS2TIME(step):
@@ -102,8 +104,36 @@ def simulationStep(step=0):
     If the given value is 0 or absent, exactly one step is performed.
     Values smaller than or equal to the current sim time result in no action.
     """
-    return _connections[""].simulationStep(step)
+    global _stepListeners
+    responses = _connections[""].simulationStep(step)
+    for listener in _stepListeners:
+        listener.step(step)
+    return responses
 
+
+class StepListener(object):
+    def step(self, s=0):
+	'''step(int)
+	
+	After adding a StepListener 'listener' with traci.addStepListener(listener), 
+	TraCI will call listener.step(s) after each call to traci.simulationStep(s)
+	'''
+        pass
+
+
+def addStepListener(listener):
+    '''addStepListener(traci.StepListener) -> bool
+
+    Append the step listener (its step function is called at the end of every call to traci.simulationStep())
+    Returns True if the listener was added successfully, False otherwise.
+    '''
+    global _stepListeners
+    if issubclass(type(listener), StepListener):
+        _stepListeners.append(listener)
+        return True
+    else:
+        warnings.warn("Proposed listener's type must inherit from traci.StepListener. Not adding object of type '%s'"%str(type(listener)))
+        return False
 
 def getVersion():
     return _connections[""].getVersion()
