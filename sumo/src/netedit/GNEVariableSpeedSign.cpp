@@ -61,10 +61,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> /* lanes */, const std::string& filename, const std::map<double, double>& vssValues) :
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> /* lanes */, const std::string& filename, const std::vector<GNEVariableSpeedSignStep>& steps) :
     GNEAdditional(id, viewNet, pos, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGN),
     myFilename(filename),
-    myVSSValues(vssValues),
+    mySteps(steps),
     mySaveInFilename(false) {
     // Update geometry;
     updateGeometry();
@@ -154,26 +154,26 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
         /*
         OutputDevice& deviceVSS = OutputDevice::getDevice(currentDirectory + myFilename);
         deviceVSS.openTag("VSS");
-        for (std::map<double, double>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
+        for (std::vector<GNEVariableSpeedSignStep>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
             // Open VSS tag
             deviceVSS.openTag(SUMO_TAG_STEP);
             // Write TimeSTep
-            deviceVSS.writeAttr(SUMO_ATTR_TIME, i->first);
+            deviceVSS.writeAttr(SUMO_ATTR_TIME, i->getTime());
             // Write speed
-            deviceVSS.writeAttr(SUMO_ATTR_SPEED, i->second);
+            deviceVSS.writeAttr(SUMO_ATTR_SPEED, i->getSpeed());
             // Close VSS tag
             deviceVSS.closeTag();
         }
         deviceVSS.close();
         */
     } else {
-        for (std::map<double, double>::const_iterator i = myVSSValues.begin(); i != myVSSValues.end(); ++i) {
+        for (std::vector<GNEVariableSpeedSignStep>::const_iterator i = mySteps.begin(); i != mySteps.end(); ++i) {
             // Open VSS tag
             device.openTag(SUMO_TAG_STEP);
             // Write TimeSTep
-            device.writeAttr(SUMO_ATTR_TIME, i->first);
+            device.writeAttr(SUMO_ATTR_TIME, i->getTime());
             // Write speed
-            device.writeAttr(SUMO_ATTR_SPEED, i->second);
+            device.writeAttr(SUMO_ATTR_SPEED, i->getSpeed());
             // Close VSS tag
             device.closeTag();
         }
@@ -192,9 +192,9 @@ GNEVariableSpeedSign::getFilename() const {
 }
 
 
-std::map<double, double>
+std::vector<GNEVariableSpeedSignStep>
 GNEVariableSpeedSign::getVariableSpeedSignSteps() const {
-    return myVSSValues;
+    return mySteps;
 }
 
 
@@ -205,19 +205,14 @@ GNEVariableSpeedSign::setFilename(std::string filename) {
 
 
 void
-GNEVariableSpeedSign::setVariableSpeedSignSteps(const std::map<double, double>& vssValues) {
-    myVSSValues = vssValues;
+GNEVariableSpeedSign::setVariableSpeedSignSteps(const std::vector<GNEVariableSpeedSignStep>& steps) {
+    mySteps = steps;
 }
 
 
-bool
-GNEVariableSpeedSign::insertStep(const double time, const double speed) {
-    if (myVSSValues.find(time) == myVSSValues.end()) {
-        myVSSValues[time] = speed;
-        return true;
-    } else {
-        return false;
-    }
+void
+GNEVariableSpeedSign::addStep(const GNEVariableSpeedSignStep &step) {
+    mySteps.push_back(step);
 }
 
 
@@ -238,7 +233,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     glColor3d(1, 1, 1);
     glRotated(180, 0, 0, 1);
 
-    // Draw icon depending of rerouter is or isn't selected
+    // Draw icon depending of variable speed sign is or isn't selected
     if (isAdditionalSelected()) {
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGNSELECTED), 1);
     } else {

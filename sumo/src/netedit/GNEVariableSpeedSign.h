@@ -31,13 +31,14 @@
 #endif
 
 #include "GNEAdditional.h"
+#include "GNEVariableSpeedSignStep.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class GNEVariableSpeedSign
- * ------------
+ * allows the simulation of variable speed signs
  */
 class GNEVariableSpeedSign : public GNEAdditional {
 public:
@@ -45,12 +46,12 @@ public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
-     * @param[in] pos position (center) of the rerouter in the map
+     * @param[in] pos position (center) of the variable speed sign in the map
      * @param[in] lanes vector with the lanes of variable speed signal
      * @param[in] filename The path to the definition file
-     * @param[in] VSSValues values with the interval and speeds of variable speed signal
+     * @param[in] steps vector with the steps of variable speed signal
      */
-    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::map<double, double>& vssValues);
+    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::vector<GNEVariableSpeedSignStep>& vssValues);
 
     /// @brief Destructor
     ~GNEVariableSpeedSign();
@@ -65,7 +66,7 @@ public:
     /// @brief open GNEVariableSpeedSignDialog
     void openAdditionalDialog();
 
-    /// @brief change the position of the rerouter geometry
+    /// @brief change the position of the variable speed sign geometry
     void moveAdditionalGeometry(double offsetx, double offsety);
 
     /// @brief updated geometry changes in the attributes of additional
@@ -77,26 +78,26 @@ public:
      */
     void writeAdditional(OutputDevice& device) const;
 
-    /// @brief get filename of rerouter
+    /// @brief get filename of variable speed sign
     std::string getFilename() const;
 
     /// @brief get values of variable speed signal
-    std::map<double, double> getVariableSpeedSignSteps() const;
+    std::vector<GNEVariableSpeedSignStep> getVariableSpeedSignSteps() const;
 
-    /// @brief set filename of rerouter
+    /// @brief set filename of variable speed sign
     void setFilename(std::string filename);
 
     /// @brief set values of variable speed signal
-    void setVariableSpeedSignSteps(const std::map<double, double>& vssValues);
+    void setVariableSpeedSignSteps(const std::vector<GNEVariableSpeedSignStep>& steps);
 
     /// @brief insert a new step in variable speed signal
-    /// @return true if step was sucesfully inserted, false in other case (Time duplicated)
-    bool insertStep(const double time, const double speed);
+    void addStep(const GNEVariableSpeedSignStep &step);
 
     /// @name inherited from GUIGlObject
     /// @{
-    /// @brief Returns the name of the parent object
-    /// @return This object's parent id
+    /**@brief Returns the name of the parent object
+     * @return This object's parent id
+     */
     const std::string& getParentName() const;
 
     /**@brief Draws the object
@@ -130,11 +131,11 @@ public:
     /// @}
 
 protected:
-    /// @brief filename of rerouter
+    /// @brief filename of variable speed sign
     std::string myFilename;
 
     /// @brief values of variable speed signal
-    std::map<double, double> myVSSValues;
+    std::vector<GNEVariableSpeedSignStep> mySteps;
 
     /// @brief enable or disable save in external filename
     bool mySaveInFilename;
