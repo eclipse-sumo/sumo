@@ -464,6 +464,10 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_MINGAP_LAT, "0.12"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_MAXSPEED_LAT, "1.0"));
                 break;
+            case SUMO_TAG_STEP:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TIME, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEED, "50.0"));
+                break;
             default:
                 // Throw exception if tag isn't defined
                 throw ProcessError("allowed attributes for tag '" + toString(tag) + "' not defined");
@@ -592,6 +596,8 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalFloatAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_VEHSPERHOUR);
         myNumericalFloatAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PERIOD);
         myNumericalFloatAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PROB);
+        // step
+        myNumericalFloatAttrs[SUMO_TAG_STEP].insert(SUMO_ATTR_SPEED);
     }
     return myNumericalFloatAttrs[tag].count(attr) == 1;
 }
@@ -625,6 +631,8 @@ GNEAttributeCarrier::isTime(SumoXMLTag tag, SumoXMLAttr attr) {
         // Flow
         myTimeAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_BEGIN);
         myTimeAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_END);
+        // step
+        myTimeAttrs[SUMO_TAG_STEP].insert(SUMO_ATTR_TIME);
     }
     return myTimeAttrs[tag].count(attr) == 1;
 }
