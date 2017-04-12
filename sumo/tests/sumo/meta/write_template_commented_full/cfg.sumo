@@ -210,6 +210,9 @@
         <!-- Delay vehicle insertion to stay within the given maximum number -->
         <max-num-vehicles value="-1" type="INT"/>
 
+        <!-- Abort the simulation if the given maximum number of teleports is exceeded -->
+        <max-num-teleports value="-1" type="INT"/>
+
         <!-- Scale demand by the given factor (by discarding or duplicating vehicles) -->
         <scale value="1" type="FLOAT"/>
 
@@ -452,9 +455,6 @@
     <traci_server>
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>
-
-        <!-- Runs TraCI script with embedded python -->
-        <python-script value="" type="STR"/>
 
     </traci_server>
 

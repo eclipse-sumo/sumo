@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r23633
+SUMO Version dev-SVN-r23908
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -125,6 +125,8 @@ Processing Options:
   --collision.check-junctions          Enables collisions checks on junctions
   --max-num-vehicles INT               Delay vehicle insertion to stay within
                                          the given maximum number
+  --max-num-teleports INT              Abort the simulation if the given
+                                         maximum number of teleports is exceeded
   --scale FLOAT                        Scale demand by the given factor (by
                                          discarding or duplicating vehicles)
   --time-to-teleport TIME              Specify how long a vehicle may wait
@@ -299,7 +301,6 @@ SSM Device Options:
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
-  --python-script STR                  Runs TraCI script with embedded python
 
 Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation
