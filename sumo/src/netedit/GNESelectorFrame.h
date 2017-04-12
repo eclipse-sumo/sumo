@@ -81,47 +81,56 @@ public:
     /// @brief Called when the user change the type of element to search (netElement or Additional)
     long onCmdSubset(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user presses the Load-button
-    /// @note Opens a file dialog and forces the parent to load the list of selected
-    /// objects when a file was chosen. Rebuilds the list, then, and redraws itself.
+    /**@brief Called when the user presses the Load-button
+     * @note Opens a file dialog and forces the parent to load the list of selected
+     * objects when a file was chosen. Rebuilds the list, then, and redraws itself.
+     */
     long onCmdLoad(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user presses the Save-button
-    /// @note Opens a file dialog and forces the selection container to save the list
-    /// of selected objects when a file was chosen. If the saveing failed, a message window is shown.
+    /** @brief Called when the user presses the Save-button
+     * @note Opens a file dialog and forces the selection container to save the list
+       of selected objects when a file was chosen. If the saveing failed, a message window is shown.
+     */
     long onCmdSave(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user presses the Clear-button
-    /// @note Clear the internal list and calls GUISelectedStorage::clear and repaints itself
+    /**@brief Called when the user presses the Clear-button
+     * @note Clear the internal list and calls GUISelectedStorage::clear and repaints itself
+     */
     long onCmdClear(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user presses the Invert-button
-    /// @note invert the selection and repaints itself
+    /**@brief Called when the user presses the Invert-button
+     * @note invert the selection and repaints itself
+     */
     long onCmdInvert(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user selectes a tag in the match box
-    /// @note updates the attr listbox and repaints itself
+    /**@brief Called when the user selectes a tag in the match box
+     * @note updates the attr listbox and repaints itself
+     */
     long onCmdSelMBTag(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user selectes a tag in the match box
-    /// @note updates the attr listbox and repaints itself
+    /**@brief Called when the user selectes a tag in the match box
+     * @note updates the attr listbox and repaints itself
+     */
     long onCmdSelMBAttribute(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user enters a new selection expression
-    /// @note validates expression and modifies current selection
+    /**@brief Called when the user enters a new selection expression
+     * @note validates expression and modifies current selection
+     */
     long onCmdSelMBString(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user clicks the help button
-    /// @note pop up help window
+    /**@brief Called when the user clicks the help button
+     * @note pop up help window
+     */
     long onCmdHelp(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user changes visual scaling
     long onCmdScaleSelection(FXObject*, FXSelector, void*);
     /// @}
 
-    /// @brief apply list of ids to the current selection according to SetOperation,
-    /// @note if setop==SET_DEFAULT than the currently set mode (mySetOperation) is used
-    void handleIDs(std::vector<GUIGlID> ids, bool selectEdges, SetOperation setop = SET_DEFAULT);
+    /**@brief apply list of ids to the current selection according to SetOperation,
+     * @note if setop==SET_DEFAULT than the currently set mode (mySetOperation) is used
+     */
+    void handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, SetOperation setop = SET_DEFAULT);
 
     /// @brief called if currently registered for updates for changes of global selection
     void selectionUpdated();
@@ -171,8 +180,9 @@ private:
     /// @brief get stats
     std::string getStats() const;
 
-    /// @brief return  objects of the given type with matching attrs
-    /// @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
+    /**@brief return  objects of the given type with matching attrs
+     * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
+     */
     std::vector<GUIGlID> getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, double val, const std::string& expr);
 
     /// @brief the string that should be matched against if attr 'allowed' or 'disallowed' are set to "all"
