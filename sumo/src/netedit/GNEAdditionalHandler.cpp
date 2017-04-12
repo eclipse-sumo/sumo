@@ -65,6 +65,7 @@ GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* 
     myViewNet(viewNet),
     myE3Parent(NULL),
     myCalibratorParent(NULL),
+    myVariableSpeedSignParent(NULL),
     rerouterIntervalToInsertValues(NULL),
     myLastTag(SUMO_TAG_NOTHING) {
 }
@@ -86,12 +87,14 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
                 // disable other additional parents
                 myCalibratorParent = NULL;
                 myE3Parent = NULL;
+                myVariableSpeedSignParent = NULL;
                 break;
             case SUMO_TAG_CONTAINER_STOP:
                 parseAndBuildContainerStop(attrs, tag);
                 // disable other additional parents
                 myCalibratorParent = NULL;
                 myE3Parent = NULL;
+                myVariableSpeedSignParent = NULL;
                 break;
             case SUMO_TAG_CHARGING_STATION:
                 parseAndBuildChargingStation(attrs, tag);
@@ -105,6 +108,7 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
                 // disable other additional parents
                 myCalibratorParent = NULL;
                 myE3Parent = NULL;
+                myVariableSpeedSignParent = NULL;
                 break;
             case SUMO_TAG_E2DETECTOR:
             case SUMO_TAG_LANE_AREA_DETECTOR:
@@ -112,17 +116,20 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
                 // disable other additional parents
                 myCalibratorParent = NULL;
                 myE3Parent = NULL;
+                myVariableSpeedSignParent = NULL;
                 break;
             case SUMO_TAG_E3DETECTOR:
             case SUMO_TAG_ENTRY_EXIT_DETECTOR:
                 parseAndBuildDetectorE3(attrs, tag);
                 // disable other additional parents
                 myCalibratorParent = NULL;
+                myVariableSpeedSignParent = NULL;
                 break;
             case SUMO_TAG_DET_ENTRY:
                 parseAndBuildDetectorEntry(attrs, tag);
                 // disable other additional parents
                 myCalibratorParent = NULL;
+                myVariableSpeedSignParent = NULL;
                 break;
             case SUMO_TAG_DET_EXIT:
                 parseAndBuildDetectorExit(attrs, tag);
@@ -140,28 +147,33 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
                 // disable other additional parents
                 myCalibratorParent = NULL;
                 myE3Parent = NULL;
+                myVariableSpeedSignParent = NULL;
                 break;
             case SUMO_TAG_CALIBRATOR:
                 parseAndBuildCalibrator(attrs, tag);
                 // disable other additional parents
                 myE3Parent = NULL;
+                myVariableSpeedSignParent = NULL;
                 break;
             case SUMO_TAG_VAPORIZER:
                 parseAndBuildVaporizer(attrs, tag);
                 // disable other additional parents
                 myCalibratorParent = NULL;
                 myE3Parent = NULL;
+                myVariableSpeedSignParent = NULL;
                 break;
             case SUMO_TAG_ROUTEPROBE:
                 parseAndBuildRouteProbe(attrs, tag);
                 // disable other additional parents
                 myCalibratorParent = NULL;
                 myE3Parent = NULL;
+                myVariableSpeedSignParent = NULL;
                 break;
             case SUMO_TAG_VTYPE:
                 parseCalibratorVehicleType(attrs, tag);
                 // disable other additional parents
                 myCalibratorParent = NULL;
+                myVariableSpeedSignParent = NULL;
                 break;
             case SUMO_TAG_ROUTE:
                 parseCalibratorRoute(attrs, tag);
@@ -169,11 +181,13 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
                 myCalibratorParent = NULL;
                 // disable other additional parents
                 myE3Parent = NULL;
+                myVariableSpeedSignParent = NULL;
                 break;
             case SUMO_TAG_FLOW:
                 parseCalibratorFlow(attrs, tag);
                 // disable other additional parents
                 myE3Parent = NULL;
+                myVariableSpeedSignParent = NULL;
                 break;
             case SUMO_TAG_STEP:
                 parseVariableSpeedSignStep(attrs, tag);
@@ -386,28 +400,20 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
 
 void
 GNEAdditionalHandler::parseVariableSpeedSignStep(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
-    bool ok = true;
     bool abort = false;
     // Load step values
-    double time = attrs.get<double>(SUMO_ATTR_TIME, 0, ok, false);
-    if (!ok) {
-        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_TIME) + "' of " + toString(tag) + "'s " + toString(SUMO_TAG_VSS) + " is missing");
-        ok = true;
-        abort = true;
-    }
-    double speed = attrs.get<double>(SUMO_ATTR_SPEED, 0, ok, false);
-    if (!ok) {
-        WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_SPEED) + "' of " + toString(tag) + "'s " + toString(SUMO_TAG_VSS) + " is missing");
-        ok = true;
-        abort = true;
-    }
+    double time = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_TIME, abort);
+    double speed = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_SPEED, abort);
     // Continue if all parameters were sucesfully loaded
-    if (!abort) {
-        GNEVariableSpeedSign* variableSpeedSignToInsertStep = /*dynamic_cast<GNEVariableSpeedSign*>(myViewNet->getNet()->getAdditional(SUMO_TAG_VSS, myAdditionalParent))*/ NULL;
-        if (variableSpeedSignToInsertStep == NULL) {
-            WRITE_WARNING("A " + toString(SUMO_TAG_VSS) + " must be inserter before insertion of a " + toString(tag));
-        } else if (!variableSpeedSignToInsertStep->insertStep(time, speed)) {
-            WRITE_WARNING("Parameter '" + toString(SUMO_ATTR_TIME) + "' of " + toString(tag) + "'s " + toString(SUMO_TAG_VSS) + " is duplicated");
+    if ((!abort) && (myVariableSpeedSignParent != NULL)) {
+        // create step and check that is valid
+        GNEVariableSpeedSignStep step(myVariableSpeedSignParent, time, speed);
+        // show warning if is duplicated
+        if(std::find(myVariableSpeedSignParent->getSteps().begin(), myVariableSpeedSignParent->getSteps().end(), step) != myVariableSpeedSignParent->getSteps().end()) {
+            WRITE_WARNING(toString(step.getTag()) + " cannot be inserted into " + toString(myVariableSpeedSignParent->getTag()) + " with id = '" + myVariableSpeedSignParent->getID() + 
+                          "'; Already exist another " + toString(step.getTag()) + " with the same " + toString(SUMO_ATTR_TIME) + ".");
+        } else {
+            myVariableSpeedSignParent->addStep(step);
         }
     }
 }
@@ -426,20 +432,22 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
     if (!abort) {
         // obtain VSS Values
         // @todo
-        std::map<double, double> VSSValues;
+        std::vector<GNEVariableSpeedSignStep> steps;
         // Obtain pointer to lanes
         std::vector<GNELane*> lanes;
-        for (int i = 0; i < (int)lanesID.size(); i++) {
-            GNELane* lane = myViewNet->getNet()->retrieveLane(lanesID.at(i));
-            if (lane) {
+        for (std::vector<std::string>::iterator i = lanesID.begin(); (i < lanesID.end()) && (abort == false); i++) {
+            GNELane* lane = myViewNet->getNet()->retrieveLane((*i), false);
+            if (lane != NULL) {
                 lanes.push_back(lane);
             } else {
-                WRITE_WARNING(toString(SUMO_TAG_LANE) + " '" + lanesID.at(i) + "' isn't valid.");
+                WRITE_WARNING(toString(SUMO_TAG_VSS) + " with ID = '" + id + "' cannot be created; " + toString(SUMO_TAG_LANE) + " '" + (*i) + "' doesn't exist.");
+                abort = true;
             }
         }
         // if operation of build variable speed signal was sucesfully, save Id
-        if (buildVariableSpeedSign(myViewNet, id, Position(posx, posy), lanes, file, VSSValues)) {
-            ;//myAdditionalParent = id;
+        if ((abort == false) && buildVariableSpeedSign(myViewNet, id, Position(posx, posy), lanes, file, steps)) {
+            myVariableSpeedSignParent = dynamic_cast<GNEVariableSpeedSign*>(myViewNet->getNet()->retrieveAdditional(id));
+            myLastTag = myVariableSpeedSignParent->getTag();
         }
     }
 }
@@ -841,8 +849,8 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
             // Parse lane Ids
             std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_LANES]);
-            // By default, VSSValues are empty
-            std::map<double, double> VSSValues;
+            // By default, steps are empty
+            std::vector<GNEVariableSpeedSignStep> steps;
             // Obtain pointers to lanes
             std::vector<GNELane*> lanes;
             for (int i = 0; i < (int)laneIds.size(); i++) {
@@ -850,7 +858,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             }
             std::string file = values[SUMO_ATTR_FILE];
             if (pos.size() == 1) {
-                return buildVariableSpeedSign(viewNet, id, pos[0], lanes, file, VSSValues);
+                return buildVariableSpeedSign(viewNet, id, pos[0], lanes, file, steps);
             } else {
                 return false;
             }
@@ -1121,10 +1129,10 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, const std::string& id
 
 
 bool
-GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNELane*>& lanes, const std::string& file, const std::map<double, double>& VSSValues) {
+GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNELane*>& lanes, const std::string& file, const std::vector<GNEVariableSpeedSignStep>& steps) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_VSS, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_VSS));
-        GNEVariableSpeedSign* variableSpeedSign = new GNEVariableSpeedSign(id, viewNet, pos, lanes, file, VSSValues);
+        GNEVariableSpeedSign* variableSpeedSign = new GNEVariableSpeedSign(id, viewNet, pos, lanes, file, steps);
         viewNet->getUndoList()->add(new GNEChange_Additional(variableSpeedSign, true), true);
         viewNet->getUndoList()->p_end();
         return true;
@@ -1406,14 +1414,24 @@ GNEAdditionalHandler::checkAdditionalParent(SumoXMLTag currentTag) {
         }
     }
 
-
-    // if last tag wasn't an Calibrator but next tag is a vehicle type, route or flow
+    // if last tag was a Calibrator but next tag is a vehicle type, route or flow
     if (!(myLastTag == SUMO_TAG_CALIBRATOR) && ((currentTag == SUMO_TAG_ROUTE) || (currentTag == SUMO_TAG_FLOW) || (currentTag == SUMO_TAG_VTYPE))) {
         if (myCalibratorParent != NULL) {
-            // In this case, we're loading a Calibrator with multiple entry exits, then continue
+            // In this case, we're loading a Calibrator with multiple routes/flows/vehicleTypes, then continue
             return true;
         } else {
-            // return false to stop procesing current entry or exit and go to the next tag (this avoid some useless warnings)
+            // return false to stop procesing current route/flow/vehicleType and go to the next tag (this avoid some useless warnings)
+            return false;
+        }
+    }
+
+    // if last tag wasn't a Variable speed Sign but next tag is a step
+    if (!(myLastTag != SUMO_TAG_CALIBRATOR) && (currentTag == SUMO_TAG_STEP)) {
+        if (myVariableSpeedSignParent != NULL) {
+            // In this case, we're loading a Variable Speed Signal with multiple steps, then continue
+            return true;
+        } else {
+            // return false to stop procesing current step and go to the next tag (this avoid some useless warnings)
             return false;
         }
     }

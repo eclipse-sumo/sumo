@@ -349,11 +349,11 @@ public:
      * @param[in] id The id of the lane speed trigger
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
-     * @param[in] VSSValues Step and speed values of variable speed signal
+     * @param[in] steps Step and speed values of variable speed signal
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildVariableSpeedSign(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& file, const std::map<double, double>& VSSValues);
+    static bool buildVariableSpeedSign(GNEViewNet* viewNet, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& file, const std::vector<GNEVariableSpeedSignStep>& steps);
 
     /**@brief Builds a vaporizer (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -407,6 +407,9 @@ protected:
 
     /// @brief Pointer to the last inserted Calibrator
     GNECalibrator* myCalibratorParent;
+
+    /// @brief Pointer to the last inserted variableSpeedSign
+    GNEVariableSpeedSign* myVariableSpeedSignParent;
 
     /// @brief last used Tag
     SumoXMLTag myLastTag;
