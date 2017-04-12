@@ -186,20 +186,20 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
 }
 
 
-std::string
+const std::string&
 GNEVariableSpeedSign::getFilename() const {
     return myFilename;
 }
 
 
-std::vector<GNEVariableSpeedSignStep>
-GNEVariableSpeedSign::getVariableSpeedSignSteps() const {
+const std::vector<GNEVariableSpeedSignStep>&
+GNEVariableSpeedSign::getSteps() const {
     return mySteps;
 }
 
 
 void
-GNEVariableSpeedSign::setFilename(std::string filename) {
+GNEVariableSpeedSign::setFilename(const std::string &filename) {
     myFilename = filename;
 }
 

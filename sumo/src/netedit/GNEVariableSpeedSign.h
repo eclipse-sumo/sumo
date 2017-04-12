@@ -79,13 +79,13 @@ public:
     void writeAdditional(OutputDevice& device) const;
 
     /// @brief get filename of variable speed sign
-    std::string getFilename() const;
+    const std::string &getFilename() const;
 
     /// @brief get values of variable speed signal
-    std::vector<GNEVariableSpeedSignStep> getVariableSpeedSignSteps() const;
+    const std::vector<GNEVariableSpeedSignStep> &getSteps() const;
 
     /// @brief set filename of variable speed sign
-    void setFilename(std::string filename);
+    void setFilename(const std::string &filename);
 
     /// @brief set values of variable speed signal
     void setVariableSpeedSignSteps(const std::vector<GNEVariableSpeedSignStep>& steps);
