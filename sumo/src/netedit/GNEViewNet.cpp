@@ -587,7 +587,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                         update();
                     }
                 }
-                GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
+                // process click
+                processClick(e, data);
                 break;
             }
             case GNE_MODE_MOVE: {
@@ -649,7 +650,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                         }
                     }
                 } else {
-                    GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
+                    // process click
+                    processClick(e, data);
                 }
                 update();
                 break;
@@ -675,7 +677,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                         myViewParent->getDeleteFrame()->removeAttributeCarrier(ac);
                     }
                 } else {
-                    GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
+                    // process click
+                    processClick(e, data);
                 }
                 break;
             }
@@ -686,7 +689,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                     pointedAC = pointed_junction;
                     pointedO = pointed_junction;
                 } else if (pointed_lane) { // implies pointed_edge
-                    if (selectEdges()) {
+                    if (mySelectEdges == true) {
                         pointedAC = pointed_edge;
                         pointedO = pointed_edge;
                     } else {
@@ -707,25 +710,28 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                     pointedO = pointed_connection;
                 }
                 // obtain selected ACs
-                std::vector<GNEAttributeCarrier*> selected;
+                std::vector<GNEAttributeCarrier*> selectedElements;
                 if (pointedO && gSelected.isSelected(pointedO->getType(), pointedO->getGlID())) {
                     std::set<GUIGlID> selectedIDs = gSelected.getSelected(pointedO->getType());
-                    selected = myNet->retrieveAttributeCarriers(selectedIDs, pointedO->getType());
-                } else if (pointedAC != 0) {
-                    selected.push_back(pointedAC);
+                    selectedElements = myNet->retrieveAttributeCarriers(selectedIDs, pointedO->getType());
                 }
                 // Inspect seleted ACs, or single clicked AC
-                myViewParent->getInspectorFrame()->inspectMultisection(selected);
-                GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
+                if(selectedElements.size() > 0) {
+                    myViewParent->getInspectorFrame()->inspectMultisection(selectedElements);
+                } else if (pointedAC != NULL) {
+                    myViewParent->getInspectorFrame()->inspectElement(pointedAC);
+                }
+                // process click
+                processClick(e, data);
                 // focus upper element of inspector frame
-                if(selected.size() > 0) {
+                if((selectedElements.size() > 0) || (pointedAC != NULL)) {
                     myViewParent->getInspectorFrame()->focusUpperElement();
                 }
                 update();
                 break;
             }
             case GNE_MODE_SELECT:
-                if (pointed_lane && selectEdges()) {
+                if ((pointed_lane != NULL) && (mySelectEdges == true)) {
                     gSelected.toggleSelection(pointed_edge->getGlID());
                 } else if (pointed) {
                     gSelected.toggleSelection(pointed->getGlID());
@@ -736,7 +742,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                     mySelCorner1 = getPositionInformation();
                     mySelCorner2 = getPositionInformation();
                 } else {
-                    GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
+                    // process click
+                    processClick(e, data);
                 }
                 update();
                 break;
@@ -748,7 +755,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                     myViewParent->getConnectorFrame()->handleLaneClick(pointed_lane, mayPass, allowConflict, true);
                     update();
                 }
-                GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
+                // process click
+                processClick(e, data);
                 break;
             }
             case GNE_MODE_TLS: {
@@ -756,7 +764,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                     myViewParent->getTLSEditorFrame()->editJunction(pointed_junction);
                     update();
                 }
-                GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
+                // process click
+                processClick(e, data);
                 break;
             }
             case GNE_MODE_ADDITIONAL: {
@@ -766,7 +775,8 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                         update();
                     }
                 }
-                GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
+                // process click
+                processClick(e, data);
                 break;
             }
             case GNE_MODE_CROSSING: {
@@ -776,11 +786,13 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
                         update();
                     }
                 }
-                GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
+                // process click
+                processClick(e, data);
                 break;
             }
             default: {
-                GUISUMOAbstractView::onLeftBtnPress(obj, sel, data);
+                // process click
+                processClick(e, data);
             }
         }
         makeNonCurrent();
@@ -827,7 +839,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
                 Boundary b;
                 b.add(mySelCorner1);
                 b.add(mySelCorner2);
-                myViewParent->getSelectorFrame()->handleIDs(getObjectsInBoundary(b), selectEdges());
+                myViewParent->getSelectorFrame()->handleIDs(getObjectsInBoundary(b), mySelectEdges);
                 makeNonCurrent();
             }
         }
@@ -1585,6 +1597,19 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
 }
 
 
+void
+GNEViewNet::processClick(FXEvent* e, void* data) {
+    // process click
+    destroyPopup();
+    setFocus();
+    myChanger->onLeftBtnPress(data);
+    grab();
+    // Check there are double click
+    if (e->click_count == 2) {
+        handle(this, FXSEL(SEL_DOUBLECLICKED, 0), data);
+    }
+}
+
 long
 GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
     GNELane* lane = getLaneAtCurserPosition(myPopupSpot);
@@ -1970,7 +1995,7 @@ GNEViewNet::deleteSelectedJunctions() {
 
 void
 GNEViewNet::deleteSelectedEdges() {
-    if (mySelectEdges) {
+    if (mySelectEdges == true) {
         myUndoList->p_begin("delete selected " + toString(SUMO_TAG_EDGE) + "s");
         std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
         for (std::vector<GNEEdge*>::iterator it = edges.begin(); it != edges.end(); it++) {

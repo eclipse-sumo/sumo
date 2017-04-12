@@ -271,7 +271,7 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         gSelected.toggleSelection(*it);
     }
-    ids = myViewNet->getNet()->getGlIDs(myViewNet->selectEdges() ? GLO_EDGE : GLO_LANE);
+    ids = myViewNet->getNet()->getGlIDs((myViewNet->selectEdges() == true)? GLO_EDGE : GLO_LANE);
     for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         gSelected.toggleSelection(*it);
     }
@@ -473,7 +473,7 @@ GNESelectorFrame::selectionUpdated() {
 
 
 void
-GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdges, SetOperation setop) {
+GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, SetOperation setop) {
     const SetOperation setOperation = (setop == SET_DEFAULT ? (SetOperation)mySetOperation : setop);
     std::set<GUIGlID> previousSelection;
     myViewNet->getUndoList()->p_begin("change selection");
@@ -494,7 +494,7 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdges, SetOpera
             GUIGlID id = *it;
             if (id > 0) { // net object?
                 object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-                if (object->getType() == GLO_LANE && selectEdges) {
+                if ((object->getType() == GLO_LANE) && (selectEdgesEnabled == true)) {
                     const GNEEdge& edge = (static_cast<GNELane*>(object))->getParentEdge();
                     idsSet.insert(edge.getGNEJunctionSource()->getGlID());
                     idsSet.insert(edge.getGNEJunctionDestiny()->getGlID());
@@ -516,7 +516,7 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdges, SetOpera
             }
             type = object->getType();
             GUIGlObjectStorage::gIDStorage.unblockObject(id);
-            if (type == GLO_LANE && selectEdges) {
+            if ((type == GLO_LANE) && (selectEdgesEnabled == true)) {
                 // @note edge may be selected/deselected multiple times but this shouldn't
                 // hurt unless we add SET_TOGGLE
                 id = (static_cast<GNELane*>(object))->getParentEdge().getGlID();

@@ -131,7 +131,6 @@ public:
 
     /// @brief called when user moves mouse
     long onMouseMove(FXObject*, FXSelector, void*);
-
     /// @}
 
     /// @name set mode call backs
@@ -516,6 +515,9 @@ private:
 
     /// @brief remove restricted lane
     bool removeRestrictedLane(SUMOVehicleClass vclass);
+
+    /// @brief Auxiliar function used by onLeftBtnPress(...)
+    void processClick(FXEvent* e, void* data);
 
     /// @brief Invalidated copy constructor.
     GNEViewNet(const GNEViewNet&);
