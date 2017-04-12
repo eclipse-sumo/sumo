@@ -488,7 +488,12 @@ NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
     if (lane < 0) {
         myEdgeCont.extract(myDistrictCont, edge, true);
     } else {
-        edge->deleteLane(lane);
+        edge->deleteLane(lane, false);
+        edge->removeFromConnections(0, lane, -1, false, true);
+        const EdgeVector incoming = edge->getIncomingEdges();
+        for (EdgeVector::const_iterator e = incoming.begin(); e != incoming.end(); ++e) {
+            (*e)->removeFromConnections(edge, -1, lane, false, true);
+        }
     }
 }
 

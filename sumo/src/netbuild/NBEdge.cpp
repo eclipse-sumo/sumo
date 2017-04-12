@@ -1150,8 +1150,10 @@ NBEdge::remapConnections(const EdgeVector& incoming) {
 
 
 void
-NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool tryLater) {
+NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool tryLater, const bool adaptToLaneRemoval) {
     // remove from "myConnections"
+    const int fromLaneRemoved = adaptToLaneRemoval && fromLane >= 0 ? fromLane : -1;
+    const int toLaneRemoved = adaptToLaneRemoval && toLane >= 0 ? toLane : -1;
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
         Connection& c = *i;
         if ((toEdge == 0 || c.toEdge == toEdge)
@@ -1166,6 +1168,20 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
             i = myConnections.erase(i);
             tryLater = false;
         } else {
+            if (fromLaneRemoved >= 0 && c.fromLane > fromLaneRemoved) {
+                c.fromLane--;
+                if (myTo->isTLControlled()) {
+                    std::set<NBTrafficLightDefinition*> tldefs = myTo->getControllingTLS();
+                    for (std::set<NBTrafficLightDefinition*>::iterator it = tldefs.begin(); it != tldefs.end(); it++) {
+                        for (NBConnectionVector::iterator tlcon = (*it)->getControlledLinks().begin(); tlcon != (*it)->getControlledLinks().end(); ++tlcon) {
+                            tlcon->shiftLaneIndex(this, -1);
+                        }
+                    }
+                }
+            }
+            if (toLaneRemoved >= 0 && c.toLane > toLaneRemoved) {
+                c.toLane--;
+            }
             ++i;
         }
     }

@@ -302,6 +302,12 @@ public:
     }
 
 
+    /// @brief returns the controlled links (non const version)
+    NBConnectionVector& getControlledLinks() {
+        return myControlledLinks;
+    }
+
+
     /** @brief Returns the ProgramID
      * @return The ID of the program (subID)
      */
