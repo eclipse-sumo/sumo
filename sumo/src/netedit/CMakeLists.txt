@@ -136,6 +136,8 @@ set(netedit_SRCS
    GNECalibratorVehicleTypeDialog.cpp
    GNEVariableSpeedSign.h
    GNEVariableSpeedSign.cpp
+   GNEVariableSpeedSignStep.h
+   GNEVariableSpeedSignStep.cpp
    GNEVariableSpeedSignDialog.h
    GNEVariableSpeedSignDialog.cpp
    GNEClosingLaneReroute.h

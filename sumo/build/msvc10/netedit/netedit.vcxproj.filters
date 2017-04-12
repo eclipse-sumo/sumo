@@ -121,6 +121,12 @@
     <Filter Include="Quellcodedateien\Items\Changes\Additionals">
       <UniqueIdentifier>{6968b610-def4-4bb3-a4a9-b4b7eb07e198}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header-Dateien\Items\Additionals\VariableSpeedSigns">
+      <UniqueIdentifier>{4f1ddf19-9dde-47b8-8384-abf20de492ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Additionals\VariableSpeedSigns">
+      <UniqueIdentifier>{a6d1d781-8970-4a8e-b6e4-f68fc714e23c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\netedit\GNEAdditional.cpp">
@@ -279,9 +285,6 @@
     <ClCompile Include="..\..\..\src\netedit\GNERerouterInterval.cpp">
       <Filter>Quellcodedateien\Items\Additionals\Rerouter</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSign.cpp">
-      <Filter>Quellcodedateien\Items\Additionals</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSignDialog.cpp">
       <Filter>Quellcodedateien\Dialogs\AdditionalDialogs</Filter>
     </ClCompile>
@@ -347,6 +350,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEChange_RerouterInterval.cpp">
       <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSign.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\VariableSpeedSigns</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSignStep.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\VariableSpeedSigns</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -514,9 +523,6 @@
     <ClInclude Include="..\..\..\src\netedit\GNERerouterInterval.h">
       <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSign.h">
-      <Filter>Header-Dateien\Items\Additionals</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSignDialog.h">
       <Filter>Header-Dateien\Dialogs\AdditionalDialogs</Filter>
     </ClInclude>
@@ -582,6 +588,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEChange_POI.h">
       <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSign.h">
+      <Filter>Header-Dateien\Items\Additionals\VariableSpeedSigns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSignStep.h">
+      <Filter>Header-Dateien\Items\Additionals\VariableSpeedSigns</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -82,6 +82,7 @@ GNECalibratorFlowDialog.h GNECalibratorFlowDialog.cpp \
 GNECalibratorRouteDialog.h GNECalibratorRouteDialog.cpp \
 GNECalibratorVehicleTypeDialog.h GNECalibratorVehicleTypeDialog.cpp \
 GNEVariableSpeedSign.h GNEVariableSpeedSign.cpp \
+GNEVariableSpeedSignStep.h GNEVariableSpeedSignStep.cpp \
 GNEVariableSpeedSignDialog.h GNEVariableSpeedSignDialog.cpp \
 GNEClosingLaneReroute.h GNEClosingLaneReroute.cpp \
 GNEClosingReroute.h GNEClosingReroute.cpp \

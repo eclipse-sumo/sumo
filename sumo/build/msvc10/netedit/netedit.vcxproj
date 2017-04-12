@@ -177,6 +177,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNEVaporizer.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSign.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSignDialog.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSignStep.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEViewNet.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEViewParent.cpp" />
     <ClCompile Include="..\..\..\src\netedit\netedit_main.cpp" />
@@ -259,6 +260,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNEVaporizer.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSign.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSignDialog.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSignStep.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEViewNet.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEViewParent.h" />
   </ItemGroup>
