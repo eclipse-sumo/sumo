@@ -132,7 +132,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myAdditionalMatchBox = new FXComboBox(myGroupBoxForMyAdditionalMatchBox, GUIDesignComboBoxNCol, this, MID_GNE_MODE_ADDITIONAL_ITEM, GUIDesignComboBox);
 
     // Create additional parameters
-    myadditionalParameters = new GNEAdditionalFrame::AdditionalAttributes(myContentFrame);
+    myadditionalParameters = new GNEAdditionalFrame::AdditionalAttributes(myViewNet, myContentFrame);
 
     // Create Netedit parameter
     myEditorParameters = new GNEAdditionalFrame::NeteditAttributes(myContentFrame);
@@ -288,14 +288,14 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
                 if (startPos != -1) {
                     valuesOfElement[SUMO_ATTR_STARTPOS] = toString(startPos);
                 } else {
-                    myadditionalParameters->showWarningMessage(" - '" + toString(SUMO_ATTR_STARTPOS) + "' takes a negative value. Use 'force position' or another reference point.");
+                    myadditionalParameters->showWarningMessage("'" + toString(SUMO_ATTR_STARTPOS) + "' takes a negative value. Use 'force position' or another reference point.");
                     return ADDADDITIONAL_INVALID_ARGUMENTS;
                 }
                 // Only set end position if are valid (!= -1)
                 if (endPos != -1) {
                     valuesOfElement[SUMO_ATTR_ENDPOS] = toString(endPos);
                 } else {
-                    myadditionalParameters->showWarningMessage(" - '" + toString(SUMO_ATTR_STARTPOS) + "' overpass " + toString(SUMO_TAG_EDGE) + "'s lenght. Use 'force position' or another reference point.");
+                    myadditionalParameters->showWarningMessage("'" + toString(SUMO_ATTR_STARTPOS) + "' overpass " + toString(SUMO_TAG_EDGE) + "'s lenght. Use 'force position' or another reference point.");
                     return ADDADDITIONAL_INVALID_ARGUMENTS;
                 }
             } else {
@@ -322,14 +322,14 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
                 if (startPos != -1) {
                     valuesOfElement[SUMO_ATTR_STARTPOS] = toString(startPos);
                 } else {
-                    myadditionalParameters->showWarningMessage(" - '" + toString(SUMO_ATTR_STARTPOS) + "' takes a negative value. Use 'force position' or another reference point.");
+                    myadditionalParameters->showWarningMessage("'" + toString(SUMO_ATTR_STARTPOS) + "' takes a negative value. Use 'force position' or another reference point.");
                     return ADDADDITIONAL_INVALID_ARGUMENTS;
                 }
                 // Only set end position if are valid (!= -1)
                 if (endPos != -1) {
                     valuesOfElement[SUMO_ATTR_ENDPOS] = toString(endPos);
                 } else {
-                    myadditionalParameters->showWarningMessage(" - '" + toString(SUMO_ATTR_STARTPOS) + "' overpass " + toString(SUMO_TAG_LANE) + "'s lenght. Use 'force position' or another reference point.");
+                    myadditionalParameters->showWarningMessage("'" + toString(SUMO_ATTR_STARTPOS) + "' overpass " + toString(SUMO_TAG_LANE) + "'s lenght. Use 'force position' or another reference point.");
                     return ADDADDITIONAL_INVALID_ARGUMENTS;
                 }
             } else {
@@ -741,10 +741,10 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
             int intValue = GNEAttributeCarrier::parse<int>(myTextField->getText().text());
             // Check if int value must be positive
             if (GNEAttributeCarrier::isPositive(myAdditionalTag, myAdditionalAttr) && (intValue < 0)) {
-                myInvalidValue = " - '" + toString(myAdditionalAttr) + "' cannot be negative";
+                myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
             }
         } else {
-            myInvalidValue = " - '" + toString(myAdditionalAttr) + "' doesn't have a valid 'int' format";
+            myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'int' format";
         }
     } else if (GNEAttributeCarrier::isTime(myAdditionalTag, myAdditionalAttr)) {
         // time attributes work as positive doubles
@@ -753,10 +753,10 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
             double doubleValue = GNEAttributeCarrier::parse<double>(myTextField->getText().text());
             // Check if parsed value is negative
             if (doubleValue < 0) {
-                myInvalidValue = " - '" + toString(myAdditionalAttr) + "' cannot be negative";
+                myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
             }
         } else {
-            myInvalidValue = " - '" + toString(myAdditionalAttr) + "' doesn't have a valid 'time' format";
+            myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'time' format";
         }
     } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, myAdditionalAttr)) {
         if (GNEAttributeCarrier::canParse<double>(myTextField->getText().text())) {
@@ -764,13 +764,13 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
             double doubleValue = GNEAttributeCarrier::parse<double>(myTextField->getText().text());
             // Check if double value must be positive
             if (GNEAttributeCarrier::isPositive(myAdditionalTag, myAdditionalAttr) && (doubleValue < 0)) {
-                myInvalidValue = " - '" + toString(myAdditionalAttr) + "' cannot be negative";
+                myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
                 // check if double value is a probability
             } else if (GNEAttributeCarrier::isProbability(myAdditionalTag, myAdditionalAttr) && ((doubleValue < 0) || doubleValue > 1)) {
-                myInvalidValue = " - '" + toString(myAdditionalAttr) + "' takes only values between 0 and 1";
+                myInvalidValue = "'" + toString(myAdditionalAttr) + "' takes only values between 0 and 1";
             }
         } else {
-            myInvalidValue = " - '" + toString(myAdditionalAttr) + "' doesn't have a valid 'float' format";
+            myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'float' format";
         }
 /* FILENAMES
     } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, myAdditionalAttr)) {
@@ -959,8 +959,9 @@ GNEAdditionalFrame::AdditionalAttributeList::onCmdRemoveRow(FXObject*, FXSelecto
 // GNEAdditionalFrame::NeteditAttributes- methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::AdditionalAttributes::AdditionalAttributes(FXComposite* parent) :
+GNEAdditionalFrame::AdditionalAttributes::AdditionalAttributes(GNEViewNet* viewNet, FXComposite* parent) :
     FXGroupBox(parent, "Internal attributes", GUIDesignGroupBoxFrame),
+    myViewNet(viewNet),
     myIndexParameter(0),
     myIndexParameterList(0),
     maxNumberOfParameters(GNEAttributeCarrier::getHigherNumberOfAttributes()),
@@ -1083,15 +1084,13 @@ GNEAdditionalFrame::AdditionalAttributes::getAttributesAndValues() const {
 
 void
 GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) const {
-    int counter = 0;
     std::string errorMessage;
     // iterate over standar parameters
-    for (int i = 0; i < myIndexParameter; i++) {
+    for (int i = 0; (i < myIndexParameter) && (errorMessage.empty() == true); i++) {
         // Return string with the error if at least one of the parameter isn't valid
         std::string attributeValue = myVectorOfsingleAdditionalParameter.at(i)->isAttributeValid();
         if(attributeValue.size() != 0) {
-            errorMessage += (attributeValue + "\n");
-            counter++;
+            errorMessage = attributeValue;
         }
     }
     // iterate over list parameters
@@ -1101,15 +1100,16 @@ GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) 
             ;
         }
     }
+    // add extra 
     // show warning box if input parameters aren't invalid
-    if((counter == 1) && (extra.size() == 0)) {
-        errorMessage = "The following input parameter of " + toString(myAdditionalTag) + " is invalid:\n" + errorMessage;
+    if(extra.size() == 0) {
+        errorMessage = "Invalid input parameter of " + toString(myAdditionalTag) + ": " + errorMessage;
     } else {
-        errorMessage = "The following input parameters of " + toString(myAdditionalTag) + " are invalid:\n" + errorMessage + extra;
+        errorMessage = "Invalid input parameter of " + toString(myAdditionalTag) + ": " + extra;
     }
 
-    // show warning box with the information abut invalid parameters
-    FXMessageBox::warning(getApp(), MBOX_OK, ("Error creating additional"), "%s", errorMessage.c_str());
+    // set message in status bar
+    myViewNet->setStatusBarText(errorMessage);
 }
 
 

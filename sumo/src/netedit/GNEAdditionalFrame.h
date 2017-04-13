@@ -234,7 +234,7 @@ public:
 
     public:
         /// @brief constructor
-        AdditionalAttributes(FXComposite* parent);
+        AdditionalAttributes(GNEViewNet* viewNet, FXComposite* parent);
 
         /// @brief destructor
         ~AdditionalAttributes();
@@ -274,6 +274,9 @@ public:
         AdditionalAttributes() {}
 
     private:
+        /// @brief pointer to viewNet
+        GNEViewNet *myViewNet;
+
         /// @brief current additional tag
         SumoXMLTag myAdditionalTag;
 
