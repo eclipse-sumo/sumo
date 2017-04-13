@@ -138,7 +138,7 @@
 /// @name FXMenuChecks
 /// @{
 /// @brief design for radio button
-#define GUIDesignRadioButton            (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | JUSTIFY_NORMAL)
+#define GUIDesignRadioButton            (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | JUSTIFY_LEFT)
 
 /// @brief design for radio button with fixed height
 #define GUIDesignRadioButtonFixedHeight (LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | JUSTIFY_CENTER_Y | ICON_BEFORE_TEXT)
