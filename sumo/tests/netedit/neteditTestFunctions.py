@@ -521,12 +521,7 @@ def selectAdditionalChild(numTabs, childNumber):
     # type ESC and key to avoid change additional child accidentally
     typeEscape()
 
-# wait to dialog for non-valid defautl values and close it
-def waitWarningDialog()
-    wait(1)
-    # type space to close dialog
-    typeSpace()
-    
+
 #################################################
 # delete
 #################################################
