@@ -488,7 +488,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
 
 
 long
-GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
+GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
     FXEvent* e = (FXEvent*) data;
     setFocus();
     // limit position depending of myMenuCheckShowGrid
@@ -771,12 +771,15 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector sel, void* data) {
             case GNE_MODE_ADDITIONAL: {
                 if (pointed_additional == NULL) {
                     GNENetElement* netElement = dynamic_cast<GNENetElement*>(pointed);
-                    if (myViewParent->getAdditionalFrame()->addAdditional(netElement, this)) {
+                    GNEAdditionalFrame::AddAdditionalResult result = myViewParent->getAdditionalFrame()->addAdditional(netElement, this);
+                    // process click or update view depending of the result of "add additional"
+                    if ((result == GNEAdditionalFrame::ADDADDITIONAL_SUCESFULLY) || (result == GNEAdditionalFrame::ADDADDITIONAL_INVALID_PARENT)) {
                         update();
+                        // process click
+                        processClick(e, data);
                     }
                 }
-                // process click
-                processClick(e, data);
+
                 break;
             }
             case GNE_MODE_CROSSING: {

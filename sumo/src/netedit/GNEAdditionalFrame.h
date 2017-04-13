@@ -52,6 +52,13 @@ class GNEAdditionalFrame : public GNEFrame {
 
 public:
 
+    /// @brief enum with all possible values after try to create an additional using frame
+    enum AddAdditionalResult {
+        ADDADDITIONAL_INVALID_ARGUMENTS,    // Parameters of additionals are invalid
+        ADDADDITIONAL_INVALID_PARENT,       // NetElement parent is invalid
+        ADDADDITIONAL_SUCESFULLY,           // additional was sucesfully created
+    };
+
     // ===========================================================================
     // class AdditionalAttributeSingle
     // ===========================================================================
@@ -91,8 +98,8 @@ public:
         /// @brief return value
         std::string getValue() const;
 
-        /// @brief check if the current value is valid
-        bool isCurrentValueValid() const;
+        /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
+        const std::string &isAttributeValid() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -126,8 +133,8 @@ public:
         /// @brief menuCheck to enable/disable the value of boolean parameters
         FXMenuCheck* myMenuCheck;
 
-        /// @brief Flag which indicates that the current value is correct
-        bool myCurrentValueValid;
+        /// @brief string which indicates the reason due current value is invalid
+        std::string myInvalidValue;
     };
 
     // ===========================================================================
@@ -247,8 +254,11 @@ public:
         /// @brief get attributes and their values
         std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;
 
-        /// @brief check if all values defined by user are valid
+        /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
+
+        /// @brief show warning message with information about non-valid attributes
+        void showWarningMessage(std::string extra = "") const;
 
         /// @brief get number of added attributes
         int getNumberOfAddedAttributes() const;
@@ -616,9 +626,9 @@ public:
     /**@brief add additional element
      * @param[in] netElement clicked netElement. if user dind't clicked over a GNENetElement in view, netElement will be NULL
      * @param[in] parent AbstractView to obtain the position of the mouse over the lane.
-     * @return true if an additional was added, false in other case
+     * @return AddAdditionalStatus with the result of operation
      */
-    bool addAdditional(GNENetElement* netElement, GUISUMOAbstractView* parent);
+    AddAdditionalResult addAdditional(GNENetElement* netElement, GUISUMOAbstractView* parent);
 
     /**@brief remove an additional element previously added
      * @param[in] additional element to erase
