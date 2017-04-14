@@ -1,2 +1,6 @@
+Warning: Opening FXMessageBox of type 'question'
+Warning: Closed FXMessageBox of type 'question' with 'No'
+Warning: Opening FXMessageBox of type 'question'
+Warning: Closed FXMessageBox of type 'question' with 'Yes'
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
