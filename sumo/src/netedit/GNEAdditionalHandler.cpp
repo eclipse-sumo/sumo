@@ -1299,6 +1299,14 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
                     ok = false;
                 }
             }
+            // set estra check for Vehicle Classes
+            if((!ok) && (attribute == SUMO_ATTR_VCLASS)) {
+                errorFormat = "Is not a part of defined set of Vehicle Classes; ";
+            }
+            // set estra check for Vehicle Classes
+            if((!ok) && (attribute == SUMO_ATTR_GUISHAPE)) {
+                errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
+            }
             // If attribute has an invalid format
             if (!ok) {
                 // if attribute has a default value, take it as string. In other case, abort.

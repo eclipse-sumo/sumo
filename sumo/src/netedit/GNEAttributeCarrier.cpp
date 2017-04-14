@@ -101,7 +101,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
     if(string.size() == 0) {
         throw EmptyData();
     } else if(SumoVehicleClassStrings.hasString(string) == false) {
-        throw UnknownElement();
+        return SVC_IGNORING;
     } else {
         return SumoVehicleClassStrings.get(string);
     }
@@ -110,10 +110,10 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> SUMOVehicleShape
 GNEAttributeCarrier::parse(const std::string& string) {
-    if(string == "unknown") {
+    if(string.size() == 0) {
+        throw EmptyData();
+    } else if((string == "unknown") || (SumoVehicleShapeStrings.hasString(string) == false)) {
         return SVS_UNKNOWN;
-    } else if(SumoVehicleShapeStrings.hasString(string) == false) {
-        throw UnknownElement();
     } else {
         return SumoVehicleShapeStrings.get(string);
     }
