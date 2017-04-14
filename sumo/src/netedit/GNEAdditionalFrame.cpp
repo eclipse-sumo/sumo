@@ -173,7 +173,8 @@ GNEAdditionalFrame::AddAdditionalResult
 GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView* parent) {
     // check if current selected additional is valid
     if(myActualAdditionalType == SUMO_TAG_NOTHING) {
-        throw ProcessError("Current selected additional isn't valid.");
+        myViewNet->setStatusBarText("Current selected additional isn't valid.");
+        return ADDADDITIONAL_INVALID_ARGUMENTS;
     }
 
     // Declare map to keep values
