@@ -172,6 +172,8 @@ def writeHierarchicalXml(struct, options):
             if not fields:
                 fields = raw
                 for f in fields:
+                    if not '_' in f:
+                        continue
                     enum = struct.getEnumerationByAttr(*f.split('_', 1))
                     if enum:
                         enums[f] = enum
