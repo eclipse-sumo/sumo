@@ -233,7 +233,16 @@ GNESelectorFrame::onCmdLoad(FXObject*, FXSelector, void*) {
         std::set<GUIGlID> ids = gSelected.loadIDs(file, errors);
         handleIDs(std::vector<GUIGlID>(ids.begin(), ids.end()), false);
         if (errors != "") {
+            // write warning if netedit is running in testing mode
+            if(myViewNet->isTestingModeEnabled() == true) {
+	            WRITE_WARNING("Opening FXMessageBox of type 'error'"); 
+            }
+            // open message box error
             FXMessageBox::error(this, MBOX_OK, "Errors while loading Selection", "%s", errors.c_str());
+            // write warning if netedit is running in testing mode
+            if(myViewNet->isTestingModeEnabled() == true) {
+	            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'"); 
+            }
         }
     }
     myViewNet->update();
@@ -251,7 +260,16 @@ GNESelectorFrame::onCmdSave(FXObject*, FXSelector, void*) {
     try {
         gSelected.save(file.text());
     } catch (IOError& e) {
+        // write warning if netedit is running in testing mode
+        if(myViewNet->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Opening FXMessageBox of type 'error'"); 
+        }
+        // open message box error
         FXMessageBox::error(this, MBOX_OK, "Storing Selection failed", "%s", e.what());
+        // write warning if netedit is running in testing mode
+        if(myViewNet->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'"); 
+        }
     }
     return 1;
 }

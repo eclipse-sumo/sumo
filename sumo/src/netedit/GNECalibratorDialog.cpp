@@ -31,6 +31,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/common/MsgHandler.h>
 
 #include "GNECalibratorDialog.h"
 #include "GNECalibrator.h"
@@ -196,14 +197,29 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
             }
             // if there are flows that has route to remove as "route" parameter
             if (calibratorFlowsToErase.size() > 0) {
+                // write warning if netedit is running in testing mode
+                if(myCalibratorParent->getViewNet()->isTestingModeEnabled() == true) {
+	                WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
+                }
+                // open question dialog box
                 FXuint answer = FXMessageBox::question(myCalibratorParent->getViewNet()->getApp(), MBOX_YES_NO, ("Remove " + toString(SUMO_TAG_FLOW) + "s").c_str(), "%s",
                                                       ("Deletion of " + toString(SUMO_TAG_ROUTE) + " '" + myRouteList->getItem(i, 0)->getText().text() + 
                                                        "' will remove " + toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW) + (calibratorFlowsToErase.size() > 1?("s"):("")) + 
                                                        ". Continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
+                    // write warning if netedit is running in testing mode
+                    if((answer == 2) && (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true)) {
+	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
+                    } else if((answer == 4) && (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true)) {
+	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
+                    }
                     // abort deletion of route
                     return 0;
                 } else {
+                    // write warning if netedit is running in testing mode
+                    if(myCalibratorParent->getViewNet()->isTestingModeEnabled() == true) {
+	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
+                    }
                     // remove flows with route to delete
                     std::vector<GNECalibratorFlow> flowSubstraction;
                     for (std::vector<GNECalibratorFlow>::const_iterator j = myCalibratorParent->getCalibratorFlows().begin(); j != myCalibratorParent->getCalibratorFlows().end(); j++) {
@@ -331,9 +347,19 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                                                        "' will remove " + toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW) + (calibratorFlowsToErase.size() > 1?("s"):("")) + 
                                                        ". Continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
+                    // write warning if netedit is running in testing mode
+                    if((answer == 2) && (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true)) {
+	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
+                    } else if((answer == 4) && (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true)) {
+	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
+                    }
                     // abort deletion of vehicle type
                     return 0;
                 } else {
+                    // write warning if netedit is running in testing mode
+                    if(myCalibratorParent->getViewNet()->isTestingModeEnabled() == true) {
+	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
+                    }
                     // remove flows with vehicle type to delete
                     std::vector<GNECalibratorFlow> flowSubstraction;
                     for (std::vector<GNECalibratorFlow>::const_iterator j = myCalibratorParent->getCalibratorFlows().begin(); j != myCalibratorParent->getCalibratorFlows().end(); j++) {

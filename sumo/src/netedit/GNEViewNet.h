@@ -302,6 +302,9 @@ public:
     /// @brief return true if junction must be showed as bubbles
     bool showJunctionAsBubbles() const;
 
+    /// @brief check if netedit is running in testing mode
+    bool isTestingModeEnabled() const;
+
 protected:
     /// @brief FOX needs this
     GNEViewNet() {}

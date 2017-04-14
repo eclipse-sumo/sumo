@@ -49,6 +49,7 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIDialog_GLObjChooser.h>
+#include <utils/common/MsgHandler.h>
 
 #include "GNENet.h"
 #include "GNEEdge.h"
@@ -272,7 +273,16 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     std::string file = opendialog.getFilename().text();
     std::string error = myView->makeSnapshot(file);
     if (error != "") {
+        // write warning if netedit is running in testing mode
+        if(OptionsCont::getOptions().getBool("gui-testing") == true) {
+	        WRITE_WARNING("Opening FXMessageBox of type 'error'"); 
+        }
+        // open message box
         FXMessageBox::error(this, MBOX_OK, "Saving failed.", "%s", error.c_str());
+        // write warning if netedit is running in testing mode
+        if(OptionsCont::getOptions().getBool("gui-testing") == true) {
+	        WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'"); 
+        }
     }
     return 1;
 }

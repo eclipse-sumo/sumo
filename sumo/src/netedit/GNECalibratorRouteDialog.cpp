@@ -31,6 +31,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/common/MsgHandler.h>
 
 #include "GNECalibratorRouteDialog.h"
 #include "GNECalibratorDialog.h"
@@ -120,12 +121,20 @@ GNECalibratorRouteDialog::~GNECalibratorRouteDialog() {
 long
 GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myCalibratorRouteValid == false) {
+        // write warning if netedit is running in testing mode
+        if(myCalibratorDialogParent->getCalibratorParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Opening FXMessageBox of type 'warning'"); 
+        }
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error " + std::string((myUpdatingElement == true)?("updating"):("creating")) + " " + toString(myCalibratorRoute->getCalibratorParent()->getTag()) + 
                                "'s " + toString(myCalibratorRoute->getTag())).c_str(), "%s",
                               (toString(myCalibratorRoute->getCalibratorParent()->getTag()) + "'s " + toString(myCalibratorRoute->getTag()) +
                                " cannot be " + std::string((myUpdatingElement == true)?("updated"):("created")) + " because parameter " + toString(myInvalidAttr) + 
                                " is invalid.").c_str());
+        // write warning if netedit is running in testing mode
+        if(myCalibratorDialogParent->getCalibratorParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'"); 
+        }
         return 0;
     } else {
         // copy all values of myCopyOfCalibratorRoute into myCalibratorRoute

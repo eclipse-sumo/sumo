@@ -31,6 +31,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/common/MsgHandler.h>
 
 #include "GNERerouterIntervalDialog.h"
 #include "GNERerouterDialog.h"
@@ -167,40 +168,96 @@ GNERerouterIntervalDialog::~GNERerouterIntervalDialog() {
 long
 GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myBeginEndValid == false) {
+        // write warning if netedit is running in testing mode
+        if(myRerouterDialogParent->getRerouterParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Opening FXMessageBox of type 'warning'"); 
+        }
+        // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
                               (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) +
                                " cannot be updated because " + toString(myRerouterInterval->getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
+        
+        
+        // write warning if netedit is running in testing mode
+        if(myRerouterDialogParent->getRerouterParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'"); 
+        }
         return 0;
     } else if (myCopyOfClosingLaneReroutes.empty() && myCopyOfClosingReroutes.empty() && myCopyOfDestProbReroutes.empty() && myCopyOfRouteProbReroutes.empty()) {
+        // write warning if netedit is running in testing mode
+        if(myRerouterDialogParent->getRerouterParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Opening FXMessageBox of type 'warning'"); 
+        }
+        // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
                               (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) +
                                " cannot be updated because at least one " + toString(myRerouterInterval->getTag()) + "'s element must be defined.").c_str());
+        // write warning if netedit is running in testing mode
+        if(myRerouterDialogParent->getRerouterParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'"); 
+        }
         return 0;
     } else if (myClosingLaneReroutesValid == false) {
+        // write warning if netedit is running in testing mode
+        if(myRerouterDialogParent->getRerouterParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Opening FXMessageBox of type 'warning'"); 
+        }
+        // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
                               (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) +
                                " cannot be updated because there are invalid " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s.").c_str());
+        // write warning if netedit is running in testing mode
+        if(myRerouterDialogParent->getRerouterParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'"); 
+        }
         return 0;
     } else if (myClosingReroutesValid == false) {
+        // write warning if netedit is running in testing mode
+        if(myRerouterDialogParent->getRerouterParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Opening FXMessageBox of type 'warning'"); 
+        }
+        // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
                               (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) +
                                " cannot be updated because there are invalid " + toString(SUMO_TAG_CLOSING_REROUTE) + "s.").c_str());
+        // write warning if netedit is running in testing mode
+        if(myRerouterDialogParent->getRerouterParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'"); 
+        }
         return 0;
     } else if (myDestProbReroutesValid == false) {
+        // write warning if netedit is running in testing mode
+        if(myRerouterDialogParent->getRerouterParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Opening FXMessageBox of type 'warning'"); 
+        }
+        // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
                               (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) +
                                " cannot be updated because there are invalid " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s.").c_str());
+        // write warning if netedit is running in testing mode
+        if(myRerouterDialogParent->getRerouterParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'"); 
+        }
         return 0;
     } else if (myRouteProbReroutesValid == false) {
+        // write warning if netedit is running in testing mode
+        if(myRerouterDialogParent->getRerouterParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Opening FXMessageBox of type 'warning'"); 
+        }
+        // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error updating " + toString(myRerouterInterval->getTag()) + " of " + toString(myRerouterInterval->getRerouterParent()->getTag())).c_str(), "%s",
                               (toString(myRerouterInterval->getRerouterParent()->getTag()) + "'s " + toString(myRerouterInterval->getTag()) +
                                " cannot be updated because there are invalid " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s.").c_str());
+        // write warning if netedit is running in testing mode
+        if(myRerouterDialogParent->getRerouterParent()->getViewNet()->isTestingModeEnabled() == true) {
+	        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'"); 
+        }
         return 0;
     } else {
         // set new values of rerouter interval
