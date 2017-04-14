@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 29/12/2016 10:33:19 by Netedit Version dev-SVN-r22364
+<!-- generated on 14/04/2017 12:38:41 by Netedit Version dev-SVN-r22880
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.29Dec103258.4360/netedit.server/additionalElements/busstop/create\additionals.xml"/>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.29Dec103258.4360/netedit.server/additionalElements/busstop/create\input_net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.14Apr123833.6496/netedit.server/additionalElements/basic/additional_invalid\additionals.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.14Apr123833.6496/netedit.server/additionalElements/basic/additional_invalid\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.29Dec103258.4360/netedit.server/additionalElements/busstop/create\net.net.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.14Apr123833.6496/netedit.server/additionalElements/basic/additional_invalid\net.net.xml"/>
     </output>
 
     <processing>
@@ -19,16 +19,18 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <visualisation>
         <window-size value="700,500"/>
+        <window-pos value="50,50"/>
         <gui-testing value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.29Dec103258.4360/netedit.server/additionalElements/busstop/create\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.14Apr123833.6496/netedit.server/additionalElements/basic/additional_invalid\log.txt"/>
     </report>
 
 </configuration>
