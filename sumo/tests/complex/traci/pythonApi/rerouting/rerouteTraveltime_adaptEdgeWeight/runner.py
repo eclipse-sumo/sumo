@@ -36,7 +36,7 @@ sumoProcess = subprocess.Popen([sumoBinary,
 
 
 def checkMiddleEdges():
-    now = traci.simulation.getCurrentTime() / 1000
+    now = traci.simulation.getCurrentTime() // 1000
     for edge in ["middle", "middle2", "middle3"]:
         print("edge=%s current=%s adapted=%s" % (edge,
                                                  traci.edge.getTraveltime(
