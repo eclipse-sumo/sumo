@@ -612,5 +612,11 @@
     <None Include="..\..\..\src\utils\gui\images\grid1.xpm">
       <Filter>Icons</Filter>
     </None>
+    <None Include="..\..\..\src\utils\gui\images\dlr.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\sumo.xpm">
+      <Filter>Icons</Filter>
+    </None>
   </ItemGroup>
 </Project>

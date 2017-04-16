@@ -181,6 +181,7 @@
     <None Include="..\..\..\src\utils\gui\images\crossing.xpm" />
     <None Include="..\..\..\src\utils\gui\images\cut.xpm" />
     <None Include="..\..\..\src\utils\gui\images\dilate.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\dlr.xpm" />
     <None Include="..\..\..\src\utils\gui\images\document.xpm" />
     <None Include="..\..\..\src\utils\gui\images\e1.xpm" />
     <None Include="..\..\..\src\utils\gui\images\e2.xpm" />
@@ -267,6 +268,7 @@
     <None Include="..\..\..\src\utils\gui\images\skeletonize.xpm" />
     <None Include="..\..\..\src\utils\gui\images\step.xpm" />
     <None Include="..\..\..\src\utils\gui\images\stop.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\sumo.xpm" />
     <None Include="..\..\..\src\utils\gui\images\undo.xpm" />
     <None Include="..\..\..\src\utils\gui\images\vaporizer.xpm" />
     <None Include="..\..\..\src\utils\gui\images\variablespeedsign.xpm" />
