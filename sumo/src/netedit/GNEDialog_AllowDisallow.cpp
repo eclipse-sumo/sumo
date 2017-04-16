@@ -230,7 +230,7 @@ void
 GNEDialog_AllowDisallow::buildVClass(FXVerticalFrame *contentsFrame, SUMOVehicleClass vclass, GUIIcon icon, const std::string &description) {
     // add frame for vehicle icons
     FXHorizontalFrame *vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(icon), GUIDesignLabelIconBig);
+    FXLabel *labelVehicleIcon = new FXLabel(vehicleFrame, "",GUIIconSubSys::getIcon(icon), GUIDesignLabelIcon64x32Thicked);
     labelVehicleIcon->setBackColor(FXRGBA(255,255,255,255));
     // create frame for information and button
     FXVerticalFrame *buttonAndInformationFrame = new FXVerticalFrame(vehicleFrame, GUIDesignAuxiliarHorizontalFrame);

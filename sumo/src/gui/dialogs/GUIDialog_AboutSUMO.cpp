@@ -51,7 +51,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     FXHorizontalFrame *mainInfoFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     
     // DLR Icon
-    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_DLR), GUIDesignLabelIcon64x64);
+    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_DLR), GUIDesignLabelIcon64x64noSpacing);
     
     // "SUMO <VERSION>"
     FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
@@ -62,7 +62,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     new FXLabel(descriptionFrame, HAVE_ENABLED, 0, GUIDesignLabelAboutInfo);
     
     // Netedit icon
-    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_SUMO), GUIDesignLabelIcon64x64);
+    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_SUMO), GUIDesignLabelIcon64x64noSpacing);
 
     // copyright notice
     new FXLabel(this, "A microscopic, multi-modal, open source road traffic simulation.", 0, GUIDesignLabelAboutInfo);

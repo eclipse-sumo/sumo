@@ -51,7 +51,7 @@ GNEDialog_About::GNEDialog_About(FXWindow* parent) :
     FXHorizontalFrame *mainInfoFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     
     // DLR Icon
-    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_DLR), GUIDesignLabelIcon64x64);
+    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_DLR), GUIDesignLabelIcon64x64noSpacing);
     
     // "NETEDIT <VERSION>"
     FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
@@ -62,7 +62,7 @@ GNEDialog_About::GNEDialog_About(FXWindow* parent) :
     new FXLabel(descriptionFrame, HAVE_ENABLED, 0, GUIDesignLabelAboutInfo);
     
     // Netedit icon
-    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_NETEDIT), GUIDesignLabelIcon64x64);
+    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_NETEDIT), GUIDesignLabelIcon64x64noSpacing);
 
     // copyright notice
     new FXLabel(this, "Part of SUMO, the Simulation of Urban MObility.", 0, GUIDesignLabelAboutInfo);

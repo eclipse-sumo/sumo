@@ -81,7 +81,7 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorDial
     // FXComboBox for VClass
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_VCLASS).c_str(), 0, GUIDesignLabelThick);
     myComboBoxVClass = new FXComboBox(columnLeftLabel, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
-    myComboBoxVClassLabelImage = new FXLabel(columnLeftValues, "", 0, GUIDesignLabelIconBigExtended);
+    myComboBoxVClassLabelImage = new FXLabel(columnLeftValues, "", 0, GUIDesignLabelIconExtendedx46Ticked);
     myComboBoxVClassLabelImage->setBackColor(FXRGBA(255,255,255,255));
     // fill combo Box
     std::vector<std::string> VClassStrings = SumoVehicleClassStrings.getStrings();
@@ -95,7 +95,7 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorDial
     // FXComboBox for Shape
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_SHAPE).c_str(), 0, GUIDesignLabelThick);
     myComboBoxShape = new FXComboBox(columnRightLabel, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
-    myComboBoxShapeLabelImage = new FXLabel(columnRightValues, "", 0, GUIDesignLabelIconBigExtended);
+    myComboBoxShapeLabelImage = new FXLabel(columnRightValues, "", 0, GUIDesignLabelIconExtendedx46Ticked);
     myComboBoxShapeLabelImage->setBackColor(FXRGBA(255,255,255,255));
     // fill combo Box
     std::vector<std::string> VShapeStrings = SumoVehicleShapeStrings.getStrings();
