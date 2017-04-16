@@ -26,6 +26,7 @@ import socket
 import time
 import subprocess
 import warnings
+import abc
 
 import sumolib
 from .domain import _defaultDomains
@@ -112,28 +113,31 @@ def simulationStep(step=0):
 
 
 class StepListener(object):
+    __metaclass__ = abc.ABCMeta
+
+    @abc.abstractmethod
     def step(self, s=0):
-	'''step(int)
-	
-	After adding a StepListener 'listener' with traci.addStepListener(listener), 
-	TraCI will call listener.step(s) after each call to traci.simulationStep(s)
-	'''
+        """step(int) -> None
+
+        After adding a StepListener 'listener' with traci.addStepListener(listener), 
+        TraCI will call listener.step(s) after each call to traci.simulationStep(s)
+        """
         pass
 
 
 def addStepListener(listener):
-    '''addStepListener(traci.StepListener) -> bool
+    """addStepListener(traci.StepListener) -> bool
 
     Append the step listener (its step function is called at the end of every call to traci.simulationStep())
     Returns True if the listener was added successfully, False otherwise.
-    '''
-    global _stepListeners
+    """
     if issubclass(type(listener), StepListener):
         _stepListeners.append(listener)
         return True
-    else:
-        warnings.warn("Proposed listener's type must inherit from traci.StepListener. Not adding object of type '%s'"%str(type(listener)))
-        return False
+    warnings.warn(
+        "Proposed listener's type must inherit from traci.StepListener. Not adding object of type '%s'" % type(listener))
+    return False
+
 
 def getVersion():
     return _connections[""].getVersion()
