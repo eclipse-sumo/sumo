@@ -147,25 +147,25 @@
 
 /// @name FXLabels
 /// @{
-/// @brief label extended over over frame without thick and with text justify to left
+/// @brief label extended over frame without thick and with text justify to left
 #define GUIDesignLabelLeft              (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
-/// @brief label extended over over frame without thick and with text justify to right
+/// @brief label extended over frame without thick and with text justify to right
 #define GUIDesignLabelRight             (JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
-/// @brief label extended over over frame without thickand  with text justify to center
+/// @brief label extended over frame without thickand  with text justify to center
 #define GUIDesignLabelCenter            (JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
-/// @brief label extended over over frame with thick and with text justify to left
+/// @brief label extended over frame with thick and with text justify to left
 #define GUIDesignLabelThick             (FRAME_THICK | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
-/// @brief label extended over over frame with thick and with text justify to left
+/// @brief label extended over frame with thick and with text justify to left
 #define GUIDesignLabelLeftThick         (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
-/// @brief label extended over over frame with thick and with text justify to right
+/// @brief label extended over frame with thick and with text justify to right
 #define GUIDesignLabelRightThick        (FRAME_THICK | JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
-/// @brief label extended over over frame with thick and with text justify to center
+/// @brief label extended over frame with thick and with text justify to center
 #define GUIDesignLabelCenterThick       (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
 
 /// @brief label extended over the matrix column with thick frame
@@ -177,8 +177,14 @@
 /// @brief label ticked filled used for VClasses. It uses icons of 64x32 pixels
 #define GUIDesignLabelIconBig        (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 94, 46, 2, 2, 2, 2
 
+/// @brief design for label with icon of 64x64 px
+#define GUIDesignLabelIcon64x64         (LAYOUT_CENTER_Y | LAYOUT_CENTER_X | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT ), 0, 0, 64, 64, 0, 0, 0, 0
+
 /// @brief label ticked filled extended over frame used for VClasses. can be used by icons of 64x32 pixels
 #define GUIDesignLabelIconBigExtended      (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 46, 2, 2, 2, 2
+
+/// @brief label extended over over frame without thickand with text justify to center and withouht vertical spaces
+#define GUIDesignLabelAboutInfo           (JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
 /// @}
 
 
@@ -202,6 +208,9 @@
 /// @{
 /// @brief Horizontal frame extended over frame parent
 #define GUIDesignHorizontalFrame            (LAYOUT_FILL_X)
+
+/// @brief Horizontal frame extended over frame parent
+#define GUIDesignVerticalFrame            (LAYOUT_FILL_Y)
 
 /// @brief Horizontal frame used for pack icons
 #define GUIDesignHorizontalFrameIcons       (LAYOUT_FILL_X | FRAME_THICK), 0, 0, 0, 0, 0, 0, 0, 0, 2, 2
@@ -299,31 +308,6 @@
 
 /// @brief  spin dial extended over the matrix column with thick frame
 #define GUIDesignSpinDialAttribute      (FRAME_THICK | LAYOUT_FILL_X | SPIN_NOMAX)
-/// @}
-
-
-/// @name design for about dialogs (SUMO and netedit)
-/// @{
-/// @brief design for Frame 1
-#define GUIDesignAboutFrame1            (LAYOUT_TOP | FRAME_NONE | LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 1, 1
-
-/// @brief design for Frame 2
-#define GUIDesignAboutFrame2            (LAYOUT_TOP | LAYOUT_CENTER_X | FRAME_NONE), 0, 0, 0, 0, 0, 0, 1, 1
-
-/// @brief design for Frame 3
-#define GUIDesignAboutFrame3            (FRAME_NONE), 0, 0, 0, 0, 20, 0, 0, 0
-
-/// @brief design for label with icon
-#define GUIDesignAboutLabelIcon         (LAYOUT_CENTER_Y | TEXT_OVER_ICON), 5, 0, 45, 0, 12, 0, 0, 0
-
-/// @brief design for label with description (centered, between two icons)
-#define GUIDesignAboutLabelDescription  (LAYOUT_CENTER_Y | LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL), 0, 0, 0, 0, 0, 0, 0, 0
-
-/// @brief design for label with information (for example, copyright)
-#define GUIDesignAboutLabelInformation  (LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL), 0, 0, 0, 0, 0, 0, 0, 0
-
-/// @brief design for label with link to DLR's webpage
-#define GUIDesignAboutLinkLabel         (LAYOUT_CENTER_X | JUSTIFY_CENTER_X | LABEL_NORMAL), 0, 0, 0, 0, 5, 5, 5, 5
 /// @}
 
 

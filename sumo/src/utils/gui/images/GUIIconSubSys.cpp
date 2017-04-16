@@ -36,6 +36,7 @@
 #include "GUIIconSubSys.h"
 
 #include "dlr.xpm"
+#include "sumo.xpm"
 
 #include "empty.xpm"
 #include "filesave.xpm"
@@ -106,7 +107,6 @@
 #include "paintbrush4x.xpm"
 #include "paintbrush5x.xpm"
 #include "edit_graph.xpm"
-
 
 #include "flag.cpp"
 #include "flag_plus.cpp"
@@ -222,6 +222,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     // build icons
     myIcons[ICON_APP] = new FXXPMIcon(a, document_xpm);
     myIcons[ICON_DLR] = new FXXPMIcon(a, dlr_xpm);
+    myIcons[ICON_SUMO] = new FXXPMIcon(a, sumo_xpm);
     myIcons[ICON_EMPTY] = new FXXPMIcon(a, empty_xpm);
     myIcons[ICON_OPEN_CONFIG] = new FXXPMIcon(a, fileopen_xpm);
     myIcons[ICON_OPEN_NET] = new FXXPMIcon(a, netopen_xpm);

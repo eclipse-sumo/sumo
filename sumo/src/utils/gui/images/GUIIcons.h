@@ -45,6 +45,7 @@ enum GUIIcon {
     /// @{
     ICON_APP = 0,
     ICON_DLR,
+    ICON_SUMO,
     ICON_EMPTY,
     ICON_OPEN_CONFIG,
     ICON_OPEN_NET,
