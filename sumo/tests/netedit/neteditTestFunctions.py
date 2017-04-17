@@ -25,7 +25,7 @@ import atexit
 from sikuli import *
 
 # define delay before every operation
-DELAY = 1
+DELAY = 0.1
 
 Settings.MoveMouseDelay = 0.1
 Settings.DelayBeforeDrop = 0.1
@@ -152,7 +152,7 @@ def getReferenceMatch(neProcess, waitTime):
         sys.exit("Killed netedit process. 'reference.png' not found")
 
 # setup and start netedit
-def setupAndStart(testRoot, newNet=False, searchReference=True, waitTime=50):
+def setupAndStart(testRoot, newNet=False, searchReference=True, waitTime=20):
     setup(testRoot)
     # Open netedit
     neteditProcess = Popen(newNet)
