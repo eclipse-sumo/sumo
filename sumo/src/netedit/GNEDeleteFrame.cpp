@@ -89,8 +89,8 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myGroupBoxOptions = new FXGroupBox(myContentFrame, "Options", GUIDesignGroupBoxFrame);
 
     // Create checkbox for enabling/disabling automatic deletion of additionals childs (by default, enabled)
-    myCheckBoxAutomaticallyDeleteAdditionals = new FXMenuCheck(myGroupBoxOptions, "Force deletion of additionals", this, MID_GNE_AUTOMATICALLYDELETEADDITIONALS, GUIDesignMenuCheck);
-    myCheckBoxAutomaticallyDeleteAdditionals->setCheck(true);
+    myAutomaticallyDeleteAdditionalsCheckButton = new FXCheckButton(myGroupBoxOptions, "Force deletion of additionals", this, MID_GNE_AUTOMATICALLYDELETEADDITIONALS, GUIDesignCheckButtonAttribute);
+    myAutomaticallyDeleteAdditionalsCheckButton->setCheck(true);
 
     // Create groupbox for tree list
     myGroupBoxTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
@@ -346,7 +346,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                     numberOfAdditionals += (int)(*i)->getAdditionalChilds().size();
                 }
                 // Check if edge can be deleted
-                if (myCheckBoxAutomaticallyDeleteAdditionals->getCheck()) {
+                if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
                     myViewNet->getNet()->deleteGeometryOrEdge(edge, myViewNet->getPositionInformation(), myViewNet->getUndoList());
                 } else {
                     if (numberOfAdditionals == 0) {
@@ -371,7 +371,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
             case GLO_LANE: {
                 GNELane* lane = dynamic_cast<GNELane*>(ac);
                 // Check if lane can be deleted
-                if (myCheckBoxAutomaticallyDeleteAdditionals->getCheck()) {
+                if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
                     myViewNet->getNet()->deleteLane(lane, myViewNet->getUndoList());
                 } else {
                     if (lane->getAdditionalChilds().size() == 0) {

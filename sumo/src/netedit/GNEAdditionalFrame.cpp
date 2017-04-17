@@ -614,9 +614,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::AdditionalAttributeSingle(FXCompo
     myLabel = new FXLabel(this, "name", 0, GUIDesignLabelAttribute);
     myTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextField);
     myTimeSpinDial = new FXSpinner(this, 7, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_DIAL, GUIDesignSpinDialAttribute);
-    myMenuCheck = new FXMenuCheck(this, "Disabled", this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL, GUIDesignMenuCheck);
-    // Set widht of menuCheck manually
-    myMenuCheck->setWidth(20);
+    myBoolCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL, GUIDesignCheckButtonAttribute);
     // Hide elements
     hideParameter();
 }
@@ -648,6 +646,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLTag addition
     myTextField->setText(toString(value).c_str());
     myTextField->show();
     show();
+    std::cout << myTextField->getHeight() << std::endl;
 }
 
 
@@ -677,14 +676,14 @@ GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLTag addition
     myLabel->setText(toString(myAdditionalAttr).c_str());
     myTextField->setTextColor(FXRGB(0, 0, 0));
     myLabel->show();
-    if (value) {
-        myMenuCheck->setCheck(true);
-        myMenuCheck->setText("true");
+    if (value == true) {
+        myBoolCheckButton->setCheck(true);
+        myBoolCheckButton->setText("true");
     } else {
-        myMenuCheck->setCheck(false);
-        myMenuCheck->setText("false");
+        myBoolCheckButton->setCheck(false);
+        myBoolCheckButton->setText("false");
     }
-    myMenuCheck->show();
+    myBoolCheckButton->show();
     show();
 }
 
@@ -695,7 +694,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::hideParameter() {
     myAdditionalAttr = SUMO_ATTR_NOTHING;
     myLabel->hide();
     myTextField->hide();
-    myMenuCheck->hide();
+    myBoolCheckButton->hide();
     myTimeSpinDial->hide();
     hide();
 }
@@ -716,7 +715,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::getAttr() const {
 std::string
 GNEAdditionalFrame::AdditionalAttributeSingle::getValue() const {
     if (GNEAttributeCarrier::isBool(myAdditionalTag, myAdditionalAttr)) {
-        return (myMenuCheck->getCheck() == 1) ? "true" : "false";
+        return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
     } else if (GNEAttributeCarrier::isTime(myAdditionalTag, myAdditionalAttr)) {
         return toString(myTimeSpinDial->getValue());
     } else  {
@@ -806,12 +805,12 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
 
 long
 GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetBooleanAttribute(FXObject*, FXSelector, void*) {
-    if (myMenuCheck->getCheck()) {
-        myMenuCheck->setText("true");
+    if (myBoolCheckButton->getCheck()) {
+        myBoolCheckButton->setText("true");
     } else {
-        myMenuCheck->setText("false");
+        myBoolCheckButton->setText("false");
     }
-    return 1;
+    return 0;
 }
 
 // ---------------------------------------------------------------------------
@@ -1249,13 +1248,13 @@ GNEAdditionalFrame::NeteditAttributes::NeteditAttributes(FXComposite* parent) :
     // Create Frame for force position Label and checkBox (By default disabled)
     FXHorizontalFrame* forcePositionFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myForcePositionLabel = new FXLabel(forcePositionFrame, "force position", 0, GUIDesignLabelAttribute);
-    myForcePositionCheckBox = new FXMenuCheck(forcePositionFrame, "false", this, MID_GNE_MODE_ADDITIONAL_FORCEPOSITION, GUIDesignMenuCheck);
-    myForcePositionCheckBox->setCheck(false);
+    myForcePositionCheckButton = new FXCheckButton(forcePositionFrame, "false", this, MID_GNE_MODE_ADDITIONAL_FORCEPOSITION, GUIDesignCheckButtonAttribute);
+    myForcePositionCheckButton->setCheck(false);
     // Create Frame for block movement label and checkBox (By default disabled)
     FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myBlockLabel = new FXLabel(blockMovement, "block movement", 0, GUIDesignLabelAttribute);
-    myCheckBlock = new FXMenuCheck(blockMovement, "false", this, MID_GNE_SET_BLOCKING, GUIDesignMenuCheck);
-    myCheckBlock->setCheck(false);
+    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_BLOCKING, GUIDesignCheckButtonAttribute);
+    myBlockMovementCheckButton->setCheck(false);
     // Create help button
     helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
     // Set visible items
@@ -1284,7 +1283,7 @@ void
 GNEAdditionalFrame::NeteditAttributes::showReferencePoint() {
     myReferencePointMatchBox->show();
     myForcePositionLabel->show();
-    myForcePositionCheckBox->show();
+    myForcePositionCheckButton->show();
 }
 
 
@@ -1292,7 +1291,7 @@ void
 GNEAdditionalFrame::NeteditAttributes::hideReferencePoint() {
     myReferencePointMatchBox->hide();
     myForcePositionLabel->hide();
-    myForcePositionCheckBox->hide();
+    myForcePositionCheckButton->hide();
 }
 
 
@@ -1310,13 +1309,13 @@ GNEAdditionalFrame::NeteditAttributes::getLength() {
 
 bool
 GNEAdditionalFrame::NeteditAttributes::isBlockEnabled() {
-    return myCheckBlock->getCheck() == 1 ? true : false;
+    return myBlockMovementCheckButton->getCheck() == 1 ? true : false;
 }
 
 
 bool
 GNEAdditionalFrame::NeteditAttributes::isForcePositionEnabled() {
-    return myForcePositionCheckBox->getCheck() == 1 ? true : false;
+    return myForcePositionCheckButton->getCheck() == 1 ? true : false;
 }
 
 bool
@@ -1350,24 +1349,24 @@ GNEAdditionalFrame::NeteditAttributes::onCmdSelectReferencePoint(FXObject*, FXSe
         myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
         myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_LEFT;
         myLengthTextField->enable();
-        myForcePositionCheckBox->enable();
+        myForcePositionCheckButton->enable();
     } else if (myReferencePointMatchBox->getText() == "reference right") {
         myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
         myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_RIGHT;
         myLengthTextField->enable();
-        myForcePositionCheckBox->enable();
+        myForcePositionCheckButton->enable();
     } else if (myReferencePointMatchBox->getText() == "reference center") {
         myLengthTextField->enable();
-        myForcePositionCheckBox->enable();
+        myForcePositionCheckButton->enable();
         myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
         myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_CENTER;
         myLengthTextField->enable();
-        myForcePositionCheckBox->enable();
+        myForcePositionCheckButton->enable();
     } else {
         myReferencePointMatchBox->setTextColor(FXRGB(255, 0, 0));
         myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_INVALID;
         myLengthTextField->disable();
-        myForcePositionCheckBox->disable();
+        myForcePositionCheckButton->disable();
     }
     return 1;
 }
@@ -1375,10 +1374,10 @@ GNEAdditionalFrame::NeteditAttributes::onCmdSelectReferencePoint(FXObject*, FXSe
 
 long 
 GNEAdditionalFrame::NeteditAttributes::onCmdSetBlocking(FXObject*, FXSelector, void*) {
-    if(myCheckBlock->getCheck()) {
-        myCheckBlock->setText("true");
+    if(myBlockMovementCheckButton->getCheck()) {
+        myBlockMovementCheckButton->setText("true");
     } else {
-        myCheckBlock->setText("false");
+        myBlockMovementCheckButton->setText("false");
     }
     return 1;
 }
@@ -1386,10 +1385,10 @@ GNEAdditionalFrame::NeteditAttributes::onCmdSetBlocking(FXObject*, FXSelector, v
 
 long 
 GNEAdditionalFrame::NeteditAttributes::onCmdSetForcePosition(FXObject*, FXSelector, void*) {
-    if(myForcePositionCheckBox->getCheck()) {
-        myForcePositionCheckBox->setText("true");
+    if(myForcePositionCheckButton->getCheck()) {
+        myForcePositionCheckButton->setText("true");
     } else {
-        myForcePositionCheckBox->setText("false");
+        myForcePositionCheckButton->setText("false");
     }
     return 1;
 }
@@ -1517,7 +1516,7 @@ GNEAdditionalFrame::SelectorParentEdges::SelectorParentEdges(FXComposite* parent
     FXGroupBox(parent, "Edges", GUIDesignGroupBoxFrame),
     myViewNet(viewNet) {
     // Create menuCheck for selected edges
-    myUseSelectedEdges = new FXMenuCheck(this, ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_SHOWONLYSELECTEDEDGES, GUIDesignMenuCheck);
+    myUseSelectedEdgesCheckButton = new FXCheckButton(this, ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_SHOWONLYSELECTEDEDGES, GUIDesignCheckButtonAttribute);
 
     // Create search box
     myEdgesSearch = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SEARCHEDGE, GUIDesignTextField);
@@ -1566,7 +1565,7 @@ GNEAdditionalFrame::SelectorParentEdges::showList(std::string search) {
         }
     }
     // By default, CheckBox for useSelectedEdges isn't checked
-    myUseSelectedEdges->setCheck(false);
+    myUseSelectedEdgesCheckButton->setCheck(false);
     // Recalc Frame
     recalc();
     // Update Frame
@@ -1586,16 +1585,16 @@ void
 GNEAdditionalFrame::SelectorParentEdges::updateUseSelectedEdges() {
     // Enable or disable use selected edges
     if (myViewNet->getNet()->retrieveEdges(true).size() > 0) {
-        myUseSelectedEdges->enable();
+        myUseSelectedEdgesCheckButton->enable();
     } else {
-        myUseSelectedEdges->disable();
+        myUseSelectedEdgesCheckButton->disable();
     }
 }
 
 
 bool
 GNEAdditionalFrame::SelectorParentEdges::isUseSelectedEdgesEnable() const {
-    if (myUseSelectedEdges->getCheck()) {
+    if (myUseSelectedEdgesCheckButton->getCheck()) {
         return true;
     } else {
         return false;
@@ -1605,7 +1604,7 @@ GNEAdditionalFrame::SelectorParentEdges::isUseSelectedEdgesEnable() const {
 
 long
 GNEAdditionalFrame::SelectorParentEdges::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
-    if (myUseSelectedEdges->getCheck()) {
+    if (myUseSelectedEdgesCheckButton->getCheck()) {
         myEdgesSearch->hide();
         myList->hide();
         myClearEdgesSelection->hide();
@@ -1678,7 +1677,7 @@ GNEAdditionalFrame::SelectorParentLanes::SelectorParentLanes(FXComposite* parent
     FXGroupBox(parent, "Lanes", GUIDesignGroupBoxFrame),
     myViewNet(viewNet) {
     // Create CheckBox for selected lanes
-    myUseSelectedLanes = new FXMenuCheck(this, ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_USESELECTEDLANES, GUIDesignMenuCheck);
+    myUseSelectedLanesCheckButton = new FXCheckButton(this, ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_USESELECTEDLANES, GUIDesignCheckButtonAttribute);
 
     // Create search box
     myLanesSearch = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SEARCHLANE, GUIDesignTextField);
@@ -1722,7 +1721,7 @@ GNEAdditionalFrame::SelectorParentLanes::showList(std::string search) {
         }
     }
     // By default, CheckBox for useSelectedLanes isn't checked
-    myUseSelectedLanes->setCheck(false);
+    myUseSelectedLanesCheckButton->setCheck(false);
     // Show list
     show();
 }
@@ -1738,16 +1737,16 @@ void
 GNEAdditionalFrame::SelectorParentLanes::updateUseSelectedLanes() {
     // Enable or disable use selected Lanes
     if (myViewNet->getNet()->retrieveLanes(true).size() > 0) {
-        myUseSelectedLanes->enable();
+        myUseSelectedLanesCheckButton->enable();
     } else {
-        myUseSelectedLanes->disable();
+        myUseSelectedLanesCheckButton->disable();
     }
 }
 
 
 bool
 GNEAdditionalFrame::SelectorParentLanes::isUseSelectedLanesEnable() const {
-    if (myUseSelectedLanes->getCheck()) {
+    if (myUseSelectedLanesCheckButton->getCheck()) {
         return true;
     } else {
         return false;
@@ -1757,7 +1756,7 @@ GNEAdditionalFrame::SelectorParentLanes::isUseSelectedLanesEnable() const {
 
 long
 GNEAdditionalFrame::SelectorParentLanes::onCmdUseSelectedLanes(FXObject*, FXSelector, void*) {
-    if (myUseSelectedLanes->getCheck()) {
+    if (myUseSelectedLanesCheckButton->getCheck()) {
         myLanesSearch->hide();
         myList->hide();
         clearLanesSelection->hide();

@@ -118,8 +118,7 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibrator
     myTextFieldContainerNumber = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldInt);
     // 3 create textfield for reroute
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_REROUTE).c_str(), 0, GUIDesignLabelThick);
-    myCheckBoxdReroute = new FXMenuCheck(columnRightValue, "false", this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignMenuCheckFixedHeight);
-    myCheckBoxdReroute->setHeight(23);
+    myRerouteCheckButton = new FXCheckButton(columnRightValue, "false", this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignCheckButtonAttribute);
     // 4 create textfield for depart pos lat
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_DEPARTPOS_LAT).c_str(), 0, GUIDesignLabelThick);
     myTextFieldDepartPosLat = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
@@ -136,17 +135,14 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibrator
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_NUMBER).c_str(), 0, GUIDesignLabelThick);
     myTextFieldNumber = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldInt);
     // 9 create textfield for vehs per hour
-    myRadioButtonVehsPerHour = new FXRadioButton(columnRightLabel, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), this, MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE, GUIDesignRadioButtonFixedHeight);
+    myRadioButtonVehsPerHour = new FXRadioButton(columnRightLabel, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), this, MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE, GUIDesignRadioButtonAttribute);
     myTextFieldVehsPerHour = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
-    myRadioButtonVehsPerHour->setHeight(23);
     // 10 create textfield for period
-    myRadioButtonPeriod = new FXRadioButton(columnRightLabel, toString(SUMO_ATTR_PERIOD).c_str(), this, MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE, GUIDesignRadioButtonFixedHeight);
+    myRadioButtonPeriod = new FXRadioButton(columnRightLabel, toString(SUMO_ATTR_PERIOD).c_str(), this, MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE, GUIDesignRadioButtonAttribute);
     myTextFieldPeriod = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
-    myRadioButtonPeriod->setHeight(23);
     // 11 create textfield for probability
-    myRadioButtonProbability = new FXRadioButton(columnRightLabel, toString(SUMO_ATTR_PROB).c_str(), this, MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE, GUIDesignRadioButtonFixedHeight);
+    myRadioButtonProbability = new FXRadioButton(columnRightLabel, toString(SUMO_ATTR_PROB).c_str(), this, MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE, GUIDesignRadioButtonAttribute);
     myTextFieldProbability = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
-    myRadioButtonProbability->setHeight(23);
 
     // fill comboBox of VTypes
     const std::vector<GNECalibratorVehicleType>& vtypes = myCalibratorFlow->getCalibratorParent()->getCalibratorVehicleTypes();
@@ -337,12 +333,12 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_CONTAINER_NUMBER;
     }
     // set reroute
-    if(myCheckBoxdReroute->getCheck()) {
+    if(myRerouteCheckButton->getCheck()) {
         myCopyOfCalibratorFlow->setReroute(true);
-        myCheckBoxdReroute->setText("true");
+        myRerouteCheckButton->setText("true");
     } else {
         myCopyOfCalibratorFlow->setReroute(false);
-        myCheckBoxdReroute->setText("false");
+        myRerouteCheckButton->setText("false");
     }
     // set color of myTextFieldDepartPosLat, depending if current value is valid or not
     if(myCopyOfCalibratorFlow->setDepartPosLat(myTextFieldDepartPosLat->getText().text()) == true) {
@@ -478,7 +474,7 @@ GNECalibratorFlowDialog::updateCalibratorFlowValues() {
     myTextFieldLine->setText(myCopyOfCalibratorFlow->getLine().c_str());
     myTextFieldPersonNumber->setText(toString(myCopyOfCalibratorFlow->getPersonNumber()).c_str());
     myTextFieldContainerNumber->setText(toString(myCopyOfCalibratorFlow->getContainerNumber()).c_str());
-    myCheckBoxdReroute->setCheck(myCopyOfCalibratorFlow->getReroute());
+    myRerouteCheckButton->setCheck(myCopyOfCalibratorFlow->getReroute());
     myTextFieldDepartPosLat->setText(myCopyOfCalibratorFlow->getDepartPosLat().c_str());
     myTextFieldArrivalPosLat->setText(myCopyOfCalibratorFlow->getArrivalPosLat().c_str());
     myTextFieldBegin->setText(toString(myCopyOfCalibratorFlow->getBegin()).c_str());

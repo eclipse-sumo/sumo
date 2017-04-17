@@ -122,7 +122,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // Create check blocked label and button
     FXHorizontalFrame *blockMovementHorizontalFrame = new FXHorizontalFrame(myGroupBoxForEditor, GUIDesignAuxiliarHorizontalFrame);
     myCheckBlockedLabel = new FXLabel(blockMovementHorizontalFrame, "block movement", 0, GUIDesignLabelAttribute);
-    myCheckBlocked = new FXMenuCheck(blockMovementHorizontalFrame, "", this, MID_GNE_SET_BLOCKING, GUIDesignMenuCheck);
+    myCheckBlocked = new FXCheckButton(blockMovementHorizontalFrame, "", this, MID_GNE_SET_BLOCKING, GUIDesignCheckButtonAttribute);
     myCheckBlocked->hide();
 
     // Create groupbox and tree list
@@ -734,9 +734,8 @@ GNEInspectorFrame::AttributeInput::AttributeInput(FXComposite* parent, GNEInspec
     myChoicesCombo = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     myChoicesCombo->hide();
     // Create and hide checkButton
-    myCheckBox = new FXMenuCheck(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignMenuCheck);
-    myCheckBox->setWidth(20);
-    myCheckBox->hide();
+    myBoolCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myBoolCheckButton->hide();
 }
 
 
@@ -751,13 +750,13 @@ GNEInspectorFrame::AttributeInput::showAttribute(GNEAttributeCarrier* /* ac */, 
     // Set field depending of the type of value
     if (GNEAttributeCarrier::isBool(myTag, myAttr)) {
         // set value of checkbox
-        myCheckBox->setCheck(GNEAttributeCarrier::parse<bool>(value));
-        if (myCheckBox->getCheck()) {
-            myCheckBox->setText("true");
+        myBoolCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(value));
+        if (myBoolCheckButton->getCheck()) {
+            myBoolCheckButton->setText("true");
         } else {
-            myCheckBox->setText("false");
+            myBoolCheckButton->setText("false");
         }
-        myCheckBox->show();
+        myBoolCheckButton->show();
     } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
         // Obtain choices
         const std::vector<std::string> choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
@@ -817,7 +816,7 @@ GNEInspectorFrame::AttributeInput::hideAttribute() {
     myTimeSpinDial->hide();
     myTextFieldStrings->hide();
     myChoicesCombo->hide();
-    myCheckBox->hide();
+    myBoolCheckButton->hide();
     myButtonCombinableChoices->hide();
     // hide AttributeInput
     hide();
@@ -879,11 +878,11 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
     // First, obtain the string value of the new attribute depending of their type
     if (GNEAttributeCarrier::isBool(myTag, myAttr)) {
         // Set true o false depending of the checBox
-        if (myCheckBox->getCheck()) {
-            myCheckBox->setText("true");
+        if (myBoolCheckButton->getCheck()) {
+            myBoolCheckButton->setText("true");
             newVal = "true";
         } else {
-            myCheckBox->setText("false");
+            myBoolCheckButton->setText("false");
             newVal = "false";
         }
     } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {

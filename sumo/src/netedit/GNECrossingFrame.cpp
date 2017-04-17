@@ -218,9 +218,9 @@ GNECrossingFrame::crossingParameters::crossingParameters(GNECrossingFrame* cross
     // create label and checkbox for Priority
     crossingParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myCrossingPriorityLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_PRIORITY).c_str(), 0, GUIDesignLabelAttribute);
-    myCrossingPriority = new FXMenuCheck(crossingParameter, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignMenuCheck);
+    myCrossingPriorityCheckButton = new FXCheckButton(crossingParameter, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myCrossingPriorityLabel->disable();
-    myCrossingPriority->disable();
+    myCrossingPriorityCheckButton->disable();
     // create label and textfield for width
     crossingParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myCrossingWidthLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_WIDTH).c_str(), 0, GUIDesignLabelAttribute);
@@ -245,13 +245,13 @@ GNECrossingFrame::crossingParameters::enableCrossingParameters() {
     myCrossingEdgesLabel->enable();
     myCrossingEdges->enable();
     myCrossingPriorityLabel->enable();
-    myCrossingPriority->enable();
+    myCrossingPriorityCheckButton->enable();
     myCrossingWidthLabel->enable();
     myCrossingWidth->enable();
     myHelpCrossingAttribute->enable();
     // set values of parameters
     onCmdSetAttribute(0, 0, 0);
-    myCrossingPriority->setCheck(GNEAttributeCarrier::getDefaultValue<bool>(SUMO_TAG_CROSSING, SUMO_ATTR_PRIORITY));
+    myCrossingPriorityCheckButton->setCheck(GNEAttributeCarrier::getDefaultValue<bool>(SUMO_TAG_CROSSING, SUMO_ATTR_PRIORITY));
     myCrossingWidth->setText(GNEAttributeCarrier::getDefaultValue<std::string>(SUMO_TAG_CROSSING, SUMO_ATTR_WIDTH).c_str());
     myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
 }
@@ -261,14 +261,14 @@ void
 GNECrossingFrame::crossingParameters::disableCrossingParameters() {
     // clear all values of parameters
     myCrossingEdges->setText("");
-    myCrossingPriority->setCheck(false);
-    myCrossingPriority->setText("false");
+    myCrossingPriorityCheckButton->setCheck(false);
+    myCrossingPriorityCheckButton->setText("false");
     myCrossingWidth->setText("");
     // Disable all elements of the crossing frames
     myCrossingEdgesLabel->disable();
     myCrossingEdges->disable();
     myCrossingPriorityLabel->disable();
-    myCrossingPriority->disable();
+    myCrossingPriorityCheckButton->disable();
     myCrossingWidthLabel->disable();
     myCrossingWidth->disable();
     myHelpCrossingAttribute->disable();
@@ -354,7 +354,7 @@ GNECrossingFrame::crossingParameters::getCrossingEdges() const {
 
 bool
 GNECrossingFrame::crossingParameters::getCrossingPriority() const {
-    if (myCrossingPriority->getCheck()) {
+    if (myCrossingPriorityCheckButton->getCheck()) {
         return true;
     } else {
         return false;
@@ -443,10 +443,10 @@ GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     }
 
     // change label of crossing priority
-    if (myCrossingPriority->getCheck()) {
-        myCrossingPriority->setText("true");
+    if (myCrossingPriorityCheckButton->getCheck()) {
+        myCrossingPriorityCheckButton->setText("true");
     } else {
-        myCrossingPriority->setText("false");
+        myCrossingPriorityCheckButton->setText("false");
     }
 
     // Check width

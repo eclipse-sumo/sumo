@@ -212,7 +212,7 @@ public:
         FXLabel* myCrossingPriorityLabel;
 
         /// @brief CheckBox for Priority
-        FXMenuCheck* myCrossingPriority;
+        FXCheckButton* myCrossingPriorityCheckButton;
 
         /// @brief Label for width
         FXLabel* myCrossingWidthLabel;

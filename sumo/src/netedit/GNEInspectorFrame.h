@@ -115,7 +115,7 @@ public:
         FXComboBox* myChoicesCombo;
 
         /// @brief pointer to menu check
-        FXMenuCheck* myCheckBox;
+        FXCheckButton* myBoolCheckButton;
 
         /// @brief pointer to buttonCombinableChoices
         FXButton* myButtonCombinableChoices;
@@ -230,7 +230,7 @@ private:
     FXLabel* myCheckBlockedLabel;
 
     /// @brief pointer to menu check block
-    FXMenuCheck* myCheckBlocked;
+    FXCheckButton* myCheckBlocked;
 
     /// @brief pointer to additional element
     GNEAdditional* myAdditional;

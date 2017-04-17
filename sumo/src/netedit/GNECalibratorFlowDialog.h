@@ -141,8 +141,8 @@ protected:
     /// @brief TextField for Container Number
     FXTextField* myTextFieldContainerNumber;
 
-    /// @brief chekBox for Reroute
-    FXMenuCheck* myCheckBoxdReroute;
+    /// @brief checkButton for Reroute
+    FXCheckButton* myRerouteCheckButton;
 
     /// @brief TextField for DepartPosLat
     FXTextField* myTextFieldDepartPosLat;

@@ -120,7 +120,7 @@ private:
     FXLabel* myInformationLabel;
 
     /// @brief checkbox for enable/disble automatically delete additionals childs
-    FXMenuCheck* myCheckBoxAutomaticallyDeleteAdditionals;
+    FXCheckButton* myAutomaticallyDeleteAdditionalsCheckButton;
 
     /// @brief tree list to show the childs of the element to erase
     FXTreeList* myTreelist;

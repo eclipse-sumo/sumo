@@ -106,7 +106,7 @@ public:
         /// @brief called when user set the value of an attribute of type int/float/string
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
-        /// @brief called when user change the value of myMenuCheck
+        /// @brief called when user change the value of myBoolCheckButton
         long onCmdSetBooleanAttribute(FXObject*, FXSelector, void*);
         /// @}
 
@@ -130,8 +130,8 @@ public:
         /// @brief spindial  to modify the value of time parameters
         FXSpinner* myTimeSpinDial;
 
-        /// @brief menuCheck to enable/disable the value of boolean parameters
-        FXMenuCheck* myMenuCheck;
+        /// @brief check button to enable/disable the value of boolean parameters
+        FXCheckButton* myBoolCheckButton;
 
         /// @brief string which indicates the reason due current value is invalid
         std::string myInvalidValue;
@@ -394,13 +394,13 @@ public:
         FXLabel* myForcePositionLabel;
 
         /// @brief checkBox for the option "force position"
-        FXMenuCheck* myForcePositionCheckBox;
+        FXCheckButton* myForcePositionCheckButton;
 
         /// @brief Label for block movement
         FXLabel* myBlockLabel;
 
         /// @brief checkBox for block movement
-        FXMenuCheck* myCheckBlock;
+        FXCheckButton* myBlockMovementCheckButton;
 
         /// @brief Flag to check if current length is valid
         bool myCurrentLengthValid;
@@ -518,7 +518,7 @@ public:
 
     private:
         /// @brief CheckBox for selected edges
-        FXMenuCheck* myUseSelectedEdges;
+        FXCheckButton* myUseSelectedEdgesCheckButton;
 
         /// @brief List of SelectorParentEdges
         FXList* myList;
@@ -596,7 +596,7 @@ public:
 
     private:
         /// @brief CheckBox for selected lanes
-        FXMenuCheck* myUseSelectedLanes;
+        FXCheckButton* myUseSelectedLanesCheckButton;
 
         /// @brief List of SelectorParentLanes
         FXList* myList;
