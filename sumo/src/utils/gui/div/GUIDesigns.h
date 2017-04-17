@@ -38,38 +38,38 @@
 /// @name FXTextFields
 /// @{
 /// @brief text field extended over Frame with thick frame
-#define GUIDesignTextField                  (FRAME_THICK | LAYOUT_FILL_X)
+#define GUIDesignTextField                  (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
 /// @brief text field extended over Frame with thick frame and limited to Integers
-#define GUIDesignTextFieldInt               (FRAME_THICK | LAYOUT_FILL_X | TEXTFIELD_INTEGER)
+#define GUIDesignTextFieldInt               (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_INTEGER), 0, 0, 0, 23, 2, 2, 2, 2
 
 /// @brief text field extended over Frame with thick frame and limited to Doubles/doubles
-#define GUIDesignTextFieldReal              (FRAME_THICK | LAYOUT_FILL_X | TEXTFIELD_REAL)
+#define GUIDesignTextFieldReal              (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 0, 23, 2, 2, 2, 2
 
 /// @brief Num of column of text field
-#define GUIDesignTextFieldNCol          1
+#define GUIDesignTextFieldNCol              1
 /// @}
 
 
 /// @name FXButtons
 /// @{
-/// @brief button extended over over Frame with thick and raise frame     (@todo check 4, 4, 3, 3)
-#define GUIDesignButton                     (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X), 0, 0, 0, 0, 4, 4, 3, 3
+/// @brief button extended over over Frame with thick and raise frame
+#define GUIDesignButton                     (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
 /// @brief button extended over over column with thick and raise frame
-#define GUIDesignButtonAttribute            (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH), 0, 0, 100, 0
+#define GUIDesignButtonAttribute            (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
 
 /// @brief little button rectangular     (46x23) used in frames     (For example, in "help" buttons)
-#define GUIDesignButtonRectangular          (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 46, 23
+#define GUIDesignButtonRectangular          (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 46, 23, 2, 2, 2, 2
 
 /// @brief button only with icon     (23x23)
-#define GUIDesignButtonIcon                 (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+#define GUIDesignButtonIcon                 (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23, 2, 2, 2, 2
 
 /// @brief button only with icon     (46x23)
-#define GUIDesignButtonIconRectangular      (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 46, 23
+#define GUIDesignButtonIconRectangular      (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 46, 23, 2, 2, 2, 2
 
 /// @brief button used in breakpoint editor
-#define GUIDesignButtonBreakpoint           (ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED), 0, 0, 0, 0, 4, 4, 3, 3
+#define GUIDesignButtonBreakpoint           (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_WIDTH), 0, 0, 0, 23, 2, 2, 2, 2
 /// @}
 
 
@@ -108,10 +108,13 @@
 /// @}
 
 
-/// @name FXCheckButtons for dialogs
+/// @name FXCheckButtons
 /// @{
 /// @brief CheckButton for Frames without thick extended over the frame
 #define GUIDesignCheckButton                (CHECKBUTTON_NORMAL | LAYOUT_CENTER_Y)
+
+/// @brief checkButton without thick extended over the frame used for attributes
+#define GUIDesignCheckButtonAttribute       (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, 23, 2, 2, 2, 2
 /// @}
 
 
@@ -127,49 +130,39 @@
 
 /// @name FXMenuChecks
 /// @{
-/// @brief MenuCheck extended over Frame
-#define GUIDesignMenuCheck                  (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
-
-/// @brief MenuCheck extended over Frame with fixed height
-#define GUIDesignMenuCheckFixedHeight       (LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | ICON_BEFORE_TEXT)
-/// @}
-
-
-/// @name FXMenuChecks
-/// @{
 /// @brief design for radio button
 #define GUIDesignRadioButton                (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | JUSTIFY_LEFT)
 
 /// @brief design for radio button with fixed height
-#define GUIDesignRadioButtonFixedHeight     (LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | JUSTIFY_CENTER_Y | ICON_BEFORE_TEXT)
+#define GUIDesignRadioButtonAttribute       (LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | JUSTIFY_CENTER_Y | ICON_BEFORE_TEXT), 0, 0, 0, 23, 2, 2, 2, 2
 /// @}
 
 
 /// @name FXLabels
 /// @{
 /// @brief label extended over frame without thick and with text justify to left
-#define GUIDesignLabelLeft                  (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
+#define GUIDesignLabelLeft                  (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label extended over frame without thick and with text justify to right
-#define GUIDesignLabelRight                 (JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
+#define GUIDesignLabelRight                 (JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label extended over frame without thickand  with text justify to center
-#define GUIDesignLabelCenter                (JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
+#define GUIDesignLabelCenter                (JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label extended over frame with thick and with text justify to left
-#define GUIDesignLabelThick                 (FRAME_THICK | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
+#define GUIDesignLabelThick                 (FRAME_THICK | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label extended over frame with thick and with text justify to left
-#define GUIDesignLabelLeftThick             (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
+#define GUIDesignLabelLeftThick             (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label extended over frame with thick and with text justify to right
-#define GUIDesignLabelRightThick            (FRAME_THICK | JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
+#define GUIDesignLabelRightThick            (FRAME_THICK | JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label extended over frame with thick and with text justify to center
-#define GUIDesignLabelCenterThick           (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT)
+#define GUIDesignLabelCenterThick           (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label extended over the matrix column with thick frame
-#define GUIDesignLabelAttribute             (FRAME_THICK | LAYOUT_FIX_WIDTH | ICON_BEFORE_TEXT), 0, 0, 100, 0
+#define GUIDesignLabelAttribute             (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 100, 23, 2, 2, 2, 2
 
 /// @brief label extended over over frame without thickand with text justify to center and withouht vertical spaces
 #define GUIDesignLabelAboutInfo             (JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
@@ -194,10 +187,11 @@
 #define GUIDesignComboBox                   (FRAME_THICK | LAYOUT_FILL_X)
 
 /// @brief Combo box static     (not editable)
-#define GUIDesignComboBoxStatic             (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_CENTER_Y)
+#define GUIDesignComboBoxStatic             (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
 /// @brief Combo box static     (cannot be edited) extended over the matrix column
-#define GUIDesignComboBoxAttribute          (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_X)
+#define GUIDesignComboBoxAttribute          (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
+
 
 /// @brief number of column of every combo box
 #define GUIDesignComboBoxNCol               1
