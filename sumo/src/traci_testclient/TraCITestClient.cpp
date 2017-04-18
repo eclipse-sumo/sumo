@@ -812,6 +812,7 @@ TraCITestClient::testAPI() {
     person.removeStages("p1");
     answerLog << "    getRemainingStages: " << person.getRemainingStages("p1") << "\n";
     answerLog << "    getStage: " << person.getStage("p1") << "\n";
+    simulationStep();
     answerLog << "  trafficlights:\n";
     answerLog << "    getIDList: " << joinToString(trafficlights.getIDList(), " ") << "\n";
     answerLog << "    state: " << trafficlights.getRedYellowGreenState("n_m4") << "\n";
