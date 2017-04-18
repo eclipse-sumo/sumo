@@ -89,13 +89,18 @@ public:
     /// @brief remove edge child
     void removeEdgeChild(GNEEdge* edge);
 
+    /**@brief add rerouter interval
+     * @return true if was sucesfully added, false if wasn't added due overlapping
+     */
+    bool addRerouterInterval(const GNERerouterInterval &rerouterInterval);
+
     /// @brief get rerouter intervals
     const std::vector<GNERerouterInterval>& getRerouterIntervals() const;
 
     /**@brief set rerouter intervals
-     * @note all previously intervals will be deleted
-    */
-    void setRerouterIntervals(const std::vector<GNERerouterInterval>& rerouterIntervals);
+     * @return true if was sucesfully set, false if wasn't set due overlapping
+     */
+    bool setRerouterIntervals(const std::vector<GNERerouterInterval>& rerouterIntervals);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -132,6 +137,9 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
+
+    /// @brief check overlapping of a vector of rerouter intervals
+    bool checkOverlapping(std::vector<GNERerouterInterval> rerouterIntervals);
 
 protected:
     /// @brief edges of Rerouter

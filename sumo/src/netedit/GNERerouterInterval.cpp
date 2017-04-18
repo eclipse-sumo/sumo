@@ -246,4 +246,58 @@ GNERerouterInterval::operator=(const GNERerouterInterval& rerouterInterval) {
     return *this;
 }
 
+
+bool
+GNERerouterInterval::operator==(const GNERerouterInterval& rerouterInterval) const {
+    return (myBegin == rerouterInterval.myBegin) && (myEnd == rerouterInterval.myEnd);
+}
+
+
+bool
+GNERerouterInterval::operator>(const GNERerouterInterval& rerouterInterval) const{
+    if (myBegin > rerouterInterval.myBegin) {
+        return true;
+    } else if (myBegin == rerouterInterval.myBegin) {
+        return (myEnd > rerouterInterval.myEnd);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNERerouterInterval::operator>=(const GNERerouterInterval& rerouterInterval) const {
+    if (myBegin > rerouterInterval.myBegin) {
+        return true;
+    } else if (myBegin == rerouterInterval.myBegin) {
+        return (myEnd >= rerouterInterval.myEnd);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNERerouterInterval::operator<(const GNERerouterInterval& rerouterInterval) const {
+    if (myBegin < rerouterInterval.myBegin) {
+        return true;
+    } else if (myBegin == rerouterInterval.myBegin) {
+        return (myEnd < rerouterInterval.myEnd);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNERerouterInterval::operator<=(const GNERerouterInterval& rerouterInterval) const {
+    if (myBegin < rerouterInterval.myBegin) {
+        return true;
+    } else if (myBegin == rerouterInterval.myBegin) {
+        return (myEnd <= rerouterInterval.myEnd);
+    } else {
+        return false;
+    }
+}
+
 /****************************************************************************/

@@ -239,15 +239,34 @@ GNERerouter::removeEdgeChild(GNEEdge* edge) {
 }
 
 
+bool 
+GNERerouter::addRerouterInterval(const GNERerouterInterval &rerouterInterval) {
+    // obtain a copy of current rerouter Intervals to check overlapping
+    std::vector<GNERerouterInterval> copyOfMyRerouterIntervals;
+    copyOfMyRerouterIntervals.push_back(rerouterInterval);
+    if(checkOverlapping(copyOfMyRerouterIntervals) == true) {
+        myRerouterIntervals = copyOfMyRerouterIntervals;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 const std::vector<GNERerouterInterval>&
 GNERerouter::getRerouterIntervals() const {
     return myRerouterIntervals;
 }
 
 
-void
+bool
 GNERerouter::setRerouterIntervals(const std::vector<GNERerouterInterval>& rerouterIntervals) {
-    myRerouterIntervals = rerouterIntervals;
+    if(checkOverlapping(rerouterIntervals) == true) {
+        myRerouterIntervals = rerouterIntervals;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
@@ -480,4 +499,30 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+bool 
+GNERerouter::checkOverlapping(std::vector<GNERerouterInterval> rerouterIntervals) {
+    // only can be overlapping if there are more than two elements
+    if(rerouterIntervals.size() <= 1) {
+        return true;
+    }
+    // first short vector
+    std::sort(rerouterIntervals.begin(), rerouterIntervals.end());
+
+    // first check that all Begins are differents
+    for(std::vector<GNERerouterInterval>::const_iterator i = (rerouterIntervals.begin() + 1); i != rerouterIntervals.end(); i++) {
+        if((i-1)->getBegin() == i->getBegin()) {
+            return false;
+        }
+    }
+    // now check that end of every interval isn't overlapped with the begin of the next interval
+    for(std::vector<GNERerouterInterval>::const_iterator i = rerouterIntervals.begin(); i != (rerouterIntervals.end() - 1); i++) {
+        if(i->getEnd() > (i+1)->getBegin()) {
+            return false;
+        }
+    }
+
+    // all ok, then return true
+    return true;
+}
 /****************************************************************************/
