@@ -314,6 +314,7 @@ TraCIServer::cleanup() {
     myObjects.clear();
     delete myLaneTree;
     myLaneTree = 0;
+    myTargetTime = string2time(OptionsCont::getOptions().getString("begin"));
 }
 
 

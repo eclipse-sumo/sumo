@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Apr 18 14:37:26 2017
+TraCITestClient output file. Date: Tue Apr 18 14:45:38 2017
 
 
 -> Command sent: <SimulationStep2>:
@@ -85,7 +85,7 @@ testAPI:
       index=5 from=e_m3_1 via=:n_m4_4_1 to=e_m4_1
       index=6 from=e_m3_2 via=:n_m4_4_2 to=e_m4_2
   load:
-    getCurrentTime: 12000
+    getCurrentTime: 1000
   gui:
     setScheme: 
     no support for gui commands
@@ -94,7 +94,7 @@ testAPI:
 .. Command acknowledged (2), [description: ]
   CommandID=228  ObjectID=0  #variables=2
       VariableID=80      ok=1 valueDataType=12 string value: e_m3
-      VariableID=86      ok=1 valueDataType=11 Double value: 210.00
+      VariableID=86      ok=1 valueDataType=11 Double value: 140.00
   CommandID=154  ObjectID=e_u1  Domain=164  #variables=1
   #objects=0
 
