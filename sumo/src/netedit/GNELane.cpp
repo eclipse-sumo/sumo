@@ -945,7 +945,10 @@ GNELane::setMultiColor(const GUIColorer& c) const {
 
 double
 GNELane::getColorValue(int activeScheme) const {
-    const SVCPermissions myPermissions = myParentEdge.getNBEdge()->getPermissions(myIndex);
+    SVCPermissions myPermissions = myParentEdge.getNBEdge()->getPermissions(myIndex);
+    if(getVehicleClassNames(~myPermissions) == "all") {
+        myPermissions = 0;
+    }
     switch (activeScheme) {
         case 0:
             switch (myPermissions) {
