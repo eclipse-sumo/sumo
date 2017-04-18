@@ -114,6 +114,8 @@ public:
 
     void postProcessVTD();
 
+    /// @brief clean up subscriptions
+    void cleanup();
 
 
 #ifdef HAVE_PYTHON

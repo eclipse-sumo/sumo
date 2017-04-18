@@ -825,6 +825,18 @@ TraCITestClient::testAPI() {
     for (int i = 0; i < (int)links.size(); ++i) {
         answerLog << "      index=" << i << " from=" << links[i].from << " via=" << links[i].via << " to=" << links[i].to << "\n";
     }
+    answerLog << "  load:\n";
+    std::vector<std::string> args;
+    args.push_back("-n");
+    args.push_back("net.net.xml");
+    args.push_back("-r");
+    args.push_back("input_routes.rou.xml");
+    args.push_back("--no-step-log");
+    load(args);
+    simulationStep();
+    answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
+    simulation.subscribe(CMD_SUBSCRIBE_VEHICLE_VARIABLE, "0", 0, TIME2STEPS(100), vars);
+    simulation.subscribeContext(CMD_SUBSCRIBE_EDGE_CONTEXT, "e_u1", 0, TIME2STEPS(100), CMD_GET_VEHICLE_VARIABLE, 100, vars2);
 
     answerLog << "  gui:\n";
     try {

@@ -171,10 +171,7 @@ TraCIServer::~TraCIServer() {
         mySocket->close();
         delete mySocket;
     }
-    for (std::map<int, NamedRTree*>::const_iterator i = myObjects.begin(); i != myObjects.end(); ++i) {
-        delete(*i).second;
-    }
-    delete myLaneTree;
+    cleanup();
 }
 
 
@@ -307,6 +304,17 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
     }
 }
 
+
+void 
+TraCIServer::cleanup() {
+    mySubscriptions.clear();
+    for (std::map<int, NamedRTree*>::const_iterator i = myObjects.begin(); i != myObjects.end(); ++i) {
+        delete(*i).second;
+    }
+    myObjects.clear();
+    delete myLaneTree;
+    myLaneTree = 0;
+}
 
 
 

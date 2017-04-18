@@ -557,6 +557,23 @@ TraCIAPI::simulationStep(SUMOTime time) {
 }
 
 
+void 
+TraCIAPI::load(const std::vector<std::string>& args) {
+    int numChars = 0;
+    for (int i = 0; i < (int)args.size(); ++i) {
+        numChars += args[i].size();
+    }
+    tcpip::Storage content;
+    content.writeUnsignedByte(1 + 1 + 1 + 4 + numChars + 4 * args.size());
+    content.writeUnsignedByte(CMD_LOAD);
+    content.writeUnsignedByte(TYPE_STRINGLIST);
+    content.writeStringList(args);
+    mySocket->sendExact(content);
+    tcpip::Storage inMsg;
+    check_resultState(inMsg, CMD_LOAD);
+}
+
+
 // ---------------------------------------------------------------------------
 // TraCIAPI::EdgeScope-methods
 // ---------------------------------------------------------------------------

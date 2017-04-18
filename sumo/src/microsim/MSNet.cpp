@@ -603,6 +603,12 @@ MSNet::clearAll() {
     MSCModel_NonInteracting::cleanup();
     MSDevice_BTsender::cleanup();
     MSDevice_SSM::cleanup();
+#ifndef NO_TRACI
+    TraCIServer* t = TraCIServer::getInstance();
+    if (t != 0) {
+        t->cleanup();
+    }
+#endif
 }
 
 
