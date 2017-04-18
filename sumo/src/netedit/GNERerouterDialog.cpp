@@ -102,39 +102,32 @@ GNERerouterDialog::findInterval(double begin, double end) const {
 
 
 bool
-GNERerouterDialog::checkInterval(double begin, double end) const {
-    if ((begin < 0) || (end < 0)) {
+GNERerouterDialog::checkModifyInterval(const GNERerouterInterval &rerouterInterval, double newBegin, double newEnd) const {
+    // first check that values are correct
+    if ((newBegin < 0) || (newEnd < 0)) {
         return false;
-    } else if ((begin == 0) && (end == 0)) {
+    } else if ((newBegin == 0) && (newEnd == 0)) {
         return false;
-    } else if (begin >= end) {
+    } else if (newBegin >= newEnd) {
         return false;
+    }
+    // declare a temporal copy of rerouter intervals to check overlapping
+    std::vector<GNERerouterInterval> auxCopyOfRerouterIntervals = myCopyOfRerouterIntervals;
+    std::vector<GNERerouterInterval>::iterator it = std::find(auxCopyOfRerouterIntervals.begin(), auxCopyOfRerouterIntervals.end(), rerouterInterval);
+    // if wasn't found add it (we're adding a new interval)
+    if(it == auxCopyOfRerouterIntervals.end()) {
+        auxCopyOfRerouterIntervals.push_back(GNERerouterInterval(rerouterInterval.getRerouterParent(), newBegin, newEnd));
     } else {
-        /// CHECK OVERLAPPING (Ticket #2843)
+        // set new values and check overlapping
+        it->setBegin(newBegin);
+        it->setEnd(newEnd);
+    }
+    // check overlapping
+    if(myRerouterParent->checkOverlapping(auxCopyOfRerouterIntervals) == true) {
         return true;
+    } else {
+        return false;
     }
-}
-
-
-bool
-GNERerouterDialog::checkModifyInterval(double oldBegin, double oldEnd, double newBegin, double newEnd) const {
-    // Iterate over intervals
-    for (std::vector<GNERerouterInterval>::const_iterator i = myCopyOfRerouterIntervals.begin(); i != myCopyOfRerouterIntervals.end(); i++) {
-        if ((i->getBegin() == oldBegin) && (i->getEnd() == oldEnd)) {
-            // Check that new interval is valid
-            if ((newBegin < 0) || (newEnd < 0)) {
-                return false;
-            } else if ((newBegin == 0) && (newEnd == 0)) {
-                return false;
-            } else if (newBegin >= newEnd) {
-                return false;
-            } else {
-                /// CHECK OVERLAPPING (Ticket #2843)
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
 
@@ -224,6 +217,8 @@ GNERerouterDialog::updateIntervalTable() {
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
     FXTableItem* item = 0;
+    // sort rerouter intervals
+    std::sort(myCopyOfRerouterIntervals.begin(), myCopyOfRerouterIntervals.end());
     // iterate over values
     for (std::vector<GNERerouterInterval>::iterator i = myCopyOfRerouterIntervals.begin(); i != myCopyOfRerouterIntervals.end(); i++) {
         // Set time

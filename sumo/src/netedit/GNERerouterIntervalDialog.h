@@ -112,11 +112,9 @@ public:
     /// @brief /edit route prob reroute
     long onCmdEditRouteProbReroute(FXObject*, FXSelector, void*);
 
-    /// @brief called when begin is changed
-    long onCmdChangeBegin(FXObject*, FXSelector, void*);
+    /// @brief called when begin or endis changed
+    long onCmdChangeBeginEnd(FXObject*, FXSelector, void*);
 
-    /// @brief called when begin is changed
-    long onCmdChangeEnd(FXObject*, FXSelector, void*);
     /// @}
 
 protected:

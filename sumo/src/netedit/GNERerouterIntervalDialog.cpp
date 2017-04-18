@@ -65,8 +65,7 @@ FXDEFMAP(GNERerouterIntervalDialog) GNERerouterIntervalDialogMap[] = {
     FXMAPFUNC(SEL_CHANGED,  MID_GNE_REROUTEDIALOG_TABLE_CLOSINGREROUTE,     GNERerouterIntervalDialog::onCmdEditClosingReroute),
     FXMAPFUNC(SEL_CHANGED,  MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE,    GNERerouterIntervalDialog::onCmdEditDestProbReroute),
     FXMAPFUNC(SEL_CHANGED,  MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE,   GNERerouterIntervalDialog::onCmdEditRouteProbReroute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REROUTEDIALOG_CHANGESTART,              GNERerouterIntervalDialog::onCmdChangeBegin),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REROUTEDIALOG_CHANGEEND,                GNERerouterIntervalDialog::onCmdChangeEnd),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REROUTEDIALOG_EDIT_INTERVAL,            GNERerouterIntervalDialog::onCmdChangeBeginEnd),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT,           GNERerouterIntervalDialog::onCmdAccept),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_CANCEL,           GNERerouterIntervalDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONALDIALOG_RESET,            GNERerouterIntervalDialog::onCmdReset),
@@ -104,9 +103,9 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterDialog* rerouter
 
     // create horizontal frame for begin and end text fields
     FXHorizontalFrame* beginEndElementsRight = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myBeginTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_CHANGESTART, GUIDesignTextFieldReal);
+    myBeginTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_EDIT_INTERVAL, GUIDesignTextFieldReal);
     myBeginTextField->setText(toString(myRerouterInterval->getBegin()).c_str());
-    myEndTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_CHANGEEND, GUIDesignTextFieldReal);
+    myEndTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_EDIT_INTERVAL, GUIDesignTextFieldReal);
     myEndTextField->setText(toString(myRerouterInterval->getEnd()).c_str());
 
     // set interval flag depending if interval exists
@@ -518,24 +517,22 @@ GNERerouterIntervalDialog::onCmdEditRouteProbReroute(FXObject*, FXSelector, void
 
 
 long
-GNERerouterIntervalDialog::onCmdChangeBegin(FXObject*, FXSelector, void*) {
-    if (GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text()) &&
-            myRerouterDialogParent->checkInterval(GNEAttributeCarrier::parse<double>(myBeginTextField->getText().text()), myRerouterInterval->getEnd())) {
-        myBeginEndValid = true;
-        myCheckLabel->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
-        return 1;
+GNERerouterIntervalDialog::onCmdChangeBeginEnd(FXObject*, FXSelector, void*) {
+    double newBegin;
+    double newEnd;
+    // check if interval is valid
+    if(GNEAttributeCarrier::canParse<double>(myBeginTextField->getText().text()) == false) {
+        return false;
     } else {
-        myBeginEndValid = false;
-        myCheckLabel->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
-        return 0;
+        newBegin = GNEAttributeCarrier::parse<double>(myBeginTextField->getText().text());
     }
-}
-
-
-long
-GNERerouterIntervalDialog::onCmdChangeEnd(FXObject*, FXSelector, void*) {
-    if (GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text()) &&
-            myRerouterDialogParent->checkInterval(myRerouterInterval->getBegin(), GNEAttributeCarrier::parse<double>(myEndTextField->getText().text()))) {
+    if(GNEAttributeCarrier::canParse<double>(myEndTextField->getText().text()) == false) {
+        return false;
+    } else {
+        newEnd = GNEAttributeCarrier::parse<double>(myEndTextField->getText().text());
+    }
+    // check if new begin provoke an overlapping
+    if (myRerouterDialogParent->checkModifyInterval(*myRerouterInterval, newBegin, newEnd) == true) {
         myBeginEndValid = true;
         myCheckLabel->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         return 1;
