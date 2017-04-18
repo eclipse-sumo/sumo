@@ -594,6 +594,17 @@ NBEdge::setNodeBorder(const NBNode* node, const Position& p, const Position& p2,
 }
 
 
+void 
+NBEdge::resetNodeBorder(const NBNode* node) {
+    if (node == myFrom) {
+        myFromBorder.clear();
+    } else {
+        assert(node == myTo);
+        myToBorder.clear();
+    }
+}
+
+
 PositionVector
 NBEdge::cutAtIntersection(const PositionVector& old) const {
     PositionVector shape = old;

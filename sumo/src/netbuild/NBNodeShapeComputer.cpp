@@ -729,6 +729,7 @@ NBNodeShapeComputer::computeNodeShapeSmall() {
             np.set(np.x(), np.y(), myNode.getPosition().z());
             ret.push_back_noDoublePos(np);
         }
+        (*i)->resetNodeBorder(&myNode);
     }
     return ret;
 }

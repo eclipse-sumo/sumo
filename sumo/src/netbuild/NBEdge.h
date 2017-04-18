@@ -1192,6 +1192,7 @@ public:
 
     /// @brief Set Node border
     void setNodeBorder(const NBNode* node, const Position& p, const Position& p2, bool rectangularCut);
+    void resetNodeBorder(const NBNode* node);
 
 private:
     /** @class ToEdgeConnectionsAdder
