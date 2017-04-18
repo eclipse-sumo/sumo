@@ -73,6 +73,8 @@
 #include "GNEDetector.h"
 #include "GNEEdge.h"
 #include "GNEJunction.h"
+#include "GNEPoly.h"
+#include "GNEPOI.h"
 #include "GNELane.h"
 #include "GNENet.h"
 #include "GNEStoppingPlace.h"
@@ -852,6 +854,18 @@ GNENet::retrieveAttributeCarriers(const std::set<GUIGlID>& ids, GUIGlObjectType 
                     break;
                 case GLO_ADDITIONAL:
                     ac = dynamic_cast<GNEAdditional*>(object);
+                    break;
+                case GLO_CONNECTION:
+                    ac = dynamic_cast<GNEConnection*>(object);
+                    break;
+                case GLO_CROSSING:
+                    ac = dynamic_cast<GNECrossing*>(object);
+                    break;
+                case GLO_POLYGON:
+                    ac = dynamic_cast<GNEPoly*>(object);
+                    break;
+                case GLO_POI:
+                    ac = dynamic_cast<GNEPOI*>(object);
                     break;
                 default:
                     break;
