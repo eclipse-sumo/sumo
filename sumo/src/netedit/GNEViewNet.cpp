@@ -566,15 +566,9 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                             GNEEdge* newEdge = myNet->createEdge(
                                                    myCreateEdgeSource, pointed_junction, myViewParent->getInspectorFrame()->getEdgeTemplate(), myUndoList);
                             if (newEdge) {
-                                // recompute junctions of new edge
-                                myNet->getNetBuilder()->computeSingleNode(newEdge->getGNEJunctionSource()->getNBNode(), OptionsCont::getOptions());
-                                myNet->getNetBuilder()->computeSingleNode(newEdge->getGNEJunctionDestiny()->getNBNode(), OptionsCont::getOptions());
                                 // create another edge, if create opposite edge is enabled
                                 if (myAutoCreateOppositeEdge->getCheck()) {
                                     GNEEdge* newOppositeEdge = myNet->createEdge(pointed_junction, myCreateEdgeSource, myViewParent->getInspectorFrame()->getEdgeTemplate(), myUndoList, "-" + newEdge->getNBEdge()->getID());
-                                    // recompute junctions of new edge
-                                    myNet->getNetBuilder()->computeSingleNode(newOppositeEdge->getGNEJunctionSource()->getNBNode(), OptionsCont::getOptions());
-                                    myNet->getNetBuilder()->computeSingleNode(newOppositeEdge->getGNEJunctionDestiny()->getNBNode(), OptionsCont::getOptions());
                                 }
                                 myCreateEdgeSource->unMarkAsCreateEdgeSource();
 
