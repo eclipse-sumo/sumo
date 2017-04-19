@@ -1219,6 +1219,9 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             getApp()->exit(1);
         }
     } else {
+        if (OptionsCont::getOptions().getBool("game")) {
+            onCmdGaming(0, 0, 0);
+        }
         // initialise simulation thread
         if (!myRunThread->init(ec->myNet, ec->myBegin, ec->myEnd)) {
             if (GUIGlobals::gQuitOnEnd) {
@@ -1552,6 +1555,7 @@ GUIApplicationWindow::loadOnStartup() {
 void
 GUIApplicationWindow::setStatusBarText(const std::string& text) {
     myStatusbar->getStatusLine()->setText(text.c_str());
+
     myStatusbar->getStatusLine()->setNormalText(text.c_str());
 }
 

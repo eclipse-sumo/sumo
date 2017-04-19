@@ -163,9 +163,7 @@ GUILoadThread::run() {
     RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
     MSFrame::setMSGlobals(oc);
     GUITexturesHelper::allowTextures(!oc.getBool("disable-textures"));
-    if (oc.getBool("game")) {
-        myParent->onCmdGaming(0, 0, 0);
-    }
+
     MSVehicleControl* vehControl = 0;
     GUIVisualizationSettings::UseMesoSim = MSGlobals::gUseMesoSim;
     if (MSGlobals::gUseMesoSim) {
