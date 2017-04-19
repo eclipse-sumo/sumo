@@ -9,15 +9,6 @@ Warning: Not joining junctions 294168098,294169338,294169339 because the cluster
 Warning: Not joining junctions 32266935,32266938 because the cluster is too complex (5 incoming edges)
 --- 
 +++ 
-@@ -231,7 +231,7 @@
-         <lane id="-7727483#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="189.45" shape="481.33,129.02 484.63,167.25 486.34,187.05 490.33,233.35 494.45,280.95 496.32,302.63"/>
-     </edge>
-     <edge id="20430080" from="57343359" to="cluster_301292612_38919945_56231397_59993001" priority="6" type="highway.tertiary" spreadType="center" shape="-1.31,347.43 4.55,342.53 12.54,333.63 32.95,332.62 190.22,343.97 304.73,350.90 387.65,360.32 486.97,382.40">
--        <lane id="20430080_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="508.51" shape="-1.31,347.43 4.55,342.53 12.54,333.63 32.95,332.62 190.22,343.97 304.73,350.90 387.65,360.32 483.87,381.71"/>
-+        <lane id="20430080_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="508.11" shape="-1.04,347.20 4.55,342.53 12.54,333.63 32.95,332.62 190.22,343.97 304.73,350.90 387.65,360.32 483.87,381.71"/>
-     </edge>
-     <edge id="22917251" from="32266938" to="32266936" priority="6" type="highway.tertiary">
-         <lane id="22917251_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="58.42" shape="475.94,104.95 471.12,49.15"/>
 @@ -1647,7 +1647,7 @@
      <node id="261636677" x="1119.89" y="114.18" type="priority"/>
      <node id="261636678" x="1115.15" y="53.12" type="priority"/>
