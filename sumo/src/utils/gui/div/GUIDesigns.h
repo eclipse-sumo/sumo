@@ -69,7 +69,7 @@
 #define GUIDesignButtonIconRectangular      (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 46, 23, 2, 2, 2, 2
 
 /// @brief button used in breakpoint editor
-#define GUIDesignButtonBreakpoint           (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_WIDTH), 0, 0, 0, 23, 2, 2, 2, 2
+#define GUIDesignButtonBreakpoint           (ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED), 0, 0, 0, 0, 4, 4, 3, 3
 /// @}
 
 
