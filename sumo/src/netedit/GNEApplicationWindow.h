@@ -383,6 +383,7 @@ private:
 
     /// @brief warns about unsaved changes and gives the user the option to abort
     bool continueWithUnsavedChanges();
+    bool continueWithUnsavedAdditionalChanges();
 };
 
 

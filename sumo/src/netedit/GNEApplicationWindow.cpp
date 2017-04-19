@@ -1400,87 +1400,76 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
 	        WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
         }
         // open question box
-        answer = FXMessageBox::question(this, MBOX_YES_NO,
+        answer = FXMessageBox::question(this, MBOX_QUIT_SAVE_CANCEL,
                                                "Confirm closing Network", "%s",
-                                               "You have unsaved changes in the network. Do you wish to close the network and discard all changes?");
-        if (answer == 1) { //1:yes, 2:no, 4:esc
+                                               "You have unsaved changes in the network. Do you wish to quit and discard all changes?");
+        if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
             if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
+	            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'"); 
             }
-            // Check if there are non saved additionals
-            if ((myNet != NULL) && (myNet->getNumberOfAdditionals() > 0) && (myNet->isAdditionalsSaved() == false)) {
-                if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	                WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
-                }
-                // open question box
-                answer = FXMessageBox::question(this, MBOX_YES_NO,
-                                        "Save additionals before exit", "%s",
-                                        "You have unsaved additionals. Do you wish to save it before closing network?");
-                // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
-                if (answer == 1) {
-                    // write warning if netedit is running in testing mode
-                    if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
-                    }
-                    if(onCmdSaveAdditionals(0,0,0) == 0) {
-                        return false;
-                    }
-                } else {
-                    // write warning if netedit is running in testing mode
-                    if ((answer == 2) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
-                    } else if ((answer == 4) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
-                    }
-                }
+            return continueWithUnsavedAdditionalChanges();
+        } else if (answer == MBOX_CLICKED_SAVE) {
+            onCmdSaveNetwork(0, 0, 0);
+            if (!myUndoList->marked()) {
+                // saving failed
+                return false;
             }
-            // clear undo list and return true to continue with closing/reload
-            myUndoList->p_clear(); //only ask once
-            return true;
+            return continueWithUnsavedAdditionalChanges();
         } else {
             // write warning if netedit is running in testing mode
             if ((answer == 2) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
-	            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
             } else if ((answer == 4) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
-	            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
             }
             // return false to stop closing/reloading
             return false;
         }
     } else {
-        // Check if there are non saved additionals
-        if ((myNet != NULL) && (myNet->getNumberOfAdditionals() > 0) && (myNet->isAdditionalsSaved() == false)) {
+        return continueWithUnsavedAdditionalChanges();
+    }
+}
+
+bool
+GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {    
+    // Check if there are non saved additionals
+    if ((myNet != NULL) && (myNet->getNumberOfAdditionals() > 0) && (myNet->isAdditionalsSaved() == false)) {
+        if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
+            WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
+        }
+        // open question box
+        FXuint answer = FXMessageBox::question(this, MBOX_QUIT_SAVE_CANCEL,
+                "Save additionals before exit", "%s",
+                "You have unsaved additionals. Do you wish to quit and discard all changes?");
+        // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
+        //1:quit, 2:safe, 3:cancel, 4:esc
+        if (answer == MBOX_CLICKED_QUIT) {
+            if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
+	            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'"); 
+            }
+            return true;
+        } else if (answer == MBOX_CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
             if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	            WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
             }
-            // open question box
-            answer = FXMessageBox::question(this, MBOX_YES_NO,
-                                            "Save additionals before exit", "%s",
-                                            "You have unsaved additionals. Do you wish to save it before closing network?");
-            
-            // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
-            if (answer == 1) {
-                // write warning if netedit is running in testing mode
-                if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
-                }
-                if (onCmdSaveAdditionals(0,0,0) == 0) {
-                    return false;
-                }
-            } else {
-                // write warning if netedit is running in testing mode
-                if ((answer == 2) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
-	                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
-                } else if ((answer == 4) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
-	                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
-                }
+            if (onCmdSaveAdditionals(0,0,0) == 0) {
+                return false;
+            }
+        } else {
+            return false;
+            // write warning if netedit is running in testing mode
+            if ((answer == 2) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
+            } else if ((answer == 4) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
             }
         }
-        // return true to continue closing/reloading
-        return true;
     }
+    // clear undo list and return true to continue with closing/reload
+    myUndoList->p_clear(); //only ask once
+    return true;
 }
 
 
