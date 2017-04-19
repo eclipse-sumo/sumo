@@ -496,6 +496,12 @@ long
 GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
     FXEvent* e = (FXEvent*) data;
     setFocus();
+    
+    // if we're in testing mode, show a warning with the position of mouse
+    if(myTestingMode == true) {
+        WRITE_WARNING("Click in position: " + toString(getPositionInformation().x()) + " - " + toString(getPositionInformation().y()));
+    }
+    
     // limit position depending of myMenuCheckShowGrid
     Position clickedPosition = snapToActiveGrid(getPositionInformation());
 
