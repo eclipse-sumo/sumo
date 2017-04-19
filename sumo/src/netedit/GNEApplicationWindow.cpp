@@ -1443,7 +1443,6 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
                 "Save additionals before exit", "%s",
                 "You have unsaved additionals. Do you wish to quit and discard all changes?");
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
-        //1:quit, 2:safe, 3:cancel, 4:esc
         if (answer == MBOX_CLICKED_QUIT) {
             if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
 	            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'"); 
