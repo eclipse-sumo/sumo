@@ -2111,6 +2111,7 @@ MSLCM_SL2015::keepLatGap(int state,
         std::cout << "    keepLatGap laneOffset=" << laneOffset
                   << " latDist=" << latDist
                   << " state=" << toString((LaneChangeAction)state)
+                  << " blocked=" << toString((LaneChangeAction)blocked)
                   << " gapFactor=" << gapFactor
                   << " stayInLane=" << stayInLane << "\n"
                   << "       stayInEdge: surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n";
