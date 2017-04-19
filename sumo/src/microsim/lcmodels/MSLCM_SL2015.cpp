@@ -1396,6 +1396,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                     latDistSublane = sublaneSides[sublaneCompact] - rightVehSide;
                     break;
                 case LATALIGN_ARBITRARY:
+                    latDistSublane = 0;
                     break;
             }
         }
