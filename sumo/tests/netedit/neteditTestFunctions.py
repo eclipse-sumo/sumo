@@ -235,16 +235,16 @@ def quit(neteditProcess, netNonSavedDialog = False, saveNet = False, additionals
     # Check if net must be saved
     if netNonSavedDialog:
         if saveNet:
-            waitQuestion("y")
+            waitQuestion("s")
         else:
-            waitQuestion("n")
+            waitQuestion("q")
             
     # Check if additionals must be saved
     if additionalsNonSavedDialog:
         if saveAdditionals:
-            waitQuestion("y")
+            waitQuestion("s")
         else:
-            waitQuestion("n")
+            waitQuestion("q")
 
     # wait some seconds
     for t in xrange(3):
