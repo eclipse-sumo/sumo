@@ -184,7 +184,7 @@ class Scenario:
         if self.netName is not None:
             self.net = sumolib.net.readNet(self.netName)
             return self.net
-        raise "network is unknown"
+        raise RuntimeError("network is unknown")
 
     def fullPath(self, fileName):
         print("full >" + os.path.join(self.dataPath, fileName))
@@ -400,5 +400,4 @@ def getScenario(which, useName, params, withDefaultDemand=True):
     elif which == "BasicRiLSACorridor3":
         from . import basic_rilsacorridor3
         return basic_rilsacorridor3.Scenario_BasicRiLSACorridor3(useName, params, withDefaultDemand)
-    print("unknown scenario '%s'" % name)
-    raise
+    raise RuntimeError("unknown scenario '%s'" % name)

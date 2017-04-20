@@ -81,16 +81,16 @@ class ScenarioSet:
         self.params = params
 
     def getNumRuns(self):
-        raise "virtual ScenarioSet/getNumRuns"
+        raise NotImplementedError("virtual ScenarioSet/getNumRuns")
 
     def getAverageDuration(self):
-        raise "virtual ScenarioSet/getAverageDuration"
+        raise NotImplementedError("virtual ScenarioSet/getAverageDuration")
 
     def iterate(self):
-        raise "virtual ScenarioSet/iterate"
+        raise NotImplementedError("virtual ScenarioSet/iterate")
 
     def getRunsMatrix(self):
-        raise "virtual ScenarioSet/getRunsMatrix"
+        raise NotImplementedError("virtual ScenarioSet/getRunsMatrix")
 
     def getInt(self, name):
         return int(self.params[name])
@@ -442,7 +442,7 @@ class ScenarioSet_RiLSA1LoadCurves(ScenarioSet):
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
                     print(stream._departEdgeModel)
-                    raise "Hmmm, unknown stream??"
+                    raise RuntimeError("Hmmm, unknown stream??")
             s.demand.streams = nStreams
             end = 86400
             sampleFactor = None
@@ -622,7 +622,7 @@ class ScenarioSet_RiLSA1LoadCurvesSampled(ScenarioSet):
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
                     print(stream._departEdgeModel)
-                    raise "Hmmm, unknown stream??"
+                    raise RuntimeError("Hmmm, unknown stream??")
             s.demand.streams = nStreams
             end = 86400
             sampleFactor = 1
@@ -874,7 +874,7 @@ class ScenarioSet_RiLSA1Outflow(ScenarioSet_RiLSA1LoadCurvesSampled):
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
                     print(stream._departEdgeModel)
-                    raise "Hmmm, unknown stream??"
+                    raise RuntimeError("Hmmm, unknown stream??")
             s.demand.streams = nStreams
             end = 86400
             sampleFactor = 1
@@ -1014,7 +1014,7 @@ class ScenarioSet_RiLSA1PedFlow(ScenarioSet_RiLSA1LoadCurvesSampled):
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
                     print(stream._departEdgeModel)
-                    raise "Hmmm, unknown stream??"
+                    raise RuntimeError("Hmmm, unknown stream??")
             s.demand.streams = nStreams
             s.demand.addStream(demandGenerator.Stream(
                 "p_emp_to_mw", 0, 86400, f1, "emp", "mw", {"pedestrian": 1}))
@@ -1149,7 +1149,7 @@ class ScenarioSet_RiLSA1PTIteration(ScenarioSet_RiLSA1LoadCurvesSampled):
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
                     print(stream._departEdgeModel)
-                    raise "Hmmm, unknown stream??"
+                    raise RuntimeError("Hmmm, unknown stream??")
             s.demand.streams = nStreams
 
             vehicles = []
@@ -2350,7 +2350,7 @@ class ScenarioSet_RiLSA1LoadCurvesOutTLS(ScenarioSet):
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
                     print(stream._departEdgeModel)
-                    raise "Hmmm, unknown stream??"
+                    raise RuntimeError("Hmmm, unknown stream??")
             s.demand.streams = nStreams
             end = 86400
             sampleFactor = None
@@ -2530,7 +2530,7 @@ class ScenarioSet_RiLSA1LoadCurvesOutTLS24(ScenarioSet):
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
                     print(stream._departEdgeModel)
-                    raise "Hmmm, unknown stream??"
+                    raise RuntimeError("Hmmm, unknown stream??")
             s.demand.streams = nStreams
             end = 86400
             sampleFactor = None
@@ -2709,7 +2709,7 @@ class ScenarioSet_RiLSA1LoadCurvesBothTLS(ScenarioSet):
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
                     print(stream._departEdgeModel)
-                    raise "Hmmm, unknown stream??"
+                    raise RuntimeError("Hmmm, unknown stream??")
             s.demand.streams = nStreams
             end = 86400
             sampleFactor = None
@@ -2889,7 +2889,7 @@ class ScenarioSet_RiLSA1LoadCurvesBothTLS24(ScenarioSet):
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
                     print(stream._departEdgeModel)
-                    raise "Hmmm, unknown stream??"
+                    raise RuntimeError("Hmmm, unknown stream??")
             s.demand.streams = nStreams
             end = 86400
             sampleFactor = None
@@ -3068,7 +3068,7 @@ class ScenarioSet_BasicRiLSANet(ScenarioSet):
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
                     print(stream._departEdgeModel)
-                    raise "Hmmm, unknown stream??"
+                    raise RuntimeError("Hmmm, unknown stream??")
             s.demand.streams = nStreams
             end = 86400
             s.demand.build(0, end, s.netName, s.demandName, None)
@@ -3234,7 +3234,7 @@ class ScenarioSet_BasicRiLSANet2x2(ScenarioSet):
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
                     print(stream._departEdgeModel)
-                    raise "Hmmm, unknown stream??"
+                    raise RuntimeError("Hmmm, unknown stream??")
             s.demand.streams = nStreams
             end = 86400
             sampleFactor = None
@@ -3412,7 +3412,7 @@ class ScenarioSet_BasicRiLSACorridor3(ScenarioSet):
                         extrapolateDemand(stream, 3600, cWE, 7).streams)
                 else:
                     print(stream._departEdgeModel)
-                    raise "Hmmm, unknown stream??"
+                    raise RuntimeError("Hmmm, unknown stream??")
             s.demand.streams = nStreams
             end = 86400
             sampleFactor = None
@@ -3586,7 +3586,7 @@ def getScenarioSet(name, params):
     if name == "BasicRiLSACorridor3_24":
         return ScenarioSet_BasicRiLSACorridor3(params)
 
-    raise "unknown scenario '%s'" % name
+    raise RuntimeError("unknown scenario '%s'" % name)
 
 
 def getAllScenarioSets():

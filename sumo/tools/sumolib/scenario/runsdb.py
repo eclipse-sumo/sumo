@@ -54,7 +54,7 @@ class RunsDB:
 
     def addRun(self, scenario, kvDesc):
         if self.run < 0:
-            raise "Database was not initialised"
+            raise RuntimeError("Database was not initialised")
         self.run = self.run + 1
         cid = self.run - 1
         for k in kvDesc:
@@ -145,7 +145,7 @@ class RunsDB:
                     ret[r][row[1]] = {}
                 if row[2] in ret[r][row[1]]:
                     pass
-                    raise "set twice!!"
+                    raise RuntimeError("set twice!!")
                 ret[r][row[1]][row[2]] = row[3]
         return ret
 

@@ -220,7 +220,7 @@ class Net:
             else:
                 return self.getDirectionFromNode(edge.toNode, [-1 * edir[1], -1 * edir[0]])
         else:
-            raise "Unrecognized direction '%s'" % direction
+            raise RuntimeError("Unrecognized direction '%s'" % direction)
 
     def dir2connection(self, direction, edge, lane, seen):
         toEdge = self.getMatchingOutgoing(edge, direction)
