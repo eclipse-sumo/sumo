@@ -1015,10 +1015,10 @@ MSLCM_SL2015::_wantsChangeSublane(
         myLeftSpace = currentDist - myVehicle.getPositionOnLane();
         if (changeToBest && abs(bestLaneOffset) > 1) {
             // there might be a vehicle which needs to counter-lane-change one lane further and we cannot see it yet
-            if (gDebugFlag2) {
-                std::cout << "  reserving space for unseen blockers\n";
-            }
             myLeadingBlockerLength = MAX2((double)(right ? 20.0 : 40.0), myLeadingBlockerLength);
+            if (gDebugFlag2) {
+                std::cout << "  reserving space for unseen blockers myLeadingBlockerLength=" << myLeadingBlockerLength << "\n";
+            }
         }
 
         // letting vehicles merge in at the end of the lane in case of counter-lane change, step#1
