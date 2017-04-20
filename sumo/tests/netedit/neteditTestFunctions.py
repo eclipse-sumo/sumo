@@ -26,6 +26,8 @@ from sikuli import *
 
 # define delay before every operation
 DELAY = 0.1
+DELAY_QUESTION = 1
+DELAY_REFERENCE = 50
 
 Settings.MoveMouseDelay = 0.1
 Settings.DelayBeforeDrop = 0.1
@@ -152,7 +154,7 @@ def getReferenceMatch(neProcess, waitTime):
         sys.exit("Killed netedit process. 'reference.png' not found")
 
 # setup and start netedit
-def setupAndStart(testRoot, newNet=False, searchReference=True, waitTime=20):
+def setupAndStart(testRoot, newNet=False, searchReference=True, waitTime=DELAY_REFERENCE):
     setup(testRoot)
     # Open netedit
     neteditProcess = Popen(newNet)
@@ -217,7 +219,7 @@ def setZoom(positionX, positionY, zoomLevel):
 # netedit wait question
 def waitQuestion(answer):
     # wait 0.5 second to question dialog
-    wait(0.5)
+    wait(DELAY_QUESTION)
     # Answer can be "y" or "n"
     typeTowKeys(answer, Key.ALT)
 
@@ -542,7 +544,7 @@ def changeAutomaticallyDeleteAdditionals(match):
 # close warning about automatically delete additionals
 def waitAutomaticallyDeleteAdditionalsWarning():
     # wait 0.5 second to question dialog
-    wait(0.5)
+    wait(DELAY_QUESTION)
     # press enter to close dialog
     typeEnter()
 
