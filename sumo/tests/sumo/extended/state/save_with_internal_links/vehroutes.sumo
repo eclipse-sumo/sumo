@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec  8 13:27:50 2016 by SUMO Version dev-SVN-r22228
+<!-- generated on Thu Apr 20 14:55:48 2017 by SUMO Version dev-SVN-r23985
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -27,7 +27,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v0" type="type1" depart="0.00" arrival="32.00">
+    <vehicle id="v0" type="type1" depart="0.00" line="line1" arrival="32.00">
         <route edges="beg middle end"/>
         <stop lane="middle_0" duration="0.00"/>
         <param key="has.rerouting.device" value="false"/>

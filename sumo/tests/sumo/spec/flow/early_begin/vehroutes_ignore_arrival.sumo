@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04/29/14 18:21:58 by SUMO sumo Version dev-SVN-r16258
+<!-- generated on Thu Apr 20 14:55:09 2017 by SUMO Version dev-SVN-r23985
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -20,7 +20,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -28,23 +28,23 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="f1.1" depart="6.00" arrival="47.00">
+    <vehicle id="f1.1" depart="6.00" departPos="12.80" arrival="47.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="f1.0" depart="5.00" arrival="47.00">
+    <vehicle id="f1.0" depart="5.00" departPos="0.00" arrival="47.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="f1.3" depart="8.00" arrival="49.00">
+    <vehicle id="f1.3" depart="8.00" departPos="12.80" arrival="49.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="f1.2" depart="7.00" arrival="49.00">
+    <vehicle id="f1.2" depart="7.00" departPos="0.00" arrival="49.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="f1.4" depart="9.00" arrival="51.00">
+    <vehicle id="f1.4" depart="9.00" departPos="0.00" arrival="51.00">
         <route edges="beg end"/>
     </vehicle>
 
