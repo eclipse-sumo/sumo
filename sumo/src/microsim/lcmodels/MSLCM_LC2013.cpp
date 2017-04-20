@@ -167,21 +167,7 @@ MSLCM_LC2013::wantsChange(
 
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
-        if (result & LCA_WANTS_LANECHANGE) {
-            std::cout << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
-                      << " veh=" << myVehicle.getID()
-                      << " wantsChangeTo=" << (laneOffset == -1  ? "right" : "left")
-                      << ((result & LCA_URGENT) ? " (urgent)" : "")
-                      << ((result & LCA_CHANGE_TO_HELP) ? " (toHelp)" : "")
-                      << ((result & LCA_STRATEGIC) ? " (strat)" : "")
-                      << ((result & LCA_COOPERATIVE) ? " (coop)" : "")
-                      << ((result & LCA_SPEEDGAIN) ? " (speed)" : "")
-                      << ((result & LCA_KEEPRIGHT) ? " (keepright)" : "")
-                      << ((result & LCA_TRACI) ? " (traci)" : "")
-                      << ((blocked & LCA_BLOCKED) ? " (blocked)" : "")
-                      << ((blocked & LCA_OVERLAPPING) ? " (overlap)" : "")
-                      << "\n\n\n";
-        }
+        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " result=" << toString((LaneChangeAction)result) << " blocked=" << toString((LaneChangeAction)blocked) << "\n\n\n";
     }
 #endif
 
@@ -1326,7 +1312,7 @@ MSLCM_LC2013::_wantsChange(
             // there might be a vehicle which needs to counter-lane-change one lane further and we cannot see it yet
 #ifdef DEBUG_WANTS_CHANGE
             if (DEBUG_COND) {
-                std::cout << "  reserving space for unseen blockers\n";
+                std::cout << "  reserving space for unseen blockers myLeadingBlockerLength=" << myLeadingBlockerLength << "\n";
             }
 #endif
             myLeadingBlockerLength = MAX2((double)(right ? 20.0 : 40.0), myLeadingBlockerLength);
