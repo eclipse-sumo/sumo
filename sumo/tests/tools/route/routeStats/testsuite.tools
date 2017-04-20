@@ -1,5 +1,8 @@
 # get statistics on route lenghts
 basic
 
+# get statistics on route departs
+depart
+
 # compare two sets of routes for the same vehicles
 diff

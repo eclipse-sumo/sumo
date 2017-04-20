@@ -41,8 +41,10 @@ def get_options():
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
+    optParser.add_option("--attribute", type="string",
+                         default="length", help="attribute to analyze [length, depart]")
     optParser.add_option("--binwidth", type="float",
-                         default=500, help="binning width of route length histogram")
+                         default=500, help="binning width of result histogram")
     optParser.add_option("--hist-output", type="string",
                          default=None, help="output file for histogram (gnuplot compatible)")
     optParser.add_option("--full-output", type="string",
@@ -62,14 +64,18 @@ def get_options():
     return options
 
 
-def getRouteLength(net, vehicle):
-    return sum([net.getEdge(e).getLength() for e in vehicle.route[0].edges.split()])
-
 
 def main():
     options = get_options()
-    net = readNet(options.network)
-    edges = set([e.getID() for e in net.getEdges()])
+    net = None
+    attribute_retriever = None
+    if options.attribute == "length":
+        net = readNet(options.network)
+        attribute_retriever = lambda vehicle: sum([net.getEdge(e).getLength() for e in vehicle.route[0].edges.split()])
+    else:
+        attribute_retriever = lambda vehicle: float(vehicle.depart)
+
+    
 
     lengths = {}
     lengths2 = {}
@@ -77,10 +83,10 @@ def main():
     if options.routeFile2 is None:
         # write statistics on a single route file
         stats = Statistics(
-            "route lengths", histogram=True, scale=options.binwidth)
+            "route %ss" % options.attribute, histogram=True, scale=options.binwidth)
 
     for vehicle in parse(options.routeFile, 'vehicle'):
-        length = getRouteLength(net, vehicle)
+        length = attribute_retriever(vehicle)
         if options.routeFile2 is None:
             stats.add(length, vehicle.id)
         lengths[vehicle.id] = length
@@ -88,9 +94,9 @@ def main():
     if options.routeFile2 is not None:
         # compare route lengths between two files
         stats = Statistics(
-            "route length difference", histogram=True, scale=options.binwidth)
+            "route %s difference" % options.attribute, histogram=True, scale=options.binwidth)
         for vehicle in parse(options.routeFile2, 'vehicle'):
-            lengths2[vehicle.id] = getRouteLength(net, vehicle)
+            lengths2[vehicle.id] = attribute_retriever(vehicle)
             stats.add(lengths2[vehicle.id] - lengths[vehicle.id], vehicle.id)
     print(stats)
 
