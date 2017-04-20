@@ -276,6 +276,17 @@ private:
     /// @brief The last edge the exit time was saved for
     const MSEdge* myLastSavedAt;
 
+    /// @brief The lane the vehicle departed at
+    int myDepartLane;
+
+    /// @brief The lane the vehicle departed at
+    double myDepartPos;
+
+    /// @brief The speed on departure
+    double myDepartSpeed;
+
+    /// @brief The lateral depart position
+    double myDepartPosLat;
 
 private:
     /// @brief Invalidated copy constructor.
