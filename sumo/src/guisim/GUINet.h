@@ -222,6 +222,9 @@ public:
     double getAvgDepartDelay() const {
         return MSDevice_Tripinfo::getAvgDepartDelay();
     }
+    double getAvgTripSpeed() const {
+        return MSDevice_Tripinfo::getAvgDuration() != 0 ? MSDevice_Tripinfo::getAvgRouteLength() / MSDevice_Tripinfo::getAvgDuration() : 0;
+    }
 
     /** @brief Returns the person control
      *

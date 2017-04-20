@@ -412,7 +412,7 @@ GUIParameterTableWindow*
 GUINet::getParameterWindow(GUIMainWindow& app,
                            GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 28);
+        new GUIParameterTableWindow(app, *this, 29);
     // add items
     ret->mkItem("loaded vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
@@ -462,6 +462,7 @@ GUINet::getParameterWindow(GUIMainWindow& app,
             ret->mkItem("avg. trip waiting time [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWaitingTime));
             ret->mkItem("avg. trip time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTimeLoss));
             ret->mkItem("avg. trip depart delay [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDepartDelay));
+            ret->mkItem("avg. trip speed [m/s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTripSpeed));
         }
     }
     ret->mkItem("nodes [#]", false, (int)myJunctions->size());
