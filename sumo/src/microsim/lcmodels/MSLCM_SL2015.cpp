@@ -2238,6 +2238,11 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                                                         << " surplusGapRight=" << surplusGapRight
                                                         << " surplusGapLeft=" << surplusGapLeft
                                                         << "\n";
+                if (gap < -POSITION_EPS) {
+                    //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ignoring lateral gap to " << foe->getID() << "\n";
+                    // ignore vehicles that area already in a car-following relationship
+                    continue;
+                }
                 if (foeCenter < oldCenter) {
                     surplusGapRight = MIN2(surplusGapRight, gap - currentMinGap);
                 } else {
