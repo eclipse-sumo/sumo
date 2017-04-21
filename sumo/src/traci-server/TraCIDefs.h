@@ -141,20 +141,20 @@ public:
 
 class TraCIConnection {
 public:
-    TraCIConnection(const std::string& _approachedLane, bool _hasPrio, bool _isOpen, bool _hasFoe,
-            std::string _approachedInternal, std::string _state, std::string _direction, double _length)
+    TraCIConnection(const std::string& _approachedLane, const bool _hasPrio, const bool _isOpen, const bool _hasFoe,
+        const std::string _approachedInternal, const std::string _state, const std::string _direction, const double _length)
         : approachedLane(_approachedLane), hasPrio(_hasPrio), isOpen(_isOpen), hasFoe(_hasFoe),
           approachedInternal(_approachedInternal), state(_state), direction(_direction), length(_length) {}
     ~TraCIConnection() {}
 
     std::string approachedLane;
+    bool hasPrio;
+    bool isOpen;
+    bool hasFoe;
     std::string approachedInternal;
     std::string state;
     std::string direction;
     double length;
-    bool hasPrio;
-    bool isOpen;
-    bool hasFoe;
 };
 
 
