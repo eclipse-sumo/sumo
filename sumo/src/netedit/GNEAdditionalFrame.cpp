@@ -1100,7 +1100,6 @@ GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) 
             ;
         }
     }
-    // add extra 
     // show warning box if input parameters aren't invalid
     if(extra.size() == 0) {
         errorMessage = "Invalid input parameter of " + toString(myAdditionalTag) + ": " + errorMessage;
@@ -1110,6 +1109,10 @@ GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) 
 
     // set message in status bar
     myViewNet->setStatusBarText(errorMessage);
+    // Write Warning in console if we're in testing mode
+    if(myViewNet->isTestingModeEnabled() == true) {
+        WRITE_WARNING(errorMessage);
+    }
 }
 
 
