@@ -115,7 +115,7 @@ TraCI_POI::add(const std::string& poiID, const TraCIPosition& pos, const TraCICo
 }
 
 bool
-TraCI_POI::remove(const std::string& poiID, int layer) {
+TraCI_POI::remove(const std::string& poiID, int /* layer */) {
      ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
      return shapeCont.removePOI(poiID);
 }

@@ -53,9 +53,9 @@ std::vector<std::string> TraCI::myLoadArgs;
 // ===========================================================================
 // member definitions
 // ===========================================================================
-void
+/* void
 TraCI::connect(const std::string& host, int port) {
-}
+}*/
 
 void
 TraCI::load(const std::vector<std::string>& args) {
@@ -66,14 +66,14 @@ void
 TraCI::close() {
 }
 
-void
+/* void
 TraCI::subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const {
 }
 
 void
 TraCI::subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<
         int>& vars) const {
-}
+} */
 
 const TraCI::SubscribedValues&
 TraCI::getSubscriptionResults() const {

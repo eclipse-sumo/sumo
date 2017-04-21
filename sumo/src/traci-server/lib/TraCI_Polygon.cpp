@@ -64,14 +64,13 @@ void TraCI_Polygon::setType(const std::string& polygonID, const std::string& set
 void TraCI_Polygon::setShape(const std::string& polygonID, const TraCIPositionVector& shape)
 {
     PositionVector positionVector = TraCI::makePositionVector(shape);
-    SUMO::Polygon* p = getPolygon(polygonID);
+    getPolygon(polygonID); // just to check whether it exists
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     shapeCont.reshapePolygon(polygonID, positionVector);
 }
 void TraCI_Polygon::setColor(const std::string& polygonID, const TraCIColor& c)
 {
-    SUMO::Polygon* p = getPolygon(polygonID);
-    p->setColor(TraCI::makeRGBColor(c));
+    getPolygon(polygonID)->setColor(TraCI::makeRGBColor(c));
 }
 void
 TraCI_Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& c, bool fill, const std::string& type, int layer)
@@ -83,7 +82,7 @@ TraCI_Polygon::add(const std::string& polygonID, const TraCIPositionVector& shap
         throw TraCIException("Could not add polygon '" + polygonID + "'");
     }
 }
-void TraCI_Polygon::remove(const std::string& polygonID, int layer)
+void TraCI_Polygon::remove(const std::string& polygonID, int /* layer */)
 {
     // !!! layer not used yet (shouldn't the id be enough?)
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();

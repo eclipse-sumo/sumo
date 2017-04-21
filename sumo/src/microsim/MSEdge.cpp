@@ -864,7 +864,7 @@ MSEdge::getSortedPersons(SUMOTime timestep, bool includeRiding) const {
 
 
 std::vector<MSTransportable*>
-MSEdge::getSortedContainers(SUMOTime timestep, bool includeRiding) const {
+MSEdge::getSortedContainers(SUMOTime timestep, bool /* includeRiding */) const {
     std::vector<MSTransportable*> result(myContainers.begin(), myContainers.end());
     sort(result.begin(), result.end(), transportable_by_position_sorter(timestep));
     return result;

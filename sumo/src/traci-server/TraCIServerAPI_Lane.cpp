@@ -111,7 +111,6 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
                 tempContent.writeInt((int) links.size());
                 ++cnt;
-                const SUMOTime currTime = MSNet::getInstance()->getCurrentTimeStep();
                 for (std::vector<TraCIConnection>::const_iterator i = links.begin(); i != links.end(); ++i) {
                     // approached non-internal lane (if any)
                     tempContent.writeUnsignedByte(TYPE_STRING);
@@ -146,7 +145,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     tempContent.writeDouble(i->length);
                     ++cnt;
                 }
-                tempMsg.writeInt((int) cnt);
+                tempMsg.writeInt(cnt);
                 tempMsg.writeStorage(tempContent);
             }
             break;

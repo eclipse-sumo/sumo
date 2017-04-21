@@ -60,7 +60,7 @@ public:
      * @param[in] port The port to connect to
      * @exception tcpip::SocketException if the connection fails
      */
-    void connect(const std::string& host, int port);
+    //void connect(const std::string& host, int port);
 
 
     /// @brief ends the simulation and closes the connection
@@ -78,8 +78,8 @@ public:
     typedef std::map<std::string, TraCIValues> SubscribedValues;
     typedef std::map<std::string, SubscribedValues> SubscribedContextValues;
 
-    void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
-    void subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const;
+    //void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
+    //void subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const;
 
     const SubscribedValues& getSubscriptionResults() const;
     const TraCIValues& getSubscriptionResults(const std::string& objID) const;

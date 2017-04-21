@@ -1746,7 +1746,6 @@ MSLCM_SL2015::checkBlockingVehicles(
         CLeaderDist vehDist = vehicles[i];
         if (vehDist.first != 0) {
             // only check the current stripe occuped by foe (transform into edge-coordinates)
-            const double res = MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : vehDist.first->getLane()->getWidth();
             double foeRight, foeLeft;
             vehicles.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
             if (gDebugFlag2) {
@@ -2313,7 +2312,7 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
 int
 MSLCM_SL2015::wantsChange(
     int laneOffset,
-    MSAbstractLaneChangeModel::MSLCMessager& msgPass,
+    MSAbstractLaneChangeModel::MSLCMessager& /* msgPass */,
     int blocked,
     const std::pair<MSVehicle*, double>& leader,
     const std::pair<MSVehicle*, double>& neighLead,
