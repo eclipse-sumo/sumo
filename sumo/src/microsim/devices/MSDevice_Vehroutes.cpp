@@ -384,6 +384,12 @@ MSDevice_Vehroutes::saveState(OutputDevice& out) const {
     out.openTag(SUMO_TAG_DEVICE);
     out.writeAttr(SUMO_ATTR_ID, getID());
     std::vector<std::string> internals;
+    if (!MSGlobals::gUseMesoSim) {
+        internals.push_back(toString(myDepartLane));
+        internals.push_back(toString(myDepartPosLat));
+    }
+    internals.push_back(toString(myDepartSpeed));
+    internals.push_back(toString(myDepartPos));
     internals.push_back(toString(myReplacedRoutes.size()));
     for (int i = 0; i < (int)myReplacedRoutes.size(); ++i) {
         internals.push_back(myReplacedRoutes[i].edge->getID());
@@ -398,6 +404,12 @@ MSDevice_Vehroutes::saveState(OutputDevice& out) const {
 void
 MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    if (!MSGlobals::gUseMesoSim) {
+        bis >> myDepartLane;
+        bis >> myDepartPosLat;
+    }
+    bis >> myDepartSpeed;
+    bis >> myDepartPos;
     int size;
     bis >> size;
     for (int i = 0; i < size; ++i) {
