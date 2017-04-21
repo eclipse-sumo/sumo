@@ -1,0 +1,5 @@
+Warning: Invalid input parameter of chargingStation: 'power' cannot be negative
+Warning: Invalid input parameter of chargingStation: 'efficiency' takes only values between 0 and 1
+Warning: Invalid input parameter of chargingStation: 'startPos' overpass lane's lenght. Use 'force position' or another reference point.
+Warning: Invalid input parameter of chargingStation: 'startPos' overpass lane's lenght. Use 'force position' or another reference point.
+Warning: Invalid input parameter of chargingStation: 'startPos' takes a negative value. Use 'force position' or another reference point.

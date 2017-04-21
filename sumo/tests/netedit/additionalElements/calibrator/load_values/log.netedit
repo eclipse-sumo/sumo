@@ -31,9 +31,27 @@ Warning: Optional float attribute 'speedDev' of vType is missing; Default value 
 Warning: Format of optional float attribute 'speedDev' of vType is invalid; Cannot be parsed to float; Default value '0.00' will be used.
 Warning: Format of optional float attribute 'speedDev' of vType is invalid; Cannot be negative; Default value '0.00' will be used.
 Warning: Optional string attribute 'color' of vType is missing; Default value '1,1,0' will be used.
-Warning: Format of optional string attribute 'color' of vType is invalid; Default value '1,1,0' will be used.
 Warning: Optional string attribute 'vClass' of vType is missing; Default value 'ignoring' will be used.
 Warning: Format of optional string attribute 'vClass' of vType is invalid; Is not a part of defined set of Vehicle Classes; Default value 'ignoring' will be used.
 Warning: Format of optional string attribute 'emissionClass' of vType is invalid; Default value 'P_7_7' will be used.
 Warning: Optional string attribute 'guiShape' of vType is missing; Default value '0' will be used.
 Warning: Format of optional string attribute 'guiShape' of vType is invalid; Is not a part of defined set of Gui Vehicle Shapes; Default value '0' will be used.
+Warning: Optional float attribute 'width' of vType is missing; Default value '2.00' will be used.
+Warning: Format of optional float attribute 'width' of vType is invalid; Cannot be parsed to float; Default value '2.00' will be used.
+Warning: Format of optional float attribute 'width' of vType is invalid; Cannot be negative; Default value '2.00' will be used.
+Warning: Optional string attribute 'imgFile' of vType is missing; Default value '' will be used.
+Warning: Format of optional string attribute 'imgFile' of vType is invalid; Default value '' will be used.
+Warning: Optional float attribute 'impatience' of vType is missing; Default value '0.00' will be used.
+Warning: Format of optional float attribute 'impatience' of vType is invalid; Cannot be parsed to float; Default value '0.00' will be used.
+Warning: Optional string attribute 'laneChangeModel' of vType is missing; Default value 'LC2013' will be used.
+Warning: Format of optional string attribute 'laneChangeModel' of vType is invalid; Default value 'LC2013' will be used.
+Warning: Optional string attribute 'carFollowModel' of vType is missing; Default value 'Krauss' will be used.
+Warning: Format of optional string attribute 'carFollowModel' of vType is invalid; Default value 'Krauss' will be used.
+Warning: Optional int attribute 'personCapacity' of vType is missing; Default value '4' will be used.
+Warning: Format of optional int attribute 'personCapacity' of vType is invalid; Cannot be parsed to int; Default value '4' will be used.
+Warning: Format of optional int attribute 'personCapacity' of vType is invalid; Cannot be negative; Default value '4' will be used.
+Warning: Format of optional int attribute 'personCapacity' of vType is invalid; Cannot be parsed to int; Default value '4' will be used.
+Warning: Optional int attribute 'containerCapacity' of vType is missing; Default value '0' will be used.
+Warning: Format of optional int attribute 'containerCapacity' of vType is invalid; Cannot be parsed to int; Default value '0' will be used.
+Warning: Format of optional int attribute 'containerCapacity' of vType is invalid; Cannot be negative; Default value '0' will be used.
+Warning: Format of optional int attribute 'containerCapacity' of vType is invalid; Cannot be parsed to int; Default value '0' will be used.

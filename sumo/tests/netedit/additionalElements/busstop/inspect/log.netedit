@@ -1,6 +1,12 @@
+Warning: Value 'busStop_gneE2_1_1' for attribute id of busStop isn't valid
+Warning: Value 'dummy lane' for attribute lane of busStop isn't valid
+Warning: Value '-5' for attribute startPos of busStop isn't valid
+Warning: Value '400' for attribute startPos of busStop isn't valid
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'No'
+Warning: Value '3000' for attribute endPos of busStop isn't valid
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Value '10' for attribute endPos of busStop isn't valid
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.

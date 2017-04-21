@@ -1,0 +1,2 @@
+Warning: Invalid input parameter of busStop: 'startPos' overpass lane's lenght. Use 'force position' or another reference point.
+Warning: Invalid input parameter of busStop: 'startPos' takes a negative value. Use 'force position' or another reference point.

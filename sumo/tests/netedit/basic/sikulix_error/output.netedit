@@ -1,10 +1,10 @@
-running SikuliX: -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine
--jar /home/palcraft/Sikulix/sikulix.jar -run test.sikuli
-[info] runcmd: lsb_release -i -r -s 
-[error] script [ /home/palcraft/.texttest/tmp/netedit.gui.20Apr111512.23392/netedit.gui/basic/sikulix_error/test.sikuli ] stopped with error in line 30
++++ running this Java
++++ trying to run SikuliX
++++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
+[error] script [ C:\Users\Palcraft\.texttest\tmp\netedit.gui.21Apr125810.7336\netedit.gui\basic\sikulix_error\test.sikuli ] stopped with error in line 30
 [error] SystemExit ( Killed netedit process. 'reference.png' not found )
 [error] --- Traceback --- error source first
 line: module ( function ) statement 
-154: neteditTestFunctions (  getReferenceMatch )     sys.exit("Killed netedit process. 'reference.png' not found")
-165: neteditTestFunctions (  setupAndStart )     return neteditProcess, getReferenceMatch(neteditProcess, waitTime)
+176: neteditTestFunctions (  getReferenceMatch )     sys.exit("Killed netedit process. 'reference.png' not found")
+189: neteditTestFunctions (  setupAndStart )     return neteditProcess, getReferenceMatch(neteditProcess, waitTime)
 [error] --- Traceback --- end --------------

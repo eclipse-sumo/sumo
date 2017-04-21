@@ -13,5 +13,6 @@
     <calibrator id="calibrator13" lane="gneE0_0" pos="0.00" freq="120.00" output="calibrator13.txt"/>
     <calibrator id="calibrator14" lane="gneE0_0" pos="0.00" freq="100.00" output=""/>
     <calibrator id="calibrator15" lane="gneE0_0" pos="0.00" freq="100.00" output=""/>
-    <calibrator id="calibrator16" lane="gneE0_0" pos="0.00" freq="100.00" output="ownOutput.txt"/>
+    <calibrator id="calibrator16" lane="gneE0_0" pos="0.00" freq="100.00" output=""/>
+    <calibrator id="calibrator17" lane="gneE0_0" pos="0.00" freq="100.00" output="ownOutput.txt"/>
 </additionals>
