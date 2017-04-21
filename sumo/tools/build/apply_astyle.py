@@ -23,11 +23,6 @@ from __future__ import absolute_import
 
 import os
 import subprocess
-try:
-    import autopep8
-    autopep = True
-except:
-    autopep = False
 
 srcRoot = os.path.join(os.path.dirname(__file__), "../../src/")
 for root, dirs, files in os.walk(srcRoot):
@@ -40,14 +35,3 @@ for root, dirs, files in os.walk(srcRoot):
     for ignoreDir in ['.svn', 'foreign']:
         if ignoreDir in dirs:
             dirs.remove(ignoreDir)
-
-if autopep:
-    sumoRoot = os.path.join(os.path.dirname(__file__), "../../")
-    for root, dirs, files in os.walk(sumoRoot):
-        for name in files:
-            if name.endswith(".py"):
-                subprocess.call(
-                    "autopep8 --in-place".split() + [os.path.join(root, name)])
-        for ignoreDir in ['.svn', 'foreign']:
-            if ignoreDir in dirs:
-                dirs.remove(ignoreDir)
