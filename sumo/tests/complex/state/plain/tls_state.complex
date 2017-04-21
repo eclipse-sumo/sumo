@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 26 17:14:03 2015 by SUMO Version dev-SVN-r18156I
+<!-- generated on 04/21/17 18:53:50 by SUMO Version dev-SVN-r24000
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -15,19 +15,15 @@
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
-    <time>
-        <begin value="50.00"/>
-    </time>
-
     <report>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
 </configuration>
 -->
 
-<tls-states>
+<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
     <tlsState time="50.00" id="0/0" programID="0" phase="2" state="GrGg"/>
     <tlsState time="51.00" id="0/0" programID="0" phase="2" state="GrGg"/>
     <tlsState time="52.00" id="0/0" programID="0" phase="2" state="GrGg"/>
@@ -241,4 +237,4 @@
     <tlsState time="260.00" id="0/0" programID="0" phase="2" state="GrGg"/>
     <tlsState time="261.00" id="0/0" programID="0" phase="2" state="GrGg"/>
     <tlsState time="262.00" id="0/0" programID="0" phase="2" state="GrGg"/>
-</tls-states>
+</tlsStates>
