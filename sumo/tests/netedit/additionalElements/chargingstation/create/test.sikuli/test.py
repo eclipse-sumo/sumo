@@ -35,17 +35,38 @@ netedit.additionalMode()
 # select chargingStation
 netedit.changeAdditional("chargingStation")
 
+# set invalid charging power
+netedit.modifyAdditionalDefaultValue(2, "-200")
+
+# try to create chargingStation in mode "reference left"
+netedit.leftClick(match, 250, 250)
+
+# set invalid charging
+netedit.modifyAdditionalDefaultValue(2, "12000")
+
 # create chargingStation in mode "reference left"
 netedit.leftClick(match, 250, 250)
 
 # change reference to right
 netedit.modifyAdditionalDefaultValue(7, "reference right")
 
+# set invalid efficiency
+netedit.modifyAdditionalDefaultValue(3, "2")
+
+# try create chargingStation in mode "reference right"
+netedit.leftClick(match, 240, 250)
+
+# set valid efficiency
+netedit.modifyAdditionalDefaultValue(3, "0.3")
+
 # create chargingStation in mode "reference right"
 netedit.leftClick(match, 240, 250)
 
 # change reference to center
 netedit.modifyAdditionalDefaultValue(7, "reference center")
+
+# Change change in transit
+netedit.modifyAdditionalDefaultBoolValue(4)
 
 # create chargingStation in mode "reference center"
 netedit.leftClick(match, 425, 250)
@@ -55,6 +76,15 @@ netedit.modifyAdditionalDefaultValue(7, "reference left")
 
 # Change length
 netedit.modifyAdditionalDefaultValue(9, "30")
+
+# set invalid charge delay
+netedit.modifyAdditionalDefaultValue(5, "-5")
+
+# try to create a chargingStation in mode "reference left" (error)
+netedit.leftClick(match, 500, 250)
+
+# set invalid charge delay
+netedit.modifyAdditionalDefaultValue(5, "7")
 
 # try to create a chargingStation in mode "reference left" (Warning)
 netedit.leftClick(match, 500, 250)

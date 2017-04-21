@@ -44,19 +44,37 @@ netedit.leftClick(match, 100, 100)
 # create E3 with default parameters
 netedit.leftClick(match, 200, 100)
 
-# Change frequency
+# set invalid frequency
+netedit.modifyAdditionalDefaultValue(2, "-30")
+
+# try to create E3 with different frequency
+netedit.leftClick(match, 300, 100)
+
+# set valid frequency
 netedit.modifyAdditionalDefaultValue(2, "150")
 
 # create E3 with different frequency
 netedit.leftClick(match, 300, 100)
 
-# Change timeTreshold
+# set invalid timeTreshold
+netedit.modifyAdditionalDefaultValue(3, "-4")
+
+# try to create E3 with different timeTreshold
+netedit.leftClick(match, 400, 100)
+
+# set valid timeTreshold
 netedit.modifyAdditionalDefaultValue(3, "5")
 
 # create E3 with different timeTreshold
 netedit.leftClick(match, 400, 100)
 
-# Change speedTreshold
+# set invalid speedTreshold
+netedit.modifyAdditionalDefaultValue(4, "-3.80")
+
+# try to create E3 with different speedTreshold
+netedit.leftClick(match, 500, 100)
+
+# set valid speedTreshold
 netedit.modifyAdditionalDefaultValue(4, "2.51")
 
 # create E3 with different speedTreshold

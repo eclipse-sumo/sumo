@@ -41,13 +41,25 @@ netedit.leftClick(match, 250, 220)
 # create another vaporizer with the same default attributes (camera will be moved)
 netedit.leftClick(match, 250, 220)
 
-# change default start
+# set invalid start
+netedit.modifyAdditionalDefaultValue(2, "-12")
+
+# try to create vaporizer
+netedit.leftClick(match, 250, 220)
+
+# set valid start
 netedit.modifyAdditionalDefaultValue(2, "10")
 
 # create vaporizer (camera will be moved)
 netedit.leftClick(match, 250, 220)
 
-# change default end
+# set invalid end
+netedit.modifyAdditionalDefaultValue(3, "-20")
+
+# try to create create vaporizer
+netedit.leftClick(match, 250, 220)
+
+# set valid end
 netedit.modifyAdditionalDefaultValue(3, "20")
 
 # create vaporizer
@@ -56,7 +68,7 @@ netedit.leftClick(match, 250, 220)
 # change default start (Invalid, end > startTime)
 netedit.modifyAdditionalDefaultValue(2, "50")
 
-# try to create invalid vaporizer (show warning
+# try to create invalid vaporizer (show warning)
 netedit.leftClick(match, 250, 220)
 
 # change default end (valid))

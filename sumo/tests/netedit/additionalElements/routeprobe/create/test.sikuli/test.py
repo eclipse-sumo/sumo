@@ -41,13 +41,25 @@ netedit.leftClick(match, 250, 220)
 # create another routeProbe with the same default attributes (camera will be moved)
 netedit.leftClick(match, 250, 220)
 
-# change default frequency
+# set invalid frequency
+netedit.modifyAdditionalDefaultValue(2, "-20")
+
+# try to create routeProbe
+netedit.leftClick(match, 250, 220)
+
+# set valid default frequency
 netedit.modifyAdditionalDefaultValue(2, "120")
 
 # create routeProbe (camera will be moved)
 netedit.leftClick(match, 250, 220)
 
-# change default begin
+# set invalid default begin
+netedit.modifyAdditionalDefaultValue(3, "-11")
+
+# try to create routeProbe
+netedit.leftClick(match, 250, 220)
+
+# set valid default begin
 netedit.modifyAdditionalDefaultValue(3, "10")
 
 # create routeProbe (camera will be moved)

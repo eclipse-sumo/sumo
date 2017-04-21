@@ -50,10 +50,13 @@
 	<!-- non valid output (missing) -->
 	<calibrator id="calibrator14" lane="gneE0_0" pos="0.00" freq="100.00"/>
 	
+	<!-- non valid output (invalid) -->
+	<calibrator id="calibrator15" lane="gneE0_0" pos="0.00" freq="100.00" output="·$·%$%··$$"/>
+	
 	<!-- valid output (but empty)-->
-	<calibrator id="calibrator15" lane="gneE0_0" pos="0.00" freq="100.00" output=""/>
+	<calibrator id="calibrator16" lane="gneE0_0" pos="0.00" freq="100.00" output=""/>
 	
 	<!-- valid output -->
-	<calibrator id="calibrator16" lane="gneE0_0" pos="0.00" freq="100.00" output="ownOutput.txt"/>
+	<calibrator id="calibrator17" lane="gneE0_0" pos="0.00" freq="100.00" output="ownOutput.txt"/>
 	
 </additionals>

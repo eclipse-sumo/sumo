@@ -38,13 +38,25 @@ netedit.changeAdditional("e2Detector")
 # create E2 with default parameters
 netedit.leftClick(match, 125, 250)
 
-# Change lenght
+# set invalid  lenght
+netedit.modifyAdditionalDefaultValue(2, "-12")
+
+# try to create E2 with different lenght
+netedit.leftClick(match, 250, 250)
+
+# set valid lenght
 netedit.modifyAdditionalDefaultValue(2, "5")
 
 # create E2 with different lenght
 netedit.leftClick(match, 250, 250)
 
-# Change frequency
+# set invalid frequency
+netedit.modifyAdditionalDefaultValue(3, "-30")
+
+# try to create a E2 with different frequency
+netedit.leftClick(match, 350, 250)
+
+# set valid frequency
 netedit.modifyAdditionalDefaultValue(3, "120")
 
 # create E2 with different frequency
@@ -56,19 +68,37 @@ netedit.modifyAdditionalDefaultBoolValue(4)
 # create E2 with different cont
 netedit.leftClick(match, 450, 250)
 
-# Change time threshold
+# set invalid time threshold
+netedit.modifyAdditionalDefaultValue(5, "-12")
+
+# create E2 with different time threshold
+netedit.leftClick(match, 150, 220)
+
+# set valid time threshold
 netedit.modifyAdditionalDefaultValue(5, "10")
 
 # create E2 with different time threshold
 netedit.leftClick(match, 150, 220)
 
-# Change speed threshold
+# set invalid speed threshold
+netedit.modifyAdditionalDefaultValue(6, "-14")
+
+# try to create E2 with different speed threshold
+netedit.leftClick(match, 250, 220)
+
+# set valid speed threshold
 netedit.modifyAdditionalDefaultValue(6, "2.5")
 
 # create E2 with different speed threshold
 netedit.leftClick(match, 250, 220)
 
-# Change jam threshold
+# set invalid jam threshold
+netedit.modifyAdditionalDefaultValue(7, "-30")
+
+# try to create E2 with different jam threshold
+netedit.leftClick(match, 350, 220)
+
+# set valid jam threshold
 netedit.modifyAdditionalDefaultValue(7, "15.5")
 
 # create E2 with different jam threshold

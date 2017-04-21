@@ -38,13 +38,19 @@ netedit.changeAdditional("e1Detector")
 # create E1 with default parameters
 netedit.leftClick(match, 200, 250)
 
-# Change frequency
+# set a invalid  frequency
+netedit.modifyAdditionalDefaultValue(2, "-30")
+
+# try to create E1 with different frequency
+netedit.leftClick(match, 250, 250)
+
+# set a valid frequency
 netedit.modifyAdditionalDefaultValue(2, "150")
 
 # create E1 with different frequency
 netedit.leftClick(match, 250, 250)
 
-# Change frequency
+# Change split by tipe
 netedit.modifyAdditionalDefaultBoolValue(3)
 
 # create E1 with different split by type

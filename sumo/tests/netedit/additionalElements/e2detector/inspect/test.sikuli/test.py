@@ -92,6 +92,9 @@ netedit.modifyAttribute(4, "-100")
 # Change parameter 4 with a valid value
 netedit.modifyAttribute(4, "120")
 
+# Change parameter 5 with an non valid value
+netedit.modifyAttribute(5, "%%%&%%%&&")
+
 # Change parameter 5 with an empty value
 netedit.modifyAttribute(5, "")
 

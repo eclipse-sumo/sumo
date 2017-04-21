@@ -200,16 +200,110 @@
 		<vType id="type43" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="unknown" width="2.0" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
 		
 		<!-- non valid gui shape (missing)-->
-		<vType id="type43" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" width="2.0" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		<vType id="type44" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" width="2.0" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
 		
 		<!-- non valid gui shape (empty) -->
-		<vType id="type43" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="" width="2.0" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		<vType id="type45" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="" width="2.0" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
 		
 		<!-- non valid gui shape (dummy) -->
-		<vType id="type43" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="dummyGuiShape" width="2.0" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		<vType id="type46" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="dummyGuiShape" width="2.0" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
 		
 		<!-- valid gui shape -->
-		<vType id="type43" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="2.0" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		<vType id="type47" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="2.0" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid width (missing) -->
+		<vType id="type48" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid width (dummy) -->
+		<vType id="type49" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="dummy" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid width (negative) -->
+		<vType id="type50" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="-2.2" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- valid width -->
+		<vType id="type51" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- valid width -->
+		<vType id="type52" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid imgFile (missing) -->
+		<vType id="type53" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid imgFile (invalid) -->
+		<vType id="type54" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="######$$$$%%%%" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- valid imgFile (empty) -->
+		<vType id="type55" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- valid imgFile -->
+		<vType id="type56" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid impatience (missing) -->
+		<vType id="type57" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid impatience (dummy) -->
+		<vType id="type58" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="dummy" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid impatience (negative) -->
+		<vType id="type59" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="-3.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- valid impatience -->
+		<vType id="type60" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid laneChangeModel (missing) -->
+		<vType id="type61" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid laneChangeModel (empty) -->
+		<vType id="type62" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid laneChangeModel (invalid) -->
+		<vType id="type63" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="dummyLCM" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- valid laneChangeModel -->
+		<vType id="type64" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+
+		<!-- non valid carFollowModel (missing) -->
+		<vType id="type65" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+
+		<!-- non valid carFollowModel (empty) -->
+		<vType id="type66" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid carFollowModel (dummy) -->
+		<vType id="type67" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="dummyCFM" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+
+		<!-- valid carFollowModel -->
+		<vType id="type68" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="PWagner2009" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+	
+		<!-- non valid personCapacity (missing) -->
+		<vType id="type69" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="PWagner2009" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid personCapacity (dummy) -->
+		<vType id="type70" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="PWagner2009" personCapacity="dummy" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid personCapacity (negative) -->
+		<vType id="type71" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="PWagner2009" personCapacity="-3" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid personCapacity (double) -->
+		<vType id="type72" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="PWagner2009" personCapacity="5.5" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- valid personCapacity -->
+		<vType id="type73" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="PWagner2009" personCapacity="6" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+
+		<!-- non valid containerCapacity (missing) -->
+		<vType id="type74" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="PWagner2009" personCapacity="6" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid containerCapacity (dummy) -->
+		<vType id="type75" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="PWagner2009" personCapacity="6" containerCapacity="dummy" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid containerCapacity (negative) -->
+		<vType id="type76" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="PWagner2009" personCapacity="6" containerCapacity="-3" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- non valid containerCapacity (double) -->
+		<vType id="type77" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="PWagner2009" personCapacity="6" containerCapacity="2.5" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
+		<!-- valid containerCapacity -->
+		<vType id="type78" accel="2.3" decel="8.3" sigma="2" tau = "2.5" length="0" minGap = "3.4" maxSpeed="90" speedFactor="2.0" speedDev="1.2" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.1" imgFile="ownImgFile.png" impatience="2.0" laneChangeModel="DK2008" carFollowModel="PWagner2009" personCapacity="6" containerCapacity="4" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0" />
+		
 		
 	</calibrator>
 	
