@@ -376,7 +376,7 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
         }
         case SUMO_ATTR_FILE:
-            return isValidFileValue(value);
+            return isValidFilename(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:

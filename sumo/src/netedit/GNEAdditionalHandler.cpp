@@ -1248,8 +1248,8 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
         if (attrs.hasAttribute(attribute)) {
             // Parse attribute as string
             parsedAttribute = attrs.get<std::string>(attribute, objectid, ok, false);
-            // Check if can be a empty attribute
-            if (!ok && GNEAttributeCarrier::isEmpty(tag, attribute)) {
+            // Check if is the attribute "COLOR"
+            if (!ok && (attribute == SUMO_ATTR_COLOR)) {
                 ok = true;
             }
             // check that parsed attribute can be converted to type T
@@ -1299,11 +1299,17 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
                     ok = false;
                 }
             }
-            // set estra check for Vehicle Classes
+            // set extra check for filename values
+            if(GNEAttributeCarrier::isFilename(tag, attribute)) {
+                if(GNEAttributeCarrier::isValidFilename(parsedAttribute) == false)
+                errorFormat = "Filename contains invalid characters; ";
+                ok = false;
+            }
+            // set extra check for Vehicle Classes
             if((!ok) && (attribute == SUMO_ATTR_VCLASS)) {
                 errorFormat = "Is not a part of defined set of Vehicle Classes; ";
             }
-            // set estra check for Vehicle Classes
+            // set extra check for Vehicle Classes
             if((!ok) && (attribute == SUMO_ATTR_GUISHAPE)) {
                 errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
             }

@@ -385,9 +385,9 @@ GNEJunction::recomputeNeighborsJunctions() {
         neighborsJunctions.insert((*i)->getGNEJunctionDestiny());
     }
     // recompute all neighbors junctions
-    for(std::set<GNEJunction*>::iterator i = neighborsJunctions.begin(); i != neighborsJunctions.end(); i++) {
-        myNet->getNetBuilder()->computeSingleNode((*i)->getNBNode(), OptionsCont::getOptions());
-    }
+    //for(std::set<GNEJunction*>::iterator i = neighborsJunctions.begin(); i != neighborsJunctions.end(); i++) {
+    //    myNet->getNetBuilder()->computeSingleNode((*i)->getNBNode(), OptionsCont::getOptions());
+    //}
 }
 
 
@@ -403,7 +403,7 @@ GNEJunction::move(Position pos) {
     // recompute neighbors junctions
     recomputeNeighborsJunctions();
     // recompute junction
-    myNet->getNetBuilder()->computeSingleNode(&myNBNode, OptionsCont::getOptions());
+    //myNet->getNetBuilder()->computeSingleNode(&myNBNode, OptionsCont::getOptions());
     // Update shapes without include connections, because the aren't showed in Move mode
     updateShapesAndGeometries();
 }

@@ -439,7 +439,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             bool ok;
             return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
         case SUMO_ATTR_FILE:
-            return isValidFileValue(value);
+            return isValidFilename(value);
         case SUMO_ATTR_PROB:
             return canParse<double>(value);
         case SUMO_ATTR_OFF:

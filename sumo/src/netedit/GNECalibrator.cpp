@@ -546,7 +546,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_OUTPUT:
-            return isValidFileValue(value);
+            return isValidFilename(value);
         case SUMO_ATTR_ROUTEPROBE:
             if (myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != NULL) {
                 return true;

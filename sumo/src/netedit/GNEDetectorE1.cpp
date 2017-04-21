@@ -272,7 +272,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && parse<double>(value) > 0);
         case SUMO_ATTR_FILE:
-            return isValidFileValue(value);
+            return isValidFilename(value);
         case SUMO_ATTR_SPLIT_VTYPE:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:

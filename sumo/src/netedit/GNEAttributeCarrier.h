@@ -150,8 +150,8 @@ public:
     /// @brief whether an attribute is a probability (i.e. oly can values between [0, 1])
     static bool isProbability(SumoXMLTag tag, SumoXMLAttr attr);
     
-    /// @brief whether a string attribute can be empty
-    static bool isEmpty(SumoXMLTag tag, SumoXMLAttr attr);
+    /// @brief whether a string attribute is a filename
+    static bool isFilename(SumoXMLTag tag, SumoXMLAttr attr);
     
     /// @brief whether an attribute is non editable
     static bool isNonEditable(SumoXMLTag tag, SumoXMLAttr attr);
@@ -208,7 +208,7 @@ public:
     static bool isValidID(const std::string& value);
 
     /// @brief true if value is a valid file value
-    static bool isValidFileValue(const std::string& value);
+    static bool isValidFilename(const std::string& value);
 
     /// @brief feature is still unchanged after being loaded (implies approval)
     static const std::string LOADED;
@@ -269,7 +269,7 @@ private:
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myProbabilityAttrs;
 
     /// @brief map with the empty attributes
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myEmptyAttrs;
+    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myFileAttrs;
 
     /// @brief map with the allowed tags of additionals with parent and their parent
     static std::map<SumoXMLTag, SumoXMLTag> myAllowedAdditionalWithParentTags;

@@ -50,7 +50,7 @@ std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myUniqueAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNonEditableAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myPositiveAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myProbabilityAttrs;
-std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myEmptyAttrs;
+std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myFileAttrs;
 std::map<SumoXMLTag, SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalWithParentTags;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > GNEAttributeCarrier::myDiscreteChoices;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::string > > GNEAttributeCarrier::myAttrDefinitions;
@@ -235,10 +235,10 @@ GNEAttributeCarrier::isValidID(const std::string& value) {
 
 
 bool
-GNEAttributeCarrier::isValidFileValue(const std::string& value) {
+GNEAttributeCarrier::isValidFilename(const std::string& value) {
     // @note Only characteres that aren't permited in a file path or belong
     // to XML sintax
-    return value.find_first_of("\t\n\r@$%^&|\\{}*'\";:<>") == std::string::npos;
+    return (value.find_first_of("\t\n\r@$%^&|\\{}*'\";:<>") == std::string::npos);
 }
 
 
@@ -872,27 +872,25 @@ GNEAttributeCarrier::isProbability(SumoXMLTag tag, SumoXMLAttr attr) {
 
 
 bool
-GNEAttributeCarrier::isEmpty(SumoXMLTag tag, SumoXMLAttr attr) {
+GNEAttributeCarrier::isFilename(SumoXMLTag tag, SumoXMLAttr attr) {
     // define on first access
-    if (myEmptyAttrs.empty()) {
+    if (myFileAttrs.empty()) {
         // E1
-        myEmptyAttrs[SUMO_TAG_E1DETECTOR].insert(SUMO_ATTR_FILE);
+        myFileAttrs[SUMO_TAG_E1DETECTOR].insert(SUMO_ATTR_FILE);
         // E2
-        myEmptyAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_FILE);
+        myFileAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_FILE);
         // E3
-        myEmptyAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_FILE);
+        myFileAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_FILE);
         // calibrator
-        myEmptyAttrs[SUMO_TAG_CALIBRATOR].insert(SUMO_ATTR_OUTPUT);
+        myFileAttrs[SUMO_TAG_CALIBRATOR].insert(SUMO_ATTR_OUTPUT);
         // rerouter
-        myEmptyAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_FILE);
+        myFileAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_FILE);
         // routeprobe
-        myEmptyAttrs[SUMO_TAG_ROUTEPROBE].insert(SUMO_ATTR_FILE);
+        myFileAttrs[SUMO_TAG_ROUTEPROBE].insert(SUMO_ATTR_FILE);
         // Variable Speed Signal
-        myEmptyAttrs[SUMO_TAG_VSS].insert(SUMO_ATTR_FILE);
-        // route
-        myEmptyAttrs[SUMO_TAG_ROUTE].insert(SUMO_ATTR_COLOR);
+        myFileAttrs[SUMO_TAG_VSS].insert(SUMO_ATTR_FILE);
     }
-    return myEmptyAttrs[tag].count(attr) == 1;
+    return myFileAttrs[tag].count(attr) == 1;
 }
 
 
