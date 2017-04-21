@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  5 22:14:22 2014 by SUMO sumo Version dev-SVN-r15830
+<!-- generated on 04/21/17 08:18:26 by SUMO Version dev-SVN-r23990
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -21,14 +21,14 @@
     </report>
 
     <traci_server>
-        <remote-port value="8815"/>
+        <remote-port value="60167"/>
     </traci_server>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="veh0" type="vType1" depart="0.00" arrival="78.00">
+    <vehicle id="veh0" type="vType1" depart="0.00" departPos="0.00" arrival="78.00">
         <route edges="e_m5 e_m6 e_shape1"/>
     </vehicle>
 
