@@ -1457,13 +1457,13 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
                 return false;
             }
         } else {
-            return false;
             // write warning if netedit is running in testing mode
             if ((answer == 2) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
             } else if ((answer == 4) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
             }
+            return false;
         }
     }
     // clear undo list and return true to continue with closing/reload
