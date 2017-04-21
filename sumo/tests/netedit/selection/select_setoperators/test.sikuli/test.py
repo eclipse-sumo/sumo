@@ -46,7 +46,7 @@ netedit.deleteSelectedItems()
 netedit.selectionInvert()
 netedit.selectionClear()
 
-# use a rectangle to select central elements 
+# use a rectangle to select central elements
 netedit.selectionRectangle(match, 250, 150, 400, 300)
 
 # invert selection to select only extern nodes and delete it

@@ -7,7 +7,7 @@
 /// @author  Robert Hilbrich
 /// @author  Leonhard Luecken
 /// @date    30.05.2012
-/// @version $Id: TraCI_Lane.cpp 23697 2017-03-28 21:22:44Z behrisch $
+/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

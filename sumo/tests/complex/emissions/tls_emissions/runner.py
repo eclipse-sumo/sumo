@@ -115,7 +115,7 @@ def iterateGreenTimes(emissionClass, outputFile, T, MIN_GREEN, log):
         shv = e2.get("startedHalts")[-1]["e2"]
 
         print("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s" % (
-            T - i, wtv, nv, cov, co2v, hcv, pmv, nov, fv, meanV, msv, 
+            T - i, wtv, nv, cov, co2v, hcv, pmv, nov, fv, meanV, msv,
             10000. / msv - 10000. / 13.82, mjlv, jlsv, mhdv, shv), file=fdo)
     fdo.close()
 

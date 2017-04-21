@@ -24,6 +24,7 @@ from xml.sax.handler import ContentHandler
 from . import dump, inductionloop, convert
 from sumolib.xml import *
 
+
 class AbstractHandler__byID(ContentHandler):
 
     def __init__(self, element_name, idAttr, attributes):

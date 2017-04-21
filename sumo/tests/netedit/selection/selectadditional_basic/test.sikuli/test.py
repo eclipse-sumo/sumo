@@ -58,7 +58,7 @@ netedit.modificationModeAdd()
 netedit.deleteSelectedItems()
 netedit.abortSelection()
 
-# select all busStops with endPos minor that 30 and delete it 
+# select all busStops with endPos minor that 30 and delete it
 netedit.selectItems("Additional", "busStop", "endPos", "<36")
 netedit.deleteSelectedItems()
 netedit.abortSelection()

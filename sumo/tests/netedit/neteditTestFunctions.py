@@ -42,55 +42,74 @@ referenceImage = os.path.join("imageResources", "reference.png")
 #################################################
 
 # type escape key
+
+
 def typeEscape():
     wait(DELAY)
     type(Key.ESC)
 
 # type enter  key
+
+
 def typeEnter():
     wait(DELAY)
     type(Key.ENTER)
 
 # type space key
+
+
 def typeSpace():
     wait(DELAY)
     type(Key.SPACE)
 
 # type tab key
+
+
 def typeTab():
     wait(DELAY)
     type(Key.TAB)
 
 # type Shift + Tab keys
+
+
 def typeInvertTab():
     wait(DELAY)
     type(Key.TAB, Key.SHIFT)
-    
+
 # type single key
+
+
 def typeKey(key):
     wait(DELAY)
     type(key)
 
 # type two keys at the same time
+
+
 def typeTowKeys(key1, key2):
     wait(DELAY)
     type(key1, key2)
-    
+
 # paste value into current text field
+
+
 def pasteIntoTextField(value):
     wait(DELAY)
     paste(value)
-    
+
 # do left click over a position relative to match (pink square)
+
+
 def leftClick(match, positionx, positiony):
     # wait before every operation
     wait(DELAY)
     # click respect to offset
     click(match.getTarget().offset(positionx, positiony))
-    
+
 #################################################
 # basic functions
 #################################################
+
 
 def setup(neteditTests):
     # Open current environment file to obtain path to the netedit app,
@@ -107,6 +126,7 @@ def setup(neteditTests):
     global referenceImage
     referenceImage = os.path.join(
         neteditTests, "imageResources", "reference.png")
+
 
 def Popen(newNet):
     # set the default parameters of netedit
@@ -146,6 +166,8 @@ def Popen(newNet):
     return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
 # obtain match
+
+
 def getReferenceMatch(neProcess, waitTime):
     try:
         return wait(referenceImage, waitTime)
@@ -154,6 +176,8 @@ def getReferenceMatch(neProcess, waitTime):
         sys.exit("Killed netedit process. 'reference.png' not found")
 
 # setup and start netedit
+
+
 def setupAndStart(testRoot, newNet=False, searchReference=True, waitTime=DELAY_REFERENCE):
     setup(testRoot)
     # Open netedit
@@ -169,14 +193,20 @@ def setupAndStart(testRoot, newNet=False, searchReference=True, waitTime=DELAY_R
         return neteditProcess
 
 # rebuild network
+
+
 def rebuildNetwork():
     typeKey(Key.F5)
 
 # select focus on upper element of current frame
+
+
 def focusOnFrame():
     typeKey('f')
-    
+
 # undo last operation
+
+
 def undo(match, number):
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey("i")
@@ -186,6 +216,8 @@ def undo(match, number):
         typeTowKeys("z", Key.CTRL)
 
 # undo last operation
+
+
 def redo(match, number):
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey("i")
@@ -195,6 +227,8 @@ def redo(match, number):
         typeTowKeys("y", Key.CTRL)
 
 # set Zoom
+
+
 def setZoom(positionX, positionY, zoomLevel):
     # open edit viewport dialog
     typeKey("v")
@@ -217,6 +251,8 @@ def setZoom(positionX, positionY, zoomLevel):
     typeSpace()
 
 # netedit wait question
+
+
 def waitQuestion(answer):
     # wait 0.5 second to question dialog
     wait(DELAY_QUESTION)
@@ -224,7 +260,9 @@ def waitQuestion(answer):
     typeTowKeys(answer, Key.ALT)
 
 # netedit quit
-def quit(neteditProcess, netNonSavedDialog = False, saveNet = False, additionalsNonSavedDialog = False, saveAdditionals = False):
+
+
+def quit(neteditProcess, netNonSavedDialog=False, saveNet=False, additionalsNonSavedDialog=False, saveAdditionals=False):
     if neteditProcess.poll() is not None:
         # already quit
         return
@@ -238,7 +276,7 @@ def quit(neteditProcess, netNonSavedDialog = False, saveNet = False, additionals
             waitQuestion("s")
         else:
             waitQuestion("q")
-            
+
     # Check if additionals must be saved
     if additionalsNonSavedDialog:
         if saveAdditionals:
@@ -256,11 +294,15 @@ def quit(neteditProcess, netNonSavedDialog = False, saveNet = False, additionals
     print("error closing netedit")
 
 # save network
+
+
 def saveNetwork():
     # save newtork using hotkey
     typeTowKeys("s", Key.CTRL)
 
 # save additionals
+
+
 def saveAdditionals():
     # save additionals using hotkey
     typeTowKeys("d", Key.CTRL + Key.SHIFT)
@@ -270,15 +312,21 @@ def saveAdditionals():
 #################################################
 
 # Change to create edge mode
+
+
 def createEdgeMode():
     typeKey("e")
 
 # Cancel current created edge (used in chain mode)
+
+
 def cancelEdge():
-    #type ESC to cancel current edge
+    # type ESC to cancel current edge
     typeEscape()
 
 # Change chain option
+
+
 def changeChainOption():
     # cancel current created edge
     cancelEdge()
@@ -289,6 +337,8 @@ def changeChainOption():
     typeSpace()
 
 # Change two-way mode
+
+
 def changeTwoWayOption():
     # cancel current created edge
     cancelEdge()
@@ -297,16 +347,20 @@ def changeTwoWayOption():
         typeInvertTab()
     # change two way mode
     typeSpace()
-    
+
 #################################################
 # Inspect mode
 #################################################
 
 # go to inspect mode
+
+
 def inspectMode():
     typeKey("i")
 
 # netedit modify int/float/string
+
+
 def modifyAttribute(attributeNumber, value):
     typeKey("i")
     # jump to attribute
@@ -320,6 +374,8 @@ def modifyAttribute(attributeNumber, value):
     typeEscape()
 
 # netedit modify bool attribute
+
+
 def modifyBoolAttribute(attributeNumber):
     typeKey("i")
     # jump to attribute
@@ -327,16 +383,20 @@ def modifyBoolAttribute(attributeNumber):
         typeTab()
     # type SPACE to change value
     typeSpace()
-    
+
 #################################################
 # Move mode
 #################################################
 
 # set move mode
+
+
 def moveMode():
     typeKey("m")
 
 # move element
+
+
 def moveElement(match, startX, startY, endX, endY):
     # change mouse move delay
     Settings.MoveMouseDelay = 0.5
@@ -351,10 +411,14 @@ def moveElement(match, startX, startY, endX, endY):
 #################################################
 
 # Change to crossing mode
+
+
 def crossingMode():
     typeKey("r")
 
 # create crossing
+
+
 def createCrossing():
     # focus current frame
     focusOnFrame()
@@ -368,6 +432,8 @@ def createCrossing():
         typeInvertTab()
 
 # change default int/real/string crossing default value
+
+
 def modifyCrossingDefaultValue(numtabs, value):
     # focus current frame
     focusOnFrame()
@@ -384,6 +450,8 @@ def modifyCrossingDefaultValue(numtabs, value):
     typeEscape()
 
 # change default boolean crossing default value
+
+
 def modifyCrossingDefaultBoolValue(numtabs):
     # focus current frame
     focusOnFrame()
@@ -394,9 +462,11 @@ def modifyCrossingDefaultBoolValue(numtabs):
     typeSpace()
     # type ESC to avoid accidentally changes
     typeEscape()
-    
+
 # clear crossing
-def crossingClearEdges(useSelectedEdges = False):
+
+
+def crossingClearEdges(useSelectedEdges=False):
     # focus current frame
     focusOnFrame()
     if(useSelectedEdges):
@@ -410,8 +480,10 @@ def crossingClearEdges(useSelectedEdges = False):
     # type space to activate button
     typeSpace()
 
-#invert crossing
-def crossingInvertEdges(useSelectedEdges = False):
+# invert crossing
+
+
+def crossingInvertEdges(useSelectedEdges=False):
     # focus current frame
     focusOnFrame()
     if(useSelectedEdges):
@@ -430,15 +502,19 @@ def crossingInvertEdges(useSelectedEdges = False):
 #################################################
 
 # change to additional mode
+
+
 def additionalMode():
     typeKey('a')
 
 # change additional
+
+
 def changeAdditional(additional):
     # focus current frame
     focusOnFrame()
     # go to first editable element of frame
-    typeTab();
+    typeTab()
     # select current value
     typeTowKeys("a", Key.CTRL)
     # paste the new value
@@ -449,6 +525,8 @@ def changeAdditional(additional):
     typeEscape()
 
 # modify default int/double/string value of an additional
+
+
 def modifyAdditionalDefaultValue(numTabs, length):
     # focus current frame
     focusOnFrame()
@@ -463,8 +541,10 @@ def modifyAdditionalDefaultValue(numTabs, length):
     typeEnter()
     # type ESC to avoid edit combobox accidentally
     typeEscape()
-    
+
 # modify default boolean value of an additional
+
+
 def modifyAdditionalDefaultBoolValue(numTabs):
     # focus current frame
     focusOnFrame()
@@ -477,6 +557,8 @@ def modifyAdditionalDefaultBoolValue(numTabs):
     typeEscape()
 
 # modify number of stopping place lines
+
+
 def modifyStoppingPlaceLines(numTabs, numLines):
     # focus current frame
     focusOnFrame()
@@ -490,6 +572,8 @@ def modifyStoppingPlaceLines(numTabs, numLines):
     typeEscape()
 
 # fill lines to stopping places
+
+
 def fillStoppingPlaceLines(numTabs, numLines):
     # focus current frame
     focusOnFrame()
@@ -506,6 +590,8 @@ def fillStoppingPlaceLines(numTabs, numLines):
     typeEscape()
 
 # select child of additional
+
+
 def selectAdditionalChild(numTabs, childNumber):
     # focus current frame
     focusOnFrame()
@@ -533,15 +619,19 @@ def deleteMode():
     typeKey("d")
 
 # Enable or disable 'automatically delete Additionals'
+
+
 def changeAutomaticallyDeleteAdditionals(match):
     # select delete mode again to set mode
     deleteMode()
     # use TAB to go to check box
     typeTab()
-    # type SPACE to change value 
+    # type SPACE to change value
     typeSpace()
 
 # close warning about automatically delete additionals
+
+
 def waitAutomaticallyDeleteAdditionalsWarning():
     # wait 0.5 second to question dialog
     wait(DELAY_QUESTION)
@@ -553,26 +643,34 @@ def waitAutomaticallyDeleteAdditionalsWarning():
 #################################################
 
 # Change to select mode
+
+
 def selectMode():
-    typeKey("s")    
+    typeKey("s")
 
 # abort current selection
+
+
 def abortSelection():
     # type ESC to abort current selection
     typeEscape()
 
 # select elements with default frame values
+
+
 def selectDefault():
     for x in range(0, 11):
         typeTab()
     # type enter to select it
     typeEnter()
-    
+
 # select items
+
+
 def selectItems(elementClass, elementType, attribute, value):
     # focus current frame
     focusOnFrame()
-    #jump to elementClass
+    # jump to elementClass
     for x in range(0, 5):
         typeTab()
     # select all
@@ -607,10 +705,14 @@ def selectItems(elementClass, elementType, attribute, value):
         typeInvertTab()
 
 # delete selected items
+
+
 def deleteSelectedItems():
     typeKey(Key.DELETE)
-    
+
 # set modification mode "add"
+
+
 def modificationModeAdd():
     # focus current frame
     focusOnFrame()
@@ -620,8 +722,10 @@ def modificationModeAdd():
     typeSpace()
     # go back to avoid focus errors (ESC cannot be used because unselect selected items)
     typeInvertTab()
-    
+
 # set modification mode "remove"
+
+
 def modificationModeRemove():
     # focus current frame
     focusOnFrame()
@@ -633,8 +737,10 @@ def modificationModeRemove():
     # go back to avoid focus errors (ESC cannot be used because unselect selected items)
     for x in range(0, 2):
         typeInvertTab()
-    
+
 # set modification mode "keep"
+
+
 def modificationModeKeep():
     # focus current frame
     focusOnFrame()
@@ -646,8 +752,10 @@ def modificationModeKeep():
     # go back to avoid focus errors (ESC cannot be used because unselect selected items)
     for x in range(0, 3):
         typeInvertTab()
-    
+
 # set modification mode "replace"
+
+
 def modificationModeReplace():
     # focus current frame
     focusOnFrame()
@@ -661,6 +769,8 @@ def modificationModeReplace():
         typeInvertTab()
 
 # select using an rectangle
+
+
 def selectionRectangle(match, startX, startY, endX, endY):
     keyDown(Key.SHIFT)
     # change mouse move delay
@@ -672,7 +782,9 @@ def selectionRectangle(match, startX, startY, endX, endY):
     keyUp(Key.SHIFT)
 
 # clear selection
-def selectionClear(previouslyInserted = False):
+
+
+def selectionClear(previouslyInserted=False):
     # focus current frame
     focusOnFrame()
     for x in range(0, 14):
@@ -684,6 +796,8 @@ def selectionClear(previouslyInserted = False):
         typeInvertTab()
 
 # invert selection
+
+
 def selectionInvert():
     # focus current frame
     focusOnFrame()
@@ -700,5 +814,7 @@ def selectionInvert():
 #################################################
 
 # Change to traffic light mode
+
+
 def selectTLS():
-    typeKey("t")    
+    typeKey("t")

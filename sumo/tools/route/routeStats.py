@@ -64,7 +64,6 @@ def get_options():
     return options
 
 
-
 def main():
     options = get_options()
     net = None
@@ -74,8 +73,6 @@ def main():
         attribute_retriever = lambda vehicle: sum([net.getEdge(e).getLength() for e in vehicle.route[0].edges.split()])
     else:
         attribute_retriever = lambda vehicle: float(vehicle.depart)
-
-    
 
     lengths = {}
     lengths2 = {}

@@ -356,10 +356,10 @@ traci.vehicle.setParkingAreaStop(parkingAreaVeh, "parkingArea1", duration=2000)
 for i in range(18):
     print("step", step())
     print("pav edge=%s pos=%s stopState=%s" %
-            (traci.vehicle.getRoadID(parkingAreaVeh), 
-                traci.vehicle.getLanePosition(parkingAreaVeh), 
-                traci.vehicle.getStopState(parkingAreaVeh) 
-                ))
+          (traci.vehicle.getRoadID(parkingAreaVeh),
+           traci.vehicle.getLanePosition(parkingAreaVeh),
+           traci.vehicle.getStopState(parkingAreaVeh)
+           ))
 
 electricVeh = "elVeh"
 traci.vehicle.add(electricVeh, "horizontal", typeID="electric")

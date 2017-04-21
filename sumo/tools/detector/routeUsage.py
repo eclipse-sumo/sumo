@@ -33,16 +33,15 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
-
 def get_options():
     USAGE = """Usage %prog <emitters.xml>"""
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
-    optParser.add_option("--threshold", type="int", default=0, 
-            help="Output routes that are used less than the threshold value")
-    optParser.add_option("--unused-output", 
-            help="Output route ids that are used less than the threshold value to file")
+    optParser.add_option("--threshold", type="int", default=0,
+                         help="Output routes that are used less than the threshold value")
+    optParser.add_option("--unused-output",
+                         help="Output route ids that are used less than the threshold value to file")
     options, args = optParser.parse_args()
 
     if len(args) != 1:
@@ -50,10 +49,11 @@ def get_options():
     options.emitters = args[0]
     return options
 
+
 def main():
     options = get_options()
     routeUsage = defaultdict(lambda: 0)
-    for flow in parse(options.emitters, 'flow'): 
+    for flow in parse(options.emitters, 'flow'):
         num = int(flow.number)
         if flow.route is None:
             dist = flow.routeDistribution[0]
@@ -68,7 +68,7 @@ def main():
     for rID, count in routeUsage.items():
         usage.add(count, rID)
     print(usage)
-    
+
     if options.unused_output is not None:
         with open(options.unused_output, 'w') as outf:
             for rID, count in routeUsage.items():
@@ -79,4 +79,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -30,6 +30,11 @@ try:
     HAVE_FLAKE = True
 except ImportError:
     HAVE_FLAKE = False
+try:
+    import autopep8
+    HAVE_AUTOPEP = True
+except ImportError:
+    HAVE_AUTOPEP = False
 
 _SOURCE_EXT = [".h", ".cpp", ".py", ".pl", ".java", ".am"]
 _TESTDATA_EXT = [".xml", ".prog", ".csv",
@@ -118,8 +123,11 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     if self._fix:
                         subprocess.call(
                             ["svn", "ps", "svn:eol-style", "CRLF", self._file])
-            if HAVE_FLAKE and name == 'target' and ext == ".py" and os.path.getsize(self._file) < 1000000: # flake hangs on very large files
-                subprocess.call(["flake8", "--max-line-length", "120", self._file])
+            if name == 'target' and ext == ".py":
+                if HAVE_FLAKE and os.path.getsize(self._file) < 1000000:  # flake hangs on very large files
+                    subprocess.call(["flake8", "--max-line-length", "120", self._file])
+                if HAVE_AUTOPEP and self._fix:
+                    subprocess.call(["autopep8", "--max-line-length", "120", "--in-place", self._file])
         if name == 'property':
             self._value = ""
             self._property = None

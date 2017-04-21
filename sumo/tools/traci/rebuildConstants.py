@@ -62,6 +62,7 @@ if options.java:
 else:
     print('"""\n', file=fdo)
 
+
 def translateFile(filePath, fdo, start, item, end):
     with open(filePath) as fdi:
         started = False
@@ -93,6 +94,8 @@ def translateFile(filePath, fdo, start, item, end):
                     fdo.write("public class TraCIConstants {")
 
 srcDir = os.path.join(dirname, "..", "..", "src")
-translateFile(os.path.join(srcDir, "traci-server", "TraCIConstants.h"), fdo, "#define TRACICONSTANTS_H", "#define ", "#endif")
-translateFile(os.path.join(srcDir, "utils", "xml", "SUMOXMLDefinitions.h"), fdo, "enum LaneChangeAction {", "LCA_", "};")
+translateFile(os.path.join(srcDir, "traci-server", "TraCIConstants.h"),
+              fdo, "#define TRACICONSTANTS_H", "#define ", "#endif")
+translateFile(os.path.join(srcDir, "utils", "xml", "SUMOXMLDefinitions.h"),
+              fdo, "enum LaneChangeAction {", "LCA_", "};")
 fdo.close()

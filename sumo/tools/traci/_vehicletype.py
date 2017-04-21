@@ -177,7 +177,6 @@ class VehicleTypeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_MINGAP_LAT, vehID)
 
-
     def setLength(self, typeID, length):
         """setLength(string, double) -> None
 

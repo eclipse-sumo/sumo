@@ -35,7 +35,7 @@ netedit.leftClick(match, 0, -105)
 # Change to create edge mode
 netedit.createEdgeMode()
 
-#select two-way mode
+# select two-way mode
 netedit.changeTwoWayOption()
 
 # select chain mode

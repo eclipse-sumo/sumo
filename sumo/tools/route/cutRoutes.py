@@ -107,7 +107,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
             lastIndex = len(edges) - 1 - \
                 getFirstIndex(areaEdges, reversed(edges))
             # check for connectivity
-            route_parts = [(firstIndex + i, firstIndex + j) for (i, j) in missingEdges(areaEdges, edges[firstIndex:(lastIndex+1)], missingEdgeOccurences)]
+            route_parts = [(firstIndex + i, firstIndex + j)
+                           for (i, j) in missingEdges(areaEdges, edges[firstIndex:(lastIndex + 1)], missingEdgeOccurences)]
 #             print("areaEdges: %s"%str(areaEdges))
 #             print("routeEdges: %s"%str(edges))
 #             print("firstIndex = %d"%firstIndex)
@@ -118,7 +119,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                     continue
             # loop over different route parts
             for ix_part, ix_interval in enumerate(route_parts):
-                fromIndex, toIndex = ix_interval 
+                fromIndex, toIndex = ix_interval
                 #print("(fromIndex,toIndex) = (%d,%d)"%(fromIndex,toIndex))
                 # check for minimum length
                 if toIndex - fromIndex + 1 < options.min_length:
@@ -162,12 +163,12 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                         elif stop.lane[:-2] in remaining:
                             stops.append(stop)
                 vehicle.route[0].edges = " ".join(remaining)
-                vehicle.stop = stops           
+                vehicle.stop = stops
                 vehicle.depart = "%.2f" % newDepart
                 if len(route_parts) > 1:
                     # return copies of the vehicle for each route part
                     yield_veh = copy.deepcopy(vehicle)
-                    yield_veh.id = vehicle.id + "_part" +str(ix_part)
+                    yield_veh.id = vehicle.id + "_part" + str(ix_part)
                     yield newDepart, yield_veh
                 else:
                     yield newDepart, vehicle
@@ -201,25 +202,25 @@ def missingEdges(areaEdges, edges, missingEdgeOccurences):
     Returns a list of intervals corresponding to the overlapping parts of the route with the area
     '''
     # store present edge-intervals
-    route_intervals=[]
+    route_intervals = []
     start = 0
-    lastEdgePresent = False # assert: first edge is always in areaEdges
+    lastEdgePresent = False  # assert: first edge is always in areaEdges
     for j, edge in enumerate(edges):
         if not edge in areaEdges:
             if lastEdgePresent:
                 # this is the end of a present interval
-                route_intervals.append((start,j-1))
-#                 print("edge '%s' not in area."%edge)                
-                lastEdgePresent=False
-            missingEdgeOccurences[edge] += 1            
+                route_intervals.append((start, j - 1))
+#                 print("edge '%s' not in area."%edge)
+                lastEdgePresent = False
+            missingEdgeOccurences[edge] += 1
         else:
             if not lastEdgePresent:
                 # this is a start of a present interval
-                start=j
-                lastEdgePresent=True
+                start = j
+                lastEdgePresent = True
     if lastEdgePresent:
-#         print("edges = %s"%str(edges))
-        route_intervals.append((start, len(edges)-1))
+        #         print("edges = %s"%str(edges))
+        route_intervals.append((start, len(edges) - 1))
     return route_intervals
 
 

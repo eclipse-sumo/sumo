@@ -352,7 +352,7 @@ def main(options):
                 if options.binomial:
                     for j in range(options.binomial):
                         fouttrips.write('    <flow id="%s#%s" begin="%s" end="%s" probability="%s" from="%s" to="%s"%s%s/>\n' % (
-                            label, j, options.begin, options.end, 1.0/options.period/options.binomial, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
+                            label, j, options.begin, options.end, 1.0 / options.period / options.binomial, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
                 else:
                     fouttrips.write('    <flow id="%s" begin="%s" end="%s" period="%s" from="%s" to="%s"%s%s/>\n' % (
                         label, options.begin, options.end, options.period * options.flows, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))

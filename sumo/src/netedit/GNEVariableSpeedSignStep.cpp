@@ -2,7 +2,7 @@
 /// @file    GNEVariableSpeedSignStep.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Apr 2017
-/// @version $Id: GNEVariableSpeedSignStep.cpp 23529 2017-03-18 10:22:36Z behrisch $
+/// @version $Id$
 ///
 ///
 /****************************************************************************/

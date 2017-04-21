@@ -33,6 +33,7 @@ import optparse
 import random
 import codecs
 
+
 def getName(vals, beg):
     name = vals[beg]
     while name.count('"') != 2:

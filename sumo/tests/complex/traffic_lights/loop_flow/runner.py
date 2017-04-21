@@ -35,6 +35,7 @@ fillSteps = 120  # 3600
 measureSteps = 600  # 36000
 simSteps = fillSteps + measureSteps
 
+
 def buildDemand(simSteps, pWE, pEW, pNS, pSN):
     fd = open("input_routes.rou.xml", "w")
     #---routes---
@@ -83,6 +84,7 @@ def patchTLSType(ifile, itype, ofile, otype):
         fdo.write(line)
     fdo.close()
     fdi.close()
+
 
 def main():
     try:
@@ -152,4 +154,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -86,6 +86,7 @@ def main(args):
     options = parse_args(args)
     net = readNet(options.net)
     known_ids = set()
+
     def unique_id(cand, index=0):
         cand2 = cand
         if index > 0:

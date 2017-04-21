@@ -24,7 +24,7 @@ from pylab import *
 import numpy as np
 from mpl_toolkits.mplot3d import axes3d
 
-from runner import types,flow1def,flow2def,fillSteps,measureSteps,simSteps
+from runner import types, flow1def, flow2def, fillSteps, measureSteps, simSteps
 
 
 durationM = {}

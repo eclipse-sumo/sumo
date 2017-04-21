@@ -27,6 +27,7 @@ from keyword import iskeyword
 from functools import reduce
 from .miscutils import benchmark
 
+
 def _prefix_keyword(name, warn=False):
     result = name
     # create a legal identifier (xml allows '-', ':' and '.' ...)
@@ -131,6 +132,7 @@ def compound_object(element_name, attrnames, warn=False):
 
     return CompoundObject
 
+
 def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
           heterogeneous=False, warn=False):
     """
@@ -193,6 +195,7 @@ def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_c
     return elementTypes[element_name](
         [attr_conversions.get(a, _IDENTITY)(node.get(a)) for a in attrnames],
         child_dict)
+
 
 def create_document(root_element_name, attrs=None, schema=None):
     if attrs is None:

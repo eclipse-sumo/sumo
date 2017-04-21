@@ -286,5 +286,7 @@ def getFreeSocketPort(numTries=10):
     return None
 
 # euclidean distance between two coordinates in the plane
+
+
 def euclidean(a, b):
     return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)

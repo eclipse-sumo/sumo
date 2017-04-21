@@ -17,7 +17,6 @@ the Free Software Foundation; either version 3 of the License, or
 """
 
 
-
 # ****************************************
 # VERSION
 # ****************************************
@@ -507,7 +506,6 @@ TL_NEXT_SWITCH = 0x2d
 TL_EXTERNAL_STATE = 0x2e
 
 
-
 # outgoing link number (get: lanes)
 LANE_LINK_NUMBER = 0x30
 
@@ -624,7 +622,6 @@ VAR_SPEED_FACTOR = 0x5e
 
 # speed deviation (set: vehicle)
 VAR_SPEED_DEVIATION = 0x5f
-
 
 
 # speed without TraCI influence (get: vehicle)
@@ -788,7 +785,6 @@ CMD_SAVE_SIMSTATE = 0x95
 VAR_PARAMETER = 0x7e
 
 
-
 # add an instance (poi, polygon, vehicle, person, route)
 ADD = 0x80
 
@@ -801,7 +797,7 @@ POSITION_CONVERSION = 0x82
 # distance between points or vehicles
 DISTANCE_REQUEST = 0x83
 
-#the current driving distance
+# the current driving distance
 VAR_DISTANCE = 0x84
 
 # add a fully specified instance (vehicle)
@@ -890,9 +886,9 @@ LCA_BLOCKED_BY_RIGHT_LEADER = 1 << 11
 #/ @brief The vehicle is blocked by right follower
 LCA_BLOCKED_BY_RIGHT_FOLLOWER = 1 << 12
 #/ @brief The vehicle is blocked being overlapping
-LCA_OVERLAPPING =  1 << 13
+LCA_OVERLAPPING = 1 << 13
 #/ @brief The vehicle does not have enough space to complete a continuous lane and change before the next turning movement
-LCA_INSUFFICIENT_SPACE =  1 << 14
+LCA_INSUFFICIENT_SPACE = 1 << 14
 #/ @brief used by the sublane model
 LCA_SUBLANE = 1 << 15
 #/ @brief lane can change

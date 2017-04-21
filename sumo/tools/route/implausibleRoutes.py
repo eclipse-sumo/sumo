@@ -46,22 +46,22 @@ def get_options():
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
-    optParser.add_option("--threshold", type="float", default=2.5, 
-            help="Routes with an implausibility-score above treshold are reported")
+    optParser.add_option("--threshold", type="float", default=2.5,
+                         help="Routes with an implausibility-score above treshold are reported")
     optParser.add_option("--airdist-ratio-factor", type="float", default=1, dest="airdist_ratio_factor",
-            help="Implausibility factor for the ratio of routeDist/airDist ")
+                         help="Implausibility factor for the ratio of routeDist/airDist ")
     optParser.add_option("--detour-ratio-factor", type="float", default=1,  dest="detour_ratio_factor",
-            help="Implausibility factor for the ratio of routeDuration/shortestDuration ")
+                         help="Implausibility factor for the ratio of routeDuration/shortestDuration ")
     optParser.add_option("--detour-factor", type="float", default=0.01, dest="detour_factor",
-            help="Implausibility factor for the absolute detour time in (routeDuration-shortestDuration) in seconds")
+                         help="Implausibility factor for the absolute detour time in (routeDuration-shortestDuration) in seconds")
     optParser.add_option("--standalone", action="store_true",
                          default=False, help="Parse stand-alone routes that are not define as child-element of a vehicle")
-    optParser.add_option("--blur", type="float", default=0, 
-            help="maximum random disturbance to output polygon geometry")
+    optParser.add_option("--blur", type="float", default=0,
+                         help="maximum random disturbance to output polygon geometry")
     optParser.add_option("--ignore-routes", dest="ignore_routes",
-            help="List of route IDs (one per line) that are filtered when generating polygons and command line output (they will still be added to restrictions-output)")
+                         help="List of route IDs (one per line) that are filtered when generating polygons and command line output (they will still be added to restrictions-output)")
     optParser.add_option("--restriction-output", dest="restrictions_output",
-            help="Write flow-restriction output suitable for passing to flowrouter.py to FILE")
+                         help="Write flow-restriction output suitable for passing to flowrouter.py to FILE")
     options, args = optParser.parse_args()
 
     if len(args) != 2:
@@ -74,15 +74,17 @@ def get_options():
 def getRouteLength(net, edges):
     return sum([net.getEdge(e).getLength() for e in edges])
 
+
 class RouteInfo:
     pass
+
 
 def main():
     DUAROUTER = sumolib.checkBinary('duarouter')
     options = get_options()
     net = readNet(options.network)
 
-    routeInfos = {} # id-> RouteInfo
+    routeInfos = {}  # id-> RouteInfo
     if options.standalone:
         for route in parse(options.routeFile, 'route'):
             ri = RouteInfo()
@@ -96,8 +98,8 @@ def main():
 
     for rInfo in routeInfos.values():
         rInfo.airDist = euclidean(
-                net.getEdge(rInfo.edges[0]).getShape()[0],
-                net.getEdge(rInfo.edges[-1]).getShape()[-1])
+            net.getEdge(rInfo.edges[0]).getShape()[0],
+            net.getEdge(rInfo.edges[-1]).getShape()[-1])
         rInfo.length = getRouteLength(net, rInfo.edges)
         rInfo.airDistRatio = rInfo.length / rInfo.airDist
 
@@ -116,11 +118,11 @@ def main():
     duarouterOutput = options.routeFile + '.rerouted.rou.xml'
     duarouterAltOutput = options.routeFile + '.rerouted.rou.alt.xml'
 
-    subprocess.call([DUAROUTER, 
-        '-n', options.network, 
-        '-r', duarouterInput,
-        '-o', duarouterOutput, 
-        '--no-step-log']) 
+    subprocess.call([DUAROUTER,
+                     '-n', options.network,
+                     '-r', duarouterInput,
+                     '-o', duarouterOutput,
+                     '--no-step-log'])
 
     for vehicle in parse(duarouterAltOutput, 'vehicle'):
         routeAlts = vehicle.routeDistribution[0].route
@@ -147,8 +149,8 @@ def main():
     for rID in sorted(routeInfos.keys()):
         ri = routeInfos[rID]
         ri.implausibility = (options.airdist_ratio_factor * ri.airDistRatio
-                + options.detour_factor * ri.detour
-                + options.detour_ratio_factor * ri.detourRatio)
+                             + options.detour_factor * ri.detour
+                             + options.detour_ratio_factor * ri.detourRatio)
         allRoutesStats.add(ri.implausibility, rID)
         if ri.implausibility > options.threshold:
             implausible.append((ri.implausibility, rID, ri))
@@ -176,13 +178,13 @@ def main():
             generate_poly(net, rID, colorgen(), 100, False, ri.edges, options.blur, outf, score)
         outf.write('</additional>\n')
 
-
     for score, rID, ri in sorted(implausible):
-        sys.stdout.write('%s\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio, ri.detour))) #, ' '.join(ri.edges)))
+        # , ' '.join(ri.edges)))
+        sys.stdout.write('%s\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio, ri.detour)))
 
     print(allRoutesStats)
     print(implausibleRoutesStats)
-    
+
 
 if __name__ == "__main__":
     main()

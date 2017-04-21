@@ -50,7 +50,7 @@ netedit.leftClick(match, 250, 50)
 netedit.leftClick(match, 250, 50)
 netedit.leftClick(match, 150, 50)
 
-#select two-way mode
+# select two-way mode
 netedit.changeTwoWayOption()
 
 # Create two way edges
@@ -73,7 +73,7 @@ netedit.leftClick(match, 350, 50)
 netedit.leftClick(match, 450, 50)
 netedit.cancelEdge()
 
-#abort creation of edge
+# abort creation of edge
 netedit.leftClick(match, 300, 250)
 netedit.cancelEdge()
 
