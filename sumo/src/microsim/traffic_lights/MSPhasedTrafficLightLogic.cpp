@@ -195,8 +195,7 @@ MSPhasedTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
     mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration + simStep);
     myStep = step;
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-        mySwitchCommand, stepDuration + simStep,
-        MSEventControl::ADAPT_AFTER_EXECUTION);
+        mySwitchCommand, stepDuration + simStep);
 }
 
 

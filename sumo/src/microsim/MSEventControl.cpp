@@ -48,7 +48,7 @@ MSEventControl::MSEventControl()
 
 MSEventControl::~MSEventControl() {
     // delete the events
-    while (! myEvents.empty()) {
+    while (!myEvents.empty()) {
         Event e = myEvents.top();
         delete e.first;
         myEvents.pop();
@@ -56,17 +56,9 @@ MSEventControl::~MSEventControl() {
 }
 
 
-SUMOTime
-MSEventControl::addEvent(Command* operation,
-                         SUMOTime execTimeStep,
-                         AdaptType type) {
-    SUMOTime currTimeStep = getCurrentTimeStep();
-    if (type == ADAPT_AFTER_EXECUTION && execTimeStep <= currTimeStep) {
-        execTimeStep = currTimeStep;
-    }
-    Event newEvent = Event(operation, execTimeStep);
-    myEvents.push(newEvent);
-    return execTimeStep;
+void
+MSEventControl::addEvent(Command* operation, SUMOTime execTimeStep) {
+    myEvents.push(Event(operation, execTimeStep));
 }
 
 
@@ -75,6 +67,9 @@ MSEventControl::execute(SUMOTime execTime) {
     // Execute all events that are scheduled for execTime.
     while (!myEvents.empty()) {
         Event currEvent = myEvents.top();
+        if (currEvent.second < 0) {
+            currEvent.second = execTime;
+        }
         if (currEvent.second < execTime + DELTA_T) {
             Command* command = currEvent.first;
             myEvents.pop();
@@ -98,14 +93,7 @@ MSEventControl::execute(SUMOTime execTime) {
                 myEvents.push(currEvent);
             }
         } else {
-            if (currEvent.second < execTime) {
-                // !!! more verbose information
-                WRITE_WARNING("Could not execute scheduled event.");
-                delete currEvent.first;
-                myEvents.pop();
-            } else {
-                break;
-            }
+            break;
         }
     }
 }

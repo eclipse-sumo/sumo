@@ -614,7 +614,7 @@ NBNetBuilder::computeSingleNode(NBNode *node, OptionsCont& oc, const std::set<st
     }
     // guess sidewalks
     if (oc.getBool("sidewalks.guess") || oc.getBool("sidewalks.guess.from-permissions")) {
-        const int sidewalks = myEdgeCont.guessSidewalks(oc.getFloat("default.sidewalk-width"),
+        myEdgeCont.guessSidewalks(oc.getFloat("default.sidewalk-width"),
                               oc.getFloat("sidewalks.guess.min-speed"),
                               oc.getFloat("sidewalks.guess.max-speed"),
                               oc.getBool("sidewalks.guess.from-permissions"));
@@ -624,8 +624,8 @@ NBNetBuilder::computeSingleNode(NBNode *node, OptionsCont& oc, const std::set<st
     myEdgeCont.recheckPostProcessConnections();
 
     // remap ids if wished
-    int numChangedEdges = myEdgeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"));
-    int numChangedNodes = myNodeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"));
+    myEdgeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"));
+    myNodeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"));
 
     //
     if (oc.exists("geometry.max-angle")) {

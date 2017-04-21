@@ -103,9 +103,9 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) {
     }
     if (end >= string2time(OptionsCont::getOptions().getString("begin"))) {
         Command* cb = new WrappingCommand< MSEdge >(e, &MSEdge::incVaporization);
-        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(cb, begin, MSEventControl::ADAPT_AFTER_EXECUTION);
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(cb, begin);
         Command* ce = new WrappingCommand< MSEdge >(e, &MSEdge::decVaporization);
-        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(ce, end, MSEventControl::ADAPT_AFTER_EXECUTION);
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(ce, end);
     }
 }
 

@@ -197,8 +197,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
             myAdaptationWeight = oc.getFloat("device.rerouting.adaptation-weight");
             if (myAdaptationWeight < 1. && myAdaptationInterval > 0) {
                 myEdgeWeightSettingCommand = new StaticCommand<MSDevice_Routing>(&MSDevice_Routing::adaptEdgeEfforts);
-                MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(
-                    myEdgeWeightSettingCommand, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
+                MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myEdgeWeightSettingCommand);
             } else if (period > 0) {
                 WRITE_WARNING("Rerouting is useless if the edge weights do not get updated!");
             }
@@ -220,10 +219,8 @@ MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
         // we do always a pre insertion reroute for trips to fill the best lanes of the vehicle with somehow meaningful values (especially for deaprtLane="best")
         myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::preInsertionReroute);
         // if we don't update the edge weights, we might as well reroute now and hopefully use our threads better
-        const SUMOTime execTime = myEdgeWeightSettingCommand == 0 ? 0 : holder.getParameter().depart;
-        MSNet::getInstance()->getInsertionEvents()->addEvent(
-            myRerouteCommand, execTime,
-            MSEventControl::ADAPT_AFTER_EXECUTION);
+        const SUMOTime execTime = myEdgeWeightSettingCommand == 0 ? -1 : holder.getParameter().depart;
+        MSNet::getInstance()->getInsertionEvents()->addEvent(myRerouteCommand, execTime);
     }
 }
 
@@ -248,8 +245,7 @@ MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification
         if (myPeriod > 0) {
             myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::wrappedRerouteCommandExecute);
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-                myRerouteCommand, myPeriod + MSNet::getInstance()->getCurrentTimeStep(),
-                MSEventControl::ADAPT_AFTER_EXECUTION);
+                myRerouteCommand, myPeriod + MSNet::getInstance()->getCurrentTimeStep());
         }
     }
     return false;

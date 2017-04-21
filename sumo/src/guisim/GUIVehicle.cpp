@@ -669,7 +669,10 @@ GUIVehicle::selectBlockingFoes() const {
         }
         std::vector<const SUMOVehicle*> blockingFoes;
         std::vector<const MSPerson*> blockingPersons;
-        const bool isOpen = dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLength(),
+#ifdef DEBUG_FOES
+        const bool isOpen =
+#endif
+            dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLength(),
                            getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes);
 #ifdef DEBUG_FOES
         if (!isOpen) {
@@ -684,7 +687,10 @@ GUIVehicle::selectBlockingFoes() const {
             if (parallelLink != 0) {
                 const double shadowLatPos = getLateralPositionOnLane() - getLaneChangeModel().getShadowDirection() * 0.5 * (
                                                   myLane->getWidth() + getLaneChangeModel().getShadowLane()->getWidth());
-                const bool isShadowOpen = parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
+#ifdef DEBUG_FOES
+                const bool isShadowOpen =
+#endif
+                    parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                      getVehicleType().getLength(), getImpatience(),
                                      getCarFollowModel().getMaxDecel(),
                                      getWaitingTime(), shadowLatPos, &blockingFoes);

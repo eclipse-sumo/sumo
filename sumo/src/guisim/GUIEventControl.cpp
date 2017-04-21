@@ -44,12 +44,10 @@ GUIEventControl::~GUIEventControl() {
 }
 
 
-SUMOTime
-GUIEventControl::addEvent(Command* operation,
-                          SUMOTime execTimeStep,
-                          AdaptType type) {
+void
+GUIEventControl::addEvent(Command* operation, SUMOTime execTimeStep) {
     AbstractMutex::ScopedLocker locker(myLock);
-    return MSEventControl::addEvent(operation, execTimeStep, type);
+    MSEventControl::addEvent(operation, execTimeStep);
 }
 
 

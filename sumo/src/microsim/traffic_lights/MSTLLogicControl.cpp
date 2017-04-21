@@ -769,7 +769,7 @@ MSTLLogicControl::closeWAUT(const std::string& wautid) {
         std::vector<WAUTSwitch>::const_iterator mbegin = w->switches.begin();
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
             new SwitchInitCommand(*this, wautid, (int)distance(mbegin, first)),
-            (*first).when, MSEventControl::NO_CHANGE);
+            (*first).when);
     }
     /*
     // set the current program to all junctions

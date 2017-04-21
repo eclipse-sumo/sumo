@@ -254,8 +254,7 @@ MSTriggeredRerouter::myEndElement(int element) {
         myIntervals.back().id = (long)&myIntervals.back();
         if (!(ri.closed.empty() && ri.closedLanes.empty()) && ri.permissions != SVCAll) {
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-                new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), ri.begin,
-                MSEventControl::ADAPT_AFTER_EXECUTION);
+                new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), ri.begin);
         }
     }
 }
@@ -280,8 +279,7 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
                 (*l)->getEdge().rebuildAllowedLanes();
             }
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-                new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), i->end,
-                MSEventControl::ADAPT_AFTER_EXECUTION);
+                new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), i->end);
         }
         if (i->end == currentTime && !(i->closed.empty() && i->closedLanes.empty()) && i->permissions != SVCAll) {
             for (MSEdgeVector::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {

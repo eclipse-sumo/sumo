@@ -60,18 +60,6 @@ public:
     typedef std::pair< Command*, SUMOTime > Event;
 
 
-    /**
-     * @enum AdaptType
-     * @brief Defines what to do if the insertion time lies before the current simulation time
-     */
-    enum AdaptType {
-        /// @brief Patch the time in a way that it is at least as high as the simulation begin time
-        ADAPT_AFTER_EXECUTION = 1,
-        /// @brief Do nothing
-        NO_CHANGE = 2
-    };
-
-
 public:
     /// @brief Default constructor.
     MSEventControl();
@@ -83,20 +71,11 @@ public:
 
     /** @brief Adds an Event.
      *
-     * If the given execution time step lies before the current and ADAPT_AFTER_EXECUTION
-     *  is passed for adaptation type, the execution time step will be set to the
-     *  current time step.
-     *
-     * Returns the time the event will be executed, really.
-     *
      * @param[in] operation The event to add
-     * @param[in] execTimeStep The time the event shall be executed at
-     * @param[in] type The adaptation type
+     * @param[in] execTimeStep The time the event shall be executed at (-1 means at sim start)
      * @see Command
-     * @see AdaptType
      */
-    virtual SUMOTime addEvent(Command* operation, SUMOTime execTimeStep,
-                              AdaptType type);
+    virtual void addEvent(Command* operation, SUMOTime execTimeStep=-1);
 
 
     /** @brief Executes time-dependant commands
@@ -153,7 +132,7 @@ private:
     /// @brief Container for time-dependant events, e.g. traffic-light-change.
     typedef std::priority_queue< Event, std::vector< Event >, EventSortCrit > EventCont;
 
-    /// The Current TimeStep
+    /// The current TimeStep
     SUMOTime currentTimeStep;
 
     /// @brief Event-container, holds executable events.

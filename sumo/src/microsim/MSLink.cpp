@@ -573,7 +573,7 @@ MSLink::getLengthBeforeCrossing(const MSLink* foeEntryLink) const {
             << std::endl;
 #endif
 
-    if (foe_ix == myFoeLanes.size() && egoEntryLane->getLinkCont().size() > 0){
+    if (foe_ix == (int)myFoeLanes.size() && egoEntryLane->getLinkCont().size() > 0){
         // Did not find crossing for first egoLane. Check internal cont lanes
         assert(egoEntryLane->getLinkCont().size() == 1);
         MSLink* contLink = egoEntryLane->getLinkCont()[0];
