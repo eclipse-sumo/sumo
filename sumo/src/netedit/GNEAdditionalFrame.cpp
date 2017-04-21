@@ -280,7 +280,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
             if (myEditorParameters->isCurrentLengthValid()) {
                 // check if current reference point is valid
                 if(myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
-                    myadditionalParameters->showWarningMessage(" - Current selected reference point isn't valid"); 
+                    myadditionalParameters->showWarningMessage("Current selected reference point isn't valid"); 
                     return ADDADDITIONAL_INVALID_ARGUMENTS;
                 }
                 double startPos = setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLength());
@@ -314,7 +314,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
             if (myEditorParameters->isCurrentLengthValid()) {
                 // check if current reference point is valid
                 if(myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
-                    myadditionalParameters->showWarningMessage(" - Current selected reference point isn't valid"); 
+                    myadditionalParameters->showWarningMessage("Current selected reference point isn't valid"); 
                     return ADDADDITIONAL_INVALID_ARGUMENTS;
                 }
                 double startPos = setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLength());
@@ -349,7 +349,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         double begin = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_STARTTIME]);
         double end = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_END]);
         if(begin > end) {
-            myadditionalParameters->showWarningMessage(" - Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' cannot be greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
+            myadditionalParameters->showWarningMessage("Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' cannot be greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
             return ADDADDITIONAL_INVALID_ARGUMENTS;
         }
     }
@@ -372,7 +372,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         if (myAdditionalParentSelector->getIdSelected() != "") {
             valuesOfElement[GNE_ATTR_PARENT] = myAdditionalParentSelector->getIdSelected();
         } else {
-            myadditionalParameters->showWarningMessage(" - A " + toString(SUMO_TAG_E3DETECTOR) + " must be selected before insertion of " + toString(myActualAdditionalType) + ".");
+            myadditionalParameters->showWarningMessage("A " + toString(SUMO_TAG_E3DETECTOR) + " must be selected before insertion of " + toString(myActualAdditionalType) + ".");
             return ADDADDITIONAL_INVALID_ARGUMENTS;
         }
     }
@@ -395,7 +395,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         }
         // check if attribute has at least one edge
         if (valuesOfElement[SUMO_ATTR_EDGES] == "") {
-            myadditionalParameters->showWarningMessage(" - List of " + toString(SUMO_TAG_EDGE) + "s cannot be empty");
+            myadditionalParameters->showWarningMessage("List of " + toString(SUMO_TAG_EDGE) + "s cannot be empty");
             return ADDADDITIONAL_INVALID_ARGUMENTS;
         }
     }
@@ -418,7 +418,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         }
         // check if attribute has at least a lane
         if (valuesOfElement[SUMO_ATTR_LANES] == "") {
-            myadditionalParameters->showWarningMessage(" - List of " + toString(SUMO_TAG_LANE) + "s cannot be empty");
+            myadditionalParameters->showWarningMessage("List of " + toString(SUMO_TAG_LANE) + "s cannot be empty");
             return ADDADDITIONAL_INVALID_ARGUMENTS;
         }
     }

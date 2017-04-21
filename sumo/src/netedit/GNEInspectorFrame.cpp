@@ -967,6 +967,11 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
         } else if (GNEAttributeCarrier::isString(myTag, myAttr) && myTextFieldStrings != 0) {
             myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
         }
+
+        // Write Warning in console if we're in testing mode
+        if(myInspectorFrameParent->getViewNet()->isTestingModeEnabled() == true) {
+            WRITE_WARNING("Value '" + newVal + "' for attribute " + toString(myAttr) + " of " + toString(myTag) +" isn't valid");
+        }
     }
     // Update view net
     myInspectorFrameParent->getViewNet()->update();

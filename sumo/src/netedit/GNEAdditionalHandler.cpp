@@ -1248,8 +1248,8 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
         if (attrs.hasAttribute(attribute)) {
             // Parse attribute as string
             parsedAttribute = attrs.get<std::string>(attribute, objectid, ok, false);
-            // Check if is the attribute "COLOR"
-            if (!ok && (attribute == SUMO_ATTR_COLOR)) {
+            // Check if is the attribute is a file name or special attribute "COLOR"
+            if (!ok && ((attribute == SUMO_ATTR_COLOR) || GNEAttributeCarrier::isFilename(tag, attribute))) {
                 ok = true;
             }
             // check that parsed attribute can be converted to type T
@@ -1300,8 +1300,7 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
                 }
             }
             // set extra check for filename values
-            if(GNEAttributeCarrier::isFilename(tag, attribute)) {
-                if(GNEAttributeCarrier::isValidFilename(parsedAttribute) == false)
+            if(GNEAttributeCarrier::isFilename(tag, attribute) && (GNEAttributeCarrier::isValidFilename(parsedAttribute) == false)) {
                 errorFormat = "Filename contains invalid characters; ";
                 ok = false;
             }
