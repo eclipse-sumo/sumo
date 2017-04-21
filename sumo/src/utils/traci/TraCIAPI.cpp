@@ -561,10 +561,10 @@ void
 TraCIAPI::load(const std::vector<std::string>& args) {
     int numChars = 0;
     for (int i = 0; i < (int)args.size(); ++i) {
-        numChars += args[i].size();
+        numChars += (int)args[i].size();
     }
     tcpip::Storage content;
-    content.writeUnsignedByte(1 + 1 + 1 + 4 + numChars + 4 * args.size());
+    content.writeUnsignedByte(1 + 1 + 1 + 4 + numChars + 4 * (int)args.size());
     content.writeUnsignedByte(CMD_LOAD);
     content.writeUnsignedByte(TYPE_STRINGLIST);
     content.writeStringList(args);
