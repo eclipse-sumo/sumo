@@ -80,4 +80,4 @@ netedit.saveAdditionals()
 netedit.saveNetwork()
 
 # quit netedit
-netedit.quit(neteditProcess, False, False)
+netedit.quit(neteditProcess)

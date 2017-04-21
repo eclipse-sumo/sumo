@@ -83,4 +83,4 @@ netedit.redo(match, 8)
 netedit.saveNetwork()
 
 # quit netedit
-netedit.quit(neteditProcess, False, False)
+netedit.quit(neteditProcess)

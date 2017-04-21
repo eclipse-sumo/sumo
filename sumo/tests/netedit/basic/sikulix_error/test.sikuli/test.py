@@ -30,4 +30,4 @@ import neteditTestFunctions as netedit
 neteditProcess = netedit.setupAndStart(neteditTestRoot, False, True, 2)
 
 # quit netedit
-netedit.quit(neteditProcess, False, False)
+netedit.quit(neteditProcess)
