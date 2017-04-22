@@ -35,17 +35,68 @@ from __future__ import print_function
 
 import sys
 import os
+import argparse
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
+parser = argparse.ArgumentParser(description='Create tls xml def from csv.')
+parser.add_argument('TLS_CSV', help='tls definition')
+parser.add_argument('NET', help='sumo net file')
+parser.add_argument(
+    '-d', '--debug', action='store_true', help='print additional debug info')
 
-if len(sys.argv) < 2:
-    print("Call: tls_csv2SUMO.py <TLS_CSV> <NET>", file=sys.stderr)
-    sys.exit()
+args = parser.parse_args()
 
 
-allTLS = sys.argv[1].split(",")
+def computeLinkPhasesAndTimes(links2sigGrpPhase):
+    global normTimes
+    global defs
+    global links2index
+    phases = {}
+
+    # compute all boundaries between phases
+    for myKey in links2sigGrpPhase:
+        phaseDef = links2sigGrpPhase[myKey]
+        for i in range(0, len(phaseDef), 2):
+            phases[int(phaseDef[i])] = True
+    lastTime = 0
+    newTimes = []
+    sortPhases = []
+
+    # sort the boundaries and compute the normTimes (here newTimes)) list
+    for time in sorted(phases):
+        if int(time) != 0:
+            sortPhases.append(time)
+        if int(time) > lastTime:
+            newTimes.append(str(int(time) - lastTime))
+        lastTime = int(time)
+    normTimes = newTimes
+    if args.debug:
+        print ('normTimes', newTimes, file=sys.stderr)
+
+    # create the phase string
+    for myKey in links2sigGrpPhase:
+        phaseDef = links2sigGrpPhase[myKey]
+        currentPhaseIndex = 0
+        newPhases = []
+        sigGrpPhaseIndex = 1
+        if args.debug:
+            print ('phaseDef', phaseDef, 'len', len(phaseDef), file=sys.stderr)
+        for currentPhase in sortPhases:
+            if args.debug:
+                print ('SGPIndex', sigGrpPhaseIndex, 'startCurrPhase', currentPhase,
+                       'endCurrPhase',  phaseDef[sigGrpPhaseIndex + 1], file=sys.stderr)
+            newPhases.append(phaseDef[sigGrpPhaseIndex])
+            if int(phaseDef[sigGrpPhaseIndex + 1]) == currentPhase and sigGrpPhaseIndex + 2 < len(phaseDef):
+                sigGrpPhaseIndex += 2
+        if args.debug:
+            print(myKey, newPhases, file=sys.stderr)
+        links2index[myKey] = len(defs)
+        defs.append(newPhases)
+
+
+allTLS = args.TLS_CSV.split(",")
 allMinTimes = []
 allMaxTimes = []
 allNormTimes = []
@@ -61,6 +112,7 @@ allLink2Indices = []
 for tlsFile in allTLS:
     fd = open(tlsFile)
     key = None
+    hasSigGrpPhase = False
     for l in fd:
         l = l.strip()
         if len(l) > 0 and l[0] == '#':
@@ -89,6 +141,7 @@ for tlsFile in allTLS:
             subkey = ""
             offset = 0
             links2index = {}
+            links2sigGrpPhase = {}
 
             key = v[1]
         elif v[0] == "subkey":
@@ -96,7 +149,8 @@ for tlsFile in allTLS:
         elif v[0] == "offset":
             offset = v[1]
         elif v[0] == "link":
-            linkNo = int(v[1])
+            #linkNo = int(v[1])
+            linkNo = v[1]
             fromDef = v[2]
             toDef = v[3]
             minor = v[4] == "1"
@@ -109,12 +163,18 @@ for tlsFile in allTLS:
             maxTimes = v[1:]
         elif v[0] == "time":
             normTimes = v[1:]
+        elif v[0] == "siggrpphase":
+            links2sigGrpPhase[v[1]] = v[2:]
+            hasSigGrpPhase = True
         else:
             if len(v) > 1:
-                links2index[int(v[0])] = len(defs)
+                links2index[v[0]] = len(defs)
                 defs.append(v[1:])
 
         pass
+
+    if hasSigGrpPhase:
+        computeLinkPhasesAndTimes(links2sigGrpPhase)
 
     if len(defs) > 0:
         links2index[-1] = len(defs)
@@ -133,7 +193,7 @@ for tlsFile in allTLS:
         allLink2Indices.append(links2index)
     fd.close()
 
-net1 = sumolib.net.readNet(sys.argv[2])
+net1 = sumolib.net.readNet(args.NET)
 
 print('<?xml version="1.0" encoding="UTF-8"?>\n<add>')
 for keyIndex, key in enumerate(allKeys):
@@ -228,7 +288,7 @@ for keyIndex, key in enumerate(allKeys):
                 state = state + "o"
             else:
                 sys.stderr.write(
-                    "missing value at %s (%s); setting to g\n" % (index, linkMap[l]))
+                    "missing value %s at %s (%s); setting to g\n" % (d[i], index, linkMap[l]))
                 state = state + "g"
         for l1 in range(0, len(state)):
             if state[l1] == 'g':
