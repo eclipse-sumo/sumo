@@ -12,3 +12,6 @@ both_second_false
 
 # multiple definitions in a single input file
 multiple_definitions
+
+# Test new format with the cross3ltl network
+cross3ltl_siggrpphase
