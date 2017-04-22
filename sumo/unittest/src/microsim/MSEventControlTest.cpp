@@ -32,12 +32,9 @@ TEST(MSEventControl, test_method_execute) {
     MSEventControl eventControl;
     CommandMock *mock = new CommandMock(); 
     eventControl.setCurrentTimeStep(4);
-    eventControl.addEvent(mock,1,MSEventControl::ADAPT_AFTER_EXECUTION);
+    eventControl.addEvent(mock);
     
     EXPECT_FALSE(mock->isExecuteCalled());
     eventControl.execute(5);
     EXPECT_TRUE(mock->isExecuteCalled());
 }
-
-
-
