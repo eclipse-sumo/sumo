@@ -2724,9 +2724,9 @@ void
 NBEdge::deleteLane(int index, bool recompute) {
     assert(index < (int)myLanes.size());
     myLanes.erase(myLanes.begin() + index);
-    const EdgeVector& incs = myFrom->getIncomingEdges();
     if (recompute) {
         computeLaneShapes();
+        const EdgeVector& incs = myFrom->getIncomingEdges();
         for (EdgeVector::const_iterator i = incs.begin(); i != incs.end(); ++i) {
             (*i)->invalidateConnections(true);
         }
