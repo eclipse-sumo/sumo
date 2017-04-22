@@ -612,8 +612,9 @@ GNEAdditionalFrame::AdditionalAttributeSingle::AdditionalAttributeSingle(FXCompo
     myAdditionalAttr(SUMO_ATTR_NOTHING) {
     // Create visual elements
     myLabel = new FXLabel(this, "name", 0, GUIDesignLabelAttribute);
-    myTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextField);
-    myTimeSpinDial = new FXSpinner(this, 7, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_DIAL, GUIDesignSpinDialAttribute);
+    myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextFieldInt);
+    myTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextFieldReal);
+    myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextField);
     myBoolCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_BOOL, GUIDesignCheckButtonAttribute);
     // Hide elements
     hideParameter();
@@ -630,8 +631,9 @@ GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLTag addition
     myInvalidValue = "";
     myLabel->setText(toString(myAdditionalAttr).c_str());
     myLabel->show();
-    myTextField->setText(value.c_str());
-    myTextField->show();
+    myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+    myTextFieldStrings->setText(value.c_str());
+    myTextFieldStrings->show();
     show();
 }
 
@@ -643,27 +645,23 @@ GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLTag addition
     myInvalidValue = "";
     myLabel->setText(toString(myAdditionalAttr).c_str());
     myLabel->show();
-    myTextField->setText(toString(value).c_str());
-    myTextField->show();
+    myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
+    myTextFieldInt->setText(toString(value).c_str());
+    myTextFieldInt->show();
     show();
-    std::cout << myTextField->getHeight() << std::endl;
 }
 
 
 void
-GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, double value, bool isTime) {
+GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, double value) {
     myAdditionalTag = additionalTag;
     myAdditionalAttr = additionalAttr;
     myInvalidValue = "";
     myLabel->setText(toString(myAdditionalAttr).c_str());
     myLabel->show();
-    if (isTime) {
-        myTimeSpinDial->setValue((int)value);
-        myTimeSpinDial->show();
-    } else {
-        myTextField->setText(toString(value).c_str());
-        myTextField->show();
-    }
+    myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
+    myTextFieldReal->setText(toString(value).c_str());
+    myTextFieldReal->show();
     show();
 }
 
@@ -674,7 +672,6 @@ GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLTag addition
     myAdditionalAttr = additionalAttr;
     myInvalidValue = "";
     myLabel->setText(toString(myAdditionalAttr).c_str());
-    myTextField->setTextColor(FXRGB(0, 0, 0));
     myLabel->show();
     if (value == true) {
         myBoolCheckButton->setCheck(true);
@@ -693,9 +690,10 @@ GNEAdditionalFrame::AdditionalAttributeSingle::hideParameter() {
     myAdditionalTag = SUMO_TAG_NOTHING;
     myAdditionalAttr = SUMO_ATTR_NOTHING;
     myLabel->hide();
-    myTextField->hide();
+    myTextFieldInt->hide();
+    myTextFieldReal->hide();
+    myTextFieldStrings->hide();
     myBoolCheckButton->hide();
-    myTimeSpinDial->hide();
     hide();
 }
 
@@ -716,10 +714,12 @@ std::string
 GNEAdditionalFrame::AdditionalAttributeSingle::getValue() const {
     if (GNEAttributeCarrier::isBool(myAdditionalTag, myAdditionalAttr)) {
         return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
-    } else if (GNEAttributeCarrier::isTime(myAdditionalTag, myAdditionalAttr)) {
-        return toString(myTimeSpinDial->getValue());
-    } else  {
-        return myTextField->getText().text();
+    } else if(GNEAttributeCarrier::isInt(myAdditionalTag, myAdditionalAttr)) {
+        return myTextFieldInt->getText().text();
+    } else if(GNEAttributeCarrier::isFloat(myAdditionalTag, myAdditionalAttr) || GNEAttributeCarrier::isTime(myAdditionalTag, myAdditionalAttr)) {
+        return myTextFieldReal->getText().text();
+    } else {
+        return myTextFieldStrings->getText().text();
     }
 }
 
@@ -736,9 +736,9 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
     myInvalidValue = "";
     // Check if format of current value of myTextField is correct
     if (GNEAttributeCarrier::isInt(myAdditionalTag, myAdditionalAttr)) {
-        if (GNEAttributeCarrier::canParse<int>(myTextField->getText().text())) {
+        if (GNEAttributeCarrier::canParse<int>(myTextFieldInt->getText().text())) {
             // convert string to int
-            int intValue = GNEAttributeCarrier::parse<int>(myTextField->getText().text());
+            int intValue = GNEAttributeCarrier::parse<int>(myTextFieldInt->getText().text());
             // Check if int value must be positive
             if (GNEAttributeCarrier::isPositive(myAdditionalTag, myAdditionalAttr) && (intValue < 0)) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
@@ -748,9 +748,9 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         }
     } else if (GNEAttributeCarrier::isTime(myAdditionalTag, myAdditionalAttr)) {
         // time attributes work as positive doubles
-        if (GNEAttributeCarrier::canParse<double>(myTextField->getText().text())) {
+        if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
             // convert string to double
-            double doubleValue = GNEAttributeCarrier::parse<double>(myTextField->getText().text());
+            double doubleValue = GNEAttributeCarrier::parse<double>(myTextFieldReal->getText().text());
             // Check if parsed value is negative
             if (doubleValue < 0) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
@@ -759,9 +759,9 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'time' format";
         }
     } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, myAdditionalAttr)) {
-        if (GNEAttributeCarrier::canParse<double>(myTextField->getText().text())) {
+        if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
             // convert string to double
-            double doubleValue = GNEAttributeCarrier::parse<double>(myTextField->getText().text());
+            double doubleValue = GNEAttributeCarrier::parse<double>(myTextFieldReal->getText().text());
             // Check if double value must be positive
             if (GNEAttributeCarrier::isPositive(myAdditionalTag, myAdditionalAttr) && (doubleValue < 0)) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
@@ -772,30 +772,25 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         } else {
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'float' format";
         }
-/* FILENAMES
-    } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, myAdditionalAttr)) {
-        if (GNEAttributeCarrier::canParse<double>(myTextField->getText().text())) {
-            // convert string to double
-            double doubleValue = GNEAttributeCarrier::parse<double>(myTextField->getText().text());
-            // Check if double value must be positive
-            if (GNEAttributeCarrier::isPositive(myAdditionalTag, myAdditionalAttr) && (doubleValue < 0)) {
-                myInvalidValue = "cannot be negative";
-                // check if double value is a probability
-            } else if (GNEAttributeCarrier::isProbability(myAdditionalTag, myAdditionalAttr) && ((doubleValue < 0) || doubleValue > 1)) {
-                myInvalidValue = "a probability take only values between 0 and 1";
-            }
-        } else {
-            myInvalidValue = "input doesn't have a 'float' format";
+    } else if (GNEAttributeCarrier::isFilename(myAdditionalTag, myAdditionalAttr)) {
+        // check if filename format is valid
+        if (GNEAttributeCarrier::isValidFilename(myTextFieldStrings->getText().text()) == false) {
+            myInvalidValue = "input contains invalid characters for a filename";
         }
-*/
     }
     // change color of text field depending of myCurrentValueValid
     if (myInvalidValue.size() == 0) {
-        myTextField->setTextColor(FXRGB(0, 0, 0));
-        myTextField->killFocus();
+        myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldInt->killFocus();
+        myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldReal->killFocus();
+        myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldStrings->killFocus();
     } else {
         // IF value of TextField isn't valid, change their color to Red
-        myTextField->setTextColor(FXRGB(255, 0, 0));
+        myTextFieldInt->setTextColor(FXRGB(255, 0, 0));
+        myTextFieldReal->setTextColor(FXRGB(255, 0, 0));
+        myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
     }
     // Update aditional frame
     update();
@@ -1034,10 +1029,8 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLTag additionalTag,
             // Check type of attribute list
             if (GNEAttributeCarrier::isInt(myAdditionalTag, AdditionalAttributeSingle)) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(myAdditionalTag, AdditionalAttributeSingle));
-            } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, AdditionalAttributeSingle)) {
+            } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, AdditionalAttributeSingle) || GNEAttributeCarrier::isTime(myAdditionalTag, AdditionalAttributeSingle)) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(myAdditionalTag, AdditionalAttributeSingle));
-            } else if (GNEAttributeCarrier::isTime(myAdditionalTag, AdditionalAttributeSingle)) {
-                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(myAdditionalTag, AdditionalAttributeSingle), true);
             } else if (GNEAttributeCarrier::isBool(myAdditionalTag, AdditionalAttributeSingle)) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(myAdditionalTag, AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<bool>(myAdditionalTag, AdditionalAttributeSingle));
             } else if (GNEAttributeCarrier::isString(myAdditionalTag, AdditionalAttributeSingle)) {

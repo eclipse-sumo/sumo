@@ -299,9 +299,6 @@
 /// @{
 /// @brief desing for standard spin dial
 #define GUIDesignSpinDial                   (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y)
-
-/// @brief  spin dial extended over the matrix column with thick frame
-#define GUIDesignSpinDialAttribute          (FRAME_THICK | LAYOUT_FILL_X | SPIN_NOMAX)
 /// @}
 
 

@@ -65,7 +65,7 @@ public:
         AttributeInput(FXComposite* parent, GNEInspectorFrame* inspectorFrameParent);
 
         /// @brief show attribute of ac
-        void showAttribute(GNEAttributeCarrier *ac, SumoXMLTag tag, SumoXMLAttr attr, const std::string& value);
+        void showAttribute(SumoXMLTag tag, SumoXMLAttr attr, const std::string& value);
 
         /// @brief show attribute
         void hideAttribute();
@@ -102,11 +102,8 @@ public:
         /// @brief textField to modify the value of int attributes
         FXTextField* myTextFieldInt;
 
-        /// @brief textField to modify the value of real attributes
+        /// @brief textField to modify the value of real/Time attributes
         FXTextField* myTextFieldReal;
-
-        /// @rief SpinDial to modify the value of time attributes
-        FXSpinner* myTimeSpinDial;
 
         /// @brief textField to modify the value of string attributes
         FXTextField* myTextFieldStrings;

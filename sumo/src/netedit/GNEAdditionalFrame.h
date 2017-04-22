@@ -81,7 +81,7 @@ public:
         void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, int value);
 
         /// @brief show name and value of parameters of type float/real/time
-        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, double value, bool isTime = false);
+        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, double value);
 
         /// @brief show name and value of parameters of type bool
         void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, bool value);
@@ -124,11 +124,14 @@ public:
         /// @brief lael with the name of the parameter
         FXLabel* myLabel;
 
-        /// @brief textField to modify the value of int/float/string parameters
-        FXTextField* myTextField;
+        /// @brief textField to modify the default value of int/float/string parameters
+        FXTextField* myTextFieldInt;
 
-        /// @brief spindial  to modify the value of time parameters
-        FXSpinner* myTimeSpinDial;
+        /// @brief textField to modify the default value of real/times parameters
+        FXTextField* myTextFieldReal;
+
+        /// @brief textField to modify the default value of string parameters
+        FXTextField* myTextFieldStrings;
 
         /// @brief check button to enable/disable the value of boolean parameters
         FXCheckButton* myBoolCheckButton;
