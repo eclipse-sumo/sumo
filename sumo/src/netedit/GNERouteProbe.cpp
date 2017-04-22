@@ -335,9 +335,9 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_FREQUENCY:
-            return canParse<double>(value);
+            return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_BEGIN:
-            return canParse<double>(value);
+            return (canParse<double>(value) && (parse<double>(value) >= 0));
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

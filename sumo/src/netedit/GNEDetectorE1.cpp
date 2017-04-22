@@ -270,7 +270,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= (myLane->getLaneParametricLength()));
         case SUMO_ATTR_FREQUENCY:
-            return (canParse<double>(value) && parse<double>(value) > 0);
+            return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_SPLIT_VTYPE:

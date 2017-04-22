@@ -717,20 +717,28 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                 }
                 // obtain selected ACs
                 std::vector<GNEAttributeCarrier*> selectedElements;
+                std::vector<GNEAttributeCarrier*> selectedFilteredElements;
                 if (pointedO && gSelected.isSelected(pointedO->getType(), pointedO->getGlID())) {
                     std::set<GUIGlID> selectedIDs = gSelected.getSelected(pointedO->getType());
                     selectedElements = myNet->retrieveAttributeCarriers(selectedIDs, pointedO->getType());
+                    // filter selected elements (example: if we have two E2 and one busStop selected, and user click over one E2,
+                    // attribues of busstop musn't be shown
+                    for(std::vector<GNEAttributeCarrier*>::iterator i = selectedElements.begin(); i != selectedElements.end(); i++) {
+                        if((*i)->getTag() == pointedAC->getTag()) {
+                            selectedFilteredElements.push_back(*i);
+                        }
+                    }
                 }
                 // Inspect seleted ACs, or single clicked AC
-                if(selectedElements.size() > 0) {
-                    myViewParent->getInspectorFrame()->inspectMultisection(selectedElements);
+                if(selectedFilteredElements.size() > 0) {
+                    myViewParent->getInspectorFrame()->inspectMultisection(selectedFilteredElements);
                 } else if (pointedAC != NULL) {
                     myViewParent->getInspectorFrame()->inspectElement(pointedAC);
                 }
                 // process click
                 processClick(e, data);
                 // focus upper element of inspector frame
-                if((selectedElements.size() > 0) || (pointedAC != NULL)) {
+                if((selectedFilteredElements.size() > 0) || (pointedAC != NULL)) {
                     myViewParent->getInspectorFrame()->focusUpperElement();
                 }
                 update();
@@ -945,8 +953,10 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
 
 void
 GNEViewNet::abortOperation(bool clearSelection) {
-    setFocus(); // steal focus from any text fields
-    if (myCreateEdgeSource) {
+    // steal focus from any text fields
+    setFocus(); 
+    if (myCreateEdgeSource != NULL) {
+        // remove current created edge source
         myCreateEdgeSource->unMarkAsCreateEdgeSource();
         myCreateEdgeSource = 0;
     } else if (myEditMode == GNE_MODE_SELECT) {

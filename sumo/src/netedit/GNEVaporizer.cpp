@@ -312,7 +312,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTTIME:
-            if(canParse<double>(value)) {
+            if(canParse<double>(value) && (parse<double>(value) >= 0)) {
                 double startTime = parse<double>(value);
                 if(startTime <= myEnd) {
                     return true;
@@ -323,7 +323,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_END:
-            if(canParse<double>(value)) {
+            if(canParse<double>(value) && (parse<double>(value) >= 0)) {
                 double end = parse<double>(value);
                 if(myStartTime <= end) {
                     return true;

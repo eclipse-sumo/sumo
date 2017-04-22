@@ -246,7 +246,7 @@ GNEDetectorEntry::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= (myLane->getLaneParametricLength()));
+            return (canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= (myLane->getLaneParametricLength())));
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:

@@ -372,13 +372,13 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_Y:
             return canParse<double>(value);
         case SUMO_ATTR_FREQUENCY:
-            return (canParse<double>(value) && parse<double>(value) > 0);
+            return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return canParse<double>(value);
+            return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
-            return canParse<double>(value);
+            return (canParse<double>(value) && parse<double>(value) >= 0);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:

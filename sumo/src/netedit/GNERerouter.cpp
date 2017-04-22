@@ -441,7 +441,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_PROB:
-            return canParse<double>(value);
+            return canParse<double>(value) && (parse<double>(value)) >= 0 && (parse<double>(value) <= 1);
         case SUMO_ATTR_OFF:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
