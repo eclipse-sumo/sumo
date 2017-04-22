@@ -86,7 +86,7 @@ def typeKey(key):
 # type two keys at the same time
 
 
-def typeTowKeys(key1, key2):
+def typeTwoKeys(key1, key2):
     wait(DELAY)
     type(key1, key2)
 
@@ -213,7 +213,7 @@ def undo(match, number):
     # click over match
     leftClick(match, 0, 0)
     for x in range(0, number):
-        typeTowKeys("z", Key.CTRL)
+        typeTwoKeys("z", Key.CTRL)
 
 # undo last operation
 
@@ -224,7 +224,7 @@ def redo(match, number):
     # click over match
     leftClick(match, 0, 0)
     for x in range(0, number):
-        typeTowKeys("y", Key.CTRL)
+        typeTwoKeys("y", Key.CTRL)
 
 # set Zoom
 
@@ -257,7 +257,7 @@ def waitQuestion(answer):
     # wait 0.5 second to question dialog
     wait(DELAY_QUESTION)
     # Answer can be "y" or "n"
-    typeTowKeys(answer, Key.ALT)
+    typeTwoKeys(answer, Key.ALT)
 
 # netedit quit
 
@@ -268,7 +268,7 @@ def quit(neteditProcess, netNonSavedDialog=False, saveNet=False, additionalsNonS
         return
 
     # quit using hotkey
-    typeTowKeys("q", Key.CTRL)
+    typeTwoKeys("q", Key.CTRL)
 
     # Check if net must be saved
     if netNonSavedDialog:
@@ -286,6 +286,8 @@ def quit(neteditProcess, netNonSavedDialog=False, saveNet=False, additionalsNonS
 
     # wait some seconds
     for t in xrange(3):
+        waitQuestion("q")
+        waitQuestion("q")
         wait(t)
         if neteditProcess.poll() is not None:
             print("[log] netedit closed successfully")
@@ -298,14 +300,14 @@ def quit(neteditProcess, netNonSavedDialog=False, saveNet=False, additionalsNonS
 
 def saveNetwork():
     # save newtork using hotkey
-    typeTowKeys("s", Key.CTRL)
+    typeTwoKeys("s", Key.CTRL)
 
 # save additionals
 
 
 def saveAdditionals():
     # save additionals using hotkey
-    typeTowKeys("d", Key.CTRL + Key.SHIFT)
+    typeTwoKeys("d", Key.CTRL + Key.SHIFT)
 
 #################################################
 # Create edge
@@ -362,27 +364,31 @@ def inspectMode():
 
 
 def modifyAttribute(attributeNumber, value):
-    typeKey("i")
+    # focus current frame
+    focusOnFrame()
     # jump to attribute
     for x in range(0, attributeNumber + 1):
         typeTab()
     # select all values
-    typeTowKeys("a", Key.CTRL)
+    typeTwoKeys("a", Key.CTRL)
     # paste the new value
     pasteIntoTextField(value)
-    # type ESC to save changea and avoid edit accidentally
+    # type ESC to commit change and avoid edit accidentally
     typeEscape()
 
 # netedit modify bool attribute
 
 
 def modifyBoolAttribute(attributeNumber):
-    typeKey("i")
+    # focus current frame
+    focusOnFrame()
     # jump to attribute
     for x in range(0, attributeNumber + 1):
         typeTab()
     # type SPACE to change value
     typeSpace()
+	# type ESC to quit focus of checkBox
+    typeEscape()
 
 #################################################
 # Move mode
@@ -441,7 +447,7 @@ def modifyCrossingDefaultValue(numtabs, value):
     for x in range(0, numtabs + 1):
         typeTab()
     # select all value
-    typeTowKeys("a", Key.CTRL)
+    typeTwoKeys("a", Key.CTRL)
     # paste the new value
     pasteIntoTextField(value)
     # type enter to save change
@@ -516,7 +522,7 @@ def changeAdditional(additional):
     # go to first editable element of frame
     typeTab()
     # select current value
-    typeTowKeys("a", Key.CTRL)
+    typeTwoKeys("a", Key.CTRL)
     # paste the new value
     pasteIntoTextField(additional)
     # type enter to save change
@@ -534,7 +540,7 @@ def modifyAdditionalDefaultValue(numTabs, length):
     for x in range(0, numTabs + 1):
         typeTab()
     # select current value
-    typeTowKeys("a", Key.CTRL)
+    typeTwoKeys("a", Key.CTRL)
     # paste new lenght
     pasteIntoTextField(length)
     # type enter to save new lenght
@@ -674,28 +680,28 @@ def selectItems(elementClass, elementType, attribute, value):
     for x in range(0, 5):
         typeTab()
     # select all
-    typeTowKeys("a", Key.CTRL)
+    typeTwoKeys("a", Key.CTRL)
     # paste the new elementClass
     pasteIntoTextField(elementClass)
     # jump to element
     for x in range(0, 2):
         typeTab()
     # select all
-    typeTowKeys("a", Key.CTRL)
+    typeTwoKeys("a", Key.CTRL)
     # paste the new elementType
     pasteIntoTextField(elementType)
     # jump to attribute
     for x in range(0, 2):
         typeTab()
     # select all
-    typeTowKeys("a", Key.CTRL)
+    typeTwoKeys("a", Key.CTRL)
     # paste the new attribute
     pasteIntoTextField(attribute)
     # jump to value
     for x in range(0, 2):
         typeTab()
     # select all
-    typeTowKeys("a", Key.CTRL)
+    typeTwoKeys("a", Key.CTRL)
     # paste the new value
     pasteIntoTextField(value)
     # type enter to select it
