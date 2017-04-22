@@ -448,10 +448,10 @@ TraCIAPI::getColor(int cmd, int var, const std::string& id, tcpip::Storage* add)
     send_commandGetVariable(cmd, var, id, add);
     processGET(inMsg, cmd, TYPE_COLOR);
     TraCIColor c;
-    c.r = inMsg.readUnsignedByte();
-    c.g = inMsg.readUnsignedByte();
-    c.b = inMsg.readUnsignedByte();
-    c.a = inMsg.readUnsignedByte();
+    c.r = (unsigned char)inMsg.readUnsignedByte();
+    c.g = (unsigned char)inMsg.readUnsignedByte();
+    c.b = (unsigned char)inMsg.readUnsignedByte();
+    c.a = (unsigned char)inMsg.readUnsignedByte();
     return c;
 }
 
@@ -485,10 +485,10 @@ TraCIAPI::readVariables(tcpip::Storage& inMsg, const std::string& objectID, int 
                     v.position.z = inMsg.readDouble();
                     break;
                 case TYPE_COLOR:
-                    v.color.r = inMsg.readUnsignedByte();
-                    v.color.g = inMsg.readUnsignedByte();
-                    v.color.b = inMsg.readUnsignedByte();
-                    v.color.a = inMsg.readUnsignedByte();
+                    v.color.r = (unsigned char)inMsg.readUnsignedByte();
+                    v.color.g = (unsigned char)inMsg.readUnsignedByte();
+                    v.color.b = (unsigned char)inMsg.readUnsignedByte();
+                    v.color.a = (unsigned char)inMsg.readUnsignedByte();
                     break;
                 case TYPE_INTEGER:
                     v.scalar = inMsg.readInt();
