@@ -77,16 +77,7 @@ netedit.modifyAdditionalDefaultValue(7, "reference left")
 # Change length
 netedit.modifyAdditionalDefaultValue(9, "30")
 
-# set invalid charge delay
-netedit.modifyAdditionalDefaultValue(5, "-5")
-
 # try to create a chargingStation in mode "reference left" (error)
-netedit.leftClick(match, 500, 250)
-
-# set invalid charge delay
-netedit.modifyAdditionalDefaultValue(5, "7")
-
-# try to create a chargingStation in mode "reference left" (Warning)
 netedit.leftClick(match, 500, 250)
 
 # change reference to right
@@ -100,6 +91,15 @@ netedit.modifyAdditionalDefaultBoolValue(10)
 
 # change reference to "reference left"
 netedit.modifyAdditionalDefaultValue(7, "reference left")
+
+# set invalid charge delay
+netedit.modifyAdditionalDefaultValue(5, "-5")
+
+# try to create a chargingStation in mode "reference left" forcing poisition
+netedit.leftClick(match, 500, 250)
+
+# valid charge delay
+netedit.modifyAdditionalDefaultValue(5, "7")
 
 # create a chargingStation in mode "reference left" forcing poisition
 netedit.leftClick(match, 500, 250)

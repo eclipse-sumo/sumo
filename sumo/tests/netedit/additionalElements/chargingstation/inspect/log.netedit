@@ -11,3 +11,4 @@ Warning: Value '10' for attribute endPos of chargingStation isn't valid
 Warning: Value '-100' for attribute power of chargingStation isn't valid
 Warning: Value '-1' for attribute efficiency of chargingStation isn't valid
 Warning: Value '2' for attribute efficiency of chargingStation isn't valid
+Warning: Value '-10' for attribute chargeDelay of chargingStation isn't valid

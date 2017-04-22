@@ -3,6 +3,8 @@ Warning: Value 'dummy lane' for attribute lane of e2Detector isn't valid
 Warning: Value '-5' for attribute pos of e2Detector isn't valid
 Warning: Value '400' for attribute pos of e2Detector isn't valid
 Warning: Value '-5' for attribute length of e2Detector isn't valid
-Warning: Value '0' for attribute freq of e2Detector isn't valid
-Warning: Value '0' for attribute freq of e2Detector isn't valid
+Warning: Value '-100' for attribute freq of e2Detector isn't valid
 Warning: Value '%%%&%%%&&' for attribute file of e2Detector isn't valid
+Warning: Value '-5' for attribute timeThreshold of e2Detector isn't valid
+Warning: Value '-12.1' for attribute speedThreshold of e2Detector isn't valid
+Warning: Value '-8' for attribute jamThreshold of e2Detector isn't valid

@@ -1,5 +1,5 @@
 Warning: Value 'dummyEdge' for attribute edge of vaporizer isn't valid
+Warning: Value '-10' for attribute startTime of vaporizer isn't valid
 Warning: Value '50' for attribute startTime of vaporizer isn't valid
-Warning: Value '0' for attribute end of vaporizer isn't valid
-Warning: Value '0' for attribute end of vaporizer isn't valid
+Warning: Value '-10' for attribute end of vaporizer isn't valid
 Warning: Value '2' for attribute end of vaporizer isn't valid

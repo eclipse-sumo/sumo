@@ -1,4 +1,5 @@
 Warning: Value 'e3Detector_1' for attribute id of e3Detector isn't valid
-Warning: Value '0' for attribute freq of e3Detector isn't valid
-Warning: Value '0' for attribute freq of e3Detector isn't valid
+Warning: Value '-100' for attribute freq of e3Detector isn't valid
 Warning: Value '%%%%%&%&&' for attribute file of e3Detector isn't valid
+Warning: Value '-5' for attribute timeThreshold of e3Detector isn't valid
+Warning: Value '-12.1' for attribute speedThreshold of e3Detector isn't valid

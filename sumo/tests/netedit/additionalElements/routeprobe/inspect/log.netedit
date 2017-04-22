@@ -1,1 +1,3 @@
 Warning: Value 'dummyEdge' for attribute edge of routeProbe isn't valid
+Warning: Value '-50' for attribute freq of routeProbe isn't valid
+Warning: Value '-5' for attribute begin of routeProbe isn't valid
