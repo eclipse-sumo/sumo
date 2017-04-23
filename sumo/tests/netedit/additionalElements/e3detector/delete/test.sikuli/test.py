@@ -49,7 +49,7 @@ netedit.changeAdditional("detEntry")
 
 # Create Entry detectors for E3 2
 netedit.selectAdditionalChild(4, 3)
-netedit.leftClick(match, 150, 200)
+netedit.leftClick(match, 150, 300)
 
 # Change to delete
 netedit.deleteMode()
@@ -63,9 +63,26 @@ netedit.leftClick(match, 300, 50)
 # delete loaded E3
 netedit.leftClick(match, 500, 50)
 
-# Check undo redo
-netedit.undo(match, 4)
-netedit.redo(match, 4)
+# delete lane with the second loaded entry
+netedit.leftClick(match, 400, 300)
+
+# Check undo
+netedit.undo(match, 5)
+
+# Change to delete
+netedit.deleteMode()
+
+# disble 'Automatically delete additionals'
+netedit.changeAutomaticallyDeleteAdditionals(match)
+
+# try to delete lane with the second loaded entry (doesn't allowed)
+netedit.leftClick(match, 400, 300)
+
+# wait warning
+netedit.waitAutomaticallyDeleteAdditionalsWarning()
+
+# check redo
+netedit.redo(match, 5)
 
 # save additionals
 netedit.saveAdditionals()

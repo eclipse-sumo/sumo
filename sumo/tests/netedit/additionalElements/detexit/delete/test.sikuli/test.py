@@ -70,9 +70,26 @@ netedit.leftClick(match, 400, 50)
 # delete Exit detector of loaded E3 2 (E3 will not be removed)
 netedit.leftClick(match, 550, 200)
 
-# Check undo redo
-netedit.undo(match, 4)
-netedit.redo(match, 4)
+# delete lane with the last loaded exit
+netedit.leftClick(match, 400, 300)
+
+# Check undo
+netedit.undo(match, 5)
+
+# Change to delete
+netedit.deleteMode()
+
+# disble 'Automatically delete additionals'
+netedit.changeAutomaticallyDeleteAdditionals(match)
+
+# try to delete lane with the second loaded exit (doesn't allowed)
+netedit.leftClick(match, 400, 300)
+
+# wait warning
+netedit.waitAutomaticallyDeleteAdditionalsWarning()
+
+# check redo
+netedit.redo(match, 5)
 
 # save additionals
 netedit.saveAdditionals()
