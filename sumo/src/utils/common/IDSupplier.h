@@ -46,7 +46,7 @@
 class IDSupplier {
 public:
     /// Constructor
-    IDSupplier(const std::string& prefix = "", long begin = 0);
+    IDSupplier(const std::string& prefix = "", long long int begin = 0);
 
     /** @brief Constructor
      * @param[in] prefix The string to use as ID prefix
@@ -66,7 +66,7 @@ public:
 
 private:
     /// The current index
-    long myCurrent;
+    long long int myCurrent;
 
     /// The prefix to use
     std::string myPrefix;
