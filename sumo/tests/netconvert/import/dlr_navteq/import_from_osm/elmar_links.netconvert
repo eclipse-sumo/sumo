@@ -1,4 +1,4 @@
-# Generated on Mon Jan 16 08:30:21 2017 by SUMO netconvert Version dev-SVN-r22593
+# Generated on Sun Apr 23 09:05:09 2017 by SUMO netconvert Version dev-SVN-r24021
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
@@ -37,6 +37,7 @@
 #     </processing>
 # 
 #     <report>
+#         <verbose value="true"/>
 #         <xml-validation value="never"/>
 #     </report>
 # 
