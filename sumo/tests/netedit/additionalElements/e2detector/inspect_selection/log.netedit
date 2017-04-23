@@ -1,0 +1,5 @@
+Warning: Value '-12' for attribute length of e2Detector isn't valid
+Warning: Value '-30' for attribute freq of e2Detector isn't valid
+Warning: Value '-5' for attribute timeThreshold of e2Detector isn't valid
+Warning: Value '-3' for attribute speedThreshold of e2Detector isn't valid
+Warning: Value '-6' for attribute jamThreshold of e2Detector isn't valid
