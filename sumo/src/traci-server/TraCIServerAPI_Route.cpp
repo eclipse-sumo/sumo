@@ -108,10 +108,6 @@ TraCIServerAPI_Route::processSet(TraCIServer& server, tcpip::Storage& inputStora
     std::string id = inputStorage.readString();
 
     try{
-        const MSRoute* r = 0;
-        if (variable != ADD) {
-            r = TraCI_Route::getRoute(id);
-        }
         // process
         switch (variable) {
         case ADD: {

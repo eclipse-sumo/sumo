@@ -568,7 +568,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                             if (newEdge) {
                                 // create another edge, if create opposite edge is enabled
                                 if (myAutoCreateOppositeEdge->getCheck()) {
-                                    GNEEdge* newOppositeEdge = myNet->createEdge(pointed_junction, myCreateEdgeSource, myViewParent->getInspectorFrame()->getEdgeTemplate(), myUndoList, "-" + newEdge->getNBEdge()->getID());
+                                    myNet->createEdge(pointed_junction, myCreateEdgeSource, myViewParent->getInspectorFrame()->getEdgeTemplate(), myUndoList, "-" + newEdge->getNBEdge()->getID());
                                 }
                                 myCreateEdgeSource->unMarkAsCreateEdgeSource();
 

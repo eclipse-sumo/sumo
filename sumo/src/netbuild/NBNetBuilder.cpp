@@ -565,11 +565,10 @@ NBNetBuilder::computeSingleNode(NBNode *node, OptionsCont& oc, const std::set<st
     }
     //
     if (mayAddOrRemove) {
-        int no = 0;
         const bool removeGeometryNodes = oc.exists("geometry.remove") && oc.getBool("geometry.remove");
         // removeUnwishedNodes needs turnDirections. @todo: try to call this less often
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(node, false);
-        no = myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont, removeGeometryNodes);
+        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont, removeGeometryNodes);
     }
 
     // MOVE TO ORIGIN

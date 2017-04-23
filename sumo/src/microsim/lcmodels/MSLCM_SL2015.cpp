@@ -1349,7 +1349,7 @@ MSLCM_SL2015::_wantsChangeSublane(
 
     // only factor in preferred lateral alignment if there is no speedGain motivation
     if (fabs(latDist) <= NUMERICAL_EPS) {
-        double latDistSublane;
+        double latDistSublane = 0.;
         const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
         const double halfVehWidth = myVehicle.getVehicleType().getWidth() * 0.5;
         if (myVehicle.getParameter().arrivalPosLatProcedure != ARRIVAL_POSLAT_DEFAULT
