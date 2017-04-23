@@ -6,3 +6,4 @@
 --reserved-ids edge_ids.txt
 --dlr-navteq.precision 2
 -o net.net.xml
+-v
