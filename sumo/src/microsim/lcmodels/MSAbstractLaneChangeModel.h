@@ -125,6 +125,10 @@ public:
             state(_state),
             latDist(_latDist),
             dir(_dir) {}
+
+        bool sameDirection(const StateAndDist& other) const {
+            return latDist * other.latDist > 0;
+        }
     };
 
     /// @brief init global model parameters

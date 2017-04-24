@@ -1745,15 +1745,15 @@ MSLCM_SL2015::checkBlockingVehicles(
     for (int i = 0; i < vehicles.numSublanes(); ++i) {
         CLeaderDist vehDist = vehicles[i];
         if (vehDist.first != 0) {
+            const MSVehicle* leader = vehDist.first;
+            const MSVehicle* follower = ego;
+            if (!leaders) {
+                std::swap(leader, follower);
+            }
             // only check the current stripe occuped by foe (transform into edge-coordinates)
             double foeRight, foeLeft;
             vehicles.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
             if (gDebugFlag2) {
-                const MSVehicle* leader = vehDist.first;
-                const MSVehicle* follower = ego;
-                if (!leaders) {
-                    std::swap(leader, follower);
-                }
                 std::cout << "   foe=" << vehDist.first->getID()
                           << " gap=" << vehDist.second
                           << " secGap=" << follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
@@ -1764,7 +1764,7 @@ MSLCM_SL2015::checkBlockingVehicles(
                           << " overlapDest=" << overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)
                           << "\n";
             }
-            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft)) {
+            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0 || follower->getSpeed() == 0)) {
                 // ignore vehicles that area already in a car-following relationship
                 continue;
             }
@@ -1780,11 +1780,6 @@ MSLCM_SL2015::checkBlockingVehicles(
                         collectBlockers->push_back(vehDist);
                     }
                 } else if (overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)) {
-                    const MSVehicle* leader = vehDist.first;
-                    const MSVehicle* follower = ego;
-                    if (!leaders) {
-                        std::swap(leader, follower);
-                    }
                     const double decelFactor = 1 + ego->getImpatience() * myAssertive;
                     // see MSCFModel::getSecureGap
                     // for decelFactor == 1 this is equivalent to
@@ -1832,6 +1827,7 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
     const bool want1 = ((sd1.state & LCA_WANTS_LANECHANGE) != 0) || ((sd1.state & LCA_SUBLANE) != 0 && (sd1.state & LCA_STAY) != 0);
     const bool want2 = ((sd2.state & LCA_WANTS_LANECHANGE) != 0) || ((sd2.state & LCA_SUBLANE) != 0 && (sd2.state & LCA_STAY) != 0);
     const bool can1 = ((sd1.state & LCA_BLOCKED) == 0);
+    const bool can2 = ((sd2.state & LCA_BLOCKED) == 0);
     if (DEBUG_COND) std::cout << SIMTIME
                                   << " veh=" << myVehicle.getID()
                                   << " state1=" << toString((LaneChangeAction)sd1.state)
@@ -1848,10 +1844,12 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
             // decide whether right or left has higher priority (lower value in enum LaneChangeAction)
             if ((sd1.state & LCA_CHANGE_REASONS) < (sd2.state & LCA_CHANGE_REASONS)) {
                 //if (DEBUG_COND) std::cout << "   " << (sd1.state & LCA_CHANGE_REASONS) << " < " << (sd2.state & LCA_CHANGE_REASONS) << "\n";
-                return sd1;
+                return (!can1 && can2 && sd1.sameDirection(sd2)) ? sd2 : sd1;
+                //return sd1;
             } else if ((sd1.state & LCA_CHANGE_REASONS) > (sd2.state & LCA_CHANGE_REASONS)) {
                 //if (DEBUG_COND) std::cout << "   " << (sd1.state & LCA_CHANGE_REASONS) << " > " << (sd2.state & LCA_CHANGE_REASONS) << "\n";
-                return sd2;
+                return (!can2 && can1 && sd1.sameDirection(sd2)) ? sd1 : sd2;
+                //return sd2;
             } else {
                 // same priority.
                 if ((sd1.state & LCA_SUBLANE) != 0) {
@@ -2179,20 +2177,22 @@ MSLCM_SL2015::keepLatGap(int state,
         // @note: the influence is reset in MSAbstractLaneChangeModel::setOwnState at the end of the lane-changing code for this vehicle
         latDist = myVehicle.getInfluencer().getLatDist();
     }
-    // update blocked status
-    if (fabs(latDist - oldLatDist) > NUMERICAL_EPS) {
-        if (gDebugFlag2) std::cout << "     latDistUpdated=" << (oldLatDist - latDist) << "\n";
-        blocked = checkBlocking(neighLane, latDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, true);
-    }
     // if we cannot move in the desired direction, consider the maneuver blocked anyway
     if ((state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN)) != 0) {
         if ((latDist < -NUMERICAL_EPS) && (oldLatDist > NUMERICAL_EPS)) {
             if (gDebugFlag2) std::cout << "     wanted changeToLeft oldLatDist=" << oldLatDist << ", blocked latGap changeToRight\n";
-            blocked |= LCA_OVERLAPPING | LCA_BLOCKED_RIGHT;
+            latDist = oldLatDist; // restore old request for usage in decideDirection()
+            blocked = LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
         } else if ((latDist > NUMERICAL_EPS) && (oldLatDist < -NUMERICAL_EPS)) {
             if (gDebugFlag2) std::cout << "     wanted changeToRight oldLatDist=" << oldLatDist << ", blocked latGap changeToLeft\n";
-            blocked |= LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
+            latDist = oldLatDist; // restore old request for usage in decideDirection()
+            blocked = LCA_OVERLAPPING | LCA_BLOCKED_RIGHT;
         }
+    } 
+    // update blocked status
+    if (fabs(latDist - oldLatDist) > NUMERICAL_EPS) {
+        if (gDebugFlag2) std::cout << "     latDistUpdated=" << (oldLatDist - latDist) << "\n";
+        blocked = checkBlocking(neighLane, latDist, laneOffset, leaders, followers, blockers, neighLeaders, neighFollowers, neighBlockers, 0, 0, true);
     }
     if (latDist != 0) {
         state = (state & ~LCA_STAY);
@@ -2237,7 +2237,7 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                                                         << " surplusGapRight=" << surplusGapRight
                                                         << " surplusGapLeft=" << surplusGapLeft
                                                         << "\n";
-                if (gap < -POSITION_EPS) {
+                if (gap < -POSITION_EPS && others[i].second >= 0) {
                     //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ignoring lateral gap to " << foe->getID() << "\n";
                     // ignore vehicles that area already in a car-following relationship
                     continue;
