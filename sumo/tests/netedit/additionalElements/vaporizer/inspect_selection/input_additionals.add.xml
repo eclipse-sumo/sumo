@@ -1,0 +1,7 @@
+<additionals>
+    <!-- vaporizer A -->
+    <vaporizer id="routeProbe_01" edge="gneE1" startTime="5.00" end="15.00"/>
+	
+	<!-- vaporizer B -->
+	<vaporizer id="routeProbe_02" edge="gneE1" startTime="5.00" end="15.00"/>	
+</additionals>
