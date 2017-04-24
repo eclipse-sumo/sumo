@@ -1,0 +1,3 @@
+Warning: Value '-30' for attribute freq of e3Detector isn't valid
+Warning: Value '-5' for attribute timeThreshold of e3Detector isn't valid
+Warning: Value '-3' for attribute speedThreshold of e3Detector isn't valid

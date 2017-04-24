@@ -8,6 +8,9 @@ delete
 # inspect additional
 inspect
 
+# inspect selection
+inspect_selection
+
 # load additional
 load
 
