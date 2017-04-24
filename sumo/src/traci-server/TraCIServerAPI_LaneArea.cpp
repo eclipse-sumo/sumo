@@ -37,15 +37,15 @@
 #include "TraCIConstants.h"
 #include "TraCIDefs.h"
 #include "TraCIServer.h"
-#include "lib/TraCI_LaneAreaDetector.h"
-#include "TraCIServerAPI_ArealDetector.h"
+#include "lib/TraCI_LaneArea.h"
+#include "TraCIServerAPI_LaneArea.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+TraCIServerAPI_LaneArea::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
         tcpip::Storage& outputStorage) {
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -64,72 +64,72 @@ TraCIServerAPI_ArealDetector::processGet(TraCIServer& server, tcpip::Storage& in
             && variable != VAR_POSITION
             && variable != VAR_LANE_ID
             && variable != VAR_LENGTH) {
-        return server.writeErrorStatusCmd(CMD_GET_AREAL_DETECTOR_VARIABLE, "Get Areal Detector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+        return server.writeErrorStatusCmd(CMD_GET_LANEAREA_VARIABLE, "Get Areal Detector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
 
     // begin response building
     tcpip::Storage tempMsg;
     //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_AREAL_DETECTOR_VARIABLE);
+    tempMsg.writeUnsignedByte(RESPONSE_GET_LANEAREA_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     try {
         switch (variable) {
             case ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(TraCI_LaneAreaDetector::getIDList());
+                tempMsg.writeStringList(TraCI_LaneArea::getIDList());
                 break;
             case ID_COUNT:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_LaneAreaDetector::getIDCount());
+                tempMsg.writeInt(TraCI_LaneArea::getIDCount());
                 break;
             case LAST_STEP_VEHICLE_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_LaneAreaDetector::getLastStepVehicleNumber(id));
+                tempMsg.writeInt(TraCI_LaneArea::getLastStepVehicleNumber(id));
                 break;
             case LAST_STEP_MEAN_SPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_LaneAreaDetector::getLastStepMeanSpeed(id));
+                tempMsg.writeDouble(TraCI_LaneArea::getLastStepMeanSpeed(id));
                 break;
             case LAST_STEP_VEHICLE_ID_LIST:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(TraCI_LaneAreaDetector::getLastStepVehicleIDs(id));
+                tempMsg.writeStringList(TraCI_LaneArea::getLastStepVehicleIDs(id));
                 break;
             case LAST_STEP_VEHICLE_HALTING_NUMBER:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_LaneAreaDetector::getLastStepHaltingNumber(id));
+                tempMsg.writeInt(TraCI_LaneArea::getLastStepHaltingNumber(id));
                 break;
             case JAM_LENGTH_VEHICLE:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(TraCI_LaneAreaDetector::getJamLengthVehicle(id));
+                tempMsg.writeInt(TraCI_LaneArea::getJamLengthVehicle(id));
                 break;
             case JAM_LENGTH_METERS:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_LaneAreaDetector::getJamLengthMeters(id));
+                tempMsg.writeDouble(TraCI_LaneArea::getJamLengthMeters(id));
                 break;
             case LAST_STEP_OCCUPANCY:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_LaneAreaDetector::getLastStepOccupancy(id));
+                tempMsg.writeDouble(TraCI_LaneArea::getLastStepOccupancy(id));
                 break;
             case VAR_POSITION:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_LaneAreaDetector::getPosition(id));
+                tempMsg.writeDouble(TraCI_LaneArea::getPosition(id));
                 break;
             case VAR_LANE_ID:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(TraCI_LaneAreaDetector::getLaneID(id));
+                tempMsg.writeString(TraCI_LaneArea::getLaneID(id));
                 break;
             case VAR_LENGTH:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(TraCI_LaneAreaDetector::getLength(id));
+                tempMsg.writeDouble(TraCI_LaneArea::getLength(id));
                 break;
             default:
                 break;
         }
     } catch (TraCIException& e) {
-        return server.writeErrorStatusCmd(CMD_GET_AREAL_DETECTOR_VARIABLE, e.what(), outputStorage);
+        return server.writeErrorStatusCmd(CMD_GET_LANEAREA_VARIABLE, e.what(), outputStorage);
     }
-    server.writeStatusCmd(CMD_GET_AREAL_DETECTOR_VARIABLE, RTYPE_OK, "", outputStorage);
+    server.writeStatusCmd(CMD_GET_LANEAREA_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
 }

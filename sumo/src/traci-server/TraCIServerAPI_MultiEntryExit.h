@@ -1,14 +1,14 @@
 /****************************************************************************/
-/// @file    TraCIServerAPI_AreaDetector.h
-/// @author  Mario Krumnow
+/// @file    TraCIServerAPI_MultiEntryExit.h
+/// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
-/// @date    15.09.2013
+/// @date    07.05.2009
 /// @version $Id$
 ///
-// APIs for getting/setting areal detector values via TraCI
+// APIs for getting/setting multi-entry/multi-exit detector values via TraCI
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2013-2016 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -18,8 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef TraCIServerAPI_ArealDetector_h
-#define TraCIServerAPI_ArealDetector_h
+#ifndef TraCIServerAPI_MultiEntryExit_h
+#define TraCIServerAPI_MultiEntryExit_h
 
 
 // ===========================================================================
@@ -33,25 +33,21 @@
 
 #ifndef NO_TRACI
 
+#include "TraCIDefs.h"
+#include "TraCIServer.h"
 #include <foreign/tcpip/storage.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class TraCIServer;
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class TraCIServerAPI_AreaDetector
+ * @class TraCIServerAPI_MultiEntryExit
  * @brief APIs for getting/setting multi-entry/multi-exit detector values via TraCI
  */
-class TraCIServerAPI_ArealDetector {
+class TraCIServerAPI_MultiEntryExit {
 public:
-    /** @brief Processes a get value command (Command 0xa1: Get AreaDetector Variable)
+    /** @brief Processes a get value command (Command 0xa1: Get MeMeDetector Variable)
      *
      * @param[in] server The TraCI-server-instance which schedules this request
      * @param[in] inputStorage The storage to read the command from
@@ -63,10 +59,10 @@ public:
 
 private:
     /// @brief invalidated copy constructor
-    TraCIServerAPI_ArealDetector(const TraCIServerAPI_ArealDetector& s);
+    TraCIServerAPI_MultiEntryExit(const TraCIServerAPI_MultiEntryExit& s);
 
     /// @brief invalidated assignment operator
-    TraCIServerAPI_ArealDetector& operator=(const TraCIServerAPI_ArealDetector& s);
+    TraCIServerAPI_MultiEntryExit& operator=(const TraCIServerAPI_MultiEntryExit& s);
 
 
 };

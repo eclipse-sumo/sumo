@@ -21,7 +21,7 @@
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.cpp">
+    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_LaneArea.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_InductionLoop.cpp">
@@ -33,7 +33,7 @@
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Lane.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_MeMeDetector.cpp">
+    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_MultiEntryExit.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_POI.cpp">
@@ -75,7 +75,7 @@
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Lane.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_LaneAreaDetector.cpp">
+    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_LaneArea.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Polygon.cpp">
@@ -101,7 +101,7 @@
     <ClInclude Include="..\..\..\src\traci-server\TraCIServer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.h">
+    <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_LaneArea.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.h">
@@ -116,7 +116,7 @@
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Lane.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_MeMeDetector.h">
+    <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_MultiEntryExit.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_POI.h">
@@ -161,7 +161,7 @@
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Lane.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_LaneAreaDetector.h">
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_LaneArea.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Polygon.h">

@@ -274,9 +274,9 @@ class Connection:
         If the given value is 0 or absent, exactly one step is performed.
         Values smaller than or equal to the current sim time result in no action.
         """
-        self._queue.append(tc.CMD_SIMSTEP2)
+        self._queue.append(tc.CMD_SIMSTEP)
         self._string += struct.pack("!BBi", 1 +
-                                    1 + 4, tc.CMD_SIMSTEP2, step)
+                                    1 + 4, tc.CMD_SIMSTEP, step)
         result = self._sendExact()
         for subscriptionResults in self._subscriptionMapping.values():
             subscriptionResults.reset()

@@ -119,7 +119,7 @@
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_InductionLoop.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Junction.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Lane.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_LaneAreaDetector.cpp" />
+    <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_LaneArea.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_MultiEntryExit.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_POI.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Polygon.cpp" />
@@ -127,12 +127,12 @@
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_Vehicle.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\lib\TraCI_VehicleType.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServer.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.cpp" />
+    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_LaneArea.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_InductionLoop.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Junction.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Lane.cpp" />
-    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_MeMeDetector.cpp" />
+    <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_MultiEntryExit.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Person.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_POI.cpp" />
     <ClCompile Include="..\..\..\src\traci-server\TraCIServerAPI_Polygon.cpp" />
@@ -147,7 +147,7 @@
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_InductionLoop.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Junction.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Lane.h" />
-    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_LaneAreaDetector.h" />
+    <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_LaneArea.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_MultiEntryExit.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_POI.h" />
     <ClInclude Include="..\..\..\src\traci-server\lib\TraCI_Polygon.h" />
@@ -157,12 +157,12 @@
     <ClInclude Include="..\..\..\src\traci-server\TraCIConstants.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIDefs.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServer.h" />
-    <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_ArealDetector.h" />
+    <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_LaneArea.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_InductionLoop.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Junction.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Lane.h" />
-    <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_MeMeDetector.h" />
+    <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_MultiEntryExit.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Person.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_POI.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Polygon.h" />

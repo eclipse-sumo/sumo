@@ -46,7 +46,7 @@
 #define CMD_LOAD 0x01
 
 // command: simulation step
-#define CMD_SIMSTEP2 0x02
+#define CMD_SIMSTEP 0x02
 
 // command: stop node
 #define CMD_STOP 0x12
@@ -84,17 +84,17 @@
 #define RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE 0xe0
 
 // command: subscribe multi-entry/multi-exit detector (e3) context
-#define CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT 0x81
+#define CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT 0x81
 // response: subscribe multi-entry/multi-exit detector (e3) context
-#define RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT 0x91
+#define RESPONSE_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT 0x91
 // command: get multi-entry/multi-exit detector (e3) variable
-#define CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xa1
+#define CMD_GET_MULTIENTRYEXIT_VARIABLE 0xa1
 // response: get multi-entry/multi-exit detector (e3) variable
-#define RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xb1
+#define RESPONSE_GET_MULTIENTRYEXIT_VARIABLE 0xb1
 // command: subscribe multi-entry/multi-exit detector (e3) variable
-#define CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xd1
+#define CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE 0xd1
 // response: subscribe multi-entry/multi-exit detector (e3) variable
-#define RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xe1
+#define RESPONSE_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE 0xe1
 
 // command: subscribe traffic lights context
 #define CMD_SUBSCRIBE_TL_CONTEXT 0x82
@@ -262,17 +262,17 @@
 #define RESPONSE_SUBSCRIBE_GUI_VARIABLE 0xec
 
 // command: subscribe areal detector (e2) context
-#define CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT 0x8d
+#define CMD_SUBSCRIBE_LANEAREA_CONTEXT 0x8d
 // response: subscribe areal detector (e2) context
-#define RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT 0x9d
+#define RESPONSE_SUBSCRIBE_LANEAREA_CONTEXT 0x9d
 // command: get areal detector (e2) variable
-#define CMD_GET_AREAL_DETECTOR_VARIABLE 0xad
+#define CMD_GET_LANEAREA_VARIABLE 0xad
 // response: get areal detector (e2) variable
-#define RESPONSE_GET_AREAL_DETECTOR_VARIABLE 0xbd
+#define RESPONSE_GET_LANEAREA_VARIABLE 0xbd
 // command: subscribe areal detector (e2) variable
-#define CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE 0xdd
+#define CMD_SUBSCRIBE_LANEAREA_VARIABLE 0xdd
 // response: subscribe areal detector (e2) variable
-#define RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE 0xed
+#define RESPONSE_SUBSCRIBE_LANEAREA_VARIABLE 0xed
 
 // command: subscribe person context
 #define CMD_SUBSCRIBE_PERSON_CONTEXT 0x8e

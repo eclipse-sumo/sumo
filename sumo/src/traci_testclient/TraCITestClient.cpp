@@ -183,7 +183,7 @@ TraCITestClient::commandSimulationStep(SUMOTime time) {
     tcpip::Storage inMsg;
     try {
         std::string acknowledgement;
-        check_resultState(inMsg, CMD_SIMSTEP2, false, &acknowledgement);
+        check_resultState(inMsg, CMD_SIMSTEP, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
         validateSimulationStep2(inMsg);
     } catch (tcpip::SocketException& e) {

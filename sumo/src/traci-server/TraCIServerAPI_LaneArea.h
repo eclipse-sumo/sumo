@@ -1,14 +1,14 @@
 /****************************************************************************/
-/// @file    TraCIServerAPI_MeMeDetector.h
-/// @author  Daniel Krajzewicz
+/// @file    TraCIServerAPI_AreaDetector.h
+/// @author  Mario Krumnow
 /// @author  Michael Behrisch
-/// @date    07.05.2009
+/// @date    15.09.2013
 /// @version $Id$
 ///
-// APIs for getting/setting multi-entry/multi-exit detector values via TraCI
+// APIs for getting/setting areal detector values via TraCI
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-// Copyright (C) 2001-2017 DLR (http://www.dlr.de/) and contributors
+// Copyright (C) 2013-2016 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This file is part of SUMO.
@@ -18,8 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef TraCIServerAPI_MeMeDetector_h
-#define TraCIServerAPI_MeMeDetector_h
+#ifndef TraCIServerAPI_LaneArea_h
+#define TraCIServerAPI_LaneArea_h
 
 
 // ===========================================================================
@@ -33,21 +33,25 @@
 
 #ifndef NO_TRACI
 
-#include "TraCIDefs.h"
-#include "TraCIServer.h"
 #include <foreign/tcpip/storage.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class TraCIServer;
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class TraCIServerAPI_MeMeDetector
+ * @class TraCIServerAPI_AreaDetector
  * @brief APIs for getting/setting multi-entry/multi-exit detector values via TraCI
  */
-class TraCIServerAPI_MeMeDetector {
+class TraCIServerAPI_LaneArea {
 public:
-    /** @brief Processes a get value command (Command 0xa1: Get MeMeDetector Variable)
+    /** @brief Processes a get value command (Command 0xa1: Get AreaDetector Variable)
      *
      * @param[in] server The TraCI-server-instance which schedules this request
      * @param[in] inputStorage The storage to read the command from
@@ -59,10 +63,10 @@ public:
 
 private:
     /// @brief invalidated copy constructor
-    TraCIServerAPI_MeMeDetector(const TraCIServerAPI_MeMeDetector& s);
+    TraCIServerAPI_LaneArea(const TraCIServerAPI_LaneArea& s);
 
     /// @brief invalidated assignment operator
-    TraCIServerAPI_MeMeDetector& operator=(const TraCIServerAPI_MeMeDetector& s);
+    TraCIServerAPI_LaneArea& operator=(const TraCIServerAPI_LaneArea& s);
 
 
 };

@@ -78,8 +78,8 @@
 #include "TraCIServerAPI_InductionLoop.h"
 #include "TraCIServerAPI_Junction.h"
 #include "TraCIServerAPI_Lane.h"
-#include "TraCIServerAPI_MeMeDetector.h"
-#include "TraCIServerAPI_ArealDetector.h"
+#include "TraCIServerAPI_MultiEntryExit.h"
+#include "TraCIServerAPI_LaneArea.h"
 #include "TraCIServerAPI_TLS.h"
 #include "TraCIServerAPI_Vehicle.h"
 #include "TraCIServerAPI_VehicleType.h"
@@ -117,8 +117,8 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port)
     MSNet::getInstance()->addVehicleStateListener(this);
 
     myExecutors[CMD_GET_INDUCTIONLOOP_VARIABLE] = &TraCIServerAPI_InductionLoop::processGet;
-    myExecutors[CMD_GET_AREAL_DETECTOR_VARIABLE] = &TraCIServerAPI_ArealDetector::processGet;
-    myExecutors[CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE] = &TraCIServerAPI_MeMeDetector::processGet;
+    myExecutors[CMD_GET_LANEAREA_VARIABLE] = &TraCIServerAPI_LaneArea::processGet;
+    myExecutors[CMD_GET_MULTIENTRYEXIT_VARIABLE] = &TraCIServerAPI_MultiEntryExit::processGet;
 
     myExecutors[CMD_GET_TL_VARIABLE] = &TraCIServerAPI_TLS::processGet;
     myExecutors[CMD_SET_TL_VARIABLE] = &TraCIServerAPI_TLS::processSet;
@@ -276,7 +276,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
             while (myInstance->myInputStorage.valid_pos() && !myDoCloseConnection) {
                 // dispatch each command
                 int cmd = myInstance->dispatchCommand();
-                if (cmd == CMD_SIMSTEP2) {
+                if (cmd == CMD_SIMSTEP) {
                     myInstance->myDoingSimStep = true;
                     for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myInstance->myVehicleStateChanges.begin(); i != myInstance->myVehicleStateChanges.end(); ++i) {
                         (*i).second.clear();
@@ -438,7 +438,7 @@ TraCIServer::dispatchCommand() {
             }
             break;
         }
-        case CMD_SIMSTEP2: {
+        case CMD_SIMSTEP: {
                 SUMOTime nextT = myInputStorage.readInt();
                 success = true;
                 if (nextT != 0) {
@@ -462,8 +462,8 @@ TraCIServer::dispatchCommand() {
                 success = true;
                 break;
             case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
-            case CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE:
-            case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
+            case CMD_SUBSCRIBE_LANEAREA_VARIABLE:
+            case CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE:
             case CMD_SUBSCRIBE_TL_VARIABLE:
             case CMD_SUBSCRIBE_LANE_VARIABLE:
             case CMD_SUBSCRIBE_VEHICLE_VARIABLE:
@@ -479,8 +479,8 @@ TraCIServer::dispatchCommand() {
                 success = addObjectVariableSubscription(commandId, false);
                 break;
             case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
-            case CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT:
-            case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:
+            case CMD_SUBSCRIBE_LANEAREA_CONTEXT:
+            case CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT:
             case CMD_SUBSCRIBE_TL_CONTEXT:
             case CMD_SUBSCRIBE_LANE_CONTEXT:
             case CMD_SUBSCRIBE_VEHICLE_CONTEXT:
@@ -539,7 +539,7 @@ TraCIServer::commandGetVersion() {
 void
 TraCIServer::postProcessSimulationStep2() {
     SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
-    writeStatusCmd(CMD_SIMSTEP2, RTYPE_OK, "");
+    writeStatusCmd(CMD_SIMSTEP, RTYPE_OK, "");
     int noActive = 0;
     for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
         const Subscription& s = *i;
@@ -669,7 +669,7 @@ TraCIServer::findObjectShape(int domain, const std::string& id, PositionVector& 
                 return true;
             }
             break;
-        case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT:
+        case CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT:
             break;
         case CMD_SUBSCRIBE_TL_CONTEXT:
             break;

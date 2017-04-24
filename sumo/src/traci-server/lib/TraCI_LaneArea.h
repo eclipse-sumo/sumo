@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCI_LaneAreaDetector.h
+/// @file    TraCI_LaneArea.h
 /// @author  Michael Behrisch
 /// @date    15.03.2017
 /// @version $Id$
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef TraCI_LaneAreaDetector_h
-#define TraCI_LaneAreaDetector_h
+#ifndef TraCI_LaneArea_h
+#define TraCI_LaneArea_h
 
 
 // ===========================================================================
@@ -43,10 +43,10 @@ class MSE2Collector;
 // class definitions
 // ===========================================================================
 /**
- * @class TraCI_LaneAreaDetector
+ * @class TraCI_LaneArea
  * @brief C++ TraCI client API implementation
  */
-class TraCI_LaneAreaDetector {
+class TraCI_LaneArea {
 public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
@@ -65,13 +65,13 @@ private:
     static MSE2Collector* getDetector(const std::string& detID);
 
     /// @brief invalidated standard constructor
-    TraCI_LaneAreaDetector();
+    TraCI_LaneArea();
 
     /// @brief invalidated copy constructor
-    TraCI_LaneAreaDetector(const TraCI_LaneAreaDetector& src);
+    TraCI_LaneArea(const TraCI_LaneArea& src);
 
     /// @brief invalidated assignment operator
-    TraCI_LaneAreaDetector& operator=(const TraCI_LaneAreaDetector& src);
+    TraCI_LaneArea& operator=(const TraCI_LaneArea& src);
 
 };
 

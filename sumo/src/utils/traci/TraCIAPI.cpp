@@ -102,7 +102,7 @@ TraCIAPI::send_commandSimulationStep(SUMOTime time) const {
     // command length
     outMsg.writeUnsignedByte(1 + 1 + 4);
     // command id
-    outMsg.writeUnsignedByte(CMD_SIMSTEP2);
+    outMsg.writeUnsignedByte(CMD_SIMSTEP);
     outMsg.writeInt((int)time);
     // send request message
     mySocket->sendExact(outMsg);
@@ -540,7 +540,7 @@ void
 TraCIAPI::simulationStep(SUMOTime time) {
     send_commandSimulationStep(time);
     tcpip::Storage inMsg;
-    check_resultState(inMsg, CMD_SIMSTEP2);
+    check_resultState(inMsg, CMD_SIMSTEP);
 
     mySubscribedValues.clear();
     mySubscribedContextValues.clear();
@@ -1096,7 +1096,7 @@ TraCIAPI::LaneScope::setLength(const std::string& laneID, double length) const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::LaneAreaScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_AREAL_DETECTOR_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_LANEAREA_VARIABLE, ID_LIST, "");
 }
 
 
@@ -1107,27 +1107,27 @@ TraCIAPI::LaneAreaScope::getIDList() const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::MeMeScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_MULTIENTRYEXIT_VARIABLE, ID_LIST, "");
 }
 
 int
 TraCIAPI::MeMeScope::getLastStepVehicleNumber(const std::string& detID) const {
-    return myParent.getInt(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_VEHICLE_NUMBER, detID);
+    return myParent.getInt(CMD_GET_MULTIENTRYEXIT_VARIABLE, LAST_STEP_VEHICLE_NUMBER, detID);
 }
 
 double
 TraCIAPI::MeMeScope::getLastStepMeanSpeed(const std::string& detID) const {
-    return myParent.getInt(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_MEAN_SPEED, detID);
+    return myParent.getInt(CMD_GET_MULTIENTRYEXIT_VARIABLE, LAST_STEP_MEAN_SPEED, detID);
 }
 
 std::vector<std::string>
 TraCIAPI::MeMeScope::getLastStepVehicleIDs(const std::string& detID) const {
-    return myParent.getStringVector(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, detID);
+    return myParent.getStringVector(CMD_GET_MULTIENTRYEXIT_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, detID);
 }
 
 int
 TraCIAPI::MeMeScope::getLastStepHaltingNumber(const std::string& detID) const {
-    return myParent.getInt(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_VEHICLE_HALTING_NUMBER, detID);
+    return myParent.getInt(CMD_GET_MULTIENTRYEXIT_VARIABLE, LAST_STEP_VEHICLE_HALTING_NUMBER, detID);
 }
 
 

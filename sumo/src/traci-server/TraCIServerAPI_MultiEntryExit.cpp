@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    TraCIServerAPI_MeMeDetector.cpp
+/// @file    TraCIServerAPI_MultiEntryExit.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    07.05.2009
@@ -34,14 +34,14 @@
 #include "TraCIConstants.h"
 #include <microsim/output/MSDetectorControl.h>
 #include "lib/TraCI_MultiEntryExit.h"
-#include "TraCIServerAPI_MeMeDetector.h"
+#include "TraCIServerAPI_MultiEntryExit.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_MeMeDetector::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+TraCIServerAPI_MultiEntryExit::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                         tcpip::Storage& outputStorage) {
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -50,12 +50,12 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer& server, tcpip::Storage& inp
     if (variable != ID_LIST && variable != LAST_STEP_VEHICLE_NUMBER && variable != LAST_STEP_MEAN_SPEED
             && variable != LAST_STEP_VEHICLE_ID_LIST && variable != LAST_STEP_VEHICLE_HALTING_NUMBER
             && variable != ID_COUNT) {
-        return server.writeErrorStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, "Get MeMeDetector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+        return server.writeErrorStatusCmd(CMD_GET_MULTIENTRYEXIT_VARIABLE, "Get MeMeDetector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // begin response building
     tcpip::Storage tempMsg;
     //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE);
+    tempMsg.writeUnsignedByte(RESPONSE_GET_MULTIENTRYEXIT_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     try {
@@ -88,9 +88,9 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer& server, tcpip::Storage& inp
                 break;
         }
     } catch (TraCIException& e) {
-        return server.writeErrorStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, e.what(), outputStorage);
+        return server.writeErrorStatusCmd(CMD_GET_MULTIENTRYEXIT_VARIABLE, e.what(), outputStorage);
     }
-    server.writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_OK, "", outputStorage);
+    server.writeStatusCmd(CMD_GET_MULTIENTRYEXIT_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
 }

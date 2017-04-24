@@ -16,10 +16,10 @@ SET(traciserver_STAT_SRCS
    TraCIServerAPI_Junction.cpp
    TraCIServerAPI_Lane.h
    TraCIServerAPI_Lane.cpp
-   TraCIServerAPI_MeMeDetector.h
-   TraCIServerAPI_MeMeDetector.cpp
-   TraCIServerAPI_ArealDetector.h
-   TraCIServerAPI_ArealDetector.cpp
+   TraCIServerAPI_MultiEntryExit.h
+   TraCIServerAPI_MultiEntryExit.cpp
+   TraCIServerAPI_LaneArea.h
+   TraCIServerAPI_LaneArea.cpp
    TraCIServerAPI_Person.h
    TraCIServerAPI_Person.cpp
    TraCIServerAPI_POI.h
@@ -57,8 +57,8 @@ add_library(traciserver STATIC ${traciserver_STAT_SRCS})
 #TraCIServerAPI_InductionLoop.h TraCIServerAPI_InductionLoop.cpp \
 #TraCIServerAPI_Junction.h TraCIServerAPI_Junction.cpp \
 #TraCIServerAPI_Lane.h TraCIServerAPI_Lane.cpp \
-#TraCIServerAPI_MeMeDetector.h TraCIServerAPI_MeMeDetector.cpp \
-#TraCIServerAPI_ArealDetector.h TraCIServerAPI_ArealDetector.cpp \
+#TraCIServerAPI_MultiEntryExit.h TraCIServerAPI_MultiEntryExit.cpp \
+#TraCIServerAPI_LaneArea.h TraCIServerAPI_LaneArea.cpp \
 #TraCIServerAPI_Person.h TraCIServerAPI_Person.cpp \
 #TraCIServerAPI_POI.h TraCIServerAPI_POI.cpp \
 #TraCIServerAPI_Polygon.h TraCIServerAPI_Polygon.cpp \

@@ -32,7 +32,7 @@ CMD_GETVERSION = 0x00
 CMD_LOAD = 0x01
 
 # command: simulation step
-CMD_SIMSTEP2 = 0x02
+CMD_SIMSTEP = 0x02
 
 # command: stop node
 CMD_STOP = 0x12
@@ -70,17 +70,17 @@ CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE = 0xd0
 RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE = 0xe0
 
 # command: subscribe multi-entry/multi-exit detector (e3) context
-CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT = 0x81
+CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT = 0x81
 # response: subscribe multi-entry/multi-exit detector (e3) context
-RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT = 0x91
+RESPONSE_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT = 0x91
 # command: get multi-entry/multi-exit detector (e3) variable
-CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xa1
+CMD_GET_MULTIENTRYEXIT_VARIABLE = 0xa1
 # response: get multi-entry/multi-exit detector (e3) variable
-RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xb1
+RESPONSE_GET_MULTIENTRYEXIT_VARIABLE = 0xb1
 # command: subscribe multi-entry/multi-exit detector (e3) variable
-CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xd1
+CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE = 0xd1
 # response: subscribe multi-entry/multi-exit detector (e3) variable
-RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xe1
+RESPONSE_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE = 0xe1
 
 # command: subscribe traffic lights context
 CMD_SUBSCRIBE_TL_CONTEXT = 0x82
@@ -248,17 +248,17 @@ CMD_SUBSCRIBE_GUI_VARIABLE = 0xdc
 RESPONSE_SUBSCRIBE_GUI_VARIABLE = 0xec
 
 # command: subscribe areal detector (e2) context
-CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT = 0x8d
+CMD_SUBSCRIBE_LANEAREA_CONTEXT = 0x8d
 # response: subscribe areal detector (e2) context
-RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT = 0x9d
+RESPONSE_SUBSCRIBE_LANEAREA_CONTEXT = 0x9d
 # command: get areal detector (e2) variable
-CMD_GET_AREAL_DETECTOR_VARIABLE = 0xad
+CMD_GET_LANEAREA_VARIABLE = 0xad
 # response: get areal detector (e2) variable
-RESPONSE_GET_AREAL_DETECTOR_VARIABLE = 0xbd
+RESPONSE_GET_LANEAREA_VARIABLE = 0xbd
 # command: subscribe areal detector (e2) variable
-CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0xdd
+CMD_SUBSCRIBE_LANEAREA_VARIABLE = 0xdd
 # response: subscribe areal detector (e2) variable
-RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0xed
+RESPONSE_SUBSCRIBE_LANEAREA_VARIABLE = 0xed
 
 # command: subscribe person context
 CMD_SUBSCRIBE_PERSON_CONTEXT = 0x8e

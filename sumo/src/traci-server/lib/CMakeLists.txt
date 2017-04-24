@@ -5,8 +5,8 @@ set(traciserver_lib_STAT_SRCS
         TraCI_InductionLoop.h
         TraCI_Junction.cpp
         TraCI_Junction.h
-        TraCI_LaneAreaDetector.cpp
-        TraCI_LaneAreaDetector.h
+        TraCI_LaneArea.cpp
+        TraCI_LaneArea.h
         TraCI_MultiEntryExit.h
         TraCI_MultiEntryExit.cpp
         TraCI_POI.cpp

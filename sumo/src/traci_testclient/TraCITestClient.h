@@ -148,7 +148,7 @@ private:
     /// @name Results validation methods
     /// @{
 
-    /** @brief Validates whether the given message is a valid answer to CMD_SIMSTEP2
+    /** @brief Validates whether the given message is a valid answer to CMD_SIMSTEP
      * @param[in] inMsg The storage contain the message to validate
      * @return Whether the message is valid
      */
