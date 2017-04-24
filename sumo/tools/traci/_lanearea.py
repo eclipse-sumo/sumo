@@ -39,8 +39,8 @@ class LaneAreaDomain(Domain):
 
     def __init__(self, name="lanearea", deprecatedFor=None):
         Domain.__init__(self, name, tc.CMD_GET_LANEAREA_VARIABLE, None,
-                        tc.CMD_SUBSCRIBE_LANEAREA_VARIABLE, tc.RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE,
-                        tc.CMD_SUBSCRIBE_LANEAREA_CONTEXT, tc.RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT,
+                        tc.CMD_SUBSCRIBE_LANEAREA_VARIABLE, tc.RESPONSE_SUBSCRIBE_LANEAREA_VARIABLE,
+                        tc.CMD_SUBSCRIBE_LANEAREA_CONTEXT, tc.RESPONSE_SUBSCRIBE_LANEAREA_CONTEXT,
                         _RETURN_VALUE_FUNC, deprecatedFor)
 
     def getJamLengthVehicle(self, detID):
