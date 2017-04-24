@@ -1893,7 +1893,7 @@ MSVehicle::executeMove() {
 #endif
 
     // get safe velocities from DriveProcessItems
-    double vSafe = 0; // maximum safe velocity (XXX: why init this as 0 !? Confusing... (Leo)) Refs. #2575
+    double vSafe = 0; // maximum safe velocity (XXX: why init this as 0 !? (Leo)) Refs. #2575
     double vSafeZipper = std::numeric_limits<double>::max(); // speed limit due to zipper merging
     double vSafeMin = 0; // minimum safe velocity
     // the distance to a link which should either be crossed this step or in

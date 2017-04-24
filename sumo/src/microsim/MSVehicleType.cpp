@@ -226,7 +226,8 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
     MSVehicleType* vtype = new MSVehicleType(from);
     const double accel = from.getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(from.vehicleClass));
     const double decel = from.getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass));
-    const double emergencyDecel = from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, SUMOVTypeParameter::getDefaultEmergencyDecel(from.vehicleClass));
+//    const double emergencyDecel = from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, SUMOVTypeParameter::getDefaultEmergencyDecel(from.vehicleClass));
+    const double emergencyDecel = from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, decel);
     // by default decel and apparentDecel are identical
     const double apparentDecel = from.getCFParam(SUMO_ATTR_APPARENTDECEL, decel);
 

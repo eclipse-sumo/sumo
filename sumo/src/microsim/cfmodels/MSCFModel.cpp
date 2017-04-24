@@ -85,9 +85,7 @@ double
 MSCFModel::freeSpeed(const double currentSpeed, const double decel, const double dist, const double targetSpeed, const bool onInsertion) {
     // XXX: (Leo) This seems to be exclusively called with decel = myDecel (max deceleration) and is not overridden
     // by any specific CFModel. That may cause undesirable hard braking (at junctions where the vehicle
-    // changes to a road with a lower speed limit). It relies on the same logic as the maximalSafeSpeed calculations.
-    // XXX: Don't duplicate the code from there, if possible!!! Can maximumSafeStopSpeed() call freeSpeed?  (Leo)
-    //      -> not is the reaction time / desired headway is to be regarded...
+    // changes to a road with a lower speed limit).
 
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         // adapt speed to succeeding lane, no reaction time is involved
@@ -199,10 +197,12 @@ MSCFModel::maxNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
 double
 MSCFModel::minNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        return MAX2(speed - ACCEL2SPEED(getMaxDecel()), 0.);
+//        return MAX2(speed - ACCEL2SPEED(getMaxDecel()), 0.);
+        return MAX2(speed - ACCEL2SPEED(myEmergencyDecel), 0.);
     } else {
         // NOTE: ballistic update allows for negative speeds to indicate a stop within the next timestep
-        return speed - ACCEL2SPEED(getMaxDecel());
+//        return speed - ACCEL2SPEED(getMaxDecel());
+        return speed - ACCEL2SPEED(myEmergencyDecel);
     }
 }
 
