@@ -1,3 +1,5 @@
+Warning: Resizing windows: before resize: view = 464, 333 app = 700, 500
+Warning: Directly after resize: view = 700, 500 app = 936, 667
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.

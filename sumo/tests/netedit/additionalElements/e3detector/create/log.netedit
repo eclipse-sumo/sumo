@@ -1,3 +1,5 @@
+Warning: Resizing windows: before resize: view = 464, 333 app = 700, 500
+Warning: Directly after resize: view = 700, 500 app = 936, 667
 Warning: Invalid input parameter of e3Detector: 'freq' cannot be negative
 Warning: Invalid input parameter of e3Detector: 'timeThreshold' cannot be negative
 Warning: e3Detector with ID 'e3Detector_0' cannot be writed in additional file because doesn't have childs.

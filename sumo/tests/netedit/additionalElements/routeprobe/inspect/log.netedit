@@ -1,3 +1,5 @@
+Warning: Resizing windows: before resize: view = 464, 333 app = 700, 500
+Warning: Directly after resize: view = 700, 500 app = 936, 667
 Warning: Value 'dummyEdge' for attribute edge of routeProbe isn't valid
 Warning: Value '-50' for attribute freq of routeProbe isn't valid
 Warning: Value '-5' for attribute begin of routeProbe isn't valid

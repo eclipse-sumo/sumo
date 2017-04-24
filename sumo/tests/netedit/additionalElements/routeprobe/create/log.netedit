@@ -1,2 +1,4 @@
+Warning: Resizing windows: before resize: view = 464, 333 app = 700, 500
+Warning: Directly after resize: view = 700, 500 app = 936, 667
 Warning: Invalid input parameter of routeProbe: 'freq' cannot be negative
 Warning: Invalid input parameter of routeProbe: 'begin' cannot be negative

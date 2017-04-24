@@ -13,3 +13,5 @@ Warning: Optional string attribute 'file' of e1Detector with ID 'E1_12' is missi
 Warning: Format of optional string attribute 'file' of e1Detector with ID 'E1_13' is invalid; Filename contains invalid characters; Default value '' will be used.
 Warning: Optional bool attribute 'splitByType' of e1Detector with ID 'E1_17' is missing; Default value '0' will be used.
 Warning: Format of optional bool attribute 'splitByType' of e1Detector with ID 'E1_18' is invalid; Default value '0' will be used.
+Warning: Resizing windows: before resize: view = 464, 333 app = 700, 500
+Warning: Directly after resize: view = 700, 500 app = 936, 667

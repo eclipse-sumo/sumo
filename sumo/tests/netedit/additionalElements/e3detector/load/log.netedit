@@ -17,3 +17,5 @@ Warning: e3Detectors without detEntrys or detExit aren't allowed; e3Detector wit
 Warning: Format of essential string attribute 'pos' of detEntry is invalid; Additional cannot be created
 Warning: Format of essential string attribute 'pos' of detExit is invalid; Additional cannot be created
 Warning: e3Detectors without detEntrys or detExit aren't allowed; e3Detector with ID = 'e3Detector_22' cannot be created.
+Warning: Resizing windows: before resize: view = 464, 333 app = 700, 500
+Warning: Directly after resize: view = 700, 500 app = 936, 667

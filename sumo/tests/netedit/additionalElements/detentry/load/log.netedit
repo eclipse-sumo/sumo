@@ -6,3 +6,5 @@ Warning: Format of essential string attribute 'pos' of detEntry is invalid; Addi
 Warning: Format of essential string attribute 'pos' of detEntry is invalid; Additional cannot be created
 Warning: Invalid position for detEntry.
 Warning: Invalid position for detEntry.
+Warning: Resizing windows: before resize: view = 464, 333 app = 700, 500
+Warning: Directly after resize: view = 700, 500 app = 936, 667
