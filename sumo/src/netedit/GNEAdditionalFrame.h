@@ -56,7 +56,7 @@ public:
     enum AddAdditionalResult {
         ADDADDITIONAL_INVALID_ARGUMENTS,    // Parameters of additionals are invalid
         ADDADDITIONAL_INVALID_PARENT,       // NetElement parent is invalid
-        ADDADDITIONAL_SUCESFULLY,           // additional was sucesfully created
+        ADDADDITIONAL_SUCCESS               // additional was successfully created
     };
 
     // ===========================================================================

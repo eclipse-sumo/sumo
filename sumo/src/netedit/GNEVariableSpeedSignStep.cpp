@@ -39,17 +39,17 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSign* variableSpeedSignParent) :
+    myVariableSpeedSignParent(variableSpeedSignParent),
     myTime(0),
     mySpeed(50),
-    myVariableSpeedSignParent(variableSpeedSignParent),
     myTag(SUMO_TAG_STEP) {
 }
 
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSign* variableSpeedSignParent, double time, double speed) :
+    myVariableSpeedSignParent(variableSpeedSignParent),
     myTime(0),
     mySpeed(50),
-    myVariableSpeedSignParent(variableSpeedSignParent),
     myTag(SUMO_TAG_STEP) {
     // use set functions to avid non valid intervals
     setTime(time);

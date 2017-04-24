@@ -411,11 +411,11 @@ protected:
     /// @brief Pointer to the last inserted variableSpeedSign
     GNEVariableSpeedSign* myVariableSpeedSignParent;
 
-    /// @brief last used Tag
-    SumoXMLTag myLastTag;
-
     /// @brief pointer to rerouterInterval in which insert GNEClosingReroute, GNEDestProbReroute, etc.
     GNERerouterInterval* rerouterIntervalToInsertValues;
+
+    /// @brief last used Tag
+    SumoXMLTag myLastTag;
 
     /// @brief vector in wich save calibratorVehicleTypes during loading calibrators
     std::vector<GNECalibratorVehicleType> myLoadingCalibratorVehicleTypes;

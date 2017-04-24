@@ -20,15 +20,28 @@
 #ifndef SUMO_NBPTSTOP_H
 #define SUMO_NBPTSTOP_H
 
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <string>
 #include <utils/geom/Position.h>
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class OutputDevice;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
-
-class OutputDevice;
 /**
 * @class NBPTStop
 * @brief The representation of a single pt stop
@@ -53,6 +66,8 @@ public:
     void setLaneID(const std::string& laneId);
     void write(OutputDevice& device);
     void reshiftPostion(const double offsetX, const double offsetY);
+
+
 private:
     const std::string myPTStopId;
     Position myPosition;
@@ -62,10 +77,9 @@ private:
     const std::string myName;
     std::string myLaneId;
 
-
     double myFrom;
     double myTo;
-    bool friendlyPos;
+    bool myFriendlyPos;
 
 
 private:

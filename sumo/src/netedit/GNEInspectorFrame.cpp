@@ -757,7 +757,7 @@ GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag tag, SumoXMLAttr att
                 sum += (int)(*i);
             }
             // only set true if all checkbox are true
-            if((sum == 0) || (sum != boolValues.size())) {
+            if((sum == 0) || (sum != (int)boolValues.size())) {
                 myBoolCheckButton->setCheck(false);
             } else {
                 myBoolCheckButton->setCheck(true);

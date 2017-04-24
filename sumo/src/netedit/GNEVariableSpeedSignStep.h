@@ -102,14 +102,14 @@ protected:
     /// @brief pointer to variable speed sign parent
     GNEVariableSpeedSign* myVariableSpeedSignParent;
 
-    /// @brief XML Tag of a variable speed sign interval
-    SumoXMLTag myTag;
-
     /// @brief timeStep
     double myTime;
 
     /// @brief speed in this timeStep
     double mySpeed;
+
+    /// @brief XML Tag of a variable speed sign interval
+    SumoXMLTag myTag;
 };
 
 #endif

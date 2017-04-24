@@ -425,7 +425,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
 
     // Create additional
     if(GNEAdditionalHandler::buildAdditional(myViewNet, myActualAdditionalType, valuesOfElement) == true) {
-        return ADDADDITIONAL_SUCESFULLY;
+        return ADDADDITIONAL_SUCCESS;
     } else {
         return ADDADDITIONAL_INVALID_ARGUMENTS;
     }

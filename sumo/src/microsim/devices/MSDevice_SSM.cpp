@@ -145,12 +145,12 @@ MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) 
 }
 
 
-MSDevice_SSM::Encounter::Encounter(const MSVehicle* ego, const MSVehicle* const foe, double begin) :
-        begin(begin),
-        ego(ego),
-        foe(foe),
-        end(INVALID),
-        type(ENCOUNTER_TYPE_NOCONFLICT)
+MSDevice_SSM::Encounter::Encounter(const MSVehicle* _ego, const MSVehicle* const _foe, double _begin) :
+    ego(_ego),
+    foe(_foe),
+    begin(_begin),
+    end(INVALID),
+    type(ENCOUNTER_TYPE_NOCONFLICT)
 {
 #ifdef DEBUG_SSM
     std::cout << "\n" << SIMTIME << " Constructing encounter of '"
@@ -312,6 +312,7 @@ MSDevice_SSM::updateEncounter(Encounter* e, FoeInfo* foeInfo){
 
     // init encounter type with most general identifier
     EncounterType type;
+    UNUSED_PARAMETER(type); // is currently written but never read
 
     // Add current states to trajectories
     e->add(SIMTIME, e->ego->getPosition(), e->ego->getVelocityVector(), e->foe->getPosition(), e->foe->getVelocityVector());
@@ -691,7 +692,7 @@ MSDevice_SSM::~MSDevice_SSM() {
     instances->erase((MSDevice*) this);
     resetEncounters();
     flushConflicts(true);
-};
+}
 
 
 bool

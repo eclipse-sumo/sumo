@@ -787,7 +787,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     GNENetElement* netElement = dynamic_cast<GNENetElement*>(pointed);
                     GNEAdditionalFrame::AddAdditionalResult result = myViewParent->getAdditionalFrame()->addAdditional(netElement, this);
                     // process click or update view depending of the result of "add additional"
-                    if ((result == GNEAdditionalFrame::ADDADDITIONAL_SUCESFULLY) || (result == GNEAdditionalFrame::ADDADDITIONAL_INVALID_PARENT)) {
+                    if ((result == GNEAdditionalFrame::ADDADDITIONAL_SUCCESS) || (result == GNEAdditionalFrame::ADDADDITIONAL_INVALID_PARENT)) {
                         update();
                         // process click
                         processClick(e, data);

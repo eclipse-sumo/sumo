@@ -113,7 +113,7 @@ private:
 
     public:
         /// @brief Constructor
-        Encounter(const MSVehicle* ego, const MSVehicle* const foe, double begin);
+        Encounter(const MSVehicle* _ego, const MSVehicle* const _foe, double _begin);
         /// @brief Destructor
         ~Encounter();
         /// @brief add a new data point
@@ -129,11 +129,10 @@ private:
 
 
     public:
-        EncounterType type;
-
-        double begin, end;
         const MSVehicle* ego;
         const MSVehicle* const foe;
+        double begin, end;
+        EncounterType type;
 
 //        /// @brief tuple time x point of entry to the potential conflict
 //        std::pair<double, MSCrossSection> egoConflictEntry;

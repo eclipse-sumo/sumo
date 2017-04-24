@@ -17,16 +17,32 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
+
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <utils/iodevices/OutputDevice.h>
 #include "NBPTStop.h"
-NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name):
+
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name) :
     myPTStopId(ptStopId),
     myPosition(position),
     myEdgeId(edgeId),
     myOrigEdgeId(origEdgeId),
-    friendlyPos(false),
     myPTStopLength(length),
-    myName(name)
+    myName(name),
+    myFriendlyPos(false)
 {
 
 }
@@ -57,7 +73,7 @@ void NBPTStop::computExtent(double center, double edgeLength) {
     myFrom = center - myPTStopLength/2.;
     myTo = center + myPTStopLength/2.;
     if (myFrom < 0 || myTo > edgeLength) {
-        friendlyPos = true;
+        myFriendlyPos = true;
     }
 }
 void NBPTStop::setLaneID(const std::string& laneId) {
@@ -72,7 +88,7 @@ void NBPTStop::write(OutputDevice& device) {
     device.writeAttr(SUMO_ATTR_LANE,myLaneId);
     device.writeAttr(SUMO_ATTR_STARTPOS,myFrom);
     device.writeAttr(SUMO_ATTR_ENDPOS,myTo);
-    if (friendlyPos) {
+    if (myFriendlyPos) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS,"true");
     }
     device.closeTag();
