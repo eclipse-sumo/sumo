@@ -43,6 +43,7 @@ class GNENet;
 class GNEEdge;
 class GNELane;
 class GNEAdditional;
+class GNERerouter;
 
 // ===========================================================================
 // class definitions
@@ -90,8 +91,8 @@ private:
     /// @brief we need to preserve the list of additionals vinculated with this edge
     std::vector<GNEAdditional*> myAdditionalChilds;
 
-    /// @brief we need to preserve the list of additional sets in which this edge is a child
-    std::vector<GNEAdditional*> myAdditionalParents;
+    /// @brief we need to preserve the list of rerouters in which this edge is a child
+    std::vector<GNERerouter*> myGNERerouters;
 
     /// @brief we need to preserve additional vinculated with the lanes of edge
     std::map<GNELane*, std::vector<GNEAdditional*> > myAdditionalLanes;

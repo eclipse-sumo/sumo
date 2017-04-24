@@ -58,6 +58,7 @@
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
+#include "GNERerouter.h"
 
 
 // ===========================================================================
@@ -235,6 +236,19 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
                     myTreeItemToACMap[additionalItem] = additional;
                     additionalItem->setExpanded(true);
                 }
+                // add a extra section for rerouter in which this edge is part
+                if(edge->getNumberOfGNERerouters() > 0) {
+                    FXTreeItem* rerouters = myTreelist->insertItem(0, edgeItem, (toString(SUMO_TAG_REROUTER) + "s").c_str(), edge->getGNERerouters().front()->getIcon(), edge->getGNERerouters().front()->getIcon());
+                    myTreeItemsWithoutAC.insert(rerouters);
+                    rerouters->setExpanded(true);
+                    // insert reroutes of edge
+                    for (int i = 0; i < (int)edge->getNumberOfGNERerouters(); i++) {
+                        GNERerouter* rerouter = edge->getGNERerouters().at(i);
+                        FXTreeItem* rerouterItem = myTreelist->insertItem(0, rerouters, (toString(rerouter->getTag()) + " " + toString(i)).c_str(), rerouter->getIcon(), rerouter->getIcon());
+                        myTreeItemToACMap[rerouterItem] = rerouter;
+                        rerouterItem->setExpanded(true);
+                    }
+                }
                 break;
             }
             case GLO_LANE: {
@@ -341,6 +355,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
             case GLO_EDGE: {
                 GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
                 int numberOfAdditionals = (int)edge->getAdditionalChilds().size();
+                int numberOfRerouters = (int)edge->getGNERerouters().size();
                 // Iterate over lanes and obtain total number of additional childs
                 for (std::vector<GNELane*>::const_iterator i = edge->getLanes().begin(); i != edge->getLanes().end(); i++) {
                     numberOfAdditionals += (int)(*i)->getAdditionalChilds().size();
@@ -349,21 +364,36 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                 if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
                     myViewNet->getNet()->deleteGeometryOrEdge(edge, myViewNet->getPositionInformation(), myViewNet->getUndoList());
                 } else {
-                    if (numberOfAdditionals == 0) {
-                        myViewNet->getNet()->deleteGeometryOrEdge(edge, myViewNet->getPositionInformation(), myViewNet->getUndoList());
-                    } else {
+                    if (numberOfAdditionals > 0) {
                         // write warning if netedit is running in testing mode
                         if(myViewNet->isTestingModeEnabled() == true) {
 	                        WRITE_WARNING("Opening FXMessageBox of type 'warning'"); 
                         }
+                        std::string plural = numberOfAdditionals > 1? "s" : "";
                         // Open warning DialogBox
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
-                                              (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because it has " +
-                                               toString(numberOfAdditionals) + " additional childs.\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                                              (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because owns " +
+                                               toString(numberOfAdditionals) + " additional child"+ plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
                         if(myViewNet->isTestingModeEnabled() == true) {
 	                        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'"); 
                         }
+                    } else if (numberOfRerouters > 0) {
+                        // write warning if netedit is running in testing mode
+                        if(myViewNet->isTestingModeEnabled() == true) {
+	                        WRITE_WARNING("Opening FXMessageBox of type 'warning'"); 
+                        }
+                        std::string plural = numberOfRerouters > 1? "s" : "";
+                        // Open warning DialogBox
+                        FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
+                                              (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because is part of " +
+                                               toString(numberOfRerouters) + " " + toString(SUMO_TAG_REROUTER) + plural+ ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                        // write warning if netedit is running in testing mode
+                        if(myViewNet->isTestingModeEnabled() == true) {
+	                        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'"); 
+                        }
+                    } else {
+                        myViewNet->getNet()->deleteGeometryOrEdge(edge, myViewNet->getPositionInformation(), myViewNet->getUndoList());
                     }
                 }
                 break;

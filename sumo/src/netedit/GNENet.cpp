@@ -81,6 +81,7 @@
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
+#include "GNERerouter.h"
 
 
 
@@ -334,6 +335,8 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
+    // obtain a copy of GNERerouters of edge
+    std::vector<GNERerouter*> rerouters = edge->getGNERerouters();
     // delete additionals childs of edge
     std::vector<GNEAdditional*> copyOfEdgeAdditionals = edge->getAdditionalChilds();
     for (std::vector<GNEAdditional*>::iterator i = copyOfEdgeAdditionals.begin(); i != copyOfEdgeAdditionals.end(); i++) {
@@ -363,6 +366,13 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
         undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
 
+    // check if after removing there are Rerouters without edge Childs
+    for(std::vector<GNERerouter*>::iterator i = rerouters.begin(); i != rerouters.end(); i++) {
+        if((*i)->getEdgeChilds().size() == 0) {
+            undoList->add(new GNEChange_Additional((*i), false), true);
+        }
+    }
+    // remove edge requieres always a recompute (due geometry and connections)
     requireRecompute();
     undoList->p_end();
 }

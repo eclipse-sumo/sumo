@@ -159,6 +159,7 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
     }
+    device.writeAttr(SUMO_ATTR_OFF, myOff);
     device.writeAttr(SUMO_ATTR_X, myPosition.x());
     device.writeAttr(SUMO_ATTR_Y, myPosition.y());
     if (myBlocked) {
@@ -236,6 +237,12 @@ GNERerouter::removeEdgeChild(GNEEdge* edge) {
     } else {
         myEdges.erase(std::find(myEdges.begin(), myEdges.end(), edge));
     }
+}
+
+
+const std::vector<GNEEdge*>&
+GNERerouter::getEdgeChilds() const {
+    return myEdges;
 }
 
 
@@ -459,9 +466,13 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_EDGES: {
-            // Declare variables
+            // Declare auxiliar variables
             std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
             GNEEdge* edge;
+            // first remove references of current rerouter in all edge childs
+            for(std::vector<GNEEdge*>::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+                (*i)->removeGNERerouter(this);
+            }
             // clear previous edges
             myEdges.clear();
             // Iterate over parsed edges and obtain pointer to edges
@@ -469,6 +480,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
                 edge = myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false);
                 if (edge) {
                     myEdges.push_back(edge);
+                    edge->addGNERerouter(this);
                 } else {
                     throw InvalidArgument("Trying to set an non-valid edge in " + getID());
                 }

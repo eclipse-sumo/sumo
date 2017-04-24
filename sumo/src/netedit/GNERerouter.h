@@ -89,6 +89,9 @@ public:
     /// @brief remove edge child
     void removeEdgeChild(GNEEdge* edge);
 
+    /// @brief get edge chidls
+    const std::vector<GNEEdge*> &getEdgeChilds() const;
+
     /**@brief add rerouter interval
      * @return true if was sucesfully added, false if wasn't added due overlapping
      */

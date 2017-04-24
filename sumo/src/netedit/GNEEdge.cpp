@@ -53,6 +53,7 @@
 #include "GNEConnection.h"
 #include "GNERouteProbe.h"
 #include "GNEVaporizer.h"
+#include "GNERerouter.h"
 
 
 
@@ -1031,6 +1032,39 @@ GNEEdge::removeAdditionalChild(GNEAdditional* additional) {
 const std::vector<GNEAdditional*>&
 GNEEdge::getAdditionalChilds() const {
     return myAdditionals;
+}
+
+
+void 
+GNEEdge::addGNERerouter(GNERerouter* rerouter) {
+    if(std::find(myReroutes.begin(), myReroutes.end(), rerouter) == myReroutes.end()) {
+        myReroutes.push_back(rerouter);
+    } else {
+        throw ProcessError(toString(rerouter->getTag()) + " '" + rerouter->getID() + "' was previously inserted");
+    }
+}
+
+
+void 
+GNEEdge::removeGNERerouter(GNERerouter* rerouter) {
+    std::vector<GNERerouter*>::iterator it = std::find(myReroutes.begin(), myReroutes.end(), rerouter);
+    if(it != myReroutes.end()) {
+        myReroutes.erase(it);
+    } else {
+        throw ProcessError(toString(rerouter->getTag()) + " '" + rerouter->getID() + "' wasn't previously inserted");
+    }
+}
+
+
+const std::vector<GNERerouter*>& 
+GNEEdge::getGNERerouters() const {
+    return myReroutes;
+}
+
+
+int 
+GNEEdge::getNumberOfGNERerouters() const {
+    return (int)myReroutes.size();
 }
 
 

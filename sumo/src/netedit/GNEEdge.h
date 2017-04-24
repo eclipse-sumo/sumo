@@ -43,6 +43,7 @@ class GNEConnection;
 class GNEAdditional;
 class GNERouteProbe;
 class GNEVaporizer;
+class GNERerouter;
 
 // ===========================================================================
 // class definitions
@@ -211,8 +212,7 @@ public:
     /// @brief returns a reference to the GNEConnection vector
     const std::vector<GNEConnection*>& getGNEConnections();
 
-    /**@brief get connection
-    */
+    /// @brief get connection
     GNEConnection* retrieveConnection(int fromLane, NBEdge* to, int toLane);
 
     /// @brief whether this edge was created from a split
@@ -233,6 +233,18 @@ public:
 
     /// @brief return list of additionals associated with this edge
     const std::vector<GNEAdditional*>& getAdditionalChilds() const;
+
+    /// @brief add a reference to a rerouter that has this edge as parameter
+    void addGNERerouter(GNERerouter* rerouter);
+
+    /// @brief remove a reference to a rerouter that has this edge as parameter
+    void removeGNERerouter(GNERerouter* rerouter);
+
+    /// @brief get rerouters vinculated with this edge
+    const std::vector<GNERerouter*>& getGNERerouters() const;
+
+    /// @brief get number of rerouters that has this edge as parameters
+    int getNumberOfGNERerouters() const;
 
     /// @brief check if edge has a restricted lane
     bool hasRestrictedLane(SUMOVehicleClass vclass) const;
@@ -279,6 +291,9 @@ protected:
 
     /// @brief list with the additionals vinculated with this edge
     AdditionalVector myAdditionals;
+
+    /// @brief list of reroutes that has this edge as parameter
+    std::vector<GNERerouter*> myReroutes;
 
 private:
     /// @brief set attribute after validation

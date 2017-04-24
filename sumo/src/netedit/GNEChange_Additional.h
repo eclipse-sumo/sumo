@@ -32,7 +32,6 @@
 #include <fx.h>
 #include <utils/foxtools/fxexdefs.h>
 #include <netbuild/NBEdge.h>
-#include "GNEEdge.h"
 #include "GNEChange.h"
 
 // ===========================================================================
@@ -44,6 +43,7 @@ class GNEDetectorEntry;
 class GNEDetectorExit;
 class GNEDetectorE3;
 class GNELane;
+class GNEEdge;
 
 // ===========================================================================
 // class definitions
@@ -100,6 +100,9 @@ private:
 
     /// @brief list of Exit detectors child used (used by E3 Detector)
     std::vector<GNEDetectorExit*> myExitChilds;
+
+    /// @brief list of Edge childs (used by Rerouters)
+    std::vector<GNEEdge*> myEdgeChilds;
 };
 
 #endif
