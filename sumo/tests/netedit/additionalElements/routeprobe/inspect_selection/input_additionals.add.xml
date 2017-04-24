@@ -1,0 +1,7 @@
+<additionals>
+    <!-- routeProbe A -->
+    <routeProbe id="routeProbe_01" edge="gneE1" freq="100.00" file="routeProbe_01.txt" begin="0.00"/>
+	
+	<!-- routeProbe B -->
+	<routeProbe id="routeProbe_02" edge="gneE1" freq="120.00" file="routeProbe_01.txt" begin="3.00"/>	
+</additionals>
