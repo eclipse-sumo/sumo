@@ -2684,7 +2684,6 @@ NBNode::avoidOverlap() {
     // simple case: edges with LANESPREAD_CENTER and a (possible) turndirection at the same node
     for (EdgeVector::iterator it = myIncomingEdges.begin(); it != myIncomingEdges.end(); it++) {
         NBEdge* edge = *it;
-	//todo: deactivate for rail edges, refs #2987
         NBEdge* turnDest = edge->getTurnDestination(true);
         if (turnDest != 0) {
             edge->shiftPositionAtNode(this, turnDest);
