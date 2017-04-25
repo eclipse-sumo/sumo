@@ -36,7 +36,7 @@
 #define G  9.80665
 
 MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype, std::string trainType) :
-    MSCFModel(vtype, -1, -1, -1, -1, -1)
+    MSCFModel(vtype, -1, -1, -1, -1, 1)
 {
 
     if (trainType.compare("RB425")==0) {
@@ -129,7 +129,7 @@ double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle* const veh) co
     double res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
     double totalRes = res+gr; //kN
 
-    double a = (myTrainParams.decl+totalRes)/myTrainParams.rotWeight;
+    double a = myTrainParams.decl+totalRes/myTrainParams.rotWeight;
 
     return speed-a*DELTA_T/1000.;
 

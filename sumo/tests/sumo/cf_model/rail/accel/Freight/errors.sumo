@@ -1,0 +1,6 @@
+Warning: Teleporting vehicle 'r0'; waited too long (jam), lane='e0_0', time=301.00.
+Warning: Vehicle 'r0' ends teleporting on edge 'e1', time 301.00.
+Warning: Teleporting vehicle 'r0'; waited too long (jam), lane='e1_0', time=602.00.
+Warning: Vehicle 'r0' ends teleporting on edge 'e2', time 602.00.
+Warning: Teleporting vehicle 'r0'; waited too long (jam), lane='e2_0', time=903.00.
+Warning: Vehicle 'r0' teleports beyond arrival edge 'e2', time 903.00.
