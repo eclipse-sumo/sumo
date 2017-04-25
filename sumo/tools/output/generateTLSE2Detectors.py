@@ -157,7 +157,7 @@ if __name__ == "__main__":
                 options.requested_distance_to_tls,
                 lane_length)
 
-            detector_xml = detectors_xml.addChild("e2Detector")
+            detector_xml = detectors_xml.addChild("laneAreaDetector")
             detector_xml.setAttribute("file", options.results)
             detector_xml.setAttribute("freq", str(options.frequency))
             detector_xml.setAttribute("friendlyPos", "x")
