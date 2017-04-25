@@ -69,6 +69,13 @@ TraCI_Vehicle::isVisible(const MSVehicle* veh) {
     return veh->isOnRoad() || veh->isParking() || veh->wasRemoteControlled();
 }
 
+
+bool 
+TraCI_Vehicle::onInit(const std::string& vehicleID) {
+    SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(vehicleID);
+    return sumoVehicle == 0 || sumoVehicle->getLane() == 0;
+}
+
 std::vector<std::string>
 TraCI_Vehicle::getIDList() {
     std::vector<std::string> ids;
@@ -560,22 +567,115 @@ TraCI_Vehicle::getWidth(const std::string& vehicleID) {
 */
 
 
+void
+TraCI_Vehicle::setStop(const std::string& vehicleID, 
+        const std::string& edgeID, 
+        double endPos, 
+        int laneIndex, 
+        SUMOTime duration,
+        int flags, 
+        double startPos, 
+        SUMOTime until) 
+{
+    MSVehicle* veh = getVehicle(vehicleID);
+    // optional stop flags
+    bool parking = false;
+    bool triggered = false;
+    bool containerTriggered = false;
+    SumoXMLTag stoppingPlaceType = SUMO_TAG_NOTHING;
+
+    parking = ((flags & 1) != 0);
+    triggered = ((flags & 2) != 0);
+    containerTriggered = ((flags & 4) != 0);
+    if ((flags & 8) != 0) {
+        stoppingPlaceType = SUMO_TAG_BUS_STOP;
+    }
+    if ((flags & 16) != 0) {
+        stoppingPlaceType = SUMO_TAG_BUS_STOP;
+    }
+    if ((flags & 32) != 0) {
+        stoppingPlaceType = SUMO_TAG_CHARGING_STATION;
+    }
+    if ((flags & 64) != 0) {
+        stoppingPlaceType = SUMO_TAG_PARKING_AREA;
+    }
+
+    std::string error;
+    if (stoppingPlaceType != SUMO_TAG_NOTHING) {
+        // Forward command to vehicle
+        if (!veh->addTraciStopAtStoppingPlace(edgeID, duration, until, parking, triggered, containerTriggered, stoppingPlaceType, error)) {
+            throw TraCIException(error);
+        }
+    } else {
+        // check
+        if (startPos < 0) {
+            throw TraCIException("Position on lane must not be negative.");
+        }
+        if (endPos < startPos) {
+            throw TraCIException("End position on lane must be after start position.");
+        }
+        // get the actual lane that is referenced by laneIndex
+        MSEdge* road = MSEdge::dictionary(edgeID);
+        if (road == 0) {
+            throw TraCIException("Unable to retrieve road with given id.");
+        }
+        const std::vector<MSLane*>& allLanes = road->getLanes();
+        if ((laneIndex < 0) || laneIndex >= (int)(allLanes.size())) {
+            throw TraCIException("No lane with index '" + toString(laneIndex) + "' on road '" + edgeID + "'.");
+        }
+        // Forward command to vehicle
+        if (!veh->addTraciStop(allLanes[laneIndex], startPos, endPos, duration, until, parking, triggered, containerTriggered, error)) {
+            throw TraCIException(error);
+        }
+    }
+}
+
+
+void 
+TraCI_Vehicle::resume(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    if (!veh->hasStops()) {
+        throw TraCIException("Failed to resume vehicle '" + veh->getID() + "', it has no stops.");
+    }
+    if (!veh->resumeFromStopping()) {
+        MSVehicle::Stop& sto = veh->getNextStop();
+        std::ostringstream strs;
+        strs << "reached: " << sto.reached;
+        strs << ", duration:" << sto.duration;
+        strs << ", edge:" << (*sto.edge)->getID();
+        strs << ", startPos: " << sto.startPos;
+        std::string posStr = strs.str();
+        throw TraCIException("Failed to resume from stoppingfor vehicle '" + veh->getID() + "', " + posStr);
+    }
+}
+
+
+void
+TraCI_Vehicle::changeLane(const std::string& vehID, int laneIndex, SUMOTime duration) {
+}
+
+
 void 
 TraCI_Vehicle::add(const std::string& vehicleID,
- const std::string& routeID,
- const std::string& typeID,
- std::string depart,
- const std::string& departLane,
- const std::string& departPos,
- const std::string& departSpeed,
- const std::string& arrivalLane,
- const std::string& arrivalPos,
- const std::string& arrivalSpeed,
- const std::string& fromTaz,
- const std::string& toTaz,
- const std::string& line,
- int personCapacity,
- int personNumber) {
+        const std::string& routeID,
+        const std::string& typeID,
+        std::string depart,
+        const std::string& departLane,
+        const std::string& departPos,
+        const std::string& departSpeed,
+        const std::string& arrivalLane,
+        const std::string& arrivalPos,
+        const std::string& arrivalSpeed,
+        const std::string& fromTaz,
+        const std::string& toTaz,
+        const std::string& line,
+        int personCapacity,
+        int personNumber) 
+{
+    MSVehicle* veh = getVehicle(vehicleID);
+    if (veh != 0) {
+        throw TraCIException("The vehicle " + vehicleID + " to add already exists.");
+    }
 }
 
 void

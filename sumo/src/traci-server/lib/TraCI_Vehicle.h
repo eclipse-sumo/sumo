@@ -151,6 +151,18 @@ public:
 
     /// @name State Changing
     /// @{
+
+    static void setStop(const std::string& vehicleID, 
+            const std::string& edgeID, 
+            double endPos=1., 
+            int laneIndex=0, 
+            SUMOTime duration=4294967295, // 2^32-1
+            int flags=STOP_DEFAULT, 
+            double startPos=INVALID_DOUBLE_VALUE, 
+            SUMOTime until=-1);
+
+    static void resume(const std::string& vehicleID);
+
     static void add(const std::string& vehicleID,
             const std::string& routeID,
             const std::string& typeID = "DEFAULT_VEHTYPE",
@@ -166,6 +178,8 @@ public:
             const std::string& line = "",
             int personCapacity = 0,
             int personNumber = 0);
+
+    static void changeLane(const std::string& vehID, int laneIndex, SUMOTime duration);
 
     static void moveTo(const std::string& vehicleID, const std::string& laneID, double position);
     static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute);
@@ -187,6 +201,7 @@ private:
 
     static bool isVisible(const MSVehicle* veh);
 
+    static bool onInit(const std::string& vehicleID); 
 
     /// @brief invalidated standard constructor
     TraCI_Vehicle();
