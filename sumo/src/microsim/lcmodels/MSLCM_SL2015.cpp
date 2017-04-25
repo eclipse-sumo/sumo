@@ -1764,7 +1764,7 @@ MSLCM_SL2015::checkBlockingVehicles(
                           << " overlapDest=" << overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)
                           << "\n";
             }
-            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0 || follower->getSpeed() == 0)) {
+            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0 || (leader->getSpeed() < SUMO_const_haltingSpeed && follower->getSpeed() < SUMO_const_haltingSpeed))) {
                 // ignore vehicles that area already in a car-following relationship
                 continue;
             }
@@ -2237,7 +2237,7 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                                                         << " surplusGapRight=" << surplusGapRight
                                                         << " surplusGapLeft=" << surplusGapLeft
                                                         << "\n";
-                if (gap < -POSITION_EPS && others[i].second >= 0) {
+                if (gap < -POSITION_EPS && (others[i].second >= 0 || (myVehicle.getSpeed() < SUMO_const_haltingSpeed && foe->getSpeed() < SUMO_const_haltingSpeed))) {
                     //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ignoring lateral gap to " << foe->getID() << "\n";
                     // ignore vehicles that area already in a car-following relationship
                     continue;
