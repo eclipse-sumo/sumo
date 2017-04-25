@@ -22,5 +22,3 @@ Warning: Format of optional bool attribute 'chargeInTransit' of chargingStation 
 Warning: Optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_20' is missing; Default value '0.00' will be used.
 Warning: Format of optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_21' is invalid; Cannot be parsed to time; Default value '0.00' will be used.
 Warning: Format of optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_22' is invalid; Time cannot be negative; Default value '0.00' will be used.
-Warning: Resizing windows: before resize: view = 464, 333 app = 700, 500
-Warning: Directly after resize: view = 700, 500 app = 936, 667

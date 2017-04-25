@@ -13,5 +13,3 @@ Warning: Invalid position for busStop with ID = 'busStop_09'.
 Warning: Invalid position for busStop with ID = 'busStop_10'.
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
-Warning: Resizing windows: before resize: view = 464, 333 app = 700, 500
-Warning: Directly after resize: view = 700, 500 app = 936, 667

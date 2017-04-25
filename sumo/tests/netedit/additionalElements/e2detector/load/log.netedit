@@ -27,5 +27,3 @@ Warning: Format of optional float attribute 'speedThreshold' of e2Detector with 
 Warning: Optional float attribute 'jamThreshold' of e2Detector with ID 'E2_32' is missing; Default value '10.00' will be used.
 Warning: Format of optional float attribute 'jamThreshold' of e2Detector with ID 'E2_33' is invalid; Cannot be parsed to float; Default value '10.00' will be used.
 Warning: Format of optional float attribute 'jamThreshold' of e2Detector with ID 'E2_34' is invalid; Cannot be negative; Default value '10.00' will be used.
-Warning: Resizing windows: before resize: view = 464, 333 app = 700, 500
-Warning: Directly after resize: view = 700, 500 app = 936, 667

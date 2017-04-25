@@ -55,5 +55,3 @@ Warning: Optional int attribute 'containerCapacity' of vType is missing; Default
 Warning: Format of optional int attribute 'containerCapacity' of vType is invalid; Cannot be parsed to int; Default value '0' will be used.
 Warning: Format of optional int attribute 'containerCapacity' of vType is invalid; Cannot be negative; Default value '0' will be used.
 Warning: Format of optional int attribute 'containerCapacity' of vType is invalid; Cannot be parsed to int; Default value '0' will be used.
-Warning: Resizing windows: before resize: view = 464, 333 app = 700, 500
-Warning: Directly after resize: view = 700, 500 app = 936, 667
