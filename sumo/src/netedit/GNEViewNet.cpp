@@ -448,13 +448,12 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         if (myTestingMode) {
             if (myTestingWidth > 0 && (getWidth() != myTestingWidth || getHeight() != myTestingHeight)) {
                 // only resize once to avoid flickering
-                WRITE_WARNING("Resizing windows: before resize: view = " + toString(getWidth()) + ", " + toString(getHeight()) + 
-                              " app = " + toString(myApp->getWidth()) + ", " + toString(myApp->getHeight()));
+                //std::cout << " before resize: view=" << getWidth() << ", " << getHeight() << " app=" << myApp->getWidth() << ", " << myApp->getHeight() << "\n";
                 myApp->resize(myTestingWidth + myTestingWidth - getWidth(), myTestingHeight + myTestingHeight - getHeight());
-                WRITE_WARNING("Directly after resize: view = " + toString(getWidth()) + ", " + toString(getHeight()) + 
-                               " app = " + toString(myApp->getWidth()) + ", " + toString(myApp->getHeight()));
+                //std::cout << " directly after resize: view=" << getWidth() << ", " << getHeight() << " app=" << myApp->getWidth() << ", " << myApp->getHeight() << "\n";
                 myTestingWidth = 0;
             }
+            //std::cout << " fixed: view=" << getWidth() << ", " << getHeight() << " app=" << myApp->getWidth() << ", " << myApp->getHeight() << "\n";
             // draw pink square in the upper left corner on top of everything
             glPushMatrix();
             const double size = p2m(32);
