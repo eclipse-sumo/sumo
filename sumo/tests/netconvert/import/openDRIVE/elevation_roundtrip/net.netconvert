@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:05 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Tue Apr 25 15:04:13 2017 by SUMO netconvert Version dev-SVN-r24052
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -58,12 +58,12 @@
     <type id="tram" priority="2" speed="13.89" allow="tram" width="3.65"/>
 
     <edge id="-1.0.00" from="1" to="2" priority="1" type="driving" shape="60.33,-1.43,-10.00 61.93,121.82 62.39,123.34 63.70,124.27 65.89,124.59 199.04,125.81,10.00">
-        <lane id="-1.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="259.99" width="3.20" shape="61.98,-1.45,-10.00 63.58,121.57 63.80,122.32 64.33,122.69 66.02,122.94 199.06,124.16,10.00">
+        <lane id="-1.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="259.98" width="3.20" shape="61.98,-1.45,-10.00 63.58,121.57,-0.51 63.80,122.32,-0.45 64.33,122.69,-0.40 66.02,122.94,-0.27 199.06,124.16,10.00">
             <param key="origId" value="1_-1"/>
         </lane>
     </edge>
     <edge id="-2.0.00" from="3" to="4" priority="1" type="driving" shape="100.05,0.00,10.00 100.05,93.00 100.24,95.13,-0.21 100.82,96.86,-0.32 101.79,98.21,-0.35 103.14,99.18,-0.32 104.87,99.76,-0.21 106.99,99.95,-0.00 200.00,99.95,10.00">
-        <lane id="-2.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="195.75" width="3.20" shape="101.70,0.00,10.00 101.70,92.93 101.87,94.79,-0.21 102.31,96.11,-0.32 102.97,97.03,-0.35 103.89,97.69,-0.32 105.21,98.13,-0.21 107.07,98.30,-0.00 200.00,98.30,10.00">
+        <lane id="-2.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="194.64" width="3.20" shape="101.70,0.00,10.00 101.70,92.93,10.00 101.87,94.79,10.00 102.31,96.11,10.00 102.97,97.03,10.00 103.89,97.69,10.00 105.21,98.13,10.00 107.07,98.30,10.00 200.00,98.30,10.00">
             <param key="origId" value="2_-1"/>
         </lane>
     </edge>
