@@ -6,14 +6,14 @@ create
 delete
 
 # inspect additional
-inspect
+#inspect
 
 # load additional
-load
+#load
 
 # move additional
-move
+#move
 
 # lock/unlock additional
-lock_unlock
+#lock_unlock
 
