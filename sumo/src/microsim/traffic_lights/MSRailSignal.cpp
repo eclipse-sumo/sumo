@@ -36,6 +36,8 @@
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSLink.h>
+#include <microsim/MSVehicle.h>
 #include "MSTrafficLightLogic.h"
 #include "MSRailSignal.h"
 #include <microsim/MSLane.h>
@@ -43,7 +45,7 @@
 #include "MSTLLogicControl.h"
 
 
-
+class ApproachingVehicleInformation;
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -152,6 +154,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
                     if ((*edgeIt)->getLanes()[0]->getShape().reverse() == lane->getShape()){
                         const MSLane* revLane = (*edgeIt)->getLanes()[0];
                         revLanes.push(revLane);
+                        mySucceedingBlocksIncommingLinks[revLane] = revLane->getEntryLink();
                     }
                 }
             }
@@ -201,6 +204,22 @@ MSRailSignal::getAppropriateState() {
         for (j = mySucceedingBlocks.at(lane).begin(); j != mySucceedingBlocks.at(lane).end(); j++) { //for every lane in the block between the current signal and the next signal
             if (!(*j)->isEmpty()) { //if this lane is not empty
                 succeedingBlockOccupied = true;
+            } else {
+                std::map<const MSLane*, const MSLink*>::iterator it = mySucceedingBlocksIncommingLinks.find(lane);
+                if (it != mySucceedingBlocksIncommingLinks.end()) {
+                    const MSLink* inCommingLing = it->second;
+                    const std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation>& approaching = inCommingLing->getApproaching();
+                    std::map<const SUMOVehicle*,  MSLink::ApproachingVehicleInformation>::const_iterator apprIt = approaching.begin();
+                    for (; apprIt != approaching.end(); apprIt++) {
+                        if (apprIt->second.arrivalSpeed > 0){
+                            succeedingBlockOccupied = true;
+                            break;
+                        }
+                    }
+
+                }
+            }
+            if (succeedingBlockOccupied) {
                 break;
             }
         }
