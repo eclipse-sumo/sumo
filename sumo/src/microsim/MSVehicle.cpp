@@ -2359,6 +2359,7 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<do
         (*i)->resetPartialOccupation(this);
     }
     const MSLane* firstOldFurther = furtherLanes.size() > 0 ? furtherLanes.front() : 0;
+    bool newFurther = true;
     // update furtherLanes
     double result = myState.myPos - getVehicleType().getLength();
     furtherLanes.clear();
@@ -2367,7 +2368,11 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<do
         std::vector<MSLane*>::const_reverse_iterator i = passedLanes.rbegin() + 1;
         while (leftLength > 0 && i != passedLanes.rend()) {
             furtherLanes.push_back(*i);
-            if (*i != firstOldFurther) {
+            // add new lateral values until hitting the first known further lane
+            if (*i == firstOldFurther) {
+                newFurther = false;
+            }
+            if (newFurther) {
                 furtherLanesPosLat.insert(furtherLanesPosLat.begin(), myState.myPosLat);
             }
 #ifdef DEBUG_FURTHER
