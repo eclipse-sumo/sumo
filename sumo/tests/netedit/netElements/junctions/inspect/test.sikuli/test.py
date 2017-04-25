@@ -108,19 +108,19 @@ netedit.leftClick(match, 150, 275)
 netedit.modifyAttribute(2, "right_before_left")
 
 # inspect eight node
-netedit.leftClick(match, 350, 200)
+netedit.leftClick(match, 340, 170)
 
 # change type of junction
 netedit.modifyAttribute(2, "allway_stop")
 
 # inspect nine node
-netedit.leftClick(match, 450, 175)
+netedit.leftClick(match, 450, 170)
 
 # change type of junction
 netedit.modifyAttribute(2, "zipper")
 
 # inspect ten node
-netedit.leftClick(match, 550, 200)
+netedit.leftClick(match, 550, 170)
 
 # change type of junction
 netedit.modifyAttribute(2, "district")
@@ -147,7 +147,7 @@ netedit.modifyAttribute(2, "dead_end")
 netedit.rebuildNetwork()
 
 # inspect eight node
-netedit.leftClick(match, 350, 200)
+netedit.leftClick(match, 340, 180)
 
 # change shape of junction
 netedit.modifyAttribute(4, "52.85,50.00 50.54,43.93 50.50,43.16 46.01,38.46 45.53,38.12 39.59,35.49")
