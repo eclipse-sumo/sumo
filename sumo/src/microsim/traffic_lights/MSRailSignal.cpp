@@ -137,6 +137,33 @@ MSRailSignal::init(NLDetectorBuilder&) {
             }
         }
     }
+
+
+    for (std::map<MSLane*, std::vector<const MSLane*> >::iterator it = mySucceedingBlocks.begin(); it != mySucceedingBlocks.end(); it++) {
+        std::queue<const MSLane*> revLanes;
+        for ( std::vector<const MSLane*>::iterator laneIt = it->second.begin(); laneIt != it->second.end(); laneIt++) {
+            const MSLane* lane = *laneIt;
+            std::cout << lane->getID() << std::endl;
+            const MSJunction * from = lane->getEdge().getFromJunction();
+            const MSJunction * to = lane->getEdge().getToJunction();
+
+            for (ConstMSEdgeVector::const_iterator edgeIt = to->getOutgoing().begin(); edgeIt != to->getOutgoing().end(); edgeIt++) {
+                if ((*edgeIt)->getToJunction() == from){ //reverse edge
+                    if ((*edgeIt)->getLanes()[0]->getShape().reverse() == lane->getShape()){
+                        const MSLane* revLane = (*edgeIt)->getLanes()[0];
+                        revLanes.push(revLane);
+                    }
+                }
+            }
+        }
+
+        while (!revLanes.empty()) {
+            const MSLane* revLane = revLanes.front();
+            it->second.push_back(revLane);
+            revLanes.pop();
+        }
+    }
+
     updateCurrentPhase();   //check if this is necessary or if will be done already at another stage
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
 }
