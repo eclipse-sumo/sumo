@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 30/12/2016 12:13:39 by Netedit Version dev-SVN-r22364
+<!-- generated on Mi 26 Apr 2017 11:38:23 CEST by Netedit Version dev-SVN-r22865
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.30Dec121312.1368/netedit.server/additionalElements/busstop/move\additionals.xml"/>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.30Dec121312.1368/netedit.server/additionalElements/busstop/move\input_net.net.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.26Apr113748.2069/netedit.gui/additionalElements/chargingstation/move/additionals.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Apr113748.2069/netedit.gui/additionalElements/chargingstation/move/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.30Dec121312.1368/netedit.server/additionalElements/busstop/move\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Apr113748.2069/netedit.gui/additionalElements/chargingstation/move/net.net.xml"/>
     </output>
 
     <processing>
@@ -19,16 +19,19 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
     <visualisation>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Apr113748.2069/netedit.gui/additionalElements/chargingstation/move/gui-settings.xml"/>
         <window-size value="700,500"/>
+        <window-pos value="50,50"/>
         <gui-testing value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.30Dec121312.1368/netedit.server/additionalElements/busstop/move\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.26Apr113748.2069/netedit.gui/additionalElements/chargingstation/move/log.txt"/>
     </report>
 
 </configuration>
