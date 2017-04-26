@@ -41,6 +41,7 @@
 #include "MSTrafficLightLogic.h"
 #include "MSRailSignal.h"
 #include <microsim/MSLane.h>
+#include <zconf.h>
 #include "MSPhaseDefinition.h"
 #include "MSTLLogicControl.h"
 
@@ -145,16 +146,19 @@ MSRailSignal::init(NLDetectorBuilder&) {
         std::queue<const MSLane*> revLanes;
         for ( std::vector<const MSLane*>::iterator laneIt = it->second.begin(); laneIt != it->second.end(); laneIt++) {
             const MSLane* lane = *laneIt;
-            std::cout << lane->getID() << std::endl;
             const MSJunction * from = lane->getEdge().getFromJunction();
             const MSJunction * to = lane->getEdge().getToJunction();
 
             for (ConstMSEdgeVector::const_iterator edgeIt = to->getOutgoing().begin(); edgeIt != to->getOutgoing().end(); edgeIt++) {
                 if ((*edgeIt)->getToJunction() == from){ //reverse edge
-                    if ((*edgeIt)->getLanes()[0]->getShape().reverse() == lane->getShape()){
-                        const MSLane* revLane = (*edgeIt)->getLanes()[0];
+                    const MSLane* revLane = (*edgeIt)->getLanes()[0];
+                    if (revLane->getShape().reverse() == lane->getShape()){
                         revLanes.push(revLane);
-                        mySucceedingBlocksIncommingLinks[revLane] = revLane->getEntryLink();
+                        const MSLane* pred = revLane->getCanonicalPredecessorLane();
+                        if (pred != 0) {
+                            const MSLink* msLink = pred->getLinkTo(revLane);
+                            mySucceedingBlocksIncommingLinks[lane] = msLink;
+                        }
                     }
                 }
             }
@@ -208,10 +212,11 @@ MSRailSignal::getAppropriateState() {
                 std::map<const MSLane*, const MSLink*>::iterator it = mySucceedingBlocksIncommingLinks.find(lane);
                 if (it != mySucceedingBlocksIncommingLinks.end()) {
                     const MSLink* inCommingLing = it->second;
-                    const std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation>& approaching = inCommingLing->getApproaching();
+                    const std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation> approaching = inCommingLing->getApproaching();
                     std::map<const SUMOVehicle*,  MSLink::ApproachingVehicleInformation>::const_iterator apprIt = approaching.begin();
                     for (; apprIt != approaching.end(); apprIt++) {
-                        if (apprIt->second.arrivalSpeed > 0){
+                        MSLink::ApproachingVehicleInformation info = apprIt->second;
+                        if (info.arrivalSpeedBraking > 0){
                             succeedingBlockOccupied = true;
                             break;
                         }

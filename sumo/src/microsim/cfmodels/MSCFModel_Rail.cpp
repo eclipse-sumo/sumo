@@ -192,34 +192,14 @@ MSCFModel::VehicleVariables* MSCFModel_Rail::createVehicleVariables() const
     return ret;
 }
 
-//mostly c 'n p from MSCFModel
+
 double MSCFModel_Rail::moveHelper(MSVehicle* const veh, double vPos) const
 {
     const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    // we need the acceleration for emission computation;
-    //  in this case, we neglect dawdling, nonetheless, using
-    //  vSafe does not incorporate speed reduction due to interaction
-    //  on lane changing
-    double vMin, vNext;
-    const double vMax = MIN3(veh->getMaxSpeedOnLane(), maxNextSpeed(oldV, veh), vSafe);
-    if (MSGlobals::gSemiImplicitEulerUpdate) {
-        // we cannot rely on never braking harder than maxDecel because TraCI or strange cf models may decide to do so
-        vMin = MIN2(minNextSpeed(oldV, veh), vMax);
-        vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
-    } else {
-        // for ballistic update, negative vnext must be allowed to
-        // indicate a stop within the coming timestep (i.e., to attain negative values)
-        vMin = MIN2(minNextSpeed(oldV, veh), vMax);
-        vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
-        // (Leo) moveHelper() is responsible for assuring that the next
-        // velocity is chosen in accordance with maximal decelerations.
-        // At this point vNext may also be negative indicating a stop within next step.
-        // Moreover, because maximumSafeStopSpeed() does not consider deceleration bounds
-        // vNext can be a large negative value at this point. We cap vNext here.
-        vNext = MAX2(vNext, vMin);
-    }
-
+    const double vMin = minNextSpeed(oldV, veh);
+    const double vMax = MAX2(vMin,MIN3(veh->getMaxSpeedOnLane(), maxNextSpeed(oldV, veh),vSafe));
+    const double vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
     return vNext;
 }
 
