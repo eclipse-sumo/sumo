@@ -52,15 +52,15 @@ class Polygon:
 
     def toXML(self):
         ret = '<poly id="%s"' % self.id
-        if type is not None:
+        if self.type is not None:
             ret += ' type="%s"' % self.type
-        if color is not None:
+        if self.color is not None:
             ret += ' color="%s"' % self.color.toXML()
-        if layer is not None:
+        if self.layer is not None:
             ret += ' layer="%s"' % self.layer
-        if fill is not None:
+        if self.fill is not None:
             ret += ' fill="%s"' % self.fill
-        if shape is not None:
+        if self.shape is not None:
             ret += ' shape="%s"' % self.getShapeString()
         if len(self.attributes) == 0:
             ret += '/>'
