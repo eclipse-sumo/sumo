@@ -27,9 +27,12 @@
 #include <config.h>
 #endif
 
+#include <utils/common/MsgHandler.h>
+
 #include "GNEChange_Junction.h"
 #include "GNENet.h"
 #include "GNEJunction.h"
+#include "GNEViewNet.h"
 
 
 // ===========================================================================
@@ -55,6 +58,10 @@ GNEChange_Junction::~GNEChange_Junction() {
     assert(myJunction);
     myJunction->decRef("GNEChange_Junction");
     if (myJunction->unreferenced()) {
+        // show extra information for tests
+        if(myJunction->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting unreferenced " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        }
         delete myJunction;
     }
 }
@@ -63,8 +70,18 @@ GNEChange_Junction::~GNEChange_Junction() {
 void
 GNEChange_Junction::undo() {
     if (myForward) {
+        // show extra information for tests
+        if(myJunction->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        }
+        // add junction to net
         myNet->deleteSingleJunction(myJunction);
     } else {
+        // show extra information for tests
+        if(myJunction->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        }
+        // delete junction from net
         myNet->insertJunction(myJunction);
     }
 }
@@ -73,8 +90,18 @@ GNEChange_Junction::undo() {
 void
 GNEChange_Junction::redo() {
     if (myForward) {
+        // show extra information for tests
+        if(myJunction->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        }
+        // add junction into net
         myNet->insertJunction(myJunction);
     } else {
+        // show extra information for tests
+        if(myJunction->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        }
+        // delete junction from net
         myNet->deleteSingleJunction(myJunction);
     }
 }

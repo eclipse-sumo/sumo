@@ -27,12 +27,14 @@
 #include <config.h>
 #endif
 
+#include <utils/common/MsgHandler.h>
 #include <cassert>
+
 #include "GNEChange_Lane.h"
 #include "GNEEdge.h"
 #include "GNELane.h"
 #include "GNENet.h"
-
+#include "GNEViewNet.h"
 
 // ===========================================================================
 // FOX-declarations
@@ -67,11 +69,19 @@ GNEChange_Lane::~GNEChange_Lane() {
     assert(myEdge);
     myEdge->decRef("GNEChange_Lane");
     if (myEdge->unreferenced()) {
+        // show extra information for tests
+        if(myNet->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting unreferenced " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
+        }
         delete myEdge;
     }
     if (myLane) {
         myLane->decRef("GNEChange_Lane");
         if (myLane->unreferenced()) {
+            // show extra information for tests
+            if(myNet->getViewNet()->isTestingModeEnabled()) {
+                WRITE_WARNING("Deleting unreferenced " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+            }
             delete myLane;
         }
     }
@@ -81,12 +91,22 @@ GNEChange_Lane::~GNEChange_Lane() {
 void
 GNEChange_Lane::undo() {
     if (myForward) {
+        // show extra information for tests
+        if(myLane->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+        }
+        // remove lane from edge
         myEdge->removeLane(myLane);
         // Remove additional sets vinculated with this lane of net
         for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
             myNet->deleteAdditional(*i);
         }
     } else {
+        // show extra information for tests
+        if(myLane->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+        }
+        // add lane and their attributes to edge
         myEdge->addLane(myLane, myLaneAttrs);
         // add additional sets vinculated with this lane of net
         for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
@@ -99,12 +119,22 @@ GNEChange_Lane::undo() {
 void
 GNEChange_Lane::redo() {
     if (myForward) {
+        // show extra information for tests
+        if(myLane->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+        }
+        // add lane and their attributes to edge
         myEdge->addLane(myLane, myLaneAttrs);
         // add additional sets vinculated with this lane of net
         for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
             myNet->insertAdditional(*i);
         }
     } else {
+        // show extra information for tests
+        if(myLane->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+        }
+        // remove lane from edge
         myEdge->removeLane(myLane);
         // Remove additional sets vinculated with this lane of net
         for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
