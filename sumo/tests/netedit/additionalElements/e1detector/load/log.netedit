@@ -1,3 +1,4 @@
+Warning: Inserting e1Detector 'E1_01'
 Warning: Essential string attribute 'id' of e1Detector is missing; Additional cannot be created
 Warning: Could not build e1Detector with ID 'E1_01' in netedit; probably declared twice.
 Warning: Essential string attribute 'lane' of e1Detector with ID 'E1_02' is missing; Additional cannot be created
@@ -7,9 +8,34 @@ Warning: Format of essential string attribute 'pos' of e1Detector with ID 'E1_05
 Warning: Invalid position for e1Detector with ID = 'E1_06'.
 Warning: Invalid position for e1Detector with ID = 'E1_07'.
 Warning: Optional time attribute 'freq' of e1Detector with ID 'E1_08' is missing; Default value '100.00' will be used.
+Warning: Inserting e1Detector 'E1_08'
 Warning: Format of optional time attribute 'freq' of e1Detector with ID 'E1_09' is invalid; Cannot be parsed to time; Default value '100.00' will be used.
+Warning: Inserting e1Detector 'E1_09'
 Warning: Format of optional time attribute 'freq' of e1Detector with ID 'E1_10' is invalid; Time cannot be negative; Default value '100.00' will be used.
+Warning: Inserting e1Detector 'E1_10'
+Warning: Inserting e1Detector 'E1_11'
 Warning: Optional string attribute 'file' of e1Detector with ID 'E1_12' is missing; Default value '' will be used.
+Warning: Inserting e1Detector 'E1_12'
 Warning: Format of optional string attribute 'file' of e1Detector with ID 'E1_13' is invalid; Filename contains invalid characters; Default value '' will be used.
+Warning: Inserting e1Detector 'E1_13'
+Warning: Inserting e1Detector 'E1_14'
+Warning: Inserting e1Detector 'E1_15'
+Warning: Inserting e1Detector 'E1_16'
 Warning: Optional bool attribute 'splitByType' of e1Detector with ID 'E1_17' is missing; Default value '0' will be used.
+Warning: Inserting e1Detector 'E1_17'
 Warning: Format of optional bool attribute 'splitByType' of e1Detector with ID 'E1_18' is invalid; Default value '0' will be used.
+Warning: Inserting e1Detector 'E1_18'
+Warning: Inserting e1Detector 'E1_19'
+Warning: Deleting unreferenced e1Detector 'E1_19'
+Warning: Deleting unreferenced e1Detector 'E1_18'
+Warning: Deleting unreferenced e1Detector 'E1_17'
+Warning: Deleting unreferenced e1Detector 'E1_16'
+Warning: Deleting unreferenced e1Detector 'E1_15'
+Warning: Deleting unreferenced e1Detector 'E1_14'
+Warning: Deleting unreferenced e1Detector 'E1_13'
+Warning: Deleting unreferenced e1Detector 'E1_12'
+Warning: Deleting unreferenced e1Detector 'E1_11'
+Warning: Deleting unreferenced e1Detector 'E1_10'
+Warning: Deleting unreferenced e1Detector 'E1_09'
+Warning: Deleting unreferenced e1Detector 'E1_08'
+Warning: Deleting unreferenced e1Detector 'E1_01'

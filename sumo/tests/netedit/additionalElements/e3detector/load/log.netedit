@@ -1,19 +1,99 @@
+Warning: Inserting e3Detector 'e3Detector_00'
+Warning: Inserting detEntry 'e3Detector_00detEntry0'
 Warning: Could not build e3Detector with ID 'e3Detector_00' in netedit; probably declared twice.
 Warning: Essential string attribute 'id' of e3Detector is missing; Additional cannot be created
 Warning: Format of optional time attribute 'freq' of e3Detector with ID 'e3Detector_02' is invalid; Cannot be parsed to time; Default value '100.00' will be used.
+Warning: Inserting e3Detector 'e3Detector_02'
+Warning: Inserting detEntry 'e3Detector_02detEntry0'
 Warning: Format of optional time attribute 'freq' of e3Detector with ID 'e3Detector_03' is invalid; Time cannot be negative; Default value '100.00' will be used.
+Warning: Inserting e3Detector 'e3Detector_03'
+Warning: Inserting detEntry 'e3Detector_03detEntry0'
+Warning: Inserting e3Detector 'e3Detector_04'
+Warning: Inserting detEntry 'e3Detector_04detEntry0'
 Warning: Optional string attribute 'file' of e3Detector with ID 'e3Detector_05' is missing; Default value '' will be used.
+Warning: Inserting e3Detector 'e3Detector_05'
+Warning: Inserting detEntry 'e3Detector_05detEntry0'
 Warning: Format of optional string attribute 'file' of e3Detector with ID 'e3Detector_06' is invalid; Filename contains invalid characters; Default value '' will be used.
+Warning: Inserting e3Detector 'e3Detector_06'
+Warning: Inserting detEntry 'e3Detector_06detEntry0'
+Warning: Inserting e3Detector 'e3Detector_07'
+Warning: Inserting detEntry 'e3Detector_07detEntry0'
+Warning: Inserting e3Detector 'e3Detector_08'
+Warning: Inserting detEntry 'e3Detector_08detEntry0'
 Warning: Optional time attribute 'timeThreshold' of e3Detector with ID 'e3Detector_09' is missing; Default value '1.00' will be used.
+Warning: Inserting e3Detector 'e3Detector_09'
+Warning: Inserting detEntry 'e3Detector_09detEntry0'
 Warning: Format of optional time attribute 'timeThreshold' of e3Detector with ID 'e3Detector_10' is invalid; Cannot be parsed to time; Default value '1.00' will be used.
+Warning: Inserting e3Detector 'e3Detector_10'
+Warning: Inserting detEntry 'e3Detector_10detEntry0'
 Warning: Format of optional time attribute 'timeThreshold' of e3Detector with ID 'e3Detector_11' is invalid; Time cannot be negative; Default value '1.00' will be used.
+Warning: Inserting e3Detector 'e3Detector_11'
+Warning: Inserting detEntry 'e3Detector_11detEntry0'
+Warning: Inserting e3Detector 'e3Detector_12'
+Warning: Inserting detEntry 'e3Detector_12detEntry0'
 Warning: Optional float attribute 'speedThreshold' of e3Detector with ID 'e3Detector_13' is missing; Default value '1.39' will be used.
+Warning: Inserting e3Detector 'e3Detector_13'
+Warning: Inserting detEntry 'e3Detector_13detEntry0'
 Warning: Format of optional float attribute 'speedThreshold' of e3Detector with ID 'e3Detector_14' is invalid; Cannot be parsed to float; Default value '1.39' will be used.
+Warning: Inserting e3Detector 'e3Detector_14'
+Warning: Inserting detEntry 'e3Detector_14detEntry0'
+Warning: Inserting e3Detector 'e3Detector_15'
+Warning: Inserting detEntry 'e3Detector_15detEntry0'
+Warning: Inserting e3Detector 'e3Detector_16'
+Warning: Inserting detEntry 'e3Detector_16detEntry0'
 Warning: Optional float attribute 'x' of e3Detector with ID 'e3Detector_17' is missing; Default value '0.00' will be used.
+Warning: Inserting e3Detector 'e3Detector_17'
+Warning: Inserting detEntry 'e3Detector_17detEntry0'
 Warning: Format of optional float attribute 'x' of e3Detector with ID 'e3Detector_18' is invalid; Cannot be parsed to float; Default value '0.00' will be used.
+Warning: Inserting e3Detector 'e3Detector_18'
+Warning: Inserting detEntry 'e3Detector_18detEntry0'
 Warning: Optional float attribute 'y' of e3Detector with ID 'e3Detector_19' is missing; Default value '0.00' will be used.
+Warning: Inserting e3Detector 'e3Detector_19'
+Warning: Inserting detEntry 'e3Detector_19detEntry0'
 Warning: Format of optional float attribute 'y' of e3Detector with ID 'e3Detector_20' is invalid; Cannot be parsed to float; Default value '0.00' will be used.
+Warning: Inserting e3Detector 'e3Detector_20'
+Warning: Inserting detEntry 'e3Detector_20detEntry0'
 Warning: e3Detectors without detEntrys or detExit aren't allowed; e3Detector with ID = 'e3Detector_21' cannot be created.
 Warning: Format of essential string attribute 'pos' of detEntry is invalid; Additional cannot be created
 Warning: Format of essential string attribute 'pos' of detExit is invalid; Additional cannot be created
 Warning: e3Detectors without detEntrys or detExit aren't allowed; e3Detector with ID = 'e3Detector_22' cannot be created.
+Warning: Deleting unreferenced detEntry 'e3Detector_20detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_20'
+Warning: Deleting unreferenced detEntry 'e3Detector_19detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_19'
+Warning: Deleting unreferenced detEntry 'e3Detector_18detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_18'
+Warning: Deleting unreferenced detEntry 'e3Detector_17detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_17'
+Warning: Deleting unreferenced detEntry 'e3Detector_16detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_16'
+Warning: Deleting unreferenced detEntry 'e3Detector_15detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_15'
+Warning: Deleting unreferenced detEntry 'e3Detector_14detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_14'
+Warning: Deleting unreferenced detEntry 'e3Detector_13detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_13'
+Warning: Deleting unreferenced detEntry 'e3Detector_12detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_12'
+Warning: Deleting unreferenced detEntry 'e3Detector_11detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_11'
+Warning: Deleting unreferenced detEntry 'e3Detector_10detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_10'
+Warning: Deleting unreferenced detEntry 'e3Detector_09detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_09'
+Warning: Deleting unreferenced detEntry 'e3Detector_08detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_08'
+Warning: Deleting unreferenced detEntry 'e3Detector_07detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_07'
+Warning: Deleting unreferenced detEntry 'e3Detector_06detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_06'
+Warning: Deleting unreferenced detEntry 'e3Detector_05detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_05'
+Warning: Deleting unreferenced detEntry 'e3Detector_04detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_04'
+Warning: Deleting unreferenced detEntry 'e3Detector_03detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_03'
+Warning: Deleting unreferenced detEntry 'e3Detector_02detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_02'
+Warning: Deleting unreferenced detEntry 'e3Detector_00detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_00'

@@ -1,0 +1,4 @@
+Warning: Inserting containerStop 'containerStopA'
+Warning: Inserting containerStop 'containerStopB'
+Warning: Deleting unreferenced containerStop 'containerStopB'
+Warning: Deleting unreferenced containerStop 'containerStopA'

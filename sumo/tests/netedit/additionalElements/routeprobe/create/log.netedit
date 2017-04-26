@@ -1,2 +1,18 @@
+Warning: Inserting routeProbe 'routeProbe_gneE1_0'
+Warning: Inserting routeProbe 'routeProbe_gneE1_1'
 Warning: Invalid input parameter of routeProbe: 'freq' cannot be negative
+Warning: Inserting routeProbe 'routeProbe_gneE1_2'
 Warning: Invalid input parameter of routeProbe: 'begin' cannot be negative
+Warning: Inserting routeProbe 'routeProbe_gneE1_3'
+Warning: Deleting routeProbe 'routeProbe_gneE1_3'
+Warning: Deleting routeProbe 'routeProbe_gneE1_2'
+Warning: Deleting routeProbe 'routeProbe_gneE1_1'
+Warning: Deleting routeProbe 'routeProbe_gneE1_0'
+Warning: Inserting routeProbe 'routeProbe_gneE1_0'
+Warning: Inserting routeProbe 'routeProbe_gneE1_1'
+Warning: Inserting routeProbe 'routeProbe_gneE1_2'
+Warning: Inserting routeProbe 'routeProbe_gneE1_3'
+Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_3'
+Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_2'
+Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_1'
+Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'

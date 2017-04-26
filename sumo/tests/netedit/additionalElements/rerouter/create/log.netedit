@@ -1,2 +1,14 @@
 Warning: Invalid input parameter of rerouter: List of edges cannot be empty
+Warning: Inserting rerouter 'rerouter_0'
 Warning: Invalid input parameter of rerouter: 'probability' takes only values between 0 and 1
+Warning: Inserting rerouter 'rerouter_1'
+Warning: Inserting rerouter 'rerouter_2'
+Warning: Deleting rerouter 'rerouter_2'
+Warning: Deleting rerouter 'rerouter_1'
+Warning: Deleting rerouter 'rerouter_0'
+Warning: Inserting rerouter 'rerouter_0'
+Warning: Inserting rerouter 'rerouter_1'
+Warning: Inserting rerouter 'rerouter_2'
+Warning: Deleting unreferenced rerouter 'rerouter_2'
+Warning: Deleting unreferenced rerouter 'rerouter_1'
+Warning: Deleting unreferenced rerouter 'rerouter_0'

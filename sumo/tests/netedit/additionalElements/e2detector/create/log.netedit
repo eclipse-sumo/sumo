@@ -1,5 +1,33 @@
+Warning: Inserting e2Detector 'e2Detector_gneE0_0_0'
 Warning: Invalid input parameter of e2Detector: 'length' cannot be negative
+Warning: Inserting e2Detector 'e2Detector_gneE0_0_1'
 Warning: Invalid input parameter of e2Detector: 'freq' cannot be negative
+Warning: Inserting e2Detector 'e2Detector_gneE0_0_2'
+Warning: Inserting e2Detector 'e2Detector_gneE0_0_3'
 Warning: Invalid input parameter of e2Detector: 'timeThreshold' cannot be negative
+Warning: Inserting e2Detector 'e2Detector_gneE1_0_4'
 Warning: Invalid input parameter of e2Detector: 'speedThreshold' cannot be negative
+Warning: Inserting e2Detector 'e2Detector_gneE1_0_5'
 Warning: Invalid input parameter of e2Detector: 'jamThreshold' cannot be negative
+Warning: Inserting e2Detector 'e2Detector_gneE1_0_6'
+Warning: Deleting e2Detector 'e2Detector_gneE1_0_6'
+Warning: Deleting e2Detector 'e2Detector_gneE1_0_5'
+Warning: Deleting e2Detector 'e2Detector_gneE1_0_4'
+Warning: Deleting e2Detector 'e2Detector_gneE0_0_3'
+Warning: Deleting e2Detector 'e2Detector_gneE0_0_2'
+Warning: Deleting e2Detector 'e2Detector_gneE0_0_1'
+Warning: Deleting e2Detector 'e2Detector_gneE0_0_0'
+Warning: Inserting e2Detector 'e2Detector_gneE0_0_0'
+Warning: Inserting e2Detector 'e2Detector_gneE0_0_1'
+Warning: Inserting e2Detector 'e2Detector_gneE0_0_2'
+Warning: Inserting e2Detector 'e2Detector_gneE0_0_3'
+Warning: Inserting e2Detector 'e2Detector_gneE1_0_4'
+Warning: Inserting e2Detector 'e2Detector_gneE1_0_5'
+Warning: Inserting e2Detector 'e2Detector_gneE1_0_6'
+Warning: Deleting unreferenced e2Detector 'e2Detector_gneE1_0_6'
+Warning: Deleting unreferenced e2Detector 'e2Detector_gneE1_0_5'
+Warning: Deleting unreferenced e2Detector 'e2Detector_gneE1_0_4'
+Warning: Deleting unreferenced e2Detector 'e2Detector_gneE0_0_3'
+Warning: Deleting unreferenced e2Detector 'e2Detector_gneE0_0_2'
+Warning: Deleting unreferenced e2Detector 'e2Detector_gneE0_0_1'
+Warning: Deleting unreferenced e2Detector 'e2Detector_gneE0_0_0'

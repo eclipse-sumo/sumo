@@ -1,3 +1,4 @@
+Warning: Inserting busStop 'busStop_00'
 Warning: Essential string attribute 'id' of busStop is missing; Additional cannot be created
 Warning: Essential string attribute 'id' of busStop is missing; Additional cannot be created
 Warning: Could not build busStop with ID 'busStop_00' in netedit; probably declared twice.
@@ -11,5 +12,10 @@ Warning: Essential float attribute 'endPos' of busStop with ID 'busStop_07' is m
 Warning: Format of essential float attribute 'endPos' of busStop with ID 'busStop_08' is invalid; Cannot be parsed to float; Additional cannot be created
 Warning: Invalid position for busStop with ID = 'busStop_09'.
 Warning: Invalid position for busStop with ID = 'busStop_10'.
+Warning: Inserting busStop 'busStop_11'
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
+Warning: Inserting busStop 'busStop_12'
+Warning: Deleting unreferenced busStop 'busStop_12'
+Warning: Deleting unreferenced busStop 'busStop_11'
+Warning: Deleting unreferenced busStop 'busStop_00'

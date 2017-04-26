@@ -1,1 +1,3 @@
 Warning: Invalid input parameter of busStop: Current selected reference point isn't valid
+Warning: Inserting busStop 'busStop_gneE0_0_0'
+Warning: Deleting unreferenced busStop 'busStop_gneE0_0_0'

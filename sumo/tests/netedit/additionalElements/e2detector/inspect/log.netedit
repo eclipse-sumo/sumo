@@ -1,3 +1,5 @@
+Warning: Inserting e2Detector 'e2Detector_gneE2_1_0'
+Warning: Inserting e2Detector 'e2Detector_gneE2_1_1'
 Warning: Value 'e2Detector_gneE2_1_1' for attribute id of e2Detector isn't valid
 Warning: Value 'dummy lane' for attribute lane of e2Detector isn't valid
 Warning: Value '-5' for attribute pos of e2Detector isn't valid
@@ -8,3 +10,9 @@ Warning: Value '%%%&%%%&&' for attribute file of e2Detector isn't valid
 Warning: Value '-5' for attribute timeThreshold of e2Detector isn't valid
 Warning: Value '-12.1' for attribute speedThreshold of e2Detector isn't valid
 Warning: Value '-8' for attribute jamThreshold of e2Detector isn't valid
+Warning: Deleting e2Detector 'e2Detector_gneE2_1_1'
+Warning: Deleting e2Detector 'e2Detector_gneE2_1_0'
+Warning: Inserting e2Detector 'e2Detector_gneE2_1_0'
+Warning: Inserting e2Detector 'e2Detector_gneE2_1_1'
+Warning: Deleting unreferenced e2Detector 'e2Detector_gneE2_1_1'
+Warning: Deleting unreferenced e2Detector 'correct ID'

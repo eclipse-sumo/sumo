@@ -1,12 +1,34 @@
+Warning: Inserting vaporizer 'vaporizer_0'
 Warning: Essential string attribute 'edge' of vaporizer is missing; Additional cannot be created
 Warning: The edge 'dummyEdge' to use within the vaporizer is not known.
+Warning: Inserting vaporizer 'vaporizer_1'
 Warning: Optional time attribute 'startTime' of vaporizer is missing; Default value '0.00' will be used.
+Warning: Inserting vaporizer 'vaporizer_2'
 Warning: Optional time attribute 'startTime' of vaporizer is missing; Default value '0.00' will be used.
+Warning: Inserting vaporizer 'vaporizer_3'
 Warning: Format of optional time attribute 'startTime' of vaporizer is invalid; Cannot be parsed to time; Default value '0.00' will be used.
+Warning: Inserting vaporizer 'vaporizer_4'
 Warning: Format of optional time attribute 'startTime' of vaporizer is invalid; Time cannot be negative; Default value '0.00' will be used.
+Warning: Inserting vaporizer 'vaporizer_5'
+Warning: Inserting vaporizer 'vaporizer_6'
 Warning: Optional time attribute 'end' of vaporizer is missing; Default value '10.00' will be used.
+Warning: Inserting vaporizer 'vaporizer_7'
 Warning: Optional time attribute 'end' of vaporizer is missing; Default value '10.00' will be used.
 Warning: Time interval of vaporizer isn't valid. Attribute 'startTime' is greater than attribute 'end'.
 Warning: Format of optional time attribute 'end' of vaporizer is invalid; Cannot be parsed to time; Default value '10.00' will be used.
+Warning: Inserting vaporizer 'vaporizer_8'
 Warning: Format of optional time attribute 'end' of vaporizer is invalid; Time cannot be negative; Default value '10.00' will be used.
+Warning: Inserting vaporizer 'vaporizer_9'
+Warning: Inserting vaporizer 'vaporizer_10'
 Warning: Time interval of vaporizer isn't valid. Attribute 'startTime' is greater than attribute 'end'.
+Warning: Deleting unreferenced vaporizer 'vaporizer_10'
+Warning: Deleting unreferenced vaporizer 'vaporizer_9'
+Warning: Deleting unreferenced vaporizer 'vaporizer_8'
+Warning: Deleting unreferenced vaporizer 'vaporizer_7'
+Warning: Deleting unreferenced vaporizer 'vaporizer_6'
+Warning: Deleting unreferenced vaporizer 'vaporizer_5'
+Warning: Deleting unreferenced vaporizer 'vaporizer_4'
+Warning: Deleting unreferenced vaporizer 'vaporizer_3'
+Warning: Deleting unreferenced vaporizer 'vaporizer_2'
+Warning: Deleting unreferenced vaporizer 'vaporizer_1'
+Warning: Deleting unreferenced vaporizer 'vaporizer_0'

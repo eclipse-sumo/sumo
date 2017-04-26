@@ -1,5 +1,25 @@
 Warning: Invalid input parameter of chargingStation: 'power' cannot be negative
+Warning: Inserting chargingStation 'chargingStation_gneE0_0_0'
 Warning: Invalid input parameter of chargingStation: 'efficiency' takes only values between 0 and 1
+Warning: Inserting chargingStation 'chargingStation_gneE0_0_1'
+Warning: Inserting chargingStation 'chargingStation_gneE0_0_2'
 Warning: Invalid input parameter of chargingStation: 'startPos' overpass lane's lenght. Use 'force position' or another reference point.
 Warning: Invalid input parameter of chargingStation: 'startPos' takes a negative value. Use 'force position' or another reference point.
 Warning: Invalid input parameter of chargingStation: 'chargeDelay' cannot be negative
+Warning: Inserting chargingStation 'chargingStation_gneE0_0_3'
+Warning: Inserting chargingStation 'chargingStation_gneE0_0_4'
+Warning: Deleting chargingStation 'chargingStation_gneE0_0_4'
+Warning: Deleting chargingStation 'chargingStation_gneE0_0_3'
+Warning: Deleting chargingStation 'chargingStation_gneE0_0_2'
+Warning: Deleting chargingStation 'chargingStation_gneE0_0_1'
+Warning: Deleting chargingStation 'chargingStation_gneE0_0_0'
+Warning: Inserting chargingStation 'chargingStation_gneE0_0_0'
+Warning: Inserting chargingStation 'chargingStation_gneE0_0_1'
+Warning: Inserting chargingStation 'chargingStation_gneE0_0_2'
+Warning: Inserting chargingStation 'chargingStation_gneE0_0_3'
+Warning: Inserting chargingStation 'chargingStation_gneE0_0_4'
+Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_4'
+Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_3'
+Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_2'
+Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_1'
+Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_0'

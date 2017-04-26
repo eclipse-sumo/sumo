@@ -1,2 +1,4 @@
+Warning: Inserting busStop 'busStop_gneE0_0_0'
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Deleting unreferenced busStop 'busStop_gneE0_0_0'

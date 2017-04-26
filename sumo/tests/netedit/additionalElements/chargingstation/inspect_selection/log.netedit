@@ -1,1 +1,5 @@
+Warning: Inserting chargingStation 'chargingStationA'
+Warning: Inserting chargingStation 'chargingStationB'
 Warning: Value '2' for attribute efficiency of chargingStation isn't valid
+Warning: Deleting unreferenced chargingStation 'chargingStationB'
+Warning: Deleting unreferenced chargingStation 'chargingStationA'

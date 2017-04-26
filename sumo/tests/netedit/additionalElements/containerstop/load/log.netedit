@@ -1,3 +1,4 @@
+Warning: Inserting containerStop 'containerStop_00'
 Warning: Essential string attribute 'id' of containerStop is missing; Additional cannot be created
 Warning: Essential string attribute 'id' of containerStop is missing; Additional cannot be created
 Warning: Could not build containerStop with ID 'containerStop_00' in netedit; probably declared twice.
@@ -11,5 +12,10 @@ Warning: Essential float attribute 'endPos' of containerStop with ID 'containerS
 Warning: Format of essential float attribute 'endPos' of containerStop with ID 'containerStop_08' is invalid; Cannot be parsed to float; Additional cannot be created
 Warning: Invalid position for containerStop with ID = 'containerStop_09'.
 Warning: Invalid position for containerStop with ID = 'containerStop_10'.
+Warning: Inserting containerStop 'containerStop_11'
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
+Warning: Inserting containerStop 'containerStop_12'
+Warning: Deleting unreferenced containerStop 'containerStop_12'
+Warning: Deleting unreferenced containerStop 'containerStop_11'
+Warning: Deleting unreferenced containerStop 'containerStop_00'

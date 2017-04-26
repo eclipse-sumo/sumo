@@ -1,0 +1,4 @@
+Warning: Inserting busStop 'busStopA'
+Warning: Inserting busStop 'busStopB'
+Warning: Deleting unreferenced busStop 'busStopB'
+Warning: Deleting unreferenced busStop 'busStopA'

@@ -1,6 +1,12 @@
+Warning: Inserting e1Detector 'e1Detector_gneE2_1_0'
+Warning: Inserting e1Detector 'e1Detector_gneE2_1_1'
 Warning: Value 'e1Detector_gneE2_1_1' for attribute id of e1Detector isn't valid
 Warning: Value 'dummy lane' for attribute lane of e1Detector isn't valid
 Warning: Value '-5' for attribute pos of e1Detector isn't valid
 Warning: Value '400' for attribute pos of e1Detector isn't valid
 Warning: Value '-100' for attribute freq of e1Detector isn't valid
 Warning: Value '%%%&&%$%$' for attribute file of e1Detector isn't valid
+Warning: Deleting e1Detector 'e1Detector_gneE2_1_1'
+Warning: Inserting e1Detector 'e1Detector_gneE2_1_1'
+Warning: Deleting unreferenced e1Detector 'e1Detector_gneE2_1_1'
+Warning: Deleting unreferenced e1Detector 'correct ID'

@@ -1,3 +1,11 @@
+Warning: Inserting routeProbe 'routeProbe_gneE3_0'
+Warning: Inserting routeProbe 'routeProbe_gneE3_1'
 Warning: Value 'dummyEdge' for attribute edge of routeProbe isn't valid
 Warning: Value '-50' for attribute freq of routeProbe isn't valid
 Warning: Value '-5' for attribute begin of routeProbe isn't valid
+Warning: Deleting routeProbe 'routeProbe_gneE3_1'
+Warning: Deleting routeProbe 'routeProbe_gneE3_0'
+Warning: Inserting routeProbe 'routeProbe_gneE3_0'
+Warning: Inserting routeProbe 'routeProbe_gneE3_1'
+Warning: Deleting unreferenced routeProbe 'routeProbe_gneE3_1'
+Warning: Deleting unreferenced routeProbe 'correct ID'

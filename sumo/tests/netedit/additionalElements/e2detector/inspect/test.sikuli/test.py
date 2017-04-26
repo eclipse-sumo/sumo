@@ -134,8 +134,8 @@ netedit.modifyAttribute(9, "-8")
 # Change parameter 9 with a valid value
 netedit.modifyAttribute(9, "12.5")
 
-# go to a empty area
-click(match)
+# click over an empty area
+netedit.leftClick(match, 0, 0)
 
 # Check undos and redos
 netedit.undo(match, 23)

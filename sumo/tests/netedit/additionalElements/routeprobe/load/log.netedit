@@ -1,12 +1,44 @@
+Warning: Inserting routeProbe 'routeProbe_01'
 Warning: Essential string attribute 'id' of routeProbe is missing; Additional cannot be created
 Warning: Format of essential string attribute 'id' of routeProbe is invalid; Additional cannot be created
 Warning: Format of essential string attribute 'id' of routeProbe is invalid; Additional cannot be created
+Warning: Inserting routeProbe 'routeProbe_02'
+Warning: Inserting routeProbe 'routeProbe_03'
 Warning: The edge 'dummyEdge' to use within the routeProbe 'routeProbe_04' is not known.
+Warning: Inserting routeProbe 'routeProbe_05'
 Warning: Optional time attribute 'freq' of routeProbe is missing; Default value '100.00' will be used.
+Warning: Inserting routeProbe 'routeProbe_06'
 Warning: Format of optional time attribute 'freq' of routeProbe is invalid; Cannot be parsed to time; Default value '100.00' will be used.
+Warning: Inserting routeProbe 'routeProbe_07'
 Warning: Format of optional time attribute 'freq' of routeProbe is invalid; Time cannot be negative; Default value '100.00' will be used.
+Warning: Inserting routeProbe 'routeProbe_08'
+Warning: Inserting routeProbe 'routeProbe_09'
 Warning: Optional string attribute 'file' of routeProbe is missing; Default value '' will be used.
+Warning: Inserting routeProbe 'routeProbe_10'
 Warning: Format of optional string attribute 'file' of routeProbe is invalid; Filename contains invalid characters; Default value '' will be used.
+Warning: Inserting routeProbe 'routeProbe_11'
+Warning: Inserting routeProbe 'routeProbe_12'
+Warning: Inserting routeProbe 'routeProbe_13'
 Warning: Optional time attribute 'begin' of routeProbe is missing; Default value '0.00' will be used.
+Warning: Inserting routeProbe 'routeProbe_14'
 Warning: Format of optional time attribute 'begin' of routeProbe is invalid; Cannot be parsed to time; Default value '0.00' will be used.
+Warning: Inserting routeProbe 'routeProbe_15'
 Warning: Format of optional time attribute 'begin' of routeProbe is invalid; Time cannot be negative; Default value '0.00' will be used.
+Warning: Inserting routeProbe 'routeProbe_16'
+Warning: Inserting routeProbe 'routeProbe_17'
+Warning: Deleting unreferenced routeProbe 'routeProbe_17'
+Warning: Deleting unreferenced routeProbe 'routeProbe_16'
+Warning: Deleting unreferenced routeProbe 'routeProbe_15'
+Warning: Deleting unreferenced routeProbe 'routeProbe_14'
+Warning: Deleting unreferenced routeProbe 'routeProbe_13'
+Warning: Deleting unreferenced routeProbe 'routeProbe_12'
+Warning: Deleting unreferenced routeProbe 'routeProbe_11'
+Warning: Deleting unreferenced routeProbe 'routeProbe_10'
+Warning: Deleting unreferenced routeProbe 'routeProbe_09'
+Warning: Deleting unreferenced routeProbe 'routeProbe_08'
+Warning: Deleting unreferenced routeProbe 'routeProbe_07'
+Warning: Deleting unreferenced routeProbe 'routeProbe_06'
+Warning: Deleting unreferenced routeProbe 'routeProbe_05'
+Warning: Deleting unreferenced routeProbe 'routeProbe_03'
+Warning: Deleting unreferenced routeProbe 'routeProbe_02'
+Warning: Deleting unreferenced routeProbe 'routeProbe_01'

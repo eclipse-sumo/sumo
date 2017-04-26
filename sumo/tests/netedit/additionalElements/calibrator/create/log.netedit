@@ -1,2 +1,10 @@
+Warning: Inserting calibrator 'calibrator_gneE0_0_0'
 Warning: Invalid input parameter of calibrator: 'pos' doesn't have a valid 'float' format
 Warning: Invalid input parameter of calibrator: 'pos' cannot be negative
+Warning: Inserting calibrator 'calibrator_gneE1_0_1'
+Warning: Deleting calibrator 'calibrator_gneE1_0_1'
+Warning: Deleting calibrator 'calibrator_gneE0_0_0'
+Warning: Inserting calibrator 'calibrator_gneE0_0_0'
+Warning: Inserting calibrator 'calibrator_gneE1_0_1'
+Warning: Deleting unreferenced calibrator 'calibrator_gneE1_0_1'
+Warning: Deleting unreferenced calibrator 'calibrator_gneE0_0_0'

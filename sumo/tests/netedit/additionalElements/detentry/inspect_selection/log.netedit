@@ -1,0 +1,8 @@
+Warning: Inserting e3Detector 'E3_0'
+Warning: Inserting detEntry 'E3_0detEntry0'
+Warning: Inserting e3Detector 'E3_1'
+Warning: Inserting detEntry 'E3_1detEntry0'
+Warning: Deleting unreferenced detEntry 'E3_1detEntry0'
+Warning: Deleting unreferenced e3Detector 'E3_1'
+Warning: Deleting unreferenced detEntry 'E3_0detEntry0'
+Warning: Deleting unreferenced e3Detector 'E3_0'

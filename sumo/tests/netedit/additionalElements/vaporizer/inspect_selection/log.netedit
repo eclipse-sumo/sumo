@@ -1,3 +1,7 @@
+Warning: Inserting vaporizer 'vaporizer_0'
+Warning: Inserting vaporizer 'vaporizer_1'
 Warning: Value '-30' for attribute startTime of vaporizer isn't valid
 Warning: Value '-5' for attribute end of vaporizer isn't valid
 Warning: Value '1' for attribute end of vaporizer isn't valid
+Warning: Deleting unreferenced vaporizer 'vaporizer_1'
+Warning: Deleting unreferenced vaporizer 'vaporizer_0'

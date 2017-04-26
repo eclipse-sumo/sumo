@@ -1,3 +1,5 @@
+Warning: Inserting chargingStation 'chargingStation_gneE2_1_0'
+Warning: Inserting chargingStation 'chargingStation_gneE2_1_1'
 Warning: Value 'chargingStation_gneE2_1_1' for attribute id of chargingStation isn't valid
 Warning: Value 'dummy lane' for attribute lane of chargingStation isn't valid
 Warning: Value '-5' for attribute startPos of chargingStation isn't valid
@@ -12,3 +14,9 @@ Warning: Value '-100' for attribute power of chargingStation isn't valid
 Warning: Value '-1' for attribute efficiency of chargingStation isn't valid
 Warning: Value '2' for attribute efficiency of chargingStation isn't valid
 Warning: Value '-10' for attribute chargeDelay of chargingStation isn't valid
+Warning: Deleting chargingStation 'chargingStation_gneE2_1_1'
+Warning: Deleting chargingStation 'chargingStation_gneE2_1_0'
+Warning: Inserting chargingStation 'chargingStation_gneE2_1_0'
+Warning: Inserting chargingStation 'chargingStation_gneE2_1_1'
+Warning: Deleting unreferenced chargingStation 'chargingStation_gneE2_1_1'
+Warning: Deleting unreferenced chargingStation 'correct ID'

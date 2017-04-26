@@ -1,3 +1,4 @@
+Warning: Inserting chargingStation 'chargingStation_0'
 Warning: Essential string attribute 'id' of chargingStation is missing; Additional cannot be created
 Warning: Essential string attribute 'id' of chargingStation is missing; Additional cannot be created
 Warning: Could not build chargingStation with ID 'chargingStation_0' in netedit; probably declared twice.
@@ -12,13 +13,38 @@ Warning: Format of essential float attribute 'endPos' of chargingStation with ID
 Warning: Invalid position for chargingStation with ID = 'chargingStation_9'.
 Warning: Invalid position for chargingStation with ID = 'chargingStation_10'.
 Warning: Optional float attribute 'power' of chargingStation with ID 'chargingStation_11' is missing; Default value '22000.00' will be used.
+Warning: Inserting chargingStation 'chargingStation_11'
 Warning: Format of optional float attribute 'power' of chargingStation with ID 'chargingStation_12' is invalid; Cannot be parsed to float; Default value '22000.00' will be used.
+Warning: Inserting chargingStation 'chargingStation_12'
 Warning: Format of optional float attribute 'power' of chargingStation with ID 'chargingStation_13' is invalid; Cannot be negative; Default value '22000.00' will be used.
+Warning: Inserting chargingStation 'chargingStation_13'
 Warning: Optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_14' is missing; Default value '0.95' will be used.
+Warning: Inserting chargingStation 'chargingStation_14'
 Warning: Format of optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_15' is invalid; Cannot be parsed to float; Default value '0.95' will be used.
+Warning: Inserting chargingStation 'chargingStation_15'
+Warning: Inserting chargingStation 'chargingStation_16'
 Warning: Optional bool attribute 'chargeInTransit' of chargingStation with ID 'chargingStation_17' is missing; Default value '0' will be used.
+Warning: Inserting chargingStation 'chargingStation_17'
 Warning: Format of optional bool attribute 'chargeInTransit' of chargingStation with ID 'chargingStation_18' is invalid; Default value '0' will be used.
+Warning: Inserting chargingStation 'chargingStation_18'
 Warning: Format of optional bool attribute 'chargeInTransit' of chargingStation with ID 'chargingStation_19' is invalid; Default value '0' will be used.
+Warning: Inserting chargingStation 'chargingStation_19'
 Warning: Optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_20' is missing; Default value '0.00' will be used.
+Warning: Inserting chargingStation 'chargingStation_20'
 Warning: Format of optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_21' is invalid; Cannot be parsed to time; Default value '0.00' will be used.
+Warning: Inserting chargingStation 'chargingStation_21'
 Warning: Format of optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_22' is invalid; Time cannot be negative; Default value '0.00' will be used.
+Warning: Inserting chargingStation 'chargingStation_22'
+Warning: Deleting unreferenced chargingStation 'chargingStation_22'
+Warning: Deleting unreferenced chargingStation 'chargingStation_21'
+Warning: Deleting unreferenced chargingStation 'chargingStation_20'
+Warning: Deleting unreferenced chargingStation 'chargingStation_19'
+Warning: Deleting unreferenced chargingStation 'chargingStation_18'
+Warning: Deleting unreferenced chargingStation 'chargingStation_17'
+Warning: Deleting unreferenced chargingStation 'chargingStation_16'
+Warning: Deleting unreferenced chargingStation 'chargingStation_15'
+Warning: Deleting unreferenced chargingStation 'chargingStation_14'
+Warning: Deleting unreferenced chargingStation 'chargingStation_13'
+Warning: Deleting unreferenced chargingStation 'chargingStation_12'
+Warning: Deleting unreferenced chargingStation 'chargingStation_11'
+Warning: Deleting unreferenced chargingStation 'chargingStation_0'
