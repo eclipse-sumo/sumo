@@ -87,14 +87,14 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
 
 
 GNEEdge::~GNEEdge() {
-    // Delete edges
+    // Delete references to this eddge in lanes
     for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
         (*i)->decRef("GNEEdge::~GNEEdge");
         if ((*i)->unreferenced()) {
             delete *i;
         }
     }
-    // delete connections
+    // delete references to this eddge in connections
     for (ConnectionVector::const_iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); ++i) {
         (*i)->decRef("GNEEdge::~GNEEdge");
         if ((*i)->unreferenced()) {
@@ -420,7 +420,6 @@ GNEEdge::remakeGNEConnections() {
         newCons.push_back(retrieveConnection(con.fromLane, con.toEdge, con.toLane));
         newCons.back()->incRef("GNEEdge::GNEEdge");
         newCons.back()->updateLinkState();
-        //std::cout << " remakeGNEConnection " << newCons.back()->getNBConnection() << "\n";
     }
     clearGNEConnections();
     myGNEConnections = newCons;
