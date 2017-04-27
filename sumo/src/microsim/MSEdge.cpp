@@ -823,19 +823,19 @@ MSEdge::getDistanceTo(const MSEdge* other) const {
 double
 MSEdge::getSpeedLimit() const {
     // @note lanes might have different maximum speeds in theory
-    return getLanes()[0]->getSpeedLimit();
+    return myLanes->empty() ? 0 : getLanes()[0]->getSpeedLimit();
 }
 
 
 double
 MSEdge::getLengthGeometryFactor() const {
-    return getLanes()[0]->getLengthGeometryFactor();
+    return myLanes->empty() ? 0 : getLanes()[0]->getLengthGeometryFactor();
 }
 
 double
 MSEdge::getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
     // @note lanes might have different maximum speeds in theory
-    return getLanes()[0]->getVehicleMaxSpeed(veh);
+    return myLanes->empty() ? 0 : getLanes()[0]->getVehicleMaxSpeed(veh);
 }
 
 
