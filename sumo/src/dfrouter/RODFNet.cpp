@@ -266,7 +266,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
         // check for highway off-ramps
         if (myAmInHighwayMode) {
             // if it's beside the highway...
-            if (last->getSpeed() < 19.4 && last != getDetectorEdge(det)) {
+            if (last->getSpeedLimit() < 19.4 && last != getDetectorEdge(det)) {
                 // ... and has more than one following edge
                 if (myApproachedEdges.find(last)->second.size() > 1) {
                     // -> let's add this edge and the following, but not any further
@@ -300,7 +300,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
                 continue;
             }
             RODFRouteDesc t(current);
-            t.duration_2 += (appr[i]->getLength() / appr[i]->getSpeed()); //!!!
+            t.duration_2 += (appr[i]->getLength() / appr[i]->getSpeedLimit()); //!!!
             t.distance += appr[i]->getLength();
             t.edges2Pass.push_back(appr[i]);
             if (!addNextNoFurther) {
@@ -362,7 +362,7 @@ RODFNet::buildRoutes(RODFDetectorCon& detcont, bool keepUnfoundEnds, bool includ
         doneEdges[e] = routes;
         RODFRouteDesc rd;
         rd.edges2Pass.push_back(e);
-        rd.duration_2 = (e->getLength() / e->getSpeed()); //!!!;
+        rd.duration_2 = (e->getLength() / e->getSpeedLimit()); //!!!;
         rd.endDetectorEdge = 0;
         rd.lastDetectorEdge = 0;
         rd.distance = e->getLength();
@@ -391,7 +391,7 @@ RODFNet::buildRoutes(RODFDetectorCon& detcont, bool keepUnfoundEnds, bool includ
                 for (ROEdgeVector::const_iterator k = mrd.edges2Pass.begin(); k != routeend; ++k) {
                     // check whether any detectors lies on the current edge
                     if (myDetectorsOnEdges.find(*k) == myDetectorsOnEdges.end()) {
-                        duration -= (*k)->getLength() / (*k)->getSpeed();
+                        duration -= (*k)->getLength() / (*k)->getSpeedLimit();
                         distance -= (*k)->getLength();
                         continue;
                     }
@@ -414,7 +414,7 @@ RODFNet::buildRoutes(RODFDetectorCon& detcont, bool keepUnfoundEnds, bool includ
                             ((RODFDetector&) m).addRoute(nrd);
                         }
                     }
-                    duration -= (*k)->getLength() / (*k)->getSpeed();
+                    duration -= (*k)->getLength() / (*k)->getSpeedLimit();
                     distance -= (*k)->getLength();
                 }
             }
@@ -739,7 +739,7 @@ RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
     if (edge != getDetectorEdge(det)) {
         // ok, we are at one of the edges in front
         if (myAmInHighwayMode) {
-            if (edge->getSpeed() >= 19.4) {
+            if (edge->getSpeedLimit() >= 19.4) {
                 if (hasDetector(edge)) {
                     // we are still on the highway and there is another detector
                     return false;
@@ -765,7 +765,7 @@ RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
     }
 
     if (myAmInHighwayMode) {
-        if (edge->getSpeed() < 19.4 && edge != getDetectorEdge(det)) {
+        if (edge->getSpeedLimit() < 19.4 && edge != getDetectorEdge(det)) {
             // we have left the highway already
             //  -> the detector will be a highway source
             if (!hasDetector(edge)) {
@@ -838,7 +838,7 @@ RODFNet::isDestination(const RODFDetector& det, ROEdge* edge, ROEdgeVector& seen
     if (edge != getDetectorEdge(det)) {
         // ok, we are at one of the edges coming behind
         if (myAmInHighwayMode) {
-            if (edge->getSpeed() >= 19.4) {
+            if (edge->getSpeedLimit() >= 19.4) {
                 if (hasDetector(edge)) {
                     // we are still on the highway and there is another detector
                     return false;
@@ -848,7 +848,7 @@ RODFNet::isDestination(const RODFDetector& det, ROEdge* edge, ROEdgeVector& seen
     }
 
     if (myAmInHighwayMode) {
-        if (edge->getSpeed() < 19.4 && edge != getDetectorEdge(det)) {
+        if (edge->getSpeedLimit() < 19.4 && edge != getDetectorEdge(det)) {
             if (hasDetector(edge)) {
                 return true;
             }
@@ -904,7 +904,7 @@ RODFNet::isFalseSource(const RODFDetector& det, ROEdge* edge, ROEdgeVector& seen
                 }
             }
         } else {
-            if (myAmInHighwayMode && edge->getSpeed() < 19.) {
+            if (myAmInHighwayMode && edge->getSpeedLimit() < 19.) {
                 return false;
             }
         }
@@ -1002,12 +1002,12 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
                 speedFactorCountLKW += srcFD.qLKW;
                 speedFactorSumPKW += srcFD.qPKW * speedFactorPKW;
                 speedFactorSumLKW += srcFD.qLKW * speedFactorLKW;
-                if (!didWarn && srcFD.vPKW > 0 && srcFD.vPKW < 255 && srcFD.vPKW / 3.6 > into->getSpeed()) {
-                    WRITE_MESSAGE("Detected PKW speed (" + toString(srcFD.vPKW / 3.6, 3) + ") higher than allowed speed (" + toString(into->getSpeed(), 3) + ") at '" + (*l) + "' on edge '" + into->getID() + "'.");
+                if (!didWarn && srcFD.vPKW > 0 && srcFD.vPKW < 255 && srcFD.vPKW / 3.6 > into->getSpeedLimit()) {
+                    WRITE_MESSAGE("Detected PKW speed (" + toString(srcFD.vPKW / 3.6, 3) + ") higher than allowed speed (" + toString(into->getSpeedLimit(), 3) + ") at '" + (*l) + "' on edge '" + into->getID() + "'.");
                     didWarn = true;
                 }
-                if (!didWarn && srcFD.vLKW > 0 && srcFD.vLKW < 255 && srcFD.vLKW / 3.6 > into->getSpeed()) {
-                    WRITE_MESSAGE("Detected LKW speed (" + toString(srcFD.vLKW / 3.6, 3) + ") higher than allowed speed (" + toString(into->getSpeed(), 3) + ") at '" + (*l) + "' on edge '" + into->getID() + "'.");
+                if (!didWarn && srcFD.vLKW > 0 && srcFD.vLKW < 255 && srcFD.vLKW / 3.6 > into->getSpeedLimit()) {
+                    WRITE_MESSAGE("Detected LKW speed (" + toString(srcFD.vLKW / 3.6, 3) + ") higher than allowed speed (" + toString(into->getSpeedLimit(), 3) + ") at '" + (*l) + "' on edge '" + into->getID() + "'.");
                     didWarn = true;
                 }
             }

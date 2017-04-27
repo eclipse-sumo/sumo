@@ -79,39 +79,39 @@ ROMAAssignments::getCapacity(const ROEdge* edge) {
         return 0;
     } else if (roadClass == 0 || roadClass == 1)  {
         return edge->getLaneNo() * 2000.; //CR13 in table.py
-    } else if (roadClass == 2 && edge->getSpeed() <= 11.) {
+    } else if (roadClass == 2 && edge->getSpeedLimit() <= 11.) {
         return edge->getLaneNo() * 1333.33; //CR5 in table.py
-    } else if (roadClass == 2 && edge->getSpeed() > 11. && edge->getSpeed() <= 16.) {
+    } else if (roadClass == 2 && edge->getSpeedLimit() > 11. && edge->getSpeedLimit() <= 16.) {
         return edge->getLaneNo() * 1500.; //CR3 in table.py
-    } else if (roadClass == 2 && edge->getSpeed() > 16.) {
+    } else if (roadClass == 2 && edge->getSpeedLimit() > 16.) {
         return edge->getLaneNo() * 2000.; //CR13 in table.py
-    } else if (roadClass == 3 && edge->getSpeed() <= 11.) {
+    } else if (roadClass == 3 && edge->getSpeedLimit() <= 11.) {
         return edge->getLaneNo() * 800.; //CR5 in table.py
-    } else if (roadClass == 3 && edge->getSpeed() > 11. && edge->getSpeed() <= 13.) {
+    } else if (roadClass == 3 && edge->getSpeedLimit() > 11. && edge->getSpeedLimit() <= 13.) {
         return edge->getLaneNo() * 875.; //CR5 in table.py
-    } else if (roadClass == 3 && edge->getSpeed() > 13. && edge->getSpeed() <= 16.) {
+    } else if (roadClass == 3 && edge->getSpeedLimit() > 13. && edge->getSpeedLimit() <= 16.) {
         return edge->getLaneNo() * 1500.; //CR4 in table.py
-    } else if (roadClass == 3 && edge->getSpeed() > 16.) {
+    } else if (roadClass == 3 && edge->getSpeedLimit() > 16.) {
         return edge->getLaneNo() * 1800.; //CR13 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() <= 5.) {
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() <= 5.) {
         return edge->getLaneNo() * 200.; //CR7 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 5. && edge->getSpeed() <= 7.) {
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 5. && edge->getSpeedLimit() <= 7.) {
         return edge->getLaneNo() * 412.5; //CR7 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 7. && edge->getSpeed() <= 9.) {
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 7. && edge->getSpeedLimit() <= 9.) {
         return edge->getLaneNo() * 600.; //CR6 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 9. && edge->getSpeed() <= 11.) {
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 9. && edge->getSpeedLimit() <= 11.) {
         return edge->getLaneNo() * 800.; //CR5 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 11. && edge->getSpeed() <= 13.) {
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 11. && edge->getSpeedLimit() <= 13.) {
         return edge->getLaneNo() * 1125.; //CR5 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 13. && edge->getSpeed() <= 16.) {
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 13. && edge->getSpeedLimit() <= 16.) {
         return edge->getLaneNo() * 1583.; //CR4 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 16. && edge->getSpeed() <= 18.) {
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 16. && edge->getSpeedLimit() <= 18.) {
         return edge->getLaneNo() * 1100.; //CR3 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 18. && edge->getSpeed() <= 22.) {
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 18. && edge->getSpeedLimit() <= 22.) {
         return edge->getLaneNo() * 1200.; //CR3 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 22. && edge->getSpeed() <= 26.) {
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 22. && edge->getSpeedLimit() <= 26.) {
         return edge->getLaneNo() * 1300.; //CR3 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 26.) {
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 26.) {
         return edge->getLaneNo() * 1400.; //CR3 in table.py
     }
     return edge->getLaneNo() * 800.; //CR5 in table.py
@@ -131,43 +131,43 @@ ROMAAssignments::capacityConstraintFunction(const ROEdge* edge, const double flo
         // TAZ have no cost
         return 0;
     } else if (roadClass == 0 || roadClass == 1)  {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 1.3)) * 2.); //CR13 in table.py
-    } else if (roadClass == 2 && edge->getSpeed() <= 11.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 0.9)) * 3.); //CR5 in table.py
-    } else if (roadClass == 2 && edge->getSpeed() > 11. && edge->getSpeed() <= 16.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 1.)) * 2.); //CR3 in table.py
-    } else if (roadClass == 2 && edge->getSpeed() > 16.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 1.3)) * 2.); //CR13 in table.py
-    } else if (roadClass == 3 && edge->getSpeed() <= 11.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 0.9)) * 3.); //CR5 in table.py
-    } else if (roadClass == 3 && edge->getSpeed() > 11. && edge->getSpeed() <= 13.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 0.9)) * 3.); //CR5 in table.py
-    } else if (roadClass == 3 && edge->getSpeed() > 13. && edge->getSpeed() <= 16.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.7 * (flow / (capacity * 1.)) * 2.); //CR4 in table.py
-    } else if (roadClass == 3 && edge->getSpeed() > 16.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 1.3)) * 2.); //CR13 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() <= 5.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 0.5)) * 3.); //CR7 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 5. && edge->getSpeed() <= 7.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 0.5)) * 3.); //CR7 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 7. && edge->getSpeed() <= 9.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 0.8)) * 3.); //CR6 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 9. && edge->getSpeed() <= 11.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 0.9)) * 3.); //CR5 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 11. && edge->getSpeed() <= 13.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 0.9)) * 3.); //CR5 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 13. && edge->getSpeed() <= 16.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.7 * (flow / (capacity * 1.)) * 2.); //CR4 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 16. && edge->getSpeed() <= 18.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 1.)) * 2.); //CR3 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 18. && edge->getSpeed() <= 22.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 1.)) * 2.); //CR3 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 22. && edge->getSpeed() <= 26.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 1.)) * 2.); //CR3 in table.py
-    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeed() > 26.) {
-        return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 1.)) * 2.); //CR3 in table.py
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 1.3)) * 2.); //CR13 in table.py
+    } else if (roadClass == 2 && edge->getSpeedLimit() <= 11.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 0.9)) * 3.); //CR5 in table.py
+    } else if (roadClass == 2 && edge->getSpeedLimit() > 11. && edge->getSpeedLimit() <= 16.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 1.)) * 2.); //CR3 in table.py
+    } else if (roadClass == 2 && edge->getSpeedLimit() > 16.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 1.3)) * 2.); //CR13 in table.py
+    } else if (roadClass == 3 && edge->getSpeedLimit() <= 11.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 0.9)) * 3.); //CR5 in table.py
+    } else if (roadClass == 3 && edge->getSpeedLimit() > 11. && edge->getSpeedLimit() <= 13.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 0.9)) * 3.); //CR5 in table.py
+    } else if (roadClass == 3 && edge->getSpeedLimit() > 13. && edge->getSpeedLimit() <= 16.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.7 * (flow / (capacity * 1.)) * 2.); //CR4 in table.py
+    } else if (roadClass == 3 && edge->getSpeedLimit() > 16.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 1.3)) * 2.); //CR13 in table.py
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() <= 5.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 0.5)) * 3.); //CR7 in table.py
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 5. && edge->getSpeedLimit() <= 7.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 0.5)) * 3.); //CR7 in table.py
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 7. && edge->getSpeedLimit() <= 9.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 0.8)) * 3.); //CR6 in table.py
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 9. && edge->getSpeedLimit() <= 11.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 0.9)) * 3.); //CR5 in table.py
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 11. && edge->getSpeedLimit() <= 13.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 0.9)) * 3.); //CR5 in table.py
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 13. && edge->getSpeedLimit() <= 16.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.7 * (flow / (capacity * 1.)) * 2.); //CR4 in table.py
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 16. && edge->getSpeedLimit() <= 18.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 1.)) * 2.); //CR3 in table.py
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 18. && edge->getSpeedLimit() <= 22.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 1.)) * 2.); //CR3 in table.py
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 22. && edge->getSpeedLimit() <= 26.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 1.)) * 2.); //CR3 in table.py
+    } else if ((roadClass >= 4 || roadClass == -1) && edge->getSpeedLimit() > 26.) {
+        return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 1.)) * 2.); //CR3 in table.py
     }
-    return edge->getLength() / edge->getSpeed() * (1. + 1.*(flow / (capacity * 0.9)) * 3.); //CR5 in table.py
+    return edge->getLength() / edge->getSpeedLimit() * (1. + 1.*(flow / (capacity * 0.9)) * 3.); //CR5 in table.py
 }
 
 

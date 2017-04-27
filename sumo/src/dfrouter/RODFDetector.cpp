@@ -668,7 +668,7 @@ RODFDetectorCon::writeEmitters(const std::string& file,
             continue;
         }
         // try to write the definition
-        double defaultSpeed = net.getEdge(det->getEdgeID())->getSpeed();
+        double defaultSpeed = net.getEdge(det->getEdgeID())->getSpeedLimit();
         //  ... compute routes' distribution over time
         std::map<SUMOTime, RandomDistributor<int>* > dists;
         if (!insertionsOnly && flows.knows(det->getID())) {
@@ -800,7 +800,7 @@ RODFDetectorCon::writeSpeedTrigger(const RODFNet* const net,
         if (det->getType() == SINK_DETECTOR && flows.knows(det->getID())) {
             std::string filename = FileHelpers::getFilePath(file) + "vss_" + det->getID() + ".def.xml";
             out.openTag(SUMO_TAG_VSS).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(det->getID())).writeAttr(SUMO_ATTR_LANES, det->getLaneID()).writeAttr(SUMO_ATTR_FILE, filename).closeTag();
-            double defaultSpeed = net != 0 ? net->getEdge(det->getEdgeID())->getSpeed() : (double) 200.;
+            double defaultSpeed = net != 0 ? net->getEdge(det->getEdgeID())->getSpeedLimit() : (double) 200.;
             det->writeSingleSpeedTrigger(filename, flows, startTime, endTime, stepOffset, defaultSpeed);
         }
     }

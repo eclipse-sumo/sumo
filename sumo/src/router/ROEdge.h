@@ -210,7 +210,7 @@ public:
     /** @brief Returns the speed allowed on this edge
      * @return The speed allowed on this edge
      */
-    double getSpeed() const {
+    double getSpeedLimit() const {
         return mySpeed;
     }
 
