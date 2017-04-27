@@ -14,6 +14,7 @@
 				<xsd:element name="route" type="routeStateType" minOccurs="0"/>
 				<xsd:element name="lane" type="laneStateType" minOccurs="0"/>
 				<xsd:element name="segment" type="segmentStateType" minOccurs="0"/>
+				<xsd:element name="vehicleTransfer" type="vehicleTransferType" minOccurs="0"/>
 			</xsd:choice>
 			<xsd:attribute name="version" type="xsd:string"/>
 			<xsd:attribute name="time" type="nonNegativeFloatType"/>
@@ -105,6 +106,12 @@
     <xsd:complexType name="queueType">
         <xsd:attribute name="time" type="xsd:int" use="required"/>
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="vehicleTransferType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="depart" type="xsd:int" use="required"/>
+        <xsd:attribute name="parking" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>
