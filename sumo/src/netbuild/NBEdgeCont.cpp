@@ -834,19 +834,26 @@ NBEdgeCont::getByID(const std::string& edgeID) const {
 
 // ----- other
 void
-NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, bool keepClear, double contPos, double visibility) {
-    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility));
+NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass, 
+        bool keepClear, double contPos, double visibility, bool warnOnly) {
+    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility, warnOnly));
 }
 
 
 void
 NBEdgeCont::recheckPostProcessConnections() {
+    const bool warnOnly = OptionsCont::getOptions().exists("ignore-errors.connections") && OptionsCont::getOptions().getBool("ignore-errors.connections"); 
     for (std::vector<PostProcessConnection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         NBEdge* from = retrievePossiblySplit((*i).from, true);
         NBEdge* to = retrievePossiblySplit((*i).to, false);
         if (from == 0 || to == 0 ||
                 !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, true, (*i).mayDefinitelyPass, (*i).keepClear, (*i).contPos)) {
-            WRITE_ERROR("Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.");
+            const std::string msg = "Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.";
+            if (warnOnly || (*i).warnOnly) {
+                WRITE_WARNING(msg);
+            } else {
+                WRITE_ERROR(msg);
+            }
         }
     }
     // during loading we also kept some ambiguous connections in hope they might be valid after processing

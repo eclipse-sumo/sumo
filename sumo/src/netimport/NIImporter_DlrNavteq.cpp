@@ -816,7 +816,10 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
             WRITE_WARNING("Could not set loaded connection from '" + from->getLaneID(fromLane) + "' to '" + to->getLaneID(toLane) + "'.");
         }
         // set as to be re-applied after network processing
-        myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, false, true, NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
+        // if this connection runs across a node cluster it may not be possible to set this
+        const bool warnOnly = st.size() > 7;
+        myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, false, true, 
+                NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE, warnOnly);
     }
     // ensure that connections for other lanes are guessed if not specified
     from->declareConnectionsAsLoaded(NBEdge::INIT);
