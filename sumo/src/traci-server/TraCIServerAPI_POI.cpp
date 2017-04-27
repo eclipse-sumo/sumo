@@ -53,12 +53,12 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     std::string id = inputStorage.readString();
     // check variable
     if (variable != ID_LIST &&
-    variable != VAR_TYPE &&
-    variable != VAR_COLOR &&
-    variable != VAR_POSITION &&
-    variable != VAR_POSITION3D &&
-    variable != ID_COUNT &&
-    variable != VAR_PARAMETER) {
+            variable != VAR_TYPE &&
+            variable != VAR_COLOR &&
+            variable != VAR_POSITION &&
+            variable != VAR_POSITION3D &&
+            variable != ID_COUNT &&
+            variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Get PoI Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // begin response building
@@ -67,7 +67,7 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     tempMsg.writeUnsignedByte(RESPONSE_GET_POI_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
-    // process request    
+    // process request
     try {
         switch (variable) {
             case ID_LIST:
@@ -132,11 +132,11 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     std::string id = inputStorage.readString();
     // check variable
     if (variable != VAR_TYPE &&
-    variable != VAR_COLOR &&
-    variable != VAR_POSITION &&
-    variable != ADD &&
-    variable != REMOVE &&
-    variable != VAR_PARAMETER) {
+            variable != VAR_COLOR &&
+            variable != VAR_POSITION &&
+            variable != ADD &&
+            variable != REMOVE &&
+            variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "Change PoI State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // process
@@ -222,7 +222,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             }
             break;
             default:
-            break;
+                break;
         }
     } catch (TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, e.what(), outputStorage);

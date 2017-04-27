@@ -79,19 +79,19 @@ public:
     void writeAdditional(OutputDevice& device) const;
 
     /// @brief get filename of variable speed sign
-    const std::string &getFilename() const;
+    const std::string& getFilename() const;
 
     /// @brief get values of variable speed signal
-    const std::vector<GNEVariableSpeedSignStep> &getSteps() const;
+    const std::vector<GNEVariableSpeedSignStep>& getSteps() const;
 
     /// @brief set filename of variable speed sign
-    void setFilename(const std::string &filename);
+    void setFilename(const std::string& filename);
 
     /// @brief set values of variable speed signal
     void setVariableSpeedSignSteps(const std::vector<GNEVariableSpeedSignStep>& steps);
 
     /// @brief insert a new step in variable speed signal
-    void addStep(const GNEVariableSpeedSignStep &step);
+    void addStep(const GNEVariableSpeedSignStep& step);
 
     /// @name inherited from GUIGlObject
     /// @{

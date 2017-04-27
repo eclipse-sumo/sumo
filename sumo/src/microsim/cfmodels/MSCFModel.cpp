@@ -46,12 +46,12 @@
 // method definitions
 // ===========================================================================
 MSCFModel::MSCFModel(const MSVehicleType* vtype, double accel,
-                     double decel, double emergencyDecel, double apparentDecel, double headwayTime) : 
-    myType(vtype), 
-    myAccel(accel), 
-    myDecel(decel), 
-    myEmergencyDecel(emergencyDecel), 
-    myApparentDecel(apparentDecel), 
+                     double decel, double emergencyDecel, double apparentDecel, double headwayTime) :
+    myType(vtype),
+    myAccel(accel),
+    myDecel(decel),
+    myEmergencyDecel(emergencyDecel),
+    myApparentDecel(apparentDecel),
     myHeadwayTime(headwayTime) {
 }
 
@@ -181,8 +181,8 @@ MSCFModel::interactionGap(const MSVehicle* const veh, double vL) const {
     // i.e that with this gap there will be no interaction.
     const double vNext = MIN2(maxNextSpeed(veh->getSpeed(), veh), veh->getLane()->getVehicleMaxSpeed(veh));
     const double gap = (vNext - vL) *
-                         ((veh->getSpeed() + vL) / (2.*myDecel) + myHeadwayTime) +
-                         vL * myHeadwayTime;
+                       ((veh->getSpeed() + vL) / (2.*myDecel) + myHeadwayTime) +
+                       vL * myHeadwayTime;
 
     // Don't allow timeHeadWay < deltaT situations.
     return MAX2(gap, SPEED2DIST(vNext));
@@ -473,7 +473,7 @@ double
 MSCFModel::estimateSpeedAfterDistance(const double dist, const double v, const double accel) const {
     // dist=v*t + 0.5*accel*t^2, solve for t and use v1 = v + accel*t
     return MAX2(0., MIN2(myType->getMaxSpeed(),
-                                   (double)sqrt(2 * dist * accel + v * v)));
+                         (double)sqrt(2 * dist * accel + v * v)));
 }
 
 

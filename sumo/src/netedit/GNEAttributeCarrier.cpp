@@ -98,9 +98,9 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> SUMOVehicleClass
 GNEAttributeCarrier::parse(const std::string& string) {
-    if(string.size() == 0) {
+    if (string.size() == 0) {
         throw EmptyData();
-    } else if(SumoVehicleClassStrings.hasString(string) == false) {
+    } else if (SumoVehicleClassStrings.hasString(string) == false) {
         return SVC_IGNORING;
     } else {
         return SumoVehicleClassStrings.get(string);
@@ -110,9 +110,9 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> SUMOVehicleShape
 GNEAttributeCarrier::parse(const std::string& string) {
-    if(string.size() == 0) {
+    if (string.size() == 0) {
         throw EmptyData();
-    } else if((string == "unknown") || (SumoVehicleShapeStrings.hasString(string) == false)) {
+    } else if ((string == "unknown") || (SumoVehicleShapeStrings.hasString(string) == false)) {
         return SVS_UNKNOWN;
     } else {
         return SumoVehicleShapeStrings.get(string);
@@ -132,7 +132,7 @@ template<> std::vector<int>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
     std::vector<int> parsedIntValues;
-    for(std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
+    for (std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
         parsedIntValues.push_back(parse<int>(*i));
     }
     return parsedIntValues;
@@ -143,7 +143,7 @@ template<> std::vector<double>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
     std::vector<double> parsedDoubleValues;
-    for(std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
+    for (std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
         parsedDoubleValues.push_back(parse<double>(*i));
     }
     return parsedDoubleValues;
@@ -154,7 +154,7 @@ template<> std::vector<bool>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
     std::vector<bool> parsedBoolValues;
-    for(std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
+    for (std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
         parsedBoolValues.push_back(parse<bool>(*i));
     }
     return parsedBoolValues;

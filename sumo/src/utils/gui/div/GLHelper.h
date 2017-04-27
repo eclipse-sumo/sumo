@@ -292,7 +292,7 @@ public:
                             const double angle = 0);
 
     /// @brief draw text and the end of shape
-    static void drawTextAtEnd(const std::string& text, const PositionVector& shape, double x, double size, RGBColor color); 
+    static void drawTextAtEnd(const std::string& text, const PositionVector& shape, double x, double size, RGBColor color);
 
     /// @brief draw vertex numbers for the given shape (in a random color)
     static void debugVertices(const PositionVector& shape, double size, double layer = 256);

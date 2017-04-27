@@ -54,7 +54,7 @@ class GNECalibratorRouteDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute &calibratorRoute, bool updatingElement);
+    GNECalibratorRouteDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorRoute& calibratorRoute, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorRouteDialog();
@@ -100,13 +100,13 @@ protected:
     SumoXMLAttr myInvalidAttr;
 
     /// @brief route ID
-    FXTextField *myTextFieldRouteID;
+    FXTextField* myTextFieldRouteID;
 
     /// @brief list of edges (string)
-    FXTextField *myTextFieldEdges;
+    FXTextField* myTextFieldEdges;
 
     /// @brief color of route
-    FXTextField *myTextFieldColor;
+    FXTextField* myTextFieldColor;
 
     /// @brief list of edges of net
     FXList* myListOfEdgesOfNet;

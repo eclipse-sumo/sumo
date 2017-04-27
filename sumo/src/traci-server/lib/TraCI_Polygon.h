@@ -51,7 +51,7 @@ public:
     static void setParameter(std::string& name, std::string& value, std::string& string);
 private:
 
-    static SUMO::Polygon * getPolygon(const std::string& id);
+    static SUMO::Polygon* getPolygon(const std::string& id);
 
     /// @brief invalidated standard constructor
     TraCI_Polygon();

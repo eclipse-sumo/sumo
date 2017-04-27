@@ -68,11 +68,11 @@ OptionsIO::setArgs(int argc, char** argv) {
 void
 OptionsIO::setArgs(const std::vector<std::string>& args) {
     myArgC = (int)args.size() + 1;
-    char** argv = new char*[myArgC];
+    char** argv = new char* [myArgC];
     argv[0] = myArgV[0];
     for (int i = 1; i < myArgC; i++) {
-        argv[i] = new char[args[i-1].size() + 1];
-        std::strcpy(argv[i], args[i-1].c_str());
+        argv[i] = new char[args[i - 1].size() + 1];
+        std::strcpy(argv[i], args[i - 1].c_str());
     }
     myArgV = argv;
 }

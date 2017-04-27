@@ -254,7 +254,7 @@ GNERerouterInterval::operator==(const GNERerouterInterval& rerouterInterval) con
 
 
 bool
-GNERerouterInterval::operator>(const GNERerouterInterval& rerouterInterval) const{
+GNERerouterInterval::operator>(const GNERerouterInterval& rerouterInterval) const {
     if (myBegin > rerouterInterval.myBegin) {
         return true;
     } else if (myBegin == rerouterInterval.myBegin) {

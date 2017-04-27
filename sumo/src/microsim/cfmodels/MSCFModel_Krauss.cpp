@@ -43,9 +43,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, double accel, double decel, 
+MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, double accel, double decel,
                                    double emergencyDecel, double apparentDecel,
-                                   double dawdle, double headwayTime) : 
+                                   double dawdle, double headwayTime) :
     MSCFModel_KraussOrig1(vtype, accel, decel, emergencyDecel, apparentDecel, dawdle, headwayTime) {
 }
 

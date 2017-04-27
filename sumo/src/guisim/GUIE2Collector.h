@@ -71,9 +71,9 @@ public:
     *        If pos is invalid, the detector may span over several lanes upstream of the lane
     */
     GUIE2Collector(const std::string& id, DetectorUsage usage,
-                        MSLane* lane, double startPos, double endPos, double detLength,
-                        SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                        const std::string& vTypes, bool showDetector);
+                   MSLane* lane, double startPos, double endPos, double detLength,
+                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+                   const std::string& vTypes, bool showDetector);
 
 
     /** @brief Constructor with a sequence of lanes and given start and end position on the first and last lanes
@@ -91,9 +91,9 @@ public:
     * @param[in] showDetector Whether the detector should be visible in the GUI
     */
     GUIE2Collector(const std::string& id, DetectorUsage usage,
-                        std::vector<MSLane*> lanes, double startPos, double endPos,
-                        SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                        const std::string& vTypes, bool showDetector);
+                   std::vector<MSLane*> lanes, double startPos, double endPos,
+                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+                   const std::string& vTypes, bool showDetector);
 
 
     /// @brief Destructor

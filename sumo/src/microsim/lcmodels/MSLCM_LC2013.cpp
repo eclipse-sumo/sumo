@@ -416,10 +416,10 @@ MSLCM_LC2013::overtakeDistance(const MSVehicle* follower, const MSVehicle* leade
     followerSpeed = followerSpeed == INVALID_SPEED ? follower->getSpeed() : followerSpeed;
     leaderSpeed = leaderSpeed == INVALID_SPEED ? leader->getSpeed() : leaderSpeed;
     double overtakeDist = (gap // drive to back of leader
-                             + leader->getVehicleType().getLengthWithGap() // drive to front of leader
-                             + follower->getVehicleType().getLength() // follower back reaches leader front
-                             + leader->getCarFollowModel().getSecureGap( // save gap to leader
-                                 leaderSpeed, followerSpeed, follower->getCarFollowModel().getMaxDecel()));
+                           + leader->getVehicleType().getLengthWithGap() // drive to front of leader
+                           + follower->getVehicleType().getLength() // follower back reaches leader front
+                           + leader->getCarFollowModel().getSecureGap( // save gap to leader
+                               leaderSpeed, followerSpeed, follower->getCarFollowModel().getMaxDecel()));
     return MAX2(overtakeDist, 0.);
 }
 
@@ -431,7 +431,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                            const std::pair<MSVehicle*, double>& neighLead,
                            double remainingSeconds) {
     double plannedSpeed = MIN2(myVehicle.getSpeed(),
-                                 myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), myLeftSpace - myLeadingBlockerLength));
+                               myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), myLeftSpace - myLeadingBlockerLength));
     for (std::vector<double>::const_iterator i = myVSafes.begin(); i != myVSafes.end(); ++i) {
         double v = (*i);
         if (v >= myVehicle.getSpeed() - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())) {
@@ -495,12 +495,12 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             msgPass.informNeighLeader(new Info(std::numeric_limits<double>::max(), dir | LCA_AMBLOCKINGLEADER), &myVehicle);
             // slow down smoothly to follow leader
             const double targetSpeed = myCarFollowModel.followSpeed(
-                                             &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
+                                           &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
             if (targetSpeed < myVehicle.getSpeed()) {
                 // slow down smoothly to follow leader
                 const double decel = remainingSeconds == 0. ? myVehicle.getCarFollowModel().getMaxDecel() :
-                                       MIN2(myVehicle.getCarFollowModel().getMaxDecel(),
-                                            MAX2(MIN_FALLBEHIND, (myVehicle.getSpeed() - targetSpeed) / remainingSeconds));
+                                     MIN2(myVehicle.getCarFollowModel().getMaxDecel(),
+                                          MAX2(MIN_FALLBEHIND, (myVehicle.getSpeed() - targetSpeed) / remainingSeconds));
                 const double nextSpeed = MIN2(plannedSpeed, myVehicle.getSpeed() - ACCEL2SPEED(decel));
 #ifdef DEBUG_INFORMER
                 if (DEBUG_COND) {
@@ -567,7 +567,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         const double nextNVSpeed = nv->getSpeed() - HELP_OVERTAKE; // conservative
         const double dv = SPEED2DIST(myVehicle.getSpeed() - nextNVSpeed);
         const double targetSpeed = myCarFollowModel.followSpeed(
-                                         &myVehicle, myVehicle.getSpeed(), neighLead.second - dv, nextNVSpeed, nv->getCarFollowModel().getMaxDecel());
+                                       &myVehicle, myVehicle.getSpeed(), neighLead.second - dv, nextNVSpeed, nv->getCarFollowModel().getMaxDecel());
         myVSafes.push_back(targetSpeed);
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
@@ -674,7 +674,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         }
 
         const double secureGap = nv->getCarFollowModel().getSecureGap(MAX2(neighNewSpeed1s, 0.),
-                                   MAX2(plannedSpeed, 0.), myVehicle.getCarFollowModel().getMaxDecel());
+                                 MAX2(plannedSpeed, 0.), myVehicle.getCarFollowModel().getMaxDecel());
 
         const double onRampThreshold = myVehicle.getLane()->getSpeedLimit() * 0.8 * myExperimentalParam1 * (1 - myVehicle.getImpatience());
 
@@ -694,7 +694,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         }
 #endif
         // prevent vehicles on an on ramp stopping the main flow
-        if (dir == LCA_MLEFT 
+        if (dir == LCA_MLEFT
                 && myVehicle.getLane()->isAccelLane()
                 && neighNewSpeed1s < onRampThreshold) {
             return;
@@ -725,9 +725,9 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                 // we compute an upper bound on vsafe
                 // next step's gap without help deceleration (nv's speed assumed constant)
                 double nextGap = myCarFollowModel.gapExtrapolation(TS,
-                                   neighFollow.second, myVehicle.getSpeed(),
-                                   nv->getSpeed(), plannedAccel, 0,
-                                   myVehicle.getMaxSpeedOnLane(), nv->getMaxSpeedOnLane());
+                                 neighFollow.second, myVehicle.getSpeed(),
+                                 nv->getSpeed(), plannedAccel, 0,
+                                 myVehicle.getMaxSpeedOnLane(), nv->getMaxSpeedOnLane());
 #ifdef DEBUG_INFORMER
                 if (DEBUG_COND) {
                     std::cout << "nextGap=" << nextGap << " (without help decel) \n";
@@ -955,12 +955,12 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             double anticipationTime = 1.;
             double anticipatedSpeed =  MIN2(myVehicle.getSpeed() + plannedAccel * anticipationTime, myVehicle.getMaxSpeedOnLane());
             double anticipatedGap = myCarFollowModel.gapExtrapolation(anticipationTime, neighFollow.second, myVehicle.getSpeed(), nv->getSpeed(),
-                                      plannedAccel, 0, myVehicle.getMaxSpeedOnLane(), nv->getMaxSpeedOnLane());
+                                    plannedAccel, 0, myVehicle.getMaxSpeedOnLane(), nv->getMaxSpeedOnLane());
             double secureGap = nv->getCarFollowModel().getSecureGap(nv->getSpeed(), anticipatedSpeed, myCarFollowModel.getMaxDecel());
 
             // propose follower speed corresponding to first estimation of gap
             double vsafe = nv->getCarFollowModel().followSpeed(
-                                 nv, nv->getSpeed(), anticipatedGap, plannedSpeed, myCarFollowModel.getMaxDecel());
+                               nv, nv->getSpeed(), anticipatedGap, plannedSpeed, myCarFollowModel.getMaxDecel());
             double helpAccel = SPEED2ACCEL(vsafe - nv->getSpeed()) / anticipationTime;
 
             if (anticipatedGap > secureGap) {
@@ -1226,7 +1226,7 @@ MSLCM_LC2013::_wantsChange(
             MSVehicle* nv = neighLead.first;
             if (nv->getSpeed() < myVehicle.getSpeed()) {
                 const double vSafe = myCarFollowModel.followSpeed(
-                                           &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
+                                         &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
                 myVSafes.push_back(vSafe);
                 if (vSafe < myVehicle.getSpeed()) {
                     mySpeedGainProbability += TS * myChangeProbThresholdLeft / 3;
@@ -1326,9 +1326,9 @@ MSLCM_LC2013::_wantsChange(
         }
 
         const double remainingSeconds = ((ret & LCA_TRACI) == 0 ?
-                                           // MAX2((double)STEPS2TIME(TS), (myLeftSpace-myLeadingBlockerLength) / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / abs(bestLaneOffset) / URGENCY) :
-                                           MAX2((double)STEPS2TIME(TS), myLeftSpace / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / abs(bestLaneOffset) / URGENCY) :
-                                           myVehicle.getInfluencer().changeRequestRemainingSeconds(currentTime));
+                                         // MAX2((double)STEPS2TIME(TS), (myLeftSpace-myLeadingBlockerLength) / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / abs(bestLaneOffset) / URGENCY) :
+                                         MAX2((double)STEPS2TIME(TS), myLeftSpace / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / abs(bestLaneOffset) / URGENCY) :
+                                         myVehicle.getInfluencer().changeRequestRemainingSeconds(currentTime));
         const double plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
         // NOTE: for the  ballistic update case negative speeds may indicate a stop request,
         //       while informLeader returns -1 in that case. Refs. #2577
@@ -1352,8 +1352,8 @@ MSLCM_LC2013::_wantsChange(
     }
     // a high inconvenience prevents cooperative changes.
     const double inconvenience = MIN2((double)1.0, (laneOffset < 0
-                                        ? mySpeedGainProbability / myChangeProbThresholdRight
-                                        : -mySpeedGainProbability / myChangeProbThresholdLeft));
+                                      ? mySpeedGainProbability / myChangeProbThresholdRight
+                                      : -mySpeedGainProbability / myChangeProbThresholdLeft));
     const bool speedGainInconvenient = inconvenience > myCooperativeParam;
     const bool neighOccupancyInconvenient = neigh.lane->getBruttoOccupancy() > curr.lane->getBruttoOccupancy();
 
@@ -1474,7 +1474,7 @@ MSLCM_LC2013::_wantsChange(
     */
 
     const double correctedSpeed = (myVehicle.getSpeed() + myVehicle.getCarFollowModel().getMaxAccel()
-                                     - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
+                                   - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
     if (neighLead.first == 0) {
         neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, correctedSpeed, neighDist, 0, 0));
     } else {
@@ -1494,7 +1494,7 @@ MSLCM_LC2013::_wantsChange(
     thisLaneVSafe = MIN2(thisLaneVSafe, vMax);
     neighLaneVSafe = MIN2(neighLaneVSafe, vMax);
     const double relativeGain = (neighLaneVSafe - thisLaneVSafe) / MAX2(neighLaneVSafe,
-                                  RELGAIN_NORMALIZATION_MIN_SPEED);
+                                RELGAIN_NORMALIZATION_MIN_SPEED);
 
 //    // maybe this (acceleration-difference) would be a good quantity to take into account for lc-considerations..., refs. #2126
 //    const double accelDifference = ACCEL2SPEED(neighLaneVSafe - thisLaneVSafe);
@@ -1544,13 +1544,13 @@ MSLCM_LC2013::_wantsChange(
             double fullSpeedDrivingSeconds = MIN2(acceptanceTime, fullSpeedGap / vMax);
             if (neighLead.first != 0 && neighLead.first->getSpeed() < vMax) {
                 fullSpeedGap = MAX2(0., MIN2(fullSpeedGap,
-                                                      neighLead.second - myVehicle.getCarFollowModel().getSecureGap(
-                                                              vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
+                                             neighLead.second - myVehicle.getCarFollowModel().getSecureGap(
+                                                 vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - neighLead.first->getSpeed()));
             }
             const double deltaProb = (myChangeProbThresholdRight
-                                        * STEPS2TIME(DELTA_T)
-                                        * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
+                                      * STEPS2TIME(DELTA_T)
+                                      * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
             myKeepRightProbability -= TS * deltaProb;
 
 #ifdef DEBUG_WANTS_CHANGE
@@ -1922,7 +1922,7 @@ MSLCM_LC2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
     if (blocker != 0 && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
         // is there enough space in front of us for the blocker?
         const double potential = myLeftSpace - myVehicle.getCarFollowModel().brakeGap(
-                                       myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel(), 0);
+                                     myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel(), 0);
         if (blocker->getVehicleType().getLengthWithGap() <= potential) {
             // save at least his length in myLeadingBlockerLength
             myLeadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), myLeadingBlockerLength);
@@ -1954,7 +1954,7 @@ MSLCM_LC2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
 }
 
 
-std::string 
+std::string
 MSLCM_LC2013::getParameter(const std::string& key) const {
     if (key == toString(SUMO_ATTR_LCA_STRATEGIC_PARAM)) {
         return toString(myStrategicParam);

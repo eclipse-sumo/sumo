@@ -401,7 +401,7 @@ GNEViewNet::showJunctionAsBubbles() const {
 }
 
 
-bool 
+bool
 GNEViewNet::isTestingModeEnabled() const {
     return myTestingMode;
 }
@@ -723,14 +723,14 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     selectedElements = myNet->retrieveAttributeCarriers(selectedIDs, pointedO->getType());
                     // filter selected elements (example: if we have two E2 and one busStop selected, and user click over one E2,
                     // attribues of busstop musn't be shown
-                    for(std::vector<GNEAttributeCarrier*>::iterator i = selectedElements.begin(); i != selectedElements.end(); i++) {
-                        if((*i)->getTag() == pointedAC->getTag()) {
+                    for (std::vector<GNEAttributeCarrier*>::iterator i = selectedElements.begin(); i != selectedElements.end(); i++) {
+                        if ((*i)->getTag() == pointedAC->getTag()) {
                             selectedFilteredElements.push_back(*i);
                         }
                     }
                 }
                 // Inspect seleted ACs, or single clicked AC
-                if(selectedFilteredElements.size() > 0) {
+                if (selectedFilteredElements.size() > 0) {
                     myViewParent->getInspectorFrame()->inspectMultisection(selectedFilteredElements);
                 } else if (pointedAC != NULL) {
                     myViewParent->getInspectorFrame()->inspectElement(pointedAC);
@@ -738,7 +738,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                 // process click
                 processClick(e, data);
                 // focus upper element of inspector frame
-                if((selectedFilteredElements.size() > 0) || (pointedAC != NULL)) {
+                if ((selectedFilteredElements.size() > 0) || (pointedAC != NULL)) {
                     myViewParent->getInspectorFrame()->focusUpperElement();
                 }
                 update();
@@ -918,8 +918,8 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         } else if (myJunctionToMove) {
             // check if  one of their junctions neighboors is in the position objective
             std::vector<GNEJunction*> junctionNeighbours = myJunctionToMove->getJunctionNeighbours();
-            for(std::vector<GNEJunction*>::iterator i = junctionNeighbours.begin(); i != junctionNeighbours.end(); i++) {
-                if((*i)->getPosition() == clickedPosition) {
+            for (std::vector<GNEJunction*>::iterator i = junctionNeighbours.begin(); i != junctionNeighbours.end(); i++) {
+                if ((*i)->getPosition() == clickedPosition) {
                     return 0;
                 }
             }
@@ -954,7 +954,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
 void
 GNEViewNet::abortOperation(bool clearSelection) {
     // steal focus from any text fields
-    setFocus(); 
+    setFocus();
     if (myCreateEdgeSource != NULL) {
         // remove current created edge source
         myCreateEdgeSource->unMarkAsCreateEdgeSource();
@@ -1009,7 +1009,7 @@ GNEViewNet::hotkeyEnter() {
 void
 GNEViewNet::hotkeyFocusFrame() {
     // if current focus is placed over GNEViewnet, set focus to current frame
-    if(hasFocus() && (myCurrentFrame != NULL)) {
+    if (hasFocus() && (myCurrentFrame != NULL)) {
         myCurrentFrame->focusUpperElement();
     }
 }
@@ -1452,8 +1452,8 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
                                           ("All lanes own already another lane in the same edge with a restriction for " + toString(vclass)).c_str());
                 return 0;
             } else {
-                if(myTestingMode == true) {
-	                WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
+                if (myTestingMode == true) {
+                    WRITE_WARNING("Opening FXMessageBox of type 'question'");
                 }
                 // Ask confirmation to user
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
@@ -1461,16 +1461,16 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
                                                        (toString(mapOfEdgesAndLanes.size() - counter) + " lanes will be restricted for " + toString(vclass) + ". continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
-                    if((answer == 2) && (myTestingMode == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
-                    } else if((answer == 4) && (myTestingMode == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
+                    if ((answer == 2) && (myTestingMode == true)) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                    } else if ((answer == 4) && (myTestingMode == true)) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
                     }
                     return 0;
                 } else {
                     // write warning if netedit is running in testing mode
-                    if(myTestingMode == true) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
+                    if (myTestingMode == true) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                     }
                 }
             }
@@ -1533,8 +1533,8 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
                                           ("All lanes own already another lane in the same edge with a restriction for " + toString(vclass)).c_str());
                 return 0;
             } else {
-                if(myTestingMode == true) {
-	                WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
+                if (myTestingMode == true) {
+                    WRITE_WARNING("Opening FXMessageBox of type 'question'");
                 }
                 // Ask confirmation to user
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
@@ -1542,16 +1542,16 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
                                                        (toString(setOfEdges.size() - counter) + " restrictions for " + toString(vclass) + " will be added. continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
-                    if((answer == 2) && (myTestingMode == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
-                    } else if((answer == 4) && (myTestingMode == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
+                    if ((answer == 2) && (myTestingMode == true)) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                    } else if ((answer == 4) && (myTestingMode == true)) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
                     }
                     return 0;
                 } else {
                     // write warning if netedit is running in testing mode
-                    if(myTestingMode == true) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
+                    if (myTestingMode == true) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                     }
                 }
             }
@@ -1614,8 +1614,8 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
                                           ("Selected lanes and edges haven't a restriction for " + toString(vclass)).c_str());
                 return 0;
             } else {
-                if(myTestingMode == true) {
-	                WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
+                if (myTestingMode == true) {
+                    WRITE_WARNING("Opening FXMessageBox of type 'question'");
                 }
                 // Ask confirmation to user
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
@@ -1623,16 +1623,16 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
                                                        (toString(counter) + " restrictions for " + toString(vclass) + " will be removed. continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
-                    if((answer == 2) && (myTestingMode == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
-                    } else if((answer == 4) && (myTestingMode == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
+                    if ((answer == 2) && (myTestingMode == true)) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                    } else if ((answer == 4) && (myTestingMode == true)) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
                     }
                     return 0;
                 } else {
                     // write warning if netedit is running in testing mode
-                    if(myTestingMode == true) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
+                    if (myTestingMode == true) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                     }
                 }
             }
@@ -1708,8 +1708,8 @@ GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
                                           "None of selected lanes has a previous restriction");
                 return 0;
             } else {
-                if(myTestingMode == true) {
-	                WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
+                if (myTestingMode == true) {
+                    WRITE_WARNING("Opening FXMessageBox of type 'question'");
                 }
                 // Ask confirmation to user
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
@@ -1717,16 +1717,16 @@ GNEViewNet::onCmdRevertRestriction(FXObject*, FXSelector, void*) {
                                                        (toString(counter) + " restrictions of lanes lanes will be reverted. continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
-                    if((answer == 2) && (myTestingMode == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
-                    } else if((answer == 4) && (myTestingMode == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
+                    if ((answer == 2) && (myTestingMode == true)) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                    } else if ((answer == 4) && (myTestingMode == true)) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
                     }
                     return 0;
                 } else {
                     // write warning if netedit is running in testing mode
-                    if(myTestingMode == true) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
+                    if (myTestingMode == true) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                     }
                 }
             }
@@ -1820,9 +1820,9 @@ GNEViewNet::onCmdToogleShowConnection(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdToogleSelectEdges(FXObject*, FXSelector, void*) {
-    if(myMenuCheckSelectEdges->getCheck()) {
+    if (myMenuCheckSelectEdges->getCheck()) {
         mySelectEdges = true;
     } else {
         mySelectEdges = false;
@@ -1842,7 +1842,7 @@ GNEViewNet::onCmdToogleShowBubbles(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdShowGrid(FXObject*, FXSelector, void*) {
     // show or hidde grid depending of myMenuCheckShowGrid
-    if(myMenuCheckShowGrid->getCheck()) {
+    if (myMenuCheckShowGrid->getCheck()) {
         myVisualizationSettings->showGrid = true;
     } else {
         myVisualizationSettings->showGrid = false;
@@ -1862,7 +1862,7 @@ GNEViewNet::setEditMode(EditMode mode) {
     abortOperation(false);
     if (mode == myEditMode) {
         setStatusBarText("Mode already selected");
-        if(myCurrentFrame != NULL) {
+        if (myCurrentFrame != NULL) {
             myCurrentFrame->focusUpperElement();
         }
     } else {
@@ -1899,7 +1899,7 @@ GNEViewNet::buildEditModeControls() {
     myEditModeCreateEdge = new MFXCheckableButton(false, myToolbar, "\tset create edge mode\tMode for creating junction and edges.",
             GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), this, MID_GNE_MODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
     myEditModeMove = new MFXCheckableButton(false, myToolbar, "\tset move mode\tMode for move elements.",
-            GUIIconSubSys::getIcon(ICON_MODEMOVE), this, MID_GNE_MODE_MOVE, GUIDesignButtonToolbarCheckable);
+                                            GUIIconSubSys::getIcon(ICON_MODEMOVE), this, MID_GNE_MODE_MOVE, GUIDesignButtonToolbarCheckable);
     myEditModeDelete = new MFXCheckableButton(false, myToolbar, "\tset delete mode\tMode for delete elements.",
             GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_MODE_DELETE, GUIDesignButtonToolbarCheckable);
     myEditModeInspect = new MFXCheckableButton(false, myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.",
@@ -1920,7 +1920,7 @@ GNEViewNet::buildEditModeControls() {
     // initialize mode specific controls
     myChainCreateEdge = new FXMenuCheck(myToolbar, ("chain\t\tCreate consecutive " + toString(SUMO_TAG_EDGE) + "s with a single click (hit ESC to cancel chain).").c_str(), this, 0);
     myChainCreateEdge->setCheck(false);
-    
+
     myAutoCreateOppositeEdge = new FXMenuCheck(myToolbar, ("two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(), this, 0);
     myAutoCreateOppositeEdge->setCheck(false);
 
@@ -2127,8 +2127,8 @@ GNEViewNet::mergeJunctions(GNEJunction* moved) {
     if (mergeTarget) {
         // optionally ask for confirmation
         if (myMenuCheckWarnAboutMerge->getCheck()) {
-            if(myTestingMode == true) {
-	            WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
+            if (myTestingMode == true) {
+                WRITE_WARNING("Opening FXMessageBox of type 'question'");
             }
             // open question box
             FXuint answer = FXMessageBox::question(this, MBOX_YES_NO,
@@ -2140,16 +2140,16 @@ GNEViewNet::mergeJunctions(GNEJunction* moved) {
                                                     mergeTarget->getMicrosimID() + "')").c_str());
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
-                if((answer == 2) && (myTestingMode == true)) {
-	                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
-                } else if((answer == 4) && (myTestingMode == true)) {
-	                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
+                if ((answer == 2) && (myTestingMode == true)) {
+                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                } else if ((answer == 4) && (myTestingMode == true)) {
+                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
                 }
                 return false;
             } else {
                 // write warning if netedit is running in testing mode
-                if(myTestingMode == true) {
-	                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
+                if (myTestingMode == true) {
+                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                 }
             }
         }

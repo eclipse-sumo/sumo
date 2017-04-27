@@ -208,7 +208,7 @@ GNECrossingFrame::crossingParameters::crossingParameters(GNECrossingFrame* cross
     myCrossingFrameParent(crossingFrameParent),
     myEdgeSelector(es),
     myCurrentParametersValid(true) {
-    FXHorizontalFrame *crossingParameter = NULL; 
+    FXHorizontalFrame* crossingParameter = NULL;
     // create label and string textField for edges
     crossingParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myCrossingEdgesLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_EDGES).c_str(), 0, GUIDesignLabelAttribute);

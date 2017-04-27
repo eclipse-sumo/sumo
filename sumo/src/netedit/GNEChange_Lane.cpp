@@ -70,7 +70,7 @@ GNEChange_Lane::~GNEChange_Lane() {
     myEdge->decRef("GNEChange_Lane");
     if (myEdge->unreferenced()) {
         // show extra information for tests
-        if(myNet->getViewNet()->isTestingModeEnabled()) {
+        if (myNet->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting unreferenced " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
         }
         delete myEdge;
@@ -79,7 +79,7 @@ GNEChange_Lane::~GNEChange_Lane() {
         myLane->decRef("GNEChange_Lane");
         if (myLane->unreferenced()) {
             // show extra information for tests
-            if(myNet->getViewNet()->isTestingModeEnabled()) {
+            if (myNet->getViewNet()->isTestingModeEnabled()) {
                 WRITE_WARNING("Deleting unreferenced " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
             }
             delete myLane;
@@ -92,8 +92,8 @@ void
 GNEChange_Lane::undo() {
     if (myForward) {
         // show extra information for tests
-        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
-            if(myLane != NULL) {
+        if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            if (myLane != NULL) {
                 WRITE_WARNING("Deleting " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
             } else {
                 WRITE_WARNING("Deleting NULL " + toString(SUMO_TAG_LANE));
@@ -107,8 +107,8 @@ GNEChange_Lane::undo() {
         }
     } else {
         // show extra information for tests
-        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
-            if(myLane != NULL) {
+        if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            if (myLane != NULL) {
                 WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
             } else {
                 WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE));
@@ -128,8 +128,8 @@ void
 GNEChange_Lane::redo() {
     if (myForward) {
         // show extra information for tests
-        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
-            if(myLane != NULL) {
+        if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            if (myLane != NULL) {
                 WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
             } else {
                 WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE));
@@ -143,8 +143,8 @@ GNEChange_Lane::redo() {
         }
     } else {
         // show extra information for tests
-        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
-            if(myLane != NULL) {
+        if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            if (myLane != NULL) {
                 WRITE_WARNING("Deleting " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
             } else {
                 WRITE_WARNING("Deleting NULL " + toString(SUMO_TAG_LANE));

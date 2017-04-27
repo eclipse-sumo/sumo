@@ -75,10 +75,10 @@ protected:
 
     /// @brief write geometry as a single bezier curve (paramPoly3)
     static double writeGeomPP3(OutputDevice& device,
-                                 OutputDevice& elevationDevice,
-                                 PositionVector init,
-                                 double length,
-                                 double offset = 0);
+                               OutputDevice& elevationDevice,
+                               PositionVector init,
+                               double length,
+                               double offset = 0);
 
     static void writeElevationProfile(const PositionVector& shape, OutputDevice& device, const OutputDevice_String& elevationDevice);
 

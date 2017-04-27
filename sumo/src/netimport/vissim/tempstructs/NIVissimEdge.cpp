@@ -199,8 +199,8 @@ NIVissimEdge::buildConnectionClusters() {
         std::vector<int>::iterator j = connectors.begin();
         bool outgoing = NIVissimConnection::dictionary(*j)->getFromEdgeID() == (*i).first;
         double position = outgoing
-                            ? NIVissimConnection::dictionary(*j)->getFromPosition()
-                            : NIVissimConnection::dictionary(*j)->getToPosition();
+                          ? NIVissimConnection::dictionary(*j)->getFromPosition()
+                          : NIVissimConnection::dictionary(*j)->getToPosition();
 
         // skip connections already in a cluster
         // !!! (?)
@@ -215,8 +215,8 @@ NIVissimEdge::buildConnectionClusters() {
             if (j + 1 != connectors.end() && !NIVissimConnection::dictionary(*j)->hasNodeCluster()) {
                 bool n_outgoing = NIVissimConnection::dictionary(*(j + 1))->getFromEdgeID() == edgeid;
                 double n_position = n_outgoing
-                                      ? NIVissimConnection::dictionary(*(j + 1))->getFromPosition()
-                                      : NIVissimConnection::dictionary(*(j + 1))->getToPosition();
+                                    ? NIVissimConnection::dictionary(*(j + 1))->getFromPosition()
+                                    : NIVissimConnection::dictionary(*(j + 1))->getToPosition();
                 if (n_outgoing == outgoing && fabs(n_position - position) < MAX_CLUSTER_DISTANCE) {
                     // ok, in same cluster as prior
                     currentCluster.push_back(*(j + 1));
@@ -260,7 +260,7 @@ NIVissimEdge::dict_propagateSpeeds() {
     }
     for (i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimEdge* edge = (*i).second;
-        edge->propagateSpeed( -1, std::vector<int>());
+        edge->propagateSpeed(-1, std::vector<int>());
     }
     for (int j = 0; j < 3; j++) {
         for (i = myDict.begin(); i != myDict.end(); i++) {

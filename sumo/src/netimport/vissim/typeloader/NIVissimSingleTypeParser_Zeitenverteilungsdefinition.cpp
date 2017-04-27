@@ -67,7 +67,7 @@ NIVissimSingleTypeParser_Zeitenverteilungsdefinition::parse(std::istream& from) 
             from >> deviation;
             delete points;
             return DistributionCont::dictionary("times", id,
-                new Distribution_Parameterized(id, mean, deviation));
+                                                new Distribution_Parameterized(id, mean, deviation));
         }
         if (tag != "DATAEND") {
             double p1 = TplConvert::_2double(tag.c_str());

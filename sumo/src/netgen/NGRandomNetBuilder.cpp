@@ -165,7 +165,7 @@ NGRandomNetBuilder::findPossibleOuterNodes(NGNode* node) {
         NGNode* on = *ni;
         if (!node->connected(on)) {
             if ((node->getMaxNeighbours() > (int)node->LinkList.size()) &&
-                (on->getMaxNeighbours() > (int)on->LinkList.size())) {
+                    (on->getMaxNeighbours() > (int)on->LinkList.size())) {
                 if (canConnect(node, on)) {
                     myConNodes.push_back(on);
                 }

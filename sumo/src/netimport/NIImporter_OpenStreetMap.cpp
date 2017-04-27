@@ -118,7 +118,7 @@ NIImporter_OpenStreetMap::~NIImporter_OpenStreetMap() {
     }
     // delete edges
     for (std::map<long long int, Edge*>::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-        delete (*i).second;
+        delete(*i).second;
     }
 }
 
@@ -448,7 +448,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     bool addBackward = true;
     if (e->myIsOneWay == "true" || e->myIsOneWay == "yes" || e->myIsOneWay == "1"
             || (defaultsToOneWay && e->myIsOneWay != "no" && e->myIsOneWay != "false" && e->myIsOneWay != "0" &&
-                    e->getParameter("railway:preferred_direction","") != "both")) {
+                e->getParameter("railway:preferred_direction", "") != "both")) {
         addBackward = false;
     }
     if (e->myIsOneWay == "-1" || e->myIsOneWay == "reverse") {
@@ -525,7 +525,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
     if (ok) {
         LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
-                e->getParameter("railway:preferred_direction","") != "both" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+                                 e->getParameter("railway:preferred_direction", "") != "both" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
 
         id = StringUtils::escapeXML(id);
         if (addForward) {
@@ -679,7 +679,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myToFill[myLastNodeID]->ptStopPostion = true;
                 myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat(
                         "osm.stop-output.length");//TODO: extract from osm file [GL March '17]
-            } else if (key == "name" ){
+            } else if (key == "name") {
                 myToFill[myLastNodeID]->name = value;
             } else if (myImportElevation && key == "ele") {
                 try {
@@ -942,7 +942,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         } else if (key == "postal_code") {
             myCurrentEdge->addParameter(key, value);
         } else if (key == "railway:preferred_direction") {
-            myCurrentEdge->addParameter(key,value);
+            myCurrentEdge->addParameter(key, value);
         }
     }
 }

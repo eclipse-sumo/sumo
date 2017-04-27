@@ -54,11 +54,11 @@ public:
 
     /// Constructor for standard normal distribution
     Distribution_Parameterized(const std::string& id, double mean,
-        double deviation);
+                               double deviation);
 
     /// Constructor for normal distribution with cutoff
     Distribution_Parameterized(const std::string& id, double mean,
-        double deviation, double min, double max);
+                               double deviation, double min, double max);
 
     /// Destructor
     virtual ~Distribution_Parameterized();

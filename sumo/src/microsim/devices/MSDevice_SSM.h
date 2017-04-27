@@ -121,7 +121,7 @@ private:
         /// @brief Compares encounters regarding to their start time
         struct compare {
             typedef bool value_type;
-            bool operator() (Encounter* e1, Encounter* e2) {
+            bool operator()(Encounter* e1, Encounter* e2) {
                 return e1->begin <= e2->begin;
             };
         };
@@ -320,7 +320,7 @@ private:
      * @param range Detection range. For vehicles closer than this distance from the ego vehicle, SSMs are traced
      */
     MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::vector<std::string> measures, std::vector<double> thresholds,
-            bool trajectories, double frequency, double range);
+                 bool trajectories, double frequency, double range);
 
 
     /** @brief Finds encounters for which the foe vehicle has disappeared from range and
@@ -380,7 +380,7 @@ private:
     static double getLoggingFrequency(const SUMOVehicle& v);
     static bool requestsTrajectories(const SUMOVehicle& v);
     static bool getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceID,
-            std::vector<double>& thresholds, std::vector<std::string>& measures);
+                                         std::vector<double>& thresholds, std::vector<std::string>& measures);
     ///@}
 
 private:

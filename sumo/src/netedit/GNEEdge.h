@@ -256,10 +256,10 @@ public:
     void clearGNEConnections();
 
     /// @brief obtain relative positions of RouteProbes
-    int getRouteProbeRelativePosition(GNERouteProbe *routeProbe) const;
+    int getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const;
 
     /// @brief obtain relative positions of Vaporizer
-    int getVaporizerRelativePosition(GNEVaporizer *vaporizer) const;
+    int getVaporizerRelativePosition(GNEVaporizer* vaporizer) const;
 
 protected:
     /// @brief the underlying NBEdge

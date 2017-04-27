@@ -516,7 +516,7 @@ ODMatrix::applyCurve(const Distribution_Points& ps, ODCell* cell, std::vector<OD
     for (int i = 0; i < (int)times.size() - 1; ++i) {
         ODCell* ncell = new ODCell();
         ncell->begin = TIME2STEPS(times[i]);
-        ncell->end = TIME2STEPS(times[i+1]);
+        ncell->end = TIME2STEPS(times[i + 1]);
         ncell->origin = cell->origin;
         ncell->destination = cell->destination;
         ncell->vehicleType = cell->vehicleType;

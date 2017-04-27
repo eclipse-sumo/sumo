@@ -52,7 +52,7 @@ MSRightOfWayJunction::MSRightOfWayJunction(const std::string& id,
         std::vector<MSLane*> incoming,
         std::vector<MSLane*> internal,
         MSJunctionLogic* logic) : MSLogicJunction(id, type, position, shape, incoming, internal),
-      myLogic(logic) {}
+    myLogic(logic) {}
 
 
 MSRightOfWayJunction::~MSRightOfWayJunction() {

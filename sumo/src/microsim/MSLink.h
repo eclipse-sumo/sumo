@@ -391,8 +391,8 @@ public:
 
     /// @brief return the speed at which ego vehicle must approach the zipper link
     double getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
-                            SUMOTime arrivalTime,
-                            std::vector<const SUMOVehicle*>* collectFoes) const;
+                          SUMOTime arrivalTime,
+                          std::vector<const SUMOVehicle*>* collectFoes) const;
 
     /// @brief return the via lane if it exists and the lane otherwise
     MSLane* getViaLaneOrLane() const;
@@ -451,7 +451,7 @@ public:
         return myFoeLanes;
     }
 
-    const std::vector<MSLink*>& getFoeLinks (){
+    const std::vector<MSLink*>& getFoeLinks() {
         return myFoeLinks;
     }
 

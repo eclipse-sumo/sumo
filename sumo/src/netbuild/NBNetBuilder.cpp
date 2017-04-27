@@ -504,8 +504,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
 }
 
 
-void 
-NBNetBuilder::computeSingleNode(NBNode *node, OptionsCont& oc, const std::set<std::string>& explicitTurnarounds, bool mayAddOrRemove) {
+void
+NBNetBuilder::computeSingleNode(NBNode* node, OptionsCont& oc, const std::set<std::string>& explicitTurnarounds, bool mayAddOrRemove) {
 
     GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
 
@@ -614,9 +614,9 @@ NBNetBuilder::computeSingleNode(NBNode *node, OptionsCont& oc, const std::set<st
     // guess sidewalks
     if (oc.getBool("sidewalks.guess") || oc.getBool("sidewalks.guess.from-permissions")) {
         myEdgeCont.guessSidewalks(oc.getFloat("default.sidewalk-width"),
-                              oc.getFloat("sidewalks.guess.min-speed"),
-                              oc.getFloat("sidewalks.guess.max-speed"),
-                              oc.getBool("sidewalks.guess.from-permissions"));
+                                  oc.getFloat("sidewalks.guess.min-speed"),
+                                  oc.getFloat("sidewalks.guess.max-speed"),
+                                  oc.getBool("sidewalks.guess.from-permissions"));
     }
 
     // check whether any not previously setable connections may be set now
@@ -798,8 +798,8 @@ NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper, bool lefthand) {
     for (std::map<std::string, NBDistrict*>::const_iterator i = myDistrictCont.begin(); i != myDistrictCont.end(); ++i) {
         (*i).second->reshiftPosition(x, y);
     }
-    for (std::map<std::string,NBPTStop*>::const_iterator i = myPTStopCont.begin(); i != myPTStopCont.end(); ++i) {
-        (*i).second->reshiftPostion(x,y);
+    for (std::map<std::string, NBPTStop*>::const_iterator i = myPTStopCont.begin(); i != myPTStopCont.end(); ++i) {
+        (*i).second->reshiftPostion(x, y);
     }
     geoConvHelper.moveConvertedBy(x, y);
     PROGRESS_TIME_MESSAGE(before);

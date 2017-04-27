@@ -44,13 +44,12 @@
 // method definitions
 // ===========================================================================
 MSCFModel_KraussX::MSCFModel_KraussX(const MSVehicleType* vtype, double accel, double decel,
-                                       double emergencyDecel, double apparentDecel,
-                                       double dawdle, double headwayTime, 
-                                       double tmp1, double tmp2): 
+                                     double emergencyDecel, double apparentDecel,
+                                     double dawdle, double headwayTime,
+                                     double tmp1, double tmp2):
     MSCFModel_Krauss(vtype, accel, decel, emergencyDecel, apparentDecel, dawdle, headwayTime),
     myTmp1(tmp1),
-    myTmp2(tmp2)
-{
+    myTmp2(tmp2) {
 }
 
 
@@ -78,9 +77,9 @@ MSCFModel_KraussX::moveHelper(MSVehicle* const veh, double vPos) const {
         vMin = MIN2(getSpeedAfterMaxDecel(oldV), vMax);
         const double vDawdle = dawdleX(oldV, vMin, vMax);
         vNext = veh->getLaneChangeModel().patchSpeed(vMin, vDawdle, vMax, *this);
-        //std::cout << SIMTIME << " veh=" << veh->getID() 
-        //    << " vOld=" << oldV << " vPos=" << vPos << " vSafe=" << vSafe 
-        //    << " vMax=" << vMax << " vMin=" << vMin << " vDawdle=" << vDawdle << " vNext=" << vNext 
+        //std::cout << SIMTIME << " veh=" << veh->getID()
+        //    << " vOld=" << oldV << " vPos=" << vPos << " vSafe=" << vSafe
+        //    << " vMax=" << vMax << " vMin=" << vMin << " vDawdle=" << vDawdle << " vNext=" << vNext
         //    << "\n";
     } else {
         // for ballistic update, negative vnext must be allowed to

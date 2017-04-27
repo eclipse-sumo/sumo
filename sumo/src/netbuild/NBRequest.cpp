@@ -642,12 +642,12 @@ NBRequest::laneConflict(const NBEdge* from, const NBEdge* to, int toLane,
     // situation in which the lane2lane connections can be conflict-free is, if
     // they target the same edge but do not cross each other
     double angle = NBHelpers::relAngle(
-                         from->getAngleAtNode(from->getToNode()), to->getAngleAtNode(to->getFromNode()));
+                       from->getAngleAtNode(from->getToNode()), to->getAngleAtNode(to->getFromNode()));
     if (angle == 180) {
         angle = -180; // turnarounds are left turns
     }
     const double prohibitorAngle = NBHelpers::relAngle(
-                                         prohibitorFrom->getAngleAtNode(prohibitorFrom->getToNode()), to->getAngleAtNode(to->getFromNode()));
+                                       prohibitorFrom->getAngleAtNode(prohibitorFrom->getToNode()), to->getAngleAtNode(to->getFromNode()));
     const bool rightOfProhibitor = prohibitorFrom->isTurningDirectionAt(to)
                                    || (angle > prohibitorAngle && !from->isTurningDirectionAt(to));
     return rightOfProhibitor ? toLane >= prohibitorToLane : toLane <= prohibitorToLane;

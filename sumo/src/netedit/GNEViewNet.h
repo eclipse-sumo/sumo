@@ -233,7 +233,7 @@ public:
 
     /// @brief toogle show connections
     long onCmdToogleShowConnection(FXObject*, FXSelector, void*);
-    
+
     /// @brief toogle selet edges
     long onCmdToogleSelectEdges(FXObject*, FXSelector, void*);
 
@@ -257,7 +257,7 @@ public:
     /// @brief handle enter keypress
     void hotkeyEnter();
 
-     /// @brief handle focus frame keypress
+    /// @brief handle focus frame keypress
     void hotkeyFocusFrame();
 
     /// @brief store the position where a popup-menu was requested
@@ -323,7 +323,7 @@ private:
     GNENet* myNet;
 
     /// @brief the current frame
-    GNEFrame *myCurrentFrame;
+    GNEFrame* myCurrentFrame;
 
     /// @brief menu check to select only edges
     FXMenuCheck* myMenuCheckSelectEdges;

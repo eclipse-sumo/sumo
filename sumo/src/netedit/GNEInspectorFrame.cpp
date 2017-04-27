@@ -120,7 +120,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGroupBoxForEditor->hide();
 
     // Create check blocked label and button
-    FXHorizontalFrame *blockMovementHorizontalFrame = new FXHorizontalFrame(myGroupBoxForEditor, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* blockMovementHorizontalFrame = new FXHorizontalFrame(myGroupBoxForEditor, GUIDesignAuxiliarHorizontalFrame);
     myCheckBlockedLabel = new FXLabel(blockMovementHorizontalFrame, "block movement", 0, GUIDesignLabelAttribute);
     myCheckBlocked = new FXCheckButton(blockMovementHorizontalFrame, "", this, MID_GNE_SET_BLOCKING, GUIDesignCheckButtonAttribute);
     myCheckBlocked->hide();
@@ -242,8 +242,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
                 }
                 oss << *it_val;
             }
-            // Show attribute 
-            if(((disableTLSinJunctions == true) && (tag == SUMO_TAG_JUNCTION) && ((*it == SUMO_ATTR_TLTYPE) || (*it == SUMO_ATTR_TLID))) == false) {
+            // Show attribute
+            if (((disableTLSinJunctions == true) && (tag == SUMO_TAG_JUNCTION) && ((*it == SUMO_ATTR_TLTYPE) || (*it == SUMO_ATTR_TLID))) == false) {
                 (*itAttrs)->showAttribute(myACs.front()->getTag(), (*it), oss.str());
             }
             // update attribute iterator
@@ -257,7 +257,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             // Show check blocked if additional is movable
             if (myAdditional->isAdditionalMovable()) {
                 myCheckBlocked->setCheck(myAdditional->isAdditionalBlocked());
-                if(myAdditional->isAdditionalBlocked()) {
+                if (myAdditional->isAdditionalBlocked()) {
                     myCheckBlocked->setText("true");
                 } else {
                     myCheckBlocked->setText("false");
@@ -749,15 +749,15 @@ GNEInspectorFrame::AttributeInput::showAttribute(SumoXMLTag tag, SumoXMLAttr att
         // this is an special case for inspection of multiple attribute carriers with bools
         std::vector<bool> boolValues = GNEAttributeCarrier::parse<std::vector<bool> >(value);
         // set value of checkbox
-        if(boolValues.size() == 1) {
+        if (boolValues.size() == 1) {
             myBoolCheckButton->setCheck(boolValues.front());
         } else {
             int sum = 0;
-            for(std::vector<bool>::iterator i = boolValues.begin(); i != boolValues.end(); i++) {
+            for (std::vector<bool>::iterator i = boolValues.begin(); i != boolValues.end(); i++) {
                 sum += (int)(*i);
             }
             // only set true if all checkbox are true
-            if((sum == 0) || (sum != (int)boolValues.size())) {
+            if ((sum == 0) || (sum != (int)boolValues.size())) {
                 myBoolCheckButton->setCheck(false);
             } else {
                 myBoolCheckButton->setCheck(true);
@@ -855,10 +855,10 @@ GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor(FXObject*, FXSel
     // remove special word "(combined!)"
     std::string::size_type i = allowed.find(" (combined!)");
     if (i != std::string::npos) {
-       allowed.erase(i, 12);
+        allowed.erase(i, 12);
     }
     SVCPermissions permissions;
-    if(allowed == "all") {
+    if (allowed == "all") {
         permissions = SVCAll;
     } else {
         permissions = parseVehicleClasses(allowed, disallowed);
@@ -968,8 +968,8 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
         }
 
         // Write Warning in console if we're in testing mode
-        if(myInspectorFrameParent->getViewNet()->isTestingModeEnabled() == true) {
-            WRITE_WARNING("Value '" + newVal + "' for attribute " + toString(myAttr) + " of " + toString(myTag) +" isn't valid");
+        if (myInspectorFrameParent->getViewNet()->isTestingModeEnabled() == true) {
+            WRITE_WARNING("Value '" + newVal + "' for attribute " + toString(myAttr) + " of " + toString(myTag) + " isn't valid");
         }
     }
     // Update view net

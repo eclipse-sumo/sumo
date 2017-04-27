@@ -649,15 +649,15 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
     //std::cout << "buildConnectionsToOuter "
     //    << " seen=" << seen.size()
     //    << " from=" << c.fromEdge
-    //    << " to=" << c.toEdge 
+    //    << " to=" << c.toEdge
     //    << " fromLane=" << c.fromLane
-    //    << " toLane=" << c.toLane 
+    //    << " toLane=" << c.toLane
     //    << " fromCP=" << c.fromCP
-    //    << " toCP=" << c.toCP 
+    //    << " toCP=" << c.toCP
     //    << " all=" << c.all
     //    << " origID=" << c.origID
     //    << " origLane=" << c.origLane
-    //    << " seenlist="; 
+    //    << " seenlist=";
     //for (std::set<Connection>::const_iterator i = seen.begin(); i != seen.end(); ++i) {
     //    std::cout << (*i).fromEdge << "," << (*i).toEdge << " ";
     //}
@@ -923,7 +923,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                             tmp.move2side(-offset);
                             //std::cout << " edge=" << e.id << " k=" << k << " offset=" << offset << " geom[k]=" << e.geom[k] << " tmp[k]=" << tmp[k] << " gSize=" << e.geom.size() << " tSize=" << tmp.size() <<  " geom=" << e.geom << " tmp=" << tmp << "\n";
                             geom2.push_back(tmp[k]);
-                        } catch (InvalidArgument&) { 
+                        } catch (InvalidArgument&) {
                             geom2.push_back(e.geom[k]);
                         }
                     } else {

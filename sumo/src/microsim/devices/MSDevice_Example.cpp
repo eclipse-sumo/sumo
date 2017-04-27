@@ -150,7 +150,7 @@ MSDevice_Example::generateOutput() const {
     }
 }
 
-std::string 
+std::string
 MSDevice_Example::getParameter(const std::string& key) const {
     if (key == "customValue1") {
         return toString(myCustomValue1);

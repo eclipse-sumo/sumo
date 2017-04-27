@@ -100,7 +100,7 @@ public:
      * @return EGO's safe speed
      */
     virtual double freeSpeed(const MSVehicle* const veh, double speed, double seen,
-                               double maxSpeed, const bool onInsertion = false) const;
+                             double maxSpeed, const bool onInsertion = false) const;
 
 
     /** @brief Computes the vehicle's follow speed (no dawdling)

@@ -50,7 +50,7 @@
 #include <osg/ShapeDrawable>
 #ifdef WIN32
 #undef NOMINMAX
-#pragma warning(pop) 
+#pragma warning(pop)
 #endif
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>

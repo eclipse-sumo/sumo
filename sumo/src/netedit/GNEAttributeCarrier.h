@@ -149,10 +149,10 @@ public:
 
     /// @brief whether an attribute is a probability (i.e. oly can values between [0, 1])
     static bool isProbability(SumoXMLTag tag, SumoXMLAttr attr);
-    
+
     /// @brief whether a string attribute is a filename
     static bool isFilename(SumoXMLTag tag, SumoXMLAttr attr);
-    
+
     /// @brief whether an attribute is non editable
     static bool isNonEditable(SumoXMLTag tag, SumoXMLAttr attr);
 

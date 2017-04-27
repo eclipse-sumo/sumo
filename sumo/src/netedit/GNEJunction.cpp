@@ -258,7 +258,7 @@ GNEJunction::getNBNode() const {
 }
 
 
-Position 
+Position
 GNEJunction::getPosition() const {
     return myNBNode.getPosition();
 }
@@ -268,13 +268,13 @@ std::vector<GNEJunction*>
 GNEJunction::getJunctionNeighbours() const {
     // use set to avoid duplicates junctions
     std::set<GNEJunction*> junctions;
-    for( std::vector<GNEEdge*>::const_iterator i = myGNEIncomingEdges.begin(); i != myGNEIncomingEdges.end(); i++) {
+    for (std::vector<GNEEdge*>::const_iterator i = myGNEIncomingEdges.begin(); i != myGNEIncomingEdges.end(); i++) {
         junctions.insert((*i)->getGNEJunctionSource());
     }
-    for( std::vector<GNEEdge*>::const_iterator i = myGNEOutgoingEdges.begin(); i != myGNEOutgoingEdges.end(); i++) {
+    for (std::vector<GNEEdge*>::const_iterator i = myGNEOutgoingEdges.begin(); i != myGNEOutgoingEdges.end(); i++) {
         junctions.insert((*i)->getGNEJunctionDestiny());
     }
-    return std::vector<GNEJunction*>(junctions.begin(), junctions.end()); 
+    return std::vector<GNEJunction*>(junctions.begin(), junctions.end());
 }
 
 
@@ -374,14 +374,14 @@ GNEJunction::selectTLS(bool selected) {
 }
 
 
-void 
+void
 GNEJunction::recomputeNeighborsJunctions() {
     std::set<GNEJunction*> neighborsJunctions;
     // obtain all neighbors junctions
-    for(std::vector<GNEEdge*>::const_iterator i = myGNEIncomingEdges.begin(); i != myGNEIncomingEdges.end(); i++) {
+    for (std::vector<GNEEdge*>::const_iterator i = myGNEIncomingEdges.begin(); i != myGNEIncomingEdges.end(); i++) {
         neighborsJunctions.insert((*i)->getGNEJunctionSource());
     }
-    for(std::vector<GNEEdge*>::const_iterator i = myGNEOutgoingEdges.begin(); i != myGNEOutgoingEdges.end(); i++) {
+    for (std::vector<GNEEdge*>::const_iterator i = myGNEOutgoingEdges.begin(); i != myGNEOutgoingEdges.end(); i++) {
         neighborsJunctions.insert((*i)->getGNEJunctionDestiny());
     }
     // recompute all neighbors junctions
@@ -637,11 +637,11 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_TYPE: {
             undoList->p_begin("change " + toString(getTag()) + " type");
             if (NBNode::isTrafficLight(SUMOXMLDefinitions::NodeTypes.get(value))) {
-                if (getNBNode()->isTLControlled() && 
+                if (getNBNode()->isTLControlled() &&
                         // if switching changing from or to traffic_light_right_on_red we need to remove the old plan
                         (getNBNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED
                          || SUMOXMLDefinitions::NodeTypes.get(value) == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED)
-                        ) {
+                   ) {
                     const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
                     for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
                         undoList->add(new GNEChange_TLS(this, *it, false), true);

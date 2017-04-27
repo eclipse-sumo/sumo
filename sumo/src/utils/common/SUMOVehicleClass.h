@@ -106,7 +106,7 @@ enum SUMOVehicleShape {
     SVS_SHIP,
     /// @brief render as an emergency vehicle
     SVS_EMERGENCY,
-    /// @brief render as a fire brigade 
+    /// @brief render as a fire brigade
     SVS_FIREBRIGADE,
     /// @brief render as a police car
     SVS_POLICE
@@ -216,7 +216,7 @@ typedef int SVCPermissions;
 extern const SVCPermissions SVCAll;
 
 /// @brief permissions not specified
-extern const SVCPermissions SVC_UNSPECIFIED; 
+extern const SVCPermissions SVC_UNSPECIFIED;
 
 /**
  * @enum SUMOEmissionClass
@@ -238,7 +238,7 @@ typedef int SUMOEmissionClass;
  * @param[in] expand whether 'all' should be used
  * @return The string representation of these classes
  */
-extern std::string getVehicleClassNames(SVCPermissions permissions, bool expand=false);
+extern std::string getVehicleClassNames(SVCPermissions permissions, bool expand = false);
 
 /** @brief Returns the ids of the given classes, divided using a ' '
  * @param[in] the permissions to encode

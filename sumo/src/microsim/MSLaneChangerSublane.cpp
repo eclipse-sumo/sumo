@@ -201,14 +201,14 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         changeAngle = atan2(latDist, SPEED2DIST(MAX2(vehicle->getVehicleType().getLength(), vehicle->getSpeed())));
     }
     if (vehicle->getLaneChangeModel().debugVehicle()) std::cout << SIMTIME << " startChangeSublane shadowLane"
-                                   << " latDist=" << latDist
-                                   << " old=" << Named::getIDSecure(oldShadowLane)
-                                   << " new=" << Named::getIDSecure(vehicle->getLaneChangeModel().getShadowLane()) 
-                                   << " laneA=" << RAD2DEG(laneAngle)
-                                   << " changeA=" << RAD2DEG(changeAngle)
-                                   << " oldA=" << RAD2DEG(vehicle->getAngle())
-                                   << " newA=" << RAD2DEG(laneAngle + changeAngle)
-                                   << "\n";
+                << " latDist=" << latDist
+                << " old=" << Named::getIDSecure(oldShadowLane)
+                << " new=" << Named::getIDSecure(vehicle->getLaneChangeModel().getShadowLane())
+                << " laneA=" << RAD2DEG(laneAngle)
+                << " changeA=" << RAD2DEG(changeAngle)
+                << " oldA=" << RAD2DEG(vehicle->getAngle())
+                << " newA=" << RAD2DEG(laneAngle + changeAngle)
+                << "\n";
     vehicle->setAngle(laneAngle + changeAngle);
 
     return changedToNewLane;

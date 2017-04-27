@@ -144,16 +144,16 @@ private:
     SetOperation mySetOperation;
 
     /// @brief add radio button
-    FXRadioButton *myAddRadioButton;
+    FXRadioButton* myAddRadioButton;
 
     /// @brief remove radio button
-    FXRadioButton *myRemoveRadioButton;
+    FXRadioButton* myRemoveRadioButton;
 
     /// @brief keep button
-    FXRadioButton *myKeepRadioButton;
+    FXRadioButton* myKeepRadioButton;
 
     /// @brief replace radio button
-    FXRadioButton *myReplaceRadioButton;
+    FXRadioButton* myReplaceRadioButton;
 
     /// @brief tag of the sets of elements
     FXComboBox* mySetComboBox;

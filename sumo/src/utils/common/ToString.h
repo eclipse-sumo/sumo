@@ -73,7 +73,9 @@ inline std::string toHex(const T i, std::streamsize numDigits = 0) {
 
 inline std::string toString(const Named* obj, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
-    if (obj == 0) return "NULL";
+    if (obj == 0) {
+        return "NULL";
+    }
     return obj->getID();
 }
 

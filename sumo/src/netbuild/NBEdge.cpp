@@ -522,7 +522,7 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
 }
 
 
-void 
+void
 NBEdge::extendGeometryAtNode(const NBNode* node, double maxExtent) {
     //std::cout << "extendGeometryAtNode edge=" << getID() << " node=" << node->getID() << " nodePos=" << node->getPosition() << " extent=" << maxExtent << " geom=" << myGeom;
     if (node == myFrom) {
@@ -545,7 +545,7 @@ NBEdge::extendGeometryAtNode(const NBNode* node, double maxExtent) {
 }
 
 
-void 
+void
 NBEdge::shortenGeometryAtNode(const NBNode* node, double reduction) {
     //std::cout << "shortenGeometryAtNode edge=" << getID() << " node=" << node->getID() << " nodePos=" << node->getPosition() << " reduction=" << reduction << " geom=" << myGeom;
     reduction = MIN2(reduction, myGeom.length2D() - 2 * POSITION_EPS);
@@ -584,18 +584,18 @@ NBEdge::setNodeBorder(const NBNode* node, const Position& p, const Position& p2,
     }
 #ifdef DEBUG_NODE_BORDER
     gDebugFlag1 = DEBUGCOND;
-    if (DEBUGCOND) std::cout << "setNodeBorder edge=" << getID() << " node=" << node->getID() 
-        << " rect=" << rectangularCut
-        << " p=" << p << " p2=" << p2 
-        << " border=" << border 
-        << " myGeom=" << myGeom
-        << "\n";
-    
+    if (DEBUGCOND) std::cout << "setNodeBorder edge=" << getID() << " node=" << node->getID()
+                                 << " rect=" << rectangularCut
+                                 << " p=" << p << " p2=" << p2
+                                 << " border=" << border
+                                 << " myGeom=" << myGeom
+                                 << "\n";
+
 #endif
 }
 
 
-void 
+void
 NBEdge::resetNodeBorder(const NBNode* node) {
     if (node == myFrom) {
         myFromBorder.clear();
@@ -713,8 +713,8 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
             // cutting and patching z-coordinate may cause steep grades which should be smoothed
             const double dZ = ns.size() >= 2 ? fabs(ns[0].z() - ns[1].z()) : 0;
             if (dZ > 0) {
-                ns = ns.smoothedZFront(MIN2(ns.length2D(), 
-                            dZ * 4 * OptionsCont::getOptions().getFloat("geometry.max-grade")));
+                ns = ns.smoothedZFront(MIN2(ns.length2D(),
+                                            dZ * 4 * OptionsCont::getOptions().getFloat("geometry.max-grade")));
             }
         }
         assert(ns.size() >= 2);
@@ -734,8 +734,8 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
         result.push_front_noDoublePos(np);
         const double dZ = result.size() >= 2 ? fabs(result[0].z() - result[1].z()) : 0;
         if (dZ > 0) {
-            result = result.smoothedZFront(MIN2(result.length2D(), 
-                        dZ * 4 * OptionsCont::getOptions().getFloat("geometry.max-grade")));
+            result = result.smoothedZFront(MIN2(result.length2D(),
+                                                dZ * 4 * OptionsCont::getOptions().getFloat("geometry.max-grade")));
         }
         return result;
         //if (result.size() >= 2) {
@@ -1700,13 +1700,13 @@ NBEdge::computeAngle() {
     myEndAngle = GeomHelper::legacyDegree(referencePosEnd.angleTo2D(toCenter), true);
     myTotalAngle = GeomHelper::legacyDegree(myFrom->getPosition().angleTo2D(myTo->getPosition()), true);
 #ifdef DEBUG_ANGLES
-    if (DEBUGCOND) std::cout << "computeAngle edge=" << getID() << " fromCenter=" << fromCenter << " toCenter=" << toCenter 
-        << " refStart=" << referencePosStart << " refEnd=" << referencePosEnd << " shape=" << shape
-        << " hasFromShape=" << hasFromShape
-        << " hasToShape=" << hasToShape
-        << " numLanes=" << getNumLanes()
-        << " shapeLane=" << getNumLanes() / 2
-        << " startA=" << myStartAngle << " endA=" << myEndAngle << " totA=" << myTotalAngle << "\n";
+    if (DEBUGCOND) std::cout << "computeAngle edge=" << getID() << " fromCenter=" << fromCenter << " toCenter=" << toCenter
+                                 << " refStart=" << referencePosStart << " refEnd=" << referencePosEnd << " shape=" << shape
+                                 << " hasFromShape=" << hasFromShape
+                                 << " hasToShape=" << hasToShape
+                                 << " numLanes=" << getNumLanes()
+                                 << " shapeLane=" << getNumLanes() / 2
+                                 << " startA=" << myStartAngle << " endA=" << myEndAngle << " totA=" << myTotalAngle << "\n";
 #endif
 }
 
@@ -1797,11 +1797,11 @@ NBEdge::hasAccelLane() const {
 
 bool
 NBEdge::needsLaneSpecificOutput() const {
-    return (hasLaneSpecificPermissions() 
-            || hasLaneSpecificSpeed() 
-            || hasLaneSpecificWidth() 
-            || hasLaneSpecificEndOffset() 
-            || hasAccelLane() 
+    return (hasLaneSpecificPermissions()
+            || hasLaneSpecificSpeed()
+            || hasLaneSpecificWidth()
+            || hasLaneSpecificEndOffset()
+            || hasAccelLane()
             || (!myLanes.empty() && myLanes.back().oppositeID != ""));
 }
 
@@ -3107,7 +3107,7 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
         const double dist = myGeom[i].distanceTo2D(node->getPosition());
         const double neededOffset = (getTotalWidth() + getNumLanes() * SUMO_const_laneOffset) / 2;
         const double dist2 = MIN2(myGeom.distance2D(other->getGeometry()[i2]),
-                                    other->getGeometry().distance2D(myGeom[i]));
+                                  other->getGeometry().distance2D(myGeom[i]));
         const double neededOffset2 = neededOffset + (other->getTotalWidth() + other->getNumLanes() * SUMO_const_laneOffset) / 2;
         if (dist < neededOffset && dist2 < neededOffset2) {
             PositionVector tmp = myGeom;

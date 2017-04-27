@@ -108,8 +108,8 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     for (int i = noLinks; --i >= 0;) {
         double x2 = x1 - (double)(w / 2.);
-        const int linkIndex = myParentEdge.getNBEdge()->getToNode()->getConnectionIndex(myParentEdge.getNBEdge(), 
-                cons[lefthand ? noLinks - 1 - i : i]);
+        const int linkIndex = myParentEdge.getNBEdge()->getToNode()->getConnectionIndex(myParentEdge.getNBEdge(),
+                              cons[lefthand ? noLinks - 1 - i : i]);
         GLHelper::drawTextAtEnd(toString(linkIndex), getShape(), x2, s.drawLinkJunctionIndex.size, s.drawLinkJunctionIndex.color);
         x1 -= w;
     }
@@ -945,7 +945,7 @@ GNELane::setMultiColor(const GUIColorer& c) const {
 double
 GNELane::getColorValue(int activeScheme) const {
     SVCPermissions myPermissions = myParentEdge.getNBEdge()->getPermissions(myIndex);
-    if(getVehicleClassNames(~myPermissions) == "all") {
+    if (getVehicleClassNames(~myPermissions) == "all") {
         myPermissions = 0;
     }
     switch (activeScheme) {
@@ -1120,12 +1120,12 @@ void
 GNELane::updateConnectionIDs() {
     // update incoming connections of lane
     std::vector<GNEConnection*> incomingConnections = getGNEIncomingConnections();
-    for(std::vector<GNEConnection*>::iterator i = incomingConnections.begin(); i != incomingConnections.end(); i++) {
+    for (std::vector<GNEConnection*>::iterator i = incomingConnections.begin(); i != incomingConnections.end(); i++) {
         (*i)->updateID();
     }
     // update outocming connections of lane
     std::vector<GNEConnection*> outcomingConnections = getGNEOutcomingConnections();
-    for(std::vector<GNEConnection*>::iterator i = outcomingConnections.begin(); i != outcomingConnections.end(); i++) {
+    for (std::vector<GNEConnection*>::iterator i = outcomingConnections.begin(); i != outcomingConnections.end(); i++) {
         (*i)->updateID();
     }
 }

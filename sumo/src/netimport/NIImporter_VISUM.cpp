@@ -353,8 +353,8 @@ NIImporter_VISUM::parse_Edges() {
         }
     } else {
         double cap = myLineParser.know("KAPIV")
-                       ? TplConvert::_2doubleSec(myLineParser.get("KAPIV").c_str(), -1)
-                       : TplConvert::_2doubleSec(myLineParser.get("KAP-IV").c_str(), -1);
+                     ? TplConvert::_2doubleSec(myLineParser.get("KAPIV").c_str(), -1)
+                     : TplConvert::_2doubleSec(myLineParser.get("KAP-IV").c_str(), -1);
         nolanes = myCapacity2Lanes.get(cap);
     }
     // check whether the id is already used

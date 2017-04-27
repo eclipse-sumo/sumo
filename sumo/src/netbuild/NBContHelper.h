@@ -362,7 +362,7 @@ public:
             const EdgeVector& ev = e->getConnectedEdges();
             for (EdgeVector::const_iterator i = ev.begin(); i != ev.end(); ++i) {
                 double angle = NBHelpers::normRelAngle(
-                                     e->getTotalAngle(), (*i)->getTotalAngle());
+                                   e->getTotalAngle(), (*i)->getTotalAngle());
                 if (min == 360 || min > angle) {
                     min = angle;
                 }

@@ -200,7 +200,7 @@ MSEdgeControl::gotActive(MSLane* l) {
     myChangedStateLanes.insert(l);
 }
 
-void 
+void
 MSEdgeControl::setAdditionalRestrictions() {
     for (MSEdgeVector::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         const std::vector<MSLane*>& lanes = (*i)->getLanes();

@@ -157,7 +157,7 @@ private:
 
 private:
     double _v(const MSVehicle* const veh, const double gap2pred, const double mySpeed,
-                const double predSpeed, const double desSpeed, const bool respectMinGap = true) const;
+              const double predSpeed, const double desSpeed, const bool respectMinGap = true) const;
 
 
 private:

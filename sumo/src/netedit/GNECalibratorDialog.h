@@ -106,7 +106,7 @@ protected:
 
     /// @brief list with routes
     FXTable* myRouteList;
-    
+
     /// @brief label for flows
     FXLabel* myLabelFlow;
 

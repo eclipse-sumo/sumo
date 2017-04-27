@@ -88,7 +88,7 @@ GNEFrame::~GNEFrame() {
 }
 
 
-void 
+void
 GNEFrame::focusUpperElement() {
     myFrameHeaderLabel->setFocus();
 }

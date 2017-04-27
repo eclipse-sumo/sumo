@@ -94,10 +94,10 @@ public:
     }
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
-    std::string getParameter(const std::string& key) const; 
+    std::string getParameter(const std::string& key) const;
 
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
-    void setParameter(const std::string& key, const std::string& value); 
+    void setParameter(const std::string& key, const std::string& value);
 
 private:
     /** @brief Constructor
@@ -107,10 +107,10 @@ private:
     * @param[in] period The period with which a new route shall be searched
     * @param[in] preInsertionPeriod The route search period before insertion
     */
-    MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity, 
-        const double powerMax, const double stoppingTreshold, const std::map<int, double>& param);
+    MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
+                     const double powerMax, const double stoppingTreshold, const std::map<int, double>& param);
 
-    void checkParam(const SumoXMLAttr paramKey, const double lower=0., const double upper=std::numeric_limits<double>::infinity());
+    void checkParam(const SumoXMLAttr paramKey, const double lower = 0., const double upper = std::numeric_limits<double>::infinity());
 
 public:
     /// @brief Get the actual vehicle's Battery Capacity in kWh

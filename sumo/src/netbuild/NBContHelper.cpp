@@ -149,9 +149,9 @@ NBContHelper::relative_outgoing_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) 
         return -1;
     }
     double relAngle1 = NBHelpers::normRelAngle(
-                             myEdge->getEndAngle(), e1->getStartAngle());
+                           myEdge->getEndAngle(), e1->getStartAngle());
     double relAngle2 = NBHelpers::normRelAngle(
-                             myEdge->getEndAngle(), e2->getStartAngle());
+                           myEdge->getEndAngle(), e2->getStartAngle());
 
     double lookAhead = 2 * NBEdge::ANGLE_LOOKAHEAD;
     while (fabs(relAngle1 - relAngle2) < 3.0) {
@@ -180,9 +180,9 @@ NBContHelper::straightness_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
         return -1;
     }
     double relAngle1 = NBHelpers::normRelAngle(
-                             myReferenceAngle, myRefIncoming ? e1->getShapeStartAngle() : e1->getShapeEndAngle());
+                           myReferenceAngle, myRefIncoming ? e1->getShapeStartAngle() : e1->getShapeEndAngle());
     double relAngle2 = NBHelpers::normRelAngle(
-                             myReferenceAngle, myRefIncoming ? e2->getShapeStartAngle() : e2->getShapeEndAngle());
+                           myReferenceAngle, myRefIncoming ? e2->getShapeStartAngle() : e2->getShapeEndAngle());
     const int geomIndex = myRefIncoming ? 0 : -1;
 
     //std::cout << " e1=" << e1->getID() << " e2=" << e2->getID() << " refA=" << myReferenceAngle << " initially a1=" << relAngle1 << " a2=" << relAngle2 << "\n";
@@ -231,9 +231,9 @@ NBContHelper::relative_incoming_edge_sorter::operator()(NBEdge* e1, NBEdge* e2) 
         return -1;
     }
     double relAngle1 = NBHelpers::normRelAngle(
-                             myEdge->getStartAngle(), e1->getEndAngle());
+                           myEdge->getStartAngle(), e1->getEndAngle());
     double relAngle2 = NBHelpers::normRelAngle(
-                             myEdge->getStartAngle(), e2->getEndAngle());
+                           myEdge->getStartAngle(), e2->getEndAngle());
 
     double lookAhead = 2 * NBEdge::ANGLE_LOOKAHEAD;
     while (fabs(relAngle1 - relAngle2) < 3.0) {

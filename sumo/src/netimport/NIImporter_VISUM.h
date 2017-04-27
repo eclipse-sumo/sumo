@@ -159,7 +159,7 @@ private:
      * @return The parsed real or the default value if an error while parsing occured
      */
     double getNamedFloat(const std::string& fieldName1, const std::string& fieldName2,
-                           double defaultValue);
+                         double defaultValue);
 
 
     /** @brief Returns the value from the named column as a normalised string

@@ -82,7 +82,7 @@ public:
                          SUMOTime msTime, std::vector<const E*>& into) = 0;
 
     virtual double recomputeCosts(const std::vector<const E*>& edges,
-                                    const V* const v, SUMOTime msTime) const = 0;
+                                  const V* const v, SUMOTime msTime) const = 0;
 
     inline double getEffort(const E* const e, const V* const v, double t) const {
         return (*myOperation)(e, v, t);

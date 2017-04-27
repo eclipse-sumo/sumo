@@ -353,7 +353,7 @@ NBRampsComputer::moveRampRight(NBEdge* ramp, int addedLanes) {
     try {
         PositionVector g = ramp->getGeometry();
         const double offset = (0.5 * addedLanes *
-                                 (ramp->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : ramp->getLaneWidth()));
+                               (ramp->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : ramp->getLaneWidth()));
         g.move2side(offset);
         ramp->setGeometry(g);
     } catch (InvalidArgument&) {

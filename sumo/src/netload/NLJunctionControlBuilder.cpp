@@ -169,8 +169,8 @@ NLJunctionControlBuilder::build() const {
 
 MSJunction*
 NLJunctionControlBuilder::buildNoLogicJunction() {
-    return new MSNoLogicJunction(myActiveID, myType, myPosition, myShape, 
-            myActiveIncomingLanes, myActiveInternalLanes);
+    return new MSNoLogicJunction(myActiveID, myType, myPosition, myShape,
+                                 myActiveIncomingLanes, myActiveInternalLanes);
 }
 
 

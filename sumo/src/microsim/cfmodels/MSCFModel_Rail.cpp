@@ -36,60 +36,54 @@
 #define G  9.80665
 
 MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype, std::string trainType) :
-    MSCFModel(vtype, -1, -1, -1, -1, -1)
-{
+    MSCFModel(vtype, -1, -1, -1, -1, -1) {
 
-    if (trainType.compare("RB425")==0) {
+    if (trainType.compare("RB425") == 0) {
         myTrainParams = initRB425Params();
-    } else if (trainType.compare("RB628")==0) {
+    } else if (trainType.compare("RB628") == 0) {
         myTrainParams = initRB628Params();
-    } else if (trainType.compare("NGT400")==0) {
+    } else if (trainType.compare("NGT400") == 0) {
         myTrainParams = initNGT400Params();
-    } else if (trainType.compare("NGT400_16")==0) {
+    } else if (trainType.compare("NGT400_16") == 0) {
         myTrainParams = initNGT400_16Params();
-    } else if (trainType.compare("ICE1")==0) {
+    } else if (trainType.compare("ICE1") == 0) {
         myTrainParams = initICE1Params();
-    } else if (trainType.compare("REDosto7")==0) {
+    } else if (trainType.compare("REDosto7") == 0) {
         myTrainParams = initREDosto7Params();
-    } else if (trainType.compare("Freight")==0) {
+    } else if (trainType.compare("Freight") == 0) {
         myTrainParams = initFreightParams();
-    } else if (trainType.compare("ICE3")==0) {
+    } else if (trainType.compare("ICE3") == 0) {
         myTrainParams = initICE3Params();
     } else {
-        WRITE_ERROR("Unknown train type: "+trainType+". Exiting!");
+        WRITE_ERROR("Unknown train type: " + trainType + ". Exiting!");
         throw ProcessError();
     }
     setMaxDecel(myTrainParams.decl);
 
 }
 
-MSCFModel_Rail::~MSCFModel_Rail()
-{
+MSCFModel_Rail::~MSCFModel_Rail() {
 }
 
 double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, double /* gap2pred*/,
-        double /* predSpeed */, double /* predMaxDecel*/) const
-{
+                                   double /* predSpeed */, double /* predMaxDecel*/) const {
     return maxNextSpeed(speed, veh);
 }
 
 int
-MSCFModel_Rail::getModelID() const
-{
+MSCFModel_Rail::getModelID() const {
     return SUMO_TAG_CF_RAIL;
 }
 
 MSCFModel*
-MSCFModel_Rail::duplicate(const MSVehicleType* /* vtype */) const
-{
+MSCFModel_Rail::duplicate(const MSVehicleType* /* vtype */) const {
     /// XXX Fixme
     throw ProcessError("not yet implemented");
 }
 
-double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) const
-{
+double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) const {
 
-    if (speed>=myTrainParams.vmax) {
+    if (speed >= myTrainParams.vmax) {
         return myTrainParams.vmax;
     }
 
@@ -98,67 +92,65 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
     double res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
 
     double slope = veh->getSlope();
-    double gr = myTrainParams.weight*G*sin(DEG2RAD(slope)); //kN
+    double gr = myTrainParams.weight * G * sin(DEG2RAD(slope)); //kN
 
-    double totalRes = res+gr; //kN
+    double totalRes = res + gr; //kN
 
     double trac = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.traction)); // kN
 
     double a;
-    if (speed<targetSpeed) {
-        a = (trac-totalRes)/myTrainParams.rotWeight; //kN/t == N/kg
+    if (speed < targetSpeed) {
+        a = (trac - totalRes) / myTrainParams.rotWeight; //kN/t == N/kg
     } else {
         a = 0.;
-        if (totalRes>trac) {
-            a = (trac-totalRes)/myTrainParams.rotWeight;//kN/t == N/kg
+        if (totalRes > trac) {
+            a = (trac - totalRes) / myTrainParams.rotWeight; //kN/t == N/kg
         }
     }
 
-    double maxNextSpeed = speed+a*DELTA_T/1000.;
+    double maxNextSpeed = speed + a * DELTA_T / 1000.;
 
 //    std::cout << veh->getID() << " speed: " << (speed*3.6) << std::endl;
 
     return maxNextSpeed;
 }
 
-double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle* const veh) const
-{
+double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle* const veh) const {
 
     double slope = veh->getSlope();
-    double gr = myTrainParams.weight*G*sin(DEG2RAD(slope)); //kN
+    double gr = myTrainParams.weight * G * sin(DEG2RAD(slope)); //kN
     double res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
-    double totalRes = res+gr; //kN
+    double totalRes = res + gr; //kN
 
-    double a = (myTrainParams.decl+totalRes)/myTrainParams.rotWeight;
+    double a = (myTrainParams.decl + totalRes) / myTrainParams.rotWeight;
 
-    return speed-a*DELTA_T/1000.;
+    return speed - a * DELTA_T / 1000.;
 
 }
 
-double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap) const
-{
+double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap) const {
     std::map<double, double>::const_iterator low, prev;
     low = lookUpMap->lower_bound(speed);
 
-    if (low==lookUpMap->end()) { //speed > max speed
+    if (low == lookUpMap->end()) { //speed > max speed
         return (lookUpMap->rbegin())->second;
     }
 
-    if (low==lookUpMap->begin()) {
+    if (low == lookUpMap->begin()) {
         return low->second;
     }
 
     prev = low;
     --prev;
 
-    double range = low->first-prev->first;
-    double dist = speed-prev->first;
-    assert(range>0);
-    assert(dist>0);
+    double range = low->first - prev->first;
+    double dist = speed - prev->first;
+    assert(range > 0);
+    assert(dist > 0);
 
-    double weight = dist/range;
+    double weight = dist / range;
 
-    double res = (1-weight)*prev->second+weight*low->second;
+    double res = (1 - weight) * prev->second + weight * low->second;
 
     return res;
 
@@ -173,8 +165,7 @@ double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const Loo
 //
 //}
 
-double MSCFModel_Rail::getSpeedAfterMaxDecel(double /* speed */) const
-{
+double MSCFModel_Rail::getSpeedAfterMaxDecel(double /* speed */) const {
 
 //    //TODO: slope not known here
 //    double gr = 0; //trainParams.weight * 9.81 * edge.grade
@@ -186,15 +177,13 @@ double MSCFModel_Rail::getSpeedAfterMaxDecel(double /* speed */) const
     throw ProcessError();
 }
 
-MSCFModel::VehicleVariables* MSCFModel_Rail::createVehicleVariables() const
-{
+MSCFModel::VehicleVariables* MSCFModel_Rail::createVehicleVariables() const {
     VehicleVariables* ret = new VehicleVariables();
     return ret;
 }
 
 //mostly c 'n p from MSCFModel
-double MSCFModel_Rail::moveHelper(MSVehicle* const veh, double vPos) const
-{
+double MSCFModel_Rail::moveHelper(MSVehicle* const veh, double vPos) const {
     const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
@@ -224,8 +213,7 @@ double MSCFModel_Rail::moveHelper(MSVehicle* const veh, double vPos) const
 }
 
 double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* speed */, double dist, double targetSpeed,
-        const bool onInsertion) const
-{
+                                 const bool onInsertion) const {
 
 //    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
 //    if (vars->isNotYetInitialized()) {
@@ -241,22 +229,21 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* spe
         // g = (y^2 + y) * 0.5 * b + y * v
         // y = ((((sqrt((b + 2.0*v)*(b + 2.0*v) + 8.0*b*g)) - b)*0.5 - v)/b)
         const double v = SPEED2DIST(targetSpeed);
-        if (dist<v) {
+        if (dist < v) {
             return targetSpeed;
         }
         const double b = ACCEL2DIST(myDecel);
-        const double y = MAX2(0.0, ((sqrt((b+2.0*v)*(b+2.0*v)+8.0*b*dist)-b)*0.5-v)/b);
+        const double y = MAX2(0.0, ((sqrt((b + 2.0 * v) * (b + 2.0 * v) + 8.0 * b * dist) - b) * 0.5 - v) / b);
         const double yFull = floor(y);
-        const double exactGap = (yFull*yFull+yFull)*0.5*b+yFull*v+(y>yFull ? v : 0.0);
-        const double fullSpeedGain = (yFull+(onInsertion ? 1. : 0.))*ACCEL2SPEED(myTrainParams.decl);
-        return DIST2SPEED(MAX2(0.0, dist-exactGap)/(yFull+1))+fullSpeedGain+targetSpeed;
+        const double exactGap = (yFull * yFull + yFull) * 0.5 * b + yFull * v + (y > yFull ? v : 0.0);
+        const double fullSpeedGain = (yFull + (onInsertion ? 1. : 0.)) * ACCEL2SPEED(myTrainParams.decl);
+        return DIST2SPEED(MAX2(0.0, dist - exactGap) / (yFull + 1)) + fullSpeedGain + targetSpeed;
     } else {
         WRITE_ERROR("Anything else then semi implicit euler update is not yet implemented. Exiting!");
         throw ProcessError();
     }
 }
 
-double MSCFModel_Rail::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const
-{
+double MSCFModel_Rail::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
     return MIN2(maximumSafeStopSpeed(gap, speed, false, TS), maxNextSpeed(speed, veh));
 }

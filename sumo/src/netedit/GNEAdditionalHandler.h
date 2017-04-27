@@ -317,7 +317,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildCalibrator(GNEViewNet* viewNet, const std::string& id, GNELane *lane, double pos, const std::string& outfile, double freq, 
+    static bool buildCalibrator(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double pos, const std::string& outfile, double freq,
                                 const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
                                 const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes);
 

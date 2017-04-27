@@ -143,7 +143,7 @@ public:
     AStarRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, Operation operation, const LookupTable* const lookup = 0):
         SUMOAbstractRouter<E, V>(operation, "AStarRouter"),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
-        myLookupTable(lookup), 
+        myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS) {
         for (typename std::vector<EdgeInfo>::const_iterator i = edgeInfos.begin(); i != edgeInfos.end(); ++i) {
             myEdgeInfos.push_back(EdgeInfo(i->edge));

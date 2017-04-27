@@ -386,7 +386,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     glRotated(180, 1, 0, 0);
     pfSetPosition(0, 0);
     double p = (double) 0.8 -
-                 ((double) 1.6 / (desc.getMax() - desc.getMin()) * (latest - desc.getMin()));
+               ((double) 1.6 / (desc.getMax() - desc.getMin()) * (latest - desc.getMin()));
     glTranslated(-0.98, p + .02, 0);
     pfDrawString(toString(latest).c_str());
     glTranslated(0.98, -(p + .02), 0);

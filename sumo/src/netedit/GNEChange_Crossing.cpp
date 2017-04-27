@@ -63,7 +63,7 @@ GNEChange_Crossing::~GNEChange_Crossing() {}
 void GNEChange_Crossing::undo() {
     if (myForward) {
         // show extra information for tests
-        if(myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
         }
         // remove crossing of NBNode and update geometry
@@ -73,7 +73,7 @@ void GNEChange_Crossing::undo() {
         myNet->getViewNet()->update();
     } else {
         // show extra information for tests
-        if(myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
         }
         // add crossing of NBNode and update geometry
@@ -88,7 +88,7 @@ void GNEChange_Crossing::undo() {
 void GNEChange_Crossing::redo() {
     if (myForward) {
         // show extra information for tests
-        if(myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
         }
         // add crossing of NBNode and update geometry
@@ -98,7 +98,7 @@ void GNEChange_Crossing::redo() {
         myNet->getViewNet()->update();
     } else {
         // show extra information for tests
-        if(myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
         }
         // remove crossing of NBNode and update geometry

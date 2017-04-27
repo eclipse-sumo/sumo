@@ -62,7 +62,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer( GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) :
+GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) :
     GNEAdditional(viewNet->getNet()->generateVaporizerID(), viewNet, Position(), SUMO_TAG_VAPORIZER, ICON_VAPORIZER),
     myStartTime(startTime),
     myEnd(end) {
@@ -312,9 +312,9 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTTIME:
-            if(canParse<double>(value) && (parse<double>(value) >= 0)) {
+            if (canParse<double>(value) && (parse<double>(value) >= 0)) {
                 double startTime = parse<double>(value);
-                if(startTime <= myEnd) {
+                if (startTime <= myEnd) {
                     return true;
                 } else {
                     return false;
@@ -323,9 +323,9 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_END:
-            if(canParse<double>(value) && (parse<double>(value) >= 0)) {
+            if (canParse<double>(value) && (parse<double>(value) >= 0)) {
                 double end = parse<double>(value);
-                if(myStartTime <= end) {
+                if (myStartTime <= end) {
                     return true;
                 } else {
                     return false;

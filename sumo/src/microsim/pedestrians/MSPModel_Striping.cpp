@@ -156,8 +156,8 @@ MSPModel_Striping::blockedAtDist(const MSLane* lane, double distToCrossing, std:
         const PState& ped = **it_ped;
         const double halfVehicleWidth = 1.0; // @note could get the actual value from the vehicle
         const double leaderBackDist = (ped.myDir == FORWARD
-                                         ? distToCrossing - (ped.myRelX - ped.getLength() - MSPModel::SAFETY_GAP - halfVehicleWidth)
-                                         : (ped.myRelX + ped.getLength() + MSPModel::SAFETY_GAP + halfVehicleWidth) - distToCrossing);
+                                       ? distToCrossing - (ped.myRelX - ped.getLength() - MSPModel::SAFETY_GAP - halfVehicleWidth)
+                                       : (ped.myRelX + ped.getLength() + MSPModel::SAFETY_GAP + halfVehicleWidth) - distToCrossing);
         //std::cout << SIMTIME << " foe=" << foeLane->getID() << " dir=" << p.myDir << " pX=" << ped.myRelX << " pL=" << ped.getLength() << " fDTC=" << distToCrossing << " lBD=" << leaderBackDist << "\n";
         if (leaderBackDist >= 0 && leaderBackDist <= BLOCKER_LOOKAHEAD) {
             // found one pedestrian that is not completely past the crossing point
@@ -323,8 +323,8 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
             // for the arrivalPos, we need to make sure that the route does not deviate across other junctions
             const int nextRouteEdgeDir = nextRouteEdge->getFromJunction() == junction ? FORWARD : BACKWARD;
             const double arrivalPos = (nextRouteEdge == ped.myStage->getRoute().back()
-                                         ? ped.myStage->getArrivalPos()
-                                         : (nextRouteEdgeDir == FORWARD ? 0 : nextRouteEdge->getLength()));
+                                       ? ped.myStage->getArrivalPos()
+                                       : (nextRouteEdgeDir == FORWARD ? 0 : nextRouteEdge->getLength()));
             MSEdgeVector prohibited;
             prohibited.push_back(&prevLane->getEdge());
             MSNet::getInstance()->getPedestrianRouter(prohibited).compute(currentEdge, nextRouteEdge, 0, arrivalPos, ped.myStage->getMaxSpeed(), 0, junction, crossingRoute, true);
@@ -1297,7 +1297,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
 double
 MSPModel_Striping::PState::getImpatience(SUMOTime now) const {
     return MAX2(0., MIN2(1., myPerson->getVehicleType().getImpatience()
-                                  + STEPS2TIME(myStage->getWaitingTime(now)) / MAX_WAIT_TOLERANCE));
+                         + STEPS2TIME(myStage->getWaitingTime(now)) / MAX_WAIT_TOLERANCE));
 }
 
 

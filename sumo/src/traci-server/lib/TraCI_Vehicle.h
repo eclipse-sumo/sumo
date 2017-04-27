@@ -5,7 +5,7 @@
 /// @date    15.03.2017
 /// @version $Id$
 ///
-// C++ Vehicle API 
+// C++ Vehicle API
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2012-2017 DLR (http://www.dlr.de/) and contributors
@@ -152,32 +152,32 @@ public:
     /// @name State Changing
     /// @{
 
-    static void setStop(const std::string& vehicleID, 
-            const std::string& edgeID, 
-            double endPos=1., 
-            int laneIndex=0, 
-            SUMOTime duration=4294967295, // 2^32-1
-            int flags=STOP_DEFAULT, 
-            double startPos=INVALID_DOUBLE_VALUE, 
-            SUMOTime until=-1);
+    static void setStop(const std::string& vehicleID,
+                        const std::string& edgeID,
+                        double endPos = 1.,
+                        int laneIndex = 0,
+                        SUMOTime duration = 4294967295, // 2^32-1
+                        int flags = STOP_DEFAULT,
+                        double startPos = INVALID_DOUBLE_VALUE,
+                        SUMOTime until = -1);
 
     static void resume(const std::string& vehicleID);
 
     static void add(const std::string& vehicleID,
-            const std::string& routeID,
-            const std::string& typeID = "DEFAULT_VEHTYPE",
-            std::string depart = "-1",
-            const std::string& departLane = "first",
-            const std::string& departPos = "base",
-            const std::string& departSpeed = "0",
-            const std::string& arrivalLane = "current",
-            const std::string& arrivalPos = "max",
-            const std::string& arrivalSpeed = "current",
-            const std::string& fromTaz = "",
-            const std::string& toTaz = "",
-            const std::string& line = "",
-            int personCapacity = 0,
-            int personNumber = 0);
+                    const std::string& routeID,
+                    const std::string& typeID = "DEFAULT_VEHTYPE",
+                    std::string depart = "-1",
+                    const std::string& departLane = "first",
+                    const std::string& departPos = "base",
+                    const std::string& departSpeed = "0",
+                    const std::string& arrivalLane = "current",
+                    const std::string& arrivalPos = "max",
+                    const std::string& arrivalSpeed = "current",
+                    const std::string& fromTaz = "",
+                    const std::string& toTaz = "",
+                    const std::string& line = "",
+                    int personCapacity = 0,
+                    int personNumber = 0);
 
     static void changeLane(const std::string& vehID, int laneIndex, SUMOTime duration);
 
@@ -201,7 +201,7 @@ private:
 
     static bool isVisible(const MSVehicle* veh);
 
-    static bool onInit(const std::string& vehicleID); 
+    static bool onInit(const std::string& vehicleID);
 
     /// @brief invalidated standard constructor
     TraCI_Vehicle();

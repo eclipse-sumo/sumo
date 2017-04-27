@@ -156,8 +156,8 @@ public:
     }
 
     void addSchedule(const SUMOTime begin, const SUMOTime end, const SUMOTime period, const double travelTimeSec) {
-        //std::cout << " edge=" << myEntryStop->getID() << "->" << this->getID() << " beg=" << STEPS2TIME(begin) << " end=" << STEPS2TIME(end) 
-        //    << " period=" << STEPS2TIME(period) 
+        //std::cout << " edge=" << myEntryStop->getID() << "->" << this->getID() << " beg=" << STEPS2TIME(begin) << " end=" << STEPS2TIME(end)
+        //    << " period=" << STEPS2TIME(period)
         //    << " travelTime=" << travelTimeSec << "\n";
         mySchedules.insert(std::make_pair(STEPS2TIME(begin), Schedule(begin, end, period, travelTimeSec)));
     }
@@ -172,8 +172,8 @@ public:
                 const int running = MAX2(0, (int)ceil((time - STEPS2TIME(it->second.begin)) / STEPS2TIME(it->second.period)));
                 const SUMOTime nextDepart = it->second.begin + running * it->second.period;
                 minArrivalSec = MIN2(STEPS2TIME(nextDepart) + it->second.travelTimeSec, minArrivalSec);
-                //std::cout << " edge=" << myEntryStop->getID() << "->" << this->getID() << " beg=" << STEPS2TIME(it->second.begin) << " end=" << STEPS2TIME(it->second.end) 
-                //    << " atTime=" << time 
+                //std::cout << " edge=" << myEntryStop->getID() << "->" << this->getID() << " beg=" << STEPS2TIME(it->second.begin) << " end=" << STEPS2TIME(it->second.end)
+                //    << " atTime=" << time
                 //    << " running=" << running << " nextDepart=" << nextDepart
                 //    << " minASec=" << minArrivalSec << " travelTime=" << minArrivalSec - time << "\n";
             }

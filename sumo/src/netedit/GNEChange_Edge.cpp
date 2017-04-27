@@ -65,7 +65,7 @@ GNEChange_Edge::~GNEChange_Edge() {
     myEdge->decRef("GNEChange_Edge");
     if (myEdge->unreferenced()) {
         // show extra information for tests
-        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting unreferenced " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
         }
         delete myEdge;
@@ -77,7 +77,7 @@ void
 GNEChange_Edge::undo() {
     if (myForward) {
         // show extra information for tests
-        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
         }
         // delete edge from net
@@ -92,7 +92,7 @@ GNEChange_Edge::undo() {
         }
     } else {
         // show extra information for tests
-        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
         }
         // insert edge into net
@@ -113,7 +113,7 @@ void
 GNEChange_Edge::redo() {
     if (myForward) {
         // show extra information for tests
-        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
         }
         // insert edge into net
@@ -128,7 +128,7 @@ GNEChange_Edge::redo() {
         }
     } else {
         // show extra information for tests
-        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
         }
         // delte edge from net

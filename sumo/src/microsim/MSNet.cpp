@@ -912,7 +912,7 @@ MSNet::getChargingStationID(const MSLane* lane, const double pos) const {
 }
 
 
-void 
+void
 MSNet::writeChargingStationOutput() const {
     OutputDevice& output = OutputDevice::getDeviceByOption("chargingstations-output");
     for (std::map<std::string, MSChargingStation*>::const_iterator it = myChargingStationDict.getMyMap().begin(); it != myChargingStationDict.getMyMap().end(); it++) {

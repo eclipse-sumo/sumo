@@ -62,9 +62,9 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, 
-    double frequency, const std::string& output, const std::vector<GNECalibratorRoute>& calibratorRoutes, 
-    const std::vector<GNECalibratorFlow>& calibratorFlows, const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) :
+GNECalibrator::GNECalibrator(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos,
+                             double frequency, const std::string& output, const std::vector<GNECalibratorRoute>& calibratorRoutes,
+                             const std::vector<GNECalibratorFlow>& calibratorFlows, const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) :
     GNEAdditional(id, viewNet, Position(pos, 0), SUMO_TAG_CALIBRATOR, ICON_CALIBRATOR),
     myFrequency(frequency),
     myOutput(output),
@@ -260,13 +260,13 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
         // Write number
         device.writeAttr(SUMO_ATTR_NUMBER, i->getNumber());
         // Write type of flow
-        if(i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
+        if (i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
             // write period
             device.writeAttr(SUMO_ATTR_PERIOD, i->getPeriod());
-        } else if(i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
+        } else if (i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
             // write vehs per hour
             device.writeAttr(SUMO_ATTR_VEHSPERHOUR, i->getVehsPerHour());
-        } else if(i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
+        } else if (i->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
             // write probability
             device.writeAttr(SUMO_ATTR_PROB, i->getProbability());
         }
@@ -278,20 +278,20 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
 }
 
 
-void 
-GNECalibrator::addCalibratorVehicleType(const GNECalibratorVehicleType &vehicleType) {
+void
+GNECalibrator::addCalibratorVehicleType(const GNECalibratorVehicleType& vehicleType) {
     myCalibratorVehicleTypes.push_back(vehicleType);
 }
 
 
-void 
-GNECalibrator::addCalibratorFlow(const GNECalibratorFlow &flow) {
+void
+GNECalibrator::addCalibratorFlow(const GNECalibratorFlow& flow) {
     myCalibratorFlows.push_back(flow);
 }
 
 
-void 
-GNECalibrator::addCalibratorRoute(const GNECalibratorRoute &route) {
+void
+GNECalibrator::addCalibratorRoute(const GNECalibratorRoute& route) {
     myCalibratorRoutes.push_back(route);
 }
 
@@ -314,58 +314,58 @@ GNECalibrator::getCalibratorRoutes() const {
 }
 
 
-void 
-GNECalibrator::setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType> &calibratorVehicleTypes) {
+void
+GNECalibrator::setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) {
     myCalibratorVehicleTypes = calibratorVehicleTypes;
 }
 
 
-void 
-GNECalibrator::setCalibratorFlows(const std::vector<GNECalibratorFlow> &calibratorFlows) {
+void
+GNECalibrator::setCalibratorFlows(const std::vector<GNECalibratorFlow>& calibratorFlows) {
     myCalibratorFlows = calibratorFlows;
 }
 
 
-void 
-GNECalibrator::setCalibratorRoutes(const std::vector<GNECalibratorRoute> &calibratorRoutes) {
+void
+GNECalibrator::setCalibratorRoutes(const std::vector<GNECalibratorRoute>& calibratorRoutes) {
     myCalibratorRoutes = calibratorRoutes;
 }
 
 
-std::string 
+std::string
 GNECalibrator::generateVehicleTypeID() const {
     int counter = 0;
-    while(myViewNet->getNet()->vehicleTypeExists(toString(SUMO_TAG_VTYPE) + toString(counter)) == true) {
+    while (myViewNet->getNet()->vehicleTypeExists(toString(SUMO_TAG_VTYPE) + toString(counter)) == true) {
         counter++;
     }
     return (toString(SUMO_TAG_VTYPE) + toString(counter));
 }
 
 
-std::string 
+std::string
 GNECalibrator::generateFlowID() const {
     int counter = 0;
-    while(myViewNet->getNet()->flowExists(toString(SUMO_TAG_FLOW) + toString(counter)) == true) {
+    while (myViewNet->getNet()->flowExists(toString(SUMO_TAG_FLOW) + toString(counter)) == true) {
         counter++;
     }
     return (toString(SUMO_TAG_FLOW) + toString(counter));
 }
 
 
-std::string 
+std::string
 GNECalibrator::generateRouteID() const {
     int counter = 0;
-    while(myViewNet->getNet()->routeExists(toString(SUMO_TAG_ROUTE) + toString(counter)) == true) {
+    while (myViewNet->getNet()->routeExists(toString(SUMO_TAG_ROUTE) + toString(counter)) == true) {
         counter++;
     }
     return (toString(SUMO_TAG_ROUTE) + toString(counter));
 }
 
 
-bool 
+bool
 GNECalibrator::vehicleTypeExists(std::string vehicleTypeID) const {
-    for(std::vector<GNECalibratorVehicleType>::const_iterator i = myCalibratorVehicleTypes.begin(); i != myCalibratorVehicleTypes.end(); i++) {
-        if(i->getVehicleTypeID() == vehicleTypeID) {
+    for (std::vector<GNECalibratorVehicleType>::const_iterator i = myCalibratorVehicleTypes.begin(); i != myCalibratorVehicleTypes.end(); i++) {
+        if (i->getVehicleTypeID() == vehicleTypeID) {
             return true;
         }
     }
@@ -373,10 +373,10 @@ GNECalibrator::vehicleTypeExists(std::string vehicleTypeID) const {
 }
 
 
-bool 
+bool
 GNECalibrator::flowExists(std::string flowID) const {
-    for(std::vector<GNECalibratorFlow>::const_iterator i = myCalibratorFlows.begin(); i != myCalibratorFlows.end(); i++) {
-        if(i->getFlowID() == flowID) {
+    for (std::vector<GNECalibratorFlow>::const_iterator i = myCalibratorFlows.begin(); i != myCalibratorFlows.end(); i++) {
+        if (i->getFlowID() == flowID) {
             return true;
         }
     }
@@ -384,10 +384,10 @@ GNECalibrator::flowExists(std::string flowID) const {
 }
 
 
-bool 
+bool
 GNECalibrator::routeExists(std::string routeID) const {
-    for(std::vector<GNECalibratorRoute>::const_iterator i = myCalibratorRoutes.begin(); i != myCalibratorRoutes.end(); i++) {
-        if(i->getRouteID() == routeID) {
+    for (std::vector<GNECalibratorRoute>::const_iterator i = myCalibratorRoutes.begin(); i != myCalibratorRoutes.end(); i++) {
+        if (i->getRouteID() == routeID) {
             return true;
         }
     }
@@ -395,10 +395,10 @@ GNECalibrator::routeExists(std::string routeID) const {
 }
 
 
-const GNECalibratorVehicleType& 
-GNECalibrator::getCalibratorVehicleType(const std::string &vehicleTypeID) {
-    for(std::vector<GNECalibratorVehicleType>::iterator i = myCalibratorVehicleTypes.begin(); i != myCalibratorVehicleTypes.end(); i++) {
-        if(i->getVehicleTypeID() == vehicleTypeID) {
+const GNECalibratorVehicleType&
+GNECalibrator::getCalibratorVehicleType(const std::string& vehicleTypeID) {
+    for (std::vector<GNECalibratorVehicleType>::iterator i = myCalibratorVehicleTypes.begin(); i != myCalibratorVehicleTypes.end(); i++) {
+        if (i->getVehicleTypeID() == vehicleTypeID) {
             return (*i);
         }
     }
@@ -406,10 +406,10 @@ GNECalibrator::getCalibratorVehicleType(const std::string &vehicleTypeID) {
 }
 
 
-const GNECalibratorFlow& 
-GNECalibrator::getCalibratorFlow(const std::string &flowID) {
-    for(std::vector<GNECalibratorFlow>::iterator i = myCalibratorFlows.begin(); i != myCalibratorFlows.end(); i++) {
-        if(i->getFlowID() == flowID) {
+const GNECalibratorFlow&
+GNECalibrator::getCalibratorFlow(const std::string& flowID) {
+    for (std::vector<GNECalibratorFlow>::iterator i = myCalibratorFlows.begin(); i != myCalibratorFlows.end(); i++) {
+        if (i->getFlowID() == flowID) {
             return (*i);
         }
     }
@@ -417,10 +417,10 @@ GNECalibrator::getCalibratorFlow(const std::string &flowID) {
 }
 
 
-const GNECalibratorRoute& 
-GNECalibrator::getCalibratorRoute(const std::string &routeID) {
-    for(std::vector<GNECalibratorRoute>::iterator i = myCalibratorRoutes.begin(); i != myCalibratorRoutes.end(); i++) {
-        if(i->getRouteID() == routeID) {
+const GNECalibratorRoute&
+GNECalibrator::getCalibratorRoute(const std::string& routeID) {
+    for (std::vector<GNECalibratorRoute>::iterator i = myCalibratorRoutes.begin(); i != myCalibratorRoutes.end(); i++) {
+        if (i->getRouteID() == routeID) {
             return (*i);
         }
     }

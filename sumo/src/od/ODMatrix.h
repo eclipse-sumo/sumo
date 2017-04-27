@@ -295,9 +295,9 @@ protected:
      * @return The number of left vehicles to insert
      */
     double computeDeparts(ODCell* cell,
-                            int& vehName, std::vector<ODVehicle>& into,
-                            const bool uniform, const bool differSourceSink,
-                            const std::string& prefix);
+                          int& vehName, std::vector<ODVehicle>& into,
+                          const bool uniform, const bool differSourceSink,
+                          const std::string& prefix);
 
 
     /** @brief Splits the given cell dividing it on the given time line and

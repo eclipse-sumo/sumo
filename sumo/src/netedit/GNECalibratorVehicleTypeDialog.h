@@ -54,7 +54,7 @@ class GNECalibratorVehicleTypeDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorVehicleTypeDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorVehicleType &calibratorVehicleType, bool updatingElement);
+    GNECalibratorVehicleTypeDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorVehicleType& calibratorVehicleType, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorVehicleTypeDialog();
@@ -107,15 +107,15 @@ protected:
 
     /// @brief FXComboBox for VClass
     FXComboBox* myComboBoxVClass;
-    
+
     /// @brief label with image of VClass
-    FXLabel *myComboBoxVClassLabelImage;
+    FXLabel* myComboBoxVClassLabelImage;
 
     /// @brief FXComboBox for Shape
     FXComboBox* myComboBoxShape;
 
     /// @brief label with image of Shape
-    FXLabel *myComboBoxShapeLabelImage;
+    FXLabel* myComboBoxShapeLabelImage;
 
     /// @brief FXTextfield for Accel
     FXTextField* myTextFieldAccel;

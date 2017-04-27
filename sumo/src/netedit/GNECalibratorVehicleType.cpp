@@ -89,12 +89,12 @@ GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorPare
 }
 
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID, 
-    double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed, 
-    double speedFactor, double speedDev, const std::string& color, SUMOVehicleClass vClass, const std::string& emissionClass, 
-    SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel, 
-    const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration, 
-    double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) :
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID,
+        double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
+        double speedFactor, double speedDev, const std::string& color, SUMOVehicleClass vClass, const std::string& emissionClass,
+        SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
+        const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
+        double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) :
     myCalibratorParent(calibratorParent), myVehicleTypeID(calibratorParent->generateVehicleTypeID()) {
     // set parameters using the set functions, to avoid non valid values
     setVehicleTypeID(vehicleTypeID);
@@ -141,37 +141,37 @@ GNECalibratorVehicleType::getTag() const {
 }
 
 
-std::string 
+std::string
 GNECalibratorVehicleType::getVehicleTypeID() const {
     return myVehicleTypeID;
 }
 
 
-double 
+double
 GNECalibratorVehicleType::getAccel() const {
     return myAccel;
 }
 
 
-double 
+double
 GNECalibratorVehicleType::getDecel() const {
     return myDecel;
 }
 
 
-double 
+double
 GNECalibratorVehicleType::getSigma() const {
     return mySigma;
 }
 
 
-double 
+double
 GNECalibratorVehicleType::getTau() const {
     return myTau;
 }
 
 
-double 
+double
 GNECalibratorVehicleType::getLength() const {
     return myLength;
 }
@@ -183,25 +183,25 @@ GNECalibratorVehicleType::getMinGap() const {
 }
 
 
-double 
+double
 GNECalibratorVehicleType::getMaxSpeed() const {
     return myMaxSpeed;
 }
 
 
-double 
+double
 GNECalibratorVehicleType::getSpeedFactor() const {
     return mySpeedFactor;
 }
 
 
-double 
+double
 GNECalibratorVehicleType::getSpeedDev() const {
     return mySpeedDev;
 }
 
 
-std::string 
+std::string
 GNECalibratorVehicleType::getColor() const {
     return myColor;
 }
@@ -213,7 +213,7 @@ GNECalibratorVehicleType::getVClass() const {
 }
 
 
-std::string 
+std::string
 GNECalibratorVehicleType::getEmissionClass() const {
     return myEmissionClass;
 }
@@ -225,7 +225,7 @@ GNECalibratorVehicleType::getShape() const {
 }
 
 
-double 
+double
 GNECalibratorVehicleType::getWidth() const {
     return myWidth;
 }
@@ -296,11 +296,11 @@ GNECalibratorVehicleType::getMaxSpeedLat() const {
     return myMaxSpeedLat;
 }
 
-bool 
+bool
 GNECalibratorVehicleType::setVehicleTypeID(std::string vehicleTypeID) {
     if (vehicleTypeID.empty()) {
         return false;
-    } else if(myCalibratorParent->getViewNet()->getNet()->vehicleTypeExists(vehicleTypeID) == true) {
+    } else if (myCalibratorParent->getViewNet()->getNet()->vehicleTypeExists(vehicleTypeID) == true) {
         return false;
     } else {
         myVehicleTypeID = vehicleTypeID;
@@ -309,9 +309,9 @@ GNECalibratorVehicleType::setVehicleTypeID(std::string vehicleTypeID) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setAccel(double accel) {
-    if(accel < 0) {
+    if (accel < 0) {
         return false;
     } else {
         myAccel = accel;
@@ -320,7 +320,7 @@ GNECalibratorVehicleType::setAccel(double accel) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setAccel(std::string accel) {
     if (GNEAttributeCarrier::canParse<double>(accel)) {
         return setAccel(GNEAttributeCarrier::parse<double>(accel));
@@ -330,9 +330,9 @@ GNECalibratorVehicleType::setAccel(std::string accel) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setDecel(double decel) {
-    if(decel < 0) {
+    if (decel < 0) {
         return false;
     } else {
         myDecel = decel;
@@ -341,7 +341,7 @@ GNECalibratorVehicleType::setDecel(double decel) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setDecel(std::string decel) {
     if (GNEAttributeCarrier::canParse<double>(decel)) {
         return setDecel(GNEAttributeCarrier::parse<double>(decel));
@@ -351,9 +351,9 @@ GNECalibratorVehicleType::setDecel(std::string decel) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setSigma(double sigma) {
-    if(sigma < 0) {
+    if (sigma < 0) {
         return false;
     } else {
         mySigma = sigma;
@@ -362,7 +362,7 @@ GNECalibratorVehicleType::setSigma(double sigma) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setSigma(std::string sigma) {
     if (GNEAttributeCarrier::canParse<double>(sigma)) {
         return setSigma(GNEAttributeCarrier::parse<double>(sigma));
@@ -372,9 +372,9 @@ GNECalibratorVehicleType::setSigma(std::string sigma) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setTau(double tau) {
-    if(tau < 0) {
+    if (tau < 0) {
         return false;
     } else {
         myTau = tau;
@@ -383,7 +383,7 @@ GNECalibratorVehicleType::setTau(double tau) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setTau(std::string tau) {
     if (GNEAttributeCarrier::canParse<double>(tau)) {
         return setTau(GNEAttributeCarrier::parse<double>(tau));
@@ -393,9 +393,9 @@ GNECalibratorVehicleType::setTau(std::string tau) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setLength(double length) {
-    if(length < 0) {
+    if (length < 0) {
         return false;
     } else {
         myLength = length;
@@ -404,7 +404,7 @@ GNECalibratorVehicleType::setLength(double length) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setLength(std::string length) {
     if (GNEAttributeCarrier::canParse<double>(length)) {
         return setLength(GNEAttributeCarrier::parse<double>(length));
@@ -413,10 +413,10 @@ GNECalibratorVehicleType::setLength(std::string length) {
     }
 }
 
- 
+
 bool
 GNECalibratorVehicleType::setMinGap(double minGap) {
-    if(minGap < 0) {
+    if (minGap < 0) {
         return false;
     } else {
         myMinGap = minGap;
@@ -425,7 +425,7 @@ GNECalibratorVehicleType::setMinGap(double minGap) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setMinGap(std::string minGap) {
     if (GNEAttributeCarrier::canParse<double>(minGap)) {
         return setMinGap(GNEAttributeCarrier::parse<double>(minGap));
@@ -435,9 +435,9 @@ GNECalibratorVehicleType::setMinGap(std::string minGap) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setMaxSpeed(double maxSpeed) {
-    if(maxSpeed < 0) {
+    if (maxSpeed < 0) {
         return false;
     } else {
         myMaxSpeed = maxSpeed;
@@ -446,7 +446,7 @@ GNECalibratorVehicleType::setMaxSpeed(double maxSpeed) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setMaxSpeed(std::string maxSpeed) {
     if (GNEAttributeCarrier::canParse<double>(maxSpeed)) {
         return setMaxSpeed(GNEAttributeCarrier::parse<double>(maxSpeed));
@@ -455,10 +455,10 @@ GNECalibratorVehicleType::setMaxSpeed(std::string maxSpeed) {
     }
 }
 
-  
-bool 
+
+bool
 GNECalibratorVehicleType::setSpeedFactor(double speedFactor) {
-    if(speedFactor < 0) {
+    if (speedFactor < 0) {
         return false;
     } else {
         mySpeedFactor = speedFactor;
@@ -467,7 +467,7 @@ GNECalibratorVehicleType::setSpeedFactor(double speedFactor) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setSpeedFactor(std::string speedFactor) {
     if (GNEAttributeCarrier::canParse<double>(speedFactor)) {
         return setSpeedFactor(GNEAttributeCarrier::parse<double>(speedFactor));
@@ -477,9 +477,9 @@ GNECalibratorVehicleType::setSpeedFactor(std::string speedFactor) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setSpeedDev(double speedDev) {
-    if(speedDev < 0) {
+    if (speedDev < 0) {
         return false;
     } else {
         mySpeedDev = speedDev;
@@ -488,7 +488,7 @@ GNECalibratorVehicleType::setSpeedDev(double speedDev) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setSpeedDev(std::string speedDev) {
     if (GNEAttributeCarrier::canParse<double>(speedDev)) {
         return setSpeedDev(GNEAttributeCarrier::parse<double>(speedDev));
@@ -497,48 +497,48 @@ GNECalibratorVehicleType::setSpeedDev(std::string speedDev) {
     }
 }
 
- 
-bool 
+
+bool
 GNECalibratorVehicleType::setColor(std::string color) {
     myColor = color;
     return true;
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setVClass(SUMOVehicleClass vClass) {
     myVClass = vClass;
     return true;
 }
 
- 
-bool 
+
+bool
 GNECalibratorVehicleType::setVClass(std::string vClass) {
-    if(canParseVehicleClasses(vClass) == true) {
+    if (canParseVehicleClasses(vClass) == true) {
         return setVClass(getVehicleClassID(vClass));
     } else {
         return false;
     }
 }
 
- 
-bool 
+
+bool
 GNECalibratorVehicleType::setEmissionClass(std::string emissionClass) {
     myEmissionClass = emissionClass;
     return true;
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setShape(SUMOVehicleShape shape) {
     myShape = shape;
     return true;
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setShape(std::string shape) {
-    if(canParseVehicleShape(shape)) {
+    if (canParseVehicleShape(shape)) {
         return setShape(getVehicleShapeID(shape));
     } else {
         return false;
@@ -546,9 +546,9 @@ GNECalibratorVehicleType::setShape(std::string shape) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setWidth(double width) {
-    if(width < 0) {
+    if (width < 0) {
         return false;
     } else {
         myWidth = width;
@@ -556,8 +556,8 @@ GNECalibratorVehicleType::setWidth(double width) {
     }
 }
 
-   
-bool 
+
+bool
 GNECalibratorVehicleType::setWidth(std::string width) {
     if (GNEAttributeCarrier::canParse<double>(width)) {
         return setWidth(GNEAttributeCarrier::parse<double>(width));
@@ -567,16 +567,16 @@ GNECalibratorVehicleType::setWidth(std::string width) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setFilename(std::string filename) {
     myFilename = filename;
     return true;
 }
 
- 
-bool 
+
+bool
 GNECalibratorVehicleType::setImpatience(double impatience) {
-    if(impatience < 0) {
+    if (impatience < 0) {
         return false;
     } else {
         myImpatience = impatience;
@@ -584,8 +584,8 @@ GNECalibratorVehicleType::setImpatience(double impatience) {
     }
 }
 
- 
-bool 
+
+bool
 GNECalibratorVehicleType::setImpatience(std::string impatience) {
     if (GNEAttributeCarrier::canParse<double>(impatience)) {
         return setImpatience(GNEAttributeCarrier::parse<double>(impatience));
@@ -594,24 +594,24 @@ GNECalibratorVehicleType::setImpatience(std::string impatience) {
     }
 }
 
- 
-bool 
+
+bool
 GNECalibratorVehicleType::setLaneChangeModel(std::string laneChangeModel) {
     myLaneChangeModel = laneChangeModel;
     return true;
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setCarFollowModel(std::string carFollowModel) {
     myCarFollowModel = carFollowModel;
     return true;
 }
 
- 
-bool 
+
+bool
 GNECalibratorVehicleType::setPersonCapacity(int personCapacity) {
-    if(personCapacity < 0) {
+    if (personCapacity < 0) {
         return false;
     } else {
         myPersonCapacity = personCapacity;
@@ -620,12 +620,12 @@ GNECalibratorVehicleType::setPersonCapacity(int personCapacity) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setPersonCapacity(std::string personCapacity) {
     if (GNEAttributeCarrier::canParse<double>(personCapacity)) {
         double personCapacityD = GNEAttributeCarrier::parse<double>(personCapacity);
         // Check that double doesn't have decimals
-        if(fmod(personCapacityD, 1) == 0) {
+        if (fmod(personCapacityD, 1) == 0) {
             return setPersonCapacity((int)personCapacityD);
         } else {
             return false;
@@ -636,9 +636,9 @@ GNECalibratorVehicleType::setPersonCapacity(std::string personCapacity) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setContainerCapacity(int containerCapacity) {
-    if(containerCapacity < 0) {
+    if (containerCapacity < 0) {
         return false;
     } else {
         myContainerCapacity = containerCapacity;
@@ -647,12 +647,12 @@ GNECalibratorVehicleType::setContainerCapacity(int containerCapacity) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setContainerCapacity(std::string containerCapacity) {
     if (GNEAttributeCarrier::canParse<double>(containerCapacity)) {
         double containerCapacityD = GNEAttributeCarrier::parse<double>(containerCapacity);
         // Check that double doesn't have decimals
-        if(fmod(containerCapacityD, 1) == 0) {
+        if (fmod(containerCapacityD, 1) == 0) {
             return setContainerCapacity((int)containerCapacityD);
         } else {
             return false;
@@ -663,9 +663,9 @@ GNECalibratorVehicleType::setContainerCapacity(std::string containerCapacity) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setBoardingDuration(double boardingDuration) {
-    if(boardingDuration < 0) {
+    if (boardingDuration < 0) {
         return false;
     } else {
         myBoardingDuration = boardingDuration;
@@ -674,7 +674,7 @@ GNECalibratorVehicleType::setBoardingDuration(double boardingDuration) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setBoardingDuration(std::string boardingDuration) {
     if (GNEAttributeCarrier::canParse<double>(boardingDuration)) {
         return setBoardingDuration(GNEAttributeCarrier::parse<double>(boardingDuration));
@@ -686,7 +686,7 @@ GNECalibratorVehicleType::setBoardingDuration(std::string boardingDuration) {
 
 bool
 GNECalibratorVehicleType::setLoadingDuration(double loadingDuration) {
-    if(loadingDuration < 0) {
+    if (loadingDuration < 0) {
         return false;
     } else {
         myLoadingDuration = loadingDuration;
@@ -695,7 +695,7 @@ GNECalibratorVehicleType::setLoadingDuration(double loadingDuration) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setLoadingDuration(std::string loadingDuration) {
     if (GNEAttributeCarrier::canParse<double>(loadingDuration)) {
         return setLoadingDuration(GNEAttributeCarrier::parse<double>(loadingDuration));
@@ -705,21 +705,21 @@ GNECalibratorVehicleType::setLoadingDuration(std::string loadingDuration) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setLatAlignment(std::string latAlignment) {
-    if((latAlignment == "left") || (latAlignment == "right") || (latAlignment == "center") ||
-       (latAlignment == "compact") || (latAlignment == "nice") || (latAlignment == "arbitrary")) {
-           myLatAlignment = latAlignment;
-           return true;
+    if ((latAlignment == "left") || (latAlignment == "right") || (latAlignment == "center") ||
+            (latAlignment == "compact") || (latAlignment == "nice") || (latAlignment == "arbitrary")) {
+        myLatAlignment = latAlignment;
+        return true;
     } else {
         return false;
     }
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setMinGapLat(double minGapLat) {
-    if(minGapLat < 0) {
+    if (minGapLat < 0) {
         return false;
     } else {
         myMinGapLat = minGapLat;
@@ -728,7 +728,7 @@ GNECalibratorVehicleType::setMinGapLat(double minGapLat) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setMinGapLat(std::string minGapLat) {
     if (GNEAttributeCarrier::canParse<double>(minGapLat)) {
         return setMinGapLat(GNEAttributeCarrier::parse<double>(minGapLat));
@@ -738,9 +738,9 @@ GNECalibratorVehicleType::setMinGapLat(std::string minGapLat) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setMaxSpeedLat(double maxSpeedLat) {
-    if(maxSpeedLat < 0) {
+    if (maxSpeedLat < 0) {
         return false;
     } else {
         myMaxSpeedLat = maxSpeedLat;
@@ -749,7 +749,7 @@ GNECalibratorVehicleType::setMaxSpeedLat(double maxSpeedLat) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::setMaxSpeedLat(std::string maxSpeedLat) {
     if (GNEAttributeCarrier::canParse<double>(maxSpeedLat)) {
         return setMaxSpeedLat(GNEAttributeCarrier::parse<double>(maxSpeedLat));
@@ -759,7 +759,7 @@ GNECalibratorVehicleType::setMaxSpeedLat(std::string maxSpeedLat) {
 }
 
 
-bool 
+bool
 GNECalibratorVehicleType::operator==(const GNECalibratorVehicleType& calibratorVehicleType) const {
     return (myVehicleTypeID == calibratorVehicleType.getVehicleTypeID());
 }

@@ -208,7 +208,7 @@ GUIRunThread::makeStep() {
                     WRITE_MESSAGE("Reason: " + MSNet::getStateMessage(state));
                     e = new GUIEvent_SimulationEnded(state, myNet->getCurrentTimeStep() - DELTA_T);
                     myHaveSignaledEnd = true;
-                } 
+                }
                 break;
             default:
                 break;

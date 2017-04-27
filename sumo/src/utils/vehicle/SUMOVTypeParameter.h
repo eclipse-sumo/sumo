@@ -91,7 +91,7 @@ public:
      *
      * Initialises the structure with default values
      */
-    SUMOVTypeParameter(const std::string &vtid, const SUMOVehicleClass vc = SVC_IGNORING);
+    SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vc = SVC_IGNORING);
 
 
     /** @brief Returns whether the given parameter was set
@@ -108,7 +108,7 @@ public:
      * @param[in, out] dev The device to write into
      * @exception IOError not yet implemented
      */
-    void write(OutputDevice &dev) const;
+    void write(OutputDevice& dev) const;
 
     /** @brief Validates stored car-following parameter
      */
@@ -246,7 +246,7 @@ public:
     static double getDefaultImperfection(const SUMOVehicleClass vc = SVC_IGNORING);
 
     /// @brief return the default parameters, this is a function due to the http://www.parashift.com/c++-faq/static-init-order.html
-    static const SUMOVTypeParameter &getDefault();
+    static const SUMOVTypeParameter& getDefault();
 
 };
 

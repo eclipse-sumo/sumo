@@ -416,7 +416,7 @@ MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass 
     return res;
 }
 
-double 
+double
 MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
     const SUMOVehicleParameter& pars = veh.getParameter();
     double pos = getLength();
@@ -431,7 +431,7 @@ MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
         case DEPART_POS_RANDOM:
             // could be any position on the edge
             break;
-        case DEPART_POS_RANDOM_FREE: 
+        case DEPART_POS_RANDOM_FREE:
             // could be any position on the edge due to multiple random attempts
             break;
         case DEPART_POS_FREE:
@@ -827,7 +827,7 @@ MSEdge::getSpeedLimit() const {
 }
 
 
-double 
+double
 MSEdge::getLengthGeometryFactor() const {
     return getLanes()[0]->getLengthGeometryFactor();
 }

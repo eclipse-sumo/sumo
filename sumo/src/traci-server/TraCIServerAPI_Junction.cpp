@@ -63,35 +63,35 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
 
-    try{
+    try {
         switch (variable) {
-        case ID_LIST:
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(TraCI_Junction::getIDList());
-            break;
-        case ID_COUNT:
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt(TraCI_Junction::getIDCount());
-            break;
-        case VAR_POSITION: {
-            tempMsg.writeUnsignedByte(POSITION_2D);
-            TraCIPosition p = TraCI_Junction::getPosition(id);
-            tempMsg.writeDouble(p.x);
-            tempMsg.writeDouble(p.y);
-            break;
-        }
-        case VAR_SHAPE: {
-            tempMsg.writeUnsignedByte(TYPE_POLYGON);
-            const TraCIPositionVector shp = TraCI_Junction::getShape(id);
-            tempMsg.writeUnsignedByte(MIN2(255, (int) shp.size()));
-            for (int iPoint = 0; iPoint < MIN2(255, (int) shp.size()); ++iPoint) {
-                tempMsg.writeDouble(shp[iPoint].x);
-                tempMsg.writeDouble(shp[iPoint].y);
+            case ID_LIST:
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                tempMsg.writeStringList(TraCI_Junction::getIDList());
+                break;
+            case ID_COUNT:
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(TraCI_Junction::getIDCount());
+                break;
+            case VAR_POSITION: {
+                tempMsg.writeUnsignedByte(POSITION_2D);
+                TraCIPosition p = TraCI_Junction::getPosition(id);
+                tempMsg.writeDouble(p.x);
+                tempMsg.writeDouble(p.y);
+                break;
             }
-            break;
-        }
-        default:
-            break;
+            case VAR_SHAPE: {
+                tempMsg.writeUnsignedByte(TYPE_POLYGON);
+                const TraCIPositionVector shp = TraCI_Junction::getShape(id);
+                tempMsg.writeUnsignedByte(MIN2(255, (int) shp.size()));
+                for (int iPoint = 0; iPoint < MIN2(255, (int) shp.size()); ++iPoint) {
+                    tempMsg.writeDouble(shp[iPoint].x);
+                    tempMsg.writeDouble(shp[iPoint].y);
+                }
+                break;
+            }
+            default:
+                break;
 
         }
     } catch (TraCIException& e) {

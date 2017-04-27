@@ -102,9 +102,9 @@ public:
     bool isCharging() const;
 
     /// @brief add charge value for output
-    void addChargeValueForOutput(double WCharged, MSDevice_Battery *battery);
+    void addChargeValueForOutput(double WCharged, MSDevice_Battery* battery);
 
-    /// @brief write charging station values 
+    /// @brief write charging station values
     void writeChargingStationOutput(OutputDevice& output);
 
 protected:
@@ -113,8 +113,8 @@ protected:
     struct charge {
         /// @brief constructor
         charge(SUMOTime _timeStep, std::string _vehicleID, std::string _vehicleType, std::string _status,
-            double _WCharged, double _actualBatteryCapacity, double _maxBatteryCapacity, double _chargingPower,
-            double _chargingEfficiency, double _totalEnergyCharged) :
+               double _WCharged, double _actualBatteryCapacity, double _maxBatteryCapacity, double _chargingPower,
+               double _chargingEfficiency, double _totalEnergyCharged) :
             timeStep(_timeStep),
             vehicleID(_vehicleID),
             vehicleType(_vehicleType),

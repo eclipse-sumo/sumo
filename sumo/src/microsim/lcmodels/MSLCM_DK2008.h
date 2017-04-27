@@ -92,7 +92,7 @@ public:
      * @return the new speed of the vehicle as proposed by the lane changer
      */
     virtual double patchSpeed(const double min, const double wanted, const double max,
-                                const MSCFModel& cfModel);
+                              const MSCFModel& cfModel);
 
     virtual void changed();
 

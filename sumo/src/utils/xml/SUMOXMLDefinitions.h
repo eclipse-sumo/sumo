@@ -249,7 +249,7 @@ enum SumoXMLTag {
     SUMO_TAG_CF_KRAUSS,
     SUMO_TAG_CF_KRAUSS_PLUS_SLOPE,
     SUMO_TAG_CF_KRAUSS_ORIG1,
-    SUMO_TAG_CF_KRAUSSX, 
+    SUMO_TAG_CF_KRAUSSX,
     SUMO_TAG_CF_SMART_SK,
     SUMO_TAG_CF_DANIEL1,
     SUMO_TAG_CF_IDM,
@@ -418,7 +418,7 @@ enum SumoXMLAttr {
     /// @brief Delay in the charge of charging stations
     SUMO_ATTR_CHARGEDELAY,
     /// @}
-    
+
     /// @name battery device parameters
     /// @{
     /// @brief Actual battery capacity
@@ -448,7 +448,7 @@ enum SumoXMLAttr {
     /// @brief Stopping treshold
     SUMO_ATTR_STOPPINGTRESHOLD,
     /// @}
-    
+
     /// @name battery export parameters
     /// @{
     /// @brief charging status

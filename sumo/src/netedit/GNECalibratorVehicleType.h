@@ -53,13 +53,13 @@ public:
     GNECalibratorVehicleType(GNECalibrator* calibratorParent);
 
     /// @brief parameter constructor
-    GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID, 
-        double accel, double decel, double sigma, double tau, double length, double minGap, 
-        double maxSpeed, double speedFactor, double speedDev, const std::string& color, 
-        SUMOVehicleClass vClass, const std::string& emissionClass, SUMOVehicleShape shape, 
-        double width, const std::string& filename, double impatience, const std::string& laneChangeModel, 
-        const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration, 
-        double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat);
+    GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID,
+                             double accel, double decel, double sigma, double tau, double length, double minGap,
+                             double maxSpeed, double speedFactor, double speedDev, const std::string& color,
+                             SUMOVehicleClass vClass, const std::string& emissionClass, SUMOVehicleShape shape,
+                             double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
+                             const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
+                             double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat);
 
     /// @brief destructor
     ~GNECalibratorVehicleType();
@@ -416,7 +416,7 @@ private:
     /// @brief An abstract vehicle class
     SUMOVehicleClass myVClass;
 
-    /// @brief An abstract emission class 
+    /// @brief An abstract emission class
     std::string myEmissionClass;
 
     /// @brief How this vehicle is rendered

@@ -58,7 +58,7 @@ extern "C"
 #include <libswscale/swscale.h>
 }
 #ifdef _MSC_VER
-#pragma warning(pop) 
+#pragma warning(pop)
 #endif
 #if __GNUC__ > 3
 #pragma GCC diagnostic pop

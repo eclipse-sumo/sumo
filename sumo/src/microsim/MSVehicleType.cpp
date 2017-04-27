@@ -260,7 +260,7 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             vtype->myCarFollowModel = new MSCFModel_KraussX(vtype, accel, decel, emergencyDecel, apparentDecel, sigma, tau,
                     from.getCFParam(SUMO_ATTR_TMP1, 0.),
                     from.getCFParam(SUMO_ATTR_TMP2, 0.)
-                    );
+                                                           );
             break;
         case SUMO_TAG_CF_SMART_SK:
             vtype->myCarFollowModel = new MSCFModel_SmartSK(vtype, accel, decel, emergencyDecel, sigma, tau,
@@ -289,7 +289,7 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
                     from.getCFParam(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5));
             break;
         case SUMO_TAG_CF_RAIL:
-            vtype->myCarFollowModel = new MSCFModel_Rail(vtype, from.getCFParamString(SUMO_ATTR_TRAIN_TYPE,"NGT400"));
+            vtype->myCarFollowModel = new MSCFModel_Rail(vtype, from.getCFParamString(SUMO_ATTR_TRAIN_TYPE, "NGT400"));
             break;
         case SUMO_TAG_CF_KRAUSS:
         default:

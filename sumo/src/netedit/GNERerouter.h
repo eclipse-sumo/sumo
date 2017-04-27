@@ -90,12 +90,12 @@ public:
     void removeEdgeChild(GNEEdge* edge);
 
     /// @brief get edge chidls
-    const std::vector<GNEEdge*> &getEdgeChilds() const;
+    const std::vector<GNEEdge*>& getEdgeChilds() const;
 
     /**@brief add rerouter interval
      * @return true if was sucesfully added, false if wasn't added due overlapping
      */
-    bool addRerouterInterval(const GNERerouterInterval &rerouterInterval);
+    bool addRerouterInterval(const GNERerouterInterval& rerouterInterval);
 
     /// @brief get rerouter intervals
     const std::vector<GNERerouterInterval>& getRerouterIntervals() const;

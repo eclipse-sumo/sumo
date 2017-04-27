@@ -416,11 +416,11 @@ GNEEdge::remakeIncomingGNEConnections() {
 void
 GNEEdge::remakeGNEConnections() {
     // @note: this method may only be called once the whole network is initialized
-    
+
     // first check that there are the same number of NBLanes as GNELanes
-    while(myLanes.size() < myNBEdge.getLanes().size()) {
-        GNELane *lane = new GNELane(*this, myLanes.size());
-        const NBEdge::Lane &laneAttrs = myNBEdge.getLanes().at(myLanes.size());
+    while (myLanes.size() < myNBEdge.getLanes().size()) {
+        GNELane* lane = new GNELane(*this, myLanes.size());
+        const NBEdge::Lane& laneAttrs = myNBEdge.getLanes().at(myLanes.size());
         myLanes.push_back(lane);
         lane->incRef("GNEEdge::addLane");
         // we copy all attributes except shape since this is recomputed from edge shape
@@ -441,7 +441,7 @@ GNEEdge::remakeGNEConnections() {
         myNet->refreshElement(this);
         updateGeometry();
     }
-    
+
     // Create connections (but reuse existing objects)
     std::vector<NBEdge::Connection>& myConnections = myNBEdge.getConnections();
     ConnectionVector newCons;
@@ -471,11 +471,11 @@ GNEEdge::clearGNEConnections() {
 }
 
 
-int 
-GNEEdge::getRouteProbeRelativePosition(GNERouteProbe *routeProbe) const {
+int
+GNEEdge::getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const {
     AdditionalVector routeProbes;
-    for(AdditionalVector::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
-        if((*i)->getTag() == routeProbe->getTag()) {
+    for (AdditionalVector::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+        if ((*i)->getTag() == routeProbe->getTag()) {
             routeProbes.push_back(*i);
         }
     }
@@ -490,10 +490,10 @@ GNEEdge::getRouteProbeRelativePosition(GNERouteProbe *routeProbe) const {
 
 
 int
-GNEEdge::getVaporizerRelativePosition(GNEVaporizer *vaporizer) const {
+GNEEdge::getVaporizerRelativePosition(GNEVaporizer* vaporizer) const {
     AdditionalVector vaporizers;
-    for(AdditionalVector::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
-        if((*i)->getTag() == vaporizer->getTag()) {
+    for (AdditionalVector::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+        if ((*i)->getTag() == vaporizer->getTag()) {
             vaporizers.push_back(*i);
         }
     }
@@ -614,13 +614,13 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_MODIFICATION_STATUS:
             return myConnectionStatus;
         case GNE_ATTR_SHAPE_START:
-            if(myNBEdge.getGeometry()[0] == myGNEJunctionSource->getPosition()) {
+            if (myNBEdge.getGeometry()[0] == myGNEJunctionSource->getPosition()) {
                 return "";
             } else {
                 return toString(myNBEdge.getGeometry()[0]);
             }
         case GNE_ATTR_SHAPE_END:
-            if(myNBEdge.getGeometry()[-1] == myGNEJunctionDestiny->getPosition()) {
+            if (myNBEdge.getGeometry()[-1] == myGNEJunctionDestiny->getPosition()) {
                 return "";
             } else {
                 return toString(myNBEdge.getGeometry()[-1]);
@@ -860,7 +860,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             // get geometry of NBEdge, remove FIRST element with the new value (or with the Junction Source position) and set it back to edge
             PositionVector geom = myNBEdge.getGeometry();
             geom.erase(geom.begin());
-            if(value == "") {
+            if (value == "") {
                 geom.push_front_noDoublePos(myGNEJunctionSource->getPosition());
             } else {
                 geom.push_front_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
@@ -872,7 +872,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             // get geometry of NBEdge, remove LAST element with the new value (or with the Junction Destiny position) and set it back to edge
             PositionVector geom = myNBEdge.getGeometry();
             geom.pop_back();
-            if(value == "") {
+            if (value == "") {
                 geom.push_back_noDoublePos(myGNEJunctionDestiny->getPosition());
             } else {
                 geom.push_back_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
@@ -1064,9 +1064,9 @@ GNEEdge::getAdditionalChilds() const {
 }
 
 
-void 
+void
 GNEEdge::addGNERerouter(GNERerouter* rerouter) {
-    if(std::find(myReroutes.begin(), myReroutes.end(), rerouter) == myReroutes.end()) {
+    if (std::find(myReroutes.begin(), myReroutes.end(), rerouter) == myReroutes.end()) {
         myReroutes.push_back(rerouter);
     } else {
         throw ProcessError(toString(rerouter->getTag()) + " '" + rerouter->getID() + "' was previously inserted");
@@ -1074,10 +1074,10 @@ GNEEdge::addGNERerouter(GNERerouter* rerouter) {
 }
 
 
-void 
+void
 GNEEdge::removeGNERerouter(GNERerouter* rerouter) {
     std::vector<GNERerouter*>::iterator it = std::find(myReroutes.begin(), myReroutes.end(), rerouter);
-    if(it != myReroutes.end()) {
+    if (it != myReroutes.end()) {
         myReroutes.erase(it);
     } else {
         throw ProcessError(toString(rerouter->getTag()) + " '" + rerouter->getID() + "' wasn't previously inserted");
@@ -1085,13 +1085,13 @@ GNEEdge::removeGNERerouter(GNERerouter* rerouter) {
 }
 
 
-const std::vector<GNERerouter*>& 
+const std::vector<GNERerouter*>&
 GNEEdge::getGNERerouters() const {
     return myReroutes;
 }
 
 
-int 
+int
 GNEEdge::getNumberOfGNERerouters() const {
     return (int)myReroutes.size();
 }

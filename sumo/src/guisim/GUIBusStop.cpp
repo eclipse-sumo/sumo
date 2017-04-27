@@ -133,7 +133,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     RGBColor green(76, 170, 50, 255);
     RGBColor yellow(255, 235, 0, 255);
-    RGBColor black(0,0,0);
+    RGBColor black(0, 0, 0);
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(green);
@@ -174,8 +174,8 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         }
         //TODO: add pt stop show name options to gui settings [GL Mar '17]
         if (s.streetName.show && s.scale * exaggeration >= 4.5) {
-            glTranslated(0,-3.1,0);
-            GLHelper::drawText(getMyName(),Position(),.1,3,black,myFGSignRot);
+            glTranslated(0, -3.1, 0);
+            GLHelper::drawText(getMyName(), Position(), .1, 3, black, myFGSignRot);
         }
 
     }

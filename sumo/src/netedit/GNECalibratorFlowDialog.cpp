@@ -61,7 +61,7 @@ FXIMPLEMENT(GNECalibratorFlowDialog, FXDialogBox, GNECalibratorFlowDialogMap, AR
 // member method definitions
 // ===========================================================================
 
-GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow &calibratorFlow, bool updatingElement) :
+GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow& calibratorFlow, bool updatingElement) :
     GNEAdditionalDialog(calibratorFlow.getCalibratorParent(), 600, 300),
     myCalibratorDialogParent(calibratorDialog),
     myCalibratorFlow(&calibratorFlow),
@@ -146,14 +146,14 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorDialog* calibrator
 
     // fill comboBox of VTypes
     const std::vector<GNECalibratorVehicleType>& vtypes = myCalibratorFlow->getCalibratorParent()->getCalibratorVehicleTypes();
-    for(std::vector<GNECalibratorVehicleType>::const_iterator i = vtypes.begin(); i != vtypes.end(); i++) {
+    for (std::vector<GNECalibratorVehicleType>::const_iterator i = vtypes.begin(); i != vtypes.end(); i++) {
         myComboBoxVehicleType->appendItem(i->getVehicleTypeID().c_str());
     }
     myComboBoxVehicleType->setNumVisible(10);
 
     // fill comboBox of Routes
     const std::vector<GNECalibratorRoute>& routes = myCalibratorFlow->getCalibratorParent()->getCalibratorRoutes();
-    for(std::vector<GNECalibratorRoute>::const_iterator i = routes.begin(); i != routes.end(); i++) {
+    for (std::vector<GNECalibratorRoute>::const_iterator i = routes.begin(); i != routes.end(); i++) {
         myComboBoxRoute->appendItem(i->getRouteID().c_str());
     }
     myComboBoxRoute->setNumVisible(10);
@@ -179,19 +179,19 @@ long
 GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myCalibratorFlowValid == false) {
         // write warning if netedit is running in testing mode
-        if(myCalibratorDialogParent->getCalibratorParent()->getViewNet()->isTestingModeEnabled() == true) {
-            WRITE_WARNING("Opening FXMessageBox of type 'warning'"); 
+        if (myCalibratorDialogParent->getCalibratorParent()->getViewNet()->isTestingModeEnabled() == true) {
+            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         // open warning dialog box
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error " + std::string((myUpdatingElement == true)?("updating"):("creating")) + " " + toString(myCalibratorFlow->getCalibratorParent()->getTag()) + 
+                              ("Error " + std::string((myUpdatingElement == true) ? ("updating") : ("creating")) + " " + toString(myCalibratorFlow->getCalibratorParent()->getTag()) +
                                "'s " + toString(myCalibratorFlow->getTag())).c_str(), "%s",
                               (toString(myCalibratorFlow->getCalibratorParent()->getTag()) + "'s " + toString(myCalibratorFlow->getTag()) +
-                               " cannot be " + std::string((myUpdatingElement == true)?("updated"):("created")) + " because parameter " + toString(myInvalidAttr) + 
+                               " cannot be " + std::string((myUpdatingElement == true) ? ("updated") : ("created")) + " because parameter " + toString(myInvalidAttr) +
                                " is invalid.").c_str());
         // write warning if netedit is running in testing mode
-        if(myCalibratorDialogParent->getCalibratorParent()->getViewNet()->isTestingModeEnabled() == true) {
-            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'"); 
+        if (myCalibratorDialogParent->getCalibratorParent()->getViewNet()->isTestingModeEnabled() == true) {
+            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
         }
         return 0;
     } else {
@@ -227,9 +227,9 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     myCalibratorFlowValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
     // set color of myTextFieldFlowID, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->getFlowID() == myTextFieldFlowID->getText().text()) {
+    if (myCopyOfCalibratorFlow->getFlowID() == myTextFieldFlowID->getText().text()) {
         myTextFieldFlowID->setTextColor(FXRGB(0, 0, 0));
-    } else if(myCopyOfCalibratorFlow->setFlowID(myTextFieldFlowID->getText().text()) == true) {
+    } else if (myCopyOfCalibratorFlow->setFlowID(myTextFieldFlowID->getText().text()) == true) {
         myTextFieldFlowID->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldFlowID->setTextColor(FXRGB(255, 0, 0));
@@ -237,7 +237,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_ID;
     }
     // set color of myComboBoxVehicleType, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setVehicleType(myComboBoxVehicleType->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setVehicleType(myComboBoxVehicleType->getText().text()) == true) {
         myComboBoxVehicleType->setTextColor(FXRGB(0, 0, 0));
     } else {
         myComboBoxVehicleType->setTextColor(FXRGB(255, 0, 0));
@@ -245,7 +245,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_TYPE;
     }
     // set color of myComboBoxRoute, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setRoute(myComboBoxRoute->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setRoute(myComboBoxRoute->getText().text()) == true) {
         myComboBoxRoute->setTextColor(FXRGB(0, 0, 0));
     } else {
         myComboBoxRoute->setTextColor(FXRGB(255, 0, 0));
@@ -253,7 +253,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_ROUTE;
     }
     // set color of myTextFieldColor, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setColor(myTextFieldColor->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setColor(myTextFieldColor->getText().text()) == true) {
         myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
@@ -261,7 +261,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_COLOR;
     }
     // set color of myTextFieldDepartLane, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setDepartLane(myTextFieldDepartLane->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setDepartLane(myTextFieldDepartLane->getText().text()) == true) {
         myTextFieldDepartLane->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldDepartLane->setTextColor(FXRGB(255, 0, 0));
@@ -269,7 +269,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_DEPARTLANE;
     }
     // set color of myTextFieldDepartPos, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setDepartPos(myTextFieldDepartPos->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setDepartPos(myTextFieldDepartPos->getText().text()) == true) {
         myTextFieldDepartPos->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldDepartPos->setTextColor(FXRGB(255, 0, 0));
@@ -277,7 +277,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_DEPARTPOS;
     }
     // set color of setDepartSpeed, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setDepartSpeed(myTextFieldDepartSpeed->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setDepartSpeed(myTextFieldDepartSpeed->getText().text()) == true) {
         myTextFieldDepartSpeed->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldDepartSpeed->setTextColor(FXRGB(255, 0, 0));
@@ -285,7 +285,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_DEPARTSPEED;
     }
     // set color of myTextFieldArrivalLane, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setArrivalLane(myTextFieldArrivalLane->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setArrivalLane(myTextFieldArrivalLane->getText().text()) == true) {
         myTextFieldArrivalLane->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldArrivalLane->setTextColor(FXRGB(255, 0, 0));
@@ -293,7 +293,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_ARRIVALLANE;
     }
     // set color of myTextFieldArrivalPos, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setArrivalPos(myTextFieldArrivalPos->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setArrivalPos(myTextFieldArrivalPos->getText().text()) == true) {
         myTextFieldArrivalPos->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldArrivalPos->setTextColor(FXRGB(255, 0, 0));
@@ -301,7 +301,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_ARRIVALPOS;
     }
     // set color of setArrivalSpeed, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setArrivalSpeed(myTextFieldArrivalSpeed->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setArrivalSpeed(myTextFieldArrivalSpeed->getText().text()) == true) {
         myTextFieldArrivalSpeed->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldArrivalSpeed->setTextColor(FXRGB(255, 0, 0));
@@ -309,7 +309,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_ARRIVALSPEED;
     }
     // set color of myTextFieldLine, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setLine(myTextFieldLine->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setLine(myTextFieldLine->getText().text()) == true) {
         myTextFieldLine->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldLine->setTextColor(FXRGB(255, 0, 0));
@@ -317,7 +317,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_LINE;
     }
     // set color of myTextFieldPersonNumber, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setPersonNumber(myTextFieldPersonNumber->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setPersonNumber(myTextFieldPersonNumber->getText().text()) == true) {
         myTextFieldPersonNumber->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldPersonNumber->setTextColor(FXRGB(255, 0, 0));
@@ -325,7 +325,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_PERSON_NUMBER;
     }
     // set color of myTextFieldContainerNumber, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setContainerNumber(myTextFieldContainerNumber->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setContainerNumber(myTextFieldContainerNumber->getText().text()) == true) {
         myTextFieldContainerNumber->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldContainerNumber->setTextColor(FXRGB(255, 0, 0));
@@ -333,7 +333,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_CONTAINER_NUMBER;
     }
     // set reroute
-    if(myRerouteCheckButton->getCheck()) {
+    if (myRerouteCheckButton->getCheck()) {
         myCopyOfCalibratorFlow->setReroute(true);
         myRerouteCheckButton->setText("true");
     } else {
@@ -341,7 +341,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myRerouteCheckButton->setText("false");
     }
     // set color of myTextFieldDepartPosLat, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setDepartPosLat(myTextFieldDepartPosLat->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setDepartPosLat(myTextFieldDepartPosLat->getText().text()) == true) {
         myTextFieldDepartPosLat->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldDepartPosLat->setTextColor(FXRGB(255, 0, 0));
@@ -349,7 +349,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_DEPARTPOS_LAT;
     }
     // set color of myTextFieldArrivalPosLat, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setArrivalPosLat(myTextFieldArrivalPosLat->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setArrivalPosLat(myTextFieldArrivalPosLat->getText().text()) == true) {
         myTextFieldArrivalPosLat->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldArrivalPosLat->setTextColor(FXRGB(255, 0, 0));
@@ -357,7 +357,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_ARRIVALPOS_LAT;
     }
     // set color of myTextFieldBegin, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setBegin(myTextFieldBegin->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setBegin(myTextFieldBegin->getText().text()) == true) {
         myTextFieldBegin->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldBegin->setTextColor(FXRGB(255, 0, 0));
@@ -365,7 +365,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_END;
     }
     // set color of myTextFieldEnd, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setEnd(myTextFieldEnd->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setEnd(myTextFieldEnd->getText().text()) == true) {
         myTextFieldEnd->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldEnd->setTextColor(FXRGB(255, 0, 0));
@@ -373,7 +373,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_BEGIN;
     }
     // set color of myTextFieldNumber, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setNumber(myTextFieldNumber->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setNumber(myTextFieldNumber->getText().text()) == true) {
         myTextFieldNumber->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldNumber->setTextColor(FXRGB(255, 0, 0));
@@ -381,9 +381,9 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myInvalidAttr = SUMO_ATTR_NUMBER;
     }
     // set color of myTextFieldVehsPerHour, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setVehsPerHour(myTextFieldVehsPerHour->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setVehsPerHour(myTextFieldVehsPerHour->getText().text()) == true) {
         myTextFieldVehsPerHour->setTextColor(FXRGB(0, 0, 0));
-    } else if(myRadioButtonVehsPerHour->getCheck()) {
+    } else if (myRadioButtonVehsPerHour->getCheck()) {
         myTextFieldVehsPerHour->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_VEHSPERHOUR;
@@ -392,9 +392,9 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myTextFieldVehsPerHour->setTextColor(FXRGB(0, 0, 0));
     }
     // set color of myTextFieldPeriod, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setPeriod(myTextFieldPeriod->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setPeriod(myTextFieldPeriod->getText().text()) == true) {
         myTextFieldPeriod->setTextColor(FXRGB(0, 0, 0));
-    } else if(myRadioButtonPeriod->getCheck()) {
+    } else if (myRadioButtonPeriod->getCheck()) {
         myTextFieldPeriod->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_PERIOD;
@@ -403,9 +403,9 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myTextFieldPeriod->setTextColor(FXRGB(0, 0, 0));
     }
     // set color of myTextFieldProbability, depending if current value is valid or not
-    if(myCopyOfCalibratorFlow->setProbability(myTextFieldProbability->getText().text()) == true) {
+    if (myCopyOfCalibratorFlow->setProbability(myTextFieldProbability->getText().text()) == true) {
         myTextFieldProbability->setTextColor(FXRGB(0, 0, 0));
-    } else if(myRadioButtonProbability->getCheck()) {
+    } else if (myRadioButtonProbability->getCheck()) {
         myTextFieldProbability->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_PROB;
@@ -419,7 +419,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorFlowDialog::onCmdSetTypeOfFlow(FXObject* radioButton, FXSelector, void*) {
-    if(radioButton == myRadioButtonVehsPerHour) {
+    if (radioButton == myRadioButtonVehsPerHour) {
         myRadioButtonVehsPerHour->setCheck(true);
         myTextFieldVehsPerHour->enable();
         myCopyOfCalibratorFlow->setTypeOfFlow(GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR);
@@ -428,9 +428,9 @@ GNECalibratorFlowDialog::onCmdSetTypeOfFlow(FXObject* radioButton, FXSelector, v
         myTextFieldPeriod->disable();
         myRadioButtonProbability->setCheck(false);
         myTextFieldProbability->disable();
-        onCmdSetVariable(0,0,0);
+        onCmdSetVariable(0, 0, 0);
         return 1;
-    } else if(radioButton == myRadioButtonPeriod) {
+    } else if (radioButton == myRadioButtonPeriod) {
         myRadioButtonPeriod->setCheck(true);
         myTextFieldPeriod->enable();
         myCopyOfCalibratorFlow->setTypeOfFlow(GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD);
@@ -439,9 +439,9 @@ GNECalibratorFlowDialog::onCmdSetTypeOfFlow(FXObject* radioButton, FXSelector, v
         myTextFieldVehsPerHour->disable();
         myRadioButtonProbability->setCheck(false);
         myTextFieldProbability->disable();
-        onCmdSetVariable(0,0,0);
+        onCmdSetVariable(0, 0, 0);
         return 1;
-    } else if(radioButton == myRadioButtonProbability) {
+    } else if (radioButton == myRadioButtonProbability) {
         myRadioButtonProbability->setCheck(true);
         myTextFieldProbability->enable();
         myCopyOfCalibratorFlow->setTypeOfFlow(GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY);
@@ -450,7 +450,7 @@ GNECalibratorFlowDialog::onCmdSetTypeOfFlow(FXObject* radioButton, FXSelector, v
         myTextFieldVehsPerHour->disable();
         myRadioButtonPeriod->setCheck(false);
         myTextFieldPeriod->disable();
-        onCmdSetVariable(0,0,0);
+        onCmdSetVariable(0, 0, 0);
         return 1;
     } else {
         return 0;
@@ -484,11 +484,11 @@ GNECalibratorFlowDialog::updateCalibratorFlowValues() {
     myTextFieldPeriod->setText(toString(myCopyOfCalibratorFlow->getPeriod()).c_str());
     myTextFieldProbability->setText(toString(myCopyOfCalibratorFlow->getProbability()).c_str());
     // upsate type of flow
-    if(myCopyOfCalibratorFlow->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
+    if (myCopyOfCalibratorFlow->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
         onCmdSetTypeOfFlow(myRadioButtonVehsPerHour, 0, 0);
-    } else if(myCopyOfCalibratorFlow->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
-        onCmdSetTypeOfFlow(myRadioButtonPeriod,0,0);
-    } else if(myCopyOfCalibratorFlow->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
+    } else if (myCopyOfCalibratorFlow->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
+        onCmdSetTypeOfFlow(myRadioButtonPeriod, 0, 0);
+    } else if (myCopyOfCalibratorFlow->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
         onCmdSetTypeOfFlow(myRadioButtonProbability, 0, 0);
     }
 }

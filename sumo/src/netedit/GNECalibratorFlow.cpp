@@ -61,24 +61,24 @@
 GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent) :
     myCalibratorParent(calibratorParent), myFlowID(calibratorParent->generateFlowID()), myVehicleType(""), myRoute(""), myColor(""), myDepartLane("first"),
     myDepartPos("base"), myDepartSpeed("0"), myArrivalLane("current"), myArrivalPos("max"), myArrivalSpeed("current"),
-    myLine(""), myPersonNumber(0), myContainerNumber(0), myReroute(false), myDepartPosLat("center"), myArrivalPosLat(""), 
+    myLine(""), myPersonNumber(0), myContainerNumber(0), myReroute(false), myDepartPosLat("center"), myArrivalPosLat(""),
     myBegin(0), myEnd(0), myVehsPerHour(0), myPeriod(0), myProbability(0), myNumber(0), myTypeOfFlow(GNE_CALIBRATORFLOW_VEHSPERHOUR) {
-    if(myCalibratorParent->getCalibratorRoutes().size() > 0) {
+    if (myCalibratorParent->getCalibratorRoutes().size() > 0) {
         myRoute = myCalibratorParent->getCalibratorRoutes().front().getRouteID();
     }
-    if(myCalibratorParent->getCalibratorVehicleTypes().size() > 0) {
+    if (myCalibratorParent->getCalibratorVehicleTypes().size() > 0) {
         myVehicleType = myCalibratorParent->getCalibratorVehicleTypes().front().getVehicleTypeID();
     }
 }
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string vehicleType, std::string route,
-    std::string color, std::string departLane, std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos, 
-    std::string arrivalSpeed, std::string line, int personNumber, int containerNumber, bool reroute, std::string departPosLat, 
-    std::string arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability, int number) :
+                                     std::string color, std::string departLane, std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos,
+                                     std::string arrivalSpeed, std::string line, int personNumber, int containerNumber, bool reroute, std::string departPosLat,
+                                     std::string arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability, int number) :
     myCalibratorParent(calibratorParent), myFlowID(calibratorParent->generateFlowID()), myVehicleType(vehicleType), myRoute(route), myColor(""), myDepartLane("first"),
     myDepartPos("base"), myDepartSpeed("0"), myArrivalLane("current"), myArrivalPos("max"), myArrivalSpeed("current"),
-    myLine(""), myPersonNumber(0), myContainerNumber(0), myReroute(false), myDepartPosLat("center"), myArrivalPosLat(""), 
+    myLine(""), myPersonNumber(0), myContainerNumber(0), myReroute(false), myDepartPosLat("center"), myArrivalPosLat(""),
     myBegin(0), myEnd(0), myVehsPerHour(0), myPeriod(0), myProbability(0), myNumber(0), myTypeOfFlow(GNE_CALIBRATORFLOW_VEHSPERHOUR) {
     // set parameters using the set functions, to avoid non valid values
     setFlowID(flowID);
@@ -121,7 +121,7 @@ GNECalibratorFlow::getTag() const {
 }
 
 
-const std::string& 
+const std::string&
 GNECalibratorFlow::getFlowID() const {
     return myFlowID;
 }
@@ -199,19 +199,19 @@ GNECalibratorFlow::getContainerNumber() const {
 }
 
 
-bool 
+bool
 GNECalibratorFlow::getReroute() const {
     return myReroute;
 }
 
 
-std::string 
+std::string
 GNECalibratorFlow::getDepartPosLat() const {
     return myDepartPosLat;
 }
 
 
-std::string 
+std::string
 GNECalibratorFlow::getArrivalPosLat() const {
     return myArrivalPosLat;
 }
@@ -263,7 +263,7 @@ bool
 GNECalibratorFlow::setFlowID(std::string flowID) {
     if (flowID.empty()) {
         return false;
-    } else if(myCalibratorParent->getViewNet()->getNet()->flowExists(flowID) == true) {
+    } else if (myCalibratorParent->getViewNet()->getNet()->flowExists(flowID) == true) {
         return false;
     } else {
         myFlowID = flowID;
@@ -276,7 +276,7 @@ bool
 GNECalibratorFlow::setVehicleType(std::string vehicleType) {
     if (vehicleType.empty()) {
         return false;
-    } else if(myCalibratorParent->getViewNet()->getNet()->vehicleTypeExists(vehicleType) == false) {
+    } else if (myCalibratorParent->getViewNet()->getNet()->vehicleTypeExists(vehicleType) == false) {
         return false;
     } else {
         myVehicleType = vehicleType;
@@ -289,7 +289,7 @@ bool
 GNECalibratorFlow::setRoute(std::string route) {
     if (route.empty()) {
         return false;
-    } else if(myCalibratorParent->getViewNet()->getNet()->routeExists(route) == false) {
+    } else if (myCalibratorParent->getViewNet()->getNet()->routeExists(route) == false) {
         return false;
     } else {
         myRoute = route;
@@ -462,14 +462,14 @@ GNECalibratorFlow::setContainerNumber(std::string ContainerNumber) {
 }
 
 
-bool 
+bool
 GNECalibratorFlow::setReroute(bool value) {
     myReroute = value;
     return true;
 }
 
 
-bool 
+bool
 GNECalibratorFlow::setReroute(std::string value) {
     if (GNEAttributeCarrier::canParse<bool>(value)) {
         return setReroute(GNEAttributeCarrier::parse<bool>(value));
@@ -479,14 +479,14 @@ GNECalibratorFlow::setReroute(std::string value) {
 }
 
 
-bool 
+bool
 GNECalibratorFlow::setDepartPosLat(std::string departPosLat) {
     double departPosLatFloat = -1;
     if (GNEAttributeCarrier::canParse<double>(departPosLat)) {
         departPosLatFloat = GNEAttributeCarrier::parse<double>(departPosLat);
     }
-    if ((departPosLatFloat < 0) && (departPosLat != "random") && (departPosLat != "random_free") && 
-        (departPosLat != "left") && (departPosLat != "right") && (departPosLat != "center")) {
+    if ((departPosLatFloat < 0) && (departPosLat != "random") && (departPosLat != "random_free") &&
+            (departPosLat != "left") && (departPosLat != "right") && (departPosLat != "center")) {
         return false;
     } else {
         myDepartPosLat = departPosLat;
@@ -495,7 +495,7 @@ GNECalibratorFlow::setDepartPosLat(std::string departPosLat) {
 }
 
 
-bool 
+bool
 GNECalibratorFlow::setArrivalPosLat(std::string arrivalPosLat) {
     double arrivalPosLatFloat = -1;
     if (GNEAttributeCarrier::canParse<double>(arrivalPosLat)) {
@@ -643,9 +643,9 @@ GNECalibratorFlow::setNumber(std::string number) {
 }
 
 
-bool 
+bool
 GNECalibratorFlow::setTypeOfFlow(TypeOfFlow type) {
-    if((type == GNE_CALIBRATORFLOW_VEHSPERHOUR) || (type == GNE_CALIBRATORFLOW_PERIOD) ||(type == GNE_CALIBRATORFLOW_PROBABILITY)) {
+    if ((type == GNE_CALIBRATORFLOW_VEHSPERHOUR) || (type == GNE_CALIBRATORFLOW_PERIOD) || (type == GNE_CALIBRATORFLOW_PROBABILITY)) {
         myTypeOfFlow = type;
         return true;
     } else {
@@ -654,7 +654,7 @@ GNECalibratorFlow::setTypeOfFlow(TypeOfFlow type) {
 }
 
 
-bool 
+bool
 GNECalibratorFlow::operator==(const GNECalibratorFlow& calibratorFlow) const {
     return (myFlowID == calibratorFlow.getFlowID());
 }

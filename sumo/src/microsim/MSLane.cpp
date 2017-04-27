@@ -178,9 +178,9 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
     myLengthGeometryFactor(MAX2(POSITION_EPS, myShape.length()) / myLength), // factor should not be 0
     myIsRampAccel(isRampAccel),
     myRightSideOnEdge(0), // initialized in MSEdge::initialize
-    myRightmostSublane(0)
-{ // initialized in MSEdge::initialize
-        initRestrictions();// may be reloaded again from initialized in MSEdge::closeBuilding
+    myRightmostSublane(0) {
+    // initialized in MSEdge::initialize
+    initRestrictions();// may be reloaded again from initialized in MSEdge::closeBuilding
 }
 
 
@@ -191,7 +191,7 @@ MSLane::~MSLane() {
 }
 
 
-void 
+void
 MSLane::initRestrictions() {
     myRestrictions = MSNet::getInstance()->getRestrictions(myEdge->getEdgeType());
 }
@@ -315,7 +315,7 @@ MSLane::freeInsertion(MSVehicle& veh, double mspeed,
     bool adaptableSpeed = true;
     // try to insert teleporting vehicles fully on this lane
     const double minPos = (notification == MSMoveReminder::NOTIFICATION_TELEPORT ?
-                             MIN2(myLength, veh.getVehicleType().getLength()) : 0);
+                           MIN2(myLength, veh.getVehicleType().getLength()) : 0);
     veh.setTentativeLaneAndPosition(this, minPos, 0);
     if (myVehicles.size() == 0) {
         // ensure sufficient gap to followers on predecessor lanes
@@ -1190,8 +1190,8 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         stop.containerTriggered = false;
         stop.parking = false;
         stop.index = 0;
-        const double victimStopPos = MIN2(victim->getLane()->getLength(), 
-                    victim->getPositionOnLane() + victim->getCarFollowModel().brakeGap(victim->getSpeed()));
+        const double victimStopPos = MIN2(victim->getLane()->getLength(),
+                                          victim->getPositionOnLane() + victim->getCarFollowModel().brakeGap(victim->getSpeed()));
         if (victim->collisionStopTime() < 0) {
             stop.lane = victim->getLane()->getID();
             // @todo: push victim forward?
@@ -1202,8 +1202,8 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         }
         if (collider->collisionStopTime() < 0) {
             stop.lane = collider->getLane()->getID();
-            stop.startPos = MIN2(collider->getPositionOnLane() + collider->getCarFollowModel().brakeGap(collider->getSpeed()), 
-                    MAX2(0.0, victimStopPos - 0.75 * victim->getVehicleType().getLength()));
+            stop.startPos = MIN2(collider->getPositionOnLane() + collider->getCarFollowModel().brakeGap(collider->getSpeed()),
+                                 MAX2(0.0, victimStopPos - 0.75 * victim->getVehicleType().getLength()));
             stop.endPos = stop.startPos;
             collider->addStop(stop, dummyError, 0, true);
         }
@@ -1296,13 +1296,13 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIn
         } else if (veh->collisionStopTime() == 0) {
             veh->resumeFromStopping();
             if (getCollisionAction() == COLLISION_ACTION_REMOVE) {
-                WRITE_WARNING("Removing vehicle '" + veh->getID() + "' after earlier collision, lane='" + veh->getLane()->getID() + ", time=" + 
-                        time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                WRITE_WARNING("Removing vehicle '" + veh->getID() + "' after earlier collision, lane='" + veh->getLane()->getID() + ", time=" +
+                              time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
             } else if (getCollisionAction() == COLLISION_ACTION_TELEPORT) {
-                WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "' after earlier collision, lane='" + veh->getLane()->getID() + ", time=" + 
-                        time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "' after earlier collision, lane='" + veh->getLane()->getID() + ", time=" +
+                              time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 MSVehicleTransfer::getInstance()->add(MSNet::getInstance()->getCurrentTimeStep(), veh);
             } else {
                 ++i;
@@ -1603,16 +1603,16 @@ MSLane::getLinkCont() const {
 MSLink*
 MSLane::getLinkTo(const MSLane* target) const {
     MSLinkCont::const_iterator l = myLinks.begin();
-    if(target->isInternal()){
-        while(l != myLinks.end()){
-            if ((*l)->getViaLane()->getID() == target->getID()){
+    if (target->isInternal()) {
+        while (l != myLinks.end()) {
+            if ((*l)->getViaLane()->getID() == target->getID()) {
                 return *l;
             }
             ++l;
         }
     } else {
-        while(l != myLinks.end()){
-            if ((*l)->getLane()->getID() == target->getID()){
+        while (l != myLinks.end()) {
+            if ((*l)->getLane()->getID() == target->getID()) {
                 return *l;
             }
             ++l;
@@ -1623,7 +1623,9 @@ MSLane::getLinkTo(const MSLane* target) const {
 
 MSLink*
 MSLane::getEntryLink() const {
-    if (!isInternal()) return 0;
+    if (!isInternal()) {
+        return 0;
+    }
     const MSLane* internal = this;
     const MSLane* lane = this->getCanonicalPredecessorLane();
     assert(lane != 0);
@@ -2017,7 +2019,7 @@ MSLane::getCanonicalPredecessorLane() const {
     if (myCanonicalPredecessorLane != 0) {
         return myCanonicalPredecessorLane;
     }
-    if (myIncomingLanes.size()==0){
+    if (myIncomingLanes.size() == 0) {
         return 0;
     }
     // myCanonicalPredecessorLane has not yet been determined and there exist incoming lanes
@@ -2037,7 +2039,7 @@ MSLane::getCanonicalSuccessorLane() const {
     if (myCanonicalSuccessorLane != 0) {
         return myCanonicalSuccessorLane;
     }
-    if (myLinks.size()==0){
+    if (myLinks.size() == 0) {
         return 0;
     }
     // myCanonicalSuccessorLane has not yet been determined and there exist outgoing links
@@ -2328,14 +2330,14 @@ MSLane::incoming_lane_priority_sorter::incoming_lane_priority_sorter(const MSLan
     myLaneDir(targetLane->getShape().angleAt2D(0)) {}
 
 int
-MSLane::incoming_lane_priority_sorter::operator ()(const IncomingLaneInfo& laneInfo1, const IncomingLaneInfo& laneInfo2) const {
-    const MSLane * noninternal1 = laneInfo1.lane;
-    while (noninternal1->isInternal()){
+MSLane::incoming_lane_priority_sorter::operator()(const IncomingLaneInfo& laneInfo1, const IncomingLaneInfo& laneInfo2) const {
+    const MSLane* noninternal1 = laneInfo1.lane;
+    while (noninternal1->isInternal()) {
         assert(noninternal1->getIncomingLanes().size() == 1);
         noninternal1 = noninternal1->getIncomingLanes()[0].lane;
     }
     MSLane* noninternal2 = laneInfo2.lane;
-    while (noninternal2->isInternal()){
+    while (noninternal2->isInternal()) {
         assert(noninternal2->getIncomingLanes().size() == 1);
         noninternal2 = noninternal2->getIncomingLanes()[0].lane;
     }
@@ -2345,10 +2347,10 @@ MSLane::incoming_lane_priority_sorter::operator ()(const IncomingLaneInfo& laneI
 
 #ifdef DEBUG_LANE_SORTER
     std::cout << "\nincoming_lane_priority sorter()\n"
-            << "noninternal predecessor for lane '" << laneInfo1.lane->getID()
-            << "': '" << noninternal1->getID() << "'\n"
-            << "noninternal predecessor for lane '" << laneInfo2.lane->getID()
-            << "': '" << noninternal2->getID() << "'\n";
+              << "noninternal predecessor for lane '" << laneInfo1.lane->getID()
+              << "': '" << noninternal1->getID() << "'\n"
+              << "noninternal predecessor for lane '" << laneInfo2.lane->getID()
+              << "': '" << noninternal2->getID() << "'\n";
 #endif
 
     assert(laneInfo1.lane->isInternal() || link1 == laneInfo1.viaLink);
@@ -2363,11 +2365,11 @@ MSLane::incoming_lane_priority_sorter::operator ()(const IncomingLaneInfo& laneI
 #ifdef DEBUG_LANE_SORTER
     std::cout << "FoeLinks of '" << noninternal1->getID() << "'" << std::endl;
 #endif
-    for (j = link1->getFoeLinks().begin(); j != link1->getFoeLinks().end(); ++j){
+    for (j = link1->getFoeLinks().begin(); j != link1->getFoeLinks().end(); ++j) {
 #ifdef DEBUG_LANE_SORTER
         std::cout << (*j)->getLaneBefore()->getID() << std::endl;
 #endif
-        if (*j == link2){
+        if (*j == link2) {
             priorized1 = false;
             break;
         }
@@ -2376,19 +2378,19 @@ MSLane::incoming_lane_priority_sorter::operator ()(const IncomingLaneInfo& laneI
 #ifdef DEBUG_LANE_SORTER
     std::cout << "FoeLinks of '" << noninternal2->getID() << "'" << std::endl;
 #endif
-    for (j = link2->getFoeLinks().begin(); j != link2->getFoeLinks().end(); ++j){
+    for (j = link2->getFoeLinks().begin(); j != link2->getFoeLinks().end(); ++j) {
 #ifdef DEBUG_LANE_SORTER
         std::cout << (*j)->getLaneBefore()->getID() << std::endl;
 #endif
         // either link1 is priorized, or it should not appear in link2's foes
-        if (*j == link2){
+        if (*j == link2) {
             priorized2 = false;
             break;
         }
     }
     // if one link is subordinate, the other must be priorized
     assert(priorized1 || priorized2);
-    if (priorized1 != priorized2){
+    if (priorized1 != priorized2) {
         return priorized1;
     }
 
@@ -2406,9 +2408,9 @@ MSLane::outgoing_lane_priority_sorter::outgoing_lane_priority_sorter(const MSLan
     myLaneDir(sourceLane->getShape().angleAt2D(0)) {}
 
 int
-MSLane::outgoing_lane_priority_sorter::operator ()(const MSLink* link1, const MSLink* link2) const {
-    const MSLane * target1 = link1->getLane();
-    const MSLane * target2 = link2->getLane();
+MSLane::outgoing_lane_priority_sorter::operator()(const MSLink* link1, const MSLink* link2) const {
+    const MSLane* target1 = link1->getLane();
+    const MSLane* target2 = link2->getLane();
     if (target2 == 0) {
         return true;
     }
@@ -2418,9 +2420,9 @@ MSLane::outgoing_lane_priority_sorter::operator ()(const MSLink* link1, const MS
 
 #ifdef DEBUG_LANE_SORTER
     std::cout << "\noutgoing_lane_priority sorter()\n"
-            << "noninternal successors for lane '" << myLane->getID()
-            << "': '" << target1->getID() << "' and "
-            << "'" << target2->getID() << "'\n";
+              << "noninternal successors for lane '" << myLane->getID()
+              << "': '" << target1->getID() << "' and "
+              << "'" << target2->getID() << "'\n";
 #endif
 
     // priority of targets
@@ -2467,8 +2469,8 @@ MSLane::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc) {
 
 
 MSLeaderDistanceInfo
-MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset, 
-        bool allSublanes, double searchDist, bool ignoreMinorLinks) const {
+MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
+                                  bool allSublanes, double searchDist, bool ignoreMinorLinks) const {
     // get the follower vehicle on the lane to change to
     const double egoPos = backOffset + ego->getVehicleType().getLength();
 #ifdef DEBUG_CONTEXT

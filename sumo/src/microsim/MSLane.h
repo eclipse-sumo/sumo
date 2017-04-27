@@ -728,7 +728,7 @@ public:
 
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
-    MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, double backOffset, 
+    MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
             bool allSublanes, double searchDist = -1, bool ignoreMinorLinks = false) const;
 
     /// @brief return by how much further the leader must be inserted to avoid rear end collisions
@@ -1134,7 +1134,7 @@ protected:
     /// All direct predecessor lanes
     std::vector<IncomingLaneInfo> myIncomingLanes;
 
-    /// 
+    ///
     mutable MSLane* myLogicalPredecessorLane;
 
     /// Similar to LogicalPredecessorLane, @see getCanonicalPredecessorLane()
