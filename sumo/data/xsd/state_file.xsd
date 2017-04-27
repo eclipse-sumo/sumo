@@ -13,6 +13,7 @@
 				<xsd:element name="vehicle" type="vehicleStateType" minOccurs="0"/>
 				<xsd:element name="route" type="routeStateType" minOccurs="0"/>
 				<xsd:element name="lane" type="laneStateType" minOccurs="0"/>
+				<xsd:element name="segment" type="segmentStateType" minOccurs="0"/>
 			</xsd:choice>
 			<xsd:attribute name="version" type="xsd:string"/>
 			<xsd:attribute name="time" type="nonNegativeFloatType"/>
@@ -93,4 +94,17 @@
     <xsd:complexType name="vehiclesType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
     </xsd:complexType>
+
+    <xsd:complexType name="segmentStateType">
+        <xsd:sequence>
+            <xsd:element name="vehicles" type="queueType" minOccurs="1"/>
+        </xsd:sequence>
+        <!-- <xsd:attribute name="id" type="xsd:string" use="required"/> -->
+    </xsd:complexType>
+
+    <xsd:complexType name="queueType">
+        <xsd:attribute name="time" type="xsd:int" use="required"/>
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
 </xsd:schema>
