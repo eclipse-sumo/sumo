@@ -322,6 +322,12 @@ private:
     /// @brief we are not responsible for deletion
     GNENet* myNet;
 
+    /// @brief the current edit mode
+    EditMode myEditMode;
+
+    /// @brief the previous edit mode used for toggling
+    EditMode myPreviousEditMode;
+
     /// @brief the current frame
     GNEFrame* myCurrentFrame;
 
@@ -345,12 +351,6 @@ private:
 
     /// @brief flag to check if select edges is enabled
     bool mySelectEdges;
-
-    /// @brief the current edit mode
-    EditMode myEditMode;
-
-    /// @brief the previous edit mode used for toggling
-    EditMode myPreviousEditMode;
 
     /// @name the state-variables of the create-edge state-machine
     // @{

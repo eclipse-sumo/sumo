@@ -196,11 +196,11 @@ protected:
     /// @brief pointer to current RouteProbe
     GNERouteProbe* myRouteProbe;
 
-    /// @brief calibrator flow values
-    std::vector<GNECalibratorFlow> myCalibratorFlows;
-
     /// @brief calibrator route values
     std::vector<GNECalibratorRoute> myCalibratorRoutes;
+
+    /// @brief calibrator flow values
+    std::vector<GNECalibratorFlow> myCalibratorFlows;
 
     /// @brief calibrator vehicleType values
     std::vector<GNECalibratorVehicleType> myCalibratorVehicleTypes;
