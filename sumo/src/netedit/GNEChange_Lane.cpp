@@ -92,8 +92,12 @@ void
 GNEChange_Lane::undo() {
     if (myForward) {
         // show extra information for tests
-        if(myLane->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Deleting " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            if(myLane != NULL) {
+                WRITE_WARNING("Deleting " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+            } else {
+                WRITE_WARNING("Deleting NULL " + toString(SUMO_TAG_LANE));
+            }
         }
         // remove lane from edge
         myEdge->removeLane(myLane);
@@ -103,8 +107,12 @@ GNEChange_Lane::undo() {
         }
     } else {
         // show extra information for tests
-        if(myLane->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            if(myLane != NULL) {
+                WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+            } else {
+                WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE));
+            }
         }
         // add lane and their attributes to edge
         myEdge->addLane(myLane, myLaneAttrs);
@@ -120,8 +128,12 @@ void
 GNEChange_Lane::redo() {
     if (myForward) {
         // show extra information for tests
-        if(myLane->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            if(myLane != NULL) {
+                WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+            } else {
+                WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE));
+            }
         }
         // add lane and their attributes to edge
         myEdge->addLane(myLane, myLaneAttrs);
@@ -131,8 +143,12 @@ GNEChange_Lane::redo() {
         }
     } else {
         // show extra information for tests
-        if(myLane->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Deleting " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            if(myLane != NULL) {
+                WRITE_WARNING("Deleting " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+            } else {
+                WRITE_WARNING("Deleting NULL " + toString(SUMO_TAG_LANE));
+            }
         }
         // remove lane from edge
         myEdge->removeLane(myLane);
