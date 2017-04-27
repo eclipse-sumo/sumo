@@ -78,7 +78,6 @@ GNELane::GNELane(GNEEdge& edge, const int index) :
     myIndex(index),
     mySpecialColor(0),
     myTLSEditor(0) {
-    updateGeometry();
 }
 
 GNELane::GNELane() :

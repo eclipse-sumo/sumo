@@ -83,6 +83,10 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
         myLanes.push_back(new GNELane(*this, i));
         myLanes.back()->incRef("GNEEdge::GNEEdge");
     }
+    // update Lane geometries
+    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); i++) {
+        (*i)->updateGeometry();
+    }
 }
 
 
@@ -412,6 +416,32 @@ GNEEdge::remakeIncomingGNEConnections() {
 void
 GNEEdge::remakeGNEConnections() {
     // @note: this method may only be called once the whole network is initialized
+    
+    // first check that there are the same number of NBLanes as GNELanes
+    while(myLanes.size() < myNBEdge.getLanes().size()) {
+        GNELane *lane = new GNELane(*this, myLanes.size());
+        const NBEdge::Lane &laneAttrs = myNBEdge.getLanes().at(myLanes.size());
+        myLanes.push_back(lane);
+        lane->incRef("GNEEdge::addLane");
+        // we copy all attributes except shape since this is recomputed from edge shape
+        myNBEdge.setSpeed(lane->getIndex(), myNBEdge.getSpeed());
+        myNBEdge.setPermissions(laneAttrs.permissions, lane->getIndex());
+        myNBEdge.setPreferredVehicleClass(laneAttrs.preferred, lane->getIndex());
+        myNBEdge.setEndOffset(lane->getIndex(), laneAttrs.endOffset);
+        myNBEdge.setLaneWidth(lane->getIndex(), laneAttrs.width);
+        // update indices
+        for (int i = 0; i < (int)myLanes.size(); ++i) {
+            myLanes[i]->setIndex(i);
+        }
+        lane->updateGeometry();
+        // Remake connections for this edge and all edges that target this lane
+        remakeGNEConnections();
+        remakeIncomingGNEConnections();
+        // Update element
+        myNet->refreshElement(this);
+        updateGeometry();
+    }
+    
     // Create connections (but reuse existing objects)
     std::vector<NBEdge::Connection>& myConnections = myNBEdge.getConnections();
     ConnectionVector newCons;
