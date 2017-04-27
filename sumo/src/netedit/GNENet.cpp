@@ -990,8 +990,20 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force) {
     } else {
         window->setStatusBarText("Computing junctions ...");
     }
-    // compute
+
+    // obtain options
     OptionsCont& oc = OptionsCont::getOptions();
+
+    // first check if siewalk guess has to be added
+    if(oc.getBool("sidewalks.guess") == true) {
+        for(GNEEdges::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+            if(i->second->hasRestrictedLane(SVC_PEDESTRIAN) == false) {
+                addSRestrictedLane(SVC_PEDESTRIAN,*(i->second), myViewNet->getUndoList());
+            }
+        }
+    }
+
+    // compute
     computeAndUpdate(oc);
     WRITE_MESSAGE("\nFinished computing junctions.");
 
