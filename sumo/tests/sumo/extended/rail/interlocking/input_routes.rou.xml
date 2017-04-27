@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="RB425" vClass="rail" carFollowModel="Rail" trainType="RB425"/>
+	<vType id="RB628" vClass="rail" carFollowModel="Rail" trainType="RB628"/>
+	<vType id="ICE1" vClass="rail" carFollowModel="Rail" trainType="ICE1"/>
+	<trip id="RB1" depart="16000" departLane="best" from="gneE6" to="gneE4" type="RB628">
+		<stop busStop="busStop_gneE1_0_0" until="16190"  duration="120" />
+	</trip>
+	<trip id="ICE0" depart="16250" departLane="best" from="-gneE4" to="-gneE6" type="ICE1">
+		<stop busStop="busStop_gneE2_0_1" until="16400"  duration="120" />
+	</trip>
+	<trip id="RB2" depart="16250" departLane="best" from="-gneE8" to="gneE4" type="RB425">
+	</trip>
+</routes>

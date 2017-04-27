@@ -1,0 +1,5 @@
+# Two trains approaching conflicting block simultaneously causing a head-on conflict
+headonconflict
+
+# Tests interlocked block signalling
+interlocking

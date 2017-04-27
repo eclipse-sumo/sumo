@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="ICE1" vClass="rail" carFollowModel="Rail" trainType="ICE1"/>
+	<trip id="ICE1" depart="16251" departLane="best" from="gneE20" to="gneE17" type="ICE1">
+	</trip>
+	<trip id="ICE2" depart="16260" departLane="best" from="gneE19" to="gneE15" type="ICE1">
+	</trip>
+</routes>
