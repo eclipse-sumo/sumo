@@ -43,7 +43,7 @@
 // method definitions
 // ===========================================================================
 GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
-    FXDialogBox(parent, "About SUMO", GUIDesignDialogBoxExplicit, 0, 0, 415, 175) {
+    FXDialogBox(parent, "About SUMO", GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(ICON_SUMO));
     

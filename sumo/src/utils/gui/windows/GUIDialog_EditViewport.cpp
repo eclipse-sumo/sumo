@@ -63,7 +63,7 @@ FXIMPLEMENT(GUIDialog_EditViewport, FXDialogBox, GUIDialog_EditViewportMap, ARRA
 // method definitions
 // ===========================================================================
 GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, const char* name, int x, int y) : 
-    FXDialogBox(parent, name, GUIDesignDialogBoxExplicit, x, y, 200, 176, 0, 0, 0, 0),
+    FXDialogBox(parent, name, GUIDesignDialogBox, x, y),
     myParent(parent) {
     // create contents frame
     FXVerticalFrame* contentsFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);

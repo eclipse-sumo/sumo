@@ -58,7 +58,7 @@ FXIMPLEMENT(GNEDialog_AllowDisallow, FXDialogBox, GNEDialog_AllowDisallowMap, AR
 // ===========================================================================
 
 GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(FXApp* app, std::string *allow) :
-    FXDialogBox(app, ("Edit allowed and disallowed " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBoxExplicit, 0, 0, 1100, 580, 0, 0, 0, 0), 
+    FXDialogBox(app, ("Edit allowed and disallowed " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox), 
     myAllow(allow),
     myCopyOfAllow(*allow) {
     // set vehicle icon for this dialog
