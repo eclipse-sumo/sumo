@@ -479,7 +479,8 @@ GNESelectorFrame::getStats() const {
            toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges\n" +
            toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes\n" +
            toString(gSelected.getSelected(GLO_CONNECTION).size()) + " Connections\n" +
-           toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals";
+           toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals\n" +
+		   toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings";
 }
 
 

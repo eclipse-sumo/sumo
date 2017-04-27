@@ -827,6 +827,11 @@ MSEdge::getSpeedLimit() const {
 }
 
 
+double 
+MSEdge::getLengthGeometryFactor() const {
+    return getLanes()[0]->getLengthGeometryFactor();
+}
+
 double
 MSEdge::getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
     // @note lanes might have different maximum speeds in theory

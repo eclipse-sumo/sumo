@@ -43,6 +43,8 @@ for step in range(3):
 print("trafficlights", traci.trafficlights.getIDList())
 print("trafficlights count", traci.trafficlights.getIDCount())
 tlsID = "0"
+traci.trafficlights.setPhase(tlsID, 4)
+traci.trafficlights.setPhaseDuration(tlsID, 23)
 print("examining", tlsID)
 print("ryg", traci.trafficlights.getRedYellowGreenState(tlsID))
 print("rygdef", traci.trafficlights.getCompleteRedYellowGreenDefinition(tlsID))

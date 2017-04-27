@@ -594,6 +594,9 @@ public:
      */
     double getSpeedLimit() const;
 
+    /// @brief return shape.length() / myLength
+    double getLengthGeometryFactor() const; 
+
     /** @brief Sets a new maximum speed for all lanes (used by TraCI and MSCalibrator)
      * @param[in] val the new speed in m/s
      */

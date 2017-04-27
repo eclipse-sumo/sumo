@@ -1,2 +1,4 @@
-Warning: Resizing windows: before resize: view = 464, 333 app = 700, 500
-Warning: Directly after resize: view = 700, 500 app = 936, 667
+Warning: Inserting e1Detector 'e1Detector_gneE0_0_0'
+Warning: Deleting e1Detector 'e1Detector_gneE0_0_0'
+Warning: Inserting e1Detector 'e1Detector_gneE0_0_0'
+Warning: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_0'

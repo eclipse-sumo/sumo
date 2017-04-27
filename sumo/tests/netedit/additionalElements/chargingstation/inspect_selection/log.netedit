@@ -1,3 +1,5 @@
-Warning: Resizing windows: before resize: view = 464, 333 app = 700, 500
-Warning: Directly after resize: view = 700, 500 app = 936, 667
+Warning: Inserting chargingStation 'chargingStationA'
+Warning: Inserting chargingStation 'chargingStationB'
 Warning: Value '2' for attribute efficiency of chargingStation isn't valid
+Warning: Deleting unreferenced chargingStation 'chargingStationB'
+Warning: Deleting unreferenced chargingStation 'chargingStationA'

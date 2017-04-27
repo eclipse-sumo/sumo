@@ -112,8 +112,10 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         // must draw on top of junction
         glTranslated(0, 0, GLO_JUNCTION + 0.1);
-        // set color depending of priority
-        if (myCrossing.priority) {
+        // set color depending of selection and priority
+        if(gSelected.isSelected(getType(), getGlID())) {
+            glColor3d(0.118, 0.565, 1.000);
+        } else if (myCrossing.priority) {
             glColor3d(0.9, 0.9, 0.9);
         } else {
             glColor3d(0.1, 0.1, 0.1);

@@ -43,7 +43,7 @@
 // method definitions
 // ===========================================================================
 GNEDialog_About::GNEDialog_About(FXWindow* parent) :
-    FXDialogBox(parent, "About NETEDIT", GUIDesignDialogBoxExplicit, 0, 0, 471, 175) {
+    FXDialogBox(parent, "About NETEDIT", GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(ICON_NETEDIT));
     

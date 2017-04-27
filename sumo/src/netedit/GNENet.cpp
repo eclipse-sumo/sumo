@@ -905,6 +905,7 @@ GNENet::getGlIDs(GUIGlObjectType type) {
             // knownTypes.insert(GLO_TLLOGIC); makes no sense to include them
             knownTypes.insert(GLO_ADDITIONAL);
             knownTypes.insert(GLO_CONNECTION);
+            knownTypes.insert(GLO_CROSSING);
             for (std::set<GUIGlObjectType>::const_iterator it = knownTypes.begin(); it != knownTypes.end(); it++) {
                 const std::set<GUIGlID> tmp = getGlIDs(*it);
                 result.insert(tmp.begin(), tmp.end());
@@ -953,7 +954,19 @@ GNENet::getGlIDs(GUIGlObjectType type) {
                 const std::vector<GNEConnection*>& connections = i->second->getGNEConnections();
                 // Iterate over connections
                 for (std::vector<GNEConnection*>::const_iterator j = connections.begin(); j != connections.end(); j++) {
-                    // Insert every connection of edge it in result
+                    // Insert every connection of edge in result
+                    result.insert((*j)->getGlID());
+                }
+            }
+            break;
+        }
+        case GLO_CROSSING: {
+            for (GNEJunctions::const_iterator i = myJunctions.begin(); i != myJunctions.end(); i++) {
+                // Get crossings of junction
+                const std::vector<GNECrossing*>& crossings = i->second->getGNECrossings();
+                // Iterate over crossings
+                for (std::vector<GNECrossing*>::const_iterator j = crossings.begin(); j != crossings.end(); j++) {
+                    // Insert every crossing of junction in result
                     result.insert((*j)->getGlID());
                 }
             }

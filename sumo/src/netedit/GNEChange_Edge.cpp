@@ -27,11 +27,14 @@
 #include <config.h>
 #endif
 
+#include <utils/common/MsgHandler.h>
+
 #include "GNEChange_Edge.h"
 #include "GNENet.h"
 #include "GNEEdge.h"
 #include "GNELane.h"
 #include "GNERerouter.h"
+#include "GNEViewNet.h"
 
 
 // ===========================================================================
@@ -61,6 +64,10 @@ GNEChange_Edge::~GNEChange_Edge() {
     assert(myEdge);
     myEdge->decRef("GNEChange_Edge");
     if (myEdge->unreferenced()) {
+        // show extra information for tests
+        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting unreferenced " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
+        }
         delete myEdge;
     }
 }
@@ -69,6 +76,11 @@ GNEChange_Edge::~GNEChange_Edge() {
 void
 GNEChange_Edge::undo() {
     if (myForward) {
+        // show extra information for tests
+        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
+        }
+        // delete edge from net
         myNet->deleteSingleEdge(myEdge);
         // 1 - Remove additionals childs of this edge
         for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
@@ -79,6 +91,11 @@ GNEChange_Edge::undo() {
             (*i)->removeEdgeChild(myEdge);
         }
     } else {
+        // show extra information for tests
+        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
+        }
+        // insert edge into net
         myNet->insertEdge(myEdge);
         // 1 - add additionals childs of this edge
         for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
@@ -95,6 +112,11 @@ GNEChange_Edge::undo() {
 void
 GNEChange_Edge::redo() {
     if (myForward) {
+        // show extra information for tests
+        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
+        }
+        // insert edge into net
         myNet->insertEdge(myEdge);
         // 1 - Add additionals childs of this edge
         for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {
@@ -105,6 +127,11 @@ GNEChange_Edge::redo() {
             (*i)->addEdgeChild(myEdge);
         }
     } else {
+        // show extra information for tests
+        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
+        }
+        // delte edge from net
         myNet->deleteSingleEdge(myEdge);
         // 1 - Remove additionals childs of this edge
         for (std::vector<GNEAdditional*>::iterator i = myAdditionalChilds.begin(); i != myAdditionalChilds.end(); i++) {

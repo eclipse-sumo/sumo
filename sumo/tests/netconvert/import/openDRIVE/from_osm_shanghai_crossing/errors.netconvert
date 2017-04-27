@@ -16,6 +16,7 @@ Warning: Edge '11635146#1' overlaps with edge '178702250' by 3.76.
 Warning: Edge '11635146#1' overlaps with edge '178702261' by 3.48.
 Warning: Edge '178702248' overlaps with edge '178702261' by 4.63.
 Warning: Edge '335802664' overlaps with edge '8756689#0' by 5.55.
+Warning: Edge '10725667#0-AddedOffRampEdge' has a grade of 418.16%.
 Warning: Could not compute smooth shape from lane '-160079263_0' to lane '11635095#1_1'. Use option 'junctions.scurve-stretch' or increase radius of junction '103895952' to fix this.
 Warning: Could not compute smooth shape from lane '178702261_0' to lane '11635162#0-AddedOnRampEdge_0'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.
 Warning: Could not compute smooth shape from lane '178702261_1' to lane '11635162#0-AddedOnRampEdge_1'. Use option 'junctions.scurve-stretch' or increase radius of junction '103896524' to fix this.

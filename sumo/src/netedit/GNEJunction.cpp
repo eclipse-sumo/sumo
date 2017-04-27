@@ -769,7 +769,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             // recompute neighbors junctions
             recomputeNeighborsJunctions();
             // recompute junction
-            myNet->getNetBuilder()->computeSingleNode(&myNBNode, OptionsCont::getOptions());
+            //myNet->getNetBuilder()->computeSingleNode(&myNBNode, OptionsCont::getOptions());
             // Refresh element to avoid grabbing problems
             myNet->refreshElement(this);
             break;

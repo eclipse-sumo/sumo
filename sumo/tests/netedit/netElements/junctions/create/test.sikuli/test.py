@@ -95,28 +95,22 @@ netedit.changeChainOption()
 # create a complex intersection
 netedit.leftClick(match, 300, 250)
 netedit.leftClick(match, 300, 150)
-netedit.leftClick(match, 300, 250)
-netedit.leftClick(match, 400, 150)
+
 netedit.leftClick(match, 300, 250)
 netedit.leftClick(match, 400, 250)
-netedit.leftClick(match, 300, 250)
-netedit.leftClick(match, 400, 350)
+
 netedit.leftClick(match, 300, 250)
 netedit.leftClick(match, 300, 350)
-netedit.leftClick(match, 300, 250)
-netedit.leftClick(match, 200, 350)
+
 netedit.leftClick(match, 300, 250)
 netedit.leftClick(match, 200, 250)
-netedit.leftClick(match, 300, 250)
-netedit.leftClick(match, 200, 150)
-netedit.leftClick(match, 300, 250)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check undo and redo
-netedit.undo(match, 24)
-netedit.redo(match, 24)
+netedit.undo(match, 20)
+netedit.redo(match, 20)
 
 # save newtork
 netedit.saveNetwork()

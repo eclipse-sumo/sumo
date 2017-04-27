@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Mar  2 11:11:42 2017" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Apr 25 14:40:12 2017" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
     <road name="" length="70.65625000" id="100" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -1150,7 +1150,7 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="629.34375000" y="3.25000000" hdg="3.14159265" length="58.68750000">
+            <geometry s="0.00000000" x="629.34375000" y="3.25000000" hdg="-3.14159265" length="58.68750000">
                 <line/>
             </geometry>
         </planView>
@@ -1188,7 +1188,7 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="629.34375000" y="0.05000000" hdg="3.14159265" length="58.68750000">
+            <geometry s="0.00000000" x="629.34375000" y="0.05000000" hdg="-3.14159265" length="58.68750000">
                 <line/>
             </geometry>
         </planView>

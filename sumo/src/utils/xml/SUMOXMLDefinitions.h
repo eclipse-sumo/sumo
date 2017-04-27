@@ -1013,9 +1013,9 @@ enum LaneChangeAction {
     /// @brief The vehicle is blocked by right follower
     LCA_BLOCKED_BY_RIGHT_FOLLOWER = 1 << 12,
     /// @brief The vehicle is blocked being overlapping
-    LCA_OVERLAPPING =  1 << 13,
+    LCA_OVERLAPPING = 1 << 13,
     /// @brief The vehicle does not have enough space to complete a continuous lane and change before the next turning movement
-    LCA_INSUFFICIENT_SPACE =  1 << 14,
+    LCA_INSUFFICIENT_SPACE = 1 << 14,
     /// @brief used by the sublane model
     LCA_SUBLANE = 1 << 15,
     /// @brief lane can change

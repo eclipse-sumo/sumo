@@ -35,6 +35,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <netbuild/NBDistrict.h>
@@ -1191,7 +1192,11 @@ NIImporter_VISUM::getEdge(NBNode* FromNode, NBNode* ToNode) {
 
 double
 NIImporter_VISUM::getNamedFloat(const std::string& fieldName) {
-    return TplConvert::_2double(myLineParser.get(fieldName).c_str());
+    std::string value = myLineParser.get(fieldName);
+    if (StringUtils::endsWith(myLineParser.get(fieldName), "km/h")) {
+        value = value.substr(0, value.length() - 4);
+    }
+    return TplConvert::_2double(value.c_str());
 }
 
 

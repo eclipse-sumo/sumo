@@ -27,10 +27,14 @@
 #include <config.h>
 #endif
 
+#include <utils/common/MsgHandler.h>
 #include <cassert>
+
 #include "GNEChange_Connection.h"
 #include "GNEConnection.h"
 #include "GNEEdge.h"
+#include "GNENet.h"
+#include "GNEViewNet.h"
 
 
 // ===========================================================================
@@ -60,8 +64,18 @@ GNEChange_Connection::~GNEChange_Connection() {
 void
 GNEChange_Connection::undo() {
     if (myForward) {
+        // show extra information for tests
+        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myConnection->getTag()) + " '" + myConnection->getID() + "'");
+        }
+        // remove connection from edge
         myEdge->removeConnection(myNBEdgeConnection);
     } else {
+        // show extra information for tests
+        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myConnection->getTag()) + " '" + myConnection->getID() + "'");
+        }
+        // add connection into edge
         myEdge->addConnection(myNBEdgeConnection, myConnection);
     }
 }
@@ -70,8 +84,18 @@ GNEChange_Connection::undo() {
 void
 GNEChange_Connection::redo() {
     if (myForward) {
+        // show extra information for tests
+        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myConnection->getTag()) + " '" + myConnection->getID() + "'");
+        }
+        // add connection into edge
         myEdge->addConnection(myNBEdgeConnection, myConnection);
     } else {
+        // show extra information for tests
+        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myConnection->getTag()) + " '" + myConnection->getID() + "'");
+        }
+        // remove connection from edge
         myEdge->removeConnection(myNBEdgeConnection);
     }
 }

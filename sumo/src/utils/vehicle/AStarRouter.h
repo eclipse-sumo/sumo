@@ -132,18 +132,22 @@ public:
     AStarRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation operation, const LookupTable* const lookup = 0):
         SUMOAbstractRouter<E, V>(operation, "AStarRouter"),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
-        myLookupTable(lookup) {
+        myLookupTable(lookup),
+        myMaxSpeed(NUMERICAL_EPS) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             myEdgeInfos.push_back(EdgeInfo(*i));
+            myMaxSpeed = MAX2(myMaxSpeed, (*i)->getSpeedLimit() * (*i)->getLengthGeometryFactor());
         }
     }
 
     AStarRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, Operation operation, const LookupTable* const lookup = 0):
         SUMOAbstractRouter<E, V>(operation, "AStarRouter"),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
-        myLookupTable(lookup) {
+        myLookupTable(lookup), 
+        myMaxSpeed(NUMERICAL_EPS) {
         for (typename std::vector<EdgeInfo>::const_iterator i = edgeInfos.begin(); i != edgeInfos.end(); ++i) {
             myEdgeInfos.push_back(EdgeInfo(i->edge));
+            myMaxSpeed = MAX2(myMaxSpeed, i->edge->getSpeedLimit() * i->edge->getLengthGeometryFactor());
         }
     }
 
@@ -213,6 +217,7 @@ public:
         }
         // loop
         int num_visited = 0;
+        const double speed = MIN2(vehicle->getMaxSpeed(), myMaxSpeed * vehicle->getChosenSpeedFactor());
         while (!myFrontierList.empty()) {
             num_visited += 1;
             // use the node with the minimal length
@@ -230,7 +235,7 @@ public:
             minimumInfo->visited = true;
             const double traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // admissible A* heuristic: straight line distance at maximum speed
-            const double heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / vehicle->getMaxSpeed() : (*myLookupTable)[minEdge->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
+            const double heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed : (*myLookupTable)[minEdge->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
             // check all ways from the node with the minimal length
             const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
             for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
@@ -250,7 +255,7 @@ public:
                     if (follower != to) {
                         if (myLookupTable == 0) {
                             // admissible A* heuristic: straight line distance at maximum speed
-                            followerInfo->heuristicTime += this->getEffort(follower, vehicle, time + traveltime) + follower->getDistanceTo(to) / vehicle->getMaxSpeed();
+                            followerInfo->heuristicTime += this->getEffort(follower, vehicle, time + traveltime) + follower->getDistanceTo(to) / speed;
                         } else {
                             followerInfo->heuristicTime += this->getEffort(follower, vehicle, time + traveltime) + (*myLookupTable)[follower->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
                         }
@@ -312,6 +317,9 @@ protected:
 
     /// @brief the lookup table for travel time heuristics
     const LookupTable* const myLookupTable;
+
+    /// @brief maximum speed in the network
+    double myMaxSpeed;
 };
 
 

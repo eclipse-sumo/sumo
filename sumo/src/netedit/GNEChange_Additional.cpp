@@ -27,6 +27,8 @@
 #include <config.h>
 #endif
 
+#include <utils/common/MsgHandler.h>
+
 #include "GNEChange_Additional.h"
 #include "GNENet.h"
 #include "GNELane.h"
@@ -86,6 +88,10 @@ GNEChange_Additional::~GNEChange_Additional() {
     assert(myAdditional);
     myAdditional->decRef("GNEChange_Additional");
     if (myAdditional->unreferenced()) {
+        // show extra information for tests
+        if(myNet->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting unreferenced " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
+        }
         delete myAdditional;
     }
 }
@@ -94,6 +100,11 @@ GNEChange_Additional::~GNEChange_Additional() {
 void
 GNEChange_Additional::undo() {
     if (myForward) {
+        // show extra information for tests
+        if(myNet->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
+        }
+        // delete additional of test
         myNet->deleteAdditional(myAdditional);
         // 1 - If additional own a lane parent, remove it from lane
         if (myAdditional->getLane() != NULL) {
@@ -140,6 +151,11 @@ GNEChange_Additional::undo() {
             }
         }
     } else {
+        // show extra information for tests
+        if(myNet->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Inserting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
+        }
+        // insert additional of test
         myNet->insertAdditional(myAdditional);
         // 1 - If additional own a Lane parent, add it to lane
         if (myAdditional->getLane() != NULL) {
@@ -192,6 +208,11 @@ GNEChange_Additional::undo() {
 void
 GNEChange_Additional::redo() {
     if (myForward) {
+        // show extra information for tests
+        if(myNet->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Inserting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
+        }
+        // insert additional into net
         myNet->insertAdditional(myAdditional);
         // 1 - If additional own a Lane parent, add it to lane
         if (myAdditional->getLane() != NULL) {
@@ -238,6 +259,10 @@ GNEChange_Additional::redo() {
             }
         }
     } else {
+        // show extra information for tests
+        if(myNet->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
+        }
         myNet->deleteAdditional(myAdditional);
         // 1 - If additionl own a Lane Parent, remove it from lane
         if (myAdditional->getLane() != NULL) {

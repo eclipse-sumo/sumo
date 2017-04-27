@@ -100,7 +100,7 @@ initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
     /* const SUMOTime begin = string2time(oc.getString("begin"));
     const SUMOTime end = string2time(oc.getString("end"));
     for (std::map<std::string, ROEdge*>::const_iterator i = net.getEdgeMap().begin(); i != net.getEdgeMap().end(); ++i) {
-        (*i).second->addTravelTime(STEPS2TIME(begin), STEPS2TIME(end), (*i).second->getLength() / (*i).second->getSpeed());
+        (*i).second->addTravelTime(STEPS2TIME(begin), STEPS2TIME(end), (*i).second->getLength() / (*i).second->getSpeedLimit());
     }*/
     // load the weights when wished/available
     if (oc.isSet("weight-files")) {
@@ -113,7 +113,7 @@ initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
 
 double
 getTravelTime(const ROEdge* const edge, const ROVehicle* const /* veh */, double /* time */) {
-    return edge->getLength() / edge->getSpeed();
+    return edge->getLength() / edge->getSpeedLimit();
 }
 
 

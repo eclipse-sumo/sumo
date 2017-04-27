@@ -85,6 +85,8 @@ class DistrictEdgeComputer:
     def writeResults(self, options):
         fd = open(options.output, "w")
         fd.write("<tazs>\n")
+        lastId = None
+        lastEdges = None
         for district, edges in sorted(self._districtEdges.items()):
             filtered = [
                 edge for edge in edges if edge not in self._invalidatedEdges]
@@ -109,8 +111,22 @@ class DistrictEdgeComputer:
                         fd.write('    <taz id="%s" shape="%s" edges="%s"/>\n' %
                                  (district.id, district.getShapeString(), " ".join([e.getID() for e in filtered])))
                     else:
-                        fd.write('    <taz id="%s" edges="%s"/>\n' %
-                                 (district.id, " ".join([e.getID() for e in filtered])))
+                        if options.merge_separator is not None and options.merge_separator in district.id:
+                            base = district.id[:district.id.index(options.merge_separator)]
+                            if lastId is not None:
+                                if lastId == base:
+                                    lastEdges += [e for e in filtered if e not in lastEdges]
+                                else:
+                                    fd.write('    <taz id="%s" edges="%s"/>\n' % (lastId, " ".join([e.getID() for e in lastEdges])))
+                                    lastId = None
+                            if lastId is None:
+                                lastId = base
+                                lastEdges = filtered
+                        else:
+                            fd.write('    <taz id="%s" edges="%s"/>\n' %
+                                     (district.id, " ".join([e.getID() for e in filtered])))
+        if lastId is not None:
+            fd.write('    <taz id="%s" edges="%s"/>\n' % (lastId, " ".join([e.getID() for e in lastEdges])))
         fd.write("</tazs>\n")
         fd.close()
 
@@ -144,6 +160,8 @@ def fillOptions(optParser):
         "-l", "--vclass", help="Include only edges allowing VCLASS")
     optParser.add_option("-s", "--shapeinfo", action="store_true",
                          default=False, help="write also the shape info in the file")
+    optParser.add_option("--merge-separator",
+                         help="merge edge lists of taz starting with the same string up to the given separator")
 
 
 if __name__ == "__main__":

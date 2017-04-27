@@ -27,6 +27,8 @@
 #include <config.h>
 #endif
 
+#include <utils/common/MsgHandler.h>
+
 #include "GNEChange_Crossing.h"
 #include "GNENet.h"
 #include "GNEViewNet.h"
@@ -60,12 +62,20 @@ GNEChange_Crossing::~GNEChange_Crossing() {}
 
 void GNEChange_Crossing::undo() {
     if (myForward) {
+        // show extra information for tests
+        if(myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
+        }
         // remove crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         myJunctionParent->updateGeometry();
         // Update view
         myNet->getViewNet()->update();
     } else {
+        // show extra information for tests
+        if(myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
+        }
         // add crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
         myJunctionParent->updateGeometry();
@@ -77,12 +87,20 @@ void GNEChange_Crossing::undo() {
 
 void GNEChange_Crossing::redo() {
     if (myForward) {
+        // show extra information for tests
+        if(myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
+        }
         // add crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
         myJunctionParent->updateGeometry();
         // Update view
         myNet->getViewNet()->update();
     } else {
+        // show extra information for tests
+        if(myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
+        }
         // remove crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         myJunctionParent->updateGeometry();

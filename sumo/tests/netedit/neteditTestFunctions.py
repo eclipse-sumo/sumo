@@ -25,13 +25,13 @@ import atexit
 from sikuli import *
 
 # define delay before every operation
-DELAY = 0.1
+DELAY = 0.2
 DELAY_QUESTION = 1
 DELAY_REFERENCE = 50
 
-Settings.MoveMouseDelay = 0.1
-Settings.DelayBeforeDrop = 0.1
-Settings.DelayAfterDrag = 0.1
+Settings.MoveMouseDelay = 0.2
+Settings.DelayBeforeDrop = 0.2
+Settings.DelayAfterDrag = 0.2
 
 neteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
 textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
@@ -410,7 +410,7 @@ def moveElement(match, startX, startY, endX, endY):
     dragDrop(match.getTarget().offset(startX, startY),
              match.getTarget().offset(endX, endY))
     # set back mouse move delay
-    Settings.MoveMouseDelay = 0.1
+    Settings.MoveMouseDelay = 0.2
 
 #################################################
 # crossings
@@ -784,7 +784,7 @@ def selectionRectangle(match, startX, startY, endX, endY):
     # move element
     dragDrop(match.getTarget().offset(startX, startY), match.getTarget().offset(endX, endY))
     # set back mouse move delay
-    Settings.MoveMouseDelay = 0.1
+    Settings.MoveMouseDelay = 0.2
     keyUp(Key.SHIFT)
 
 # clear selection

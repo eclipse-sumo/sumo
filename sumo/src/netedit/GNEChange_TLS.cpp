@@ -27,12 +27,16 @@
 #include <config.h>
 #endif
 
+#include <utils/common/MsgHandler.h>
+
 #include <cassert>
 #include <utils/options/OptionsCont.h>
 #include <netbuild/NBTrafficLightDefinition.h>
 #include <netbuild/NBOwnTLDef.h>
 #include "GNEChange_TLS.h"
 #include "GNEJunction.h"
+#include "GNENet.h"
+#include "GNEViewNet.h"
 
 
 // ===========================================================================
@@ -66,6 +70,10 @@ GNEChange_TLS::~GNEChange_TLS() {
     assert(myJunction);
     myJunction->decRef("GNEChange_TLS");
     if (myJunction->unreferenced()) {
+        // show extra information for tests
+        if(myNet->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting unreferenced " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        }
         delete myJunction;
     }
 }
@@ -74,8 +82,18 @@ GNEChange_TLS::~GNEChange_TLS() {
 void
 GNEChange_TLS::undo() {
     if (myForward) {
+        // show extra information for tests
+        if(myJunction->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        }
+        // remove traffic light from junction
         myJunction->removeTrafficLight(myTlDef);
     } else {
+        // show extra information for tests
+        if(myJunction->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        }
+        // add traffic light to junction
         myJunction->addTrafficLight(myTlDef, myForceInsert);
     }
 }
@@ -84,8 +102,18 @@ GNEChange_TLS::undo() {
 void
 GNEChange_TLS::redo() {
     if (myForward) {
+        // show extra information for tests
+        if(myJunction->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        }
+        // add traffic light to junction
         myJunction->addTrafficLight(myTlDef, myForceInsert);
     } else {
+        // show extra information for tests
+        if(myJunction->getNet()->getViewNet()->isTestingModeEnabled()) {
+            WRITE_WARNING("Deleting " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        }
+        // remove traffic light from junction
         myJunction->removeTrafficLight(myTlDef);
     }
 }

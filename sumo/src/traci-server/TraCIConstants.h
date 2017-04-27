@@ -30,7 +30,6 @@
 #ifndef TRACICONSTANTS_H
 #define TRACICONSTANTS_H
 
-
 // ****************************************
 // VERSION
 // ****************************************
@@ -520,7 +519,6 @@
 #define TL_EXTERNAL_STATE 0x2e
 
 
-
 // outgoing link number (get: lanes)
 #define LANE_LINK_NUMBER 0x30
 
@@ -637,7 +635,6 @@
 
 // speed deviation (set: vehicle)
 #define VAR_SPEED_DEVIATION 0x5f
-
 
 
 // speed without TraCI influence (get: vehicle)
@@ -801,7 +798,6 @@
 #define VAR_PARAMETER 0x7e
 
 
-
 // add an instance (poi, polygon, vehicle, person, route)
 #define ADD 0x80
 
@@ -814,7 +810,7 @@
 // distance between points or vehicles
 #define DISTANCE_REQUEST 0x83
 
-//the current driving distance
+// the current driving distance
 #define VAR_DISTANCE 0x84
 
 // add a fully specified instance (vehicle)

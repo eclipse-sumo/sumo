@@ -98,8 +98,8 @@ netedit.modifyAttribute(4, "myOwnOutput.txt")
 # Change boolean parameter 5
 netedit.modifyBoolAttribute(5)
 
-# go to a empty area
-click(match)
+# click over an empty area
+netedit.leftClick(match, 0, 0)
 
 # Check undos and redos
 netedit.undo(match, 12)

@@ -278,6 +278,9 @@ class Net:
             self._tlss.append(tls)
         return tls
 
+    def getTrafficLights(self):
+        return self._tlss
+
     def addTLS(self, tlid, inLane, outLane, linkNo):
         tls = self.getTLSSecure(tlid)
         tls.addConnection(inLane, outLane, linkNo)
