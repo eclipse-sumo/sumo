@@ -30,7 +30,6 @@
 #ifndef TRACICONSTANTS_H
 #define TRACICONSTANTS_H
 
-
 // ****************************************
 // VERSION
 // ****************************************
@@ -636,7 +635,6 @@
 
 // speed deviation (set: vehicle)
 #define VAR_SPEED_DEVIATION 0x5f
-
 
 
 // speed without TraCI influence (get: vehicle)
