@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 04/28/17 13:08:59 by Netedit Version dev-SVN-r22761
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <output>
+        <output-file value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\edges\load\input_net.net.xml"/>
+        <plain-output-prefix value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\edges\load\input_net"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-gneE10" from="gneJ18" to="gneJ17" priority="1" numLanes="1" speed="13.89" width="2.00"/>
+    <edge id="-gneE11" from="gneJ20" to="gneJ19" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE3" from="gneJ5" to="gneJ4" priority="1" numLanes="1" speed="13.89" shape="20.14,61.64 0.00,61.65" spreadType="center"/>
+    <edge id="-gneE5" from="gneJ8" to="gneJ7" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE6" from="gneJ10" to="gneJ9" priority="1" numLanes="1" speed="13.89" allow="tram rail_urban rail rail_electric ship"/>
+    <edge id="-gneE7" from="gneJ12" to="gneJ11" priority="1" numLanes="1" speed="13.89" shape="80.00,70.00 75.00,75.00 65.00,75.00 60.00,70.00"/>
+    <edge id="-gneE8" from="gneJ14" to="gneJ13" priority="1" numLanes="1" speed="13.89" shape="75.00,62.00 60.00,60.00"/>
+    <edge id="-gneE9" from="gneJ16" to="gneJ15" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE1" from="gneJ2" to="gneJ3" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="gneE10" from="gneJ17" to="gneJ18" priority="1" numLanes="1" speed="13.89" endOffset="5.00"/>
+    <edge id="gneE11" from="gneJ19" to="gneJ20" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE2" from="gneJ3" to="gneJ2" priority="1" numLanes="2" speed="13.89"/>
+    <edge id="gneE3" from="gneJ4" to="gneJ5" name="OwnName" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE5" from="gneJ7" to="gneJ8" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE6" from="gneJ9" to="gneJ10" priority="1" numLanes="1" speed="13.89" disallow="all"/>
+    <edge id="gneE7" from="gneJ11" to="gneJ12" priority="1" numLanes="1" speed="13.89" length="10.00"/>
+    <edge id="gneE8" from="gneJ13" to="gneJ14" priority="1" numLanes="1" speed="13.89" shape="60.00,60.00 75.00,62.00"/>
+    <edge id="gneE9" from="gneJ15" to="gneJ16" priority="1" numLanes="1" speed="13.89"/>
+</edges>
