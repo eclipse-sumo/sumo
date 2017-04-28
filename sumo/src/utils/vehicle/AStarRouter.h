@@ -139,7 +139,7 @@ public:
         myMaxSpeed(NUMERICAL_EPS) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             myEdgeInfos.push_back(EdgeInfo(*i));
-            myMaxSpeed = MAX2(myMaxSpeed, (*i)->getSpeedLimit() * (*i)->getLengthGeometryFactor());
+            myMaxSpeed = MAX2(myMaxSpeed, (*i)->getSpeedLimit() * MAX2(1.0, (*i)->getLengthGeometryFactor()));
         }
     }
 
