@@ -69,10 +69,6 @@ METriggeredCalibrator::METriggeredCalibrator(const std::string& id,
 
 
 METriggeredCalibrator::~METriggeredCalibrator() {
-    if (myCurrentStateInterval != myIntervals.end()) {
-        writeXMLOutput();
-        myCurrentStateInterval = myIntervals.end();
-    }
     mySegment->removeDetector(&myEdgeMeanData);
 }
 
