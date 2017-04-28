@@ -48,6 +48,9 @@
 #include <utils/iodevices/BinaryInputDevice.h>
 #include "SUMOAbstractRouter.h"
 
+//#define ASTAR_DEBUG_QUERY
+//#define ASTAR_DEBUG_QUERY_PERF
+//#define ASTAR_DEBUG_VISITED
 
 // ===========================================================================
 // class definitions
@@ -198,6 +201,9 @@ public:
             return false;
         }
         this->startQuery();
+#ifdef ASTAR_DEBUG_QUERY
+        std::cout << "DEBUG: starting search for '" << vehicle->getID() << "' speed: " << MIN2(vehicle->getMaxSpeed(), myMaxSpeed * vehicle->getChosenSpeedFactor()) << " time: " << STEPS2TIME(msTime) << "\n";
+#endif
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         const double time = STEPS2TIME(msTime);
         if (this->myBulkMode) {
@@ -227,12 +233,33 @@ public:
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
                 this->endQuery(num_visited);
+#ifdef ASTAR_DEBUG_QUERY_PERF
+                std::cout << "visited " + toString(num_visited) + " edges (final path length=" + toString(into.size()) 
+                    + " time=" + toString(recomputeCosts(into, vehicle, msTime))
+                    + " edges=" + toString(into) + ")\n";
+#endif
+#ifdef ASTAR_DEBUG_VISITED
+                OutputDevice& dev = OutputDevice::getDevice(vehicle->getID() + "_" + time2string(msTime) + "_" + from->getID() + "_" + to->getID());
+                for (typename std::vector<EdgeInfo>::const_iterator i = myEdgeInfos.begin(); i != myEdgeInfos.end(); ++i) {
+                    if (i->visited) {
+                        dev << "edge:" << i->edge->getID() << "\n";
+                    }
+                }
+                dev.close();
+#endif
                 return true;
             }
             pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
             myFrontierList.pop_back();
             myFound.push_back(minimumInfo);
             minimumInfo->visited = true;
+#ifdef ASTAR_DEBUG_QUERY
+            std::cout << "DEBUG: hit '" << minEdge->getID() << "' TT: " << minimumInfo->traveltime << " E: " << this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime) << " Q: ";
+            for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
+                std::cout << (*it)->traveltime << "," << (*it)->edge->getID() << " ";
+            }
+            std::cout << "\n";
+#endif
             const double traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // admissible A* heuristic: straight line distance at maximum speed
             const double heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed : (*myLookupTable)[minEdge->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
@@ -260,6 +287,9 @@ public:
                             followerInfo->heuristicTime += this->getEffort(follower, vehicle, time + traveltime) + (*myLookupTable)[follower->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
                         }
                     }*/
+#ifdef ASTAR_DEBUG_QUERY
+                    //std::cout << "   follower=" << followerInfo->edge->getID() << " oldEffort=" << oldEffort << " rem=" << heuristic_remaining << " tt=" << traveltime << " ht=" << followerInfo->heuristicTime << "\n";
+#endif
                     followerInfo->prev = minimumInfo;
                     if (oldEffort == std::numeric_limits<double>::max()) {
                         myFrontierList.push_back(followerInfo);
@@ -273,6 +303,9 @@ public:
             }
         }
         this->endQuery(num_visited);
+#ifdef ASTAR_DEBUG_QUERY_PERF
+        std::cout << "visited " + toString(num_visited) + " edges (unsuccesful path length: " + toString(into.size()) + ")\n";
+#endif
         myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
         return false;
     }
