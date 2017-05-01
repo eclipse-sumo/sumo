@@ -177,9 +177,11 @@
             <xsd:element name="osm.layer-elevation" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.layer-elevation.max-grade" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.oneway-spread-right" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="osm.stop-output.length" type="floatOptionType" minOccurs="0" />
+            <xsd:element name="osm.stop-output.length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.import-all-lanes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.ignore-widths" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="opendrive.curve-resolution" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="opendrive.advance-stopline" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="numerical-ids" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="reserved-ids" type="fileOptionType" minOccurs="0"/>
