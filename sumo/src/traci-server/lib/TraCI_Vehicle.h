@@ -156,7 +156,7 @@ public:
                         const std::string& edgeID,
                         double endPos = 1.,
                         int laneIndex = 0,
-                        SUMOTime duration = 4294967295, // 2^32-1
+                        SUMOTime duration = 4294967295u, // 2^32-1
                         int flags = STOP_DEFAULT,
                         double startPos = INVALID_DOUBLE_VALUE,
                         SUMOTime until = -1);

@@ -419,7 +419,7 @@ GNEEdge::remakeGNEConnections() {
 
     // first check that there are the same number of NBLanes as GNELanes
     while (myLanes.size() < myNBEdge.getLanes().size()) {
-        GNELane* lane = new GNELane(*this, myLanes.size());
+        GNELane* lane = new GNELane(*this, (int)myLanes.size());
         const NBEdge::Lane& laneAttrs = myNBEdge.getLanes().at(myLanes.size());
         myLanes.push_back(lane);
         lane->incRef("GNEEdge::addLane");
