@@ -133,8 +133,19 @@ computeAllPairs(RONet& net, OptionsCont& oc) {
         const Dijkstra::EdgeInfo& ei = router.getEdgeInfo(i);
         if (ei.edge->getFunc() != ROEdge::ET_INTERNAL) {
             router.compute(ei.edge, 0, 0, 0, into);
+            double fromEffort = router.getEffort(ei.edge, 0, 0);
             for (int j = numInternalEdges; j < numTotalEdges; j++) {
-                FileHelpers::writeFloat(outFile, router.getEdgeInfo(j).traveltime);
+                double heuTT = router.getEdgeInfo(j).traveltime - fromEffort;
+                FileHelpers::writeFloat(outFile, heuTT);
+                /*
+                if (heuTT > 
+                        ei.edge->getDistanceTo(router.getEdgeInfo(j).edge) 
+                        && router.getEdgeInfo(j).traveltime != std::numeric_limits<double>::max() 
+                        ) {
+                    std::cout << " heuristic failure: from=" << ei.edge->getID() << " to=" << router.getEdgeInfo(j).edge->getID() 
+                    << " fromEffort=" << fromEffort << " heuTT=" << heuTT << " airDist=" << ei.edge->getDistanceTo(router.getEdgeInfo(j).edge) << "\n";
+                }
+                */
             }
         }
     }
