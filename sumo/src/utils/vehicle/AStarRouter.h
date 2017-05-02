@@ -75,7 +75,34 @@ class AStarRouter : public SUMOAbstractRouter<E, V>, public PF {
 
 public:
     typedef double(* Operation)(const E* const, const V* const, double);
-    typedef std::vector<std::vector<double> > LookupTable;
+
+    class LookupTable {
+    public:
+        virtual double lowerBound(const E* from, const E* to) const = 0;
+    };
+
+    class FullLookupTable : public LookupTable {
+    public:
+        FullLookupTable(const std::string& filename, const int size) :
+            myTable(size)
+        {
+            BinaryInputDevice dev(filename);
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    double val;
+                    dev >> val;
+                    myTable[i].push_back(val);
+                }
+            }
+        }
+
+        double lowerBound(const E* from, const E* to) const { 
+            return myTable[from->getNumericalID()][to->getNumericalID()];
+        }
+    private:
+        std::vector<std::vector<double> > myTable;
+    };
+
 
     /**
      * @struct EdgeInfo
@@ -159,19 +186,6 @@ public:
 
     virtual SUMOAbstractRouter<E, V>* clone() {
         return new AStarRouter<E, V, PF>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable);
-    }
-
-    static LookupTable* createLookupTable(const std::string& filename, const int size) {
-        LookupTable* const result = new LookupTable();
-        BinaryInputDevice dev(filename);
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                double val;
-                dev >> val;
-                (*result)[i].push_back(val);
-            }
-        }
-        return result;
     }
 
     void init() {
@@ -262,7 +276,7 @@ public:
 #endif
             const double traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // admissible A* heuristic: straight line distance at maximum speed
-            const double heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed : (*myLookupTable)[minEdge->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
+            const double heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed : myLookupTable->lowerBound(minEdge, to) / vehicle->getChosenSpeedFactor();
             // check all ways from the node with the minimal length
             const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
             for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
