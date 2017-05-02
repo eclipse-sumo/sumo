@@ -46,6 +46,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/BinaryInputDevice.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "SUMOAbstractRouter.h"
 
 //#define ASTAR_DEBUG_QUERY
