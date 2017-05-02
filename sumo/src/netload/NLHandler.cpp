@@ -284,7 +284,15 @@ NLHandler::myEndElement(int element) {
                 MSEdge* edge = MSEdge::dictionary(it->first);
                 MSJunction* from = myJunctionControlBuilder.retrieve(it->second.first);
                 MSJunction* to = myJunctionControlBuilder.retrieve(it->second.second);
-                if (edge != 0 && from != 0 && to != 0) {
+                if (from == 0) {
+                    WRITE_ERROR("Unknown from-node '" + it->second.first + "' for edge '" + it->first + "'.");
+                    return;
+                }
+                if (to == 0) {
+                    WRITE_ERROR("Unknown to-node '" + it->second.second + "' for edge '" + it->first + "'.");
+                    return;
+                }
+                if (edge != 0) {
                     edge->setJunctions(from, to);
                     from->addOutgoing(edge);
                     to->addIncoming(edge);
@@ -321,15 +329,16 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
             myCurrentIsInternalToSkip = true;
             return;
         }
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
-        myJunctionGraph[id] = std::make_pair(
-                                  attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok),
-                                  attrs.get<std::string>(SUMO_ATTR_TO, 0, ok));
-    } else if (id[0] == ':') {
-        // must be an internal edge
         std::string junctionID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(id);
         myJunctionGraph[id] = std::make_pair(junctionID, junctionID);
+    } else {
+        myJunctionGraph[id] = std::make_pair(
+                                  attrs.get<std::string>(SUMO_ATTR_FROM, id.c_str(), ok),
+                                  attrs.get<std::string>(SUMO_ATTR_TO, id.c_str(), ok));
+        if (!ok) {
+            myCurrentIsBroken = true;
+            return;
+        }
     }
     myCurrentIsInternalToSkip = false;
     // parse the function
@@ -670,7 +679,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
         if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
             type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
         } else {
-            WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'");
+            WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'.");
         }
     }
     //
@@ -1166,12 +1175,12 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
 
         MSEdge* from = MSEdge::dictionary(fromID);
         if (from == 0) {
-            WRITE_ERROR("Unknown from-edge '" + fromID + "' in connection");
+            WRITE_ERROR("Unknown from-edge '" + fromID + "' in connection.");
             return;
         }
         MSEdge* to = MSEdge::dictionary(toID);
         if (to == 0) {
-            WRITE_ERROR("Unknown to-edge '" + toID + "' in connection");
+            WRITE_ERROR("Unknown to-edge '" + toID + "' in connection.");
             return;
         }
         if (fromLaneIdx < 0 || fromLaneIdx >= (int)from->getLanes().size() ||
