@@ -912,11 +912,13 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         default:
             // draw as image but take special care for drawing trains
             // fallback to simple shapes
+            glPushMatrix(); // drawAction_drawRailCarriages assues matrix stack depth of 2
             if (!drawAction_drawCarriageClass(s, getVType().getGuiShape(), true)) {
                 if (!drawAction_drawVehicleAsImage(s)) {
                     drawAction_drawVehicleAsPoly(s);
                 };
             }
+            glPopMatrix();
             break;
     }
     if (s.drawMinGap) {
