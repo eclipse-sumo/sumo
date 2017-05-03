@@ -1,0 +1,2 @@
+sumo/extended/state/load_shifted/tripinfos.sumo:34:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'tripinfo', attribute 'depart': [facet 'minInclusive'] The value '-10.00' is less than the minimum value allowed ('0').
+sumo/extended/state/load_shifted/tripinfos.sumo:34:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'tripinfo', attribute 'depart': '-10.00' is not a valid value of the atomic type 'nonNegativeFloatType'.
