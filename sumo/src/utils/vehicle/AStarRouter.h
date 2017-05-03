@@ -42,7 +42,10 @@
 #include <algorithm>
 #include <iterator>
 #include <map>
+#include <iostream>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/BinaryInputDevice.h>
@@ -79,7 +82,7 @@ public:
 
     class LookupTable {
     public:
-        virtual double lowerBound(const E* from, const E* to) const = 0;
+        virtual double lowerBound(const E* from, const E* to, double speed) const = 0;
     };
 
     class FullLookupTable : public LookupTable {
@@ -97,11 +100,59 @@ public:
             }
         }
 
-        double lowerBound(const E* from, const E* to) const { 
+        double lowerBound(const E* from, const E* to, double /*speed*/) const { 
             return myTable[from->getNumericalID()][to->getNumericalID()];
         }
     private:
         std::vector<std::vector<double> > myTable;
+    };
+
+
+    class LandmarkLookupTable : public LookupTable {
+    public:
+        LandmarkLookupTable(const std::string& filename, const int size) {
+            std::ifstream strm(filename.c_str());
+            if (!strm.good()) {
+                throw ProcessError("Could not load landmark-lookup-table from '" + filename + "'.");
+            }
+            std::string line;
+            int numLandMarks = 0;
+            while (std::getline(strm, line)) {
+                if (line == "") {
+                    break;
+                }
+                //std::cout << "'" << line << "'" << "\n";
+                StringTokenizer st(line);
+                if (st.size() == 1) {
+                    myLandmarks[line] = numLandMarks++;
+                    myFromLandmarkDists.push_back(std::vector<double>(0));
+                    myToLandmarkDists.push_back(std::vector<double>(0));
+                } else {
+                    assert(st.size() == 4); 
+                    const std::string lm = st.get(0);
+                    const std::string edge = st.get(1);
+                    double distFrom = TplConvert::_2double(st.get(2).c_str());
+                    double distTo = TplConvert::_2double(st.get(3).c_str());
+                    myFromLandmarkDists[myLandmarks[lm]].push_back(distFrom);
+                    myToLandmarkDists[myLandmarks[lm]].push_back(distTo);
+                }
+            }
+        }
+
+        double lowerBound(const E* from, const E* to, double speed) const { 
+            double result = from->getDistanceTo(to) / speed;
+            for (int i = 0; i < (int)myLandmarks.size(); ++i) {
+                result = MAX2(result, myToLandmarkDists[i][from->getNumericalID()] - MAX2(0.0, myToLandmarkDists[i][to->getNumericalID()]));
+                result = MAX2(result, myFromLandmarkDists[i][to->getNumericalID()] - MAX2(0.0, myFromLandmarkDists[i][from->getNumericalID()]));
+            }
+            // @todo: prove unreachability
+            return result;
+        }
+
+    private:
+        std::map<std::string, int> myLandmarks;
+        std::vector<std::vector<double> > myFromLandmarkDists;
+        std::vector<std::vector<double> > myToLandmarkDists;
     };
 
 
@@ -277,7 +328,7 @@ public:
 #endif
             const double traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // admissible A* heuristic: straight line distance at maximum speed
-            const double heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed : myLookupTable->lowerBound(minEdge, to) / vehicle->getChosenSpeedFactor();
+            const double heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed : myLookupTable->lowerBound(minEdge, to, speed) / vehicle->getChosenSpeedFactor();
             // check all ways from the node with the minimal length
             const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
             for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {

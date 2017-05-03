@@ -378,6 +378,8 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                 const AStar::LookupTable* lookup = 0;
                 if (oc.isSet("astar.all-distances")) {
                     lookup = new AStar::FullLookupTable(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
+                } else if (oc.isSet("astar.landmark-distances")) {
+                    lookup = new AStar::LandmarkLookupTable(oc.getString("astar.landmark-distances"), (int)MSEdge::getAllEdges().size());
                 }
                 myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
             } else {
@@ -385,6 +387,8 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                 const AStar::LookupTable* lookup = 0;
                 if (oc.isSet("astar.all-distances")) {
                     lookup = new AStar::FullLookupTable(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
+                } else if (oc.isSet("astar.landmark-distances")) {
+                    lookup = new AStar::LandmarkLookupTable(oc.getString("astar.landmark-distances"), (int)MSEdge::getAllEdges().size());
                 }
                 myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
             }
