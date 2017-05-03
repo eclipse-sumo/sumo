@@ -33,7 +33,7 @@
         <lane id="gneE0_0" index="0" speed="13.89" length="100.00" shape="0.00,0.00 100.00,0.00"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,1.60 0.00,-1.60"/>
-    <junction id="gneJ1" type="unregulated" x="100.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="100.00,-1.60 100.00,1.60"/>
+    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" radius="4.0" incLanes="" intLanes="" shape="0.00,1.60 0.00,-1.60"/>
+    <junction id="gneJ1" type="unregulated" x="100.00" y="0.00" z="3.00" incLanes="gneE0_0" intLanes="" shape="100.00,-1.60 100.00,1.60"/>
 
 </net>

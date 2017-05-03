@@ -48,8 +48,14 @@ PORT = sumolib.miscutils.getFreeSocketPort()
 sumoProcess = subprocess.Popen(
     "%s -S -Q -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
-traci.simulationStep()
+for i in range(3):
+    traci.simulationStep()
+    print("step=%s" % traci.simulation.getCurrentTime())
+
+print("reloading")
 traci.load(["-S", "-Q", "-c", "sumo.sumocfg"])
-traci.simulationStep()
+while traci.simulation.getMinExpectedNumber() > 0:
+    traci.simulationStep()
+    print("step=%s" % traci.simulation.getCurrentTime())
 traci.close()
 sumoProcess.wait()

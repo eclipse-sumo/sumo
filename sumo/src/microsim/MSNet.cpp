@@ -334,7 +334,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
             OptionsIO::setArgs(TraCI::getLoadArgs());
             TraCI::getLoadArgs().clear();
         } else if (state != SIMSTATE_RUNNING) {
-            if (OptionsCont::getOptions().getInt("remote-port") != 0 && !TraCIServer::wasClosed()) {
+            if (TraCIServer::getInstance() != 0 && !TraCIServer::wasClosed()) {
                 state = SIMSTATE_RUNNING;
             }
         }
@@ -539,7 +539,7 @@ MSNet::simulationState(SUMOTime stopTime) const {
     if (!TraCI::getLoadArgs().empty()) {
         return SIMSTATE_LOADING;
     }
-    if ((stopTime < 0 || myStep > stopTime) && OptionsCont::getOptions().getInt("remote-port") == 0) {
+    if ((stopTime < 0 || myStep > stopTime) && TraCIServer::getInstance() == 0) {
 #else
     if (stopTime < 0 || myStep > stopTime) {
 #endif
