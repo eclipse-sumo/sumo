@@ -36,14 +36,17 @@
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSLink.h>
+#include <microsim/MSVehicle.h>
 #include "MSTrafficLightLogic.h"
 #include "MSRailSignal.h"
 #include <microsim/MSLane.h>
+#include <zconf.h>
 #include "MSPhaseDefinition.h"
 #include "MSTLLogicControl.h"
 
 
-
+class ApproachingVehicleInformation;
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -106,23 +109,23 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 std::vector<const MSLane*> succeedingBlock;   //the vector of lanes leading to the next rail signal
                 succeedingBlock.push_back(toLane);
                 currentLane = toLane;
-                bool noRailSignal = true;   //true if the considered lane is not ending at a rail signal
-                while (noRailSignal) {
+                bool noRailSignalLocal = true;   //true if the considered lane is not ending at a rail signal
+                while (noRailSignalLocal) {
                     //check first if the current lane is ending at a rail signal
                     std::vector<MSLink*> outGoingLinks = currentLane->getLinkCont();
                     std::vector<MSLink*>::const_iterator j;
                     for (j = outGoingLinks.begin(); j != outGoingLinks.end(); j++) {
                         const MSJunction* junction = currentLane->getEdge().getToJunction();
                         if ((junction != 0) && (junction->getType() == NODETYPE_RAIL_SIGNAL)) { //if this junctions exists and if it has a rail signal
-                            noRailSignal = false;
+                            noRailSignalLocal = false;
                             break;
                         }
                     }
-                    if (noRailSignal) { //if currentLane is not ending at a railSignal
+                    if (noRailSignalLocal) { //if currentLane is not ending at a railSignal
                         //get the next lane
                         std::vector<const MSLane*> outGoingLanes = currentLane->getOutgoingLanes();
                         if (outGoingLanes.size() == 0) {    //if the current lane has no outgoing lanes (deadend)
-                            noRailSignal = false;
+                            noRailSignalLocal = false;
                         } else {
                             if (outGoingLanes.size() > 1) {
                                 WRITE_WARNING("Rail lane '" + currentLane->getID() + "' has more than one outgoing lane but does not have a rail signal at its end");
@@ -137,6 +140,37 @@ MSRailSignal::init(NLDetectorBuilder&) {
             }
         }
     }
+
+
+    for (std::map<MSLane*, std::vector<const MSLane*> >::iterator it = mySucceedingBlocks.begin(); it != mySucceedingBlocks.end(); it++) {
+        std::queue<const MSLane*> revLanes;
+        for ( std::vector<const MSLane*>::iterator laneIt = it->second.begin(); laneIt != it->second.end(); laneIt++) {
+            const MSLane* lane = *laneIt;
+            const MSJunction * from = lane->getEdge().getFromJunction();
+            const MSJunction * to = lane->getEdge().getToJunction();
+
+            for (ConstMSEdgeVector::const_iterator edgeIt = to->getOutgoing().begin(); edgeIt != to->getOutgoing().end(); edgeIt++) {
+                if ((*edgeIt)->getToJunction() == from){ //reverse edge
+                    const MSLane* revLane = (*edgeIt)->getLanes()[0];
+                    if (revLane->getShape().reverse() == lane->getShape()){
+                        revLanes.push(revLane);
+                        const MSLane* pred = revLane->getCanonicalPredecessorLane();
+                        if (pred != 0) {
+                            const MSLink* msLink = pred->getLinkTo(revLane);
+                            mySucceedingBlocksIncommingLinks[lane] = msLink;
+                        }
+                    }
+                }
+            }
+        }
+
+        while (!revLanes.empty()) {
+            const MSLane* revLane = revLanes.front();
+            it->second.push_back(revLane);
+            revLanes.pop();
+        }
+    }
+
     updateCurrentPhase();   //check if this is necessary or if will be done already at another stage
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
 }
@@ -174,6 +208,23 @@ MSRailSignal::getAppropriateState() {
         for (j = mySucceedingBlocks.at(lane).begin(); j != mySucceedingBlocks.at(lane).end(); j++) { //for every lane in the block between the current signal and the next signal
             if (!(*j)->isEmpty()) { //if this lane is not empty
                 succeedingBlockOccupied = true;
+            } else {
+                std::map<const MSLane*, const MSLink*>::iterator it = mySucceedingBlocksIncommingLinks.find(lane);
+                if (it != mySucceedingBlocksIncommingLinks.end()) {
+                    const MSLink* inCommingLing = it->second;
+                    const std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation> approaching = inCommingLing->getApproaching();
+                    std::map<const SUMOVehicle*,  MSLink::ApproachingVehicleInformation>::const_iterator apprIt = approaching.begin();
+                    for (; apprIt != approaching.end(); apprIt++) {
+                        MSLink::ApproachingVehicleInformation info = apprIt->second;
+                        if (info.arrivalSpeedBraking > 0){
+                            succeedingBlockOccupied = true;
+                            break;
+                        }
+                    }
+
+                }
+            }
+            if (succeedingBlockOccupied) {
                 break;
             }
         }

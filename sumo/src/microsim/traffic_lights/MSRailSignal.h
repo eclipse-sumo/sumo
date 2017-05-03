@@ -224,6 +224,9 @@ protected:
     /// A map that maps an outgoing lane from the junction to its vector of lanes leading to the next signal
     std::map<MSLane*, std::vector<const MSLane*> > mySucceedingBlocks;
 
+    /// A map of lanes to links of approaching vehicles of succeeding blocks
+    std::map<const MSLane*, const MSLink*> mySucceedingBlocksIncommingLinks;
+
 
 protected:
 
