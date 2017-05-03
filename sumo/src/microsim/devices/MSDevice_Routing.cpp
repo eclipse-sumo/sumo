@@ -105,9 +105,6 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.rerouting.init-with-loaded-weights", new Option_Bool(false));
     oc.addDescription("device.rerouting.init-with-loaded-weights", "Routing", "Use weight files given with option --weight-files for initializing edge weights");
 
-    oc.doRegister("device.rerouting.shortest-path-file", new Option_FileName());
-    oc.addDescription("device.rerouting.shortest-path-file", "Routing", "Initialize lookup table for astar from the given distance matrix");
-
     oc.doRegister("device.rerouting.threads", new Option_Integer(0));
     oc.addDescription("device.rerouting.threads", "Routing", "The number of parallel execution threads used for rerouting");
 
@@ -379,15 +376,15 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
             if (mayHaveRestrictions) {
                 typedef AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> > AStar;
                 const AStar::LookupTable* lookup = 0;
-                if (oc.isSet("device.rerouting.shortest-path-file")) {
-                    lookup = AStar::createLookupTable(oc.getString("device.rerouting.shortest-path-file"), (int)MSEdge::getAllEdges().size());
+                if (oc.isSet("astar.all-distances")) {
+                    lookup = new AStar::FullLookupTable(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
                 }
                 myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
             } else {
                 typedef AStarRouter<MSEdge, SUMOVehicle, noProhibitions<MSEdge, SUMOVehicle> > AStar;
                 const AStar::LookupTable* lookup = 0;
-                if (oc.isSet("device.rerouting.shortest-path-file")) {
-                    lookup = AStar::createLookupTable(oc.getString("device.rerouting.shortest-path-file"), (int)MSEdge::getAllEdges().size());
+                if (oc.isSet("astar.all-distances")) {
+                    lookup = new AStar::FullLookupTable(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
                 }
                 myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
             }

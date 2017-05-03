@@ -102,7 +102,7 @@ GNERerouterDialog::findInterval(double begin, double end) const {
 
 
 bool
-GNERerouterDialog::checkModifyInterval(const GNERerouterInterval &rerouterInterval, double newBegin, double newEnd) const {
+GNERerouterDialog::checkModifyInterval(const GNERerouterInterval& rerouterInterval, double newBegin, double newEnd) const {
     // first check that values are correct
     if ((newBegin < 0) || (newEnd < 0)) {
         return false;
@@ -115,7 +115,7 @@ GNERerouterDialog::checkModifyInterval(const GNERerouterInterval &rerouterInterv
     std::vector<GNERerouterInterval> auxCopyOfRerouterIntervals = myCopyOfRerouterIntervals;
     std::vector<GNERerouterInterval>::iterator it = std::find(auxCopyOfRerouterIntervals.begin(), auxCopyOfRerouterIntervals.end(), rerouterInterval);
     // if wasn't found add it (we're adding a new interval)
-    if(it == auxCopyOfRerouterIntervals.end()) {
+    if (it == auxCopyOfRerouterIntervals.end()) {
         auxCopyOfRerouterIntervals.push_back(GNERerouterInterval(rerouterInterval.getRerouterParent(), newBegin, newEnd));
     } else {
         // set new values and check overlapping
@@ -123,7 +123,7 @@ GNERerouterDialog::checkModifyInterval(const GNERerouterInterval &rerouterInterv
         it->setEnd(newEnd);
     }
     // check overlapping
-    if(myRerouterParent->checkOverlapping(auxCopyOfRerouterIntervals) == true) {
+    if (myRerouterParent->checkOverlapping(auxCopyOfRerouterIntervals) == true) {
         return true;
     } else {
         return false;

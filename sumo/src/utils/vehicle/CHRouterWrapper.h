@@ -150,7 +150,7 @@ public:
 
 
     double recomputeCosts(const std::vector<const E*>& edges,
-                            const V* const v, SUMOTime msTime) const {
+                          const V* const v, SUMOTime msTime) const {
         const double time = STEPS2TIME(msTime);
         double costs = 0;
         for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {

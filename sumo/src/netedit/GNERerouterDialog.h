@@ -67,7 +67,7 @@ public:
     bool findInterval(double begin, double end) const;
 
     /// @brief check if begin and end of an existent interval can be modified
-    bool checkModifyInterval(const GNERerouterInterval &rerouterInterval, double newBegin, double newEnd) const;
+    bool checkModifyInterval(const GNERerouterInterval& rerouterInterval, double newBegin, double newEnd) const;
 
     /// @name FOX-callbacks
     /// @{

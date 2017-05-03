@@ -42,8 +42,7 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myOrigEdgeId(origEdgeId),
     myPTStopLength(length),
     myName(name),
-    myFriendlyPos(false)
-{
+    myFriendlyPos(false) {
 
 }
 
@@ -70,8 +69,8 @@ const Position& NBPTStop::getPosition() {
     return myPosition;
 }
 void NBPTStop::computExtent(double center, double edgeLength) {
-    myFrom = center - myPTStopLength/2.;
-    myTo = center + myPTStopLength/2.;
+    myFrom = center - myPTStopLength / 2.;
+    myTo = center + myPTStopLength / 2.;
     if (myFrom < 0 || myTo > edgeLength) {
         myFriendlyPos = true;
     }
@@ -81,15 +80,15 @@ void NBPTStop::setLaneID(const std::string& laneId) {
 }
 void NBPTStop::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_BUS_STOP);
-    device.writeAttr(SUMO_ATTR_ID,myPTStopId);
+    device.writeAttr(SUMO_ATTR_ID, myPTStopId);
     if (myName != "") {
-        device.writeAttr(SUMO_ATTR_NAME,myName);
+        device.writeAttr(SUMO_ATTR_NAME, myName);
     }
-    device.writeAttr(SUMO_ATTR_LANE,myLaneId);
-    device.writeAttr(SUMO_ATTR_STARTPOS,myFrom);
-    device.writeAttr(SUMO_ATTR_ENDPOS,myTo);
+    device.writeAttr(SUMO_ATTR_LANE, myLaneId);
+    device.writeAttr(SUMO_ATTR_STARTPOS, myFrom);
+    device.writeAttr(SUMO_ATTR_ENDPOS, myTo);
     if (myFriendlyPos) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS,"true");
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
     }
     device.closeTag();
 

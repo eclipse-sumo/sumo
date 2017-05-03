@@ -43,7 +43,7 @@
 MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
                              double accel, double decel, double emergencyDecel,
                              double headwayTime, double delta,
-                             double internalStepping) : 
+                             double internalStepping) :
     MSCFModel(vtype, accel, decel, emergencyDecel, decel, headwayTime), myDelta(delta),
     myAdaptationFactor(1.), myAdaptationTime(0.),
     myIterations(MAX2(1, int(TS / internalStepping + .5))),
@@ -55,7 +55,7 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
                              double accel, double decel, double emergencyDecel,
                              double headwayTime,
                              double adaptationFactor, double adaptationTime,
-                             double internalStepping) : 
+                             double internalStepping) :
     MSCFModel(vtype, accel, decel, emergencyDecel, decel, headwayTime), myDelta(4.),
     myAdaptationFactor(adaptationFactor), myAdaptationTime(adaptationTime),
     myIterations(MAX2(1, int(TS / internalStepping + .5))),

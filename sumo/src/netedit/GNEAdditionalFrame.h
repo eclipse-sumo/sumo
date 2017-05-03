@@ -99,7 +99,7 @@ public:
         std::string getValue() const;
 
         /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
-        const std::string &isAttributeValid() const;
+        const std::string& isAttributeValid() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -278,7 +278,7 @@ public:
 
     private:
         /// @brief pointer to viewNet
-        GNEViewNet *myViewNet;
+        GNEViewNet* myViewNet;
 
         /// @brief current additional tag
         SumoXMLTag myAdditionalTag;

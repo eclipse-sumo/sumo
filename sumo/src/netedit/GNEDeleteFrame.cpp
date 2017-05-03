@@ -237,7 +237,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
                     additionalItem->setExpanded(true);
                 }
                 // add a extra section for rerouter in which this edge is part
-                if(edge->getNumberOfGNERerouters() > 0) {
+                if (edge->getNumberOfGNERerouters() > 0) {
                     FXTreeItem* rerouters = myTreelist->insertItem(0, edgeItem, (toString(SUMO_TAG_REROUTER) + "s").c_str(), edge->getGNERerouters().front()->getIcon(), edge->getGNERerouters().front()->getIcon());
                     myTreeItemsWithoutAC.insert(rerouters);
                     rerouters->setExpanded(true);
@@ -366,31 +366,31 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                 } else {
                     if (numberOfAdditionals > 0) {
                         // write warning if netedit is running in testing mode
-                        if(myViewNet->isTestingModeEnabled() == true) {
-	                        WRITE_WARNING("Opening FXMessageBox of type 'warning'"); 
+                        if (myViewNet->isTestingModeEnabled() == true) {
+                            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
                         }
-                        std::string plural = numberOfAdditionals > 1? "s" : "";
+                        std::string plural = numberOfAdditionals > 1 ? "s" : "";
                         // Open warning DialogBox
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
                                               (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because owns " +
-                                               toString(numberOfAdditionals) + " additional child"+ plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                                               toString(numberOfAdditionals) + " additional child" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
-                        if(myViewNet->isTestingModeEnabled() == true) {
-	                        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'"); 
+                        if (myViewNet->isTestingModeEnabled() == true) {
+                            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
                         }
                     } else if (numberOfRerouters > 0) {
                         // write warning if netedit is running in testing mode
-                        if(myViewNet->isTestingModeEnabled() == true) {
-	                        WRITE_WARNING("Opening FXMessageBox of type 'warning'"); 
+                        if (myViewNet->isTestingModeEnabled() == true) {
+                            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
                         }
-                        std::string plural = numberOfRerouters > 1? "s" : "";
+                        std::string plural = numberOfRerouters > 1 ? "s" : "";
                         // Open warning DialogBox
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
                                               (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because is part of " +
-                                               toString(numberOfRerouters) + " " + toString(SUMO_TAG_REROUTER) + plural+ ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                                               toString(numberOfRerouters) + " " + toString(SUMO_TAG_REROUTER) + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
-                        if(myViewNet->isTestingModeEnabled() == true) {
-	                        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'"); 
+                        if (myViewNet->isTestingModeEnabled() == true) {
+                            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
                         }
                     } else {
                         myViewNet->getNet()->deleteGeometryOrEdge(edge, myViewNet->getPositionInformation(), myViewNet->getUndoList());
@@ -408,16 +408,16 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                         myViewNet->getNet()->deleteLane(lane, myViewNet->getUndoList());
                     } else {
                         // write warning if netedit is running in testing mode
-                        if(myViewNet->isTestingModeEnabled() == true) {
-	                        WRITE_WARNING("Opening FXMessageBox of type 'warning'"); 
+                        if (myViewNet->isTestingModeEnabled() == true) {
+                            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
                         }
                         // open warning box
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(lane->getTag())).c_str(), "%s",
                                               (toString(lane->getTag()) + " '" + lane->getID() + "' cannot be deleted because it has " +
                                                toString(lane->getAdditionalChilds().size()) + " additional childs.\n Check 'Force deletion of Additionals' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
-                        if(myViewNet->isTestingModeEnabled() == true) {
-	                        WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'"); 
+                        if (myViewNet->isTestingModeEnabled() == true) {
+                            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
                         }
                     }
                 }

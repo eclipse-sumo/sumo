@@ -42,7 +42,7 @@
 // ===========================================================================
 bool
 TraCIServerAPI_MultiEntryExit::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                        tcpip::Storage& outputStorage) {
+        tcpip::Storage& outputStorage) {
     // variable & id
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();

@@ -69,7 +69,7 @@ public:
      * @exception ProcessError If the given speed class definition is not a number or if it is not known
      */
     static double getSpeed(const std::string& id,
-                             const std::string& speedClassS);
+                           const std::string& speedClassS);
 
 
     /** @brief Returns the lane number evaluating the given Navteq-description

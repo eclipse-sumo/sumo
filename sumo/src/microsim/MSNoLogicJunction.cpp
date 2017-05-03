@@ -50,9 +50,9 @@ MSNoLogicJunction::MSNoLogicJunction(const std::string& id,
                                      const PositionVector& shape,
                                      std::vector<MSLane*> incoming, std::vector<MSLane*> internal):
     MSJunction(id, type, position, shape),
-    myIncomingLanes(incoming), 
-    myInternalLanes(internal)
-{}
+    myIncomingLanes(incoming),
+    myInternalLanes(internal) {
+}
 
 
 MSNoLogicJunction::~MSNoLogicJunction() {}

@@ -110,16 +110,15 @@ MSDevice_Vehroutes::StateListener::vehicleStateChanged(const SUMOVehicle* const 
 // ---------------------------------------------------------------------------
 // MSDevice_Vehroutes-methods
 // ---------------------------------------------------------------------------
-MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& id, int maxRoutes) : 
-    MSDevice(holder, id), 
-    myCurrentRoute(&holder.getRoute()), 
-    myMaxRoutes(maxRoutes), 
-    myLastSavedAt(0), 
+MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& id, int maxRoutes) :
+    MSDevice(holder, id),
+    myCurrentRoute(&holder.getRoute()),
+    myMaxRoutes(maxRoutes),
+    myLastSavedAt(0),
     myDepartLane(-1),
     myDepartPos(-1),
     myDepartSpeed(-1),
-    myDepartPosLat(0)
-{
+    myDepartPosLat(0) {
     myCurrentRoute->addReference();
 }
 
@@ -270,7 +269,7 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
         if (myRouteLength) {
             const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
             const double routeLength = myHolder.getRoute().getDistanceBetween(myHolder.getDepartPos(), myHolder.getArrivalPos(),
-                                         myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), includeInternalLengths);
+                                       myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), includeInternalLengths);
             od.writeAttr("routeLength", routeLength);
         }
     }

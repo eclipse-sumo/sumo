@@ -61,9 +61,9 @@ public:
     GNECalibratorFlow(GNECalibrator* calibratorParent);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string vehicleType, std::string route, std::string color, std::string departLane, 
-                      std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos, std::string arrivalSpeed, std::string line, 
-                      int personNumber, int containerNumber, bool reroute, std::string departPosLat, std::string arrivalPosLat, double begin, double end, 
+    GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string vehicleType, std::string route, std::string color, std::string departLane,
+                      std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos, std::string arrivalSpeed, std::string line,
+                      int personNumber, int containerNumber, bool reroute, std::string departPosLat, std::string arrivalPosLat, double begin, double end,
                       double vehsPerHour, double period, double probability, int number);
 
     /// @brief destructor
@@ -123,7 +123,7 @@ public:
     //// @brief set arrivalPosLat
     std::string getArrivalPosLat() const;
 
-    /// @name value specific of 
+    /// @name value specific of
     ///{
     /// @brief get begin time step
     double getBegin() const;

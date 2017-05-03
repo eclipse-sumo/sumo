@@ -254,7 +254,7 @@ public:
      * @return the new speed of the vehicle as proposed by the lane changer
      */
     virtual double patchSpeed(const double min, const double wanted, const double max,
-                                const MSCFModel& cfModel) = 0;
+                              const MSCFModel& cfModel) = 0;
 
     /* @brief called once when the primary lane of the vehicle changes (updates
      * the custom variables of each child implementation */
@@ -448,7 +448,7 @@ protected:
      * (when changing to a lane that has no predecessor) */
     std::vector<MSLane*> myNoPartiallyOccupatedByShadow;
 
-    /// @brief the minimum lateral gaps to other vehicles that were found when last changing to the left and right 
+    /// @brief the minimum lateral gaps to other vehicles that were found when last changing to the left and right
     double myLastLateralGapLeft;
     double myLastLateralGapRight;
 

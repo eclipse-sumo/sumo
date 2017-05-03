@@ -48,13 +48,15 @@ except:
 # IMAGES
 imagesSocket = socket.socket()
 imagesSocket.connect(("localhost", 50001))
-imagesSocket.send("GET /images/" + SUMOFolder +
+# From Sikuli 1.1.1 Path has to be fixed
+SUMOFolderPathFixed = SUMOFolder.replace("c:\\", "")
+imagesSocket.send("GET /images/" + SUMOFolderPathFixed +
                   "/tests/netedit/imageResources HTTP/1.1\n\n")
 imagesReceived = (imagesSocket.recv(1024))
 imagesSocket.close()
 if "200 OK" not in imagesReceived:
     sys.exit("Error adding imageResources folder '" +
-             SUMOFolder + "/tests/netedit/imageResources'")
+             SUMOFolderPathFixed + "/tests/netedit/imageResources'")
 
 # SCRIPT
 scriptSocket = socket.socket()

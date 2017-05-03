@@ -46,7 +46,7 @@ class GNEDialog_AllowDisallow : public FXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEDialog_AllowDisallow(FXApp* app, std::string *allow);
+    GNEDialog_AllowDisallow(FXApp* app, std::string* allow);
 
     /// @brief destructor
     ~GNEDialog_AllowDisallow();
@@ -80,8 +80,8 @@ protected:
     GNEDialog_AllowDisallow() {}
 
     /// @brief pointer to current allowed vehicles
-    std::string *myAllow;
-    
+    std::string* myAllow;
+
     /// @brief copy of current allowed vehicles
     std::string myCopyOfAllow;
 
@@ -108,7 +108,7 @@ protected:
 
 private:
     /// @brief build VClass
-    void buildVClass(FXVerticalFrame *contentsFrame, SUMOVehicleClass vclass, GUIIcon icon, const std::string &description);
+    void buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon icon, const std::string& description);
 
     /// @brief Invalidated copy constructor.
     GNEDialog_AllowDisallow(const GNEDialog_AllowDisallow&);

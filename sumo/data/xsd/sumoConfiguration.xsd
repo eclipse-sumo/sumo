@@ -17,6 +17,7 @@
             <xsd:element name="communication" type="communicationType" minOccurs="0"/>
             <xsd:element name="battery" type="batteryType" minOccurs="0"/>
             <xsd:element name="example_device" type="example_deviceType" minOccurs="0"/>
+            <xsd:element name="ssm_device" type="ssm_deviceType" minOccurs="0"/>
             <xsd:element name="traci_server" type="traci_serverType" minOccurs="0"/>
             <xsd:element name="mesoscopic" type="mesoscopicType" minOccurs="0"/>
             <xsd:element name="random_number" type="random_numberType" minOccurs="0"/>
@@ -49,6 +50,7 @@
             <xsd:element name="emission-output.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="battery-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="battery-output.precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="chargingstations-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.geo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.signals" type="boolOptionType" minOccurs="0"/>
@@ -97,8 +99,10 @@
             <xsd:element name="ignore-route-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-accidents" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="collision.action" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="collision.stoptime" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="collision.check-junctions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="max-num-vehicles" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="max-num-teleports" type="intOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.highways" type="timeOptionType" minOccurs="0"/>
@@ -110,6 +114,7 @@
             <xsd:element name="lanechange.duration" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.overtake-right" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.all-off" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="time-to-impatience" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.model" type="strOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
@@ -192,6 +197,19 @@
             <xsd:element name="device.example.explicit" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.example.deterministic" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.example.parameter" type="floatOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="ssm_deviceType">
+        <xsd:all>
+            <xsd:element name="device.ssm.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.measures" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.thresholds" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.trajectories" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.frequency" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.range" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

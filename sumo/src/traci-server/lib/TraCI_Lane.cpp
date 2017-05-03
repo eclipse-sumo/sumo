@@ -58,31 +58,31 @@ TraCI_Lane::getIDCount() {
 
 
 std::string
-TraCI_Lane::getEdgeID(std::string laneID){
+TraCI_Lane::getEdgeID(std::string laneID) {
     return getLane(laneID)->getEdge().getID();
 }
 
 
 double
-TraCI_Lane::getLength(std::string laneID){
+TraCI_Lane::getLength(std::string laneID) {
     return getLane(laneID)->getLength();
 }
 
 
 double
-TraCI_Lane::getMaxSpeed(std::string laneID){
+TraCI_Lane::getMaxSpeed(std::string laneID) {
     return getLane(laneID)->getSpeedLimit();
 }
 
 
 int
-TraCI_Lane::getLinkNumber(std::string laneID){
+TraCI_Lane::getLinkNumber(std::string laneID) {
     return (int) getLane(laneID)->getLinkCont().size();
 }
 
 
 std::vector<TraCIConnection>
-TraCI_Lane::getLinks(std::string laneID){
+TraCI_Lane::getLinks(std::string laneID) {
     std::vector<TraCIConnection> v;
     const MSLane* lane = getLane(laneID);
     const SUMOTime currTime = MSNet::getInstance()->getCurrentTimeStep();
@@ -93,7 +93,7 @@ TraCI_Lane::getLinks(std::string laneID){
         const bool hasPrio = link->havePriority() ? 1 : 0;
         const double speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
         const bool isOpen = link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefault().length,
-                SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0) ? 1 : 0;
+                                         SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0) ? 1 : 0;
         const bool hasFoe = link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel()) ? 1 : 0;
         const std::string approachedInternal = link->getViaLane() != 0 ? link->getViaLane()->getID() : "";
         const std::string state = SUMOXMLDefinitions::LinkStates.getString(link->getState());
@@ -106,7 +106,7 @@ TraCI_Lane::getLinks(std::string laneID){
 
 
 std::vector<std::string>
-TraCI_Lane::getAllowed(std::string laneID){
+TraCI_Lane::getAllowed(std::string laneID) {
     SVCPermissions permissions = getLane(laneID)->getPermissions();
     if (permissions == SVCAll) {  // special case: write nothing
         permissions = 0;
@@ -116,18 +116,20 @@ TraCI_Lane::getAllowed(std::string laneID){
 
 
 std::vector<std::string>
-TraCI_Lane::getDisallowed(std::string laneID){
+TraCI_Lane::getDisallowed(std::string laneID) {
     return getVehicleClassNamesList(~(getLane(laneID)->getPermissions())); // negation yields disallowed
 }
 
 
 TraCIPositionVector
-TraCI_Lane::getShape(std::string laneID){
+TraCI_Lane::getShape(std::string laneID) {
     TraCIPositionVector pv;
     const PositionVector& shp = getLane(laneID)->getShape();
-    for(PositionVector::const_iterator pi = shp.begin(); pi != shp.end(); ++pi){
+    for (PositionVector::const_iterator pi = shp.begin(); pi != shp.end(); ++pi) {
         TraCIPosition p;
-        p.x = pi->x(); p.y = pi->y(); p.z = pi->z();
+        p.x = pi->x();
+        p.y = pi->y();
+        p.z = pi->z();
         pv.push_back(p);
     }
     return pv;
@@ -135,72 +137,72 @@ TraCI_Lane::getShape(std::string laneID){
 
 
 double
-TraCI_Lane::getWidth(std::string laneID){
+TraCI_Lane::getWidth(std::string laneID) {
     return getLane(laneID)->getWidth();
 }
 
 
 double
-TraCI_Lane::getCO2Emission(std::string laneID){
+TraCI_Lane::getCO2Emission(std::string laneID) {
     return getLane(laneID)->getCO2Emissions();
 }
 
 
 double
-TraCI_Lane::getCOEmission(std::string laneID){
+TraCI_Lane::getCOEmission(std::string laneID) {
     return getLane(laneID)->getCOEmissions();
 }
 
 
 double
-TraCI_Lane::getHCEmission(std::string laneID){
+TraCI_Lane::getHCEmission(std::string laneID) {
     return getLane(laneID)->getHCEmissions();
 }
 
 
 double
-TraCI_Lane::getPMxEmission(std::string laneID){
+TraCI_Lane::getPMxEmission(std::string laneID) {
     return getLane(laneID)->getPMxEmissions();
 }
 
 
 double
-TraCI_Lane::getNOxEmission(std::string laneID){
+TraCI_Lane::getNOxEmission(std::string laneID) {
     return getLane(laneID)->getNOxEmissions();
 }
 
 double
-TraCI_Lane::getFuelConsumption(std::string laneID){
+TraCI_Lane::getFuelConsumption(std::string laneID) {
     return getLane(laneID)->getFuelConsumption();
 }
 
 
 double
-TraCI_Lane::getNoiseEmission(std::string laneID){
+TraCI_Lane::getNoiseEmission(std::string laneID) {
     return getLane(laneID)->getHarmonoise_NoiseEmissions();
 }
 
 
 double
-TraCI_Lane::getElectricityConsumption(std::string laneID){
+TraCI_Lane::getElectricityConsumption(std::string laneID) {
     return getLane(laneID)->getElectricityConsumption();
 }
 
 
 double
-TraCI_Lane::getLastStepMeanSpeed(std::string laneID){
+TraCI_Lane::getLastStepMeanSpeed(std::string laneID) {
     return getLane(laneID)->getMeanSpeed();
 }
 
 
 double
-TraCI_Lane::getLastStepOccupancy(std::string laneID){
+TraCI_Lane::getLastStepOccupancy(std::string laneID) {
     return getLane(laneID)->getNettoOccupancy();
 }
 
 
 double
-TraCI_Lane::getLastStepLength(std::string laneID){
+TraCI_Lane::getLastStepLength(std::string laneID) {
     const MSLane* lane = getLane(laneID);
     double length = 0;
     const MSLane::VehCont& vehs = lane->getVehiclesSecure();
@@ -216,13 +218,13 @@ TraCI_Lane::getLastStepLength(std::string laneID){
 
 
 double
-TraCI_Lane::getWaitingTime(std::string laneID){
+TraCI_Lane::getWaitingTime(std::string laneID) {
     return getLane(laneID)->getWaitingSeconds();
 }
 
 
 double
-TraCI_Lane::getTraveltime(std::string laneID){
+TraCI_Lane::getTraveltime(std::string laneID) {
     const MSLane* lane = getLane(laneID);
     double meanSpeed = lane->getMeanSpeed();
     if (meanSpeed != 0) {
@@ -234,12 +236,12 @@ TraCI_Lane::getTraveltime(std::string laneID){
 
 
 int
-TraCI_Lane::getLastStepVehicleNumber(std::string laneID){
+TraCI_Lane::getLastStepVehicleNumber(std::string laneID) {
     return (int) getLane(laneID)->getVehicleNumber();
 }
 
 int
-TraCI_Lane::getLastStepHaltingNumber(std::string laneID){
+TraCI_Lane::getLastStepHaltingNumber(std::string laneID) {
     const MSLane* lane = getLane(laneID);
     int halting = 0;
     const MSLane::VehCont& vehs = lane->getVehiclesSecure();
@@ -254,7 +256,7 @@ TraCI_Lane::getLastStepHaltingNumber(std::string laneID){
 
 
 std::vector<std::string>
-TraCI_Lane::getLastStepVehicleIDs(std::string laneID){
+TraCI_Lane::getLastStepVehicleIDs(std::string laneID) {
     const MSLane* lane = getLane(laneID);
     std::vector<std::string> vehIDs;
     const MSLane::VehCont& vehs = lane->getVehiclesSecure();
@@ -269,7 +271,7 @@ TraCI_Lane::getLastStepVehicleIDs(std::string laneID){
 
 
 void
-TraCI_Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses){
+TraCI_Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setPermissions(parseVehicleClasses(allowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT);
     l->getEdge().rebuildAllowedLanes();
@@ -277,7 +279,7 @@ TraCI_Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClass
 
 
 void
-TraCI_Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClasses){
+TraCI_Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClasses) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setPermissions(~parseVehicleClasses(disallowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT); // negation yields allowed
     l->getEdge().rebuildAllowedLanes();
@@ -285,14 +287,14 @@ TraCI_Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowe
 
 
 void
-TraCI_Lane::setMaxSpeed(std::string laneID, double speed){
+TraCI_Lane::setMaxSpeed(std::string laneID, double speed) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setMaxSpeed(speed);
 }
 
 
 void
-TraCI_Lane::setLength(std::string laneID, double length){
+TraCI_Lane::setLength(std::string laneID, double length) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setLength(length);
 }
@@ -305,9 +307,9 @@ TraCI_Lane::getParameter(const std::string& laneID, const std::string& param) {
 
 
 void
-TraCI_Lane::setParameter(const std::string& laneID, const std::string& key, const std::string& value){
+TraCI_Lane::setParameter(const std::string& laneID, const std::string& key, const std::string& value) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
-    l->addParameter(key,value);
+    l->addParameter(key, value);
 }
 
 

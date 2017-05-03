@@ -47,7 +47,8 @@ HelpersHBEFA3 PollutantsInterface::myHBEFA3Helper;
 HelpersPHEMlight PollutantsInterface::myPHEMlightHelper;
 HelpersEnergy PollutantsInterface::myEnergyHelper;
 PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = { &PollutantsInterface::myHBEFA2Helper, &PollutantsInterface::myHBEFA3Helper,
-                                                                  &PollutantsInterface::myPHEMlightHelper, &PollutantsInterface::myEnergyHelper };
+                                                                  &PollutantsInterface::myPHEMlightHelper, &PollutantsInterface::myEnergyHelper
+                                                                };
 
 
 // ===========================================================================
@@ -141,8 +142,8 @@ PollutantsInterface::Emissions
 PollutantsInterface::computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const std::map<int, double>* param) {
     const Helper* const h = myHelpers[c >> 16];
     return Emissions(h->compute(c, CO2, v, a, slope, param), h->compute(c, CO, v, a, slope, param), h->compute(c, HC, v, a, slope, param),
-        h->compute(c, FUEL, v, a, slope, param), h->compute(c, NO_X, v, a, slope, param), h->compute(c, PM_X, v, a, slope, param),
-        h->compute(c, ELEC, v, a, slope, param));
+                     h->compute(c, FUEL, v, a, slope, param), h->compute(c, NO_X, v, a, slope, param), h->compute(c, PM_X, v, a, slope, param),
+                     h->compute(c, ELEC, v, a, slope, param));
 }
 
 

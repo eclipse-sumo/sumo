@@ -140,11 +140,11 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         break;
         case VAR_VIEW_OFFSET: {
-	    TraCIPosition tp;
+            TraCIPosition tp;
             if (!server.readTypeCheckingPosition2D(inputStorage, tp)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The view port must be given as a position.", outputStorage);
             }
-	    
+
             Position off, p;
             off.set(tp.x, tp.y, v->getChanger().getZPos());
             p.set(tp.x, tp.y, 0);

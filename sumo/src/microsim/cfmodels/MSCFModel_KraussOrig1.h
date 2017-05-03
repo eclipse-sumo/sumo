@@ -53,8 +53,8 @@ public:
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's reaction time
      */
-    MSCFModel_KraussOrig1(const MSVehicleType* vtype, double accel, double decel, 
-            double emergencyDecel, double apparentDecel, double dawdle, double headwayTime);
+    MSCFModel_KraussOrig1(const MSVehicleType* vtype, double accel, double decel,
+                          double emergencyDecel, double apparentDecel, double dawdle, double headwayTime);
 
 
     /// @brief Destructor

@@ -40,9 +40,9 @@
 // method definitions
 // ===========================================================================
 MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype, double accel,
-                                   double decel, double emergencyDecel, double headwayTime, double k, double phi) : 
+                                   double decel, double emergencyDecel, double headwayTime, double k, double phi) :
     MSCFModel(vtype, accel, decel, emergencyDecel, decel, headwayTime), myK(k), myPhi(phi),
-      myTauDecel(decel * headwayTime) {
+    myTauDecel(decel * headwayTime) {
 }
 
 

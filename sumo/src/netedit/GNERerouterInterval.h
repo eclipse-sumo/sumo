@@ -139,10 +139,10 @@ public:
 
     /// @brief overload operator =
     GNERerouterInterval& operator=(const GNERerouterInterval& rerouterInterval);
-    
+
     /// @brief overload operator =
     bool operator==(const GNERerouterInterval& rerouterInterval) const;
-    
+
     /// @brief overload operator >
     bool operator>(const GNERerouterInterval& rerouterInterval) const;
 

@@ -424,7 +424,7 @@ MSBaseVehicle::calculateArrivalParams() {
 double
 MSBaseVehicle::getImpatience() const {
     return MAX2(0., MIN2(1., getVehicleType().getImpatience() +
-                                  (MSGlobals::gTimeToImpatience > 0 ? (double)getWaitingTime() / MSGlobals::gTimeToImpatience : 0)));
+                         (MSGlobals::gTimeToImpatience > 0 ? (double)getWaitingTime() / MSGlobals::gTimeToImpatience : 0)));
 }
 
 
@@ -474,7 +474,7 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors) {
 }
 
 
-bool 
+bool
 MSBaseVehicle::hasDevice(const std::string& deviceName) const {
     for (std::vector<MSDevice* >::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
         if ((*dev)->deviceName() == deviceName) {
@@ -485,7 +485,7 @@ MSBaseVehicle::hasDevice(const std::string& deviceName) const {
 }
 
 
-void 
+void
 MSBaseVehicle::createDevice(const std::string& deviceName) {
     if (!hasDevice(deviceName)) {
         if (deviceName == "rerouting") {
@@ -504,7 +504,7 @@ MSBaseVehicle::createDevice(const std::string& deviceName) {
 }
 
 
-std::string 
+std::string
 MSBaseVehicle::getDeviceParameter(const std::string& deviceName, const std::string& key) const {
     for (std::vector<MSDevice* >::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
         if ((*dev)->deviceName() == deviceName) {

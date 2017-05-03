@@ -497,8 +497,9 @@ TraCIAPI::readVariables(tcpip::Storage& inMsg, const std::string& objectID, int 
                     int n = inMsg.readInt();
                     for (int i = 0; i < n; ++i) {
                         v.stringList.push_back(inMsg.readString());
-                    }}
-                    break;
+                    }
+                }
+                break;
 
                 // TODO Other data types
 
@@ -557,7 +558,7 @@ TraCIAPI::simulationStep(SUMOTime time) {
 }
 
 
-void 
+void
 TraCIAPI::load(const std::vector<std::string>& args) {
     int numChars = 0;
     for (int i = 0; i < (int)args.size(); ++i) {

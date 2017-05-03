@@ -217,7 +217,11 @@ public:
     /// @brief return a lower bound on shape.length() / myLength that is
     // sufficient for the astar air-distance heuristic
     double getLengthGeometryFactor() const {
-        return MAX2(1.0, myFromJunction->getPosition().distanceTo(myToJunction->getPosition()) / myLength);
+        if (myFromJunction != 0 && myToJunction != 0) {
+            return MAX2(1.0, myFromJunction->getPosition().distanceTo(myToJunction->getPosition()) / myLength);
+        } else {
+            return 1.0;
+        }
     }
 
     /** @brief Returns the lane's maximum speed, given a vehicle's speed limit adaptation

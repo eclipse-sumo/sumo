@@ -62,7 +62,7 @@ FXIMPLEMENT(GUIDialog_EditViewport, FXDialogBox, GUIDialog_EditViewportMap, ARRA
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, const char* name, int x, int y) : 
+GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, const char* name, int x, int y) :
     FXDialogBox(parent, name, GUIDesignDialogBox, x, y, 0, 0, 0, 0, 0, 0),
     myParent(parent) {
     // create contents frame
@@ -119,7 +119,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
 GUIDialog_EditViewport::~GUIDialog_EditViewport() {}
 
 
-void 
+void
 GUIDialog_EditViewport::show() {
     // set focus in OK button before opening
     buttonOk->setFocus();
@@ -131,11 +131,11 @@ long
 GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
     myParent->setViewportFromTo(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
-    Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
+                                Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
 #else
-    Position::INVALID
+                                Position::INVALID
 #endif
-    );
+                               );
     hide();
     return 1;
 }
@@ -158,11 +158,11 @@ GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
     }
     myParent->setViewportFromTo(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
-    Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
+                                Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
 #else
-    Position::INVALID
+                                Position::INVALID
 #endif
-    );
+                               );
     return 1;
 }
 

@@ -246,12 +246,12 @@ GNERerouter::getEdgeChilds() const {
 }
 
 
-bool 
-GNERerouter::addRerouterInterval(const GNERerouterInterval &rerouterInterval) {
+bool
+GNERerouter::addRerouterInterval(const GNERerouterInterval& rerouterInterval) {
     // obtain a copy of current rerouter Intervals to check overlapping
     std::vector<GNERerouterInterval> copyOfMyRerouterIntervals;
     copyOfMyRerouterIntervals.push_back(rerouterInterval);
-    if(checkOverlapping(copyOfMyRerouterIntervals) == true) {
+    if (checkOverlapping(copyOfMyRerouterIntervals) == true) {
         myRerouterIntervals = copyOfMyRerouterIntervals;
         return true;
     } else {
@@ -268,7 +268,7 @@ GNERerouter::getRerouterIntervals() const {
 
 bool
 GNERerouter::setRerouterIntervals(const std::vector<GNERerouterInterval>& rerouterIntervals) {
-    if(checkOverlapping(rerouterIntervals) == true) {
+    if (checkOverlapping(rerouterIntervals) == true) {
         myRerouterIntervals = rerouterIntervals;
         return true;
     } else {
@@ -470,7 +470,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
             GNEEdge* edge;
             // first remove references of current rerouter in all edge childs
-            for(std::vector<GNEEdge*>::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+            for (std::vector<GNEEdge*>::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
                 (*i)->removeGNERerouter(this);
             }
             // clear previous edges
@@ -512,24 +512,24 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNERerouter::checkOverlapping(std::vector<GNERerouterInterval> rerouterIntervals) {
     // only can be overlapping if there are more than two elements
-    if(rerouterIntervals.size() <= 1) {
+    if (rerouterIntervals.size() <= 1) {
         return true;
     }
     // first short vector
     std::sort(rerouterIntervals.begin(), rerouterIntervals.end());
 
     // first check that all Begins are differents
-    for(std::vector<GNERerouterInterval>::const_iterator i = (rerouterIntervals.begin() + 1); i != rerouterIntervals.end(); i++) {
-        if((i-1)->getBegin() == i->getBegin()) {
+    for (std::vector<GNERerouterInterval>::const_iterator i = (rerouterIntervals.begin() + 1); i != rerouterIntervals.end(); i++) {
+        if ((i - 1)->getBegin() == i->getBegin()) {
             return false;
         }
     }
     // now check that end of every interval isn't overlapped with the begin of the next interval
-    for(std::vector<GNERerouterInterval>::const_iterator i = rerouterIntervals.begin(); i != (rerouterIntervals.end() - 1); i++) {
-        if(i->getEnd() > (i+1)->getBegin()) {
+    for (std::vector<GNERerouterInterval>::const_iterator i = rerouterIntervals.begin(); i != (rerouterIntervals.end() - 1); i++) {
+        if (i->getEnd() > (i + 1)->getBegin()) {
             return false;
         }
     }

@@ -131,7 +131,15 @@ RONetHandler::myEndElement(int element) {
                 ROEdge* edge = myNet.getEdge(it->first);
                 RONode* from = myNet.getNode(it->second.first);
                 RONode* to = myNet.getNode(it->second.second);
-                if (edge != 0 && from != 0 && to != 0) {
+                if (from == 0) {
+                    WRITE_ERROR("Unknown from-node '" + it->second.first + "' for edge '" + it->first + "'.");
+                    return;
+                }
+                if (to == 0) {
+                    WRITE_ERROR("Unknown to-node '" + it->second.second + "' for edge '" + it->first + "'.");
+                    return;
+                }
+                if (edge != 0) {
                     from->addOutgoing(edge);
                     to->addIncoming(edge);
                 }

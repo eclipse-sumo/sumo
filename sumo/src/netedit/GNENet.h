@@ -498,22 +498,22 @@ public:
     int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
     /// @brief Returns a reference to a calibrator route finding in all calibrators of net
-    const GNECalibratorRoute &getGNECalibratorRoute(const std::string &calibratorRouteID) const;
+    const GNECalibratorRoute& getGNECalibratorRoute(const std::string& calibratorRouteID) const;
 
     /// @brief Returns a reference to a calibrator vehicle type finding in all calibrators of net
-    const GNECalibratorVehicleType &getGNECalibratorVehicleType(const std::string &calibratorVehicleTypeID) const;
+    const GNECalibratorVehicleType& getGNECalibratorVehicleType(const std::string& calibratorVehicleTypeID) const;
 
     /// @brief Returns a reference to a calibrator flow finding in all calibrators of net
-    const GNECalibratorFlow &getGNECalibratorFlow(const std::string &calibratorFlowID) const;
+    const GNECalibratorFlow& getGNECalibratorFlow(const std::string& calibratorFlowID) const;
 
     /// @brief Check if exist a route with these ID
-    bool routeExists(const std::string &routeID) const;
+    bool routeExists(const std::string& routeID) const;
 
     /// @brief Check if exist a vehicle type with these ID
-    bool vehicleTypeExists(const std::string &vehicleTypeID) const;
+    bool vehicleTypeExists(const std::string& vehicleTypeID) const;
 
     /// @brief Check if exist a flow with these ID
-    bool flowExists(const std::string &flowID) const;
+    bool flowExists(const std::string& flowID) const;
 
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)

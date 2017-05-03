@@ -363,8 +363,8 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
                 // If extension is larger than Lane
                 if (parse<double>(value) > myLane->getLaneParametricLength()) {
                     // write warning if netedit is running in testing mode
-                    if(myViewNet->isTestingModeEnabled() == true) {
-	                    WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
+                    if (myViewNet->isTestingModeEnabled() == true) {
+                        WRITE_WARNING("Opening FXMessageBox of type 'question'");
                     }
                     // Ask user if want to assign the length of lane as endPosition
                     FXuint answer = FXMessageBox::question(getViewNet()->getApp(), MBOX_YES_NO,
@@ -373,16 +373,16 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
                                                             ". Do you want to assign the length of the " + toString(SUMO_TAG_LANE) + " as " + toString(SUMO_ATTR_ENDPOS) + "?").c_str());
                     if (answer == 1) { //1:yes, 2:no, 4:esc
                         // write warning if netedit is running in testing mode
-                        if(myViewNet->isTestingModeEnabled() == true) {
-	                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
+                        if (myViewNet->isTestingModeEnabled() == true) {
+                            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                         }
                         return true;
                     } else {
                         // write warning if netedit is running in testing mode
-                        if((answer == 2) && (myViewNet->isTestingModeEnabled() == true)) {
-	                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
-                        } else if((answer == 4) && (myViewNet->isTestingModeEnabled() == true)) {
-	                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
+                        if ((answer == 2) && (myViewNet->isTestingModeEnabled() == true)) {
+                            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                        } else if ((answer == 4) && (myViewNet->isTestingModeEnabled() == true)) {
+                            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
                         }
                         return false;
                     }

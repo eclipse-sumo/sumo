@@ -481,7 +481,7 @@ NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
     NBEdge* edge = myEdgeCont.retrieve(myCurrentID);
     if (edge == 0) {
         WRITE_WARNING("Ignoring tag '" + toString(SUMO_TAG_DELETE) + "' for unknown edge '" +
-            myCurrentID + "'");
+                      myCurrentID + "'");
         return;
     }
     const int lane = attrs.getOpt<int>(SUMO_ATTR_INDEX, myCurrentID.c_str(), ok, -1);

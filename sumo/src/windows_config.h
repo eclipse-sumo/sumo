@@ -61,7 +61,7 @@
 
 /* Version number of package */
 #ifndef HAVE_VERSION_H
-#define VERSION_STRING "0.29.0"
+#define VERSION_STRING "0.30.0"
 #endif
 
 /* Definition for the character function of Xerces  */

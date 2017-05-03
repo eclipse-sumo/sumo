@@ -131,10 +131,10 @@ NLDetectorBuilder::buildInstantInductLoop(const std::string& id,
 
 void
 NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double pos, double endPos, double length,
-                     const std::string& device, SUMOTime frequency,
-                     SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                     const std::string& vTypes, bool friendlyPos, bool showDetector,
-                     MSTLLogicControl::TLSLogicVariants* tlls, MSLane* toLane){
+                                   const std::string& device, SUMOTime frequency,
+                                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+                                   const std::string& vTypes, bool friendlyPos, bool showDetector,
+                                   MSTLLogicControl::TLSLogicVariants* tlls, MSLane* toLane) {
 
     bool tlsGiven = tlls != 0;
     bool toLaneGiven = toLane != 0;
@@ -145,13 +145,13 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double p
 
     // Check positioning
     if (posGiven) {
-        if(pos >= lane->getLength() || (pos < 0 && -pos > lane->getLength())){
+        if (pos >= lane->getLength() || (pos < 0 && -pos > lane->getLength())) {
             std::stringstream ss;
             ss << "The given position (=" << pos << ") for detector '" << id
-                    << "' does not lie on the given lane '" << lane->getID()
-                    << "' with length " << lane->getLength();
+               << "' does not lie on the given lane '" << lane->getID()
+               << "' with length " << lane->getLength();
             if (friendlyPos) {
-                double newPos = pos > 0 ? lane->getLength()-POSITION_EPS : 0.;
+                double newPos = pos > 0 ? lane->getLength() - POSITION_EPS : 0.;
                 ss << " (adjusting to new position " << newPos;
                 WRITE_WARNING(ss.str());
                 pos = newPos;
@@ -162,11 +162,11 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double p
         }
     }
     if (endPosGiven) {
-        if(endPos > lane->getLength() || (endPos <= 0 && -endPos >= lane->getLength())){
+        if (endPos > lane->getLength() || (endPos <= 0 && -endPos >= lane->getLength())) {
             std::stringstream ss;
             ss << "The given end position (=" << endPos << ") for detector '" << id
-                    << "' does not lie on the given lane '" << lane->getID()
-                    << "' with length " << lane->getLength();
+               << "' does not lie on the given lane '" << lane->getID()
+               << "' with length " << lane->getLength();
             if (friendlyPos) {
                 double newEndPos = endPos > 0 ? lane->getLength() : POSITION_EPS;
                 ss << " (adjusting to new position " << newEndPos;
@@ -211,10 +211,10 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double p
 
 void
 NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> lanes, double pos, double endPos,
-                     const std::string& device, SUMOTime frequency,
-                     SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                     const std::string& vTypes, bool friendlyPos, bool showDetector,
-                     MSTLLogicControl::TLSLogicVariants* tlls, MSLane* toLane){
+                                   const std::string& device, SUMOTime frequency,
+                                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+                                   const std::string& vTypes, bool friendlyPos, bool showDetector,
+                                   MSTLLogicControl::TLSLogicVariants* tlls, MSLane* toLane) {
 
     bool tlsGiven = tlls != 0;
     bool toLaneGiven = toLane != 0;
@@ -226,13 +226,13 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> l
     MSLane* lastLane = lanes[lanes.size() - 1];
 
     // Check positioning
-    if(pos >= firstLane->getLength() || (pos < 0 && -pos > firstLane->getLength())){
+    if (pos >= firstLane->getLength() || (pos < 0 && -pos > firstLane->getLength())) {
         std::stringstream ss;
         ss << "The given position (=" << pos << ") for detector '" << id
-                << "' does not lie on the given lane '" << firstLane->getID()
-                << "' with length " << firstLane->getLength();
+           << "' does not lie on the given lane '" << firstLane->getID()
+           << "' with length " << firstLane->getLength();
         if (friendlyPos) {
-            double newPos = pos > 0 ? firstLane->getLength()-POSITION_EPS : 0.;
+            double newPos = pos > 0 ? firstLane->getLength() - POSITION_EPS : 0.;
             ss << " (adjusting to new position " << newPos;
             WRITE_WARNING(ss.str());
             pos = newPos;
@@ -241,11 +241,11 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> l
             throw InvalidArgument(ss.str());
         }
     }
-    if(endPos > lastLane->getLength() || (endPos <= 0 && -endPos >= lastLane->getLength())){
+    if (endPos > lastLane->getLength() || (endPos <= 0 && -endPos >= lastLane->getLength())) {
         std::stringstream ss;
         ss << "The given end position (=" << endPos << ") for detector '" << id
-                << "' does not lie on the given lane '" << lastLane->getID()
-                << "' with length " << lastLane->getLength();
+           << "' does not lie on the given lane '" << lastLane->getID()
+           << "' with length " << lastLane->getLength();
         if (friendlyPos) {
             double newEndPos = endPos > 0 ? lastLane->getLength() : POSITION_EPS;
             ss << " (adjusting to new position " << newEndPos;
@@ -265,7 +265,7 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> l
         // add the file output (XXX: Where's the corresponding delete?)
         if (toLaneGiven) {
             // Detector also associated to specific link
-            MSLane* lastLane= det->getLastLane();
+            MSLane* lastLane = det->getLastLane();
             MSLink* link = MSLinkContHelper::getConnectingLink(*lastLane, *toLane);
             if (link == 0) {
                 throw InvalidArgument(
@@ -401,17 +401,17 @@ NLDetectorBuilder::createInstantInductLoop(const std::string& id,
 
 MSE2Collector*
 NLDetectorBuilder::createE2Detector(const std::string& id,
-        DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
-        SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-        const std::string& vTypes, bool /* showDetector */) {
+                                    DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
+                                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+                                    const std::string& vTypes, bool /* showDetector */) {
     return new MSE2Collector(id, usage, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
 }
 
 MSE2Collector*
 NLDetectorBuilder::createE2Detector(const std::string& id,
-        DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
-        SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-        const std::string& vTypes, bool /* showDetector */) {
+                                    DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
+                                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+                                    const std::string& vTypes, bool /* showDetector */) {
     return new MSE2Collector(id, usage, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes);
 }
 

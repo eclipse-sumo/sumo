@@ -2090,7 +2090,7 @@ NBNode::buildCrossings() {
         int maxAngleDiffIndex = 0; // index before maxDist
         for (int i = 0; i < (int) edges.size(); i++) {
             double diff = NBHelpers::relAngle(edges[i]->getAngleAtNodeToCenter(this),
-                                                edges[(i + 1) % edges.size()]->getAngleAtNodeToCenter(this));
+                                              edges[(i + 1) % edges.size()]->getAngleAtNodeToCenter(this));
             if (diff < 0) {
                 diff += 360;
             }
@@ -2599,14 +2599,14 @@ NBNode::numNormalConnections() const {
 }
 
 
-int 
+int
 NBNode::getConnectionIndex(const NBEdge* from, const NBEdge::Connection& con) const {
     int result = 0;
     for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
         const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
             const NBEdge::Connection& cand = *k;
-            if (*i == from 
+            if (*i == from
                     && cand.fromLane == con.fromLane
                     && cand.toLane == con.toLane
                     && cand.toEdge == con.toEdge) {

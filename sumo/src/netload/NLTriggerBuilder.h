@@ -390,7 +390,7 @@ protected:
      * @exception InvalidArgument If the position is beyond the lane
      */
     double getPosition(const SUMOSAXAttributes& attrs,
-                         MSLane* lane, const std::string& tt, const std::string& tid);
+                       MSLane* lane, const std::string& tt, const std::string& tid);
     /// @}
 
 

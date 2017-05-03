@@ -4,5 +4,8 @@ basic
 # get statistics on route departs
 depart
 
+# get statistics on number of edges in route
+numEdges
+
 # compare two sets of routes for the same vehicles
 diff

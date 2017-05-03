@@ -60,13 +60,13 @@ public:
      * \brief Calculates the desirability of the policy
      */
     virtual double computeDesirability(double vehInMeasure,
-                                         double vehOutMeasure) = 0;
+                                       double vehOutMeasure) = 0;
     /**
      * \brief Calculates the desirability of the policy
      */
     virtual double computeDesirability(double vehInMeasure, double vehOutMeasure,
-                                         double vehInDispersionMeasure,
-                                         double vehOutDispersionMeasure) = 0;
+                                       double vehInDispersionMeasure,
+                                       double vehOutDispersionMeasure) = 0;
     virtual std::string getMessage() = 0;
     void setKeyPrefix(std::string val) {
         myKeyPrefix = val;

@@ -45,10 +45,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_KraussOrig1::MSCFModel_KraussOrig1(const MSVehicleType* vtype,  double accel, double decel, 
+MSCFModel_KraussOrig1::MSCFModel_KraussOrig1(const MSVehicleType* vtype,  double accel, double decel,
         double emergencyDecel, double apparentDecel,
-        double dawdle, double headwayTime) : 
-    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), myDawdle(dawdle), 
+        double dawdle, double headwayTime) :
+    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), myDawdle(dawdle),
     myTauDecel(decel * headwayTime) {}
 
 
@@ -66,7 +66,7 @@ MSCFModel_KraussOrig1::moveHelper(MSVehicle* const veh, double vPos) const {
     const double vMin = minNextSpeed(oldV, veh);
     // do not exceed max decel even if it is unsafe
     double vMax = MAX2(vMin,
-                         MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe));
+                       MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe));
 #ifdef _DEBUG
     //if (vMin > vMax) {
     //    WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
@@ -154,11 +154,11 @@ double MSCFModel_KraussOrig1::vsafe(double gap, double predSpeed, double /* pred
         return MIN2(ACCEL2SPEED(myDecel), DIST2SPEED(gap));
     }
     double vsafe = (double)(-1. * myTauDecel
-                                + sqrt(
-                                    myTauDecel * myTauDecel
-                                    + (predSpeed * predSpeed)
-                                    + (2. * myDecel * gap)
-                                ));
+                            + sqrt(
+                                myTauDecel * myTauDecel
+                                + (predSpeed * predSpeed)
+                                + (2. * myDecel * gap)
+                            ));
     assert(vsafe >= 0);
     return vsafe;
 }

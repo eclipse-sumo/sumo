@@ -52,7 +52,7 @@ std::vector<std::string>
 TraCI_Route::getEdges(const std::string& routeID) {
     const MSRoute* r = getRoute(routeID);
     std::vector<std::string> ids;
-    for (ConstMSEdgeVector::const_iterator i = r->getEdges().begin(); i != r->getEdges().end(); ++i){
+    for (ConstMSEdgeVector::const_iterator i = r->getEdges().begin(); i != r->getEdges().end(); ++i) {
         ids.push_back((*i)->getID());
     }
     return ids;
@@ -72,9 +72,9 @@ TraCI_Route::getParameter(const std::string& routeID, const std::string& param) 
 }
 
 void
-TraCI_Route::setParameter(const std::string& routeID, const std::string& key, const std::string& value){
+TraCI_Route::setParameter(const std::string& routeID, const std::string& key, const std::string& value) {
     MSRoute* r = const_cast<MSRoute*>(getRoute(routeID));
-    r->addParameter(key,value);
+    r->addParameter(key, value);
 }
 
 

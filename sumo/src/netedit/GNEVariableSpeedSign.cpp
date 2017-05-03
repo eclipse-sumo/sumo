@@ -199,7 +199,7 @@ GNEVariableSpeedSign::getSteps() const {
 
 
 void
-GNEVariableSpeedSign::setFilename(const std::string &filename) {
+GNEVariableSpeedSign::setFilename(const std::string& filename) {
     myFilename = filename;
 }
 
@@ -211,7 +211,7 @@ GNEVariableSpeedSign::setVariableSpeedSignSteps(const std::vector<GNEVariableSpe
 
 
 void
-GNEVariableSpeedSign::addStep(const GNEVariableSpeedSignStep &step) {
+GNEVariableSpeedSign::addStep(const GNEVariableSpeedSignStep& step) {
     mySteps.push_back(step);
 }
 

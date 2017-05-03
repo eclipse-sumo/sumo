@@ -91,7 +91,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myKeepRadioButton = new FXRadioButton(selBox, "keep\t\tRestrict previous selection by the current selection",
                                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myReplaceRadioButton = new FXRadioButton(selBox, "replace\t\tReplace previous selection by the current selection",
-                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+            this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myAddRadioButton->setCheck(true);
     // Create groupBox for selection by expression matching (match box)
     FXGroupBox* elementBox = new FXGroupBox(myContentFrame, "type of element", GUIDesignGroupBoxFrame);
@@ -151,28 +151,28 @@ GNESelectorFrame::~GNESelectorFrame() {
 
 long
 GNESelectorFrame::onCmdSelectOperation(FXObject* obj, FXSelector, void*) {
-    if(obj == myAddRadioButton) {
+    if (obj == myAddRadioButton) {
         mySetOperation = SET_ADD;
         myAddRadioButton->setCheck(true);
         myRemoveRadioButton->setCheck(false);
         myKeepRadioButton->setCheck(false);
         myReplaceRadioButton->setCheck(false);
         return 1;
-    } else if(obj == myRemoveRadioButton) {
+    } else if (obj == myRemoveRadioButton) {
         mySetOperation = SET_SUB;
         myAddRadioButton->setCheck(false);
         myRemoveRadioButton->setCheck(true);
         myKeepRadioButton->setCheck(false);
         myReplaceRadioButton->setCheck(false);
         return 1;
-    } else if(obj == myKeepRadioButton) {
+    } else if (obj == myKeepRadioButton) {
         mySetOperation = SET_RESTRICT;
         myAddRadioButton->setCheck(false);
         myRemoveRadioButton->setCheck(false);
         myKeepRadioButton->setCheck(true);
         myReplaceRadioButton->setCheck(false);
         return 1;
-    } else if(obj == myReplaceRadioButton) {
+    } else if (obj == myReplaceRadioButton) {
         mySetOperation = SET_REPLACE;
         myAddRadioButton->setCheck(false);
         myRemoveRadioButton->setCheck(false);
@@ -187,7 +187,7 @@ GNESelectorFrame::onCmdSelectOperation(FXObject* obj, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdSubset(FXObject*, FXSelector, void*) {
-    if((mySetComboBox->getText() == "Net Element") || (mySetComboBox->getText() == "Additional")) {
+    if ((mySetComboBox->getText() == "Net Element") || (mySetComboBox->getText() == "Additional")) {
         mySetComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchTagComboBox->enable();
         myMatchAttrComboBox->enable();
@@ -234,14 +234,14 @@ GNESelectorFrame::onCmdLoad(FXObject*, FXSelector, void*) {
         handleIDs(std::vector<GUIGlID>(ids.begin(), ids.end()), false);
         if (errors != "") {
             // write warning if netedit is running in testing mode
-            if(myViewNet->isTestingModeEnabled() == true) {
-	            WRITE_WARNING("Opening FXMessageBox of type 'error'"); 
+            if (myViewNet->isTestingModeEnabled() == true) {
+                WRITE_WARNING("Opening FXMessageBox of type 'error'");
             }
             // open message box error
             FXMessageBox::error(this, MBOX_OK, "Errors while loading Selection", "%s", errors.c_str());
             // write warning if netedit is running in testing mode
-            if(myViewNet->isTestingModeEnabled() == true) {
-	            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'"); 
+            if (myViewNet->isTestingModeEnabled() == true) {
+                WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
             }
         }
     }
@@ -261,14 +261,14 @@ GNESelectorFrame::onCmdSave(FXObject*, FXSelector, void*) {
         gSelected.save(file.text());
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
-        if(myViewNet->isTestingModeEnabled() == true) {
-	        WRITE_WARNING("Opening FXMessageBox of type 'error'"); 
+        if (myViewNet->isTestingModeEnabled() == true) {
+            WRITE_WARNING("Opening FXMessageBox of type 'error'");
         }
         // open message box error
         FXMessageBox::error(this, MBOX_OK, "Storing Selection failed", "%s", e.what());
         // write warning if netedit is running in testing mode
-        if(myViewNet->isTestingModeEnabled() == true) {
-	        WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'"); 
+        if (myViewNet->isTestingModeEnabled() == true) {
+            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
         }
     }
     return 1;
@@ -289,7 +289,7 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         gSelected.toggleSelection(*it);
     }
-    ids = myViewNet->getNet()->getGlIDs((myViewNet->selectEdges() == true)? GLO_EDGE : GLO_LANE);
+    ids = myViewNet->getNet()->getGlIDs((myViewNet->selectEdges() == true) ? GLO_EDGE : GLO_LANE);
     for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         gSelected.toggleSelection(*it);
     }
@@ -311,13 +311,13 @@ GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     const bool netElements = mySetComboBox->getText() == "Net Element";
     myCurrentTag = SUMO_TAG_NOTHING;
     const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags(netElements);
-    for(std::vector<SumoXMLTag>::const_iterator i = tags.begin(); (i != tags.end()) && (myCurrentTag == SUMO_TAG_NOTHING); i++) {
-        if(toString(*i) == myMatchTagComboBox->getText().text()) {
+    for (std::vector<SumoXMLTag>::const_iterator i = tags.begin(); (i != tags.end()) && (myCurrentTag == SUMO_TAG_NOTHING); i++) {
+        if (toString(*i) == myMatchTagComboBox->getText().text()) {
             myCurrentTag = *i;
         }
     }
     // check that typed by user value is correct
-    if(myCurrentTag != SUMO_TAG_NOTHING) {
+    if (myCurrentTag != SUMO_TAG_NOTHING) {
         // set color and enable items
         myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchAttrComboBox->enable();
@@ -344,12 +344,12 @@ long
 GNESelectorFrame::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
     const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
     myCurrentAttribute = SUMO_ATTR_NOTHING;
-    for(std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator i = attrs.begin(); (i != attrs.end()) && (myCurrentAttribute == SUMO_ATTR_NOTHING); i++) {
-        if(toString(i->first) == myMatchAttrComboBox->getText().text()) {
+    for (std::vector<std::pair <SumoXMLAttr, std::string> >::const_iterator i = attrs.begin(); (i != attrs.end()) && (myCurrentAttribute == SUMO_ATTR_NOTHING); i++) {
+        if (toString(i->first) == myMatchAttrComboBox->getText().text()) {
             myCurrentAttribute = i->first;
         }
     }
-    if(myCurrentAttribute != SUMO_ATTR_NOTHING) {
+    if (myCurrentAttribute != SUMO_ATTR_NOTHING) {
         myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchString->enable();
     } else {
@@ -480,7 +480,7 @@ GNESelectorFrame::getStats() const {
            toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes\n" +
            toString(gSelected.getSelected(GLO_CONNECTION).size()) + " Connections\n" +
            toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals\n" +
-		   toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings";
+           toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings";
 }
 
 

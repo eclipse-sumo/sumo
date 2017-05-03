@@ -673,7 +673,7 @@ GUIVehicle::selectBlockingFoes() const {
         const bool isOpen =
 #endif
             dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLength(),
-                           getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes);
+                               getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes);
 #ifdef DEBUG_FOES
         if (!isOpen) {
             std::cout << SIMTIME << " veh=" << getID() << " foes at link=" << dpi.myLink->getViaLaneOrLane()->getID() << ":\n";
@@ -686,14 +686,14 @@ GUIVehicle::selectBlockingFoes() const {
             MSLink* parallelLink = dpi.myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
             if (parallelLink != 0) {
                 const double shadowLatPos = getLateralPositionOnLane() - getLaneChangeModel().getShadowDirection() * 0.5 * (
-                                                  myLane->getWidth() + getLaneChangeModel().getShadowLane()->getWidth());
+                                                myLane->getWidth() + getLaneChangeModel().getShadowLane()->getWidth());
 #ifdef DEBUG_FOES
                 const bool isShadowOpen =
 #endif
                     parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
-                                     getVehicleType().getLength(), getImpatience(),
-                                     getCarFollowModel().getMaxDecel(),
-                                     getWaitingTime(), shadowLatPos, &blockingFoes);
+                                         getVehicleType().getLength(), getImpatience(),
+                                         getCarFollowModel().getMaxDecel(),
+                                         getWaitingTime(), shadowLatPos, &blockingFoes);
 #ifdef DEBUG_FOES
                 if (!isShadowOpen) {
                     std::cout << SIMTIME << " veh=" << getID() << " foes at shadow link=" << parallelLink->getViaLaneOrLane()->getID() << ":\n";
@@ -750,7 +750,7 @@ GUIVehicle::drawOutsideNetwork(bool add) {
     }
 }
 
-bool 
+bool
 GUIVehicle::isSelected() const {
     return gSelected.isSelected(GLO_VEHICLE, getGlID());
 }

@@ -83,8 +83,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myAmLefthand(false),
       myCornerDetail(0),
       myLinkDetail(-1),
-      myRectLaneCut(false)
-{
+      myRectLaneCut(false) {
 }
 
 

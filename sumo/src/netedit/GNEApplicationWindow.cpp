@@ -1065,7 +1065,7 @@ GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
     if (getView()) {
         getView()->hotkeyFocusFrame();
@@ -1074,7 +1074,7 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
     if (getView()) {
         getView()->showViewportEditor();
@@ -1169,13 +1169,13 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
         if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	        WRITE_WARNING("Opening FXMessageBox of type 'error'"); 
+            WRITE_WARNING("Opening FXMessageBox of type 'error'");
         }
         // open message box
         FXMessageBox::error(this, MBOX_OK, "Saving plain xml failed!", "%s", e.what());
         // write warning if netedit is running in testing mode
         if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	        WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'"); 
+            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
         }
     }
     myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Plain XML saved with prefix '" + prefix + "'.\n");
@@ -1212,13 +1212,13 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
         if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	        WRITE_WARNING("Opening FXMessageBox of type 'error'"); 
+            WRITE_WARNING("Opening FXMessageBox of type 'error'");
         }
         // opening error message
         FXMessageBox::error(this, MBOX_OK, "Saving joined junctions failed!", "%s", e.what());
         // write warning if netedit is running in testing mode
         if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	        WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'"); 
+            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
         }
     }
     myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Joined junctions saved to '" + filename + "'.\n");
@@ -1251,13 +1251,13 @@ GNEApplicationWindow::onCmdSavePois(FXObject*, FXSelector, void*) {
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
         if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	        WRITE_WARNING("Opening FXMessageBox of type 'error'"); 
+            WRITE_WARNING("Opening FXMessageBox of type 'error'");
         }
         // open error dialog box
         FXMessageBox::error(this, MBOX_OK, "Saving POIs failed!", "%s", e.what());
         // write warning if netedit is running in testing mode
         if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	        WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'"); 
+            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
         }
     }
     myMessageWindow->addSeparator();
@@ -1295,13 +1295,13 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	            WRITE_WARNING("Opening FXMessageBox of type 'error'"); 
+                WRITE_WARNING("Opening FXMessageBox of type 'error'");
             }
-            // open error message box 
+            // open error message box
             FXMessageBox::error(this, MBOX_OK, "Saving Network failed!", "%s", e.what());
             // write warning if netedit is running in testing mode
             if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'"); 
+                WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
             }
         }
         myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Network saved in " + oc.getString("output-file") + ".\n");
@@ -1335,13 +1335,13 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
         if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	        WRITE_WARNING("Opening FXMessageBox of type 'error'"); 
+            WRITE_WARNING("Opening FXMessageBox of type 'error'");
         }
         // open error message box
         FXMessageBox::error(this, MBOX_OK, "Saving additionals failed!", "%s", e.what());
         // write warning if netedit is running in testing mode
         if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	        WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'"); 
+            WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
         }
     }
     myMessageWindow->addSeparator();
@@ -1392,21 +1392,21 @@ GNEApplicationWindow::getView() {
 
 
 bool
-GNEApplicationWindow::continueWithUnsavedChanges() {    
+GNEApplicationWindow::continueWithUnsavedChanges() {
     FXuint answer = 0;
     if (myUndoList->canUndo() && !myUndoList->marked()) {
         // write warning if netedit is running in testing mode
         if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	        WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
+            WRITE_WARNING("Opening FXMessageBox of type 'question'");
         }
         // open question box
         answer = FXMessageBox::question(this, MBOX_QUIT_SAVE_CANCEL,
-                                               "Confirm closing Network", "%s",
-                                               "You have unsaved changes in the network. Do you wish to quit and discard all changes?");
+                                        "Confirm closing Network", "%s",
+                                        "You have unsaved changes in the network. Do you wish to quit and discard all changes?");
         if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
             if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'"); 
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'");
             }
             return continueWithUnsavedAdditionalChanges();
         } else if (answer == MBOX_CLICKED_SAVE) {
@@ -1419,9 +1419,9 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
         } else {
             // write warning if netedit is running in testing mode
             if ((answer == 2) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
             } else if ((answer == 4) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
             }
             // return false to stop closing/reloading
             return false;
@@ -1432,36 +1432,36 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
 }
 
 bool
-GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {    
+GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
     // Check if there are non saved additionals
     if ((myNet != NULL) && (myNet->getNumberOfAdditionals() > 0) && (myNet->isAdditionalsSaved() == false)) {
         if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-            WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
+            WRITE_WARNING("Opening FXMessageBox of type 'question'");
         }
         // open question box
         FXuint answer = FXMessageBox::question(this, MBOX_QUIT_SAVE_CANCEL,
-                "Save additionals before exit", "%s",
-                "You have unsaved additionals. Do you wish to quit and discard all changes?");
+                                               "Save additionals before exit", "%s",
+                                               "You have unsaved additionals. Do you wish to quit and discard all changes?");
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
         if (answer == MBOX_CLICKED_QUIT) {
             if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-	            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'"); 
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'");
             }
             return true;
         } else if (answer == MBOX_CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
             if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
             }
-            if (onCmdSaveAdditionals(0,0,0) == 0) {
+            if (onCmdSaveAdditionals(0, 0, 0) == 0) {
                 return false;
             }
         } else {
             // write warning if netedit is running in testing mode
             if ((answer == 2) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
             } else if ((answer == 4) && ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true))) {
-                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
+                WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
             }
             return false;
         }
@@ -1490,8 +1490,7 @@ GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, cons
         edgeID = laneID.substr(0, underscore);
         if (laneID.substr(underscore).empty()) {
             lane = 0;
-        }
-        else {
+        } else {
             lane = GNEAttributeCarrier::parse<int>(laneID.substr(underscore).c_str());
         }
     }

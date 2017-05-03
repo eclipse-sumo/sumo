@@ -86,7 +86,7 @@ GNEVariableSpeedSignStep::getSpeed() const {
 
 bool
 GNEVariableSpeedSignStep::setTime(double time) {
-    if(time >= 0) {
+    if (time >= 0) {
         myTime = time;
         return true;
     } else {
@@ -97,7 +97,7 @@ GNEVariableSpeedSignStep::setTime(double time) {
 
 bool
 GNEVariableSpeedSignStep::setSpeed(double speed) {
-    if(speed >= 0) {
+    if (speed >= 0) {
         mySpeed = speed;
         return true;
     } else {
@@ -106,37 +106,37 @@ GNEVariableSpeedSignStep::setSpeed(double speed) {
 }
 
 
-bool 
+bool
 GNEVariableSpeedSignStep::operator==(const GNEVariableSpeedSignStep& variableSpeedSignStep) const {
     return (myTime == variableSpeedSignStep.myTime);
 }
 
 
-bool 
+bool
 GNEVariableSpeedSignStep::operator!=(const GNEVariableSpeedSignStep& variableSpeedSignStep) const {
     return (myTime != variableSpeedSignStep.myTime);
 }
 
 
-bool 
+bool
 GNEVariableSpeedSignStep::operator>(const GNEVariableSpeedSignStep& variableSpeedSignStep) const {
     return (myTime > variableSpeedSignStep.myTime);
 }
 
 
-bool 
+bool
 GNEVariableSpeedSignStep::operator<(const GNEVariableSpeedSignStep& variableSpeedSignStep) const {
     return (myTime < variableSpeedSignStep.myTime);
 }
 
 
-bool 
+bool
 GNEVariableSpeedSignStep::operator>=(const GNEVariableSpeedSignStep& variableSpeedSignStep) const {
     return (myTime >= variableSpeedSignStep.myTime);
 }
 
 
-bool 
+bool
 GNEVariableSpeedSignStep::operator<=(const GNEVariableSpeedSignStep& variableSpeedSignStep) const {
     return (myTime <= variableSpeedSignStep.myTime);
 }

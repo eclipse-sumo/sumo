@@ -216,7 +216,7 @@ GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, con
         if (edge == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The edge '" + edgeId + "' to use within the " + toString(tag) + " is not known.");
-        } else if(startTime > endTime) {
+        } else if (startTime > endTime) {
             // write error if time interval ins't valid
             WRITE_WARNING("Time interval of " + toString(tag) + " isn't valid. Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
         } else {
@@ -252,7 +252,7 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, co
 }
 
 
-void 
+void
 GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attribute of calibrator routes
@@ -263,25 +263,25 @@ GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // check if already exist a route with the same ID
-        if(myViewNet->getNet()->routeExists(routeID)) {
-            WRITE_WARNING(toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' cannot be created; Another " + 
+        if (myViewNet->getNet()->routeExists(routeID)) {
+            WRITE_WARNING(toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' cannot be created; Another " +
                           toString(SUMO_TAG_ROUTE) + " with the same ID was previously declared");
             abort = true;
         }
         // declare vector with pointers to GNEEdges
         std::vector<GNEEdge*> edges;
-        for(std::vector<std::string>::const_iterator i = edgeIDs.begin(); (i != edgeIDs.end()) && (abort == false); i++) {
-            GNEEdge *retrievedEdge = myViewNet->getNet()->retrieveEdge((*i), false);
-            // stop 
-            if(retrievedEdge != NULL) {
+        for (std::vector<std::string>::const_iterator i = edgeIDs.begin(); (i != edgeIDs.end()) && (abort == false); i++) {
+            GNEEdge* retrievedEdge = myViewNet->getNet()->retrieveEdge((*i), false);
+            // stop
+            if (retrievedEdge != NULL) {
                 edges.push_back(retrievedEdge);
             } else {
-                WRITE_WARNING(toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' cannot be created; " + 
+                WRITE_WARNING(toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' cannot be created; " +
                               toString(SUMO_TAG_EDGE) + " with id '" + (*i) + "' doesn't exist in net");
             }
         }
         // create vehicle type if calibrator parent is currently defined
-        if((myCalibratorParent != NULL) && (abort == false)) {
+        if ((myCalibratorParent != NULL) && (abort == false)) {
             // create vehicle type and add it to calibrator parent
             GNECalibratorRoute route(myCalibratorParent, routeID, edges, color);
             myCalibratorParent->addCalibratorRoute(route);
@@ -290,7 +290,7 @@ GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const
 }
 
 
-void 
+void
 GNEAdditionalHandler::parseCalibratorVehicleType(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
 
@@ -325,13 +325,13 @@ GNEAdditionalHandler::parseCalibratorVehicleType(const SUMOSAXAttributes& attrs,
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // check if already exist a vehicleType with the same ID
-        if(myViewNet->getNet()->vehicleTypeExists(vehicleTypeID)) {
+        if (myViewNet->getNet()->vehicleTypeExists(vehicleTypeID)) {
             WRITE_WARNING(toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' cannot be created; Another " + toString(SUMO_TAG_VTYPE) + " with the same ID was previously declared");
-        } else if(myCalibratorParent != NULL) {
+        } else if (myCalibratorParent != NULL) {
             // create vehicle type and add it to calibrator parent
-            GNECalibratorVehicleType vehicleType(myCalibratorParent, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed, 
-                                                 speedFactor, speedDev, color, vClass, emissionClass, shape, width, filename, impatience, 
-                                                 laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration, 
+            GNECalibratorVehicleType vehicleType(myCalibratorParent, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed,
+                                                 speedFactor, speedDev, color, vClass, emissionClass, shape, width, filename, impatience,
+                                                 laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration,
                                                  loadingDuration, latAlignment, minGapLat, maxSpeedLat);
             myCalibratorParent->addCalibratorVehicleType(vehicleType);
         }
@@ -370,26 +370,26 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // check if flowID, route and vehicle type already exists
-        if(myViewNet->getNet()->flowExists(flowID) == false) {
+        if (myViewNet->getNet()->flowExists(flowID) == false) {
             WRITE_WARNING(toString(SUMO_TAG_FLOW) + " with ID = '" + flowID + "' cannot be created; Another " + toString(SUMO_TAG_FLOW) + " with the same ID was previously declared");
             abort = true;
-        } else if(myViewNet->getNet()->routeExists(route) == false) {
-            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " with ID = '" + flowID + "' cannot be created; their "+ toString(SUMO_TAG_ROUTE) + " with ID = '" + route + "' doesn't exist");
+        } else if (myViewNet->getNet()->routeExists(route) == false) {
+            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " with ID = '" + flowID + "' cannot be created; their " + toString(SUMO_TAG_ROUTE) + " with ID = '" + route + "' doesn't exist");
             abort = true;
-        } else if(myViewNet->getNet()->vehicleTypeExists(vehicleType) == false) {
-            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " with ID = '" + flowID + "' cannot be created; their "+ toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleType + "' doesn't exist");
+        } else if (myViewNet->getNet()->vehicleTypeExists(vehicleType) == false) {
+            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " with ID = '" + flowID + "' cannot be created; their " + toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleType + "' doesn't exist");
             abort = true;
         }
         // check if distributions are correct and calibrator parent is defined
-        if((myCalibratorParent != NULL) && (abort == false)) {
+        if ((myCalibratorParent != NULL) && (abort == false)) {
             // obtain type of distribution
             GNECalibratorFlow::TypeOfFlow flowType = getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability);
             if (flowType == GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID) {
                 WRITE_WARNING(toString(SUMO_TAG_FLOW) + " with ID = '" + flowID + "' cannot be created; Type of distribution undefined");
             } else {
                 // create Flow and add it to calibrator parent
-                GNECalibratorFlow flow(myCalibratorParent, flowID, vehicleType, route, color, departLane,departPos, departSpeed, 
-                                       arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute, 
+                GNECalibratorFlow flow(myCalibratorParent, flowID, vehicleType, route, color, departLane, departPos, departSpeed,
+                                       arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute,
                                        departPosLat, arrivalPosLat, begin, end, vehsPerHour, period, probability, number);
                 myCalibratorParent->addCalibratorFlow(flow);
             }
@@ -409,8 +409,8 @@ GNEAdditionalHandler::parseVariableSpeedSignStep(const SUMOSAXAttributes& attrs,
         // create step and check that is valid
         GNEVariableSpeedSignStep step(myVariableSpeedSignParent, time, speed);
         // show warning if is duplicated
-        if(std::find(myVariableSpeedSignParent->getSteps().begin(), myVariableSpeedSignParent->getSteps().end(), step) != myVariableSpeedSignParent->getSteps().end()) {
-            WRITE_WARNING(toString(step.getTag()) + " cannot be inserted into " + toString(myVariableSpeedSignParent->getTag()) + " with id = '" + myVariableSpeedSignParent->getID() + 
+        if (std::find(myVariableSpeedSignParent->getSteps().begin(), myVariableSpeedSignParent->getSteps().end(), step) != myVariableSpeedSignParent->getSteps().end()) {
+            WRITE_WARNING(toString(step.getTag()) + " cannot be inserted into " + toString(myVariableSpeedSignParent->getTag()) + " with id = '" + myVariableSpeedSignParent->getID() +
                           "'; Already exist another " + toString(step.getTag()) + " with the same " + toString(SUMO_ATTR_TIME) + ".");
         } else {
             myVariableSpeedSignParent->addStep(step);
@@ -1082,7 +1082,7 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* E3Pa
 
 
 bool
-GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, const std::string& id, GNELane *lane, double pos, const std::string& outfile, const double freq, 
+GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double pos, const std::string& outfile, const double freq,
                                       const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
                                       const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CALIBRATOR, id) == NULL) {
@@ -1300,16 +1300,16 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
                 }
             }
             // set extra check for filename values
-            if(GNEAttributeCarrier::isFilename(tag, attribute) && (GNEAttributeCarrier::isValidFilename(parsedAttribute) == false)) {
+            if (GNEAttributeCarrier::isFilename(tag, attribute) && (GNEAttributeCarrier::isValidFilename(parsedAttribute) == false)) {
                 errorFormat = "Filename contains invalid characters; ";
                 ok = false;
             }
             // set extra check for Vehicle Classes
-            if((!ok) && (attribute == SUMO_ATTR_VCLASS)) {
+            if ((!ok) && (attribute == SUMO_ATTR_VCLASS)) {
                 errorFormat = "Is not a part of defined set of Vehicle Classes; ";
             }
             // set extra check for Vehicle Classes
-            if((!ok) && (attribute == SUMO_ATTR_GUISHAPE)) {
+            if ((!ok) && (attribute == SUMO_ATTR_GUISHAPE)) {
                 errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
             }
             // If attribute has an invalid format
@@ -1358,19 +1358,19 @@ GNEAdditionalHandler::getFriendlyPosition(const SUMOSAXAttributes& attrs, const 
 }
 
 
-GNECalibratorFlow::TypeOfFlow 
+GNECalibratorFlow::TypeOfFlow
 GNEAdditionalHandler::getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability) {
     if ((vehsPerHour == -1) && (period == -1) && (probability == -1)) {
-        WRITE_WARNING("A type of distribution (" + toString(SUMO_ATTR_VEHSPERHOUR) + ", " +  toString(SUMO_ATTR_PERIOD) + " or " + 
+        WRITE_WARNING("A type of distribution (" + toString(SUMO_ATTR_VEHSPERHOUR) + ", " +  toString(SUMO_ATTR_PERIOD) + " or " +
                       toString(SUMO_ATTR_PROB) + ") must be defined in " + toString(SUMO_TAG_FLOW) +  " '" + flowID + "'");
         return GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID;
     } else {
-        int vehsPerHourDefined = (vehsPerHour != -1)? 1 : 0;
-        int periodDefined = (period != -1)? 1 : 0;
-        int probabilityDefined = (probability != -1)? 1 : 0;
+        int vehsPerHourDefined = (vehsPerHour != -1) ? 1 : 0;
+        int periodDefined = (period != -1) ? 1 : 0;
+        int probabilityDefined = (probability != -1) ? 1 : 0;
 
-        if((vehsPerHourDefined + periodDefined + probabilityDefined) != 1) {
-            WRITE_WARNING("Only a type of distribution (" + toString(SUMO_ATTR_VEHSPERHOUR) + ", " +  toString(SUMO_ATTR_PERIOD) + " or " + 
+        if ((vehsPerHourDefined + periodDefined + probabilityDefined) != 1) {
+            WRITE_WARNING("Only a type of distribution (" + toString(SUMO_ATTR_VEHSPERHOUR) + ", " +  toString(SUMO_ATTR_PERIOD) + " or " +
                           toString(SUMO_ATTR_PROB) + ") can be defined at the same time in " + toString(SUMO_TAG_FLOW) + " '" + flowID + "'");
             return GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID;
         } else if (vehsPerHourDefined == 1) {

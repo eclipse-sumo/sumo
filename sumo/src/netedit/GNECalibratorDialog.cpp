@@ -67,7 +67,7 @@ FXIMPLEMENT(GNECalibratorDialog, FXDialogBox, GNECalibratorDialogMap, ARRAYNUMBE
 GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* calibratorParent) :
     GNEAdditionalDialog(calibratorParent, 640, 480),
     myCalibratorParent(calibratorParent) {
-    
+
     // Create two columns, one for Routes and VehicleTypes, and other for Flows
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
@@ -191,39 +191,39 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
             // find all flows that contains route to delete as "route" parameter
             std::vector<GNECalibratorFlow> calibratorFlowsToErase;
             for (std::vector<GNECalibratorFlow>::const_iterator j = myCalibratorParent->getCalibratorFlows().begin(); j != myCalibratorParent->getCalibratorFlows().end(); j++) {
-                if(j->getRoute() == myRouteList->getItem(i, 0)->getText().text()) {
+                if (j->getRoute() == myRouteList->getItem(i, 0)->getText().text()) {
                     calibratorFlowsToErase.push_back(*j);
                 }
             }
             // if there are flows that has route to remove as "route" parameter
             if (calibratorFlowsToErase.size() > 0) {
                 // write warning if netedit is running in testing mode
-                if(myCalibratorParent->getViewNet()->isTestingModeEnabled() == true) {
-	                WRITE_WARNING("Opening FXMessageBox of type 'question'"); 
+                if (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true) {
+                    WRITE_WARNING("Opening FXMessageBox of type 'question'");
                 }
                 // open question dialog box
                 FXuint answer = FXMessageBox::question(myCalibratorParent->getViewNet()->getApp(), MBOX_YES_NO, ("Remove " + toString(SUMO_TAG_FLOW) + "s").c_str(), "%s",
-                                                      ("Deletion of " + toString(SUMO_TAG_ROUTE) + " '" + myRouteList->getItem(i, 0)->getText().text() + 
-                                                       "' will remove " + toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW) + (calibratorFlowsToErase.size() > 1?("s"):("")) + 
-                                                       ". Continue?").c_str());
+                                                       ("Deletion of " + toString(SUMO_TAG_ROUTE) + " '" + myRouteList->getItem(i, 0)->getText().text() +
+                                                        "' will remove " + toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) +
+                                                        ". Continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
-                    if((answer == 2) && (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
-                    } else if((answer == 4) && (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
+                    if ((answer == 2) && (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true)) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                    } else if ((answer == 4) && (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true)) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
                     }
                     // abort deletion of route
                     return 0;
                 } else {
                     // write warning if netedit is running in testing mode
-                    if(myCalibratorParent->getViewNet()->isTestingModeEnabled() == true) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
+                    if (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                     }
                     // remove flows with route to delete
                     std::vector<GNECalibratorFlow> flowSubstraction;
                     for (std::vector<GNECalibratorFlow>::const_iterator j = myCalibratorParent->getCalibratorFlows().begin(); j != myCalibratorParent->getCalibratorFlows().end(); j++) {
-                        if(std::find(calibratorFlowsToErase.begin(), calibratorFlowsToErase.end(), *j) == calibratorFlowsToErase.end()) {
+                        if (std::find(calibratorFlowsToErase.begin(), calibratorFlowsToErase.end(), *j) == calibratorFlowsToErase.end()) {
                             flowSubstraction.push_back(*j);
                         }
                     }
@@ -336,34 +336,34 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
             // find all flows that contains vehicle type to delete as "vehicle type" parameter
             std::vector<GNECalibratorFlow> calibratorFlowsToErase;
             for (std::vector<GNECalibratorFlow>::const_iterator j = myCalibratorParent->getCalibratorFlows().begin(); j != myCalibratorParent->getCalibratorFlows().end(); j++) {
-                if(j->getVehicleType() == myVehicleTypeList->getItem(i, 0)->getText().text()) {
+                if (j->getVehicleType() == myVehicleTypeList->getItem(i, 0)->getText().text()) {
                     calibratorFlowsToErase.push_back(*j);
                 }
             }
             // if there are flows that has vehicle type to remove as "vehicle type" parameter
             if (calibratorFlowsToErase.size() > 0) {
                 FXuint answer = FXMessageBox::question(myCalibratorParent->getViewNet()->getApp(), MBOX_YES_NO, ("Remove " + toString(SUMO_TAG_FLOW) + "s").c_str(), "%s",
-                                                      ("Deletion of " + toString(SUMO_TAG_ROUTE) + " '" + myRouteList->getItem(i, 0)->getText().text() + 
-                                                       "' will remove " + toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW) + (calibratorFlowsToErase.size() > 1?("s"):("")) + 
-                                                       ". Continue?").c_str());
+                                                       ("Deletion of " + toString(SUMO_TAG_ROUTE) + " '" + myRouteList->getItem(i, 0)->getText().text() +
+                                                        "' will remove " + toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) +
+                                                        ". Continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
-                    if((answer == 2) && (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'"); 
-                    } else if((answer == 4) && (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true)) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'"); 
+                    if ((answer == 2) && (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true)) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                    } else if ((answer == 4) && (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true)) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
                     }
                     // abort deletion of vehicle type
                     return 0;
                 } else {
                     // write warning if netedit is running in testing mode
-                    if(myCalibratorParent->getViewNet()->isTestingModeEnabled() == true) {
-	                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'"); 
+                    if (myCalibratorParent->getViewNet()->isTestingModeEnabled() == true) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                     }
                     // remove flows with vehicle type to delete
                     std::vector<GNECalibratorFlow> flowSubstraction;
                     for (std::vector<GNECalibratorFlow>::const_iterator j = myCalibratorParent->getCalibratorFlows().begin(); j != myCalibratorParent->getCalibratorFlows().end(); j++) {
-                        if(std::find(calibratorFlowsToErase.begin(), calibratorFlowsToErase.end(), *j) == calibratorFlowsToErase.end()) {
+                        if (std::find(calibratorFlowsToErase.begin(), calibratorFlowsToErase.end(), *j) == calibratorFlowsToErase.end()) {
                             flowSubstraction.push_back(*j);
                         }
                     }
@@ -433,7 +433,7 @@ GNECalibratorDialog::updateRouteTable() {
         myRouteList->setItem(indexRow, 2, item);
         // Update index
         indexRow++;
-    }    
+    }
     // enable or disable flow and label button
     updateFlowAndLabelButton();
 }
@@ -517,22 +517,22 @@ GNECalibratorDialog::updateVehicleTypeTable() {
         // Update index
         indexRow++;
     }
-     // enable or disable flow and label button
+    // enable or disable flow and label button
     updateFlowAndLabelButton();
 }
 
-void 
+void
 GNECalibratorDialog::updateFlowAndLabelButton() {
     // Enable or disable AddFlow button and flow list depending of currently there are routes and vehicle types defined
     std::string errorMsg;
-    if(myCalibratorParent->getCalibratorRoutes().empty() && myCalibratorParent->getCalibratorVehicleTypes().empty()) {
+    if (myCalibratorParent->getCalibratorRoutes().empty() && myCalibratorParent->getCalibratorVehicleTypes().empty()) {
         errorMsg = " and ";
     }
-    if(myCalibratorParent->getCalibratorRoutes().size() == 0 || myCalibratorParent->getCalibratorVehicleTypes().size() == 0) {
+    if (myCalibratorParent->getCalibratorRoutes().size() == 0 || myCalibratorParent->getCalibratorVehicleTypes().size() == 0) {
         myAddFlow->disable();
         myFlowList->disable();
-        std::string errorMessage = "No " + (myCalibratorParent->getCalibratorRoutes().empty()?(toString(SUMO_TAG_ROUTE) + "s"):("")) + errorMsg + 
-                                   (myCalibratorParent->getCalibratorVehicleTypes().empty()?(toString(SUMO_TAG_VTYPE) + "s"):("")) + " defined";
+        std::string errorMessage = "No " + (myCalibratorParent->getCalibratorRoutes().empty() ? (toString(SUMO_TAG_ROUTE) + "s") : ("")) + errorMsg +
+                                   (myCalibratorParent->getCalibratorVehicleTypes().empty() ? (toString(SUMO_TAG_VTYPE) + "s") : ("")) + " defined";
         myLabelFlow->setText(errorMessage.c_str());
     } else {
         myAddFlow->enable();

@@ -344,7 +344,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
-    static double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param=0);
+    static double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param = 0);
 
 
     /** @brief Returns the amount of all emitted pollutants given the vehicle type and state (in mg/s or ml/s for fuel)
@@ -354,7 +354,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
-    static Emissions computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const std::map<int, double>* param=0);
+    static Emissions computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const std::map<int, double>* param = 0);
 
 
     /** @brief Returns the amount of emitted pollutant given the vehicle type and default values for the state (in mg)
@@ -366,7 +366,7 @@ public:
      * @param{in] tt the time the vehicle travels
      * @return The amount emitted by the given vehicle class [mg]
      */
-    static double computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const std::map<int, double>* param=0);
+    static double computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const std::map<int, double>* param = 0);
 
     static const HelpersEnergy& getEnergyHelper() {
         return myEnergyHelper;

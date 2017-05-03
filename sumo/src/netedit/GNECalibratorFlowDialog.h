@@ -54,7 +54,7 @@ class GNECalibratorFlowDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow &calibratorFlow, bool updatingElement);
+    GNECalibratorFlowDialog(GNECalibratorDialog* calibratorDialog, GNECalibratorFlow& calibratorFlow, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorFlowDialog();
@@ -104,7 +104,7 @@ protected:
 
     /// @brief TextField for flow ID
     FXTextField* myTextFieldFlowID;
-    
+
     /// @brief ComboBox for Type
     FXComboBox* myComboBoxVehicleType;
 

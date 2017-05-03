@@ -59,21 +59,21 @@ double MSSOTLPolicy5DStimulus::computeDesirability(double vehInMeasure, double v
         return -1;
     } else {
         double stimulus = getStimCox()
-                            * exp(
-                                -getStimCoxExpIn()
-                                * pow(vehInMeasure - getStimOffsetIn(), 2)
-                                / getStimDivisorIn()
-                                - getStimCoxExpOut()
-                                * pow(vehOutMeasure - getStimOffsetOut(), 2)
-                                / getStimDivisorOut()
-                                - getStimCoxExpDispersionIn()
-                                * pow(vehInDispersionMeasure - getStimOffsetDispersionIn(), 2)
-                                / getStimDivisorDispersionIn()
-                                - getStimCoxExpDispersionOut()
-                                * pow(vehOutDispersionMeasure - getStimOffsetDispersionOut(), 2)
-                                / getStimDivisorDispersionOut()
+                          * exp(
+                              -getStimCoxExpIn()
+                              * pow(vehInMeasure - getStimOffsetIn(), 2)
+                              / getStimDivisorIn()
+                              - getStimCoxExpOut()
+                              * pow(vehOutMeasure - getStimOffsetOut(), 2)
+                              / getStimDivisorOut()
+                              - getStimCoxExpDispersionIn()
+                              * pow(vehInDispersionMeasure - getStimOffsetDispersionIn(), 2)
+                              / getStimDivisorDispersionIn()
+                              - getStimCoxExpDispersionOut()
+                              * pow(vehOutDispersionMeasure - getStimOffsetDispersionOut(), 2)
+                              / getStimDivisorDispersionOut()
 
-                            );
+                          );
         return stimulus;
     }
 }

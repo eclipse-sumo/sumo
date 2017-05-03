@@ -78,7 +78,7 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
         myE3Parent = dynamic_cast<GNEDetectorExit*>(myAdditional)->getE3Parent();
     }
     // handle additional with edge chidls
-    if(myAdditional->getTag() == SUMO_TAG_REROUTER) {
+    if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
         myEdgeChilds = dynamic_cast<GNERerouter*>(myAdditional)->getEdgeChilds();
     }
 }
@@ -89,7 +89,7 @@ GNEChange_Additional::~GNEChange_Additional() {
     myAdditional->decRef("GNEChange_Additional");
     if (myAdditional->unreferenced()) {
         // show extra information for tests
-        if(myNet->getViewNet()->isTestingModeEnabled()) {
+        if (myNet->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting unreferenced " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         }
         delete myAdditional;
@@ -101,7 +101,7 @@ void
 GNEChange_Additional::undo() {
     if (myForward) {
         // show extra information for tests
-        if(myNet->getViewNet()->isTestingModeEnabled()) {
+        if (myNet->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         }
         // delete additional of test
@@ -144,15 +144,15 @@ GNEChange_Additional::undo() {
             myNet->getViewNet()->update();
         }
         // 6 - if Additional if a rerouter, remove it of all of their edge childs
-        if(myAdditional->getTag() == SUMO_TAG_REROUTER) {
-            GNERerouter *rerouter = dynamic_cast<GNERerouter*>(myAdditional);
-            for(std::vector<GNEEdge*>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
+        if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
+            GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
+            for (std::vector<GNEEdge*>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
                 (*i)->removeGNERerouter(rerouter);
             }
         }
     } else {
         // show extra information for tests
-        if(myNet->getViewNet()->isTestingModeEnabled()) {
+        if (myNet->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Inserting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         }
         // insert additional of test
@@ -195,9 +195,9 @@ GNEChange_Additional::undo() {
             myNet->getViewNet()->update();
         }
         // 6 - if Additional if a rerouter, add it of all of their edge childs
-        if(myAdditional->getTag() == SUMO_TAG_REROUTER) {
-            GNERerouter *rerouter = dynamic_cast<GNERerouter*>(myAdditional);
-            for(std::vector<GNEEdge*>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
+        if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
+            GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
+            for (std::vector<GNEEdge*>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
                 (*i)->addGNERerouter(rerouter);
             }
         }
@@ -209,7 +209,7 @@ void
 GNEChange_Additional::redo() {
     if (myForward) {
         // show extra information for tests
-        if(myNet->getViewNet()->isTestingModeEnabled()) {
+        if (myNet->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Inserting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         }
         // insert additional into net
@@ -252,15 +252,15 @@ GNEChange_Additional::redo() {
             myNet->getViewNet()->update();
         }
         // 6 - if Additional if a rerouter, add it of all of their edge childs
-        if(myAdditional->getTag() == SUMO_TAG_REROUTER) {
-            GNERerouter *rerouter = dynamic_cast<GNERerouter*>(myAdditional);
-            for(std::vector<GNEEdge*>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
+        if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
+            GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
+            for (std::vector<GNEEdge*>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
                 (*i)->addGNERerouter(rerouter);
             }
         }
     } else {
         // show extra information for tests
-        if(myNet->getViewNet()->isTestingModeEnabled()) {
+        if (myNet->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         }
         myNet->deleteAdditional(myAdditional);
@@ -302,9 +302,9 @@ GNEChange_Additional::redo() {
             myNet->getViewNet()->update();
         }
         // 6 - if Additional if a rerouter, remove it of all of their edge childs
-        if(myAdditional->getTag() == SUMO_TAG_REROUTER) {
-            GNERerouter *rerouter = dynamic_cast<GNERerouter*>(myAdditional);
-            for(std::vector<GNEEdge*>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
+        if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
+            GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
+            for (std::vector<GNEEdge*>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
                 (*i)->removeGNERerouter(rerouter);
             }
         }

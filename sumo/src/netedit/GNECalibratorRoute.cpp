@@ -102,10 +102,10 @@ GNECalibratorRoute::getRouteID() const {
 }
 
 
-std::vector<std::string> 
+std::vector<std::string>
 GNECalibratorRoute::getEdgesIDs() const {
     std::vector<std::string> edgeIDs;
-    for(std::vector<GNEEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+    for (std::vector<GNEEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
         edgeIDs.push_back((*i)->getID());
     }
     return edgeIDs;
@@ -118,7 +118,7 @@ GNECalibratorRoute::getEdges() const {
 }
 
 
-const std::string& 
+const std::string&
 GNECalibratorRoute::getColor() const {
     return myColor;
 }
@@ -137,14 +137,14 @@ GNECalibratorRoute::setRouteID(std::string routeID) {
 }
 
 
-bool 
+bool
 GNECalibratorRoute::setEdges(const std::vector<std::string>& edgeIDs) {
     std::vector<GNEEdge*> edges;
     GNEEdge* edgeTmp;
-    for(std::vector<std::string>::const_iterator i = edgeIDs.begin(); i != edgeIDs.end(); i++) {
+    for (std::vector<std::string>::const_iterator i = edgeIDs.begin(); i != edgeIDs.end(); i++) {
         // check that current edges exist in the net
         edgeTmp = myCalibratorParent->getViewNet()->getNet()->retrieveEdge((*i), false);
-        if(edgeTmp != NULL) {
+        if (edgeTmp != NULL) {
             edges.push_back(edgeTmp);
         } else {
             return false;
@@ -154,16 +154,16 @@ GNECalibratorRoute::setEdges(const std::vector<std::string>& edgeIDs) {
 }
 
 
-bool 
+bool
 GNECalibratorRoute::setEdges(const std::vector<GNEEdge*>& edges) {
     myEdges = edges;
     return true;
 }
 
 
-bool 
+bool
 GNECalibratorRoute::setEdges(const std::string& edgeIDs) {
-    if(GNEAttributeCarrier::canParse<std::vector<std::string> >(edgeIDs)) {
+    if (GNEAttributeCarrier::canParse<std::vector<std::string> >(edgeIDs)) {
         return setEdges(GNEAttributeCarrier::parse<std::vector<std::string> >(edgeIDs));
     } else {
         return false;
@@ -178,29 +178,29 @@ GNECalibratorRoute::setColor(std::string color) {
 }
 
 
-std::string 
+std::string
 GNECalibratorRoute::checkEdgeRoute(const std::vector<std::string>& edgeIDs) const {
     std::vector<GNEEdge*> edges;
     // check that there aren't to equal adjacent edges
-    for(std::vector<std::string>::const_iterator i = edgeIDs.begin() + 1; i != edgeIDs.end(); i++) {
+    for (std::vector<std::string>::const_iterator i = edgeIDs.begin() + 1; i != edgeIDs.end(); i++) {
         GNEEdge* retrievedEdge = myCalibratorParent->getViewNet()->getNet()->retrieveEdge((*i), false);
-        if(retrievedEdge != NULL) {
+        if (retrievedEdge != NULL) {
             edges.push_back(retrievedEdge);
         } else {
             return (toString(SUMO_TAG_EDGE) + " '" + *i + "' doesn't exist");
         }
     }
     // check that there aren't to equal adjacent edges
-    for(std::vector<GNEEdge*>::const_iterator i = edges.begin() + 1; i != edges.end(); i++) {
-        if((*(i-1))->getID() == (*i)->getID()) {
+    for (std::vector<GNEEdge*>::const_iterator i = edges.begin() + 1; i != edges.end(); i++) {
+        if ((*(i - 1))->getID() == (*i)->getID()) {
             return (toString(SUMO_TAG_EDGE) + " '" + (*i)->getID() + "' is adjacent to itself");
         }
     }
     // check that edges are adjacents
-    for(std::vector<GNEEdge*>::const_iterator i = edges.begin() + 1; i != edges.end(); i++) {
-        std::vector<GNEEdge*> adyacents = (*(i-1))->getGNEJunctionDestiny()->getGNEOutgoingEdges();
-        if(std::find(adyacents.begin(), adyacents.end(), (*i)) == adyacents.end()) {
-            return (toString(SUMO_TAG_EDGE) + " '" + (*(i-1))->getID() + "' isn't adjacent to " + toString(SUMO_TAG_EDGE) + " '" + (*i)->getID() + "'");
+    for (std::vector<GNEEdge*>::const_iterator i = edges.begin() + 1; i != edges.end(); i++) {
+        std::vector<GNEEdge*> adyacents = (*(i - 1))->getGNEJunctionDestiny()->getGNEOutgoingEdges();
+        if (std::find(adyacents.begin(), adyacents.end(), (*i)) == adyacents.end()) {
+            return (toString(SUMO_TAG_EDGE) + " '" + (*(i - 1))->getID() + "' isn't adjacent to " + toString(SUMO_TAG_EDGE) + " '" + (*i)->getID() + "'");
         }
     }
     // all ok, then return ""
@@ -208,7 +208,7 @@ GNECalibratorRoute::checkEdgeRoute(const std::vector<std::string>& edgeIDs) cons
 }
 
 
-bool 
+bool
 GNECalibratorRoute::operator==(const GNECalibratorRoute& calibratorRoute) const {
     return (myRouteID == calibratorRoute.getRouteID());
 }

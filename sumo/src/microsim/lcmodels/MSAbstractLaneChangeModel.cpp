@@ -94,15 +94,14 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myCarFollowModel(v.getCarFollowModel()),
     myModel(model),
     myLastLaneChangeOffset(0),
-    myAmOpposite(false)
-{
+    myAmOpposite(false) {
 }
 
 
 MSAbstractLaneChangeModel::~MSAbstractLaneChangeModel() {
 }
 
-void 
+void
 MSAbstractLaneChangeModel::setOwnState(const int state) {
     myOwnState = state;
     // reset lateral influence after step is completed
@@ -306,9 +305,9 @@ MSAbstractLaneChangeModel::updateShadowLane() {
         }
     }
     if (debugVehicle()) std::cout << SIMTIME << " updateShadowLane veh=" << myVehicle.getID()
-                                   << " newShadowLane=" << Named::getIDSecure(myShadowLane)
-                                   << "\n   before:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << " further=" << toString(myVehicle.getFurtherLanes()) << " passed=" << toString(passed)
-                                   << "\n";
+                                      << " newShadowLane=" << Named::getIDSecure(myShadowLane)
+                                      << "\n   before:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << " further=" << toString(myVehicle.getFurtherLanes()) << " passed=" << toString(passed)
+                                      << "\n";
     myVehicle.updateFurtherLanes(myShadowFurtherLanes, myShadowFurtherLanesPosLat, passed);
     if (debugVehicle()) std::cout
                 << "\n   after:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << "\n";

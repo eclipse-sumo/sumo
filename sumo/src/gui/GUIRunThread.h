@@ -147,7 +147,7 @@ protected:
     /** information whether the thread is running in single step mode */
     bool mySingle;
 
-    /// @brief whether the simulation already ended 
+    /// @brief whether the simulation already ended
     bool myHaveSignaledEnd;
 
     /** @brief The instances of message retriever encapsulations

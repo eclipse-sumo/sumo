@@ -71,9 +71,9 @@ AGCity::completeStreets() {
     statData.factorInhabitants = (double)statData.inhabitants / pop;
     //can be improved with other input data
     double neededWorkPositionsInCity = (1.0 - statData.unemployement)
-                                         * ((double)statData.getPeopleYoungerThan(statData.limitAgeRetirement)
-                                            - (double)statData.getPeopleYoungerThan(statData.limitAgeChildren))
-                                         + (double)statData.incomingTraffic;
+                                       * ((double)statData.getPeopleYoungerThan(statData.limitAgeRetirement)
+                                          - (double)statData.getPeopleYoungerThan(statData.limitAgeChildren))
+                                       + (double)statData.incomingTraffic;
     // we generate 5% more work positions that really needed: to avoid any expensive research of random work positions
     neededWorkPositionsInCity *= double(1.05);
     statData.workPositions = (int)neededWorkPositionsInCity;

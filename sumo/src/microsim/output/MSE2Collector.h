@@ -94,7 +94,7 @@ public:
         /** @note Constructor expects an _entryLane argument corresponding to a lane, which is part of the detector.
         */
         VehicleInfo(std::string id, std::string type, double length, double minGap, const MSLane* entryLane, double entryOffset,
-                std::size_t currentOffsetIndex, double exitOffset, double distToDetectorEnd, bool onDetector) :
+                    std::size_t currentOffsetIndex, double exitOffset, double distToDetectorEnd, bool onDetector) :
             id(id),
             type(type),
             length(length),
@@ -111,9 +111,9 @@ public:
             hasEntered(false),
             lastAccel(0),
             lastSpeed(0),
-            lastPos(0)
-        {}
-        virtual ~VehicleInfo(){};
+            lastPos(0) {
+        }
+        virtual ~VehicleInfo() {};
         /// vehicle's ID
         std::string id;
         /// vehicle's type
@@ -165,18 +165,18 @@ private:
     */
     struct MoveNotificationInfo {
         MoveNotificationInfo(std::string _vehID, double _oldPos, double _newPos, double _speed, double _accel, double _distToDetectorEnd, double _timeOnDetector, double _lengthOnDetector, double _timeLoss, bool _onDetector) :
-        id(_vehID),
-        oldPos(_oldPos),
-        newPos(_newPos),
-        speed(_speed),
-        accel(_accel),
-        distToDetectorEnd(_distToDetectorEnd),
-        timeOnDetector(_timeOnDetector),
-        lengthOnDetector(_lengthOnDetector),
-        timeLoss(_timeLoss),
-        onDetector(_onDetector){}
+            id(_vehID),
+            oldPos(_oldPos),
+            newPos(_newPos),
+            speed(_speed),
+            accel(_accel),
+            distToDetectorEnd(_distToDetectorEnd),
+            timeOnDetector(_timeOnDetector),
+            lengthOnDetector(_lengthOnDetector),
+            timeLoss(_timeLoss),
+            onDetector(_onDetector) {}
 
-        virtual ~MoveNotificationInfo(){};
+        virtual ~MoveNotificationInfo() {};
 
         /// Vehicle's id
         std::string id;
@@ -237,9 +237,9 @@ public:
     *        If pos is invalid, the detector may span over several lanes upstream of the lane
     */
     MSE2Collector(const std::string& id,
-            DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
-            SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-            const std::string& vTypes);
+                  DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
+                  SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+                  const std::string& vTypes);
 
 
     /** @brief Constructor with a sequence of lanes and given start and end position on the first and last lanes
@@ -255,9 +255,9 @@ public:
     * @param[in] vTypes Vehicle types, that the detector takes into account
     */
     MSE2Collector(const std::string& id,
-            DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
-            SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-            const std::string& vTypes);
+                  DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
+                  SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+                  const std::string& vTypes);
 
 
     /// @brief Destructor
@@ -295,7 +295,7 @@ public:
      * @see MSMoveReminder::notifyMove
      */
     virtual bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos,
-                    double newSpeed);
+                            double newSpeed);
 
 
     /** @brief Removes a known vehicle due to its lane-change
@@ -422,12 +422,12 @@ public:
     int getCurrentVehicleNumber() const;
 
     /** @brief Returns the current detector occupancy */
-    double getCurrentOccupancy() const{
+    double getCurrentOccupancy() const {
         return myCurrentOccupancy;
     }
 
     /** @brief Returns the mean vehicle speed of vehicles currently on the detector*/
-    double getCurrentMeanSpeed() const{
+    double getCurrentMeanSpeed() const {
         return myCurrentMeanSpeed;
     }
 
@@ -442,27 +442,27 @@ public:
     }
 
     /** @brief Returns the length in vehicles of the currently largest jam */
-    int getCurrentMaxJamLengthInVehicles() const{
+    int getCurrentMaxJamLengthInVehicles() const {
         return myCurrentMaxJamLengthInVehicles;
     }
 
     /** @brief Returns the length in meters of the currently largest jam */
-    double getCurrentMaxJamLengthInMeters() const{
+    double getCurrentMaxJamLengthInMeters() const {
         return myCurrentMaxJamLengthInMeters;
     }
 
     /** @brief Returns the length of all jams in vehicles */
-    int getCurrentJamLengthInVehicles() const{
+    int getCurrentJamLengthInVehicles() const {
         return myCurrentJamLengthInVehicles;
     }
 
     /** @brief Returns the length of all jams in meters */
-    double getCurrentJamLengthInMeters() const{
+    double getCurrentJamLengthInMeters() const {
         return myCurrentJamLengthInMeters;
     }
 
     /** @brief Returns the length of all jams in meters */
-    int getCurrentStartedHalts() const{
+    int getCurrentStartedHalts() const {
         return myCurrentStartedHalts;
     }
 
@@ -472,7 +472,7 @@ public:
     *
     * @return The mean number of haltings within the area
     */
-    int getCurrentHaltingNumber() const{
+    int getCurrentHaltingNumber() const {
         return myCurrentHaltingsNumber;
     }
 
@@ -641,7 +641,7 @@ private:
 
     /** brief returns true if the vehicle corresponding to mni1 is closer to the detector end than the vehicle corresponding to mni2
      */
-    static bool compareMoveNotification(MoveNotificationInfo* mni1, MoveNotificationInfo* mni2){
+    static bool compareMoveNotification(MoveNotificationInfo* mni1, MoveNotificationInfo* mni2) {
         return mni1->distToDetectorEnd < mni2->distToDetectorEnd;
     }
 

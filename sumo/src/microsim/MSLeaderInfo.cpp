@@ -134,7 +134,7 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
 }
 
 
-void 
+void
 MSLeaderInfo::getSublaneBorders(int sublane, double latOffset, double& rightSide, double& leftSide) const {
     assert(sublane >= 0);
     assert(sublane < (int)myVehicles.size());
@@ -193,8 +193,7 @@ MSLeaderDistanceInfo::MSLeaderDistanceInfo(const MSLane* lane, const MSVehicle* 
 
 MSLeaderDistanceInfo::MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const MSLane* dummy) :
     MSLeaderInfo(dummy, 0, 0),
-    myDistances(1, cLeaderDist.second) 
-{
+    myDistances(1, cLeaderDist.second) {
     assert(myVehicles.size() == 1);
     myVehicles[0] = cLeaderDist.first;
 }

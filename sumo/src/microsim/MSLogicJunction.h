@@ -70,7 +70,7 @@ public:
 
     /** @brief Returns all internal lanes on the junction
      */
-    virtual const std::vector<MSLane*>& getInternalLanes() const{
+    virtual const std::vector<MSLane*>& getInternalLanes() const {
         return myInternalLanes;
     }
 
@@ -87,7 +87,7 @@ protected:
                     SumoXMLNodeType type,
                     const Position& position,
                     const PositionVector& shape,
-                    std::vector<MSLane*> incoming, 
+                    std::vector<MSLane*> incoming,
                     std::vector<MSLane*> internal
                    );
 

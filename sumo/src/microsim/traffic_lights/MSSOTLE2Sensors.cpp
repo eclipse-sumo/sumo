@@ -399,7 +399,9 @@ double MSSOTLE2Sensors::getEstimateQueueLength(std::string laneId) {
 //                << " laneLength " << sensorsIterator->second->getLane()->getLength() << " estimateQueueLength " <<  estQL;
 //                WRITE_MESSAGE(str.str());
 //            )
+        {
             return estQL;
+        }
     }
 }
 

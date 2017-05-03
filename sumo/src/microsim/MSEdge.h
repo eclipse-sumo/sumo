@@ -206,14 +206,14 @@ public:
      *
      * @return This edge's persons sorted by pos
      */
-    std::vector<MSTransportable*> getSortedPersons(SUMOTime timestep, bool includeRiding=false) const;
+    std::vector<MSTransportable*> getSortedPersons(SUMOTime timestep, bool includeRiding = false) const;
 
 
     /** @brief Returns this edge's containers sorted by pos
      *
      * @return This edge's containers sorted by pos
      */
-    std::vector<MSTransportable*> getSortedContainers(SUMOTime timestep, bool includeRiding=false) const;
+    std::vector<MSTransportable*> getSortedContainers(SUMOTime timestep, bool includeRiding = false) const;
 
     /** @brief Get the allowed lanes to reach the destination-edge.
      *
@@ -487,7 +487,7 @@ public:
      * The emptiest lane is the one which vehicle insertion is most likely to succeed.
      *
      * If there are no vehicles before departPos, then the lane with the largest
-     * gap between departPos and the last vehicle is 
+     * gap between departPos and the last vehicle is
      * Otheriwise the lane with lowes occupancy is selected
      * If there is more than one, the first according to its
      *  index in the lane container is chosen.
@@ -595,7 +595,7 @@ public:
     double getSpeedLimit() const;
 
     /// @brief return shape.length() / myLength
-    double getLengthGeometryFactor() const; 
+    double getLengthGeometryFactor() const;
 
     /** @brief Sets a new maximum speed for all lanes (used by TraCI and MSCalibrator)
      * @param[in] val the new speed in m/s
@@ -760,7 +760,7 @@ protected:
 
 
     /// @brief return upper bound for the depart position on this edge
-    double getDepartPosBound(const MSVehicle& veh, bool upper=true) const;
+    double getDepartPosBound(const MSVehicle& veh, bool upper = true) const;
 
 protected:
     /// @brief This edge's numerical id

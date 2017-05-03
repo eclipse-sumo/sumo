@@ -165,11 +165,11 @@ double MSCFModel_SmartSK::_vsafe(const MSVehicle* const veh, double gap, double 
     // myHeadwayTime as the "reaction time" tau
     double bTau = myDecel * (vars->myHeadway);
     double vsafe = (double)(-1. * bTau
-                                + sqrt(
-                                    bTau * bTau
-                                    + (predSpeed * predSpeed)
-                                    + (2. * myDecel * gap)
-                                ));
+                            + sqrt(
+                                bTau * bTau
+                                + (predSpeed * predSpeed)
+                                + (2. * myDecel * gap)
+                            ));
     assert(vsafe >= 0);
     return vsafe;
 }

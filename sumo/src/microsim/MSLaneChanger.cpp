@@ -701,8 +701,8 @@ MSLaneChanger::checkChange(
         double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
         const double decel = vehicle->getCarFollowModel().getMaxDecel() * STEPS2TIME(MSGlobals::gLaneChangeDuration);
         const double avgSpeed = 0.5 * (
-                                      MAX2(0., vehicle->getSpeed() - ACCEL2SPEED(vehicle->getCarFollowModel().getMaxDecel())) +
-                                      MAX2(0., vehicle->getSpeed() - decel));
+                                    MAX2(0., vehicle->getSpeed() - ACCEL2SPEED(vehicle->getCarFollowModel().getMaxDecel())) +
+                                    MAX2(0., vehicle->getSpeed() - decel));
         const double space2change = avgSpeed * STEPS2TIME(MSGlobals::gLaneChangeDuration);
         // for finding turns it doesn't matter whether we look along the current lane or the target lane
         const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation();
@@ -833,8 +833,8 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         std::vector<MSLane*> conts = vehicle->getBestLanesContinuation();
         while (!foundSpaceAhead) {
             const double requiredSpaceAfterLeader = (columnLeader.first->getCarFollowModel().getSecureGap(
-                        columnLeader.first->getSpeed(), overtakingSpeed, vehicle->getCarFollowModel().getMaxDecel())
-                    + vehicle->getVehicleType().getLengthWithGap());
+                    columnLeader.first->getSpeed(), overtakingSpeed, vehicle->getCarFollowModel().getMaxDecel())
+                                                    + vehicle->getVehicleType().getLengthWithGap());
 
 
             // all leader vehicles on the current laneChanger edge are already moved into MSLane::myTmpVehicles
@@ -852,7 +852,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                 foundSpaceAhead = true;
             } else {
                 const double requiredSpace = (requiredSpaceAfterLeader
-                                                + vehicle->getCarFollowModel().getSecureGap(overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
+                                              + vehicle->getCarFollowModel().getSecureGap(overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
                 if (leadLead.second > requiredSpace) {
                     foundSpaceAhead = true;
                 } else {
@@ -1064,14 +1064,14 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
     const double a = vehicle->getCarFollowModel().getMaxAccel();
     const double d = vehicle->getCarFollowModel().getMaxDecel();
     const double g = (
-                           // drive up to the rear of leader
-                           gap + vehicle->getVehicleType().getMinGap()
-                           // drive head-to-head with the leader
-                           + leader->getVehicleType().getLengthWithGap()
-                           // drive past the leader
-                           + vehicle->getVehicleType().getLength()
-                           // allow for safe gap between leader and vehicle
-                           + leader->getCarFollowModel().getSecureGap(v, vMax, d));
+                         // drive up to the rear of leader
+                         gap + vehicle->getVehicleType().getMinGap()
+                         // drive head-to-head with the leader
+                         + leader->getVehicleType().getLengthWithGap()
+                         // drive past the leader
+                         + vehicle->getVehicleType().getLength()
+                         // allow for safe gap between leader and vehicle
+                         + leader->getCarFollowModel().getSecureGap(v, vMax, d));
     const double sign = -1; // XXX recheck
     // v*t + t*t*a*0.5 = g + u*t
     // solve t

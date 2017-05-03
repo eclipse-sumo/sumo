@@ -233,7 +233,7 @@ public:
 
     /// @brief toogle show connections
     long onCmdToogleShowConnection(FXObject*, FXSelector, void*);
-    
+
     /// @brief toogle selet edges
     long onCmdToogleSelectEdges(FXObject*, FXSelector, void*);
 
@@ -257,7 +257,7 @@ public:
     /// @brief handle enter keypress
     void hotkeyEnter();
 
-     /// @brief handle focus frame keypress
+    /// @brief handle focus frame keypress
     void hotkeyFocusFrame();
 
     /// @brief store the position where a popup-menu was requested
@@ -322,8 +322,14 @@ private:
     /// @brief we are not responsible for deletion
     GNENet* myNet;
 
+    /// @brief the current edit mode
+    EditMode myEditMode;
+
+    /// @brief the previous edit mode used for toggling
+    EditMode myPreviousEditMode;
+
     /// @brief the current frame
-    GNEFrame *myCurrentFrame;
+    GNEFrame* myCurrentFrame;
 
     /// @brief menu check to select only edges
     FXMenuCheck* myMenuCheckSelectEdges;
@@ -345,12 +351,6 @@ private:
 
     /// @brief flag to check if select edges is enabled
     bool mySelectEdges;
-
-    /// @brief the current edit mode
-    EditMode myEditMode;
-
-    /// @brief the previous edit mode used for toggling
-    EditMode myPreviousEditMode;
 
     /// @name the state-variables of the create-edge state-machine
     // @{

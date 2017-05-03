@@ -35,7 +35,7 @@ bool NBPTStopCont::insert(NBPTStop* ptStop) {
 }
 void NBPTStopCont::process(NBEdgeCont& cont) {
 
-    for (PTStopsCont::iterator i = myPTStops.begin(); i != myPTStops.end(); ) {
+    for (PTStopsCont::iterator i = myPTStops.begin(); i != myPTStops.end();) {
         std::string edgeId = i->second->getEdgeId();
         NBEdge* edge = cont.getByID(edgeId);
 

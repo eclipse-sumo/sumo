@@ -46,13 +46,13 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     FXDialogBox(parent, "About SUMO", GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(ICON_SUMO));
-    
+
     // create frame for main info
-    FXHorizontalFrame *mainInfoFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    
+    FXHorizontalFrame* mainInfoFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+
     // DLR Icon
     new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_DLR), GUIDesignLabelIcon64x64noSpacing);
-    
+
     // "SUMO <VERSION>"
     FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
     myHeadlineFont = new FXFont(getApp(), "Arial", 18, FXFont::Bold);
@@ -60,20 +60,20 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     neteditLabel->setFont(myHeadlineFont);
     new FXLabel(descriptionFrame, "Simulation of Urban MObility", 0, GUIDesignLabelAboutInfo);
     new FXLabel(descriptionFrame, HAVE_ENABLED, 0, GUIDesignLabelAboutInfo);
-    
+
     // Netedit icon
     new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_SUMO), GUIDesignLabelIcon64x64noSpacing);
 
     // copyright notice
     new FXLabel(this, "A microscopic, multi-modal, open source road traffic simulation.", 0, GUIDesignLabelAboutInfo);
     new FXLabel(this, "Copyright (C) 2001-2017 DLR / Institute of Transportation Systems", 0, GUIDesignLabelAboutInfo);
-    
+
     // link to homepage
     FXLinkLabel* link = new FXLinkLabel(this, "http://sumo.dlr.de", 0, GUIDesignLabelCenter);
     link->setTipText("http://sumo.dlr.de");
-    
+
     // centered ok-button
-    FXHorizontalFrame *buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
+    FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXButton(buttonFrame, "OK\t\t", GUIIconSubSys::getIcon(ICON_ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);

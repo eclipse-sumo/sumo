@@ -305,7 +305,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
 }
 
 
-void 
+void
 TraCIServer::cleanup() {
     mySubscriptions.clear();
     for (std::map<int, NamedRTree*>::const_iterator i = myObjects.begin(); i != myObjects.end(); ++i) {
@@ -421,24 +421,24 @@ TraCIServer::dispatchCommand() {
         success = myExecutors[commandId](*this, myInputStorage, myOutputStorage);
     } else {
         switch (commandId) {
-        case CMD_GETVERSION:
-            success = commandGetVersion();
-            break;
-        case CMD_LOAD: {
-            std::vector<std::string> args;
-            if (!readTypeCheckingStringList(myInputStorage, args)) {
-                return writeErrorStatusCmd(CMD_LOAD, "A load command needs a list of string arguments.", myOutputStorage);
+            case CMD_GETVERSION:
+                success = commandGetVersion();
+                break;
+            case CMD_LOAD: {
+                std::vector<std::string> args;
+                if (!readTypeCheckingStringList(myInputStorage, args)) {
+                    return writeErrorStatusCmd(CMD_LOAD, "A load command needs a list of string arguments.", myOutputStorage);
+                }
+                try {
+                    TraCI::load(args);
+                    success = true;
+                    writeStatusCmd(CMD_LOAD, RTYPE_OK, "");
+                } catch (TraCIException& e) {
+                    return writeErrorStatusCmd(CMD_LOAD, e.what(), myOutputStorage);
+                }
+                break;
             }
-            try {
-                TraCI::load(args);
-                success = true;
-                writeStatusCmd(CMD_LOAD, RTYPE_OK, "");
-            } catch (TraCIException& e) {
-                return writeErrorStatusCmd(CMD_LOAD, e.what(), myOutputStorage);
-            }
-            break;
-        }
-        case CMD_SIMSTEP: {
+            case CMD_SIMSTEP: {
                 SUMOTime nextT = myInputStorage.readInt();
                 success = true;
                 if (nextT != 0) {

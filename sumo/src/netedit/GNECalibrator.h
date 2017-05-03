@@ -62,7 +62,7 @@ public:
      * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
      * @param[in] calibratorVehicleTypes vector with the CalibratorVehicleType of calibrator
      */
-    GNECalibrator(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double frequency, const std::string& output, 
+    GNECalibrator(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double frequency, const std::string& output,
                   const std::vector<GNECalibratorRoute>& calibratorRoutes, const std::vector<GNECalibratorFlow>& calibratorFlows,
                   const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes);
 
@@ -91,13 +91,13 @@ public:
     void writeAdditional(OutputDevice& device) const;
 
     /// @brief add calibrator vehicleType
-    void addCalibratorVehicleType(const GNECalibratorVehicleType &vehicleType);
+    void addCalibratorVehicleType(const GNECalibratorVehicleType& vehicleType);
 
     /// @brief add calibrator flow
-    void addCalibratorFlow(const GNECalibratorFlow &flow);
+    void addCalibratorFlow(const GNECalibratorFlow& flow);
 
     /// @brief add calibrator route
-    void addCalibratorRoute(const GNECalibratorRoute &route);
+    void addCalibratorRoute(const GNECalibratorRoute& route);
 
     /// @brief get calibrator vehicleTypes
     const std::vector<GNECalibratorVehicleType>& getCalibratorVehicleTypes() const;
@@ -109,13 +109,13 @@ public:
     const std::vector<GNECalibratorRoute>& getCalibratorRoutes() const;
 
     /// @brief set calibrator vehicleTypes values
-    void setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType> &calibratorVehicleType);
+    void setCalibratorVehicleTypes(const std::vector<GNECalibratorVehicleType>& calibratorVehicleType);
 
     /// @brief set calibrator flow values
-    void setCalibratorFlows(const std::vector<GNECalibratorFlow> &calibratorFlows);
+    void setCalibratorFlows(const std::vector<GNECalibratorFlow>& calibratorFlows);
 
     /// @brief set calibrator route values
-    void setCalibratorRoutes(const std::vector<GNECalibratorRoute> &calibratorRoutes);
+    void setCalibratorRoutes(const std::vector<GNECalibratorRoute>& calibratorRoutes);
 
     /// @brief generate a vehicleType ID
     std::string generateVehicleTypeID() const;
@@ -138,17 +138,17 @@ public:
     /**@brief get reference to calibrator vehicle type
      * @throw ivalid argument if calibrator doesn't exist
      */
-    const GNECalibratorVehicleType& getCalibratorVehicleType(const std::string &vehicleTypeID);
+    const GNECalibratorVehicleType& getCalibratorVehicleType(const std::string& vehicleTypeID);
 
     /**@brief get reference to calibrator flow
      * @throw ivalid argument if calibrator doesn't exist
      */
-    const GNECalibratorFlow& getCalibratorFlow(const std::string &flowID);
+    const GNECalibratorFlow& getCalibratorFlow(const std::string& flowID);
 
     /**@brief get reference calibrator route
      * @throw ivalid argument if calibrator doesn't exist
      */
-    const GNECalibratorRoute& getCalibratorRoute(const std::string &routeID);
+    const GNECalibratorRoute& getCalibratorRoute(const std::string& routeID);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -196,11 +196,11 @@ protected:
     /// @brief pointer to current RouteProbe
     GNERouteProbe* myRouteProbe;
 
-    /// @brief calibrator flow values
-    std::vector<GNECalibratorFlow> myCalibratorFlows;
-
     /// @brief calibrator route values
     std::vector<GNECalibratorRoute> myCalibratorRoutes;
+
+    /// @brief calibrator flow values
+    std::vector<GNECalibratorFlow> myCalibratorFlows;
 
     /// @brief calibrator vehicleType values
     std::vector<GNECalibratorVehicleType> myCalibratorVehicleTypes;

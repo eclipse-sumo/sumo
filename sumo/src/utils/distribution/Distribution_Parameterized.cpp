@@ -57,7 +57,7 @@ Distribution_Parameterized::Distribution_Parameterized(const std::string& descri
 
 
 Distribution_Parameterized::Distribution_Parameterized(const std::string& id,
-    double mean, double deviation)
+        double mean, double deviation)
     : Distribution(id) {
     myParameter.push_back(mean);
     myParameter.push_back(deviation);
@@ -65,7 +65,7 @@ Distribution_Parameterized::Distribution_Parameterized(const std::string& id,
 
 
 Distribution_Parameterized::Distribution_Parameterized(const std::string& id,
-    double mean, double deviation, double min, double max)
+        double mean, double deviation, double min, double max)
     : Distribution(id) {
     myParameter.push_back(mean);
     myParameter.push_back(deviation);

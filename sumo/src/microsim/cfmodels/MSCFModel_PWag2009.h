@@ -51,7 +51,7 @@ public:
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's reaction time
      */
-    MSCFModel_PWag2009(const MSVehicleType* vtype, double accel, double decel, 
+    MSCFModel_PWag2009(const MSVehicleType* vtype, double accel, double decel,
                        double emergencyDecel, double dawdle,
                        double headwayTime, double tauLast, double apProb);
 

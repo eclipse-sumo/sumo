@@ -82,7 +82,7 @@ TraCI::getSubscriptionResults() const {
 
 const TraCI::TraCIValues&
 TraCI::getSubscriptionResults(const std::string& objID) const {
-    if (mySubscribedValues.find(objID)!=mySubscribedValues.end()) {
+    if (mySubscribedValues.find(objID) != mySubscribedValues.end()) {
         return mySubscribedValues.find(objID)->second;
     } else {
         throw; // Something?
@@ -96,7 +96,7 @@ TraCI::getContextSubscriptionResults() const {
 
 const TraCI::SubscribedValues&
 TraCI::getContextSubscriptionResults(const std::string& objID) const {
-    if (mySubscribedContextValues.find(objID)!=mySubscribedContextValues.end()) {
+    if (mySubscribedContextValues.find(objID) != mySubscribedContextValues.end()) {
         return mySubscribedContextValues.find(objID)->second;
     } else {
         throw; // Something?
@@ -104,27 +104,27 @@ TraCI::getContextSubscriptionResults(const std::string& objID) const {
 }
 
 
-TraCIPositionVector 
+TraCIPositionVector
 TraCI::makeTraCIPositionVector(const PositionVector& positionVector) {
     TraCIPositionVector tp;
-    for (int i = 0; i<(int)positionVector.size(); ++i) {
+    for (int i = 0; i < (int)positionVector.size(); ++i) {
         tp.push_back(makeTraCIPosition(positionVector[i]));
     }
     return tp;
 }
 
 
-PositionVector 
+PositionVector
 TraCI::makePositionVector(const TraCIPositionVector& vector) {
     PositionVector pv;
-    for (int i = 0; i<(int)vector.size(); i++) {
+    for (int i = 0; i < (int)vector.size(); i++) {
         pv.push_back(Position(vector[i].x, vector[i].y));
     }
     return pv;
 }
 
 
-TraCIColor 
+TraCIColor
 TraCI::makeTraCIColor(const RGBColor& color) {
     TraCIColor tc;
     tc.a = color.alpha();
@@ -134,13 +134,13 @@ TraCI::makeTraCIColor(const RGBColor& color) {
     return tc;
 }
 
-RGBColor 
+RGBColor
 TraCI::makeRGBColor(const TraCIColor& c) {
     return RGBColor((unsigned char)c.r, (unsigned char)c.g, (unsigned char)c.b, (unsigned char)c.a);
 }
 
 
-TraCIPosition 
+TraCIPosition
 TraCI::makeTraCIPosition(const Position& position) {
     TraCIPosition p;
     p.x = position.x();
@@ -156,7 +156,7 @@ TraCI::makePosition(const TraCIPosition& tpos) {
     return p;
 }
 
-MSEdge* 
+MSEdge*
 TraCI::getEdge(const std::string& edgeID) {
     MSEdge* edge = MSEdge::dictionary(edgeID);
     if (edge == 0) {

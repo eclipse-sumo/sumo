@@ -41,11 +41,11 @@
 // method definitions
 // ===========================================================================
 MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype,  double accel, double decel,
-                                       double emergencyDecel, 
-                                       double dawdle, double headwayTime, double tauLast, double apProb) : 
+                                       double emergencyDecel,
+                                       double dawdle, double headwayTime, double tauLast, double apProb) :
     MSCFModel(vtype, accel, decel, emergencyDecel, decel, headwayTime), myDawdle(dawdle),
-    myTauDecel(decel * headwayTime), 
-    myDecelDivTau(decel / headwayTime), 
+    myTauDecel(decel * headwayTime),
+    myDecelDivTau(decel / headwayTime),
     myTauLastDecel(decel * tauLast),
     myActionPointProbability(apProb) {
 }

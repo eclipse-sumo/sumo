@@ -65,14 +65,14 @@ void
 GNEChange_Connection::undo() {
     if (myForward) {
         // show extra information for tests
-        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(myConnection->getTag()) + " '" + myConnection->getID() + "'");
         }
         // remove connection from edge
         myEdge->removeConnection(myNBEdgeConnection);
     } else {
         // show extra information for tests
-        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(myConnection->getTag()) + " '" + myConnection->getID() + "'");
         }
         // add connection into edge
@@ -85,14 +85,14 @@ void
 GNEChange_Connection::redo() {
     if (myForward) {
         // show extra information for tests
-        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(myConnection->getTag()) + " '" + myConnection->getID() + "'");
         }
         // add connection into edge
         myEdge->addConnection(myNBEdgeConnection, myConnection);
     } else {
         // show extra information for tests
-        if(myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(myConnection->getTag()) + " '" + myConnection->getID() + "'");
         }
         // remove connection from edge

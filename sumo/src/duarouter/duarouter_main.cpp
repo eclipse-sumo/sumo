@@ -125,11 +125,19 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             }
         } else if (routingAlgorithm == "astar") {
             if (net.hasPermissions()) {
-                router = new AStarRouter<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> >(
-                    ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
+                typedef AStarRouter<ROEdge, ROVehicle, prohibited_withPermissions<ROEdge, ROVehicle> > AStar;
+                const AStar::LookupTable* lookup = 0;
+                if (oc.isSet("astar.all-distances")) {
+                    lookup = new AStar::FullLookupTable(oc.getString("astar.all-distances"), (int)ROEdge::getAllEdges().size());
+                }
+                router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, lookup);
             } else {
-                router = new AStarRouter<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> >(
-                    ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
+                typedef AStarRouter<ROEdge, ROVehicle, noProhibitions<ROEdge, ROVehicle> > AStar;
+                const AStar::LookupTable* lookup = 0;
+                if (oc.isSet("astar.all-distances")) {
+                    lookup = new AStar::FullLookupTable(oc.getString("astar.all-distances"), (int)ROEdge::getAllEdges().size());
+                }
+                router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
             }
         } else if (routingAlgorithm == "CH") {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?

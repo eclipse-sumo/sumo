@@ -227,7 +227,7 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIPerson::getTypeParameterWindow(GUIMainWindow& app,
-                                   GUISUMOAbstractView&) {
+                                  GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 9);
     // add items

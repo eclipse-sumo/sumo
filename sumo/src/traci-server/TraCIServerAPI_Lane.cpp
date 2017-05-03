@@ -284,7 +284,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "The speed must be given as a double.", outputStorage);
             }
-            TraCI_Lane::setMaxSpeed(id,value);
+            TraCI_Lane::setMaxSpeed(id, value);
         }
         break;
         case VAR_LENGTH: {
@@ -292,7 +292,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "The length must be given as a double.", outputStorage);
             }
-            TraCI_Lane::setLength(id,value);
+            TraCI_Lane::setLength(id, value);
         }
         break;
         case LANE_ALLOWED: {

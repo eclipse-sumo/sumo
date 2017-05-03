@@ -98,7 +98,7 @@ public:
 
     static MSEdge* getEdge(const std::string& edgeID);
     static const MSLane* getLaneChecking(const std::string& edgeID, int laneIndex, double pos);
-    static std::pair<MSLane*, double> convertCartesianToRoadMap(Position pos); 
+    static std::pair<MSLane*, double> convertCartesianToRoadMap(Position pos);
 
     static std::vector<std::string>& getLoadArgs() {
         return myLoadArgs;

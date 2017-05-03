@@ -94,11 +94,11 @@ double MSCFModel_Daniel1::_vsafe(double gap, double predSpeed) const {
         return 0;
     }
     double vsafe = (double)(-1. * myTauDecel
-                                + sqrt(
-                                    myTauDecel * myTauDecel
-                                    + (predSpeed * predSpeed)
-                                    + (2. * myDecel * gap)
-                                ));
+                            + sqrt(
+                                myTauDecel * myTauDecel
+                                + (predSpeed * predSpeed)
+                                + (2. * myDecel * gap)
+                            ));
     assert(vsafe >= 0);
     return vsafe;
 }

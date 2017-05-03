@@ -559,7 +559,7 @@ MSLink::getLengthBeforeCrossing(const MSLink* foeEntryLink) const {
             // note: myLengthsBehindcrossing is the length behind the foe lane's border, not its center
             //       (therefore the term -foeEntryLane->getWidth()/2.)
             // XXX: recheck definition of myLengthsBehindCrossing in setRequestInformation(), especially order of position scaling and subtracting the lane width/2
-            res = egoEntryLane->getLength() - myLengthsBehindCrossing[foe_ix].first - foeEntryLane->getWidth()/2.;
+            res = egoEntryLane->getLength() - myLengthsBehindCrossing[foe_ix].first - foeEntryLane->getWidth() / 2.;
             break;
         }
         ++foe_ix;
@@ -568,12 +568,12 @@ MSLink::getLengthBeforeCrossing(const MSLink* foeEntryLink) const {
 
 #ifdef MSLink_DEBUG_CROSSING_POINTS
     std::cout << "getLengthBeforeCrossing() for link " << toString(getLaneBefore()) << "->" << toString(getViaLane())
-            << " and foeLink " << toString(foeEntryLink->getLaneBefore()) << "->" << toString(foeEntryLink->getViaLane())
-            << "\nLength on toString(getLaneBefore()) before crossing = " << res
-            << std::endl;
+              << " and foeLink " << toString(foeEntryLink->getLaneBefore()) << "->" << toString(foeEntryLink->getViaLane())
+              << "\nLength on toString(getLaneBefore()) before crossing = " << res
+              << std::endl;
 #endif
 
-    if (foe_ix == (int)myFoeLanes.size() && egoEntryLane->getLinkCont().size() > 0){
+    if (foe_ix == (int)myFoeLanes.size() && egoEntryLane->getLinkCont().size() > 0) {
         // Did not find crossing for first egoLane. Check internal cont lanes
         assert(egoEntryLane->getLinkCont().size() == 1);
         MSLink* contLink = egoEntryLane->getLinkCont()[0];
@@ -581,12 +581,12 @@ MSLink::getLengthBeforeCrossing(const MSLink* foeEntryLink) const {
         if (contLane != 0) {
             // Yes, there is another internal lane after the entry lane
             // Assert, there are no more internal lanes than two along the conection (in case the code should be modified)
-            assert(contLane->getLinkCont().size()==0
-                    || (contLane->getLinkCont().size()==1 && contLane->getLinkCont()[0]->getViaLane()==0));
+            assert(contLane->getLinkCont().size() == 0
+                   || (contLane->getLinkCont().size() == 1 && contLane->getLinkCont()[0]->getViaLane() == 0));
 #ifdef MSLink_DEBUG_CROSSING_POINTS
-    std::cout << "No crossing with entryLane.\nChecking crossing of contLane '" << contLane->getID()
-            << "' with '" << toString(foeEntryLink->getLaneBefore()) << "'"
-            << std::endl;
+            std::cout << "No crossing with entryLane.\nChecking crossing of contLane '" << contLane->getID()
+                      << "' with '" << toString(foeEntryLink->getLaneBefore()) << "'"
+                      << std::endl;
 #endif
             // TODO: really check for crossing as above
         }
@@ -828,7 +828,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         }
         const double gap = dist - foe->getVehicleType().getLength() - ego->getVehicleType().getMinGap() - avi.dist;
         const double follow = ego->getCarFollowModel().followSpeed(
-                                    ego, ego->getSpeed(), gap, foe->getSpeed(), foe->getCarFollowModel().getMaxDecel());
+                                  ego, ego->getSpeed(), gap, foe->getSpeed(), foe->getCarFollowModel().getMaxDecel());
         // speed adaption to follow the foe can be spread over secondsToArrival
         const double followInTime = vSafeOrig + (follow - vSafeOrig) / MAX2((double)1, secondsToArrival / TS);
         vSafe = MIN2(vSafe, followInTime);

@@ -29,33 +29,33 @@ class MSCFModel_Rail : public MSCFModel {
 
 public:
 
-    double followSpeed(const MSVehicle *const veh, double speed, double gap2pred, double predSpeed,
-                         double predMaxDecel) const;
+    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed,
+                       double predMaxDecel) const;
 
     virtual int getModelID() const;
 
-    virtual MSCFModel *duplicate(const MSVehicleType *vtype) const;
+    virtual MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
     /** @brief Constructor
      * @param[in] trainType The train type
      */
-    MSCFModel_Rail(const MSVehicleType *vtype, std::string trainType);
+    MSCFModel_Rail(const MSVehicleType* vtype, std::string trainType);
 
 
     virtual ~MSCFModel_Rail();
 
-    virtual double maxNextSpeed(double speed, const MSVehicle *const veh) const;
+    virtual double maxNextSpeed(double speed, const MSVehicle* const veh) const;
 
-    virtual double minNextSpeed(double speed, const MSVehicle *const veh) const;
+    virtual double minNextSpeed(double speed, const MSVehicle* const veh) const;
 
     double getSpeedAfterMaxDecel(double v) const;
 
-    MSCFModel::VehicleVariables *createVehicleVariables() const;
+    MSCFModel::VehicleVariables* createVehicleVariables() const;
 
-    double moveHelper(MSVehicle *const veh, double vPos) const;
+    double moveHelper(MSVehicle* const veh, double vPos) const;
 
-    double freeSpeed(const MSVehicle *const veh, double speed, double seen, double maxSpeed,
-                       const bool onInsertion) const;
+    double freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed,
+                     const bool onInsertion) const;
 
 private:
 
@@ -74,11 +74,11 @@ private:
         LookUpMap resistance;
     };
 
-    double getInterpolatedValueFromLookUpMap(double speed, const LookUpMap *lookUpMap) const;
+    double getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap) const;
 
 
 public:
-    double stopSpeed(const MSVehicle *const veh, const double speed, double gap) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap) const;
 
 //    class VehicleVariables : public MSCFModel::VehicleVariables {
 //

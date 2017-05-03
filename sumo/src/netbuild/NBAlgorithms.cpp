@@ -210,8 +210,8 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
 }
 
 
-void 
-NBNodeTypeComputer::computeSingleNodeType(NBNode *node) {
+void
+NBNodeTypeComputer::computeSingleNodeType(NBNode* node) {
     // the type may already be set from the data
     if (node->myType != NODETYPE_UNKNOWN && node->myType != NODETYPE_DEAD_END) {
     }
@@ -283,7 +283,7 @@ NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
 
 
 void
-NBEdgePriorityComputer::computeEdgePrioritiesSingleNode(NBNode *node) {
+NBEdgePriorityComputer::computeEdgePrioritiesSingleNode(NBNode* node) {
     // preset all junction's edge priorities to zero
     for (EdgeVector::iterator j = node->myAllEdges.begin(); j != node->myAllEdges.end(); ++j) {
         (*j)->setJunctionPriority(node, NBEdge::MINOR_ROAD);

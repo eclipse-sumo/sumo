@@ -101,7 +101,7 @@ std::string TraCI_VehicleType::getLateralAlignment(const std::string& typeID) {
 }
 
 
-std::string 
+std::string
 TraCI_VehicleType::getParameter(const std::string& typeID, const std::string& key) {
     MSVehicleType* v = getVType(typeID);
     return v->getParameter().getParameter(key, "");

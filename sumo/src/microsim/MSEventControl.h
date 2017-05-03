@@ -75,7 +75,7 @@ public:
      * @param[in] execTimeStep The time the event shall be executed at (-1 means at sim start)
      * @see Command
      */
-    virtual void addEvent(Command* operation, SUMOTime execTimeStep=-1);
+    virtual void addEvent(Command* operation, SUMOTime execTimeStep = -1);
 
 
     /** @brief Executes time-dependant commands

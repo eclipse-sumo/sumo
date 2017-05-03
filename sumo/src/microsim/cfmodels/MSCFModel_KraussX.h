@@ -51,10 +51,10 @@ public:
      * @param[in] apparentDecel The deceleration as expected by others
      * @param[in] headwayTime The driver's reaction time
      */
-    MSCFModel_KraussX(const MSVehicleType* vtype, double accel, double decel, 
-            double emergencyDecel, double apparentDecel,
-            double dawdle, double headwayTime,
-            double tmp1, double tmp2);
+    MSCFModel_KraussX(const MSVehicleType* vtype, double accel, double decel,
+                      double emergencyDecel, double apparentDecel,
+                      double dawdle, double headwayTime,
+                      double tmp1, double tmp2);
 
 
     /// @brief Destructor

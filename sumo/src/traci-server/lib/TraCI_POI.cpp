@@ -107,17 +107,17 @@ bool
 TraCI_POI::add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     return shapeCont.addPOI(poiID, type, TraCI::makeRGBColor(c), (double) layer,
-			    Shape::DEFAULT_ANGLE,
-			    Shape::DEFAULT_IMG_FILE,
-			    TraCI::makePosition(pos),
-			    Shape::DEFAULT_IMG_WIDTH,
-			    Shape::DEFAULT_IMG_HEIGHT);
+                            Shape::DEFAULT_ANGLE,
+                            Shape::DEFAULT_IMG_FILE,
+                            TraCI::makePosition(pos),
+                            Shape::DEFAULT_IMG_WIDTH,
+                            Shape::DEFAULT_IMG_HEIGHT);
 }
 
 bool
 TraCI_POI::remove(const std::string& poiID, int /* layer */) {
-     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-     return shapeCont.removePOI(poiID);
+    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+    return shapeCont.removePOI(poiID);
 }
 
 void

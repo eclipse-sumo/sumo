@@ -69,7 +69,7 @@ public:
      * @param[in] execTimeStep The time the event shall be executed at (-1 means at sim start)
      * @see MSEventControl::addEvent
      */
-    void addEvent(Command* operation, SUMOTime execTimeStep=-1);
+    void addEvent(Command* operation, SUMOTime execTimeStep = -1);
 
 
     /** @brief Executes time-dependant commands

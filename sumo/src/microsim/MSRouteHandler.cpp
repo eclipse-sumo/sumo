@@ -1078,7 +1078,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         arrivalPos = (bs->getBeginLanePosition() + bs->getEndLanePosition()) / 2.;
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             const double arrPos = parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge,
-                                                 attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok));
+                                               attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok));
             if (arrPos >= bs->getBeginLanePosition() && arrPos < bs->getEndLanePosition()) {
                 arrivalPos = arrPos;
             } else {

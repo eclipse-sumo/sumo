@@ -103,17 +103,17 @@ public:
      * @return the new speed of the vehicle as proposed by the lane changer
      */
     double patchSpeed(const double min, const double wanted, const double max,
-                        const MSCFModel& cfModel);
+                      const MSCFModel& cfModel);
     /** helper function which contains the actual logic */
     double _patchSpeed(const double min, const double wanted, const double max,
-                         const MSCFModel& cfModel);
+                       const MSCFModel& cfModel);
 
     void changed();
 
     void prepareStep();
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
-    std::string getParameter(const std::string& key) const; 
+    std::string getParameter(const std::string& key) const;
 
     /// @brief try to set the given parameter for this laneChangeModel. Throw exception for unsupported key
     void setParameter(const std::string& key, const std::string& value);
@@ -137,9 +137,9 @@ protected:
      * If we decide to follow, myVSafes will be extended
      * returns the planned speed if following or -1 if overtaking */
     double informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
-                          int blocked, int dir,
-                          const std::pair<MSVehicle*, double>& neighLead,
-                          double remainingSeconds);
+                        int blocked, int dir,
+                        const std::pair<MSVehicle*, double>& neighLead,
+                        double remainingSeconds);
 
     /// @brief decide whether we will try cut in before the follower or allow to be overtaken
     void informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,

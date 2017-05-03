@@ -156,7 +156,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
 }
 
-double 
+double
 NIImporter_DlrNavteq::readVersion(const std::string& line, const std::string& file) {
     assert(line[0] == '#');
     const std::string marker = "extraction version: v";
@@ -704,12 +704,12 @@ NIImporter_DlrNavteq::readDate(const std::string& yyyymmdd) {
 // definitions of NIImporter_DlrNavteq::ProhibitionHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_DlrNavteq::ProhibitionHandler::ProhibitionHandler(
-        NBEdgeCont& ec, const std::string& file, time_t constructionTime) :
+    NBEdgeCont& ec, const std::string& file, time_t constructionTime) :
     myEdgeCont(ec),
     myFile(file),
     myVersion(0),
-    myConstructionTime(constructionTime)
-{ }
+    myConstructionTime(constructionTime) {
+}
 
 
 NIImporter_DlrNavteq::ProhibitionHandler::~ProhibitionHandler() {}
@@ -741,9 +741,9 @@ NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
         if (validityPeriod != UNDEFINED) {
             WRITE_WARNING("Ignoring temporary prohibited manoeuvre (" + validityPeriod + ")");
             return true;
-        } 
+        }
     }
-    const std::string startEdge = st.next(); 
+    const std::string startEdge = st.next();
     const std::string endEdge = st.get(st.size() - 1);
 
     NBEdge* from = myEdgeCont.retrieve(startEdge);
@@ -765,9 +765,9 @@ NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
 // definitions of NIImporter_DlrNavteq::ConnectedLanesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_DlrNavteq::ConnectedLanesHandler::ConnectedLanesHandler(
-        NBEdgeCont& ec) :
-    myEdgeCont(ec)
-{ }
+    NBEdgeCont& ec) :
+    myEdgeCont(ec) {
+}
 
 
 NIImporter_DlrNavteq::ConnectedLanesHandler::~ConnectedLanesHandler() {}
@@ -788,7 +788,7 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
     const std::string fromLaneS = st.next();
     const std::string toLaneS = st.next();
     const std::string throughTraffic = st.next();
-    const std::string startEdge = st.next(); 
+    const std::string startEdge = st.next();
     const std::string endEdge = st.get(st.size() - 1);
 
     NBEdge* from = myEdgeCont.retrieve(startEdge);
@@ -818,8 +818,8 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
         // set as to be re-applied after network processing
         // if this connection runs across a node cluster it may not be possible to set this
         const bool warnOnly = st.size() > 7;
-        myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, false, true, 
-                NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE, warnOnly);
+        myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, false, true,
+                                            NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE, warnOnly);
     }
     // ensure that connections for other lanes are guessed if not specified
     from->declareConnectionsAsLoaded(NBEdge::INIT);

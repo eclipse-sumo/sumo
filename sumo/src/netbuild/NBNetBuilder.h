@@ -140,14 +140,14 @@ public:
      */
     void compute(OptionsCont& oc, const std::set<std::string>& explicitTurnarounds = std::set<std::string>(), bool mayAddOrRemove = true);
 
-    /** @brief Performs the network building steps only for a single Node 
+    /** @brief Performs the network building steps only for a single Node
      *
      * @param[in] oc Container that contains options for building
      * @param[in] explicitTurnarounds List of edge ids for which turn-arounds should be added (used by NETEDIT)
      * @param[in] mayAddOrRemove whether processing steps which cause nodes and edges to be added or removed shall be triggered (used by netedit)
      * @exception ProcessError (recheck)
      */
-    void computeSingleNode(NBNode *node, OptionsCont& oc, const std::set<std::string>& explicitTurnarounds = std::set<std::string>(), bool mayAddOrRemove = true);
+    void computeSingleNode(NBNode* node, OptionsCont& oc, const std::set<std::string>& explicitTurnarounds = std::set<std::string>(), bool mayAddOrRemove = true);
 
     /// @name Retrieval of subcontainers
     /// @{

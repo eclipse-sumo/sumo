@@ -433,9 +433,9 @@ NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster* cc2) {
                 NIVissimEdge* e = NIVissimEdge::dictionary(c1->getFromEdgeID());
                 const PositionVector& g = e->getGeometry();
                 double pos1 = GeomHelper::nearest_offset_on_line_to_point2D(
-                                    g.front(), g.back(), c1->getBoundary().getCenter());
+                                  g.front(), g.back(), c1->getBoundary().getCenter());
                 double pos2 = GeomHelper::nearest_offset_on_line_to_point2D(
-                                    g.front(), g.back(), c2->getBoundary().getCenter());
+                                  g.front(), g.back(), c2->getBoundary().getCenter());
                 if (pos1 <= 5.0 && pos2 <= 5.0) {
                     return true;
                 }
@@ -444,9 +444,9 @@ NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster* cc2) {
                 NIVissimEdge* e = NIVissimEdge::dictionary(c1->getFromEdgeID());
                 const PositionVector& g = e->getGeometry();
                 double pos1 = GeomHelper::nearest_offset_on_line_to_point2D(
-                                    g.front(), g.back(), c1->getBoundary().getCenter());
+                                  g.front(), g.back(), c1->getBoundary().getCenter());
                 double pos2 = GeomHelper::nearest_offset_on_line_to_point2D(
-                                    g.front(), g.back(), c2->getBoundary().getCenter());
+                                  g.front(), g.back(), c2->getBoundary().getCenter());
                 if (pos1 >= g.length() - 5.0 && pos2 >= g.length() - 5.0) {
                     return true;
                 }

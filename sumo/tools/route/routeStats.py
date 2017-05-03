@@ -42,7 +42,7 @@ def get_options():
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
     optParser.add_option("--attribute", type="string",
-                         default="length", help="attribute to analyze [length, depart]")
+                         default="length", help="attribute to analyze [length,depart,numEdges]")
     optParser.add_option("--binwidth", type="float",
                          default=500, help="binning width of result histogram")
     optParser.add_option("--hist-output", type="string",
@@ -71,8 +71,12 @@ def main():
     if options.attribute == "length":
         net = readNet(options.network)
         attribute_retriever = lambda vehicle: sum([net.getEdge(e).getLength() for e in vehicle.route[0].edges.split()])
-    else:
+    elif options.attribute == "depart":
         attribute_retriever = lambda vehicle: float(vehicle.depart)
+    elif options.attribute == "numEdges":
+        attribute_retriever = lambda vehicle: len(vehicle.route[0].edges.split())
+    else:
+        sys.exit("Invalid value '%s' for option --attribute" % options.attribute)
 
     lengths = {}
     lengths2 = {}

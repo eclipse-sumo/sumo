@@ -172,7 +172,7 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {
 GNEAdditionalFrame::AddAdditionalResult
 GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView* parent) {
     // check if current selected additional is valid
-    if(myActualAdditionalType == SUMO_TAG_NOTHING) {
+    if (myActualAdditionalType == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected additional isn't valid.");
         return ADDADDITIONAL_INVALID_ARGUMENTS;
     }
@@ -194,8 +194,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         pointed_junction = dynamic_cast<GNEJunction*>(netElement);
         if (pointed_junction != NULL) {
             // show warning dialogbox and stop check if input parameters are valid
-            if(myadditionalParameters->areValuesValid() == false) {
-                myadditionalParameters->showWarningMessage(); 
+            if (myadditionalParameters->areValuesValid() == false) {
+                myadditionalParameters->showWarningMessage();
                 return ADDADDITIONAL_INVALID_ARGUMENTS;
             }
             // Get attribute junction
@@ -214,8 +214,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         }
         if (pointed_edge != NULL) {
             // show warning dialogbox and stop check if input parameters are valid
-            if(myadditionalParameters->areValuesValid() == false) {
-                myadditionalParameters->showWarningMessage(); 
+            if (myadditionalParameters->areValuesValid() == false) {
+                myadditionalParameters->showWarningMessage();
                 return ADDADDITIONAL_INVALID_ARGUMENTS;
             }
             // Get attribute edge
@@ -231,8 +231,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         pointed_lane = dynamic_cast<GNELane*>(netElement);
         if (pointed_lane != NULL) {
             // show warning dialogbox and stop check if input parameters are valid
-            if(myadditionalParameters->areValuesValid() == false) {
-                myadditionalParameters->showWarningMessage(); 
+            if (myadditionalParameters->areValuesValid() == false) {
+                myadditionalParameters->showWarningMessage();
                 return ADDADDITIONAL_INVALID_ARGUMENTS;
             }
             // Get attribute lane
@@ -248,8 +248,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
         pointed_crossing = dynamic_cast<GNECrossing*>(netElement);
         if (pointed_crossing != NULL) {
             // show warning dialogbox and stop check if input parameters are valid
-            if(myadditionalParameters->areValuesValid() == false) {
-                myadditionalParameters->showWarningMessage(); 
+            if (myadditionalParameters->areValuesValid() == false) {
+                myadditionalParameters->showWarningMessage();
                 return ADDADDITIONAL_INVALID_ARGUMENTS;
             }
             // Get attribute crossing
@@ -265,8 +265,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
     }
 
     // show warning dialogbox and stop check if input parameters are valid
-    if(myadditionalParameters->areValuesValid() == false) {
-        myadditionalParameters->showWarningMessage(); 
+    if (myadditionalParameters->areValuesValid() == false) {
+        myadditionalParameters->showWarningMessage();
         return ADDADDITIONAL_INVALID_ARGUMENTS;
     }
 
@@ -279,8 +279,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
             // First check that current length is valid
             if (myEditorParameters->isCurrentLengthValid()) {
                 // check if current reference point is valid
-                if(myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
-                    myadditionalParameters->showWarningMessage("Current selected reference point isn't valid"); 
+                if (myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
+                    myadditionalParameters->showWarningMessage("Current selected reference point isn't valid");
                     return ADDADDITIONAL_INVALID_ARGUMENTS;
                 }
                 double startPos = setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLength());
@@ -313,8 +313,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
             // First check that current length is valid
             if (myEditorParameters->isCurrentLengthValid()) {
                 // check if current reference point is valid
-                if(myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
-                    myadditionalParameters->showWarningMessage("Current selected reference point isn't valid"); 
+                if (myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
+                    myadditionalParameters->showWarningMessage("Current selected reference point isn't valid");
                     return ADDADDITIONAL_INVALID_ARGUMENTS;
                 }
                 double startPos = setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLength());
@@ -348,7 +348,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
     if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTTIME) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_END)) {
         double begin = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_STARTTIME]);
         double end = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_END]);
-        if(begin > end) {
+        if (begin > end) {
             myadditionalParameters->showWarningMessage("Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' cannot be greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
             return ADDADDITIONAL_INVALID_ARGUMENTS;
         }
@@ -424,7 +424,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
     }
 
     // Create additional
-    if(GNEAdditionalHandler::buildAdditional(myViewNet, myActualAdditionalType, valuesOfElement) == true) {
+    if (GNEAdditionalHandler::buildAdditional(myViewNet, myActualAdditionalType, valuesOfElement) == true) {
         return ADDADDITIONAL_SUCCESS;
     } else {
         return ADDADDITIONAL_INVALID_ARGUMENTS;
@@ -455,7 +455,7 @@ GNEAdditionalFrame::onCmdSelectAdditional(FXObject*, FXSelector, void*) {
         }
     }
     // if additional name isn't correct, hidde all
-    if(additionalNameCorrect == false) {
+    if (additionalNameCorrect == false) {
         myActualAdditionalType = SUMO_TAG_NOTHING;
         myAdditionalMatchBox->setTextColor(FXRGB(255, 0, 0));
         myadditionalParameters->hide();
@@ -714,9 +714,9 @@ std::string
 GNEAdditionalFrame::AdditionalAttributeSingle::getValue() const {
     if (GNEAttributeCarrier::isBool(myAdditionalTag, myAdditionalAttr)) {
         return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
-    } else if(GNEAttributeCarrier::isInt(myAdditionalTag, myAdditionalAttr)) {
+    } else if (GNEAttributeCarrier::isInt(myAdditionalTag, myAdditionalAttr)) {
         return myTextFieldInt->getText().text();
-    } else if(GNEAttributeCarrier::isFloat(myAdditionalTag, myAdditionalAttr) || GNEAttributeCarrier::isTime(myAdditionalTag, myAdditionalAttr)) {
+    } else if (GNEAttributeCarrier::isFloat(myAdditionalTag, myAdditionalAttr) || GNEAttributeCarrier::isTime(myAdditionalTag, myAdditionalAttr)) {
         return myTextFieldReal->getText().text();
     } else {
         return myTextFieldStrings->getText().text();
@@ -1082,7 +1082,7 @@ GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) 
     for (int i = 0; (i < myIndexParameter) && (errorMessage.empty() == true); i++) {
         // Return string with the error if at least one of the parameter isn't valid
         std::string attributeValue = myVectorOfsingleAdditionalParameter.at(i)->isAttributeValid();
-        if(attributeValue.size() != 0) {
+        if (attributeValue.size() != 0) {
             errorMessage = attributeValue;
         }
     }
@@ -1094,7 +1094,7 @@ GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) 
         }
     }
     // show warning box if input parameters aren't invalid
-    if(extra.size() == 0) {
+    if (extra.size() == 0) {
         errorMessage = "Invalid input parameter of " + toString(myAdditionalTag) + ": " + errorMessage;
     } else {
         errorMessage = "Invalid input parameter of " + toString(myAdditionalTag) + ": " + extra;
@@ -1103,7 +1103,7 @@ GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) 
     // set message in status bar
     myViewNet->setStatusBarText(errorMessage);
     // Write Warning in console if we're in testing mode
-    if(myViewNet->isTestingModeEnabled() == true) {
+    if (myViewNet->isTestingModeEnabled() == true) {
         WRITE_WARNING(errorMessage);
     }
 }
@@ -1114,7 +1114,7 @@ GNEAdditionalFrame::AdditionalAttributes::areValuesValid() const {
     // iterate over standar parameters
     for (int i = 0; i < myIndexParameter; i++) {
         // Return false if error message of attriuve isn't empty
-        if(myVectorOfsingleAdditionalParameter.at(i)->isAttributeValid().size() != 0) {
+        if (myVectorOfsingleAdditionalParameter.at(i)->isAttributeValid().size() != 0) {
             return false;
         }
     }
@@ -1324,7 +1324,7 @@ long
 GNEAdditionalFrame::NeteditAttributes::onCmdSetLength(FXObject*, FXSelector, void*) {
     // change color of text field depending of the input length
     if (GNEAttributeCarrier::canParse<double>(myLengthTextField->getText().text()) &&
-        GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text()) > 0) {
+            GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text()) > 0) {
         myLengthTextField->setTextColor(FXRGB(0, 0, 0));
         myLengthTextField->killFocus();
         myCurrentLengthValid = true;
@@ -1341,7 +1341,7 @@ GNEAdditionalFrame::NeteditAttributes::onCmdSetLength(FXObject*, FXSelector, voi
 long
 GNEAdditionalFrame::NeteditAttributes::onCmdSelectReferencePoint(FXObject*, FXSelector, void*) {
     // Cast actual reference point type
-    if(myReferencePointMatchBox->getText() == "reference left") {
+    if (myReferencePointMatchBox->getText() == "reference left") {
         myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
         myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_LEFT;
         myLengthTextField->enable();
@@ -1368,9 +1368,9 @@ GNEAdditionalFrame::NeteditAttributes::onCmdSelectReferencePoint(FXObject*, FXSe
 }
 
 
-long 
+long
 GNEAdditionalFrame::NeteditAttributes::onCmdSetBlocking(FXObject*, FXSelector, void*) {
-    if(myBlockMovementCheckButton->getCheck()) {
+    if (myBlockMovementCheckButton->getCheck()) {
         myBlockMovementCheckButton->setText("true");
     } else {
         myBlockMovementCheckButton->setText("false");
@@ -1379,9 +1379,9 @@ GNEAdditionalFrame::NeteditAttributes::onCmdSetBlocking(FXObject*, FXSelector, v
 }
 
 
-long 
+long
 GNEAdditionalFrame::NeteditAttributes::onCmdSetForcePosition(FXObject*, FXSelector, void*) {
-    if(myForcePositionCheckButton->getCheck()) {
+    if (myForcePositionCheckButton->getCheck()) {
         myForcePositionCheckButton->setText("true");
     } else {
         myForcePositionCheckButton->setText("false");

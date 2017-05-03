@@ -49,9 +49,9 @@ MSLogicJunction::MSLogicJunction(const std::string& id,
                                  , std::vector<MSLane*> internal
                                 ):
     MSJunction(id, type, position, shape),
-    myIncomingLanes(incoming), 
-    myInternalLanes(internal)
-{}
+    myIncomingLanes(incoming),
+    myInternalLanes(internal) {
+}
 
 
 MSLogicJunction::~MSLogicJunction() {}

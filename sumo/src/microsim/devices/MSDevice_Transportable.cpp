@@ -168,7 +168,7 @@ MSDevice_Transportable::removeTransportable(MSTransportable* transportable) {
 }
 
 
-std::string 
+std::string
 MSDevice_Transportable::getParameter(const std::string& key) const {
     if (key == "IDList") {
         std::vector<std::string> ids;

@@ -503,7 +503,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::show() {
     // update buttons that can be changed externally
     myShowGrid->setCheck(mySettings->showGrid);

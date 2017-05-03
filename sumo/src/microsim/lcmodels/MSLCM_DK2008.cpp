@@ -175,8 +175,8 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
     //
     // this rule forces our vehicle to change the lane if a lane changing is necessary soon
     double rv = myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
-                  ? myVehicle.getSpeed() * (double) LOOK_FORWARD_FAR
-                  : myVehicle.getSpeed() * (double) LOOK_FORWARD_NEAR;
+                ? myVehicle.getSpeed() * (double) LOOK_FORWARD_FAR
+                : myVehicle.getSpeed() * (double) LOOK_FORWARD_NEAR;
     rv += myVehicle.getVehicleType().getLengthWithGap() * (double) 2.;
 
     double tdist = currentDist - myVehicle.getPositionOnLane() - best.occupation * (double) JAM_FACTOR2;
@@ -387,8 +387,8 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
     //
     // this rule forces our vehicle to change the lane if a lane changing is necessary soon
     double lv = myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
-                  ? myVehicle.getSpeed() * (double) LOOK_FORWARD_FAR
-                  : myVehicle.getSpeed() * (double) LOOK_FORWARD_NEAR;
+                ? myVehicle.getSpeed() * (double) LOOK_FORWARD_FAR
+                : myVehicle.getSpeed() * (double) LOOK_FORWARD_NEAR;
     lv += myVehicle.getVehicleType().getLengthWithGap() * (double) 2.;
 
 

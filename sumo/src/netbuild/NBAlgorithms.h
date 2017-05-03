@@ -211,7 +211,7 @@ public:
     /** @brief Computes a single node type
      * @param[in] node the single node to compute node type
      */
-    static void computeSingleNodeType(NBNode *node);
+    static void computeSingleNodeType(NBNode* node);
 };
 
 
@@ -232,7 +232,7 @@ public:
     /** @brief Computes edge priorities within a single node
      * @param[in] node the single node
      */
-    static void computeEdgePrioritiesSingleNode(NBNode *node);
+    static void computeEdgePrioritiesSingleNode(NBNode* node);
 
 private:
     /** @brief Sets the priorites in case of a priority junction

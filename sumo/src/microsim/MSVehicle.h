@@ -600,7 +600,7 @@ public:
      * @return The vehicle's current angle
      */
     Position getVelocityVector() const {
-        return Position(std::cos(myAngle)*myState.speed(), std::sin(myAngle)*myState.speed());
+        return Position(std::cos(myAngle) * myState.speed(), std::sin(myAngle) * myState.speed());
     }
     //@}
 
@@ -911,7 +911,7 @@ public:
     /** @brief Returns the information whether the vehicle is fully controlled via TraCI
      * within the lookBack time
      */
-    bool wasRemoteControlled(SUMOTime lookBack=DELTA_T) const;
+    bool wasRemoteControlled(SUMOTime lookBack = DELTA_T) const;
 
     /// @brief return the distance to the next stop or doubleMax if there is none.
     double nextStopDist() const {
@@ -1193,7 +1193,7 @@ public:
      * @param stoppingPlaceType a flag indicating the type of stopping place
      */
     bool addTraciStopAtStoppingPlace(const std::string& stopId, const SUMOTime duration, const SUMOTime until, const bool parking,
-                                    const bool triggered, const bool containerTriggered, const SumoXMLTag stoppingPlaceType, std::string& errorMsg);
+                                     const bool triggered, const bool containerTriggered, const SumoXMLTag stoppingPlaceType, std::string& errorMsg);
 
     /**
     * returns the next imminent stop in the stop queue
@@ -1210,8 +1210,8 @@ public:
 
     /// @brief update a vector of further lanes and return the new backPos
     double updateFurtherLanes(std::vector<MSLane*>& furtherLanes,
-                                std::vector<double>& furtherLanesPosLat,
-                                const std::vector<MSLane*>& passedLanes);
+                              std::vector<double>& furtherLanesPosLat,
+                              const std::vector<MSLane*>& passedLanes);
 
     /// @brief get bounding rectangle
     PositionVector getBoundingBox() const;
@@ -1319,7 +1319,7 @@ public:
         /** @brief Returns the originally longitudinal speed to use
          * @return The speed given before influence or -1 if no influence is active
          */
-        double getOriginalSpeed() const; 
+        double getOriginalSpeed() const;
 
         void setVTDControlled(Position xyPos, MSLane* l, double pos, double posLat, double angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t);
 
@@ -1434,7 +1434,7 @@ public:
 
     /// @brief compute safe speed for following the given leader
     double getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderInfo,
-                                const double seen, const MSLane* const lane, double distToCrossing) const;
+                              const double seen, const MSLane* const lane, double distToCrossing) const;
 
     /// @brief get a numerical value for the priority of the  upcoming link
     static int nextLinkPriority(const std::vector<MSLane*>& conts);
@@ -1677,8 +1677,8 @@ protected:
                         const MSLane* const lane, double& v, double& vLinkPass) const;
 
     /// @brief checks for link leaders on the given link
-    void checkLinkLeader(const MSLink* link, const MSLane* lane, double seen, 
-            DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const;
+    void checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
+                         DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const;
 
 
     // @brief return the lane on which the back of this vehicle resides

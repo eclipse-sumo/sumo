@@ -300,14 +300,14 @@ public:
      *  @see  MSE2Collector Constructor documentation
      */
     virtual MSE2Collector* createE2Detector(const std::string& id,
-            DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
-            SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-            const std::string& vTypes, bool showDetector = true);
+                                            DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
+                                            SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+                                            const std::string& vTypes, bool showDetector = true);
 
     virtual MSE2Collector* createE2Detector(const std::string& id,
-            DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
-            SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-            const std::string& vTypes, bool showDetector = true);
+                                            DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
+                                            SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+                                            const std::string& vTypes, bool showDetector = true);
 
     /** @brief Creates an instance of an e3 detector using the given values
      *
@@ -440,7 +440,7 @@ protected:
      * @exception InvalidArgument If the defined position is invalid
      */
     double getPositionChecking(double pos, MSLane* lane, bool friendlyPos,
-                                 const std::string& detid);
+                               const std::string& detid);
 
 
     /// @name Value checking/adapting methods

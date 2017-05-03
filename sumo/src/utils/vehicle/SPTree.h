@@ -154,7 +154,7 @@ public:
             const C* const aInfo = it->first;
             const C* const fInfo = it->second;
             const double bestWitness = dijkstraTT(
-                                             aInfo->target, fInfo->target, excluded, (aInfo->permissions & fInfo->permissions));
+                                           aInfo->target, fInfo->target, excluded, (aInfo->permissions & fInfo->permissions));
             const double viaCost = aInfo->cost + fInfo->cost;
             if (viaCost < bestWitness) {
                 myNeededShortcuts.push_back(*it);

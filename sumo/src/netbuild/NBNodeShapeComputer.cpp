@@ -146,7 +146,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     const bool rectangularCut = oc.getBool("rectangular-lane-cut");
     const bool openDriveOutput = oc.isSet("opendrive-output");
 
-    // Extend geometries to move the stop line forward. 
+    // Extend geometries to move the stop line forward.
     // In OpenDrive the junction starts whenever the geometry changes. Stop
     // line information is not given or ambiguous (sign positions at most)
     // In SUMO, stop lines are where the junction starts. This is computed
@@ -229,8 +229,8 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             }
             // ... compute the distance to this point ...
             double dist = MAX2(
-                                geomsCCW[*i].nearest_offset_to_point2D(p),
-                                geomsCW[*i].nearest_offset_to_point2D(p));
+                              geomsCCW[*i].nearest_offset_to_point2D(p),
+                              geomsCW[*i].nearest_offset_to_point2D(p));
             if (dist < 0) {
                 // ok, we have the problem that even the extrapolated geometry
                 //  does not reach the point
@@ -301,7 +301,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                     }
 #endif
                     if (*cwi != *ccwi && currGeom2.intersects(neighGeom2)) {
-                        // also use the second intersection point 
+                        // also use the second intersection point
                         // but prevent very large node shapes
                         const double farAngleDist = ccwCloser ? cad : ccad;
                         double a1 = distances[*i];
@@ -315,7 +315,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                         //    distances[*i] = MAX2(a1, MIN2(a2, a1 + 180 - RAD2DEG(farAngleDist)));
                         //}
                         if (ccad > DEG2RAD(90. + 45.) && cad > DEG2RAD(90. + 45.)) {
-                            // do nothing. 
+                            // do nothing.
                         } else if (farAngleDist < DEG2RAD(135) || (fabs(RAD2DEG(farAngleDist) - 180) > 1 && fabs(a2 - a1) < 10)) {
                             distances[*i] = MAX2(a1, a2);
                         }
@@ -379,7 +379,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             distances[*i] = 100;
         }
     }
-    // prevent inverted node shapes 
+    // prevent inverted node shapes
     // (may happen with near-parallel edges)
     const double minDistSum = 2 * (100 + radius);
     for (i = newAll.begin(); i != newAll.end(); ++i) {
@@ -390,10 +390,10 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                     if (angleDiff > 160 || angleDiff < 20) {
 #ifdef DEBUG_NODE_SHAPE
                         if (DEBUGCOND) {
-                            std::cout << "   increasing dist for i=" << (*i)->getID() << " because of j=" << (*j)->getID() << " jDist=" << distances[*j] 
-                                << "  oldI=" << distances[*i] << " newI=" << minDistSum - distances[*j] 
-                                << " angleDiff=" << angleDiff 
-                                << " geomI=" << (*i)->getGeometry() << " geomJ=" << (*j)->getGeometry() << "\n";
+                            std::cout << "   increasing dist for i=" << (*i)->getID() << " because of j=" << (*j)->getID() << " jDist=" << distances[*j]
+                                      << "  oldI=" << distances[*i] << " newI=" << minDistSum - distances[*j]
+                                      << " angleDiff=" << angleDiff
+                                      << " geomI=" << (*i)->getGeometry() << " geomJ=" << (*j)->getGeometry() << "\n";
                         }
 #endif
                         distances[*i] = minDistSum - distances[*j];
@@ -544,9 +544,9 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
         const PositionVector g1 = incoming ? (*i)->getCCWBoundaryLine(myNode) : (*i)->getCWBoundaryLine(myNode);
         const PositionVector g2 = incoming ? (*j)->getCCWBoundaryLine(myNode) : (*j)->getCWBoundaryLine(myNode);
         const double angle1further = (g1.size() > 2 && g1[0].distanceTo2D(g1[1]) < angleChangeLookahead ?
-                                        g1.angleAt2D(1) : g1.angleAt2D(0));
+                                      g1.angleAt2D(1) : g1.angleAt2D(0));
         const double angle2further = (g2.size() > 2 && g2[0].distanceTo2D(g2[1]) < angleChangeLookahead ?
-                                        g2.angleAt2D(1) : g2.angleAt2D(0));
+                                      g2.angleAt2D(1) : g2.angleAt2D(0));
         const double angleDiff = GeomHelper::angleDiff(g1.angleAt2D(0), g2.angleAt2D(0));
         const double angleDiffFurther = GeomHelper::angleDiff(angle1further, angle2further);
         const bool ambiguousGeometry = ((angleDiff > 0 && angleDiffFurther < 0) || (angleDiff < 0 && angleDiffFurther > 0));

@@ -4,7 +4,7 @@
 /// @date    15.03.2017
 /// @version $Id$
 ///
-// C++ Vehicle API 
+// C++ Vehicle API
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2012-2017 DLR (http://www.dlr.de/) and contributors
@@ -50,7 +50,7 @@
 // member definitions
 // ===========================================================================
 
-MSVehicle* 
+MSVehicle*
 TraCI_Vehicle::getVehicle(const std::string& id) {
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
     if (sumoVehicle == 0) {
@@ -64,13 +64,13 @@ TraCI_Vehicle::getVehicle(const std::string& id) {
 }
 
 
-bool 
+bool
 TraCI_Vehicle::isVisible(const MSVehicle* veh) {
     return veh->isOnRoad() || veh->isParking() || veh->wasRemoteControlled();
 }
 
 
-bool 
+bool
 TraCI_Vehicle::onInit(const std::string& vehicleID) {
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(vehicleID);
     return sumoVehicle == 0 || sumoVehicle->getLane() == 0;
@@ -237,20 +237,20 @@ TraCI_Vehicle::getElectricityConsumption(const std::string& vehicleID) {
     return isVisible(veh) ? veh->getElectricityConsumption() : INVALID_DOUBLE_VALUE;
 }
 
-int 
+int
 TraCI_Vehicle::getPersonNumber(const std::string& vehicleID) {
     return getVehicle(vehicleID)->getPersonNumber();
 }
 
 
-std::pair<std::string, double> 
+std::pair<std::string, double>
 TraCI_Vehicle::getLeader(const std::string& vehicleID, double dist) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
         std::pair<const MSVehicle* const, double> leaderInfo = veh->getLeader(dist);
         return std::make_pair(
-                leaderInfo.first != 0 ? leaderInfo.first->getID() : "",
-                leaderInfo.second);
+                   leaderInfo.first != 0 ? leaderInfo.first->getID() : "",
+                   leaderInfo.second);
     } else {
         return std::make_pair("", -1);
     }
@@ -371,17 +371,17 @@ TraCI_Vehicle::getStopState(const std::string& vehicleID) {
     if (veh->isStopped()) {
         const MSVehicle::Stop& stop = veh->getNextStop();
         result = (1 + (stop.parking ? 2 : 0) +
-            (stop.triggered ? 4 : 0) +
-            (stop.containerTriggered ? 8 : 0) +
-            (stop.busstop != 0 ? 16 : 0) +
-            (stop.containerstop != 0 ? 32 : 0) +
-            (stop.chargingStation != 0 ? 64 : 0) +
-            (stop.parkingarea != 0 ? 128 : 0));
+                  (stop.triggered ? 4 : 0) +
+                  (stop.containerTriggered ? 8 : 0) +
+                  (stop.busstop != 0 ? 16 : 0) +
+                  (stop.containerstop != 0 ? 32 : 0) +
+                  (stop.chargingStation != 0 ? 64 : 0) +
+                  (stop.parkingarea != 0 ? 128 : 0));
     }
     return result;
 }
 
-double 
+double
 TraCI_Vehicle::getDistance(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
@@ -397,12 +397,12 @@ TraCI_Vehicle::getDistance(const std::string& vehicleID) {
 }
 
 
-double 
+double
 TraCI_Vehicle::getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int /* laneIndex */) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
         double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), position,
-                veh->getEdge(), TraCI::getEdge(edgeID));
+                          veh->getEdge(), TraCI::getEdge(edgeID));
         if (distance == std::numeric_limits<double>::max()) {
             return INVALID_DOUBLE_VALUE;
         }
@@ -413,13 +413,13 @@ TraCI_Vehicle::getDrivingDistance(const std::string& vehicleID, const std::strin
 }
 
 
-double 
+double
 TraCI_Vehicle::getDrivingDistance2D(const std::string& vehicleID, double x, double y) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
         std::pair<MSLane*, double> roadPos = TraCI::convertCartesianToRoadMap(Position(x, y));
         double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), roadPos.second,
-                veh->getEdge(), &roadPos.first->getEdge());
+                          veh->getEdge(), &roadPos.first->getEdge());
         if (distance == std::numeric_limits<double>::max()) {
             return INVALID_DOUBLE_VALUE;
         }
@@ -431,7 +431,7 @@ TraCI_Vehicle::getDrivingDistance2D(const std::string& vehicleID, double x, doub
 
 
 
-double 
+double
 TraCI_Vehicle::getAllowedSpeed(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
@@ -463,7 +463,7 @@ TraCI_Vehicle::getVia(const std::string& vehicleID) {
 }
 
 
-std::pair<int, int> 
+std::pair<int, int>
 TraCI_Vehicle::getLaneChangeState(const std::string& vehicleID, int direction) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
@@ -474,7 +474,7 @@ TraCI_Vehicle::getLaneChangeState(const std::string& vehicleID, int direction) {
 }
 
 
-std::string 
+std::string
 TraCI_Vehicle::getParameter(const std::string& vehicleID, const std::string& key) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (StringUtils::startsWith(key, "device.")) {
@@ -483,14 +483,14 @@ TraCI_Vehicle::getParameter(const std::string& vehicleID, const std::string& key
             throw TraCIException("Invalid device parameter '" + key + "' for vehicle '" + vehicleID + "'");
         }
         try {
-            return veh->getDeviceParameter(tok.get(1), key.substr(tok.get(0).size() + tok.get(1).size() + 2)); 
+            return veh->getDeviceParameter(tok.get(1), key.substr(tok.get(0).size() + tok.get(1).size() + 2));
         } catch (InvalidArgument& e) {
             throw TraCIException("Vehicle '" + vehicleID + "' does not support device parameter '" + key + "' (" + e.what() + ").");
         }
     } else if (StringUtils::startsWith(key, "laneChangeModel.")) {
         const std::string attrName = key.substr(16);
         try {
-            return veh->getLaneChangeModel().getParameter(attrName); 
+            return veh->getLaneChangeModel().getParameter(attrName);
         } catch (InvalidArgument& e) {
             throw TraCIException("Vehicle '" + vehicleID + "' does not support laneChangeModel parameter '" + key + "' (" + e.what() + ").");
         }
@@ -506,7 +506,7 @@ TraCI_Vehicle::getParameter(const std::string& vehicleID, const std::string& key
 }
 
 
-const MSVehicleType& 
+const MSVehicleType&
 TraCI_Vehicle::getVehicleType(const std::string& vehicleID) {
     return getVehicle(vehicleID)->getVehicleType();
 }
@@ -568,15 +568,14 @@ TraCI_Vehicle::getWidth(const std::string& vehicleID) {
 
 
 void
-TraCI_Vehicle::setStop(const std::string& vehicleID, 
-        const std::string& edgeID, 
-        double endPos, 
-        int laneIndex, 
-        SUMOTime duration,
-        int flags, 
-        double startPos, 
-        SUMOTime until) 
-{
+TraCI_Vehicle::setStop(const std::string& vehicleID,
+                       const std::string& edgeID,
+                       double endPos,
+                       int laneIndex,
+                       SUMOTime duration,
+                       int flags,
+                       double startPos,
+                       SUMOTime until) {
     MSVehicle* veh = getVehicle(vehicleID);
     // optional stop flags
     bool parking = false;
@@ -631,7 +630,7 @@ TraCI_Vehicle::setStop(const std::string& vehicleID,
 }
 
 
-void 
+void
 TraCI_Vehicle::resume(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (!veh->hasStops()) {
@@ -655,23 +654,22 @@ TraCI_Vehicle::changeLane(const std::string& vehID, int laneIndex, SUMOTime dura
 }
 
 
-void 
+void
 TraCI_Vehicle::add(const std::string& vehicleID,
-        const std::string& routeID,
-        const std::string& typeID,
-        std::string depart,
-        const std::string& departLane,
-        const std::string& departPos,
-        const std::string& departSpeed,
-        const std::string& arrivalLane,
-        const std::string& arrivalPos,
-        const std::string& arrivalSpeed,
-        const std::string& fromTaz,
-        const std::string& toTaz,
-        const std::string& line,
-        int personCapacity,
-        int personNumber) 
-{
+                   const std::string& routeID,
+                   const std::string& typeID,
+                   std::string depart,
+                   const std::string& departLane,
+                   const std::string& departPos,
+                   const std::string& departSpeed,
+                   const std::string& arrivalLane,
+                   const std::string& arrivalPos,
+                   const std::string& arrivalSpeed,
+                   const std::string& fromTaz,
+                   const std::string& toTaz,
+                   const std::string& line,
+                   int personCapacity,
+                   int personNumber) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh != 0) {
         throw TraCIException("The vehicle " + vehicleID + " to add already exists.");
@@ -732,14 +730,14 @@ TraCI_Vehicle::setParameter(const std::string& vehicleID, const std::string& key
             throw TraCIException("Invalid device parameter '" + key + "' for vehicle '" + vehicleID + "'");
         }
         try {
-            veh->setDeviceParameter(tok.get(1), key.substr(tok.get(0).size() + tok.get(1).size() + 2), value); 
+            veh->setDeviceParameter(tok.get(1), key.substr(tok.get(0).size() + tok.get(1).size() + 2), value);
         } catch (InvalidArgument& e) {
             throw TraCIException("Vehicle '" + vehicleID + "' does not support device parameter '" + key + "' (" + e.what() + ").");
         }
     } else if (StringUtils::startsWith(key, "laneChangeModel.")) {
         const std::string attrName = key.substr(16);
         try {
-            veh->getLaneChangeModel().setParameter(attrName, value); 
+            veh->getLaneChangeModel().setParameter(attrName, value);
         } catch (InvalidArgument& e) {
             throw TraCIException("Vehicle '" + vehicleID + "' does not support laneChangeModel parameter '" + key + "' (" + e.what() + ").");
         }
@@ -752,7 +750,7 @@ TraCI_Vehicle::setParameter(const std::string& vehicleID, const std::string& key
         bool create;
         try {
             create = TplConvert::_2bool(value.c_str());
-        } catch (BoolFormatException) { 
+        } catch (BoolFormatException) {
             throw TraCIException("Changing device status requires a 'true' or 'false'");
         }
         if (!create) {

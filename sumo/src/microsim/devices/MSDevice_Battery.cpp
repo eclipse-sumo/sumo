@@ -124,7 +124,7 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
             }
         } else if (getActualBatteryCapacity() > getMaximumBatteryCapacity()) {
             setActualBatteryCapacity(getMaximumBatteryCapacity());
-        }        
+        }
         myLastAngle = veh.getAngle();
     }
 
@@ -211,8 +211,8 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
 // ---------------------------------------------------------------------------
 // MSDevice_Battery-methods
 // ---------------------------------------------------------------------------
-MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity, 
-    const double powerMax, const double stoppingTreshold, const std::map<int, double>& param) :
+MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
+                                   const double powerMax, const double stoppingTreshold, const std::map<int, double>& param) :
     MSDevice(holder, id),
     myActualBatteryCapacity(0),         // [actualBatteryCapacity <= maximumBatteryCapacity]
     myMaximumBatteryCapacity(0),        // [maximumBatteryCapacity >= 0]
@@ -225,7 +225,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myConsum(0),                        // Initially the vehicle is stopped and therefore the consum is zero.
     myActChargingStation(NULL),         // Initially the vehicle isn't over a Charging Station
     myEnergyCharged(0),                 // Initially the energy charged is zero
-    myVehicleStopped(0) {               // Initially the vehicle is stopped and the corresponding variable is 0          
+    myVehicleStopped(0) {               // Initially the vehicle is stopped and the corresponding variable is 0
 
     if (maximumBatteryCapacity < 0) {
         WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY) + " (" + toString(maximumBatteryCapacity) + ").")
@@ -400,19 +400,19 @@ MSDevice_Battery::getEnergyCharged() const {
 }
 
 
-int 
+int
 MSDevice_Battery::getVehicleStopped() const {
     return myVehicleStopped;
 }
 
 
-double 
+double
 MSDevice_Battery::getStoppingTreshold() const {
     return myStoppingTreshold;
 }
 
 
-std::string 
+std::string
 MSDevice_Battery::getParameter(const std::string& key) const {
     if (key == toString(SUMO_ATTR_ACTUALBATTERYCAPACITY)) {
         return toString(getActualBatteryCapacity());
