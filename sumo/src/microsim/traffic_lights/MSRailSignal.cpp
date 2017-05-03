@@ -109,23 +109,23 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 std::vector<const MSLane*> succeedingBlock;   //the vector of lanes leading to the next rail signal
                 succeedingBlock.push_back(toLane);
                 currentLane = toLane;
-                bool noRailSignal = true;   //true if the considered lane is not ending at a rail signal
-                while (noRailSignal) {
+                bool noRailSignalLocal = true;   //true if the considered lane is not ending at a rail signal
+                while (noRailSignalLocal) {
                     //check first if the current lane is ending at a rail signal
                     std::vector<MSLink*> outGoingLinks = currentLane->getLinkCont();
                     std::vector<MSLink*>::const_iterator j;
                     for (j = outGoingLinks.begin(); j != outGoingLinks.end(); j++) {
                         const MSJunction* junction = currentLane->getEdge().getToJunction();
                         if ((junction != 0) && (junction->getType() == NODETYPE_RAIL_SIGNAL)) { //if this junctions exists and if it has a rail signal
-                            noRailSignal = false;
+                            noRailSignalLocal = false;
                             break;
                         }
                     }
-                    if (noRailSignal) { //if currentLane is not ending at a railSignal
+                    if (noRailSignalLocal) { //if currentLane is not ending at a railSignal
                         //get the next lane
                         std::vector<const MSLane*> outGoingLanes = currentLane->getOutgoingLanes();
                         if (outGoingLanes.size() == 0) {    //if the current lane has no outgoing lanes (deadend)
-                            noRailSignal = false;
+                            noRailSignalLocal = false;
                         } else {
                             if (outGoingLanes.size() > 1) {
                                 WRITE_WARNING("Rail lane '" + currentLane->getID() + "' has more than one outgoing lane but does not have a rail signal at its end");
