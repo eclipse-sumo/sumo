@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r24119
+SUMO Version dev-SVN-r24140
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -170,6 +170,8 @@ Processing Options:
                                          start squeezing through a jam when
                                          using model 'striping' (non-positive
                                          values disable squeezing)
+  --astar.landmark-distances FILE      Initialize lookup table for astar
+                                         ALT-variant from the given file
 
 Routing Options:
   --routing-algorithm STR              Select among routing algorithms
