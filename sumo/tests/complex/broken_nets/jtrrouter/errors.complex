@@ -1,21 +1,28 @@
 ------------------ net/edge[0]@from:
 Error: Attribute 'from' in definition of edge '1' is empty.
+Warning: Skipping isolated junction '1'.
 Error: unknown from-edge '1' in connection
 Quitting (on error).
 ------------------ net/edge[1]@from:
 Error: Attribute 'from' in definition of edge '2' is empty.
+Warning: Skipping isolated junction '3'.
 Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@from:a
- Wrong error code returned (0)!
+Warning: Skipping isolated junction '1'.
+Error: Unknown node 'a'.
+Quitting (on error).
 ------------------ net/edge[1]@from:a
- Wrong error code returned (0)!
+Error: Unknown node 'a'.
+Quitting (on error).
 ------------------ net/edge[0]@from:<remove>
 Error: Attribute 'from' is missing in definition of edge '1'.
+Warning: Skipping isolated junction '1'.
 Error: unknown from-edge '1' in connection
 Quitting (on error).
 ------------------ net/edge[1]@from:<remove>
 Error: Attribute 'from' is missing in definition of edge '2'.
+Warning: Skipping isolated junction '3'.
 Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@function:a
@@ -58,28 +65,37 @@ Error: missing required attribute 'id'
 Quitting (on error).
 ------------------ net/edge[0]@to:
 Error: Attribute 'to' in definition of edge '1' is empty.
+Warning: Skipping isolated junction '1'.
 Error: unknown from-edge '1' in connection
 Quitting (on error).
 ------------------ net/edge[1]@to:
 Error: Attribute 'to' in definition of edge '2' is empty.
+Warning: Skipping isolated junction '3'.
 Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@to:a
- Wrong error code returned (0)!
+Error: Unknown node 'a'.
+Quitting (on error).
 ------------------ net/edge[1]@to:a
- Wrong error code returned (0)!
+Warning: Skipping isolated junction '3'.
+Error: Unknown node 'a'.
+Quitting (on error).
 ------------------ net/edge[0]@to:<remove>
 Error: Attribute 'to' is missing in definition of edge '1'.
+Warning: Skipping isolated junction '1'.
 Error: unknown from-edge '1' in connection
 Quitting (on error).
 ------------------ net/edge[1]@to:<remove>
 Error: Attribute 'to' is missing in definition of edge '2'.
+Warning: Skipping isolated junction '3'.
 Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]:<remove>
+Warning: Skipping isolated junction '1'.
 Error: unknown from-edge '1' in connection
 Quitting (on error).
 ------------------ net/edge[1]:<remove>
+Warning: Skipping isolated junction '3'.
 Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]:<duplicate>
@@ -470,19 +486,28 @@ Quitting (on error).
  Wrong error code returned (0)!
 ------------------ net/junction[0]@id:
 Error: Attribute 'id' in definition of a junction is empty.
+Error: Unknown node '1'.
 Quitting (on error).
 ------------------ net/junction[1]@id:
 Error: Attribute 'id' in definition of a junction is empty.
+Error: Unknown node '2'.
 Quitting (on error).
 ------------------ net/junction[2]@id:
 Error: Attribute 'id' in definition of a junction is empty.
+Error: Unknown node '3'.
 Quitting (on error).
 ------------------ net/junction[0]@id:a
- Wrong error code returned (0)!
+Warning: Skipping isolated junction 'a'.
+Error: Unknown node '1'.
+Quitting (on error).
 ------------------ net/junction[1]@id:a
- Wrong error code returned (0)!
+Warning: Skipping isolated junction 'a'.
+Error: Unknown node '2'.
+Quitting (on error).
 ------------------ net/junction[2]@id:a
- Wrong error code returned (0)!
+Warning: Skipping isolated junction 'a'.
+Error: Unknown node '3'.
+Quitting (on error).
 ------------------ net/junction[0]@id:<remove>
 Error: missing required attribute 'id'
  In file 'mod.net.xml'
@@ -564,11 +589,14 @@ Quitting (on error).
 ------------------ net/junction[2]@incLanes:2_0 a_1
  Wrong error code returned (0)!
 ------------------ net/junction[0]:<remove>
- Wrong error code returned (0)!
+Error: Unknown node '1'.
+Quitting (on error).
 ------------------ net/junction[1]:<remove>
- Wrong error code returned (0)!
+Error: Unknown node '2'.
+Quitting (on error).
 ------------------ net/junction[2]:<remove>
- Wrong error code returned (0)!
+Error: Unknown node '3'.
+Quitting (on error).
 ------------------ net/junction[0]:<duplicate>
  Wrong error code returned (0)!
 ------------------ net/junction[1]:<duplicate>
