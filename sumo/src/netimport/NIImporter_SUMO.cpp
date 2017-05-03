@@ -780,12 +780,9 @@ NIImporter_SUMO::loadLocation(const SUMOSAXAttributes& attrs) {
 
 Position
 NIImporter_SUMO::readPosition(const SUMOSAXAttributes& attrs, const std::string& id, bool& ok) {
-    double x = attrs.get<double>(SUMO_ATTR_X, id.c_str(), ok);
-    double y = attrs.get<double>(SUMO_ATTR_Y, id.c_str(), ok);
-    double z = 0;
-    if (attrs.hasAttribute(SUMO_ATTR_Z)) {
-        z = attrs.get<double>(SUMO_ATTR_Z, id.c_str(), ok);
-    }
+    const double x = attrs.get<double>(SUMO_ATTR_X, id.c_str(), ok);
+    const double y = attrs.get<double>(SUMO_ATTR_Y, id.c_str(), ok);
+    const double z = attrs.getOpt<double>(SUMO_ATTR_Z, id.c_str(), ok, 0.);
     return Position(x, y, z);
 }
 

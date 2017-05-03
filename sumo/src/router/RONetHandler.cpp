@@ -57,7 +57,7 @@ RONetHandler::RONetHandler(RONet& net,
     : SUMOSAXHandler("sumo-network"),
       myNet(net), myCurrentName(),
       myCurrentEdge(0), myCurrentStoppingPlace(0),
-      myProcess(true), myEdgeBuilder(eb) {}
+      myEdgeBuilder(eb) {}
 
 
 RONetHandler::~RONetHandler() {}
@@ -74,9 +74,7 @@ RONetHandler::myStartElement(int element,
             parseEdge(attrs);
             break;
         case SUMO_TAG_LANE:
-            if (myProcess) {
-                parseLane(attrs);
-            }
+            parseLane(attrs);
             break;
         case SUMO_TAG_JUNCTION:
             parseJunction(attrs);
@@ -127,22 +125,8 @@ RONetHandler::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_NET:
             // build junction graph
-            for (JunctionGraph::iterator it = myJunctionGraph.begin(); it != myJunctionGraph.end(); ++it) {
-                ROEdge* edge = myNet.getEdge(it->first);
-                RONode* from = myNet.getNode(it->second.first);
-                RONode* to = myNet.getNode(it->second.second);
-                if (from == 0) {
-                    WRITE_ERROR("Unknown from-node '" + it->second.first + "' for edge '" + it->first + "'.");
-                    return;
-                }
-                if (to == 0) {
-                    WRITE_ERROR("Unknown to-node '" + it->second.second + "' for edge '" + it->first + "'.");
-                    return;
-                }
-                if (edge != 0) {
-                    from->addOutgoing(edge);
-                    to->addIncoming(edge);
-                }
+            for (std::set<std::string>::const_iterator it = myUnseenNodeIDs.begin(); it != myUnseenNodeIDs.end(); ++it) {
+                WRITE_ERROR("Unknown node '" + *it + "'.");
             }
             break;
         default:
@@ -167,14 +151,11 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     // get the edge
     std::string from;
     std::string to;
-    RONode* fromNode;
-    RONode* toNode;
     int priority;
     myCurrentEdge = 0;
     if (func == EDGEFUNC_INTERNAL || func == EDGEFUNC_CROSSING || func == EDGEFUNC_WALKINGAREA) {
         assert(myCurrentName[0] == ':');
-        std::string junctionID = myCurrentName.substr(1, myCurrentName.rfind('_') - 1);
-        myJunctionGraph[myCurrentName] = std::make_pair(junctionID, junctionID);
+        const std::string junctionID = myCurrentName.substr(1, myCurrentName.rfind('_') - 1);
         from = junctionID;
         to = junctionID;
         priority = 0;
@@ -186,14 +167,15 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
             return;
         }
     }
-    myJunctionGraph[myCurrentName] = std::make_pair(from, to);
-    fromNode = myNet.getNode(from);
+    RONode* fromNode = myNet.getNode(from);
     if (fromNode == 0) {
+        myUnseenNodeIDs.insert(from);
         fromNode = new RONode(from);
         myNet.addNode(fromNode);
     }
-    toNode = myNet.getNode(to);
+    RONode* toNode = myNet.getNode(to);
     if (toNode == 0) {
+        myUnseenNodeIDs.insert(to);
         toNode = new RONode(to);
         myNet.addNode(toNode);
     }
@@ -201,7 +183,6 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode, priority);
     // set the type
     myCurrentEdge->setRestrictions(myNet.getRestrictions(attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myCurrentName.c_str(), ok, "")));
-    myProcess = true;
     switch (func) {
         case EDGEFUNC_CONNECTOR:
         case EDGEFUNC_NORMAL:
@@ -221,13 +202,15 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
             break;
         case EDGEFUNC_INTERNAL:
             myCurrentEdge->setFunc(ROEdge::ET_INTERNAL);
-            myProcess = false;
             break;
         default:
             throw ProcessError("Unhandled EdgeFunc " + toString(func));
     }
 
-    if (!myNet.addEdge(myCurrentEdge)) {
+    if (myNet.addEdge(myCurrentEdge)) {
+        fromNode->addOutgoing(myCurrentEdge);
+        toNode->addIncoming(myCurrentEdge);
+    } else {
         myCurrentEdge = 0;
     }
 }
@@ -235,7 +218,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
 
 void
 RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
-    if (myCurrentEdge == 0) {
+    if (myCurrentEdge == 0 || myCurrentEdge->getFunc() == ROEdge::ET_INTERNAL) {
         // was an internal edge to skip or an error occured
         return;
     }
@@ -271,21 +254,22 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, report an error if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    if (attrs.getNodeType(ok) == NODETYPE_INTERNAL) {
+        return;
+    }
+    myUnseenNodeIDs.erase(id);
+    // get the position of the node
+    const double x = attrs.get<double>(SUMO_ATTR_X, id.c_str(), ok);
+    const double y = attrs.get<double>(SUMO_ATTR_Y, id.c_str(), ok);
+    const double z = attrs.getOpt<double>(SUMO_ATTR_Z, id.c_str(), ok, 0.);
     if (!ok) {
         return;
     }
-    // get the position of the node
-    double x = attrs.get<double>(SUMO_ATTR_X, id.c_str(), ok);
-    double y = attrs.get<double>(SUMO_ATTR_Y, id.c_str(), ok);
-    if (ok) {
-        RONode* n = myNet.getNode(id);
-        if (n == 0) {
-            n = new RONode(id);
-            myNet.addNode(n);
-        }
-        n->setPosition(Position(x, y));
+    RONode* n = myNet.getNode(id);
+    if (n == 0) {
+        WRITE_WARNING("Skipping isolated junction '" + id + "'.");
     } else {
-        throw ProcessError();
+        n->setPosition(Position(x, y, z));
     }
 }
 
@@ -366,6 +350,7 @@ RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
     }
     myCurrentStoppingPlace->accessPos.insert(std::make_pair(lane, pos));
 }
+
 
 void
 RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) {

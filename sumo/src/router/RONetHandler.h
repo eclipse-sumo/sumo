@@ -199,15 +199,11 @@ protected:
     /// @brief The currently built stopping place
     SUMOVehicleParameter::Stop* myCurrentStoppingPlace;
 
-    /** @brief An indicator whether the next edge shall be read (internal edges are not read by now) */
-    bool myProcess;
-
     /// @brief The object used to build of edges of the desired type
     ROAbstractEdgeBuilder& myEdgeBuilder;
 
-    /// @brief temporary data for building the junction graph after network parsing is finished
-    typedef std::map<std::string, std::pair<std::string, std::string> > JunctionGraph;
-    JunctionGraph myJunctionGraph;
+    /// @brief temporary data for checking node initialisation after network parsing is finished
+    std::set<std::string> myUnseenNodeIDs;
 
 
 private:
