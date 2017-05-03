@@ -20,7 +20,7 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 import sys
-
+from collections import defaultdict
 from xml.sax import make_parser, handler
 
 MAX_POS_DEVIATION = 10
@@ -56,7 +56,7 @@ class DetectorGroupData:
 class DetectorReader(handler.ContentHandler):
 
     def __init__(self, detFile=None, laneMap={}):
-        self._edge2DetData = {}
+        self._edge2DetData = defaultdict(list)
         self._det2edge = {}
         self._currentGroup = None
         self._currentEdge = None
@@ -70,8 +70,6 @@ class DetectorReader(handler.ContentHandler):
         if id in self._det2edge:
             print("Warning! Detector %s already known." % id, file=sys.stderr)
             return
-        if not edge in self._edge2DetData:
-            self._edge2DetData[edge] = []
         if self._currentGroup:
             self._currentGroup.ids.append(id)
         else:
@@ -86,6 +84,9 @@ class DetectorReader(handler.ContentHandler):
                     DetectorGroupData(pos, True, id))
         self._det2edge[id] = edge
 
+    def getEdgeDetGroups(self, edge):
+        return self._edge2DetData[edge]
+
     def startElement(self, name, attrs):
         if name == 'detectorDefinition' or name == 'e1Detector':
             self.addDetector(attrs['id'], float(attrs['pos']),
@@ -95,8 +96,6 @@ class DetectorReader(handler.ContentHandler):
                                                    attrs.get('valid', "1") == "1")
             edge = attrs['orig_edge']
             self._currentEdge = edge
-            if not edge in self._edge2DetData:
-                self._edge2DetData[edge] = []
             self._edge2DetData[edge].append(self._currentGroup)
 
     def endElement(self, name):
