@@ -110,7 +110,6 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         double length = 0;
 
         planViewOSS.openTag("planView");
-        planViewOSS.setPrecision(8); // geometry hdg requires higher precision
         // for the shape we need to use the leftmost border of the leftmost lane
         const std::vector<NBEdge::Lane>& lanes = e->getLanes();
         PositionVector ls = getLeftLaneBorder(e);
@@ -254,6 +253,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 device.openTag("planView");
                 device.setPrecision(8); // geometry hdg requires higher precision
                 OutputDevice_String elevationOSS(false, 3);
+                elevationOSS.setPrecision(8);
 #ifdef DEBUG_SMOOTH_GEOM
                 if (DEBUGCOND) {
                     std::cout << "write planview for internal edge " << c.getInternalLaneID() << " init=" << init << " fallback=" << fallBackShape << "\n";
