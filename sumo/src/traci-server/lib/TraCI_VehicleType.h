@@ -36,6 +36,8 @@ public:
     static double getSpeedDeviation(const std::string& typeID);
     static double getAccel(const std::string& typeID);
     static double getDecel(const std::string& typeID);
+    static double getEmergencyDecel(const std::string& typeID);
+    static double getApparentDecel(const std::string& typeID);
     static double getImperfection(const std::string& typeID);
     static double getTau(const std::string& typeID);
     static std::string getVehicleClass(const std::string& typeID);
@@ -62,6 +64,8 @@ public:
     static void setMinGap(const std::string& typeID, double minGap);
     static void setAccel(const std::string& typeID, double accel);
     static void setDecel(const std::string& typeID, double decel);
+    static void setEmergencyDecel(const std::string& typeID, double decel);
+    static void setApparentDecel(const std::string& typeID, double decel);
     static void setImperfection(const std::string& typeID, double imperfection);
     static void setTau(const std::string& typeID, double tau);
     static void setColor(const std::string& typeID, const TraCIColor& c);

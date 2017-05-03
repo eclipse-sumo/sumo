@@ -518,7 +518,6 @@
 // current state, using external signal names (get: traffic lights)
 #define TL_EXTERNAL_STATE 0x2e
 
-
 // outgoing link number (get: lanes)
 #define LANE_LINK_NUMBER 0x30
 
@@ -558,11 +557,17 @@
 // color (get: vehicles, vehicle types, polygons, pois)
 #define VAR_COLOR 0x45
 
-// max. acceleration (get: vehicle types)
+// max. acceleration (get: vehicles, vehicle types)
 #define VAR_ACCEL 0x46
 
-// max. deceleration (get: vehicle types)
+// max. comfortable deceleration (get: vehicles, vehicle types)
 #define VAR_DECEL 0x47
+
+// max. (physically possible) deceleration (get: vehicles, vehicle types)
+#define VAR_EMERGENCY_DECEL 0x7b
+
+// apparent deceleration (get: vehicles, vehicle types)
+#define VAR_APPARENT_DECEL 0x7c
 
 // driver reaction time (get: vehicle types)
 #define VAR_TAU 0x48
@@ -600,7 +605,7 @@
 // route id (get & set: vehicles)
 #define VAR_ROUTE_ID 0x53
 
-// edges (get: routes)
+// edges (get: routes, vehicles)
 #define VAR_EDGES 0x54
 
 // filled? (get: polygons)

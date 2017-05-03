@@ -563,6 +563,8 @@ public:
         double getSpeedDeviation(const std::string& typeID) const;
         double getAccel(const std::string& typeID) const;
         double getDecel(const std::string& typeID) const;
+        double getEmergencyDecel(const std::string& typeID) const;
+        double getApparentDecel(const std::string& typeID) const;
         double getImperfection(const std::string& typeID) const;
         double getTau(const std::string& typeID) const;
         std::string getVehicleClass(const std::string& typeID) const;
@@ -588,6 +590,8 @@ public:
         void setMinGap(const std::string& typeID, double minGap) const;
         void setAccel(const std::string& typeID, double accel) const;
         void setDecel(const std::string& typeID, double decel) const;
+        void setEmergencyDecel(const std::string& typeID, double decel) const;
+        void setApparentDecel(const std::string& typeID, double decel) const;
         void setImperfection(const std::string& typeID, double imperfection) const;
         void setTau(const std::string& typeID, double tau) const;
         void setColor(const std::string& typeID, const TraCIColor& c) const;
@@ -671,6 +675,8 @@ public:
         double getLength(const std::string& vehicleID) const;
         double getAccel(const std::string& vehicleID) const;
         double getDecel(const std::string& vehicleID) const;
+        double getEmergencyDecel(const std::string& vehicleID) const;
+        double getApparentDecel(const std::string& vehicleID) const;
         double getTau(const std::string& vehicleID) const;
         double getImperfection(const std::string& vehicleID) const;
         double getSpeedFactor(const std::string& vehicleID) const;

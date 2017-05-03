@@ -689,6 +689,10 @@ TraCITestClient::testAPI() {
     answerLog << "    getIDList: " << joinToString(route.getIDList(), " ") << "\n";
     answerLog << "  vehicleType:\n";
     answerLog << "    getIDList: " << joinToString(vehicletype.getIDList(), " ") << "\n";
+    vehicletype.setEmergencyDecel("t1", 9.9);
+    answerLog << "    getEmergencyDecel: " << vehicletype.getEmergencyDecel("t1") << "\n";
+    vehicletype.setApparentDecel("t1", 99.9);
+    answerLog << "    getApparentDecel: " << vehicletype.getApparentDecel("t1") << "\n";
     vehicletype.setWidth("t1", 1.9);
     answerLog << "    getWidth: " << vehicletype.getWidth("t1") << "\n";
     vehicletype.setHeight("t1", 1.8);

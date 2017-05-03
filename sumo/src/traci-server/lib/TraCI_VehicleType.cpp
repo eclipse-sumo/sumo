@@ -51,6 +51,14 @@ double TraCI_VehicleType::getDecel(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getCarFollowModel().getMaxDecel();
 }
+double TraCI_VehicleType::getEmergencyDecel(const std::string& typeID) {
+    MSVehicleType* v = getVType(typeID);
+    return v->getCarFollowModel().getEmergencyDecel();
+}
+double TraCI_VehicleType::getApparentDecel(const std::string& typeID) {
+    MSVehicleType* v = getVType(typeID);
+    return v->getCarFollowModel().getApparentDecel();
+}
 double TraCI_VehicleType::getImperfection(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getCarFollowModel().getImperfection();
@@ -155,6 +163,14 @@ void TraCI_VehicleType::setAccel(const std::string& typeID, double accel)  {
 void TraCI_VehicleType::setDecel(const std::string& typeID, double decel)  {
     MSVehicleType* v = getVType(typeID);
     v->getCarFollowModel().setMaxDecel(decel);
+}
+void TraCI_VehicleType::setEmergencyDecel(const std::string& typeID, double decel)  {
+    MSVehicleType* v = getVType(typeID);
+    v->getCarFollowModel().setEmergencyDecel(decel);
+}
+void TraCI_VehicleType::setApparentDecel(const std::string& typeID, double decel)  {
+    MSVehicleType* v = getVType(typeID);
+    v->getCarFollowModel().setApparentDecel(decel);
 }
 void TraCI_VehicleType::setImperfection(const std::string& typeID, double imperfection)  {
     MSVehicleType* v = getVType(typeID);

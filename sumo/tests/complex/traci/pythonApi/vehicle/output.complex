@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:48467 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:45062 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -39,6 +39,8 @@ speedFactor 1.0
 allowedSpeed 11.11
 accel 2.6
 decel 4.5
+emergencyDecel 4.5
+apparentDecel 4.5
 imperfection 0.5
 tau 1.0
 vClass passenger
@@ -108,6 +110,8 @@ speedFactor 1.1
 allowedSpeed 9.0
 accel 1.1
 decel 5.1
+emergencyDecel 5.2
+apparentDecel 5.3
 imperfection 0.1
 tau 1.1
 vClass bicycle
@@ -174,6 +178,8 @@ speedFactor 1.0
 allowedSpeed -1001.0
 accel 2.6
 decel 4.5
+emergencyDecel 4.5
+apparentDecel 4.5
 imperfection 0.5
 tau 1.0
 vClass passenger
@@ -252,6 +258,8 @@ speedFactor 1.0
 allowedSpeed 11.11
 accel 2.6
 decel 4.5
+emergencyDecel 4.5
+apparentDecel 4.5
 imperfection 0.5
 tau 1.0
 vClass passenger
@@ -551,6 +559,8 @@ speedFactor 1.0
 allowedSpeed 13.89
 accel 2.6
 decel 4.5
+emergencyDecel 4.5
+apparentDecel 4.5
 imperfection 0.5
 tau 1.0
 vClass passenger

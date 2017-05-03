@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r24140
+SUMO Version dev-SVN-r24090
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -86,6 +86,10 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR   List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -293,7 +297,7 @@ SSM Device Options:
   --device.ssm.trajectories            Specifies whether trajectories will be
                                          logged (if false, only the extremal
                                          values and times are reported).
-  --device.ssm.frequency FLOAT         Specifies the maximal length of stored
+  --device.ssm.maxencounterlength FLOAT  Specifies the maximal length of stored
                                          conflict trajectories in seconds (the
                                          frequency of logging, default is
                                          30.00s.).
@@ -301,6 +305,11 @@ SSM Device Options:
                                          (default is 50.00m.). For vehicles
                                          below this distance from the equipped
                                          vehicle, SSM values are traced.
+  --device.ssm.extratime FLOAT         Specifies the time in seconds to be
+                                         logged after a conflict is over
+                                         (default is 4.00secs.). Required >0 if
+                                         PET is to be calculated for crossing
+                                         conflicts.
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
@@ -362,8 +371,6 @@ GUI Only Options:
                                          size
   --window-pos STR                     Create initial window at the given x,y
                                          position
-  --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
 
 
 Examples:

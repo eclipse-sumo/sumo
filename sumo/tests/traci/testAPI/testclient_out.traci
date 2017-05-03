@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Apr 18 14:45:38 2017
+TraCITestClient output file. Date: Wed May  3 08:33:50 2017
 
 
 -> Command sent: <SimulationStep2>:
@@ -15,6 +15,8 @@ testAPI:
     getIDList: e_u1 r1
   vehicleType:
     getIDList: DEFAULT_PEDTYPE DEFAULT_VEHTYPE stilts t1
+    getEmergencyDecel: 9.90
+    getApparentDecel: 99.90
     getWidth: 1.90
     getHeight: 1.80
     setMinGapLat: 1.50

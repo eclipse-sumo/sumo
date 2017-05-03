@@ -114,6 +114,8 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_SHAPECLASS: Storage.readString,
                       tc.VAR_ACCEL: Storage.readDouble,
                       tc.VAR_DECEL: Storage.readDouble,
+                      tc.VAR_EMERGENCY_DECEL: Storage.readDouble,
+                      tc.VAR_APPARENT_DECEL: Storage.readDouble,
                       tc.VAR_IMPERFECTION: Storage.readDouble,
                       tc.VAR_TAU: Storage.readDouble,
                       tc.VAR_BEST_LANES: _readBestLanes,
@@ -505,9 +507,23 @@ class VehicleDomain(Domain):
     def getDecel(self, vehID):
         """getDecel(string) -> double
 
-        Returns the maximum deceleration possibility in m/s^2 of this vehicle.
+        Returns the preferred maximal deceleration possibility in m/s^2 of this vehicle.
         """
         return self._getUniversal(tc.VAR_DECEL, vehID)
+    
+    def getEmergencyDecel(self, vehID):
+        """getEmergencyDecel(string) -> double
+
+        Returns the maximal physically possible deceleration in m/s^2 of this vehicle.
+        """
+        return self._getUniversal(tc.VAR_EMERGENCY_DECEL, vehID)
+
+    def getApparentDecel(self, vehID):
+        """getApparentDecel(string) -> double
+
+        Returns the apparent deceleration in m/s^2 of this vehicle.
+        """
+        return self._getUniversal(tc.VAR_APPARENT_DECEL, vehID)
 
     def getImperfection(self, vehID):
         """getImperfection(string) -> double
@@ -1026,10 +1042,26 @@ class VehicleDomain(Domain):
     def setDecel(self, vehID, decel):
         """setDecel(string, double) -> None
 
-        Sets the maximum deceleration in m/s^2 for this vehicle.
+        Sets the preferred maximal deceleration in m/s^2 for this vehicle.
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_DECEL, vehID, decel)
+
+    def setEmergencyDecel(self, vehID, decel):
+        """setEmergencyDecel(string, double) -> None
+
+        Sets the maximal physically possible deceleration in m/s^2 for this vehicle.
+        """
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EMERGENCY_DECEL, vehID, decel)
+
+    def setApparentDecel(self, vehID, decel):
+        """setApparentDecel(string, double) -> None
+
+        Sets the apparent deceleration in m/s^2 for this vehicle.
+        """
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_APPARENT_DECEL, vehID, decel)
 
     def setImperfection(self, vehID, imperfection):
         """setImperfection(string, double) -> None

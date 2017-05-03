@@ -2,10 +2,11 @@
 /// @file    MSDevice_SSM.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
+/// @author  Leonhard Luecken
 /// @date    11.06.2013
 /// @version $Id$
 ///
-// A device which stands as an implementation example and which outputs movereminder calls
+// An SSM-device logs encounters / conflicts of the carrying vehicle with other surrounding vehicles
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 200132014 DLR (http://www.dlr.de/) and contributors
@@ -66,33 +67,35 @@ private:
     /// @brief Different types of encounters corresponding to relative positions of the vehicles.
     ///        The name describes the type from the ego perspective
     enum EncounterType {
-        // Other vehicle is closer than range, but not on a conflicting lane
-        ENCOUNTER_TYPE_NOCONFLICT,       //!< ENCOUNTER_TYPE_NOCONFLICT
+        // Other vehicle is closer than range, but not on a lane conflicting with the ego's route ahead
+        ENCOUNTER_TYPE_NOCONFLICT_AHEAD = 0,       //!< ENCOUNTER_TYPE_NOCONFLICT_AHEAD
         // Ego and foe vehicles' edges form a part of a consecutive sequence of edges
         // This type may be specified further by ENCOUNTER_TYPE_FOLLOWING_LEADER or ENCOUNTER_TYPE_FOLLOWING_FOLLOWER
-        ENCOUNTER_TYPE_FOLLOWING,       //!< ENCOUNTER_TYPE_FOLLOWING
+        ENCOUNTER_TYPE_FOLLOWING = 1,       //!< ENCOUNTER_TYPE_FOLLOWING
         // Ego vehicle is on an edge that has a sequence of successors connected to the other vehicle's edge
-        ENCOUNTER_TYPE_FOLLOWING_FOLLOWER,       //!< ENCOUNTER_TYPE_FOLLOWING_FOLLOWER
+        ENCOUNTER_TYPE_FOLLOWING_FOLLOWER = 2,       //!< ENCOUNTER_TYPE_FOLLOWING_FOLLOWER
         // Other vehicle is on an edge that has a sequence of successors connected to the ego vehicle's current edge
-        ENCOUNTER_TYPE_FOLLOWING_LEADER,         //!< ENCOUNTER_TYPE_FOLLOWING_LEADER
+        ENCOUNTER_TYPE_FOLLOWING_LEADER = 3,         //!< ENCOUNTER_TYPE_FOLLOWING_LEADER
         // Ego and foe share an upcoming edge of their routes while the merging point for the routes is still ahead
         // This type may be specified further by ENCOUNTER_TYPE_MERGING_LEADER or ENCOUNTER_TYPE_MERGING_FOLLOWER
-        ENCOUNTER_TYPE_MERGING,  //!< ENCOUNTER_TYPE_MERGING
+        ENCOUNTER_TYPE_MERGING = 4,  //!< ENCOUNTER_TYPE_MERGING
         // Other vehicle is on an edge that has a sequence of successors connected to an edge on the ego vehicle's route
         // and the estimated arrival vehicle at the merge point is earlier for the ego than for the foe
-        ENCOUNTER_TYPE_MERGING_LEADER,  //!< ENCOUNTER_TYPE_MERGING_LEADER
+        ENCOUNTER_TYPE_MERGING_LEADER = 5,  //!< ENCOUNTER_TYPE_MERGING_LEADER
         // Other vehicle is on an edge that has a sequence of successors connected to an edge on the ego vehicle's route
         // and the estimated arrival vehicle at the merge point is earlier for the foe than for the ego
-        ENCOUNTER_TYPE_MERGING_FOLLOWER,//!< ENCOUNTER_TYPE_MERGING_FOLLOWER
+        ENCOUNTER_TYPE_MERGING_FOLLOWER = 6,//!< ENCOUNTER_TYPE_MERGING_FOLLOWER
         // Ego's and foe's routes have crossing edges
         // This type may be specified further by ENCOUNTER_TYPE_CROSSING_LEADER or ENCOUNTER_TYPE_CROSSING_FOLLOWER
-        ENCOUNTER_TYPE_CROSSING,  //!< ENCOUNTER_TYPE_CROSSING
+        ENCOUNTER_TYPE_CROSSING = 7,  //!< ENCOUNTER_TYPE_CROSSING
         // Other vehicle is on an edge that has a sequence of successors leading to an internal edge that crosses the ego vehicle's edge at a junction
         // and the estimated arrival vehicle at the merge point is earlier for the ego than for the foe
-        ENCOUNTER_TYPE_CROSSING_LEADER, //!< ENCOUNTER_TYPE_CROSSING_LEADER
+        ENCOUNTER_TYPE_CROSSING_LEADER = 8, //!< ENCOUNTER_TYPE_CROSSING_LEADER
         // Other vehicle is on an edge that has a sequence of successors leading to an internal edge that crosses the ego vehicle's edge at a junction
         // and the estimated arrival vehicle at the merge point is earlier for the foe than for the ego
-        ENCOUNTER_TYPE_CROSSING_FOLLOWER//!< ENCOUNTER_TYPE_CROSSING_FOLLOWER
+        ENCOUNTER_TYPE_CROSSING_FOLLOWER = 9, //!< ENCOUNTER_TYPE_CROSSING_FOLLOWER
+        // Collision (currently unused, might be differentiated further)
+        ENCOUNTER_TYPE_COLLISION = 10 //!< ENCOUNTER_TYPE_COLLISION
     };
 
 
@@ -101,6 +104,7 @@ private:
     /// @brief An encounter is an episode involving two vehicles,
     ///        which are closer to each other than some specified distance.
     class Encounter {
+        // TODO: Shouldn't the time lines for the conflict points be stored?
     private:
         /// @brief A trajectory encloses a series of positions x and speeds v for one vehicle
         /// (the times are stored only once in the enclosing encounter)
@@ -113,11 +117,21 @@ private:
 
     public:
         /// @brief Constructor
-        Encounter(const MSVehicle* _ego, const MSVehicle* const _foe, double _begin);
+        Encounter(const MSVehicle* _ego, const MSVehicle* const _foe, double _begin, double extraTime);
         /// @brief Destructor
         ~Encounter();
+
         /// @brief add a new data point
-        void add(double time, Position egoX, Position egoV, Position foeX, Position foeV);
+        void add(double time, EncounterType type, Position egoX, Position egoV, Position foeX, Position foeV,
+                double egoDistToConflict, double foeDistToConflict); // , double egoTimeToConflict, double foeTimeToConflict);
+
+        /// @brief resets myRemainingExtraTime to the given value
+        void resetExtraTime(double value);
+        /// @brief decreases myRemaingExtraTime by given amount in seconds
+        void countDownExtraTime(double amount);
+        /// @brief returns the remaining extra time
+        double getRemainingExtraTime() const;
+
         /// @brief Compares encounters regarding to their start time
         struct compare {
             typedef bool value_type;
@@ -130,22 +144,26 @@ private:
 
     public:
         const MSVehicle* ego;
-        const MSVehicle* const foe;
+        const MSVehicle* foe;
+        const std::string egoID;
+        const std::string foeID;
         double begin, end;
-        EncounterType type;
 
-//        /// @brief tuple time x point of entry to the potential conflict
-//        std::pair<double, MSCrossSection> egoConflictEntry;
-//        std::pair<double, MSCrossSection> foeConflictEntry;
-//        std::pair<double, MSCrossSection> egoConflictExit;
-//        std::pair<double, MSCrossSection> foeConflictExit;
+        /// @brief Remaining extra time (decreases after an encounter ended)
+        double myRemainingExtraTime;
 
         /// @brief time points corresponding to the trajectories
-        std::vector<double> timespan;
+        std::vector<double> timeSpan;
+        /// @brief Evolution of the encounter classification (@see EncounterType)
+        std::vector<int> typeSpan;
         /// @brief Trajectory of the ego vehicle
         Trajectory egoTrajectory;
         /// @brief Trajectory of the foe vehicle
         Trajectory foeTrajectory;
+        /// Evolution of the ego vehicle's distance to the conflict point
+        std::vector<double> egoDistsToConflict;
+        /// Evolution of the foe vehicle's distance to the conflict point
+        std::vector<double> foeDistsToConflict;
 
         /// @brief All values for TTC
         std::vector<double> TTCspan;
@@ -159,6 +177,15 @@ private:
         std::pair<double, double> PET;
         /// @}
 
+        /// @brief Whether PET was calculated already
+        /// @note  This applies for conflicts of merging or crossing type:
+        ///         If one of the vehicles has already passed the conflict point, the PET has
+        ///         to be calculated only once, when the second vehicle passes the conflict point.)
+        bool PETCalculated; // TODO, PET calculation not yet implemented
+
+        /// @brief this flag is set by updateEncounter() or directly in processEncounters(), where encounters are closed if it is true.
+        bool closingRequested;
+
     private:
         /// @brief Invalidated Constructor.
         Encounter(const Encounter&);
@@ -166,6 +193,34 @@ private:
         Encounter& operator=(const Encounter&);
         ///
     };
+
+
+    /// @brief Structure to collect some info on the encounter needed during ssm calculation by various functions.
+    struct EncounterApproachInfo {
+        EncounterApproachInfo(Encounter* e) :
+            encounter(e),
+            type(ENCOUNTER_TYPE_NOCONFLICT_AHEAD),
+            egoConflictEntryDist(INVALID_DOUBLE),
+            foeConflictEntryDist(INVALID_DOUBLE),
+            egoConflictExitDist(INVALID_DOUBLE),
+            foeConflictExitDist(INVALID_DOUBLE),
+            egoConflictEntryTime(INVALID_DOUBLE),
+            foeConflictEntryTime(INVALID_DOUBLE),
+            egoConflictExitTime(INVALID_DOUBLE),
+            foeConflictExitTime(INVALID_DOUBLE)
+            {};
+        Encounter* encounter;
+        EncounterType type;
+        double egoConflictEntryDist;
+        double foeConflictEntryDist;
+        double egoConflictExitDist;
+        double foeConflictExitDist;
+        double egoConflictEntryTime;
+        double foeConflictEntryTime;
+        double egoConflictExitTime;
+        double foeConflictExitTime;
+    };
+
 
     /// A new FoeInfo is created during findSurroundingVehicles() to memorize, where the potential conflict
     /// corresponding to the encounter might occur. Each FoeInfo ends up in a call to updateEncounter() and
@@ -232,7 +287,7 @@ public:
 
     /** @brief Returns all vehicles, which are within the given range of the given vehicle.
      *  @note all vehicles behind and in front are collected,
-     *  including vehicles on confluent edges. If the range is 20 m. and
+     *  including vehicles on confluent edges. For instance, if the range is 20 m. and
      *  a junction lies 10 m. ahead, an upstream scan of 20 m. is performed
      *  for all incoming edges.
      *
@@ -316,19 +371,22 @@ private:
      * @param measures Vector of Surrogate Safety Measure IDs
      * @param thresholds Vector of corresponding thresholds
      * @param trajectories Flag indicating whether complete trajectories should be saved for an encounter (if false only extremal values are logged)
-     * @param frequency Maximal length of a single encounter.
+     * @param maxEncounterLength Maximal length of a single encounter.
      * @param range Detection range. For vehicles closer than this distance from the ego vehicle, SSMs are traced
+     * @param extraTime Extra time in seconds to be logged after a conflict is over
      */
     MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::vector<std::string> measures, std::vector<double> thresholds,
-                 bool trajectories, double frequency, double range);
+            bool trajectories, double maxEncounterLength, double range, double extraTime);
 
-
-    /** @brief Finds encounters for which the foe vehicle has disappeared from range and
-     *         if an ended encounter is qualified as a conflict, it is transferred to myPastConflicts
+    /** @brief Finds encounters for which the foe vehicle has disappeared from range.
+     *         myRemainingExtraTime is decreased until it reaches zero, which triggers closing the encounter.
+     *         If an ended encounter is qualified as a conflict, it is transferred to myPastConflicts
      *         All vehicles for which an encounter instance already exists (vehicle is already tracked)
      *         are removed from 'foes' during processing.
+     *  @param[in] foes Foe vehicles that have been found by findSurroundingVehicles()
+     *  @param[in] forceClose whether encounters for which the foe is not in range shall be closed immediately, disregarding the remaining extra time (is requested by resetEncounters()).
      */
-    void processEncounters(FoeInfoMap& foes);
+    void processEncounters(FoeInfoMap& foes, bool forceClose = false);
 
     /** @brief Makes new encounters for all given vehicles (these should be the ones entering the device's range in the current timestep)
      */
@@ -339,7 +397,7 @@ private:
      */
     void resetEncounters();
 
-    /** @brief Writes out all past conflicts that have begun earlier than time t-myFrequency (i.e. no active encounter can have an earlier begin)
+    /** @brief Writes out all past conflicts that have begun earlier than time t-myMaxEncounterLength (i.e. no active encounter can have an earlier begin)
      * @param[in] all Whether all conflicts should be flushed or only those for which no active encounters with earlier begin can exist
      */
     void flushConflicts(bool all = false);
@@ -347,6 +405,40 @@ private:
     /** @brief Updates the encounter (adds a new trajectory point) and deletes the foeInfo.
      */
     void updateEncounter(Encounter* e, FoeInfo* foeInfo);
+
+    /** @brief Updates an encounter, which was classified as ENCOUNTER_TYPE_NOCONFLICT_AHEAD
+     *         this may be the case because the foe is out of the detection range but the encounter
+     *         is still in extra time (in this case foeInfo==0), or because the foe does not head for a lane conflicting with
+     *         the route of the ego vehicle.
+     */
+    void updatePassedEncounter(Encounter* e, FoeInfo* foeInfo);
+
+
+    /** @brief Classifies the current type of the encounter provided some information on the opponents
+     *  @param[in] foeInfo Info on distance to conflict point for the device holder.
+     *  @param[in/out] eInfo  Info structure for the current state of the encounter (provides a pointer to the encounter).
+     *  @return Returns an encounter type and writes a value to the relevant distances (egoEncounterDist, foeEncounterDist members of eInfo),
+     *          i.e. the distances to the entry points to the potential conflict.
+     *  @note: The encounter distance has a different meaning for different types of encounters:
+     *          1) For rear-end conflicts (lead/follow situations) the follower's encounter distance is the distance to the actual back position of the leader. The leaders's distance is undefined.
+     *          2) For merging encounters the encounter distance is the distance until the begin of the common target edge/lane.
+     *          3) For crossing encounters the encounter distance is the distance until crossing point of the conflicting lanes.
+     */
+    EncounterType classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& eInfo) const;
+
+
+    /** @brief Estimates the time until conflict for the vehicles based on the distance to the conflict entry points.
+     *         For acceleration profiles, we assume that the acceleration is <= 0 (that is, braking is extrapolated,
+     *         while for acceleration it is assumed that the vehicle will continue with its current speed)
+     *  @param[in] e       Encounter for which the current type is to be determined
+     *  @param[in/out] eInfo  Info structure for the current state of the encounter.
+     *  @note The '[in]'-part for eInfo are its members egoConflictEntryDist, foeConflictEntryDist, i.e., distances to the conflict entry points.
+     *        The '[out]'-part for eInfo are its members egoConflictEntryTime, foeConflictEntryTime (estimated times until the conflict entry point is reached)
+     *        and egoConflictExitTime, foeConflictExitTime (estimated time until the conflict exit point is reached).
+     *        Further the type of the encounter as determined by classifyEncounter(), is refined for the cases CROSSING and MERGING here.
+     */
+    void estimateConflictTimes(EncounterApproachInfo& eInfo) const;
+
 
     /** @brief Computes the conflict lane for the foe
      *
@@ -356,7 +448,7 @@ private:
      * @param[out] distToConflictLane, distance to conflictlane entry link (may be negative if foe is already on the conflict lane)
      * @return Lane, on which the foe would enter the possible conflict, if foe is not on conflict course, Null-pointer is returned.
      */
-    const MSLane* findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflictLane, double& distToConflictLane);
+    const MSLane* findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflictLane, double& distToConflictLane) const;
 
     /** @brief Finalizes the encounter and calculates SSM values.
      */
@@ -370,14 +462,15 @@ private:
      *  and update 'e' accordingly (add point to SSM time-series, update maximal/minimal value)
      *  This is called just after adding the current vehicle positions and velocity vectors to the encounter.
      */
-    void computeSSMs(Encounter* e);
+    void computeSSMs(EncounterApproachInfo& e);
 
 
     /// @name parameter load helpers (introduced for readability of buildVehicleDevices())
     /// @{
     static std::string getOutputFilename(const SUMOVehicle& v, std::string deviceID);
     static double getDetectionRange(const SUMOVehicle& v);
-    static double getLoggingFrequency(const SUMOVehicle& v);
+    static double getExtraTime(const SUMOVehicle& v);
+    static double getMaxEncounterLength(const SUMOVehicle& v);
     static bool requestsTrajectories(const SUMOVehicle& v);
     static bool getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceID,
                                          std::vector<double>& thresholds, std::vector<std::string>& measures);
@@ -390,10 +483,12 @@ private:
     std::vector<double> myThresholds;
     bool mySaveTrajectories;
     /// @brief Maximal timespan duration for a single encounter
-    /// @todo rename to maxEncounterLength
-    double myFrequency;
+    double myMaxEncounterLength;
+    /// Detection range. For vehicles closer than this distance from the ego vehicle, SSMs are traced
     double myRange;
-    /// @brief Corresponding maximal trajectory size in points, derived from myFrequency
+    /// Extra time in seconds to be logged after a conflict is over
+    double myExtraTime;
+    /// @brief Corresponding maximal trajectory size in points, derived from myMaxEncounterLength
     int maxTrajectorySize;
     /// Flags for switching on / off comutation of different SSMs, derived from myMeasures
     bool myComputeTTC, myComputeDRAC, myComputePET;

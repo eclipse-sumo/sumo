@@ -1366,6 +1366,21 @@ MSLane::getNextNormal() const {
 }
 
 
+const MSLane*
+MSLane::getFirstInternalInConnection(double& offset) const {
+    if(!this->isInternal()) return 0;
+    offset = 0.;
+    const MSLane* firstInternal = this;
+    MSLane* pred = getCanonicalPredecessorLane();
+    while (pred != 0 && pred->isInternal()){
+        firstInternal = pred;
+        offset += pred->getLength();
+        pred = firstInternal->getCanonicalPredecessorLane();
+    }
+    return firstInternal;
+}
+
+
 // ------ Static (sic!) container methods  ------
 bool
 MSLane::dictionary(const std::string& id, MSLane* ptr) {

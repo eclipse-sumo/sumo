@@ -1694,6 +1694,16 @@ TraCIAPI::VehicleTypeScope::getDecel(const std::string& typeID) const {
 }
 
 double
+TraCIAPI::VehicleTypeScope::getEmergencyDecel(const std::string& typeID) const {
+    return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_EMERGENCY_DECEL, typeID);
+}
+
+double
+TraCIAPI::VehicleTypeScope::getApparentDecel(const std::string& typeID) const {
+    return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_APPARENT_DECEL, typeID);
+}
+
+double
 TraCIAPI::VehicleTypeScope::getImperfection(const std::string& typeID) const {
     return myParent.getDouble(CMD_GET_VEHICLETYPE_VARIABLE, VAR_IMPERFECTION, typeID);
 }
@@ -1904,6 +1914,26 @@ TraCIAPI::VehicleTypeScope::setDecel(const std::string& typeID, double decel) co
     content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(decel);
     myParent.send_commandSetValue(CMD_SET_VEHICLETYPE_VARIABLE, VAR_DECEL, typeID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLETYPE_VARIABLE);
+}
+
+void
+TraCIAPI::VehicleTypeScope::setEmergencyDecel(const std::string& typeID, double decel) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(decel);
+    myParent.send_commandSetValue(CMD_SET_VEHICLETYPE_VARIABLE, VAR_EMERGENCY_DECEL, typeID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLETYPE_VARIABLE);
+}
+
+void
+TraCIAPI::VehicleTypeScope::setApparentDecel(const std::string& typeID, double decel) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(decel);
+    myParent.send_commandSetValue(CMD_SET_VEHICLETYPE_VARIABLE, VAR_APPARENT_DECEL, typeID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLETYPE_VARIABLE);
 }

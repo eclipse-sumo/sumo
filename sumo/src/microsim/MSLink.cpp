@@ -59,8 +59,6 @@ const double MSLink::ZIPPER_ADAPT_DIST(100);
 // time to link in seconds below which adaptation should take place
 #define ZIPPER_ADAPT_TIME 10
 
-#define INVALID_DOUBLE std::numeric_limits<double>::max()
-
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -167,7 +165,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     // lane width affects the crossing point
                     intersections1.back() -= (*it_lane)->getWidth() / 2;
                     intersections2.back() -= lane->getWidth() / 2;
-                    // also length/geometry factor. (XXX: Why subtract width/2 *before* converting geometric position to lane pos?)
+                    // also length/geometry factor. (XXX: Why subtract width/2 *before* converting geometric position to lane pos? refs #3031)
                     intersections1.back() = lane->interpolateGeometryPosToLanePos(intersections1.back());
                     intersections2.back() = (*it_lane)->interpolateGeometryPosToLanePos(intersections2.back());
 
@@ -534,65 +532,77 @@ MSLink::getInternalLengthsAfter() const {
     return len;
 }
 
+double
+MSLink::getInternalLengthsBefore() const {
+        double len = 0.;
+        const MSLane* lane = myInternalLane;
+
+        while (lane != 0 && lane->isInternal()) {
+            len += lane->getLength();
+            if (lane->getIncomingLanes().size() == 1) {
+                lane = lane->getIncomingLanes()[0].lane;
+            } else {
+                break;
+            }
+        }
+        return len;
+}
+
 
 double
-MSLink::getLengthBeforeCrossing(const MSLink* foeEntryLink) const {
-    // to be called for entry links
-    assert(foeEntryLink->getInternalLaneBefore() == 0);
+MSLink::getLengthsBeforeCrossing(const MSLane* foeLane) const {
+    MSLane* via = myInternalLane;
+    double totalDist = 0.;
+    bool foundCrossing = false;
+    while (via != 0) {
+        MSLink* link = via->getLinkCont()[0];
+        double dist = link->getLengthBeforeCrossing(foeLane);
+        if (dist != INVALID_DOUBLE) {
+            // found conflicting lane
+            totalDist += dist;
+            foundCrossing = true;
+            break;
+        } else {
+            totalDist += via->getLength();
+            via = link->getViaLane();
+        }
+    }
+    if (foundCrossing){
+        return totalDist;
+    } else {
+        return INVALID_DOUBLE;
+    }
+}
 
-    // TODO: Understand myLengthsBehindCrossing and extract relevant information -> take a look at getLeaderInfo()!
-    // -> myLengthsBehindCrossing does not treat lanes behind internal junctions, these should be extracted from the internal lane of that junction?!
 
-    // first internal lane for foe after entering the junction
-    const MSLane* foeEntryLane = foeEntryLink->getViaLane();
-    assert(foeEntryLane != 0);
-
-    // first internal lane for ego after entering the junction
-    const MSLane* egoEntryLane = getViaLane();
-    assert(egoEntryLane != 0);
-
-    int foe_ix = 0;
-    double res = INVALID_DOUBLE;
-    for (std::vector<const MSLane*>::const_iterator i = myFoeLanes.begin(); i != myFoeLanes.end(); ++i) {
-        if (*i == foeEntryLane) {
-            // Found foe lane index
-            // note: myLengthsBehindcrossing is the length behind the foe lane's border, not its center
-            //       (therefore the term -foeEntryLane->getWidth()/2.)
-            // XXX: recheck definition of myLengthsBehindCrossing in setRequestInformation(), especially order of position scaling and subtracting the lane width/2
-            res = egoEntryLane->getLength() - myLengthsBehindCrossing[foe_ix].first - foeEntryLane->getWidth() / 2.;
+double
+MSLink::getLengthBeforeCrossing(const MSLane* foeLane) const {
+    int foe_ix;
+    for (foe_ix = 0; foe_ix != myFoeLanes.size(); ++foe_ix){
+        if (myFoeLanes[foe_ix] == foeLane) {
             break;
         }
-        ++foe_ix;
     }
-
-
+    if (foe_ix == myFoeLanes.size()) {
+        // no conflict with the given lane, indicate by returning -1
 #ifdef MSLink_DEBUG_CROSSING_POINTS
-    std::cout << "getLengthBeforeCrossing() for link " << toString(getLaneBefore()) << "->" << toString(getViaLane())
-              << " and foeLink " << toString(foeEntryLink->getLaneBefore()) << "->" << toString(foeEntryLink->getViaLane())
-              << "\nLength on toString(getLaneBefore()) before crossing = " << res
-              << std::endl;
+    std::cout << "No crossing of lanes '" << foeLane->getID() << "' and '" << myInternalLaneBefore->getID() << "'" << std::endl;
 #endif
-
-    if (foe_ix == (int)myFoeLanes.size() && egoEntryLane->getLinkCont().size() > 0) {
-        // Did not find crossing for first egoLane. Check internal cont lanes
-        assert(egoEntryLane->getLinkCont().size() == 1);
-        MSLink* contLink = egoEntryLane->getLinkCont()[0];
-        MSLane* contLane = contLink->getViaLane();
-        if (contLane != 0) {
-            // Yes, there is another internal lane after the entry lane
-            // Assert, there are no more internal lanes than two along the conection (in case the code should be modified)
-            assert(contLane->getLinkCont().size() == 0
-                   || (contLane->getLinkCont().size() == 1 && contLane->getLinkCont()[0]->getViaLane() == 0));
-#ifdef MSLink_DEBUG_CROSSING_POINTS
-            std::cout << "No crossing with entryLane.\nChecking crossing of contLane '" << contLane->getID()
-                      << "' with '" << toString(foeEntryLink->getLaneBefore()) << "'"
-                      << std::endl;
-#endif
-            // TODO: really check for crossing as above
+        return INVALID_DOUBLE;
+    } else {
+        // found conflicting lane index
+        double dist = myInternalLaneBefore->getLength() - myLengthsBehindCrossing[foe_ix].first;
+        if (dist == -10000.) {
+            // this is the value in myLengthsBehindCrossing, if the relation allows intersection but none is present for the actual geometry.
+            return INVALID_DOUBLE;
         }
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+        std::cout << "Crossing of lanes '" << myInternalLaneBefore->getID() << "' and '" << foeLane->getID()
+                    << "' at distance " << dist << " (approach along '"
+                    <<  myInternalLaneBefore->getEntryLink()->getLaneBefore()->getID() << "')" << std::endl;
+#endif
+        return dist;
     }
-
-    return res;
 }
 
 
@@ -604,9 +614,28 @@ MSLink::getViaLane() const {
 
 bool
 MSLink::isExitLink() const {
-    /// XXX this only works in networks with internal lanes
-    return getInternalLaneBefore() != 0 && myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_NORMAL;
+    if (MSGlobals::gUsingInternalLanes){
+        return getInternalLaneBefore() != 0 && myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_NORMAL;
+    } else {
+        return false;
+    }
 }
+
+
+MSLink*
+MSLink::getCorrespondingExitLink() const {
+    MSLane* lane = myInternalLane;
+    MSLink* link = 0;
+    while (true){
+        if (lane == 0) {
+            return link;
+        } else {
+            link = lane->getLinkCont()[0];
+            lane = link->getViaLane();
+        }
+    }
+}
+
 
 
 bool

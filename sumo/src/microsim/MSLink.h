@@ -40,6 +40,11 @@
 
 
 // ===========================================================================
+// constants
+// ===========================================================================
+#define INVALID_DOUBLE std::numeric_limits<double>::max()
+
+// ===========================================================================
 // class declarations
 // ===========================================================================
 class MSLane;
@@ -369,10 +374,26 @@ public:
      */
     double getInternalLengthsAfter() const;
 
-    /** @brief Returns the complete internal lengths from the link until the crossing point with the given foe link's lane
-     *         The crossing point is the intersection of the lane's central reference lines.
+    /** @brief Returns the cumulative length of all internal lanes before this link
+     *  @return sum of the lengths of all internal lanes before this link
      */
-    double getLengthBeforeCrossing(const MSLink* foeEntryLink) const;
+    double getInternalLengthsBefore() const;
+
+    /** @brief Returns the sum of the lengths along internal lanes following this link
+     *         to the crossing with the given foe lane, if the lane is no foe
+     *         lane to any of the internal lanes, -1 is returned.
+     *  @see getLengthBeforeCrossing()
+     */
+    double getLengthsBeforeCrossing(const MSLane* foeLane) const;
+
+
+    /** @brief Returns the internal length from the beginning of the link's internal lane before
+     *         to the crossing with the given foe lane if applicable, if the lane is no foe
+     *         lane to the link, -1 is returned.
+     *  @see getLengthsBeforeCrossing()
+     */
+    double getLengthBeforeCrossing(const MSLane* foeLane) const;
+
 
     /** @brief Returns the following inner lane
      *
@@ -423,6 +444,9 @@ public:
 
     /// @brief return whether the fromLane of this link is an internal lane and toLane is a normal lane
     bool isExitLink() const;
+
+    /// @brief returns the corresponding exit link for entryLinks to a junction.
+    MSLink* getCorrespondingExitLink() const;
 
     /// @brief return whether the fromLane and the toLane of this link are internal lanes
     bool isInternalJunctionLink() const;
@@ -505,6 +529,7 @@ private:
     LinkDirection myDirection;
 
     /// @brief The length of the link
+    /// @note This is not equal to the result of getInternalLengthsAfter for links with more than one internal lane.
     double myLength;
 
     /// @brief distance from which an approaching vehicle is able to

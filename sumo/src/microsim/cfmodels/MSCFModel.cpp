@@ -249,6 +249,45 @@ MSCFModel::getMinimalArrivalTime(double dist, double currentSpeed, double arriva
 
 
 double
+MSCFModel::estimateArrivalTime(double dist, double speed, double maxSpeed, double accel) const {
+    assert(speed >= 0.);
+    assert(dist >= 0.);
+
+    if (dist == 0.) {
+        return 0.;
+    }
+
+    if ((accel < 0. && -0.5*speed*speed/accel < dist) || (accel <= 0. && speed == 0.)) {
+        // distance will never be covered with these values
+        return INVALID_DOUBLE;
+    }
+
+    if (accel == 0.) return dist/speed;
+
+    double p = speed/accel;
+
+    if (accel < 0.){
+        // we already know, that the distance will be covered despite breaking
+        return (-p - sqrt(p*p + 2*dist/accel));
+    }
+
+    // Here, accel > 0
+    // t1 is the time to use the given acceleration
+    double t1 = (maxSpeed - speed)/accel;
+    // distance covered until t1
+    double d1 = speed*t1 + 0.5*accel*t1*t1;
+    if (d1 >= dist) {
+        // dist is covered before changing the speed
+        return (-p + sqrt(p*p + 2*dist/accel));
+    } else {
+        return (-p + sqrt(p*p + 2*d1/accel)) + (dist - d1)/maxSpeed;
+    }
+
+}
+
+
+
+double
 MSCFModel::getMinimalArrivalSpeed(double dist, double currentSpeed) const {
     // ballistic update
     return estimateSpeedAfterDistance(dist - currentSpeed * getHeadwayTime(), currentSpeed, -getMaxDecel());

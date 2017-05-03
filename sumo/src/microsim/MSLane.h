@@ -590,6 +590,14 @@ public:
     const MSEdge* getNextNormal() const;
 
 
+    /** @brief Returns 0 if the lane is not internal. Otherwise the first part of the
+     *         connection (sequence of internal lanes along junction) corresponding to the lane
+     *         is returned and the offset is set to the distance of the begin of this lane
+     *         to the begin of the returned.
+     */
+    const MSLane* getFirstInternalInConnection(double& offset) const;
+
+
     /// @brief Static (sic!) container methods
     /// {
 

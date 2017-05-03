@@ -94,6 +94,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_ALLOWED_SPEED && variable != VAR_EMISSIONCLASS
             && variable != VAR_WIDTH && variable != VAR_MINGAP && variable != VAR_SHAPECLASS
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
+            && variable != VAR_APPARENT_DECEL && variable != VAR_EMERGENCY_DECEL
             && variable != VAR_TAU && variable != VAR_BEST_LANES && variable != DISTANCE_REQUEST
             && variable != VAR_LATALIGNMENT
             && variable != VAR_MAXSPEED_LAT
@@ -491,6 +492,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_SPEED_FACTOR && variable != VAR_EMISSIONCLASS
             && variable != VAR_WIDTH && variable != VAR_MINGAP && variable != VAR_SHAPECLASS
             && variable != VAR_ACCEL && variable != VAR_DECEL && variable != VAR_IMPERFECTION
+            && variable != VAR_APPARENT_DECEL && variable != VAR_EMERGENCY_DECEL
             && variable != VAR_TAU && variable != VAR_LANECHANGE_MODE
             && variable != VAR_SPEED && variable != VAR_SPEEDSETMODE && variable != VAR_COLOR
             && variable != ADD && variable != ADD_FULL && variable != REMOVE
