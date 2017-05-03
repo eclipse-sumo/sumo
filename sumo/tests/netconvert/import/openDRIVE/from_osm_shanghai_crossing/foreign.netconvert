@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Apr 25 15:04:13 2017" north="4810.48" south="0.00" east="2390.45" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed May  3 12:07:33 2017" north="4810.48" south="0.00" east="2390.45" west="0.00"/>
     <road name="" length="96.92619965" id="700" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -5937,7 +5937,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="10.83" b="0.02" c="-0.16" d="0.00"/>
+            <elevation s="0.00000000" a="10.83422836" b="0.02458644" c="-0.15614991" d="0.00388235"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -5975,7 +5975,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="10.83" b="0.02" c="-0.16" d="0.00"/>
+            <elevation s="0.00000000" a="10.83422836" b="0.02468273" c="-0.15890950" d="0.00400530"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -6013,7 +6013,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="10.83" b="0.01" c="0" d="0"/>
+            <elevation s="0.00000000" a="10.83422836" b="0.00836431" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -6051,7 +6051,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="10.83" b="0.01" c="0" d="0"/>
+            <elevation s="0.00000000" a="10.83422836" b="0.00836431" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -6089,7 +6089,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="10.83" b="0.01" c="0" d="0"/>
+            <elevation s="0.00000000" a="10.83422836" b="0.00836431" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -6127,7 +6127,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="10.83" b="0.01" c="0" d="0"/>
+            <elevation s="0.00000000" a="10.83422836" b="0.00836431" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -6735,7 +6735,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="11.84" b="0.01" c="-0.00" d="0.00"/>
+            <elevation s="0.00000000" a="11.83735160" b="0.01497519" c="-0.00142898" d="0.00003752"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -6773,7 +6773,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="11.84" b="0.00" c="0" d="0"/>
+            <elevation s="0.00000000" a="11.83735160" b="0.00162649" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -6811,7 +6811,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="11.84" b="0.00" c="0" d="0"/>
+            <elevation s="0.00000000" a="11.83735160" b="0.00162649" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -6849,7 +6849,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="11.84" b="0.00" c="0" d="0"/>
+            <elevation s="0.00000000" a="11.83735160" b="0.00162649" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -6887,7 +6887,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="11.84" b="0.00" c="0" d="0"/>
+            <elevation s="0.00000000" a="11.83735160" b="0.00162649" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -7305,7 +7305,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="23.46" b="-0.01" c="0" d="0"/>
+            <elevation s="0.00000000" a="23.45938377" b="-0.01113289" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -7343,7 +7343,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="23.46" b="-0.01" c="0" d="0"/>
+            <elevation s="0.00000000" a="23.45938377" b="-0.01113289" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -7381,7 +7381,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="23.46" b="-0.01" c="0" d="0"/>
+            <elevation s="0.00000000" a="23.45938377" b="-0.01113289" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -7419,7 +7419,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="23.46" b="-0.01" c="0" d="0"/>
+            <elevation s="0.00000000" a="23.45938377" b="-0.01113289" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -10155,7 +10155,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="23.93" b="0.07" c="-0.02" d="0.00"/>
+            <elevation s="0.00000000" a="23.92849848" b="0.07201733" c="-0.02417877" d="0.00270587"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -10193,7 +10193,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="23.93" b="0.07" c="-0.02" d="0.00"/>
+            <elevation s="0.00000000" a="23.92849848" b="0.07212254" c="-0.02424946" d="0.00271774"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -11105,7 +11105,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="23.94" b="0.06" c="-0.02" d="0.00"/>
+            <elevation s="0.00000000" a="23.94445202" b="0.05718855" c="-0.01962444" d="0.00224457"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -11143,7 +11143,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="23.94" b="0.06" c="-0.02" d="0.00"/>
+            <elevation s="0.00000000" a="23.94445202" b="0.05757779" c="-0.01989238" d="0.00229067"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -11485,7 +11485,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="6.02" b="-0.02" c="0.01" d="0.00"/>
+            <elevation s="0.00000000" a="6.02237123" b="-0.02206515" c="0.00779585" d="0.00008882"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -11523,7 +11523,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="6.02" b="-0.02" c="0.01" d="0.00"/>
+            <elevation s="0.00000000" a="6.02237123" b="-0.02197151" c="0.00730285" d="0.00010567"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -12207,7 +12207,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="17.76" b="-0.01" c="0" d="0"/>
+            <elevation s="0.00000000" a="17.75616788" b="-0.00504510" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -12245,7 +12245,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="17.76" b="-0.01" c="0" d="0"/>
+            <elevation s="0.00000000" a="17.75616788" b="-0.00504510" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -12283,7 +12283,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="17.76" b="-0.01" c="0" d="0"/>
+            <elevation s="0.00000000" a="17.75616788" b="-0.00504510" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -12321,7 +12321,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="17.76" b="-0.01" c="0" d="0"/>
+            <elevation s="0.00000000" a="17.75616788" b="-0.00504510" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -12359,7 +12359,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="11.30" b="-0.02" c="0" d="0"/>
+            <elevation s="0.00000000" a="11.29921884" b="-0.01798698" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
@@ -12397,7 +12397,7 @@
             </geometry>
         </planView>
         <elevationProfile>
-            <elevation s="0.00" a="11.30" b="-0.02" c="0" d="0"/>
+            <elevation s="0.00000000" a="11.29921884" b="-0.01798698" c="0" d="0"/>
         </elevationProfile>
         <lateralProfile/>
         <lanes>
