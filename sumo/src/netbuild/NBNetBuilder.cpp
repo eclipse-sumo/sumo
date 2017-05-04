@@ -98,14 +98,14 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     myNodeCont.removeSelfLoops(myDistrictCont, myEdgeCont, myTLLCont);
     PROGRESS_TIME_MESSAGE(before);
     //
-    if (oc.exists("remove-edges.isolated") && oc.getBool("remove-edges.isolated")) {
+    if ((mayAddOrRemove == true) && oc.exists("remove-edges.isolated") && oc.getBool("remove-edges.isolated")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Finding isolated roads");
         myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont, myTLLCont);
         PROGRESS_TIME_MESSAGE(before);
     }
     //
-    if (oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
+    if ((mayAddOrRemove == true) && oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
         if (oc.isSet("keep-edges.explicit") || oc.isSet("keep-edges.input-file")) {
             before = SysUtils::getCurrentMillis();
             PROGRESS_BEGIN_MESSAGE("Removing unwished edges");
@@ -137,11 +137,11 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         }
     }
     // join junctions (may create new "geometry"-nodes so it needs to come before removing these
-    if (oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
+    if ((mayAddOrRemove == true) && oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
         myNodeCont.addJoinExclusion(oc.getStringVector("junctions.join-exclude"));
     }
     int numJoined = myNodeCont.joinLoadedClusters(myDistrictCont, myEdgeCont, myTLLCont);
-    if (oc.getBool("junctions.join")) {
+    if ((mayAddOrRemove == true) && oc.getBool("junctions.join")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Joining junction clusters");
         numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
@@ -156,7 +156,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");
     }
     //
-    if (mayAddOrRemove) {
+    if (mayAddOrRemove == true) {
         int no = 0;
         const bool removeGeometryNodes = oc.exists("geometry.remove") && oc.getBool("geometry.remove");
         before = SysUtils::getCurrentMillis();
@@ -192,7 +192,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     // @note: removing geometry can create similar edges so joinSimilarEdges  must come afterwards
     // @note: likewise splitting can destroy similarities so joinSimilarEdges must come before
-    if (mayAddOrRemove && oc.getBool("edges.join")) {
+    if ((mayAddOrRemove == true) &&  oc.getBool("edges.join")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Joining similar edges");
         myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
@@ -204,7 +204,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_DONE_MESSAGE();
     }
     //
-    if (mayAddOrRemove && oc.exists("geometry.split") && oc.getBool("geometry.split")) {
+    if ((mayAddOrRemove == true) &&  oc.exists("geometry.split") && oc.getBool("geometry.split")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Splitting geometry edges");
         myEdgeCont.splitGeometry(myNodeCont);
@@ -218,7 +218,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     // correct edge geometries to avoid overlap
     myNodeCont.avoidOverlap();
     // guess ramps
-    if (mayAddOrRemove) {
+    if (mayAddOrRemove == true) {
         if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
             before = SysUtils::getCurrentMillis();
             PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
@@ -228,7 +228,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         }
     }
     // guess sidewalks
-    if (oc.getBool("sidewalks.guess") || oc.getBool("sidewalks.guess.from-permissions")) {
+    if ((mayAddOrRemove == true) && (oc.getBool("sidewalks.guess") || oc.getBool("sidewalks.guess.from-permissions"))) {
         const int sidewalks = myEdgeCont.guessSidewalks(oc.getFloat("default.sidewalk-width"),
                               oc.getFloat("sidewalks.guess.min-speed"),
                               oc.getFloat("sidewalks.guess.max-speed"),
@@ -302,7 +302,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     PROGRESS_TIME_MESSAGE(before);
     //
     myNetworkHaveCrossings = false;
-    if (oc.getBool("crossings.guess")) {
+    if ((mayAddOrRemove == true) && oc.getBool("crossings.guess")) {
         myNetworkHaveCrossings = true;
         int crossings = 0;
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
@@ -339,7 +339,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     myEdgeCont.computeEdge2Edges(oc.getBool("no-left-connections"));
     PROGRESS_TIME_MESSAGE(before);
     //
-    if (oc.getBool("roundabouts.guess")) {
+    if ((mayAddOrRemove == true) && oc.getBool("roundabouts.guess")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Guessing and setting roundabouts");
         const int numGuessed = myEdgeCont.guessRoundabouts();
