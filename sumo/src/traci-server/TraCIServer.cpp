@@ -114,7 +114,6 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port)
     myVehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_PARKING] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_STOP] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_STOP] = std::vector<std::string>();
-    MSNet::getInstance()->addVehicleStateListener(this);
 
     myExecutors[CMD_GET_INDUCTIONLOOP_VARIABLE] = &TraCIServerAPI_InductionLoop::processGet;
     myExecutors[CMD_GET_LANEAREA_VARIABLE] = &TraCIServerAPI_LaneArea::processGet;
@@ -179,11 +178,14 @@ TraCIServer::~TraCIServer() {
 void
 TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
     if (myInstance != 0) {
+        // net was deleted and built again 
+        MSNet::getInstance()->addVehicleStateListener(myInstance);
         return;
     }
     if (!myDoCloseConnection && OptionsCont::getOptions().getInt("remote-port") != 0) {
         myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")),
                                      OptionsCont::getOptions().getInt("remote-port"));
+        MSNet::getInstance()->addVehicleStateListener(myInstance);
         for (std::map<int, CmdExecutor>::const_iterator i = execs.begin(); i != execs.end(); ++i) {
             myInstance->myExecutors[i->first] = i->second;
         }
