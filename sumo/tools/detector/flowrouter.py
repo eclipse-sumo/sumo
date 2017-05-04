@@ -801,7 +801,7 @@ if net.detectSourceSink(sources, sinks):
             for edge in net._source.outEdges:
                 for route in edge.routes:
                     print(route)
-        net.writeEmitters(emitOut, options.flowcol)
+        net.writeEmitters(emitOut, suffix=options.flowcol)
         net.writeFlowPOIs(poiOut)
     if routeOut:
         print("</routes>", file=routeOut)
