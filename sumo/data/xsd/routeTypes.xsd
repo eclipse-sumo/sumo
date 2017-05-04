@@ -37,6 +37,8 @@
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
+        <xsd:attribute name="emergencyDecel" type="positiveFloatType"/>
+        <xsd:attribute name="apparentDecel" type="positiveFloatType"/>
         <xsd:attribute name="personCapacity" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerCapacity" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="boardingDuration" type="nonNegativeFloatType"/>
