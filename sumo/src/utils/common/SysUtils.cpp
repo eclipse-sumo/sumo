@@ -82,7 +82,7 @@ SysUtils::runHiddenCommand(const std::string& cmd) {
 
     // "/c" option - Do the command then terminate the command window
     std::string winCmd = "CMD.exe /c " + cmd;
-    char* args = new char[winCmd.size()];
+    char* args = new char[winCmd.size() + 1];
     args[0] = 0;
     strcpy(args, winCmd.c_str());
     if (!CreateProcess(NULL, args, NULL, NULL, FALSE,
