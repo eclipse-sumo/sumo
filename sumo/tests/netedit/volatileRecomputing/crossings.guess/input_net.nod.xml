@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/05/17 13:14:41 by Netedit Version dev-SVN-r22761
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Projects\SUMO_Trunk\tests\netedit\volatileRecomputing\sidewalks.guess\net.netedit"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Projects\SUMO_Trunk\tests\netedit\volatileRecomputing\sidewalks.guess\net.netedit"/>
+        <plain-output-prefix value="C:\Projects\SUMO_Trunk\tests\netedit\volatileRecomputing\crossings.guess\input_net"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="3.00,-25.00" convBoundary="0.00,0.00,100.00,60.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <node id="gneJ0" x="0.00" y="60.00" type="dead_end"/>
+    <node id="gneJ1" x="20.00" y="60.00" type="dead_end"/>
+    <node id="gneJ11" x="70.00" y="40.00" type="priority"/>
+    <node id="gneJ12" x="90.00" y="40.00" type="priority"/>
+    <node id="gneJ13" x="90.00" y="20.00" type="priority"/>
+    <node id="gneJ14" x="90.00" y="0.00" type="priority"/>
+    <node id="gneJ15" x="70.00" y="0.00" type="priority"/>
+    <node id="gneJ16" x="50.00" y="0.00" type="priority"/>
+    <node id="gneJ17" x="50.00" y="20.00" type="priority"/>
+    <node id="gneJ18" x="50.00" y="40.00" type="priority"/>
+    <node id="gneJ19" x="70.00" y="20.00" type="priority"/>
+    <node id="gneJ2" x="40.00" y="60.00" type="priority"/>
+    <node id="gneJ3" x="60.00" y="60.00" type="priority"/>
+    <node id="gneJ4" x="80.00" y="60.00" type="priority"/>
+    <node id="gneJ5" x="100.00" y="60.00" type="priority"/>
+    <node id="gneJ6" x="0.00" y="40.00" type="priority"/>
+    <node id="gneJ7" x="20.00" y="40.00" type="priority"/>
+    <node id="gneJ8" x="20.00" y="20.00" type="priority"/>
+    <node id="gneJ9" x="0.00" y="20.00" type="priority"/>
+</nodes>
