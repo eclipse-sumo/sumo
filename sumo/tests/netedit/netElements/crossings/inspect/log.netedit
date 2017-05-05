@@ -1,2 +1,14 @@
 Warning: Value 'dummyID' for attribute id of crossing isn't valid
+Warning: Setting new attribute edges '3 7 1' into crossing ':Center_c1'
+Warning: Setting new attribute edges '4 8' into crossing ':Center_c1'
+Warning: Setting new attribute edges '3' into crossing ':Center_c1'
+Warning: Setting new attribute priority 'true' into crossing ':Center_c1'
+Warning: Setting new attribute width '3' into crossing ':Center_c1'
 Warning: Value '-3' for attribute width of crossing isn't valid
+Warning: Setting new attribute width '4' into crossing ':Center_c1'
+Warning: Setting previous attribute width '3.00' into crossing ':Center_c1'
+Warning: Setting previous attribute width '4.00' into crossing ':Center_c1'
+Warning: Setting previous attribute priority 'false' into crossing ':Center_c1'
+Warning: Setting new attribute priority 'true' into crossing ':Center_c1'
+Warning: Setting new attribute width '3' into crossing ':Center_c1'
+Warning: Setting new attribute width '4' into crossing ':Center_c1'

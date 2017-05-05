@@ -3,8 +3,14 @@ Warning: Inserting detEntry 'e3Detector_AdetEntry0'
 Warning: Inserting e3Detector 'e3Detector_B'
 Warning: Inserting detEntry 'e3Detector_BdetEntry0'
 Warning: Value '-30' for attribute freq of e3Detector isn't valid
+Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_A'
+Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_B'
 Warning: Value '-5' for attribute timeThreshold of e3Detector isn't valid
+Warning: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_A'
+Warning: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_B'
 Warning: Value '-3' for attribute speedThreshold of e3Detector isn't valid
+Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_A'
+Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_B'
 Warning: Deleting unreferenced detEntry 'e3Detector_BdetEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_B'
 Warning: Deleting unreferenced detEntry 'e3Detector_AdetEntry0'

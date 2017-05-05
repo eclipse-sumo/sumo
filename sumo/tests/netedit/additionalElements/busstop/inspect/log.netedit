@@ -1,20 +1,47 @@
 Warning: Inserting busStop 'busStop_gneE2_1_0'
 Warning: Inserting busStop 'busStop_gneE2_1_1'
 Warning: Value 'busStop_gneE2_1_1' for attribute id of busStop isn't valid
+Warning: Setting new attribute id 'correct ID' into busStop 'busStop_gneE2_1_0'
 Warning: Value 'dummy lane' for attribute lane of busStop isn't valid
+Warning: Setting new attribute lane 'gneE0_0' into busStop 'correct ID'
+Warning: Setting new attribute lane 'gneE2_1' into busStop 'correct ID'
+Warning: Setting new attribute lane 'gneE2_0' into busStop 'correct ID'
 Warning: Value '-5' for attribute startPos of busStop isn't valid
 Warning: Value '400' for attribute startPos of busStop isn't valid
+Warning: Setting new attribute startPos '20' into busStop 'correct ID'
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'No'
 Warning: Value '3000' for attribute endPos of busStop isn't valid
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Setting new attribute endPos '3000' into busStop 'correct ID'
 Warning: Value '10' for attribute endPos of busStop isn't valid
+Warning: Setting new attribute endPos '30' into busStop 'correct ID'
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
+Warning: Setting new attribute lines 'line1, line2' into busStop 'correct ID'
+Warning: Setting new attribute lines 'line1 line2' into busStop 'correct ID'
+Warning: Setting previous attribute lines 'line1  line2' into busStop 'correct ID'
+Warning: Setting previous attribute lines '' into busStop 'correct ID'
+Warning: Setting previous attribute endPos '50.00' into busStop 'correct ID'
+Warning: Setting previous attribute endPos '22.40' into busStop 'correct ID'
+Warning: Setting previous attribute startPos '12.40' into busStop 'correct ID'
+Warning: Setting previous attribute lane 'gneE2_1' into busStop 'correct ID'
+Warning: Setting previous attribute lane 'gneE0_0' into busStop 'correct ID'
+Warning: Setting previous attribute lane 'gneE2_1' into busStop 'correct ID'
+Warning: Setting previous attribute id 'busStop_gneE2_1_0' into busStop 'correct ID'
 Warning: Deleting busStop 'busStop_gneE2_1_1'
 Warning: Deleting busStop 'busStop_gneE2_1_0'
 Warning: Inserting busStop 'busStop_gneE2_1_0'
 Warning: Inserting busStop 'busStop_gneE2_1_1'
+Warning: Setting new attribute id 'correct ID' into busStop 'busStop_gneE2_1_0'
+Warning: Setting new attribute lane 'gneE0_0' into busStop 'correct ID'
+Warning: Setting new attribute lane 'gneE2_1' into busStop 'correct ID'
+Warning: Setting new attribute lane 'gneE2_0' into busStop 'correct ID'
+Warning: Setting new attribute startPos '20' into busStop 'correct ID'
+Warning: Setting new attribute endPos '3000' into busStop 'correct ID'
+Warning: Setting new attribute endPos '30' into busStop 'correct ID'
+Warning: Setting new attribute lines 'line1, line2' into busStop 'correct ID'
+Warning: Setting new attribute lines 'line1 line2' into busStop 'correct ID'
 Warning: Deleting unreferenced busStop 'busStop_gneE2_1_1'
 Warning: Deleting unreferenced busStop 'correct ID'

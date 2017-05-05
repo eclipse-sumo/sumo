@@ -1,3 +1,7 @@
 Warning: Deleting connection 'gneE0_0 -> gneE1_0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Deleting connection 'gneE1_0 -> gneE0_0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Deleting edge 'gneE1'

@@ -1,9 +1,21 @@
 Warning: Inserting e2Detector 'E2_A'
 Warning: Inserting e2Detector 'E2_B'
 Warning: Value '-12' for attribute length of e2Detector isn't valid
+Warning: Setting new attribute length '7' into e2Detector 'E2_A'
+Warning: Setting new attribute length '7' into e2Detector 'E2_B'
 Warning: Value '-30' for attribute freq of e2Detector isn't valid
+Warning: Setting new attribute freq '50' into e2Detector 'E2_A'
+Warning: Setting new attribute freq '50' into e2Detector 'E2_B'
+Warning: Setting new attribute cont 'true' into e2Detector 'E2_A'
+Warning: Setting new attribute cont 'true' into e2Detector 'E2_B'
 Warning: Value '-5' for attribute timeThreshold of e2Detector isn't valid
+Warning: Setting new attribute timeThreshold '11.3' into e2Detector 'E2_A'
+Warning: Setting new attribute timeThreshold '11.3' into e2Detector 'E2_B'
 Warning: Value '-3' for attribute speedThreshold of e2Detector isn't valid
+Warning: Setting new attribute speedThreshold '4' into e2Detector 'E2_A'
+Warning: Setting new attribute speedThreshold '4' into e2Detector 'E2_B'
 Warning: Value '-6' for attribute jamThreshold of e2Detector isn't valid
+Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_A'
+Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_B'
 Warning: Deleting unreferenced e2Detector 'E2_B'
 Warning: Deleting unreferenced e2Detector 'E2_A'

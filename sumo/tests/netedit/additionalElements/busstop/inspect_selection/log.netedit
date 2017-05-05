@@ -1,4 +1,6 @@
 Warning: Inserting busStop 'busStopA'
 Warning: Inserting busStop 'busStopB'
+Warning: Setting new attribute lines 'commonLine1 commonLine2' into busStop 'busStopA'
+Warning: Setting new attribute lines 'commonLine1 commonLine2' into busStop 'busStopB'
 Warning: Deleting unreferenced busStop 'busStopB'
 Warning: Deleting unreferenced busStop 'busStopA'

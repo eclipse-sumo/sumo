@@ -4,9 +4,12 @@ Warning: Value 'dummyLane' for attribute lane of detExit isn't valid
 Warning: Value '' for attribute lane of detExit isn't valid
 Warning: Value 'dummy position' for attribute pos of detExit isn't valid
 Warning: Value '' for attribute pos of detExit isn't valid
+Warning: Setting new attribute pos '25' into detExit 'e3Detector_0detExit0'
+Warning: Setting previous attribute pos '29.50' into detExit 'e3Detector_0detExit0'
 Warning: Deleting detExit 'e3Detector_0detExit0'
 Warning: Deleting e3Detector 'e3Detector_0'
 Warning: Inserting e3Detector 'e3Detector_0'
 Warning: Inserting detExit 'e3Detector_0detExit0'
+Warning: Setting new attribute pos '25' into detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'

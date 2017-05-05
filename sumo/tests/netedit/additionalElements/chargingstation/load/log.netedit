@@ -6,7 +6,7 @@ Warning: Essential string attribute 'lane' of chargingStation with ID 'chargingS
 Warning: The lane 'dummyLane' to use within the chargingStation 'chargingStation_2' is not known.
 Warning: Essential float attribute 'startPos' of chargingStation with ID 'chargingStation_3' is missing; Additional cannot be created
 Warning: Format of essential float attribute 'startPos' of chargingStation with ID 'chargingStation_4' is invalid; Cannot be parsed to float; Additional cannot be created
-Warning: Format of essential float attribute 'startPos' of chargingStation with ID 'chargingStation_5' is invalid; Cannot be negative; Additional cannot be created
+Warning: Invalid position for chargingStation with ID = 'chargingStation_5'.
 Warning: Invalid position for chargingStation with ID = 'chargingStation_6'.
 Warning: Essential float attribute 'endPos' of chargingStation with ID 'chargingStation_7' is missing; Additional cannot be created
 Warning: Format of essential float attribute 'endPos' of chargingStation with ID 'chargingStation_8' is invalid; Cannot be parsed to float; Additional cannot be created
