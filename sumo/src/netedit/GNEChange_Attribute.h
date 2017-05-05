@@ -55,10 +55,12 @@ public:
      * @param[in] ac The attribute-carrier to be modified
      * @param[in] key The attribute key
      * @param[in] value The new value
+     * @param[in] testingMode flag to indicate if netedit is running in testing mode
      */
     GNEChange_Attribute(GNEAttributeCarrier* ac,
                         const SumoXMLAttr key,
                         const std::string& value,
+                        bool testingMode,
                         bool customOrigValue = false,
                         const std::string& origValue = "");
 
@@ -99,6 +101,8 @@ private:
     /// @brief the original value
     std::string myNewValue;
 
+    /// @brief flag for testing mode
+    bool myTestingMode;
 };
 
 #endif

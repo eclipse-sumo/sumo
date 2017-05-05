@@ -517,7 +517,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_OUTPUT:
         case SUMO_ATTR_ROUTEPROBE:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, key, value, myViewNet->isTestingModeEnabled()));
             updateGeometry();
             break;
         default:

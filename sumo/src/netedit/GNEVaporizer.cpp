@@ -287,7 +287,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_EDGE:
         case SUMO_ATTR_STARTTIME:
         case SUMO_ATTR_END:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, key, value, myViewNet->isTestingModeEnabled()));
             updateGeometry();
             break;
         default:

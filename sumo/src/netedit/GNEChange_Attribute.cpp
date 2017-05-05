@@ -28,6 +28,7 @@
 #endif
 
 #include <cassert>
+#include <utils/common/MsgHandler.h>
 #include "GNEChange_Attribute.h"
 #include "GNEAttributeCarrier.h"
 
@@ -42,11 +43,12 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, NULL, 0)
 // ===========================================================================
 
 GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac,
-        SumoXMLAttr key, const std::string& value,
+        SumoXMLAttr key, const std::string& value, bool testingMode,
         bool customOrigValue, const std::string& origValue) :
     GNEChange(0, true),
     myAC(ac),
     myKey(key),
+    myTestingMode(testingMode),
     myOrigValue(customOrigValue ? origValue : ac->getAttribute(key)),
     myNewValue(value) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
@@ -64,12 +66,22 @@ GNEChange_Attribute::~GNEChange_Attribute() {
 
 void
 GNEChange_Attribute::undo() {
+    // show extra information for tests
+    if (myTestingMode == true) {
+        WRITE_WARNING("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + toString(myAC->getTag()) + " '" + myAC->getID() + "'");
+    }
+    // set original value
     myAC->setAttribute(myKey, myOrigValue);
 }
 
 
 void
 GNEChange_Attribute::redo() {
+    // show extra information for tests
+    if (myTestingMode == true) {
+        WRITE_WARNING("Setting new attribute " + toString(myKey) + " '" + myNewValue + "' into " + toString(myAC->getTag()) + " '" + myAC->getID() + "'");
+    }
+    // set new value
     myAC->setAttribute(myKey, myNewValue);
 }
 

@@ -96,7 +96,7 @@ GNEDetector::moveAdditionalGeometry(double offsetx, double offsety) {
 void
 GNEDetector::commmitAdditionalGeometryMoved(double oldPosx, double, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition.x()), true, toString(oldPosx)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition.x()), myViewNet->isTestingModeEnabled(), true, toString(oldPosx)));
     undoList->p_end();
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);

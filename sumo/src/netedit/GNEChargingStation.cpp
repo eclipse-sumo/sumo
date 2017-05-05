@@ -398,7 +398,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case SUMO_ATTR_CHARGEINTRANSIT:
         case SUMO_ATTR_CHARGEDELAY:
         case GNE_ATTR_BLOCK_MOVEMENT:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, key, value, myViewNet->isTestingModeEnabled()));
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -332,7 +332,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_LINES:
         case GNE_ATTR_BLOCK_MOVEMENT:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, key, value, myViewNet->isTestingModeEnabled()));
             updateGeometry();
             break;
         default:

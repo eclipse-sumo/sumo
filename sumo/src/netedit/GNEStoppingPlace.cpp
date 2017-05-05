@@ -104,8 +104,8 @@ GNEStoppingPlace::moveAdditionalGeometry(double offsetx, double offsety) {
 void
 GNEStoppingPlace::commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(getStartPosition()), true, toString(oldPosx)));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(getEndPosition()), true, toString(oldPosy)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(getStartPosition()), myViewNet->isTestingModeEnabled(), true, toString(oldPosx)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(getEndPosition()), myViewNet->isTestingModeEnabled(), true, toString(oldPosy)));
     undoList->p_end();
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);

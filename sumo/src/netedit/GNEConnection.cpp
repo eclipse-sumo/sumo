@@ -331,7 +331,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_UNCONTROLLED:
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             // no special handling
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, key, value, myNet->getViewNet()->isTestingModeEnabled()));
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

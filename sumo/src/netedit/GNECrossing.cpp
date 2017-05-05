@@ -220,7 +220,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_PRIORITY:
-            undoList->add(new GNEChange_Attribute(this, key, value), true);
+            undoList->add(new GNEChange_Attribute(this, key, value, myNet->getViewNet()->isTestingModeEnabled()), true);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
