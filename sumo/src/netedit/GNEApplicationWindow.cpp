@@ -1105,9 +1105,31 @@ GNEApplicationWindow::onCmdComputeJunctions(FXObject*, FXSelector, void*) {
 
 long 
 GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*) {
-    myNet->computeEverything(this, true, true);
-    updateControls();
-    return 1;
+    // write warning if netedit is running in testing mode
+    if (myNet->getViewNet()->isTestingModeEnabled() == true) {
+        WRITE_WARNING("Opening FXMessageBox of type 'question'");
+    }
+    // open question dialog box
+    FXuint answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Recompute with volatile options",
+                                            "Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?)");
+    if (answer != 1) { //1:yes, 2:no, 4:esc
+        // write warning if netedit is running in testing mode
+        if ((answer == 2) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
+            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+        } else if ((answer == 4) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
+            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+        }
+        // abort recompute with volatile options
+        return 0;
+    } else {
+        myNet->computeEverything(this, true, true);
+        updateControls();
+        // write warning if netedit is running in testing mode
+        if (myNet->getViewNet()->isTestingModeEnabled() == true) {
+            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+        }
+        return 1;
+    }
 }
 
 
