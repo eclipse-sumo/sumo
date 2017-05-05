@@ -13,5 +13,8 @@ additionalElements
 # test for select elements 
 selection
 
+# test for check recomputing with volatile options
+#volatileRecomputing 
+
 # bugs
 bugs
