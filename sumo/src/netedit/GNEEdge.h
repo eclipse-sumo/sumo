@@ -194,11 +194,13 @@ public:
      */
     void setGeometry(PositionVector geom, bool inner);
 
+    /**@brief remake GNELanes
+     * @note this function will destroy the GNEConnections
+     */
+    void remakeGNELanes();
+
     /// @brief remake connections
     void remakeGNEConnections();
-
-    /// @brief remake connections of all incoming edges
-    void remakeIncomingGNEConnections();
 
     /// @brief copy edge attributes from tpl
     void copyTemplate(GNEEdge* tpl, GNEUndoList* undolist);
@@ -212,8 +214,8 @@ public:
     /// @brief returns a reference to the GNEConnection vector
     const std::vector<GNEConnection*>& getGNEConnections();
 
-    /// @brief get connection
-    GNEConnection* retrieveConnection(int fromLane, NBEdge* to, int toLane);
+    /// @brief get GNEConnection if exist, and if not create it
+    GNEConnection* retrieveGNEConnection(int fromLane, NBEdge* to, int toLane);
 
     /// @brief whether this edge was created from a split
     bool wasSplit();

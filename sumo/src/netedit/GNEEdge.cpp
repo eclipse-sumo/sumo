@@ -406,53 +406,49 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
     myNet->refreshElement(this);
 }
 
-void
-GNEEdge::remakeIncomingGNEConnections() {
-    for (std::vector<GNEEdge*>::const_iterator i = myGNEJunctionSource->getGNEIncomingEdges().begin(); i != myGNEJunctionSource->getGNEIncomingEdges().end(); i++) {
-        (*i)->remakeGNEConnections();
+
+void 
+GNEEdge::remakeGNELanes() {
+    // clear all GNEConnections from From and To Junctions
+    for(std::vector<GNEEdge*>::const_iterator i = myGNEJunctionDestiny->getGNEEdges().begin(); i != myGNEJunctionDestiny->getGNEEdges().end(); i++) {
+        (*i)->clearGNEConnections();
+    }
+    // Delete references to this eddge in lanes
+    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
+        (*i)->decRef("GNEEdge::~GNEEdge");
+        if ((*i)->unreferenced()) {
+            delete *i;
+        }
+    }
+    // drop containers
+    myLanes.clear();
+    // Create lanes again
+    int numLanes = myNBEdge.getNumLanes();
+    myLanes.reserve(numLanes);
+    for (int i = 0; i < numLanes; i++) {
+        myLanes.push_back(new GNELane(*this, i));
+        myLanes.back()->incRef("GNEEdge::GNEEdge");
+    }
+    // update Lane geometries
+    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); i++) {
+        (*i)->updateGeometry();
     }
 }
+
 
 void
 GNEEdge::remakeGNEConnections() {
     // @note: this method may only be called once the whole network is initialized
-
-    // first check that there are the same number of NBLanes as GNELanes
-    while (myLanes.size() < myNBEdge.getLanes().size()) {
-        GNELane* lane = new GNELane(*this, (int)myLanes.size());
-        const NBEdge::Lane& laneAttrs = myNBEdge.getLanes().at(myLanes.size());
-        myLanes.push_back(lane);
-        lane->incRef("GNEEdge::addLane");
-        // we copy all attributes except shape since this is recomputed from edge shape
-        myNBEdge.setSpeed(lane->getIndex(), myNBEdge.getSpeed());
-        myNBEdge.setPermissions(laneAttrs.permissions, lane->getIndex());
-        myNBEdge.setPreferredVehicleClass(laneAttrs.preferred, lane->getIndex());
-        myNBEdge.setEndOffset(lane->getIndex(), laneAttrs.endOffset);
-        myNBEdge.setLaneWidth(lane->getIndex(), laneAttrs.width);
-        // update indices
-        for (int i = 0; i < (int)myLanes.size(); ++i) {
-            myLanes[i]->setIndex(i);
-        }
-        lane->updateGeometry();
-        // Remake connections for this edge and all edges that target this lane
-        remakeGNEConnections();
-        remakeIncomingGNEConnections();
-        // Update element
-        myNet->refreshElement(this);
-        updateGeometry();
-    }
-
-    // Create connections (but reuse existing objects)
+    // clear existent connections
+    clearGNEConnections();
+    // Create connections
     std::vector<NBEdge::Connection>& myConnections = myNBEdge.getConnections();
-    ConnectionVector newCons;
     for (std::vector<NBEdge::Connection>::iterator i = myConnections.begin(); i != myConnections.end(); i++) {
         const NBEdge::Connection& con = *i;
-        newCons.push_back(retrieveConnection(con.fromLane, con.toEdge, con.toLane));
-        newCons.back()->incRef("GNEEdge::GNEEdge");
-        newCons.back()->updateLinkState();
+        myGNEConnections.push_back(retrieveGNEConnection(con.fromLane, con.toEdge, con.toLane));
+        myGNEConnections.back()->incRef("GNEEdge::GNEEdge");
+        myGNEConnections.back()->updateLinkState();
     }
-    clearGNEConnections();
-    myGNEConnections = newCons;
 }
 
 
@@ -937,7 +933,14 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs) {
     */
     // Remake connections for this edge and all edges that target this lane
     remakeGNEConnections();
-    remakeIncomingGNEConnections();
+    // remake connections of all edges of junction source and destiny
+    for(std::vector<GNEEdge*>::const_iterator i = myGNEJunctionSource->getGNEEdges().begin(); i != myGNEJunctionSource->getGNEEdges().end(); i++) {
+        (*i)->remakeGNEConnections();
+    }
+    // remake connections of all edges of junction source and destiny
+    for(std::vector<GNEEdge*>::const_iterator i = myGNEJunctionDestiny->getGNEEdges().begin(); i != myGNEJunctionDestiny->getGNEEdges().end(); i++) {
+        (*i)->remakeGNEConnections();
+    }
     // Update element
     myNet->refreshElement(this);
     updateGeometry();
@@ -968,14 +971,21 @@ GNEEdge::removeLane(GNELane* lane) {
     myGNEJunctionSource->invalidateShape();
     myGNEJunctionDestiny->invalidateShape();
     */
-    // Remake connections for this edge and all edges that target this lane
+    // Remake connections of this edge
     remakeGNEConnections();
-    remakeIncomingGNEConnections();
-
+    // remake connections of all edges of junction source and destiny
+    for(std::vector<GNEEdge*>::const_iterator i = myGNEJunctionSource->getGNEEdges().begin(); i != myGNEJunctionSource->getGNEEdges().end(); i++) {
+        (*i)->remakeGNEConnections();
+    }
+    // remake connections of all edges of junction source and destiny
+    for(std::vector<GNEEdge*>::const_iterator i = myGNEJunctionDestiny->getGNEEdges().begin(); i != myGNEJunctionDestiny->getGNEEdges().end(); i++) {
+        (*i)->remakeGNEConnections();
+    }
     // Update element
     myNet->refreshElement(this);
     updateGeometry();
 }
+
 
 void
 GNEEdge::addConnection(NBEdge::Connection nbCon, GNEConnection* con) {
@@ -993,12 +1003,12 @@ GNEEdge::addConnection(NBEdge::Connection nbCon, GNEConnection* con) {
 
 void
 GNEEdge::removeConnection(NBEdge::Connection nbCon) {
-
+    // check if is a explicit turnaround
     if (nbCon.toEdge == myNBEdge.getTurnDestination()) {
         myNet->removeExplicitTurnaround(getMicrosimID());
     }
     // Get connection to remove
-    GNEConnection* con = retrieveConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane);
+    GNEConnection* con = retrieveGNEConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane);
     myNBEdge.removeFromConnections(nbCon);
     if (!con->unreferenced()) {
         con->decRef("GNEEdge::removeConnection");
@@ -1009,7 +1019,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
 
 
 GNEConnection*
-GNEEdge::retrieveConnection(int fromLane, NBEdge* to, int toLane) {
+GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane) {
     for (ConnectionVector::iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); ++i) {
         if ((*i)->getFromLaneIndex() == fromLane
                 && (*i)->getEdgeTo()->getNBEdge() == to

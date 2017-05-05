@@ -198,7 +198,7 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
             case CONNECTED:
             case CONNECTED_PASS: {
                 // remove connection
-                GNEConnection* con = srcEdge.retrieveConnection(fromIndex, destEdge.getNBEdge(), lane->getIndex());
+                GNEConnection* con = srcEdge.retrieveGNEConnection(fromIndex, destEdge.getNBEdge(), lane->getIndex());
                 myViewNet->getNet()->deleteConnection(con, myViewNet->getUndoList());
                 lane->setSpecialColor(&potentialTargetColor);
                 changed = true;
