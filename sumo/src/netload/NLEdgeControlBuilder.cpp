@@ -130,6 +130,10 @@ NLEdgeControlBuilder::build() {
         WRITE_WARNING("Deprecated vehicle classes '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
         deprecatedVehicleClassesSeen.clear();
     }
+    // check for bi-directional edges (this are edges in opposing direction and superposable/congruent shapes)
+    for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
+        (*i1)->checkAndRegisterBiDirEdge();
+    }
     return new MSEdgeControl(myEdges);
 }
 

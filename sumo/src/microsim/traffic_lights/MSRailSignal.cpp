@@ -146,20 +146,15 @@ MSRailSignal::init(NLDetectorBuilder&) {
         std::queue<const MSLane*> revLanes;
         for ( std::vector<const MSLane*>::iterator laneIt = it->second.begin(); laneIt != it->second.end(); laneIt++) {
             const MSLane* lane = *laneIt;
-            const MSJunction * from = lane->getEdge().getFromJunction();
-            const MSJunction * to = lane->getEdge().getToJunction();
 
-            for (ConstMSEdgeVector::const_iterator edgeIt = to->getOutgoing().begin(); edgeIt != to->getOutgoing().end(); edgeIt++) {
-                if ((*edgeIt)->getToJunction() == from){ //reverse edge
-                    const MSLane* revLane = (*edgeIt)->getLanes()[0];
-                    if (revLane->getShape().reverse() == lane->getShape()){
-                        revLanes.push(revLane);
-                        const MSLane* pred = revLane->getCanonicalPredecessorLane();
-                        if (pred != 0) {
-                            const MSLink* msLink = pred->getLinkTo(revLane);
-                            mySucceedingBlocksIncommingLinks[lane] = msLink;
-                        }
-                    }
+            const MSEdge * reverseEdge = lane->getEdge().getMyOppositeSuperposableEdge();
+            if (reverseEdge != 0) {
+                const MSLane* revLane = reverseEdge->getLanes()[0];
+                revLanes.push(revLane);
+                const MSLane* pred = revLane->getCanonicalPredecessorLane();
+                if (pred != 0) {
+                    const MSLink* msLink = pred->getLinkTo(revLane);
+                    mySucceedingBlocksIncommingLinks[lane] = msLink;
                 }
             }
         }

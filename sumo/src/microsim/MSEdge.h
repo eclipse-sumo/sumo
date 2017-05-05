@@ -260,6 +260,15 @@ public:
         return myFunction == EDGEFUNCTION_CROSSING;
     }
 
+
+    /// @brief check and register the opposite superposable edge if any
+    void checkAndRegisterBiDirEdge();
+
+    /// @brief return opposite superposable/congruent edge, if it exist and 0 else
+    inline const MSEdge* getMyOppositeSuperposableEdge() const {
+        return myOppositingSuperposableEdge;
+    }
+
     /// @brief return whether this edge is walking area
     inline bool isWalkingArea() const {
         return myFunction == EDGEFUNCTION_WALKINGAREA;
@@ -870,6 +879,10 @@ protected:
     mutable std::map<SUMOVehicleClass, MSEdgeVector> myClassesSuccessorMap;
 
 private:
+
+    /// @brief the oppositing superposble edge
+    const MSEdge * myOppositingSuperposableEdge;
+
     /// @brief Invalidated copy constructor.
     MSEdge(const MSEdge&);
 

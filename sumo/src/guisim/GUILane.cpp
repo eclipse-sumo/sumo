@@ -461,7 +461,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     // recognize full transparency and simply don't draw
     GLfloat color[4];
     glGetFloatv(GL_CURRENT_COLOR, color);
-    if (color[3] != 0 && s.scale * exaggeration > s.laneMinSize) {
+    if (color[3] != 0 && s.scale * exaggeration > s.laneMinSize && (myEdge->getMyOppositeSuperposableEdge() == 0 || myEdge->getNumericalID() < myEdge->getMyOppositeSuperposableEdge()->getNumericalID())) {
         // draw lane
         // check whether it is not too small
         if (s.scale * exaggeration < 1.) {

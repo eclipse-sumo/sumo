@@ -52,7 +52,6 @@
 #include "MSContainer.h"
 #include "MSEdgeWeightsStorage.h"
 #include <microsim/devices/MSDevice_Routing.h>
-
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 #include <mesosim/MEVehicle.h>
@@ -943,6 +942,39 @@ MSEdge::hasMinorLink() const {
         }
     }
     return false;
+}
+void MSEdge::checkAndRegisterBiDirEdge() {
+    myOppositingSuperposableEdge = 0;
+
+    if (isInternal()) {
+        return;
+    }
+
+    const MSEdge * candidate = 0;
+    ConstMSEdgeVector candidates = myToJunction->getOutgoing();
+    for (ConstMSEdgeVector::const_iterator it = candidates.begin(); it != candidates.end(); it++){
+        if ((*it)->getToJunction() == myFromJunction) { //reverse edge
+            if (candidate != 0) {
+                WRITE_WARNING("More than one edge from " + myToJunction->getID() + " to " + myFromJunction->getID() + " is not recommended and might result in unwanted behavior.");
+                break;
+            }
+            candidate = *it;
+        }
+    }
+    if (candidate == 0 || candidate->getLanes().size() != myLanes->size()){
+        return;
+    }
+    std::vector<MSLane*>::const_iterator it1 = myLanes->begin();
+    std::vector<MSLane*>::const_iterator it2 = candidate->getLanes().end()-1;
+    do {
+        if (!((*it1)->getShape().reverse() == (*it2)->getShape())) {
+            return;
+        }
+        it1++;
+        it2--;
+    } while (it1 != myLanes->end());
+    myOppositingSuperposableEdge = candidate;
+
 }
 
 
