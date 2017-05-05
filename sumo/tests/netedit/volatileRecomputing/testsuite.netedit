@@ -2,28 +2,28 @@
 abort-recomputing
 
 # remove isolated edges
-remove-edges.isolated
+#remove-edges.isolated
 
 # ramps guess
-ramps.guess
+#ramps.guess
 
 # roundabout guess
-roundabouts.guess
+#roundabouts.guess
 
 # junction join
-junctions.join
+#junctions.join
 
 # geometry remove
-geometry.remove
+#geometry.remove
 
 # edges join
-edges.join
+#edges.join
 
 # opposites guess
-opposites.guess
+#opposites.guess
 
 # geometry split
-geometry.split
+#geometry.split
 
 # sidewalks guess
 sidewalks.guess
