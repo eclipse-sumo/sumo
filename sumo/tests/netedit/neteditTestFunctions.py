@@ -220,6 +220,17 @@ def rebuildNetworkWithVolatileOptions(question = True):
         waitQuestion('n')
     
     
+# clean junction
+
+def cleanJunction():
+    typeKey(Key.F6)
+
+# join selected junctions
+
+    
+def joinSelectedJunctions():
+    typeKey(Key.F7)
+    
 # select focus on upper element of current frame
 
 
