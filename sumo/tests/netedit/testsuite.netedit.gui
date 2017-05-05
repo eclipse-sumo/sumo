@@ -14,7 +14,7 @@ additionalElements
 selection
 
 # test for check recomputing with volatile options
-#volatileRecomputing 
+volatileRecomputing 
 
 # bugs
 bugs
