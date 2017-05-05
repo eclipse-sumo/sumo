@@ -146,8 +146,8 @@ GNELoadThread::run() {
             } else {
                 net = new GNENet(netBuilder);
                 if (oc.getBool("lefthand")) {
-                    // force initial geometry computation because the net will look strange otherwise
-                    net->computeAndUpdate(oc);
+                    // force initial geometry computation without volatile options because the net will look strange otherwise
+                    net->computeAndUpdate(oc, false);
                 }
             }
 

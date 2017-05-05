@@ -77,94 +77,96 @@
 // ===========================================================================
 FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     //________Message_Type____________ID________________________Message_Handler________
-    FXMAPFUNC(SEL_COMMAND,  MID_QUIT,                      GNEApplicationWindow::onCmdQuit),
-    FXMAPFUNC(SEL_SIGNAL,   MID_QUIT,                      GNEApplicationWindow::onCmdQuit),
-    FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,                    GNEApplicationWindow::onCmdQuit),
+    FXMAPFUNC(SEL_COMMAND,  MID_QUIT,                           GNEApplicationWindow::onCmdQuit),
+    FXMAPFUNC(SEL_SIGNAL,   MID_QUIT,                           GNEApplicationWindow::onCmdQuit),
+    FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,                         GNEApplicationWindow::onCmdQuit),
 
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NEW_NETWORK,           GNEApplicationWindow::onCmdNewNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_CONFIG,               GNEApplicationWindow::onCmdOpenConfiguration),
-    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_NETWORK,              GNEApplicationWindow::onCmdOpenNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_FOREIGN,          GNEApplicationWindow::onCmdOpenForeign),
-    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_SHAPES,               GNEApplicationWindow::onCmdOpenShapes),
-    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_ADDITIONALS,          GNEApplicationWindow::onCmdOpenAdditionals),
-    FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                GNEApplicationWindow::onCmdOpenRecent),
-    FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,                    GNEApplicationWindow::onCmdReload),
-    FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,                     GNEApplicationWindow::onCmdClose),
-    FXMAPFUNC(SEL_UPDATE,   MID_CLOSE,                     GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NEW_NETWORK,                GNEApplicationWindow::onCmdNewNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_CONFIG,                    GNEApplicationWindow::onCmdOpenConfiguration),
+    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_NETWORK,                   GNEApplicationWindow::onCmdOpenNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_FOREIGN,               GNEApplicationWindow::onCmdOpenForeign),
+    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_SHAPES,                    GNEApplicationWindow::onCmdOpenShapes),
+    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_ADDITIONALS,               GNEApplicationWindow::onCmdOpenAdditionals),
+    FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                     GNEApplicationWindow::onCmdOpenRecent),
+    FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,                         GNEApplicationWindow::onCmdReload),
+    FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,                          GNEApplicationWindow::onCmdClose),
+    FXMAPFUNC(SEL_UPDATE,   MID_CLOSE,                          GNEApplicationWindow::onUpdNeedsNetwork),
 
-    FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,                     GNEApplicationWindow::onCmdAbout),
-    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,        GNEApplicationWindow::onCmdClearMsgWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,                          GNEApplicationWindow::onCmdAbout),
+    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,             GNEApplicationWindow::onCmdClearMsgWindow),
 
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_NEW_NETWORK,           GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,               GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,              GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_OPEN_FOREIGN,          GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_SHAPES,               GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_ADDITIONALS,          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,                    GNEApplicationWindow::onUpdReload),
-    FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_CLIPBOARD_REQUEST, 0,                    GNEApplicationWindow::onClipboardRequest),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_NEW_NETWORK,                GNEApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,                    GNEApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,                   GNEApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_OPEN_FOREIGN,               GNEApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_SHAPES,                    GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_ADDITIONALS,               GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,                         GNEApplicationWindow::onUpdReload),
+    FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                     GNEApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_CLIPBOARD_REQUEST, 0,                         GNEApplicationWindow::onClipboardRequest),
 
     // forward requests to the active view
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,            GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,                 GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEJUNCTION,            GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEEDGE,                GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATETLS,                 GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_KEYPRESS,          0,                    GNEApplicationWindow::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,        0,                    GNEApplicationWindow::onKeyRelease),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,                 GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                     GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,                      GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEJUNCTION,                 GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEEDGE,                     GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATETLS,                      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_KEYPRESS,          0,                         GNEApplicationWindow::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,        0,                         GNEApplicationWindow::onKeyRelease),
 
-    FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT, GNEApplicationWindow::onLoadThreadEvent),
-    FXMAPFUNC(FXEX::SEL_THREAD,       ID_LOADTHREAD_EVENT, GNEApplicationWindow::onLoadThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT,      GNEApplicationWindow::onLoadThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD,       ID_LOADTHREAD_EVENT,      GNEApplicationWindow::onLoadThreadEvent),
 
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_CREATE_EDGE,      GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_CREATE_EDGE,      GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_MOVE,             GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_MOVE,             GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_DELETE,           GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_DELETE,           GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_INSPECT,          GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_INSPECT,          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_SELECT,           GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_SELECT,           GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_CONNECT,          GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_CONNECT,          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_TLS,              GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_TLS,              GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL,       GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_ADDITIONAL,       GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_CROSSING,         GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_CROSSING,         GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_CREATE_EDGE,           GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_CREATE_EDGE,           GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_MOVE,                  GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_MOVE,                  GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_DELETE,                GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_DELETE,                GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_INSPECT,               GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_INSPECT,               GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_SELECT,                GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_SELECT,                GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_CONNECT,               GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_CONNECT,               GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_TLS,                   GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_TLS,                   GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL,            GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_ADDITIONAL,            GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_CROSSING,              GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_MODE_CROSSING,              GNEApplicationWindow::onUpdNeedsNetwork),
 
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_NETWORK,          GNEApplicationWindow::onCmdSaveNetwork),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_NETWORK,          GNEApplicationWindow::onUpdSaveNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_AS_NETWORK,       GNEApplicationWindow::onCmdSaveAsNetwork),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_AS_NETWORK,       GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_PLAIN_XML,        GNEApplicationWindow::onCmdSaveAsPlainXML),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_PLAIN_XML,        GNEApplicationWindow::onUpdNeedsNetwork), // same condition
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_JOINED,           GNEApplicationWindow::onCmdSaveJoined),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_JOINED,           GNEApplicationWindow::onUpdNeedsNetwork), // same condition
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_POIS,             GNEApplicationWindow::onCmdSavePois),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_POIS,             GNEApplicationWindow::onUpdNeedsNetwork), // same condition
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_ADDITIONALS,      GNEApplicationWindow::onCmdSaveAdditionals),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_ADDITIONALS,      GNEApplicationWindow::onUpdNeedsNetwork), // same condition
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_ADDITIONALS_AS,   GNEApplicationWindow::onCmdSaveAdditionalsAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_ADDITIONALS_AS,   GNEApplicationWindow::onUpdNeedsNetwork), // same condition
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_NETWORK,               GNEApplicationWindow::onCmdSaveNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_NETWORK,               GNEApplicationWindow::onUpdSaveNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_AS_NETWORK,            GNEApplicationWindow::onCmdSaveAsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_AS_NETWORK,            GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_PLAIN_XML,             GNEApplicationWindow::onCmdSaveAsPlainXML),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_PLAIN_XML,             GNEApplicationWindow::onUpdNeedsNetwork), // same condition
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_JOINED,                GNEApplicationWindow::onCmdSaveJoined),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_JOINED,                GNEApplicationWindow::onUpdNeedsNetwork), // same condition
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_POIS,                  GNEApplicationWindow::onCmdSavePois),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_POIS,                  GNEApplicationWindow::onUpdNeedsNetwork), // same condition
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_ADDITIONALS,           GNEApplicationWindow::onCmdSaveAdditionals),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_ADDITIONALS,           GNEApplicationWindow::onUpdNeedsNetwork), // same condition
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVE_ADDITIONALS_AS,        GNEApplicationWindow::onCmdSaveAdditionalsAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVE_ADDITIONALS_AS,        GNEApplicationWindow::onUpdNeedsNetwork), // same condition
 
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORT,                 GNEApplicationWindow::onCmdAbort),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_DEL,            GNEApplicationWindow::onCmdDel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ENTER,          GNEApplicationWindow::onCmdEnter),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_FOCUS_FRAME,           GNEApplicationWindow::onCmdFocusFrame),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                      GNEApplicationWindow::onCmdHelp),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_COMPUTE_JUNCTIONS,     GNEApplicationWindow::onCmdComputeJunctions),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_COMPUTE_JUNCTIONS,     GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEAN_JUNCTIONS,       GNEApplicationWindow::onCmdCleanJunctions),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_CLEAN_JUNCTIONS,       GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_JOIN_JUNCTIONS,        GNEApplicationWindow::onCmdJoinJunctions),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_JOIN_JUNCTIONS,        GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPTIONS,               GNEApplicationWindow::onCmdOptions),
-    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,              GNEApplicationWindow::onCmdEditViewport),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORT,                      GNEApplicationWindow::onCmdAbort),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_DEL,                 GNEApplicationWindow::onCmdDel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ENTER,               GNEApplicationWindow::onCmdEnter),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_FOCUS_FRAME,                GNEApplicationWindow::onCmdFocusFrame),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                           GNEApplicationWindow::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_COMPUTE_JUNCTIONS,          GNEApplicationWindow::onCmdComputeJunctions),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_COMPUTE_JUNCTIONS,          GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_COMPUTE_JUNCTIONS_VOLATILE, GNEApplicationWindow::onCmdComputeJunctionsVolatile),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_COMPUTE_JUNCTIONS_VOLATILE, GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEAN_JUNCTIONS,            GNEApplicationWindow::onCmdCleanJunctions),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_CLEAN_JUNCTIONS,            GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_JOIN_JUNCTIONS,             GNEApplicationWindow::onCmdJoinJunctions),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_JOIN_JUNCTIONS,             GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPTIONS,                    GNEApplicationWindow::onCmdOptions),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                   GNEApplicationWindow::onCmdEditViewport),
 };
 
 // Object implementation
@@ -474,6 +476,9 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myProcessingMenu,
                       "Compute Junctions\tF5\tComputes junction shape and logic.",
                       GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_GNE_COMPUTE_JUNCTIONS);
+    new FXMenuCommand(myProcessingMenu,
+                      "Compute Junctions with volatile options\tShift+F5\tComputes junction shape and logic using volatile junctions.",
+                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_GNE_COMPUTE_JUNCTIONS_VOLATILE);
     new FXMenuCommand(myProcessingMenu,
                       "Clean Junctions\tF6\tRemoves solitary junctions.",
                       GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_CLEAN_JUNCTIONS);
@@ -1092,7 +1097,15 @@ GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdComputeJunctions(FXObject*, FXSelector, void*) {
-    myNet->computeEverything(this, true);
+    myNet->computeEverything(this, true, false);
+    updateControls();
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*) {
+    myNet->computeEverything(this, true, true);
     updateControls();
     return 1;
 }

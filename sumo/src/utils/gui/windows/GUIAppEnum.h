@@ -512,6 +512,7 @@ enum {
 
     /// @brief processing menu messages
     MID_GNE_COMPUTE_JUNCTIONS,
+    MID_GNE_COMPUTE_JUNCTIONS_VOLATILE,
     MID_GNE_CLEAN_JUNCTIONS,
     MID_GNE_JOIN_JUNCTIONS,
     MID_GNE_OPTIONS,

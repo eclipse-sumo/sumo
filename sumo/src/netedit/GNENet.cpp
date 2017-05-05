@@ -686,8 +686,8 @@ GNENet::remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoL
 
 void
 GNENet::save(OptionsCont& oc) {
-    // compute and update network
-    computeAndUpdate(oc);
+    // compute without volatile options and update network
+    computeAndUpdate(oc, false);
     // write network
     NWFrame::writeNetwork(oc, *myNetBuilder);
 }
@@ -708,14 +708,16 @@ GNENet::saveAdditionals(const std::string& filename) {
 
 void
 GNENet::savePlain(OptionsCont& oc) {
-    computeAndUpdate(oc);
+    // compute without volatile options
+    computeAndUpdate(oc, false);
     NWWriter_XML::writeNetwork(oc, *myNetBuilder);
 }
 
 
 void
 GNENet::saveJoined(OptionsCont& oc) {
-    computeAndUpdate(oc);
+    // compute without volatile options
+    computeAndUpdate(oc, false);
     NWWriter_XML::writeJoinedJunctions(oc, myNetBuilder->getNodeCont());
 }
 
@@ -980,19 +982,27 @@ GNENet::getGlIDs(GUIGlObjectType type) {
 
 
 void
-GNENet::computeEverything(GNEApplicationWindow* window, bool force) {
+GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatileOptions) {
     if (!myNeedRecompute) {
         if (force) {
-            window->setStatusBarText("Forced computing junctions ...");
+            if(volatileOptions == true) {
+                window->setStatusBarText("Forced computing junctions with volatile options ...");
+            } else {
+                window->setStatusBarText("Forced computing junctions ...");
+            }
         } else {
             return;
         }
     } else {
-        window->setStatusBarText("Computing junctions ...");
+        if(volatileOptions == true) {
+            window->setStatusBarText("Computing junctions with volatile options ...");
+        } else {
+            window->setStatusBarText("Computing junctions  ...");
+        }
     }
     // compute
     OptionsCont& oc = OptionsCont::getOptions();
-    computeAndUpdate(oc);
+    computeAndUpdate(oc, volatileOptions);
     WRITE_MESSAGE("\nFinished computing junctions.");
 
     window->getApp()->endWaitCursor();
@@ -1571,7 +1581,7 @@ GNENet::initGNEConnections() {
 }
 
 void
-GNENet::computeAndUpdate(OptionsCont& oc) {
+GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     // make sure we only add turn arounds to edges which currently exist within the network
     std::set<std::string> liveExplicitTurnarounds;
     for (std::set<std::string>::const_iterator it = myExplicitTurnarounds.begin(); it != myExplicitTurnarounds.end(); it++) {
@@ -1579,7 +1589,7 @@ GNENet::computeAndUpdate(OptionsCont& oc) {
             liveExplicitTurnarounds.insert(*it);
         }
     }
-    myNetBuilder->compute(oc, liveExplicitTurnarounds, false);
+    myNetBuilder->compute(oc, liveExplicitTurnarounds, volatileOptions);
     // update ids if necessary
     if (oc.getBool("numerical-ids") || oc.isSet("reserved-ids")) {
         GNEEdges newEdgeMap;
@@ -1603,6 +1613,63 @@ GNENet::computeAndUpdate(OptionsCont& oc) {
     }
     myGrid.reset();
     myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
+    // if volatile options are true
+    if(volatileOptions == true) {
+        // clear undo list
+        myViewNet->getUndoList()->clear();
+        // check if new junctions has to be inicialized
+        NBNodeCont& nc = myNetBuilder->getNodeCont();
+        const std::vector<std::string>& nodeNames = nc.getAllNames();
+        for (std::vector<std::string>::const_iterator name_it = nodeNames.begin(); name_it != nodeNames.end(); ++name_it) {
+            if(myJunctions.find(*name_it) == myJunctions.end()) {
+                NBNode* nbn = nc.retrieve(*name_it);
+                registerJunction(new GNEJunction(*nbn, this, true));
+            }
+        }
+        // Check if a existent GNEJunction has to be removed
+        std::vector<std::string> junctionsToErase;
+        for(GNEJunctions::iterator i = myJunctions.begin(); i != myJunctions.end(); i++) {
+            if(std::find(nodeNames.begin(), nodeNames.end(), i->first) == nodeNames.end()) {
+                junctionsToErase.push_back(i->first);
+            }
+        }
+        for(std::vector<std::string>::iterator i = junctionsToErase.begin(); i != junctionsToErase.end(); i++) {
+            myJunctions.erase(myJunctions.find(*i));
+        }
+
+        // check if new edges has to be inicialized
+        NBEdgeCont& ec = myNetBuilder->getEdgeCont();
+        const std::vector<std::string>& edgeNames = ec.getAllNames();
+        for (std::vector<std::string>::const_iterator name_it = edgeNames.begin(); name_it != edgeNames.end(); ++name_it) {
+            if(myEdges.find(*name_it) == myEdges.end()) {
+                NBEdge* nbe = ec.retrieve(*name_it);
+                registerEdge(new GNEEdge(*nbe, this, false, true));
+                if (myGrid.getWidth() > 10e16 || myGrid.getHeight() > 10e16) {
+                    throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
+                }
+            }
+        }
+        // Check if a existent GNEEdge has to be removed
+        std::vector<std::string> edgesToErase;
+        for(GNEEdges::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+            if(std::find(edgeNames.begin(), edgeNames.end(), i->first) == edgeNames.end()) {
+                edgesToErase.push_back(i->first);
+            }
+        }
+        for(std::vector<std::string>::iterator i = edgesToErase.begin(); i != edgesToErase.end(); i++) {
+            myEdges.erase(myEdges.find(*i));
+        }
+
+        // check if a existent lane has to be created
+        for(GNEEdges::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+            if(i->second->getLanes().size() != i->second->getNBEdge()->getNumLanes()) {
+                i->second->remakeGNELanes();
+            }
+        }
+
+
+    }
+
     // update precomputed geometries
     initGNEConnections();
 

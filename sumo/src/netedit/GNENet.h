@@ -383,7 +383,7 @@ public:
     void initGNEConnections();
 
     /// @brief recompute the network and update lane geometries
-    void computeAndUpdate(OptionsCont& oc);
+    void computeAndUpdate(OptionsCont& oc, bool volatileOptions);
 
     /// @brief check if additional are saved
     bool isAdditionalsSaved() const;
@@ -394,8 +394,9 @@ public:
     /* @brief trigger full netbuild computation
      * param[in] window The window to inform about delay
      * param[in] force Whether to force recomputation even if not needed
+     * param[in] volatileOptions enable or disable volatile options
      */
-    void computeEverything(GNEApplicationWindow* window, bool force = false);
+    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false);
 
     /* @brief join selected junctions
      * @note difference to mergeJunctions:
