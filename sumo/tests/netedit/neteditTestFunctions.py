@@ -45,6 +45,7 @@ referenceImage = os.path.join("imageResources", "reference.png")
 
 
 def typeEscape():
+    # wait before every operation
     wait(DELAY)
     type(Key.ESC)
 
@@ -52,6 +53,7 @@ def typeEscape():
 
 
 def typeEnter():
+    # wait before every operation
     wait(DELAY)
     type(Key.ENTER)
 
@@ -66,6 +68,7 @@ def typeSpace():
 
 
 def typeTab():
+    # wait before every operation
     wait(DELAY)
     type(Key.TAB)
 
@@ -73,6 +76,7 @@ def typeTab():
 
 
 def typeInvertTab():
+    # wait before every operation
     wait(DELAY)
     type(Key.TAB, Key.SHIFT)
 
@@ -80,6 +84,7 @@ def typeInvertTab():
 
 
 def typeKey(key):
+    # wait before every operation
     wait(DELAY)
     type(key)
 
@@ -87,6 +92,7 @@ def typeKey(key):
 
 
 def typeTwoKeys(key1, key2):
+    # wait before every operation
     wait(DELAY)
     type(key1, key2)
 
@@ -94,6 +100,7 @@ def typeTwoKeys(key1, key2):
 
 
 def pasteIntoTextField(value):
+    # wait before every operation
     wait(DELAY)
     paste(value)
 
@@ -128,7 +135,7 @@ def setup(neteditTests):
         neteditTests, "imageResources", "reference.png")
 
 
-def Popen(newNet):
+def Popen(newNet, extraParameters):
     # set the default parameters of netedit
     neteditCall = [neteditApp, '--gui-testing', '--window-pos', '50,50',
                    '--window-size', '700,500', '--no-warnings',
@@ -162,6 +169,9 @@ def Popen(newNet):
         neteditCall += ['--gui-settings-file',
                         os.path.join(textTestSandBox, "gui-settings.xml")]
 
+    # check if extra parameters has to be added
+    neteditCall += extraParameters
+        
     # return a subprocess with netedit
     return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
@@ -178,10 +188,10 @@ def getReferenceMatch(neProcess, waitTime):
 # setup and start netedit
 
 
-def setupAndStart(testRoot, newNet=False, searchReference=True, waitTime=DELAY_REFERENCE):
+def setupAndStart(testRoot, newNet=False, searchReference=True, extraParameters = [], waitTime=DELAY_REFERENCE):
     setup(testRoot)
     # Open netedit
-    neteditProcess = Popen(newNet)
+    neteditProcess = Popen(newNet, extraParameters)
     atexit.register(quit, neteditProcess, False, False)
     # Wait for netedit reference
     if(searchReference):
@@ -198,6 +208,18 @@ def setupAndStart(testRoot, newNet=False, searchReference=True, waitTime=DELAY_R
 def rebuildNetwork():
     typeKey(Key.F5)
 
+    
+# rebuild network with volatile options
+
+def rebuildNetworkWithVolatileOptions(question = True):
+    typeTwoKeys(Key.F5, Key.SHIFT)
+    #confirm recompute
+    if question == True:
+        waitQuestion('y')
+    else:
+        waitQuestion('n')
+    
+    
 # select focus on upper element of current frame
 
 
@@ -387,7 +409,7 @@ def modifyBoolAttribute(attributeNumber):
         typeTab()
     # type SPACE to change value
     typeSpace()
-	# type ESC to quit focus of checkBox
+    # type ESC to quit focus of checkBox
     typeEscape()
 
 #################################################
