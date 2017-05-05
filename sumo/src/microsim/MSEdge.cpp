@@ -769,6 +769,7 @@ MSEdge::clear() {
         delete(*i).second;
     }
     myDict.clear();
+    myEdges.clear();
 }
 
 
