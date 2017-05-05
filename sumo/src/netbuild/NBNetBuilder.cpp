@@ -228,7 +228,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         }
     }
     // guess sidewalks
-    if ((mayAddOrRemove == true) && (oc.getBool("sidewalks.guess") || oc.getBool("sidewalks.guess.from-permissions"))) {
+    if ((mayAddOrRemove == true) && ((oc.getBool("sidewalks.guess") || oc.getBool("sidewalks.guess.from-permissions")))) {
         const int sidewalks = myEdgeCont.guessSidewalks(oc.getFloat("default.sidewalk-width"),
                               oc.getFloat("sidewalks.guess.min-speed"),
                               oc.getFloat("sidewalks.guess.max-speed"),
