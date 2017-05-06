@@ -14,3 +14,7 @@ Warning: Setting new attribute blockMovement 'true' into e1Detector 'e1Detector_
 Warning: Setting new attribute blockMovement 'false' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Setting new attribute pos '34.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_0'
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor

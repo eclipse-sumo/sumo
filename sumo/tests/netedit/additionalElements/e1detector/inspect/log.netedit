@@ -43,3 +43,13 @@ Warning: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'correct I
 Warning: Setting new attribute splitByType 'true' into e1Detector 'correct ID'
 Warning: Deleting unreferenced e1Detector 'e1Detector_gneE2_1_1'
 Warning: Deleting unreferenced e1Detector 'correct ID'
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE2_1 -> gneE3_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE3_1 -> gneE2_1' in GNEEdge destructor

@@ -1,6 +1,24 @@
+<<<<<<< .mine
 Warning: Inserting containerStop 'containerStopA'
 Warning: Inserting containerStop 'containerStopB'
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopA'
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopB'
 Warning: Deleting unreferenced containerStop 'containerStopB'
 Warning: Deleting unreferenced containerStop 'containerStopA'
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+||||||| .r24206
+Warning: Inserting containerStop 'containerStopA'
+Warning: Inserting containerStop 'containerStopB'
+Warning: Deleting unreferenced containerStop 'containerStopB'
+Warning: Deleting unreferenced containerStop 'containerStopA'
+=======
+Warning: Inserting containerStop 'containerStopA'
+Warning: Inserting containerStop 'containerStopB'
+Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopA'
+Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopB'
+Warning: Deleting unreferenced containerStop 'containerStopB'
+Warning: Deleting unreferenced containerStop 'containerStopA'
+>>>>>>> .r24218

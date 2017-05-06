@@ -26,3 +26,7 @@ Warning: Setting new attribute pos '16.00' into e2Detector 'e2Detector_gneE0_0_0
 Warning: Setting new attribute pos '39.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Setting new attribute pos '24.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Deleting unreferenced e2Detector 'e2Detector_gneE0_0_0'
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor

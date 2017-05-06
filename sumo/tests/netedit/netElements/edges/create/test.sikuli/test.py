@@ -32,6 +32,9 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True)
 # zoom
 netedit.setZoom("50", "50", "50")
 
+# rebuild network
+netedit.rebuildNetwork()
+
 # Change to create mode
 type("e")
 
@@ -52,9 +55,15 @@ netedit.leftClick(match, 100, 200)
 netedit.leftClick(match, 500, 200)
 netedit.leftClick(match, 500, 400)
 
+# rebuild network
+netedit.rebuildNetwork()
+
 # Check undo and redo
 netedit.undo(match, 4)
 netedit.redo(match, 4)
+
+# rebuild network
+netedit.rebuildNetwork()
 
 # save newtork
 netedit.saveNetwork()

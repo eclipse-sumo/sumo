@@ -1,4 +1,44 @@
-Warning: Deleting crossing from 'Center'
-Warning: Deleting crossing from 'Center'
-Warning: Deleting crossing from 'Center'
-Warning: Deleting crossing from 'Center'
+Warning: Deleting crossing from junction 'Center'
+Warning: Deleting crossing from junction 'Center'
+Warning: Adding crossing into junction 'Center'
+Warning: Adding crossing into junction 'Center'
+Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '1_1 -> 5_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '2_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '2_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '2_1 -> 6_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '3_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '3_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '3_1 -> 7_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '4_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '4_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '4_1 -> 8_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '5_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '5_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '5_0 -> 4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '5_0 -> 2_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '5_1 -> 2_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '5_1 -> 3_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '5_1 -> 1_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '6_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '6_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '6_0 -> 3_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '6_0 -> 1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '6_1 -> 1_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '6_1 -> 4_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '6_1 -> 2_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '7_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '7_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '7_0 -> 1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '7_0 -> 4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '7_1 -> 4_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '7_1 -> 2_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '7_1 -> 3_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '8_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '8_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '8_0 -> 2_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '8_0 -> 3_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '8_1 -> 3_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '8_1 -> 1_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '8_1 -> 4_1' in GNEEdge destructor

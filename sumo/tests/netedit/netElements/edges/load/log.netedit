@@ -8,3 +8,22 @@ Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced busStop 'busStop_-gneE5_0_0'
+Warning: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE11_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE6_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE7_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE8_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE9_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE11_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE6_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE7_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE8_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE9_0' in GNEEdge destructor

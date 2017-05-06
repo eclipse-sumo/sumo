@@ -1,3 +1,4 @@
+<<<<<<< .mine
 Warning: Inserting chargingStation 'chargingStationA'
 Warning: Inserting chargingStation 'chargingStationB'
 Warning: Setting new attribute power '11000' into chargingStation 'chargingStationA'
@@ -7,3 +8,24 @@ Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingSt
 Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingStationB'
 Warning: Deleting unreferenced chargingStation 'chargingStationB'
 Warning: Deleting unreferenced chargingStation 'chargingStationA'
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+||||||| .r24206
+Warning: Inserting chargingStation 'chargingStationA'
+Warning: Inserting chargingStation 'chargingStationB'
+Warning: Value '2' for attribute efficiency of chargingStation isn't valid
+Warning: Deleting unreferenced chargingStation 'chargingStationB'
+Warning: Deleting unreferenced chargingStation 'chargingStationA'
+=======
+Warning: Inserting chargingStation 'chargingStationA'
+Warning: Inserting chargingStation 'chargingStationB'
+Warning: Setting new attribute power '11000' into chargingStation 'chargingStationA'
+Warning: Setting new attribute power '11000' into chargingStation 'chargingStationB'
+Warning: Value '2' for attribute efficiency of chargingStation isn't valid
+Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingStationA'
+Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingStationB'
+Warning: Deleting unreferenced chargingStation 'chargingStationB'
+Warning: Deleting unreferenced chargingStation 'chargingStationA'
+>>>>>>> .r24218

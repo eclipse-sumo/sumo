@@ -13,20 +13,44 @@ Warning: Deleting detEntry 'e3Detector_5detEntry0'
 Warning: Deleting e3Detector 'e3Detector_0'
 Warning: Deleting detEntry 'e3Detector_1detEntry0'
 Warning: Deleting detEntry 'e3Detector_4detEntry0'
+<<<<<<< .mine
+Warning: Deleting connection 'gneE1_0->gneE0_0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Warning: Deleting connection 'gneE0_0->gneE1_0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+||||||| .r24206
+Warning: Deleting connection 'gneE1_0 -> gneE0_0'
+Warning: Deleting connection 'gneE0_0 -> gneE1_0'
+=======
 Warning: Deleting connection 'gneE1_0 -> gneE0_0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Deleting connection 'gneE0_0 -> gneE1_0'
+>>>>>>> .r24218
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Deleting edge 'gneE0'
 Warning: Adding edge 'gneE0'
+<<<<<<< .mine
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ1'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE0'
+Warning: Deleting connection 'gneE0_0->gneE1_0'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ0'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE1'
+Warning: Deleting connection 'gneE1_0->gneE0_0'
+||||||| .r24206
+Warning: Deleting connection 'gneE0_0 -> gneE1_0'
+Warning: Deleting connection 'gneE1_0 -> gneE0_0'
+=======
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE0'
 Warning: Deleting connection 'gneE0_0 -> gneE1_0'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ0'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE1'
 Warning: Deleting connection 'gneE1_0 -> gneE0_0'
+>>>>>>> .r24218
 Warning: Inserting detEntry 'e3Detector_4detEntry0'
 Warning: Inserting detEntry 'e3Detector_1detEntry0'
 Warning: Inserting e3Detector 'e3Detector_0'
@@ -39,16 +63,29 @@ Warning: Deleting detEntry 'e3Detector_5detEntry0'
 Warning: Deleting e3Detector 'e3Detector_0'
 Warning: Deleting detEntry 'e3Detector_1detEntry0'
 Warning: Deleting detEntry 'e3Detector_4detEntry0'
+<<<<<<< .mine
+Warning: Deleting connection 'gneE1_0->gneE0_0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Warning: Deleting connection 'gneE0_0->gneE1_0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+||||||| .r24206
+Warning: Deleting connection 'gneE1_0 -> gneE0_0'
+Warning: Deleting connection 'gneE0_0 -> gneE1_0'
+=======
 Warning: Deleting connection 'gneE1_0 -> gneE0_0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Deleting connection 'gneE0_0 -> gneE1_0'
+>>>>>>> .r24218
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Deleting edge 'gneE0'
 Warning: e3Detector with ID 'e3Detector_1' cannot be writed in additional file because doesn't have childs.
 Warning: e3Detector with ID 'e3Detector_4' cannot be writed in additional file because doesn't have childs.
 Warning: e3Detector with ID 'e3Detector_5' cannot be writed in additional file because doesn't have childs.
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_5detEntry0'
 Warning: Deleting unreferenced detEntry 'e3Detector_3detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_5'
@@ -59,3 +96,4 @@ Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_1'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor

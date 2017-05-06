@@ -1,7 +1,21 @@
+<<<<<<< .mine
+Warning: Deleting connection 'gneE0_0->gneE1_0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Warning: Deleting connection 'gneE1_0->gneE0_0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+||||||| .r24206
+Warning: Deleting connection 'gneE0_0 -> gneE1_0'
+Warning: Deleting connection 'gneE1_0 -> gneE0_0'
+=======
 Warning: Deleting connection 'gneE0_0 -> gneE1_0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Deleting connection 'gneE1_0 -> gneE0_0'
+>>>>>>> .r24218
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Deleting edge 'gneE1'
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

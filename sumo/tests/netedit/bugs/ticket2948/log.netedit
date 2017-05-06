@@ -333,3 +333,25 @@ Warning: The traffic light 'gneJ0' does not control any links; it will not be bu
 Warning: Could not build program '0' for traffic light 'gneJ0'
 Warning: The traffic light 'gneJ6' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'gneJ6'
+Warning: Deleting unreferenced lane '-gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '-gneE1_0 -> -gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '-gneE2_0 -> -gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '-gneE3_0 -> -gneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '-gneE4_0 -> -gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '-gneE5_0 -> -gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE2_0 -> gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE3_0 -> gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE4_0 -> gneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor

@@ -1,6 +1,24 @@
+<<<<<<< .mine
 Warning: Inserting busStop 'busStopA'
 Warning: Inserting busStop 'busStopB'
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into busStop 'busStopA'
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into busStop 'busStopB'
 Warning: Deleting unreferenced busStop 'busStopB'
 Warning: Deleting unreferenced busStop 'busStopA'
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+||||||| .r24206
+Warning: Inserting busStop 'busStopA'
+Warning: Inserting busStop 'busStopB'
+Warning: Deleting unreferenced busStop 'busStopB'
+Warning: Deleting unreferenced busStop 'busStopA'
+=======
+Warning: Inserting busStop 'busStopA'
+Warning: Inserting busStop 'busStopB'
+Warning: Setting new attribute lines 'commonLine1 commonLine2' into busStop 'busStopA'
+Warning: Setting new attribute lines 'commonLine1 commonLine2' into busStop 'busStopB'
+Warning: Deleting unreferenced busStop 'busStopB'
+Warning: Deleting unreferenced busStop 'busStopA'
+>>>>>>> .r24218

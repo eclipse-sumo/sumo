@@ -1,3 +1,30 @@
+<<<<<<< .mine
 Warning: Setting new attribute pos '25.00,50.00' into junction 'gneJ6'
 Warning: Setting previous attribute pos '0.00,0.00' into junction 'gneJ6'
 Warning: Setting new attribute pos '25.00,50.00' into junction 'gneJ6'
+Warning: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '-gneE4_0 -> -gneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '-gneE4_0 -> gneE6_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '-gneE4_0 -> -gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '-gneE6_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '-gneE6_0 -> -gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '-gneE6_0 -> gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '-gneE6_0 -> -gneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE3_0 -> gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE3_0 -> -gneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE3_0 -> gneE6_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE5_0 -> gneE6_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE5_0 -> -gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE5_0 -> gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE6_0' in GNEEdge destructor
+||||||| .r24206
+=======
+Warning: Setting new attribute pos '25.00,50.00' into junction 'gneJ6'
+Warning: Setting previous attribute pos '0.00,0.00' into junction 'gneJ6'
+Warning: Setting new attribute pos '25.00,50.00' into junction 'gneJ6'
+>>>>>>> .r24218

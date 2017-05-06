@@ -1,31 +1,31 @@
-Warning: Deleting crossing from 'Center'
-Warning: Deleting crossing from 'Center'
-Warning: Deleting connection '2_1 -> 6_1'
+Warning: Deleting crossing from junction 'Center'
+Warning: Deleting crossing from junction 'Center'
+Warning: Deleting connection '2_1->6_1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
-Warning: Deleting connection '6_1 -> 2_1'
-Warning: Deleting connection '6_1 -> 4_1'
-Warning: Deleting connection '6_1 -> 1_1'
-Warning: Deleting connection '6_0 -> 1_0'
-Warning: Deleting connection '6_0 -> 3_0'
+Warning: Deleting connection '6_1->2_1'
+Warning: Deleting connection '6_1->4_1'
+Warning: Deleting connection '6_1->1_1'
+Warning: Deleting connection '6_0->1_0'
+Warning: Deleting connection '6_0->3_0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Deleting connection '8_1 -> 4_1'
-Warning: Deleting connection '8_1 -> 1_1'
-Warning: Deleting connection '8_1 -> 3_1'
-Warning: Deleting connection '8_0 -> 3_0'
-Warning: Deleting connection '8_0 -> 2_0'
+Warning: Deleting connection '8_1->4_1'
+Warning: Deleting connection '8_1->1_1'
+Warning: Deleting connection '8_1->3_1'
+Warning: Deleting connection '8_0->3_0'
+Warning: Deleting connection '8_0->2_0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Deleting connection '5_1 -> 1_1'
-Warning: Deleting connection '5_1 -> 3_1'
-Warning: Deleting connection '5_1 -> 2_1'
-Warning: Deleting connection '5_0 -> 2_0'
-Warning: Deleting connection '5_0 -> 4_0'
+Warning: Deleting connection '5_1->1_1'
+Warning: Deleting connection '5_1->3_1'
+Warning: Deleting connection '5_1->2_1'
+Warning: Deleting connection '5_0->2_0'
+Warning: Deleting connection '5_0->4_0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Deleting connection '7_1 -> 3_1'
-Warning: Deleting connection '7_1 -> 2_1'
-Warning: Deleting connection '7_1 -> 4_1'
-Warning: Deleting connection '7_0 -> 4_0'
-Warning: Deleting connection '7_0 -> 1_0'
+Warning: Deleting connection '7_1->3_1'
+Warning: Deleting connection '7_1->2_1'
+Warning: Deleting connection '7_1->4_1'
+Warning: Deleting connection '7_0->4_0'
+Warning: Deleting connection '7_0->1_0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Deleting edge '6'
@@ -36,7 +36,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Deleting edge '2'
-Warning: Deleting connection '4_1 -> 8_1'
+Warning: Deleting connection '4_1->8_1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -50,7 +50,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Deleting edge '4'
-Warning: Deleting connection '1_1 -> 5_1'
+Warning: Deleting connection '1_1->5_1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
@@ -62,7 +62,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Deleting edge '1'
-Warning: Deleting connection '3_1 -> 7_1'
+Warning: Deleting connection '3_1->7_1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -83,7 +83,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
-Warning: Deleting connection '3_1 -> 7_1'
+Warning: Deleting connection '3_1->7_1'
 Warning: Adding edge '1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '1'
@@ -95,7 +95,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
-Warning: Deleting connection '1_1 -> 5_1'
+Warning: Deleting connection '1_1->5_1'
 Warning: Adding edge '4'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '4'
@@ -109,7 +109,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'D'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '4'
-Warning: Deleting connection '4_1 -> 8_1'
+Warning: Deleting connection '4_1->8_1'
 Warning: Adding edge '2'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '2'
@@ -120,31 +120,71 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Adding edge '6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '7'
-Warning: Deleting connection '7_0 -> 1_0'
-Warning: Deleting connection '7_0 -> 4_0'
-Warning: Deleting connection '7_1 -> 4_1'
-Warning: Deleting connection '7_1 -> 2_1'
-Warning: Deleting connection '7_1 -> 3_1'
+Warning: Deleting connection '7_0->1_0'
+Warning: Deleting connection '7_0->4_0'
+Warning: Deleting connection '7_1->4_1'
+Warning: Deleting connection '7_1->2_1'
+Warning: Deleting connection '7_1->3_1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '5'
-Warning: Deleting connection '5_0 -> 4_0'
-Warning: Deleting connection '5_0 -> 2_0'
-Warning: Deleting connection '5_1 -> 2_1'
-Warning: Deleting connection '5_1 -> 3_1'
-Warning: Deleting connection '5_1 -> 1_1'
+Warning: Deleting connection '5_0->4_0'
+Warning: Deleting connection '5_0->2_0'
+Warning: Deleting connection '5_1->2_1'
+Warning: Deleting connection '5_1->3_1'
+Warning: Deleting connection '5_1->1_1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '8'
-Warning: Deleting connection '8_0 -> 2_0'
-Warning: Deleting connection '8_0 -> 3_0'
-Warning: Deleting connection '8_1 -> 3_1'
-Warning: Deleting connection '8_1 -> 1_1'
-Warning: Deleting connection '8_1 -> 4_1'
+Warning: Deleting connection '8_0->2_0'
+Warning: Deleting connection '8_0->3_0'
+Warning: Deleting connection '8_1->3_1'
+Warning: Deleting connection '8_1->1_1'
+Warning: Deleting connection '8_1->4_1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '6'
-Warning: Deleting connection '6_0 -> 3_0'
-Warning: Deleting connection '6_0 -> 1_0'
-Warning: Deleting connection '6_1 -> 1_1'
-Warning: Deleting connection '6_1 -> 4_1'
-Warning: Deleting connection '6_1 -> 2_1'
+Warning: Deleting connection '6_0->3_0'
+Warning: Deleting connection '6_0->1_0'
+Warning: Deleting connection '6_1->1_1'
+Warning: Deleting connection '6_1->4_1'
+Warning: Deleting connection '6_1->2_1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'B'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '2'
-Warning: Deleting connection '2_1 -> 6_1'
-Warning: Deleting crossing from 'Center'
-Warning: Deleting crossing from 'Center'
+Warning: Deleting connection '2_1->6_1'
+Warning: Adding crossing into junction 'Center'
+Warning: Adding crossing into junction 'Center'
+Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '1_1 -> 5_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '2_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '2_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '2_1 -> 6_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '3_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '3_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '3_1 -> 7_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '4_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '4_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '4_1 -> 8_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '5_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '5_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '5_0 -> 4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '5_0 -> 2_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '5_1 -> 2_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '5_1 -> 3_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '5_1 -> 1_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '6_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '6_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '6_0 -> 3_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '6_0 -> 1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '6_1 -> 1_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '6_1 -> 4_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '6_1 -> 2_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '7_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '7_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '7_0 -> 1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '7_0 -> 4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '7_1 -> 4_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '7_1 -> 2_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '7_1 -> 3_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane '8_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane '8_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '8_0 -> 2_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '8_0 -> 3_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection '8_1 -> 3_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '8_1 -> 1_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection '8_1 -> 4_1' in GNEEdge destructor

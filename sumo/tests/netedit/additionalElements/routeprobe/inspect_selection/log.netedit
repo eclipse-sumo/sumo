@@ -1,3 +1,4 @@
+<<<<<<< .mine
 Warning: Inserting routeProbe 'routeProbe_01'
 Warning: Inserting routeProbe 'routeProbe_02'
 Warning: Value '-30' for attribute freq of routeProbe isn't valid
@@ -8,3 +9,26 @@ Warning: Setting new attribute begin '11.3' into routeProbe 'routeProbe_01'
 Warning: Setting new attribute begin '11.3' into routeProbe 'routeProbe_02'
 Warning: Deleting unreferenced routeProbe 'routeProbe_02'
 Warning: Deleting unreferenced routeProbe 'routeProbe_01'
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+||||||| .r24206
+Warning: Inserting routeProbe 'routeProbe_01'
+Warning: Inserting routeProbe 'routeProbe_02'
+Warning: Value '-30' for attribute freq of routeProbe isn't valid
+Warning: Value '-5' for attribute begin of routeProbe isn't valid
+Warning: Deleting unreferenced routeProbe 'routeProbe_02'
+Warning: Deleting unreferenced routeProbe 'routeProbe_01'
+=======
+Warning: Inserting routeProbe 'routeProbe_01'
+Warning: Inserting routeProbe 'routeProbe_02'
+Warning: Value '-30' for attribute freq of routeProbe isn't valid
+Warning: Setting new attribute freq '50' into routeProbe 'routeProbe_01'
+Warning: Setting new attribute freq '50' into routeProbe 'routeProbe_02'
+Warning: Value '-5' for attribute begin of routeProbe isn't valid
+Warning: Setting new attribute begin '11.3' into routeProbe 'routeProbe_01'
+Warning: Setting new attribute begin '11.3' into routeProbe 'routeProbe_02'
+Warning: Deleting unreferenced routeProbe 'routeProbe_02'
+Warning: Deleting unreferenced routeProbe 'routeProbe_01'
+>>>>>>> .r24218

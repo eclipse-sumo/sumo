@@ -1,3 +1,7 @@
 Warning: Invalid input parameter of busStop: Current selected reference point isn't valid
 Warning: Inserting busStop 'busStop_gneE0_0_0'
 Warning: Deleting unreferenced busStop 'busStop_gneE0_0_0'
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor

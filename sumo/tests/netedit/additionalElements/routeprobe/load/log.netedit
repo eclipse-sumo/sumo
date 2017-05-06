@@ -42,3 +42,7 @@ Warning: Deleting unreferenced routeProbe 'routeProbe_05'
 Warning: Deleting unreferenced routeProbe 'routeProbe_03'
 Warning: Deleting unreferenced routeProbe 'routeProbe_02'
 Warning: Deleting unreferenced routeProbe 'routeProbe_01'
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
