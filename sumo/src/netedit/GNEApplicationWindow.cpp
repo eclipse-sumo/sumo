@@ -796,9 +796,18 @@ GNEApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdAbout(FXObject*, FXSelector, void*) {
+    // write warning if netedit is running in testing mode
+    if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
+        WRITE_WARNING("Opening about dialog");
+    }
+    // create and open about dialog
     GNEDialog_About* about = new GNEDialog_About(this);
     about->create();
     about->show(PLACEMENT_OWNER);
+    // write warning if netedit is running in testing mode
+    if ((myNet != 0) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
+        WRITE_WARNING("Closed about dialog");
+    }
     return 1;
 }
 
@@ -1106,7 +1115,7 @@ GNEApplicationWindow::onCmdComputeJunctions(FXObject*, FXSelector, void*) {
 long 
 GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*) {
     // write warning if netedit is running in testing mode
-    if (myNet->getViewNet()->isTestingModeEnabled() == true) {
+    if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
         WRITE_WARNING("Opening FXMessageBox of type 'question'");
     }
     // open question dialog box
@@ -1125,7 +1134,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
         myNet->computeEverything(this, true, true);
         updateControls();
         // write warning if netedit is running in testing mode
-        if (myNet->getViewNet()->isTestingModeEnabled() == true) {
+        if ((myNet != NULL) && (myNet->getViewNet()->isTestingModeEnabled() == true)) {
             WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
         }
         return 1;
