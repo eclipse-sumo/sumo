@@ -38,7 +38,7 @@ netedit.setZoom("50", "50", "50")
 # go to delete mode
 netedit.deleteMode()
 
-# delete junction
+# delete junction with TLS
 netedit.leftClick(match, 300, 250)
 
 # Rebuild network
@@ -47,27 +47,11 @@ netedit.rebuildNetwork()
 # check undo
 netedit.undo(match, 1)
 
-# Rebuild network
-netedit.rebuildNetwork()
-
-# go to  traffic light mode
-netedit.selectTLS()
-
-# select traffic light
-netedit.leftClick(match, 300, 250)
-
-# delete traffic light
-netedit.leftClick(match, -120, 150)
-
-# go to reference
-netedit.leftClick(match, 0, 0)
-
-# Rebuild network
-netedit.rebuildNetwork()
-
-# check undo
-netedit.undo(match, 1)
+# check redo
 netedit.redo(match, 1)
+
+# Rebuild network
+netedit.rebuildNetwork()
 
 # save newtork
 netedit.saveNetwork()

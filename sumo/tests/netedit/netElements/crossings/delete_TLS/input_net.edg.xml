@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/02/2017 12:54:43 by Netedit Version dev-SVN-r22880
+<!-- generated on 06/05/2017 11:50:15 by Netedit Version dev-SVN-r22880
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\delete_TLS\input_net.net.xml"/>
+        <sumo-net-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\delete_TLS\net.netedit"/>
     </input>
 
     <output>
-        <output-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\delete_TLS\input_net.net.xml"/>
-        <plain-output-prefix value="C:\Proyectos\input_net"/>
+        <output-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\delete_TLS\net.netedit"/>
+        <plain-output-prefix value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\delete_TLS\input_net"/>
     </output>
 
     <processing>
@@ -20,6 +20,7 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
     </processing>
 
 </configuration>
