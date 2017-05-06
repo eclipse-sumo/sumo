@@ -6,4 +6,9 @@ new_net_1edge
 
 # provoke a error with sikulix
 sikulix_error
+
+# load and save a basic net
 load_and_save
+
+# open about dialog
+about-dialog
