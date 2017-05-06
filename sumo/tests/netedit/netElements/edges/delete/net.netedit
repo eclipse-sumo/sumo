@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04/28/17 11:17:50 by Netedit Version dev-SVN-r22761
+<!-- generated on 06/05/2017 15:09:45 by Netedit Version dev-SVN-r22880
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Apr111735.7436/netedit.gui/netElements/edges/delete\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Apr111735.7436/netedit.gui/netElements/edges/delete\additionals.xml"/>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Apr111735.7436/netedit.gui/netElements/edges/delete\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.06May150926.3560/netedit.gui/netElements/edges/delete\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.06May150926.3560/netedit.gui/netElements/edges/delete\additionals.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.06May150926.3560/netedit.gui/netElements/edges/delete\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Apr111735.7436/netedit.gui/netElements/edges/delete\net.net.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.06May150926.3560/netedit.gui/netElements/edges/delete\net.net.xml"/>
     </output>
 
     <processing>
+        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -31,7 +32,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Apr111735.7436/netedit.gui/netElements/edges/delete\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.06May150926.3560/netedit.gui/netElements/edges/delete\log.txt"/>
     </report>
 
 </configuration>
@@ -44,8 +45,17 @@
     <edge id=":A_0" function="internal">
         <lane id=":A_0_0" index="0" speed="13.90" length="4.82" shape="48.35,0.00 49.18,-1.24 50.00,-1.65 50.83,-1.24 51.65,0.00"/>
     </edge>
+    <edge id=":A_w0" function="walkingarea">
+        <lane id=":A_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.90" width="3.20" shape="50.05,0.00 53.25,0.00 53.35,0.00 56.55,0.00 43.45,0.00 46.65,0.00 46.75,0.00 49.95,0.00"/>
+    </edge>
     <edge id=":B_0" function="internal">
         <lane id=":B_0_0" index="0" speed="13.90" length="4.82" shape="51.65,100.00 50.82,101.24 50.00,101.65 49.17,101.24 48.35,100.00"/>
+    </edge>
+    <edge id=":B_w0" function="walkingarea">
+        <lane id=":B_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.90" width="3.20" shape="49.95,100.00 46.75,100.00 46.65,100.00 43.45,100.00 56.55,100.00 53.35,100.00 53.25,100.00 50.05,100.00"/>
+    </edge>
+    <edge id=":C_w0" function="walkingarea">
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="23.10" width="3.20" shape="0.00,40.05 0.00,36.85 0.00,63.15 0.00,59.95"/>
     </edge>
     <edge id=":Center_0" function="internal">
         <lane id=":Center_0_0" index="0" speed="13.90" length="16.10" shape="45.05,51.45 45.05,35.35"/>
@@ -66,6 +76,12 @@
     </edge>
     <edge id=":Center_7" function="internal">
         <lane id=":Center_7_0" index="0" speed="13.90" length="14.63" shape="41.95,48.35 46.19,48.54 49.23,49.13 51.04,50.09 51.65,51.45"/>
+    </edge>
+    <edge id=":Center_w0" function="walkingarea">
+        <lane id=":Center_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.22" width="3.20" shape="43.45,64.65 46.65,64.65 46.75,64.65 49.95,64.65 50.05,64.65 53.25,64.65 53.35,64.65 56.55,64.65 58.05,63.15 58.05,59.95"/>
+    </edge>
+    <edge id=":Center_w1" function="walkingarea">
+        <lane id=":Center_w1_0" index="0" allow="pedestrian" speed="1.00" length="10.25" width="3.20" shape="58.05,40.05 58.05,36.85 56.55,35.35 53.35,35.35 53.25,35.35 50.05,35.35 49.95,35.35 46.75,35.35 46.65,35.35 43.45,35.35 41.95,36.85 41.95,40.05"/>
     </edge>
 
     <edge id="1" from="Center" to="A" priority="-1">
@@ -131,4 +147,17 @@
     <connection from=":Center_6" to="1" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":Center_7" to="2" fromLane="0" toLane="1" dir="s" state="M"/>
 
+    <connection from=":A_w0" to="5" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1" to=":A_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":B_w0" to="6" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2" to=":B_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_w0" to="7" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="3" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Center_w0" to="2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="6" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="8" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Center_w1" to="4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Center_w1" to="1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="5" to=":Center_w1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="7" to=":Center_w1" fromLane="0" toLane="0" dir="s" state="M"/>
 </net>

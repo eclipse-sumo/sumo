@@ -32,6 +32,9 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 # zoom in central node
 netedit.setZoom("50", "50", "100")
 
+# rebuild network
+netedit.rebuildNetwork()
+
 # go to delete mode
 netedit.deleteMode()
 
@@ -41,11 +44,20 @@ netedit.leftClick(match, 200, 200)
 # delete node 
 netedit.leftClick(match, 575, 225)
 
+# rebuild network
+netedit.rebuildNetwork()
+
 # Check undos
 netedit.undo(match, 2)
 
+# rebuild network
+netedit.rebuildNetwork()
+
 # Check redos
 netedit.redo(match, 2)
+
+# rebuild network
+netedit.rebuildNetwork()
 
 # save newtork
 netedit.saveNetwork()
