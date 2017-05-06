@@ -66,7 +66,7 @@ void GNEChange_Crossing::undo() {
     if (myForward) {
         // show extra information for tests
         if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
+            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // remove crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
@@ -76,7 +76,7 @@ void GNEChange_Crossing::undo() {
     } else {
         // show extra information for tests
         if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Adding " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
+            WRITE_WARNING("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // add crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
@@ -91,7 +91,7 @@ void GNEChange_Crossing::redo() {
     if (myForward) {
         // show extra information for tests
         if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Adding " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
+            WRITE_WARNING("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // add crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
@@ -101,7 +101,7 @@ void GNEChange_Crossing::redo() {
     } else {
         // show extra information for tests
         if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
+            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // remove crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
