@@ -38,6 +38,7 @@
 class GUIGLObjectPopupMenu;
 class PositionVector;
 class GNEJunction;
+class GNEEdge;
 
 // ===========================================================================
 // class definitions
@@ -125,6 +126,12 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
+
+    /// @brief return true if a edge belongs to crossing's edges
+    bool checkEdgeBelong(GNEEdge* edges) const;
+
+    /// @brief return true if a edge of a vector of edges belongs to crossing's edges
+    bool checkEdgeBelong(const std::vector<GNEEdge*> &edges) const;
 
 private:
     /// @brief the parent junction of this crossing

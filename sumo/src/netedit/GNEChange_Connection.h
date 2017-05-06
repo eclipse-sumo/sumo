@@ -89,11 +89,6 @@ private:
 
     /// @brief the data which must be copied because the original reference does not persist
     NBEdge::Connection myNBEdgeConnection;
-
-    /**@brief We only keep this to retain the GUIGlID
-     * @note we assume shared responsibility for the pointer (via reference counting)
-     */
-    GNEConnection* myConnection;
     /// @}
 
 };

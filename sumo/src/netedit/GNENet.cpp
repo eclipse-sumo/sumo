@@ -314,6 +314,19 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
         deleteCrossing(junction->getGNECrossings().front(), undoList);
     }
 
+    // delete all crossings of neightbour junctions that 
+    std::vector<GNEJunction*> junctionNeighbours = junction->getJunctionNeighbours();
+    for(std::vector<GNEJunction*>::iterator i = junctionNeighbours.begin(); i != junctionNeighbours.end(); i++) {
+        std::vector<GNECrossing*> crossingsOfJunctionNeighbours = (*i)->getGNECrossings();
+        // iterate over crossing of neighbour juntion
+        for(std::vector<GNECrossing*>::iterator j = crossingsOfJunctionNeighbours.begin(); j != crossingsOfJunctionNeighbours.end(); j++) {
+            // if at least one of the edges of junction to remove belongs to a crossing of the neighbour junction, delete it
+            if((*j)->checkEdgeBelong(junction->getGNEEdges()) == true) {
+                deleteCrossing((*j), undoList);
+            }
+        }
+    }
+
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incident = junction->getNBNode()->getEdges();
     for (EdgeVector::const_iterator it = incident.begin(); it != incident.end(); it++) {
@@ -335,18 +348,37 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
+    
     // obtain a copy of GNERerouters of edge
     std::vector<GNERerouter*> rerouters = edge->getGNERerouters();
+    
     // delete additionals childs of edge
     std::vector<GNEAdditional*> copyOfEdgeAdditionals = edge->getAdditionalChilds();
     for (std::vector<GNEAdditional*>::iterator i = copyOfEdgeAdditionals.begin(); i != copyOfEdgeAdditionals.end(); i++) {
         undoList->add(new GNEChange_Additional((*i), false), true);
     }
+    
     // delete additionals childs of lane
     for (std::vector<GNELane*>::const_iterator i = edge->getLanes().begin(); i != edge->getLanes().end(); i++) {
         std::vector<GNEAdditional*> copyOfLaneAdditionals = (*i)->getAdditionalChilds();
         for (std::vector<GNEAdditional*>::iterator j = copyOfLaneAdditionals.begin(); j != copyOfLaneAdditionals.end(); j++) {
             undoList->add(new GNEChange_Additional((*j), false), true);
+        }
+    }
+
+    // delete crossings vinculated with this edge
+    std::vector<GNECrossing*> crossingsJunctionSource = edge->getGNEJunctionSource()->getGNECrossings();
+    for(std::vector<GNECrossing*>::const_iterator i = crossingsJunctionSource.begin(); i != crossingsJunctionSource.end(); i++) {
+        // if at least one of the edges of junction to remove belongs to a crossing of the source junction, delete it
+        if((*i)->checkEdgeBelong(edge) == true) {
+            deleteCrossing((*i), undoList);
+        }
+    }
+    std::vector<GNECrossing*> crossingsJunctionDestiny = edge->getGNEJunctionDestiny()->getGNECrossings();
+    for(std::vector<GNECrossing*>::const_iterator i = crossingsJunctionDestiny.begin(); i != crossingsJunctionDestiny.end(); i++) {
+        // if at least one of the edges of junction to remove belongs to a crossing of the destiny junction, delete it
+        if((*i)->checkEdgeBelong(edge) == true) {
+            deleteCrossing((*i), undoList);
         }
     }
 

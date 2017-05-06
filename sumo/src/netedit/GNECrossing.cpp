@@ -252,6 +252,27 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+bool 
+GNECrossing::checkEdgeBelong(GNEEdge* edge) const {
+    if(std::find(myCrossing.edges.begin(), myCrossing.edges.end(), edge->getNBEdge()) !=  myCrossing.edges.end()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNECrossing::checkEdgeBelong(const std::vector<GNEEdge*> &edges) const {
+    for(std::vector<GNEEdge*>::const_iterator i = edges.begin(); i != edges.end(); i++) {   
+        if(checkEdgeBelong(*i) == true) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

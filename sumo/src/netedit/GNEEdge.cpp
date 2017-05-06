@@ -41,6 +41,8 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/common/MsgHandler.h>
+
 #include "GNEEdge.h"
 #include "GNENet.h"
 #include "GNEViewNet.h"
@@ -95,6 +97,10 @@ GNEEdge::~GNEEdge() {
     for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
         (*i)->decRef("GNEEdge::~GNEEdge");
         if ((*i)->unreferenced()) {
+            // show extra information for tests
+            if ((*i)->getNet()->getViewNet()->isTestingModeEnabled()) {
+                WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in GNEEdge destructor");
+            }
             delete *i;
         }
     }
@@ -102,6 +108,10 @@ GNEEdge::~GNEEdge() {
     for (ConnectionVector::const_iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); ++i) {
         (*i)->decRef("GNEEdge::~GNEEdge");
         if ((*i)->unreferenced()) {
+            // show extra information for tests
+            if ((*i)->getNet()->getViewNet()->isTestingModeEnabled()) {
+                WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in GNEEdge destructor");
+            }
             delete(*i);
         }
     }
@@ -445,10 +455,8 @@ GNEEdge::remakeGNEConnections() {
     // clear existent connections
     clearGNEConnections();
     // Create connections
-    std::vector<NBEdge::Connection>& myConnections = myNBEdge.getConnections();
-    for (std::vector<NBEdge::Connection>::iterator i = myConnections.begin(); i != myConnections.end(); i++) {
-        const NBEdge::Connection& con = *i;
-        myGNEConnections.push_back(retrieveGNEConnection(con.fromLane, con.toEdge, con.toLane));
+    for (std::vector<NBEdge::Connection>::iterator i = myNBEdge.getConnections().begin(); i != myNBEdge.getConnections().end(); i++) {
+        myGNEConnections.push_back(retrieveGNEConnection(i->fromLane, i->toEdge, i->toLane));
         myGNEConnections.back()->incRef("GNEEdge::GNEEdge");
         myGNEConnections.back()->updateLinkState();
     }
@@ -991,14 +999,17 @@ GNEEdge::removeLane(GNELane* lane) {
 
 
 void
-GNEEdge::addConnection(NBEdge::Connection nbCon, GNEConnection* con) {
+GNEEdge::addConnection(NBEdge::Connection nbCon) {
     // If a new connection was sucesfully created
     if (myNBEdge.setConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, NBEdge::L2L_USER, true, nbCon.mayDefinitelyPass, nbCon.keepClear, nbCon.contPos, nbCon.visibility)) {
-        // Create GNEConection
-        con->updateGeometry();
+        // Create  or retrieve existent GNEConection
+        GNEConnection* con = retrieveGNEConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane);
+        // add it to GNEConnection container
         myGNEConnections.push_back(con);
         // Add reference
         myGNEConnections.back()->incRef("GNEEdge::addConnection");
+        // update geometry
+        con->updateGeometry();
     }
     myNet->refreshElement(this); // actually we only do this to force a redraw
 }
@@ -1010,19 +1021,24 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
     if (nbCon.toEdge == myNBEdge.getTurnDestination()) {
         myNet->removeExplicitTurnaround(getMicrosimID());
     }
-    // Get connection to remove
-    GNEConnection* con = retrieveGNEConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane);
+    // remove NBEdge::connection from NBEdge
     myNBEdge.removeFromConnections(nbCon);
-    if (!con->unreferenced()) {
+    // remove their associated GNEConnection
+    GNEConnection* con = retrieveGNEConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, false);
+    if(con != NULL) {
         con->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
-        myNet->refreshElement(this); // actually we only do this to force a redraw
+        if (con->unreferenced()) {
+            
+            delete con;
+            myNet->refreshElement(this); // actually we only do this to force a redraw
+        }
     }
 }
 
 
 GNEConnection*
-GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane) {
+GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool createIfNoExist) {
     for (ConnectionVector::iterator i = myGNEConnections.begin(); i != myGNEConnections.end(); ++i) {
         if ((*i)->getFromLaneIndex() == fromLane
                 && (*i)->getEdgeTo()->getNBEdge() == to
@@ -1030,7 +1046,11 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane) {
             return *i;
         }
     }
-    return new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
+    if(createIfNoExist == true) {
+        return new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
+    } else {
+        return NULL;
+    }
 }
 
 
