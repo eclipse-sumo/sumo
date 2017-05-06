@@ -57,7 +57,9 @@ GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::v
 }
 
 
-GNEChange_Crossing::~GNEChange_Crossing() {}
+GNEChange_Crossing::~GNEChange_Crossing() {
+    assert(myNet);
+}
 
 
 void GNEChange_Crossing::undo() {
@@ -74,7 +76,7 @@ void GNEChange_Crossing::undo() {
     } else {
         // show extra information for tests
         if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
+            WRITE_WARNING("Adding " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
         }
         // add crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
@@ -89,7 +91,7 @@ void GNEChange_Crossing::redo() {
     if (myForward) {
         // show extra information for tests
         if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
+            WRITE_WARNING("Adding " + toString(SUMO_TAG_CROSSING) + " from '" + myJunctionParent->getID() + "'");
         }
         // add crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
