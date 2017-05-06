@@ -342,6 +342,17 @@ def saveAdditionals():
     # save additionals using hotkey
     typeTwoKeys("d", Key.CTRL + Key.SHIFT)
 
+
+# open and close about dialog
+def openAboutDialog(waitingTime = DELAY_QUESTION):
+    # type F2 to open about dialog
+    typeKey(Key.F2)
+    # wait before closing
+    wait(waitingTime)
+    # press enter to close dialog (Ok must be focused)
+    typeSpace()
+
+    
 #################################################
 # Create edge
 #################################################
