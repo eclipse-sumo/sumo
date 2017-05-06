@@ -943,14 +943,14 @@ MSEdge::hasMinorLink() const {
     }
     return false;
 }
+
+
 void MSEdge::checkAndRegisterBiDirEdge() {
     myOppositingSuperposableEdge = 0;
-
-    if (isInternal()) {
+    if (getPurpose() != EDGEFUNCTION_NORMAL) {
         return;
     }
-
-    const MSEdge * candidate = 0;
+    const MSEdge* candidate = 0;
     ConstMSEdgeVector candidates = myToJunction->getOutgoing();
     for (ConstMSEdgeVector::const_iterator it = candidates.begin(); it != candidates.end(); it++){
         if ((*it)->getToJunction() == myFromJunction) { //reverse edge
@@ -974,7 +974,6 @@ void MSEdge::checkAndRegisterBiDirEdge() {
         it2--;
     } while (it1 != myLanes->end());
     myOppositingSuperposableEdge = candidate;
-
 }
 
 
