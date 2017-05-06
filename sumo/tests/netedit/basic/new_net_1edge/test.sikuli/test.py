@@ -29,9 +29,6 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True)
 
-# Focus netedit window
-netedit.leftClick(match, 0, -105)
-
 # Change to create mode
 type("e")
 

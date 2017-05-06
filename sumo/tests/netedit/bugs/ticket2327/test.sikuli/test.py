@@ -29,9 +29,6 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
-# Focus netedit window
-netedit.leftClick(match, 0, -105)
-
 # rebuild network
 netedit.rebuildNetwork()
 
