@@ -866,5 +866,15 @@ def selectionInvert():
 # Change to traffic light mode
 
 
-def selectTLS():
+def selectTLSMode():
     typeKey("t")
+
+    
+# Create TLS
+def createTLS():
+    # focus current frame
+    focusOnFrame()
+    # type tab to jump to create tls button
+    typeTab()
+    # create TLS 
+    typeSpace()
