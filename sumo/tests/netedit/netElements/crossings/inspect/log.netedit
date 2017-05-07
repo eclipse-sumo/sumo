@@ -12,6 +12,7 @@ Warning: Setting previous attribute priority 'false' into crossing ':Center_c1'
 Warning: Setting new attribute priority 'true' into crossing ':Center_c1'
 Warning: Setting new attribute width '3' into crossing ':Center_c1'
 Warning: Setting new attribute width '4' into crossing ':Center_c1'
+Warning: Deleting unreferenced crossing ':Center_c1' into GNEChange_Attribute
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '1_1 -> 5_1' in GNEEdge destructor

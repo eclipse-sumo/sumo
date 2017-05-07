@@ -76,7 +76,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Warning: Adding junction 'gneJ10'
 Warning: Deleting junction 'gneJ10'
-Warning: Deleting unreferenced junction 'gneJ10'
+Warning: Deleting unreferenced junction 'gneJ10' in GNEChange_Junction
 Warning: Adding junction 'gneJ11'
 Warning: Adding junction 'gneJ12'
 Warning: Adding edge 'gneE8'
