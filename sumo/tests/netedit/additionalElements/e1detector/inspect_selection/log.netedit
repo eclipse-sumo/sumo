@@ -1,4 +1,3 @@
-<<<<<<< .mine
 Warning: Inserting e1Detector 'E1_A'
 Warning: Inserting e1Detector 'E1_B'
 Warning: Value '-30' for attribute freq of e1Detector isn't valid
@@ -10,18 +9,3 @@ Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
-||||||| .r24206
-Warning: Inserting e1Detector 'E1_A'
-Warning: Inserting e1Detector 'E1_B'
-Warning: Value '-30' for attribute freq of e1Detector isn't valid
-Warning: Deleting unreferenced e1Detector 'E1_B'
-Warning: Deleting unreferenced e1Detector 'E1_A'
-=======
-Warning: Inserting e1Detector 'E1_A'
-Warning: Inserting e1Detector 'E1_B'
-Warning: Value '-30' for attribute freq of e1Detector isn't valid
-Warning: Setting new attribute freq '20' into e1Detector 'E1_A'
-Warning: Setting new attribute freq '20' into e1Detector 'E1_B'
-Warning: Deleting unreferenced e1Detector 'E1_B'
-Warning: Deleting unreferenced e1Detector 'E1_A'
->>>>>>> .r24218
