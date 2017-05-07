@@ -92,7 +92,7 @@ dist-tests:
 	cd $(srcdir)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	find tests -name .svn -prune -o -type f -print | xargs cp --parents -t $(distdir)
+	find tests -name .svn -prune -o -type f -print0 | xargs -0 cp --parents -t $(distdir)
 	tar -czf $(PACKAGE)-tests-$(VERSION).tar.gz $(distdir)
 	$(am__remove_distdir)
 
