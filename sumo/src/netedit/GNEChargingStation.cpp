@@ -398,7 +398,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case SUMO_ATTR_CHARGEINTRANSIT:
         case SUMO_ATTR_CHARGEDELAY:
         case GNE_ATTR_BLOCK_MOVEMENT:
-            undoList->p_add(new GNEChange_Attribute(this, key, value, myViewNet->isTestingModeEnabled()));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -428,7 +428,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
                 // If extension is larger than Lane
                 if (parse<double>(value) > myLane->getLaneParametricLength()) {
                     // write warning if netedit is running in testing mode
-                    if (myViewNet->isTestingModeEnabled() == true) {
+                    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
                         WRITE_WARNING("Opening FXMessageBox of type 'question'");
                     }
                     // Ask user if want to assign the length of lane as endPosition
@@ -438,15 +438,15 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
                                                             ". Do you want to assign the length of the " + toString(SUMO_TAG_LANE) + " as " + toString(SUMO_ATTR_ENDPOS) + "?").c_str());
                     if (answer == 1) { //1:yes, 2:no, 4:esc
                         // write warning if netedit is running in testing mode
-                        if (myViewNet->isTestingModeEnabled() == true) {
+                        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
                             WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                         }
                         return true;
                     } else {
                         // write warning if netedit is running in testing mode
-                        if ((answer == 2) && (myViewNet->isTestingModeEnabled() == true)) {
+                        if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
                             WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
-                        } else if ((answer == 4) && (myViewNet->isTestingModeEnabled() == true)) {
+                        } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
                             WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
                         }
                         return false;

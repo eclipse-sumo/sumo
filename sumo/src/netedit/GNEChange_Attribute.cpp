@@ -29,6 +29,8 @@
 
 #include <cassert>
 #include <utils/common/MsgHandler.h>
+#include <utils/options/OptionsCont.h>
+
 #include "GNEChange_Attribute.h"
 #include "GNEAttributeCarrier.h"
 
@@ -43,12 +45,11 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, NULL, 0)
 // ===========================================================================
 
 GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac,
-        SumoXMLAttr key, const std::string& value, bool testingMode,
+        SumoXMLAttr key, const std::string& value,
         bool customOrigValue, const std::string& origValue) :
     GNEChange(0, true),
     myAC(ac),
     myKey(key),
-    myTestingMode(testingMode),
     myOrigValue(customOrigValue ? origValue : ac->getAttribute(key)),
     myNewValue(value) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
@@ -59,6 +60,10 @@ GNEChange_Attribute::~GNEChange_Attribute() {
     assert(myAC);
     myAC->decRef("GNEChange_Attribute " + toString(myKey));
     if (myAC->unreferenced()) {
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Deleting unreferenced " + toString(myAC->getTag()) + " '" + myAC->getID() + "' into GNEChange_Attribute");
+        }
         delete myAC;
     }
 }
@@ -67,7 +72,7 @@ GNEChange_Attribute::~GNEChange_Attribute() {
 void
 GNEChange_Attribute::undo() {
     // show extra information for tests
-    if (myTestingMode == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
         WRITE_WARNING("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + toString(myAC->getTag()) + " '" + myAC->getID() + "'");
     }
     // set original value
@@ -78,7 +83,7 @@ GNEChange_Attribute::undo() {
 void
 GNEChange_Attribute::redo() {
     // show extra information for tests
-    if (myTestingMode == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
         WRITE_WARNING("Setting new attribute " + toString(myKey) + " '" + myNewValue + "' into " + toString(myAC->getTag()) + " '" + myAC->getID() + "'");
     }
     // set new value

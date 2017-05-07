@@ -98,7 +98,7 @@ GNEEdge::~GNEEdge() {
         (*i)->decRef("GNEEdge::~GNEEdge");
         if ((*i)->unreferenced()) {
             // show extra information for tests
-            if ((*i)->getNet()->getViewNet()->isTestingModeEnabled()) {
+            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
                 WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in GNEEdge destructor");
             }
             delete *i;
@@ -109,7 +109,7 @@ GNEEdge::~GNEEdge() {
         (*i)->decRef("GNEEdge::~GNEEdge");
         if ((*i)->unreferenced()) {
             // show extra information for tests
-            if ((*i)->getNet()->getViewNet()->isTestingModeEnabled()) {
+            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
                 WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in GNEEdge destructor");
             }
             delete(*i);
@@ -653,13 +653,13 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 (*it)->setAttribute(key, value, undoList);
             }
             // ensure that the edge value is also changed. Actually this sets the lane attributes again but it does not matter
-            undoList->p_add(new GNEChange_Attribute(this, key, value, myNet->getViewNet()->isTestingModeEnabled(), true, origValue));
+            undoList->p_add(new GNEChange_Attribute(this, key, value, true, origValue));
             undoList->p_end();
             break;
         }
         case SUMO_ATTR_FROM: {
             undoList->p_begin("change  " + toString(getTag()) + "  attribute");
-            undoList->p_add(new GNEChange_Attribute(this, key, value, myNet->getViewNet()->isTestingModeEnabled()));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             myGNEJunctionSource->setLogicValid(false, undoList);
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
             setAttribute(GNE_ATTR_SHAPE_START, toString(myGNEJunctionSource->getNBNode()->getPosition()), undoList);
@@ -669,7 +669,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         }
         case SUMO_ATTR_TO: {
             undoList->p_begin("change  " + toString(getTag()) + "  attribute");
-            undoList->p_add(new GNEChange_Attribute(this, key, value, myNet->getViewNet()->isTestingModeEnabled()));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             myGNEJunctionDestiny->setLogicValid(false, undoList);
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
             setAttribute(GNE_ATTR_SHAPE_END, toString(myGNEJunctionDestiny->getNBNode()->getPosition()), undoList);
@@ -685,13 +685,13 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_MODIFICATION_STATUS:
         case GNE_ATTR_SHAPE_START:
         case GNE_ATTR_SHAPE_END:
-            undoList->p_add(new GNEChange_Attribute(this, key, value, myNet->getViewNet()->isTestingModeEnabled()));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         case SUMO_ATTR_NAME:
             // user cares about street names. Make sure they appear in the output
             OptionsCont::getOptions().resetWritable();
             OptionsCont::getOptions().set("output.street-names", "true");
-            undoList->p_add(new GNEChange_Attribute(this, key, value, myNet->getViewNet()->isTestingModeEnabled()));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         case SUMO_ATTR_NUMLANES:
             if (value != getAttribute(key)) {
@@ -704,7 +704,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             // during mouse movement). We set the restore point to the end
             // of the last change-set
             myNBEdge.setGeometry(myOrigShape, true);
-            undoList->p_add(new GNEChange_Attribute(this, key, value, myNet->getViewNet()->isTestingModeEnabled()));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

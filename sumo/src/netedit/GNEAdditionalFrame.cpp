@@ -1103,7 +1103,7 @@ GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) 
     // set message in status bar
     myViewNet->setStatusBarText(errorMessage);
     // Write Warning in console if we're in testing mode
-    if (myViewNet->isTestingModeEnabled() == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
         WRITE_WARNING(errorMessage);
     }
 }

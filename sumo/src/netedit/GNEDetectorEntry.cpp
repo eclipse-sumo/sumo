@@ -221,7 +221,7 @@ GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case GNE_ATTR_BLOCK_MOVEMENT:
-            undoList->p_add(new GNEChange_Attribute(this, key, value, myViewNet->isTestingModeEnabled()));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
             break;
         default:

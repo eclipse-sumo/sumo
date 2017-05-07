@@ -71,8 +71,8 @@ GNEChange_TLS::~GNEChange_TLS() {
     myJunction->decRef("GNEChange_TLS");
     if (myJunction->unreferenced()) {
         // show extra information for tests
-        if (myNet->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Deleting unreferenced " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Deleting unreferenced " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' in GNEChange_TLS");
         }
         delete myJunction;
     }
@@ -83,14 +83,14 @@ void
 GNEChange_TLS::undo() {
     if (myForward) {
         // show extra information for tests
-        if (myJunction->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             WRITE_WARNING("Deleting " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
         }
         // remove traffic light from junction
         myJunction->removeTrafficLight(myTlDef);
     } else {
         // show extra information for tests
-        if (myJunction->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
         }
         // add traffic light to junction
@@ -103,14 +103,14 @@ void
 GNEChange_TLS::redo() {
     if (myForward) {
         // show extra information for tests
-        if (myJunction->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
         }
         // add traffic light to junction
         myJunction->addTrafficLight(myTlDef, myForceInsert);
     } else {
         // show extra information for tests
-        if (myJunction->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             WRITE_WARNING("Deleting " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
         }
         // remove traffic light from junction

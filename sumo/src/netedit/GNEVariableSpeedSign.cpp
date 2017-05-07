@@ -131,7 +131,7 @@ GNEVariableSpeedSign::moveAdditionalGeometry(double offsetx, double offsety) {
 void
 GNEVariableSpeedSign::commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), myViewNet->isTestingModeEnabled(), true, toString(Position(oldPosx, oldPosy))));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(Position(oldPosx, oldPosy))));
     undoList->p_end();
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);
@@ -340,7 +340,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FILE:
         case GNE_ATTR_BLOCK_MOVEMENT:
-            undoList->p_add(new GNEChange_Attribute(this, key, value, myViewNet->isTestingModeEnabled()));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             updateGeometry();
             break;
         default:

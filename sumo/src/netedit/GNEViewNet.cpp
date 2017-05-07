@@ -401,11 +401,6 @@ GNEViewNet::showJunctionAsBubbles() const {
 }
 
 
-bool
-GNEViewNet::isTestingModeEnabled() const {
-    return myTestingMode;
-}
-
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // init view settings

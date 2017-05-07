@@ -223,7 +223,7 @@ long
 GNECalibratorVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myCalibratorVehicleTypeValid == false) {
         // write warning if netedit is running in testing mode
-        if (myCalibratorDialogParent->getCalibratorParent()->getViewNet()->isTestingModeEnabled() == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         // open warning dialogBox
@@ -234,7 +234,7 @@ GNECalibratorVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                                " cannot be " + std::string((myUpdatingElement == true) ? ("updated") : ("created")) + " because parameter " + toString(myInvalidAttr) +
                                " is invalid.").c_str());
         // write warning if netedit is running in testing mode
-        if (myCalibratorDialogParent->getCalibratorParent()->getViewNet()->isTestingModeEnabled() == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
         }
         return 0;

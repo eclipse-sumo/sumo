@@ -89,7 +89,7 @@ GNEChange_Additional::~GNEChange_Additional() {
     myAdditional->decRef("GNEChange_Additional");
     if (myAdditional->unreferenced()) {
         // show extra information for tests
-        if (myNet->getViewNet()->isTestingModeEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             WRITE_WARNING("Deleting unreferenced " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         }
         delete myAdditional;
@@ -101,7 +101,7 @@ void
 GNEChange_Additional::undo() {
     if (myForward) {
         // show extra information for tests
-        if (myNet->getViewNet()->isTestingModeEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             WRITE_WARNING("Deleting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         }
         // delete additional of test
@@ -152,7 +152,7 @@ GNEChange_Additional::undo() {
         }
     } else {
         // show extra information for tests
-        if (myNet->getViewNet()->isTestingModeEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             WRITE_WARNING("Inserting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         }
         // insert additional of test
@@ -209,7 +209,7 @@ void
 GNEChange_Additional::redo() {
     if (myForward) {
         // show extra information for tests
-        if (myNet->getViewNet()->isTestingModeEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             WRITE_WARNING("Inserting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         }
         // insert additional into net
@@ -260,7 +260,7 @@ GNEChange_Additional::redo() {
         }
     } else {
         // show extra information for tests
-        if (myNet->getViewNet()->isTestingModeEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             WRITE_WARNING("Deleting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         }
         myNet->deleteAdditional(myAdditional);

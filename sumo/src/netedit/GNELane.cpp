@@ -821,7 +821,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ACCELERATION:
         case SUMO_ATTR_INDEX:
             // no special handling
-            undoList->p_add(new GNEChange_Attribute(this, key, value, myNet->getViewNet()->isTestingModeEnabled()));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

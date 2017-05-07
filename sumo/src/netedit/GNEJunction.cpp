@@ -418,7 +418,7 @@ GNEJunction::registerMove(GNEUndoList* undoList) {
         // set the restore point to the end of the last change-set
         setPosition(myOrigPos);
         // do not execute the command to avoid changing the edge geometry twice
-        undoList->add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, newPosValue, myNet->getViewNet()->isTestingModeEnabled()), false);
+        undoList->add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, newPosValue), false);
         setPosition(newPos);
         // Refresh element to avoid grabbing problems
         myNet->refreshElement(this);
@@ -500,9 +500,9 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
                     myNet->addExplicitTurnaround(srcNBE->getID());
                 }
             }
-            undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, status, myNet->getViewNet()->isTestingModeEnabled()), true);
+            undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, status), true);
         }
-        undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status, myNet->getViewNet()->isTestingModeEnabled()), true);
+        undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status), true);
         invalidateTLS(undoList);
     } else {
         rebuildGNECrossings();
@@ -516,7 +516,7 @@ GNEJunction::markAsModified(GNEUndoList* undoList) {
     for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
         NBEdge* srcNBE = *it;
         GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
-        undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, MODIFIED, myNet->getViewNet()->isTestingModeEnabled()), true);
+        undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, MODIFIED), true);
     }
 }
 
@@ -632,7 +632,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_RADIUS:
         case SUMO_ATTR_TLTYPE:
         case SUMO_ATTR_KEEP_CLEAR:
-            undoList->add(new GNEChange_Attribute(this, key, value, myNet->getViewNet()->isTestingModeEnabled()), true);
+            undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
         case SUMO_ATTR_TYPE: {
             undoList->p_begin("change " + toString(getTag()) + " type");
@@ -656,11 +656,11 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 // make a copy because we will modify the original
                 const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
                 for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
-                    undoList->add(new GNEChange_TLS(this, *it, false, myNet->getViewNet()->isTestingModeEnabled()), true);
+                    undoList->add(new GNEChange_TLS(this, *it, false, OptionsCont::getOptions().getBool("gui-testing") == true), true);
                 }
             }
             // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS
-            undoList->add(new GNEChange_Attribute(this, key, value, myNet->getViewNet()->isTestingModeEnabled()), true);
+            undoList->add(new GNEChange_Attribute(this, key, value), true);
             undoList->p_end();
             break;
         }

@@ -67,7 +67,7 @@ GNEChange_Crossing::~GNEChange_Crossing() {
 void GNEChange_Crossing::undo() {
     if (myForward) {
         // show extra information for tests
-        if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // remove crossing of NBNode
@@ -76,7 +76,7 @@ void GNEChange_Crossing::undo() {
         myNet->getViewNet()->update();
     } else {
         // show extra information for tests
-        if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             std::string selected = (mySelected == true)? ("a previously selected ") : ("");
             WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
@@ -101,7 +101,7 @@ void GNEChange_Crossing::undo() {
 void GNEChange_Crossing::redo() {
     if (myForward) {
         // show extra information for tests
-        if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             std::string selected = (mySelected == true)? ("a previously selected ") : ("");
             WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
@@ -122,7 +122,7 @@ void GNEChange_Crossing::redo() {
         myNet->getViewNet()->update();
     } else {
         // show extra information for tests
-        if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // remove crossing of NBNode and update geometry

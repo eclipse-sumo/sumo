@@ -60,7 +60,6 @@ public:
     GNEChange_Attribute(GNEAttributeCarrier* ac,
                         const SumoXMLAttr key,
                         const std::string& value,
-                        bool testingMode,
                         bool customOrigValue = false,
                         const std::string& origValue = "");
 
@@ -100,9 +99,6 @@ private:
 
     /// @brief the original value
     std::string myNewValue;
-
-    /// @brief flag for testing mode
-    bool myTestingMode;
 };
 
 #endif
