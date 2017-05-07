@@ -57,9 +57,10 @@ public:
     /**@brief Constructor for creating/deleting a connection
      * @param[in] edge The source edge of the connection
      * @param[in] nbCon The data of the connection
+     * @param[in] check if in the moment of change connection was selected
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool forward);
+    GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool selected, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Connection();
@@ -81,16 +82,14 @@ public:
 
 
 private:
-    // @name full information regarding the lane that is to be created/deleted
-    // @brief we assume shared responsibility for the pointers (via reference counting)
-    /// @{
     // @brief the connection object to be removed/re-added
     GNEEdge* myEdge;
 
     /// @brief the data which must be copied because the original reference does not persist
     NBEdge::Connection myNBEdgeConnection;
-    /// @}
 
+    /// @brief flag to indicates if crossing was previously selected
+    bool mySelected;
 };
 
 #endif

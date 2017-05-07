@@ -493,7 +493,7 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
             // delete in reverse so that undoing will add connections in the original order
             for (std::vector<NBEdge::Connection>::reverse_iterator con_it = connections.rbegin(); con_it != connections.rend(); con_it++) {
                 bool hasTurn = con_it->toEdge == turnEdge;
-                undoList->add(new GNEChange_Connection(srcEdge, *con_it, false), true);
+                undoList->add(new GNEChange_Connection(srcEdge, *con_it, false, false), true);
                 // needs to come after GNEChange_Connection
                 // XXX bug: this code path will not be used on a redo!
                 if (hasTurn) {

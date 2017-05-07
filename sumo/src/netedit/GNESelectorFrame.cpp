@@ -301,6 +301,10 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         gSelected.toggleSelection(*it);
     }
+    ids = myViewNet->getNet()->getGlIDs(GLO_CROSSING);
+    for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
+        gSelected.toggleSelection(*it);
+    }
     myViewNet->update();
     return 1;
 }

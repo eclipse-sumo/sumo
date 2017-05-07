@@ -984,7 +984,8 @@ GNEViewNet::hotkeyDel() {
         deleteSelectedJunctions();
         deleteSelectedEdges();
         deleteSelectedAdditionals();
-        /// @todo impelent deleteSelectedCrossings, deleteSelectdConnections
+        deleteSelectedCrossings();
+        deleteSelectedConnections();
         myUndoList->p_end();
     }
 }
@@ -2093,6 +2094,39 @@ GNEViewNet::deleteSelectedAdditionals() {
     std::vector<GNEAdditional*> additionals = myNet->retrieveAdditionals(true);
     for (std::vector<GNEAdditional*>::iterator it = additionals.begin(); it != additionals.end(); it++) {
         getViewParent()->getAdditionalFrame()->removeAdditional(*it);
+    }
+    myUndoList->p_end();
+}
+
+
+
+void 
+GNEViewNet::deleteSelectedCrossings() {
+    myUndoList->p_begin("delete selected " + toString(SUMO_TAG_CROSSING) + "s");
+    std::vector<GNEJunction*> junctions = myNet->retrieveJunctions();
+    for (std::vector<GNEJunction*>::iterator i = junctions.begin(); i != junctions.end(); i++) {
+        std::vector<GNECrossing*> crossings = (*i)->getGNECrossings();
+        for (std::vector<GNECrossing*>::const_iterator j = crossings.begin(); j != crossings.end(); j++) {
+            if(gSelected.isSelected(GLO_CROSSING, (*j)->getGlID())) {
+                myNet->deleteCrossing((*j), myUndoList);
+            }
+        }
+    }
+    myUndoList->p_end();
+}
+
+
+void 
+GNEViewNet::deleteSelectedConnections() {
+    myUndoList->p_begin("delete selected " + toString(SUMO_TAG_CONNECTION) + "s");
+    std::vector<GNEEdge*> edges = myNet->retrieveEdges();
+    for (std::vector<GNEEdge*>::iterator i = edges.begin(); i != edges.end(); i++) {
+        std::vector<GNEConnection*> connections = (*i)->getGNEConnections();
+        for (std::vector<GNEConnection*>::const_iterator j = connections.begin(); j != connections.end(); j++) {
+            if(gSelected.isSelected(GLO_CONNECTION, (*j)->getGlID())) {
+                myNet->deleteConnection((*j), myUndoList);
+            }
+        }
     }
     myUndoList->p_end();
 }

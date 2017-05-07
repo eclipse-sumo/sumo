@@ -28,6 +28,7 @@
 #endif
 
 #include <utils/common/MsgHandler.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 #include "GNEChange_Crossing.h"
 #include "GNENet.h"
@@ -47,12 +48,13 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Crossing, GNEChange, NULL, 0)
 
 
 /// @brief constructor for creating an crossing
-GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges, double width, bool priority, bool forward):
+GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges, double width, bool priority, bool selected, bool forward):
     GNEChange(junctionParent->getNet(), forward),
     myJunctionParent(junctionParent),
     myEdges(edges),
     myWidth(width),
-    myPriority(priority) {
+    myPriority(priority),
+    mySelected(selected) {
     assert(myNet);
 }
 
@@ -68,19 +70,28 @@ void GNEChange_Crossing::undo() {
         if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
-        // remove crossing of NBNode and update geometry
+        // remove crossing of NBNode
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
-        myJunctionParent->updateGeometry();
         // Update view
         myNet->getViewNet()->update();
     } else {
         // show extra information for tests
         if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
+            std::string selected = (mySelected == true)? ("a previously selected ") : ("");
+            WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
-        // add crossing of NBNode and update geometry
-        myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
-        myJunctionParent->updateGeometry();
+        // add crossing of NBNode
+        myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, mySelected);
+        // check if created GNECrossing must be selected
+        if(mySelected == true) {
+            // iterate over GNECrossing of junction to find GNECrossing and select it
+            for(std::vector<GNECrossing*>::const_iterator i = myJunctionParent->getGNECrossings().begin(); i != myJunctionParent->getGNECrossings().end(); i++) {
+                NBNode::Crossing crossingFromJunction = (*i)->getNBCrossing();
+                if((crossingFromJunction.edges == myEdges) && (crossingFromJunction.width == myWidth) && (crossingFromJunction.priority == myPriority)) {
+                    gSelected.select((*i)->getGlID());
+                }
+            }
+        }
         // Update view
         myNet->getViewNet()->update();
     }
@@ -91,11 +102,22 @@ void GNEChange_Crossing::redo() {
     if (myForward) {
         // show extra information for tests
         if (myJunctionParent->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
+            std::string selected = (mySelected == true)? ("a previously selected ") : ("");
+            WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // add crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
         myJunctionParent->updateGeometry();
+        // check if created GNECrossing must be selected
+        if(mySelected == true) {
+            // iterate over GNECrossing of junction to find GNECrossing and select it
+            for(std::vector<GNECrossing*>::const_iterator i = myJunctionParent->getGNECrossings().begin(); i != myJunctionParent->getGNECrossings().end(); i++) {
+                NBNode::Crossing crossingFromJunction = (*i)->getNBCrossing();
+                if((crossingFromJunction.edges == myEdges) && (crossingFromJunction.width == myWidth) && (crossingFromJunction.priority == myPriority)) {
+                    gSelected.select((*i)->getGlID());
+                }
+            }
+        }
         // Update view
         myNet->getViewNet()->update();
     } else {

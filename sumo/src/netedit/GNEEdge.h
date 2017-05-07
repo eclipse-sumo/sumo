@@ -322,11 +322,10 @@ private:
     void removeLane(GNELane* lane);
 
     /// @brief adds a connection
-    void addConnection(NBEdge::Connection nbCon);
+    void addConnection(NBEdge::Connection nbCon, bool selectAfterCreation = false);
 
     /// @brief removes a connection
     void removeConnection(NBEdge::Connection nbCon);
-
 };
 
 

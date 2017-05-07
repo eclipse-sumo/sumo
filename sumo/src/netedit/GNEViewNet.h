@@ -492,6 +492,12 @@ private:
     /// @brief delete all currently selected additionals
     void deleteSelectedAdditionals();
 
+    /// @brief delete all currently selected crossings
+    void deleteSelectedCrossings();
+
+    /// @brief delete all currently selected connections
+    void deleteSelectedConnections();
+
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
     bool mergeJunctions(GNEJunction* moved);
 

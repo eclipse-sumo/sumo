@@ -47,10 +47,11 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Connection, GNEChange, NULL, 0)
 // ===========================================================================
 
 
-GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool forward) :
+GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool selected, bool forward) :
     GNEChange(edge->getNet(), forward),
     myEdge(edge),
-    myNBEdgeConnection(nbCon) {
+    myNBEdgeConnection(nbCon),
+    mySelected(selected) {
     assert(myEdge);
 }
 
@@ -66,18 +67,21 @@ GNEChange_Connection::undo() {
         // show extra information for tests
         if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
             WRITE_WARNING("Deleting " + toString(SUMO_TAG_CONNECTION) + " '" + 
-                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "'");
+                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " + 
+                          toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         }
         // remove connection from edge
         myEdge->removeConnection(myNBEdgeConnection);
     } else {
         // show extra information for tests
         if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CONNECTION) + " '" +
-                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "'");
+            std::string selected = (mySelected == true)? ("a previously selected ") : ("");
+            WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CONNECTION) + " '" + 
+                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " + 
+                          toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         }
         // add connection into edge
-        myEdge->addConnection(myNBEdgeConnection);
+        myEdge->addConnection(myNBEdgeConnection, mySelected);
     }
 }
 
@@ -87,17 +91,19 @@ GNEChange_Connection::redo() {
     if (myForward) {
         // show extra information for tests
         if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CONNECTION) + " '" +
-                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "'");
-
+            std::string selected = (mySelected == true)? ("a previously selected ") : ("");
+            WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CONNECTION) + " '" + 
+                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " + 
+                          toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         }
         // add connection into edge
-        myEdge->addConnection(myNBEdgeConnection);
+        myEdge->addConnection(myNBEdgeConnection, mySelected);
     } else {
         // show extra information for tests
         if (myEdge->getNet()->getViewNet()->isTestingModeEnabled()) {
-            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CONNECTION) + " '" +
-                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "'");
+            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CONNECTION) + " '" + 
+                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " + 
+                          toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         }
         // remove connection from edge
         myEdge->removeConnection(myNBEdgeConnection);

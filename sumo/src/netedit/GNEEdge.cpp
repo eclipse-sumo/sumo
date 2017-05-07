@@ -999,7 +999,7 @@ GNEEdge::removeLane(GNELane* lane) {
 
 
 void
-GNEEdge::addConnection(NBEdge::Connection nbCon) {
+GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
     // If a new connection was sucesfully created
     if (myNBEdge.setConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, NBEdge::L2L_USER, true, nbCon.mayDefinitelyPass, nbCon.keepClear, nbCon.contPos, nbCon.visibility)) {
         // Create  or retrieve existent GNEConection
@@ -1008,6 +1008,10 @@ GNEEdge::addConnection(NBEdge::Connection nbCon) {
         myGNEConnections.push_back(con);
         // Add reference
         myGNEConnections.back()->incRef("GNEEdge::addConnection");
+        // select GNEConnection if needed
+        if(selectAfterCreation == true) {
+            gSelected.deselect(con->getGlID());
+        }
         // update geometry
         con->updateGeometry();
     }

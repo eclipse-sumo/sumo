@@ -335,12 +335,16 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
 
     // remove any traffic lights from the traffic light container (avoids lots of warnings)
     junction->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
-    undoList->add(new GNEChange_Junction(junction, false), true);
-    if (gSelected.isSelected(GLO_JUNCTION, junction->getGlID())) {
+
+    // save selection status
+    if (gSelected.isSelected(GLO_JUNCTION, junction->getGlID()) == true) {
         std::set<GUIGlID> deselected;
         deselected.insert(junction->getGlID());
         undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
+
+    // delete edge
+    undoList->add(new GNEChange_Junction(junction, false), true);
     undoList->p_end();
 }
 
@@ -388,15 +392,15 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     edge->getGNEJunctionSource()->setLogicValid(false, undoList);
     edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
 
-    // Delete edge
-    undoList->add(new GNEChange_Edge(edge, false), true);
-
-    // If previously was selected
-    if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
+    // save selection status
+    if (gSelected.isSelected(GLO_EDGE, edge->getGlID()) == true) {
         std::set<GUIGlID> deselected;
         deselected.insert(edge->getGlID());
         undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
+
+    // Delete edge
+    undoList->add(new GNEChange_Edge(edge, false), true);
 
     // check if after removing there are Rerouters without edge Childs
     for (std::vector<GNERerouter*>::iterator i = rerouters.begin(); i != rerouters.end(); i++) {
@@ -418,16 +422,25 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         deleteEdge(edge, undoList);
     } else {
         undoList->p_begin("delete " + toString(SUMO_TAG_LANE));
+        
         // delete additionals childs of lane
         std::vector<GNEAdditional*> copyOfAdditionals = lane->getAdditionalChilds();
         for (std::vector<GNEAdditional*>::const_iterator i = copyOfAdditionals.begin(); i != copyOfAdditionals.end(); i++) {
             undoList->add(new GNEChange_Additional((*i), false), true);
         }
+        
         // invalidate junctions (saving connections)
         edge->getGNEJunctionSource()->removeFromCrossings(edge, undoList);
         edge->getGNEJunctionDestiny()->removeFromCrossings(edge, undoList);
         edge->getGNEJunctionSource()->setLogicValid(false, undoList);
         edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
+
+        // save selection status
+        if (gSelected.isSelected(GLO_EDGE, edge->getGlID()) == true) {
+            std::set<GUIGlID> deselected;
+            deselected.insert(edge->getGlID());
+            undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
+        }
 
         // delete lane
         const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
@@ -437,6 +450,8 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
             deselected.insert(lane->getGlID());
             undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
         }
+
+        // remove lane requieres always a recompute (due geometry and connections)
         requireRecompute();
         undoList->p_end();
     }
@@ -446,16 +461,18 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
 void
 GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
     undoList->p_begin("delete " + toString(SUMO_TAG_CONNECTION));
+    // obtain NBEdge to remove
     NBConnection deleted = connection->getNBConnection();
-    GNEJunction* affected = connection->getEdgeFrom()->getGNEJunctionDestiny();
-    affected->markAsModified(undoList);
-    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), false), true);
-    affected->invalidateTLS(myViewNet->getUndoList(), deleted);
-    if (gSelected.isSelected(GLO_CONNECTION, connection->getGlID())) {
-        std::set<GUIGlID> deselected;
-        deselected.insert(connection->getGlID());
-        undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
+    GNEJunction* junctionDestiny = connection->getEdgeFrom()->getGNEJunctionDestiny();
+    junctionDestiny->markAsModified(undoList);
+    // check if GNEConnection was previouslyselected, and if true, unselect it.
+    bool selected = gSelected.isSelected(GLO_CONNECTION, connection->getGlID());
+    if(selected == true) {
+        gSelected.deselect(connection->getGlID());
     }
+    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), selected, false), true);
+    junctionDestiny->invalidateTLS(myViewNet->getUndoList(), deleted);
+    // remove connection requieres always a recompute (due geometry and connections)
     requireRecompute();
     undoList->p_end();
 }
@@ -464,16 +481,18 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
 void
 GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
     undoList->p_begin("delete crossing");
-    undoList->add(new GNEChange_Crossing(crossing->getParentJunction(), crossing->getNBCrossing().edges,
-                                         crossing->getNBCrossing().width, crossing->getNBCrossing().priority, false), true);
-    if (gSelected.isSelected(GLO_CROSSING, crossing->getGlID())) {
-        std::set<GUIGlID> deselected;
-        deselected.insert(crossing->getGlID());
-        undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
+    // check if GNECrossing was previouslyselected, and if true, unselect it.
+    bool selected = gSelected.isSelected(GLO_CROSSING, crossing->getGlID());
+    if(selected == true) {
+        gSelected.deselect(crossing->getGlID());
     }
+    undoList->add(new GNEChange_Crossing(crossing->getParentJunction(), crossing->getNBCrossing().edges,
+                                         crossing->getNBCrossing().width, crossing->getNBCrossing().priority, selected, false), true);
+    // remove crossing requieres always a recompute (due geometry and connections)
     requireRecompute();
     undoList->p_end();
 }
+
 
 void
 GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList) {
@@ -614,7 +633,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     // fix connections
     std::vector<NBEdge::Connection>& connections = edge->getNBEdge()->getConnections();
     for (std::vector<NBEdge::Connection>::iterator con_it = connections.begin(); con_it != connections.end(); con_it++) {
-        undoList->add(new GNEChange_Connection(secondPart, *con_it, true), true);
+        undoList->add(new GNEChange_Connection(secondPart, *con_it, false, true), true);
     }
     undoList->p_end();
     return newJunction;
