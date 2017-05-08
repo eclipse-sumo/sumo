@@ -36,6 +36,9 @@
 
 #include <iostream>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/options/OptionsCont.h>
+
 #include "GNEUndoList.h"
 #include "GNEChange_Attribute.h"
 #include "GNEApplicationWindow.h"
@@ -112,6 +115,9 @@ GNEUndoList::p_abort() {
 void
 GNEUndoList::undo() {
     //std::cout << undoName().text() << "\n";
+    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        WRITE_WARNING("Keys Ctrl + Z (Undo) pressed");
+    }
     FXUndoList::undo();
     myParent->updateControls();
 }
@@ -120,6 +126,10 @@ GNEUndoList::undo() {
 void
 GNEUndoList::redo() {
     //std::cout << redoName().text() << "\n";
+    //std::cout << undoName().text() << "\n";
+    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        WRITE_WARNING("Keys Ctrl + Y (Redo) pressed");
+    }
     FXUndoList::redo();
     myParent->updateControls();
 }
