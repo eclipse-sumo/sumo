@@ -1095,10 +1095,6 @@ GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
     if (getView()) {
-        // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Key F (Focus frame) pressed");
-        }
         getView()->hotkeyFocusFrame();
     }
     return 1;
@@ -1108,10 +1104,6 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
     if (getView()) {
-        // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Key V (Viewport) pressed");
-        }
         getView()->showViewportEditor();
     }
     return 1;
