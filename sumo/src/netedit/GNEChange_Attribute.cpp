@@ -62,7 +62,7 @@ GNEChange_Attribute::~GNEChange_Attribute() {
     if (myAC->unreferenced()) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Deleting unreferenced " + toString(myAC->getTag()) + " '" + myAC->getID() + "' into GNEChange_Attribute");
+            WRITE_WARNING("Deleting unreferenced " + toString(myAC->getTag()) + " '" + myAC->getID() + "' in GNEChange_Attribute");
         }
         delete myAC;
     }

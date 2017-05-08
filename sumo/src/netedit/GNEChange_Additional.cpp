@@ -102,7 +102,7 @@ GNEChange_Additional::undo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Deleting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
+            WRITE_WARNING("Removing " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         }
         // delete additional of test
         myNet->deleteAdditional(myAdditional);
@@ -153,7 +153,7 @@ GNEChange_Additional::undo() {
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Inserting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
+            WRITE_WARNING("Adding " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         }
         // insert additional of test
         myNet->insertAdditional(myAdditional);
@@ -210,7 +210,7 @@ GNEChange_Additional::redo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Inserting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
+            WRITE_WARNING("Adding " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         }
         // insert additional into net
         myNet->insertAdditional(myAdditional);
@@ -261,7 +261,7 @@ GNEChange_Additional::redo() {
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Deleting " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
+            WRITE_WARNING("Removing " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         }
         myNet->deleteAdditional(myAdditional);
         // 1 - If additionl own a Lane Parent, remove it from lane

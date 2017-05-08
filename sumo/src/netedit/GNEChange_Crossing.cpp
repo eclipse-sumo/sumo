@@ -68,7 +68,7 @@ void GNEChange_Crossing::undo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
+            WRITE_WARNING("removing " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // remove crossing of NBNode
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
@@ -123,7 +123,7 @@ void GNEChange_Crossing::redo() {
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
+            WRITE_WARNING("Removing " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // remove crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->removeCrossing(myEdges);

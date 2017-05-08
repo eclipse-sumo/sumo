@@ -29,6 +29,9 @@
 
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/options/OptionsCont.h>
+
 #include "GNEChange_Selection.h"
 #include "GNENet.h"
 #include "GNEViewNet.h"
@@ -60,26 +63,50 @@ GNEChange_Selection::~GNEChange_Selection() {
 void
 GNEChange_Selection::undo() {
     if (myForward) {
+        int counter = 0;
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
             if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.deselect(*it);
+                counter++;
             }
         }
+        // show information if testing mode is enabled
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Deselected " + toString(counter) + " elements in GNEChange_Selection");
+        }
+        counter = 0;
         for (std::set<GUIGlID>::const_iterator it = myDeselectedIDs.begin(); it != myDeselectedIDs.end(); it++) {
             if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.select(*it);
+                counter++;
             }
+        }
+        // show information if testing mode is enabled
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Selected " + toString(counter) + " elements in GNEChange_Selection");
         }
     } else {
+        int counter = 0;
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
             if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.select(*it);
+                counter++;
             }
         }
+        // show information if testing mode is enabled
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Selected " + toString(counter) + " elements in GNEChange_Selection");
+        }
+        counter = 0;
         for (std::set<GUIGlID>::const_iterator it = myDeselectedIDs.begin(); it != myDeselectedIDs.end(); it++) {
             if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.deselect(*it);
+                counter++;
             }
+        }
+        // show information if testing mode is enabled
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Deselected " + toString(counter) + " elements in GNEChange_Selection");
         }
     }
     myNet->getViewNet()->update();
@@ -89,26 +116,50 @@ GNEChange_Selection::undo() {
 void
 GNEChange_Selection::redo() {
     if (myForward) {
+        int counter = 0;
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
             if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.select(*it);
+                counter++;
             }
         }
+        // show information if testing mode is enabled
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Selected " + toString(counter) + " elements in GNEChange_Selection");
+        }
+        counter = 0;
         for (std::set<GUIGlID>::const_iterator it = myDeselectedIDs.begin(); it != myDeselectedIDs.end(); it++) {
             if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.deselect(*it);
+                counter++;
             }
+        }
+        // show information if testing mode is enabled
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Deselected " + toString(counter) + " elements in GNEChange_Selection");
         }
     } else {
+        int counter = 0;
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
             if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.deselect(*it);
+                counter++;
             }
         }
+        // show information if testing mode is enabled
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Deselected " + toString(counter) + " elements in GNEChange_Selection");
+        }
+        counter = 0;
         for (std::set<GUIGlID>::const_iterator it = myDeselectedIDs.begin(); it != myDeselectedIDs.end(); it++) {
             if (GUIGlObjectStorage::gIDStorage.getObjectBlocking(*it)) {
                 gSelected.select(*it);
+                counter++;
             }
+        }
+        // show information if testing mode is enabled
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Selected " + toString(counter) + " elements in GNEChange_Selection");
         }
     }
     myNet->getViewNet()->update();

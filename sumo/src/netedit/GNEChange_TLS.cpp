@@ -84,14 +84,14 @@ GNEChange_TLS::undo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Deleting " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+            WRITE_WARNING("Removing TLS from " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
         }
         // remove traffic light from junction
         myJunction->removeTrafficLight(myTlDef);
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+            WRITE_WARNING("Adding TLS into " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
         }
         // add traffic light to junction
         myJunction->addTrafficLight(myTlDef, myForceInsert);
@@ -104,14 +104,14 @@ GNEChange_TLS::redo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+            WRITE_WARNING("Adding TLS into " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
         }
         // add traffic light to junction
         myJunction->addTrafficLight(myTlDef, myForceInsert);
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Deleting " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+            WRITE_WARNING("Deleting TLS from " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
         }
         // remove traffic light from junction
         myJunction->removeTrafficLight(myTlDef);

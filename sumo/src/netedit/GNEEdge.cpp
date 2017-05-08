@@ -430,6 +430,10 @@ GNEEdge::remakeGNELanes() {
     for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
         (*i)->decRef("GNEEdge::~GNEEdge");
         if ((*i)->unreferenced()) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+                WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in remakeGNELanes()");
+            }
             delete *i;
         }
     }
@@ -972,6 +976,10 @@ GNEEdge::removeLane(GNELane* lane) {
     myLanes.erase(myLanes.begin() + lane->getIndex());
     // Delete lane if is unreferenced
     if (lane->unreferenced()) {
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Deleting unreferenced " + toString(lane->getTag()) + " '" + lane->getID() + "' in removeLane()");
+        }
         delete lane;
     }
     // udate indices
@@ -1033,7 +1041,10 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
         con->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
         if (con->unreferenced()) {
-            
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+                WRITE_WARNING("Deleting unreferenced " + toString(con->getTag()) + " '" + con->getID() + "' in removeConnection()");
+            }
             delete con;
             myNet->refreshElement(this); // actually we only do this to force a redraw
         }

@@ -78,7 +78,7 @@ GNEChange_Edge::undo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Deleting " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
+            WRITE_WARNING("Removing " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         }
         // delete edge from net
         myNet->deleteSingleEdge(myEdge);
@@ -93,7 +93,7 @@ GNEChange_Edge::undo() {
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
+            WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         }
         // insert edge into net
         myNet->insertEdge(myEdge);
@@ -114,7 +114,7 @@ GNEChange_Edge::redo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
+            WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         }
         // insert edge into net
         myNet->insertEdge(myEdge);
@@ -129,7 +129,7 @@ GNEChange_Edge::redo() {
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Deleting " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "'");
+            WRITE_WARNING("Removing " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         }
         // delte edge from net
         myNet->deleteSingleEdge(myEdge);

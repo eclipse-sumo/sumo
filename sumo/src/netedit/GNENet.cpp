@@ -174,11 +174,23 @@ GNENet::~GNENet() {
     */
     for (GNEEdges::iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         it->second->decRef("GNENet::~GNENet");
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Deleting unreferenced " + toString(it->second->getTag()) + " '" + it->second->getID() + "' in ~GNENet");
+        }
         delete it->second;
     }
     for (GNEJunctions::iterator it = myJunctions.begin(); it != myJunctions.end(); it++) {
         it->second->decRef("GNENet::~GNENet");
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Deleting unreferenced " + toString(it->second->getTag()) + " '" + it->second->getID() + "' in ~GNENet");
+        }
         delete it->second;
+    }
+    // show extra information for tests
+    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        WRITE_WARNING("Deleting net builder in ~GNENet");
     }
     delete myNetBuilder;
 }

@@ -48,6 +48,8 @@
 #include <netbuild/NBOwnTLDef.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBAlgorithms.h>
+#include <utils/common/MsgHandler.h>
+
 #include "GNENet.h"
 #include "GNEEdge.h"
 #include "GNECrossing.h"
@@ -580,6 +582,10 @@ GNEJunction::dropGNECrossings() {
     for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
         (*it)->decRef();
         if ((*it)->unreferenced()) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+                WRITE_WARNING("Deleting unreferenced " + toString((*it)->getTag()) + " '" + (*it)->getID() + "' in dropGNECrossings()");
+            }
             delete *it;
         }
     }

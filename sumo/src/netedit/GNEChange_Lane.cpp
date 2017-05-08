@@ -94,9 +94,9 @@ GNEChange_Lane::undo() {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             if (myLane != NULL) {
-                WRITE_WARNING("Deleting " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+                WRITE_WARNING("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
             } else {
-                WRITE_WARNING("Deleting NULL " + toString(SUMO_TAG_LANE));
+                WRITE_WARNING("Removing NULL " + toString(SUMO_TAG_LANE) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
             }
         }
         // remove lane from edge
@@ -109,9 +109,9 @@ GNEChange_Lane::undo() {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             if (myLane != NULL) {
-                WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+                WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
             } else {
-                WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE));
+                WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
             }
         }
         // add lane and their attributes to edge
@@ -130,9 +130,9 @@ GNEChange_Lane::redo() {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             if (myLane != NULL) {
-                WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+                WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
             } else {
-                WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE));
+                WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
             }
         }
         // add lane and their attributes to edge
@@ -145,9 +145,9 @@ GNEChange_Lane::redo() {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             if (myLane != NULL) {
-                WRITE_WARNING("Deleting " + toString(myLane->getTag()) + " '" + myLane->getID() + "'");
+                WRITE_WARNING("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
             } else {
-                WRITE_WARNING("Deleting NULL " + toString(SUMO_TAG_LANE));
+                WRITE_WARNING("Removing NULL " + toString(SUMO_TAG_LANE) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
             }
         }
         // remove lane from edge

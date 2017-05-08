@@ -66,7 +66,7 @@ GNEChange_Connection::undo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CONNECTION) + " '" + 
+            WRITE_WARNING("Removing " + toString(SUMO_TAG_CONNECTION) + " '" + 
                           myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " + 
                           toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         }
@@ -77,7 +77,7 @@ GNEChange_Connection::undo() {
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             std::string selected = (mySelected == true)? ("a previously selected ") : ("");
             WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CONNECTION) + " '" + 
-                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " + 
+                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' into " + 
                           toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         }
         // add connection into edge
@@ -93,7 +93,7 @@ GNEChange_Connection::redo() {
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
             std::string selected = (mySelected == true)? ("a previously selected ") : ("");
             WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CONNECTION) + " '" + 
-                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " + 
+                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' into " + 
                           toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         }
         // add connection into edge
@@ -101,7 +101,7 @@ GNEChange_Connection::redo() {
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Deleting " + toString(SUMO_TAG_CONNECTION) + " '" + 
+            WRITE_WARNING("Removing " + toString(SUMO_TAG_CONNECTION) + " '" + 
                           myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " + 
                           toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         }
