@@ -1054,6 +1054,11 @@ GNEApplicationWindow::onCmdSetMode(FXObject*, FXSelector sel, void*) {
 long
 GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
     if (getView()) {
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Key ESC (abort) pressed");
+        }
+        // abort current operation
         getView()->abortOperation();
         getView()->update();
     }
@@ -1064,6 +1069,10 @@ GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdDel(FXObject*, FXSelector, void*) {
     if (getView()) {
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Key DEL (delete) pressed");
+        }
         getView()->hotkeyDel();
     }
     return 1;
@@ -1073,6 +1082,10 @@ GNEApplicationWindow::onCmdDel(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
     if (getView()) {
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Key ENTER pressed");
+        }
         getView()->hotkeyEnter();
     }
     return 1;
@@ -1082,6 +1095,10 @@ GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
     if (getView()) {
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Key F (Focus frame) pressed");
+        }
         getView()->hotkeyFocusFrame();
     }
     return 1;
@@ -1091,6 +1108,10 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
     if (getView()) {
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            WRITE_WARNING("Key V (Viewport) pressed");
+        }
         getView()->showViewportEditor();
     }
     return 1;
@@ -1106,6 +1127,10 @@ GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdComputeJunctions(FXObject*, FXSelector, void*) {
+    // show extra information for tests
+    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        WRITE_WARNING("Key F5 (Compute) pressed");
+    }
     myNet->computeEverything(this, true, false);
     updateControls();
     return 1;
@@ -1116,6 +1141,7 @@ long
 GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*) {
     // write warning if netedit is running in testing mode
     if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        WRITE_WARNING("Keys Shift + F5 (Compute with volatile options) pressed");
         WRITE_WARNING("Opening FXMessageBox of type 'question'");
     }
     // open question dialog box
@@ -1144,6 +1170,10 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
 
 long
 GNEApplicationWindow::onCmdCleanJunctions(FXObject*, FXSelector, void*) {
+    // show extra information for tests
+    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        WRITE_WARNING("Key F6 (Clean junction) pressed");
+    }
     myNet->removeSolitaryJunctions(myUndoList);
     return 1;
 }
@@ -1151,6 +1181,10 @@ GNEApplicationWindow::onCmdCleanJunctions(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdJoinJunctions(FXObject*, FXSelector, void*) {
+    // show extra information for tests
+    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        WRITE_WARNING("Key F7 (Join junctions) pressed");
+    }
     myNet->joinSelectedJunctions(myUndoList);
     return 1;
 }
