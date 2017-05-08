@@ -889,6 +889,7 @@ private:
     /// @brief assignment operator.
     MSEdge& operator=(const MSEdge&);
 
+    bool isSuperposable(const MSEdge* other);
 };
 
 

@@ -946,35 +946,39 @@ MSEdge::hasMinorLink() const {
 
 
 void MSEdge::checkAndRegisterBiDirEdge() {
+
     myOppositingSuperposableEdge = 0;
     if (getPurpose() != EDGEFUNCTION_NORMAL) {
         return;
     }
-    const MSEdge* candidate = 0;
     ConstMSEdgeVector candidates = myToJunction->getOutgoing();
     for (ConstMSEdgeVector::const_iterator it = candidates.begin(); it != candidates.end(); it++){
         if ((*it)->getToJunction() == myFromJunction) { //reverse edge
-            if (candidate != 0) {
-                // @todo enable with higher selectivity.
-                //WRITE_WARNING("Ambiguous superposable edges between junction '" + myToJunction->getID() + "' and '" + myFromJunction->getID() + "'.");
+            if (myOppositingSuperposableEdge != 0 && isSuperposable(*it)) {
+                WRITE_WARNING("Ambiguous superposable edges between junction '" + myToJunction->getID() + "' and '" + myFromJunction->getID() + "'.");
                 break;
             }
-            candidate = *it;
+            myOppositingSuperposableEdge = isSuperposable(*it) ? *it : 0;
         }
     }
-    if (candidate == 0 || candidate->getLanes().size() != myLanes->size()){
-        return;
+}
+
+bool MSEdge::isSuperposable(const MSEdge * other) {
+
+    if (other == 0 || other->getLanes().size() != myLanes->size()){
+        return false;
     }
     std::vector<MSLane*>::const_iterator it1 = myLanes->begin();
-    std::vector<MSLane*>::const_iterator it2 = candidate->getLanes().end()-1;
+    std::vector<MSLane*>::const_iterator it2 = other->getLanes().end()-1;
     do {
         if (!((*it1)->getShape().reverse() == (*it2)->getShape())) {
-            return;
+            return false;
         }
         it1++;
         it2--;
     } while (it1 != myLanes->end());
-    myOppositingSuperposableEdge = candidate;
+
+    return true;
 }
 
 
