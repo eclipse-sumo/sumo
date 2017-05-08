@@ -1432,7 +1432,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     double v = MIN2(maxV, laneMaxV);
 #ifndef NO_TRACI
     if (myInfluencer != 0) {
-        const double vMin = MAX2(0., cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
+        //const double vMin = MAX2(0., cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
+        const double vMin = MAX2(0., cfModel.minNextSpeed(myState.mySpeed, this));
         v = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), v, v, vMin, maxV);
     }
 #endif
@@ -2125,7 +2126,8 @@ MSVehicle::executeMove() {
             vNext = myInfluencer->implicitSpeedVTD(this, myState.mySpeed);
         }
         const double vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed, this);
-        const double vMin = MAX2(0., getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
+//        const double vMin = MAX2(0., getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
+        const double vMin = MAX2(0., getVehicleType().getCarFollowModel().minNextSpeed(myState.mySpeed, this));
         vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
     }
 #endif

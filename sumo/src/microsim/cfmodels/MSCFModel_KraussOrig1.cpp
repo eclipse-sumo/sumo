@@ -39,7 +39,7 @@
 #include <utils/common/RandHelper.h>
 #include <microsim/MSGlobals.h>
 
-//#define DEBUG_EXECUTE_MOVE
+//#define DEBUG_MOVE_HELPER
 #define DEBUG_COND (veh->getID()=="disabled")
 
 // ===========================================================================
@@ -77,12 +77,12 @@ MSCFModel_KraussOrig1::moveHelper(MSVehicle* const veh, double vPos) const {
 
     double vNext = veh->getLaneChangeModel().patchSpeed(vMin, vDawdle, vMax, *this);
 
-#ifdef DEBUG_EXECUTE_MOVE
+#ifdef DEBUG_MOVE_HELPER
     if DEBUG_COND {
     std::cout << "\nMOVE_HELPER\n"
     << "veh '" << veh->getID() << "' vMin=" << vMin
         << " vMax=" << vMax << " vDawdle=" << vDawdle
-        << " vSafe" << vSafe << " vNext=" << vNext
+        << " vSafe" << vSafe << " vNext=" << vNext<< " vPos=" << vPos << " veh->getSpeed()=" << oldV
         << "\n";
     }
 #endif
@@ -91,7 +91,8 @@ MSCFModel_KraussOrig1::moveHelper(MSVehicle* const veh, double vPos) const {
     // This would have resulted from a call to maximumSafeStopSpeed(), which does not
     // consider deceleration bounds. Therefore, we cap vNext here.
     if (!MSGlobals::gSemiImplicitEulerUpdate) {
-        vNext = MAX2(vNext, veh->getSpeed() - ACCEL2SPEED(getMaxDecel()));
+//        vNext = MAX2(vNext, veh->getSpeed() - ACCEL2SPEED(getMaxDecel()));
+        vNext = MAX2(vNext, minNextSpeed(veh->getSpeed(), veh));
     }
 
     return vNext;

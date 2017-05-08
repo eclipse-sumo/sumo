@@ -155,7 +155,8 @@ MSCFModel::moveHelper(MSVehicle* const veh, double vPos) const {
     const double vMax = MIN3(veh->getMaxSpeedOnLane(), maxNextSpeed(oldV, veh), vSafe);
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         // we cannot rely on never braking harder than maxDecel because TraCI or strange cf models may decide to do so
-        vMin = MIN2(getSpeedAfterMaxDecel(oldV), vMax);
+        // vMin = MIN2(getSpeedAfterMaxDecel(oldV), vMax);
+        vMin =  MIN2(minNextSpeed(oldV, veh), vMax);
         vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
     } else {
         // for ballistic update, negative vnext must be allowed to
@@ -193,6 +194,7 @@ double
 MSCFModel::maxNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
     return MIN2(speed + (double) ACCEL2SPEED(getMaxAccel()), myType->getMaxSpeed());
 }
+
 
 double
 MSCFModel::minNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
