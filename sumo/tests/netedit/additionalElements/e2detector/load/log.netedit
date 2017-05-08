@@ -1,4 +1,4 @@
-Warning: Inserting e2Detector 'E2_01'
+Warning: Adding e2Detector 'E2_01' in GNEChange_Additional
 Warning: Essential string attribute 'id' of e2Detector is missing; Additional cannot be created
 Warning: Could not build e2Detector with ID 'E2_01' in netedit; probably declared twice.
 Warning: The lane 'dummyLane' to use within the e2Detector 'E2_02' is not known.
@@ -8,54 +8,54 @@ Warning: Format of essential string attribute 'pos' of e2Detector with ID 'E2_04
 Warning: Invalid position for e2Detector with ID = 'E2_05'.
 Warning: Invalid position for e2Detector with ID = 'E2_06'.
 Warning: Optional float attribute 'length' of e2Detector with ID 'E2_07' is missing; Default value '10.00' will be used.
-Warning: Inserting e2Detector 'E2_07'
+Warning: Adding e2Detector 'E2_07' in GNEChange_Additional
 Warning: Format of optional float attribute 'length' of e2Detector with ID 'E2_08' is invalid; Cannot be negative; Default value '10.00' will be used.
-Warning: Inserting e2Detector 'E2_08'
+Warning: Adding e2Detector 'E2_08' in GNEChange_Additional
 Warning: Invalid position for e2Detector with ID = 'E2_09'.
-Warning: Inserting e2Detector 'E2_10'
+Warning: Adding e2Detector 'E2_10' in GNEChange_Additional
 Warning: Optional time attribute 'freq' of e2Detector with ID 'E2_11' is missing; Default value '100.00' will be used.
-Warning: Inserting e2Detector 'E2_11'
+Warning: Adding e2Detector 'E2_11' in GNEChange_Additional
 Warning: Format of optional time attribute 'freq' of e2Detector with ID 'E2_12' is invalid; Cannot be parsed to time; Default value '100.00' will be used.
-Warning: Inserting e2Detector 'E2_12'
+Warning: Adding e2Detector 'E2_12' in GNEChange_Additional
 Warning: Format of optional time attribute 'freq' of e2Detector with ID 'E2_13' is invalid; Time cannot be negative; Default value '100.00' will be used.
-Warning: Inserting e2Detector 'E2_13'
-Warning: Inserting e2Detector 'E2_14'
+Warning: Adding e2Detector 'E2_13' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_14' in GNEChange_Additional
 Warning: Optional string attribute 'file' of e2Detector with ID 'E2_15' is missing; Default value '' will be used.
-Warning: Inserting e2Detector 'E2_15'
+Warning: Adding e2Detector 'E2_15' in GNEChange_Additional
 Warning: Format of optional string attribute 'file' of e2Detector with ID 'E2_16' is invalid; Filename contains invalid characters; Default value '' will be used.
-Warning: Inserting e2Detector 'E2_16'
-Warning: Inserting e2Detector 'E2_17'
-Warning: Inserting e2Detector 'E2_18'
-Warning: Inserting e2Detector 'E2_19'
+Warning: Adding e2Detector 'E2_16' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_17' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_18' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_19' in GNEChange_Additional
 Warning: Optional bool attribute 'cont' of e2Detector with ID 'E2_20' is missing; Default value '0' will be used.
-Warning: Inserting e2Detector 'E2_20'
+Warning: Adding e2Detector 'E2_20' in GNEChange_Additional
 Warning: Format of optional bool attribute 'cont' of e2Detector with ID 'E2_21' is invalid; Default value '0' will be used.
-Warning: Inserting e2Detector 'E2_21'
+Warning: Adding e2Detector 'E2_21' in GNEChange_Additional
 Warning: Format of optional bool attribute 'cont' of e2Detector with ID 'E2_22' is invalid; Default value '0' will be used.
-Warning: Inserting e2Detector 'E2_22'
+Warning: Adding e2Detector 'E2_22' in GNEChange_Additional
 Warning: Format of optional bool attribute 'cont' of e2Detector with ID 'E2_23' is invalid; Default value '0' will be used.
-Warning: Inserting e2Detector 'E2_23'
+Warning: Adding e2Detector 'E2_23' in GNEChange_Additional
 Warning: Optional time attribute 'timeThreshold' of e2Detector with ID 'E2_24' is missing; Default value '1.00' will be used.
-Warning: Inserting e2Detector 'E2_24'
+Warning: Adding e2Detector 'E2_24' in GNEChange_Additional
 Warning: Format of optional time attribute 'timeThreshold' of e2Detector with ID 'E2_25' is invalid; Cannot be parsed to time; Default value '1.00' will be used.
-Warning: Inserting e2Detector 'E2_25'
+Warning: Adding e2Detector 'E2_25' in GNEChange_Additional
 Warning: Format of optional time attribute 'timeThreshold' of e2Detector with ID 'E2_26' is invalid; Time cannot be negative; Default value '1.00' will be used.
-Warning: Inserting e2Detector 'E2_26'
-Warning: Inserting e2Detector 'E2_27'
+Warning: Adding e2Detector 'E2_26' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_27' in GNEChange_Additional
 Warning: Optional float attribute 'speedThreshold' of e2Detector with ID 'E2_28' is missing; Default value '1.39' will be used.
-Warning: Inserting e2Detector 'E2_28'
+Warning: Adding e2Detector 'E2_28' in GNEChange_Additional
 Warning: Format of optional float attribute 'speedThreshold' of e2Detector with ID 'E2_29' is invalid; Cannot be parsed to float; Default value '1.39' will be used.
-Warning: Inserting e2Detector 'E2_29'
+Warning: Adding e2Detector 'E2_29' in GNEChange_Additional
 Warning: Format of optional float attribute 'speedThreshold' of e2Detector with ID 'E2_30' is invalid; Cannot be negative; Default value '1.39' will be used.
-Warning: Inserting e2Detector 'E2_30'
-Warning: Inserting e2Detector 'E2_31'
+Warning: Adding e2Detector 'E2_30' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_31' in GNEChange_Additional
 Warning: Optional float attribute 'jamThreshold' of e2Detector with ID 'E2_32' is missing; Default value '10.00' will be used.
-Warning: Inserting e2Detector 'E2_32'
+Warning: Adding e2Detector 'E2_32' in GNEChange_Additional
 Warning: Format of optional float attribute 'jamThreshold' of e2Detector with ID 'E2_33' is invalid; Cannot be parsed to float; Default value '10.00' will be used.
-Warning: Inserting e2Detector 'E2_33'
+Warning: Adding e2Detector 'E2_33' in GNEChange_Additional
 Warning: Format of optional float attribute 'jamThreshold' of e2Detector with ID 'E2_34' is invalid; Cannot be negative; Default value '10.00' will be used.
-Warning: Inserting e2Detector 'E2_34'
-Warning: Inserting e2Detector 'E2_35'
+Warning: Adding e2Detector 'E2_34' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_35' in GNEChange_Additional
 Warning: Deleting unreferenced e2Detector 'E2_35'
 Warning: Deleting unreferenced e2Detector 'E2_34'
 Warning: Deleting unreferenced e2Detector 'E2_33'
@@ -85,7 +85,12 @@ Warning: Deleting unreferenced e2Detector 'E2_10'
 Warning: Deleting unreferenced e2Detector 'E2_08'
 Warning: Deleting unreferenced e2Detector 'E2_07'
 Warning: Deleting unreferenced e2Detector 'E2_01'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

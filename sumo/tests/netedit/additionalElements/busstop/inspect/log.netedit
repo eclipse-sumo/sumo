@@ -1,57 +1,109 @@
-Warning: Inserting busStop 'busStop_gneE2_1_0'
-Warning: Inserting busStop 'busStop_gneE2_1_1'
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
+Warning: Adding busStop 'busStop_gneE2_1_1' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
 Warning: Value 'busStop_gneE2_1_1' for attribute id of busStop isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute id 'correct ID' into busStop 'busStop_gneE2_1_0'
+Warning: Key ESC (abort) pressed
 Warning: Value 'dummy lane' for attribute lane of busStop isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE0_0' into busStop 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE2_1' into busStop 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE2_0' into busStop 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Value '-5' for attribute startPos of busStop isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Value '400' for attribute startPos of busStop isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute startPos '20' into busStop 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'No'
 Warning: Value '3000' for attribute endPos of busStop isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
 Warning: Setting new attribute endPos '3000' into busStop 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Value '10' for attribute endPos of busStop isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute endPos '30' into busStop 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
 Warning: Setting new attribute lines 'line1, line2' into busStop 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lines 'line1 line2' into busStop 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lines 'line1  line2' into busStop 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lines '' into busStop 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '50.00' into busStop 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '22.40' into busStop 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute startPos '12.40' into busStop 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE2_1' into busStop 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE0_0' into busStop 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE2_1' into busStop 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute id 'busStop_gneE2_1_0' into busStop 'correct ID'
-Warning: Deleting busStop 'busStop_gneE2_1_1'
-Warning: Deleting busStop 'busStop_gneE2_1_0'
-Warning: Inserting busStop 'busStop_gneE2_1_0'
-Warning: Inserting busStop 'busStop_gneE2_1_1'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing busStop 'busStop_gneE2_1_1' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing busStop 'busStop_gneE2_1_0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding busStop 'busStop_gneE2_1_1' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute id 'correct ID' into busStop 'busStop_gneE2_1_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE0_0' into busStop 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE2_1' into busStop 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE2_0' into busStop 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute startPos '20' into busStop 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute endPos '3000' into busStop 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute endPos '30' into busStop 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lines 'line1, line2' into busStop 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lines 'line1 line2' into busStop 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Deleting unreferenced busStop 'busStop_gneE2_1_1'
 Warning: Deleting unreferenced busStop 'correct ID'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE2' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE2_1 -> gneE3_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE3' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE3_1 -> gneE2_1' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ2' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ3' in ~GNENet
+Warning: Deleting net builder in ~GNENet

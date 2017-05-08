@@ -1,4 +1,4 @@
-Warning: Inserting containerStop 'containerStop_00'
+Warning: Adding containerStop 'containerStop_00' in GNEChange_Additional
 Warning: Essential string attribute 'id' of containerStop is missing; Additional cannot be created
 Warning: Essential string attribute 'id' of containerStop is missing; Additional cannot be created
 Warning: Could not build containerStop with ID 'containerStop_00' in netedit; probably declared twice.
@@ -12,14 +12,19 @@ Warning: Essential float attribute 'endPos' of containerStop with ID 'containerS
 Warning: Format of essential float attribute 'endPos' of containerStop with ID 'containerStop_08' is invalid; Cannot be parsed to float; Additional cannot be created
 Warning: Invalid position for containerStop with ID = 'containerStop_09'.
 Warning: Invalid position for containerStop with ID = 'containerStop_10'.
-Warning: Inserting containerStop 'containerStop_11'
+Warning: Adding containerStop 'containerStop_11' in GNEChange_Additional
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
-Warning: Inserting containerStop 'containerStop_12'
+Warning: Adding containerStop 'containerStop_12' in GNEChange_Additional
 Warning: Deleting unreferenced containerStop 'containerStop_12'
 Warning: Deleting unreferenced containerStop 'containerStop_11'
 Warning: Deleting unreferenced containerStop 'containerStop_00'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

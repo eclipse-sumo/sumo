@@ -1,30 +1,52 @@
-Warning: Inserting e3Detector 'e3Detector_0'
-Warning: Inserting detEntry 'e3Detector_0detEntry0'
+Warning: Key ESC (abort) pressed
+Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Setting new attribute x '22.00' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute y '5.00' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute blockMovement 'true' into e3Detector 'e3Detector_0'
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute blockMovement 'false' into e3Detector 'e3Detector_0'
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute x '27.00' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute y '5.00' into e3Detector 'e3Detector_0'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute y '4.73' into e3Detector 'e3Detector_0'
 Warning: Setting previous attribute x '22.46' into e3Detector 'e3Detector_0'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '1' into e3Detector 'e3Detector_0'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into e3Detector 'e3Detector_0'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute y '-0.68' into e3Detector 'e3Detector_0'
 Warning: Setting previous attribute x '22.46' into e3Detector 'e3Detector_0'
-Warning: Deleting detEntry 'e3Detector_0detEntry0'
-Warning: Deleting e3Detector 'e3Detector_0'
-Warning: Inserting e3Detector 'e3Detector_0'
-Warning: Inserting detEntry 'e3Detector_0detEntry0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute x '22.00' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute y '5.00' into e3Detector 'e3Detector_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into e3Detector 'e3Detector_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'false' into e3Detector 'e3Detector_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute x '27.00' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute y '5.00' into e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

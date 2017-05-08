@@ -1,10 +1,16 @@
-Warning: Inserting containerStop 'containerStopA'
-Warning: Inserting containerStop 'containerStopB'
+Warning: Adding containerStop 'containerStopA' in GNEChange_Additional
+Warning: Adding containerStop 'containerStopB' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopA'
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopB'
 Warning: Deleting unreferenced containerStop 'containerStopB'
 Warning: Deleting unreferenced containerStop 'containerStopA'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

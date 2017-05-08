@@ -1,41 +1,54 @@
-Warning: Inserting busStop 'busStop_0'
-Warning: Inserting busStop 'busStop_1'
-Warning: Inserting busStop 'busStop_gneE0_0_2'
-Warning: Deleting busStop 'busStop_gneE0_0_2'
-Warning: Deleting busStop 'busStop_0'
-Warning: Deleting busStop 'busStop_1'
-Warning: Deleting connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Warning: Adding busStop 'busStop_0' in GNEChange_Additional
+Warning: Adding busStop 'busStop_1' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Adding busStop 'busStop_gneE0_0_2' in GNEChange_Additional
+Warning: Removing busStop 'busStop_gneE0_0_2' in GNEChange_Additional
+Warning: Removing busStop 'busStop_0' in GNEChange_Additional
+Warning: Removing busStop 'busStop_1' in GNEChange_Additional
+Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Deleting connection 'gneE1_0->gneE0_0' from edge 'gneE1'
+Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
-Warning: Deleting edge 'gneE1'
-Warning: Adding edge 'gneE1'
+Warning: Removing edge 'gneE1' from net
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding edge 'gneE1' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ0'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE1'
-Warning: Adding connection 'gneE1_0->gneE0_0' from edge 'gneE1'
+Warning: Adding connection 'gneE1_0->gneE0_0' into edge 'gneE1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE0'
-Warning: Adding connection 'gneE0_0->gneE1_0' from edge 'gneE0'
-Warning: Inserting busStop 'busStop_1'
-Warning: Inserting busStop 'busStop_0'
-Warning: Inserting busStop 'busStop_gneE0_0_2'
+Warning: Adding connection 'gneE0_0->gneE1_0' into edge 'gneE0'
+Warning: Adding busStop 'busStop_1' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding busStop 'busStop_0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding busStop 'busStop_gneE0_0_2' in GNEChange_Additional
 Warning: Opening FXMessageBox of type 'warning'
 Warning: Closed FXMessageBox of type 'warning' with 'OK'
-Warning: Deleting busStop 'busStop_gneE0_0_2'
-Warning: Deleting busStop 'busStop_0'
-Warning: Deleting busStop 'busStop_1'
-Warning: Deleting connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing busStop 'busStop_gneE0_0_2' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing busStop 'busStop_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing busStop 'busStop_1' in GNEChange_Additional
+Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Deleting connection 'gneE1_0->gneE0_0' from edge 'gneE1'
+Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
-Warning: Deleting edge 'gneE1'
-Warning: Deleting unreferenced edge 'gneE1' into GNEChange_Attribute
+Warning: Removing edge 'gneE1' from net
+Warning: Deleting unreferenced edge 'gneE1' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced busStop 'busStop_gneE0_0_2'
 Warning: Deleting unreferenced busStop 'busStop_1'
 Warning: Deleting unreferenced busStop 'busStop_0'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

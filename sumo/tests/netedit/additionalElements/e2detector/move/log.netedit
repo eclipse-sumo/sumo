@@ -1,4 +1,5 @@
-Warning: Inserting e2Detector 'e2Detector_gneE0_0_0'
+Warning: Key ESC (abort) pressed
+Warning: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
 Warning: Setting new attribute pos '12.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Setting new attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Setting new attribute pos '27.00' into e2Detector 'e2Detector_gneE0_0_0'
@@ -7,26 +8,51 @@ Warning: Setting new attribute pos '1.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Setting new attribute pos '16.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Setting new attribute pos '39.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Setting new attribute pos '24.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '39.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '16.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '1.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '27.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '12.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
-Warning: Deleting e2Detector 'e2Detector_gneE0_0_0'
-Warning: Inserting e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '12.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '27.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '17.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '1.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '16.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '39.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '24.00' into e2Detector 'e2Detector_gneE0_0_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Deleting unreferenced e2Detector 'e2Detector_gneE0_0_0'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

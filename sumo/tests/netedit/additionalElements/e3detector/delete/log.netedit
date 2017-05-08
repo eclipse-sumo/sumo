@@ -1,50 +1,65 @@
 Warning: e3Detectors without detEntrys or detExit aren't allowed; e3Detector with ID = 'e3Detector_0' cannot be created.
-Warning: Inserting e3Detector 'e3Detector_1'
-Warning: Inserting detEntry 'e3Detector_1detEntry0'
-Warning: Inserting e3Detector 'e3Detector_2'
-Warning: Inserting detEntry 'e3Detector_2detEntry0'
-Warning: Inserting e3Detector 'e3Detector_3'
-Warning: Inserting e3Detector 'e3Detector_4'
-Warning: Inserting detEntry 'e3Detector_4detEntry0'
-Warning: Deleting e3Detector 'e3Detector_3'
-Warning: Deleting e3Detector 'e3Detector_4'
-Warning: Deleting e3Detector 'e3Detector_1'
-Warning: Deleting detEntry 'e3Detector_2detEntry0'
-Warning: Deleting connection 'gneE1_0->gneE0_0' from edge 'gneE1'
+Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_4' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Adding detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
+Warning: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
+Warning: Removing e3Detector 'e3Detector_4' in GNEChange_Additional
+Warning: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
-Warning: Deleting connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Deleting edge 'gneE0'
-Warning: Adding edge 'gneE0'
+Warning: Removing edge 'gneE0' from net
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding edge 'gneE0' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE0'
-Warning: Adding connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Warning: Adding connection 'gneE0_0->gneE1_0' into edge 'gneE0'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ0'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE1'
-Warning: Adding connection 'gneE1_0->gneE0_0' from edge 'gneE1'
-Warning: Inserting detEntry 'e3Detector_2detEntry0'
-Warning: Inserting e3Detector 'e3Detector_1'
-Warning: Inserting e3Detector 'e3Detector_4'
-Warning: Inserting e3Detector 'e3Detector_3'
-Warning: Deleting detEntry 'e3Detector_4detEntry0'
+Warning: Adding connection 'gneE1_0->gneE0_0' into edge 'gneE1'
+Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding e3Detector 'e3Detector_4' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
 Warning: Opening FXMessageBox of type 'warning'
 Warning: Closed FXMessageBox of type 'warning' with 'OK'
-Warning: Inserting detEntry 'e3Detector_4detEntry0'
-Warning: Deleting e3Detector 'e3Detector_3'
-Warning: Deleting e3Detector 'e3Detector_4'
-Warning: Deleting e3Detector 'e3Detector_1'
-Warning: Deleting detEntry 'e3Detector_2detEntry0'
-Warning: Deleting connection 'gneE1_0->gneE0_0' from edge 'gneE1'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing e3Detector 'e3Detector_4' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
-Warning: Deleting connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Deleting edge 'gneE0'
+Warning: Removing edge 'gneE0' from net
 Warning: e3Detector with ID 'e3Detector_2' cannot be writed in additional file because doesn't have childs.
-Warning: Deleting unreferenced edge 'gneE0' into GNEChange_Attribute
+Warning: Deleting unreferenced edge 'gneE0' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_4detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_4'
@@ -53,4 +68,8 @@ Warning: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_2'
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_1'
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

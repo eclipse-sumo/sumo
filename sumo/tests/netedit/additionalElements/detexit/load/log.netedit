@@ -1,20 +1,25 @@
 Warning: Essential string attribute 'id' of e3Detector is missing; Additional cannot be created
 Warning: Essential string attribute 'lane' of detExit is missing; Additional cannot be created
 Warning: The lane 'dummyLane' to use within the detExit is not known.
-Warning: Inserting e3Detector 'e3Detector_0'
-Warning: Inserting detExit 'e3Detector_0detExit0'
+Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Essential string attribute 'pos' of detExit is missing; Additional cannot be created
 Warning: Format of essential string attribute 'pos' of detExit is invalid; Additional cannot be created
 Warning: Format of essential string attribute 'pos' of detExit is invalid; Additional cannot be created
 Warning: Invalid position for detExit.
 Warning: Invalid position for detExit.
-Warning: Inserting detExit 'e3Detector_0detExit1'
-Warning: Inserting detExit 'e3Detector_0detExit2'
+Warning: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_0detExit2' in GNEChange_Additional
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit2'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit1'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

@@ -1,71 +1,140 @@
-Warning: Inserting chargingStation 'chargingStation_gneE2_1_0'
-Warning: Inserting chargingStation 'chargingStation_gneE2_1_1'
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
+Warning: Adding chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
 Warning: Value 'chargingStation_gneE2_1_1' for attribute id of chargingStation isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute id 'correct ID' into chargingStation 'chargingStation_gneE2_1_0'
+Warning: Key ESC (abort) pressed
 Warning: Value 'dummy lane' for attribute lane of chargingStation isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE0_0' into chargingStation 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE2_1' into chargingStation 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE2_0' into chargingStation 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Value '-5' for attribute startPos of chargingStation isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Value '400' for attribute startPos of chargingStation isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute startPos '20' into chargingStation 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'No'
 Warning: Value '3000' for attribute endPos of chargingStation isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
 Warning: Setting new attribute endPos '3000' into chargingStation 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Value '10' for attribute endPos of chargingStation isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute endPos '30' into chargingStation 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute power '22000' into chargingStation 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Value '-100' for attribute power of chargingStation isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute power '10000' into chargingStation 'correct ID'
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
 Warning: Value '-1' for attribute efficiency of chargingStation isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Value '2' for attribute efficiency of chargingStation isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute efficiency '0.90' into chargingStation 'correct ID'
 Warning: Setting new attribute chargeInTransit 'true' into chargingStation 'correct ID'
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute chargeDelay '0' into chargingStation 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Value '-10' for attribute chargeDelay of chargingStation isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute chargeDelay '3' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute chargeDelay '0.00' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute chargeDelay '0.00' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute chargeInTransit '0' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute efficiency '0.95' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute power '22000.00' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute power '22000.00' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '50.00' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '22.40' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute startPos '12.40' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE2_1' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE0_0' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE2_1' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute id 'chargingStation_gneE2_1_0' into chargingStation 'correct ID'
-Warning: Deleting chargingStation 'chargingStation_gneE2_1_1'
-Warning: Deleting chargingStation 'chargingStation_gneE2_1_0'
-Warning: Inserting chargingStation 'chargingStation_gneE2_1_0'
-Warning: Inserting chargingStation 'chargingStation_gneE2_1_1'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute id 'correct ID' into chargingStation 'chargingStation_gneE2_1_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE0_0' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE2_1' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE2_0' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute startPos '20' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute endPos '3000' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute endPos '30' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute power '22000' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute power '10000' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute efficiency '0.90' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute chargeInTransit 'true' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute chargeDelay '0' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute chargeDelay '3' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE2_1_1'
 Warning: Deleting unreferenced chargingStation 'correct ID'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE2' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE2_1 -> gneE3_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE3' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE3_1 -> gneE2_1' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ2' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ3' in ~GNENet
+Warning: Deleting net builder in ~GNENet

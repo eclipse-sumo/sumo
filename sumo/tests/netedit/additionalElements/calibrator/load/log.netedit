@@ -1,31 +1,31 @@
-Warning: Inserting calibrator 'calibrator01'
+Warning: Adding calibrator 'calibrator01' in GNEChange_Additional
 Warning: Essential string attribute 'id' of calibrator is missing; Additional cannot be created
 Warning: Format of essential string attribute 'id' of calibrator is invalid; Additional cannot be created
 Warning: Could not build calibrator with ID 'calibrator01' in netedit; probably declared twice.
-Warning: Inserting calibrator 'calibrator02'
+Warning: Adding calibrator 'calibrator02' in GNEChange_Additional
 Warning: Essential string attribute 'lane' of calibrator with ID 'calibrator03' is missing; Additional cannot be created
-Warning: Inserting calibrator 'calibrator04'
-Warning: Inserting calibrator 'calibrator05'
+Warning: Adding calibrator 'calibrator04' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator05' in GNEChange_Additional
 Warning: Optional float attribute 'pos' of calibrator with ID 'calibrator06' is missing; Default value '0.00' will be used.
-Warning: Inserting calibrator 'calibrator06'
+Warning: Adding calibrator 'calibrator06' in GNEChange_Additional
 Warning: Format of optional float attribute 'pos' of calibrator with ID 'calibrator07' is invalid; Cannot be parsed to float; Default value '0.00' will be used.
-Warning: Inserting calibrator 'calibrator07'
+Warning: Adding calibrator 'calibrator07' in GNEChange_Additional
 Warning: Format of optional float attribute 'pos' of calibrator with ID 'calibrator08' is invalid; Cannot be negative; Default value '0.00' will be used.
-Warning: Inserting calibrator 'calibrator08'
-Warning: Inserting calibrator 'calibrator09'
+Warning: Adding calibrator 'calibrator08' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator09' in GNEChange_Additional
 Warning: Optional time attribute 'freq' of calibrator with ID 'calibrator10' is missing; Default value '100.00' will be used.
-Warning: Inserting calibrator 'calibrator10'
+Warning: Adding calibrator 'calibrator10' in GNEChange_Additional
 Warning: Format of optional time attribute 'freq' of calibrator with ID 'calibrator11' is invalid; Cannot be parsed to time; Default value '100.00' will be used.
-Warning: Inserting calibrator 'calibrator11'
+Warning: Adding calibrator 'calibrator11' in GNEChange_Additional
 Warning: Format of optional time attribute 'freq' of calibrator with ID 'calibrator12' is invalid; Time cannot be negative; Default value '100.00' will be used.
-Warning: Inserting calibrator 'calibrator12'
-Warning: Inserting calibrator 'calibrator13'
+Warning: Adding calibrator 'calibrator12' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator13' in GNEChange_Additional
 Warning: Optional string attribute 'output' of calibrator with ID 'calibrator14' is missing; Default value '' will be used.
-Warning: Inserting calibrator 'calibrator14'
+Warning: Adding calibrator 'calibrator14' in GNEChange_Additional
 Warning: Format of optional string attribute 'output' of calibrator with ID 'calibrator15' is invalid; Filename contains invalid characters; Default value '' will be used.
-Warning: Inserting calibrator 'calibrator15'
-Warning: Inserting calibrator 'calibrator16'
-Warning: Inserting calibrator 'calibrator17'
+Warning: Adding calibrator 'calibrator15' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator16' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator17' in GNEChange_Additional
 Warning: Deleting unreferenced calibrator 'calibrator17'
 Warning: Deleting unreferenced calibrator 'calibrator16'
 Warning: Deleting unreferenced calibrator 'calibrator15'
@@ -42,7 +42,12 @@ Warning: Deleting unreferenced calibrator 'calibrator05'
 Warning: Deleting unreferenced calibrator 'calibrator04'
 Warning: Deleting unreferenced calibrator 'calibrator02'
 Warning: Deleting unreferenced calibrator 'calibrator01'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

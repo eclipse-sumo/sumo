@@ -1,4 +1,4 @@
-Warning: Inserting busStop 'busStop_00'
+Warning: Adding busStop 'busStop_00' in GNEChange_Additional
 Warning: Essential string attribute 'id' of busStop is missing; Additional cannot be created
 Warning: Essential string attribute 'id' of busStop is missing; Additional cannot be created
 Warning: Could not build busStop with ID 'busStop_00' in netedit; probably declared twice.
@@ -12,14 +12,19 @@ Warning: Essential float attribute 'endPos' of busStop with ID 'busStop_07' is m
 Warning: Format of essential float attribute 'endPos' of busStop with ID 'busStop_08' is invalid; Cannot be parsed to float; Additional cannot be created
 Warning: Invalid position for busStop with ID = 'busStop_09'.
 Warning: Invalid position for busStop with ID = 'busStop_10'.
-Warning: Inserting busStop 'busStop_11'
+Warning: Adding busStop 'busStop_11' in GNEChange_Additional
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
-Warning: Inserting busStop 'busStop_12'
+Warning: Adding busStop 'busStop_12' in GNEChange_Additional
 Warning: Deleting unreferenced busStop 'busStop_12'
 Warning: Deleting unreferenced busStop 'busStop_11'
 Warning: Deleting unreferenced busStop 'busStop_00'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

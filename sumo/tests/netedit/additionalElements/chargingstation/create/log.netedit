@@ -1,29 +1,62 @@
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of chargingStation: 'power' cannot be negative
-Warning: Inserting chargingStation 'chargingStation_gneE0_0_0'
+Warning: Key ESC (abort) pressed
+Warning: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of chargingStation: 'efficiency' takes only values between 0 and 1
-Warning: Inserting chargingStation 'chargingStation_gneE0_0_1'
-Warning: Inserting chargingStation 'chargingStation_gneE0_0_2'
+Warning: Key ESC (abort) pressed
+Warning: Adding chargingStation 'chargingStation_gneE0_0_1' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Adding chargingStation 'chargingStation_gneE0_0_2' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of chargingStation: 'startPos' overpass lane's lenght. Use 'force position' or another reference point.
+Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of chargingStation: 'startPos' takes a negative value. Use 'force position' or another reference point.
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of chargingStation: 'chargeDelay' cannot be negative
-Warning: Inserting chargingStation 'chargingStation_gneE0_0_3'
-Warning: Inserting chargingStation 'chargingStation_gneE0_0_4'
-Warning: Deleting chargingStation 'chargingStation_gneE0_0_4'
-Warning: Deleting chargingStation 'chargingStation_gneE0_0_3'
-Warning: Deleting chargingStation 'chargingStation_gneE0_0_2'
-Warning: Deleting chargingStation 'chargingStation_gneE0_0_1'
-Warning: Deleting chargingStation 'chargingStation_gneE0_0_0'
-Warning: Inserting chargingStation 'chargingStation_gneE0_0_0'
-Warning: Inserting chargingStation 'chargingStation_gneE0_0_1'
-Warning: Inserting chargingStation 'chargingStation_gneE0_0_2'
-Warning: Inserting chargingStation 'chargingStation_gneE0_0_3'
-Warning: Inserting chargingStation 'chargingStation_gneE0_0_4'
+Warning: Key ESC (abort) pressed
+Warning: Adding chargingStation 'chargingStation_gneE0_0_3' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Adding chargingStation 'chargingStation_gneE0_0_4' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing chargingStation 'chargingStation_gneE0_0_4' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing chargingStation 'chargingStation_gneE0_0_3' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing chargingStation 'chargingStation_gneE0_0_2' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing chargingStation 'chargingStation_gneE0_0_1' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding chargingStation 'chargingStation_gneE0_0_1' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding chargingStation 'chargingStation_gneE0_0_2' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding chargingStation 'chargingStation_gneE0_0_3' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding chargingStation 'chargingStation_gneE0_0_4' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_4'
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_3'
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_2'
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_1'
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_0'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

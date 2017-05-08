@@ -1,4 +1,4 @@
-Warning: Inserting calibrator 'calibratorRoutes'
+Warning: Adding calibrator 'calibratorRoutes' in GNEChange_Additional
 Warning: Essential string attribute 'id' of route is missing; Additional cannot be created
 Warning: Format of essential string attribute 'id' of route is invalid; Additional cannot be created
 Warning: Essential string attribute 'edges' of route is missing; Additional cannot be created
@@ -6,7 +6,7 @@ Warning: route with ID = 'route04' cannot be created; edge with id 'dummyEdge1' 
 Warning: route with ID = 'route04' cannot be created; edge with id 'dummyEdge2' doesn't exist in net
 Warning: route with ID = 'route05' cannot be created; edge with id 'dummyEdge1' doesn't exist in net
 Warning: Optional string attribute 'color' of route is missing; Default value '' will be used.
-Warning: Inserting calibrator 'calibratorVehicleTypes'
+Warning: Adding calibrator 'calibratorVehicleTypes' in GNEChange_Additional
 Warning: Essential string attribute 'id' of vType is missing; Additional cannot be created
 Warning: Format of essential string attribute 'id' of vType is invalid; Additional cannot be created
 Warning: Optional float attribute 'accel' of vType is missing; Default value '2.60' will be used.
@@ -57,11 +57,16 @@ Warning: Optional int attribute 'containerCapacity' of vType is missing; Default
 Warning: Format of optional int attribute 'containerCapacity' of vType is invalid; Cannot be parsed to int; Default value '0' will be used.
 Warning: Format of optional int attribute 'containerCapacity' of vType is invalid; Cannot be negative; Default value '0' will be used.
 Warning: Format of optional int attribute 'containerCapacity' of vType is invalid; Cannot be parsed to int; Default value '0' will be used.
-Warning: Inserting calibrator 'calibratorFlows'
+Warning: Adding calibrator 'calibratorFlows' in GNEChange_Additional
 Warning: Deleting unreferenced calibrator 'calibratorFlows'
 Warning: Deleting unreferenced calibrator 'calibratorVehicleTypes'
 Warning: Deleting unreferenced calibrator 'calibratorRoutes'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

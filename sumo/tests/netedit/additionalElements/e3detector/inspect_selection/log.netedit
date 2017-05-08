@@ -1,21 +1,32 @@
-Warning: Inserting e3Detector 'e3Detector_A'
-Warning: Inserting detEntry 'e3Detector_AdetEntry0'
-Warning: Inserting e3Detector 'e3Detector_B'
-Warning: Inserting detEntry 'e3Detector_BdetEntry0'
+Warning: Adding e3Detector 'e3Detector_A' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
 Warning: Value '-30' for attribute freq of e3Detector isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_B'
+Warning: Key ESC (abort) pressed
 Warning: Value '-5' for attribute timeThreshold of e3Detector isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_B'
+Warning: Key ESC (abort) pressed
 Warning: Value '-3' for attribute speedThreshold of e3Detector isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_B'
 Warning: Deleting unreferenced detEntry 'e3Detector_BdetEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_B'
 Warning: Deleting unreferenced detEntry 'e3Detector_AdetEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_A'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

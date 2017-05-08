@@ -1,48 +1,96 @@
-Warning: Inserting routeProbe 'routeProbe_gneE3_0'
-Warning: Inserting routeProbe 'routeProbe_gneE3_1'
+Warning: Key ESC (abort) pressed
+Warning: Adding routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
+Warning: Adding routeProbe 'routeProbe_gneE3_1' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute id 'routeProbe_3_1' into routeProbe 'routeProbe_gneE3_0'
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute id 'correct ID' into routeProbe 'routeProbe_3_1'
+Warning: Key ESC (abort) pressed
 Warning: Value 'dummyEdge' for attribute edge of routeProbe isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute edge 'gneE0' into routeProbe 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute freq '100' into routeProbe 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Value '-50' for attribute freq of routeProbe isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute freq '150' into routeProbe 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute begin '0' into routeProbe 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute begin '0' into routeProbe 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute begin '0' into routeProbe 'correct ID'
+Warning: Key ESC (abort) pressed
 Warning: Value '-5' for attribute begin of routeProbe isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute begin '20' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute begin '0.00' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute begin '0.00' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute begin '0.00' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute begin '0.00' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute freq '100.00' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute freq '100.00' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute edge 'gneE3' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute id 'routeProbe_3_1' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute id 'routeProbe_gneE3_0' into routeProbe 'routeProbe_3_1'
-Warning: Deleting routeProbe 'routeProbe_gneE3_1'
-Warning: Deleting routeProbe 'routeProbe_gneE3_0'
-Warning: Inserting routeProbe 'routeProbe_gneE3_0'
-Warning: Inserting routeProbe 'routeProbe_gneE3_1'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing routeProbe 'routeProbe_gneE3_1' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding routeProbe 'routeProbe_gneE3_1' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute id 'routeProbe_3_1' into routeProbe 'routeProbe_gneE3_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute id 'correct ID' into routeProbe 'routeProbe_3_1'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute edge 'gneE0' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '100' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '150' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute begin '0' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute begin '0' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute begin '0' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute begin '20' into routeProbe 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE3_1'
 Warning: Deleting unreferenced routeProbe 'correct ID'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE2' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE2_1 -> gneE3_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE3' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE3_1 -> gneE2_1' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ2' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ3' in ~GNENet
+Warning: Deleting net builder in ~GNENet

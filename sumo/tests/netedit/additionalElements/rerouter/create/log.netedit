@@ -1,18 +1,34 @@
+Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of rerouter: List of edges cannot be empty
-Warning: Inserting rerouter 'rerouter_0'
+Warning: Key ESC (abort) pressed
+Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of rerouter: 'probability' takes only values between 0 and 1
-Warning: Inserting rerouter 'rerouter_1'
-Warning: Inserting rerouter 'rerouter_2'
-Warning: Deleting rerouter 'rerouter_2'
-Warning: Deleting rerouter 'rerouter_1'
-Warning: Deleting rerouter 'rerouter_0'
-Warning: Inserting rerouter 'rerouter_0'
-Warning: Inserting rerouter 'rerouter_1'
-Warning: Inserting rerouter 'rerouter_2'
+Warning: Key ESC (abort) pressed
+Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Adding rerouter 'rerouter_2' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing rerouter 'rerouter_2' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing rerouter 'rerouter_1' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing rerouter 'rerouter_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding rerouter 'rerouter_2' in GNEChange_Additional
 Warning: Deleting unreferenced rerouter 'rerouter_2'
 Warning: Deleting unreferenced rerouter 'rerouter_1'
 Warning: Deleting unreferenced rerouter 'rerouter_0'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

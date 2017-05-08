@@ -1,17 +1,32 @@
-Warning: Inserting e1Detector 'e1Detector_gneE0_0_0'
+Warning: Key ESC (abort) pressed
+Warning: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of e1Detector: 'freq' cannot be negative
-Warning: Inserting e1Detector 'e1Detector_gneE0_0_1'
-Warning: Inserting e1Detector 'e1Detector_gneE0_0_2'
-Warning: Deleting e1Detector 'e1Detector_gneE0_0_2'
-Warning: Deleting e1Detector 'e1Detector_gneE0_0_1'
-Warning: Deleting e1Detector 'e1Detector_gneE0_0_0'
-Warning: Inserting e1Detector 'e1Detector_gneE0_0_0'
-Warning: Inserting e1Detector 'e1Detector_gneE0_0_1'
-Warning: Inserting e1Detector 'e1Detector_gneE0_0_2'
+Warning: Key ESC (abort) pressed
+Warning: Adding e1Detector 'e1Detector_gneE0_0_1' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Adding e1Detector 'e1Detector_gneE0_0_2' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing e1Detector 'e1Detector_gneE0_0_2' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing e1Detector 'e1Detector_gneE0_0_1' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding e1Detector 'e1Detector_gneE0_0_1' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding e1Detector 'e1Detector_gneE0_0_2' in GNEChange_Additional
 Warning: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_2'
 Warning: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_1'
 Warning: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_0'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

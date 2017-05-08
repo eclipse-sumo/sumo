@@ -1,42 +1,75 @@
-Warning: Inserting e3Detector 'e3Detector_1'
-Warning: Inserting detEntry 'e3Detector_1detEntry0'
-Warning: Inserting detExit 'e3Detector_1detExit0'
-Warning: Inserting e3Detector 'e3Detector_2'
-Warning: Inserting detEntry 'e3Detector_2detEntry0'
-Warning: Inserting detExit 'e3Detector_2detExit0'
-Warning: Deleting detExit 'e3Detector_2detExit0'
-Warning: Deleting detEntry 'e3Detector_2detEntry0'
-Warning: Deleting e3Detector 'e3Detector_2'
+Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing e3Detector 'e3Detector_2' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
 Warning: Deleting unreferenced e3Detector 'e3Detector_2'
 Warning: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
 Warning: Deleting unreferenced detExit 'e3Detector_2detExit0'
-Warning: Inserting e3Detector 'e3Detector_2'
-Warning: Inserting detEntry 'e3Detector_2detEntry0'
-Warning: Inserting detExit 'e3Detector_2detExit0'
-Warning: Deleting detExit 'e3Detector_2detExit0'
-Warning: Deleting detEntry 'e3Detector_2detEntry0'
+Warning: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
 Warning: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
 Warning: Deleting unreferenced detExit 'e3Detector_2detExit0'
-Warning: Inserting detEntry 'e3Detector_2detEntry0'
-Warning: Inserting detExit 'e3Detector_2detExit0'
-Warning: Deleting detEntry 'e3Detector_2detEntry0'
-Warning: Deleting detExit 'e3Detector_2detExit0'
-Warning: Deleting detExit 'e3Detector_1detExit0'
-Warning: Deleting detEntry 'e3Detector_1detEntry0'
-Warning: Inserting detEntry 'e3Detector_1detEntry0'
-Warning: Inserting detExit 'e3Detector_1detExit0'
-Warning: Inserting detExit 'e3Detector_2detExit0'
-Warning: Inserting detEntry 'e3Detector_2detEntry0'
-Warning: Deleting detExit 'e3Detector_2detExit0'
-Warning: Deleting detEntry 'e3Detector_2detEntry0'
-Warning: Deleting e3Detector 'e3Detector_2'
-Warning: Inserting e3Detector 'e3Detector_2'
-Warning: Inserting detEntry 'e3Detector_2detEntry0'
-Warning: Inserting detExit 'e3Detector_2detExit0'
-Warning: Deleting detEntry 'e3Detector_2detEntry0'
-Warning: Deleting detExit 'e3Detector_2detExit0'
-Warning: Deleting detExit 'e3Detector_1detExit0'
-Warning: Deleting detEntry 'e3Detector_1detEntry0'
+Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing e3Detector 'e3Detector_2' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: e3Detector with ID 'e3Detector_1' cannot be writed in additional file because doesn't have childs.
 Warning: e3Detector with ID 'e3Detector_2' cannot be writed in additional file because doesn't have childs.
 Warning: Deleting unreferenced detExit 'e3Detector_2detExit0'
@@ -45,7 +78,12 @@ Warning: Deleting unreferenced e3Detector 'e3Detector_2'
 Warning: Deleting unreferenced detExit 'e3Detector_1detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_1'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet
