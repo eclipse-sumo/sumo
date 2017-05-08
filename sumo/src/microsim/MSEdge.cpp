@@ -955,7 +955,8 @@ void MSEdge::checkAndRegisterBiDirEdge() {
     for (ConstMSEdgeVector::const_iterator it = candidates.begin(); it != candidates.end(); it++){
         if ((*it)->getToJunction() == myFromJunction) { //reverse edge
             if (candidate != 0) {
-                WRITE_WARNING("More than one edge from " + myToJunction->getID() + " to " + myFromJunction->getID() + " is not recommended and might result in unwanted behavior.");
+                // @todo enable with higher selectivity.
+                //WRITE_WARNING("Ambiguous superposable edges between junction '" + myToJunction->getID() + "' and '" + myFromJunction->getID() + "'.");
                 break;
             }
             candidate = *it;
