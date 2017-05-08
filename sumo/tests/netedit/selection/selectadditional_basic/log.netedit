@@ -1,38 +1,74 @@
-Warning: Inserting busStop 'busStop_00'
-Warning: Inserting busStop 'busStop_01'
-Warning: Inserting busStop 'busStop_02'
-Warning: Inserting busStop 'busStop_03'
-Warning: Inserting busStop 'busStop_04'
-Warning: Inserting busStop 'busStop_05'
-Warning: Inserting busStop 'busStop_06'
-Warning: Inserting busStop 'busStop_07'
-Warning: Inserting busStop 'busStop_08'
-Warning: Inserting busStop 'busStop_IDToRemove1'
-Warning: Inserting busStop 'busStop_IDToRemove2'
-Warning: Inserting busStop 'busStop_12'
-Warning: Inserting busStop 'busStop_13'
-Warning: Inserting busStop 'busStop_14'
-Warning: Inserting busStop 'busStop_15'
-Warning: Inserting busStop 'busStop_16'
-Warning: Inserting busStop 'busStop_17'
-Warning: Inserting busStop 'busStop_18'
-Warning: Deleting busStop 'busStop_00'
-Warning: Deleting busStop 'busStop_01'
-Warning: Deleting busStop 'busStop_02'
-Warning: Deleting busStop 'busStop_03'
-Warning: Deleting busStop 'busStop_04'
-Warning: Deleting busStop 'busStop_05'
-Warning: Deleting busStop 'busStop_06'
-Warning: Deleting busStop 'busStop_07'
-Warning: Deleting busStop 'busStop_08'
-Warning: Deleting busStop 'busStop_IDToRemove1'
-Warning: Deleting busStop 'busStop_IDToRemove2'
-Warning: Deleting busStop 'busStop_12'
-Warning: Deleting busStop 'busStop_13'
-Warning: Deleting busStop 'busStop_14'
-Warning: Deleting busStop 'busStop_15'
-Warning: Deleting busStop 'busStop_17'
-Warning: Deleting busStop 'busStop_16'
+Warning: Adding busStop 'busStop_00' in GNEChange_Additional
+Warning: Adding busStop 'busStop_01' in GNEChange_Additional
+Warning: Adding busStop 'busStop_02' in GNEChange_Additional
+Warning: Adding busStop 'busStop_03' in GNEChange_Additional
+Warning: Adding busStop 'busStop_04' in GNEChange_Additional
+Warning: Adding busStop 'busStop_05' in GNEChange_Additional
+Warning: Adding busStop 'busStop_06' in GNEChange_Additional
+Warning: Adding busStop 'busStop_07' in GNEChange_Additional
+Warning: Adding busStop 'busStop_08' in GNEChange_Additional
+Warning: Adding busStop 'busStop_IDToRemove1' in GNEChange_Additional
+Warning: Adding busStop 'busStop_IDToRemove2' in GNEChange_Additional
+Warning: Adding busStop 'busStop_12' in GNEChange_Additional
+Warning: Adding busStop 'busStop_13' in GNEChange_Additional
+Warning: Adding busStop 'busStop_14' in GNEChange_Additional
+Warning: Adding busStop 'busStop_15' in GNEChange_Additional
+Warning: Adding busStop 'busStop_16' in GNEChange_Additional
+Warning: Adding busStop 'busStop_17' in GNEChange_Additional
+Warning: Adding busStop 'busStop_18' in GNEChange_Additional
+Warning: Selected 9 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_00' in GNEChange_Additional
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_01' in GNEChange_Additional
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_02' in GNEChange_Additional
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_03' in GNEChange_Additional
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_04' in GNEChange_Additional
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_05' in GNEChange_Additional
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_06' in GNEChange_Additional
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_07' in GNEChange_Additional
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_08' in GNEChange_Additional
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_IDToRemove1' in GNEChange_Additional
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_IDToRemove2' in GNEChange_Additional
+Warning: Selected 7 elements in GNEChange_Selection
+Warning: Deselected 5 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_12' in GNEChange_Additional
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_13' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Selected 2 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_14' in GNEChange_Additional
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_15' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_17' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Selected 1 elements in GNEChange_Selection
+Warning: Key DEL (delete) pressed
+Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Removing busStop 'busStop_16' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
 Warning: Deleting unreferenced busStop 'busStop_18'
 Warning: Deleting unreferenced busStop 'busStop_17'
 Warning: Deleting unreferenced busStop 'busStop_16'
@@ -51,7 +87,12 @@ Warning: Deleting unreferenced busStop 'busStop_03'
 Warning: Deleting unreferenced busStop 'busStop_02'
 Warning: Deleting unreferenced busStop 'busStop_01'
 Warning: Deleting unreferenced busStop 'busStop_00'
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting net builder in ~GNENet

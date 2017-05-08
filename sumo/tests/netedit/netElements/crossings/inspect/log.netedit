@@ -1,30 +1,80 @@
+Warning: Key F5 (Compute) pressed
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Key ESC (abort) pressed
 Warning: Value 'dummyID' for attribute id of crossing isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute edges '3 7 1' into crossing ':Center_c1'
+Warning: Key F5 (Compute) pressed
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute edges '4 8' into crossing ':Center_c1'
+Warning: Key F5 (Compute) pressed
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute edges '3' into crossing ':Center_c1'
+Warning: Key F5 (Compute) pressed
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
 Warning: Setting new attribute priority 'true' into crossing ':Center_c1'
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute width '3' into crossing ':Center_c1'
+Warning: Key ESC (abort) pressed
 Warning: Value '-3' for attribute width of crossing isn't valid
+Warning: Key ESC (abort) pressed
 Warning: Setting new attribute width '4' into crossing ':Center_c1'
+Warning: Key F5 (Compute) pressed
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute width '3.00' into crossing ':Center_c1'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute width '4.00' into crossing ':Center_c1'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute priority 'false' into crossing ':Center_c1'
+Warning: Key F5 (Compute) pressed
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute priority 'true' into crossing ':Center_c1'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '3' into crossing ':Center_c1'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '4' into crossing ':Center_c1'
-Warning: Deleting unreferenced crossing ':Center_c1' into GNEChange_Attribute
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in GNEChange_Attribute
+Warning: Deleting unreferenced edge '1' in ~GNENet
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '1_1 -> 5_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge '2' in ~GNENet
 Warning: Deleting unreferenced lane '2_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '2_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '2_1 -> 6_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge '3' in ~GNENet
 Warning: Deleting unreferenced lane '3_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '3_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '3_1 -> 7_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge '4' in ~GNENet
 Warning: Deleting unreferenced lane '4_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '4_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '4_1 -> 8_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge '5' in ~GNENet
 Warning: Deleting unreferenced lane '5_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '5_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '5_0 -> 4_0' in GNEEdge destructor
@@ -32,6 +82,7 @@ Warning: Deleting unreferenced connection '5_0 -> 2_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '5_1 -> 2_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '5_1 -> 3_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '5_1 -> 1_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge '6' in ~GNENet
 Warning: Deleting unreferenced lane '6_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '6_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '6_0 -> 3_0' in GNEEdge destructor
@@ -39,6 +90,7 @@ Warning: Deleting unreferenced connection '6_0 -> 1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '6_1 -> 1_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '6_1 -> 4_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '6_1 -> 2_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge '7' in ~GNENet
 Warning: Deleting unreferenced lane '7_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '7_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '7_0 -> 1_0' in GNEEdge destructor
@@ -46,6 +98,7 @@ Warning: Deleting unreferenced connection '7_0 -> 4_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '7_1 -> 4_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '7_1 -> 2_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '7_1 -> 3_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge '8' in ~GNENet
 Warning: Deleting unreferenced lane '8_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '8_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '8_0 -> 2_0' in GNEEdge destructor
@@ -53,3 +106,11 @@ Warning: Deleting unreferenced connection '8_0 -> 3_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '8_1 -> 3_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '8_1 -> 1_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '8_1 -> 4_1' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'A' in ~GNENet
+Warning: Deleting unreferenced junction 'B' in ~GNENet
+Warning: Deleting unreferenced junction 'C' in ~GNENet
+Warning: Deleting unreferenced junction 'Center' in ~GNENet
+Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Deleting unreferenced junction 'D' in ~GNENet
+Warning: Deleting net builder in ~GNENet

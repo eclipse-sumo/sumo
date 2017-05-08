@@ -1,200 +1,208 @@
-Warning: Adding junction 'gneJ0'
-Warning: Adding junction 'gneJ1'
-Warning: Adding edge 'gneE0'
+Warning: Adding junction 'gneJ0' into net
+Warning: Adding junction 'gneJ1' into net
+Warning: Adding edge 'gneE0' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Adding junction 'gneJ2'
-Warning: Adding junction 'gneJ3'
-Warning: Adding edge 'gneE1'
+Warning: Key ESC (abort) pressed
+Warning: Adding junction 'gneJ2' into net
+Warning: Adding junction 'gneJ3' into net
+Warning: Adding edge 'gneE1' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
-Warning: Adding edge 'gneE2'
+Warning: Adding edge 'gneE2' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
-Warning: Adding junction 'gneJ4'
-Warning: Adding junction 'gneJ5'
-Warning: Adding edge 'gneE3'
+Warning: Key ESC (abort) pressed
+Warning: Adding junction 'gneJ4' into net
+Warning: Adding junction 'gneJ5' into net
+Warning: Adding edge 'gneE3' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
-Warning: Adding edge '-gneE3'
+Warning: Adding edge '-gneE3' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
-Warning: Adding junction 'gneJ6'
-Warning: Adding junction 'gneJ7'
-Warning: Adding edge 'gneE4'
+Warning: Key ESC (abort) pressed
+Warning: Adding junction 'gneJ6' into net
+Warning: Adding junction 'gneJ7' into net
+Warning: Adding edge 'gneE4' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
-Warning: Adding edge '-gneE4'
+Warning: Adding edge '-gneE4' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
-Warning: Adding junction 'gneJ8'
-Warning: Adding edge 'gneE5'
+Warning: Adding junction 'gneJ8' into net
+Warning: Adding edge 'gneE5' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
-Warning: Adding edge '-gneE5'
+Warning: Adding edge '-gneE5' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
-Warning: Adding junction 'gneJ9'
-Warning: Adding edge 'gneE6'
+Warning: Adding junction 'gneJ9' into net
+Warning: Adding edge 'gneE6' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
-Warning: Adding edge '-gneE6'
+Warning: Adding edge '-gneE6' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
-Warning: Adding edge 'gneE7'
+Warning: Adding edge 'gneE7' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
-Warning: Adding edge '-gneE7'
+Warning: Adding edge '-gneE7' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
-Warning: Adding junction 'gneJ10'
-Warning: Deleting junction 'gneJ10'
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Adding junction 'gneJ10' into net
+Warning: Key ESC (abort) pressed
+Warning: Removing junction 'gneJ10' from net
 Warning: Deleting unreferenced junction 'gneJ10' in GNEChange_Junction
-Warning: Adding junction 'gneJ11'
-Warning: Adding junction 'gneJ12'
-Warning: Adding edge 'gneE8'
+Warning: Adding junction 'gneJ11' into net
+Warning: Adding junction 'gneJ12' into net
+Warning: Adding edge 'gneE8' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
-Warning: Adding edge '-gneE8'
+Warning: Adding edge '-gneE8' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
-Warning: Adding junction 'gneJ13'
-Warning: Adding edge 'gneE9'
+Warning: Adding junction 'gneJ13' into net
+Warning: Adding edge 'gneE9' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
-Warning: Adding edge '-gneE9'
+Warning: Adding edge '-gneE9' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
-Warning: Adding junction 'gneJ14'
-Warning: Adding edge 'gneE10'
+Warning: Adding junction 'gneJ14' into net
+Warning: Adding edge 'gneE10' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
-Warning: Adding edge '-gneE10'
+Warning: Adding edge '-gneE10' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
-Warning: Adding junction 'gneJ15'
-Warning: Adding edge 'gneE11'
+Warning: Adding junction 'gneJ15' into net
+Warning: Adding edge 'gneE11' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
-Warning: Adding edge '-gneE11'
+Warning: Adding edge '-gneE11' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
-Warning: Adding junction 'gneJ16'
-Warning: Adding edge 'gneE12'
+Warning: Adding junction 'gneJ16' into net
+Warning: Adding edge 'gneE12' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
-Warning: Adding edge '-gneE12'
+Warning: Adding edge '-gneE12' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
-Warning: Adding junction 'gneJ17'
-Warning: Adding edge 'gneE13'
+Warning: Adding junction 'gneJ17' into net
+Warning: Adding edge 'gneE13' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
-Warning: Adding edge '-gneE13'
+Warning: Adding edge '-gneE13' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
-Warning: Adding junction 'gneJ18'
-Warning: Adding edge 'gneE14'
+Warning: Adding junction 'gneJ18' into net
+Warning: Adding edge 'gneE14' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
-Warning: Adding edge '-gneE14'
+Warning: Adding edge '-gneE14' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
-Warning: Adding edge 'gneE15'
+Warning: Adding edge 'gneE15' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
-Warning: Adding edge '-gneE15'
+Warning: Adding edge '-gneE15' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
-Warning: Adding junction 'gneJ19'
-Warning: Adding edge 'gneE16'
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Adding junction 'gneJ19' into net
+Warning: Adding edge 'gneE16' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
-Warning: Adding edge '-gneE16'
+Warning: Adding edge '-gneE16' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
-Warning: Adding edge 'gneE17'
+Warning: Adding edge 'gneE17' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
-Warning: Adding edge '-gneE17'
+Warning: Adding edge '-gneE17' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
@@ -202,7 +210,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
-Warning: Adding edge 'gneE18'
+Warning: Adding edge 'gneE18' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
@@ -210,7 +218,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE18'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
-Warning: Adding edge '-gneE18'
+Warning: Adding edge '-gneE18' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE18'
@@ -219,7 +227,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
-Warning: Adding edge 'gneE19'
+Warning: Adding edge 'gneE19' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
@@ -228,7 +236,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
-Warning: Adding edge '-gneE19'
+Warning: Adding edge '-gneE19' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
@@ -238,6 +246,8 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
+Warning: Key F5 (Compute) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
@@ -247,7 +257,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
-Warning: Deleting edge '-gneE19'
+Warning: Removing edge '-gneE19' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
@@ -256,7 +266,8 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
-Warning: Deleting edge 'gneE19'
+Warning: Removing edge 'gneE19' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
@@ -265,7 +276,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE18'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE12'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
-Warning: Deleting edge '-gneE18'
+Warning: Removing edge '-gneE18' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE18'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE12'
@@ -273,7 +284,8 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
-Warning: Deleting edge 'gneE18'
+Warning: Removing edge 'gneE18' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
@@ -281,394 +293,429 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE10'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
-Warning: Deleting edge '-gneE17'
+Warning: Removing edge '-gneE17' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE10'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
-Warning: Deleting edge 'gneE17'
+Warning: Removing edge 'gneE17' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
-Warning: Deleting edge '-gneE16'
+Warning: Removing edge '-gneE16' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
-Warning: Deleting edge 'gneE16'
-Warning: Deleting junction 'gneJ19'
+Warning: Removing edge 'gneE16' from net
+Warning: Removing junction 'gneJ19' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE15'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
-Warning: Deleting edge '-gneE15'
+Warning: Removing edge '-gneE15' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
-Warning: Deleting edge 'gneE15'
+Warning: Removing edge 'gneE15' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
-Warning: Deleting edge '-gneE14'
+Warning: Removing edge '-gneE14' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
-Warning: Deleting edge 'gneE14'
-Warning: Deleting junction 'gneJ18'
+Warning: Removing edge 'gneE14' from net
+Warning: Removing junction 'gneJ18' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE13'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
-Warning: Deleting edge '-gneE13'
+Warning: Removing edge '-gneE13' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
-Warning: Deleting edge 'gneE13'
-Warning: Deleting junction 'gneJ17'
+Warning: Removing edge 'gneE13' from net
+Warning: Removing junction 'gneJ17' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE12'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
-Warning: Deleting edge '-gneE12'
+Warning: Removing edge '-gneE12' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
-Warning: Deleting edge 'gneE12'
-Warning: Deleting junction 'gneJ16'
+Warning: Removing edge 'gneE12' from net
+Warning: Removing junction 'gneJ16' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE11'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE10'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
-Warning: Deleting edge '-gneE11'
+Warning: Removing edge '-gneE11' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE10'
-Warning: Deleting edge 'gneE11'
-Warning: Deleting junction 'gneJ15'
+Warning: Removing edge 'gneE11' from net
+Warning: Removing junction 'gneJ15' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE10'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE10'
-Warning: Deleting edge '-gneE10'
+Warning: Removing edge '-gneE10' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE10'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
-Warning: Deleting edge 'gneE10'
-Warning: Deleting junction 'gneJ14'
+Warning: Removing edge 'gneE10' from net
+Warning: Removing junction 'gneJ14' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE9'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
-Warning: Deleting edge '-gneE9'
+Warning: Removing edge '-gneE9' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
-Warning: Deleting edge 'gneE9'
-Warning: Deleting junction 'gneJ13'
+Warning: Removing edge 'gneE9' from net
+Warning: Removing junction 'gneJ13' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
-Warning: Deleting edge '-gneE8'
+Warning: Removing edge '-gneE8' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
-Warning: Deleting edge 'gneE8'
-Warning: Deleting junction 'gneJ12'
-Warning: Deleting junction 'gneJ11'
+Warning: Removing edge 'gneE8' from net
+Warning: Removing junction 'gneJ12' from net
+Warning: Removing junction 'gneJ11' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE4'
-Warning: Deleting edge '-gneE7'
+Warning: Removing edge '-gneE7' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE4'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
-Warning: Deleting edge 'gneE7'
+Warning: Removing edge 'gneE7' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
-Warning: Deleting edge '-gneE6'
+Warning: Removing edge '-gneE6' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
-Warning: Deleting edge 'gneE6'
-Warning: Deleting junction 'gneJ9'
+Warning: Removing edge 'gneE6' from net
+Warning: Removing junction 'gneJ9' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
-Warning: Deleting edge '-gneE5'
+Warning: Removing edge '-gneE5' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
-Warning: Deleting edge 'gneE5'
-Warning: Deleting junction 'gneJ8'
+Warning: Removing edge 'gneE5' from net
+Warning: Removing junction 'gneJ8' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE4'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
-Warning: Deleting edge '-gneE4'
+Warning: Removing edge '-gneE4' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
-Warning: Deleting edge 'gneE4'
-Warning: Deleting junction 'gneJ7'
-Warning: Deleting junction 'gneJ6'
+Warning: Removing edge 'gneE4' from net
+Warning: Removing junction 'gneJ7' from net
+Warning: Removing junction 'gneJ6' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE3'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
-Warning: Deleting edge '-gneE3'
+Warning: Removing edge '-gneE3' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
-Warning: Deleting edge 'gneE3'
-Warning: Deleting junction 'gneJ5'
-Warning: Deleting junction 'gneJ4'
+Warning: Removing edge 'gneE3' from net
+Warning: Removing junction 'gneJ5' from net
+Warning: Removing junction 'gneJ4' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
-Warning: Deleting edge 'gneE2'
+Warning: Removing edge 'gneE2' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
-Warning: Deleting edge 'gneE1'
-Warning: Deleting junction 'gneJ3'
-Warning: Deleting junction 'gneJ2'
+Warning: Removing edge 'gneE1' from net
+Warning: Removing junction 'gneJ3' from net
+Warning: Removing junction 'gneJ2' from net
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
-Warning: Deleting edge 'gneE0'
-Warning: Deleting junction 'gneJ1'
-Warning: Deleting junction 'gneJ0'
-Warning: Adding junction 'gneJ0'
-Warning: Adding junction 'gneJ1'
-Warning: Adding edge 'gneE0'
+Warning: Removing edge 'gneE0' from net
+Warning: Removing junction 'gneJ1' from net
+Warning: Removing junction 'gneJ0' from net
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ0' into net
+Warning: Adding junction 'gneJ1' into net
+Warning: Adding edge 'gneE0' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Adding junction 'gneJ2'
-Warning: Adding junction 'gneJ3'
-Warning: Adding edge 'gneE1'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ2' into net
+Warning: Adding junction 'gneJ3' into net
+Warning: Adding edge 'gneE1' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
-Warning: Adding edge 'gneE2'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding edge 'gneE2' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
-Warning: Adding junction 'gneJ4'
-Warning: Adding junction 'gneJ5'
-Warning: Adding edge 'gneE3'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ4' into net
+Warning: Adding junction 'gneJ5' into net
+Warning: Adding edge 'gneE3' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
-Warning: Adding edge '-gneE3'
+Warning: Adding edge '-gneE3' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
-Warning: Adding junction 'gneJ6'
-Warning: Adding junction 'gneJ7'
-Warning: Adding edge 'gneE4'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ6' into net
+Warning: Adding junction 'gneJ7' into net
+Warning: Adding edge 'gneE4' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
-Warning: Adding edge '-gneE4'
+Warning: Adding edge '-gneE4' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
-Warning: Adding junction 'gneJ8'
-Warning: Adding edge 'gneE5'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ8' into net
+Warning: Adding edge 'gneE5' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
-Warning: Adding edge '-gneE5'
+Warning: Adding edge '-gneE5' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
-Warning: Adding junction 'gneJ9'
-Warning: Adding edge 'gneE6'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ9' into net
+Warning: Adding edge 'gneE6' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
-Warning: Adding edge '-gneE6'
+Warning: Adding edge '-gneE6' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
-Warning: Adding edge 'gneE7'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding edge 'gneE7' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
-Warning: Adding edge '-gneE7'
+Warning: Adding edge '-gneE7' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
-Warning: Adding junction 'gneJ11'
-Warning: Adding junction 'gneJ12'
-Warning: Adding edge 'gneE8'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ11' into net
+Warning: Adding junction 'gneJ12' into net
+Warning: Adding edge 'gneE8' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
-Warning: Adding edge '-gneE8'
+Warning: Adding edge '-gneE8' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
-Warning: Adding junction 'gneJ13'
-Warning: Adding edge 'gneE9'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ13' into net
+Warning: Adding edge 'gneE9' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
-Warning: Adding edge '-gneE9'
+Warning: Adding edge '-gneE9' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
-Warning: Adding junction 'gneJ14'
-Warning: Adding edge 'gneE10'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ14' into net
+Warning: Adding edge 'gneE10' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
-Warning: Adding edge '-gneE10'
+Warning: Adding edge '-gneE10' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
-Warning: Adding junction 'gneJ15'
-Warning: Adding edge 'gneE11'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ15' into net
+Warning: Adding edge 'gneE11' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
-Warning: Adding edge '-gneE11'
+Warning: Adding edge '-gneE11' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
-Warning: Adding junction 'gneJ16'
-Warning: Adding edge 'gneE12'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ16' into net
+Warning: Adding edge 'gneE12' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
-Warning: Adding edge '-gneE12'
+Warning: Adding edge '-gneE12' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
-Warning: Adding junction 'gneJ17'
-Warning: Adding edge 'gneE13'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ17' into net
+Warning: Adding edge 'gneE13' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
-Warning: Adding edge '-gneE13'
+Warning: Adding edge '-gneE13' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
-Warning: Adding junction 'gneJ18'
-Warning: Adding edge 'gneE14'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ18' into net
+Warning: Adding edge 'gneE14' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
-Warning: Adding edge '-gneE14'
+Warning: Adding edge '-gneE14' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
-Warning: Adding edge 'gneE15'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding edge 'gneE15' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
-Warning: Adding edge '-gneE15'
+Warning: Adding edge '-gneE15' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
-Warning: Adding junction 'gneJ19'
-Warning: Adding edge 'gneE16'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding junction 'gneJ19' into net
+Warning: Adding edge 'gneE16' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
-Warning: Adding edge '-gneE16'
+Warning: Adding edge '-gneE16' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
-Warning: Adding edge 'gneE17'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding edge 'gneE17' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
-Warning: Adding edge '-gneE17'
+Warning: Adding edge '-gneE17' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE10'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
@@ -676,7 +723,8 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
-Warning: Adding edge 'gneE18'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding edge 'gneE18' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
@@ -684,7 +732,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE18'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
-Warning: Adding edge '-gneE18'
+Warning: Adding edge '-gneE18' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE18'
@@ -693,7 +741,8 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
-Warning: Adding edge 'gneE19'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding edge 'gneE19' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
@@ -702,7 +751,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
-Warning: Adding edge '-gneE19'
+Warning: Adding edge '-gneE19' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
@@ -712,92 +761,149 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
+Warning: Deleting unreferenced edge '-gneE10' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE10_0 -> -gneE9_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE10_0 -> -gneE17_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE11' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE11_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE11_0 -> -gneE10_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE12' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE12_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE12_0 -> -gneE11_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE12_0 -> -gneE18_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE13' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE13_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE13_0 -> -gneE12_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE14' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE14_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE14_0 -> -gneE13_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE14_0 -> -gneE19_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE15' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE15_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE15_0 -> -gneE14_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE16' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE16_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE16_0 -> gneE19_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE16_0 -> gneE18_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE16_0 -> gneE17_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE17' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE17_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE17_0 -> gneE16_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE17_0 -> gneE19_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE17_0 -> gneE18_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE18' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE18_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE18_0 -> gneE17_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE18_0 -> gneE16_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE18_0 -> gneE19_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE19' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE19_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE19_0 -> gneE18_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE19_0 -> gneE17_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE19_0 -> gneE16_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE3' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE4' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE4_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE4_0 -> -gneE7_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE5' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE5_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE5_0 -> -gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE6' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE6_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE6_0 -> -gneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE7' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE7_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE7_0 -> -gneE6_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE8' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE8_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE8_0 -> -gneE15_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE8_0 -> -gneE16_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge '-gneE9' in ~GNENet
 Warning: Deleting unreferenced lane '-gneE9_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE9_0 -> -gneE8_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE10' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE10_0 -> gneE11_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE11' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE11_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE11_0 -> -gneE18_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE11_0 -> gneE12_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE12' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE12_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE12_0 -> gneE13_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE13' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE13_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE13_0 -> -gneE19_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE13_0 -> gneE14_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE14' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE14_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE14_0 -> gneE15_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE15' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE15_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE15_0 -> -gneE16_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE15_0 -> gneE8_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE16' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE16_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE16_0 -> gneE8_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE16_0 -> -gneE15_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE17' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE17_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE17_0 -> gneE10_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE17_0 -> -gneE9_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE18' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE18_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE18_0 -> gneE12_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE18_0 -> -gneE11_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE19' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE19_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE19_0 -> gneE14_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE19_0 -> -gneE13_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE2' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE3' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE4' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE4_0 -> gneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE5' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE5_0 -> gneE6_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE6' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE6_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE6_0 -> gneE7_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE7' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE7_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE7_0 -> gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE8' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE8_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE8_0 -> gneE9_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE9' in ~GNENet
 Warning: Deleting unreferenced lane 'gneE9_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE9_0 -> -gneE17_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE9_0 -> gneE10_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ11' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ12' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ13' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ14' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ15' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ16' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ17' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ18' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ19' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ2' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ3' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ4' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ5' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ6' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ7' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ8' in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ9' in ~GNENet
+Warning: Deleting net builder in ~GNENet
