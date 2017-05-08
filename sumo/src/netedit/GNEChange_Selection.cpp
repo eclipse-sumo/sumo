@@ -71,7 +71,7 @@ GNEChange_Selection::undo() {
             }
         }
         // show information if testing mode is enabled
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if ((counter > 0) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
             WRITE_WARNING("Deselected " + toString(counter) + " elements in GNEChange_Selection");
         }
         counter = 0;
@@ -82,7 +82,7 @@ GNEChange_Selection::undo() {
             }
         }
         // show information if testing mode is enabled
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if ((counter > 0) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
             WRITE_WARNING("Selected " + toString(counter) + " elements in GNEChange_Selection");
         }
     } else {
@@ -94,7 +94,7 @@ GNEChange_Selection::undo() {
             }
         }
         // show information if testing mode is enabled
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if ((counter > 0) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
             WRITE_WARNING("Selected " + toString(counter) + " elements in GNEChange_Selection");
         }
         counter = 0;
@@ -105,7 +105,7 @@ GNEChange_Selection::undo() {
             }
         }
         // show information if testing mode is enabled
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if ((counter > 0) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
             WRITE_WARNING("Deselected " + toString(counter) + " elements in GNEChange_Selection");
         }
     }
@@ -124,7 +124,7 @@ GNEChange_Selection::redo() {
             }
         }
         // show information if testing mode is enabled
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if ((counter > 0) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
             WRITE_WARNING("Selected " + toString(counter) + " elements in GNEChange_Selection");
         }
         counter = 0;
@@ -135,7 +135,7 @@ GNEChange_Selection::redo() {
             }
         }
         // show information if testing mode is enabled
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if ((counter > 0) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
             WRITE_WARNING("Deselected " + toString(counter) + " elements in GNEChange_Selection");
         }
     } else {
@@ -147,7 +147,7 @@ GNEChange_Selection::redo() {
             }
         }
         // show information if testing mode is enabled
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if ((counter > 0) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
             WRITE_WARNING("Deselected " + toString(counter) + " elements in GNEChange_Selection");
         }
         counter = 0;
@@ -158,7 +158,7 @@ GNEChange_Selection::redo() {
             }
         }
         // show information if testing mode is enabled
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if ((counter > 0) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
             WRITE_WARNING("Selected " + toString(counter) + " elements in GNEChange_Selection");
         }
     }
