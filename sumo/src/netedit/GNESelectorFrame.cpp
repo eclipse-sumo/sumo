@@ -312,7 +312,7 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
-    const bool netElements = mySetComboBox->getText() == "Net Element";
+    const bool netElements = (mySetComboBox->getText() == "Net Element");
     myCurrentTag = SUMO_TAG_NOTHING;
     const std::vector<SumoXMLTag>& tags = GNEAttributeCarrier::allowedTags(netElements);
     for (std::vector<SumoXMLTag>::const_iterator i = tags.begin(); (i != tags.end()) && (myCurrentTag == SUMO_TAG_NOTHING); i++) {
@@ -333,6 +333,7 @@ GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         }
         // @ToDo: Here can be placed a butto to set the default value
         myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
+        onCmdSelMBAttribute(0,0,0);
     } else {
         // change color to red and disable items
         myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
