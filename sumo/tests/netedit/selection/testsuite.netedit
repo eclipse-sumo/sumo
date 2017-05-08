@@ -9,3 +9,6 @@ selectadditional_basic
 
 # check set operators clear and invert
 select_setoperators
+
+# check that undo-redo of elements works correctly
+undo_redo
