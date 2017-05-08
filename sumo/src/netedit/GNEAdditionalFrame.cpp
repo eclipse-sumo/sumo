@@ -434,6 +434,13 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
 void
 GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
     myViewNet->getUndoList()->p_begin("delete " + additional->getDescription());
+    // save selection status
+    if (gSelected.isSelected(GLO_ADDITIONAL, additional->getGlID()) == true) {
+        std::set<GUIGlID> deselected;
+        deselected.insert(additional->getGlID());
+        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), deselected, true), true);
+    }
+    // remove additional
     myViewNet->getUndoList()->add(new GNEChange_Additional(additional, false), true);
     myViewNet->getUndoList()->p_end();
 }
