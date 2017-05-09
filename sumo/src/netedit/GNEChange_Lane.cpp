@@ -96,7 +96,7 @@ GNEChange_Lane::undo() {
             if (myLane != NULL) {
                 WRITE_WARNING("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
             } else {
-                WRITE_WARNING("Removing NULL " + toString(SUMO_TAG_LANE) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
+                WRITE_WARNING("Removing NULL " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
             }
         }
         // remove lane from edge
@@ -111,7 +111,7 @@ GNEChange_Lane::undo() {
             if (myLane != NULL) {
                 WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
             } else {
-                WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
+                WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
             }
         }
         // add lane and their attributes to edge
@@ -132,7 +132,7 @@ GNEChange_Lane::redo() {
             if (myLane != NULL) {
                 WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
             } else {
-                WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
+                WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
             }
         }
         // add lane and their attributes to edge
@@ -147,7 +147,7 @@ GNEChange_Lane::redo() {
             if (myLane != NULL) {
                 WRITE_WARNING("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
             } else {
-                WRITE_WARNING("Removing NULL " + toString(SUMO_TAG_LANE) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
+                WRITE_WARNING("Removing NULL " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
             }
         }
         // remove lane from edge
