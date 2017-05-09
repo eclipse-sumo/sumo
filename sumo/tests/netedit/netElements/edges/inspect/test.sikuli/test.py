@@ -3,7 +3,7 @@
 @file    test.py
 @author  Pablo Alvarez Lopez
 @date    2016-11-25
-@version $Id: test.py 24005 2017-04-21 12:54:13Z palcraft $
+@version $Id: test.py 24076 2017-04-26 17:49:30Z palcraft $
 
 python script used by sikulix for testing netedit
 
@@ -29,48 +29,123 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 
-# zoom in central node
-netedit.setZoom("50", "50", "100")
-
-# rebuild net
-netedit.rebuildNetwork()
+# go to additional mode
+netedit.additionalMode()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(match, 200, 200)
+netedit.leftClick(match, 250, 170)
 
-# set invalid ID (duplicated)
-netedit.modifyAttribute(0, "6")
+# Change parameter 0 with a non valid value (empty ID)
+netedit.modifyAttribute(0, "")
 
-# set invalid ID (duplicated)
-netedit.modifyAttribute(0, "newID")
+# Change parameter 0 with a non valid value (Duplicated ID)
+netedit.modifyAttribute(0, "gneE3")
 
-# set invalid from (non existent)
-netedit.modifyAttribute(1, "dummyFrom")
+# Change parameter 0 with a valid value
+netedit.modifyAttribute(0, "correct_ID")
 
-# set invalid from (to)
-netedit.modifyAttribute(1, "C")
+# Change parameter 1 with a non valid value (dummy Junction)
+netedit.modifyAttribute(1, "dummy_Junction")
 
-# set valid from
-netedit.modifyAttribute(1, "B")
+# Change parameter 1 with a non valid value (empty Junction)
+netedit.modifyAttribute(1, "")
 
-# set invalid to (non existent)
-netedit.modifyAttribute(1, "dummyTo")
+# Change parameter 1 with a non valid value (same from Junction)
+netedit.modifyAttribute(1, "gneJ2")
 
-# set invalid to (from)
-netedit.modifyAttribute(2, "B")
+# Change parameter 1 with a value
+netedit.modifyAttribute(1, "gneJ0")
 
-# set invalid to (the same)
-netedit.modifyAttribute(2, "A")
+# recompute
+
+# Change parameter 2 with a non valid value (dummy Junction)
+netedit.modifyAttribute(2, "dummy_Junction")
+
+# Change parameter 2 with a non valid value (empty Junction)
+netedit.modifyAttribute(2, "")
+
+# Change parameter 2 with a non valid value (same to Junction)
+netedit.modifyAttribute(2, "gneJ3")
+
+# Change parameter 2 with a non valid value (two edges pararell, see #3085)
+netedit.modifyAttribute(2, "gneJ1")
+
+# Restore parameter 1
+netedit.modifyAttribute(1, "gneJ2")
+
+# recompute
+
+# Change parameter 2 with a valid value
+netedit.modifyAttribute(2, "gneJ1")
+
+# Restore parameter 2
+netedit.modifyAttribute(2, "gneJ3")
+
+# recompute
+
+# Change parameter 3 with a non valid value (empty speed)
+netedit.modifyAttribute(3, "")
+
+# Change parameter 3 with a non valid value (dummy speed)
+netedit.modifyAttribute(3, "dummySpeed")
+
+# Change parameter 3 with a non valid value (negative speed)
+netedit.modifyAttribute(3, "-13")
+
+# Change parameter 3 with a valid value
+netedit.modifyAttribute(3, "120.5")
+
+# Change parameter 4 with a non valid value (empty priority)
+netedit.modifyAttribute(4, "")
+
+# Change parameter 4 with a non valid value (dummy priority)
+netedit.modifyAttribute(4, "dummyPriority")
+
+# Change parameter 4 with a non valid value (negative priority)
+netedit.modifyAttribute(4, "-6")
+
+# Change parameter 4 with a non valid value (float)
+netedit.modifyAttribute(4, "-6.4")
+
+# Change parameter 4 with a valid value (negative priority)
+netedit.modifyAttribute(4, "4")
 
 
-# Check undos
-#netedit.undo(match, 2)
+# Change parameter 5 with a non valid value (empty lanes)
+netedit.modifyAttribute(5, "")
 
-# Check redos
-#netedit.redo(match, 2)
+# Change parameter 5 with a non valid value (dummy lanes)
+netedit.modifyAttribute(5, "dummyLanes")
+
+# Change parameter 5 with a non valid value (negative lanes)
+netedit.modifyAttribute(5, "-6")
+
+# Change parameter 5 with a non valid value (float)
+netedit.modifyAttribute(5, "-3.5")
+
+# Change parameter 5 with a valid value (negative lanes)
+netedit.modifyAttribute(5, "4")
+
+# recompute
+
+# Value type will not be checked
+
+
+
+
+
+# click over an empty area
+netedit.leftClick(match, 0, 0)
+
+# Check undos and redos
+#netedit.undo(match, 13)
+#netedit.redo(match, 13)
+
+# save additionals
+netedit.saveAdditionals()
 
 # save newtork
 netedit.saveNetwork()

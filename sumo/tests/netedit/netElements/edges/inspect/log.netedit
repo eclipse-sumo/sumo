@@ -1,99 +1,183 @@
-Warning: Inserting busStop 'busStop_3_2_0'
-Warning: Inserting busStop 'busStop_4_2_2'
-Warning: Inserting busStop 'busStop_8_2_1'
-Warning: Deleting busStop 'busStop_3_2_0'
-Warning: Deleting connection '6_1 -> 4_3'
-Warning: Deleting connection '6_1 -> 1_1'
-Warning: Deleting connection '6_0 -> 1_0'
-Warning: Deleting connection '6_0 -> 3_2'
-Warning: Deleting connection '6_0 -> 3_1'
-Warning: Deleting connection '8_3 -> 1_1'
-Warning: Deleting connection '8_3 -> 3_3'
-Warning: Deleting connection '8_2 -> 3_2'
-Warning: Deleting connection '8_2 -> 2_1'
-Warning: Deleting connection '8_1 -> 1_0'
-Warning: Deleting connection '8_1 -> 3_1'
-Warning: Deleting connection '8_1 -> 2_0'
-Warning: Deleting connection '5_1 -> 3_3'
-Warning: Deleting connection '5_1 -> 2_1'
-Warning: Deleting connection '5_0 -> 2_0'
-Warning: Deleting connection '5_0 -> 4_2'
-Warning: Deleting connection '5_0 -> 4_1'
-Warning: Deleting connection '7_3 -> 2_1'
-Warning: Deleting connection '7_3 -> 4_3'
-Warning: Deleting connection '7_2 -> 4_2'
-Warning: Deleting connection '7_2 -> 1_1'
-Warning: Deleting connection '7_1 -> 2_0'
-Warning: Deleting connection '7_1 -> 4_1'
-Warning: Deleting connection '7_1 -> 1_0'
-Warning: Deleting edge '3'
-Warning: Deleting busStop 'busStop_4_2_2'
-Warning: Deleting edge '4'
-Warning: Deleting busStop 'busStop_8_2_1'
-Warning: Deleting edge '8'
-Warning: Deleting junction 'D'
-Warning: Adding junction 'D'
-Warning: Adding edge '8'
-Warning: Inserting busStop 'busStop_8_2_1'
-Warning: Adding edge '4'
-Warning: Inserting busStop 'busStop_4_2_2'
-Warning: Adding edge '3'
-Warning: Deleting connection '7_1 -> 1_0'
-Warning: Deleting connection '7_1 -> 4_1'
-Warning: Deleting connection '7_1 -> 2_0'
-Warning: Deleting connection '7_2 -> 1_1'
-Warning: Deleting connection '7_2 -> 4_2'
-Warning: Deleting connection '7_3 -> 4_3'
-Warning: Deleting connection '7_3 -> 2_1'
-Warning: Deleting connection '5_0 -> 4_1'
-Warning: Deleting connection '5_0 -> 4_2'
-Warning: Deleting connection '5_0 -> 2_0'
-Warning: Deleting connection '5_1 -> 2_1'
-Warning: Deleting connection '5_1 -> 3_3'
-Warning: Deleting connection '8_1 -> 2_0'
-Warning: Deleting connection '8_1 -> 3_1'
-Warning: Deleting connection '8_1 -> 1_0'
-Warning: Deleting connection '8_2 -> 2_1'
-Warning: Deleting connection '8_2 -> 3_2'
-Warning: Deleting connection '8_3 -> 3_3'
-Warning: Deleting connection '8_3 -> 1_1'
-Warning: Deleting connection '6_0 -> 3_1'
-Warning: Deleting connection '6_0 -> 3_2'
-Warning: Deleting connection '6_0 -> 1_0'
-Warning: Deleting connection '6_1 -> 1_1'
-Warning: Deleting connection '6_1 -> 4_3'
-Warning: Inserting busStop 'busStop_3_2_0'
-Warning: Deleting busStop 'busStop_3_2_0'
-Warning: Deleting connection '6_1 -> 4_3'
-Warning: Deleting connection '6_1 -> 1_1'
-Warning: Deleting connection '6_0 -> 1_0'
-Warning: Deleting connection '6_0 -> 3_2'
-Warning: Deleting connection '6_0 -> 3_1'
-Warning: Deleting connection '8_3 -> 1_1'
-Warning: Deleting connection '8_3 -> 3_3'
-Warning: Deleting connection '8_2 -> 3_2'
-Warning: Deleting connection '8_2 -> 2_1'
-Warning: Deleting connection '8_1 -> 1_0'
-Warning: Deleting connection '8_1 -> 3_1'
-Warning: Deleting connection '8_1 -> 2_0'
-Warning: Deleting connection '5_1 -> 3_3'
-Warning: Deleting connection '5_1 -> 2_1'
-Warning: Deleting connection '5_0 -> 2_0'
-Warning: Deleting connection '5_0 -> 4_2'
-Warning: Deleting connection '5_0 -> 4_1'
-Warning: Deleting connection '7_3 -> 2_1'
-Warning: Deleting connection '7_3 -> 4_3'
-Warning: Deleting connection '7_2 -> 4_2'
-Warning: Deleting connection '7_2 -> 1_1'
-Warning: Deleting connection '7_1 -> 2_0'
-Warning: Deleting connection '7_1 -> 4_1'
-Warning: Deleting connection '7_1 -> 1_0'
-Warning: Deleting edge '3'
-Warning: Deleting busStop 'busStop_4_2_2'
-Warning: Deleting edge '4'
-Warning: Deleting busStop 'busStop_8_2_1'
-Warning: Deleting edge '8'
-Warning: Deleting junction 'D'
-Warning: Deleting unreferenced busStop 'busStop_8_2_1'
-Warning: Deleting unreferenced busStop 'busStop_4_2_2'
-Warning: Deleting unreferenced busStop 'busStop_3_2_0'
+Warning: Adding busStop 'busStop1' in GNEChange_Additional
+Warning: Adding busStop 'busStop2' in GNEChange_Additional
+Warning: Adding busStop 'busStop3' in GNEChange_Additional
+Warning: Adding busStop 'busStop4' in GNEChange_Additional
+Warning: Adding busStop 'busStop5' in GNEChange_Additional
+Warning: Adding busStop 'busStop6' in GNEChange_Additional
+Warning: Key ESC (abort) pressed
+Warning: Setting new attribute id '' into edge 'gneE2'
+Warning: Key ESC (abort) pressed
+Warning: Value 'gneE3' for attribute id of edge isn't valid
+Warning: Key ESC (abort) pressed
+Warning: Setting new attribute id 'correct_ID' into edge ''
+Warning: Key ESC (abort) pressed
+Warning: Value 'dummy_Junction' for attribute from of edge isn't valid
+Warning: Key ESC (abort) pressed
+Warning: Value '' for attribute from of edge isn't valid
+Warning: Key ESC (abort) pressed
+Warning: Removing connection 'gneE3_1->correct_ID_1' from edge 'gneE3'
+Warning: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Warning: Removing connection 'gneE9_0->correct_ID_1' from edge 'gneE9'
+Warning: Removing connection 'gneE9_0->correct_ID_0' from edge 'gneE9'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
+Warning: Setting new attribute shapeStart '0.00,20.00' into edge 'correct_ID'
+Warning: Key ESC (abort) pressed
+Warning: Setting new attribute from 'gneJ0' into edge 'correct_ID'
+Warning: Removing connection 'gneE8_0->gneE0_0' from edge 'gneE8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
+Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
+Warning: Removing connection 'gneE1_0->gneE9_0' from edge 'gneE1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Warning: Setting new attribute shapeStart '0.00,0.00' into edge 'correct_ID'
+Warning: Key ESC (abort) pressed
+Warning: Value 'dummy_Junction' for attribute to of edge isn't valid
+Warning: Key ESC (abort) pressed
+Warning: Value '' for attribute to of edge isn't valid
+Warning: Key ESC (abort) pressed
+Warning: Removing connection 'gneE5_0->gneE3_1' from edge 'gneE5'
+Warning: Removing connection 'gneE5_0->gneE3_0' from edge 'gneE5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Warning: Removing connection 'correct_ID_1->gneE3_1' from edge 'correct_ID'
+Warning: Removing connection 'correct_ID_0->gneE4_0' from edge 'correct_ID'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
+Warning: Setting new attribute shapeEnd '50.00,20.00' into edge 'correct_ID'
+Warning: Key ESC (abort) pressed
+Warning: Setting new attribute to 'gneJ1' into edge 'correct_ID'
+Warning: Removing connection 'gneE4_0->gneE1_0' from edge 'gneE4'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Warning: Removing connection 'gneE0_0->gneE5_0' from edge 'gneE0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Warning: Setting new attribute shapeEnd '50.00,0.00' into edge 'correct_ID'
+Warning: Key ESC (abort) pressed
+Warning: Setting new attribute from 'gneJ2' into edge 'correct_ID'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
+Warning: Setting new attribute shapeStart '0.00,20.00' into edge 'correct_ID'
+Warning: Key ESC (abort) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Warning: Setting new attribute shapeEnd '50.00,0.00' into edge 'correct_ID'
+Warning: Key ESC (abort) pressed
+Warning: Setting new attribute to 'gneJ3' into edge 'correct_ID'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
+Warning: Setting new attribute shapeEnd '50.00,20.00' into edge 'correct_ID'
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Value '-13' for attribute speed of edge isn't valid
+Warning: Key ESC (abort) pressed
+Warning: Setting new attribute speed '120.5' into lane 'correct_ID_0'
+Warning: Setting new attribute speed '120.5' into lane 'correct_ID_1'
+Warning: Setting new attribute speed '120.5' into edge 'correct_ID'
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Setting new attribute priority '-6' into edge 'correct_ID'
+Warning: Key ESC (abort) pressed
+Warning: Setting new attribute priority '1' into edge 'correct_ID'
+Warning: Key ESC (abort) pressed
+Warning: Setting new attribute priority '4' into edge 'correct_ID'
+Warning: Key ESC (abort) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
+Warning: Removing lane 'correct_ID_1' from edge
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Value '-6' for attribute numLanes of edge isn't valid
+Warning: Key ESC (abort) pressed
+Warning: Key ESC (abort) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
+Warning: Adding NULL lane into edge
+Warning: Adding NULL lane into edge
+Warning: Adding NULL lane into edge
+Warning: Deleting unreferenced lane 'correct_ID_1' in GNEChange_Attribute
+Warning: Deleting unreferenced busStop 'busStop6'
+Warning: Deleting unreferenced busStop 'busStop5'
+Warning: Deleting unreferenced busStop 'busStop4'
+Warning: Deleting unreferenced busStop 'busStop3'
+Warning: Deleting unreferenced busStop 'busStop2'
+Warning: Deleting unreferenced busStop 'busStop1'
+Warning: Deleting unreferenced edge 'correct_ID' in GNENet destructor
+Warning: Deleting unreferenced lane 'correct_ID_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'correct_ID_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'correct_ID_2' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'correct_ID_3' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'correct_ID_0 -> gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE9_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE3_0 -> gneE8_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE3_1 -> correct_ID_3' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE4' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE4_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE5' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE5_0 -> gneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE5_0 -> gneE3_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE8' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE8_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE8_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE9' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE9_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE9_0 -> correct_ID_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE9_0 -> correct_ID_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE9_0 -> correct_ID_2' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE9_0 -> correct_ID_3' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor
