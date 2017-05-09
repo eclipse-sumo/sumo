@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/09/17 10:19:12 by Netedit Version dev-SVN-r22761
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\edges\select_vtypes_disallowed\input_net.nod.xml"/>
+        <edge-files value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\edges\select_vtypes_disallowed\input_net.edg.xml"/>
+        <connection-files value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\edges\select_vtypes_disallowed\input_net.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\edges\select_vtypes_disallowed\input_net.net.xml"/>
+        <plain-output-prefix value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\edges\select_vtypes_disallowed\input_net"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-gneE14" from="gneJ4" to="gneJ5" priority="1" numLanes="1" speed="13.89" disallow="bus"/>
+    <edge id="-gneE15" from="gneJ8" to="gneJ7" priority="1" numLanes="1" speed="13.89" disallow="coach"/>
+    <edge id="-gneE16" from="gneJ20" to="gneJ19" priority="1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="-gneE17" from="gneJ17" to="gneJ18" priority="1" numLanes="1" speed="13.89" disallow="bicycle"/>
+    <edge id="-gneE18" from="gneJ10" to="gneJ9" priority="1" numLanes="1" speed="13.89" disallow="emergency"/>
+    <edge id="-gneE19" from="gneJ12" to="gneJ11" priority="1" numLanes="1" speed="13.89" disallow="rail_electric"/>
+    <edge id="-gneE20" from="gneJ13" to="gneJ14" priority="1" numLanes="1" speed="13.89" disallow="private"/>
+    <edge id="-gneE21" from="gneJ16" to="gneJ15" priority="1" numLanes="1" speed="13.89" disallow="army"/>
+    <edge id="-gneE22" from="gneJ22" to="gneJ21" priority="1" numLanes="1" speed="13.89" disallow="truck"/>
+    <edge id="-gneE23" from="gneJ24" to="gneJ23" priority="1" numLanes="1" speed="13.89" disallow="rail_urban"/>
+    <edge id="-gneE24" from="gneJ26" to="gneJ25" priority="1" numLanes="1" speed="13.89" disallow="vip"/>
+    <edge id="-gneE25" from="gneJ28" to="gneJ27" priority="1" numLanes="1" speed="13.89" disallow="custom1"/>
+    <edge id="gneE12" from="gneJ3" to="gneJ2" priority="1" numLanes="1" speed="13.89" disallow="all"/>
+    <edge id="gneE13" from="gneJ2" to="gneJ3" priority="1" numLanes="1" speed="13.89" disallow="passenger"/>
+    <edge id="gneE14" from="gneJ5" to="gneJ4" priority="1" numLanes="1" speed="13.89" disallow="taxi"/>
+    <edge id="gneE15" from="gneJ7" to="gneJ8" priority="1" numLanes="1" speed="13.89" disallow="delivery"/>
+    <edge id="gneE16" from="gneJ19" to="gneJ20" priority="1" numLanes="1" speed="13.89" disallow="tram"/>
+    <edge id="gneE17" from="gneJ18" to="gneJ17" priority="1" numLanes="1" speed="13.89" disallow="moped"/>
+    <edge id="gneE18" from="gneJ9" to="gneJ10" priority="1" numLanes="1" speed="13.89" disallow="motorcycle"/>
+    <edge id="gneE19" from="gneJ11" to="gneJ12" priority="1" numLanes="1" speed="13.89" disallow="ship"/>
+    <edge id="gneE20" from="gneJ14" to="gneJ13" priority="1" numLanes="1" speed="13.89" disallow="evehicle"/>
+    <edge id="gneE21" from="gneJ15" to="gneJ16" priority="1" numLanes="1" speed="13.89" disallow="authority"/>
+    <edge id="gneE22" from="gneJ21" to="gneJ22" priority="1" numLanes="1" speed="13.89" disallow="trailer"/>
+    <edge id="gneE23" from="gneJ23" to="gneJ24" priority="1" numLanes="1" speed="13.89" disallow="rail"/>
+    <edge id="gneE24" from="gneJ25" to="gneJ26" priority="1" numLanes="1" speed="13.89" disallow="hov"/>
+    <edge id="gneE25" from="gneJ27" to="gneJ28" priority="1" numLanes="1" speed="13.89" disallow="custom2"/>
+</edges>

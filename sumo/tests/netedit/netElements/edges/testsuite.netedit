@@ -14,4 +14,10 @@ load
 # move additional
 #move
 
+# check selection of edges throught allow parameter
+select_vtypes_allowed
+
+# check selection of edges throught disallow parameter
+select_vtypes_disallowed
+
 
