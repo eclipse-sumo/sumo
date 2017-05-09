@@ -77,8 +77,8 @@ Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_1'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
-Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
+Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
-Warning: Deleting net builder in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor

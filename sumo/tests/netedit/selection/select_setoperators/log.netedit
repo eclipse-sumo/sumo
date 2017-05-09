@@ -354,5 +354,5 @@ Warning: Deleting unreferenced e3Detector 'e3Detector_1'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
-Warning: Deleting unreferenced junction 'Center' in ~GNENet
-Warning: Deleting net builder in ~GNENet
+Warning: Deleting unreferenced junction 'Center' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor

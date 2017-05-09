@@ -17,7 +17,7 @@ delete_TLS
 load_small
 
 # load big net with crossigns
-load_big
+#load_big
 
 #inspect crossing
 inspect

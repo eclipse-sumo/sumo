@@ -34,12 +34,12 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute startPos '27.00' into chargingStation 'chargingStation_gneE0_0_0'
 Warning: Setting new attribute endPos '37.00' into chargingStation 'chargingStation_gneE0_0_0'
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_0'
-Warning: Deleting unreferenced edge 'gneE0' in ~GNENet
+Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'gneE1' in ~GNENet
+Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'gneJ0' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ1' in ~GNENet
-Warning: Deleting net builder in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor

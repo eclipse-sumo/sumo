@@ -11,35 +11,35 @@ Warning: Deleting unreferenced crossing ':C_c0' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':C_c1' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':C_c2' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':C_c3' in dropGNECrossings()
-Warning: Deleting unreferenced edge 'CE' in ~GNENet
+Warning: Deleting unreferenced edge 'CE' in GNENet destructor
 Warning: Deleting unreferenced lane 'CE_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CE_1' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CE_2' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CE_3' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CE_4' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'CE_4 -> EC_4' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'CN' in ~GNENet
+Warning: Deleting unreferenced edge 'CN' in GNENet destructor
 Warning: Deleting unreferenced lane 'CN_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CN_1' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CN_2' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CN_3' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CN_4' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'CN_4 -> NC_4' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'CS' in ~GNENet
+Warning: Deleting unreferenced edge 'CS' in GNENet destructor
 Warning: Deleting unreferenced lane 'CS_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CS_1' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CS_2' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CS_3' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CS_4' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'CS_4 -> SC_4' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'CW' in ~GNENet
+Warning: Deleting unreferenced edge 'CW' in GNENet destructor
 Warning: Deleting unreferenced lane 'CW_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CW_1' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CW_2' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CW_3' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CW_4' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'CW_4 -> WC_4' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'EC' in ~GNENet
+Warning: Deleting unreferenced edge 'EC' in GNENet destructor
 Warning: Deleting unreferenced lane 'EC_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'EC_1' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'EC_2' in GNEEdge destructor
@@ -51,7 +51,7 @@ Warning: Deleting unreferenced connection 'EC_3 -> CN_3' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'EC_3 -> CW_3' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'EC_4 -> CW_4' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'EC_4 -> CS_4' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'NC' in ~GNENet
+Warning: Deleting unreferenced edge 'NC' in GNENet destructor
 Warning: Deleting unreferenced lane 'NC_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'NC_1' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'NC_2' in GNEEdge destructor
@@ -63,7 +63,7 @@ Warning: Deleting unreferenced connection 'NC_3 -> CW_3' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'NC_3 -> CS_3' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'NC_4 -> CS_4' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'NC_4 -> CE_4' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'SC' in ~GNENet
+Warning: Deleting unreferenced edge 'SC' in GNENet destructor
 Warning: Deleting unreferenced lane 'SC_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'SC_1' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'SC_2' in GNEEdge destructor
@@ -75,7 +75,7 @@ Warning: Deleting unreferenced connection 'SC_3 -> CE_3' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'SC_3 -> CN_3' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'SC_4 -> CN_4' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'SC_4 -> CW_4' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'WC' in ~GNENet
+Warning: Deleting unreferenced edge 'WC' in GNENet destructor
 Warning: Deleting unreferenced lane 'WC_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'WC_1' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'WC_2' in GNEEdge destructor
@@ -87,13 +87,13 @@ Warning: Deleting unreferenced connection 'WC_3 -> CS_3' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'WC_3 -> CE_3' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'WC_4 -> CE_4' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'WC_4 -> CN_4' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'C' in ~GNENet
+Warning: Deleting unreferenced junction 'C' in GNENet destructor
 Warning: Deleting unreferenced crossing ':C_c0' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':C_c1' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':C_c2' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':C_c3' in dropGNECrossings()
-Warning: Deleting unreferenced junction 'E' in ~GNENet
-Warning: Deleting unreferenced junction 'N' in ~GNENet
-Warning: Deleting unreferenced junction 'S' in ~GNENet
-Warning: Deleting unreferenced junction 'W' in ~GNENet
-Warning: Deleting net builder in ~GNENet
+Warning: Deleting unreferenced junction 'E' in GNENet destructor
+Warning: Deleting unreferenced junction 'N' in GNENet destructor
+Warning: Deleting unreferenced junction 'S' in GNENet destructor
+Warning: Deleting unreferenced junction 'W' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor

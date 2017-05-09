@@ -247,30 +247,30 @@ Warning: Deleting unreferenced edge 'gneE12' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE12_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE13' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE13_0' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'gneJ10' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ11' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ12' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ13' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ14' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ15' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ16' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ17' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ18' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ19' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ2' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ20' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ21' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ22' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ23' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ24' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ25' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ26' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ27' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ28' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ3' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ4' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ5' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ7' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ8' in ~GNENet
-Warning: Deleting unreferenced junction 'gneJ9' in ~GNENet
-Warning: Deleting net builder in ~GNENet
+Warning: Deleting unreferenced junction 'gneJ10' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ11' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ12' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ13' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ14' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ15' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ16' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ17' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ18' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ19' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ20' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ21' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ22' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ23' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ24' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ25' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ26' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ27' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ28' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ4' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ5' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ7' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ8' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ9' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor

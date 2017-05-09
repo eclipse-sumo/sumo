@@ -248,25 +248,25 @@ Warning: Deleting unreferenced lane '8_3' in GNEEdge destructor
 Warning: Deleting unreferenced busStop 'busStop_8_2_1'
 Warning: Deleting unreferenced busStop 'busStop_4_2_2'
 Warning: Deleting unreferenced busStop 'busStop_3_2_0'
-Warning: Deleting unreferenced edge '1' in ~GNENet
+Warning: Deleting unreferenced edge '1' in GNENet destructor
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '1_1 -> 5_1' in GNEEdge destructor
-Warning: Deleting unreferenced edge '2' in ~GNENet
+Warning: Deleting unreferenced edge '2' in GNENet destructor
 Warning: Deleting unreferenced lane '2_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '2_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '2_1 -> 6_1' in GNEEdge destructor
-Warning: Deleting unreferenced edge '5' in ~GNENet
+Warning: Deleting unreferenced edge '5' in GNENet destructor
 Warning: Deleting unreferenced lane '5_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '5_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '5_0 -> 2_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '5_1 -> 2_1' in GNEEdge destructor
-Warning: Deleting unreferenced edge '6' in ~GNENet
+Warning: Deleting unreferenced edge '6' in GNENet destructor
 Warning: Deleting unreferenced lane '6_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '6_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '6_0 -> 1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '6_1 -> 1_1' in GNEEdge destructor
-Warning: Deleting unreferenced edge '7' in ~GNENet
+Warning: Deleting unreferenced edge '7' in GNENet destructor
 Warning: Deleting unreferenced lane '7_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '7_1' in GNEEdge destructor
 Warning: Deleting unreferenced lane '7_2' in GNEEdge destructor
@@ -275,8 +275,8 @@ Warning: Deleting unreferenced connection '7_1 -> 1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '7_1 -> 2_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '7_2 -> 1_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection '7_3 -> 2_1' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'A' in ~GNENet
-Warning: Deleting unreferenced junction 'B' in ~GNENet
-Warning: Deleting unreferenced junction 'C' in ~GNENet
-Warning: Deleting unreferenced junction 'Center' in ~GNENet
-Warning: Deleting net builder in ~GNENet
+Warning: Deleting unreferenced junction 'A' in GNENet destructor
+Warning: Deleting unreferenced junction 'B' in GNENet destructor
+Warning: Deleting unreferenced junction 'C' in GNENet destructor
+Warning: Deleting unreferenced junction 'Center' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor
