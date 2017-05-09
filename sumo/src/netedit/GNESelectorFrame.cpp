@@ -79,8 +79,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     GNEFrame(horizontalFrameParent, viewNet, getStats().c_str()),
     mySetOperation(SET_ADD),
     myCurrentTag(SUMO_TAG_NOTHING),
-    myCurrentAttribute(SUMO_ATTR_NOTHING),
-    ALL_VCLASS_NAMES_MATCH_STRING("all " + joinToString(SumoVehicleClassStrings.getStrings(), " ")) {
+    myCurrentAttribute(SUMO_ATTR_NOTHING) {
     // selection modification mode
     FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame);
     // Create all options buttons
@@ -91,7 +90,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myKeepRadioButton = new FXRadioButton(selBox, "keep\t\tRestrict previous selection by the current selection",
                                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myReplaceRadioButton = new FXRadioButton(selBox, "replace\t\tReplace previous selection by the current selection",
-            this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myAddRadioButton->setCheck(true);
     // Create groupBox for selection by expression matching (match box)
     FXGroupBox* elementBox = new FXGroupBox(myContentFrame, "type of element", GUIDesignGroupBoxFrame);
@@ -611,9 +610,6 @@ GNESelectorFrame::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, doub
             } else {
                 // string match
                 std::string acVal = ac->getAttribute(attr);
-                if ((attr == SUMO_ATTR_ALLOW || attr == SUMO_ATTR_DISALLOW) && acVal == "all") {
-                    acVal = ALL_VCLASS_NAMES_MATCH_STRING;
-                }
                 switch (compOp) {
                     case '@':
                         if (acVal.find(expr) != std::string::npos) {
