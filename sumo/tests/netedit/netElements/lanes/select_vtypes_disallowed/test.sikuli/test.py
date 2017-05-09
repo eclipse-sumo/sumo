@@ -36,107 +36,107 @@ netedit.selectMode()
 netedit.selectionToogleEdges()
 
 # select all lanes with disallow = "passenger" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=passenger")
+netedit.selectItems("Net Element", "lane", "disallow", "=passenger")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "taxi" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=taxi")
+netedit.selectItems("Net Element", "lane", "disallow", "=taxi")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "bus" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=bus")
+netedit.selectItems("Net Element", "lane", "disallow", "=bus")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "coach" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=coach")
+netedit.selectItems("Net Element", "lane", "disallow", "=coach")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "delivery" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=delivery")
+netedit.selectItems("Net Element", "lane", "disallow", "=delivery")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "truck" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=truck")
+netedit.selectItems("Net Element", "lane", "disallow", "=truck")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "trailer" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=trailer")
+netedit.selectItems("Net Element", "lane", "disallow", "=trailer")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "emergency" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=emergency")
+netedit.selectItems("Net Element", "lane", "disallow", "=emergency")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "motorcycle" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=motorcycle")
+netedit.selectItems("Net Element", "lane", "disallow", "=motorcycle")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "moped" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=moped")
+netedit.selectItems("Net Element", "lane", "disallow", "=moped")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "bicycle" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=bicycle")
+netedit.selectItems("Net Element", "lane", "disallow", "=bicycle")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "pedestrian" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=pedestrian")
+netedit.selectItems("Net Element", "lane", "disallow", "=pedestrian")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "tram" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=tram")
+netedit.selectItems("Net Element", "lane", "disallow", "=tram")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "rail_urban" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=rail_urban")
+netedit.selectItems("Net Element", "lane", "disallow", "=rail_urban")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "rail" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=rail")
+netedit.selectItems("Net Element", "lane", "disallow", "=rail")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "rail_electric" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=rail_electric")
+netedit.selectItems("Net Element", "lane", "disallow", "=rail_electric")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "ship" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=ship")
+netedit.selectItems("Net Element", "lane", "disallow", "=ship")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "evehicle" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=evehicle")
+netedit.selectItems("Net Element", "lane", "disallow", "=evehicle")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "private" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=private")
+netedit.selectItems("Net Element", "lane", "disallow", "=private")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "army" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=army")
+netedit.selectItems("Net Element", "lane", "disallow", "=army")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "authority" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=authority")
+netedit.selectItems("Net Element", "lane", "disallow", "=authority")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "vip" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=vip")
+netedit.selectItems("Net Element", "lane", "disallow", "=vip")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "hov" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=hov")
+netedit.selectItems("Net Element", "lane", "disallow", "=hov")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "custom1" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=custom1")
+netedit.selectItems("Net Element", "lane", "disallow", "=custom1")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "custom2" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=custom2")
+netedit.selectItems("Net Element", "lane", "disallow", "=custom2")
 netedit.deleteSelectedItems()
 
 # select all lanes with disallow = "all" and remove it
-netedit.selectItems("Net Element", "lane", "disdisallow", "=all")
+netedit.selectItems("Net Element", "lane", "disallow", "=all")
 netedit.deleteSelectedItems()
 
 # save newtork
