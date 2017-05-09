@@ -859,6 +859,20 @@ def selectionInvert():
     for x in range(0, 12):
         typeInvertTab()
 
+
+# Toogle select edges and lanes
+def selectionToogleEdges():
+    # go to check box "select edges"
+    for x in range(0, 3):
+        typeInvertTab()
+    # type space to enable or disable edge selection
+    typeSpace()
+    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
+    for x in range(0, 3):
+        typeTab()
+    # type ESC to avoid focus errors
+    typeEscape()
+        
 #################################################
 # traffic light
 #################################################
