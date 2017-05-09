@@ -176,7 +176,7 @@ GNENet::~GNENet() {
         it->second->decRef("GNENet::~GNENet");
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Deleting unreferenced " + toString(it->second->getTag()) + " '" + it->second->getID() + "' in ~GNENet");
+            WRITE_WARNING("Deleting unreferenced " + toString(it->second->getTag()) + " '" + it->second->getID() + "' in GNENet destructor");
         }
         delete it->second;
     }
@@ -184,13 +184,13 @@ GNENet::~GNENet() {
         it->second->decRef("GNENet::~GNENet");
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-            WRITE_WARNING("Deleting unreferenced " + toString(it->second->getTag()) + " '" + it->second->getID() + "' in ~GNENet");
+            WRITE_WARNING("Deleting unreferenced " + toString(it->second->getTag()) + " '" + it->second->getID() + "' in GNENet destructor");
         }
         delete it->second;
     }
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing") == true) {
-        WRITE_WARNING("Deleting net builder in ~GNENet");
+        WRITE_WARNING("Deleting net builder in GNENet destructor");
     }
     delete myNetBuilder;
 }
