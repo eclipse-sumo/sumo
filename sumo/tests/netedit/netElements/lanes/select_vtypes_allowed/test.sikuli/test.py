@@ -1,0 +1,146 @@
+#!/usr/bin/env python
+"""
+@file    test.py
+@author  Pablo Alvarez Lopez
+@date    2016-11-25
+@version $Id: test.py 24005 2017-04-21 12:54:13Z palcraft $
+
+python script used by sikulix for testing netedit
+
+SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+Copyright (C) 2009-2017 DLR/TS, Germany
+
+This file is part of SUMO.
+SUMO is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+"""
+# import common functions for netedit tests
+import os
+import sys
+
+testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
+neteditTestRoot = os.path.join(
+    os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
+sys.path.append(neteditTestRoot)
+import neteditTestFunctions as netedit
+
+# Open netedit
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
+
+# go to select mode
+netedit.selectMode()
+
+# toogle to lane selection
+netedit.selectionToogleEdges()
+
+# select all lanes with allow = "passenger" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=passenger")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "taxi" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=taxi")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "bus" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=bus")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "coach" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=coach")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "delivery" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=delivery")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "truck" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=truck")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "trailer" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=trailer")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "emergency" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=emergency")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "motorcycle" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=motorcycle")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "moped" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=moped")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "bicycle" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=bicycle")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "pedestrian" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=pedestrian")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "tram" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=tram")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "rail_urban" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=rail_urban")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "rail" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=rail")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "rail_electric" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=rail_electric")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "ship" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=ship")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "evehicle" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=evehicle")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "private" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=private")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "army" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=army")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "authority" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=authority")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "vip" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=vip")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "hov" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=hov")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "custom1" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=custom1")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "custom2" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=custom2")
+netedit.deleteSelectedItems()
+
+# select all lanes with allow = "all" and remove it
+netedit.selectItems("Net Element", "lane", "allow", "=all")
+netedit.deleteSelectedItems()
+
+# save newtork
+netedit.saveNetwork()
+
+# quit netedit
+netedit.quit(neteditProcess)

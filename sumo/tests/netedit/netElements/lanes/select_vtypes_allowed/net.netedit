@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/09/17 11:45:17 by Netedit Version dev-SVN-r22761
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.09May112815.2588/netedit.gui/netElements/lanes/select_vtypes_allowed\additionals.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.09May112815.2588/netedit.gui/netElements/lanes/select_vtypes_allowed\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.09May112815.2588/netedit.gui/netElements/lanes/select_vtypes_allowed\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+    </processing>
+
+    <visualisation>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.09May112815.2588/netedit.gui/netElements/lanes/select_vtypes_allowed\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,10.00,80.00,70.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+
+    <junction id="gneJ10" type="dead_end" x="50.00" y="70.00" incLanes="" intLanes="" shape="50.00,70.00"/>
+    <junction id="gneJ11" type="dead_end" x="60.00" y="70.00" incLanes="" intLanes="" shape="60.00,70.00"/>
+    <junction id="gneJ12" type="dead_end" x="80.00" y="70.00" incLanes="" intLanes="" shape="80.00,70.00"/>
+    <junction id="gneJ13" type="dead_end" x="60.00" y="55.00" incLanes="" intLanes="" shape="60.00,55.00"/>
+    <junction id="gneJ14" type="dead_end" x="80.00" y="55.00" incLanes="" intLanes="" shape="80.00,55.00"/>
+    <junction id="gneJ15" type="dead_end" x="60.00" y="40.00" incLanes="" intLanes="" shape="60.00,40.00"/>
+    <junction id="gneJ16" type="dead_end" x="80.00" y="40.00" incLanes="" intLanes="" shape="80.00,40.00"/>
+    <junction id="gneJ17" type="dead_end" x="30.00" y="55.00" incLanes="" intLanes="" shape="30.00,55.00"/>
+    <junction id="gneJ18" type="dead_end" x="50.00" y="55.00" incLanes="" intLanes="" shape="50.00,55.00"/>
+    <junction id="gneJ19" type="dead_end" x="30.00" y="40.00" incLanes="" intLanes="" shape="30.00,40.00"/>
+    <junction id="gneJ2" type="dead_end" x="0.00" y="70.00" incLanes="" intLanes="" shape="0.00,70.00"/>
+    <junction id="gneJ20" type="dead_end" x="50.00" y="40.00" incLanes="" intLanes="" shape="50.00,40.00"/>
+    <junction id="gneJ21" type="dead_end" x="0.00" y="25.00" incLanes="" intLanes="" shape="0.00,25.00"/>
+    <junction id="gneJ22" type="dead_end" x="20.00" y="25.00" incLanes="" intLanes="" shape="20.00,25.00"/>
+    <junction id="gneJ23" type="dead_end" x="30.00" y="25.00" incLanes="" intLanes="" shape="30.00,25.00"/>
+    <junction id="gneJ24" type="dead_end" x="50.00" y="25.00" incLanes="" intLanes="" shape="50.00,25.00"/>
+    <junction id="gneJ25" type="dead_end" x="60.00" y="25.00" incLanes="" intLanes="" shape="60.00,25.00"/>
+    <junction id="gneJ26" type="dead_end" x="80.00" y="25.00" incLanes="" intLanes="" shape="80.00,25.00"/>
+    <junction id="gneJ27" type="dead_end" x="30.00" y="10.00" incLanes="" intLanes="" shape="30.00,10.00"/>
+    <junction id="gneJ28" type="dead_end" x="50.00" y="10.00" incLanes="" intLanes="" shape="50.00,10.00"/>
+    <junction id="gneJ3" type="dead_end" x="20.00" y="70.00" incLanes="" intLanes="" shape="20.00,70.00"/>
+    <junction id="gneJ4" type="dead_end" x="0.00" y="55.00" incLanes="" intLanes="" shape="0.00,55.00"/>
+    <junction id="gneJ5" type="dead_end" x="20.00" y="55.00" incLanes="" intLanes="" shape="20.00,55.00"/>
+    <junction id="gneJ7" type="dead_end" x="0.00" y="40.00" incLanes="" intLanes="" shape="0.00,40.00"/>
+    <junction id="gneJ8" type="dead_end" x="20.00" y="40.00" incLanes="" intLanes="" shape="20.00,40.00"/>
+    <junction id="gneJ9" type="dead_end" x="30.00" y="70.00" incLanes="" intLanes="" shape="30.00,70.00"/>
+
+</net>
