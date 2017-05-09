@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/09/17 10:54:58 by Netedit Version dev-SVN-r22761
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\lanes\select_vtypes_disallowed\input_net.nod.xml"/>
+        <edge-files value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\lanes\select_vtypes_disallowed\input_net.edg.xml"/>
+        <connection-files value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\lanes\select_vtypes_disallowed\input_net.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\lanes\select_vtypes_disallowed\input_net.net.xml"/>
+        <plain-output-prefix value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\lanes\select_vtypes_disallowed\input_net"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="0.00,10.00,80.00,70.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <node id="gneJ10" x="50.00" y="70.00" type="dead_end"/>
+    <node id="gneJ11" x="60.00" y="70.00" type="dead_end"/>
+    <node id="gneJ12" x="80.00" y="70.00" type="dead_end"/>
+    <node id="gneJ13" x="60.00" y="55.00" type="dead_end"/>
+    <node id="gneJ14" x="80.00" y="55.00" type="dead_end"/>
+    <node id="gneJ15" x="60.00" y="40.00" type="dead_end"/>
+    <node id="gneJ16" x="80.00" y="40.00" type="dead_end"/>
+    <node id="gneJ17" x="30.00" y="55.00" type="dead_end"/>
+    <node id="gneJ18" x="50.00" y="55.00" type="dead_end"/>
+    <node id="gneJ19" x="30.00" y="40.00" type="dead_end"/>
+    <node id="gneJ2" x="0.00" y="70.00" type="dead_end"/>
+    <node id="gneJ20" x="50.00" y="40.00" type="dead_end"/>
+    <node id="gneJ21" x="0.00" y="25.00" type="dead_end"/>
+    <node id="gneJ22" x="20.00" y="25.00" type="dead_end"/>
+    <node id="gneJ23" x="30.00" y="25.00" type="dead_end"/>
+    <node id="gneJ24" x="50.00" y="25.00" type="dead_end"/>
+    <node id="gneJ25" x="60.00" y="25.00" type="dead_end"/>
+    <node id="gneJ26" x="80.00" y="25.00" type="dead_end"/>
+    <node id="gneJ27" x="30.00" y="10.00" type="dead_end"/>
+    <node id="gneJ28" x="50.00" y="10.00" type="dead_end"/>
+    <node id="gneJ3" x="20.00" y="70.00" type="dead_end"/>
+    <node id="gneJ4" x="0.00" y="55.00" type="dead_end"/>
+    <node id="gneJ5" x="20.00" y="55.00" type="dead_end"/>
+    <node id="gneJ7" x="0.00" y="40.00" type="dead_end"/>
+    <node id="gneJ8" x="20.00" y="40.00" type="dead_end"/>
+    <node id="gneJ9" x="30.00" y="70.00" type="dead_end"/>
+</nodes>

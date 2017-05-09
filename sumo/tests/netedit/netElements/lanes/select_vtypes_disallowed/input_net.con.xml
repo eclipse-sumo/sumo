@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/09/17 10:54:58 by Netedit Version dev-SVN-r22761
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\lanes\select_vtypes_disallowed\input_net.nod.xml"/>
+        <edge-files value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\lanes\select_vtypes_disallowed\input_net.edg.xml"/>
+        <connection-files value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\lanes\select_vtypes_disallowed\input_net.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\lanes\select_vtypes_disallowed\input_net.net.xml"/>
+        <plain-output-prefix value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\lanes\select_vtypes_disallowed\input_net"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+</connections>

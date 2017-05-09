@@ -1,20 +1,26 @@
 # create
-create
+#create
 
 # delete
-delete
+#delete
 
 # inspect
-inspect
+#inspect
 
 # load
-load
+#load
 
 # move
-move
+#move
 
 # lock/unlock
-lock_unlock
+#lock_unlock
 
 # restricted lanes
-restrictedLanes
+#restrictedLanes
+
+# check selection of lanes throught allow parameter
+select_vtypes_allowed
+
+# check selection of lanes throught disallow parameter
+select_vtypes_disallowed
