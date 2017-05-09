@@ -32,107 +32,107 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
 # go to select mode
 netedit.selectMode()
 
-# select all edges with allow = "all" and remove it
+# select all edges with disallow = "all" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=all")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "passenger" and remove it
+# select all edges with disallow = "passenger" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=passenger")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "taxi" and remove it
+# select all edges with disallow = "taxi" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=taxi")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "bus" and remove it
+# select all edges with disallow = "bus" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=bus")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "coach" and remove it
+# select all edges with disallow = "coach" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=coach")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "delivery" and remove it
+# select all edges with disallow = "delivery" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=delivery")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "truck" and remove it
+# select all edges with disallow = "truck" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=truck")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "trailer" and remove it
+# select all edges with disallow = "trailer" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=trailer")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "emergency" and remove it
+# select all edges with disallow = "emergency" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=emergency")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "motorcycle" and remove it
+# select all edges with disallow = "motorcycle" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=motorcycle")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "moped" and remove it
+# select all edges with disallow = "moped" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=moped")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "bicycle" and remove it
+# select all edges with disallow = "bicycle" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=bicycle")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "pedestrian" and remove it
+# select all edges with disallow = "pedestrian" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=pedestrian")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "tram" and remove it
+# select all edges with disallow = "tram" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=tram")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "rail_urban" and remove it
+# select all edges with disallow = "rail_urban" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=rail_urban")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "rail" and remove it
+# select all edges with disallow = "rail" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=rail")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "rail_electric" and remove it
+# select all edges with disallow = "rail_electric" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=rail_electric")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "ship" and remove it
+# select all edges with disallow = "ship" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=ship")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "evehicle" and remove it
+# select all edges with disallow = "evehicle" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=evehicle")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "private" and remove it
+# select all edges with disallow = "private" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=private")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "army" and remove it
+# select all edges with disallow = "army" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=army")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "authority" and remove it
+# select all edges with disallow = "authority" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=authority")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "vip" and remove it
+# select all edges with disallow = "vip" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=vip")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "hov" and remove it
+# select all edges with disallow = "hov" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=hov")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "custom1" and remove it
+# select all edges with disallow = "custom1" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=custom1")
 netedit.deleteSelectedItems()
 
-# select all edges with allow = "custom2" and remove it
+# select all edges with disallow = "custom2" and remove it
 netedit.selectItems("Net Element", "edge", "disallow", "=custom2")
 netedit.deleteSelectedItems()
 
