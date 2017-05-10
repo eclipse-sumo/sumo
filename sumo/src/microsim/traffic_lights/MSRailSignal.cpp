@@ -41,7 +41,6 @@
 #include "MSTrafficLightLogic.h"
 #include "MSRailSignal.h"
 #include <microsim/MSLane.h>
-#include <zconf.h>
 #include "MSPhaseDefinition.h"
 #include "MSTLLogicControl.h"
 
