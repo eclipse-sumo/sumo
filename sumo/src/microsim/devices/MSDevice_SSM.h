@@ -207,7 +207,10 @@ private:
             egoConflictEntryTime(INVALID_DOUBLE),
             foeConflictEntryTime(INVALID_DOUBLE),
             egoConflictExitTime(INVALID_DOUBLE),
-            foeConflictExitTime(INVALID_DOUBLE)
+            foeConflictExitTime(INVALID_DOUBLE),
+            ttc(INVALID_DOUBLE),
+            drac(INVALID_DOUBLE),
+            pet(INVALID_DOUBLE)
             {};
         Encounter* encounter;
         EncounterType type;
@@ -219,6 +222,9 @@ private:
         double foeConflictEntryTime;
         double egoConflictExitTime;
         double foeConflictExitTime;
+        double ttc;
+        double drac;
+        double pet;
     };
 
 
@@ -375,7 +381,7 @@ private:
      * @param range Detection range. For vehicles closer than this distance from the ego vehicle, SSMs are traced
      * @param extraTime Extra time in seconds to be logged after a conflict is over
      */
-    MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::vector<std::string> measures, std::vector<double> thresholds,
+    MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::map<std::string, double> thresholds,
             bool trajectories, double maxEncounterLength, double range, double extraTime);
 
     /** @brief Finds encounters for which the foe vehicle has disappeared from range.
@@ -430,10 +436,9 @@ private:
     /** @brief Estimates the time until conflict for the vehicles based on the distance to the conflict entry points.
      *         For acceleration profiles, we assume that the acceleration is <= 0 (that is, braking is extrapolated,
      *         while for acceleration it is assumed that the vehicle will continue with its current speed)
-     *  @param[in] e       Encounter for which the current type is to be determined
      *  @param[in/out] eInfo  Info structure for the current state of the encounter.
-     *  @note The '[in]'-part for eInfo are its members egoConflictEntryDist, foeConflictEntryDist, i.e., distances to the conflict entry points.
-     *        The '[out]'-part for eInfo are its members egoConflictEntryTime, foeConflictEntryTime (estimated times until the conflict entry point is reached)
+     *  @note The '[in]'-part for eInfo are its members e->ego, e->foe (to access the vehicle parameters), egoConflictEntryDist, foeConflictEntryDist, i.e., distances to the conflict entry points.
+     *        The '[out]'-part for eInfo are its members type (type information may be refined) egoConflictEntryTime, foeConflictEntryTime (estimated times until the conflict entry point is reached)
      *        and egoConflictExitTime, foeConflictExitTime (estimated time until the conflict exit point is reached).
      *        Further the type of the encounter as determined by classifyEncounter(), is refined for the cases CROSSING and MERGING here.
      */
@@ -458,11 +463,18 @@ private:
      */
     bool qualifiesAsConflict(Encounter* e);
 
-    /** Compute current values of the logged SSMs (myMeasures) for the given encounter 'e'
+    /** @brief Compute current values of the logged SSMs (myMeasures) for the given encounter 'e'
      *  and update 'e' accordingly (add point to SSM time-series, update maximal/minimal value)
      *  This is called just after adding the current vehicle positions and velocity vectors to the encounter.
      */
-    void computeSSMs(EncounterApproachInfo& e);
+    void computeSSMs(EncounterApproachInfo& e) const;
+
+
+    /** @brief Computes the time to collision (in seconds) for two vehicles with a given initial gap under the assumption
+     *         that both maintain their current speeds. Returns INVALID_DOUBLE if no collision would occur under this assumption.
+     */
+    double computeTTC(double gap, double followerSpeed, double leaderSpeed) const;
+
 
 
     /// @name parameter load helpers (introduced for readability of buildVehicleDevices())
@@ -473,14 +485,13 @@ private:
     static double getMaxEncounterLength(const SUMOVehicle& v);
     static bool requestsTrajectories(const SUMOVehicle& v);
     static bool getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceID,
-                                         std::vector<double>& thresholds, std::vector<std::string>& measures);
+                                        std::map<std::string, double>& thresholds);
     ///@}
 
 private:
     /// @name Device parameters
     /// @{
-    std::vector<std::string> myMeasures;
-    std::vector<double> myThresholds;
+    std::map<std::string, double> myThresholds;
     bool mySaveTrajectories;
     /// @brief Maximal timespan duration for a single encounter
     double myMaxEncounterLength;
