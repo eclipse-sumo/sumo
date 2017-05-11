@@ -359,8 +359,19 @@ MSCalibrator::execute(SUMOTime currentTime) {
             newPars->id = myID + "." + toString((int)STEPS2TIME(myCurrentStateInterval->begin)) + "." + toString(myInserted);
             newPars->depart = currentTime;
             newPars->routeid = route->getID();
-            MSVehicle* vehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(
-                                     newPars, route, vtype, true, false));
+            MSVehicle* vehicle;
+            try {
+                vehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(
+                            newPars, route, vtype, true, false));
+            } catch (const ProcessError& e) {
+                if (!MSGlobals::gCheckRoutes) {
+                    WRITE_WARNING(e.what());
+                    vehicle = 0;
+                    break;
+                } else {
+                    throw e;
+                }
+            }
 #ifdef MSCalibrator_DEBUG
             std::cout << " resetting route pos: " << routeIndex << "\n";
 #endif
