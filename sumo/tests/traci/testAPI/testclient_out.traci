@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed May  3 08:33:50 2017
+TraCITestClient output file. Date: Thu May 11 08:30:53 2017
 
 
 -> Command sent: <SimulationStep2>:
@@ -86,6 +86,15 @@ testAPI:
       index=4 from=e_m3_0 via=:n_m4_4_0 to=e_m4_0
       index=5 from=e_m3_1 via=:n_m4_4_1 to=e_m4_1
       index=6 from=e_m3_2 via=:n_m4_4_2 to=e_m4_2
+    completeDefinition:
+      subID=0 type=0 phase=0
+      params=
+         phase=ggGGrrr dur=12000 minDur=12000 maxDur=12000
+         phase=ggyyrrr dur=20000 minDur=20000 maxDur=20000
+         phase=GGrrrrr dur=6000 minDur=6000 maxDur=6000
+         phase=yyrrrrr dur=20000 minDur=20000 maxDur=20000
+         phase=rrrrGGG dur=12000 minDur=12000 maxDur=12000
+         phase=rrrryyy dur=20000 minDur=20000 maxDur=20000
   load:
     getCurrentTime: 1000
   gui:

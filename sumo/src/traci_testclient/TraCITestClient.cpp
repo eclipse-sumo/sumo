@@ -829,6 +829,19 @@ TraCITestClient::testAPI() {
     for (int i = 0; i < (int)links.size(); ++i) {
         answerLog << "      index=" << i << " from=" << links[i].from << " via=" << links[i].via << " to=" << links[i].to << "\n";
     }
+    std::vector<TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
+    answerLog << "    completeDefinition:\n";
+    for (int i = 0; i < (int)logics.size(); ++i) {
+        answerLog << "      subID=" << logics[i].subID << " type=" << logics[i].type << " phase=" << logics[i].currentPhaseIndex << "\n";
+        answerLog << "      params=" << joinToString(logics[i].subParameter, " ", ":") << "\n";
+        for (int j = 0; j < (int)logics[i].phases.size(); ++j) {
+            answerLog << "         phase=" << logics[i].phases[j].phase 
+                << " dur=" << logics[i].phases[j].duration
+                << " minDur=" << logics[i].phases[j].duration1
+                << " maxDur=" << logics[i].phases[j].duration2
+                << "\n";
+        }
+    }
     answerLog << "  load:\n";
     std::vector<std::string> args;
     args.push_back("-n");
