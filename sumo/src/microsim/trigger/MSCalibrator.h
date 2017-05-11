@@ -78,6 +78,20 @@ public:
 
 
 protected:
+    class CalibratorCommand : public Command {
+    public: 
+        CalibratorCommand(MSCalibrator* cali) :
+            myCalibrator(cali) {}
+
+        SUMOTime execute(SUMOTime currentTime) {
+            return myCalibrator->execute(currentTime);
+        }
+
+    private:
+        MSCalibrator* myCalibrator;
+    };
+
+
     /// @name inherited from GenericSAXHandler
     //@{
 

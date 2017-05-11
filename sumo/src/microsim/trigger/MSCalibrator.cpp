@@ -111,7 +111,7 @@ MSCalibrator::init() {
         }
         myCurrentStateInterval = myIntervals.begin();
         // calibration should happen after regular insertions have taken place
-        MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(this);
+        MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(new CalibratorCommand(this));
     } else {
         WRITE_WARNING("No flow intervals in calibrator '" + myID + "'.");
     }
