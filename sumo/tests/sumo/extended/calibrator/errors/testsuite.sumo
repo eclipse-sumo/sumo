@@ -1,2 +1,5 @@
 # invalid flow definition
 invalid_flow
+
+# not all routes are appropriate for the vehicle type
+vClass_mismatch
