@@ -381,7 +381,7 @@ public:
 
     /** @brief Returns the sum of the lengths along internal lanes following this link
      *         to the crossing with the given foe lane, if the lane is no foe
-     *         lane to any of the internal lanes, -1 is returned.
+     *         lane to any of the internal lanes, INVALID_DOUBLE is returned.
      *  @see getLengthBeforeCrossing()
      */
     double getLengthsBeforeCrossing(const MSLane* foeLane) const;
@@ -389,7 +389,7 @@ public:
 
     /** @brief Returns the internal length from the beginning of the link's internal lane before
      *         to the crossing with the given foe lane if applicable, if the lane is no foe
-     *         lane to the link, -1 is returned.
+     *         lane to the link, INVALID_DOUBLE is returned.
      *  @see getLengthsBeforeCrossing()
      */
     double getLengthBeforeCrossing(const MSLane* foeLane) const;
