@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 11 May 2017 01:20:11 PM CEST by Netedit Version dev-SVN-r24253
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/sumo/extended/calibrator/errors/vClass_mismatch/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/sumo/extended/calibrator/errors/vClass_mismatch/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,500.00" convBoundary="0.00,0.00,2500.00,500.00" origBoundary="0.00,-500.00,2500.00,500.00" projParameter="!"/>
+
+    <edge id="beg" from="absBeg" to="beg" priority="-1">
+        <lane id="beg_0" index="0" speed="27.80" length="100.00" shape="0.00,-1.65 95.25,-1.65"/>
+    </edge>
+    <edge id="beg2" from="gneJ2" to="beg" priority="1">
+        <lane id="beg2_0" index="0" allow="bus" speed="13.89" length="100.00" shape="98.35,100.00 98.35,1.45"/>
+    </edge>
+    <edge id="end" from="gneJ0" to="gneJ1" priority="1">
+        <lane id="end_0" index="0" speed="13.89" length="100.00" shape="200.00,-1.65 300.00,-1.65"/>
+    </edge>
+    <edge id="middle" from="beg" to="gneJ0" priority="1">
+        <lane id="middle_0" index="0" disallow="truck trailer" speed="13.89" length="100.00" shape="101.45,-1.65 200.00,-1.65"/>
+    </edge>
+
+    <junction id="absBeg" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
+    <junction id="beg" type="priority" x="100.00" y="0.00" incLanes="beg2_0 beg_0" intLanes="" shape="96.75,1.45 99.95,1.45 101.45,-0.05 101.45,-3.25 95.25,-3.25 95.25,-0.05">
+        <request index="0" response="00" foes="10"/>
+        <request index="1" response="01" foes="01"/>
+    </junction>
+    <junction id="gneJ0" type="priority" x="200.00" y="0.00" incLanes="middle_0" intLanes="" shape="200.00,-0.05 200.00,-3.25 200.00,-0.05">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="gneJ1" type="dead_end" x="300.00" y="0.00" incLanes="end_0" intLanes="" shape="300.00,-3.25 300.00,-0.05"/>
+    <junction id="gneJ2" type="dead_end" x="100.00" y="100.00" incLanes="" intLanes="" shape="99.95,100.00 96.75,100.00"/>
+    <junction id="rabsEnd" type="dead_end" x="2500.00" y="500.00" incLanes="" intLanes="" shape="2500.00,500.00"/>
+
+    <connection from="beg" to="middle" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="beg2" to="middle" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="middle" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
