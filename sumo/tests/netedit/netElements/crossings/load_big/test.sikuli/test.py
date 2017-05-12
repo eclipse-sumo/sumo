@@ -27,7 +27,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, [], False)
 
 # Rebuild network
 netedit.rebuildNetwork()

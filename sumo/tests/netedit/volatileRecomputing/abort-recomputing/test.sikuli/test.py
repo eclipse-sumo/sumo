@@ -27,7 +27,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False, True, ['--sidewalks.guess'])
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True, ['--sidewalks.guess'])
 
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions(False)

@@ -27,7 +27,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
@@ -42,7 +42,7 @@ netedit.leftClick(match, 250, 250)
 netedit.quit(neteditProcess, True, True, True, False)
 
 # Open netedit again 
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
@@ -60,7 +60,7 @@ netedit.saveNetwork()
 netedit.quit(neteditProcess, False, True, True, False)
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, False)
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()

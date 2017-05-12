@@ -27,7 +27,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, True)
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--new'])
 
 # Change to create edge mode
 netedit.createEdgeMode()

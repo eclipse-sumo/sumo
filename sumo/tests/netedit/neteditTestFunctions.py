@@ -135,41 +135,40 @@ def setup(neteditTests):
         neteditTests, "imageResources", "reference.png")
 
 
-def Popen(newNet, extraParameters):
+def Popen(extraParameters, debugInformation):
     # set the default parameters of netedit
     neteditCall = [neteditApp, '--gui-testing', '--window-pos', '50,50',
                    '--window-size', '700,500', '--no-warnings',
                    '--error-log', os.path.join(textTestSandBox, 'log.txt')]
 
-    # check if a new net must be created
-    if newNet:
-        neteditCall += ['--new']
+    # check if debug output information has to be enabled
+    if debugInformation:
+        neteditCall += ['--gui-testing-debug']
 
     # check if an existent net must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_net.net.xml")):
         neteditCall += ['--sumo-net-file',
                         os.path.join(textTestSandBox, "input_net.net.xml")]
-
-    # set output for net
-    neteditCall += ['--output-file',
-                    os.path.join(textTestSandBox, 'net.net.xml')]
-
-    # Check if additionals must be loaded (additionals output will be
-    # automatically set)
+						
+    # Check if additionals must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_additionals.add.xml")):
         neteditCall += ['--sumo-additionals-file',
                         os.path.join(textTestSandBox, "input_additionals.add.xml")]
+						
+	# check if a gui settings file has to be load
+    if os.path.exists(os.path.join(textTestSandBox, "gui-settings.xml")):
+        neteditCall += ['--gui-settings-file',
+                        os.path.join(textTestSandBox, "gui-settings.xml")]
+						
+    # set output for net
+    neteditCall += ['--output-file',
+                    os.path.join(textTestSandBox, 'net.net.xml')]
 
     # set output for additionals
     neteditCall += ['--additionals-output',
                     os.path.join(textTestSandBox, "additionals.xml")]
 
-    # check if a gui settings file has to be load
-    if os.path.exists(os.path.join(textTestSandBox, "gui-settings.xml")):
-        neteditCall += ['--gui-settings-file',
-                        os.path.join(textTestSandBox, "gui-settings.xml")]
-
-    # check if extra parameters has to be added
+    # add extra parameters
     neteditCall += extraParameters
         
     # return a subprocess with netedit
@@ -188,17 +187,18 @@ def getReferenceMatch(neProcess, waitTime):
 # setup and start netedit
 
 
-def setupAndStart(testRoot, newNet=False, searchReference=True, extraParameters = [], waitTime=DELAY_REFERENCE):
+def setupAndStart(testRoot, extraParameters = [], debugInformation = True, searchReference=True, waitTime=DELAY_REFERENCE):
     setup(testRoot)
     # Open netedit
-    neteditProcess = Popen(newNet, extraParameters)
+    neteditProcess = Popen(extraParameters, debugInformation)
     atexit.register(quit, neteditProcess, False, False)
-    # Wait for netedit reference
+    # Check if reference must be searched
     if(searchReference):
         # Wait for netedit reference
         return neteditProcess, getReferenceMatch(neteditProcess, waitTime)
     else:
         # Wait 1 second for netedit
+        print("'searchReference' option disabled. Reference isn't searched")
         wait(1)
         return neteditProcess
 
