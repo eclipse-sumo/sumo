@@ -28,6 +28,7 @@ from sikuli import *
 DELAY = 0.2
 DELAY_QUESTION = 1
 DELAY_REFERENCE = 50
+DELAY_QUIT = 5
 
 Settings.MoveMouseDelay = 0.2
 Settings.DelayBeforeDrop = 0.2
@@ -149,17 +150,17 @@ def Popen(extraParameters, debugInformation):
     if os.path.exists(os.path.join(textTestSandBox, "input_net.net.xml")):
         neteditCall += ['--sumo-net-file',
                         os.path.join(textTestSandBox, "input_net.net.xml")]
-						
+                        
     # Check if additionals must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_additionals.add.xml")):
         neteditCall += ['--sumo-additionals-file',
                         os.path.join(textTestSandBox, "input_additionals.add.xml")]
-						
-	# check if a gui settings file has to be load
+                        
+    # check if a gui settings file has to be load
     if os.path.exists(os.path.join(textTestSandBox, "gui-settings.xml")):
         neteditCall += ['--gui-settings-file',
                         os.path.join(textTestSandBox, "gui-settings.xml")]
-						
+                        
     # set output for net
     neteditCall += ['--output-file',
                     os.path.join(textTestSandBox, 'net.net.xml')]
@@ -179,10 +180,15 @@ def Popen(extraParameters, debugInformation):
 
 def getReferenceMatch(neProcess, waitTime):
     try:
-        return wait(referenceImage, waitTime)
+        referenceMatch = wait(referenceImage, waitTime)
+        # print debug information
+        print ("TestFunctions: 'reference.png' found")
+        # return reference match
+        return referenceMatch
     except:
         neProcess.kill()
-        sys.exit("Killed netedit process. 'reference.png' not found")
+        # print debug information
+        sys.exit("TestFunctions: Killed netedit process. 'reference.png' not found")
 
 # setup and start netedit
 
@@ -192,13 +198,16 @@ def setupAndStart(testRoot, extraParameters = [], debugInformation = True, searc
     # Open netedit
     neteditProcess = Popen(extraParameters, debugInformation)
     atexit.register(quit, neteditProcess, False, False)
+    # print debug information
+    print("TestFunctions: Netedit opened sucesfully")
     # Check if reference must be searched
     if(searchReference):
         # Wait for netedit reference
         return neteditProcess, getReferenceMatch(neteditProcess, waitTime)
     else:
-        # Wait 1 second for netedit
-        print("'searchReference' option disabled. Reference isn't searched")
+        # print debug information
+        print("TestFunctions: 'searchReference' option disabled. Reference isn't searched")
+        # Wait 1 second for netedit process
         wait(1)
         return neteditProcess
 
@@ -295,38 +304,38 @@ def waitQuestion(answer):
 # netedit quit
 
 
-def quit(neteditProcess, netNonSavedDialog=False, saveNet=False, additionalsNonSavedDialog=False, saveAdditionals=False):
+def quit(neteditProcess, openNonSavedNetDialog=False, saveNet=False, openedAdditionalsNonSavedDialog=False, saveAdditionals=False):
+    # check if netedit is already closed
     if neteditProcess.poll() is not None:
-        # already quit
-        return
+        # print debug information
+        print("[log] TestFunctions: Netedit already closed")
+    else:
+        # quit using hotkey
+        typeTwoKeys("q", Key.CTRL)
 
-    # quit using hotkey
-    typeTwoKeys("q", Key.CTRL)
+        # Check if net must be saved
+        if openNonSavedNetDialog:
+            if saveNet:
+                waitQuestion("s")
+            else:
+                waitQuestion("q")
 
-    # Check if net must be saved
-    if netNonSavedDialog:
-        if saveNet:
-            waitQuestion("s")
-        else:
-            waitQuestion("q")
+        # Check if additionals must be saved
+        if openedAdditionalsNonSavedDialog:
+            if saveAdditionals:
+                waitQuestion("s")
+            else:
+                waitQuestion("q")
 
-    # Check if additionals must be saved
-    if additionalsNonSavedDialog:
-        if saveAdditionals:
-            waitQuestion("s")
-        else:
-            waitQuestion("q")
-
-    # wait some seconds
-    for t in xrange(3):
-        waitQuestion("q")
-        waitQuestion("q")
-        wait(t)
+        # wait some secondd
+        wait(DELAY_QUIT)
         if neteditProcess.poll() is not None:
-            print("[log] netedit closed successfully")
-            return
-    neteditProcess.kill()
-    print("error closing netedit")
+            # print debug information
+            print("TestFunctions: Netedit closed successfully")
+        else:
+            neteditProcess.kill()
+            # print debug information
+            print("TestFunctions: Error closing Netedit")
 
 # save network
 

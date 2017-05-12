@@ -1,10 +1,12 @@
 +++ running this Java
 +++ trying to run SikuliX
 +++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
-[error] script [ C:\Users\alva_pa\.texttest\tmp\netedit.gui.12May123644.5644\netedit.gui\basic\sikulix_error\test.sikuli ] stopped with error in line 30
-[error] SystemExit ( Killed netedit process. 'reference.png' not found )
+TestFunctions: Netedit opened sucesfully
+[error] script [ C:\Users\alva_pa\.texttest\tmp\netedit.gui.12May131703.4892\netedit.gui\basic\sikulix_error\test.sikuli ] stopped with error in line 30
+[error] SystemExit ( TestFunctions: Killed netedit process. 'reference.png' not found )
 [error] --- Traceback --- error source first
 line: module ( function ) statement 
-185: neteditTestFunctions (  getReferenceMatch )     sys.exit("Killed netedit process. 'reference.png' not found")
-198: neteditTestFunctions (  setupAndStart )     return neteditProcess, getReferenceMatch(neteditProcess, waitTime)
+191: neteditTestFunctions (  getReferenceMatch )     sys.exit("TestFunctions: Killed netedit process. 'reference.png' not found")
+206: neteditTestFunctions (  setupAndStart )     return neteditProcess, getReferenceMatch(neteditProcess, waitTime)
 [error] --- Traceback --- end --------------
+[log] TestFunctions: Netedit already closed
