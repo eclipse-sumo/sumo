@@ -1,3 +1,6 @@
+# import train stops
+bus_stop_postion
+
 # Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
 adlershof_dlr
 adlershof_dlr_discard-tls
