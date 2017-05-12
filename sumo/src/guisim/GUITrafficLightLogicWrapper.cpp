@@ -37,6 +37,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <microsim/MSLane.h>
@@ -162,6 +163,7 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
     buildSelectionPopupEntry(ret);
     new FXMenuCommand(ret, ("phase: " + toString(tll->getCurrentPhaseIndex())).c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
+    buildShowParamsPopupEntry(ret, false);
     buildPositionCopyEntry(ret, false);
     return ret;
 }
@@ -190,9 +192,15 @@ GUITrafficLightLogicWrapper::showPhases() {
 
 
 GUIParameterTableWindow*
-GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow&,
-        GUISUMOAbstractView&) {
-    return 0;
+GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow& app,
+                                                GUISUMOAbstractView&) {
+    GUIParameterTableWindow* ret =
+        new GUIParameterTableWindow(app, *this, 3 + myTLLogic.getMap().size());
+    ret->mkItem("tlLogic [id]", false, myTLLogic.getID());
+    ret->mkItem("program", false, myTLLogic.getProgramID());
+    // close building
+    ret->closeBuilding(&myTLLogic);
+    return ret;
 }
 
 

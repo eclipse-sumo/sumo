@@ -43,6 +43,17 @@ for step in range(3):
 print("trafficlights", traci.trafficlights.getIDList())
 print("trafficlights count", traci.trafficlights.getIDCount())
 tlsID = "0"
+
+phases = []
+phases.append(traci._trafficlights.Phase(30, 0, 0, "rrrrGGggrrrrGGgg"))
+phases.append(traci._trafficlights.Phase(10, 0, 0, "rrrrGGggrrrrGGgg"))
+phases.append(traci._trafficlights.Phase(40, 0, 0, "rrrrGGggrrrrGGgg"))
+phases.append(traci._trafficlights.Phase(20, 0, 0, "rrrrGGggrrrrGGgg"))
+phases.append(traci._trafficlights.Phase(20, 0, 0, "rrrrGGggrrrrGGgg"))
+phases.append(traci._trafficlights.Phase(20, 0, 0, "rrrrGGggrrrrGGgg"))
+logic = traci._trafficlights.Logic("custom", 0, 0, 0, phases)
+traci.trafficlights.setCompleteRedYellowGreenDefinition(tlsID, logic)
+
 traci.trafficlights.setPhase(tlsID, 4)
 traci.trafficlights.setPhaseDuration(tlsID, 23)
 print("examining", tlsID)

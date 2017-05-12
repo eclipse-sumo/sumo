@@ -101,7 +101,7 @@ GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 37);
+        new GUIParameterTableWindow(app, *this, 36);
     // add items
     ret->mkItem("lane [id]", false, Named::getIDSecure(myLane, "n/a"));
     if (MSGlobals::gLaneChangeDuration > 0 || MSGlobals::gLateralResolution > 0) {
@@ -176,8 +176,6 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getPersonNumber));
     ret->mkItem("containers", true,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getContainerNumber));
-
-    ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
     // close building
     ret->closeBuilding();
     return ret;
@@ -188,7 +186,7 @@ GUIParameterTableWindow*
 GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                    GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 23);
+        new GUIParameterTableWindow(app, *this, 22 + myType->getParameter().getMap().size());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());
@@ -214,9 +212,8 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
         ret->mkItem("latAlignment", false, toString(myType->getPreferredLateralAlignment()));
     }
 
-    ret->mkItem("type parameters [key:val]", false, toString(myType->getParameter().getMap()));
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&(myType->getParameter()));
     return ret;
 }
 

@@ -65,7 +65,7 @@ GUIParameterTableWindow*
 GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
                                  GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 21);
+        new GUIParameterTableWindow(app, *this, 20);
     // add items
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("segment [#]", false, getSegment()->getIndex());
@@ -124,8 +124,6 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     //            new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getPersonNumber));
     //ret->mkItem("containers", true,
     //            new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getContainerNumber));
-    ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
-
     // meso specific values
     ret->mkItem("event time [s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getEventTimeSeconds));
     ret->mkItem("entry time [s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getLastEntryTimeSeconds));
@@ -141,7 +139,7 @@ GUIParameterTableWindow*
 GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                      GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 10);
+        new GUIParameterTableWindow(app, *this, 9 + myType->getParameter().getMap().size());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());
@@ -156,10 +154,8 @@ GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
     //ret->mkItem("reaction time (tau)", false, getCarFollowModel().getHeadwayTime());
     ret->mkItem("person capacity", false, myType->getPersonCapacity());
     ret->mkItem("container capacity", false, myType->getContainerCapacity());
-
-    ret->mkItem("type parameters [key:val]", false, toString(myType->getParameter().getMap()));
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&(myType->getParameter()));
     return ret;
 }
 

@@ -36,6 +36,7 @@
 #include "GUIParameterTableWindow.h"
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/ToString.h>
+#include <utils/common/Parameterised.h>
 #include <utils/gui/div/GUIParam_PopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
@@ -66,9 +67,12 @@ std::vector<GUIParameterTableWindow*> GUIParameterTableWindow::myContainer;
 // method definitions
 // ===========================================================================
 GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o, int noRows) :
-    FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), NULL, NULL, DECOR_ALL, 20, 20, 500, (FXint)(noRows * 20 + 60)),
+    FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), NULL, NULL, DECOR_ALL, 20, 20, 500, (FXint)((noRows + numParams(&o))  * 20 + 60)),
     myObject(&o),
-    myApplication(&app), myCurrentPos(0) {
+    myApplication(&app), 
+    myCurrentPos(0) 
+{
+    noRows += numParams(&o);
     myTable = new FXTable(this, this, MID_TABLE, TABLE_COL_SIZABLE | TABLE_ROW_SIZABLE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     myTable->setVisibleRows((FXint)(noRows + 1));
     myTable->setVisibleColumns(3);
@@ -249,12 +253,27 @@ GUIParameterTableWindow::updateTable() {
 
 
 void
-GUIParameterTableWindow::closeBuilding() {
+GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
+    // add generic paramters if available
+    if (p == 0) {
+        p = dynamic_cast<const Parameterised*>(myObject);
+    }
+    if (p != 0) {
+        const std::map<std::string, std::string>& map = p->getMap();
+        for (std::map<std::string, std::string>::const_iterator it = map.begin(); it != map.end(); ++it) {
+            mkItem(("param:" + it->first).c_str(), false, it->second);
+        }
+    }
     myApplication->addChild(this, true);
     create();
     show();
 }
 
+int 
+GUIParameterTableWindow::numParams(const GUIGlObject* obj) {
+    const Parameterised* p = dynamic_cast<const Parameterised*>(obj);
+    return p != 0 ? p->getMap().size() : 0;
+}
 
 
 /****************************************************************************/

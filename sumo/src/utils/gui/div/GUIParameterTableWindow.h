@@ -48,6 +48,7 @@
 class GUIGlObject;
 class GUIMainWindow;
 class GUIParameterTableItemInterface;
+class Parameterised;
 
 
 // ===========================================================================
@@ -91,7 +92,7 @@ public:
      *
      * @see GUIMainWindow::addChild
      */
-    void closeBuilding();
+    void closeBuilding(const Parameterised* p = 0);
 
 
 
@@ -253,6 +254,9 @@ private:
 
     /// @brief A lock assuring save updates in case of object deletion
     mutable MFXMutex myLock;
+
+    /// @brief returns the number of parameters if obj is Parameterised and 0 otherwise
+    static int numParams(const GUIGlObject* obj);
 
 protected:
     /// FOX needs this

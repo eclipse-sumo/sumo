@@ -207,7 +207,7 @@ GUIParameterTableWindow*
 GUIPerson::getParameterWindow(GUIMainWindow& app,
                               GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 16);
+        new GUIParameterTableWindow(app, *this, 15);
     // add items
     ret->mkItem("stage", false, getCurrentStageDescription());
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
@@ -217,8 +217,6 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getSpeed));
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getNaviDegree));
     ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getWaitingSeconds));
-
-    ret->mkItem("parameters [key:val]", false, toString(getParameter().getMap()));
     // close building
     ret->closeBuilding();
     return ret;
@@ -229,7 +227,7 @@ GUIParameterTableWindow*
 GUIPerson::getTypeParameterWindow(GUIMainWindow& app,
                                   GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 9);
+        new GUIParameterTableWindow(app, *this, 8 + myVType->getParameter().getMap().size());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myVType->getID());
@@ -238,10 +236,8 @@ GUIPerson::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("height", false, myVType->getHeight());
     ret->mkItem("minGap", false, myVType->getMinGap());
     ret->mkItem("maximum speed [m/s]", false, myVType->getMaxSpeed());
-
-    ret->mkItem("type parameters [key:val]", false, toString(myVType->getParameter().getMap()));
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&(myVType->getParameter()));
     return ret;
 }
 
