@@ -1,0 +1,89 @@
+running SikuliX: -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine
+-jar /home/user070065n-su/Sikulix/sikulix.jar -run test.sikuli
+[info] runcmd: lsb_release -i -r -s 
+TestFunctions: Netedit opened sucesfully
+TestFunctions: 'reference.png' found
+[log]  TYPE "e"
+[log]  TYPE "#ESC."
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log]  TYPE " "
+[log]  TYPE "#ESC."
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log]  TYPE " "
+[log] CLICK on L(604,290)@S(0)[0,0 1600x900] (222 msec)
+[log] CLICK on L(704,290)@S(0)[0,0 1600x900] (222 msec)
+[log] CLICK on L(704,390)@S(0)[0,0 1600x900] (222 msec)
+[log] CLICK on L(704,490)@S(0)[0,0 1600x900] (224 msec)
+[log] CLICK on L(604,490)@S(0)[0,0 1600x900] (224 msec)
+[log] CLICK on L(504,490)@S(0)[0,0 1600x900] (223 msec)
+[log] CLICK on L(504,390)@S(0)[0,0 1600x900] (223 msec)
+[log]  TYPE "#ESC."
+[log]  TYPE "s"
+[log]  TYPE "f"
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE " "
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log] ( Mayús )  TYPE "#TAB."
+[log]  TYPE "i"
+[log] CLICK on L(704,290)@S(0)[0,0 1600x900] (223 msec)
+[log]  TYPE "f"
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ESC."
+[log] CLICK on L(754,290)@S(0)[0,0 1600x900] (223 msec)
+[log]  TYPE "f"
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ESC."
+[log]  TYPE "#F5."
+[log]  TYPE "i"
+[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (224 msec)
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log]  TYPE "i"
+[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (223 msec)
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "s"
+[log] ( Ctrl )  TYPE "q"
+TestFunctions: Netedit closed successfully
+[log] TestFunctions: Netedit already closed

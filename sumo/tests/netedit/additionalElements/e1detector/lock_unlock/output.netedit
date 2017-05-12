@@ -1,0 +1,58 @@
+running SikuliX: -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine
+-jar /home/user070065n-su/Sikulix/sikulix.jar -run test.sikuli
+[info] runcmd: lsb_release -i -r -s 
+TestFunctions: Netedit opened sucesfully
+TestFunctions: 'reference.png' found
+[log]  TYPE "a"
+[log]  TYPE "f"
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#ESC."
+[log] CLICK on L(554,390)@S(0)[0,0 1600x900] (223 msec)
+[log]  TYPE "m"
+[log]  TYPE "i"
+[log] CLICK on L(654,390)@S(0)[0,0 1600x900] (224 msec)
+[log]  TYPE "f"
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE " "
+[log]  TYPE "#ESC."
+[log]  TYPE "m"
+[log]  TYPE "i"
+[log] CLICK on L(654,390)@S(0)[0,0 1600x900] (223 msec)
+[log]  TYPE "f"
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE " "
+[log]  TYPE "#ESC."
+[log]  TYPE "m"
+[log]  TYPE "i"
+[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (223 msec)
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log]  TYPE "i"
+[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (224 msec)
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl+Mayús )  TYPE "d"
+[log] ( Ctrl )  TYPE "s"
+[log] ( Ctrl )  TYPE "q"
+TestFunctions: Netedit closed successfully
+[log] TestFunctions: Netedit already closed
