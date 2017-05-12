@@ -583,7 +583,7 @@ GNEJunction::dropGNECrossings() {
         (*it)->decRef();
         if ((*it)->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                 WRITE_WARNING("Deleting unreferenced " + toString((*it)->getTag()) + " '" + (*it)->getID() + "' in dropGNECrossings()");
             }
             delete *it;
@@ -662,7 +662,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 // make a copy because we will modify the original
                 const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
                 for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
-                    undoList->add(new GNEChange_TLS(this, *it, false, OptionsCont::getOptions().getBool("gui-testing") == true), true);
+                    undoList->add(new GNEChange_TLS(this, *it, false, OptionsCont::getOptions().getBool("gui-testing-debug") == true), true);
                 }
             }
             // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS

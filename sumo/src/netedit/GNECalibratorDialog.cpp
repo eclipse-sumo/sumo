@@ -199,7 +199,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
             // if there are flows that has route to remove as "route" parameter
             if (calibratorFlowsToErase.size() > 0) {
                 // write warning if netedit is running in testing mode
-                if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+                if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                     WRITE_WARNING("Opening FXMessageBox of type 'question'");
                 }
                 // open question dialog box
@@ -209,16 +209,16 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
                                                         ". Continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
-                    if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
+                    if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true)) {
                         WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
-                    } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
+                    } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true)) {
                         WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
                     }
                     // abort deletion of route
                     return 0;
                 } else {
                     // write warning if netedit is running in testing mode
-                    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+                    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                         WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                     }
                     // remove flows with route to delete
@@ -349,16 +349,16 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                                                         ". Continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
-                    if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
+                    if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true)) {
                         WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
-                    } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
+                    } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true)) {
                         WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
                     }
                     // abort deletion of vehicle type
                     return 0;
                 } else {
                     // write warning if netedit is running in testing mode
-                    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+                    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                         WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                     }
                     // remove flows with vehicle type to delete

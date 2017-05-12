@@ -89,7 +89,7 @@ GNEChange_Additional::~GNEChange_Additional() {
     myAdditional->decRef("GNEChange_Additional");
     if (myAdditional->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Deleting unreferenced " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         }
         delete myAdditional;
@@ -101,7 +101,7 @@ void
 GNEChange_Additional::undo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Removing " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         }
         // delete additional of test
@@ -152,7 +152,7 @@ GNEChange_Additional::undo() {
         }
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Adding " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         }
         // insert additional of test
@@ -209,7 +209,7 @@ void
 GNEChange_Additional::redo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Adding " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         }
         // insert additional into net
@@ -260,7 +260,7 @@ GNEChange_Additional::redo() {
         }
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Removing " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         }
         myNet->deleteAdditional(myAdditional);

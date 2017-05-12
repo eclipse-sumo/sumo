@@ -233,13 +233,13 @@ GNESelectorFrame::onCmdLoad(FXObject*, FXSelector, void*) {
         handleIDs(std::vector<GUIGlID>(ids.begin(), ids.end()), false);
         if (errors != "") {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                 WRITE_WARNING("Opening FXMessageBox of type 'error'");
             }
             // open message box error
             FXMessageBox::error(this, MBOX_OK, "Errors while loading Selection", "%s", errors.c_str());
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                 WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
             }
         }
@@ -260,13 +260,13 @@ GNESelectorFrame::onCmdSave(FXObject*, FXSelector, void*) {
         gSelected.save(file.text());
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Opening FXMessageBox of type 'error'");
         }
         // open message box error
         FXMessageBox::error(this, MBOX_OK, "Storing Selection failed", "%s", e.what());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
         }
     }

@@ -968,7 +968,7 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
         }
 
         // Write Warning in console if we're in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Value '" + newVal + "' for attribute " + toString(myAttr) + " of " + toString(myTag) + " isn't valid");
         }
     }

@@ -237,6 +237,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("gui-testing", new Option_Bool(false));
     oc.addDescription("gui-testing", "Visualisation", "Enable ovelay for screen recognition");
 
+    oc.doRegister("gui-testing-debug", new Option_Bool(false));
+    oc.addDescription("gui-testing-debug", "Visualisation", "Enable output messages during GUI-Testing");
+
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NIFrame::fillOptions();

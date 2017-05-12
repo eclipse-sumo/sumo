@@ -98,7 +98,7 @@ GNEEdge::~GNEEdge() {
         (*i)->decRef("GNEEdge::~GNEEdge");
         if ((*i)->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                 WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in GNEEdge destructor");
             }
             delete *i;
@@ -109,7 +109,7 @@ GNEEdge::~GNEEdge() {
         (*i)->decRef("GNEEdge::~GNEEdge");
         if ((*i)->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                 WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in GNEEdge destructor");
             }
             delete(*i);
@@ -431,7 +431,7 @@ GNEEdge::remakeGNELanes() {
         (*i)->decRef("GNEEdge::~GNEEdge");
         if ((*i)->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                 WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in remakeGNELanes()");
             }
             delete *i;
@@ -982,7 +982,7 @@ GNEEdge::removeLane(GNELane* lane) {
     // Delete lane if is unreferenced
     if (lane->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Deleting unreferenced " + toString(lane->getTag()) + " '" + lane->getID() + "' in removeLane()");
         }
         delete lane;
@@ -1047,7 +1047,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
         if (con->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                 WRITE_WARNING("Deleting unreferenced " + toString(con->getTag()) + " '" + con->getID() + "' in removeConnection()");
             }
             delete con;

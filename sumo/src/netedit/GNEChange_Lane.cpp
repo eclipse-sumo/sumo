@@ -70,7 +70,7 @@ GNEChange_Lane::~GNEChange_Lane() {
     myEdge->decRef("GNEChange_Lane");
     if (myEdge->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Deleting unreferenced " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' in GNEChange_Lane");
         }
         delete myEdge;
@@ -79,7 +79,7 @@ GNEChange_Lane::~GNEChange_Lane() {
         myLane->decRef("GNEChange_Lane");
         if (myLane->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                 WRITE_WARNING("Deleting unreferenced " + toString(myLane->getTag()) + " '" + myLane->getID() + "' in GNEChange_Lane");
             }
             delete myLane;
@@ -92,7 +92,7 @@ void
 GNEChange_Lane::undo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             if (myLane != NULL) {
                 WRITE_WARNING("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
             } else {
@@ -107,7 +107,7 @@ GNEChange_Lane::undo() {
         }
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             if (myLane != NULL) {
                 WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
             } else {
@@ -128,7 +128,7 @@ void
 GNEChange_Lane::redo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             if (myLane != NULL) {
                 WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
             } else {
@@ -143,7 +143,7 @@ GNEChange_Lane::redo() {
         }
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             if (myLane != NULL) {
                 WRITE_WARNING("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
             } else {

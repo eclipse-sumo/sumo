@@ -797,7 +797,7 @@ GNEApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdAbout(FXObject*, FXSelector, void*) {
     // write warning if netedit is running in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
         WRITE_WARNING("Opening about dialog");
     }
     // create and open about dialog
@@ -805,7 +805,7 @@ GNEApplicationWindow::onCmdAbout(FXObject*, FXSelector, void*) {
     about->create();
     about->show(PLACEMENT_OWNER);
     // write warning if netedit is running in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
         WRITE_WARNING("Closed about dialog");
     }
     return 1;
@@ -1055,7 +1055,7 @@ long
 GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
     if (getView()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Key ESC (abort) pressed");
         }
         // abort current operation
@@ -1070,7 +1070,7 @@ long
 GNEApplicationWindow::onCmdDel(FXObject*, FXSelector, void*) {
     if (getView()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Key DEL (delete) pressed");
         }
         getView()->hotkeyDel();
@@ -1083,7 +1083,7 @@ long
 GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
     if (getView()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Key ENTER pressed");
         }
         getView()->hotkeyEnter();
@@ -1120,7 +1120,7 @@ GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdComputeJunctions(FXObject*, FXSelector, void*) {
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
         WRITE_WARNING("Key F5 (Compute) pressed");
     }
     myNet->computeEverything(this, true, false);
@@ -1132,7 +1132,7 @@ GNEApplicationWindow::onCmdComputeJunctions(FXObject*, FXSelector, void*) {
 long 
 GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*) {
     // write warning if netedit is running in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
         WRITE_WARNING("Keys Shift + F5 (Compute with volatile options) pressed");
         WRITE_WARNING("Opening FXMessageBox of type 'question'");
     }
@@ -1141,9 +1141,9 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                                             "Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?)");
     if (answer != 1) { //1:yes, 2:no, 4:esc
         // write warning if netedit is running in testing mode
-        if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing") == true == true)) {
+        if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true == true)) {
             WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
-        } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing") == true == true)) {
+        } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true == true)) {
             WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
         }
         // abort recompute with volatile options
@@ -1152,7 +1152,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
         myNet->computeEverything(this, true, true);
         updateControls();
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
         }
         return 1;
@@ -1163,7 +1163,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
 long
 GNEApplicationWindow::onCmdCleanJunctions(FXObject*, FXSelector, void*) {
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
         WRITE_WARNING("Key F6 (Clean junction) pressed");
     }
     myNet->removeSolitaryJunctions(myUndoList);
@@ -1174,7 +1174,7 @@ GNEApplicationWindow::onCmdCleanJunctions(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdJoinJunctions(FXObject*, FXSelector, void*) {
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
         WRITE_WARNING("Key F7 (Join junctions) pressed");
     }
     myNet->joinSelectedJunctions(myUndoList);
@@ -1238,13 +1238,13 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
         myUndoList->mark();
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Opening FXMessageBox of type 'error'");
         }
         // open message box
         FXMessageBox::error(this, MBOX_OK, "Saving plain xml failed!", "%s", e.what());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
         }
     }
@@ -1281,13 +1281,13 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
         myNet->saveJoined(oc);
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Opening FXMessageBox of type 'error'");
         }
         // opening error message
         FXMessageBox::error(this, MBOX_OK, "Saving joined junctions failed!", "%s", e.what());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
         }
     }
@@ -1320,13 +1320,13 @@ GNEApplicationWindow::onCmdSavePois(FXObject*, FXSelector, void*) {
         GNEPOI::saveToFile(filename);
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Opening FXMessageBox of type 'error'");
         }
         // open error dialog box
         FXMessageBox::error(this, MBOX_OK, "Saving POIs failed!", "%s", e.what());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
         }
     }
@@ -1364,13 +1364,13 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
             myUndoList->mark();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                 WRITE_WARNING("Opening FXMessageBox of type 'error'");
             }
             // open error message box
             FXMessageBox::error(this, MBOX_OK, "Saving Network failed!", "%s", e.what());
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                 WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
             }
         }
@@ -1404,13 +1404,13 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
         myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Additionals saved in " + myAdditionalsFile + ".\n");
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Opening FXMessageBox of type 'error'");
         }
         // open error message box
         FXMessageBox::error(this, MBOX_OK, "Saving additionals failed!", "%s", e.what());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
         }
     }
@@ -1466,7 +1466,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
     FXuint answer = 0;
     if (myUndoList->canUndo() && !myUndoList->marked()) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Opening FXMessageBox of type 'question'");
         }
         // open question box
@@ -1475,7 +1475,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
                                         "You have unsaved changes in the network. Do you wish to quit and discard all changes?");
         if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'");
             }
             return continueWithUnsavedAdditionalChanges();
@@ -1488,9 +1488,9 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             return continueWithUnsavedAdditionalChanges();
         } else {
             // write warning if netedit is running in testing mode
-            if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
+            if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true)) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
-            } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
+            } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true)) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
             }
             // return false to stop closing/reloading
@@ -1505,7 +1505,7 @@ bool
 GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
     // Check if there are non saved additionals
     if ((myNet != NULL) && (myNet->getNumberOfAdditionals() > 0) && (myNet->isAdditionalsSaved() == false)) {
-        if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Opening FXMessageBox of type 'question'");
         }
         // open question box
@@ -1514,13 +1514,13 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
                                                "You have unsaved additionals. Do you wish to quit and discard all changes?");
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
         if (answer == MBOX_CLICKED_QUIT) {
-            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Quit'");
             }
             return true;
         } else if (answer == MBOX_CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
             }
             if (onCmdSaveAdditionals(0, 0, 0) == 0) {
@@ -1528,9 +1528,9 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
             }
         } else {
             // write warning if netedit is running in testing mode
-            if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
+            if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true)) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
-            } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing") == true)) {
+            } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true)) {
                 WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
             }
             return false;
