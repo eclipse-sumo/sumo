@@ -135,22 +135,22 @@ def load(filename):
             PLATOON_SPLIT_TIME = float(e.attrib.values()[0])
         elif e.tag == "lcMode":
             if (e.attrib.has_key("leader")):
-                LC_MODE[PlatoonMode.LEADER] = int(e.attrib.values()[0])
+                LC_MODE[PlatoonMode.LEADER] = int(e.attrib["leader"])
             if (e.attrib.has_key("follower")):
-                LC_MODE[PlatoonMode.FOLLOWER] = int(e.attrib.values()[0])
+                LC_MODE[PlatoonMode.FOLLOWER] = int(e.attrib["follower"])
             if (e.attrib.has_key("catchup")):
-                LC_MODE[PlatoonMode.CATCHUP] = int(e.attrib.values()[0])
+                LC_MODE[PlatoonMode.CATCHUP] = int(e.attrib["catchup"])
             if (e.attrib.has_key("original")):
-                LC_MODE[PlatoonMode.NONE] = int(e.attrib.values()[0])
+                LC_MODE[PlatoonMode.NONE] = int(e.attrib["original"])
         elif e.tag == "speedFactor":
             if (e.attrib.has_key("leader")):
-                SPEEDFACTOR[PlatoonMode.LEADER] = float(e.attrib.values()[0])
+                SPEEDFACTOR[PlatoonMode.LEADER] = float(e.attrib["leader"])
             if (e.attrib.has_key("follower")):
-                SPEEDFACTOR[PlatoonMode.FOLLOWER] = float(e.attrib.values()[0])
+                SPEEDFACTOR[PlatoonMode.FOLLOWER] = float(e.attrib["follower"])
             if (e.attrib.has_key("catchup")):
-                SPEEDFACTOR[PlatoonMode.CATCHUP] = float(e.attrib.values()[0])
+                SPEEDFACTOR[PlatoonMode.CATCHUP] = float(e.attrib["catchup"])
             if (e.attrib.has_key("original")):
-                SPEEDFACTOR[PlatoonMode.NONE] = float(e.attrib.values()[0])
+                SPEEDFACTOR[PlatoonMode.NONE] = float(e.attrib["original"])
         elif e.tag == "vTypeMapFile":
             VTYPE_FILE = e.attrib.values()[0]
         elif e.tag == "vTypeMap":

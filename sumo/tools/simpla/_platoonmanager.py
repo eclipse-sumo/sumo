@@ -52,7 +52,6 @@ class PlatoonManager(traci.StepListener):
         self._catchupDist = cfg.CATCHUP_DIST           
             
         # platoons currently in the simulation
-        # TODO: list may suffice
         # map: platoon ID -> platoon objects
         self._platoons = dict()
         
@@ -246,7 +245,7 @@ class PlatoonManager(traci.StepListener):
                         # the platoon order is violated! - do nothing but warn
                         # TODO: probably, the platoon should be resorted
                         splitConditions = False
-                        warn("Platoon order for platoon '%s' is violated: real leader '%s' is not registered as leader of '%s'"%(pltnID, leaderID, veh.getID()))
+                        warn("Platoon order for platoon '%s' is violated: real leader '%s' is not registered as leader of '%s'"%(pltnID, leaderID, veh.getID()),2)
                     else:
                         # leader is connected but belongs to a different platoon
                         splitConditions = True
