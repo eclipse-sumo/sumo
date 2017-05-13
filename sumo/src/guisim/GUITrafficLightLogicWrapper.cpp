@@ -195,7 +195,7 @@ GUIParameterTableWindow*
 GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow& app,
                                                 GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 3 + myTLLogic.getMap().size());
+        new GUIParameterTableWindow(app, *this, 3 + (int)myTLLogic.getMap().size());
     ret->mkItem("tlLogic [id]", false, myTLLogic.getID());
     ret->mkItem("program", false, myTLLogic.getProgramID());
     // close building

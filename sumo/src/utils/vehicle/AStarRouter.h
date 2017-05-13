@@ -110,7 +110,7 @@ public:
 
     class LandmarkLookupTable : public LookupTable {
     public:
-        LandmarkLookupTable(const std::string& filename, const int size) {
+        LandmarkLookupTable(const std::string& filename, const int /*size*/) {
             std::ifstream strm(filename.c_str());
             if (!strm.good()) {
                 throw ProcessError("Could not load landmark-lookup-table from '" + filename + "'.");
