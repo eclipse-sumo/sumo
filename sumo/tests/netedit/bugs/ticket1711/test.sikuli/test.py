@@ -35,53 +35,45 @@ netedit.rebuildNetwork()
 # zoom in central node
 netedit.setZoom("50", "50", "50")
 
-# set crossing mode
-netedit.crossingMode()
+# set delete mode
+netedit.deleteMode()
 
-# select central node
-netedit.leftClick(match, 325, 225)
-
-# select two left edges and create crossing in edges 3 and 7
+# remove two left edges
 netedit.leftClick(match, 150, 200)
 netedit.leftClick(match, 150, 250)
-netedit.createCrossing()
+
+# Rebuild network
 netedit.rebuildNetwork()
 
-# create manual crossing
-netedit.modifyCrossingDefaultValue(3, "1 5")
-netedit.createCrossing()
+# remove two right edges
+netedit.leftClick(match, 450, 200)
+netedit.leftClick(match, 450, 250)
+
+# Rebuild network
 netedit.rebuildNetwork()
 
-# try to create again the same crossing (cannot be possible, show warning
-# instead)
-netedit.modifyCrossingDefaultValue(3, "1 5")
-netedit.createCrossing()
+# remove two up edges
+netedit.leftClick(match, 300, 100)
+netedit.leftClick(match, 350, 100)
+
+# Rebuild network
 netedit.rebuildNetwork()
 
-# create single crossing (fail)
-netedit.modifyCrossingDefaultValue(3, "4")
-netedit.createCrossing()
+# remove two down edges
+netedit.leftClick(match, 300, 350)
+netedit.leftClick(match, 350, 350)
+
+# Rebuild network
 netedit.rebuildNetwork()
 
-# create split crossing
-netedit.modifyCrossingDefaultValue(3, "4")
-netedit.createCrossing()
-netedit.modifyCrossingDefaultValue(3, "8")
-netedit.createCrossing()
+# Check undo
+netedit.undo(match, 8)
+
+# Rebuild network
 netedit.rebuildNetwork()
 
-# create manual crossing with different priority and width
-netedit.modifyCrossingDefaultValue(3, "6 2")
-netedit.modifyCrossingDefaultBoolValue(4)
-netedit.modifyCrossingDefaultValue(5, "5")
-netedit.createCrossing()
-netedit.rebuildNetwork()
-
-# Check buttons
-netedit.leftClick(match, 150, 200)
-netedit.leftClick(match, 150, 250)
-netedit.crossingInvertEdges()
-netedit.crossingClearEdges()
+# Check redo
+netedit.redo(match, 8)
 
 # save newtork
 netedit.saveNetwork()
