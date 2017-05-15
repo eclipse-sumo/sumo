@@ -44,6 +44,9 @@
 #include "NBOwnTLDef.h"
 #include "NBContHelper.h"
 
+//#define DEBUG_RIGHT_OF_WAY
+#define DEBUGCOND true
+
 // ===========================================================================
 // static members
 // ===========================================================================
@@ -279,8 +282,18 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
     NBNode* outnode = *outgoing;
     EdgeVector::const_iterator i;
 
+#ifdef DEBUG_RIGHT_OF_WAY
+    if (DEBUGCOND) {
+        std::cout << "foribds tls=" << getID() << " from=" << possProhibitedFrom->getID() << " to=" << possProhibitedTo->getID() << " foeFrom=" << possProhibitorFrom->getID() << " foeTo=" << possProhibitorTo->getID() << " rnslp=" << regardNonSignalisedLowerPriority << " sameNodeOnly=" << sameNodeOnly;
+    }
+#endif
     if (incnode != outnode) {
         if (sameNodeOnly) {
+#ifdef DEBUG_RIGHT_OF_WAY
+    if (DEBUGCOND) {
+        std::cout << "   differentNodes: allows (no check)\n";
+    }
+#endif
             return false;
         }
         // the links are located at different nodes
@@ -307,6 +320,11 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
                                          regardNonSignalisedLowerPriority);
             bool ret = ret1 || ret2;
             if (ret) {
+#ifdef DEBUG_RIGHT_OF_WAY
+    if (DEBUGCOND) {
+        std::cout << "   differentNodes: forbids\n";
+    }
+#endif
                 return true;
             }
         }
@@ -334,16 +352,32 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
                                           regardNonSignalisedLowerPriority);
             bool ret = ret1 || ret2;
             if (ret) {
+#ifdef DEBUG_RIGHT_OF_WAY
+    if (DEBUGCOND) {
+        std::cout << "   differentNodes: forbids (2)\n";
+    }
+#endif
                 return true;
             }
         }
+#ifdef DEBUG_RIGHT_OF_WAY
+    if (DEBUGCOND) {
+        std::cout << "   differentNodes: allows\n";
+    }
+#endif
         return false;
     }
     // both links are located at the same node
     //  check using this node's information
-    return incnode->forbids(possProhibitorFrom, possProhibitorTo,
+    const bool result = incnode->forbids(possProhibitorFrom, possProhibitorTo,
                             possProhibitedFrom, possProhibitedTo,
                             regardNonSignalisedLowerPriority);
+#ifdef DEBUG_RIGHT_OF_WAY
+    if (DEBUGCOND) {
+        std::cout << "   sameNodes: " << (result ? "forbids" : "allows") << "\n";
+    }
+#endif
+    return result;
 }
 
 

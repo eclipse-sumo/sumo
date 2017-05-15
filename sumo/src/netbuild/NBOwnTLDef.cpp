@@ -46,6 +46,9 @@
 
 #define MIN_GREEN_TIME 5
 
+//#define DEBUG_STREAM_ORDERING
+#define DEBUGCOND true
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -173,6 +176,12 @@ NBOwnTLDef::getBestPair(EdgeVector& incoming) {
         used = incoming;
     }
     std::pair<NBEdge*, NBEdge*> ret = getBestCombination(used);
+#ifdef DEBUG_STREAM_ORDERING
+    if (DEBUGCOND) {
+        std::cout << "getBestPair tls=" << getID() << " incoming=" << toString(incoming) << " prio=" << prio << " used=" << toString(used) << " best=" << Named::getIDSecure(ret.first) << ", " << Named::getIDSecure(ret.second) << "\n";
+    }
+#endif
+
     incoming.erase(find(incoming.begin(), incoming.end(), ret.first));
     incoming.erase(find(incoming.begin(), incoming.end(), ret.second));
     return ret;
