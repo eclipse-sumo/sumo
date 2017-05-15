@@ -226,13 +226,13 @@ namespace tcpip
 
 
 	// ----------------------------------------------------------------------
-	void 
+	Socket*
 		Socket::
-		accept()
+		accept(const bool create)
 		throw( SocketException )
 	{
 		if( socket_ >= 0 )
-			return;
+			return 0;
 
 		struct sockaddr_in client_addr;
 #ifdef WIN32
@@ -287,7 +287,14 @@ namespace tcpip
 		{
 			int x = 1;
 			setsockopt(socket_, IPPROTO_TCP, TCP_NODELAY, (const char*)&x, sizeof(x));
+            if (create) {
+                Socket* result = new Socket(0);
+                result->socket_ = socket_;
+                socket_ = -1;
+                return result;
+            }
 		}
+        return 0;
 	}
 
 	// ----------------------------------------------------------------------

@@ -47,6 +47,9 @@
 // command: simulation step
 #define CMD_SIMSTEP 0x02
 
+// command: set connection priority (execution order)
+#define CMD_SETORDER 0x03
+
 // command: stop node
 #define CMD_STOP 0x12
 

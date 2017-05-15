@@ -101,8 +101,8 @@ bool TraCIServer::myDoCloseConnection = false;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-TraCIServer::TraCIServer(const SUMOTime begin, const int port)
-    : mySocket(0), myTargetTime(begin), myDoingSimStep(false), myAmEmbedded(port == 0), myLaneTree(0) {
+TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClients)
+    : myTargetTime(begin), myAmEmbedded(port == 0), myLaneTree(0) {
 
     myVehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
@@ -155,9 +155,12 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port)
     if (!myAmEmbedded) {
         try {
             WRITE_MESSAGE("***Starting server on port " + toString(port) + " ***");
-            mySocket = new tcpip::Socket(port);
-            mySocket->accept();
-            // When got here, a client has connected
+            myServerSocket = new tcpip::Socket(port);
+            while ((int)mySockets.size() < numClients) {
+                mySockets[(int)mySockets.size() - numClients] = myServerSocket->accept(true);
+            }
+            // When got here, all clients have connected
+            myCurrentSocket = mySockets.begin();
         } catch (tcpip::SocketException& e) {
             throw ProcessError(e.what());
         }
@@ -166,10 +169,10 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port)
 
 
 TraCIServer::~TraCIServer() {
-    if (mySocket != NULL) {
-        mySocket->close();
-        delete mySocket;
+    for (myCurrentSocket = mySockets.begin(); myCurrentSocket != mySockets.end(); ++myCurrentSocket) {
+        delete myCurrentSocket->second;
     }
+    delete myServerSocket;
     cleanup();
 }
 
@@ -184,7 +187,8 @@ TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
     }
     if (!myDoCloseConnection && OptionsCont::getOptions().getInt("remote-port") != 0) {
         myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")),
-                                     OptionsCont::getOptions().getInt("remote-port"));
+            OptionsCont::getOptions().getInt("remote-port"),
+            OptionsCont::getOptions().getInt("num-clients"));
         MSNet::getInstance()->addVehicleStateListener(myInstance);
         for (std::map<int, CmdExecutor>::const_iterator i = execs.begin(); i != execs.end(); ++i) {
             myInstance->myExecutors[i->first] = i->second;
@@ -200,7 +204,7 @@ TraCIServer::close() {
     }
     if (myDoCloseConnection) {
         myInstance->writeStatusCmd(CMD_CLOSE, RTYPE_OK, "");
-        myInstance->mySocket->sendExact(myInstance->myOutputStorage);
+        myInstance->myCurrentSocket->second->sendExact(myInstance->myOutputStorage);
     }
     delete myInstance;
     myInstance = 0;
@@ -248,11 +252,8 @@ TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::Vehicl
 
 void
 TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
-    if (myInstance == 0) {
-        return;
-    }
     try {
-        if (myInstance->myAmEmbedded || step < myInstance->myTargetTime) {
+        if (myAmEmbedded || step < myTargetTime) {
             return;
         }
         // Simulation should run until
@@ -260,29 +261,29 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
         // 2. got CMD_CLOSE or
         // 3. got CMD_LOAD or
         // 4. Client closes socket connection
-        if (myInstance->myDoingSimStep) {
-            myInstance->postProcessSimulationStep2();
-            myInstance->myDoingSimStep = false;
+        if (myCurrentSocket == mySockets.end()) {
+            postProcessSimulationStep();
+            myCurrentSocket = mySockets.begin();
+            for (++myCurrentSocket; myCurrentSocket != mySockets.end(); ++myCurrentSocket) {
+                myCurrentSocket->second->sendExact(myOutputStorage);
+            }
+            myCurrentSocket = mySockets.begin();
         }
         while (!myDoCloseConnection) {
-            if (!myInstance->myInputStorage.valid_pos()) {
-                if (myInstance->myOutputStorage.size() > 0) {
+            if (!myInputStorage.valid_pos()) {
+                if (myOutputStorage.size() > 0) {
                     // send out all answers as one storage
-                    myInstance->mySocket->sendExact(myInstance->myOutputStorage);
+                    myCurrentSocket->second->sendExact(myOutputStorage);
                 }
-                myInstance->myInputStorage.reset();
-                myInstance->myOutputStorage.reset();
+                myInputStorage.reset();
+                myOutputStorage.reset();
                 // Read a message
-                myInstance->mySocket->receiveExact(myInstance->myInputStorage);
+                myCurrentSocket->second->receiveExact(myInputStorage);
             }
-            while (myInstance->myInputStorage.valid_pos() && !myDoCloseConnection) {
+            while (myInputStorage.valid_pos() && !myDoCloseConnection) {
                 // dispatch each command
-                int cmd = myInstance->dispatchCommand();
+                int cmd = dispatchCommand();
                 if (cmd == CMD_SIMSTEP) {
-                    myInstance->myDoingSimStep = true;
-                    for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myInstance->myVehicleStateChanges.begin(); i != myInstance->myVehicleStateChanges.end(); ++i) {
-                        (*i).second.clear();
-                    }
                     return;
                 }
                 if (cmd == CMD_LOAD) {
@@ -290,11 +291,27 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
                 }
             }
         }
-        if (myDoCloseConnection && myInstance->myOutputStorage.size() > 0) {
-            // send out all answers as one storage
-            myInstance->mySocket->sendExact(myInstance->myOutputStorage);
+        if (myDoCloseConnection) {
+            if (mySockets.size() > 1) {
+                writeStatusCmd(CMD_CLOSE, RTYPE_OK, "");
+                myCurrentSocket->second->sendExact(myOutputStorage);
+                myOutputStorage.reset();
+                const int currOrder = myCurrentSocket->first;
+                delete myCurrentSocket->second;
+                myCurrentSocket++;
+                if (myCurrentSocket == mySockets.end()) {
+                    myCurrentSocket = mySockets.begin();
+                }
+                mySockets.erase(currOrder);
+                myDoCloseConnection = false;
+                return;
+            }
+            if (myOutputStorage.size() > 0) {
+                // send out all answers as one storage
+                myCurrentSocket->second->sendExact(myOutputStorage);
+            }
         }
-        for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myInstance->myVehicleStateChanges.begin(); i != myInstance->myVehicleStateChanges.end(); ++i) {
+        for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); ++i) {
             (*i).second.clear();
         }
     } catch (std::invalid_argument& e) {
@@ -443,19 +460,34 @@ TraCIServer::dispatchCommand() {
             case CMD_SIMSTEP: {
                 SUMOTime nextT = myInputStorage.readInt();
                 success = true;
-                if (nextT != 0) {
-                    myTargetTime = nextT;
-                } else {
-                    myTargetTime += DELTA_T;
+                if (mySockets.size() > 1 && myCurrentSocket->first < 0) {
+                    WRITE_WARNING("Unordered client found.");
                 }
-                if (myAmEmbedded) {
-                    for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myInstance->myVehicleStateChanges.begin(); i != myInstance->myVehicleStateChanges.end(); ++i) {
+                myCurrentSocket++;
+                if (mySockets.size() > 1) {
+                    if (nextT != 0) {
+                        WRITE_WARNING("Target time for a simulation step is ignored in a multi client environment.");
+                    }
+                    if (myCurrentSocket == mySockets.end()) {
+                        myTargetTime += DELTA_T;
+                    }
+                } else {
+                    if (nextT != 0) {
+                        myTargetTime = nextT;
+                    } else {
+                        myTargetTime += DELTA_T;
+                    }
+                }
+                if (myAmEmbedded || myCurrentSocket == mySockets.end()) {
+                    for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); ++i) {
                         (*i).second.clear();
                     }
+                }
+                if (myAmEmbedded) {
                     while (MSNet::getInstance()->getCurrentTimeStep() < myTargetTime) {
                         MSNet::getInstance()->simulationStep();
                     }
-                    postProcessSimulationStep2();
+                    postProcessSimulationStep();
                 }
                 return commandId;
             }
@@ -463,6 +495,20 @@ TraCIServer::dispatchCommand() {
                 myDoCloseConnection = true;
                 success = true;
                 break;
+            case CMD_SETORDER: {
+                const int order = myInputStorage.readInt();
+                if (order < 0) {
+                    return writeErrorStatusCmd(CMD_SETORDER, "A set order command needs a non negative int argument.", myOutputStorage);
+                }
+                if (mySockets.count(order) > 0) {
+                    return writeErrorStatusCmd(CMD_SETORDER, "Order '" + toString(order) + "' is already taken.", myOutputStorage);
+                }
+                mySockets[order] = myCurrentSocket->second;
+                mySockets.erase(myCurrentSocket);
+                myCurrentSocket = mySockets.find(order);
+                success = true;
+                break;
+            }
             case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
             case CMD_SUBSCRIBE_LANEAREA_VARIABLE:
             case CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE:
@@ -539,7 +585,7 @@ TraCIServer::commandGetVersion() {
 
 
 void
-TraCIServer::postProcessSimulationStep2() {
+TraCIServer::postProcessSimulationStep() {
     SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
     writeStatusCmd(CMD_SIMSTEP, RTYPE_OK, "");
     int noActive = 0;

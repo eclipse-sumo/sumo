@@ -107,7 +107,7 @@ public:
 
 
     /// @brief process all commands until a simulation step is wanted
-    static void processCommandsUntilSimStep(SUMOTime step);
+    void processCommandsUntilSimStep(SUMOTime step);
 
     void setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                           int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
@@ -265,7 +265,7 @@ private:
     /** @brief Constructor
      * @param[in] port The port to listen to (to open)
      */
-    TraCIServer(const SUMOTime begin, const int port = 0);
+    TraCIServer(const SUMOTime begin, const int port, const int numClients);
 
 
     /// @brief Destructor
@@ -284,7 +284,7 @@ private:
 
     /** @brief Handles subscriptions to send after a simstep2 command
      */
-    void postProcessSimulationStep2();
+    void postProcessSimulationStep();
     /// @}
 
 
@@ -299,8 +299,14 @@ private:
     /// @brief Whether the connection was set to be to close
     static bool myDoCloseConnection;
 
-    /// @brief The socket on which server is listening on
-    tcpip::Socket* mySocket;
+    /// @brief The server socket
+    tcpip::Socket* myServerSocket;
+
+    /// @brief The socket connections to the clients
+    std::map<int, tcpip::Socket*> mySockets;
+
+    /// @brief The currently active client socket
+    std::map<int, tcpip::Socket*>::const_iterator myCurrentSocket;
 
     /// @brief The time step to reach until processing the next commands
     SUMOTime myTargetTime;
@@ -310,10 +316,6 @@ private:
 
     /// @brief The storage to writeto
     tcpip::Storage myOutputStorage;
-
-    /// @brief Whether a step is currently done
-    /// @todo: What is this for?
-    bool myDoingSimStep;
 
     /// @brief Whether the server runs in embedded mode
     const bool myAmEmbedded;

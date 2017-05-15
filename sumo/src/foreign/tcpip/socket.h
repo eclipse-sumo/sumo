@@ -92,7 +92,7 @@ namespace tcpip
 		void connect() throw( SocketException );
 
 		/// Wait for a incoming connection to port_
-		void accept() throw( SocketException );
+        Socket* accept(const bool create = false) throw(SocketException);
 
 		void send( const std::vector<unsigned char> &buffer) throw( SocketException );
 		void sendExact( const Storage & ) throw( SocketException );

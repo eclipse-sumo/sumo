@@ -363,6 +363,8 @@ MSFrame::fillOptions() {
     oc.addOptionSubTopic("TraCI Server");
     oc.doRegister("remote-port", new Option_Integer(0));
     oc.addDescription("remote-port", "TraCI Server", "Enables TraCI Server if set");
+    oc.doRegister("num-clients", new Option_Integer(1));
+    oc.addDescription("num-clients", "TraCI Server", "Expected number of connecting clients");
 #ifdef HAVE_PYTHON
     oc.doRegister("python-script", new Option_String());
     oc.addDescription("python-script", "TraCI Server", "Runs TraCI script with embedded python");

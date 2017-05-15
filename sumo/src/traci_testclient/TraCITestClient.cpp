@@ -178,10 +178,10 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
 // ---------- Commands handling
 void
 TraCITestClient::commandSimulationStep(SUMOTime time) {
-    send_commandSimulationStep(time);
-    answerLog << std::endl << "-> Command sent: <SimulationStep2>:" << std::endl;
-    tcpip::Storage inMsg;
     try {
+        send_commandSimulationStep(time);
+        answerLog << std::endl << "-> Command sent: <SimulationStep>:" << std::endl;
+        tcpip::Storage inMsg;
         std::string acknowledgement;
         check_resultState(inMsg, CMD_SIMSTEP, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
@@ -194,9 +194,9 @@ TraCITestClient::commandSimulationStep(SUMOTime time) {
 
 void
 TraCITestClient::commandClose() {
-    send_commandClose();
-    answerLog << std::endl << "-> Command sent: <Close>:" << std::endl;
     try {
+        send_commandClose();
+        answerLog << std::endl << "-> Command sent: <Close>:" << std::endl;
         tcpip::Storage inMsg;
         std::string acknowledgement;
         check_resultState(inMsg, CMD_CLOSE, false, &acknowledgement);
@@ -209,12 +209,12 @@ TraCITestClient::commandClose() {
 
 void
 TraCITestClient::commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* addData) {
-    send_commandGetVariable(domID, varID, objID, addData);
-    answerLog << std::endl << "-> Command sent: <GetVariable>:" << std::endl
-              << "  domID=" << domID << " varID=" << varID
-              << " objID=" << objID << std::endl;
     tcpip::Storage inMsg;
     try {
+        send_commandGetVariable(domID, varID, objID, addData);
+        answerLog << std::endl << "-> Command sent: <GetVariable>:" << std::endl
+                  << "  domID=" << domID << " varID=" << varID
+                  << " objID=" << objID << std::endl;
         std::string acknowledgement;
         check_resultState(inMsg, domID, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;

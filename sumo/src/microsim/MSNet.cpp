@@ -427,8 +427,10 @@ MSNet::simulationStep() {
     if (myLogExecutionTime) {
         myTraCIStepDuration = SysUtils::getCurrentMillis();
     }
-    TraCIServer::processCommandsUntilSimStep(myStep);
     TraCIServer* t = TraCIServer::getInstance();
+    if (t != 0) {
+        t->processCommandsUntilSimStep(myStep);
+    }
     if (myLogExecutionTime) {
         myTraCIStepDuration = SysUtils::getCurrentMillis() - myTraCIStepDuration;
     }
