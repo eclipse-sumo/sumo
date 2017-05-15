@@ -110,17 +110,102 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Adding connection '6_1->1_1' into edge '6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'B'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '2'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding edge '4' from net
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '4'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding edge '8' from net
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Adding connection '5_1->4_1' into edge '5'
+Warning: Adding connection '5_1->2_1' into edge '5'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Adding connection '8_1->2_1' into edge '8'
+Warning: Adding connection '8_1->1_1' into edge '8'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
+Warning: Adding connection '6_1->1_1' into edge '6'
+Warning: Adding connection '6_1->4_1' into edge '6'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'D'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '4'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding edge '7' from net
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding edge '3' from net
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'Center'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '7'
+Warning: Adding connection '7_1->4_1' into edge '7'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '5'
+Warning: Adding connection '5_1->2_1' into edge '5'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '8'
+Warning: Adding connection '8_1->3_1' into edge '8'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '6'
+Warning: Adding connection '6_1->1_1' into edge '6'
 Warning: Key F5 (Compute) pressed
-Warning: could not prohibit UNKNOWN->UNKNOWN by UNKNOWN->UNKNOWN
-Warning: 5 of 10 prohibitions were not build.
+Warning: 4 of 10 prohibitions were not build.
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing connection '6_1->1_1' from edge '6'
+Warning: Deleting unreferenced connection '6_1 -> 1_1' in removeConnection()
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
+Warning: Removing connection '8_1->3_1' from edge '8'
+Warning: Deleting unreferenced connection '8_1 -> 3_1' in removeConnection()
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Removing connection '5_1->2_1' from edge '5'
+Warning: Deleting unreferenced connection '5_1 -> 2_1' in removeConnection()
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Removing connection '7_1->4_1' from edge '7'
+Warning: Deleting unreferenced connection '7_1 -> 4_1' in removeConnection()
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
+Warning: Removing edge '3' from net
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Removing edge '7' from net
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
+Warning: Removing connection '6_1->4_1' from edge '6'
+Warning: Removing connection '6_1->1_1' from edge '6'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
+Warning: Removing connection '8_1->1_1' from edge '8'
+Warning: Removing connection '8_1->2_1' from edge '8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Removing connection '5_1->2_1' from edge '5'
+Warning: Removing connection '5_1->4_1' from edge '5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Removing edge '8' from net
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
+Warning: Removing edge '4' from net
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Removing connection '6_1->1_1' from edge '6'
-Warning: Deleting unreferenced connection '6_1 -> 1_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Removing connection '5_1->2_1' from edge '5'
-Warning: Deleting unreferenced connection '5_1 -> 2_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '6' from net
@@ -141,7 +226,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '5' from net
-Warning: 5 of 10 prohibitions were not build.
+Warning: 4 of 10 prohibitions were not build.
 Warning: Deleting unreferenced edge '1' in GNEChange_Attribute
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
