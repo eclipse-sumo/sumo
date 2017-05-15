@@ -36,7 +36,7 @@ netedit.rebuildNetwork()
 netedit.setZoom("0", "0", "50")
 
 # set crossing mode
-type("i")
+netedit.inspectMode()
 
 # inspect central node
 netedit.leftClick(match, 325, 225)

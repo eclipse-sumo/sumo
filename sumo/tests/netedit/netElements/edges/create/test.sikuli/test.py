@@ -36,7 +36,7 @@ netedit.setZoom("50", "50", "50")
 netedit.rebuildNetwork()
 
 # Change to create mode
-type("e")
+netedit.createEdgeMode()
 
 # Create two nodes
 netedit.leftClick(match, 100, 200)

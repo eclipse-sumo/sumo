@@ -30,7 +30,7 @@ import neteditTestFunctions as netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--new'])
 
 # Change to create mode
-type("e")
+netedit.createEdgeMode()
 
 # Create two nodes
 netedit.leftClick(match, 100, 300)

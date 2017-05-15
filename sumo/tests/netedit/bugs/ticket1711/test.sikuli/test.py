@@ -36,7 +36,7 @@ netedit.rebuildNetwork()
 netedit.setZoom("50", "50", "50")
 
 # set crossing mode
-type("r")
+netedit.crossingMode()
 
 # select central node
 netedit.leftClick(match, 325, 225)
