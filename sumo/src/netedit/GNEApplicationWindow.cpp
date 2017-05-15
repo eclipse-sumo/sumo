@@ -266,7 +266,7 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(parseAccel("Esc"), this, FXSEL(SEL_COMMAND, MID_GNE_ABORT));
     getAccelTable()->addAccel(parseAccel("Del"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
     getAccelTable()->addAccel(parseAccel("Enter"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
-    getAccelTable()->addAccel(parseAccel("f"), this, FXSEL(SEL_COMMAND, MID_GNE_FOCUS_FRAME));
+    getAccelTable()->addAccel(parseAccel("F12"), this, FXSEL(SEL_COMMAND, MID_GNE_FOCUS_FRAME));
     getAccelTable()->addAccel(parseAccel("v"), this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));
 }
 

@@ -1004,9 +1004,11 @@ GNEViewNet::hotkeyEnter() {
 
 void
 GNEViewNet::hotkeyFocusFrame() {
-    // if current focus is placed over GNEViewnet, set focus to current frame
-    if (hasFocus() && (myCurrentFrame != NULL)) {
+    // if there is a visible frame, set focus over it. In other case, set focus over ViewNet
+    if (myCurrentFrame != NULL) {
         myCurrentFrame->focusUpperElement();
+    } else {
+        setFocus();
     }
 }
 
