@@ -35,62 +35,44 @@ netedit.selectMode()
 # try to select node gneJ0 and delete it (Error in type of element)
 netedit.focusOnFrame()
 for x in range(0, 5):
-    type(Key.TAB)
-# select all
-type("a", Key.CTRL)
+    netedit.typeTab()
 # paste the new elementClass
-paste("dummyElement")
+netedit.pasteIntoTextField("dummyElement")
 # set elementClass
-type(Key.TAB)
-# abort current selection
-netedit.abortSelection()
+netedit.typeEnter()
 
 # try to select node gneJ0 and delete it (Error in type of element)
 netedit.focusOnFrame()
 for x in range(0, 5):
-    type(Key.TAB)
-# select all
-type("a", Key.CTRL)
+    netedit.typeTab()
 # paste the new elementClass
-paste("Net Element")
+netedit.pasteIntoTextField("Net Element")
 # jump to element
 for x in range(0, 2):
-    type(Key.TAB)
-# select all
-type("a", Key.CTRL)
+    netedit.typeTab()
 # paste the new elementType
-paste("dummyType")
+netedit.pasteIntoTextField("dummyType")
 # type tab to set elementType
-type(Key.TAB)
-# abort current selection
-netedit.abortSelection()
+netedit.typeEnter()
 
 # try to select node gneJ0 and delete it (Error in type of element)
 netedit.focusOnFrame()
 for x in range(0, 5):
-    type(Key.TAB)
-# select all
-type("a", Key.CTRL)
+    netedit.typeTab()
 # paste the new elementClass
-paste("Net Element")
+netedit.pasteIntoTextField("Net Element")
 # jump to element
 for x in range(0, 2):
-    type(Key.TAB)
-# select all
-type("a", Key.CTRL)
+    netedit.typeTab()
 # paste the new elementType
-paste("junction")
+netedit.pasteIntoTextField("junction")
 # jump to attribute
 for x in range(0, 2):
-    type(Key.TAB)
-# select all
-type("a", Key.CTRL)
+    netedit.typeTab()
 # paste the new attribute
-paste("dummyAttribute")
+netedit.pasteIntoTextField("dummyAttribute")
 # type enter to set attribute
-type(Key.TAB)
-# abort current selection
-netedit.abortSelection()
+netedit.typeEnter()
 
 # try to select node gneJ0 and delete it (Error in type of element)
 netedit.selectItems("Net Element", "junction", "id", "gneJ0")

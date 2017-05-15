@@ -48,6 +48,7 @@ referenceImage = os.path.join("imageResources", "reference.png")
 def typeEscape():
     # wait before every operation
     wait(DELAY)
+    # type ESC key (Sikulix Function)
     type(Key.ESC)
 
 # type enter  key
@@ -56,6 +57,7 @@ def typeEscape():
 def typeEnter():
     # wait before every operation
     wait(DELAY)
+    # type enter key (Sikulix Function)
     type(Key.ENTER)
 
 # type space key
@@ -63,6 +65,7 @@ def typeEnter():
 
 def typeSpace():
     wait(DELAY)
+    # type space key (Sikulix Function)
     type(Key.SPACE)
 
 # type tab key
@@ -71,6 +74,7 @@ def typeSpace():
 def typeTab():
     # wait before every operation
     wait(DELAY)
+    # type tab key (Sikulix Function)
     type(Key.TAB)
 
 # type Shift + Tab keys
@@ -79,6 +83,7 @@ def typeTab():
 def typeInvertTab():
     # wait before every operation
     wait(DELAY)
+    # type Tab and Shift at the same time (Sikulix Function)
     type(Key.TAB, Key.SHIFT)
 
 # type single key
@@ -87,6 +92,7 @@ def typeInvertTab():
 def typeKey(key):
     # wait before every operation
     wait(DELAY)
+    # type keys (Sikulix Function)
     type(key)
 
 # type two keys at the same time
@@ -95,14 +101,20 @@ def typeKey(key):
 def typeTwoKeys(key1, key2):
     # wait before every operation
     wait(DELAY)
+    # type two keys at the same time (Sikulix Function)
     type(key1, key2)
 
 # paste value into current text field
 
 
-def pasteIntoTextField(value):
+def pasteIntoTextField(value, removePreviousContents=True):
     # wait before every operation
     wait(DELAY)
+    # remove previous content
+    if(removePreviousContents):
+        typeTwoKeys("a", Key.CTRL)
+        wait(0.1)
+    # paste string (Sikulix Function)
     paste(value)
 
 # do left click over a position relative to match (pink square)
@@ -244,7 +256,7 @@ def joinSelectedJunctions():
 
 
 def focusOnFrame():
-    typeKey('f')
+    typeKey(Key.F12)
 
 # undo last operation
 
@@ -422,12 +434,10 @@ def modifyAttribute(attributeNumber, value):
     # jump to attribute
     for x in range(0, attributeNumber + 1):
         typeTab()
-    # select all values
-    typeTwoKeys("a", Key.CTRL)
     # paste the new value
     pasteIntoTextField(value)
-    # type ESC to commit change and avoid edit accidentally
-    typeEscape()
+    # type Enter to commit change
+    typeEnter()
 
 # netedit modify bool attribute
 
@@ -440,8 +450,6 @@ def modifyBoolAttribute(attributeNumber):
         typeTab()
     # type SPACE to change value
     typeSpace()
-    # type ESC to quit focus of checkBox
-    typeEscape()
 
 #################################################
 # Move mode
@@ -486,9 +494,7 @@ def createCrossing():
         typeTab()
     # type space to create crossing
     typeSpace()
-    # go back to avoid errors
-    for x in range(0, 8):
-        typeInvertTab()
+
 
 # change default int/real/string crossing default value
 
@@ -499,14 +505,10 @@ def modifyCrossingDefaultValue(numtabs, value):
     # jump to value
     for x in range(0, numtabs + 1):
         typeTab()
-    # select all value
-    typeTwoKeys("a", Key.CTRL)
     # paste the new value
     pasteIntoTextField(value)
     # type enter to save change
     typeEnter()
-    # type ESC to avoid accidentally changes
-    typeEscape()
 
 # change default boolean crossing default value
 
@@ -519,8 +521,6 @@ def modifyCrossingDefaultBoolValue(numtabs):
         typeTab()
     # type space to change value
     typeSpace()
-    # type ESC to avoid accidentally changes
-    typeEscape()
 
 # clear crossing
 
@@ -574,14 +574,10 @@ def changeAdditional(additional):
     focusOnFrame()
     # go to first editable element of frame
     typeTab()
-    # select current value
-    typeTwoKeys("a", Key.CTRL)
     # paste the new value
     pasteIntoTextField(additional)
     # type enter to save change
     typeEnter()
-    # type ESC to avoid edit combobox accidentally
-    typeEscape()
 
 # modify default int/double/string value of an additional
 
@@ -592,14 +588,11 @@ def modifyAdditionalDefaultValue(numTabs, length):
     # go to length textfield
     for x in range(0, numTabs + 1):
         typeTab()
-    # select current value
-    typeTwoKeys("a", Key.CTRL)
     # paste new lenght
     pasteIntoTextField(length)
     # type enter to save new lenght
     typeEnter()
-    # type ESC to avoid edit combobox accidentally
-    typeEscape()
+
 
 # modify default boolean value of an additional
 
@@ -612,8 +605,6 @@ def modifyAdditionalDefaultBoolValue(numTabs):
         typeTab()
     # Change current value
     typeSpace()
-    # type ESC to avoid edit combobox accidentally
-    typeEscape()
 
 # modify number of stopping place lines
 
@@ -627,8 +618,6 @@ def modifyStoppingPlaceLines(numTabs, numLines):
     # add lines using space
     for x in range(0, numLines):
         typeSpace()
-    # type ESC to avoid edit lines accidentally
-    typeEscape()
 
 # fill lines to stopping places
 
@@ -645,8 +634,6 @@ def fillStoppingPlaceLines(numTabs, numLines):
         pasteIntoTextField("Line" + str(x))
         # go to next field
         typeTab()
-    # type ESC to avoid edit combobox accidentally
-    typeEscape()
 
 # select child of additional
 
@@ -665,8 +652,6 @@ def selectAdditionalChild(numTabs, childNumber):
             typeKey(Key.DOWN)
     # use TAB to select additional child
     typeTab()
-    # type ESC and key to avoid change additional child accidentally
-    typeEscape()
 
 
 #################################################
@@ -732,36 +717,25 @@ def selectItems(elementClass, elementType, attribute, value):
     # jump to elementClass
     for x in range(0, 5):
         typeTab()
-    # select all
-    typeTwoKeys("a", Key.CTRL)
     # paste the new elementClass
     pasteIntoTextField(elementClass)
     # jump to element
     for x in range(0, 2):
         typeTab()
-    # select all
-    typeTwoKeys("a", Key.CTRL)
     # paste the new elementType
     pasteIntoTextField(elementType)
     # jump to attribute
     for x in range(0, 2):
         typeTab()
-    # select all
-    typeTwoKeys("a", Key.CTRL)
     # paste the new attribute
     pasteIntoTextField(attribute)
     # jump to value
     for x in range(0, 2):
         typeTab()
-    # select all
-    typeTwoKeys("a", Key.CTRL)
     # paste the new value
     pasteIntoTextField(value)
     # type enter to select it
     typeEnter()
-    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
-    for x in range(0, 10):
-        typeInvertTab()
 
 # delete selected items
 
@@ -779,8 +753,6 @@ def modificationModeAdd():
     typeTab()
     # select it
     typeSpace()
-    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
-    typeInvertTab()
 
 # set modification mode "remove"
 
@@ -793,9 +765,6 @@ def modificationModeRemove():
         typeTab()
     # select it
     typeSpace()
-    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
-    for x in range(0, 2):
-        typeInvertTab()
 
 # set modification mode "keep"
 
@@ -808,9 +777,6 @@ def modificationModeKeep():
         typeTab()
     # select it
     typeSpace()
-    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
-    for x in range(0, 3):
-        typeInvertTab()
 
 # set modification mode "replace"
 
@@ -823,14 +789,12 @@ def modificationModeReplace():
         typeTab()
     # select it
     typeSpace()
-    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
-    for x in range(0, 4):
-        typeInvertTab()
 
 # select using an rectangle
 
 
 def selectionRectangle(match, startX, startY, endX, endY):
+    # Leave Shift key pressed (Sikulix function)
     keyDown(Key.SHIFT)
     # change mouse move delay
     Settings.MoveMouseDelay = 0.5
@@ -838,6 +802,7 @@ def selectionRectangle(match, startX, startY, endX, endY):
     dragDrop(match.getTarget().offset(startX, startY), match.getTarget().offset(endX, endY))
     # set back mouse move delay
     Settings.MoveMouseDelay = 0.2
+    # Release Shift key (Sikulix function)
     keyUp(Key.SHIFT)
 
 # clear selection
@@ -850,9 +815,6 @@ def selectionClear(previouslyInserted=False):
         typeTab()
     # type space to select clear option
     typeSpace()
-    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
-    for x in range(0, 11):
-        typeInvertTab()
 
 # invert selection
 
@@ -864,9 +826,6 @@ def selectionInvert():
         typeTab()
     # type space to select invert opetion
     typeSpace()
-    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
-    for x in range(0, 12):
-        typeInvertTab()
 
 
 # Toogle select edges and lanes
@@ -876,11 +835,7 @@ def selectionToogleEdges():
         typeInvertTab()
     # type space to enable or disable edge selection
     typeSpace()
-    # go back to avoid focus errors (ESC cannot be used because unselect selected items)
-    for x in range(0, 3):
-        typeTab()
-    # type ESC to avoid focus errors
-    typeEscape()
+
         
 #################################################
 # traffic light
