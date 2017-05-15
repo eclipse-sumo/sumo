@@ -1548,9 +1548,7 @@ MSLCM_LC2013::_wantsChange(
                                                  vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - neighLead.first->getSpeed()));
             }
-            const double deltaProb = (myChangeProbThresholdRight
-                                      * STEPS2TIME(DELTA_T)
-                                      * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
+            const double deltaProb = (myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
             myKeepRightProbability -= TS * deltaProb;
 
 #ifdef DEBUG_WANTS_CHANGE
