@@ -1,5 +1,5 @@
 # import train stops
-bus_stop_postion
+bus_stop_position
 
 # Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
 adlershof_dlr
@@ -55,7 +55,7 @@ numerical_ids
 rail_crossing
 
 # import train stops
-railway_stop_postion
+railway_stop_position
 
 # automatically detect rail crossing, also guess pedestrian crossings
 rail_crossing_with_peds
