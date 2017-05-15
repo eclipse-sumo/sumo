@@ -116,8 +116,9 @@ GUIParameterTableWindow*
 GUIBusStop::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 4);
+        new GUIParameterTableWindow(app, *this, 5);
     // add items
+    ret->mkItem("name", false, getMyName());
     ret->mkItem("begin position [m]", false, myBegPos);
     ret->mkItem("end position [m]", false, myEndPos);
     ret->mkItem("person number [#]", true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getTransportableNumber));
