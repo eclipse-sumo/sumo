@@ -1,10 +1,7 @@
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of e1Detector: 'freq' cannot be negative
-Warning: Key ESC (abort) pressed
 Warning: Adding e1Detector 'e1Detector_gneE0_0_1' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Adding e1Detector 'e1Detector_gneE0_0_2' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing e1Detector 'e1Detector_gneE0_0_2' in GNEChange_Additional

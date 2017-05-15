@@ -1,29 +1,17 @@
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE3_1' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute id 'routeProbe_3_1' into routeProbe 'routeProbe_gneE3_0'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute id 'correct ID' into routeProbe 'routeProbe_3_1'
-Warning: Key ESC (abort) pressed
 Warning: Value 'dummyEdge' for attribute edge of routeProbe isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute edge 'gneE0' into routeProbe 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute freq '100' into routeProbe 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '-50' for attribute freq of routeProbe isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute freq '150' into routeProbe 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute begin '0' into routeProbe 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute begin '0' into routeProbe 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute begin '0' into routeProbe 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '-5' for attribute begin of routeProbe isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute begin '20' into routeProbe 'correct ID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute begin '0.00' into routeProbe 'correct ID'

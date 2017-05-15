@@ -1,3 +1,4 @@
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Deleting unreferenced edge '1' in GNENet destructor
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor

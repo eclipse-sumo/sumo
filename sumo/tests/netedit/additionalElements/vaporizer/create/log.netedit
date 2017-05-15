@@ -1,17 +1,11 @@
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
 Warning: Adding vaporizer 'vaporizer_1' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of vaporizer: 'startTime' cannot be negative
-Warning: Key ESC (abort) pressed
 Warning: Adding vaporizer 'vaporizer_2' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of vaporizer: 'end' cannot be negative
-Warning: Key ESC (abort) pressed
 Warning: Adding vaporizer 'vaporizer_3' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of vaporizer: Attribute 'startTime' cannot be greater than attribute 'end'.
-Warning: Key ESC (abort) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing vaporizer 'vaporizer_3' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed

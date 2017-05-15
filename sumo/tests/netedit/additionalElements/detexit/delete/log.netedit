@@ -1,16 +1,13 @@
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_4' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_4detExit0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_5' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Adding detExit 'e3Detector_5detExit0' in GNEChange_Additional
 Warning: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_5detExit0' in GNEChange_Additional

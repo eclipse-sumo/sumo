@@ -1,4 +1,4 @@
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
 Warning: Setting new attribute pos '12.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Setting new attribute pos '17.00' into e1Detector 'e1Detector_gneE0_0_0'

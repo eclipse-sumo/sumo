@@ -1,31 +1,28 @@
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e2Detector 'E2_A' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_B' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
 Warning: Value '-12' for attribute length of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute length '7' into e2Detector 'E2_A'
 Warning: Setting new attribute length '7' into e2Detector 'E2_B'
-Warning: Key ESC (abort) pressed
 Warning: Value '-30' for attribute freq of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute freq '50' into e2Detector 'E2_A'
 Warning: Setting new attribute freq '50' into e2Detector 'E2_B'
 Warning: Setting new attribute cont 'true' into e2Detector 'E2_A'
 Warning: Setting new attribute cont 'true' into e2Detector 'E2_B'
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Value '-5' for attribute timeThreshold of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute timeThreshold '11.3' into e2Detector 'E2_A'
 Warning: Setting new attribute timeThreshold '11.3' into e2Detector 'E2_B'
-Warning: Key ESC (abort) pressed
 Warning: Value '-3' for attribute speedThreshold of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute speedThreshold '4' into e2Detector 'E2_A'
 Warning: Setting new attribute speedThreshold '4' into e2Detector 'E2_B'
-Warning: Key ESC (abort) pressed
 Warning: Value '-6' for attribute jamThreshold of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_A'
 Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_B'
 Warning: Deleting unreferenced e2Detector 'E2_B'

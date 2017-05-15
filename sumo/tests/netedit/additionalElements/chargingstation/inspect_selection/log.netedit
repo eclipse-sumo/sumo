@@ -1,11 +1,16 @@
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding chargingStation 'chargingStationA' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStationB' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
 Warning: Setting new attribute power '11000' into chargingStation 'chargingStationA'
 Warning: Setting new attribute power '11000' into chargingStation 'chargingStationB'
-Warning: Key ESC (abort) pressed
 Warning: Value '2' for attribute efficiency of chargingStation isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingStationA'
 Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingStationB'
 Warning: Deleting unreferenced chargingStation 'chargingStationB'

@@ -1,10 +1,7 @@
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding calibrator 'calibrator_gneE0_0_0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of calibrator: 'pos' doesn't have a valid 'float' format
-Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of calibrator: 'pos' cannot be negative
-Warning: Key ESC (abort) pressed
 Warning: Adding calibrator 'calibrator_gneE1_0_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing calibrator 'calibrator_gneE1_0_1' in GNEChange_Additional

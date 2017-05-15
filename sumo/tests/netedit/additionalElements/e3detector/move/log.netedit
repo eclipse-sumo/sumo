@@ -1,7 +1,5 @@
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Setting new attribute x '22.00' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute y '5.00' into e3Detector 'e3Detector_0'

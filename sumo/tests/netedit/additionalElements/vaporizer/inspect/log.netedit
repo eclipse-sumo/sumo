@@ -1,24 +1,14 @@
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Value 'dummyEdge' for attribute edge of vaporizer isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute edge 'gneE0' into vaporizer 'vaporizer_0'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute startTime '0' into vaporizer 'vaporizer_0'
-Warning: Key ESC (abort) pressed
 Warning: Value '-10' for attribute startTime of vaporizer isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Value '50' for attribute startTime of vaporizer isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute startTime '5' into vaporizer 'vaporizer_0'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute end '10' into vaporizer 'vaporizer_0'
-Warning: Key ESC (abort) pressed
 Warning: Value '-10' for attribute end of vaporizer isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Value '2' for attribute end of vaporizer isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute end '20' into vaporizer 'vaporizer_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute end '10.00' into vaporizer 'vaporizer_0'

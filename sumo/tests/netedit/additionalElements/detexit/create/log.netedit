@@ -1,14 +1,9 @@
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of e3Detector: A e3Detector must be selected before insertion of detExit.
-Warning: Key ESC (abort) pressed
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Adding detExit 'e3Detector_0detExit2' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Adding detExit 'e3Detector_0detExit3' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detExit 'e3Detector_0detExit3' in GNEChange_Additional

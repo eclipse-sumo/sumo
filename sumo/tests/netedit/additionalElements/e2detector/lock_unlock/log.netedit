@@ -1,10 +1,8 @@
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
 Warning: Setting new attribute pos '26.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Setting new attribute blockMovement 'true' into e2Detector 'e2Detector_gneE0_0_0'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute blockMovement 'false' into e2Detector 'e2Detector_gneE0_0_0'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute pos '33.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '26.00' into e2Detector 'e2Detector_gneE0_0_0'

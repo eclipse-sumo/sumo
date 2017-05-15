@@ -1,62 +1,33 @@
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
 Warning: Adding e2Detector 'e2Detector_gneE2_1_1' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Value 'e2Detector_gneE2_1_1' for attribute id of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute id 'correct ID' into e2Detector 'e2Detector_gneE2_1_0'
-Warning: Key ESC (abort) pressed
 Warning: Value 'dummy lane' for attribute lane of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE0_0' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE2_1' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE2_0' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '-5' for attribute pos of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Value '400' for attribute pos of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute pos '20' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute length '10' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '-5' for attribute length of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute length '5' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute freq '100' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '-100' for attribute freq of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute freq '120' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '%%%&%%%&&' for attribute file of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute file '' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute file 'E2Detector_gneE2_1_1.txt' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute file 'myOwnOutput.txt' into e2Detector 'correct ID'
 Warning: Setting new attribute cont 'true' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute timeThreshold '1' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '-5' for attribute timeThreshold of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute timeThreshold '4' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Value '-12.1' for attribute speedThreshold of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute speedThreshold '6.3' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute jamThreshold '10' into e2Detector 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '-8' for attribute jamThreshold of e2Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute jamThreshold '12.5' into e2Detector 'correct ID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute jamThreshold '10.00' into e2Detector 'correct ID'

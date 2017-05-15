@@ -1,13 +1,9 @@
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
@@ -15,28 +11,19 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing e3Detector 'e3Detector_2' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Deleting unreferenced e3Detector 'e3Detector_2'
 Warning: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
 Warning: Deleting unreferenced detExit 'e3Detector_2detExit0'
 Warning: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
 Warning: Deleting unreferenced detExit 'e3Detector_2detExit0'
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional

@@ -1,13 +1,9 @@
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE1_1' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of routeProbe: 'freq' cannot be negative
-Warning: Key ESC (abort) pressed
 Warning: Adding routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Invalid input parameter of routeProbe: 'begin' cannot be negative
-Warning: Key ESC (abort) pressed
 Warning: Adding routeProbe 'routeProbe_gneE1_3' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing routeProbe 'routeProbe_gneE1_3' in GNEChange_Additional

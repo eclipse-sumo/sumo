@@ -1,42 +1,26 @@
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE2_1_1' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Value 'busStop_gneE2_1_1' for attribute id of busStop isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute id 'correct ID' into busStop 'busStop_gneE2_1_0'
-Warning: Key ESC (abort) pressed
 Warning: Value 'dummy lane' for attribute lane of busStop isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE0_0' into busStop 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE2_1' into busStop 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE2_0' into busStop 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '-5' for attribute startPos of busStop isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Value '400' for attribute startPos of busStop isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute startPos '20' into busStop 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'No'
 Warning: Value '3000' for attribute endPos of busStop isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
 Warning: Setting new attribute endPos '3000' into busStop 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '10' for attribute endPos of busStop isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute endPos '30' into busStop 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
 Warning: Setting new attribute lines 'line1, line2' into busStop 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lines 'line1 line2' into busStop 'correct ID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lines 'line1  line2' into busStop 'correct ID'

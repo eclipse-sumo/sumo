@@ -1,20 +1,24 @@
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e3Detector 'e3Detector_A' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings
 Warning: Value '-30' for attribute freq of e3Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_B'
-Warning: Key ESC (abort) pressed
 Warning: Value '-5' for attribute timeThreshold of e3Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_B'
-Warning: Key ESC (abort) pressed
 Warning: Value '-3' for attribute speedThreshold of e3Detector isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_B'
 Warning: Deleting unreferenced detEntry 'e3Detector_BdetEntry0'

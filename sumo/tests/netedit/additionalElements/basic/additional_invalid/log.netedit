@@ -1,5 +1,4 @@
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Warning: Deleting unreferenced busStop 'busStop_gneE0_0_0'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

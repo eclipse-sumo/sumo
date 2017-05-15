@@ -1,20 +1,15 @@
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding busStop 'busStop1' in GNEChange_Additional
 Warning: Adding busStop 'busStop2' in GNEChange_Additional
 Warning: Adding busStop 'busStop3' in GNEChange_Additional
 Warning: Adding busStop 'busStop4' in GNEChange_Additional
 Warning: Adding busStop 'busStop5' in GNEChange_Additional
 Warning: Adding busStop 'busStop6' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute id '' into edge 'gneE2'
-Warning: Key ESC (abort) pressed
 Warning: Value 'gneE3' for attribute id of edge isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute id 'correct_ID' into edge ''
-Warning: Key ESC (abort) pressed
 Warning: Value 'dummy_Junction' for attribute from of edge isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Value '' for attribute from of edge isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Removing connection 'gneE3_1->correct_ID_1' from edge 'gneE3'
 Warning: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
@@ -26,7 +21,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Warning: Setting new attribute shapeStart '0.00,20.00' into edge 'correct_ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute from 'gneJ0' into edge 'correct_ID'
 Warning: Removing connection 'gneE8_0->gneE0_0' from edge 'gneE8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
@@ -38,11 +32,8 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Setting new attribute shapeStart '0.00,0.00' into edge 'correct_ID'
-Warning: Key ESC (abort) pressed
 Warning: Value 'dummy_Junction' for attribute to of edge isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Value '' for attribute to of edge isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Removing connection 'gneE5_0->gneE3_1' from edge 'gneE5'
 Warning: Removing connection 'gneE5_0->gneE3_0' from edge 'gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
@@ -54,7 +45,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Warning: Setting new attribute shapeEnd '50.00,20.00' into edge 'correct_ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute to 'gneJ1' into edge 'correct_ID'
 Warning: Removing connection 'gneE4_0->gneE1_0' from edge 'gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
@@ -68,7 +58,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Setting new attribute shapeEnd '50.00,0.00' into edge 'correct_ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute from 'gneJ2' into edge 'correct_ID'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
@@ -77,7 +66,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Warning: Setting new attribute shapeStart '0.00,20.00' into edge 'correct_ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
@@ -87,7 +75,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Setting new attribute shapeEnd '50.00,0.00' into edge 'correct_ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute to 'gneJ3' into edge 'correct_ID'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
@@ -96,23 +83,13 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Warning: Setting new attribute shapeEnd '50.00,20.00' into edge 'correct_ID'
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Value '-13' for attribute speed of edge isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute speed '120.5' into lane 'correct_ID_0'
 Warning: Setting new attribute speed '120.5' into lane 'correct_ID_1'
 Warning: Setting new attribute speed '120.5' into edge 'correct_ID'
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute priority '-6' into edge 'correct_ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute priority '1' into edge 'correct_ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute priority '4' into edge 'correct_ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
@@ -120,11 +97,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Warning: Removing lane 'correct_ID_1' from edge
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Value '-6' for attribute numLanes of edge isn't valid
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'

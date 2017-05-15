@@ -1,22 +1,19 @@
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Key F5 (Compute) pressed
 Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
-Warning: Key ESC (abort) pressed
 Warning: Value 'dummyID' for attribute id of crossing isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute edges '3 7 1' into crossing ':Center_c1'
 Warning: Key F5 (Compute) pressed
 Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute edges '4 8' into crossing ':Center_c1'
 Warning: Key F5 (Compute) pressed
 Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute edges '3' into crossing ':Center_c1'
 Warning: Key F5 (Compute) pressed
 Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
@@ -24,12 +21,8 @@ Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
 Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
 Warning: Setting new attribute priority 'true' into crossing ':Center_c1'
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute width '3' into crossing ':Center_c1'
-Warning: Key ESC (abort) pressed
 Warning: Value '-3' for attribute width of crossing isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute width '4' into crossing ':Center_c1'
 Warning: Key F5 (Compute) pressed
 Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()

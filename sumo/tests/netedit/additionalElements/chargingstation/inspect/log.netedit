@@ -1,57 +1,32 @@
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Additional
-Warning: Key ESC (abort) pressed
 Warning: Value 'chargingStation_gneE2_1_1' for attribute id of chargingStation isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute id 'correct ID' into chargingStation 'chargingStation_gneE2_1_0'
-Warning: Key ESC (abort) pressed
 Warning: Value 'dummy lane' for attribute lane of chargingStation isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE0_0' into chargingStation 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE2_1' into chargingStation 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute lane 'gneE2_0' into chargingStation 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '-5' for attribute startPos of chargingStation isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Value '400' for attribute startPos of chargingStation isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute startPos '20' into chargingStation 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'No'
 Warning: Value '3000' for attribute endPos of chargingStation isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
 Warning: Setting new attribute endPos '3000' into chargingStation 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '10' for attribute endPos of chargingStation isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute endPos '30' into chargingStation 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute power '22000' into chargingStation 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '-100' for attribute power of chargingStation isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute power '10000' into chargingStation 'correct ID'
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Value '-1' for attribute efficiency of chargingStation isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Value '2' for attribute efficiency of chargingStation isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute efficiency '0.90' into chargingStation 'correct ID'
 Warning: Setting new attribute chargeInTransit 'true' into chargingStation 'correct ID'
-Warning: Key ESC (abort) pressed
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute chargeDelay '0' into chargingStation 'correct ID'
-Warning: Key ESC (abort) pressed
 Warning: Value '-10' for attribute chargeDelay of chargingStation isn't valid
-Warning: Key ESC (abort) pressed
 Warning: Setting new attribute chargeDelay '3' into chargingStation 'correct ID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute chargeDelay '0.00' into chargingStation 'correct ID'
