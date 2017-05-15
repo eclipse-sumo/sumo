@@ -26,12 +26,5 @@
 </configuration>
 -->
 
-<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
-    <connection from="5" to="2" fromLane="1" toLane="1"/>
-    <connection from="6" to="1" fromLane="1" toLane="1"/>
-    <connection from="7" to="4" fromLane="1" toLane="1"/>
-    <connection from="8" to="3" fromLane="1" toLane="1"/>
-	
-	<prohibition prohibitor="5->2" prohibited="6->1"/>
-	<prohibition prohibitor="7->4" prohibited="8->3"/>
-</connections>
+<tlLogics version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+</tlLogics>
