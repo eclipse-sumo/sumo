@@ -1,0 +1,94 @@
+----------- SUMO ends first -----------
+Loading configuration... done.
+Could not connect to TraCI server at localhost:61706 [Errno 10061] Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte
+ Retrying in 1 seconds
+Print ended at step 101
+Print ended at step 101
+ Run 0
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 1
+Loading configuration... done.
+Could not connect to TraCI server at localhost:61706 [Errno 10061] Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte
+ Retrying in 1 seconds
+Print ended at step 101
+Print ended at step 101
+ Run 2
+Loading configuration... done.
+Could not connect to TraCI server at localhost:61706 [Errno 10061] Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte
+ Retrying in 1 seconds
+Could not connect to TraCI server at localhost:61706 [Errno 10061] Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte
+ Retrying in 1 seconds
+Print ended at step 101
+Print ended at step 101
+ Run 3
+Loading configuration... done.
+Could not connect to TraCI server at localhost:61706 [Errno 10061] Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte
+ Retrying in 1 seconds
+Print ended at step 101
+Print ended at step 101
+ Run 4
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 5
+Loading configuration... done.
+Could not connect to TraCI server at localhost:61706 [Errno 10061] Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte
+ Retrying in 1 seconds
+Print ended at step 101
+Print ended at step 101
+ Run 6
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 7
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 8
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 9
+----------- TraCI ends first -----------
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 0
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 1
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 2
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 3
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 4
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 5
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 6
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 7
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 8
+Loading configuration... done.
+Print ended at step 101
+Print ended at step 101
+ Run 9
