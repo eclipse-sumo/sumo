@@ -147,12 +147,6 @@
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
 
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR"/>
-
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -459,8 +453,8 @@
         <!-- Specifies the detection range in meters (default is 50.00m.). For vehicles below this distance from the equipped vehicle, SSM values are traced. -->
         <device.ssm.range value="50" type="FLOAT"/>
 
-        <!-- Specifies the time in seconds to be logged after a conflict is over (default is 4.00secs.). Required &gt;0 if PET is to be calculated for crossing conflicts. -->
-        <device.ssm.extratime value="4" type="FLOAT"/>
+        <!-- Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required &gt;0 if PET is to be calculated for crossing conflicts. -->
+        <device.ssm.extratime value="5" type="FLOAT"/>
 
     </ssm_device>
 
@@ -468,8 +462,8 @@
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>
 
-        <!-- Runs TraCI script with embedded python -->
-        <python-script value="" type="STR"/>
+        <!-- Expected number of connecting clients -->
+        <num-clients value="1" type="INT"/>
 
     </traci_server>
 
