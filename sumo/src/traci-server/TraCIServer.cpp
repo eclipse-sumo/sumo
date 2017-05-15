@@ -367,7 +367,7 @@ TraCIServer::execute(std::string cmd) {
     try {
         if (myInstance == 0) {
             if (!myDoCloseConnection) {
-                myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")));
+                myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")), 0, 0);
             } else {
                 return "";
             }
@@ -504,7 +504,7 @@ TraCIServer::dispatchCommand() {
                     return writeErrorStatusCmd(CMD_SETORDER, "Order '" + toString(order) + "' is already taken.", myOutputStorage);
                 }
                 mySockets[order] = myCurrentSocket->second;
-                mySockets.erase(myCurrentSocket);
+                mySockets.erase(myCurrentSocket->first);
                 myCurrentSocket = mySockets.find(order);
                 success = true;
                 break;
