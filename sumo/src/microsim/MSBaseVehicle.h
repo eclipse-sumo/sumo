@@ -355,6 +355,15 @@ public:
      */
     virtual void activateReminders(const MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
+
+    /** @brief Returns the vehicle's length
+     * @return vehicle's length
+     */
+    inline double getLength() const {
+        return myType->getLength();
+    }
+
+
     /** @brief Returns the precomputed factor by which the driver wants to be faster than the speed limit
      * @return Speed limit factor
      */
