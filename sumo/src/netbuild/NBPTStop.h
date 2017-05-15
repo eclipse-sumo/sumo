@@ -55,13 +55,14 @@ public:
     * @param[in] edgeId The edge id of the pt stop
     * @param[in] length The length of the pt stop
     */
-    NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name);
+    NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name, SVCPermissions svcPermissions);
     std::string getID() const;
 
     const std::string getEdgeId();
     const std::string getOrigEdgeId();
     const std::string getName();
     const Position& getPosition();
+    const SVCPermissions getPermissions();
     void computExtent(double center, double d);
     void setLaneID(const std::string& laneId);
     void write(OutputDevice& device);
@@ -76,6 +77,7 @@ private:
     const double myPTStopLength;
     const std::string myName;
     std::string myLaneId;
+    const SVCPermissions myPermissions;
 
     double myFrom;
     double myTo;

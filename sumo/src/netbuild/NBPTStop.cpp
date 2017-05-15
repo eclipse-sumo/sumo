@@ -35,14 +35,16 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name) :
+NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name, SVCPermissions svcPermissions) :
     myPTStopId(ptStopId),
     myPosition(position),
     myEdgeId(edgeId),
     myOrigEdgeId(origEdgeId),
     myPTStopLength(length),
     myName(name),
-    myFriendlyPos(false) {
+    myFriendlyPos(false),
+    myPermissions(svcPermissions)
+{
 
 }
 
@@ -96,4 +98,7 @@ void NBPTStop::write(OutputDevice& device) {
 void NBPTStop::reshiftPostion(const double offsetX, const double offsetY) {
     myPosition.add(offsetX, offsetY, 0);
 
+}
+const SVCPermissions NBPTStop::getPermissions() {
+    return myPermissions;
 }

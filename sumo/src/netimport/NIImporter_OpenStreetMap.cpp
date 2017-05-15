@@ -338,7 +338,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if (!NBNetBuilder::transformCoordinate(ptPos)) {
                 WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
             }
-            NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name);
+            NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name, n->permissions);
             sc.insert(ptStop);
 
         }
@@ -667,7 +667,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
         bool ok = true;
         std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok, false);
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
-        if (key == "highway" || key == "ele" || key == "crossing" || key == "railway" || key == "public_transport" || key == "name") {
+        if (key == "highway" || key == "ele" || key == "crossing" || key == "railway" || key == "public_transport" || key == "name" || key == "train" || key == "bus" || key == "tram") {
             std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
             if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
                 myToFill[myLastNodeID]->tlsControlled = true;
@@ -681,6 +681,12 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                         "osm.stop-output.length");//TODO: extract from osm file [GL March '17]
             } else if (key == "name") {
                 myToFill[myLastNodeID]->name = value;
+            } else if (key == "train") {
+                myToFill[myLastNodeID]->permissions = SVC_RAIL;
+            } else if (key == "bus") {
+                myToFill[myLastNodeID]->permissions = SVC_BUS;
+            } else if (key == "tram") {
+                myToFill[myLastNodeID]->permissions = SVC_TRAM;
             } else if (myImportElevation && key == "ele") {
                 try {
                     myToFill[myLastNodeID]->ele = TplConvert::_2double(value.c_str());

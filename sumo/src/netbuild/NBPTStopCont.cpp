@@ -20,6 +20,7 @@
 
 
 #include <utils/common/MsgHandler.h>
+#include <microsim/MSLane.h>
 #include "NBPTStopCont.h"
 #include "NBEdgeCont.h"
 #include "NBEdge.h"
@@ -40,12 +41,30 @@ void NBPTStopCont::process(NBEdgeCont& cont) {
         NBEdge* edge = cont.getByID(edgeId);
 
         if (edge != 0) {
-            const std::string& lane = edge->getLaneID(0);
-            i->second->setLaneID(lane);
-            const PositionVector& shape = edge->getLaneShape(0);
-            double offset = shape.nearest_offset_to_point2D(i->second->getPosition(), true);
-            i->second->computExtent(offset, edge->getLength());
-            i++;
+
+            int laneNr = -1;
+            int idx = 0;
+
+            for (std::vector<NBEdge::Lane>::const_iterator it = edge->getLanes().begin(); it != edge->getLanes().end(); it++) {
+                if ((it->permissions & i->second->getPermissions()) > 0){
+                    laneNr = idx;
+                    break;
+                }
+                idx++;
+            }
+
+            if (laneNr != -1) {
+                const std::string& lane = edge->getLaneID(laneNr);
+                i->second->setLaneID(lane);
+                const PositionVector& shape = edge->getLaneShape(laneNr);
+                double offset = shape.nearest_offset_to_point2D(i->second->getPosition(), true);
+                i->second->computExtent(offset, edge->getLength());
+                i++;
+            } else{
+                WRITE_WARNING("There is no compatible lane for pt stop: " + i->second->getName() + " on edge: " + edge->getID() +". Thus, pt stop will be removed!");
+                EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());
+                myPTStops.erase(i++);
+            }
         } else {
             WRITE_WARNING("Could not find corresponding edge for pt stop: " + i->second->getName() + ". Thus, it will be removed!");
             EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());

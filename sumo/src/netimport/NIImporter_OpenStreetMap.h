@@ -99,6 +99,8 @@ protected:
         bool railwayCrossing;
         /// @brief Whether this is a public transport stop position
         bool ptStopPostion;
+        /// @brief type of pt stop
+        SVCPermissions permissions;
         /// @brief The length of the pt stop
         double ptStopLength;
         /// @brief The name of the node
