@@ -6,7 +6,8 @@
 /// @date    11.06.2013
 /// @version $Id$
 ///
-// An SSM-device logs encounters / conflicts of the carrying vehicle with other surrounding vehicles
+// An SSM-device logs encounters / conflicts of the carrying vehicle with other surrounding vehicles.
+// XXX: Do not use! Implementation is not complete, yet.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 200132014 DLR (http://www.dlr.de/) and contributors
@@ -64,6 +65,7 @@ private:
     /// All currently existing SSM devices
     static std::set<MSDevice*>* instances;
 
+public:
     /// @brief Different types of encounters corresponding to relative positions of the vehicles.
     ///        The name describes the type from the ego perspective
     enum EncounterType {
@@ -94,17 +96,21 @@ private:
         // Other vehicle is on an edge that has a sequence of successors leading to an internal edge that crosses the ego vehicle's edge at a junction
         // and the estimated arrival vehicle at the merge point is earlier for the foe than for the ego
         ENCOUNTER_TYPE_CROSSING_FOLLOWER = 9, //!< ENCOUNTER_TYPE_CROSSING_FOLLOWER
+        // The encounter has been a possible crossing conflict, but the ego vehicle has left the conflict area
+        ENCOUNTER_TYPE_EGO_PASSED_CP = 10, //!< ENCOUNTER_TYPE_EGO_PASSED_CP
+        // The encounter has been a possible crossing conflict, but the foe vehicle has left the conflict area
+        ENCOUNTER_TYPE_FOE_PASSED_CP = 11, //!< ENCOUNTER_TYPE_FOE_PASSED_CP
+        // The encounter has been a possible crossing conflict, but both vehicle have left the conflict area
+        ENCOUNTER_TYPE_BOTH_PASSED_CP = 12, //!< ENCOUNTER_TYPE_BOTH_PASSED_CP
         // Collision (currently unused, might be differentiated further)
-        ENCOUNTER_TYPE_COLLISION = 10 //!< ENCOUNTER_TYPE_COLLISION
+        ENCOUNTER_TYPE_COLLISION = 13 //!< ENCOUNTER_TYPE_COLLISION
     };
-
-
 
 private:
     /// @brief An encounter is an episode involving two vehicles,
     ///        which are closer to each other than some specified distance.
     class Encounter {
-        // TODO: Shouldn't the time lines for the conflict points be stored?
+        // TODO: Shouldn't the time lines for the conflict point locations be stored?
     private:
         /// @brief A trajectory encloses a series of positions x and speeds v for one vehicle
         /// (the times are stored only once in the enclosing encounter)
@@ -123,7 +129,12 @@ private:
 
         /// @brief add a new data point
         void add(double time, EncounterType type, Position egoX, Position egoV, Position foeX, Position foeV,
-                double egoDistToConflict, double foeDistToConflict); // , double egoTimeToConflict, double foeTimeToConflict);
+                double egoDistToConflict, double foeDistToConflict);
+
+        /// @brief Returns the number of trajectory points stored
+        std::size_t size() const {
+            return timeSpan.size();
+        }
 
         /// @brief resets myRemainingExtraTime to the given value
         void resetExtraTime(double value);
@@ -152,6 +163,16 @@ private:
         /// @brief Remaining extra time (decreases after an encounter ended)
         double myRemainingExtraTime;
 
+        /// @brief Last determined conflict lane of the ego vehicle for the encounter
+        const MSLane* egoConflictLane;
+        /// @brief Last determined conflict lane of the foe vehicle for the encounter
+        const MSLane* foeConflictLane;
+
+        /// @brief Times when the ego vehicle entered/left the conflict area. Currently only applies for crossing situations. Used for PET calculation. (May be defined for merge conflicts in the future)
+        double egoConflictEntryTime, egoConflictExitTime;
+        /// @brief Times when the foe vehicle entered/left the conflict area. Currently only applies for crossing situations. Used for PET calculation. (May be defined for merge conflicts in the future)
+        double foeConflictEntryTime, foeConflictExitTime;
+
         /// @brief time points corresponding to the trajectories
         std::vector<double> timeSpan;
         /// @brief Evolution of the encounter classification (@see EncounterType)
@@ -170,6 +191,7 @@ private:
         /// @brief All values for DRAC
         std::vector<double> DRACspan;
 
+        // TODO: update these in computeSSMs() or updateEncounter()
         /// @name Extremal values for the SSMs (as <time,value>-pairs)
         /// @{
         std::pair<double, double> maxDRAC;
@@ -177,11 +199,11 @@ private:
         std::pair<double, double> PET;
         /// @}
 
-        /// @brief Whether PET was calculated already
-        /// @note  This applies for conflicts of merging or crossing type:
-        ///         If one of the vehicles has already passed the conflict point, the PET has
-        ///         to be calculated only once, when the second vehicle passes the conflict point.)
-        bool PETCalculated; // TODO, PET calculation not yet implemented
+//        /// @brief Whether PET was calculated already
+//        /// @note  This applies for conflicts of merging or crossing type:
+//        ///         If one of the vehicles has already passed the conflict point, the PET has
+//        ///         to be calculated only once, when the second vehicle passes the conflict point.)
+//        bool PETCalculated; // TODO, PET calculation not yet implemented
 
         /// @brief this flag is set by updateEncounter() or directly in processEncounters(), where encounters are closed if it is true.
         bool closingRequested;
@@ -197,23 +219,11 @@ private:
 
     /// @brief Structure to collect some info on the encounter needed during ssm calculation by various functions.
     struct EncounterApproachInfo {
-        EncounterApproachInfo(Encounter* e) :
-            encounter(e),
-            type(ENCOUNTER_TYPE_NOCONFLICT_AHEAD),
-            egoConflictEntryDist(INVALID_DOUBLE),
-            foeConflictEntryDist(INVALID_DOUBLE),
-            egoConflictExitDist(INVALID_DOUBLE),
-            foeConflictExitDist(INVALID_DOUBLE),
-            egoConflictEntryTime(INVALID_DOUBLE),
-            foeConflictEntryTime(INVALID_DOUBLE),
-            egoConflictExitTime(INVALID_DOUBLE),
-            foeConflictExitTime(INVALID_DOUBLE),
-            ttc(INVALID_DOUBLE),
-            drac(INVALID_DOUBLE),
-            pet(INVALID_DOUBLE)
-            {};
+        EncounterApproachInfo(Encounter* e);
         Encounter* encounter;
         EncounterType type;
+        const MSLane* egoConflictLane;
+        const MSLane* foeConflictLane;
         double egoConflictEntryDist;
         double foeConflictEntryDist;
         double egoConflictExitDist;
@@ -222,6 +232,10 @@ private:
         double foeConflictEntryTime;
         double egoConflictExitTime;
         double foeConflictExitTime;
+        double egoConflictAreaLength;
+        double foeConflictAreaLength;
+        bool egoLeftConflict;
+        bool foeLeftConflict;
         double ttc;
         double drac;
         double pet;
@@ -416,8 +430,10 @@ private:
      *         this may be the case because the foe is out of the detection range but the encounter
      *         is still in extra time (in this case foeInfo==0), or because the foe does not head for a lane conflicting with
      *         the route of the ego vehicle.
+     *         Writes the type of encounter which is determined for the current state into eInfo. And if appropriate some
+     *         information concerning vehicles positions in relation to a crossed crossing point (for PET calculation).
      */
-    void updatePassedEncounter(Encounter* e, FoeInfo* foeInfo);
+    void updatePassedEncounter(Encounter* e, FoeInfo* foeInfo, EncounterApproachInfo& eInfo);
 
 
     /** @brief Classifies the current type of the encounter provided some information on the opponents
@@ -470,11 +486,28 @@ private:
     void computeSSMs(EncounterApproachInfo& e) const;
 
 
+    /** @brief Discriminates between different encounter types and correspondingly determines the PET for those cases
+     *         and writes the result to eInfo.pet
+     */
+    void determinePET(EncounterApproachInfo& eInfo) const;
+
+
+    /** @brief Discriminates between different encounter types and correspondingly determines TTC and DRAC for those cases
+     *         and writes the result to eInfo.ttc and eInfo.drac
+     */
+    void determineTTCandDRAC(EncounterApproachInfo& eInfo) const;
+
+
     /** @brief Computes the time to collision (in seconds) for two vehicles with a given initial gap under the assumption
-     *         that both maintain their current speeds. Returns INVALID_DOUBLE if no collision would occur under this assumption.
+     *         that both maintain their current speeds. Returns INVALID if no collision would occur under this assumption.
      */
     double computeTTC(double gap, double followerSpeed, double leaderSpeed) const;
 
+
+    /** @brief Computes the DRAC (deceleration to avoid a collision) as defined, e.g., in Mahmud et al. (2016, Application of proximal surrogate indicators for safety evaluation)
+     *         for two vehicles with a given gap. Returns INVALID if no deceleration is required by the follower to avoid a crash.
+     */
+    double computeDRAC(double gap, double followerSpeed, double leaderSpeed) const;
 
 
     /// @name parameter load helpers (introduced for readability of buildVehicleDevices())
