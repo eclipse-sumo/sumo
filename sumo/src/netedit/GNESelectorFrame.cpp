@@ -478,6 +478,17 @@ GNESelectorFrame::hide() {
 
 std::string
 GNESelectorFrame::getStats() const {
+    // show extra information for tests
+    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        WRITE_WARNING("Current selection: " + 
+                      toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions, " +
+                      toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges, " +
+                      toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes, " +
+                      toString(gSelected.getSelected(GLO_CONNECTION).size()) + " connections, " +
+                      toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals, " +
+                      toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings");
+    }
+
     return "Selection:\n" +
            toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions\n" +
            toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges\n" +
