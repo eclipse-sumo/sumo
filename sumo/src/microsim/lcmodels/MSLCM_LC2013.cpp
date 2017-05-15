@@ -152,7 +152,7 @@ MSLCM_LC2013::wantsChange(
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
         std::cout << "\nWANTS_CHANGE\n" << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
-                  //<< std::setprecision(10)
+                  << std::setprecision(gPrecision)
                   << " veh=" << myVehicle.getID()
                   << " lane=" << myVehicle.getLane()->getID()
                   << " pos=" << myVehicle.getPositionOnLane()
