@@ -43,14 +43,13 @@ void NBPTStopCont::process(NBEdgeCont& cont) {
         if (edge != 0) {
 
             int laneNr = -1;
-            int idx = 0;
 
             for (std::vector<NBEdge::Lane>::const_iterator it = edge->getLanes().begin(); it != edge->getLanes().end(); it++) {
                 if ((it->permissions & i->second->getPermissions()) > 0){
-                    laneNr = idx;
+                    ++laneNr;
                     break;
                 }
-                idx++;
+                laneNr++;
             }
 
             if (laneNr != -1) {
