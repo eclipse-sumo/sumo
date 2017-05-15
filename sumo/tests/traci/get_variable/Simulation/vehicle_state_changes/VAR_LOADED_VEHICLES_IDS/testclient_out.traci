@@ -7,7 +7,7 @@ TraCITestClient output file. Date: Wed Mar 26 10:20:25 2014
   CommandID=187  VariableID=114  ObjectID=0 valueDataType=14 string list value: [ 
 "0" ]
 
--> Command sent: <SimulationStep2>:
+-> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
@@ -16,7 +16,7 @@ TraCITestClient output file. Date: Wed Mar 26 10:20:25 2014
   CommandID=187  VariableID=114  ObjectID=0 valueDataType=14 string list value: [ 
  ]
 
--> Command sent: <SimulationStep2>:
+-> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:

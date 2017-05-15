@@ -1,7 +1,7 @@
 TraCITestClient output file. Date: Tue Sep 09 09:02:37 2014
 
 
--> Command sent: <SimulationStep2>:
+-> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
@@ -18,7 +18,7 @@ TraCITestClient output file. Date: Tue Sep 09 09:02:37 2014
 .. Command acknowledged (170), [description: ]
   CommandID=186  VariableID=126  ObjectID=e_m5 valueDataType=12 string value: bar
 
--> Command sent: <SimulationStep2>:
+-> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:

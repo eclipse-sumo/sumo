@@ -1,7 +1,7 @@
 TraCITestClient output file. Date: Thu May 11 08:30:53 2017
 
 
--> Command sent: <SimulationStep2>:
+-> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 testAPI:
   edge:
@@ -101,7 +101,7 @@ testAPI:
     setScheme: 
     no support for gui commands
 
--> Command sent: <SimulationStep2>:
+-> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
   CommandID=228  ObjectID=0  #variables=2
       VariableID=80      ok=1 valueDataType=12 string value: e_m3

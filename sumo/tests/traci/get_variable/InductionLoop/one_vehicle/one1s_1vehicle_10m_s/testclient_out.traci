@@ -1,7 +1,7 @@
 TraCITestClient output file. Date: Fri Oct 31 10:15:21 2014
 
 
--> Command sent: <SimulationStep2>:
+-> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
@@ -42,7 +42,7 @@ TraCITestClient output file. Date: Fri Oct 31 10:15:21 2014
  valueDataType=9 Int value: 0
  ]
 
--> Command sent: <SimulationStep2>:
+-> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
@@ -88,7 +88,7 @@ TraCITestClient output file. Date: Fri Oct 31 10:15:21 2014
  valueDataType=12 string value: DEFAULT_VEHTYPE
  ]
 
--> Command sent: <SimulationStep2>:
+-> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 
 -> Command sent: <GetVariable>:
@@ -134,7 +134,7 @@ TraCITestClient output file. Date: Fri Oct 31 10:15:21 2014
  valueDataType=12 string value: DEFAULT_VEHTYPE
  ]
 
--> Command sent: <SimulationStep2>:
+-> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:

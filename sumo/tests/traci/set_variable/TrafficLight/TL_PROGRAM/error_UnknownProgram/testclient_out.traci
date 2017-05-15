@@ -1,7 +1,7 @@
 TraCITestClient output file. Date: Mon Jul 01 13:27:40 2013
 
 
--> Command sent: <SimulationStep2>:
+-> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 
 -> Command sent: <SetValue>:
@@ -9,7 +9,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:40 2013
 .. Answered with error to command (194), [description: Can not switch tls '1/1' to program 'prog1';
  The program is not known.]
 
--> Command sent: <SimulationStep2>:
+-> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 
 -> Command sent: <Close>:
