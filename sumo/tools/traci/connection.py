@@ -299,6 +299,11 @@ class Connection:
                 "Received answer %s for command %s." % (response, command))
         return result.readInt(), result.readString()
 
+    def setOrder(self, order):
+        self._queue.append(tc.CMD_SETORDER)
+        self._string += struct.pack("!BBi", 1 + 1 + 4, tc.CMD_SETORDER, order)
+        self._sendExact()
+
     def close(self, wait=True):
         if not _embedded:
             self._queue.append(tc.CMD_CLOSE)

@@ -143,6 +143,10 @@ def getVersion():
     return _connections[""].getVersion()
 
 
+def setOrder(order):
+    return _connections[""].setOrder(order)
+
+
 def close(wait=True):
     _connections[""].close(wait)
 
