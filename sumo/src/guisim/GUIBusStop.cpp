@@ -142,6 +142,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
     // draw details unless zoomed out to far
     if (s.scale * exaggeration >= 10) {
+        glPushMatrix();
         // draw the lines
         const double rotSign = MSNet::getInstance()->lefthand() ? -1 : 1;
         for (int i = 0; i != (int)myLines.size(); ++i) {
@@ -173,12 +174,11 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         if (s.scale * exaggeration >= 4.5) {
             GLHelper::drawText("H", Position(), .1, 1.6, green, myFGSignRot);
         }
-        //TODO: add pt stop show name options to gui settings [GL Mar '17]
-        if (s.streetName.show && s.scale * exaggeration >= 4.5) {
-            glTranslated(0, -3.1, 0);
-            GLHelper::drawText(getMyName(), Position(), .1, 3, black, myFGSignRot);
-        }
-
+        glPopMatrix();
+    }
+    //TODO: add pt stop show name options to gui settings [GL Mar '17]
+    if (s.streetName.show && getMyName() != "") {
+        GLHelper::drawText(getMyName(), myFGSignPos, GLO_MAX - getType(), s.streetName.size / s.scale, s.streetName.color, myFGSignRot);
     }
     glPopMatrix();
     glPopName();
