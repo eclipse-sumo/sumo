@@ -62,6 +62,7 @@
 #include "NBContHelper.h"
 #include "NBRequest.h"
 #include "NBOwnTLDef.h"
+#include "NBLoadedSUMOTLDef.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBTrafficLightDefinition.h"
 
@@ -347,12 +348,14 @@ NBNode::isJoinedTLSControlled() const {
 
 
 void
-NBNode::invalidateTLS(NBTrafficLightLogicCont& tlCont) {
+NBNode::invalidateTLS(NBTrafficLightLogicCont& tlCont, bool removedConnections, bool addedConnections) {
     if (isTLControlled()) {
         std::set<NBTrafficLightDefinition*> oldDefs(myTrafficLights);
         for (std::set<NBTrafficLightDefinition*>::iterator it = oldDefs.begin(); it != oldDefs.end(); ++it) {
             NBTrafficLightDefinition* orig = *it;
-            if (dynamic_cast<NBOwnTLDef*>(orig) == 0) {
+            if (dynamic_cast<NBLoadedSUMOTLDef*>(orig) != 0) {
+                dynamic_cast<NBLoadedSUMOTLDef*>(orig)->registerModifications(removedConnections, addedConnections);
+            } else if (dynamic_cast<NBOwnTLDef*>(orig) == 0) {
                 NBTrafficLightDefinition* newDef = new NBOwnTLDef(orig->getID(), orig->getOffset(), orig->getType());
                 const std::vector<NBNode*>& nodes = orig->getNodes();
                 while (!nodes.empty()) {

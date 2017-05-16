@@ -133,9 +133,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
             myErrorMsgHandler->inform("The connection-destination edge '" + to + "' is not known.");
             return;
         }
-        // invalidate traffic light definition loaded from a SUMO network
-        // XXX it would be preferable to reconstruct the phase definitions heuristically
-        fromEdge->getToNode()->invalidateTLS(myTLLogicCont);
+        fromEdge->getToNode()->invalidateTLS(myTLLogicCont, true, false);
         // parse optional lane information
         if (attrs.hasAttribute(SUMO_ATTR_LANE) || attrs.hasAttribute(SUMO_ATTR_FROM_LANE) || attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
             parseLaneBound(attrs, fromEdge, toEdge);

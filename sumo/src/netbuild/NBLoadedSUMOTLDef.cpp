@@ -41,7 +41,10 @@
 #include "NBOwnTLDef.h"
 #include "NBTrafficLightDefinition.h"
 #include "NBLoadedSUMOTLDef.h"
+#include "NBOwnTLDef.h"
 #include "NBNode.h"
+
+//#define DEBUG_RECONSTRUCTION
 
 // ===========================================================================
 // method definitions
@@ -50,7 +53,10 @@
 NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& programID,
                                      SUMOTime offset, TrafficLightType type) :
     NBTrafficLightDefinition(id, programID, offset, type),
-    myTLLogic(0) {
+    myReconstructAddedConnections(false),
+    myReconstructRemovedConnections(false),
+    myTLLogic(0) 
+{
     myTLLogic = new NBTrafficLightLogic(id, programID, 0, offset, type);
 }
 
@@ -59,7 +65,10 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLig
     // allow for adding a new program for the same def: take the programID from the new logic
     NBTrafficLightDefinition(def->getID(), logic->getProgramID(), def->getOffset(), def->getType()),
     myTLLogic(new NBTrafficLightLogic(logic)),
-    myOriginalNodes(def->getNodes().begin(), def->getNodes().end()) {
+    myOriginalNodes(def->getNodes().begin(), def->getNodes().end()),
+    myReconstructAddedConnections(false),
+    myReconstructRemovedConnections(false)
+{
     assert(def->getOffset() == logic->getOffset());
     assert(def->getType() == logic->getType());
     myControlledLinks = def->getControlledLinks();
@@ -76,6 +85,7 @@ NBTrafficLightLogic*
 NBLoadedSUMOTLDef::myCompute(int brakingTimeSeconds) {
     // @todo what to do with those parameters?
     UNUSED_PARAMETER(brakingTimeSeconds);
+    reconstructLogic();
     myTLLogic->closeBuilding();
     patchIfCrossingsAdded();
     return new NBTrafficLightLogic(myTLLogic);
@@ -83,7 +93,7 @@ NBLoadedSUMOTLDef::myCompute(int brakingTimeSeconds) {
 
 
 void
-NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex) {
+NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex, bool reconstruct) {
     assert(myTLLogic->getNumLinks() > 0); // logic should be loaded by now
     if (linkIndex >= (int)myTLLogic->getNumLinks()) {
         throw ProcessError("Invalid linkIndex " + toString(linkIndex) + " for traffic light '" + getID() +
@@ -101,11 +111,20 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
     // myControlledInnerEdges.insert(from->getID()); // @todo recheck: this appears to be obsolete
     // set this information now so that it can be used while loading diffs
     from->setControllingTLInformation(conn, getID());
+    myReconstructAddedConnections = reconstruct;
 }
 
 
 void
 NBLoadedSUMOTLDef::setTLControllingInformation() const {
+    if (myReconstructAddedConnections) {
+        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+        dummy.setParticipantsInformation();
+        dummy.setTLControllingInformation();
+        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+            (*i)->removeTrafficLight(&dummy);
+        }
+    }
     // if nodes have been removed our links may have been invalidated as well
     // since no logic will be built anyway there is no reason to inform any edges
     if (amInvalid()) {
@@ -120,7 +139,8 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
                                "' with " + toString(myTLLogic->getNumLinks()) + " links.");
         }
         NBEdge* edge = c.getFrom();
-        if (edge != 0) {
+        if (edge != 0 && edge->getNumLanes() > c.getFromLane()) {
+            // logic may have yet to be reconstructed
             edge->setControllingTLInformation(c, getID());
         }
     }
@@ -182,33 +202,7 @@ NBLoadedSUMOTLDef::removeConnection(const NBConnection& conn, bool reconstruct) 
         // especially when using the option --tls.join
         return;
     }
-    const int removed = it->getTLIndex();
-    // remove the connection
-    myControlledLinks.erase(it);
-    if (reconstruct) {
-        // updating the edge is only needed for immediate use in NETEDIT.
-        // It may conflict with loading diffs
-        conn.getFrom()->setControllingTLInformation(conn, "");
-        // shift link numbers down so there is no gap
-        for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-            NBConnection& c = *it;
-            if (c.getTLIndex() > removed) {
-                c.setTLIndex(c.getTLIndex() - 1);
-            }
-        }
-        // update controlling information with new link numbers
-        setTLControllingInformation();
-        // rebuild the logic
-        const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
-        NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
-        for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-            std::string newState = it->state;
-            newState.erase(newState.begin() + removed);
-            newLogic->addStep(it->duration, newState);
-        }
-        delete myTLLogic;
-        myTLLogic = newLogic;
-    }
+    myReconstructRemovedConnections = reconstruct;
 }
 
 
@@ -429,6 +423,88 @@ NBLoadedSUMOTLDef::rightOnRedConflict(int index, int foeIndex) const {
     return std::find(myRightOnRedConflicts.begin(), myRightOnRedConflicts.end(), std::make_pair(index, foeIndex)) != myRightOnRedConflicts.end();
 }
 
+
+void 
+NBLoadedSUMOTLDef::registerModifications(bool addedConnections, bool removedConnections) {
+    myReconstructAddedConnections |= addedConnections;
+    myReconstructRemovedConnections |= removedConnections;
+}
+
+void
+NBLoadedSUMOTLDef::reconstructLogic() {
+#ifdef DEBUG_RECONSTRUCTION
+    std::cout << " reconstructLogic added=" << myReconstructAddedConnections << " removed=" << myReconstructRemovedConnections << " oldLInks\n";
+    for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); ++it) {
+        std::cout << "    " << *it << "\n";
+    }
+#endif
+    if (myReconstructAddedConnections) {
+        // rebuild the logic from scratch
+        // XXX if a connection with the same from- and to-edge already exisits, its states could be copied instead
+        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+        dummy.setParticipantsInformation();
+        dummy.setProgramID(getProgramID());
+        dummy.setTLControllingInformation();
+        NBTrafficLightLogic* newLogic = dummy.compute(OptionsCont::getOptions()); 
+        myIncomingEdges = dummy.getIncomingEdges();
+        myControlledLinks = dummy.getControlledLinks();
+        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+            (*i)->removeTrafficLight(&dummy);
+        }
+        delete myTLLogic;
+        myTLLogic = newLogic;
+        if (newLogic != 0) {
+            newLogic->setID(getID());
+            newLogic->setType(getType());
+            newLogic->setOffset(getOffset());
+            setTLControllingInformation();
+        }
+    } else if (myReconstructRemovedConnections) {
+        // for each connection, check whether it is still valid
+        for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end();) {
+            const NBConnection& con = (*it);
+            if (// edge still exists
+                    find(myIncomingEdges.begin(), myIncomingEdges.end(), con.getFrom()) != myIncomingEdges.end()
+                    // connection still exists
+                    && con.getFrom()->hasConnectionTo(con.getTo(), con.getToLane(), con.getFromLane())
+                    // connection is still set to be controlled
+                    && con.getFrom()->mayBeTLSControlled(con.getFromLane(), con.getTo(), con.getToLane())) {
+                it++;
+            } else {
+                // remove connection and shift index off successive connections
+                const int removed = con.getTLIndex();
+                it = myControlledLinks.erase(it);
+                for (NBConnectionVector::iterator j = myControlledLinks.begin(); j != myControlledLinks.end(); j++) {
+                    NBConnection& other = *j;
+                    if (other.getTLIndex() > removed) {
+                        other.setTLIndex(other.getTLIndex() - 1);
+                    }
+                }
+                // rebuild the logic
+                const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
+                NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
+                for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
+                    std::string newState = it->state;
+                    newState.erase(newState.begin() + removed);
+                    newLogic->addStep(it->duration, newState);
+                }
+                delete myTLLogic;
+                myTLLogic = newLogic;
+            }
+        }
+        setTLControllingInformation();
+    }
+#ifdef DEBUG_RECONSTRUCTION
+    if (myReconstructAddedConnections || myReconstructRemovedConnections) {
+        std::cout << " newLinks:\n";
+        for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); ++it) {
+            std::cout << "    " << *it << "\n";
+        }
+    }
+#endif
+    myReconstructAddedConnections = false;
+    myReconstructRemovedConnections = false;
+}
 
 /****************************************************************************/
 

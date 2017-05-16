@@ -539,8 +539,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
             }
             if (e->getNumLanes() != (int)mySplits.back().lanes.size()) {
                 // invalidate traffic light definitions loaded from a SUMO network
-                // XXX it would be preferable to reconstruct the phase definitions heuristically
-                e->getToNode()->invalidateTLS(myTLLogicCont);
+                e->getToNode()->invalidateTLS(myTLLogicCont, true, true);
                 // if the number of lanes changes the connections should be
                 // recomputed
                 e->invalidateConnections(true);
@@ -606,7 +605,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
                     currLanes = exp.lanes;
                     // invalidate traffic light definition loaded from a SUMO network
                     // XXX it would be preferable to reconstruct the phase definitions heuristically
-                    e->getFromNode()->invalidateTLS(myTLLogicCont);
+                    e->getFromNode()->invalidateTLS(myTLLogicCont, true, true);
                 } else {
                     WRITE_WARNING("Split at '" + toString(exp.pos) + "' lies beyond the edge's length (edge '" + myCurrentID + "').");
                 }

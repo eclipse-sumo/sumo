@@ -58,6 +58,7 @@
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
 #define DEBUGCOND (getID() == "disabled")
+#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
 
 // ===========================================================================
 // static members
@@ -173,7 +174,7 @@ NBEdge::MainDirections::MainDirections(const EdgeVector& outgoing,
     assert(outgoing.size() > 0);
     const LinkDirection straightestDir = to->getDirection(parent, outgoing[indexOfStraightest]);
 #ifdef DEBUG_CONNECTION_GUESSING
-    if (DEBUGCOND) {
+    if (DEBUGCOND2(parent)) {
         std::cout << " MainDirections edge=" << parent->getID() << " straightest=" << outgoing[indexOfStraightest]->getID() << " dir=" << toString(straightestDir) << "\n";
     }
 #endif
@@ -446,6 +447,17 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
     }
     computeLaneShapes();
     computeAngle();
+
+#ifdef DEBUG_CONNECTION_GUESSING
+    if (DEBUGCOND) {
+        std::cout << "init edge=" << getID() << "\n";
+        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+            std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
+            (*i).shape.mirrorX();
+            (*i).viaShape.mirrorX();
+        }
+    }
+#endif
 }
 
 
@@ -1190,15 +1202,18 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
             tryLater = false;
         } else {
             if (fromLaneRemoved >= 0 && c.fromLane > fromLaneRemoved) {
-                c.fromLane--;
                 if (myTo->isTLControlled()) {
                     std::set<NBTrafficLightDefinition*> tldefs = myTo->getControllingTLS();
                     for (std::set<NBTrafficLightDefinition*>::iterator it = tldefs.begin(); it != tldefs.end(); it++) {
                         for (NBConnectionVector::iterator tlcon = (*it)->getControlledLinks().begin(); tlcon != (*it)->getControlledLinks().end(); ++tlcon) {
-                            tlcon->shiftLaneIndex(this, -1);
+                            NBConnection& tc = *tlcon;
+                            if (tc.getTo() == c.toEdge && tc.getFromLane() == c.fromLane && tc.getToLane() == c.toLane) {
+                                tc.shiftLaneIndex(this, -1);
+                            }
                         }
                     }
                 }
+                c.fromLane--;
             }
             if (toLaneRemoved >= 0 && c.toLane > toLaneRemoved) {
                 c.toLane--;
@@ -1852,6 +1867,16 @@ NBEdge::computeLanes2Edges() {
 
 bool
 NBEdge::recheckLanes() {
+#ifdef DEBUG_CONNECTION_GUESSING
+    if (DEBUGCOND) {
+        std::cout << "recheckLanes (initial) edge=" << getID() << "\n";
+        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+            std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
+            (*i).shape.mirrorX();
+            (*i).viaShape.mirrorX();
+        }
+    }
+#endif
     std::vector<int> connNumbersPerLane(myLanes.size(), 0);
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
         if ((*i).toEdge == 0 || (*i).fromLane < 0 || (*i).toLane < 0) {
@@ -1955,6 +1980,16 @@ NBEdge::recheckLanes() {
             }
         }
     }
+#ifdef DEBUG_CONNECTION_GUESSING
+    if (DEBUGCOND) {
+        std::cout << "recheckLanes (final) edge=" << getID() << "\n";
+        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+            std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
+            (*i).shape.mirrorX();
+            (*i).viaShape.mirrorX();
+        }
+    }
+#endif
     return true;
 }
 

@@ -251,7 +251,7 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes& attrs) {
         for (it = programs.begin(); it != programs.end(); it++) {
             NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it->second);
             if (tlDef) {
-                tlDef->addConnection(from, c.toEdge, c.fromLane, c.toLane, tlIndex);
+                tlDef->addConnection(from, c.toEdge, c.fromLane, c.toLane, tlIndex, false);
             } else {
                 throw ProcessError("Corrupt traffic light definition '"
                                    + tlID + "' (program '" + it->first + "')");

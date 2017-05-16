@@ -105,7 +105,7 @@ public:
 
     /** @brief Adds a connection and immediately informs the edges
      */
-    void addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex);
+    void addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex, bool reconstruct = true);
 
 
     /** @brief removes the given connection from the traffic light
@@ -113,6 +113,9 @@ public:
      * @note: tlIndex is not necessarily unique. we need the whole connection data here
      */
     void removeConnection(const NBConnection& conn, bool reconstruct = true);
+
+    /// @brief register changes that necessitate recomputation
+    void registerModifications(bool addedConnections, bool removedConnections);
 
     /** @brief Returns the internal logic
      */
@@ -168,12 +171,19 @@ private:
     /// @brief set of edges with shifted lane indices (to avoid shifting twice)
     std::set<NBEdge*> myShifted;
 
+    /// @brief whether the logic must be reconstructed
+    bool myReconstructAddedConnections;
+    bool myReconstructRemovedConnections;
+
     /** @brief Collects the edges for each tlIndex
      * @param[out] fromEdges The from-edge for each controlled tlIndex
      * @param[out] toEdges The to-edge for each controlled tlIndex
      * @param[out] fromLanes The from-lanes for each controlled tlIndex
      */
     void collectEdgeVectors(EdgeVector& fromEdges, EdgeVector& toEdges, std::vector<int>& fromLanes) const;
+
+    /// @brief adapt to removal or addition of connections
+    void reconstructLogic(); 
 
 private:
     /// @brief class for identifying connections
