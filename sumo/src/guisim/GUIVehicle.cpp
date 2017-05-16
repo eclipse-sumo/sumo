@@ -186,7 +186,7 @@ GUIParameterTableWindow*
 GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                    GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 22 + (int)myType->getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 24 + (int)myType->getParameter().getMap().size());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());
@@ -200,6 +200,8 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("maximum speed [m/s]", false, getMaxSpeed());
     ret->mkItem("maximum acceleration [m/s^2]", false, getCarFollowModel().getMaxAccel());
     ret->mkItem("maximum deceleration [m/s^2]", false, getCarFollowModel().getMaxDecel());
+    ret->mkItem("emergency deceleration [m/s^2]", false, getCarFollowModel().getEmergencyDecel());
+    ret->mkItem("apparent deceleration [m/s^2]", false, getCarFollowModel().getApparentDecel());
     ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
     ret->mkItem("reaction time (tau)", false, getCarFollowModel().getHeadwayTime());
     ret->mkItem("person capacity", false, myType->getPersonCapacity());
