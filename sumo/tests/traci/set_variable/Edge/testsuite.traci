@@ -6,3 +6,6 @@ EdgeEffortInfo
 
 # getting/setting an abstract parameter
 VAR_PARAMETER
+
+# error on sumo side
+error

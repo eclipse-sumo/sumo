@@ -18,6 +18,8 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
+from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -30,36 +32,37 @@ import sumolib
 PORT = str(sumolib.miscutils.getFreeSocketPort())
 server_args = sys.argv[1:] + ["--remote-port", PORT]
 binaryDir, server = os.path.split(server_args[0])
-#server_args[0] = "sumoD"
 
 client = "TraCITestClient"
 if server.endswith("D") or server.endswith("D.exe"):
     client += "D"
-if os.name != 'posix':
-    client += ".exe"
 client_args = [os.path.join(binaryDir, client), "-def",
                "testclient.prog", "-o", "testclient_out.txt", "-p", PORT]
 
 # start sumo as server
-serverprocess = subprocess.Popen(
+serverProcess = subprocess.Popen(
     server_args, stdout=sys.stdout, stderr=sys.stderr)
 success = False
 for retry in range(7):
-    time.sleep(retry * retry)
+    time.sleep(retry)
     clientProcess = subprocess.Popen(
         client_args, stdout=sys.stdout, stderr=sys.stderr)
-    if serverprocess.poll() != None and clientProcess.poll() == None:
+    if serverProcess.poll() is not None and clientProcess.poll() is None:
+        # the server is already through (either with error or success), let the client catch up
         time.sleep(10)
-        if serverprocess.poll() != None and clientProcess.poll() == None:
-            print >> sys.stderr, "Client hangs but server terminated for unknown reason"
+        if serverProcess.poll() is not None and clientProcess.poll() is None:
+            print("Client hangs but server terminated for unknown reason", file=sys.stderr)
             clientProcess.kill()
             break
-    if clientProcess.wait() == 0:
+    result = clientProcess.wait()
+    if result == 0:
         success = True
+    if result != 2:
         break
 
 if success:
-    serverprocess.wait()
+    serverProcess.wait()
 else:
-    print >> sys.stderr, "Server hangs and does not answer connection requests"
-    serverprocess.kill()
+    if serverProcess.poll() is None:
+        print ("Server hangs and does not answer connection requests", file=sys.stderr)
+        serverProcess.kill()
