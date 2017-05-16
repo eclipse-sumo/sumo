@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr  3 12:20:58 2017 by SUMO Version dev-SVN-r23771
+<!-- generated on Tue May 16 11:09:41 2017 by SUMO Version dev-SVN-r24301
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -79,7 +79,7 @@
     <change id="cars.18" time="220.00" from="end_0" to="end_1" dir="1" speed="11.63" reason="sublane" latGap="None"/>
     <change id="cars.12" time="222.00" from="end_0" to="end_1" dir="1" speed="15.54" reason="sublane" latGap="None"/>
     <change id="cars.18" time="227.00" from="end_1" to="end_0" dir="-1" speed="11.60" reason="sublane" latGap="None"/>
-    <change id="cars.13" time="227.00" from="end_1" to="end_0" dir="-1" speed="8.05" reason="sublane" latGap="None"/>
+    <change id="cars.13" time="227.00" from="end_1" to="end_0" dir="-1" speed="8.05" reason="keepRight" latGap="None"/>
     <change id="cars.13" time="228.00" from="end_0" to="end_1" dir="1" speed="8.63" reason="speedGain" latGap="None"/>
     <change id="cars.13" time="231.00" from="end_1" to="end_0" dir="-1" speed="9.22" reason="sublane" latGap="None"/>
 </lanechanges>

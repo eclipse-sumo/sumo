@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 30 16:42:47 2016 by SUMO Version dev-SVN-r21359
+<!-- generated on Tue May 16 10:52:35 2017 by SUMO Version dev-SVN-r24301
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -20,6 +20,10 @@
         <end value="20"/>
     </time>
 
+    <processing>
+        <lateral-resolution value="0.64"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <duration-log.disable value="true"/>
@@ -30,5 +34,5 @@
 -->
 
 <lanechanges>
-    <change id="v0" time="7.00" from="beg_1" to="beg_0" dir="-1" speed="13.89" reason="keepRight"/>
+    <change id="v0" time="8.00" from="beg_1" to="beg_0" dir="-1" speed="13.89" reason="keepRight" latGap="None"/>
 </lanechanges>
