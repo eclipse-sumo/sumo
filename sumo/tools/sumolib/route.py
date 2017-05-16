@@ -17,6 +17,11 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 
+import os,sys
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
+from sumolib.miscutils import euclidean
 
 def _getMinPath(paths):
     minDist = 1e400
@@ -28,15 +33,20 @@ def _getMinPath(paths):
     return minPath
 
 
-def mapTrace(trace, net, delta):
+def mapTrace(trace, net, delta, verbose=False):
     """
     matching a list of 2D positions to consecutive edges in a network
     """
     result = []
     paths = {}
+    if verbose:
+        print("mapping trace with %s points" % len(trace))
     for pos in trace:
         newPaths = {}
-        for edge, d in net.getNeighboringEdges(pos[0], pos[1], delta):
+        candidates = net.getNeighboringEdges(pos[0], pos[1], delta)
+        if len(candidates) == 0 and verbose:
+            print("Found no candidate edges for %s,%s" % pos)
+        for edge, d in candidates:
             if paths:
                 minDist = 1e400
                 minPath = None
@@ -48,6 +58,11 @@ def mapTrace(trace, net, delta):
                         elif edge in path[-1].getOutgoing():
                             minPath = path + (edge,)
                             minDist = dist
+                        else:
+                            minPath = path + (edge,)
+                            minDist = dist + euclidean(
+                                    path[-1].getToNode().getCoord(),
+                                    edge.getFromNode().getCoord())
                 if minPath:
                     newPaths[minPath] = minDist + d * d
             else:
@@ -55,10 +70,8 @@ def mapTrace(trace, net, delta):
         if not newPaths:
             if paths:
                 result += [e.getID() for e in _getMinPath(paths)]
-                result.append("*")
-            if not result:
-                result.append("*")
         paths = newPaths
     if paths:
         return result + [e.getID() for e in _getMinPath(paths)]
     return result
+

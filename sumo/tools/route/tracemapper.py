@@ -38,6 +38,8 @@ if __name__ == "__main__":
                          type="float", help="maximum distance between edge and trace points")
     optParser.add_option("-o", "--output",
                          help="route output (mandatory)", metavar="FILE")
+    optParser.add_option("--geo", action="store_true",
+                         default=False, help="read trace with geo-coordinates")
     (options, args) = optParser.parse_args()
 
     if not options.output or not options.net:
@@ -50,10 +52,14 @@ if __name__ == "__main__":
     if options.verbose:
         print("Reading traces ...")
 
-    f = open(options.output, "w")
-    with open(options.trace) as traces:
-        for line in traces:
-            id, traceString = line.split(":")
-            trace = [map(float, pos.split(",")) for pos in traceString.split()]
-            print(sumolib.route.mapTrace(trace, net, options.delta), file=f)
-    f.close()
+    with open(options.output, "w") as outf:
+        outf.write('<routes>\n')
+        with open(options.trace) as traces:
+            for line in traces:
+                id, traceString = line.split(":")
+                trace = [map(float, pos.split(",")) for pos in traceString.split()]
+                if options.geo:
+                    trace = [net.convertLonLat2XY(*pos) for pos in trace]
+                edges = sumolib.route.mapTrace(trace, net, options.delta, options.verbose)
+                outf.write('    <route id="%s" edges="%s">\n' % (id, " ".join(edges)))
+        outf.write('</routes>\n')
