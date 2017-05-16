@@ -45,6 +45,7 @@ else:
 
 def traciLoop(port, traciEndTime, index):
     traci.init(port)
+    traci.setOrder(index)
     step = 0
     while not step > traciEndTime:
         traci.simulationStep()
