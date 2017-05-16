@@ -81,6 +81,8 @@ public:
      */
     void connect(const std::string& host, int port);
 
+    /// @brief set priority (execution order) for the client
+    void setOrder(int order);
 
     /// @brief ends the simulation and closes the connection
     void close();

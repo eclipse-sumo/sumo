@@ -76,6 +76,21 @@ TraCIAPI::connect(const std::string& host, int port) {
 
 
 void
+TraCIAPI::setOrder(int order) {
+    tcpip::Storage outMsg;
+    // command length
+    outMsg.writeUnsignedByte(1 + 1 + 4);
+    // command id
+    outMsg.writeUnsignedByte(CMD_SETORDER);
+    outMsg.writeInt(order);
+    // send request message
+    mySocket->sendExact(outMsg);
+    tcpip::Storage inMsg;
+    check_resultState(inMsg, CMD_SETORDER);
+}
+
+
+void
 TraCIAPI::close() {
     send_commandClose();
     tcpip::Storage inMsg;
