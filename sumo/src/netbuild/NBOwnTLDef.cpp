@@ -519,22 +519,8 @@ NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<N
 
 
 void
-NBOwnTLDef::collectNodes() {}
-
-
-void
 NBOwnTLDef::collectLinks() {
     collectAllLinks();
-}
-
-
-void
-NBOwnTLDef::setParticipantsInformation() {
-    // assign participating nodes to the request
-    collectNodes();
-    // collect the information about participating edges and links
-    collectEdges();
-    collectLinks();
 }
 
 

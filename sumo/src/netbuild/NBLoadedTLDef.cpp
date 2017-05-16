@@ -479,6 +479,15 @@ NBLoadedTLDef::mustBrake(const NBConnection& possProhibited,
 
 
 void
+NBLoadedTLDef::setParticipantsInformation() {
+    // assign participating nodes to the request
+    collectNodes();
+    // collect the information about participating edges and links
+    collectEdges();
+    collectLinks();
+}
+
+void
 NBLoadedTLDef::collectNodes() {
     myControlledNodes.clear();
     SignalGroupCont::const_iterator m;
@@ -493,6 +502,7 @@ NBLoadedTLDef::collectNodes() {
         }
     }
     std::sort(myControlledNodes.begin(), myControlledNodes.end(), NBNode::nodes_by_id_sorter());
+    std::cout << getID() << " collectNodes n=" << myControlledNodes.size() << "\n";
 }
 
 

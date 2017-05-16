@@ -328,6 +328,11 @@ protected:
      */
     NBTrafficLightLogic* myCompute(int brakingTimeSeconds);
 
+    /** @brief Builds the list of participating nodes/edges/links
+     * @see NBTrafficLightDefinition::setParticipantsInformation
+     */
+    void setParticipantsInformation();
+
 
     /** @brief Collects the nodes participating in this traffic light
      * @see NBTrafficLightDefinition::collectNodes

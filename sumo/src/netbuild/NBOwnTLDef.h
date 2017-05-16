@@ -87,12 +87,6 @@ public:
     ~NBOwnTLDef();
 
 
-    /** @brief Builds the list of participating nodes/edges/links
-     * @see NBTrafficLightDefinition::setParticipantsInformation
-     */
-    void setParticipantsInformation();
-
-
     /// @name Public methods from NBTrafficLightDefinition-interface
     /// @{
 
@@ -152,12 +146,6 @@ protected:
      * @see NBTrafficLightDefinition::myCompute
      */
     NBTrafficLightLogic* myCompute(int brakingTimeSeconds);
-
-
-    /** @brief Collects the nodes participating in this traffic light
-     * @see NBTrafficLightDefinition::collectNodes
-     */
-    void collectNodes();
 
 
     /** @brief Collects the links participating in this traffic light
