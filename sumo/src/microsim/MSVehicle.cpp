@@ -1842,7 +1842,7 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderIn
     const MSCFModel& cfModel = getCarFollowModel();
     double vsafeLeader = 0;
     if (leaderInfo.second >= 0) {
-        vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCarFollowModel().getMaxDecel());
+        vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCarFollowModel().getApparentDecel());
     } else {
         // the leading, in-lapping vehicle is occupying the complete next lane
         // stop before entering this lane
