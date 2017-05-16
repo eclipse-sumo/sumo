@@ -66,7 +66,7 @@ public:
      * @param[in] port The server port to connect to
      * @param[in] host The server name to connect to
      */
-    bool run(std::string fileName, int port, std::string host = "localhost");
+    int run(std::string fileName, int port, std::string host = "localhost");
 
 
 protected:

@@ -66,7 +66,7 @@ TraCITestClient::~TraCITestClient() {
 }
 
 
-bool
+int
 TraCITestClient::run(std::string fileName, int port, std::string host) {
     std::ifstream defFile;
     std::string fileContentStr;
@@ -83,7 +83,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
         std::stringstream msg;
         msg << "#Error while connecting: " << e.what();
         errorMsg(msg);
-        return false;
+        return 2;
     }
 
     // read definition file and trigger commands according to it
@@ -91,7 +91,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
     if (!defFile) {
         msg << "Can not open definition file " << fileName << std::endl;
         errorMsg(msg);
-        return false;
+        return 1;
     }
     defFile.unsetf(std::ios::dec);
 
@@ -165,13 +165,13 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             errorMsg(msg);
             commandClose();
             closeSocket();
-            return false;
+            return 1;
         }
     }
     defFile.close();
     commandClose();
     closeSocket();
-    return true;
+    return 0;
 }
 
 
@@ -671,7 +671,8 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
 void
 TraCITestClient::testAPI() {
     answerLog << "testAPI:\n";
-
+    answerLog << "  setOrder:\n";
+    setOrder(0);
     answerLog << "  edge:\n";
     answerLog << "    getIDList: " << joinToString(edge.getIDList(), " ") << "\n";
     answerLog << "    getIDCount: " << edge.getIDCount() << "\n";

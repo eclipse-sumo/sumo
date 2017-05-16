@@ -67,20 +67,28 @@ int main(int argc, char* argv[]) {
             host = argv[i + 1];
             i++;
         } else {
-            std::cout << "unknown parameter: " << argv[i] << std::endl;
+            std::cerr << "unknown parameter: " << argv[i] << std::endl;
             return 1;
         }
     }
 
     if (port == -1) {
-        std::cout << "Missing port" << std::endl;
+        std::cerr << "Missing port" << std::endl;
         return 1;
     }
     if (defFile.compare("") == 0) {
-        std::cout << "Missing definition file" << std::endl;
+        std::cerr << "Missing definition file" << std::endl;
         return 1;
     }
 
-    TraCITestClient client(outFileName);
-    return !client.run(defFile, port, host);
+    try {
+        TraCITestClient client(outFileName);
+        return client.run(defFile, port, host);
+    } catch (tcpip::SocketException& e) {
+        std::cerr << "Socket error running the test client: " << e.what();
+        return 1;
+    } catch (TraCIException& e) {
+        std::cerr << "TraCI error running the test client: " << e.what();
+        return 1;
+    }
 }
