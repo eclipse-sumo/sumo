@@ -19,3 +19,6 @@ double_connection
 
 # tests for merging behavior on acceleration lane
 onRamp
+
+# test effects of apparentDecel on lane changing
+apparentDecel
