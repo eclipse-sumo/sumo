@@ -1,0 +1,4 @@
+Error: The edge 'blub' within the route for vehicle 'veh0' is not known.
+ The route can not be build.
+Quitting (on error).
+Socket error running the test client: send failed: Socket reset by peerServer hangs and does not answer connection requests
