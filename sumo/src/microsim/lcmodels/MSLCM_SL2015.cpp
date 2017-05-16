@@ -1199,10 +1199,10 @@ MSLCM_SL2015::_wantsChangeSublane(
             }
             const double relativeGain = (vMin - defaultNextSpeed) / MAX2(vMin, RELGAIN_NORMALIZATION_MIN_SPEED);
             // @note this is biased for changing to the left since we compare the sublanes in ascending order
-            if (relativeGain > GAIN_PERCEPTION_THRESHOLD && relativeGain > maxGain) {
+            if (relativeGain > maxGain) {
                 maxGain = relativeGain;
-                sublaneCompact = i;
-                if (maxGain > 0) {
+                if (maxGain > GAIN_PERCEPTION_THRESHOLD) {
+                    sublaneCompact = i;
                     latDist = sublaneSides[i] - rightVehSide;
                     if (gDebugFlag2) {
                         std::cout << "      i=" << i << " newLatDist=" << latDist << " relGain=" << relativeGain << "\n";
@@ -1273,9 +1273,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                                  vMax, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())));
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - neighLead.first->getSpeed()));
             }
-            const double deltaProb = (myChangeProbThresholdRight
-                                      * STEPS2TIME(DELTA_T)
-                                      * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
+            const double deltaProb = (myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
             myKeepRightProbability += TS * deltaProb;
 
             if (gDebugFlag2) {
@@ -1352,7 +1350,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     }
 
     // only factor in preferred lateral alignment if there is no speedGain motivation
-    if (fabs(latDist) <= NUMERICAL_EPS) {
+    if (fabs(latDist) <= NUMERICAL_EPS * TS) {
         double latDistSublane = 0.;
         const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
         const double halfVehWidth = myVehicle.getVehicleType().getWidth() * 0.5;
@@ -1428,7 +1426,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         // XXX first compute preferred adaptation and then override with speed
         // (this way adaptation is still done if changing for speedgain is
         // blocked)
-        if (fabs(latDist) >= NUMERICAL_EPS) {
+        if (fabs(latDist) >= NUMERICAL_EPS * TS) {
             if (gDebugFlag2) std::cout << SIMTIME
                                            << " adapting to preferred alignment=" << toString(myVehicle.getVehicleType().getPreferredLateralAlignment())
                                            << " latDist=" << latDist
@@ -1653,13 +1651,13 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
         std::cout << "    checkBlocking latDist=" << latDist << " surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n";
     }
     if (latDist < 0) {
-        if (surplusGapRight <= NUMERICAL_EPS) {
+        if (surplusGapRight <= NUMERICAL_EPS * TS) {
             return LCA_BLOCKED_RIGHT | LCA_OVERLAPPING;
         } else {
             latDist = MAX2(latDist, -surplusGapRight);
         }
     } else {
-        if (surplusGapLeft <= NUMERICAL_EPS) {
+        if (surplusGapLeft <= NUMERICAL_EPS * TS) {
             return LCA_BLOCKED_LEFT | LCA_OVERLAPPING;
         } else {
             latDist = MIN2(latDist, surplusGapLeft);
@@ -2187,13 +2185,13 @@ MSLCM_SL2015::keepLatGap(int state,
     }
     // if we cannot move in the desired direction, consider the maneuver blocked anyway
     if ((state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN)) != 0) {
-        if ((latDist < -NUMERICAL_EPS) && (oldLatDist > NUMERICAL_EPS)) {
+        if ((latDist < -NUMERICAL_EPS * TS) && (oldLatDist > NUMERICAL_EPS * TS)) {
             if (gDebugFlag2) {
                 std::cout << "     wanted changeToLeft oldLatDist=" << oldLatDist << ", blocked latGap changeToRight\n";
             }
             latDist = oldLatDist; // restore old request for usage in decideDirection()
             blocked = LCA_OVERLAPPING | LCA_BLOCKED_LEFT;
-        } else if ((latDist > NUMERICAL_EPS) && (oldLatDist < -NUMERICAL_EPS)) {
+        } else if ((latDist > NUMERICAL_EPS * TS) && (oldLatDist < -NUMERICAL_EPS * TS)) {
             if (gDebugFlag2) {
                 std::cout << "     wanted changeToRight oldLatDist=" << oldLatDist << ", blocked latGap changeToLeft\n";
             }
@@ -2202,7 +2200,7 @@ MSLCM_SL2015::keepLatGap(int state,
         }
     }
     // update blocked status
-    if (fabs(latDist - oldLatDist) > NUMERICAL_EPS) {
+    if (fabs(latDist - oldLatDist) > NUMERICAL_EPS * TS) {
         if (gDebugFlag2) {
             std::cout << "     latDistUpdated=" << (oldLatDist - latDist) << "\n";
         }
