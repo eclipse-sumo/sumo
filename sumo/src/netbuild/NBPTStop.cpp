@@ -99,6 +99,6 @@ void NBPTStop::reshiftPostion(const double offsetX, const double offsetY) {
     myPosition.add(offsetX, offsetY, 0);
 
 }
-const SVCPermissions NBPTStop::getPermissions() {
+SVCPermissions NBPTStop::getPermissions() {
     return myPermissions;
 }

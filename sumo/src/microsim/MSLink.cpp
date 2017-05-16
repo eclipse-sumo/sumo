@@ -578,12 +578,12 @@ MSLink::getLengthsBeforeCrossing(const MSLane* foeLane) const {
 double
 MSLink::getLengthBeforeCrossing(const MSLane* foeLane) const {
     int foe_ix;
-    for (foe_ix = 0; foe_ix != myFoeLanes.size(); ++foe_ix){
+    for (foe_ix = 0; foe_ix != (int)myFoeLanes.size(); ++foe_ix){
         if (myFoeLanes[foe_ix] == foeLane) {
             break;
         }
     }
-    if (foe_ix == myFoeLanes.size()) {
+    if (foe_ix == (int)myFoeLanes.size()) {
         // no conflict with the given lane, indicate by returning -1
 #ifdef MSLink_DEBUG_CROSSING_POINTS
     std::cout << "No crossing of lanes '" << foeLane->getID() << "' and '" << myInternalLaneBefore->getID() << "'" << std::endl;
@@ -626,16 +626,12 @@ MSLink*
 MSLink::getCorrespondingExitLink() const {
     MSLane* lane = myInternalLane;
     MSLink* link = 0;
-    while (true){
-        if (lane == 0) {
-            return link;
-        } else {
-            link = lane->getLinkCont()[0];
-            lane = link->getViaLane();
-        }
+    while (lane != 0) {
+        link = lane->getLinkCont()[0];
+        lane = link->getViaLane();
     }
+    return link;
 }
-
 
 
 bool

@@ -62,7 +62,7 @@ public:
     const std::string getOrigEdgeId();
     const std::string getName();
     const Position& getPosition();
-    const SVCPermissions getPermissions();
+    SVCPermissions getPermissions();
     void computExtent(double center, double d);
     void setLaneID(const std::string& laneId);
     void write(OutputDevice& device);
