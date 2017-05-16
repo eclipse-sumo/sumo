@@ -16,6 +16,7 @@ copy_test_path:input_routes2.rou.xml
 copy_test_path:input_flows.flows.xml
 copy_test_path:input_detectors.det.xml
 copy_test_path:tracefile.xml
+copy_test_path:tracefile.txt
 copy_test_path:input_weights.dump.xml
 copy_test_path:e2_output.xml
 copy_test_path:costFunction.py
