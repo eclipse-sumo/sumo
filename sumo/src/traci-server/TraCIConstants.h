@@ -350,7 +350,8 @@
 #define INVALID_DOUBLE_VALUE -1001.
 // return value for invalid queries (especially vehicle is not on the road)
 #define INVALID_INT_VALUE -1
-
+// maximum value for client ordering (2 ^ 30 - 1)
+#define MAX_ORDER 1073741823
 
 // ****************************************
 // TRAFFIC LIGHT PHASES

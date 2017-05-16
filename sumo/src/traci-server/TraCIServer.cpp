@@ -157,7 +157,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
             WRITE_MESSAGE("***Starting server on port " + toString(port) + " ***");
             myServerSocket = new tcpip::Socket(port);
             while ((int)mySockets.size() < numClients) {
-                mySockets[(int)mySockets.size() - numClients] = myServerSocket->accept(true);
+                mySockets[(int)mySockets.size() + MAX_ORDER + 1] = myServerSocket->accept(true);
             }
             // When got here, all clients have connected
             myCurrentSocket = mySockets.begin();
@@ -460,7 +460,7 @@ TraCIServer::dispatchCommand() {
             case CMD_SIMSTEP: {
                 SUMOTime nextT = myInputStorage.readInt();
                 success = true;
-                if (mySockets.size() > 1 && myCurrentSocket->first < 0) {
+                if (mySockets.size() > 1 && myCurrentSocket->first > MAX_ORDER) {
                     WRITE_WARNING("Unordered client found.");
                 }
                 myCurrentSocket++;
@@ -497,8 +497,8 @@ TraCIServer::dispatchCommand() {
                 break;
             case CMD_SETORDER: {
                 const int order = myInputStorage.readInt();
-                if (order < 0) {
-                    return writeErrorStatusCmd(CMD_SETORDER, "A set order command needs a non negative int argument.", myOutputStorage);
+                if (order > MAX_ORDER) {
+                    return writeErrorStatusCmd(CMD_SETORDER, "A set order command needs an int argument below " + toString(MAX_ORDER) + ".", myOutputStorage);
                 }
                 if (mySockets.count(order) > 0) {
                     return writeErrorStatusCmd(CMD_SETORDER, "Order '" + toString(order) + "' is already taken.", myOutputStorage);
@@ -507,6 +507,7 @@ TraCIServer::dispatchCommand() {
                 mySockets.erase(myCurrentSocket->first);
                 myCurrentSocket = mySockets.find(order);
                 success = true;
+                writeStatusCmd(CMD_SETORDER, RTYPE_OK, "");
                 break;
             }
             case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
