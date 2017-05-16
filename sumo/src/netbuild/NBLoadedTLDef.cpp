@@ -502,7 +502,6 @@ NBLoadedTLDef::collectNodes() {
         }
     }
     std::sort(myControlledNodes.begin(), myControlledNodes.end(), NBNode::nodes_by_id_sorter());
-    std::cout << getID() << " collectNodes n=" << myControlledNodes.size() << "\n";
 }
 
 
