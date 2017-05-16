@@ -51,23 +51,26 @@ public:
      * @param[in] accel The maximum acceleration
      * @param[in] decel The maximum deceleration
      * @param[in] emergencyDecel The maximum emergency deceleration
+     * @param[in] apparentDecel The deceleration as expected by others
      * @param[in] headwayTime the headway gap
      * @param[in] delta a model constant
      * @param[in] internalStepping internal time step size
      */
-    MSCFModel_IDM(const MSVehicleType* vtype, double accel, double decel, double emergencyDecel,
+    MSCFModel_IDM(const MSVehicleType* vtype, double accel, double decel, double emergencyDecel, double apparentDecel,
                   double headwayTime, double delta, double internalStepping);
 
 
     /** @brief Constructor
      * @param[in] accel The maximum acceleration
      * @param[in] decel The maximum deceleration
+     * @param[in] emergencyDecel The maximum emergency deceleration
+     * @param[in] apparentDecel The deceleration as expected by others
      * @param[in] headwayTime the headway gap
      * @param[in] adaptationFactor a model constant
      * @param[in] adaptationTime a model constant
      * @param[in] internalStepping internal time step size
      */
-    MSCFModel_IDM(const MSVehicleType* vtype, double accel, double decel, double emergencyDecel,
+    MSCFModel_IDM(const MSVehicleType* vtype, double accel, double decel, double emergencyDecel, double apparentDecel,
                   double headwayTime, double adaptationFactor, double adaptationTime,
                   double internalStepping);
 

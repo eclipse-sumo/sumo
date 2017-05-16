@@ -40,8 +40,10 @@
 // method definitions
 // ===========================================================================
 MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype, double accel,
-                                   double decel, double emergencyDecel, double headwayTime, double k, double phi) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, decel, headwayTime), myK(k), myPhi(phi),
+                                   double decel, double emergencyDecel, double apparentDecel,
+                                   double headwayTime, double k, double phi) :
+    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), 
+    myK(k), myPhi(phi),
     myTauDecel(decel * headwayTime) {
 }
 
@@ -96,5 +98,5 @@ MSCFModel_Kerner::_v(const MSVehicle* const veh, double speed, double vfree, dou
 
 MSCFModel*
 MSCFModel_Kerner::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_Kerner(vtype, myAccel, myDecel, myEmergencyDecel, myHeadwayTime, myK, myPhi);
+    return new MSCFModel_Kerner(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, myHeadwayTime, myK, myPhi);
 }

@@ -41,10 +41,10 @@
 // method definitions
 // ===========================================================================
 MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
-                             double accel, double decel, double emergencyDecel,
+                             double accel, double decel, double emergencyDecel, double apparentDecel,
                              double headwayTime, double delta,
                              double internalStepping) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, decel, headwayTime), myDelta(delta),
+    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), myDelta(delta),
     myAdaptationFactor(1.), myAdaptationTime(0.),
     myIterations(MAX2(1, int(TS / internalStepping + .5))),
     myTwoSqrtAccelDecel(double(2 * sqrt(accel * decel))) {
@@ -52,11 +52,11 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
 
 
 MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
-                             double accel, double decel, double emergencyDecel,
+                             double accel, double decel, double emergencyDecel, double apparentDecel,
                              double headwayTime,
                              double adaptationFactor, double adaptationTime,
                              double internalStepping) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, decel, headwayTime), myDelta(4.),
+    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), myDelta(4.),
     myAdaptationFactor(adaptationFactor), myAdaptationTime(adaptationTime),
     myIterations(MAX2(1, int(TS / internalStepping + .5))),
     myTwoSqrtAccelDecel(double(2 * sqrt(accel * decel))) {
@@ -138,5 +138,5 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
 
 MSCFModel*
 MSCFModel_IDM::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_IDM(vtype, myAccel, myDecel, myEmergencyDecel, myHeadwayTime, myDelta, TS / myIterations);
+    return new MSCFModel_IDM(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, myHeadwayTime, myDelta, TS / myIterations);
 }

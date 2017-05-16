@@ -40,10 +40,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype,  double accel, double decel,
-                                       double emergencyDecel,
+MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype,  double accel, 
+                                       double decel, double emergencyDecel, double apparentDecel,
                                        double dawdle, double headwayTime, double tauLast, double apProb) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, decel, headwayTime), myDawdle(dawdle),
+    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), myDawdle(dawdle),
     myTauDecel(decel * headwayTime),
     myDecelDivTau(decel / headwayTime),
     myTauLastDecel(decel * tauLast),
@@ -141,5 +141,6 @@ MSCFModel_PWag2009::dawdle(double speed) const {
 
 MSCFModel*
 MSCFModel_PWag2009::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_PWag2009(vtype, myAccel, myDecel, myEmergencyDecel, myDawdle, myHeadwayTime, myTauLastDecel / myDecel, myActionPointProbability);
+    return new MSCFModel_PWag2009(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, 
+            myDawdle, myHeadwayTime, myTauLastDecel / myDecel, myActionPointProbability);
 }

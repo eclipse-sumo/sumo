@@ -53,9 +53,9 @@ const double MSCFModel_Wiedemann::D_MAX = 150;
 // method definitions
 // ===========================================================================
 MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype,
-        double accel, double decel, double emergencyDecel,
+        double accel, double decel, double emergencyDecel, double apparentDecel,
         double security, double estimation) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, decel, 1.0),
+    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, 1.0),
     mySecurity(security),
     myEstimation(estimation),
     myAX(vtype->getLength() + 1. + 2. * security),
@@ -103,7 +103,7 @@ MSCFModel_Wiedemann::interactionGap(const MSVehicle* const , double vL) const {
 
 MSCFModel*
 MSCFModel_Wiedemann::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_Wiedemann(vtype, myAccel, myDecel, myEmergencyDecel, mySecurity, myEstimation);
+    return new MSCFModel_Wiedemann(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, mySecurity, myEstimation);
 }
 
 
