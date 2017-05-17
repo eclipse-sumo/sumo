@@ -327,6 +327,7 @@ for i in range(3):
     checkOffRoad(tele)
     print("step", step())
 # moveToXY to off-route edge
+print("bus waiting time", traci.vehicle.getWaitingTime("bus"))
 moved = "movedVeh"
 traci.vehicle.add(moved, "vertical")
 print("step", step())
