@@ -4,12 +4,6 @@ help
 # Tests --version
 version
 
-# Tests full template writing
-write_template_full
-
-# Tests commented, full template writing
-write_template_commented_full
-
 # Tests configuration writing
 write_config
 
