@@ -455,15 +455,38 @@ GNEEdge::remakeGNELanes() {
 
 void
 GNEEdge::remakeGNEConnections() {
-    // @note: this method may only be called once the whole network is initialized
-    // clear existent connections
-    clearGNEConnections();
-    // Create connections
-    for (std::vector<NBEdge::Connection>::iterator i = myNBEdge.getConnections().begin(); i != myNBEdge.getConnections().end(); i++) {
-        myGNEConnections.push_back(retrieveGNEConnection(i->fromLane, i->toEdge, i->toLane));
-        myGNEConnections.back()->incRef("GNEEdge::GNEEdge");
-        myGNEConnections.back()->updateLinkState();
+    // create new and removed unused GNEConnectinos
+    const std::vector<NBEdge::Connection>& connections = myNBEdge.getConnections();
+    // create a vector to keep retrieved and created connections
+    std::vector<GNEConnection*> retrievedConnections;
+    // iterate over NBEdge::Connections of GNEEdge
+    for (std::vector<NBEdge::Connection>::const_iterator it = connections.begin(); it != connections.end(); it++) {
+        // retrieve existent GNEConnection, or create it
+        GNEConnection* retrievedGNEConnection = retrieveGNEConnection(it->fromLane, it->toEdge, it->toLane);
+        retrievedConnections.push_back(retrievedGNEConnection);
+        // check if previously this GNEConnections exists, and if true, remove it from myGNEConnections
+        std::vector<GNEConnection*>::iterator retrievedExists = std::find(myGNEConnections.begin(), myGNEConnections.end(), retrievedGNEConnection);
+        if(retrievedExists != myGNEConnections.end()) {
+            myGNEConnections.erase(retrievedExists);
+        } else {
+            // include reference to created GNEConnection
+            retrievedGNEConnection->incRef("GNEEdge::remakeGNEConnections");
+            retrievedGNEConnection->updateLinkState();
+        }
     }
+    // delete non retrieved GNEConnections
+    for (std::vector<GNEConnection*>::const_iterator it = myGNEConnections.begin(); it != myGNEConnections.end(); it++) {
+        (*it)->decRef();
+        if ((*it)->unreferenced()) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+                WRITE_WARNING("Deleting unreferenced " + toString((*it)->getTag()) + " '" + (*it)->getID() + "' in rebuildGNEConnections()");
+            }
+            delete *it;
+        }
+    }
+    // copy retrieved (existent and created) GNECrossigns to myGNEConnections 
+    myGNEConnections = retrievedConnections;
 }
 
 
@@ -475,6 +498,10 @@ GNEEdge::clearGNEConnections() {
         (*i)->decRef("GNEEdge::clearGNEConnections");
         // Delete GNEConnectionToErase if is unreferenced
         if ((*i)->unreferenced()) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+                WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in clearGNEConnections()");
+            }
             delete(*i);
         }
     }
