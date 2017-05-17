@@ -134,6 +134,7 @@ output:Building scenario in.*{REPLACE Building scenario in <DIR>}
 output:^Performance:{->}^Vehicles:
 output:instance at 0x[0-9A-Fa-f]+{REPLACE instance at <ADDRESS>}
 output:Written configuration to .*{REPLACE Written configuration to <PATH>}
+output:Warning: Module 'rtree' not available. Using brute-force fallback
 trips:<!-- generated on
 osmtrips:<!-- generated on
 districts:<!-- generated on
