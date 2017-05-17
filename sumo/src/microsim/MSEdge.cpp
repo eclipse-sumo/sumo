@@ -475,7 +475,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
             if (veh.getRoute().size() == 1) {
                 return getFreeLane(0, veh.getVehicleType().getVehicleClass(), getDepartPosBound(veh, false));
             } else {
-                return getFreeLane(allowedLanes(**(veh.getRoute().begin() + 1)), veh.getVehicleType().getVehicleClass(), getDepartPosBound(veh, false));
+                return getFreeLane(allowedLanes(**(veh.getRoute().begin() + 1), veh.getVehicleType().getVehicleClass()), veh.getVehicleType().getVehicleClass(), getDepartPosBound(veh, false));
             }
         case DEPART_LANE_BEST_FREE: {
             veh.updateBestLanes(false, myLanes->front());
