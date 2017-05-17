@@ -72,6 +72,8 @@ void GNEChange_Crossing::undo() {
         }
         // remove crossing of NBNode
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
+        // rebuild GNECrossings
+        myJunctionParent->rebuildGNECrossings();
         // Update view
         myNet->getViewNet()->update();
     } else {
@@ -82,12 +84,14 @@ void GNEChange_Crossing::undo() {
         }
         // add crossing of NBNode
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, mySelected);
+        // rebuild GNECrossings
+        myJunctionParent->rebuildGNECrossings();
         // check if created GNECrossing must be selected
         if(mySelected == true) {
             // iterate over GNECrossing of junction to find GNECrossing and select it
             for(std::vector<GNECrossing*>::const_iterator i = myJunctionParent->getGNECrossings().begin(); i != myJunctionParent->getGNECrossings().end(); i++) {
                 NBNode::Crossing crossingFromJunction = (*i)->getNBCrossing();
-                if((crossingFromJunction.edges == myEdges) && (crossingFromJunction.width == myWidth) && (crossingFromJunction.priority == myPriority)) {
+                if(crossingFromJunction.edges == myEdges) {
                     gSelected.select((*i)->getGlID());
                 }
             }
@@ -107,13 +111,14 @@ void GNEChange_Crossing::redo() {
         }
         // add crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
-        myJunctionParent->updateGeometry();
+        // rebuild GNECrossings
+        myJunctionParent->rebuildGNECrossings();
         // check if created GNECrossing must be selected
         if(mySelected == true) {
             // iterate over GNECrossing of junction to find GNECrossing and select it
             for(std::vector<GNECrossing*>::const_iterator i = myJunctionParent->getGNECrossings().begin(); i != myJunctionParent->getGNECrossings().end(); i++) {
                 NBNode::Crossing crossingFromJunction = (*i)->getNBCrossing();
-                if((crossingFromJunction.edges == myEdges) && (crossingFromJunction.width == myWidth) && (crossingFromJunction.priority == myPriority)) {
+                if(crossingFromJunction.edges == myEdges) {
                     gSelected.select((*i)->getGlID());
                 }
             }
@@ -127,7 +132,8 @@ void GNEChange_Crossing::redo() {
         }
         // remove crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
-        myJunctionParent->updateGeometry();
+        // rebuild GNECrossings
+        myJunctionParent->rebuildGNECrossings();
         // Update view
         myNet->getViewNet()->update();
     }
