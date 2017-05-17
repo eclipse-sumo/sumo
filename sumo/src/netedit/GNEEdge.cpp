@@ -1067,7 +1067,13 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
         }
     }
     if(createIfNoExist == true) {
-        return new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
+        // create new connection
+        GNEConnection *createdConnection = new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+            WRITE_WARNING("Created " + toString(createdConnection->getTag()) + " '" + createdConnection->getID() + "' in retrieveGNEConnection()");
+        }
+        return createdConnection;
     } else {
         return NULL;
     }
