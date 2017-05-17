@@ -22,6 +22,9 @@ lane_best_3veh
 # checks using a free allowed lane (3 vehicles)
 lane_allowed_3veh
 
+# checks using a free allowed lane on a multimodal edge (3 vehicles)
+lane_allowed_3veh_multimodal
+
 # checks using the given lane (lane 0)
 lane_given0
 
