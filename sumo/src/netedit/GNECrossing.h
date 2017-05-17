@@ -54,9 +54,9 @@ public:
 
     /**@brief Constructor
      * @param[in] parentJunction GNEJunction in which this crossing is placed
-     * @param[in] id The id of the crossing (inmutable)
+     * @param[in] crossing Node::Crossing
      */
-    GNECrossing(GNEJunction* parentJunction, const std::string& id);
+    GNECrossing(GNEJunction* parentJunction, NBNode::Crossing& crossing);
 
     /// @brief Destructor
     virtual ~GNECrossing();

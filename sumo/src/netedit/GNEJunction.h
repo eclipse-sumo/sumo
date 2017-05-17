@@ -222,8 +222,8 @@ public:
     /// @brief whether this junction has a valid logic
     bool isLogicValid();
 
-    /// @brief drop crossings
-    void dropGNECrossings();
+    /// @brief get GNECrossing if exist, and if not create it if create is enabled
+    GNECrossing* retrieveGNECrossing(NBNode::Crossing &crossing, bool createIfNoExist = true);
 
 private:
     /// @brief A reference to the represented junction

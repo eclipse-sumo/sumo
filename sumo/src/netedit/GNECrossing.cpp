@@ -55,10 +55,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNECrossing::GNECrossing(GNEJunction* parentJunction, const std::string& id) :
-    GNENetElement(parentJunction->getNet(), id, GLO_CROSSING, SUMO_TAG_CROSSING, ICON_CROSSING),
+GNECrossing::GNECrossing(GNEJunction* parentJunction, NBNode::Crossing& crossing) :
+    GNENetElement(parentJunction->getNet(), crossing.id, GLO_CROSSING, SUMO_TAG_CROSSING, ICON_CROSSING),
     myParentJunction(parentJunction),
-    myCrossing(parentJunction->getNBNode()->getCrossingRef(id)) {
+    myCrossing(crossing) {
     // Update geometry
     updateGeometry();
 }

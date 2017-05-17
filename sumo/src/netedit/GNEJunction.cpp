@@ -78,10 +78,25 @@ GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
 
 
 GNEJunction::~GNEJunction() {
+    // delete all GNECrossing
+    for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
+        (*it)->decRef();
+        if ((*it)->unreferenced()) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+                WRITE_WARNING("Deleting unreferenced " + toString((*it)->getTag()) + " '" + (*it)->getID() + "' in GNEJunction destructor");
+            }
+            delete *it;
+        }
+    }
+    
     if (myAmResponsible) {
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+            WRITE_WARNING("Deleting NBNode of '" + getID() + "' in GNEJunction destructor");
+        }
         delete &myNBNode;
     }
-    dropGNECrossings();
 }
 
 
@@ -97,25 +112,51 @@ GNEJunction::updateGeometry() {
         myBoundary.add(myNBNode.getShape().getBoxBoundary());
     }
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
+    // rebuild GNECrossings
     rebuildGNECrossings();
 }
 
 
 void
 GNEJunction::rebuildGNECrossings() {
-    // drop existent GNECrossings
-    dropGNECrossings();
     // rebuild GNECrossings only if create crossings and walkingAreas in net is enabled
     if (myNet->getNetBuilder()->haveNetworkCrossings() == true) {
-        // build new NBNode::Crossings and walking areas and create GNECrossings
+        // build new NBNode::Crossings and walking areas
         myNBNode.buildCrossingsAndWalkingAreas();
         const std::vector<NBNode::Crossing>& crossings = myNBNode.getCrossings();
+        // create a vector to keep retrieved and created crossings
+        std::vector<GNECrossing*> retrievedCrossings;
+        // iterate over NBNode::Crossings of GNEJunction
         for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
-            myGNECrossings.push_back(new GNECrossing(this, (*it).id));
-            myGNECrossings.back()->incRef();
+            // retrieve existent GNECrossing, or create it
+            GNECrossing* retrievedGNECrossing = retrieveGNECrossing(myNBNode.getCrossingRef(it->id));
+            retrievedCrossings.push_back(retrievedGNECrossing);
+            // check if previously this GNECrossings exists, and if true, remove it from myGNECrossings
+            std::vector<GNECrossing*>::iterator retrievedExists = std::find(myGNECrossings.begin(), myGNECrossings.end(), retrievedGNECrossing);
+            if(retrievedExists != myGNECrossings.end()) {
+                myGNECrossings.erase(retrievedExists);
+            } else {
+                // include reference to created GNECrossing
+                retrievedGNECrossing->incRef();
+            }
         }
+         // delete non retrieved GNECrossings
+        for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
+            (*it)->decRef();
+            if ((*it)->unreferenced()) {
+                // show extra information for tests
+                if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+                    WRITE_WARNING("Deleting unreferenced " + toString((*it)->getTag()) + " '" + (*it)->getID() + "' in rebuildGNECrossings()");
+                }
+                delete *it;
+            }
+        }
+        // copy retrieved (existent and created) GNECrossigns to myGNECrossings 
+        myGNECrossings = retrievedCrossings;
     }
 }
+
+
 
 
 GUIGLObjectPopupMenu*
@@ -507,6 +548,7 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
         undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status), true);
         invalidateTLS(undoList);
     } else {
+        // logic valed, then rebuild GNECrossings to adapt it to the new logic
         rebuildGNECrossings();
     }
 }
@@ -576,20 +618,24 @@ GNEJunction::isLogicValid() {
 }
 
 
-void
-GNEJunction::dropGNECrossings() {
-    // delete all GNECrossing
-    for (std::vector<GNECrossing*>::const_iterator it = myGNECrossings.begin(); it != myGNECrossings.end(); it++) {
-        (*it)->decRef();
-        if ((*it)->unreferenced()) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
-                WRITE_WARNING("Deleting unreferenced " + toString((*it)->getTag()) + " '" + (*it)->getID() + "' in dropGNECrossings()");
-            }
-            delete *it;
+GNECrossing* 
+GNEJunction::retrieveGNECrossing(NBNode::Crossing &crossing, bool createIfNoExist) {
+    for (std::vector<GNECrossing*>::iterator i = myGNECrossings.begin(); i != myGNECrossings.end(); ++i) {
+        if ((*i)->getNBCrossing().edges == crossing.edges) {
+            return *i;
         }
     }
-    myGNECrossings.clear();
+    if(createIfNoExist == true) {
+        // create new GNECrossing
+        GNECrossing* createdGNECrossing = new GNECrossing(this, crossing);
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+            WRITE_WARNING("Created " + toString(createdGNECrossing->getTag()) + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");
+        }
+        return createdGNECrossing;
+    } else {
+        return NULL;
+    }
 }
 
 
