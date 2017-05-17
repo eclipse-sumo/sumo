@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain3.nod.xml"/>
+        <edge-files value="input_plain3.edg.xml"/>
+        <connection-files value="input_plain3.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net3.net.xml"/>
+    </output>
+
+</configuration>
