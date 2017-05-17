@@ -135,6 +135,8 @@ GNEJunction::rebuildGNECrossings() {
             std::vector<GNECrossing*>::iterator retrievedExists = std::find(myGNECrossings.begin(), myGNECrossings.end(), retrievedGNECrossing);
             if(retrievedExists != myGNECrossings.end()) {
                 myGNECrossings.erase(retrievedExists);
+                // update geometry of retrieved crossing
+                retrievedGNECrossing->updateGeometry();
             } else {
                 // include reference to created GNECrossing
                 retrievedGNECrossing->incRef();
