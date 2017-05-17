@@ -19,6 +19,7 @@ copy_test_path:input_meso_state.xml
 
 [collate_file]
 detector:detector.xml
+detector2:detector2.xml
 summary:summary.xml
 aggregated1:aggregated_1.xml
 aggregated15:aggregated_15.xml
@@ -83,6 +84,7 @@ output:--python-script
 output:--osg-view{LINES 2}
 calibrator_log:<!--{[->]}-->
 detector:<!--{[->]}-->
+detector2:<!--{[->]}-->
 summary:<!--{[->]}-->
 aggregated1:<!--{[->]}-->
 aggregated15:<!--{[->]}-->
@@ -153,6 +155,7 @@ lanechanges:<!--{[->]}-->
 [floating_point_tolerance]
 output:0.0101
 detector:0.0101
+detector2:0.0101
 summary:0.0101
 aggregated1:0.0101
 aggregated15:0.0101
