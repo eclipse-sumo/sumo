@@ -1,4 +1,20 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Created connection '5_1 -> 4_1' in retrieveGNEConnection()
+Warning: Created connection '5_1 -> 2_1' in retrieveGNEConnection()
+Warning: Created connection '5_2 -> 2_2' in retrieveGNEConnection()
+Warning: Created connection '5_2 -> 3_2' in retrieveGNEConnection()
+Warning: Created connection '6_1 -> 3_1' in retrieveGNEConnection()
+Warning: Created connection '6_1 -> 1_1' in retrieveGNEConnection()
+Warning: Created connection '6_2 -> 1_2' in retrieveGNEConnection()
+Warning: Created connection '6_2 -> 4_2' in retrieveGNEConnection()
+Warning: Created connection '7_1 -> 1_1' in retrieveGNEConnection()
+Warning: Created connection '7_1 -> 4_1' in retrieveGNEConnection()
+Warning: Created connection '7_2 -> 4_2' in retrieveGNEConnection()
+Warning: Created connection '7_2 -> 2_2' in retrieveGNEConnection()
+Warning: Created connection '8_1 -> 2_1' in retrieveGNEConnection()
+Warning: Created connection '8_1 -> 3_1' in retrieveGNEConnection()
+Warning: Created connection '8_2 -> 3_2' in retrieveGNEConnection()
+Warning: Created connection '8_2 -> 1_2' in retrieveGNEConnection()
 Warning: Deleting unreferenced edge '1' in GNENet destructor
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor

@@ -38,79 +38,87 @@ Warning: Deleting unreferenced lane 'gneE6_0' in remakeGNELanes()
 Warning: Deleting unreferenced lane 'gneE7_0' in remakeGNELanes()
 Warning: Deleting unreferenced lane 'gneE8_0' in remakeGNELanes()
 Warning: Deleting unreferenced lane 'gneE9_0' in remakeGNELanes()
-Warning: Deleting unreferenced crossing ':gneJ11_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ11_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ11_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ12_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ13_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ13_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ13_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ14_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ15_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ15_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ15_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ16_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ17_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ17_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ17_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ18_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c3' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ6_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ7_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ8_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ9_c0' in dropGNECrossings()
+Warning: Created connection '-gneE10_1 -> -gneE9_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE10_1 -> -gneE17_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE11_1 -> -gneE10_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE12_1 -> -gneE11_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE12_1 -> -gneE18_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE13_1 -> -gneE12_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE14_1 -> -gneE13_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE14_1 -> -gneE19_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE15_1 -> -gneE14_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE16_1 -> gneE19_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE16_1 -> gneE18_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE16_1 -> gneE17_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE17_1 -> gneE16_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE17_1 -> gneE19_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE17_1 -> gneE18_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE18_1 -> gneE17_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE18_1 -> gneE16_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE18_1 -> gneE19_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE19_1 -> gneE18_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE19_1 -> gneE17_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE19_1 -> gneE16_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE3_1 -> gneE3_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE4_1 -> -gneE7_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE5_1 -> -gneE4_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE6_1 -> -gneE5_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE7_1 -> -gneE6_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE8_1 -> -gneE15_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE8_1 -> -gneE16_1' in retrieveGNEConnection()
+Warning: Created connection '-gneE9_1 -> -gneE8_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_1 -> gneE2_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE10_1 -> gneE11_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE11_1 -> -gneE18_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE11_1 -> gneE12_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE12_1 -> gneE13_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE13_1 -> -gneE19_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE13_1 -> gneE14_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE14_1 -> gneE15_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE15_1 -> -gneE16_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE15_1 -> gneE8_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE16_1 -> gneE8_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE16_1 -> -gneE15_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE17_1 -> gneE10_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE17_1 -> -gneE9_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE18_1 -> gneE12_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE18_1 -> -gneE11_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE19_1 -> gneE14_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE19_1 -> -gneE13_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE2_1 -> gneE1_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE3_1 -> -gneE3_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE4_1 -> gneE5_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE5_1 -> gneE6_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE6_1 -> gneE7_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE7_1 -> gneE4_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE8_1 -> gneE9_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE9_1 -> -gneE17_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE9_1 -> gneE10_1' in retrieveGNEConnection()
+Warning: Created crossing ':gneJ11_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ11_c1' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ11_c2' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ12_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ13_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ13_c1' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ13_c2' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ14_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ15_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ15_c1' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ15_c2' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ16_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ17_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ17_c1' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ17_c2' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ18_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ19_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ19_c1' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ19_c2' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ19_c3' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ6_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ7_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ8_c0' in retrieveGNECrossing()
+Warning: Created crossing ':gneJ9_c0' in retrieveGNECrossing()
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
-Warning: Deleting unreferenced crossing ':gneJ11_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ11_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ11_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ11_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ11_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ11_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ12_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ12_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ13_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ13_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ13_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ13_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ13_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ13_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ14_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ14_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ15_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ15_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ15_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ15_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ15_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ15_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ16_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ16_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ17_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ17_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ17_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ17_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ17_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ17_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ18_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ18_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c3' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c3' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ6_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ6_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ7_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ7_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ8_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ8_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ9_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ9_c0' in dropGNECrossings()
 Warning: Deleting unreferenced edge '-gneE10' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor
@@ -281,44 +289,44 @@ Warning: Deleting unreferenced connection 'gneE9_1 -> gneE10_1' in GNEEdge destr
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ11' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ11_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ11_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ11_c2' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ11_c0' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':gneJ11_c1' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':gneJ11_c2' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ12' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ12_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ12_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ13' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ13_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ13_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ13_c2' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ13_c0' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':gneJ13_c1' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':gneJ13_c2' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ14' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ14_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ14_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ15' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ15_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ15_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ15_c2' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ15_c0' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':gneJ15_c1' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':gneJ15_c2' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ16' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ16_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ16_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ17' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ17_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ17_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ17_c2' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ17_c0' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':gneJ17_c1' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':gneJ17_c2' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ18' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ18_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ18_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ19' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ19_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c1' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c2' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':gneJ19_c3' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ19_c0' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':gneJ19_c1' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':gneJ19_c2' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':gneJ19_c3' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ4' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ5' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ6' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ6_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ6_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ7' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ7_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ7_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ8' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ8_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ8_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ9' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ9_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ9_c0' in GNEJunction destructor
 Warning: Deleting net builder in GNENet destructor

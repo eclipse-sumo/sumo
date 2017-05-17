@@ -25,6 +25,8 @@ Warning: Setting new attribute speedThreshold '4' into e2Detector 'E2_B'
 Warning: Value '-6' for attribute jamThreshold of e2Detector isn't valid
 Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_A'
 Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_B'
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced e2Detector 'E2_B'
 Warning: Deleting unreferenced e2Detector 'E2_A'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

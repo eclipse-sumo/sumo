@@ -13,6 +13,62 @@ Warning: The lane 'gneJ17_0' to use within the detEntry is not known.
 Warning: The lane '-gneJ12_0' to use within the detExit is not known.
 Warning: e3Detectors without detEntrys or detExit aren't allowed; e3Detector with ID = 'e3Detector_0' cannot be created.
 Warning: Key F5 (Compute) pressed
+Warning: Created connection '-gneE10_0 -> -gneE9_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE10_0 -> -gneE17_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE11_0 -> -gneE10_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE12_0 -> -gneE11_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE12_0 -> -gneE18_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE13_0 -> -gneE12_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE14_0 -> -gneE13_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE14_0 -> -gneE19_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE15_0 -> -gneE14_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE16_0 -> gneE19_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE16_0 -> gneE18_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE16_0 -> gneE17_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE17_0 -> gneE16_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE17_0 -> gneE19_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE17_0 -> gneE18_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE18_0 -> gneE17_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE18_0 -> gneE16_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE18_0 -> gneE19_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE19_0 -> gneE18_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE19_0 -> gneE17_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE19_0 -> gneE16_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE3_0 -> gneE3_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE4_0 -> -gneE7_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE5_0 -> -gneE4_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE6_0 -> -gneE5_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE7_0 -> -gneE6_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE8_0 -> -gneE15_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE8_0 -> -gneE16_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE9_0 -> -gneE8_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE2_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE10_0 -> gneE11_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE11_0 -> -gneE18_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE11_0 -> gneE12_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE12_0 -> gneE13_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE13_0 -> -gneE19_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE13_0 -> gneE14_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE14_0 -> gneE15_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE15_0 -> -gneE16_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE15_0 -> gneE8_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE16_0 -> gneE8_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE16_0 -> -gneE15_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE17_0 -> gneE10_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE17_0 -> -gneE9_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE18_0 -> gneE12_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE18_0 -> -gneE11_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE19_0 -> gneE14_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE19_0 -> -gneE13_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE2_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE3_0 -> -gneE3_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE4_0 -> gneE5_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE5_0 -> gneE6_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE6_0 -> gneE7_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE7_0 -> gneE4_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE8_0 -> gneE9_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE9_0 -> -gneE17_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE9_0 -> gneE10_0' in retrieveGNEConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
@@ -257,13 +313,23 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge 'gneE19' from net
 Warning: Removing junction 'gneJ19' from net
 Warning: Key F5 (Compute) pressed
+Warning: Created connection '-gneE10_0 -> -gneE9_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE12_0 -> -gneE11_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE14_0 -> -gneE13_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE8_0 -> -gneE15_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE11_0 -> gneE12_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE13_0 -> gneE14_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE15_0 -> gneE8_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE9_0 -> gneE10_0' in retrieveGNEConnection()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding junction 'gneJ19' into net
 Warning: Adding edge 'gneE19' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
+Warning: Deleting unreferenced connection 'gneE13_0 -> gneE14_0' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
+Warning: Deleting unreferenced connection '-gneE14_0 -> -gneE13_0' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Adding edge '-gneE19' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
@@ -271,17 +337,25 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ17'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE13'
 Warning: Adding connection 'gneE13_0->-gneE19_0' into edge 'gneE13'
+Warning: Created connection 'gneE13_0 -> -gneE19_0' in retrieveGNEConnection()
 Warning: Adding connection 'gneE13_0->gneE14_0' into edge 'gneE13'
+Warning: Created connection 'gneE13_0 -> gneE14_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE19'
 Warning: Adding connection 'gneE19_0->gneE14_0' into edge 'gneE19'
+Warning: Created connection 'gneE19_0 -> gneE14_0' in retrieveGNEConnection()
 Warning: Adding connection 'gneE19_0->-gneE13_0' into edge 'gneE19'
+Warning: Created connection 'gneE19_0 -> -gneE13_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE14'
 Warning: Adding connection '-gneE14_0->-gneE13_0' into edge '-gneE14'
+Warning: Created connection '-gneE14_0 -> -gneE13_0' in retrieveGNEConnection()
 Warning: Adding connection '-gneE14_0->-gneE19_0' into edge '-gneE14'
+Warning: Created connection '-gneE14_0 -> -gneE19_0' in retrieveGNEConnection()
 Warning: Adding edge 'gneE18' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE12'
+Warning: Deleting unreferenced connection '-gneE12_0 -> -gneE11_0' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE11'
+Warning: Deleting unreferenced connection 'gneE11_0 -> gneE12_0' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE18'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
@@ -292,18 +366,26 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ15'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE12'
 Warning: Adding connection '-gneE12_0->-gneE11_0' into edge '-gneE12'
+Warning: Created connection '-gneE12_0 -> -gneE11_0' in retrieveGNEConnection()
 Warning: Adding connection '-gneE12_0->-gneE18_0' into edge '-gneE12'
+Warning: Created connection '-gneE12_0 -> -gneE18_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE11'
 Warning: Adding connection 'gneE11_0->-gneE18_0' into edge 'gneE11'
+Warning: Created connection 'gneE11_0 -> -gneE18_0' in retrieveGNEConnection()
 Warning: Adding connection 'gneE11_0->gneE12_0' into edge 'gneE11'
+Warning: Created connection 'gneE11_0 -> gneE12_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE18'
 Warning: Adding connection 'gneE18_0->gneE12_0' into edge 'gneE18'
+Warning: Created connection 'gneE18_0 -> gneE12_0' in retrieveGNEConnection()
 Warning: Adding connection 'gneE18_0->-gneE11_0' into edge 'gneE18'
+Warning: Created connection 'gneE18_0 -> -gneE11_0' in retrieveGNEConnection()
 Warning: Adding edge 'gneE17' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE10'
+Warning: Deleting unreferenced connection '-gneE10_0 -> -gneE9_0' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Warning: Deleting unreferenced connection 'gneE9_0 -> gneE10_0' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
@@ -315,18 +397,26 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ13'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE17'
 Warning: Adding connection 'gneE17_0->gneE10_0' into edge 'gneE17'
+Warning: Created connection 'gneE17_0 -> gneE10_0' in retrieveGNEConnection()
 Warning: Adding connection 'gneE17_0->-gneE9_0' into edge 'gneE17'
+Warning: Created connection 'gneE17_0 -> -gneE9_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE10'
 Warning: Adding connection '-gneE10_0->-gneE9_0' into edge '-gneE10'
+Warning: Created connection '-gneE10_0 -> -gneE9_0' in retrieveGNEConnection()
 Warning: Adding connection '-gneE10_0->-gneE17_0' into edge '-gneE10'
+Warning: Created connection '-gneE10_0 -> -gneE17_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE9'
 Warning: Adding connection 'gneE9_0->-gneE17_0' into edge 'gneE9'
+Warning: Created connection 'gneE9_0 -> -gneE17_0' in retrieveGNEConnection()
 Warning: Adding connection 'gneE9_0->gneE10_0' into edge 'gneE9'
+Warning: Created connection 'gneE9_0 -> gneE10_0' in retrieveGNEConnection()
 Warning: Adding edge 'gneE16' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
+Warning: Deleting unreferenced connection 'gneE15_0 -> gneE8_0' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE8'
+Warning: Deleting unreferenced connection '-gneE8_0 -> -gneE15_0' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
@@ -335,30 +425,48 @@ Warning: Adding edge '-gneE16' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ19'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE19'
 Warning: Adding connection '-gneE19_0->gneE18_0' into edge '-gneE19'
+Warning: Created connection '-gneE19_0 -> gneE18_0' in retrieveGNEConnection()
 Warning: Adding connection '-gneE19_0->gneE17_0' into edge '-gneE19'
+Warning: Created connection '-gneE19_0 -> gneE17_0' in retrieveGNEConnection()
 Warning: Adding connection '-gneE19_0->gneE16_0' into edge '-gneE19'
+Warning: Created connection '-gneE19_0 -> gneE16_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE18'
 Warning: Adding connection '-gneE18_0->gneE17_0' into edge '-gneE18'
+Warning: Created connection '-gneE18_0 -> gneE17_0' in retrieveGNEConnection()
 Warning: Adding connection '-gneE18_0->gneE16_0' into edge '-gneE18'
+Warning: Created connection '-gneE18_0 -> gneE16_0' in retrieveGNEConnection()
 Warning: Adding connection '-gneE18_0->gneE19_0' into edge '-gneE18'
+Warning: Created connection '-gneE18_0 -> gneE19_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE17'
 Warning: Adding connection '-gneE17_0->gneE16_0' into edge '-gneE17'
+Warning: Created connection '-gneE17_0 -> gneE16_0' in retrieveGNEConnection()
 Warning: Adding connection '-gneE17_0->gneE19_0' into edge '-gneE17'
+Warning: Created connection '-gneE17_0 -> gneE19_0' in retrieveGNEConnection()
 Warning: Adding connection '-gneE17_0->gneE18_0' into edge '-gneE17'
+Warning: Created connection '-gneE17_0 -> gneE18_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE16'
 Warning: Adding connection '-gneE16_0->gneE19_0' into edge '-gneE16'
+Warning: Created connection '-gneE16_0 -> gneE19_0' in retrieveGNEConnection()
 Warning: Adding connection '-gneE16_0->gneE18_0' into edge '-gneE16'
+Warning: Created connection '-gneE16_0 -> gneE18_0' in retrieveGNEConnection()
 Warning: Adding connection '-gneE16_0->gneE17_0' into edge '-gneE16'
+Warning: Created connection '-gneE16_0 -> gneE17_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ11'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE15'
 Warning: Adding connection 'gneE15_0->-gneE16_0' into edge 'gneE15'
+Warning: Created connection 'gneE15_0 -> -gneE16_0' in retrieveGNEConnection()
 Warning: Adding connection 'gneE15_0->gneE8_0' into edge 'gneE15'
+Warning: Created connection 'gneE15_0 -> gneE8_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE16'
 Warning: Adding connection 'gneE16_0->gneE8_0' into edge 'gneE16'
+Warning: Created connection 'gneE16_0 -> gneE8_0' in retrieveGNEConnection()
 Warning: Adding connection 'gneE16_0->-gneE15_0' into edge 'gneE16'
+Warning: Created connection 'gneE16_0 -> -gneE15_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE8'
 Warning: Adding connection '-gneE8_0->-gneE15_0' into edge '-gneE8'
+Warning: Created connection '-gneE8_0 -> -gneE15_0' in retrieveGNEConnection()
 Warning: Adding connection '-gneE8_0->-gneE16_0' into edge '-gneE8'
+Warning: Created connection '-gneE8_0 -> -gneE16_0' in retrieveGNEConnection()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding junction 'gneJ8' into net
 Warning: Adding edge 'gneE6' from net
@@ -382,8 +490,10 @@ Warning: Adding edge 'gneE5' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE6'
 Warning: Adding connection '-gneE6_0->-gneE5_0' into edge '-gneE6'
+Warning: Created connection '-gneE6_0 -> -gneE5_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE5'
 Warning: Adding connection 'gneE5_0->gneE6_0' into edge 'gneE5'
+Warning: Created connection 'gneE5_0 -> gneE6_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
 Warning: Adding busStop 'busStop_gneE5_0_8' in GNEChange_Additional
@@ -401,8 +511,10 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ9'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE6'
 Warning: Adding connection 'gneE6_0->gneE7_0' into edge 'gneE6'
+Warning: Created connection 'gneE6_0 -> gneE7_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE7'
 Warning: Adding connection '-gneE7_0->-gneE6_0' into edge '-gneE7'
+Warning: Created connection '-gneE7_0 -> -gneE6_0' in retrieveGNEConnection()
 Warning: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
 Warning: Adding edge 'gneE4' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
@@ -415,13 +527,17 @@ Warning: Adding edge '-gneE4' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE7'
 Warning: Adding connection 'gneE7_0->gneE4_0' into edge 'gneE7'
+Warning: Created connection 'gneE7_0 -> gneE4_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE4'
 Warning: Adding connection '-gneE4_0->-gneE7_0' into edge '-gneE4'
+Warning: Created connection '-gneE4_0 -> -gneE7_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE4'
 Warning: Adding connection 'gneE4_0->gneE5_0' into edge 'gneE4'
+Warning: Created connection 'gneE4_0 -> gneE5_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE5'
 Warning: Adding connection '-gneE5_0->-gneE4_0' into edge '-gneE5'
+Warning: Created connection '-gneE5_0 -> -gneE4_0' in retrieveGNEConnection()
 Warning: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding junction 'gneJ4' into net
@@ -434,9 +550,11 @@ Warning: Adding edge 'gneE3' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ5'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE3'
 Warning: Adding connection 'gneE3_0->-gneE3_0' into edge 'gneE3'
+Warning: Created connection 'gneE3_0 -> -gneE3_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ4'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE3'
 Warning: Adding connection '-gneE3_0->gneE3_0' into edge '-gneE3'
+Warning: Created connection '-gneE3_0 -> gneE3_0' in retrieveGNEConnection()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding junction 'gneJ2' into net
 Warning: Adding edge 'gneE2' from net
@@ -448,9 +566,11 @@ Warning: Adding edge 'gneE1' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ3'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE1'
 Warning: Adding connection 'gneE1_0->gneE2_0' into edge 'gneE1'
+Warning: Created connection 'gneE1_0 -> gneE2_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ2'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE2'
 Warning: Adding connection 'gneE2_0->gneE1_0' into edge 'gneE2'
+Warning: Created connection 'gneE2_0 -> gneE1_0' in retrieveGNEConnection()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding junction 'gneJ0' into net
 Warning: Setting previous attribute type 'dead_end' into junction 'gneJ0'
@@ -708,6 +828,14 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Removing edge 'gneE19' from net
 Warning: Removing junction 'gneJ19' from net
+Warning: Created connection '-gneE10_0 -> -gneE9_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE12_0 -> -gneE11_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE14_0 -> -gneE13_0' in retrieveGNEConnection()
+Warning: Created connection '-gneE8_0 -> -gneE15_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE11_0 -> gneE12_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE13_0 -> gneE14_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE15_0 -> gneE8_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE9_0 -> gneE10_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced edge 'gneE19' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE19_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE18' in GNEChange_Attribute
@@ -715,6 +843,7 @@ Warning: Deleting unreferenced lane 'gneE18_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE17' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE17_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ19' in GNEChange_Attribute
+Warning: Deleting NBNode of 'gneJ19' in GNEJunction destructor
 Warning: Deleting unreferenced edge '-gneE19' in GNEChange_Attribute
 Warning: Deleting unreferenced lane '-gneE19_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE18' in GNEChange_Attribute
@@ -726,6 +855,7 @@ Warning: Deleting unreferenced lane '-gneE16_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE16' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE16_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ8' in GNEChange_Attribute
+Warning: Deleting NBNode of 'gneJ8' in GNEJunction destructor
 Warning: Deleting unreferenced edge '-gneE6' in GNEChange_Attribute
 Warning: Deleting unreferenced lane '-gneE6_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE5' in GNEChange_Attribute
@@ -735,6 +865,7 @@ Warning: Deleting unreferenced lane 'gneE6_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE7' in GNEChange_Attribute
 Warning: Deleting unreferenced lane '-gneE7_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ6' in GNEChange_Attribute
+Warning: Deleting NBNode of 'gneJ6' in GNEJunction destructor
 Warning: Deleting unreferenced edge 'gneE7' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE7_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE4' in GNEChange_Attribute
@@ -746,16 +877,19 @@ Warning: Deleting unreferenced lane '-gneE5_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE3' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ4' in GNEChange_Attribute
+Warning: Deleting NBNode of 'gneJ4' in GNEJunction destructor
 Warning: Deleting unreferenced edge '-gneE3' in GNEChange_Attribute
 Warning: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE1' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNEChange_Attribute
+Warning: Deleting NBNode of 'gneJ2' in GNEJunction destructor
 Warning: Deleting unreferenced edge 'gneE2' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE0' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNEChange_Attribute
+Warning: Deleting NBNode of 'gneJ0' in GNEJunction destructor
 Warning: Deleting unreferenced busStop 'busStop_gneE7_0_6'
 Warning: Deleting unreferenced busStop 'busStop_gneE6_0_9'
 Warning: Deleting unreferenced busStop 'busStop_gneE5_0_8'

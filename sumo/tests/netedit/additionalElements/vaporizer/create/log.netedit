@@ -22,6 +22,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding vaporizer 'vaporizer_2' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding vaporizer 'vaporizer_3' in GNEChange_Additional
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced vaporizer 'vaporizer_3'
 Warning: Deleting unreferenced vaporizer 'vaporizer_2'
 Warning: Deleting unreferenced vaporizer 'vaporizer_1'

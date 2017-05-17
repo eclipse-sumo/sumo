@@ -21,6 +21,8 @@ Warning: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_
 Warning: Value '-3' for attribute speedThreshold of e3Detector isn't valid
 Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_B'
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detEntry 'e3Detector_BdetEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_B'
 Warning: Deleting unreferenced detEntry 'e3Detector_AdetEntry0'

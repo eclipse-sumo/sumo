@@ -27,6 +27,8 @@ Warning: Format of optional string attribute 'output' of calibrator with ID 'cal
 Warning: Adding calibrator 'calibrator15' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator16' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator17' in GNEChange_Additional
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced calibrator 'calibrator17'
 Warning: Deleting unreferenced calibrator 'calibrator16'
 Warning: Deleting unreferenced calibrator 'calibrator15'

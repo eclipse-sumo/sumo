@@ -58,6 +58,8 @@ Warning: e3Detectors without detEntrys or detExit aren't allowed; e3Detector wit
 Warning: Format of essential string attribute 'pos' of detEntry is invalid; Additional cannot be created
 Warning: Format of essential string attribute 'pos' of detExit is invalid; Additional cannot be created
 Warning: e3Detectors without detEntrys or detExit aren't allowed; e3Detector with ID = 'e3Detector_22' cannot be created.
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detEntry 'e3Detector_20detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_20'
 Warning: Deleting unreferenced detEntry 'e3Detector_19detEntry0'

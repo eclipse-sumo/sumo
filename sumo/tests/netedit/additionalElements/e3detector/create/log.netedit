@@ -47,6 +47,8 @@ Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
 Warning: e3Detector with ID 'e3Detector_0' cannot be writed in additional file because doesn't have childs.
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detEntry 'e3Detector_4detEntry0'
 Warning: Deleting unreferenced detEntry 'e3Detector_3detEntry0'
 Warning: Deleting unreferenced detEntry 'e3Detector_2detEntry0'

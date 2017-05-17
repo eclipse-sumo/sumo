@@ -59,6 +59,8 @@ Warning: Format of optional int attribute 'containerCapacity' of vType is invali
 Warning: Format of optional int attribute 'containerCapacity' of vType is invalid; Cannot be negative; Default value '0' will be used.
 Warning: Format of optional int attribute 'containerCapacity' of vType is invalid; Cannot be parsed to int; Default value '0' will be used.
 Warning: Adding calibrator 'calibratorFlows' in GNEChange_Additional
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced calibrator 'calibratorFlows'
 Warning: Deleting unreferenced calibrator 'calibratorVehicleTypes'
 Warning: Deleting unreferenced calibrator 'calibratorRoutes'

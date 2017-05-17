@@ -27,6 +27,8 @@ Warning: Adding e1Detector 'E1_17' in GNEChange_Additional
 Warning: Format of optional bool attribute 'splitByType' of e1Detector with ID 'E1_18' is invalid; Default value '0' will be used.
 Warning: Adding e1Detector 'E1_18' in GNEChange_Additional
 Warning: Adding e1Detector 'E1_19' in GNEChange_Additional
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced e1Detector 'E1_19'
 Warning: Deleting unreferenced e1Detector 'E1_18'
 Warning: Deleting unreferenced e1Detector 'E1_17'

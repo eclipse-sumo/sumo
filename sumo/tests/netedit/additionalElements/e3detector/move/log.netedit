@@ -41,6 +41,8 @@ Warning: Setting new attribute y '-2.00' into e3Detector 'e3Detector_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute x '31.00' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute y '-2.00' into e3Detector 'e3Detector_0'
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

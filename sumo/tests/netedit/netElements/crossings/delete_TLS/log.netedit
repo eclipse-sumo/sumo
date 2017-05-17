@@ -1,12 +1,35 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Key F5 (Compute) pressed
-Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Created connection '1_1 -> 5_1' in retrieveGNEConnection()
+Warning: Created connection '2_1 -> 6_1' in retrieveGNEConnection()
+Warning: Created connection '3_1 -> 7_1' in retrieveGNEConnection()
+Warning: Created connection '4_1 -> 8_1' in retrieveGNEConnection()
+Warning: Created connection '5_0 -> 4_0' in retrieveGNEConnection()
+Warning: Created connection '5_0 -> 2_0' in retrieveGNEConnection()
+Warning: Created connection '5_1 -> 2_1' in retrieveGNEConnection()
+Warning: Created connection '5_1 -> 3_1' in retrieveGNEConnection()
+Warning: Created connection '5_1 -> 1_1' in retrieveGNEConnection()
+Warning: Created connection '6_0 -> 3_0' in retrieveGNEConnection()
+Warning: Created connection '6_0 -> 1_0' in retrieveGNEConnection()
+Warning: Created connection '6_1 -> 1_1' in retrieveGNEConnection()
+Warning: Created connection '6_1 -> 4_1' in retrieveGNEConnection()
+Warning: Created connection '6_1 -> 2_1' in retrieveGNEConnection()
+Warning: Created connection '7_0 -> 1_0' in retrieveGNEConnection()
+Warning: Created connection '7_0 -> 4_0' in retrieveGNEConnection()
+Warning: Created connection '7_1 -> 4_1' in retrieveGNEConnection()
+Warning: Created connection '7_1 -> 2_1' in retrieveGNEConnection()
+Warning: Created connection '7_1 -> 3_1' in retrieveGNEConnection()
+Warning: Created connection '8_0 -> 2_0' in retrieveGNEConnection()
+Warning: Created connection '8_0 -> 3_0' in retrieveGNEConnection()
+Warning: Created connection '8_1 -> 3_1' in retrieveGNEConnection()
+Warning: Created connection '8_1 -> 1_1' in retrieveGNEConnection()
+Warning: Created connection '8_1 -> 4_1' in retrieveGNEConnection()
+Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
+Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Removing crossing from junction 'Center'
-Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
 Warning: Removing crossing from junction 'Center'
-Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c0' in rebuildGNECrossings()
 Warning: Removing connection '2_1->6_1' from edge '2'
 Warning: Deleting unreferenced connection '2_1 -> 6_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
@@ -123,6 +146,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
 Warning: Adding connection '3_1->7_1' into edge '3'
+Warning: Created connection '3_1 -> 7_1' in retrieveGNEConnection()
 Warning: Adding edge '1' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '1'
@@ -135,6 +159,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
 Warning: Adding connection '1_1->5_1' into edge '1'
+Warning: Created connection '1_1 -> 5_1' in retrieveGNEConnection()
 Warning: Adding edge '4' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '4'
@@ -149,6 +174,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'D'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '4'
 Warning: Adding connection '4_1->8_1' into edge '4'
+Warning: Created connection '4_1 -> 8_1' in retrieveGNEConnection()
 Warning: Adding edge '2' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '2'
@@ -162,31 +188,52 @@ Warning: Adding TLS into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '7'
 Warning: Adding connection '7_0->1_0' into edge '7'
+Warning: Created connection '7_0 -> 1_0' in retrieveGNEConnection()
 Warning: Adding connection '7_0->4_0' into edge '7'
+Warning: Created connection '7_0 -> 4_0' in retrieveGNEConnection()
 Warning: Adding connection '7_1->4_1' into edge '7'
+Warning: Created connection '7_1 -> 4_1' in retrieveGNEConnection()
 Warning: Adding connection '7_1->2_1' into edge '7'
+Warning: Created connection '7_1 -> 2_1' in retrieveGNEConnection()
 Warning: Adding connection '7_1->3_1' into edge '7'
+Warning: Created connection '7_1 -> 3_1' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '5'
 Warning: Adding connection '5_0->4_0' into edge '5'
+Warning: Created connection '5_0 -> 4_0' in retrieveGNEConnection()
 Warning: Adding connection '5_0->2_0' into edge '5'
+Warning: Created connection '5_0 -> 2_0' in retrieveGNEConnection()
 Warning: Adding connection '5_1->2_1' into edge '5'
+Warning: Created connection '5_1 -> 2_1' in retrieveGNEConnection()
 Warning: Adding connection '5_1->3_1' into edge '5'
+Warning: Created connection '5_1 -> 3_1' in retrieveGNEConnection()
 Warning: Adding connection '5_1->1_1' into edge '5'
+Warning: Created connection '5_1 -> 1_1' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '8'
 Warning: Adding connection '8_0->2_0' into edge '8'
+Warning: Created connection '8_0 -> 2_0' in retrieveGNEConnection()
 Warning: Adding connection '8_0->3_0' into edge '8'
+Warning: Created connection '8_0 -> 3_0' in retrieveGNEConnection()
 Warning: Adding connection '8_1->3_1' into edge '8'
+Warning: Created connection '8_1 -> 3_1' in retrieveGNEConnection()
 Warning: Adding connection '8_1->1_1' into edge '8'
+Warning: Created connection '8_1 -> 1_1' in retrieveGNEConnection()
 Warning: Adding connection '8_1->4_1' into edge '8'
+Warning: Created connection '8_1 -> 4_1' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '6'
 Warning: Adding connection '6_0->3_0' into edge '6'
+Warning: Created connection '6_0 -> 3_0' in retrieveGNEConnection()
 Warning: Adding connection '6_0->1_0' into edge '6'
+Warning: Created connection '6_0 -> 1_0' in retrieveGNEConnection()
 Warning: Adding connection '6_1->1_1' into edge '6'
+Warning: Created connection '6_1 -> 1_1' in retrieveGNEConnection()
 Warning: Adding connection '6_1->4_1' into edge '6'
+Warning: Created connection '6_1 -> 4_1' in retrieveGNEConnection()
 Warning: Adding connection '6_1->2_1' into edge '6'
+Warning: Created connection '6_1 -> 2_1' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'B'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '2'
 Warning: Adding connection '2_1->6_1' into edge '2'
+Warning: Created connection '2_1 -> 6_1' in retrieveGNEConnection()
 Warning: Adding crossing into junction 'Center'
 Warning: Adding crossing into junction 'Center'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -304,6 +351,7 @@ Warning: Deleting unreferenced edge '4' in GNEChange_Attribute
 Warning: Deleting unreferenced lane '4_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '4_1' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'Center' in GNEChange_Attribute
+Warning: Deleting NBNode of 'Center' in GNEJunction destructor
 Warning: Deleting unreferenced edge '7' in GNEChange_Attribute
 Warning: Deleting unreferenced lane '7_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '7_1' in GNEEdge destructor

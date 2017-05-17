@@ -1,18 +1,41 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Key F5 (Compute) pressed
-Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Created connection '1_1 -> 5_1' in retrieveGNEConnection()
+Warning: Created connection '2_1 -> 6_1' in retrieveGNEConnection()
+Warning: Created connection '3_1 -> 7_1' in retrieveGNEConnection()
+Warning: Created connection '4_1 -> 8_1' in retrieveGNEConnection()
+Warning: Created connection '5_0 -> 4_0' in retrieveGNEConnection()
+Warning: Created connection '5_0 -> 2_0' in retrieveGNEConnection()
+Warning: Created connection '5_1 -> 2_1' in retrieveGNEConnection()
+Warning: Created connection '5_1 -> 3_1' in retrieveGNEConnection()
+Warning: Created connection '5_1 -> 1_1' in retrieveGNEConnection()
+Warning: Created connection '6_0 -> 3_0' in retrieveGNEConnection()
+Warning: Created connection '6_0 -> 1_0' in retrieveGNEConnection()
+Warning: Created connection '6_1 -> 1_1' in retrieveGNEConnection()
+Warning: Created connection '6_1 -> 4_1' in retrieveGNEConnection()
+Warning: Created connection '6_1 -> 2_1' in retrieveGNEConnection()
+Warning: Created connection '7_0 -> 1_0' in retrieveGNEConnection()
+Warning: Created connection '7_0 -> 4_0' in retrieveGNEConnection()
+Warning: Created connection '7_1 -> 4_1' in retrieveGNEConnection()
+Warning: Created connection '7_1 -> 2_1' in retrieveGNEConnection()
+Warning: Created connection '7_1 -> 3_1' in retrieveGNEConnection()
+Warning: Created connection '8_0 -> 2_0' in retrieveGNEConnection()
+Warning: Created connection '8_0 -> 3_0' in retrieveGNEConnection()
+Warning: Created connection '8_1 -> 3_1' in retrieveGNEConnection()
+Warning: Created connection '8_1 -> 1_1' in retrieveGNEConnection()
+Warning: Created connection '8_1 -> 4_1' in retrieveGNEConnection()
+Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
+Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Removing crossing from junction 'Center'
-Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
 Warning: Removing crossing from junction 'Center'
-Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c0' in rebuildGNECrossings()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding crossing into junction 'Center'
+Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding crossing into junction 'Center'
-Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Deleting unreferenced edge '1' in GNENet destructor
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -65,7 +88,7 @@ Warning: Deleting unreferenced junction 'A' in GNENet destructor
 Warning: Deleting unreferenced junction 'B' in GNENet destructor
 Warning: Deleting unreferenced junction 'C' in GNENet destructor
 Warning: Deleting unreferenced junction 'Center' in GNENet destructor
-Warning: Deleting unreferenced crossing ':Center_c0' in dropGNECrossings()
-Warning: Deleting unreferenced crossing ':Center_c1' in dropGNECrossings()
+Warning: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'D' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

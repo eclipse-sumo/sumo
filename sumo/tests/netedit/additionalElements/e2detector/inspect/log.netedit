@@ -115,6 +115,10 @@ Warning: Setting new attribute jamThreshold '12.5' into e2Detector 'correct ID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE2_1 -> gneE3_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE3_1 -> gneE2_1' in retrieveGNEConnection()
 Warning: Deleting unreferenced e2Detector 'e2Detector_gneE2_1_1'
 Warning: Deleting unreferenced e2Detector 'correct ID'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

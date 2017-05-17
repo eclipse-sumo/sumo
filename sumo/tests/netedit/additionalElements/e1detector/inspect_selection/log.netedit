@@ -11,6 +11,8 @@ Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Addi
 Warning: Value '-30' for attribute freq of e1Detector isn't valid
 Warning: Setting new attribute freq '20' into e1Detector 'E1_A'
 Warning: Setting new attribute freq '20' into e1Detector 'E1_B'
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced e1Detector 'E1_B'
 Warning: Deleting unreferenced e1Detector 'E1_A'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

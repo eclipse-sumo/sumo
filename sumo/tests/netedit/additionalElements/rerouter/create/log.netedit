@@ -16,6 +16,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding rerouter 'rerouter_2' in GNEChange_Additional
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced rerouter 'rerouter_2'
 Warning: Deleting unreferenced rerouter 'rerouter_1'
 Warning: Deleting unreferenced rerouter 'rerouter_0'

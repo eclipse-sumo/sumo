@@ -25,6 +25,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detExit 'e3Detector_0detExit2' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detExit 'e3Detector_0detExit3' in GNEChange_Additional
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit3'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit2'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit1'

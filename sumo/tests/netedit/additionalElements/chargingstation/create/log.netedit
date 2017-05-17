@@ -31,6 +31,8 @@ Warning: Adding chargingStation 'chargingStation_gneE0_0_3' in GNEChange_Additio
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding chargingStation 'chargingStation_gneE0_0_4' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_4'
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_3'
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_2'

@@ -36,13 +36,19 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Key F5 (Compute) pressed
+Warning: Created connection '-gneE2_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE0_0 -> gneE3_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> -gneE3_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE2_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE3'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Warning: Deleting unreferenced connection 'gneE0_0 -> gneE3_0' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Warning: Deleting unreferenced connection 'gneE1_0 -> -gneE3_0' in clearGNEConnections()
 Warning: Removing edge '-gneE3' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
@@ -53,8 +59,10 @@ Warning: Removing edge 'gneE3' from net
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE2'
+Warning: Deleting unreferenced connection '-gneE2_0 -> gneE1_0' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Warning: Deleting unreferenced connection 'gneE2_0 -> gneE0_0' in clearGNEConnections()
 Warning: Removing edge '-gneE2' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
@@ -113,6 +121,10 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Key F5 (Compute) pressed
+Warning: Created connection '-gneE2_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE0_0 -> gneE3_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> -gneE3_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE2_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced edge '-gneE2' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE2_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection '-gneE2_0 -> gneE1_0' in GNEEdge destructor

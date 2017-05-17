@@ -10,6 +10,8 @@ Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Addi
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into busStop 'busStopA'
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into busStop 'busStopB'
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced busStop 'busStopB'
 Warning: Deleting unreferenced busStop 'busStopA'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

@@ -61,6 +61,10 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute begin '20' into routeProbe 'correct ID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE2_1 -> gneE3_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE3_1 -> gneE2_1' in retrieveGNEConnection()
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE3_1'
 Warning: Deleting unreferenced routeProbe 'correct ID'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

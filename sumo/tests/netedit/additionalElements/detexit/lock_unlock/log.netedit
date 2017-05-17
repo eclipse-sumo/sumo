@@ -29,6 +29,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'false' into detExit 'e3Detector_0detExit0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '26.00' into detExit 'e3Detector_0detExit0'
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

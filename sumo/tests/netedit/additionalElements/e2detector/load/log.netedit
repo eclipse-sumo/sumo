@@ -57,6 +57,8 @@ Warning: Adding e2Detector 'E2_33' in GNEChange_Additional
 Warning: Format of optional float attribute 'jamThreshold' of e2Detector with ID 'E2_34' is invalid; Cannot be negative; Default value '10.00' will be used.
 Warning: Adding e2Detector 'E2_34' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_35' in GNEChange_Additional
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced e2Detector 'E2_35'
 Warning: Deleting unreferenced e2Detector 'E2_34'
 Warning: Deleting unreferenced e2Detector 'E2_33'

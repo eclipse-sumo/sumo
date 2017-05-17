@@ -27,6 +27,8 @@ Warning: Adding routeProbe 'routeProbe_15' in GNEChange_Additional
 Warning: Format of optional time attribute 'begin' of routeProbe is invalid; Time cannot be negative; Default value '0.00' will be used.
 Warning: Adding routeProbe 'routeProbe_16' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_17' in GNEChange_Additional
+Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced routeProbe 'routeProbe_17'
 Warning: Deleting unreferenced routeProbe 'routeProbe_16'
 Warning: Deleting unreferenced routeProbe 'routeProbe_15'
