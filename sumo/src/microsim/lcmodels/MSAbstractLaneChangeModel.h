@@ -198,6 +198,7 @@ public:
 
     virtual int wantsChangeSublane(
         int laneOffset,
+        LaneChangeAction alternatives,
         const MSLeaderDistanceInfo& leaders,
         const MSLeaderDistanceInfo& followers,
         const MSLeaderDistanceInfo& blockers,
@@ -210,6 +211,7 @@ public:
         MSVehicle** firstBlocked,
         double& latDist, int& blocked) {
         UNUSED_PARAMETER(laneOffset);
+        UNUSED_PARAMETER(alternatives);
         UNUSED_PARAMETER(&leaders);
         UNUSED_PARAMETER(&followers);
         UNUSED_PARAMETER(&blockers);

@@ -103,9 +103,12 @@ MSLaneChangerSublane::change() {
         sublaneIndex += ce->ahead.numSublanes();
     }
 
-    StateAndDist right = checkChangeHelper(vehicle, -1);
-    StateAndDist left = checkChangeHelper(vehicle, 1);
-    StateAndDist current = checkChangeHelper(vehicle, 0);
+    LaneChangeAction alternatives = (LaneChangeAction)((mayChange(-1) ? LCA_RIGHT : LCA_NONE) 
+                      | (mayChange(1) ? LCA_LEFT : LCA_NONE));
+
+    StateAndDist right = checkChangeHelper(vehicle, -1, alternatives);
+    StateAndDist left = checkChangeHelper(vehicle, 1, alternatives);
+    StateAndDist current = checkChangeHelper(vehicle, 0, alternatives);
 
     StateAndDist decision = vehicle->getLaneChangeModel().decideDirection(current,
                             vehicle->getLaneChangeModel().decideDirection(right, left));
@@ -131,11 +134,11 @@ MSLaneChangerSublane::change() {
 
 
 MSLaneChangerSublane::StateAndDist
-MSLaneChangerSublane::checkChangeHelper(MSVehicle* vehicle, int laneOffset) {
+MSLaneChangerSublane::checkChangeHelper(MSVehicle* vehicle, int laneOffset, LaneChangeAction alternatives) {
     StateAndDist result = StateAndDist(0, 0, 0);
     if (mayChange(laneOffset)) {
         const std::vector<MSVehicle::LaneQ>& preb = vehicle->getBestLanes();
-        result.state = checkChangeSublane(laneOffset, preb, result.latDist);
+        result.state = checkChangeSublane(laneOffset, alternatives, preb, result.latDist);
         result.dir = laneOffset;
         if ((result.state & LCA_WANTS_LANECHANGE) != 0 && (result.state & LCA_URGENT) != 0 && (result.state & LCA_BLOCKED) != 0) {
             (myCandi + laneOffset)->lastBlocked = vehicle;
@@ -269,6 +272,7 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* ego) 
 int
 MSLaneChangerSublane::checkChangeSublane(
     int laneOffset,
+    LaneChangeAction alternatives,
     const std::vector<MSVehicle::LaneQ>& preb,
     double& latDist) const {
 
@@ -295,7 +299,7 @@ MSLaneChangerSublane::checkChangeSublane(
 
 
     const int wish = vehicle->getLaneChangeModel().wantsChangeSublane(
-                         laneOffset,
+                         laneOffset, alternatives,
                          leaders, followers, blockers,
                          neighLeaders, neighFollowers, neighBlockers,
                          neighLane, preb,

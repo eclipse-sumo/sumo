@@ -89,6 +89,9 @@
 // the speed at which the desired lateral gap grows now further
 #define LATGAP_SPEED_THRESHOLD (50 / 3.6)
 
+// itention to change decays after 30 seconds
+#define SPEEDGAIN_DECAY_TIME 30.0
+
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "E1")
 #define DEBUG_COND (myVehicle.isSelected())
@@ -139,6 +142,7 @@ MSLCM_SL2015::debugVehicle() const {
 int
 MSLCM_SL2015::wantsChangeSublane(
     int laneOffset,
+    LaneChangeAction alternatives,
     const MSLeaderDistanceInfo& leaders,
     const MSLeaderDistanceInfo& followers,
     const MSLeaderDistanceInfo& blockers,
@@ -168,6 +172,7 @@ MSLCM_SL2015::wantsChangeSublane(
     }
 
     int result = _wantsChangeSublane(laneOffset,
+                                     alternatives,
                                      leaders, followers, blockers,
                                      neighLeaders, neighFollowers, neighBlockers,
                                      neighLane, preb,
@@ -805,6 +810,7 @@ MSLCM_SL2015::changed() {
 int
 MSLCM_SL2015::_wantsChangeSublane(
     int laneOffset,
+    LaneChangeAction alternatives,
     const MSLeaderDistanceInfo& leaders,
     const MSLeaderDistanceInfo& followers,
     const MSLeaderDistanceInfo& blockers,
@@ -1231,17 +1237,19 @@ MSLCM_SL2015::_wantsChangeSublane(
     }
     // updated change probabilities
     if (maxGainRight != -std::numeric_limits<double>::max()) {
+        if (gDebugFlag2) std::cout << "  speedGainR_old=" << mySpeedGainProbabilityRight;
         mySpeedGainProbabilityRight += TS * maxGainRight;
+        if (gDebugFlag2) std::cout << "  speedGainR_new=" << mySpeedGainProbabilityRight << "\n";
     }
     if (maxGainLeft != -std::numeric_limits<double>::max()) {
         mySpeedGainProbabilityLeft += TS * maxGainLeft;
     }
-    // decay
-    if (maxGainRight < NUMERICAL_EPS) {
-        mySpeedGainProbabilityRight *= pow(0.5, TS);
+    // decay (only if we have enough information)
+    if (maxGainRight < NUMERICAL_EPS && (right || (alternatives & LCA_RIGHT) == 0)) {
+        mySpeedGainProbabilityRight = MAX2(0.0, mySpeedGainProbabilityRight - TS * myChangeProbThresholdRight / SPEEDGAIN_DECAY_TIME);
     }
-    if (maxGainLeft < NUMERICAL_EPS) {
-        mySpeedGainProbabilityLeft *= pow(0.5, TS);
+    if (maxGainLeft < NUMERICAL_EPS && (left || (alternatives & LCA_LEFT) == 0)) {
+        mySpeedGainProbabilityLeft = MAX2(0.0, mySpeedGainProbabilityLeft - TS * myChangeProbThresholdLeft / SPEEDGAIN_DECAY_TIME);
     }
 
 
@@ -1309,6 +1317,10 @@ MSLCM_SL2015::_wantsChangeSublane(
         if (gDebugFlag2) {
             std::cout << STEPS2TIME(currentTime)
                       << " speedGainR=" << mySpeedGainProbabilityRight
+                      << " speedGainL=" << mySpeedGainProbabilityLeft
+                      << " neighDist=" << neighDist
+                      << " neighTime=" << neighDist / MAX2(.1, myVehicle.getSpeed())
+                      << " rThresh=" << myChangeProbThresholdRight
                       << " latDist=" << latDist
                       << "\n";
         }
@@ -1330,7 +1342,11 @@ MSLCM_SL2015::_wantsChangeSublane(
         if (gDebugFlag2) {
             std::cout << STEPS2TIME(currentTime)
                       << " speedGainL=" << mySpeedGainProbabilityLeft
+                      << " speedGainR=" << mySpeedGainProbabilityRight
                       << " latDist=" << latDist
+                      << " neighDist=" << neighDist
+                      << " neighTime=" << neighDist / MAX2(.1, myVehicle.getSpeed())
+                      << " lThresh=" << myChangeProbThresholdLeft
                       << " stayInLane=" << stayInLane
                       << "\n";
         }
@@ -1935,7 +1951,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
         ret |= LCA_STRATEGIC | LCA_URGENT;
     } else {
         // VARIANT_20 (noOvertakeRight)
-        if (!myAllowOvertakingRight && left && !myVehicle.congested() && neighLeaders.hasVehicles()) {
+        if (!myAllowOvertakingRight && left && !myVehicle.congested() && neighLeaders.hasVehicles() && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY) {
             // check for slower leader on the left. we should not overtake but
             // rather move left ourselves (unless congested)
             // XXX only adapt as much as possible to get a lateral gap
@@ -2338,6 +2354,8 @@ MSLCM_SL2015::wantsChange(
     MSVehicle** lastBlocked,
     MSVehicle** firstBlocked) {
 
+    const LaneChangeAction alternatives = LCA_NONE; // @todo pas this data
+
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
         std::cout << "\nWANTS_CHANGE\n" << STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep())
@@ -2362,6 +2380,7 @@ MSLCM_SL2015::wantsChange(
     MSLeaderDistanceInfo neighBlockers(std::make_pair((MSVehicle*)0, -1), dummy);
 
     int result = _wantsChangeSublane(laneOffset,
+                                     alternatives,
                                      leaders, followers, blockers,
                                      neighLeaders, neighFollowers, neighBlockers,
                                      neighLane, preb,

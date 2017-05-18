@@ -71,6 +71,7 @@ protected:
      */
     int checkChangeSublane(
         int laneOffset,
+        LaneChangeAction alternatives,
         const std::vector<MSVehicle::LaneQ>& preb,
         double& latDist) const;
 
@@ -82,7 +83,7 @@ protected:
 
     typedef MSAbstractLaneChangeModel::StateAndDist StateAndDist;
     /// @brief helper function that calls checkChangeSublane and sets blocker information
-    StateAndDist checkChangeHelper(MSVehicle* vehicle, int laneOffset);
+    StateAndDist checkChangeHelper(MSVehicle* vehicle, int laneOffset, LaneChangeAction alternatives);
 
 private:
     /// Default constructor.

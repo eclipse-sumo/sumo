@@ -70,6 +70,7 @@ public:
      * This method gets the information about the surrounding vehicles
      * and whether another lane may be more preferable */
     int wantsChangeSublane(int laneOffset,
+                           LaneChangeAction alternatives,
                            const MSLeaderDistanceInfo& leaders,
                            const MSLeaderDistanceInfo& followers,
                            const MSLeaderDistanceInfo& blockers,
@@ -133,6 +134,7 @@ protected:
     /// @brief helper function for doing the actual work
     int _wantsChangeSublane(
         int laneOffset,
+        LaneChangeAction alternatives,
         const MSLeaderDistanceInfo& leaders,
         const MSLeaderDistanceInfo& followers,
         const MSLeaderDistanceInfo& blockers,
