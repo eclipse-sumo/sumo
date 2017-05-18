@@ -230,9 +230,9 @@ def main(args=None):
         helpers.plotNet(net, colors, widths, options)
 
         # drawing the legend, at least for the colors
+        norm = matplotlib.colors.LogNorm if options.logColors else matplotlib.colors.Normalize
         sm = plt.cm.ScalarMappable(cmap=matplotlib.cm.get_cmap(options.colormap),
-                                   norm=matplotlib.colors.Normalize(vmin=minColorValue,
-                                                                    vmax=maxColorValue))
+                                   norm=norm(vmin=minColorValue, vmax=maxColorValue))
 
         # "fake up the array of the scalar mappable. Urgh..."
         # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
