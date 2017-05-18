@@ -12,3 +12,6 @@ overtaking_right_forbidden_to_fast_to_stop
 
 # overtaking on the right side allowed (regardless of speed) via option
 overtaking_right_allowed
+
+# vehicles with vClass emergency may always overtake on the right	
+overtaking_right_emergency

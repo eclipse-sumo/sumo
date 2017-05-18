@@ -67,6 +67,9 @@
 #define HELP_OVERTAKE  (double)(10.0 / 3.6)
 #define MIN_FALLBEHIND  (double)(7.0 / 3.6)
 
+// allow overtaking to the right below this speed difference
+#define OVERTAKE_RIGHT_THRESHOLD (double)(5/3.6)
+
 #define RELGAIN_NORMALIZATION_MIN_SPEED (double)10.0
 #define URGENCY (double)2.0
 
@@ -1220,7 +1223,7 @@ MSLCM_LC2013::_wantsChange(
         ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
     } else {
         // VARIANT_20 (noOvertakeRight)
-        if (!myAllowOvertakingRight && !right && !myVehicle.congested() && neighLead.first != 0) {
+        if (!myAllowOvertakingRight && !right && !myVehicle.congested() && neighLead.first != 0 && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY) {
             // check for slower leader on the left. we should not overtake but
             // rather move left ourselves (unless congested)
             MSVehicle* nv = neighLead.first;

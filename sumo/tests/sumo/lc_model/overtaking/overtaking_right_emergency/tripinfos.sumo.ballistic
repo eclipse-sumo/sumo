@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Feb  1 11:29:16 2017 by SUMO Version dev-SVN-r21650
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="slow_middle" depart="0.00" departLane="beg_1" departPos="1000.00" departSpeed="25.00" departDelay="0.00" arrival="80.00" arrivalLane="beg_1" arrivalPos="2998.50" arrivalSpeed="25.00" duration="80.00" routeLength="1998.50" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_slow_middle" vType="slow" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking" depart="4.00" departLane="beg_0" departPos="1000.00" departSpeed="36.00" departDelay="0.00" arrival="82.00" arrivalLane="beg_0" arrivalPos="2998.50" arrivalSpeed="30.20" duration="78.00" routeLength="1998.50" waitSteps="0" timeLoss="21.86" rerouteNo="0" devices="tripinfo_overtaking" vType="fast" speedFactor="1.00" vaporized=""/>
+</tripinfos>
