@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- generated on 2017-05-11 13:16:53.588000 by $Id: route2trips.py 23614 2017-03-22 13:02:46Z luecken $ via randomTrips.py
+  options: -n osm.net.xml <doubleminus>seed 42 <doubleminus>fringe-factor 5 -p 0.856537 -r osm.passenger.rou.xml -o osm.passenger.trips.xml -e 3600 <doubleminus>vehicle-class passenger <doubleminus>vclass passenger <doubleminus>prefix veh <doubleminus>min-distance 300 <doubleminus>trip-attributes departLane="best" <doubleminus>validate
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="passengerleft" vClass="passenger" latAlignment="left">
+    </vType>
+    <vType id="passengerright" vClass="passenger" latAlignment="right">
+    </vType>
+    <vType id="emergency" vClass="emergency" guiShape="emergency" width="1" latAlignment="arbitrary">
+    </vType>    
+    <trip id="veh1" depart="1.00" departLane="best" from="143308546#13" to="143308532#0" type="passengerright"/>
+    <trip id="veh2" depart="2.00" departLane="best" from="143308546#13" to="143308532#0" type="passengerleft"/>
+    <trip id="veh3" depart="3.00" departLane="best" from="143308546#13" to="143308532#0" type="passengerright"/>
+    <trip id="emergency" depart="5.00" departLane="best" from="143308546#13" to="143308532#0" type="emergency"/>
+</routes>
