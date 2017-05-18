@@ -48,17 +48,17 @@ MSJunctionControl::~MSJunctionControl() {
 
 void
 MSJunctionControl::postloadInitContainer() {
-    const std::vector<MSJunction*>& junctions = buildAndGetStaticVector();
+    const std::map<std::string, MSJunction*>& junctionMap = getMyMap();
     // initialize normal junctions before internal junctions
     // (to allow calling getIndex() during initialization of internal junction links)
-    for (std::vector<MSJunction*>::const_iterator i = junctions.begin(); i != junctions.end(); ++i) {
-        if (dynamic_cast<MSInternalJunction*>(*i) == 0) {
-            (*i)->postloadInit();
+    for (std::map<std::string, MSJunction*>::const_iterator i = junctionMap.begin(); i != junctionMap.end(); ++i) {
+        if (i->second->getType() != NODETYPE_INTERNAL) {
+            i->second->postloadInit();
         }
     }
-    for (std::vector<MSJunction*>::const_iterator i = junctions.begin(); i != junctions.end(); ++i) {
-        if (dynamic_cast<MSInternalJunction*>(*i) != 0) {
-            (*i)->postloadInit();
+    for (std::map<std::string, MSJunction*>::const_iterator i = junctionMap.begin(); i != junctionMap.end(); ++i) {
+        if (i->second->getType() == NODETYPE_INTERNAL) {
+            i->second->postloadInit();
         }
     }
 }

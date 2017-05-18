@@ -167,45 +167,6 @@ public:
     }
 
 
-    /* @brief Returns the reference to a vector that contains all objects.
-     *
-     * This method returns the reference to a vector which is stored within
-     *  this class and contains all known objects stored within the map.
-     * This vector is rebuild in prior if "myHaveChanged" indicates
-     *  a change has taken place.
-     *
-     * @return Reference to a saved vector of objects within the map
-     */
-    const std::vector<T>& buildAndGetStaticVector() const {
-        if (myHaveChanged) {
-            myVector.clear();
-            typename IDMap::const_iterator i;
-            for (i = myMap.begin(); i != myMap.end(); ++i) {
-                myVector.push_back((*i).second);
-            }
-            myHaveChanged = false;
-        }
-        return myVector;
-    }
-
-
-    /* @brief Returns a vector that contains all objects.
-     *
-     * This method builds and returns a vector which contains all known
-     *  objects stored within the map.
-     *
-     * @return A vector of objects within the map
-     */
-    std::vector<T> getTempVector() const {
-        std::vector<T> ret;
-        typename IDMap::const_iterator i;
-        for (i = myMap.begin(); i != myMap.end(); ++i) {
-            ret.push_back((*i).second);
-        }
-        return ret;
-    }
-
-
     /* @brief Fills the given vector with the stored objects' ids
      * @param[in] into The container to fill
      */
