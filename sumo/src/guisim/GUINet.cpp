@@ -233,7 +233,7 @@ std::vector<GUIGlID>
 GUINet::getJunctionIDs(bool includeInternal) const {
     std::vector<GUIGlID> ret;
     for (std::vector<GUIJunctionWrapper*>::const_iterator i = myJunctionWrapper.begin(); i != myJunctionWrapper.end(); ++i) {
-        if (!(*i)->isInner() || includeInternal) {
+        if (!(*i)->isInternal() || includeInternal) {
             ret.push_back((*i)->getGlID());
         }
     }
@@ -465,7 +465,7 @@ GUINet::getParameterWindow(GUIMainWindow& app,
             ret->mkItem("avg. trip speed [m/s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTripSpeed));
         }
     }
-    ret->mkItem("nodes [#]", false, (int)myJunctions->size());
+    ret->mkItem("nodes [#]", false, (int)getJunctionIDs(false).size());
     ret->mkItem("edges [#]", false, (int)GUIEdge::getIDs(false).size());
     ret->mkItem("total edge length [km]", false, GUIEdge::getTotalLength(false, false) / 1000);
     ret->mkItem("total lane length [km]", false, GUIEdge::getTotalLength(false, true) / 1000);

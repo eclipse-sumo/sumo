@@ -70,7 +70,7 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction)
         myBoundary = myJunction.getShape().getBoxBoundary();
     }
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
-    myIsInner = dynamic_cast<MSInternalJunction*>(&myJunction) != 0;
+    myIsInternal = myJunction.getType() == NODETYPE_INTERNAL;
     myAmWaterway = myJunction.getIncoming().size() + myJunction.getOutgoing().size() > 0;
     for (ConstMSEdgeVector::const_iterator it = myJunction.getIncoming().begin(); it != myJunction.getIncoming().end(); ++it) {
         if (!(*it)->isInternal() && !isWaterway((*it)->getPermissions())) {
@@ -124,7 +124,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * myMaxSize < 1.) {
         return;
     }
-    if (!myIsInner && s.drawJunctionShape) {
+    if (!myIsInternal && s.drawJunctionShape) {
         glPushMatrix();
         glPushName(getGlID());
         const double colorValue = getColorValue(s);
@@ -153,7 +153,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
         glPopMatrix();
     }
-    if (myIsInner) {
+    if (myIsInternal) {
         drawName(myJunction.getPosition(), s.scale, s.internalJunctionName);
     } else {
         drawName(myJunction.getPosition(), s.scale, s.junctionName);

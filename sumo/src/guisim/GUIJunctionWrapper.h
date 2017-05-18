@@ -127,8 +127,8 @@ public:
     }
 
     /// @brief whether this is an inner junction (a waiting spot for crossing a "real" junction)
-    bool isInner() const {
-        return myIsInner;
+    bool isInternal() const {
+        return myIsInternal;
     }
 
     /** @brief Returns the represented junction
@@ -161,7 +161,7 @@ private:
     Boundary myBoundary;
 
     /// @brief whether this wraps an instance of MSInternalJunction
-    bool myIsInner;
+    bool myIsInternal;
 
     /// @brief whether this junction has only waterways as incoming and outgoing edges
     bool myAmWaterway;
