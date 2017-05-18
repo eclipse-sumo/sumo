@@ -289,11 +289,6 @@ public:
         return myTrafficLights.size() != 0;
     }
 
-    /**@brief Returns whether this node is controlled by a tls that spans over more than one node
-     * @return Whether a "joined" traffic light was assigned to this node
-     */
-    bool isJoinedTLSControlled() const;
-
     /// @brief Returns the traffic lights that were assigned to this node (The set of tls that control this node)
     const std::set<NBTrafficLightDefinition*>& getControllingTLS() const {
         return myTrafficLights;

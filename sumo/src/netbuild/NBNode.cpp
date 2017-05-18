@@ -333,20 +333,6 @@ NBNode::removeTrafficLights() {
 }
 
 
-bool
-NBNode::isJoinedTLSControlled() const {
-    if (!isTLControlled()) {
-        return false;
-    }
-    for (std::set<NBTrafficLightDefinition*>::const_iterator i = myTrafficLights.begin(); i != myTrafficLights.end(); ++i) {
-        if ((*i)->getID().find("joined") == 0) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
 void
 NBNode::invalidateTLS(NBTrafficLightLogicCont& tlCont, bool removedConnections, bool addedConnections) {
     if (isTLControlled()) {
