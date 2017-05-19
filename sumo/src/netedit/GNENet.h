@@ -404,7 +404,7 @@ public:
      *  - connected edges will keep their geometry (big junction shape is created)
      *  - no hirarchy: if any junction has a traffic light than the resuling junction will
      */
-    void joinSelectedJunctions(GNEUndoList* undoList);
+    bool joinSelectedJunctions(GNEUndoList* undoList);
 
     /// @brief removes junctions that have no edges
     void removeSolitaryJunctions(GNEUndoList* undoList);
@@ -598,6 +598,9 @@ private:
      * @param[in] keepEndpoints Whether to keep the original edge endpoints (influences junction shape)
      */
     void remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoList* undoList, bool keepEndpoints = false);
+
+    /// @brief return true if there are already a Junction in the given position, false in other case
+    bool checkJunctionPosition(const Position &pos);
 
     /// @brief the z boundary (stored in the x-coordinate), values of 0 are ignored
     Boundary myZBoundary;

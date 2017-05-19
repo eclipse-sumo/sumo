@@ -753,6 +753,18 @@ GNENet::remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoL
 }
 
 
+bool 
+GNENet::checkJunctionPosition(const Position &pos) {
+    // Check that there isn't another junction in the same position as Pos
+    for(GNEJunctions::const_iterator i = myJunctions.begin(); i != myJunctions.end(); i++) {
+        if(i->second->getPosition() == pos) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
 void
 GNENet::save(OptionsCont& oc) {
     // compute without volatile options and update network
@@ -1128,14 +1140,12 @@ GNENet::getNetBuilder() const {
 }
 
 
-void
+bool
 GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     std::vector<GNEJunction*> selected = retrieveJunctions(true);
     if (selected.size() < 2) {
-        return;
+        return false;
     }
-    undoList->p_begin("Join selected " + toString(SUMO_TAG_JUNCTION) + "s");
-
     EdgeVector allIncoming;
     EdgeVector allOutgoing;
     std::set<NBNode*> cluster;
@@ -1148,11 +1158,56 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     }
     // create new junction
     Position pos;
+    Position oldPos; 
     bool setTL;
     std::string id;
     TrafficLightType type;
     myNetBuilder->getNodeCont().analyzeCluster(cluster, id, pos, setTL, type);
-    // XXX this is not undone when calling 'undo'
+    // save position
+    oldPos = pos;
+
+    // Check that there isn't another junction in the same position as Pos but doesn't belong to cluster
+    for(GNEJunctions::const_iterator i = myJunctions.begin(); i != myJunctions.end(); i++) {
+        if((i->second->getPosition() == pos) && (cluster.find(i->second->getNBNode()) == cluster.end())) {
+            // show warning in gui testing debug mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+                WRITE_WARNING("Opening FXMessageBox of type 'question'");
+            }
+            // Ask confirmation to user
+            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
+                                                    ("Position of joined " + toString(SUMO_TAG_JUNCTION)).c_str(), "%s",
+                                                    ("There is another unselected " + toString(SUMO_TAG_JUNCTION) + " in the same position of joined " + toString(SUMO_TAG_JUNCTION) +
+                                                     + ".\nIt will be joined with the other selected " + toString(SUMO_TAG_JUNCTION) + "s. Continue?").c_str());
+            if (answer != 1) { // 1:yes, 2:no, 4:esc
+                // write warning if netedit is running in testing mode
+                if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true)) {
+                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true)) {
+                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                }
+                return false;
+            } else {
+                // write warning if netedit is running in testing mode
+                if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+                    WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+                }
+                // select conflicted junction an join all again
+                gSelected.select(i->second->getGlID());
+                return joinSelectedJunctions(undoList);
+            }
+        }
+    }
+
+    // use checkJunctionPosition to avoid conflicts with junction in the same position as others
+    while(checkJunctionPosition(pos) == false) {
+        pos.setx(pos.x() + 0.1);
+        pos.sety(pos.y() + 0.1);
+    }
+
+    // start with the join selected junctions
+    undoList->p_begin("Join selected " + toString(SUMO_TAG_JUNCTION) + "s");
+
+    // #3128 this is not undone when calling 'undo'
     myNetBuilder->getNodeCont().registerJoinedCluster(cluster);
     GNEJunction* joined = createJunction(pos, undoList);
     if (setTL) {
@@ -1174,7 +1229,13 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
         deleteJunction(*it, undoList);
     }
     joined->setAttribute(SUMO_ATTR_ID, id, undoList);
+
+    // check if joined junction had to change their original position to avoid errors
+    if(pos != oldPos) {
+        joined->setAttribute(SUMO_ATTR_POSITION, toString(oldPos), undoList);
+    }
     undoList->p_end();
+    return true;
 }
 
 
