@@ -65,7 +65,7 @@ GUIParameterTableWindow*
 GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
                                  GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 20);
+        new GUIParameterTableWindow(app, *this, 20 + (int)getParameter().getMap().size());
     // add items
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("segment [#]", false, getSegment()->getIndex());
@@ -128,7 +128,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("block time [s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getBlockTimeSeconds));
     ret->mkItem("link penalty [s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getCurrentLinkPenaltySeconds));
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&getParameter());
     return ret;
 }
 

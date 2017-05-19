@@ -101,7 +101,7 @@ GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 36);
+        new GUIParameterTableWindow(app, *this, 36 + (int)getParameter().getMap().size());
     // add items
     ret->mkItem("lane [id]", false, Named::getIDSecure(myLane, "n/a"));
     if (MSGlobals::gLaneChangeDuration > 0 || MSGlobals::gLateralResolution > 0) {
@@ -175,7 +175,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("containers", true,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getContainerNumber));
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&getParameter());
     return ret;
 }
 
