@@ -49,9 +49,6 @@
 class Distribution_Parameterized :
     public Distribution {
 public:
-    /// Constructor for parsable distribution description
-    Distribution_Parameterized(const std::string& description);
-
     /// Constructor for standard normal distribution
     Distribution_Parameterized(const std::string& id, double mean,
                                double deviation);
@@ -62,6 +59,9 @@ public:
 
     /// Destructor
     virtual ~Distribution_Parameterized();
+
+    /// Overwrite by parsable distribution description
+    void parse(const std::string& description);
 
     /** @brief Draw a sample of the distribution.
     *

@@ -38,24 +38,6 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Distribution_Parameterized::Distribution_Parameterized(const std::string& description)
-    : Distribution("") {
-    const std::string distName = description.substr(0, description.find('('));
-    if (distName == "norm" || distName == "normc") {
-        std::vector<std::string> params = StringTokenizer(description.substr(distName.size() + 1, description.size() - distName.size() - 2), ',').getVector();
-        myParameter.resize(params.size());
-        std::transform(params.begin(), params.end(), myParameter.begin(), TplConvert::_str2double);
-        setID(distName);
-    } else {
-        myParameter.push_back(TplConvert::_str2double(description));
-    }
-    assert(!myParameter.empty());
-    if (myParameter.size() == 1) {
-        myParameter.push_back(0.);
-    }
-}
-
-
 Distribution_Parameterized::Distribution_Parameterized(const std::string& id,
         double mean, double deviation)
     : Distribution(id) {
@@ -75,6 +57,24 @@ Distribution_Parameterized::Distribution_Parameterized(const std::string& id,
 
 
 Distribution_Parameterized::~Distribution_Parameterized() {}
+
+
+void
+Distribution_Parameterized::parse(const std::string& description) {
+    const std::string distName = description.substr(0, description.find('('));
+    if (distName == "norm" || distName == "normc") {
+        std::vector<std::string> params = StringTokenizer(description.substr(distName.size() + 1, description.size() - distName.size() - 2), ',').getVector();
+        myParameter.resize(params.size());
+        std::transform(params.begin(), params.end(), myParameter.begin(), TplConvert::_str2double);
+        setID(distName);
+    } else {
+        myParameter[0] = TplConvert::_str2double(description);
+    }
+    assert(!myParameter.empty());
+    if (myParameter.size() == 1) {
+        myParameter.push_back(0.);
+    }
+}
 
 
 double
