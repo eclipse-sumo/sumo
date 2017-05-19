@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/19/17 13:47:23 by Netedit Version dev-SVN-r22761
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Projects\SUMO_Trunk\tests\netedit\bugs\ticket3071\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Projects\SUMO_Trunk\tests\netedit\bugs\ticket3071\input_net.net.xml"/>
+        <plain-output-prefix value="C:\Projects\SUMO_Trunk\tests\netedit\bugs\ticket3071\input_net"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-gneE10" to="-gneE9" fromLane="1" toLane="1"/>
+    <connection from="-gneE10" to="-gneE17" fromLane="1" toLane="1"/>
+
+    <connection from="-gneE11" to="-gneE10" fromLane="1" toLane="1"/>
+
+    <connection from="-gneE12" to="-gneE11" fromLane="1" toLane="1"/>
+    <connection from="-gneE12" to="-gneE18" fromLane="1" toLane="1"/>
+
+    <connection from="-gneE13" to="-gneE12" fromLane="1" toLane="1"/>
+
+    <connection from="-gneE14" to="-gneE13" fromLane="1" toLane="1"/>
+    <connection from="-gneE14" to="-gneE19" fromLane="1" toLane="1"/>
+
+    <connection from="-gneE15" to="-gneE14" fromLane="1" toLane="1"/>
+
+    <connection from="-gneE16" to="gneE19" fromLane="1" toLane="1"/>
+    <connection from="-gneE16" to="gneE18" fromLane="1" toLane="1"/>
+    <connection from="-gneE16" to="gneE17" fromLane="1" toLane="1"/>
+
+    <connection from="-gneE17" to="gneE16" fromLane="1" toLane="1"/>
+    <connection from="-gneE17" to="gneE19" fromLane="1" toLane="1"/>
+    <connection from="-gneE17" to="gneE18" fromLane="1" toLane="1"/>
+
+    <connection from="-gneE18" to="gneE17" fromLane="1" toLane="1"/>
+    <connection from="-gneE18" to="gneE16" fromLane="1" toLane="1"/>
+    <connection from="-gneE18" to="gneE19" fromLane="1" toLane="1"/>
+
+    <connection from="-gneE19" to="gneE18" fromLane="1" toLane="1"/>
+    <connection from="-gneE19" to="gneE17" fromLane="1" toLane="1"/>
+    <connection from="-gneE19" to="gneE16" fromLane="1" toLane="1"/>
+
+    <connection from="-gneE8" to="-gneE15" fromLane="1" toLane="1"/>
+    <connection from="-gneE8" to="-gneE16" fromLane="1" toLane="1"/>
+
+    <connection from="-gneE9" to="-gneE8" fromLane="1" toLane="1"/>
+
+    <connection from="gneE10" to="gneE11" fromLane="1" toLane="1"/>
+
+    <connection from="gneE11" to="-gneE18" fromLane="1" toLane="1"/>
+    <connection from="gneE11" to="gneE12" fromLane="1" toLane="1"/>
+
+    <connection from="gneE12" to="gneE13" fromLane="1" toLane="1"/>
+
+    <connection from="gneE13" to="-gneE19" fromLane="1" toLane="1"/>
+    <connection from="gneE13" to="gneE14" fromLane="1" toLane="1"/>
+
+    <connection from="gneE14" to="gneE15" fromLane="1" toLane="1"/>
+
+    <connection from="gneE15" to="-gneE16" fromLane="1" toLane="1"/>
+    <connection from="gneE15" to="gneE8" fromLane="1" toLane="1"/>
+
+    <connection from="gneE16" to="gneE8" fromLane="1" toLane="1"/>
+    <connection from="gneE16" to="-gneE15" fromLane="1" toLane="1"/>
+
+    <connection from="gneE17" to="gneE10" fromLane="1" toLane="1"/>
+    <connection from="gneE17" to="-gneE9" fromLane="1" toLane="1"/>
+
+    <connection from="gneE18" to="gneE12" fromLane="1" toLane="1"/>
+    <connection from="gneE18" to="-gneE11" fromLane="1" toLane="1"/>
+
+    <connection from="gneE19" to="gneE14" fromLane="1" toLane="1"/>
+    <connection from="gneE19" to="-gneE13" fromLane="1" toLane="1"/>
+
+    <connection from="gneE8" to="gneE9" fromLane="1" toLane="1"/>
+
+    <connection from="gneE9" to="-gneE17" fromLane="1" toLane="1"/>
+    <connection from="gneE9" to="gneE10" fromLane="1" toLane="1"/>
+
+    <crossing node="gneJ11" edges="gneE8 -gneE8" priority="0"/>
+    <crossing node="gneJ11" edges="-gneE16 gneE16" priority="0"/>
+    <crossing node="gneJ11" edges="-gneE15 gneE15" priority="0"/>
+    <crossing node="gneJ12" edges="gneE9 -gneE9" priority="0"/>
+    <crossing node="gneJ13" edges="-gneE9 gneE9" priority="0"/>
+    <crossing node="gneJ13" edges="gneE10 -gneE10" priority="0"/>
+    <crossing node="gneJ13" edges="-gneE17 gneE17" priority="0"/>
+    <crossing node="gneJ14" edges="-gneE10 gneE10" priority="0"/>
+    <crossing node="gneJ15" edges="-gneE18 gneE18" priority="0"/>
+    <crossing node="gneJ15" edges="-gneE11 gneE11" priority="0"/>
+    <crossing node="gneJ15" edges="gneE12 -gneE12" priority="0"/>
+    <crossing node="gneJ16" edges="gneE13 -gneE13" priority="0"/>
+    <crossing node="gneJ17" edges="gneE14 -gneE14" priority="0"/>
+    <crossing node="gneJ17" edges="-gneE19 gneE19" priority="0"/>
+    <crossing node="gneJ17" edges="-gneE13 gneE13" priority="0"/>
+    <crossing node="gneJ18" edges="gneE15 -gneE15" priority="0"/>
+    <crossing node="gneJ19" edges="gneE16 -gneE16" priority="0"/>
+    <crossing node="gneJ19" edges="gneE17 -gneE17" priority="0"/>
+    <crossing node="gneJ19" edges="gneE18 -gneE18" priority="0"/>
+    <crossing node="gneJ19" edges="gneE19 -gneE19" priority="0"/>
+</connections>
