@@ -74,9 +74,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIMEVehicle, double>(this, &GUIBaseVehicle::getNaviDegree));
     ret->mkItem("waiting time [s]", true,
                 new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getWaitingSeconds));
-    if (getChosenSpeedFactor() != 1) {
-        ret->mkItem("speed factor", false, getChosenSpeedFactor());
-    }
+    ret->mkItem("speed factor", false, getChosenSpeedFactor());
     //ret->mkItem("time gap [s]", true,
     //            new FunctionBinding<GUIMEVehicle, double>(this, &MSVehicle::getTimeGap));
     //ret->mkItem("waiting time [s]", true,

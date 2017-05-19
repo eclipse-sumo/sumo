@@ -120,9 +120,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, double>(this, &GUIBaseVehicle::getNaviDegree));
     ret->mkItem("slope [degree]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getSlope));
-    if (getChosenSpeedFactor() != 1) {
-        ret->mkItem("speed factor", false, getChosenSpeedFactor());
-    }
+    ret->mkItem("speed factor", false, getChosenSpeedFactor());
     ret->mkItem("time gap on lane [s]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getTimeGapOnLane));
     ret->mkItem("waiting time [s]", true,
