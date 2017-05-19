@@ -280,6 +280,16 @@ MSRoute::dict_saveState(OutputDevice& out) {
 double
 MSRoute::getDistanceBetween(double fromPos, double toPos,
                             const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal) const {
+    if (fromEdge->isInternal()) {
+        const MSEdge* pred = fromEdge->getPredecessors().front();
+        assert(pred != 0);
+        return fromPos + getDistanceBetween(pred->getLength(), toPos, pred, toEdge, includeInternal);
+    }
+    if (toEdge->isInternal()) {
+        const MSEdge* pred = toEdge->getPredecessors().front();
+        assert(pred != 0);
+        return toPos + getDistanceBetween(fromPos, pred->getLength(), fromEdge, pred, includeInternal);
+    }
     ConstMSEdgeVector::const_iterator it = std::find(myEdges.begin(), myEdges.end(), fromEdge);
     if (it == myEdges.end() || std::find(it, myEdges.end(), toEdge) == myEdges.end()) {
         // start or destination not contained in route
