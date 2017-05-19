@@ -3,5 +3,5 @@
    <vType id="slow" sigma="0" maxSpeed="25"/>
     <route id="1" edges="beg"/>
     <vehicle id="slow_middle" route="1" type="slow" depart="0" departPos="1000" departLane="1" arrivalLane="1" departSpeed="max"/>
-    <vehicle id="overtaking" route="1" type="fast" depart="3" departPos="1000" departSpeed="max"/>
+    <vehicle id="overtaking" route="1" type="fast" depart="1" departPos="1000" departSpeed="max"/>
 </routes>

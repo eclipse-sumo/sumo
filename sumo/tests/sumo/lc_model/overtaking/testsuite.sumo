@@ -15,3 +15,6 @@ overtaking_right_allowed
 
 # vehicles with vClass emergency may always overtake on the right	
 overtaking_right_emergency
+
+# when there is a slower leader vehicle on the left lane, small speed differences do not triggere immediate braking
+overtaking_right_smallDifference
