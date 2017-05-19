@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:46664 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:60567 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -522,6 +522,7 @@ step 122
 step 123
 ('veh', 'collider', 'speed', 3.525477036541526, 'pos', (444.47104345431524, 501.65000000000003), 'pos3d', (444.47104345431524, 501.65000000000003, 0.0), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 45.2051126017444, 'CO2', 3961.1400969204437)
 step 124
+bus waiting time 7.0
 step 125
 step 126
 vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'horiz', 'movedVeh', 'offRoad', 'parking', 'parking2', 'routeTest', 'routeTest2', 'triptest', 'victim']
