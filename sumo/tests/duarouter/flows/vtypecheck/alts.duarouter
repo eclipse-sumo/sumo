@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 18 18:54:59 2014 by SUMO duarouter Version dev-SVN-r16220
+<!-- generated on 05/19/17 17:09:56 by SUMO duarouter Version dev-SVN-r24356
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -24,7 +24,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="0">
-        <carFollowing-Krauss accel="100.00"/>
+        <carFollowing-Krauss accel="100"/>
     </vType>
     <vehicle id="0.0" type="0" depart="0.00">
         <routeDistribution last="0">
@@ -32,7 +32,7 @@
         </routeDistribution>
     </vehicle>
     <vType id="1">
-        <carFollowing-Krauss decel="100.00"/>
+        <carFollowing-Krauss decel="100"/>
     </vType>
     <vehicle id="1.0" type="1" depart="10.00" color="black">
         <routeDistribution last="0">
@@ -93,6 +93,42 @@
     <vehicle id="10.0" type="10" depart="33.00" departLane="free">
         <routeDistribution last="0">
             <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vType id="11" speedFactor="1.20"/>
+    <vehicle id="11.0" type="11" depart="34.00">
+        <routeDistribution last="0">
+            <route cost="104.92" probability="1.00000000" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vType id="12" speedFactor="normc(1.00,0.20,0.20,2.00)"/>
+    <vehicle id="12.0" type="12" depart="35.00">
+        <routeDistribution last="0">
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vType id="13" speedFactor="normc(0.90,0.20,0.20,2.00)"/>
+    <vehicle id="13.0" type="13" depart="36.00">
+        <routeDistribution last="0">
+            <route cost="139.89" probability="1.00000000" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vType id="14" speedFactor="normc(0.90,0.20)"/>
+    <vehicle id="14.0" type="14" depart="36.00">
+        <routeDistribution last="0">
+            <route cost="139.89" probability="1.00000000" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vType id="15" speedFactor="normc(0.90,0.20,0.10)"/>
+    <vehicle id="15.0" type="15" depart="36.00">
+        <routeDistribution last="0">
+            <route cost="139.89" probability="1.00000000" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vType id="16" speedFactor="0.90"/>
+    <vehicle id="16.0" type="16" depart="36.00">
+        <routeDistribution last="0">
+            <route cost="139.89" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 </routes>
