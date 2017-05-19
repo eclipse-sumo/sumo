@@ -13,6 +13,9 @@ car_type
 # car and walk possible
 car_walk
 
+# like car_walk but the network has sidewalks
+car_walk_sidewalk
+
 # car and walk possible with arrivalpos 0
 car_walk_arrivalpos
 
