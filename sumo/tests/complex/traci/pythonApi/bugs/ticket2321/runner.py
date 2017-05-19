@@ -37,6 +37,7 @@ sumoProcess = subprocess.Popen([sumoBinary,
 
 
 
+firstPos = None
 vehID = "v0"
 traci.init(PORT)
 traci.simulationStep()
@@ -45,10 +46,18 @@ traci.vehicle.add(vehID, "r0")
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
     try:
-        print("step=%s lane=%s dist=%s" % (
+        if firstPos is None:
+            firstPos = traci.vehicle.getPosition(vehID)
+            print("distToInternal=%s" % traci.vehicle.getDrivingDistance(vehID, ":C_10", 13.80))
+        currPos = traci.vehicle.getPosition(vehID)
+        print("step=%s lane=%s pos=%.2f dist=%.2f simDist=%.2f" % (
             traci.simulation.getCurrentTime() / 1000,
             traci.vehicle.getLaneID(vehID),
-            traci.vehicle.getDistance(vehID)))
+            traci.vehicle.getLanePosition(vehID),
+            traci.vehicle.getDistance(vehID),
+            traci.simulation.getDistance2D(firstPos[0], firstPos[1], currPos[0],
+                currPos[1], isDriving=True)))
+
     except traci.TraCIException:
         pass
 

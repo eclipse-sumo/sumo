@@ -1,22 +1,23 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:60698 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:56785 [Errno 111] Connection refused
  Retrying in 1 seconds
-step=2 lane=SC_0 dist=0.0
-step=3 lane=SC_0 dist=1.44168866971
-step=4 lane=SC_0 dist=4.55713596621
-step=5 lane=SC_0 dist=10.2134600151
-step=6 lane=SC_0 dist=17.8309053023
-step=7 lane=SC_0 dist=27.2814093548
-step=8 lane=SC_0 dist=39.2752180227
-step=9 lane=SC_0 dist=52.1989834285
-step=10 lane=SC_0 dist=65.7672327602
-step=11 lane=SC_0 dist=78.9483749621
-step=12 lane=SC_0 dist=91.8697196706
-step=13 lane=:C_10_0 dist=-1001.0
-step=14 lane=CN_0 dist=118.766968982
-step=15 lane=CN_0 dist=132.050954625
-step=16 lane=CN_0 dist=145.353209525
-step=17 lane=CN_0 dist=158.50705121
-step=18 lane=CN_0 dist=172.053181056
-step=19 lane=CN_0 dist=185.864846696
-step=20 lane=CN_0 dist=198.616587695
+distToInternal=105.75
+step=2 lane=SC_0 pos=0.00 dist=0.00 simDist=0.00
+step=3 lane=SC_0 pos=1.44 dist=1.44 simDist=1.44
+step=4 lane=SC_0 pos=4.56 dist=4.56 simDist=4.56
+step=5 lane=SC_0 pos=10.21 dist=10.21 simDist=10.21
+step=6 lane=SC_0 pos=17.83 dist=17.83 simDist=17.83
+step=7 lane=SC_0 pos=27.28 dist=27.28 simDist=27.28
+step=8 lane=SC_0 pos=39.28 dist=39.28 simDist=39.28
+step=9 lane=SC_0 pos=52.20 dist=52.20 simDist=52.20
+step=10 lane=SC_0 pos=65.77 dist=65.77 simDist=65.77
+step=11 lane=SC_0 pos=78.95 dist=78.95 simDist=78.95
+step=12 lane=SC_0 pos=91.87 dist=91.87 simDist=91.87
+step=13 lane=:C_10_0 pos=13.80 dist=105.75 simDist=179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00
+step=14 lane=CN_0 pos=10.72 dist=118.77 simDist=118.77
+step=15 lane=CN_0 pos=24.00 dist=132.05 simDist=132.05
+step=16 lane=CN_0 pos=37.30 dist=145.35 simDist=145.35
+step=17 lane=CN_0 pos=50.46 dist=158.51 simDist=158.51
+step=18 lane=CN_0 pos=64.00 dist=172.05 simDist=172.05
+step=19 lane=CN_0 pos=77.81 dist=185.86 simDist=185.86
+step=20 lane=CN_0 pos=90.57 dist=198.62 simDist=198.62
