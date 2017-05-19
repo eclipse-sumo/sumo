@@ -89,7 +89,7 @@ struct IntermodalTrip {
 
 
     inline SUMOVehicleClass getVClass() const {
-        return SVC_PEDESTRIAN;
+        return vehicle != 0 ? vehicle->getVClass() : SVC_PEDESTRIAN;
     }
 
     const E* const from;

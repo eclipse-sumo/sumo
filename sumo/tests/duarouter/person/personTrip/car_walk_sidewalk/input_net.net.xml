@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 19 May 2017 08:58:02 AM CEST by Netedit Version dev-SVN-r24351
+<!-- generated on Fri 19 May 2017 10:03:30 AM CEST by Netedit Version dev-SVN-r24351
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="input_net.net.xml"/>
+        <sumo-net-file value="/scr1/sumoID/sumo/tests/duarouter/person/personTrip/car_walk_sidewalk/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value="/scr1/sumoID/sumo/tests/duarouter/person/personTrip/car_walk_sidewalk/input_net.net.xml"/>
     </output>
 
     <processing>
@@ -21,10 +21,6 @@
         <junctions.corner-detail value="0"/>
         <rectangular-lane-cut value="false"/>
     </processing>
-
-    <visualisation>
-        <registry-viewport value="true"/>
-    </visualisation>
 
 </configuration>
 -->
@@ -48,7 +44,7 @@
         <lane id="end_2" index="2" disallow="pedestrian" speed="27.80" length="500.00" shape="1501.45,-1.65 1998.50,-1.65"/>
     </edge>
     <edge id="left" from="begleft" to="endleft" priority="-1">
-        <lane id="left_0" index="0" speed="27.80" length="991.87" shape="508.05,498.35 1491.95,498.35"/>
+        <lane id="left_0" index="0" speed="27.00" length="991.87" shape="508.05,498.35 1491.95,498.35"/>
     </edge>
     <edge id="left2end" from="endleft" to="end" priority="-1">
         <lane id="left2end_0" index="0" allow="pedestrian" speed="27.80" length="501.13" shape="1495.05,495.25 1495.05,1.45"/>
