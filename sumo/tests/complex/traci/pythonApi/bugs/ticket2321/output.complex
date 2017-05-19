@@ -1,0 +1,22 @@
+Loading configuration... done.
+Could not connect to TraCI server at localhost:60698 [Errno 111] Connection refused
+ Retrying in 1 seconds
+step=2 lane=SC_0 dist=0.0
+step=3 lane=SC_0 dist=1.44168866971
+step=4 lane=SC_0 dist=4.55713596621
+step=5 lane=SC_0 dist=10.2134600151
+step=6 lane=SC_0 dist=17.8309053023
+step=7 lane=SC_0 dist=27.2814093548
+step=8 lane=SC_0 dist=39.2752180227
+step=9 lane=SC_0 dist=52.1989834285
+step=10 lane=SC_0 dist=65.7672327602
+step=11 lane=SC_0 dist=78.9483749621
+step=12 lane=SC_0 dist=91.8697196706
+step=13 lane=:C_10_0 dist=-1001.0
+step=14 lane=CN_0 dist=118.766968982
+step=15 lane=CN_0 dist=132.050954625
+step=16 lane=CN_0 dist=145.353209525
+step=17 lane=CN_0 dist=158.50705121
+step=18 lane=CN_0 dist=172.053181056
+step=19 lane=CN_0 dist=185.864846696
+step=20 lane=CN_0 dist=198.616587695
