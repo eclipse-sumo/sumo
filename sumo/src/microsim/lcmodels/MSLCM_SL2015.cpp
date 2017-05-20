@@ -89,8 +89,8 @@
 // the speed at which the desired lateral gap grows now further
 #define LATGAP_SPEED_THRESHOLD (50 / 3.6)
 
-// itention to change decays after 30 seconds
-#define SPEEDGAIN_DECAY_TIME 30.0
+// intention to change decays over time
+#define SPEEDGAIN_DECAY_FACTOR 0.5
 
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "E1")
@@ -125,7 +125,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 0)),
     myChangeProbThresholdRight(2.0 * myKeepRightParam / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
     myChangeProbThresholdLeft(0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam)),
-    mySpeedLossProbThreshold(-0.01 + (1 - mySublaneParam)) {
+    mySpeedLossProbThreshold(-0.1 + (1 - mySublaneParam)) {
 }
 
 MSLCM_SL2015::~MSLCM_SL2015() {
@@ -1204,23 +1204,24 @@ MSLCM_SL2015::_wantsChangeSublane(
                 ++j;
             }
             const double relativeGain = (vMin - defaultNextSpeed) / MAX2(vMin, RELGAIN_NORMALIZATION_MIN_SPEED);
+            const double currentLatDist = sublaneSides[i] - rightVehSide;
             // @note this is biased for changing to the left since we compare the sublanes in ascending order
             if (relativeGain > maxGain) {
                 maxGain = relativeGain;
                 if (maxGain > GAIN_PERCEPTION_THRESHOLD) {
                     sublaneCompact = i;
-                    latDist = sublaneSides[i] - rightVehSide;
+                    latDist = currentLatDist;
                     if (gDebugFlag2) {
                         std::cout << "      i=" << i << " newLatDist=" << latDist << " relGain=" << relativeGain << "\n";
                     }
                 }
             }
             if (gDebugFlag2) {
-                std::cout << "    i=" << i << " rightmostOnEdge=" << rightmostOnEdge << " vMin=" << vMin << " relGain=" << relativeGain << " sublaneCompact=" << sublaneCompact << "\n";
+                std::cout << "    i=" << i << " rightmostOnEdge=" << rightmostOnEdge << " vMin=" << vMin << " relGain=" << relativeGain << " sublaneCompact=" << sublaneCompact << " curLatDist=" << currentLatDist << "\n";
             }
-            if (latDist < 0) {
+            if (currentLatDist < -NUMERICAL_EPS * TS) {
                 maxGainRight = MAX2(maxGainRight, relativeGain);
-            } else if (latDist > 0) {
+            } else if (currentLatDist > NUMERICAL_EPS * TS) {
                 maxGainLeft = MAX2(maxGainLeft, relativeGain);
             }
             const double subAlignDist = sublaneSides[i] - rightVehSide;
@@ -1231,6 +1232,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                             << " side=" << sublaneSides[i]
                             << " rightSide=" << rightVehSide
                             << " latDistNice=" << latDistNice
+                            << " maxGainR=" << maxGainRight
+                            << " maxGainL=" << maxGainLeft
                             << "\n";
             }
         }
@@ -1242,14 +1245,18 @@ MSLCM_SL2015::_wantsChangeSublane(
         if (gDebugFlag2) std::cout << "  speedGainR_new=" << mySpeedGainProbabilityRight << "\n";
     }
     if (maxGainLeft != -std::numeric_limits<double>::max()) {
+        if (gDebugFlag2) std::cout << "  speedGainL_old=" << mySpeedGainProbabilityLeft;
         mySpeedGainProbabilityLeft += TS * maxGainLeft;
+        if (gDebugFlag2) std::cout << "  speedGainL_new=" << mySpeedGainProbabilityLeft << "\n";
     }
-    // decay (only if we have enough information)
-    if (maxGainRight < NUMERICAL_EPS && (right || (alternatives & LCA_RIGHT) == 0)) {
-        mySpeedGainProbabilityRight = MAX2(0.0, mySpeedGainProbabilityRight - TS * myChangeProbThresholdRight / SPEEDGAIN_DECAY_TIME);
+    // decay if there is no reason for or against changing (only if we have enough information)
+    if ((fabs(maxGainRight) < NUMERICAL_EPS || maxGainRight == -std::numeric_limits<double>::max())
+            && (right || (alternatives & LCA_RIGHT) == 0)) {
+        mySpeedGainProbabilityRight *= SPEEDGAIN_DECAY_FACTOR;
     }
-    if (maxGainLeft < NUMERICAL_EPS && (left || (alternatives & LCA_LEFT) == 0)) {
-        mySpeedGainProbabilityLeft = MAX2(0.0, mySpeedGainProbabilityLeft - TS * myChangeProbThresholdLeft / SPEEDGAIN_DECAY_TIME);
+    if ((fabs(maxGainLeft) < NUMERICAL_EPS || maxGainLeft == -std::numeric_limits<double>::max())
+            && (left || (alternatives & LCA_LEFT) == 0)) {
+        mySpeedGainProbabilityLeft *= SPEEDGAIN_DECAY_FACTOR;
     }
 
 
@@ -1582,12 +1589,18 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderInfo& ahead, int sublane
             const MSVehicle* leader = ahead[sublane];
             double vSafe;
             if (leader == 0) {
-                vSafe = MIN2(vMax, myCarFollowModel.followSpeed(&myVehicle, vMax, preb[laneIndex].length, 0, 0));
+                vSafe = myCarFollowModel.followSpeed(&myVehicle, vMax, preb[laneIndex].length, 0, 0);
             } else {
-                const double gap = leader->getBackPositionOnLane(lane) - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
-                vSafe = MIN2(vMax, myCarFollowModel.followSpeed(
-                                 &myVehicle, vMax, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()));
+                if (leader->getAcceleration() > 0.5 * leader->getCarFollowModel().getMaxAccel()) {
+                    // assume that the leader will continue accelerating to its maximum speed
+                    vSafe = leader->getLane()->getVehicleMaxSpeed(leader);
+                } else {
+                    const double gap = leader->getBackPositionOnLane(lane) - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
+                    vSafe = myCarFollowModel.followSpeed(
+                                &myVehicle, vMax, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                }
             }
+            vSafe = MIN2(vMax, vSafe);
             // XXX calibrate weightFactor?
             const double memoryFactor = 0.5;
             myExpectedSublaneSpeeds[edgeSublane] = memoryFactor * myExpectedSublaneSpeeds[edgeSublane] + (1 - memoryFactor) * vSafe;
