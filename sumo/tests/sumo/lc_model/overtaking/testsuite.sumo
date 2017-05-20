@@ -17,4 +17,4 @@ overtaking_right_allowed
 overtaking_right_emergency
 
 # when there is a slower leader vehicle on the left lane, small speed differences do not triggere immediate braking
-overtaking_right_smallDifference
+#overtaking_right_smallDifference
