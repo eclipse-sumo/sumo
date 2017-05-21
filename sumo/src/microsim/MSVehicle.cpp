@@ -2823,7 +2823,6 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
     myCachedPosition = Position::INVALID;
     assert(myState.myPos >= 0);
     assert(myState.mySpeed >= 0);
-    myWaitingTime = 0;
     myLane = enteredLane;
     myAmOnNet = true;
     if (notification != MSMoveReminder::NOTIFICATION_TELEPORT) {
@@ -2905,6 +2904,7 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
     }
     if (reason >= MSMoveReminder::NOTIFICATION_TELEPORT) {
         myAmOnNet = false;
+        myWaitingTime = 0;
     }
     if (reason != MSMoveReminder::NOTIFICATION_PARKING && resumeFromStopping()) {
         WRITE_WARNING("Vehicle '" + getID() + "' aborts stop.");
