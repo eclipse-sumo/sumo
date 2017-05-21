@@ -272,7 +272,7 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
 int 
 GUIParameterTableWindow::numParams(const GUIGlObject* obj) {
     const Parameterised* p = dynamic_cast<const Parameterised*>(obj);
-    return p != 0 ? p->getMap().size() : 0;
+    return p != 0 ? (int)p->getMap().size() : 0;
 }
 
 
