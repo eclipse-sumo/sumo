@@ -183,8 +183,19 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                 newPars->id = myID + "." + toString(depart) + "." + toString(myInserted);
                 newPars->depart = depart;
                 newPars->routeid = route->getID();
-                MEVehicle* vehicle = static_cast<MEVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(
-                                         newPars, route, vtype, false, false));
+                MEVehicle* vehicle;
+                try {
+                    vehicle = static_cast<MEVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(
+                                newPars, route, vtype, false, false));
+                } catch (const ProcessError& e) {
+                    if (!MSGlobals::gCheckRoutes) {
+                        WRITE_WARNING(e.what());
+                        vehicle = 0;
+                        break;
+                    } else {
+                        throw e;
+                    }
+                }
                 vehicle->setSegment(mySegment); // needed or vehicle will not be registered (XXX why?)
                 vehicle->setEventTime(currentTime); // XXX superfluous?
                 // move vehicle forward when the route does not begin at the calibrator's edge
