@@ -12,4 +12,6 @@
         <stop busStop="busstop" duration="20" parking="true"/>
     </vehicle>
 
+    <vehicle id="v1" type="t0" route="r0" depart="3"/>
+
 </routes>
