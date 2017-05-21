@@ -91,6 +91,8 @@
 
 // intention to change decays over time
 #define SPEEDGAIN_DECAY_FACTOR 0.5
+// exponential averaging factor for expected sublane speeds 
+#define SPEEDGAIN_MEMORY_FACTOR 0.5
 
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "E1")
@@ -1252,11 +1254,11 @@ MSLCM_SL2015::_wantsChangeSublane(
     // decay if there is no reason for or against changing (only if we have enough information)
     if ((fabs(maxGainRight) < NUMERICAL_EPS || maxGainRight == -std::numeric_limits<double>::max())
             && (right || (alternatives & LCA_RIGHT) == 0)) {
-        mySpeedGainProbabilityRight *= SPEEDGAIN_DECAY_FACTOR;
+        mySpeedGainProbabilityRight *= pow(SPEEDGAIN_DECAY_FACTOR, TS);
     }
     if ((fabs(maxGainLeft) < NUMERICAL_EPS || maxGainLeft == -std::numeric_limits<double>::max())
             && (left || (alternatives & LCA_LEFT) == 0)) {
-        mySpeedGainProbabilityLeft *= SPEEDGAIN_DECAY_FACTOR;
+        mySpeedGainProbabilityLeft *= pow(SPEEDGAIN_DECAY_FACTOR, TS);
     }
 
 
@@ -1601,8 +1603,7 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderInfo& ahead, int sublane
                 }
             }
             vSafe = MIN2(vMax, vSafe);
-            // XXX calibrate weightFactor?
-            const double memoryFactor = 0.5;
+            const double memoryFactor = pow(SPEEDGAIN_MEMORY_FACTOR, TS);
             myExpectedSublaneSpeeds[edgeSublane] = memoryFactor * myExpectedSublaneSpeeds[edgeSublane] + (1 - memoryFactor) * vSafe;
         } else {
             // lane forbidden
