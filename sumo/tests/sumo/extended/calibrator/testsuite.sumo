@@ -41,4 +41,12 @@ speed_only_swallow_downstream_jam
 # tests whether calibration works correctly if there are non-consecutive calibration intervals
 inactive_in_between
 
+# calibrate only one of 2 lanes
+2lanes_calibrate1
+
+# calibrate both lanes with a single calibrator
+2lanes_calibrate_edge
+
+# calibrate 2 lanes of an edge with 2 separate calibrators
+2lanes_calibrate2
 errors
