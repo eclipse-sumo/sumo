@@ -275,22 +275,24 @@ GUICalibrator::GUICalibratorPopupMenu::onCmdOpenManip(FXObject*,
  * GUICalibrator - methods
  * ----------------------------------------------------------------------- */
 GUICalibrator::GUICalibrator(const std::string& id,
-                             MSEdge* edge, double pos,
+                             MSEdge* edge, 
+                             MSLane* lane,
+                             double pos,
                              const std::string& aXMLFilename,
                              const std::string& outputFilename,
                              const SUMOTime freq,
                              const MSRouteProbe* probe) :
-    MSCalibrator(id, edge, pos, aXMLFilename, outputFilename, freq, edge->getLength(), probe),
+    MSCalibrator(id, edge, lane, pos, aXMLFilename, outputFilename, freq, edge->getLength(), probe),
     GUIGlObject_AbstractAdd("calibrator", GLO_TRIGGER, id),
     myShowAsKMH(true) {
     const std::vector<MSLane*>& destLanes = edge->getLanes();
-    myFGPositions.reserve(destLanes.size());
-    myFGRotations.reserve(destLanes.size());
     for (std::vector<MSLane*>::const_iterator i = destLanes.begin(); i != destLanes.end(); ++i) {
-        const PositionVector& v = (*i)->getShape();
-        myFGPositions.push_back(v.positionAtOffset(pos));
-        myBoundary.add(v.positionAtOffset(pos));
-        myFGRotations.push_back(-v.rotationDegreeAtOffset(pos));
+        if (lane == 0 || (*i) == lane) {
+            const PositionVector& v = (*i)->getShape();
+            myFGPositions.push_back(v.positionAtOffset(pos));
+            myBoundary.add(v.positionAtOffset(pos));
+            myFGRotations.push_back(-v.rotationDegreeAtOffset(pos));
+        }
     }
 }
 

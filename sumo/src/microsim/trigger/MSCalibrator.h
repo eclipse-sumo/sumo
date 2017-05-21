@@ -58,11 +58,14 @@ class MSCalibrator : public MSTrigger, public MSRouteHandler, public Command {
 public:
     /** constructor */
     MSCalibrator(const std::string& id,
-                 const MSEdge* const edge, const double pos,
+                 const MSEdge* const edge, 
+                 MSLane* lane,
+                 const double pos,
                  const std::string& aXMLFilename,
                  const std::string& outputFilename,
                  const SUMOTime freq, const double length,
-                 const MSRouteProbe* probe, const bool addLaneMeanData = true);
+                 const MSRouteProbe* probe,
+                 bool addLaneMeanData = true);
 
     /** destructor */
     virtual ~MSCalibrator();
@@ -229,6 +232,8 @@ protected:
 protected:
     /// @brief the edge on which this calibrator lies
     const MSEdge* const myEdge;
+    /// @brief the lane on which this calibrator lies (0 if the whole edge is covered at once)
+    MSLane* const myLane;
     /// @brief the position on the edge where this calibrator lies
     const double myPos;
     /// @brief the route probe to retrieve routes from

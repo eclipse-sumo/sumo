@@ -60,9 +60,9 @@ METriggeredCalibrator::METriggeredCalibrator(const std::string& id,
         const std::string& aXMLFilename,
         const std::string& outputFilename,
         const SUMOTime freq, const double length,
-        const MSRouteProbe* probe)
-    : MSCalibrator(id, edge, pos, aXMLFilename, outputFilename, freq, length, probe, false),
-      mySegment(MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)) {
+        const MSRouteProbe* probe) : 
+    MSCalibrator(id, edge, (MSLane*)0, pos, aXMLFilename, outputFilename, freq, length, probe, false),
+    mySegment(MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)) {
     myEdgeMeanData.setDescription("meandata_calibrator_" + getID());
     mySegment->addDetector(&myEdgeMeanData);
 }

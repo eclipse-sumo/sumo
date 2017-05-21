@@ -173,7 +173,7 @@ protected:
      * @todo Is the position correct/needed
      */
     virtual MSCalibrator* buildCalibrator(MSNet& net,
-                                          const std::string& id, MSEdge* edge, double pos,
+                                          const std::string& id, MSEdge* edge, MSLane* lane, double pos,
                                           const std::string& file, const std::string& outfile,
                                           const SUMOTime freq, const MSRouteProbe* probe);
     /// @}

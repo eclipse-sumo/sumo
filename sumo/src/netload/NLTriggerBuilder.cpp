@@ -292,9 +292,27 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
     if (!ok) {
         throw ProcessError();
     }
+    MSLane* lane = 0;
+    MSEdge* edge = 0;
     // get the file name to read further definitions from
-    MSLane* lane = getLane(attrs, "calibrator", id);
-    const double pos = getPosition(attrs, lane, "calibrator", id);
+    if (attrs.hasAttribute(SUMO_ATTR_EDGE)) {
+        std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
+        edge = MSEdge::dictionary(edgeID);
+        if (edge == 0) {
+            throw InvalidArgument("The edge " + edgeID + " to use within the calibrator '" + id + "' is not known.");
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
+            lane = getLane(attrs, "calibrator", id);
+            if (&lane->getEdge() != edge) {
+                throw InvalidArgument("The edge " + edgeID + " to use within the calibrator '" + id 
+                        + "' does not match the calibrator lane '" + lane->getID() + ".");
+            }
+        }
+    } else {
+        lane = getLane(attrs, "calibrator", id);
+        edge = &lane->getEdge();
+    }
+    const double pos = getPosition(attrs, lane, "calibrator", id, edge);
     const SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T); // !!! no error handling
     std::string file = getFileName(attrs, base, true);
     std::string outfile = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, id.c_str(), ok, "");
@@ -304,12 +322,12 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
         probe = dynamic_cast<MSRouteProbe*>(net.getDetectorControl().getTypedDetectors(SUMO_TAG_ROUTEPROBE).get(routeProbe));
     }
     if (MSGlobals::gUseMesoSim) {
-        METriggeredCalibrator* trigger = buildMECalibrator(net, id, &lane->getEdge(), pos, file, outfile, freq, probe);
+        METriggeredCalibrator* trigger = buildMECalibrator(net, id, edge, pos, file, outfile, freq, probe);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
     } else {
-        MSCalibrator* trigger = buildCalibrator(net, id, &lane->getEdge(), pos, file, outfile, freq, probe);
+        MSCalibrator* trigger = buildCalibrator(net, id, edge, lane, pos, file, outfile, freq, probe);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
@@ -373,7 +391,8 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet& /*net*/, const std::string& id,
 
 METriggeredCalibrator*
 NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
-                                    const MSEdge* edge, double pos,
+                                    const MSEdge* edge, 
+                                    double pos,
                                     const std::string& file,
                                     const std::string& outfile,
                                     const SUMOTime freq, MSRouteProbe* probe) {
@@ -383,11 +402,13 @@ NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
 
 MSCalibrator*
 NLTriggerBuilder::buildCalibrator(MSNet& /*net*/, const std::string& id,
-                                  MSEdge* edge, double pos,
+                                  MSEdge* edge, 
+                                  MSLane* lane, 
+                                  double pos,
                                   const std::string& file,
                                   const std::string& outfile,
                                   const SUMOTime freq, const MSRouteProbe* probe) {
-    return new MSCalibrator(id, edge, pos, file, outfile, freq, edge->getLength(), probe);
+    return new MSCalibrator(id, edge, lane, pos, file, outfile, freq, edge->getLength(), probe);
 }
 
 
@@ -499,7 +520,10 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes& attrs,
 double
 NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
                               MSLane* lane,
-                              const std::string& tt, const std::string& tid) {
+                              const std::string& tt, const std::string& tid,
+                              MSEdge* edge) {
+    assert(lane != 0 || edge != 0);
+    const double length = lane != 0 ? lane->getLength() : edge->getLength();
     bool ok = true;
     double pos = attrs.get<double>(SUMO_ATTR_POSITION, 0, ok);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
@@ -507,13 +531,17 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
         throw InvalidArgument("Error on parsing a position information.");
     }
     if (pos < 0) {
-        pos = lane->getLength() + pos;
+        pos = length + pos;
     }
-    if (pos > lane->getLength()) {
+    if (pos > length) {
         if (friendlyPos) {
-            pos = lane->getLength() - (double) 0.1;
+            pos = length - (double) 0.1;
         } else {
-            throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane->getID() + "' length.");
+            if (lane != 0) {
+                throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane->getID() + "' length.");
+            } else {
+                throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the edges's '" + edge->getID() + "' length.");
+            }
         }
     }
     return pos;

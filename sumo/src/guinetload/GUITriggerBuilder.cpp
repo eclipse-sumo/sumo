@@ -132,12 +132,12 @@ GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLan
 
 MSCalibrator*
 GUITriggerBuilder::buildCalibrator(MSNet& net, const std::string& id,
-                                   MSEdge* edge, double pos,
+                                   MSEdge* edge, MSLane* lane, double pos,
                                    const std::string& file,
                                    const std::string& outfile,
                                    const SUMOTime freq,
                                    const MSRouteProbe* probe) {
-    GUICalibrator* cali = new GUICalibrator(id, edge, pos, file, outfile, freq, probe);
+    GUICalibrator* cali = new GUICalibrator(id, edge, lane, pos, file, outfile, freq, probe);
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(cali);
     return cali;
 }

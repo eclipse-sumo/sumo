@@ -62,22 +62,27 @@ std::vector<SUMOVehicleParameter*> MSCalibrator::LeftoverVehicleParameters;
 // method definitions
 // ===========================================================================
 MSCalibrator::MSCalibrator(const std::string& id,
-                           const MSEdge* const edge, const double pos,
+                           const MSEdge* const edge, 
+                           MSLane* lane, 
+                           const double pos,
                            const std::string& aXMLFilename,
                            const std::string& outputFilename,
                            const SUMOTime freq, const double length,
                            const MSRouteProbe* probe,
-                           const bool addLaneMeanData) :
+                           bool addLaneMeanData) :
     MSTrigger(id),
     MSRouteHandler(aXMLFilename, false),
-    myEdge(edge), myPos(pos), myProbe(probe),
+    myEdge(edge), 
+    myLane(lane),
+    myPos(pos), myProbe(probe),
     myEdgeMeanData(0, length, false, 0),
     myOutput(0), myFrequency(freq), myRemoved(0),
     myInserted(0), myClearedInJam(0),
     mySpeedIsDefault(true), myDidSpeedAdaption(false), myDidInit(false),
-    myDefaultSpeed(myEdge->getSpeedLimit()),
+    myDefaultSpeed(myLane == 0 ? myEdge->getSpeedLimit() : myLane->getSpeedLimit()),
     myHaveWarnedAboutClearingJam(false),
-    myAmActive(false) {
+    myAmActive(false) 
+{
     if (outputFilename != "") {
         myOutput = &OutputDevice::getDevice(outputFilename);
         myOutput->writeXMLHeader("calibratorstats", "calibratorstats_file.xsd");
@@ -89,15 +94,19 @@ MSCalibrator::MSCalibrator(const std::string& id,
         }
     }
     if (addLaneMeanData) {
+        // disabled for METriggeredCalibrator
         for (int i = 0; i < (int)myEdge->getLanes().size(); ++i) {
             MSLane* lane = myEdge->getLanes()[i];
-            MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(lane, myEdge->getLength(), true, 0);
-            laneData->setDescription("meandata_calibrator_" + lane->getID());
-            LeftoverReminders.push_back(laneData);
-            myLaneMeanData.push_back(laneData);
-            VehicleRemover* remover = new VehicleRemover(lane, (int)i, this);
-            LeftoverReminders.push_back(remover);
-            myVehicleRemovers.push_back(remover);
+            if (myLane == 0 || myLane == lane) {
+                //std::cout << " cali=" << getID() << " myLane=" << Named::getIDSecure(myLane) << " checkLane=" << i << "\n";
+                MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(lane, lane->getLength(), true, 0);
+                laneData->setDescription("meandata_calibrator_" + lane->getID());
+                LeftoverReminders.push_back(laneData);
+                myLaneMeanData.push_back(laneData);
+                VehicleRemover* remover = new VehicleRemover(lane, (int)i, this);
+                LeftoverReminders.push_back(remover);
+                myVehicleRemovers.push_back(remover);
+            }
         }
     }
 }
@@ -158,7 +167,16 @@ MSCalibrator::myStartElement(int element,
             }
             // vehicles should be inserted on any lane unless stated otherwise
             if (state.vehicleParameter->departLaneProcedure == DEPART_LANE_DEFAULT) {
-                state.vehicleParameter->departLaneProcedure = DEPART_LANE_ALLOWED_FREE;
+                if (myLane == 0) {
+                    state.vehicleParameter->departLaneProcedure = DEPART_LANE_ALLOWED_FREE;
+                } else {
+                    state.vehicleParameter->departLaneProcedure = DEPART_LANE_GIVEN;
+                    state.vehicleParameter->departLane = myLane->getIndex();
+                }
+            } else if (myLane != 0 && (
+                        state.vehicleParameter->departLaneProcedure != DEPART_LANE_GIVEN 
+                        || state.vehicleParameter->departLane != myLane->getIndex())) {
+                WRITE_WARNING("Insertion lane may differ from calibrator lane for calibrator '" + getID() + "'.");
             }
             if (state.vehicleParameter->vtypeid != DEFAULT_VTYPE_ID &&
                     MSNet::getInstance()->getVehicleControl().getVType(state.vehicleParameter->vtypeid) == 0) {
@@ -302,7 +320,11 @@ MSCalibrator::execute(SUMOTime currentTime) {
         reset();
         if (!mySpeedIsDefault) {
             // reset speed to default
-            myEdge->setMaxSpeed(myDefaultSpeed);
+            if (myLane == 0) {
+                myEdge->setMaxSpeed(myDefaultSpeed);
+            } else {
+                myLane->setMaxSpeed(myDefaultSpeed);
+            }
             mySpeedIsDefault = true;
         }
         if (myCurrentStateInterval == myIntervals.end()) {
@@ -313,7 +335,11 @@ MSCalibrator::execute(SUMOTime currentTime) {
     }
     // we are active
     if (!myDidSpeedAdaption && myCurrentStateInterval->v >= 0) {
-        myEdge->setMaxSpeed(myCurrentStateInterval->v);
+        if (myLane == 0) {
+            myEdge->setMaxSpeed(myCurrentStateInterval->v);
+        } else {
+            myLane->setMaxSpeed(myCurrentStateInterval->v);
+        }
         mySpeedIsDefault = false;
         myDidSpeedAdaption = true;
     }
@@ -326,7 +352,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
               << " q=" << myCurrentStateInterval->q
               << " totalWished=" << totalWishedNum
               << " adapted=" << adaptedNum
-              << " jam=" << invalidJam(-1)
+              << " jam=" << invalidJam(myLane == 0 ? -1 : myLane->getIndex())
               << " entered=" << myEdgeMeanData.nVehEntered
               << " departed=" << myEdgeMeanData.nVehDeparted
               << " arrived=" << myEdgeMeanData.nVehArrived

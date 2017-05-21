@@ -304,7 +304,7 @@ protected:
      * @todo Is the position correct/needed
      */
     virtual MSCalibrator* buildCalibrator(MSNet& net,
-                                          const std::string& id, MSEdge* edge, double pos,
+                                          const std::string& id, MSEdge* edge, MSLane* lane, double pos,
                                           const std::string& file, const std::string& outfile,
                                           const SUMOTime freq, const MSRouteProbe* probe);
 
@@ -390,7 +390,7 @@ protected:
      * @exception InvalidArgument If the position is beyond the lane
      */
     double getPosition(const SUMOSAXAttributes& attrs,
-                       MSLane* lane, const std::string& tt, const std::string& tid);
+                       MSLane* lane, const std::string& tt, const std::string& tid, MSEdge* edge = 0);
     /// @}
 
 
