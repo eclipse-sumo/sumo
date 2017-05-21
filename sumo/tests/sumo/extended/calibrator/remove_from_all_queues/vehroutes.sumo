@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sun May 21 19:56:00 2017 by SUMO Version dev-SVN-r22661
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <meso-multi-queue value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="calibtest.0.0" depart="0.00" arrival="9.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.1" depart="2.00" arrival="11.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.2" depart="4.00" arrival="13.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.3" depart="6.00" arrival="15.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.4" depart="8.00" arrival="17.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.0" depart="0.00" arrival="19.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.5" depart="10.00" arrival="20.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.1" depart="5.00" arrival="22.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.6" depart="14.00" arrival="24.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.2" depart="7.00" arrival="25.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.7" depart="16.00" arrival="26.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.0" depart="2.00" arrival="26.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.8" depart="20.00" arrival="29.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.3" depart="12.00" arrival="30.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.9" depart="22.00" arrival="32.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.4" depart="15.00" arrival="33.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.1" depart="10.00" arrival="33.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.10" depart="24.00" arrival="34.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.11" depart="28.00" arrival="37.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.5" depart="20.00" arrival="39.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.12" depart="30.00" arrival="40.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.6" depart="22.00" arrival="41.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.2" depart="17.00" arrival="41.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.13" depart="32.00" arrival="43.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.7" depart="27.00" arrival="45.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.14" depart="36.00" arrival="46.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.15" depart="38.00" arrival="48.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.8" depart="30.00" arrival="49.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.3" depart="25.00" arrival="49.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.16" depart="40.00" arrival="50.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.9" depart="35.00" arrival="52.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.17" depart="44.00" arrival="54.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.10" depart="37.00" arrival="55.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.18" depart="46.00" arrival="56.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.4" depart="32.00" arrival="56.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.19" depart="50.00" arrival="59.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.11" depart="42.00" arrival="60.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.20" depart="52.00" arrival="62.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.12" depart="45.00" arrival="63.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.5" depart="40.00" arrival="63.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.21" depart="54.00" arrival="64.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.22" depart="58.00" arrival="67.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.13" depart="50.00" arrival="69.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.23" depart="60.00" arrival="70.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.14" depart="52.00" arrival="71.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.6" depart="47.00" arrival="71.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.24" depart="62.00" arrival="73.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.15" depart="57.00" arrival="75.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.25" depart="66.00" arrival="76.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.26" depart="68.00" arrival="78.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.16" depart="60.00" arrival="79.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.7" depart="55.00" arrival="79.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.27" depart="70.00" arrival="80.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.17" depart="65.00" arrival="82.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.28" depart="74.00" arrival="84.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.18" depart="67.00" arrival="85.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.29" depart="76.00" arrival="86.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.8" depart="62.00" arrival="86.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.30" depart="80.00" arrival="89.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.19" depart="72.00" arrival="90.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.31" depart="82.00" arrival="92.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.20" depart="75.00" arrival="93.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.9" depart="70.00" arrival="93.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.32" depart="84.00" arrival="94.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.33" depart="88.00" arrival="97.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.21" depart="80.00" arrival="99.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.34" depart="90.00" arrival="100.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.22" depart="82.00" arrival="101.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.10" depart="77.00" arrival="101.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.35" depart="92.00" arrival="103.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.23" depart="87.00" arrival="105.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.36" depart="96.00" arrival="106.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.0.37" depart="98.00" arrival="108.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.24" depart="90.00" arrival="109.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.11" depart="85.00" arrival="109.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="flow_left.25" depart="95.00" arrival="112.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.26" depart="97.00" arrival="115.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.12" depart="92.00" arrival="116.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="flow_left.27" depart="102.00" arrival="120.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.28" depart="105.00" arrival="122.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.13" depart="100.00" arrival="123.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="flow_left.29" depart="110.00" arrival="127.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.14" depart="107.00" arrival="130.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="flow_left.30" depart="112.00" arrival="130.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.31" depart="117.00" arrival="135.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.32" depart="120.00" arrival="137.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.15" depart="115.00" arrival="138.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="flow_left.33" depart="125.00" arrival="142.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.16" depart="122.00" arrival="145.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="flow_left.34" depart="127.00" arrival="145.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.35" depart="132.00" arrival="150.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.36" depart="135.00" arrival="152.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.17" depart="130.00" arrival="153.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="flow_left.37" depart="140.00" arrival="157.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.18" depart="137.00" arrival="160.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="flow_left.38" depart="142.00" arrival="160.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.39" depart="147.00" arrival="165.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.40" depart="150.00" arrival="167.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.19" depart="145.00" arrival="168.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="flow_left.41" depart="155.00" arrival="172.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.20" depart="152.00" arrival="175.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="flow_left.42" depart="157.00" arrival="175.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.43" depart="162.00" arrival="180.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.44" depart="165.00" arrival="182.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.21" depart="160.00" arrival="183.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="flow_left.45" depart="170.00" arrival="187.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.22" depart="167.00" arrival="190.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="flow_left.46" depart="172.00" arrival="190.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.47" depart="177.00" arrival="195.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_left.48" depart="180.00" arrival="197.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.23" depart="175.00" arrival="198.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+    <vehicle id="flow_left.49" depart="185.00" arrival="202.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="flow_right.24" depart="182.00" arrival="205.00">
+        <route edges="beg middle end2"/>
+    </vehicle>
+
+</routes>
