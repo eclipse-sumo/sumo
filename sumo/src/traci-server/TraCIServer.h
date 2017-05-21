@@ -303,10 +303,10 @@ private:
     tcpip::Socket* myServerSocket;
 
     /// @brief The socket connections to the clients
-    std::map<int, tcpip::Socket*> mySockets;
+    std::map<int, std::pair<tcpip::Socket*,SUMOTime> > mySockets;
 
     /// @brief The currently active client socket
-    std::map<int, tcpip::Socket*>::const_iterator myCurrentSocket;
+    std::map<int, std::pair<tcpip::Socket*, SUMOTime> >::iterator myCurrentSocket;
 
     /// @brief The time step to reach until processing the next commands
     SUMOTime myTargetTime;
