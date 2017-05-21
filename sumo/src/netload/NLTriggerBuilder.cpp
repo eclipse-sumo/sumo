@@ -322,6 +322,11 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
         probe = dynamic_cast<MSRouteProbe*>(net.getDetectorControl().getTypedDetectors(SUMO_TAG_ROUTEPROBE).get(routeProbe));
     }
     if (MSGlobals::gUseMesoSim) {
+        if (lane != 0 && edge->getLanes().size() > 1) {
+            WRITE_WARNING("Meso calibrator '" + id 
+                    + "' defined for lane '" + lane->getID() 
+                    + "' will collect data for all lanes of edge '" + edge->getID() + "'.");
+        }
         METriggeredCalibrator* trigger = buildMECalibrator(net, id, edge, pos, file, outfile, freq, probe);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
