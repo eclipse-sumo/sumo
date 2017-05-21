@@ -50,13 +50,14 @@ def traciLoop(port, traciEndTime, index):
     while not step > traciEndTime:
         traci.simulationStep()
         #print(index, "asking for vehicles")
-        sys.stdout.flush()
+        #sys.stdout.flush()
         vehs = traci.vehicle.getIDList()
         if vehs.index("horiz") < 0 or len(vehs) > 1:
             print("Something is false")
         step += 1
     print("Print ended at step %s" %
           (traci.simulation.getCurrentTime() / DELTA_T))
+    sys.stdout.flush()
     traci.close()
 
 def runSingle(sumoEndTime, traciEndTime):

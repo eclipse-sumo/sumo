@@ -1,222 +1,222 @@
 ----------- SUMO ends first -----------
 Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (2ms).
-Loading additional-files from 'input_additional2.add.xml'... done (0ms).
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (28ms).
+Loading additional-files from 'input_additional2.add.xml'... done (1ms).
 Loading done.
 Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
  Run 0
 Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (2ms).
-Loading additional-files from 'input_additional2.add.xml'... done (0ms).
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (25ms).
+Loading additional-files from 'input_additional2.add.xml'... done (1ms).
 Loading done.
 Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
  Run 1
 Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (2ms).
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (18ms).
 Loading additional-files from 'input_additional2.add.xml'... done (1ms).
 Loading done.
 Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
  Run 2
 Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (1ms).
-Loading additional-files from 'input_additional2.add.xml'... done (0ms).
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (23ms).
+Loading additional-files from 'input_additional2.add.xml'... done (1ms).
 Loading done.
 Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
  Run 3
 Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (2ms).
-Loading additional-files from 'input_additional2.add.xml'... done (1ms).
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (15ms).
+Loading additional-files from 'input_additional2.add.xml'... done (0ms).
 Loading done.
 Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
  Run 4
 Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (2ms).
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (16ms).
 Loading additional-files from 'input_additional2.add.xml'... done (0ms).
 Loading done.
 Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
  Run 5
 Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (2ms).
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (11ms).
 Loading additional-files from 'input_additional2.add.xml'... done (0ms).
 Loading done.
 Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
  Run 6
 Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (2ms).
-Loading additional-files from 'input_additional2.add.xml'... done (0ms).
-Loading done.
-Simulation started with time: 0.00
-Simulation ended at time: 101.00
-Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
- Run 7
-Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (2ms).
-Loading additional-files from 'input_additional2.add.xml'... done (0ms).
-Loading done.
-Simulation started with time: 0.00
-Simulation ended at time: 101.00
-Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
- Run 8
-Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (2ms).
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (17ms).
 Loading additional-files from 'input_additional2.add.xml'... done (1ms).
 Loading done.
 Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
+ Run 7
+Loading configuration... done.
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (11ms).
+Loading additional-files from 'input_additional2.add.xml'... done (0ms).
+Loading done.
+Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
+Simulation ended at time: 101.00
+Reason: TraCI requested termination.
+ Run 8
+Loading configuration... done.
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (11ms).
+Loading additional-files from 'input_additional2.add.xml'... done (1ms).
+Loading done.
+Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
+Simulation ended at time: 101.00
+Reason: TraCI requested termination.
  Run 9
 ----------- TraCI ends first -----------
 Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (1ms).
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (16ms).
 Loading additional-files from 'input_additional2.add.xml'... done (0ms).
 Loading done.
 Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
  Run 0
 Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (1ms).
-Loading additional-files from 'input_additional2.add.xml'... done (0ms).
-Loading done.
-Simulation started with time: 0.00
-Simulation ended at time: 101.00
-Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
- Run 1
-Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (1ms).
-Loading additional-files from 'input_additional2.add.xml'... done (0ms).
-Loading done.
-Simulation started with time: 0.00
-Simulation ended at time: 101.00
-Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
- Run 2
-Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (2ms).
-Loading additional-files from 'input_additional2.add.xml'... done (0ms).
-Loading done.
-Simulation started with time: 0.00
-Simulation ended at time: 101.00
-Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
- Run 3
-Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (1ms).
-Loading additional-files from 'input_additional2.add.xml'... done (0ms).
-Loading done.
-Simulation started with time: 0.00
-Simulation ended at time: 101.00
-Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
- Run 4
-Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (1ms).
-Loading additional-files from 'input_additional2.add.xml'... done (0ms).
-Loading done.
-Simulation started with time: 0.00
-Simulation ended at time: 101.00
-Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
- Run 5
-Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (2ms).
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (12ms).
 Loading additional-files from 'input_additional2.add.xml'... done (1ms).
 Loading done.
 Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
+ Run 1
+Loading configuration... done.
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (11ms).
+Loading additional-files from 'input_additional2.add.xml'... done (1ms).
+Loading done.
+Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
+Simulation ended at time: 101.00
+Reason: TraCI requested termination.
+ Run 2
+Loading configuration... done.
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (13ms).
+Loading additional-files from 'input_additional2.add.xml'... done (0ms).
+Loading done.
+Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
+Simulation ended at time: 101.00
+Reason: TraCI requested termination.
+ Run 3
+Loading configuration... done.
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (11ms).
+Loading additional-files from 'input_additional2.add.xml'... done (1ms).
+Loading done.
+Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
+Simulation ended at time: 101.00
+Reason: TraCI requested termination.
+ Run 4
+Loading configuration... done.
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (15ms).
+Loading additional-files from 'input_additional2.add.xml'... done (0ms).
+Loading done.
+Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
+Simulation ended at time: 101.00
+Reason: TraCI requested termination.
+ Run 5
+Loading configuration... done.
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (11ms).
+Loading additional-files from 'input_additional2.add.xml'... done (0ms).
+Loading done.
+Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
+Simulation ended at time: 101.00
+Reason: TraCI requested termination.
  Run 6
 Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (1ms).
-Loading additional-files from 'input_additional2.add.xml'... done (0ms).
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (18ms).
+Loading additional-files from 'input_additional2.add.xml'... done (1ms).
 Loading done.
 Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
  Run 7
 Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (1ms).
-Loading additional-files from 'input_additional2.add.xml'... done (0ms).
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (11ms).
+Loading additional-files from 'input_additional2.add.xml'... done (1ms).
 Loading done.
 Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
  Run 8
 Loading configuration... done.
-***Starting server on port 61704 ***
-Loading net-file from 'input_net.net.xml'... done (1ms).
+***Starting server on port 62678 ***
+Loading net-file from 'input_net.net.xml'... done (17ms).
 Loading additional-files from 'input_additional2.add.xml'... done (0ms).
 Loading done.
 Simulation started with time: 0.00
+Print ended at step 100
+Print ended at step 100
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
-Print ended at step 101
-Print ended at step 101
  Run 9
