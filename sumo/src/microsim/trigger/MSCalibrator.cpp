@@ -248,6 +248,22 @@ MSCalibrator::totalWished() const {
 }
 
 
+double
+MSCalibrator::currentFlow() const {
+    const double totalHourFraction = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - myCurrentStateInterval->begin) / (double) 3600.;
+    return passed() / totalHourFraction;
+}
+
+double
+MSCalibrator::currentSpeed() const {
+    if (myEdgeMeanData.getSamples() > 0) {
+        return myEdgeMeanData.getTravelledDistance() / myEdgeMeanData.getSamples();
+    } else {
+        return -1;
+    }
+}
+
+
 bool
 MSCalibrator::removePending() {
     if (myToRemove.size() > 0) {

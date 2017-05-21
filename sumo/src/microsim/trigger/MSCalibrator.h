@@ -182,6 +182,12 @@ protected:
     /// @brief number of vehicles expected to pass this interval
     int totalWished() const;
 
+    /// @brief flow in the current interval in veh/h
+    double currentFlow() const;
+
+    /// @brief measured speed in the current interval
+    double currentSpeed() const;
+
     /* @brief returns whether the lane is jammed although it should not be
      * @param[in] lane The lane to check or all for negative values
      */

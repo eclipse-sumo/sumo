@@ -318,12 +318,14 @@ GUICalibrator::getParameterWindow(GUIMainWindow& app,
                                   GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret;
     if (isActive()) {
-        ret = new GUIParameterTableWindow(app, *this, 10);
+        ret = new GUIParameterTableWindow(app, *this, 12);
         // add items
         ret->mkItem("interval start", false, STEPS2TIME(myCurrentStateInterval->begin));
         ret->mkItem("interval end", false, STEPS2TIME(myCurrentStateInterval->end));
         ret->mkItem("aspired flow [veh/h]", false, myCurrentStateInterval->q);
         ret->mkItem("aspired speed", false, myCurrentStateInterval->v);
+        ret->mkItem("current flow [veh/h]", true, new FunctionBinding<GUICalibrator, double>(this, &GUICalibrator::currentFlow));
+        ret->mkItem("current speed", true, new FunctionBinding<GUICalibrator, double>(this, &GUICalibrator::currentSpeed));
         ret->mkItem("default speed", false, myDefaultSpeed);
         ret->mkItem("required vehicles", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::totalWished));
         ret->mkItem("passed vehicles", true, new FunctionBinding<GUICalibrator, int>(this, &GUICalibrator::passed));
