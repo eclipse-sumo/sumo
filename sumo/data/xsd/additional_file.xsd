@@ -325,7 +325,8 @@
             <xsd:element name="flow" type="flowCalibratorType" minOccurs="0"/>
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
-        <xsd:attribute name="lane" type="xsd:string" use="required"/>
+        <xsd:attribute name="edge" type="xsd:string" use="optional"/>
+        <xsd:attribute name="lane" type="xsd:string" use="optional"/>
         <xsd:attribute name="pos" type="xsd:float" use="required"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
