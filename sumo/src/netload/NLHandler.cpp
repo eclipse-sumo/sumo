@@ -1155,15 +1155,15 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
 void
 NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok);
-    if (!MSGlobals::gUsingInternalLanes && fromID[0] == ':') {
+    const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok);
+    const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, 0, ok);
+    if (!MSGlobals::gUsingInternalLanes && (fromID[0] == ':' || toID[0] == ':')) {
         return;
     }
 
     MSLink* link = 0;
     try {
         bool ok = true;
-        const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, 0, ok);
         const int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
         const double foeVisibilityDistance = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, 0, ok, 4.5);
         const int toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
