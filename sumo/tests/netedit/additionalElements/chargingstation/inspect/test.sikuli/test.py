@@ -36,7 +36,7 @@ netedit.additionalMode()
 netedit.changeAdditional("chargingStation")
 
 # change reference to center
-netedit.modifyAdditionalDefaultValue(7, "reference center")
+netedit.modifyAdditionalDefaultValue(8, "reference center")
 
 # create chargingStation 1 in mode "reference center"
 netedit.leftClick(match, 250, 150)
@@ -96,38 +96,41 @@ netedit.modifyAttribute(3, "10")
 # Change parameter 3 with a valid value
 netedit.modifyAttribute(3, "30")
 
-# Change parameter 4 with a non valid value 1
-netedit.modifyAttribute(4, "dummyPower")
-
-# Change parameter 4 with a non valid value 2
-netedit.modifyAttribute(4, "-100")
-
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(4, "10000")
+netedit.modifyAttribute(4, "chargingStation")
 
 # Change parameter 5 with a non valid value 1
-netedit.modifyAttribute(5, "dummyEfficiency")
+netedit.modifyAttribute(5, "dummyPower")
 
 # Change parameter 5 with a non valid value 2
-netedit.modifyAttribute(5, "-1")
-
-# Change parameter 5 with a non valid value 3
-netedit.modifyAttribute(5, "2")
+netedit.modifyAttribute(5, "-100")
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(5, "0.90")
+netedit.modifyAttribute(5, "10000")
 
-# Change parameter 6 (bool)
-netedit.modifyBoolAttribute(6)
+# Change parameter 6 with a non valid value 1
+netedit.modifyAttribute(6, "dummyEfficiency")
 
-# Change parameter 7 with a non valid value 1
-netedit.modifyAttribute(7, "dummyChargeDelay")
+# Change parameter 6 with a non valid value 2
+netedit.modifyAttribute(6, "-1")
 
-# Change parameter 7 with a non valid value 2
-netedit.modifyAttribute(7, "-10")
+# Change parameter 6 with a non valid value 3
+netedit.modifyAttribute(6, "2")
 
-# Change parameter 7 with a valid value
-netedit.modifyAttribute(7, "3")
+# Change parameter 6 with a valid value
+netedit.modifyAttribute(6, "0.90")
+
+# Change parameter 7 (bool)
+netedit.modifyBoolAttribute(7)
+
+# Change parameter 8 with a non valid value 1
+netedit.modifyAttribute(8, "dummyChargeDelay")
+
+# Change parameter 8 with a non valid value 2
+netedit.modifyAttribute(8, "-10")
+
+# Change parameter 8 with a valid value
+netedit.modifyAttribute(8, "3")
 
 # click over an empty area
 netedit.leftClick(match, 0, 0)

@@ -18,6 +18,7 @@ Warning: Closed FXMessageBox of type 'question' with 'Yes'
 Warning: Setting new attribute endPos '3000' into chargingStation 'correct ID'
 Warning: Value '10' for attribute endPos of chargingStation isn't valid
 Warning: Setting new attribute endPos '30' into chargingStation 'correct ID'
+Warning: Setting new attribute name 'chargingStation' into chargingStation 'correct ID'
 Warning: Setting new attribute power '22000' into chargingStation 'correct ID'
 Warning: Value '-100' for attribute power of chargingStation isn't valid
 Warning: Setting new attribute power '10000' into chargingStation 'correct ID'
@@ -41,6 +42,8 @@ Warning: Setting previous attribute power '22000.00' into chargingStation 'corre
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute power '22000.00' into chargingStation 'correct ID'
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute name '' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '50.00' into chargingStation 'correct ID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '22.40' into chargingStation 'correct ID'
@@ -58,7 +61,6 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
@@ -79,6 +81,8 @@ Warning: Setting new attribute endPos '3000' into chargingStation 'correct ID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute endPos '30' into chargingStation 'correct ID'
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute name 'chargingStation' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute power '22000' into chargingStation 'correct ID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute power '10000' into chargingStation 'correct ID'
@@ -90,7 +94,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute chargeDelay '0' into chargingStation 'correct ID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute chargeDelay '3' into chargingStation 'correct ID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()

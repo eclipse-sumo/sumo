@@ -36,7 +36,7 @@ netedit.additionalMode()
 netedit.changeAdditional("chargingStation")
 
 # change reference to center
-netedit.modifyAdditionalDefaultValue(7, "reference center")
+netedit.modifyAdditionalDefaultValue(8, "reference center")
 
 # create chargingStation in mode "reference center"
 netedit.leftClick(match, 250, 250)

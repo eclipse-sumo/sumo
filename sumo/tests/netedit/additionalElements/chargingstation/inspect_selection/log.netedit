@@ -8,6 +8,9 @@ Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Addi
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings
+Warning: Setting new attribute name 'commonName' into chargingStation 'chargingStationA'
+Warning: Setting new attribute name 'commonName' into chargingStation 'chargingStationB'
+Warning: Value '-1000' for attribute power of chargingStation isn't valid
 Warning: Setting new attribute power '11000' into chargingStation 'chargingStationA'
 Warning: Setting new attribute power '11000' into chargingStation 'chargingStationB'
 Warning: Value '2' for attribute efficiency of chargingStation isn't valid
