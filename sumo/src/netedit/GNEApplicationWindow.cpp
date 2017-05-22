@@ -867,7 +867,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myViewNumber = 0;
         GUISUMOAbstractView* view = openNewView();
         if (view && ec->mySettingsFile != "") {
-            GUISettingsHandler settings(ec->mySettingsFile);
+            GUISettingsHandler settings(ec->mySettingsFile, true, true);
             std::string settingsName = settings.addSettings(view);
             view->addDecals(settings.getDecals());
             settings.applyViewport(view);

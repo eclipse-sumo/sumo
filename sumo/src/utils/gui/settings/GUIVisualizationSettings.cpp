@@ -63,8 +63,10 @@ const RGBColor SUMO_color_DEADEND(0, 0, 0);
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIVisualizationSettings::GUIVisualizationSettings()
-    : name(""), antialiase(false), dither(false),
+GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) : 
+      name(""), 
+      netedit(_netedit),
+      antialiase(false), dither(false),
       backgroundColor(RGBColor::WHITE),
       showGrid(false), gridXSize(100), gridYSize(100),
       laneShowBorders(false), showLinkDecals(true),
@@ -107,6 +109,17 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       gaming(false),
       selectionScale(1),
       drawForSelecting(false) {
+
+    if (netedit) {
+        initNeteditDefaults();
+    } else {
+        initSumoGuiDefaults();
+    }
+}
+
+
+void 
+GUIVisualizationSettings::initSumoGuiDefaults() {
     /// add lane coloring schemes
     GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor::BLACK, "road", true);
     scheme.addColor(RGBColor::GREY, 1, "sidewalk");
@@ -642,6 +655,123 @@ GUIVisualizationSettings::GUIVisualizationSettings()
         edgeScaler.addScheme(scheme);
     }
 
+}
+
+
+void 
+GUIVisualizationSettings::initNeteditDefaults() {
+    // init color schemes
+    GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor::BLACK, "road", true);
+    scheme.addColor(RGBColor::GREY, 1, "Sidewalk");
+    scheme.addColor(RGBColor(192, 66, 44), 2, "bike lane");
+    scheme.addColor(RGBColor(200, 255, 200), 3, "green verge");
+    scheme.addColor(RGBColor(150, 200, 200), 4, "waterway");
+    scheme.addColor(RGBColor(92, 92, 92), 5, "no passenger"); // paths, service roads etc
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by selection (lane-/streetwise)", RGBColor(128, 128, 128, 255), "unselected", true);
+    scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by permission code", RGBColor(240, 240, 240), "nobody");
+    scheme.addColor(RGBColor(10, 10, 10), (double)SVC_PASSENGER, "passenger");
+    scheme.addColor(RGBColor(128, 128, 128), (double)SVC_PEDESTRIAN, "pedestrian");
+    scheme.addColor(RGBColor(80, 80, 80), (double)(SVC_PEDESTRIAN | SVC_DELIVERY), "pedestrian_delivery");
+    scheme.addColor(RGBColor(192, 66, 44), (double)SVC_BICYCLE, "bicycle");
+    scheme.addColor(RGBColor(40, 100, 40), (double)SVC_BUS, "bus");
+    scheme.addColor(RGBColor(166, 147, 26), (double)SVC_TAXI, "taxi");
+    scheme.addColor(RGBColor::BLACK, (double)(SVCAll & ~SVC_NON_ROAD), "normal_road");
+    scheme.addColor(RGBColor::BLACK, (double)(SVCAll & ~(SVC_PEDESTRIAN | SVC_NON_ROAD)), "disallow_pedestrian");
+    scheme.addColor(RGBColor(255, 206, 0), (double)(SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_MOPED | SVC_NON_ROAD)), "motorway");
+    scheme.addColor(RGBColor(150, 200, 200), (double)SVC_SHIP, "waterway");
+    scheme.addColor(RGBColor::GREEN, (double)SVCAll, "all");
+    laneColorer.addScheme(scheme);
+
+    scheme = GUIColorScheme("by allowed speed (lanewise)", RGBColor::RED);
+    scheme.addColor(RGBColor::YELLOW, (double)(30 / 3.6));
+    scheme.addColor(RGBColor::GREEN, (double)(55 / 3.6));
+    scheme.addColor(RGBColor::CYAN, (double)(80 / 3.6));
+    scheme.addColor(RGBColor::BLUE, (double)(120 / 3.6));
+    scheme.addColor(RGBColor::MAGENTA, (double)(150 / 3.6));
+    laneColorer.addScheme(scheme);
+
+    scheme = GUIColorScheme("by lane number (streetwise)", RGBColor::RED);
+    scheme.addColor(RGBColor::BLUE, (double)5);
+    laneColorer.addScheme(scheme);
+
+    scheme = GUIColorScheme("by given length/geometrical length", RGBColor::BLACK);
+    scheme.addColor(RGBColor::RED, 0.25);
+    scheme.addColor(RGBColor::YELLOW, 0.5);
+    scheme.addColor(RGBColor(179, 179, 179, 255), (double)1.0);
+    scheme.addColor(RGBColor::GREEN, (double)2.0);
+    scheme.addColor(RGBColor::BLUE, (double)4.0);
+    laneColorer.addScheme(scheme);
+    laneColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
+
+    scheme = GUIColorScheme("by priority", RGBColor::YELLOW);
+    scheme.addColor(RGBColor::RED, (double) - 20);
+    scheme.addColor(RGBColor::GREEN, (double)20);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by height at start", RGBColor::RED);
+    scheme.addColor(RGBColor::BLUE, (double) - 10);
+    scheme.addColor(RGBColor::YELLOW, (double)50);
+    scheme.addColor(RGBColor::GREEN, (double)100);
+    scheme.addColor(RGBColor::MAGENTA, (double)200);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by height at segment start", RGBColor::RED);
+    scheme.addColor(RGBColor::BLUE, (double) - 10);
+    scheme.addColor(RGBColor::YELLOW, (double)50);
+    scheme.addColor(RGBColor::GREEN, (double)100);
+    scheme.addColor(RGBColor::MAGENTA, (double)200);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by inclination", RGBColor::GREY);
+    scheme.addColor(RGBColor::YELLOW, (double) .1);
+    scheme.addColor(RGBColor::RED, (double) .3);
+    scheme.addColor(RGBColor::GREEN, (double) - .1);
+    scheme.addColor(RGBColor::BLUE, (double) - .3);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by segment inclination", RGBColor::GREY);
+    scheme.addColor(RGBColor::YELLOW, (double) .1);
+    scheme.addColor(RGBColor::RED, (double) .3);
+    scheme.addColor(RGBColor::GREEN, (double) - .1);
+    scheme.addColor(RGBColor::BLUE, (double) - .3);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+
+    scheme = GUIColorScheme("uniform", RGBColor(102, 0, 0), "", true);
+    scheme.addColor(RGBColor(204, 0, 0), 1, "shape not computed");
+    scheme.addColor(RGBColor(153, 0, 0), 2, "geometry points");
+    junctionColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by selection", RGBColor(128, 128, 128, 255), "unselected", true);
+    scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
+    junctionColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by type", RGBColor::GREEN, "traffic_light", true);
+    scheme.addColor(RGBColor(0, 128, 0), 1, "traffic_light_unregulated");
+    scheme.addColor(RGBColor::YELLOW, 2, "priority");
+    scheme.addColor(RGBColor::RED, 3, "priority_stop");
+    scheme.addColor(RGBColor::BLUE, 4, "right_before_left");
+    scheme.addColor(RGBColor::CYAN, 5, "allway_stop");
+    scheme.addColor(RGBColor::GREY, 6, "district");
+    scheme.addColor(RGBColor::MAGENTA, 7, "unregulated");
+    scheme.addColor(RGBColor::BLACK, 8, "dead_end");
+    scheme.addColor(RGBColor::ORANGE, 9, "rail_signal");
+    scheme.addColor(RGBColor(192, 128, 64), 10, "zipper");
+    scheme.addColor(RGBColor(192, 255, 192), 11, "traffic_light_right_on_red");
+    scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
+    junctionColorer.addScheme(scheme);
+
+    /// add edge scaling schemes
+    {
+        GUIScaleScheme scheme = GUIScaleScheme("default", 1, "uniform", true);
+        laneScaler.addScheme(scheme);
+    }
+
+    // dummy schemes
+    vehicleColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
+    personColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
+    containerColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
 }
 
 

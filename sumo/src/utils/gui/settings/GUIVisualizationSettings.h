@@ -118,10 +118,13 @@ class GUIVisualizationSettings {
 public:
 
     /// @brief constructor
-    GUIVisualizationSettings();
+    GUIVisualizationSettings(bool _netedit = false);
 
     /// @brief The name of this setting
     std::string name;
+
+    /// @brief Whether the settings are for Netedit
+    bool netedit;
 
     /// @brief Information whether antialiase shall be enabled
     bool antialiase;
@@ -297,6 +300,10 @@ public:
     /// @brief whether drawing is performed for the purpose of selecting objects
     bool drawForSelecting;
 
+    /// @brief init default settings
+    void initNeteditDefaults();
+    void initSumoGuiDefaults();
+
     /** @brief Writes the settings into an output device
      * @param[in] dev The device to write the settings into
      */
@@ -324,7 +331,6 @@ public:
 
     /** @brief Comparison operator */
     bool operator==(const GUIVisualizationSettings& vs2);
-
 
     /* @brief map from LinkState to color constants  */
     static const RGBColor& getLinkColor(const LinkState& ls);

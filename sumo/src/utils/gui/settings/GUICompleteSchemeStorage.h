@@ -108,7 +108,7 @@ public:
     /** @brief Initialises the storage with some default settings
      * @param[in] app The application
      */
-    void init(FXApp* app);
+    void init(FXApp* app, bool netedit = false);
 
 
     /** @brief Writes the current scheme into the registry

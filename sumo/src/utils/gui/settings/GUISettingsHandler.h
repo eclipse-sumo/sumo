@@ -54,7 +54,7 @@ public:
     /** @brief Constructor
      * @param[in] file the file to parse
      */
-    GUISettingsHandler(const std::string& content, bool isFile = true);
+    GUISettingsHandler(const std::string& content, bool isFile = true, bool netedit = false);
 
 
     /// @brief Destructor

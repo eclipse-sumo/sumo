@@ -116,15 +116,15 @@ GUICompleteSchemeStorage::getNumInitialSettings() const {
 
 
 void
-GUICompleteSchemeStorage::init(FXApp* app) {
+GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
     {
-        GUIVisualizationSettings vs;
+        GUIVisualizationSettings vs(netedit);
         vs.name = "standard";
         vs.laneShowBorders = true;
         gSchemeStorage.add(vs);
     }
     {
-        GUIVisualizationSettings vs;
+        GUIVisualizationSettings vs(netedit);
         vs.name = "faster standard";
         vs.laneShowBorders = false;
         vs.showLinkDecals = false;
@@ -132,7 +132,7 @@ GUICompleteSchemeStorage::init(FXApp* app) {
         gSchemeStorage.add(vs);
     }
     {
-        GUIVisualizationSettings vs;
+        GUIVisualizationSettings vs(netedit);
         vs.name = "real world";
         vs.vehicleQuality = 2;
         vs.backgroundColor = RGBColor(51, 128, 51, 255);
