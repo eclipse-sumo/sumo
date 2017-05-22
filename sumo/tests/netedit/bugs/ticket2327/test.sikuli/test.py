@@ -104,6 +104,18 @@ netedit.joinSelectedJunctions()
 # rebuild network
 netedit.rebuildNetwork()
 
+# Undo joining
+netedit.undo(match, 4)
+
+# rebuild network
+netedit.rebuildNetwork()
+
+# redo joining
+netedit.redo(match, 4)
+
+# rebuild network
+netedit.rebuildNetwork()
+
 # save additionals
 netedit.saveAdditionals()
 
