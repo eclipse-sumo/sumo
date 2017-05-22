@@ -41,7 +41,6 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/Named.h>
 #include <utils/distribution/Distribution_Parameterized.h>
-#include <utils/geom/Position.h>
 #include "StdDefs.h"
 
 
@@ -73,10 +72,7 @@ inline std::string toHex(const T i, std::streamsize numDigits = 0) {
 
 inline std::string toString(const Named* obj, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
-    if (obj == 0) {
-        return "NULL";
-    }
-    return obj->getID();
+    return Named::getIDSecure(obj);
 }
 
 template <>
@@ -171,12 +167,6 @@ inline std::string toString<LaneChangeAction>(const LaneChangeAction& action, st
         }
     }
     return oss.str();
-}
-
-template <>
-inline std::string toString<Position>(const Position& pos, std::streamsize accuracy) {
-    UNUSED_PARAMETER(accuracy);
-    return toString(pos.x(), accuracy) + "," + toString(pos.y(), accuracy);
 }
 
 template <>
