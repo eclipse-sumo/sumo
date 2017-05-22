@@ -126,6 +126,14 @@ def leftClick(match, positionx, positiony):
     # click respect to offset
     click(match.getTarget().offset(positionx, positiony))
 
+
+def dragDrop(match, x1, y1, x2, y2):
+    # wait before every operation
+    wait(DELAY)
+    drag(match.getTarget().offset(x1, y1))
+    wait(DELAY)
+    dropAt(match.getTarget().offset(x2, y2))
+
 #################################################
 # basic functions
 #################################################
