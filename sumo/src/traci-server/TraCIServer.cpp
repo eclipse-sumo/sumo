@@ -92,6 +92,12 @@
 
 
 // ===========================================================================
+// debug constants
+// ===========================================================================
+//#define DEBUG_MULTI_CLIENTS
+
+
+// ===========================================================================
 // static member definitions
 // ===========================================================================
 TraCIServer* TraCIServer::myInstance = 0;
@@ -102,7 +108,11 @@ bool TraCIServer::myDoCloseConnection = false;
 // method definitions
 // ===========================================================================
 TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClients)
-    : myTargetTime(begin), myAmEmbedded(port == 0), myLaneTree(0) {
+    : myTargetTime(begin),
+      myAmEmbedded(port == 0),
+      myLaneTree(0),
+      myWarnedAboutOrder(numClients == 1) // don't warn for single clients
+{
 
     myVehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
@@ -255,10 +265,59 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
     try {
         if (myCurrentSocket == mySockets.end()) {
             postProcessSimulationStep();
+            if (mySocketReorderRequests.size() > 0) {
+                // process reordering requests
+                std::map<int, tcpip::Socket*>::const_iterator i = mySocketReorderRequests.begin();
+                std::map<int, std::pair<tcpip::Socket*,SUMOTime> >::iterator j;
+#ifdef DEBUG_MULTI_CLIENTS
+                std::cout << SIMTIME << " Current socket ordering:\n";
+                for (j = mySockets.begin(); j != mySockets.end(); ++j){
+                    std::cout << "      " << j->first << ": " << j->second.first << "\n";
+                }
+                std::cout << "Reordering requests:\n";
+                for (i = mySocketReorderRequests.begin(); i != mySocketReorderRequests.end(); ++i){
+                    std::cout << "      Socket " << i->second << " -> " << i->first << "\n";
+                }
+                i = mySocketReorderRequests.begin();
+#endif
+                while (i != mySocketReorderRequests.end()){
+                    for(j = mySockets.begin(); j != mySockets.end(); ++j){
+                        if (j->second.first == i->second) break;
+                    }
+                    assert(j!=mySockets.end());
+                    SUMOTime time = j->second.second;
+                    mySockets.erase(j);
+                    mySockets[i->first] = std::make_pair(i->second, time);
+                    ++i;
+                }
+                mySocketReorderRequests.clear();
+#ifdef DEBUG_MULTI_CLIENTS
+                std::cout << "New socket ordering:\n";
+                for (j = mySockets.begin(); j != mySockets.end(); ++j){
+                    std::cout << "      " << j->first << ": " << j->second.first << "\n";
+                }
+                std::cout << std::endl;
+#endif
+            }
+
+            if (!myWarnedAboutOrder) {
+                // check for clients without explicit ordering
+                myCurrentSocket = mySockets.begin();
+                while (myCurrentSocket != mySockets.end()){
+                    if (myCurrentSocket->first > MAX_ORDER) {
+                        WRITE_WARNING("Execution order was not set for all clients.");
+                        break;
+                    } else {
+                        ++myCurrentSocket;
+                    }
+                }
+                myWarnedAboutOrder = true;
+            }
+
             myCurrentSocket = mySockets.begin();
             myTargetTime = myCurrentSocket->second.second;
             for (++myCurrentSocket; myCurrentSocket != mySockets.end(); ++myCurrentSocket) {
-                myCurrentSocket->second.first->sendExact(myOutputStorage);
+                myCurrentSocket->second.first->sendExact(myOutputStorage); // (output storage is sent to first socket below.)
                 myTargetTime = MIN2(myTargetTime, myCurrentSocket->second.second);
             }
             myCurrentSocket = mySockets.begin();
@@ -274,7 +333,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
         while (!myDoCloseConnection) {
             if (!myInputStorage.valid_pos()) {
                 if (myOutputStorage.size() > 0) {
-                    // send out all answers as one storage
+                    // send out subscription results to first client
                     myCurrentSocket->second.first->sendExact(myOutputStorage);
                 }
                 myInputStorage.reset();
@@ -283,11 +342,18 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
                 myCurrentSocket->second.first->receiveExact(myInputStorage);
             }
             while (myInputStorage.valid_pos() && !myDoCloseConnection) {
-                // dispatch each command
+                // dispatch each command (command simstep advances myCurrentSocket to next client with control request for this timestep)
                 const int cmd = dispatchCommand();
+//#ifdef DEBUG_MULTI_CLIENTS
+//                std::cout << " Received command " << cmd << std::endl;
+//#endif
                 if (cmd == CMD_SIMSTEP || cmd == CMD_LOAD) {
+//#ifdef DEBUG_MULTI_CLIENTS
+//                    std::cout << " Received command SIM_STEP, returning from processCommandsUntilSimStep()" << std::endl;
+//#endif
                     return;
                 }
+
             }
         }
         if (myDoCloseConnection) {
@@ -446,9 +512,6 @@ TraCIServer::dispatchCommand() {
                 break;
             }
             case CMD_SIMSTEP: {
-                if (mySockets.size() > 1 && myCurrentSocket->first > MAX_ORDER) {
-                    WRITE_WARNING("Unordered client found.");
-                }
                 SUMOTime nextT = myInputStorage.readInt();
                 if (nextT == 0) {
                     nextT = myCurrentSocket->second.second + DELTA_T;
@@ -501,9 +564,8 @@ TraCIServer::dispatchCommand() {
                 if (mySockets.count(order) > 0) {
                     return writeErrorStatusCmd(CMD_SETORDER, "Order '" + toString(order) + "' is already taken.", myOutputStorage);
                 }
-                mySockets[order] = myCurrentSocket->second;
-                mySockets.erase(myCurrentSocket->first);
-                myCurrentSocket = mySockets.find(order);
+                // memorize reorder request (will only take effect in the next step)
+                mySocketReorderRequests[order] = myCurrentSocket->second.first;
                 success = true;
                 writeStatusCmd(CMD_SETORDER, RTYPE_OK, "");
                 break;

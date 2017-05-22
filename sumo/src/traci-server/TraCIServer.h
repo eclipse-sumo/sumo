@@ -305,6 +305,12 @@ private:
     /// @brief The socket connections to the clients
     std::map<int, std::pair<tcpip::Socket*,SUMOTime> > mySockets;
 
+    /// @brief This stores the setOrder(int) requests of the clients.
+    std::map<int, tcpip::Socket*> mySocketReorderRequests;
+
+    /// @brief Whether already warned about clients missing an order.
+    bool myWarnedAboutOrder;
+
     /// @brief The currently active client socket
     std::map<int, std::pair<tcpip::Socket*, SUMOTime> >::iterator myCurrentSocket;
 
