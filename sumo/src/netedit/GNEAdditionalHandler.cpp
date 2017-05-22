@@ -1251,7 +1251,7 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
             additionalOfWarningMessage = toString(tag);
         }
         // first check that attribute exists
-        if (GNEAttributeCarrier::hasAttribute(tag, attribute)) {
+        if (attrs.hasAttribute(attribute)) {
             // Parse attribute as string
             parsedAttribute = attrs.get<std::string>(attribute, objectid, ok, false);
             // Check if is the attribute is a file name or special attribute "COLOR" or "NAME"
