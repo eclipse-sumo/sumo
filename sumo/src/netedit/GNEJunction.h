@@ -160,6 +160,9 @@ public:
      */
     void move(Position pos);
 
+    /**@brief reposition the node as above but keep the old z value */
+    void move2D(Position pos2D);
+
     /// @brief registers completed movement with the undoList
     void registerMove(GNEUndoList* undoList);
 

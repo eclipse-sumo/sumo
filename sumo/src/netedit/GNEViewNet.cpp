@@ -918,7 +918,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
                     return 0;
                 }
             }
-            myJunctionToMove->move(clickedPosition);
+            myJunctionToMove->move2D(clickedPosition);
         } else if (myEdgeToMove) {
             myMoveSrc = myEdgeToMove->moveGeometry(myMoveSrc, clickedPosition);
         } else if (myAdditionalToMove) {

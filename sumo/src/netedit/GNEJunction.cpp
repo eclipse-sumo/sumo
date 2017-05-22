@@ -455,6 +455,12 @@ GNEJunction::move(Position pos) {
 
 
 void
+GNEJunction::move2D(Position pos2D) {
+    pos2D.setz(myNBNode.getPosition().z());
+    move(pos2D);
+}
+
+void
 GNEJunction::registerMove(GNEUndoList* undoList) {
     Position newPos = myNBNode.getPosition();
     std::string newPosValue = getAttribute(SUMO_ATTR_POSITION);
