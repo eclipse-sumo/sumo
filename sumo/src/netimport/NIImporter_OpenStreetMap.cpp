@@ -246,7 +246,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
 
     // load relations (after edges are built since we want to apply
     // turn-restrictions directly to NBEdges)
-    RelationHandler relationHandler(myOSMNodes, myEdges);
+    RelationHandler relationHandler(myOSMNodes, myEdges, &(nb.getPTStopCont()));
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // relations
         relationHandler.setFileName(*file);
@@ -339,7 +339,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
             }
             NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name, n->permissions);
+
             sc.insert(ptStop);
+
 
         }
         Position pos(n->lon, n->lat, n->ele);
@@ -971,11 +973,12 @@ NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) {
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::RelationHandler::RelationHandler(
     const std::map<long long int, NIOSMNode*>& osmNodes,
-    const std::map<long long int, Edge*>& osmEdges)
+    const std::map<long long int, Edge*>& osmEdges, NBPTStopCont * nbptStopCont)
     :
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
-    myOSMEdges(osmEdges) {
+    myOSMEdges(osmEdges),
+    myNBPTStopCont(nbptStopCont){
     resetValues();
 }
 
@@ -991,6 +994,9 @@ NIImporter_OpenStreetMap::RelationHandler::resetValues() {
     myViaNode = INVALID_ID;
     myViaWay = INVALID_ID;
     myRestrictionType = RESTRICTION_UNKNOWN;
+    myPlatforms.clear();
+    myStops.clear();
+    myIsStopArea = false;
 }
 
 void
@@ -1012,7 +1018,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
         return;
     }
     // parse member elements
-    if (element == SUMO_TAG_MEMBER) {
+        if (element == SUMO_TAG_MEMBER) {
         bool ok = true;
         std::string role = attrs.hasAttribute("role") ? attrs.getStringSecure("role", "") : "";
         long long int ref = attrs.get<long
@@ -1036,6 +1042,10 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
             myFromWay = ref;
         } else if (role == "to" && checkEdgeRef(ref)) {
             myToWay = ref;
+        } else if (role == "stop") {
+            myStops.push_back(ref);
+        } else if (role == "platform"){
+            myPlatforms.push_back(ref);
         }
         return;
     }
@@ -1062,6 +1072,11 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
                         "Found unknown restriction type '" + value + "' in relation '" + toString(myCurrentRelation) + "'");
                 }
                 return;
+            }
+        } else if (key == "public_transport"){
+            std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
+            if (value == "stop_area"){
+                myIsStopArea = true;
             }
         }
     }
@@ -1102,6 +1117,29 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             }
             if (ok && !applyRestriction()) {
                 WRITE_WARNING("Ignoring restriction relation '" + toString(myCurrentRelation) + "'.");
+            }
+        } else if (myIsStopArea) {
+            for (std::vector<long long int>::iterator it = myStops.begin(); it != myStops.end(); it++){
+                long long int ref = *it;
+                if (myOSMNodes.find(ref) == myOSMNodes.end()){
+                    WRITE_WARNING("Referenced node: '"+ toString(ref) + "' in relation: '" + toString(myCurrentRelation) +"' does not exist. Probably OSM file is incomplete." );
+                } else {
+                    NIOSMNode * n = myOSMNodes.find(ref)->second;
+                    NBPTStop * ptStop = myNBPTStopCont->get(toString(n->id));
+                    for (std::vector<long long int>::iterator it = myPlatforms.begin(); it != myPlatforms.end(); it++){
+                        NIOSMNode* platform = myOSMNodes.find(*it)->second;
+                        Position platformPos(platform->lon, platform->lat, platform->ele);
+                        if (!NBNetBuilder::transformCoordinate(platformPos)) {
+                            WRITE_ERROR("Unable to project coordinates for node '" + toString(platform->id) + "'.");
+                        }
+                        ptStop->addPlatformPosCand(platformPos);
+                    }
+                    if (myStops.size() > 1) {
+                        ptStop->setIsMultipleStopPositions(true);
+                    } else {
+                        ptStop->setIsMultipleStopPositions(false);
+                    }
+               };
             }
         }
         // other relations might use similar subelements so reset in any case

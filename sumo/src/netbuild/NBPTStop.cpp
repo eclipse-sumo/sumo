@@ -97,8 +97,31 @@ void NBPTStop::write(OutputDevice& device) {
 }
 void NBPTStop::reshiftPostion(const double offsetX, const double offsetY) {
     myPosition.add(offsetX, offsetY, 0);
+    for (std::vector<Position>::iterator it = myPlatformPosCands.begin(); it != myPlatformPosCands.end(); it++){
+        (*it).add(offsetX,offsetY,0);
+    }
+
 
 }
 SVCPermissions NBPTStop::getPermissions() {
     return myPermissions;
+}
+void NBPTStop::addPlatformPosCand(Position position) {
+    myPlatformPosCands.push_back(position);
+}
+std::vector<Position> NBPTStop::getPlatformPosCands() {
+    return myPlatformPosCands;
+}
+bool NBPTStop::getIsMultipleStopPositions() {
+    return myIsMultipleStopPositions;
+}
+
+void NBPTStop::setIsMultipleStopPositions(bool multipleStopPositions){
+    myIsMultipleStopPositions = multipleStopPositions;
+}
+double NBPTStop::getLength() {
+    return myPTStopLength;
+}
+void NBPTStop::setEdgeId(std::string edgeId) {
+    myEdgeId = edgeId;
 }

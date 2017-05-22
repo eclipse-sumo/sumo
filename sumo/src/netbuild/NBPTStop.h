@@ -68,11 +68,16 @@ public:
     void write(OutputDevice& device);
     void reshiftPostion(const double offsetX, const double offsetY);
 
-
+    void addPlatformPosCand(Position position);
+    std::vector<Position> getPlatformPosCands();
+    bool getIsMultipleStopPositions();
+    void setIsMultipleStopPositions(bool multipleStopPositions);
+    double getLength();
+    void setEdgeId(std::string edgeId);
 private:
     const std::string myPTStopId;
     Position myPosition;
-    const std::string myEdgeId;
+    std::string myEdgeId;
     const std::string myOrigEdgeId;
     const double myPTStopLength;
     const std::string myName;
@@ -89,6 +94,8 @@ private:
     NBPTStop& operator=(const NBPTStop&);
 
 
+    std::vector<Position> myPlatformPosCands;
+    bool myIsMultipleStopPositions;
 };
 
 #endif //SUMO_NBPTSTOP_H

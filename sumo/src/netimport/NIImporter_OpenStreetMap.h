@@ -112,6 +112,8 @@ protected:
         /// invalidated assignment operator
         NIOSMNode& operator=(const NIOSMNode& s);
 
+
+
     };
 
     /** @enum CycleWayType
@@ -412,7 +414,7 @@ protected:
          * @param[in] osmEdges The previously parse OSM-edges
          */
         RelationHandler(const std::map<long long int, NIOSMNode*>& osmNodes,
-                        const std::map<long long int, Edge*>& osmEdges);
+                        const std::map<long long int, Edge*>& osmEdges, NBPTStopCont * nbptStopCont);
 
 
         /// @brief Destructor
@@ -449,6 +451,9 @@ protected:
 
         /// @brief The previously parsed edges
         const std::map<long long int, Edge*>& myOSMEdges;
+
+        /// @brief The previously filled pt stop container
+        NBPTStopCont * myNBPTStopCont;
 
         /// @brief The currently parsed relation
         long long int myCurrentRelation;
@@ -502,6 +507,14 @@ protected:
         /** @brief invalidated assignment operator */
         RelationHandler& operator=(const RelationHandler& s);
 
+        /// @brief bus stop references
+        std::vector<long long int> myStops;
+
+        /// @brief bus stop platforms references
+        std::vector<long long int> myPlatforms;
+
+        /// @brief indicates whether current relation is a pt stop area
+        bool myIsStopArea;
     };
 
 };

@@ -25,6 +25,7 @@
 #include <map>
 #include "NBPTStop.h"
 
+class NBEdge;
 class NBEdgeCont;
 
 class NBPTStopCont {
@@ -36,6 +37,9 @@ public:
     */
     bool insert(NBPTStop* ptStop);
 
+
+    /// @brief Retrieve a previously inserted pt stop
+    NBPTStop* get(std::string id);
 
     /// @brief Returns the number of pt stops stored in this container
     int size() const {
@@ -66,6 +70,11 @@ private:
     /// @brief The map of names to pt stops
     PTStopsCont myPTStops;
 
+    bool findLaneAndComputeBusStopExtend(NBPTStop* pStop, NBEdgeCont& cont);
+    NBPTStop* getReverseStop(NBPTStop* pStop, NBEdgeCont& cont);
+    NBEdge* getReverseEdge(NBEdge* edge);
+    void assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCont& cont);
+    Position* getClosestPlatformToPTStopPosition(NBPTStop* pStop);
 };
 
 #endif //SUMO_NBPTSTOPCONT_H
