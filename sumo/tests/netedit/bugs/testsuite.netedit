@@ -1,6 +1,9 @@
 # Loading a net.xml with prohibitions and deleting edges fails 
 ticket1711
 
+# crash when activating 'join-junctions' and triggering recomputation
+ticket2327
+
 # warm about unsaved additionals
 ticket2593
 
