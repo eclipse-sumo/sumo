@@ -36,7 +36,7 @@ netedit.additionalMode()
 netedit.changeAdditional("busStop")
 
 # change reference to center
-netedit.modifyAdditionalDefaultValue(6, "reference center")
+netedit.modifyAdditionalDefaultValue(7, "reference center")
 
 # create busStop 1 in mode "reference center"
 netedit.leftClick(match, 250, 150)
@@ -96,11 +96,14 @@ netedit.modifyAttribute(3, "10")
 # Change parameter 3 with a valid value
 netedit.modifyAttribute(3, "30")
 
-# Change parameter 4 with a non valid value (throw warning)
-netedit.modifyAttribute(4, "line1, line2")
-
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(4, "line1 line2")
+netedit.modifyAttribute(4, "busStop")
+
+# Change parameter 5 with a non valid value (throw warning)
+netedit.modifyAttribute(5, "line1, line2")
+
+# Change parameter 5 with a valid value
+netedit.modifyAttribute(5, "line1 line2")
 
 # click over an empty area
 netedit.leftClick(match, 0, 0)

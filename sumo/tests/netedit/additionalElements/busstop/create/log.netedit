@@ -16,7 +16,6 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing busStop 'busStop_gneE0_0_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing busStop 'busStop_gneE0_0_0' in GNEChange_Additional
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -27,7 +26,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding busStop 'busStop_gneE0_0_3' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding busStop 'busStop_gneE0_0_4' in GNEChange_Additional
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced busStop 'busStop_gneE0_0_4'
