@@ -35,63 +35,66 @@ netedit.additionalMode()
 # select containerStop
 netedit.changeAdditional("containerStop")
 
+# set name
+netedit.modifyAdditionalDefaultValue(2, "containerStop")
+
 # Add three extra lines
-netedit.modifyStoppingPlaceLines(3, 3)
+netedit.modifyStoppingPlaceLines(4, 3)
 
 # fill extra lines
-netedit.fillStoppingPlaceLines(2, 4)
+netedit.fillStoppingPlaceLines(3, 4)
 
 # remove last line (line 4)
-netedit.modifyStoppingPlaceLines(7, 1)
+netedit.modifyStoppingPlaceLines(8, 1)
 
 # create containerStop in mode "reference left"
 netedit.leftClick(match, 250, 250)
 
 # change reference to right
-netedit.modifyAdditionalDefaultValue(8, "reference right")
+netedit.modifyAdditionalDefaultValue(9, "reference right")
 
 # create containerStop in mode "reference right"
 netedit.leftClick(match, 240, 250)
 
 # change reference to center
-netedit.modifyAdditionalDefaultValue(8, "reference center")
+netedit.modifyAdditionalDefaultValue(9, "reference center")
 
 # create containerStop in mode "reference center"
 netedit.leftClick(match, 425, 250)
 
 # return to mode "reference left"
-netedit.modifyAdditionalDefaultValue(8, "reference left")
+netedit.modifyAdditionalDefaultValue(9, "reference left")
 
 # Change length
-netedit.modifyAdditionalDefaultValue(10, "30")
+netedit.modifyAdditionalDefaultValue(11, "30")
 
 # try to create a containerStop in mode "reference left" (Warning)
 netedit.leftClick(match, 500, 250)
 
 # change reference to right
-netedit.modifyAdditionalDefaultValue(8, "reference right")
+netedit.modifyAdditionalDefaultValue(9, "reference right")
 
 # try containerStop in mode "reference right" (Warning)
 netedit.leftClick(match, 110, 250)
 
 # enable force position
-netedit.modifyAdditionalDefaultBoolValue(11)
+netedit.modifyAdditionalDefaultBoolValue(12)
 
 # change reference to "reference left"
-netedit.modifyAdditionalDefaultValue(8, "reference left")
+netedit.modifyAdditionalDefaultValue(9, "reference left")
 
 # create a containerStop in mode "reference left" forcing poisition
 netedit.leftClick(match, 500, 250)
 
 # change reference to "reference right"
-netedit.modifyAdditionalDefaultValue(8, "reference right")
+netedit.modifyAdditionalDefaultValue(9, "reference right")
 
 # create a containerStop in mode "reference right" forcing position
 netedit.leftClick(match, 110, 250)
 
 # Check undo redo
-netedit.undo(match, 6)
-netedit.redo(match, 6)
+netedit.undo(match, 5)
+netedit.redo(match, 5)
 
 # save additionals
 netedit.saveAdditionals()
