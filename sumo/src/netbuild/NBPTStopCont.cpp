@@ -173,10 +173,10 @@ void NBPTStopCont::assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCo
         double y1 = edge->getToNode()->getPosition().y();
         double x2 = closestPlatform->x();
         double y2 = closestPlatform->y();
-        double crossProd = (x1 - x0)*(y2-y0) - (y1 - y0)*(x2-x0);
+        double crossProd = (x1 - x0) * (y2 - y0) - (y1 - y0) * (x2 - x0);
 
         //TODO consider driving on the left!!! [GL May '17]
-        if (crossProd > 0){ //pt stop is on the left of the orig edge
+        if (crossProd > 0) { //pt stop is on the left of the orig edge
             pStop->setEdgeId(reverse->getID());
         }
     }
@@ -187,12 +187,14 @@ Position* NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) {
 
     Position stopPosition = pStop->getPosition();
 
-    Position * closest;
+    Position* closest;
     double minSqrDist = INFINITY;
 
-    for (std::vector<Position>::iterator it = pStop->getPlatformPosCands().begin(); it != pStop->getPlatformPosCands().end(); it++){
+    for (std::vector<Position>::iterator it = pStop->getPlatformPosCands().begin();
+         it != pStop->getPlatformPosCands().end();
+         it++) {
         double sqrDist = stopPosition.distanceSquaredTo(*it);
-        if (sqrDist < minSqrDist){
+        if (sqrDist < minSqrDist) {
             minSqrDist = sqrDist;
             closest = &(*it);
         }
