@@ -111,6 +111,12 @@
 
 
 // ===========================================================================
+// debug constants
+// ===========================================================================
+//#define DEBUG_SIMSTEP
+
+
+// ===========================================================================
 // static member definitions
 // ===========================================================================
 MSNet* MSNet::myInstance = 0;
@@ -423,6 +429,9 @@ MSNet::closeSimulation(SUMOTime start) {
 
 void
 MSNet::simulationStep() {
+#ifdef DEBUG_SIMSTEP
+    std::cout << SIMTIME << ": MSNet::simulationStep() called." << std::endl;
+#endif
 #ifndef NO_TRACI
     if (myLogExecutionTime) {
         myTraCIStepDuration = SysUtils::getCurrentMillis();
