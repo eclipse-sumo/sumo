@@ -660,15 +660,15 @@ GUIDialog_ViewSettings::updateColorRanges(FXObject* sender, std::vector<FXColorW
                 return false;
             }
             if (sender == *buttonIt) {
-                if (pos == 0) {
-                    scheme.addColor(MFXUtils::getRGBColor((*colIt)->getRGBA()), (*threshIt)->getValue());
-                } else {
-                    scheme.removeColor(pos);
-                }
+                scheme.addColor(MFXUtils::getRGBColor((*colIt)->getRGBA()), (*threshIt)->getValue());
+                return true;
+            } else if (sender == *(buttonIt + 1)) {
+                scheme.removeColor(pos);
                 return true;
             }
-            ++threshIt;
-            ++buttonIt;
+            // 2 buttons per item (add / remove)
+            threshIt++;
+            buttonIt += 2;
         }
         ++colIt;
         pos++;
@@ -713,15 +713,14 @@ GUIDialog_ViewSettings::updateScaleRanges(FXObject* sender, std::vector<FXRealSp
                 return false;
             }
             if (sender == *buttonIt) {
-                if (pos == 0) {
-                    scheme.addColor((*scaleIt)->getValue(), (*threshIt)->getValue());
-                } else {
-                    scheme.removeColor(pos);
-                }
+                scheme.addColor((*scaleIt)->getValue(), (*threshIt)->getValue());
+                return true;
+            } else if (sender == *(buttonIt + 1)) {
+                scheme.removeColor(pos);
                 return true;
             }
-            ++threshIt;
-            ++buttonIt;
+            threshIt++;
+            buttonIt += 2;
         }
         ++scaleIt;
         pos++;
@@ -1230,7 +1229,7 @@ GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
         FXCheckButton* interpolation,
         GUIColorScheme& scheme) {
     MFXUtils::deleteChildren(frame);
-    FXMatrix* m = new FXMatrix(frame, 3, GUIDesignViewSettingsMatrix4);
+    FXMatrix* m = new FXMatrix(frame, 4, GUIDesignViewSettingsMatrix4);
     colors.clear();
     thresholds.clear();
     buttons.clear();
@@ -1238,19 +1237,19 @@ GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
     std::vector<RGBColor>::const_iterator colIt = scheme.getColors().begin();
     std::vector<double>::const_iterator threshIt = scheme.getThresholds().begin();
     std::vector<std::string>::const_iterator nameIt = scheme.getNames().begin();
-    FX::FXString buttonText = "Add";
     while (colIt != scheme.getColors().end()) {
         colors.push_back(new FXColorWell(m , MFXUtils::getFXColor(*colIt), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell1));
         if (fixed) {
             new FXLabel(m, nameIt->c_str());
+            new FXLabel(m, "");
             new FXLabel(m, "");
         } else {
             const int dialerOptions = scheme.allowsNegativeValues() ? SPINDIAL_NOMIN : 0;
             FXRealSpinDial* threshDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPINDIAL_NOMAX | dialerOptions);
             threshDialer->setValue(*threshIt);
             thresholds.push_back(threshDialer);
-            buttons.push_back(new FXButton(m, buttonText, NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
-            buttonText = "Remove";
+            buttons.push_back(new FXButton(m, "Add", NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+            buttons.push_back(new FXButton(m, "Remove", NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
         }
         colIt++;
         threshIt++;
@@ -1284,7 +1283,7 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
         FXCheckButton* interpolation,
         GUIScaleScheme& scheme) {
     MFXUtils::deleteChildren(frame);
-    FXMatrix* m = new FXMatrix(frame, 3, GUIDesignViewSettingsMatrix4);
+    FXMatrix* m = new FXMatrix(frame, 4, GUIDesignViewSettingsMatrix4);
     scales.clear();
     thresholds.clear();
     buttons.clear();
@@ -1292,7 +1291,6 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
     std::vector<double>::const_iterator scaleIt = scheme.getColors().begin();
     std::vector<double>::const_iterator threshIt = scheme.getThresholds().begin();
     std::vector<std::string>::const_iterator nameIt = scheme.getNames().begin();
-    FX::FXString buttonText = "Add";
     while (scaleIt != scheme.getColors().end()) {
         FXRealSpinDial* scaleDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPINDIAL_NOMAX);
         scaleDialer->setValue(*scaleIt);
@@ -1300,13 +1298,14 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
         if (fixed) {
             new FXLabel(m, nameIt->c_str());
             new FXLabel(m, "");
+            new FXLabel(m, "");
         } else {
             const int dialerOptions = scheme.allowsNegativeValues() ? SPINDIAL_NOMIN : 0;
             FXRealSpinDial* threshDialer = new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPINDIAL_NOMAX | dialerOptions);
             threshDialer->setValue(*threshIt);
             thresholds.push_back(threshDialer);
-            buttons.push_back(new FXButton(m, buttonText, NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
-            buttonText = "Remove";
+            buttons.push_back(new FXButton(m, "Add", NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+            buttons.push_back(new FXButton(m, "Remove", NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
         }
         scaleIt++;
         threshIt++;
