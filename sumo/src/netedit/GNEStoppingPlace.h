@@ -57,8 +57,9 @@ public:
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
+     * @param[in] nam Name of stoppingPlace
      */
-    GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos);
+    GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string &name);
 
     /// @brief Destructor
     ~GNEStoppingPlace();
@@ -81,11 +82,14 @@ public:
      */
     virtual void writeAdditional(OutputDevice& device) const = 0;
 
-    /// @brief Returns the Start position of the stoppingPlace
+    /// @brief Returns the Start position of stoppingPlace
     double getStartPosition() const;
 
-    /// @brief Returns the End position of the stoppingPlace
+    /// @brief Returns the End position of stoppingPlace
     double getEndPosition() const;
+
+    /// @brief Returns the name of stoppingPlace
+    const std::string &getStoppingPlaceName() const;
 
     /**@brief Set a new Start position in StoppingPlace
      * @param[in] startPos new Start position of StoppingPlace
@@ -98,6 +102,9 @@ public:
      * @throws InvalidArgument if value of endPos isn't valid
      */
     void setEndPosition(double endPos);
+
+    /// @brief set a new Name in StoppingPlace
+    void setStoppingPlaceName(const std::string &name);
 
     /// @name inherited from GNEAdditional
     /// @{
@@ -141,6 +148,9 @@ protected:
 
     /// @brief The end position this stopping place is located at
     double myEndPos;
+
+    /// @brief name of stoppingPlace
+    std::string myName;
 
     /// @brief The position of the sign
     Position mySignPos;

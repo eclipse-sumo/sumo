@@ -206,11 +206,12 @@ public:
      * @param[in] lane The lane the bus stop is placed on
      * @param[in] startPos Begin position of the bus stop on the lane
      * @param[in] endPos End position of the bus stop on the lane
+     * @param[in] name Name of busStop
      * @param[in] lines Names of the bus lines that halt on this bus stop
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the bus stop can not be added to the net (is duplicate)
      */
-    static bool buildBusStop(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double startPos, double endPos, const std::vector<std::string>& lines);
+    static bool buildBusStop(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines);
 
     /**@brief Builds a container stop
      * @param[in] viewNet viewNet in which element will be inserted
@@ -218,11 +219,12 @@ public:
      * @param[in] lane The lane the container stop is placed on
      * @param[in] startPos Begin position of the container stop on the lane
      * @param[in] endPos End position of the container stop on the lane
+     * @param[in] name Name of busStop
      * @param[in] lines Names of the bus lines that halt on this container stop
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the container stop can not be added to the net (is duplicate)
      */
-    static bool buildContainerStop(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double startPos, double endPos, const std::vector<std::string>& lines);
+    static bool buildContainerStop(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines);
 
     /**@brief Builds a charging Station
      * @param[in] viewNet viewNet in which element will be inserted
@@ -230,6 +232,7 @@ public:
      * @param[in] lane The lane the charging Station is placed on
      * @param[in] startPos Begin position of the charging Station on the lane
      * @param[in] endPos End position of the charging Station on the lane
+     * @param[in] name Name of busStop
      * @param[in] chargingPower power charged in every timeStep
      * @param[in] efficiency efficiency of the charge
      * @param[in] chargeInTransit enable or disable charge in transit
@@ -237,7 +240,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
-    static bool buildChargingStation(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double startPos, double endPos, double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay);
+    static bool buildChargingStation(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string &name, double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay);
 
     /**@brief Builds a induction loop detector (E1)
      * @param[in] viewNet viewNet in which element will be inserted

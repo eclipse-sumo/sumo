@@ -63,9 +63,10 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
+     * @param[in] name Name of busStop
      * @param[in] lines lines of the busStop
      */
-    GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::vector<std::string>& lines);
+    GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines);
 
     /// @brief Destructor
     ~GNEBusStop();

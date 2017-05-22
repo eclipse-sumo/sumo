@@ -494,6 +494,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
     std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
     double startPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
     double endPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
+    std::string name = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort);
     std::vector<std::string> lines = getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_LINES, abort, false);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
@@ -505,7 +506,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
         } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLength(), POSITION_EPS, getFriendlyPosition(attrs, id.c_str()))) {
             // Write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
-        } else if (buildBusStop(myViewNet, id, lane, startPos, endPos, lines)) {
+        } else if (buildBusStop(myViewNet, id, lane, startPos, endPos, name, lines)) {
             myLastTag = tag;
         }
     }
@@ -520,6 +521,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
     std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
     double startPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
     double endPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
+    std::string name = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort);
     std::vector<std::string> lines = getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_LINES, abort, false);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
@@ -531,7 +533,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
         } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLength(), POSITION_EPS, getFriendlyPosition(attrs, id.c_str()))) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
-        } else if (buildContainerStop(myViewNet, id, lane, startPos, endPos, lines)) {
+        } else if (buildContainerStop(myViewNet, id, lane, startPos, endPos, name, lines)) {
             myLastTag = tag;
         }
     }
@@ -546,7 +548,8 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
     std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
     double startPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
     double endPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
-    double chrgpower = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_CHARGINGPOWER, abort);
+    std::string name = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort);
+    double chargingPower = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_CHARGINGPOWER, abort);
     double efficiency = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_EFFICIENCY, abort);
     bool chargeInTransit = getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_CHARGEINTRANSIT, abort);
     double chargeDelay = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_CHARGEDELAY, abort);
@@ -560,7 +563,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
         } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLength(), POSITION_EPS, getFriendlyPosition(attrs, id.c_str()))) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
-        } else if (buildChargingStation(myViewNet, id, lane, startPos, endPos, chrgpower, efficiency, chargeInTransit, chargeDelay)) {
+        } else if (buildChargingStation(myViewNet, id, lane, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay)) {
             myLastTag = tag;
         }
     }
@@ -729,10 +732,11 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
             double startPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_STARTPOS]);
             double endPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_ENDPOS]);
+            std::string name = values[SUMO_ATTR_NAME];
             std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_LINES]);
             // Build busStop
             if (lane) {
-                return buildBusStop(viewNet, id, lane, startPos, endPos, lines);
+                return buildBusStop(viewNet, id, lane, startPos, endPos, name, lines);
             } else {
                 return false;
             }
@@ -743,10 +747,11 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
             double startPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_STARTPOS]);
             double endPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_ENDPOS]);
+            std::string name = values[SUMO_ATTR_NAME];
             std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_LINES]);
             // Build containerStop
             if (lane) {
-                return buildContainerStop(viewNet, id, lane, startPos, endPos, lines);
+                return buildContainerStop(viewNet, id, lane, startPos, endPos, name, lines);
             } else {
                 return false;
             }
@@ -757,13 +762,14 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
             GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
             double startPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_STARTPOS]);
             double endPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_ENDPOS]);
+            std::string name = values[SUMO_ATTR_NAME];
             double chargingPower = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_CHARGINGPOWER]);
             double efficiency = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_EFFICIENCY]);
             bool chargeInTransit = GNEAttributeCarrier::parse<bool>(values[SUMO_ATTR_CHARGEINTRANSIT]);
             double chargeDelay = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_CHARGEDELAY]);
             // Build chargingStation
             if (lane) {
-                return buildChargingStation(viewNet, id, lane, startPos, endPos, chargingPower, efficiency, chargeInTransit, chargeDelay);
+                return buildChargingStation(viewNet, id, lane, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay);
             } else {
                 return false;
             }
@@ -939,10 +945,10 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, SumoXMLTag tag, std::
 
 
 bool
-GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double startPos, double endPos, const std::vector<std::string>& lines) {
+GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_BUS_STOP, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_BUS_STOP));
-        GNEBusStop* busStop = new GNEBusStop(id, lane, viewNet, startPos, endPos, lines);
+        GNEBusStop* busStop = new GNEBusStop(id, lane, viewNet, startPos, endPos, name, lines);
         viewNet->getUndoList()->add(new GNEChange_Additional(busStop, true), true);
         viewNet->getUndoList()->p_end();
         return true;
@@ -954,10 +960,10 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, const std::string& id, G
 
 
 bool
-GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double startPos, double endPos, const std::vector<std::string>& lines) {
+GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CONTAINER_STOP, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CONTAINER_STOP));
-        GNEContainerStop* containerStop = new GNEContainerStop(id, lane, viewNet, startPos, endPos, lines);
+        GNEContainerStop* containerStop = new GNEContainerStop(id, lane, viewNet, startPos, endPos, name, lines);
         viewNet->getUndoList()->add(new GNEChange_Additional(containerStop, true), true);
         viewNet->getUndoList()->p_end();
         return true;
@@ -969,10 +975,10 @@ GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, const std::string&
 
 
 bool
-GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double startPos, double endPos, double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay) {
+GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string &name, double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CHARGING_STATION, id) == NULL) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CHARGING_STATION));
-        GNEChargingStation* chargingStation = new GNEChargingStation(id, lane, viewNet, startPos, endPos, chargingPower, efficiency, chargeInTransit, chargeDelay);
+        GNEChargingStation* chargingStation = new GNEChargingStation(id, lane, viewNet, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay);
         viewNet->getUndoList()->add(new GNEChange_Additional(chargingStation, true), true);
         viewNet->getUndoList()->p_end();
         return true;
@@ -1248,8 +1254,8 @@ GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const c
         if (attrs.hasAttribute(attribute)) {
             // Parse attribute as string
             parsedAttribute = attrs.get<std::string>(attribute, objectid, ok, false);
-            // Check if is the attribute is a file name or special attribute "COLOR"
-            if (!ok && ((attribute == SUMO_ATTR_COLOR) || GNEAttributeCarrier::isFilename(tag, attribute))) {
+            // Check if is the attribute is a file name or special attribute "COLOR" or "NAME"
+            if (!ok && ((attribute == SUMO_ATTR_COLOR) || (attribute == SUMO_ATTR_NAME) || GNEAttributeCarrier::isFilename(tag, attribute))) {
                 ok = true;
             }
             // check that parsed attribute can be converted to type T

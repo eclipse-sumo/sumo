@@ -54,12 +54,13 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
+     * @param[in] name Name of busStop
      * @param[in] chargingPower charging power of the charging station
      * @param[in] efficiency efficiency of the charge [0,1]
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in timeSteps in the charge
      */
-    GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay);
+    GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string &name, double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay);
 
     /// @brief Destructor
     ~GNEChargingStation();

@@ -61,8 +61,8 @@
 // method definitions
 // ===========================================================================
 
-GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::vector<std::string>& lines) :
-    GNEStoppingPlace(id, viewNet, SUMO_TAG_BUS_STOP, ICON_BUSSTOP, lane, startPos, endPos),
+GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines) :
+    GNEStoppingPlace(id, viewNet, SUMO_TAG_BUS_STOP, ICON_BUSSTOP, lane, startPos, endPos, name),
     myLines(lines) {
     // When a new additional element is created, updateGeometry() must be called
     updateGeometry();
@@ -152,6 +152,9 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
+    if(myName.empty() == false) {
+        device.writeAttr(SUMO_ATTR_NAME, myName);
+    }
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
     }
@@ -310,6 +313,8 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
             return toString(myStartPos);
         case SUMO_ATTR_ENDPOS:
             return toString(myEndPos);
+        case SUMO_ATTR_NAME:
+            return myName;
         case SUMO_ATTR_LINES:
             return joinToString(myLines, " ");
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -330,6 +335,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
+        case SUMO_ATTR_NAME:
         case SUMO_ATTR_LINES:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -393,6 +399,8 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         }
+        case SUMO_ATTR_NAME:
+            return true;
         case SUMO_ATTR_LINES:
             return canParse<std::vector<std::string> >(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -427,6 +435,10 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myEndPos = parse<double>(value);
             }
             updateGeometry();
+            getViewNet()->update();
+            break;
+        case SUMO_ATTR_NAME:
+            myName = value;
             getViewNet()->update();
             break;
         case SUMO_ATTR_LINES:
