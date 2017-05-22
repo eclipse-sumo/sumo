@@ -150,7 +150,7 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
         std::string name = "visset#" + toString(i);
         std::string setting = app->reg().readStringEntry("VisualizationSettings", name.c_str(), "");
         if (setting != "") {
-            GUIVisualizationSettings vs;
+            GUIVisualizationSettings vs(netedit);
 
             vs.name = setting;
             app->reg().readStringEntry("VisualizationSettings", name.c_str(), "");
@@ -170,7 +170,7 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
             }
             if (content != "" && xmlSize == 0) {
                 try {
-                    GUISettingsHandler handler(content, false);
+                    GUISettingsHandler handler(content, false, netedit);
                     handler.addSettings();
                 } catch (ProcessError) { }
             }
