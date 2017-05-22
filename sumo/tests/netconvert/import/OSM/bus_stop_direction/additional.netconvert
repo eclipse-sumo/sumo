@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon May 15 11:13:05 2017 by SUMO netconvert Version dev-SVN-r24273
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="input_types.typ.xml"/>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <osm.stop-output.length value="200"/>
+    </processing>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="3357557585" name="Fontanestraße/Flughafenstraße" lane="10996053_1" startPos="-101.00" endPos="99.00" friendlyPos="true"/>
+    <busStop id="3357557586" name="Fontanestraße/Flughafenstraße" lane="10996029_0" startPos="-67.53" endPos="132.47" friendlyPos="true"/>
+    <busStop id="3357557587" name="Fontanestraße/Flughafenstraße" lane="4579853_1" startPos="114.67" endPos="314.67" friendlyPos="true"/>
+    <busStop id="3357557588" name="U Boddinstraße" lane="68189545_1" startPos="-2.95" endPos="197.05" friendlyPos="true"/>
+    <busStop id="821551864" name="U Boddinstraße" lane="68189545_1" startPos="-18.18" endPos="181.82" friendlyPos="true"/>
+</additional>
