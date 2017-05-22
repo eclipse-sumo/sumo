@@ -22,9 +22,9 @@ import de.tudresden.sumo.config.Constants;
 
 public enum SubscriptionContext {
 
-	areal_detector(Constants.CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT),	
+	areal_detector(Constants.CMD_SUBSCRIBE_LANEAREA_CONTEXT),	
 	inductive_loop(Constants.CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT),	
-	me_detector(Constants.CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT),	
+	me_detector(Constants.CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT),	
 	lane(Constants.CMD_SUBSCRIBE_LANE_CONTEXT),
 	vehicle(Constants.CMD_SUBSCRIBE_VEHICLE_CONTEXT),
 	vehicleType(Constants.CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT),

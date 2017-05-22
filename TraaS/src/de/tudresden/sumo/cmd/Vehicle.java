@@ -77,7 +77,38 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ANGLE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
+	/**
+	 * Returns the apparent deceleration in m/s^2 of this vehicle.
+	 * @param vehID id of the vehicle
+	 * @return angle
+	 */
+
+	public static SumoCommand getApparentDecel(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_APPARENT_DECEL, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
 	
+	/**
+	 * Returns the maximum lateral speed in m/s of this vehicle.
+	 * @param vehID id of the vehicle
+	 * @return angle
+	 */
+
+	public static SumoCommand getMaxSpeedLat(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_MAXSPEED_LAT, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
+	
+	/**
+	 * Returns The desired lateral gap of this vehicle at 50km/h in m
+	 * @param vehID id of the vehicle
+	 * @return angle
+	 */
+
+	public static SumoCommand getMinGapLat(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_MINGAP_LAT, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
+		
 	/**
 	 * Returns the maximum allowed speed on the current lane regarding speed factor in m/s for this vehicle.
 	 * @param vehID id of the vehicle
@@ -97,6 +128,50 @@ public class Vehicle {
 	public static SumoCommand getHeight(String vehID){
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_HEIGHT, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
+	
+	/**
+	 *Returns The lateral position of the vehicle on its current lane measured in m.
+     * @param vehID id of the vehicle
+	 * @return the leading vehicle
+	 */
+
+	public static SumoCommand getLateralLanePosition(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_LANEPOSITION_LAT, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+
+	
+	/**
+	 * Returns the maximal physically possible deceleration in m/s^2 of this vehicle.
+	 * @param vehID id of the vehicle
+	 * @param direction direction
+	 * @return SumoCommand
+	 */
+	public static SumoCommand getLaneChangeState(String vehID, int direction){
+
+		Object[] array = new Object[]{direction};
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_CHANGELANE, vehID, array, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_COMPOUND);
+	}
+
+	/**
+	 * Returns the maximal physically possible deceleration in m/s^2 of this vehicle.
+	 * @param vehID id of the vehicle
+	 * @return SumoCommand
+	 */
+	public static SumoCommand getEmergencyDecel(String vehID){
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_EMERGENCY_DECEL, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+		
+
+	/**
+	 * Returns The preferred lateral alignment of the vehicle
+     * @param vehID id of the vehicle
+	 * @return the leading vehicle
+	 */
+
+	public static SumoCommand getLateralAlignment(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_LATALIGNMENT, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_STRING);
+	}
+	
 	
 	/**
 	 * Return the leading vehicle id together with the distance.
@@ -726,7 +801,7 @@ public class Vehicle {
 	public static SumoCommand addFull(String vehID, String routeID, String typeID, String depart, String departLane, String departPosition, 
 									  String departSpeed, String arrivalLane, String arrivalPosition, String arrivalSpeed,  String fromTAZ, String toTAZ, String line, int person_capacity, int person_number){
 
-		Object[] array = new Object[]{ routeID, typeID, depart, departLane, departPosition, departSpeed, arrivalLane, arrivalPosition, arrivalSpeed, fromTAZ, toTAZ, line, person_capacity, person_number};
+		Object[] array = new Object[]{routeID, typeID, depart, departLane, departPosition, departSpeed, arrivalLane, arrivalPosition, arrivalSpeed, fromTAZ, toTAZ, line, person_capacity, person_number};
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.ADD_FULL, vehID, array);
 	}
 	
@@ -756,6 +831,33 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_CHANGETARGET, vehID, edgeID);
 	}
 
+	
+	/**
+	 * Forces a lateral change by the given amount (negative values indicate changing to the right, positive to the left)
+	        This will override any other lane change motivations but conform to
+	        safety-constraints as configured by laneChangeMode.
+	 * @param vehID vehicle id
+	 * @param latDist latDist
+	 * @return SumoCommand
+	 */
+	public static SumoCommand changeSublane(String vehID, double latDist){
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_CHANGESUBLANE, vehID, latDist);
+	}
+	
+	/**
+	 *  Adds or modifies a stop at a parkingArea with the given parameters. The duration and the until attribute are
+	        in milliseconds.
+	 * @param vehID vehicle id
+	 * @param stopID stopID
+	 * @param duration duration
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setParkingAreaStop(String vehID, String stopID, int duration){
+		SumoStopFlags sf = new SumoStopFlags(true, false, false, false, false);
+    	return setStop(vehID, stopID, 1, (byte) 0, duration, sf);
+	}
+
+	
 	/**
 	 * Moves the vehicle to a new position.
 
@@ -793,7 +895,7 @@ public class Vehicle {
 	public static SumoCommand moveToXY(String vehID, String edgeID, int lane, double x, double y, double angle, byte keepRoute){
 
 		Object[] array = new Object[]{edgeID, lane, x, y, angle, keepRoute};
-		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_MOVE_TO_VTD, vehID, array);
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.MOVE_TO_XY, vehID, array);
 	}
 	
 	
@@ -856,6 +958,42 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_EDGE_TRAVELTIME, vehID, array);
 	}
 
+	/**
+	 *  Sets the preferred lateral alignment for this vehicle.
+	 * @param vehID id of the vehicle
+	 * @param align align
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setLateralAlignment(String vehID, String align){
+
+		Object[] array = new Object[]{align};
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_LATALIGNMENT, vehID, array);
+	}
+
+	/**
+	 * Sets the apparent deceleration in m/s^2 for this vehicle.
+	 * @param vehID id of the vehicle
+	 * @param decel decel
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setApparentDecel(String vehID, double decel){
+
+		Object[] array = new Object[]{decel};
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_APPARENT_DECEL, vehID, array);
+	}
+	
+	/**
+	 * Sets the minimum lateral gap of the vehicle at 50km/h in m
+	 * @param vehID id of the vehicle
+	 * @param minGapLat minGapLat
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setMinGapLat(String vehID, double minGapLat){
+
+		Object[] array = new Object[]{minGapLat};
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_MINGAP_LAT, vehID, array);
+	}
+	
 	
 	/**
 	 * Sets the vehicle's color (RGBA).
@@ -899,6 +1037,15 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_LANECHANGE_MODE, vehID, lcm);
 	}
 	
+	/**
+	 *  Sets the maximal physically possible deceleration in m/s^2 for this vehicle.
+	 * @param vehID id of the vehicle
+	 * @param decel decel
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setEmergencyDecel(String vehID, double decel){
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_EMERGENCY_DECEL, vehID, decel);
+	}
 	
 	/**
 	 * Sets the IDs of the edges the vehicle's route is made of.
@@ -1006,6 +1153,16 @@ public class Vehicle {
 	}
 
 	/**
+	 * Sets the maximum lateral speed in m/s for this vehicle.
+	 * @param vehID vehicle id
+	 * @param speed speed
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setMaxSpeedLat(String vehID, double speed){
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_MAXSPEED_LAT, vehID, speed);
+	}
+	
+	/**
 	 * Sets the minimum gap (in m) between this vehicle and the vehicle before it.
 	 * @param vehID vehicle id
 	 * @param minGap minimum gap
@@ -1104,7 +1261,24 @@ public class Vehicle {
 		Object[] array = new Object[]{edgeID, pos, laneIndex, duration, sf};
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_STOP, vehID, array);
 	}
-
+	
+	/**
+	 *  Adds or modifies a stop at a chargingStation with the given parameters. The duration and the until attribute are
+	    in milliseconds.
+	        
+	 * @param vehID
+	 * @param stopID
+	 * @param duration
+	 * @param until
+	 * @return SumoCommand
+	 */
+	
+	public static SumoCommand setChargingStationStop(String vehID, String stopID, int duration, int until){
+		SumoStopFlags sf = new SumoStopFlags(false, false, false, true, false);
+    	return setStop(vehID, stopID, 1, (byte) 0, duration, sf);
+	}
+	
+	
 	/**
 	 * Adds or modifies a bus stop with the given parameters. The duration and the until attribute are in milliseconds.
 	 * @param vehID id of the vehicle

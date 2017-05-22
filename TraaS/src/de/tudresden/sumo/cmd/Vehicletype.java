@@ -70,6 +70,69 @@ public class Vehicletype {
 	}
 
 	/**
+	 *  Returns the maximal physically possible deceleration in m/s^2 of vehicles of this type.
+	 * @param typeID  type id
+	 * @return deceleration
+	 */
+
+	public static SumoCommand getEmergencyDecel(String typeID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLETYPE_VARIABLE, Constants.VAR_EMERGENCY_DECEL, typeID, Constants.RESPONSE_GET_VEHICLETYPE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
+	/**
+	 * Returns The preferred lateral alignment of the type
+	 * @param typeID  type id
+	 * @return deceleration
+	 */
+
+	public static SumoCommand getLateralAlignment(String typeID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLETYPE_VARIABLE, Constants.VAR_LATALIGNMENT, typeID, Constants.RESPONSE_GET_VEHICLETYPE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
+	/**
+	 * Returns the height in m of vehicles of this type.
+	 * @param typeID  type id
+	 * @return deceleration
+	 */
+
+	public static SumoCommand getHeight(String typeID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLETYPE_VARIABLE, Constants.VAR_HEIGHT, typeID, Constants.RESPONSE_GET_VEHICLETYPE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+
+	
+	/**
+	 * Returns The preferred lateral alignment of the type
+	 * @param typeID  type id
+	 * @return deceleration
+	 */
+
+	public static SumoCommand getApparentDecel(String typeID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLETYPE_VARIABLE, Constants.VAR_APPARENT_DECEL, typeID, Constants.RESPONSE_GET_VEHICLETYPE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
+
+	/**
+	 *  Returns The desired lateral gap of this type at 50km/h in m
+	 * @param typeID  type id
+	 * @return deceleration
+	 */
+
+	public static SumoCommand getMinGapLat(String typeID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLETYPE_VARIABLE, Constants.VAR_MINGAP_LAT, typeID, Constants.RESPONSE_GET_VEHICLETYPE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
+		
+	/**
+	 * Returns the maximum lateral speed in m/s of this type.
+	 * @param typeID  type id
+	 * @return deceleration
+	 */
+
+	public static SumoCommand getMaxSpeedLat(String typeID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLETYPE_VARIABLE, Constants.VAR_MAXSPEED_LAT, typeID, Constants.RESPONSE_GET_VEHICLETYPE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
+	/**
 	 * Returns the emission class of the named vehicle type.
 	 * @param typeID  type id
 	 * @return emission class
@@ -214,7 +277,8 @@ public class Vehicletype {
 
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_ACCEL, typeID, accel);
 	}
-
+	
+	
 	/**
 	 * Sets the vehicle type's color.
 	 * @param typeID type id
@@ -252,12 +316,78 @@ public class Vehicletype {
 	/**
 	 * setImperfection
 	 * @param typeID type id
+	 * @param minGapLat minGapLat
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setMinGapLat(String typeID, double minGapLat){
+
+		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_MINGAP_LAT, typeID, minGapLat);
+	}
+
+	/**
+	 * Sets the maximum lateral speed of this type.
+	 * @param typeID type id
+	 * @param speed speed
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setMaxSpeedLat(String typeID, double speed){
+		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_MAXSPEED_LAT, typeID, speed);
+	}
+	
+	/**
+	 * Sets the apparent deceleration in m/s^2 of vehicles of this type.
+	 * @param typeID type id
+	 * @param decel decel
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setApparentDecel(String typeID, double decel){
+		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_APPARENT_DECEL, typeID, decel);
+	}
+	
+	/**
+	 * setImperfection
+	 * @param typeID type id
 	 * @param imperfection imperfection
 	 * @return SumoCommand
 	 */
 	public static SumoCommand setImperfection(String typeID, double imperfection){
 
 		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_IMPERFECTION, typeID, imperfection);
+	}
+
+	/**
+	 * Sets the preferred lateral alignment of this type.
+	 * @param typeID type id
+	 * @param latAlignment latAlignment
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setLateralAlignment(String typeID, String latAlignment){
+
+		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_LATALIGNMENT, typeID, latAlignment);
+	}
+
+	/**
+	 * Sets the height in m of vehicles of this type.
+	 * @param typeID type id
+	 * @param height height
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setHeight(String typeID, double height){
+
+		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_HEIGHT, typeID, height);
+	}
+
+   
+	
+	/**
+	 *  Sets the maximal physically possible deceleration in m/s^2 of vehicles of this type.
+	 * @param typeID type id
+	 * @param decel decel
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setEmergencyDecel(String typeID, double decel){
+
+		return new SumoCommand(Constants.CMD_SET_VEHICLETYPE_VARIABLE, Constants.VAR_EMERGENCY_DECEL, typeID, decel);
 	}
 
 	/**

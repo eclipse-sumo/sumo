@@ -39,7 +39,7 @@ public class Multientryexit {
 	 */
 
 	public static SumoCommand getIDList(){
-		return new SumoCommand(Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.TYPE_STRINGLIST);
+		return new SumoCommand(Constants.CMD_GET_MULTIENTRYEXIT_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_MULTIENTRYEXIT_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class Multientryexit {
 	 */
 
 	public static SumoCommand getIDCount(){
-		return new SumoCommand(Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_GET_MULTIENTRYEXIT_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_MULTIENTRYEXIT_VARIABLE, Constants.TYPE_INTEGER);
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class Multientryexit {
 	 */
 
 	public static SumoCommand getLastStepHaltingNumber(String detID){
-		return new SumoCommand(Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.LAST_STEP_VEHICLE_HALTING_NUMBER, detID, Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_GET_MULTIENTRYEXIT_VARIABLE, Constants.LAST_STEP_VEHICLE_HALTING_NUMBER, detID, Constants.RESPONSE_GET_MULTIENTRYEXIT_VARIABLE, Constants.TYPE_INTEGER);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class Multientryexit {
 	 */
 
 	public static SumoCommand getLastStepMeanSpeed(String detID){
-		return new SumoCommand(Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.LAST_STEP_MEAN_SPEED, detID, Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.TYPE_DOUBLE);
+		return new SumoCommand(Constants.CMD_GET_MULTIENTRYEXIT_VARIABLE, Constants.LAST_STEP_MEAN_SPEED, detID, Constants.RESPONSE_GET_MULTIENTRYEXIT_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class Multientryexit {
 	 */
 
 	public static SumoCommand getLastStepVehicleIDs(String detID){
-		return new SumoCommand(Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.LAST_STEP_VEHICLE_ID_LIST, detID, Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.TYPE_STRINGLIST);
+		return new SumoCommand(Constants.CMD_GET_MULTIENTRYEXIT_VARIABLE, Constants.LAST_STEP_VEHICLE_ID_LIST, detID, Constants.RESPONSE_GET_MULTIENTRYEXIT_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class Multientryexit {
 	 */
 
 	public static SumoCommand getLastStepVehicleNumber(String detID){
-		return new SumoCommand(Constants.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.LAST_STEP_VEHICLE_NUMBER, detID, Constants.RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_GET_MULTIENTRYEXIT_VARIABLE, Constants.LAST_STEP_VEHICLE_NUMBER, detID, Constants.RESPONSE_GET_MULTIENTRYEXIT_VARIABLE, Constants.TYPE_INTEGER);
 	}
 
 	//setter methods

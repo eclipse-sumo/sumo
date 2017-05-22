@@ -943,7 +943,7 @@ public class Traci{
 	}
 	
 	@WebMethod(action="Simulation: convertGeo")
-	public SumoStringList Simulation_convertGeo(@WebParam(name = "x") double x, @WebParam(name = "y") double y, @WebParam(name = "fromGeo") String fromGeo){
+	public SumoStringList Simulation_convertGeo(@WebParam(name = "x") double x, @WebParam(name = "y") double y, @WebParam(name = "fromGeo") boolean fromGeo){
 		return this.helper.getStringList(this.sumo.get_cmd(Simulation.convertGeo(x, y, fromGeo)));
 	}
 

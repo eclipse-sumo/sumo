@@ -37,7 +37,7 @@ public class Lanearea {
 	 */
 
 	public static SumoCommand getIDList(){
-		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_STRINGLIST);
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
 	
@@ -48,18 +48,28 @@ public class Lanearea {
 	 */
 
 	public static SumoCommand getLastStepVehicleNumber(String loopID){
-		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.LAST_STEP_VEHICLE_NUMBER, "", Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.LAST_STEP_VEHICLE_NUMBER, "", Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	/**
+	 * Returns the number of vehicles which were halting during the last time step.
+	 * @param loopID a string identifying the loop
+	 * @return numeber of vehicles
+	 */
+
+	public static SumoCommand getLastStepHaltingNumber(String loopID){
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.LAST_STEP_VEHICLE_HALTING_NUMBER, "", Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_INTEGER);
 	}
 	
 	
 	/**
-	 * Returns a list of all vehicles on the detector
-	 * @param loopID a string identifying the loop
+	 *  Returns the list of ids of vehicles that were on the named detector in the last simulation step.
+     * @param loopID a string identifying the loop
 	 * @return a list of all vehicles on the detector
 	 */
 
-	public static SumoCommand getLastStepVehicleList(String loopID){
-		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.LAST_STEP_VEHICLE_ID_LIST, "", Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_STRINGLIST);
+	public static SumoCommand getLastStepVehicleIDs(String loopID){
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.LAST_STEP_VEHICLE_ID_LIST, "", Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 	
 	/**
@@ -68,7 +78,7 @@ public class Lanearea {
 	 */
 
 	public static SumoCommand getIDCount(){
-		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_INTEGER);
 	}
 
 	
@@ -80,18 +90,7 @@ public class Lanearea {
 
 
 	public static SumoCommand getJamLengthVehicle(String loopID){
-		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.JAM_LENGTH_VEHICLE, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
-	}
-	
-	/**
-	 * getLastStepVehcileHalting
-	 * @param loopID a string identifying the loop
-	 * @return halting vehicles
-	 */
-
-
-	public static SumoCommand getLastStepVehcileHalting(String loopID){
-		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.LAST_STEP_VEHICLE_HALTING_NUMBER, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.JAM_LENGTH_VEHICLE, loopID, Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_INTEGER);
 	}
 	
 	/**
@@ -101,7 +100,7 @@ public class Lanearea {
 	 */
 
 	public static SumoCommand getJamLengthMeters(String loopID){
-		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.JAM_LENGTH_METERS, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_DOUBLE);
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.JAM_LENGTH_METERS, loopID, Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 	
 	/**
@@ -111,7 +110,7 @@ public class Lanearea {
 	 */
 
 	public static SumoCommand getLastStepMeanSpeed(String loopID){
-		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.LAST_STEP_MEAN_SPEED, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_DOUBLE);
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.LAST_STEP_MEAN_SPEED, loopID, Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	
@@ -122,7 +121,7 @@ public class Lanearea {
 	 */
 
 	public static SumoCommand getLastStepOccupancy(String loopID){
-		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.LAST_STEP_OCCUPANCY, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_DOUBLE);
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.LAST_STEP_OCCUPANCY, loopID, Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 	
 	
@@ -133,7 +132,7 @@ public class Lanearea {
 	 */
 
 	public static SumoCommand getPosition(String loopID){
-		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.VAR_POSITION, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_DOUBLE);
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.VAR_POSITION, loopID, Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 	
 	/**
@@ -143,7 +142,7 @@ public class Lanearea {
 	 */
 
 	public static SumoCommand getLaneID(String loopID){
-		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.VAR_LANE_ID, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_STRING);
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.VAR_LANE_ID, loopID, Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_STRING);
 	}
 	
 	/**
@@ -153,7 +152,7 @@ public class Lanearea {
 	 */
 
 	public static SumoCommand getLength(String loopID){
-		return new SumoCommand(Constants.CMD_GET_AREAL_DETECTOR_VARIABLE, Constants.VAR_LENGTH, loopID, Constants.RESPONSE_GET_AREAL_DETECTOR_VARIABLE, Constants.TYPE_DOUBLE);
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.VAR_LENGTH, loopID, Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 	
 	

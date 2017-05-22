@@ -1,5 +1,5 @@
 /*   
-    Copyright (C) 2017 Mario Krumnow, Dresden University of Technology
+    Copyright (C) 2016 Mario Krumnow, Dresden University of Technology
 
     This file is part of TraaS.
 
@@ -348,7 +348,6 @@ public class CommandProcessor extends Query{
 		return output;
 	}
 	
-	
 	public synchronized Object do_job_get(SumoCommand sc) throws IOException{
 		
 		Object output = null;
@@ -361,7 +360,7 @@ public class CommandProcessor extends Query{
 		if(sc.output_type == Constants.TYPE_INTEGER){output = resp.content().readInt();
 		}else if(sc.output_type == Constants.TYPE_DOUBLE){output = resp.content().readDouble();
 		}else if(sc.output_type == Constants.TYPE_STRING){output = resp.content().readStringUTF8();
-		}else if(sc.output_type == Constants.POSITION_2D){
+		}else if(sc.output_type == Constants.POSITION_2D || sc.output_type == Constants.POSITION_LON_LAT){
 			double x = resp.content().readDouble();
 			double y = resp.content().readDouble();
 			output = new SumoPosition2D(x,y);

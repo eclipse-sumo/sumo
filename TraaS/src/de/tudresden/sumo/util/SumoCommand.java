@@ -45,8 +45,6 @@ public class SumoCommand {
 	public int input2;
 	String input3;
 	String info;
-	
-	
 	int response;
 	int output_type;
 
@@ -126,6 +124,18 @@ public class SumoCommand {
 					}
 
 					cmd.content().writeUnsignedByte(Constants.REQUEST_DRIVINGDIST);
+					
+				}else if((Integer) input1 == Constants.CMD_GET_SIM_VARIABLE && (Integer) input2 == Constants.POSITION_CONVERSION){
+				
+					
+					cmd.content().writeInt(2);	
+					if(array.length == 4){
+						cmd.content().writeUnsignedByte((byte) array[0]);
+						cmd.content().writeDouble((double) array[1]); 
+						cmd.content().writeDouble((double) array[2]); 
+						cmd.content().writeUnsignedByte(Constants.TYPE_UBYTE);
+						cmd.content().writeUnsignedByte((byte) array[3]);
+					}
 					
 				}else{
 					

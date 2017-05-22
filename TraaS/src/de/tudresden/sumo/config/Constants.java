@@ -27,7 +27,85 @@ package de.tudresden.sumo.config;
 
 public class Constants {
 	
-	public static final int TRACI_VERSION = 13;
+	public static final int DEPARTFLAG_SPEED_RANDOM = -0x02;
+	
+	public static final int RESPONSE_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE = 0xe1;
+	
+	public static final int CMD_GET_LANEAREA_VARIABLE = 0xad;
+	
+	public static final int RESPONSE_SUBSCRIBE_LANEAREA_CONTEXT = 0x9d;
+	
+	public static final int CMD_LOAD = 0x01;
+	
+	public static final int DEPARTFLAG_LANE_BEST_FREE = -0x05;
+	
+	public static final int MOVE_TO_XY = 0xb4;
+	
+	public static final int DEPARTFLAG_LANE_FIRST_ALLOWED = -0x06;
+	
+	public static final int STOP_CONTAINER_TRIGGERED = 0x04;
+	
+	public static final int CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT = 0x81;
+	
+	public static final int APPEND_STAGE = 0xc4;
+	
+	public static final int VAR_VEHICLE = 0xc3;
+	
+	public static final int DEPARTFLAG_SPEED_MAX = -0x03;
+	
+	public static final int DEPARTFLAG_TRIGGERED = -0x01;
+	
+	public static final int VAR_STAGES_REMAINING = 0xc2;
+	
+	public static final int VAR_APPARENT_DECEL = 0x7c;
+	
+	public static final int STOP_BUS_STOP = 0x08;
+	
+	public static final int REMOVE_STAGE = 0xc5;
+	
+	public static final int CMD_SUBSCRIBE_LANEAREA_CONTEXT = 0x8d;
+	
+	public static final int DEPARTFLAG_CONTAINER_TRIGGERED = -0x02;
+	
+	public static final int RESPONSE_GET_LANEAREA_VARIABLE = 0xbd;
+	
+	public static final int STOP_PARKING_AREA = 0x40;
+	
+	public static final int CMD_SUBSCRIBE_LANEAREA_VARIABLE = 0xdd;
+	
+	public static final int VAR_EMERGENCY_DECEL = 0x7b;
+	
+	public static final int DEPARTFLAG_LANE_ALLOWED_FREE = -0x04;
+	
+	public static final int CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE = 0xd1;
+	
+	public static final int CMD_SIMSTEP = 0x02;
+	
+	public static final int STOP_PARKING = 0x01;
+	
+	public static final int RESPONSE_SUBSCRIBE_LANEAREA_VARIABLE = 0xed;
+	
+	public static final int RESPONSE_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT = 0x91;
+	
+	public static final int DEPARTFLAG_LANE_FREE = -0x03;
+	
+	public static final int STOP_CONTAINER_STOP = 0x10;
+	
+	public static final int CMD_GET_MULTIENTRYEXIT_VARIABLE = 0xa1;
+	
+	public static final int STAGE_WAITING_FOR_DEPART = 0x00;
+	
+	public static final int DEPARTFLAG_LANE_RANDOM = -0x02;
+	
+	public static final int STOP_CHARGING_STATION = 0x20;
+	
+	public static final int DEPARTFLAG_NOW = -0x03;
+	
+	public static final int STOP_TRIGGERED = 0x02;
+	
+	public static final int STOP_DEFAULT = 0x00;
+	
+	public static final int RESPONSE_GET_MULTIENTRYEXIT_VARIABLE = 0xb1;
 	
 	public static final int INVALID_DOUBLE_VALUE = -1001;
 	
@@ -76,13 +154,13 @@ public class Constants {
 	public static final int VAR_ROUTE_INDEX = 0x69;
 	
 	/**person riding / container being transported*/
-	public static final int STAGE_DRIVING = 0x01;
+	public static final int STAGE_DRIVING = 0x03;
 	
 	/**person / container stopping*/
-	public static final int STAGE_WAITING = 0x02;
+	public static final int STAGE_WAITING = 0x01;
 	
 	/**person walking / container transhiping*/
-	public static final int STAGE_WALKING = 0x00;
+	public static final int STAGE_WALKING = 0x02;
 	
 	/**retrieve information regarding the next edge including crossings and walkingAreas (pedestrians only)*/
 	public static final int VAR_NEXT_EDGE = 0xc1;
@@ -95,9 +173,6 @@ public class Constants {
 
 	/**retrieve information regarding the current person/container stage*/
 	public static final int VAR_STAGE = 0xc0;
-	
-	/**retrieve the number of stages (person, container)*/
-	public static final int VAR_NUM_STAGES = 0xc2;
 	
 	/**last step person list (get: edges)*/
 	public static final int LAST_STEP_PERSON_ID_LIST = 0x1a;
@@ -150,9 +225,7 @@ public class Constants {
 	/**remove an instance (poi, polygon)*/
 	public static final int REMOVE = 0x81;
 
-	/**subscribe areal detector (e3) context*/
-	public static final int CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT = 0x81;
-
+	
 	/**stop node*/
 	public static final int CMD_STOP = 0x12;
 
@@ -237,20 +310,6 @@ public class Constants {
 	/**subscribe induction loop (e1) context*/
 	public static final int CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT = 0x80;
 
-	
-	/** command: subscribe areal detector (e2) context*/
-	public static final int CMD_SUBSCRIBE_AREAL_DETECTOR_CONTEXT = 0x8d;
-
-	/**response: subscribe areal detector (e2) context*/
-	public static final int RESPONSE_SUBSCRIBE_AREAL_DETECTOR_CONTEXT = 0x9d;
-
-	/**command: subscribe areal detector (e2) variable*/
-	public static final int CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0xdd;
-
-	/**response: subscribe areal detector (e2) variable*/
-	public static final int RESPONSE_SUBSCRIBE_AREAL_DETECTOR_VARIABLE = 0xed;
-	
-	
 	/**command: get person variable*/
 	public static final int  CMD_GET_PERSON_VARIABLE = 0xae;
 	
@@ -291,9 +350,7 @@ public class Constants {
 	/**view by boundary*/
 	public static final int VAR_VIEW_BOUNDARY = 0xa3;
 
-	/**response: subscribe areal detector (e3) variable*/
-	public static final int RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xe1;
-
+	
 	/**result type: error*/
 	public static final int RTYPE_ERR = 0xff;
 
@@ -312,21 +369,11 @@ public class Constants {
 	/**response: subscribe junction variable*/
 	public static final int RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE = 0xe9;
 
-	/**response: subscribe areal detector (e3) context*/
-	public static final int RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_CONTEXT = 0x91;
-
 	/**width (get: vehicle types, lanes)*/
 	public static final int VAR_WIDTH = 0x4d;
 	
 	/**height (get: vehicle)*/
 	public static final int VAR_HEIGHT = 0xbc;
-
-	/**get area detector (e2) variable*/
-	public static final int CMD_GET_AREAL_DETECTOR_VARIABLE = 0xad;
-
-	
-	/**get multi-entry/multi-exit detector (e3) variable*/
-	public static final int CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xa1;
 
 	/**set GUI variable*/
 	public static final int CMD_SET_GUI_VARIABLE = 0xcc;
@@ -366,9 +413,6 @@ public class Constants {
 
 	/**subscribe traffic lights variable*/
 	public static final int CMD_SUBSCRIBE_TL_VARIABLE = 0xd2;
-
-	/**subscribe multi-entry/multi-exit detector (e3) variable*/
-	public static final int CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xd1;
 
 	/**speed factor (set: vehicle)*/
 	public static final int VAR_SPEED_FACTOR = 0x5e;
@@ -566,9 +610,6 @@ public class Constants {
 
 	/**driving distance*/
 	public static final int REQUEST_DRIVINGDIST = 0x01;
-
-	/**simulation step*/
-	public static final int CMD_SIMSTEP2 = 0x02;
 
 	/**set traffic lights variable*/
 	public static final int CMD_SET_TL_VARIABLE = 0xc2;
@@ -789,8 +830,6 @@ public class Constants {
 	/**Position in geo-coordinates*/
 	public static final int POSITION_LON_LAT = 0x00;
 	
-	
-
 	/**vehicle arrived*/
 	public static final int REMOVE_ARRIVED = 0x02;
 
@@ -799,9 +838,6 @@ public class Constants {
 
 	/**bounding box (get: simulation)*/
 	public static final int VAR_NET_BOUNDING_BOX = 0x7c;
-
-	/**move vehicle, VTD version (set: vehicle)*/
-	public static final int VAR_MOVE_TO_VTD = 0xb4;
 
 	/**subscribe vehicle type variable*/
 	public static final int CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE = 0xd5;
@@ -832,16 +868,6 @@ public class Constants {
 
 	/**response: subscribe route variable*/
 	public static final int RESPONSE_SUBSCRIBE_ROUTE_VARIABLE = 0xe6;
-
-	
-	/**response: get area detector (e3) variable*/
-	public static final int RESPONSE_GET_AREAL_DETECTOR_VARIABLE = 0xbd;
-	
-	
-	/**response: get multi-/entry detector (e3) variable*/
-	public static final int RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xb1;
-	
-	
 
 	/**set vehicle variable*/
 	public static final int CMD_SET_VEHICLE_VARIABLE = 0xc4;
@@ -888,11 +914,4 @@ public class Constants {
 	/**current PMx emission of a node (get: vehicle, lane, edge)*/
 	public static final int VAR_PMXEMISSION = 0x63;
 	
-		
-	
-	
-	
-	
-	
-
 }

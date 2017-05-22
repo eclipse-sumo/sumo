@@ -19,7 +19,6 @@
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
-import de.tudresden.ws.container.SumoStringList;
 
 /**
  * 
@@ -368,31 +367,5 @@ public class Edge {
 		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_MAXSPEED, edgeID, speed);
 	}
 
-	/**
-	 * Set the allowed vehicles for an edge
-	 * 
-	 * @param edgeID a string identifying the edge
-	 * @param sl list of allowed vehicles 
-	 * @return SumoCommand
-	
-	 */
-
-	public static SumoCommand setAllowedVehicles(String edgeID, SumoStringList sl){
-		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.LANE_ALLOWED, edgeID, sl);
-	}
-	
-	/**
-	 * Set the disallowed vehicles for an edge
-	 * 
-	 * @param edgeID a string identifying the edge
-	 * @param sl list of disallowed vehicles 
-	 * @return SumoCommand
-	
-	 */
-
-	public static SumoCommand setDisallowedVehicles(String edgeID, SumoStringList sl){
-		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.LANE_DISALLOWED, edgeID, sl);
-	}
-	
 	
 }

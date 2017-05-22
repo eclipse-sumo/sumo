@@ -113,7 +113,7 @@ public abstract class Query extends Observable {
 	 */
 	protected void doSimulationStep(int targetTime) throws IOException {
 		
-			Command cmd = new Command(Constants.CMD_SIMSTEP2);
+			Command cmd = new Command(Constants.CMD_SIMSTEP);
 		 	cmd.content().writeInt(targetTime);
 			
 			RequestMessage msg = new RequestMessage();

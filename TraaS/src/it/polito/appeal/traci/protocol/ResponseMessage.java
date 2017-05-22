@@ -66,7 +66,7 @@ public class ResponseMessage {
 	 * <ul>
 	 * <li>if the status response is not {@link Constants#RTYPE_OK}, another
 	 * status response or the end of the stream are expected.</li>
-	 * <li>if the status ID is equal to {@link Constants#CMD_SIMSTEP2}, it is
+	 * <li>if the status ID is equal to {@link Constants#CMD_SIMSTEP}, it is
 	 * expected an integer representing N and N following sub-responses;</li>
 	 * <li>if the status ID matches one of the commands in
 	 * {@link #STATUS_ONLY_RESPONSES} , it is expected another status response;
@@ -94,7 +94,7 @@ public class ResponseMessage {
 			if (sr.result() != Constants.RTYPE_OK) {
 				responseContainer = new ResponseContainer(sr, null);
 			}
-			else if (sr.id() == Constants.CMD_SIMSTEP2) {
+			else if (sr.id() == Constants.CMD_SIMSTEP) {
 				int nSubResponses = s.readInt();
 				List<Command> subResponses = new ArrayList<Command>(
 						nSubResponses);

@@ -23,8 +23,8 @@ import de.tudresden.sumo.config.Constants;
 public enum SubscribtionVariable {
 
 	inductive_loop(Constants.CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE),	
-	areal_detector(Constants.CMD_SUBSCRIBE_AREAL_DETECTOR_VARIABLE),	
-	me_detector(Constants.CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE),	
+	areal_detector(Constants.CMD_SUBSCRIBE_LANEAREA_VARIABLE),	
+	me_detector(Constants.CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE),	
 	trafficlight(Constants.CMD_SUBSCRIBE_TL_VARIABLE),	
 	lane(Constants.CMD_SUBSCRIBE_LANE_VARIABLE),
 	vehicle(Constants.CMD_SUBSCRIBE_VEHICLE_VARIABLE),

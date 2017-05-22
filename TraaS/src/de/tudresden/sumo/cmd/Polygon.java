@@ -93,6 +93,20 @@ public class Polygon {
 	}
 
 	/**
+	 * Returns the shape of this polygon.
+	 * 
+	 * @param polygonID
+	 *            a string identifying the polygon return the shape of the
+	 *            polygon
+	 * @return the shape
+	 */
+
+	public static SumoCommand getFilled(String polygonID){
+		return new SumoCommand(Constants.CMD_GET_POLYGON_VARIABLE, Constants.VAR_FILL, polygonID, Constants.RESPONSE_GET_POLYGON_VARIABLE, Constants.TYPE_BYTE);
+	}
+
+	
+	/**
 	 * Returns the type of the polygon.
 	 * 
 	 * @param polygonID
@@ -167,7 +181,7 @@ public class Polygon {
 	 * @return SumoCommand
 	 */
 
-	public static SumoCommand setFill(String polygonID, boolean fill){
+	public static SumoCommand setFilled(String polygonID, boolean fill){
 		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.VAR_FILL, polygonID, fill);
 	}
 	

@@ -66,9 +66,18 @@ public class Simulation {
 	 * @param y y
 	 * @param fromGeo geo
 	 */
-	public static SumoCommand convertGeo(double x, double y, String fromGeo){
-		Object[] array = new Object[]{y, fromGeo};
-		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.POSITION_CONVERSION, x, array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_STRINGLIST);
+	public static SumoCommand convertGeo(double x, double y, boolean fromGeo){
+		
+		 byte fromType = Constants.POSITION_2D;
+		 byte toType = Constants.POSITION_LON_LAT;
+		
+		 if(fromGeo){
+			 fromType = Constants.POSITION_LON_LAT;
+		     toType = Constants.POSITION_2D;
+		 }
+		 
+		Object[] array = new Object[]{fromType, x, y, toType};
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.POSITION_CONVERSION, "", array, Constants.RESPONSE_GET_SIM_VARIABLE, fromGeo ? Constants.POSITION_2D : Constants.POSITION_LON_LAT);
 	}
 
 	/**
