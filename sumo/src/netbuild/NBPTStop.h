@@ -69,7 +69,7 @@ public:
     void reshiftPostion(const double offsetX, const double offsetY);
 
     void addPlatformPosCand(Position position);
-    std::vector<Position> getPlatformPosCands();
+    std::vector<Position>& getPlatformPosCands();
     bool getIsMultipleStopPositions();
     void setIsMultipleStopPositions(bool multipleStopPositions);
     double getLength();

@@ -98,7 +98,8 @@ void NBPTStop::write(OutputDevice& device) {
 void NBPTStop::reshiftPostion(const double offsetX, const double offsetY) {
     myPosition.add(offsetX, offsetY, 0);
     for (std::vector<Position>::iterator it = myPlatformPosCands.begin(); it != myPlatformPosCands.end(); it++){
-        (*it).add(offsetX,offsetY,0);
+        Position * pos = &(*it);
+        pos->add(offsetX,offsetY,0);
     }
 
 
@@ -109,7 +110,7 @@ SVCPermissions NBPTStop::getPermissions() {
 void NBPTStop::addPlatformPosCand(Position position) {
     myPlatformPosCands.push_back(position);
 }
-std::vector<Position> NBPTStop::getPlatformPosCands() {
+std::vector<Position>& NBPTStop::getPlatformPosCands() {
     return myPlatformPosCands;
 }
 bool NBPTStop::getIsMultipleStopPositions() {

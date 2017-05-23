@@ -193,6 +193,7 @@ Position* NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) {
     for (std::vector<Position>::iterator it = pStop->getPlatformPosCands().begin();
          it != pStop->getPlatformPosCands().end();
          it++) {
+        Position platform = *it;
         double sqrDist = stopPosition.distanceSquaredTo(*it);
         if (sqrDist < minSqrDist) {
             minSqrDist = sqrDist;
