@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r22661
+SUMO Version dev-SVN-r23112
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -86,6 +86,10 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR   List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -139,7 +143,7 @@ Processing Options:
                                          non-continuing lane
   --waiting-time-memory TIME           Length of time interval, over which
                                          accumulated waiting time is taken into
-                                         account
+                                         account (default is 100s.)
   --max-depart-delay TIME              How long vehicles wait for departure
                                          before being skipped, defaults to -1
                                          which means vehicles are never skipped
