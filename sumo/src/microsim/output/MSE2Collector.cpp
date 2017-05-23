@@ -28,7 +28,7 @@
 /* TODO:
  * tests:
  *  - subsecond variant, ballistic variant
- *  - allow omitting jam processing
+ * allow omitting jam processing (?)
  *
  * Meso-compatibility? (esp. enteredLane-argument for MSBaseVehicle::notifyEnter() is not treated)
  * Compatibility without internal lanes?
@@ -70,7 +70,11 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myUsage(usage),
     myJamHaltingSpeedThreshold(haltingSpeedThreshold),
     myJamHaltingTimeThreshold(haltingTimeThreshold),
-    myJamDistanceThreshold(jamDistThreshold) {
+    myJamDistanceThreshold(jamDistThreshold),
+    myNumberOfSeenVehicles(0),
+    myNumberOfLeftVehicles(0),
+    myNumberOfEnteredVehicles(0)
+{
     reset();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
@@ -155,7 +159,11 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myEndPos(endPos),
     myJamHaltingSpeedThreshold(haltingSpeedThreshold),
     myJamHaltingTimeThreshold(haltingTimeThreshold),
-    myJamDistanceThreshold(jamDistThreshold) {
+    myJamDistanceThreshold(jamDistThreshold),
+    myNumberOfSeenVehicles(0),
+    myNumberOfLeftVehicles(0),
+    myNumberOfEnteredVehicles(0)
+{
     reset();
 
     for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
@@ -596,6 +604,7 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
     } else if (!vehInfo.hasEntered) {
         vehInfo.hasEntered = true;
         myNumberOfEnteredVehicles++;
+        myNumberOfSeenVehicles++;
     }
 
     myMoveNotifications.push_back(makeMoveNotification(veh, oldPos, newPos, newSpeed, vehInfo));
@@ -734,6 +743,8 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
               << "\nmyCurrentMeanSpeed = " << myCurrentMeanSpeed
               << "\nmyCurrentMeanLength = " << myCurrentMeanLength
               << "\nmyNumberOfEnteredVehicles = " << myNumberOfEnteredVehicles
+              << "\nmyNumberOfLeftVehicles = " << myNumberOfLeftVehicles
+              << "\nmyNumberOfSeenVehicles = " << myNumberOfSeenVehicles
               << std::endl;
 #endif
 
@@ -1132,7 +1143,7 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
     const double meanJamLengthInMeters = myTimeSamples != 0 ? myMeanMaxJamInMeters / (double) myTimeSamples : 0;
     const double meanJamLengthInVehicles = myTimeSamples != 0 ? myMeanMaxJamInVehicles / (double) myTimeSamples : 0;
     const double meanVehicleNumber = myTimeSamples != 0 ? (double) myMeanVehicleNumber / (double) myTimeSamples : 0;
-    const double meanTimeLoss = meanVehicleNumber != 0 ? myTotalTimeLoss / meanVehicleNumber : -1;
+    const double meanTimeLoss = myNumberOfSeenVehicles != 0 ? myTotalTimeLoss / myNumberOfSeenVehicles : -1;
 
     SUMOTime haltingDurationSum = 0;
     SUMOTime maxHaltingDuration = 0;
@@ -1178,7 +1189,8 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
 
     dev << "sampledSeconds=\"" << myVehicleSamples << "\" "
         << "nVehEntered=\"" << myNumberOfEnteredVehicles << "\" "
-//        << "nVehLeft=\"" << myNumberOfLeftVehicles << "\" "
+        << "nVehLeft=\"" << myNumberOfLeftVehicles << "\" "
+        << "nVehSeen=\"" << myNumberOfSeenVehicles << "\" "
         << "meanSpeed=\"" << meanSpeed << "\" "
         << "meanTimeLoss=\"" << meanTimeLoss << "\" "
         << "meanOccupancy=\"" << meanOccupancy << "\" "
@@ -1208,6 +1220,7 @@ MSE2Collector::reset() {
     myVehicleSamples = 0;
     myTotalTimeLoss = 0.;
     myNumberOfEnteredVehicles = 0;
+    myNumberOfSeenVehicles -= myNumberOfLeftVehicles;
     myNumberOfLeftVehicles = 0;
     myMaxVehicleNumber = 0;
 
