@@ -663,6 +663,7 @@ public:
         double getElectricityConsumption(const std::string& vehicleID) const;
         int getSignalStates(const std::string& vehicleID) const;
         double getWaitingTime(const std::string& vehicleID) const;
+        double getAccumulatedWaitingTime(const std::string& vehicleID) const;
         std::vector<NextTLSData> getNextTLS(const std::string& vehID) const;
         int getSpeedMode(const std::string& vehicleID) const;
         double getSlope(const std::string& vehicleID) const;

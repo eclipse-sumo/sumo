@@ -99,7 +99,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_LATALIGNMENT
             && variable != VAR_MAXSPEED_LAT
             && variable != VAR_MINGAP_LAT
-            && variable != ID_COUNT && variable != VAR_STOPSTATE && variable !=  VAR_WAITING_TIME
+            && variable != ID_COUNT && variable != VAR_STOPSTATE
+            && variable != VAR_WAITING_TIME && variable != VAR_ACCUMULATED_WAITING_TIME
             && variable != VAR_ROUTE_INDEX
             && variable != VAR_PARAMETER
             && variable != VAR_SPEEDSETMODE
@@ -254,6 +255,10 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             case VAR_WAITING_TIME:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
                 tempMsg.writeDouble(TraCI_Vehicle::getWaitingTime(id));
+                break;
+            case VAR_ACCUMULATED_WAITING_TIME:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(TraCI_Vehicle::getAccumulatedWaitingTime(id));
                 break;
             case VAR_EDGE_TRAVELTIME: {
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {

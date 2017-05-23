@@ -113,6 +113,7 @@ public:
     static int getPersonNumber(const std::string& vehicleID);
     static std::pair<std::string, double> getLeader(const std::string& vehicleID, double dist);
     static double getWaitingTime(const std::string& vehicleID);
+    static double getAccumulatedWaitingTime(const std::string& vehicleID);
     static double getAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID, int time);
     static double getEffort(const std::string& vehicleID, const std::string& edgeID, int time);
     static bool isRouteValid(const std::string& vehicleID);

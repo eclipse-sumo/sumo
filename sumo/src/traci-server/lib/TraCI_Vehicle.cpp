@@ -264,6 +264,12 @@ TraCI_Vehicle::getWaitingTime(const std::string& vehicleID) {
 
 
 double
+TraCI_Vehicle::getAccumulatedWaitingTime(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getAccumulatedWaitingSeconds();
+}
+
+
+double
 TraCI_Vehicle::getAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID, int time) {
     MSVehicle* veh = getVehicle(vehicleID);
     MSEdge* edge = TraCI::getEdge(edgeID);

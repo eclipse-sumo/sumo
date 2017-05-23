@@ -725,6 +725,9 @@
 // current waiting time (get: vehicle, lane)
 #define VAR_WAITING_TIME 0x7a
 
+// current waiting time (get: vehicle)
+#define VAR_ACCUMULATED_WAITING_TIME 0x87
+
 // upcoming traffic lights (get: vehicle)
 #define VAR_NEXT_TLS 0x70
 

@@ -2118,6 +2118,11 @@ TraCIAPI::VehicleScope::getWaitingTime(const std::string& vehID) const {
     return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_WAITING_TIME, vehID);
 }
 
+double
+TraCIAPI::VehicleScope::getAccumulatedWaitingTime(const std::string& vehID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_ACCUMULATED_WAITING_TIME, vehID);
+}
+
 
 int
 TraCIAPI::VehicleScope::getSpeedMode(const std::string& vehID) const {

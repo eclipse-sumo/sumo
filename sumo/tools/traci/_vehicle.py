@@ -104,6 +104,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_SPEED_DEVIATION: Storage.readDouble,
                       tc.VAR_EMISSIONCLASS: Storage.readString,
                       tc.VAR_WAITING_TIME: Storage.readDouble,
+                      tc.VAR_ACCUMULATED_WAITING_TIME: Storage.readDouble,
                       tc.VAR_SPEEDSETMODE: Storage.readInt,
                       tc.VAR_SLOPE: Storage.readDouble,
                       tc.VAR_WIDTH: Storage.readDouble,
@@ -443,6 +444,15 @@ class VehicleDomain(Domain):
         A vehicle that is stopping intentionally with a <stop> does not accumulate waiting time.
         """
         return self._getUniversal(tc.VAR_WAITING_TIME, vehID)
+    
+    
+    def getAccumulatedWaitingTime(self, vehID):
+        """getAccumulatedWaitingTime() -> double
+        The accumulated waiting time of a vehicle collects the vehicle's waiting time 
+        over a certain time interval (interval length is set per option '--waiting-time-memory')
+        """
+        return self._getUniversal(tc.VAR_ACCUMULATED_WAITING_TIME, vehID)
+    
 
     def getSpeedMode(self, vehID):
         """getSpeedMode -> int
