@@ -494,7 +494,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
     std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
     double startPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
     double endPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
-    std::string name = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort);
+    std::string name = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort, false);
     std::vector<std::string> lines = getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_LINES, abort, false);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
@@ -521,7 +521,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
     std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
     double startPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
     double endPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
-    std::string name = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort);
+    std::string name = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort, false);
     std::vector<std::string> lines = getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_LINES, abort, false);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
@@ -548,7 +548,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
     std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
     double startPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
     double endPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
-    std::string name = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort);
+    std::string name = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort, false);
     double chargingPower = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_CHARGINGPOWER, abort);
     double efficiency = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_EFFICIENCY, abort);
     bool chargeInTransit = getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_CHARGEINTRANSIT, abort);
