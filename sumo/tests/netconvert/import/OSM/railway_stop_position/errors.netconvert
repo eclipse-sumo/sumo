@@ -1,4 +1,10 @@
 Warning: Discarding unusable type 'railway.loading_ramp' (first occurence for edge '311795142#0').
+Warning: Referenced node: '1422539746' in relation: '1738423' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1422539746' in relation: '1738423' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1422539747' in relation: '1738423' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1422539747' in relation: '1738423' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1422539748' in relation: '1738423' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1422539748' in relation: '1738423' does not exist. Probably OSM file is incomplete.
 Warning: No way found for reference '70516819' in relation '5474070'
 Warning: Ignoring restriction relation '5474070' with unknown from-way.
 Warning: Ignoring restriction relation '5474070' with unknown to-way.

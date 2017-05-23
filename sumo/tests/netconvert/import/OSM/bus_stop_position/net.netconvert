@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon May 22 16:59:30 2017 by SUMO netconvert Version dev-SVN-r24400
+<!-- generated on Tue May 23 13:39:53 2017 by SUMO netconvert Version dev-SVN-r24428
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -32,7 +32,7 @@
 
 <net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="-391376.77,-5815457.98" convBoundary="0.00,0.00,1663.20,857.79" origBoundary="0.000000,0.000000,13.424985,52.486339" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <location netOffset="-391376.77,-5815457.98" convBoundary="0.00,0.00,1663.20,857.79" origBoundary="13.400387,52.478736,13.424985,52.486339" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <type id="cycleway.lane" bikeLaneWidth="1.00"/>
     <type id="cycleway.opposite_lane" bikeLaneWidth="1.00"/>

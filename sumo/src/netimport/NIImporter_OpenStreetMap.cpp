@@ -1126,19 +1126,19 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 } else {
                     NIOSMNode * n = myOSMNodes.find(ref)->second;
                     NBPTStop * ptStop = myNBPTStopCont->get(toString(n->id));
-                    for (std::vector<long long int>::iterator it = myPlatforms.begin(); it != myPlatforms.end(); it++){
-                        NIOSMNode* platform = myOSMNodes.find(*it)->second;
+                    for (std::vector<long long int>::iterator itPlatforms = myPlatforms.begin(); itPlatforms != myPlatforms.end(); itPlatforms++){
+                        if (myOSMNodes.find(*itPlatforms) == myOSMNodes.end()){
+                            WRITE_WARNING("Referenced node: '"+ toString(ref) + "' in relation: '" + toString(myCurrentRelation) +"' does not exist. Probably OSM file is incomplete." );
+                            continue;
+                        }
+                        NIOSMNode* platform = myOSMNodes.find(*itPlatforms)->second;
                         Position platformPos(platform->lon, platform->lat, platform->ele);
                         if (!NBNetBuilder::transformCoordinate(platformPos)) {
                             WRITE_ERROR("Unable to project coordinates for node '" + toString(platform->id) + "'.");
                         }
                         ptStop->addPlatformPosCand(platformPos);
                     }
-                    if (myStops.size() > 1) {
-                        ptStop->setIsMultipleStopPositions(true);
-                    } else {
-                        ptStop->setIsMultipleStopPositions(false);
-                    }
+                    ptStop->setIsMultipleStopPositions(myStops.size() > 1);
                };
             }
         }
