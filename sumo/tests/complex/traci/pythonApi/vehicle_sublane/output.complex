@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:60567 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:51799 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -58,6 +58,7 @@ lateralAlignment center
 lanePosLat 0.0
 person number 0
 waiting time 0.0
+accumulated waiting time 0.0
 driving dist 2992.34286403
 driving dist 2D 1090.34286403
 line 
@@ -129,6 +130,7 @@ lateralAlignment arbitrary
 lanePosLat 0.2
 person number 0
 waiting time 0.0
+accumulated waiting time 0.0
 driving dist 2969.61859065
 driving dist 2D 1067.61859065
 line S46
@@ -197,6 +199,7 @@ lateralAlignment center
 lanePosLat -1001.0
 person number 0
 waiting time 0.0
+accumulated waiting time 0.0
 driving dist -1001.0
 driving dist 2D -1001.0
 line 
@@ -277,6 +280,7 @@ lateralAlignment center
 lanePosLat 0.0
 person number 0
 waiting time 0.0
+accumulated waiting time 0.0
 driving dist 2991.71057563
 driving dist 2D 1089.71057563
 line t
@@ -523,6 +527,7 @@ step 123
 ('veh', 'collider', 'speed', 3.525477036541526, 'pos', (444.47104345431524, 501.65000000000003), 'pos3d', (444.47104345431524, 501.65000000000003, 0.0), 'angle', 270.0, 'road', '1o', 'lane', '1o_0', 'lanePos', 45.2051126017444, 'CO2', 3961.1400969204437)
 step 124
 bus waiting time 7.0
+bus accumulated waiting time 8.0
 step 125
 step 126
 vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'horiz', 'movedVeh', 'offRoad', 'parking', 'parking2', 'routeTest', 'routeTest2', 'triptest', 'victim']
@@ -579,6 +584,7 @@ lateralAlignment center
 lanePosLat -0.56
 person number 0
 waiting time 0.0
+accumulated waiting time 1.0
 driving dist -1001.0
 driving dist 2D -1001.0
 line 

@@ -105,6 +105,7 @@ def check(vehID):
     print("lanePosLat", traci.vehicle.getLateralLanePosition(vehID))
     print("person number", traci.vehicle.getPersonNumber(vehID))
     print("waiting time", traci.vehicle.getWaitingTime(vehID))
+    print("accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))
     print(
         "driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.))
@@ -328,6 +329,7 @@ for i in range(3):
     print("step", step())
 # moveToXY to off-route edge
 print("bus waiting time", traci.vehicle.getWaitingTime("bus"))
+print("bus accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime("bus"))
 moved = "movedVeh"
 traci.vehicle.add(moved, "vertical")
 print("step", step())
