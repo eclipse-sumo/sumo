@@ -2,7 +2,6 @@
 """
 @file    tlsCycleAndGreenTimeOptimizator.py
 @author  Yun-Pang Floetteroed
-@author  Michael Behrisch
 @date    2017-05-10
 @version $Id: tlsCycleAndGreenTimeOptimizator.py
 
@@ -10,7 +9,8 @@
   and the green times of the traffic lights in a sumo network
   with a given route file.
 
-- The traffic lights without traffic flows will not be optimized.
+- Traffic lights without traffic flows will not be optimized.
+- PCE is used instead of the number of vehicles.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2010-2017 DLR (http://www.dlr.de/) and contributors
@@ -49,7 +49,7 @@ def get_options(args=None):
     optParser.add_option("-n", "--net-file", dest="netfile",
                          help="define the net file (mandatory)")
     optParser.add_option("-o", "--output-file", dest="outfile",
-                         default="tlsOptimization.add.xml", help="define the output filename")
+                         default="tlsAdaptation.add.xml", help="define the output filename")
     optParser.add_option("-r", "--route-file", dest="routefile",
                          help="define the route file (mandatory)")
     optParser.add_option("-b", "--begin", dest="begin", type="int",
@@ -89,7 +89,7 @@ def getFlows(net, routeFile, tlsList, begin, end):
         if int(veh.depart) <= end and int(veh.depart) >= begin:
             for tls in tlsList:
                 connsList = tls.getConnections()
-                for c in sorted(connsList, key=lambda connsList: connsList[2]): # c: [[inLane, outLane, linkNo],[],...]
+                for c in sorted(connsList, key=lambda connsList: connsList[2]): # c: [[inLane, outLane, linkNo],[],..]
                     subRoute = c[0]._edge._id + ' ' + c[1]._edge._id
                     edgeList = route.edges.split()
                     if c[0]._edge._id in edgeList:
@@ -129,14 +129,10 @@ def getEffectiveTlsList(tlsList, connFlowsMap, verbose):
 
 def getLaneGroupFlows(tl, connFlowsMap, phases):
     connsList = tl.getConnections()
-    #programs = tl.getPrograms()
-    groupFlowsMap = {}     #i(phase): duration, laneGroup1, laneGroup2, ....
+    groupFlowsMap = {}     #i(phase): duration, laneGroup1, laneGroup2, ...
     connsList = sorted(connsList, key=lambda connsList: connsList[2])
-
-    #for pro in programs:
-    #    phases = programs[pro].getPhases()
         
-        # check if there are shared lane groups, i.e. some lane groups have only "g" (no "G")
+    # check if there are shared lane groups, i.e. some lane groups have only "g" (no "G")
     ownGreenConnsList = []
     for i, p in enumerate(phases):
         totalConns = len(p[0])
@@ -150,7 +146,7 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
     for i, p in enumerate(phases):
         if 'G' in p[0]:
             print ("check_phase:%s" %i)
-            greenTime += p[1]   # todo: change to float? wait for micha
+            greenTime += p[1]
             groupFlowsMap[i] = [p[1]]
             groupFlows = 0
             laneIndexList = []
@@ -183,13 +179,9 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
     return groupFlowsMap, phaseLaneIndexMap
 
 def optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, options):
-    # calculate the total lost time
-    # lostTime = # of phases * the lost time per phase + the all-red time
     lostTime = len(groupFlowsMap)*options.losttime + options.allred
-
     # calculate the critial flow ratios and the respective sum
     critialFlowRateMap = {}
-   
     for i in groupFlowsMap:   # [duration. groupFlow1, groupFlow2...]
         critialFlowRateMap[i] = 0.
         maxFlow = 0
@@ -198,10 +190,9 @@ def optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, options):
             if f > maxFlow:
                 maxFlow = f
                 index = j
-        # (maxFlow/# of lanes)/saturation flows per lane
+
         critialFlowRateMap[i] = (maxFlow/float((len(phaseLaneIndexMap[i][index]))))/options.satflows
-    
-    # calculate the optimal cycle length
+
     optCycle = int(round((1.5*lostTime + 5.)/(1. - sum(critialFlowRateMap.values()))))
 
     if optCycle < options.mincycle:
@@ -209,7 +200,6 @@ def optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, options):
     elif optCycle > options.maxcycle:
         optCycle = options.maxcycle
 
-    #calcualte the effective and optimized green times
     effGreenTime = optCycle - lostTime
     totalLength = lostTime
     for i in critialFlowRateMap:
@@ -230,7 +220,8 @@ def main(options):
     net = sumolib.net.readNet(options.netfile, withPrograms=True)
     tlsList = net.getTrafficLights()
     nodesList = net.getNodes()
-    print("the total number of tls: %s" % len(tlsList))
+    if options.verbose:
+        print("the total number of tls: %s" % len(tlsList))
       
     # get traffic flows for each connection at each TL
     connFlowsMap = getFlows(net, options.routefile, tlsList, options.begin, options.end)
@@ -256,8 +247,6 @@ def main(options):
                     groupFlowsMap = optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, options)
                 
                 # write output
-                programs = tl.getPrograms()   # is it possible to have 2 or more programs in a network file?
-                for pro in programs:
                     outf.write('    <tlLogic id="%s" type="%s" programID="%s" offset="%.2f"/>\n' %
                                     (tl._id, programs[pro]._type, programs[pro]._id, programs[pro]._offset))
                                     
