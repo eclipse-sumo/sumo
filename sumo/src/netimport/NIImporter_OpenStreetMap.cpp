@@ -1118,7 +1118,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             if (ok && !applyRestriction()) {
                 WRITE_WARNING("Ignoring restriction relation '" + toString(myCurrentRelation) + "'.");
             }
-        } else if (myIsStopArea) {
+        } else if (myIsStopArea && OptionsCont::getOptions().isSet("ptstop-output")) {
             for (std::vector<long long int>::iterator it = myStops.begin(); it != myStops.end(); it++){
                 long long int ref = *it;
                 if (myOSMNodes.find(ref) == myOSMNodes.end()){
