@@ -803,6 +803,33 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             Obstacles arrival(stripes, Obstacle(p.myStage->getArrivalPos() + dir * p.getMinGap(), 0, "arrival", 0, true));
             p.mergeObstacles(currentObs, arrival);
         }
+        if (lane->getVehicleNumberWithPartials() > 0) {
+            // react to vehicles 
+            // @todo: improve efficiency by using the same iterator for all pedestrians on this lane
+            Obstacles vehObs(stripes, Obstacle(dir));
+            for (MSLane::AnyVehicleIterator it = lane->anyVehiclesUpstreamBegin(); it != lane->anyVehiclesUpstreamEnd(); ++it) {
+                const MSVehicle* veh = *it;
+                const double vehBack = veh->getBackPositionOnLane(lane);
+                if (dir == FORWARD && vehBack > p.getMinX() && vehBack <= p.getMaxX() + LOOKAHEAD_SAMEDIR) {
+                    Obstacle vo(vehBack, veh->getSpeed(), veh->getID(), 0, true);
+                    vo.xFwd += veh->getVehicleType().getLength();
+                    // relY increases from left to right (the other way around from vehicles)
+                    // XXX lateral offset for partial vehicles
+                    const double vehYmax = 0.5 * (lane->getWidth() + veh->getVehicleType().getWidth()) - veh->getLateralPositionOnLane();
+                    const double vehYmin = vehYmax - veh->getVehicleType().getWidth();
+                    for (int s = MAX2(0, p.stripe(vehYmin)); s < MIN2(p.stripe(vehYmax) + 1, stripes); ++s) {
+                        vehObs[s] = vo;
+                    }
+                }
+            }
+            p.mergeObstacles(currentObs, vehObs);
+            if DEBUGCOND(p.myPerson->getID()) {
+                std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWitVehs=";
+                DEBUG_PRINT(currentObs);
+            }
+        }
+        
+        // walk, taking into account all obstacles
         p.walk(currentObs, currentTime);
         gDebugFlag1 = false;
         if (!p.myWaitingToEnter && !p.myAmJammed) {
