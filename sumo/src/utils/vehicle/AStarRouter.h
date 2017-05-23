@@ -52,9 +52,12 @@
 #include <utils/iodevices/OutputDevice.h>
 #include "SUMOAbstractRouter.h"
 
+#define UNREACHABLE (std::numeric_limits<double>::max() / 1000.0)
+
 //#define ASTAR_DEBUG_QUERY
 //#define ASTAR_DEBUG_QUERY_PERF
 //#define ASTAR_DEBUG_VISITED
+//#define ASTAR_DEBUG_UNREACHABLE
 
 // ===========================================================================
 // class definitions
@@ -82,7 +85,7 @@ public:
 
     class LookupTable {
     public:
-        virtual double lowerBound(const E* from, const E* to, double speed) const = 0;
+        virtual double lowerBound(const E* from, const E* to, double speed, double speedFactor) const = 0;
     };
 
     class FullLookupTable : public LookupTable {
@@ -100,8 +103,8 @@ public:
             }
         }
 
-        double lowerBound(const E* from, const E* to, double /*speed*/) const { 
-            return myTable[from->getNumericalID()][to->getNumericalID()];
+        double lowerBound(const E* from, const E* to, double /*speed*/, double speedFactor) const { 
+            return myTable[from->getNumericalID()][to->getNumericalID()] / speedFactor;
         }
     private:
         std::vector<std::vector<double> > myTable;
@@ -139,13 +142,38 @@ public:
             }
         }
 
-        double lowerBound(const E* from, const E* to, double speed) const { 
+        double lowerBound(const E* from, const E* to, double speed, double speedFactor) const { 
             double result = from->getDistanceTo(to) / speed;
             for (int i = 0; i < (int)myLandmarks.size(); ++i) {
-                result = MAX2(result, myToLandmarkDists[i][from->getNumericalID()] - MAX2(0.0, myToLandmarkDists[i][to->getNumericalID()]));
-                result = MAX2(result, myFromLandmarkDists[i][to->getNumericalID()] - MAX2(0.0, myFromLandmarkDists[i][from->getNumericalID()]));
+                // a cost of -1 is used to encode unreachability.
+                const double fl = myToLandmarkDists[i][from->getNumericalID()];
+                const double tl = myToLandmarkDists[i][to->getNumericalID()];
+                if (fl >= 0 && tl >= 0) {
+                    result = MAX2(result, (fl - tl) / speedFactor);
+                }
+                const double lt = myFromLandmarkDists[i][to->getNumericalID()];
+                const double lf = myFromLandmarkDists[i][from->getNumericalID()];
+                if (lt >= 0 && lf >= 0) {
+                    result = MAX2(result, (lt - lf) / speedFactor);
+                }
+                if ((tl >= 0 && fl < 0) 
+                        || (lf >= 0 && lt < 0)) {
+                    // target unreachable. 
+#ifdef ASTAR_DEBUG_UNREACHABLE
+                    std::string landmark;
+                    for (std::map<std::string, int>::const_iterator it = myLandmarks.begin(); it != myLandmarks.end(); ++it) {
+                        if (it->second == i) {
+                            landmark = it->first;
+                        }
+                    }
+                    std::cout << "   unreachable: from=" << from->getID() << " to=" << to->getID() << " landmark=" << landmark << " " 
+                        <<  ((tl >= 0 && fl < 0) ? " (toLandmark)" : " (fromLandmark)")
+                        << " fl=" << fl << " tl=" << tl << " lt=" << lt << " lf=" << lf 
+                        << "\n";
+#endif
+                    return UNREACHABLE;
+                }
             }
-            // @todo: prove unreachability
             return result;
         }
 
@@ -328,7 +356,10 @@ public:
 #endif
             const double traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // admissible A* heuristic: straight line distance at maximum speed
-            const double heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed : myLookupTable->lowerBound(minEdge, to, speed) / vehicle->getChosenSpeedFactor();
+            const double heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed : myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor());
+            if (heuristic_remaining == UNREACHABLE) {
+                continue;
+            }
             // check all ways from the node with the minimal length
             const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
             for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
