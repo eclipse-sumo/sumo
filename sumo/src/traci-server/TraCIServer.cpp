@@ -10,6 +10,7 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @author  Mario Krumnow
+/// @author  Leonhard Luecken
 /// @date    2007/10/24
 /// @version $Id$
 ///
@@ -561,7 +562,7 @@ TraCIServer::dispatchCommand() {
                 if (order > MAX_ORDER) {
                     return writeErrorStatusCmd(CMD_SETORDER, "A set order command needs an int argument below " + toString(MAX_ORDER) + ".", myOutputStorage);
                 }
-                if (mySockets.count(order) > 0) {
+                if (mySockets.count(order) > 0 || mySocketReorderRequests.count(order) > 0) {
                     return writeErrorStatusCmd(CMD_SETORDER, "Order '" + toString(order) + "' is already taken.", myOutputStorage);
                 }
                 // memorize reorder request (will only take effect in the next step)
