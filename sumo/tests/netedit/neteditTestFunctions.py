@@ -476,8 +476,7 @@ def moveElement(match, startX, startY, endX, endY):
     # change mouse move delay
     Settings.MoveMouseDelay = 0.5
     # move element
-    dragDrop(match.getTarget().offset(startX, startY),
-             match.getTarget().offset(endX, endY))
+    dragDrop(match, startX, startY, endX, endY)
     # set back mouse move delay
     Settings.MoveMouseDelay = 0.2
 
@@ -807,7 +806,7 @@ def selectionRectangle(match, startX, startY, endX, endY):
     # change mouse move delay
     Settings.MoveMouseDelay = 0.5
     # move element
-    dragDrop(match.getTarget().offset(startX, startY), match.getTarget().offset(endX, endY))
+    dragDrop(match, startX, startY, endX, endY)
     # set back mouse move delay
     Settings.MoveMouseDelay = 0.2
     # Release Shift key (Sikulix function)
