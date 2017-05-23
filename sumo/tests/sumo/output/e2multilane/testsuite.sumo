@@ -63,3 +63,6 @@ vaporizer
 
 # Tests warnings for too short, truncated, and repositioned detector.
 warnings
+
+# One vehicle with speed 13.89 drives over detector with length 133.9, which covers several lanes. Sampled seconds must be exactly 10.0 (vehicle length is 5m.)
+meanTimeLossConsistency

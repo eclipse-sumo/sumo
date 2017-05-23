@@ -81,13 +81,13 @@ def runSingle(sumoEndTime, traciEndTime):
 if __name__ == '__main__':
     freeze_support()
     print("----------- SUMO ends first -----------")
-    sys.stdout.flush()
     for i in range(0, 10):
         print(" Run %s" % i)
+        sys.stdout.flush()
         runSingle(50, 99)
 
     print("----------- TraCI ends first -----------")
-    sys.stdout.flush()
     for i in range(0, 10):
         print(" Run %s" % i)
+        sys.stdout.flush()
         runSingle(101, 99)
