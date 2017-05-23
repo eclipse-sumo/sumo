@@ -76,12 +76,13 @@ MSCalibrator::MSCalibrator(const std::string& id,
     myLane(lane),
     myPos(pos), myProbe(probe),
     myEdgeMeanData(0, length, false, 0),
+    myCurrentStateInterval(myIntervals.begin()),
     myOutput(0), myFrequency(freq), myRemoved(0),
     myInserted(0), myClearedInJam(0),
     mySpeedIsDefault(true), myDidSpeedAdaption(false), myDidInit(false),
     myDefaultSpeed(myLane == 0 ? myEdge->getSpeedLimit() : myLane->getSpeedLimit()),
     myHaveWarnedAboutClearingJam(false),
-    myAmActive(false) 
+    myAmActive(false)
 {
     if (outputFilename != "") {
         myOutput = &OutputDevice::getDevice(outputFilename);
@@ -118,7 +119,6 @@ MSCalibrator::init() {
         if (myIntervals.back().end == -1) {
             myIntervals.back().end = SUMOTime_MAX;
         }
-        myCurrentStateInterval = myIntervals.begin();
         // calibration should happen after regular insertions have taken place
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(new CalibratorCommand(this));
     } else {
@@ -129,7 +129,7 @@ MSCalibrator::init() {
 
 
 MSCalibrator::~MSCalibrator() {
-    if (myIntervals.size() > 0 && myCurrentStateInterval != myIntervals.end()) {
+    if (myCurrentStateInterval != myIntervals.end()) {
         writeXMLOutput();
     }
     for (std::vector<VehicleRemover*>::iterator it = myVehicleRemovers.begin(); it != myVehicleRemovers.end(); ++it) {
@@ -194,6 +194,7 @@ MSCalibrator::myStartElement(int element,
             myIntervals.back().end = state.begin;
         }
         myIntervals.push_back(state);
+        myCurrentStateInterval = myIntervals.begin();
     } else {
         MSRouteHandler::myStartElement(element, attrs);
     }
