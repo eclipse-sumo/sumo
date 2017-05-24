@@ -30,17 +30,19 @@
 #include <config.h>
 #endif
 
+#include <utils/common/MsgHandler.h>
 #include <utils/geom/Position.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include "GUISUMOAbstractView.h"
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/options/OptionsCont.h>
+
+#include "GUISUMOAbstractView.h"
 #include "GUIDialog_EditViewport.h"
 
 
@@ -141,6 +143,11 @@ GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
                                 Position::INVALID
 #endif
                                );
+    // write information of current zoom status
+    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        WRITE_WARNING("Current Viewport values: " + toString(myXOff->getValue()) + ", " + toString(myYOff->getValue()) + ", " + toString(myZOff->getValue()) +
+                      ". Zoom = '" + toString(myZoom->getValue()) + "'");
+    }
     hide();
     return 1;
 }
