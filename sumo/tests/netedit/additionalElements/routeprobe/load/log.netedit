@@ -14,9 +14,7 @@ Warning: Adding routeProbe 'routeProbe_07' in GNEChange_Additional
 Warning: Format of optional time attribute 'freq' of routeProbe is invalid; Time cannot be negative; Default value '100.00' will be used.
 Warning: Adding routeProbe 'routeProbe_08' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_09' in GNEChange_Additional
-Warning: Optional string attribute 'file' of routeProbe is missing; Default value '' will be used.
 Warning: Adding routeProbe 'routeProbe_10' in GNEChange_Additional
-Warning: Format of optional string attribute 'file' of routeProbe is invalid; Filename contains invalid characters; Default value '' will be used.
 Warning: Adding routeProbe 'routeProbe_11' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_12' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_13' in GNEChange_Additional

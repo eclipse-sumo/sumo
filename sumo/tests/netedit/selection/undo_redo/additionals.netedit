@@ -1,5 +1,5 @@
 <additionals>
-    <busStop id="busStop_3_1_0" lane="3_1" startPos="0.20" endPos="10.20"/>
+    <busStop id="busStop_3_1_0" lane="3_1" startPos="0.20" endPos="10.20" friendlyPos="0"/>
     <e3Detector id="e3Detector_0" freq="100.00" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" x="36.00" y="62.00">
         <detEntry lane="6_1" pos="36.66"/>
     </e3Detector>

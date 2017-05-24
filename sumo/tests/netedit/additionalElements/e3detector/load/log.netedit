@@ -11,10 +11,8 @@ Warning: Adding e3Detector 'e3Detector_03' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_03detEntry0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_04' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_04detEntry0' in GNEChange_Additional
-Warning: Optional string attribute 'file' of e3Detector with ID 'e3Detector_05' is missing; Default value '' will be used.
 Warning: Adding e3Detector 'e3Detector_05' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_05detEntry0' in GNEChange_Additional
-Warning: Format of optional string attribute 'file' of e3Detector with ID 'e3Detector_06' is invalid; Filename contains invalid characters; Default value '' will be used.
 Warning: Adding e3Detector 'e3Detector_06' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_06detEntry0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_07' in GNEChange_Additional

@@ -21,9 +21,7 @@ Warning: Adding calibrator 'calibrator11' in GNEChange_Additional
 Warning: Format of optional time attribute 'freq' of calibrator with ID 'calibrator12' is invalid; Time cannot be negative; Default value '100.00' will be used.
 Warning: Adding calibrator 'calibrator12' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator13' in GNEChange_Additional
-Warning: Optional string attribute 'output' of calibrator with ID 'calibrator14' is missing; Default value '' will be used.
 Warning: Adding calibrator 'calibrator14' in GNEChange_Additional
-Warning: Format of optional string attribute 'output' of calibrator with ID 'calibrator15' is invalid; Filename contains invalid characters; Default value '' will be used.
 Warning: Adding calibrator 'calibrator15' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator16' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator17' in GNEChange_Additional

@@ -15,9 +15,7 @@ Warning: Adding e1Detector 'E1_09' in GNEChange_Additional
 Warning: Format of optional time attribute 'freq' of e1Detector with ID 'E1_10' is invalid; Time cannot be negative; Default value '100.00' will be used.
 Warning: Adding e1Detector 'E1_10' in GNEChange_Additional
 Warning: Adding e1Detector 'E1_11' in GNEChange_Additional
-Warning: Optional string attribute 'file' of e1Detector with ID 'E1_12' is missing; Default value '' will be used.
 Warning: Adding e1Detector 'E1_12' in GNEChange_Additional
-Warning: Format of optional string attribute 'file' of e1Detector with ID 'E1_13' is invalid; Filename contains invalid characters; Default value '' will be used.
 Warning: Adding e1Detector 'E1_13' in GNEChange_Additional
 Warning: Adding e1Detector 'E1_14' in GNEChange_Additional
 Warning: Adding e1Detector 'E1_15' in GNEChange_Additional
