@@ -187,8 +187,8 @@ Position* NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) {
 
     Position stopPosition = pStop->getPosition();
 
-    Position* closest;
-    double minSqrDist = INFINITY;
+    Position* closest = 0;
+    double minSqrDist = std::numeric_limits<double>::max();
 
     for (std::vector<Position>::iterator it = pStop->getPlatformPosCands().begin();
          it != pStop->getPlatformPosCands().end();
