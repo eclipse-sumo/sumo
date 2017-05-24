@@ -32,6 +32,8 @@
       <xsd:attribute name="meanVehicleNumber" use="required" type="xsd:decimal"/>
       <xsd:attribute name="sampledSeconds" use="required" type="xsd:decimal"/>
       <xsd:attribute name="nVehEntered" use="required" type="xsd:integer"/>
+      <xsd:attribute name="nVehLeft" use="required" type="xsd:integer"/>
+      <xsd:attribute name="nVehSeen" use="required" type="xsd:integer"/>
       <xsd:attribute name="startedHalts" use="required" type="xsd:decimal"/>
     </xsd:complexType>
   </xsd:element>
