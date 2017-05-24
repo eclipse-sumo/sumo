@@ -147,12 +147,6 @@
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
 
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR"/>
-
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -188,6 +182,9 @@
 
         <!-- Defines the resolution in m when handling lateral positioning within a lane (with -1 all vehicles drive at the center of their lane -->
         <lateral-resolution value="-1" type="FLOAT"/>
+
+        <!-- Select default car following model (Krauss, IDM, ...) -->
+        <carfollow.model value="Krauss" synonymes="carfollowing.model" type="STR"/>
 
         <!-- Load routes for the next number of seconds ahead -->
         <route-steps value="200" synonymes="s" type="TIME"/>
@@ -551,6 +548,9 @@
 
         <!-- Create initial window at the given x,y position -->
         <window-pos value="" type="STR"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
     </gui_only>
 

@@ -1,2 +1,2 @@
-Error: Unknown lane change model 'foo' when parsing vtype 't0'
+Error: Unknown lane change model 'foo' when parsing vType 't0'
 Quitting (on error).

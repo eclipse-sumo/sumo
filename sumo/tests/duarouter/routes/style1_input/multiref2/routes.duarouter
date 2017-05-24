@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:02:07 by SUMO duarouter Version 0.17.0
+<!-- generated on 05/24/17 12:37:28 by SUMO duarouter Version dev-SVN-r24439
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -15,6 +15,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -22,15 +23,11 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="t1" length="3.00" minGap="2.00" maxSpeed="9.00">
-        <carFollowing-Krauss accel="10.00" decel="4.50" sigma="0.00"/>
-    </vType>
+    <vType id="t1" length="3.00" minGap="2.00" maxSpeed="9.00" accel="10" decel="4.5" sigma="0"/>
     <vehicle id="0" type="t1" depart="0.00" departPos="0.00" departSpeed="9.00">
         <route edges="bottom right top left"/>
     </vehicle>
-    <vType id="t2" length="3.00" minGap="2.00" maxSpeed="10.00">
-        <carFollowing-Krauss accel="10.00" decel="4.50" sigma="0.00"/>
-    </vType>
+    <vType id="t2" length="3.00" minGap="2.00" maxSpeed="10.00" accel="10" decel="4.5" sigma="0"/>
     <vehicle id="1" type="t2" depart="1.00" departPos="0.00" departSpeed="9.00">
         <route edges="bottom right top left"/>
     </vehicle>

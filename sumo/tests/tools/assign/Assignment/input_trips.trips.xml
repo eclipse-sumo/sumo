@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<trips>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="862" depart="7.00" from="D2" to="D3" fromTaz="92" toTaz="93" departLane="free" departSpeed="max"/>
     <trip id="285" depart="91.00" from="D1" to="D3" fromTaz="91" toTaz="93" departLane="free" departSpeed="max"/>
     <trip id="444" depart="230.00" from="D1" to="D3" fromTaz="91" toTaz="93" departLane="free" departSpeed="max"/>
@@ -1023,4 +1023,4 @@
     <trip id="892" depart="86297.00" from="D2" to="D3" fromTaz="92" toTaz="93" departLane="free" departSpeed="max"/>
     <trip id="700" depart="86355.00" from="D1" to="D3" fromTaz="91" toTaz="93" departLane="free" departSpeed="max"/>
     <trip id="885" depart="86369.00" from="D2" to="D3" fromTaz="92" toTaz="93" departLane="free" departSpeed="max"/>
-</trips>
+</routes>

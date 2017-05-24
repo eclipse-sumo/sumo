@@ -1,4 +1,4 @@
-<trips>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 	<trip id="0" depart="0" from="beg" to="rend"/>
 	<trip id="1" depart="10" from="beg" to="rend"/>
 	<trip id="2" depart="20" from="beg" to="rend"/>
@@ -19,4 +19,4 @@
 	<trip id="17" depart="170" from="beg" to="rend"/>
 	<trip id="18" depart="180" from="beg" to="rend"/>
 	<trip id="19" depart="190" from="beg" to="rend"/>
-</trips>
+</routes>

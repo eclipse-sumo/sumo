@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:03:01 by SUMO duarouter Version 0.17.0
+<!-- generated on 05/24/17 12:37:36 by SUMO duarouter Version dev-SVN-r24439
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -19,6 +19,7 @@
     </processing>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -30,9 +31,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="0" length="3.00" minGap="2.00" maxSpeed="70.00" color="yellow">
-        <carFollowing-Krauss accel="2.60" decel="4.50" sigma="0.50"/>
-    </vType>
+    <vType id="0" length="3.00" minGap="2.00" maxSpeed="70.00" color="yellow" accel="2.6" decel="4.5" sigma="0.5"/>
     <vehicle id="0" type="0" depart="0.00" color="black">
         <routeDistribution last="1">
             <route cost="29.86" probability="0.51490464" edges="beg middle end"/>
