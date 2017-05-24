@@ -284,28 +284,17 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     if (wasSet(VTYPEPARS_MINGAP_LAT_SET)) {
         dev.writeAttr(SUMO_ATTR_MINGAP_LAT, minGapLat);
     }
-    if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET) || lcParameter.size() != 0) {
+    if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
-        std::vector<SumoXMLAttr> attrs;
-        for (SubParams::const_iterator i = lcParameter.begin(); i != lcParameter.end(); ++i) {
-            attrs.push_back(i->first);
-        }
-        std::sort(attrs.begin(), attrs.end());
-        for (std::vector<SumoXMLAttr>::const_iterator i = attrs.begin(); i != attrs.end(); ++i) {
-            dev.writeAttr(*i, lcParameter.find(*i)->second);
-        }
     }
-    if (wasSet(VTYPEPARS_CAR_FOLLOW_MODEL) || cfParameter.size() != 0) {
-        dev.openTag(cfModel);
-        std::vector<SumoXMLAttr> attrs;
-        for (SubParams::const_iterator i = cfParameter.begin(); i != cfParameter.end(); ++i) {
-            attrs.push_back(i->first);
-        }
-        std::sort(attrs.begin(), attrs.end());
-        for (std::vector<SumoXMLAttr>::const_iterator i = attrs.begin(); i != attrs.end(); ++i) {
-            dev.writeAttr(*i, cfParameter.find(*i)->second);
-        }
-        dev.closeTag();
+    for (SubParams::const_iterator i = lcParameter.begin(); i != lcParameter.end(); ++i) {
+        dev.writeAttr(i->first, i->second);
+    }
+    if (wasSet(VTYPEPARS_CAR_FOLLOW_MODEL)) {
+        dev.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, SUMOXMLDefinitions::CarFollowModels.getString(cfModel));
+    }
+    for (SubParams::const_iterator i = cfParameter.begin(); i != cfParameter.end(); ++i) {
+        dev.writeAttr(i->first, i->second);
     }
     writeParams(dev);
     dev.closeTag();

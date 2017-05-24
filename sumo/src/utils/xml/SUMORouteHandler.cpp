@@ -55,7 +55,7 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file) :
     myCurrentVType(0),
     myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myEndDefault(string2time(OptionsCont::getOptions().getString("end"))),
-    myFirstDepart(-1), myInsertStopEdgesAt(-1) {
+    myFirstDepart(-1), myInsertStopEdgesAt(-1), myDefaultCFModel(SUMO_TAG_NOTHING) {
 }
 
 
@@ -116,7 +116,7 @@ SUMORouteHandler::myStartElement(int element,
             myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myBeginDefault, myEndDefault);
             break;
         case SUMO_TAG_VTYPE:
-            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName());
+            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName(), myDefaultCFModel);
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             openVehicleTypeDistribution(attrs);
@@ -133,7 +133,7 @@ SUMORouteHandler::myStartElement(int element,
         case SUMO_TAG_TRIP: {
             myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true);
             if (myVehicleParameter->id == "") {
-                //@todo warn about deprecation of missing trip ids
+                WRITE_WARNING("Omitting trip ids is deprecated!");
                 myVehicleParameter->id = myIdSupplier.getNext();
             }
             myVehicleParameter->setParameter |= VEHPARS_FORCE_REROUTE;
@@ -150,6 +150,11 @@ SUMORouteHandler::myStartElement(int element,
             addParam(attrs);
             break;
         default:
+            // parse embedded car following model information
+            if (myCurrentVType != 0) {
+                WRITE_WARNING("Defining car following parameters in a nested element is deprecated in vType '" + myCurrentVType->id + "', use attributes instead!");
+                SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, (SumoXMLTag)element, attrs);
+            }
             break;
     }
 }

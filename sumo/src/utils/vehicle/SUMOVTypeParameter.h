@@ -46,7 +46,6 @@
 // class declarations
 // ===========================================================================
 class OutputDevice;
-
 class OptionsCont;
 
 

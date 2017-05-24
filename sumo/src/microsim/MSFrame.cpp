@@ -243,6 +243,10 @@ MSFrame::fillOptions() {
     oc.doRegister("lateral-resolution", new Option_Float(-1));
     oc.addDescription("lateral-resolution", "Processing", "Defines the resolution in m when handling lateral positioning within a lane (with -1 all vehicles drive at the center of their lane");
 
+    oc.doRegister("carfollow.model", new Option_String("Krauss"));
+    oc.addDescription("carfollow.model", "Processing", "Select default car following model (Krauss, IDM, ...)");
+    oc.addSynonyme("carfollow.model", "carfollowing.model", false);
+
     // register the processing options
     oc.doRegister("route-steps", 's', new Option_String("200", "TIME"));
     oc.addDescription("route-steps", "Processing", "Load routes for the next number of seconds ahead");
@@ -552,6 +556,10 @@ MSFrame::checkOptions() {
         if (oc.isDefault("battery-output.precision")) {
             oc.set("battery-output.precision", toString(oc.getInt("precision")));
         }
+    }
+    if (!SUMOXMLDefinitions::CarFollowModels.hasString(oc.getString("carfollow.model"))) {
+        WRITE_ERROR("Unknown model '" + oc.getString("carfollow.model")  + "' for option 'carfollow.model'.");
+        ok = false;
     }
     ok &= MSDevice::checkOptions(oc);
     ok &= SystemFrame::checkOptions();

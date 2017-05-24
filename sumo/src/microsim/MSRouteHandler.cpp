@@ -77,6 +77,8 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
     myCurrentRouteDistribution(0),
     myAmLoadingState(false) {
     myActiveRoute.reserve(100);
+    // check for valid value has been performed in MSFrame
+    myDefaultCFModel = SUMOXMLDefinitions::CarFollowModels.get(OptionsCont::getOptions().getString("carfollow.model"));
 }
 
 
@@ -392,11 +394,6 @@ MSRouteHandler::myStartElement(int element,
                 break;
             default:
                 break;
-        }
-        // parse embedded vtype information
-        if (myCurrentVType != 0 && element != SUMO_TAG_VTYPE && element != SUMO_TAG_PARAM) {
-            SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
-            return;
         }
     } catch (ProcessError&) {
         delete myVehicleParameter;
