@@ -44,17 +44,20 @@ netedit.leftClick(match, 150, 250)
 # Set name 
 netedit.modifyAttribute(0, "commonName")
 
+# Set friendlyPos 
+netedit.modifyBoolAttribute(1)
+
 # Set invalid Power 
-netedit.modifyAttribute(1, "-1000")
+netedit.modifyAttribute(2, "-1000")
 
 # Set Power 
-netedit.modifyAttribute(1, "11000")
+netedit.modifyAttribute(2, "11000")
 
 # Try to set invalid efficiency 
-netedit.modifyAttribute(2, "2")
+netedit.modifyAttribute(3, "2")
 
 # set efficiency 
-netedit.modifyAttribute(2, "0.5")
+netedit.modifyAttribute(3, "0.5")
 
 # save additionals
 netedit.saveAdditionals()

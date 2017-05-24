@@ -19,6 +19,7 @@ Warning: Setting new attribute endPos '3000' into chargingStation 'correct ID'
 Warning: Value '10' for attribute endPos of chargingStation isn't valid
 Warning: Setting new attribute endPos '30' into chargingStation 'correct ID'
 Warning: Setting new attribute name 'chargingStation' into chargingStation 'correct ID'
+Warning: Setting new attribute friendlyPos 'true' into chargingStation 'correct ID'
 Warning: Setting new attribute power '22000' into chargingStation 'correct ID'
 Warning: Value '-100' for attribute power of chargingStation isn't valid
 Warning: Setting new attribute power '10000' into chargingStation 'correct ID'
@@ -41,6 +42,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute power '22000.00' into chargingStation 'correct ID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute power '22000.00' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute friendlyPos '0' into chargingStation 'correct ID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute name '' into chargingStation 'correct ID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -82,6 +85,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute endPos '30' into chargingStation 'correct ID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute name 'chargingStation' into chargingStation 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute friendlyPos 'true' into chargingStation 'correct ID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute power '22000' into chargingStation 'correct ID'
 Warning: Keys Ctrl + Y (Redo) pressed

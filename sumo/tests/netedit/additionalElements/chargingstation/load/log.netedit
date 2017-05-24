@@ -36,8 +36,13 @@ Warning: Format of optional time attribute 'chargeDelay' of chargingStation with
 Warning: Adding chargingStation 'chargingStation_21' in GNEChange_Additional
 Warning: Format of optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_22' is invalid; Time cannot be negative; Default value '0.00' will be used.
 Warning: Adding chargingStation 'chargingStation_22' in GNEChange_Additional
+Warning: Could not build chargingStation with ID 'chargingStation_22' in netedit; probably declared twice.
+Warning: Adding chargingStation 'chargingStation_23' in GNEChange_Additional
+Warning: Adding chargingStation 'chargingStation_24' in GNEChange_Additional
 Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
+Warning: Deleting unreferenced chargingStation 'chargingStation_24'
+Warning: Deleting unreferenced chargingStation 'chargingStation_23'
 Warning: Deleting unreferenced chargingStation 'chargingStation_22'
 Warning: Deleting unreferenced chargingStation 'chargingStation_21'
 Warning: Deleting unreferenced chargingStation 'chargingStation_20'

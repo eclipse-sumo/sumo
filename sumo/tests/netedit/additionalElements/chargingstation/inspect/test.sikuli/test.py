@@ -36,7 +36,7 @@ netedit.additionalMode()
 netedit.changeAdditional("chargingStation")
 
 # change reference to center
-netedit.modifyAdditionalDefaultValue(8, "reference center")
+netedit.modifyAdditionalDefaultValue(9, "reference center")
 
 # create chargingStation 1 in mode "reference center"
 netedit.leftClick(match, 250, 150)
@@ -99,45 +99,45 @@ netedit.modifyAttribute(3, "30")
 # Change parameter 4 with a valid value
 netedit.modifyAttribute(4, "chargingStation")
 
+# Change parameter 4 with a different value
+netedit.modifyBoolAttribute(5)
+
 # Change parameter 5 with a non valid value 1
-netedit.modifyAttribute(5, "dummyPower")
+netedit.modifyAttribute(6, "dummyPower")
 
 # Change parameter 5 with a non valid value 2
-netedit.modifyAttribute(5, "-100")
+netedit.modifyAttribute(6, "-100")
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(5, "10000")
+netedit.modifyAttribute(6, "10000")
 
 # Change parameter 6 with a non valid value 1
-netedit.modifyAttribute(6, "dummyEfficiency")
+netedit.modifyAttribute(7, "dummyEfficiency")
 
 # Change parameter 6 with a non valid value 2
-netedit.modifyAttribute(6, "-1")
+netedit.modifyAttribute(7, "-1")
 
 # Change parameter 6 with a non valid value 3
-netedit.modifyAttribute(6, "2")
+netedit.modifyAttribute(7, "2")
 
 # Change parameter 6 with a valid value
-netedit.modifyAttribute(6, "0.90")
+netedit.modifyAttribute(7, "0.90")
 
 # Change parameter 7 (bool)
-netedit.modifyBoolAttribute(7)
+netedit.modifyBoolAttribute(8)
 
 # Change parameter 8 with a non valid value 1
-netedit.modifyAttribute(8, "dummyChargeDelay")
+netedit.modifyAttribute(9, "dummyChargeDelay")
 
 # Change parameter 8 with a non valid value 2
-netedit.modifyAttribute(8, "-10")
+netedit.modifyAttribute(9, "-10")
 
 # Change parameter 8 with a valid value
-netedit.modifyAttribute(8, "3")
-
-# click over an empty area
-netedit.leftClick(match, 0, 0)
+netedit.modifyAttribute(9, "3")
 
 # Check undos and redos
-netedit.undo(match, 17)
-netedit.redo(match, 17)
+netedit.undo(match, 18)
+netedit.redo(match, 18)
 
 # save additionals
 netedit.saveAdditionals()
