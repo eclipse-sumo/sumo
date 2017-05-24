@@ -38,56 +38,59 @@ netedit.changeAdditional("busStop")
 # set name
 netedit.modifyAdditionalDefaultValue(2, "busStop")
 
+# set friendlyPos
+netedit.modifyAdditionalDefaultBoolValue(3)
+
 # Add three extra lines
-netedit.modifyStoppingPlaceLines(4, 3)
+netedit.modifyStoppingPlaceLines(5, 3)
 
 # fill extra lines
-netedit.fillStoppingPlaceLines(3, 4)
+netedit.fillStoppingPlaceLines(4, 4)
 
 # remove last line (line 4)
-netedit.modifyStoppingPlaceLines(8, 1)
+netedit.modifyStoppingPlaceLines(9, 1)
 
 # create busStop in mode "reference left"
 netedit.leftClick(match, 250, 250)
 
 # change reference to right
-netedit.modifyAdditionalDefaultValue(9, "reference right")
+netedit.modifyAdditionalDefaultValue(10, "reference right")
 
 # create busStop in mode "reference right"
 netedit.leftClick(match, 240, 250)
 
 # change reference to center
-netedit.modifyAdditionalDefaultValue(9, "reference center")
+netedit.modifyAdditionalDefaultValue(10, "reference center")
 
 # create busStop in mode "reference center"
 netedit.leftClick(match, 425, 250)
 
 # return to mode "reference left"
-netedit.modifyAdditionalDefaultValue(9, "reference left")
+netedit.modifyAdditionalDefaultValue(10, "reference left")
 
 # Change length
-netedit.modifyAdditionalDefaultValue(11, "30")
+netedit.modifyAdditionalDefaultValue(12, "30")
 
 # try to create a busStop in mode "reference left" (Warning)
 netedit.leftClick(match, 500, 250)
 
 # change reference to right
-netedit.modifyAdditionalDefaultValue(9, "reference right")
+netedit.modifyAdditionalDefaultValue(10, "reference right")
 
 # try busStop in mode "reference right" (Warning)
 netedit.leftClick(match, 110, 250)
 
 # enable force position
-netedit.modifyAdditionalDefaultBoolValue(12)
+netedit.modifyAdditionalDefaultBoolValue(13)
 
 # change reference to "reference left"
-netedit.modifyAdditionalDefaultValue(9, "reference left")
+netedit.modifyAdditionalDefaultValue(10, "reference left")
 
 # create a busStop in mode "reference left" forcing poisition
 netedit.leftClick(match, 500, 250)
 
 # change reference to "reference right"
-netedit.modifyAdditionalDefaultValue(9, "reference right")
+netedit.modifyAdditionalDefaultValue(10, "reference right")
 
 # create a busStop in mode "reference right" forcing position
 netedit.leftClick(match, 110, 250)

@@ -18,8 +18,12 @@ Warning: Please note that using ';' and ',' as XML list separators is deprecated
  From 1.0 onwards, only ' ' will be accepted.
 Warning: Adding busStop 'busStop_12' in GNEChange_Additional
 Warning: Adding busStop 'busStop_13' in GNEChange_Additional
+Warning: Adding busStop 'busStop_14' in GNEChange_Additional
+Warning: Adding busStop 'busStop_15' in GNEChange_Additional
 Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
+Warning: Deleting unreferenced busStop 'busStop_15'
+Warning: Deleting unreferenced busStop 'busStop_14'
 Warning: Deleting unreferenced busStop 'busStop_13'
 Warning: Deleting unreferenced busStop 'busStop_12'
 Warning: Deleting unreferenced busStop 'busStop_11'
