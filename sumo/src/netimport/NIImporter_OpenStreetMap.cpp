@@ -120,6 +120,10 @@ NIImporter_OpenStreetMap::~NIImporter_OpenStreetMap() {
     for (std::map<long long int, Edge*>::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         delete(*i).second;
     }
+    // delete platform shapes
+    for (std::map<long long int, Edge*>::iterator i = myPlatformShapes.begin(); i != myPlatformShapes.end(); ++i) {
+        delete(*i).second;
+    }
 }
 
 void
@@ -147,7 +151,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         PROGRESS_DONE_MESSAGE();
     }
     // load edges, then
-    EdgesHandler edgesHandler(myOSMNodes, myEdges);
+    EdgesHandler edgesHandler(myOSMNodes, myEdges, myPlatformShapes);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // edges
         edgesHandler.setFileName(*file);
@@ -246,7 +250,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
 
     // load relations (after edges are built since we want to apply
     // turn-restrictions directly to NBEdges)
-    RelationHandler relationHandler(myOSMNodes, myEdges, &(nb.getPTStopCont()));
+    RelationHandler relationHandler(myOSMNodes, myEdges, &(nb.getPTStopCont()),myPlatformShapes);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // relations
         relationHandler.setFileName(*file);
@@ -715,11 +719,12 @@ NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) {
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     const std::map<long long int, NIOSMNode*>& osmNodes,
-    std::map<long long int, Edge*>& toFill)
+    std::map<long long int, Edge*>& toFill,std::map<long long int, Edge*>& platformShapes )
     :
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
-    myEdgeMap(toFill) {
+    myEdgeMap(toFill),
+    myPlatformShapesMap(platformShapes){
     mySpeedMap["signals"] = MAXSPEED_UNGIVEN;
     mySpeedMap["none"] = 300.;
     mySpeedMap["no"] = 300.;
@@ -820,7 +825,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes")
                 && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks" && key != "layer" && key != "route"
-                && key != "postal_code" && key != "railway:preferred_direction") {
+                && key != "postal_code" && key != "railway:preferred_direction" && key != "public_transport") {
             return;
         }
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
@@ -951,6 +956,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             myCurrentEdge->addParameter(key, value);
         } else if (key == "railway:preferred_direction") {
             myCurrentEdge->addParameter(key, value);
+        } else if (key == "public_transport" && value == "platform"){
+            myCurrentEdge->myCurrentIsPlatform = true;
         }
     }
 }
@@ -959,8 +966,14 @@ void
 NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) {
     myParentElements.pop_back();
     if (element == SUMO_TAG_WAY) {
-        if (myCurrentEdge != 0 && myCurrentEdge->myCurrentIsRoad) {
-            myEdgeMap[myCurrentEdge->id] = myCurrentEdge;
+        if (myCurrentEdge != 0){
+            if(myCurrentEdge->myCurrentIsRoad) {
+                myEdgeMap[myCurrentEdge->id] = myCurrentEdge;
+            } else if (myCurrentEdge->myCurrentIsPlatform){
+                myPlatformShapesMap[myCurrentEdge->id] = myCurrentEdge;
+            } else {
+                delete myCurrentEdge;
+            }
         } else {
             delete myCurrentEdge;
         }
@@ -973,11 +986,13 @@ NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) {
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::RelationHandler::RelationHandler(
     const std::map<long long int, NIOSMNode*>& osmNodes,
-    const std::map<long long int, Edge*>& osmEdges, NBPTStopCont * nbptStopCont)
+    const std::map<long long int, Edge*>& osmEdges, NBPTStopCont * nbptStopCont,
+    const std::map<long long int, Edge*>& platformShapes)
     :
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
     myOSMEdges(osmEdges),
+    myPlatformShapes(platformShapes),
     myNBPTStopCont(nbptStopCont){
     resetValues();
 }
@@ -1045,7 +1060,18 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
         } else if (role == "stop") {
             myStops.push_back(ref);
         } else if (role == "platform"){
-            myPlatforms.push_back(ref);
+            std::string memberType = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
+            if (memberType == "way") {
+                const std::map<long long int, NIImporter_OpenStreetMap::Edge*>::const_iterator& wayIt = myPlatformShapes.find(ref);
+                if (wayIt != myPlatformShapes.end()){
+                    Edge* way = wayIt->second;
+                    long long int someNodeRef = way->myCurrentNodes[((int)way->myCurrentNodes.size()/2.)];
+                    myPlatforms.push_back(someNodeRef);
+                }
+            } else if (memberType =="node"){
+                myPlatforms.push_back(ref);
+            }
+
         }
         return;
     }

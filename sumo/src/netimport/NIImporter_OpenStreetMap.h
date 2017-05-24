@@ -137,7 +137,9 @@ protected:
             myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
             myBuswayType(WAY_NONE), // buslanes are always built when declared
             myLayer(0), // layer is non-zero only in conflict areas
-            myCurrentIsRoad(false) {}
+            myCurrentIsRoad(false),
+            myCurrentIsPlatform(false){}
+
 
         /// @brief The edge's id
         const long long int id;
@@ -163,10 +165,13 @@ protected:
         std::vector<long long int> myCurrentNodes;
         /// @brief Information whether this is a road
         bool myCurrentIsRoad;
+        /// @brief Information whether this is a pt platform
+        bool myCurrentIsPlatform;
 
     private:
         /// invalidated assignment operator
         Edge& operator=(const Edge& s);
+
 
     };
 
@@ -205,6 +210,9 @@ private:
 
     /** @brief the map from OSM way ids to edge objects */
     std::map<long long int, Edge*> myEdges;
+
+    /** @brief the map from OSM way ids to platform shapes */
+    std::map<long long int, Edge*> myPlatformShapes;
 
     /// @brief The compounds types that do not contain known types
     std::set<std::string> myUnusableTypes;
@@ -345,7 +353,7 @@ protected:
          * @param[in, out] toFill The edges container to fill with read edges
          */
         EdgesHandler(const std::map<long long int, NIOSMNode*>& osmNodes,
-                     std::map<long long int, Edge*>& toFill);
+                     std::map<long long int, Edge*>& toFill, std::map<long long int, Edge*>& platformShapes);
 
 
         /// @brief Destructor
@@ -383,6 +391,9 @@ protected:
         /// @brief A map of built edges
         std::map<long long int, Edge*>& myEdgeMap;
 
+        /// @brief A map of built edges
+        std::map<long long int, Edge*>& myPlatformShapesMap;
+
         /// @brief The currently built edge
         Edge* myCurrentEdge;
 
@@ -414,7 +425,8 @@ protected:
          * @param[in] osmEdges The previously parse OSM-edges
          */
         RelationHandler(const std::map<long long int, NIOSMNode*>& osmNodes,
-                        const std::map<long long int, Edge*>& osmEdges, NBPTStopCont * nbptStopCont);
+                        const std::map<long long int, Edge*>& osmEdges, NBPTStopCont * nbptStopCont,
+                        const std::map<long long int, Edge*>& platfromShapes);
 
 
         /// @brief Destructor
@@ -451,6 +463,9 @@ protected:
 
         /// @brief The previously parsed edges
         const std::map<long long int, Edge*>& myOSMEdges;
+
+        /// @brief The previously parsed platform shapes
+        const std::map<long long int, Edge*>& myPlatformShapes;
 
         /// @brief The previously filled pt stop container
         NBPTStopCont * myNBPTStopCont;
