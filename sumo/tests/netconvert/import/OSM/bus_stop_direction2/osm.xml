@@ -1,0 +1,2080 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.6.0 (15609 thorn-03.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="52.4289000" minlon="13.5109900" maxlat="52.4299500" maxlon="13.5158800"/>
+ <node id="35215920" visible="true" lat="52.4305964" lon="13.5125657"/>
+ <node id="57343357" visible="true" lat="52.4297447" lon="13.5133543"/>
+ <node id="57343367" visible="true" lat="52.4297896" lon="13.5132058"/>
+ <node id="59957805" visible="true" lat="52.4524077" lon="13.4825605">
+  <tag k="power" v="tower"/>
+  <tag k="ref" v="10"/>
+  <tag k="source" v="Bing"/>
+ </node>
+ <node id="290969121" visible="true" lat="52.4351354" lon="13.5001478"/>
+ <node id="290969122" visible="true" lat="52.4361675" lon="13.4983291"/>
+ <node id="290969123" visible="true" lat="52.4360385" lon="13.4979817"/>
+ <node id="290969124" visible="true" lat="52.4363987" lon="13.4973629"/>
+ <node id="290969125" visible="true" lat="52.4354850" lon="13.4957028"/>
+ <node id="290989871" visible="true" lat="52.4463857" lon="13.4987916"/>
+ <node id="290989873" visible="true" lat="52.4411275" lon="13.4920607"/>
+ <node id="290989875" visible="true" lat="52.4411860" lon="13.4940669"/>
+ <node id="290989877" visible="true" lat="52.4387013" lon="13.4922169"/>
+ <node id="290989879" visible="true" lat="52.4390310" lon="13.4918471"/>
+ <node id="290991619" visible="true" lat="52.4354003" lon="13.4956139"/>
+ <node id="290991795" visible="true" lat="52.4382784" lon="13.4906235"/>
+ <node id="301292499" visible="true" lat="52.4284954" lon="13.5181758"/>
+ <node id="364072923" visible="true" lat="52.4327527" lon="13.5146059"/>
+ <node id="377039184" visible="true" lat="52.4413226" lon="13.5143542"/>
+ <node id="377039728" visible="true" lat="52.4417201" lon="13.5117430"/>
+ <node id="377039757" visible="true" lat="52.4385912" lon="13.5206698"/>
+ <node id="377039784" visible="true" lat="52.4385424" lon="13.5207807"/>
+ <node id="377039796" visible="true" lat="52.4385205" lon="13.5218733"/>
+ <node id="377039816" visible="true" lat="52.4384609" lon="13.5256932"/>
+ <node id="377039874" visible="true" lat="52.4385071" lon="13.5227567"/>
+ <node id="377040013" visible="true" lat="52.4424118" lon="13.5085485"/>
+ <node id="377040116" visible="true" lat="52.4445790" lon="13.5103939"/>
+ <node id="377040340" visible="true" lat="52.4314416" lon="13.5164862"/>
+ <node id="377040403" visible="true" lat="52.4333377" lon="13.5137088"/>
+ <node id="377040678" visible="true" lat="52.4423531" lon="13.5080800"/>
+ <node id="377040713" visible="true" lat="52.4328699" lon="13.5006919"/>
+ <node id="377040768" visible="true" lat="52.4341568" lon="13.5027876"/>
+ <node id="377040977" visible="true" lat="52.4305772" lon="13.5051175"/>
+ <node id="377041061" visible="true" lat="52.4401245" lon="13.5127410"/>
+ <node id="377041290" visible="true" lat="52.4474725" lon="13.5003694"/>
+ <node id="377041355" visible="true" lat="52.4474257" lon="13.5006682"/>
+ <node id="377041427" visible="true" lat="52.4464105" lon="13.4988330"/>
+ <node id="377041440" visible="true" lat="52.4426670" lon="13.5085739"/>
+ <node id="377041579" visible="true" lat="52.4475115" lon="13.5001477"/>
+ <node id="377041631" visible="true" lat="52.4354340" lon="13.5006597"/>
+ <node id="377041673" visible="true" lat="52.4404775" lon="13.5108438"/>
+ <node id="377041911" visible="true" lat="52.4431276" lon="13.5092456"/>
+ <node id="377042049" visible="true" lat="52.4457337" lon="13.4979314"/>
+ <node id="377042105" visible="true" lat="52.4418352" lon="13.5065242"/>
+ <node id="377042342" visible="true" lat="52.4425035" lon="13.5082994"/>
+ <node id="443598354" visible="true" lat="52.4411450" lon="13.5078492"/>
+ <node id="443598367" visible="true" lat="52.4325146" lon="13.5180373"/>
+ <node id="443598369" visible="true" lat="52.4294967" lon="13.5135010"/>
+ <node id="443598377" visible="true" lat="52.4414715" lon="13.5137779"/>
+ <node id="443598379" visible="true" lat="52.4284811" lon="13.5190380"/>
+ <node id="443598384" visible="true" lat="52.4421016" lon="13.5081695"/>
+ <node id="443598387" visible="true" lat="52.4418134" lon="13.5079869"/>
+ <node id="443598389" visible="true" lat="52.4297762" lon="13.5135079"/>
+ <node id="443598391" visible="true" lat="52.4403031" lon="13.5117021"/>
+ <node id="443598393" visible="true" lat="52.4285294" lon="13.5193679"/>
+ <node id="456813366" visible="true" lat="52.4311179" lon="13.5122679"/>
+ <node id="456813369" visible="true" lat="52.4327925" lon="13.5107091"/>
+ <node id="456813374" visible="true" lat="52.4322015" lon="13.5112734"/>
+ <node id="456813407" visible="true" lat="52.4403348" lon="13.5119337"/>
+ <node id="456813459" visible="true" lat="52.4361316" lon="13.5133948"/>
+ <node id="456813463" visible="true" lat="52.4358241" lon="13.5133788"/>
+ <node id="456813467" visible="true" lat="52.4362296" lon="13.5133346">
+  <tag k="barrier" v="cycle_barrier"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="foot" v="yes"/>
+ </node>
+ <node id="456813468" visible="true" lat="52.4364445" lon="13.5133005">
+  <tag k="barrier" v="cycle_barrier"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="foot" v="yes"/>
+ </node>
+ <node id="456813469" visible="true" lat="52.4380322" lon="13.5130699">
+  <tag k="barrier" v="cycle_barrier"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="foot" v="yes"/>
+ </node>
+ <node id="456813471" visible="true" lat="52.4382590" lon="13.5130384">
+  <tag k="barrier" v="cycle_barrier"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="foot" v="yes"/>
+ </node>
+ <node id="456813473" visible="true" lat="52.4351831" lon="13.5134793"/>
+ <node id="456813528" visible="true" lat="52.4339355" lon="13.5136516">
+  <tag k="barrier" v="cycle_barrier"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="foot" v="yes"/>
+ </node>
+ <node id="456813529" visible="true" lat="52.4342004" lon="13.5136191">
+  <tag k="barrier" v="cycle_barrier"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="foot" v="yes"/>
+ </node>
+ <node id="456813531" visible="true" lat="52.4347257" lon="13.5135441"/>
+ <node id="456893954" visible="true" lat="52.4416755" lon="13.5127828"/>
+ <node id="456893956" visible="true" lat="52.4416735" lon="13.5120126"/>
+ <node id="456893966" visible="true" lat="52.4295026" lon="13.5129973"/>
+ <node id="456893967" visible="true" lat="52.4292680" lon="13.5133862"/>
+ <node id="456893969" visible="true" lat="52.4292415" lon="13.5133148"/>
+ <node id="456893970" visible="true" lat="52.4292826" lon="13.5131087"/>
+ <node id="456893971" visible="true" lat="52.4293678" lon="13.5134380"/>
+ <node id="456893972" visible="true" lat="52.4294050" lon="13.5134151"/>
+ <node id="456893973" visible="true" lat="52.4294392" lon="13.5131524"/>
+ <node id="456893975" visible="true" lat="52.4291106" lon="13.5154578">
+  <tag k="barrier" v="cycle_barrier"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="foot" v="yes"/>
+ </node>
+ <node id="456893977" visible="true" lat="52.4289524" lon="13.5155452">
+  <tag k="bicycle" v="yes"/>
+  <tag k="crossing" v="island"/>
+  <tag k="foot" v="yes"/>
+  <tag k="highway" v="crossing"/>
+  <tag k="tactile_paving" v="yes"/>
+ </node>
+ <node id="456893997" visible="true" lat="52.4298621" lon="13.5158692">
+  <tag k="amenity" v="bicycle_parking"/>
+  <tag k="capacity" v="6"/>
+ </node>
+ <node id="456893998" visible="true" lat="52.4290808" lon="13.5154864"/>
+ <node id="456894000" visible="true" lat="52.4298222" lon="13.5158067"/>
+ <node id="456894001" visible="true" lat="52.4297523" lon="13.5162200"/>
+ <node id="456894002" visible="true" lat="52.4290126" lon="13.5158779"/>
+ <node id="462173247" visible="true" lat="52.4398249" lon="13.5128127"/>
+ <node id="470959505" visible="true" lat="52.4296443" lon="13.5168583"/>
+ <node id="470959506" visible="true" lat="52.4288950" lon="13.5165270"/>
+ <node id="473482315" visible="true" lat="52.4336915" lon="13.5098532"/>
+ <node id="473482331" visible="true" lat="52.4338190" lon="13.5097360">
+  <tag k="ele" v="34.1"/>
+  <tag k="source:ele" v="Geoportal Berlin / K5"/>
+ </node>
+ <node id="473482356" visible="true" lat="52.4292282" lon="13.5139577"/>
+ <node id="492462390" visible="true" lat="52.4298772" lon="13.5109507"/>
+ <node id="492462394" visible="true" lat="52.4299628" lon="13.5108650"/>
+ <node id="492462395" visible="true" lat="52.4300115" lon="13.5109957"/>
+ <node id="492462398" visible="true" lat="52.4299259" lon="13.5110814"/>
+ <node id="492462413" visible="true" lat="52.4336622" lon="13.5074258"/>
+ <node id="492462420" visible="true" lat="52.4343007" lon="13.5067635"/>
+ <node id="492462424" visible="true" lat="52.4341526" lon="13.5069236"/>
+ <node id="492462729" visible="true" lat="52.4403657" lon="13.5060193"/>
+ <node id="492462733" visible="true" lat="52.4397573" lon="13.5060856"/>
+ <node id="492462735" visible="true" lat="52.4395558" lon="13.5062859"/>
+ <node id="492462741" visible="true" lat="52.4391266" lon="13.5062947"/>
+ <node id="492462742" visible="true" lat="52.4389123" lon="13.5054204"/>
+ <node id="492462744" visible="true" lat="52.4382602" lon="13.5054486"/>
+ <node id="492462748" visible="true" lat="52.4371909" lon="13.5056719"/>
+ <node id="492462753" visible="true" lat="52.4371519" lon="13.5099839"/>
+ <node id="492462755" visible="true" lat="52.4374019" lon="13.5062617"/>
+ <node id="492462759" visible="true" lat="52.4345050" lon="13.5089352"/>
+ <node id="492462761" visible="true" lat="52.4345693" lon="13.5091225"/>
+ <node id="492462764" visible="true" lat="52.4351056" lon="13.5105056"/>
+ <node id="492462766" visible="true" lat="52.4355035" lon="13.5101842"/>
+ <node id="492462769" visible="true" lat="52.4357238" lon="13.5100526"/>
+ <node id="492462772" visible="true" lat="52.4364518" lon="13.5098343"/>
+ <node id="492462779" visible="true" lat="52.4383341" lon="13.5101673"/>
+ <node id="492462805" visible="true" lat="52.4403831" lon="13.5067199"/>
+ <node id="492462807" visible="true" lat="52.4389185" lon="13.5056232"/>
+ <node id="492462869" visible="true" lat="52.4360767" lon="13.5049335"/>
+ <node id="539796470" visible="true" lat="52.4368098" lon="13.5042026"/>
+ <node id="586791113" visible="true" lat="52.4292391" lon="13.5132142"/>
+ <node id="588394516" visible="true" lat="52.4295550" lon="13.5131532"/>
+ <node id="588394527" visible="true" lat="52.4295093" lon="13.5130393"/>
+ <node id="588394536" visible="true" lat="52.4293113" lon="13.5130844"/>
+ <node id="588394545" visible="true" lat="52.4292528" lon="13.5131608"/>
+ <node id="588394564" visible="true" lat="52.4296720" lon="13.5117017">
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Akeleiweg"/>
+ </node>
+ <node id="588394574" visible="true" lat="52.4294331" lon="13.5133760"/>
+ <node id="588394576" visible="true" lat="52.4296800" lon="13.5132061"/>
+ <node id="595593792" visible="true" lat="52.4352436" lon="13.5465161"/>
+ <node id="595593793" visible="true" lat="52.4347347" lon="13.5460977"/>
+ <node id="595593794" visible="true" lat="52.4363612" lon="13.5437241"/>
+ <node id="595593796" visible="true" lat="52.4345166" lon="13.5383812"/>
+ <node id="595593797" visible="true" lat="52.4310849" lon="13.5330184"/>
+ <node id="595593798" visible="true" lat="52.4293510" lon="13.5289758"/>
+ <node id="595593799" visible="true" lat="52.4406619" lon="13.4995230"/>
+ <node id="595593800" visible="true" lat="52.4413215" lon="13.5002537"/>
+ <node id="595593801" visible="true" lat="52.4415700" lon="13.4992875"/>
+ <node id="595593802" visible="true" lat="52.4476619" lon="13.5002665"/>
+ <node id="595593803" visible="true" lat="52.4504804" lon="13.4906808"/>
+ <node id="595593804" visible="true" lat="52.4518796" lon="13.4865716"/>
+ <node id="595593805" visible="true" lat="52.4520431" lon="13.4825483"/>
+ <node id="663346674" visible="true" lat="52.4290663" lon="13.5145983">
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Akeleiweg"/>
+ </node>
+ <node id="663353215" visible="true" lat="52.4289783" lon="13.5153962"/>
+ <node id="663353216" visible="true" lat="52.4287846" lon="13.5165111"/>
+ <node id="664165965" visible="true" lat="52.4418812" lon="13.5076970"/>
+ <node id="664165974" visible="true" lat="52.4381477" lon="13.5102421"/>
+ <node id="665145856" visible="true" lat="52.4465318" lon="13.5062860"/>
+ <node id="665145857" visible="true" lat="52.4463918" lon="13.5066112"/>
+ <node id="669088790" visible="true" lat="52.4389344" lon="13.5060151"/>
+ <node id="669088797" visible="true" lat="52.4391260" lon="13.5060095"/>
+ <node id="675111961" visible="true" lat="52.4301324" lon="13.5094646"/>
+ <node id="675112648" visible="true" lat="52.4333375" lon="13.5077567"/>
+ <node id="675112847" visible="true" lat="52.4343099" lon="13.5136065"/>
+ <node id="675112854" visible="true" lat="52.4346313" lon="13.5135549"/>
+ <node id="681324467" visible="true" lat="52.4410911" lon="13.5083833"/>
+ <node id="737285464" visible="true" lat="52.4315216" lon="13.5066644"/>
+ <node id="737285957" visible="true" lat="52.4281212" lon="13.5172573"/>
+ <node id="737285958" visible="true" lat="52.4284348" lon="13.5148871"/>
+ <node id="737285960" visible="true" lat="52.4285501" lon="13.5133776"/>
+ <node id="737285963" visible="true" lat="52.4290183" lon="13.5096196"/>
+ <node id="737285968" visible="true" lat="52.4296062" lon="13.5074731"/>
+ <node id="833045695" visible="true" lat="52.4420451" lon="13.5077824"/>
+ <node id="833046085" visible="true" lat="52.4403876" lon="13.5067609"/>
+ <node id="837696484" visible="true" lat="52.4379044" lon="13.4942369"/>
+ <node id="837696522" visible="true" lat="52.4386374" lon="13.4920946"/>
+ <node id="837696645" visible="true" lat="52.4383395" lon="13.4928224">
+  <tag k="barrier" v="gate"/>
+  <tag k="foot" v="yes"/>
+ </node>
+ <node id="837696650" visible="true" lat="52.4374080" lon="13.4934800"/>
+ <node id="837696856" visible="true" lat="52.4347547" lon="13.5214889">
+  <tag k="barrier" v="cycle_barrier"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="foot" v="yes"/>
+ </node>
+ <node id="837696912" visible="true" lat="52.4291117" lon="13.5146162">
+  <tag k="bus" v="yes"/>
+  <tag k="name" v="Akeleiweg"/>
+  <tag k="public_transport" v="stop_position"/>
+ </node>
+ <node id="837697172" visible="true" lat="52.4354531" lon="13.4956677">
+  <tag k="barrier" v="gate"/>
+  <tag k="bicycle" v="no"/>
+  <tag k="foot" v="no"/>
+ </node>
+ <node id="837697299" visible="true" lat="52.4349931" lon="13.5218949">
+  <tag k="barrier" v="cycle_barrier"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="foot" v="yes"/>
+ </node>
+ <node id="837697499" visible="true" lat="52.4379832" lon="13.4910693"/>
+ <node id="837697590" visible="true" lat="52.4376836" lon="13.4938892">
+  <tag k="barrier" v="gate"/>
+  <tag k="foot" v="yes"/>
+ </node>
+ <node id="837697596" visible="true" lat="52.4381732" lon="13.4926072"/>
+ <node id="837697708" visible="true" lat="52.4384458" lon="13.4929277"/>
+ <node id="853380404" visible="true" lat="52.4383985" lon="13.5130249"/>
+ <node id="853380727" visible="true" lat="52.4349995" lon="13.5135057">
+  <tag k="barrier" v="cycle_barrier"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="foot" v="yes"/>
+ </node>
+ <node id="853380882" visible="true" lat="52.4384670" lon="13.5130547"/>
+ <node id="853380925" visible="true" lat="52.4351076" lon="13.5134867"/>
+ <node id="855358329" visible="true" lat="52.4317028" lon="13.5161213"/>
+ <node id="855358700" visible="true" lat="52.4378361" lon="13.5131007"/>
+ <node id="855358962" visible="true" lat="52.4349151" lon="13.5135219"/>
+ <node id="856852340" visible="true" lat="52.4328115" lon="13.5181501"/>
+ <node id="914485644" visible="true" lat="52.4325993" lon="13.5148226"/>
+ <node id="914485647" visible="true" lat="52.4320387" lon="13.5156459"/>
+ <node id="914485682" visible="true" lat="52.4327700" lon="13.5145766"/>
+ <node id="914485712" visible="true" lat="52.4330265" lon="13.5141950"/>
+ <node id="914485726" visible="true" lat="52.4321885" lon="13.5154212"/>
+ <node id="914485769" visible="true" lat="52.4332264" lon="13.5139107"/>
+ <node id="1038549890" visible="true" lat="52.4299222" lon="13.5092963"/>
+ <node id="1038549911" visible="true" lat="52.4292069" lon="13.5135028"/>
+ <node id="1038549918" visible="true" lat="52.4291972" lon="13.5130778"/>
+ <node id="1038549922" visible="true" lat="52.4292350" lon="13.5130120"/>
+ <node id="1038549929" visible="true" lat="52.4293241" lon="13.5129110"/>
+ <node id="1094136836" visible="true" lat="52.4363708" lon="13.5046281"/>
+ <node id="1209334715" visible="true" lat="52.4422107" lon="13.5094135"/>
+ <node id="1304575673" visible="true" lat="52.4350412" lon="13.5104982"/>
+ <node id="1401188790" visible="true" lat="52.4394395" lon="13.5128612"/>
+ <node id="1414912499" visible="true" lat="52.4390091" lon="13.5110377"/>
+ <node id="1414912501" visible="true" lat="52.4390882" lon="13.5104138"/>
+ <node id="1490534109" visible="true" lat="52.4295712" lon="13.5131753"/>
+ <node id="1490534116" visible="true" lat="52.4297380" lon="13.5116269"/>
+ <node id="1490534125" visible="true" lat="52.4300894" lon="13.5112358"/>
+ <node id="1490534129" visible="true" lat="52.4316728" lon="13.5069140"/>
+ <node id="1520039978" visible="true" lat="52.4298897" lon="13.5131790"/>
+ <node id="1520039990" visible="true" lat="52.4298803" lon="13.5134900"/>
+ <node id="1520039994" visible="true" lat="52.4298879" lon="13.5133176"/>
+ <node id="1520039998" visible="true" lat="52.4300416" lon="13.5132434">
+  <tag k="ele" v="34.6"/>
+  <tag k="source:ele" v="Geoportal Berlin / K5"/>
+ </node>
+ <node id="1520040000" visible="true" lat="52.4300456" lon="13.5130940"/>
+ <node id="1520040018" visible="true" lat="52.4301041" lon="13.5133791"/>
+ <node id="1520040021" visible="true" lat="52.4305910" lon="13.5127730"/>
+ <node id="1520040028" visible="true" lat="52.4306946" lon="13.5128302"/>
+ <node id="1520040062" visible="true" lat="52.4313296" lon="13.5164664"/>
+ <node id="1520040090" visible="true" lat="52.4314463" lon="13.5165065"/>
+ <node id="1520040094" visible="true" lat="52.4316549" lon="13.5117751">
+  <tag k="ele" v="34.2"/>
+  <tag k="source:ele" v="Geoportal Berlin / K5"/>
+ </node>
+ <node id="1520040140" visible="true" lat="52.4333003" lon="13.5102428">
+  <tag k="ele" v="34.0"/>
+  <tag k="source:ele" v="Geoportal Berlin / K5"/>
+ </node>
+ <node id="1520040141" visible="true" lat="52.4333348" lon="13.5137464"/>
+ <node id="1520040175" visible="true" lat="52.4339562" lon="13.5136487"/>
+ <node id="1520040222" visible="true" lat="52.4341065" lon="13.5136282"/>
+ <node id="1520040283" visible="true" lat="52.4360382" lon="13.5134544"/>
+ <node id="1520040293" visible="true" lat="52.4362565" lon="13.5133283"/>
+ <node id="1520040376" visible="true" lat="52.4364112" lon="13.5133034"/>
+ <node id="1520040428" visible="true" lat="52.4380742" lon="13.5130659"/>
+ <node id="1520040463" visible="true" lat="52.4382290" lon="13.5130434"/>
+ <node id="1520040536" visible="true" lat="52.4384391" lon="13.5130439"/>
+ <node id="1520040634" visible="true" lat="52.4392313" lon="13.5129387"/>
+ <node id="1520040637" visible="true" lat="52.4392556" lon="13.5129207"/>
+ <node id="1520040639" visible="true" lat="52.4392716" lon="13.5128969"/>
+ <node id="1520040661" visible="true" lat="52.4395442" lon="13.5112289"/>
+ <node id="1520040666" visible="true" lat="52.4396198" lon="13.5128360"/>
+ <node id="1520040671" visible="true" lat="52.4400473" lon="13.5114100"/>
+ <node id="1520040700" visible="true" lat="52.4401351" lon="13.5127777"/>
+ <node id="1520040701" visible="true" lat="52.4401679" lon="13.5127487"/>
+ <node id="1520040704" visible="true" lat="52.4401829" lon="13.5114627"/>
+ <node id="1520040706" visible="true" lat="52.4401937" lon="13.5127041"/>
+ <node id="1520040737" visible="true" lat="52.4402758" lon="13.5107984"/>
+ <node id="1520040739" visible="true" lat="52.4403739" lon="13.5117084"/>
+ <node id="1535653200" visible="true" lat="52.4325746" lon="13.5180514"/>
+ <node id="1535653207" visible="true" lat="52.4326266" lon="13.5180603"/>
+ <node id="1535653233" visible="true" lat="52.4327051" lon="13.5180935"/>
+ <node id="1535653236" visible="true" lat="52.4327960" lon="13.5181652"/>
+ <node id="1535653243" visible="true" lat="52.4377367" lon="13.5266493"/>
+ <node id="1535653245" visible="true" lat="52.4377661" lon="13.5266510"/>
+ <node id="1552842701" visible="true" lat="52.4291646" lon="13.5132388"/>
+ <node id="1552842703" visible="true" lat="52.4291694" lon="13.5133350"/>
+ <node id="1552842705" visible="true" lat="52.4291717" lon="13.5131628"/>
+ <node id="1552842709" visible="true" lat="52.4293009" lon="13.5129486"/>
+ <node id="1552842714" visible="true" lat="52.4293443" lon="13.5130745"/>
+ <node id="1552842722" visible="true" lat="52.4294192" lon="13.5131169"/>
+ <node id="1552842725" visible="true" lat="52.4294477" lon="13.5126999"/>
+ <node id="1552842729" visible="true" lat="52.4294574" lon="13.5132228"/>
+ <node id="1552842735" visible="true" lat="52.4295345" lon="13.5133875">
+  <tag k="crossing" v="island"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="1552842737" visible="true" lat="52.4295911" lon="13.5133779"/>
+ <node id="1552842738" visible="true" lat="52.4296615" lon="13.5133517"/>
+ <node id="1552842740" visible="true" lat="52.4296861" lon="13.5113827">
+  <tag k="ele" v="35.5"/>
+  <tag k="source:ele" v="Geoportal Berlin / K5"/>
+ </node>
+ <node id="1552842742" visible="true" lat="52.4297978" lon="13.5112864"/>
+ <node id="1552842941" visible="true" lat="52.4381803" lon="13.4935187"/>
+ <node id="1553912606" visible="true" lat="52.4296332" lon="13.5116796">
+  <tag k="bus" v="yes"/>
+  <tag k="name" v="Akeleiweg"/>
+  <tag k="public_transport" v="stop_position"/>
+ </node>
+ <node id="1553912611" visible="true" lat="52.4292751" lon="13.5135546">
+  <tag k="crossing" v="island"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="1553912612" visible="true" lat="52.4293091" lon="13.5134298"/>
+ <node id="1553912614" visible="true" lat="52.4293353" lon="13.5134399"/>
+ <node id="1553912615" visible="true" lat="52.4293230" lon="13.5135811">
+  <tag k="crossing" v="island"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="1553912616" visible="true" lat="52.4293711" lon="13.5130785"/>
+ <node id="1553912617" visible="true" lat="52.4293760" lon="13.5129324">
+  <tag k="crossing" v="island"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="1553912618" visible="true" lat="52.4293989" lon="13.5130948"/>
+ <node id="1553912619" visible="true" lat="52.4294385" lon="13.5129627">
+  <tag k="crossing" v="island"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="1553912620" visible="true" lat="52.4294549" lon="13.5133098"/>
+ <node id="1553912622" visible="true" lat="52.4295522" lon="13.5132913">
+  <tag k="crossing" v="island"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="1553912623" visible="true" lat="52.4298180" lon="13.5104726"/>
+ <node id="1560223732" visible="true" lat="52.4284400" lon="13.5179036"/>
+ <node id="1560223747" visible="true" lat="52.4284793" lon="13.5192974"/>
+ <node id="1560223759" visible="true" lat="52.4285043" lon="13.5187938"/>
+ <node id="1560225431" visible="true" lat="52.4347222" lon="13.5214309"/>
+ <node id="1560225464" visible="true" lat="52.4350331" lon="13.5219639"/>
+ <node id="1560225620" visible="true" lat="52.4395612" lon="13.5064240"/>
+ <node id="1560225621" visible="true" lat="52.4397715" lon="13.5064000"/>
+ <node id="1560225632" visible="true" lat="52.4400029" lon="13.5060594"/>
+ <node id="1560225692" visible="true" lat="52.4437469" lon="13.5096993"/>
+ <node id="1652675072" visible="true" lat="52.4298188" lon="13.5114162"/>
+ <node id="1652675119" visible="true" lat="52.4367337" lon="13.5042748"/>
+ <node id="1740554945" visible="true" lat="52.4361284" lon="13.5048802"/>
+ <node id="1740554995" visible="true" lat="52.4363192" lon="13.5046818"/>
+ <node id="1741243261" visible="true" lat="52.4308902" lon="13.5044531"/>
+ <node id="1741243527" visible="true" lat="52.4326365" lon="13.5009879"/>
+ <node id="1741243543" visible="true" lat="52.4327287" lon="13.5008353"/>
+ <node id="1741243558" visible="true" lat="52.4328213" lon="13.5007013"/>
+ <node id="1741243562" visible="true" lat="52.4328483" lon="13.5006884"/>
+ <node id="1741626190" visible="true" lat="52.4298957" lon="13.5135805"/>
+ <node id="1741626193" visible="true" lat="52.4299922" lon="13.5134925"/>
+ <node id="1741626196" visible="true" lat="52.4299967" lon="13.5138786"/>
+ <node id="1741626202" visible="true" lat="52.4300079" lon="13.5135389"/>
+ <node id="1741626205" visible="true" lat="52.4300164" lon="13.5135311"/>
+ <node id="1741626208" visible="true" lat="52.4300312" lon="13.5136076"/>
+ <node id="1741626211" visible="true" lat="52.4300397" lon="13.5135999"/>
+ <node id="1741626217" visible="true" lat="52.4300541" lon="13.5136753"/>
+ <node id="1741626219" visible="true" lat="52.4300625" lon="13.5136676"/>
+ <node id="1741626221" visible="true" lat="52.4300775" lon="13.5137441"/>
+ <node id="1741626222" visible="true" lat="52.4300859" lon="13.5137365"/>
+ <node id="1741626223" visible="true" lat="52.4300932" lon="13.5137906"/>
+ <node id="1906766704" visible="true" lat="52.4300760" lon="13.5137073">
+  <tag k="addr:city" v="Berlin"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="75"/>
+  <tag k="addr:postcode" v="12487"/>
+  <tag k="addr:street" v="Arthur-Müller-Straße"/>
+  <tag k="addr:suburb" v="Johannisthal"/>
+ </node>
+ <node id="1906766705" visible="true" lat="52.4300284" lon="13.5135664">
+  <tag k="addr:city" v="Berlin"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="77"/>
+  <tag k="addr:postcode" v="12487"/>
+  <tag k="addr:street" v="Arthur-Müller-Straße"/>
+  <tag k="addr:suburb" v="Johannisthal"/>
+ </node>
+ <node id="1906767030" visible="true" lat="52.4288855" lon="13.5163997"/>
+ <node id="1906767032" visible="true" lat="52.4288985" lon="13.5164986"/>
+ <node id="1906767035" visible="true" lat="52.4289214" lon="13.5161859"/>
+ <node id="1906767039" visible="true" lat="52.4289687" lon="13.5161221"/>
+ <node id="1906767042" visible="true" lat="52.4294098" lon="13.5135877"/>
+ <node id="1906767045" visible="true" lat="52.4295717" lon="13.5134380">
+  <tag k="power" v="cable_distribution_cabinet"/>
+ </node>
+ <node id="1906767047" visible="true" lat="52.4298403" lon="13.5157542"/>
+ <node id="1906767049" visible="true" lat="52.4300717" lon="13.5143924"/>
+ <node id="2008877472" visible="true" lat="52.4282243" lon="13.5167763"/>
+ <node id="2008877474" visible="true" lat="52.4283646" lon="13.5158091"/>
+ <node id="2008877480" visible="true" lat="52.4286720" lon="13.5121866"/>
+ <node id="2008877485" visible="true" lat="52.4289172" lon="13.5103064"/>
+ <node id="2008877491" visible="true" lat="52.4291778" lon="13.5088761"/>
+ <node id="2008877495" visible="true" lat="52.4293907" lon="13.5081564"/>
+ <node id="2008877502" visible="true" lat="52.4297641" lon="13.5070161"/>
+ <node id="2008877507" visible="true" lat="52.4300101" lon="13.5063694"/>
+ <node id="2008877525" visible="true" lat="52.4302020" lon="13.5059301"/>
+ <node id="2008877616" visible="true" lat="52.4353095" lon="13.5004728"/>
+ <node id="2030860670" visible="true" lat="52.4299096" lon="13.5157303"/>
+ <node id="2030860673" visible="true" lat="52.4299363" lon="13.5155810"/>
+ <node id="2030860674" visible="true" lat="52.4299850" lon="13.5157667"/>
+ <node id="2030860679" visible="true" lat="52.4300118" lon="13.5156173"/>
+ <node id="2295317528" visible="true" lat="52.4349972" lon="13.5467919"/>
+ <node id="2295319911" visible="true" lat="52.4282660" lon="13.5187394"/>
+ <node id="2295319912" visible="true" lat="52.4442919" lon="13.5013019"/>
+ <node id="2295319913" visible="true" lat="52.4297115" lon="13.5115077"/>
+ <node id="2295319914" visible="true" lat="52.4285339" lon="13.5245534"/>
+ <node id="2295319915" visible="true" lat="52.4465807" lon="13.5003368"/>
+ <node id="2295319916" visible="true" lat="52.4368639" lon="13.5041654"/>
+ <node id="2295319917" visible="true" lat="52.4393156" lon="13.5014215"/>
+ <node id="2334543583" visible="true" lat="52.4407298" lon="13.5175107"/>
+ <node id="2334543586" visible="true" lat="52.4412888" lon="13.5152172"/>
+ <node id="2334543589" visible="true" lat="52.4416984" lon="13.5160899"/>
+ <node id="2399724251" visible="true" lat="52.4396749" lon="13.5190314"/>
+ <node id="2399724252" visible="true" lat="52.4412141" lon="13.5149138"/>
+ <node id="2399724253" visible="true" lat="52.4413205" lon="13.5154042"/>
+ <node id="2886767487" visible="true" lat="52.4293974" lon="13.5137485">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="101"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886767489" visible="true" lat="52.4293590" lon="13.5139744">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="103"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886767490" visible="true" lat="52.4293219" lon="13.5141845">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="105"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886767491" visible="true" lat="52.4292862" lon="13.5143901">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="107"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886767492" visible="true" lat="52.4292628" lon="13.5145349">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="109"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886767495" visible="true" lat="52.4292135" lon="13.5148178">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="111"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886767496" visible="true" lat="52.4291736" lon="13.5150469">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="113"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886767497" visible="true" lat="52.4291166" lon="13.5153740">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="115"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886767498" visible="true" lat="52.4290645" lon="13.5156733">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="117"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886770919" visible="true" lat="52.4295574" lon="13.5110994">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="86"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886770922" visible="true" lat="52.4297453" lon="13.5117152">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="89"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886770929" visible="true" lat="52.4297006" lon="13.5119735">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="91"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886770931" visible="true" lat="52.4296446" lon="13.5122931">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="93"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886770932" visible="true" lat="52.4296065" lon="13.5125078">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="95"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886770933" visible="true" lat="52.4295667" lon="13.5127304">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="97"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2886770935" visible="true" lat="52.4295236" lon="13.5129604">
+  <tag k="proposed:addr:city" v="Berlin"/>
+  <tag k="proposed:addr:country" v="DE"/>
+  <tag k="proposed:addr:housenumber" v="99"/>
+  <tag k="proposed:addr:inclusion" v="potential"/>
+  <tag k="proposed:addr:postcode" v="12487"/>
+  <tag k="proposed:addr:street" v="Eisenhutweg"/>
+  <tag k="proposed:addr:suburb" v="Johannisthal"/>
+  <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+ </node>
+ <node id="2938462103" visible="true" lat="52.4288888" lon="13.5165806"/>
+ <node id="2938462106" visible="true" lat="52.4290928" lon="13.5154182"/>
+ <node id="2938462109" visible="true" lat="52.4297414" lon="13.5169025"/>
+ <node id="2938462110" visible="true" lat="52.4298531" lon="13.5162421"/>
+ <node id="2938462111" visible="true" lat="52.4299193" lon="13.5158509"/>
+ <node id="2938462112" visible="true" lat="52.4312227" lon="13.5168623"/>
+ <node id="2938462113" visible="true" lat="52.4312258" lon="13.5164431"/>
+ <node id="2938462118" visible="true" lat="52.4312769" lon="13.5184553"/>
+ <node id="2938462123" visible="true" lat="52.4313164" lon="13.5184422"/>
+ <node id="2938462133" visible="true" lat="52.4325662" lon="13.5180494"/>
+ <node id="2938462139" visible="true" lat="52.4327988" lon="13.5181624"/>
+ <node id="2938462140" visible="true" lat="52.4331637" lon="13.5187383"/>
+ <node id="2938462141" visible="true" lat="52.4331886" lon="13.5187806"/>
+ <node id="2938462142" visible="true" lat="52.4332735" lon="13.5189235"/>
+ <node id="3242245755" visible="true" lat="52.4371495" lon="13.5098941"/>
+ <node id="3242245797" visible="true" lat="52.4381270" lon="13.5261418"/>
+ <node id="3242245806" visible="true" lat="52.4381553" lon="13.5260973"/>
+ <node id="3242245852" visible="true" lat="52.4384113" lon="13.5257570"/>
+ <node id="3242245960" visible="true" lat="52.4405932" lon="13.5106297"/>
+ <node id="3337414506" visible="true" lat="52.4332989" lon="13.5189675"/>
+ <node id="3337414507" visible="true" lat="52.4334137" lon="13.5191663"/>
+ <node id="3337414508" visible="true" lat="52.4336533" lon="13.5195809"/>
+ <node id="3337414509" visible="true" lat="52.4337207" lon="13.5196975"/>
+ <node id="3337414515" visible="true" lat="52.4341558" lon="13.5204506"/>
+ <node id="3337414516" visible="true" lat="52.4341796" lon="13.5204919"/>
+ <node id="3337414517" visible="true" lat="52.4342635" lon="13.5206371"/>
+ <node id="3337414518" visible="true" lat="52.4342867" lon="13.5206771"/>
+ <node id="3337414523" visible="true" lat="52.4351518" lon="13.5221715"/>
+ <node id="3337414524" visible="true" lat="52.4351745" lon="13.5222112"/>
+ <node id="3337414525" visible="true" lat="52.4352590" lon="13.5223591"/>
+ <node id="3337414526" visible="true" lat="52.4352814" lon="13.5223983"/>
+ <node id="3337414530" visible="true" lat="52.4356901" lon="13.5231056"/>
+ <node id="3337414532" visible="true" lat="52.4357145" lon="13.5231478"/>
+ <node id="3337414533" visible="true" lat="52.4357982" lon="13.5232927"/>
+ <node id="3337414534" visible="true" lat="52.4358258" lon="13.5233404"/>
+ <node id="3337414538" visible="true" lat="52.4362355" lon="13.5240495"/>
+ <node id="3337414540" visible="true" lat="52.4362582" lon="13.5240888"/>
+ <node id="3337414542" visible="true" lat="52.4363376" lon="13.5242262"/>
+ <node id="3337414544" visible="true" lat="52.4363621" lon="13.5242686"/>
+ <node id="3337414545" visible="true" lat="52.4365716" lon="13.5246311"/>
+ <node id="3337414546" visible="true" lat="52.4365952" lon="13.5246720"/>
+ <node id="3337414549" visible="true" lat="52.4367030" lon="13.5248585"/>
+ <node id="3337414550" visible="true" lat="52.4367249" lon="13.5248964"/>
+ <node id="3337414555" visible="true" lat="52.4370387" lon="13.5254395"/>
+ <node id="3337414556" visible="true" lat="52.4370598" lon="13.5254761"/>
+ <node id="3337414558" visible="true" lat="52.4371429" lon="13.5256193"/>
+ <node id="3337414560" visible="true" lat="52.4371655" lon="13.5256583"/>
+ <node id="3337414566" visible="true" lat="52.4377100" lon="13.5266008"/>
+ <node id="3337414577" visible="true" lat="52.4403124" lon="13.5116473"/>
+ <node id="3337414584" visible="true" lat="52.4411930" lon="13.5078551"/>
+ <node id="3337414585" visible="true" lat="52.4412258" lon="13.5078592"/>
+ <node id="3337414588" visible="true" lat="52.4413681" lon="13.5078768"/>
+ <node id="3337414589" visible="true" lat="52.4413828" lon="13.5078786"/>
+ <node id="3337414590" visible="true" lat="52.4417668" lon="13.5079686"/>
+ <node id="3647000397" visible="true" lat="52.4297141" lon="13.5169240"/>
+ <node id="3647000398" visible="true" lat="52.4299015" lon="13.5158161"/>
+ <node id="3884980642" visible="true" lat="52.4294224" lon="13.5135641"/>
+ <node id="4017682634" visible="true" lat="52.4290553" lon="13.5146646"/>
+ <node id="4017682635" visible="true" lat="52.4291063" lon="13.5143586"/>
+ <node id="4017682636" visible="true" lat="52.4296369" lon="13.5118949"/>
+ <node id="4017682637" visible="true" lat="52.4296816" lon="13.5116486"/>
+ <node id="4092041899" visible="true" lat="52.4404902" lon="13.5060175"/>
+ <node id="4092041900" visible="true" lat="52.4405121" lon="13.5067528"/>
+ <node id="4092041901" visible="true" lat="52.4406166" lon="13.5060112"/>
+ <node id="4092041902" visible="true" lat="52.4406224" lon="13.5061995"/>
+ <node id="4092041903" visible="true" lat="52.4408709" lon="13.5063066"/>
+ <node id="4092041904" visible="true" lat="52.4411037" lon="13.5062994"/>
+ <node id="4092041905" visible="true" lat="52.4411128" lon="13.5064223"/>
+ <node id="4092041906" visible="true" lat="52.4413146" lon="13.5064278"/>
+ <node id="4092041907" visible="true" lat="52.4413168" lon="13.5062014"/>
+ <node id="4092041908" visible="true" lat="52.4415787" lon="13.5062352"/>
+ <node id="4092041909" visible="true" lat="52.4415996" lon="13.5065564"/>
+ <node id="4143179587" visible="true" lat="52.4280511" lon="13.5175374"/>
+ <node id="4421790162" visible="true" lat="52.4288837" lon="13.5166134"/>
+ <node id="4421790163" visible="true" lat="52.4290939" lon="13.5154177"/>
+ <node id="4421790164" visible="true" lat="52.4311970" lon="13.5184779"/>
+ <node id="4421790165" visible="true" lat="52.4312118" lon="13.5176540"/>
+ <node id="4421790166" visible="true" lat="52.4314595" lon="13.5164971"/>
+ <node id="4421790167" visible="true" lat="52.4324599" lon="13.5180485"/>
+ <node id="4421790168" visible="true" lat="52.4325352" lon="13.5180378"/>
+ <node id="4421790169" visible="true" lat="52.4326263" lon="13.5180759"/>
+ <node id="4421790170" visible="true" lat="52.4327729" lon="13.5181286"/>
+ <node id="4421790171" visible="true" lat="52.4328547" lon="13.5182329"/>
+ <node id="4421790172" visible="true" lat="52.4333467" lon="13.5137205"/>
+ <node id="4421790173" visible="true" lat="52.4377345" lon="13.5266516"/>
+ <node id="4421790175" visible="true" lat="52.4384155" lon="13.5270555"/>
+ <node id="4421790176" visible="true" lat="52.4384739" lon="13.5256865"/>
+ <node id="4421790178" visible="true" lat="52.4385430" lon="13.5207432"/>
+ <node id="4421790179" visible="true" lat="52.4400002" lon="13.5306427"/>
+ <node id="4421790180" visible="true" lat="52.4401134" lon="13.5127269"/>
+ <node id="4421790181" visible="true" lat="52.4402768" lon="13.5302217"/>
+ <node id="4421790182" visible="true" lat="52.4411287" lon="13.5078337"/>
+ <node id="4421790183" visible="true" lat="52.4411600" lon="13.5151129"/>
+ <node id="4421790184" visible="true" lat="52.4415461" lon="13.5125963"/>
+ <node id="4421790185" visible="true" lat="52.4417057" lon="13.5160911"/>
+ <node id="4421790186" visible="true" lat="52.4417183" lon="13.5126811"/>
+ <node id="4421790187" visible="true" lat="52.4418100" lon="13.5079754"/>
+ <node id="4421790188" visible="true" lat="52.4420991" lon="13.5081551"/>
+ <node id="4421790189" visible="true" lat="52.4422834" lon="13.5092030"/>
+ <node id="4421790190" visible="true" lat="52.4423033" lon="13.5083870"/>
+ <node id="4421790191" visible="true" lat="52.4424363" lon="13.5085555"/>
+ <way id="38538203" visible="true" version="25" changeset="44584049" timestamp="2016-12-22T07:36:43Z" user="anbr" uid="43566">
+  <nd ref="1906767047"/>
+  <nd ref="2938462106"/>
+  <nd ref="456893998"/>
+  <nd ref="456894002"/>
+  <nd ref="1906767039"/>
+  <nd ref="1906767035"/>
+  <nd ref="1906767030"/>
+  <nd ref="1906767032"/>
+  <nd ref="470959506"/>
+  <nd ref="2938462103"/>
+  <nd ref="1560223759"/>
+  <nd ref="443598379"/>
+  <nd ref="1560223747"/>
+  <nd ref="443598393"/>
+  <nd ref="2938462118"/>
+  <nd ref="2938462123"/>
+  <nd ref="443598367"/>
+  <nd ref="2938462133"/>
+  <nd ref="1535653200"/>
+  <nd ref="1535653207"/>
+  <nd ref="1535653233"/>
+  <nd ref="1535653236"/>
+  <nd ref="2938462139"/>
+  <nd ref="856852340"/>
+  <nd ref="2938462140"/>
+  <nd ref="2938462141"/>
+  <nd ref="2938462142"/>
+  <nd ref="3337414506"/>
+  <nd ref="3337414507"/>
+  <nd ref="3337414508"/>
+  <nd ref="3337414509"/>
+  <nd ref="3337414515"/>
+  <nd ref="3337414516"/>
+  <nd ref="3337414517"/>
+  <nd ref="3337414518"/>
+  <nd ref="1560225431"/>
+  <nd ref="837696856"/>
+  <nd ref="837697299"/>
+  <nd ref="1560225464"/>
+  <nd ref="3337414523"/>
+  <nd ref="3337414524"/>
+  <nd ref="3337414525"/>
+  <nd ref="3337414526"/>
+  <nd ref="3337414530"/>
+  <nd ref="3337414532"/>
+  <nd ref="3337414533"/>
+  <nd ref="3337414534"/>
+  <nd ref="3337414538"/>
+  <nd ref="3337414540"/>
+  <nd ref="3337414542"/>
+  <nd ref="3337414544"/>
+  <nd ref="3337414545"/>
+  <nd ref="3337414546"/>
+  <nd ref="3337414549"/>
+  <nd ref="3337414550"/>
+  <nd ref="3337414555"/>
+  <nd ref="3337414556"/>
+  <nd ref="3337414558"/>
+  <nd ref="3337414560"/>
+  <nd ref="3337414566"/>
+  <nd ref="1535653243"/>
+  <nd ref="1535653245"/>
+  <nd ref="3242245797"/>
+  <nd ref="3242245806"/>
+  <nd ref="3242245852"/>
+  <nd ref="377039816"/>
+  <nd ref="377039874"/>
+  <nd ref="377039796"/>
+  <nd ref="377039784"/>
+  <nd ref="377039757"/>
+  <nd ref="2399724251"/>
+  <nd ref="2334543583"/>
+  <nd ref="2334543589"/>
+  <nd ref="2399724253"/>
+  <nd ref="2334543586"/>
+  <nd ref="2399724252"/>
+  <nd ref="377039184"/>
+  <nd ref="443598377"/>
+  <nd ref="456893954"/>
+  <nd ref="456893956"/>
+  <nd ref="377039728"/>
+  <nd ref="1209334715"/>
+  <nd ref="377040013"/>
+  <nd ref="443598384"/>
+  <nd ref="443598387"/>
+  <nd ref="3337414590"/>
+  <nd ref="3337414589"/>
+  <nd ref="3337414588"/>
+  <nd ref="3337414585"/>
+  <nd ref="3337414584"/>
+  <nd ref="443598354"/>
+  <nd ref="377041673"/>
+  <nd ref="3337414577"/>
+  <nd ref="443598391"/>
+  <nd ref="377041061"/>
+  <nd ref="377040403"/>
+  <nd ref="377040340"/>
+  <nd ref="1906767047"/>
+  <tag k="leisure" v="park"/>
+  <tag k="name" v="Landschaftspark Johannisthal/Adlershof"/>
+ </way>
+ <way id="38574197" visible="true" version="9" changeset="47595269" timestamp="2017-04-09T15:01:58Z" user="sebastic" uid="665748">
+  <nd ref="2938462111"/>
+  <nd ref="2938462110"/>
+  <nd ref="2938462109"/>
+  <nd ref="470959505"/>
+  <nd ref="456894001"/>
+  <nd ref="456894000"/>
+  <nd ref="2938462111"/>
+ </way>
+ <way id="38574199" visible="true" version="3" changeset="17432864" timestamp="2013-08-20T21:21:21Z" user="aceman444" uid="1617449">
+  <nd ref="456893998"/>
+  <nd ref="456894000"/>
+  <nd ref="456894001"/>
+  <nd ref="456894002"/>
+  <nd ref="456893998"/>
+  <tag k="barrier" v="fence"/>
+  <tag k="fence_type" v="chain_link"/>
+  <tag k="landuse" v="recreation_ground"/>
+  <tag k="natural" v="heath"/>
+ </way>
+ <way id="39304187" visible="true" version="2" changeset="13043875" timestamp="2012-09-09T12:36:44Z" user="Balgofil" uid="95702">
+  <nd ref="456894002"/>
+  <nd ref="456894001"/>
+  <nd ref="470959505"/>
+  <nd ref="470959506"/>
+  <nd ref="1906767032"/>
+  <nd ref="1906767030"/>
+  <nd ref="1906767035"/>
+  <nd ref="1906767039"/>
+  <nd ref="456894002"/>
+  <tag k="landuse" v="meadow"/>
+ </way>
+ <way id="40570990" visible="true" version="4" changeset="14804002" timestamp="2013-01-27T08:31:20Z" user="geozeisig" uid="66391">
+  <nd ref="492462390"/>
+  <nd ref="492462394"/>
+  <nd ref="492462395"/>
+  <nd ref="492462398"/>
+  <nd ref="492462390"/>
+  <tag k="addr:city" v="Berlin"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="88"/>
+  <tag k="addr:postcode" v="12487"/>
+  <tag k="addr:street" v="Akeleiweg"/>
+  <tag k="addr:suburb" v="Johannisthal"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="46604309" visible="true" version="13" changeset="46906516" timestamp="2017-03-16T18:34:15Z" user="BER319" uid="3020814">
+  <nd ref="595593792"/>
+  <nd ref="2295317528"/>
+  <nd ref="595593793"/>
+  <nd ref="595593794"/>
+  <nd ref="595593796"/>
+  <nd ref="595593797"/>
+  <nd ref="595593798"/>
+  <nd ref="2295319914"/>
+  <nd ref="2295319911"/>
+  <nd ref="2295319913"/>
+  <nd ref="2295319916"/>
+  <nd ref="2295319917"/>
+  <nd ref="595593799"/>
+  <nd ref="595593800"/>
+  <nd ref="595593801"/>
+  <nd ref="2295319912"/>
+  <nd ref="2295319915"/>
+  <nd ref="595593802"/>
+  <nd ref="595593803"/>
+  <nd ref="595593804"/>
+  <nd ref="595593805"/>
+  <nd ref="59957805"/>
+  <tag k="location" v="underground"/>
+  <tag k="operator" v="Stromnetz Berlin"/>
+  <tag k="power" v="cable"/>
+  <tag k="voltage" v="110000"/>
+ </way>
+ <way id="52460499" visible="true" version="12" changeset="18013971" timestamp="2013-09-24T18:17:38Z" user="anbr" uid="43566">
+  <nd ref="473482331"/>
+  <nd ref="473482315"/>
+  <nd ref="1520040140"/>
+  <nd ref="456813369"/>
+  <nd ref="456813374"/>
+  <nd ref="1520040094"/>
+  <nd ref="456813366"/>
+  <nd ref="1520040021"/>
+  <nd ref="1520039998"/>
+  <nd ref="1520039994"/>
+  <nd ref="57343357"/>
+  <nd ref="1552842738"/>
+  <tag k="cycleway" v="track"/>
+  <tag k="cycleway:bicycle" v="yes"/>
+  <tag k="cycleway:smoothness" v="good"/>
+  <tag k="cycleway:surface" v="asphalt"/>
+  <tag k="highway" v="residential"/>
+  <tag k="lanes" v="1"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Straße am Flugplatz"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="sidewalk" v="both"/>
+  <tag k="smoothness" v="good"/>
+  <tag k="source:maxspeed" v="DE:zone:30"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="6.7"/>
+ </way>
+ <way id="54039583" visible="true" version="12" changeset="32575592" timestamp="2015-07-12T07:06:52Z" user="Balgofil" uid="95702">
+  <nd ref="681324467"/>
+  <nd ref="3242245960"/>
+  <nd ref="1520040739"/>
+  <nd ref="456813407"/>
+  <nd ref="1520040706"/>
+  <nd ref="1520040701"/>
+  <nd ref="1520040700"/>
+  <nd ref="462173247"/>
+  <nd ref="1520040666"/>
+  <nd ref="1401188790"/>
+  <nd ref="1520040639"/>
+  <nd ref="1520040637"/>
+  <nd ref="1520040634"/>
+  <nd ref="853380882"/>
+  <nd ref="1520040536"/>
+  <nd ref="853380404"/>
+  <nd ref="456813471"/>
+  <nd ref="1520040463"/>
+  <nd ref="1520040428"/>
+  <nd ref="456813469"/>
+  <nd ref="855358700"/>
+  <nd ref="456813468"/>
+  <nd ref="1520040376"/>
+  <nd ref="1520040293"/>
+  <nd ref="456813467"/>
+  <nd ref="456813459"/>
+  <nd ref="1520040283"/>
+  <nd ref="456813463"/>
+  <nd ref="456813473"/>
+  <nd ref="853380925"/>
+  <nd ref="853380727"/>
+  <nd ref="855358962"/>
+  <nd ref="456813531"/>
+  <nd ref="675112854"/>
+  <nd ref="675112847"/>
+  <nd ref="456813529"/>
+  <nd ref="1520040222"/>
+  <nd ref="1520040175"/>
+  <nd ref="456813528"/>
+  <nd ref="1520040141"/>
+  <nd ref="914485769"/>
+  <nd ref="914485712"/>
+  <nd ref="914485682"/>
+  <nd ref="364072923"/>
+  <nd ref="914485644"/>
+  <nd ref="914485726"/>
+  <nd ref="914485647"/>
+  <nd ref="855358329"/>
+  <nd ref="1520040090"/>
+  <nd ref="1520040062"/>
+  <nd ref="3647000398"/>
+  <nd ref="456893975"/>
+  <nd ref="663353215"/>
+  <tag k="bicycle" v="designated"/>
+  <tag k="foot" v="designated"/>
+  <tag k="highway" v="path"/>
+  <tag k="lit" v="no"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+ <way id="89599283" visible="true" version="8" changeset="38817930" timestamp="2016-04-23T17:47:22Z" user="Balgofil" uid="95702">
+  <nd ref="4143179587"/>
+  <nd ref="1560223732"/>
+  <nd ref="1038549911"/>
+  <nd ref="1552842703"/>
+  <nd ref="1552842701"/>
+  <nd ref="1552842705"/>
+  <nd ref="1038549918"/>
+  <nd ref="1038549922"/>
+  <nd ref="1552842709"/>
+  <nd ref="1038549929"/>
+  <nd ref="1038549890"/>
+  <nd ref="737285464"/>
+  <nd ref="377040977"/>
+  <nd ref="2008877525"/>
+  <nd ref="2008877507"/>
+  <nd ref="2008877502"/>
+  <nd ref="737285968"/>
+  <nd ref="2008877495"/>
+  <nd ref="2008877491"/>
+  <nd ref="737285963"/>
+  <nd ref="2008877485"/>
+  <nd ref="2008877480"/>
+  <nd ref="737285960"/>
+  <nd ref="737285958"/>
+  <nd ref="2008877474"/>
+  <nd ref="2008877472"/>
+  <nd ref="737285957"/>
+  <nd ref="4143179587"/>
+  <tag k="landuse" v="greenfield"/>
+  <tag k="name" v="SITAC PARC Berlin"/>
+ </way>
+ <way id="135771979" visible="true" version="16" changeset="39330228" timestamp="2016-05-15T12:39:46Z" user="Balgofil" uid="95702">
+  <nd ref="1490534129"/>
+  <nd ref="737285464"/>
+  <nd ref="377040977"/>
+  <nd ref="1741243261"/>
+  <nd ref="1741243527"/>
+  <nd ref="1741243543"/>
+  <nd ref="1741243558"/>
+  <nd ref="1741243562"/>
+  <nd ref="377040713"/>
+  <nd ref="377040768"/>
+  <nd ref="377041631"/>
+  <nd ref="2008877616"/>
+  <nd ref="290969121"/>
+  <nd ref="290969122"/>
+  <nd ref="290969123"/>
+  <nd ref="290969124"/>
+  <nd ref="290969125"/>
+  <nd ref="837697172"/>
+  <nd ref="290991619"/>
+  <nd ref="837696650"/>
+  <nd ref="837697590"/>
+  <nd ref="837696484"/>
+  <nd ref="1552842941"/>
+  <nd ref="837697708"/>
+  <nd ref="837696645"/>
+  <nd ref="837697596"/>
+  <nd ref="837696522"/>
+  <nd ref="837697499"/>
+  <nd ref="290991795"/>
+  <nd ref="290989879"/>
+  <nd ref="290989877"/>
+  <nd ref="290989875"/>
+  <nd ref="290989873"/>
+  <nd ref="377042049"/>
+  <nd ref="290989871"/>
+  <nd ref="377041427"/>
+  <nd ref="377041579"/>
+  <nd ref="377041290"/>
+  <nd ref="377041355"/>
+  <nd ref="665145856"/>
+  <nd ref="665145857"/>
+  <nd ref="377040116"/>
+  <nd ref="1560225692"/>
+  <nd ref="377041911"/>
+  <nd ref="377041440"/>
+  <nd ref="377042342"/>
+  <nd ref="377040678"/>
+  <nd ref="833045695"/>
+  <nd ref="664165965"/>
+  <nd ref="377042105"/>
+  <nd ref="4092041909"/>
+  <nd ref="4092041908"/>
+  <nd ref="4092041907"/>
+  <nd ref="4092041906"/>
+  <nd ref="4092041905"/>
+  <nd ref="4092041904"/>
+  <nd ref="4092041903"/>
+  <nd ref="4092041902"/>
+  <nd ref="4092041901"/>
+  <nd ref="4092041899"/>
+  <nd ref="4092041900"/>
+  <nd ref="833046085"/>
+  <nd ref="492462805"/>
+  <nd ref="492462729"/>
+  <nd ref="1560225632"/>
+  <nd ref="492462733"/>
+  <nd ref="1560225621"/>
+  <nd ref="1560225620"/>
+  <nd ref="492462735"/>
+  <nd ref="492462741"/>
+  <nd ref="669088797"/>
+  <nd ref="669088790"/>
+  <nd ref="492462807"/>
+  <nd ref="492462742"/>
+  <nd ref="492462744"/>
+  <nd ref="492462748"/>
+  <nd ref="492462755"/>
+  <nd ref="492462759"/>
+  <nd ref="492462761"/>
+  <nd ref="1304575673"/>
+  <nd ref="492462764"/>
+  <nd ref="492462766"/>
+  <nd ref="492462769"/>
+  <nd ref="492462772"/>
+  <nd ref="3242245755"/>
+  <nd ref="492462753"/>
+  <nd ref="664165974"/>
+  <nd ref="492462779"/>
+  <nd ref="1414912501"/>
+  <nd ref="1414912499"/>
+  <nd ref="1520040661"/>
+  <nd ref="1520040671"/>
+  <nd ref="1520040704"/>
+  <nd ref="1520040737"/>
+  <nd ref="377041673"/>
+  <nd ref="3337414577"/>
+  <nd ref="443598391"/>
+  <nd ref="377041061"/>
+  <nd ref="377040403"/>
+  <nd ref="377040340"/>
+  <nd ref="1906767047"/>
+  <nd ref="1906767049"/>
+  <nd ref="443598389"/>
+  <nd ref="1520039990"/>
+  <nd ref="1520040018"/>
+  <nd ref="1520040028"/>
+  <nd ref="35215920"/>
+  <nd ref="1490534125"/>
+  <nd ref="1490534116"/>
+  <nd ref="1552842742"/>
+  <nd ref="675111961"/>
+  <nd ref="1490534129"/>
+  <tag k="landuse" v="residential"/>
+  <tag k="postal_code" v="12487"/>
+ </way>
+ <way id="135771980" visible="true" version="5" changeset="39877998" timestamp="2016-06-08T07:04:47Z" user="anbr" uid="43566">
+  <nd ref="1490534125"/>
+  <nd ref="1490534116"/>
+  <nd ref="456893966"/>
+  <nd ref="588394527"/>
+  <nd ref="588394516"/>
+  <nd ref="1490534109"/>
+  <nd ref="588394576"/>
+  <nd ref="57343367"/>
+  <nd ref="1520039978"/>
+  <nd ref="1520040000"/>
+  <nd ref="35215920"/>
+  <nd ref="1490534125"/>
+  <tag k="construction" v="residential"/>
+  <tag k="landuse" v="construction"/>
+  <tag k="name" v="VivaCity Adlershof"/>
+  <tag k="website" v="http://www.vivacity.de"/>
+ </way>
+ <way id="141873658" visible="true" version="7" changeset="30966282" timestamp="2015-05-10T15:20:30Z" user="Balgofil" uid="95702">
+  <nd ref="588394574"/>
+  <nd ref="1552842735"/>
+  <nd ref="1552842737"/>
+  <nd ref="1552842738"/>
+  <tag k="cycleway:right" v="track"/>
+  <tag k="cycleway:right:bicycle" v="yes"/>
+  <tag k="cycleway:right:smoothness" v="excellent"/>
+  <tag k="cycleway:right:surface" v="asphalt"/>
+  <tag k="highway" v="residential"/>
+  <tag k="lanes" v="1"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Straße am Flugplatz"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="parking:lane:both" v="no_stopping"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="sidewalk" v="right"/>
+  <tag k="smoothness" v="good"/>
+  <tag k="source:maxspeed" v="DE:zone:30"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="3.5"/>
+ </way>
+ <way id="141968807" visible="true" version="7" changeset="30966282" timestamp="2015-05-10T15:20:25Z" user="Balgofil" uid="95702">
+  <nd ref="1552842722"/>
+  <nd ref="1553912619"/>
+  <nd ref="1552842725"/>
+  <tag k="cycleway:right" v="track"/>
+  <tag k="cycleway:right:smoothness" v="excellent"/>
+  <tag k="cycleway:right:surface" v="asphalt"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="lanes" v="1"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Eisenhutweg"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe III"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="parking:lane:both" v="no_stopping"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="ref" v="L 1081"/>
+  <tag k="sidewalk" v="right"/>
+  <tag k="sidewalk:surface" v="paving_stones"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="source:maxspeed" v="DE:urban"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="3.5"/>
+ </way>
+ <way id="141968810" visible="true" version="7" changeset="30966282" timestamp="2015-05-10T15:20:24Z" user="Balgofil" uid="95702">
+  <nd ref="1552842725"/>
+  <nd ref="1553912617"/>
+  <nd ref="1552842714"/>
+  <tag k="cycleway:right" v="track"/>
+  <tag k="cycleway:right:smoothness" v="excellent"/>
+  <tag k="cycleway:right:surface" v="asphalt"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="lanes" v="1"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Eisenhutweg"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe III"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="parking:lane:both" v="no_stopping"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="ref" v="L 1081"/>
+  <tag k="sidewalk" v="right"/>
+  <tag k="sidewalk:surface" v="paving_stones"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="source:maxspeed" v="DE:urban"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="3.5"/>
+ </way>
+ <way id="141968814" visible="true" version="10" changeset="34889225" timestamp="2015-10-26T19:22:09Z" user="mstriewe" uid="292007">
+  <nd ref="473482356"/>
+  <nd ref="1553912615"/>
+  <nd ref="456893971"/>
+  <tag k="bicycle" v="use_sidepath"/>
+  <tag k="cycleway:right" v="track"/>
+  <tag k="cycleway:right:bicycle" v="designated"/>
+  <tag k="cycleway:right:smoothness" v="excellent"/>
+  <tag k="cycleway:right:surface" v="asphalt"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="lanes" v="1"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Eisenhutweg"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe III"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="parking:lane:both" v="no_stopping"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="ref" v="L 1081"/>
+  <tag k="sidewalk" v="right"/>
+  <tag k="sidewalk:surface" v="paving_stones"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="source:maxspeed" v="DE:urban"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="3.5"/>
+ </way>
+ <way id="141968823" visible="true" version="10" changeset="34889225" timestamp="2015-10-26T19:22:09Z" user="mstriewe" uid="292007">
+  <nd ref="456893967"/>
+  <nd ref="1553912611"/>
+  <nd ref="473482356"/>
+  <tag k="bicycle" v="use_sidepath"/>
+  <tag k="cycleway:right" v="track"/>
+  <tag k="cycleway:right:bicycle" v="designated"/>
+  <tag k="cycleway:right:smoothness" v="excellent"/>
+  <tag k="cycleway:right:surface" v="asphalt"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="lanes" v="1"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Eisenhutweg"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe III"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="parking:lane:both" v="no_stopping"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="ref" v="L 1081"/>
+  <tag k="sidewalk" v="right"/>
+  <tag k="sidewalk:surface" v="paving_stones"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="source:maxspeed" v="DE:urban"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="3.5"/>
+ </way>
+ <way id="141968830" visible="true" version="5" changeset="17129880" timestamp="2013-07-28T19:09:39Z" user="anbr" uid="43566">
+  <nd ref="1553912623"/>
+  <nd ref="1552842740"/>
+  <nd ref="1553912606"/>
+  <nd ref="1552842725"/>
+  <tag k="cycleway" v="track"/>
+  <tag k="cycleway:smoothness" v="excellent"/>
+  <tag k="cycleway:surface" v="asphalt"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Eisenhutweg"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe III"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="ref" v="L 1081"/>
+  <tag k="sidewalk" v="both"/>
+  <tag k="sidewalk:surface" v="paving_stones"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="source:maxspeed" v="DE:urban"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="6"/>
+ </way>
+ <way id="141968844" visible="true" version="10" changeset="30966282" timestamp="2015-05-10T15:20:24Z" user="Balgofil" uid="95702">
+  <nd ref="1552842722"/>
+  <nd ref="1553912618"/>
+  <nd ref="1553912616"/>
+  <nd ref="1552842714"/>
+  <nd ref="588394536"/>
+  <nd ref="456893970"/>
+  <nd ref="588394545"/>
+  <nd ref="586791113"/>
+  <nd ref="456893969"/>
+  <nd ref="456893967"/>
+  <nd ref="1553912612"/>
+  <nd ref="1553912614"/>
+  <nd ref="456893971"/>
+  <nd ref="456893972"/>
+  <nd ref="588394574"/>
+  <nd ref="1553912620"/>
+  <nd ref="1552842729"/>
+  <nd ref="456893973"/>
+  <nd ref="1552842722"/>
+  <tag k="cycleway:right" v="track"/>
+  <tag k="cycleway:right:bicycle" v="yes"/>
+  <tag k="cycleway:right:smoothness" v="excellent"/>
+  <tag k="cycleway:right:surface" v="asphalt"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="junction" v="roundabout"/>
+  <tag k="lanes" v="1"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Eisenhutweg"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe III"/>
+  <tag k="parking:lane:both" v="no_stopping"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="ref" v="L 1081"/>
+  <tag k="sidewalk" v="right"/>
+  <tag k="sidewalk:surface" v="paving_stones"/>
+  <tag k="smoothness" v="excellent"/>
+  <tag k="source:maxspeed" v="DE:urban"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="5.6"/>
+ </way>
+ <way id="141968853" visible="true" version="8" changeset="29018366" timestamp="2015-02-22T11:28:20Z" user="ber21moa" uid="2567603">
+  <nd ref="473482356"/>
+  <nd ref="837696912"/>
+  <nd ref="663353215"/>
+  <nd ref="456893977"/>
+  <nd ref="663353216"/>
+  <nd ref="301292499"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="cycleway" v="track"/>
+  <tag k="cycleway:bicycle" v="designated"/>
+  <tag k="cycleway:smoothness" v="good"/>
+  <tag k="cycleway:surface" v="asphalt"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Eisenhutweg"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe III"/>
+  <tag k="parking:lane:both" v="parallel"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="ref" v="L 1081"/>
+  <tag k="sidewalk" v="both"/>
+  <tag k="smoothness" v="good"/>
+  <tag k="source:maxspeed" v="DE:urban"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="8.5"/>
+ </way>
+ <way id="141968913" visible="true" version="6" changeset="30966282" timestamp="2015-05-10T15:20:30Z" user="Balgofil" uid="95702">
+  <nd ref="1552842738"/>
+  <nd ref="1553912622"/>
+  <nd ref="1552842729"/>
+  <tag k="cycleway:right" v="track"/>
+  <tag k="cycleway:right:bicycle" v="yes"/>
+  <tag k="cycleway:right:smoothness" v="excellent"/>
+  <tag k="cycleway:right:surface" v="asphalt"/>
+  <tag k="highway" v="residential"/>
+  <tag k="lanes" v="1"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Straße am Flugplatz"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="parking:lane:both" v="no_stopping"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="sidewalk" v="right"/>
+  <tag k="smoothness" v="good"/>
+  <tag k="source:maxspeed" v="DE:zone:30"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="3.5"/>
+ </way>
+ <way id="152447118" visible="true" version="6" changeset="38242848" timestamp="2016-04-02T06:09:05Z" user="anbr" uid="43566">
+  <nd ref="539796470"/>
+  <nd ref="1652675119"/>
+  <nd ref="1094136836"/>
+  <nd ref="1740554995"/>
+  <nd ref="1740554945"/>
+  <nd ref="492462869"/>
+  <nd ref="492462420"/>
+  <nd ref="492462424"/>
+  <nd ref="492462413"/>
+  <nd ref="675112648"/>
+  <nd ref="1652675072"/>
+  <nd ref="1552842740"/>
+  <tag k="highway" v="residential"/>
+  <tag k="lanes" v="1"/>
+  <tag k="lit" v="yes"/>
+  <tag k="maxspeed" v="30"/>
+  <tag k="name" v="Akeleiweg"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="sidewalk" v="both"/>
+  <tag k="smoothness" v="intermediate"/>
+  <tag k="surface" v="asphalt"/>
+  <tag k="width" v="5"/>
+ </way>
+ <way id="162240771" visible="true" version="2" changeset="13043875" timestamp="2012-09-09T12:36:00Z" user="Balgofil" uid="95702">
+  <nd ref="1741626190"/>
+  <nd ref="1741626193"/>
+  <nd ref="1741626202"/>
+  <nd ref="1741626205"/>
+  <nd ref="1906766705"/>
+  <nd ref="1741626211"/>
+  <nd ref="1741626208"/>
+  <nd ref="1741626217"/>
+  <nd ref="1741626219"/>
+  <nd ref="1906766704"/>
+  <nd ref="1741626222"/>
+  <nd ref="1741626221"/>
+  <nd ref="1741626223"/>
+  <nd ref="1741626196"/>
+  <nd ref="1741626190"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="192530591" visible="true" version="2" changeset="18314946" timestamp="2013-10-12T13:26:05Z" user="Balgofil" uid="95702">
+  <nd ref="2030860679"/>
+  <nd ref="2030860674"/>
+  <nd ref="2030860670"/>
+  <nd ref="2030860673"/>
+  <nd ref="2030860679"/>
+  <tag k="addr:city" v="Berlin"/>
+  <tag k="addr:country" v="DE"/>
+  <tag k="addr:housenumber" v="63E"/>
+  <tag k="addr:postcode" v="12487"/>
+  <tag k="addr:street" v="Arthur-Müller-Straße"/>
+  <tag k="addr:suburb" v="Johannisthal"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="290288351" visible="true" version="2" changeset="33645334" timestamp="2015-08-28T14:28:15Z" user="Balgofil" uid="95702">
+  <nd ref="2938462111"/>
+  <nd ref="2938462110"/>
+  <nd ref="2938462112"/>
+  <nd ref="2938462113"/>
+  <nd ref="2938462111"/>
+  <tag k="landuse" v="forest"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="needleleaved"/>
+ </way>
+ <way id="290288354" visible="true" version="5" changeset="39877998" timestamp="2016-06-08T07:04:47Z" user="anbr" uid="43566">
+  <nd ref="443598369"/>
+  <nd ref="443598389"/>
+  <nd ref="1906767049"/>
+  <nd ref="1906767047"/>
+  <nd ref="2938462106"/>
+  <nd ref="1906767042"/>
+  <nd ref="3884980642"/>
+  <nd ref="443598369"/>
+  <tag k="construction" v="residential"/>
+  <tag k="landuse" v="construction"/>
+  <tag k="name" v="VivaCity Adlershof"/>
+  <tag k="website" v="http://www.vivacity.de"/>
+ </way>
+ <way id="360099557" visible="true" version="1" changeset="32575592" timestamp="2015-07-12T07:06:41Z" user="Balgofil" uid="95702">
+  <nd ref="3647000398"/>
+  <nd ref="3647000397"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="highway" v="footway"/>
+  <tag k="smoothness" v="bad"/>
+  <tag k="surface" v="gravel"/>
+ </way>
+ <way id="399028961" visible="true" version="1" changeset="37344404" timestamp="2016-02-21T11:01:19Z" user="Balgofil" uid="95702">
+  <nd ref="4017682637"/>
+  <nd ref="588394564"/>
+  <nd ref="4017682636"/>
+  <tag k="bench" v="yes"/>
+  <tag k="bin" v="yes"/>
+  <tag k="bus" v="yes"/>
+  <tag k="name" v="Akeleiweg"/>
+  <tag k="passenger_information_display" v="no"/>
+  <tag k="public_transport" v="platform"/>
+  <tag k="shelter" v="yes"/>
+  <tag k="tactile_paving" v="yes"/>
+ </way>
+ <way id="399028962" visible="true" version="1" changeset="37344404" timestamp="2016-02-21T11:01:19Z" user="Balgofil" uid="95702">
+  <nd ref="4017682634"/>
+  <nd ref="663346674"/>
+  <nd ref="4017682635"/>
+  <tag k="bench" v="yes"/>
+  <tag k="bin" v="yes"/>
+  <tag k="bus" v="yes"/>
+  <tag k="name" v="Akeleiweg"/>
+  <tag k="passenger_information_display" v="no"/>
+  <tag k="public_transport" v="platform"/>
+  <tag k="shelter" v="yes"/>
+  <tag k="tactile_paving" v="yes"/>
+ </way>
+ <way id="444715897" visible="true" version="3" changeset="47907283" timestamp="2017-04-18T14:00:00Z" user="milet" uid="5614428">
+  <nd ref="4421790166"/>
+  <nd ref="4421790163"/>
+  <nd ref="4421790162"/>
+  <nd ref="4421790165"/>
+  <nd ref="4421790164"/>
+  <nd ref="4421790167"/>
+  <nd ref="4421790168"/>
+  <nd ref="4421790169"/>
+  <nd ref="4421790170"/>
+  <nd ref="4421790171"/>
+  <nd ref="4421790173"/>
+  <nd ref="4421790179"/>
+  <nd ref="4421790181"/>
+  <nd ref="4421790175"/>
+  <nd ref="4421790176"/>
+  <nd ref="4421790178"/>
+  <nd ref="4421790185"/>
+  <nd ref="4421790183"/>
+  <nd ref="4421790186"/>
+  <nd ref="4421790184"/>
+  <nd ref="4421790189"/>
+  <nd ref="4421790191"/>
+  <nd ref="4421790190"/>
+  <nd ref="4421790188"/>
+  <nd ref="4421790187"/>
+  <nd ref="4421790182"/>
+  <nd ref="4421790180"/>
+  <nd ref="4421790172"/>
+  <nd ref="4421790166"/>
+  <tag k="boundary" v="protected_area"/>
+  <tag k="name" v="LSG ehemaliges Flugfeld Johannisthal"/>
+  <tag k="protect_class" v="5"/>
+  <tag k="protection_title" v="Landschaftsschutzgebiet"/>
+  <tag k="ref" v="LSG-48"/>
+  <tag k="source_ref" v="http://www.stadtentwicklung.berlin.de/natur_gruen/naturschutz/schutzgebiete/de/lsg/uebersicht.shtml"/>
+  <tag k="WDPA_ID:ref" v="322004"/>
+ </way>
+ <relation id="18812" visible="true" version="177" changeset="45022524" timestamp="2017-01-09T10:22:10Z" user="Axel Mauruszat" uid="171055">
+  <member type="relation" ref="174283" role=""/>
+  <member type="relation" ref="174255" role=""/>
+  <member type="relation" ref="174254" role=""/>
+  <member type="relation" ref="17697" role=""/>
+  <member type="relation" ref="18856" role=""/>
+  <member type="relation" ref="18908" role=""/>
+  <member type="relation" ref="52425" role=""/>
+  <member type="relation" ref="56341" role=""/>
+  <member type="relation" ref="56347" role=""/>
+  <member type="relation" ref="2110347" role=""/>
+  <member type="relation" ref="51810" role=""/>
+  <member type="relation" ref="56361" role=""/>
+  <member type="relation" ref="57737" role=""/>
+  <member type="relation" ref="57732" role=""/>
+  <member type="relation" ref="304651" role=""/>
+  <member type="relation" ref="215431" role=""/>
+  <member type="relation" ref="241603" role=""/>
+  <member type="relation" ref="88363" role=""/>
+  <member type="relation" ref="58147" role=""/>
+  <member type="relation" ref="36598" role=""/>
+  <member type="relation" ref="87439" role=""/>
+  <member type="relation" ref="165983" role=""/>
+  <member type="relation" ref="167346" role=""/>
+  <member type="relation" ref="169925" role=""/>
+  <member type="relation" ref="74403" role=""/>
+  <member type="relation" ref="106490" role=""/>
+  <member type="relation" ref="282444" role=""/>
+  <member type="relation" ref="77797" role=""/>
+  <member type="relation" ref="931834" role=""/>
+  <member type="relation" ref="35032" role=""/>
+  <member type="relation" ref="102654" role=""/>
+  <member type="relation" ref="1227013" role=""/>
+  <member type="relation" ref="35055" role=""/>
+  <member type="relation" ref="93861" role=""/>
+  <member type="relation" ref="80402" role=""/>
+  <member type="relation" ref="2298563" role=""/>
+  <member type="relation" ref="78064" role=""/>
+  <member type="relation" ref="64377" role=""/>
+  <member type="relation" ref="6279755" role=""/>
+  <member type="relation" ref="76248" role=""/>
+  <member type="relation" ref="63739" role=""/>
+  <member type="relation" ref="63718" role=""/>
+  <member type="relation" ref="63965" role=""/>
+  <member type="relation" ref="63740" role=""/>
+  <member type="relation" ref="1417802" role=""/>
+  <member type="relation" ref="75392" role=""/>
+  <member type="relation" ref="48515" role=""/>
+  <member type="relation" ref="39065" role=""/>
+  <member type="relation" ref="1023864" role=""/>
+  <member type="relation" ref="227622" role=""/>
+  <member type="relation" ref="67574" role=""/>
+  <member type="relation" ref="17682" role=""/>
+  <member type="relation" ref="61050" role=""/>
+  <member type="relation" ref="51804" role=""/>
+  <member type="relation" ref="27417" role=""/>
+  <member type="relation" ref="169942" role=""/>
+  <member type="relation" ref="863436" role=""/>
+  <member type="relation" ref="812660" role=""/>
+  <member type="relation" ref="17708" role=""/>
+  <member type="relation" ref="15642" role=""/>
+  <member type="relation" ref="27415" role=""/>
+  <member type="relation" ref="295555" role=""/>
+  <member type="relation" ref="17701" role=""/>
+  <member type="relation" ref="20063" role=""/>
+  <member type="relation" ref="156489" role=""/>
+  <member type="relation" ref="1639447" role=""/>
+  <member type="relation" ref="238132" role=""/>
+  <member type="relation" ref="1566261" role=""/>
+  <member type="relation" ref="35042" role=""/>
+  <member type="relation" ref="35013" role=""/>
+  <member type="relation" ref="1982833" role=""/>
+  <member type="relation" ref="77100" role=""/>
+  <member type="relation" ref="78432" role=""/>
+  <member type="relation" ref="76247" role=""/>
+  <member type="relation" ref="57822" role=""/>
+  <member type="relation" ref="64298" role=""/>
+  <member type="relation" ref="17903" role=""/>
+  <member type="relation" ref="63725" role=""/>
+  <member type="relation" ref="67560" role=""/>
+  <member type="relation" ref="227583" role=""/>
+  <member type="relation" ref="238058" role=""/>
+  <member type="relation" ref="103166" role=""/>
+  <member type="relation" ref="53981" role=""/>
+  <member type="relation" ref="6168647" role=""/>
+  <member type="relation" ref="300962" role=""/>
+  <member type="relation" ref="305650" role=""/>
+  <member type="relation" ref="6814566" role=""/>
+  <member type="relation" ref="67289" role=""/>
+  <member type="relation" ref="215362" role=""/>
+  <member type="relation" ref="58164" role=""/>
+  <member type="relation" ref="1022001" role=""/>
+  <member type="relation" ref="6862120" role=""/>
+  <member type="relation" ref="111543" role=""/>
+  <member type="relation" ref="147324" role=""/>
+  <member type="relation" ref="56436" role=""/>
+  <member type="relation" ref="165138" role=""/>
+  <member type="relation" ref="1566260" role=""/>
+  <member type="relation" ref="1231719" role=""/>
+  <member type="relation" ref="5804140" role=""/>
+  <member type="relation" ref="78434" role=""/>
+  <member type="relation" ref="78436" role=""/>
+  <member type="relation" ref="78036" role=""/>
+  <member type="relation" ref="63852" role=""/>
+  <member type="relation" ref="228506" role=""/>
+  <member type="relation" ref="229592" role=""/>
+  <member type="relation" ref="6861934" role=""/>
+  <member type="relation" ref="85934" role=""/>
+  <member type="relation" ref="85352" role=""/>
+  <member type="relation" ref="1423630" role=""/>
+  <member type="relation" ref="76873" role=""/>
+  <tag k="name" v="Buslinien in Berlin"/>
+  <tag k="network" v="Verkehrsverbund Berlin-Brandenburg"/>
+  <tag k="operator" v="BVG"/>
+  <tag k="type" v="collection"/>
+ </relation>
+ <relation id="35032" visible="true" version="177" changeset="44675653" timestamp="2016-12-26T06:17:37Z" user="Balgofil" uid="95702">
+  <member type="node" ref="851573120" role="stop"/>
+  <member type="way" ref="383449005" role="platform"/>
+  <member type="node" ref="851572884" role="stop"/>
+  <member type="way" ref="399062398" role="platform"/>
+  <member type="node" ref="3239487997" role="stop"/>
+  <member type="way" ref="399062427" role="platform"/>
+  <member type="node" ref="3838904301" role="stop"/>
+  <member type="way" ref="399062374" role="platform"/>
+  <member type="node" ref="3239487995" role="stop"/>
+  <member type="way" ref="399062414" role="platform"/>
+  <member type="node" ref="3239487991" role="stop"/>
+  <member type="way" ref="399062378" role="platform"/>
+  <member type="node" ref="851572256" role="stop"/>
+  <member type="way" ref="399062430" role="platform"/>
+  <member type="node" ref="851573249" role="stop"/>
+  <member type="way" ref="399062385" role="platform"/>
+  <member type="node" ref="851573129" role="stop"/>
+  <member type="way" ref="399062365" role="platform"/>
+  <member type="node" ref="851572263" role="stop"/>
+  <member type="way" ref="399062444" role="platform"/>
+  <member type="node" ref="851572887" role="stop"/>
+  <member type="way" ref="399062383" role="platform"/>
+  <member type="node" ref="851572892" role="stop"/>
+  <member type="way" ref="389252187" role="platform"/>
+  <member type="node" ref="301293300" role="stop"/>
+  <member type="way" ref="389252204" role="platform"/>
+  <member type="node" ref="1568240825" role="stop"/>
+  <member type="way" ref="389252179" role="platform"/>
+  <member type="node" ref="851572829" role="stop"/>
+  <member type="way" ref="389252201" role="platform"/>
+  <member type="node" ref="301292770" role="stop"/>
+  <member type="way" ref="383449011" role="platform"/>
+  <member type="node" ref="671564316" role="stop"/>
+  <member type="way" ref="383448990" role="platform"/>
+  <member type="node" ref="837696418" role="stop"/>
+  <member type="way" ref="399028978" role="platform"/>
+  <member type="node" ref="1553912606" role="stop"/>
+  <member type="way" ref="399028961" role="platform"/>
+  <member type="node" ref="1094134880" role="stop"/>
+  <member type="way" ref="399028980" role="platform"/>
+  <member type="node" ref="837697309" role="stop"/>
+  <member type="way" ref="385969276" role="platform"/>
+  <member type="node" ref="837696551" role="stop"/>
+  <member type="way" ref="389175764" role="platform"/>
+  <member type="node" ref="837697665" role="stop"/>
+  <member type="way" ref="399028976" role="platform"/>
+  <member type="node" ref="1552842697" role="stop"/>
+  <member type="way" ref="399028989" role="platform"/>
+  <member type="node" ref="853380498" role="stop"/>
+  <member type="way" ref="385969256" role="platform"/>
+  <member type="node" ref="559613084" role="stop"/>
+  <member type="way" ref="385969253" role="platform"/>
+  <member type="node" ref="837696560" role="stop"/>
+  <member type="way" ref="385969279" role="platform"/>
+  <member type="node" ref="837697531" role="stop"/>
+  <member type="way" ref="385969269" role="platform"/>
+  <member type="node" ref="837696451" role="stop"/>
+  <member type="way" ref="383273363" role="platform"/>
+  <member type="node" ref="853380691" role="stop"/>
+  <member type="way" ref="71746022" role="platform"/>
+  <member type="node" ref="774980753" role="stop"/>
+  <member type="way" ref="399028968" role="platform"/>
+  <member type="node" ref="4003695352" role="stop"/>
+  <member type="way" ref="397582189" role="platform"/>
+  <member type="way" ref="71746025" role=""/>
+  <member type="way" ref="152354562" role=""/>
+  <member type="way" ref="152354561" role=""/>
+  <member type="way" ref="71596046" role=""/>
+  <member type="way" ref="31097261" role=""/>
+  <member type="way" ref="152354581" role=""/>
+  <member type="way" ref="152354605" role=""/>
+  <member type="way" ref="148117208" role=""/>
+  <member type="way" ref="317663475" role=""/>
+  <member type="way" ref="152354568" role=""/>
+  <member type="way" ref="71596009" role=""/>
+  <member type="way" ref="450661505" role=""/>
+  <member type="way" ref="153260648" role=""/>
+  <member type="way" ref="153260647" role=""/>
+  <member type="way" ref="152494988" role=""/>
+  <member type="way" ref="152354573" role=""/>
+  <member type="way" ref="71595992" role=""/>
+  <member type="way" ref="152354572" role=""/>
+  <member type="way" ref="450661506" role=""/>
+  <member type="way" ref="211399810" role=""/>
+  <member type="way" ref="152466396" role=""/>
+  <member type="way" ref="152466392" role=""/>
+  <member type="way" ref="152466393" role=""/>
+  <member type="way" ref="152466412" role=""/>
+  <member type="way" ref="318210381" role=""/>
+  <member type="way" ref="144909691" role=""/>
+  <member type="way" ref="318210385" role=""/>
+  <member type="way" ref="152466431" role=""/>
+  <member type="way" ref="81096611" role=""/>
+  <member type="way" ref="169076556" role=""/>
+  <member type="way" ref="190083616" role=""/>
+  <member type="way" ref="318210395" role=""/>
+  <member type="way" ref="143308570" role=""/>
+  <member type="way" ref="283317455" role=""/>
+  <member type="way" ref="239335494" role=""/>
+  <member type="way" ref="461093310" role=""/>
+  <member type="way" ref="190083618" role=""/>
+  <member type="way" ref="24214694" role=""/>
+  <member type="way" ref="143308590" role=""/>
+  <member type="way" ref="143308581" role=""/>
+  <member type="way" ref="143308538" role=""/>
+  <member type="way" ref="143308532" role=""/>
+  <member type="way" ref="46039051" role=""/>
+  <member type="way" ref="141968853" role=""/>
+  <member type="way" ref="141968814" role=""/>
+  <member type="way" ref="141968844" role=""/>
+  <member type="way" ref="141968807" role=""/>
+  <member type="way" ref="141968830" role=""/>
+  <member type="way" ref="141968799" role=""/>
+  <member type="way" ref="407167843" role=""/>
+  <member type="way" ref="141968860" role=""/>
+  <member type="way" ref="141968909" role=""/>
+  <member type="way" ref="81414521" role=""/>
+  <member type="way" ref="70130312" role=""/>
+  <member type="way" ref="70130300" role=""/>
+  <member type="way" ref="141968897" role=""/>
+  <member type="way" ref="141968903" role=""/>
+  <member type="way" ref="141968887" role=""/>
+  <member type="way" ref="129519181" role=""/>
+  <member type="way" ref="11279774" role=""/>
+  <member type="way" ref="132688411" role=""/>
+  <member type="way" ref="192530508" role=""/>
+  <member type="way" ref="10860201" role=""/>
+  <member type="way" ref="194896804" role=""/>
+  <member type="way" ref="319539204" role=""/>
+  <member type="way" ref="361919671" role=""/>
+  <member type="way" ref="329019785" role=""/>
+  <member type="way" ref="145009985" role=""/>
+  <member type="way" ref="54894849" role=""/>
+  <member type="way" ref="139927369" role=""/>
+  <member type="way" ref="139927366" role=""/>
+  <member type="way" ref="379649718" role=""/>
+  <member type="way" ref="458953716" role=""/>
+  <member type="way" ref="81639669" role=""/>
+  <member type="way" ref="54894849" role=""/>
+  <member type="way" ref="72230301" role=""/>
+  <member type="way" ref="11279622" role=""/>
+  <member type="way" ref="435912753" role=""/>
+  <member type="way" ref="435912754" role=""/>
+  <member type="way" ref="143407275" role=""/>
+  <member type="way" ref="26707736" role=""/>
+  <member type="way" ref="8025429" role=""/>
+  <member type="way" ref="431353991" role=""/>
+  <member type="way" ref="143407274" role=""/>
+  <member type="way" ref="25771503" role=""/>
+  <member type="way" ref="5060711" role=""/>
+  <member type="way" ref="25771534" role=""/>
+  <tag k="from" v="Siriusstraße"/>
+  <tag k="name" v="Buslinie 160: Siriusstraße =&gt; Hasselwerderstraße"/>
+  <tag k="network" v="Verkehrsverbund Berlin-Brandenburg"/>
+  <tag k="network:short" v="VBB"/>
+  <tag k="operator" v="Berliner Verkehrsbetriebe"/>
+  <tag k="operator:short" v="BVG"/>
+  <tag k="public_transport:version" v="2"/>
+  <tag k="ref" v="160"/>
+  <tag k="route" v="bus"/>
+  <tag k="to" v="Hasselwerderstraße"/>
+  <tag k="type" v="route"/>
+ </relation>
+ <relation id="190268" visible="true" version="2" changeset="47595269" timestamp="2017-04-09T15:02:43Z" user="sebastic" uid="665748">
+  <member type="way" ref="38574197" role="outer"/>
+  <member type="way" ref="38574198" role="inner"/>
+  <tag k="area:highway" v="footway"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="lit" v="no"/>
+  <tag k="smoothness" v="bad"/>
+  <tag k="surface" v="gravel"/>
+  <tag k="type" v="multipolygon"/>
+ </relation>
+ <relation id="451662" visible="true" version="33" changeset="38242848" timestamp="2016-04-02T06:11:35Z" user="anbr" uid="43566">
+  <member type="way" ref="141968887" role="both"/>
+  <member type="way" ref="141968903" role="both"/>
+  <member type="way" ref="141968897" role="both"/>
+  <member type="way" ref="70130300" role="both"/>
+  <member type="way" ref="70130312" role="both"/>
+  <member type="way" ref="81414521" role="both"/>
+  <member type="way" ref="141968909" role="both"/>
+  <member type="way" ref="141968860" role="both"/>
+  <member type="way" ref="407167843" role="both"/>
+  <member type="way" ref="141968799" role="both"/>
+  <member type="way" ref="141968830" role="both"/>
+  <member type="way" ref="141968814" role="positive"/>
+  <member type="way" ref="141968844" role="positive"/>
+  <member type="way" ref="141968807" role="positive"/>
+  <member type="way" ref="141968810" role="negative"/>
+  <member type="way" ref="141968823" role="negative"/>
+  <member type="way" ref="141968853" role="both"/>
+  <member type="way" ref="46039051" role="negative"/>
+  <member type="way" ref="143308532" role="negative"/>
+  <member type="way" ref="143308538" role="negative"/>
+  <member type="way" ref="143308546" role="negative"/>
+  <member type="way" ref="143308555" role="negative"/>
+  <member type="way" ref="81639675" role="negative"/>
+  <member type="way" ref="46150483" role="positive"/>
+  <member type="way" ref="206579057" role="positive"/>
+  <member type="way" ref="206579058" role="positive"/>
+  <member type="way" ref="46039050" role="positive"/>
+  <member type="way" ref="143308535" role="positive"/>
+  <member type="way" ref="143308542" role="positive"/>
+  <member type="way" ref="143308552" role="positive"/>
+  <member type="way" ref="143308549" role="positive"/>
+  <member type="way" ref="52036180" role="positive"/>
+  <member type="way" ref="206889078" role="both"/>
+  <member type="way" ref="45875465" role="both"/>
+  <member type="way" ref="152839428" role="both"/>
+  <member type="way" ref="152839426" role="both"/>
+  <member type="way" ref="166142947" role="both"/>
+  <member type="way" ref="147053824" role="both"/>
+  <member type="way" ref="178028203" role="both"/>
+  <member type="way" ref="178028204" role="both"/>
+  <member type="way" ref="321096467" role="both"/>
+  <member type="way" ref="11389403" role="both"/>
+  <member type="way" ref="25042028" role="both"/>
+  <member type="way" ref="204977490" role="both"/>
+  <member type="way" ref="159515427" role="both"/>
+  <member type="way" ref="70553241" role="positive"/>
+  <member type="way" ref="180797804" role="positive"/>
+  <member type="way" ref="180797805" role="positive"/>
+  <member type="way" ref="26708309" role="negative"/>
+  <member type="way" ref="180797806" role="negative"/>
+  <member type="way" ref="180797802" role="negative"/>
+  <member type="way" ref="237122662" role="negative"/>
+  <tag k="TMC:cid_58:tabcd_1:Class" v="Road"/>
+  <tag k="TMC:cid_58:tabcd_1:LCLversion" v="9.00"/>
+  <tag k="TMC:cid_58:tabcd_1:LocationCode" v="9331"/>
+  <tag k="type" v="tmc"/>
+ </relation>
+ <relation id="1119047" visible="true" version="76" changeset="44601251" timestamp="2016-12-22T20:56:15Z" user="anbr" uid="43566">
+  <member type="node" ref="301287923" role="stop"/>
+  <member type="way" ref="397582189" role="platform"/>
+  <member type="node" ref="690916523" role="stop"/>
+  <member type="way" ref="70130301" role="platform"/>
+  <member type="node" ref="3953077148" role="stop"/>
+  <member type="way" ref="383273364" role="platform"/>
+  <member type="node" ref="1652675071" role="stop"/>
+  <member type="way" ref="385969268" role="platform"/>
+  <member type="node" ref="247354058" role="stop"/>
+  <member type="way" ref="385907605" role="platform"/>
+  <member type="node" ref="837697146" role="stop"/>
+  <member type="way" ref="385969255" role="platform"/>
+  <member type="node" ref="663346679" role="stop"/>
+  <member type="way" ref="399028990" role="platform"/>
+  <member type="node" ref="837696686" role="stop"/>
+  <member type="way" ref="399028975" role="platform"/>
+  <member type="node" ref="837697211" role="stop"/>
+  <member type="way" ref="389175763" role="platform"/>
+  <member type="node" ref="837697620" role="stop"/>
+  <member type="way" ref="385969278" role="platform"/>
+  <member type="node" ref="837697182" role="stop"/>
+  <member type="way" ref="399028979" role="platform"/>
+  <member type="node" ref="837696912" role="stop"/>
+  <member type="way" ref="399028962" role="platform"/>
+  <member type="node" ref="837696524" role="stop"/>
+  <member type="way" ref="399028977" role="platform"/>
+  <member type="node" ref="1560223236" role="stop"/>
+  <member type="way" ref="383448984" role="platform"/>
+  <member type="node" ref="852932398" role="stop"/>
+  <member type="way" ref="383449013" role="platform"/>
+  <member type="node" ref="35215999" role="stop"/>
+  <member type="way" ref="389252182" role="platform"/>
+  <member type="node" ref="851572527" role="stop"/>
+  <member type="way" ref="389252219" role="platform"/>
+  <member type="node" ref="721167477" role="stop"/>
+  <member type="way" ref="389252175" role="platform"/>
+  <member type="node" ref="851572824" role="stop"/>
+  <member type="way" ref="389252205" role="platform"/>
+  <member type="node" ref="851572947" role="stop"/>
+  <member type="way" ref="389252188" role="platform"/>
+  <member type="node" ref="851573218" role="stop"/>
+  <member type="way" ref="399062384" role="platform"/>
+  <member type="node" ref="851572302" role="stop"/>
+  <member type="way" ref="399062445" role="platform"/>
+  <member type="node" ref="851573129" role="stop"/>
+  <member type="way" ref="399062364" role="platform"/>
+  <member type="node" ref="851573226" role="stop"/>
+  <member type="way" ref="399062386" role="platform"/>
+  <member type="node" ref="851572355" role="stop"/>
+  <member type="way" ref="399062431" role="platform"/>
+  <member type="node" ref="3239487994" role="stop"/>
+  <member type="way" ref="399062379" role="platform"/>
+  <member type="node" ref="3239487996" role="stop"/>
+  <member type="way" ref="399062415" role="platform"/>
+  <member type="node" ref="4017982209" role="stop"/>
+  <member type="way" ref="399062375" role="platform"/>
+  <member type="node" ref="693004313" role="stop"/>
+  <member type="way" ref="399062426" role="platform"/>
+  <member type="node" ref="664208784" role="stop"/>
+  <member type="way" ref="399062399" role="platform"/>
+  <member type="node" ref="303061713" role="stop"/>
+  <member type="way" ref="389252216" role="platform"/>
+  <member type="node" ref="851573258" role="stop"/>
+  <member type="way" ref="389252218" role="platform"/>
+  <member type="node" ref="851572165" role="stop"/>
+  <member type="way" ref="383449008" role="platform"/>
+  <member type="node" ref="851573120" role="stop"/>
+  <member type="way" ref="383449005" role="platform"/>
+  <member type="way" ref="71746014" role=""/>
+  <member type="way" ref="145009975" role=""/>
+  <member type="way" ref="30895327" role=""/>
+  <member type="way" ref="95221543" role=""/>
+  <member type="way" ref="72230301" role=""/>
+  <member type="way" ref="11279544" role=""/>
+  <member type="way" ref="435912755" role=""/>
+  <member type="way" ref="329019786" role=""/>
+  <member type="way" ref="216169539" role=""/>
+  <member type="way" ref="319539205" role=""/>
+  <member type="way" ref="194895343" role=""/>
+  <member type="way" ref="192530508" role=""/>
+  <member type="way" ref="132688411" role=""/>
+  <member type="way" ref="11279774" role=""/>
+  <member type="way" ref="129519181" role=""/>
+  <member type="way" ref="141968887" role=""/>
+  <member type="way" ref="141968903" role=""/>
+  <member type="way" ref="141968897" role=""/>
+  <member type="way" ref="70130300" role=""/>
+  <member type="way" ref="70130312" role=""/>
+  <member type="way" ref="81414521" role=""/>
+  <member type="way" ref="141968909" role=""/>
+  <member type="way" ref="141968860" role=""/>
+  <member type="way" ref="407167843" role=""/>
+  <member type="way" ref="141968799" role=""/>
+  <member type="way" ref="141968830" role=""/>
+  <member type="way" ref="141968810" role=""/>
+  <member type="way" ref="141968844" role=""/>
+  <member type="way" ref="141968823" role=""/>
+  <member type="way" ref="141968853" role=""/>
+  <member type="way" ref="46150483" role=""/>
+  <member type="way" ref="206579057" role=""/>
+  <member type="way" ref="206579058" role=""/>
+  <member type="way" ref="46039050" role=""/>
+  <member type="way" ref="143308587" role=""/>
+  <member type="way" ref="24214694" role=""/>
+  <member type="way" ref="190083618" role=""/>
+  <member type="way" ref="461093310" role=""/>
+  <member type="way" ref="239335494" role=""/>
+  <member type="way" ref="283317455" role=""/>
+  <member type="way" ref="143308570" role=""/>
+  <member type="way" ref="318210395" role=""/>
+  <member type="way" ref="190083616" role=""/>
+  <member type="way" ref="46150481" role=""/>
+  <member type="way" ref="318210396" role=""/>
+  <member type="way" ref="152466425" role=""/>
+  <member type="way" ref="196674470" role=""/>
+  <member type="way" ref="196674479" role=""/>
+  <member type="way" ref="156066225" role=""/>
+  <member type="way" ref="156066227" role=""/>
+  <member type="way" ref="266150543" role=""/>
+  <member type="way" ref="318210381" role=""/>
+  <member type="way" ref="152466412" role=""/>
+  <member type="way" ref="152466393" role=""/>
+  <member type="way" ref="152466392" role=""/>
+  <member type="way" ref="152466396" role=""/>
+  <member type="way" ref="211399810" role=""/>
+  <member type="way" ref="450661506" role=""/>
+  <member type="way" ref="152354572" role=""/>
+  <member type="way" ref="71595992" role=""/>
+  <member type="way" ref="152354573" role=""/>
+  <member type="way" ref="152494988" role=""/>
+  <member type="way" ref="153260647" role=""/>
+  <member type="way" ref="153260648" role=""/>
+  <member type="way" ref="450661505" role=""/>
+  <member type="way" ref="71596009" role=""/>
+  <member type="way" ref="152354568" role=""/>
+  <member type="way" ref="317663475" role=""/>
+  <member type="way" ref="148117208" role=""/>
+  <member type="way" ref="152354605" role=""/>
+  <member type="way" ref="152354581" role=""/>
+  <member type="way" ref="31097261" role=""/>
+  <member type="way" ref="71596046" role=""/>
+  <member type="way" ref="152354561" role=""/>
+  <member type="way" ref="152354562" role=""/>
+  <member type="way" ref="71596043" role=""/>
+  <member type="way" ref="152354689" role=""/>
+  <member type="way" ref="384222462" role=""/>
+  <member type="way" ref="144909694" role=""/>
+  <member type="way" ref="152892288" role=""/>
+  <tag k="alternate" v="no"/>
+  <tag k="from" v="Hasselwerderstraße"/>
+  <tag k="name" v="Buslinie 160: Hasselwerderstraße =&gt; Siriusstraße"/>
+  <tag k="network" v="Verkehrsverbund Berlin-Brandenburg"/>
+  <tag k="network:short" v="VBB"/>
+  <tag k="operator" v="Berliner Verkehrsbetriebe"/>
+  <tag k="operator:short" v="BVG"/>
+  <tag k="public_transport:version" v="2"/>
+  <tag k="ref" v="160"/>
+  <tag k="route" v="bus"/>
+  <tag k="to" v="Siriusstraße"/>
+  <tag k="type" v="route"/>
+ </relation>
+ <relation id="1119069" visible="true" version="7" changeset="37344404" timestamp="2016-02-21T11:01:24Z" user="Balgofil" uid="95702">
+  <member type="way" ref="399028962" role="platform"/>
+  <member type="node" ref="837696912" role="stop"/>
+  <member type="way" ref="399028961" role="platform"/>
+  <member type="node" ref="1553912606" role="stop"/>
+  <tag k="name" v="Akeleiweg"/>
+  <tag k="network" v="Verkehrsverbund Berlin-Brandenburg"/>
+  <tag k="network:short" v="VBB"/>
+  <tag k="operator" v="Berliner Verkehrsbetriebe"/>
+  <tag k="operator:short" v="BVG"/>
+  <tag k="public_transport" v="stop_area"/>
+  <tag k="type" v="public_transport"/>
+ </relation>
+ <relation id="1119074" visible="true" version="5" changeset="31246441" timestamp="2015-05-18T07:17:04Z" user="workshopaccount" uid="2357880">
+  <member type="relation" ref="35032" role=""/>
+  <member type="relation" ref="1119047" role=""/>
+  <tag k="bus" v="regular"/>
+  <tag k="name" v="Buslinie 160"/>
+  <tag k="network" v="Verkehrsverbund Berlin-Brandenburg"/>
+  <tag k="operator" v="BVG"/>
+  <tag k="ref" v="160"/>
+  <tag k="route_master" v="bus"/>
+  <tag k="type" v="route_master"/>
+ </relation>
+</osm>
