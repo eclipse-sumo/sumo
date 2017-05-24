@@ -61,11 +61,12 @@
 // member method definitions
 // ===========================================================================
 
-GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string &name) :
+GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string &name, bool friendlyPosition) :
     GNEAdditional(id, viewNet, Position(), tag, icon),
     myStartPos(startPos),
     myEndPos(endPos),
     myName(name),
+    myFriendlyPosition(friendlyPosition),
     mySignColor(RGBColor::YELLOW),
     mySignColorSelected(RGBColor::BLUE),
     myTextColor(RGBColor::CYAN),

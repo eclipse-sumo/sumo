@@ -61,8 +61,8 @@
 // method definitions
 // ===========================================================================
 
-GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines) :
-    GNEStoppingPlace(id, viewNet, SUMO_TAG_CONTAINER_STOP, ICON_CONTAINERSTOP, lane, startPos, endPos, name),
+GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines, bool friendlyPosition) :
+    GNEStoppingPlace(id, viewNet, SUMO_TAG_CONTAINER_STOP, ICON_CONTAINERSTOP, lane, startPos, endPos, name, friendlyPosition),
     myLines(lines) {
     // When a new additional element is created, updateGeometry() must be called
     updateGeometry();
@@ -155,6 +155,7 @@ GNEContainerStop::writeAdditional(OutputDevice& device) const {
     if(myName.empty() == false) {
         device.writeAttr(SUMO_ATTR_NAME, myName);
     }
+    device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
     }
@@ -315,6 +316,8 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
             return toString(myEndPos);
         case SUMO_ATTR_NAME:
             return myName;
+        case SUMO_ATTR_FRIENDLY_POS:
+            return toString(myFriendlyPosition);
         case SUMO_ATTR_LINES:
             return joinToString(myLines, " ");
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -336,6 +339,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_NAME:
+        case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_LINES:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -399,10 +403,13 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         }
-        case SUMO_ATTR_LINES:
-            return canParse<std::vector<std::string> >(value);
+
         case SUMO_ATTR_NAME:
             return true;
+        case SUMO_ATTR_FRIENDLY_POS:
+            return canParse<bool>(value);
+        case SUMO_ATTR_LINES:
+            return canParse<std::vector<std::string> >(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
@@ -439,6 +446,10 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_NAME:
             myName = value;
+            getViewNet()->update();
+            break;
+        case SUMO_ATTR_FRIENDLY_POS:
+            myFriendlyPosition = parse<bool>(value);
             getViewNet()->update();
             break;
         case SUMO_ATTR_LINES:

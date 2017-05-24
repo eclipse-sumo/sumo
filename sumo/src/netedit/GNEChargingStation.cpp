@@ -63,8 +63,8 @@
 // ===========================================================================
 
 GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string &name, 
-                                       double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay) :
-    GNEStoppingPlace(id, viewNet, SUMO_TAG_CHARGING_STATION, ICON_CHARGINGSTATION, lane, startPos, endPos, name),
+                                       double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition) :
+    GNEStoppingPlace(id, viewNet, SUMO_TAG_CHARGING_STATION, ICON_CHARGINGSTATION, lane, startPos, endPos, name, friendlyPosition),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
     myChargeInTransit(chargeInTransit),
@@ -161,6 +161,7 @@ GNEChargingStation::writeAdditional(OutputDevice& device) const {
     if(myName.empty() == false) {
         device.writeAttr(SUMO_ATTR_NAME, myName);
     }
+    device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
     device.writeAttr(SUMO_ATTR_CHARGINGPOWER, myChargingPower);
     device.writeAttr(SUMO_ATTR_EFFICIENCY, myEfficiency);
     device.writeAttr(SUMO_ATTR_CHARGEINTRANSIT, myChargeInTransit);
@@ -373,6 +374,8 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
             return toString(myEndPos);
         case SUMO_ATTR_NAME:
             return myName;
+        case SUMO_ATTR_FRIENDLY_POS:
+            return toString(myFriendlyPosition);
         case SUMO_ATTR_CHARGINGPOWER:
             return toString(myChargingPower);
         case SUMO_ATTR_EFFICIENCY:
@@ -400,6 +403,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_NAME:
+        case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_CHARGINGPOWER:
         case SUMO_ATTR_EFFICIENCY:
         case SUMO_ATTR_CHARGEINTRANSIT:
@@ -467,6 +471,8 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_NAME:
             return true;
+        case SUMO_ATTR_FRIENDLY_POS:
+            return canParse<bool>(value);
         case SUMO_ATTR_CHARGINGPOWER:
             return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_EFFICIENCY:
@@ -511,6 +517,10 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_NAME:
             myName = value;
+            getViewNet()->update();
+            break;
+        case SUMO_ATTR_FRIENDLY_POS:
+            myFriendlyPosition = parse<bool>(value);
             getViewNet()->update();
             break;
         case SUMO_ATTR_CHARGINGPOWER:
