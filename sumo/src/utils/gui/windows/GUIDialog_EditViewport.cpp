@@ -40,6 +40,7 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
+#include <utils/options/OptionsCont.h>
 #include "GUIDialog_EditViewport.h"
 
 
@@ -121,8 +122,12 @@ GUIDialog_EditViewport::~GUIDialog_EditViewport() {}
 
 void
 GUIDialog_EditViewport::show() {
-    // set focus in OK button before opening
-    buttonOk->setFocus();
+    // If testing mode is enabled, we need to place focus in the Z dial
+    if(OptionsCont::getOptions().getBool("gui-testing") == true) {
+        myZOff->setFocus();
+    } else {
+        buttonOk->setFocus();
+    }
     FXDialogBox::show();
 }
 
