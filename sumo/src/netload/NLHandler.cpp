@@ -930,7 +930,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     MSLane* clane = 0;
     std::vector<MSLane*> clanes;
     if (lanesGiven) {
-        // If lanes is given, endPos and startPos are required. lane, endLane and length are ignored
+        // If lanes is given, endPos and startPos are required. lane, and length are ignored
         std::string seps = " ,\t\n";
         StringTokenizer st = StringTokenizer(lanes, seps, true);
 //        std::cout << "Parsing lanes..." << std::endl;
@@ -948,7 +948,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
         }
         if (laneGiven) {
             WRITE_WARNING("Ignoring argument 'lane' for E2Detector '" + id + "' since argument 'lanes' was given.\n"
-                          "Usage combinations for positional specification: [lane, pos, length], [endLane/lane, endPos, length], or [lanes, pos, endPos]");
+                          "Usage combinations for positional specification: [lane, pos, length], [lane, endPos, length], or [lanes, pos, endPos]");
         }
         if (lengthGiven) {
             WRITE_WARNING("Ignoring argument 'length' for E2Detector '" + id + "' since argument 'lanes' was given.\n"
