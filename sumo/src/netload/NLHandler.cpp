@@ -236,7 +236,7 @@ NLHandler::myStartElement(int element,
         WRITE_ERROR(e.what());
     }
     MSRouteHandler::myStartElement(element, attrs);
-    if (element == SUMO_TAG_PARAM) {
+    if (element == SUMO_TAG_PARAM && !myCurrentIsBroken) {
         addParam(attrs);
     }
 }
@@ -457,8 +457,10 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
                 delete lane;
                 WRITE_ERROR("Another lane with the id '" + id + "' exists.");
                 myCurrentIsBroken = true;
+                myLastParameterised = 0;
+            } else {
+                myLastParameterised = lane;
             }
-            myLastParameterised = lane;
         } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
         }

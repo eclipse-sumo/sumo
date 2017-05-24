@@ -68,6 +68,8 @@ NLEdgeControlBuilder::beginEdgeParsing(
     const std::string& streetName,
     const std::string& edgeType,
     int priority) {
+    // closeEdge might not have been called because the last edge had an error, so we clear the lane storage
+    myLaneStorage->clear();
     myActiveEdge = buildEdge(id, function, streetName, edgeType, priority);
     if (MSEdge::dictionary(id) != 0) {
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
