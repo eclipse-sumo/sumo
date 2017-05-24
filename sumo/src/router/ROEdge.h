@@ -401,7 +401,13 @@ public:
      * @param[in] time The time for which the effort shall be returned [s]
      */
     inline double getMinimumTravelTime(const ROVehicle* const veh) const {
-        return myLength / MIN2(veh->getType()->maxSpeed, veh->getChosenSpeedFactor() * mySpeed);
+        if (myFunc == ET_DISTRICT) {
+            return 0;
+        } else if (veh != 0) {
+            return myLength / MIN2(veh->getType()->maxSpeed, veh->getChosenSpeedFactor() * mySpeed);
+        } else {
+            return myLength / mySpeed;
+        }
     }
 
 
