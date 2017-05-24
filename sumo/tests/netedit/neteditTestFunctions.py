@@ -294,23 +294,18 @@ def redo(match, number):
 def setZoom(positionX, positionY, zoomLevel):
     # open edit viewport dialog
     typeKey("v")
-    # go to zoom level
-    typeInvertTab()
-    # Paste zoomLevel
+    # Paste Zoom Z
     pasteIntoTextField(zoomLevel)
     # go to Y
     typeInvertTab()
-    # Paste positionY
+    # Paste Position Y
     pasteIntoTextField(positionY)
     # go to X
     typeInvertTab()
-    # Paste positionX
+    # Paste position X
     pasteIntoTextField(positionX)
-    # Go to OK Button
-    for t in xrange(3):
-        typeTab()
-    # press OK Button
-    typeSpace()
+    # press OK Button using shortcut
+    typeTwoKeys('o', Key.ALT)
 
 # netedit wait question
 
