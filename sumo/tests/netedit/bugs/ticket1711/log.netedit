@@ -4,6 +4,7 @@ Warning: Created connection '5_1 -> 2_1' in retrieveGNEConnection()
 Warning: Created connection '6_1 -> 1_1' in retrieveGNEConnection()
 Warning: Created connection '7_1 -> 4_1' in retrieveGNEConnection()
 Warning: Created connection '8_1 -> 3_1' in retrieveGNEConnection()
+Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '100.00'
 Warning: Removing connection '6_1->1_1' from edge '6'
 Warning: Deleting unreferenced connection '6_1 -> 1_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'

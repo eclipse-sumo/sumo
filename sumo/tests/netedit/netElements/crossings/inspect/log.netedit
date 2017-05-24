@@ -26,6 +26,7 @@ Warning: Created connection '8_1 -> 1_1' in retrieveGNEConnection()
 Warning: Created connection '8_1 -> 4_1' in retrieveGNEConnection()
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
+Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '100.00'
 Warning: Value 'dummyID' for attribute id of crossing isn't valid
 Warning: Setting new attribute edges '3 7 1' into crossing ':Center_c1'
 Warning: Key F5 (Compute) pressed

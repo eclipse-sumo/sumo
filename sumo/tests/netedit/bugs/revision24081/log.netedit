@@ -12,6 +12,7 @@ Warning: Created connection 'gneE3_0 -> gneE6_0' in retrieveGNEConnection()
 Warning: Created connection 'gneE5_0 -> gneE6_0' in retrieveGNEConnection()
 Warning: Created connection 'gneE5_0 -> -gneE3_0' in retrieveGNEConnection()
 Warning: Created connection 'gneE5_0 -> gneE4_0' in retrieveGNEConnection()
+Warning: Current Viewport values: 0.00, 0.00, 50.00. Zoom = '100.00'
 Warning: Setting new attribute pos '25.00,50.00' into junction 'gneJ6'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '0.00,0.00' into junction 'gneJ6'

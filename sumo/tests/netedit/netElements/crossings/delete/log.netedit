@@ -26,6 +26,7 @@ Warning: Created connection '8_1 -> 1_1' in retrieveGNEConnection()
 Warning: Created connection '8_1 -> 4_1' in retrieveGNEConnection()
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
+Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '100.00'
 Warning: Removing crossing from junction 'Center'
 Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
 Warning: Removing crossing from junction 'Center'

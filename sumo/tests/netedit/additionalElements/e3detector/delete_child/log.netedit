@@ -2,6 +2,7 @@ Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Addi
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '100.00'
 Warning: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional

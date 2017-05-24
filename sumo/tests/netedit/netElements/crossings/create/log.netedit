@@ -16,6 +16,7 @@ Warning: Created connection '8_1 -> 2_1' in retrieveGNEConnection()
 Warning: Created connection '8_1 -> 3_1' in retrieveGNEConnection()
 Warning: Created connection '8_2 -> 3_2' in retrieveGNEConnection()
 Warning: Created connection '8_2 -> 1_2' in retrieveGNEConnection()
+Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '100.00'
 Warning: Adding crossing into junction 'Center'
 Warning: Key F5 (Compute) pressed
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
