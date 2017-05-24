@@ -1,2 +1,5 @@
 # a vehicle is stopped on the same lane as the pedestrians blocking half of its width
 shared_lane_block_half
+
+# a vehicle is stopped on a pedestrian crossing
+crossing
