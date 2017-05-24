@@ -1950,10 +1950,10 @@ MSVehicle::executeMove() {
                 if (parallelLink != 0) {
                     const double shadowLatPos = getLateralPositionOnLane() - getLaneChangeModel().getShadowDirection() * 0.5 * (
                                                     myLane->getWidth() + getLaneChangeModel().getShadowLane()->getWidth());
-                    opened &= parallelLink->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
-                                                   getVehicleType().getLength(), getImpatience(),
-                                                   getCarFollowModel().getMaxDecel(),
-                                                   getWaitingTime(), shadowLatPos, 0);
+                    opened = yellow || influencerPrio || (opened & parallelLink->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
+                                                          getVehicleType().getLength(), getImpatience(),
+                                                          getCarFollowModel().getMaxDecel(),
+                                                          getWaitingTime(), shadowLatPos, 0));
 #ifdef DEBUG_EXEC_MOVE
                     if (DEBUG_COND) std::cout
                                 << SIMTIME
