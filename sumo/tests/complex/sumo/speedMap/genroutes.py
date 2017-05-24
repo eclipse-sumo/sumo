@@ -63,12 +63,8 @@ cfg.close()
 for model in ["Krauss", "KraussPS", "KraussOrig1", "BKerner", "SmartSK", "IDM", "IDMM", "Daniel1", "PWagner2009", "Wiedemann"]:
     routes = open(routeFile, 'w')
     routes.write('''<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-        <vType id="leader" maxSpeed="13.88" color="red">
-    <carFollowing-%s /> 
-    </vType>
-        <vType id="follower" color="green">
-    <carFollowing-%s /> 
-    </vType>
+        <vType id="leader" maxSpeed="13.88" color="red" carFollowModel="%s"/>
+        <vType id="follower" color="green" carFollowModel="%s"/>
         <route id="r0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
         <vehicle id="0" type="leader" route="r0" depart="0" departPos="500"/>
     ''' % (model, model))

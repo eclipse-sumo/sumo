@@ -31,14 +31,9 @@
     <delay number="1" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vType id="type0">
-        <carFollowing-Krauss sigma="0.00"/>
-    </vType>
-    <vType id="type1">
-        <carFollowing-Krauss sigma="0.00"/>
-    </vType>
-    <vType id="type2">
-        <carFollowing-Krauss sigma="0.00"/>
+    <vType id="type0" sigma="0.00"/>
+    <vType id="type1" sigma="0.00"/>
+    <vType id="type2" sigma="0.00">
         <param key="has.rerouting.device" value="false"/>
     </vType>
     <vTypeDistribution id="testDist" vTypes="type0 type1" probabilities="1.00 1.00"/>
