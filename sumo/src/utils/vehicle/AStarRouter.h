@@ -55,8 +55,11 @@
 #define UNREACHABLE (std::numeric_limits<double>::max() / 1000.0)
 
 //#define ASTAR_DEBUG_QUERY
+//#define ASTAR_DEBUG_QUERY_FOLLOWERS
 //#define ASTAR_DEBUG_QUERY_PERF
 //#define ASTAR_DEBUG_VISITED
+//#define ASTAR_DEBUG_LOOKUPTABLE
+//#define ASTAR_DEBUG_LOOKUPTABLE_FROM "disabled"
 //#define ASTAR_DEBUG_UNREACHABLE
 
 // ===========================================================================
@@ -85,7 +88,11 @@ public:
 
     class LookupTable {
     public:
-        virtual double lowerBound(const E* from, const E* to, double speed, double speedFactor) const = 0;
+        /// @brief provide a lower bound on the distance between from and to (excluding traveltime of both edges)
+        virtual double lowerBound(const E* from, const E* to, double speed, double speedFactor, double fromEffort, double toEffort) const = 0;
+
+        /// @brief whether the heuristic ist consistent (found nodes are always visited on the shortest path the first time)
+        virtual bool consistent() const = 0;
     };
 
     class FullLookupTable : public LookupTable {
@@ -103,9 +110,12 @@ public:
             }
         }
 
-        double lowerBound(const E* from, const E* to, double /*speed*/, double speedFactor) const { 
+        double lowerBound(const E* from, const E* to, double /*speed*/, double speedFactor, double /*fromEffort*/, double /*toEffort*/) const { 
             return myTable[from->getNumericalID()][to->getNumericalID()] / speedFactor;
         }
+
+        bool consistent() const { return true; }
+
     private:
         std::vector<std::vector<double> > myTable;
     };
@@ -142,31 +152,44 @@ public:
             }
         }
 
-        double lowerBound(const E* from, const E* to, double speed, double speedFactor) const { 
+        double lowerBound(const E* from, const E* to, double speed, double speedFactor, double fromEffort, double toEffort) const { 
             double result = from->getDistanceTo(to) / speed;
+#ifdef ASTAR_DEBUG_LOOKUPTABLE
+            if (from->getID() == ASTAR_DEBUG_LOOKUPTABLE_FROM) {
+                std::cout << " lowerBound to=" << to->getID() << " result1=" << result << "\n";
+            }
+#endif
             for (int i = 0; i < (int)myLandmarks.size(); ++i) {
                 // a cost of -1 is used to encode unreachability.
                 const double fl = myToLandmarkDists[i][from->getNumericalID()];
                 const double tl = myToLandmarkDists[i][to->getNumericalID()];
                 if (fl >= 0 && tl >= 0) {
-                    result = MAX2(result, (fl - tl) / speedFactor);
+                    const double bound = (fl - tl - toEffort) / speedFactor;
+#ifdef ASTAR_DEBUG_LOOKUPTABLE
+                    if (from->getID() == ASTAR_DEBUG_LOOKUPTABLE_FROM && result < bound) {
+                        std::cout << "   landmarkTo=" << getLandmark(i) << " result2=" << bound
+                            << " fl=" << fl << " tl=" << tl << "\n";
+                    }
+#endif
+                    result = MAX2(result, bound);
                 }
                 const double lt = myFromLandmarkDists[i][to->getNumericalID()];
                 const double lf = myFromLandmarkDists[i][from->getNumericalID()];
                 if (lt >= 0 && lf >= 0) {
-                    result = MAX2(result, (lt - lf) / speedFactor);
+                    const double bound = (lt - lf - fromEffort) / speedFactor;
+#ifdef ASTAR_DEBUG_LOOKUPTABLE
+                    if (from->getID() == ASTAR_DEBUG_LOOKUPTABLE_FROM && result < bound) {
+                        std::cout << "   landmarkFrom=" << getLandmark(i) << " result3=" << bound
+                            << " lt=" << lt << " lf=" << lf << "\n";
+                    }
+#endif
+                    result = MAX2(result, bound);
                 }
                 if ((tl >= 0 && fl < 0) 
                         || (lf >= 0 && lt < 0)) {
                     // target unreachable. 
 #ifdef ASTAR_DEBUG_UNREACHABLE
-                    std::string landmark;
-                    for (std::map<std::string, int>::const_iterator it = myLandmarks.begin(); it != myLandmarks.end(); ++it) {
-                        if (it->second == i) {
-                            landmark = it->first;
-                        }
-                    }
-                    std::cout << "   unreachable: from=" << from->getID() << " to=" << to->getID() << " landmark=" << landmark << " " 
+                    std::cout << "   unreachable: from=" << from->getID() << " to=" << to->getID() << " landmark=" << getLandmark(i) << " " 
                         <<  ((tl >= 0 && fl < 0) ? " (toLandmark)" : " (fromLandmark)")
                         << " fl=" << fl << " tl=" << tl << " lt=" << lt << " lf=" << lf 
                         << "\n";
@@ -177,10 +200,21 @@ public:
             return result;
         }
 
+        bool consistent() const { return false; }
+
     private:
         std::map<std::string, int> myLandmarks;
         std::vector<std::vector<double> > myFromLandmarkDists;
         std::vector<std::vector<double> > myToLandmarkDists;
+
+        std::string getLandmark(int i) const {
+            for (std::map<std::string, int>::const_iterator it = myLandmarks.begin(); it != myLandmarks.end(); ++it) {
+                if (it->second == i) {
+                    return it->first;
+                }
+            }
+            return "";
+        }
     };
 
 
@@ -317,6 +351,7 @@ public:
         }
         // loop
         int num_visited = 0;
+        const double mayRevisit = myLookupTable != 0 && !myLookupTable->consistent();
         const double speed = MIN2(vehicle->getMaxSpeed(), myMaxSpeed * vehicle->getChosenSpeedFactor());
         while (!myFrontierList.empty()) {
             num_visited += 1;
@@ -348,15 +383,20 @@ public:
             myFound.push_back(minimumInfo);
             minimumInfo->visited = true;
 #ifdef ASTAR_DEBUG_QUERY
-            std::cout << "DEBUG: hit '" << minEdge->getID() << "' TT: " << minimumInfo->traveltime << " E: " << this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime) << " Q: ";
+            std::cout << "DEBUG: hit=" << minEdge->getID() 
+                << " TT=" << minimumInfo->traveltime 
+                << " EF=" << this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime) 
+                << " HT=" << minimumInfo->heuristicTime 
+                << " Q(TT,HT,Edge)=";
             for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
-                std::cout << (*it)->traveltime << "," << (*it)->edge->getID() << " ";
+                std::cout << (*it)->traveltime << "," << (*it)->heuristicTime << "," << (*it)->edge->getID() << " ";
             }
             std::cout << "\n";
 #endif
             const double traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // admissible A* heuristic: straight line distance at maximum speed
-            const double heuristic_remaining = myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed : myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor());
+            const double heuristic_remaining = (myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed : 
+                    myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor(), minEdge->getMinimumTravelTime(0), to->getMinimumTravelTime(0)));
             if (heuristic_remaining == UNREACHABLE) {
                 continue;
             }
@@ -370,7 +410,7 @@ public:
                     continue;
                 }
                 const double oldEffort = followerInfo->traveltime;
-                if (!followerInfo->visited && traveltime < oldEffort) {
+                if ((!followerInfo->visited || mayRevisit) && traveltime < oldEffort) {
                     followerInfo->traveltime = traveltime;
                     followerInfo->heuristicTime = traveltime + heuristic_remaining;
                     /* the code below results in fewer edges being looked up but is more costly due to the effort
@@ -384,11 +424,11 @@ public:
                             followerInfo->heuristicTime += this->getEffort(follower, vehicle, time + traveltime) + (*myLookupTable)[follower->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
                         }
                     }*/
-#ifdef ASTAR_DEBUG_QUERY
-                    //std::cout << "   follower=" << followerInfo->edge->getID() << " oldEffort=" << oldEffort << " rem=" << heuristic_remaining << " tt=" << traveltime << " ht=" << followerInfo->heuristicTime << "\n";
+#ifdef ASTAR_DEBUG_QUERY_FOLLOWERS
+                    std::cout << "   follower=" << followerInfo->edge->getID() << " OEF=" << oldEffort << " TT=" << traveltime << " HR=" << heuristic_remaining << " HT=" << followerInfo->heuristicTime << "\n";
 #endif
                     followerInfo->prev = minimumInfo;
-                    if (oldEffort == std::numeric_limits<double>::max()) {
+                    if (oldEffort == std::numeric_limits<double>::max() || mayRevisit) {
                         myFrontierList.push_back(followerInfo);
                         push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
                     } else {
