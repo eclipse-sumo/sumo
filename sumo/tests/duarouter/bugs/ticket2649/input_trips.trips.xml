@@ -1,4 +1,4 @@
-<trips>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="bus" emissionClass="HBEFA3/bus"/>
-	<trip depart="0" from="beg" to="end" type="bus"/>
-</trips>
+    <trip id="0" depart="0" from="beg" to="end" type="bus"/>
+</routes>

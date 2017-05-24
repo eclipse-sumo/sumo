@@ -20,7 +20,7 @@
 </configuration>
 -->
 
-<trips>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
    <trip id="862" depart="7" from="D2" to="D3"/>
    <trip id="285" depart="91" from="D1" to="D3"/>
    <trip id="444" depart="230" from="D1" to="D3"/>
@@ -1021,4 +1021,4 @@
    <trip id="892" depart="86297" from="D2" to="D3"/>
    <trip id="700" depart="86355" from="D1" to="D3"/>
    <trip id="885" depart="86369" from="D2" to="D3"/>
-</trips>
+</routes>

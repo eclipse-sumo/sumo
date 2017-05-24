@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<trips>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="63" depart="0.79" from="beg" to="rend"/>
     <trip id="88" depart="16.72" from="beg" to="rend"/>
     <trip id="9" depart="18.39" from="beg" to="rend"/>
@@ -122,4 +122,4 @@
     <trip id="53" depart="3425.09" from="beg" to="rend"/>
     <trip id="99" depart="3435.74" from="beg" to="rend"/>
     <trip id="52" depart="3573.33" from="beg" to="rend"/>
-</trips>
+</routes>
