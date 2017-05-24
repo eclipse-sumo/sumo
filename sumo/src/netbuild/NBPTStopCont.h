@@ -75,6 +75,8 @@ private:
     NBEdge* getReverseEdge(NBEdge* edge);
     void assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCont& cont);
     Position* getClosestPlatformToPTStopPosition(NBPTStop* pStop);
+    NBPTStop* assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont);
+    double computeCrossProductEdgePosition(const NBEdge* edge, const Position* closestPlatform) const;
 };
 
 #endif //SUMO_NBPTSTOPCONT_H
