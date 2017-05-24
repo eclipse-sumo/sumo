@@ -304,7 +304,7 @@ protected:
         int stripe() const;
         int otherStripe() const;
 
-        int stripe(const double relY) const;
+        static int stripe(const double relY);
         int otherStripe(const double relY) const;
 
         /* @brief calculate distance to the given obstacle,

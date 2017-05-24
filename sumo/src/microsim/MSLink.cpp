@@ -647,7 +647,7 @@ MSLink::fromInternalLane() const {
 MSLink::LinkLeaders
 MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers) const {
     LinkLeaders result;
-    if (ego->getLaneChangeModel().isOpposite()) {
+    if (ego != 0 && ego->getLaneChangeModel().isOpposite()) {
         // ignore link leaders
         return result;
     }
@@ -697,7 +697,11 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     // compute distance between vehicles on the the superimposition of both lanes
                     // where the crossing point is the common point
                     double gap;
-                    if ((contLane && !sameSource) || isOpposite) {
+                    if (ego == 0) {
+                        // request from pedestrian model. return distance between leaderBack and crossing point
+                        const double leaderBack = leader->getBackPositionOnLane(foeLane);
+                        gap = foeDistToCrossing - leaderBack;
+                    } else if ((contLane && !sameSource) || isOpposite) {
                         gap = -1; // always break for vehicles which are on a continuation lane or for opposite-direction vehicles
                     } else {
                         const double leaderBack = leader->getBackPositionOnLane(foeLane);

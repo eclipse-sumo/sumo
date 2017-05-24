@@ -730,6 +730,33 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
     Obstacles obs(stripes, Obstacle(dir)); // continously updated
     NextLanesObstacles nextLanesObs; // continously updated
     sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(dir));
+
+    Obstacles crossingVehs(stripes, Obstacle(dir)); // continously updated
+    bool hasCrossingVehObs = false;
+    if (lane->getEdge().isCrossing()) {
+        // react to vehicles driving across
+        const MSLink::LinkLeaders linkLeaders = lane->getIncomingLanes().front().viaLink->getLeaderInfo(0, lane->getLength());
+        if (linkLeaders.size() > 0) {
+            Obstacles vehObs(stripes, Obstacle(dir));
+            for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
+                // the vehicle to enter the junction first has priority
+                const MSVehicle* veh = (*it).vehAndGap.first;
+                if (veh != 0) {
+                    std::cout << SIMTIME << "lane=" << lane->getID() << " crossingVeh=" << veh->getID() << " dist=" << (*it).distToCrossing << " gap=" << (*it).vehAndGap.second << "\n";
+                    Obstacle vo((*it).distToCrossing, 0, veh->getID(), veh->getVehicleType().getWidth(), true);
+                    // relY increases from left to right (the other way around from vehicles)
+                    // XXX lateral offset for partial vehicles
+                    const double vehYmin = (*it).vehAndGap.second + 0.5 * lane->getWidth();
+                    const double vehYmax = vehYmin + veh->getVehicleType().getLength();
+                    for (int s = MAX2(0, PState::stripe(vehYmin)); s < MIN2(PState::stripe(vehYmax) + 1, stripes); ++s) {
+                        vehObs[s] = vo;
+                        hasCrossingVehObs = true;
+                    }
+                }
+            }
+        }
+    }
+
     for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
         PState& p = *pedestrians[ii];
         //std::cout << SIMTIME << "CHECKING" << p.myPerson->getID() << "\n";
@@ -803,8 +830,9 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             Obstacles arrival(stripes, Obstacle(p.myStage->getArrivalPos() + dir * p.getMinGap(), 0, "arrival", 0, true));
             p.mergeObstacles(currentObs, arrival);
         }
+
         if (lane->getVehicleNumberWithPartials() > 0) {
-            // react to vehicles 
+            // react to vehicles on the same lane
             // @todo: improve efficiency by using the same iterator for all pedestrians on this lane
             Obstacles vehObs(stripes, Obstacle(dir));
             for (MSLane::AnyVehicleIterator it = lane->anyVehiclesUpstreamBegin(); it != lane->anyVehiclesUpstreamEnd(); ++it) {
@@ -825,6 +853,13 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             p.mergeObstacles(currentObs, vehObs);
             if DEBUGCOND(p.myPerson->getID()) {
                 std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWitVehs=";
+                DEBUG_PRINT(currentObs);
+            }
+        }
+        if (hasCrossingVehObs) {
+            p.mergeObstacles(currentObs, crossingVehs);
+            if DEBUGCOND(p.myPerson->getID()) {
+                std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWitVehs2=";
                 DEBUG_PRINT(currentObs);
             }
         }
@@ -971,7 +1006,7 @@ MSPModel_Striping::PState::getMinGap() const {
 
 
 int
-MSPModel_Striping::PState::stripe(double relY) const {
+MSPModel_Striping::PState::stripe(double relY) {
     return (int)floor(relY / stripeWidth + 0.5);
 }
 
