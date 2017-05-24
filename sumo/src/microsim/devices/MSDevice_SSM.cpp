@@ -1950,7 +1950,7 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
     int count = 0;
     if (thresholds_str != "") {
         st = StringTokenizer(thresholds_str);
-        while (st.hasNext() && count < measures.size()) {
+        while (st.hasNext() && count < (int)measures.size()) {
             double thresh = TplConvert::_2double(st.next().c_str());
             thresholds.insert(std::make_pair(measures[count],thresh));
             ++count;
