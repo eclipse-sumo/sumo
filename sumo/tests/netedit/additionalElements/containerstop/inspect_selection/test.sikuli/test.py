@@ -44,8 +44,11 @@ netedit.leftClick(match, 150, 250)
 # Set name 
 netedit.modifyAttribute(0, "commonName")
 
+# Set friendly position 
+netedit.modifyBoolAttribute(1)
+
 # Set lines 
-netedit.modifyAttribute(1, "commonLine1 commonLine2")
+netedit.modifyAttribute(2, "commonLine1 commonLine2")
 
 # save additionals
 netedit.saveAdditionals()

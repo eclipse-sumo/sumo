@@ -19,6 +19,7 @@ Warning: Setting new attribute endPos '3000' into containerStop 'correct ID'
 Warning: Value '10' for attribute endPos of containerStop isn't valid
 Warning: Setting new attribute endPos '30' into containerStop 'correct ID'
 Warning: Setting new attribute name 'chargingStation' into containerStop 'correct ID'
+Warning: Setting new attribute friendlyPos 'true' into containerStop 'correct ID'
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
 Warning: Setting new attribute lines 'line1, line2' into containerStop 'correct ID'
@@ -27,6 +28,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lines 'line1  line2' into containerStop 'correct ID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lines '' into containerStop 'correct ID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute friendlyPos '0' into containerStop 'correct ID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute name '' into containerStop 'correct ID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -68,6 +71,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute endPos '30' into containerStop 'correct ID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute name 'chargingStation' into containerStop 'correct ID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute friendlyPos 'true' into containerStop 'correct ID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lines 'line1, line2' into containerStop 'correct ID'
 Warning: Keys Ctrl + Y (Redo) pressed

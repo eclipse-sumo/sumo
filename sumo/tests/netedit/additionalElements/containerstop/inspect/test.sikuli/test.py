@@ -36,7 +36,7 @@ netedit.additionalMode()
 netedit.changeAdditional("containerStop")
 
 # change reference to center
-netedit.modifyAdditionalDefaultValue(7, "reference center")
+netedit.modifyAdditionalDefaultValue(8, "reference center")
 
 # create containerStop 1 in mode "reference center"
 netedit.leftClick(match, 250, 150)
@@ -99,18 +99,21 @@ netedit.modifyAttribute(3, "30")
 # Change parameter 4 with a valid value
 netedit.modifyAttribute(4, "chargingStation")
 
-# Change parameter 5 with a non valid value (throw warning)
-netedit.modifyAttribute(5, "line1, line2")
+# Change parameter 5 with a different value
+netedit.modifyBoolAttribute(5)
 
-# Change parameter 5 with a valid value
-netedit.modifyAttribute(5, "line1 line2")
+# Change parameter 6 with a non valid value (throw warning)
+netedit.modifyAttribute(6, "line1, line2")
+
+# Change parameter 6 with a valid value
+netedit.modifyAttribute(6, "line1 line2")
 
 # click over an empty area
 netedit.leftClick(match, 0, 0)
 
 # Check undos and redos
-netedit.undo(match, 13)
-netedit.redo(match, 13)
+netedit.undo(match, 14)
+netedit.redo(match, 14)
 
 # save additionals
 netedit.saveAdditionals()
