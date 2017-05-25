@@ -7,6 +7,7 @@
 
     <processing>
         <time-to-teleport value="-1"/>
+        <lateral-resolution value="0.64" />
     </processing>
 
     <report>
@@ -14,8 +15,4 @@
         <no-step-log value="true"/>
     </report>
     
-    <processing>
-        <lateral-resolution value="0.64" />
-    </processing>
-
 </configuration>
