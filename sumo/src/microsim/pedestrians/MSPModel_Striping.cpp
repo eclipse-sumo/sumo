@@ -732,6 +732,7 @@ MSPModel_Striping::arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTi
 void
 MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane* lane, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir) {
     const int stripes = numStripes(lane);
+    //std::cout << " laneWidth=" << lane->getWidth() << " stripeWidth=" << stripeWidth << " stripes=" << stripes << "\n";
     Obstacles obs(stripes, Obstacle(dir)); // continously updated
     NextLanesObstacles nextLanesObs; // continously updated
     sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(dir));
@@ -853,17 +854,27 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             for (MSLane::AnyVehicleIterator it = lane->anyVehiclesUpstreamBegin(); it != lane->anyVehiclesUpstreamEnd(); ++it) {
                 const MSVehicle* veh = *it;
                 const double vehBack = veh->getBackPositionOnLane(lane);
-                if (dir == FORWARD && vehBack > p.getMinX() && vehBack <= p.getMaxX() + LOOKAHEAD_SAMEDIR) {
-                    Obstacle vo(vehBack, veh->getSpeed(), veh->getID(), 0, true);
+                const double vehFront = vehBack + veh->getVehicleType().getLength();
+                if ((dir == FORWARD && vehBack > p.getMinX() && vehBack <= p.getMaxX() + LOOKAHEAD_SAMEDIR)
+                        || (dir == BACKWARD && vehFront < p.getMaxX() && vehFront >= p.getMinX() - LOOKAHEAD_SAMEDIR)) {
+                    Obstacle vo(vehBack, dir * veh->getSpeed(), veh->getID(), 0, true);
                     vo.xFwd += veh->getVehicleType().getLength();
                     // relY increases from left to right (the other way around from vehicles)
                     // XXX lateral offset for partial vehicles
-                    const double vehYmax = 0.5 * (lane->getWidth() + veh->getVehicleType().getWidth()) - veh->getLateralPositionOnLane();
+                    const double vehYmax = 0.5 * (lane->getWidth() + veh->getVehicleType().getWidth() - stripeWidth) - veh->getLateralPositionOnLane();
                     const double vehYmin = vehYmax - veh->getVehicleType().getWidth();
                     for (int s = MAX2(0, p.stripe(vehYmin)); s < MIN2(p.stripe(vehYmax) + 1, stripes); ++s) {
                         vehObs[s] = vo;
                     }
-                    //std::cout << SIMTIME << " ped=" << p.myPerson->getID() << " veh=" << veh->getID() << " obstacle on lane=" << lane->getID() << "\n";
+                    if DEBUGCOND(p.myPerson->getID()) {
+                        std::cout << SIMTIME << " ped=" << p.myPerson->getID() << " veh=" << veh->getID() << " obstacle on lane=" << lane->getID() 
+                            << "\n"
+                            << "     ymin=" << vehYmin
+                            << " ymax=" << vehYmax
+                            << " smin=" << PState::stripe(vehYmin)
+                            << " smax=" << PState::stripe(vehYmax)
+                            << "\n";
+                    }
                 }
             }
             p.mergeObstacles(currentObs, vehObs);
