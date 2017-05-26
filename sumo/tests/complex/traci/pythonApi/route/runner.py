@@ -49,6 +49,7 @@ traci.route.subscribe(routeID)
 print(traci.route.getSubscriptionResults(routeID))
 for step in range(3, 6):
     print("step", step)
+    # XXX: This stepping is a bit strange (intentional?)
     traci.simulationStep(step)
     print(traci.route.getSubscriptionResults(routeID))
 traci.route.add("h2", ["1o"])

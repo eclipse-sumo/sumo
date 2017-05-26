@@ -57,8 +57,8 @@ def runSingle(sumoEndTime, traciEndTime):
     while not step > traciEndTime:
         traci.simulationStep()
         vehs = traci.vehicle.getIDList()
-        if vehs.index("horiz") < 0 or len(vehs) > 1:
-            print("Something is false")
+        if vehs.index("horiz") < 0 or len(vehs) > 3:
+            print("Something is wrong")
         step += 1
     print("Print ended at step %s" %
           (traci.simulation.getCurrentTime() / DELTA_T))

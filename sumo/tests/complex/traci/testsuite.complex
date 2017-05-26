@@ -1,7 +1,7 @@
 # Tests whether repeated execution of client/server connections work (for both the client and the server being the one who ends first)
 repeatedConnection
 
-# Tests whether connecting with mutlitple clients works (for both the client and the server being the one who ends first)
+# Defines test cases for multiple TraCI clients connecting to a SUMO TraCI server
 multipleConnections
 
 # Tests whether the connection is not closed by SUMO

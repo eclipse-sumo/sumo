@@ -72,6 +72,14 @@ errors:send failed: Socket reset by peer{REPLACE send failed: Software caused tc
 errors:send failed: Broken pipe{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:Could not find connection between
 
+[unordered_text]
+output:^Simulation ended at time:
+output:^Reason: TraCI requested termination.
+output:[0-9] vehicle subscription results:
+output:[0-9] simulation subscription results:
+output:Process [0-9]:
+output:[0-9] stepping \(step 
+
 [floating_point_tolerance]
 output:0.0001
 net:0.0101
