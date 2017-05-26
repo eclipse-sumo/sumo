@@ -653,13 +653,14 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
     }
     //gDebugFlag1 = true;
     // this link needs to start at an internal lane (either an exit link or between two internal lanes)
-    if (fromInternalLane()) {
+    // or it must be queried by the pedestrian model (ego == 0)
+    if (fromInternalLane() || ego == 0) {
         //if (gDebugFlag1) std::cout << SIMTIME << " getLeaderInfo link=" << getViaLaneOrLane()->getID() << "\n";
         // this is an exit link
         for (int i = 0; i < (int)myFoeLanes.size(); ++i) {
             const MSLane* foeLane = myFoeLanes[i];
             // distance from the querying vehicle to the crossing point with foeLane
-            const double distToCrossing = dist - myLengthsBehindCrossing[i].first;
+            double distToCrossing = dist - myLengthsBehindCrossing[i].first;
             const bool sameTarget = (myLane == foeLane->getLinkCont()[0]->getLane());
             const bool sameSource = (myInternalLaneBefore != 0 && myInternalLaneBefore->getLogicalPredecessorLane() == foeLane->getLogicalPredecessorLane());
             const double crossingWidth = (sameTarget || sameSource) ? 0 : foeLane->getWidth();
@@ -700,7 +701,12 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     if (ego == 0) {
                         // request from pedestrian model. return distance between leaderBack and crossing point
                         const double leaderBack = leader->getBackPositionOnLane(foeLane);
+                        //std::cout << "   foeLane=" << foeLane->getID() << " leaderBack=" << leaderBack << " foeDistToCrossing=" << foeDistToCrossing << " foeLength=" << foeLane->getLength() << " foebehind=" << myLengthsBehindCrossing[i].second << " dist=" << dist << " behind=" << myLengthsBehindCrossing[i].first << "\n";
                         gap = foeDistToCrossing - leaderBack;
+                        // distToCrossing should not take into account the with of the foe lane 
+                        // (which was subtracted in setRequestInformation)
+                        // Instead, the width of the foe vehicle is used directly by the caller.
+                        distToCrossing += foeLane->getWidth() / 2;
                     } else if ((contLane && !sameSource) || isOpposite) {
                         gap = -1; // always break for vehicles which are on a continuation lane or for opposite-direction vehicles
                     } else {

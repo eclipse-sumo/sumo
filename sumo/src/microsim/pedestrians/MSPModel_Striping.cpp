@@ -99,6 +99,8 @@ const double MSPModel_Striping::MAX_WAIT_TOLERANCE(120.); // seconds
 const double MSPModel_Striping::LATERAL_SPEED_FACTOR(0.4);
 const double MSPModel_Striping::MIN_STARTUP_DIST(0.4); // meters
 
+#define MINGAP_TO_VEHICLE 0.25
+
 
 // ===========================================================================
 // MSPModel_Striping method definitions
@@ -629,6 +631,9 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
     for (ActiveLanes::iterator it_lane = myActiveLanes.begin(); it_lane != myActiveLanes.end(); ++it_lane) {
         const MSLane* lane = it_lane->first;
         Pedestrians& pedestrians = it_lane->second;
+        if (pedestrians.size() == 0) {
+            continue;
+        }
         //std::cout << SIMTIME << ">>> lane=" << lane->getID() << " numPeds=" << pedestrians.size() << "\n";
         if (lane->getEdge().isWalkingArea()) {
             const double lateral_offset = (lane->getWidth() - stripeWidth) * 0.5;
@@ -735,23 +740,33 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
     bool hasCrossingVehObs = false;
     if (lane->getEdge().isCrossing()) {
         // react to vehicles driving across
-        const MSLink::LinkLeaders linkLeaders = lane->getIncomingLanes().front().viaLink->getLeaderInfo(0, lane->getLength());
+        const MSLink::LinkLeaders linkLeaders = lane->getLinkCont().front()->getLeaderInfo(0, lane->getLength());
         if (linkLeaders.size() > 0) {
-            Obstacles vehObs(stripes, Obstacle(dir));
             for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
                 // the vehicle to enter the junction first has priority
                 const MSVehicle* veh = (*it).vehAndGap.first;
                 if (veh != 0) {
-                    std::cout << SIMTIME << "lane=" << lane->getID() << " crossingVeh=" << veh->getID() << " dist=" << (*it).distToCrossing << " gap=" << (*it).vehAndGap.second << "\n";
-                    Obstacle vo((*it).distToCrossing, 0, veh->getID(), veh->getVehicleType().getWidth(), true);
+                    // XXX add/subtract lateral offset to relX depending on direction
+                    Obstacle vo((*it).distToCrossing, 0, veh->getID(), veh->getVehicleType().getWidth() + 2 * MINGAP_TO_VEHICLE, true);
                     // relY increases from left to right (the other way around from vehicles)
-                    // XXX lateral offset for partial vehicles
-                    const double vehYmin = (*it).vehAndGap.second + 0.5 * lane->getWidth();
+                    const double vehYmin = -(*it).vehAndGap.second;
                     const double vehYmax = vehYmin + veh->getVehicleType().getLength();
-                    for (int s = MAX2(0, PState::stripe(vehYmin)); s < MIN2(PState::stripe(vehYmax) + 1, stripes); ++s) {
-                        vehObs[s] = vo;
+                    for (int s = MAX2(0, PState::stripe(vehYmin)); s < MIN2(PState::stripe(vehYmax), stripes); ++s) {
+                        crossingVehs[s] = vo;
                         hasCrossingVehObs = true;
                     }
+                    //std::cout << SIMTIME 
+                    //    << "lane=" << lane->getID() 
+                    //    << " crossingVeh=" << veh->getID() 
+                    //    << " dist=" << (*it).distToCrossing 
+                    //    << " gap=" << (*it).vehAndGap.second 
+                    //    << " ymin=" << vehYmin
+                    //    << " ymax=" << vehYmax
+                    //    << " stripes=" << stripes
+                    //    << " smin=" << PState::stripe(vehYmin)
+                    //    << " smax=" << PState::stripe(vehYmax)
+                    //    << "\n";
+                    //DEBUG_PRINT(crossingVehs);
                 }
             }
         }
@@ -848,6 +863,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                     for (int s = MAX2(0, p.stripe(vehYmin)); s < MIN2(p.stripe(vehYmax) + 1, stripes); ++s) {
                         vehObs[s] = vo;
                     }
+                    //std::cout << SIMTIME << " ped=" << p.myPerson->getID() << " veh=" << veh->getID() << " obstacle on lane=" << lane->getID() << "\n";
                 }
             }
             p.mergeObstacles(currentObs, vehObs);

@@ -158,6 +158,12 @@ MSRightOfWayJunction::postloadInit() {
                 exitLink->setRequestInformation((int)requestPos, false, false, std::vector<MSLink*>(),
                                                 myLinkFoeInternalLanes[*j], (*j)->getViaLane());
             }
+            // the exit link for a crossing is needed for the pedestrian model
+            if (MSGlobals::gUsingInternalLanes && (*j)->getLane()->getEdge().isCrossing()) {
+                MSLink* exitLink = (*j)->getLane()->getLinkCont()[0];
+                exitLink->setRequestInformation((int)requestPos, false, false, std::vector<MSLink*>(),
+                                                myLinkFoeInternalLanes[*j], (*j)->getLane());
+            }
             for (std::vector<MSLink*>::const_iterator k = foes.begin(); k != foes.end(); ++k) {
                 (*j)->addBlockedLink(*k);
                 (*k)->addBlockedLink(*j);
