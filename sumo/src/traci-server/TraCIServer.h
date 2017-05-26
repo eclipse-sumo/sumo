@@ -104,10 +104,11 @@ public:
     /// @}
 
 
-
-
-    /// @brief process all commands until a simulation step is wanted
+    /// @brief process all commands until the next SUMO simulation step.
+    ///        It is guaranteed that t->getTargetTime() >= myStep after call
+    ///        (except the case that a load or close command is received)s
     void processCommandsUntilSimStep(SUMOTime step);
+
 
     void setVTDControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                           int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
@@ -159,7 +160,15 @@ public:
 
 
     const std::map<MSNet::VehicleState, std::vector<std::string> >& getVehicleStateChanges() const {
-        return myVehicleStateChanges;
+        if(myAmEmbedded) {
+            return myVehicleStateChanges;
+        } else if (myCurrentSocket == mySockets.end()){
+            // Requested in context of a subscription update
+            return myVehicleStateChanges;
+        } else {
+            // Requested in the context of a custom query by active client
+            return myCurrentSocket->second->vehicleStateChanges;
+        }
     }
 
     void writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Storage& tempMsg);
@@ -273,6 +282,25 @@ private:
 
 
 
+    struct SocketInfo {
+    public:
+        /// @brief constructor
+        SocketInfo(tcpip::Socket* socket, SUMOTime t)
+        : targetTime(t), socket(socket) {}
+        /// @brief destructor
+        ~SocketInfo() {
+            delete socket;
+        }
+        /// @brief Target time: next point of action for the client
+        SUMOTime targetTime;
+        /// @brief Socket object for this client
+        tcpip::Socket* socket;
+        /// @brief container for vehicle state changes since last step taken by this client
+        std::map<MSNet::VehicleState, std::vector<std::string> > vehicleStateChanges;
+    private:
+        SocketInfo(const SocketInfo&);
+    };
+
     /// @name Server-internal command handling
     /// @{
 
@@ -290,6 +318,20 @@ private:
 
     int dispatchCommand();
 
+    /// @brief checks for and processes reordering requests (relevant for multiple clients)
+    void processReorderingRequests();
+
+    /// @brief get the minimal next target time among all clients
+    SUMOTime nextTargetTime() const;
+
+    /// @brief send out subscription results (actually just the content of myOutputStorage) to clients which will act in this step (i.e. with client target time <= myTargetTime)
+    void sendOutputToAll() const;
+
+    /// @brief sends an empty response to a simstep command to the current client. (This applies to a situation where the TraCI step frequency is higher than the SUMO step frequency)
+    void sendSingleSimStepResponse();
+
+    /// @brief removes myCurrentSocket from mySockets and returns an iterator pointing to the next member according to the ordering
+    std::map<int, SocketInfo*>::iterator removeCurrentSocket();
 
 
 private:
@@ -303,16 +345,17 @@ private:
     tcpip::Socket* myServerSocket;
 
     /// @brief The socket connections to the clients
-    std::map<int, std::pair<tcpip::Socket*,SUMOTime> > mySockets;
+    /// the first component (index) determines the client's order (lowest index's commands are processed first), @see CMD_SETORDER
+    std::map<int, SocketInfo*> mySockets;
 
     /// @brief This stores the setOrder(int) requests of the clients.
-    std::map<int, tcpip::Socket*> mySocketReorderRequests;
+    std::map<int, SocketInfo*> mySocketReorderRequests;
 
     /// @brief Whether already warned about clients missing an order.
     bool myWarnedAboutOrder;
 
     /// @brief The currently active client socket
-    std::map<int, std::pair<tcpip::Socket*, SUMOTime> >::iterator myCurrentSocket;
+    std::map<int, SocketInfo*>::iterator myCurrentSocket;
 
     /// @brief The time step to reach until processing the next commands
     SUMOTime myTargetTime;
@@ -322,6 +365,9 @@ private:
 
     /// @brief The storage to writeto
     tcpip::Storage myOutputStorage;
+
+    /// @brief The last timestep's subscription results
+    tcpip::Storage mySubscriptionCache;
 
     /// @brief Whether the server runs in embedded mode
     const bool myAmEmbedded;
@@ -381,6 +427,12 @@ private:
     std::vector<Subscription> mySubscriptions;
 
     /// @brief Changes in the states of simulated vehicles
+    /// @note
+    /// Server cache myVehicleStateChanges is used for managing last steps subscription updates
+    /// and for client information in case that myAmEmbedded==true, which implies a single client.
+    /// For the potential multiclient case (myAmEmbedded==false), each socket in mySockets is associated
+    /// with a proper vehicleStateChanges container mySockets[...].second->vehicleStateChanges
+    /// Performance could be improved if for a single client, myVehicleStateChanges is used only.
     std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
 
     /// @brief A storage of objects

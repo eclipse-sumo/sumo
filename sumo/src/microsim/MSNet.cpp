@@ -335,12 +335,18 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
             postSimStepOutput();
         }
         state = simulationState(stop);
+#ifdef DEBUG_SIMSTEP
+        std::cout << SIMTIME << " MSNet::simulate("<< start << ", "<< stop << ")"
+                << "\n simulation state: " << getStateMessage(state)
+                                << std::endl;
+#endif
 #ifndef NO_TRACI
         if (state == SIMSTATE_LOADING) {
             OptionsIO::setArgs(TraCI::getLoadArgs());
             TraCI::getLoadArgs().clear();
         } else if (state != SIMSTATE_RUNNING) {
             if (TraCIServer::getInstance() != 0 && !TraCIServer::wasClosed()) {
+                // overrides SIMSTATE_END_STEP_REACHED, e.g. (TraCI ignore SUMO's --end option)
                 state = SIMSTATE_RUNNING;
             }
         }
@@ -430,7 +436,9 @@ MSNet::closeSimulation(SUMOTime start) {
 void
 MSNet::simulationStep() {
 #ifdef DEBUG_SIMSTEP
-    std::cout << SIMTIME << ": MSNet::simulationStep() called." << std::endl;
+    std::cout << SIMTIME << ": MSNet::simulationStep() called"
+            << ", myStep = " << myStep
+            << std::endl;
 #endif
 #ifndef NO_TRACI
     if (myLogExecutionTime) {
@@ -439,13 +447,18 @@ MSNet::simulationStep() {
     TraCIServer* t = TraCIServer::getInstance();
     if (t != 0) {
         t->processCommandsUntilSimStep(myStep);
+#ifdef DEBUG_SIMSTEP
+        bool loadRequested = !TraCI::getLoadArgs().empty();
+        bool closed = TraCIServer::wasClosed();
+        assert(t->getTargetTime() >= myStep || loadRequested || closed);
+#endif
     }
     if (myLogExecutionTime) {
         myTraCIStepDuration = SysUtils::getCurrentMillis() - myTraCIStepDuration;
     }
-    if (t != 0 && t->getTargetTime() != 0 && t->getTargetTime() < myStep) {
-        return;
-    }
+#ifdef DEBUG_SIMSTEP
+    std::cout << SIMTIME << ": TraCI target time: " << t->getTargetTime() << std::endl;
+#endif
 #endif
     // execute beginOfTimestepEvents
     if (myLogExecutionTime) {
@@ -594,6 +607,8 @@ MSNet::getStateMessage(MSNet::SimulationState state) {
             return "An error occured (see log).";
         case MSNet::SIMSTATE_TOO_MANY_TELEPORTS:
             return "Too many teleports.";
+        case MSNet::SIMSTATE_LOADING:
+            return "TraCI issued load command.";
         default:
             return "Unknown reason.";
     }

@@ -306,10 +306,11 @@ class Connection:
 
     def close(self, wait=True):
         if not _embedded:
-            self._queue.append(tc.CMD_CLOSE)
-            self._string += struct.pack("!BB", 1 + 1, tc.CMD_CLOSE)
-            self._sendExact()
-            self._socket.close()
-            del self._socket
+            if hasattr(self, "_socket"):
+                self._queue.append(tc.CMD_CLOSE)
+                self._string += struct.pack("!BB", 1 + 1, tc.CMD_CLOSE)
+                self._sendExact()
+                self._socket.close()
+                del self._socket
             if wait and self._process is not None:
                 self._process.wait()

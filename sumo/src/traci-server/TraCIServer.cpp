@@ -96,6 +96,7 @@
 // debug constants
 // ===========================================================================
 //#define DEBUG_MULTI_CLIENTS
+//#define DEBUG_SUBSCRIPTIONS
 
 
 // ===========================================================================
@@ -114,7 +115,9 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
       myLaneTree(0),
       myWarnedAboutOrder(numClients == 1) // don't warn for single clients
 {
-
+#ifdef DEBUG_MULTI_CLIENTS
+    std::cout << "Creating new TraCIServer for " << numClients << " clients on port " << port << "." << std::endl;
+#endif
     myVehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_TELEPORT] = std::vector<std::string>();
@@ -168,7 +171,18 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
             WRITE_MESSAGE("***Starting server on port " + toString(port) + " ***");
             myServerSocket = new tcpip::Socket(port);
             while ((int)mySockets.size() < numClients) {
-                mySockets[(int)mySockets.size() + MAX_ORDER + 1] = std::make_pair(myServerSocket->accept(true), begin);
+                int index = (int)mySockets.size() + MAX_ORDER + 1;
+                mySockets[index] = new SocketInfo(myServerSocket->accept(true), begin);
+                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
+                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
+                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_TELEPORT] = std::vector<std::string>();
+                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_TELEPORT] = std::vector<std::string>();
+                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED] = std::vector<std::string>();
+                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_NEWROUTE] = std::vector<std::string>();
+                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_PARKING] = std::vector<std::string>();
+                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_PARKING] = std::vector<std::string>();
+                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_STOP] = std::vector<std::string>();
+                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_STOP] = std::vector<std::string>();
             }
             // When got here, all clients have connected
             myCurrentSocket = mySockets.begin();
@@ -181,7 +195,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
 
 TraCIServer::~TraCIServer() {
     for (myCurrentSocket = mySockets.begin(); myCurrentSocket != mySockets.end(); ++myCurrentSocket) {
-        delete myCurrentSocket->second.first;
+        delete myCurrentSocket->second;
     }
     delete myServerSocket;
     cleanup();
@@ -212,10 +226,6 @@ void
 TraCIServer::close() {
     if (myInstance == 0) {
         return;
-    }
-    if (myDoCloseConnection) {
-        myInstance->writeStatusCmd(CMD_CLOSE, RTYPE_OK, "");
-        myInstance->myCurrentSocket->second.first->sendExact(myInstance->myOutputStorage);
     }
     delete myInstance;
     myInstance = 0;
@@ -257,115 +267,259 @@ void
 TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to) {
     if (!myDoCloseConnection) {
         myVehicleStateChanges[to].push_back(vehicle->getID());
+        if (!myAmEmbedded) {
+            for (std::map<int, SocketInfo*>::iterator i = mySockets.begin(); i != mySockets.end(); ++i) {
+                i->second->vehicleStateChanges[to].push_back(vehicle->getID());
+            }
+        }
     }
 }
 
 
 void
+TraCIServer::processReorderingRequests() {
+    // Process reordering requests
+    if (mySocketReorderRequests.size() > 0) {
+        // process reordering requests
+        std::map<int, SocketInfo*>::const_iterator i = mySocketReorderRequests.begin();
+        std::map<int, SocketInfo*>::iterator j;
+#ifdef DEBUG_MULTI_CLIENTS
+        std::cout << SIMTIME << " Current socket ordering:\n";
+        for (j = mySockets.begin(); j != mySockets.end(); ++j){
+            std::cout << "      " << j->first << ": " << j->second->socket << "\n";
+        }
+        std::cout << "Reordering requests:\n";
+        for (i = mySocketReorderRequests.begin(); i != mySocketReorderRequests.end(); ++i){
+            std::cout << "      Socket " << i->second->socket << " -> " << i->first << "\n";
+        }
+        i = mySocketReorderRequests.begin();
+#endif
+        while (i != mySocketReorderRequests.end()){
+            j = mySockets.begin();
+            while(j != mySockets.end()) {
+                if (j->second->socket == i->second->socket) break;
+                else j++;
+            }
+            assert(j!=mySockets.end());
+            mySockets.erase(j);
+            mySockets[i->first] = i->second;
+            ++i;
+        }
+        mySocketReorderRequests.clear();
+#ifdef DEBUG_MULTI_CLIENTS
+        std::cout << "New socket ordering:\n";
+        for (j = mySockets.begin(); j != mySockets.end(); ++j){
+            std::cout << "      " << j->first << ": " << j->second->socket<< "\n";
+        }
+        std::cout << std::endl;
+#endif
+    }
+    if (!myWarnedAboutOrder) {
+        // check for clients without explicit ordering
+        myCurrentSocket = mySockets.begin();
+        while (myCurrentSocket != mySockets.end()){
+            if (myCurrentSocket->first > MAX_ORDER) {
+                WRITE_WARNING("Execution order was not set for all clients. Using order of connection request for these (may be non-deterministic).");
+                break;
+            } else {
+                ++myCurrentSocket;
+            }
+        }
+        myWarnedAboutOrder = true;
+    }
+}
+
+
+SUMOTime
+TraCIServer::nextTargetTime() const {
+#ifdef DEBUG_MULTI_CLIENTS
+        std::cout << "\n    Determining new target time..." << std::endl;
+        if (mySockets.size()==0){
+            std::cout << "    All clients have disconnected." << std::endl;
+        }
+#endif
+    std::map<int, SocketInfo*>::const_iterator i;
+    SUMOTime targetTime = std::numeric_limits<SUMOTime>::max();
+    for (i = mySockets.begin(); i != mySockets.end(); ++i) {
+#ifdef DEBUG_MULTI_CLIENTS
+        std::cout << "    target time for client " << i->second->socket << ": " << i->second->targetTime << "\n";
+#endif
+        targetTime = MIN2(targetTime, i->second->targetTime);
+    }
+#ifdef DEBUG_MULTI_CLIENTS
+        std::cout << std::endl;
+#endif
+    return targetTime;
+}
+
+
+// send out subscription results to clients which will act in this step (i.e. with client target time <= myTargetTime)
+void
+TraCIServer::sendOutputToAll() const {
+#ifdef DEBUG_MULTI_CLIENTS
+    std::cout << "\n    Sending subscription results to clients:\n";
+#endif
+    std::map<int, SocketInfo*>::const_iterator i = mySockets.begin();
+    while (i != mySockets.end()) {
+        if (i->second->targetTime <= MSNet::getInstance()->getCurrentTimeStep()) {
+            // this client will become active before the next SUMO step. Provide subscription results.
+            i->second->socket->sendExact(myOutputStorage);
+#ifdef DEBUG_MULTI_CLIENTS
+    std::cout << i->second->socket<< "\n";
+#endif
+        }
+        ++i;
+    }
+#ifdef DEBUG_MULTI_CLIENTS
+    std::cout << std::endl;
+#endif
+}
+
+void
 TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
+#ifdef DEBUG_MULTI_CLIENTS
+    std::cout << SIMTIME << " processCommandsUntilSimStep(step = " << step << "):\n" << std::endl;
+#endif
     try {
         if (myCurrentSocket == mySockets.end()) {
+            // This is the entry point after performing a SUMO step (block is skipped before first SUMO step)
+            // update subscription results
             postProcessSimulationStep();
-            if (mySocketReorderRequests.size() > 0) {
-                // process reordering requests
-                std::map<int, tcpip::Socket*>::const_iterator i = mySocketReorderRequests.begin();
-                std::map<int, std::pair<tcpip::Socket*,SUMOTime> >::iterator j;
-#ifdef DEBUG_MULTI_CLIENTS
-                std::cout << SIMTIME << " Current socket ordering:\n";
-                for (j = mySockets.begin(); j != mySockets.end(); ++j){
-                    std::cout << "      " << j->first << ": " << j->second.first << "\n";
-                }
-                std::cout << "Reordering requests:\n";
-                for (i = mySocketReorderRequests.begin(); i != mySocketReorderRequests.end(); ++i){
-                    std::cout << "      Socket " << i->second << " -> " << i->first << "\n";
-                }
-                i = mySocketReorderRequests.begin();
-#endif
-                while (i != mySocketReorderRequests.end()){
-                    for(j = mySockets.begin(); j != mySockets.end(); ++j){
-                        if (j->second.first == i->second) break;
-                    }
-                    assert(j!=mySockets.end());
-                    SUMOTime time = j->second.second;
-                    mySockets.erase(j);
-                    mySockets[i->first] = std::make_pair(i->second, time);
-                    ++i;
-                }
-                mySocketReorderRequests.clear();
-#ifdef DEBUG_MULTI_CLIENTS
-                std::cout << "New socket ordering:\n";
-                for (j = mySockets.begin(); j != mySockets.end(); ++j){
-                    std::cout << "      " << j->first << ": " << j->second.first << "\n";
-                }
-                std::cout << std::endl;
-#endif
-            }
-
-            if (!myWarnedAboutOrder) {
-                // check for clients without explicit ordering
-                myCurrentSocket = mySockets.begin();
-                while (myCurrentSocket != mySockets.end()){
-                    if (myCurrentSocket->first > MAX_ORDER) {
-                        WRITE_WARNING("Execution order was not set for all clients.");
-                        break;
-                    } else {
-                        ++myCurrentSocket;
-                    }
-                }
-                myWarnedAboutOrder = true;
-            }
-
-            myCurrentSocket = mySockets.begin();
-            myTargetTime = myCurrentSocket->second.second;
-            for (++myCurrentSocket; myCurrentSocket != mySockets.end(); ++myCurrentSocket) {
-                myCurrentSocket->second.first->sendExact(myOutputStorage); // (output storage is sent to first socket below.)
-                myTargetTime = MIN2(myTargetTime, myCurrentSocket->second.second);
-            }
-            myCurrentSocket = mySockets.begin();
+            // update client order if requested
+            processReorderingRequests();
+            // Send out subscription results to clients which will act in this SUMO step (i.e. with client target time <= current sumo timestep end)
+            sendOutputToAll();
+            myOutputStorage.reset();
         }
+
+        // determine minimal next target time among clients
+        myTargetTime = nextTargetTime();
+
         if (myAmEmbedded || step < myTargetTime) {
+#ifdef DEBUG_MULTI_CLIENTS
+            if (step < myTargetTime) std::cout << "    next target time is larger than next SUMO simstep (" << step << "). Returning from processCommandsUntilSimStep()." << std::endl;
+#endif
             return;
         }
+
         // Simulation should run until
         // 1. end time reached or
         // 2. got CMD_CLOSE or
         // 3. got CMD_LOAD or
         // 4. Client closes socket connection
-        while (!myDoCloseConnection) {
-            if (!myInputStorage.valid_pos()) {
-                if (myOutputStorage.size() > 0) {
-                    // send out subscription results to first client
-                    myCurrentSocket->second.first->sendExact(myOutputStorage);
+        while (!myDoCloseConnection && myTargetTime <= (MSNet::getInstance()->getCurrentTimeStep())) {
+#ifdef DEBUG_MULTI_CLIENTS
+            std::cout << "    Next target time: " << myTargetTime << std::endl;
+#endif
+            // Iterate over clients and process communication for the ones with target time == myTargetTime
+            myCurrentSocket = mySockets.begin();
+            while (myCurrentSocket != mySockets.end()){
+#ifdef DEBUG_MULTI_CLIENTS
+                std::cout << "    current socket: " << myCurrentSocket->second->socket
+                        << " with target time " << myCurrentSocket->second->targetTime
+                        << std::endl;
+#endif
+                if (myCurrentSocket->second->targetTime > myTargetTime) {
+                    // this client must wait
+#ifdef DEBUG_MULTI_CLIENTS
+                    std::cout <<  "       skipping client " << myCurrentSocket->second->socket
+                            << " with target time " << myCurrentSocket->second->targetTime << std::endl;
+#endif
+                    myCurrentSocket++;
+                    continue;
                 }
-                myInputStorage.reset();
-                myOutputStorage.reset();
-                // Read a message
-                myCurrentSocket->second.first->receiveExact(myInputStorage);
-            }
-            while (myInputStorage.valid_pos() && !myDoCloseConnection) {
-                // dispatch each command (command simstep advances myCurrentSocket to next client with control request for this timestep)
-                const int cmd = dispatchCommand();
-//#ifdef DEBUG_MULTI_CLIENTS
-//                std::cout << " Received command " << cmd << std::endl;
-//#endif
-                if (cmd == CMD_SIMSTEP || cmd == CMD_LOAD) {
-//#ifdef DEBUG_MULTI_CLIENTS
-//                    std::cout << " Received command SIM_STEP, returning from processCommandsUntilSimStep()" << std::endl;
-//#endif
-                    return;
-                }
+                bool done = false;
+                bool closed = false;
+                bool load = false;
+                while (!done && !closed && !load) {
+                    if (!myInputStorage.valid_pos()) {
+                        // have read request completely, send response if adequate
+                        if (myOutputStorage.size() > 0) {
+#ifdef DEBUG_MULTI_CLIENTS
+                            std::cout << "    sending response..." << std::endl;
+#endif
+                            // send response to previous query
+                            myCurrentSocket->second->socket->sendExact(myOutputStorage);
+                            myOutputStorage.reset();
+                        } else {
+#ifdef DEBUG_MULTI_CLIENTS
+                            std::cout << "    No input and no output stored (This is the next client)." << std::endl;
+#endif
+                        }
+#ifdef DEBUG_MULTI_CLIENTS
+                        std::cout << "    resetting input storage and reading next command..." << std::endl;
+#endif
+                        // Read next request
+                        myInputStorage.reset();
+                        myCurrentSocket->second->socket->receiveExact(myInputStorage);
+                    }
 
+                    while (myInputStorage.valid_pos() && !myDoCloseConnection) {
+                        // dispatch command
+                        const int cmd = dispatchCommand();
+#ifdef DEBUG_MULTI_CLIENTS
+                        std::cout << "    Received command " << cmd << std::endl;
+#endif
+                        if (cmd == CMD_SIMSTEP) {
+#ifdef DEBUG_MULTI_CLIENTS
+                            std::cout << "    Received command SIM_STEP, end turn for client " << myCurrentSocket->second->socket << std::endl;
+#endif
+                            done = true;
+                        } else if (cmd == CMD_LOAD) {
+#ifdef DEBUG_MULTI_CLIENTS
+                            std::cout << "    Received command LOAD." << std::endl;
+#endif
+                            load = true;
+                        } else if (cmd == CMD_CLOSE) {
+#ifdef DEBUG_MULTI_CLIENTS
+                            std::cout << "    Received command CLOSE." << std::endl;
+#endif
+                            closed = true;
+                        }
+                    }
+                }
+                if (done) {
+                    // Clear vehicleStateChanges for this client -> For subsequent TraCI stepping
+                    // that is performed within this SUMO step, no updates on vehicle states
+                    // belonging to the last SUMO simulation step will be received by this client.
+                    for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myCurrentSocket->second->vehicleStateChanges.begin(); i != myCurrentSocket->second->vehicleStateChanges.end(); ++i) {
+                        (*i).second.clear();
+                    }
+                    myCurrentSocket++;
+                } else if (load) {
+                    myCurrentSocket = mySockets.end();
+                } else {
+                    assert(closed);
+                    // remove current socket and increment to next socket in ordering
+                    myCurrentSocket = removeCurrentSocket();
+                }
             }
-        }
-        if (myDoCloseConnection) {
-            if (myOutputStorage.size() > 0) {
-                // send out all answers as one storage
-                myCurrentSocket->second.first->sendExact(myOutputStorage);
+            if(!TraCI::getLoadArgs().empty()) {
+#ifdef DEBUG_MULTI_CLIENTS
+                std::cout << "  Breaking loop to load new simulation." << std::endl;
+#endif
+                break;
+            } else if (myDoCloseConnection) {
+#ifdef DEBUG_MULTI_CLIENTS
+                std::cout << "  Breaking loop because last client closed connection." << std::endl;
+#endif
+                break;
             }
+            SUMOTime nextT = nextTargetTime();
+            // minimal target time among clients should have been increased during the last loop through mySockets
+            // XXX: The assert below is disabled since many tests do sth. like simulationStep(step). Such that for a first call step=0,
+            //      leading to targetTime==1000 (increased by DELTA_T in dispatchCommand()),
+            //      the next call is then usually simulationStep(step=1000) leading to no further increase
+            //      and thus a failing assertion here.
+            //assert(myTargetTime < nextT || myDoCloseConnection);
+            myTargetTime = nextT;
         }
+        // All clients are done with the current time step
+        // Reset myVehicleStateChanges
         for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); ++i) {
             (*i).second.clear();
         }
+
     } catch (std::invalid_argument& e) {
         throw ProcessError(e.what());
     } catch (TraCIException& e) {
@@ -387,7 +541,14 @@ TraCIServer::cleanup() {
     myLaneTree = 0;
     myTargetTime = string2time(OptionsCont::getOptions().getString("begin"));
     for (myCurrentSocket = mySockets.begin(); myCurrentSocket != mySockets.end(); ++myCurrentSocket) {
-        myCurrentSocket->second.second = myTargetTime;
+        myCurrentSocket->second->targetTime = myTargetTime;
+    }
+    myOutputStorage.reset();
+    myInputStorage.reset();
+    mySubscriptionCache.reset();
+    std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i;
+    for(i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); i++) {
+        i->second.clear();
     }
     myCurrentSocket = mySockets.begin();
 }
@@ -480,6 +641,36 @@ TraCIServer::runEmbedded(std::string pyFile) {
 #endif
 
 
+std::map<int, TraCIServer::SocketInfo*>::iterator
+TraCIServer::removeCurrentSocket(){
+#ifdef DEBUG_MULTI_CLIENTS
+        std::cout << "       Removing socket " << myCurrentSocket->second->socket
+                << " (order " << myCurrentSocket->first << ")" << std::endl;
+#endif
+
+    if (mySockets.size() == 1) {
+        // Last client has disconnected
+        delete myCurrentSocket->second->socket;
+        mySockets.clear();
+        myCurrentSocket = mySockets.end();
+        return myCurrentSocket;
+    }
+
+    const int currOrder = myCurrentSocket->first;
+    delete myCurrentSocket->second->socket;
+    myCurrentSocket++;
+    if (myCurrentSocket != mySockets.end()) {
+        const int nextOrder = myCurrentSocket->first;
+        mySockets.erase(currOrder);
+        myCurrentSocket = mySockets.find(nextOrder);
+    } else {
+        mySockets.erase(currOrder);
+        myCurrentSocket = mySockets.end();
+    }
+    return myCurrentSocket;
+}
+
+
 int
 TraCIServer::dispatchCommand() {
     int commandStart = myInputStorage.position();
@@ -489,6 +680,10 @@ TraCIServer::dispatchCommand() {
     }
 
     int commandId = myInputStorage.readUnsignedByte();
+#ifdef DEBUG_MULTI_CLIENTS
+        std::cout << "       dispatchCommand() called for client " << myCurrentSocket->second->socket
+                << ", commandId = " << commandId << std::endl;
+#endif
     bool success = false;
     // dispatch commands
     if (myExecutors.find(commandId) != myExecutors.end()) {
@@ -503,10 +698,18 @@ TraCIServer::dispatchCommand() {
                 if (!readTypeCheckingStringList(myInputStorage, args)) {
                     return writeErrorStatusCmd(CMD_LOAD, "A load command needs a list of string arguments.", myOutputStorage);
                 }
+#ifdef DEBUG_MULTI_CLIENTS
+                std::cout << "       commandId == CMD_LOAD"
+                        << ", args = " << toString(args) << std::endl;
+#endif
                 try {
                     TraCI::load(args);
                     success = true;
                     writeStatusCmd(CMD_LOAD, RTYPE_OK, "");
+                    // XXX: This only cares for the client that issued the load command.
+                    // Multiclient-load functionality is still to be implemented. Refs #3146.
+                    myCurrentSocket->second->socket->sendExact(myOutputStorage);
+                    myOutputStorage.reset();
                 } catch (TraCIException& e) {
                     return writeErrorStatusCmd(CMD_LOAD, e.what(), myOutputStorage);
                 }
@@ -515,44 +718,36 @@ TraCIServer::dispatchCommand() {
             case CMD_SIMSTEP: {
                 SUMOTime nextT = myInputStorage.readInt();
                 if (nextT == 0) {
-                    nextT = myCurrentSocket->second.second + DELTA_T;
+                    myCurrentSocket->second->targetTime += DELTA_T;
+                } else {
+                    myCurrentSocket->second->targetTime = nextT;
                 }
-                myCurrentSocket->second.second = nextT;
-                myCurrentSocket++;
-                while (myCurrentSocket != mySockets.end() && MSNet::getInstance()->getCurrentTimeStep() < myCurrentSocket->second.second) {
-                    myCurrentSocket++;
-                }
-                if (myAmEmbedded || myCurrentSocket == mySockets.end()) {
+#ifdef DEBUG_MULTI_CLIENTS
+                std::cout << "       commandId == CMD_SIMSTEP"
+                        << ", next target time for client is " << myCurrentSocket->second->targetTime << std::endl;
+#endif
+                if (myAmEmbedded) {
                     for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); ++i) {
                         (*i).second.clear();
                     }
-                }
-                if (myAmEmbedded) {
                     while (MSNet::getInstance()->getCurrentTimeStep() < myTargetTime) {
                         MSNet::getInstance()->simulationStep();
                     }
                     postProcessSimulationStep();
                 }
+                if (myCurrentSocket->second->targetTime <= MSNet::getInstance()->getCurrentTimeStep()){
+                    // This is not the last TraCI simstep in the current SUMO simstep -> send single simstep response.
+                    // @note: In the other case the simstep results are sent to all after the SUMO step was performed, see entry point for processCommandsUntilSimStep()
+                    sendSingleSimStepResponse();
+                }
                 return commandId;
             }
             case CMD_CLOSE:
-                if (mySockets.size() > 1) {
-                    writeStatusCmd(CMD_CLOSE, RTYPE_OK, "");
-                    myCurrentSocket->second.first->sendExact(myOutputStorage);
-                    myOutputStorage.reset();
-                    const int currOrder = myCurrentSocket->first;
-                    delete myCurrentSocket->second.first;
-                    myCurrentSocket++;
-                    while (myCurrentSocket != mySockets.end() && MSNet::getInstance()->getCurrentTimeStep() < myCurrentSocket->second.second) {
-                        myCurrentSocket++;
-                    }
-                    if (myCurrentSocket == mySockets.end()) {
-                        myCurrentSocket = mySockets.begin();
-                    }
-                    const int nextOrder = myCurrentSocket->first;
-                    mySockets.erase(currOrder);
-                    myCurrentSocket = mySockets.find(nextOrder);
-                } else {
+                writeStatusCmd(CMD_CLOSE, RTYPE_OK, "");
+                myCurrentSocket->second->socket->sendExact(myOutputStorage);
+                myOutputStorage.reset();
+                if (mySockets.size() == 1) {
+                    // Last client has closed connection
                     myDoCloseConnection = true;
                 }
                 success = true;
@@ -566,7 +761,7 @@ TraCIServer::dispatchCommand() {
                     return writeErrorStatusCmd(CMD_SETORDER, "Order '" + toString(order) + "' is already taken.", myOutputStorage);
                 }
                 // memorize reorder request (will only take effect in the next step)
-                mySocketReorderRequests[order] = myCurrentSocket->second.first;
+                mySocketReorderRequests[order] = myCurrentSocket->second;
                 success = true;
                 writeStatusCmd(CMD_SETORDER, RTYPE_OK, "");
                 break;
@@ -649,6 +844,9 @@ TraCIServer::commandGetVersion() {
 void
 TraCIServer::postProcessSimulationStep() {
     SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
+#ifdef DEBUG_MULTI_CLIENTS
+    std::cout << "   postProcessSimulationStep() at time " << t << std::endl;
+#endif
     writeStatusCmd(CMD_SIMSTEP, RTYPE_OK, "");
     int noActive = 0;
     for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
@@ -665,7 +863,15 @@ TraCIServer::postProcessSimulationStep() {
         }
         ++noActive;
     }
-    myOutputStorage.writeInt(noActive);
+    mySubscriptionCache.reset();
+#ifdef DEBUG_SUBSCRIPTIONS
+    std::cout << "   Initial size of mySubscriptionCache is " << mySubscriptionCache.size()
+            << "\n   Nr. of active subscriptions = " << noActive << std::endl;
+#endif
+    mySubscriptionCache.writeInt(noActive);
+#ifdef DEBUG_SUBSCRIPTIONS
+    std::cout << "   Size after writing an int is " << mySubscriptionCache.size() << std::endl;
+#endif
     for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
         const Subscription& s = *i;
         if (s.beginTime > t) {
@@ -675,13 +881,42 @@ TraCIServer::postProcessSimulationStep() {
         tcpip::Storage into;
         std::string errors;
         bool ok = processSingleSubscription(s, into, errors);
-        myOutputStorage.writeStorage(into);
+#ifdef DEBUG_SUBSCRIPTIONS
+    std::cout << "   Size of into-store for subscription " << s.id
+            << ": " << into.size() << std::endl;
+#endif
+        mySubscriptionCache.writeStorage(into);
         if (ok) {
             ++i;
         } else {
             i = mySubscriptions.erase(i);
         }
     }
+    myOutputStorage.writeStorage(mySubscriptionCache);
+#ifdef DEBUG_SUBSCRIPTIONS
+    std::cout << "   Size after writing subscriptions is " << mySubscriptionCache.size() << std::endl;
+#endif
+}
+
+
+void
+TraCIServer::sendSingleSimStepResponse() {
+#ifdef DEBUG_MULTI_CLIENTS
+    std::cout << "       Sending cached simstep response to current client " << myCurrentSocket->second->socket
+            << " (-> intermediate TraCI step)."
+            << "\n       Size of mySubscriptionCache is " << mySubscriptionCache.size()
+            << std::endl;
+#endif
+    writeStatusCmd(CMD_SIMSTEP, RTYPE_OK, "");
+
+// NOTE: the commented code would send an empty response
+//    myOutputStorage.writeInt(0);
+//    myCurrentSocket->second->socket->sendExact(myOutputStorage);
+//    myOutputStorage.reset();
+    myOutputStorage.writeStorage(mySubscriptionCache);
+    // send results to active client
+    myCurrentSocket->second->socket->sendExact(myOutputStorage);
+    myOutputStorage.reset();
 }
 
 
@@ -739,6 +974,19 @@ TraCIServer::initialiseSubscription(const TraCIServer::Subscription& s) {
             }
             if (needNewSubscription) {
                 mySubscriptions.push_back(s);
+                // Add new subscription to subscription cache (note: seems a bit inefficient)
+                if (s.beginTime < MSNet::getInstance()->getCurrentTimeStep()) {
+                    // copy new subscription into cache
+                    int noActive = mySubscriptionCache.readInt() + 1;
+                    tcpip::Storage tmp;
+                    tmp.writeInt(noActive);
+                    while (mySubscriptionCache.valid_pos()){
+                        tmp.writeByte(mySubscriptionCache.readByte());
+                    }
+                    tmp.writeStorage(writeInto);
+                    mySubscriptionCache.reset();
+                    mySubscriptionCache.writeStorage(tmp);
+                }
             }
             writeStatusCmd(s.commandId, RTYPE_OK, "");
         }
