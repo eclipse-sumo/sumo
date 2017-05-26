@@ -657,6 +657,7 @@ TraCI_Vehicle::resume(const std::string& vehicleID) {
 
 void
 TraCI_Vehicle::changeLane(const std::string& vehID, int laneIndex, SUMOTime duration) {
+    MSVehicle* veh = getVehicle(vehID);
 }
 
 
@@ -684,46 +685,57 @@ TraCI_Vehicle::add(const std::string& vehicleID,
 
 void
 TraCI_Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double position) {
+    getVehicle(vehicleID);
 }
 
 void
 TraCI_Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) {
+    getVehicle(vehicleID);
 }
 
 void
 TraCI_Vehicle::slowDown(const std::string& vehicleID, double speed, int duration) {
+    getVehicle(vehicleID);
 }
 
 void
 TraCI_Vehicle::setSpeed(const std::string& vehicleID, double speed) {
+    getVehicle(vehicleID);
 }
 
 void
 TraCI_Vehicle::setMaxSpeed(const std::string& vehicleID, double speed) {
+    getVehicle(vehicleID);
 }
 
 void
 TraCI_Vehicle::remove(const std::string& vehicleID, char reason) {
+    getVehicle(vehicleID);
 }
 
 void
 TraCI_Vehicle::setColor(const std::string& vehicleID, const TraCIColor& c) {
+    getVehicle(vehicleID);
 }
 
 void
 TraCI_Vehicle::setLine(const std::string& vehicleID, const std::string& line) {
+    getVehicle(vehicleID);
 }
 
 void
 TraCI_Vehicle::setVia(const std::string& vehicleID, const std::vector<std::string>& via) {
+    getVehicle(vehicleID);
 }
 
 void
 TraCI_Vehicle::setShapeClass(const std::string& vehicleID, const std::string& clazz) {
+    getVehicle(vehicleID);
 }
 
 void
 TraCI_Vehicle::setEmissionClass(const std::string& vehicleID, const std::string& clazz) {
+    getVehicle(vehicleID);
 }
 
 

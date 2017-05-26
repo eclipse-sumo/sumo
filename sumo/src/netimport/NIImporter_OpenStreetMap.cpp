@@ -1065,7 +1065,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
                 const std::map<long long int, NIImporter_OpenStreetMap::Edge*>::const_iterator& wayIt = myPlatformShapes.find(ref);
                 if (wayIt != myPlatformShapes.end()){
                     Edge* way = wayIt->second;
-                    long long int someNodeRef = way->myCurrentNodes[((int)way->myCurrentNodes.size()/2.)];
+                    long long int someNodeRef = way->myCurrentNodes[(int)way->myCurrentNodes.size()/2];
                     myPlatforms.push_back(someNodeRef);
                 }
             } else if (memberType =="node"){

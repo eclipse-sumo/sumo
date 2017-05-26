@@ -946,7 +946,6 @@ MSEdge::hasMinorLink() const {
 
 
 void MSEdge::checkAndRegisterBiDirEdge() {
-
     myOppositingSuperposableEdge = 0;
     if (getPurpose() != EDGEFUNCTION_NORMAL) {
         return;
@@ -963,19 +962,19 @@ void MSEdge::checkAndRegisterBiDirEdge() {
     }
 }
 
-bool MSEdge::isSuperposable(const MSEdge * other) {
 
+bool MSEdge::isSuperposable(const MSEdge * other) {
     if (other == 0 || other->getLanes().size() != myLanes->size()){
         return false;
     }
     std::vector<MSLane*>::const_iterator it1 = myLanes->begin();
-    std::vector<MSLane*>::const_iterator it2 = other->getLanes().end()-1;
+    std::vector<MSLane*>::const_reverse_iterator it2 = other->getLanes().rbegin();
     do {
-        if (!((*it1)->getShape().reverse() == (*it2)->getShape())) {
+        if ((*it1)->getShape().reverse() != (*it2)->getShape()) {
             return false;
         }
         it1++;
-        it2--;
+        it2++;
     } while (it1 != myLanes->end());
 
     return true;

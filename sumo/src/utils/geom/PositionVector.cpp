@@ -1079,16 +1079,13 @@ PositionVector::removeDoublePoints(double minDist, bool assertLength) {
 
 bool
 PositionVector::operator==(const PositionVector& v2) const {
-    if (size() == v2.size()) {
-        for (int i = 0; i < (int)size(); i++) {
-            if ((*this)[i] != v2[i]) {
-                return false;
-            }
-        }
-        return true;
-    } else {
-        return false;
-    }
+    return static_cast<vp>(*this) == static_cast<vp>(v2);
+}
+
+
+bool
+PositionVector::operator!=(const PositionVector& v2) const {
+    return static_cast<vp>(*this) != static_cast<vp>(v2);
 }
 
 

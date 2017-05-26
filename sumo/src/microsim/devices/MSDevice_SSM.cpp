@@ -599,10 +599,10 @@ MSDevice_SSM::computeSSMs(EncounterApproachInfo& eInfo) const {
     } else if (type == ENCOUNTER_TYPE_COLLISION) {
         // TODO: handle collision
     } else if (type == ENCOUNTER_TYPE_EGO_PASSED_CP || type == ENCOUNTER_TYPE_FOE_PASSED_CP
-            || ENCOUNTER_TYPE_NOCONFLICT_AHEAD) {
+        || type == ENCOUNTER_TYPE_NOCONFLICT_AHEAD) {
         // No conflict measures apply for these states, which correspond to intermediate times between
         // one vehicle leaving the conflict area and the arrival time for the other (difference corresponds to the PET)
-    } else if (ENCOUNTER_TYPE_NOCONFLICT_AHEAD) {
+    } else if (type == ENCOUNTER_TYPE_NOCONFLICT_AHEAD) {
         // No conflict measures apply for this state
     } else {
         WRITE_WARNING("Unknown or undetermined encounter type at computeSSMs().");
@@ -1431,6 +1431,9 @@ bool
 MSDevice_SSM::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
 #ifdef DEBUG_SSM_NOTIFICATIONS
     std::cout << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << veh.getLane()->getEdge().getID() << "\n";
+#else
+    UNUSED_PARAMETER(veh);
+    UNUSED_PARAMETER(reason);
 #endif
     return true; // keep the device
 }
@@ -1440,6 +1443,9 @@ MSDevice_SSM::notifyLeave(SUMOVehicle& veh, double /*lastPos*/,
                           MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
 #ifdef DEBUG_SSM_NOTIFICATIONS
     std::cout << "device '" << getID() << "' notifyLeave: reason=" << reason << " currentEdge=" << veh.getLane()->getEdge().getID() << "\n";
+#else
+    UNUSED_PARAMETER(veh);
+    UNUSED_PARAMETER(reason);
 #endif
     return true; // keep the device
 }
@@ -1449,6 +1455,8 @@ MSDevice_SSM::notifyMove(SUMOVehicle& /* veh */, double /* oldPos */,
                          double /* newPos */, double newSpeed) {
 #ifdef DEBUG_SSM_NOTIFICATIONS
     std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
+#else
+    UNUSED_PARAMETER(newSpeed);
 #endif
     return true; // keep the device
 }

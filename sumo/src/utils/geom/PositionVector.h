@@ -285,6 +285,9 @@ public:
     /// @brief comparing operation
     bool operator==(const PositionVector& v2) const;
 
+    /// @brief comparing operation
+    bool operator!=(const PositionVector& v2) const;
+
     /// @brief clase for CW Sorter
     class as_poly_cw_sorter {
     public:
