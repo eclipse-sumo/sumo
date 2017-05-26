@@ -107,19 +107,19 @@ done.
    48 types loaded.
    4222 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops... done (1ms).
+Removing self-loops... done (0ms).
 Joining junction clusters... 
 done (9ms).
  Joined 56 junction cluster(s).
-Removing empty nodes and geometry nodes... done (13ms).
+Removing empty nodes and geometry nodes... done (14ms).
    601 nodes removed.
 Moving network to origin... done (19ms).
 Computing turning directions... 
-done (2ms).
-Guessing and setting on-/off-ramps... done (5ms).
+done (3ms).
+Guessing and setting on-/off-ramps... done (6ms).
 Sorting nodes' edges... done (5ms).
-Computing node shapes... done (129ms).
-Computing edge shapes... done (59ms).
+Computing node shapes... done (132ms).
+Computing edge shapes... done (61ms).
 Computing node types... done (1ms).
 Guessed 865 pedestrian crossings.
 Computing priorities... done (3ms).
@@ -131,16 +131,16 @@ Computing approaching lanes... done (16ms).
 Dividing of lanes on approached lanes... done (7ms).
 Processing turnarounds... done (1ms).
 Rechecking of lane endings... done (1ms).
-Assigning nodes to traffic lights... done (0ms).
+Assigning nodes to traffic lights... done (1ms).
 Joining traffic light nodes... done (2ms).
 Computing traffic light control information... 
-done (2ms).
-Computing node logics... done (27ms).
+done (1ms).
+Computing node logics... done (28ms).
 Computing traffic light logics... 
-done (8ms).
+done (9ms).
  48 traffic light(s) computed.
 Building inner edges... 
-done (66ms).
+done (65ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -153,15 +153,15 @@ Summary:
   Applied offset     : -388415.86,-5817979.56
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
-Writing network... done (976ms).
+Writing network... done (960ms).
 Success.
-Written configuration to '/home/kobo/.texttest/tmp/tools.26May184942.27711/tools/import/OSM/webWizard/2017-05-26-18-49-45/osm.netccfg'
-Parsing network projection from '/home/kobo/.texttest/tmp/tools.26May184942.27711/tools/import/OSM/webWizard/2017-05-26-18-49-45/osm.net.xml'... done.
+Written configuration to '/home/kobo/.texttest/tmp/tools.26May232343.2557/tools/import/OSM/webWizard/2017-05-26-23-23-45/osm.netccfg'
+Parsing network projection from '/home/kobo/.texttest/tmp/tools.26May232343.2557/tools/import/OSM/webWizard/2017-05-26-23-23-45/osm.net.xml'... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
 Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
 Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
 Success.
-Written configuration to '/home/kobo/.texttest/tmp/tools.26May184942.27711/tools/import/OSM/webWizard/2017-05-26-18-49-45/osm.polycfg'
+Written configuration to '/home/kobo/.texttest/tmp/tools.26May232343.2557/tools/import/OSM/webWizard/2017-05-26-23-23-45/osm.polycfg'
 Success.
 Success.
 Success.
@@ -169,16 +169,16 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'... done (873ms).
-Loading additional-files from 'osm.poly.xml'... done (176ms).
+Loading net-file from 'osm.net.xml'... done (890ms).
+Loading additional-files from 'osm.poly.xml'... done (174ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 3050.00
+Simulation ended at time: 3052.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 22441ms
- Real time factor: 135.912
- UPS: 4978.075843
+ Duration: 22690ms
+ Real time factor: 134.509
+ UPS: 4928.911415
 Vehicles: 
  Inserted: 345
  Running: 0
@@ -188,16 +188,16 @@ Persons:
  Running: 0
 Statistics (avg):
  RouteLength: 1914.87
- Duration: 323.81
- WaitingTime: 62.58
- TimeLoss: 104.28
+ Duration: 324.17
+ WaitingTime: 62.94
+ TimeLoss: 104.65
  DepartDelay: -0.33
 
-DijkstraRouterTT answered 18423 queries and explored 11.86 edges on average.
-DijkstraRouterTT spent 101ms answering queries (0.01ms on average).
+DijkstraRouterTT answered 18446 queries and explored 11.86 edges on average.
+DijkstraRouterTT spent 85ms answering queries (0.00ms on average).
 DijkstraRouterTT answered 399 queries and explored 626.47 edges on average.
-DijkstraRouterTT spent 142ms answering queries (0.36ms on average).
-Building scenario in '/home/kobo/.texttest/tmp/tools.26May184942.27711/tools/import/OSM/webWizard/2017-05-26-18-49-45'
+DijkstraRouterTT spent 140ms answering queries (0.35ms on average).
+Building scenario in '/home/kobo/.texttest/tmp/tools.26May232343.2557/tools/import/OSM/webWizard/2017-05-26-23-23-45'
 calling  /home/kobo/dlr/sumo/bin/duarouter -n osm.net.xml -t osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
 calling route2trips
 calling  /home/kobo/dlr/sumo/bin/duarouter -n osm.net.xml -t osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
