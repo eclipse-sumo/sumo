@@ -183,11 +183,17 @@ class PlatoonManager(traci.StepListener):
         '''
         count = 0 
         for newID in traci.simulation.getDepartedIDList():
-            if not self._isConnected(newID):
-                continue            
+            # Check if the vehicle selector applies to this vehicle
+            connected = False
+            typeID = traci.vehicle.getTypeID(newID)
+            for s in self._typeSubstrings:
+                if typeID.find(s) >= 0:
+                    connected = True
+                    break     
             # create a new PVehicle object
-            self._addVehicle(newID)
-            count += 1
+            if connected:
+                self._addVehicle(newID)
+                count += 1
         return count
     
     
@@ -359,8 +365,9 @@ class PlatoonManager(traci.StepListener):
          
         Returns whether the given vehicle is a potential platooning participant 
         '''
-        for s in self._typeSubstrings:
-            if vehID.find(s) >= 0: return True
-        return False
+        if self._connectedVehicles.has_key(vehID):
+            return True
+        else:
+            return False
        
     

@@ -83,7 +83,7 @@ def loadVTypeMap(fn):
     
     with open(fn,"r") as f:
         splits = [l.split(":") for l in f.readlines()]
-        good_splits = []
+        NrBadLines = 0
         for j, spl in enumerate(splits):
             if len(spl)>=2 and len(spl)<=4:
                 stripped = map(lambda x: x.strip(), spl)
@@ -101,8 +101,10 @@ def loadVTypeMap(fn):
                 PLATOON_VTYPES[origType][PlatoonMode.LEADER] = leadType
                 PLATOON_VTYPES[origType][PlatoonMode.FOLLOWER] = followerType
                 PLATOON_VTYPES[origType][PlatoonMode.CATCHUP] = catchupType
-        if len(splits) > len(good_splits):
-            print("WARNING: vType file '%s' contained %d lines that were not parsed into a colon-separated sequence of strings!"%(fn, len(splits)-len(good_splits)))
+            else:
+                NrBadLines+=1
+        if NrBadLines > 0:
+            print("WARNING: vType file '%s' contained %d lines that were not parsed into a colon-separated sequence of strings!"%(fn, NrBadLines))
 
 
 def load(filename):
