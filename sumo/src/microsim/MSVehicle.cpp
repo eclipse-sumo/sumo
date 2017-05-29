@@ -1117,6 +1117,16 @@ MSVehicle::isStopped() const {
 }
 
 
+bool
+MSVehicle::keepStopping(bool afterProcessing) const {
+    if (isStopped()) {
+        // after calling processNextStop, DELTA_T has already been subtracted from the duration
+        return myStops.front().duration + (afterProcessing ? DELTA_T : 0) > 0 || isStoppedTriggered() || myStops.front().collision;
+    } else {
+        return false;
+    }
+}
+
 SUMOTime
 MSVehicle::collisionStopTime() const {
     return (myStops.empty() || !myStops.front().collision) ? myCollisionImmunity : MAX2((SUMOTime)0, myStops.front().duration);
@@ -1208,7 +1218,7 @@ MSVehicle::processNextStop(double currentVelocity) {
 #endif
             }
         }
-        if (stop.duration <= 0 && !stop.triggered && !stop.containerTriggered && !stop.collision) {
+        if (!keepStopping() && isOnRoad()) {
 #ifdef DEBUG_STOPS
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " vehicle '" << getID() << "' resumes from stopping." << std::endl;

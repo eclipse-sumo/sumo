@@ -136,6 +136,8 @@ protected:
      * @brief Holds the information needed to move the vehicle over the network
      */
     struct VehicleInformation {
+        /// @brief the time at which this vehicle was removed from the network
+        SUMOTime myTransferTime;
         /// @brief The vehicle itself
         MSVehicle* myVeh;
         /// @brief The time at which the vehicle should be moved virtually one edge further
@@ -148,8 +150,8 @@ protected:
          * @param[in] insertTime The time the vehicle was inserted at
          * @param[in] proceedTime The time at which the vehicle should be moved virtually one edge further
          */
-        VehicleInformation(MSVehicle* veh, SUMOTime proceedTime, bool parking)
-            : myVeh(veh), myProceedTime(proceedTime), myParking(parking) { }
+        VehicleInformation(SUMOTime t, MSVehicle* veh, SUMOTime proceedTime, bool parking)
+            : myTransferTime(t), myVeh(veh), myProceedTime(proceedTime), myParking(parking) { }
 
     };
 

@@ -893,6 +893,9 @@ public:
      */
     bool isStopped() const;
 
+    /** @brief Returns whether the vehicle is stopped and must continue to do so */
+    bool keepStopping(bool afterProcessing=false) const;
+
     /** @brief Returns the remaining time a vehicle needs to stop due to a
      * collision. A negative value indicates that the vehicle is not stopping due to a collision (or at all)
      */

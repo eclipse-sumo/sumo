@@ -71,7 +71,7 @@ MSVehicleTransfer::add(const SUMOTime t, MSVehicle* veh) {
         veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
         veh->enterLaneAtMove(veh->succEdge(1)->getLanes()[0], true);
     }
-    myVehicles.push_back(VehicleInformation(veh,
+    myVehicles.push_back(VehicleInformation(t, veh,
                                             t + TIME2STEPS(veh->getEdge()->getCurrentTravelTime(TeleportMinSpeed)),
                                             veh->isParking()));
 }
@@ -97,8 +97,12 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
 
         if (desc.myParking) {
             // handle parking vehicles
-            if (desc.myVeh->processNextStop(1) <= 0) {
-                ++i;
+            if (time != desc.myTransferTime) {
+                // avoid calling processNextStop twice in the transfer step
+                desc.myVeh->processNextStop(1); 
+            }
+            if (desc.myVeh->keepStopping(true)) {
+                i++;
                 continue;
             }
             // parking finished, head back into traffic
@@ -200,7 +204,7 @@ MSVehicleTransfer::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offs
     }
     SUMOTime proceedTime = (SUMOTime)attrs.getLong(SUMO_ATTR_DEPART);
     MSLane* parkingLane = attrs.hasAttribute(SUMO_ATTR_PARKING) ? MSLane::dictionary(attrs.getString(SUMO_ATTR_PARKING)) : 0;
-    myVehicles.push_back(VehicleInformation(veh, proceedTime - offset, parkingLane != 0));
+    myVehicles.push_back(VehicleInformation(-1, veh, proceedTime - offset, parkingLane != 0));
     if (parkingLane != 0) {
         parkingLane->addParking(veh);
         veh->setTentativeLaneAndPosition(parkingLane, veh->getPositionOnLane());
