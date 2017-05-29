@@ -695,6 +695,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         }
         case SUMO_ATTR_FROM: {
             undoList->p_begin("change  " + toString(getTag()) + "  attribute");
+            myGNEJunctionSource->setLogicValid(false, undoList);
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             myGNEJunctionSource->setLogicValid(false, undoList);
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
@@ -705,6 +706,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         }
         case SUMO_ATTR_TO: {
             undoList->p_begin("change  " + toString(getTag()) + "  attribute");
+            myGNEJunctionDestiny->setLogicValid(false, undoList);
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             myGNEJunctionDestiny->setLogicValid(false, undoList);
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
