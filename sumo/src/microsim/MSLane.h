@@ -974,6 +974,13 @@ public:
      */
     std::pair<MSVehicle* const, double> getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignoreMinorLinks) const;
 
+
+    ///@brief add parking vehicle. This should only used during state loading
+    void addParking(MSVehicle* veh);
+
+    ///@brief remove parking vehicle. This must be syncrhonized when running with GUI
+    virtual void removeParking(MSVehicle* veh);
+
     /// @name State saving/loading
     /// @{
 
@@ -1117,6 +1124,11 @@ protected:
      * Integrated after all vehicles executed their moves*/
     VehCont myVehBuffer;
 
+
+    /* @brief list of vehicles that are parking near this lane 
+     * (not necessarily on the road but having reached their stop on this lane)
+     * */
+    std::set<const MSVehicle*> myParkingVehicles;
 
     /// Lane length [m]
     double myLength;

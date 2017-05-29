@@ -151,6 +151,8 @@ public:
         first; the access will be granted at the end of this method */
     MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify);
 
+    /// @brief remove parking vehicle
+    void removeParking(MSVehicle* veh);
 
     /** @brief Sets the information about a vehicle lapping into this lane
      *

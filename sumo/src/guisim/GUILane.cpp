@@ -153,6 +153,13 @@ GUILane::removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notif
 
 
 void
+GUILane::removeParking(MSVehicle* remVehicle) {
+    AbstractMutex::ScopedLocker locker(myLock);
+    return MSLane::removeParking(remVehicle);
+}
+
+
+void
 GUILane::swapAfterLaneChange(SUMOTime t) {
     AbstractMutex::ScopedLocker locker(myLock);
     MSLane::swapAfterLaneChange(t);
@@ -585,8 +592,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             } // else: this is the shadow during a continuous lane change
         }
         // draw parking vehicles
-        const std::set<const MSVehicle*> parking = MSVehicleTransfer::getInstance()->getParkingVehicles(this);
-        for (std::set<const MSVehicle*>::const_iterator v = parking.begin(); v != parking.end(); ++v) {
+        for (std::set<const MSVehicle*>::const_iterator v = myParkingVehicles.begin(); v != myParkingVehicles.end(); ++v) {
             static_cast<const GUIVehicle* const>(*v)->drawGL(s);
         }
         // allow lane simulation

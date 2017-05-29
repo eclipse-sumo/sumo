@@ -111,9 +111,6 @@ public:
      */
     bool hasPending() const;
 
-    /// @brief return parking vehicles on the given lane
-    const std::set<const MSVehicle*>& getParkingVehicles(const MSLane* lane) const;
-
     /** @brief Saves the current state into the given stream */
     void saveState(OutputDevice& out) const;
 
@@ -162,10 +159,6 @@ protected:
 
     /// @brief The information about stored vehicles to move virtually
     VehicleInfVector myVehicles;
-
-    /// @brief The map from lanes to parking vehicles
-    typedef std::map<const MSLane*, std::set<const MSVehicle*> > ParkingVehicles;
-    ParkingVehicles myParkingVehicles;
 
     /// @brief The static singleton-instance
     static MSVehicleTransfer* myInstance;

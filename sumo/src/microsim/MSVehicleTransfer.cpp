@@ -59,7 +59,6 @@ MSVehicleTransfer::add(const SUMOTime t, MSVehicle* veh) {
         veh->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_PARKING);
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_PARKING);
         veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_PARKING);
-        myParkingVehicles[veh->getLane()].insert(veh); // initialized to empty set on first use
     } else {
         veh->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_TELEPORT);
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
@@ -86,9 +85,6 @@ MSVehicleTransfer::remove(MSVehicle* veh) {
             break;
         }
     }
-    if (veh->getLane() != 0) {
-        myParkingVehicles[veh->getLane()].erase(veh);
-    }
 }
 
 
@@ -111,25 +107,24 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
         const MSEdge* e = desc.myVeh->getEdge();
         const MSEdge* nextEdge = desc.myVeh->succEdge(1);
 
-        // get the lane on which this vehicle should continue
-        // first select all the lanes which allow continuation onto nextEdge
-        //   then pick the one which is least occupied
-        // @todo maybe parking vehicles should always continue on the rightmost lane?
-        const MSLane* oldLane = desc.myVeh->getLane();
         const double departPos = desc.myParking ? desc.myVeh->getPositionOnLane() : 0;
-        MSLane* l = (nextEdge != 0 ? e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass, departPos) :
-                     e->getFreeLane(0, vclass, departPos));
 
         if (desc.myParking) {
             // handle parking vehicles
-            if (l->isInsertionSuccess(desc.myVeh, 0, departPos, desc.myVeh->getLateralPositionOnLane(), false, MSMoveReminder::NOTIFICATION_PARKING)) {
+            if (desc.myVeh->getLane()->isInsertionSuccess(desc.myVeh, 0, departPos, desc.myVeh->getLateralPositionOnLane(),
+                        false, MSMoveReminder::NOTIFICATION_PARKING)) {
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_PARKING);
-                myParkingVehicles[oldLane].erase(desc.myVeh);
+                desc.myVeh->getLane()->removeParking(desc.myVeh);
                 i = myVehicles.erase(i);
             } else {
                 i++;
             }
         } else {
+            // get the lane on which this vehicle should continue
+            // first select all the lanes which allow continuation onto nextEdge
+            //   then pick the one which is least occupied
+            MSLane* l = (nextEdge != 0 ? e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass, departPos) :
+                    e->getFreeLane(0, vclass, departPos));
             // handle teleporting vehicles, lane may be 0 because permissions were modified by a closing rerouter or TraCI
             if (l != 0 && l->freeInsertion(*(desc.myVeh), MIN2(l->getSpeedLimit(), desc.myVeh->getMaxSpeed()), MSMoveReminder::NOTIFICATION_TELEPORT)) {
                 WRITE_WARNING("Vehicle '" + desc.myVeh->getID() + "' ends teleporting on edge '" + e->getID() + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
@@ -182,32 +177,14 @@ MSVehicleTransfer::~MSVehicleTransfer() {
 }
 
 
-const std::set<const MSVehicle*>&
-MSVehicleTransfer::getParkingVehicles(const MSLane* lane) const {
-    ParkingVehicles::const_iterator it = myParkingVehicles.find(lane);
-    if (it != myParkingVehicles.end()) {
-        return it->second;
-    } else {
-        return myEmptyVehicleSet;
-    }
-}
-
-
 void
 MSVehicleTransfer::saveState(OutputDevice& out) const {
-    std::map<const MSVehicle*,  const MSLane*> parkingLanes;
-    for (ParkingVehicles::const_iterator it = myParkingVehicles.begin(); it != myParkingVehicles.end(); ++it) {
-        const std::set<const MSVehicle*>& vehs = it->second;
-        for (std::set<const MSVehicle*>::const_iterator it2 = vehs.begin(); it2 != vehs.end(); ++it2) {
-            parkingLanes[*it2] = it->first;
-        }
-    }
     for (VehicleInfVector::const_iterator it = myVehicles.begin(); it != myVehicles.end(); ++it) {
         out.openTag(SUMO_TAG_VEHICLETRANSFER);
         out.writeAttr(SUMO_ATTR_ID, it->myVeh->getID());
         out.writeAttr(SUMO_ATTR_DEPART, it->myProceedTime);
         if (it->myParking) {
-            out.writeAttr(SUMO_ATTR_PARKING, parkingLanes[it->myVeh]->getID());
+            out.writeAttr(SUMO_ATTR_PARKING, it->myVeh->getLane()->getID());
         }
         out.closeTag();
     }
@@ -225,7 +202,7 @@ MSVehicleTransfer::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offs
     MSLane* parkingLane = attrs.hasAttribute(SUMO_ATTR_PARKING) ? MSLane::dictionary(attrs.getString(SUMO_ATTR_PARKING)) : 0;
     myVehicles.push_back(VehicleInformation(veh, proceedTime - offset, parkingLane != 0));
     if (parkingLane != 0) {
-        myParkingVehicles[parkingLane].insert(veh);
+        parkingLane->addParking(veh);
         veh->setTentativeLaneAndPosition(parkingLane, veh->getPositionOnLane());
         veh->processNextStop(veh->getSpeed());
     }

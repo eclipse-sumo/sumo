@@ -1285,6 +1285,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIn
         } else if (veh->isParking()) {
             // vehicle started to park
             MSVehicleTransfer::getInstance()->add(t, veh);
+            myParkingVehicles.insert(veh);
         } else if (veh->getPositionOnLane() > getLength()) {
             // for any reasons the vehicle is beyond its lane...
             // this should never happen because it is handled in MSVehicle::executeMove
@@ -2457,6 +2458,16 @@ MSLane::outgoing_lane_priority_sorter::operator()(const MSLink* link1, const MSL
     return d2 > d1;
 }
 
+void 
+MSLane::addParking(MSVehicle* veh) {
+    myParkingVehicles.insert(veh);
+}
+
+
+void 
+MSLane::removeParking(MSVehicle* veh) {
+    myParkingVehicles.erase(veh);
+}
 
 void
 MSLane::saveState(OutputDevice& out) {
