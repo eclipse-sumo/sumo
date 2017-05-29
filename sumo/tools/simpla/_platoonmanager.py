@@ -14,6 +14,9 @@ the Free Software Foundation; either version 3 of the License, or
 -----------------------------------
 """
 
+## TODO: For catchup mode an "in-platoon catchup mode" should be defined, using the 
+## FOLLOWER vType with the CATCHUP speedFactor. 
+
 import traci
 from traci.exceptions import TraCIException
 import traci.constants as tc
@@ -22,6 +25,7 @@ import simpla._config as cfg
 import simpla._pvehicle
 from simpla._reporting import Warner, Reporter
 from simpla._platoonmode import PlatoonMode
+from _collections import defaultdict
 
 warn = Warner("PlatoonManager")
 report = Reporter("PlatoonManager")
@@ -82,13 +86,14 @@ class PlatoonManager(traci.StepListener):
             if origType not in knownVTypes:
                 warn("Unknown vType '%s'"%origType)
                 continue
-            simpla._pvehicle.vTypeParameters[origType][tc.VAR_TAU] = traci.vehicletype.getTau(origType)
-            simpla._pvehicle.vTypeParameters[origType][tc.VAR_DECEL] = traci.vehicletype.getDecel(origType)
-            simpla._pvehicle.vTypeParameters[origType][tc.VAR_EMERGENCY_DECEL] = traci.vehicletype.getEmergencyDecel(origType)            
-            for mappedType in mappings.values():
-                simpla._pvehicle.vTypeParameters[mappedType][tc.VAR_TAU] = traci.vehicletype.getTau(mappedType)
-                simpla._pvehicle.vTypeParameters[mappedType][tc.VAR_DECEL] = traci.vehicletype.getDecel(mappedType)
-                simpla._pvehicle.vTypeParameters[mappedType][tc.VAR_EMERGENCY_DECEL] = traci.vehicletype.getEmergencyDecel(mappedType)
+#             simpla._pvehicle.vTypeParameters[origType][tc.VAR_TAU] = traci.vehicletype.getTau(origType)
+#             simpla._pvehicle.vTypeParameters[origType][tc.VAR_DECEL] = traci.vehicletype.getDecel(origType)
+#             simpla._pvehicle.vTypeParameters[origType][tc.VAR_EMERGENCY_DECEL] = traci.vehicletype.getEmergencyDecel(origType)            
+            for typeID in mappings.values()+[origType]:
+                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_TAU] = traci.vehicletype.getTau(typeID)
+                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_DECEL] = traci.vehicletype.getDecel(typeID)
+                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_MINGAP] = traci.vehicletype.getMinGap(typeID)
+                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_EMERGENCY_DECEL] = traci.vehicletype.getEmergencyDecel(typeID)
             
         
         
@@ -119,6 +124,7 @@ class PlatoonManager(traci.StepListener):
             veh.setPlatoonMode(PlatoonMode.NONE)
             traci.vehicle.unsubscribe(veh.getID())  
         
+        
     def getPlatoonLeaders(self):
         '''getPlatoonLeaders() -> list(PVehicle)
         
@@ -127,6 +133,12 @@ class PlatoonManager(traci.StepListener):
         '''
         return [pltn.getVehicles()[0] for pltn in self._platoons.values() if pltn.size()>1] 
         
+        
+    def getSelectionSubstrings(self):
+        '''getSelectionSubstring() -> string
+        Returns the platoon manager's selection substring.
+        ''' 
+        return self._typeSubstrings
         
         
     def _updateVehicleStates(self):
@@ -158,19 +170,24 @@ class PlatoonManager(traci.StepListener):
         Returns the number of removed connected vehicles
         '''
         count = 0
+        toRemove = defaultdict(list)
         for ID in traci.simulation.getArrivedIDList():
+            # first store arrived vehicles platoonwise
             if not self._isConnected(ID):
                 continue
-            # remove veh from _connectedVehicles and from its platoon
             if cfg.VERBOSITY >= 2:
                 report("Removing arrived vehicle '%s'"%ID)
             veh = self._connectedVehicles.pop(ID)
-            pltn = veh.getPlatoon()
-            pltn.removeVehicle(veh)
+            toRemove[veh.getPlatoon().getID()].append(veh)
+            count += 1
+            
+        for pltnID, vehs in toRemove.iteritems():
+            pltn = self._platoons[pltnID]
+            pltn.removeVehicles(vehs)
             if pltn.size() == 0:
                 # remove empty platoons
                 self._platoons.pop(pltn.getID())
-            count += 1
+
         return count
             
         
@@ -226,36 +243,39 @@ class PlatoonManager(traci.StepListener):
         
         Iterates over platoon-followers and
         1) checks whether a Platoon has to be split due to incoherence persisting over some time
-        2) advises platoon-followers to change to the lane of their frontman in the platoon
         '''
         newPlatoons=[]
         for pltnID, pltn in self._platoons.iteritems():
+            # encourage all vehicles to adopt the current mode of the platoon
+            # NOTE: for switching between CATCHUP and normal platoon mode, there may be 
+            #       followers not complying immediately. They are asked to do so here again.
+            pltn.adviseMemberModes()
             # splitIndices = indices of vehicles that request a split
             splitIndices = []
             for ix, veh in enumerate(pltn.getVehicles()[1:]):
                 # check whether to split the platoon at index ix
                 leaderInfo = veh.state.leaderInfo
-                #leaderInfo = traci.vehicle.getSubscriptionResults(veh.getID())[tc.VAR_LEADER]
                 if leaderInfo is None or not self._isConnected(leaderInfo[0]) or leaderInfo[1] > self._maxPlatoonGap:
                     # no leader or no leader that allows platooning
-                    splitConditions = True
+                    veh.setSplitConditions(True)
                 else:
                     # ego has a connected leader 
                     leaderID = leaderInfo[0]
                     leader = self._connectedVehicles[leaderID]
                     if pltn.getVehicles()[ix] == leader:
                         # ok, this is really the leader as registered in the platoon
-                        splitConditions = False
+                        veh.setSplitConditions(False)
                         veh.resetSplitCountDown()
                     elif leader.getPlatoon() == veh.getPlatoon():
-                        # the platoon order is violated! - do nothing but warn
-                        # TODO: probably, the platoon should be resorted
-                        splitConditions = False
-                        warn("Platoon order for platoon '%s' is violated: real leader '%s' is not registered as leader of '%s'"%(pltnID, leaderID, veh.getID()),2)
+                        # the platoon order is violated.
+                        # TODO: Reorder platoon.
+                        if cfg.VERBOSITY >= 1:
+                            report("Platoon order for platoon '%s' is violated: real leader '%s' is not registered as leader of '%s'"%(pltnID, leaderID, veh.getID()),1)
+                        veh.setSplitConditions(False)
                     else:
                         # leader is connected but belongs to a different platoon
-                        splitConditions = True
-                if splitConditions:
+                        veh.setSplitConditions(True)
+                if veh.splitConditions():
                     # eventually increase isolation time
                     timeUntilSplit = veh.splitCountDown(self._timeSinceLastControl)
                     if timeUntilSplit <= 0:
@@ -334,8 +354,10 @@ class PlatoonManager(traci.StepListener):
     def _adviseLanes(self):
         '''_adviseLanes()
         
-        At the moment this only advises all platoon followers to keep their lane
-        for the next time step. Future lc advices go here. 
+        At the moment this only advises all platoon followers to change to their leaders lane 
+        if it is on a different lane on the same edge. Otherwise, followers are told to keep their 
+        lane for the next time step. 
+        NOTE: Future, more sophisticated lc advices should go here.
         '''
         for pltn in self._platoons.values():
             for ix, veh in enumerate(pltn.getVehicles()[1:]):

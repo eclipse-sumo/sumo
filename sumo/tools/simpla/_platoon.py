@@ -30,17 +30,25 @@ class Platoon(object):
     _nextID = 0
     
     
-    def __init__(self, vehicles = []):
-        '''Platoon()
+    def __init__(self, vehicles = [], registerVehicles=True):
+        '''Platoon(list(PVehicle), bool) -> Platoon
         
-        Create a Platoon object that holds an ordered list of its members, which is
-        inititialized with 'vehicles'. Creator is responsible for setting the platoon mode of the vehicles
+        Create a Platoon object that holds an ordered list of its members, which is inititialized with 'vehicles'. 
+        Creator is responsible for setting the platoon mode of the vehicles. if registerVehicles is set, the vehicle's
+        platoon reference veh._platoon is set to the newly created platoon.
         '''        
         self._ID = Platoon._nextID
         Platoon._nextID += 1 
         self._vehicles = vehicles
-        vehicles[0].setPlatoon(self)
-        for veh in vehicles[1:]:
+        if registerVehicles:
+            self.registerVehicles()
+    
+    
+    def registerVehicles(self):
+        ''' registerVehicles() -> void
+        Sets reference to this platoon at member-vehicles' side 
+        '''
+        for veh in self._vehicles:
             veh.setPlatoon(self)
             
     
@@ -52,13 +60,14 @@ class Platoon(object):
         return self._vehicles[0]
     
     
-    def removeVehicle(self, veh):
-        '''removeVehicle(PVehicle)
+    def removeVehicles(self, vehs):
+        '''removeVehicles(PVehicle)
         
-        Removes the vehicle from the platoon
+        Removes the vehicles from the platoon
         '''
+        for veh in vehs:
+            self._vehicles.remove(veh)
         
-        self._vehicles.remove(veh)
         if self.size() == 0:
             return
         
@@ -67,7 +76,7 @@ class Platoon(object):
             return
         
         if self.getMode() == PlatoonMode.CATCHUP:
-            # no changes required
+            # no changes required. TODO: adapt if platoon internal catchup is introduced
             return
         
         # remains the regular platoon situation
@@ -99,12 +108,11 @@ class Platoon(object):
         '''setMode(PlatoonMode) -> bool
         
         Returns whether the change to the requested platoon mode could be performed safely.
-        Only checks for safety with regard to leaders and assumes that the following changes are always safe:
-        PlatoonMode.LEADER -> (PlatoonMode.FOLLOWER <-> PlatoonMode.CATCHUP) -> PlatoonMode.NONE
-        Note: This is (with regard to leaders) true if decel.LEADER <= decel.FOLLOWER == decel.CATCHUP <= decel.NONE
+        Only checks for safety with regard to leaders.
+        Note: safety assumptions of previous versions are dropped, now
         '''
         if mode == PlatoonMode.NONE:
-            if self.size() == 1:
+            if self.size() == 1 and self._vehicles[0].isSwitchSafe(mode):
                 self._vehicles[0].setPlatoonMode(mode)
                 return True
             else:
@@ -112,13 +120,11 @@ class Platoon(object):
                 return False
         
         elif mode == PlatoonMode.CATCHUP or mode == PlatoonMode.FOLLOWER:
-            if self._vehicles[0].getCurrentPlatoonMode() != PlatoonMode.NONE:
+            if self._vehicles[0].isSwitchSafe(mode):
+                self._vehicles[0].setPlatoonMode(mode)
                 for veh in self._vehicles:
-                    veh.setPlatoonMode(mode)
-                return True
-            elif self._vehicles[0].isSwitchSafe(mode):
-                for veh in self._vehicles:
-                    veh.setPlatoonMode(mode)
+                    if veh.isSwitchSafe(mode):
+                        veh.setPlatoonMode(mode)
                 return True
             else:
                 return False
@@ -127,7 +133,8 @@ class Platoon(object):
             if self._vehicles[0].isSwitchSafe(mode):
                 self._vehicles[0].setPlatoonMode(mode)
                 for veh in self._vehicles[1:]:
-                    veh.setPlatoonMode(PlatoonMode.FOLLOWER)
+                    if veh.isSwitchSafe(PlatoonMode.FOLLOWER):
+                        veh.setPlatoonMode(PlatoonMode.FOLLOWER)
                 return True
             else:
                 return False
@@ -135,6 +142,35 @@ class Platoon(object):
         else:
             raise ValueError("Unknown PlatoonMode %s"%str(mode))
         
+    def adviseMemberModes(self):
+        ''' adviseMemberModes() -> void
+        Advise all member vehicles to adopt the adequate platoon mode if safely possible.
+        '''
+        mode = self.getMode()
+        vehs = self._vehicles
+        
+        # impose mode for leader
+        if vehs[0].isSwitchSafe(mode):
+            vehs[0].setPlatoonMode(mode)
+        else:
+            # TODO: handle switch impatience?
+            pass
+            
+        if mode == PlatoonMode.LEADER: 
+            # use follower mode for followers if platoon is in normal mode
+            mode = PlatoonMode.FOLLOWER
+        
+        # impose mode for followers
+        for veh in vehs[1:]:
+            if veh.isSwitchSafe(mode):
+                veh.setPlatoonMode(mode)
+            else:
+                # TODO: handle switch impatience?
+                pass
+            
+        
+            
+    
     
     def split(self, index):
         '''split(int) -> Platoon
@@ -149,20 +185,23 @@ class Platoon(object):
         splitLeader = self._vehicles[index]
         mode = PlatoonMode.LEADER if (index < self.size()-1) else PlatoonMode.NONE
         splitImpatience = 1. - math.exp(min([0., splitLeader._timeUntilSplit]))
-        if not splitLeader.isSwitchSafe(mode, splitImpatience):
+        pltn = Platoon(self._vehicles[index:], False)
+        
+        if not pltn.setMode(mode):
             # could not split off platoon safely
             return None
-        elif splitImpatience != 0.:
-            # TODO: consider decreasing the speedfactor (must be reset somewhere afterwards!)
-            pass 
+            if splitImpatience != 0.:
+                # TODO: consider decreasing the speedfactor (must be reset somewhere afterwards!)
+                pass 
         
-        # split off successful -> reduce vehicles in this platoon and create new platoon from subset of this platoon's vehicles
-        pltn = Platoon(self._vehicles[index:])
-        pltn.setMode(mode)
+        # split can be taken out safely -> reduce vehicles in this platoon
         self._vehicles = self._vehicles[:index]
+        # set reference to new platoon in splitted vehicles
+        pltn.registerVehicles()
+        
         if len(self._vehicles) == 1:
-            # only one vehicle remains, turn off its platoon-specific behavior (this is always considered safe)
-            self._vehicles[0].setPlatoonMode(PlatoonMode.NONE)
+            # only one vehicle remains, turn off its platoon-specific behavior
+            self.setMode(PlatoonMode.NONE)
         
         if cfg.VERBOSITY >= 2:
             report("Platoon '%s' splits (newly formed platoon is '%s'):\n"%(self._ID, pltn.getID()) \
@@ -187,9 +226,9 @@ class Platoon(object):
                 return False
         
         if self.getMode() == PlatoonMode.NONE:
-            # this implies that size == 1
+            # this implies that size == 1, i.e. the platoon is a solitary vehicle
             if not self.getLeader().isSwitchSafe(PlatoonMode.LEADER):
-                # leader cant safely switch to LEADER mode -> don't join
+                # vehicle cant safely switch to LEADER mode -> don't join
                 return False
         
         # At this point either this has PlatoonMode.LEADER or PlatoonMode.NONE (size==1), and switch to leader was safe
@@ -209,3 +248,4 @@ class Platoon(object):
         '''
         return self._vehicles[0].getCurrentPlatoonMode()
         
+    

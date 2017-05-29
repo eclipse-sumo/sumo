@@ -74,6 +74,9 @@ class PVehicle(object):
         self._platoon = Platoon([self])
         # the time left until splitting from a platoon if loosing coherence as a follower
         self._timeUntilSplit = cfg.PLATOON_SPLIT_TIME
+        # Whether split conditions are fulfilled (i.e. leader in th platoon 
+        # is not found directly in front of the vehicle)
+        self._splitConditions = False
 
         
     def _determinePlatoonVType(self, mode):
@@ -165,6 +168,7 @@ class PVehicle(object):
             traci.vehicle.setLaneChangeMode(self._ID, self._laneChangeModes[mode])
                     
         self.resetSplitCountDown()
+        self._splitConditions = False
         self._currentPlatoonMode = mode
         
         
@@ -192,7 +196,21 @@ class PVehicle(object):
         '''
         self._timeUntilSplit = cfg.PLATOON_SPLIT_TIME
 
-
+    
+    def setSplitConditions(self, b=True):
+        ''' splitConditions(bool) -> void
+        Sets whether splitConditions are satisfied.
+        '''
+        self._splitConditions = b
+    
+    
+    def splitConditions(self):
+        ''' splitConditions() -> bool
+        Returns whether vehicle did not find its leader in its current platoon in this step.
+        '''
+        return self._splitConditions
+      
+    
     def isSwitchSafe(self, targetMode, switchImpatience = 0.):
         '''isSwitchSafe(PlatoonMode, double) -> bool
         
@@ -206,7 +224,7 @@ class PVehicle(object):
         # if target mode already equals the current, no safety check is required
         if targetMode == self._currentPlatoonMode:
             return True
-        
+                
         # Check value of switchImpatience
         if (switchImpatience > 1.):
             warn("Given parameter switchImpatience > 1. Assuming == 1.")
@@ -237,6 +255,12 @@ class PVehicle(object):
         
         leader = self.state.leader
         gap = self.state.leaderInfo[1]
+        minGapDifference = vTypeParameters[self._vTypes[targetMode]][tc.VAR_MINGAP] - vTypeParameters[self.getCurrentVType()][tc.VAR_MINGAP]
+        gap -= minGapDifference 
+        
+        if gap < 0.:
+            # may arise when minGap of target type differs
+            return False
         
         if leader is None:
             # This may occur if the leader is not connected, so no corresponding PVehicle exists
