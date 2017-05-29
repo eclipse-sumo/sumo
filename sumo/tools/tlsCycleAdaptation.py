@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """
-@file    tlsCycleAndGreenTimeOptimizator.py
+@file    tlsCycleAdaptation.py
 @author  Yun-Pang Floetteroed
 @date    2017-05-10
-@version $Id: tlsCycleAndGreenTimeOptimizator.py
+@version $Id: tlsCycleAdaptation.py
 
 - The Webster's equation is used to optimize the cycle length
   and the green times of the traffic lights in a sumo network
@@ -50,12 +50,10 @@ def get_options(args=None):
                          help="define the net file (mandatory)")
     optParser.add_option("-o", "--output-file", dest="outfile",
                          default="tlsAdaptation.add.xml", help="define the output filename")
-    optParser.add_option("-r", "--route-file", dest="routefile",
-                         help="define the route file (mandatory)")
+    optParser.add_option("-r", "--route-files", dest="routefiles",
+                         help="define the route file seperated by comma(mandatory)")
     optParser.add_option("-b", "--begin", dest="begin", type="int",
                          help="begin time of the optmization period with unit second")
-    optParser.add_option("-e", "--end", dest="end", type="int",
-                         help="end time of the optmization period with unit second")
     optParser.add_option("-y", "--yellow-time", dest="yellowtime", type="int",
                          default=4, help="yellow time")
     optParser.add_option("-a", "--all-red", dest="allred", type="int",
@@ -73,38 +71,41 @@ def get_options(args=None):
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
-    if not options.netfile or not options.routefile or not options.begin or not options.end:
+    if not options.netfile or not options.routefiles or not options.begin:
         optParser.print_help()
         sys.exit()
 
     return options
     
-def getFlows(net, routeFile, tlsList, begin, end):
+def getFlows(net, routeFiles, tlsList, begin, verbose):
     tlsFlowsMap = {}
+    end = begin + 3600
     for tls in tlsList:
         tlsFlowsMap[tls._id] = collections.defaultdict(lambda:collections.defaultdict(int))
-
-    for veh in sumolib.output.parse(routeFile, 'vehicle'):
-        route = veh.route[0]
-        if int(veh.depart) <= end and int(veh.depart) >= begin:
-            for tls in tlsList:
-                connsList = tls.getConnections()
-                for c in sorted(connsList, key=lambda connsList: connsList[2]): # c: [[inLane, outLane, linkNo],[],..]
-                    subRoute = c[0]._edge._id + ' ' + c[1]._edge._id
-                    edgeList = route.edges.split()
-                    if c[0]._edge._id in edgeList:
-                        beginindex = edgeList.index(c[0]._edge._id)
-                        if beginindex < 0:
-                            print ("negtive beginindex: %s" %beginindex)
-                        elif beginindex < len(edgeList)-1 and edgeList[beginindex+1] == c[1]._edge._id:
-                            pce = 1
-                            if veh.type == "bicycle":
-                                pce = 0.2
-                            elif veh.type in ["moped", "motorcycle"]:
-                                pce = 0.5
-                            elif veh.type in ["truck", "trailer", "bus", "coach"]:
-                                pce = 3.5
-                            tlsFlowsMap[tls._id][subRoute][c[2]] += pce
+    for file in routeFiles.split(','):
+        if verbose:
+            print ("route file:%s" %file)
+        for veh in sumolib.output.parse(file, 'vehicle'):
+            route = veh.route[0]
+            if int(veh.depart) < end and int(veh.depart) >= begin:
+                for tls in tlsList:
+                    connsList = tls.getConnections()
+                    for c in sorted(connsList, key=lambda connsList: connsList[2]): # c: [[inLane, outLane, linkNo],[],..]
+                        subRoute = c[0]._edge._id + ' ' + c[1]._edge._id
+                        edgeList = route.edges.split()
+                        if c[0]._edge._id in edgeList:
+                            beginindex = edgeList.index(c[0]._edge._id)
+                            if beginindex < 0:
+                                print ("negtive beginindex: %s" %beginindex)
+                            elif beginindex < len(edgeList)-1 and edgeList[beginindex+1] == c[1]._edge._id:
+                                pce = 1
+                                if veh.type == "bicycle":
+                                    pce = 0.2
+                                elif veh.type in ["moped", "motorcycle"]:
+                                    pce = 0.5
+                                elif veh.type in ["truck", "trailer", "bus", "coach"]:
+                                    pce = 3.5
+                                tlsFlowsMap[tls._id][subRoute][c[2]] += pce
                     
     # remove the doubled counts
     connFlowsMap = {}
@@ -145,7 +146,6 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
     phaseLaneIndexMap = collections.defaultdict(list)
     for i, p in enumerate(phases):
         if 'G' in p[0]:
-            print ("check_phase:%s" %i)
             greenTime += p[1]
             groupFlowsMap[i] = [p[1]]
             groupFlows = 0
@@ -224,7 +224,7 @@ def main(options):
         print("the total number of tls: %s" % len(tlsList))
       
     # get traffic flows for each connection at each TL
-    connFlowsMap = getFlows(net, options.routefile, tlsList, options.begin, options.end)
+    connFlowsMap = getFlows(net, options.routefiles, tlsList, options.begin, options.verbose)
     
     # remove the tls where no traffic volumes exist
     effectiveTlsList = getEffectiveTlsList(tlsList, connFlowsMap, options.verbose)
