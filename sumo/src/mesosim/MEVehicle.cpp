@@ -58,7 +58,7 @@ MEVehicle::MEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myEventTime(SUMOTime_MIN),
     myLastEntryTime(SUMOTime_MIN),
     myBlockTime(SUMOTime_MAX) {
-    if ((*myCurrEdge)->getPurpose() != MSEdge::EDGEFUNCTION_DISTRICT) {
+    if (!(*myCurrEdge)->isTazConnector()) {
         if ((*myCurrEdge)->allowedLanes(type->getVehicleClass()) == 0) {
             throw ProcessError("Vehicle '" + pars->id + "' is not allowed to depart on any lane of its first edge.");
         }

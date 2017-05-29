@@ -79,31 +79,6 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
 class MSEdge : public Named, public Parameterised {
 public:
-    /**
-     * @enum EdgeBasicFunction
-     * @brief Defines possible edge types
-     *
-     * For different purposes, it is necessary to know whether the edge
-     *  is a normal street or something special.
-     */
-    enum EdgeBasicFunction {
-        /// @brief The purpose of the edge is not known
-        EDGEFUNCTION_UNKNOWN = -1,
-        /// @brief The edge is a normal street
-        EDGEFUNCTION_NORMAL = 0,
-        /// @brief The edge is a macroscopic connector (source/sink)
-        EDGEFUNCTION_CONNECTOR = 1,
-        /// @brief The edge is an internal edge
-        EDGEFUNCTION_INTERNAL = 2,
-        /// @brief The edge is a district edge
-        EDGEFUNCTION_DISTRICT = 3,
-        /// @brief The edge is a pedestrian crossing (a special type of internal edge)
-        EDGEFUNCTION_CROSSING = 4,
-        /// @brief The edge is a pedestrian walking area (a special type of internal edge)
-        EDGEFUNCTION_WALKINGAREA = 5
-    };
-
-
     /** @brief Suceeding edges (keys) and allowed lanes to reach these edges (values). */
     typedef std::map< const MSEdge*, std::vector<MSLane*>* > AllowedLanesCont;
 
@@ -123,7 +98,7 @@ public:
      * @param[in] function A basic type of the edge
      * @param[in] streetName The street name for that edge
      */
-    MSEdge(const std::string& id, int numericalID, const EdgeBasicFunction function,
+    MSEdge(const std::string& id, int numericalID, const SumoXMLEdgeFunc function,
            const std::string& streetName, const std::string& edgeType, int priority);
 
 
@@ -242,22 +217,22 @@ public:
     /// @name Access to other edge attributes
     /// @{
 
-    /** @brief Returns the edge type (EdgeBasicFunction)
-     * @return This edge's EdgeBasicFunction
-     * @see EdgeBasicFunction
+    /** @brief Returns the edge type (SumoXMLEdgeFunc)
+     * @return This edge's SumoXMLEdgeFunc
+     * @see SumoXMLEdgeFunc
      */
-    EdgeBasicFunction getPurpose() const {
+    inline SumoXMLEdgeFunc getFunction() const {
         return myFunction;
     }
 
     /// @brief return whether this edge is an internal edge
     inline bool isInternal() const {
-        return myFunction == EDGEFUNCTION_INTERNAL;
+        return myFunction == EDGEFUNC_INTERNAL;
     }
 
     /// @brief return whether this edge is a pedestrian crossing
     inline bool isCrossing() const {
-        return myFunction == EDGEFUNCTION_CROSSING;
+        return myFunction == EDGEFUNC_CROSSING;
     }
 
 
@@ -271,11 +246,11 @@ public:
 
     /// @brief return whether this edge is walking area
     inline bool isWalkingArea() const {
-        return myFunction == EDGEFUNCTION_WALKINGAREA;
+        return myFunction == EDGEFUNC_WALKINGAREA;
     }
 
-    inline bool isTaz() const {
-        return myFunction == EDGEFUNCTION_DISTRICT;
+    inline bool isTazConnector() const {
+        return myFunction == EDGEFUNC_CONNECTOR;
     }
 
     /** @brief Returns the numerical id of the edge
@@ -440,7 +415,7 @@ public:
 
     /// @brief returns the minimum travel time for the given vehicle
     inline double getMinimumTravelTime(const SUMOVehicle* const veh) const {
-        if (myFunction == EDGEFUNCTION_DISTRICT) {
+        if (myFunction == EDGEFUNC_CONNECTOR) {
             return 0;
         } else if (veh != 0) {
             return getLength() / getVehicleMaxSpeed(veh);
@@ -782,7 +757,7 @@ protected:
     MSLaneChanger* myLaneChanger;
 
     /// @brief the purpose of the edge
-    const EdgeBasicFunction myFunction;
+    const SumoXMLEdgeFunc myFunction;
 
     /// @brief Vaporizer counter
     int myVaporizationRequests;

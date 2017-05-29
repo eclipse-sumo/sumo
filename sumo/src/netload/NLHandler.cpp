@@ -348,27 +348,6 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    // interpret the function
-    MSEdge::EdgeBasicFunction funcEnum = MSEdge::EDGEFUNCTION_UNKNOWN;
-    switch (func) {
-        case EDGEFUNC_NORMAL:
-            funcEnum = MSEdge::EDGEFUNCTION_NORMAL;
-            break;
-        case EDGEFUNC_CONNECTOR:
-        case EDGEFUNC_SINK:
-        case EDGEFUNC_SOURCE:
-            funcEnum = MSEdge::EDGEFUNCTION_CONNECTOR;
-            break;
-        case EDGEFUNC_INTERNAL:
-            funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
-            break;
-        case EDGEFUNC_CROSSING:
-            funcEnum = MSEdge::EDGEFUNCTION_CROSSING;
-            break;
-        case EDGEFUNC_WALKINGAREA:
-            funcEnum = MSEdge::EDGEFUNCTION_WALKINGAREA;
-            break;
-    }
     // get the street name
     const std::string streetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     // get the edge type
@@ -381,13 +360,13 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     }
     //
     try {
-        myEdgeControlBuilder.beginEdgeParsing(id, funcEnum, streetName, edgeType, priority);
+        myEdgeControlBuilder.beginEdgeParsing(id, func, streetName, edgeType, priority);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
         myCurrentIsBroken = true;
     }
 
-    if (funcEnum == MSEdge::EDGEFUNCTION_CROSSING) {
+    if (func == EDGEFUNC_CROSSING) {
         //get the crossingEdges attribute (to implement the other side of the road pushbutton)
         const std::string crossingEdges = attrs.getOpt<std::string>(SUMO_ATTR_CROSSING_EDGES, id.c_str(), ok, "");
         if (!crossingEdges.empty()) {
@@ -1306,13 +1285,13 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink", MSEdge::EDGEFUNCTION_DISTRICT, "", "", -1);
+        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink", EDGEFUNC_CONNECTOR, "", "", -1);
         if (!MSEdge::dictionary(myCurrentDistrictID + "-sink", sink)) {
             delete sink;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-sink' exists.");
         }
         sink->initialize(new std::vector<MSLane*>());
-        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source", MSEdge::EDGEFUNCTION_DISTRICT, "", "", -1);
+        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source", EDGEFUNC_CONNECTOR, "", "", -1);
         if (!MSEdge::dictionary(myCurrentDistrictID + "-source", source)) {
             delete source;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-source' exists.");

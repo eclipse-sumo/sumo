@@ -1484,14 +1484,13 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, con
     std::map<MSLane*, LaneUtility> lane2utility;
     // compute utility for all candidate edges
     for (std::set<std::string>::const_iterator j = into.begin(); j != into.end(); ++j) {
-        MSEdge* e = MSEdge::dictionary(*j);
+        const MSEdge* const e = MSEdge::dictionary(*j);
         const MSEdge* prevEdge = 0;
         const MSEdge* nextEdge = 0;
-        MSEdge::EdgeBasicFunction ef = e->getPurpose();
         bool onRoute = false;
         // the next if/the clause sets "onRoute", "prevEdge", and "nextEdge", depending on
         //  whether the currently seen edge is an internal one or a normal one
-        if (ef != MSEdge::EDGEFUNCTION_INTERNAL) {
+        if (!e->isInternal()) {
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << "Ego on normal" << std::endl;
 #endif
@@ -1501,7 +1500,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, con
             //  - either the one it's on or one of the next edges
             const ConstMSEdgeVector& ev = v.getRoute().getEdges();
             int routePosition = v.getRoutePosition();
-            if (v.isOnRoad() && v.getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+            if (v.isOnRoad() && v.getLane()->getEdge().isInternal()) {
                 ++routePosition;
             }
             ConstMSEdgeVector::const_iterator edgePos = std::find(ev.begin() + routePosition, ev.end(), e);
@@ -1527,7 +1526,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, con
             // an internal edge
             // get the previous edge
             prevEdge = e;
-            while (prevEdge != 0 && prevEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+            while (prevEdge != 0 && prevEdge->isInternal()) {
                 MSLane* l = prevEdge->getLanes()[0];
                 l = l->getLogicalPredecessorLane();
                 prevEdge = l == 0 ? 0 : &l->getEdge();
@@ -1536,7 +1535,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, con
             const ConstMSEdgeVector& ev = v.getRoute().getEdges();
             ConstMSEdgeVector::const_iterator prevEdgePos = std::find(ev.begin() + v.getRoutePosition(), ev.end(), prevEdge);
             nextEdge = e;
-            while (nextEdge != 0 && nextEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+            while (nextEdge != 0 && nextEdge->isInternal()) {
                 nextEdge = nextEdge->getSuccessors()[0]; // should be only one for an internal edge
             }
             if (prevEdgePos != ev.end() && (prevEdgePos + 1) != ev.end()) {
@@ -1719,7 +1718,7 @@ TraCIServerAPI_Vehicle::vtdMap_matchingRoutePosition(const Position& pos, const 
 
     // position may be inaccurate; let's checkt the given index, too
     // @note: this is enabled for non-internal lanes only, as otherwise the position information may ambiguous
-    if ((*lane)->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (!(*lane)->getEdge().isInternal()) {
         const std::vector<MSLane*>& lanes = (*lane)->getEdge().getLanes();
         for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
             if ((*i)->getParameter(SUMO_PARAM_ORIGID, (*i)->getID()) == origID) {

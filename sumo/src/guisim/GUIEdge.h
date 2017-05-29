@@ -65,7 +65,7 @@ public:
      * @see MSEdge
      */
     GUIEdge(const std::string& id, int numericalID,
-            const EdgeBasicFunction function,
+            const SumoXMLEdgeFunc function,
             const std::string& streetName, const std::string& edgeType, int priority);
 
 

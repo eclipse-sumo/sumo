@@ -131,7 +131,7 @@ computeAllPairs(RONet& net, OptionsCont& oc) {
     const int numTotalEdges = (int)net.getEdgeNo();
     for (int i = numInternalEdges; i < numTotalEdges; i++) {
         const Dijkstra::EdgeInfo& ei = router.getEdgeInfo(i);
-        if (ei.edge->getFunc() != ROEdge::ET_INTERNAL) {
+        if (!ei.edge->isInternal()) {
             router.compute(ei.edge, 0, 0, 0, into);
             double fromEffort = router.getEffort(ei.edge, 0, 0);
             for (int j = numInternalEdges; j < numTotalEdges; j++) {
@@ -160,7 +160,7 @@ writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const
     dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, time2string(begin)).writeAttr(SUMO_ATTR_END, time2string(end));
     for (std::map<std::string, ROEdge*>::const_iterator i = net.getEdgeMap().begin(); i != net.getEdgeMap().end(); ++i) {
         ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
-        if (edge->getFunc() == ROEdge::ET_NORMAL) {
+        if (edge->getFunction() == EDGEFUNC_NORMAL) {
             dev.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, edge->getID());
             const double traveltime = edge->getTravelTime(veh, STEPS2TIME(begin));
             const double flow = edge->getFlow(STEPS2TIME(begin));

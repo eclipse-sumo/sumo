@@ -580,14 +580,12 @@ StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[]
 
 
 StringBijection<SumoXMLEdgeFunc>::Entry SUMOXMLDefinitions::sumoEdgeFuncValues[] = {
-    {"normal",       EDGEFUNC_NORMAL},
-    {"connector",    EDGEFUNC_CONNECTOR},
-    {"sink",         EDGEFUNC_SINK},
-    {"source",       EDGEFUNC_SOURCE},
-    {"crossing",     EDGEFUNC_CROSSING},
-    {"walkingarea",  EDGEFUNC_WALKINGAREA},
-
-    {"internal",     EDGEFUNC_INTERNAL} //< must be the last one
+    {"unknown",     EDGEFUNC_UNKNOWN},
+    {"normal",      EDGEFUNC_NORMAL},
+    {"connector",   EDGEFUNC_CONNECTOR},
+    {"crossing",    EDGEFUNC_CROSSING},
+    {"walkingarea", EDGEFUNC_WALKINGAREA},
+    {"internal",    EDGEFUNC_INTERNAL} //< must be the last one
 };
 
 

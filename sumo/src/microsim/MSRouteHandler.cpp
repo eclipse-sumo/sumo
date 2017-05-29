@@ -556,7 +556,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                 throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
             }
         }
-        if (myActiveRoute.size() == 1 && myActiveRoute.front()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
+        if (myActiveRoute.size() == 1 && myActiveRoute.front()->isTazConnector()) {
             throw ProcessError("The routing information for " + type + " '" + myVehicleParameter->id + "' is insufficient.");
         }
         MSRoute* route = new MSRoute(myActiveRouteID, myActiveRoute,

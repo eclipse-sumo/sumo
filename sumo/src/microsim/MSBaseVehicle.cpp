@@ -82,7 +82,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     , myTraceMoveReminders(myShallTraceMoveReminders.count(pars->id) > 0)
 #endif
 {
-    if ((*myRoute->begin())->isTaz() || myRoute->getLastEdge()->isTaz()) {
+    if ((*myRoute->begin())->isTazConnector() || myRoute->getLastEdge()->isTazConnector()) {
         pars->setParameter |= VEHPARS_FORCE_REROUTE;
     }
     // init devices
@@ -187,10 +187,10 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
         }
     }
     router.compute(source, sink, this, t, edges);
-    if (!edges.empty() && edges.front()->isTaz()) {
+    if (!edges.empty() && edges.front()->isTazConnector()) {
         edges.erase(edges.begin());
     }
-    if (!edges.empty() && edges.back()->isTaz()) {
+    if (!edges.empty() && edges.back()->isTazConnector()) {
         edges.pop_back();
     }
     replaceRouteEdges(edges, onInit);
@@ -199,7 +199,7 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
         if (edges.empty()) {
             if (MSGlobals::gCheckRoutes) {
                 throw ProcessError("Vehicle '" + getID() + "' has no valid route.");
-            } else if (source->isTaz()) {
+            } else if (source->isTazConnector()) {
                 WRITE_WARNING("Removing vehicle '" + getID() + "' which has no valid route.");
                 MSNet::getInstance()->getInsertionControl().descheduleDeparture(this);
                 return;
@@ -381,7 +381,7 @@ MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason, cons
 
 void
 MSBaseVehicle::calculateArrivalParams() {
-    if (myRoute->getLastEdge()->isTaz()) {
+    if (myRoute->getLastEdge()->isTazConnector()) {
         return;
     }
     const std::vector<MSLane*>& lanes = myRoute->getLastEdge()->getLanes();

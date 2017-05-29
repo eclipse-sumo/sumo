@@ -859,10 +859,9 @@ enum SumoXMLNodeType {
  * for representing edge functions used in netbuild/netimport and netload
  */
 enum SumoXMLEdgeFunc {
+    EDGEFUNC_UNKNOWN,
     EDGEFUNC_NORMAL,
     EDGEFUNC_CONNECTOR,
-    EDGEFUNC_SINK,
-    EDGEFUNC_SOURCE,
     EDGEFUNC_CROSSING,
     EDGEFUNC_WALKINGAREA,
     EDGEFUNC_INTERNAL

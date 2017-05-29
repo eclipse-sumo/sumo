@@ -69,7 +69,7 @@ MSEdgeVector MSEdge::myEdges;
 // member method definitions
 // ===========================================================================
 MSEdge::MSEdge(const std::string& id, int numericalID,
-               const EdgeBasicFunction function,
+               const SumoXMLEdgeFunc function,
                const std::string& streetName,
                const std::string& edgeType,
                int priority) :
@@ -106,7 +106,7 @@ void
 MSEdge::initialize(const std::vector<MSLane*>* lanes) {
     assert(lanes != 0);
     myLanes = lanes;
-    if (myFunction == EDGEFUNCTION_DISTRICT) {
+    if (myFunction == EDGEFUNC_CONNECTOR) {
         myCombinedPermissions = SVCAll;
     }
     for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
@@ -217,7 +217,7 @@ MSEdge::buildLaneChanger() {
 
 bool
 MSEdge::allowsLaneChanging() {
-    if (myFunction == EDGEFUNCTION_INTERNAL) {
+    if (isInternal()) {
         // allow changing only if all links leading to this internal lane have priority
         // or they are controlled by a traffic light
         for (std::vector<MSLane*>::const_iterator it = myLanes->begin(); it != myLanes->end(); ++it) {
@@ -525,7 +525,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
 bool
 MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const bool forceCheck) const {
     // when vaporizing, no vehicles are inserted, but checking needs to be successful to trigger removal
-    if (isVaporizing() || isTaz()) {
+    if (isVaporizing() || isTazConnector()) {
         return checkOnly;
     }
     const SUMOVehicleParameter& pars = v.getParameter();
@@ -888,7 +888,7 @@ MSEdge::transportable_by_position_sorter::operator()(const MSTransportable* cons
 
 const MSEdgeVector&
 MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
-    if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasPermissions() || myFunction == EDGEFUNCTION_DISTRICT) {
+    if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasPermissions() || myFunction == EDGEFUNC_CONNECTOR) {
         return mySuccessors;
     }
 #ifdef HAVE_FOX
@@ -903,7 +903,7 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
         i = myClassesSuccessorMap.find(vClass);
         // this vClass is requested for the first time. rebuild all successors
         for (MSEdgeVector::const_iterator it = mySuccessors.begin(); it != mySuccessors.end(); ++it) {
-            if ((*it)->getPurpose() == EDGEFUNCTION_DISTRICT) {
+            if ((*it)->isTazConnector()) {
                 i->second.push_back(*it);
             } else {
                 const std::vector<MSLane*>* allowed = allowedLanes(*it, vClass);
@@ -947,7 +947,7 @@ MSEdge::hasMinorLink() const {
 
 void MSEdge::checkAndRegisterBiDirEdge() {
     myOppositingSuperposableEdge = 0;
-    if (getPurpose() != EDGEFUNCTION_NORMAL) {
+    if (getFunction() != EDGEFUNC_NORMAL) {
         return;
     }
     ConstMSEdgeVector candidates = myToJunction->getOutgoing();

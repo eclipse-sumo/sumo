@@ -76,28 +76,6 @@ typedef std::vector<const ROEdge*> ConstROEdgeVector;
  */
 class ROEdge : public Named {
 public:
-    /**
-     * @enum EdgeFunc
-     * @brief Possible functions of edges
-     */
-    enum EdgeFunc {
-        /// @brief A normal edge
-        ET_NORMAL,
-        /// @brief An edge representing a whole district
-        ET_DISTRICT,
-        /// @brief An edge where vehicles are inserted at (no vehicle may come from back)
-        ET_SOURCE,
-        /// @brief An edge where vehicles disappear (no vehicle may leave this edge)
-        ET_SINK,
-        /// @brief An internal edge which models walking areas for pedestrians
-        ET_WALKINGAREA,
-        /// @brief An internal edge which models pedestrian crossings
-        ET_CROSSING,
-        /// @brief An internal edge which models vehicles driving across a junction. This is currently not used for routing
-        ET_INTERNAL
-    };
-
-
     /** @brief Constructor
      *
      * @param[in] id The id of the edge
@@ -136,10 +114,26 @@ public:
 
 
     /** @brief Sets the function of the edge
-     * @param[in] func The new function for the edge
-     */
-    inline void setFunc(EdgeFunc func) {
-        myFunc = func;
+    * @param[in] func The new function for the edge
+    */
+    inline void setFunction(SumoXMLEdgeFunc func) {
+        myFunction = func;
+    }
+
+
+    /** @brief Sets whether the edge is a source
+    * @param[in] func The new source functionality for the edge
+    */
+    inline void setSource(const bool isSource = true) {
+        myAmSource = isSource;
+    }
+
+
+    /** @brief Sets whether the edge is a sink
+    * @param[in] func The new sink functionality for the edge
+    */
+    inline void setSink(const bool isSink = true) {
+        myAmSink = isSink;
     }
 
 
@@ -153,17 +147,21 @@ public:
 
     /// @brief return whether this edge is an internal edge
     inline bool isInternal() const {
-        return myFunc == ET_INTERNAL;
+        return myFunction == EDGEFUNC_INTERNAL;
     }
 
     /// @brief return whether this edge is a pedestrian crossing
     inline bool isCrossing() const {
-        return myFunc == ET_CROSSING;
+        return myFunction == EDGEFUNC_CROSSING;
     }
 
     /// @brief return whether this edge is walking area
     inline bool isWalkingArea() const {
-        return myFunc == ET_WALKINGAREA;
+        return myFunction == EDGEFUNC_WALKINGAREA;
+    }
+
+    inline bool isTazConnector() const {
+        return myFunction == EDGEFUNC_CONNECTOR;
     }
 
     /** @brief Builds the internal representation of the travel time/effort
@@ -184,11 +182,19 @@ public:
     //@{
 
     /** @brief Returns the function of the edge
-     * @return This edge's basic function
-     * @see EdgeFunc
-     */
-    EdgeFunc getFunc() const {
-        return myFunc;
+    * @return This edge's basic function
+    * @see SumoXMLEdgeFunc
+    */
+    inline SumoXMLEdgeFunc getFunction() const {
+        return myFunction;
+    }
+
+
+    /** @brief Returns whether the edge acts as a sink
+    * @return whether the edge is a sink
+    */
+    inline bool isSink() const {
+        return myAmSink;
     }
 
 
@@ -242,7 +248,7 @@ public:
     /** @brief Returns the number of lanes this edge has
      * @return This edge's number of lanes
      */
-    int getLaneNo() const {
+    int getNumLanes() const {
         return (int) myLanes.size();
     }
 
@@ -401,7 +407,7 @@ public:
      * @param[in] time The time for which the effort shall be returned [s]
      */
     inline double getMinimumTravelTime(const ROVehicle* const veh) const {
-        if (myFunc == ET_DISTRICT) {
+        if (isTazConnector()) {
             return 0;
         } else if (veh != 0) {
             return myLength / MIN2(veh->getType()->maxSpeed, veh->getChosenSpeedFactor() * mySpeed);
@@ -493,7 +499,8 @@ protected:
     /// @brief The length of the edge
     double myLength;
 
-
+    /// @brief whether the edge is a source or a sink
+    bool myAmSink, myAmSource;
     /// @brief Container storing passing time varying over time for the edge
     mutable ValueTimeLine<double> myTravelTimes;
     /// @brief Information whether the time line shall be used instead of the length value
@@ -519,7 +526,7 @@ protected:
     ROEdgeVector myApproachingEdges;
 
     /// @brief The function of the edge
-    EdgeFunc myFunc;
+    SumoXMLEdgeFunc myFunction;
 
     /// The vClass speed restrictions for this edge
     const std::map<SUMOVehicleClass, double>* myRestrictions;

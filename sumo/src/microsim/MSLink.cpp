@@ -475,7 +475,7 @@ MSLink::lastWasContMajor() const {
         return false;
     } else {
         MSLane* pred = myInternalLane->getLogicalPredecessorLane();
-        if (pred->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+        if (!pred->getEdge().isInternal()) {
             return false;
         } else {
             MSLane* pred2 = pred->getLogicalPredecessorLane();
@@ -615,7 +615,7 @@ MSLink::getViaLane() const {
 bool
 MSLink::isExitLink() const {
     if (MSGlobals::gUsingInternalLanes){
-        return getInternalLaneBefore() != 0 && myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_NORMAL;
+        return getInternalLaneBefore() != 0 && myLane->getEdge().getFunction() == EDGEFUNC_NORMAL;
     } else {
         return false;
     }
@@ -677,7 +677,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             //
             // special care must be taken for continuation lanes. (next lane is also internal)
             // vehicles on these lanes should always block (gap = -1)
-            const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL);
+            const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal());
             // vehicles on cont. lanes or on internal lanes with the same target as this link can never be ignored
             const bool cannotIgnore = contLane || sameTarget || sameSource;
             MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();

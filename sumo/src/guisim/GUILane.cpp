@@ -424,9 +424,9 @@ void
 GUILane::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glPushName(getGlID());
-    const bool isCrossing = myEdge->getPurpose() == MSEdge::EDGEFUNCTION_CROSSING;
-    const bool isWalkingArea = myEdge->getPurpose() == MSEdge::EDGEFUNCTION_WALKINGAREA;
-    const bool isInternal = isCrossing || isWalkingArea || myEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
+    const bool isCrossing = myEdge->isCrossing();
+    const bool isWalkingArea = myEdge->isWalkingArea();
+    const bool isInternal = isCrossing || isWalkingArea || myEdge->isInternal();
     bool mustDrawMarkings = false;
     double exaggeration = s.laneWidthExaggeration;
     if (MSGlobals::gUseMesoSim) {

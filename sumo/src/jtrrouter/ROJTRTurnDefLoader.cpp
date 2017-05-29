@@ -80,7 +80,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
                     if (edge == 0) {
                         throw ProcessError("The edge '" + id + "' declared as a sink is not known.");
                     }
-                    edge->setFunc(ROEdge::ET_SINK);
+                    edge->setSink();
                 }
             }
             break;
@@ -94,7 +94,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
                     if (edge == 0) {
                         throw ProcessError("The edge '" + id + "' declared as a source is not known.");
                     }
-                    edge->setFunc(ROEdge::ET_SOURCE);
+                    edge->setSource();
                 }
             }
             break;

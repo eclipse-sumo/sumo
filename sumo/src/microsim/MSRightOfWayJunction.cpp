@@ -141,7 +141,7 @@ MSRightOfWayJunction::postloadInit() {
                         myLinkFoeInternalLanes[*j].push_back(myInternalLanes[li]);
                         if (linkResponse.test(c)) {
                             const std::vector<MSLane::IncomingLaneInfo>& l = myInternalLanes[li]->getIncomingLanes();
-                            if (l.size() == 1 && l[0].lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+                            if (l.size() == 1 && l[0].lane->getEdge().isInternal()) {
                                 myLinkFoeInternalLanes[*j].push_back(l[0].lane);
                             }
                         }

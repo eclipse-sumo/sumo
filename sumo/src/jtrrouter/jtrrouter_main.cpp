@@ -130,7 +130,7 @@ loadJTRDefinitions(RONet& net, OptionsCont& oc) {
             if (edge == 0) {
                 throw ProcessError("The edge '" + *i + "' declared as a sink is not known.");
             }
-            edge->setFunc(ROEdge::ET_SINK);
+            edge->setSink();
         }
     }
 }

@@ -67,6 +67,8 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
     myPriority(priority),
     mySpeed(-1),
     myLength(0),
+    myAmSource(false),
+    myAmSink(false),
     myUsingTTTimeLine(false),
     myUsingETimeLine(false),
     myCombinedPermissions(0) {
@@ -213,7 +215,7 @@ ROEdge::getStoredEffort(double time, double& ret) const {
 
 int
 ROEdge::getNumSuccessors() const {
-    if (getFunc() == ET_SINK) {
+    if (myAmSink) {
         return 0;
     }
     return (int) myFollowingEdges.size();
@@ -222,7 +224,7 @@ ROEdge::getNumSuccessors() const {
 
 int
 ROEdge::getNumPredecessors() const {
-    if (getFunc() == ET_SOURCE) {
+    if (myAmSource) {
         return 0;
     }
     return (int) myApproachingEdges.size();
@@ -282,7 +284,7 @@ ROEdge::getAllEdges() {
 
 const ROEdgeVector&
 ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
-    if (vClass == SVC_IGNORING || !RONet::getInstance()->hasPermissions() || myFunc == ET_DISTRICT) {
+    if (vClass == SVC_IGNORING || !RONet::getInstance()->hasPermissions() || isTazConnector()) {
         return myFollowingEdges;
     }
 #ifdef HAVE_FOX
@@ -309,7 +311,7 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
         }
         // also add district edges (they are not connected at the lane level
         for (ROEdgeVector::const_iterator it = myFollowingEdges.begin(); it != myFollowingEdges.end(); ++it) {
-            if ((*it)->getFunc() == ET_DISTRICT) {
+            if ((*it)->isTazConnector()) {
                 followers.insert(*it);
             }
         }

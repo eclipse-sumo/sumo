@@ -552,7 +552,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     , myInfluencer(0)
 #endif
 {
-    if ((*myCurrEdge)->getPurpose() != MSEdge::EDGEFUNCTION_DISTRICT) {
+    if (!(*myCurrEdge)->isTazConnector()) {
         if (pars->departLaneProcedure == DEPART_LANE_GIVEN) {
             if ((*myCurrEdge)->getDepartLane(*this) == 0) {
                 throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'.");
@@ -1714,7 +1714,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         //  the vehicle shall be not faster when reaching the next lane than allowed
         const double va = MAX2(laneMaxV, cfModel.freeSpeed(this, getSpeed(), seen, laneMaxV));
         v = MIN2(va, v);
-        seenNonInternal += lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL ? 0 : lane->getLength();
+        seenNonInternal += lane->getEdge().isInternal() ? 0 : lane->getLength();
         // do not restrict results to the current vehicle to allow caching for the current time step
         leaderLane = opposite ? lane->getOpposite() : lane;
         if (leaderLane == 0) {
@@ -2661,7 +2661,7 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
             }
         }
         // abort requests
-        if (removalBegin != -1 && !(removalBegin == 0 && myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL)) {
+        if (removalBegin != -1 && !(removalBegin == 0 && myLane->getEdge().isInternal())) {
             while (removalBegin < (int)(lfLinks.size())) {
                 const double brakeGap = getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.);
                 lfLinks[removalBegin].myVLinkPass = lfLinks[removalBegin].myVLinkWait;
@@ -2748,7 +2748,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     myLastBestLanesEdge = 0;
 
     // internal edges are not a part of the route...
-    if (enteredLane->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (!enteredLane->getEdge().isInternal()) {
         ++myCurrEdge;
     }
     if (!onTeleporting) {
@@ -2970,7 +2970,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         updateOccupancyAndCurrentBestLane(startLane);
         return;
     }
-    if (startLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (startLane->getEdge().isInternal()) {
         if (myBestLanes.size() == 0 || forceRebuild) {
             // rebuilt from previous non-internal lane (may backtrack twice if behind an internal junction)
             updateBestLanes(true, startLane->getLogicalPredecessorLane());
@@ -2981,7 +2981,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         // adapt best lanes to fit the current internal edge:
         // keep the entries that are reachable from this edge
         const MSEdge* nextEdge = startLane->getNextNormal();
-        assert(nextEdge->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL);
+        assert(!nextEdge->isInternal());
         for (std::vector<std::vector<LaneQ> >::iterator it = myBestLanes.begin(); it != myBestLanes.end();) {
             std::vector<LaneQ>& lanes = *it;
             assert(lanes.size() > 0);
@@ -3287,7 +3287,7 @@ const std::vector<MSLane*>&
 MSVehicle::getBestLanesContinuation(const MSLane* const l) const {
     const MSLane* lane = l;
     // XXX: shouldn't this be a "while" to cover more than one internal lane? (Leo) Refs. #2575
-    if (lane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (lane->getEdge().isInternal()) {
         // internal edges are not kept inside the bestLanes structure
         lane = lane->getLinkCont()[0]->getLane();
     }

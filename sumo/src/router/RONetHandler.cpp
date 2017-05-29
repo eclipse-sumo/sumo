@@ -183,29 +183,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode, priority);
     // set the type
     myCurrentEdge->setRestrictions(myNet.getRestrictions(attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myCurrentName.c_str(), ok, "")));
-    switch (func) {
-        case EDGEFUNC_CONNECTOR:
-        case EDGEFUNC_NORMAL:
-            myCurrentEdge->setFunc(ROEdge::ET_NORMAL);
-            break;
-        case EDGEFUNC_SOURCE:
-            myCurrentEdge->setFunc(ROEdge::ET_SOURCE);
-            break;
-        case EDGEFUNC_SINK:
-            myCurrentEdge->setFunc(ROEdge::ET_SINK);
-            break;
-        case EDGEFUNC_WALKINGAREA:
-            myCurrentEdge->setFunc(ROEdge::ET_WALKINGAREA);
-            break;
-        case EDGEFUNC_CROSSING:
-            myCurrentEdge->setFunc(ROEdge::ET_CROSSING);
-            break;
-        case EDGEFUNC_INTERNAL:
-            myCurrentEdge->setFunc(ROEdge::ET_INTERNAL);
-            break;
-        default:
-            throw ProcessError("Unhandled EdgeFunc " + toString(func));
-    }
+    myCurrentEdge->setFunction(func);
 
     if (myNet.addEdge(myCurrentEdge)) {
         fromNode->addOutgoing(myCurrentEdge);
@@ -218,7 +196,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
 
 void
 RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
-    if (myCurrentEdge == 0 || myCurrentEdge->getFunc() == ROEdge::ET_INTERNAL) {
+    if (myCurrentEdge == 0 || myCurrentEdge->isInternal()) {
         // was an internal edge to skip or an error occured
         return;
     }
@@ -290,7 +268,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     if (to == 0) {
         throw ProcessError("unknown to-edge '" + toID + "' in connection");
     }
-    if (from->getFunc() == ROEdge::ET_INTERNAL) { // skip inner lane connections
+    if (from->isInternal()) { // skip inner lane connections
         return;
     }
     if ((int)from->getLanes().size() <= fromLane) {

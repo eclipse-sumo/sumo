@@ -167,8 +167,8 @@ MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveRemi
 void
 MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
     if (index == 0 && myReplacedRoutes[index].route->size() == 2 &&
-            myReplacedRoutes[index].route->getEdges().front()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT &&
-            myReplacedRoutes[index].route->getEdges().back()->getPurpose() == MSEdge::EDGEFUNCTION_DISTRICT) {
+            myReplacedRoutes[index].route->getEdges().front()->isTazConnector() &&
+            myReplacedRoutes[index].route->getEdges().back()->isTazConnector()) {
         return;
     }
     // check if a previous route shall be written

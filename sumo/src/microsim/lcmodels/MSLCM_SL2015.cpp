@@ -833,7 +833,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     double neighDist = 0;
     int currIdx = 0;
     MSLane* prebLane = myVehicle.getLane();
-    if (prebLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (prebLane->getEdge().isInternal()) {
         // internal edges are not kept inside the bestLanes structure
         prebLane = prebLane->getLinkCont()[0]->getLane();
     }

@@ -72,7 +72,7 @@
 // included modules
 // ===========================================================================
 GUIEdge::GUIEdge(const std::string& id, int numericalID,
-                 const EdgeBasicFunction function,
+                 const SumoXMLEdgeFunc function,
                  const std::string& streetName, const std::string& edgeType, int priority)
     : MSEdge(id, numericalID, function, streetName, edgeType, priority),
       GUIGlObject(GLO_EDGE, id) {}
@@ -100,7 +100,7 @@ GUIEdge::getIDs(bool includeInternal) {
     for (MSEdge::DictType::const_iterator i = MSEdge::myDict.begin(); i != MSEdge::myDict.end(); ++i) {
         const GUIEdge* edge = dynamic_cast<const GUIEdge*>(i->second);
         assert(edge);
-        if (edge->getPurpose() != EDGEFUNCTION_INTERNAL || includeInternal) {
+        if (includeInternal || !edge->isInternal()) {
             ret.push_back(edge->getGlID());
         }
     }
@@ -113,7 +113,7 @@ GUIEdge::getTotalLength(bool includeInternal, bool eachLane) {
     double result = 0;
     for (MSEdge::DictType::const_iterator i = MSEdge::myDict.begin(); i != MSEdge::myDict.end(); ++i) {
         const MSEdge* edge = i->second;
-        if (edge->getPurpose() != EDGEFUNCTION_INTERNAL || includeInternal) {
+        if (includeInternal || !edge->isInternal()) {
             // @note needs to be change once lanes may have different length
             result += edge->getLength() * (eachLane ? edge->getLanes().size() : 1);
         }
@@ -125,7 +125,7 @@ GUIEdge::getTotalLength(bool includeInternal, bool eachLane) {
 Boundary
 GUIEdge::getBoundary() const {
     Boundary ret;
-    if (getPurpose() != MSEdge::EDGEFUNCTION_DISTRICT) {
+    if (!isTazConnector()) {
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
             ret.add((*i)->getShape().getBoxBoundary());
         }
@@ -155,7 +155,7 @@ GUIEdge::fill(std::vector<GUIEdge*>& netsWrappers) {
     int size = MSEdge::dictSize();
     netsWrappers.reserve(size);
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); ++i) {
-        if (i->second->getPurpose() != MSEdge::EDGEFUNCTION_DISTRICT) {
+        if (!i->second->isTazConnector()) {
             netsWrappers.push_back(static_cast<GUIEdge*>((*i).second));
         }
     }
@@ -226,7 +226,7 @@ GUIEdge::getCenteringBoundary() const {
 
 void
 GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
-    if (s.hideConnectors && myFunction == MSEdge::EDGEFUNCTION_CONNECTOR) {
+    if (s.hideConnectors && myFunction == EDGEFUNC_CONNECTOR) {
         return;
     }
     glPushName(getGlID());
@@ -247,9 +247,9 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPopName();
     // (optionally) draw the name and/or the street name
-    const bool drawEdgeName = s.edgeName.show && myFunction == EDGEFUNCTION_NORMAL;
-    const bool drawInternalEdgeName = s.internalEdgeName.show && myFunction == EDGEFUNCTION_INTERNAL;
-    const bool drawCwaEdgeName = s.cwaEdgeName.show && (myFunction == EDGEFUNCTION_CROSSING || myFunction == EDGEFUNCTION_WALKINGAREA);
+    const bool drawEdgeName = s.edgeName.show && myFunction == EDGEFUNC_NORMAL;
+    const bool drawInternalEdgeName = s.internalEdgeName.show && myFunction == EDGEFUNC_INTERNAL;
+    const bool drawCwaEdgeName = s.cwaEdgeName.show && (myFunction == EDGEFUNC_CROSSING || myFunction == EDGEFUNC_WALKINGAREA);
     const bool drawStreetName = s.streetName.show && myStreetName != "";
     if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawStreetName) {
         GUILane* lane1 = dynamic_cast<GUILane*>((*myLanes)[0]);
@@ -482,7 +482,7 @@ GUIEdge::getColorValue(int activeScheme) const {
         case 1:
             return gSelected.isSelected(getType(), getGlID());
         case 2:
-            return getPurpose();
+            return getFunction();
         case 3:
             return getAllowedSpeed();
         case 4:

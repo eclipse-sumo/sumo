@@ -370,7 +370,7 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
         myActiveRouteStops.clear();
         return;
     }
-    if (myActiveRoute.size() == 1 && myActiveRoute.front()->getFunc() == ROEdge::ET_DISTRICT) {
+    if (myActiveRoute.size() == 1 && myActiveRoute.front()->isTazConnector()) {
         myErrorOutput->inform("The routing information for vehicle '" + myVehicleParameter->id + "' is insufficient.");
         myActiveRouteID = "";
         myActiveRouteStops.clear();

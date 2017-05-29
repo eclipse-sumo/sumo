@@ -111,7 +111,7 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
     double currExtDist = 0;
     int currIdx = 0;
     MSLane* prebLane = myVehicle.getLane();
-    if (prebLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (prebLane->getEdge().isInternal()) {
         // internal edges are not kept inside the bestLanes structure
         prebLane = prebLane->getLinkCont()[0]->getLane();
     }
@@ -323,7 +323,7 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
     double currExtDist = 0;
     int currIdx = 0;
     MSLane* prebLane = myVehicle.getLane();
-    if (prebLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (prebLane->getEdge().isInternal()) {
         // internal edges are not kept inside the bestLanes structure
         prebLane = prebLane->getLinkCont()[0]->getLane();
     }
@@ -535,7 +535,7 @@ MSLCM_DK2008::patchSpeed(const double min, const double wanted, const double max
     }
 
     // just to make sure to be notified about lane chaning end
-    if (myVehicle.getLane()->getEdge().getLanes().size() == 1 || myVehicle.getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (myVehicle.getLane()->getEdge().getLanes().size() == 1 || myVehicle.getLane()->getEdge().isInternal()) {
         // remove chaning information if on a road with a single lane
         changed();
         return wanted;

@@ -1050,7 +1050,7 @@ MSLCM_LC2013::_wantsChange(
     double neighDist = 0;
     int currIdx = 0;
     MSLane* prebLane = myVehicle.getLane();
-    if (prebLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (prebLane->getEdge().isInternal()) {
         // internal edges are not kept inside the bestLanes structure
         prebLane = prebLane->getLinkCont()[0]->getLane();
     }
@@ -1705,7 +1705,7 @@ MSLCM_LC2013::getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::L
     // have access to the right initial lane (neigh.lane is only the first non-null lane of neigh.bestContinuations).
     roundaboutDistanceAheadNeigh = 0;
     double neighPosition = pos;
-    if (veh.getLane()->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (veh.getLane()->getEdge().isInternal()) {
         // take care of the distance on internal lanes
         neighPosition = 0.;
         if (veh.getLane()->getEdge().isRoundabout()) {
@@ -1793,7 +1793,7 @@ MSLCM_LC2013::roundaboutDistBonus(double roundaboutDistAhead, int roundaboutEdge
 double
 MSLCM_LC2013::distanceAlongNextRoundabout(double position, const MSLane* initialLane, const std::vector<MSLane*>& continuationLanes) {
     for (std::vector<MSLane*>::const_iterator i = continuationLanes.begin(); i != continuationLanes.end(); i++) {
-        assert((*i) == 0 || (*i)->getEdge().getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL);
+        assert((*i) == 0 || !(*i)->getEdge().isInternal());
     }
 
     // We start with the current edge.

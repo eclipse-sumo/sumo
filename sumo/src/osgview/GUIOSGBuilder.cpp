@@ -94,7 +94,7 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
     // build edges
     const MSEdgeVector& edges = net->getEdgeControl().getEdges();
     for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-        if ((*i)->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+        if (!(*i)->isInternal()) {
             buildOSGEdgeGeometry(**i, *root, tesselator);
         }
     }

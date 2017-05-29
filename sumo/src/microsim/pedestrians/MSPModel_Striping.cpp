@@ -1096,7 +1096,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
         const MSLane* oldLane = myLane;
         myLane = myNLI.lane;
         myDir = myNLI.dir;
-        const bool normalLane = (myLane == 0 || myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_NORMAL);
+        const bool normalLane = (myLane == 0 || myLane->getEdge().getFunction() == EDGEFUNC_NORMAL);
         if DEBUGCOND(myPerson->getID()) {
             std::cout << SIMTIME
                       << " ped=" << myPerson->getID()
@@ -1134,7 +1134,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                         myStage->moveToNextEdge(myPerson, currentTime, 0);
                         myLane = myNLI.lane;
                         assert(myLane != 0);
-                        assert(myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_NORMAL);
+                        assert(myLane->getEdge().getFunction() == EDGEFUNC_NORMAL);
                         myNLI = getNextLane(*this, myLane, oldLane);
                         myWalkingAreaPath = 0;
                     } else {

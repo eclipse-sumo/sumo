@@ -139,7 +139,7 @@ RONet::addEdge(ROEdge* edge) {
         delete edge;
         return false;
     }
-    if (edge->getFunc() == ROEdge::ET_INTERNAL) {
+    if (edge->isInternal()) {
         myNumInternalEdges += 1;
     }
     return true;
@@ -154,9 +154,9 @@ RONet::addDistrict(const std::string id, ROEdge* source, ROEdge* sink) {
         delete sink;
         return false;
     }
-    sink->setFunc(ROEdge::ET_DISTRICT);
+    sink->setFunction(EDGEFUNC_CONNECTOR);
     addEdge(sink);
-    source->setFunc(ROEdge::ET_DISTRICT);
+    source->setFunction(EDGEFUNC_CONNECTOR);
     addEdge(source);
     myDistricts[id] = std::make_pair(std::vector<std::string>(), std::vector<std::string>());
     return true;

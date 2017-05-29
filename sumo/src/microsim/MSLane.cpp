@@ -1359,7 +1359,7 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIn
 const MSEdge*
 MSLane::getNextNormal() const {
     const MSEdge* e = myEdge;
-    while (e->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+    while (e->isInternal()) {
         e = e->getSuccessors()[0];
     }
     return e;
@@ -1442,7 +1442,7 @@ template void MSLane::fill<LANE_RTREE_QUAL>(LANE_RTREE_QUAL& into);
 // ------   ------
 bool
 MSLane::appropriate(const MSVehicle* veh) {
-    if (myEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (myEdge->isInternal()) {
         return true;
     }
     if (veh->succEdge(1) == 0) {
@@ -1510,7 +1510,7 @@ MSLane::isEmpty() const {
 
 bool
 MSLane::isInternal() const {
-    return myEdge->getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
+    return myEdge->isInternal();
 }
 
 MSVehicle*
@@ -1717,7 +1717,7 @@ MSLane::addApproachingLane(MSLane* lane, bool warnMultiCon) {
     MSEdge* approachingEdge = &lane->getEdge();
     if (myApproachingLanes.find(approachingEdge) == myApproachingLanes.end()) {
         myApproachingLanes[approachingEdge] = std::vector<MSLane*>();
-    } else if (approachingEdge->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL && warnMultiCon) {
+    } else if (!approachingEdge->isInternal() && warnMultiCon) {
         // whenever a normal edge connects twice, there is a corresponding
         // internal edge wich connects twice, one warning is sufficient
         WRITE_WARNING("Lane '" + getID() + "' is approached multiple times from edge '" + approachingEdge->getID() + "'. This may cause collisions.");
