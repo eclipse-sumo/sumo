@@ -62,12 +62,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) :
-    GNEAdditional(viewNet->getNet()->generateVaporizerID(), viewNet, Position(), SUMO_TAG_VAPORIZER, ICON_VAPORIZER),
+GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, const std::string& edge, double startTime, double end) :
+    GNEAdditional(viewNet->getNet()->generateVaporizerID(), viewNet, Position(), SUMO_TAG_VAPORIZER, ICON_VAPORIZER, "", edge),
     myStartTime(startTime),
     myEnd(end) {
-    // This additional belongs to a edge
-    myEdge = edge;
     // this additional ISN'T movable
     myMovable = false;
     // Update geometry;
@@ -86,6 +84,9 @@ GNEVaporizer::updateGeometry() {
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
+
+    // obtain GNEEdge
+    GNEEdge* myEdge = getGNEEdge();
 
     // clear Shape
     myShape.clear();
@@ -127,6 +128,10 @@ GNEVaporizer::updateGeometry() {
 
 Position
 GNEVaporizer::getPositionInView() const {
+    // obtain GNEEdge
+    GNEEdge *myEdge = getGNEEdge();
+
+    // obtain position
     Position A = myEdge->getLanes().front()->getShape().positionAtOffset(myPosition.x());
     Position B = myEdge->getLanes().back()->getShape().positionAtOffset(myPosition.x());
 
@@ -151,7 +156,7 @@ void
 GNEVaporizer::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());
+    device.writeAttr(SUMO_ATTR_EDGE, myEdgeID);
     device.writeAttr(SUMO_ATTR_STARTTIME, myStartTime);
     device.writeAttr(SUMO_ATTR_END, myEnd);
     // Close tag
@@ -185,7 +190,7 @@ GNEVaporizer::setEndTime(double end) {
 
 const std::string&
 GNEVaporizer::getParentName() const {
-    return myEdge->getMicrosimID();
+    return myEdgeID;
 }
 
 
@@ -266,7 +271,7 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_EDGE:
-            return myEdge->getID();
+            return myEdgeID;
         case SUMO_ATTR_STARTTIME:
             return toString(myStartTime);
         case SUMO_ATTR_END:

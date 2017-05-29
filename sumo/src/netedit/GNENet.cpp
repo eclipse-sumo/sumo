@@ -1482,7 +1482,7 @@ GNENet::getAdditional(SumoXMLTag type, const std::string& id) const {
 std::string
 GNENet::getAdditionalID(SumoXMLTag type, const GNELane* lane, const double pos) const {
     for (GNEAdditionals::const_iterator it = myAdditionals.begin(); it != myAdditionals.end(); ++it) {
-        if ((it->second->getTag() == type) && (it->second->getLane() != NULL) && (it->second->getLane() == lane) && (fabs(it->second->getPositionInView().x() - pos) < POSITION_EPS)) {
+        if ((it->second->getTag() == type) && (it->second->getLane() != "") && (it->second->getGNELane() == lane) && (fabs(it->second->getPositionInView().x() - pos) < POSITION_EPS)) {
             return it->second->getID();
         }
     }

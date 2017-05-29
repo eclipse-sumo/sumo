@@ -61,7 +61,7 @@
 // method definitions
 // ===========================================================================
 
-GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines, bool friendlyPosition) :
+GNEBusStop::GNEBusStop(const std::string& id, const std::string &lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines, bool friendlyPosition) :
     GNEStoppingPlace(id, viewNet, SUMO_TAG_BUS_STOP, ICON_BUSSTOP, lane, startPos, endPos, name, friendlyPosition),
     myLines(lines) {
     // When a new additional element is created, updateGeometry() must be called
@@ -85,6 +85,9 @@ GNEBusStop::updateGeometry() {
     myShapeRotations.clear();
     myShapeLengths.clear();
 
+    // obtain GNELane
+    GNELane* myLane = getGNELane();
+    
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
@@ -149,7 +152,7 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
+    device.writeAttr(SUMO_ATTR_LANE, myLaneID);
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
     if(myName.empty() == false) {
@@ -309,7 +312,7 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return toString(myLane->getAttribute(SUMO_ATTR_ID));
+            return myLaneID;
         case SUMO_ATTR_STARTPOS:
             return toString(myStartPos);
         case SUMO_ATTR_ENDPOS:
@@ -369,7 +372,8 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_STARTPOS:
             return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) < (myEndPos - 1));
         case SUMO_ATTR_ENDPOS: {
-            if (canParse<double>(value) && parse<double>(value) >= 1 && parse<double>(value) > myStartPos) {
+            GNELane *myLane = getGNELane();
+            if ((canParse<double>(value)) && (parse<double>(value) >= 1) && (parse<double>(value) > myStartPos)) {
                 // If extension is larger than Lane
                 if (parse<double>(value) > myLane->getLaneParametricLength()) {
                     // write warning if netedit is running in testing mode
@@ -434,7 +438,8 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGeometry();
             getViewNet()->update();
             break;
-        case SUMO_ATTR_ENDPOS:
+        case SUMO_ATTR_ENDPOS: {
+            GNELane *myLane = getGNELane();
             if (parse<double>(value) > myLane->getLaneParametricLength()) {
                 myEndPos = myLane->getLaneParametricLength();
             } else {
@@ -443,6 +448,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGeometry();
             getViewNet()->update();
             break;
+        }
         case SUMO_ATTR_NAME:
             myName = value;
             getViewNet()->update();

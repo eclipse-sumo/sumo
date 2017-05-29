@@ -61,8 +61,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string &name, bool friendlyPosition) :
-    GNEAdditional(id, viewNet, Position(), tag, icon),
+GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, const std::string& lane, double startPos, double endPos, const std::string &name, bool friendlyPosition) :
+    GNEAdditional(id, viewNet, Position(), tag, icon, lane),
     myStartPos(startPos),
     myEndPos(endPos),
     myName(name),
@@ -71,8 +71,6 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, S
     mySignColorSelected(RGBColor::BLUE),
     myTextColor(RGBColor::CYAN),
     myTextColorSelected(RGBColor::BLUE) {
-    // This additional belongs to a Lane
-    myLane = lane;
 }
 
 
@@ -82,6 +80,7 @@ GNEStoppingPlace::~GNEStoppingPlace() {
 
 Position
 GNEStoppingPlace::getPositionInView() const {
+    GNELane *myLane = getGNELane();
     return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLength(myPosition.x()));
 }
 
@@ -90,6 +89,8 @@ void
 GNEStoppingPlace::moveAdditionalGeometry(double offsetx, double offsety) {
     // Due a stoppingplace is placed over an lane ignore Warning of posy
     UNUSED_PARAMETER(offsety);
+    // obtain GNELane
+    GNELane *myLane = getGNELane();
     // Move to Right if distance is positive, to left if distance is negative
     if (((offsetx > 0) &&
             ((myLane->getPositionRelativeToParametricLength(myEndPos) + offsetx) < myLane->getLaneParametricLength())) ||
@@ -148,7 +149,7 @@ GNEStoppingPlace::setStartPosition(double startPos) {
 
 void
 GNEStoppingPlace::setEndPosition(double endPos) {
-    if (endPos > myLane->getLaneShapeLength()) {
+    if (endPos > getGNELane()->getLaneShapeLength()) {
         throw InvalidArgument(toString(SUMO_ATTR_ENDPOS) + " '" + toString(endPos) + "' not allowed. Must be smaller than lane length");
     } else if (myStartPos >= endPos) {
         throw InvalidArgument(toString(SUMO_ATTR_ENDPOS) + " '" + toString(endPos) + "' not allowed. Must be smaller than endPos '" + toString(myEndPos) + "'");
@@ -168,7 +169,7 @@ GNEStoppingPlace::setStoppingPlaceName(const std::string &name) {
 
 const std::string&
 GNEStoppingPlace::getParentName() const {
-    return myLane->getMicrosimID();
+    return myLaneID;
 }
 
 /****************************************************************************/

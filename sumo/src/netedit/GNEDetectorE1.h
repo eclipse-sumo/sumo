@@ -55,7 +55,7 @@ public:
      * @param[in] filename The path to the output file.
      * @param[in] splitByType If set, the collected values will be additionally reported on per-vehicle type base.
      */
-    GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, bool splitByType);
+    GNEDetectorE1(const std::string& id, const std::string& lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, bool splitByType);
 
     /// @brief Destructor
     ~GNEDetectorE1();

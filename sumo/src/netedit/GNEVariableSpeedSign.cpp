@@ -61,7 +61,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> /* lanes */, const std::string& filename, const std::vector<GNEVariableSpeedSignStep>& steps) :
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, const std::vector<std::string>& /* lanes */, const std::string& filename, const std::vector<GNEVariableSpeedSignStep>& steps) :
     GNEAdditional(id, viewNet, pos, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGN),
     myFilename(filename),
     mySteps(steps),

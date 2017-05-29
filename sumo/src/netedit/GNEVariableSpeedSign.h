@@ -51,7 +51,7 @@ public:
      * @param[in] filename The path to the definition file
      * @param[in] steps vector with the steps of variable speed signal
      */
-    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> lanes, const std::string& filename, const std::vector<GNEVariableSpeedSignStep>& vssValues);
+    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, const std::vector<std::string>& lanes, const std::string& filename, const std::vector<GNEVariableSpeedSignStep>& vssValues);
 
     /// @brief Destructor
     ~GNEVariableSpeedSign();

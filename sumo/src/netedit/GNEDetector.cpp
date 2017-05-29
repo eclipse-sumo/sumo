@@ -59,12 +59,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double posOverLane, double freq, const std::string& filename) :
-    GNEAdditional(id, viewNet, Position(posOverLane, 0), tag, icon),
+GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, const std::string& lane, double posOverLane, double freq, const std::string& filename) :
+    GNEAdditional(id, viewNet, Position(posOverLane, 0), tag, icon, lane),
     myFreq(freq),
     myFilename(filename) {
-    // This additional belongs to a Lane
-    myLane = lane;
 }
 
 
@@ -84,7 +82,7 @@ GNEDetector::moveAdditionalGeometry(double offsetx, double offsety) {
         endPos = startPos + GNEAttributeCarrier::parse<double>(getAttribute(SUMO_ATTR_LENGTH));
     }
     // Move to Right if distance is positive, to left if distance is negative
-    if (((offsetx > 0) && ((endPos + offsetx) < myLane->getLaneShapeLength())) || ((offsetx < 0) && ((startPos + offsetx) > 0))) {
+    if (((offsetx > 0) && ((endPos + offsetx) < getGNELane()->getLaneShapeLength())) || ((offsetx < 0) && ((startPos + offsetx) > 0))) {
         // change attribute
         myPosition.set(myPosition.x() + offsetx, 0);
         // Update geometry
@@ -125,7 +123,7 @@ void
 GNEDetector::setPositionOverLane(double pos) {
     if (pos < 0) {
         throw InvalidArgument("Position '" + toString(pos) + "' of " + toString(getTag()) + " not allowed. Must be greater than 0");
-    } else if (pos > myLane->getLaneShapeLength()) {
+    } else if (pos > getGNELane()->getLaneShapeLength()) {
         throw InvalidArgument("Position '" + toString(pos) + "' of " + toString(getTag()) + " not allowed. Must be smaller than lane length");
     } else {
         myPosition = Position(pos, 0);
@@ -151,7 +149,7 @@ GNEDetector::setFilename(std::string filename) {
 
 const std::string&
 GNEDetector::getParentName() const {
-    return myLane->getMicrosimID();
+    return myLaneID;
 }
 
 

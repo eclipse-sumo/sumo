@@ -57,7 +57,7 @@ public:
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double posOverLane, double freq, const std::string& filename);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, const std::string& lane, double posOverLane, double freq, const std::string& filename);
 
     /// @brief Destructor
     ~GNEDetector();

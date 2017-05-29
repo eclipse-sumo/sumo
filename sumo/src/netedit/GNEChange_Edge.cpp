@@ -88,7 +88,7 @@ GNEChange_Edge::undo() {
         }
         // 2 - Remove references to this edge in GNERerouters
         for (std::vector<GNERerouter*>::iterator i = myGNERerouters.begin(); i != myGNERerouters.end(); i++) {
-            (*i)->removeEdgeChild(myEdge);
+            (*i)->removeEdgeChild(myEdge->getID());
         }
     } else {
         // show extra information for tests
@@ -103,7 +103,7 @@ GNEChange_Edge::undo() {
         }
         // 2 - Add references to this edge in GNERerouters
         for (std::vector<GNERerouter*>::iterator i = myGNERerouters.begin(); i != myGNERerouters.end(); i++) {
-            (*i)->addEdgeChild(myEdge);
+            (*i)->addEdgeChild(myEdge->getID());
         }
     }
 }
@@ -124,7 +124,7 @@ GNEChange_Edge::redo() {
         }
         // 2 - Add references to this edge in GNERerouters
         for (std::vector<GNERerouter*>::iterator i = myGNERerouters.begin(); i != myGNERerouters.end(); i++) {
-            (*i)->addEdgeChild(myEdge);
+            (*i)->addEdgeChild(myEdge->getID());
         }
     } else {
         // show extra information for tests
@@ -139,7 +139,7 @@ GNEChange_Edge::redo() {
         }
         // 2 - Remove references to this edge in GNERerouters
         for (std::vector<GNERerouter*>::iterator i = myGNERerouters.begin(); i != myGNERerouters.end(); i++) {
-            (*i)->removeEdgeChild(myEdge);
+            (*i)->removeEdgeChild(myEdge->getID());
         }
     }
 }

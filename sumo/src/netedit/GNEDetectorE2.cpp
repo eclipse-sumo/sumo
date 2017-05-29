@@ -59,7 +59,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename,
+GNEDetectorE2::GNEDetectorE2(const std::string& id, const std::string& lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename,
                              bool cont, const double timeThreshold, double speedThreshold, double jamThreshold) :
     GNEDetector(id, viewNet, SUMO_TAG_E2DETECTOR, ICON_E2, lane, pos, freq, filename),
     myLength(length),
@@ -84,6 +84,9 @@ GNEDetectorE2::updateGeometry() {
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
+
+    // obtain GNELane
+    GNELane* myLane = getGNELane();
 
     // Get shape of lane parent
     myShape = myLane->getShape();
@@ -137,6 +140,7 @@ GNEDetectorE2::updateGeometry() {
 
 Position
 GNEDetectorE2::getPositionInView() const {
+    GNELane *myLane = getGNELane();
     return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLength(myPosition.x()));
 }
 
@@ -146,7 +150,7 @@ GNEDetectorE2::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
+    device.writeAttr(SUMO_ATTR_LANE, myLaneID);
     device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
     device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
@@ -215,7 +219,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return toString(myLane->getAttribute(SUMO_ATTR_ID));
+            return toString(myLaneID);
         case SUMO_ATTR_POSITION:
             return toString(myPosition.x());
         case SUMO_ATTR_FREQUENCY:
@@ -282,7 +286,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= (myLane->getLaneParametricLength()));
+            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= (getGNELane()->getLaneParametricLength()));
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_LENGTH:

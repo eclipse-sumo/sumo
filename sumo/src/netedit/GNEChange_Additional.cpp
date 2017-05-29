@@ -54,18 +54,16 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, NULL, 0)
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
     GNEChange(additional->getViewNet()->getNet(), forward),
     myAdditional(additional),
-    myLaneParent(NULL),
-    myEdgeParent(NULL),
     myE3Parent(NULL) {
     assert(myNet);
     myAdditional->incRef("GNEChange_Additional");
     // handle additionals with lane parent
-    if (myAdditional->getLane() != NULL) {
-        myLaneParent = myAdditional->getLane();
+    if (myAdditional->getLane() != "") {
+        myLaneParentID = myAdditional->getLane();
     }
     // handle additionals with edge parent
-    if (myAdditional->getEdge() != NULL) {
-        myEdgeParent = myAdditional->getEdge();
+    if (myAdditional->getEdge() != "") {
+        myEdgeParentID = myAdditional->getEdge();
     }
     // handle additional with childs
     if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
@@ -107,25 +105,23 @@ GNEChange_Additional::undo() {
         // delete additional of test
         myNet->deleteAdditional(myAdditional);
         // 1 - If additional own a lane parent, remove it from lane
-        if (myAdditional->getLane() != NULL) {
-            assert(myLaneParent);
-            myAdditional->getLane()->removeAdditionalChild(myAdditional);
+        if (myAdditional->getLane() != "") {
+            myAdditional->getGNELane()->removeAdditionalChild(myAdditional);
         }
         // 2 - If additional own a lane parent, remove it from edge
-        if (myAdditional->getEdge() != NULL) {
-            assert(myEdgeParent);
-            myAdditional->getEdge()->removeAdditionalChild(myAdditional);
+        if (myAdditional->getEdge() != "") {
+            myAdditional->getGNEEdge()->removeAdditionalChild(myAdditional);
         }
         // 3 - If additional is an E3 Detector, delete Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
             for (std::vector<GNEDetectorEntry*>::iterator i = myEntryChilds.begin(); i != myEntryChilds.end(); i++) {
                 // delete entry of their lane parent before remove
-                (*i)->getLane()->removeAdditionalChild(*i);
+                (*i)->getGNELane()->removeAdditionalChild(*i);
                 myNet->deleteAdditional(*i);
             }
             for (std::vector<GNEDetectorExit*>::iterator i = myExitChilds.begin(); i != myExitChilds.end(); i++) {
                 // delete entry of their lane parent before remove
-                (*i)->getLane()->removeAdditionalChild(*i);
+                (*i)->getGNELane()->removeAdditionalChild(*i);
                 myNet->deleteAdditional(*i);
             }
         }
@@ -146,8 +142,8 @@ GNEChange_Additional::undo() {
         // 6 - if Additional if a rerouter, remove it of all of their edge childs
         if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
             GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
-            for (std::vector<GNEEdge*>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
-                (*i)->removeGNERerouter(rerouter);
+            for (std::vector<std::string>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
+                myAdditional->getViewNet()->getNet()->retrieveEdge(*i)->removeGNERerouter(rerouter);
             }
         }
     } else {
@@ -158,25 +154,23 @@ GNEChange_Additional::undo() {
         // insert additional of test
         myNet->insertAdditional(myAdditional);
         // 1 - If additional own a Lane parent, add it to lane
-        if (myAdditional->getLane() != NULL) {
-            assert(myLaneParent);
-            myAdditional->getLane()->addAdditionalChild(myAdditional);
+        if (myAdditional->getLane() != "") {
+            myAdditional->getGNELane()->addAdditionalChild(myAdditional);
         }
         // 2 - If additional own a lane parent, add it to edge
-        if (myAdditional->getEdge() != NULL) {
-            assert(myEdgeParent);
-            myAdditional->getEdge()->addAdditionalChild(myAdditional);
+        if (myAdditional->getEdge() != "") {
+            myAdditional->getGNEEdge()->addAdditionalChild(myAdditional);
         }
         // 3 - If additional is an E3 detector, add it their Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
             for (std::vector<GNEDetectorEntry*>::iterator i = myEntryChilds.begin(); i != myEntryChilds.end(); i++) {
                 // add entry of their lane parent before insert
-                (*i)->getLane()->addAdditionalChild(*i);
+                (*i)->getGNELane()->addAdditionalChild(*i);
                 myNet->insertAdditional(*i);
             }
             for (std::vector<GNEDetectorExit*>::iterator i = myExitChilds.begin(); i != myExitChilds.end(); i++) {
                 // add entry of their lane parent before insert
-                (*i)->getLane()->addAdditionalChild(*i);
+                (*i)->getGNELane()->addAdditionalChild(*i);
                 myNet->insertAdditional(*i);
             }
         }
@@ -197,8 +191,8 @@ GNEChange_Additional::undo() {
         // 6 - if Additional if a rerouter, add it of all of their edge childs
         if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
             GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
-            for (std::vector<GNEEdge*>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
-                (*i)->addGNERerouter(rerouter);
+            for (std::vector<std::string>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
+                myAdditional->getViewNet()->getNet()->retrieveEdge(*i)->addGNERerouter(rerouter);
             }
         }
     }
@@ -215,25 +209,23 @@ GNEChange_Additional::redo() {
         // insert additional into net
         myNet->insertAdditional(myAdditional);
         // 1 - If additional own a Lane parent, add it to lane
-        if (myAdditional->getLane() != NULL) {
-            assert(myLaneParent);
-            myAdditional->getLane()->addAdditionalChild(myAdditional);
+        if (myAdditional->getLane() != "") {
+            myAdditional->getGNELane()->addAdditionalChild(myAdditional);
         }
         // 2 - If additional own a lane parent, add it to edge
-        if (myAdditional->getEdge() != NULL) {
-            assert(myEdgeParent);
-            myAdditional->getEdge()->addAdditionalChild(myAdditional);
+        if (myAdditional->getEdge() != "") {
+            myAdditional->getGNEEdge()->addAdditionalChild(myAdditional);
         }
         // 3 - If additional is an E3 detector, add it their Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
             for (std::vector<GNEDetectorEntry*>::iterator i = myEntryChilds.begin(); i != myEntryChilds.end(); i++) {
                 // add entry of their lane parent before insert
-                (*i)->getLane()->addAdditionalChild(*i);
+                (*i)->getGNELane()->addAdditionalChild(*i);
                 myNet->insertAdditional(*i);
             }
             for (std::vector<GNEDetectorExit*>::iterator i = myExitChilds.begin(); i != myExitChilds.end(); i++) {
                 // add entry of their lane parent before insert
-                (*i)->getLane()->addAdditionalChild(*i);
+                (*i)->getGNELane()->addAdditionalChild(*i);
                 myNet->insertAdditional(*i);
             }
         }
@@ -254,8 +246,8 @@ GNEChange_Additional::redo() {
         // 6 - if Additional if a rerouter, add it of all of their edge childs
         if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
             GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
-            for (std::vector<GNEEdge*>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
-                (*i)->addGNERerouter(rerouter);
+            for (std::vector<std::string>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
+                myAdditional->getViewNet()->getNet()->retrieveEdge(*i)->addGNERerouter(rerouter);
             }
         }
     } else {
@@ -265,25 +257,23 @@ GNEChange_Additional::redo() {
         }
         myNet->deleteAdditional(myAdditional);
         // 1 - If additionl own a Lane Parent, remove it from lane
-        if (myAdditional->getLane() != NULL) {
-            assert(myLaneParent);
-            myAdditional->getLane()->removeAdditionalChild(myAdditional);
+        if (myAdditional->getLane() != "") {
+            myAdditional->getGNELane()->removeAdditionalChild(myAdditional);
         }
         // 2 - If additional own a lane parent, remove it from lane
-        if (myAdditional->getEdge() != NULL) {
-            assert(myEdgeParent);
-            myAdditional->getEdge()->removeAdditionalChild(myAdditional);
+        if (myAdditional->getEdge() != "") {
+            myAdditional->getGNEEdge()->removeAdditionalChild(myAdditional);
         }
         // 3 - If additional is an E3 Detector, delete Entry/Exit childs
         if (myAdditional->getTag() == SUMO_TAG_E3DETECTOR) {
             for (std::vector<GNEDetectorEntry*>::iterator i = myEntryChilds.begin(); i != myEntryChilds.end(); i++) {
                 // delete entry of their lane parent before remove
-                (*i)->getLane()->removeAdditionalChild(*i);
+                (*i)->getGNELane()->removeAdditionalChild(*i);
                 myNet->deleteAdditional(*i);
             }
             for (std::vector<GNEDetectorExit*>::iterator i = myExitChilds.begin(); i != myExitChilds.end(); i++) {
                 // delete entry of their lane parent before remove
-                (*i)->getLane()->removeAdditionalChild(*i);
+                (*i)->getGNELane()->removeAdditionalChild(*i);
                 myNet->deleteAdditional(*i);
             }
         }
@@ -304,8 +294,8 @@ GNEChange_Additional::redo() {
         // 6 - if Additional if a rerouter, remove it of all of their edge childs
         if (myAdditional->getTag() == SUMO_TAG_REROUTER) {
             GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myAdditional);
-            for (std::vector<GNEEdge*>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
-                (*i)->removeGNERerouter(rerouter);
+            for (std::vector<std::string>::iterator i = myEdgeChilds.begin(); i != myEdgeChilds.end(); i++) {
+                myAdditional->getViewNet()->getNet()->retrieveEdge(*i)->removeGNERerouter(rerouter);
             }
         }
     }

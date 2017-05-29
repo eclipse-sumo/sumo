@@ -59,7 +59,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, bool splitByType) :
+GNEDetectorE1::GNEDetectorE1(const std::string& id, const std::string& lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, bool splitByType) :
     GNEDetector(id, viewNet, SUMO_TAG_E1DETECTOR, ICON_E1, lane, pos, freq, filename),
     mySplitByType(splitByType) {
     // Update geometry;
@@ -79,6 +79,9 @@ GNEDetectorE1::updateGeometry() {
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
+
+    // obtain GNELane
+    GNELane* myLane = getGNELane();
 
     // clear Shape
     myShape.clear();
@@ -114,6 +117,7 @@ GNEDetectorE1::updateGeometry() {
 
 Position
 GNEDetectorE1::getPositionInView() const {
+    GNELane *myLane = getGNELane();
     return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLength(myPosition.x()));
 }
 
@@ -123,7 +127,7 @@ GNEDetectorE1::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
+    device.writeAttr(SUMO_ATTR_LANE, myLaneID);
     device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
     if (!myFilename.empty()) {
@@ -212,7 +216,7 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return toString(myLane->getAttribute(SUMO_ATTR_ID));
+            return toString(myLaneID);
         case SUMO_ATTR_POSITION:
             return toString(myPosition.x());
         case SUMO_ATTR_FREQUENCY:
@@ -268,7 +272,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= (myLane->getLaneParametricLength()));
+            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= (getGNELane()->getLaneParametricLength()));
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_FILE:

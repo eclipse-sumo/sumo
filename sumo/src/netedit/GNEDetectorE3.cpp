@@ -165,7 +165,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
         // Write entrys
         for (std::vector<GNEDetectorEntry*>::const_iterator i = myGNEDetectorEntrys.begin(); i != myGNEDetectorEntrys.end(); i++) {
             device.openTag((*i)->getTag());
-            device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
+            device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane());
             device.writeAttr(SUMO_ATTR_POSITION, (*i)->getPositionOverLane());
             device.closeTag();
         }
@@ -173,7 +173,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
         // Write exits
         for (std::vector<GNEDetectorExit*>::const_iterator i = myGNEDetectorExits.begin(); i != myGNEDetectorExits.end(); i++) {
             device.openTag((*i)->getTag());
-            device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
+            device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane());
             device.writeAttr(SUMO_ATTR_POSITION, (*i)->getPositionOverLane());
             device.closeTag();
         }
