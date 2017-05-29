@@ -51,13 +51,13 @@ traci.init(PORT)
 for i in range(3):
     traci.simulationStep()
     print("step=%s departed=%s" % (traci.simulation.getCurrentTime(),
-        traci.simulation.getDepartedIDList()))
+                                   traci.simulation.getDepartedIDList()))
 
 print("reloading")
 traci.load(["-S", "-Q", "-c", "sumo.sumocfg"])
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
     print("step=%s departed=%s" % (traci.simulation.getCurrentTime(),
-        traci.simulation.getDepartedIDList()))
+                                   traci.simulation.getDepartedIDList()))
 traci.close()
 sumoProcess.wait()

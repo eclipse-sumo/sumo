@@ -117,7 +117,8 @@ class DistrictEdgeComputer:
                                 if lastId == base:
                                     lastEdges += [e for e in filtered if e not in lastEdges]
                                 else:
-                                    fd.write('    <taz id="%s" edges="%s"/>\n' % (lastId, " ".join([e.getID() for e in lastEdges])))
+                                    fd.write('    <taz id="%s" edges="%s"/>\n' %
+                                             (lastId, " ".join([e.getID() for e in lastEdges])))
                                     lastId = None
                             if lastId is None:
                                 lastId = base

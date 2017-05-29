@@ -4,7 +4,7 @@
 @file    runner.py
 @author  Laura Bieker
 @date    2017-05-23
-@version $Id: runner.py 22929 2017-02-13 14:38:39Z behrisch $
+@version $Id$
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/

@@ -444,15 +444,13 @@ class VehicleDomain(Domain):
         A vehicle that is stopping intentionally with a <stop> does not accumulate waiting time.
         """
         return self._getUniversal(tc.VAR_WAITING_TIME, vehID)
-    
-    
+
     def getAccumulatedWaitingTime(self, vehID):
         """getAccumulatedWaitingTime() -> double
         The accumulated waiting time of a vehicle collects the vehicle's waiting time 
         over a certain time interval (interval length is set per option '--waiting-time-memory')
         """
         return self._getUniversal(tc.VAR_ACCUMULATED_WAITING_TIME, vehID)
-    
 
     def getSpeedMode(self, vehID):
         """getSpeedMode -> int
@@ -521,7 +519,7 @@ class VehicleDomain(Domain):
         Returns the preferred maximal deceleration possibility in m/s^2 of this vehicle.
         """
         return self._getUniversal(tc.VAR_DECEL, vehID)
-    
+
     def getEmergencyDecel(self, vehID):
         """getEmergencyDecel(string) -> double
 

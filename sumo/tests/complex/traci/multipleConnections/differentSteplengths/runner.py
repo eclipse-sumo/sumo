@@ -5,7 +5,7 @@
 @author  Michael Behrisch
 @author  Leonhard Luecken
 @date    2010-02-20
-@version $Id: runner.py 22608 2017-01-17 06:28:54Z behrisch $
+@version $Id$
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/

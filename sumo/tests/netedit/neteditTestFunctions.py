@@ -170,17 +170,17 @@ def Popen(extraParameters, debugInformation):
     if os.path.exists(os.path.join(textTestSandBox, "input_net.net.xml")):
         neteditCall += ['--sumo-net-file',
                         os.path.join(textTestSandBox, "input_net.net.xml")]
-                        
+
     # Check if additionals must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_additionals.add.xml")):
         neteditCall += ['--sumo-additionals-file',
                         os.path.join(textTestSandBox, "input_additionals.add.xml")]
-                        
+
     # check if a gui settings file has to be load
     if os.path.exists(os.path.join(textTestSandBox, "gui-settings.xml")):
         neteditCall += ['--gui-settings-file',
                         os.path.join(textTestSandBox, "gui-settings.xml")]
-                        
+
     # set output for net
     neteditCall += ['--output-file',
                     os.path.join(textTestSandBox, 'net.net.xml')]
@@ -191,7 +191,7 @@ def Popen(extraParameters, debugInformation):
 
     # add extra parameters
     neteditCall += extraParameters
-        
+
     # return a subprocess with netedit
     return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
@@ -213,7 +213,7 @@ def getReferenceMatch(neProcess, waitTime):
 # setup and start netedit
 
 
-def setupAndStart(testRoot, extraParameters = [], debugInformation = True, searchReference=True, waitTime=DELAY_REFERENCE):
+def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchReference=True, waitTime=DELAY_REFERENCE):
     setup(testRoot)
     # Open netedit
     neteditProcess = Popen(extraParameters, debugInformation)
@@ -237,18 +237,18 @@ def setupAndStart(testRoot, extraParameters = [], debugInformation = True, searc
 def rebuildNetwork():
     typeKey(Key.F5)
 
-    
+
 # rebuild network with volatile options
 
-def rebuildNetworkWithVolatileOptions(question = True):
+def rebuildNetworkWithVolatileOptions(question=True):
     typeTwoKeys(Key.F5, Key.SHIFT)
-    #confirm recompute
+    # confirm recompute
     if question == True:
         waitQuestion('y')
     else:
         waitQuestion('n')
-    
-    
+
+
 # clean junction
 
 def cleanJunction():
@@ -256,10 +256,10 @@ def cleanJunction():
 
 # join selected junctions
 
-    
+
 def joinSelectedJunctions():
     typeKey(Key.F7)
-    
+
 # select focus on upper element of current frame
 
 
@@ -368,7 +368,7 @@ def saveAdditionals():
 
 
 # open and close about dialog
-def openAboutDialog(waitingTime = DELAY_QUESTION):
+def openAboutDialog(waitingTime=DELAY_QUESTION):
     # type F2 to open about dialog
     typeKey(Key.F2)
     # wait before closing
@@ -376,7 +376,7 @@ def openAboutDialog(waitingTime = DELAY_QUESTION):
     # press enter to close dialog (Ok must be focused)
     typeSpace()
 
-    
+
 #################################################
 # Create edge
 #################################################
@@ -838,7 +838,7 @@ def selectionToogleEdges():
     # type space to enable or disable edge selection
     typeSpace()
 
-        
+
 #################################################
 # traffic light
 #################################################
@@ -849,12 +849,12 @@ def selectionToogleEdges():
 def selectTLSMode():
     typeKey("t")
 
-    
+
 # Create TLS
 def createTLS():
     # focus current frame
     focusOnFrame()
     # type tab to jump to create tls button
     typeTab()
-    # create TLS 
+    # create TLS
     typeSpace()

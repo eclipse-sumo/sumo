@@ -360,7 +360,7 @@ class Net:
             path.append(edge)
             edge = edge.source.inPathEdge
             if edge is None:
-                 return None
+                return None
         path.reverse()
         return path
 
@@ -382,7 +382,8 @@ class Net:
             for edge in currVertex.outEdges:
                 #~ if edge.label == "-562821874":
                     #~ path = [edge]
-                if limitedSource and currVertex == self._source and not edge.isOnSourcePath:# and currVertex.numImprovedEdges == 0:
+                # and currVertex.numImprovedEdges == 0:
+                if limitedSource and currVertex == self._source and not edge.isOnSourcePath:
                     #~ if debugEdge.target.inPathEdge is not None:
                         #~ path = self.buildPath(currVertex, debugEdge)
                         #~ if path:
@@ -398,7 +399,7 @@ class Net:
                             #~ path = self.buildPath(currVertex, debugEdge)
                             #~ if path:
                                 #~ print(path, "no cont sink", edge)
-                        continue
+                    continue
                 if not edge.target.inPathEdge and edge.flow < edge.capacity:
                     if edge.target != self._sink or currVertex.numImprovedEdges > 0:
                         heapq.heappush(queue, edge.target)
@@ -645,7 +646,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
         if options.syntheticflowfile is None:
             return
         if start is not None:
-            times = [float(t)/100. for t in options.timeline.split(",")]
+            times = [float(t) / 100. for t in options.timeline.split(",")]
             factor = sum([times[t] for t in range(start / 60, end / 60)])
         else:
             factor = 1.

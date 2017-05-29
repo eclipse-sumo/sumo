@@ -3,7 +3,7 @@
 @file    test.py
 @author  Pablo Alvarez Lopez
 @date    2016-11-25
-@version $Id: test.py 24066 2017-04-25 17:19:15Z palcraft $
+@version $Id$
 
 python script used by sikulix for testing netedit
 

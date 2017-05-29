@@ -4,7 +4,7 @@
 @file    runner.py
 @author  Jakob Erdmann
 @date    2017-01-23
-@version $Id: runner.py 22929 2017-02-13 14:38:39Z behrisch $
+@version $Id$
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -35,8 +35,6 @@ sumoProcess = subprocess.Popen([sumoBinary,
                                 '--remote-port', str(PORT)], stdout=sys.stdout)
 
 
-
-
 firstPos = None
 vehID = "v0"
 traci.init(PORT)
@@ -56,7 +54,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
             traci.vehicle.getLanePosition(vehID),
             traci.vehicle.getDistance(vehID),
             traci.simulation.getDistance2D(firstPos[0], firstPos[1], currPos[0],
-                currPos[1], isDriving=True)))
+                                           currPos[1], isDriving=True)))
 
     except traci.TraCIException:
         pass

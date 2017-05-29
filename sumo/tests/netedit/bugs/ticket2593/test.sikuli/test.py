@@ -41,7 +41,7 @@ netedit.leftClick(match, 250, 250)
 # quit netedit
 netedit.quit(neteditProcess, True, True, True, False)
 
-# Open netedit again 
+# Open netedit again
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode

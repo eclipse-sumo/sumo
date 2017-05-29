@@ -94,14 +94,14 @@ class VehicleTypeDomain(Domain):
         Returns the maximal comfortable deceleration in m/s^2 of vehicles of this type.
         """
         return self._getUniversal(tc.VAR_DECEL, typeID)
-    
+
     def getEmergencyDecel(self, typeID):
         """getDecel(string) -> double
 
         Returns the maximal physically possible deceleration in m/s^2 of vehicles of this type.
         """
         return self._getUniversal(tc.VAR_EMERGENCY_DECEL, typeID)
-    
+
     def getApparentDecel(self, typeID):
         """getDecel(string) -> double
 
@@ -312,7 +312,7 @@ class VehicleTypeDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_DECEL, typeID, decel)
-        
+
     def setEmergencyDecel(self, typeID, decel):
         """setDecel(string, double) -> None
 
@@ -320,7 +320,7 @@ class VehicleTypeDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_EMERGENCY_DECEL, typeID, decel)
-        
+
     def setApparentDecel(self, typeID, decel):
         """setDecel(string, double) -> None
 
