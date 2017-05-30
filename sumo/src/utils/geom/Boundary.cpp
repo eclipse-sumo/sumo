@@ -220,6 +220,74 @@ Boundary::crosses(const Position& p1, const Position& p2) const {
 }
 
 
+double
+Boundary::distanceTo2D(const Position& p) const {
+    const double leftDist = myXmin - p.x();
+    const double rightDist = p.x() - myXmax;
+    const double bottomDist = myYmin - p.y();
+    const double topDist = p.y() - myYmax;
+    if (leftDist > 0.) {
+        if (bottomDist > 0.) {
+            return sqrt(leftDist * leftDist + bottomDist * bottomDist);
+        }
+        if (topDist > 0.) {
+            return sqrt(leftDist * leftDist + topDist * topDist);
+        }
+        return leftDist;
+    }
+    if (rightDist > 0.) {
+        if (bottomDist > 0.) {
+            return sqrt(rightDist * rightDist + bottomDist * bottomDist);
+        }
+        if (topDist > 0.) {
+            return sqrt(rightDist * rightDist + topDist * topDist);
+        }
+        return rightDist;
+    }
+    if (bottomDist > 0) {
+        return bottomDist;
+    }
+    if (topDist > 0) {
+        return topDist;
+    }
+    return 0.;
+}
+
+
+double
+Boundary::distanceTo2D(const Boundary& b) const {
+    const double leftDist = myXmin - b.myXmax;
+    const double rightDist = b.myXmin - myXmax;
+    const double bottomDist = myYmin - b.myYmax;
+    const double topDist = b.myYmin - myYmax;
+    if (leftDist > 0.) {
+        if (bottomDist > 0.) {
+            return sqrt(leftDist * leftDist + bottomDist * bottomDist);
+        }
+        if (topDist > 0.) {
+            return sqrt(leftDist * leftDist + topDist * topDist);
+        }
+        return leftDist;
+    }
+    if (rightDist > 0.) {
+        if (bottomDist > 0.) {
+            return sqrt(rightDist * rightDist + bottomDist * bottomDist);
+        }
+        if (topDist > 0.) {
+            return sqrt(rightDist * rightDist + topDist * topDist);
+        }
+        return rightDist;
+    }
+    if (bottomDist > 0) {
+        return bottomDist;
+    }
+    if (topDist > 0) {
+        return topDist;
+    }
+    return 0.;
+}
+
+
 bool
 Boundary::partialWithin(const AbstractPoly& poly, double offset) const {
     return

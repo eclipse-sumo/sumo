@@ -113,6 +113,12 @@ public:
     /// Returns whether the boundary crosses the given line
     bool crosses(const Position& p1, const Position& p2) const;
 
+    /// @brief returns the euclidean distance in the x-y-plane
+    double distanceTo2D(const Position& p) const;
+
+    /// @brief returns the euclidean distance in the x-y-plane
+    double distanceTo2D(const Boundary& b) const;
+
 
     /** @brief extends the boundary by the given amount
      *

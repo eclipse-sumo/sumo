@@ -305,11 +305,7 @@ public:
      * This is mainly used by the taz (district) parsing
      * @param[in] edge The edge to add
      */
-    void addSuccessor(MSEdge* edge) {
-        mySuccessors.push_back(edge);
-        edge->myPredecessors.push_back(this);
-    }
-
+    void addSuccessor(MSEdge* edge);
 
     /** @brief Returns the number of edges that may be reached from this edge
      * @return The number of following edges

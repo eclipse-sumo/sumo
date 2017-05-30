@@ -812,11 +812,16 @@ MSEdge::parseEdgesList(const std::vector<std::string>& desc, ConstMSEdgeVector& 
 
 double
 MSEdge::getDistanceTo(const MSEdge* other) const {
-    if (getLanes().size() > 0 && other->getLanes().size() > 0) {
-        return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
-    } else {
-        return 0; // optimism is just right for astar
+    if (isTazConnector()) {
+        if (other->isTazConnector()) {
+            return myTazBoundary.distanceTo2D(other->myTazBoundary);
+        }
+        return myTazBoundary.distanceTo2D(other->getFromJunction()->getPosition());
     }
+    if (other->isTazConnector()) {
+        return other->myTazBoundary.distanceTo2D(getToJunction()->getPosition());
+    }
+    return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
 }
 
 
@@ -885,6 +890,21 @@ MSEdge::transportable_by_position_sorter::operator()(const MSTransportable* cons
     }
     return c1->getID() < c2->getID();
 }
+
+
+void
+MSEdge::addSuccessor(MSEdge* edge) {
+    mySuccessors.push_back(edge);
+    if (isTazConnector()) {
+        myTazBoundary.add(edge->getFromJunction()->getPosition());
+    }
+
+    edge->myPredecessors.push_back(this);
+    if (edge->isTazConnector()) {
+        edge->myTazBoundary.add(getToJunction()->getPosition());
+    }
+}
+
 
 const MSEdgeVector&
 MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
