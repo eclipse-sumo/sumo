@@ -664,8 +664,8 @@ GNELane::updateGeometry() {
         }
     }
     // Update geometry of additionals vinculated with this lane
-    for (AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
-        (*i)->updateGeometry();
+    for (std::map<std::string, SumoXMLTag>::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+        myNet->retrieveAdditional(i->first)->updateGeometry();
     }
     // In Move mode, connections aren't updated
     if (myNet->getViewNet() && myNet->getViewNet()->getCurrentEditMode() != GNE_MODE_MOVE) {
@@ -736,35 +736,29 @@ GNELane::getPositionRelativeToShapeLength(double position) const {
 
 
 void
-GNELane::addAdditionalChild(GNEAdditional* additional) {
+GNELane::addAdditionalChild(const std::string &additionalID, SumoXMLTag tag) {
     // First check that additional wasn't already inserted
-    for (AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
-        if (*i == additional) {
-            throw ProcessError(toString(getTag()) + " with ID='" + additional->getID() + "' was already inserted in lane with ID='" + getID() + "'");
-        }
+    if(myAdditionals.find(additionalID) != myAdditionals.end()) {
+        throw ProcessError("Additional with ID='" + additionalID + "' was already inserted in lane with ID='" + getID() + "'");
     }
-    myAdditionals.push_back(additional);
+    myAdditionals[additionalID] = tag;
 }
 
 
 void
-GNELane::removeAdditionalChild(GNEAdditional* additional) {
-    // Declare iterator
-    AdditionalVector::iterator i = myAdditionals.begin();
-    // Find additional
-    while ((*i != additional) && (i != myAdditionals.end())) {
-        i++;
-    }
+GNELane::removeAdditionalChild(const std::string &additionalID) {
+    // try to find additional
+    std::map<std::string, SumoXMLTag>::iterator it = myAdditionals.find(additionalID);
     // If additional was found, remove it
-    if (i == myAdditionals.end()) {
-        throw ProcessError(toString(getTag()) + " with ID='" + additional->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
+    if (it == myAdditionals.end()) {
+        throw ProcessError("Additional with ID='" + additionalID + "' doesn't exist in lane with ID='" + getID() + "'");
     } else {
-        myAdditionals.erase(i);
+        myAdditionals.erase(it);
     }
 }
 
 
-const std::vector<GNEAdditional*>&
+const std::map<std::string, SumoXMLTag>&
 GNELane::getAdditionalChilds() const {
     return myAdditionals;
 }

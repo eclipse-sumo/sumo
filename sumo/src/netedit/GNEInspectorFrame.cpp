@@ -494,6 +494,8 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
     myTreeItemToACMap.clear();
     myTreeItemsWithoutAC.clear();
     myGroupBoxForTreeList->show();
+    // declare counter
+    int counter = 0;
     // Switch gl type of ac
     switch (dynamic_cast<GUIGlObject*>(myACs.front())->getType()) {
         case GLO_JUNCTION: {
@@ -515,11 +517,13 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
                     myTreeItemToACMap[laneItem] = lane;
                     laneItem->setExpanded(true);
                     // insert additionals of lanes
-                    for (int k = 0; k < (int)lane->getAdditionalChilds().size(); k++) {
-                        GNEAdditional* additional = lane->getAdditionalChilds().at(k);
-                        FXTreeItem* additionalItem = myTreelist->insertItem(0, laneItem, (toString(additional->getTag()) + " " + toString(k)).c_str(), additional->getIcon(), additional->getIcon());
+                    counter = 0;
+                    for (std::map<std::string, SumoXMLTag>::const_iterator k = lane->getAdditionalChilds().begin(); k != lane->getAdditionalChilds().end(); k++) {
+                        GNEAdditional *additional = myViewNet->getNet()->retrieveAdditional(k->first);
+                        FXTreeItem* additionalItem = myTreelist->insertItem(0, laneItem, (toString(additional->getTag()) + " " + toString(counter)).c_str(), additional->getIcon(), additional->getIcon());
                         myTreeItemToACMap[additionalItem] = additional;
                         additionalItem->setExpanded(true);
+                        counter++;
                     }
                     // insert incoming connections of lanes (by default isn't expanded)
                     if (lane->getGNEIncomingConnections().size() > 0) {
@@ -547,11 +551,13 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
                     }
                 }
                 // insert additionals of edge
-                for (int j = 0; j < (int)edge->getAdditionalChilds().size(); j++) {
-                    GNEAdditional* additional = edge->getAdditionalChilds().at(j);
-                    FXTreeItem* additionalItem = myTreelist->insertItem(0, edgeItem, (toString(additional->getTag()) + " " + toString(j)).c_str(), additional->getIcon(), additional->getIcon());
+                counter = 0;
+                for (std::map<std::string, SumoXMLTag>::const_iterator j = edge->getAdditionalChilds().begin(); j != edge->getAdditionalChilds().end(); i++) {
+                    GNEAdditional* additional = myViewNet->getNet()->retrieveAdditional(j->first);
+                    FXTreeItem* additionalItem = myTreelist->insertItem(0, edgeItem, (toString(additional->getTag()) + " " + toString(counter)).c_str(), additional->getIcon(), additional->getIcon());
                     myTreeItemToACMap[additionalItem] = additional;
                     additionalItem->setExpanded(true);
+                    counter++;
                 }
 
             }
@@ -577,11 +583,13 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
                 myTreeItemToACMap[laneItem] = lane;
                 laneItem->setExpanded(true);
                 // insert additionals of lanes
-                for (int j = 0; j < (int)lane->getAdditionalChilds().size(); j++) {
-                    GNEAdditional* additional = lane->getAdditionalChilds().at(j);
-                    FXTreeItem* additionalItem = myTreelist->insertItem(0, laneItem, (toString(additional->getTag()) + " " + toString(j)).c_str(), additional->getIcon(), additional->getIcon());
+                counter = 0;
+                for (std::map<std::string, SumoXMLTag>::const_iterator j = lane->getAdditionalChilds().begin(); j != lane->getAdditionalChilds().end(); j++) {
+                    GNEAdditional *additional = myViewNet->getNet()->retrieveAdditional(j->first);
+                    FXTreeItem* additionalItem = myTreelist->insertItem(0, laneItem, (toString(additional->getTag()) + " " + toString(counter)).c_str(), additional->getIcon(), additional->getIcon());
                     myTreeItemToACMap[additionalItem] = additional;
                     additionalItem->setExpanded(true);
+                    counter++;
                 }
                 // insert incoming connections of lanes (by default isn't expanded)
                 if (lane->getGNEIncomingConnections().size() > 0) {
@@ -609,11 +617,13 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
                 }
             }
             // insert additionals of edge
-            for (int i = 0; i < (int)edge->getAdditionalChilds().size(); i++) {
-                GNEAdditional* additional = edge->getAdditionalChilds().at(i);
-                FXTreeItem* additionalItem = myTreelist->insertItem(0, edgeItem, (toString(additional->getTag()) + " " + toString(i)).c_str(), additional->getIcon(), additional->getIcon());
+            counter = 0;
+            for (std::map<std::string, SumoXMLTag>::const_iterator i = edge->getAdditionalChilds().begin(); i != edge->getAdditionalChilds().end(); i++) {
+                GNEAdditional *additional = myViewNet->getNet()->retrieveAdditional(i->first);
+                FXTreeItem* additionalItem = myTreelist->insertItem(0, edgeItem, (toString(additional->getTag()) + " " + toString(counter)).c_str(), additional->getIcon(), additional->getIcon());
                 myTreeItemToACMap[additionalItem] = additional;
                 additionalItem->setExpanded(true);
+                counter++;
             }
             break;
         }
@@ -624,11 +634,13 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
             myTreeItemToACMap[laneItem] = lane;
             laneItem->setExpanded(true);
             // insert additionals of lanes
-            for (int i = 0; i < (int)lane->getAdditionalChilds().size(); i++) {
-                GNEAdditional* additional = lane->getAdditionalChilds().at(i);
-                FXTreeItem* additionalItem = myTreelist->insertItem(0, laneItem, (toString(additional->getTag()) + " " + toString(i)).c_str(), additional->getIcon(), additional->getIcon());
+            counter = 0;
+            for (std::map<std::string, SumoXMLTag>::const_iterator i = lane->getAdditionalChilds().begin(); i != lane->getAdditionalChilds().end(); i++) {
+                GNEAdditional *additional = myViewNet->getNet()->retrieveAdditional(i->first);
+                FXTreeItem* additionalItem = myTreelist->insertItem(0, laneItem, (toString(additional->getTag()) + " " + toString(counter)).c_str(), additional->getIcon(), additional->getIcon());
                 myTreeItemToACMap[additionalItem] = additional;
                 additionalItem->setExpanded(true);
+                counter++;
             }
             // insert incoming connections of lanes (by default isn't expanded)
             if (lane->getGNEIncomingConnections().size() > 0) {

@@ -58,7 +58,9 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane&
         // non-zero pointer is passsed in case of removal or duplication
         myLane->incRef("GNEChange_Lane");
         // Save additionals of lane
-        myAdditionalChilds = myLane->getAdditionalChilds();
+        for(std::map<std::string, SumoXMLTag>::const_iterator i = myLane->getAdditionalChilds().begin(); i != myLane->getAdditionalChilds().end(); i++) {
+            myAdditionalChilds.push_back(myNet->retrieveAdditional(i->first));
+        }
     } else {
         assert(forward);
     }

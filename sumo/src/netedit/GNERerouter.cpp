@@ -461,7 +461,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             GNEEdge* edge;
             // first remove references of current rerouter in all edge childs
             for (std::vector<std::string>::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-                myViewNet->getNet()->retrieveEdge(*i)->removeGNERerouter(this);
+                myViewNet->getNet()->retrieveEdge(*i)->removeGNERerouter(getID());
             }
             // clear previous edges
             myEdges.clear();
@@ -470,7 +470,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
                 edge = myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false);
                 if (edge != NULL) {
                     myEdges.push_back(edge->getID());
-                    edge->addGNERerouter(this);
+                    edge->addGNERerouter(getID());
                 } else {
                     throw InvalidArgument("Trying to set an non-valid edge in " + getID());
                 }

@@ -56,9 +56,6 @@ class GNELane : public GNENetElement, public FXDelegator {
     FXDECLARE(GNELane)
 
 public:
-    /// @brief Definition of the additionals vector
-    typedef std::vector<GNEAdditional*> AdditionalVector;
-
     /**@brief Constructor
      * @param[in] idStorage The storage of gl-ids to get the one for this lane representation from
      * @param[in] the edge this lane belongs to
@@ -171,13 +168,13 @@ public:
     double getPositionRelativeToShapeLength(double position) const;
 
     /// @brief add additional child to this lane
-    void addAdditionalChild(GNEAdditional* additional);
+    void addAdditionalChild(const std::string &additionalID, SumoXMLTag tag);
 
     /// @brief remove additional child to this lane
-    void removeAdditionalChild(GNEAdditional* additional);
+    void removeAdditionalChild(const std::string &additionalID);
 
     /// @brief get additional childs of lane
-    const std::vector<GNEAdditional*>& getAdditionalChilds() const;
+    const std::map<std::string, SumoXMLTag>& getAdditionalChilds() const;
 
     /// @brief check if this lane is restricted
     bool isRestricted(SUMOVehicleClass vclass) const;
@@ -235,8 +232,8 @@ protected:
     std::vector<double> myLaneRestrictedTextureRotations;
     /// @}
 
-    /// @brief list with the additionals vinculated with this lane
-    AdditionalVector myAdditionals;
+    /// @brief map with the additionals vinculated with this lane
+    std::map<std::string, SumoXMLTag> myAdditionals;
 
     /// @brief optional special color
     const RGBColor* mySpecialColor;
