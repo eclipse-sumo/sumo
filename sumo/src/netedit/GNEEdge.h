@@ -228,22 +228,25 @@ public:
     void setMicrosimID(const std::string& newID);
 
     /// @brief add additional child to this edge
-    void addAdditionalChild(const std::string& additionalID, SumoXMLTag additionalTag);
+    void addAdditionalChild(GNEAdditional* additional);
 
     /// @brief remove additional child from this edge
-    void removeAdditionalChild(const std::string& additionalID);
+    void removeAdditionalChild(GNEAdditional* additional);
 
     /// @brief return list of additionals associated with this edge
-    const std::map<std::string, SumoXMLTag>& getAdditionalChilds() const;
+    const std::vector<GNEAdditional*>& getAdditionalChilds() const;
 
     /// @brief add a reference to a rerouter that has this edge as parameter
-    void addGNERerouter(const std::string& rerouterID);
+    void addGNERerouter(GNERerouter* rerouter);
 
     /// @brief remove a reference to a rerouter that has this edge as parameter
-    void removeGNERerouter(const std::string& rerouterID);
+    void removeGNERerouter(GNERerouter* rerouter);
 
     /// @brief get rerouters vinculated with this edge
-    const std::vector<std::string>& getGNERerouters() const;
+    const std::vector<GNERerouter*>& getGNERerouters() const;
+
+    /// @brief get number of rerouters that has this edge as parameters
+    int getNumberOfGNERerouters() const;
 
     /// @brief check if edge has a restricted lane
     bool hasRestrictedLane(SUMOVehicleClass vclass) const;
@@ -255,10 +258,10 @@ public:
     void clearGNEConnections();
 
     /// @brief obtain relative positions of RouteProbes
-    int getRouteProbeRelativePosition(const std::string &routeProbeID) const;
+    int getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const;
 
     /// @brief obtain relative positions of Vaporizer
-    int getVaporizerRelativePosition(const std::string &vaporizerID) const;
+    int getVaporizerRelativePosition(GNEVaporizer* vaporizer) const;
 
 protected:
     /// @brief the underlying NBEdge
@@ -288,11 +291,11 @@ protected:
     /// @brief modification status of the connections
     std::string myConnectionStatus;
 
-    /// @brief list with the additionals vinculated with this edge and their Tag
-    std::map<std::string, SumoXMLTag> myAdditionals;
+    /// @brief list with the additionals vinculated with this edge
+    AdditionalVector myAdditionals;
 
     /// @brief list of reroutes that has this edge as parameter
-    std::vector<std::string> myReroutes;
+    std::vector<GNERerouter*> myReroutes;
 
 private:
     /// @brief set attribute after validation

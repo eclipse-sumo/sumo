@@ -54,13 +54,9 @@ GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
     assert(myNet);
     edge->incRef("GNEChange_Edge");
     // Save additionals of edge
-    for(std::map<std::string, SumoXMLTag>::const_iterator i = myEdge->getAdditionalChilds().begin(); i != myEdge->getAdditionalChilds().end(); i++) {
-        myAdditionalChilds.push_back(myNet->retrieveAdditional(i->first));
-    }
+    myAdditionalChilds = myEdge->getAdditionalChilds();
     // save rerouters of edge
-    for(std::vector<std::string>::const_iterator i = myEdge->getGNERerouters().begin(); i != myEdge->getGNERerouters().end(); i++) {
-        myGNERerouters.push_back(dynamic_cast<GNERerouter*>(myNet->retrieveAdditional(*i)));
-    }
+    myGNERerouters = myEdge->getGNERerouters();
 }
 
 

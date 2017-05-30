@@ -92,7 +92,7 @@ GNEVaporizer::updateGeometry() {
     myShape.clear();
 
     // obtain relative position of vaporizer in edge
-    myRelativePosition = 2 * myEdge->getVaporizerRelativePosition(getID());
+    myRelativePosition = 2 * myEdge->getVaporizerRelativePosition(this);
 
     // get lanes of edge
     GNELane* firstLane = myEdge->getLanes().at(0);

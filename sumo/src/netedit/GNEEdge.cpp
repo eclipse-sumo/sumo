@@ -128,8 +128,8 @@ GNEEdge::updateGeometry() {
         (*i)->updateGeometry();
     }
     // Update geometry of additionals vinculated to this edge
-    for (std::map<std::string, SumoXMLTag>::iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
-        myNet->retrieveAdditional(i->first)->updateGeometry();
+    for (AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
+        (*i)->updateGeometry();
     }
 }
 
@@ -510,15 +510,15 @@ GNEEdge::clearGNEConnections() {
 
 
 int
-GNEEdge::getRouteProbeRelativePosition(const std::string &routeProbeID) const {
-    std::vector<std::string> routeProbes;
-    for (std::map<std::string, SumoXMLTag>::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
-        if (i->second == SUMO_TAG_ROUTEPROBE) {
-            routeProbes.push_back(i->first);
+GNEEdge::getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const {
+    AdditionalVector routeProbes;
+    for (AdditionalVector::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+        if ((*i)->getTag() == routeProbe->getTag()) {
+            routeProbes.push_back(*i);
         }
     }
     // return index of routeProbe in routeProbes vector
-    std::vector<std::string>::const_iterator it = std::find(routeProbes.begin(), routeProbes.end(), routeProbeID);
+    AdditionalVector::const_iterator it = std::find(routeProbes.begin(), routeProbes.end(), routeProbe);
     if (it == routeProbes.end()) {
         return -1;
     } else {
@@ -528,15 +528,15 @@ GNEEdge::getRouteProbeRelativePosition(const std::string &routeProbeID) const {
 
 
 int
-GNEEdge::getVaporizerRelativePosition(const std::string &vaporizerID) const {
-    std::vector<std::string> vaporizers;
-    for (std::map<std::string, SumoXMLTag>::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
-        if (i->second == SUMO_TAG_VAPORIZER) {
-            vaporizers.push_back(i->first);
+GNEEdge::getVaporizerRelativePosition(GNEVaporizer* vaporizer) const {
+    AdditionalVector vaporizers;
+    for (AdditionalVector::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
+        if ((*i)->getTag() == vaporizer->getTag()) {
+            vaporizers.push_back(*i);
         }
     }
     // return index of routeProbe in routeProbes vector
-    std::vector<std::string>::const_iterator it = std::find(vaporizers.begin(), vaporizers.end(), vaporizerID);
+    AdditionalVector::const_iterator it = std::find(vaporizers.begin(), vaporizers.end(), vaporizer);
     if (it == vaporizers.end()) {
         return -1;
     } else {
@@ -1120,24 +1120,24 @@ GNEEdge::setMicrosimID(const std::string& newID) {
 
 
 void
-GNEEdge::addAdditionalChild(const std::string &additionalID, SumoXMLTag additionalTag) {
+GNEEdge::addAdditionalChild(GNEAdditional* additional) {
     // First check that additional wasn't already inserted
-    if(myAdditionals.find(additionalID) != myAdditionals.end()) {
-        throw ProcessError("Additional with ID='" + additionalID + "' was already inserted in lane with ID='" + getID() + "'");
+    if (std::find(myAdditionals.begin(), myAdditionals.end(), additional) != myAdditionals.end()) {
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
+    } else {
+        myAdditionals.push_back(additional);
+        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
+        updateGeometry();
     }
-    myAdditionals[additionalID] = additionalTag;
-    // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
-    updateGeometry();
 }
 
 
 void
-GNEEdge::removeAdditionalChild(const std::string &additionalID) {
-    // try to find additional
-    std::map<std::string, SumoXMLTag>::iterator it = myAdditionals.find(additionalID);
-    // If additional was found, remove it
+GNEEdge::removeAdditionalChild(GNEAdditional* additional) {
+    // First check that additional was already inserted
+    AdditionalVector::iterator it = std::find(myAdditionals.begin(), myAdditionals.end(), additional);
     if (it == myAdditionals.end()) {
-        throw ProcessError("Additional with ID='" + additionalID + "' doesn't exist in lane with ID='" + getID() + "'");
+        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myAdditionals.erase(it);
         // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
@@ -1146,36 +1146,42 @@ GNEEdge::removeAdditionalChild(const std::string &additionalID) {
 }
 
 
-const std::map<std::string, SumoXMLTag>&
+const std::vector<GNEAdditional*>&
 GNEEdge::getAdditionalChilds() const {
     return myAdditionals;
 }
 
 
 void
-GNEEdge::addGNERerouter(const std::string& rerouterID) {
-    if (std::find(myReroutes.begin(), myReroutes.end(), rerouterID) == myReroutes.end()) {
-        myReroutes.push_back(rerouterID);
+GNEEdge::addGNERerouter(GNERerouter* rerouter) {
+    if (std::find(myReroutes.begin(), myReroutes.end(), rerouter) == myReroutes.end()) {
+        myReroutes.push_back(rerouter);
     } else {
-        throw ProcessError(toString(SUMO_TAG_REROUTER) + " '" + rerouterID + "' was previously inserted");
+        throw ProcessError(toString(rerouter->getTag()) + " '" + rerouter->getID() + "' was previously inserted");
     }
 }
 
 
 void
-GNEEdge::removeGNERerouter(const std::string& rerouterID) {
-    std::vector<std::string>::iterator it = std::find(myReroutes.begin(), myReroutes.end(), rerouterID);
+GNEEdge::removeGNERerouter(GNERerouter* rerouter) {
+    std::vector<GNERerouter*>::iterator it = std::find(myReroutes.begin(), myReroutes.end(), rerouter);
     if (it != myReroutes.end()) {
         myReroutes.erase(it);
     } else {
-        throw ProcessError(toString(SUMO_TAG_REROUTER) + " '" + rerouterID + "' wasn't previously inserted");
+        throw ProcessError(toString(rerouter->getTag()) + " '" + rerouter->getID() + "' wasn't previously inserted");
     }
 }
 
 
-const std::vector<std::string>&
+const std::vector<GNERerouter*>&
 GNEEdge::getGNERerouters() const {
     return myReroutes;
+}
+
+
+int
+GNEEdge::getNumberOfGNERerouters() const {
+    return (int)myReroutes.size();
 }
 
 

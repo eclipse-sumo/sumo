@@ -95,7 +95,7 @@ GNERouteProbe::updateGeometry() {
     myShape.clear();
 
     // obtain relative position of routeProbe in edge
-    myRelativePosition = 2 * myEdge->getRouteProbeRelativePosition(getID());
+    myRelativePosition = 2 * myEdge->getRouteProbeRelativePosition(this);
 
     // get lanes of edge
     GNELane* firstLane = myEdge->getLanes().at(0);

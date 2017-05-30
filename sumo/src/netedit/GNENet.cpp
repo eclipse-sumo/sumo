@@ -372,19 +372,19 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
     
     // obtain a copy of GNERerouters of edge
-    std::vector<std::string> rerouters = edge->getGNERerouters();
+    std::vector<GNERerouter*> rerouters = edge->getGNERerouters();
     
     // delete additionals childs of edge
-    std::map<std::string, SumoXMLTag> copyOfEdgeAdditionals = edge->getAdditionalChilds();
-    for (std::map<std::string, SumoXMLTag>::iterator i = copyOfEdgeAdditionals.begin(); i != copyOfEdgeAdditionals.end(); i++) {
-        undoList->add(new GNEChange_Additional(retrieveAdditional(i->first), false), true);
+    std::vector<GNEAdditional*> copyOfEdgeAdditionals = edge->getAdditionalChilds();
+    for (std::vector<GNEAdditional*>::iterator i = copyOfEdgeAdditionals.begin(); i != copyOfEdgeAdditionals.end(); i++) {
+        undoList->add(new GNEChange_Additional((*i), false), true);
     }
     
     // delete additionals childs of lane
     for (std::vector<GNELane*>::const_iterator i = edge->getLanes().begin(); i != edge->getLanes().end(); i++) {
-        std::map<std::string, SumoXMLTag> copyOfLaneAdditionals = (*i)->getAdditionalChilds();
-        for (std::map<std::string, SumoXMLTag>::iterator j = copyOfLaneAdditionals.begin(); j != copyOfLaneAdditionals.end(); j++) {
-            undoList->add(new GNEChange_Additional(retrieveAdditional(j->first), false), true);
+        std::vector<GNEAdditional*> copyOfLaneAdditionals = (*i)->getAdditionalChilds();
+        for (std::vector<GNEAdditional*>::iterator j = copyOfLaneAdditionals.begin(); j != copyOfLaneAdditionals.end(); j++) {
+            undoList->add(new GNEChange_Additional((*j), false), true);
         }
     }
 
@@ -421,10 +421,9 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->add(new GNEChange_Edge(edge, false), true);
 
     // check if after removing there are Rerouters without edge Childs
-    for (std::vector<std::string>::iterator i = rerouters.begin(); i != rerouters.end(); i++) {
-        GNERerouter *rerouter = dynamic_cast<GNERerouter*>(retrieveAdditional(*i));
-        if (rerouter->getEdgeChilds().size() == 0) {
-            undoList->add(new GNEChange_Additional(rerouter, false), true);
+    for (std::vector<GNERerouter*>::iterator i = rerouters.begin(); i != rerouters.end(); i++) {
+        if ((*i)->getEdgeChilds().size() == 0) {
+            undoList->add(new GNEChange_Additional((*i), false), true);
         }
     }
     // remove edge requieres always a recompute (due geometry and connections)
@@ -443,9 +442,9 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         undoList->p_begin("delete " + toString(SUMO_TAG_LANE));
         
         // delete additionals childs of lane
-        std::map<std::string, SumoXMLTag> copyOfAdditionals = lane->getAdditionalChilds();
-        for (std::map<std::string, SumoXMLTag>::const_iterator i = copyOfAdditionals.begin(); i != copyOfAdditionals.end(); i++) {
-            undoList->add(new GNEChange_Additional(retrieveAdditional(i->first), false), true);
+        std::vector<GNEAdditional*> copyOfAdditionals = lane->getAdditionalChilds();
+        for (std::vector<GNEAdditional*>::const_iterator i = copyOfAdditionals.begin(); i != copyOfAdditionals.end(); i++) {
+            undoList->add(new GNEChange_Additional((*i), false), true);
         }
         
         // invalidate junctions (saving connections)

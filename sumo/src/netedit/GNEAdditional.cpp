@@ -371,11 +371,13 @@ GNEAdditional::changeEdge(const std::string& edgeID) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to an " + toString(SUMO_TAG_EDGE));
     } else {
         // remove additional child of old edge
-        getGNEEdge()->removeAdditionalChild(getID());
+        GNEEdge *myEdge = getGNEEdge();
+        myEdge->removeAdditionalChild(this);
         // set new edge
         myEdgeID = edgeID;
         // set additional child in the new edge
-        getGNEEdge()->addAdditionalChild(getID(), getTag());
+        myEdge = getGNEEdge();
+        myEdge->addAdditionalChild(this);
         // update geometry of additional
         updateGeometry();
         getViewNet()->update();
@@ -389,11 +391,13 @@ GNEAdditional::changeLane(const std::string& laneID) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to a " + toString(SUMO_TAG_LANE));
     } else {
         // remove additional child of old lane
-        getGNELane()->removeAdditionalChild(getID());
+        GNELane *myLane = getGNELane();
+        myLane->removeAdditionalChild(this);
         // set new lane
         myLaneID = laneID;
         // set additional child in the new lane
-        getGNELane()->addAdditionalChild(getID(), getTag());
+        myLane = getGNELane();
+        myLane->addAdditionalChild(this);
         // update geometry of additional
         updateGeometry();
         getViewNet()->update();
