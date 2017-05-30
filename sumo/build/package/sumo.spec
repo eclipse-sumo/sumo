@@ -40,6 +40,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?fedora_version} || 0%{?suse_version}
 BuildRequires:  fdupes
 BuildRequires:  pkgconfig(gdal)
+%endif
+%if 0%{?fedora_version} || 0%{?centos_version} || 0%{?scientificlinux_version} || 0%{?suse_version}
 BuildRequires:  pkgconfig(proj)
 %endif
 %if 0%{?fedora_version} || 0%{?centos_version} || 0%{?rhel_version} || 0%{?scientificlinux_version}
@@ -56,7 +58,7 @@ BuildRequires:  pkgconfig(xrandr)
 
 %description
 "Simulation of Urban MObility" (SUMO) is an open source,
-highly portable, microscopic road traffic simulation package
+highly portable, microscopic traffic simulation package
 designed to handle large road networks.
 
 %prep
