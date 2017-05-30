@@ -85,6 +85,7 @@
 #include <microsim/pedestrians/MSPModel.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/trigger/MSChargingStation.h>
 
 #include "MSTransportableControl.h"
 #include "MSEdgeControl.h"
@@ -102,6 +103,8 @@
 #include "MSEdgeWeightsStorage.h"
 #include "MSStateHandler.h"
 #include "MSFrame.h"
+#include "MSParkingArea.h"
+#include "MSStoppingPlace.h"
 #include "MSNet.h"
 
 #ifndef NO_TRACI

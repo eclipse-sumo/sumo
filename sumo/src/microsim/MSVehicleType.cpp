@@ -49,6 +49,7 @@
 #include "cfmodels/MSCFModel_Daniel1.h"
 #include "cfmodels/MSCFModel_PWag2009.h"
 #include "cfmodels/MSCFModel_Wiedemann.h"
+#include "MSVehicleControl.h"
 #include "MSVehicleType.h"
 
 

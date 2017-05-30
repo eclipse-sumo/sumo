@@ -34,11 +34,12 @@
 #include <vector>
 #include <string>
 #include <foreign/polyfonts/polyfonts.h>
+#include <microsim/MSVehicleControl.h>
+#include <microsim/MSVehicleType.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/pedestrians/MSPModel_Striping.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
-#include <microsim/MSVehicleControl.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <utils/common/StringUtils.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>

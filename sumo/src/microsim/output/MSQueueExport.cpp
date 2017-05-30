@@ -40,11 +40,6 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 
-#ifdef HAVE_MESOSIM
-#include <mesosim/MELoop.h>
-#include <mesosim/MESegment.h>
-#endif
-
 
 // ===========================================================================
 // method definitions

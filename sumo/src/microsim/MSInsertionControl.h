@@ -33,10 +33,10 @@
 #include <config.h>
 #endif
 
-#include "MSVehicleContainer.h"
 #include <vector>
 #include <map>
 #include <string>
+#include "MSVehicleContainer.h"
 
 
 // ===========================================================================
@@ -44,6 +44,7 @@
 // ===========================================================================
 class MSVehicle;
 class MSVehicleControl;
+class SUMOVehicleParameter;
 
 
 // ===========================================================================

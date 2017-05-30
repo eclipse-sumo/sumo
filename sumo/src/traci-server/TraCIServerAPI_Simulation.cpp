@@ -41,7 +41,9 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSVehicleControl.h>
 #include <microsim/MSStateHandler.h>
+#include <microsim/MSStoppingPlace.h>
 #include <traci-server/lib/TraCI.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Simulation.h"

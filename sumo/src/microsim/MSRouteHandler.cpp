@@ -53,8 +53,10 @@
 #include <utils/options/OptionsCont.h>
 #include "MSNet.h"
 
-#include <microsim/MSStoppingPlace.h>
+#include "MSParkingArea.h"
+#include "MSStoppingPlace.h"
 #include <microsim/MSGlobals.h>
+#include <microsim/trigger/MSChargingStation.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
 
 

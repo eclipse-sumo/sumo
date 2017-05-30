@@ -39,6 +39,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSEventControl.h>
 #include "MSDevice_Tripinfo.h"
 #include "MSDevice_BTreceiver.h"
 #include "MSDevice_BTsender.h"

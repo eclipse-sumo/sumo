@@ -39,7 +39,10 @@
 #include <cassert>
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/OptionsCont.h>
-#include "MSEdge.h"
+#include <microsim/devices/MSDevice_Routing.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
+#include <mesosim/MEVehicle.h>
 #include "MSInsertionControl.h"
 #include "MSJunction.h"
 #include "MSLane.h"
@@ -51,10 +54,7 @@
 #include "MSLeaderInfo.h"
 #include "MSContainer.h"
 #include "MSEdgeWeightsStorage.h"
-#include <microsim/devices/MSDevice_Routing.h>
-#include <mesosim/MELoop.h>
-#include <mesosim/MESegment.h>
-#include <mesosim/MEVehicle.h>
+#include "MSEdge.h"
 
 #define BEST_LANE_LOOKAHEAD 3000.0
 

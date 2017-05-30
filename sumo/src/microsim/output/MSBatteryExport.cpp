@@ -35,15 +35,11 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <utils/iodevices/OutputDevice.h>
-#include "MSBatteryExport.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSVehicleControl.h>
 #include <microsim/devices/MSDevice_Battery.h>
-
-#ifdef HAVE_MESOSIM
-#include <mesosim/MELoop.h>
-#include <mesosim/MESegment.h>
-#endif
+#include "MSBatteryExport.h"
 
 
 // ===========================================================================

@@ -43,6 +43,7 @@
 #include "MSTransportableControl.h"
 #include "MSInsertionControl.h"
 #include "MSVehicle.h"
+#include "MSVehicleControl.h"
 #include "MSCModel_NonInteracting.h"
 
 // ===========================================================================

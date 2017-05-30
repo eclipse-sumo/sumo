@@ -35,6 +35,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEventControl.h>
+#include <microsim/MSVehicleControl.h>
 #include <microsim/output/MSRouteProbe.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/ToString.h>

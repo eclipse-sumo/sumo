@@ -31,6 +31,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/TplConvert.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSVehicleControl.h>
 #include "MSDevice.h"
 #include "MSDevice_Vehroutes.h"
 #include "MSDevice_Tripinfo.h"

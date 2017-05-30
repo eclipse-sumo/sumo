@@ -38,11 +38,12 @@
 #include <iterator>
 #include <microsim/devices/MSDevice_Routing.h>
 #include "MSGlobals.h"
-#include "MSInsertionControl.h"
 #include "MSVehicle.h"
+#include "MSVehicleControl.h"
 #include "MSLane.h"
 #include "MSEdge.h"
 #include "MSRouteHandler.h"
+#include "MSInsertionControl.h"
 
 
 // ===========================================================================

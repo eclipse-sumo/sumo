@@ -33,6 +33,7 @@
 #include <config.h>
 #endif
 
+#include <queue>
 #include "MSDevice.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/iodevices/OutputDevice_File.h>

@@ -45,6 +45,8 @@
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/MSTransportableControl.h>
 #include <microsim/MSContainer.h>
+#include <microsim/MSVehicleControl.h>
+
 
 // ===========================================================================
 // method definitions

@@ -36,6 +36,7 @@
 #include <microsim/devices/MSDevice.h>
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>

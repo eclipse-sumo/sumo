@@ -44,22 +44,18 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
-#include "MSVehicleControl.h"
-#include "MSEventControl.h"
-#include <utils/geom/Boundary.h>
-#include <utils/geom/Position.h>
 #include <utils/common/SUMOTime.h>
-#include <microsim/trigger/MSChargingStation.h>
-#include <microsim/MSStoppingPlace.h>
-#include <microsim/MSParkingArea.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/NamedObjectCont.h>
+#include <utils/common/NamedRTree.h>
 #include <utils/vehicle/SUMOAbstractRouter.h>
 #include <utils/vehicle/DijkstraRouterTT.h>
 #include <utils/vehicle/DijkstraRouterEffort.h>
 #include <utils/vehicle/AStarRouter.h>
-#include <utils/common/NamedRTree.h>
 #include <utils/vehicle/PedestrianRouter.h>
+#include <microsim/trigger/MSChargingStation.h>
+#include "MSParkingArea.h"
+#include "MSStoppingPlace.h"
 
 
 // ===========================================================================
@@ -68,6 +64,8 @@
 class MSEdge;
 class MSJunction;
 class MSEdgeControl;
+class MSEventControl;
+class MSVehicleControl;
 class MSJunctionControl;
 class MSInsertionControl;
 class SUMORouteLoaderControl;

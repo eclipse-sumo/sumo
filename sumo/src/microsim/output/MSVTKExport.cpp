@@ -31,22 +31,16 @@
 #include <config.h>
 #endif
 
+#include <utils/iodevices/OutputDevice.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSJunctionControl.h>
-
 #include <microsim/MSVehicle.h>
-#include <microsim/traffic_lights/MSTLLogicControl.h>
-
+#include <microsim/MSVehicleControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
-#include <utils/iodevices/OutputDevice.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 #include "MSVTKExport.h"
-
-#ifdef HAVE_MESOSIM
-#include <mesosim/MELoop.h>
-#include <mesosim/MESegment.h>
-#endif
 
 
 // ===========================================================================

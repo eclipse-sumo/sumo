@@ -31,6 +31,9 @@
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSParkingArea.h>
+#include <microsim/MSStoppingPlace.h>
+#include <microsim/trigger/MSChargingStation.h>
 #include "MSStopOut.h"
 
 

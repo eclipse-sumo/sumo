@@ -48,6 +48,7 @@
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSRoute.h>
+#include <microsim/MSVehicleControl.h>
 #include "MSStateHandler.h"
 
 #include <mesosim/MESegment.h>

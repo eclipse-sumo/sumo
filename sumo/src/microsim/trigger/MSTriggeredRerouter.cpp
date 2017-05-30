@@ -49,8 +49,10 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include "MSTriggeredRerouter.h"
 

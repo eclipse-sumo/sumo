@@ -36,7 +36,9 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
+#include <microsim/MSEventControl.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/MSVehicleControl.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/StaticCommand.h>

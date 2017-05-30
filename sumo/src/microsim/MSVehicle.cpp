@@ -60,6 +60,7 @@
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/output/MSStopOut.h>
+#include <microsim/trigger/MSChargingStation.h>
 #include "MSVehicleControl.h"
 #include "MSVehicleTransfer.h"
 #include "MSGlobals.h"

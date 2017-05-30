@@ -41,27 +41,28 @@
 #include <utils/common/Named.h>
 #include <utils/common/Parameterised.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ValueTimeLine.h>
-#include <utils/common/UtilExceptions.h>
+#include <utils/geom/Boundary.h>
+#include <utils/vehicle/SUMOVehicle.h>
 #include "MSNet.h"
-#include "MSVehicleType.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSLaneChanger;
+class Boundary;
 class OutputDevice;
 class SUMOVehicle;
 class SUMOVehicleParameter;
 class MSVehicle;
 class MSLane;
+class MSLaneChanger;
 class MSPerson;
 class MSJunction;
 class MSEdge;
 class MSContainer;
+class MSTransportable;
+
 
 // ===========================================================================
 // class definitions
@@ -534,7 +535,7 @@ public:
         if (vehicle == 0) {
             return false;
         }
-        const SUMOVehicleClass svc = vehicle->getVehicleType().getVehicleClass();
+        const SUMOVehicleClass svc = vehicle->getVClass();
         return (myCombinedPermissions & svc) != svc;
     }
 
@@ -852,6 +853,9 @@ protected:
 
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, MSEdgeVector> myClassesSuccessorMap;
+
+    /// @brief The bounding rectangle of incoming or outgoing edges for taz connectors
+    Boundary myTazBoundary;
 
 private:
 

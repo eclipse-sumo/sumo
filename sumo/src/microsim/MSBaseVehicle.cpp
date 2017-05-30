@@ -37,6 +37,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSGlobals.h"
+#include "MSVehicleControl.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"
 #include "MSLane.h"

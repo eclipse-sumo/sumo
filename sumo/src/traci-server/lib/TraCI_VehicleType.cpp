@@ -18,23 +18,45 @@
 //
 /****************************************************************************/
 
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <microsim/MSNet.h>
+#include <microsim/MSVehicleControl.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include "TraCI_VehicleType.h"
 #include "TraCI.h"
+
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 std::vector<std::string> TraCI_VehicleType::getIDList() {
     std::vector<std::string> ids;
     MSNet::getInstance()->getVehicleControl().insertVTypeIDs(ids);
     return ids;
 }
+
+
 double TraCI_VehicleType::getLength(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getLength();
 }
+
+
 double TraCI_VehicleType::getMaxSpeed(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getMaxSpeed();
 }
+
+
 double TraCI_VehicleType::getSpeedFactor(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getSpeedFactor().getParameter()[0];

@@ -40,6 +40,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSVehicleControl.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>

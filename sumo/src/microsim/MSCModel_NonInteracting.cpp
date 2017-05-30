@@ -37,6 +37,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSJunction.h>
+#include <microsim/MSEventControl.h>
 #include "MSCModel_NonInteracting.h"
 
 // ===========================================================================

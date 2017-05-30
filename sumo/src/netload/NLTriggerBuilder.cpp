@@ -38,6 +38,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSRouteProbe.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
