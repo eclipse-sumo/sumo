@@ -139,23 +139,6 @@ public:
     static SUMOVehicleClass parseVehicleClass(const SUMOSAXAttributes& attrs, const std::string& id);
 
 
-    /** @brief Parses the vehicle emission class
-     *
-     * When given, the vehicle emission class is parsed using getVehicleEmissionTypeID.
-     *  Exceptions occuring within this process are catched and reported.
-     *
-     * If no vehicle class is available in the attributes, the default class (SVE_UNKNOWN)
-     *  is returned.
-     *
-     * @param[in] attrs The attributes to read the class from
-     * @param[in] id The id of the parsed element, for error message generation
-     * @return The parsed vehicle emission class
-     * @see SUMOEmissionClass
-     * @todo Recheck how errors are handled and what happens if they occure
-     */
-    static SUMOEmissionClass parseEmissionClass(const SUMOSAXAttributes& attrs, const std::string& id);
-
-
     /** @brief Parses the vehicle class
      *
      * When given, the vehicle class is parsed using getVehicleShapeID.

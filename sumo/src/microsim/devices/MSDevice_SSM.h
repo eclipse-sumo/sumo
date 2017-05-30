@@ -136,7 +136,7 @@ private:
             return timeSpan.size();
         }
 
-        /// @brief resets myRemainingExtraTime to the given value
+        /// @brief resets remainingExtraTime to the given value
         void resetExtraTime(double value);
         /// @brief decreases myRemaingExtraTime by given amount in seconds
         void countDownExtraTime(double amount);
@@ -161,7 +161,7 @@ private:
         double begin, end;
 
         /// @brief Remaining extra time (decreases after an encounter ended)
-        double myRemainingExtraTime;
+        double remainingExtraTime;
 
         /// @brief Last determined conflict lane of the ego vehicle for the encounter
         const MSLane* egoConflictLane;
@@ -194,8 +194,8 @@ private:
         // TODO: update these in computeSSMs() or updateEncounter()
         /// @name Extremal values for the SSMs (as <time,value>-pairs)
         /// @{
-        std::pair<double, double> maxDRAC;
         std::pair<double, double> minTTC;
+        std::pair<double, double> maxDRAC;
         std::pair<double, double> PET;
         /// @}
 
@@ -399,7 +399,7 @@ private:
             bool trajectories, double maxEncounterLength, double range, double extraTime);
 
     /** @brief Finds encounters for which the foe vehicle has disappeared from range.
-     *         myRemainingExtraTime is decreased until it reaches zero, which triggers closing the encounter.
+     *         remainingExtraTime is decreased until it reaches zero, which triggers closing the encounter.
      *         If an ended encounter is qualified as a conflict, it is transferred to myPastConflicts
      *         All vehicles for which an encounter instance already exists (vehicle is already tracked)
      *         are removed from 'foes' during processing.

@@ -365,7 +365,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->setParameter |= VTYPEPARS_SPEEDFACTOR_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_EMISSIONCLASS)) {
-        vtype->emissionClass = parseEmissionClass(attrs, vtype->id);
+        vtype->emissionClass = PollutantsInterface::getClassByName(attrs.getOpt<std::string>(SUMO_ATTR_EMISSIONCLASS, id.c_str(), ok, ""));
         vtype->setParameter |= VTYPEPARS_EMISSIONCLASS_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_IMPATIENCE)) {
@@ -685,19 +685,6 @@ SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes& attrs,
         WRITE_ERROR("The class for " + attrs.getObjectType() + " '" + id + "' is not known.");
     }
     return vclass;
-}
-
-
-SUMOEmissionClass
-SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes& attrs, const std::string& id) {
-    try {
-        bool ok = true;
-        std::string eClassS = attrs.getOpt<std::string>(SUMO_ATTR_EMISSIONCLASS, id.c_str(), ok, "");
-        return PollutantsInterface::getClassByName(eClassS);
-    } catch (...) {
-        WRITE_ERROR("The emission class for " + attrs.getObjectType() + " '" + id + "' is not known.");
-        return 0;
-    }
 }
 
 

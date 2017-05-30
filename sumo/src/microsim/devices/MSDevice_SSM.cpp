@@ -190,9 +190,9 @@ MSDevice_SSM::Encounter::Encounter(const MSVehicle* _ego, const MSVehicle* const
     foeID(_foe->getID()),
     begin(_begin),
     end(-INVALID),
+    remainingExtraTime(extraTime),
     egoConflictLane(0),
     foeConflictLane(0),
-    myRemainingExtraTime(extraTime),
     egoConflictEntryTime(INVALID),
     egoConflictExitTime(INVALID),
     foeConflictEntryTime(INVALID),
@@ -231,19 +231,19 @@ MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position ego
 
 void
 MSDevice_SSM::Encounter::resetExtraTime(double value){
-    myRemainingExtraTime = value;
+    remainingExtraTime = value;
 }
 
 
 void
 MSDevice_SSM::Encounter::countDownExtraTime(double amount){
-    myRemainingExtraTime -= amount;
+    remainingExtraTime -= amount;
 }
 
 
 double
 MSDevice_SSM::Encounter::getRemainingExtraTime() const{
-    return myRemainingExtraTime;
+    return remainingExtraTime;
 }
 
 
@@ -267,8 +267,7 @@ MSDevice_SSM::EncounterApproachInfo::EncounterApproachInfo(Encounter* e) :
             ttc(INVALID),
             drac(INVALID),
             pet(INVALID)
-{};
-
+{}
 
 
 void

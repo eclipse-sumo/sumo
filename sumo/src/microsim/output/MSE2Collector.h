@@ -743,10 +743,10 @@ private:
 
     /// @name Values generated describing the current state
     /// @{
-    /// @brief The number of vehicles, which have left the detector since the last reset
-    int myNumberOfLeftVehicles;
     /// @brief The number of vehicles, present on the detector at the last reset
     int myNumberOfSeenVehicles;
+    /// @brief The number of vehicles, which have left the detector since the last reset
+    int myNumberOfLeftVehicles;
     /// @brief The maximal number of vehicles located on the detector simultaneously since the last reset
     int myMaxVehicleNumber;
 
