@@ -62,13 +62,15 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, const std::string& edge, double frequency, const std::string& filename, double begin) :
-    GNEAdditional(id, viewNet, Position(), SUMO_TAG_ROUTEPROBE, ICON_ROUTEPROBE, "", edge),
+GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double frequency, const std::string& filename, double begin) :
+    GNEAdditional(id, viewNet, Position(), SUMO_TAG_ROUTEPROBE, ICON_ROUTEPROBE),
     myFrequency(frequency),
     myFilename(filename),
     myBegin(begin),
     myNumberOfLanes(0),
     myRelativePosition(0) {
+    // This additional belongs to a edge
+    myEdge = edge;
     // this additional ISN'T movable
     myMovable = false;
     // Update geometry;
@@ -87,9 +89,6 @@ GNERouteProbe::updateGeometry() {
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
-
-    // obtain GNEEdge
-    GNEEdge* myEdge = getGNEEdge();
 
     // clear Shape
     myShape.clear();
@@ -131,7 +130,6 @@ GNERouteProbe::updateGeometry() {
 
 Position
 GNERouteProbe::getPositionInView() const {
-    GNEEdge *myEdge = getGNEEdge();
     Position A = myEdge->getLanes().front()->getShape().positionAtOffset(myPosition.x());
     Position B = myEdge->getLanes().back()->getShape().positionAtOffset(myPosition.x());
 
@@ -156,7 +154,7 @@ GNERouteProbe::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_EDGE, myEdgeID);
+    device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
     if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
@@ -205,7 +203,7 @@ GNERouteProbe::setBegin(double begin) {
 
 const std::string&
 GNERouteProbe::getParentName() const {
-    return myEdgeID;
+    return myEdge->getMicrosimID();
 }
 
 
@@ -286,7 +284,7 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_EDGE:
-            return myEdgeID;
+            return myEdge->getID();
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_FREQUENCY:

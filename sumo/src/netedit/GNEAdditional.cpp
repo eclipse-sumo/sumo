@@ -60,13 +60,13 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GUIIcon icon, std::string lane, std::string edge) :
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GUIIcon icon) :
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
+    myEdge(NULL),
+    myLane(NULL),
     myPosition(pos),
-    myLaneID(lane),
-    myEdgeID(edge),
     myBlockIconRotation(0),
     myBlocked(false),
     myInspectionable(true),
@@ -165,29 +165,16 @@ GNEAdditional::setPositionInView(const Position& pos) {
 }
 
 
-const std::string&
-GNEAdditional::getEdge() const {
-    return myEdgeID;
-}
-
-
-const std::string&
-GNEAdditional::getLane() const {
-    return myLaneID;
-}
-
-
 GNEEdge*
-GNEAdditional::getGNEEdge() const {
-    return myViewNet->getNet()->retrieveEdge(myEdgeID);
+GNEAdditional::getEdge() const {
+    return myEdge;
 }
 
 
 GNELane*
-GNEAdditional::getGNELane() const {
-    return myViewNet->getNet()->retrieveLane(myLaneID);
+GNEAdditional::getLane() const {
+    return myLane;
 }
-
 
 const std::string&
 GNEAdditional::getParentName() const {
@@ -367,18 +354,12 @@ GNEAdditional::drawParentAndChildrenConnections() const {
 
 void
 GNEAdditional::changeEdge(const std::string& edgeID) {
-    if (myEdgeID == "") {
+    if (myEdge == NULL) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to an " + toString(SUMO_TAG_EDGE));
     } else {
-        // remove additional child of old edge
-        GNEEdge *myEdge = getGNEEdge();
         myEdge->removeAdditionalChild(this);
-        // set new edge
-        myEdgeID = edgeID;
-        // set additional child in the new edge
-        myEdge = getGNEEdge();
+        myEdge = getViewNet()->getNet()->retrieveEdge(edgeID);
         myEdge->addAdditionalChild(this);
-        // update geometry of additional
         updateGeometry();
         getViewNet()->update();
     }
@@ -387,18 +368,12 @@ GNEAdditional::changeEdge(const std::string& edgeID) {
 
 void
 GNEAdditional::changeLane(const std::string& laneID) {
-    if (myLaneID == "") {
+    if (myLane == NULL) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to a " + toString(SUMO_TAG_LANE));
     } else {
-        // remove additional child of old lane
-        GNELane *myLane = getGNELane();
         myLane->removeAdditionalChild(this);
-        // set new lane
-        myLaneID = laneID;
-        // set additional child in the new lane
-        myLane = getGNELane();
+        myLane = getViewNet()->getNet()->retrieveLane(laneID);
         myLane->addAdditionalChild(this);
-        // update geometry of additional
         updateGeometry();
         getViewNet()->update();
     }

@@ -62,16 +62,18 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, const std::string& lane, GNEViewNet* viewNet, double pos,
+GNECalibrator::GNECalibrator(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos,
                              double frequency, const std::string& output, const std::vector<GNECalibratorRoute>& calibratorRoutes,
                              const std::vector<GNECalibratorFlow>& calibratorFlows, const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) :
-    GNEAdditional(id, viewNet, Position(pos, 0), SUMO_TAG_CALIBRATOR, ICON_CALIBRATOR, lane),
+    GNEAdditional(id, viewNet, Position(pos, 0), SUMO_TAG_CALIBRATOR, ICON_CALIBRATOR),
     myFrequency(frequency),
     myOutput(output),
     myRouteProbe(NULL), /** change this in the future **/
     myCalibratorRoutes(calibratorRoutes),
     myCalibratorFlows(calibratorFlows),
     myCalibratorVehicleTypes(calibratorVehicleTypes) {
+    // This additional belong to a lane
+    myLane = lane;
     // this additional ISN'T movable
     myMovable = false;
     // Update geometry;
@@ -104,10 +106,6 @@ GNECalibrator::updateGeometry() {
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
-
-    // obtain GNELane
-    GNELane* myLane = getGNELane();
-
     // clear Shape
     myShape.clear();
 
@@ -145,7 +143,7 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANE, myLaneID);
+    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
     device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
@@ -429,10 +427,9 @@ GNECalibrator::getCalibratorRoute(const std::string& routeID) {
     throw InvalidArgument(toString(getTag()) + " " + getID() + " doesn't have a " + toString(SUMO_TAG_ROUTE) + " with id = '" + routeID + "'");
 }
 
-
 const std::string&
 GNECalibrator::getParentName() const {
-    return myLaneID;
+    return myLane->getMicrosimID();
 }
 
 
@@ -489,7 +486,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return myLaneID;
+            return toString(myLane->getID());
         case SUMO_ATTR_POSITION:
             return toString(myPosition.x());
         case SUMO_ATTR_FREQUENCY:

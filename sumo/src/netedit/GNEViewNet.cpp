@@ -513,7 +513,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                         // Only move additional if can be moved
                         if (pointed_additional->isAdditionalBlocked() == false) {
                             myAdditionalToMove = pointed_additional;
-                            if (myAdditionalToMove->getLane() != "") {
+                            if (myAdditionalToMove->getLane()) {
                                 if (GNEAttributeCarrier::hasAttribute(myAdditionalToMove->getTag(), SUMO_ATTR_STARTPOS)) {
                                     // Obtain start position
                                     double startPos = GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_STARTPOS));
@@ -535,7 +535,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                                     myOldAdditionalPosition.set(GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_POSITION)), 0);
                                 }
                                 // Set myAdditionalMovingReference
-                                myAdditionalMovingReference.set(pointed_additional->getGNELane()->getShape().nearest_offset_to_point2D(clickedPosition, false), 0, 0);
+                                myAdditionalMovingReference.set(pointed_additional->getLane()->getShape().nearest_offset_to_point2D(clickedPosition, false), 0, 0);
                             } else {
                                 // Set myOldAdditionalPosition and myAdditionalMovingReference
                                 myOldAdditionalPosition = getPositionInformation();
@@ -725,7 +725,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
         myEdgeToMove->setAttribute(SUMO_ATTR_SHAPE, newShape, myUndoList);
         myEdgeToMove = 0;
     } else if (myAdditionalToMove) {
-        if (myAdditionalToMove->getLane() != "") {
+        if (myAdditionalToMove->getLane()) {
             myAdditionalToMove->commmitAdditionalGeometryMoved(myOldAdditionalPosition, myUndoList);
             myAdditionalToMove = 0;
         } else {
@@ -816,8 +816,8 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
             myMoveSrc = myEdgeToMove->moveGeometry(myMoveSrc, clickedPosition);
         } else if (myAdditionalToMove) {
             // If additional is placed over lane, move it across it
-            if (myAdditionalToMove->getLane() != "") {
-                double posOfMouseOverLane = myAdditionalToMove->getGNELane()->getShape().nearest_offset_to_point2D(clickedPosition, false);
+            if (myAdditionalToMove->getLane()) {
+                double posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(clickedPosition, false);
                 myAdditionalToMove->moveAdditionalGeometry(posOfMouseOverLane - myAdditionalMovingReference.x(), 0);
                 myAdditionalMovingReference.set(posOfMouseOverLane, 0, 0);
             } else {

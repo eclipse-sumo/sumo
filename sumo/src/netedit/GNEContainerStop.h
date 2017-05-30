@@ -67,7 +67,7 @@ public:
      * @param[in] lines lines of the busStop
      * @param[in] friendlyPos enable or disable friendly position
      */
-    GNEContainerStop(const std::string& id, const std::string& lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines, bool friendlyPosition);
+    GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string &name, const std::vector<std::string>& lines, bool friendlyPosition);
 
     /// @brief Destructor
     ~GNEContainerStop();

@@ -67,10 +67,8 @@ public:
      * @param[in] pos position of view in which additional is located
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] icon GUIIcon associated to the additional
-     * @param[in] lane ID of lane in which this additional is placed is placed
-     * @param[in] edge ID of edge in which this additional is placed is placed
      */
-    GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GUIIcon icon, std::string lane = "", std::string edge = "");
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GUIIcon icon);
 
     /// @brief Destructor
     ~GNEAdditional();
@@ -154,16 +152,10 @@ public:
     virtual void writeAdditional(OutputDevice& device) const = 0;
 
     /// @brief get edge of additional, or NULL if additional isn't placed over an edge
-    const std::string& getEdge() const;
+    GNEEdge* getEdge() const;
 
     /// @brief get lane of additional, or NULL if additional isn't placed over a Lane
-    const std::string& getLane() const;
-
-    /// @brief get edge of additional, or NULL if additional isn't placed over an edge
-    GNEEdge* getGNEEdge() const;
-
-    /// @brief get lane of additional, or NULL if additional isn't placed over a Lane
-    GNELane* getGNELane() const;
+    GNELane* getLane() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -241,15 +233,15 @@ protected:
     /// @brief The GNEViewNet this additional element belongs
     GNEViewNet* myViewNet;
 
-    /**@brief Id of edge this additional belongs.
-     * @note is empty if additional doesnt' belongs to a edge
+    /**@brief The edge this additional belongs.
+     * @note is NULL if additional doesnt' belongs to a edge
      */
-    std::string myEdgeID;
+    GNEEdge* myEdge;
 
-    /**@brief Id of lane this additional belongs.
-     * @note is emtpy if additional doesnt' belongs to a lane
+    /**@brief The lane this additional belongs.
+     * @note is NULL if additional doesnt' belongs to a lane
      */
-    std::string myLaneID;
+    GNELane* myLane;
 
     /**@brief The position in which this additional element is located
      * @note if this element belongs to a Lane, x() value will be the position over Lane

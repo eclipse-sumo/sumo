@@ -52,7 +52,7 @@ public:
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] pos position of the detector on the lane
      */
-    GNEDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* parent, const std::string& lane, double pos);
+    GNEDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos);
 
     /// @brief destructor
     ~GNEDetectorExit();

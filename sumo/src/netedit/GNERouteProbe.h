@@ -55,7 +55,7 @@ public:
      * @param[in] filename The file for generated output
      * @param[in] begin The time at which to start generating output
      */
-    GNERouteProbe(const std::string& id, GNEViewNet* viewNet, const std::string& edge, double frequency, const std::string& filename, double begin);
+    GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double frequency, const std::string& filename, double begin);
 
     /// @brief Destructor
     ~GNERouteProbe();

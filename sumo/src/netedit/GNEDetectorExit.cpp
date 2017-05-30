@@ -60,7 +60,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorExit::GNEDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* parent, const std::string& lane, double pos) :
+GNEDetectorExit::GNEDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos) :
     GNEDetector(parent->generateExitID(), viewNet, SUMO_TAG_DET_EXIT, ICON_E3EXIT, lane, pos, 0, ""),
     myE3Parent(parent) {
     // Update geometry
@@ -85,9 +85,6 @@ GNEDetectorExit::updateGeometryByParent() {
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
-
-    // obtain GNELane
-    GNELane *myLane = getGNELane();
 
     // clear Shape
     myShape.clear();
@@ -114,7 +111,6 @@ GNEDetectorExit::updateGeometryByParent() {
 
 Position
 GNEDetectorExit::getPositionInView() const {
-    GNELane *myLane = getGNELane();
     return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLength(myPosition.x()));
 }
 
@@ -205,7 +201,7 @@ GNEDetectorExit::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return myLaneID;
+            return toString(myLane->getAttribute(SUMO_ATTR_ID));
         case SUMO_ATTR_POSITION:
             return toString(myPosition.x());
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -252,7 +248,7 @@ GNEDetectorExit::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            return (canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= (getGNELane()->getLaneParametricLength())));
+            return (canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= (myLane->getLaneParametricLength())));
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:

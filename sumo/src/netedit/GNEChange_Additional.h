@@ -86,11 +86,11 @@ private:
      */
     GNEAdditional* myAdditional;
 
-    /// @brief ID of lane parent(used by additionals with lane parent)
-    std::string myLaneParentID;
+    /// @brief pointer to lane (used by additionals with lane parent)
+    GNELane* myLaneParent;
 
-    /// @brief ID of edge parent(used by additionals with edge parent)
-    std::string myEdgeParentID;
+    /// @brief pointer to edge (used by additionals with edge parent)
+    GNEEdge* myEdgeParent;
 
     /// @brief pointer to E3 parent (used by Entry/exits)
     GNEDetectorE3* myE3Parent;
@@ -102,7 +102,7 @@ private:
     std::vector<GNEDetectorExit*> myExitChilds;
 
     /// @brief list of Edge childs (used by Rerouters)
-    std::vector<std::string> myEdgeChilds;
+    std::vector<GNEEdge*> myEdgeChilds;
 };
 
 #endif

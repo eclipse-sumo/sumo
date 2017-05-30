@@ -64,7 +64,7 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, const std::vector<std::string>& edges, const std::string& filename, double probability, bool off) :
+GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, double probability, bool off) :
     GNEAdditional(id, viewNet, pos, SUMO_TAG_REROUTER, ICON_REROUTER),
     myEdges(edges),
     myFilename(filename),
@@ -150,7 +150,11 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     // obtain ID's of Edges
-    device.writeAttr(SUMO_ATTR_EDGES, joinToString(myEdges, " ").c_str());
+    std::vector<std::string> edgeIDs;
+    for (std::vector<GNEEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+        edgeIDs.push_back((*i)->getID());
+    }
+    device.writeAttr(SUMO_ATTR_EDGES, joinToString(edgeIDs, " ").c_str());
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
     if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
@@ -211,9 +215,9 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
 
 
 void
-GNERerouter::addEdgeChild(const std::string& edge) {
+GNERerouter::addEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and doesn't exist previously
-    if (edge == "") {
+    if (edge == NULL) {
         throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else if (std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end()) {
         throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
@@ -224,9 +228,9 @@ GNERerouter::addEdgeChild(const std::string& edge) {
 
 
 void
-GNERerouter::removeEdgeChild(const std::string& edge) {
+GNERerouter::removeEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and exist previously
-    if (edge == "") {
+    if (edge == NULL) {
         throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else if (std::find(myEdges.begin(), myEdges.end(), edge) == myEdges.end()) {
         throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
@@ -236,7 +240,7 @@ GNERerouter::removeEdgeChild(const std::string& edge) {
 }
 
 
-const std::vector<std::string>&
+const std::vector<GNEEdge*>&
 GNERerouter::getEdgeChilds() const {
     return myEdges;
 }
@@ -368,8 +372,14 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_EDGES:
-            return joinToString(myEdges, " ");
+        case SUMO_ATTR_EDGES: {
+            // obtain ID's of Edges
+            std::vector<std::string> edgeIDs;
+            for (std::vector<GNEEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+                edgeIDs.push_back((*i)->getID());
+            }
+            return joinToString(edgeIDs, " ");
+        }
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_FILE:
@@ -460,16 +470,16 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
             GNEEdge* edge;
             // first remove references of current rerouter in all edge childs
-            for (std::vector<std::string>::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-                myViewNet->getNet()->retrieveEdge(*i)->removeGNERerouter(this);
+            for (std::vector<GNEEdge*>::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+                (*i)->removeGNERerouter(this);
             }
             // clear previous edges
             myEdges.clear();
             // Iterate over parsed edges and obtain pointer to edges
             for (int i = 0; i < (int)edgeIds.size(); i++) {
                 edge = myViewNet->getNet()->retrieveEdge(edgeIds.at(i), false);
-                if (edge != NULL) {
-                    myEdges.push_back(edge->getID());
+                if (edge) {
+                    myEdges.push_back(edge);
                     edge->addGNERerouter(this);
                 } else {
                     throw InvalidArgument("Trying to set an non-valid edge in " + getID());

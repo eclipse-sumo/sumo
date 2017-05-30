@@ -57,7 +57,7 @@ public:
      * @param[in] probability The probability for vehicle rerouting
      * @param[in] off Whether the router should be inactive initially
      */
-    GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, const std::vector<std::string>& edges, const std::string& filename, double probability, bool off);
+    GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, double probability, bool off);
 
     /// @brief Destructor
     ~GNERerouter();
@@ -84,13 +84,13 @@ public:
     void writeAdditional(OutputDevice& device) const;
 
     /// @brief add edge child
-    void addEdgeChild(const std::string& edge);
+    void addEdgeChild(GNEEdge* edge);
 
     /// @brief remove edge child
-    void removeEdgeChild(const std::string& edge);
+    void removeEdgeChild(GNEEdge* edge);
 
     /// @brief get edge chidls
-    const std::vector<std::string>& getEdgeChilds() const;
+    const std::vector<GNEEdge*>& getEdgeChilds() const;
 
     /**@brief add rerouter interval
      * @return true if was sucesfully added, false if wasn't added due overlapping
@@ -146,7 +146,7 @@ public:
 
 protected:
     /// @brief edges of Rerouter
-    std::vector<std::string> myEdges;
+    std::vector<GNEEdge*> myEdges;
 
     /// @brief filename of rerouter
     std::string myFilename;
