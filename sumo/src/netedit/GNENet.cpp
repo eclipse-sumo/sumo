@@ -837,6 +837,24 @@ GNENet::retrieveEdge(const std::string& id, bool failHard) {
 }
 
 
+GNEEdge* 
+GNENet::retrieveEdge(GNEJunction *from, GNEJunction *to, bool failHard) {
+    assert((from != NULL) && (to != NULL));
+    // iterate over Junctions of net
+    for(GNEEdges::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
+        if((i->second->getGNEJunctionSource() == from) && (i->second->getGNEJunctionDestiny() == to)) {
+            return i->second;
+        }
+    }
+    // if edge wasn' found, throw exception or return NULL
+    if (failHard) {
+        throw UnknownElement("Edge with from='" + from->getID() + "' and to='" + to->getID() + "'");
+    } else {
+        return NULL;
+    }
+}
+
+
 std::vector<GNEEdge*>
 GNENet::retrieveEdges(bool onlySelected) {
     std::vector<GNEEdge*> result;

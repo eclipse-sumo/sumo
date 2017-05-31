@@ -755,63 +755,73 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidID(value) && myNet->retrieveEdge(value, false) == 0;
-            break;
-        case SUMO_ATTR_FROM:
-            return isValidID(value) && myNet->retrieveJunction(value, false) != 0 && value != myGNEJunctionDestiny->getMicrosimID();
-            break;
-        case SUMO_ATTR_TO:
-            return isValidID(value) && myNet->retrieveJunction(value, false) != 0 && value != myGNEJunctionSource->getMicrosimID();
-            break;
+        case SUMO_ATTR_FROM: {
+            // check that is a valid ID and is different of ID of junction destiny
+            if(isValidID(value) && (value != myGNEJunctionDestiny->getMicrosimID())) {
+                GNEJunction *junctionFrom = myNet->retrieveJunction(value, false);
+                // check that there isn't already another edge with the same From and To Edge
+                if((junctionFrom != NULL) && (myNet->retrieveEdge(junctionFrom, myGNEJunctionDestiny, false) == NULL)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+        }
+        case SUMO_ATTR_TO: {
+            // check that is a valid ID and is different of ID of junction Source
+            if(isValidID(value) && (value != myGNEJunctionSource->getMicrosimID())) {
+                GNEJunction *junctionTo = myNet->retrieveJunction(value, false);
+                // check that there isn't already another edge with the same From and To Edge
+                if((junctionTo != NULL) && (myNet->retrieveEdge(myGNEJunctionSource, junctionTo, false) == NULL)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+        }
         case SUMO_ATTR_SPEED:
             return isPositive<double>(value);
-            break;
         case SUMO_ATTR_NUMLANES:
             return isPositive<int>(value);
-            break;
         case SUMO_ATTR_PRIORITY:
             return canParse<int>(value);
-            break;
         case SUMO_ATTR_LENGTH:
-            return canParse<double>(value) && (isPositive<double>(value) || parse<double>(value) == NBEdge::UNSPECIFIED_LOADED_LENGTH);
-            break;
+            return canParse<double>(value) && ((isPositive<double>(value) == true) || (parse<double>(value) == NBEdge::UNSPECIFIED_LOADED_LENGTH));
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
-            break;
         case SUMO_ATTR_TYPE:
             return true;
-            break;
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
             return ok;
-            break;
         }
         case SUMO_ATTR_SPREADTYPE:
             return SUMOXMLDefinitions::LaneSpreadFunctions.hasString(value);
-            break;
         case SUMO_ATTR_NAME:
             return true;
-            break;
         case SUMO_ATTR_WIDTH:
             if (value == "default") {
                 return true;
             } else {
-                return canParse<double>(value) && (isPositive<double>(value) || parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH);
+                return canParse<double>(value) && ((isPositive<double>(value) == true) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
             }
-            break;
         case SUMO_ATTR_ENDOFFSET:
             return canParse<double>(value);
-            break;
         case GNE_ATTR_SHAPE_START: {
             bool ok;
-            return value == "" || GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
-            break;
+            return (value == "") || (GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1);
         }
         case GNE_ATTR_SHAPE_END: {
             bool ok;
-            return value == "" || GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
-            break;
+            return (value == "") || (GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1);
         }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

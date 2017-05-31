@@ -297,6 +297,13 @@ public:
      */
     GNEEdge* retrieveEdge(const std::string& id, bool failHard = true);
 
+    /**@brief get edge by from and to GNEJunction
+     * @param[in] id The id of the desired edge
+     * @param[in] failHard Whether attempts to retrieve a nonexisting edge should result in an exception
+     * @throws UnknownElement
+     */
+    GNEEdge* retrieveEdge(GNEJunction *from, GNEJunction *to, bool failHard = true);
+
     /**@brief get the attribute carriers based on GlIDs
      * @param[in] ids The set of ids for which to retrive the ACs
      * @param[in] type The GUI-type of the objects with the given ids
