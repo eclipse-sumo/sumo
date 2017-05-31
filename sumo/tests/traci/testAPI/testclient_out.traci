@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue May 16 10:35:33 2017
+TraCITestClient output file. Date: Wed May 31 07:51:35 2017
 
 
 -> Command sent: <SimulationStep>:
@@ -43,6 +43,7 @@ testAPI:
     add:
     getIDList: 0 1
     getWaitingTime: 0.00
+    getAccumulatedWaitingTime: 0.00
     getShapeClass: bicycle
     remove:
     getIDCount: 1
