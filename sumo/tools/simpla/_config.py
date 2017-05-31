@@ -42,6 +42,11 @@ CATCHUP_DIST = 50.0
 # or drive on different lanes than their leader within the platoon 
 PLATOON_SPLIT_TIME = 3.0
 
+# The switch impatience factor determines the magnitude of the effect
+# that an increasing waiting time has on the active speed factor of a vehicle:
+# activeSpeedFactor = modeSpecificSpeedFactor/(1+impatienceFactor*waitingTime)  
+SWITCH_IMPATIENCE_FACTOR = 0.1
+
 # Lanechange modes for the different platooning modes
 LC_MODE = {
     # for solitary mode use default mode
@@ -113,7 +118,7 @@ def load(filename):
     This loads configuration parameters from a file and overwrites default values.
     '''
     global VERBOSITY, CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, CATCHUP_DIST, PLATOON_SPLIT_TIME
-    global VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR
+    global VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
     
     configElements = ET.parse(filename).getroot().getchildren()
     parsedTags = []
@@ -133,6 +138,8 @@ def load(filename):
             MAX_PLATOON_GAP = float(e.attrib.values()[0])
         elif e.tag == "catchupDist":
             CATCHUP_DIST = float(e.attrib.values()[0])
+        elif e.tag == "switchImpatienceFactor":
+            SWITCH_IMPATIENCE_FACTOR = max(float(e.attrib.values()[0]), 0.)
         elif e.tag == "platoonSplitTime":
             PLATOON_SPLIT_TIME = float(e.attrib.values()[0])
         elif e.tag == "lcMode":
