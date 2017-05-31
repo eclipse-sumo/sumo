@@ -229,6 +229,9 @@ public:
     /// @brief direction indicators for lanes
     void drawDirectionIndicators() const;
 
+    /// @brief draw intersection positions of foe internal lanes with this one
+    void debugDrawFoeIntersections() const;
+
     double getEdgeLaneNumber() const;
 
     /** @brief Returns the stored traveltime for the edge of this lane

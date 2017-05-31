@@ -67,6 +67,7 @@
 
 //#define GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
 //#define GUILane_DEBUG_DRAW_VERTICES
+//#define GUILane_DEBUG_DRAW_FOE_INTERSECTIONS
 
 // ===========================================================================
 // method definitions
@@ -533,6 +534,11 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
 #ifdef GUILane_DEBUG_DRAW_VERTICES
             GLHelper::debugVertices(myShape, 80 / s.scale);
 #endif
+#ifdef GUILane_DEBUG_DRAW_FOE_INTERSECTIONS
+            if (myEdge->isInternal() && gSelected.isSelected(getType(), getGlID())) {
+                debugDrawFoeIntersections();
+            }
+#endif
             glPopMatrix();
             // draw ROWs (not for inner lanes)
             if ((!isInternal || isCrossing) && (drawDetails || s.drawForSelecting)) {
@@ -710,6 +716,24 @@ GUILane::drawDirectionIndicators() const {
     glPopMatrix();
 }
 
+
+void
+GUILane::debugDrawFoeIntersections() const {
+    glPushMatrix();
+    glColor3d(1.0, 0.3, 0.3);
+    const MSLink* link = getLinkCont().front();
+    const std::vector<const MSLane*>& foeLanes = link->getFoeLanes(); 
+    const std::vector<std::pair<double, double> >& lengthsBehind = link->getLengthsBehindCrossing();
+    if (foeLanes.size() == lengthsBehind.size()) {
+        for (int i = 0; i < (int)foeLanes.size(); ++i) {
+            const MSLane* l = foeLanes[i];
+            Position pos = l->geometryPositionAtOffset(l->getLength() - lengthsBehind[i].second);
+            PositionVector ortho = l->getShape().getOrthogonal(pos, 10, true, 0.5);
+            GLHelper::drawLine(ortho);
+        }
+    }
+    glPopMatrix();
+}
 
 
 // ------ inherited from GUIGlObject

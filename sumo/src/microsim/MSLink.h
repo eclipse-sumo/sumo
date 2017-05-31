@@ -471,11 +471,15 @@ public:
         myGreenFraction = fraction;
     }
 
-    const std::vector<const MSLane*>& getFoeLanes() {
+    const std::vector<const MSLane*>& getFoeLanes() const {
         return myFoeLanes;
     }
 
-    const std::vector<MSLink*>& getFoeLinks() {
+    const std::vector<std::pair<double, double> >& getLengthsBehindCrossing() const {
+        return myLengthsBehindCrossing;
+    }
+
+    const std::vector<MSLink*>& getFoeLinks() const {
         return myFoeLinks;
     }
 
