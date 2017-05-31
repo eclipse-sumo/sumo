@@ -322,7 +322,7 @@ private:
     /// @param[out] the version with reference parameters provides information on the command start position and length used in dispatchCommand for checking purposes
     int readCommandID(int& commandStart, int& commandLength);
 
-    /// @brief Handles command, writes response to myOutputStorage, if no commandId is provided, it is attempted to read one from the input storage
+    /// @brief Handles command, writes response to myOutputStorage
     int dispatchCommand();
 
     /// @brief Called once after connection of all clients for executing SET_ORDER (and possibly prior GET_VERSION) commands,
