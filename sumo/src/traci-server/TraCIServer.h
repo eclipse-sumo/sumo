@@ -8,6 +8,7 @@
 /// @author  Thimor Bohn
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
+/// @author  Leonhard Luecken
 /// @date    2007/10/24
 /// @version $Id$
 ///
@@ -316,7 +317,17 @@ private:
     /// @}
 
 
+    /// @brief Reads the next command ID from the input storage
+    /// @return the command ID
+    /// @param[out] the version with reference parameters provides information on the command start position and length used in dispatchCommand for checking purposes
+    int readCommandID(int& commandStart, int& commandLength);
+
+    /// @brief Handles command, writes response to myOutputStorage, if no commandId is provided, it is attempted to read one from the input storage
     int dispatchCommand();
+
+    /// @brief Called once after connection of all clients for executing SET_ORDER (and possibly prior GET_VERSION) commands,
+    ///        that should be executed before simulation starts (in processCommandsUntilNextSimStep()).
+    void checkClientOrdering();
 
     /// @brief checks for and processes reordering requests (relevant for multiple clients)
     void processReorderingRequests();
@@ -350,9 +361,6 @@ private:
 
     /// @brief This stores the setOrder(int) requests of the clients.
     std::map<int, SocketInfo*> mySocketReorderRequests;
-
-    /// @brief Whether already warned about clients missing an order.
-    bool myWarnedAboutOrder;
 
     /// @brief The currently active client socket
     std::map<int, SocketInfo*>::iterator myCurrentSocket;

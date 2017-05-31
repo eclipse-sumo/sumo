@@ -112,8 +112,7 @@ bool TraCIServer::myDoCloseConnection = false;
 TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClients)
     : myTargetTime(begin),
       myAmEmbedded(port == 0),
-      myLaneTree(0),
-      myWarnedAboutOrder(numClients == 1) // don't warn for single clients
+      myLaneTree(0)
 {
 #ifdef DEBUG_MULTI_CLIENTS
     std::cout << "Creating new TraCIServer for " << numClients << " clients on port " << port << "." << std::endl;
@@ -185,6 +184,10 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
                 mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_STOP] = std::vector<std::string>();
             }
             // When got here, all clients have connected
+            if (numClients > 1) {
+                checkClientOrdering();
+            }
+            // set myCurrentSocket != mySockets.end() to indicate that this is the first step in processCommandsUntilSimStep()
             myCurrentSocket = mySockets.begin();
         } catch (tcpip::SocketException& e) {
             throw ProcessError(e.what());
@@ -275,6 +278,63 @@ TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::Vehicl
     }
 }
 
+void
+TraCIServer::checkClientOrdering() {
+#ifdef DEBUG_MULTI_CLIENTS
+    std::cout << "Checking client order requests." << std::endl;
+#endif
+    // check for SET_ORDER commands queued by connected clients
+    // In multiclient cas it is mandatory that SET_ORDER  is sent as the first command (or directly after GET_VERSION)
+    myCurrentSocket = mySockets.begin();
+    while (myCurrentSocket != mySockets.end()) {
+#ifdef DEBUG_MULTI_CLIENTS
+        std::cout << "  Socket " << myCurrentSocket->second->socket << ":" << std::endl;
+#endif
+//        bool clientUnordered = true;
+        while (true) {
+            myInputStorage.reset();
+            myCurrentSocket->second->socket->receiveExact(myInputStorage);
+            int commandStart, commandLength;
+            int commandId = readCommandID(commandStart, commandLength);
+#ifdef DEBUG_MULTI_CLIENTS
+            std::cout << "    received command " << commandId << std::endl;
+#endif
+            // Whether the received command is a permitted command for the initialization phase.
+            // Currently, getVersion and setOrder are permitted.
+            bool initCommand = commandId == CMD_SETORDER || commandId == CMD_GETVERSION;
+            if (initCommand) {
+#ifdef DEBUG_MULTI_CLIENTS
+                std::cout << "    Init command. Sending response." << std::endl;
+#endif
+                // reset input storage to initial state before reading the commandId
+                // (ugly, but we can't just reset the store's iter_ from here)
+                // Giving the commandId to dispatch command didn't work either
+                tcpip::Storage tmp;
+                tmp.writeStorage(myInputStorage);
+                myInputStorage.reset();
+                myInputStorage.writeUnsignedByte(commandLength);
+                myInputStorage.writeUnsignedByte(commandId);
+                myInputStorage.writeStorage(tmp);
+
+                // Handle initialization command completely
+                dispatchCommand();
+                myCurrentSocket->second->socket->sendExact(myOutputStorage);
+                myOutputStorage.reset();
+            } else {
+#ifdef DEBUG_MULTI_CLIENTS
+                std::cout << "    Client " << myCurrentSocket->second->socket << " did not set order initially." << std::endl;
+#endif
+                throw ProcessError("Execution order (CMD_SETORDER) was not set for all TraCI clients in pre-execution phase.");
+            }
+            if (commandId == CMD_SETORDER) {
+                // This is what we have waited for.
+                break;
+            }
+        }
+        ++myCurrentSocket;
+    }
+}
+
 
 void
 TraCIServer::processReorderingRequests() {
@@ -313,19 +373,6 @@ TraCIServer::processReorderingRequests() {
         }
         std::cout << std::endl;
 #endif
-    }
-    if (!myWarnedAboutOrder) {
-        // check for clients without explicit ordering
-        myCurrentSocket = mySockets.begin();
-        while (myCurrentSocket != mySockets.end()){
-            if (myCurrentSocket->first > MAX_ORDER) {
-                WRITE_WARNING("Execution order was not set for all clients. Using order of connection request for these (may be non-deterministic).");
-                break;
-            } else {
-                ++myCurrentSocket;
-            }
-        }
-        myWarnedAboutOrder = true;
     }
 }
 
@@ -375,18 +422,21 @@ TraCIServer::sendOutputToAll() const {
 #endif
 }
 
+
 void
 TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
 #ifdef DEBUG_MULTI_CLIENTS
     std::cout << SIMTIME << " processCommandsUntilSimStep(step = " << step << "):\n" << std::endl;
 #endif
     try {
-        if (myCurrentSocket == mySockets.end()) {
-            // This is the entry point after performing a SUMO step (block is skipped before first SUMO step)
+        // update client order if requested
+        processReorderingRequests();
+
+        bool firstStep = myCurrentSocket != mySockets.end();
+        if (!firstStep) {
+            // This is the entry point after performing a SUMO step (block is skipped before first SUMO step since then no simulation results have to be sent)
             // update subscription results
             postProcessSimulationStep();
-            // update client order if requested
-            processReorderingRequests();
             // Send out subscription results to clients which will act in this SUMO step (i.e. with client target time <= current sumo timestep end)
             sendOutputToAll();
             myOutputStorage.reset();
@@ -409,16 +459,17 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
         // 4. Client closes socket connection
         while (!myDoCloseConnection && myTargetTime <= (MSNet::getInstance()->getCurrentTimeStep())) {
 #ifdef DEBUG_MULTI_CLIENTS
-            std::cout << "    Next target time: " << myTargetTime << std::endl;
+            std::cout << "  Next target time: " << myTargetTime << std::endl;
 #endif
             // Iterate over clients and process communication for the ones with target time == myTargetTime
             myCurrentSocket = mySockets.begin();
             while (myCurrentSocket != mySockets.end()){
 #ifdef DEBUG_MULTI_CLIENTS
-                std::cout << "    current socket: " << myCurrentSocket->second->socket
+                std::cout << "  current socket: " << myCurrentSocket->second->socket
                         << " with target time " << myCurrentSocket->second->targetTime
                         << std::endl;
 #endif
+
                 if (myCurrentSocket->second->targetTime > myTargetTime) {
                     // this client must wait
 #ifdef DEBUG_MULTI_CLIENTS
@@ -672,14 +723,20 @@ TraCIServer::removeCurrentSocket(){
 
 
 int
-TraCIServer::dispatchCommand() {
-    int commandStart = myInputStorage.position();
-    int commandLength = myInputStorage.readUnsignedByte();
+TraCIServer::readCommandID(int& commandStart, int& commandLength) {
+    commandStart = myInputStorage.position();
+    commandLength = myInputStorage.readUnsignedByte();
     if (commandLength == 0) {
-        commandLength = myInputStorage.readInt();
+        commandLength = myInputStorage.readUnsignedByte();
     }
+    return myInputStorage.readUnsignedByte();
+}
 
-    int commandId = myInputStorage.readUnsignedByte();
+
+int
+TraCIServer::dispatchCommand() {
+    int commandStart, commandLength;
+    int commandId = readCommandID(commandStart, commandLength);
 #ifdef DEBUG_MULTI_CLIENTS
         std::cout << "       dispatchCommand() called for client " << myCurrentSocket->second->socket
                 << ", commandId = " << commandId << std::endl;
