@@ -721,6 +721,7 @@ void
 GUILane::debugDrawFoeIntersections() const {
     glPushMatrix();
     glColor3d(1.0, 0.3, 0.3);
+    const double orthoLength = 0.5;
     const MSLink* link = getLinkCont().front();
     const std::vector<const MSLane*>& foeLanes = link->getFoeLanes(); 
     const std::vector<std::pair<double, double> >& lengthsBehind = link->getLengthsBehindCrossing();
@@ -728,8 +729,12 @@ GUILane::debugDrawFoeIntersections() const {
         for (int i = 0; i < (int)foeLanes.size(); ++i) {
             const MSLane* l = foeLanes[i];
             Position pos = l->geometryPositionAtOffset(l->getLength() - lengthsBehind[i].second);
-            PositionVector ortho = l->getShape().getOrthogonal(pos, 10, true, 0.5);
+            PositionVector ortho = l->getShape().getOrthogonal(pos, 10, true, orthoLength);
+            if (ortho.length() < orthoLength) {
+                ortho.extrapolate(orthoLength - ortho.length(), false, true);
+            }
             GLHelper::drawLine(ortho);
+            //std::cout << "foe=" << l->getID() << " lanePos=" << l->getLength() - lengthsBehind[i].second << " pos=" << pos << "\n";
         }
     }
     glPopMatrix();
