@@ -21,6 +21,11 @@ import traci
 def simTime():
     return traci.simulation.getCurrentTime()/1000.
 
+def array2String(a):
+    if len(a) > 0 and hasattr(a[0], "getID"):
+        return str([e.getID() for e in a])
+    return str([str(e) for e in a])
+
 class Warner(object):
     def __init__(self, domain):
         self._domain = domain
