@@ -37,15 +37,19 @@ class pVehicleState(object):
         self.laneIX = traci.vehicle.getLaneIndex(ID)
         self.leaderInfo = traci.vehicle.getLeader(ID, 50.)
         self.leader = None # must be set by vehicle creator (PlatoonManager._addVehicle()) to guarantee function in first step
+        # Whether a possible platooning partner for the vehicle is located further downstream within _catchupDistance
+        # (though not necessarily being the immediate leader) 
+        self.connectedVehicleAhead = False
 
 class PVehicle(object):
     '''
     Vehicle objects for platooning    
     '''
-    def __init__(self, ID):
-        '''Constructor(string ID)
+    def __init__(self, ID, controlInterval):
+        '''Constructor(string, float)
         
-        Create a PVehicle representing a SUMOVehicle for the PlatoonManager
+        Create a PVehicle representing a SUMOVehicle for the PlatoonManager. The controlInterval is only piped through
+        to the singelton platoon created by the vehicle.
         '''        
         # vehicle ID (should be the one used in SUMO)
         self._ID = ID
@@ -61,7 +65,7 @@ class PVehicle(object):
         self._speedFactors[PlatoonMode.NONE] = traci.vehicle.getSpeedFactor(ID)
         # This is the default mode
         self._laneChangeModes[PlatoonMode.NONE] = 0b1001010101
-        
+                
         # vTypes, speedFactors and lanechangemodes parametrizing the platoon behaviour
         for mode in [PlatoonMode.LEADER, PlatoonMode.FOLLOWER, PlatoonMode.CATCHUP]:
             self._vTypes[mode] = self._determinePlatoonVType(mode)
@@ -70,14 +74,23 @@ class PVehicle(object):
 
         # Initialize platoon mode to none
         self._currentPlatoonMode = PlatoonMode.NONE
+        # the active speed factor is decreased as the waiting time for a mode switch rises
+        # (assuming that the main hindrance to switching is too close following)  
+        self._activeSpeedFactor = cfg.SPEEDFACTOR[self._currentPlatoonMode]
+        # The switch impatience factor determines the magnitude of the effect
+        # that an increasing waiting time has on the active speed factor:
+        # activeSpeedFactor = modeSpecificSpeedFactor/(1+impatienceFactor*waitingTime)  
+        self._switchImpatienceFactor = cfg.SWITCH_IMPATIENCE_FACTOR
         # create a new platoon containing only this vehicle
-        self._platoon = Platoon([self])
+        self._platoon = Platoon([self], controlInterval)
         # the time left until splitting from a platoon if loosing coherence as a follower
         self._timeUntilSplit = cfg.PLATOON_SPLIT_TIME
         # Whether split conditions are fulfilled (i.e. leader in th platoon 
         # is not found directly in front of the vehicle)
         self._splitConditions = False
-
+        # waiting time for switching into different modes 
+        self._switchWaitingTime = {}
+        self.resetSwitchWaitingTime()
         
     def _determinePlatoonVType(self, mode):
         '''_determinePlatoonVType(PlatoonMode) -> string
@@ -162,11 +175,13 @@ class PVehicle(object):
                 
         if self._vTypes[mode] != self._vTypes[self._currentPlatoonMode]:
             traci.vehicle.setType(self._ID, self._vTypes[mode])
-        if self._speedFactors[mode] != self._speedFactors[self._currentPlatoonMode]:
-            traci.vehicle.setSpeedFactor(self._ID, self._speedFactors[mode])
+        #if self._speedFactors[mode] != self._speedFactors[self._currentPlatoonMode]:
+        # Safer to call always since active speed factor mechanism may have changed 
+        # current speed factor from basic speedfactor
+        traci.vehicle.setSpeedFactor(self._ID, self._speedFactors[mode])
         if self._laneChangeModes[mode] != self._laneChangeModes[self._currentPlatoonMode]:
             traci.vehicle.setLaneChangeMode(self._ID, self._laneChangeModes[mode])
-                    
+
         self.resetSplitCountDown()
         self._splitConditions = False
         self._currentPlatoonMode = mode
@@ -178,6 +193,64 @@ class PVehicle(object):
         Returns the current platoon mode of the vehicle
         '''
         return self._currentPlatoonMode
+        
+    
+    def getSwitchWaitingTime(self, mode):
+        '''getSwitchWaitingTime(PlatoonMode) -> float
+        
+        Returns the waiting time for a switch to the given mode.
+        '''
+        return self._switchWaitingTime[mode]
+    
+        
+    def addSwitchWaitingTime(self, mode, increment):
+        '''addSwitchWaitingTime(PlatoonMode, float) -> void
+        
+        Increases the mode-specific waiting time for a switch, and decreases the active speed factor accordingly
+        '''
+        self._switchWaitingTime[mode] += increment
+        if cfg.VERBOSITY >= 4:
+            report("Vehicle '%s' increases switch waiting time for %s to %s"%(self._ID, mode, self._switchWaitingTime[mode]), 3)
+        self._setActiveSpeedFactor(self._switchWaitingTime[mode])
+        
+    
+    def resetSwitchWaitingTime(self, mode=None):
+        '''resetSwitchWaitingTime(PlatoonMode) -> void
+        
+        Resets waiting time for a switch to a mode to 0. or, if mode==None, all times are reset to 0.
+        The active speed factor is also reset.
+        '''
+        if cfg.VERBOSITY >= 4:
+            report("Vehicle '%s' resets switch waiting time."%self._ID, 3)
+        if mode is None:
+            for e in PlatoonMode:
+                self._switchWaitingTime[e] = 0.
+        else:
+           self._switchWaitingTime[mode] = 0.
+        self._resetActiveSpeedFactor()
+        
+    
+    def _setActiveSpeedFactor(self, switchWaitingTime):
+        ''' setActiveSpeedFactor(float)
+        
+        Sets the active speed factor derived from the current vType's speed factor. The higher the 
+        switch waiting time, the lower the active speed factor (to induce a slowing down, which allows 
+        to execute the switch safely)
+        TODO: This mechanism does not work on highways, where the vehicles maxspeed is determining
+              the travel speed and not the road's speed limit.
+        '''
+        self._activeSpeedFactor = cfg.SPEEDFACTOR[self._currentPlatoonMode]/(1.+self._switchImpatienceFactor*switchWaitingTime)
+        traci.vehicle.setSpeedFactor(self._ID, self._activeSpeedFactor)
+
+
+    def _resetActiveSpeedFactor(self):
+        '''resetActiveSpeedFactor()
+        
+        Resets the active speed factor to the mode specific base value
+        '''
+        self._activeSpeedFactor = cfg.SPEEDFACTOR[self._currentPlatoonMode]
+        traci.vehicle.setSpeedFactor(self._ID, self._activeSpeedFactor)
+    
         
     def splitCountDown(self, dt):
         '''splitCountDown(double)
@@ -277,7 +350,7 @@ class PVehicle(object):
         headwayDist = speed*tau
         followerBrakeGap = PVehicle.brakeGap(speed, maxDecel)
         
-        if cfg.VERBOSITY >= 3: 
+        if cfg.VERBOSITY >= 4: 
             report("leaderSpeed = %s"%leaderSpeed
                 +"\nleaderDecel = %s"%leaderDecel
                 +"\ngap = %s"%gap
@@ -301,6 +374,8 @@ class PVehicle(object):
             return float("inf")
         return speed*speed/(2.0*decel)
 
+    def __str__(self):
+        return "<PVehicle '%s'>"%self._ID
 
 
 
