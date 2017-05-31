@@ -44,6 +44,7 @@
 #include <utils/common/ValueTimeLine.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/geom/Boundary.h>
 #ifdef HAVE_FOX
 #include <fx.h>
 #endif
@@ -536,6 +537,9 @@ protected:
 
     /// @brief The list of allowed vehicle classes combined across lanes
     SVCPermissions myCombinedPermissions;
+
+    /// @brief The bounding rectangle of incoming or outgoing edges for taz connectors
+    Boundary myTazBoundary;
 
     static ROEdgeVector myEdges;
 

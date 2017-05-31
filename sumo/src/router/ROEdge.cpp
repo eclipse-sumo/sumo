@@ -107,7 +107,13 @@ void
 ROEdge::addSuccessor(ROEdge* s, std::string) {
     if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
+        if (isTazConnector()) {
+            myTazBoundary.add(s->getFromJunction()->getPosition());
+        }
         s->myApproachingEdges.push_back(this);
+        if (s->isTazConnector()) {
+            s->myTazBoundary.add(getToJunction()->getPosition());
+        }
     }
 }
 
@@ -138,12 +144,16 @@ ROEdge::getEffort(const ROVehicle* const veh, double time) const {
 
 double
 ROEdge::getDistanceTo(const ROEdge* other) const {
-    if (getToJunction() != 0 && other->getFromJunction() != 0) {
-        return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
-    } else {
-        return 0; // optimism is just right for astar
+    if (isTazConnector()) {
+        if (other->isTazConnector()) {
+            return myTazBoundary.distanceTo2D(other->myTazBoundary);
+        }
+        return myTazBoundary.distanceTo2D(other->getFromJunction()->getPosition());
     }
-
+    if (other->isTazConnector()) {
+        return other->myTazBoundary.distanceTo2D(getToJunction()->getPosition());
+    }
+    return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
 }
 
 
