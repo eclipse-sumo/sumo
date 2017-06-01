@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jun  1 08:55:06 2017 by SUMO Version dev-SVN-r23112
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <begin value="45"/>
+    </time>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <lateral-resolution value="0.64"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="rescue" depart="45.00" departLane="SC_1" departPos="71.45" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="99.00" arrivalLane="CN_0" arrivalPos="91.95" arrivalPosLat="1.60" arrivalSpeed="26.00" duration="54.00" routeLength="128.55" waitSteps="38" timeLoss="48.29" rerouteNo="0" devices="tripinfo_rescue" vType="rescue" speedFactor="2.00" vaporized=""/>
+    <tripinfo id="left" depart="45.00" departLane="SC_1" departPos="86.45" departPosLat="0.70" departSpeed="0.00" departDelay="0.00" arrival="100.00" arrivalLane="CN_1" arrivalPos="91.95" arrivalPosLat="0.70" arrivalSpeed="13.89" duration="55.00" routeLength="113.55" waitSteps="42" timeLoss="45.97" rerouteNo="0" devices="tripinfo_left" vType="left" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="right" depart="45.00" departLane="SC_0" departPos="86.45" departPosLat="-0.70" departSpeed="0.00" departDelay="0.00" arrival="100.00" arrivalLane="CN_0" arrivalPos="91.95" arrivalPosLat="-0.70" arrivalSpeed="13.89" duration="55.00" routeLength="113.55" waitSteps="42" timeLoss="45.97" rerouteNo="0" devices="tripinfo_right" vType="right" speedFactor="1.00" vaporized=""/>
+</tripinfos>
