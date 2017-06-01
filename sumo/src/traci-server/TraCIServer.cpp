@@ -727,7 +727,7 @@ TraCIServer::readCommandID(int& commandStart, int& commandLength) {
     commandStart = myInputStorage.position();
     commandLength = myInputStorage.readUnsignedByte();
     if (commandLength == 0) {
-        commandLength = myInputStorage.readUnsignedByte();
+        commandLength = myInputStorage.readInt();
     }
     return myInputStorage.readUnsignedByte();
 }
