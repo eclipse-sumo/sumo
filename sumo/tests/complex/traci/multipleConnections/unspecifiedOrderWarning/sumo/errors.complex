@@ -1,2 +1,4 @@
-Warning: Execution order was not set for all clients. Using order of connection request for these (may be non-deterministic).
-Warning: Execution order was not set for all clients. Using order of connection request for these (may be non-deterministic).
+Error: Execution order (CMD_SETORDER) was not set for all TraCI clients in pre-execution phase.
+Quitting (on error).
+Error: Execution order (CMD_SETORDER) was not set for all TraCI clients in pre-execution phase.
+Quitting (on error).

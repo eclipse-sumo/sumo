@@ -50,12 +50,12 @@ def traciLoop(port, traciEndTime, index, orderOdd):
     time.sleep(orderTime*index) # assure ordering of outputs
     print("Starting process %s"%(index))
     sys.stdout.flush()
-    traci.init(port)
-    if orderOdd and index%2==1:
-        traci.setOrder(index)
     step = 1
-    sumoStop = False
     try:
+        traci.init(port)
+        if orderOdd and index%2==1:
+            traci.setOrder(index)
+        sumoStop = False
         while not step > traciEndTime:
             traci.simulationStep()
             vehs = traci.vehicle.getIDList()
@@ -64,14 +64,12 @@ def traciLoop(port, traciEndTime, index, orderOdd):
             step += 1
         endTime = traci.simulation.getCurrentTime() / DELTA_T
         traci.close()
-    except traci.FatalTraCIError as e:
-        if str(e) == "connection closed by SUMO":
-            time.sleep(orderTime*index) # assure ordering of outputs
-            sumoStop = True
-            print("client %s: "%index, str(e), " (at TraCIStep %s)"%step)
-            sys.stdout.flush()
-        else:
-            raise
+    #~ except traci.FatalTraCIError as e:
+    except Exception as e:
+        time.sleep(orderTime*index) # assure ordering of outputs
+        sumoStop = True
+        print("client %s: "%index, str(e), " (at TraCIStep %s)"%step)
+        sys.stdout.flush()
     if not sumoStop:
         time.sleep(orderTime*index) # assure ordering of outputs
         print("Process %s ended at step %s" %(index, endTime))
