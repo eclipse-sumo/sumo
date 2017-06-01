@@ -1149,9 +1149,14 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 long long int ref = *it;
                 if (myOSMNodes.find(ref) == myOSMNodes.end()){
                     WRITE_WARNING("Referenced node: '"+ toString(ref) + "' in relation: '" + toString(myCurrentRelation) +"' does not exist. Probably OSM file is incomplete." );
+                    continue;
                 } else {
                     NIOSMNode * n = myOSMNodes.find(ref)->second;
                     NBPTStop * ptStop = myNBPTStopCont->get(toString(n->id));
+                    if (ptStop == 0) {
+                        WRITE_WARNING("Relation '" + toString(myCurrentRelation) + "' refers to a non existing pt stop at node: '"+ toString(n->id) + "'. Probably OSM file is incomplete." );
+                        continue;
+                    }
                     for (std::vector<long long int>::iterator itPlatforms = myPlatforms.begin(); itPlatforms != myPlatforms.end(); itPlatforms++){
                         if (myOSMNodes.find(*itPlatforms) == myOSMNodes.end()){
                             WRITE_WARNING("Referenced node: '"+ toString(ref) + "' in relation: '" + toString(myCurrentRelation) +"' does not exist. Probably OSM file is incomplete." );

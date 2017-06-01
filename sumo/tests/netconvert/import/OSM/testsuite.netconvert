@@ -1,3 +1,7 @@
+# pt stop relation refers to a node for which no pt stop position is defined 
+# (see also #3159)
+bus_stop_direction_inconsisten_pt_stop_relation
+
 # direction of bus stops imported (guessed) correctly
 bus_stop_direction_no_platforms
 
@@ -12,7 +16,7 @@ bus_stop_direction_single_stop_pos_single_platform
 bus_stop_direction
 
 # a bus stop in berlin-adlershof (Akeleiweg)
-bus_stop_direction2
+bus_stop_direction_platform_as_way
 
 # import bus stops
 bus_stop_position

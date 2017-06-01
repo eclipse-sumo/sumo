@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jun  1 14:52:48 2017 by SUMO netconvert Version dev-SVN-r24535
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="input_types.typ.xml"/>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <osm.stop-output.length value="200"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-1335753779" name="Staatstheater" lane="-171756596_0" startPos="-100.00" endPos="100.00" friendlyPos="true"/>
+    <busStop id="-14209124830" name="P&R "Weihnachtsmarkt"" lane="173044205#1_0" startPos="-99.86" endPos="100.14" friendlyPos="true"/>
+    <busStop id="-14420481310" name="Staatstheater" lane="-171756596_0" startPos="-90.13" endPos="109.87" friendlyPos="true"/>
+    <busStop id="-14635230831" name="Wilhelmstraße" lane="-314842169#2_0" startPos="-79.01" endPos="120.99" friendlyPos="true"/>
+    <busStop id="1515856077" name="Rathaus" lane="-37976385#1_0" startPos="-101.00" endPos="99.00" friendlyPos="true"/>
+    <busStop id="247702454" name="Packhof" lane="37983000#0_0" startPos="-101.00" endPos="99.00" friendlyPos="true"/>
+    <busStop id="335753779" name="Staatstheater" lane="171756596_0" startPos="-52.64" endPos="147.36" friendlyPos="true"/>
+    <busStop id="364176554" name="Rathaus" lane="27220209#1_0" startPos="-93.20" endPos="106.80" friendlyPos="true"/>
+    <busStop id="376646465" name="Wilhelmstraße" lane="5134712_0" startPos="-36.33" endPos="163.67" friendlyPos="true"/>
+    <busStop id="4209124830" name="P&R "Weihnachtsmarkt"" lane="22978948#29_0" startPos="-80.38" endPos="119.62" friendlyPos="true"/>
+    <busStop id="4420481310" name="Staatstheater" lane="171756596_0" startPos="-62.51" endPos="137.49" friendlyPos="true"/>
+    <busStop id="4635230831" name="Wilhelmstraße" lane="314842169#2_0" startPos="-78.69" endPos="121.31" friendlyPos="true"/>
+    <busStop id="583283132" name="Rathaus" lane="5148300_0" startPos="-101.00" endPos="99.00" friendlyPos="true"/>
+</additional>
