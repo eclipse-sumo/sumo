@@ -149,7 +149,7 @@ GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
     //ret->mkItem("maximum acceleration [m/s^2]", false, getCarFollowModel().getMaxAccel());
     //ret->mkItem("maximum deceleration [m/s^2]", false, getCarFollowModel().getMaxDecel());
     //ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
-    //ret->mkItem("reaction time (tau)", false, getCarFollowModel().getHeadwayTime());
+    //ret->mkItem("desired headway (tau)", false, getCarFollowModel().getHeadwayTime());
     ret->mkItem("person capacity", false, myType->getPersonCapacity());
     ret->mkItem("container capacity", false, myType->getContainerCapacity());
     // close building

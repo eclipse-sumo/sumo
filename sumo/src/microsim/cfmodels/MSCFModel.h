@@ -230,8 +230,8 @@ public:
     }
 
 
-    /** @brief Get the driver's reaction time [s]
-     * @return The reaction time of this class' drivers in s
+    /** @brief Get the driver's desired headway [s]
+     * @return The desired headway of this class' drivers in s
      */
     virtual double getHeadwayTime() const {
         return myHeadwayTime;
@@ -271,7 +271,7 @@ public:
     virtual double minNextSpeed(double speed, const MSVehicle* const veh = 0) const;
 
 
-    /** @brief Returns the distance the vehicle needs to halt including driver's reaction time,
+    /** @brief Returns the distance the vehicle needs to halt including driver's reaction time tau (i.e. desired headway),
      * assuming that during the reaction time, the speed remains constant
      * @param[in] speed The vehicle's current speed
      * @return The distance needed to halt
@@ -296,7 +296,7 @@ public:
         //
         // xxx (Leo, refs #2548) This is somewhat different from the approach in maximumSafeFollowSpeed, where
         // the leaderMaxDecel is increased instead. This is no perfect estimate either,
-        // but without taking into account the reaction time it is less conservative than decreasing followDecel.
+        // but without taking into account the reaction time tau it is less conservative than decreasing followDecel.
         // Consider replacement by 'const leaderMaxDecel = MAX2(myDecel, leaderMaxDecel);' below and 'followDecel = myDecel;'
         // With maximumSafeSpeed = maximumSafeFollowSpeed(*secureGap*, speed, leaderSpeed, leaderMaxDecel) we should have:
         //        assert(maximumSafeSpeed <= speed + NUMERICAL_EPS && maximumSafeSpeed >= speed - NUMERICAL_EPS);
@@ -452,8 +452,8 @@ public:
     }
 
 
-    /** @brief Sets a new value for driver reaction time [s]
-     * @param[in] headwayTime The new driver reaction time (in s)
+    /** @brief Sets a new value for desired headway [s]
+     * @param[in] headwayTime The new desired headway (in s)
      */
     virtual void setHeadwayTime(double headwayTime) {
         myHeadwayTime = headwayTime;
@@ -489,7 +489,7 @@ public:
 
     /** @brief Returns the maximum next velocity for stopping within gap
      * when using the ballistic positional update.
-     * @note This takes into account the driver's reaction time and the car's current speed.
+     * @note This takes into account the driver's reaction time tau (i.e. the desired headway) and the car's current speed.
      * (The latter is required to calculate the distance covered in the following timestep.)
      * @param[in] gap The (netto) distance to the desired stopping point
      * @param[in] currentSpeed The current speed of the ego vehicle

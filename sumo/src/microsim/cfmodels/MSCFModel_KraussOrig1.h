@@ -51,7 +51,7 @@ public:
      * @param[in] emergencyDecel The maximum emergency deceleration
      * @param[in] apparentDecel The deceleration as expected by others (always equal to decel for the original model)
      * @param[in] dawdle The driver imperfection
-     * @param[in] tau The driver's reaction time
+     * @param[in] tau The driver's desired headway
      */
     MSCFModel_KraussOrig1(const MSVehicleType* vtype, double accel, double decel,
                           double emergencyDecel, double apparentDecel, double dawdle, double headwayTime);
@@ -146,8 +146,8 @@ public:
     }
 
 
-    /** @brief Sets a new value for driver reaction time [s]
-     * @param[in] headwayTime The new driver reaction time (in s)
+    /** @brief Sets a new value for desired headway [s]
+     * @param[in] headwayTime The new desired headway (in s)
      */
     void setHeadwayTime(double headwayTime) {
         myHeadwayTime = headwayTime;

@@ -201,7 +201,7 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("emergency deceleration [m/s^2]", false, getCarFollowModel().getEmergencyDecel());
     ret->mkItem("apparent deceleration [m/s^2]", false, getCarFollowModel().getApparentDecel());
     ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
-    ret->mkItem("reaction time (tau)", false, getCarFollowModel().getHeadwayTime());
+    ret->mkItem("desired headway (tau)", false, getCarFollowModel().getHeadwayTime());
     ret->mkItem("person capacity", false, myType->getPersonCapacity());
     ret->mkItem("boarding time", false, STEPS2TIME(myType->getBoardingDuration()));
     ret->mkItem("container capacity", false, myType->getContainerCapacity());

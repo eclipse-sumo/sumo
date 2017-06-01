@@ -165,7 +165,7 @@ double MSCFModel_SmartSK::_vsafe(const MSVehicle* const veh, double gap, double 
     }
     SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
     // this is the most obvious change to the normal SK: the model uses the variable vars->myHeadway instead of the constant
-    // myHeadwayTime as the "reaction time" tau
+    // myHeadwayTime as the "desired headway" tau
     double bTau = myDecel * (vars->myHeadway);
     double vsafe = (double)(-1. * bTau
                             + sqrt(

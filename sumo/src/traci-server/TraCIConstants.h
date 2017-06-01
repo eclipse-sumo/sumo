@@ -573,7 +573,7 @@
 // apparent deceleration (get: vehicles, vehicle types)
 #define VAR_APPARENT_DECEL 0x7c
 
-// driver reaction time (get: vehicle types)
+// driver's desired headway (get: vehicle types)
 #define VAR_TAU 0x48
 
 // vehicle class (get: vehicle types)

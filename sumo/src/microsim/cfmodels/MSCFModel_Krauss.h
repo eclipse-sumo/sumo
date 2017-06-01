@@ -51,7 +51,7 @@ public:
      * @param[in] emergencyDecel The maximum emergency deceleration
      * @param[in] apparentDecel The deceleration as expected by others
      * @param[in] dawdle The driver imperfection
-     * @param[in] headwayTime The driver's reaction time
+     * @param[in] headwayTime The driver's desired headway
      */
     MSCFModel_Krauss(const MSVehicleType* vtype, double accel, double decel,
                      double emergencyDecel, double apparentDecel, double dawdle, double headwayTime);

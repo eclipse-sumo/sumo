@@ -50,7 +50,7 @@ public:
      * @param[in] emergencyDecel The maximum emergency deceleration
      * @param[in] apparentDecel The deceleration as expected by others
      * @param[in] dawdle The driver imperfection
-     * @param[in] tau The driver's reaction time
+     * @param[in] tau The driver's desired headway
      */
     MSCFModel_SmartSK(const MSVehicleType* vtype, double accel, 
                       double decel, double emergencyDecel, double apparentDecel,
@@ -132,8 +132,8 @@ public:
     }
 
 
-    /** @brief Sets a new value for driver reaction time [s]
-     * @param[in] headwayTime The new driver reaction time (in s)
+    /** @brief Sets a new value for desired headway [s]
+     * @param[in] headwayTime The new desired headway (in s)
      */
     void setHeadwayTime(double headwayTime) {
         myHeadwayTime = headwayTime;
