@@ -189,6 +189,10 @@ public:
 
         /// @brief The sum of the lengths the vehicles had
         double vehLengthSum;
+
+        /// @brief The sum of the occupation of the lane
+        double occupationSum;
+
         //@}
 
         /// @brief The meandata parent

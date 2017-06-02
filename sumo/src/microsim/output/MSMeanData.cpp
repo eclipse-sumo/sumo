@@ -161,42 +161,73 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
     }
 
 #ifdef DEBUG_NOTIFY_MOVE
+    std::stringstream ss;
+    ss << "\n"
+            << "lane length: " << myLaneLength
+            << "\noldPos: " << oldPos
+            << "\nnewPos: " << newPos
+            << "\noldPosBack: " << oldBackPos
+            << "\nnewPosBack: " << newBackPos
+            << "\ntimeBeforeEnter: " << timeBeforeEnter
+            << "\ntimeBeforeEnterBack: " << timeBeforeEnterBack
+            << "\ntimeBeforeLeaveFront: " << timeBeforeLeaveFront
+            << "\ntimeBeforeLeave: " << timeBeforeLeave;
     if (!(timeBeforeLeave >= MAX2(timeBeforeEnterBack, timeBeforeLeaveFront))
             || !(timeBeforeEnter <= MIN2(timeBeforeEnterBack, timeBeforeLeaveFront))) {
-            std::stringstream ss;
-            ss << "\n"
-                    << "lane length: " << myLaneLength
-                    << "\noldPos: " << oldPos
-                    << "\nnewPos: " << newPos
-                    << "\noldPosBack: " << oldBackPos
-                    << "\nnewPosBack: " << newBackPos
-                    << "\ntimeBeforeEnter: " << timeBeforeEnter
-                    << "\ntimeBeforeEnterBack: " << timeBeforeEnterBack
-                    << "\ntimeBeforeLeaveFront: " << timeBeforeLeaveFront
-                    << "\ntimeBeforeLeave: " << timeBeforeLeave;
             WRITE_ERROR(ss.str());
+    } else {
+        std::cout << ss.str() << std::endl;
     }
+
 #endif
 
     assert(timeBeforeEnter <= MIN2(timeBeforeEnterBack, timeBeforeLeaveFront));
     assert(timeBeforeLeave >= MAX2(timeBeforeEnterBack, timeBeforeLeaveFront));
     // compute average vehicle length on lane in last step
+    double vehLength = veh.getVehicleType().getLength();
+    // occupied lane length at timeBeforeEnter (resp. stepStart if already on lane)
+    double lengthOnLaneAtStepStart = MAX2(0., MIN4(myLaneLength, vehLength, vehLength - (oldPos - myLaneLength), oldPos));
+    // occupied lane length at timeBeforeLeave (resp. stepEnd if still on lane)
+    double lengthOnLaneAtStepEnd = MAX2(0., MIN4(myLaneLength, vehLength, vehLength - (newPos - myLaneLength), newPos));
+
     double integratedLengthOnLane = 0.;
-    if (timeBeforeEnterBack <= timeBeforeLeaveFront) {
+    if (timeBeforeEnterBack < timeBeforeLeaveFront) {
+        // => timeBeforeLeaveFront>0, myLaneLength>vehLength
         // vehicle length on detector at timeBeforeEnterBack
-        double lengthOnLane = MIN3(myLaneLength, veh.getVehicleType().getLength(), newPos);
+        double lengthOnLaneAtBackEnter = MIN2(veh.getVehicleType().getLength(), newPos);
         // linear quadrature of occupancy between timeBeforeEnter and timeBeforeEnterBack
-        integratedLengthOnLane += (timeBeforeEnterBack - timeBeforeEnter)*lengthOnLane*0.5;
+        integratedLengthOnLane += (timeBeforeEnterBack - timeBeforeEnter)*(lengthOnLaneAtBackEnter+lengthOnLaneAtStepStart)*0.5;
         // linear quadrature of occupancy between timeBeforeEnterBack and timeBeforeLeaveFront
-        // (vehicle length on detector at timeBeforeEnterBack == vehicle length on detector at timeBeforeLeaveFront)
-        integratedLengthOnLane += (timeBeforeLeave - timeBeforeLeaveFront)*lengthOnLane*0.5;
+        // (vehicle is completely on the edge in between)
+        integratedLengthOnLane += (timeBeforeLeaveFront - timeBeforeEnterBack)*vehLength;
+        // and until vehicle leaves/stepEnd
+        integratedLengthOnLane += (timeBeforeLeave - timeBeforeLeaveFront)*(vehLength + lengthOnLaneAtStepEnd)*0.5;
+    } else if (timeBeforeEnterBack >= timeBeforeLeaveFront) {
+        // => myLaneLength <= vehLength or (timeBeforeLeaveFront == timeBeforeEnterBack == 0)
+        // vehicle length on detector at timeBeforeLeaveFront
+        double lengthOnLaneAtLeaveFront;
+        if (timeBeforeLeaveFront == timeBeforeEnter) {
+            // for the case that front already left
+            lengthOnLaneAtLeaveFront = lengthOnLaneAtStepStart;
+        } else if (timeBeforeLeaveFront == timeBeforeLeave) {
+            // for the case that front doesn't leave in this step
+            lengthOnLaneAtLeaveFront = lengthOnLaneAtStepEnd;
+        } else {
+            lengthOnLaneAtLeaveFront = myLaneLength;
+        }
+        // linear quadrature of occupancy between timeBeforeEnter and timeBeforeLeaveFront
+        integratedLengthOnLane += (timeBeforeLeaveFront - timeBeforeEnter)*(lengthOnLaneAtLeaveFront+lengthOnLaneAtStepStart)*0.5;
+        // linear quadrature of occupancy between timeBeforeLeaveFront and timeBeforeEnterBack
+        integratedLengthOnLane += (timeBeforeEnterBack-timeBeforeLeaveFront)*lengthOnLaneAtLeaveFront;
+        // and until vehicle leaves/stepEnd
+        integratedLengthOnLane += (timeBeforeLeave - timeBeforeEnterBack)*(lengthOnLaneAtLeaveFront + lengthOnLaneAtStepEnd)*0.5;
     }
 
-    double meanLengthOnLane = veh.getVehicleType().getLength();
-//    double meanLengthOnLane = integratedLengthOnLane/TS; // XXX use this after refactoring, should fix #153
-//#ifdef DEBUG_NOTIFY_MOVE
-//    std::cout << "Calculated mean length on lane in last step as " << meanLengthOnLane << std::endl;
-//#endif
+    double meanLengthOnLane = integratedLengthOnLane/TS;
+#ifdef DEBUG_NOTIFY_MOVE
+    std::cout << "Calculated mean length on lane '" << myLane->getID() << "' in last step as " << meanLengthOnLane << std::endl;
+    std::cout << "";
+#endif
 
 //    // XXX: use this, when #2556 is fixed! Refs. #2575
 //    const double travelledDistanceFrontOnLane = MAX2(0., MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.));

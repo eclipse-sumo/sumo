@@ -71,7 +71,7 @@ MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
       nVehVaporized(0), waitSeconds(0),
       nVehLaneChangeFrom(0), nVehLaneChangeTo(0),
       frontSampleSeconds(0), frontTravelledDistance(0),
-      vehLengthSum(0), myParent(parent) {}
+      vehLengthSum(0), occupationSum(0), myParent(parent) {}
 
 
 MSMeanData_Net::MSLaneMeanDataValues::~MSLaneMeanDataValues() {
@@ -93,6 +93,7 @@ MSMeanData_Net::MSLaneMeanDataValues::reset(bool) {
     frontSampleSeconds = 0;
     frontTravelledDistance = 0;
     vehLengthSum = 0;
+    occupationSum = 0;
 }
 
 
@@ -112,6 +113,7 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
     v.frontSampleSeconds += frontSampleSeconds;
     v.frontTravelledDistance += frontTravelledDistance;
     v.vehLengthSum += vehLengthSum;
+    v.occupationSum += occupationSum;
 }
 
 
@@ -125,15 +127,16 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
         const double meanLengthOnLane) {
     sampleSeconds += timeOnLane;
     travelledDistance += travelledDistanceVehicleOnLane;
+    vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
     if (MSGlobals::gUseMesoSim) {
         // For the mesosim case no information on whether the vehicle was occupying
         // the lane with its whole length is available. We assume the whole length
         // Therefore this increment is taken out with more information on the vehicle movement.
-        vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
+        occupationSum += veh.getVehicleType().getLength() * timeOnLane;
     } else {
         // for the microsim case more elaborate calculation of the average length on the lane,
         // is taken out in notifyMove(), refs #153
-        vehLengthSum += meanLengthOnLane * timeOnLane;
+        occupationSum += meanLengthOnLane * timeOnLane;
     }
     if (myParent != 0 && meanSpeedVehicleOnLane < myParent->myHaltSpeed) {
         waitSeconds += timeOnLane;
@@ -198,7 +201,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
     if (myParent == 0) {
         if (sampleSeconds > 0) {
             dev.writeAttr("density", sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength)
-            .writeAttr("occupancy", vehLengthSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
+            .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
             .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }
         dev.writeAttr("departed", nVehDeparted).writeAttr("arrived", nVehArrived).writeAttr("entered", nVehEntered).writeAttr("left", nVehLeft);
@@ -227,7 +230,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
             }
             dev.writeAttr("overlapTraveltime", overlapTraveltime)
             .writeAttr("density", sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength)
-            .writeAttr("occupancy", vehLengthSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
+            .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
             .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }
     } else if (defaultTravelTime >= 0.) {
