@@ -348,23 +348,26 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop draw matrix 1
         glPopMatrix();
-        // if exaggeration is 1, draw drawMarkings
-        if (exaggeration == 1) {
-            drawMarkings(selectedEdge, exaggeration);
-        }
-        // draw ROWs only if target junction has a valid logic)
-        if (myParentEdge.getGNEJunctionDestiny()->isLogicValid() && s.scale > 3) {
-            drawArrows();
-        }
-        // Draw direction indicators if the correspondient option is enabled
-        if (s.showLaneDirection) {
-            drawDirectionIndicators();
-        }
-        if (s.drawLinkJunctionIndex.show) {
-            drawLinkNo(s);
-        }
-        if (s.drawLinkTLIndex.show) {
-            drawTLSLinkNo(s);
+        // only draw details depending of the scale
+        if (s.scale >= 10) {
+            // if exaggeration is 1, draw drawMarkings
+            if (s.laneShowBorders && exaggeration == 1 ) {
+                drawMarkings(selectedEdge, exaggeration);
+            }
+            // draw ROWs only if target junction has a valid logic)
+            if (s.showLinkDecals && myParentEdge.getGNEJunctionDestiny()->isLogicValid() && s.scale > 3) {
+                drawArrows();
+            }
+            // Draw direction indicators if the correspondient option is enabled
+            if (s.showLaneDirection) {
+                drawDirectionIndicators();
+            }
+            if (s.drawLinkJunctionIndex.show) {
+                drawLinkNo(s);
+            }
+            if (s.drawLinkTLIndex.show) {
+                drawTLSLinkNo(s);
+            }
         }
         // If there are texture of restricted lanes to draw, and draw lane icons is enabled in options
         if ((OptionsCont::getOptions().getBool("disable-laneIcons") == false) && myLaneRestrictedTexturePositions.size() > 0) {
