@@ -244,9 +244,9 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
         }
         case SUMO_ATTR_WIDTH:
-            return isPositive<double>(value);
+            return canParse<double>(value) && isPositive<double>(value);
         case SUMO_ATTR_PRIORITY:
-            return ((value == "true") || (value == "false"));
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

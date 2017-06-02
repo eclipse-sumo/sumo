@@ -321,7 +321,7 @@ bool
 GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+            if (isValidID(value) && (myViewNet->getNet()->getAdditional(getTag(), value) == NULL)) {
                 return true;
             } else {
                 return false;
@@ -335,9 +335,9 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_FREQUENCY:
-            return (canParse<double>(value) && (parse<double>(value) >= 0));
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_BEGIN:
-            return (canParse<double>(value) && (parse<double>(value) >= 0));
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

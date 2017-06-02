@@ -772,7 +772,7 @@ bool
 GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidID(value) && myNet->retrieveJunction(value, false) == 0;
+            return isValidID(value) && (myNet->retrieveJunction(value, false) == 0);
             break;
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::NodeTypes.hasString(value);
@@ -793,10 +793,9 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TLTYPE:
             return myNBNode.isTLControlled() && SUMOXMLDefinitions::TrafficLightTypes.hasString(value);
         case SUMO_ATTR_TLID:
-            return myNBNode.isTLControlled() && value != "";
+            return myNBNode.isTLControlled() && (value != "");
         case SUMO_ATTR_KEEP_CLEAR:
-            return value == "true" || value == "false";
-            break;
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

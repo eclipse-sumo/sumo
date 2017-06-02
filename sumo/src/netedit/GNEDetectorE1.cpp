@@ -256,7 +256,7 @@ bool
 GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+            if (isValidID(value) && (myViewNet->getNet()->getAdditional(getTag(), value) == NULL)) {
                 return true;
             } else {
                 return false;
@@ -268,9 +268,9 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= (myLane->getLaneParametricLength()));
+            return (canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= (myLane->getLaneParametricLength())));
         case SUMO_ATTR_FREQUENCY:
-            return (canParse<double>(value) && parse<double>(value) >= 0);
+            return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_SPLIT_VTYPE:

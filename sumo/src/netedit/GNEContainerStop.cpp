@@ -355,7 +355,7 @@ bool
 GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (myViewNet->getNet()->getAdditional(getTag(), value) == NULL) {
+            if (isValidID(value) && (myViewNet->getNet()->getAdditional(getTag(), value) == NULL)) {
                 return true;
             } else {
                 return false;
@@ -367,9 +367,9 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) < (myEndPos - 1));
+            return (canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) < (myEndPos - 1)));
         case SUMO_ATTR_ENDPOS: {
-            if (canParse<double>(value) && parse<double>(value) >= 1 && parse<double>(value) > myStartPos) {
+            if (canParse<double>(value) && (parse<double>(value) >= 1) && (parse<double>(value) > myStartPos)) {
                 // If extension is larger than Lane
                 if (parse<double>(value) > myLane->getLaneParametricLength()) {
                     // write warning if netedit is running in testing mode

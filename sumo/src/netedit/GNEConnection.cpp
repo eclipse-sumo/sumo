@@ -357,7 +357,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_UNCONTROLLED:
             return canParse<bool>(value);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
-            return isPositive<double>(value);
+            return canParse<double>(value) && isPositive<double>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

@@ -850,7 +850,7 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ACCELERATION:
             return canParse<bool>(value);
         case SUMO_ATTR_INDEX:
-            return value == toString(myIndex);
+            return canParse<int>(value) && (parse<int>(value) == myIndex);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
