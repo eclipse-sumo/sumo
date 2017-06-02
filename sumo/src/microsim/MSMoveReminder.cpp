@@ -75,7 +75,7 @@ MSMoveReminder::updateDetector(SUMOVehicle& veh, double entryPos, double leavePo
         myLastVehicleUpdateValues[&veh] = std::pair<SUMOTime, double>(currentTime, entryPos + speed * timeOnLane);
         assert(timeOnLane >= 0);
         assert(speed >= 0);
-        notifyMoveInternal(veh, timeOnLane, timeOnLane, speed, speed, speed * timeOnLane, speed * timeOnLane);
+        notifyMoveInternal(veh, timeOnLane, timeOnLane, speed, speed, speed * timeOnLane, speed * timeOnLane, 0.);
     } else {
         // it would be natrual to
         // assert(entryTime == leaveTime);

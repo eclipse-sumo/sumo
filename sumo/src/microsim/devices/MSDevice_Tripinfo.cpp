@@ -114,7 +114,8 @@ MSDevice_Tripinfo::notifyMoveInternal(const SUMOVehicle& veh,
                                       const double /* meanSpeedFrontOnLane */,
                                       const double meanSpeedVehicleOnLane,
                                       const double /* travelledDistanceFrontOnLane */,
-                                      const double /* travelledDistanceVehicleOnLane */) {
+                                      const double /* travelledDistanceVehicleOnLane */,
+                                      const double /* meanLengthOnLane */) {
 
     // called by meso
     const double vmax = veh.getEdge()->getVehicleMaxSpeed(&veh);

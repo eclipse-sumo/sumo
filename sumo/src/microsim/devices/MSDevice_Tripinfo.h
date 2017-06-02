@@ -177,7 +177,8 @@ protected:
                             const double meanSpeedFrontOnLane,
                             const double meanSpeedVehicleOnLane,
                             const double travelledDistanceFrontOnLane,
-                            const double travelledDistanceVehicleOnLane);
+                            const double travelledDistanceVehicleOnLane,
+                            const double /* meanLengthOnLane */);
 
 private:
     /// @brief The lane the vehicle departed at

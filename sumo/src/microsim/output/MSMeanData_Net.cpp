@@ -44,6 +44,17 @@
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 
+// ===========================================================================
+// constants
+// ===========================================================================
+#define INVALID_DOUBLE std::numeric_limits<double>::max()
+
+
+// ===========================================================================
+// debug constants
+// ===========================================================================
+//#define DEBUG_OCCUPANCY
+
 
 // ===========================================================================
 // method definitions
@@ -105,11 +116,25 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& veh, const double frontOnLane, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane) {
+MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
+        const SUMOVehicle& veh, const double frontOnLane,
+        const double timeOnLane, const double /* meanSpeedFrontOnLane */,
+        const double meanSpeedVehicleOnLane,
+        const double travelledDistanceFrontOnLane,
+        const double travelledDistanceVehicleOnLane,
+        const double meanLengthOnLane) {
     sampleSeconds += timeOnLane;
     travelledDistance += travelledDistanceVehicleOnLane;
-    vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
-    // XXX: recheck, which value to use here for the speed. (Leo) Refs. #2579
+    if (MSGlobals::gUseMesoSim) {
+        // For the mesosim case no information on whether the vehicle was occupying
+        // the lane with its whole length is available. We assume the whole length
+        // Therefore this increment is taken out with more information on the vehicle movement.
+        vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
+    } else {
+        // for the microsim case more elaborate calculation of the average length on the lane,
+        // is taken out in notifyMove(), refs #153
+        vehLengthSum += meanLengthOnLane * timeOnLane;
+    }
     if (myParent != 0 && meanSpeedVehicleOnLane < myParent->myHaltSpeed) {
         waitSeconds += timeOnLane;
     }

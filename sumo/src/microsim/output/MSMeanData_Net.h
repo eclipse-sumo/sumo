@@ -140,7 +140,18 @@ public:
         /** @brief Internal notification about the vehicle moves
          *  @see MSMoveReminder::notifyMoveInternal
          */
-        void notifyMoveInternal(const SUMOVehicle& veh, const double frontOnLane, const double timeOnLane, const double meanSpeedFrontOnLane, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane);
+        void notifyMoveInternal(const SUMOVehicle& veh,
+                const double frontOnLane, const double timeOnLane, const double,
+                const double meanSpeedVehicleOnLane,
+                const double travelledDistanceFrontOnLane,
+                const double travelledDistanceVehicleOnLane,
+                const double meanLengthOnLane);
+
+    private:
+//        /// @brief Calculate the vehicle front's distance to myLane's end for a vehicle that called notifyMoveInternal()
+//        ///        maxDist gives the maximal distance to search back from the vehicle's current lane to myLane
+//        ///        returns INVALID_DOUBLE if myLane wasn't found in that range
+//        double getVehicleDistToMyLane(const SUMOVehicle& veh, double maxDist);
 
     public:
         /// @name Collected values
@@ -239,7 +250,6 @@ private:
     MSMeanData_Net& operator=(const MSMeanData_Net&);
 
 };
-
 
 #endif
 

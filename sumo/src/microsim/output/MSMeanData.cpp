@@ -50,6 +50,11 @@
 
 
 // ===========================================================================
+// debug constants
+// ===========================================================================
+//#define DEBUG_NOTIFY_MOVE
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -89,24 +94,39 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
     double frontOnLane = oldPos > myLaneLength ? 0. : TS;
     bool ret = true;
 
+    // entry and exit times (will be modified below)
+    double timeBeforeEnter = 0.;
+    double timeBeforeEnterBack = 0.;
+    double timeBeforeLeaveFront = newPos < myLaneLength ? TS : 0.;
+    double timeBeforeLeave = TS;
+
     // Treat the case that the vehicle entered the lane in the last step
     if (oldPos < 0 && newPos >= 0) {
         // Vehicle was not on this lane in the last time step
-        const double timeBeforeEnter = MSCFModel::passingTime(oldPos, 0, newPos, oldSpeed, newSpeed);
+        timeBeforeEnter = MSCFModel::passingTime(oldPos, 0, newPos, oldSpeed, newSpeed);
         timeOnLane = TS - timeBeforeEnter;
         frontOnLane = timeOnLane;
         enterSpeed = MSCFModel::speedAfterTime(timeBeforeEnter, oldSpeed, newPos - oldPos);
     }
 
-    // Treat the case that the vehicle's back left the lane in the last step
     const double oldBackPos = oldPos - veh.getVehicleType().getLength();
     const double newBackPos = newPos - veh.getVehicleType().getLength();
-    if (newBackPos > myLaneLength // vehicle's back has left the lane
-            && oldBackPos <= myLaneLength) { // and hasn't left the lane before, XXX: this shouldn't occur, should it? For instance, in the E2 code this is not checked (Leo)
-        assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0); // how could it move across the lane boundary otherwise
 
+    // Determine the time before the vehicle back enters
+    if (oldBackPos < 0. && newBackPos > 0.) {
+        timeBeforeEnterBack = MSCFModel::passingTime(oldBackPos, 0., newBackPos, oldSpeed, newSpeed);
+    } else if (newBackPos <= 0) {
+        timeBeforeEnterBack = TS;
+    } else {
+        timeBeforeEnterBack = 0.;
+    }
+
+    // Treat the case that the vehicle's back left the lane in the last step
+     if (newBackPos > myLaneLength // vehicle's back has left the lane
+            && oldBackPos <= myLaneLength) { // and hasn't left the lane before
+        assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0); // how could it move across the lane boundary otherwise
         // (Leo) vehicle left this lane (it can also have skipped over it in one time step -> therefore we use "timeOnLane -= ..." and ( ... - timeOnLane) below)
-        const double timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myLaneLength, newBackPos, oldSpeed, newSpeed);
+        timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myLaneLength, newBackPos, oldSpeed, newSpeed);
         const double timeAfterLeave = TS - timeBeforeLeave;
         timeOnLane -= timeAfterLeave;
         leaveSpeed = MSCFModel::speedAfterTime(timeBeforeLeave, oldSpeed, newPos - oldPos);
@@ -122,14 +142,14 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
     if (newPos > myLaneLength && oldPos <= myLaneLength) {
         // vehicle's front has left the lane and has not left before
         assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0);
-        const double timeBeforeLeave = MSCFModel::passingTime(oldPos, myLaneLength, newPos, oldSpeed, newSpeed);
-        const double timeAfterLeave = TS - timeBeforeLeave;
+        timeBeforeLeaveFront = MSCFModel::passingTime(oldPos, myLaneLength, newPos, oldSpeed, newSpeed);
+        const double timeAfterLeave = TS - timeBeforeLeaveFront;
         frontOnLane -= timeAfterLeave;
         // XXX: Do we really need this? Why would this "reduce rounding errors"? (Leo) Refs. #2579
         if (fabs(frontOnLane) < NUMERICAL_EPS) { // reduce rounding errors
             frontOnLane = 0.;
         }
-        leaveSpeedFront = MSCFModel::speedAfterTime(timeBeforeLeave, oldSpeed, newPos - oldPos);
+        leaveSpeedFront = MSCFModel::speedAfterTime(timeBeforeLeaveFront, oldSpeed, newPos - oldPos);
     }
 
     if (timeOnLane < 0) {
@@ -140,10 +160,48 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
         return veh.hasArrived();
     }
 
-    // XXX: use this, when #2556 is fixed! Refs. #2575
-//    const double travelledDistanceFrontOnLane = MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.);
-//    const double travelledDistanceVehicleOnLane = MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.) + MIN2(MAX2(0., newPos-myLaneLength), veh.getVehicleType().getLength());
-    // XXX: #2556 fixed for ballistic update
+#ifdef DEBUG_NOTIFY_MOVE
+    if (!(timeBeforeLeave >= MAX2(timeBeforeEnterBack, timeBeforeLeaveFront))
+            || !(timeBeforeEnter <= MIN2(timeBeforeEnterBack, timeBeforeLeaveFront))) {
+            std::stringstream ss;
+            ss << "\n"
+                    << "lane length: " << myLaneLength
+                    << "\noldPos: " << oldPos
+                    << "\nnewPos: " << newPos
+                    << "\noldPosBack: " << oldBackPos
+                    << "\nnewPosBack: " << newBackPos
+                    << "\ntimeBeforeEnter: " << timeBeforeEnter
+                    << "\ntimeBeforeEnterBack: " << timeBeforeEnterBack
+                    << "\ntimeBeforeLeaveFront: " << timeBeforeLeaveFront
+                    << "\ntimeBeforeLeave: " << timeBeforeLeave;
+            WRITE_ERROR(ss.str());
+    }
+#endif
+
+    assert(timeBeforeEnter <= MIN2(timeBeforeEnterBack, timeBeforeLeaveFront));
+    assert(timeBeforeLeave >= MAX2(timeBeforeEnterBack, timeBeforeLeaveFront));
+    // compute average vehicle length on lane in last step
+    double integratedLengthOnLane = 0.;
+    if (timeBeforeEnterBack <= timeBeforeLeaveFront) {
+        // vehicle length on detector at timeBeforeEnterBack
+        double lengthOnLane = MIN3(myLaneLength, veh.getVehicleType().getLength(), newPos);
+        // linear quadrature of occupancy between timeBeforeEnter and timeBeforeEnterBack
+        integratedLengthOnLane += (timeBeforeEnterBack - timeBeforeEnter)*lengthOnLane*0.5;
+        // linear quadrature of occupancy between timeBeforeEnterBack and timeBeforeLeaveFront
+        // (vehicle length on detector at timeBeforeEnterBack == vehicle length on detector at timeBeforeLeaveFront)
+        integratedLengthOnLane += (timeBeforeLeave - timeBeforeLeaveFront)*lengthOnLane*0.5;
+    }
+
+    double meanLengthOnLane = veh.getVehicleType().getLength();
+//    double meanLengthOnLane = integratedLengthOnLane/TS; // XXX use this after refactoring, should fix #153
+//#ifdef DEBUG_NOTIFY_MOVE
+//    std::cout << "Calculated mean length on lane in last step as " << meanLengthOnLane << std::endl;
+//#endif
+
+//    // XXX: use this, when #2556 is fixed! Refs. #2575
+//    const double travelledDistanceFrontOnLane = MAX2(0., MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.));
+//    const double travelledDistanceVehicleOnLane = MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.) + MIN2(MAX2(0., newPos - myLaneLength), veh.getVehicleType().getLength());
+//    // XXX: #2556 fixed for ballistic update
     const double travelledDistanceFrontOnLane = MSGlobals::gSemiImplicitEulerUpdate ? frontOnLane * newSpeed
             : MAX2(0., MIN2(newPos, myLaneLength) - MAX2(oldPos, 0.));
     const double travelledDistanceVehicleOnLane = MSGlobals::gSemiImplicitEulerUpdate ? timeOnLane * newSpeed
@@ -152,8 +210,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
 //    const double travelledDistanceFrontOnLane = frontOnLane*newSpeed;
 //    const double travelledDistanceVehicleOnLane = timeOnLane*newSpeed;
 
-    notifyMoveInternal(veh, frontOnLane, timeOnLane, (enterSpeed + leaveSpeedFront) / 2., (enterSpeed + leaveSpeed) / 2., travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane);
-//    notifyMoveInternal(veh, frontOnLane, timeOnLane, newSpeed, newSpeed, travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane);
+    notifyMoveInternal(veh, frontOnLane, timeOnLane, (enterSpeed + leaveSpeedFront) / 2., (enterSpeed + leaveSpeed) / 2., travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane, meanLengthOnLane);
     return ret;
 }
 
@@ -230,8 +287,8 @@ MSMeanData::MeanDataValueTracker::addTo(MSMeanData::MeanDataValues& val) const {
 
 
 void
-MSMeanData::MeanDataValueTracker::notifyMoveInternal(const SUMOVehicle& veh, const double frontOnLane, const double timeOnLane, const double meanSpeedFrontOnLane, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane) {
-    myTrackedData[&veh]->myValues->notifyMoveInternal(veh, frontOnLane, timeOnLane, meanSpeedFrontOnLane, meanSpeedVehicleOnLane, travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane);
+MSMeanData::MeanDataValueTracker::notifyMoveInternal(const SUMOVehicle& veh, const double frontOnLane, const double timeOnLane, const double meanSpeedFrontOnLane, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane, const double meanLengthOnLane) {
+    myTrackedData[&veh]->myValues->notifyMoveInternal(veh, frontOnLane, timeOnLane, meanSpeedFrontOnLane, meanSpeedVehicleOnLane, travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane, meanLengthOnLane);
 }
 
 

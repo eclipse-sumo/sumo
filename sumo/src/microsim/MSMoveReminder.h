@@ -194,7 +194,8 @@ public:
 
     /// @}
 
-    /** @brief Internal notification about the vehicle moves
+    /** @brief Internal notification about the vehicle moves.
+     *  @note meso uses this though it never calls notifyMove()
      *
      * Indicator if the reminders is still active for the passed
      * vehicle/parameters. If false, the vehicle will erase this reminder
@@ -207,6 +208,7 @@ public:
      * @param[in] meanSpeedVehicleOnLane Average speed for the time that the vehicle is on the lane (with front or back).
      * @param[in] travelledDistanceFrontOnLane distance travelled while overlapping with the lane.
      * @param[in] travelledDistanceVehicleOnLane distance travelled while front was on the lane.
+     * @param[in] meanLengthOnLane the average length of the vehicle's part on the lane during the last step (==complete length in meso case)
      */
     virtual void notifyMoveInternal(const SUMOVehicle& veh,
                                     const double frontOnLane,
@@ -214,7 +216,9 @@ public:
                                     const double meanSpeedFrontOnLane,
                                     const double meanSpeedVehicleOnLane,
                                     const double travelledDistanceFrontOnLane,
-                                    const double travelledDistanceVehicleOnLane) {
+                                    const double travelledDistanceVehicleOnLane,
+                                    const double meanLengthOnLane) {
+        UNUSED_PARAMETER(meanLengthOnLane);
         UNUSED_PARAMETER(travelledDistanceFrontOnLane);
         UNUSED_PARAMETER(travelledDistanceVehicleOnLane);
         UNUSED_PARAMETER(meanSpeedVehicleOnLane);
