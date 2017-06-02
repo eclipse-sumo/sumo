@@ -95,7 +95,7 @@ private:
 
 
     std::vector<Position> myPlatformPosCands;
-    bool myIsMultipleStopPositions = false;
+    bool myIsMultipleStopPositions;
 };
 
 #endif //SUMO_NBPTSTOP_H

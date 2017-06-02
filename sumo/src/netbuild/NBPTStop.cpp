@@ -43,7 +43,8 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myPTStopLength(length),
     myName(name),
     myFriendlyPos(false),
-    myPermissions(svcPermissions)
+    myPermissions(svcPermissions),
+    myIsMultipleStopPositions(false)
 {
 
 }
