@@ -946,8 +946,10 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
         if (myInspectorFrameParent->getACs().size() > 1) {
             myInspectorFrameParent->getViewNet()->getUndoList()->p_end();
         }
-        // If previously value of TextField was red, change color to black
-        if ((GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr)) && myTextFieldStrings != 0) {
+        // If previously value was incorrect , change fonto color to black
+        if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
+            myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
+        } else if ((GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr)) && myTextFieldStrings != 0) {
             myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
             myTextFieldReal->killFocus();
         } else if (GNEAttributeCarrier::isInt(myTag, myAttr) && myTextFieldStrings != 0) {
@@ -958,15 +960,16 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
             myTextFieldStrings->killFocus();
         }
     } else {
-        // IF value of TextField isn't valid, change color to Red depending of type
-        if ((GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr)) && myTextFieldStrings != 0) {
+        // If value of TextField isn't valid, change color to Red depending of type
+        if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
+            myChoicesCombo->setTextColor(FXRGB(255, 0, 0));
+        } else if ((GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr)) && myTextFieldStrings != 0) {
             myTextFieldReal->setTextColor(FXRGB(255, 0, 0));
         } else if (GNEAttributeCarrier::isInt(myTag, myAttr) && myTextFieldStrings != 0) {
             myTextFieldInt->setTextColor(FXRGB(255, 0, 0));
         } else if (GNEAttributeCarrier::isString(myTag, myAttr) && myTextFieldStrings != 0) {
             myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
         }
-
         // Write Warning in console if we're in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
             WRITE_WARNING("Value '" + newVal + "' for attribute " + toString(myAttr) + " of " + toString(myTag) + " isn't valid");
