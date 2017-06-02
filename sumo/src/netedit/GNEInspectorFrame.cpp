@@ -396,7 +396,7 @@ GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
         inspectElement(myPreviousElementInspect);
         myPreviousElementInspect = NULL;
     } else if (myPreviousElementDelete != NULL) {
-        myViewNet->getViewParent()->getDeleteFrame()->showAttributeCarrierChilds(myPreviousElementDelete);
+        myViewNet->getViewParent()->getDeleteFrame()->showChildsOfMarkedAttributeCarrier();
         if (myPreviousElementDeleteWasMarked) {
             myViewNet->getViewParent()->getDeleteFrame()->markAttributeCarrier(myPreviousElementDelete);
         }

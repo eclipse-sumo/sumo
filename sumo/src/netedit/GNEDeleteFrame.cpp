@@ -67,9 +67,9 @@
 
 FXDEFMAP(GNEDeleteFrame) GNEDeleteFrameMap[] = {
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_CHILDS,                 GNEDeleteFrame::onCmdShowChildMenu),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_CENTER,     GNEDeleteFrame::onCmdCenterItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_INSPECT,    GNEDeleteFrame::onCmdInspectItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_DELETE,     GNEDeleteFrame::onCmdDeleteItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_CENTER,     GNEDeleteFrame::onCmdCenterChildItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_INSPECT,    GNEDeleteFrame::onCmdInspectChildItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_DELETE,     GNEDeleteFrame::onCmdDeleteChildItem),
 };
 
 // Object implementation
@@ -80,7 +80,6 @@ FXIMPLEMENT(GNEDeleteFrame, FXVerticalFrame, GNEDeleteFrameMap, ARRAYNUMBER(GNED
 // ===========================================================================
 GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Delete"),
-    myCurrentAC(NULL),
     myMarkedAC(NULL) {
     // Create Groupbox for current element
     myGroupBoxCurrentElement = new FXGroupBox(myContentFrame, "Current element", GUIDesignGroupBoxFrame);
@@ -108,18 +107,17 @@ GNEDeleteFrame::~GNEDeleteFrame() {}
 
 
 void
-GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
-    myCurrentAC = ac;
+GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
     // clear items
     myTreelist->clearItems();
     myTreeItemToACMap.clear();
     myTreeItemsWithoutAC.clear();
     // Switch gl type of ac
-    if (ac) {
-        switch (dynamic_cast<GUIGlObject*>(ac)->getType()) {
+    if (myMarkedAC) {
+        switch (dynamic_cast<GUIGlObject*>(myMarkedAC)->getType()) {
             case GLO_JUNCTION: {
                 // insert junction root
-                GNEJunction* junction = dynamic_cast<GNEJunction*>(ac);
+                GNEJunction* junction = dynamic_cast<GNEJunction*>(myMarkedAC);
                 FXTreeItem* junctionItem = myTreelist->insertItem(0, 0, toString(junction->getTag()).c_str(), junction->getIcon(), junction->getIcon());
                 myTreeItemToACMap[junctionItem] = junction;
                 junctionItem->setExpanded(true);
@@ -187,7 +185,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
             }
             case GLO_EDGE: {
                 // insert edge root
-                GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
+                GNEEdge* edge = dynamic_cast<GNEEdge*>(myMarkedAC);
                 FXTreeItem* edgeItem = myTreelist->insertItem(0, 0, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
                 myTreeItemToACMap[edgeItem] = edge;
                 edgeItem->setExpanded(true);
@@ -253,7 +251,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
             }
             case GLO_LANE: {
                 // insert lane root
-                GNELane* lane = dynamic_cast<GNELane*>(ac);
+                GNELane* lane = dynamic_cast<GNELane*>(myMarkedAC);
                 FXTreeItem* laneItem = myTreelist->insertItem(0, 0, toString(lane->getTag()).c_str(), lane->getIcon(), lane->getIcon());
                 myTreeItemToACMap[laneItem] = lane;
                 laneItem->setExpanded(true);
@@ -292,7 +290,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
             }
             case GLO_POI: {
                 // insert POI root
-                GNEPOI* POI = dynamic_cast<GNEPOI*>(ac);
+                GNEPOI* POI = dynamic_cast<GNEPOI*>(myMarkedAC);
                 FXTreeItem* POIItem = myTreelist->insertItem(0, 0, toString(POI->getTag()).c_str(), POI->getIcon(), POI->getIcon());
                 myTreeItemToACMap[POIItem] = POI;
                 POIItem->setExpanded(true);
@@ -300,7 +298,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
             }
             case GLO_POLYGON: {
                 // insert polygon root
-                GNEPoly* polygon = dynamic_cast<GNEPoly*>(ac);
+                GNEPoly* polygon = dynamic_cast<GNEPoly*>(myMarkedAC);
                 FXTreeItem* polygonItem = myTreelist->insertItem(0, 0, toString(polygon->getTag()).c_str(), polygon->getIcon(), polygon->getIcon());
                 myTreeItemToACMap[polygonItem] = polygon;
                 polygonItem->setExpanded(true);
@@ -308,7 +306,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
             }
             case GLO_CROSSING: {
                 // insert crossing root
-                GNECrossing* crossing = dynamic_cast<GNECrossing*>(ac);
+                GNECrossing* crossing = dynamic_cast<GNECrossing*>(myMarkedAC);
                 FXTreeItem* crossingItem = myTreelist->insertItem(0, 0, toString(crossing->getTag()).c_str(), crossing->getIcon(), crossing->getIcon());
                 myTreeItemToACMap[crossingItem] = crossing;
                 crossingItem->setExpanded(true);
@@ -316,7 +314,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
             }
             case GLO_ADDITIONAL: {
                 // insert additional root
-                GNEAdditional* additional = dynamic_cast<GNEAdditional*>(ac);
+                GNEAdditional* additional = dynamic_cast<GNEAdditional*>(myMarkedAC);
                 FXTreeItem* additionalItem = myTreelist->insertItem(0, 0, toString(additional->getTag()).c_str(), additional->getIcon(), additional->getIcon());
                 myTreeItemToACMap[additionalItem] = additional;
                 additionalItem->setExpanded(true);
@@ -324,7 +322,7 @@ GNEDeleteFrame::showAttributeCarrierChilds(GNEAttributeCarrier* ac) {
             }
             case GLO_CONNECTION: {
                 // insert connection root
-                GNEConnection* connection = dynamic_cast<GNEConnection*>(ac);
+                GNEConnection* connection = dynamic_cast<GNEConnection*>(myMarkedAC);
                 FXTreeItem* connectionItem = myTreelist->insertItem(0, 0, toString(connection->getTag()).c_str(), connection->getIcon(), connection->getIcon());
                 myTreeItemToACMap[connectionItem] = connection;
                 connectionItem->setExpanded(true);
@@ -502,7 +500,7 @@ GNEDeleteFrame::onCmdShowChildMenu(FXObject*, FXSelector, void* data) {
 
 
 long
-GNEDeleteFrame::onCmdCenterItem(FXObject*, FXSelector, void*) {
+GNEDeleteFrame::onCmdCenterChildItem(FXObject*, FXSelector, void*) {
     if (dynamic_cast<GNENetElement*>(myClickedAC)) {
         myViewNet->centerTo(dynamic_cast<GNENetElement*>(myClickedAC)->getGlID(), false);
     } else if (dynamic_cast<GNEAdditional*>(myClickedAC)) {
@@ -518,15 +516,10 @@ GNEDeleteFrame::onCmdCenterItem(FXObject*, FXSelector, void*) {
 
 
 long
-GNEDeleteFrame::onCmdInspectItem(FXObject*, FXSelector, void*) {
+GNEDeleteFrame::onCmdInspectChildItem(FXObject*, FXSelector, void*) {
     if (myMarkedAC != NULL) {
         myViewNet->getViewParent()->getInspectorFrame()->show();
         myViewNet->getViewParent()->getInspectorFrame()->inspectFromDeleteFrame(myClickedAC, myMarkedAC, true);
-        // Hide delete frame and show inspector frame
-        hide();
-    } else if (myCurrentAC != NULL) {
-        myViewNet->getViewParent()->getInspectorFrame()->show();
-        myViewNet->getViewParent()->getInspectorFrame()->inspectFromDeleteFrame(myClickedAC, myCurrentAC, false);
         // Hide delete frame and show inspector frame
         hide();
     }
@@ -535,9 +528,8 @@ GNEDeleteFrame::onCmdInspectItem(FXObject*, FXSelector, void*) {
 
 
 long
-GNEDeleteFrame::onCmdDeleteItem(FXObject*, FXSelector, void*) {
+GNEDeleteFrame::onCmdDeleteChildItem(FXObject*, FXSelector, void*) {
     removeAttributeCarrier(myClickedAC);
-    showAttributeCarrierChilds(myCurrentAC);
     return 1;
 }
 

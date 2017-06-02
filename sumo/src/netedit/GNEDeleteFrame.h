@@ -58,8 +58,8 @@ public:
     /// @brief Destructor
     ~GNEDeleteFrame();
 
-    /// @brief show child of attributeCarrier in frame if previously there isn't a marked element
-    void showAttributeCarrierChilds(GNEAttributeCarrier* ac);
+    /// @brief show childs of marked attribute carrier
+    void showChildsOfMarkedAttributeCarrier();
 
     /// @brief remove attribute carrier (element)
     void removeAttributeCarrier(GNEAttributeCarrier* ac);
@@ -81,13 +81,13 @@ public:
     long onCmdShowChildMenu(FXObject*, FXSelector, void* data);
 
     /// @brief called when user select option "center item" of child Menu
-    long onCmdCenterItem(FXObject*, FXSelector, void*);
+    long onCmdCenterChildItem(FXObject*, FXSelector, void*);
 
     /// @brief called when user select option "inspect item" of child menu
-    long onCmdInspectItem(FXObject*, FXSelector, void*);
+    long onCmdInspectChildItem(FXObject*, FXSelector, void*);
 
     /// @brief called when user select option "delte item" of child menu
-    long onCmdDeleteItem(FXObject*, FXSelector, void*);
+    long onCmdDeleteChildItem(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
@@ -130,9 +130,6 @@ private:
 
     /// @brief set used to save tree items without AC assigned (for example, Incoming/Outcoming connections)
     std::set<FXTreeItem*> myTreeItemsWithoutAC;
-
-    /// @brief pointer to current AC
-    GNEAttributeCarrier* myCurrentAC;
 
     /// @brief pointer to marked attributeCarrier (element)
     GNEAttributeCarrier* myMarkedAC;
