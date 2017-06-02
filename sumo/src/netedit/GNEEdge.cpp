@@ -208,11 +208,21 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         if (color[3] > 0) {
             glPushName(getGlID());
             PositionVector geom = myNBEdge.getGeometry();
+            // draw geometry points
             for (int i = 1; i < (int)geom.size() - 1; i++) {
                 Position pos = geom[i];
                 glPushMatrix();
                 glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
-                GLHelper:: drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 32);
+                // resolution of drawn circle depending of the zoom (To improve smothness)
+                if(s.scale >= 10) {
+                    GLHelper:: drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 32);
+                } else if (s.scale >= 2) {
+                    GLHelper:: drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 16);
+                } else if (s.scale >= 1) {
+                    GLHelper:: drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 8);
+                } else {
+                    GLHelper:: drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 4);
+                }
                 glPopMatrix();
             }
             glPopName();
