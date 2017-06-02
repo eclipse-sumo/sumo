@@ -264,7 +264,16 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 Position pos = myNBNode.getPosition();
                 glTranslated(pos.x(), pos.y(), getType() - 0.05);
-                GLHelper::drawFilledCircle(4 * exaggeration, 32);
+                // resolution of drawn circle depending of the zoom (To improve smothness)
+                if(s.scale >= 10) {
+                    GLHelper::drawFilledCircle(4 * exaggeration, 32);
+                } else if (s.scale >= 2) {
+                    GLHelper::drawFilledCircle(4 * exaggeration, 16);
+                } else if (s.scale >= 1) {
+                    GLHelper::drawFilledCircle(4 * exaggeration, 8);
+                } else {
+                    GLHelper::drawFilledCircle(4 * exaggeration, 4);
+                }
                 glPopMatrix();
             }
         }
