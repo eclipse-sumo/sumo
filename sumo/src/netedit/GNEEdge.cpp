@@ -754,7 +754,7 @@ bool
 GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidID(value) && myNet->retrieveEdge(value, false) == 0;
+            return isValidID(value) && (myNet->retrieveEdge(value, false) == 0);
         case SUMO_ATTR_FROM: {
             // check that is a valid ID and is different of ID of junction destiny
             if(isValidID(value) && (value != myGNEJunctionDestiny->getMicrosimID())) {
@@ -786,9 +786,9 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case SUMO_ATTR_SPEED:
-            return isPositive<double>(value);
+            return canParse<double>(value) && isPositive<double>(value);
         case SUMO_ATTR_NUMLANES:
-            return isPositive<int>(value);
+            return canParse<int>(value) && isPositive<int>(value);
         case SUMO_ATTR_PRIORITY:
             return canParse<int>(value);
         case SUMO_ATTR_LENGTH:
