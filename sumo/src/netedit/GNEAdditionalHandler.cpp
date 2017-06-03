@@ -241,7 +241,12 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, co
     if (!abort) {
         // get edge
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
-        if (edge == NULL) {
+        // check that all parameters are valid
+        if(GNEAttributeCarrier::isValidID(id) == false) {
+            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
+        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        } else if (edge == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The edge '" + edgeId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else {
@@ -446,8 +451,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
         }
         // if operation of build variable speed signal was sucesfully, save Id
         if ((abort == false) && buildVariableSpeedSign(myViewNet, id, Position(posx, posy), lanes, file, steps)) {
-            myVariableSpeedSignParent = dynamic_cast<GNEVariableSpeedSign*>(myViewNet->getNet()->retrieveAdditional(id));
-            myLastTag = myVariableSpeedSignParent->getTag();
+            myLastTag = tag;
         }
     }
 }
@@ -501,7 +505,12 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-        if (lane == NULL) {
+        // check that all parameters are valid
+        if(GNEAttributeCarrier::isValidID(id) == false) {
+            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
+        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        } else if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLength(), POSITION_EPS, friendlyPosition)) {
@@ -529,7 +538,12 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-        if (lane == NULL) {
+        // check that all parameters are valid
+        if(GNEAttributeCarrier::isValidID(id) == false) {
+            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
+        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        } else if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLength(), POSITION_EPS, friendlyPosition)) {
@@ -560,7 +574,12 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-        if (lane == NULL) {
+        // check that all parameters are valid
+        if(GNEAttributeCarrier::isValidID(id) == false) {
+            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
+        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        } else if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLength(), POSITION_EPS, friendlyPosition)) {
@@ -590,7 +609,12 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-        if (lane == NULL) {
+        // check that all parameters are valid
+        if(GNEAttributeCarrier::isValidID(id) == false) {
+            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
+        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        } else if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if (buildCalibrator(myViewNet, id, lane, position, outfile, freq, calibratorRoutes, calibratorFlows, calibratorVehicleTypes)) {
@@ -614,7 +638,12 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-        if (lane == NULL) {
+        // check that all parameters are valid
+        if(GNEAttributeCarrier::isValidID(id) == false) {
+            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
+        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        } else if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if ((position < 0) || (position > (lane->getLaneShapeLength()))) {
@@ -644,7 +673,12 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-        if (lane == NULL) {
+        // check that all parameters are valid
+        if(GNEAttributeCarrier::isValidID(id) == false) {
+            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
+        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        } else if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if ((position < 0) || ((position + length) > (lane->getLaneShapeLength()))) {
@@ -669,13 +703,19 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
     double posy = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_Y, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // Create without possibility of undo/redo
-        if (myViewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, id) == NULL) {
-            myE3Parent = new GNEDetectorE3(id, myViewNet, Position(posx, posy), frequency, file, haltingTimeThreshold, haltingSpeedThreshold);
-            myLastTag = myE3Parent->getTag();
-        } else {
-            WRITE_WARNING("Could not build " + toString(SUMO_TAG_E3DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
+        // check that all parameters are valid
+        if(GNEAttributeCarrier::isValidID(id) == false) {
+            WRITE_WARNING("The id '" + id + "' of additional " + toString(tag) + " contains invalid characters.");
             myE3Parent = NULL;
+            myLastTag = SUMO_TAG_NOTHING;
+        } else if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+            myE3Parent = NULL;
+            myLastTag = SUMO_TAG_NOTHING;
+        } else if (myViewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, id) == NULL) {
+            // Create without possibility of undo/redo
+            myE3Parent = new GNEDetectorE3(id, myViewNet, Position(posx, posy), frequency, file, haltingTimeThreshold, haltingSpeedThreshold);
+            myLastTag = tag;
         }
     }
 }
@@ -691,12 +731,14 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
+        // check that all parameters are valid
         if (lane == NULL) {
-            // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
+        } else if (myE3Parent == NULL) {
+            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_E3DETECTOR) + ".");
         } else if ((position < 0) || (position > (lane->getLaneShapeLength()))) {
             WRITE_WARNING("Invalid position for " + toString(tag) + ".");
-        } else if (myE3Parent != NULL && buildDetectorEntry(myViewNet, myE3Parent, lane, position)) {
+        } else if (buildDetectorEntry(myViewNet, myE3Parent, lane, position)) {
             myLastTag = tag;
         }
     }
@@ -713,12 +755,14 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false);
-        if (lane == NULL) {
-            // Write error if lane isn't valid
+        // check that all parameters are valid
+         if (lane == NULL) {
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
+        } else if (myE3Parent == NULL) {
+            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_E3DETECTOR) + ".");
         } else if ((position < 0) || (position > (lane->getLaneShapeLength()))) {
             WRITE_WARNING("Invalid position for " + toString(tag) + ".");
-        } else if (myE3Parent != NULL && buildDetectorExit(myViewNet, myE3Parent, lane, position)) {
+        } else if (buildDetectorExit(myViewNet, myE3Parent, lane, position)) {
             myLastTag = tag;
         }
     }
@@ -959,8 +1003,7 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, const std::string& id, G
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_BUS_STOP) + " with ID '" + id + "' in netedit; probably declared twice.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_BUS_STOP) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
@@ -974,8 +1017,7 @@ GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, const std::string&
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CONTAINER_STOP) + " with ID '" + id + "' in netedit; probably declared twice.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_CONTAINER_STOP) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
@@ -989,8 +1031,7 @@ GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, const std::strin
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CHARGING_STATION) + " with ID '" + id + "' in netedit; probably declared twice.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_CHARGING_STATION) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
@@ -1004,8 +1045,7 @@ GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E1DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_E1DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
@@ -1020,8 +1060,7 @@ GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
@@ -1035,8 +1074,7 @@ GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_E3DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_E3DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
@@ -1045,11 +1083,9 @@ bool
 GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* E3Parent, GNELane* lane, double pos) {
     // Check if Detector E3 parent and lane is correct
     if (lane == NULL) {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_LANE) + " doesn't exist.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_LANE) + " doesn't exist.");
     } else if (E3Parent == NULL) {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) + " parent doesn't exist.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) + " parent doesn't exist.");
     } else {
         // insert E3 parent in net if previoulsy wasn't inserted
         if (viewNet->getNet()->getAdditional(E3Parent->getTag(), E3Parent->getID()) == NULL) {
@@ -1071,11 +1107,9 @@ bool
 GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* E3Parent, GNELane* lane, double pos) {
     // Check if Detector E3 parent and lane is correct
     if (lane == NULL) {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_LANE) + " doesn't exist.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_LANE) + " doesn't exist.");
     } else if (E3Parent == NULL) {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) + " parent doesn't exist.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) + " parent doesn't exist.");
     } else {
         // insert E3 parent in net if previoulsy wasn't inserted
         if (viewNet->getNet()->getAdditional(E3Parent->getTag(), E3Parent->getID()) == NULL) {
@@ -1104,8 +1138,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_CALIBRATOR) + " with ID '" + id + "' in netedit; probably declared twice.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_CALIBRATOR) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
@@ -1119,8 +1152,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, const std::string& id, 
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_REROUTER) + " with ID '" + id + "' in netedit; probably declared twice.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_REROUTER) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
@@ -1134,8 +1166,7 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, const std::string& id
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_ROUTEPROBE) + " with ID '" + id + "' in netedit; probably declared twice.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_ROUTEPROBE) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
@@ -1149,8 +1180,7 @@ GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, const std::str
         viewNet->getUndoList()->p_end();
         return true;
     } else {
-        WRITE_WARNING("Could not build " + toString(SUMO_TAG_VSS) + " with ID '" + id + "' in netedit; probably declared twice.");
-        return false;
+        throw ProcessError("Could not build " + toString(SUMO_TAG_VSS) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
