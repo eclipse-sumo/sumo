@@ -827,11 +827,29 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case GNE_ATTR_SHAPE_START: {
             bool ok;
-            return (value == "") || (GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1);
+            if(value != "") {
+                PositionVector shapeStart = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false);
+                if((shapeStart.size() == 1) && (shapeStart[0] != myNBEdge.getGeometry()[-1])) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
         }
         case GNE_ATTR_SHAPE_END: {
             bool ok;
-            return (value == "") || (GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1);
+            if(value != "") {
+                PositionVector shapeStart = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false);
+                if((shapeStart.size() == 1) && (shapeStart[0] != myNBEdge.getGeometry()[0])) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
         }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
