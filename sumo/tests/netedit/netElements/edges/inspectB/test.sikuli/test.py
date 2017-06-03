@@ -3,7 +3,7 @@
 @file    test.py
 @author  Pablo Alvarez Lopez
 @date    2016-11-25
-@version $Id$
+@version $Id: test.py 24527 2017-05-31 12:10:54Z palcraft $
 
 python script used by sikulix for testing netedit
 
@@ -29,118 +29,14 @@ import neteditTestFunctions as netedit
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
-# go to additional mode
-netedit.additionalMode()
+# recompute
+netedit.rebuildNetwork()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect edge
 netedit.leftClick(match, 250, 170)
-
-# Change parameter 0 with a non valid value (empty ID)
-netedit.modifyAttribute(0, "")
-
-# Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(0, "gneE3")
-
-# Change parameter 0 with a valid value
-netedit.modifyAttribute(0, "correct_ID")
-
-# Change parameter 1 with a non valid value (dummy Junction)
-netedit.modifyAttribute(1, "dummy_Junction")
-
-# Change parameter 1 with a non valid value (empty Junction)
-netedit.modifyAttribute(1, "")
-
-# Change parameter 1 with a non valid value (same from Junction)
-netedit.modifyAttribute(1, "gneJ2")
-
-# Change parameter 1 with a value
-netedit.modifyAttribute(1, "gneJ0")
-
-# recompute
-netedit.rebuildNetwork()
-
-# Change parameter 2 with a non valid value (dummy Junction)
-netedit.modifyAttribute(2, "dummy_Junction")
-
-# Change parameter 2 with a non valid value (empty Junction)
-netedit.modifyAttribute(2, "")
-
-# Change parameter 2 with a non valid value (same to Junction)
-netedit.modifyAttribute(2, "gneJ3")
-
-# Change parameter 2 with a non valid value (two edges pararell)
-netedit.modifyAttribute(2, "gneJ1")
-
-# Restore parameter 1
-netedit.modifyAttribute(1, "gneJ2")
-
-# recompute
-netedit.rebuildNetwork()
-
-# Change parameter 2 with a valid value
-netedit.modifyAttribute(2, "gneJ1")
-
-# recompute
-netedit.rebuildNetwork()
-
-# Change parameter 2 with a non valid value (two edges pararell)
-netedit.modifyAttribute(2, "gneJ0")
-
-# Restore parameter 2
-netedit.modifyAttribute(2, "gneJ3")
-
-# recompute
-netedit.rebuildNetwork()
-
-# Change parameter 3 with a non valid value (empty speed)
-netedit.modifyAttribute(3, "")
-
-# Change parameter 3 with a non valid value (dummy speed)
-netedit.modifyAttribute(3, "dummySpeed")
-
-# Change parameter 3 with a non valid value (negative speed)
-netedit.modifyAttribute(3, "-13")
-
-# Change parameter 3 with a valid value
-netedit.modifyAttribute(3, "120.5")
-
-# Change parameter 4 with a non valid value (empty priority)
-netedit.modifyAttribute(4, "")
-
-# Change parameter 4 with a non valid value (dummy priority)
-netedit.modifyAttribute(4, "dummyPriority")
-
-# Change parameter 4 with a non valid value (negative priority)
-netedit.modifyAttribute(4, "-6")
-
-# Change parameter 4 with a non valid value (float)
-netedit.modifyAttribute(4, "6.4")
-
-# Change parameter 4 with a valid value
-netedit.modifyAttribute(4, "4")
-
-# Change parameter 5 with a non valid value (empty lanes)
-netedit.modifyAttribute(5, "")
-
-# Change parameter 5 with a non valid value (dummy lanes)
-netedit.modifyAttribute(5, "dummyLanes")
-
-# Change parameter 5 with a non valid value (negative lanes)
-netedit.modifyAttribute(5, "-6")
-
-# Change parameter 5 with a non valid value (float)
-netedit.modifyAttribute(5, "-3.5")
-
-# Change parameter 5 with a valid value
-netedit.modifyAttribute(5, "4")
-
-# recompute
-netedit.rebuildNetwork()
-
-# Value type will not be checked
 
 # Change parameter 8 with an non valid value (dummy)
 netedit.modifyAttribute(8, "DummyAllowed")
@@ -262,7 +158,8 @@ netedit.modifyAttribute(19, "dummyShapeEnd")
 # Change parameter 19 with a non valid value (incomplete)
 netedit.modifyAttribute(19, "24")
 
-# CHECK #3157
+# Change parameter 19 with a duplicated value (See #3157)
+netedit.modifyAttribute(19, "14,15.5")
 
 # Change parameter 19 with a valid value (empty)
 netedit.modifyAttribute(19, "")
@@ -273,13 +170,14 @@ netedit.modifyAttribute(19, "34,15.5")
 # recompute
 netedit.rebuildNetwork()
 
-# Check undos and redos
-netedit.undo(match, 30)
+# Check undos
+netedit.undo(match, 17)
 
 # recompute
 netedit.rebuildNetwork()
 
-netedit.redo(match, 30)
+#check redos
+netedit.redo(match, 17)
 
 # save additionals
 netedit.saveAdditionals()
