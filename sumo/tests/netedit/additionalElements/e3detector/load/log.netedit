@@ -1,7 +1,8 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e3Detector 'e3Detector_00' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_00detEntry0' in GNEChange_Additional
-Warning: Could not build e3Detector with ID 'e3Detector_00' in netedit; probably declared twice.
+Warning: The id 'id with spaces' of additional e3Detector contains invalid characters.
+Warning: There is another e3Detector with the same ID='e3Detector_00'.
 Warning: Essential string attribute 'id' of e3Detector is missing; Additional cannot be created
 Warning: Format of optional time attribute 'freq' of e3Detector with ID 'e3Detector_02' is invalid; Cannot be parsed to time; Default value '100.00' will be used.
 Warning: Adding e3Detector 'e3Detector_02' in GNEChange_Additional

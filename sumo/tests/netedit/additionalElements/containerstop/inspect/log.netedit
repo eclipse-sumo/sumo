@@ -2,50 +2,51 @@ Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Addi
 Warning: Adding containerStop 'containerStop_gneE2_1_0' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_gneE2_1_1' in GNEChange_Additional
 Warning: Value 'containerStop_gneE2_1_1' for attribute id of containerStop isn't valid
-Warning: Setting new attribute id 'correct ID' into containerStop 'containerStop_gneE2_1_0'
+Warning: Value 'Id with spaces' for attribute id of containerStop isn't valid
+Warning: Setting new attribute id 'correctID' into containerStop 'containerStop_gneE2_1_0'
 Warning: Value 'dummy lane' for attribute lane of containerStop isn't valid
-Warning: Setting new attribute lane 'gneE0_0' into containerStop 'correct ID'
-Warning: Setting new attribute lane 'gneE2_1' into containerStop 'correct ID'
-Warning: Setting new attribute lane 'gneE2_0' into containerStop 'correct ID'
+Warning: Setting new attribute lane 'gneE0_0' into containerStop 'correctID'
+Warning: Setting new attribute lane 'gneE2_1' into containerStop 'correctID'
+Warning: Setting new attribute lane 'gneE2_0' into containerStop 'correctID'
 Warning: Value '-5' for attribute startPos of containerStop isn't valid
 Warning: Value '400' for attribute startPos of containerStop isn't valid
-Warning: Setting new attribute startPos '20' into containerStop 'correct ID'
+Warning: Setting new attribute startPos '20' into containerStop 'correctID'
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'No'
 Warning: Value '3000' for attribute endPos of containerStop isn't valid
 Warning: Opening FXMessageBox of type 'question'
 Warning: Closed FXMessageBox of type 'question' with 'Yes'
-Warning: Setting new attribute endPos '3000' into containerStop 'correct ID'
+Warning: Setting new attribute endPos '3000' into containerStop 'correctID'
 Warning: Value '10' for attribute endPos of containerStop isn't valid
-Warning: Setting new attribute endPos '30' into containerStop 'correct ID'
-Warning: Setting new attribute name 'chargingStation' into containerStop 'correct ID'
-Warning: Setting new attribute friendlyPos 'true' into containerStop 'correct ID'
+Warning: Setting new attribute endPos '30' into containerStop 'correctID'
+Warning: Setting new attribute name 'chargingStation' into containerStop 'correctID'
+Warning: Setting new attribute friendlyPos 'true' into containerStop 'correctID'
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
-Warning: Setting new attribute lines 'line1, line2' into containerStop 'correct ID'
-Warning: Setting new attribute lines 'line1 line2' into containerStop 'correct ID'
+Warning: Setting new attribute lines 'line1, line2' into containerStop 'correctID'
+Warning: Setting new attribute lines 'line1 line2' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute lines 'line1  line2' into containerStop 'correct ID'
+Warning: Setting previous attribute lines 'line1  line2' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute lines '' into containerStop 'correct ID'
+Warning: Setting previous attribute lines '' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute friendlyPos '0' into containerStop 'correct ID'
+Warning: Setting previous attribute friendlyPos '0' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute name '' into containerStop 'correct ID'
+Warning: Setting previous attribute name '' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '50.00' into containerStop 'correct ID'
+Warning: Setting previous attribute endPos '50.00' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '22.40' into containerStop 'correct ID'
+Warning: Setting previous attribute endPos '22.40' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute startPos '12.40' into containerStop 'correct ID'
+Warning: Setting previous attribute startPos '12.40' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute lane 'gneE2_1' into containerStop 'correct ID'
+Warning: Setting previous attribute lane 'gneE2_1' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute lane 'gneE0_0' into containerStop 'correct ID'
+Warning: Setting previous attribute lane 'gneE0_0' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute lane 'gneE2_1' into containerStop 'correct ID'
+Warning: Setting previous attribute lane 'gneE2_1' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute id 'containerStop_gneE2_1_0' into containerStop 'correct ID'
+Warning: Setting previous attribute id 'containerStop_gneE2_1_0' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing containerStop 'containerStop_gneE2_1_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -56,34 +57,34 @@ Warning: Adding containerStop 'containerStop_gneE2_1_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding containerStop 'containerStop_gneE2_1_1' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute id 'correct ID' into containerStop 'containerStop_gneE2_1_0'
+Warning: Setting new attribute id 'correctID' into containerStop 'containerStop_gneE2_1_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute lane 'gneE0_0' into containerStop 'correct ID'
+Warning: Setting new attribute lane 'gneE0_0' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute lane 'gneE2_1' into containerStop 'correct ID'
+Warning: Setting new attribute lane 'gneE2_1' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute lane 'gneE2_0' into containerStop 'correct ID'
+Warning: Setting new attribute lane 'gneE2_0' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute startPos '20' into containerStop 'correct ID'
+Warning: Setting new attribute startPos '20' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute endPos '3000' into containerStop 'correct ID'
+Warning: Setting new attribute endPos '3000' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute endPos '30' into containerStop 'correct ID'
+Warning: Setting new attribute endPos '30' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute name 'chargingStation' into containerStop 'correct ID'
+Warning: Setting new attribute name 'chargingStation' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute friendlyPos 'true' into containerStop 'correct ID'
+Warning: Setting new attribute friendlyPos 'true' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute lines 'line1, line2' into containerStop 'correct ID'
+Warning: Setting new attribute lines 'line1, line2' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute lines 'line1 line2' into containerStop 'correct ID'
+Warning: Setting new attribute lines 'line1 line2' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
 Warning: Created connection 'gneE2_1 -> gneE3_1' in retrieveGNEConnection()
 Warning: Created connection 'gneE3_1 -> gneE2_1' in retrieveGNEConnection()
 Warning: Deleting unreferenced containerStop 'containerStop_gneE2_1_1'
-Warning: Deleting unreferenced containerStop 'correct ID'
+Warning: Deleting unreferenced containerStop 'correctID'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor

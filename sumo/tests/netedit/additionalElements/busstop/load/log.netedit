@@ -2,7 +2,8 @@ Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Addi
 Warning: Adding busStop 'busStop_00' in GNEChange_Additional
 Warning: Essential string attribute 'id' of busStop is missing; Additional cannot be created
 Warning: Essential string attribute 'id' of busStop is missing; Additional cannot be created
-Warning: Could not build busStop with ID 'busStop_00' in netedit; probably declared twice.
+Warning: The id 'ID with spaces' of additional busStop contains invalid characters.
+Warning: There is another busStop with the same ID='busStop_00'.
 Warning: Essential string attribute 'lane' of busStop with ID 'busStop_01' is missing; Additional cannot be created
 Warning: The lane 'dummyLane' to use within the busStop 'busStop_02' is not known.
 Warning: Essential float attribute 'startPos' of busStop with ID 'busStop_03' is missing; Additional cannot be created

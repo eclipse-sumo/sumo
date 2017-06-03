@@ -8,6 +8,9 @@
     <!-- missing ID -->
     <containerStop lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="container" friendlyPos="false"/>
     
+	<!-- invalid ID -->
+    <containerStop id="id with spaces" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="container" friendlyPos="false"/>
+    
     <!-- Duplicated ID -->
     <containerStop id="containerStop_00" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="container" friendlyPos="false"/>
     

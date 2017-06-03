@@ -1,8 +1,9 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding calibrator 'calibrator01' in GNEChange_Additional
 Warning: Essential string attribute 'id' of calibrator is missing; Additional cannot be created
+Warning: The id 'ID with spaces' of additional calibrator contains invalid characters.
 Warning: Format of essential string attribute 'id' of calibrator is invalid; Additional cannot be created
-Warning: Could not build calibrator with ID 'calibrator01' in netedit; probably declared twice.
+Warning: There is another calibrator with the same ID='calibrator01'.
 Warning: Adding calibrator 'calibrator02' in GNEChange_Additional
 Warning: Essential string attribute 'lane' of calibrator with ID 'calibrator03' is missing; Additional cannot be created
 Warning: Adding calibrator 'calibrator04' in GNEChange_Additional

@@ -5,7 +5,10 @@
     <!-- empty definition -->
     <e1Detector/>
     
-    <!-- duplicated ID) -->
+	<!-- non valid ID -->
+    <e1Detector id="ID with spaces" lane="gneE0_0" pos="6" freq="100.00" file="e1Detector_01A.txt" splitByType="0"/>
+	
+    <!-- duplicated ID -->
     <e1Detector id="E1_01" lane="gneE0_0" pos="6" freq="100.00" file="e1Detector_01A.txt" splitByType="0"/>
 
     <!-- non valid Lane (missing) -->

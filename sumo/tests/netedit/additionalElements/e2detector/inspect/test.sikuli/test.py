@@ -50,8 +50,11 @@ netedit.leftClick(match, 260, 150)
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "e2Detector_gneE2_1_1")
 
+# Change parameter 0 with a non valid value (Invalid ID)
+netedit.modifyAttribute(0, "Id with spaces")
+
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(0, "correct ID")
+netedit.modifyAttribute(0, "correctID")
 
 # Change parameter 1 with a non valid value (dummy lane)
 netedit.modifyAttribute(1, "dummy lane")

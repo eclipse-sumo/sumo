@@ -1,8 +1,9 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
 Warning: Essential string attribute 'id' of routeProbe is missing; Additional cannot be created
+Warning: The id 'id with spaces' of additional routeProbe contains invalid characters.
 Warning: Format of essential string attribute 'id' of routeProbe is invalid; Additional cannot be created
-Warning: Format of essential string attribute 'id' of routeProbe is invalid; Additional cannot be created
+Warning: There is another routeProbe with the same ID='routeProbe_01'.
 Warning: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_03' in GNEChange_Additional
 Warning: The edge 'dummyEdge' to use within the routeProbe 'routeProbe_04' is not known.

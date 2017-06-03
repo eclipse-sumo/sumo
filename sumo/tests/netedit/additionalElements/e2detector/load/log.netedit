@@ -1,7 +1,8 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e2Detector 'E2_01' in GNEChange_Additional
 Warning: Essential string attribute 'id' of e2Detector is missing; Additional cannot be created
-Warning: Could not build e2Detector with ID 'E2_01' in netedit; probably declared twice.
+Warning: The id 'id with spaces' of additional e2Detector contains invalid characters.
+Warning: There is another e2Detector with the same ID='E2_01'.
 Warning: The lane 'dummyLane' to use within the e2Detector 'E2_02' is not known.
 Warning: Essential string attribute 'lane' of e2Detector with ID 'E2_03' is missing; Additional cannot be created
 Warning: Essential string attribute 'pos' of e2Detector with ID 'E2_04' is missing; Additional cannot be created

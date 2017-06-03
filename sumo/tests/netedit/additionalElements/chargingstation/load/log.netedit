@@ -2,7 +2,8 @@ Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Addi
 Warning: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
 Warning: Essential string attribute 'id' of chargingStation is missing; Additional cannot be created
 Warning: Essential string attribute 'id' of chargingStation is missing; Additional cannot be created
-Warning: Could not build chargingStation with ID 'chargingStation_0' in netedit; probably declared twice.
+Warning: The id 'id with spaces' of additional chargingStation contains invalid characters.
+Warning: There is another chargingStation with the same ID='chargingStation_0'.
 Warning: Essential string attribute 'lane' of chargingStation with ID 'chargingStation_1' is missing; Additional cannot be created
 Warning: The lane 'dummyLane' to use within the chargingStation 'chargingStation_2' is not known.
 Warning: Essential float attribute 'startPos' of chargingStation with ID 'chargingStation_3' is missing; Additional cannot be created
@@ -36,11 +37,12 @@ Warning: Format of optional time attribute 'chargeDelay' of chargingStation with
 Warning: Adding chargingStation 'chargingStation_21' in GNEChange_Additional
 Warning: Format of optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_22' is invalid; Time cannot be negative; Default value '0.00' will be used.
 Warning: Adding chargingStation 'chargingStation_22' in GNEChange_Additional
-Warning: Could not build chargingStation with ID 'chargingStation_22' in netedit; probably declared twice.
 Warning: Adding chargingStation 'chargingStation_23' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_24' in GNEChange_Additional
+Warning: Adding chargingStation 'chargingStation_25' in GNEChange_Additional
 Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
+Warning: Deleting unreferenced chargingStation 'chargingStation_25'
 Warning: Deleting unreferenced chargingStation 'chargingStation_24'
 Warning: Deleting unreferenced chargingStation 'chargingStation_23'
 Warning: Deleting unreferenced chargingStation 'chargingStation_22'

@@ -5,6 +5,9 @@
 	<!-- non valid ID (Missing) -->
     <calibrator lane="gneE0_0" pos="0.00" freq="100.00" output="calibrator02a.txt"/>
 	
+	<!-- non valid ID (invalid) -->
+    <calibrator id="ID with spaces" lane="gneE0_0" pos="0.00" freq="100.00" output="calibrator02b.txt"/>
+	
 	<!-- non valid ID (empty) -->
     <calibrator id="" lane="gneE0_0" pos="0.00" freq="100.00" output="calibrator02b.txt"/>
 	

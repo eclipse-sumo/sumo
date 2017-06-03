@@ -6,11 +6,14 @@
 	<!-- missing ID -->
     <routeProbe edge="gneE1" freq="100.00" file="routeProbe_01a.txt" begin="0.00"/>
 	
+	<!-- non valid ID -->
+    <routeProbe id="id with spaces" edge="gneE1" freq="100.00" file="routeProbe_01b.txt" begin="0.00"/>
+	
 	<!-- non valid ID (empty) -->
     <routeProbe id="" edge="gneE1" freq="100.00" file="routeProbe_01b.txt" begin="0.00"/>
 	
 	<!-- non valid ID (duplicated) -->
-    <routeProbe id="" edge="routeProbe_01" freq="100.00" file="routeProbe_01c.txt" begin="0.00"/>
+    <routeProbe id="routeProbe_01" edge="gneE1" freq="100.00" file="routeProbe_01c.txt" begin="0.00"/>
 	
 	<!-- valid ID-->
     <routeProbe id="routeProbe_02" edge="gneE1" freq="100.00" file="routeProbe_02.txt" begin="0.00"/>

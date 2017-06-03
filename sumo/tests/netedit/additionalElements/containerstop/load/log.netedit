@@ -2,7 +2,8 @@ Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Addi
 Warning: Adding containerStop 'containerStop_00' in GNEChange_Additional
 Warning: Essential string attribute 'id' of containerStop is missing; Additional cannot be created
 Warning: Essential string attribute 'id' of containerStop is missing; Additional cannot be created
-Warning: Could not build containerStop with ID 'containerStop_00' in netedit; probably declared twice.
+Warning: The id 'id with spaces' of additional containerStop contains invalid characters.
+Warning: There is another containerStop with the same ID='containerStop_00'.
 Warning: Essential string attribute 'lane' of containerStop with ID 'containerStop_01' is missing; Additional cannot be created
 Warning: The lane 'dummyLane' to use within the containerStop 'containerStop_02' is not known.
 Warning: Essential float attribute 'startPos' of containerStop with ID 'containerStop_03' is missing; Additional cannot be created

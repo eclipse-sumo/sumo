@@ -4,7 +4,12 @@
 		<detEntry lane="gneE1_0" pos="10"/>
 	</e3Detector>
 
-	<!-- non valid ID(Duplicated) -->
+	<!-- non valid ID -->
+	<e3Detector id="id with spaces" freq="100.00" file="e3Detector_00a.txt" timeThreshold="1.00" speedThreshold="1.39" x="2" y="10">
+		<detEntry lane="gneE1_0" pos="12"/>
+    </e3Detector>
+	
+	<!-- non valid ID (Duplicated) -->
 	<e3Detector id="e3Detector_00" freq="100.00" file="e3Detector_00a.txt" timeThreshold="1.00" speedThreshold="1.39" x="2" y="10">
 		<detEntry lane="gneE1_0" pos="12"/>
     </e3Detector>
