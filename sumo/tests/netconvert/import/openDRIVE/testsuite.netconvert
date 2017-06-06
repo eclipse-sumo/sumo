@@ -18,7 +18,7 @@ C8C_roundtrip_nointernal
 # a round-trip test with no widths import
 Crossing8Course_no_widths
 
-# example networks from VIRES; 
+# example networks from VIRES;
 CulDeSac
 
 # own examples (roundtrip)
@@ -61,3 +61,6 @@ sumo_to_xodr
 
 # as above but smoothed
 sumo_to_xodr_scurve_stretch
+
+# roadMark with type information
+roadMark
