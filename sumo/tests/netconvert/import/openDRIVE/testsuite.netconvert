@@ -64,3 +64,6 @@ sumo_to_xodr_scurve_stretch
 
 # roadMark with type information
 roadMark
+
+# import paramPoly3 with specified pRange attribute
+pRange
