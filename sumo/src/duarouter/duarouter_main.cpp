@@ -141,7 +141,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 } else if (oc.isSet("astar.landmark-distances")) {
                     lookup = new AStar::LandmarkLookupTable(oc.getString("astar.landmark-distances"), (int)ROEdge::getAllEdges().size());
                 }
-                router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic);
+                router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, lookup);
             }
         } else if (routingAlgorithm == "CH") {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
