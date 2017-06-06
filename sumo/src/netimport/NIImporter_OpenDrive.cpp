@@ -307,6 +307,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // build start/end nodes which were not defined previously
     for (std::map<std::string, OpenDriveEdge*>::iterator i = outerEdges.begin(); i != outerEdges.end(); ++i) {
         OpenDriveEdge* e = (*i).second;
+        if ((e->from == 0 || e->to == 0) && e->geom.size() == 0) {
+            continue;
+        }
         if (e->from == 0) {
             const std::string nid = e->id + ".begin";
             e->from = getOrBuildNode(nid, e->geom.front(), nb.getNodeCont());
@@ -325,6 +328,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // build edges
     for (std::map<std::string, OpenDriveEdge*>::iterator i = outerEdges.begin(); i != outerEdges.end(); ++i) {
         OpenDriveEdge* e = (*i).second;
+        if (e->geom.size() == 0) {
+            WRITE_WARNING("Ignoring road '" + e->id + "' without geometry.");
+            continue;
+        }
         bool lanesBuilt = false;
 
         // go along the lane sections, build a node in between of each pair
