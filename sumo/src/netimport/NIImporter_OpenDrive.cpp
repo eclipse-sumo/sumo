@@ -1093,7 +1093,7 @@ NIImporter_OpenDrive::geomFromParamPoly(const OpenDriveEdge& e, const OpenDriveG
     UNUSED_PARAMETER(e);
     const double s = sin(g.hdg);
     const double c = cos(g.hdg);
-    const double pMax = g.params[8];
+    const double pMax = g.params[8] <= 0 ? g.length : g.params[8];
     const double pStep = pMax / ceil(g.length / resolution);
     PositionVector ret;
     for (double p = 0; p <= pMax + pStep; p += pStep) {
@@ -1487,7 +1487,15 @@ NIImporter_OpenDrive::myStartElement(int element,
             vals.push_back(attrs.get<double>(OPENDRIVE_ATTR_BV, myCurrentEdge.id.c_str(), ok));
             vals.push_back(attrs.get<double>(OPENDRIVE_ATTR_CV, myCurrentEdge.id.c_str(), ok));
             vals.push_back(attrs.get<double>(OPENDRIVE_ATTR_DV, myCurrentEdge.id.c_str(), ok));
-            vals.push_back(attrs.getOpt<double>(OPENDRIVE_ATTR_PRANGE, myCurrentEdge.id.c_str(), ok, 1.0, false));
+            const std::string pRange = attrs.getOpt<std::string>(OPENDRIVE_ATTR_PRANGE, myCurrentEdge.id.c_str(), ok, "normalized", false);
+            if (pRange == "normalized") {
+                vals.push_back(1.0);
+            } else if (pRange == "arcLength") {
+                vals.push_back(-1.0);
+            } else {
+                WRITE_WARNING("Ignoring invalid pRange value '" + pRange + "' for road '" + myCurrentEdge.id + "'.");
+                vals.push_back(1.0);
+            }
             addGeometryShape(OPENDRIVE_GT_PARAMPOLY3, vals);
         }
         break;
