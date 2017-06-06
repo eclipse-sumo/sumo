@@ -1810,7 +1810,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
 
         // check if a existent lane has to be created
         for(GNEEdges::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-            if(i->second->getLanes().size() != i->second->getNBEdge()->getNumLanes()) {
+            if((int)i->second->getLanes().size() != i->second->getNBEdge()->getNumLanes()) {
                 i->second->remakeGNELanes();
             }
         }
