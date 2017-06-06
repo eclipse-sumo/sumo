@@ -712,8 +712,6 @@ private:
     double myVehicleSamples;
     /// @brief The total amount of all time losses [time x vehicle] since the last reset
     double myTotalTimeLoss;
-    /// @brief The number of vehicles, which have entered the detector since the last reset
-    int myNumberOfEnteredVehicles;
     /// @brief The sum of collected vehicle speeds [m/s]
     double mySpeedSum;
     /// @brief The number of started halts [#]
@@ -743,6 +741,8 @@ private:
 
     /// @name Values generated describing the current state
     /// @{
+    /// @brief The number of vehicles, which have entered the detector since the last reset
+    int myNumberOfEnteredVehicles;
     /// @brief The number of vehicles, present on the detector at the last reset
     int myNumberOfSeenVehicles;
     /// @brief The number of vehicles, which have left the detector since the last reset

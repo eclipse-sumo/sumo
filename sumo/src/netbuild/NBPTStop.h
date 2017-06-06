@@ -81,12 +81,12 @@ private:
     const std::string myOrigEdgeId;
     const double myPTStopLength;
     const std::string myName;
+    bool myFriendlyPos;
     std::string myLaneId;
     const SVCPermissions myPermissions;
 
     double myFrom;
     double myTo;
-    bool myFriendlyPos;
 
 
 private:

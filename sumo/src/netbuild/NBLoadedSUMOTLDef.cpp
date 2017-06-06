@@ -53,9 +53,9 @@
 NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& programID,
                                      SUMOTime offset, TrafficLightType type) :
     NBTrafficLightDefinition(id, programID, offset, type),
+    myTLLogic(0),
     myReconstructAddedConnections(false),
-    myReconstructRemovedConnections(false),
-    myTLLogic(0) 
+    myReconstructRemovedConnections(false)
 {
     myTLLogic = new NBTrafficLightLogic(id, programID, 0, offset, type);
 }

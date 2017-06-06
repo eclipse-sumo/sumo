@@ -67,8 +67,8 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
     myPriority(priority),
     mySpeed(-1),
     myLength(0),
-    myAmSource(false),
     myAmSink(false),
+    myAmSource(false),
     myUsingTTTimeLine(false),
     myUsingETimeLine(false),
     myCombinedPermissions(0) {
