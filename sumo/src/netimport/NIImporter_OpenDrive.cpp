@@ -1449,8 +1449,10 @@ NIImporter_OpenDrive::myStartElement(int element,
         }
         break;
         case OPENDRIVE_TAG_LINE: {
-            std::vector<double> vals;
-            addGeometryShape(OPENDRIVE_GT_LINE, vals);
+            if (myElementStack.size() > 0 && myElementStack.back() == OPENDRIVE_TAG_GEOMETRY) {
+                std::vector<double> vals;
+                addGeometryShape(OPENDRIVE_GT_LINE, vals);
+            }
         }
         break;
         case OPENDRIVE_TAG_SPIRAL: {
