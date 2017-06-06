@@ -658,7 +658,7 @@ TraCI_Vehicle::resume(const std::string& vehicleID) {
 
 void
 TraCI_Vehicle::changeLane(const std::string& vehID, int laneIndex, SUMOTime duration) {
-    MSVehicle* veh = getVehicle(vehID);
+    getVehicle(vehID);
 }
 
 
