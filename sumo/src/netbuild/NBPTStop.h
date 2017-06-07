@@ -85,8 +85,8 @@ private:
     std::string myLaneId;
     const SVCPermissions myPermissions;
 
-    double myFrom;
-    double myTo;
+    double myStartPos;
+    double myEndPos;
 
 
 private:
