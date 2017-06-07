@@ -955,6 +955,15 @@ MSLCM_SL2015::_wantsChangeSublane(
     //              : laSpeed *  LOOK_FORWARD_NEAR;
     double laDist = myLookAheadSpeed * (right ? LOOK_FORWARD_RIGHT : LOOK_FORWARD_LEFT) * myStrategicParam;
     laDist += myVehicle.getVehicleType().getLengthWithGap() * (double) 2.;
+    // aggressive drivers may elect to use reduced strategic lookahead to optimize speed
+    /*
+    if (mySpeedGainProbabilityRight > myChangeProbThresholdRight 
+            || mySpeedGainProbabilityLeft > myChangeProbThresholdLeft) {
+        laDist *= MAX2(0.0, (1 - myPushy));
+        laDist *= MAX2(0,0, (1 - myAssertive));
+        laDist *= MAX2(0,0, (2 - mySpeedGainParam));
+    }
+    */
 
     // react to a stopped leader on the current lane
     if (bestLaneOffset == 0 && leaders.hasStoppedVehicle()) {
@@ -2266,7 +2275,17 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                 others.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
                 const double foeCenter = foeRight + 0.5 * res;
                 const double gap = MIN2(fabs(foeRight - oldCenter), fabs(foeLeft - oldCenter)) - halfWidth;
-                const double currentMinGap = baseMinGap * MIN2(1.0, MAX2(myVehicle.getSpeed(), (double)fabs(myVehicle.getSpeed() - foe->getSpeed())) / LATGAP_SPEED_THRESHOLD) * gapFactor;
+                double currentMinGap = baseMinGap * MIN2(1.0, MAX2(myVehicle.getSpeed(), (double)fabs(myVehicle.getSpeed() - foe->getSpeed())) / LATGAP_SPEED_THRESHOLD) * gapFactor;
+                /*
+                if (netOverlap != 0) {
+                    // foe vehicle is follower with its front ahead of the ego midpoint
+                    // scale gap requirements so it gets lower for foe which are further behind ego
+                    //
+                    // relOverlap approaches 0 as the foe gets closer to the midpoint and it equals 1 if the foe is driving head-to-head
+                    const double relOverlap = 1 - (others[i].second + others[i].first->getVehicleType().getMinGap()) / netOverlap;
+                    currentMinGap *= currOverlap * relOverlap;
+                }
+                */ 
                 if (gDebugFlag2) std::cout << "  updateGaps"
                                                << " i=" << i
                                                << " foe=" << foe->getID()
