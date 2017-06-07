@@ -1,0 +1,125 @@
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
+// Copyright (C) 2001-2016 DLR (http://www.dlr.de/) and contributors
+/****************************************************************************/
+//
+//   This file is part of SUMO.
+//   SUMO is free software: you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation, either version 3 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+
+syntax = "proto3";
+
+package hybridsim;
+
+option java_multiple_files = false;
+option java_package = "org.cacrowd.casim.proto";
+option java_outer_classname = "HybridSimProto";
+
+service HybridSimulation {
+    rpc simulatedTimeInerval (LeftClosedRightOpenTimeInterval) returns (Empty) {
+    }
+    rpc transferAgent (Agent) returns (Boolean) {
+    }
+    rpc receiveTrajectories (Empty) returns (Trajectories) {
+    }
+    rpc queryRetrievableAgents (Empty) returns (Agents) {
+    }
+    rpc confirmRetrievedAgents (Agents) returns (Empty) {
+    }
+    rpc shutdown (Empty) returns (Empty) {
+    }
+    rpc initScenario (Scenario) returns (Empty) {
+    }
+    rpc runInfo (RunInfo) returns (Empty) {
+    }
+    rpc reset (Reset) returns (Empty) {
+    }
+
+
+}
+
+
+message RunInfo {
+    string runInfo0 = 1;
+    string runInfo1 = 2;
+    string runInfo2 = 3;
+}
+
+message Reset {
+    int32 iteration = 1;
+}
+
+message Scenario {
+    repeated Edge edges = 1;
+
+}
+
+message Edge {
+    Coordinate c0 = 1;
+    Coordinate c1 = 2;
+    enum Type {
+        OBSTACLE = 0;
+        TRANSITION = 1;
+    }
+    Type type = 3;
+    int32 id = 4;
+}
+
+
+message LeftClosedRightOpenTimeInterval {
+    double fromTimeIncluding = 1;
+    double toTimeExcluding = 2;
+}
+
+message Empty {
+}
+
+message Boolean {
+    bool val = 1;
+}
+
+message Agent {
+    int32 id = 1;
+    Coordinate enterLocation = 2;
+    Coordinate leaveLocation = 3;
+    repeated Destination dests = 4;
+}
+
+message Destination {
+    int32 id = 1;
+}
+
+message Leg {
+    repeated Link link = 15;
+}
+
+message Link {
+    Coordinate centroid = 1;
+    int32 id = 2;
+    int32 frTr = 3;
+    int32 toTr = 4;
+}
+
+message Coordinate {
+    double x = 1;
+    double y = 2;
+}
+
+message Agents {
+    repeated Agent agents = 1;
+}
+
+message Trajectory {
+    int32 id = 1;
+    double x = 2;
+    double y = 3;
+    Destination currentDest = 4;
+}
+
+message Trajectories {
+    repeated Trajectory trajectories = 1;
+}

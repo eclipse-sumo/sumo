@@ -1,6 +1,7 @@
 #Options:
 # -DCMAKE_BUILD_TYPE:STRING=Release (default Debug)
 
+option(BUILD_GRPC "Build grpc interface" OFF)
 
 project(SUMO)
 cmake_minimum_required(VERSION 2.8)
@@ -155,15 +156,16 @@ else ()
     endif ()
 endif ()
 
-#find_package(GRPC)
-#if (GRPC_FOUND)
-#    find_package(Protobuf REQUIRED)
-#
-#    add_definitions(-DBUILD_REMOTE_MODEL)
-#    add_definitions(${GRPC_DEFINITONS})
-#    link_directories(${PC_GRPC_LIBRARY_DIRS})
-#    set(GRPC_LIBS grpc++ grpc protobuf dl)
-#endif ()
+if (BUILD_GRPC)
+    find_package(GRPC)
+    if (GRPC_FOUND)
+        find_package(Protobuf REQUIRED)
+        add_definitions(-DBUILD_GRPC)
+        add_definitions(${GRPC_DEFINITONS})
+        link_directories(${PC_GRPC_LIBRARY_DIRS})
+        set(GRPC_LIBS grpc++ grpc protobuf dl)
+    endif (GRPC_FOUND)
+endif (BUILD_GRPC)
 
 
 set(warning_flags "-Wno-deprecated-register")
