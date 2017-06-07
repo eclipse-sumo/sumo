@@ -814,7 +814,7 @@ std::string
 GNELane::getAttributeForSelection(SumoXMLAttr key) const {
     std::string result = getAttribute(key);
     if ((key == SUMO_ATTR_ALLOW || key == SUMO_ATTR_DISALLOW) && result.find("all") != std::string::npos) {
-        result = getVehicleClassNames(SVCAll, true);
+        result += " " + getVehicleClassNames(SVCAll, true);
     }
     return result;
 }
