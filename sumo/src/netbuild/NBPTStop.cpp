@@ -42,7 +42,6 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myOrigEdgeId(origEdgeId),
     myPTStopLength(length),
     myName(name),
-    myFriendlyPos(false),
     myPermissions(svcPermissions),
     myIsMultipleStopPositions(false)
 {
@@ -71,13 +70,12 @@ NBPTStop::getName() {
 const Position& NBPTStop::getPosition() {
     return myPosition;
 }
+
 void NBPTStop::computExtent(double center, double edgeLength) {
     myStartPos = center - myPTStopLength / 2.;
     myEndPos = center + myPTStopLength / 2.;
-    if (myStartPos < 0 || myEndPos > edgeLength) {
-        myFriendlyPos = true;
-    }
 }
+
 void NBPTStop::setLaneID(const std::string& laneId) {
     myLaneId = laneId;
 }
@@ -90,9 +88,7 @@ void NBPTStop::write(OutputDevice& device) {
     device.writeAttr(SUMO_ATTR_LANE, myLaneId);
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
-    if (myFriendlyPos) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
-    }
+    device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
     device.closeTag();
 
 }
