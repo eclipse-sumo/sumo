@@ -624,10 +624,12 @@ MSLaneChanger::checkChange(
 
     }
 
+    double secureFrontGap, secureBackGap;
     // safe back gap
     if ((blocked & blockedByFollower) == 0 && neighFollow.first != 0) {
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-        if (neighFollow.second < neighFollow.first->getCarFollowModel().getSecureGap(neighFollow.first->getSpeed(), vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxDecel())) {
+        secureBackGap = neighFollow.first->getCarFollowModel().getSecureGap(neighFollow.first->getSpeed(), vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxDecel());
+        if (neighFollow.second < secureBackGap) {
             blocked |= blockedByFollower;
 
             // Debug (Leo)
@@ -649,7 +651,8 @@ MSLaneChanger::checkChange(
     // safe front gap
     if ((blocked & blockedByLeader) == 0 && neighLead.first != 0) {
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-        if (neighLead.second < vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel())) {
+        secureFrontGap = vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(), neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel());
+        if (neighLead.second < secureFrontGap) {
             blocked |= blockedByLeader;
 
             // Debug (Leo)
@@ -785,6 +788,11 @@ MSLaneChanger::checkChange(
     }
 #endif
     vehicle->getLaneChangeModel().saveState(laneOffset, oldstate, state);
+    if (blocked == 0 && (state & LCA_WANTS_LANECHANGE)) {
+        // this lane change will be executed, save gaps
+        vehicle->getLaneChangeModel().setFollowerGaps(neighFollow, secureBackGap);
+        vehicle->getLaneChangeModel().setLeaderGaps(neighLead, secureFrontGap);
+    }
     return state;
 }
 

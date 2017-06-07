@@ -46,7 +46,7 @@
  * ----------------------------------------------------------------------- */
 bool MSAbstractLaneChangeModel::myAllowOvertakingRight(false);
 bool MSAbstractLaneChangeModel::myLCOutput(false);
-const double MSAbstractLaneChangeModel::NO_LATERAL_NEIGHBOR(std::numeric_limits<double>::max());
+const double MSAbstractLaneChangeModel::NO_NEIGHBOR(std::numeric_limits<double>::max());
 
 /* -------------------------------------------------------------------------
  * MSAbstractLaneChangeModel-methods
@@ -179,9 +179,13 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
         of.writeAttr(SUMO_ATTR_DIR, direction);
         of.writeAttr(SUMO_ATTR_SPEED, myVehicle.getSpeed());
         of.writeAttr("reason", toString((LaneChangeAction)(myOwnState & ~(LCA_RIGHT | LCA_LEFT))));
+        of.writeAttr("leaderGap", myLastLeaderGap == NO_NEIGHBOR ? "None" : toString(myLastLeaderGap));
+        of.writeAttr("leaderSecureGap", myLastLeaderSecureGap == NO_NEIGHBOR ? "None" : toString(myLastLeaderSecureGap));
+        of.writeAttr("followerGap", myLastFollowerGap == NO_NEIGHBOR ? "None" : toString(myLastFollowerGap));
+        of.writeAttr("followerSecureGap", myLastFollowerSecureGap == NO_NEIGHBOR ? "None" : toString(myLastFollowerSecureGap));
         if (MSGlobals::gLateralResolution > 0) {
             const double latGap = direction < 0 ? myLastLateralGapRight : myLastLateralGapLeft;
-            of.writeAttr("latGap", latGap == NO_LATERAL_NEIGHBOR ? "None" : toString(latGap));
+            of.writeAttr("latGap", latGap == NO_NEIGHBOR ? "None" : toString(latGap));
         }
         of.closeTag();
     }
@@ -364,4 +368,58 @@ void
 MSAbstractLaneChangeModel::changedToOpposite() {
     myAmOpposite = !myAmOpposite;
     myAlreadyChanged = true;
+}
+
+void 
+MSAbstractLaneChangeModel::setFollowerGaps(CLeaderDist follower, double secGap)  {
+    if (follower.first != 0) {
+        myLastFollowerGap = follower.second + follower.first->getVehicleType().getMinGap();
+        myLastFollowerSecureGap = secGap;
+    }
+}
+
+void 
+MSAbstractLaneChangeModel::setLeaderGaps(CLeaderDist leader, double secGap) {
+    if (leader.first != 0) {
+        myLastLeaderGap = leader.second + myVehicle.getVehicleType().getMinGap();
+        myLastLeaderSecureGap = secGap;
+    }
+}
+
+void 
+MSAbstractLaneChangeModel::setFollowerGaps(const MSLeaderDistanceInfo& vehicles) {
+    int rightmost;
+    int leftmost;
+    vehicles.getSubLanes(&myVehicle, 0, rightmost, leftmost);
+    for (int i = rightmost; i <= leftmost; ++i) {
+        CLeaderDist vehDist = vehicles[i];
+        if (vehDist.first != 0) {
+            const MSVehicle* leader = &myVehicle;
+            const MSVehicle* follower = vehDist.first;
+            const double netGap = vehDist.second + follower->getVehicleType().getMinGap();
+            if (netGap < myLastFollowerGap) {
+                myLastFollowerGap = netGap;
+                myLastFollowerSecureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+            }
+        }
+    }
+}
+
+void 
+MSAbstractLaneChangeModel::setLeaderGaps(const MSLeaderDistanceInfo& vehicles) {
+    int rightmost;
+    int leftmost;
+    vehicles.getSubLanes(&myVehicle, 0, rightmost, leftmost);
+    for (int i = rightmost; i <= leftmost; ++i) {
+        CLeaderDist vehDist = vehicles[i];
+        if (vehDist.first != 0) {
+            const MSVehicle* leader = vehDist.first;
+            const MSVehicle* follower = &myVehicle;
+            const double netGap = vehDist.second + follower->getVehicleType().getMinGap();
+            if (netGap < myLastLeaderGap) {
+                myLastLeaderGap = netGap;
+                myLastLeaderSecureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+            }
+        }
+    }
 }

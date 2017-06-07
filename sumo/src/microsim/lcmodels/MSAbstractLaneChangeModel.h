@@ -140,6 +140,11 @@ public:
      */
     static MSAbstractLaneChangeModel* build(LaneChangeModel lcm, MSVehicle& vehicle);
 
+    /// @brief whether lanechange-output is active
+    static bool haveLCOutput() {
+        return myLCOutput;
+    }
+
     /** @brief Constructor
      * @param[in] v The vehicle this lane-changer belongs to
      * @param[in] model The type of lane change model
@@ -163,10 +168,21 @@ public:
         mySavedStates[dir] = std::make_pair(stateWithoutTraCI, state);
     }
 
+    void setFollowerGaps(CLeaderDist follower, double secGap); 
+    void setLeaderGaps(CLeaderDist, double secGap);
+    void setFollowerGaps(const MSLeaderDistanceInfo& vehicles);
+    void setLeaderGaps(const MSLeaderDistanceInfo& vehicles);
+
     virtual void prepareStep() {
         saveState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
         saveState(0, LCA_UNKNOWN, LCA_UNKNOWN);
         saveState(1, LCA_UNKNOWN, LCA_UNKNOWN);
+        myLastLateralGapRight = NO_NEIGHBOR;
+        myLastLateralGapLeft = NO_NEIGHBOR;
+        myLastLeaderGap = NO_NEIGHBOR;
+        myLastLeaderSecureGap = NO_NEIGHBOR;
+        myLastFollowerGap = NO_NEIGHBOR;
+        myLastFollowerSecureGap = NO_NEIGHBOR;
     }
 
     /** @brief Called to examine whether the vehicle wants to change
@@ -454,6 +470,12 @@ protected:
     double myLastLateralGapLeft;
     double myLastLateralGapRight;
 
+    /// @brief the actual minimum longitudinal distances to vehicles on the target lane
+    double myLastLeaderGap;
+    double myLastFollowerGap;
+    /// @brief the minimum longitudinal distances to vehicles on the target lane that would be necessary for stringent security
+    double myLastLeaderSecureGap;
+    double myLastFollowerSecureGap;
 
     /* @brief to be called by derived classes in their changed() method.
      * If dir=0 is given, the current value remains unchanged */
@@ -465,7 +487,7 @@ protected:
     /// @brief whether to record lane-changing
     static bool myLCOutput;
 
-    static const double NO_LATERAL_NEIGHBOR;
+    static const double NO_NEIGHBOR;
 
 private:
     /* @brief information how long ago the vehicle has performed a lane-change,

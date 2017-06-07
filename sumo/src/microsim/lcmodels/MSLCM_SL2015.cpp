@@ -700,8 +700,6 @@ MSLCM_SL2015::prepareStep() {
     MSAbstractLaneChangeModel::prepareStep();
     // keep information about strategic change direction
     myOwnState = (myOwnState & LCA_STRATEGIC) ? (myOwnState & LCA_WANTS_LANECHANGE) : 0;
-    myLastLateralGapRight = NO_LATERAL_NEIGHBOR;
-    myLastLateralGapLeft = NO_LATERAL_NEIGHBOR;
     if (myCanChangeFully) {
         myOrigLatDist = 0;
     }
@@ -1822,15 +1820,16 @@ MSLCM_SL2015::checkBlockingVehicles(
                     }
                 } else if (overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)) {
                     const double decelFactor = 1 + ego->getImpatience() * myAssertive;
-                    // see MSCFModel::getSecureGap
-                    // for decelFactor == 1 this is equivalent to
-                    // follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel())
                     const double followDecel = MIN2(follower->getCarFollowModel().getMaxDecel(), leader->getCarFollowModel().getMaxDecel()) * decelFactor;
-                    const double secureGap = MAX2(0., MSCFModel::brakeGap(follower->getSpeed(), followDecel, follower->getCarFollowModel().getHeadwayTime())
+                    // for decelFactor == 1 this is equivalent to secureGap
+                    // see MSCFModel::getSecureGap
+                    const double secureGap2 = MAX2(0., MSCFModel::brakeGap(follower->getSpeed(), followDecel, follower->getCarFollowModel().getHeadwayTime())
                                                   - MSCFModel::brakeGap(leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), 0));
-                    if (vehDist.second < secureGap) {
+                    if (vehDist.second < secureGap2) {
                         if (gDebugFlag2) {
-                            std::cout << "    blocked by " << vehDist.first->getID() << " gap=" << vehDist.second << " secGap=" << secureGap << " decelFactor=" << decelFactor << "\n";
+                            const double secureGap = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                            std::cout << "    blocked by " << vehDist.first->getID() << " gap=" << vehDist.second 
+                                << " secGap=" << secureGap << " secGap2=" << secureGap2 << " decelFactor=" << decelFactor << "\n";
                         }
                         result |= blockType;
                         if (collectBlockers == 0) {
@@ -2175,8 +2174,8 @@ MSLCM_SL2015::keepLatGap(int state,
                   << "       lastGaps: right=" << myLastLateralGapRight << " left=" << myLastLateralGapLeft << "\n";
     }
     // we also need to track the physical gap, in addition to the psychological gap
-    double physicalGapLeft = myLastLateralGapLeft == NO_LATERAL_NEIGHBOR ? surplusGapLeft : myLastLateralGapLeft;
-    double physicalGapRight = myLastLateralGapRight == NO_LATERAL_NEIGHBOR ? surplusGapRight : myLastLateralGapRight;
+    double physicalGapLeft = myLastLateralGapLeft == NO_NEIGHBOR ? surplusGapLeft : myLastLateralGapLeft;
+    double physicalGapRight = myLastLateralGapRight == NO_NEIGHBOR ? surplusGapRight : myLastLateralGapRight;
 
     const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
     if (stayInLane || laneOffset == 1) {

@@ -175,6 +175,10 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         vehicle->myState.myPosLat -= direction * 0.5 * (from->lane->getWidth() + to->lane->getWidth());
         to->lane->myTmpVehicles.insert(to->lane->myTmpVehicles.begin(), vehicle);
         to->dens += vehicle->getVehicleType().getLengthWithGap();
+        if (MSAbstractLaneChangeModel::haveLCOutput()) {
+            vehicle->getLaneChangeModel().setLeaderGaps(getLeaders(to, vehicle));
+            vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
+        }
         vehicle->getLaneChangeModel().startLaneChangeManeuver(from->lane, to->lane, direction);
         to->ahead.addLeader(vehicle, false, 0);
     } else {
