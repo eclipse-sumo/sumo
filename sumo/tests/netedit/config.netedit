@@ -13,6 +13,7 @@ net:net.net.xml
 additionals:additionals.xml
 cfg:config.cfg
 log:log.txt
+selection:selection.txt
 
 [run_dependent_text]
 net:<!--{[->]}-->
