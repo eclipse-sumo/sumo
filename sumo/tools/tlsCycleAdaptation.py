@@ -12,6 +12,13 @@
 - Traffic lights without traffic flows will not be optimized.
 - PCE is used instead of the number of vehicles.
 
+- If a lane group has green times in more than one phase, 
+  the respective flows will be equally divided into the corresponding
+  phases for calculating the green splits. 
+
+- If the critial flow or the sum of the critial flows is larger than 1,
+ the optimal cycle length will be set to 120 sec. 
+
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2010-2017 DLR (http://www.dlr.de/) and contributors
 
@@ -61,9 +68,9 @@ def get_options(args=None):
     optParser.add_option("-l", "--lost-time", dest="losttime", type="int",
                          default=4, help="lost time for each phase")
     optParser.add_option("-g", "--min-green", dest="mingreen", type="int",
-                         default=4, help=" minimal green time when there is no traffic volume")
+                         default=6, help=" minimal green time when there is no traffic volume")
     optParser.add_option("-c", "--min-cycle", dest="mincycle", type="int",
-                         default=16, help=" minimal cycle length")
+                         default=24, help=" minimal cycle length")
     optParser.add_option("-C", "--max-cycle", dest="maxcycle", type="int",
                          default=120, help=" maximal cycle length")
     optParser.add_option("-s", "--saturation-flows", dest="satflows", type="float",
@@ -71,6 +78,7 @@ def get_options(args=None):
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
+    
     if not options.netfile or not options.routefiles or not options.begin:
         optParser.print_help()
         sys.exit()
@@ -98,7 +106,7 @@ def getFlows(net, routeFiles, tlsList, begin, verbose):
                             if beginindex < 0:
                                 print ("negtive beginindex: %s" %beginindex)
                             elif beginindex < len(edgeList)-1 and edgeList[beginindex+1] == c[1]._edge._id:
-                                pce = 1
+                                pce = 1.
                                 if veh.type == "bicycle":
                                     pce = 0.2
                                 elif veh.type in ["moped", "motorcycle"]:
@@ -106,7 +114,7 @@ def getFlows(net, routeFiles, tlsList, begin, verbose):
                                 elif veh.type in ["truck", "trailer", "bus", "coach"]:
                                     pce = 3.5
                                 tlsFlowsMap[tls._id][subRoute][c[2]] += pce
-                    
+
     # remove the doubled counts
     connFlowsMap = {}
     for t in tlsList:
@@ -116,6 +124,9 @@ def getFlows(net, routeFiles, tlsList, begin, verbose):
             for conn in tlsFlowsMap[t._id][subRoute]:
                 tlsFlowsMap[t._id][subRoute][conn] /= totalConns
                 connFlowsMap[t._id][conn] = tlsFlowsMap[t._id][subRoute][conn]
+                    
+        # remove the redundant connection flows
+        connFlowsMap = removeRedudantFlows(t, connFlowsMap)
 
     return connFlowsMap
     
@@ -128,6 +139,42 @@ def getEffectiveTlsList(tlsList, connFlowsMap, verbose):
                 break
     return effectiveTlsList
 
+def removeRedudantFlows(t, connFlowsMap):    # TODO: needs to be tested!! 
+    # if two or more intesections share the laen-lane connection indices together,
+    # the redudant connection flows will set to zero.
+    connsList = t.getConnections()
+    connsList = sorted(connsList, key=lambda connsList: connsList[2])
+    redudantConnsList = []
+    identical = True
+    for c1 in connsList:
+        for c2 in connsList:
+            if c1[2] != c2[2]:
+                if c1[1]._edge == c2[0]._edge:
+                    indentical = indenticalCheck(c1[0]._edge, c2[0]._edge._incoming, identical)
+                    if identical:
+                        for toEdge in c2[0]._edge._outgoing:
+                            for c in c2[0]._edge._outgoing[toEdge]:
+                                if c._tlLink not in redudantConnsList:
+                                    redudantConnsList.append(c._tlLink)
+                    else:
+                        for conn_1 in c1[0]._edge._outgoing[c2[0]._edge]:
+                            if conn_1._direction == 's':
+                                for toEdge in c2[0]._edge._outgoing:
+                                    for conn_2 in c2[0]._edge._outgoing[toEdge]:
+                                        if conn_2._tlLink not in redudantConnsList:
+                                            redudantConnsList.append(conn_2._tlLink)
+    for conn in redudantConnsList:
+        if conn in connFlowsMap[t._id]:
+            connFlowsMap[t._id][conn] = 0.
+    return connFlowsMap
+    
+def indenticalCheck(e1, incomingLinks, identical):
+    for i in incomingLinks:
+        if i != e1:
+            identical = False
+            break
+    return identical
+         
 def getLaneGroupFlows(tl, connFlowsMap, phases):
     connsList = tl.getConnections()
     groupFlowsMap = {}     #i(phase): duration, laneGroup1, laneGroup2, ...
@@ -138,9 +185,8 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
     for i, p in enumerate(phases):
         totalConns = len(p[0])
         for j, control in enumerate(p[0]):
-            if control == "G":
+            if control == "G" and j not in ownGreenConnsList:
                 ownGreenConnsList.append(j)
-
     yellowRedTime = 0
     greenTime = 0
     phaseLaneIndexMap = collections.defaultdict(list)
@@ -152,29 +198,47 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
             laneIndexList = []
             for j, control in enumerate(p[0]):
                 inEdge = connsList[j][0]._edge._id
+                
                 if j == 0:
                     exEdge = inEdge
-
+                #if tl._id == "209":
+                #    print ("1-209: j:%s, phase:%s, control:%s" %(j, i, control))
                 if (inEdge == exEdge and control =='G') or (inEdge == exEdge and control == 'g' and j not in ownGreenConnsList):
-                    groupFlows += connFlowsMap[tl._id][j]
+                    if j in connFlowsMap[tl._id]:
+                        groupFlows += connFlowsMap[tl._id][j]
+                        #if tl._id == "209":
+                        #    print ("2-209: j:%s, connflows:%s" %(j, connFlowsMap[tl._id][j]))
+                        #    print ("3-209: j:%s, flows:%s" %(j, groupFlows))
                     if connsList[j][0].getIndex() not in laneIndexList:
                         laneIndexList.append(connsList[j][0].getIndex())
+                    #    if tl._id == "209":
+                    #        print ("4-laneIndexList:%s" %laneIndexList)
+                        
                 if exEdge != inEdge or j == len(p[0])-1:
-                    if groupFlows > 0:
-                        groupFlowsMap[i].append(groupFlows)
-                    groupFlows = 0
+                    #if groupFlows > 0:
+                    #    groupFlowsMap[i].append(groupFlows)
                     if laneIndexList:
                         phaseLaneIndexMap[i].append(laneIndexList)
+                        groupFlowsMap[i].append(groupFlows)
+                        
                     laneIndexList = []
+                    groupFlows = 0
+                    if control == "G":
+                        if j in connFlowsMap[tl._id]:
+                            groupFlows = connFlowsMap[tl._id][j]
+                            if connsList[j][0].getIndex() not in laneIndexList:
+                                laneIndexList.append(connsList[j][0].getIndex())
+                            
                 exEdge = inEdge
-        elif 'G' not in p[0] and 'g' in p[0]:
-            print ("Check: only g for all connections:%s " %tl._id)
-        elif 'G' not in p[0] and 'g' not in p[0]:
+                #print ("end:%s" %exEdge)
+        elif 'G' not in p[0] and 'g' in p[0] and 'y' not in p[0] and 'r' not in p[0]:
+            print ("Check: only g for connections:%s " %tl._id)
+        elif ('G' not in p[0] and 'g' not in p[0]) or ('G' not in p[0] and 'y' in p[0] and 'r' in p[0]):
             yellowRedTime += int(p[1])
-            if options.verbose and i in groupFlowsMap:
-                print ("phase: %s" %i)
-                print ("group flows: %s" %groupFlowsMap[i])
-                print ("The used lanes: %s" % phaseLaneIndexMap[i])
+        if options.verbose and i in groupFlowsMap:
+            print ("phase: %s" %i)
+            print ("group flows: %s" %groupFlowsMap[i])
+            print ("The used lanes: %s" % phaseLaneIndexMap[i])
                 
     return groupFlowsMap, phaseLaneIndexMap
 
@@ -186,14 +250,21 @@ def optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, options):
         critialFlowRateMap[i] = 0.
         maxFlow = 0
         index = None
-        for j, f in enumerate(groupFlowsMap[i][1:]):
-            if f > maxFlow:
-                maxFlow = f
-                index = j
-
-        critialFlowRateMap[i] = (maxFlow/float((len(phaseLaneIndexMap[i][index]))))/options.satflows
-
-    optCycle = int(round((1.5*lostTime + 5.)/(1. - sum(critialFlowRateMap.values()))))
+        if len(groupFlowsMap[i][1:]) > 0:
+            for j, f in enumerate(groupFlowsMap[i][1:]):
+                if f >= maxFlow:
+                    maxFlow = f
+                    index = j
+            print ("maxFlow:%s" %maxFlow)
+            print ("index:%s" %index)
+            critialFlowRateMap[i] = (maxFlow/float((len(phaseLaneIndexMap[i][index]))))/options.satflows
+        else:
+            critialFlowRateMap[i] = 0.
+    sumCritialFlows = sum(critialFlowRateMap.values())
+    if sumCritialFlows > 1.:
+        optCycle = 120.
+    else:
+        optCycle = int(round((1.5*lostTime + 5.)/(1. - sumCritialFlows)))
 
     if optCycle < options.mincycle:
         optCycle = options.mincycle
@@ -235,7 +306,7 @@ def main(options):
         if len(effectiveTlsList) > 0:
             for tl in effectiveTlsList:
                 if options.verbose:
-                    print ("Intersection name: %s" %tl._id)
+                    print ("tl-logic ID: %s" %tl._id)
                 programs = tl.getPrograms()
                 for pro in programs:
                     phases = programs[pro].getPhases()
