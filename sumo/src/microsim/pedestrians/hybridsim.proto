@@ -15,10 +15,6 @@ syntax = "proto3";
 
 package hybridsim;
 
-option java_multiple_files = false;
-option java_package = "org.cacrowd.casim.proto";
-option java_outer_classname = "HybridSimProto";
-
 service HybridSimulation {
     rpc simulatedTimeInerval (LeftClosedRightOpenTimeInterval) returns (Empty) {
     }
