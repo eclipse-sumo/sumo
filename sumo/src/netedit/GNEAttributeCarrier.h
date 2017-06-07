@@ -90,6 +90,11 @@ public:
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value);
 
+    /// @brief method for getting the attribute in the context of object selection
+    virtual std::string getAttributeForSelection(SumoXMLAttr key) const {
+        return getAttribute(key);
+    }
+
     /// @brief how should this attribute carrier be called
     virtual std::string getDescription();
 

@@ -620,7 +620,7 @@ GNESelectorFrame::getMatches(SumoXMLTag tag, SumoXMLAttr attr, char compOp, doub
                 }
             } else {
                 // string match
-                std::string acVal = ac->getAttribute(attr);
+                std::string acVal = ac->getAttributeForSelection(attr);
                 switch (compOp) {
                     case '@':
                         if (acVal.find(expr) != std::string::npos) {
