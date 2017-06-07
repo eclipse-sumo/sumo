@@ -68,9 +68,9 @@ def get_options(args=None):
     optParser.add_option("-l", "--lost-time", dest="losttime", type="int",
                          default=4, help="lost time for each phase")
     optParser.add_option("-g", "--min-green", dest="mingreen", type="int",
-                         default=6, help=" minimal green time when there is no traffic volume")
+                         default=4, help=" minimal green time when there is no traffic volume")
     optParser.add_option("-c", "--min-cycle", dest="mincycle", type="int",
-                         default=24, help=" minimal cycle length")
+                         default=20, help=" minimal cycle length")
     optParser.add_option("-C", "--max-cycle", dest="maxcycle", type="int",
                          default=120, help=" maximal cycle length")
     optParser.add_option("-s", "--saturation-flows", dest="satflows", type="float",
@@ -255,8 +255,6 @@ def optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, options):
                 if f >= maxFlow:
                     maxFlow = f
                     index = j
-            print ("maxFlow:%s" %maxFlow)
-            print ("index:%s" %index)
             critialFlowRateMap[i] = (maxFlow/float((len(phaseLaneIndexMap[i][index]))))/options.satflows
         else:
             critialFlowRateMap[i] = 0.

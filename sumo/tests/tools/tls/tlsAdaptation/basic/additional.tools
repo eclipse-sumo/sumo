@@ -1,8 +1,8 @@
 <additional>
     <tlLogic id="cluster_1037005497_2683362682" type="static" programID="0" offset="0.00"/>
-        <phase duration="52" state="GGGGGGrrrrrrrrrrrrGGGGGGrrrrrrrrrrrr"/>
+        <phase duration="51" state="GGGGGGrrrrrrrrrrrrGGGGGGrrrrrrrrrrrr"/>
         <phase duration="6" state="yyyyyyrrrrrrrrrrrryyyyyyrrrrrrrrrrrr"/>
-        <phase duration="43" state="rrrrrrGGrrrrrrrrrrrrrrrrGGrrrrrrrrrr"/>
+        <phase duration="42" state="rrrrrrGGrrrrrrrrrrrrrrrrGGrrrrrrrrrr"/>
         <phase duration="6" state="rrrrrryyrrrrrrrrrrrrrrrryyrrrrrrrrrr"/>
         <phase duration="14" state="rrrrrrrrGGGGGGggggrrrrrrrrGGGGGGgggg"/>
         <phase duration="6" state="rrrrrrrryyyyyyyyyyrrrrrrrryyyyyyyyyy"/>
