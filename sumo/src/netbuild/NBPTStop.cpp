@@ -72,8 +72,8 @@ const Position& NBPTStop::getPosition() {
 }
 
 void NBPTStop::computExtent(double center, double edgeLength) {
-    myStartPos = center - myPTStopLength / 2.;
-    myEndPos = center + myPTStopLength / 2.;
+    myStartPos = MAX2(0.0, center - myPTStopLength / 2.);
+    myEndPos = MIN2(center + myPTStopLength / 2., edgeLength);
 }
 
 void NBPTStop::setLaneID(const std::string& laneId) {
