@@ -16,5 +16,8 @@ red_1s_brake
 # vehicle ignores the first second of red light
 red_1s_brake_ignore
 
-# vehicle ignores the first second of red light but brakes after that
+# vehicle is set to ignore 1s red light but brakes at 2s red
 red_2s_brake
+
+# vehicle ignores red lights but lowers its speed
+red_5s_driveRedSpeed
