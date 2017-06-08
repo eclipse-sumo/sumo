@@ -1,6 +1,9 @@
 walking_forward
 walking_backward
 
+# test junction model parameter jmCrossingGap
+walking_backward_configureGap
+
 # left turning vehicles should be blocked as well
 walking_forward_left_turning_vehicle
 
