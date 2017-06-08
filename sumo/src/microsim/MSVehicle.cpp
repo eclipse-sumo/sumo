@@ -2526,7 +2526,7 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
             // get the next lane, determine whether it is an internal lane
             const MSLane* approachedLane = item.myLink->getViaLane();
             if (approachedLane != 0) {
-                if (item.myLink->hasFoes() && item.myLink->keepClear()/* && item.myLink->willHaveBlockedFoe()*/) {
+                if (keepClear(item.myLink)) {
                     seenSpace = seenSpace - approachedLane->getBruttoVehLenSum();
                     hadVehicle |= approachedLane->getVehicleNumber() != 0;
                     if (approachedLane == myLane) {
@@ -2665,7 +2665,8 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                     impatienceCorrection = MAX2(0., STEPS2TIME(myWaitingTime));
                 }
                 */
-                if (leftSpace < -impatienceCorrection / 10. && item.myLink->hasFoes() && item.myLink->keepClear()) {
+                // may ignore keepClear rules
+                if (leftSpace < -impatienceCorrection / 10. && keepClear(item.myLink)) {
                     removalBegin = i;
                 }
                 //removalBegin = i;
@@ -4110,6 +4111,18 @@ MSVehicle::Stop::getEndPos(const SUMOVehicle& veh) const {
         return chargingStation->getLastFreePos(veh);
     }
     return endPos;
+}
+
+
+bool 
+MSVehicle::keepClear(const MSLink* link) const {
+    if (link->hasFoes() && link->keepClear() /* && item.myLink->willHaveBlockedFoe()*/) {
+        const double keepClearTime = getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, -1);
+        //std::cout << SIMTIME << " veh=" << getID() << " keepClearTime=" << keepClearTime << " accWait=" << getAccumulatedWaitingSeconds() << " keepClear=" << (keepClearTime < 0 || getAccumulatedWaitingSeconds() < keepClearTime) << "\n";
+        return keepClearTime < 0 || getAccumulatedWaitingSeconds() < keepClearTime;
+    } else {
+        return false;
+    }
 }
 
 

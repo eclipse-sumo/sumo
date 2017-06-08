@@ -1699,6 +1699,10 @@ protected:
      */
     void updateState(double vNext);
 
+
+    /// @brief decide whether the given link must be kept clear
+    bool keepClear(const MSLink* link) const;
+
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
      * @note member is initialized on first access */

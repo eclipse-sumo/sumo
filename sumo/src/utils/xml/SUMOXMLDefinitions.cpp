@@ -337,7 +337,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "jmCrossingGap",          SUMO_ATTR_JM_CROSSING_GAP },
     { "jmDriveAfterRedTime",    SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME },
     { "jmDriveRedSpeed",        SUMO_ATTR_JM_DRIVE_RED_SPEED },
-    { "jmIgnoreKeepClear",      SUMO_ATTR_JM_IGNORE_KEEP_CLEAR },
+    { "jmIgnoreKeepClearTime",  SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME },
     { "jmIgnoreFoeSpeed",       SUMO_ATTR_JM_IGNORE_FOE_SPEED },
     { "jmIgnoreFoeProb",        SUMO_ATTR_JM_IGNORE_FOE_PROB },
 

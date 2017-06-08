@@ -674,7 +674,7 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAt
         allowedJMAttrs.insert(SUMO_ATTR_JM_CROSSING_GAP);
         allowedJMAttrs.insert(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME);
         allowedJMAttrs.insert(SUMO_ATTR_JM_DRIVE_RED_SPEED);
-        allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_KEEP_CLEAR);
+        allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME);
         allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_FOE_SPEED);
         allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_FOE_PROB);
     }
