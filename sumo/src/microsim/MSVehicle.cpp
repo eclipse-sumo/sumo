@@ -90,6 +90,7 @@
 //#define DEBUG_FURTHER
 //#define DEBUG_STOPS
 //#define DEBUG_BESTLANES
+//#define DEBUG_IGNORE_RED
 //#define DEBUG_COND (getID() == "ego")
 //#define DEBUG_COND (isSelected())
 
@@ -1631,6 +1632,21 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / MAX2(vLinkWait, NUMERICAL_EPS)), vLinkWait, 0, 0, seen));
             //lfLinks.push_back(DriveProcessItem(0, vLinkWait, vLinkWait, false, 0, 0, stopDist));
             break;
+        }
+
+        if (ignoreRed(*link, canBrake) && STEPS2TIME(t - (*link)->getLastStateChange()) > 2) {
+            // restrict speed when ignoring a red light
+            const double redSpeed = MIN2(v, getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_RED_SPEED, v));
+            const double va = MAX2(redSpeed, cfModel.freeSpeed(this, getSpeed(), seen, redSpeed));
+            v = MIN2(va, v);
+#ifdef DEBUG_EXEC_MOVE
+            if (DEBUG_COND) std::cout
+                << "   ignoreRed spent=" << STEPS2TIME(t - (*link)->getLastStateChange())
+                    << " redSpeed=" << redSpeed
+                    << " va=" << va
+                    << " v=" << v
+                    << "\n";
+#endif
         }
 
         if (MSGlobals::gUsingInternalLanes) {
@@ -4134,7 +4150,11 @@ MSVehicle::ignoreRed(const MSLink* link, bool canBrake) const {
         return true;
     }
     const double ignoreRedTime = getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, -1);
-    //std::cout << SIMTIME << " veh=" << getID() << " link=" << link->getViaLaneOrLane()->getID() << " state=" << toString(link->getState()) << "\n";
+#ifdef DEBUG_IGNORE_RED
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << getID() << " link=" << link->getViaLaneOrLane()->getID() << " state=" << toString(link->getState()) << "\n";
+    }
+#endif
     if (ignoreRedTime < 0) {
         return false;
     } else if (link->haveYellow()) {
@@ -4142,9 +4162,18 @@ MSVehicle::ignoreRed(const MSLink* link, bool canBrake) const {
         return true;
     } else if (link->haveRed()) {
         assert(link->getTLLogic != 0);
+        const double redDuration = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - link->getLastStateChange());
+#ifdef DEBUG_IGNORE_RED
+    if (DEBUG_COND) {
+        std::cout 
+            // << SIMTIME << " veh=" << getID() << " link=" << link->getViaLaneOrLane()->getID() 
+            << "   ignoreRedTime=" << ignoreRedTime
+            << " spentRed=" << redDuration
+            << " canBrake=" << canBrake << "\n";
+    }
+#endif
         // when activating ignoreRed behavior, vehicles will always drive if they cannot brake
-        //std::cout << SIMTIME << " veh=" << getID() << " link=" << link->getViaLaneOrLane()->getID() << " spentRed=" << STEPS2TIME(link->getTLLogic()->getSpentDuration()) << " canBrake=" << canBrake << "\n";
-        return !canBrake || ignoreRedTime > STEPS2TIME(link->getTLLogic()->getSpentDuration());
+        return !canBrake || ignoreRedTime > redDuration;
     } else {
         return false;
     }
