@@ -981,6 +981,11 @@ public:
     ///@brief remove parking vehicle. This must be syncrhonized when running with GUI
     virtual void removeParking(MSVehicle* veh);
 
+    /// @brief retrieve the parking vehicles (see GUIParkingArea)
+    const std::set<const MSVehicle*>& getParkingVehicles() const {
+        return myParkingVehicles;
+    }
+
     /// @name State saving/loading
     /// @{
 

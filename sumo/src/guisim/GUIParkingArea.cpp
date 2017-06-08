@@ -52,6 +52,7 @@
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/geom/GeomHelper.h>
 #include <guisim/GUIParkingArea.h>
+#include <guisim/GUIVehicle.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 
@@ -195,6 +196,13 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 1, 0); // make multiple containers viewable
         static_cast<GUIContainer*>(*i)->drawGL(s);
     }
+    // draw parking vehicles (their lane might not be within drawing range. if it is, they are drawn twice)
+    myLane.getVehiclesSecure();
+    for (std::set<const MSVehicle*>::const_iterator v = myLane.getParkingVehicles().begin(); v != myLane.getParkingVehicles().end(); ++v) {
+        static_cast<const GUIVehicle* const>(*v)->drawGL(s);
+    }
+    myLane.releaseVehicles();
+
 }
 
 
