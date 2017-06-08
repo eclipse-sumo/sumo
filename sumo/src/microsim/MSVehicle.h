@@ -1703,6 +1703,9 @@ protected:
     /// @brief decide whether the given link must be kept clear
     bool keepClear(const MSLink* link) const;
 
+    /// @brief decide whether a red (or yellow light) may be ignore
+    bool ignoreRed(const MSLink* link, bool canBrake) const;
+
 private:
     /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
      * @note member is initialized on first access */

@@ -275,6 +275,13 @@ public:
      * @return The assumed next switch time (simulation time)
      */
     SUMOTime getNextSwitchTime() const;
+
+    
+    /** @brief Returns the duration spent in the current phase
+     *
+     * @return The time spent in the current phase
+     */
+    SUMOTime getSpentDuration() const;
     /// @}
 
 

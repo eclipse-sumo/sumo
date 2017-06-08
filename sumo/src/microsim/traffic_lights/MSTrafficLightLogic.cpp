@@ -268,6 +268,18 @@ MSTrafficLightLogic::getNextSwitchTime() const {
 }
 
 
+SUMOTime 
+MSTrafficLightLogic::getSpentDuration() const {
+    const SUMOTime nextSwitch = getNextSwitchTime();
+    if (nextSwitch == -1) {
+        return -1;
+    } else {
+        const SUMOTime remaining = nextSwitch - MSNet::getInstance()->getCurrentTimeStep();
+        return getCurrentPhaseDef().duration - remaining;
+    }
+}
+
+
 // ----------- Changing phases and phase durations
 void
 MSTrafficLightLogic::addOverridingDuration(SUMOTime duration) {

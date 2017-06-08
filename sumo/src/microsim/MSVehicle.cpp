@@ -61,6 +61,7 @@
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/trigger/MSChargingStation.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "MSVehicleControl.h"
 #include "MSVehicleTransfer.h"
 #include "MSGlobals.h"
@@ -89,7 +90,8 @@
 //#define DEBUG_FURTHER
 //#define DEBUG_STOPS
 //#define DEBUG_BESTLANES
-#define DEBUG_COND (getID() == "disabled")
+//#define DEBUG_COND (getID() == "ego")
+//#define DEBUG_COND (isSelected())
 
 #define STOPPING_PLACE_OFFSET 0.5
 
@@ -1569,10 +1571,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             lfLinks.push_back(DriveProcessItem(v, seen));
             break;
         }
-        const bool yellowOrRed = (*link)->getState() == LINKSTATE_TL_RED ||
-                                 (*link)->getState() == LINKSTATE_TL_REDYELLOW ||
-                                 (*link)->getState() == LINKSTATE_TL_YELLOW_MAJOR ||
-                                 (*link)->getState() == LINKSTATE_TL_YELLOW_MINOR;
+        const bool yellowOrRed = (*link)->haveRed() || (*link)->haveYellow();
         // We distinguish 3 cases when determining the point at which a vehicle stops:
         // - links that require stopping: here the vehicle needs to stop close to the stop line
         //   to ensure it gets onto the junction in the next step. Otherwise the vehicle would 'forget'
@@ -1618,6 +1617,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
         double vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
         const double brakeDist = cfModel.brakeGap(myState.mySpeed, cfModel.getMaxDecel(), 0.);
+        const bool canBrake = seen >= brakeDist;
 #ifdef DEBUG_PLAN_MOVE
         gDebugFlag1 = DEBUG_COND;
         if (DEBUG_COND) std::cout
@@ -1626,7 +1626,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     << " brakeDist=" << brakeDist
                     << "\n";
 #endif
-        if (yellowOrRed && seen >= brakeDist && (myInfluencer == 0 || myInfluencer->getEmergencyBrakeRedLight())) {
+        if (yellowOrRed && canBrake && !ignoreRed(*link, canBrake)) {
             // the vehicle is able to brake in front of a yellow/red traffic light
             lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / MAX2(vLinkWait, NUMERICAL_EPS)), vLinkWait, 0, 0, seen));
             //lfLinks.push_back(DriveProcessItem(0, vLinkWait, vLinkWait, false, 0, 0, stopDist));
@@ -1935,9 +1935,10 @@ MSVehicle::executeMove() {
 
             const LinkState ls = link->getState();
             // vehicles should brake when running onto a yellow light if the distance allows to halt in front
-            const bool yellow = ls == LINKSTATE_TL_YELLOW_MAJOR || ls == LINKSTATE_TL_YELLOW_MINOR;
-            const double brakeGap = getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.);
-            if (yellow && ((*i).myDistance > brakeGap || (MSGlobals::gSemiImplicitEulerUpdate && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel())))) {
+            const bool yellow = link->haveYellow();
+            const bool canBrake = ((*i).myDistance > getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.)
+                    ||(MSGlobals::gSemiImplicitEulerUpdate && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel())));
+            if (yellow && canBrake && !ignoreRed(link, canBrake)) {
                 vSafe = (*i).myVLinkWait;
                 myHaveToWaitOnNextLink = true;
                 link->removeApproaching(this);
@@ -1950,12 +1951,13 @@ MSVehicle::executeMove() {
             const bool influencerPrio = (myInfluencer != 0 && !myInfluencer->getRespectJunctionPriority());
 #endif
             std::vector<const SUMOVehicle*> collectFoes;
-            bool opened = yellow || influencerPrio ||
-                          link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
+            bool opened = (yellow || influencerPrio 
+                    || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
                                        getVehicleType().getLength(), getImpatience(),
                                        getCarFollowModel().getMaxDecel(),
                                        getWaitingTime(), getLateralPositionOnLane(),
-                                       ls == LINKSTATE_ZIPPER ? &collectFoes : 0);
+                                       ls == LINKSTATE_ZIPPER ? &collectFoes : 0)
+                    || ignoreRed(link, canBrake));
             if (opened && getLaneChangeModel().getShadowLane() != 0) {
                 MSLink* parallelLink = (*i).myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
                 if (parallelLink != 0) {
@@ -1978,7 +1980,7 @@ MSVehicle::executeMove() {
                 }
             }
             // vehicles should decelerate when approaching a minor link
-            if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor() && !link->isCont()) {
+            if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor() && !link->isCont() && !ignoreRed(link, canBrake)) {
                 double visibilityDistance = link->getFoeVisibilityDistance();
                 double determinedFoePresence = i->myDistance <= visibilityDistance;
                 if (!determinedFoePresence) {
@@ -2186,7 +2188,7 @@ MSVehicle::executeMove() {
 #ifndef NO_TRACI
                     if (myInfluencer == 0 || myInfluencer->getEmergencyBrakeRedLight()) {
 #endif
-                        if (link->getState() == LINKSTATE_TL_RED) {
+                        if (link->haveRed() && !ignoreRed(link, false)) {
                             emergencyReason = " because of a red traffic light";
                             break;
                         }
@@ -4120,6 +4122,29 @@ MSVehicle::keepClear(const MSLink* link) const {
         const double keepClearTime = getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, -1);
         //std::cout << SIMTIME << " veh=" << getID() << " keepClearTime=" << keepClearTime << " accWait=" << getAccumulatedWaitingSeconds() << " keepClear=" << (keepClearTime < 0 || getAccumulatedWaitingSeconds() < keepClearTime) << "\n";
         return keepClearTime < 0 || getAccumulatedWaitingSeconds() < keepClearTime;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+MSVehicle::ignoreRed(const MSLink* link, bool canBrake) const {
+    if ((myInfluencer != 0 && !myInfluencer->getEmergencyBrakeRedLight())) {
+        return true;
+    }
+    const double ignoreRedTime = getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, -1);
+    //std::cout << SIMTIME << " veh=" << getID() << " link=" << link->getViaLaneOrLane()->getID() << " state=" << toString(link->getState()) << "\n";
+    if (ignoreRedTime < 0) {
+        return false;
+    } else if (link->haveYellow()) {
+        // always drive at yellow when ignoring red
+        return true;
+    } else if (link->haveRed()) {
+        assert(link->getTLLogic != 0);
+        // when activating ignoreRed behavior, vehicles will always drive if they cannot brake
+        //std::cout << SIMTIME << " veh=" << getID() << " link=" << link->getViaLaneOrLane()->getID() << " spentRed=" << STEPS2TIME(link->getTLLogic()->getSpentDuration()) << " canBrake=" << canBrake << "\n";
+        return !canBrake || ignoreRedTime > STEPS2TIME(link->getTLLogic()->getSpentDuration());
     } else {
         return false;
     }

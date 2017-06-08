@@ -323,6 +323,10 @@ public:
         return myState == LINKSTATE_TL_RED || myState == LINKSTATE_TL_REDYELLOW;
     }
 
+    inline bool haveYellow() const {
+        return myState == LINKSTATE_TL_YELLOW_MINOR || myState == LINKSTATE_TL_YELLOW_MAJOR;
+    }
+
     inline bool isTLSControlled() const {
         return myLogic != 0;
     }
