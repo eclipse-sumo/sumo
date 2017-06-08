@@ -1,0 +1,20 @@
+# brake at a yellow light
+yellow_brake
+
+# too fast to stop at a yellow light
+yellow_drive
+
+# vehicle could brake at a yellow light but does not do so
+yellow_brake_ignore
+
+# vehicle would prefer to brake at the red light but is too fast
+red_1s_cannot_brake
+
+# vehicle ignores the yellow light but brakes at the red light
+red_1s_brake
+
+# vehicle ignores the first second of red light
+red_1s_brake_ignore
+
+# vehicle ignores the first second of red light but brakes after that
+red_2s_brake
