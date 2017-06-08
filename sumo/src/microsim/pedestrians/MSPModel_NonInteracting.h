@@ -68,7 +68,7 @@ public:
     void remove(PedestrianState* state);
 
     /// @brief whether a pedestrian is blocking the crossing of lane at offset distToCrossing
-    bool blockedAtDist(const MSLane* lane, double distToCrossing, std::vector<const MSPerson*>* collectBlockers);
+    bool blockedAtDist(const MSLane* lane, double distToCrossing, double oncomingGap, std::vector<const MSPerson*>* collectBlockers);
 
 private:
     class MoveToNextEdge : public Command {

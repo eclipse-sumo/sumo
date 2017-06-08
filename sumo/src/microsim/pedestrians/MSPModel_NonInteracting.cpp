@@ -92,7 +92,7 @@ MSPModel_NonInteracting::remove(PedestrianState* state) {
 
 
 bool
-MSPModel_NonInteracting::blockedAtDist(const MSLane*, double, std::vector<const MSPerson*>*) {
+MSPModel_NonInteracting::blockedAtDist(const MSLane*, double, double, std::vector<const MSPerson*>*) {
     return false;
 }
 

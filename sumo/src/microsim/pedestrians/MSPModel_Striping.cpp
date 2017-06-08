@@ -93,7 +93,6 @@ const double MSPModel_Striping::INAPPROPRIATE_PENALTY(-20000.); // meters
 const double MSPModel_Striping::ONCOMING_CONFLICT_PENALTY(-1000.); // meters
 const double MSPModel_Striping::OBSTRUCTION_THRESHOLD(MSPModel_Striping::OBSTRUCTED_PENALTY * 0.5); // despite obstruction, additional utility may have been added
 const double MSPModel_Striping::SQUEEZE(0.7);
-const double MSPModel_Striping::BLOCKER_LOOKAHEAD(10.0); // meters
 const double MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR(0.0);
 const double MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS(0.34);
 const double MSPModel_Striping::MAX_WAIT_TOLERANCE(120.); // seconds
@@ -153,7 +152,7 @@ MSPModel_Striping::remove(PedestrianState* state) {
 
 
 bool
-MSPModel_Striping::blockedAtDist(const MSLane* lane, double distToCrossing, std::vector<const MSPerson*>* collectBlockers) {
+MSPModel_Striping::blockedAtDist(const MSLane* lane, double distToCrossing, double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
     const Pedestrians& pedestrians = getPedestrians(lane);
     for (Pedestrians::const_iterator it_ped = pedestrians.begin(); it_ped != pedestrians.end(); ++it_ped) {
         const PState& ped = **it_ped;
@@ -162,7 +161,7 @@ MSPModel_Striping::blockedAtDist(const MSLane* lane, double distToCrossing, std:
                                        ? distToCrossing - (ped.myRelX - ped.getLength() - MSPModel::SAFETY_GAP - halfVehicleWidth)
                                        : (ped.myRelX + ped.getLength() + MSPModel::SAFETY_GAP + halfVehicleWidth) - distToCrossing);
         //std::cout << SIMTIME << " foe=" << foeLane->getID() << " dir=" << p.myDir << " pX=" << ped.myRelX << " pL=" << ped.getLength() << " fDTC=" << distToCrossing << " lBD=" << leaderBackDist << "\n";
-        if (leaderBackDist >= 0 && leaderBackDist <= BLOCKER_LOOKAHEAD) {
+        if (leaderBackDist >= 0 && leaderBackDist <= oncomingGap) {
             // found one pedestrian that is not completely past the crossing point
             //std::cout << SIMTIME << " blocking pedestrian foeLane=" << lane->getID() << " ped=" << ped.myPerson->getID() << " dir=" << ped.myDir << " pX=" << ped.myRelX << " pL=" << ped.getLength() << " fDTC=" << distToCrossing << " lBD=" << leaderBackDist << "\n";
             if (collectBlockers == 0) {

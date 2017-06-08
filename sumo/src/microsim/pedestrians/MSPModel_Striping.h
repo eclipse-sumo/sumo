@@ -73,7 +73,7 @@ public:
     void remove(PedestrianState* state);
 
     /// @brief whether a pedestrian is blocking the crossing of lane at offset distToCrossing
-    bool blockedAtDist(const MSLane* lane, double distToCrossing, std::vector<const MSPerson*>* collectBlockers);
+    bool blockedAtDist(const MSLane* lane, double distToCrossing, double oncomingGap, std::vector<const MSPerson*>* collectBlockers);
 
     /// @brief remove state at simulation end
     void cleanupHelper();
@@ -112,9 +112,6 @@ public:
 
     // @brief the factor by which pedestrian width is reduced when sqeezing past each other
     static const double SQUEEZE;
-
-    // @brief the maximum distance (in meters) at which oncoming pedestrians block right turning traffic
-    static const double BLOCKER_LOOKAHEAD;
 
     // @brief fraction of the leftmost lanes to reserve for oncoming traffic
     static const double RESERVE_FOR_ONCOMING_FACTOR;

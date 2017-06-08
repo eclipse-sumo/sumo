@@ -68,7 +68,7 @@ public:
     virtual void remove(PedestrianState* state) = 0;
 
     /// @brief whether a pedestrian is blocking the crossing of lane at offset distToCrossing
-    virtual bool blockedAtDist(const MSLane* lane, double distToCrossing, std::vector<const MSPerson*>* collectBlockers) = 0;
+    virtual bool blockedAtDist(const MSLane* lane, double distToCrossing, double oncomingGap, std::vector<const MSPerson*>* collectBlockers) = 0;
 
     virtual void cleanupHelper() {};
 

@@ -58,6 +58,8 @@ const double MSLink::ZIPPER_ADAPT_DIST(100);
 
 // time to link in seconds below which adaptation should take place
 #define ZIPPER_ADAPT_TIME 10
+// the default safety gap when passing before oncoming pedestrians
+#define JM_CROSSING_GAP_DEFAULT 10
 
 // ===========================================================================
 // member method definitions
@@ -732,10 +734,14 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 }
 
             }
-            // check for crossing pedestrians (keep driving if already on top of the crossing
-            const double distToPeds = distToCrossing - MSPModel::SAFETY_GAP;
-            if (distToPeds >= -MSPModel::SAFETY_GAP && MSPModel::getModel()->blockedAtDist(foeLane, foeDistToCrossing, collectBlockers)) {
-                result.push_back(LinkLeader((MSVehicle*)0, -1, distToPeds));
+            if (ego != 0) {
+                // check for crossing pedestrians (keep driving if already on top of the crossing
+                const double distToPeds = distToCrossing - MSPModel::SAFETY_GAP;
+                if (distToPeds >= -MSPModel::SAFETY_GAP && MSPModel::getModel()->blockedAtDist(foeLane, foeDistToCrossing, 
+                            ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_CROSSING_GAP, JM_CROSSING_GAP_DEFAULT),
+                            collectBlockers)) {
+                    result.push_back(LinkLeader((MSVehicle*)0, -1, distToPeds));
+                }
             }
         }
     }
