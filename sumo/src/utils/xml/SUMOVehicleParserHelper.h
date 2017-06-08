@@ -113,6 +113,9 @@ public:
     /// @brief Parses lane change model attributes
     static void parseLCParams(SUMOVTypeParameter& into, LaneChangeModel model, const SUMOSAXAttributes& attrs);
 
+    /// @brief Parses junction model attributes
+    static void parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAttributes& attrs);
+
     /** @brief Closes parsing of the vehicle type
      * @return The resulting vehicle type parameter
      * @see SUMOVTypeParameter
@@ -180,6 +183,8 @@ private:
     static CFAttrMap allowedCFModelAttrs;
     // brief allowed attrs for each known LC-model
     static LCAttrMap allowedLCModelAttrs;
+    // brief allowed attrs for the junction model
+    static std::set<SumoXMLAttr> allowedJMAttrs;
 
 
 };

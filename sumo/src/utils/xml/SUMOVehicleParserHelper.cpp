@@ -46,6 +46,7 @@
 // ===========================================================================
 SUMOVehicleParserHelper::CFAttrMap SUMOVehicleParserHelper::allowedCFModelAttrs;
 SUMOVehicleParserHelper::LCAttrMap SUMOVehicleParserHelper::allowedLCModelAttrs;
+std::set<SumoXMLAttr> SUMOVehicleParserHelper::allowedJMAttrs;
 
 
 // ===========================================================================
@@ -469,6 +470,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
     }
     parseVTypeEmbedded(*vtype, vtype->wasSet(VTYPEPARS_CAR_FOLLOW_MODEL) ? vtype->cfModel : defaultCFModel, attrs, true);
     parseLCParams(*vtype, vtype->lcModel, attrs);
+    parseJMParams(*vtype, attrs);
     if (!ok) {
         delete vtype;
         throw ProcessError();
@@ -657,6 +659,29 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
     for (std::set<SumoXMLAttr>::const_iterator it = allowed.begin(); it != allowed.end(); it++) {
         if (attrs.hasAttribute(*it)) {
             into.lcParameter[*it] = attrs.get<std::string>(*it, into.id.c_str(), ok);
+        }
+    }
+    if (!ok) {
+        throw ProcessError();
+    }
+}
+
+
+void
+SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAttributes& attrs) {
+    if (allowedJMAttrs.size() == 0) {
+        // init static set (there is only one model)
+        allowedJMAttrs.insert(SUMO_ATTR_JM_CROSSING_GAP);
+        allowedJMAttrs.insert(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME);
+        allowedJMAttrs.insert(SUMO_ATTR_JM_DRIVE_RED_SPEED);
+        allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_KEEP_CLEAR);
+        allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_FOE_SPEED);
+        allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_FOE_PROB);
+    }
+    bool ok = true;
+    for (std::set<SumoXMLAttr>::const_iterator it = allowedJMAttrs.begin(); it != allowedJMAttrs.end(); it++) {
+        if (attrs.hasAttribute(*it)) {
+            into.jmParameter[*it] = attrs.get<std::string>(*it, into.id.c_str(), ok);
         }
     }
     if (!ok) {

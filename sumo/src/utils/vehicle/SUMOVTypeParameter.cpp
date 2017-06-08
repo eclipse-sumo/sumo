@@ -290,6 +290,9 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     for (SubParams::const_iterator i = lcParameter.begin(); i != lcParameter.end(); ++i) {
         dev.writeAttr(i->first, i->second);
     }
+    for (SubParams::const_iterator i = jmParameter.begin(); i != jmParameter.end(); ++i) {
+        dev.writeAttr(i->first, i->second);
+    }
     if (wasSet(VTYPEPARS_CAR_FOLLOW_MODEL)) {
         dev.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, SUMOXMLDefinitions::CarFollowModels.getString(cfModel));
     }
@@ -330,6 +333,14 @@ SUMOVTypeParameter::getLCParam(const SumoXMLAttr attr, const double defaultValue
 }
 
 
+double
+SUMOVTypeParameter::getJMParam(const SumoXMLAttr attr, const double defaultValue) const {
+    if (jmParameter.count(attr)) {
+        return TplConvert::_str2double(jmParameter.find(attr)->second);
+    } else {
+        return defaultValue;
+    }
+}
 
 double
 SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {

@@ -135,6 +135,13 @@ public:
      */
     double getLCParam(const SumoXMLAttr attr, const double defaultValue) const;
 
+    /** @brief Returns the named value from the map, or the default if it is not contained there
+     * @param[in] attr The corresponding xml attribute
+     * @param[in] defaultValue The value to return if the given map does not contain the named variable
+     * @return The named value from the map or the default if it does not exist there
+     */
+    double getJMParam(const SumoXMLAttr attr, const double defaultValue) const;
+
 
     /// @brief The vehicle type's id
     std::string id;
@@ -195,6 +202,8 @@ public:
     SubParams cfParameter;
     /// @brief Lane-changing parameter
     SubParams lcParameter;
+    /// @brief Junction-model parameter
+    SubParams jmParameter;
 
     /// @brief The lane-change model to use
     LaneChangeModel lcModel;

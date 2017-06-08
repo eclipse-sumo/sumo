@@ -334,6 +334,13 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcAssertive",            SUMO_ATTR_LCA_ASSERTIVE },
     { "lcExperimental1",        SUMO_ATTR_LCA_EXPERIMENTAL1 },
 
+    { "jmCrossingGap",          SUMO_ATTR_JM_CROSSING_GAP },
+    { "jmDriveAfterRedTime",    SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME },
+    { "jmDriveRedSpeed",        SUMO_ATTR_JM_DRIVE_RED_SPEED },
+    { "jmIgnoreKeepClear",      SUMO_ATTR_JM_IGNORE_KEEP_CLEAR },
+    { "jmIgnoreFoeSpeed",       SUMO_ATTR_JM_IGNORE_FOE_SPEED },
+    { "jmIgnoreFoeProb",        SUMO_ATTR_JM_IGNORE_FOE_PROB },
+
     { "last",                   SUMO_ATTR_LAST },
     { "cost",                   SUMO_ATTR_COST },
     { "probability",            SUMO_ATTR_PROB },

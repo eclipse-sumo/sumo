@@ -512,6 +512,16 @@ enum SumoXMLAttr {
     SUMO_ATTR_LCA_ASSERTIVE,
     SUMO_ATTR_LCA_EXPERIMENTAL1,
     /// @}
+    
+    /// @name Junction model attributes
+    /// @{
+    SUMO_ATTR_JM_CROSSING_GAP,
+    SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME,
+    SUMO_ATTR_JM_DRIVE_RED_SPEED,
+    SUMO_ATTR_JM_IGNORE_KEEP_CLEAR,
+    SUMO_ATTR_JM_IGNORE_FOE_SPEED,
+    SUMO_ATTR_JM_IGNORE_FOE_PROB,
+    /// @}
 
     /// @name route alternatives / distribution attributes
     /// @{
