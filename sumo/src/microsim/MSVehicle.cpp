@@ -4161,7 +4161,7 @@ MSVehicle::ignoreRed(const MSLink* link, bool canBrake) const {
         // always drive at yellow when ignoring red
         return true;
     } else if (link->haveRed()) {
-        assert(link->getTLLogic != 0);
+        assert(link->getTLLogic() != 0);
         const double redDuration = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - link->getLastStateChange());
 #ifdef DEBUG_IGNORE_RED
     if (DEBUG_COND) {
