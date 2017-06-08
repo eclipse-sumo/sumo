@@ -434,6 +434,19 @@ TraCIAPI::getPosition(int cmd, int var, const std::string& id, tcpip::Storage* a
 }
 
 
+TraCIPosition
+TraCIAPI::getPosition3D(int cmd, int var, const std::string& id, tcpip::Storage* add) {
+    tcpip::Storage inMsg;
+    send_commandGetVariable(cmd, var, id, add);
+    processGET(inMsg, cmd, POSITION_3D);
+    TraCIPosition p;
+    p.x = inMsg.readDouble();
+    p.y = inMsg.readDouble();
+    p.z = inMsg.readDouble();
+    return p;
+}
+
+
 std::string
 TraCIAPI::getString(int cmd, int var, const std::string& id, tcpip::Storage* add) {
     tcpip::Storage inMsg;
@@ -2018,6 +2031,11 @@ TraCIAPI::VehicleScope::getPosition(const std::string& vehicleID) const {
     return myParent.getPosition(CMD_GET_VEHICLE_VARIABLE, VAR_POSITION, vehicleID);
 }
 
+TraCIPosition
+TraCIAPI::VehicleScope::getPosition3D(const std::string& vehicleID) const {
+    return myParent.getPosition3D(CMD_GET_VEHICLE_VARIABLE, VAR_POSITION3D, vehicleID);
+}
+
 double
 TraCIAPI::VehicleScope::getAngle(const std::string& vehicleID) const {
     return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_ANGLE, vehicleID);
@@ -2055,6 +2073,11 @@ TraCIAPI::VehicleScope::getRouteIndex(const std::string& vehicleID) const {
 
 std::vector<std::string>
 TraCIAPI::VehicleScope::getEdges(const std::string& vehicleID) const {
+    return getRoute(vehicleID);
+}
+
+std::vector<std::string>
+TraCIAPI::VehicleScope::getRoute(const std::string& vehicleID) const {
     return myParent.getStringVector(CMD_GET_VEHICLE_VARIABLE, VAR_EDGES, vehicleID);
 }
 
@@ -2066,6 +2089,11 @@ TraCIAPI::VehicleScope::getColor(const std::string& vehicleID) const {
 double
 TraCIAPI::VehicleScope::getLanePosition(const std::string& vehicleID) const {
     return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_LANEPOSITION, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getDistance(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_DISTANCE, vehicleID);
 }
 
 double
@@ -2118,12 +2146,6 @@ TraCIAPI::VehicleScope::getWaitingTime(const std::string& vehID) const {
     return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_WAITING_TIME, vehID);
 }
 
-double
-TraCIAPI::VehicleScope::getAccumulatedWaitingTime(const std::string& vehID) const {
-    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_ACCUMULATED_WAITING_TIME, vehID);
-}
-
-
 int
 TraCIAPI::VehicleScope::getSpeedMode(const std::string& vehID) const {
     return myParent.getInt(CMD_GET_VEHICLE_VARIABLE, VAR_SPEEDSETMODE, vehID);
@@ -2156,7 +2178,7 @@ TraCIAPI::VehicleScope::getShapeClass(const std::string& vehicleID) const {
     return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_SHAPECLASS, vehicleID);
 }
 
-std::vector<TraCIAPI::VehicleScope::NextTLSData>
+std::vector<NextTLSData>
 TraCIAPI::VehicleScope::getNextTLS(const std::string& vehID) const {
     tcpip::Storage inMsg;
     myParent.send_commandGetVariable(CMD_GET_VEHICLE_VARIABLE, VAR_NEXT_TLS, vehID);
@@ -2185,6 +2207,143 @@ TraCIAPI::VehicleScope::getNextTLS(const std::string& vehID) const {
     return result;
 }
 
+std::vector<BestLanesData>
+TraCIAPI::VehicleScope::getBestLanes(const std::string& vehicleID) const {
+    tcpip::Storage inMsg;
+    myParent.send_commandGetVariable(CMD_GET_VEHICLE_VARIABLE, VAR_BEST_LANES, vehicleID);
+    myParent.processGET(inMsg, CMD_GET_VEHICLE_VARIABLE, TYPE_COMPOUND);
+    inMsg.readInt();
+    inMsg.readUnsignedByte();
+
+    std::vector<BestLanesData> result;
+    const int n = inMsg.readInt(); // number of following edge information
+    for (int i = 0; i < n; ++i) {
+        BestLanesData info;
+        inMsg.readUnsignedByte();
+        info.laneID = inMsg.readString();
+
+        inMsg.readUnsignedByte();
+        info.length = inMsg.readDouble();
+
+        inMsg.readUnsignedByte();
+        info.occupation = inMsg.readDouble();
+
+        inMsg.readUnsignedByte();
+        info.offsetToBestLane = inMsg.readByte();
+
+        inMsg.readUnsignedByte();
+        info.usableForContinuingDrive = (inMsg.readUnsignedByte() == 1);
+
+        inMsg.readUnsignedByte();
+        const int m = inMsg.readInt();
+        for (int i = 0; i < m; ++i) {
+            info.subsequentLanes.push_back(inMsg.readString());
+        }
+
+        result.push_back(info);
+    }
+    return result;
+}
+
+int
+TraCIAPI::VehicleScope::getStopState(const std::string& vehicleID) const {
+    return myParent.getUnsignedByte(CMD_GET_VEHICLE_VARIABLE, VAR_STOPSTATE, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getAccel(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_ACCEL, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getDecel(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_DECEL, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getTau(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_TAU, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getImperfection(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_IMPERFECTION, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getSpeedFactor(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_SPEED_FACTOR, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getSpeedDeviation(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_SPEED_DEVIATION, vehicleID);
+}
+
+std::string
+TraCIAPI::VehicleScope::getVehicleClass(const std::string& vehicleID) const {
+    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_VEHICLECLASS, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getMinGap(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_MINGAP, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getWidth(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_WIDTH, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getLength(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_LENGTH, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getHeight(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_HEIGHT, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getAccumulatedWaitingTime(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_ACCUMULATED_WAITING_TIME, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getAllowedSpeed(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_ALLOWED_SPEED, vehicleID);
+}
+
+int
+TraCIAPI::VehicleScope::getPersonNumber(const std::string& vehicleID) const {
+    return myParent.getInt(CMD_GET_VEHICLE_VARIABLE, VAR_PERSON_NUMBER, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getSpeedWithoutTraCI(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_SPEED_WITHOUT_TRACI, vehicleID);
+}
+
+bool
+TraCIAPI::VehicleScope::isRouteValid(const std::string& vehicleID) const {
+    return myParent.getUnsignedByte(CMD_GET_VEHICLE_VARIABLE, VAR_ROUTE_VALID, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getMaxSpeedLat(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_MAXSPEED_LAT, vehicleID);
+}
+
+double
+TraCIAPI::VehicleScope::getMinGapLat(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_MINGAP_LAT, vehicleID);
+}
+
+std::string
+TraCIAPI::VehicleScope::getLateralAlignment(const std::string& vehicleID) const {
+    return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_LATALIGNMENT, vehicleID);
+}
 
 void
 TraCIAPI::VehicleScope::add(const std::string& vehicleID,

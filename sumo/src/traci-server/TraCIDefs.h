@@ -175,6 +175,32 @@ public:
     std::string typeID;
 };
 
+
+struct NextTLSData {
+    /* @brief Constructor */
+    NextTLSData() {}
+    /// @brief The id of the next tls
+    std::string id;
+    /// @brief The tls index of the controlled link
+    int tlIndex;
+    /// @brief The distance to the tls
+    double dist;
+    /// @brief The current state of the tls
+    char state;
+};
+
+struct BestLanesData {
+    std::string laneID;
+    double length;
+    double occupation;
+    int offsetToBestLane;
+    bool usableForContinuingDrive;
+    std::vector<std::string> subsequentLanes;
+};
+
+
+
+
 /// @}
 
 

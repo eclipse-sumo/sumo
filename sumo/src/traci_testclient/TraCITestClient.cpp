@@ -729,9 +729,9 @@ TraCITestClient::testAPI() {
     TraCIColor col2 = vehicle.getColor("0");
     answerLog << "    getColor:  r=" << (int)col2.r << " g=" << (int)col2.g << " b=" << (int)col2.b << " a=" << (int)col2.a << "\n";
     answerLog << "    getNextTLS:\n";
-    std::vector<VehicleScope::NextTLSData> result = vehicle.getNextTLS("0");
+    std::vector<NextTLSData> result = vehicle.getNextTLS("0");
     for (int i = 0; i < (int)result.size(); ++i) {
-        const VehicleScope::NextTLSData& d = result[i];
+        const NextTLSData& d = result[i];
         answerLog << "      tls=" << d.id << " tlIndex=" << d.tlIndex << " dist=" << d.dist << " state=" << d.state << "\n";
     }
     answerLog << "    moveToXY, simStep:\n";

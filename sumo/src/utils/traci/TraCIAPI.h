@@ -106,6 +106,7 @@ public:
     TraCIBoundary getBoundingBox(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     TraCIPositionVector getPolygon(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     TraCIPosition getPosition(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    TraCIPosition getPosition3D(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     std::string getString(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     std::vector<std::string> getStringVector(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     TraCIColor getColor(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
@@ -622,26 +623,13 @@ public:
         VehicleScope(TraCIAPI& parent) : TraCIScopeWrapper(parent) {}
         virtual ~VehicleScope() {}
 
-
-        struct NextTLSData {
-            /* @brief Constructor */
-            NextTLSData() {}
-            /// @brief The id of the next tls
-            std::string id;
-            /// @brief The tls index of the controlled link
-            int tlIndex;
-            /// @brief The distance to the tls
-            double dist;
-            /// @brief The current state of the tls
-            char state;
-        };
-
-
+        /// @name vehicle value retrieval
+        /// @{
         std::vector<std::string> getIDList() const;
         int getIDCount() const;
         double getSpeed(const std::string& vehicleID) const;
-        double getMaxSpeed(const std::string& vehicleID) const;
         TraCIPosition getPosition(const std::string& vehicleID) const;
+        TraCIPosition getPosition3D(const std::string& vehicleID) const;
         double getAngle(const std::string& vehicleID) const;
         std::string getRoadID(const std::string& vehicleID) const;
         std::string getLaneID(const std::string& vehicleID) const;
@@ -649,10 +637,12 @@ public:
         std::string getTypeID(const std::string& vehicleID) const;
         std::string getRouteID(const std::string& vehicleID) const;
         int getRouteIndex(const std::string& vehicleID) const;
-        std::vector<std::string> getEdges(const std::string& vehicleID) const;
+        std::vector<std::string> getEdges(const std::string& vehicleID) const; /*< deprecated in favour of getRoute */
+        std::vector<std::string> getRoute(const std::string& vehicleID) const;
         TraCIColor getColor(const std::string& vehicleID) const;
         double getLanePosition(const std::string& vehicleID) const;
-        double getLateralLanePosition(const std::string& vehicleID) const;
+        double getDistance(const std::string& vehicleID) const;
+        int getSignalStates(const std::string& vehicleID) const;
         double getCO2Emission(const std::string& vehicleID) const;
         double getCOEmission(const std::string& vehicleID) const;
         double getHCEmission(const std::string& vehicleID) const;
@@ -661,34 +651,47 @@ public:
         double getFuelConsumption(const std::string& vehicleID) const;
         double getNoiseEmission(const std::string& vehicleID) const;
         double getElectricityConsumption(const std::string& vehicleID) const;
-        int getSignalStates(const std::string& vehicleID) const;
+        int getSpeedMode(const std::string& vehicleID) const;
+        int getStopState(const std::string& vehicleID) const;
         double getWaitingTime(const std::string& vehicleID) const;
         double getAccumulatedWaitingTime(const std::string& vehicleID) const;
-        std::vector<NextTLSData> getNextTLS(const std::string& vehID) const;
-        int getSpeedMode(const std::string& vehicleID) const;
         double getSlope(const std::string& vehicleID) const;
+        double getAllowedSpeed(const std::string& vehicleID) const;
+        int getPersonNumber(const std::string& vehicleID) const;
+        double getSpeedWithoutTraCI(const std::string& vehicleID) const;
+        bool isRouteValid(const std::string& vehicleID) const;
+        double getLateralLanePosition(const std::string& vehicleID) const;
+        double getSpeedFactor(const std::string& vehicleID) const;
         std::string getLine(const std::string& vehicleID) const;
         std::vector<std::string> getVia(const std::string& vehicleID) const;
-        std::string getEmissionClass(const std::string& vehicleID) const;
-        std::string getShapeClass(const std::string& vehicleID) const;
+        std::vector<NextTLSData> getNextTLS(const std::string& vehID) const;
+        std::vector<BestLanesData> getBestLanes(const std::string& vehicleID) const;
+        /// @}
 
-        /* /// not yet implemented
-        int getBestLanes(const std::string& vehicleID) const;
-        int getStopState(const std::string& vehicleID) const;
+        /// @name vehicle type value retrieval shortcuts
+        /// @{
         double getLength(const std::string& vehicleID) const;
+        double getMaxSpeed(const std::string& vehicleID) const;
         double getAccel(const std::string& vehicleID) const;
         double getDecel(const std::string& vehicleID) const;
         double getEmergencyDecel(const std::string& vehicleID) const;
         double getApparentDecel(const std::string& vehicleID) const;
         double getTau(const std::string& vehicleID) const;
         double getImperfection(const std::string& vehicleID) const;
-        double getSpeedFactor(const std::string& vehicleID) const;
         double getSpeedDeviation(const std::string& vehicleID) const;
-        std::string getVClass(const std::string& vehicleID) const;
         double getMinGap(const std::string& vehicleID) const;
         double getWidth(const std::string& vehicleID) const;
-        */
+        double getHeight(const std::string& veihcleID) const;
+        double getMaxSpeedLat(const std::string& vehicleID) const;
+        double getMinGapLat(const std::string& vehicleID) const;
+        std::string getVehicleClass(const std::string& vehicleID) const;
+        std::string getEmissionClass(const std::string& vehicleID) const;
+        std::string getShapeClass(const std::string& vehicleID) const;
+        std::string getLateralAlignment(const std::string& vehicleID) const;
+        /// @}
 
+        /// @name vehicle state changing
+        /// @{
         void add(const std::string& vehicleID,
                  const std::string& routeID,
                  const std::string& typeID = "DEFAULT_VEHTYPE",
@@ -710,13 +713,18 @@ public:
         void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) const;
         void slowDown(const std::string& vehicleID, double speed, int duration) const;
         void setSpeed(const std::string& vehicleID, double speed) const;
-        void setMaxSpeed(const std::string& vehicleID, double speed) const;
         void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED) const;
         void setColor(const std::string& vehicleID, const TraCIColor& c) const;
         void setLine(const std::string& vehicleID, const std::string& line) const;
         void setVia(const std::string& vehicleID, const std::vector<std::string>& via) const;
+        /// @}
+        
+        /// @name vehicle type attribute changing shortcuts
+        /// @{
         void setShapeClass(const std::string& vehicleID, const std::string& clazz) const;
         void setEmissionClass(const std::string& vehicleID, const std::string& clazz) const;
+        void setMaxSpeed(const std::string& vehicleID, double speed) const;
+        /// @}
 
     private:
         /// @brief invalidated copy constructor
