@@ -176,9 +176,9 @@ public:
 };
 
 
-struct NextTLSData {
+struct TraCINextTLSData {
     /* @brief Constructor */
-    NextTLSData() {}
+    TraCINextTLSData() {}
     /// @brief The id of the next tls
     std::string id;
     /// @brief The tls index of the controlled link
@@ -189,17 +189,23 @@ struct NextTLSData {
     char state;
 };
 
-struct BestLanesData {
+
+struct TraCIBestLanesData {
+    /* @brief Constructor */
+    TraCIBestLanesData() {}
+    /// @brief The id of the lane
     std::string laneID;
+    /// @brief The length than can be driven from that lane without lane change
     double length;
+    /// @brief The traffic density along length
     double occupation;
-    int offsetToBestLane;
-    bool usableForContinuingDrive;
-    std::vector<std::string> subsequentLanes;
+    /// @brief The offset of this lane from the best lane
+    int bestLaneOffset;
+    /// @brief Whether this lane allows continuing the route
+    bool allowsContinuation;
+    /// @brief The sequence of lanes that best allows continuing the route without lane change
+    std::vector<std::string> continuationLanes;
 };
-
-
-
 
 /// @}
 

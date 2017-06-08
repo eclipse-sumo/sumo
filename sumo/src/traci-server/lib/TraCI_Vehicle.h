@@ -52,37 +52,6 @@ class MSVehicleType;
  */
 class TraCI_Vehicle {
 public:
-    struct NextTLSData {
-        /* @brief Constructor */
-        NextTLSData() {}
-        /// @brief The id of the next tls
-        std::string id;
-        /// @brief The tls index of the controlled link
-        int tlIndex;
-        /// @brief The distance to the tls
-        double dist;
-        /// @brief The current state of the tls
-        char state;
-    };
-
-    struct BestLanesData {
-        /* @brief Constructor */
-        BestLanesData() {}
-        /// @brief The id of the lane
-        std::string laneID;
-        /// @brief The length than can be driven from that lane without lane change
-        double length;
-        /// @brief The traffic density along length
-        double nextOccupation;
-        /// @brief The offset of this lane from the best lane
-        int bestLaneOffset;
-        /// @brief Whether this lane allows continuing the route
-        bool allowsContinuation;
-        /// @brief The sequence of lanes that best allows continuing the route without lane change
-        std::vector<std::string> continuationLanes;
-    };
-
-
     /// @name Value retrieval
     /// @{
     static std::vector<std::string> getIDList();
@@ -119,8 +88,8 @@ public:
     static bool isRouteValid(const std::string& vehicleID);
     static std::vector<std::string> getEdges(const std::string& vehicleID);
     static int getSignalStates(const std::string& vehicleID);
-    static std::vector<BestLanesData> getBestLanes(const std::string& vehicleID);
-    static std::vector<NextTLSData> getNextTLS(const std::string& vehicleID);
+    static std::vector<TraCIBestLanesData> getBestLanes(const std::string& vehicleID);
+    static std::vector<TraCINextTLSData> getNextTLS(const std::string& vehicleID);
     static int getStopState(const std::string& vehicleID);
     static double getDistance(const std::string& vehicleID);
     static double getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int laneIndex);

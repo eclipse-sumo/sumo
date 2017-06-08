@@ -323,11 +323,11 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tcpip::Storage tempContent;
                 int cnt = 0;
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
-                std::vector<TraCI_Vehicle::BestLanesData> bestLanes = TraCI_Vehicle::getBestLanes(id);
+                std::vector<TraCIBestLanesData> bestLanes = TraCI_Vehicle::getBestLanes(id);
                 tempContent.writeInt((int) bestLanes.size());
                 ++cnt;
-                for (std::vector<TraCI_Vehicle::BestLanesData>::const_iterator i = bestLanes.begin(); i != bestLanes.end(); ++i) {
-                    const TraCI_Vehicle::BestLanesData& bld = *i;
+                for (std::vector<TraCIBestLanesData>::const_iterator i = bestLanes.begin(); i != bestLanes.end(); ++i) {
+                    const TraCIBestLanesData& bld = *i;
                     tempContent.writeUnsignedByte(TYPE_STRING);
                     tempContent.writeString(bld.laneID);
                     ++cnt;
@@ -335,7 +335,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     tempContent.writeDouble(bld.length);
                     ++cnt;
                     tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                    tempContent.writeDouble(bld.nextOccupation);
+                    tempContent.writeDouble(bld.occupation);
                     ++cnt;
                     tempContent.writeUnsignedByte(TYPE_BYTE);
                     tempContent.writeByte(bld.bestLaneOffset);
@@ -352,13 +352,13 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case VAR_NEXT_TLS: {
-                std::vector<TraCI_Vehicle::NextTLSData> nextTLS = TraCI_Vehicle::getNextTLS(id);
+                std::vector<TraCINextTLSData> nextTLS = TraCI_Vehicle::getNextTLS(id);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 const int cnt = 1 + (int)nextTLS.size() * 4;
                 tempMsg.writeInt(cnt);
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt((int)nextTLS.size());
-                for (std::vector<TraCI_Vehicle::NextTLSData>::iterator it = nextTLS.begin(); it != nextTLS.end(); ++it) {
+                for (std::vector<TraCINextTLSData>::iterator it = nextTLS.begin(); it != nextTLS.end(); ++it) {
                     tempMsg.writeUnsignedByte(TYPE_STRING);
                     tempMsg.writeString(it->id);
                     tempMsg.writeUnsignedByte(TYPE_INTEGER);

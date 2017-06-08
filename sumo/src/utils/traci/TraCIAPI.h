@@ -664,8 +664,8 @@ public:
         double getSpeedFactor(const std::string& vehicleID) const;
         std::string getLine(const std::string& vehicleID) const;
         std::vector<std::string> getVia(const std::string& vehicleID) const;
-        std::vector<NextTLSData> getNextTLS(const std::string& vehID) const;
-        std::vector<BestLanesData> getBestLanes(const std::string& vehicleID) const;
+        std::vector<TraCINextTLSData> getNextTLS(const std::string& vehID) const;
+        std::vector<TraCIBestLanesData> getBestLanes(const std::string& vehicleID) const;
         /// @}
 
         /// @name vehicle type value retrieval shortcuts

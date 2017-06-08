@@ -2178,18 +2178,18 @@ TraCIAPI::VehicleScope::getShapeClass(const std::string& vehicleID) const {
     return myParent.getString(CMD_GET_VEHICLE_VARIABLE, VAR_SHAPECLASS, vehicleID);
 }
 
-std::vector<NextTLSData>
+std::vector<TraCINextTLSData>
 TraCIAPI::VehicleScope::getNextTLS(const std::string& vehID) const {
     tcpip::Storage inMsg;
     myParent.send_commandGetVariable(CMD_GET_VEHICLE_VARIABLE, VAR_NEXT_TLS, vehID);
     myParent.processGET(inMsg, CMD_GET_VEHICLE_VARIABLE, TYPE_COMPOUND);
-    std::vector<NextTLSData> result;
+    std::vector<TraCINextTLSData> result;
     inMsg.readInt(); // components
     // number of items
     inMsg.readUnsignedByte();
     const int n = inMsg.readInt();
     for (int i = 0; i < n; ++i) {
-        NextTLSData d;
+        TraCINextTLSData d;
         inMsg.readUnsignedByte();
         d.id = inMsg.readString();
 
@@ -2207,7 +2207,7 @@ TraCIAPI::VehicleScope::getNextTLS(const std::string& vehID) const {
     return result;
 }
 
-std::vector<BestLanesData>
+std::vector<TraCIBestLanesData>
 TraCIAPI::VehicleScope::getBestLanes(const std::string& vehicleID) const {
     tcpip::Storage inMsg;
     myParent.send_commandGetVariable(CMD_GET_VEHICLE_VARIABLE, VAR_BEST_LANES, vehicleID);
@@ -2215,10 +2215,10 @@ TraCIAPI::VehicleScope::getBestLanes(const std::string& vehicleID) const {
     inMsg.readInt();
     inMsg.readUnsignedByte();
 
-    std::vector<BestLanesData> result;
+    std::vector<TraCIBestLanesData> result;
     const int n = inMsg.readInt(); // number of following edge information
     for (int i = 0; i < n; ++i) {
-        BestLanesData info;
+        TraCIBestLanesData info;
         inMsg.readUnsignedByte();
         info.laneID = inMsg.readString();
 
@@ -2229,15 +2229,15 @@ TraCIAPI::VehicleScope::getBestLanes(const std::string& vehicleID) const {
         info.occupation = inMsg.readDouble();
 
         inMsg.readUnsignedByte();
-        info.offsetToBestLane = inMsg.readByte();
+        info.bestLaneOffset = inMsg.readByte();
 
         inMsg.readUnsignedByte();
-        info.usableForContinuingDrive = (inMsg.readUnsignedByte() == 1);
+        info.allowsContinuation = (inMsg.readUnsignedByte() == 1);
 
         inMsg.readUnsignedByte();
         const int m = inMsg.readInt();
         for (int i = 0; i < m; ++i) {
-            info.subsequentLanes.push_back(inMsg.readString());
+            info.continuationLanes.push_back(inMsg.readString());
         }
 
         result.push_back(info);

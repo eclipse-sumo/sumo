@@ -313,18 +313,18 @@ TraCI_Vehicle::getSignalStates(const std::string& vehicleID) {
     return getVehicle(vehicleID)->getSignals();
 }
 
-std::vector<TraCI_Vehicle::BestLanesData>
+std::vector<TraCIBestLanesData>
 TraCI_Vehicle::getBestLanes(const std::string& vehicleID) {
-    std::vector<BestLanesData> result;
+    std::vector<TraCIBestLanesData> result;
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
         const std::vector<MSVehicle::LaneQ>& bestLanes = veh->getBestLanes();
         for (std::vector<MSVehicle::LaneQ>::const_iterator i = bestLanes.begin(); i != bestLanes.end(); ++i) {
-            BestLanesData bld;
+            TraCIBestLanesData bld;
             const MSVehicle::LaneQ& lq = *i;
             bld.laneID = lq.lane->getID();
             bld.length = lq.length;
-            bld.nextOccupation = lq.nextOccupation;
+            bld.occupation = lq.nextOccupation;
             bld.bestLaneOffset = lq.bestLaneOffset;
             bld.allowsContinuation = lq.allowsContinuation;
             for (std::vector<MSLane*>::const_iterator j = lq.bestContinuations.begin(); j != lq.bestContinuations.end(); ++j) {
@@ -339,9 +339,9 @@ TraCI_Vehicle::getBestLanes(const std::string& vehicleID) {
 }
 
 
-std::vector<TraCI_Vehicle::NextTLSData>
+std::vector<TraCINextTLSData>
 TraCI_Vehicle::getNextTLS(const std::string& vehicleID) {
-    std::vector<NextTLSData> result;
+    std::vector<TraCINextTLSData> result;
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
         const MSLane* lane = veh->getLane();
@@ -352,7 +352,7 @@ TraCI_Vehicle::getNextTLS(const std::string& vehicleID) {
         while (!lane->isLinkEnd(link)) {
             if (!lane->getEdge().isInternal()) {
                 if ((*link)->isTLSControlled()) {
-                    NextTLSData ntd;
+                    TraCINextTLSData ntd;
                     ntd.id = (*link)->getTLLogic()->getID();
                     ntd.tlIndex = (*link)->getTLIndex();
                     ntd.dist = seen;
