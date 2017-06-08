@@ -22,6 +22,9 @@ cf_model
 # test lane-changing model properties
 lc_model
 
+# tests for vType-specific junction behavior
+junction_model
+
 # testing the dynamics and interaction of different pedestrian models
 pedestrian_model
 opposite_direction_driving
