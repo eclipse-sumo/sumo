@@ -201,6 +201,9 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
 Boundary
 GUIParkingArea::getCenteringBoundary() const {
     Boundary b = myShape.getBoxBoundary();
+    for (std::map<unsigned int, LotSpaceDefinition >::const_iterator i = mySpaceOccupancies.begin(); i != mySpaceOccupancies.end(); i++) {
+        b.add((*i).second.myPosition);
+    }
     b.grow(20);
     return b;
 }

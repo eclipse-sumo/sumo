@@ -114,7 +114,6 @@ GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
     } else {
         myParkingArea = stop;
     }
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(stop);
 }
 
 void
@@ -141,6 +140,18 @@ GUITriggerBuilder::buildCalibrator(MSNet& net, const std::string& id,
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(cali);
     return cali;
 }
+
+
+void
+GUITriggerBuilder::endParkingArea() {
+    if (myParkingArea != 0) {
+        static_cast<GUINet*>(MSNet::getInstance())->getVisualisationSpeedUp().addAdditionalGLObject(static_cast<GUIParkingArea*>(myParkingArea));
+        myParkingArea = 0;
+    } else {
+        throw InvalidArgument("Could not end a parking area that is not opened.");
+    }
+}
+
 
 
 /****************************************************************************/

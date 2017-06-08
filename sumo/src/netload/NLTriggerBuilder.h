@@ -209,7 +209,7 @@ public:
      *
      * @exception InvalidArgument If the current parking area is 0
      */
-    void endParkingArea();
+    virtual void endParkingArea();
 
 
     /** @brief Parses his values and builds a charging station

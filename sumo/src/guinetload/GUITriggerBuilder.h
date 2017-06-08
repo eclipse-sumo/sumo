@@ -178,6 +178,11 @@ protected:
                                           const SUMOTime freq, const MSRouteProbe* probe);
     /// @}
 
+
+    /** @brief End a parking area
+     * (it must be added to the SUMORTree after all parking spaces are loaded
+     */
+    virtual void endParkingArea();
 };
 
 
