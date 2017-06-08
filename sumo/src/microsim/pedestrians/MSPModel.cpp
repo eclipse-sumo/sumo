@@ -75,6 +75,7 @@ MSPModel::getModel() {
 #ifdef BUILD_GRPC
         } else if (model == "remote") {
             myModel = new MSPModel_Remote(oc, net);
+//            std::cout << " remote model loaded" << std::endl;
 #endif
         } else {
             throw ProcessError("Unknown pedestrian model '" + model + "'");

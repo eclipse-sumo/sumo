@@ -24,13 +24,30 @@
 
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
+#include <microsim/pedestrians/hybridsim.grpc.pb.h>
+#include <utils/geom/Boundary.h>
 #include "MSPModel.h"
 class MSPModel_Remote : public MSPModel{
 
 
 public:
     MSPModel_Remote(const OptionsCont& oc, MSNet* net);
+    PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) override;
+    void remove(PedestrianState* state) override;
+    bool
+    blockedAtDist(const MSLane* lane, double distToCrossing, std::vector<const MSPerson*>* collectBlockers) override;
+
+private:
+    MSNet* myNet;
+    std::unique_ptr<hybridsim::HybridSimulation::Stub> myHybridsimStub;
+    Boundary myBoundary;
+    void initialize();
+    void handleWalkingArea(MSEdge* msEdge, hybridsim::Scenario& scenario);
+    void handlePedestrianLane(MSLane* pLane, hybridsim::Scenario& scenario);
+    void makeStartOrEndTransition(Position& position, Position& scnd, double width, hybridsim::Scenario& scenario);
+    void handleShape(const PositionVector& shape, hybridsim::Scenario& scenario);
 };
+
 
 
 #endif //SUMO_MSPMODEL_REMOTE_H

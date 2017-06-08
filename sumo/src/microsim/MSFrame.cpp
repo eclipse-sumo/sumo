@@ -317,7 +317,7 @@ MSFrame::fillOptions() {
 
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
-    oc.addDescription("pedestrian.model", "Processing", "Select among pedestrian models ['nonInteracting', 'striping']");
+    oc.addDescription("pedestrian.model", "Processing", "Select among pedestrian models ['nonInteracting', 'striping', 'remote']");
 
     oc.doRegister("pedestrian.striping.stripe-width", new Option_Float(0.65));
     oc.addDescription("pedestrian.striping.stripe-width", "Processing", "Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'");
@@ -327,6 +327,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("pedestrian.striping.jamtime", new Option_String("300", "TIME"));
     oc.addDescription("pedestrian.striping.jamtime", "Processing", "Time in seconds after which pedestrians start squeezing through a jam when using model 'striping' (non-positive values disable squeezing)");
+
+    oc.doRegister("pedestrian.remote.address", new Option_String("localhost:9000"));
+    oc.addDescription("pedestrian.remote.address", "Processing", "The address (host:port) of the external simulation");
 
     // generic routing options
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
