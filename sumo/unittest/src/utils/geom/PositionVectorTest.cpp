@@ -527,3 +527,47 @@ TEST_F(PositionVectorTest, test_method_distances) {
     }
 
 }
+
+/* Test the method 'overlapsWith'*/
+TEST_F(PositionVectorTest, test_method_overlapsWith) {
+    PositionVector vec1;
+    vec1.push_back(Position(1, 2));
+    vec1.push_back(Position(3, 2));
+    vec1.push_back(Position(3, 6));
+    vec1.push_back(Position(1, 6));
+
+    PositionVector vec2;
+    vec2.push_back(Position(10, 17));
+    vec2.push_back(Position(13, 17));
+    vec2.push_back(Position(13, 16));
+    vec2.push_back(Position(10, 16));
+
+    PositionVector vec3;
+    vec3.push_back(Position(-1, -7));
+    vec3.push_back(Position( 2, -7));
+    vec3.push_back(Position( 2,  4));
+    vec3.push_back(Position(-1,  4));
+
+    PositionVector vec4;
+    vec4.push_back(Position(0, 3));
+    vec4.push_back(Position(4, 3));
+    vec4.push_back(Position(4, 5));
+    vec4.push_back(Position(0, 5));
+
+    PositionVector vec5;
+    vec5.push_back(Position(4, 2));
+    vec5.push_back(Position(5, 2));
+    vec5.push_back(Position(5, 7));
+    vec5.push_back(Position(4, 7));
+
+    PositionVector empty;
+
+    EXPECT_TRUE(vec1.overlapsWith(vec1));
+    EXPECT_TRUE(vec1.overlapsWith(vec2));
+    EXPECT_TRUE(vec1.overlapsWith(vec3));
+    EXPECT_TRUE(vec1.overlapsWith(vec4));
+    EXPECT_FALSE(vec1.overlapsWith(vec5, 0));
+    EXPECT_TRUE(vec1.overlapsWith(vec5, 1));
+    EXPECT_FALSE(vec1.overlapsWith(empty));
+}
+
