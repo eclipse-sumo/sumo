@@ -73,3 +73,9 @@ until_order
 
 # tests  defining a stop on an internal lane
 on_junction
+
+# tests  defining a stop on an invalid internal lane
+on_junction_invalid
+
+# tests  defining a stop on an invalid internal lane
+on_junction_invalid2
