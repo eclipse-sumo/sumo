@@ -76,6 +76,7 @@ TEST(Boundary, test_method_overlapsWith) {
     EXPECT_TRUE(bound.overlapsWith(Boundary(-1,-7,2,4)));
     EXPECT_TRUE(bound.overlapsWith(Boundary(1,2,3,6)));    
     EXPECT_TRUE(bound.overlapsWith(Boundary(4,2,5,7),1));
+    EXPECT_TRUE(bound.overlapsWith(Boundary(0,3,4,5)));
 }
 
 /* Test the method 'crosses'*/
