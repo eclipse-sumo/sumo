@@ -13,3 +13,6 @@ walking_backward_left_turning_vehicle
 
 # person walking across the street without priority-crossing, a vehicle suddenly appears
 walking_forward_unprioritized
+
+# walk despire red light
+jaywalking_forward
