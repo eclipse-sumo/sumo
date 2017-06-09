@@ -987,11 +987,12 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     }
     // David.C:
     //if (!stop.parking && (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed))) {
+    const double endPosOffset = stop.lane->getEdge().isInternal() ? (*stop.edge)->getLength() : 0;
     if (collision) {
         assert(myCurrEdge == stop.edge);
         myState.myPos = stop.endPos;
         myState.mySpeed = 0;
-    } else if (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed)) {
+    } else if (myCurrEdge == stop.edge && myState.myPos > stop.endPos + endPosOffset - getCarFollowModel().brakeGap(myState.mySpeed)) {
         errorMsg = "Stop for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is too close to break.";
         return false;
     }
@@ -1006,7 +1007,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         if (myParameter->departPosProcedure == DEPART_POS_BASE || myParameter->departPosProcedure == DEPART_POS_DEFAULT) {
             pos = MIN2(static_cast<double>(getVehicleType().getLength() + POSITION_EPS), (*myCurrEdge)->getLength());
         }
-        if (pos > stop.endPos) {
+        if (pos > stop.endPos + endPosOffset) {
             if (stop.busstop != 0) {
                 errorMsg = "Bus stop '" + stop.busstop->getID() + "'";
             } else {

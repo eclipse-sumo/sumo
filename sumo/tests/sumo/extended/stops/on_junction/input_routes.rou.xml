@@ -3,7 +3,7 @@
   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
 
   <route id="route0" edges="SC CN"/>
-  <vehicle depart="0" id="veh0" route="route0" departSpeed="max">
+  <vehicle depart="0" departPos="11" id="veh0" route="route0" departSpeed="max">
       <stop lane=":C_10_0" endPos="10" duration="5"/>
   </vehicle>
 </routes>
