@@ -112,6 +112,16 @@ PositionVector::overlapsWith(const AbstractPoly& poly, double offset) const {
             return true;
         }
     }
+    if (size() >= 2) {
+        for (const_iterator i = begin(); i != end() - 1; i++) {
+            if (poly.crosses(*i, *(i + 1))) {
+                return true;
+            }
+        }
+        if (size() > 2 && poly.crosses(back(), front())) {
+            return true;
+        }
+    }
     return false;
 }
 
