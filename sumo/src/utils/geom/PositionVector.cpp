@@ -76,6 +76,9 @@ PositionVector::~PositionVector() {}
 
 bool
 PositionVector::around(const Position& p, double offset) const {
+    if (size() < 2) {
+        return false;
+    }
     if (offset != 0) {
         PositionVector tmp(*this);
         tmp.scaleAbsolute(offset);
