@@ -76,6 +76,7 @@
 //#define DEBUG_OPPOSITE
 //#define DEBUG_VEHICLE_CONTAINER
 //#define DEBUG_COLLISIONS
+//#define DEBUG_JUNCTION_COLLISIONS
 //#define DEBUG_LANE_SORTER
 
 #define DEBUG_COND (getID() == "disabled")
@@ -1073,6 +1074,14 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     }
 
     if (myCheckJunctionCollisions && myEdge->isInternal()) {
+#ifdef DEBUG_JUNCTION_COLLISIONS
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " detect junction Collisions stage=" << stage << " lane=" << getID() << ":\n"
+                << "   vehs=" << toString(myVehicles) << "\n"
+                << "   part=" << toString(myPartialVehicles) << "\n"
+                << "\n";
+        }
+#endif
         assert(myLinks.size() == 1);
         //std::cout << SIMTIME << " checkJunctionCollisions " << getID() << "\n";
         const std::vector<const MSLane*>& foeLanes = myLinks.front()->getFoeLanes();
@@ -1087,6 +1096,11 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                 for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != end; ++it_veh) {
                     MSVehicle* victim = (MSVehicle*)*it_veh;
                     //std::cout << "             victim " << victim->getID() << "\n";
+#ifdef DEBUG_JUNCTION_COLLISIONS
+                    if (DEBUG_COND && DEBUG_COND2(collider)) {
+                        std::cout << SIMTIME << " foe=" << victim->getID() << " bound=" << colliderBoundary << " foeBound=" << victim->getBoundingBox() << "\n";
+                    }
+#endif
                     if (colliderBoundary.overlapsWith(victim->getBoundingBox())) {
                         // make a detailed check
                         if (collider->getBoundingPoly().overlapsWith(victim->getBoundingPoly())) {
