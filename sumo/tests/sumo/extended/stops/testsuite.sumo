@@ -70,3 +70,6 @@ bestLaneStop0
 not_allowed
 too_short
 until_order
+
+# tests  defining a stop on an internal lane
+on_junction
