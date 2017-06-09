@@ -202,8 +202,18 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         mandatory.push_back(oldEdges.front());
         ConstROEdgeVector stops = veh.getStopEdges();
         for (ConstROEdgeVector::const_iterator i = stops.begin(); i != stops.end(); ++i) {
-            if (*i != mandatory.back()) {
-                mandatory.push_back(*i);
+            if ((*i)->isInternal()) {
+                // the edges before and after the internal edge are mandatory
+                const ROEdge* before = (*i)->getNormalBefore();
+                const ROEdge* after = (*i)->getNormalAfter();
+                if (after != mandatory.back()) {
+                    mandatory.push_back(before);
+                    mandatory.push_back(after);
+                }
+            } else {
+                if (*i != mandatory.back()) {
+                    mandatory.push_back(*i);
+                }
             }
         }
         if (oldEdges.back()->prohibits(&veh)) {

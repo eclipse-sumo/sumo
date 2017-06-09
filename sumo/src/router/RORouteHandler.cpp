@@ -642,7 +642,8 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, 0, ok, edge->getLength());
         stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, 0, ok, stop.endPos - 2 * POSITION_EPS);
         const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
-        if (!ok || !checkStopPos(stop.startPos, stop.endPos, edge->getLength(), POSITION_EPS, friendlyPos)) {
+        const double endPosOffset = edge->isInternal() ? edge->getNormalBefore()->getLength() : 0;
+        if (!ok || !checkStopPos(stop.startPos, stop.endPos, edge->getLength() + endPosOffset, POSITION_EPS, friendlyPos)) {
             myErrorOutput->inform("Invalid start or end position for stop" + errorSuffix);
             return;
         }

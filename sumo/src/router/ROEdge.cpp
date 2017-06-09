@@ -105,14 +105,22 @@ ROEdge::addLane(ROLane* lane) {
 
 void
 ROEdge::addSuccessor(ROEdge* s, std::string) {
+    if (s->isInternal() && !isInternal()) { 
+        if (s->myApproachingEdges.size() == 0) {
+            s->myApproachingEdges.push_back(this);
+        }
+        return;
+    }
     if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
         if (isTazConnector()) {
             myTazBoundary.add(s->getFromJunction()->getPosition());
         }
-        s->myApproachingEdges.push_back(this);
-        if (s->isTazConnector()) {
-            s->myTazBoundary.add(getToJunction()->getPosition());
+        if (!isInternal()) {
+            s->myApproachingEdges.push_back(this);
+            if (s->isTazConnector()) {
+                s->myTazBoundary.add(getToJunction()->getPosition());
+            }
         }
     }
 }
@@ -238,6 +246,28 @@ ROEdge::getNumPredecessors() const {
         return 0;
     }
     return (int) myApproachingEdges.size();
+}
+
+
+const ROEdge* 
+ROEdge::getNormalBefore() const {
+    const ROEdge* result = this;
+    while (result->isInternal()) {
+        assert(myApproachingEdges.size() == 1);
+        result = myApproachingEdges.front();
+    }
+    return result;
+}
+
+
+const ROEdge* 
+ROEdge::getNormalAfter() const {
+    const ROEdge* result = this;
+    while (result->isInternal()) {
+        assert(myFollowingEdges.size() == 1);
+        result = myFollowingEdges.front();
+    }
+    return result;
 }
 
 

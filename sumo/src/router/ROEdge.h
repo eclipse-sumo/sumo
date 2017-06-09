@@ -349,6 +349,11 @@ public:
         return myApproachingEdges;
     }
 
+    /// @brief if this edge is an internal edge, return its first normal predecessor, otherwise the edge itself
+    const ROEdge* getNormalBefore() const;
+
+    /// @brief if this edge is an internal edge, return its first normal successor, otherwise the edge itself
+    const ROEdge* getNormalAfter() const;
 
     /** @brief Returns the effort for this edge
      *

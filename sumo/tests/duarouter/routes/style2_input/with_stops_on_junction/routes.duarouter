@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:02:22 by SUMO duarouter Version 0.17.0
+<!-- generated on Fri Jun  9 13:19:19 2017 by SUMO duarouter Version dev-SVN-r24609
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
-        <net-file value="input_net.net.xml"/>
+        <net-file value="input_net2.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
     </input>
 
@@ -15,6 +15,7 @@
     </output>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -22,8 +23,8 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00">
-        <route edges="beg middle end rend"/>
-        <stop lane="middle_0"/>
+    <vehicle id="0" depart="0.00" departPos="10.00">
+        <route edges="A0toB0 B0toC0"/>
+        <stop lane=":B0_4_0" endPos="2.00" duration="5.00"/>
     </vehicle>
 </routes>

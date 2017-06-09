@@ -196,7 +196,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
 
 void
 RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
-    if (myCurrentEdge == 0 || myCurrentEdge->isInternal()) {
+    if (myCurrentEdge == 0) {
         // was an internal edge to skip or an error occured
         return;
     }
@@ -260,6 +260,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     int fromLane = attrs.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
     int toLane = attrs.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
     std::string dir = attrs.get<std::string>(SUMO_ATTR_DIR, 0, ok);
+    std::string viaID = attrs.getOpt<std::string>(SUMO_ATTR_VIA, 0, ok, "");
     ROEdge* from = myNet.getEdge(fromID);
     ROEdge* to = myNet.getEdge(toID);
     if (from == 0) {
@@ -267,9 +268,6 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     }
     if (to == 0) {
         throw ProcessError("unknown to-edge '" + toID + "' in connection");
-    }
-    if (from->isInternal()) { // skip inner lane connections
-        return;
     }
     if ((int)from->getLanes().size() <= fromLane) {
         throw ProcessError("invalid fromLane '" + toString(fromLane) + "' in connection from '" + fromID + "'.");
@@ -279,6 +277,14 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     }
     from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane]);
     from->addSuccessor(to, dir);
+    if (viaID != "") { 
+        ROEdge* via = myNet.getEdge(viaID.substr(0, viaID.rfind('_')));
+        if (via == 0) {
+            throw ProcessError("unknown via-edge '" + viaID + "' in connection");
+        }
+        from->addSuccessor(via, dir);
+        return;
+    }
 }
 
 
