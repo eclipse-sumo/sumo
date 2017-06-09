@@ -65,7 +65,7 @@
         </xsd:attribute>
         <xsd:attribute name="minGapLat" type="positiveFloatType"/>
         <xsd:attribute name="jmCrossingGap" type="nonNegativeFloatType"/>
-        <xsd:attribute name="jmDriveAfterRedTime" type="nonNegativeFloatType"/>
+        <xsd:attribute name="jmDriveAfterRedTime" type="nonNegativeFloatTypeWithErrorValue"/>
         <xsd:attribute name="jmDriveRedSpeed" type="nonNegativeFloatType"/>
         <xsd:attribute name="jmIgnoreKeepClearTime" type="nonNegativeFloatTypeWithErrorValue"/>
         <xsd:attribute name="jmIgnoreFoeSpeed" type="nonNegativeFloatType"/>
