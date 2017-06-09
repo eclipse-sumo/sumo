@@ -976,7 +976,8 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         }
     }
     if (stop.edge == myRoute->end() || prevStopEdge > stop.edge ||
-            (prevStopEdge == stop.edge && prevStopPos > stop.endPos && !collision)) {
+            (prevStopEdge == stop.edge && prevStopPos > stop.endPos && !collision)
+            || (stop.lane->getEdge().isInternal() && stop.lane->getNextNormal() != *(stop.edge + 1))) {
         if (stop.busstop != 0) {
             errorMsg = "Bus stop '" + stop.busstop->getID() + "'";
         } else {
