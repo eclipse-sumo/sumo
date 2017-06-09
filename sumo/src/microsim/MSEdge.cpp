@@ -679,6 +679,16 @@ MSEdge::getInternalFollowingLengthTo(const MSEdge* followerAfterInternal) const 
     return dist;
 }
 
+const MSEdge* 
+MSEdge::getNormalBefore() const {
+    const MSEdge* result = this;
+    while (result->isInternal()) {
+        assert(myPredecessors.size() == 1);
+        result = myPredecessors.front();
+    }
+    return result;
+}
+
 double
 MSEdge::getMeanSpeed() const {
     double v = 0;

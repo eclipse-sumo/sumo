@@ -526,6 +526,9 @@ public:
     /// @brief returns the length of all internal edges on the junction until reaching the non-internal edge followerAfterInternal.
     double getInternalFollowingLengthTo(const MSEdge* followerAfterInternal) const;
 
+    /// @brief if this edge is an internal edge, return its first normal predecessor, otherwise the edge itself
+    const MSEdge* getNormalBefore() const;
+
     /// @brief Returns whether the vehicle (class) is not allowed on the edge
     inline bool prohibits(const SUMOVehicle* const vehicle) const {
         if (vehicle == 0) {

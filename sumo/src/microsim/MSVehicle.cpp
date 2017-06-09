@@ -939,7 +939,9 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     if (stop.parkingarea != 0 && myType->getLength() / 2. > stop.endPos - stop.startPos) {
         errorMsg = "Parking area '" + stop.parkingarea->getID() + "' on lane '" + stopPar.lane + "' is too short for vehicle '" + myParameter->id + "'.";
     }
-    stop.edge = find(myCurrEdge, myRoute->end(), &stop.lane->getEdge());
+    // if stop is on an internal edge the normal edge before the intersection is used
+    const MSEdge* stopEdge = stop.lane->getEdge().getNormalBefore();
+    stop.edge = find(myCurrEdge, myRoute->end(), stopEdge);
     MSRouteIterator prevStopEdge = myCurrEdge;
     double prevStopPos = myState.myPos;
     // where to insert the stop
@@ -949,9 +951,9 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
             prevStopEdge = myStops.back().edge;
             prevStopPos = myStops.back().endPos;
             iter = myStops.end();
-            stop.edge = find(prevStopEdge, myRoute->end(), &stop.lane->getEdge());
+            stop.edge = find(prevStopEdge, myRoute->end(), stopEdge);
             if (prevStopEdge == stop.edge && prevStopPos > stop.endPos) {
-                stop.edge = find(prevStopEdge + 1, myRoute->end(), &stop.lane->getEdge());
+                stop.edge = find(prevStopEdge + 1, myRoute->end(), stopEdge);
             }
         }
     } else {
@@ -970,7 +972,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
                 ++iter;
                 --index;
             }
-            stop.edge = find(prevStopEdge, myRoute->end(), &stop.lane->getEdge());
+            stop.edge = find(prevStopEdge, myRoute->end(), stopEdge);
         }
     }
     if (stop.edge == myRoute->end() || prevStopEdge > stop.edge ||
@@ -1317,6 +1319,10 @@ MSVehicle::processNextStop(double currentVelocity) {
                         return currentVelocity;
                     }
                 }
+            }
+            if (stop.lane->getEdge().isInternal() && &myLane->getEdge() != &stop.lane->getEdge()) {
+                // endPos is on subsequent edge
+                endPos += myLane->getLength();
             }
 
             const double reachedThreshold = (useStoppingPlace ? endPos - STOPPING_PLACE_OFFSET : stop.startPos) - NUMERICAL_EPS;
