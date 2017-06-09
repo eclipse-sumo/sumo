@@ -2327,7 +2327,7 @@ TraCIAPI::VehicleScope::getSpeedWithoutTraCI(const std::string& vehicleID) const
 
 bool
 TraCIAPI::VehicleScope::isRouteValid(const std::string& vehicleID) const {
-    return myParent.getUnsignedByte(CMD_GET_VEHICLE_VARIABLE, VAR_ROUTE_VALID, vehicleID);
+    return myParent.getUnsignedByte(CMD_GET_VEHICLE_VARIABLE, VAR_ROUTE_VALID, vehicleID) != 0;
 }
 
 double

@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed May 31 07:51:35 2017
+TraCITestClient output file. Date: Fri Jun  9 15:08:49 2017
 
 
 -> Command sent: <SimulationStep>:
@@ -33,6 +33,7 @@ testAPI:
     getLine: S42
     getVia: e_shape1
     getMaxSpeed: 30.00
+    isRouteValid: 1
     getColor:  r=255 g=255 b=0 a=128
     getNextTLS:
       tls=n_m4 tlIndex=4 dist=351.95 state=r
