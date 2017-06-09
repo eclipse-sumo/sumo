@@ -21,3 +21,9 @@ red_2s_brake
 
 # vehicle ignores red lights but lowers its speed
 red_5s_driveRedSpeed
+
+# vehicle ignores red lights but must brake for foe vehicles already on the junction
+red_15s_brake_junction_foes
+
+# vehicle ignores red lights but must brake for foe vehicles that are too fast to stop
+#red_15s_brake_foes
