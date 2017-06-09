@@ -823,10 +823,11 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             DEBUG_PRINT(currentObs);
         }
         // check link state
+        gDebugFlag1 = DEBUGCOND(p.myPerson->getID()); // see MSLink_DEBUG_OPENED
         if (link != 0
                 // only check close before junction, @todo we should take deceleration into account here
                 && dist - p.getMinGap() < LOOKAHEAD_SAMEDIR * speed
-                && (!link->opened(currentTime, speed, speed, p.getLength(), p.getImpatience(currentTime), speed, 0)
+                && (!link->opened(currentTime, speed, speed, p.getLength(), p.getImpatience(currentTime), speed, 0, 0, 0, p.ignoreRed(link))
                     // @todo check for presence of vehicles blocking the path
                    )) {
             // prevent movement passed a closed link
@@ -842,6 +843,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                 p.myNLI = getNextLane(p, p.myLane, p.myWalkingAreaPath->from);
             }
         }
+        gDebugFlag1 = false;
         if (&lane->getEdge() == &p.myStage->getDestination() && p.myStage->getDestinationStop() != 0) {
             Obstacles arrival(stripes, Obstacle(p.myStage->getArrivalPos() + dir * p.getMinGap(), 0, "arrival", 0, true));
             p.mergeObstacles(currentObs, arrival);
@@ -1487,6 +1489,23 @@ MSPModel_Striping::PState::mergeObstacles(Obstacles& into, const Obstacles& obs2
 }
 
 
+bool 
+MSPModel_Striping::PState::ignoreRed(const MSLink* link) const {
+    if (link->haveRed()) {
+        const double ignoreRedTime = myPerson->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, -1);
+        if (ignoreRedTime >= 0) {
+            const double redDuration = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - link->getLastStateChange());
+            if (DEBUGCOND(myPerson->getID())) {
+                std::cout << SIMTIME << "  ignoreRedTime=" << ignoreRedTime << " redDuration=" << redDuration << "\n";
+            }
+            return ignoreRedTime > redDuration;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
 
 // ===========================================================================
 // MSPModel_Striping::MovePedestrians method definitions
