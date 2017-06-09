@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun  9 14:24:43 2017 by SUMO Version dev-SVN-r24617
+<!-- generated on Fri Jun  9 14:32:09 2017 by SUMO Version dev-SVN-r24617
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -33,10 +33,10 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="ego" depart="42.00" departLane="SC_0" departPos="10.00" departSpeed="0.00" departDelay="0.00" arrival="63.00" arrivalLane="CN_0" arrivalPos="50.00" arrivalSpeed="13.89" duration="21.00" routeLength="148.05" waitSteps="3" timeLoss="9.57" rerouteNo="0" devices="tripinfo_ego" vType="egoType" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="foe.0" depart="40.00" departLane="EC_1" departPos="7.20" departSpeed="13.89" departDelay="0.00" arrival="63.00" arrivalLane="CW_1" arrivalPos="50.00" arrivalSpeed="13.00" duration="23.00" routeLength="150.85" waitSteps="0" timeLoss="6.38" rerouteNo="0" devices="tripinfo_foe.0" vType="foeType" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="foe.1" depart="42.00" departLane="EC_1" departPos="7.20" departSpeed="13.89" departDelay="0.00" arrival="75.00" arrivalLane="CW_1" arrivalPos="50.00" arrivalSpeed="13.00" duration="33.00" routeLength="150.85" waitSteps="5" timeLoss="16.38" rerouteNo="0" devices="tripinfo_foe.1" vType="foeType" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="foe.2" depart="44.00" departLane="EC_1" departPos="7.20" departSpeed="13.89" departDelay="0.00" arrival="87.00" arrivalLane="CW_1" arrivalPos="50.00" arrivalSpeed="13.00" duration="43.00" routeLength="150.85" waitSteps="11" timeLoss="26.37" rerouteNo="0" devices="tripinfo_foe.2" vType="foeType" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="foe.3" depart="46.00" departLane="EC_1" departPos="7.20" departSpeed="13.89" departDelay="0.00" arrival="152.00" arrivalLane="CW_1" arrivalPos="50.00" arrivalSpeed="13.00" duration="106.00" routeLength="150.85" waitSteps="70" timeLoss="89.31" rerouteNo="0" devices="tripinfo_foe.3" vType="foeType" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="foe.4" depart="48.00" departLane="EC_1" departPos="7.20" departSpeed="13.89" departDelay="0.00" arrival="164.00" arrivalLane="CW_1" arrivalPos="50.00" arrivalSpeed="13.00" duration="116.00" routeLength="150.85" waitSteps="76" timeLoss="99.30" rerouteNo="0" devices="tripinfo_foe.4" vType="foeType" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="ego" depart="42.00" departLane="SC_0" departPos="10.00" departSpeed="0.00" departDelay="0.00" arrival="59.00" arrivalLane="CN_0" arrivalPos="50.00" arrivalSpeed="13.89" duration="17.00" routeLength="148.05" waitSteps="0" timeLoss="6.25" rerouteNo="0" devices="tripinfo_ego" vType="egoType" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="foe.0" depart="25.00" departLane="EC_1" departPos="50.00" departSpeed="2.78" departDelay="0.00" arrival="69.00" arrivalLane="CW_0" arrivalPos="50.00" arrivalSpeed="2.78" duration="44.00" routeLength="108.05" waitSteps="4" timeLoss="4.85" rerouteNo="0" devices="tripinfo_foe.0" vType="foeType" speedFactor="0.20" vaporized=""/>
+    <tripinfo id="foe.1" depart="28.00" departLane="EC_1" departPos="50.00" departSpeed="1.23" departDelay="2.00" arrival="73.00" arrivalLane="CW_0" arrivalPos="50.00" arrivalSpeed="2.78" duration="45.00" routeLength="108.05" waitSteps="4" timeLoss="5.41" rerouteNo="0" devices="tripinfo_foe.1" vType="foeType" speedFactor="0.20" vaporized=""/>
+    <tripinfo id="foe.2" depart="32.00" departLane="EC_1" departPos="50.00" departSpeed="2.22" departDelay="5.00" arrival="79.00" arrivalLane="CW_0" arrivalPos="50.00" arrivalSpeed="2.78" duration="47.00" routeLength="108.05" waitSteps="6" timeLoss="7.95" rerouteNo="0" devices="tripinfo_foe.2" vType="foeType" speedFactor="0.20" vaporized=""/>
+    <tripinfo id="foe.3" depart="35.00" departLane="EC_1" departPos="50.00" departSpeed="0.68" departDelay="7.00" arrival="83.00" arrivalLane="CW_0" arrivalPos="50.00" arrivalSpeed="2.78" duration="48.00" routeLength="108.05" waitSteps="5" timeLoss="8.50" rerouteNo="0" devices="tripinfo_foe.3" vType="foeType" speedFactor="0.20" vaporized=""/>
+    <tripinfo id="foe.4" depart="39.00" departLane="EC_1" departPos="50.00" departSpeed="1.11" departDelay="10.00" arrival="86.00" arrivalLane="CW_0" arrivalPos="50.00" arrivalSpeed="2.78" duration="47.00" routeLength="108.05" waitSteps="5" timeLoss="8.06" rerouteNo="0" devices="tripinfo_foe.4" vType="foeType" speedFactor="0.20" vaporized=""/>
 </tripinfos>
