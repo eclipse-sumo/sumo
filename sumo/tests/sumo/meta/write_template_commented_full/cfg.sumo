@@ -147,6 +147,12 @@
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
 
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR"/>
+
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -252,7 +258,7 @@
         <!-- Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth -->
         <time-to-impatience value="300" type="TIME"/>
 
-        <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;] -->
+        <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;] -->
         <pedestrian.model value="striping" type="STR"/>
 
         <!-- Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos; -->
@@ -263,6 +269,9 @@
 
         <!-- Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing) -->
         <pedestrian.striping.jamtime value="300" type="TIME"/>
+
+        <!-- The address (host:port) of the external simulation -->
+        <pedestrian.remote.address value="localhost:9000" type="STR"/>
 
         <!-- Initialize lookup table for astar ALT-variant from the given file -->
         <astar.landmark-distances value="" type="FILE"/>
@@ -548,9 +557,6 @@
 
         <!-- Create initial window at the given x,y position -->
         <window-pos value="" type="STR"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
     </gui_only>
 

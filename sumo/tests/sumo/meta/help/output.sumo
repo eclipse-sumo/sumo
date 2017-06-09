@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r24460
+SUMO Version dev-SVN-r24591
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -86,6 +86,10 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR   List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -162,7 +166,8 @@ Processing Options:
                                          defaults to 300, non-positive values
                                          disable impatience growth
   --pedestrian.model STR               Select among pedestrian models
-                                         ['nonInteracting', 'striping']
+                                         ['nonInteracting', 'striping',
+                                         'remote']
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
                                          segmenting a sidewalk (meters) for use
                                          with model 'striping'
@@ -172,6 +177,8 @@ Processing Options:
                                          start squeezing through a jam when
                                          using model 'striping' (non-positive
                                          values disable squeezing)
+  --pedestrian.remote.address STR      The address (host:port) of the external
+                                         simulation
   --astar.landmark-distances FILE      Initialize lookup table for astar
                                          ALT-variant from the given file
 
@@ -369,8 +376,6 @@ GUI Only Options:
                                          size
   --window-pos STR                     Create initial window at the given x,y
                                          position
-  --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
 
 
 Examples:
