@@ -1943,7 +1943,8 @@ MSVehicle::executeMove() {
         MSLink* link = (*i).myLink;
 
 #ifdef DEBUG_EXEC_MOVE
-        if (DEBUG_COND) std::cout
+        if (DEBUG_COND) { 
+            std::cout
                     << SIMTIME
                     << " veh=" << getID()
                     << " link=" << (link == 0 ? "NULL" : link->getViaLaneOrLane()->getID())
@@ -1952,6 +1953,8 @@ MSVehicle::executeMove() {
                     << " vW=" << (*i).myVLinkWait
                     << " d=" << (*i).myDistance
                     << "\n";
+            gDebugFlag1 = true; // See MSLink_DEBUG_OPENED
+        }
 #endif
 
         // the vehicle must change the lane on one of the next lanes (XXX: refs to code further below???, Leo)
@@ -1962,7 +1965,8 @@ MSVehicle::executeMove() {
             const bool yellow = link->haveYellow();
             const bool canBrake = ((*i).myDistance > getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.)
                     ||(MSGlobals::gSemiImplicitEulerUpdate && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel())));
-            if (yellow && canBrake && !ignoreRed(link, canBrake)) {
+            const bool ignoreRedLink = ignoreRed(link, canBrake);
+            if (yellow && canBrake && !ignoreRedLink) {
                 vSafe = (*i).myVLinkWait;
                 myHaveToWaitOnNextLink = true;
                 link->removeApproaching(this);
@@ -1980,8 +1984,8 @@ MSVehicle::executeMove() {
                                        getVehicleType().getLength(), getImpatience(),
                                        getCarFollowModel().getMaxDecel(),
                                        getWaitingTime(), getLateralPositionOnLane(),
-                                       ls == LINKSTATE_ZIPPER ? &collectFoes : 0)
-                    || ignoreRed(link, canBrake));
+                                       ls == LINKSTATE_ZIPPER ? &collectFoes : 0,
+                                       ignoreRedLink));
             if (opened && getLaneChangeModel().getShadowLane() != 0) {
                 MSLink* parallelLink = (*i).myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
                 if (parallelLink != 0) {
@@ -1990,21 +1994,24 @@ MSVehicle::executeMove() {
                     opened = yellow || influencerPrio || (opened & parallelLink->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
                                                           getVehicleType().getLength(), getImpatience(),
                                                           getCarFollowModel().getMaxDecel(),
-                                                          getWaitingTime(), shadowLatPos, 0));
+                                                          getWaitingTime(), shadowLatPos, 0,
+                                                          ignoreRedLink));
 #ifdef DEBUG_EXEC_MOVE
-                    if (DEBUG_COND) std::cout
-                                << SIMTIME
-                                << " veh=" << getID()
-                                << " shadowLane=" << getLaneChangeModel().getShadowLane()->getID()
-                                << " shadowDir=" << getLaneChangeModel().getShadowDirection()
-                                << " parallelLink=" << (parallelLink == 0 ? "NULL" : parallelLink->getViaLaneOrLane()->getID())
-                                << " opened=" << opened
-                                << "\n";
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME
+                            << " veh=" << getID()
+                            << " shadowLane=" << getLaneChangeModel().getShadowLane()->getID()
+                            << " shadowDir=" << getLaneChangeModel().getShadowDirection()
+                            << " parallelLink=" << (parallelLink == 0 ? "NULL" : parallelLink->getViaLaneOrLane()->getID())
+                            << " opened=" << opened
+                            << "\n";
+                        gDebugFlag1 = false; // See MSLink_DEBUG_OPENED
+                    }
 #endif
                 }
             }
             // vehicles should decelerate when approaching a minor link
-            if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor() && !link->isCont() && !ignoreRed(link, canBrake)) {
+            if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor() && !link->isCont() && !ignoreRedLink) {
                 double visibilityDistance = link->getFoeVisibilityDistance();
                 double determinedFoePresence = i->myDistance <= visibilityDistance;
                 if (!determinedFoePresence) {

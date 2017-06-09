@@ -46,6 +46,7 @@
 #include <microsim/pedestrians/MSPModel.h>
 
 //#define MSLink_DEBUG_CROSSING_POINTS
+//#define MSLink_DEBUG_OPENED
 
 // ===========================================================================
 // static member variables
@@ -297,8 +298,8 @@ MSLink::getLeaveTime(const SUMOTime arrivalTime, const double arrivalSpeed,
 bool
 MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, double vehicleLength,
                double impatience, double decel, SUMOTime waitingTime, double posLat,
-               std::vector<const SUMOVehicle*>* collectFoes) const {
-    if (haveRed()) {
+               std::vector<const SUMOVehicle*>* collectFoes, bool ignoreRed) const {
+    if (haveRed() && !ignoreRed) {
         return false;
     }
     if (myAmCont && MSGlobals::gUsingInternalLanes) {
@@ -344,6 +345,13 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
     if ((myState == LINKSTATE_STOP || myState == LINKSTATE_ALLWAY_STOP) && waitingTime == 0) {
         return false;
     }
+
+#ifdef MSLink_DEBUG_OPENED
+    if (gDebugFlag1) {
+        std::cout << SIMTIME << " opened link=" << getViaLaneOrLane()->getID() << " foeLinks=" << myFoeLinks.size() << "\n";
+    }
+#endif
+
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
         if (MSGlobals::gUseMesoSim) {
             if ((*i)->haveRed()) {
@@ -383,6 +391,16 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
 bool
 MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi, SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                      bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime) const {
+#ifdef MSLink_DEBUG_OPENED
+    if (gDebugFlag1) {
+        std::cout << "    foe link=" << getViaLaneOrLane()->getID() 
+            << " foeVeh=" << veh->getID() 
+            << " req=" << avi.willPass
+            << " aT=" << avi.arrivalTime
+            << " lT=" << avi.leavingTime
+            << "\n";
+    }
+#endif
     if (!avi.willPass) {
         return false;
     }
@@ -693,7 +711,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                               << " isFrontOnLane=" << leader->isFrontOnLane(foeLane)
                               << " isOpposite=" << isOpposite << "\n";
                 }
-                if (!cannotIgnore && !foeLane->getLinkCont()[0]->getApproaching(leader).willPass && leader->isFrontOnLane(foeLane) && !isOpposite) {
+                if (!cannotIgnore && !foeLane->getLinkCont()[0]->getApproaching(leader).willPass && leader->isFrontOnLane(foeLane) && !isOpposite && !leader->isStopped()) {
                     continue;
                 }
                 if (cannotIgnore || leader->getWaitingTime() < MSGlobals::gIgnoreJunctionBlocker) {

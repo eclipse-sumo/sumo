@@ -209,7 +209,8 @@ public:
     bool opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, double vehicleLength,
                 double impatience, double decel, SUMOTime waitingTime,
                 double posLat = 0,
-                std::vector<const SUMOVehicle*>* collectFoes = 0) const;
+                std::vector<const SUMOVehicle*>* collectFoes = 0,
+                bool ignoreRed = false) const;
 
     /** @brief Returns the information whether this link is blocked
      * Valid after the vehicles have set their requests
