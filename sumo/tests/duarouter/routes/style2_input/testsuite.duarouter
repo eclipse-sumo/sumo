@@ -50,6 +50,9 @@ with_persons_only
 # same as noid_one_time but with a stop
 with_stops
 
+# specifying stop on an junction
+with_stops_on_junction
+
 # same as noid_one_time but with a bus stop
 with_busstops
 
