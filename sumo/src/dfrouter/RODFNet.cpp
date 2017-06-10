@@ -71,6 +71,9 @@ RODFNet::buildApproachList() {
     const std::map<std::string, ROEdge*>& edges = getEdgeMap();
     for (std::map<std::string, ROEdge*>::const_iterator rit = edges.begin(); rit != edges.end(); ++rit) {
         ROEdge* ce = (*rit).second;
+        if (ce->isInternal()) {
+            continue;
+        }
         const ROEdgeVector& successors = ce->getSuccessors();
         for (ROEdgeVector::const_iterator it = successors.begin(); it != successors.end(); ++it) {
             ROEdge* help = *it;
