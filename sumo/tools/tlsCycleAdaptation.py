@@ -60,7 +60,7 @@ def get_options(args=None):
     optParser.add_option("-r", "--route-files", dest="routefiles",
                          help="define the route file seperated by comma(mandatory)")
     optParser.add_option("-b", "--begin", dest="begin", type="int",
-                         help="begin time of the optmization period with unit second")
+                         default = 0, help="begin time of the optmization period with unit second")
     optParser.add_option("-y", "--yellow-time", dest="yellowtime", type="int",
                          default=4, help="yellow time")
     optParser.add_option("-a", "--all-red", dest="allred", type="int",
@@ -79,7 +79,7 @@ def get_options(args=None):
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
     
-    if not options.netfile or not options.routefiles or not options.begin:
+    if not options.netfile or not options.routefiles:
         optParser.print_help()
         sys.exit()
 
@@ -114,7 +114,7 @@ def getFlows(net, routeFiles, tlsList, begin, verbose):
                                 elif veh.type in ["truck", "trailer", "bus", "coach"]:
                                     pce = 3.5
                                 tlsFlowsMap[tls._id][subRoute][c[2]] += pce
-
+        
     # remove the doubled counts
     connFlowsMap = {}
     for t in tlsList:
@@ -198,25 +198,15 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
             laneIndexList = []
             for j, control in enumerate(p[0]):
                 inEdge = connsList[j][0]._edge._id
-                
                 if j == 0:
                     exEdge = inEdge
-                #if tl._id == "209":
-                #    print ("1-209: j:%s, phase:%s, control:%s" %(j, i, control))
                 if (inEdge == exEdge and control =='G') or (inEdge == exEdge and control == 'g' and j not in ownGreenConnsList):
                     if j in connFlowsMap[tl._id]:
                         groupFlows += connFlowsMap[tl._id][j]
-                        #if tl._id == "209":
-                        #    print ("2-209: j:%s, connflows:%s" %(j, connFlowsMap[tl._id][j]))
-                        #    print ("3-209: j:%s, flows:%s" %(j, groupFlows))
                     if connsList[j][0].getIndex() not in laneIndexList:
                         laneIndexList.append(connsList[j][0].getIndex())
-                    #    if tl._id == "209":
-                    #        print ("4-laneIndexList:%s" %laneIndexList)
                         
                 if exEdge != inEdge or j == len(p[0])-1:
-                    #if groupFlows > 0:
-                    #    groupFlowsMap[i].append(groupFlows)
                     if laneIndexList:
                         phaseLaneIndexMap[i].append(laneIndexList)
                         groupFlowsMap[i].append(groupFlows)
@@ -228,9 +218,7 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
                             groupFlows = connFlowsMap[tl._id][j]
                             if connsList[j][0].getIndex() not in laneIndexList:
                                 laneIndexList.append(connsList[j][0].getIndex())
-                            
                 exEdge = inEdge
-                #print ("end:%s" %exEdge)
         elif 'G' not in p[0] and 'g' in p[0] and 'y' not in p[0] and 'r' not in p[0]:
             print ("Check: only g for connections:%s " %tl._id)
         elif ('G' not in p[0] and 'g' not in p[0]) or ('G' not in p[0] and 'y' in p[0] and 'r' in p[0]):
@@ -259,8 +247,10 @@ def optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, options):
         else:
             critialFlowRateMap[i] = 0.
     sumCritialFlows = sum(critialFlowRateMap.values())
-    if sumCritialFlows > 1.:
+    if sumCritialFlows >= 1.:
         optCycle = 120.
+        if options.verbose:
+            print ("Warning: the sum of the critial flows >= 1:%s" %sumCritialFlows)
     else:
         optCycle = int(round((1.5*lostTime + 5.)/(1. - sumCritialFlows)))
 
@@ -291,7 +281,7 @@ def main(options):
     nodesList = net.getNodes()
     if options.verbose:
         print("the total number of tls: %s" % len(tlsList))
-      
+    print ("Begin time:%s" %options.begin) 
     # get traffic flows for each connection at each TL
     connFlowsMap = getFlows(net, options.routefiles, tlsList, options.begin, options.verbose)
     
@@ -299,6 +289,7 @@ def main(options):
     effectiveTlsList = getEffectiveTlsList(tlsList, connFlowsMap, options.verbose)
     
     with open(options.outfile, 'w') as outf:
+        outf.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         outf.write('<additional>\n')
 
         if len(effectiveTlsList) > 0:
@@ -316,16 +307,16 @@ def main(options):
                     groupFlowsMap = optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, options)
                 
                 # write output
-                    outf.write('    <tlLogic id="%s" type="%s" programID="%s" offset="%.2f"/>\n' %
-                                    (tl._id, programs[pro]._type, programs[pro]._id, programs[pro]._offset))
+                    outf.write('    <tlLogic id="%s" type="%s" programID="%s" offset="%.2f">\n' %
+                                    (tl._id, programs[pro]._type, "a", programs[pro]._offset))
                                     
                     phases = programs[pro].getPhases()
                     for i, p in enumerate(phases):
                         duration = p[1]
                         if i in groupFlowsMap:
                             duration = groupFlowsMap[i][0]
-                        outf.write('        <phase duration="%s" state="%s"/>\n' %
-                                       (duration, p[0]))
+                        outf.write('        <phase duration="%s" state="%s"/>\n' %(duration, p[0]))
+                    outf.write('    </tlLogic>\n')
         else:
             print("There are no flows at the given intersections. No green time optimization is done.")
         outf.write('</additional>\n')
