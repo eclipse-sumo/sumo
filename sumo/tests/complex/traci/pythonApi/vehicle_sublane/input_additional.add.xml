@@ -7,6 +7,8 @@
 
     <route id="failRoute" edges="3fi disconnected"/>
 
+    <vType id="long" length="7"/>
+
     <vType id="electric">
         <param key="has.battery.device" value="true"/>
     </vType>

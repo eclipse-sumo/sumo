@@ -377,6 +377,12 @@ print("has rerouting device: %s" % traci.vehicle.getParameter(electricVeh, "has.
 traci.vehicle.setParameter(electricVeh, "has.rerouting.device", "true")
 print("has rerouting device: %s" % traci.vehicle.getParameter(electricVeh, "has.rerouting.device"))
 
+traci.vehicle.setType(electricVeh, "long")
+check(electricVeh)
+traci.vehicle.setLength(electricVeh, 8)
+traci.vehicle.setMaxSpeed(electricVeh, 10)
+check(electricVeh)
+
 try:
     print(traci.vehicle.getParameter(electricVeh, "device.foo.bar"))
 except traci.TraCIException as e:

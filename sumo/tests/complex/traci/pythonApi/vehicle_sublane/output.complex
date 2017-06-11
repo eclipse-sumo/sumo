@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:54330 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:38338 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -651,17 +651,147 @@ has battery device: true
 has vehroute device: false
 has rerouting device: false
 has rerouting device: true
+vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim']
+vehicle count 20
+examining elVeh
+speed -1001.0
+speed w/o traci -1001.0
+pos (-1001.0, -1001.0)
+angle -1001.0
+road 
+lane 
+laneIndex -1
+type long
+routeID horizontal
+routeIndex -1
+route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
+lanePos -1001.0
+color (255, 255, 0, 255)
+bestLanes []
+CO2 -1001.0
+CO -1001.0
+HC -1001.0
+PMx -1001.0
+NOx -1001.0
+fuel -1001.0
+noise -1001.0
+Elec -1001.0
+traveltime -1001.0
+effort -1001.0
+route valid True
+signals 0
+length 7.0
+maxSpeed 55.5555555556
+speedFactor 1.0
+allowedSpeed -1001.0
+accel 2.6
+decel 4.5
+emergencyDecel 4.5
+apparentDecel 4.5
+imperfection 0.5
+tau 1.0
+vClass passenger
+emissionclass HBEFA3/PC_G_EU4
+shape passenger
+MinGap 2.5
+width 1.8
+height 1.5
+lcStrategic 1.00
+lcCooperative 1.00
+lcSpeedGain 1.00
+maxSpeedLat 1.0
+minGapLat 1.0
+lateralAlignment center
+lanePosLat -1001.0
+person number 0
+waiting time 0.0
+accumulated waiting time 0.0
+driving dist -1001.0
+driving dist 2D -1001.0
+line 
+via []
+lane change state right (1073741824, 1073741824)
+lane change state left (1073741824, 1073741824)
+lane change able right False
+lane change able left False
+lane change wish right False
+lane change wish left False
+vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim']
+vehicle count 20
+examining elVeh
+speed -1001.0
+speed w/o traci -1001.0
+pos (-1001.0, -1001.0)
+angle -1001.0
+road 
+lane 
+laneIndex -1
+type long@elVeh
+routeID horizontal
+routeIndex -1
+route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
+lanePos -1001.0
+color (255, 255, 0, 255)
+bestLanes []
+CO2 -1001.0
+CO -1001.0
+HC -1001.0
+PMx -1001.0
+NOx -1001.0
+fuel -1001.0
+noise -1001.0
+Elec -1001.0
+traveltime -1001.0
+effort -1001.0
+route valid True
+signals 0
+length 8.0
+maxSpeed 10.0
+speedFactor 1.0
+allowedSpeed -1001.0
+accel 2.6
+decel 4.5
+emergencyDecel 4.5
+apparentDecel 4.5
+imperfection 0.5
+tau 1.0
+vClass passenger
+emissionclass HBEFA3/PC_G_EU4
+shape passenger
+MinGap 2.5
+width 1.8
+height 1.5
+lcStrategic 1.00
+lcCooperative 1.00
+lcSpeedGain 1.00
+maxSpeedLat 1.0
+minGapLat 1.0
+lateralAlignment center
+lanePosLat -1001.0
+person number 0
+waiting time 0.0
+accumulated waiting time 0.0
+driving dist -1001.0
+driving dist 2D -1001.0
+line 
+via []
+lane change state right (1073741824, 1073741824)
+lane change state left (1073741824, 1073741824)
+lane change able right False
+lane change able left False
+lane change wish right False
+lane change wish left False
 recovering from exception (Vehicle 'elVeh' does not support device parameter 'device.foo.bar' (No device off type 'foo' exists).)
 recovering from exception (Vehicle 'elVeh' does not support device parameter 'device.battery.foobar' (Parameter 'foobar' is not supported for device of type 'battery').)
 elVeh speed="0.0" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL"
 elVeh speed="2.23667704058" consumed="7.52" charged="0.00" cap="17492.48" maxCap="40000.00" station="NULL"
-elVeh speed="4.63114574496" consumed="21.72" charged="0.00" cap="17470.76" maxCap="40000.00" station="NULL"
-elVeh speed="6.77009772165" consumed="25.45" charged="0.00" cap="17445.31" maxCap="40000.00" station="NULL"
-elVeh speed="8.30114605862" consumed="29.32" charged="0.00" cap="17415.99" maxCap="40000.00" station="NULL"
-elVeh speed="9.6054487545" consumed="33.03" charged="0.00" cap="17382.96" maxCap="40000.00" station="NULL"
-elVeh speed="10.0618728214" consumed="30.24" charged="0.00" cap="17352.72" maxCap="40000.00" station="NULL"
-elVeh speed="10.4876236973" consumed="31.37" charged="0.00" cap="17321.35" maxCap="40000.00" station="NULL"
-elVeh speed="10.7039401068" consumed="30.80" charged="0.00" cap="17290.55" maxCap="40000.00" station="NULL"
-elVeh speed="10.6512820772" consumed="29.04" charged="0.00" cap="17261.51" maxCap="40000.00" station="NULL"
+elVeh speed="4.63114574496" consumed="22.07" charged="0.00" cap="17470.41" maxCap="40000.00" station="NULL"
+elVeh speed="6.77009772165" consumed="27.41" charged="0.00" cap="17443.00" maxCap="40000.00" station="NULL"
+elVeh speed="8.30114605862" consumed="29.32" charged="0.00" cap="17413.68" maxCap="40000.00" station="NULL"
+elVeh speed="8.70430269588" consumed="25.84" charged="0.00" cap="17387.83" maxCap="40000.00" station="NULL"
+elVeh speed="8.95187282143" consumed="25.83" charged="0.00" cap="17362.00" maxCap="40000.00" station="NULL"
+elVeh speed="9.37762369725" consumed="27.99" charged="0.00" cap="17334.01" maxCap="40000.00" station="NULL"
+elVeh speed="9.59394010685" consumed="27.55" charged="0.00" cap="17306.47" maxCap="40000.00" station="NULL"
+elVeh speed="9.5412820772" consumed="25.95" charged="0.00" cap="17280.51" maxCap="40000.00" station="NULL"
 triptest route: ['3si', '4si']
 triptest route: ['3si', '4o', '4fi', '4si']
