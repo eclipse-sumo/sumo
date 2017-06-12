@@ -128,6 +128,13 @@ public:
      */
     static double naviDegree(const double angle);
 
+    /** Converts an angle from navigational degrees to mathematical radians.
+     * @see naviDegree
+     * @param[in] angle The angle in degree to convert
+     * @return the angle in radians
+     */
+    static double fromNaviDegree(const double angle);
+
     /** Converts an angle from mathematical radians where 0 is to the right and positive angles
      *  are counterclockwise to the legacy degrees used in sumo where 0 is down and positive means clockwise.
      *  If positive is true the result is in the range [0, 360), otherwise in the range [-180, 180).

@@ -197,6 +197,12 @@ GeomHelper::naviDegree(const double angle) {
 
 
 double
+GeomHelper::fromNaviDegree(const double angle) {
+    return M_PI / 2. - DEG2RAD(angle);
+}
+
+
+double
 GeomHelper::legacyDegree(const double angle, const bool positive) {
     double degree = -RAD2DEG(M_PI / 2. + angle);
     if (positive) {
