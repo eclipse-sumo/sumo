@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 12 Jun 2017 01:29:43 PM CEST by Netedit Version dev-SVN-r24617
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoI/sumo/tests/sumo/sublane_model/push_fail_adapt_speed/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoI/sumo/tests/sumo/sublane_model/push_fail_adapt_speed/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-300.00,-100.00,300.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="beg" from="gneJ0" to="gneJ1" priority="1">
+        <lane id="beg_0" index="0" speed="27.78" length="505.35" shape="-300.00,-4.95 200.45,-4.95"/>
+        <lane id="beg_1" index="1" speed="27.78" length="505.35" shape="-300.00,-1.65 200.45,-1.65"/>
+    </edge>
+    <edge id="end" from="gneJ1" to="gneJ4" priority="1">
+        <lane id="end_0" index="0" speed="27.78" length="136.29" shape="204.15,-6.48 298.83,-101.17"/>
+    </edge>
+    <edge id="end2" from="gneJ1" to="gneJ2" priority="1">
+        <lane id="end2_0" index="0" speed="27.78" length="99.00" width="4.00" shape="205.48,-2.05 300.00,-2.05"/>
+    </edge>
+
+    <junction id="gneJ0" type="dead_end" x="-300.00" y="0.00" incLanes="" intLanes="" shape="-300.00,-0.05 -300.00,-6.55"/>
+    <junction id="gneJ1" type="unregulated" x="200.00" y="0.00" incLanes="beg_0 beg_1" intLanes="" shape="205.48,-0.05 205.48,-4.05 205.28,-5.35 203.01,-7.61 200.45,-6.55 200.45,-0.05"/>
+    <junction id="gneJ2" type="dead_end" x="300.00" y="0.00" incLanes="end2_0" intLanes="" shape="300.00,-4.05 300.00,-0.05"/>
+    <junction id="gneJ4" type="dead_end" x="300.00" y="-100.00" incLanes="end_0" intLanes="" shape="297.70,-102.30 299.96,-100.04"/>
+
+    <connection from="beg" to="end" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="beg" to="end2" fromLane="1" toLane="0" dir="s" state="M"/>
+
+</net>

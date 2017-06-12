@@ -61,4 +61,7 @@ stay_on_road
 
 # test angles during lane-changing
 angles
+
+# a vehicle fails to push into the required lane and must perform speed adaptation instead
+push_fail_adapt_speed
 bugs
