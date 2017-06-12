@@ -1747,7 +1747,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // the link was passed
         // compute the velocity to use when the link is not blocked by other vehicles
         //  the vehicle shall be not faster when reaching the next lane than allowed
-        const double va = MAX2(laneMaxV, cfModel.freeSpeed(this, getSpeed(), seen, laneMaxV));
+        const double va = cfModel.freeSpeed(this, getSpeed(), seen, laneMaxV);
         v = MIN2(va, v);
         seenNonInternal += lane->getEdge().isInternal() ? 0 : lane->getLength();
         // do not restrict results to the current vehicle to allow caching for the current time step
