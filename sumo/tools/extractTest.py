@@ -34,7 +34,7 @@ import subprocess
 from collections import defaultdict
 
 THIS_DIR = os.path.abspath(os.path.dirname(__file__))
-SUMO_HOME = join(THIS_DIR, '..')
+SUMO_HOME = os.path.dirname(THIS_DIR)
 sys.path.append(join(SUMO_HOME, "tools"))
 
 from sumolib import checkBinary
@@ -81,8 +81,7 @@ def copy_merge(srcDir, dstDir, merge, exclude):
             # print "creating dir '%s' as a copy of '%s'" % (dst, srcDir)
             os.mkdir(dst)
         for file in files:
-            # print "copying file '%s' to '%s'" % (join(dir, file), join(dst,
-            # file))
+            # print("copying file '%s' to '%s'" % (join(dir, file), join(dst, file)))
             shutil.copy(join(dir, file), join(dst, file))
 
 
@@ -137,7 +136,7 @@ def main(options):
                 if f == "options." + app:
                     optionsFiles.append(path)
             config = join(curDir, "config." + app)
-            if curDir == os.path.dirname(curDir):
+            if curDir == SUMO_HOME or curDir == os.path.dirname(curDir):
                 break
             if os.path.exists(config):
                 configFiles.append(config)

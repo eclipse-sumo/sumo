@@ -22,6 +22,7 @@ sumo/basic/hokkaido;../examples/sumo/hokkaido
 sumo/extended/variable_speed_signs/b0_offset_100;../examples/sumo/variable_speed_signs
 sumo/extended/stops/simple_stop;../examples/sumo/vehicle_stops
 sumo/extended/busses/three_busses;../examples/sumo/busses
+sumo/extended/rerouter/parking/angled_roadside_parking;../examples/sumo/angled_roadside_parking
 sumo/gui/visualization/parade;../examples/sumo/visualization/parade
 sumo/output/examples/cross3ltl_emission;../examples/sumo/output/cross3ltl_emission
 sumo/output/examples/cross3ltl_fcd;../examples/sumo/output/cross3ltl_fcd
