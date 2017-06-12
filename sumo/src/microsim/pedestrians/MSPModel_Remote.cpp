@@ -119,8 +119,8 @@ PedestrianState* MSPModel_Remote::add(MSPerson* person, MSPerson::MSPersonStage_
 SUMOTime MSPModel_Remote::execute(SUMOTime time) {
 
     hybridsim::LeftClosedRightOpenTimeInterval interval;
-    interval.set_fromtimeincluding(time);
-    interval.set_totimeexcluding(time + DELTA_T);
+    interval.set_fromtimeincluding(time/DELTA_T);
+    interval.set_totimeexcluding((time + DELTA_T)/DELTA_T);
 
 
     //1. simulate time interval
@@ -141,7 +141,7 @@ SUMOTime MSPModel_Remote::execute(SUMOTime time) {
     }
     std::cout << trajectories.trajectories().size() << std::endl;
 
-    std::cout << time << std::endl;
+    std::cout << (time/DELTA_T) << std::endl;
     return DELTA_T;
 }
 MSLane* MSPModel_Remote::getFirstPedestrianLane(const MSEdge* const& edge) {
