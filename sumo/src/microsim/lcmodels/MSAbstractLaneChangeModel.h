@@ -416,6 +416,8 @@ public:
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
 
+    static const double NO_NEIGHBOR;
+
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
 
@@ -487,7 +489,6 @@ protected:
     /// @brief whether to record lane-changing
     static bool myLCOutput;
 
-    static const double NO_NEIGHBOR;
 
 private:
     /* @brief information how long ago the vehicle has performed a lane-change,

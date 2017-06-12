@@ -624,7 +624,8 @@ MSLaneChanger::checkChange(
 
     }
 
-    double secureFrontGap, secureBackGap;
+    double secureFrontGap = MSAbstractLaneChangeModel::NO_NEIGHBOR;
+    double secureBackGap = MSAbstractLaneChangeModel::NO_NEIGHBOR;
     // safe back gap
     if ((blocked & blockedByFollower) == 0 && neighFollow.first != 0) {
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
