@@ -136,7 +136,7 @@ def main(options):
                 if f == "options." + app:
                     optionsFiles.append(path)
             config = join(curDir, "config." + app)
-            if curDir == SUMO_HOME or curDir == os.path.dirname(curDir):
+            if curDir == join(SUMO_HOME, "tests") or curDir == os.path.dirname(curDir):
                 break
             if os.path.exists(config):
                 configFiles.append(config)
