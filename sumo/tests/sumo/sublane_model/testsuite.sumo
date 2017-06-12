@@ -44,6 +44,10 @@ push_for_merge_equalize_gaps
 # 
 nopush_for_merge
 
+# a vehicle urgently needs to change lanes but is configured to (almost) refrain from pushing 
+# 
+smallpush_for_merge
+
 # a vehicle urgently needs to change lanes but is configured to refrain from pushing. nevertheless it undercuts the lateral gap
 # 
 nopushy_encroach
