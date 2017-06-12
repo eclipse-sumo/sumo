@@ -33,7 +33,8 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with disallow = "all" and remove it
-netedit.selectItems("Net Element", "edge", "disallow", "=all")
+# (we cannot use "=all" since "all" is expanded to include all vClassess)
+netedit.selectItems("Net Element", "edge", "disallow", "all")
 netedit.deleteSelectedItems()
 
 # select all edges with disallow = "passenger" and remove it

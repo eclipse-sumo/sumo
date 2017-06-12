@@ -136,7 +136,8 @@ netedit.selectItems("Net Element", "lane", "allow", "=custom2")
 netedit.deleteSelectedItems()
 
 # select all lanes with allow = "all" and remove it
-netedit.selectItems("Net Element", "lane", "allow", "=all")
+# (we cannot use "=all" since "all" is expanded to include all vClassess)
+netedit.selectItems("Net Element", "lane", "allow", "all")
 netedit.deleteSelectedItems()
 
 # save newtork
