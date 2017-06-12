@@ -23,6 +23,7 @@
 #include "microsim/MSEdge.h"
 #include "microsim/MSLane.h"
 #include "microsim/MSEdgeControl.h"
+#include "microsim/MSEventControl.h"
 #include "hybridsim.grpc.pb.h"
 #include "utils/geom/Position.h"
 #include "utils/geom/PositionVector.h"
@@ -39,22 +40,133 @@ MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net)
 
     initialize();
 
+    Event* e = new Event(this);
+    net->getBeginOfTimestepEvents()->addEvent(e, net->getCurrentTimeStep() + DELTA_T);
 }
 PedestrianState* MSPModel_Remote::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) {
-    return nullptr;
+
+    assert(person->getCurrentStageType() == MSTransportable::MOVING_WITHOUT_VEHICLE);
+
+    PState* state = new PState(person, stage);
+
+    hybridsim::Agent req;
+    int id = myLastId++;
+    remoteSumoIdMapping[id] = person->getID();
+    req.set_id(id);
+
+    MSLane* departureLane = getFirstPedestrianLane(*(stage->getRoute().begin()));
+    double departureOffsetAlongLane = stage->getDepartPos();
+    double offset = departureOffsetAlongLane == 0 ? 0.4 : -0.4;
+    departureOffsetAlongLane += offset;
+
+    Position departurePos = departureLane->getShape().positionAtOffset(departureOffsetAlongLane);
+    hybridsim::Coordinate* departureCoordinate = req.mutable_enterlocation();
+    departureCoordinate->set_x(departurePos.x());
+    departureCoordinate->set_y(departurePos.y());
+
+    MSLane* arrivalLane = getFirstPedestrianLane(*(stage->getRoute().end() - 1));
+    double arrivalOffsetAlongLange = stage->getArrivalPos();
+    Position arrivalPos = arrivalLane->getShape().positionAtOffset(arrivalOffsetAlongLange);
+    hybridsim::Coordinate* arrivalCoordinate = req.mutable_leavelocation();
+    arrivalCoordinate->set_x(arrivalPos.x());
+    arrivalCoordinate->set_y(arrivalPos.y());
+
+
+    const MSEdge* prv = 0;
+    for (ConstMSEdgeVector::const_iterator it = stage->getRoute().begin(); it != stage->getRoute().end(); it++) {
+        const MSEdge* edge = *it;
+        int dir = FORWARD;//default
+        if (prv == 0) {
+            if (stage->getRoute().size() > 1) {
+                const MSEdge* nxt = *(it + 1);
+                dir = (edge->getFromJunction() == nxt->getFromJunction()
+                        || edge->getFromJunction() == nxt->getToJunction()) ? BACKWARD : FORWARD;
+            } else {
+                dir = stage->getDepartPos() == 0 ? FORWARD : BACKWARD;
+            }
+        } else {
+            dir = (edge->getFromJunction() == prv->getToJunction()
+                    || edge->getFromJunction() == prv->getFromJunction()) ? FORWARD : BACKWARD;
+        }
+        if (edgesTransitionsMapping.find(edge) == edgesTransitionsMapping.end()) {
+            ProcessError("Cannot map edge : " + edge->getID() + " to remote simulation");
+        };
+        std::tuple<int, int> transitions = edgesTransitionsMapping[edge];
+
+        int frId = dir == FORWARD ? std::get<0>(transitions) : std::get<1>(transitions);
+        int toId = dir == FORWARD ? std::get<1>(transitions) : std::get<0>(transitions);
+        hybridsim::Destination* destFr = req.add_dests();
+        destFr->set_id(frId);
+        hybridsim::Destination* destTo = req.add_dests();
+        destTo->set_id(toId);
+        prv = edge;
+    }
+
+    hybridsim::Boolean rpl;
+    ClientContext context;
+    Status st = myHybridsimStub->transferAgent(&context, req, &rpl);
+    if (!st.ok()) {
+        ProcessError("Person: " + person->getID() + " could not be transferred to remote simulation");
+    }
+    if (!rpl.val()) {
+        //TODO not yet implemented
+        ProcessError("Remote simulation declined to accept person: " + person->getID() + ".");
+    }
+
+    return state;
 }
+
+SUMOTime MSPModel_Remote::execute(SUMOTime time) {
+
+    hybridsim::LeftClosedRightOpenTimeInterval interval;
+    interval.set_fromtimeincluding(time);
+    interval.set_totimeexcluding(time + DELTA_T);
+
+
+    //1. simulate time interval
+    hybridsim::Empty rpl;
+    ClientContext context1;
+    Status st = myHybridsimStub->simulatedTimeInerval(&context1, interval, &rpl);
+    if (!st.ok()) {
+        ProcessError("Could not simulated time interval from: " + toString(time) + " to: " + toString(time+DELTA_T));
+    }
+
+    //2. receive trajectories
+    hybridsim::Empty req2;
+    hybridsim::Trajectories trajectories;
+    ClientContext context2;
+    Status st2 = myHybridsimStub->receiveTrajectories(&context2, req2, &trajectories);
+    if (!st2.ok()) {
+        ProcessError("Could not receive trajectories from remote simulation");
+    }
+    std::cout << trajectories.trajectories().size() << std::endl;
+
+    std::cout << time << std::endl;
+    return DELTA_T;
+}
+MSLane* MSPModel_Remote::getFirstPedestrianLane(const MSEdge* const& edge) {
+    for (MSLane* lane : edge->getLanes()) {
+        if (lane->getPermissions() == SVC_PEDESTRIAN) {
+            return lane;
+        }
+    }
+    ProcessError("Edge: " + edge->getID() + " does not allow pedestrians.");
+}
+
 void MSPModel_Remote::remove(PedestrianState* state) {
 
 }
-bool MSPModel_Remote::blockedAtDist(const MSLane* lane, double distToCrossing,
+
+bool MSPModel_Remote::blockedAtDist(const MSLane* lane, double distToCrossing, double oncomingGap,
                                     std::vector<const MSPerson*>* collectBlockers) {
     return false;
 }
+void MSPModel_Remote::cleanupHelper() {
+    MSPModel::cleanupHelper();
+}
+
 void MSPModel_Remote::initialize() {
     hybridsim::Scenario req;
-
-
-
 
     //1. for all edges
     for (MSEdge* e : myNet->getEdgeControl().getEdges()) {
@@ -66,8 +178,8 @@ void MSPModel_Remote::initialize() {
             continue;
         }
         for (MSLane* l : e->getLanes()) {
-            if (l->getPermissions() == SVC_PEDESTRIAN){
-                handlePedestrianLane(l,req);
+            if (l->getPermissions() == SVC_PEDESTRIAN) {
+                handlePedestrianLane(l, req);
             }
         }
     }
@@ -106,8 +218,7 @@ void MSPModel_Remote::initialize() {
     ClientContext context;
     Status st = myHybridsimStub->initScenario(&context, req, &rpl);
     if (!st.ok()) {
-        std::cerr << "Remote side could not initialize scenario!" << std::endl;
-        exit(-1);
+        ProcessError("Remote side could not initialize scenario!");
     }
 
 }
@@ -119,19 +230,18 @@ void MSPModel_Remote::handleWalkingArea(MSEdge* msEdge, hybridsim::Scenario& sce
         return;
     }
 
-    handleShape(shape,scenario);
+    handleShape(shape, scenario);
 
 
     //close walking area
     Position frst = *shape.begin();
-    Position scnd = *(shape.end()-1);
+    Position scnd = *(shape.end() - 1);
     hybridsim::Edge* edge = scenario.add_edges();
     edge->mutable_c0()->set_x(frst.x());
     edge->mutable_c0()->set_y(frst.y());
     edge->mutable_c1()->set_x(scnd.x());
     edge->mutable_c1()->set_y(scnd.y());
     edge->set_type(hybridsim::Edge_Type_OBSTACLE);
-
 
 
 }
@@ -142,38 +252,48 @@ void MSPModel_Remote::handlePedestrianLane(MSLane* l, hybridsim::Scenario& scena
         return;
     }
 
+
+    int fromId = myLastTransitionId++;
+    int toId = myLastTransitionId++;
+    edgesTransitionsMapping[&(l->getEdge())] = std::make_tuple(fromId, toId);
+
+    hybridsim::Edge_Type edgeType = (l->getEdge().isCrossing() || l->getEdge().isWalkingArea())
+                                    ? hybridsim::Edge_Type_TRANSITION_INTERNAL : hybridsim::Edge_Type_TRANSITION;
+
     //start and end
     Position frst = *centerLine.begin();
-    Position scnd = *(centerLine.begin()+1);
-    makeStartOrEndTransition(frst,scnd,width,scenario);
-    Position thrd = *(centerLine.end()-1);
-    Position frth = *(centerLine.end()-2);
-    makeStartOrEndTransition(thrd,frth,width,scenario);
+    Position scnd = *(centerLine.begin() + 1);
+    makeStartOrEndTransition(frst, scnd, width, scenario, edgeType, fromId);
+    Position thrd = *(centerLine.end() - 1);
+    Position frth = *(centerLine.end() - 2);
+    makeStartOrEndTransition(thrd, frth, width, scenario, edgeType, toId);
 
-    centerLine.move2side(-width/2.);
-    handleShape(centerLine,scenario);
+    centerLine.move2side(-width / 2.);
+    handleShape(centerLine, scenario);
     centerLine.move2side(width);
-    handleShape(centerLine,scenario);
+    handleShape(centerLine, scenario);
 
 }
-void MSPModel_Remote::makeStartOrEndTransition(Position& frst, Position& scnd, double width,
-                                               hybridsim::Scenario& scenario) {
+void
+MSPModel_Remote::makeStartOrEndTransition(Position frst, Position scnd, double width, hybridsim::Scenario& scenario,
+                                          hybridsim::Edge_Type type, int id) {
 
     double dx = scnd.x() - frst.x();
     double dy = scnd.y() - frst.y();
-    double length = sqrt(dx*dx+dy*dy);
+    double length = sqrt(dx * dx + dy * dy);
     dx /= length;
     dy /= length;
-    double x0 = frst.x() - dy*width/2.;
-    double y0 = frst.y() + dx*width/2.;
-    double x1 = frst.x() + dy*width/2.;
-    double y1 = frst.y() - dx*width/2.;
+    double x0 = frst.x() - dy * width / 2.;
+    double y0 = frst.y() + dx * width / 2.;
+    double x1 = frst.x() + dy * width / 2.;
+    double y1 = frst.y() - dx * width / 2.;
     hybridsim::Edge* edge = scenario.add_edges();
     edge->mutable_c0()->set_x(x0);
     edge->mutable_c0()->set_y(y0);
     edge->mutable_c1()->set_x(x1);
     edge->mutable_c1()->set_y(y1);
-    edge->set_type(hybridsim::Edge_Type_TRANSITION);
+    edge->set_type(type);
+    edge->set_id(id);
 
 }
 void MSPModel_Remote::handleShape(const PositionVector& shape, hybridsim::Scenario& scenario) {
@@ -189,11 +309,37 @@ void MSPModel_Remote::handleShape(const PositionVector& shape, hybridsim::Scenar
         edge->mutable_c1()->set_x((*it).x());
         edge->mutable_c1()->set_y((*it).y());
         edge->set_type(hybridsim::Edge_Type_OBSTACLE);
-
-
-//        std::cout << "edge: " << edge->c0().x() << "," << edge->c0().y() << "  --> " << edge->c1().x() << ","
-//                  << edge->c1().y() << std::endl;
         frst = *it;
         myBoundary.add(frst.x(), frst.y());
     }
 }
+
+
+// ===========================================================================
+// MSPModel_Remote::PState method definitions
+// ===========================================================================
+MSPModel_Remote::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage) {
+
+}
+MSPModel_Remote::PState::~PState() {
+
+}
+double MSPModel_Remote::PState::getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
+    return 0;
+}
+Position MSPModel_Remote::PState::getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
+    return Position(0, 0);
+}
+double MSPModel_Remote::PState::getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
+    return 0;
+}
+SUMOTime MSPModel_Remote::PState::getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
+    return 0;
+}
+double MSPModel_Remote::PState::getSpeed(const MSPerson::MSPersonStage_Walking& stage) const {
+    return 0;
+}
+const MSEdge* MSPModel_Remote::PState::getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const {
+    return nullptr;
+}
+

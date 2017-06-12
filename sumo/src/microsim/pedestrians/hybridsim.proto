@@ -60,6 +60,7 @@ message Edge {
     enum Type {
         OBSTACLE = 0;
         TRANSITION = 1;
+        TRANSITION_INTERNAL = 2;
     }
     Type type = 3;
     int32 id = 4;

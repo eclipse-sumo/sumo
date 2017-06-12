@@ -34,8 +34,22 @@ public:
     MSPModel_Remote(const OptionsCont& oc, MSNet* net);
     PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) override;
     void remove(PedestrianState* state) override;
-    bool
-    blockedAtDist(const MSLane* lane, double distToCrossing, std::vector<const MSPerson*>* collectBlockers) override;
+//    bool
+//    blockedAtDist(const MSLane* lane, double distToCrossing, std::vector<const MSPerson*>* collectBlockers) override;
+    bool blockedAtDist(const MSLane* lane, double distToCrossing, double oncomingGap,
+                       std::vector<const MSPerson*>* collectBlockers) override;
+    void cleanupHelper() override;
+
+    SUMOTime execute(SUMOTime time);
+    class Event : public Command {
+    public:
+        Event(MSPModel_Remote * remoteModel) : myRemoteModel(remoteModel){}
+        SUMOTime execute(SUMOTime currentTime) override {
+            return myRemoteModel->execute(currentTime);
+        }
+    private:
+        MSPModel_Remote * myRemoteModel;
+    };
 
 private:
     MSNet* myNet;
@@ -44,8 +58,33 @@ private:
     void initialize();
     void handleWalkingArea(MSEdge* msEdge, hybridsim::Scenario& scenario);
     void handlePedestrianLane(MSLane* pLane, hybridsim::Scenario& scenario);
-    void makeStartOrEndTransition(Position& position, Position& scnd, double width, hybridsim::Scenario& scenario);
+    void makeStartOrEndTransition(Position position, Position scnd, double width, hybridsim::Scenario& scenario,
+                                      hybridsim::Edge_Type type, int i);
     void handleShape(const PositionVector& shape, hybridsim::Scenario& scenario);
+
+    std::map<int,std::string> remoteSumoIdMapping;
+    std::map<const MSEdge*,std::tuple<int,int>> edgesTransitionsMapping;
+    int myLastId = 0;
+    int myLastTransitionId = 0;
+
+    /**
+    * @class PState
+    * @brief Container for pedestrian state and individual position update function
+    */
+    class PState : public PedestrianState {
+    public:
+        PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage);
+        ~PState() override;
+        double getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const override;
+        Position getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const override;
+        double getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const override;
+        SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const override;
+        double getSpeed(const MSPerson::MSPersonStage_Walking& stage) const override;
+        const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const override;
+
+    };
+
+    MSLane* getFirstPedestrianLane(const MSEdge* const& edge);
 };
 
 
