@@ -253,7 +253,8 @@ MSLaneChanger::change() {
 
 #ifndef NO_TRACI
     if (vehicle->isRemoteControlled()) {
-        return false; // !!! temporary; just because it broke, here
+        registerUnchanged(vehicle);
+        return false; 
     }
 #endif
     vehicle->updateBestLanes(); // needed?
@@ -309,10 +310,9 @@ MSLaneChanger::change() {
     if (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
             && changeOpposite(leader)) {
         return true;
-    } else {
-        registerUnchanged(vehicle);
-        return false;
-    }
+    } 
+    registerUnchanged(vehicle);
+    return false;
 }
 
 
