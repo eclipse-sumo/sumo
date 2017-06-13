@@ -1367,7 +1367,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                             }
                             // figure out whether the offset is to the left or to the right
                             PositionVector tmp = lane->getShape();
-                            tmp.move2side(-lanePosLat); // moved to left
+                            try {
+                                tmp.move2side(-lanePosLat); // moved to left
+                            } catch (ProcessError& e) {
+                                WRITE_WARNING("Could not determine position on lane '" + lane->getID() + " at lateral position " + toString(-lanePosLat) + ".");
+                            }
                             //std::cout << " lane=" << lane->getID() << " posLat=" << lanePosLat << " shape=" << lane->getShape() << " tmp=" << tmp << " tmpDist=" << tmp.distance2D(pos) << "\n";
                             if (tmp.distance2D(pos) > perpDist) {
                                 lanePosLat = -lanePosLat;
