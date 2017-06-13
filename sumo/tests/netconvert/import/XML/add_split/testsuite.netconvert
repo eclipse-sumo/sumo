@@ -44,3 +44,6 @@ tls
 
 # split a two-way road with a common node
 double_split
+
+# split a two-way road with a common node and attach a new edge to the newly created node
+double_split_attach
