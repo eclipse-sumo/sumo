@@ -68,4 +68,10 @@ angles
 
 # a vehicle fails to push into the required lane and must perform speed adaptation instead
 push_fail_adapt_speed
+
+# a vehicle may move beyond lane bounds when entering an intersection and the shadow lane ends. It has to move into the correct lane bounds before leaving the intersection 
+beyond_lane_on_junction
+
+# vehicles must overtake a stopped vehicle and have to decide for overtaking on either side
+buridan_1lane
 bugs

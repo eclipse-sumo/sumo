@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 13 Jun 2017 10:54:41 AM CEST by Netedit Version dev-SVN-r24637
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoID/sumo/tests/sumo/sublane_model/buridan_1lane/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoID/sumo/tests/sumo/sublane_model/buridan_1lane/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-683542.41,-4928877.56" convBoundary="600.00,800.00,700.00,800.00" origBoundary="-346.830000,0.000000,1817.580000,2148.550000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="beg" from="gneJ1" to="gneJ2" priority="1">
+        <lane id="beg_0" index="0" speed="13.89" length="100.00" width="9.60" shape="600.00,795.15 700.00,795.15"/>
+    </edge>
+
+    <junction id="gneJ1" type="dead_end" x="600.00" y="800.00" incLanes="" intLanes="" shape="600.00,799.95 600.00,790.35"/>
+    <junction id="gneJ2" type="dead_end" x="700.00" y="800.00" incLanes="beg_0" intLanes="" shape="700.00,790.35 700.00,799.95"/>
+
+</net>
