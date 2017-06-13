@@ -10,4 +10,5 @@ MSDevice_Routing.cpp MSDevice_Routing.h \
 MSDevice_Tripinfo.cpp MSDevice_Tripinfo.h \
 MSDevice_Battery.cpp MSDevice_Battery.h \
 MSDevice_Example.cpp MSDevice_Example.h \
+MSDevice_Bluelight.cpp MSDevice_Bluelight.h \
 MSDevice_Vehroutes.cpp MSDevice_Vehroutes.h 
