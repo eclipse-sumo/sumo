@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat May 20 23:44:14 2017 by SUMO Version dev-SVN-r22661
+<!-- generated on Tue Jun 13 10:47:37 2017 by SUMO Version dev-SVN-r24637
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -514,14 +514,14 @@
         <vehicle id="cars.6" x="362.23" y="-4.95" angle="90.00" type="car" speed="9.68" pos="362.23" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.7" x="412.79" y="-4.95" angle="90.00" type="car" speed="13.24" pos="412.79" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.8" x="387.87" y="-1.65" angle="90.00" type="car" speed="13.47" pos="387.87" lane="beg_1" slope="0.00"/>
-        <vehicle id="cars.9" x="342.35" y="-2.35" angle="87.47" type="car" speed="11.33" pos="342.35" lane="beg_1" slope="0.00"/>
+        <vehicle id="cars.9" x="342.35" y="-1.85" angle="84.96" type="car" speed="11.33" pos="342.35" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="50.00">
         <vehicle id="cars.5" x="484.50" y="-4.95" angle="90.00" type="car" speed="13.24" pos="484.50" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.6" x="372.71" y="-4.95" angle="90.00" type="car" speed="10.48" pos="372.71" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.7" x="425.42" y="-4.95" angle="90.00" type="car" speed="12.63" pos="425.42" lane="beg_0" slope="0.00"/>
         <vehicle id="cars.8" x="401.33" y="-1.65" angle="90.00" type="car" speed="13.46" pos="401.33" lane="beg_1" slope="0.00"/>
-        <vehicle id="cars.9" x="354.03" y="-1.65" angle="86.57" type="car" speed="11.68" pos="354.03" lane="beg_1" slope="0.00"/>
+        <vehicle id="cars.9" x="354.03" y="-1.65" angle="89.02" type="car" speed="11.68" pos="354.03" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="51.00">
         <vehicle id="cars.5" x="497.38" y="-4.95" angle="90.00" type="car" speed="12.88" pos="497.38" lane="beg_0" slope="0.00"/>
