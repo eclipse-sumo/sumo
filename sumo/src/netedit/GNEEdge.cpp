@@ -427,42 +427,6 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
 }
 
 
-void 
-GNEEdge::remakeGNELanes() {
-    // clear all GNEConnections from From and To Junctions
-    for(std::vector<GNEEdge*>::const_iterator i = myGNEJunctionSource->getGNEEdges().begin(); i != myGNEJunctionSource->getGNEEdges().end(); i++) {
-        (*i)->clearGNEConnections();
-    }
-    for(std::vector<GNEEdge*>::const_iterator i = myGNEJunctionDestiny->getGNEEdges().begin(); i != myGNEJunctionDestiny->getGNEEdges().end(); i++) {
-        (*i)->clearGNEConnections();
-    }
-    // Delete references to this edge in lanes
-    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        (*i)->decRef("GNEEdge::~GNEEdge");
-        if ((*i)->unreferenced()) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
-                WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in remakeGNELanes()");
-            }
-            delete *i;
-        }
-    }
-    // drop containers
-    myLanes.clear();
-    // Create lanes again
-    int numLanes = myNBEdge.getNumLanes();
-    myLanes.reserve(numLanes);
-    for (int i = 0; i < numLanes; i++) {
-        myLanes.push_back(new GNELane(*this, i));
-        myLanes.back()->incRef("GNEEdge::GNEEdge");
-    }
-    // update Lane geometries
-    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); i++) {
-        (*i)->updateGeometry();
-    }
-}
-
-
 void
 GNEEdge::remakeGNEConnections() {
     // create new and removed unused GNEConnectinos

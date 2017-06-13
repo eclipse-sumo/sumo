@@ -195,11 +195,6 @@ public:
      */
     void setGeometry(PositionVector geom, bool inner);
 
-    /**@brief remake GNELanes
-     * @note this function will destroy the GNEConnections
-     */
-    void remakeGNELanes();
-
     /// @brief remake connections
     void remakeGNEConnections();
 
