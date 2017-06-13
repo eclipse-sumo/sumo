@@ -130,7 +130,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             MSLane* l = (nextEdge != 0 ? e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass, departPos) :
                     e->getFreeLane(0, vclass, departPos));
             // handle teleporting vehicles, lane may be 0 because permissions were modified by a closing rerouter or TraCI
-            if (l != 0 && l->freeInsertion(*(desc.myVeh), MIN2(l->getSpeedLimit(), desc.myVeh->getMaxSpeed()), MSMoveReminder::NOTIFICATION_TELEPORT)) {
+            if (l != 0 && l->freeInsertion(*(desc.myVeh), MIN2(l->getSpeedLimit(), desc.myVeh->getMaxSpeed()), 0, MSMoveReminder::NOTIFICATION_TELEPORT)) {
                 WRITE_WARNING("Vehicle '" + desc.myVeh->getID() + "' ends teleporting on edge '" + e->getID() + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
                 i = myVehicles.erase(i);

@@ -282,7 +282,7 @@ public:
     /** @brief inserts vehicle as close as possible to the last vehicle on this
      * lane (or at the end of the lane if there is no leader)
      */
-    bool lastInsertion(MSVehicle& veh, double mspeed, bool patchSpeed);
+    bool lastInsertion(MSVehicle& veh, double mspeed, double posLat, bool patchSpeed);
 
     /** @brief Tries to insert the given vehicle on any place
      *
@@ -291,7 +291,7 @@ public:
      * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      * @return Whether the vehicle could be inserted
      */
-    bool freeInsertion(MSVehicle& veh, double speed,
+    bool freeInsertion(MSVehicle& veh, double speed, double posLat,
                        MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 
 
@@ -1079,6 +1079,12 @@ protected:
      * @return the depart speed
      */
     double getDepartSpeed(const MSVehicle& veh, bool& patchSpeed);
+
+    /* @brief determine the lateral depart position
+     * @param[in] veh The departing vehicle
+     * @return the lateral depart position
+     */
+    double getDepartPosLat(const MSVehicle& veh);
 
     /** @brief return the maximum safe speed for insertion behind leaders
      * (a negative value indicates that safe insertion is impossible) */
