@@ -88,7 +88,8 @@ MSLaneChangerSublane::change() {
     assert(!vehicle->getLaneChangeModel().isChangingLanes());
 #ifndef NO_TRACI
     if (vehicle->isRemoteControlled()) {
-        return false; // !!! temporary; just because it broke, here
+        registerUnchanged(vehicle);
+        return false; 
     }
 #endif
     vehicle->updateBestLanes(); // needed?
