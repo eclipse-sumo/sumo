@@ -1224,6 +1224,14 @@ MSLCM_SL2015::_wantsChangeSublane(
                         std::cout << "      i=" << i << " newLatDist=" << latDist << " relGain=" << relativeGain << "\n";
                     }
                 }
+            } else {
+                // if anticipated gains to the left are higher, prefer this
+                if (currentLatDist > 0 
+                        && mySpeedGainProbabilityLeft > mySpeedGainProbabilityRight
+                        && relativeGain > GAIN_PERCEPTION_THRESHOLD
+                        && maxGain - relativeGain < NUMERICAL_EPS) {
+                    latDist = currentLatDist;
+                }
             }
             if (gDebugFlag2) {
                 std::cout << "    i=" << i << " rightmostOnEdge=" << rightmostOnEdge << " vMin=" << vMin << " relGain=" << relativeGain << " sublaneCompact=" << sublaneCompact << " curLatDist=" << currentLatDist << "\n";
