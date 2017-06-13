@@ -240,6 +240,8 @@ private:
         std::string idBefore;
         /// @brief The id for the edge after the split
         std::string idAfter;
+        /// @brief the default node id
+        std::string nameID;
     };
 
     /// @brief The list of this edge's splits

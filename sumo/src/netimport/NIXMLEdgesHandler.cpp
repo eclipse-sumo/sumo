@@ -356,7 +356,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
             return;
         }
-        const std::string nameid = toString((int)e.pos);
+        e.nameID = myCurrentID + "." + toString((int)e.pos);
         if (e.pos < 0) {
             e.pos += myCurrentEdge->getGeometry().length();
         }
@@ -386,8 +386,11 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         if (!ok) {
             return;
         }
-        e.node = new NBNode(myCurrentID + "." + nameid,
-                            myCurrentEdge->getGeometry().positionAtOffset(e.pos));
+        const std::string nodeID = attrs.getOpt(SUMO_ATTR_ID, 0, ok, e.nameID);
+        e.node = myNodeCont.retrieve(nodeID);
+        if (e.node == 0) {
+            e.node = new NBNode(nodeID, myCurrentEdge->getGeometry().positionAtOffset(e.pos));
+        }
         NIXMLNodesHandler::processNodeType(attrs, e.node, e.node->getID(), e.node->getPosition(), false,
                                            myNodeCont, myTLLogicCont);
         mySplits.push_back(e);
@@ -551,50 +554,50 @@ NIXMLEdgesHandler::myEndElement(int element) {
                 const Split& exp = *i;
                 assert(exp.lanes.size() != 0);
                 if (exp.pos > 0 && e->getGeometry().length() + seen > exp.pos && exp.pos > seen) {
-                    if (myNodeCont.insert(exp.node)) {
-                        myNodeCont.markAsSplit(exp.node);
-                        //  split the edge
-                        std::string idBefore = exp.idBefore == "" ? e->getID() : exp.idBefore;
-                        std::string idAfter = exp.idAfter == "" ? exp.node->getID() : exp.idAfter;
-                        if (firstID == "") {
-                            firstID = idBefore;
-                        }
-                        myEdgeCont.splitAt(myDistrictCont, e, exp.pos - seen, exp.node,
-                                           idBefore, idAfter, e->getNumLanes(), (int) exp.lanes.size(), exp.speed);
-                        seen = exp.pos;
-                        std::vector<int> newLanes = exp.lanes;
-                        NBEdge* pe = myEdgeCont.retrieve(idBefore);
-                        NBEdge* ne = myEdgeCont.retrieve(idAfter);
-                        // reconnect lanes
-                        pe->invalidateConnections(true);
-                        //  new on right
-                        int rightMostP = currLanes[0];
-                        int rightMostN = newLanes[0];
-                        for (int l = 0; l < (int) rightMostP - (int) rightMostN; ++l) {
-                            pe->addLane2LaneConnection(0, ne, l, NBEdge::L2L_VALIDATED, true);
-                        }
-                        //  new on left
-                        int leftMostP = currLanes.back();
-                        int leftMostN = newLanes.back();
-                        for (int l = 0; l < (int) leftMostN - (int) leftMostP; ++l) {
-                            pe->addLane2LaneConnection(pe->getNumLanes() - 1, ne, leftMostN - l - rightMostN, NBEdge::L2L_VALIDATED, true);
-                        }
-                        //  all other connected
-                        for (int l = 0; l < noLanesMax; ++l) {
-                            if (find(currLanes.begin(), currLanes.end(), l) == currLanes.end()) {
-                                continue;
-                            }
-                            if (find(newLanes.begin(), newLanes.end(), l) == newLanes.end()) {
-                                continue;
-                            }
-                            pe->addLane2LaneConnection(l - rightMostP, ne, l - rightMostN, NBEdge::L2L_VALIDATED, true);
-                        }
-                        // move to next
-                        e = ne;
-                        currLanes = newLanes;
-                    } else {
+                    myNodeCont.insert(exp.node);
+                    myNodeCont.markAsSplit(exp.node);
+                    //  split the edge
+                    std::string idBefore = exp.idBefore == "" ? e->getID() : exp.idBefore;
+                    std::string idAfter = exp.idAfter == "" ? exp.nameID : exp.idAfter;
+                    if (firstID == "") {
+                        firstID = idBefore;
+                    }
+                    const bool ok = myEdgeCont.splitAt(myDistrictCont, e, exp.pos - seen, exp.node,
+                            idBefore, idAfter, e->getNumLanes(), (int) exp.lanes.size(), exp.speed);
+                    if (!ok) {
                         WRITE_WARNING("Error on parsing a split (edge '" + myCurrentID + "').");
                     }
+                    seen = exp.pos;
+                    std::vector<int> newLanes = exp.lanes;
+                    NBEdge* pe = myEdgeCont.retrieve(idBefore);
+                    NBEdge* ne = myEdgeCont.retrieve(idAfter);
+                    // reconnect lanes
+                    pe->invalidateConnections(true);
+                    //  new on right
+                    int rightMostP = currLanes[0];
+                    int rightMostN = newLanes[0];
+                    for (int l = 0; l < (int) rightMostP - (int) rightMostN; ++l) {
+                        pe->addLane2LaneConnection(0, ne, l, NBEdge::L2L_VALIDATED, true);
+                    }
+                    //  new on left
+                    int leftMostP = currLanes.back();
+                    int leftMostN = newLanes.back();
+                    for (int l = 0; l < (int) leftMostN - (int) leftMostP; ++l) {
+                        pe->addLane2LaneConnection(pe->getNumLanes() - 1, ne, leftMostN - l - rightMostN, NBEdge::L2L_VALIDATED, true);
+                    }
+                    //  all other connected
+                    for (int l = 0; l < noLanesMax; ++l) {
+                        if (find(currLanes.begin(), currLanes.end(), l) == currLanes.end()) {
+                            continue;
+                        }
+                        if (find(newLanes.begin(), newLanes.end(), l) == newLanes.end()) {
+                            continue;
+                        }
+                        pe->addLane2LaneConnection(l - rightMostP, ne, l - rightMostN, NBEdge::L2L_VALIDATED, true);
+                    }
+                    // move to next
+                    e = ne;
+                    currLanes = newLanes;
                 }  else if (exp.pos == 0) {
                     const int laneCountDiff = e->getNumLanes() - (int)exp.lanes.size();
                     if (laneCountDiff < 0) {
