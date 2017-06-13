@@ -2,7 +2,7 @@
     <scheme name="custom_1">
         <opengl antialiase="0" dither="0"/>
         <background backgroundColor="white" showGrid="0" gridXSize="100.00" gridYSize="100.00"/>
-        <edges laneEdgeMode="0" scaleMode="0" laneShowBorders="1" showLinkDecals="1" showLinkRules="1" showRails="1" hideConnectors="0" widthExaggeration="1.00" minSize="0.00" showDirection="0" showSublanes="1"
+        <edges laneEdgeMode="0" scaleMode="0" laneShowBorders="1" showLinkDecals="1" showLinkRules="1" showRails="1" hideConnectors="0" widthExaggeration="1.00" minSize="0.00" showDirection="0" showSublanes="0"
                 edgeName_show="0" edgeName_size="50.00" edgeName_color="orange"
                 internalEdgeName_show="0" internalEdgeName_size="40.00" internalEdgeName_color="128,64,0"
                 cwaEdgeName_show="0" cwaEdgeName_size="50.00" cwaEdgeName_color="magenta"
