@@ -729,7 +729,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
             // Abort undo/redo
             myUndoList->abort();
         } else {
-            // reset last tag (needed if user want to load more additionals)
+            // reset last tag (needed to avoid invalid E3s)
             additionalHandler.resetLastTag();
             // commit undo/redo operation
             myUndoList->p_end();
@@ -1132,7 +1132,7 @@ GNEApplicationWindow::onCmdComputeJunctions(FXObject*, FXSelector, void*) {
 long 
 GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*) {
     // declare string to save path in wich additionals will be saved
-    std::string additionalSavePath;
+    std::string additionalSavePath = myAdditionalsFile;
     // write warning if netedit is running in testing mode
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Keys Shift + F5 (Compute with volatile options) pressed");
