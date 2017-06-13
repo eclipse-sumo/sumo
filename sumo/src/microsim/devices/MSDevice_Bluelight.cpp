@@ -138,17 +138,13 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
         // todo only vehicles in front of the emergency vehicle should react
         if (distanceDelta <= 100 && veh.getID() != veh2->getID()) {
             //std::cout << "In Range Vehicle '" << veh2->getID() << "\n";
-            //MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType(veh2->getVehicleType().getID());
-            const MSVehicleType& oldType = veh2->getVehicleType();
-            std::string newID = oldType.getID().find('@') == std::string::npos ? oldType.getID() + "@" + veh2->getID() : oldType.getID();
-            MSVehicleType* t = MSVehicleType::buildSingularType(newID, &oldType);
-            static_cast<MSVehicle*>(veh2)->replaceVehicleType(t);
-
+            static_cast<MSVehicle*>(veh2)->getSingularType();
+            MSVehicleType& t = const_cast<MSVehicleType&>(veh2->getVehicleType());
             if (veh2->getLane()->getIndex() == 0) {
-                t->setPreferredLateralAlignment(LATALIGN_RIGHT);
+                t.setPreferredLateralAlignment(LATALIGN_RIGHT);
                 std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
             } else {
-                t->setPreferredLateralAlignment(LATALIGN_LEFT);
+                t.setPreferredLateralAlignment(LATALIGN_LEFT);
                 std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
             }
 

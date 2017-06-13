@@ -527,6 +527,15 @@ MSBaseVehicle::setDeviceParameter(const std::string& deviceName, const std::stri
     throw InvalidArgument("No device off type '" + deviceName + "' exists");
 }
 
+MSVehicleType&
+MSBaseVehicle::getSingularType() {
+    const MSVehicleType& oType = getVehicleType();
+    std::string newID = oType.getID().find('@') == std::string::npos ? oType.getID() + "@" + getID() : oType.getID();
+    MSVehicleType* type = MSVehicleType::buildSingularType(newID, &oType);
+    static_cast<MSVehicle*>(this)->replaceVehicleType(type);
+    return *type;
+}
+
 #ifdef _DEBUG
 void
 MSBaseVehicle::initMoveReminderOutput(const OptionsCont& oc) {

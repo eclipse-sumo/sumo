@@ -1453,7 +1453,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             break;
             default:
                 try {
-                    const MSVehicleType& type = getSingularType(v);
+                    const MSVehicleType& type = v->getSingularType();
                     if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, type.getID(), server, inputStorage, outputStorage)) {
                         return false;
                     }
@@ -1750,16 +1750,6 @@ TraCIServerAPI_Vehicle::getPosition(const std::string& id, Position& p) {
     }
     p = v->getPosition();
     return true;
-}
-
-
-MSVehicleType&
-TraCIServerAPI_Vehicle::getSingularType(SUMOVehicle* const veh) {
-    const MSVehicleType& oType = veh->getVehicleType();
-    std::string newID = oType.getID().find('@') == std::string::npos ? oType.getID() + "@" + veh->getID() : oType.getID();
-    MSVehicleType* type = MSVehicleType::buildSingularType(newID, &oType);
-    static_cast<MSVehicle*>(veh)->replaceVehicleType(type);
-    return *type;
 }
 
 

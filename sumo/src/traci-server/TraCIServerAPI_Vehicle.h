@@ -77,9 +77,6 @@ public:
 
 
 private:
-    static MSVehicleType& getSingularType(SUMOVehicle* const veh);
-
-
     static bool vtdMap(const Position& pos, double maxRouteDistance, const std::string& origID, const double angle, MSVehicle& v, TraCIServer& server,
                        double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
 

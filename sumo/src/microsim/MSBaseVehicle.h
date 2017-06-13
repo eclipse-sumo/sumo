@@ -382,6 +382,8 @@ public:
     MSDevice* getDevice(const std::type_info& type) const;
 
 
+    MSVehicleType& getSingularType();
+
     /// @name state io
     //@{
 
@@ -465,7 +467,6 @@ protected:
 private:
     /// invalidated assignment operator
     MSBaseVehicle& operator=(const MSBaseVehicle& s);
-
 
 #ifdef _DEBUG
 public:
