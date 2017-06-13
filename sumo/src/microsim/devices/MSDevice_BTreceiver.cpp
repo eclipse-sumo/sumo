@@ -6,7 +6,7 @@
 /// @date    14.08.2013
 /// @version $Id$
 ///
-// A BT sender
+// A BT Receiver
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 // Copyright (C) 2013-2017 DLR (http://www.dlr.de/) and contributors
