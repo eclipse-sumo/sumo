@@ -87,6 +87,9 @@ class RacingClient:
             traci.start([checkBinary("sumo-gui"), "-c", self.sumocfg,
             "--lateral-resolution", "0.32",
             "--step-length", str(TS)])
+            # steal focus for keyboard input after sumo-gui has loaded
+            self.master.focus_force()
+            # make sure ego vehicle is loaded
             traci.simulationStep()
             speed = traci.vehicle.getSpeed(self.egoID)
             angle = traci.vehicle.getAngle(self.egoID)
@@ -140,7 +143,8 @@ class RacingClient:
 
 def main(sumocfg="racing/racing.sumocfg", egoID="ego"):
     root = Tk()
-    frame = Frame(root, width=100, height=100)
+    root.geometry('100x100+0+0')
+    frame = Frame(root)
     root.bind('<Left>', leftKey)
     root.bind('<Right>', rightKey)
     root.bind('<Up>', upKey)
