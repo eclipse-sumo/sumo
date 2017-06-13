@@ -1104,7 +1104,7 @@ PositionVector::operator!=(const PositionVector& v2) const {
 
 bool
 PositionVector::hasElevation() const {
-    if (size() > 2) {
+    if (size() < 2) {
         return false;
     }
     for (const_iterator i = begin(); i != end() - 1; i++) {
