@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 13 Jun 2017 09:27:57 AM CEST by SUMO gui Version dev-SVN-r24637
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="racing/spreewaldring.net.xml"/>
+        <route-files value="racing/racing.rou.xml"/>
+        <additional-files value="racing/rerouter.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="racing/tripinfos.xml"/>
+    </output>
+
+    <time>
+        <step-length value="0.05"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="0.32"/>
+    </processing>
+
+    <report>
+        <log value="racing/log"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="60497"/>
+    </traci_server>
+
+    <gui_only>
+        <gui-settings-file value="racing/view.xml"/>
+        <quit-on-end value="true"/>
+        <start value="true"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+</tripinfos>
