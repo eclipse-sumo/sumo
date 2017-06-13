@@ -109,47 +109,13 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myShapeContainer(myGrid),
     myNeedRecompute(true),
     myAdditionalsSaved(true) {
+    // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 
-    // init junctions (by default Crossing and walking areas aren't created)
-    NBNodeCont& nc = myNetBuilder->getNodeCont();
-    const std::vector<std::string>& nodeNames = nc.getAllNames();
-    for (std::vector<std::string>::const_iterator name_it = nodeNames.begin(); name_it != nodeNames.end(); ++name_it) {
-        NBNode* nbn = nc.retrieve(*name_it);
-        registerJunction(new GNEJunction(*nbn, this, true));
-    }
+    // init junction and edges
+    initJunctionsAndEdges();
 
-    // init edges
-    NBEdgeCont& ec = myNetBuilder->getEdgeCont();
-    const std::vector<std::string>& edgeNames = ec.getAllNames();
-    for (std::vector<std::string>::const_iterator name_it = edgeNames.begin(); name_it != edgeNames.end(); ++name_it) {
-        NBEdge* nbe = ec.retrieve(*name_it);
-        registerEdge(new GNEEdge(*nbe, this, false, true));
-        if (myGrid.getWidth() > 10e16 || myGrid.getHeight() > 10e16) {
-            throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
-        }
-    }
-
-    // make sure myGrid is initialized even for an empty net
-    if (myEdges.size() == 0) {
-        myGrid.add(Boundary(0, 0, 100, 100));
-    }
-
-    // sort nodes edges so that arrows can be drawn correctly
-    NBNodesEdgesSorter::sortNodesEdges(nc);
-
-    /*
-    // initialise detector storage for gui
-    initDetectors();
-    // initialise the tl-map
-    initTLMap();
-    // initialise edge storage for gui
-    GUIEdge::fill(myEdgeWrapper);
-    */
-    //if (myGrid.count() == 0) // myGrid methods will return garbage
-
-    // Init AdditionalHandler
-
+    // check Z boundary
     if (myZBoundary.ymin() != Z_INITIALIZED) {
         myZBoundary.add(0, 0);
     }
@@ -1117,7 +1083,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
             // Abort undo/redo
             myViewNet->getUndoList()->abort();
         } else {
-            // reset last tag (needed if user want to load more additionals)
+            // reset last tag (needed to avoid invalid E3s)
             additionalHandler.resetLastTag();
             // commit undo/redo operation
             myViewNet->getUndoList()->p_end();
@@ -1633,6 +1599,38 @@ GNENet::flowExists(const std::string& flowID) const {
 // private
 // ===========================================================================
 
+
+void 
+GNENet::initJunctionsAndEdges() {
+    // init junctions (by default Crossing and walking areas aren't created)
+    NBNodeCont& nc = myNetBuilder->getNodeCont();
+    const std::vector<std::string>& nodeNames = nc.getAllNames();
+    for (std::vector<std::string>::const_iterator name_it = nodeNames.begin(); name_it != nodeNames.end(); ++name_it) {
+        NBNode* nbn = nc.retrieve(*name_it);
+        registerJunction(new GNEJunction(*nbn, this, true));
+    }
+
+    // init edges
+    NBEdgeCont& ec = myNetBuilder->getEdgeCont();
+    const std::vector<std::string>& edgeNames = ec.getAllNames();
+    for (std::vector<std::string>::const_iterator name_it = edgeNames.begin(); name_it != edgeNames.end(); ++name_it) {
+        NBEdge* nbe = ec.retrieve(*name_it);
+        registerEdge(new GNEEdge(*nbe, this, false, true));
+        if (myGrid.getWidth() > 10e16 || myGrid.getHeight() > 10e16) {
+            throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
+        }
+    }
+
+    // make sure myGrid is initialized even for an empty net
+    if (myEdges.size() == 0) {
+        myGrid.add(Boundary(0, 0, 100, 100));
+    }
+
+    // sort nodes edges so that arrows can be drawn correctly
+    NBNodesEdgesSorter::sortNodesEdges(nc);
+}
+
+
 void
 GNENet::insertJunction(GNEJunction* junction) {
     myNetBuilder->getNodeCont().insert(junction->getNBNode());
@@ -1748,6 +1746,7 @@ GNENet::initGNEConnections() {
     }
 }
 
+
 void
 GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     // make sure we only add turn arounds to edges which currently exist within the network
@@ -1784,16 +1783,18 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     // if volatile options are true
     if(volatileOptions == true) {
 
-        // clear all elements of net
+        // clear all additionals of grid
         GNEAdditionals copyOfAdditionals = myAdditionals;
         for (GNEAdditionals::iterator it = copyOfAdditionals.begin(); it != copyOfAdditionals.end(); it++) {
             myGrid.removeAdditionalGLObject(it->second);
         }
+        // remove all edges of grid and net
         GNEEdges copyOfEdges = myEdges;
         for (GNEEdges::iterator it = copyOfEdges.begin(); it != copyOfEdges.end(); it++) {
             myGrid.removeAdditionalGLObject(it->second);
             myEdges.erase(it->second->getMicrosimID());
         }
+        // removes all junctions of grid and net
         GNEJunctions copyOfJunctions = myJunctions;
         for (GNEJunctions::iterator it = copyOfJunctions.begin(); it != copyOfJunctions.end(); it++) {
             myGrid.removeAdditionalGLObject(it->second);
@@ -1806,27 +1807,8 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         // clear additionals (must be do it separated)
         myAdditionals.clear();
 
-        // init junctions (by default Crossing and walking areas aren't created)
-        NBNodeCont& nc = myNetBuilder->getNodeCont();
-        const std::vector<std::string>& nodeNames = nc.getAllNames();
-        for (std::vector<std::string>::const_iterator name_it = nodeNames.begin(); name_it != nodeNames.end(); ++name_it) {
-            NBNode* nbn = nc.retrieve(*name_it);
-            registerJunction(new GNEJunction(*nbn, this, true));
-        }
-
-        // init edges
-        NBEdgeCont& ec = myNetBuilder->getEdgeCont();
-        const std::vector<std::string>& edgeNames = ec.getAllNames();
-        for (std::vector<std::string>::const_iterator name_it = edgeNames.begin(); name_it != edgeNames.end(); ++name_it) {
-            NBEdge* nbe = ec.retrieve(*name_it);
-            registerEdge(new GNEEdge(*nbe, this, false, true));
-            if (myGrid.getWidth() > 10e16 || myGrid.getHeight() > 10e16) {
-                throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
-            }
-        }
-
-        // sort nodes edges so that arrows can be drawn correctly
-        NBNodesEdgesSorter::sortNodesEdges(nc);
+        // init again junction an edges
+        initJunctionsAndEdges();
     }
     
     // update precomputed geometries

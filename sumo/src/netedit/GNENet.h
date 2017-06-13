@@ -569,11 +569,8 @@ protected:
     bool myAdditionalsSaved;
 
 private:
-    /// @brief Initialises the detector wrappers
-    void initDetectors();
-
-    /// @brief Initialises the tl-logic map and wrappers
-    void initTLMap();
+    /// @brief Init Junctions and edges
+    void initJunctionsAndEdges();
 
     /// @brief inserts a single junction into the net and into the underlying netbuild-container
     void insertJunction(GNEJunction* junction);
