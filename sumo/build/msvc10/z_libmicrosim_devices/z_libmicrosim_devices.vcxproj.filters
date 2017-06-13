@@ -44,6 +44,9 @@
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Transportable.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Bluelight.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice.cpp">
@@ -77,6 +80,9 @@
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Transportable.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Bluelight.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
   </ItemGroup>
