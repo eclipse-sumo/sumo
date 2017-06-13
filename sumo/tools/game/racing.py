@@ -41,22 +41,23 @@ from Tkinter import *
 
 eventQueue = Queue.Queue()
 TS = 0.05
+VERBOSE = False
 
 def leftKey(event):
     eventQueue.put('left')
-    print("Left key pressed")
+    if VERBOSE: print("Left key pressed")
 
 def rightKey(event):
     eventQueue.put('right')
-    print("Right key pressed")
+    if VERBOSE: print("Right key pressed")
 
 def upKey(event):
     eventQueue.put('up')
-    print("Up key pressed")
+    if VERBOSE: print("Up key pressed")
 
 def downKey(event):
     eventQueue.put('down')
-    print("Down key pressed")
+    if VERBOSE: print("Down key pressed")
 
 
 class RacingClient:
@@ -126,9 +127,10 @@ class RacingClient:
                     x3,y3 = traci.vehicle.getPosition(self.egoID)
                     x, y = x2, y2
                     traci.simulationStep()
-                    print("old=%.2f,%.2f new=%.2f,%.2f found=%.2f,%.2f speed=%.2f steer=%.2f angle=%s rad/pi=%.2f cos=%.2f sin=%.2f" % (
-                        x,y, x2,y2, x3,y3, speed, steerAngle, angle, rad/math.pi,
-                        math.cos(rad), math.sin(rad)))
+                    if VERBOSE:
+                        print("old=%.2f,%.2f new=%.2f,%.2f found=%.2f,%.2f speed=%.2f steer=%.2f angle=%s rad/pi=%.2f cos=%.2f sin=%.2f" % (
+                            x,y, x2,y2, x3,y3, speed, steerAngle, angle, rad/math.pi,
+                            math.cos(rad), math.sin(rad)))
                 except traci.TraCIException:
                     pass
             traci.close()
