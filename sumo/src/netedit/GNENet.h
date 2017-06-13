@@ -402,8 +402,9 @@ public:
      * param[in] window The window to inform about delay
      * param[in] force Whether to force recomputation even if not needed
      * param[in] volatileOptions enable or disable volatile options
+     * param[in] additionalPath path in wich additionals were saved before recomputing with volatile options
      */
-    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false);
+    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "");
 
     /* @brief join selected junctions
      * @note difference to mergeJunctions:

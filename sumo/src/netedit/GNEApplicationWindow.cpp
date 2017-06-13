@@ -1131,6 +1131,8 @@ GNEApplicationWindow::onCmdComputeJunctions(FXObject*, FXSelector, void*) {
 
 long 
 GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*) {
+    // declare string to save path in wich additionals will be saved
+    std::string additionalSavePath;
     // write warning if netedit is running in testing mode
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Keys Shift + F5 (Compute with volatile options) pressed");
@@ -1138,7 +1140,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
     }
     // open question dialog box
     FXuint answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Recompute with volatile options",
-                                            "Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?)");
+                                            "Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?");
     if (answer != 1) { //1:yes, 2:no, 4:esc
         // write warning if netedit is running in testing mode
         if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1149,12 +1151,61 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
         // abort recompute with volatile options
         return 0;
     } else {
-        myNet->computeEverything(this, true, true);
-        updateControls();
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
         }
+        // Check if there are additionals in our net
+        if(myNet->getNumberOfAdditionals() > 0) {
+            // ask user if want to save additionals if weren't saved previously
+            if(myAdditionalsFile == "") {
+                // open question dialog box
+                FXuint answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save additionals before recomputing with volatile options",
+                                                        "Would you like to save additionals before recomputing?");
+                if (answer != 1) { //1:yes, 2:no, 4:esc
+                    // write warning if netedit is running in testing mode
+                    if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
+                    } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
+                    }
+                } else {
+                    // write warning if netedit is running in testing mode
+                    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
+                    }
+                    onCmdSaveAdditionals(0,0,0);
+                    additionalSavePath = myAdditionalsFile;
+                }
+            }
+            // Check if additional must be saved in a temporal directory, if user didn't define a directory for additionals
+            if(myAdditionalsFile == "") {
+                // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
+                additionalSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpAdditionalsNetedit.xml");
+                // Start saving additionals
+                getApp()->beginWaitCursor();
+                try {
+                    myNet->saveAdditionals(additionalSavePath);
+                } catch (IOError& e) {
+                    // write warning if netedit is running in testing mode
+                    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                        WRITE_WARNING("Opening FXMessageBox of type 'error'");
+                    }
+                    // open error message box
+                    FXMessageBox::error(this, MBOX_OK, "Saving additionals in temporal folder failed!", "%s", e.what());
+                    // write warning if netedit is running in testing mode
+                    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                        WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+                    }
+                }
+                // end saving additionals
+                myMessageWindow->addSeparator();
+                getApp()->endWaitCursor();
+            }
+        }
+        // compute with volatile options
+        myNet->computeEverything(this, true, true, additionalSavePath);
+        updateControls();
         return 1;
     }
 }

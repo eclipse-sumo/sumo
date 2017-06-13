@@ -56,6 +56,7 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include "GNEAdditional.h"
 #include "GNEAdditionalFrame.h"
@@ -82,6 +83,7 @@
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
 #include "GNERerouter.h"
+#include "GNEAdditionalHandler.h"
 
 
 
@@ -1081,7 +1083,7 @@ GNENet::getGlIDs(GUIGlObjectType type) {
 
 
 void
-GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatileOptions) {
+GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath) {
     if (!myNeedRecompute) {
         if (force) {
             if(volatileOptions == true) {
@@ -1102,8 +1104,26 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
     // compute
     OptionsCont& oc = OptionsCont::getOptions();
     computeAndUpdate(oc, volatileOptions);
-    WRITE_MESSAGE("\nFinished computing junctions.");
 
+    // load additionanls if was recomputed with volatile options
+    if(additionalPath != "") {
+        // Start operation for undo/redo
+        myViewNet->getUndoList()->p_begin("load additionals");
+        // Create additional handler
+        GNEAdditionalHandler additionalHandler(additionalPath, myViewNet);
+        // Run parser
+        if (!XMLSubSys::runParser(additionalHandler, additionalPath, false)) {
+            WRITE_MESSAGE("Loading of " + additionalPath + " failed.");
+            // Abort undo/redo
+            myViewNet->getUndoList()->abort();
+        } else {
+            // reset last tag (needed if user want to load more additionals)
+            additionalHandler.resetLastTag();
+            // commit undo/redo operation
+            myViewNet->getUndoList()->p_end();
+            update();
+        }
+    }
     window->getApp()->endWaitCursor();
     window->setStatusBarText("Finished computing junctions.");
     update();
@@ -1763,61 +1783,52 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
     // if volatile options are true
     if(volatileOptions == true) {
+
+        // clear all elements of net
+        GNEAdditionals copyOfAdditionals = myAdditionals;
+        for (GNEAdditionals::iterator it = copyOfAdditionals.begin(); it != copyOfAdditionals.end(); it++) {
+            myGrid.removeAdditionalGLObject(it->second);
+        }
+        GNEEdges copyOfEdges = myEdges;
+        for (GNEEdges::iterator it = copyOfEdges.begin(); it != copyOfEdges.end(); it++) {
+            myGrid.removeAdditionalGLObject(it->second);
+            myEdges.erase(it->second->getMicrosimID());
+        }
+        GNEJunctions copyOfJunctions = myJunctions;
+        for (GNEJunctions::iterator it = copyOfJunctions.begin(); it != copyOfJunctions.end(); it++) {
+            myGrid.removeAdditionalGLObject(it->second);
+            myJunctions.erase(it->second->getMicrosimID());
+        }
+
         // clear undo list
         myViewNet->getUndoList()->clear();
-        // check if new junctions has to be inicialized
+
+        // clear additionals (must be do it separated)
+        myAdditionals.clear();
+
+        // init junctions (by default Crossing and walking areas aren't created)
         NBNodeCont& nc = myNetBuilder->getNodeCont();
         const std::vector<std::string>& nodeNames = nc.getAllNames();
         for (std::vector<std::string>::const_iterator name_it = nodeNames.begin(); name_it != nodeNames.end(); ++name_it) {
-            if(myJunctions.find(*name_it) == myJunctions.end()) {
-                NBNode* nbn = nc.retrieve(*name_it);
-                registerJunction(new GNEJunction(*nbn, this, true));
-            }
-        }
-        // Check if a existent GNEJunction has to be removed
-        std::vector<std::string> junctionsToErase;
-        for(GNEJunctions::iterator i = myJunctions.begin(); i != myJunctions.end(); i++) {
-            if(std::find(nodeNames.begin(), nodeNames.end(), i->first) == nodeNames.end()) {
-                junctionsToErase.push_back(i->first);
-            }
-        }
-        for(std::vector<std::string>::iterator i = junctionsToErase.begin(); i != junctionsToErase.end(); i++) {
-            myJunctions.erase(myJunctions.find(*i));
+            NBNode* nbn = nc.retrieve(*name_it);
+            registerJunction(new GNEJunction(*nbn, this, true));
         }
 
-        // check if new edges has to be inicialized
+        // init edges
         NBEdgeCont& ec = myNetBuilder->getEdgeCont();
         const std::vector<std::string>& edgeNames = ec.getAllNames();
         for (std::vector<std::string>::const_iterator name_it = edgeNames.begin(); name_it != edgeNames.end(); ++name_it) {
-            if(myEdges.find(*name_it) == myEdges.end()) {
-                NBEdge* nbe = ec.retrieve(*name_it);
-                registerEdge(new GNEEdge(*nbe, this, false, true));
-                if (myGrid.getWidth() > 10e16 || myGrid.getHeight() > 10e16) {
-                    throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
-                }
-            }
-        }
-        // Check if a existent GNEEdge has to be removed
-        std::vector<std::string> edgesToErase;
-        for(GNEEdges::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-            if(std::find(edgeNames.begin(), edgeNames.end(), i->first) == edgeNames.end()) {
-                edgesToErase.push_back(i->first);
-            }
-        }
-        for(std::vector<std::string>::iterator i = edgesToErase.begin(); i != edgesToErase.end(); i++) {
-            myEdges.erase(myEdges.find(*i));
-        }
-
-        // check if a existent lane has to be created
-        for(GNEEdges::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-            if((int)i->second->getLanes().size() != i->second->getNBEdge()->getNumLanes()) {
-                i->second->remakeGNELanes();
+            NBEdge* nbe = ec.retrieve(*name_it);
+            registerEdge(new GNEEdge(*nbe, this, false, true));
+            if (myGrid.getWidth() > 10e16 || myGrid.getHeight() > 10e16) {
+                throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
             }
         }
 
-
+        // sort nodes edges so that arrows can be drawn correctly
+        NBNodesEdgesSorter::sortNodesEdges(nc);
     }
-
+    
     // update precomputed geometries
     initGNEConnections();
 
