@@ -41,3 +41,6 @@ roundabout
 
 # add splits before and after a traffic light node
 tls
+
+# split a two-way road with a common node
+double_split
