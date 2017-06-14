@@ -2677,7 +2677,7 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
         const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(ego, seen);
         if (linkLeaders.size() > 0) {
             const MSLink::LinkLeader ll = linkLeaders[0];
-            if (ll.vehAndGap.first != 0) {
+            if (ll.vehAndGap.first != 0 && (*link)->isLeader(ego, ll.vehAndGap.first)) {
                 // add link leader to all sublanes and return
                 for (int i = 0; i < result.numSublanes(); ++i) {
                     MSVehicle* veh = ll.vehAndGap.first;
