@@ -45,6 +45,10 @@ push_for_merge_equalize_gaps
 # 
 nopush_for_merge
 
+# a vehicle urgently needs to change lanes but is configured to (almost) refrain from pushing  
+#  
+smallpush_for_merge 
+
 # a vehicle urgently needs to change lanes but is configured to refrain from pushing. nevertheless it undercuts the lateral gap
 # 
 nopushy_encroach
@@ -65,4 +69,12 @@ angles
 
 # a vehicle fails to push into the required lane and must perform speed adaptation instead
 push_fail_adapt_speed
+
+# a vehicle may move beyond lane bounds when entering an intersection and the shadow lane ends. It has to move into the correct lane bounds before leaving the intersection  
+beyond_lane_on_junction 
+ 
+# vehicles must overtake a stopped vehicle and have to decide for overtaking on either side 
+buridan_1lane 
+
+# tests for various tickets
 bugs
