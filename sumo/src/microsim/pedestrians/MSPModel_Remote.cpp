@@ -51,11 +51,13 @@ PedestrianState* MSPModel_Remote::add(MSPerson* person, MSPerson::MSPersonStage_
 
     hybridsim::Agent req;
     int id = myLastId++;
-    remoteSumoIdMapping[id] = person->getID();
+    remoteIdPStateMapping[id] = state;
     req.set_id(id);
 
     MSLane* departureLane = getFirstPedestrianLane(*(stage->getRoute().begin()));
     double departureOffsetAlongLane = stage->getDepartPos();
+
+    //TODO fix this on casim side [GL]
     double offset = departureOffsetAlongLane == 0 ? 0.4 : -0.4;
     departureOffsetAlongLane += offset;
 
@@ -116,11 +118,24 @@ PedestrianState* MSPModel_Remote::add(MSPerson* person, MSPerson::MSPersonStage_
     return state;
 }
 
+MSPModel_Remote::~MSPModel_Remote() {
+
+    hybridsim::Empty req;
+    hybridsim::Empty rpl;
+    ClientContext context1;
+    Status st = myHybridsimStub->shutdown(&context1,req,&rpl);
+    if (!st.ok()) {
+        ProcessError("Could not shutdown remote server");
+    }
+
+
+}
+
 SUMOTime MSPModel_Remote::execute(SUMOTime time) {
 
     hybridsim::LeftClosedRightOpenTimeInterval interval;
-    interval.set_fromtimeincluding(time/DELTA_T);
-    interval.set_totimeexcluding((time + DELTA_T)/DELTA_T);
+    interval.set_fromtimeincluding(time / DELTA_T);
+    interval.set_totimeexcluding((time + DELTA_T) / DELTA_T);
 
 
     //1. simulate time interval
@@ -128,7 +143,7 @@ SUMOTime MSPModel_Remote::execute(SUMOTime time) {
     ClientContext context1;
     Status st = myHybridsimStub->simulatedTimeInerval(&context1, interval, &rpl);
     if (!st.ok()) {
-        ProcessError("Could not simulated time interval from: " + toString(time) + " to: " + toString(time+DELTA_T));
+        ProcessError("Could not simulated time interval from: " + toString(time) + " to: " + toString(time + DELTA_T));
     }
 
     //2. receive trajectories
@@ -139,9 +154,53 @@ SUMOTime MSPModel_Remote::execute(SUMOTime time) {
     if (!st2.ok()) {
         ProcessError("Could not receive trajectories from remote simulation");
     }
-    std::cout << trajectories.trajectories().size() << std::endl;
+    for (hybridsim::Trajectory trajectory : trajectories.trajectories()) {
+        if (remoteIdPStateMapping.find(trajectory.id()) != remoteIdPStateMapping.end()) {
+            PState* pState = remoteIdPStateMapping[trajectory.id()];
+            pState->setPosition(trajectory.x(), trajectory.y());
+            pState->setPhi(trajectory.phi());
+            if (transitionsEdgesMapping.find(trajectory.currentdest().id()) != transitionsEdgesMapping.end()) {
+                const MSEdge* nextTargetEdge = transitionsEdgesMapping[trajectory.currentdest().id()];
+                const MSEdge* nextStageEdge = pState->getStage()->getNextRouteEdge();
+//                const MSEdge* currentStageEdge = pState->getStage()->getEdge();
+                if (nextTargetEdge == nextStageEdge) {
+                    const bool arrived = pState->getStage()->moveToNextEdge(pState->getPerson(), time);
+                    std::cout << "next edge" << std::endl;
+                }
+            }
+//            pState.
+        } else {
+            ProcessError("Pedestrian with id: " + toString(trajectory.id()) + " is not known.");
+        }
+    }
 
-    std::cout << (time/DELTA_T) << std::endl;
+    //3. retrieve agents that are ready to come back home to SUMO
+    hybridsim::Empty req3;
+    hybridsim::Agents agents;
+    ClientContext context3;
+    Status st3 = myHybridsimStub->queryRetrievableAgents(&context3, req3, &agents);
+    if (!st3.ok()) {
+        ProcessError("Could not query retrievable agents");
+    }
+    //TODO check whether agents can be retrieved
+    for (hybridsim::Agent agent : agents.agents()) {
+        if (remoteIdPStateMapping.find(agent.id()) != remoteIdPStateMapping.end()) {
+            PState* pState = remoteIdPStateMapping[agent.id()];
+            while (!pState->getStage()->moveToNextEdge(pState->getPerson(), time)) {
+                remoteIdPStateMapping.erase(agent.id());
+                delete pState;
+            }
+        }
+    }
+
+    //4. confirm transferred agents
+    hybridsim::Empty rpl2;
+    ClientContext context4;
+    Status st4 = myHybridsimStub->confirmRetrievedAgents(&context4, agents, &rpl2);
+    if (!st4.ok()) {
+        ProcessError("Could not confirm retrieved agents");
+    }
+
     return DELTA_T;
 }
 MSLane* MSPModel_Remote::getFirstPedestrianLane(const MSEdge* const& edge) {
@@ -256,6 +315,8 @@ void MSPModel_Remote::handlePedestrianLane(MSLane* l, hybridsim::Scenario& scena
     int fromId = myLastTransitionId++;
     int toId = myLastTransitionId++;
     edgesTransitionsMapping[&(l->getEdge())] = std::make_tuple(fromId, toId);
+    transitionsEdgesMapping[fromId] = &(l->getEdge());
+    transitionsEdgesMapping[toId] = &(l->getEdge());
 
     hybridsim::Edge_Type edgeType = (l->getEdge().isCrossing() || l->getEdge().isWalkingArea())
                                     ? hybridsim::Edge_Type_TRANSITION_INTERNAL : hybridsim::Edge_Type_TRANSITION;
@@ -315,10 +376,13 @@ void MSPModel_Remote::handleShape(const PositionVector& shape, hybridsim::Scenar
 }
 
 
+
 // ===========================================================================
 // MSPModel_Remote::PState method definitions
 // ===========================================================================
-MSPModel_Remote::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage) {
+MSPModel_Remote::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage)
+        :myPerson(person), myPhi(0), myPosition(0, 0), myStage(stage) {
+
 
 }
 MSPModel_Remote::PState::~PState() {
@@ -328,10 +392,10 @@ double MSPModel_Remote::PState::getEdgePos(const MSPerson::MSPersonStage_Walking
     return 0;
 }
 Position MSPModel_Remote::PState::getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
-    return Position(0, 0);
+    return myPosition;
 }
 double MSPModel_Remote::PState::getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
-    return 0;
+    return myPhi;
 }
 SUMOTime MSPModel_Remote::PState::getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
     return 0;
@@ -342,4 +406,18 @@ double MSPModel_Remote::PState::getSpeed(const MSPerson::MSPersonStage_Walking& 
 const MSEdge* MSPModel_Remote::PState::getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const {
     return nullptr;
 }
+void MSPModel_Remote::PState::setPosition(double x, double y) {
+    myPosition.set(x, y);
+}
+void MSPModel_Remote::PState::setPhi(double phi) {
+    myPhi = phi;
+}
+MSPerson::MSPersonStage_Walking* MSPModel_Remote::PState::getStage() {
+    return myStage;
+}
+MSPerson* MSPModel_Remote::PState::getPerson() {
+    return myPerson;
+}
+
+
 

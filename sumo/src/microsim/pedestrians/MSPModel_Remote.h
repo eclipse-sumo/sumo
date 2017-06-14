@@ -27,11 +27,13 @@
 #include <microsim/pedestrians/hybridsim.grpc.pb.h>
 #include <utils/geom/Boundary.h>
 #include "MSPModel.h"
-class MSPModel_Remote : public MSPModel{
+class MSPModel_Remote : public MSPModel {
 
 
 public:
     MSPModel_Remote(const OptionsCont& oc, MSNet* net);
+
+    ~MSPModel_Remote();
     PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) override;
     void remove(PedestrianState* state) override;
 //    bool
@@ -43,34 +45,20 @@ public:
     SUMOTime execute(SUMOTime time);
     class Event : public Command {
     public:
-        Event(MSPModel_Remote * remoteModel) : myRemoteModel(remoteModel){}
+        explicit Event(MSPModel_Remote* remoteModel)
+                :myRemoteModel(remoteModel) { }
         SUMOTime execute(SUMOTime currentTime) override {
             return myRemoteModel->execute(currentTime);
         }
     private:
-        MSPModel_Remote * myRemoteModel;
+        MSPModel_Remote* myRemoteModel;
     };
 
 private:
-    MSNet* myNet;
-    std::unique_ptr<hybridsim::HybridSimulation::Stub> myHybridsimStub;
-    Boundary myBoundary;
-    void initialize();
-    void handleWalkingArea(MSEdge* msEdge, hybridsim::Scenario& scenario);
-    void handlePedestrianLane(MSLane* pLane, hybridsim::Scenario& scenario);
-    void makeStartOrEndTransition(Position position, Position scnd, double width, hybridsim::Scenario& scenario,
-                                      hybridsim::Edge_Type type, int i);
-    void handleShape(const PositionVector& shape, hybridsim::Scenario& scenario);
-
-    std::map<int,std::string> remoteSumoIdMapping;
-    std::map<const MSEdge*,std::tuple<int,int>> edgesTransitionsMapping;
-    int myLastId = 0;
-    int myLastTransitionId = 0;
-
     /**
-    * @class PState
-    * @brief Container for pedestrian state and individual position update function
-    */
+* @class PState
+* @brief Container for pedestrian state and individual position update function
+*/
     class PState : public PedestrianState {
     public:
         PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage);
@@ -81,12 +69,38 @@ private:
         SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const override;
         double getSpeed(const MSPerson::MSPersonStage_Walking& stage) const override;
         const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const override;
+        MSPerson::MSPersonStage_Walking* getStage();
+        MSPerson* getPerson();
 
+        void setPosition(double x, double y);
+        void setPhi(double phi);
+    private:
+        Position myPosition;
+        double myPhi;
+        MSPerson::MSPersonStage_Walking* myStage;
+        MSPerson* myPerson;
     };
+
+
+    MSNet* myNet;
+    std::unique_ptr<hybridsim::HybridSimulation::Stub> myHybridsimStub;
+    Boundary myBoundary;
+    void initialize();
+    void handleWalkingArea(MSEdge* msEdge, hybridsim::Scenario& scenario);
+    void handlePedestrianLane(MSLane* pLane, hybridsim::Scenario& scenario);
+    void makeStartOrEndTransition(Position position, Position scnd, double width, hybridsim::Scenario& scenario,
+                                  hybridsim::Edge_Type type, int i);
+    void handleShape(const PositionVector& shape, hybridsim::Scenario& scenario);
+
+    std::map<int, PState*> remoteIdPStateMapping;
+    std::map<const MSEdge*, std::tuple<int, int>> edgesTransitionsMapping;
+    std::map<int, const MSEdge*> transitionsEdgesMapping;
+    int myLastId = 0;
+    int myLastTransitionId = 0;
+
 
     MSLane* getFirstPedestrianLane(const MSEdge* const& edge);
 };
-
 
 
 #endif //SUMO_MSPMODEL_REMOTE_H

@@ -115,6 +115,7 @@ message Trajectory {
     double x = 2;
     double y = 3;
     Destination currentDest = 4;
+    double phi = 5;
 }
 
 message Trajectories {
