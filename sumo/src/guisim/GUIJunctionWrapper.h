@@ -68,7 +68,6 @@ class Geometry;
 class GUIJunctionWrapper : public GUIGlObject {
 public:
     /** @brief Constructor
-     * @param[in, changed] idStorage The storage to retrieve the gl-id from
      * @param[in] junction The represented junction
      */
     GUIJunctionWrapper(MSJunction& junction);

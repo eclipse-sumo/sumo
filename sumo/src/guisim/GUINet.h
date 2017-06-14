@@ -343,10 +343,10 @@ protected:
     std::vector<GUIJunctionWrapper*> myJunctionWrapper;
 
     /// @brief Wrapped TL-Logics
-    std::vector<MSTrafficLightLogic*> myTLLogicWrappers;
+    std::vector<MSTrafficLightLogic*> myTLLogicWrapper;
 
     /// @brief A detector dictionary
-    std::vector<GUIDetectorWrapper*> myDetectorDict;
+    std::vector<GUIDetectorWrapper*> myDetectorWrapper;
 
 
     /// @brief Definition of a link-to-logic-id map

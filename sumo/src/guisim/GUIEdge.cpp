@@ -150,19 +150,6 @@ GUIEdge::getBoundary() const {
 }
 
 
-void
-GUIEdge::fill(std::vector<GUIEdge*>& netsWrappers) {
-    int size = MSEdge::dictSize();
-    netsWrappers.reserve(size);
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); ++i) {
-        if (!i->second->isTazConnector()) {
-            netsWrappers.push_back(static_cast<GUIEdge*>((*i).second));
-        }
-    }
-}
-
-
-
 GUIGLObjectPopupMenu*
 GUIEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);

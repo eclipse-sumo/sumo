@@ -98,9 +98,6 @@ public:
     static std::pair<double, double> getLaneOffsets(double x1, double y1,
             double x2, double y2, double prev, double wanted);
 
-    static void fill(std::vector<GUIEdge*>& netsWrappers);
-
-
 
     /// @name inherited from GUIGlObject
     //@{

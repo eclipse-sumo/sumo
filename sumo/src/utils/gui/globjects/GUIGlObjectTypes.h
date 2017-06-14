@@ -40,7 +40,7 @@
 // ===========================================================================
 /**
  * ChooseableArtifact
- * Enumeration to differ to show the list of which atrifact
+ * Enumeration to differ to show the list of which artefact
  * The order is important during the selection of items for displaying their
  * tooltips; the item with the hightest type value will be chosen.
  */

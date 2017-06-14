@@ -104,7 +104,7 @@ GUINet::~GUINet() {
         delete(*i3).second;
     }
     //  of detectors
-    for (std::vector<GUIDetectorWrapper*>::iterator i = myDetectorDict.begin(); i != myDetectorDict.end(); ++i) {
+    for (std::vector<GUIDetectorWrapper*>::iterator i = myDetectorWrapper.begin(); i != myDetectorWrapper.end(); ++i) {
         delete *i;
     }
 }
@@ -139,7 +139,7 @@ GUINet::initTLMap() {
     // get the list of loaded tl-logics
     const std::vector<MSTrafficLightLogic*>& logics = getTLSControl().getAllLogics();
     // allocate storage for the wrappers
-    myTLLogicWrappers.reserve(logics.size());
+    myTLLogicWrapper.reserve(logics.size());
     // go through the logics
     for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
         createTLWrapper(*i);
@@ -265,7 +265,7 @@ GUINet::initGUIStructures() {
         for (std::map<std::string, MSDetectorFileOutput*>::const_iterator j = dets.begin(); j != dets.end(); ++j) {
             GUIDetectorWrapper* wrapper = (*j).second->buildDetectorGUIRepresentation();
             if (wrapper != 0) {
-                myDetectorDict.push_back(wrapper);
+                myDetectorWrapper.push_back(wrapper);
                 myGrid.addAdditionalGLObject(wrapper);
             }
         }
@@ -273,7 +273,13 @@ GUINet::initGUIStructures() {
     // initialise the tl-map
     initTLMap();
     // initialise edge storage for gui
-    GUIEdge::fill(myEdgeWrapper);
+    const MSEdgeVector& edges = MSEdge::getAllEdges();
+    myEdgeWrapper.reserve(edges.size());
+    for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+        if (!(*i)->isTazConnector()) {
+            myEdgeWrapper.push_back(static_cast<GUIEdge*>(*i));
+        }
+    }
     // initialise junction storage for gui
     int size = myJunctions->size();
     myJunctionWrapper.reserve(size);
