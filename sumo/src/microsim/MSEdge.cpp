@@ -544,6 +544,9 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
         }
     }
     if (MSGlobals::gUseMesoSim) {
+        if (!forceCheck && myLastFailedInsertionTime == time) {
+            return false;
+        }
         double pos = 0.0;
         switch (pars.departPosProcedure) {
             case DEPART_POS_GIVEN:
