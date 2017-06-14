@@ -774,16 +774,12 @@ TraCIServer::dispatchCommand() {
             }
             case CMD_SIMSTEP: {
                 SUMOTime nextT = myInputStorage.readInt();
-                if (nextT == 0) {
-                    myCurrentSocket->second->targetTime += DELTA_T;
-                } else {
-                    myCurrentSocket->second->targetTime = nextT;
-                }
-#ifdef DEBUG_MULTI_CLIENTS
-                std::cout << "       commandId == CMD_SIMSTEP"
-                        << ", next target time for client is " << myCurrentSocket->second->targetTime << std::endl;
-#endif
                 if (myAmEmbedded) {
+                    if (nextT == 0) {
+                        myTargetTime += DELTA_T;
+                    } else {
+                        myTargetTime = nextT;
+                    }
                     for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); ++i) {
                         (*i).second.clear();
                     }
@@ -791,11 +787,21 @@ TraCIServer::dispatchCommand() {
                         MSNet::getInstance()->simulationStep();
                     }
                     postProcessSimulationStep();
-                }
-                if (myCurrentSocket->second->targetTime <= MSNet::getInstance()->getCurrentTimeStep()){
-                    // This is not the last TraCI simstep in the current SUMO simstep -> send single simstep response.
-                    // @note: In the other case the simstep results are sent to all after the SUMO step was performed, see entry point for processCommandsUntilSimStep()
-                    sendSingleSimStepResponse();
+                } else {
+                    if (nextT == 0) {
+                        myCurrentSocket->second->targetTime += DELTA_T;
+                    } else {
+                        myCurrentSocket->second->targetTime = nextT;
+                    }
+#ifdef DEBUG_MULTI_CLIENTS
+                    std::cout << "       commandId == CMD_SIMSTEP"
+                              << ", next target time for client is " << myCurrentSocket->second->targetTime << std::endl;
+#endif
+                    if (myCurrentSocket->second->targetTime <= MSNet::getInstance()->getCurrentTimeStep()){
+                        // This is not the last TraCI simstep in the current SUMO simstep -> send single simstep response.
+                        // @note: In the other case the simstep results are sent to all after the SUMO step was performed, see entry point for processCommandsUntilSimStep()
+                        sendSingleSimStepResponse();
+                    }
                 }
                 return commandId;
             }
