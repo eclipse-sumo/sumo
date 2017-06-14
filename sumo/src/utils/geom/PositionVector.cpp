@@ -45,7 +45,6 @@
 #include "Position.h"
 #include "PositionVector.h"
 #include "GeomHelper.h"
-#include "Helper_ConvexHull.h"
 #include "Boundary.h"
 
 // ===========================================================================
@@ -605,14 +604,6 @@ PositionVector::increasing_x_y_sorter::operator()(const Position& p1,
 double
 PositionVector::isLeft(const Position& P0, const Position& P1,  const Position& P2) const {
     return (P1.x() - P0.x()) * (P2.y() - P0.y()) - (P2.x() - P0.x()) * (P1.y() - P0.y());
-}
-
-
-PositionVector
-PositionVector::convexHull() const {
-    PositionVector ret = *this;
-    ret.sortAsPolyCWByAngle();
-    return simpleHull_2D(ret);
 }
 
 

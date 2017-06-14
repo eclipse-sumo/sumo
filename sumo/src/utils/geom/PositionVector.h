@@ -237,9 +237,6 @@ public:
     //// @brief rotate all points around (0,0) in the plane by the given angle
     void rotate2D(double angle);
 
-    //// @brief get a convex Hull of position vector
-    PositionVector convexHull() const;
-
     //// @brief append the given vector to this one
     void append(const PositionVector& v, double sameThreshold = 2.0);
 

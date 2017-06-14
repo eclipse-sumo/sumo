@@ -1369,7 +1369,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                             PositionVector tmp = lane->getShape();
                             try {
                                 tmp.move2side(-lanePosLat); // moved to left
-                            } catch (ProcessError& e) {
+                            } catch (ProcessError&) {
                                 WRITE_WARNING("Could not determine position on lane '" + lane->getID() + " at lateral position " + toString(-lanePosLat) + ".");
                             }
                             //std::cout << " lane=" << lane->getID() << " posLat=" << lanePosLat << " shape=" << lane->getShape() << " tmp=" << tmp << " tmpDist=" << tmp.distance2D(pos) << "\n";

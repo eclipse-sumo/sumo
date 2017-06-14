@@ -10,8 +10,6 @@ set(utils_geom_STAT_SRCS
    GeoConvHelper.h
    GeomHelper.cpp
    GeomHelper.h
-   Helper_ConvexHull.cpp
-   Helper_ConvexHull.h
    Position.cpp
    Position.h
    PositionVector.cpp

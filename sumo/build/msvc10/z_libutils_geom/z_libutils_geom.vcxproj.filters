@@ -29,9 +29,6 @@
     <ClCompile Include="..\..\..\src\utils\geom\GeomHelper.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\geom\Helper_ConvexHull.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\utils\shapes\Polygon.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -71,9 +68,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\geom\GeomHelper.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\geom\Helper_ConvexHull.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\shapes\PointOfInterest.h">
