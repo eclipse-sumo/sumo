@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jun 14 16:16:03 2017 by SUMO Version dev-SVN-r24648
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.2"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="ego" x="214.31" y="-3.40" angle="90.00" type="t0" speed="13.89" pos="13.00" lane="end_0" slope="0.00"/>
+        <vehicle id="follower" x="211.35" y="-1.25" angle="90.00" type="t1" speed="13.89" pos="10.00" lane="end_1" slope="0.00"/>
+        <vehicle id="leader" x="217.26" y="-5.30" angle="90.00" type="t0" speed="13.89" pos="16.00" lane="end_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="ego" x="227.99" y="-2.35" angle="86.08" type="t0" speed="13.89" pos="26.89" lane="end_1" slope="0.00"/>
+        <vehicle id="leader" x="230.94" y="-5.30" angle="90.00" type="t0" speed="13.89" pos="29.89" lane="end_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="ego" x="241.67" y="-2.35" angle="90.00" type="t0" speed="13.89" pos="40.78" lane="end_1" slope="0.00"/>
+        <vehicle id="leader" x="244.62" y="-5.30" angle="90.00" type="t0" speed="13.89" pos="43.78" lane="end_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="ego" x="255.35" y="-2.35" angle="90.00" type="t0" speed="13.89" pos="54.67" lane="end_1" slope="0.00"/>
+        <vehicle id="leader" x="258.30" y="-5.30" angle="90.00" type="t0" speed="13.89" pos="57.67" lane="end_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="ego" x="269.03" y="-2.35" angle="90.00" type="t0" speed="13.89" pos="68.56" lane="end_1" slope="0.00"/>
+        <vehicle id="leader" x="271.99" y="-5.30" angle="90.00" type="t0" speed="13.89" pos="71.56" lane="end_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="ego" x="282.71" y="-2.35" angle="90.00" type="t0" speed="13.89" pos="82.45" lane="end_1" slope="0.00"/>
+        <vehicle id="leader" x="285.67" y="-5.30" angle="90.00" type="t0" speed="13.89" pos="85.45" lane="end_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="ego" x="296.39" y="-2.35" angle="90.00" type="t0" speed="13.89" pos="96.34" lane="end_1" slope="0.00"/>
+        <vehicle id="leader" x="299.35" y="-5.30" angle="90.00" type="t0" speed="13.89" pos="99.34" lane="end_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.00"/>
+</fcd-export>
