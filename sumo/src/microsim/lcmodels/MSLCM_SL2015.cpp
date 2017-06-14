@@ -1688,11 +1688,11 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
     const double center = myVehicle.getCenterOnEdge();
     double surplusGapRight = MIN2(maxDist, center - halfWidth);
     double surplusGapLeft = MIN2(maxDist, myVehicle.getLane()->getEdge().getWidth() - center - halfWidth);
-    updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft);
-    updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft);
+    updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft, false, 0, latDist, collectLeadBlockers);
+    updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft, false, 0, latDist, collectFollowBlockers);
     if (laneOffset != 0) {
-        updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft);
-        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft);
+        updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft, false, 0, latDist, collectLeadBlockers);
+        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft, false, 0, latDist, collectFollowBlockers);
     }
     if (gDebugFlag2) {
         std::cout << "    checkBlocking latDist=" << latDist << " surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n";
@@ -2276,7 +2276,12 @@ MSLCM_SL2015::keepLatGap(int state,
 
 
 void
-MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double oldCenter, double gapFactor, double& surplusGapRight, double& surplusGapLeft, bool saveMinGap, double netOverlap) {
+MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double oldCenter, double gapFactor, 
+        double& surplusGapRight, double& surplusGapLeft, 
+        bool saveMinGap, double netOverlap,
+        double latDist,
+        std::vector<CLeaderDist>* collectBlockers) 
+{
     if (others.hasVehicles()) {
         const double halfWidth = myVehicle.getVehicleType().getWidth() * 0.5 + NUMERICAL_EPS;
         const double baseMinGap = myVehicle.getVehicleType().getMinGapLat();
@@ -2290,7 +2295,8 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                 others.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
                 const double foeCenter = foeRight + 0.5 * res;
                 const double gap = MIN2(fabs(foeRight - oldCenter), fabs(foeLeft - oldCenter)) - halfWidth;
-                double currentMinGap = baseMinGap * MIN2(1.0, MAX2(myVehicle.getSpeed(), (double)fabs(myVehicle.getSpeed() - foe->getSpeed())) / LATGAP_SPEED_THRESHOLD) * gapFactor;
+                const double desiredMinGap = baseMinGap * MIN2(1.0, MAX2(myVehicle.getSpeed(), (double)fabs(myVehicle.getSpeed() - foe->getSpeed())) / LATGAP_SPEED_THRESHOLD);
+                const double currentMinGap = desiredMinGap * gapFactor; // pushy vehicles may accept a lower lateral gap temperarily
                 /*
                 if (netOverlap != 0) {
                     // foe vehicle is follower with its front ahead of the ego midpoint
@@ -2334,6 +2340,13 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                             std::cout << "    new minimum leftGap=" << gap << "\n";
                         }
                         myLastLateralGapLeft = MIN2(myLastLateralGapLeft, gap);
+                    }
+                }
+                if (collectBlockers != 0) {
+                    // check if the vehicle is blocking a desire lane change
+                    if ((foeCenter < oldCenter && latDist < 0 && gap < (desiredMinGap - latDist))
+                            || (foeCenter > oldCenter && latDist > 0 && gap < (desiredMinGap + latDist))) {
+                        collectBlockers->push_back(others[i]);
                     }
                 }
             }

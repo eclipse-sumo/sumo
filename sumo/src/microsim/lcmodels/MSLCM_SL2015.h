@@ -289,7 +289,9 @@ protected:
 
     /// @brief check remaining lateral gaps for the given foe vehicles and optionally update minimum lateral gaps
     void updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double oldCenter, double gapFactor,
-                    double& surplusGapRight, double& surplusGapLeft, bool saveMinGap = false, double netOverlap = 0);
+                    double& surplusGapRight, double& surplusGapLeft, bool saveMinGap = false, double netOverlap = 0,
+                    double latDist = 0,
+                    std::vector<CLeaderDist>* collectBlockers = 0);
 
     /// @brief compute the gap factor for the given state
     double computeGapFactor(int state) const;
