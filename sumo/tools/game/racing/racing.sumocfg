@@ -14,11 +14,13 @@
 
     <report>
         <no-step-log value="true"/>
+        <log value="log"/>
     </report>
 
-    <gui-settings-file value="view.xml"/>
-    <start value="true"/>
-    <quit-on-end value="true"/>
-    <log value="log"/>
+    <gui_only>
+        <gui-settings-file value="view.xml"/>
+        <start value="true"/>
+        <quit-on-end value="true"/>
+    </gui_only>
 
 </configuration>
