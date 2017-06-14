@@ -1,4 +1,4 @@
-SUMO Version dev-SVN-r24591
+SUMO Version dev-SVN-r24667
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -315,6 +315,16 @@ SSM Device Options:
                                          (default is 5.00secs.). Required >0 if
                                          PET is to be calculated for crossing
                                          conflicts.
+
+Bluelight Device Options:
+  --device.bluelight.probability FLOAT  The probability for a vehicle to have a
+                                         'bluelight' device
+  --device.bluelight.explicit STR      Assign a 'bluelight' device to named
+                                         vehicles
+  --device.bluelight.deterministic     The 'bluelight' devices are set
+                                         deterministic using a fraction of 1000
+  --device.bluelight.parameter FLOAT   An exemplary parameter which can be used
+                                         by all instances of the example device
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set

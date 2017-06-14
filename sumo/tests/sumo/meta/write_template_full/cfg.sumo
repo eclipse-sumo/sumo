@@ -182,6 +182,13 @@
         <device.ssm.extratime value="5" type="FLOAT" help="Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required &gt;0 if PET is to be calculated for crossing conflicts."/>
     </ssm_device>
 
+    <bluelight_device>
+        <device.bluelight.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;bluelight&apos; device"/>
+        <device.bluelight.explicit value="" synonymes="device.bluelight.knownveh" type="STR" help="Assign a &apos;bluelight&apos; device to named vehicles"/>
+        <device.bluelight.deterministic value="false" type="BOOL" help="The &apos;bluelight&apos; devices are set deterministic using a fraction of 1000"/>
+        <device.bluelight.parameter value="0" type="FLOAT" help="An exemplary parameter which can be used by all instances of the example device"/>
+    </bluelight_device>
+
     <traci_server>
         <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
         <num-clients value="1" type="INT" help="Expected number of connecting clients"/>

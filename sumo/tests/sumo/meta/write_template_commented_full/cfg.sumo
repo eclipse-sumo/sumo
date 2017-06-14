@@ -470,6 +470,21 @@
 
     </ssm_device>
 
+    <bluelight_device>
+        <!-- The probability for a vehicle to have a &apos;bluelight&apos; device -->
+        <device.bluelight.probability value="0" type="FLOAT"/>
+
+        <!-- Assign a &apos;bluelight&apos; device to named vehicles -->
+        <device.bluelight.explicit value="" synonymes="device.bluelight.knownveh" type="STR"/>
+
+        <!-- The &apos;bluelight&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.bluelight.deterministic value="false" type="BOOL"/>
+
+        <!-- An exemplary parameter which can be used by all instances of the example device -->
+        <device.bluelight.parameter value="0" type="FLOAT"/>
+
+    </bluelight_device>
+
     <traci_server>
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>
