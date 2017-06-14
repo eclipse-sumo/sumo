@@ -67,7 +67,7 @@ MSBaseVehicle::getPreviousSpeed() const {
 
 
 MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-                             const MSVehicleType* type, const double speedFactor) :
+                             MSVehicleType* type, const double speedFactor) :
     myParameter(pars),
     myRoute(route),
     myType(type),
@@ -512,7 +512,7 @@ MSBaseVehicle::getDeviceParameter(const std::string& deviceName, const std::stri
             return (*dev)->getParameter(key);
         }
     }
-    throw InvalidArgument("No device off type '" + deviceName + "' exists");
+    throw InvalidArgument("No device of type '" + deviceName + "' exists");
 }
 
 
@@ -524,17 +524,29 @@ MSBaseVehicle::setDeviceParameter(const std::string& deviceName, const std::stri
             return;
         }
     }
-    throw InvalidArgument("No device off type '" + deviceName + "' exists");
+    throw InvalidArgument("No device of type '" + deviceName + "' exists");
 }
+
+
+void
+MSBaseVehicle::replaceVehicleType(MSVehicleType* type) {
+    if (myType->isVehicleSpecific()) {
+        MSNet::getInstance()->getVehicleControl().removeVType(myType);
+    }
+    myType = type;
+}
+
 
 MSVehicleType&
 MSBaseVehicle::getSingularType() {
-    const MSVehicleType& oType = getVehicleType();
-    std::string newID = oType.getID().find('@') == std::string::npos ? oType.getID() + "@" + getID() : oType.getID();
-    MSVehicleType* type = MSVehicleType::buildSingularType(newID, &oType);
-    static_cast<MSVehicle*>(this)->replaceVehicleType(type);
+    if (myType->isVehicleSpecific()) {
+        return *myType;
+    }
+    MSVehicleType* type = myType->buildSingularType(myType->getID() + "@" + getID());
+    replaceVehicleType(type);
     return *type;
 }
+
 
 #ifdef _DEBUG
 void

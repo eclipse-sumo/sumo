@@ -49,13 +49,13 @@ GUITransportableControl::~GUITransportableControl() {
 
 
 MSTransportable*
-GUITransportableControl::buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
+GUITransportableControl::buildPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
     return new GUIPerson(pars, vtype, plan);
 }
 
 
 MSTransportable*
-GUITransportableControl::buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
+GUITransportableControl::buildContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
     return new GUIContainer(pars, vtype, plan);
 }
 

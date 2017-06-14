@@ -59,7 +59,7 @@ public:
      * @exception ProcessError If a value is wrong
      */
     MEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-              const MSVehicleType* type, const double speedFactor);
+              MSVehicleType* type, const double speedFactor);
 
 
     /** @brief Get the vehicle's position along the lane

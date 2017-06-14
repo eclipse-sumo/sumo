@@ -68,7 +68,7 @@ public:
      * @exception ProcessError If a value is wrong
      */
     GUIMEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-                 const MSVehicleType* type, const double speedFactor);
+                 MSVehicleType* type, const double speedFactor);
 
 
     /// @brief destructor

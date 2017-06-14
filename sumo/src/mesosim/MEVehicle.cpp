@@ -51,7 +51,7 @@
 // method definitions
 // ===========================================================================
 MEVehicle::MEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-                     const MSVehicleType* type, const double speedFactor) :
+                     MSVehicleType* type, const double speedFactor) :
     MSBaseVehicle(pars, route, type, speedFactor),
     mySegment(0),
     myQueIndex(0),

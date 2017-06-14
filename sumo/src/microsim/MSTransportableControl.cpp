@@ -263,13 +263,13 @@ MSTransportableControl::abortWaiting() {
 
 
 MSTransportable*
-MSTransportableControl::buildPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
+MSTransportableControl::buildPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
     return new MSPerson(pars, vtype, plan);
 }
 
 
 MSTransportable*
-MSTransportableControl::buildContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
+MSTransportableControl::buildContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) const {
     return new MSContainer(pars, vtype, plan);
 }
 

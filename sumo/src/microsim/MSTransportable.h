@@ -377,7 +377,7 @@ public:
     typedef std::vector<MSTransportable::Stage*> MSTransportablePlan;
 
     /// constructor
-    MSTransportable(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportablePlan* plan);
+    MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportablePlan* plan);
 
     /// destructor
     virtual ~MSTransportable();
@@ -521,8 +521,25 @@ public:
         return myPlan->back()->getEdges().back();
     }
 
-    /// @brief replace myVType
+    /** @brief Replaces the current vehicle type by the one given
+    *
+    * If the currently used vehicle type is marked as being used by this vehicle
+    *  only, it is deleted, first. The new, given type is then assigned to
+    *  "myVType".
+    * @param[in] type The new vehicle type
+    * @see MSTransportable::myVType
+    */
     void replaceVehicleType(MSVehicleType* type);
+
+
+    /** @brief Replaces the current vehicle type with a new one used by this vehicle only
+    *
+    * If the currently used vehicle type is already marked as being used by this vehicle
+    *  only, no new type is created.
+    * @return The new modifiable vehicle type
+    * @see MSTransportable::myVType
+    */
+    MSVehicleType& getSingularType();
 
 protected:
     /// @brief the offset for computing positions when standing at an edge
@@ -533,7 +550,7 @@ protected:
 
     /// @brief This transportable's type. (mainly used for drawing related information
     /// Note sure if it is really necessary
-    const MSVehicleType* myVType;
+    MSVehicleType* myVType;
 
     /// @brief Whether events shall be written
     bool myWriteEvents;

@@ -241,7 +241,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             // set the speed for all (walking) stages
             p->setSpeed(speed);
             // modify the vType so that stages added later are also affected
-            TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, getSingularType(p).getID(), server, inputStorage, outputStorage);
+            TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, p->getSingularType().getID(), server, inputStorage, outputStorage);
         }
         break;
         case VAR_TYPE: {
@@ -493,7 +493,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
         break;
         default:
             try {
-                if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_PERSON_VARIABLE, variable, getSingularType(p).getID(), server, inputStorage, outputStorage)) {
+                if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_PERSON_VARIABLE, variable, p->getSingularType().getID(), server, inputStorage, outputStorage)) {
                     return false;
                 }
             } catch (ProcessError& e) {
@@ -515,17 +515,6 @@ TraCIServerAPI_Person::getPosition(const std::string& id, Position& p) {
     p = person->getPosition();
     return true;
 }
-
-
-MSVehicleType&
-TraCIServerAPI_Person::getSingularType(MSTransportable* const t) {
-    const MSVehicleType& oType = t->getVehicleType();
-    std::string newID = oType.getID().find('@') == std::string::npos ? oType.getID() + "@" + t->getID() : oType.getID();
-    MSVehicleType* type = MSVehicleType::buildSingularType(newID, &oType);
-    t->replaceVehicleType(type);
-    return *type;
-}
-
 
 
 #endif

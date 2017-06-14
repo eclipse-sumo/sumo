@@ -238,7 +238,7 @@ public:
      * @exception ProcessError If a value is wrong
      */
     MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-              const MSVehicleType* type, const double speedFactor);
+              MSVehicleType* type, const double speedFactor);
 
     /// @brief Destructor.
     virtual ~MSVehicle();
@@ -773,17 +773,6 @@ public:
 
     /// @brief repair errors in vehicle position after changing between internal edges
     void fixPosition();
-
-
-    /** @brief Replaces the current vehicle type by the one given
-     *
-     * If the currently used vehicle type is marked as being used by this vehicle
-     *  only, it is deleted, first. The new, given type is then assigned to
-     *  "myType".
-     * @param[in] type The new vehicle type
-     * @see MSVehicle::myType
-     */
-    void replaceVehicleType(MSVehicleType* type);
 
 
     /** @brief Returns the vehicle's car following model definition

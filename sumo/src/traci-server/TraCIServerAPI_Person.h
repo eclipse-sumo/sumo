@@ -78,9 +78,6 @@ public:
     static bool getPosition(const std::string& id, Position& p);
 
 private:
-    static MSVehicleType& getSingularType(MSTransportable* const t);
-
-private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_Person(const TraCIServerAPI_Person& s);
 

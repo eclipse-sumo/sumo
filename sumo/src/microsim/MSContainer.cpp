@@ -235,7 +235,7 @@ MSContainer::MSContainerStage_Tranship::moveToNextEdge(MSTransportable* containe
 /* -------------------------------------------------------------------------
  * MSContainer - methods
  * ----------------------------------------------------------------------- */
-MSContainer::MSContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportablePlan* plan)
+MSContainer::MSContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportablePlan* plan)
     : MSTransportable(pars, vtype, plan) {
 }
 

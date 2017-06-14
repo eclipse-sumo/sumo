@@ -530,7 +530,7 @@ MSVehicle::Influencer::implicitDeltaPosVTD(const MSVehicle* veh) {
  * MSVehicle-methods
  * ----------------------------------------------------------------------- */
 MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-                     const MSVehicleType* type, const double speedFactor) :
+                     MSVehicleType* type, const double speedFactor) :
     MSBaseVehicle(pars, route, type, speedFactor),
     myWaitingTime(0),
     myWaitingTimeCollector(),
@@ -589,8 +589,8 @@ MSVehicle::~MSVehicle() {
     myFurtherLanes.clear();
     myFurtherLanesPosLat.clear();
     //
-    if (myType->amVehicleSpecific()) {
-        delete myType;
+    if (myType->isVehicleSpecific()) {
+        MSNet::getInstance()->getVehicleControl().removeVType(myType);
     }
 #ifndef NO_TRACI
     delete myInfluencer;
@@ -3614,11 +3614,6 @@ MSVehicle::setEmergencyBlueLight(SUMOTime currentTime) {
     }
 }
 
-
-void
-MSVehicle::replaceVehicleType(MSVehicleType* type) {
-    myType = type;
-}
 
 int
 MSVehicle::getLaneIndex() const {

@@ -233,7 +233,7 @@ public:
 
 public:
     /// constructor
-    MSContainer(const SUMOVehicleParameter* pars, const MSVehicleType* vtype,  MSTransportablePlan* plan);
+    MSContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype,  MSTransportablePlan* plan);
 
     /// destructor
     virtual ~MSContainer();

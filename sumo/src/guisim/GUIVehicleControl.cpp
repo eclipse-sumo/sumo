@@ -55,7 +55,7 @@ GUIVehicleControl::~GUIVehicleControl() {
 
 SUMOVehicle*
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
-                                const MSRoute* route, const MSVehicleType* type,
+                                const MSRoute* route, MSVehicleType* type,
                                 const bool ignoreStopErrors, const bool fromRouteFile) {
     myLoadedVehNo++;
     if (fromRouteFile) {

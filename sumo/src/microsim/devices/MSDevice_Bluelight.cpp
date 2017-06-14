@@ -138,14 +138,13 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
         // todo only vehicles in front of the emergency vehicle should react
         if (distanceDelta <= 100 && veh.getID() != veh2->getID()) {
             //std::cout << "In Range Vehicle '" << veh2->getID() << "\n";
-            static_cast<MSVehicle*>(veh2)->getSingularType();
-            MSVehicleType& t = const_cast<MSVehicleType&>(veh2->getVehicleType());
+            MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
             if (veh2->getLane()->getIndex() == 0) {
                 t.setPreferredLateralAlignment(LATALIGN_RIGHT);
-                std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                //std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
             } else {
                 t.setPreferredLateralAlignment(LATALIGN_LEFT);
-                std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                //std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
             }
 
         }

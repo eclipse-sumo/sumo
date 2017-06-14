@@ -74,7 +74,7 @@ public:
      * @exception ProcessError If a value is wrong
      */
     MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-                  const MSVehicleType* type, const double speedFactor);
+                  MSVehicleType* type, const double speedFactor);
 
 
     /// @brief Destructor
@@ -382,6 +382,24 @@ public:
     MSDevice* getDevice(const std::type_info& type) const;
 
 
+    /** @brief Replaces the current vehicle type by the one given
+     *
+     * If the currently used vehicle type is marked as being used by this vehicle
+     *  only, it is deleted, first. The new, given type is then assigned to
+     *  "myType".
+     * @param[in] type The new vehicle type
+     * @see MSBaseVehicle::myType
+     */
+    void replaceVehicleType(MSVehicleType* type);
+
+
+    /** @brief Replaces the current vehicle type with a new one used by this vehicle only
+     *
+     * If the currently used vehicle type is already marked as being used by this vehicle
+     *  only, no new type is created.
+     * @return The new modifiable vehicle type
+     * @see MSBaseVehicle::myType
+     */
     MSVehicleType& getSingularType();
 
     /// @name state io
@@ -411,14 +429,14 @@ protected:
     virtual const ConstMSEdgeVector getStopEdges() const = 0;
 
 protected:
-    /// @brief This Vehicle's parameter.
+    /// @brief This vehicle's parameter.
     const SUMOVehicleParameter* myParameter;
 
-    /// @brief This Vehicle's route.
+    /// @brief This vehicle's route.
     const MSRoute* myRoute;
 
-    /// @brief This Vehicle's type.
-    const MSVehicleType* myType;
+    /// @brief This vehicle's type.
+    MSVehicleType* myType;
 
     /// @brief Iterator to current route-edge
     MSRouteIterator myCurrEdge;

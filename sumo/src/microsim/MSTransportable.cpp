@@ -36,6 +36,7 @@
 #include "MSLane.h"
 #include "MSNet.h"
 #include <microsim/pedestrians/MSPerson.h>
+#include "MSVehicleControl.h"
 #include "MSTransportableControl.h"
 #include "MSTransportable.h"
 
@@ -43,6 +44,7 @@
 * static member definitions
 * ----------------------------------------------------------------------- */
 const double MSTransportable::ROADSIDE_OFFSET(3);
+
 
 // ===========================================================================
 // method definitions
@@ -341,7 +343,7 @@ MSTransportable::Stage_Driving::endEventOutput(const MSTransportable& p, SUMOTim
 /* -------------------------------------------------------------------------
  * MSTransportable - methods
  * ----------------------------------------------------------------------- */
-MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportablePlan* plan)
+MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportablePlan* plan)
     : myParameter(pars), myVType(vtype), myPlan(plan) {
     myStep = myPlan->begin();
 }
@@ -355,6 +357,9 @@ MSTransportable::~MSTransportable() {
         myPlan = 0;
     }
     delete myParameter;
+    if (myVType->isVehicleSpecific()) {
+        MSNet::getInstance()->getVehicleControl().removeVType(myVType);
+    }
 }
 
 const std::string&
@@ -448,7 +453,22 @@ MSTransportable::setSpeed(double speed) {
 
 void
 MSTransportable::replaceVehicleType(MSVehicleType* type) {
+    if (myVType->isVehicleSpecific()) {
+        MSNet::getInstance()->getVehicleControl().removeVType(myVType);
+    }
     myVType = type;
 }
+
+
+MSVehicleType&
+MSTransportable::getSingularType() {
+    if (myVType->isVehicleSpecific()) {
+        return *myVType;
+    }
+    MSVehicleType* type = myVType->buildSingularType(myVType->getID() + "@" + getID());
+    replaceVehicleType(type);
+    return *type;
+}
+
 
 /****************************************************************************/

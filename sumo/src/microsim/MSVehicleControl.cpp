@@ -108,7 +108,7 @@ MSVehicleControl::computeRandomDepartOffset() const {
 SUMOVehicle*
 MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                const MSRoute* route,
-                               const MSVehicleType* type,
+                               MSVehicleType* type,
                                const bool ignoreStopErrors, const bool fromRouteFile) {
     myLoadedVehNo++;
     if (fromRouteFile) {

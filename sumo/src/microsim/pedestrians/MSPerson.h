@@ -264,7 +264,7 @@ public:
 
 public:
     /// constructor
-    MSPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan);
+    MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan);
 
     /// destructor
     virtual ~MSPerson();

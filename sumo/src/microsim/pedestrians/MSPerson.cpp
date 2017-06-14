@@ -293,7 +293,7 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
 /* -------------------------------------------------------------------------
  * MSPerson - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPerson(const SUMOVehicleParameter* pars, const MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan)
+MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan)
     : MSTransportable(pars, vtype, plan) {
 }
 

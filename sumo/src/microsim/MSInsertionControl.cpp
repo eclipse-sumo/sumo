@@ -197,7 +197,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             // try to build the vehicle
             if (vehControl.getVehicle(newPars->id) == 0) {
                 const MSRoute* route = MSRoute::dictionary(pars->routeid);
-                const MSVehicleType* vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
+                MSVehicleType* vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
                 SUMOVehicle* vehicle = vehControl.buildVehicle(newPars, route, vtype, false);
                 int quota = vehControl.getQuota();
                 if (quota > 0) {

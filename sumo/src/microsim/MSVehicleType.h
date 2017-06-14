@@ -452,7 +452,7 @@ public:
 
 
 
-    /// @name Static methods for building vehicle types
+    /// @name methods for building vehicle types
     /// @{
 
     /** @brief Builds the microsim vehicle type described by the given parameter
@@ -463,19 +463,18 @@ public:
     static MSVehicleType* build(SUMOVTypeParameter& from);
 
 
-    /** @brief Duplicates the microsim vehicle type giving it a the given id
+    /** @brief Duplicates the microsim vehicle type giving it the given id
      * @param[in] id The new id of the type
-     * @param[in] from The vehicle type
      * @return The built vehicle type
      */
-    static MSVehicleType* buildSingularType(const std::string& id, const MSVehicleType* from);
+    MSVehicleType* buildSingularType(const std::string& id) const;
     /// @}
 
 
     /** @brief Returns whether this type belongs to a single vehicle only (was modified)
-     * @return Whether this vehicle type is based on a differen one, and belongs to one vehicle only
+     * @return Whether this vehicle type is based on a different one, and belongs to one vehicle only
      */
-    bool amVehicleSpecific() const {
+    bool isVehicleSpecific() const {
         return myOriginalType != 0;
     }
 
