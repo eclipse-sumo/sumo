@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 17 10:18:09 2016 by SUMO Version dev-SVN-r19994
+<!-- generated on Wed Jun 14 13:28:18 2017 by SUMO Version dev-SVN-r24648
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -11,13 +11,18 @@
         <additional-files value="input_additional.add.xml"/>
     </input>
 
+    <time>
+        <end value="1800"/>
+    </time>
+
     <processing>
         <max-depart-delay value="1"/>
     </processing>
 
     <report>
+        <verbose value="true"/>
         <xml-validation value="never"/>
-        <duration-log.disable value="true"/>
+        <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -29,11 +34,9 @@
 </configuration>
 -->
 
-<detector>
-    <interval begin="0.00" end="900.00" id="beg2_0" sampledSeconds="3025.17" density="34.73" occupancy="8.68" waitingTime="0.00" speed="29.37" departed="314" arrived="0" entered="608" left="916"/>
-    <interval begin="0.00" end="900.00" id="beg2_1" sampledSeconds="3025.17" density="34.73" occupancy="8.68" waitingTime="0.00" speed="29.37" departed="314" arrived="0" entered="608" left="916"/>
-    <interval begin="900.00" end="1800.00" id="beg2_0" sampledSeconds="4843.10" density="55.61" occupancy="13.90" waitingTime="0.00" speed="25.68" departed="1113" arrived="0" entered="172" left="1285"/>
-    <interval begin="900.00" end="1800.00" id="beg2_1" sampledSeconds="4843.10" density="55.61" occupancy="13.90" waitingTime="0.00" speed="25.68" departed="1113" arrived="0" entered="172" left="1285"/>
-    <interval begin="1800.00" end="2608.00" id="beg2_0" sampledSeconds="2338.45" density="29.91" occupancy="7.48" waitingTime="0.00" speed="31.28" departed="2" arrived="0" entered="750" left="758"/>
-    <interval begin="1800.00" end="2608.00" id="beg2_1" sampledSeconds="2338.45" density="29.91" occupancy="7.48" waitingTime="0.00" speed="31.28" departed="2" arrived="0" entered="750" left="758"/>
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
+    <interval begin="0.00" end="900.00" id="beg2_0" sampledSeconds="3073.39" density="35.32" occupancy="8.83" waitingTime="0.00" speed="36.01" departed="0" arrived="0" entered="1147" left="1143"/>
+    <interval begin="0.00" end="900.00" id="beg2_1" sampledSeconds="3073.39" density="35.32" occupancy="8.83" waitingTime="0.00" speed="36.01" departed="0" arrived="0" entered="1147" left="1143"/>
+    <interval begin="900.00" end="1800.00" id="beg2_0" sampledSeconds="3383.10" density="38.88" occupancy="9.72" waitingTime="0.00" speed="36.01" departed="0" arrived="0" entered="1260" left="1260"/>
+    <interval begin="900.00" end="1800.00" id="beg2_1" sampledSeconds="3383.10" density="38.88" occupancy="9.72" waitingTime="0.00" speed="36.01" departed="0" arrived="0" entered="1260" left="1260"/>
 </detector>

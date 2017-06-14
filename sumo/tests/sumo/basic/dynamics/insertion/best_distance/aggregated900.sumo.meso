@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jun 14 13:28:18 2017 by SUMO Version dev-SVN-r24648
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <time>
+        <end value="900"/>
+    </time>
+
+    <processing>
+        <max-depart-delay value="1"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="900.00" id="laneData">
+        <edge id="beg" sampledSeconds="375928.25" traveltime="322.36" overlapTraveltime="322.90" density="139.30" occupancy="23.22" waitingTime="0.00" speed="9.30" departed="1411" arrived="0" entered="0" left="914" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg2" sampledSeconds="212825.74" traveltime="353.42" overlapTraveltime="354.01" density="78.90" occupancy="19.73" waitingTime="0.00" speed="8.48" departed="0" arrived="0" entered="914" left="401" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="13077.44" traveltime="34.09" overlapTraveltime="34.96" density="73.76" occupancy="18.44" waitingTime="0.00" speed="5.78" departed="0" arrived="0" entered="391" left="375" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end2" sampledSeconds="29451.13" traveltime="83.27" overlapTraveltime="83.40" density="10.91" occupancy="5.46" waitingTime="0.00" speed="36.01" departed="0" arrived="332" entered="375" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end3" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="merge" sampledSeconds="8898.55" traveltime="22.39" overlapTraveltime="23.54" density="101.93" occupancy="16.99" waitingTime="0.00" speed="4.33" departed="0" arrived="0" entered="401" left="391" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="offRamp" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="onRamp" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+    </interval>
+</meandata>
