@@ -1050,9 +1050,10 @@ MSLCM_SL2015::_wantsChangeSublane(
         std::vector<CLeaderDist> collectLeadBlockers;
         std::vector<CLeaderDist> collectFollowBlockers;
 
+        const double gapFactor = computeGapFactor(LCA_STRATEGIC);
         blocked = checkBlocking(neighLane, latDist, laneOffset,
                                 leaders, followers, blockers,
-                                neighLeaders, neighFollowers, neighBlockers, &collectLeadBlockers, &collectFollowBlockers);
+                                neighLeaders, neighFollowers, neighBlockers, &collectLeadBlockers, &collectFollowBlockers, false, gapFactor);
 
         const double absLaneOffset = fabs(bestLaneOffset != 0 ? bestLaneOffset : latDist / SUMO_const_laneWidth);
         const double remainingSeconds = ((ret & LCA_TRACI) == 0 ?
@@ -1673,7 +1674,8 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
                             const MSLeaderDistanceInfo& /* neighBlockers */,
                             std::vector<CLeaderDist>* collectLeadBlockers,
                             std::vector<CLeaderDist>* collectFollowBlockers,
-                            bool keepLatGapManeuver) {
+                            bool keepLatGapManeuver,
+                            double gapFactor) {
     // truncate latDist according to maxSpeedLat
     if (!keepLatGapManeuver) {
         myOrigLatDist = latDist;
@@ -1686,11 +1688,11 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
     const double center = myVehicle.getCenterOnEdge();
     double surplusGapRight = MIN2(maxDist, center - halfWidth);
     double surplusGapLeft = MIN2(maxDist, myVehicle.getLane()->getEdge().getWidth() - center - halfWidth);
-    updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), center, 0, surplusGapRight, surplusGapLeft);
-    updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), center, 0, surplusGapRight, surplusGapLeft);
+    updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft);
+    updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft);
     if (laneOffset != 0) {
-        updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), center, 0, surplusGapRight, surplusGapLeft);
-        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), center, 0, surplusGapRight, surplusGapLeft);
+        updateGaps(neighLeaders, neighLane.getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft);
+        updateGaps(neighFollowers, neighLane.getRightSideOnEdge(), center, gapFactor, surplusGapRight, surplusGapLeft);
     }
     if (gDebugFlag2) {
         std::cout << "    checkBlocking latDist=" << latDist << " surplusGapRight=" << surplusGapRight << " surplusGapLeft=" << surplusGapLeft << "\n";
@@ -2094,6 +2096,12 @@ MSLCM_SL2015::checkStrategicChange(int ret,
 }
 
 
+double 
+MSLCM_SL2015::computeGapFactor(int state) const {
+    return (state & LCA_STRATEGIC) != 0 ? MAX2(0.0, (1.0 - myPushy)) : 1.0;
+}
+
+
 int
 MSLCM_SL2015::keepLatGap(int state,
                          const MSLeaderDistanceInfo& leaders,
@@ -2139,7 +2147,7 @@ MSLCM_SL2015::keepLatGap(int state,
      * */
 
     /// XXX to be made configurable
-    double gapFactor = (state & LCA_STRATEGIC) != 0 ? MAX2(0.0, (1.0 - myPushy)) : 1.0;
+    double gapFactor = computeGapFactor(state);
     const bool stayInLane = laneOffset == 0 || ((state & LCA_STRATEGIC) != 0 && (state & LCA_STAY) != 0);
     const double oldLatDist = latDist;
 

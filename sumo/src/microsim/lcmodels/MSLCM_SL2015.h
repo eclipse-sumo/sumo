@@ -241,7 +241,8 @@ protected:
                       const MSLeaderDistanceInfo& neighBlockers,
                       std::vector<CLeaderDist>* collectLeadBlockers = 0,
                       std::vector<CLeaderDist>* collectFollowBlockers = 0,
-                      bool keepLatGapManeuver = false);
+                      bool keepLatGapManeuver = false,
+                      double gapFactor = 0);
 
     /// @brief check whether any of the vehicles overlaps with ego
     int checkBlockingVehicles(const MSVehicle* ego, const MSLeaderDistanceInfo& vehicles,
@@ -289,6 +290,9 @@ protected:
     /// @brief check remaining lateral gaps for the given foe vehicles and optionally update minimum lateral gaps
     void updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, double oldCenter, double gapFactor,
                     double& surplusGapRight, double& surplusGapLeft, bool saveMinGap = false, double netOverlap = 0);
+
+    /// @brief compute the gap factor for the given state
+    double computeGapFactor(int state) const;
 
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
