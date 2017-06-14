@@ -86,13 +86,15 @@ class RacingClient:
         try:
             traci.start([checkBinary("sumo-gui"), "-c", self.sumocfg,
             "--lateral-resolution", "0.32",
+            "--collision.action", "warn",
             "--step-length", str(TS)])
             # steal focus for keyboard input after sumo-gui has loaded
-            self.master.focus_force()
+            #self.master.focus_force() # not working on all platforms
             # make sure ego vehicle is loaded
             traci.simulationStep()
             speed = traci.vehicle.getSpeed(self.egoID)
             angle = traci.vehicle.getAngle(self.egoID)
+            traci.vehicle.setSpeedMode(self.egoID, 0)
             steerAngle = 0
             x,y = traci.vehicle.getPosition(self.egoID)
             traci.gui.trackVehicle(traci.gui.DEFAULT_VIEW, self.egoID)
