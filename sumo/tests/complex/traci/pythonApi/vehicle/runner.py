@@ -382,6 +382,11 @@ check(electricVeh)
 traci.vehicle.setLength(electricVeh, 8)
 traci.vehicle.setMaxSpeed(electricVeh, 10)
 check(electricVeh)
+traci.vehicle.setType(electricVeh, "long")
+check(electricVeh)
+traci.vehicle.setLength(electricVeh, 8)
+traci.vehicle.setMaxSpeed(electricVeh, 10)
+check(electricVeh)
 
 try:
     print(traci.vehicle.getParameter(electricVeh, "device.foo.bar"))

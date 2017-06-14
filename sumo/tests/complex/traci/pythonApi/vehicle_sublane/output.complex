@@ -1,6 +1,4 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:38338 [Errno 111] Connection refused
- Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -781,7 +779,137 @@ lane change able right False
 lane change able left False
 lane change wish right False
 lane change wish left False
-recovering from exception (Vehicle 'elVeh' does not support device parameter 'device.foo.bar' (No device off type 'foo' exists).)
+vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim']
+vehicle count 20
+examining elVeh
+speed -1001.0
+speed w/o traci -1001.0
+pos (-1001.0, -1001.0)
+angle -1001.0
+road 
+lane 
+laneIndex -1
+type long
+routeID horizontal
+routeIndex -1
+route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
+lanePos -1001.0
+color (255, 255, 0, 255)
+bestLanes []
+CO2 -1001.0
+CO -1001.0
+HC -1001.0
+PMx -1001.0
+NOx -1001.0
+fuel -1001.0
+noise -1001.0
+Elec -1001.0
+traveltime -1001.0
+effort -1001.0
+route valid True
+signals 0
+length 7.0
+maxSpeed 55.5555555556
+speedFactor 1.0
+allowedSpeed -1001.0
+accel 2.6
+decel 4.5
+emergencyDecel 4.5
+apparentDecel 4.5
+imperfection 0.5
+tau 1.0
+vClass passenger
+emissionclass HBEFA3/PC_G_EU4
+shape passenger
+MinGap 2.5
+width 1.8
+height 1.5
+lcStrategic 1.00
+lcCooperative 1.00
+lcSpeedGain 1.00
+maxSpeedLat 1.0
+minGapLat 1.0
+lateralAlignment center
+lanePosLat -1001.0
+person number 0
+waiting time 0.0
+accumulated waiting time 0.0
+driving dist -1001.0
+driving dist 2D -1001.0
+line 
+via []
+lane change state right (1073741824, 1073741824)
+lane change state left (1073741824, 1073741824)
+lane change able right False
+lane change able left False
+lane change wish right False
+lane change wish left False
+vehicles ['2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim']
+vehicle count 20
+examining elVeh
+speed -1001.0
+speed w/o traci -1001.0
+pos (-1001.0, -1001.0)
+angle -1001.0
+road 
+lane 
+laneIndex -1
+type long@elVeh
+routeID horizontal
+routeIndex -1
+route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
+lanePos -1001.0
+color (255, 255, 0, 255)
+bestLanes []
+CO2 -1001.0
+CO -1001.0
+HC -1001.0
+PMx -1001.0
+NOx -1001.0
+fuel -1001.0
+noise -1001.0
+Elec -1001.0
+traveltime -1001.0
+effort -1001.0
+route valid True
+signals 0
+length 8.0
+maxSpeed 10.0
+speedFactor 1.0
+allowedSpeed -1001.0
+accel 2.6
+decel 4.5
+emergencyDecel 4.5
+apparentDecel 4.5
+imperfection 0.5
+tau 1.0
+vClass passenger
+emissionclass HBEFA3/PC_G_EU4
+shape passenger
+MinGap 2.5
+width 1.8
+height 1.5
+lcStrategic 1.00
+lcCooperative 1.00
+lcSpeedGain 1.00
+maxSpeedLat 1.0
+minGapLat 1.0
+lateralAlignment center
+lanePosLat -1001.0
+person number 0
+waiting time 0.0
+accumulated waiting time 0.0
+driving dist -1001.0
+driving dist 2D -1001.0
+line 
+via []
+lane change state right (1073741824, 1073741824)
+lane change state left (1073741824, 1073741824)
+lane change able right False
+lane change able left False
+lane change wish right False
+lane change wish left False
+recovering from exception (Vehicle 'elVeh' does not support device parameter 'device.foo.bar' (No device of type 'foo' exists).)
 recovering from exception (Vehicle 'elVeh' does not support device parameter 'device.battery.foobar' (Parameter 'foobar' is not supported for device of type 'battery').)
 elVeh speed="0.0" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL"
 elVeh speed="2.23667704058" consumed="7.52" charged="0.00" cap="17492.48" maxCap="40000.00" station="NULL"
