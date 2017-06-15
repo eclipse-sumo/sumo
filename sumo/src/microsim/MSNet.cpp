@@ -448,7 +448,7 @@ MSNet::simulationStep() {
         myTraCIStepDuration = SysUtils::getCurrentMillis();
     }
     TraCIServer* t = TraCIServer::getInstance();
-    if (t != 0) {
+    if (t != 0 && !t->isEmbedded()) {
         t->processCommandsUntilSimStep(myStep);
 #ifdef DEBUG_SIMSTEP
         bool loadRequested = !TraCI::getLoadArgs().empty();

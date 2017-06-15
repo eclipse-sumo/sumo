@@ -110,7 +110,8 @@ bool TraCIServer::myDoCloseConnection = false;
 // method definitions
 // ===========================================================================
 TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClients)
-    : myTargetTime(begin),
+    : myServerSocket(0),
+      myTargetTime(begin),
       myAmEmbedded(port == 0),
       myLaneTree(0)
 {

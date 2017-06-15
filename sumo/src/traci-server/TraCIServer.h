@@ -78,8 +78,11 @@ public:
     typedef bool(*CmdExecutor)(TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
 
 
-    SUMOTime getTargetTime() {
+    SUMOTime getTargetTime() const {
         return myTargetTime;
+    }
+    bool isEmbedded() const {
+        return myAmEmbedded;
     }
     static TraCIServer* getInstance() {
         return myInstance;
