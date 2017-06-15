@@ -281,7 +281,7 @@ TraCI_Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClass
 void
 TraCI_Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClasses) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
-    l->setPermissions(~parseVehicleClasses(disallowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT); // negation yields allowed
+    l->setPermissions(SVCAll & ~parseVehicleClasses(disallowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT); // negation yields allowed
     l->getEdge().rebuildAllowedLanes();
 }
 

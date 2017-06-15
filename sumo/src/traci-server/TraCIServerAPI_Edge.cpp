@@ -360,7 +360,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             if (!server.readTypeCheckingStringList(inputStorage, classes)) {
                 return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "Not allowed vehicle classes must be given as a list of strings.", outputStorage);
             }
-            SVCPermissions permissions = ~parseVehicleClasses(classes); // negation yields allowed
+            SVCPermissions permissions = SVCAll & ~parseVehicleClasses(classes); // negation yields allowed
             const std::vector<MSLane*>& lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
                 (*i)->setPermissions(permissions, MSLane::CHANGE_PERMISSIONS_PERMANENT);
