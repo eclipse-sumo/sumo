@@ -887,7 +887,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getViewNet()->update();
             break;
         case SUMO_ATTR_DISALLOW:
-            edge->setPermissions(~parseVehicleClasses(value), myIndex); // negation yields allowed
+            edge->setPermissions(SVCAll & ~parseVehicleClasses(value), myIndex); // negation yields allowed
             updateGeometry();
             myNet->getViewNet()->update();
             break;
@@ -950,10 +950,7 @@ GNELane::setMultiColor(const GUIColorer& c) const {
 
 double
 GNELane::getColorValue(int activeScheme) const {
-    SVCPermissions myPermissions = myParentEdge.getNBEdge()->getPermissions(myIndex);
-    if (getVehicleClassNames(~myPermissions) == "all") {
-        myPermissions = 0;
-    }
+    const SVCPermissions myPermissions = myParentEdge.getNBEdge()->getPermissions(myIndex);
     switch (activeScheme) {
         case 0:
             switch (myPermissions) {
