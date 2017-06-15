@@ -740,29 +740,23 @@ GNELane::getPositionRelativeToShapeLength(double position) const {
 
 void
 GNELane::addAdditionalChild(GNEAdditional* additional) {
-    // First check that additional wasn't already inserted
-    for (AdditionalVector::iterator i = myAdditionals.begin(); i != myAdditionals.end(); i++) {
-        if (*i == additional) {
-            throw ProcessError(toString(getTag()) + " with ID='" + additional->getID() + "' was already inserted in lane with ID='" + getID() + "'");
-        }
+    // Check if additional exist before remove
+    if (std::find(myAdditionals.begin(), myAdditionals.end(), additional) == myAdditionals.end()) {
+        myAdditionals.push_back(additional);
+    } else {
+        throw ProcessError(toString(getTag()) + " with ID='" + additional->getID() + "' was already inserted in lane with ID='" + getID() + "'");
     }
-    myAdditionals.push_back(additional);
 }
 
 
 void
 GNELane::removeAdditionalChild(GNEAdditional* additional) {
-    // Declare iterator
-    AdditionalVector::iterator i = myAdditionals.begin();
-    // Find additional
-    while ((*i != additional) && (i != myAdditionals.end())) {
-        i++;
-    }
-    // If additional was found, remove it
-    if (i == myAdditionals.end()) {
-        throw ProcessError(toString(getTag()) + " with ID='" + additional->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
+    AdditionalVector::iterator it = std::find(myAdditionals.begin(), myAdditionals.end(), additional);
+    // Check if additional exist before remove
+    if (it != myAdditionals.end()) {
+        myAdditionals.erase(it);
     } else {
-        myAdditionals.erase(i);
+        throw ProcessError(toString(getTag()) + " with ID='" + additional->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
     }
 }
 

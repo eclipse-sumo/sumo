@@ -1073,20 +1073,14 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
 
     // load additionanls if was recomputed with volatile options
     if(additionalPath != "") {
-        // Start operation for undo/redo
-        myViewNet->getUndoList()->p_begin("load additionals");
         // Create additional handler
-        GNEAdditionalHandler additionalHandler(additionalPath, myViewNet);
+        GNEAdditionalHandler additionalHandler(additionalPath, myViewNet, false);
         // Run parser
         if (!XMLSubSys::runParser(additionalHandler, additionalPath, false)) {
             WRITE_MESSAGE("Loading of " + additionalPath + " failed.");
-            // Abort undo/redo
-            myViewNet->getUndoList()->abort();
         } else {
             // reset last tag (needed to avoid invalid E3s)
             additionalHandler.resetLastTag();
-            // commit undo/redo operation
-            myViewNet->getUndoList()->p_end();
             update();
         }
     }
