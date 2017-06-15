@@ -788,6 +788,37 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
         }
     }
+    MSLane* shadowLane = aVehicle->getLaneChangeModel().getShadowLane(this);
+#ifdef DEBUG_INSERTION
+    if (DEBUG_COND2(aVehicle)) std::cout << "    shadowLane=" << Named::getIDSecure(shadowLane) << "\n";
+#endif
+    if (shadowLane != 0) {
+        MSLeaderDistanceInfo followers = shadowLane->getFollowersOnConsecutive(aVehicle, aVehicle->getBackPositionOnLane(), false);
+        for (int i = 0; i < followers.numSublanes(); ++i) {
+            const MSVehicle* follower = followers[i].first;
+            if (follower != 0) {
+                const double backGapNeeded = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), speed, cfModel.getMaxDecel());
+                if (followers[i].second < backGapNeeded) {
+                    // too close to the follower on this lane
+#ifdef DEBUG_INSERTION
+                    if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
+                        << " isInsertionSuccess shadowlane=" << getID()
+                            << " veh=" << aVehicle->getID()
+                            << " pos=" << pos
+                            << " posLat=" << posLat
+                            << " patchSpeed=" << patchSpeed
+                            << " speed=" << speed
+                            << " nspeed=" << nspeed
+                            << " follower=" << follower->getID()
+                            << " backGapNeeded=" << backGapNeeded
+                            << " gap=" << followers[i].second
+                            << " failure (@812)!\n";
+#endif
+                    return false;
+                }
+            }
+        }
+    }
     if (followers.numFreeSublanes() > 0) {
         // check approaching vehicles to prevent rear-end collisions
         const double backOffset = pos - aVehicle->getVehicleType().getLength();
@@ -835,6 +866,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                              << " patchSpeed=" << patchSpeed
                                              << " speed=" << speed
                                              << " nspeed=" << nspeed
+                                             //<< " myVehicles=" << toString(myVehicles)
+                                             //<< " myPartial=" << toString(myPartialVehicles)
+                                             //<< " leaders=" << leaders.toString()
                                              << " success!\n";
 #endif
     return true;
