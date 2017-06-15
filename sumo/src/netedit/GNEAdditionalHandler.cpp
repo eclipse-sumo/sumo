@@ -1130,9 +1130,15 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo
             viewNet->getUndoList()->add(new GNEChange_Additional(entry, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(E3Parent);
+            // insert E3 parent in net if previoulsy wasn't inserted
+            if (viewNet->getNet()->getAdditional(E3Parent->getTag(), E3Parent->getID()) == NULL) {
+                viewNet->getNet()->insertAdditional(E3Parent);
+            }
+            E3Parent->addEntryChild(entry);
             viewNet->getNet()->insertAdditional(entry);
             lane->addAdditionalChild(entry);
+            // update geometry for draw lines
+            E3Parent->updateGeometry();
         }
         return true;
     }
@@ -1160,9 +1166,15 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo,
             viewNet->getUndoList()->add(new GNEChange_Additional(exit, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(E3Parent);
+            // insert E3 parent in net if previoulsy wasn't inserted
+            if (viewNet->getNet()->getAdditional(E3Parent->getTag(), E3Parent->getID()) == NULL) {
+                viewNet->getNet()->insertAdditional(E3Parent);
+            }
+            E3Parent->addExitChild(exit);
             viewNet->getNet()->insertAdditional(exit);
             lane->addAdditionalChild(exit);
+            // update geometry for draw lines
+            E3Parent->updateGeometry();
         }
         return true;
     }
@@ -1501,6 +1513,10 @@ GNEAdditionalHandler::resetLastTag() {
     if (myE3Parent != NULL && ((myE3Parent->getNumberOfEntryChilds() + myE3Parent->getNumberOfExitChilds()) == 0)) {
         WRITE_WARNING((toString(myE3Parent->getTag()) + "s without " + toString(SUMO_TAG_DET_ENTRY) + "s or " + toString(SUMO_TAG_DET_EXIT) + " aren't allowed; " +
                        toString(myE3Parent->getTag()) + " with ID = '" + myE3Parent->getID() + "' cannot be created.").c_str());
+        // check if has to be removed of the net before removing
+        if (myViewNet->getNet()->getAdditional(myE3Parent->getTag(), myE3Parent->getID()) != NULL) {
+            myViewNet->getNet()->deleteAdditional(myE3Parent);
+        }
         delete myE3Parent;
         myE3Parent = NULL;
     }

@@ -1174,7 +1174,12 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                         WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                     }
-                    onCmdSaveAdditionals(0,0,0);
+                    // Open a dialog to set filename output
+                    myAdditionalsFile = MFXUtils::getFilename2Write(this,
+                        "Select name of the additional file", ".xml",
+                        GUIIconSubSys::getIcon(ICON_EMPTY),
+                        gCurrentFolder).text();
+                    // set obtanied filename output into additionalSavePath (can be "")
                     additionalSavePath = myAdditionalsFile;
                 }
             }
@@ -1182,26 +1187,26 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             if(myAdditionalsFile == "") {
                 // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
                 additionalSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpAdditionalsNetedit.xml");
-                // Start saving additionals
-                getApp()->beginWaitCursor();
-                try {
-                    myNet->saveAdditionals(additionalSavePath);
-                } catch (IOError& e) {
-                    // write warning if netedit is running in testing mode
-                    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Opening FXMessageBox of type 'error'");
-                    }
-                    // open error message box
-                    FXMessageBox::error(this, MBOX_OK, "Saving additionals in temporal folder failed!", "%s", e.what());
-                    // write warning if netedit is running in testing mode
-                    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
-                    }
-                }
-                // end saving additionals
-                myMessageWindow->addSeparator();
-                getApp()->endWaitCursor();
             }
+            // Start saving additionals
+            getApp()->beginWaitCursor();
+            try {
+                myNet->saveAdditionals(additionalSavePath);
+            } catch (IOError& e) {
+                // write warning if netedit is running in testing mode
+                if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                    WRITE_WARNING("Opening FXMessageBox of type 'error'");
+                }
+                // open error message box
+                FXMessageBox::error(this, MBOX_OK, "Saving additionals in temporal folder failed!", "%s", e.what());
+                // write warning if netedit is running in testing mode
+                if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                    WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
+                }
+            }
+            // end saving additionals
+            myMessageWindow->addSeparator();
+            getApp()->endWaitCursor();
         }
         // compute with volatile options
         myNet->computeEverything(this, true, true, additionalSavePath);
