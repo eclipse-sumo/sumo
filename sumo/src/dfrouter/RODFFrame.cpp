@@ -172,6 +172,9 @@ RODFFrame::fillOptions() {
     oc.addSynonyme("min-route-length", "min-distance", true);
     oc.addDescription("min-route-length", "Processing", "Minimum distance in meters between start and end node of every route");
 
+    oc.doRegister("randomize-flows", new Option_Bool(false));
+    oc.addDescription("randomize-flows", "Processing", "generate random departure times for emitted vehicles");
+
     // flow reading
     oc.doRegister("time-factor", new Option_String("60", "TIME"));
     oc.addDescription("time-factor", "Processing", "Multiply flow times with TIME to get seconds");

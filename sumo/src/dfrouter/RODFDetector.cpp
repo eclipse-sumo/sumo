@@ -329,6 +329,20 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
             RandomDistributor<int>* destDist = dists.find(time) != dists.end() ? dists.find(time)->second : 0;
             // go through the cars
             int carNo = (int)((srcFD.qPKW + srcFD.qLKW) * scale);
+
+
+            std::vector<SUMOTime> departures;
+            if (oc.getBool("randomize-flows")) {
+                for (int i = 0; i < carNo; ++i) {
+                    departures.push_back(time + RandHelper::rand(stepOffset));
+                }
+                std::sort(departures.begin(), departures.end());
+            } else {
+                for (int i = 0; i < carNo; ++i) {
+                    departures.push_back(time + stepOffset * (double) i / (double) carNo);
+                }
+            }
+
             for (int car = 0; car < carNo; ++car) {
                 // get the vehicle parameter
                 double v = -1;
@@ -349,7 +363,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                     v = (double)(v / 3.6);
                 }
                 // compute the departure time
-                SUMOTime ctime = (SUMOTime)(time + ((double) stepOffset * (double) car / (double) carNo));
+                SUMOTime ctime = departures[car];
 
                 // write
                 out.openTag(SUMO_TAG_VEHICLE);
