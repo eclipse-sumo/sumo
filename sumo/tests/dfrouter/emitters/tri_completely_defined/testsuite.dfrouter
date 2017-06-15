@@ -1,6 +1,8 @@
-
 # Tests emitter building on an abstract network - with complete, correct information for one minute, all vehicles shall run straight
 tri_cd_1min_straight
+
+# with option --randomize-flows
+tri_cd_1min_straight_randomize
 
 # Tests emitter building on an abstract network - with complete, correct information for one minute, all vehicles shall run right
 tri_cd_1min_right
@@ -19,5 +21,3 @@ tri_cd_1min_more_right
 
 # Tests emitter building on an abstract network - with complete, correct information for one minute, 20 veh left , 10 vehs each straight & right
 tri_cd_1min_more_left
-
-

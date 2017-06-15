@@ -117,6 +117,9 @@
         <!-- Minimum distance in meters between start and end node of every route -->
         <min-route-length value="-1" synonymes="min-dist min-distance" type="FLOAT"/>
 
+        <!-- generate random departure times for emitted vehicles -->
+        <randomize-flows value="false" type="BOOL"/>
+
         <!-- Multiply flow times with TIME to get seconds -->
         <time-factor value="60" type="TIME"/>
 
