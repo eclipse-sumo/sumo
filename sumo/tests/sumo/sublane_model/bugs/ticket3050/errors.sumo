@@ -1,2 +1,0 @@
-Warning: Teleporting vehicle 'follower'; collision with vehicle 'ego', lane='end_1', gap=-3.50', latGap=-0.05, time=1.00 stage=move.
-Warning: Vehicle 'follower' teleports beyond arrival edge 'end', time 1.00.
