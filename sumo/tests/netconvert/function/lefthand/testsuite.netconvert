@@ -3,3 +3,6 @@ cross3l_unconstrained
 
 # test import of geo-referenced network
 geo_from_osm
+
+# test import of geo-referenced network
+geo_from_sumonet
