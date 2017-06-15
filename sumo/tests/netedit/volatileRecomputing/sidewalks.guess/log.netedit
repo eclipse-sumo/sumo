@@ -1,43 +1,33 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
+Warning: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
+Warning: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
+Warning: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
+Warning: Adding busStop 'busStop_-gneE7_0_5' in GNEChange_Additional
+Warning: Adding busStop 'busStop_gneE2_0_0' in GNEChange_Additional
+Warning: Adding busStop 'busStop_gneE4_0_7' in GNEChange_Additional
+Warning: Adding busStop 'busStop_gneE5_0_8' in GNEChange_Additional
+Warning: Adding busStop 'busStop_gneE6_0_9' in GNEChange_Additional
+Warning: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox of type 'question'
-Warning: Deleting unreferenced lane '-gneE10_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE11_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE12_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE13_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE14_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE15_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE16_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE17_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE18_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE19_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE3_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE4_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE5_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE6_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE7_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE8_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane '-gneE9_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE0_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE1_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE10_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE11_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE12_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE13_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE14_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE15_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE16_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE17_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE18_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE19_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE2_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE3_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE4_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE5_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE6_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE7_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE8_0' in remakeGNELanes()
-Warning: Deleting unreferenced lane 'gneE9_0' in remakeGNELanes()
+Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
+Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_0'
+Warning: Deleting unreferenced busStop 'busStop_gneE7_0_6'
+Warning: Deleting unreferenced busStop 'busStop_gneE6_0_9'
+Warning: Deleting unreferenced busStop 'busStop_gneE5_0_8'
+Warning: Deleting unreferenced busStop 'busStop_gneE4_0_7'
+Warning: Deleting unreferenced busStop 'busStop_gneE2_0_0'
+Warning: Deleting unreferenced busStop 'busStop_-gneE7_0_5'
+Warning: Deleting unreferenced busStop 'busStop_-gneE6_0_4'
+Warning: Deleting unreferenced busStop 'busStop_-gneE5_0_3'
+Warning: Deleting unreferenced busStop 'busStop_-gneE4_0_2'
+Warning: Deleting unreferenced busStop 'busStop_-gneE3_0_1'
 Warning: Created connection '-gneE10_1 -> -gneE9_1' in retrieveGNEConnection()
 Warning: Created connection '-gneE10_1 -> -gneE17_1' in retrieveGNEConnection()
 Warning: Created connection '-gneE11_1 -> -gneE10_1' in retrieveGNEConnection()
@@ -94,7 +84,6 @@ Warning: Created connection 'gneE7_1 -> gneE4_1' in retrieveGNEConnection()
 Warning: Created connection 'gneE8_1 -> gneE9_1' in retrieveGNEConnection()
 Warning: Created connection 'gneE9_1 -> -gneE17_1' in retrieveGNEConnection()
 Warning: Created connection 'gneE9_1 -> gneE10_1' in retrieveGNEConnection()
-Warning: Closed FXMessageBox of type 'question' with 'Yes'
 Warning: Deleting unreferenced edge '-gneE10' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor

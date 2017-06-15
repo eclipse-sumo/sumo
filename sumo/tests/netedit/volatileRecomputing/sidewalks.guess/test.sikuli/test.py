@@ -33,7 +33,7 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--sidewalks.gue
 netedit.rebuildNetworkWithVolatileOptions()
 
 # save additionals
-#netedit.saveAdditionals()
+netedit.saveAdditionals()
 
 # save newtork
 netedit.saveNetwork()
