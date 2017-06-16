@@ -1,0 +1,39 @@
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
+Warning: Adding vaporizer 'vaporizer_1' in GNEChange_Additional
+Warning: Adding vaporizer 'vaporizer_2' in GNEChange_Additional
+Warning: Adding vaporizer 'vaporizer_3' in GNEChange_Additional
+Warning: Adding vaporizer 'vaporizer_4' in GNEChange_Additional
+Warning: Adding vaporizer 'vaporizer_5' in GNEChange_Additional
+Warning: Adding vaporizer 'vaporizer_6' in GNEChange_Additional
+Warning: Adding vaporizer 'vaporizer_7' in GNEChange_Additional
+Warning: Adding vaporizer 'vaporizer_8' in GNEChange_Additional
+Warning: Adding vaporizer 'vaporizer_9' in GNEChange_Additional
+Warning: Adding vaporizer 'vaporizer_10' in GNEChange_Additional
+Warning: Keys Shift + F5 (Compute with volatile options) pressed
+Warning: Opening FXMessageBox of type 'question'
+Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Deleting unreferenced vaporizer 'vaporizer_10'
+Warning: Deleting unreferenced vaporizer 'vaporizer_9'
+Warning: Deleting unreferenced vaporizer 'vaporizer_8'
+Warning: Deleting unreferenced vaporizer 'vaporizer_7'
+Warning: Deleting unreferenced vaporizer 'vaporizer_6'
+Warning: Deleting unreferenced vaporizer 'vaporizer_5'
+Warning: Deleting unreferenced vaporizer 'vaporizer_4'
+Warning: Deleting unreferenced vaporizer 'vaporizer_3'
+Warning: Deleting unreferenced vaporizer 'vaporizer_2'
+Warning: Deleting unreferenced vaporizer 'vaporizer_1'
+Warning: Deleting unreferenced vaporizer 'vaporizer_0'
+Warning: Created connection 'gneE0_1 -> gneE1_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_1 -> gneE0_1' in retrieveGNEConnection()
+Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_1 -> gneE1_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_1 -> gneE0_1' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor
