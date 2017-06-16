@@ -328,28 +328,28 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
             // get flows at end
             RandomDistributor<int>* destDist = dists.find(time) != dists.end() ? dists.find(time)->second : 0;
             // go through the cars
-            int carNo = (int)((srcFD.qPKW + srcFD.qLKW) * scale);
+            const int numCars = (int)((srcFD.qPKW + srcFD.qLKW) * scale);
 
 
             std::vector<SUMOTime> departures;
             if (oc.getBool("randomize-flows")) {
-                for (int i = 0; i < carNo; ++i) {
+                for (int i = 0; i < numCars; ++i) {
                     departures.push_back(time + RandHelper::rand(stepOffset));
                 }
                 std::sort(departures.begin(), departures.end());
             } else {
-                for (int i = 0; i < carNo; ++i) {
-                    departures.push_back(time + stepOffset * (double) i / (double) carNo);
+                for (int i = 0; i < numCars; ++i) {
+                    departures.push_back(time + (SUMOTime)(stepOffset * i / (double)numCars));
                 }
             }
 
-            for (int car = 0; car < carNo; ++car) {
+            for (int car = 0; car < numCars; ++car) {
                 // get the vehicle parameter
                 double v = -1;
                 std::string vtype;
                 int destIndex = destDist != 0 && destDist->getOverallProb() > 0 ? (int) destDist->get() : -1;
                 if (srcFD.isLKW >= 1) {
-                    srcFD.isLKW = srcFD.isLKW - (double) 1.;
+                    srcFD.isLKW = srcFD.isLKW - 1.;
                     v = srcFD.vLKW;
                     vtype = "LKW";
                 } else {
@@ -360,10 +360,10 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 if (v <= 0 || v > 250) {
                     v = defaultSpeed;
                 } else {
-                    v = (double)(v / 3.6);
+                    v /= 3.6;
                 }
                 // compute the departure time
-                SUMOTime ctime = departures[car];
+                const SUMOTime ctime = departures[car];
 
                 // write
                 out.openTag(SUMO_TAG_VEHICLE);
