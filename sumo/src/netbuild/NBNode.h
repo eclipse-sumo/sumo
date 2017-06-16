@@ -161,9 +161,6 @@ public:
         int tlLinkNo;
         /// @brief The id of the traffic light that controls this connection
         std::string tlID;
-
-        /// @brief Comparison operator
-        bool operator==(const Crossing& c) const;
     };
 
 
