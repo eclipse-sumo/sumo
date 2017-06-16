@@ -251,7 +251,7 @@ protected:
      * @struct OpenDriveElevation
      * @brief Coefficients of an elevation profile (3rd degree polynomial)
      */
-    struct OpenDriveElevation {
+    struct Poly3 {
         /** @brief Constructor
          * @param[in] s The start offset
          * @param[in] a constant
@@ -259,8 +259,13 @@ protected:
          * @param[in] c second order
          * @param[in] d third order
          */
-        OpenDriveElevation(double _s, double _a, double _b, double _c, double _d) :
+        Poly3(double _s, double _a, double _b, double _c, double _d) :
             s(_s), a(_a), b(_b), c(_c), d(_d) {}
+
+        double computeAt(double pos) {
+            const double ds = pos - s;
+            return a + b * ds + c * ds * ds + d * ds * ds * ds;
+        }
 
         double s;
         double a;
@@ -270,7 +275,9 @@ protected:
     };
 
     /// LaneOffset has the same fields as Elevation
-    typedef OpenDriveElevation OpenDriveLaneOffset;
+    typedef Poly3 OpenDriveElevation;
+    typedef Poly3 OpenDriveLaneOffset;
+    typedef Poly3 OpenDriveWidth;
 
 
     /**
@@ -283,9 +290,9 @@ protected:
          * @param[in] levelArg The level
          * @param[in] typeArg type of the lane
          */
-        OpenDriveLane(int idArg, const std::string& levelArg, const std::string& typeArg)
-            : id(idArg), level(levelArg), type(typeArg), successor(UNSET_CONNECTION), predecessor(UNSET_CONNECTION),
-              speed(0), width(0) { }
+        OpenDriveLane(int idArg, const std::string& levelArg, const std::string& typeArg) : 
+            id(idArg), level(levelArg), type(typeArg), successor(UNSET_CONNECTION), predecessor(UNSET_CONNECTION),
+            speed(0), width(NBEdge::UNSPECIFIED_WIDTH) { }
 
         int id; //!< The lane's id
         std::string level; //!< The lane's level (not used)
@@ -294,7 +301,8 @@ protected:
         int predecessor; //!< The lane's predecessor lane
         std::vector<std::pair<double, double> > speeds; //!< List of positions/speeds of speed changes
         double speed; //!< The lane's speed (set in post-processing)
-        double width; //!< The lane's width; @todo: this is the maximum width only
+        double width; //The lane's maximum width
+        std::vector<OpenDriveWidth> widthData;
     };
 
 
@@ -528,6 +536,7 @@ private:
 
     static bool myImportAllTypes;
     static bool myImportWidths;
+    static bool myMinWidth;
 
 
 protected:
@@ -574,7 +583,14 @@ protected:
                               const std::string& nodeID, NIImporter_OpenDrive::LinkType lt);
 
 
+    static void splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc); 
 
+    static void findWidthSplit(const NBTypeCont& tc, std::vector<OpenDriveLane>& lanes, 
+            int section, double sectionStart, double sectionEnd, 
+            std::vector<double>& splitPositions);
+
+    static void recomputeWidths(OpenDriveLaneSection& sec, double start, double end, double sectionEnd);
+    static void recomputeWidths(std::vector<OpenDriveLane>& lanes, double start, double end, double sectionEnd);
 
     /// The names of openDrive-XML elements (for passing to GenericSAXHandler)
     static StringBijection<int>::Entry openDriveTags[];
