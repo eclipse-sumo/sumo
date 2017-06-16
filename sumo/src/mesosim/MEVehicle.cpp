@@ -338,7 +338,7 @@ MEVehicle::saveState(OutputDevice& out) {
     internals.push_back(myBlockTime);
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     // save stops and parameters
-    for (std::map<const MESegment*, SUMOTime>::const_iterator it = myStops.begin(); it != myStops.end(); ++it) {
+    for (std::map<const MESegment* const, SUMOTime>::const_iterator it = myStops.begin(); it != myStops.end(); ++it) {
         out.openTag(SUMO_TAG_STOP);
         out.writeAttr(SUMO_ATTR_LANE, it->first->getEdge().getLanes()[0]->getID());
         out.writeAttr(SUMO_ATTR_ENDPOS, it->first->getIndex() * it->first->getLength());
