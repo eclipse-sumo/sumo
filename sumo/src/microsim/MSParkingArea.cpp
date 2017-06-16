@@ -61,9 +61,10 @@ MSParkingArea::MSParkingArea(const std::string& id,
         myLength = getSpaceDim();
     }
 
-    myShape = lane.getShape();
+    myShape = lane.getShape().getSubpart(
+            lane.interpolateLanePosToGeometryPos(begPos), 
+            lane.interpolateLanePosToGeometryPos(endPos));
     myShape.move2side(lane.getWidth() / 2. + myWidth / 2.);
-    myShape = myShape.getSubpart(begPos, endPos);
     // Initialize space occupancies if there is a road-side capacity
     // The overall number of lots is fixed and each lot accepts one vehicle regardless of size
     if (myCapacity > 0) {

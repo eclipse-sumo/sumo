@@ -64,7 +64,9 @@ GUIContainerStop::GUIContainerStop(const std::string& id, const std::vector<std:
       GUIGlObject_AbstractAdd("containerStop", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
     myFGShape.move2side((double) 1.65);
-    myFGShape = myFGShape.getSubpart(frompos, topos);
+    myFGShape = myFGShape.getSubpart(
+            lane.interpolateLanePosToGeometryPos(frompos), 
+            lane.interpolateLanePosToGeometryPos(topos));
     myFGShapeRotations.reserve(myFGShape.size() - 1);
     myFGShapeLengths.reserve(myFGShape.size() - 1);
     int e = (int) myFGShape.size() - 1;

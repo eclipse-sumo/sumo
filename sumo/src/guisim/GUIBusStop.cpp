@@ -67,7 +67,9 @@ GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& li
     const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
     myFGShape = lane.getShape();
     myFGShape.move2side(1.65 * offsetSign);
-    myFGShape = myFGShape.getSubpart(frompos, topos);
+    myFGShape = myFGShape.getSubpart(
+            lane.interpolateLanePosToGeometryPos(frompos), 
+            lane.interpolateLanePosToGeometryPos(topos));
     myFGShapeRotations.reserve(myFGShape.size() - 1);
     myFGShapeLengths.reserve(myFGShape.size() - 1);
     int e = (int) myFGShape.size() - 1;
