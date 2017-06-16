@@ -2774,5 +2774,28 @@ NBNode::sortEdges(bool useNodeShape) {
     //}
 }
 
+
+bool
+NBNode::Crossing::operator==(const Crossing& c) const {
+    // obtain IDS of edges
+    std::vector<std::string> edgesA;
+    for(EdgeVector::const_iterator i = edges.begin(); i != edges.end(); i++) {
+        edgesA.push_back((*i)->getID());
+    }
+    // obtain IDS of edges
+    std::vector<std::string> edgesB;
+    for(EdgeVector::const_iterator i = c.edges.begin(); i != c.edges.end(); i++) {
+        edgesB.push_back((*i)->getID());
+    }
+    // sort edge IDs
+    std::sort(edgesA.begin(), edgesA.end());
+    std::sort(edgesB.begin(), edgesB.end());
+    if(edgesA.size() != edgesB.size()) {
+        return false;
+    } else {
+      return std::equal (edgesA.begin(), edgesA.end(), edgesB.begin());
+    }
+}
+
 /****************************************************************************/
 
