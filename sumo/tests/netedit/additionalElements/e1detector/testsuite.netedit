@@ -20,3 +20,6 @@ move
 # lock/unlock additional
 lock_unlock
 
+# volatile recomputing
+volatileRecomputing
+
