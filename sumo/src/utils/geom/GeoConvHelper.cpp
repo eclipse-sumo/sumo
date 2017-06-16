@@ -411,7 +411,13 @@ void
 GeoConvHelper::computeFinal(bool lefthand) {
     if (myNumLoaded == 0) {
         myFinal = myProcessing;
+        if (lefthand) {
+            myFinal.myOffset.mul(1, -1);
+        }
     } else  {
+        if (lefthand) {
+            myProcessing.myOffset.mul(1, -1);
+        }
         myFinal = GeoConvHelper(
                       // prefer options over loaded location
                       myProcessing.usingGeoProjection() ? myProcessing.getProjString() : myLoaded.getProjString(),
@@ -422,7 +428,6 @@ GeoConvHelper::computeFinal(bool lefthand) {
                       myProcessing.getConvBoundary());
     }
     if (lefthand) {
-        myFinal.myOffset.mul(1, -1);
         myFinal.myConvBoundary.flipY();
     }
 }
