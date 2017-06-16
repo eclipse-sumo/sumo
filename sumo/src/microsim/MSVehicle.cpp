@@ -4204,8 +4204,8 @@ MSVehicle::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_SPEED, myState.mySpeed);
     out.writeAttr(SUMO_ATTR_POSITION_LAT, myState.myPosLat);
     // save stops and parameters
-    for (std::list<Stop>::iterator it = myStops.begin(); it != myStops.end(); ++it) {
-        (*it).write(out);
+    for (std::list<Stop>::const_iterator it = myStops.begin(); it != myStops.end(); ++it) {
+        it->write(out);
     }
     myParameter->writeParams(out);
     for (std::vector<MSDevice*>::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {

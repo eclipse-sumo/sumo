@@ -42,6 +42,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSLink.h>
+#include <microsim/devices/MSDevice.h>
 #include "MELoop.h"
 #include "MEVehicle.h"
 #include "MESegment.h"
@@ -336,6 +337,18 @@ MEVehicle::saveState(OutputDevice& out) {
     internals.push_back(myLastEntryTime);
     internals.push_back(myBlockTime);
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    // save stops and parameters
+    for (std::map<const MESegment*, SUMOTime>::const_iterator it = myStops.begin(); it != myStops.end(); ++it) {
+        out.openTag(SUMO_TAG_STOP);
+        out.writeAttr(SUMO_ATTR_LANE, it->first->getEdge().getLanes()[0]->getID());
+        out.writeAttr(SUMO_ATTR_ENDPOS, it->first->getIndex() * it->first->getLength());
+        out.writeAttr(SUMO_ATTR_DURATION, STEPS2TIME(it->second));
+        out.closeTag();
+    }
+    myParameter->writeParams(out);
+    for (std::vector<MSDevice*>::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
+        (*dev)->saveState(out);
+    }
     out.closeTag();
 }
 
