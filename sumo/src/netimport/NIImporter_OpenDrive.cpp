@@ -602,16 +602,24 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             if (fromID != "") {
                                 WRITE_WARNING("Ambigous start of connection.");
                             }
-                            fromID = (*l).elementID;
-                            OpenDriveEdge* e = edges[fromID];
-                            fromID = (*l).contactPoint == OPENDRIVE_CP_START ? e->laneSections[0].sumoID : e->laneSections.back().sumoID;
+                            OpenDriveEdge* e = edges[(*l).elementID];
+                            if ((*l).contactPoint == OPENDRIVE_CP_START) {
+                                fromID = e->laneSections[0].sumoID;
+                                if ((*j).orientation < 0) {
+                                    fromID = "-" + fromID;
+                                }
+                            } else {
+                                fromID = e->laneSections.back().sumoID;
+                                if ((*j).orientation > 0) {
+                                    fromID = "-" + fromID;
+                                }
+                            }
                         }
                         if ((*l).linkType == OPENDRIVE_LT_SUCCESSOR && (*l).elementType == OPENDRIVE_ET_ROAD) {
                             if (toID != "") {
                                 WRITE_WARNING("Ambigous end of connection.");
                             }
-                            toID = (*l).elementID;
-                            OpenDriveEdge* e = edges[toID];
+                            OpenDriveEdge* e = edges[(*l).elementID];
                             toID = (*l).contactPoint == OPENDRIVE_CP_START ? e->laneSections[0].sumoID : e->laneSections.back().sumoID;
                         }
                     }
@@ -620,10 +628,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     WRITE_WARNING("Found a traffic light signal on an unknown edge (original edge id='" + e->id + "').");
                     continue;
                 }
-            }
-
-            if ((*j).orientation > 0) {
-                id = "-" + id;
+            } else {
+                if ((*j).orientation > 0) {
+                    id = "-" + id;
+                }
             }
             tlsControlled[id] = (*j).name;
         }
