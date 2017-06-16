@@ -906,8 +906,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
             const OpenDriveElevation& el = *j;
             const double sNext = (j + 1) == e.elevations.end() ? std::numeric_limits<double>::max() : (*(j + 1)).s;
             while (k < (int)e.geom.size() && pos < sNext) {
-                const double ds = pos - el.s;
-                const double z = el.a + el.b * ds + el.c * ds * ds + el.d * ds * ds * ds;
+                const double z = el.computeAt(pos);
                 //std::cout << " edge=" << e.id << " k=" << k << " sNext=" << sNext << " pos=" << pos << " z=" << z << " ds=" << ds << " el.s=" << el.s << "el.a=" << el.a << " el.b=" << el.b << " el.c=" << el.c << " el.d=" << el.d <<  "\n";
                 e.geom[k].add(0, 0, z);
                 k++;
@@ -941,8 +940,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 const OpenDriveLaneOffset& el = *j;
                 const double sNext = (j + 1) == e.offsets.end() ? std::numeric_limits<double>::max() : (*(j + 1)).s;
                 while (k < (int)e.geom.size() && pos < sNext) {
-                    const double ds = pos - el.s;
-                    const double offset = el.a + el.b * ds + el.c * ds * ds + el.d * ds * ds * ds;
+                    const double offset = el.computeAt(pos);
                     //std::cout << " edge=" << e.id << " k=" << k << " sNext=" << sNext << " pos=" << pos << " offset=" << offset << " ds=" << ds << " el.s=" << el.s << "el.a=" << el.a << " el.b=" << el.b << " el.c=" << el.c << " el.d=" << el.d <<  "\n";
                     if (fabs(offset) > POSITION_EPS) {
                         try {

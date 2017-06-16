@@ -262,7 +262,7 @@ protected:
         Poly3(double _s, double _a, double _b, double _c, double _d) :
             s(_s), a(_a), b(_b), c(_c), d(_d) {}
 
-        double computeAt(double pos) {
+        double computeAt(double pos) const {
             const double ds = pos - s;
             return a + b * ds + c * ds * ds + d * ds * ds * ds;
         }
