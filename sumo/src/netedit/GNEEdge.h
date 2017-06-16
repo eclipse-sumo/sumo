@@ -322,9 +322,6 @@ private:
 
     /// @brief removes a connection
     void removeConnection(NBEdge::Connection nbCon);
-
-    /// @brief remove crossing of junction in which this edge is implied
-    void removeEdgeFromCrossings(GNEJunction *junction, GNEUndoList* undoList);
 };
 
 
