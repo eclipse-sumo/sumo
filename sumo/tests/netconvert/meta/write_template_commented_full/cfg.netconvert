@@ -414,6 +414,9 @@
         <!-- Allow stop lines to be built beyond the start of the junction if the geometries allow so -->
         <opendrive.advance-stopline value="12" type="FLOAT"/>
 
+        <!-- The minimum lane width for determining start or end of variable-width lanes -->
+        <opendrive.min-width value="1.8" type="FLOAT"/>
+
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
 

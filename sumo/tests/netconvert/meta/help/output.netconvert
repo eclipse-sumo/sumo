@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r23600
+SUMO netconvert Version dev-SVN-r24506
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -240,6 +240,8 @@ Processing Options:
   --opendrive.advance-stopline FLOAT   Allow stop lines to be built beyond the
                                          start of the junction if the geometries
                                          allow so
+  --opendrive.min-width FLOAT          The minimum lane width for determining
+                                         start or end of variable-width lanes
   --no-internal-links                  Omits internal links
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                          edges to ensure that all IDs are
