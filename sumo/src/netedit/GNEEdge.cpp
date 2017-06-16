@@ -56,6 +56,7 @@
 #include "GNERouteProbe.h"
 #include "GNEVaporizer.h"
 #include "GNERerouter.h"
+#include "GNECrossing.h"
 
 
 
@@ -677,6 +678,10 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         }
         case SUMO_ATTR_FROM: {
             undoList->p_begin("change  " + toString(getTag()) + "  attribute");
+            // Remove edge from crossings of junction source
+            removeEdgeFromCrossings(myGNEJunctionSource, undoList);
+            // continue changing from junction
+            GNEJunction *oldGNEJunctionSource = myGNEJunctionSource;
             myGNEJunctionSource->setLogicValid(false, undoList);
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             myGNEJunctionSource->setLogicValid(false, undoList);
@@ -684,10 +689,18 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             setAttribute(GNE_ATTR_SHAPE_START, toString(myGNEJunctionSource->getNBNode()->getPosition()), undoList);
             myGNEJunctionSource->invalidateShape();
             undoList->p_end();
+            // update geometries of all implicated junctions
+            oldGNEJunctionSource->updateGeometry();
+            myGNEJunctionSource->updateGeometry();
+            myGNEJunctionDestiny->updateGeometry();
             break;
         }
         case SUMO_ATTR_TO: {
             undoList->p_begin("change  " + toString(getTag()) + "  attribute");
+            // Remove edge from crossings of junction destiny
+            removeEdgeFromCrossings(myGNEJunctionDestiny, undoList);
+            // continue changing destiny junction
+            GNEJunction *oldGNEJunctionDestiny = myGNEJunctionDestiny;
             myGNEJunctionDestiny->setLogicValid(false, undoList);
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             myGNEJunctionDestiny->setLogicValid(false, undoList);
@@ -695,6 +708,10 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             setAttribute(GNE_ATTR_SHAPE_END, toString(myGNEJunctionDestiny->getNBNode()->getPosition()), undoList);
             myGNEJunctionDestiny->invalidateShape();
             undoList->p_end();
+            // update geometries of all implicated junctions
+            oldGNEJunctionDestiny->updateGeometry();
+            myGNEJunctionDestiny->updateGeometry();
+            myGNEJunctionSource->updateGeometry();
             break;
         }
         case SUMO_ATTR_ID:
@@ -1203,6 +1220,28 @@ GNEEdge::hasRestrictedLane(SUMOVehicleClass vclass) const {
         }
     }
     return false;
+}
+
+
+void 
+GNEEdge::removeEdgeFromCrossings(GNEJunction *junction, GNEUndoList* undoList) {
+    // remove edge from crossings of junction source
+    std::vector<GNECrossing*> crossingOfJunction = junction->getGNECrossings();
+    for(std::vector<GNECrossing*>::const_iterator i = crossingOfJunction.begin(); i != crossingOfJunction.end(); i++) {
+        // obtain IDs of crossing's edges and check if ID of current edge is part of it
+        std::vector<std::string> edgesOfCrossing = parse<std::vector<std::string> >((*i)->getAttribute(SUMO_ATTR_EDGES));
+        if(std::find(edgesOfCrossing.begin(), edgesOfCrossing.end(), myNBEdge.getID()) != edgesOfCrossing.end()) {
+            if((*i)->getNBCrossing().edges.size() == 1) {
+                // Crossing without edges aren't allowed
+                myNet->deleteCrossing(*i, undoList);
+            } else {
+                // Change edges of crossing
+                edgesOfCrossing.erase(std::find(edgesOfCrossing.begin(), edgesOfCrossing.end(), myNBEdge.getID()));
+                (*i)->setAttribute(SUMO_ATTR_EDGES, joinToString(edgesOfCrossing, " "), undoList);
+            }
+        }
+    }
+    junction->updateGeometry();
 }
 
 /****************************************************************************/
