@@ -13,3 +13,6 @@ inspect_selection
 
 # load additional
 load
+
+# volatile recomputing
+volatileRecomputing
