@@ -83,6 +83,13 @@ public:
     /// Parses network location description and registers it with GeoConveHelper::setLoaded
     static GeoConvHelper* loadLocation(const SUMOSAXAttributes& attrs);
 
+    /** @brief parses edge-id and index from lane-id
+     * @param[in] lane_id The lane-id
+     * @param[out] edge_id ID of this lane's edge
+     * @param[out] index Index of this lane
+     */
+    static void interpretLaneID(const std::string& lane_id, std::string& edge_id, int& index);
+
 protected:
     /** @brief Constructor
      * @param[in] nc The network builder to fill
@@ -349,13 +356,6 @@ private:
      * @param[in] lane_id The ID of the lane
      */
     LaneAttrs* getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id);
-
-    /** @brief parses edge-id and index from lane-id
-     * @param[in] lane_id The lane-id
-     * @param[out] edge_id ID of this lane's edge
-     * @param[out] index Index of this lane
-     */
-    static void interpretLaneID(const std::string& lane_id, std::string& edge_id, int& index);
 
     /** @brief reconstructs the edge shape from the node positions and the given lane shapes
      * since we do not know the original LaneSpreadFunction this is only an

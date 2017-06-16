@@ -56,6 +56,7 @@
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <netimport/NIFrame.h>
+#include <netimport/NIImporter_SUMO.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNELoadThread.h"
@@ -1608,27 +1609,18 @@ GNEApplicationWindow::GNEShapeHandler::~GNEShapeHandler() {}
 
 Position
 GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos) {
-    std::string edgeID = laneID;
-    int lane = 0;
-    const std::string::size_type underscore = laneID.rfind('_');
-
-    if (underscore != std::string::npos) {
-        edgeID = laneID.substr(0, underscore);
-        if (laneID.substr(underscore).empty()) {
-            lane = 0;
-        } else {
-            lane = GNEAttributeCarrier::parse<int>(laneID.substr(underscore).c_str());
-        }
-    }
+    std::string edgeID;
+    int laneIndex;
+    NIImporter_SUMO::interpretLaneID(laneID, edgeID, laneIndex);
     NBEdge* edge = myNet->retrieveEdge(edgeID)->getNBEdge();
-    if (edge == 0 || edge->getNumLanes() <= lane) {
+    if (edge == 0 || laneIndex < 0 || edge->getNumLanes() <= laneIndex) {
         WRITE_ERROR("Lane '" + laneID + "' to place poi '" + poiID + "' on is not known.");
         return Position::INVALID;
     }
     if (lanePos < 0) {
         lanePos = edge->getLength() + lanePos;
     }
-    return edge->getLanes()[lane].shape.positionAtOffset(lanePos);
+    return edge->getLanes()[laneIndex].shape.positionAtOffset(lanePos);
 }
 
 
