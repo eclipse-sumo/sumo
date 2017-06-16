@@ -1,0 +1,49 @@
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Adding calibrator 'calibrator01' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator02' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator04' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator05' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator06' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator07' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator08' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator09' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator10' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator11' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator12' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator13' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator14' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator15' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator16' in GNEChange_Additional
+Warning: Adding calibrator 'calibrator17' in GNEChange_Additional
+Warning: Keys Shift + F5 (Compute with volatile options) pressed
+Warning: Opening FXMessageBox of type 'question'
+Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Deleting unreferenced calibrator 'calibrator17'
+Warning: Deleting unreferenced calibrator 'calibrator16'
+Warning: Deleting unreferenced calibrator 'calibrator15'
+Warning: Deleting unreferenced calibrator 'calibrator14'
+Warning: Deleting unreferenced calibrator 'calibrator13'
+Warning: Deleting unreferenced calibrator 'calibrator12'
+Warning: Deleting unreferenced calibrator 'calibrator11'
+Warning: Deleting unreferenced calibrator 'calibrator10'
+Warning: Deleting unreferenced calibrator 'calibrator09'
+Warning: Deleting unreferenced calibrator 'calibrator08'
+Warning: Deleting unreferenced calibrator 'calibrator07'
+Warning: Deleting unreferenced calibrator 'calibrator06'
+Warning: Deleting unreferenced calibrator 'calibrator05'
+Warning: Deleting unreferenced calibrator 'calibrator04'
+Warning: Deleting unreferenced calibrator 'calibrator02'
+Warning: Deleting unreferenced calibrator 'calibrator01'
+Warning: Created connection 'gneE0_1 -> gneE1_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_1 -> gneE0_1' in retrieveGNEConnection()
+Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_1 -> gneE1_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_1 -> gneE0_1' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor
