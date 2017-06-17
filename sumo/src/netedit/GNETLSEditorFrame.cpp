@@ -97,7 +97,9 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGroupBoxJunction = new FXGroupBox(myContentFrame, "Junction", GUIDesignGroupBoxFrame);
 
     // create description label
-    myDescription = new FXLabel(myGroupBoxJunction, "No Junction Selected\n", 0, GUIDesignLabelLeft);
+    myDescription = new FXTextField(myGroupBoxJunction, GUIDesignTextFieldNCol, 0, 0, 
+            (TEXTFIELD_READONLY | TEXTFIELD_AUTOGRAY | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2);
+    myStatus = new FXLabel(myGroupBoxJunction, "", 0, GUIDesignLabelLeft);
 
     // create groupbox for tl df
     myGroupBoxTLSDef = new FXGroupBox(myContentFrame, "Traffic lights definition", GUIDesignGroupBoxFrame);
@@ -167,6 +169,8 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     new FXButton(myContentFrame, "Add \"Off\"-Program\t\tAdds a program for switching off this traffic light",
             0, this, MID_GNE_DEF_ADDOFF, GUIDesignButton);
     */
+
+    updateDescription();
 }
 
 
@@ -443,18 +447,18 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
 
 void
 GNETLSEditorFrame::updateDescription() const {
-    std::string description;
     if (myCurrentJunction == 0) {
-        description = "No Junction Selected\n";
+        myDescription->setText("");
+        myStatus->setText("status: no junction selected");
     } else {
         NBNode* nbn = myCurrentJunction->getNBNode();
-        description = "Current junction: " + nbn->getID() + "\n(";
+        myDescription->setText(nbn->getID().c_str());
         if (!nbn->isTLControlled()) {
-            description += "uncontrolled, ";
+            myStatus->setText("status: uncontrolled");
+        } else {
+            myStatus->setText(myHaveModifications ? "status: modified" : "status: unmodified");
         }
-        description += (myHaveModifications ? "modified)" : "unmodified)");
     }
-    myDescription->setText(description.c_str());
 }
 
 

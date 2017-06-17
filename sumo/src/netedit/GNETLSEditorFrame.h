@@ -155,7 +155,8 @@ private:
     FXGroupBox* myGroupBoxJunction;
 
     /// @brief the label that shows the current editing state
-    FXLabel* myDescription;
+    FXTextField* myDescription;
+    FXLabel* myStatus;
 
     /// @brief groupbox for TLS Definition buttons
     FXGroupBox* myGroupBoxTLSDef;
