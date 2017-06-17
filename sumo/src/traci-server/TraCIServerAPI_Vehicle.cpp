@@ -754,7 +754,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "A route must be defined as a list of edge ids.", outputStorage);
                 }
                 ConstMSEdgeVector edges;
-                MSEdge::parseEdgesList(edgeIDs, edges, "<unknown>");
+                try {
+                    MSEdge::parseEdgesList(edgeIDs, edges, "<unknown>");
+                } catch (ProcessError& e) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
+                }
                 if (!v->replaceRouteEdges(edges, v->getLane() == 0, true)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Route replacement failed for " + v->getID(), outputStorage);
                 }
