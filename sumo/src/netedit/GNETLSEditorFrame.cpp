@@ -271,6 +271,7 @@ GNETLSEditorFrame::onCmdDefSwitch(FXObject*, FXSelector, void*) {
         myOffset->setText(toString(STEPS2TIME(myEditedDef->getLogic()->getOffset())).c_str());
         initPhaseTable();
         updateCycleDuration();
+        myCycleDuration->show();
     } else {
         // tlDef has no valid logic (probably because id does not control any links
         onCmdCancel(0, 0, 0);
