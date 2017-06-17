@@ -259,6 +259,9 @@ NLBuilder::loadAndRun() {
         NLHandler handler("", *net, db, tb, eb, jb);
         tb.setHandler(&handler);
         NLBuilder builder(oc, *net, eb, jb, db, handler);
+        MsgHandler::getErrorInstance()->clear();
+        MsgHandler::getWarningInstance()->clear();
+        MsgHandler::getMessageInstance()->clear();
         if (builder.build()) {
             state = net->simulate(string2time(oc.getString("begin")), string2time(oc.getString("end")));
             delete net;
