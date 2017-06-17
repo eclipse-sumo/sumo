@@ -44,6 +44,7 @@ rawdump:rawdump.xml
 fcd:fcd.xml
 results:results.csv
 tls_state:tls_state.xml
+log:log.txt
 
 [run_dependent_text]
 output:<!--{[->]}-->

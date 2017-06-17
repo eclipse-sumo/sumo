@@ -36,6 +36,13 @@ sumoProcess = subprocess.Popen(
     "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
 traci.simulationStep()
+
+# cause an error and catch it
+try:
+    traci.vehicle.setRoute("horiz", "dummy")
+except traci.TraCIException:
+    pass
+
 traci.load(["sumo.sumocfg"])
 traci.simulationStep()
 traci.close()
@@ -46,12 +53,13 @@ sumoBinary = sumolib.checkBinary('sumo-gui')
 
 PORT = sumolib.miscutils.getFreeSocketPort()
 sumoProcess = subprocess.Popen(
-    "%s -S -Q -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
+    "%s -S -Q -c sumo.sumocfg -l log.txt --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
 for i in range(3):
     traci.simulationStep()
     print("step=%s departed=%s" % (traci.simulation.getCurrentTime(),
                                    traci.simulation.getDepartedIDList()))
+
 
 print("reloading")
 traci.load(["-S", "-Q", "-c", "sumo.sumocfg"])
