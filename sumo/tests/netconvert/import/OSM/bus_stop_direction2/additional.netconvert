@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Jun 19 15:35:50 2017 by SUMO netconvert Version dev-SVN-r24759
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="input_types.typ.xml"/>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <osm.stop-output.length value="200"/>
+    </processing>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-1262412971" name="Backhausweg" lane="-30423733#2_0" startPos="25.44" endPos="140.11" friendlyPos="true"/>
+    <busStop id="-1262412992" name="Hohkamp" lane="-30423733#1_0" startPos="281.15" endPos="398.72" friendlyPos="true"/>
+    <busStop id="-14080448179" name="Lammer Heide" lane="-189595213#0_0" startPos="0.00" endPos="39.29" friendlyPos="true"/>
+    <busStop id="-14080453545" name="Neudammstraße" lane="-24236261#5_0" startPos="0.00" endPos="88.79" friendlyPos="true"/>
+    <busStop id="-14080454866" name="Lammer Heide" lane="-24236214#1_0" startPos="0.00" endPos="81.30" friendlyPos="true"/>
+    <busStop id="-14440238347" name="Lammer Heide" lane="-24236214#1_0" startPos="0.00" endPos="81.30" friendlyPos="true"/>
+    <busStop id="-14440238348" name="Backhausweg" lane="-30423733#2_0" startPos="35.67" endPos="140.11" friendlyPos="true"/>
+    <busStop id="-14440262442" name="Hohkamp" lane="-30423733#1_0" startPos="289.59" endPos="398.72" friendlyPos="true"/>
+    <busStop id="-14451836152" name="Neudammstraße" lane="-24236261#5_0" startPos="0.00" endPos="88.79" friendlyPos="true"/>
+    <busStop id="-14451836153" name="Lammer Heide" lane="-189595213#0_0" startPos="0.00" endPos="39.29" friendlyPos="true"/>
+    <busStop id="1990326726" name="Rodedamm" lane="30423777_0" startPos="0.00" endPos="149.78" friendlyPos="true"/>
+    <busStop id="2459586206" name="Lammer Busch" lane="238095542_0" startPos="0.00" endPos="70.07" friendlyPos="true"/>
+    <busStop id="262412971" name="Backhausweg" lane="30423733#2_0" startPos="0.00" endPos="114.69" friendlyPos="true"/>
+    <busStop id="262412992" name="Hohkamp" lane="30423733#1_0" startPos="0.00" endPos="117.58" friendlyPos="true"/>
+    <busStop id="262413028" name="Rodedamm" lane="30423777_0" startPos="32.22" endPos="149.78" friendlyPos="true"/>
+    <busStop id="3420398715" name="Hüttenweg" lane="334913982_0" startPos="128.95" endPos="245.49" friendlyPos="true"/>
+    <busStop id="4080448179" name="Lammer Heide" lane="189595213#0_0" startPos="0.00" endPos="39.29" friendlyPos="true"/>
+    <busStop id="4080453545" name="Neudammstraße" lane="24236261#5_0" startPos="0.00" endPos="88.80" friendlyPos="true"/>
+    <busStop id="4080454866" name="Lammer Heide" lane="24236214#1_0" startPos="0.00" endPos="81.30" friendlyPos="true"/>
+    <busStop id="4440238345" name="Lammer Busch" lane="238095542_0" startPos="0.00" endPos="70.07" friendlyPos="true"/>
+    <busStop id="4440238347" name="Lammer Heide" lane="24236214#1_0" startPos="0.00" endPos="81.30" friendlyPos="true"/>
+    <busStop id="4440238348" name="Backhausweg" lane="30423733#2_0" startPos="0.00" endPos="104.44" friendlyPos="true"/>
+    <busStop id="4440262442" name="Hohkamp" lane="30423733#1_0" startPos="0.00" endPos="109.13" friendlyPos="true"/>
+    <busStop id="4451836152" name="Neudammstraße" lane="24236261#5_0" startPos="0.00" endPos="88.80" friendlyPos="true"/>
+    <busStop id="4451836153" name="Lammer Heide" lane="189595213#0_0" startPos="0.00" endPos="39.29" friendlyPos="true"/>
+    <busStop id="52320383" name="Hüttenweg" lane="-168069146#0_0" startPos="0.00" endPos="51.59" friendlyPos="true"/>
+</additional>

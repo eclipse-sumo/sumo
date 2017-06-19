@@ -1,3 +1,6 @@
+# direction of bus stops imported (guessed) correctly
+bus_stop_direction2
+
 # pt stop relation refers to a node for which no pt stop position is defined 
 # (see also #3159)
 bus_stop_direction_inconsisten_pt_stop_relation
