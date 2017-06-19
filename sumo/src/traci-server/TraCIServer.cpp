@@ -429,10 +429,9 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
     std::cout << SIMTIME << " processCommandsUntilSimStep(step = " << step << "):\n" << std::endl;
 #endif
     try {
+        const bool firstStep = myCurrentSocket != mySockets.end();
         // update client order if requested
         processReorderingRequests();
-
-        bool firstStep = myCurrentSocket != mySockets.end();
         if (!firstStep) {
             // This is the entry point after performing a SUMO step (block is skipped before first SUMO step since then no simulation results have to be sent)
             // update subscription results
