@@ -699,7 +699,7 @@ void
 MSLCM_SL2015::prepareStep() {
     MSAbstractLaneChangeModel::prepareStep();
     // keep information about strategic change direction
-    myOwnState = (myOwnState & LCA_STRATEGIC) ? (myOwnState & LCA_WANTS_LANECHANGE) : 0;
+    myOwnState = (myOwnState & (LCA_STRATEGIC | LCA_COOPERATIVE)) ? (myOwnState & LCA_WANTS_LANECHANGE) : 0;
     if (myCanChangeFully) {
         myOrigLatDist = 0;
     }
@@ -1110,7 +1110,12 @@ MSLCM_SL2015::_wantsChangeSublane(
                                   ? -mySpeedGainProbabilityRight / myChangeProbThresholdRight
                                   : -mySpeedGainProbabilityLeft / myChangeProbThresholdLeft);
     if (laneOffset != 0
-            && amBlockingFollowerPlusNB()
+            && (amBlockingFollowerPlusNB() || 
+                // continue previous cooperative change
+                (myPreviousState & LCA_COOPERATIVE) != 0 
+                && !myCanChangeFully 
+                // change is in the right direction
+                && (laneOffset * myOrigLatDist > 0))
             && (inconvenience < myCooperativeParam)
             //&& ((myOwnState & myLcaCounter) == 0) // VARIANT_6 : counterNoHelp
             && (changeToBest || currentDistAllows(neighDist, abs(bestLaneOffset) + 1, laDist))) {
@@ -1119,6 +1124,9 @@ MSLCM_SL2015::_wantsChangeSublane(
         if (gDebugFlag2) {
             std::cout << STEPS2TIME(currentTime)
                       << " veh=" << myVehicle.getID()
+                      << " amBlocking=" << amBlockingFollowerPlusNB()
+                      << " prevState=" << toString((LaneChangeAction)myPreviousState)
+                      << " origLatDist=" << myOrigLatDist
                       << " wantsChangeToHelp=" << (right ? "right" : "left")
                       << " state=" << myOwnState
                       << (((myOwnState & myLcaCounter) != 0) ? " (counter)" : "")
@@ -1127,7 +1135,7 @@ MSLCM_SL2015::_wantsChangeSublane(
 
         ret |= LCA_COOPERATIVE | LCA_URGENT ;//| LCA_CHANGE_TO_HELP;
         if (!cancelRequest(ret)) {
-            latDist = latLaneDist;
+            latDist = amBlockingFollowerPlusNB() ? latLaneDist : myOrigLatDist;
             blocked = checkBlocking(neighLane, latDist, laneOffset,
                                     leaders, followers, blockers,
                                     neighLeaders, neighFollowers, neighBlockers);
@@ -1449,6 +1457,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                        << " mySpeedGainL=" << mySpeedGainProbabilityLeft
                                        << " latDist=" << latDist
                                        << " latDistSublane=" << latDistSublane
+                                       << " origLatDist=" << myOrigLatDist
                                        << " myCanChangeFully=" << myCanChangeFully
                                        << " prevState=" << toString((LaneChangeAction)myPreviousState)
                                        << "\n";
