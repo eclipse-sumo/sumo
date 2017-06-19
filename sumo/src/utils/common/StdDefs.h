@@ -125,6 +125,9 @@ extern std::string gDebugSelectedVehicle;
 /// @brief discrds mantissa bits beyond the given number
 double truncate(double x, int fractionBits);
 
+/// @brief round to the given number of mantissa bits beyond the given number
+double roundBits(double x, int fractionBits);
+
 #endif
 
 /****************************************************************************/

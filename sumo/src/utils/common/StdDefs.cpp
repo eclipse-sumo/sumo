@@ -40,5 +40,9 @@ double truncate(double x, int fractionBits) {
     return ceil(x * (1 << fractionBits)) / (1 << fractionBits);
 }
 
+double roundBits(double x, int fractionBits) {
+    return round(x * (1 << fractionBits)) / (1 << fractionBits);
+}
+
 /****************************************************************************/
 
