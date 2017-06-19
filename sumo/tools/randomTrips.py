@@ -379,7 +379,7 @@ def main(options):
                         idx = generate_one(idx)
                         depart += options.period
                     else:
-                        # draw n times from a bernouli distribution
+                        # draw n times from a Bernoulli distribution
                         # for an average arrival rate of 1 / period
                         prob = 1.0 / options.period / options.binomial
                         for i in range(options.binomial):
@@ -393,7 +393,7 @@ def main(options):
         fouttrips.write("</routes>\n")
 
     if options.routefile:
-        args = [DUAROUTER, '-n', options.netfile, '-t', options.tripfile, '-o', options.routefile, '--ignore-errors',
+        args = [DUAROUTER, '-n', options.netfile, '-r', options.tripfile, '-o', options.routefile, '--ignore-errors',
                 '--begin', str(options.begin), '--end', str(options.end), '--no-step-log', '--no-warnings']
         if options.additional is not None:
             args += ['--additional-files', options.additional]

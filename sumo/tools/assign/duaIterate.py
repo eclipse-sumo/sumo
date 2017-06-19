@@ -198,10 +198,8 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
     if options.districts:
         print('        <additional-files value="%s"/>' %
               options.districts, file=fd)
-    if step == 0:
-        print('        <%s-files value="%s"/>' % (initial_type, file), file=fd)
-    else:
-        print('        <alternative-files value="%s"/>' % file, file=fd)
+    print('        <route-files value="%s"/>' % file, file=fd)
+    if step > 0:
         print('        <weights value="%s"/>' %
               get_weightfilename(options, step - 1, "dump"), file=fd)
     if options.ecomeasure:

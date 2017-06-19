@@ -49,13 +49,8 @@ def writeRouteConf(step, options, file, output):
     print("""<configuration>
     <input>
         <net-file value="%s"/>""" % options.net, file=fd)
-    if step == 0:
-        if options.flows:
-            print('        <flow-definition value="%s"/>' % file, file=fd)
-        else:
-            print('        <trip-defs value="%s"/>' % file, file=fd)
-    else:
-        print('        <alternatives value="%s"/>' % file, file=fd)
+    print('        <route-files value="%s"/>' % file, file=fd)
+    if step > 0:
         print('        <weights value="dump_%s_%s.xml"/>' % (
             step - 1, options.aggregation), file=fd)
     print("""    </input>
