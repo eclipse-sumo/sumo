@@ -371,6 +371,16 @@ MSNet::loadRoutes() {
 
 void
 MSNet::closeSimulation(SUMOTime start) {
+    myDetectorControl->close(myStep);
+    if (OptionsCont::getOptions().getBool("vehroute-output.write-unfinished")) {
+        MSDevice_Vehroutes::generateOutputForUnfinished();
+    }
+    if (OptionsCont::getOptions().getBool("tripinfo-output.write-unfinished")) {
+        MSDevice_Tripinfo::generateOutputForUnfinished();
+    }
+    if (OptionsCont::getOptions().isSet("chargingstations-output")) {
+        writeChargingStationOutput();
+    }
     if (myLogExecutionTime) {
         long duration = SysUtils::getCurrentMillis() - mySimBeginMillis;
         std::ostringstream msg;
@@ -422,16 +432,6 @@ MSNet::closeSimulation(SUMOTime start) {
             msg << MSDevice_Tripinfo::printStatistics();
         }
         WRITE_MESSAGE(msg.str());
-    }
-    myDetectorControl->close(myStep);
-    if (OptionsCont::getOptions().getBool("vehroute-output.write-unfinished")) {
-        MSDevice_Vehroutes::generateOutputForUnfinished();
-    }
-    if (OptionsCont::getOptions().getBool("tripinfo-output.write-unfinished")) {
-        MSDevice_Tripinfo::generateOutputForUnfinished();
-    }
-    if (OptionsCont::getOptions().isSet("chargingstations-output")) {
-        writeChargingStationOutput();
     }
 }
 
