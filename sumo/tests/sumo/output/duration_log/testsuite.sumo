@@ -10,3 +10,6 @@ upscale_with_flows
 vaporizer_on_depart_edge
 teleports_and_collisions
 statistics
+
+# include running vehicles in output
+statistics_running

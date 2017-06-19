@@ -1,0 +1,20 @@
+Loading net-file from 'net2.net.xml'... done (3ms).
+Loading done.
+Simulation started with time: 0.00
+Simulation ended at time: 45.00
+Reason: The final simulation step has been reached.
+Performance: 
+ Duration: 11ms
+ Real time factor: 4090.91
+ UPS: 89636.363636
+Vehicles: 
+ Inserted: 51 (Loaded: 90)
+ Running: 33
+ Waiting: 39
+Statistics (avg):
+ RouteLength: 189.16
+ Duration: 17.26
+ WaitingTime: 0.58
+ TimeLoss: 3.10
+ DepartDelay: 2.32
+
