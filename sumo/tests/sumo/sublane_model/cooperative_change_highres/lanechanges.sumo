@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Jun 19 15:31:53 2017 by SUMO Version dev-SVN-r24748
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <time>
+        <step-length value="0.2"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="0.2"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="merge" time="4.00" from="beg_0" to="beg_1" dir="1" speed="24.74" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
+    <change id="blocker1" time="5.60" from="beg_1" to="beg_2" dir="1" speed="27.78" reason="sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
+</lanechanges>
