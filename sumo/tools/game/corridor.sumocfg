@@ -7,6 +7,10 @@
         <additional-files value="input_additional.add.xml"/>
     </input>
 
+    <output>
+        <output-prefix value="corridor."/>
+    </output>
+
     <time>
         <begin value="0"/>
         <end value="600"/>
