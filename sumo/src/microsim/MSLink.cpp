@@ -324,9 +324,13 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
                         || (arrivalTime == i->second.arrivalTime && posLat > foe->getLateralPositionOnLane()))) {
                     if (blockedByFoe(i->first, i->second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, false,
                                      impatience, decel, waitingTime)) {
-                        //std::cout << SIMTIME << " blocked by " << foe->getID() << " arrival=" << arrivalTime << " foeArrival=" << i->second.arrivalTime << "\n";
+#ifdef MSLink_DEBUG_OPENED
+                        if (gDebugFlag1) std::cout << SIMTIME << " blocked by " << foe->getID() << " arrival=" << arrivalTime << " foeArrival=" << i->second.arrivalTime << "\n";
+#endif
                         if (collectFoes == 0) {
-                            //std::cout << " link=" << getViaLaneOrLane()->getID() << " blocked by sublaneFoe=" << foe->getID() << " foeLink=" << foeLink->getViaLaneOrLane()->getID() << " posLat=" << posLat << "\n";
+#ifdef MSLink_DEBUG_OPENED
+                            if (gDebugFlag1) std::cout << " link=" << getViaLaneOrLane()->getID() << " blocked by sublaneFoe=" << foe->getID() << " foeLink=" << foeLink->getViaLaneOrLane()->getID() << " posLat=" << posLat << "\n";
+#endif
                             return false;
                         } else {
                             collectFoes->push_back(i->first);

@@ -2005,7 +2005,6 @@ MSVehicle::executeMove() {
                             << " parallelLink=" << (parallelLink == 0 ? "NULL" : parallelLink->getViaLaneOrLane()->getID())
                             << " opened=" << opened
                             << "\n";
-                        gDebugFlag1 = false; // See MSLink_DEBUG_OPENED
                     }
 #endif
                 }
@@ -2313,6 +2312,7 @@ MSVehicle::executeMove() {
 #ifdef DEBUG_EXEC_MOVE
     if (DEBUG_COND) {
         std::cout << SIMTIME << " executeMove finished veh=" << getID() << " lane=" << myLane->getID() << " myPos=" << getPositionOnLane() << " myPosLat=" << getLateralPositionOnLane() << "\n";
+        gDebugFlag1 = false; // See MSLink_DEBUG_OPENED
     }
 #endif
     if (getLaneChangeModel().isOpposite()) {
