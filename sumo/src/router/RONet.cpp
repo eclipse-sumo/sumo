@@ -74,7 +74,10 @@ RONet::RONet()
       myHavePermissions(false),
       myNumInternalEdges(0),
       myErrorHandler(OptionsCont::getOptions().exists("ignore-errors")
-                     && OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+                     && OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+      myKeepVTypeDist(OptionsCont::getOptions().exists("keep-vtype-distributions")
+                     && OptionsCont::getOptions().getBool("keep-vtype-distributions"))
+      {
     if (myInstance != 0) {
         throw ProcessError("A network was already constructed.");
     }
@@ -422,9 +425,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                     pars->repetitionsDone++;
                     // try to build the vehicle
                     SUMOVTypeParameter* type = getVehicleTypeSecure(pars->vtypeid);
-                    if (type == 0) {
-                        type = getVehicleTypeSecure(DEFAULT_VTYPE_ID);
-                    } else {
+                    if (!myKeepVTypeDist) {
                         // fix the type id in case we used a distribution
                         newPars->vtypeid = type->id;
                     }

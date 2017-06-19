@@ -178,6 +178,12 @@ protected:
     /// @brief Depending on the "ignore-errors" option different outputs are used
     MsgHandler* const myErrorOutput;
 
+    /// @brief The begin time
+    const SUMOTime myBegin;
+
+    /// @brief whether to keep the the vtype distribution in output
+    const bool myKeepVTypeDist;
+
     /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
     RandomDistributor<SUMOVTypeParameter*>* myCurrentVTypeDistribution;
 

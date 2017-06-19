@@ -582,6 +582,9 @@ private:
     /// @brief handler for ignorable error messages
     MsgHandler* myErrorHandler;
 
+    /// @brief whether to keep the the vtype distribution in output
+    const bool myKeepVTypeDist;
+
 #ifdef HAVE_FOX
 private:
     class RoutingTask : public FXWorkerThread::Task {

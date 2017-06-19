@@ -69,6 +69,8 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myTryRepair(tryRepair),
     myEmptyDestinationsAllowed(emptyDestinationsAllowed),
     myErrorOutput(ignoreErrors ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+    myBegin(string2time(OptionsCont::getOptions().getString("begin"))),
+    myKeepVTypeDist(OptionsCont::getOptions().getBool("keep-vtype-distributions")),
     myCurrentVTypeDistribution(0),
     myCurrentAlternatives(0) {
     myActiveRoute.reserve(100);
@@ -253,8 +255,13 @@ RORouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
             const std::string vTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, myCurrentVTypeDistributionID.c_str(), ok);
             StringTokenizer st(vTypes);
             while (st.hasNext()) {
-                SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(st.next());
-                myCurrentVTypeDistribution->add(type, 1.);
+                const std::string typeID = st.next();
+                SUMOVTypeParameter* const type = myNet.getVehicleTypeSecure(typeID);
+                if (type == 0) {
+                    myErrorOutput->inform("Unknown vehicle type '" + typeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
+                } else {
+                    myCurrentVTypeDistribution->add(type, 1.);
+                }
             }
         }
     }
@@ -464,7 +471,7 @@ RORouteHandler::closeRouteDistribution() {
 void
 RORouteHandler::closeVehicle() {
     // get the vehicle id
-    if (myVehicleParameter->departProcedure == DEPART_GIVEN && myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin"))) {
+    if (myVehicleParameter->departProcedure == DEPART_GIVEN && myVehicleParameter->depart < myBegin) {
         return;
     }
     // get vehicle type
@@ -473,8 +480,10 @@ RORouteHandler::closeVehicle() {
         myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
         type = myNet.getVehicleTypeSecure(DEFAULT_VTYPE_ID);
     } else {
-        // fix the type id in case we used a distribution
-        myVehicleParameter->vtypeid = type->id;
+        if (!myKeepVTypeDist) {
+            // fix the type id in case we used a distribution
+            myVehicleParameter->vtypeid = type->id;
+        }
     }
     if (type->vehicleClass == SVC_PEDESTRIAN) {
         WRITE_WARNING("Vehicle type '" + type->id + "' with vClass=pedestrian should only be used for persons and not for vehicle '" + myVehicleParameter->id + "'.");
@@ -539,7 +548,7 @@ RORouteHandler::closeFlow() {
     }
     // let's check whether vehicles had to depart before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
-    const SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
+    const SUMOTime offsetToBegin = myBegin - myVehicleParameter->depart;
     while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
         myVehicleParameter->repetitionsDone++;
         if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {
