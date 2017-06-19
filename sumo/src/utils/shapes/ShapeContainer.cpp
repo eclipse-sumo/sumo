@@ -38,13 +38,11 @@
 #include <string>
 #include <cmath>
 #include <utils/common/NamedObjectCont.h>
-#include <utils/shapes/PointOfInterest.h>
-#include <utils/shapes/Polygon.h>
-#include <utils/shapes/ShapeContainer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StdDefs.h>
+#include "ShapeContainer.h"
 
 
 // ===========================================================================
@@ -59,7 +57,7 @@ ShapeContainer::addPolygon(const std::string& id, const std::string& type,
                            const RGBColor& color, double layer,
                            double angle, const std::string& imgFile,
                            const PositionVector& shape, bool fill, bool ignorePruning) {
-    return add(new SUMO::Polygon(id, type, color, shape, fill, layer, angle, imgFile), ignorePruning);
+    return add(new SUMOPolygon(id, type, color, shape, fill, layer, angle, imgFile), ignorePruning);
 }
 
 
@@ -95,7 +93,7 @@ ShapeContainer::movePOI(const std::string& id, const Position& pos) {
 
 void
 ShapeContainer::reshapePolygon(const std::string& id, const PositionVector& shape) {
-    SUMO::Polygon* p = myPolygons.get(id);
+    SUMOPolygon* p = myPolygons.get(id);
     if (p != 0) {
         p->setShape(shape);
     }
@@ -103,7 +101,7 @@ ShapeContainer::reshapePolygon(const std::string& id, const PositionVector& shap
 
 
 bool
-ShapeContainer::add(SUMO::Polygon* poly, bool /* ignorePruning */) {
+ShapeContainer::add(SUMOPolygon* poly, bool /* ignorePruning */) {
     if (!myPolygons.add(poly->getID(), poly)) {
         delete poly;
         return false;

@@ -35,11 +35,17 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <utils/shapes/Polygon.h>
-#include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
-#include <utils/geom/Boundary.h>
-#include <utils/common/UtilExceptions.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class Boundary;
+class SUMOPolygon;
+class PointOfInterest;
+class OptionsCont;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -77,7 +83,7 @@ public:
      * @param[in] ignorePruning Whether the polygon shall be kept, even though it would be pruned
      * @return Whether the polygon could be added
      */
-    bool add(SUMO::Polygon* poly, bool ignorePruning = false);
+    bool add(SUMOPolygon* poly, bool ignorePruning = false);
 
 
     /** @brief Adds a poi to the storage

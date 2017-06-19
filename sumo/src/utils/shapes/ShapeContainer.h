@@ -35,7 +35,7 @@
 #include <string>
 #include <utils/common/NamedObjectCont.h>
 #include "PointOfInterest.h"
-#include "Polygon.h"
+#include "SUMOPolygon.h"
 
 
 // ===========================================================================
@@ -54,7 +54,7 @@ public:
     /// @brief Destructor
     virtual ~ShapeContainer();
 
-    typedef NamedObjectCont< SUMO::Polygon* > Polygons;
+    typedef NamedObjectCont< SUMOPolygon* > Polygons;
     typedef NamedObjectCont< PointOfInterest*> POIs;
 
     /** @brief Builds a polygon using the given values and adds it to the container
@@ -136,7 +136,7 @@ public:
 
 
 protected:
-    virtual bool add(SUMO::Polygon* poly, bool ignorePruning = false);
+    virtual bool add(SUMOPolygon* poly, bool ignorePruning = false);
     virtual bool add(PointOfInterest* poi, bool ignorePruning = false);
 
 

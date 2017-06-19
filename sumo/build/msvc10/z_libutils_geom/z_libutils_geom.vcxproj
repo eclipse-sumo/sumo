@@ -170,7 +170,7 @@
     <ClCompile Include="..\..\..\src\utils\geom\GeomConvHelper.cpp" />
     <ClCompile Include="..\..\..\src\utils\geom\GeomHelper.cpp" />
     <ClCompile Include="..\..\..\src\utils\geom\Position.cpp" />
-    <ClCompile Include="..\..\..\src\utils\shapes\Polygon.cpp" />
+    <ClCompile Include="..\..\..\src\utils\shapes\SUMOPolygon.cpp" />
     <ClCompile Include="..\..\..\src\utils\geom\PositionVector.cpp" />
     <ClCompile Include="..\..\..\src\utils\shapes\Shape.cpp" />
     <ClCompile Include="..\..\..\src\utils\shapes\ShapeContainer.cpp" />
@@ -185,7 +185,7 @@
     <ClInclude Include="..\..\..\src\utils\geom\GeomConvHelper.h" />
     <ClInclude Include="..\..\..\src\utils\geom\GeomHelper.h" />
     <ClInclude Include="..\..\..\src\utils\shapes\PointOfInterest.h" />
-    <ClInclude Include="..\..\..\src\utils\shapes\Polygon.h" />
+    <ClInclude Include="..\..\..\src\utils\shapes\SUMOPolygon.h" />
     <ClInclude Include="..\..\..\src\utils\geom\Position.h" />
     <ClInclude Include="..\..\..\src\utils\geom\PositionVector.h" />
     <ClInclude Include="..\..\..\src\utils\shapes\Shape.h" />

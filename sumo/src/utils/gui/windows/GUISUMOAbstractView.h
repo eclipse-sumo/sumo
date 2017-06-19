@@ -51,7 +51,6 @@
 #include <utils/geom/Position.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/shapes/Polygon.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <foreign/rtree/SUMORTree.h>
 

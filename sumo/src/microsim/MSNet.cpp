@@ -60,7 +60,6 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/shapes/Polygon.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/vehicle/PedestrianRouter.h>
 #include <utils/xml/SUMORouteLoaderControl.h>

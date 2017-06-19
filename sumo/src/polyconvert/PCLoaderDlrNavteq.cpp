@@ -253,7 +253,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
             color = c;
         }
         if (!discard) {
-            SUMO::Polygon* poly = new SUMO::Polygon(name, type, color, vec, fill, layer);
+            SUMOPolygon* poly = new SUMOPolygon(name, type, color, vec, fill, layer);
             toFill.add(poly);
         }
         vec.clear();

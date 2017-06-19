@@ -39,7 +39,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
-#include <utils/shapes/Polygon.h>
+#include <utils/shapes/SUMOPolygon.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/options/OptionsCont.h>
@@ -63,7 +63,7 @@ PCPolyContainer::~PCPolyContainer() {
 
 
 bool
-PCPolyContainer::add(SUMO::Polygon* poly, bool ignorePruning) {
+PCPolyContainer::add(SUMOPolygon* poly, bool ignorePruning) {
     // check whether the polygon lies within the wished area
     //  - if such an area was given
     if (myDoPrune && !ignorePruning) {
@@ -122,7 +122,7 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
         GeoConvHelper::writeLocation(out);
     }
     // write polygons
-    for (std::map<std::string, SUMO::Polygon*>::const_iterator i = myPolygons.getMyMap().begin(); i != myPolygons.getMyMap().end(); ++i) {
+    for (std::map<std::string, SUMOPolygon*>::const_iterator i = myPolygons.getMyMap().begin(); i != myPolygons.getMyMap().end(); ++i) {
         i->second->writeXML(out, useGeo);
     }
     // write pois
@@ -193,7 +193,7 @@ PCPolyContainer::saveDlrTDP(const std::string& prefix) {
     // write format specifier
     out2 << "# ID\tCITY\tTYPE\tNAME\tgeo_x1\tgeo_y1\t[geo_x2 geo_y2 ...]\n";
     id = 0;
-    for (std::map<std::string, SUMO::Polygon*>::const_iterator i = myPolygons.getMyMap().begin(); i != myPolygons.getMyMap().end(); ++i) {
+    for (std::map<std::string, SUMOPolygon*>::const_iterator i = myPolygons.getMyMap().begin(); i != myPolygons.getMyMap().end(); ++i) {
         out2 << id << "\t";
         out2 << "" << "\t";
         out2 << i->second->getType() << "\t";

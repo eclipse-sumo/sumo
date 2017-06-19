@@ -166,7 +166,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return getMicrosimID();
             break;
         case SUMO_ATTR_TYPE:
-            return toString(Polygon::getType());
+            return toString(SUMOPolygon::getType());
             break;
         default:
             throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");

@@ -37,7 +37,6 @@
 
 #include <utils/common/StdDefs.h>
 #include <microsim/MSNet.h>
-#include <utils/shapes/Polygon.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <traci-server/lib/TraCI_Polygon.h>
 #include <traci-server/lib/TraCI.h>
@@ -247,7 +246,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
 bool
 TraCIServerAPI_Polygon::getShape(const std::string& id, PositionVector& shape) {
-    SUMO::Polygon* poly = getPolygon(id);
+    SUMOPolygon* poly = getPolygon(id);
     if (poly == 0) {
         return false;
     }
@@ -255,7 +254,7 @@ TraCIServerAPI_Polygon::getShape(const std::string& id, PositionVector& shape) {
     return true;
 }
 
-SUMO::Polygon*
+SUMOPolygon*
 TraCIServerAPI_Polygon::getPolygon(const std::string& id) {
     return MSNet::getInstance()->getShapeContainer().getPolygons().get(id);
 }
@@ -264,8 +263,8 @@ NamedRTree*
 TraCIServerAPI_Polygon::getTree() {
     NamedRTree* t = new NamedRTree();
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    const std::map<std::string, SUMO::Polygon*>& polygons = shapeCont.getPolygons().getMyMap();
-    for (std::map<std::string, SUMO::Polygon*>::const_iterator i = polygons.begin(); i != polygons.end(); ++i) {
+    const std::map<std::string, SUMOPolygon*>& polygons = shapeCont.getPolygons().getMyMap();
+    for (std::map<std::string, SUMOPolygon*>::const_iterator i = polygons.begin(); i != polygons.end(); ++i) {
         Boundary b = (*i).second->getShape().getBoxBoundary();
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};

@@ -171,7 +171,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     }
                     shape.push_back_noDoublePos(pos);
                 }
-                SUMO::Polygon* poly = new SUMO::Polygon(id, type, color, shape, fill, layer);
+                SUMOPolygon* poly = new SUMOPolygon(id, type, color, shape, fill, layer);
                 if (toFill.add(poly)) {
                     parCont.push_back(poly);
                 }
@@ -188,7 +188,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     }
                     shape.push_back_noDoublePos(pos);
                 }
-                SUMO::Polygon* poly = new SUMO::Polygon(id, type, color, shape, fill, layer);
+                SUMOPolygon* poly = new SUMOPolygon(id, type, color, shape, fill, layer);
                 if (toFill.add(poly)) {
                     parCont.push_back(poly);
                 }
@@ -224,7 +224,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                         }
                         shape.push_back_noDoublePos(pos);
                     }
-                    SUMO::Polygon* poly = new SUMO::Polygon(tid, type, color, shape, fill, layer);
+                    SUMOPolygon* poly = new SUMOPolygon(tid, type, color, shape, fill, layer);
                     if (toFill.add(poly)) {
                         parCont.push_back(poly);
                     }
@@ -245,7 +245,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                         }
                         shape.push_back_noDoublePos(pos);
                     }
-                    SUMO::Polygon* poly = new SUMO::Polygon(tid, type, color, shape, fill, layer);
+                    SUMOPolygon* poly = new SUMOPolygon(tid, type, color, shape, fill, layer);
                     if (toFill.add(poly)) {
                         parCont.push_back(poly);
                     }

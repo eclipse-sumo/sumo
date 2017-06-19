@@ -22,15 +22,32 @@
 #ifndef SUMO_TRACI_POLYGON_H
 #define SUMO_TRACI_POLYGON_H
 
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <string>
 #include <vector>
 #include <traci-server/TraCIDefs.h>
-#include <utils/shapes/Polygon.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class SUMOPolygon;
+
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class TraCI_Polygon {
-
 public:
-
-
     static std::vector<std::string> getIDList();
     static std::string getType(const std::string& polygonID);
     static TraCIPositionVector getShape(const std::string& polygonID);
@@ -51,7 +68,7 @@ public:
     static void setParameter(std::string& name, std::string& value, std::string& string);
 private:
 
-    static SUMO::Polygon* getPolygon(const std::string& id);
+    static SUMOPolygon* getPolygon(const std::string& id);
 
     /// @brief invalidated standard constructor
     TraCI_Polygon();

@@ -33,14 +33,13 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
-#include "Polygon.h"
-using namespace SUMO;
+#include "SUMOPolygon.h"
 
 
 // ===========================================================================
 // member definitions
 // ===========================================================================
-Polygon::Polygon(const std::string& id, const std::string& type,
+SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type,
                  const RGBColor& color, const PositionVector& shape, bool fill,
                  double layer, double angle, const std::string& imgFile) :
     Shape(id, type, color, layer, angle, imgFile),
@@ -49,11 +48,11 @@ Polygon::Polygon(const std::string& id, const std::string& type,
 }
 
 
-Polygon::~Polygon() {}
+SUMOPolygon::~SUMOPolygon() {}
 
 
 void
-Polygon::writeXML(OutputDevice& out, bool geo) {
+SUMOPolygon::writeXML(OutputDevice& out, bool geo) {
     out.openTag(SUMO_TAG_POLY);
     out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
     out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getType()));
@@ -78,5 +77,5 @@ Polygon::writeXML(OutputDevice& out, bool geo) {
     out.closeTag();
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

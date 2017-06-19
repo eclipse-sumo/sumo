@@ -21,7 +21,7 @@
 
 
 #include <microsim/MSNet.h>
-#include <utils/shapes/Polygon.h>
+#include <utils/shapes/SUMOPolygon.h>
 #include <utils/shapes/ShapeContainer.h>
 
 #include "TraCI_Polygon.h"
@@ -37,21 +37,21 @@ std::string TraCI_Polygon::getType(const std::string& polygonID) {
     return getPolygon(polygonID)->getType();
 }
 TraCIPositionVector TraCI_Polygon::getShape(const std::string& polygonID) {
-    SUMO::Polygon* p = getPolygon(polygonID);
+    SUMOPolygon* p = getPolygon(polygonID);
     return TraCI::makeTraCIPositionVector(p->getShape());
 }
 bool TraCI_Polygon::getFilled(const std::string& polygonID) {
     return getPolygon(polygonID)->getFill();
 }
 TraCIColor TraCI_Polygon::getColor(const std::string& polygonID) {
-    SUMO::Polygon* p = getPolygon(polygonID);
+    SUMOPolygon* p = getPolygon(polygonID);
     return TraCI::makeTraCIColor(p->getColor());
 }
 std::string TraCI_Polygon::getParameter(const std::string& polygonID, const std::string& paramName) {
     return getPolygon(polygonID)->getParameter(paramName, "");
 }
 void TraCI_Polygon::setType(const std::string& polygonID, const std::string& setType) {
-    SUMO::Polygon* p = getPolygon(polygonID);
+    SUMOPolygon* p = getPolygon(polygonID);
     p->setType(setType);
 }
 void TraCI_Polygon::setShape(const std::string& polygonID, const TraCIPositionVector& shape) {
@@ -81,19 +81,19 @@ void TraCI_Polygon::remove(const std::string& polygonID, int /* layer */) {
 }
 
 void TraCI_Polygon::setFilled(std::string polygonID, bool filled) {
-    SUMO::Polygon* p = getPolygon(polygonID);
+    SUMOPolygon* p = getPolygon(polygonID);
     p->setFill(filled);
 }
 
-SUMO::Polygon* TraCI_Polygon::getPolygon(const std::string& id) {
-    SUMO::Polygon* p = MSNet::getInstance()->getShapeContainer().getPolygons().get(id);
+SUMOPolygon* TraCI_Polygon::getPolygon(const std::string& id) {
+    SUMOPolygon* p = MSNet::getInstance()->getShapeContainer().getPolygons().get(id);
     if (p == 0) {
         throw TraCIException("Polygon '" + id +  "' is not known");
     }
     return p;
 }
 void TraCI_Polygon::setParameter(std::string& id, std::string& name, std::string& value) {
-    SUMO::Polygon* p = getPolygon(id);
+    SUMOPolygon* p = getPolygon(id);
     p->addParameter(name, value);
 }
 

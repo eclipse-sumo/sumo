@@ -38,7 +38,6 @@
 #include <utils/geom/Position.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/shapes/Polygon.h>
 #include "GUISUMOViewParent.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 

@@ -44,9 +44,6 @@
 class OutputDevice;
 
 
-// we need to put this into a namespace to avoid clashing with wingdi.h::Polygon function
-namespace SUMO {
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -54,7 +51,7 @@ namespace SUMO {
  * @class Polygon
  * @brief A 2D- or 3D-polygon
  */
-class Polygon : public Shape, public Parameterised {
+class SUMOPolygon : public Shape, public Parameterised {
 public:
     /** @brief Constructor
      * @param[in] id The name of the polygon
@@ -66,7 +63,7 @@ public:
      * @param[in] shape The shape of the polygon
      * @param[in] fill Whether the polygon shall be filled
      */
-    Polygon(const std::string& id, const std::string& type,
+    SUMOPolygon(const std::string& id, const std::string& type,
             const RGBColor& color, const PositionVector& shape, bool fill,
             double layer = DEFAULT_LAYER,
             double angle = DEFAULT_ANGLE,
@@ -74,7 +71,7 @@ public:
 
 
     /// @brief Destructor
-    virtual ~Polygon();
+    virtual ~SUMOPolygon();
 
 
 
@@ -132,9 +129,7 @@ protected:
 
 };
 
-}
 
 #endif
 
 /****************************************************************************/
-

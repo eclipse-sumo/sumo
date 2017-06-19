@@ -87,7 +87,7 @@ private:
      * @param[in] id The id of the searched polygon
      * @return The named polygon, or 0 if it is not known
      */
-    static SUMO::Polygon* getPolygon(const std::string& id);
+    static SUMOPolygon* getPolygon(const std::string& id);
 
 
 private:

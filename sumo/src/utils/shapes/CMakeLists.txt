@@ -2,8 +2,8 @@ set(utils_shapes_STAT_SRCS
    PointOfInterest.h
    Shape.cpp
    Shape.h
-   Polygon.cpp
-   Polygon.h
+   SUMOPolygon.cpp
+   SUMOPolygon.h
    ShapeHandler.cpp
    ShapeHandler.h
    ShapeContainer.cpp

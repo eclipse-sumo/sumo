@@ -29,7 +29,7 @@
     <ClCompile Include="..\..\..\src\utils\geom\GeomHelper.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\shapes\Polygon.cpp">
+    <ClCompile Include="..\..\..\src\utils\shapes\SUMOPolygon.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\utils\geom\PositionVector.cpp">
@@ -73,7 +73,7 @@
     <ClInclude Include="..\..\..\src\utils\shapes\PointOfInterest.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\shapes\Polygon.h">
+    <ClInclude Include="..\..\..\src\utils\shapes\SUMOPolygon.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\geom\Position.h">

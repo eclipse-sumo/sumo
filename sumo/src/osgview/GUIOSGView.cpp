@@ -84,7 +84,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/shapes/Polygon.h>
 #include <gui/GUISUMOViewParent.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include "GUIOSGBuilder.h"

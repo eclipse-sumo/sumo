@@ -48,7 +48,7 @@
 GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
                        const RGBColor& color, const PositionVector& shape, bool fill,
                        double layer, double angle, const std::string& imgFile):
-    Polygon(id, type, color, shape, fill, layer, angle, imgFile),
+    SUMOPolygon(id, type, color, shape, fill, layer, angle, imgFile),
     GUIGlObject_AbstractAdd("poly", GLO_POLYGON, id),
     myDisplayList(0),
     myLineWidth(1) // m
@@ -218,7 +218,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
 void
 GUIPolygon::setShape(const PositionVector& shape) {
     AbstractMutex::ScopedLocker locker(myLock);
-    Polygon::setShape(shape);
+    SUMOPolygon::setShape(shape);
     //storeTesselation(myLineWidth);
 }
 

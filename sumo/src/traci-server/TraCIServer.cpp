@@ -61,7 +61,6 @@
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
-#include <utils/shapes/Polygon.h>
 #include <utils/xml/XMLSubSys.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleControl.h>

@@ -34,11 +34,11 @@
 
 #include <string>
 #include <utils/foxtools/MFXMutex.h>
-#include <utils/shapes/Polygon.h>
+#include <utils/shapes/SUMOPolygon.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
-using namespace SUMO;
+
 
 // ===========================================================================
 // class definitions
@@ -47,7 +47,7 @@ using namespace SUMO;
  * @class GUIPolygon
  * @brief The GUI-version of a polygon
  */
-class GUIPolygon : public Polygon, public GUIGlObject_AbstractAdd {
+class GUIPolygon : public SUMOPolygon, public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
      * @param[in] id The name of the polygon
