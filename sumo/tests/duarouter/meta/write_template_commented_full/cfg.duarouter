@@ -24,14 +24,11 @@
         <!-- Use FILE as SUMO-network to route on -->
         <net-file value="" synonymes="n net" type="FILE"/>
 
-        <!-- Read additional network data (districts, bus stops) from FILE -->
-        <additional-files value="" synonymes="additional d districts taz-files" type="FILE"/>
+        <!-- Read additional network data (districts, bus stops) from FILE(s) -->
+        <additional-files value="" synonymes="a additional d districts taz-files" type="FILE"/>
 
-        <!-- Read alternatives from FILE -->
-        <alternative-files value="" synonymes="a alternatives alternatives-files" type="FILE"/>
-
-        <!-- Read flow-definitions from FILE(s) -->
-        <flow-files value="" synonymes="f flow-definition flows" type="FILE"/>
+        <!-- Read sumo routes, alternatives, flows, and trips from FILE(s) -->
+        <route-files value="" synonymes="alternative-files alternatives-files f flow-files flows r t trip-files trips" type="FILE"/>
 
         <!-- Read network weights from FILE(s) -->
         <weight-files value="" synonymes="w weights" type="FILE"/>
@@ -44,12 +41,6 @@
 
         <!-- Determines where to load PHEMlight definitions from. -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
-
-        <!-- Read trip-definitions from FILE(s) -->
-        <trip-files value="" synonymes="t trip-defs trips" type="FILE"/>
-
-        <!-- Read sumo-routes from FILE(s) -->
-        <route-files value="" synonymes="r sumo sumo-input" type="FILE"/>
 
     </input>
 
@@ -68,6 +59,9 @@
 
         <!-- Write used vehicle types into separate FILE -->
         <vtype-output value="" synonymes="vtype" type="FILE"/>
+
+        <!-- Keep vTypeDistribution ids when writing vehicles and their types -->
+        <keep-vtype-distributions value="false" type="BOOL"/>
 
         <!-- Write exit times (weights) for each edge -->
         <exit-times value="false" type="BOOL"/>
@@ -108,6 +102,15 @@
         <!-- Use origin and destination zones (districts) for in- and output -->
         <with-taz value="false" type="BOOL"/>
 
+        <!-- Aggregate routing queries with the same origin -->
+        <bulk-routing value="false" type="BOOL"/>
+
+        <!-- The number of parallel execution threads used for routing -->
+        <routing-threads value="0" type="INT"/>
+
+        <!-- Expand weights behind the simulation&apos;s end -->
+        <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>
+
         <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
 
@@ -119,15 +122,6 @@
 
         <!-- Initialize lookup table for astar ALT-variant from the given file -->
         <astar.landmark-distances value="" type="FILE"/>
-
-        <!-- Aggregate routing queries with the same origin -->
-        <bulk-routing value="false" type="BOOL"/>
-
-        <!-- The number of parallel execution threads used for routing -->
-        <routing-threads value="0" type="INT"/>
-
-        <!-- Expand weights behind the simulation&apos;s end -->
-        <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>
 
         <!-- Use FLOAT as Gawron&apos;s beta -->
         <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT"/>

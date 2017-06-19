@@ -207,11 +207,8 @@ if sys.argv[1] == "sumo":
 elif sys.argv[1] == "dfrouter":
     call = [checkBinary('dfrouter'),
             "--detector-files", "input_additional.add.xml"]
-elif sys.argv[1] == "duarouter":
-    call = [checkBinary('duarouter'), "--no-step-log",
-            "-o", "dummy.xml", "-t", "input_additional.add.xml"]
-elif sys.argv[1] == "jtrrouter":
-    call = [checkBinary('jtrrouter'), "--no-step-log",
+elif sys.argv[1] == "duarouter" or sys.argv[1] == "jtrrouter":
+    call = [checkBinary(sys.argv[1]), "--no-step-log",
             "-o", "dummy.xml", "-a", "input_additional.add.xml"]
 else:
     print("Unsupported application defined", file=sys.stderr)

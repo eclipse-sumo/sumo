@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r24140
+SUMO duarouter Version dev-SVN-r24744
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
@@ -15,10 +15,10 @@ Configuration Options:
 
 Input Options:
   -n, --net-file FILE                Use FILE as SUMO-network to route on
-  -d, --additional-files FILE        Read additional network data (districts,
-                                       bus stops) from FILE
-  -a, --alternative-files FILE       Read alternatives from FILE
-  -f, --flow-files FILE              Read flow-definitions from FILE(s)
+  -a, --additional-files FILE        Read additional network data (districts,
+                                       bus stops) from FILE(s)
+  -r, --route-files FILE             Read sumo routes, alternatives, flows, and
+                                       trips from FILE(s)
   -w, --weight-files FILE            Read network weights from FILE(s)
   --lane-weight-files FILE           Read lane-based network weights from
                                        FILE(s)
@@ -26,8 +26,6 @@ Input Options:
                                        edge weight
   --phemlight-path FILE              Determines where to load PHEMlight
                                        definitions from.
-  -t, --trip-files FILE              Read trip-definitions from FILE(s)
-  -r, --route-files FILE             Read sumo-routes from FILE(s)
 
 Output Options:
   --output-prefix STR                Prefix which is applied to all output
@@ -40,6 +38,8 @@ Output Options:
   -o, --output-file FILE             Write generated routes to FILE
   --vtype-output FILE                Write used vehicle types into separate
                                        FILE
+  --keep-vtype-distributions         Keep vTypeDistribution ids when writing
+                                       vehicles and their types
   --exit-times                       Write exit times (weights) for each edge
 
 Processing Options:
@@ -63,6 +63,11 @@ Processing Options:
                                        boundaries
   --with-taz                         Use origin and destination zones
                                        (districts) for in- and output
+  --bulk-routing                     Aggregate routing queries with the same
+                                       origin
+  --routing-threads INT              The number of parallel execution threads
+                                       used for routing
+  --weights.expand                   Expand weights behind the simulation's end
   --routing-algorithm STR            Select among routing algorithms
                                        ['dijkstra', 'astar', 'CH', 'CHWrapper']
   --weight-period TIME               Aggregation period for the given weight
@@ -74,11 +79,6 @@ Processing Options:
                                        --all-pairs-output)
   --astar.landmark-distances FILE    Initialize lookup table for astar
                                        ALT-variant from the given file
-  --bulk-routing                     Aggregate routing queries with the same
-                                       origin
-  --routing-threads INT              The number of parallel execution threads
-                                       used for routing
-  --weights.expand                   Expand weights behind the simulation's end
   --gawron.beta FLOAT                Use FLOAT as Gawron's beta
   --gawron.a FLOAT                   Use FLOAT as Gawron's a
   --keep-all-routes                  Save routes with near zero probability

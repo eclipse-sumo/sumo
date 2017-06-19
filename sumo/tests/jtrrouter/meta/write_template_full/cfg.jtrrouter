@@ -12,9 +12,8 @@
 
     <input>
         <net-file value="" synonymes="n net" type="FILE" help="Use FILE as SUMO-network to route on"/>
-        <additional-files value="" synonymes="additional d districts taz-files" type="FILE" help="Read additional network data (districts, bus stops) from FILE"/>
-        <alternative-files value="" synonymes="a alternatives alternatives-files" type="FILE" help="Read alternatives from FILE"/>
-        <flow-files value="" synonymes="f flow-definition flows" type="FILE" help="Read flow-definitions from FILE(s)"/>
+        <additional-files value="" synonymes="a additional d districts taz-files" type="FILE" help="Read additional network data (districts, bus stops) from FILE(s)"/>
+        <route-files value="" synonymes="alternative-files alternatives-files f flow-files flows r trip-files trips" type="FILE" help="Read sumo routes, alternatives, flows, and trips from FILE(s)"/>
         <turn-ratio-files value="" synonymes="t turns" type="FILE" help="Read turning ratios from FILE(s)"/>
     </input>
 
@@ -24,6 +23,7 @@
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
         <output-file value="" synonymes="o output" type="FILE" help="Write generated routes to FILE"/>
         <vtype-output value="" synonymes="vtype" type="FILE" help="Write used vehicle types into separate FILE"/>
+        <keep-vtype-distributions value="false" type="BOOL" help="Keep vTypeDistribution ids when writing vehicles and their types"/>
         <exit-times value="false" type="BOOL" help="Write exit times (weights) for each edge"/>
     </output>
 
