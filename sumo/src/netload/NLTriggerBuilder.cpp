@@ -224,8 +224,10 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
     if (!ok || !myHandler->checkStopPos(pos, pos, lane->getLength(), 0, friendlyPos)) {
         throw InvalidArgument("Invalid position for access in stop '" + myCurrentStop->getID() + "'.");
     }
-    // build the bus stop
-    myCurrentStop->addAccess(lane, pos);
+    // add bus stop access
+    if (myCurrentStop != 0) {
+        myCurrentStop->addAccess(lane, pos);
+    }
 }
 
 
@@ -433,6 +435,7 @@ NLTriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std
     const bool success = element == SUMO_TAG_CONTAINER_STOP ? net.addContainerStop(myCurrentStop) : net.addBusStop(myCurrentStop);
     if (!success) {
         delete myCurrentStop;
+        myCurrentStop = 0;
         throw InvalidArgument("Could not build " + toString(element) + " '" + id + "'; probably declared twice.");
     }
 }
