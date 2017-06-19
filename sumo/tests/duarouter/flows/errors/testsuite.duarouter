@@ -1,3 +1,6 @@
+# unknown vehicle type in distribution
+false_vehtype_dist
+
 # Vehicle's departlane is false
 vehicle_false_departlane
 
@@ -16,7 +19,6 @@ vehicle_false_arrivalpos
 # Vehicle's arrivalspeed is false
 vehicle_false_arrivalspeed
 
-
 # Vehicle's departlane is empty
 vehicle_empty_departlane
 
@@ -34,4 +36,3 @@ vehicle_empty_arrivalpos
 
 # Vehicle's arrivalspeed is empty
 vehicle_empty_arrivalspeed
-

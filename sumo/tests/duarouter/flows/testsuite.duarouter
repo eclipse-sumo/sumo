@@ -62,5 +62,11 @@ containerStop
 # same as noid_increasing_time, but a non-standard vehicle type is used but not defined
 with_vehtype_nodef
 
+# same as noid_increasing_time, but a vehicle type distribution is used
+with_vehtype_dist
+
+# same as noid_increasing_time, but a vehicle type distribution is used and written
+with_vehtype_keepdist
+
 # Tests with false user input
 errors
