@@ -536,7 +536,7 @@ private:
 
     static bool myImportAllTypes;
     static bool myImportWidths;
-    static bool myMinWidth;
+    static double myMinWidth;
 
 
 protected:

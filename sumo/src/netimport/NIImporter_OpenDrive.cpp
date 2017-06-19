@@ -143,7 +143,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
 
 bool NIImporter_OpenDrive::myImportAllTypes;
 bool NIImporter_OpenDrive::myImportWidths;
-bool NIImporter_OpenDrive::myMinWidth;
+double NIImporter_OpenDrive::myMinWidth;
 
 // ===========================================================================
 // method definitions
@@ -408,7 +408,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         sumoLane.speed = odLane.speed != 0 ? odLane.speed : tc.getSpeed(odLane.type);
                         sumoLane.permissions = tc.getPermissions(odLane.type);
                         sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getWidth(odLane.type);
-                        if (sumoLane.width < myMinWidth) {
+                        if (sumoLane.width < myMinWidth 
+                                && sumoLane.permissions != SVC_BICYCLE 
+                                && sumoLane.permissions != SVC_PEDESTRIAN 
+                                && sumoLane.width < tc.getWidth(odLane.type)) {
                             sumoLane.permissions = 0;
                         }
                     }
@@ -448,7 +451,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         sumoLane.speed = odLane.speed != 0 ? odLane.speed : tc.getSpeed(odLane.type);
                         sumoLane.permissions = tc.getPermissions(odLane.type);
                         sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getWidth(odLane.type);
-                        if (sumoLane.width < myMinWidth) {
+                        if (sumoLane.width < myMinWidth 
+                                && sumoLane.permissions != SVC_BICYCLE 
+                                && sumoLane.permissions != SVC_PEDESTRIAN 
+                                && sumoLane.width < tc.getWidth(odLane.type)) {
                             sumoLane.permissions = 0;
                         }
                     }
@@ -1775,7 +1781,8 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
 {
     for (std::vector<OpenDriveLane>::iterator k = lanes.begin(); k != lanes.end(); ++k) {
         OpenDriveLane& l = *k;
-        if (l.widthData.size() > 0 && tc.knows(l.type) && !tc.getShallBeDiscarded(l.type) && tc.getPermissions(l.type) != 0) {
+        SVCPermissions permissions = tc.getPermissions(l.type) & ~(SVC_PEDESTRIAN | SVC_BICYCLE);
+        if (l.widthData.size() > 0 && tc.knows(l.type) && !tc.getShallBeDiscarded(l.type) && permissions != 0) {
             double sPrev = l.widthData.front().s;
             double wPrev = l.widthData.front().computeAt(0);
             /*
