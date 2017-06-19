@@ -33,6 +33,7 @@
 #include <config.h>
 #endif
 #include <string>
+#include <math.h>
 
 /* avoiding compiler warning unreferenced parameter */
 #define UNUSED_PARAMETER(x)  ((void)(x))
@@ -120,6 +121,9 @@ extern bool gDebugFlag3;
 extern bool gDebugFlag4;
 
 extern std::string gDebugSelectedVehicle;
+
+/// @brief discrds mantissa bits beyond the given number
+double truncate(double x, int fractionBits);
 
 #endif
 
