@@ -690,9 +690,12 @@ OptionsCont::printHelp(std::ostream& os) {
             // name, two leading spaces and "--"
             int csize = (int)j->length() + 2 + 4;
             // abbreviation length ("-X, "->4chars) if any
-            std::vector<std::string> synonymes = getSynonymes(*j);
-            if (find_if(synonymes.begin(), synonymes.end(), abbreviation_finder()) != synonymes.end()) {
-                csize += 4;
+            const std::vector<std::string> synonymes = getSynonymes(*j);
+            for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
+                if (s->length() == 1 && myDeprecatedSynonymes.count(*s) == 0) {
+                    csize += 4;
+                    break;
+                }
             }
             // the type name
             if (!o->isBool()) {
@@ -716,10 +719,12 @@ OptionsCont::printHelp(std::ostream& os) {
             os << "  ";
             // write abbreviation if given
             std::vector<std::string> synonymes = getSynonymes(*j);
-            std::vector<std::string>::iterator a = find_if(synonymes.begin(), synonymes.end(), abbreviation_finder());
-            if (a != synonymes.end()) {
-                os << '-' << (*a) << ", ";
-                csize += 4;
+            for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
+                if (s->length() == 1 && myDeprecatedSynonymes.count(*s) == 0) {
+                    os << '-' << *s << ", ";
+                    csize += 4;
+                    break;
+                }
             }
             // write leading '-'/"--"
             os << "--";

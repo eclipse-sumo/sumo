@@ -62,7 +62,7 @@ ROJTRFrame::fillOptions() {
     oc.addOptionSubTopic("Time");
     SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
-    ROFrame::fillOptions(oc, false);
+    ROFrame::fillOptions(oc);
 
     oc.doRegister("turn-ratio-files", 't', new Option_FileName());
     oc.addSynonyme("turn-ratio-files", "turns");

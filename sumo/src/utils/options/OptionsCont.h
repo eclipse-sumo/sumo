@@ -744,27 +744,6 @@ private:
 
 
 private:
-    /**
-     * @class abbreviation_finder
-     * @brief A class to find abbreviated option names (length=1)
-     */
-    class abbreviation_finder {
-    public:
-        /** constructor */
-        explicit abbreviation_finder() { }
-
-        /** @brief The comparing function
-         *
-         * @param[in] The option name
-         * @return Whether the length of the option name is 1
-         */
-        bool operator()(const std::string& s) {
-            return s.length() == 1;
-        }
-    };
-
-
-private:
     /** invalid copy constructor */
     OptionsCont(const OptionsCont& s);
 

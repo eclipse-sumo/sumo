@@ -160,16 +160,10 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
 void
 ROLoader::openRoutes(RONet& net) {
     // build loader
-    // load relevant elements from additinal file
+    // load relevant elements from additional file
     bool ok = openTypedRoutes("additional-files", net);
-    // load sumo-routes when wished
+    // load sumo routes, trips, and flows
     ok &= openTypedRoutes("route-files", net);
-    // load the XML-trip definitions when wished
-    ok &= openTypedRoutes("trip-files", net);
-    // load the sumo-alternative file when wished
-    ok &= openTypedRoutes("alternative-files", net);
-    // load the amount definitions if wished
-    ok &= openTypedRoutes("flow-files", net);
     // check
     if (ok) {
         myLoaders.loadNext(string2time(myOptions.getString("begin")));
