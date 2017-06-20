@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 19 15:35:50 2017 by SUMO netconvert Version dev-SVN-r24759
+<!-- generated on Tue Jun 20 09:41:36 2017 by SUMO netconvert Version dev-SVN-r24759
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -23,6 +23,10 @@
         <osm.stop-output.length value="200"/>
     </processing>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
@@ -37,7 +41,7 @@
     <busStop id="-14440262442" name="Hohkamp" lane="-30423733#1_0" startPos="289.59" endPos="398.72" friendlyPos="true"/>
     <busStop id="-14451836152" name="Neudammstraße" lane="-24236261#5_0" startPos="0.00" endPos="88.79" friendlyPos="true"/>
     <busStop id="-14451836153" name="Lammer Heide" lane="-189595213#0_0" startPos="0.00" endPos="39.29" friendlyPos="true"/>
-    <busStop id="1990326726" name="Rodedamm" lane="30423777_0" startPos="0.00" endPos="149.78" friendlyPos="true"/>
+    <busStop id="1990326726" name="Rodedamm" lane="-30423777_0" startPos="0.00" endPos="148.56" friendlyPos="true"/>
     <busStop id="2459586206" name="Lammer Busch" lane="238095542_0" startPos="0.00" endPos="70.07" friendlyPos="true"/>
     <busStop id="262412971" name="Backhausweg" lane="30423733#2_0" startPos="0.00" endPos="114.69" friendlyPos="true"/>
     <busStop id="262412992" name="Hohkamp" lane="30423733#1_0" startPos="0.00" endPos="117.58" friendlyPos="true"/>
