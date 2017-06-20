@@ -41,7 +41,9 @@ double truncate(double x, int fractionBits) {
 }
 
 double roundBits(double x, int fractionBits) {
-    return round(x * (1 << fractionBits)) / (1 << fractionBits);
+    const double x2 = x * (1 << fractionBits);
+    const double rounded = x2 < 0 ? ceil(x2 - 0.5) : floor(x2 + 0.5);
+    return rounded / (1 << fractionBits);
 }
 
 /****************************************************************************/
