@@ -67,7 +67,7 @@ int NUM_POINTS = 5;
 // ===========================================================================
 
 GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
-    GNENetElement(from->getNet(), from->getMicrosimID() + " -> " + to->getMicrosimID(),
+    GNENetElement(from->getNet(), "from" + from->getMicrosimID() + "to" + to->getMicrosimID(),
                   GLO_CONNECTION, SUMO_TAG_CONNECTION, ICON_CONNECTION),
     myFromLane(from),
     myToLane(to),
