@@ -45,6 +45,7 @@
 // 80km/h will be the threshold for dividing between long/short foresight
 #define LOOK_FORWARD_SPEED_DIVIDER (double)14.
 
+#define MAGIC_OFFSET  1.
 // VARIANT_1 (lf*2)
 //#define LOOK_FORWARD_FAR  30.
 //#define LOOK_FORWARD_NEAR 10.
@@ -253,14 +254,13 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
     int state = myOwnState;
 
     // letting vehicles merge in at the end of the lane in case of counter-lane change, step#2
-    double MAGIC_offset = 1.;
     //   if we want to change and have a blocking leader and there is enough room for him in front of us
     if (myLeadingBlockerLength != 0) {
-        double space = myLeftSpace - myLeadingBlockerLength - MAGIC_offset - myVehicle.getVehicleType().getMinGap();
+        double space = myLeftSpace - myLeadingBlockerLength - MAGIC_OFFSET - myVehicle.getVehicleType().getMinGap();
         if (gDebugFlag2) {
             std::cout << time << " veh=" << myVehicle.getID() << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
         }
-        if (space > 0) { // XXX space > -MAGIC_offset
+        if (space > 0) { // XXX space > -MAGIC_OFFSET
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
             double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
             // if we are approaching this place
@@ -677,6 +677,14 @@ MSLCM_SL2015::informLeaders(int blocked, int dir,
                             const std::vector<CLeaderDist>& blockers,
                             double remainingSeconds) {
     double plannedSpeed = myVehicle.getSpeed();
+    if (myLeadingBlockerLength != 0) {
+        // see patchSpeed @todo: refactor
+        double space = myLeftSpace - myLeadingBlockerLength - MAGIC_OFFSET - myVehicle.getVehicleType().getMinGap();
+        if (space > 0) {
+            double safe = myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
+            plannedSpeed = MIN2(plannedSpeed, safe);
+        }
+    }
     for (std::vector<CLeaderDist>::const_iterator it = blockers.begin(); it != blockers.end(); ++it) {
         plannedSpeed = MIN2(plannedSpeed, informLeader(blocked, dir, *it, remainingSeconds));
     }
