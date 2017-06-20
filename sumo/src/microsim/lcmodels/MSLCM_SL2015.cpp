@@ -1038,8 +1038,6 @@ MSLCM_SL2015::_wantsChangeSublane(
     }
     if ((ret & LCA_URGENT) != 0) {
         // prepare urgent lane change maneuver
-        // save the left space
-        myLeftSpace = currentDist - myVehicle.getPositionOnLane();
         if (changeToBest && abs(bestLaneOffset) > 1) {
             // there might be a vehicle which needs to counter-lane-change one lane further and we cannot see it yet
             myLeadingBlockerLength = MAX2((double)(right ? 20.0 : 40.0), myLeadingBlockerLength);
@@ -1974,10 +1972,12 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     const MSVehicle::LaneQ& neigh = preb[currIdx + laneOffset];
     const MSVehicle::LaneQ& best = preb[currIdx + bestLaneOffset];
 
+    myLeftSpace = currentDist - myVehicle.getPositionOnLane();
     const double usableDist = (currentDist - myVehicle.getPositionOnLane() - best.occupation *  JAM_FACTOR);
     //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
     const double maxJam = MAX2(preb[currIdx + laneOffset].occupation, preb[currIdx].occupation);
     const double neighLeftPlace = MAX2(0., neighDist - myVehicle.getPositionOnLane() - maxJam);
+    // save the left space
 
     if (gDebugFlag2) {
         std::cout << SIMTIME
@@ -2092,7 +2092,11 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             std::cout << " veh=" << myVehicle.getID() << " currentShadowDist=" << currentShadowDist << " requiredDist=" << requiredDist << " overlap=" << myVehicle.getLateralOverlap() << "\n";
         }
         if (currentShadowDist < requiredDist && currentShadowDist < usableDist) {
+            myLeftSpace = currentShadowDist;
             latDist = myVehicle.getLateralPositionOnLane() < 0 ? myVehicle.getLateralOverlap() : - myVehicle.getLateralOverlap();
+            if (gDebugFlag2) {
+                std::cout << "    must change for shadowLane end latDist=" << latDist << " myLeftSpace=" << myLeftSpace << "\n";
+            }
             ret |= LCA_STRATEGIC | LCA_URGENT | LCA_STAY ;
         }
     }
