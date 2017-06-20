@@ -299,22 +299,26 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     }
     const double requiredGap = veh->getCarFollowModel().getSecureGap(veh->getSpeed(), ego->getSpeed(), ego->getCarFollowModel().getMaxDecel());
     const double missingGap = requiredGap - gap;
-    //if (gDebugFlag1) {
-    //    std::cout << "   addFollower veh=" << veh->getID()
-    //        << " ego=" << ego->getID()
-    //        << " gap=" << gap
-    //        << " reqGap=" << requiredGap
-    //        << " missingGap=" << missingGap
-    //        << " latOffset=" << latOffset
-    //        << " sublane=" << sublane
-    //        << "\n";
-    //    if (sublane > 0) {
-    //        std::cout
-    //            << "        dists[s]=" << myDistances[sublane]
-    //            << " gaps[s]=" << myMissingGaps[sublane]
-    //            << "\n";
-    //    }
-    //}
+    /*
+    if (ego->getID() == "disabled" || gDebugFlag1) {
+        std::cout << "   addFollower veh=" << veh->getID()
+            << " ego=" << ego->getID()
+            << " gap=" << gap
+            << " reqGap=" << requiredGap
+            << " missingGap=" << missingGap
+            << " latOffset=" << latOffset
+            << " sublane=" << sublane
+            << "\n";
+        if (sublane > 0) {
+            std::cout
+                << "        dists[s]=" << myDistances[sublane]
+                << " gaps[s]=" << myMissingGaps[sublane]
+                << "\n";
+        } else {
+            std::cout << toString() << "\n";
+        }
+    }
+    */
     if (myVehicles.size() == 1) {
         // speedup for the simple case
         sublane = 0;
@@ -336,7 +340,7 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     getSubLanes(veh, latOffset, rightmost, leftmost);
     for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
         if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
-                && missingGap > myMissingGaps[sublane]) {
+                && (missingGap > myMissingGaps[sublane] || gap < 0)) {
             if (myVehicles[sublane] == 0) {
                 myFreeSublanes--;
             }
