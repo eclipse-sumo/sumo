@@ -28,6 +28,9 @@ unusable_bus
 # public transport via bustops
 busstop
 
+# public transport via bustops, person arrives very early
+busstop_early
+
 # public transport via bustops but the person departs to late to use a bus
 busstop_too_late
 
