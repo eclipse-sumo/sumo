@@ -1577,8 +1577,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 lastLink->adaptLeaveSpeed(va);
             }
             v = MIN2(va, v);
-            lfLinks.push_back(DriveProcessItem(v, seen));
-            break;
+            if (lane->isLinkEnd(link)) {
+                lfLinks.push_back(DriveProcessItem(v, seen));
+                break;
+            }
         }
         const bool yellowOrRed = (*link)->haveRed() || (*link)->haveYellow();
         // We distinguish 3 cases when determining the point at which a vehicle stops:
