@@ -205,8 +205,8 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     double changeAngle = 0;
     // avoid flicker
     if (fabs(latDist) > NUMERICAL_EPS) {
-        // avoid extreme angles by using vehicle length as a proxy for turning radius
-        changeAngle = atan2(latDist, SPEED2DIST(MAX2(vehicle->getVehicleType().getLength(), vehicle->getSpeed())));
+        // angle is between vehicle front and vehicle back (and depending on travelled distance)
+        changeAngle = atan2(latDist, vehicle->getVehicleType().getLength() + SPEED2DIST(vehicle->getSpeed()));
     }
     if (vehicle->getLaneChangeModel().debugVehicle()) std::cout << SIMTIME << " startChangeSublane shadowLane"
                 << " latDist=" << latDist
