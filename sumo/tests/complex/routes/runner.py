@@ -89,7 +89,7 @@ elif args[0] == "dfrouter":
             "--detector-files", "input_additional.add.xml"]
 elif args[0] == "duarouter":
     call = [checkBinary('duarouter'), "--no-step-log",
-            "-o", "dummy.xml", "-d", "input_additional.add.xml"]
+            "-o", "dummy.xml", "-a", "input_additional.add.xml"]
 elif args[0] == "jtrrouter":
     call = [checkBinary('jtrrouter'), "--no-step-log",
             "-o", "dummy.xml", "-a", "input_additional.add.xml"]
