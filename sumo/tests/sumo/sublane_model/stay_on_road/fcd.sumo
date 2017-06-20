@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 31 10:40:57 2017 by SUMO Version dev-SVN-r23742
+<!-- generated on Tue Jun 20 13:27:05 2017 by SUMO Version dev-SVN-r24776
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -32,7 +32,7 @@
         <vehicle id="A" x="148.88" y="-3.85" angle="90.00" type="t0" speed="13.89" pos="150.00" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="A" x="162.66" y="-3.15" angle="87.11" type="t0" speed="13.89" pos="163.89" lane="beg_1" slope="0.00"/>
+        <vehicle id="A" x="162.66" y="-3.15" angle="87.88" type="t0" speed="13.89" pos="163.89" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="2.00">
         <vehicle id="A" x="176.45" y="-3.15" angle="90.00" type="t0" speed="13.89" pos="177.78" lane="beg_1" slope="0.00"/>
