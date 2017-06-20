@@ -150,7 +150,7 @@ GNERouteProbe::commmitAdditionalGeometryMoved(double, double, GNEUndoList*) {
 }
 
 void
-GNERouteProbe::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const {
+GNERouteProbe::writeAdditional(OutputDevice& device, bool /*volatileOptionsEnabled*/) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());

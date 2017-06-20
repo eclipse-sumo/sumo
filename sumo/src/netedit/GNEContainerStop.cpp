@@ -149,7 +149,17 @@ GNEContainerStop::writeAdditional(OutputDevice& device, bool volatileOptionsEnab
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
+    // Check if another lane ID must be changed if sidewalks.guess option is enabled
+    if(volatileOptionsEnabled && OptionsCont::getOptions().getBool("sidewalks.guess") && (myLane->getParentEdge().getLanes().front()->isRestricted(SVC_PEDESTRIAN) == false)) {
+        // add a new extra lane to edge
+        myViewNet->getNet()->duplicateLane(myLane->getParentEdge().getLanes().front(), myViewNet->getUndoList());
+        // write ID (now is different because there are a new lane)
+        device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
+        // undo set extra lane
+        myViewNet->getUndoList()->undo();
+    } else {
+        device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
+    }
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
     if(myName.empty() == false) {
