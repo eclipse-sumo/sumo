@@ -56,6 +56,9 @@
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <netimport/NIFrame.h>
+#include <netbuild/NBFrame.h>
+#include <netwrite/NWFrame.h>
+#include <utils/common/SystemFrame.h>
 #include <netimport/NIImporter_SUMO.h>
 
 #include "GNEApplicationWindow.h"
@@ -1246,6 +1249,9 @@ GNEApplicationWindow::onCmdOptions(FXObject*, FXSelector, void*) {
 
     if (wizard->execute()) {
         NIFrame::checkOptions(); // needed to set projection parameters
+        NBFrame::checkOptions();
+        NWFrame::checkOptions();
+        SystemFrame::checkOptions(); // needed to set precision
     }
     return 1;
 }
