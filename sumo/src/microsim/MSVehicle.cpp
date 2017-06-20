@@ -1663,7 +1663,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             if (getLaneChangeModel().getShadowLane() != 0) {
                 MSLink* parallelLink = (*link)->getParallelLink(getLaneChangeModel().getShadowDirection());
                 if (parallelLink != 0) {
-                    checkLinkLeader(parallelLink, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
+                    checkLinkLeader(parallelLink, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest, true);
                 }
             }
         }
@@ -1843,8 +1843,9 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
 
 void
 MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
-                           DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const {
-    const MSLink::LinkLeaders linkLeaders = link->getLeaderInfo(this, seen);
+                           DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest,
+                           bool isShadowLink) const {
+    const MSLink::LinkLeaders linkLeaders = link->getLeaderInfo(this, seen, 0, isShadowLink);
     for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
         // the vehicle to enter the junction first has priority
         const MSVehicle* leader = (*it).vehAndGap.first;

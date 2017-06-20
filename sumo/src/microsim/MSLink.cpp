@@ -682,7 +682,7 @@ MSLink::fromInternalLane() const {
 }
 
 MSLink::LinkLeaders
-MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers) const {
+MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers, bool isShadowLink) const {
     LinkLeaders result;
     if (ego != 0 && ego->getLaneChangeModel().isOpposite()) {
         // ignore link leaders
@@ -779,7 +779,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 }
             }
         }
-        if (MSGlobals::gLateralResolution > 0 && ego != 0) {
+        if (MSGlobals::gLateralResolution > 0 && ego != 0 && !isShadowLink) {
             // check for foes on the same lane
             for (std::vector<MSLane*>::const_iterator it = mySublaneFoeLanes.begin(); it != mySublaneFoeLanes.end(); ++it) {
                 const MSLane* foeLane = *it;
@@ -787,6 +787,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != end; ++it_veh) {
                     MSVehicle* leader = (MSVehicle*)*it_veh;
                     const double posLat = ego->getLateralPositionOnLane();
+                    const double posLatLeader = leader->getLateralPositionOnLane() + leader->getLatOffset(foeLane);
 #ifdef MSLink_DEBUG_OPENED
                     if (gDebugFlag1) {
                         std::cout << " sublaneFoe lane=" << myInternalLaneBefore->getID()
@@ -795,7 +796,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             << " egoLane=" << ego->getLane()->getID()
                             << " leaderLane=" << leader->getLane()->getID()
                             << " egoLat=" << posLat
-                            << " leaderLat=" <<  leader->getLateralPositionOnLane()
+                            << " leaderLat=" << posLatLeader 
+                            << " leaderLatOffset=" << leader->getLatOffset(foeLane)
                             << " egoIndex=" << myInternalLaneBefore->getIndex()
                             << " foeIndex=" << foeLane->getIndex()
                             << " dist=" << dist
@@ -804,8 +806,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     }
 #endif
                     // there only is a conflict if the paths cross
-                    if ((posLat < leader->getLateralPositionOnLane() && myInternalLaneBefore->getIndex() > foeLane->getIndex())
-                            || (posLat > leader->getLateralPositionOnLane() && myInternalLaneBefore->getIndex() < foeLane->getIndex())) {
+                    if ((posLat < posLatLeader && myInternalLaneBefore->getIndex() > foeLane->getIndex())
+                            || (posLat > posLatLeader && myInternalLaneBefore->getIndex() < foeLane->getIndex())) {
                         const double maxLength = MAX2(myInternalLaneBefore->getLength(), foeLane->getLength());
 #ifdef MSLink_DEBUG_OPENED
                         if (gDebugFlag1) std::cout << SIMTIME << " blocked by " << leader->getID() << " (sublane split) foeLane=" << foeLane->getID() << "\n";

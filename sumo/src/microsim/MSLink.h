@@ -411,9 +411,10 @@ public:
      * @param[in] ego The ego vehicle that is looking for leaders
      * @param[in] dist The distance of the vehicle who is asking about the leader to this link
      * @param[out] blocking Return blocking pedestrians if a vector is given
+     * @param[in] isShadowLink whether this link is a shadowLink for ego
      * @return The all vehicles on foeLanes and their (virtual) distances to the asking vehicle
      */
-    LinkLeaders getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers = 0) const;
+    LinkLeaders getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers = 0, bool isShadowLink=false) const;
 
     /// @brief return the speed at which ego vehicle must approach the zipper link
     double getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
