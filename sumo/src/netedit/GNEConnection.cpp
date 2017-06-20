@@ -247,7 +247,9 @@ GNEConnection::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& paren
 
 Boundary
 GNEConnection::getCenteringBoundary() const {
-    return Boundary();
+    Boundary b = myShape.getBoxBoundary();
+    b.grow(20);
+    return b;
 }
 
 
