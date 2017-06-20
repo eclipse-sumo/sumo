@@ -786,9 +786,18 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
                 for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != end; ++it_veh) {
                     MSVehicle* leader = (MSVehicle*)*it_veh;
+                    if (leader == ego) {
+                        continue;
+                    }
+                    const double maxLength = MAX2(myInternalLaneBefore->getLength(), foeLane->getLength());
+                    const double gap = dist - maxLength - ego->getVehicleType().getMinGap() + leader->getBackPositionOnLane(foeLane);
+                    if (gap < -(ego->getVehicleType().getMinGap() + leader->getLength())) {
+                        // ego is ahead of leader
+                        continue;
+                    }
+                        
                     const double posLat = ego->getLateralPositionOnLane();
                     const double posLatLeader = leader->getLateralPositionOnLane() + leader->getLatOffset(foeLane);
-#ifdef MSLink_DEBUG_OPENED
                     if (gDebugFlag1) {
                         std::cout << " sublaneFoe lane=" << myInternalLaneBefore->getID()
                             << " foeLane=" << foeLane->getID()
@@ -804,15 +813,11 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             << " leaderBack=" << leader->getBackPositionOnLane(foeLane)
                             << "\n";
                     }
-#endif
                     // there only is a conflict if the paths cross
                     if ((posLat < posLatLeader && myInternalLaneBefore->getIndex() > foeLane->getIndex())
                             || (posLat > posLatLeader && myInternalLaneBefore->getIndex() < foeLane->getIndex())) {
-                        const double maxLength = MAX2(myInternalLaneBefore->getLength(), foeLane->getLength());
-#ifdef MSLink_DEBUG_OPENED
                         if (gDebugFlag1) std::cout << SIMTIME << " blocked by " << leader->getID() << " (sublane split) foeLane=" << foeLane->getID() << "\n";
-#endif
-                        result.push_back(LinkLeader(leader, dist - maxLength - ego->getVehicleType().getMinGap() + leader->getBackPositionOnLane(foeLane), -1));
+                        result.push_back(LinkLeader(leader, gap, -1));
                     }
                 }
             }
