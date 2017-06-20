@@ -168,7 +168,7 @@ public:
             if (it->first > minArrivalSec) {
                 break;
             }
-            if (time >= STEPS2TIME(it->second.begin) && time < STEPS2TIME(it->second.end)) {
+            if (time < STEPS2TIME(it->second.end)) {
                 const int running = MAX2(0, (int)ceil((time - STEPS2TIME(it->second.begin)) / STEPS2TIME(it->second.period)));
                 const SUMOTime nextDepart = it->second.begin + running * it->second.period;
                 minArrivalSec = MIN2(STEPS2TIME(nextDepart) + it->second.travelTimeSec, minArrivalSec);
