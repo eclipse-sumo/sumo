@@ -167,6 +167,11 @@ public:
      */
     void setPrecision(int precision = gPrecision);
 
+    /** @brief Returns the precison of the underlying stream
+     */
+    int getPrecision() {
+        return getOStream().precision();
+    }
 
     /** @brief Writes an XML header with optional configuration
      *
