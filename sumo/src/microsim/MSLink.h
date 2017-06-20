@@ -579,9 +579,13 @@ private:
     std::vector<MSLink*> myFoeLinks;
     std::vector<const MSLane*> myFoeLanes;
 
-    /* @brief with the same origin lane and the same destination edge that may
+    /* @brief Links with the same origin lane and the same destination edge that may
        be in conflict for sublane simulation */
     std::vector<MSLink*> mySublaneFoeLinks;
+
+    /* @brief Internal Lanes with the same origin lane and the same destination edge that may
+       be in conflict for sublane simulation */
+    std::vector<MSLane*> mySublaneFoeLanes;
 
     static const SUMOTime myLookaheadTime;
     static const SUMOTime myLookaheadTimeZipper;
