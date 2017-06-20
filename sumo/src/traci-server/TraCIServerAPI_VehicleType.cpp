@@ -241,6 +241,7 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
             && variable != VAR_MAXSPEED_LAT
             && variable != VAR_LATALIGNMENT
             && variable != VAR_PARAMETER
+            && variable != COPY
        ) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE,
                                           "Change Vehicle Type State: unsupported variable " + toHex(variable, 2)
@@ -493,6 +494,15 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                 return server.writeErrorStatusCmd(cmd, "The color must be given using the according type.", outputStorage);
             }
             TraCI_VehicleType::setColor(id, col);
+        }
+        break;
+        case COPY: {
+            std::string newTypeID;
+            if (!server.readTypeCheckingString(inputStorage, newTypeID)) {
+                return server.writeErrorStatusCmd(cmd, "copying a vehicle type requires a string.",
+                                                  outputStorage);
+            }
+            TraCI_VehicleType::copy(id,newTypeID);
         }
         break;
         case VAR_PARAMETER: {

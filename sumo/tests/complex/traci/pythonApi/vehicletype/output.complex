@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:58321 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:45839 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -47,3 +47,8 @@ MinGap 1.1
 width 1.1
 height 1.9
 color (1, 0, 0, 1)
+Copying vType 'DEFAULT_VEHTYPE' to 'DEFAULT_VEHTYPE_copy'
+vehicletypes ['DEFAULT_PEDTYPE', 'DEFAULT_VEHTYPE', 'DEFAULT_VEHTYPE_copy']
+vehicletype count 3
+accel (original) 1.1
+accel (copied) 100.0

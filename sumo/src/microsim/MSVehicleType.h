@@ -463,11 +463,24 @@ public:
     static MSVehicleType* build(SUMOVTypeParameter& from);
 
 
-    /** @brief Duplicates the microsim vehicle type giving it the given id
+    /** @brief Duplicates the microsim vehicle type giving the newly created type the given id,
+     *         marking it as vehicle specific
      * @param[in] id The new id of the type
      * @return The built vehicle type
+     * @note This method is used in case that a vType is meant to be used only for a specific vehicle
+     *       The created vType will be removed with the vehicle or if it is assigned a new type.
      */
     MSVehicleType* buildSingularType(const std::string& id) const;
+
+
+    /** @brief Duplicates the microsim vehicle type giving the newly created type the given id.
+     *
+     * @param[in] id The new id of the type
+     * @param[in] persistent If true the created vType will be persistent and can be used by several vehicles,
+     *            otherwise it may be removed before simulation end, @see buildSingularType()
+     * @return The built vehicle type
+     */
+    MSVehicleType* duplicateType(const std::string& id, bool persistent) const;
     /// @}
 
 

@@ -72,7 +72,7 @@ public:
     static void setMinGapLat(const std::string& typeID, double minGapLat);
     static void setMaxSpeedLat(const std::string& typeID, double speed);
     static void setLateralAlignment(const std::string& typeID, const std::string& latAlignment);
-
+    static void copy(const std::string& origTypeID, const std::string& newTypeID);
     static MSVehicleType* getVType(std::string id);
 
     static void addParameter(const std::string& id, const std::string& name, const std::string& value);

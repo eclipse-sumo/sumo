@@ -1915,6 +1915,15 @@ TraCIAPI::VehicleTypeScope::setLateralAlignment(const std::string& typeID, const
     myParent.check_resultState(inMsg, CMD_SET_VEHICLETYPE_VARIABLE);
 }
 
+void
+TraCIAPI::VehicleTypeScope::copy(const std::string& origTypeID, const std::string& newTypeID) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(newTypeID);
+    myParent.send_commandSetValue(CMD_SET_VEHICLETYPE_VARIABLE, COPY, origTypeID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLETYPE_VARIABLE);
+}
 
 void
 TraCIAPI::VehicleTypeScope::setShapeClass(const std::string& typeID, const std::string& clazz) const {

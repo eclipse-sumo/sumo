@@ -98,5 +98,16 @@ traci.vehicletype.setHeight(typeID, 1.9)
 print("height", traci.vehicletype.getHeight(typeID))
 traci.vehicletype.setColor(typeID, (1, 0, 0, 1))
 print("color", traci.vehicletype.getColor(typeID))
+copyID = typeID+"_copy"
+print("Copying vType '%s' to '%s'"%(typeID, copyID))
+traci.vehicletype.copy(typeID, copyID)
+print("vehicletypes", traci.vehicletype.getIDList())
+print("vehicletype count", traci.vehicletype.getIDCount())
+traci.vehicletype.setAccel(copyID, 100.)
+print("accel (original)", traci.vehicletype.getAccel(typeID))
+print("accel (copied)", traci.vehicletype.getAccel(copyID))
+
+
+
 traci.close()
 sumoProcess.wait()

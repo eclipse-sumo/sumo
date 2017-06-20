@@ -816,6 +816,9 @@
 // remove an instance (poi, polygon, vehicle, person)
 #define REMOVE 0x81
 
+// copy an instance (vehicle type, other TBD.)
+#define COPY 0x88
+
 // convert coordinates
 #define POSITION_CONVERSION 0x82
 

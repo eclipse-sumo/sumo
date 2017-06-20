@@ -601,6 +601,7 @@ public:
         void setMinGapLat(const std::string& typeID, double minGapLat) const;
         void setMaxSpeedLat(const std::string& typeID, double speed) const;
         void setLateralAlignment(const std::string& typeID, const std::string& latAlignment) const;
+        void copy(const std::string& origTypeID, const std::string& newTypeID) const;
 
     private:
         /// @brief invalidated copy constructor

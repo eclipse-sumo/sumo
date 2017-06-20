@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Jun  9 15:08:49 2017
+TraCITestClient output file. Date: Tue Jun 20 16:45:54 2017
 
 
 -> Command sent: <SimulationStep>:
@@ -23,7 +23,12 @@ testAPI:
     setMinGapLat: 1.50
     setMaxSpeedLat: 1.20
     getLateralAlignment: compact
+    copy type 't1' to 't1_copy' and set accel to 100.
+    getIDList: DEFAULT_PEDTYPE DEFAULT_VEHTYPE stilts t1 t1_copy
+    getAccel('t1'): 0.80
+    getAccel('t1_copy'): 100.00
   vehicle:
+    getTypeID: t1
     getRoadID: e_m3
     getLaneID: e_m3_0
     getLanePosition: 140.00

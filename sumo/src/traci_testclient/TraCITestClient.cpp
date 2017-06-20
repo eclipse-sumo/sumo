@@ -682,12 +682,14 @@ TraCITestClient::testAPI() {
     answerLog << "    currentTraveltime: " << edge.getTraveltime(edgeID) << "\n";
     answerLog << "    adaptedTravelTime: " << edge.getAdaptedTraveltime(edgeID, 0) << "\n";
     answerLog << "    effort: " << edge.getEffort(edgeID, 0) << "\n";
+
     answerLog << "  route:\n";
     answerLog << "    add:\n";
     std::vector<std::string> edges;
     edges.push_back("e_u1");
     route.add("e_u1", edges);
     answerLog << "    getIDList: " << joinToString(route.getIDList(), " ") << "\n";
+
     answerLog << "  vehicleType:\n";
     answerLog << "    getIDList: " << joinToString(vehicletype.getIDList(), " ") << "\n";
     vehicletype.setEmergencyDecel("t1", 9.9);
@@ -704,12 +706,20 @@ TraCITestClient::testAPI() {
     answerLog << "    setMaxSpeedLat: " << vehicletype.getMaxSpeedLat("t1") << "\n";
     vehicletype.setLateralAlignment("t1", "compact");
     answerLog << "    getLateralAlignment: " << vehicletype.getLateralAlignment("t1") << "\n";
+    answerLog << "    copy type 't1' to 't1_copy' and set accel to 100.\n";
+    vehicletype.copy("t1","t1_copy");
+    answerLog << "    getIDList: " << joinToString(vehicletype.getIDList(), " ") << "\n";
+    vehicletype.setAccel("t1_copy", 100.);
+    answerLog << "    getAccel('t1'): " << vehicletype.getAccel("t1") << "\n";
+    answerLog << "    getAccel('t1_copy'): " << vehicletype.getAccel("t1_copy") << "\n";
+
 
     answerLog << "  vehicle:\n";
     vehicle.setLine("0", "S42");
     std::vector<std::string> via;
     via.push_back("e_shape1");
     vehicle.setVia("0", via);
+    answerLog << "    getTypeID: " << vehicle.getTypeID("0") << "\n";
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
     answerLog << "    getLanePosition: " << vehicle.getLanePosition("0") << "\n";
