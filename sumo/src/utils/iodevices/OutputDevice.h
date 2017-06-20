@@ -170,7 +170,7 @@ public:
     /** @brief Returns the precison of the underlying stream
      */
     int getPrecision() {
-        return getOStream().precision();
+        return (int)getOStream().precision();
     }
 
     /** @brief Writes an XML header with optional configuration
