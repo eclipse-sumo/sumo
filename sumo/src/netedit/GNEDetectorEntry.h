@@ -42,7 +42,7 @@ class GNEDetectorE3;
 // ===========================================================================
 /**
  * @class GNEDetectorEntry
- * ------------
+ * Class for detector of type Entry
  */
 class GNEDetectorEntry  : public GNEDetector {
 public:
@@ -57,8 +57,9 @@ public:
     /// @brief destructor
     ~GNEDetectorEntry();
 
-    /// @brief update pre-computed geometry information
-    /// @note: must be called when geometry changes (i.e. lane moved)
+    /**@brief update pre-computed geometry information
+     * @note: must be called when geometry changes (i.e. lane moved)
+     */
     void updateGeometry();
 
     /// @brief update pre-computed geometry information called by E3 parent
@@ -72,8 +73,9 @@ public:
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
      */
-    void writeAdditional(OutputDevice& device) const;
+    void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
     /// @name inherited from GUIGlObject
     /// @{

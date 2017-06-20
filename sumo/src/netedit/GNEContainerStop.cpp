@@ -145,7 +145,7 @@ GNEContainerStop::updateGeometry() {
 
 
 void
-GNEContainerStop::writeAdditional(OutputDevice& device) const {
+GNEContainerStop::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
@@ -167,7 +167,7 @@ GNEContainerStop::writeAdditional(OutputDevice& device) const {
 }
 
 
-std::vector<std::string>
+const std::vector<std::string>&
 GNEContainerStop::getLines() const {
     return myLines;
 }

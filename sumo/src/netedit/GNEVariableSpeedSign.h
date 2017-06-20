@@ -56,8 +56,9 @@ public:
     /// @brief Destructor
     ~GNEVariableSpeedSign();
 
-    /// @brief update pre-computed geometry information
-    /// @note: must be called when geometry changes (i.e. lane moved)
+    /** @brief update pre-computed geometry information
+     *  @note: must be called when geometry changes (i.e. lane moved)
+     */
     void updateGeometry();
 
     /// @brief Returns position of Variable Speed Signal in view
@@ -74,9 +75,9 @@ public:
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
-     * @param[in] currentDirectory current directory in which this additional are writted
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
      */
-    void writeAdditional(OutputDevice& device) const;
+    void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
     /// @brief get filename of variable speed sign
     const std::string& getFilename() const;

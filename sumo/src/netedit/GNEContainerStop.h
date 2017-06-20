@@ -77,11 +77,12 @@ public:
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
      */
-    void writeAdditional(OutputDevice& device) const;
+    void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
     /// @brief get string vector with the lines of the busStop
-    std::vector<std::string> getLines() const;
+    const std::vector<std::string> &getLines() const;
 
     /// @name inherited from GUIGlObject
     /// @{

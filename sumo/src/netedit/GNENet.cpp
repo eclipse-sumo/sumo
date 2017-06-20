@@ -743,11 +743,11 @@ GNENet::save(OptionsCont& oc) {
 
 
 void
-GNENet::saveAdditionals(const std::string& filename) {
+GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
     for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
-        i->second->writeAdditional(device);
+        i->second->writeAdditional(device, volatileOptionsEnabled);
     }
     device.close();
     // change value of flag

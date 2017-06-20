@@ -340,8 +340,9 @@ public:
 
     /**@brief save additional elements of the network
      * @param[in] filename name of the file in wich save additionals
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
      */
-    void saveAdditionals(const std::string& filename);
+    void saveAdditionals(const std::string& filename, bool volatileOptionsEnabled = false);
 
     /**@brief save plain xml representation of the network (and nothing else)
      * @param[in] oc The OptionsCont which knows how and where to save

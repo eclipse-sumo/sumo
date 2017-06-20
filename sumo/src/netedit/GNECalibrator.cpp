@@ -139,7 +139,7 @@ GNECalibrator::openAdditionalDialog() {
 
 
 void
-GNECalibrator::writeAdditional(OutputDevice& device) const {
+GNECalibrator::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());

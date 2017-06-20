@@ -1195,7 +1195,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             // Start saving additionals
             getApp()->beginWaitCursor();
             try {
-                myNet->saveAdditionals(additionalSavePath);
+                myNet->saveAdditionals(additionalSavePath, true);
             } catch (IOError& e) {
                 // write warning if netedit is running in testing mode
                 if (OptionsCont::getOptions().getBool("gui-testing-debug")) {

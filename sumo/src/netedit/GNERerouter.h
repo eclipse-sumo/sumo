@@ -62,8 +62,9 @@ public:
     /// @brief Destructor
     ~GNERerouter();
 
-    /// @brief update pre-computed geometry information
-    /// @note: must be called when geometry changes (i.e. lane moved)
+    /**@brief update pre-computed geometry information
+     * @note: must be called when geometry changes (i.e. lane moved)
+     */
     void updateGeometry();
 
     /// @brief Returns position of Rerouter in view
@@ -80,8 +81,9 @@ public:
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
      */
-    void writeAdditional(OutputDevice& device) const;
+    void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
     /// @brief add edge child
     void addEdgeChild(GNEEdge* edge);

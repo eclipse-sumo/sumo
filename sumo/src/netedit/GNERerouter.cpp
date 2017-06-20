@@ -145,7 +145,7 @@ GNERerouter::commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEU
 
 
 void
-GNERerouter::writeAdditional(OutputDevice& device) const {
+GNERerouter::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());

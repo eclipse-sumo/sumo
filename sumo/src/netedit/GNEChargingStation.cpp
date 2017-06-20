@@ -151,7 +151,7 @@ GNEChargingStation::updateGeometry() {
 
 
 void
-GNEChargingStation::writeAdditional(OutputDevice& device) const {
+GNEChargingStation::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const {
     // Write additional
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());

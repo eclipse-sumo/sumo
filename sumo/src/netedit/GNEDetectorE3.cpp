@@ -147,7 +147,7 @@ GNEDetectorE3::commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GN
 
 
 void
-GNEDetectorE3::writeAdditional(OutputDevice& device) const {
+GNEDetectorE3::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const {
     // Only save E3 if have Entry/Exits
     if ((myGNEDetectorEntrys.size() + myGNEDetectorExits.size()) > 0) {
         // Write parameters

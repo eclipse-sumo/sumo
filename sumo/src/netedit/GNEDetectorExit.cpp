@@ -122,7 +122,7 @@ GNEDetectorExit::getE3Parent() const {
 
 
 void
-GNEDetectorExit::writeAdditional(OutputDevice&) const {
+GNEDetectorExit::writeAdditional(OutputDevice&, bool) const {
     // This additional cannot be writted calling this function because is writted by their E3Parent
 }
 

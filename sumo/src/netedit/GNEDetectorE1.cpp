@@ -119,7 +119,7 @@ GNEDetectorE1::getPositionInView() const {
 
 
 void
-GNEDetectorE1::writeAdditional(OutputDevice& device) const {
+GNEDetectorE1::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());

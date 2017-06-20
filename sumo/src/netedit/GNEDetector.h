@@ -76,9 +76,9 @@ public:
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
-     * @param[in] currentDirectory current directory in which this additional are writted
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
      */
-    virtual void writeAdditional(OutputDevice& device) const = 0;
+    virtual void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const = 0;
 
     /// @brief Returns the position of the detector over lane
     double getPositionOverLane() const;

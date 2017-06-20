@@ -66,8 +66,9 @@ public:
     /// @brief GNEDetectorE3 6Destructor
     ~GNEDetectorE3();
 
-    /// @brief update pre-computed geometry information
-    /// @note: must be called when geometry changes (i.e. lane moved)
+    /**@brief update pre-computed geometry information
+     * @note: must be called when geometry changes (i.e. lane moved)
+     */
     void updateGeometry();
 
     /// @brief Returns position of detector E3 in view
@@ -79,10 +80,11 @@ public:
     /// @brief updated geometry changes in the attributes of additional
     void commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList);
 
-    /**@brief writte additionals element into a xml file
+    /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
      */
-    void writeAdditional(OutputDevice& device) const;
+    void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
     /// @brief gererate a new ID for an Entry detector child
     std::string generateEntryID();

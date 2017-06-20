@@ -145,11 +145,20 @@ GNEBusStop::updateGeometry() {
 
 
 void
-GNEBusStop::writeAdditional(OutputDevice& device) const {
+GNEBusStop::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
+    if(volatileOptionsEnabled) {
+        // add a new extra lane to edge
+        myLane->getParentEdge().setAttribute(SUMO_ATTR_NUMLANES, toString(myLane->getParentEdge().getLanes().size() + 1), myViewNet->getUndoList());
+        // write ID (now is different because there are a new lane)
+        device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
+        // undo set extra lane
+        myViewNet->getUndoList()->undo();
+    } else {
+        device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
+    }
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
     if(myName.empty() == false) {
