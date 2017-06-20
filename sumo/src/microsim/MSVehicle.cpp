@@ -1689,7 +1689,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 #endif
 
-        if (!(*link)->havePriority() && !determinedFoePresence && brakeDist < seen) {
+        if (!(*link)->havePriority() && !determinedFoePresence && brakeDist < seen && !(*link)->lastWasContMajor()) {
             // vehicle decelerates just enough to be able to stop if necessary and then accelerates
             double maxSpeedAtVisibilityDist = cfModel.maximumSafeStopSpeed(visibilityDistance, myState.mySpeed, false, 0.);
             // XXX: estimateSpeedAfterDistance does not use euler-logic (thus returns a lower value than possible here...)
