@@ -1040,7 +1040,9 @@ MSLCM_SL2015::_wantsChangeSublane(
     }
     if ((ret & LCA_URGENT) != 0) {
         // prepare urgent lane change maneuver
-        if (changeToBest && abs(bestLaneOffset) > 1) {
+        if (changeToBest && abs(bestLaneOffset) > 1
+            && curr.bestContinuations.back()->getLinkCont().size() != 0
+            ) {
             // there might be a vehicle which needs to counter-lane-change one lane further and we cannot see it yet
             myLeadingBlockerLength = MAX2((double)(right ? 20.0 : 40.0), myLeadingBlockerLength);
             if (gDebugFlag2) {
