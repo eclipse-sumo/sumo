@@ -80,7 +80,8 @@
 //#define DEBUG_LANE_SORTER
 
 #define DEBUG_COND (getID() == "disabled")
-#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
+//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
+#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 
 // ===========================================================================
 // static member definitions
@@ -916,6 +917,7 @@ MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double
         while (freeSublanes > 0 && veh != 0) {
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND2(ego)) {
+                gDebugFlag1 = true;
                 std::cout << "      getLastVehicleInformation lane=" << getID() << " minPos=" << minPos << " veh=" << veh->getID() << " pos=" << veh->getPositionOnLane(this)  << "\n";
             }
 #endif
@@ -947,6 +949,7 @@ MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double
         //        << "    cached=" << myLeaderInfo.toString()
         //        << "    myLeaderInfoTime=" << myLeaderInfoTime
         //        << "\n";
+        gDebugFlag1 = false;
 #endif
         return myLeaderInfoTmp;
     }
@@ -2715,6 +2718,7 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
                 // add link leader to all sublanes and return
                 for (int i = 0; i < result.numSublanes(); ++i) {
                     MSVehicle* veh = ll.vehAndGap.first;
+                    if (DEBUG_COND2(ego)) std::cout << "   linkleader=" << veh->getID() << " gap=" << ll.vehAndGap.second << "\n";
                     result.addLeader(veh, ll.vehAndGap.second, 0);
                 }
                 return; ;
