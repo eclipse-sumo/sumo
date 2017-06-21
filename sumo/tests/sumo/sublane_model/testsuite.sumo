@@ -82,5 +82,11 @@ beyond_lane_on_junction
 # vehicles must overtake a stopped vehicle and have to decide for overtaking on either side 
 buridan_1lane
 
+# reserve space for unseen blockers to avoid deadlock where needed
+bestOffset2_reserve
+
+# do not reserve space for unseen blockers in all cases
+bestOffset2_noReserve
+
 # tests for various tickets
 bugs
