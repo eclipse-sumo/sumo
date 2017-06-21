@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 19 15:38:39 2017 by SUMO netconvert Version dev-SVN-r24759
+<!-- generated on Wed Jun 21 10:41:44 2017 by SUMO netconvert Version dev-SVN-r24776
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -7313,7 +7313,7 @@
         <lane id="448147615_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="24.75" shape="1305.54,793.26 1280.79,793.06"/>
     </edge>
     <edge id="462636188#0" from="873892370" to="4080417411" priority="1" type="highway.footway" spreadType="center">
-        <lane id="462636188#0_0" index="0" allow="pedestrian" speed="8.33" length="0.20" shape="667.33,779.34 667.34,779.14"/>
+        <lane id="462636188#0_0" index="0" allow="pedestrian" speed="8.33" length="0.20" shape="667.33,779.39 667.34,779.19"/>
     </edge>
     <edge id="462636188#1" from="4080417411" to="886147980" priority="1" type="highway.footway" spreadType="center" shape="667.41,777.64 667.61,773.41 667.73,770.74">
         <lane id="462636188#1_0" index="0" allow="pedestrian" speed="8.33" length="0.72" shape="667.55,774.54 667.59,773.82"/>
@@ -7463,7 +7463,7 @@
         <lane id="77599429#1_0" index="0" allow="pedestrian" speed="8.33" length="26.83" shape="836.22,1231.43 835.96,1226.79 858.12,1225.76"/>
     </edge>
     <edge id="77599430" from="913047696" to="913047705" priority="1" type="highway.footway" spreadType="center">
-        <lane id="77599430_0" index="0" allow="pedestrian" speed="8.33" length="0.20" shape="830.67,1236.15 830.87,1236.13"/>
+        <lane id="77599430_0" index="0" allow="pedestrian" speed="8.33" length="0.20" shape="826.86,1236.40 827.06,1236.39"/>
     </edge>
     <edge id="77599431" from="913047737" to="913047712" priority="2" type="highway.service">
         <lane id="77599431_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="1.31" shape="877.38,1262.35 876.64,1261.27"/>

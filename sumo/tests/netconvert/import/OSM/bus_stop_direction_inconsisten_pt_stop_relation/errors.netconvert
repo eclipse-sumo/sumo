@@ -3,7 +3,6 @@ Warning: Discarding unusable type 'waterway.drain' (first occurence for edge '22
 Warning: Discarding unusable type 'railway.tram' (first occurence for edge '26811540').
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '61312638').
 Warning: Discarding unusable type 'highway.bus_stop' (first occurence for edge '61312644#0').
-Warning: Discarding unusable type 'highway.platform' (first occurence for edge '61980801').
 Warning: Discarding unusable type 'railway.disused' (first occurence for edge '379474086').
 Warning: No way found for reference '324274536' in relation '19784'
 Warning: No way found for reference '294918950' in relation '19784'
