@@ -82,6 +82,7 @@ MSLeaderInfo::addLeader(const MSVehicle* veh, bool beyond, double latOffset) {
     // map center-line based coordinates into [0, myWidth] coordinates
     int rightmost, leftmost;
     getSubLanes(veh, latOffset, rightmost, leftmost);
+    //if (gDebugFlag1) std::cout << " addLeader veh=" << veh->getID() << " beyond=" << beyond << " latOffset=" << latOffset << " rightmost=" << rightmost << " leftmost=" << leftmost << " myFreeSublanes=" << myFreeSublanes << "\n";
     for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
         if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
                 && (!beyond || myVehicles[sublane] == 0)) {
@@ -122,7 +123,7 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
     const double leftVehSide = MIN2(myWidth, vehCenter + vehHalfWidth);
     rightmost = (int)floor((rightVehSide + NUMERICAL_EPS) / MSGlobals::gLateralResolution);
     leftmost = MIN2((int)myVehicles.size() - 1, (int)floor(leftVehSide / MSGlobals::gLateralResolution));
-    //if (veh->getID() == "car2") std::cout << SIMTIME << " veh=" << veh->getID()
+    //if (gDebugFlag1 && veh->getID() == "disabled") std::cout << SIMTIME << " veh=" << veh->getID()
     //    << std::setprecision(10)
     //    << " posLat=" << veh->getLateralPositionOnLane()
     //    << " rightVehSide=" << rightVehSide
@@ -325,7 +326,9 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     }
     if (sublane >= 0 && sublane < (int)myVehicles.size()) {
         // sublane is already given
-        if (missingGap > myMissingGaps[sublane]) {
+        // overlapping vehicles are stored preferably
+        if ((missingGap > myMissingGaps[sublane] || gap < 0) 
+                && (myVehicles[sublane] == 0 || myDistances[sublane] > 0)) {
             if (myVehicles[sublane] == 0) {
                 myFreeSublanes--;
             }
@@ -340,6 +343,8 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     getSubLanes(veh, latOffset, rightmost, leftmost);
     for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
         if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
+                // overlapping vehicles are stored preferably
+                && (myVehicles[sublane] == 0 || myDistances[sublane] > 0)
                 && (missingGap > myMissingGaps[sublane] || gap < 0)) {
             if (myVehicles[sublane] == 0) {
                 myFreeSublanes--;
