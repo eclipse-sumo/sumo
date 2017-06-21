@@ -41,7 +41,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/shapes/shape.h>
+#include <utils/shapes/Shape.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <netimport/NIImporter_SUMO.h>
 
