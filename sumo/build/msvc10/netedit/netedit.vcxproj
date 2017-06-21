@@ -171,6 +171,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNERouteProbe.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNERouteProbReroute.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNESelectorFrame.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEShapeHandler.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEStoppingPlace.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNETLSEditorFrame.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEUndoList.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNERouteProbe.h" />
     <ClInclude Include="..\..\..\src\netedit\GNERouteProbReroute.h" />
     <ClInclude Include="..\..\..\src\netedit\GNESelectorFrame.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEShapeHandler.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEStoppingPlace.h" />
     <ClInclude Include="..\..\..\src\netedit\GNETLSEditorFrame.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEUndoList.h" />

@@ -357,6 +357,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSignStep.cpp">
       <Filter>Quellcodedateien\Items\Additionals\VariableSpeedSigns</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEShapeHandler.cpp">
+      <Filter>Quellcodedateien\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -594,6 +597,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSignStep.h">
       <Filter>Header-Dateien\Items\Additionals\VariableSpeedSigns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEShapeHandler.h">
+      <Filter>Header-Dateien\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
