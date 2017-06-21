@@ -9,8 +9,8 @@
 Mirrors wiki-documentation.
 
 Determines what to mirror, first: if a command line argument is given,
-it is interpreted as the page to mirror. Otherwise, "Special:AllPages" is
-downloaded and parsed for obtaining the list of all pages which will be
+it is interpreted as the page to mirror. Otherwise, "API:AllPages" is
+used for obtaining the list of all pages which will be
 converted in subsequent steps.
 
 For each of the pages to mirror, the page is downloaded as for
@@ -40,8 +40,16 @@ except ImportError:
 import os
 import sys
 import shutil
+import json
 from optparse import OptionParser
 
+
+def getAllPages(args):
+    if len(args) == 0:
+        f = urlopen("http://sumo.dlr.de/w/api.php?action=query&list=allpages&aplimit=500&format=json")
+        result = json.loads(f.read().decode('utf8'))
+        return [entry["title"] for entry in result["query"]["allpages"]]
+    return args
 
 def readParsePage(page):
     f = urlopen("http://sumo.dlr.de/wiki/%s" % page)
@@ -93,18 +101,7 @@ if __name__ == "__main__":
     except:
         pass
     images = set()
-    if len(args) == 0:
-        p = readParsePage("Special:AllPages")
-        p = p[p.find('<ul class="mw-allpages-chunk">'):]
-        pages = p.split("<a ")
-    else:
-        pages = ['href="/wiki/%s"' % a for a in args]
-    for p in pages:
-        if not p.startswith("href"):
-            continue
-        b = p.find("/wiki/")
-        e = p.find("\"", b)
-        name = p[b + 6:e]
+    for name in getAllPages(args):
         print("Fetching %s" % name)
         c = readParseEditPage(name)
         if name.find("/") > 0:

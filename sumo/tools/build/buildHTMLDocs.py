@@ -9,8 +9,8 @@
 Converts wiki-documentation into HTML pages.
 
 Determines what to convert, first: if a command line argument is given,
-it is interpreted as the page to convert. Otherwise, "Special:AllPages" is
-downloaded and parsed for obtaining the list of all pages which will be
+it is interpreted as the page to convert. Otherwise, "API:AllPages" is
+used for obtaining the list of all pages which will be
 converted in subsequent steps.
 
 For each of the pages to convert, the HTML-representation of the
@@ -52,7 +52,7 @@ import shutil
 import datetime
 from optparse import OptionParser
 
-from mirrorWiki import readParsePage, readParseEditPage
+from mirrorWiki import readParsePage, readParseEditPage, getAllPages
 
 
 def patchLinks(page, name):
@@ -151,18 +151,8 @@ try:
 except:
     pass
 images = set()
-if len(args) == 0:
-    p = readParsePage("Special:AllPages")
-    p = p[p.find('<ul class="mw-allpages-chunk">'):]
-    pages = p.split("<a ")
-else:
-    pages = ['href="/wiki/%s"' % a for a in args]
-for p in pages:
-    if not p.startswith("href"):
-        continue
-    b = p.find("/wiki/")
-    e = p.find("\"", b)
-    name = p[b + 6:e]
+pages = getAllPages(args)
+for name in pages:
     if name.endswith(".css"):
         print("Skipping css-file %s" % name)
         continue
@@ -271,15 +261,7 @@ try:
     os.mkdir(options.output + "/images")
 except:
     pass
-for p in pages:
-    if not p.startswith("href"):
-        continue
-    b = p.find("/wiki/")
-    e = p.find("\"", b)
-    name = p[b + 6:e]
-    if name.endswith(".css"):
-        print("Skipping css-file %s" % name)
-        continue
+for name in pages:
     fromStr = 'generated on %s from <a href="http://sumo.dlr.de/wiki/%s">the wiki page for %s</a>' % (
         datetime.datetime.now(), name, name)
     name = name + ".html"
