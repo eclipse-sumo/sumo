@@ -262,6 +262,9 @@ try:
 except:
     pass
 for name in pages:
+    if name.endswith(".css"):
+        print("Skipping css-file %s" % name)
+        continue
     fromStr = 'generated on %s from <a href="http://sumo.dlr.de/wiki/%s">the wiki page for %s</a>' % (
         datetime.datetime.now(), name, name)
     name = name + ".html"
