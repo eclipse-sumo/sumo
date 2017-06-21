@@ -71,8 +71,6 @@ public:
     /// @brief loads all of the given files
     static bool loadFiles(const std::vector<std::string>& files, GNEShapeHandler& sh);
 
-
-protected:
     /// @name inherited from GenericSAXHandler
     //@{
 
@@ -88,6 +86,43 @@ protected:
                                 const SUMOSAXAttributes& attrs);
     //@}
 
+    /// @brief set default values
+    void setDefaults(const std::string& prefix, const RGBColor& color, const double layer, const bool fill = false);
+
+    /// @brief parse and build POI
+    void parseAndBuildPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing);
+
+    /// @brief parse and build polygon
+    void parseAndBuildPolygon(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing);
+
+    /** @brief Builds a POI using the given values and adds it to the container
+     * @param[in] id The name of the POI
+     * @param[in] type The (abstract) type of the POI
+     * @param[in] color The color of the POI
+     * @param[in] layer The layer of the POI
+     * @param[in] angle The rotation of the POI
+     * @param[in] imgFile The raster image of the POI
+     * @param[in] pos The position of the POI
+     * @param[in] width The width of the POI image
+     * @param[in] height The height of the POI image
+     * @return whether the poi could be added
+     */
+    static bool buildPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
+                          const std::string& imgFile, const Position& pos, double width, double height, bool ignorePruning = false);
+
+    /** @brief Builds a polygon using the given values and adds it to the container
+     * @param[in] id The name of the polygon
+     * @param[in] type The (abstract) type of the polygon
+     * @param[in] color The color of the polygon
+     * @param[in] layer The layer of the polygon
+     * @param[in] angle The rotation of the polygon
+     * @param[in] imgFile The raster image of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] fill Whether the polygon shall be filled
+     * @return whether the polygon could be added
+     */
+    static bool buildPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
+                              const std::string& imgFile, const PositionVector& shape, bool fill, bool ignorePruning = false);
 
     /**@brief get lane position
      * @param[in] poi poi ID
@@ -96,19 +131,7 @@ protected:
     */
     Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos) ;
 
-protected:
-
-    /// @brief set default values
-    void setDefaults(const std::string& prefix, const RGBColor& color, const double layer, const bool fill = false);
-
-    /// @brief adds a POI
-    void addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing);
-
-    /// @brief adds a polygon
-    void addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing);
-
 private:
-
     /// @brief pointer to net
     GNENet* myNet;
 

@@ -68,6 +68,18 @@ GNEShapeHandler::GNEShapeHandler(GNENet* net, const std::string& file, ShapeCont
 GNEShapeHandler::~GNEShapeHandler() {}
 
 
+bool
+GNEShapeHandler::loadFiles(const std::vector<std::string>& files, GNEShapeHandler& sh) {
+    for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
+        if (!XMLSubSys::runParser(sh, *fileIt, false)) {
+            WRITE_MESSAGE("Loading of shapes from " + *fileIt + " failed.");
+            return false;
+        }
+    }
+    return true;
+}
+
+
 void
 GNEShapeHandler::myStartElement(int element,
                              const SUMOSAXAttributes& attrs) {
@@ -75,11 +87,11 @@ GNEShapeHandler::myStartElement(int element,
         switch (element) {
             case SUMO_TAG_POLY:
                 myDefaultLayer = Shape::DEFAULT_LAYER;
-                addPoly(attrs, false, false);
+                parseAndBuildPolygon(attrs, false, false);
                 break;
             case SUMO_TAG_POI:
                 myDefaultLayer = (double)GLO_POI;
-                addPOI(attrs, false, false);
+                parseAndBuildPOI(attrs, false, false);
                 break;
             default:
                 break;
@@ -90,9 +102,17 @@ GNEShapeHandler::myStartElement(int element,
 }
 
 
+void
+GNEShapeHandler::setDefaults(const std::string& prefix, const RGBColor& color, const double layer, const bool fill) {
+    myPrefix = prefix;
+    myDefaultColor = color;
+    myDefaultLayer = layer;
+    myDefaultFill = fill;
+}
+
 
 void
-GNEShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing) {
+GNEShapeHandler::parseAndBuildPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing) {
     bool ok = true;
     const double INVALID_POSITION(-1000000);
     const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
@@ -157,7 +177,7 @@ GNEShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning
 
 
 void
-GNEShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing) {
+GNEShapeHandler::parseAndBuildPolygon(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing) {
     bool ok = true;
     const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     // get the id, report an error if not given or empty...
@@ -194,25 +214,17 @@ GNEShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePrunin
 }
 
 
-
-bool
-GNEShapeHandler::loadFiles(const std::vector<std::string>& files, GNEShapeHandler& sh) {
-    for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
-        if (!XMLSubSys::runParser(sh, *fileIt, false)) {
-            WRITE_MESSAGE("Loading of shapes from " + *fileIt + " failed.");
-            return false;
-        }
-    }
-    return true;
+bool 
+GNEShapeHandler::buildPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
+                          const std::string& imgFile, const Position& pos, double width, double height, bool ignorePruning) {
+    return false;
 }
 
 
-void
-GNEShapeHandler::setDefaults(const std::string& prefix, const RGBColor& color, const double layer, const bool fill) {
-    myPrefix = prefix;
-    myDefaultColor = color;
-    myDefaultLayer = layer;
-    myDefaultFill = fill;
+bool 
+GNEShapeHandler::buildPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
+                              const std::string& imgFile, const PositionVector& shape, bool fill, bool ignorePruning) {
+    return false;
 }
 
 
