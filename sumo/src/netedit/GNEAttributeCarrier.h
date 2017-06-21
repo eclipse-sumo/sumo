@@ -229,9 +229,9 @@ public:
     /// @brief feature has been approved but not changed (i.e. after being reguessed)
     static const std::string APPROVED;
 
-    /// @brief get parsed attribute of XML and show warnings if there are problems
+    /// @brief Parse attribute from XML and show warnings if there are problems parsing it
     template <typename T>
-    static T getParsedAttribute(const SUMOSAXAttributes& attrs, const char* objectid, SumoXMLTag tag, SumoXMLAttr attribute, bool& abort, bool report = true) {
+    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const char* objectid, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort, bool report = true) {
         bool ok = true;
         std::string parsedAttribute = "0";
         // only show one warning for every error/warning loading additional
