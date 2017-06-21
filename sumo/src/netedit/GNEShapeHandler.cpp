@@ -43,16 +43,26 @@
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/shapes/shape.h>
 #include <utils/shapes/ShapeContainer.h>
+#include <netimport/NIImporter_SUMO.h>
+
 
 #include "GNEShapeHandler.h"
+#include "GNENet.h"
+#include "GNEEdge.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEShapeHandler::GNEShapeHandler(const std::string& file, ShapeContainer& sc) :
-    SUMOSAXHandler(file), myShapeContainer(sc),
-    myPrefix(""), myDefaultColor(RGBColor::RED), myDefaultLayer(), myDefaultFill(false) {}
+GNEShapeHandler::GNEShapeHandler(GNENet* net, const std::string& file, ShapeContainer& sc) :
+    myNet(net),
+    SUMOSAXHandler(file), 
+    myShapeContainer(sc),
+    myPrefix(""), 
+    myDefaultColor(RGBColor::RED), 
+    myDefaultLayer(), 
+    myDefaultFill(false) {
+}
 
 
 GNEShapeHandler::~GNEShapeHandler() {}
@@ -205,6 +215,22 @@ GNEShapeHandler::setDefaults(const std::string& prefix, const RGBColor& color, c
     myDefaultFill = fill;
 }
 
+
+Position
+GNEShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos) {
+    std::string edgeID;
+    int laneIndex;
+    NIImporter_SUMO::interpretLaneID(laneID, edgeID, laneIndex);
+    NBEdge* edge = myNet->retrieveEdge(edgeID)->getNBEdge();
+    if (edge == 0 || laneIndex < 0 || edge->getNumLanes() <= laneIndex) {
+        WRITE_ERROR("Lane '" + laneID + "' to place poi '" + poiID + "' on is not known.");
+        return Position::INVALID;
+    }
+    if (lanePos < 0) {
+        lanePos = edge->getLength() + lanePos;
+    }
+    return edge->getLanes()[laneIndex].shape.positionAtOffset(lanePos);
+}
 
 
 /****************************************************************************/

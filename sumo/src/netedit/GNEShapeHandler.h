@@ -41,7 +41,7 @@
 // class declarations
 // ===========================================================================
 class ShapeContainer;
-
+class GNENet;
 
 // ===========================================================================
 // class definitions
@@ -61,13 +61,9 @@ public:
     /** @brief Constructor
      *
      * @param[in] file Name of the parsed file
-     * @param[in, out] net The network to fill
-     * @param[in] detBuilder The detector builder to use
-     * @param[in] triggerBuilder The trigger builder to use
-     * @param[in] edgeBuilder The builder of edges to use
-     * @param[in] junctionBuilder The builder of junctions to use
+     * @param[in] sc shapeContainer in which shapes will be saved
      */
-    GNEShapeHandler(const std::string& file, ShapeContainer& sc);
+    GNEShapeHandler(GNENet* net, const std::string& file, ShapeContainer& sc);
 
     /// @brief Destructor
     virtual ~GNEShapeHandler();
@@ -90,37 +86,47 @@ protected:
      */
     virtual void myStartElement(int element,
                                 const SUMOSAXAttributes& attrs);
-
-
     //@}
 
 
-    /// @brief get position for a given laneID
-    virtual Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos) = 0;
+    /**@brief get lane position
+     * @param[in] poi poi ID
+     * @param[in] laneID lane ID
+     * @param[in] SlanePos position in the lane
+    */
+    Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos) ;
 
 protected:
+
+    /// @brief set default values
     void setDefaults(const std::string& prefix, const RGBColor& color, const double layer, const bool fill = false);
 
-    /// adds a POI
+    /// @brief adds a POI
     void addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing);
 
-    /// adds a polygon
+    /// @brief adds a polygon
     void addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing);
 
-protected:
+private:
+
+    /// @brief pointer to net
+    GNENet* myNet;
+
+    /// @brief shape container
     ShapeContainer& myShapeContainer;
 
-private:
     /// @brief The prefix to use
     std::string myPrefix;
+
     /// @brief The default color to use
     RGBColor myDefaultColor;
+
     /// @brief The default layer to use
     double myDefaultLayer;
+
     /// @brief Information whether polygons should be filled
     bool myDefaultFill;
 
-private:
     /// @brief invalid copy constructor
     GNEShapeHandler(const GNEShapeHandler& s);
 

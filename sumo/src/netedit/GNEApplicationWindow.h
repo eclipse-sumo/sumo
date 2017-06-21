@@ -341,36 +341,6 @@ protected:
     /// @brief filename for load/save additionals
     std::string myAdditionalsFile;
 
-    /**
-     * @class GNEShapeHandler
-     * @brief The XML-Handler for shapes loading network loading
-     *
-     * This subclasses ShapeHandler with netbuild specific function
-     */
-    class GNEShapeHandler : public ShapeHandler {
-    public:
-        /**@brief Constructor
-         * @param[in] file file with the shapes
-         * @param[in] net network in which add shapes
-         * @param[in] ShapeContainer reference to ShapeContainer
-         */
-        GNEShapeHandler(const std::string& file, GNENet* net, ShapeContainer& sc);
-
-        /// @brief Destructor
-        virtual ~GNEShapeHandler();
-
-        /**@brief get lane position
-         * @param[in] poi poi ID
-         * @param[in] laneID lane ID
-         * @param[in] SlanePos position in the lane
-         */
-        Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos);
-
-    private:
-        /// @brief pointer of the net
-        GNENet* myNet;
-    };
-
 private:
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);
