@@ -210,7 +210,8 @@ public:
                 double impatience, double decel, SUMOTime waitingTime,
                 double posLat = 0,
                 std::vector<const SUMOVehicle*>* collectFoes = 0,
-                bool ignoreRed = false) const;
+                bool ignoreRed = false,
+                const SUMOVehicle* ego = 0) const;
 
     /** @brief Returns the information whether this link is blocked
      * Valid after the vehicles have set their requests
@@ -228,7 +229,7 @@ public:
      **/
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                        bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-                       std::vector<const SUMOVehicle*>* collectFoes = 0) const;
+                       std::vector<const SUMOVehicle*>* collectFoes = 0, const SUMOVehicle* ego = 0) const;
 
 
     bool isBlockingAnyone() const {

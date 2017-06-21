@@ -1566,11 +1566,15 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 ((*link)->getViaLane() == 0
                  && getLateralOverlap() > POSITION_EPS
                  // do not get stuck on narrow edges
-                 && getVehicleType().getWidth() <= lane->getEdge().getWidth() &&
+                 && getVehicleType().getWidth() <= lane->getEdge().getWidth()
                  // this is the exit link of a junction. The normal edge should support the shadow
-                 ((getLaneChangeModel().getShadowLane((*link)->getLane()) == 0)
+                 && ((getLaneChangeModel().getShadowLane((*link)->getLane()) == 0)
                   // the internal lane after an internal junction has no parallel lane. make sure there is no shadow before continuing
                   || (lane->getEdge().isInternal() && lane->getIncomingLanes()[0].lane->getEdge().isInternal()))
+                 // ignore situations where the shadow lane is part of a double-connection with the current lane
+                 && (getLaneChangeModel().getShadowLane() == 0 
+                     || getLaneChangeModel().getShadowLane()->getLinkCont().size() == 0
+                     || getLaneChangeModel().getShadowLane()->getLinkCont().front()->getLane() != (*link)->getLane())
                 )) {
             double va = MIN2(cfModel.stopSpeed(this, getSpeed(), seen), laneMaxV);
             if (lastLink != 0) {
@@ -2004,7 +2008,7 @@ MSVehicle::executeMove() {
                                                           getVehicleType().getLength(), getImpatience(),
                                                           getCarFollowModel().getMaxDecel(),
                                                           getWaitingTime(), shadowLatPos, 0,
-                                                          ignoreRedLink));
+                                                          ignoreRedLink, this));
 #ifdef DEBUG_EXEC_MOVE
                     if (DEBUG_COND) {
                         std::cout << SIMTIME

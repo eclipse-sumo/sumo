@@ -311,7 +311,7 @@ MSLink::getLeaveTime(const SUMOTime arrivalTime, const double arrivalSpeed,
 bool
 MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, double vehicleLength,
                double impatience, double decel, SUMOTime waitingTime, double posLat,
-               std::vector<const SUMOVehicle*>* collectFoes, bool ignoreRed) const {
+               std::vector<const SUMOVehicle*>* collectFoes, bool ignoreRed, const SUMOVehicle* ego) const {
     if (haveRed() && !ignoreRed) {
         return false;
     }
@@ -376,7 +376,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
             }
         }
         if ((*i)->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane(),
-                                impatience, decel, waitingTime, collectFoes)) {
+                                impatience, decel, waitingTime, collectFoes, ego)) {
             return false;
         }
     }
@@ -390,9 +390,9 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
 bool
 MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                       bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-                      std::vector<const SUMOVehicle*>* collectFoes) const {
+                      std::vector<const SUMOVehicle*>* collectFoes, const SUMOVehicle* ego) const {
     for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
-        if (blockedByFoe(i->first, i->second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, sameTargetLane,
+        if (i->first != ego && blockedByFoe(i->first, i->second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, sameTargetLane,
                          impatience, decel, waitingTime)) {
             if (collectFoes == 0) {
                 return true;
@@ -437,6 +437,9 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
         if (sameTargetLane && (arrivalTime - avi.leavingTime < lookAhead
                                || unsafeMergeSpeeds(avi.leaveSpeed, arrivalSpeed,
                                        veh->getVehicleType().getCarFollowModel().getMaxDecel(), decel))) {
+#ifdef MSLink_DEBUG_OPENED
+    if (gDebugFlag1) std::cout << "      blocked (cannot follow)\n";
+#endif
             return true;
         }
     } else if (foeArrivalTime > leaveTime) {
@@ -444,10 +447,16 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
         if (sameTargetLane && (foeArrivalTime - leaveTime < lookAhead
                                || unsafeMergeSpeeds(leaveSpeed, avi.arrivalSpeedBraking,
                                        decel, veh->getVehicleType().getCarFollowModel().getMaxDecel()))) {
+#ifdef MSLink_DEBUG_OPENED
+    if (gDebugFlag1) std::cout << "      blocked (cannot lead)\n";
+#endif
             return true;
         }
     } else {
         // even without considering safeHeadwayTime there is already a conflict
+#ifdef MSLink_DEBUG_OPENED
+    if (gDebugFlag1) std::cout << "      blocked (hard conflict)\n";
+#endif
         return true;
     }
     return false;
@@ -727,6 +736,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                               << " willPass=" << foeLane->getLinkCont()[0]->getApproaching(leader).willPass
                               << " isFrontOnLane=" << leader->isFrontOnLane(foeLane)
                               << " isOpposite=" << isOpposite << "\n";
+                }
+                if (leader == ego) {
+                    continue;
                 }
                 if (!cannotIgnore && !foeLane->getLinkCont()[0]->getApproaching(leader).willPass && leader->isFrontOnLane(foeLane) && !isOpposite && !leader->isStopped()) {
                     continue;
