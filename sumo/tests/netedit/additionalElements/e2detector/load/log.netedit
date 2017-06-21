@@ -1,12 +1,12 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding e2Detector 'E2_01' in GNEChange_Additional
-Warning: Essential string attribute 'id' of e2Detector is missing; Additional cannot be created
+Warning: Essential string attribute 'id' of e2Detector is missing; e2Detector cannot be created
 Warning: The id 'id with spaces' of additional e2Detector contains invalid characters.
 Warning: There is another e2Detector with the same ID='E2_01'.
 Warning: The lane 'dummyLane' to use within the e2Detector 'E2_02' is not known.
-Warning: Essential string attribute 'lane' of e2Detector with ID 'E2_03' is missing; Additional cannot be created
-Warning: Essential string attribute 'pos' of e2Detector with ID 'E2_04' is missing; Additional cannot be created
-Warning: Format of essential string attribute 'pos' of e2Detector with ID 'E2_04' is invalid; Additional cannot be created
+Warning: Essential string attribute 'lane' of e2Detector with ID 'E2_03' is missing; e2Detector cannot be created
+Warning: Essential string attribute 'pos' of e2Detector with ID 'E2_04' is missing; e2Detector cannot be created
+Warning: Format of essential string attribute 'pos' of e2Detector with ID 'E2_04' is invalid; e2Detector cannot be created
 Warning: Invalid position for e2Detector with ID = 'E2_05'.
 Warning: Invalid position for e2Detector with ID = 'E2_06'.
 Warning: Optional float attribute 'length' of e2Detector with ID 'E2_07' is missing; Default value '10.00' will be used.
@@ -56,8 +56,8 @@ Warning: Adding e2Detector 'E2_33' in GNEChange_Additional
 Warning: Format of optional float attribute 'jamThreshold' of e2Detector with ID 'E2_34' is invalid; Cannot be negative; Default value '10.00' will be used.
 Warning: Adding e2Detector 'E2_34' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_35' in GNEChange_Additional
-Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced e2Detector 'E2_35'
 Warning: Deleting unreferenced e2Detector 'E2_34'
 Warning: Deleting unreferenced e2Detector 'E2_33'
@@ -89,10 +89,10 @@ Warning: Deleting unreferenced e2Detector 'E2_07'
 Warning: Deleting unreferenced e2Detector 'E2_01'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

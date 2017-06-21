@@ -6,20 +6,20 @@ Warning: Adding busStop 'busStop4' in GNEChange_Additional
 Warning: Adding busStop 'busStop5' in GNEChange_Additional
 Warning: Adding busStop 'busStop6' in GNEChange_Additional
 Warning: Key F5 (Compute) pressed
-Warning: Created connection 'gneE0_0 -> gneE5_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE1_0 -> gneE9_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE2_0 -> gneE4_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE2_1 -> gneE3_1' in retrieveGNEConnection()
-Warning: Created connection 'gneE3_0 -> gneE8_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE3_1 -> gneE2_1' in retrieveGNEConnection()
-Warning: Created connection 'gneE4_0 -> gneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE5_0 -> gneE3_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE5_0 -> gneE3_1' in retrieveGNEConnection()
-Warning: Created connection 'gneE8_0 -> gneE0_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE9_0 -> gneE2_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE9_0 -> gneE2_1' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_0togneE9_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE2_0togneE4_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE3_0togneE8_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE4_0togneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE5_0togneE3_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Warning: Value 'DummyAllowed' for attribute allow of edge isn't valid
 Warning: Setting new attribute allow '' into lane 'gneE2_0'
 Warning: Setting new attribute allow '' into lane 'gneE2_1'
@@ -203,36 +203,36 @@ Warning: Deleting unreferenced busStop 'busStop2'
 Warning: Deleting unreferenced busStop 'busStop1'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE0_0 -> gneE5_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE0_0togneE5_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE1_0 -> gneE9_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE1_0togneE9_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE2' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE2_0 -> gneE4_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE2_1 -> gneE3_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE2_0togneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE2_1togneE3_1' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE3' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE3_0 -> gneE8_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE3_1 -> gneE2_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE3_0togneE8_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE4' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE4_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE4_0togneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE5' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE5_0 -> gneE3_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE5_0 -> gneE3_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE5_0togneE3_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE5_0togneE3_1' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE8' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE8_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE8_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE8_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE9' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE9_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE9_0 -> gneE2_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE9_0 -> gneE2_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE9_0togneE2_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE9_0togneE2_1' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor

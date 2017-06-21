@@ -18,16 +18,16 @@ Warning: Setting new attribute power '11000' into chargingStation 'chargingStati
 Warning: Value '2' for attribute efficiency of chargingStation isn't valid
 Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingStationA'
 Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingStationB'
-Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced chargingStation 'chargingStationB'
 Warning: Deleting unreferenced chargingStation 'chargingStationA'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

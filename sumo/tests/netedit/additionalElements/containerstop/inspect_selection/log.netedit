@@ -14,16 +14,16 @@ Warning: Setting new attribute friendlyPos 'true' into containerStop 'containerS
 Warning: Setting new attribute friendlyPos 'true' into containerStop 'containerStopB'
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopA'
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopB'
-Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced containerStop 'containerStopB'
 Warning: Deleting unreferenced containerStop 'containerStopA'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

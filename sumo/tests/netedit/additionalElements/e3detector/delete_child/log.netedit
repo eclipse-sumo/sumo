@@ -60,8 +60,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: e3Detector with ID 'e3Detector_1' cannot be writed in additional file because doesn't have childs.
 Warning: e3Detector with ID 'e3Detector_2' cannot be writed in additional file because doesn't have childs.
-Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detExit 'e3Detector_2detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_2'
@@ -70,10 +70,10 @@ Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_1'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

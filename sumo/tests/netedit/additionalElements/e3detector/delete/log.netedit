@@ -24,11 +24,11 @@ Warning: Adding edge 'gneE0' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE0'
 Warning: Adding connection 'gneE0_0->gneE1_0' into edge 'gneE0'
-Warning: Created connection 'gneE0_0 -> gneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ0'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE1'
 Warning: Adding connection 'gneE1_0->gneE0_0' into edge 'gneE1'
-Warning: Created connection 'gneE1_0 -> gneE0_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
@@ -51,11 +51,11 @@ Warning: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
-Warning: Deleting unreferenced connection 'gneE1_0 -> gneE0_0' in removeConnection()
+Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
-Warning: Deleting unreferenced connection 'gneE0_0 -> gneE1_0' in removeConnection()
+Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Removing edge 'gneE0' from net
