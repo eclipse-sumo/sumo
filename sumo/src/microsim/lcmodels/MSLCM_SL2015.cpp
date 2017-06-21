@@ -715,6 +715,8 @@ MSLCM_SL2015::prepareStep() {
     myLeftSpace = 0;
     myVSafes.clear();
     myDontBrake = false;
+    myCFRelated.clear();
+    myCFRelatedReady = false;
     // truncate to work around numerical instability between different builds
     mySpeedGainProbabilityRight = ceil(mySpeedGainProbabilityRight * 100000.0) * 0.00001;
     mySpeedGainProbabilityLeft = ceil(mySpeedGainProbabilityLeft * 100000.0) * 0.00001;
@@ -1697,6 +1699,16 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
     const double maxDist = SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat());
     latDist = MAX2(MIN2(latDist, maxDist), -maxDist);
 
+    if (!myCFRelatedReady) {
+        updateCFRelated(leaders, myVehicle.getLane()->getRightSideOnEdge());
+        updateCFRelated(followers, myVehicle.getLane()->getRightSideOnEdge());
+        if (laneOffset != 0) {
+            updateCFRelated(neighLeaders, neighLane.getRightSideOnEdge());
+            updateCFRelated(neighFollowers, neighLane.getRightSideOnEdge());
+        }
+        myCFRelatedReady = true;
+    }
+
     // reduce latDist to avoid blockage with overlapping vehicles (no minGapLat constraints)
     const double halfWidth = getWidth() * 0.5;
     const double center = myVehicle.getCenterOnEdge();
@@ -1807,7 +1819,7 @@ MSLCM_SL2015::checkBlockingVehicles(
     int result = 0;
     for (int i = 0; i < vehicles.numSublanes(); ++i) {
         CLeaderDist vehDist = vehicles[i];
-        if (vehDist.first != 0) {
+        if (vehDist.first != 0 && myCFRelated.count(vehDist.first) == 0) {
             const MSVehicle* leader = vehDist.first;
             const MSVehicle* follower = ego;
             if (!leaders) {
@@ -1826,10 +1838,6 @@ MSLCM_SL2015::checkBlockingVehicles(
                           << " overlap=" << overlap(rightNoOverlap, leftNoOverlap, foeRight, foeLeft)
                           << " overlapDest=" << overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)
                           << "\n";
-            }
-            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0 || (leader->getSpeed() < SUMO_const_haltingSpeed && follower->getSpeed() < SUMO_const_haltingSpeed))) {
-                // ignore vehicles that area already in a car-following relationship
-                continue;
             }
             if (overlap(rightNoOverlap, leftNoOverlap, foeRight, foeLeft)) {
                 if (vehDist.second < 0) {
@@ -1868,6 +1876,33 @@ MSLCM_SL2015::checkBlockingVehicles(
     }
     return result;
 
+}
+
+
+void 
+MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOffset) {
+    // to ensure that we do not ignore the wrong vehicles due to numerical
+    // instability we slightly reduce the width
+    const double vehWidth = myVehicle.getVehicleType().getWidth() - NUMERICAL_EPS;
+    const double rightVehSide = myVehicle.getRightSideOnEdge();
+    const double leftVehSide = rightVehSide + vehWidth;
+    for (int i = 0; i < vehicles.numSublanes(); ++i) {
+        CLeaderDist vehDist = vehicles[i];
+        if (vehDist.first != 0 && myCFRelated.count(vehDist.first) == 0) {
+            double foeRight, foeLeft;
+            vehicles.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
+            if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0 || (myVehicle.getSpeed() < SUMO_const_haltingSpeed && vehDist.first->getSpeed() < SUMO_const_haltingSpeed))) {
+                if (gDebugFlag2) {
+                    std::cout << " ignoring cfrelated foe=" << vehDist.first->getID() << " gap=" << vehDist.second 
+                        << " sublane=" << i 
+                        << " egoR=" << rightVehSide << " egoL=" << leftVehSide
+                        << " iR=" << foeRight << " iL=" << foeLeft
+                        << "\n";
+                }
+                myCFRelated.insert(vehDist.first);
+            }
+        }
+    }
 }
 
 
@@ -2310,6 +2345,7 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
         const double baseMinGap = myVehicle.getVehicleType().getMinGapLat();
         for (int i = 0; i < others.numSublanes(); ++i) {
             if (others[i].first != 0 && others[i].second <= 0
+                    && myCFRelated.count(others[i].first) == 0
                     && (netOverlap == 0 || others[i].second + others[i].first->getVehicleType().getMinGap() < netOverlap)) {
                 /// foe vehicle occupies full sublanes
                 const MSVehicle* foe = others[i].first;
@@ -2342,11 +2378,6 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                                                << " surplusGapRight=" << surplusGapRight
                                                << " surplusGapLeft=" << surplusGapLeft
                                                << "\n";
-                if (gap < -POSITION_EPS && (others[i].second >= 0 || (myVehicle.getSpeed() < SUMO_const_haltingSpeed && foe->getSpeed() < SUMO_const_haltingSpeed))) {
-                    //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ignoring lateral gap to " << foe->getID() << "\n";
-                    // ignore vehicles that area already in a car-following relationship
-                    continue;
-                }
                 if (foeCenter < oldCenter) {
                     surplusGapRight = MIN2(surplusGapRight, gap - currentMinGap);
                 } else {

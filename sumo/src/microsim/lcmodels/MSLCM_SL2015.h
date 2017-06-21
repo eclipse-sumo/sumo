@@ -273,6 +273,7 @@ protected:
                              double& latDist
                             );
 
+
     /// @brief check whether lateral gap requirements are met override the current maneuver if necessary
     int keepLatGap(int state,
                    const MSLeaderDistanceInfo& leaders,
@@ -298,6 +299,9 @@ protected:
 
     /// @brief return the widht of this vehicle (padded for numerical stability)
     double getWidth() const;
+
+    /// @brief find leaders/followers that are already in a car-following relationship with ego
+    void updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOffset);
 
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
@@ -337,6 +341,10 @@ protected:
 
     /// @brief the complete lateral distance the vehicle wants to travel to finish its maneuver
     double myOrigLatDist;
+
+    /// @brief set of vehicles that are in a car-following relationship with ego (leader of followers)
+    std::set<const MSVehicle*> myCFRelated;
+    bool myCFRelatedReady;
 
     /// @name user configurable model parameters (can be changed via TraCI)
     //@{
