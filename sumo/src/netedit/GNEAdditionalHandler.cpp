@@ -207,9 +207,9 @@ void
 GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of Vaporizer
-    const std::string edgeId = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_EDGE, abort);
-    double startTime = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_STARTTIME, abort);
-    double endTime = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_END, abort);
+    const std::string edgeId = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_EDGE, abort);
+    double startTime = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_STARTTIME, abort);
+    double endTime = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_END, abort);
     // Continue if all parameters were successfully loaded
     if (!abort) {
         // get edge
@@ -233,11 +233,11 @@ void
 GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of RouteProbe
-    std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::string edgeId = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_EDGE, abort);
-    double freq = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_FREQUENCY, abort);
-    std::string file = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_FILE, abort, false);
-    double begin = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_BEGIN, abort);
+    std::string id = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    std::string edgeId = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_EDGE, abort);
+    double freq = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_FREQUENCY, abort);
+    std::string file = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_FILE, abort, false);
+    double begin = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_BEGIN, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get edge
@@ -262,9 +262,9 @@ void
 GNEAdditionalHandler::parseCalibratorRoute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attribute of calibrator routes
-    std::string routeID = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::vector<std::string> edgeIDs = getParsedAttribute<std::vector<std::string> >(attrs, 0, tag, SUMO_ATTR_EDGES, abort);
-    std::string color = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_COLOR, abort, false);
+    std::string routeID = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    std::vector<std::string> edgeIDs = GNEAttributeCarrier::getParsedAttribute<std::vector<std::string> >(attrs, 0, tag, SUMO_ATTR_EDGES, abort);
+    std::string color = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_COLOR, abort, false);
 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
@@ -301,32 +301,32 @@ GNEAdditionalHandler::parseCalibratorVehicleType(const SUMOSAXAttributes& attrs,
     bool abort = false;
 
     // parse attribute of calibrator vehicle types
-    std::string vehicleTypeID = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    double accel = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_ACCEL, abort);
-    double decel = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_DECEL, abort);
-    double sigma = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_SIGMA, abort);
-    double tau = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_TAU, abort);
-    double length = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_LENGTH, abort);
-    double minGap = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_MINGAP, abort);
-    double maxSpeed = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_MAXSPEED, abort);
-    double speedFactor = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_SPEEDFACTOR, abort);
-    double speedDev = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_SPEEDDEV, abort);
-    std::string color = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_COLOR, abort);
-    SUMOVehicleClass vClass = getParsedAttribute<SUMOVehicleClass>(attrs, 0, tag, SUMO_ATTR_VCLASS, abort);
-    std::string emissionClass = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_EMISSIONCLASS, abort);
-    SUMOVehicleShape shape = getParsedAttribute<SUMOVehicleShape>(attrs, 0, tag, SUMO_ATTR_GUISHAPE, abort);
-    double width = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_WIDTH, abort);
-    std::string filename = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_IMGFILE, abort);
-    double impatience = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_IMPATIENCE, abort);
-    std::string laneChangeModel = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LANE_CHANGE_MODEL, abort);
-    std::string carFollowModel = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_CAR_FOLLOW_MODEL, abort);
-    int personCapacity = getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_PERSON_CAPACITY, abort);
-    int containerCapacity = getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_CONTAINER_CAPACITY, abort);
-    double boardingDuration = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_BOARDING_DURATION, abort);
-    double loadingDuration = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_LOADING_DURATION, abort);
-    std::string latAlignment = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LATALIGNMENT, abort);
-    double minGapLat = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_MINGAP_LAT, abort);
-    double maxSpeedLat = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_MAXSPEED_LAT, abort);
+    std::string vehicleTypeID = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    double accel = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_ACCEL, abort);
+    double decel = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_DECEL, abort);
+    double sigma = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_SIGMA, abort);
+    double tau = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_TAU, abort);
+    double length = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_LENGTH, abort);
+    double minGap = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_MINGAP, abort);
+    double maxSpeed = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_MAXSPEED, abort);
+    double speedFactor = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_SPEEDFACTOR, abort);
+    double speedDev = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_SPEEDDEV, abort);
+    std::string color = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_COLOR, abort);
+    SUMOVehicleClass vClass = GNEAttributeCarrier::getParsedAttribute<SUMOVehicleClass>(attrs, 0, tag, SUMO_ATTR_VCLASS, abort);
+    std::string emissionClass = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_EMISSIONCLASS, abort);
+    SUMOVehicleShape shape = GNEAttributeCarrier::getParsedAttribute<SUMOVehicleShape>(attrs, 0, tag, SUMO_ATTR_GUISHAPE, abort);
+    double width = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_WIDTH, abort);
+    std::string filename = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_IMGFILE, abort);
+    double impatience = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_IMPATIENCE, abort);
+    std::string laneChangeModel = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LANE_CHANGE_MODEL, abort);
+    std::string carFollowModel = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_CAR_FOLLOW_MODEL, abort);
+    int personCapacity = GNEAttributeCarrier::getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_PERSON_CAPACITY, abort);
+    int containerCapacity = GNEAttributeCarrier::getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_CONTAINER_CAPACITY, abort);
+    double boardingDuration = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_BOARDING_DURATION, abort);
+    double loadingDuration = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_LOADING_DURATION, abort);
+    std::string latAlignment = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LATALIGNMENT, abort);
+    double minGapLat = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_MINGAP_LAT, abort);
+    double maxSpeedLat = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_MAXSPEED_LAT, abort);
 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
@@ -350,28 +350,28 @@ GNEAdditionalHandler::parseCalibratorFlow(const SUMOSAXAttributes& attrs, const 
     bool abort = false;
 
     // parse attributes of calibrator flows
-    std::string flowID = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::string vehicleType = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_TYPE, abort);
-    std::string route = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ROUTE, abort);
-    std::string color = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_COLOR, abort);
-    std::string departLane = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTLANE, abort);
-    std::string departPos = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTPOS, abort);
-    std::string departSpeed = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTSPEED, abort);
-    std::string arrivalLane = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ARRIVALLANE, abort);
-    std::string arrivalPos = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ARRIVALPOS, abort);
-    std::string arrivalSpeed = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ARRIVALSPEED, abort);
-    std::string line = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LINE, abort);
-    int personNumber = getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_PERSON_NUMBER, abort);
-    int containerNumber = getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_CONTAINER_NUMBER, abort);
-    bool reroute = getParsedAttribute<bool>(attrs, 0, tag, SUMO_ATTR_REROUTE, abort);
-    std::string departPosLat = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTPOS_LAT, abort);
-    std::string arrivalPosLat = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ARRIVALPOS_LAT, abort);
-    double begin = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_BEGIN, abort);
-    double end = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_END, abort);
-    double vehsPerHour = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_VEHSPERHOUR, abort);
-    double period = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_PERIOD, abort);
-    double probability = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_PROB, abort);
-    int number = getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_NUMBER, abort);
+    std::string flowID = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    std::string vehicleType = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_TYPE, abort);
+    std::string route = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ROUTE, abort);
+    std::string color = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_COLOR, abort);
+    std::string departLane = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTLANE, abort);
+    std::string departPos = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTPOS, abort);
+    std::string departSpeed = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTSPEED, abort);
+    std::string arrivalLane = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ARRIVALLANE, abort);
+    std::string arrivalPos = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ARRIVALPOS, abort);
+    std::string arrivalSpeed = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ARRIVALSPEED, abort);
+    std::string line = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LINE, abort);
+    int personNumber = GNEAttributeCarrier::getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_PERSON_NUMBER, abort);
+    int containerNumber = GNEAttributeCarrier::getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_CONTAINER_NUMBER, abort);
+    bool reroute = GNEAttributeCarrier::getParsedAttribute<bool>(attrs, 0, tag, SUMO_ATTR_REROUTE, abort);
+    std::string departPosLat = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_DEPARTPOS_LAT, abort);
+    std::string arrivalPosLat = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ARRIVALPOS_LAT, abort);
+    double begin = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_BEGIN, abort);
+    double end = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_END, abort);
+    double vehsPerHour = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_VEHSPERHOUR, abort);
+    double period = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_PERIOD, abort);
+    double probability = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_PROB, abort);
+    int number = GNEAttributeCarrier::getParsedAttribute<int>(attrs, 0, tag, SUMO_ATTR_NUMBER, abort);
 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
@@ -408,8 +408,8 @@ void
 GNEAdditionalHandler::parseVariableSpeedSignStep(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // Load step values
-    double time = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_TIME, abort);
-    double speed = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_SPEED, abort);
+    double time = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_TIME, abort);
+    double speed = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_SPEED, abort);
     // Continue if all parameters were sucesfully loaded
     if ((!abort) && (myVariableSpeedSignParent != NULL)) {
         // create step and check that is valid
@@ -429,11 +429,11 @@ void
 GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of VSS
-    std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::string file = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_FILE, abort, false);
-    std::vector<std::string> lanesID = getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_LANES, abort);
-    double posx = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_X, abort);
-    double posy = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_Y, abort);
+    std::string id = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    std::string file = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_FILE, abort, false);
+    std::vector<std::string> lanesID = GNEAttributeCarrier::getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_LANES, abort);
+    double posx = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_X, abort);
+    double posy = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_Y, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain VSS Values
@@ -462,13 +462,13 @@ void
 GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of Rerouter
-    std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::vector<std::string> edgesID = getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_EDGES, abort);
-    std::string file = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_FILE, abort, false);
-    double probability = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_PROB, abort);
-    bool off = getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_OFF, abort);
-    double posx = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_X, abort);
-    double posy = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_Y, abort);
+    std::string id = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    std::vector<std::string> edgesID = GNEAttributeCarrier::getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_EDGES, abort);
+    std::string file = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_FILE, abort, false);
+    double probability = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_PROB, abort);
+    bool off = GNEAttributeCarrier::getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_OFF, abort);
+    double posx = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_X, abort);
+    double posy = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_Y, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain Rerouter values Values
@@ -495,13 +495,13 @@ void
 GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of bus stop
-    std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
-    double startPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
-    double endPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
-    std::string name = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort, false);
-    std::vector<std::string> lines = getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_LINES, abort, false);
-    bool friendlyPosition = getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
+    std::string id = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    std::string laneId = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
+    double startPos = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
+    double endPos = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
+    std::string name = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort, false);
+    std::vector<std::string> lines = GNEAttributeCarrier::getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_LINES, abort, false);
+    bool friendlyPosition = GNEAttributeCarrier::getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
@@ -528,13 +528,13 @@ void
 GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of container stop
-    std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
-    double startPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
-    double endPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
-    std::string name = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort, false);
-    std::vector<std::string> lines = getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_LINES, abort, false);
-    bool friendlyPosition = getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
+    std::string id = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    std::string laneId = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
+    double startPos = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
+    double endPos = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
+    std::string name = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort, false);
+    std::vector<std::string> lines = GNEAttributeCarrier::getParsedAttribute<std::vector<std::string> >(attrs, id.c_str(), tag, SUMO_ATTR_LINES, abort, false);
+    bool friendlyPosition = GNEAttributeCarrier::getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
@@ -561,16 +561,16 @@ void
 GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of charging station
-    std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
-    double startPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
-    double endPos = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
-    std::string name = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort, false);
-    double chargingPower = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_CHARGINGPOWER, abort);
-    double efficiency = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_EFFICIENCY, abort);
-    bool chargeInTransit = getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_CHARGEINTRANSIT, abort);
-    double chargeDelay = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_CHARGEDELAY, abort);
-    bool friendlyPosition = getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
+    std::string id = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    std::string laneId = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
+    double startPos = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_STARTPOS, abort);
+    double endPos = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ENDPOS, abort);
+    std::string name = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_NAME, abort, false);
+    double chargingPower = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_CHARGINGPOWER, abort);
+    double efficiency = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_EFFICIENCY, abort);
+    bool chargeInTransit = GNEAttributeCarrier::getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_CHARGEINTRANSIT, abort);
+    double chargeDelay = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_CHARGEDELAY, abort);
+    bool friendlyPosition = GNEAttributeCarrier::getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
@@ -597,12 +597,12 @@ void
 GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of calibrator
-    std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
-    std::string outfile = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_OUTPUT, abort, false);
-    double position = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_POSITION, abort);
-    double freq = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_FREQUENCY, abort);
-    // std::string routeProbe = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
+    std::string id = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    std::string laneId = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
+    std::string outfile = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_OUTPUT, abort, false);
+    double position = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_POSITION, abort);
+    double freq = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_FREQUENCY, abort);
+    // std::string routeProbe = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
     std::vector<GNECalibratorRoute> calibratorRoutes;
     std::vector<GNECalibratorFlow> calibratorFlows;
     std::vector<GNECalibratorVehicleType> calibratorVehicleTypes;
@@ -629,12 +629,12 @@ void
 GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of E1
-    std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
-    double position = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_POSITION, abort);
-    double frequency = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_FREQUENCY, abort);
-    std::string file = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_FILE, abort, false);
-    bool splitByType = getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_SPLIT_VTYPE, abort);
+    std::string id = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    std::string laneId = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
+    double position = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_POSITION, abort);
+    double frequency = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_FREQUENCY, abort);
+    std::string file = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_FILE, abort, false);
+    bool splitByType = GNEAttributeCarrier::getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_SPLIT_VTYPE, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
@@ -660,16 +660,16 @@ void
 GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of E2
-    std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    std::string laneId = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
-    double position = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_POSITION, abort);
-    double frequency = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_FREQUENCY, abort);
-    std::string file = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_FILE, abort, false);
-    double length = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_LENGTH, abort);
-    double haltingTimeThreshold = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
-    double haltingSpeedThreshold = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_HALTING_SPEED_THRESHOLD, abort);
-    double jamDistThreshold = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_JAM_DIST_THRESHOLD, abort);
-    bool cont = getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_CONT, abort);
+    std::string id = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    std::string laneId = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_LANE, abort);
+    double position = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_POSITION, abort);
+    double frequency = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_FREQUENCY, abort);
+    std::string file = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_FILE, abort, false);
+    double length = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_LENGTH, abort);
+    double haltingTimeThreshold = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
+    double haltingSpeedThreshold = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_HALTING_SPEED_THRESHOLD, abort);
+    double jamDistThreshold = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_JAM_DIST_THRESHOLD, abort);
+    bool cont = GNEAttributeCarrier::getParsedAttribute<bool>(attrs, id.c_str(), tag, SUMO_ATTR_CONT, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
@@ -695,13 +695,13 @@ void
 GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of E3
-    std::string id = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
-    double frequency = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_FREQUENCY, abort);
-    std::string file = getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_FILE, abort, false);
-    double haltingTimeThreshold = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
-    double haltingSpeedThreshold = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_HALTING_SPEED_THRESHOLD, abort);
-    double posx = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_X, abort);
-    double posy = getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_Y, abort);
+    std::string id = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_ID, abort);
+    double frequency = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_FREQUENCY, abort);
+    std::string file = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, id.c_str(), tag, SUMO_ATTR_FILE, abort, false);
+    double haltingTimeThreshold = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
+    double haltingSpeedThreshold = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_HALTING_SPEED_THRESHOLD, abort);
+    double posx = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_X, abort);
+    double posy = GNEAttributeCarrier::getParsedAttribute<double>(attrs, id.c_str(), tag, SUMO_ATTR_Y, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // check that all parameters are valid
@@ -726,8 +726,8 @@ void
 GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of Entry
-    std::string laneId = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LANE, abort);
-    double position = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_POSITION, abort);
+    std::string laneId = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LANE, abort);
+    double position = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_POSITION, abort);
     // Check if parsing of parameters was correct
     if (!abort) {
         // get pointer to lane
@@ -750,8 +750,8 @@ void
 GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of Exit
-    std::string laneId = getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LANE, abort);
-    double position = getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_POSITION, abort);
+    std::string laneId = GNEAttributeCarrier::getParsedAttribute<std::string>(attrs, 0, tag, SUMO_ATTR_LANE, abort);
+    double position = GNEAttributeCarrier::getParsedAttribute<double>(attrs, 0, tag, SUMO_ATTR_POSITION, abort);
     // Check if parsing of parameters was correct
     if (!abort) {
         // get pointer to lane
@@ -1353,122 +1353,6 @@ GNEAdditionalHandler::checkStopPos(double& startPos, double& endPos, const doubl
         }
     }
     return true;
-}
-
-
-template <typename T> T
-GNEAdditionalHandler::getParsedAttribute(const SUMOSAXAttributes& attrs, const char* objectid, SumoXMLTag tag, SumoXMLAttr attribute, bool& abort, bool report) {
-    bool ok = true;
-    std::string parsedAttribute = "0";
-    // only show one warning for every error/warning loading additional
-    if (!abort) {
-        // set additionalOfWarningMessage
-        std::string additionalOfWarningMessage;
-        if (objectid) {
-            additionalOfWarningMessage = toString(tag) + " with ID '" + toString(objectid) + "'";
-        } else {
-            additionalOfWarningMessage = toString(tag);
-        }
-        // first check that attribute exists
-        if (attrs.hasAttribute(attribute)) {
-            // Parse attribute as string
-            parsedAttribute = attrs.get<std::string>(attribute, objectid, ok, false);
-            // check that parsed attribute can be converted to type T
-            if (ok && !GNEAttributeCarrier::canParse<T>(parsedAttribute)) {
-                ok = false;
-            }
-            std::string errorFormat;
-            // Set extra checks for int values
-            if (GNEAttributeCarrier::isInt(tag, attribute)) {
-                if (GNEAttributeCarrier::canParse<int>(parsedAttribute)) {
-                    // parse to int and check if can be negative
-                    int parsedIntAttribute = GNEAttributeCarrier::parse<int>(parsedAttribute);
-                    if (GNEAttributeCarrier::isPositive(tag, attribute) && parsedIntAttribute < 0) {
-                        errorFormat = "Cannot be negative; ";
-                        ok = false;
-                    }
-                } else {
-                    errorFormat = "Cannot be parsed to int; ";
-                    ok = false;
-                }
-            }
-            // Set extra checks for float(double) values
-            if (GNEAttributeCarrier::isFloat(tag, attribute)) {
-                if (GNEAttributeCarrier::canParse<double>(parsedAttribute)) {
-                    // parse to double and check if can be negative
-                    double parsedSumoRealAttribute = GNEAttributeCarrier::parse<double>(parsedAttribute);
-                    if (GNEAttributeCarrier::isPositive(tag, attribute) && parsedSumoRealAttribute < 0) {
-                        errorFormat = "Cannot be negative; ";
-                        ok = false;
-                    }
-                } else {
-                    errorFormat = "Cannot be parsed to float; ";
-                    ok = false;
-                }
-            }
-            // set extra check for time(double) values
-            if (GNEAttributeCarrier::isTime(tag, attribute)) {
-                if (GNEAttributeCarrier::canParse<double>(parsedAttribute)) {
-                    // parse to SUMO Real and check if is negative
-                    double parsedSumoRealAttribute = GNEAttributeCarrier::parse<double>(parsedAttribute);
-                    if (parsedSumoRealAttribute < 0) {
-                        errorFormat = "Time cannot be negative; ";
-                        ok = false;
-                    }
-                } else {
-                    errorFormat = "Cannot be parsed to time; ";
-                    ok = false;
-                }
-            }
-            // set extra check for filename values
-            if (GNEAttributeCarrier::isFilename(tag, attribute) && (GNEAttributeCarrier::isValidFilename(parsedAttribute) == false)) {
-                errorFormat = "Filename contains invalid characters; ";
-                ok = false;
-            }
-            // set extra check for Vehicle Classes
-            if ((!ok) && (attribute == SUMO_ATTR_VCLASS)) {
-                errorFormat = "Is not a part of defined set of Vehicle Classes; ";
-            }
-            // set extra check for Vehicle Classes
-            if ((!ok) && (attribute == SUMO_ATTR_GUISHAPE)) {
-                errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
-            }
-            // If attribute has an invalid format
-            if (!ok) {
-                // if attribute has a default value, take it as string. In other case, abort.
-                if (GNEAttributeCarrier::hasDefaultValue(tag, attribute)) {
-                    parsedAttribute = toString(GNEAttributeCarrier::getDefaultValue<T>(tag, attribute));
-                    // report warning of default value
-                    if (report) {
-                        WRITE_WARNING("Format of optional " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                      additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value '" + toString(parsedAttribute) + "' will be used.");
-                    }
-                } else {
-                    WRITE_WARNING("Format of essential " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                  additionalOfWarningMessage +  " is invalid; " + errorFormat + "Additional cannot be created");
-                    // set default value of parsedAttribute (to avoid exceptions during conversions)
-                    parsedAttribute = "0";
-                    abort = true;
-                }
-            }
-        } else {
-            // if attribute has a default value, take it. In other case, abort.
-            if (GNEAttributeCarrier::hasDefaultValue(tag, attribute)) {
-                parsedAttribute = toString(GNEAttributeCarrier::getDefaultValue<T>(tag, attribute));
-                // report warning of default value
-                if (report) {
-                    WRITE_WARNING("Optional " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                  additionalOfWarningMessage + " is missing; Default value '" + toString(parsedAttribute) + "' will be used.");
-                }
-            } else {
-                WRITE_WARNING("Essential " + GNEAttributeCarrier::getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                              additionalOfWarningMessage +  " is missing; Additional cannot be created");
-                abort = true;
-            }
-        }
-    }
-    // return parsed attribute
-    return GNEAttributeCarrier::parse<T>(parsedAttribute);
 }
 
 

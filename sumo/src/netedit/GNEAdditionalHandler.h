@@ -32,7 +32,6 @@
 
 #include <string>
 #include <vector>
-#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/Position.h>
 
@@ -446,12 +445,7 @@ protected:
     /// @brief used to check hierarchy of aditionals with parents and childs (for example, E3)
     bool checkAdditionalParent(SumoXMLTag currentTag);
 
-
 private:
-    /// @brief get parsed attribute of XML and show warnings if there are problems
-    template<typename T>
-    static T getParsedAttribute(const SUMOSAXAttributes& attrs, const char* objectid, SumoXMLTag tag, SumoXMLAttr attribute, bool& abort, bool report = true);
-
     /// @brief get special attribute friendly position, used in stopping places
     bool getFriendlyPosition(const SUMOSAXAttributes& attrs, const char* objectid);
 

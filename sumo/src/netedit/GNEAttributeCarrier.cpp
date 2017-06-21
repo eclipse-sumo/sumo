@@ -32,6 +32,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+
 #include "GNEAttributeCarrier.h"
 #include "GNEUndoList.h"
 
@@ -1336,6 +1337,7 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
     throw ProcessError("attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' doesn't have a default value");
 }
+
 
 /****************************************************************************/
 

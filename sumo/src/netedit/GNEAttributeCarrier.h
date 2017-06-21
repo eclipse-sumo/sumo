@@ -33,7 +33,9 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
 #include <utils/gui/images/GUIIcons.h>
@@ -227,6 +229,123 @@ public:
     /// @brief feature has been approved but not changed (i.e. after being reguessed)
     static const std::string APPROVED;
 
+    /// @brief get parsed attribute of XML and show warnings if there are problems
+    template <typename T>
+    static T getParsedAttribute(const SUMOSAXAttributes& attrs, const char* objectid, SumoXMLTag tag, SumoXMLAttr attribute, bool& abort, bool report = true) {
+        bool ok = true;
+        std::string parsedAttribute = "0";
+        // only show one warning for every error/warning loading additional
+        if (!abort) {
+            // set additionalOfWarningMessage
+            std::string additionalOfWarningMessage;
+            if (objectid) {
+                additionalOfWarningMessage = toString(tag) + " with ID '" + toString(objectid) + "'";
+            } else {
+                additionalOfWarningMessage = toString(tag);
+            }
+            // first check that attribute exists
+            if (attrs.hasAttribute(attribute)) {
+                // Parse attribute as string
+                parsedAttribute = attrs.get<std::string>(attribute, objectid, ok, false);
+                // check that parsed attribute can be converted to type T
+                if (ok && !canParse<T>(parsedAttribute)) {
+                    ok = false;
+                }
+                std::string errorFormat;
+                // Set extra checks for int values
+                if (isInt(tag, attribute)) {
+                    if (canParse<int>(parsedAttribute)) {
+                        // parse to int and check if can be negative
+                        int parsedIntAttribute = parse<int>(parsedAttribute);
+                        if (isPositive(tag, attribute) && parsedIntAttribute < 0) {
+                            errorFormat = "Cannot be negative; ";
+                            ok = false;
+                        }
+                    } else {
+                        errorFormat = "Cannot be parsed to int; ";
+                        ok = false;
+                    }
+                }
+                // Set extra checks for float(double) values
+                if (isFloat(tag, attribute)) {
+                    if (canParse<double>(parsedAttribute)) {
+                        // parse to double and check if can be negative
+                        double parsedSumoRealAttribute = parse<double>(parsedAttribute);
+                        if (isPositive(tag, attribute) && parsedSumoRealAttribute < 0) {
+                            errorFormat = "Cannot be negative; ";
+                            ok = false;
+                        }
+                    } else {
+                        errorFormat = "Cannot be parsed to float; ";
+                        ok = false;
+                    }
+                }
+                // set extra check for time(double) values
+                if (isTime(tag, attribute)) {
+                    if (canParse<double>(parsedAttribute)) {
+                        // parse to SUMO Real and check if is negative
+                        double parsedSumoRealAttribute = parse<double>(parsedAttribute);
+                        if (parsedSumoRealAttribute < 0) {
+                            errorFormat = "Time cannot be negative; ";
+                            ok = false;
+                        }
+                    } else {
+                        errorFormat = "Cannot be parsed to time; ";
+                        ok = false;
+                    }
+                }
+                // set extra check for filename values
+                if (isFilename(tag, attribute) && (isValidFilename(parsedAttribute) == false)) {
+                    errorFormat = "Filename contains invalid characters; ";
+                    ok = false;
+                }
+                // set extra check for Vehicle Classes
+                if ((!ok) && (attribute == SUMO_ATTR_VCLASS)) {
+                    errorFormat = "Is not a part of defined set of Vehicle Classes; ";
+                }
+                // set extra check for Vehicle Classes
+                if ((!ok) && (attribute == SUMO_ATTR_GUISHAPE)) {
+                    errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
+                }
+                // If attribute has an invalid format
+                if (!ok) {
+                    // if attribute has a default value, take it as string. In other case, abort.
+                    if (hasDefaultValue(tag, attribute)) {
+                        parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
+                        // report warning of default value
+                        if (report) {
+                            WRITE_WARNING("Format of optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
+                                          additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value '" + toString(parsedAttribute) + "' will be used.");
+                        }
+                    } else {
+                        WRITE_WARNING("Format of essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
+                                      additionalOfWarningMessage +  " is invalid; " + errorFormat + "" + toString(tag) + " cannot be created");
+                        // set default value of parsedAttribute (to avoid exceptions during conversions)
+                        parsedAttribute = "0";
+                        abort = true;
+                    }
+                }
+            } else {
+                // if attribute has a default value, take it. In other case, abort.
+                if (hasDefaultValue(tag, attribute)) {
+                    parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
+                    // report warning of default value
+                    if (report) {
+                        WRITE_WARNING("Optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
+                                      additionalOfWarningMessage + " is missing; Default value '" + toString(parsedAttribute) + "' will be used.");
+                    }
+                } else {
+                    WRITE_WARNING("Essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
+                                  additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
+                    abort = true;
+                }
+            }
+        }
+        // return parsed attribute
+        return parse<T>(parsedAttribute);
+    };
+
+
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
@@ -288,7 +407,6 @@ private:
     /// @brief maximum number of attributes of all tags
     static int myMaxNumAttribute;
 
-private:
     /// @brief Invalidated assignment operator
     GNEAttributeCarrier& operator=(const GNEAttributeCarrier& src);
 };
