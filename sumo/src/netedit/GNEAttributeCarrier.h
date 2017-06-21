@@ -229,6 +229,9 @@ public:
     /// @brief feature has been approved but not changed (i.e. after being reguessed)
     static const std::string APPROVED;
 
+    /// @brief default value for invalid positions (used by POIs and Polygons)
+    static const double INVALID_POSITION;
+
     /// @brief Parse attribute from XML and show warnings if there are problems parsing it
     template <typename T>
     static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const char* objectid, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort, bool report = true) {
