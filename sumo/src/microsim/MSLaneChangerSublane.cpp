@@ -268,7 +268,13 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* ego) 
             return result;
         }
         const std::vector<MSLane*>& bestLaneConts = veh(myCandi)->getBestLanesContinuation(targetLane);
+        if (gDebugFlag1) {
+            std::cout << " add consecutive before=" << result.toString() << " dist=" << dist;
+        }
         target->lane->getLeadersOnConsecutive(dist, seen, speed, ego, bestLaneConts, result);
+        if (gDebugFlag1) {
+            std::cout << " after=" << result.toString() << "\n";
+        }
     }
     return result;
 }
@@ -300,6 +306,8 @@ MSLaneChangerSublane::checkChangeSublane(
                                    << " laneOffset=" << laneOffset
                                    << "\n  leaders=" << leaders.toString()
                                    << "\n  neighLeaders=" << neighLeaders.toString()
+                                   << "\n  followers=" << followers.toString()
+                                   << "\n  neighFollowers=" << neighFollowers.toString()
                                    << "\n";
 
 
