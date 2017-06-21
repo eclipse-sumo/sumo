@@ -296,6 +296,9 @@ protected:
     /// @brief compute the gap factor for the given state
     double computeGapFactor(int state) const;
 
+    /// @brief return the widht of this vehicle (padded for numerical stability)
+    double getWidth() const;
+
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
     double mySpeedGainProbabilityRight;

@@ -880,16 +880,16 @@ MSLCM_SL2015::_wantsChangeSublane(
     // compute the distance when changing to the neighboring lane
     // (ensure we do not lap into the line behind neighLane since there might be unseen blockers)
     const double halfCurrentLaneWidth = 0.5 * myVehicle.getLane()->getWidth();
-    const double halfVehWidth = 0.5 * myVehicle.getVehicleType().getWidth();
+    const double halfVehWidth = 0.5 * getWidth();
     const double latPos = myVehicle.getLateralPositionOnLane();
     double leftLimit = halfCurrentLaneWidth - halfVehWidth - latPos;
     double rightLimit = -halfCurrentLaneWidth + halfVehWidth - latPos;
     double latLaneDist = 0;  // minimum distance to move the vehicle fully onto the new lane
     if (laneOffset == -1) {
-        latLaneDist = rightLimit - myVehicle.getVehicleType().getWidth();
+        latLaneDist = rightLimit - getWidth();
         rightLimit -= neighLane.getWidth();
     } else if (laneOffset == 1) {
-        latLaneDist = leftLimit + myVehicle.getVehicleType().getWidth();
+        latLaneDist = leftLimit + getWidth();
         leftLimit += neighLane.getWidth();
     }
     // VARIANT_5 (disableAMBACKBLOCKER1)
@@ -1168,7 +1168,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     const MSEdge& edge = myVehicle.getLane()->getEdge();
     const std::vector<double>& sublaneSides = edge.getSubLaneSides();
     assert(sublaneSides.size() == myExpectedSublaneSpeeds.size());
-    const double vehWidth = myVehicle.getVehicleType().getWidth();
+    const double vehWidth = getWidth();
     const double rightVehSide = myVehicle.getRightSideOnEdge();
     const double leftVehSide = rightVehSide + vehWidth;
     // figure out next speed when staying where we are
@@ -1408,7 +1408,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     if (fabs(latDist) <= NUMERICAL_EPS * TS) {
         double latDistSublane = 0.;
         const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
-        const double halfVehWidth = myVehicle.getVehicleType().getWidth() * 0.5;
+        const double halfVehWidth = getWidth() * 0.5;
         if (myVehicle.getParameter().arrivalPosLatProcedure != ARRIVAL_POSLAT_DEFAULT
                 && myVehicle.getRoute().getLastEdge() == &myVehicle.getLane()->getEdge()
                 && bestLaneOffset == 0
@@ -1699,7 +1699,7 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, int laneOf
     latDist = MAX2(MIN2(latDist, maxDist), -maxDist);
 
     // reduce latDist to avoid blockage with overlapping vehicles (no minGapLat constraints)
-    const double halfWidth = myVehicle.getVehicleType().getWidth() * 0.5;
+    const double halfWidth = getWidth() * 0.5;
     const double center = myVehicle.getCenterOnEdge();
     double surplusGapRight = MIN2(maxDist, center - halfWidth);
     double surplusGapLeft = MIN2(maxDist, myVehicle.getLane()->getEdge().getWidth() - center - halfWidth);
@@ -1785,7 +1785,7 @@ MSLCM_SL2015::checkBlockingVehicles(
     double latDist, double foeOffset, bool leaders, LaneChangeAction blockType,
     std::vector<CLeaderDist>* collectBlockers) const {
     // determine borders where safety/no-overlap conditions must hold
-    const double vehWidth = ego->getVehicleType().getWidth();
+    const double vehWidth = getWidth();
     const double rightVehSide = ego->getRightSideOnEdge();
     const double leftVehSide = rightVehSide + vehWidth;
     const double rightVehSideDest = rightVehSide + latDist;
@@ -2173,7 +2173,7 @@ MSLCM_SL2015::keepLatGap(int state,
     const double oldLatDist = latDist;
 
     // compute gaps after maneuver
-    const double halfWidth = myVehicle.getVehicleType().getWidth() * 0.5;
+    const double halfWidth = getWidth() * 0.5;
     // if the current maneuver is blocked we will stay where we are
     const double oldCenter = myVehicle.getCenterOnEdge();
     // surplus gaps. these are used to collect various constraints
@@ -2304,7 +2304,7 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
         std::vector<CLeaderDist>* collectBlockers) 
 {
     if (others.hasVehicles()) {
-        const double halfWidth = myVehicle.getVehicleType().getWidth() * 0.5 + NUMERICAL_EPS;
+        const double halfWidth = getWidth() * 0.5 + NUMERICAL_EPS;
         const double baseMinGap = myVehicle.getVehicleType().getMinGapLat();
         for (int i = 0; i < others.numSublanes(); ++i) {
             if (others[i].first != 0 && others[i].second <= 0
@@ -2374,6 +2374,13 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
         }
     }
 }
+
+
+double 
+MSLCM_SL2015::getWidth() const {
+    return myVehicle.getVehicleType().getWidth() + NUMERICAL_EPS;
+}
+
 
 std::string
 MSLCM_SL2015::getParameter(const std::string& key) const {
