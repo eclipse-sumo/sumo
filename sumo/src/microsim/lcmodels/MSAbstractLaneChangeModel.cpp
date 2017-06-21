@@ -220,7 +220,7 @@ MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane) const {
     if (std::find(myNoPartiallyOccupatedByShadow.begin(), myNoPartiallyOccupatedByShadow.end(), lane) == myNoPartiallyOccupatedByShadow.end()) {
         // initialize shadow lane
         const double overlap = myVehicle.getLateralOverlap();
-        if (myVehicle.getID() == "disabled") {
+        if (debugVehicle()) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " posLat=" << myVehicle.getLateralPositionOnLane() << " overlap=" << overlap << "\n";
         }
         if (overlap > NUMERICAL_EPS ||
@@ -240,14 +240,14 @@ MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane) const {
 void
 MSAbstractLaneChangeModel::cleanupShadowLane() {
     if (myShadowLane != 0) {
-        if (myVehicle.getID() == "disabled") {
+        if (debugVehicle()) {
             std::cout << SIMTIME << " cleanupShadowLane\n";
         }
         myShadowLane->resetPartialOccupation(&myVehicle);
         myShadowLane = 0;
     }
     for (std::vector<MSLane*>::const_iterator it = myShadowFurtherLanes.begin(); it != myShadowFurtherLanes.end(); ++it) {
-        if (myVehicle.getID() == "disabled") {
+        if (debugVehicle()) {
             std::cout << SIMTIME << " cleanupShadowLane2\n";
         }
         (*it)->resetPartialOccupation(&myVehicle);
