@@ -803,7 +803,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     // too close to the follower on this lane
 #ifdef DEBUG_INSERTION
                     if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
-                        << " isInsertionSuccess shadowlane=" << getID()
+                        << " isInsertionSuccess shadowlane=" << shadowLane->getID()
                             << " veh=" << aVehicle->getID()
                             << " pos=" << pos
                             << " posLat=" << posLat
@@ -814,6 +814,32 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                             << " backGapNeeded=" << backGapNeeded
                             << " gap=" << followers[i].second
                             << " failure (@812)!\n";
+#endif
+                    return false;
+                }
+            }
+        }
+        const MSLeaderInfo& ahead = shadowLane->getLastVehicleInformation(0, 0, aVehicle->getPositionOnLane(), false);
+        for (int i = 0; i < ahead.numSublanes(); ++i) {
+            const MSVehicle* veh = ahead[i];
+            if (veh != 0) {
+                const double gap = veh->getBackPositionOnLane(shadowLane) - aVehicle->getPositionOnLane() - aVehicle->getVehicleType().getMinGap();
+                const double gapNeeded = aVehicle->getCarFollowModel().getSecureGap(speed, veh->getSpeed(), veh->getCarFollowModel().getMaxDecel());
+                if (gap <  gapNeeded) {
+                    // too close to the shadow leader
+#ifdef DEBUG_INSERTION
+                    if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
+                        << " isInsertionSuccess shadowlane=" << shadowLane->getID()
+                            << " veh=" << aVehicle->getID()
+                            << " pos=" << pos
+                            << " posLat=" << posLat
+                            << " patchSpeed=" << patchSpeed
+                            << " speed=" << speed
+                            << " nspeed=" << nspeed
+                            << " leader=" << veh->getID()
+                            << " gapNeeded=" << gapNeeded
+                            << " gap=" << gap
+                            << " failure (@842)!\n";
 #endif
                     return false;
                 }

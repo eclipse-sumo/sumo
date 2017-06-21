@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar  9 15:14:32 2017 by SUMO Version dev-SVN-r23260
+<!-- generated on Wed Jun 21 18:41:01 2017 by SUMO Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -27,6 +27,6 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="wide" depart="2.00" departLane="beg_1" departPos="0.00" departPosLat="-0.40" departSpeed="0.00" departDelay="0.00" arrival="2.00" arrivalLane="beg_1" arrivalPos="500.00" arrivalPosLat="-0.40" arrivalSpeed="0.00" duration="0.00" routeLength="500.00" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_wide" vType="wide_car" speedFactor="1.50" vaporized=""/>
-    <tripinfo id="car" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="51.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="0.00" arrivalSpeed="12.96" duration="51.00" routeLength="500.00" waitSteps="0" timeLoss="8.79" rerouteNo="0" devices="tripinfo_car" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="car" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="51.00" arrivalLane="beg_0" arrivalPos="500.00" arrivalPosLat="0.00" arrivalSpeed="13.25" duration="51.00" routeLength="500.00" waitSteps="0" timeLoss="8.95" rerouteNo="0" devices="tripinfo_car" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="wide" depart="3.00" departLane="beg_1" departPos="0.00" departPosLat="-0.40" departSpeed="0.00" departDelay="1.00" arrival="53.00" arrivalLane="beg_1" arrivalPos="500.00" arrivalPosLat="-0.40" arrivalSpeed="16.46" duration="50.00" routeLength="500.00" waitSteps="3" timeLoss="25.61" rerouteNo="0" devices="tripinfo_wide" vType="wide_car" speedFactor="1.50" vaporized=""/>
 </tripinfos>
