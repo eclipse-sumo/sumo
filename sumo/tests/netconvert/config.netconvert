@@ -28,6 +28,7 @@ copy_test_path:heightmap.tif
 copy_test_path:edge_ids.txt
 copy_test_path:data
 copy_test_path:additional.xml
+copy_test_path:ptlines.xml
 
 [collate_file]
 net:net.net.xml
@@ -48,10 +49,12 @@ elmar_prohibited_manoeuvres:elmar_output_prohibited_manoeuvres.txt
 elmar_connected_lanes:elmar_output_connected_lanes.txt
 pois:pois.add.xml
 additional:additional.xml
+ptlines:ptlines.xml
 
 [run_dependent_text]
 plain_nodes:<!--{[->]}-->
 additional:<!--{[->]}-->
+ptlines:<!--{[->]}-->
 plain_edges:<!--{[->]}-->
 plain_connections:<!--{[->]}-->
 plain_tllogic:<!--{[->]}-->

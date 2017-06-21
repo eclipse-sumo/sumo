@@ -47,6 +47,7 @@ class NBNetBuilder;
 class NBNode;
 class NBNodeCont;
 class NBPTStopCont;
+class NBPTLineCont;
 class NBTrafficLightLogicCont;
 class NBTypeCont;
 class OptionsCont;
@@ -113,6 +114,7 @@ private:
      * @param[in] nc The pt stop container from which to read data
      */
     static void writePTStops(const OptionsCont& oc, NBPTStopCont& ec);
+    static void writePTLines(const OptionsCont& cont, NBPTLineCont& lineCont);
 };
 
 

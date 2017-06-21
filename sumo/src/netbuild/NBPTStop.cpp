@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    NBPtStop.cpp
+/// @file    NBPTStop.cpp
 /// @author  Gregor Laemmel
 /// @date    Tue, 20 Mar 2017
 /// @version $Id$

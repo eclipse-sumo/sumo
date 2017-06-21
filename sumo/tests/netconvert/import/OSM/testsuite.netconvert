@@ -1,4 +1,7 @@
 # direction of bus stops imported (guessed) correctly
+bus_line
+
+# direction of bus stops imported (guessed) correctly
 bus_stop_direction_platform_tagged_as_highway
 
 # pt stop relation refers to a node for which no pt stop position is defined 

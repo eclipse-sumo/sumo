@@ -36,6 +36,7 @@
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBPTLineCont.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
@@ -72,6 +73,9 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
         writePTStops(oc, nb.getPTStopCont());
+    }
+    if (oc.exists("ptline-output") && oc.isSet("ptline-output")){
+        writePTLines(oc,nb.getPTLineCont());
     }
 }
 
@@ -374,6 +378,15 @@ NWWriter_XML::writePTStops(const OptionsCont& oc, NBPTStopCont& sc) {
     device.writeXMLHeader("additional", "additional_file.xsd");
     for (std::map<std::string, NBPTStop*>::const_iterator i = sc.begin(); i != sc.end(); ++i) {
         i->second->write(device);
+    }
+    device.close();
+}
+void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& sc) {
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("ptline-output"));
+    device.writeXMLHeader("additional", "additional_file.xsd");
+    for (std::vector<NBPTLine*>::const_iterator i = sc.begin(); i != sc.end(); ++i) {
+        NBPTLine* line = (*i);
+        line->write(device);
     }
     device.close();
 }

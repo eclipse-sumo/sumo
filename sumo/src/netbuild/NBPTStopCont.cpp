@@ -27,6 +27,14 @@
 #include "NBNode.h"
 #include <utils/geom/Position.h>
 
+
+NBPTStopCont::~NBPTStopCont() {
+    for (PTStopsCont::iterator it = myPTStops.begin(); it != myPTStops.end(); it++){
+        delete (*it).second;
+    }
+    myPTStops.clear();
+}
+
 bool NBPTStopCont::insert(NBPTStop* ptStop) {
     std::string id = ptStop->getID();
     PTStopsCont::iterator i = myPTStops.find(id);
@@ -244,4 +252,5 @@ Position* NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) {
 
     return closest;
 }
+
 

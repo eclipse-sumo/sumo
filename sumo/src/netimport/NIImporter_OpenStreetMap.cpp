@@ -55,6 +55,8 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
+#include <netbuild/NBPTLine.h>
+#include <netbuild/NBPTLineCont.h>
 #include "NILoader.h"
 #include "NIImporter_OpenStreetMap.h"
 
@@ -250,7 +252,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
 
     // load relations (after edges are built since we want to apply
     // turn-restrictions directly to NBEdges)
-    RelationHandler relationHandler(myOSMNodes, myEdges, &(nb.getPTStopCont()),myPlatformShapes);
+    RelationHandler relationHandler(myOSMNodes, myEdges, &(nb.getPTStopCont()),myPlatformShapes, &(nb.getPTLineCont()));
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // relations
         relationHandler.setFileName(*file);
@@ -987,13 +989,15 @@ NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) {
 NIImporter_OpenStreetMap::RelationHandler::RelationHandler(
     const std::map<long long int, NIOSMNode*>& osmNodes,
     const std::map<long long int, Edge*>& osmEdges, NBPTStopCont * nbptStopCont,
-    const std::map<long long int, Edge*>& platformShapes)
+    const std::map<long long int, Edge*>& platformShapes,
+    NBPTLineCont * nbptLineCont)
     :
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
     myOSMEdges(osmEdges),
     myPlatformShapes(platformShapes),
-    myNBPTStopCont(nbptStopCont){
+    myNBPTStopCont(nbptStopCont),
+    myNBPTLineCont(nbptLineCont){
     resetValues();
 }
 
@@ -1012,6 +1016,8 @@ NIImporter_OpenStreetMap::RelationHandler::resetValues() {
     myPlatforms.clear();
     myStops.clear();
     myIsStopArea = false;
+    myIsRoute = false;
+    myIsPTRoute = false;
 }
 
 void
@@ -1086,6 +1092,10 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
                 myIsRestriction = true;
                 return;
             }
+            if (key == "type" && value == "route"){
+                myIsRoute = true;
+                return;
+            }
             if (key == "restriction") {
                 // @note: the 'right/left/straight' part is ignored since the information is
                 // redundantly encoded in the 'from', 'to' and 'via' members
@@ -1104,6 +1114,16 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
             if (value == "stop_area"){
                 myIsStopArea = true;
             }
+        } else if (key == "route") {
+            std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
+            if (value == "train" || value == "subway" || value == "monorail" || value == "tram" || value == "bus"
+                    || value == "trolleybus" || value == "arialway" || value == "ferry"){
+                myIsPTRoute = true;
+            }
+
+        } else if (key == "name") {
+            std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
+            myName = value;
         }
     }
 }
@@ -1172,6 +1192,29 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     ptStop->setIsMultipleStopPositions(myStops.size() > 1);
                };
             }
+        } else if (myIsPTRoute && myIsRoute && OptionsCont::getOptions().isSet("ptline-output") && myStops.size() > 1){
+            NBPTLine * ptLine = new NBPTLine(myName);
+            for (std::vector<long long int>::iterator it = myStops.begin(); it != myStops.end(); it++){
+                long long int ref = *it;
+                if (myOSMNodes.find(ref) == myOSMNodes.end()){
+                    WRITE_WARNING("Referenced node: '"+ toString(ref) + "' in relation: '" + toString(myCurrentRelation) +"' does not exist. Probably OSM file is incomplete." );
+                    resetValues();
+                    return;
+                } else {
+                    NIOSMNode* n = myOSMNodes.find(ref)->second;
+                    NBPTStop* ptStop = myNBPTStopCont->get(toString(n->id));
+                    if (ptStop == 0) {
+                        WRITE_WARNING("Relation '" + toString(myCurrentRelation)
+                                              + "' refers to a non existing pt stop at node: '" + toString(n->id)
+                                              + "'. Probably OSM file is incomplete.");
+                        resetValues();
+                        return;
+                    }
+                    ptLine->addPTStop(ptStop);
+
+                }
+            }
+            myNBPTLineCont->insert(ptLine);
         }
         // other relations might use similar subelements so reset in any case
         resetValues();

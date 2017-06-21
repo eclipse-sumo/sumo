@@ -426,7 +426,7 @@ protected:
          */
         RelationHandler(const std::map<long long int, NIOSMNode*>& osmNodes,
                         const std::map<long long int, Edge*>& osmEdges, NBPTStopCont * nbptStopCont,
-                        const std::map<long long int, Edge*>& platfromShapes);
+                        const std::map<long long int, Edge*>& platfromShapes, NBPTLineCont * nbptLineCont);
 
 
         /// @brief Destructor
@@ -469,6 +469,9 @@ protected:
 
         /// @brief The previously filled pt stop container
         NBPTStopCont * myNBPTStopCont;
+
+        /// @brief PT Line container to be filled
+        NBPTLineCont * myNBPTLineCont;
 
         /// @brief The currently parsed relation
         long long int myCurrentRelation;
@@ -530,6 +533,15 @@ protected:
 
         /// @brief indicates whether current relation is a pt stop area
         bool myIsStopArea;
+
+        /// @brief indicates whether current relation is a route
+        bool myIsRoute;
+
+        /// @brief indicates whether current relation is a pt route
+        bool myIsPTRoute;
+
+        /// @brief name of the relation
+        std::string myName;
     };
 
 };

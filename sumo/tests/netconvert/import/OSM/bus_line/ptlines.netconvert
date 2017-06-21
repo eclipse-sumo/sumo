@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jun 21 15:43:17 2017 by SUMO netconvert Version dev-SVN-r24826
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="input_types.typ.xml"/>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <osm.stop-output.length value="200"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <ptLine id="0" name="Buslinie 104: Neu-Westend, Brixplatz => Stralau, Tunnelstraße">
+        <busStop id="3887567764"/>
+        <busStop id="3887567769"/>
+        <busStop id="3887567767"/>
+        <busStop id="3887567771"/>
+        <busStop id="3357557585"/>
+        <busStop id="596713378"/>
+        <busStop id="3356361106"/>
+        <busStop id="3356361108"/>
+    </ptLine>
+    <ptLine id="1" name="Buslinie 104: Stralau, Tunnelstraße => Neu-Westend, Brixplatz">
+        <busStop id="3356361109"/>
+        <busStop id="4032629808"/>
+        <busStop id="3356361110"/>
+        <busStop id="3357557586"/>
+        <busStop id="248010028"/>
+        <busStop id="3887567768"/>
+        <busStop id="3887567770"/>
+        <busStop id="3887567765"/>
+    </ptLine>
+</additional>

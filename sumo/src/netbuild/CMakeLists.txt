@@ -55,6 +55,6 @@ set(netbuild_STAT_SRCS
    NBLoadedSUMOTLDef.h
    NBNetBuilder.cpp
    NBNetBuilder.h
-)
+        NBPTLine.cpp NBPTLine.h NBPTLineCont.cpp NBPTLineCont.h)
 
 add_library(netbuild STATIC ${netbuild_STAT_SRCS})

@@ -69,6 +69,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "rerouter",                   SUMO_TAG_REROUTER },
     { "busStop",                    SUMO_TAG_BUS_STOP },
     { "trainStop",                  SUMO_TAG_TRAIN_STOP },
+    { "ptLine",                     SUMO_TAG_PT_LINE },
     { "access",                     SUMO_TAG_ACCESS },
     { "containerStop",              SUMO_TAG_CONTAINER_STOP },
     { "parkingArea",                SUMO_TAG_PARKING_AREA },

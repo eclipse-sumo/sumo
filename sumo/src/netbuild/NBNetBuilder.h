@@ -45,6 +45,7 @@
 #include "NBTrafficLightLogicCont.h"
 #include "NBDistrictCont.h"
 #include "NBPTStopCont.h"
+#include "NBPTLineCont.h"
 #include <utils/common/UtilExceptions.h>
 
 
@@ -181,6 +182,11 @@ public:
     NBPTStopCont& getPTStopCont() {
         return myPTStopCont;
     }
+
+    /// @brief Returns a reference to the pt line container
+    NBPTLineCont& getPTLineCont() {
+        return myPTLineCont;
+    }
     /// @}
 
     /// @brief notify about style of loaded network (Without internal edges
@@ -239,6 +245,9 @@ protected:
 
     /// @brief The used container for pt stops
     NBPTStopCont myPTStopCont;
+
+    /// @brief The used container for pt stops
+    NBPTLineCont myPTLineCont;
 
     /// @brief whether a .net.xml without internal edges was loaded
     bool myHaveLoadedNetworkWithoutInternalEdges;

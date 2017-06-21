@@ -1,0 +1,287 @@
+Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '42852292#0').
+Warning: Discarding unusable type 'railway.subway' (first occurence for edge '328814252').
+Warning: Referenced node: '3987512855' in relation: '28286' does not exist. Probably OSM file is incomplete.
+Warning: No way found for reference '4500151' in relation '53781'
+Warning: Ignoring restriction relation '53781' with unknown from-way.
+Warning: Ignoring restriction relation '53781' with unknown to-way.
+Warning: Ignoring restriction relation '53781' with unknown via.
+Warning: Relation '93502' refers to a non existing pt stop at node: '3357557588'. Probably OSM file is incomplete.
+Warning: Referenced node: '3352479253' in relation: '114255' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1327797549' in relation: '156479' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '83577400' in relation: '187767' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '410091412' in relation: '300432' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4573124013' in relation: '374676' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1383487268' in relation: '377858' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3951898334' in relation: '860497' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2140177404' in relation: '939025' does not exist. Probably OSM file is incomplete.
+Warning: No way found for reference '4686036' in relation '1084834'
+Warning: No way found for reference '26285742' in relation '1084834'
+Warning: Ignoring restriction relation '1084834' with unknown from-way.
+Warning: Ignoring restriction relation '1084834' with unknown to-way.
+Warning: Ignoring restriction relation '1084834' with unknown via.
+Warning: Referenced node: '830128001' in relation: '1085699' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '830128001' in relation: '1085700' does not exist. Probably OSM file is incomplete.
+Warning: No way found for reference '161584630' in relation '1460742'
+Warning: Ignoring restriction relation '1460742' with unknown from-way.
+Warning: Ignoring restriction relation '1460742' with unknown to-way.
+Warning: Ignoring restriction relation '1460742' with unknown via.
+Warning: Ignoring restriction relation '1524462' with unknown from-way.
+Warning: Ignoring restriction relation '1524462' with unknown to-way.
+Warning: Ignoring restriction relation '1524462' with unknown via.
+Warning: Ignoring restriction relation '1524463' with unknown from-way.
+Warning: Ignoring restriction relation '1524463' with unknown to-way.
+Warning: Ignoring restriction relation '1524463' with unknown via.
+Warning: Ignoring restriction relation '1561788' with unknown from-way.
+Warning: Ignoring restriction relation '1561788' with unknown to-way.
+Warning: Ignoring restriction relation '1561788' with unknown via.
+Warning: Ignoring restriction relation '1599266' with unknown from-way.
+Warning: Ignoring restriction relation '1599266' with unknown to-way.
+Warning: Ignoring restriction relation '1599266' with unknown via.
+Warning: Ignoring restriction relation '1653399' with unknown from-way.
+Warning: Ignoring restriction relation '1653399' with unknown to-way.
+Warning: Ignoring restriction relation '1653399' with unknown via.
+Warning: Ignoring restriction relation '1723290' with unknown from-way.
+Warning: Ignoring restriction relation '1723290' with unknown to-way.
+Warning: Ignoring restriction relation '1723290' with unknown via.
+Warning: Referenced node: '1654971183' in relation: '1797144' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1927559772' in relation: '1798225' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1331411464' in relation: '1888652' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3935677404' in relation: '1888653' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3935677404' in relation: '1888654' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2055919025' in relation: '1888684' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4470089327' in relation: '1897980' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3935677404' in relation: '1897981' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3973712044' in relation: '1898816' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4279705567' in relation: '1900728' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1404688716' in relation: '1900729' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2289525947' in relation: '1901946' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3924971832' in relation: '1901947' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '690916035' in relation: '1982831' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '817763144' in relation: '1993862' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1079624311' in relation: '1993863' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '351903452' in relation: '2004081' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2649643329' in relation: '2004082' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3352479243' in relation: '2004392' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1965562538' in relation: '2004451' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '817763144' in relation: '2007528' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3954695829' in relation: '2007529' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3988490664' in relation: '2081671' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3935677404' in relation: '2081672' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2619196055' in relation: '2084828' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '270727248' in relation: '2084829' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3956250160' in relation: '2088757' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3880652812' in relation: '2088758' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3956855830' in relation: '2090773' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3949521958' in relation: '2090774' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3935677404' in relation: '2093458' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '622157572' in relation: '2093459' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3935677404' in relation: '2093888' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4293320531' in relation: '2093889' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3935677405' in relation: '2110292' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1404688716' in relation: '2110293' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3956250159' in relation: '2113273' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3935677404' in relation: '2113274' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3918673863' in relation: '2175633' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4175430494' in relation: '2175634' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '247650295' in relation: '2179272' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1965562538' in relation: '2194813' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3867910425' in relation: '2194814' does not exist. Probably OSM file is incomplete.
+Warning: Ignoring restriction relation '2198672' with unknown from-way.
+Warning: Ignoring restriction relation '2198672' with unknown to-way.
+Warning: Ignoring restriction relation '2198672' with unknown via.
+Warning: No way found for reference '4871606' in relation '2199043'
+Warning: No way found for reference '102945288' in relation '2199043'
+Warning: Ignoring restriction relation '2199043' with unknown from-way.
+Warning: Ignoring restriction relation '2199043' with unknown to-way.
+Warning: Ignoring restriction relation '2199043' with unknown via.
+Warning: Referenced node: '26984675' in relation: '2202086' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '301335080' in relation: '2205678' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3994910941' in relation: '2205680' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3997497616' in relation: '2206192' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '364793280' in relation: '2206454' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1306692961' in relation: '2222060' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4523354281' in relation: '2222061' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3934310581' in relation: '2222655' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4279774150' in relation: '2222656' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1625188630' in relation: '2222706' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4279774150' in relation: '2222707' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '301335080' in relation: '2223696' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3880652807' in relation: '2223697' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3870914564' in relation: '2227016' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3956242352' in relation: '2227017' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3935677404' in relation: '2257692' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2179703782' in relation: '2257693' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3908956269' in relation: '2302974' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1583269277' in relation: '2302975' does not exist. Probably OSM file is incomplete.
+Warning: No way found for reference '4368691' in relation '2431914'
+Warning: Ignoring restriction relation '2431914' with unknown from-way.
+Warning: Ignoring restriction relation '2431914' with unknown to-way.
+Warning: Ignoring restriction relation '2431914' with unknown via.
+Warning: Ignoring restriction relation '2431915' with unknown from-way.
+Warning: Ignoring restriction relation '2431915' with unknown to-way.
+Warning: Ignoring restriction relation '2431915' with unknown via.
+Warning: Ignoring restriction relation '2432402' with unknown from-way.
+Warning: Ignoring restriction relation '2432402' with unknown to-way.
+Warning: Ignoring restriction relation '2432402' with unknown via.
+Warning: No way found for reference '182694411' in relation '2432862'
+Warning: Ignoring restriction relation '2432862' with unknown from-way.
+Warning: Ignoring restriction relation '2432862' with unknown to-way.
+Warning: Ignoring restriction relation '2432862' with unknown via.
+Warning: No way found for reference '29328289' in relation '2432863'
+Warning: No way found for reference '182694410' in relation '2432863'
+Warning: Ignoring restriction relation '2432863' with unknown from-way.
+Warning: Ignoring restriction relation '2432863' with unknown to-way.
+Warning: Ignoring restriction relation '2432863' with unknown via.
+Warning: Referenced node: '2905450582' in relation: '2441959' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3690627069' in relation: '2441960' does not exist. Probably OSM file is incomplete.
+Warning: Ignoring restriction relation '2444836' with unknown from-way.
+Warning: Ignoring restriction relation '2444836' with unknown to-way.
+Warning: Ignoring restriction relation '2444836' with unknown via.
+Warning: Ignoring restriction relation '2444838' with unknown from-way.
+Warning: Ignoring restriction relation '2444838' with unknown to-way.
+Warning: Ignoring restriction relation '2444838' with unknown via.
+Warning: No way found for reference '4495577' in relation '2444839'
+Warning: Ignoring restriction relation '2444839' with unknown from-way.
+Warning: Ignoring restriction relation '2444839' with unknown to-way.
+Warning: Ignoring restriction relation '2444839' with unknown via.
+Warning: Ignoring restriction relation '2444840' with unknown from-way.
+Warning: Ignoring restriction relation '2444840' with unknown to-way.
+Warning: Ignoring restriction relation '2444840' with unknown via.
+Warning: Ignoring restriction relation '2444841' with unknown from-way.
+Warning: Ignoring restriction relation '2444841' with unknown to-way.
+Warning: Ignoring restriction relation '2444841' with unknown via.
+Warning: Ignoring restriction relation '2444842' with unknown from-way.
+Warning: Ignoring restriction relation '2444842' with unknown to-way.
+Warning: Ignoring restriction relation '2444842' with unknown via.
+Warning: Ignoring restriction relation '2444844' with unknown from-way.
+Warning: Ignoring restriction relation '2444844' with unknown to-way.
+Warning: Ignoring restriction relation '2444844' with unknown via.
+Warning: Ignoring restriction relation '2444845' with unknown from-way.
+Warning: Ignoring restriction relation '2444845' with unknown to-way.
+Warning: Ignoring restriction relation '2444845' with unknown via.
+Warning: Ignoring restriction relation '2444856' with unknown from-way.
+Warning: Ignoring restriction relation '2444856' with unknown to-way.
+Warning: Ignoring restriction relation '2444856' with unknown via.
+Warning: Referenced node: '830128001' in relation: '2466742' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '447986637' in relation: '2500638' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '277814930' in relation: '2607467' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '412193168' in relation: '2609906' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2095742351' in relation: '2669183' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '566674963' in relation: '2669184' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3872477457' in relation: '2669207' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '27785719' in relation: '2669208' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3956655779' in relation: '2674702' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3935677404' in relation: '2674703' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3856551773' in relation: '2678985' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '38902443' in relation: '2678986' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '29494305' in relation: '2679013' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4730399' in relation: '2679014' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '29046167' in relation: '2679016' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '29047045' in relation: '2679017' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3043920508' in relation: '2679163' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '59368920' in relation: '2679164' does not exist. Probably OSM file is incomplete.
+Warning: Ignoring restriction relation '2869945' with unknown from-way.
+Warning: Ignoring restriction relation '2869945' with unknown to-way.
+Warning: Ignoring restriction relation '2869945' with unknown via.
+Warning: Referenced node: '1722252172' in relation: '3016480' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1632036069' in relation: '3045256' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '237980502' in relation: '3046906' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3884823932' in relation: '3353027' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2570536453' in relation: '3389905' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2570536453' in relation: '3389906' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2551192773' in relation: '3589226' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3925729385' in relation: '3951482' does not exist. Probably OSM file is incomplete.
+Warning: No way found for reference '298716470' in relation '3996757'
+Warning: Ignoring restriction relation '3996757' with unknown from-way.
+Warning: Ignoring restriction relation '3996757' with unknown to-way.
+Warning: Ignoring restriction relation '3996757' with unknown via.
+Warning: Ignoring restriction relation '4209891' with unknown from-way.
+Warning: Ignoring restriction relation '4209891' with unknown to-way.
+Warning: Ignoring restriction relation '4209891' with unknown via.
+Warning: Ignoring restriction relation '4209892' with unknown from-way.
+Warning: Ignoring restriction relation '4209892' with unknown to-way.
+Warning: Ignoring restriction relation '4209892' with unknown via.
+Warning: Ignoring restriction relation '4487153' with unknown from-way.
+Warning: Ignoring restriction relation '4487153' with unknown to-way.
+Warning: Ignoring restriction relation '4487153' with unknown via.
+Warning: Referenced node: '690916035' in relation: '4487804' does not exist. Probably OSM file is incomplete.
+Warning: Relation '4599283' refers to a non existing pt stop at node: '821551864'. Probably OSM file is incomplete.
+Warning: Relation '4599283' refers to a non existing pt stop at node: '3357557588'. Probably OSM file is incomplete.
+Warning: Referenced node: '3356361111' in relation: '4599283' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '29494305' in relation: '4599283' does not exist. Probably OSM file is incomplete.
+Warning: No way found for reference '35373236' in relation '4752693'
+Warning: Referenced node: '1643364367' in relation: '5144958' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '305789803' in relation: '5144959' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3956502028' in relation: '5171900' does not exist. Probably OSM file is incomplete.
+Warning: No way found for reference '26185150' in relation '5342116'
+Warning: No way found for reference '4436794' in relation '5342116'
+Warning: Ignoring restriction relation '5342116' with unknown from-way.
+Warning: Ignoring restriction relation '5342116' with unknown to-way.
+Warning: Ignoring restriction relation '5342116' with unknown via.
+Warning: Referenced node: '830128001' in relation: '5491473' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '268728265' in relation: '5682182' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3880652780' in relation: '5722617' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3846470936' in relation: '5725006' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3881945061' in relation: '5725006' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3881945060' in relation: '5725006' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4032629802' in relation: '5734442' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1270747732' in relation: '5760607' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1581244925' in relation: '5760608' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2959897160' in relation: '5867265' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2959911356' in relation: '5867268' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3951566058' in relation: '5873394' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3951566057' in relation: '5873394' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3951565154' in relation: '5873394' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3956655773' in relation: '5882970' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3957757578' in relation: '5885093' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4769192622' in relation: '5885093' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3957979296' in relation: '5885764' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3957979297' in relation: '5885764' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2029039199' in relation: '5889761' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2029039195' in relation: '5889761' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '265757799' in relation: '5892300' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '479154176' in relation: '5892300' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3963780381' in relation: '5899300' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3963780383' in relation: '5899302' does not exist. Probably OSM file is incomplete.
+Warning: No way found for reference '150542648' in relation '5968836'
+Warning: Ignoring restriction relation '5968836' with unknown from-way.
+Warning: Ignoring restriction relation '5968836' with unknown to-way.
+Warning: Ignoring restriction relation '5968836' with unknown via.
+Warning: Referenced node: '4032629821' in relation: '6015041' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3951898334' in relation: '6141113' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '332095915' in relation: '6168643' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '265757799' in relation: '6168852' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4163212867' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3949514555' in relation: '6187329' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2974076271' in relation: '6188745' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '951487100' in relation: '6257264' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4279774150' in relation: '6378812' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4279774163' in relation: '6378817' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4279774161' in relation: '6378817' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '42132938' in relation: '6593455' does not exist. Probably OSM file is incomplete.
+Warning: Ignoring restriction relation '6622555' with unknown from-way.
+Warning: Ignoring restriction relation '6622555' with unknown to-way.
+Warning: Ignoring restriction relation '6622555' with unknown via.
+Warning: Ignoring restriction relation '6622556' with unknown from-way.
+Warning: Ignoring restriction relation '6622556' with unknown to-way.
+Warning: Ignoring restriction relation '6622556' with unknown via.
+Warning: Referenced node: '439181174' in relation: '6679300' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4451795537' in relation: '6679300' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3352479244' in relation: '6784106' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '690916035' in relation: '6784107' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '139983479' in relation: '6815226' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4279774152' in relation: '6947084' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '297470965' in relation: '7077673' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2440453083' in relation: '7082094' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4814139733' in relation: '7187522' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4814139733' in relation: '7187523' does not exist. Probably OSM file is incomplete.
+Warning: No way found for reference '71827680' in relation '7282368'
+Warning: No way found for reference '495949636' in relation '7282368'
+Warning: Ignoring restriction relation '7282368' with unknown from-way.
+Warning: Ignoring restriction relation '7282368' with unknown to-way.
+Warning: Ignoring restriction relation '7282368' with unknown via.
+Warning: Found angle of 122.06 degrees at edge '131391805#1', segment 5
+Warning: Found sharp turn with radius 6.64 at the start of edge '155605360#0'.
+Warning: Found sharp turn with radius 7.93 at the end of edge '30900340#3'.
+Warning: Could not find corresponding edge or compatible lane for pt stop: U Leinestraße. Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop: S+U Hermannstraße. Thus, it will be removed!

@@ -31,6 +31,9 @@ class NBEdgeCont;
 class NBPTStopCont {
 
 public:
+
+    ~NBPTStopCont();
+
     /** @brief Inserts a node into the map
     * @param[in] stop The pt stop to insert
     * @return Whether the pt stop could be added

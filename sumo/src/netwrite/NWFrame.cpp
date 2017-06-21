@@ -107,6 +107,8 @@ NWFrame::fillOptions(bool forNetgen) {
     if (!forNetgen) {
         oc.doRegister("ptstop-output", new Option_FileName());
         oc.addDescription("ptstop-output", "Output", "Writes public transport stops to FILE");
+        oc.doRegister("ptline-output", new Option_FileName());
+        oc.addDescription("ptline-output", "Output", "Writes public transport lines to FILE");
     }
 
     // register opendrive options
@@ -146,6 +148,11 @@ NWFrame::checkOptions() {
     if (oc.isSet("dlr-navteq-output") && oc.isDefault("numerical-ids")) {
         oc.set("numerical-ids", "true");
     }
+    if (oc.isSet("ptline-output") && !oc.isSet("ptstop-output")) {
+        WRITE_ERROR("public transport lines output requires 'ptstop-output' to be set");
+        ok = false;
+    }
+
     return ok;
 }
 
