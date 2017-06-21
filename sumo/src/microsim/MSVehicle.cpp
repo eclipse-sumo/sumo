@@ -92,7 +92,7 @@
 //#define DEBUG_BESTLANES
 //#define DEBUG_IGNORE_RED
 //#define DEBUG_COND (getID() == "ego")
-//#define DEBUG_COND (isSelected())
+#define DEBUG_COND (isSelected())
 
 #define STOPPING_PLACE_OFFSET 0.5
 
@@ -1564,7 +1564,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // check whether the lane or the shadowLane is a dead end (allow some leeway on intersections)
         if (lane->isLinkEnd(link) ||
                 ((*link)->getViaLane() == 0
-                 && getLateralOverlap() > NUMERICAL_EPS
+                 && getLateralOverlap() > POSITION_EPS
                  // do not get stuck on narrow edges
                  && getVehicleType().getWidth() <= lane->getEdge().getWidth() &&
                  // this is the exit link of a junction. The normal edge should support the shadow
@@ -1577,6 +1577,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 lastLink->adaptLeaveSpeed(va);
             }
             v = MIN2(va, v);
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND) {
+                std::cout << "   braking for link end overlap=" << getLateralOverlap() << " va=" << va << " v=" << v << "\n";
+
+            }
+#endif
             if (lane->isLinkEnd(link)) {
                 lfLinks.push_back(DriveProcessItem(v, seen));
                 break;
