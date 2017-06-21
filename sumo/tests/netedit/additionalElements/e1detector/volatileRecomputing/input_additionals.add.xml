@@ -1,8 +1,15 @@
 <additionals>
-    <busStop id="busStop_00" lane="gneE0_0" startPos="5.00" endPos="10.00" friendlyPos="0" lines="line1 line2"/>
-    <busStop id="busStop_11" lane="gneE0_0" startPos="25.00" endPos="30.00" name="busStop" friendlyPos="0"/>
-    <busStop id="busStop_12" lane="gneE0_0" startPos="35.00" endPos="40.00" name="busStop" friendlyPos="0" lines="line1  line2"/>
-    <busStop id="busStop_13" lane="gneE0_0" startPos="45.00" endPos="50.00" name="busStop" friendlyPos="0" lines="lineA lineB"/>
-    <busStop id="busStop_14" lane="gneE1_0" startPos="5.00" endPos="10.00" name="busStop" friendlyPos="0" lines="lineA lineB"/>
-    <busStop id="busStop_15" lane="gneE1_0" startPos="15.00" endPos="20.00" name="busStop" friendlyPos="1" lines="lineA lineB"/>
+    <e1Detector id="E1_01" lane="gneE0_0" pos="3.00" freq="100.00" file="e1Detector_01.txt" splitByType="0"/>
+    <e1Detector id="E1_08" lane="gneE0_0" pos="15.00" freq="100.00" file="e1Detector_08.txt" splitByType="0"/>
+    <e1Detector id="E1_09" lane="gneE0_0" pos="18.00" freq="100.00" file="e1Detector_09.txt" splitByType="0"/>
+    <e1Detector id="E1_10" lane="gneE0_0" pos="21.00" freq="100.00" file="e1Detector_10.txt" splitByType="0"/>
+    <e1Detector id="E1_11" lane="gneE0_0" pos="24.00" freq="120.00" file="e1Detector_11.txt" splitByType="0"/>
+    <e1Detector id="E1_12" lane="gneE0_0" pos="27.00" freq="120.00" splitByType="0"/>
+    <e1Detector id="E1_13" lane="gneE0_0" pos="30.00" freq="120.00" splitByType="0"/>
+    <e1Detector id="E1_14" lane="gneE0_0" pos="33.00" freq="120.00" splitByType="0"/>
+    <e1Detector id="E1_15" lane="gneE0_0" pos="36.00" freq="120.00" file="e1Detector_01.txt" splitByType="0"/>
+    <e1Detector id="E1_16" lane="gneE0_0" pos="39.00" freq="120.00" file="myOwnFile.txt" splitByType="0"/>
+    <e1Detector id="E1_17" lane="gneE0_0" pos="42.00" freq="120.00" file="e1Detector_16.txt" splitByType="0"/>
+    <e1Detector id="E1_18" lane="gneE0_0" pos="45.00" freq="120.00" file="e1Detector_17.txt" splitByType="0"/>
+    <e1Detector id="E1_19" lane="gneE0_0" pos="48.00" freq="120.00" file="e1Detector_18.txt" splitByType="1"/>
 </additionals>
