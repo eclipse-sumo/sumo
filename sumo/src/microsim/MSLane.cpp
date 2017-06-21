@@ -2694,7 +2694,7 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
     for (VehCont::const_iterator it = myPartialVehicles.begin(); it != myPartialVehicles.end(); ++it) {
         MSVehicle* veh = *it;
         if (!veh->isFrontOnLane(this)) {
-            result.addLeader(veh, seen);
+            result.addLeader(veh, seen, veh->getLatOffset(this));
         } else {
             break;
         }
