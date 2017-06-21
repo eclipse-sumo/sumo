@@ -1474,7 +1474,8 @@ MSLCM_SL2015::_wantsChangeSublane(
             latDistSublane = 0;
         }
         // Ignore preferred lateral alignment if we are in the middle of an unfinished non-alignment maneuver into the opposite direction
-        if (!myCanChangeFully && (myPreviousState & LCA_SUBLANE) == 0
+        if (!myCanChangeFully 
+                && (myPreviousState & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_KEEPRIGHT | LCA_SPEEDGAIN)) != 0
                 && ((myOrigLatDist < 0 && latDistSublane > 0) || (myOrigLatDist > 0 && latDistSublane < 0))) {
             latDistSublane = 0;
         }
@@ -1494,11 +1495,9 @@ MSLCM_SL2015::_wantsChangeSublane(
                                         neighLeaders, neighFollowers, neighBlockers);
                 return ret;
             }
-        } else {
-            latDist = 0;
-            ret |= LCA_SUBLANE | LCA_STAY;
         }
     }
+    latDist = 0;
 
 
     // --------
@@ -2283,6 +2282,9 @@ MSLCM_SL2015::keepLatGap(int state,
     }
     if (latDist != 0) {
         state = (state & ~LCA_STAY);
+        if ((state & LCA_CHANGE_REASONS) == 0) {
+            state |= LCA_SUBLANE;
+        }
     }
     if (gDebugFlag2) {
         std::cout << "       latDist2=" << latDist
