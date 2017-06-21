@@ -100,8 +100,9 @@ GUIVehicle::~GUIVehicle() {
 GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
+    const int sublaneParams = MSGlobals::gLateralResolution > 0 ? 4 : 0;
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 36 + (int)getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 36 + sublaneParams + (int)getParameter().getMap().size());
     // add items
     ret->mkItem("lane [id]", false, Named::getIDSecure(myLane, "n/a"));
     if (MSGlobals::gLaneChangeDuration > 0 || MSGlobals::gLateralResolution > 0) {
@@ -175,6 +176,12 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("containers", true,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getContainerNumber));
     // close building
+    if (MSGlobals::gLateralResolution > 0) {
+        ret->mkItem("right side on edge [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getRightSideOnEdge2));
+        ret->mkItem("left side on edge [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getLeftSideOnEdge));
+        ret->mkItem("rightmost edge sublane [#]", true, new FunctionBinding<GUIVehicle, int>(this, &GUIVehicle::getRightSublaneOnEdge));
+        ret->mkItem("leftmost edge sublane [#]", true, new FunctionBinding<GUIVehicle, int>(this, &GUIVehicle::getLeftSublaneOnEdge));
+    }
     ret->closeBuilding(&getParameter());
     return ret;
 }
@@ -750,6 +757,30 @@ GUIVehicle::drawOutsideNetwork(bool add) {
 bool
 GUIVehicle::isSelected() const {
     return gSelected.isSelected(GLO_VEHICLE, getGlID());
+}
+
+int 
+GUIVehicle::getRightSublaneOnEdge() const {
+    const double rightSide = getRightSideOnEdge();
+    const std::vector<double>& sublaneSides = myLane->getEdge().getSubLaneSides();
+    for (int i = 0; i < (int)sublaneSides.size(); ++i) {
+        if (sublaneSides[i] > rightSide) {
+            return MAX2(i - 1, 0);
+        }
+    }
+    return -1;
+}
+
+int
+GUIVehicle::getLeftSublaneOnEdge() const {
+    const double leftSide = getLeftSideOnEdge();
+    const std::vector<double>& sublaneSides = myLane->getEdge().getSubLaneSides();
+    for (int i = (int)sublaneSides.size() - 1; i >= 0; --i) {
+        if (sublaneSides[i] < leftSide) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 /****************************************************************************/

@@ -139,6 +139,19 @@ public:
     /// @brief whether this vehicle is selected in the GUI
     bool isSelected() const;
 
+    /// @brief return right vehicle side on current edge (without argument)
+    double getRightSideOnEdge2() const {
+        return getRightSideOnEdge();
+    }
+    /// @brief return left vehicle side on current edge 
+    double getLeftSideOnEdge() const {
+        return getRightSideOnEdge() + getVehicleType().getWidth();
+    }
+
+    /// @brief return the righmost sublane on the edge occupied by the vehicle
+    int getRightSublaneOnEdge() const; 
+    int getLeftSublaneOnEdge() const; 
+
 protected:
     /// @brief register vehicle for drawing while outside the network
     void drawOutsideNetwork(bool add);
