@@ -1895,6 +1895,7 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
                 if (gDebugFlag2) {
                     std::cout << " ignoring cfrelated foe=" << vehDist.first->getID() << " gap=" << vehDist.second 
                         << " sublane=" << i 
+                        << " foeOffset=" << foeOffset
                         << " egoR=" << rightVehSide << " egoL=" << leftVehSide
                         << " iR=" << foeRight << " iL=" << foeLeft
                         << "\n";
