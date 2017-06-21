@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 21 15:43:17 2017 by SUMO netconvert Version dev-SVN-r24826
+<!-- generated on Wed Jun 21 16:14:34 2017 by SUMO netconvert Version dev-SVN-r24827
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -33,23 +33,23 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <ptLine id="0" name="Buslinie 104: Neu-Westend, Brixplatz => Stralau, Tunnelstraße">
-        <busStop id="3887567764"/>
-        <busStop id="3887567769"/>
-        <busStop id="3887567767"/>
-        <busStop id="3887567771"/>
-        <busStop id="3357557585"/>
-        <busStop id="596713378"/>
-        <busStop id="3356361106"/>
-        <busStop id="3356361108"/>
+        <busStop id="3887567764" name="Columbiadamm/Friesenstraße"/>
+        <busStop id="3887567769" name="Golßener Straße"/>
+        <busStop id="3887567767" name="Friedhöfe Columbiadamm"/>
+        <busStop id="3887567771" name="Sommerbad Neukölln"/>
+        <busStop id="3357557585" name="Fontanestraße/Flughafenstraße"/>
+        <busStop id="596713378" name="U Boddinstraße"/>
+        <busStop id="3356361106" name="Herrfurthstraße"/>
+        <busStop id="3356361108" name="Morusstraße"/>
     </ptLine>
     <ptLine id="1" name="Buslinie 104: Stralau, Tunnelstraße => Neu-Westend, Brixplatz">
-        <busStop id="3356361109"/>
-        <busStop id="4032629808"/>
-        <busStop id="3356361110"/>
-        <busStop id="3357557586"/>
-        <busStop id="248010028"/>
-        <busStop id="3887567768"/>
-        <busStop id="3887567770"/>
-        <busStop id="3887567765"/>
+        <busStop id="3356361109" name="Morusstraße"/>
+        <busStop id="4032629808" name="Herrfurthstraße"/>
+        <busStop id="3356361110" name="U Boddinstraße"/>
+        <busStop id="3357557586" name="Fontanestraße/Flughafenstraße"/>
+        <busStop id="248010028" name="Sommerbad Neukölln"/>
+        <busStop id="3887567768" name="Friedhöfe Columbiadamm"/>
+        <busStop id="3887567770" name="Golßener Straße"/>
+        <busStop id="3887567765" name="Columbiadamm/Friesenstraße"/>
     </ptLine>
 </additional>

@@ -44,6 +44,7 @@ void NBPTLine::write(OutputDevice& device) {
     for (std::vector<NBPTStop*>::iterator it = myPTStops.begin(); it != myPTStops.end(); it++) {
         device.openTag(SUMO_TAG_BUS_STOP);
         device.writeAttr(SUMO_ATTR_ID, (*it)->getID());
+        device.writeAttr(SUMO_ATTR_NAME, (*it)->getName());
         device.closeTag();
     }
 //    device.writeAttr(SUMO_ATTR_LANE, myLaneId);
