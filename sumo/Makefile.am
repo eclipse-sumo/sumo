@@ -27,6 +27,7 @@ lcov-reset:
 	lcov -d . -z
 
 userdoc:
+	rm -rf docs/userdoc
 	tools/build/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -r $(VERSION) && cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
 
 javadoc:
