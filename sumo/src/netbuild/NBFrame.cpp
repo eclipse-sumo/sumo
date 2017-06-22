@@ -319,6 +319,12 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("tls.yellow.time", "traffic-light-yellow", true);
     oc.addDescription("tls.yellow.time", "TLS Building", "Set INT as fixed time for yellow phase durations");
 
+    oc.doRegister("tls.red.time", new Option_Integer(0));
+    oc.addDescription("tls.red.time", "TLS Building", "Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow");
+
+    //oc.doRegister("tls.allred.time", new Option_Integer(0));
+    //oc.addDescription("tls.allred.time", "TLS Building", "Set INT as fixed time for intermediate red phase after every switch");
+
     oc.doRegister("tls.left-green.time", new Option_Integer(6));
     oc.addDescription("tls.left-green.time", "TLS Building", "Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases");
 

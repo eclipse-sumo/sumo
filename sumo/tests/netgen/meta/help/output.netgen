@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r22796
+SUMO netgenerate Version dev-SVN-r24506
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -124,6 +124,9 @@ TLS Building Options:
                                          being too short
   --tls.yellow.time INT                Set INT as fixed time for yellow phase
                                          durations
+  --tls.red.time INT                   Set INT as fixed time for red phase
+                                         duration at traffic lights that do not
+                                         have a conflicting flow
   --tls.left-green.time INT            Use INT as green phase duration for left
                                          turns (s). Setting this value to 0
                                          disables additional left-turning phases

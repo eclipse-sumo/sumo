@@ -374,6 +374,12 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     if (crossings.size() > 0) {
         addPedestrianScramble(logic, noLinksAll, TIME2STEPS(10), brakingTime, crossings, fromEdges, toEdges);
     }
+    // add optional red phase if there where no foes
+    if (logic->getPhases().size() == 2 && brakingTime > 0 
+            && OptionsCont::getOptions().getInt("tls.red.time") > 0) {
+        const SUMOTime redTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.red.time"));
+        logic->addStep(redTime, std::string(noLinksAll, 'r'));
+    }
 
     SUMOTime totalDuration = logic->getDuration();
     if (OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) {

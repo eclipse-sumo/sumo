@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:32 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Thu Jun 22 20:01:58 2017 by SUMO netconvert Version dev-SVN-r24506
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sharps/data/typemap/osmNetconvert.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -20,6 +19,10 @@
         <proj.utm value="true"/>
         <proj.plain-geo value="true"/>
     </projection>
+
+    <tls_building>
+        <tls.red.time value="10"/>
+    </tls_building>
 
     <processing>
         <no-internal-links value="true"/>
@@ -35,8 +38,9 @@
 
 <tlLogics version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="261599791" type="static" programID="0" offset="0">
-        <phase duration="81" state="GGgGGg"/>
+        <phase duration="71" state="GGgGGg"/>
         <phase duration="9" state="yyyyyy"/>
+        <phase duration="10" state="rrrrrr"/>
     </tlLogic>
     <tlLogic id="32266935" type="static" programID="0" offset="0">
         <phase duration="21" state="rrrrGGGggrrrrGGGgg"/>
@@ -49,8 +53,9 @@
         <phase duration="9" state="rryyrrrrrrryyrrrrr"/>
     </tlLogic>
     <tlLogic id="94487954" type="static" programID="0" offset="0">
-        <phase duration="81" state="G"/>
+        <phase duration="71" state="G"/>
         <phase duration="9" state="y"/>
+        <phase duration="10" state="r"/>
     </tlLogic>
 
     <connection from="-24214693#0" to="24214694" fromLane="0" toLane="0" tl="32266935" linkIndex="13"/>
