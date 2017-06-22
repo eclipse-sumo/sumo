@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jun 22 13:34:36 2017 by SUMO netconvert Version dev-SVN-r24506
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="nodes.xml"/>
+        <edge-files value="edges.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-100.00,-100.00,100.00,100.00" projParameter="!"/>
+
+    <edge id=":linksoben_0" function="internal">
+        <lane id=":linksoben_0_0" index="0" speed="13.89" length="1.61" width="2.00" shape="1.05,197.95 1.11,198.39 1.30,198.70 1.61,198.89 2.05,198.95"/>
+    </edge>
+    <edge id=":linksunten_0" function="internal">
+        <lane id=":linksunten_0_0" index="0" speed="13.89" length="1.61" width="2.00" shape="2.05,1.05 1.61,1.11 1.30,1.30 1.11,1.61 1.05,2.05"/>
+    </edge>
+    <edge id=":rechtsoben_0" function="internal">
+        <lane id=":rechtsoben_0_0" index="0" speed="13.89" length="1.61" width="2.00" shape="197.95,198.95 198.39,198.89 198.70,198.70 198.89,198.39 198.95,197.95"/>
+    </edge>
+    <edge id=":rechtsunten_0" function="internal">
+        <lane id=":rechtsunten_0_0" index="0" speed="13.89" length="1.61" width="2.00" shape="198.95,2.05 198.89,1.61 198.70,1.30 198.39,1.11 197.95,1.05"/>
+    </edge>
+
+    <edge id="links" from="linksunten" to="linksoben" priority="-1">
+        <lane id="links_0" index="0" speed="13.89" length="195.90" width="2.00" shape="1.05,2.05 1.05,197.95"/>
+    </edge>
+    <edge id="oben" from="linksoben" to="rechtsoben" priority="-1">
+        <lane id="oben_0" index="0" speed="13.89" length="195.90" width="2.00" shape="2.05,198.95 197.95,198.95"/>
+    </edge>
+    <edge id="rechts" from="rechtsoben" to="rechtsunten" priority="-1">
+        <lane id="rechts_0" index="0" speed="13.89" length="195.90" width="2.00" shape="198.95,197.95 198.95,2.05"/>
+    </edge>
+    <edge id="unten" from="rechtsunten" to="linksunten" priority="-1">
+        <lane id="unten_0" index="0" speed="13.89" length="195.90" width="2.00" shape="197.95,1.05 2.05,1.05"/>
+    </edge>
+
+    <junction id="linksoben" type="priority" x="0.00" y="200.00" incLanes="links_0" intLanes=":linksoben_0_0" shape="2.05,199.95 2.05,197.95 0.05,197.95" radius="0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="linksunten" type="priority" x="0.00" y="0.00" incLanes="unten_0" intLanes=":linksunten_0_0" shape="0.05,2.05 2.05,2.05 2.05,0.05" radius="0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="rechtsoben" type="priority" x="200.00" y="200.00" incLanes="oben_0" intLanes=":rechtsoben_0_0" shape="199.95,197.95 197.95,197.95 197.95,199.95" radius="0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="rechtsunten" type="priority" x="200.00" y="0.00" incLanes="rechts_0" intLanes=":rechtsunten_0_0" shape="197.95,2.05 199.95,2.05 197.95,0.05" radius="0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="links" to="oben" fromLane="0" toLane="0" via=":linksoben_0_0" dir="r" state="M"/>
+    <connection from="oben" to="rechts" fromLane="0" toLane="0" via=":rechtsoben_0_0" dir="r" state="M"/>
+    <connection from="rechts" to="unten" fromLane="0" toLane="0" via=":rechtsunten_0_0" dir="r" state="M"/>
+    <connection from="unten" to="links" fromLane="0" toLane="0" via=":linksunten_0_0" dir="r" state="M"/>
+
+    <connection from=":linksoben_0" to="oben" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":linksunten_0" to="links" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":rechtsoben_0" to="rechts" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":rechtsunten_0" to="unten" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
