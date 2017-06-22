@@ -79,3 +79,6 @@ on_junction_invalid
 
 # tests  defining a stop on an invalid internal lane
 on_junction_invalid2
+
+# stop is before departPos and must be used on the second time the each is reached
+looped_route
