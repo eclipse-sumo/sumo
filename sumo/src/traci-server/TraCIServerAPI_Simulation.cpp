@@ -91,12 +91,9 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
         case VAR_LOADED_VEHICLES_NUMBER:
             writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_BUILT);
             break;
-        case VAR_LOADED_VEHICLES_IDS: {
-            const std::vector<std::string>& ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_BUILT)->second;
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(ids);
-        }
-        break;
+        case VAR_LOADED_VEHICLES_IDS:
+            writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_BUILT);
+            break;
         case VAR_DEPARTED_VEHICLES_NUMBER:
             writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_DEPARTED);
             break;
