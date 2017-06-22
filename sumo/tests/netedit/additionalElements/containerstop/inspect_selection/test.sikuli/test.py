@@ -41,13 +41,13 @@ netedit.inspectMode()
 # inspect containerstops
 netedit.leftClick(match, 150, 250)
 
-# Set name 
+# Set name
 netedit.modifyAttribute(0, "commonName")
 
-# Set friendly position 
+# Set friendly position
 netedit.modifyBoolAttribute(1)
 
-# Set lines 
+# Set lines
 netedit.modifyAttribute(2, "commonLine1 commonLine2")
 
 # save additionals

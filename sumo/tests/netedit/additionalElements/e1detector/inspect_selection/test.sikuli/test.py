@@ -41,10 +41,10 @@ netedit.inspectMode()
 # inspect E1
 netedit.leftClick(match, 150, 240)
 
-# Try to set invalid frecuency 
+# Try to set invalid frecuency
 netedit.modifyAttribute(0, "-30")
 
-# set frecuency 
+# set frecuency
 netedit.modifyAttribute(0, "20")
 
 # save additionals

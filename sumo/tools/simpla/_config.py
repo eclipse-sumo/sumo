@@ -38,47 +38,47 @@ MAX_PLATOON_GAP = 15.0
 # Distance in meters below which a vehicle tries to catch up with a platoon in front
 CATCHUP_DIST = 50.0
 
-# Latency time in secs. until a platoon is split if vehicles exceed PLATOON_SPLIT_DISTANCE to their 
+# Latency time in secs. until a platoon is split if vehicles exceed PLATOON_SPLIT_DISTANCE to their
 # leaders within a platoon (or if they are not the direct follower),
-# or drive on different lanes than their leader within the platoon 
+# or drive on different lanes than their leader within the platoon
 PLATOON_SPLIT_TIME = 3.0
 
 # The switch impatience factor determines the magnitude of the effect
 # that an increasing waiting time has on the active speed factor of a vehicle:
-# activeSpeedFactor = modeSpecificSpeedFactor/(1+impatienceFactor*waitingTime)  
+# activeSpeedFactor = modeSpecificSpeedFactor/(1+impatienceFactor*waitingTime)
 SWITCH_IMPATIENCE_FACTOR = 0.1
 
 # Lanechange modes for the different platooning modes
 LC_MODE = {
     # for solitary mode use default mode
-    PlatoonMode.NONE   : 0b1001010101,
+    PlatoonMode.NONE: 0b1001010101,
     # for platoon leader use default mode
-    PlatoonMode.LEADER   : 0b1001010101,
+    PlatoonMode.LEADER: 0b1001010101,
     # for platoon follower do not change lanes, except for traci commands
     # of for strategic reasons (these override traci)
-    PlatoonMode.FOLLOWER : 0b1000000010,
+    PlatoonMode.FOLLOWER: 0b1000000010,
     # for platoon catchup as for follower
-    PlatoonMode.CATCHUP  : 0b1000000010,
+    PlatoonMode.CATCHUP: 0b1000000010,
     # for platoon catchup follower as for follower
-    PlatoonMode.CATCHUP_FOLLOWER  : 0b1000000010
-    }
+    PlatoonMode.CATCHUP_FOLLOWER: 0b1000000010
+}
 
 # speedfactors for the different platooning modes
 SPEEDFACTOR = {
-    PlatoonMode.LEADER   : 1.0,
-    PlatoonMode.FOLLOWER : 1.0,
-    PlatoonMode.CATCHUP  : 1.1,
-    PlatoonMode.CATCHUP_FOLLOWER  : None # is set to the same as for catchup mode below if not explicitely set
-    }
+    PlatoonMode.LEADER: 1.0,
+    PlatoonMode.FOLLOWER: 1.0,
+    PlatoonMode.CATCHUP: 1.1,
+    PlatoonMode.CATCHUP_FOLLOWER: None  # is set to the same as for catchup mode below if not explicitely set
+}
 
 
-# files with pickled vtype maps for platoon leaders and followers  
-VTYPE_FILE_LEADER = ""  
+# files with pickled vtype maps for platoon leaders and followers
+VTYPE_FILE_LEADER = ""
 VTYPE_FILE_FOLLOWER = ""
 VTYPE_FILE_CATCHUP = ""
 VTYPE_FILE_CATCHUP_FOLLOWER = ""
 
-# map of original to platooning vTypes 
+# map of original to platooning vTypes
 PLATOON_VTYPES = defaultdict(dict)
 
 import xml.etree.ElementTree as ET
@@ -86,79 +86,81 @@ import xml.etree.ElementTree as ET
 
 def loadVTypeMap(fn):
     '''readPairs(string) -> dict
-    
+
     Reads lines of the form 'origMode:leadMode:followMode:catchupMode:catchupFollowMode' (last two elements can be omitted) from a given file and write corresponding key:value pairs to PLATOON_VTYPES 
     '''
     global PLATOON_VTYPES
-    
-    with open(fn,"r") as f:
-#         if VERBOSITY >= 2:
+
+    with open(fn, "r") as f:
+        #         if VERBOSITY >= 2:
         if VERBOSITY >= 0:
-            print("Loading vehicle type mappings from file '%s'..."%fn)
+            print("Loading vehicle type mappings from file '%s'..." % fn)
         splits = [l.split(":") for l in f.readlines()]
         NrBadLines = 0
         for j, spl in enumerate(splits):
-            if len(spl)>=2 and len(spl)<=5:
+            if len(spl) >= 2 and len(spl) <= 5:
                 stripped = map(lambda x: x.strip(), spl)
-                origType = stripped[0]                
+                origType = stripped[0]
                 if origType == "":
-                    print("WARNING: original vType must be specified in line %s of vType file '%s'!"%(j, fn))
+                    print("WARNING: original vType must be specified in line %s of vType file '%s'!" % (j, fn))
                     continue
-                
+
                 if VERBOSITY >= 2:
-                    print("original type: '%s'"%origType)
-                    
+                    print("original type: '%s'" % origType)
+
                 leadType = stripped[1]
                 if leadType == "":
-                    print("WARNING: platoon leader vType must be specified in line %s of vType file '%s'!"%(j, fn))
+                    print("WARNING: platoon leader vType must be specified in line %s of vType file '%s'!" % (j, fn))
                     continue
-                                
+
                 if VERBOSITY >= 2:
-                    print("platoon leader type: '%s'"%origType)
-                    
-                if (len(stripped)>=3 and stripped[2]!=""):
+                    print("platoon leader type: '%s'" % origType)
+
+                if (len(stripped) >= 3 and stripped[2] != ""):
                     followerType = stripped[2]
                     if VERBOSITY >= 2:
-                        print("platoon follower type: '%s'"%followerType)
-                else: 
+                        print("platoon follower type: '%s'" % followerType)
+                else:
                     followerType = leadType
-                
-                if (len(stripped)>=4 and stripped[3]!=""): 
+
+                if (len(stripped) >= 4 and stripped[3] != ""):
                     catchupType = stripped[3]
                     if VERBOSITY >= 2:
-                        print("catchup type: '%s'"%catchupType)
+                        print("catchup type: '%s'" % catchupType)
                 else:
                     catchupType = origType
-                         
-                if len(stripped)>=5 and stripped[4]!="":
-                    catchupFollowerType = stripped[4] 
+
+                if len(stripped) >= 5 and stripped[4] != "":
+                    catchupFollowerType = stripped[4]
                     if VERBOSITY >= 2:
-                        print("catchup follower type: '%s'"%catchupFollowerType)
+                        print("catchup follower type: '%s'" % catchupFollowerType)
                 else:
-                    catchupFollowerType = origType+"_catchupFollower" 
-                    print("NOTE: Catchup follower type '%s' for '%s' dynamically created as duplicate of '%s'"%(catchupFollowerType,origType,followerType))
+                    catchupFollowerType = origType + "_catchupFollower"
+                    print("NOTE: Catchup follower type '%s' for '%s' dynamically created as duplicate of '%s'" %
+                          (catchupFollowerType, origType, followerType))
                     traci.vehicletype.copy(followerType, catchupFollowerType)
-                    traci.vehicletype.setColor(catchupFollowerType, (0,255,200,0))
-                    
+                    traci.vehicletype.setColor(catchupFollowerType, (0, 255, 200, 0))
+
                 PLATOON_VTYPES[origType][PlatoonMode.NONE] = origType
                 PLATOON_VTYPES[origType][PlatoonMode.LEADER] = leadType
                 PLATOON_VTYPES[origType][PlatoonMode.FOLLOWER] = followerType
                 PLATOON_VTYPES[origType][PlatoonMode.CATCHUP] = catchupType
                 PLATOON_VTYPES[origType][PlatoonMode.CATCHUP_FOLLOWER] = catchupFollowerType
             else:
-                NrBadLines+=1
+                NrBadLines += 1
         if NrBadLines > 0:
-            print("WARNING: vType file '%s' contained %d lines that were not parsed into a colon-separated sequence of strings!"%(fn, NrBadLines))
+            print(
+                "WARNING: vType file '%s' contained %d lines that were not parsed into a colon-separated sequence of strings!" % (fn, NrBadLines))
 
 
 def load(filename):
     '''load(string)
-    
+
     This loads configuration parameters from a file and overwrites default values.
     '''
     global VERBOSITY, CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, CATCHUP_DIST, PLATOON_SPLIT_TIME
     global VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
-    
+
     configElements = ET.parse(filename).getroot().getchildren()
     parsedTags = []
     for e in configElements:
@@ -167,8 +169,8 @@ def load(filename):
             VERBOSITY = int(e.attrib.values()[0])
         elif e.tag == "controlRate":
             rate = e.attrib.values()[0]
-            if rate <= 0.:             
-                print("WARNING: Parameter controlRate must be positive. Ignoring given value %s."%(rate))
+            if rate <= 0.:
+                print("WARNING: Parameter controlRate must be positive. Ignoring given value %s." % (rate))
             else:
                 CONTROL_RATE = float(rate)
         elif e.tag == "vehicleSelectors":
@@ -225,15 +227,12 @@ def load(filename):
                 PLATOON_VTYPES[origType][PlatoonMode.CATCHUP_FOLLOWER] = catchupFollowerType
                 #print("Registering vtype map '%s':'%s'"%(origType,followerType))
         else:
-            print("WARNING: Encountered unknown configuration parameter '%s'!"%e.tag)
-    
+            print("WARNING: Encountered unknown configuration parameter '%s'!" % e.tag)
+
     if "vTypeMapFile" in parsedTags:
         # load vType mapping from file
         loadVTypeMap(VTYPE_FILE)
-    
+
     if SPEEDFACTOR[PlatoonMode.CATCHUP_FOLLOWER] is None:
         # if unset, set speedfactor for catchupfollower mode to the same as in catchup mode
-        SPEEDFACTOR[PlatoonMode.CATCHUP_FOLLOWER]=SPEEDFACTOR[PlatoonMode.CATCHUP]
-    
-
-
+        SPEEDFACTOR[PlatoonMode.CATCHUP_FOLLOWER] = SPEEDFACTOR[PlatoonMode.CATCHUP]

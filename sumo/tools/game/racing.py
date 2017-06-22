@@ -4,7 +4,7 @@
 @file    racing.py
 @author  Jakob Erdmann
 @date    2017-06-12
-@version $Id: racing.py 22608 2017-01-17 06:28:54Z namdre $
+@version $Id$
 
 This script runs an aribtrary sumo simulation and controls the specified vehicle
 via keyboard input

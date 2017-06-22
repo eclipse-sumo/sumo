@@ -2,7 +2,7 @@
 /// @file    NBPTLineCont.cpp
 /// @author  Gregor Laemmel
 /// @date    Tue, 20 Mar 2017
-/// @version $Id: NBPTLineCont.cpp 24570 2017-06-07 06:54:55Z namdre $
+/// @version $Id$
 ///
 // Container for NBPTLine during netbuild
 /****************************************************************************/

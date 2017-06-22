@@ -41,12 +41,8 @@ for i in range(45):
     traci.simulationStep()
 traci.vehicle.setSpeedMode("rescue", 7)
 traci.vehicle.setSpeed("rescue", 13.9)
-traci.trafficlights.setRedYellowGreenState("C","rrrrrrrrrrrrrrrrrr")
+traci.trafficlights.setRedYellowGreenState("C", "rrrrrrrrrrrrrrrrrr")
 for i in range(20):
     traci.simulationStep()
 traci.close()
 sumoProcess.wait()
-
-
-
-

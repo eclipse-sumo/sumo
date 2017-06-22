@@ -51,6 +51,7 @@ def getAllPages(args):
         return [entry["title"] for entry in result["query"]["allpages"]]
     return args
 
+
 def readParsePage(page):
     f = urlopen("http://sumo.dlr.de/wiki/%s" % page)
     c = f.read().decode('utf8')

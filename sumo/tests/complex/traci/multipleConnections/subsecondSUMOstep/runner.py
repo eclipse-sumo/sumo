@@ -45,11 +45,13 @@ else:
         "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
     addOption = "-S -Q --remote-port %s" % PORT
 
-def traciLoop(port, traciEndTime, index, SUMOsteplength, steplength = 0):
+
+def traciLoop(port, traciEndTime, index, SUMOsteplength, steplength=0):
     orderTime = 0.25
-    time.sleep(orderTime*index) # assure ordering of outputs
-    if steplength == 0: steplength = DELTA_T/1000. 
-    print("Starting process %s with steplength %s"%(index, steplength))
+    time.sleep(orderTime * index)  # assure ordering of outputs
+    if steplength == 0:
+        steplength = DELTA_T / 1000.
+    print("Starting process %s with steplength %s" % (index, steplength))
     sys.stdout.flush()
     traci.init(port)
     traci.setOrder(index)
@@ -57,11 +59,11 @@ def traciLoop(port, traciEndTime, index, SUMOsteplength, steplength = 0):
     nrEnteredVehicles = 0
     sumoStop = False
     try:
-        traciEndStep = math.ceil(traciEndTime/steplength)
+        traciEndStep = math.ceil(traciEndTime / steplength)
         while not step > traciEndStep:
-            traci.simulationStep(int(step*steplength*1000))
+            traci.simulationStep(int(step * steplength * 1000))
             #print(index, "asking for vehicles")
-            #sys.stdout.flush()
+            # sys.stdout.flush()
             vehs = traci.vehicle.getIDList()
             nrEnteredVehicles += traci.simulation.getDepartedNumber()
             #~ print(index, "Newly entered vehicles: ", traci.simulation.getDepartedNumber(), "(vehs: ", vehs, ")")
@@ -71,17 +73,18 @@ def traciLoop(port, traciEndTime, index, SUMOsteplength, steplength = 0):
         traci.close()
     except traci.FatalTraCIError as e:
         if str(e) == "connection closed by SUMO":
-            time.sleep(orderTime*index) # assure ordering of outputs
+            time.sleep(orderTime * index)  # assure ordering of outputs
             sumoStop = True
-            print("client %s: "%index, str(e), " (at TraCIStep %s)"%step)
+            print("client %s: " % index, str(e), " (at TraCIStep %s)" % step)
             sys.stdout.flush()
         else:
             raise
     if not sumoStop:
-        time.sleep(orderTime*index) # assure ordering of outputs
-        print("Process %s ended at step %s" %(index, endTime))
-        print("Process %s was informed about %s entered vehicles" %(index, nrEnteredVehicles))
+        time.sleep(orderTime * index)  # assure ordering of outputs
+        print("Process %s ended at step %s" % (index, endTime))
+        print("Process %s was informed about %s entered vehicles" % (index, nrEnteredVehicles))
         sys.stdout.flush()
+
 
 def runSingle(sumoEndTime, traciEndTime, numClients, steplengths, runNr, SUMOsteplength):
     fdi = open("sumo.sumocfg")
@@ -92,8 +95,9 @@ def runSingle(sumoEndTime, traciEndTime, numClients, steplengths, runNr, SUMOste
     sumoProcess = subprocess.Popen(
         "%s -v --num-clients %s -c used.sumocfg %s" % (sumoBinary, numClients, addOption), shell=True, stdout=sys.stdout)
     # Alternate ordering
-    indexRange = range(numClients) if (runNr%2==0) else list(reversed(range(numClients)))
-    procs = [Process(target=traciLoop, args=(PORT, traciEndTime, i+1, SUMOsteplength, steplengths[indexRange[i]])) for i in range(numClients)]
+    indexRange = range(numClients) if (runNr % 2 == 0) else list(reversed(range(numClients)))
+    procs = [Process(target=traciLoop, args=(PORT, traciEndTime, i + 1, SUMOsteplength, steplengths[indexRange[i]]))
+             for i in range(numClients)]
     for p in procs:
         p.start()
     for p in procs:
@@ -110,7 +114,7 @@ if __name__ == '__main__':
     SUMOsteplengths = [0.1, 0.5]
     print("----------- SUMO ends first -----------")
     for numClients in clientRange:
-        print("   -------- numClients: %s  --------    "%numClients)
+        print("   -------- numClients: %s  --------    " % numClients)
         sys.stdout.flush()
         for i in range(0, runNr):
             print(" Run %s" % i, ", SUMO-steplength=", SUMOsteplengths[i])
@@ -119,7 +123,7 @@ if __name__ == '__main__':
 
     print("----------- TraCI ends first -----------")
     for numClients in clientRange:
-        print("   -------- numClients: %s  --------    "%numClients)
+        print("   -------- numClients: %s  --------    " % numClients)
         sys.stdout.flush()
         for i in range(0, runNr):
             print(" Run %s" % i, ", SUMO-steplength=", SUMOsteplengths[i])

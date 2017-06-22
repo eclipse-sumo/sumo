@@ -59,7 +59,7 @@ _emergencyDecelImplemented = 'VAR_EMERGENCY_DECEL' in dir(traci.constants)
 
 if not _emergencyDecelImplemented:
     # Old traci version. No emergency decel present.
-    warn("Using old traci version assuming emergency decel == decel", 0 , True)
+    warn("Using old traci version assuming emergency decel == decel", 0, True)
     # Set emergency decel to decel
     traci.constants.VAR_EMERGENCY_DECEL = 0x7b
     traci.vehicletype.getEmergencyDecel = traci.vehicletype.getDecel
@@ -73,9 +73,8 @@ def load(config_filename):
     _config.load(config_filename)
     _mgr = _platoonmanager.PlatoonManager()
     if _useStepListener:
-        ## For SUMO version >= 0.30
+        # For SUMO version >= 0.30
         traci.addStepListener(_mgr)
-
 
 
 def stop():
@@ -88,7 +87,6 @@ def stop():
     _mgr = None
 
 
-
 def update():
     '''
     Function called each simulation step. Only to be used for SUMO version < 1.0
@@ -98,5 +96,3 @@ def update():
         _mgr.step()
     else:
         warn("call simpla.init(<config_file>) before simpla.update()!")
-        
-    

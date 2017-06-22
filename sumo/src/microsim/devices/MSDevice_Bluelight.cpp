@@ -5,7 +5,7 @@
 /// @author  Jakob Erdmann
 /// @author  Laura Bieker
 /// @date    01.06.2017
-/// @version $Id: MSDevice_Bluelight.cpp 24108 2017-04-27 18:43:30Z behrisch $
+/// @version $Id$
 ///
 // A device for emergency vehicle. The behaviour of other traffic participants will be triggered with this device.
 // For example building a rescue lane.

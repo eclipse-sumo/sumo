@@ -31,7 +31,7 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
 # move junction
 
-# Change to move 
+# Change to move
 netedit.moveMode()
 
 # move center circular road

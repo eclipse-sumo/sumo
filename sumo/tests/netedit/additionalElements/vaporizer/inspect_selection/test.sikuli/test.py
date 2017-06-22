@@ -41,13 +41,13 @@ netedit.inspectMode()
 # inspect vaporizers
 netedit.leftClick(match, 310, 200)
 
-# Set invalid begin 
+# Set invalid begin
 netedit.modifyAttribute(0, "-30")
 
-# Set valid begin 
+# Set valid begin
 netedit.modifyAttribute(0, "5")
 
-# Set invalid end 1 
+# Set invalid end 1
 netedit.modifyAttribute(1, "-5")
 
 # Set invalid end 2

@@ -41,22 +41,22 @@ netedit.inspectMode()
 # inspect E2s
 netedit.leftClick(match, 150, 250)
 
-# Set invalid freq 
+# Set invalid freq
 netedit.modifyAttribute(0, "-30")
 
-# Set valid freq 
+# Set valid freq
 netedit.modifyAttribute(0, "50")
 
-# Set invalid time speed treshold 
+# Set invalid time speed treshold
 netedit.modifyAttribute(1, "-5")
 
-# Set valid time speed treshold 
+# Set valid time speed treshold
 netedit.modifyAttribute(1, "11.3")
 
-# Set invalid speed speed treshold 
+# Set invalid speed speed treshold
 netedit.modifyAttribute(2, "-3")
 
-# Set valid speed speed treshold 
+# Set valid speed speed treshold
 netedit.modifyAttribute(2, "4")
 
 # save additionals

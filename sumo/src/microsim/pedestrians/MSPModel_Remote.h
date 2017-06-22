@@ -2,7 +2,7 @@
 /// @file    MSPModel_Remote.h
 /// @author  Gregor Laemmel
 /// @date    Mon, 13 Jan 2014
-/// @version $Id: MSPModel_Remote.h 23150 2017-02-27 12:08:30Z behrisch $
+/// @version $Id$
 ///
 // The pedestrian following model for remote controlled pedestrian movement
 /****************************************************************************/

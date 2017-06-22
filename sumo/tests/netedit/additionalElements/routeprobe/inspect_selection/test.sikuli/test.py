@@ -41,10 +41,10 @@ netedit.inspectMode()
 # inspect routeProbes
 netedit.leftClick(match, 310, 200)
 
-# Set invalid freq 
+# Set invalid freq
 netedit.modifyAttribute(0, "-30")
 
-# Set valid freq 
+# Set valid freq
 netedit.modifyAttribute(0, "50")
 
 # Set invalid begin

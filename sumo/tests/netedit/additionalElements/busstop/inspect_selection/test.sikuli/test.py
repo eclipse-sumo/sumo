@@ -41,13 +41,13 @@ netedit.inspectMode()
 # inspect busstops
 netedit.leftClick(match, 150, 250)
 
-# Set name 
+# Set name
 netedit.modifyAttribute(0, "commonName")
 
-# Set friendlyPos 
+# Set friendlyPos
 netedit.modifyBoolAttribute(1)
 
-# Set lines 
+# Set lines
 netedit.modifyAttribute(2, "commonLine1 commonLine2")
 
 # save additionals

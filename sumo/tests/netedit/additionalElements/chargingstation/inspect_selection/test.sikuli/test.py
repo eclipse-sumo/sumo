@@ -41,22 +41,22 @@ netedit.inspectMode()
 # inspect chargingStations
 netedit.leftClick(match, 150, 250)
 
-# Set name 
+# Set name
 netedit.modifyAttribute(0, "commonName")
 
-# Set friendlyPos 
+# Set friendlyPos
 netedit.modifyBoolAttribute(1)
 
-# Set invalid Power 
+# Set invalid Power
 netedit.modifyAttribute(2, "-1000")
 
-# Set Power 
+# Set Power
 netedit.modifyAttribute(2, "11000")
 
-# Try to set invalid efficiency 
+# Try to set invalid efficiency
 netedit.modifyAttribute(3, "2")
 
-# set efficiency 
+# set efficiency
 netedit.modifyAttribute(3, "0.5")
 
 # save additionals

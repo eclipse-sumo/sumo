@@ -363,5 +363,5 @@ class VehicleTypeDomain(Domain):
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.COPY, origTypeID, newTypeID)
-        
+
 VehicleTypeDomain()

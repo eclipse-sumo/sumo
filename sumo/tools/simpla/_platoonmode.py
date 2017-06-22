@@ -17,10 +17,11 @@ the Free Software Foundation; either version 3 of the License, or
 from enum import Enum
 
 # Platoon modes
+
+
 class PlatoonMode(Enum):
     NONE = 0
     LEADER = 1
     FOLLOWER = 2
     CATCHUP = 3
     CATCHUP_FOLLOWER = 4
-    

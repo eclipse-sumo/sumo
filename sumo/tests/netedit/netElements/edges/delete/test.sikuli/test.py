@@ -41,7 +41,7 @@ netedit.deleteMode()
 # delete edge
 netedit.leftClick(match, 200, 200)
 
-# delete node 
+# delete node
 netedit.leftClick(match, 575, 225)
 
 # rebuild network
