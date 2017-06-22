@@ -46,6 +46,7 @@
         <output.original-names value="false" type="BOOL" help="Writes original names, if given, as parameter"/>
         <street-sign-output value="" type="FILE" help="Writes street signs as POIs to FILE"/>
         <ptstop-output value="" type="FILE" help="Writes public transport stops to FILE"/>
+        <ptline-output value="" type="FILE" help="Writes public transport lines to FILE"/>
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
     </output>
 

@@ -2,7 +2,6 @@ Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|high
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '12090453#0').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurence for edge '13909444#0').
 Warning: Discarding unusable type 'waterway.reservoir' (first occurence for edge '133465377#0').
-Warning: Discarding unusable type 'highway.platform' (first occurence for edge '178725148').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|cycleway.opposite_lane|highway.tertiary' (first occurence for edge '238219468').
 Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.lane|cycleway.opposite_lane|highway.tertiary' (first occurence for edge '238219468').
 Warning: Shape for junction '1890531930' has distance 73.28 to its given position

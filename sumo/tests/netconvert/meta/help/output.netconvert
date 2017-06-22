@@ -65,6 +65,7 @@ Output Options:
                                          parameter
   --street-sign-output FILE            Writes street signs as POIs to FILE
   --ptstop-output FILE                 Writes public transport stops to FILE
+  --ptline-output FILE                 Writes public transport lines to FILE
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
                                          whenever the angular change  between
                                          straight segments exceeds FLOAT degrees
