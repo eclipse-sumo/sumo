@@ -93,7 +93,7 @@ GUITriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<st
     if (!success) {
         delete o;
         myCurrentStop = 0;
-        throw InvalidArgument("Could not build " + toString(element) + " stop '" + id + "'; probably declared twice.");
+        throw InvalidArgument("Could not build " + toString(element) + " '" + id + "'; probably declared twice.");
     }
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(o);
 }
