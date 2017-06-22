@@ -89,6 +89,12 @@
     <ClCompile Include="..\..\..\src\netbuild\NBPTStopCont.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netbuild\NBPTLine.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netbuild\NBPTLineCont.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netbuild\NBCapacity2Lanes.h">
@@ -179,6 +185,12 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netbuild\NBPTStopCont.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netbuild\NBPTLine.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netbuild\NBPTLineCont.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
