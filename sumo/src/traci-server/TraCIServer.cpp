@@ -220,8 +220,10 @@ TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
             myInstance->myExecutors[i->first] = i->second;
         }
     }
-    // maybe net was deleted and built again 
-    MSNet::getInstance()->addVehicleStateListener(myInstance);
+    if (myInstance != 0) {
+        // maybe net was deleted and built again 
+        MSNet::getInstance()->addVehicleStateListener(myInstance);
+    }
 }
 
 
