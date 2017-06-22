@@ -74,7 +74,6 @@
 #include "GNEUndoList.h"
 #include "GNEPOI.h"
 #include "GNEAdditionalHandler.h"
-#include "GNEShapeHandler.h"
 
 
 // ===========================================================================
@@ -701,7 +700,7 @@ GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        GNEShapeHandler handler(myNet, file, myNet->getShapeContainer());
+        GNEShapeHandler handler(file, myNet, myNet->getShapeContainer());
         if (!XMLSubSys::runParser(handler, file, false)) {
             WRITE_MESSAGE("Loading of " + file + " failed.");
         }
@@ -1604,6 +1603,32 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
     myUndoList->p_clear(); //only ask once
     return true;
 }
+
+
+GNEApplicationWindow::GNEShapeHandler::GNEShapeHandler(const std::string& file, GNENet* net, ShapeContainer& sc) :
+    ShapeHandler(file, sc),
+    myNet(net) {}
+
+
+GNEApplicationWindow::GNEShapeHandler::~GNEShapeHandler() {}
+
+
+Position
+GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos) {
+    std::string edgeID;
+    int laneIndex;
+    NIImporter_SUMO::interpretLaneID(laneID, edgeID, laneIndex);
+    NBEdge* edge = myNet->retrieveEdge(edgeID)->getNBEdge();
+    if (edge == 0 || laneIndex < 0 || edge->getNumLanes() <= laneIndex) {
+        WRITE_ERROR("Lane '" + laneID + "' to place poi '" + poiID + "' on is not known.");
+        return Position::INVALID;
+    }
+    if (lanePos < 0) {
+        lanePos = edge->getLength() + lanePos;
+    }
+    return edge->getLanes()[laneIndex].shape.positionAtOffset(lanePos);
+}
+
 
 void
 GNEApplicationWindow::updateControls() {
