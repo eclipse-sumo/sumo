@@ -78,11 +78,10 @@ class Platoon(object):
             return
         
         if self.getMode() == PlatoonMode.CATCHUP:
-            # no changes required. TODO: adapt if platoon internal catchup is introduced
-            return
-        
-        # remains the regular platoon situation
-        self.setMode(PlatoonMode.LEADER)
+            self.setMode(PlatoonMode.CATCHUP)
+	else:        
+            # remains the regular platoon situation
+            self.setMode(PlatoonMode.LEADER)
         
         
     def getID(self):
@@ -153,17 +152,6 @@ class Platoon(object):
                 # PlatoonMode.NONE is only admissible for solitons
                 return False
         
-        elif mode == PlatoonMode.CATCHUP or mode == PlatoonMode.FOLLOWER:
-            # TODO: When Catchup-follow mode is implemented, treat CATCHUP CASE differently
-            if self._vehicles[0].isSwitchSafe(mode):
-                self._vehicles[0].setPlatoonMode(mode)
-                for veh in self._vehicles[1:]:
-                    if veh.isSwitchSafe(mode):
-                        veh.setPlatoonMode(mode)
-                return True
-            else:
-                return False
-            
         elif mode == PlatoonMode.LEADER:
             if self._vehicles[0].isSwitchSafe(mode):
                 self._vehicles[0].setPlatoonMode(mode)
@@ -173,7 +161,27 @@ class Platoon(object):
                 return True
             else:
                 return False
+
+        elif mode == PlatoonMode.CATCHUP:
+            if self._vehicles[0].isSwitchSafe(mode):
+                self._vehicles[0].setPlatoonMode(mode)
+                for veh in self._vehicles[1:]:
+                    if veh.isSwitchSafe(PlatoonMode.CATCHUP_FOLLOWER):
+                        veh.setPlatoonMode(PlatoonMode.CATCHUP_FOLLOWER)
+                return True
+            else:
+                return False
         
+        elif mode == PlatoonMode.CATCHUP_FOLLOWER or mode == PlatoonMode.FOLLOWER:
+            if self._vehicles[0].isSwitchSafe(mode):
+                self._vehicles[0].setPlatoonMode(mode)
+                for veh in self._vehicles[1:]:
+                    if veh.isSwitchSafe(mode):
+                        veh.setPlatoonMode(mode)
+                return True
+            else:
+                return False
+            
         else:
             raise ValueError("Unknown PlatoonMode %s"%str(mode))
         
@@ -193,8 +201,11 @@ class Platoon(object):
             
         if mode == PlatoonMode.LEADER: 
             # use follower mode for followers if platoon is in normal mode
-            # TODO: add similar branch for catchup-followers, when implemented
             mode = PlatoonMode.FOLLOWER
+            
+        if mode == PlatoonMode.CATCHUP: 
+            # use catchupfollower mode for followers if platoon is in catchup mode
+            mode = PlatoonMode.CATCHUP_FOLLOWER
         
         # impose mode for followers
         for veh in vehs[1:]:
@@ -275,13 +286,15 @@ class Platoon(object):
     def getMode(self):
         '''getMode() -> PlatoonMode
         
-        Returns the platoon leader's current PlatoonMode
+        Returns the platoon leader's desired PlatoonMode (may return LEADER if current mode is FOLLOWER).
         '''
         mode = self._vehicles[0].getCurrentPlatoonMode()
         if mode == PlatoonMode.FOLLOWER:
             # Leader was kept in FOLLOW mode due to safety constraints
-            # TODO: add similar branch for catchup-followers, when implemented
             mode = PlatoonMode.LEADER
+        elif mode == PlatoonMode.CATCHUP_FOLLOWER:
+            # Leader was kept in CATCHUP_FOLLOW mode due to safety constraints
+            mode = PlatoonMode.CATCHUP
         return mode
         
     

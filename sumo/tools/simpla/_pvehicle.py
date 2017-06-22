@@ -67,7 +67,7 @@ class PVehicle(object):
         self._laneChangeModes[PlatoonMode.NONE] = 0b1001010101
                 
         # vTypes, speedFactors and lanechangemodes parametrizing the platoon behaviour
-        for mode in [PlatoonMode.LEADER, PlatoonMode.FOLLOWER, PlatoonMode.CATCHUP]:
+        for mode in [PlatoonMode.LEADER, PlatoonMode.FOLLOWER, PlatoonMode.CATCHUP, PlatoonMode.CATCHUP_FOLLOWER]:
             self._vTypes[mode] = self._determinePlatoonVType(mode)
             self._laneChangeModes[mode] = cfg.LC_MODE[mode]
             self._speedFactors[mode] = cfg.SPEEDFACTOR[mode]

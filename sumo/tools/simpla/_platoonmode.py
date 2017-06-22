@@ -22,4 +22,5 @@ class PlatoonMode(Enum):
     LEADER = 1
     FOLLOWER = 2
     CATCHUP = 3
+    CATCHUP_FOLLOWER = 4
     

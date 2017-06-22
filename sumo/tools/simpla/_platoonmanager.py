@@ -14,10 +14,7 @@ the Free Software Foundation; either version 3 of the License, or
 -----------------------------------
 """
 
-## TODO: For catchup mode an "in-platoon catchup mode" should be defined, using the 
-## FOLLOWER vType with the CATCHUP speedFactor (and accel?) or the CATCHUP vType with
-## FOLLOWER minGap and tau?. This could also be set active if intra-platoon 
-## gap becomes too large 
+## TODO: For CATCHUP_FOLLOWER mode could also be set active if intra-platoon gap becomes too large 
 
 import traci
 from traci.exceptions import TraCIException
@@ -330,9 +327,10 @@ class PlatoonManager(traci.StepListener):
             pltnLeader = pltn.getLeader()
             # try setting back mode to regular platoon mode if leader is kept in FOLLOWER mode due to safety reasons
             # or if the ordering within platoon changed 
-            # TODO: add similar check if follow-catchup mode is implemented
             if pltnLeader.getCurrentPlatoonMode() == PlatoonMode.FOLLOWER:
                 pltn.setModeWithImpatience(PlatoonMode.LEADER, self._controlInterval)
+            elif pltnLeader.getCurrentPlatoonMode() == PlatoonMode.CATCHUP_FOLLOWER:
+                pltn.setModeWithImpatience(PlatoonMode.CATCHUP, self._controlInterval)
             # get leader of the leader
             leaderInfo = pltnLeader.state.leaderInfo
             
