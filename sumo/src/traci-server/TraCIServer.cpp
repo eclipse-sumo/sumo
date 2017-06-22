@@ -208,20 +208,20 @@ TraCIServer::~TraCIServer() {
 // ---------- Initialisation and Shutdown
 void
 TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
-    if (myInstance != 0) {
-        // net was deleted and built again 
-        MSNet::getInstance()->addVehicleStateListener(myInstance);
-        return;
-    }
-    if (!myDoCloseConnection && OptionsCont::getOptions().getInt("remote-port") != 0) {
+    if (myInstance == 0 && !myDoCloseConnection && (OptionsCont::getOptions().getInt("remote-port") != 0
+#ifdef HAVE_PYTHON
+     || OptionsCont::getOptions().isSet("python-script")
+#endif
+     )) {
         myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")),
             OptionsCont::getOptions().getInt("remote-port"),
             OptionsCont::getOptions().getInt("num-clients"));
-        MSNet::getInstance()->addVehicleStateListener(myInstance);
         for (std::map<int, CmdExecutor>::const_iterator i = execs.begin(); i != execs.end(); ++i) {
             myInstance->myExecutors[i->first] = i->second;
         }
     }
+    // maybe net was deleted and built again 
+    MSNet::getInstance()->addVehicleStateListener(myInstance);
 }
 
 
@@ -631,13 +631,7 @@ static PyMethodDef EmbMethods[] = {
 std::string
 TraCIServer::execute(std::string cmd) {
     try {
-        if (myInstance == 0) {
-            if (!myDoCloseConnection) {
-                myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")), 0, 0);
-            } else {
-                return "";
-            }
-        }
+        assert(myInstance != 0);
         myInstance->myInputStorage.reset();
         myInstance->myOutputStorage.reset();
         for (std::string::iterator i = cmd.begin(); i != cmd.end(); ++i) {
