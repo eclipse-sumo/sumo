@@ -642,10 +642,6 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool a
     myRoute = newRoute;
     // update arrival definition
     calculateArrivalParams();
-    // update best lanes
-    myLastBestLanesEdge = 0;
-    myLastBestLanesInternalLane = 0;
-    updateBestLanes(true, onInit ? (*myCurrEdge)->getLanes().front() : 0);
     // save information that the vehicle was rerouted
     myNumberReroutes++;
     MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);
@@ -668,6 +664,10 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool a
             }
         }
     }
+    // update best lanes (after stops were added)
+    myLastBestLanesEdge = 0;
+    myLastBestLanesInternalLane = 0;
+    updateBestLanes(true, onInit ? (*myCurrEdge)->getLanes().front() : 0);
     return true;
 }
 
@@ -894,7 +894,8 @@ MSVehicle::getBackPosition() const {
 
 // ------------
 bool
-MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset, bool collision) {
+MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset, bool collision,
+        MSRouteIterator* searchStart) {
     Stop stop;
     stop.lane = MSLane::dictionary(stopPar.lane);
     if (!stop.lane->allowsVehicleClass(myType->getVehicleClass())) {
@@ -941,7 +942,10 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     }
     // if stop is on an internal edge the normal edge before the intersection is used
     const MSEdge* stopEdge = stop.lane->getEdge().getNormalBefore();
-    stop.edge = find(myCurrEdge, myRoute->end(), stopEdge);
+    if (searchStart == 0) {
+        searchStart = &myCurrEdge;
+    }
+    stop.edge = find(*searchStart, myRoute->end(), stopEdge);
     MSRouteIterator prevStopEdge = myCurrEdge;
     double prevStopPos = myState.myPos;
     // where to insert the stop
@@ -978,6 +982,11 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     if (stop.edge == myRoute->end() || prevStopEdge > stop.edge ||
             (prevStopEdge == stop.edge && prevStopPos > stop.endPos && !collision)
             || (stop.lane->getEdge().isInternal() && stop.lane->getNextNormal() != *(stop.edge + 1))) {
+        if (stop.edge != myRoute->end()) {
+            // check if the edge occurs again later in the route
+            MSRouteIterator next = stop.edge + 1;
+            return addStop(stopPar, errorMsg, untilOffset, collision, &next);
+        }
         if (stop.busstop != 0) {
             errorMsg = "Bus stop '" + stop.busstop->getID() + "'";
         } else {
@@ -1009,6 +1018,11 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
             pos = MIN2(static_cast<double>(getVehicleType().getLength() + POSITION_EPS), (*myCurrEdge)->getLength());
         }
         if (pos > stop.endPos + endPosOffset) {
+            if (stop.edge != myRoute->end()) {
+                // check if the edge occurs again later in the route
+                MSRouteIterator next = stop.edge + 1;
+                return addStop(stopPar, errorMsg, untilOffset, collision, &next);
+            }
             if (stop.busstop != 0) {
                 errorMsg = "Bus stop '" + stop.busstop->getID() + "'";
             } else {
@@ -1522,7 +1536,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 
         // process stops
-        if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge() && !myStops.begin()->reached) {
+        if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge() && !myStops.begin()->reached 
+                // ignore stops that occur later in a looped route
+                && myStops.front().edge == myCurrEdge + view) {
             // we are approaching a stop on the edge; must not drive further
             const Stop& stop = *myStops.begin();
             const double endPos = stop.getEndPos(*this) + NUMERICAL_EPS;
@@ -3091,24 +3107,27 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     myBestLanes.clear();
 
     // get information about the next stop
-    const MSEdge* nextStopEdge = 0;
+    MSRouteIterator nextStopEdge = myRoute->end();
     const MSLane* nextStopLane = 0;
     double nextStopPos = 0;
     if (!myStops.empty()) {
         const Stop& nextStop = myStops.front();
         nextStopLane = nextStop.lane;
-        nextStopEdge = &nextStopLane->getEdge();
+        nextStopEdge = nextStop.edge;
         nextStopPos = nextStop.startPos;
     }
-    if (myParameter->arrivalLaneProcedure == ARRIVAL_LANE_GIVEN && nextStopEdge == 0) {
-        nextStopEdge = *(myRoute->end() - 1);
-        nextStopLane = nextStopEdge->getLanes()[myArrivalLane];
+    if (myParameter->arrivalLaneProcedure == ARRIVAL_LANE_GIVEN && nextStopEdge == myRoute->end()) {
+        nextStopEdge = (myRoute->end() - 1);
+        nextStopLane = (*nextStopEdge)->getLanes()[myArrivalLane];
         nextStopPos = myArrivalPos;
     }
-    if (nextStopEdge != 0) {
+    if (nextStopEdge != myRoute->end()) {
         // make sure that the "wrong" lanes get a penalty. (penalty needs to be
         // large enough to overcome a magic threshold in MSLCM_DK2004.cpp:383)
-        nextStopPos = MAX2(POSITION_EPS, MIN2((double)nextStopPos, (double)(nextStopEdge->getLength() - 2 * POSITION_EPS)));
+        nextStopPos = MAX2(POSITION_EPS, MIN2((double)nextStopPos, (double)(nextStopLane->getLength() - 2 * POSITION_EPS)));
+        if (nextStopLane->isInternal()) {
+            nextStopPos += (*nextStopEdge)->getLength();
+        }
     }
 
     // go forward along the next lanes;
@@ -3138,7 +3157,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             currentLanes.push_back(q);
         }
         //
-        if (nextStopEdge == *ce) {
+        if (nextStopEdge == ce && !nextStopLane->isInternal()) {
             progress = false;
             for (std::vector<LaneQ>::iterator q = currentLanes.begin(); q != currentLanes.end(); ++q) {
                 if (nextStopLane != 0 && nextStopLane != (*q).lane) {

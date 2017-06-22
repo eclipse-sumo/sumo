@@ -216,7 +216,9 @@ MEVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool a
 
 
 bool
-MEVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& /*errorMsg*/, SUMOTime /* untilOffset */, bool /*collision*/) {
+MEVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& /*errorMsg*/, SUMOTime /* untilOffset */, bool /*collision*/, 
+        MSRouteIterator* searchStart)
+{
     const MSEdge* const edge = MSEdge::dictionary(stopPar.lane.substr(0, stopPar.lane.rfind('_')));
     assert(edge != 0);
     MESegment* stopSeg = MSGlobals::gMesoNet->getSegmentForEdge(*edge, stopPar.endPos);
