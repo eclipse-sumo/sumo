@@ -28,8 +28,13 @@
 class NBPTLineCont {
 
 public:
+    /// @brief constructor
+    NBPTLineCont();
 
+    /// @brief destructor
     ~NBPTLineCont();
+
+    /// @brief insert new line
     void insert(NBPTLine* pLine);
 
     /** @brief Returns the pointer to the begin of the stored pt lines
@@ -38,7 +43,6 @@ public:
     std::vector<NBPTLine*>::const_iterator begin() const {
         return myPTLines.begin();
     }
-
 
     /** @brief Returns the pointer to the end of the stored pt lines
      * @return The iterator to the end of stored pt lines
@@ -55,7 +59,7 @@ private:
     /// @brief The map of names to pt lines
     PTLinesCont myPTLines;
 
-    long long int myIdCnt = 0;
+    long long int myIdCnt;
 };
 
 

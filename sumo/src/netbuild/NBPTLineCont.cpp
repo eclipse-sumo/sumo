@@ -20,16 +20,24 @@
 
 #include <iostream>
 #include "NBPTLineCont.h"
-void NBPTLineCont::insert(NBPTLine* pLine) {
-//    std::cout << "new line: " << pLine->getName() << " stops: " << pLine->getStops().size() << std::endl;
-    pLine->setId(myIdCnt++);
-    myPTLines.push_back(pLine);
-}
+
+
+
+NBPTLineCont::NBPTLineCont() :
+    myIdCnt(0) {}
+
 
 NBPTLineCont::~NBPTLineCont() {
     for (std::vector<NBPTLine*>::iterator it = myPTLines.begin(); it != myPTLines.end(); it++){
         delete *it;
     }
     myPTLines.clear();
+}
+
+void 
+NBPTLineCont::insert(NBPTLine* pLine) {
+//    std::cout << "new line: " << pLine->getName() << " stops: " << pLine->getStops().size() << std::endl;
+    pLine->setId(myIdCnt++);
+    myPTLines.push_back(pLine);
 }
 
