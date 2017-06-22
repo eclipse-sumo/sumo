@@ -423,7 +423,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
             }
             case GLO_POI: {
                 // XXX this is a dirty dirty hack! implemente GNEChange_POI
-                myViewNet->getNet()->getShapeContainer().removePOI(dynamic_cast<GNEPOI*>(ac)->getMicrosimID());
+                myViewNet->getNet()->removePOI(dynamic_cast<GNEPOI*>(ac)->getMicrosimID());
                 break;
             }
             case GLO_POLYGON: {

@@ -100,13 +100,13 @@ const double GNENet::Z_INITIALIZED = 1;
 // ===========================================================================
 GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, ""),
+    GUIShapeContainer(myGrid),
     myViewNet(0),
     myNetBuilder(netBuilder),
     myJunctions(),
     myEdges(),
     myEdgeIDSupplier("gneE", netBuilder->getEdgeCont().getAllNames()),
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
-    myShapeContainer(myGrid),
     myNeedRecompute(true),
     myAdditionalsSaved(true) {
     // set net in gIDStorage
@@ -1383,12 +1383,6 @@ GNENet::finishMoveSelection(GNEUndoList* undoList) {
         }
     }
     undoList->p_end();
-}
-
-
-ShapeContainer&
-GNENet::getShapeContainer() {
-    return myShapeContainer;
 }
 
 

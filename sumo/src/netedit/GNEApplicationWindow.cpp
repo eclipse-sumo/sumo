@@ -700,7 +700,7 @@ GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        GNEShapeHandler handler(file, myNet, myNet->getShapeContainer());
+        GNEShapeHandler handler(file, myNet);
         if (!XMLSubSys::runParser(handler, file, false)) {
             WRITE_MESSAGE("Loading of " + file + " failed.");
         }
@@ -1605,8 +1605,8 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
 }
 
 
-GNEApplicationWindow::GNEShapeHandler::GNEShapeHandler(const std::string& file, GNENet* net, ShapeContainer& sc) :
-    ShapeHandler(file, sc),
+GNEApplicationWindow::GNEShapeHandler::GNEShapeHandler(const std::string& file, GNENet* net) :
+    ShapeHandler(file, *net),
     myNet(net) {}
 
 

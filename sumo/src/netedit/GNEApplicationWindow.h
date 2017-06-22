@@ -352,9 +352,8 @@ protected:
         /**@brief Constructor
          * @param[in] file file with the shapes
          * @param[in] net network in which add shapes
-         * @param[in] ShapeContainer reference to ShapeContainer
          */
-        GNEShapeHandler(const std::string& file, GNENet* net, ShapeContainer& sc);
+        GNEShapeHandler(const std::string& file, GNENet* net);
 
         /// @brief Destructor
         virtual ~GNEShapeHandler();

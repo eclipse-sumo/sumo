@@ -85,7 +85,7 @@ class GNECrossing;
  * @class GNENet
  * @brief A NBNetBuilder extended by visualisation and editing capabilities
  */
-class GNENet : public GUIGlObject {
+class GNENet : public GUIGlObject, public GUIShapeContainer{
 
     /// @brief declare friend class
     friend class GNEChange_Junction;
@@ -451,9 +451,6 @@ public:
     /// @brief register changes to junction and edge positions with the undoList
     void finishMoveSelection(GNEUndoList* undoList);
 
-    /// @brief get shape container
-    ShapeContainer& getShapeContainer();
-
     /**@brief Insert a additional element previously created in GNEAdditionalHandler
      * @param[in] additional pointer to the additional element to add
      * @param[in] hardFail enable or disable exception if additional to insert is duplicated
@@ -556,9 +553,6 @@ protected:
     IDSupplier myEdgeIDSupplier;
     IDSupplier myJunctionIDSupplier;
     // @}
-
-    /// @brief the container for additional pois and polygons
-    GUIShapeContainer myShapeContainer;
 
     /// @brief list of edge ids for which turn-arounds must be added explicitly
     std::set<std::string> myExplicitTurnarounds;
