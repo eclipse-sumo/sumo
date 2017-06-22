@@ -9,3 +9,6 @@ high_cycle_time
 
 # configure left green time
 left-green.time
+
+# configure left green time
+allred.time
