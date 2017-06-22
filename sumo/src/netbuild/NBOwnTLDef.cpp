@@ -244,8 +244,8 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 
     NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), noLinksAll, myOffset, myType);
     EdgeVector toProc = getConnectedOuterEdges(incoming);
-    const int greenSeconds = OptionsCont::getOptions().getInt("tls.green.time");
-    const SUMOTime greenTime = TIME2STEPS(greenSeconds);
+    const SUMOTime greenTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.green.time"));
+    const SUMOTime allRedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.allred.time"));
     // build all phases
     std::vector<int> greenPhases; // indices of green phases
     std::vector<bool> hadGreenMajor(noLinksAll, false);
@@ -338,7 +338,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             }
             // add step
             logic->addStep(brakingTime, state);
+            // add optional all-red state
+            buildAllRedState(allRedTime, logic, state);
         }
+
 
         if (buildLeftGreenPhase) {
             // build left green
@@ -367,6 +370,8 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 }
                 // add step
                 logic->addStep(brakingTime, state);
+                // add optional all-red state
+                buildAllRedState(allRedTime, logic, state);
             }
         }
     }
@@ -693,5 +698,21 @@ NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll, SU
         }
     }
 }
+
+
+void 
+NBOwnTLDef::buildAllRedState(SUMOTime allRedTime, NBTrafficLightLogic* logic, const std::string& state) {
+    if (allRedTime > 0) {
+        // build all-red phase
+        std::string allRedState = state;
+        for (int i1 = 0; i1 < (int)state.size(); ++i1) {
+            if (allRedState[i1] == 'Y' || allRedState[i1] == 'y') {
+                allRedState[i1] = 'r';
+            }
+        }
+        logic->addStep(allRedTime, allRedState);
+    }
+}
+
 
 /****************************************************************************/

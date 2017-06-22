@@ -127,6 +127,8 @@ TLS Building Options:
   --tls.red.time INT                   Set INT as fixed time for red phase
                                          duration at traffic lights that do not
                                          have a conflicting flow
+  --tls.allred.time INT                Set INT as fixed time for intermediate
+                                         red phase after every switch
   --tls.left-green.time INT            Use INT as green phase duration for left
                                          turns (s). Setting this value to 0
                                          disables additional left-turning phases

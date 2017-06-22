@@ -136,6 +136,9 @@ public:
     /* initialize myNeedsContRelation and set myNeedsContRelationReady to true */
     void initNeedsContRelation() const;
 
+    /* build optional all-red phase */
+    void buildAllRedState(SUMOTime allRedTime, NBTrafficLightLogic* logic, const std::string& state);
+
 protected:
     /// @name Protected methods from NBTrafficLightDefinition-interface
     /// @{
