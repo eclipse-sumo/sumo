@@ -104,6 +104,10 @@ PedestrianState* MSPModel_Remote::add(MSPerson* person, MSPerson::MSPersonStage_
         prv = edge;
     }
 
+    if (req.dests().size() <= 2) {
+        std::cout << person->getID() << std::endl;
+    }
+
     hybridsim::Boolean rpl;
     ClientContext context;
     Status st = myHybridsimStub->transferAgent(&context, req, &rpl);
@@ -318,8 +322,14 @@ void MSPModel_Remote::handlePedestrianLane(MSLane* l, hybridsim::Scenario& scena
     transitionsEdgesMapping[fromId] = &(l->getEdge());
     transitionsEdgesMapping[toId] = &(l->getEdge());
 
-    hybridsim::Edge_Type edgeType = (l->getEdge().isCrossing() || l->getEdge().isWalkingArea())
-                                    ? hybridsim::Edge_Type_TRANSITION_INTERNAL : hybridsim::Edge_Type_TRANSITION;
+    hybridsim::Edge_Type edgeType;
+    if (l->getEdge().isCrossing()) {
+        edgeType = hybridsim::Edge_Type_TRANSITION_HOLDOVER;
+    } else if (l->getEdge().isWalkingArea()){
+        edgeType = hybridsim::Edge_Type_TRANSITION_INTERNAL;
+    } else {
+        edgeType = hybridsim::Edge_Type_TRANSITION;
+    }
 
     //start and end
     Position frst = *centerLine.begin();
