@@ -32,7 +32,7 @@ import subprocess
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
-    import sumolib
+    import sumolib  # noqa
     from sumolib.output import parse, parse_fast
     from sumolib.net import readNet
     from sumolib.miscutils import Statistics, euclidean, Colorgen

@@ -24,7 +24,7 @@ import unittest
 # functions from the same tree the test is in
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'tools'))
-import sumolib
+import sumolib  # noqa
 
 
 class TestGeomhelper(unittest.TestCase):

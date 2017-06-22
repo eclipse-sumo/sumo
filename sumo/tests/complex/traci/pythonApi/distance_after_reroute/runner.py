@@ -27,7 +27,7 @@ import subprocess
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path += [tools]
-    import sumolib
+    import sumolib  # noqa
     import traci
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")

@@ -24,7 +24,7 @@ import subprocess
 import sys
 sys.path.append(
     os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
-import sumolib
+import sumolib  # noqa
 
 netconvertBinary = sumolib.checkBinary('netconvert')
 duarouterBinary = sumolib.checkBinary('duarouter')

@@ -22,7 +22,7 @@ from __future__ import absolute_import
 import logging
 import unittest
 
-import sumolib
+import sumolib  # noqa
 import collectinghandler
 
 LOGGER = logging.getLogger(__name__)

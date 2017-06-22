@@ -27,7 +27,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
-import sumolib
+import sumolib  # noqa
 
 optParser = OptionParser(usage="usage: %prog [options] <input_flows.csv>")
 optParser.add_option(

@@ -28,7 +28,7 @@ from datetime import datetime
 from optparse import OptionParser
 from xml.sax import make_parser, handler
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib
+import sumolib  # noqa
 
 
 def call(command, log):

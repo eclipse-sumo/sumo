@@ -23,7 +23,7 @@ import sys
 from collections import defaultdict
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
-import sumolib
+import sumolib  # noqa
 
 
 def convert(vehRoutes, routeOut, odOut, interval):

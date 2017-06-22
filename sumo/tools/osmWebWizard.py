@@ -39,7 +39,7 @@ import base64
 import osmGet
 import osmBuild
 import randomTrips
-import sumolib
+import sumolib  # noqa
 from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(

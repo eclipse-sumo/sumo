@@ -30,7 +30,7 @@ import gzip
 import optparse
 from os import path
 
-import sumolib
+import sumolib  # noqa
 
 
 def readCompressed(conn, query, filename):

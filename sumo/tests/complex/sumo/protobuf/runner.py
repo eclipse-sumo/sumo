@@ -29,7 +29,7 @@ toolDir = os.path.join(
 if 'SUMO_HOME' in os.environ:
     toolDir = os.path.join(os.environ['SUMO_HOME'], "tools")
 sys.path.append(toolDir)
-import sumolib
+import sumolib  # noqa
 
 
 def connect(inPort, outPort, numTries=10):

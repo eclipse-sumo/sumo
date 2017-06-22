@@ -28,7 +28,7 @@ import subprocess
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path += [tools, os.path.join(tools, 'assign')]
-    import sumolib
+    import sumolib  # noqa
     import traci
     import traci.constants as tc
 

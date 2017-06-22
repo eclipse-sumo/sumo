@@ -28,7 +28,7 @@ import shutil
 sumoHome = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
 sys.path.append(os.path.join(sumoHome, "tools"))
-import sumolib
+import sumolib  # noqa
 import traci
 
 if sys.argv[1] == "sumo":

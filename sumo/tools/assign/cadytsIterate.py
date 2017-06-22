@@ -32,7 +32,7 @@ from argparse import ArgumentParser
 from duaIterate import call, writeSUMOConf, addGenericOptions
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-import sumolib
+import sumolib  # noqa
 
 
 def initOptions():

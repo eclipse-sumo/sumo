@@ -28,7 +28,7 @@ import subprocess
 import warnings
 import abc
 
-import sumolib
+import sumolib  # noqa
 from .domain import _defaultDomains
 from .connection import Connection, _embedded
 from .exceptions import FatalTraCIError, TraCIException

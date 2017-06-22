@@ -31,7 +31,7 @@ sumoHome = os.path.abspath(
     os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..'))
 sys.path.append(os.path.join(sumoHome, "tools"))
 
-import sumolib
+import sumolib  # noqa
 import traci
 
 PORT = sumolib.miscutils.getFreeSocketPort()

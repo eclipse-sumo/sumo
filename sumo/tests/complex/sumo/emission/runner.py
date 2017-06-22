@@ -27,7 +27,7 @@ import difflib
 toolDir = os.path.join(
     os.path.dirname(__file__), '..', '..', '..', '..', "tools")
 sys.path.append(toolDir)
-import sumolib
+import sumolib  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
 driveCycleBinary = sumolib.checkBinary('emissionsDrivingCycle')

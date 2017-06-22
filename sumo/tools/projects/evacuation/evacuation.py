@@ -43,7 +43,7 @@ from shapely.geometry import Polygon
 
 import osmBuild
 import osmGet
-import sumolib
+import sumolib  # noqa
 
 import generateTraffic
 

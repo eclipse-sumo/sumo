@@ -27,7 +27,7 @@ import sys
 import time
 THIS_DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', "tools"))
-import sumolib
+import sumolib  # noqa
 
 PORT = str(sumolib.miscutils.getFreeSocketPort())
 server_args = sys.argv[1:] + ["--remote-port", PORT]

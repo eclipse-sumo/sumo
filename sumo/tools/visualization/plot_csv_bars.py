@@ -29,7 +29,7 @@ import sys
 import random
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-import sumolib
+import sumolib  # noqa
 from sumolib.visualization import helpers
 
 import matplotlib.pyplot as plt

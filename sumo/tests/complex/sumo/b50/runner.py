@@ -28,7 +28,7 @@ sumoHome = os.path.abspath(
 if "SUMO_HOME" in os.environ:
     sumoHome = os.environ["SUMO_HOME"]
 sys.path.append(os.path.join(sumoHome, "tools"))
-import sumolib
+import sumolib  # noqa
 
 sumoBinary = os.environ.get(
     "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))

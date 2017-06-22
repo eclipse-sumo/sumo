@@ -27,7 +27,7 @@ import sys
 import random
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import traci
-import sumolib
+import sumolib  # noqa
 
 sumoBinary = os.environ["SUMO_BINARY"]
 PORT = sumolib.miscutils.getFreeSocketPort()

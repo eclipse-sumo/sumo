@@ -26,7 +26,7 @@ import sys
 import random
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
-import sumolib
+import sumolib  # noqa
 
 
 class Statistics:

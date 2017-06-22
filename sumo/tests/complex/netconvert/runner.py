@@ -27,7 +27,7 @@ import os
 import subprocess
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', "tools"))
-import sumolib
+import sumolib  # noqa
 
 format = sys.argv[1]
 netconvert = sumolib.checkBinary('netconvert')

@@ -24,7 +24,7 @@ import sys
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-import sumolib
+import sumolib  # noqa
 
 if __name__ == "__main__":
     optParser = OptionParser()

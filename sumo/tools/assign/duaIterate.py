@@ -34,7 +34,7 @@ from datetime import datetime
 from costMemory import CostMemory
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-import sumolib
+import sumolib  # noqa
 from sumolib.options import get_long_option_names
 
 

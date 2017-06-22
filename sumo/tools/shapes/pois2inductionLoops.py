@@ -31,7 +31,7 @@ import string
 import sys
 import StringIO
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib
+import sumolib  # noqa
 
 
 if len(sys.argv) < 4:

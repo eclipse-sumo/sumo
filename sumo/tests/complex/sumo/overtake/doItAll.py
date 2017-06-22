@@ -24,7 +24,7 @@ import math
 import random
 import numpy as np
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
-import sumolib
+import sumolib  # noqa
 
 netFile = "ttDistro.net.xml"
 routeFile = "ttDistro.rou.xml"

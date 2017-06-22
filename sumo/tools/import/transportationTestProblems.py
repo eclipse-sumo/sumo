@@ -24,7 +24,7 @@ import sys
 import subprocess
 import csv
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
-import sumolib
+import sumolib  # noqa
 
 csvfile = csv.DictReader(open(sys.argv[1]), delimiter='\t')
 with open("nodes.nod.xml", "w") as nodeout:

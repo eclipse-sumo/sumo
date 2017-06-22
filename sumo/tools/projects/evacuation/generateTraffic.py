@@ -31,7 +31,7 @@ SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
 sys.path.append(os.path.join(SUMO_HOME, "tools"))
 
 import edgesInDistricts as EID
-import sumolib
+import sumolib  # noqa
 
 
 def generate(netFile, mappedSiteFile, intersectionFile, tripFile):

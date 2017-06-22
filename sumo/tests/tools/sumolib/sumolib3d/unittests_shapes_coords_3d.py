@@ -29,7 +29,7 @@ import unittest
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'tools'))
 
-import sumolib
+import sumolib  # noqa
 
 NODEFILE_2D = 'input_nodes_2d.nod.xml'
 NODEFILE_3D = 'input_nodes.nod.xml'

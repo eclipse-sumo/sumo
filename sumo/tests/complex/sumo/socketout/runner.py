@@ -25,7 +25,7 @@ import threading
 import socket
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools"))
-import sumolib
+import sumolib  # noqa
 
 PORT = 8088
 sumoBinary = sumolib.checkBinary('sumo')

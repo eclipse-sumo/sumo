@@ -26,7 +26,7 @@ import sys
 import collections
 from optparse import OptionParser
 from xml.sax import parse
-import sumolib
+import sumolib  # noqa
 import random
 
 

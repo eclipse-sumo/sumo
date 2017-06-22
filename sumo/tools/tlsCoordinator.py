@@ -29,7 +29,7 @@ import optparse
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(tools)
-    import sumolib
+    import sumolib  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 

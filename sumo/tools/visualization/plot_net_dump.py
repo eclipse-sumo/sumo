@@ -31,7 +31,7 @@ if 'SUMO_HOME' in os.environ:
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
-import sumolib
+import sumolib  # noqa
 from sumolib.visualization import helpers
 
 import matplotlib.pyplot as plt

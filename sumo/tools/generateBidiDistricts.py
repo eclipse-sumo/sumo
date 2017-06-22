@@ -27,7 +27,7 @@ import os
 import datetime
 from optparse import OptionParser
 
-import sumolib
+import sumolib  # noqa
 from functools import reduce
 
 

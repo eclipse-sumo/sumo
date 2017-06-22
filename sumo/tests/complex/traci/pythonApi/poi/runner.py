@@ -27,7 +27,7 @@ import random
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
 import traci
-import sumolib
+import sumolib  # noqa
 
 
 def check(poiID):

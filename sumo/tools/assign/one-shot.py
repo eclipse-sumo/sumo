@@ -27,7 +27,7 @@ import subprocess
 from datetime import datetime
 from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib
+import sumolib  # noqa
 
 
 def call(command, log):

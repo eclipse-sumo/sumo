@@ -36,7 +36,7 @@ from subprocess import call
 from collections import namedtuple, defaultdict
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-import sumolib
+import sumolib  # noqa
 from OrderedMultiSet import OrderedMultiSet
 
 INDENT = 4

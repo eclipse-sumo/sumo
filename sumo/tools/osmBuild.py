@@ -26,7 +26,7 @@ import optparse
 import subprocess
 from os import path
 
-import sumolib
+import sumolib  # noqa
 
 
 vclassRemove = {"passenger": ["--keep-edges.by-vclass", "passenger"],
