@@ -1747,7 +1747,7 @@ NIImporter_OpenDrive::splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc) {
         OpenDriveLaneSection& sec = *j;
         std::vector<double> splitPositions;
         const double sectionEnd = (j + 1) == e->laneSections.end() ? e->length : (*(j + 1)).s;
-        const int section = (j - e->laneSections.begin());
+        const int section = (int)(j - e->laneSections.begin());
         if (sec.rightLaneNumber > 0) {
             findWidthSplit(tc, sec.lanesByDir[OPENDRIVE_TAG_RIGHT], section, sec.s, sectionEnd, splitPositions);
         }
