@@ -152,8 +152,6 @@ set(netedit_SRCS
    GNERerouterInterval.cpp
    GNEReferenceCounter.h
    GNEEvent_NetworkLoaded.h
-        GNEShapeHandler.cpp
-        GNEShapeHandler.h
 )
 
 add_executable(netedit ${netedit_SRCS})
