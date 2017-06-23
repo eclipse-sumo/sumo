@@ -59,22 +59,23 @@
 
 
 // ===========================================================================
-// static members
-// ===========================================================================
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type,
                const RGBColor& color, double layer, double angle, const std::string& imgFile,
                const Position& pos, double width, double height) :
     GUIPointOfInterest(id, type, color, pos, layer, angle, imgFile, width, height),
-    GNEAttributeCarrier(SUMO_TAG_POI, ICON_LOCATEPOI),
-    myNet(net) {
+    GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI) {
 }
 
 
-GNEPOI::~GNEPOI() { }
+GNEPOI::~GNEPOI() {}
+
+
+void 
+GNEPOI::updateGeometry() {
+
+}
 
 
 void
@@ -95,6 +96,36 @@ GNEPOI::move(Position pos) {
 //    undoList->add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, newPosValue), false);
 //    setPosition(newPos);
 //}
+
+
+const std::string& 
+GNEPOI::getParentName() {
+    return myNet->getMicrosimID();
+}
+
+
+GUIGLObjectPopupMenu* 
+GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    return GUIPointOfInterest::getPopUpMenu(app, parent);
+}
+
+
+GUIParameterTableWindow* 
+GNEPOI::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    return GUIPointOfInterest::getParameterWindow(app, parent);
+}
+
+
+Boundary 
+GNEPOI::getCenteringBoundary() const {
+    return GUIPointOfInterest::getCenteringBoundary();
+}
+
+
+void 
+GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
+    GUIPointOfInterest::drawGL(s);
+}
 
 
 std::string
@@ -168,6 +199,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& /* value */) {
     throw InvalidArgument("POI attribute '" + toString(key) + "' not allowed");
     //}
 }
+
 
 void
 GNEPOI::saveToFile(const std::string& file) {

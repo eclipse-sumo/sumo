@@ -31,7 +31,7 @@
 #include <config.h>
 #endif
 
-#include "GNENetElement.h"
+#include "GNEShape.h"
 
 // ===========================================================================
 // class declarations
@@ -48,7 +48,7 @@ class GeoConvHelper;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEPOI : public GUIPointOfInterest, public GNEAttributeCarrier {
+class GNEPOI : public GUIPointOfInterest, public GNEShape {
 
     /// @brief declare friend class
     //friend class GNEChange_POI;
@@ -60,7 +60,12 @@ public:
            const Position& pos, double width, double height);
 
     /// @brief Destructor
-    virtual ~GNEPOI();
+    ~GNEPOI();
+
+    /**@brief update pre-computed geometry information
+     * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
+     */
+    void updateGeometry();
 
     /**@brief reposition the POI at pos and informs the edges
      * @param[in] pos The new position
@@ -72,6 +77,41 @@ public:
     /// @brief registers completed movement with the undoList
     //void registerMove(GNEUndoList *undoList);
 
+    /// @name inherited from GUIGlObject
+    /// @{
+    /**@brief Returns the name of the parent object
+     * @return This object's parent id
+     */
+    const std::string& getParentName();
+
+    /**@brief Returns an own popup-menu
+     *
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
+    /**@brief Returns an own parameter window
+     *
+     * @param[in] app The application needed to build the parameter window
+     * @param[in] parent The parent window needed to build the parameter window
+     * @return The built parameter window
+     * @see GUIGlObject::getParameterWindow
+     */
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
+    /// @brief Returns the boundary to which the view shall be centered in order to show the object
+    Boundary getCenteringBoundary() const;
+
+    /**@brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
+    void drawGL(const GUIVisualizationSettings& s) const;
+    /// @}
+    
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
@@ -98,19 +138,15 @@ public:
     /// @brief save POIs to file
     static void saveToFile(const std::string& file);
 
-protected:
-    /// @brief the net for querying updates
-    GNENet* myNet;
-
 private:
+    /// @brief set attribute after validation
+    void setAttribute(SumoXMLAttr key, const std::string& value);
+
     /// @brief Invalidated copy constructor.
     GNEPOI(const GNEPOI&);
 
     /// @brief Invalidated assignment operator.
     GNEPOI& operator=(const GNEPOI&);
-
-    /// @brief set attribute after validation
-    void setAttribute(SumoXMLAttr key, const std::string& value);
 };
 
 
