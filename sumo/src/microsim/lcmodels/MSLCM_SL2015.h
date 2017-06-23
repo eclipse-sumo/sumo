@@ -303,6 +303,11 @@ protected:
     /// @brief find leaders/followers that are already in a car-following relationship with ego
     void updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOffset);
 
+    /// @brief return the current sublane width (and return a sensible value when running without sublanes)
+    double getSublaneWidth() {
+        return MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : myVehicle.getLane()->getWidth();
+    }
+
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
     double mySpeedGainProbabilityRight;
