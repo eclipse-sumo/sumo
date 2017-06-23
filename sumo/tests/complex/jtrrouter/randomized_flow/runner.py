@@ -29,7 +29,7 @@ import subprocess
 import random
 sys.path.append(
     os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
-from sumolib import checkBinary
+from sumolib import checkBinary  # noqa
 
 
 def get_depart_lines(route_file):

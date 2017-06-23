@@ -28,7 +28,7 @@ from scipy.optimize import fmin_cobyla
 
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools"))
-from sumolib import checkBinary
+from sumolib import checkBinary  # noqa
 import validate
 
 

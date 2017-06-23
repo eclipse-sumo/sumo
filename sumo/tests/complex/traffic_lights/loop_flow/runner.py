@@ -26,7 +26,7 @@ import random
 import shutil
 sys.path.append(
     os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
-from sumolib import checkBinary
+from sumolib import checkBinary  # noqa
 
 types = ["static", "actuated", "sotl_phase", "sotl_platoon", "sotl_request", "sotl_wave", "sotl_marching", "swarm"]
 flow1def = "0;2000;600".split(";")

@@ -30,7 +30,7 @@ sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools"))
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
     os.path.dirname(__file__), "..", "..", "..")), "tools"))
-from sumolib import checkBinary
+from sumolib import checkBinary  # noqa
 
 
 netconvertBinary = checkBinary('netconvert')

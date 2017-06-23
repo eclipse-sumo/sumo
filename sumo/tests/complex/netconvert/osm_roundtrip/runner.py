@@ -34,7 +34,7 @@ sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "import", "osm"))
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-from sumolib import checkBinary
+from sumolib import checkBinary  # noqa
 import texttestlib.default.fpdiff
 
 osm_input = 'osm.xml'

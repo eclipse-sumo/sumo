@@ -37,7 +37,7 @@ THIS_DIR = os.path.abspath(os.path.dirname(__file__))
 SUMO_HOME = os.path.dirname(THIS_DIR)
 sys.path.append(join(SUMO_HOME, "tools"))
 
-from sumolib import checkBinary
+from sumolib import checkBinary  # noqa
 os.environ["PATH"] += os.pathsep + join(SUMO_HOME, 'bin')
 
 # cannot use ':' because it is a component of absolute paths on windows

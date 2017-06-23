@@ -44,7 +44,7 @@ try:
         THISDIR, "..", "..", "..")), "tools"))  # tutorial in docs
 
     import traci
-    from sumolib import checkBinary
+    from sumolib import checkBinary  # noqa
     import randomTrips
 except ImportError:
     sys.exit(

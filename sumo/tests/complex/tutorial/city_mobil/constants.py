@@ -46,7 +46,7 @@ SUMO_HOME = os.path.realpath(os.environ.get(
     "SUMO_HOME", os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")))
 sys.path.append(os.path.join(SUMO_HOME, "tools"))
 try:
-    from sumolib import checkBinary
+    from sumolib import checkBinary  # noqa
 except ImportError:
     def checkBinary(name):
         return name
