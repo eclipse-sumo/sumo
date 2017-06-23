@@ -62,11 +62,6 @@ public:
     /// @brief Destructor
     ~GNEPOI();
 
-    /**@brief update pre-computed geometry information
-     * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
-     */
-    void updateGeometry();
-
     /**@brief reposition the POI at pos and informs the edges
      * @param[in] pos The new position
      * @note: those operations are not added to the undoList. This is handled in

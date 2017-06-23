@@ -118,11 +118,6 @@ public:
     /// @brief Destructor
     ~GNEPoly();
 
-    /**@brief update pre-computed geometry information
-     * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
-     */
-    void updateGeometry();
-
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns the name of the parent object

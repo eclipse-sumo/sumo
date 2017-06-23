@@ -72,12 +72,6 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type,
 GNEPOI::~GNEPOI() {}
 
 
-void 
-GNEPOI::updateGeometry() {
-
-}
-
-
 void
 GNEPOI::move(Position pos) {
     set(pos);

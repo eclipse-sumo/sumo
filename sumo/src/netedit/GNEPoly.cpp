@@ -80,9 +80,6 @@ GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, cons
 GNEPoly::~GNEPoly() {}
 
 
-void 
-GNEPoly::updateGeometry() {}
-
 const std::string& 
 GNEPoly::getParentName() {
     if(myJunction != NULL) {
