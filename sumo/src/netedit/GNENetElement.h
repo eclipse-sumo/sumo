@@ -67,8 +67,9 @@ public:
     /// @brief Destructor
     ~GNENetElement();
 
-    /// @brief update pre-computed geometry information
-    /// @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
+    /**@brief update pre-computed geometry information
+     * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
+     */
     virtual void updateGeometry() = 0;
 
     /// @brief get Net in which this element is placed
@@ -76,8 +77,9 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
-    /// @brief Returns the name of the parent object
-    /// @return This object's parent id
+    /**@brief Returns the name of the parent object
+     * @return This object's parent id
+     */
     virtual const std::string& getParentName() const;
 
     /**@brief Returns an own popup-menu
@@ -98,10 +100,7 @@ public:
      */
     virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
 
-    /**@brief Returns the boundary to which the view shall be centered in order to show the object
-     *
-     * @return The boundary the object is within
-     */
+    /// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
 
     /**@brief Draws the object
