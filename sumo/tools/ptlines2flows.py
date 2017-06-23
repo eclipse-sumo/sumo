@@ -49,11 +49,10 @@ def get_options():
 
 def main():
     options = get_options()
+    print("generating trips...")
     net = sumolib.net.readNet(options.netfile)
-
     stopsLanes = {}
     for stop in sumolib.output.parse_fast(options.ptstops, 'busStop', ['id', 'lane']):
-        print(stop)
         stopsLanes[stop.id] = stop.lane
 
     with open(options.trips, 'w') as fouttrips:
@@ -74,29 +73,29 @@ def main():
                 to = edge_id
                 edge = net.getEdge(edge_id)
                 stop_ids.append(stop.id)
-            print("from=" + fr + " to=" + to + " departLane=" + dep_lane)
             fouttrips.write(
                 '\t<trip id="%s" depart="0" departLane="%s" from="%s" to="%s" >\n' % (trp_nr, 'best', fr, to))
             trp_nr += 1
             for stop in stop_ids:
-                fouttrips.write('\t\t<stop busStop="%s" duration="5" />\n' % (stop))
-                print("stop = " + stop)
+                fouttrips.write('\t\t<stop busStop="%s" duration="30" />\n' % (stop))
             fouttrips.write('\t</trip>\n')
         fouttrips.write("</routes>\n")
-
+    print("done.")
+    print("running SUMO to dertermine actual departure times...")
     subprocess.call([sumolib.checkBinary("sumo"), "-r", options.trips, "-n",options.netfile, "-a", options.ptstops
                         ,"--vehroute-output",options.routes,"--stop-output",options.stopinfos])
+    print("done.")
 
+    print("creating routes...")
     stopsUntil = {}
     for stop in sumolib.output.parse_fast(options.stopinfos, 'stopinfo', ['id','ended','busStop']):
-        print(stop)
         stopsUntil[stop.busStop] = stop.ended
 
     with open(options.flows, 'w') as foutflows:
         flows = []
         sumolib.writeXMLHeader(
             foutflows, "$Id: ptlines2trips.py 24746 2017-06-19 09:04:59Z behrisch $", "routes")
-        trp_nr = 0
+        foutflows.write('\t<vType id="bus" vClass="bus" />\n')
         for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
             id = vehicle.id
             flows.append(id)
@@ -105,15 +104,15 @@ def main():
             foutflows.write(
                 '\t<route id="%s" edges="%s" >\n' % (id,edges))
             for stop in stops:
-                print(stop.busStop + " " + stop.duration + " " + stopsUntil[stop.busStop])
                 foutflows.write(
                     '\t\t<stop busStop="%s" duration="%s" until="%s" />\n'%(stop.busStop,stop.duration,stopsUntil[stop.busStop])
                 )
-            print(edges)
             foutflows.write('\t</route>\n')
         for flow in flows:
-            foutflows.write('<flow id="%s" route="%s" begin="%s" end="%s" period="%s" />\n' % (flow,flow,options.begin,options.end,options.period))
+            foutflows.write('\t<flow id="%s" route="%s" begin="%s" end="%s" period="%s" type="bus" />\n' % (flow,flow,options.begin,options.end,options.period))
         foutflows.write('</routes>\n')
+
+    print("done.")
 
 if __name__ == "__main__":
     main()
