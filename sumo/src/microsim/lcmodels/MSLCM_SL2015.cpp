@@ -2113,6 +2113,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             bestLaneOffset * myVehicle.getLateralPositionOnLane() <= 0) {
         // no decision or decision to stay
         // make sure to stay within lane bounds in case the shadow lane ends
+        //const double requiredDist = MAX2(2 * myVehicle.getLateralOverlap(), getSublaneWidth()) / SUMO_const_laneWidth * laDist;
         const double requiredDist = 2 * myVehicle.getLateralOverlap() / SUMO_const_laneWidth * laDist;
         double currentShadowDist = -myVehicle.getPositionOnLane();
         for (std::vector<MSLane*>::const_iterator it = curr.bestContinuations.begin(); it != curr.bestContinuations.end(); ++it) {
