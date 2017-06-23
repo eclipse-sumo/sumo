@@ -122,6 +122,12 @@ GNEAttributeCarrier::parse(const std::string& string) {
 }
 
 
+template<> RGBColor
+GNEAttributeCarrier::parse(const std::string& string) {
+   return TplConvert::_str2RGB(string);
+}
+
+
 template<> std::vector<std::string>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> parsedValues;
