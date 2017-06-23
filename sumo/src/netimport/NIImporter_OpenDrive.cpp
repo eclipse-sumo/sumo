@@ -59,6 +59,7 @@
 
 //#define DEBUG_VARIABLE_WIDTHS
 //#define DEBUG_COND(road) ((road)->id == "disabled")
+//#define DEBUG_COND(road) (true)
 
 // ===========================================================================
 // definitions
@@ -365,7 +366,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             WRITE_WARNING("Edge '" + e->id + "' has to be split as it connects same junctions.")
         }
         if (myMinWidth > 0) {
-            splitMinWidths(e, tc);
+            const double minDist = oc.getFloat("opendrive.curve-resolution");
+            splitMinWidths(e, tc, minDist);
         }
 
         // build along lane sections
@@ -389,6 +391,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             } else if (e->laneSections.size() == 1) {
                 id = id + ".0.00";
             }
+#ifdef DEBUG_VARIABLE_WIDTHS 
+            if (DEBUG_COND(e)) std::cout << " id=" << id << " sB=" << sB << " sE=" << sE << " geom=" << geom << "\n";
+#endif
 
             // build lanes to right
             NBEdge* currRight = 0;
@@ -412,7 +417,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                 && sumoLane.permissions != SVC_BICYCLE 
                                 && sumoLane.permissions != SVC_PEDESTRIAN 
                                 && sumoLane.width < tc.getWidth(odLane.type)) {
-                            sumoLane.permissions = 0;
+                            sumoLane.permissions = SVC_EMERGENCY | SVC_AUTHORITY;
                         }
                     }
                 }
@@ -455,7 +460,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                 && sumoLane.permissions != SVC_BICYCLE 
                                 && sumoLane.permissions != SVC_PEDESTRIAN 
                                 && sumoLane.width < tc.getWidth(odLane.type)) {
-                            sumoLane.permissions = 0;
+                            sumoLane.permissions = SVC_EMERGENCY | SVC_AUTHORITY;
                         }
                     }
                 }
@@ -1619,8 +1624,9 @@ NIImporter_OpenDrive::myStartElement(int element,
 #ifdef DEBUG_VARIABLE_WIDTHS 
                 if (DEBUG_COND(&myCurrentEdge)) {
                     std::cout << " road=" << myCurrentEdge.id 
+                        << std::setprecision(gPrecision)
                         << " junction=" << myCurrentEdge.junction
-                        << " section=" << myCurrentEdge.laneSections.size()
+                        << " section=" << myCurrentEdge.laneSections.size() - 1
                         << " dir=" << myCurrentLaneDirection << " lane=" << l.id 
                         << " type=" << l.type
                         << " width=" << l.width 
@@ -1741,8 +1747,11 @@ operator<(const NIImporter_OpenDrive::Connection& c1, const NIImporter_OpenDrive
 
 
 void
-NIImporter_OpenDrive::splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc) {
+NIImporter_OpenDrive::splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, double minDist) {
     std::vector<OpenDriveLaneSection> newSections;
+#ifdef DEBUG_VARIABLE_WIDTHS 
+    if (DEBUG_COND(e)) gDebugFlag1 = true;
+#endif
     for (std::vector<OpenDriveLaneSection>::iterator j = e->laneSections.begin(); j != e->laneSections.end(); ++j) {
         OpenDriveLaneSection& sec = *j;
         std::vector<double> splitPositions;
@@ -1755,21 +1764,50 @@ NIImporter_OpenDrive::splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc) {
             findWidthSplit(tc, sec.lanesByDir[OPENDRIVE_TAG_LEFT], section, sec.s, sectionEnd, splitPositions);
         }
         newSections.push_back(sec);
-        if (splitPositions.size() > 0) {
-            std::sort(splitPositions.begin(), splitPositions.end());
+        std::sort(splitPositions.begin(), splitPositions.end());
+        // filter out tiny splits
+        double prevSplit = sec.s;
+        for (std::vector<double>::iterator it = splitPositions.begin(); it != splitPositions.end();) {
+            if ((*it) - prevSplit < minDist || sectionEnd - (*it) < minDist) {
+                // avoid tiny (or duplicate) splits
 #ifdef DEBUG_VARIABLE_WIDTHS 
-            if (DEBUG_COND(e)) std::cout << " road=" << e->id << " splitMinWidths section=" << section << " splitPositions=" << toString(splitPositions) << "\n";
+                if (DEBUG_COND(e)) std::cout << " skip split=" << (*it) << "\n";
 #endif
-            recomputeWidths(newSections.back(), 0, splitPositions.front(), sectionEnd);
+                it = splitPositions.erase(it);
+            } else {
+                prevSplit = *it;
+                it++;
+            }
+        }
+
+        if (splitPositions.size() > 0) {
+#ifdef DEBUG_VARIABLE_WIDTHS 
+            if (DEBUG_COND(e)) {
+                std::cout << " road=" << e->id << " splitMinWidths section=" << section 
+                    << " start=" << sec.s << " end=" << sectionEnd << " minDist=" << minDist
+                    << " splitPositions=" << toString(splitPositions) << "\n";
+            }
+#endif
+#ifdef DEBUG_VARIABLE_WIDTHS 
+            if (DEBUG_COND(e)) std::cout << "first section...\n";
+#endif
+            recomputeWidths(newSections.back(), sec.s, splitPositions.front(), sec.s, sectionEnd);
             for (std::vector<double>::iterator it = splitPositions.begin(); it != splitPositions.end(); ++it) {
                 OpenDriveLaneSection secNew = sec;
                 secNew.s = *it;
+                if (newSections.size() == 1) {
+                    // recompute first section
+                }
+#ifdef DEBUG_VARIABLE_WIDTHS 
+                if (DEBUG_COND(e)) std::cout << "splitAt " << secNew.s << "\n";
+#endif
                 newSections.push_back(secNew);
                 double end = (it + 1) == splitPositions.end() ? sectionEnd : *(it + 1);
-                recomputeWidths(newSections.back(), secNew.s, end, sectionEnd);
+                recomputeWidths(newSections.back(), secNew.s, end, sec.s, sectionEnd);
             }
         }
     }
+    gDebugFlag1 = false;
     e->laneSections = newSections;
 }
 
@@ -1779,43 +1817,69 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
         int section, double sectionStart, double sectionEnd, 
         std::vector<double>& splitPositions)
 {
+    UNUSED_PARAMETER(section);
     for (std::vector<OpenDriveLane>::iterator k = lanes.begin(); k != lanes.end(); ++k) {
         OpenDriveLane& l = *k;
         SVCPermissions permissions = tc.getPermissions(l.type) & ~(SVC_PEDESTRIAN | SVC_BICYCLE);
         if (l.widthData.size() > 0 && tc.knows(l.type) && !tc.getShallBeDiscarded(l.type) && permissions != 0) {
             double sPrev = l.widthData.front().s;
-            double wPrev = l.widthData.front().computeAt(0);
-            /*
-            std::cout 
+            double wPrev = l.widthData.front().computeAt(sPrev);
+            if (gDebugFlag1) std::cout 
                 << "   section=" << section
-                << "   sectionStart=" << sectionStart
-                << "   sectionEnd=" << sectionEnd
-                << " lane=" << l.id
-                << " type=" << l.type
-                << " widthEntries=" << l.widthData.size() << "\n"
-                << "    s=" << sPrev
-                << " w=" << wPrev
-                << "\n";
-                */
-            for (std::vector<OpenDriveWidth>::iterator it_w = l.widthData.begin(); it_w != l.widthData.end(); ++it_w) {
-                double sEnd = (it_w + 1) != l.widthData.end() ? (*(it_w + 1)).s : sectionEnd;
-                double w = (*it_w).computeAt(sEnd);
-                /*
-                std::cout 
-                    << "    s=" << sEnd
-                    << " a=" << (*it_w).a << " b=" << (*it_w).b << " c=" << (*it_w).c << " d=" << (*it_w).d
-                    << " w=" << w
+                    << "   sectionStart=" << sectionStart
+                    << "   sectionEnd=" << sectionEnd
+                    << " lane=" << l.id
+                    << " type=" << l.type
+                    << " widthEntries=" << l.widthData.size() << "\n"
+                    << "    s=" << sPrev
+                    << " w=" << wPrev
                     << "\n";
-                    */
+            for (std::vector<OpenDriveWidth>::iterator it_w = l.widthData.begin(); it_w != l.widthData.end(); ++it_w) {
+                double sEnd = (it_w + 1) != l.widthData.end() ? (*(it_w + 1)).s : sectionEnd - sectionStart;
+                double w = (*it_w).computeAt(sEnd);
+                if (gDebugFlag1) std::cout 
+                    << "    s=" << sEnd
+                        << " a=" << (*it_w).a << " b=" << (*it_w).b << " c=" << (*it_w).c << " d=" << (*it_w).d
+                        << " w=" << w
+                        << "\n";
                 const double changeDist = fabs(myMinWidth - wPrev);
                 if (((wPrev < myMinWidth) && (w > myMinWidth)) 
                         || ((wPrev > myMinWidth) && (w < myMinWidth))) {
-                    const double splitPos = sPrev + (sEnd - sPrev) / fabs(w - wPrev) * changeDist;
-                    //std::cout << "     candidate splitPos=" << splitPos << "\n";
-                    splitPositions.push_back(splitPos);
+                    double splitPos = sPrev + (sEnd - sPrev) / fabs(w - wPrev) * changeDist;
+                    double wSplit = (*it_w).computeAt(splitPos);
+                    if (gDebugFlag1) std::cout << "     candidate splitPos=" << splitPos << " w=" << wSplit << "\n";
+                    // ensure that the thin part is actually thin enough
+                    while (wSplit > myMinWidth) {
+                        if (wPrev < myMinWidth) {
+                            // getting wider
+                            splitPos -= POSITION_EPS;
+                            if (splitPos < sPrev) {
+                                if (gDebugFlag1) std::cout << "        aborting search splitPos=" << splitPos << " wSplit=" << wSplit << " sPrev=" << sPrev << " wPrev=" << wPrev << "\n";
+                                splitPos = sPrev;
+                                break;
+                            }
+                        } else {
+                            // getting thinner
+                            splitPos += POSITION_EPS;
+                            if (splitPos > sEnd) {
+                                if (gDebugFlag1) std::cout << "        aborting search splitPos=" << splitPos << " wSplit=" << wSplit << " sEnd=" << sEnd << " w=" << w << "\n";
+                                splitPos = sEnd;
+                                break;
+                            }
+                        }
+                        wSplit = (*it_w).computeAt(splitPos);
+                        if (gDebugFlag1) std::cout << "        refined splitPos=" << splitPos << " w=" << wSplit << "\n";
+                    }
+                    splitPositions.push_back(sectionStart + splitPos);
                 }
-                sPrev = sEnd;
+                //    //wPrev = wSplit;
+                //} else if ((fabs(wPrev) < NUMERICAL_EPS && w > POSITION_EPS)
+                //        || (wPrev > POSITION_EPS && fabs(w) < NUMERICAL_EPS)) {
+                //    splitPositions.push_back(sectionStart + sPrev);
+                //    if (gDebugFlag1) std::cout << "     laneDisappears candidate splitPos=" << sPrev << " wPrev=" << wPrev << " w=" << w<< "\n";
+                //}
                 wPrev = w;
+                sPrev = sEnd;
             }
         }
     }
@@ -1823,53 +1887,78 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
 
 
 void 
-NIImporter_OpenDrive::recomputeWidths(OpenDriveLaneSection& sec, double start, double end, double sectionEnd) {
+NIImporter_OpenDrive::recomputeWidths(OpenDriveLaneSection& sec, double start, double end, double sectionStart, double sectionEnd) {
     if (sec.rightLaneNumber > 0) {
-        recomputeWidths(sec.lanesByDir[OPENDRIVE_TAG_RIGHT], start, end, sectionEnd);
+        recomputeWidths(sec.lanesByDir[OPENDRIVE_TAG_RIGHT], start, end, sectionStart, sectionEnd);
     }
     if (sec.leftLaneNumber > 0) {
-        recomputeWidths(sec.lanesByDir[OPENDRIVE_TAG_LEFT], start, end, sectionEnd);
+        recomputeWidths(sec.lanesByDir[OPENDRIVE_TAG_LEFT], start, end, sectionStart, sectionEnd);
     }
 }
 
 
 void 
-NIImporter_OpenDrive::recomputeWidths(std::vector<OpenDriveLane>& lanes, double start, double end, double sectionEnd) {
+NIImporter_OpenDrive::recomputeWidths(std::vector<OpenDriveLane>& lanes, double start, double end, double sectionStart, double sectionEnd) {
     for (std::vector<OpenDriveLane>::iterator k = lanes.begin(); k != lanes.end(); ++k) {
         OpenDriveLane& l = *k;
         if (l.widthData.size() > 0) {
-            /*
-            std::cout 
-                << "  lane=" << l.id
+#ifdef DEBUG_VARIABLE_WIDTHS 
+            if (gDebugFlag1) std::cout 
+                << "recomputeWidths lane=" << l.id
                 << " type=" << l.type
                 << " start=" << start
                 << " end=" << end
+                << " sectionStart=" << sectionStart
                 << " sectionEnd=" << sectionEnd
                 << " widthEntries=" << l.widthData.size() << "\n"
                 << "\n";
-                */
+#endif
             l.width = 0;
             double sPrev = l.widthData.front().s;
+            double sPrevAbs = sPrev + sectionStart;
             for (std::vector<OpenDriveWidth>::iterator it_w = l.widthData.begin(); it_w != l.widthData.end(); ++it_w) {
-                double sEnd = (it_w + 1) != l.widthData.end() ? (*(it_w + 1)).s : sectionEnd;
-                if (sPrev <= start && sEnd >= start) {
-                    //std::cout << "   atStart=" << start << " w=" << (*it_w).computeAt(start) << "\n";
-                    l.width = MAX2(l.width, (*it_w).computeAt(start));
+                double sEnd = (it_w + 1) != l.widthData.end() ? (*(it_w + 1)).s : sectionEnd - sectionStart;
+                double sEndAbs = sEnd + sectionStart;
+#ifdef DEBUG_VARIABLE_WIDTHS 
+                if (gDebugFlag1) std::cout 
+                    << " sPrev=" << sPrev << " sPrevAbs=" << sPrevAbs
+                    << " sEnd=" << sEnd << " sEndAbs=" << sEndAbs
+                    << " widthData s=" << (*it_w).s 
+                        << " a=" << (*it_w).a 
+                        << " b=" << (*it_w).b 
+                        << " c=" << (*it_w).c 
+                        << " d=" << (*it_w).d 
+                        << "\n";
+#endif
+                if (sPrevAbs <= start && sEndAbs >= start) {
+#ifdef DEBUG_VARIABLE_WIDTHS 
+                    if (gDebugFlag1) std::cout << "   atStart=" << start << " pos=" << start - sectionStart << " w=" << (*it_w).computeAt(start - sectionStart) << "\n";
+#endif
+                    l.width = MAX2(l.width, (*it_w).computeAt(start - sectionStart));
                 }
-                if (sPrev <= end && sEnd >= end) {
-                    //std::cout << "   atEnd=" << end << " w=" << (*it_w).computeAt(end) << "\n";
-                    l.width = MAX2(l.width, (*it_w).computeAt(end));
+                if (sPrevAbs <= end && sEndAbs >= end) {
+#ifdef DEBUG_VARIABLE_WIDTHS 
+                    if (gDebugFlag1) std::cout << "   atEnd=" << end << " pos=" << end - sectionStart << " w=" << (*it_w).computeAt(end - sectionStart) << "\n";
+#endif
+                    l.width = MAX2(l.width, (*it_w).computeAt(end - sectionStart));
                 }
-                if (start <= sPrev && end >= sPrev) {
-                    //std::cout << "   atSPrev=" << sPrev << " w=" << (*it_w).computeAt(sPrev) << "\n";
+                if (start <= sPrevAbs && end >= sPrevAbs) {
+#ifdef DEBUG_VARIABLE_WIDTHS 
+                    if (gDebugFlag1) std::cout << "   atSPrev=" << sPrev << " w=" << (*it_w).computeAt(sPrev) << "\n";
+#endif
                     l.width = MAX2(l.width, (*it_w).computeAt(sPrev));
                 }
-                if (start <= sEnd && end >= sEnd) {
-                    //std::cout << "   atSEnd=" << sEnd << " w=" << (*it_w).computeAt(sEnd) << "\n";
+                if (start <= sEndAbs && end >= sEndAbs) {
+#ifdef DEBUG_VARIABLE_WIDTHS 
+                    if (gDebugFlag1) std::cout << "   atSEnd=" << sEnd << " w=" << (*it_w).computeAt(sEnd) << "\n";
+#endif
                     l.width = MAX2(l.width, (*it_w).computeAt(sEnd));
                 }
-                //std::cout << " sPrev=" << sPrev << " sEnd=" << sEnd << " l.width=" << l.width << "\n";
+#ifdef DEBUG_VARIABLE_WIDTHS 
+                if (gDebugFlag1) std::cout << " sPrev=" << sPrev << " sEnd=" << sEnd << " l.width=" << l.width << "\n";
+#endif
                 sPrev = sEnd;
+                sPrevAbs = sEndAbs;
             }
         }
     }

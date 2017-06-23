@@ -583,14 +583,14 @@ protected:
                               const std::string& nodeID, NIImporter_OpenDrive::LinkType lt);
 
 
-    static void splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc); 
+    static void splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, double minDist); 
 
     static void findWidthSplit(const NBTypeCont& tc, std::vector<OpenDriveLane>& lanes, 
             int section, double sectionStart, double sectionEnd, 
             std::vector<double>& splitPositions);
 
-    static void recomputeWidths(OpenDriveLaneSection& sec, double start, double end, double sectionEnd);
-    static void recomputeWidths(std::vector<OpenDriveLane>& lanes, double start, double end, double sectionEnd);
+    static void recomputeWidths(OpenDriveLaneSection& sec, double start, double end, double sectionStart, double sectionEnd);
+    static void recomputeWidths(std::vector<OpenDriveLane>& lanes, double start, double end, double sectionStart, double sectionEnd);
 
     /// The names of openDrive-XML elements (for passing to GenericSAXHandler)
     static StringBijection<int>::Entry openDriveTags[];
