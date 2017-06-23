@@ -50,55 +50,6 @@ class GeoConvHelper;
  */
 class GNEPoly : public GUIPolygon, public GNEShape {
 
-    /// @brief declare friend class
-    //friend class GNEChange_POI
-
-public:
-    class GNEPolyHandler : public SUMOSAXHandler {
-    public:
-        /// @brief constructor
-        GNEPolyHandler(GNENet* net);
-
-        /// @brief
-        virtual ~GNEPolyHandler();
-
-        /// @name inherited from GenericSAXHandler
-        /// @{
-        /**@brief Called on the opening of a tag;
-         *
-         * @param[in] element ID of the currently opened element
-         * @param[in] attrs Attributes within the currently opened element
-         * @exception ProcessError If something fails
-         * @see GenericSAXHandler::myStartElement
-         */
-        virtual void myStartElement(int element, const SUMOSAXAttributes& attrs);
-
-        /**@brief Called when a closing tag occurs
-         *
-         * @param[in] element ID of the currently opened element
-         * @exception ProcessError If something fails
-         * @see GenericSAXHandler::myEndElement
-         */
-        virtual void myEndElement(int element);
-        /// @}
-
-        int getNumLoaded() {
-            return myNumLoaded;
-        }
-
-    private:
-        GNENet* myNet;
-
-        /// @brief The coordinate transformation which was used compute the POI coordinates
-        GeoConvHelper* myLocation;
-
-        /// @brief number of loaded pois
-        int myNumLoaded;
-
-    private:
-        void loadPOI(const SUMOSAXAttributes& attrs);
-    };
-
 public:
     /** @brief Constructor
      * @param[in] net net in which this polygon is placed
@@ -161,14 +112,14 @@ public:
      */
     std::string getAttribute(SumoXMLAttr key) const;
 
-    /* @brief method for setting the attribute and letting the object perform additional changes
+    /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
      */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /* @brief method for checking if the key and their conrrespond attribute are valids
+    /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
      * @param[in] value The value asociated to key key
      * @return true if the value is valid, false in other case
@@ -193,9 +144,7 @@ public:
     void deleteGeometryNear(const Position& pos);
 
     /// @brief retrieve the junction of which the shape is being edited
-    GNEJunction* getEditedJunction() const {
-        return myJunction;
-    }
+    GNEJunction* getEditedJunction() const;
 
     /// @brief registers completed movement with the undoList
     //void registerMove(GNEUndoList *undoList);

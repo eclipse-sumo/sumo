@@ -50,14 +50,21 @@ class GeoConvHelper;
  */
 class GNEPOI : public GUIPointOfInterest, public GNEShape {
 
-    /// @brief declare friend class
-    //friend class GNEChange_POI;
-
 public:
-    /// @brief Constructor
-    GNEPOI(GNENet* net, const std::string& id, const std::string& type,
-           const RGBColor& color, double layer, double angle, const std::string& imgFile,
-           const Position& pos, double width, double height);
+    /** @brief Constructor
+     * @param[in] net net in which this polygon is placed
+     * @param[in] id The name of the POI
+     * @param[in] type The (abstract) type of the POI
+     * @param[in] color The color of the POI
+     * @param[in] layer The layer of the POI
+     * @param[in] angle The rotation of the POI
+     * @param[in] imgFile The raster image of the shape
+     * @param[in] pos The position of the POI
+     * @param[in] width The width of the POI image
+     * @param[in] height The height of the POI image
+     */
+    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, double layer, 
+           double angle, const std::string& imgFile, const Position& pos, double width, double height);
 
     /// @brief Destructor
     ~GNEPOI();
@@ -109,20 +116,20 @@ public:
     
     /// @name inherited from GNEAttributeCarrier
     /// @{
-    /* @brief method for getting the Attribute of an XML key
+    /**@brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
     std::string getAttribute(SumoXMLAttr key) const;
 
-    /* @brief method for setting the attribute and letting the object perform additional changes
+    /**@brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
      */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /* @brief method for checking if the key and their correspond attribute are valids
+    /**@brief method for checking if the key and their correspond attribute are valids
      * @param[in] key The attribute key
      * @param[in] value The value asociated to key key
      * @return true if the value is valid, false in other case

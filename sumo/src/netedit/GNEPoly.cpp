@@ -181,6 +181,12 @@ GNEPoly::deleteGeometryNear(const Position& pos) {
 }
 
 
+GNEJunction* 
+GNEPoly::getEditedJunction() const {
+    return myJunction;
+}
+
+
 std::string
 GNEPoly::getAttribute(SumoXMLAttr key) const {
     switch (key) {
