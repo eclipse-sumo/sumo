@@ -37,6 +37,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <netbuild/NBEdge.h>
@@ -58,7 +59,10 @@
 #include "NIImporter_OpenDrive.h"
 
 //#define DEBUG_VARIABLE_WIDTHS
-//#define DEBUG_COND(road) ((road)->id == "disabled")
+//#define DEBUG_CONNECTIONS
+
+//#define DEBUG_COND(road) ((road)->id == "2503")
+//#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "2503."))
 //#define DEBUG_COND(road) (true)
 
 // ===========================================================================
@@ -431,6 +435,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     if (prevRight != 0) {
                         std::map<int, int> connections = (*j).getInnerConnections(OPENDRIVE_TAG_RIGHT, *(j - 1));
                         for (std::map<int, int>::const_iterator k = connections.begin(); k != connections.end(); ++k) {
+#ifdef DEBUG_CONNECTIONS 
+                            if (DEBUG_COND(e)) std::cout << "addCon1 from=" << prevRight->getID() << "_" << (*k).first << " to=" << currRight->getID() << "_" << (*k).second << "\n";
+#endif
                             prevRight->addLane2LaneConnection((*k).first, currRight, (*k).second, NBEdge::L2L_VALIDATED);
                         }
                     }
@@ -474,6 +481,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     if (prevLeft != 0) {
                         std::map<int, int> connections = (*j).getInnerConnections(OPENDRIVE_TAG_LEFT, *(j - 1));
                         for (std::map<int, int>::const_iterator k = connections.begin(); k != connections.end(); ++k) {
+#ifdef DEBUG_CONNECTIONS 
+                            if (DEBUG_COND(e)) std::cout << "addCon2 from=" << currLeft->getID() << "_" << (*k).first << " to=" << prevLeft->getID() << "_" << (*k).second << "\n";
+#endif
                             currLeft->addLane2LaneConnection((*k).first, prevLeft, (*k).second, NBEdge::L2L_VALIDATED);
                         }
                     }
@@ -565,6 +575,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             continue;
         }
 
+#ifdef DEBUG_CONNECTIONS 
+        if (DEBUG_COND2(from->getID())) std::cout << "addCon3 from=" << from->getID() << "_" << fromLane << " to=" << to->getID() << "_" << toLane << "\n";
+#endif
         from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER);
 
         if ((*i).origID != "") {
@@ -756,6 +769,12 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
 
         OpenDriveLaneSection& laneSection = l.linkType == OPENDRIVE_LT_SUCCESSOR ? e.laneSections.back() : e.laneSections[0];
         const std::map<int, int>& laneMap = laneSection.laneMap;
+#ifdef DEBUG_CONNECTIONS 
+    if (DEBUG_COND(&e)) {
+        std::cout << "edge=" << e.id << " eType=" << l.elementType << " lType=" << l.linkType  << " connectedEdge=" << connectedEdge << " laneSection=" << laneSection.s << " map:\n";
+        std::cout << joinToString(laneMap, "\n", ":") << "\n";
+    }
+#endif
         if (laneSection.lanesByDir.find(OPENDRIVE_TAG_RIGHT) != laneSection.lanesByDir.end()) {
             const std::vector<OpenDriveLane>& lanes = laneSection.lanesByDir.find(OPENDRIVE_TAG_RIGHT)->second;
             for (std::vector<OpenDriveLane>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
