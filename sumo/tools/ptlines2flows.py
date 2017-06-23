@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """
-@file    ptlines2trips.py
+@file    ptlines2flows.py
 @author  Gregor Laemmel
 @date    2017-06-23
-@version $Id: ptlines2trips.py 23851 2017-04-06 21:05:49Z behrisch $
+@version $Id: ptlines2flows.py 23851 2017-04-06 21:05:49Z behrisch $
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -17,6 +17,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 import os
 import sys
+import subprocess
 
 from optparse import OptionParser
 
@@ -35,7 +36,13 @@ def get_options():
     optParser.add_option("-n", "--net-file", dest="netfile", help="network file")
     optParser.add_option("-l", "--ptlines-file", dest="ptlines", help="public transit lines file")
     optParser.add_option("-s", "--ptstops-file", dest="ptstops", help="public transit stops file")
+    optParser.add_option("-f", "--flows-file", dest="flows", default="flows.rou.xml", help="output flows file")
+    optParser.add_option("-i", "--stopinfos-file", dest="stopinfos",default="stopinfos.xml", help="file from '--stop-output'")
+    optParser.add_option("-r", "--routes-file", dest="routes",default="vehroutes.xml", help="file from '--vehroute-output'")
     optParser.add_option("-t", "--trips-file", dest="trips", default="trips.trips.xml", help="output trips file")
+    optParser.add_option("-p", "--period", dest="period", default="600", help="period")
+    optParser.add_option("-b", "--begin", dest="begin", default="0", help="start time")
+    optParser.add_option("-e", "--end", dest="end", default="3600", help="end time")
     (options, args) = optParser.parse_args()
     return options
 
@@ -77,6 +84,36 @@ def main():
             fouttrips.write('\t</trip>\n')
         fouttrips.write("</routes>\n")
 
+    subprocess.call([sumolib.checkBinary("sumo"), "-r", options.trips, "-n",options.netfile, "-a", options.ptstops
+                        ,"--vehroute-output",options.routes,"--stop-output",options.stopinfos])
+
+    stopsUntil = {}
+    for stop in sumolib.output.parse_fast(options.stopinfos, 'stopinfo', ['id','ended','busStop']):
+        print(stop)
+        stopsUntil[stop.busStop] = stop.ended
+
+    with open(options.flows, 'w') as foutflows:
+        flows = []
+        sumolib.writeXMLHeader(
+            foutflows, "$Id: ptlines2trips.py 24746 2017-06-19 09:04:59Z behrisch $", "routes")
+        trp_nr = 0
+        for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
+            id = vehicle.id
+            flows.append(id)
+            edges = vehicle.routeDistribution[0]._child_dict['route'][1].edges
+            stops = vehicle.stop
+            foutflows.write(
+                '\t<route id="%s" edges="%s" >\n' % (id,edges))
+            for stop in stops:
+                print(stop.busStop + " " + stop.duration + " " + stopsUntil[stop.busStop])
+                foutflows.write(
+                    '\t\t<stop busStop="%s" duration="%s" until="%s" />\n'%(stop.busStop,stop.duration,stopsUntil[stop.busStop])
+                )
+            print(edges)
+            foutflows.write('\t</route>\n')
+        for flow in flows:
+            foutflows.write('<flow id="%s" route="%s" begin="%s" end="%s" period="%s" />\n' % (flow,flow,options.begin,options.end,options.period))
+        foutflows.write('</routes>\n')
 
 if __name__ == "__main__":
     main()
