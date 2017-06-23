@@ -160,9 +160,9 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myJamHaltingSpeedThreshold(haltingSpeedThreshold),
     myJamHaltingTimeThreshold(haltingTimeThreshold),
     myJamDistanceThreshold(jamDistThreshold),
+    myNumberOfEnteredVehicles(0),
     myNumberOfSeenVehicles(0),
-    myNumberOfLeftVehicles(0),
-    myNumberOfEnteredVehicles(0)
+    myNumberOfLeftVehicles(0)
 {
     reset();
 

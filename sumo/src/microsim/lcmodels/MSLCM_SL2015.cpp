@@ -1122,10 +1122,10 @@ MSLCM_SL2015::_wantsChangeSublane(
     if (laneOffset != 0
             && (amBlockingFollowerPlusNB() || 
                 // continue previous cooperative change
-                (myPreviousState & LCA_COOPERATIVE) != 0 
-                && !myCanChangeFully 
-                // change is in the right direction
-                && (laneOffset * myOrigLatDist > 0))
+                ((myPreviousState & LCA_COOPERATIVE) != 0 
+                 && !myCanChangeFully 
+                 // change is in the right direction
+                 && (laneOffset * myOrigLatDist > 0)))
             && (inconvenience < myCooperativeParam)
             //&& ((myOwnState & myLcaCounter) == 0) // VARIANT_6 : counterNoHelp
             && (changeToBest || currentDistAllows(neighDist, abs(bestLaneOffset) + 1, laDist))) {

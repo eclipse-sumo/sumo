@@ -347,7 +347,7 @@ public:
         }
         // return parsed attribute
         return parse<T>(parsedAttribute);
-    };
+    }
 
 
 private:

@@ -118,13 +118,13 @@ MSDevice_Bluelight::~MSDevice_Bluelight() {
 
 bool
 MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
-                               double newPos, double newSpeed) {
+                               double /* newPos */, double /* newSpeed */) {
     //std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
     // check whether another device is present on the vehicle:
     MSDevice_Tripinfo* otherDevice = static_cast<MSDevice_Tripinfo*>(veh.getDevice(typeid(MSDevice_Tripinfo)));
-    if (otherDevice != 0) {
+    /*if (otherDevice != 0) {
         std::cout << "  veh '" << veh.getID() << " has device '" << otherDevice->getID() << "'\n";
-    }
+    }*/
     //todo violate red lights
 
     // build a rescue lane for all vehicles on the route of the emergency vehicle within the range of the siren
