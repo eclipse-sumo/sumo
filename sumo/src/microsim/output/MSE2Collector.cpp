@@ -535,7 +535,9 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes) {
 
         // find the connection to next
         const MSLink* link = lane->getLinkTo(*il);
-        assert(link != 0);
+        if (link == 0) {
+            throw InvalidArgument("Lanes '" + lane->getID() + "' and '" + (*il)->getID() + "' are not consecutive in defintion of e2Detector '" + getID() + "'");
+        }
 
         if (!MSGlobals::gUsingInternalLanes) {
             myDetectorLength += link->getLength();
