@@ -64,6 +64,8 @@ set(netedit_SRCS
    GNEChange_CalibratorItem.cpp
    GNEChange_POI.h
    GNEChange_POI.cpp
+   GNEChange_Poly.h
+   GNEChange_Poly.cpp
    GNEUndoList.h
    GNEUndoList.cpp
    GNEAttributeCarrier.h
