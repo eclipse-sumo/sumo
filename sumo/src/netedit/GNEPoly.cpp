@@ -51,12 +51,14 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <netimport/NIImporter_SUMO.h>
 #include <netwrite/NWWriter_SUMO.h>
+
 #include "GNENet.h"
 #include "GNEEdge.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEChange_Attribute.h"
 #include "GNEPoly.h"
+#include "GNEJunction.h"
 
 
 // ===========================================================================
@@ -70,13 +72,51 @@ GNEPoly::GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, cons
                  const RGBColor& color, double layer,
                  double angle, const std::string& imgFile) :
     GUIPolygon(id, type, color, shape, fill, layer, angle, imgFile),
-    GNEAttributeCarrier(SUMO_TAG_POLY, ICON_LOCATEPOLY),
-    myNet(net),
+    GNEShape(net, SUMO_TAG_POLY, ICON_LOCATEPOLY),
     myJunction(junction) {
 }
 
 
-GNEPoly::~GNEPoly() { }
+GNEPoly::~GNEPoly() {}
+
+
+void 
+GNEPoly::updateGeometry() {}
+
+const std::string& 
+GNEPoly::getParentName() {
+    if(myJunction != NULL) {
+        return myJunction->getMicrosimID();
+    } else {
+        return myNet->getMicrosimID();
+    }
+}
+
+
+GUIGLObjectPopupMenu*
+GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    GUIGLObjectPopupMenu* ret = GUIPolygon::getPopUpMenu(app, parent);
+    new FXMenuSeparator(ret);
+    new FXMenuCommand(ret, "Set custom shape (ENTER)", 0, &app, MID_GNE_HOTKEY_ENTER);
+    new FXMenuCommand(ret, "Discard custom shape (ESC)", 0, &app, MID_GNE_ABORT);
+    new FXMenuCommand(ret, "Simplify Shape\t\tReplace shape with a rectangle", 0, &parent, MID_GNE_SIMPLIFY_SHAPE);
+    new FXMenuCommand(ret, "Remove geometry point\t\tRemove the closest geometry point", 0, &parent, MID_GNE_DELETE_GEOMETRY);
+    // let the GNEViewNet store the popup position
+    (dynamic_cast<GNEViewNet&>(parent)).markPopupPosition();
+    return ret;
+}
+
+
+GUIParameterTableWindow* 
+GNEPoly::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    return GUIPolygon::getParameterWindow(app, parent);
+}
+
+
+Boundary 
+GNEPoly::getCenteringBoundary() const {
+    return GUIPolygon::getCenteringBoundary();
+}
 
 
 void
@@ -99,21 +139,6 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
     }
 
-}
-
-
-GUIGLObjectPopupMenu*
-GNEPoly::getPopUpMenu(GUIMainWindow& app,
-                      GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = GUIPolygon::getPopUpMenu(app, parent);
-    new FXMenuSeparator(ret);
-    new FXMenuCommand(ret, "Set custom shape (ENTER)", 0, &app, MID_GNE_HOTKEY_ENTER);
-    new FXMenuCommand(ret, "Discard custom shape (ESC)", 0, &app, MID_GNE_ABORT);
-    new FXMenuCommand(ret, "Simplify Shape\t\tReplace shape with a rectangle", 0, &parent, MID_GNE_SIMPLIFY_SHAPE);
-    new FXMenuCommand(ret, "Remove geometry point\t\tRemove the closest geometry point", 0, &parent, MID_GNE_DELETE_GEOMETRY);
-    // let the GNEViewNet store the popup position
-    (dynamic_cast<GNEViewNet&>(parent)).markPopupPosition();
-    return ret;
 }
 
 

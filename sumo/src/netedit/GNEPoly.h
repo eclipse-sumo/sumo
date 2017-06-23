@@ -31,7 +31,7 @@
 #include <config.h>
 #endif
 
-#include "GNENetElement.h"
+#include "GNEShape.h"
 
 // ===========================================================================
 // class declarations
@@ -48,7 +48,7 @@ class GeoConvHelper;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEPoly : public GUIPolygon, public GNEAttributeCarrier {
+class GNEPoly : public GUIPolygon, public GNEShape {
 
     /// @brief declare friend class
     //friend class GNEChange_POI
@@ -100,17 +100,35 @@ public:
     };
 
 public:
-    /**@brief Constructor
+    /** @brief Constructor
+     * @param[in] net net in which this polygon is placed
+     * @param[in] junction optional junction in which this polygon is placed
+     * @param[in] id The name of the polygon
+     * @param[in] type The (abstract) type of the polygon
+     * @param[in] color The color of the polygon
+     * @param[in] layer The layer of the polygon
+     * @param[in] angle The rotation of the polygon
+     * @param[in] imgFile The raster image of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] fill Whether the polygon shall be filled
      */
     GNEPoly(GNENet* net, GNEJunction* junction, const std::string& id, const std::string& type, const PositionVector& shape, bool fill,
-            const RGBColor& color, double layer,
-            double angle = 0, const std::string& imgFile = "");
+            const RGBColor& color, double layer, double angle = 0, const std::string& imgFile = "");
 
     /// @brief Destructor
-    virtual ~GNEPoly();
+    ~GNEPoly();
+
+    /**@brief update pre-computed geometry information
+     * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
+     */
+    void updateGeometry();
 
     /// @name inherited from GUIGlObject
     /// @{
+    /**@brief Returns the name of the parent object
+     * @return This object's parent id
+     */
+    const std::string& getParentName();
 
     /**@brief Returns an own popup-menu
      *
@@ -119,9 +137,19 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent);
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /**@brief Returns an own parameter window
+     *
+     * @param[in] app The application needed to build the parameter window
+     * @param[in] parent The parent window needed to build the parameter window
+     * @return The built parameter window
+     * @see GUIGlObject::getParameterWindow
+     */
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
+    /// @brief Returns the boundary to which the view shall be centered in order to show the object
+    Boundary getCenteringBoundary() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -129,9 +157,29 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
+    
+    /// @name inherited from GNEAttributeCarrier
+    /// @{
+    /* @brief method for getting the Attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    std::string getAttribute(SumoXMLAttr key) const;
 
+    /* @brief method for setting the attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /// @brief draw the polygon and also little movement handles
+    /* @brief method for checking if the key and their conrrespond attribute are valids
+     * @param[in] key The attribute key
+     * @param[in] value The value asociated to key key
+     * @return true if the value is valid, false in other case
+     */
+    bool isValid(SumoXMLAttr key, const std::string& value);
+    /// @}
 
     /**@brief change the polygon geometry
      * It is up to the Polygon to decide whether an new geometry node should be
@@ -154,24 +202,8 @@ public:
         return myJunction;
     }
 
-
     /// @brief registers completed movement with the undoList
     //void registerMove(GNEUndoList *undoList);
-
-
-    /// @name inherited from GNEAttributeCarrier
-    /// @{
-    std::string getAttribute(SumoXMLAttr key) const;
-
-    /* @brief method for setting the attribute and letting the object perform additional changes
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
-    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
-
-    bool isValid(SumoXMLAttr key, const std::string& value);
-    /// @}
 
     /// @brief load POIs from file
     static void loadFromFile(const std::string& file, GNENet* net);
@@ -180,21 +212,18 @@ public:
     static void saveToFile(const std::string& file);
 
 protected:
-    /// @brief the net for querying updates
-    GNENet* myNet;
-
     /// @brief junction of which the shape is being edited (optional)
     GNEJunction* myJunction;
 
 private:
+    /// @brief set attribute after validation
+    void setAttribute(SumoXMLAttr key, const std::string& value);
+    
     /// @brief Invalidated copy constructor.
     GNEPoly(const GNEPoly&);
 
     /// @brief Invalidated assignment operator.
     GNEPoly& operator=(const GNEPoly&);
-
-    void setAttribute(SumoXMLAttr key, const std::string& value);
-
 };
 
 
