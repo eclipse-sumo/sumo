@@ -48,8 +48,8 @@ def getAllPages(args):
     if len(args) == 0:
         f = urlopen("http://sumo.dlr.de/w/api.php?action=query&list=allpages&aplimit=500&format=json")
         result = json.loads(f.read().decode('utf8'))
-        return [entry["title"] for entry in result["query"]["allpages"]]
-    return args
+        return [entry["title"].replace(" ", "_") for entry in result["query"]["allpages"]]
+    return [a.replace(" ", "_") for a in args]
 
 
 def readParsePage(page):
