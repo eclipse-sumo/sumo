@@ -366,6 +366,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Poly.cpp">
       <Filter>Quellcodedateien\Items\Changes\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEShape.cpp">
+      <Filter>Quellcodedateien\Items\Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -606,6 +609,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Poly.h">
       <Filter>Header-Dateien\Items\Changes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEShape.h">
+      <Filter>Header-Dateien\Items\Shapes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

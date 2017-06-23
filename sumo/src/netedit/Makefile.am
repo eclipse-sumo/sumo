@@ -59,6 +59,7 @@ GNECrossingFrame.h GNECrossingFrame.cpp \
 GNEDeleteFrame.h GNEDeleteFrame.cpp \
 GNEAdditionalHandler.h GNEAdditionalHandler.cpp \
 GNEAdditional.h GNEAdditional.cpp \
+GNEShape.h GNEShape.cpp \
 GNEChargingStation.h GNEChargingStation.cpp \
 GNEStoppingPlace.h GNEStoppingPlace.cpp \
 GNEBusStop.h GNEBusStop.cpp \
