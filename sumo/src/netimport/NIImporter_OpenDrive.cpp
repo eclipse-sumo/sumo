@@ -1814,13 +1814,16 @@ NIImporter_OpenDrive::splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, dou
             for (std::vector<double>::iterator it = splitPositions.begin(); it != splitPositions.end(); ++it) {
                 OpenDriveLaneSection secNew = sec;
                 secNew.s = *it;
-                if (newSections.size() == 1) {
-                    // recompute first section
-                }
 #ifdef DEBUG_VARIABLE_WIDTHS 
                 if (DEBUG_COND(e)) std::cout << "splitAt " << secNew.s << "\n";
 #endif
                 newSections.push_back(secNew);
+                if (secNew.rightLaneNumber > 0) {
+                    setStraightConnections(newSections.back().lanesByDir[OPENDRIVE_TAG_RIGHT]);
+                }
+                if (secNew.leftLaneNumber > 0) {
+                    setStraightConnections(newSections.back().lanesByDir[OPENDRIVE_TAG_LEFT]);
+                }
                 double end = (it + 1) == splitPositions.end() ? sectionEnd : *(it + 1);
                 recomputeWidths(newSections.back(), secNew.s, end, sec.s, sectionEnd);
             }
@@ -1901,6 +1904,14 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
                 sPrev = sEnd;
             }
         }
+    }
+}
+
+
+void 
+NIImporter_OpenDrive::setStraightConnections(std::vector<OpenDriveLane>& lanes) {
+    for (std::vector<OpenDriveLane>::iterator k = lanes.begin(); k != lanes.end(); ++k) {
+        (*k).predecessor = (*k).id;
     }
 }
 

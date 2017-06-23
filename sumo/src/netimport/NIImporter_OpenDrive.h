@@ -589,6 +589,7 @@ protected:
             int section, double sectionStart, double sectionEnd, 
             std::vector<double>& splitPositions);
 
+    static void setStraightConnections(std::vector<OpenDriveLane>& lanes); 
     static void recomputeWidths(OpenDriveLaneSection& sec, double start, double end, double sectionStart, double sectionEnd);
     static void recomputeWidths(std::vector<OpenDriveLane>& lanes, double start, double end, double sectionStart, double sectionEnd);
 
