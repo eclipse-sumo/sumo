@@ -85,7 +85,7 @@ class GNECrossing;
  * @class GNENet
  * @brief A NBNetBuilder extended by visualisation and editing capabilities
  */
-class GNENet : public GUIGlObject, public GUIShapeContainer{
+class GNENet : public GUIGlObject, public ShapeContainer {
 
     /// @brief declare friend class
     friend class GNEChange_Junction;
@@ -521,6 +521,54 @@ public:
 
     /// @brief Check if exist a flow with these ID
     bool flowExists(const std::string& flowID) const;
+
+    /** @brief Builds a polygon using the given values and adds it to the container
+     * @param[in] id The name of the polygon
+     * @param[in] type The (abstract) type of the polygon
+     * @param[in] color The color of the polygon
+     * @param[in] layer The layer of the polygon
+     * @param[in] angle The rotation of the polygon
+     * @param[in] imgFile The raster image of the polygon
+     * @param[in] shape The shape of the polygon
+     * @param[in] fill Whether the polygon shall be filled
+     * @return whether the polygon could be added
+     */
+    bool addPolygon(const std::string& id, const std::string& type,
+                    const RGBColor& color, double layer,
+                    double angle, const std::string& imgFile,
+                    const PositionVector& shape, bool fill, bool ignorePruning = false);
+
+
+    /** @brief Builds a POI using the given values and adds it to the container
+     * @param[in] id The name of the POI
+     * @param[in] type The (abstract) type of the POI
+     * @param[in] color The color of the POI
+     * @param[in] layer The layer of the POI
+     * @param[in] angle The rotation of the POI
+     * @param[in] imgFile The raster image of the POI
+     * @param[in] pos The position of the POI
+     * @param[in] width The width of the POI image
+     * @param[in] height The height of the POI image
+     * @return whether the poi could be added
+     */
+    bool addPOI(const std::string& id, const std::string& type,
+                const RGBColor& color, double layer, double angle, const std::string& imgFile,
+                const Position& pos, double width, double height, bool ignorePruning = false);
+
+
+
+    /** @brief Removes a polygon from the container
+     * @param[in] id The id of the polygon
+     * @return Whether the polygon could be removed
+     */
+    bool removePolygon(const std::string& id);
+
+
+    /** @brief Removes a PoI from the container
+     * @param[in] id The id of the PoI
+     * @return Whether the poi could be removed
+     */
+    bool removePOI(const std::string& id);
 
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)

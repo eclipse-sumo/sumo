@@ -100,7 +100,6 @@ const double GNENet::Z_INITIALIZED = 1;
 // ===========================================================================
 GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, ""),
-    GUIShapeContainer(myGrid),
     myViewNet(0),
     myNetBuilder(netBuilder),
     myJunctions(),
@@ -1583,10 +1582,62 @@ GNENet::flowExists(const std::string& flowID) const {
     return false;
 }
 
+
+bool
+GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
+                   const std::string& imgFile, const PositionVector& shape, bool fill, bool ignorePruning) {
+    GNEPoly* p = new GNEPoly(this, NULL, id, type, shape, fill, color, layer, angle, imgFile);
+    if (!myPolygons.add(id, p)) {
+        delete p;
+        return false;
+    } else {
+        myGrid.addAdditionalGLObject(p);
+        return true;
+    }
+}
+
+
+
+bool 
+GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle, 
+               const std::string& imgFile, const Position& pos, double width, double height, bool ignorePruning) {
+    GNEPOI* p = new GNEPOI(this, id, type, color, layer, angle, imgFile, pos, width, height);
+
+    if (!myPOIs.add(id, p)) {
+        delete p;
+        return false;
+    } else {
+        myGrid.addAdditionalGLObject(p);
+        return true;
+    }
+}
+
+
+bool 
+GNENet::removePolygon(const std::string& id) {
+    GNEPoly* p = dynamic_cast<GNEPoly*>(myPolygons.get(id));
+    if (p == 0) {
+        return false;
+    }
+    myGrid.removeAdditionalGLObject(p);
+    return myPolygons.remove(id);
+}
+
+
+bool 
+GNENet::removePOI(const std::string& id) {
+    GNEPOI* p = dynamic_cast<GNEPOI*>(myPOIs.get(id));
+    if (p == 0) {
+        return false;
+    }
+    myGrid.removeAdditionalGLObject(p);
+    return myPOIs.remove(id);
+}
+
+
 // ===========================================================================
 // private
 // ===========================================================================
-
 
 void 
 GNENet::initJunctionsAndEdges() {
