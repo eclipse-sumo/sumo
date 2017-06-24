@@ -104,10 +104,6 @@ PedestrianState* MSPModel_Remote::add(MSPerson* person, MSPerson::MSPersonStage_
         prv = edge;
     }
 
-    if (req.dests().size() <= 2) {
-        std::cout << person->getID() << std::endl;
-    }
-
     hybridsim::Boolean rpl;
     ClientContext context;
     Status st = myHybridsimStub->transferAgent(&context, req, &rpl);
