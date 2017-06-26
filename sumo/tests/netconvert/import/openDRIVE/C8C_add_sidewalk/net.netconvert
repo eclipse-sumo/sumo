@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar  3 11:17:27 2017 by SUMO netconvert Version dev-SVN-r23174
+<!-- generated on Mon Jun 26 15:49:31 2017 by SUMO netconvert Version dev-SVN-r24896
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -108,10 +108,10 @@
         <param key="connection:502.0.00" value="_Sg22"/>
         <param key="connection:514.0.00" value="_Sg42"/>
         <param key="connection:516.0.00" value="_Sg12"/>
-        <phase duration="41" state="GGGgrrrrGGGgrrrr"/>
-        <phase duration="4" state="yyyyrrrryyyyrrrr"/>
-        <phase duration="41" state="rrrrGGGgrrrrGGGg"/>
-        <phase duration="4" state="rrrryyyyrrrryyyy"/>
+        <phase duration="42" state="GGGgrrrrGGGgrrrr"/>
+        <phase duration="3" state="yyyyrrrryyyyrrrr"/>
+        <phase duration="42" state="rrrrGGGgrrrrGGGg"/>
+        <phase duration="3" state="rrrryyyyrrrryyyy"/>
     </tlLogic>
 
     <junction id="2" type="traffic_light" x="200.00" y="86.70" incLanes="501.0.00_0 501.0.00_1 516.0.00_0 516.0.00_1 514.0.00_0 514.0.00_1 502.0.00_0 502.0.00_1" intLanes="" shape="201.06,95.40 208.70,87.76 208.70,85.64 201.06,78.00 198.94,78.00 191.30,85.64 191.30,87.76 198.94,95.40">

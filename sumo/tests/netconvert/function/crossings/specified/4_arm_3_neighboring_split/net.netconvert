@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar  2 11:11:44 2017 by SUMO netconvert Version dev-SVN-r23174
+<!-- generated on Mon Jun 26 15:49:34 2017 by SUMO netconvert Version dev-SVN-r24896
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -193,16 +193,16 @@
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="26" state="gGGgrrrrgGGgrrrrGGrrGG"/>
+        <phase duration="28" state="gGGgrrrrgGGgrrrrGGrrGG"/>
         <phase duration="5" state="gGGgrrrrgGGgrrrrrrrrrr"/>
-        <phase duration="4" state="yyygrrrryyygrrrrrrrrrr"/>
+        <phase duration="3" state="yyygrrrryyygrrrrrrrrrr"/>
         <phase duration="6" state="rrrGrrrrrrrGrrrrrrrrrr"/>
-        <phase duration="4" state="rrryrrrrrrryrrrrrrrrrr"/>
-        <phase duration="26" state="rrrrGGGgrrrrgGGgrrGGrr"/>
+        <phase duration="3" state="rrryrrrrrrryrrrrrrrrrr"/>
+        <phase duration="28" state="rrrrGGGgrrrrgGGgrrGGrr"/>
         <phase duration="5" state="rrrrGGGgrrrrgGGgrrrrrr"/>
-        <phase duration="4" state="rrrryyygrrrryyygrrrrrr"/>
+        <phase duration="3" state="rrrryyygrrrryyygrrrrrr"/>
         <phase duration="6" state="rrrrrrrGrrrrrrrGrrrrrr"/>
-        <phase duration="4" state="rrrrrrryrrrrrrryrrrrrr"/>
+        <phase duration="3" state="rrrrrrryrrrrrrryrrrrrr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w4_0 :C_w2_0 :C_w5_0 :C_w3_0 :C_w6_0 :C_w0_0" intLanes=":C_16_0 :C_1_0 :C_1_1 :C_17_0 :C_4_0 :C_5_0 :C_5_1 :C_18_0 :C_19_0 :C_9_0 :C_9_1 :C_20_0 :C_21_0 :C_13_0 :C_13_1 :C_22_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0 :C_c4_0 :C_c5_0" shape="83.92,126.16 119.23,118.94 120.43,117.47 120.37,83.87 118.46,78.51 83.71,78.64 77.26,83.36 82.26,93.39 82.73,105.04 78.56,115.43">

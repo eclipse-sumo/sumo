@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:45 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Mon Jun 26 15:49:34 2017 by SUMO netconvert Version dev-SVN-r24896
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -162,16 +162,16 @@
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="26" state="GGGgrrrrgGGgrrrrGr"/>
+        <phase duration="28" state="GGGgrrrrgGGgrrrrGr"/>
         <phase duration="5" state="GGGgrrrrgGGgrrrrrr"/>
-        <phase duration="4" state="yyygrrrryyygrrrrrr"/>
+        <phase duration="3" state="yyygrrrryyygrrrrrr"/>
         <phase duration="6" state="rrrGrrrrrrrGrrrrrr"/>
-        <phase duration="4" state="rrryrrrrrrryrrrrrr"/>
-        <phase duration="26" state="rrrrGGGgrrrrgGGgrG"/>
+        <phase duration="3" state="rrryrrrrrrryrrrrrr"/>
+        <phase duration="28" state="rrrrGGGgrrrrgGGgrG"/>
         <phase duration="5" state="rrrrGGGgrrrrgGGgrr"/>
-        <phase duration="4" state="rrrryyygrrrryyygrr"/>
+        <phase duration="3" state="rrrryyygrrrryyygrr"/>
         <phase duration="6" state="rrrrrrrGrrrrrrrGrr"/>
-        <phase duration="4" state="rrrrrrryrrrrrrryrr"/>
+        <phase duration="3" state="rrrrrrryrrrrrrryrr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 EC_2 SC_0 SC_1 SC_2 WC_0 WC_1 WC_2 :C_w2_0 :C_w3_0" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_16_0 :C_4_0 :C_5_0 :C_5_1 :C_17_0 :C_18_0 :C_9_0 :C_9_1 :C_19_0 :C_20_0 :C_13_0 :C_13_1 :C_21_0 :C_c0_0 :C_c1_0" shape="90.35,114.65 109.65,114.65 109.96,112.46 110.35,111.60 110.90,110.90 111.60,110.35 112.46,109.96 113.48,109.73 114.65,109.65 114.65,90.35 112.46,90.04 111.60,89.65 110.90,89.10 110.35,88.40 109.96,87.54 109.73,86.52 109.65,85.35 90.35,85.35 90.04,87.54 89.65,88.40 89.10,89.10 88.40,89.65 87.54,90.04 86.52,90.27 85.35,90.35 85.35,109.65 87.54,109.96 88.40,110.35 89.10,110.90 89.65,111.60 90.04,112.46 90.27,113.48" radius="5.00">

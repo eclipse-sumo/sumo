@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:10 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Mon Jun 26 15:49:24 2017 by SUMO netconvert Version dev-SVN-r24896
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -122,12 +122,12 @@
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="36" state="rrrrrGGGGgGGGggg"/>
-        <phase duration="4" state="rrrrryyyygyyyggg"/>
+        <phase duration="38" state="rrrrrGGGGgGGGggg"/>
+        <phase duration="3" state="rrrrryyyygyyyggg"/>
         <phase duration="6" state="rrrrrrrrrGrrrGGG"/>
-        <phase duration="4" state="rrrrrrrrryrrryyy"/>
-        <phase duration="36" state="GGGGgGrrrrrrrrrr"/>
-        <phase duration="4" state="yyyyyyrrrrrrrrrr"/>
+        <phase duration="3" state="rrrrrrrrryrrryyy"/>
+        <phase duration="37" state="GGGGgGrrrrrrrrrr"/>
+        <phase duration="3" state="yyyyyyrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 EC_2 WC_0 WC_1 WC_2" intLanes=":C_0_0 :C_0_1 :C_2_0 :C_2_1 :C_16_0 :C_5_0 :C_6_0 :C_6_1 :C_6_2 :C_17_0 :C_10_0 :C_10_1 :C_10_2 :C_18_0 :C_19_0 :C_20_0" shape="90.15,111.35 109.85,111.35 111.35,109.85 111.35,90.15 88.65,90.15 88.65,109.85">

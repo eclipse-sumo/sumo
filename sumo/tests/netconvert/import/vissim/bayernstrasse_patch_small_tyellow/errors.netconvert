@@ -233,18 +233,10 @@ Warning: Found sharp turn with radius 3.90 at the end of edge '82[0]'.
 Warning: Found sharp turn with radius 4.23 at the start of edge '82[1]'.
 Warning: Found sharp turn with radius 5.98 at the start of edge '83[1]'.
 Warning: Found sharp turn with radius 7.81 at the end of edge '85[1][1][0]'.
-Warning: TYellow of signal group '1' was less than the computed one; patched (was:3, is:4)
-Warning: TYellow of signal group '10' was less than the computed one; patched (was:0, is:4)
-Warning: TYellow of signal group '12' was less than the computed one; patched (was:0, is:4)
-Warning: TYellow of signal group '13' was less than the computed one; patched (was:0, is:4)
-Warning: TYellow of signal group '7' was less than the computed one; patched (was:0, is:4)
-Warning: TYellow of signal group '8' was less than the computed one; patched (was:0, is:4)
-Warning: TYellow of signal group '9' was less than the computed one; patched (was:0, is:4)
+Warning: TYellow of signal group '10' was less than the computed one; patched (was:0, is:3)
+Warning: TYellow of signal group '12' was less than the computed one; patched (was:0, is:3)
+Warning: TYellow of signal group '13' was less than the computed one; patched (was:0, is:3)
+Warning: TYellow of signal group '7' was less than the computed one; patched (was:0, is:3)
+Warning: TYellow of signal group '8' was less than the computed one; patched (was:0, is:3)
+Warning: TYellow of signal group '9' was less than the computed one; patched (was:0, is:3)
 Warning: During computation of traffic light '454'.
-Warning: TYellow of signal group '1' was less than the computed one; patched (was:3, is:4)
-Warning: TYellow of signal group '5' was less than the computed one; patched (was:3, is:4)
-Warning: TYellow of signal group '6' was less than the computed one; patched (was:3, is:4)
-Warning: During computation of traffic light '532'.
-Warning: TYellow of signal group '4' was less than the computed one; patched (was:3, is:4)
-Warning: TYellow of signal group '5' was less than the computed one; patched (was:3, is:4)
-Warning: During computation of traffic light '534'.

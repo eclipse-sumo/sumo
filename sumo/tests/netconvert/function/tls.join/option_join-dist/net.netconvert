@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:10 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Mon Jun 26 15:49:34 2017 by SUMO netconvert Version dev-SVN-r24896
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -114,26 +114,26 @@
     </edge>
 
     <tlLogic id="301292612" type="static" programID="0" offset="0">
-        <phase duration="41" state="GGGrr"/>
-        <phase duration="4" state="yyyrr"/>
-        <phase duration="41" state="rrrGG"/>
-        <phase duration="4" state="rrryy"/>
+        <phase duration="42" state="GGGrr"/>
+        <phase duration="3" state="yyyrr"/>
+        <phase duration="42" state="rrrGG"/>
+        <phase duration="3" state="rrryy"/>
     </tlLogic>
     <tlLogic id="38919945" type="static" programID="0" offset="0">
-        <phase duration="86" state="GGG"/>
-        <phase duration="4" state="yyy"/>
+        <phase duration="87" state="GGG"/>
+        <phase duration="3" state="yyy"/>
     </tlLogic>
     <tlLogic id="56231397" type="static" programID="0" offset="0">
-        <phase duration="41" state="GGGrr"/>
-        <phase duration="4" state="yyyrr"/>
-        <phase duration="41" state="GrrGG"/>
-        <phase duration="4" state="yrryy"/>
+        <phase duration="42" state="GGGrr"/>
+        <phase duration="3" state="yyyrr"/>
+        <phase duration="42" state="GrrGG"/>
+        <phase duration="3" state="yrryy"/>
     </tlLogic>
     <tlLogic id="59993001" type="static" programID="0" offset="0">
-        <phase duration="41" state="GGrrr"/>
-        <phase duration="4" state="yyrrr"/>
-        <phase duration="41" state="rrGGG"/>
-        <phase duration="4" state="rryyy"/>
+        <phase duration="42" state="GGrrr"/>
+        <phase duration="3" state="yyrrr"/>
+        <phase duration="42" state="rrGGG"/>
+        <phase duration="3" state="rryyy"/>
     </tlLogic>
 
     <junction id="301292612" type="traffic_light" x="43.13" y="56.80" incLanes="27437972_0 27437972_1 27445003_0 27445003_1" intLanes=":301292612_0_0 :301292612_0_1 :301292612_0_2 :301292612_3_0 :301292612_3_1" shape="45.57,61.54 48.33,55.65 48.34,49.92 42.06,48.24 40.22,49.33 37.06,62.05">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  8 16:31:05 2016 by SUMO netconvert Version dev-SVN-r20924
+<!-- generated on Mon Jun 26 15:49:35 2017 by SUMO netconvert Version dev-SVN-r24896
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -28,16 +28,16 @@
 
 <tlLogics version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="26" state="gGGgrrrrgGGgrrrrrGrG"/>
+        <phase duration="28" state="gGGgrrrrgGGgrrrrrGrG"/>
         <phase duration="5" state="gGGgrrrrgGGgrrrrrrrr"/>
-        <phase duration="4" state="yyygrrrryyygrrrrrrrr"/>
+        <phase duration="3" state="yyygrrrryyygrrrrrrrr"/>
         <phase duration="6" state="rrrGrrrrrrrGrrrrrrrr"/>
-        <phase duration="4" state="rrryrrrrrrryrrrrrrrr"/>
-        <phase duration="26" state="rrrrgGGgrrrrgGGgGrGr"/>
+        <phase duration="3" state="rrryrrrrrrryrrrrrrrr"/>
+        <phase duration="28" state="rrrrgGGgrrrrgGGgGrGr"/>
         <phase duration="5" state="rrrrgGGgrrrrgGGgrrrr"/>
-        <phase duration="4" state="rrrryyygrrrryyygrrrr"/>
+        <phase duration="3" state="rrrryyygrrrryyygrrrr"/>
         <phase duration="6" state="rrrrrrrGrrrrrrrGrrrr"/>
-        <phase duration="4" state="rrrrrrryrrrrrrryrrrr"/>
+        <phase duration="3" state="rrrrrrryrrrrrrryrrrr"/>
     </tlLogic>
 
     <connection from="EC" to="CN" fromLane="2" toLane="2" tl="C" linkIndex="4"/>

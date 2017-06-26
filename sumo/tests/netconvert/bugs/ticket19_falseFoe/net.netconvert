@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:12 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Mon Jun 26 15:49:35 2017 by SUMO netconvert Version dev-SVN-r24896
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -29,7 +29,7 @@
         <lane id=":6365_0_0" index="0" speed="13.90" length="5.54" shape="152.01,251.40 150.43,251.92 149.27,252.68 148.54,253.67 148.23,254.89"/>
     </edge>
     <edge id=":6365_1" function="internal">
-        <lane id=":6365_1_0" index="0" speed="13.90" length="7.67" shape="152.01,251.40 149.00,251.61 146.94,250.65 145.84,248.53"/>
+        <lane id=":6365_1_0" index="0" speed="13.90" length="7.68" shape="152.01,251.40 149.00,251.61 146.94,250.65 145.84,248.53"/>
     </edge>
     <edge id=":6365_8" function="internal">
         <lane id=":6365_8_0" index="0" speed="13.90" length="3.29" shape="145.84,248.53 145.70,245.24"/>
@@ -88,12 +88,12 @@
     </edge>
 
     <tlLogic id="6365" type="static" programID="0" offset="0">
-        <phase duration="36" state="rrGgrrGg"/>
-        <phase duration="4" state="rryyrryy"/>
-        <phase duration="36" state="GgrrGgrr"/>
-        <phase duration="4" state="ygrrygrr"/>
+        <phase duration="38" state="rrGgrrGg"/>
+        <phase duration="3" state="rryyrryy"/>
+        <phase duration="37" state="GgrrGgrr"/>
+        <phase duration="3" state="ygrrygrr"/>
         <phase duration="6" state="rGrrrGrr"/>
-        <phase duration="4" state="ryrrryrr"/>
+        <phase duration="3" state="ryrrryrr"/>
     </tlLogic>
 
     <junction id="6365" type="traffic_light" x="146.87" y="250.87" incLanes="1816_0 -1839_0 -1570_0 1841_0" intLanes=":6365_0_0 :6365_8_0 :6365_2_0 :6365_9_0 :6365_4_0 :6365_10_0 :6365_6_0 :6365_11_0" shape="152.36,252.96 151.66,249.84 150.58,245.66 144.10,245.11 142.54,246.17 141.62,249.23 143.34,254.52 149.82,255.01">

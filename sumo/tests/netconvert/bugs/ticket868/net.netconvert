@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 22 09:55:34 2017 by SUMO netconvert Version dev-SVN-r23052
+<!-- generated on Mon Jun 26 15:49:36 2017 by SUMO netconvert Version dev-SVN-r24896
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -187,56 +187,56 @@
     </edge>
 
     <tlLogic id="1638951669" type="static" programID="0" offset="0">
-        <phase duration="41" state="Grrr"/>
-        <phase duration="4" state="yrrr"/>
-        <phase duration="41" state="rGGG"/>
-        <phase duration="4" state="ryyy"/>
+        <phase duration="42" state="Grrr"/>
+        <phase duration="3" state="yrrr"/>
+        <phase duration="42" state="rGGG"/>
+        <phase duration="3" state="ryyy"/>
     </tlLogic>
     <tlLogic id="2107888870" type="static" programID="0" offset="0">
-        <phase duration="86" state="GGG"/>
-        <phase duration="4" state="yyy"/>
+        <phase duration="87" state="GGG"/>
+        <phase duration="3" state="yyy"/>
     </tlLogic>
     <tlLogic id="2109001185" type="static" programID="0" offset="0">
-        <phase duration="81" state="GG"/>
-        <phase duration="9" state="yy"/>
+        <phase duration="84" state="GG"/>
+        <phase duration="6" state="yy"/>
     </tlLogic>
     <tlLogic id="2116887815" type="static" programID="0" offset="0">
-        <phase duration="81" state="GGG"/>
-        <phase duration="9" state="yyy"/>
+        <phase duration="84" state="GGG"/>
+        <phase duration="6" state="yyy"/>
     </tlLogic>
     <tlLogic id="320920680" type="static" programID="0" offset="0">
-        <phase duration="81" state="GGG"/>
-        <phase duration="9" state="yyy"/>
+        <phase duration="84" state="GGG"/>
+        <phase duration="6" state="yyy"/>
     </tlLogic>
     <tlLogic id="32949992" type="static" programID="0" offset="0">
-        <phase duration="86" state="GG"/>
-        <phase duration="4" state="yy"/>
+        <phase duration="87" state="GG"/>
+        <phase duration="3" state="yy"/>
     </tlLogic>
     <tlLogic id="32950084" type="static" programID="0" offset="0">
-        <phase duration="86" state="GgGg"/>
-        <phase duration="4" state="yyyy"/>
+        <phase duration="87" state="GgGg"/>
+        <phase duration="3" state="yyyy"/>
     </tlLogic>
     <tlLogic id="449262" type="static" programID="0" offset="0">
-        <phase duration="36" state="GGr"/>
-        <phase duration="9" state="yyr"/>
-        <phase duration="36" state="rrG"/>
-        <phase duration="9" state="rry"/>
+        <phase duration="39" state="GGr"/>
+        <phase duration="6" state="yyr"/>
+        <phase duration="39" state="rrG"/>
+        <phase duration="6" state="rry"/>
     </tlLogic>
     <tlLogic id="449272" type="static" programID="0" offset="0">
-        <phase duration="86" state="GG"/>
-        <phase duration="4" state="yy"/>
+        <phase duration="87" state="GG"/>
+        <phase duration="3" state="yy"/>
     </tlLogic>
     <tlLogic id="458602274" type="static" programID="0" offset="0">
-        <phase duration="86" state="GGG"/>
-        <phase duration="4" state="yyy"/>
+        <phase duration="87" state="GGG"/>
+        <phase duration="3" state="yyy"/>
     </tlLogic>
     <tlLogic id="713758579" type="static" programID="0" offset="0">
-        <phase duration="86" state="GG"/>
-        <phase duration="4" state="yy"/>
+        <phase duration="87" state="GG"/>
+        <phase duration="3" state="yy"/>
     </tlLogic>
     <tlLogic id="805802932" type="static" programID="0" offset="0">
-        <phase duration="86" state="GGG"/>
-        <phase duration="4" state="yyy"/>
+        <phase duration="87" state="GGG"/>
+        <phase duration="3" state="yyy"/>
     </tlLogic>
 
     <junction id="1238706" type="priority" x="154.36" y="165.37" incLanes="151059738#0_0" intLanes="" shape="152.98,168.46 156.17,168.24 157.72,166.51 157.27,163.34 155.63,162.06 152.44,162.39">
