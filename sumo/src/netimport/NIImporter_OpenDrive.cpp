@@ -61,9 +61,8 @@
 //#define DEBUG_VARIABLE_WIDTHS
 //#define DEBUG_CONNECTIONS
 
-//#define DEBUG_COND(road) ((road)->id == "2503")
-//#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "2503."))
-//#define DEBUG_COND(road) (true)
+//#define DEBUG_COND(road) ((road)->id == "12")
+//#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "12"))
 
 // ===========================================================================
 // definitions
@@ -550,13 +549,13 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         toEdge = toLast ? odTo->laneSections.back().sumoID : odTo->laneSections[0].sumoID;
 
         if (fromLane == UNSET_CONNECTION) {
-            fromLane = toLast ?  odTo->laneSections.back().laneMap.begin()->first : odTo->laneSections[0].laneMap.begin()->first;
+            continue;
         }
         if (fromLane < 0) {
             fromEdge = revertID(fromEdge);
         }
         if (toLane == UNSET_CONNECTION) {
-            toLane = toLast ?  odTo->laneSections.back().laneMap.begin()->first : odTo->laneSections[0].laneMap.begin()->first;
+            continue;
         }
         if (toLane < 0) {
             toEdge = revertID(toEdge);
@@ -799,6 +798,9 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                 } else {
                     OpenDriveEdge* src = edges.find(c.fromEdge)->second;
                     src->connections.insert(c);
+#ifdef DEBUG_CONNECTIONS 
+                    if (DEBUG_COND2(from->getID())) std::cout << "insertConRight from=" << src->id << "_" << c.fromLane << " to=" << c.toEdge << "_" << c.toLane << "\n";
+#endif
                 }
             }
         }
@@ -826,6 +828,9 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                 } else {
                     OpenDriveEdge* src = edges.find(c.fromEdge)->second;
                     src->connections.insert(c);
+#ifdef DEBUG_CONNECTIONS 
+                    if (DEBUG_COND2(from->getID())) std::cout << "insertConLeft from=" << src->id << "_" << c.fromLane << " to=" << c.toEdge << "_" << c.toLane << "\n";
+#endif
                 }
             }
         }
