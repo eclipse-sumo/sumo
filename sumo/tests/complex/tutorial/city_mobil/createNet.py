@@ -23,6 +23,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import random
+import subprocess
 from constants import *
 
 occupied = 0
@@ -198,8 +199,12 @@ edges.close()
 print("</connections>", file=connections)
 connections.close()
 
-os.system("%s --no-internal-links -n %s.nod.xml -e %s.edg.xml -x %s.con.xml -o %s.net.xml" %
-          (NETCONVERT, PREFIX, PREFIX, PREFIX, PREFIX))
+subprocess.call([NETCONVERT,
+    '--no-internal-links',
+    '-n', '%s.nod.xml' % PREFIX,
+    '-e', '%s.edg.xml' % PREFIX,
+    '-x', '%s.con.xml' % PREFIX,
+    '-o', '%s.net.xml' % PREFIX])
 
 numBusses = TOTAL_CAPACITY // BUS_CAPACITY
 print("""    <flow id="b" type="cybercar" begin="0" period="100" number="%s">
