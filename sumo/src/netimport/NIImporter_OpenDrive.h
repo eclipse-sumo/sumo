@@ -339,6 +339,8 @@ protected:
 
         /// @brief The starting offset of this lane section
         double s;
+        /// @brief The original starting offset of this lane section (differs from s if the section had to be split)
+        double sOrig;
         /// @brief A mapping from OpenDrive to SUMO-index (the first is signed, the second unsigned)
         std::map<int, int> laneMap;
         /// @brief The lanes, sorted by their direction

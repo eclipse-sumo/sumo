@@ -59,9 +59,10 @@
 #include "NIImporter_OpenDrive.h"
 
 //#define DEBUG_VARIABLE_WIDTHS
+//#define DEBUG_VARIABLE_SPEED
 //#define DEBUG_CONNECTIONS
 
-//#define DEBUG_COND(road) ((road)->id == "12")
+//#define DEBUG_COND(road) ((road)->id == "42")
 //#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "12"))
 
 // ===========================================================================
@@ -799,7 +800,7 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                     OpenDriveEdge* src = edges.find(c.fromEdge)->second;
                     src->connections.insert(c);
 #ifdef DEBUG_CONNECTIONS 
-                    if (DEBUG_COND2(from->getID())) std::cout << "insertConRight from=" << src->id << "_" << c.fromLane << " to=" << c.toEdge << "_" << c.toLane << "\n";
+                    if (DEBUG_COND(src) std::cout << "insertConRight from=" << src->id << "_" << c.fromLane << " to=" << c.toEdge << "_" << c.toLane << "\n";
 #endif
                 }
             }
@@ -829,7 +830,7 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                     OpenDriveEdge* src = edges.find(c.fromEdge)->second;
                     src->connections.insert(c);
 #ifdef DEBUG_CONNECTIONS 
-                    if (DEBUG_COND2(from->getID())) std::cout << "insertConLeft from=" << src->id << "_" << c.fromLane << " to=" << c.toEdge << "_" << c.toLane << "\n";
+                    if (DEBUG_COND2(src)) std::cout << "insertConLeft from=" << src->id << "_" << c.fromLane << " to=" << c.toEdge << "_" << c.toLane << "\n";
 #endif
                 }
             }
@@ -1010,6 +1011,12 @@ void
 NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::string, OpenDriveEdge*>& edges) {
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         OpenDriveEdge& e = *(*i).second;
+#ifdef DEBUG_VARIABLE_SPEED 
+        if (DEBUG_COND(&e)) {
+            gDebugFlag1 = true;
+            std::cout << "revisitLaneSections e=" << e.id << "\n";
+        }
+#endif
         std::vector<OpenDriveLaneSection>& laneSections = e.laneSections;
         // split by speed limits
         std::vector<OpenDriveLaneSection> newSections;
@@ -1051,6 +1058,9 @@ NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::st
                 ++j;
             }
         }
+#ifdef DEBUG_VARIABLE_SPEED 
+        gDebugFlag1 = false;
+#endif
     }
 }
 
@@ -1233,7 +1243,7 @@ NIImporter_OpenDrive::calcPointOnCurve(double* ad_x, double* ad_y, double ad_cen
 // ---------------------------------------------------------------------------
 // section
 // ---------------------------------------------------------------------------
-NIImporter_OpenDrive::OpenDriveLaneSection::OpenDriveLaneSection(double sArg) : s(sArg) {
+NIImporter_OpenDrive::OpenDriveLaneSection::OpenDriveLaneSection(double sArg) : s(sArg), sOrig(sArg) {
     lanesByDir[OPENDRIVE_TAG_LEFT] = std::vector<OpenDriveLane>();
     lanesByDir[OPENDRIVE_TAG_RIGHT] = std::vector<OpenDriveLane>();
     lanesByDir[OPENDRIVE_TAG_CENTER] = std::vector<OpenDriveLane>();
@@ -1365,7 +1375,12 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildSpeedChanges(const NBTypeCont& 
     if (*speedChangePositions.begin() > 0) {
         speedChangePositions.insert(0);
     }
-    //
+#ifdef DEBUG_VARIABLE_SPEED 
+            if (gDebugFlag1) std::cout 
+                << "  buildSpeedChanges sectionStart=" << s 
+                << " speedChangePositions=" << joinToString(speedChangePositions, ", ")
+                << "\n";
+#endif
     for (std::set<double>::iterator i = speedChangePositions.begin(); i != speedChangePositions.end(); ++i) {
         if (i == speedChangePositions.begin()) {
             newSections.push_back(*this);
@@ -1774,18 +1789,24 @@ void
 NIImporter_OpenDrive::splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, double minDist) {
     std::vector<OpenDriveLaneSection> newSections;
 #ifdef DEBUG_VARIABLE_WIDTHS 
-    if (DEBUG_COND(e)) gDebugFlag1 = true;
+    if (DEBUG_COND(e)) {
+        gDebugFlag1 = true;
+        std::cout << "splitMinWidths e=" << e->id << " sections=" << e->laneSections.size() << "\n";
+    }
 #endif
     for (std::vector<OpenDriveLaneSection>::iterator j = e->laneSections.begin(); j != e->laneSections.end(); ++j) {
         OpenDriveLaneSection& sec = *j;
         std::vector<double> splitPositions;
         const double sectionEnd = (j + 1) == e->laneSections.end() ? e->length : (*(j + 1)).s;
         const int section = (int)(j - e->laneSections.begin());
+#ifdef DEBUG_VARIABLE_WIDTHS 
+                if (DEBUG_COND(e)) std::cout << "  findWidthSplit section=" << section << " sectionStart=" << sec.s << " sectionOrigStart=" << sec.sOrig << " sectionEnd=" << sectionEnd << "\n";
+#endif
         if (sec.rightLaneNumber > 0) {
-            findWidthSplit(tc, sec.lanesByDir[OPENDRIVE_TAG_RIGHT], section, sec.s, sectionEnd, splitPositions);
+            findWidthSplit(tc, sec.lanesByDir[OPENDRIVE_TAG_RIGHT], section, sec.sOrig, sectionEnd, splitPositions);
         }
         if (sec.leftLaneNumber > 0) {
-            findWidthSplit(tc, sec.lanesByDir[OPENDRIVE_TAG_LEFT], section, sec.s, sectionEnd, splitPositions);
+            findWidthSplit(tc, sec.lanesByDir[OPENDRIVE_TAG_LEFT], section, sec.sOrig, sectionEnd, splitPositions);
         }
         newSections.push_back(sec);
         std::sort(splitPositions.begin(), splitPositions.end());
@@ -1795,7 +1816,13 @@ NIImporter_OpenDrive::splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, dou
             if ((*it) - prevSplit < minDist || sectionEnd - (*it) < minDist) {
                 // avoid tiny (or duplicate) splits
 #ifdef DEBUG_VARIABLE_WIDTHS 
-                if (DEBUG_COND(e)) std::cout << " skip split=" << (*it) << "\n";
+                if (DEBUG_COND(e)) std::cout << " skip close split=" << (*it) << " prevSplit=" << prevSplit << "\n";
+#endif
+                it = splitPositions.erase(it);
+            } else if ((*it) < sec.s) {
+                // avoid splits for another section
+#ifdef DEBUG_VARIABLE_WIDTHS 
+                if (DEBUG_COND(e)) std::cout << " skip early split=" << (*it) << " s=" << sec.s << "\n";
 #endif
                 it = splitPositions.erase(it);
             } else {
@@ -1808,14 +1835,16 @@ NIImporter_OpenDrive::splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, dou
 #ifdef DEBUG_VARIABLE_WIDTHS 
             if (DEBUG_COND(e)) {
                 std::cout << " road=" << e->id << " splitMinWidths section=" << section 
-                    << " start=" << sec.s << " end=" << sectionEnd << " minDist=" << minDist
+                    << " start=" << sec.s 
+                    << " origStart=" << sec.sOrig
+                    << " end=" << sectionEnd << " minDist=" << minDist
                     << " splitPositions=" << toString(splitPositions) << "\n";
             }
 #endif
 #ifdef DEBUG_VARIABLE_WIDTHS 
             if (DEBUG_COND(e)) std::cout << "first section...\n";
 #endif
-            recomputeWidths(newSections.back(), sec.s, splitPositions.front(), sec.s, sectionEnd);
+            recomputeWidths(newSections.back(), sec.sOrig, splitPositions.front(), sec.sOrig, sectionEnd);
             for (std::vector<double>::iterator it = splitPositions.begin(); it != splitPositions.end(); ++it) {
                 OpenDriveLaneSection secNew = sec;
                 secNew.s = *it;
@@ -1830,7 +1859,7 @@ NIImporter_OpenDrive::splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, dou
                     setStraightConnections(newSections.back().lanesByDir[OPENDRIVE_TAG_LEFT]);
                 }
                 double end = (it + 1) == splitPositions.end() ? sectionEnd : *(it + 1);
-                recomputeWidths(newSections.back(), secNew.s, end, sec.s, sectionEnd);
+                recomputeWidths(newSections.back(), secNew.s, end, sec.sOrig, sectionEnd);
             }
         }
     }
@@ -1852,7 +1881,7 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
             double sPrev = l.widthData.front().s;
             double wPrev = l.widthData.front().computeAt(sPrev);
             if (gDebugFlag1) std::cout 
-                << "   section=" << section
+                << "findWidthSplit section=" << section
                     << "   sectionStart=" << sectionStart
                     << "   sectionEnd=" << sectionEnd
                     << " lane=" << l.id
@@ -1865,7 +1894,8 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
                 double sEnd = (it_w + 1) != l.widthData.end() ? (*(it_w + 1)).s : sectionEnd - sectionStart;
                 double w = (*it_w).computeAt(sEnd);
                 if (gDebugFlag1) std::cout 
-                    << "    s=" << sEnd
+                    << "    sEnd=" << sEnd
+                        << " s=" << (*it_w).s
                         << " a=" << (*it_w).a << " b=" << (*it_w).b << " c=" << (*it_w).c << " d=" << (*it_w).d
                         << " w=" << w
                         << "\n";
