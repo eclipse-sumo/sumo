@@ -143,7 +143,16 @@ NBTrafficLightDefinition::amInvalid() const {
 int
 NBTrafficLightDefinition::computeBrakingTime(double minDecel) const {
     double vmax = NBContHelper::maxSpeed(myIncomingEdges);
-    return (int)(vmax / minDecel);
+    if (vmax < 71 / 3.6) {
+        // up to 50kmh: 3 seconds , 60km/h: 4, 70kmh: 5
+        // @note: these are German regulations, other countries may differ
+        return 3 + (int)MAX2(0.0, (floor((vmax - 50/3.6) * 0.37)));
+    } else {
+        // above 70km/h we use a function that grows according to the "natural"
+        // formula (vmax / 2 * minDecel) but continues smoothly where the german
+        // rules leave of
+        return (int)(1.8 + vmax / 2 / minDecel);
+    }
 }
 
 
