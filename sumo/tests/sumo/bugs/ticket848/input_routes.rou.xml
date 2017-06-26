@@ -5,7 +5,7 @@
     <route id="r0" edges="gneE7 gneE15"/>
     <route id="r1" edges="gneE14 gneE15"/>
 
-    <vehicle id="blocker" depart="0" route="r2" type="long" departPos="29" departLane="2" arrivalLane="2">
+    <vehicle id="blocker" depart="0" type="long" departPos="29" departLane="2" arrivalLane="2">
         <route edges="gneE15"/>
         <stop lane="gneE15_2" endPos="30" until="4"/>
     </vehicle>
