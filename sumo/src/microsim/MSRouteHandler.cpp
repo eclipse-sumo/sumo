@@ -697,8 +697,8 @@ MSRouteHandler::closeVehicle() {
             // there should be one (at least the default one)
             vtype = vehControl.getVType(DEFAULT_VTYPE_ID, &myParsingRNG);
         }
-        if (route == 0) {
-            // if there is no nested route, try via the (hopefully) given route-id
+        if (myVehicleParameter->setParameter & VEHPARS_ROUTE_SET) {
+            // if the route id was given, prefer that one
             route = MSRoute::dictionary(myVehicleParameter->routeid, &myParsingRNG);
         }
         if (route == 0) {
