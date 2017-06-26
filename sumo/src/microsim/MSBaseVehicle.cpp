@@ -447,6 +447,9 @@ MSBaseVehicle::saveState(OutputDevice& out) {
     myParameter->write(out, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, getVehicleType().getID());
     // params and stops must be written in child classes since they may wish to add additional attributes first
     out.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
+    if ((myParameter->setParameter & VEHPARS_FORCE_REROUTE) && !hasDeparted()) {
+        out.writeAttr(SUMO_ATTR_REROUTE, true);
+    }
     // here starts the vehicle internal part (see loading)
     // @note: remember to close the vehicle tag when calling this in a subclass!
 }
