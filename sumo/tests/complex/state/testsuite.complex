@@ -18,3 +18,6 @@ xml
 
 # include route and vtype dists with xml output
 dists_xml
+
+# lots of vehicles with rerouting, insertion backlog and vehroute output
+rerouting

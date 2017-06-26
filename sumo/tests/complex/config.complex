@@ -36,6 +36,7 @@ test_data_ignore:.svn
 
 [collate_file]
 vehroutes:vehroutes.xml
+vehroutes2:vehroutes2.xml
 state:state.xml
 tripinfo:tripinfo.xml
 net:net.net.xml
@@ -59,6 +60,7 @@ output:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
 log:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
 net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
+vehroutes2:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 fcd:<!--{[->]}-->
