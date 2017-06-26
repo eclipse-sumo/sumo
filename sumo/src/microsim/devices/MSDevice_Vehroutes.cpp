@@ -391,7 +391,7 @@ MSDevice_Vehroutes::saveState(OutputDevice& out) const {
     internals.push_back(toString(myDepartPos));
     internals.push_back(toString(myReplacedRoutes.size()));
     for (int i = 0; i < (int)myReplacedRoutes.size(); ++i) {
-        const std::string replacedOnEdge = myReplacedRoutes[i].edge == 0 ? "" : myReplacedRoutes[i].edge->getID();
+        const std::string replacedOnEdge = myReplacedRoutes[i].edge == 0 ? "!NULL" : myReplacedRoutes[i].edge->getID();
         internals.push_back(replacedOnEdge);
         internals.push_back(toString(myReplacedRoutes[i].time));
         internals.push_back(myReplacedRoutes[i].route->getID());
@@ -419,8 +419,7 @@ MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
         bis >> edgeID;
         bis >> time;
         bis >> routeID;
-        const MSEdge* replacedOnEdge = edgeID == "" ? 0 : MSEdge::dictionary(edgeID);
-        myReplacedRoutes.push_back(RouteReplaceInfo(replacedOnEdge, time, MSRoute::dictionary(routeID)));
+        myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, MSRoute::dictionary(routeID)));
     }
 }
 
