@@ -1511,7 +1511,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         / (double) 2.0 / (double) M_PI;
         vmax = MIN2(vmax, ((getSpeed() + con.toEdge->getSpeed()) / (double) 2.0));
         */
-        double vmax = (getSpeed() + con.toEdge->getSpeed()) / (double) 2.0;
+        double vmax = (myLanes[con.fromLane].speed + con.toEdge->getLanes()[con.toLane].speed) / (double) 2.0;
         //
         Position end = con.toEdge->getLaneShape(con.toLane).front();
         Position beg = getLaneShape(con.fromLane).back();
