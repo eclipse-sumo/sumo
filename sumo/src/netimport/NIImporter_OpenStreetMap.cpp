@@ -832,7 +832,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         }
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
 
-        if (key == "highway" && value != "platform" || key == "railway" || key == "waterway" || key == "cycleway" || key == "busway" || key == "route") {
+        if ((key == "highway" && value != "platform") || key == "railway" || key == "waterway" || key == "cycleway" || key == "busway" || key == "route") {
             myCurrentEdge->myCurrentIsRoad = true;
             // special cycleway stuff
             if (key == "cycleway") {

@@ -81,7 +81,7 @@ GNEPoly::~GNEPoly() {}
 
 
 const std::string& 
-GNEPoly::getParentName() {
+GNEPoly::getParentName() const {
     if(myJunction != NULL) {
         return myJunction->getMicrosimID();
     } else {

@@ -93,7 +93,7 @@ GNEPOI::move(Position pos) {
 
 
 const std::string& 
-GNEPOI::getParentName() {
+GNEPOI::getParentName() const {
     return myNet->getMicrosimID();
 }
 

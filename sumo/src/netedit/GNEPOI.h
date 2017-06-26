@@ -84,7 +84,7 @@ public:
     /**@brief Returns the name of the parent object
      * @return This object's parent id
      */
-    const std::string& getParentName();
+    const std::string& getParentName() const;
 
     /**@brief Returns an own popup-menu
      *
