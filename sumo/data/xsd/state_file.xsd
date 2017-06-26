@@ -51,6 +51,7 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="route" type="xsd:string"/>
+        <xsd:attribute name="reroute" type="boolType"/>
         <xsd:attribute name="fromTaz" type="xsd:string"/>
         <xsd:attribute name="toTaz" type="xsd:string"/>
         <xsd:attribute name="type" type="xsd:string"/>
