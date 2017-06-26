@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:01 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Mon Jun 26 14:40:43 2017 by SUMO netconvert Version dev-SVN-r24896
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -27,9 +27,9 @@
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="0.00,0.00,200.00,0.00" projParameter="!"/>
 
     <edge id=":1_0" function="internal">
-        <lane id=":1_0_0" index="0" speed="13.45" length="0.10" shape="100.00,-8.25 100.00,-8.25"/>
-        <lane id=":1_0_1" index="1" speed="13.45" length="0.10" shape="100.00,-4.95 100.00,-4.95"/>
-        <lane id=":1_0_2" index="2" speed="13.45" length="0.10" shape="100.00,-1.65 100.00,-1.65"/>
+        <lane id=":1_0_0" index="0" speed="19.00" length="0.10" shape="100.00,-8.25 100.00,-8.25"/>
+        <lane id=":1_0_1" index="1" speed="25.00" length="0.10" shape="100.00,-4.95 100.00,-4.95"/>
+        <lane id=":1_0_2" index="2" speed="36.95" length="0.10" shape="100.00,-1.65 100.00,-1.65"/>
     </edge>
 
     <edge id="1" from="0" to="1" priority="-1">
