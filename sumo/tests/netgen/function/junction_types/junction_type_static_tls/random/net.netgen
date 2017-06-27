@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:08 2017 by SUMO netgenerate Version dev-SVN-r23047
+<!-- generated on Tue Jun 27 08:24:26 2017 by SUMO netgenerate Version dev-SVN-r24896
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -85,18 +85,18 @@
     </edge>
 
     <tlLogic id="12" type="static" programID="0" offset="0">
-        <phase duration="76" state="gG"/>
-        <phase duration="4" state="gy"/>
+        <phase duration="78" state="gG"/>
+        <phase duration="3" state="gy"/>
         <phase duration="6" state="Gr"/>
-        <phase duration="4" state="yr"/>
+        <phase duration="3" state="yr"/>
     </tlLogic>
     <tlLogic id="2" type="static" programID="0" offset="0">
-        <phase duration="86" state="GG"/>
-        <phase duration="4" state="yy"/>
+        <phase duration="87" state="GG"/>
+        <phase duration="3" state="yy"/>
     </tlLogic>
     <tlLogic id="8" type="static" programID="0" offset="0">
-        <phase duration="86" state="GGG"/>
-        <phase duration="4" state="yyy"/>
+        <phase duration="87" state="GGG"/>
+        <phase duration="3" state="yyy"/>
     </tlLogic>
 
     <junction id="1" type="dead_end" x="162.29" y="362.77" incLanes="" intLanes="" shape="162.42,367.64 165.62,367.59 167.04,362.90 167.16,359.70 161.10,358.03 157.99,358.77 157.76,364.23 158.71,367.29"/>
