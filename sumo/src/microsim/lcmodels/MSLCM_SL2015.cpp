@@ -1888,6 +1888,7 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
     const double vehWidth = myVehicle.getVehicleType().getWidth() - NUMERICAL_EPS;
     const double rightVehSide = myVehicle.getRightSideOnEdge();
     const double leftVehSide = rightVehSide + vehWidth;
+    if (gDebugFlag2) std::cout << " updateCFRelated foeOffset=" << foeOffset << " vehicles=" << vehicles.toString() << "\n";
     for (int i = 0; i < vehicles.numSublanes(); ++i) {
         CLeaderDist vehDist = vehicles[i];
         if (vehDist.first != 0 && myCFRelated.count(vehDist.first) == 0) {
