@@ -216,17 +216,17 @@ MSAbstractLaneChangeModel::endLaneChangeManeuver(const MSMoveReminder::Notificat
 
 
 MSLane*
-MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane) const {
+MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane, double posLat) const {
     if (std::find(myNoPartiallyOccupatedByShadow.begin(), myNoPartiallyOccupatedByShadow.end(), lane) == myNoPartiallyOccupatedByShadow.end()) {
         // initialize shadow lane
-        const double overlap = myVehicle.getLateralOverlap();
+        const double overlap = myVehicle.getLateralOverlap(posLat);
         if (debugVehicle()) {
-            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " posLat=" << myVehicle.getLateralPositionOnLane() << " overlap=" << overlap << "\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " posLat=" << posLat << " overlap=" << overlap << "\n";
         }
         if (overlap > NUMERICAL_EPS ||
                 // "reserve" target lane even when there is no overlap yet
                 (isChangingLanes() && myLaneChangeCompletion < 0.5)) {
-            const int shadowDirection = myVehicle.getLateralPositionOnLane() < 0 ? -1 : 1;
+            const int shadowDirection = posLat < 0 ? -1 : 1;
             return lane->getParallelLane(shadowDirection);
         } else {
             return 0;
@@ -234,6 +234,12 @@ MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane) const {
     } else {
         return 0;
     }
+}
+
+
+MSLane*
+MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane) const {
+    return getShadowLane(lane, myVehicle.getLateralPositionOnLane());
 }
 
 
@@ -290,14 +296,10 @@ MSAbstractLaneChangeModel::updateShadowLane() {
         assert(further.size() == furtherPosLat.size());
         passed.push_back(myShadowLane);
         for (int i = 0; i < (int)further.size(); ++i) {
-            if (furtherPosLat[i] == myVehicle.getLateralPositionOnLane()) {
-                MSLane* shadowFurther = getShadowLane(further[i]);
-                if (shadowFurther != 0 && MSLinkContHelper::getConnectingLink(*shadowFurther, *passed.back()) != 0) {
-                    passed.push_back(shadowFurther);
-                }
-            } else {
-                // vehicle end is still on the original lane after lane changing
-                break;
+            MSLane* shadowFurther = getShadowLane(further[i], furtherPosLat[i]);
+            if (debugVehicle()) std::cout << SIMTIME << "   further=" << further[i]->getID() << " shadowFurther=" << Named::getIDSecure(shadowFurther) << "\n";
+            if (shadowFurther != 0 && MSLinkContHelper::getConnectingLink(*shadowFurther, *passed.back()) != 0) {
+                passed.push_back(shadowFurther);
             }
         }
         std::reverse(passed.begin(), passed.end());

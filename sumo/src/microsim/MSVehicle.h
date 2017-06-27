@@ -416,6 +416,7 @@ public:
 
     /// @brief return the amount by which the vehicle extends laterally outside it's primary lane
     double getLateralOverlap() const;
+    double getLateralOverlap(double posLat) const;
 
     /** @brief Get the vehicle's lateral position on the edge of the given lane
      * (or its current edge if lane == 0)

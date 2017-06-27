@@ -305,6 +305,9 @@ public:
     /// @brief return the shadow lane for the given lane
     MSLane* getShadowLane(const MSLane* lane) const;
 
+    /// @brief return the shadow lane for the given lane and lateral offset
+    MSLane* getShadowLane(const MSLane* lane, double posLat) const;
+
     /// @brief set the shadow lane
     void setShadowLane(MSLane* lane) {
         myShadowLane = lane;

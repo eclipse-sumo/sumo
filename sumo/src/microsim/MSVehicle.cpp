@@ -3752,11 +3752,16 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
 
 
 double
-MSVehicle::getLateralOverlap() const {
-    return (fabs(getLateralPositionOnLane()) + 0.5 * getVehicleType().getWidth()
+MSVehicle::getLateralOverlap(double posLat) const {
+    return (fabs(posLat) + 0.5 * getVehicleType().getWidth()
             - 0.5 * myLane->getWidth());
 }
 
+
+double
+MSVehicle::getLateralOverlap() const {
+    return getLateralOverlap(getLateralPositionOnLane());
+}
 
 void
 MSVehicle::removeApproachingInformation(DriveItemVector& lfLinks) const {

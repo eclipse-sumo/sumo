@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'left'; collision with vehicle 'right', lane='beg_1', gap=-5.10', latGap=-0.30, time=1.00 stage=laneChange.
+Warning: Vehicle 'left' ends teleporting on edge 'end', time 1.00.
