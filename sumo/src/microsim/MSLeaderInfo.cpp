@@ -123,9 +123,10 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
     const double leftVehSide = MIN2(myWidth, vehCenter + vehHalfWidth);
     rightmost = (int)floor((rightVehSide + NUMERICAL_EPS) / MSGlobals::gLateralResolution);
     leftmost = MIN2((int)myVehicles.size() - 1, (int)floor((leftVehSide - NUMERICAL_EPS) / MSGlobals::gLateralResolution));
-    //if (gDebugFlag1 && veh->getID() == "disabled") std::cout << SIMTIME << " veh=" << veh->getID()
+    //if (veh->getID() == "Pepoli_11_41") std::cout << SIMTIME << " veh=" << veh->getID()
     //    << std::setprecision(10)
     //    << " posLat=" << veh->getLateralPositionOnLane()
+    //    << " latOffset=" << latOffset
     //    << " rightVehSide=" << rightVehSide
     //    << " leftVehSide=" << leftVehSide
     //    << " rightmost=" << rightmost

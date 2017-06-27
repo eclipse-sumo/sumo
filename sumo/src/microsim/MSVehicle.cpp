@@ -3742,7 +3742,7 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
                                               << " shadowFurtherLat=" << getLaneChangeModel().getShadowFurtherLanesPosLat()[i]
                                               <<  "\n";
 #endif
-                return getLatOffset(getLaneChangeModel().getShadowLane()) + myState.myPosLat - getLaneChangeModel().getShadowFurtherLanesPosLat()[i];
+                return getLatOffset(getLaneChangeModel().getShadowLane()) + getLaneChangeModel().getShadowFurtherLanesPosLat()[i] - myState.myPosLat;
             }
         }
         assert(false);
