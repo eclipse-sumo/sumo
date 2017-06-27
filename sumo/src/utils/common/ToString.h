@@ -37,6 +37,7 @@
 #include <string>
 #include <iomanip>
 #include <algorithm>
+#include <list>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/Named.h>
@@ -179,7 +180,6 @@ inline std::string toString(const std::vector<V*>& v, std::streamsize accuracy =
     return toString<V>(v.begin(), v.end(), accuracy);
 }
 
-
 template <typename V>
 inline std::string toString(const typename std::vector<V*>::const_iterator& b, const typename std::vector<V*>::const_iterator& e, std::streamsize accuracy = gPrecision) {
     UNUSED_PARAMETER(accuracy);
@@ -192,6 +192,25 @@ inline std::string toString(const typename std::vector<V*>::const_iterator& b, c
     }
     return oss.str();
 }
+
+template <typename V>
+inline std::string toString(const std::list<V*>& v, std::streamsize accuracy = gPrecision) {
+    return toString<V>(v.begin(), v.end(), accuracy);
+}
+
+template <typename V>
+inline std::string toString(const typename std::list<V*>::const_iterator& b, const typename std::list<V*>::const_iterator& e, std::streamsize accuracy = gPrecision) {
+    UNUSED_PARAMETER(accuracy);
+    std::ostringstream oss;
+    for (typename std::list<V*>::const_iterator it = b; it != e; ++it) {
+        if (it != b) {
+            oss << " ";
+        }
+        oss << Named::getIDSecure(*it);
+    }
+    return oss.str();
+}
+
 
 
 //template <typename V>
