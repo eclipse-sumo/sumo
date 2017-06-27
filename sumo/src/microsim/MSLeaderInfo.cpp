@@ -122,7 +122,7 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
     const double rightVehSide = MAX2(0.,  vehCenter - vehHalfWidth);
     const double leftVehSide = MIN2(myWidth, vehCenter + vehHalfWidth);
     rightmost = (int)floor((rightVehSide + NUMERICAL_EPS) / MSGlobals::gLateralResolution);
-    leftmost = MIN2((int)myVehicles.size() - 1, (int)floor(leftVehSide / MSGlobals::gLateralResolution));
+    leftmost = MIN2((int)myVehicles.size() - 1, (int)floor((leftVehSide - NUMERICAL_EPS) / MSGlobals::gLateralResolution));
     //if (gDebugFlag1 && veh->getID() == "disabled") std::cout << SIMTIME << " veh=" << veh->getID()
     //    << std::setprecision(10)
     //    << " posLat=" << veh->getLateralPositionOnLane()
