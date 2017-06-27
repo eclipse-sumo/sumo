@@ -305,11 +305,7 @@ class ScoreDialog:
                 Tkinter.Label(self.root, text=str(score),
                               bg="indian red").grid(row=idx, column=2)
                 idx += 1
-        else:
-            self.saveBut = Tkinter.Button(
-                self.root, text="Save", command=self.save)
-            self.saveBut.grid(row=idx, column=1)
-        Tkinter.Button(self.root, text=lang["Continue"], command=self.quit).grid(
+        Tkinter.Button(self.root, text=lang["Continue"], command=self.save).grid(
             row=idx, column=2)
 
         # add QR-code for LNDW
@@ -330,12 +326,11 @@ class ScoreDialog:
         # self.root.mainloop()
 
     def save(self, event=None):
-        if self.name:
+        if self.name and self.name.get():
             name = self.name.get()
             high[self.category].insert(
                 self.idx, (name, self.switch, self.score))
             high[self.category].pop()
-            self.saveBut.config(state=Tkinter.DISABLED)
             self.name.destroy()
             self.name = None
             Tkinter.Label(self.root, text=name, padx=5,
@@ -355,8 +350,7 @@ class ScoreDialog:
                     print(r1.status, r1.reason, r1.read())
             except:
                 pass
-        else:
-            self.quit()
+        self.quit()
 
     def quit(self, event=None):
         self.root.destroy()
