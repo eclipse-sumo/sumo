@@ -447,6 +447,13 @@ MSFrame::fillOptions() {
     oc.addDescription("osg-view", "GUI Only", "Start with an OpenSceneGraph view instead of the regular 2D view");
 #endif
 
+    // gui testing
+    oc.doRegister("gui-testing", new Option_Bool(false));
+    oc.addDescription("gui-testing", "GUI Only", "Enable ovelay for screen recognition");
+
+    // gui testing - debug
+    oc.doRegister("gui-testing-debug", new Option_Bool(false));
+    oc.addDescription("gui-testing-debug", "GUI Only", "Enable output messages during GUI-Testing");
 }
 
 
@@ -566,6 +573,7 @@ MSFrame::checkOptions() {
     }
     ok &= MSDevice::checkOptions(oc);
     ok &= SystemFrame::checkOptions();
+
     return ok;
 }
 
