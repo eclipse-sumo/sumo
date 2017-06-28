@@ -1,4 +1,0 @@
-Warning: Vehicle 'v0' collision with pedestrian 'p0', lane='SC_0', gap=-2.27, time=5.00 stage=move.
-Warning: Vehicle 'v0' collision with pedestrian 'p0', lane='SC_0', gap=-2.27, time=5.00 stage=laneChange.
-Warning: Vehicle 'v0' collision with pedestrian 'p0', lane='SC_0', gap=-2.27, time=5.00 stage=insertion.
-Warning: Vehicle 'v0' collision with pedestrian 'p0', lane='SC_0', gap=-0.88, time=6.00 stage=events.
