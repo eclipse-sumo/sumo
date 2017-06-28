@@ -58,6 +58,7 @@
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/pedestrians/MSPerson.h>
+#include <microsim/pedestrians/MSPModel.h>
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/trigger/MSChargingStation.h>
@@ -1532,6 +1533,25 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 adaptToLeaders(shadowLane->getLastVehicleInformation(this, latOffset, lane->getLength() - seen),
                                latOffset,
                                seen, lastLink, shadowLane, v, vLinkPass);
+            }
+        }
+        // adapt to pedestrians on the same lane
+        if (lane->getEdge().getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(lane)) {
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " adapt to pedestrians on lane=" << lane->getID() << "\n";
+            }
+#endif
+            PersonDist leader = MSPModel::getModel()->nextBlocking(lane, getPositionOnLane() + getVehicleType().getMinGap(), 
+                    getRightSideOnLane(), getRightSideOnLane() + getVehicleType().getWidth());
+            if (leader.first != 0) {
+                const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), leader.second);
+                v = MIN2(v, stopSpeed);
+#ifdef DEBUG_PLAN_MOVE
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << "    pedLeader=" << leader.first->getID() << " dist=" << leader.second << " v=" << v << "\n";
+                }
+#endif
             }
         }
 
