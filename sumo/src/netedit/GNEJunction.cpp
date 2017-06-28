@@ -782,23 +782,17 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidID(value) && (myNet->retrieveJunction(value, false) == 0);
-            break;
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::NodeTypes.hasString(value);
-            break;
         case SUMO_ATTR_POSITION:
-            bool ok;
-            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
-            break;
+            return canParse<Position>(value);
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
             return ok;
-            break;
         }
         case SUMO_ATTR_RADIUS:
             return canParse<double>(value);
-            break;
         case SUMO_ATTR_TLTYPE:
             return myNBNode.isTLControlled() && SUMOXMLDefinitions::TrafficLightTypes.hasString(value);
         case SUMO_ATTR_TLID:
@@ -832,7 +826,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_POSITION:
             bool ok;
-            myOrigPos = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
+            myOrigPos = GNEAttributeCarrier::parse<Position>(value);
             move(myOrigPos);
             // recompute neighbors junctions
             recomputeNeighborsJunctions();

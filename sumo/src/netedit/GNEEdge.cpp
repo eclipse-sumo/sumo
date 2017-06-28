@@ -820,29 +820,31 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ENDOFFSET:
             return canParse<double>(value);
         case GNE_ATTR_SHAPE_START: {
-            bool ok;
-            if(value != "") {
-                PositionVector shapeStart = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false);
-                if((shapeStart.size() == 1) && (shapeStart[0] != myNBEdge.getGeometry()[-1])) {
+            if(value == "") {
+                return true;
+            } else if(canParse<Position>(value)) {
+                Position shapeStart = parse<Position>(value);
+                if(shapeStart != myNBEdge.getGeometry()[-1]) {
                     return true;
                 } else {
                     return false;
                 }
             } else {
-                return true;
+                return false;
             }
         }
         case GNE_ATTR_SHAPE_END: {
-            bool ok;
-            if(value != "") {
-                PositionVector shapeStart = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false);
-                if((shapeStart.size() == 1) && (shapeStart[0] != myNBEdge.getGeometry()[0])) {
+            if(value == "") {
+                return true;
+            } else if(canParse<Position>(value)) {
+                Position shapeEnd = parse<Position>(value);
+                if(shapeEnd != myNBEdge.getGeometry()[0]) {
                     return true;
                 } else {
                     return false;
                 }
             } else {
-                return true;
+                return false;
             }
         }
         default:
@@ -940,7 +942,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (value == "") {
                 geom.push_front_noDoublePos(myGNEJunctionSource->getPosition());
             } else {
-                geom.push_front_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
+                geom.push_front_noDoublePos(parse<Position>(value));
             }
             setGeometry(geom, false);
             break;
@@ -952,7 +954,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (value == "") {
                 geom.push_back_noDoublePos(myGNEJunctionDestiny->getPosition());
             } else {
-                geom.push_back_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
+                geom.push_back_noDoublePos(parse<Position>(value));
             }
             setGeometry(geom, false);
             break;
