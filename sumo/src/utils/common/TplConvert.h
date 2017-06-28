@@ -37,10 +37,8 @@
 #include <cmath>
 #include <limits>
 #include <algorithm>
-#include <utils/common/RGBColor.h>
-#include <utils/common/StdDefs.h>
 #include <utils/common/UtilExceptions.h>
-
+#include <utils/common/StdDefs.h>
 
 
 // ===========================================================================
@@ -404,45 +402,6 @@ public:
         return _2bool(data);
     }
     //@}
-
-    /// @brief converts a string into a RGB value described by it by calling the char-type converter
-    /// @throw an EmptyData - exception if the given string is empty
-    /// @throw a NumberFormatException - exception when the string does not contain a valid RGB
-    static RGBColor _str2RGB(const std::string& sData) {
-        if (sData.size() == 0) {
-            throw EmptyData();
-        } else {
-            std::string::const_iterator it = sData.begin();
-            std::string red, green, blue;
-            // parse red
-            while(((*it) != '.') && (it != sData.end())) {
-                red.push_back(*it);
-                it++;
-            }
-            it++;
-            // parse green
-            while(((*it) != '.') && (it != sData.end())) {
-                green.push_back(*it);
-                it++;
-            }
-            it++;
-            // parse blue
-            while(it != sData.end()) {
-                blue.push_back(*it);
-                it++;
-            }
-            // If red, green or blue is empty, the following functions will trow a NumberFormatException()
-            int R = _str2int(red);
-            int G = _str2int(green);
-            int B = _str2int(blue);
-            // check that all values are between 0 and 255, throw NumberFormatException() in other case
-            if((R >= 0) && (R <= 255) && (G >= 0) && (G <= 255) && (B >= 0) && (B <= 255)) {
-                return RGBColor::parseColor(red + "," + green + "," + blue);
-            } else {
-                throw NumberFormatException();
-            }
-        }
-    }
 
     /// @brief returns the length of the string (the position of the 0-character)
     template<class E>

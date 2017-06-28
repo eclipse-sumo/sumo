@@ -125,12 +125,6 @@ GNEAttributeCarrier::parse(const std::string& string) {
 }
 
 
-template<> RGBColor
-GNEAttributeCarrier::parse(const std::string& string) {
-   return TplConvert::_str2RGB(string);
-}
-
-
 template<> Position
 GNEAttributeCarrier::parse(const std::string& string) {
     if (string.size() == 0) {
