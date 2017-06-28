@@ -471,4 +471,21 @@ MSTransportable::getSingularType() {
 }
 
 
+PositionVector 
+MSTransportable::getBoundingBox() const {
+    PositionVector centerLine;
+    const Position p = getPosition();
+    const double angle = getAngle();
+    const double length = getVehicleType().getLength();
+    const Position back = p + Position(cos(angle) * length, -sin(angle) * length); 
+    centerLine.push_back(p);
+    centerLine.push_back(back);
+    centerLine.move2side(0.5 * getVehicleType().getWidth());
+    PositionVector result = centerLine;
+    centerLine.move2side(-getVehicleType().getWidth());
+    result.append(centerLine.reverse(), POSITION_EPS);
+    //std::cout << " transp=" << getID() << " p=" << p << " back=" << back << " result=" << result << "\n";
+    return result;
+}
+
 /****************************************************************************/

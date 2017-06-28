@@ -33,6 +33,8 @@
 #include <cassert>
 #include <utils/common/SUMOTime.h>
 #include <utils/geom/Position.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/geom/Boundary.h>
 
 
 // ===========================================================================
@@ -540,6 +542,10 @@ public:
     * @see MSTransportable::myVType
     */
     MSVehicleType& getSingularType();
+
+
+    /// @brief return the bounding box of the person
+    PositionVector getBoundingBox() const;
 
 protected:
     /// @brief the offset for computing positions when standing at an edge
