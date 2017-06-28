@@ -178,26 +178,34 @@ RORouteHandler::myStartElement(int element,
         }
         case SUMO_TAG_PERSONTRIP:
         case SUMO_TAG_WALK: {
-            bool ok = true;
-            const char* const objId = myVehicleParameter->id.c_str();
-            const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, objId, ok, -1);
-            if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-                throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
-            }
-            const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, objId, ok, -1.);
-            if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
-                throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
-            }
-            const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, objId, ok, std::numeric_limits<double>::infinity());
-            const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, objId, ok, std::numeric_limits<double>::infinity());
-            const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, objId, ok, "");
-            if (!ok) {
-                break;
-            }
             if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
                 // XXX allow --repair?
+                bool ok = true;
                 myActiveRoute.clear();
                 parseEdges(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, " walk for person '" + myVehicleParameter->id + "'");
+                const char* const objId = myVehicleParameter->id.c_str();
+                const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, objId, ok, -1);
+                if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
+                    throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
+                }
+                const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, objId, ok, -1.);
+                if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
+                    throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
+                }
+                double departPos = std::numeric_limits<double>::infinity();
+                double arrivalPos = std::numeric_limits<double>::infinity();
+                if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
+                    departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, objId, myActiveRoute.front()->getLength(),
+                        attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, objId, ok), RandHelper::getRNG());
+                }
+                if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+                    arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, objId, myActiveRoute.back()->getLength(),
+                        attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, objId, ok), RandHelper::getRNG());
+                }
+                const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, objId, ok, "");
+                if (!ok) {
+                    break;
+                }
                 myActivePerson->addWalk(myActiveRoute, duration, speed, departPos, arrivalPos, busStop);
             } else {
                 addPersonTrip(attrs);
@@ -716,8 +724,17 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                               + "\n The route can not be build.");
         ok = false;
     }
-    const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, id, ok, 0);
-    const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, id, ok, -NUMERICAL_EPS);
+
+    double departPos = std::numeric_limits<double>::infinity();
+    double arrivalPos = std::numeric_limits<double>::infinity();
+    if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
+        departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, id, from->getLength(),
+                attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, id, ok), RandHelper::getRNG());
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+        arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, id, to->getLength(),
+                attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, id, ok), RandHelper::getRNG());
+    }
     SVCPermissions modeSet = 0;
     for (StringTokenizer st(modes); st.hasNext();) {
         const std::string mode = st.next();

@@ -172,9 +172,9 @@ ROPerson::computeIntermodal(const RORouterProvider& provider, PersonTrip* const 
         if (!it->edges.empty()) {
             if (it->line == "") {
                 if (it + 1 == result.end() && !trip->hasBusStopDest()) {
-                    trip->addTripItem(new Walk(it->edges));
+                    trip->addTripItem(new Walk(it->edges, trip->getDepartPos(false), trip->getArrivalPos(false)));
                 } else {
-                    trip->addTripItem(new Walk(it->edges, it->destStop));
+                    trip->addTripItem(new Walk(it->edges, trip->getDepartPos(false), trip->getArrivalPos(false), it->destStop));
                 }
             } else if (veh != 0 && it->line == veh->getID()) {
                 trip->addTripItem(new Ride(it->edges.front(), it->edges.back(), veh->getID(), it->destStop));

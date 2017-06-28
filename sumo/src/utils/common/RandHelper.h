@@ -58,6 +58,11 @@ public:
     /// @brief Reads the given random number options and initialises the random number generator in accordance
     static void initRandGlobal(MTRand* which = 0);
 
+    /// @brief Return the internal random number generator
+    static MTRand& getRNG() {
+        return myRandomNumberGenerator;
+    }
+
     /// @brief Returns a random real number in [0, 1)
     static inline double rand() {
         return (double) RandHelper::myRandomNumberGenerator.randExc();
