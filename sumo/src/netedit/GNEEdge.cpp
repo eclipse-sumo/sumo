@@ -802,11 +802,12 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return canParseVehicleClasses(value);
         case SUMO_ATTR_TYPE:
             return true;
-        case SUMO_ATTR_SHAPE: {
-            bool ok = true;
-            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
-            return ok;
-        }
+        case SUMO_ATTR_SHAPE:
+            if(value == "") {
+                return true;
+            } else {
+                return canParse<PositionVector>(value);
+            }
         case SUMO_ATTR_SPREADTYPE:
             return SUMOXMLDefinitions::LaneSpreadFunctions.hasString(value);
         case SUMO_ATTR_NAME:
@@ -899,8 +900,11 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBEdge.myType = value;
             break;
         case SUMO_ATTR_SHAPE:
-            bool ok;
-            myOrigShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
+            if(value == "") {
+                myOrigShape.clear();
+            } else {
+                myOrigShape = parse<PositionVector>(value);
+            }
             setGeometry(myOrigShape, true);
             break;
         case SUMO_ATTR_SPREADTYPE:
