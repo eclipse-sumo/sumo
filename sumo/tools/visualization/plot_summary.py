@@ -69,6 +69,7 @@ def main(args=None):
     maxV = 0
     files = options.summary.split(",")
     nums = readValues(files, options.verbose, options.measure)
+    times = readValues(files, options.verbose, "time")
     for f in files:
         maxV = max(maxV, len(nums[f]))
     ts = range(minV, maxV + 1)
@@ -76,9 +77,10 @@ def main(args=None):
     fig, ax = helpers.openFigure(options)
     for i, f in enumerate(files):
         v = sumolib.output.toList(nums[f], options.measure)
+        t = sumolib.output.toList(times[f], "time")
         c = helpers.getColor(options, i, len(files))
         l = helpers.getLabel(f, i, options)
-        plt.plot(ts[0:len(v)], v, label=l, color=c)
+        plt.plot(t, v, label=l, color=c)
     helpers.closeFigure(fig, ax, options)
 
 if __name__ == "__main__":
