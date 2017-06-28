@@ -500,7 +500,7 @@ GNECalibratorVehicleTypeDialog::updateCalibratorVehicleTypeValues() {
     myTextFieldMaxSpeed->setText(toString(myCopyOfCalibratorVehicleType->getMaxSpeed()).c_str());
     myTextFieldSpeedFactor->setText(toString(myCopyOfCalibratorVehicleType->getSpeedFactor()).c_str());
     myTextFieldSpeedDev->setText(toString(myCopyOfCalibratorVehicleType->getSpeedDev()).c_str());
-    myTextFieldColor->setText(myCopyOfCalibratorVehicleType->getColor().c_str());
+    myTextFieldColor->setText(toString(myCopyOfCalibratorVehicleType->getColor()).c_str());
     myTextFieldEmissionClass->setText(myCopyOfCalibratorVehicleType->getEmissionClass().c_str());
     myTextFieldWidth->setText(toString(myCopyOfCalibratorVehicleType->getWidth()).c_str());
     myTextFieldFilename->setText(myCopyOfCalibratorVehicleType->getFilename().c_str());

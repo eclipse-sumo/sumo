@@ -33,6 +33,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/RGBColor.h>
 
 // ===========================================================================
 // class declaration
@@ -55,7 +56,7 @@ public:
     /// @brief parameter constructor
     GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID,
                              double accel, double decel, double sigma, double tau, double length, double minGap,
-                             double maxSpeed, double speedFactor, double speedDev, const std::string& color,
+                             double maxSpeed, double speedFactor, double speedDev, const RGBColor& color,
                              SUMOVehicleClass vClass, const std::string& emissionClass, SUMOVehicleShape shape,
                              double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
                              const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
@@ -101,7 +102,7 @@ public:
     double getSpeedDev() const;
 
     /// @brief get color
-    std::string getColor() const;
+    RGBColor getColor() const;
 
     /// @brief get VClass
     SUMOVehicleClass getVClass() const;
@@ -246,7 +247,12 @@ public:
     /**@brief set color
      * @return true if was sucesfully set, or false if value isn't valid
      */
-    bool setColor(std::string color = "1,1,0");
+    bool setColor(RGBColor color = RGBColor::YELLOW);
+
+    /**@brief set color (string version)
+     * @return true if was sucesfully set, or false if value isn't valid
+     */
+    bool setColor(std::string color);
 
     /**@brief set VClass
      * @return true if was sucesfully set, or false if value isn't valid
@@ -411,7 +417,7 @@ private:
     double mySpeedDev;
 
     /// @brief This vehicle type's color
-    std::string myColor;
+    RGBColor myColor;
 
     /// @brief An abstract vehicle class
     SUMOVehicleClass myVClass;
