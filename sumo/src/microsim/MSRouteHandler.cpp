@@ -1058,8 +1058,8 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
                                    double& departPos, double& arrivalPos, MSStoppingPlace*& bs, bool& ok) {
     const std::string description = "person '" + personID + "' walking from " + fromEdge->getID();
 
-    departPos = parseWalkPos(SUMO_ATTR_DEPARTPOS, description, fromEdge,
-                             attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, description.c_str(), ok, "0"));
+    departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, description, fromEdge->getLength(),
+                             attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, description.c_str(), ok, "0"), myParsingRNG);
 
     std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
     if (bsID != "") {
@@ -1076,8 +1076,8 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         }
         arrivalPos = (bs->getBeginLanePosition() + bs->getEndLanePosition()) / 2.;
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-            const double arrPos = parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge,
-                                               attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok));
+            const double arrPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge->getLength(),
+                                               attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), myParsingRNG);
             if (arrPos >= bs->getBeginLanePosition() && arrPos < bs->getEndLanePosition()) {
                 arrivalPos = arrPos;
             } else {
@@ -1089,30 +1089,12 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
             throw ProcessError("No destination edge for " + description + ".");
         }
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-            arrivalPos = parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge,
-                                      attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok));
+            arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge->getLength(),
+                                      attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), myParsingRNG);
         } else {
             arrivalPos = -NUMERICAL_EPS;
         }
     }
-}
-
-
-double
-MSRouteHandler::parseWalkPos(SumoXMLAttr attr, const std::string& id, const MSEdge* edge, const std::string& val) {
-    double result;
-    std::string error;
-    ArrivalPosDefinition proc;
-    // only supports 'random' and 'max'
-    if (!SUMOVehicleParameter::parseArrivalPos(val, toString(SUMO_TAG_WALK), id, result, proc, error)) {
-        throw ProcessError(error);
-    }
-    if (proc == ARRIVAL_POS_RANDOM) {
-        result = myParsingRNG.rand(edge->getLength());
-    } else if (proc == ARRIVAL_POS_MAX) {
-        result = edge->getLength();
-    }
-    return SUMOVehicleParameter::interpretEdgePos(result, edge->getLength(), attr, id);
 }
 
 

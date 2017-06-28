@@ -734,5 +734,25 @@ SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes& attrs, const std
     }
 }
 
+
+double
+SUMOVehicleParserHelper::parseWalkPos(SumoXMLAttr attr, const std::string& id, double maxPos, const std::string& val, MTRand& rng) {
+    double result;
+    std::string error;
+    ArrivalPosDefinition proc;
+    // only supports 'random' and 'max'
+    if (!SUMOVehicleParameter::parseArrivalPos(val, toString(SUMO_TAG_WALK), id, result, proc, error)) {
+        throw ProcessError(error);
+    }
+    if (proc == ARRIVAL_POS_RANDOM) {
+        result = rng.rand(maxPos);
+    } else if (proc == ARRIVAL_POS_MAX) {
+        result = maxPos;
+    }
+    return SUMOVehicleParameter::interpretEdgePos(result, maxPos, attr, id);
+}
+
+
+
 /****************************************************************************/
 

@@ -158,6 +158,9 @@ public:
      */
     static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes& attrs, const std::string& id);
 
+    /// @brief parse departPos or arrivalPos for a walk
+    static double parseWalkPos(SumoXMLAttr attr, const std::string& id, double maxPos, const std::string& val, MTRand& rng); 
+
 private:
     /** @brief Parses attributes common to vehicles and flows
      *
