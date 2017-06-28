@@ -1417,23 +1417,12 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
+
 template<> SUMOVehicleShape
 GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
         if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
             return parse<SUMOVehicleShape>((*i).second);
-        }
-    }
-    // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
-    throw ProcessError("attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' doesn't have a default value");
-}
-
-
-template<> RGBColor
-GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
-    for (std::vector<std::pair<SumoXMLAttr, std::string> >::iterator i = _allowedAttributes.at(tag).begin(); i != _allowedAttributes.at(tag).end(); i++) {
-        if (((*i).first == attr) && ((*i).second != NODEFAULTVALUE)) {
-            return parse<RGBColor>((*i).second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings

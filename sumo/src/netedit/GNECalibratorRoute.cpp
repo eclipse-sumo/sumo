@@ -60,12 +60,12 @@
 // ===========================================================================
 
 GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent) :
-    myCalibratorParent(calibratorParent), myRouteID(calibratorParent->generateRouteID()), myColor(RGBColor()) {
+    myCalibratorParent(calibratorParent), myRouteID(calibratorParent->generateRouteID()), myColor("") {
 }
 
 
-GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, RGBColor color) :
-    myCalibratorParent(calibratorParent), myRouteID(calibratorParent->generateRouteID()), myColor(RGBColor()) {
+GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<std::string> edges, std::string color) :
+    myCalibratorParent(calibratorParent), myRouteID(calibratorParent->generateRouteID()), myColor("") {
     // set values using set functions to avoid non-valid values
     setRouteID(routeID);
     setEdges(edges);
@@ -73,8 +73,8 @@ GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::str
 }
 
 
-GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<GNEEdge*> edges, RGBColor color) :
-    myCalibratorParent(calibratorParent), myRouteID(""), myColor(RGBColor()) {
+GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, std::string routeID, std::vector<GNEEdge*> edges, std::string color) :
+    myCalibratorParent(calibratorParent), myRouteID(""), myColor("") {
     // set values using set functions to avoid non-valid values
     setRouteID(routeID);
     setEdges(edges);
@@ -118,7 +118,7 @@ GNECalibratorRoute::getEdges() const {
 }
 
 
-const RGBColor&
+const std::string&
 GNECalibratorRoute::getColor() const {
     return myColor;
 }
@@ -172,19 +172,9 @@ GNECalibratorRoute::setEdges(const std::string& edgeIDs) {
 
 
 bool
-GNECalibratorRoute::setColor(RGBColor color) {
+GNECalibratorRoute::setColor(std::string color) {
     myColor = color;
     return true;
-}
-
-bool
-GNECalibratorRoute::setColor(std::string color) {
-    if(GNEAttributeCarrier::canParse<RGBColor>(color)) {
-        setColor(GNEAttributeCarrier::parse<RGBColor>(color));
-        return true;
-    } else {
-        return false;
-    }
 }
 
 

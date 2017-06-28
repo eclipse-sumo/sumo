@@ -32,7 +32,6 @@
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/common/RGBColor.h>
 
 // ===========================================================================
 // class declaration
@@ -62,7 +61,7 @@ public:
     GNECalibratorFlow(GNECalibrator* calibratorParent);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string vehicleType, std::string route, RGBColor color, std::string departLane,
+    GNECalibratorFlow(GNECalibrator* calibratorParent, std::string flowID, std::string vehicleType, std::string route, std::string color, std::string departLane,
                       std::string departPos, std::string departSpeed, std::string arrivalLane, std::string arrivalPos, std::string arrivalSpeed, std::string line,
                       int personNumber, int containerNumber, bool reroute, std::string departPosLat, std::string arrivalPosLat, double begin, double end,
                       double vehsPerHour, double period, double probability, int number);
@@ -86,7 +85,7 @@ public:
     const std::string& getRoute() const;
 
     /// @brief get color of flow
-    const RGBColor& getColor() const;
+    const std::string& getColor() const;
 
     /// @brief get depart lane
     const std::string& getDepartLane() const;
@@ -166,12 +165,7 @@ public:
     /**@brief set color of flow
     * @return true if was sucesfully set, or false if value isn't valid
     */
-    bool setColor(RGBColor color = RGBColor::BLACK);
-
-    /**@brief set color of flow (string version)
-    * @return true if was sucesfully set, or false if value isn't valid
-    */
-    bool setColor(std::string color);
+    bool setColor(std::string color = "");
 
     /**@brief set depart lane
     * @return true if was sucesfully set, or false if value isn't valid
@@ -333,7 +327,7 @@ private:
     std::string myRoute;
 
     /// @brief color of flow
-    RGBColor myColor;
+    std::string myColor;
 
     /// @brief depart lane
     std::string myDepartLane;

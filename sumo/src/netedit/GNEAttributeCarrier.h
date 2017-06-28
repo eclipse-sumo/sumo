@@ -311,10 +311,6 @@ public:
                 if ((!ok) && (attribute == SUMO_ATTR_GUISHAPE)) {
                     errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
                 }
-                // set extra check for Color
-                if ((!ok) && (attribute == SUMO_ATTR_COLOR)) {
-                    errorFormat = "Format of RGB Color '<0-255>,<0-255>,<0-255>' isn't valid; ";
-                }
 
                 // set extra check for Position with more than one coordinate
                 if ((!ok) && (attribute == SUMO_ATTR_POSITION) && (isFloat(tag, attribute) == false)) {
