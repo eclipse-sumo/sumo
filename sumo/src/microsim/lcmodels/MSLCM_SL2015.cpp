@@ -35,6 +35,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/pedestrians/MSPModel.h>
 #include "MSLCM_SL2015.h"
 
 //#define DEBUG_VEHICLE_GUI_SELECTION 1
@@ -1634,6 +1635,17 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderInfo& ahead, int sublane
                     const double gap = leader->getBackPositionOnLane(lane) - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
                     vSafe = myCarFollowModel.followSpeed(
                                 &myVehicle, vMax, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+                }
+            }
+            // take pedestrians into account
+            if (lane->getEdge().getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(lane)) {
+                /// XXX this could be done faster by checking all sublanes at once (but would complicate the MSPModel API)
+                double foeRight, foeLeft;
+                ahead.getSublaneBorders(sublane, 0, foeRight, foeLeft);
+                PersonDist leader = MSPModel::getModel()->nextBlocking(lane, myVehicle.getPositionOnLane() + myVehicle.getVehicleType().getMinGap(), foeRight, foeLeft);
+                if (leader.first != 0) {
+                    double vSafePed = myCarFollowModel.stopSpeed(&myVehicle, vMax, leader.second);
+                    vSafe = MIN2(vSafe, vSafePed);
                 }
             }
             vSafe = MIN2(vMax, vSafe);
