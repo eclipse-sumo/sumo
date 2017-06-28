@@ -312,7 +312,6 @@ GNECalibratorFlow::setColor(std::string color) {
     } else {
         return false;
     }
-    return true;
 }
 
 bool
