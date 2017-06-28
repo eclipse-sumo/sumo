@@ -263,7 +263,7 @@ bool
 GNECalibratorFlow::setFlowID(std::string flowID) {
     if (flowID.empty()) {
         return false;
-    } else if (myCalibratorParent->getViewNet()->getNet()->flowExists(flowID) == true) {
+    } else if (myCalibratorParent->getViewNet()->getNet()->flowExists(flowID)) {
         return false;
     } else {
         myFlowID = flowID;

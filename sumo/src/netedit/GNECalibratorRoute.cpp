@@ -128,7 +128,7 @@ bool
 GNECalibratorRoute::setRouteID(std::string routeID) {
     if (routeID.empty()) {
         return false;
-    } else if (myCalibratorParent->getViewNet()->getNet()->routeExists(routeID) == true) {
+    } else if (myCalibratorParent->getViewNet()->getNet()->routeExists(routeID)) {
         return false;
     } else {
         myRouteID = routeID;

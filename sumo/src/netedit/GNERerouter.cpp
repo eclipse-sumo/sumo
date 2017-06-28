@@ -251,7 +251,7 @@ GNERerouter::addRerouterInterval(const GNERerouterInterval& rerouterInterval) {
     // obtain a copy of current rerouter Intervals to check overlapping
     std::vector<GNERerouterInterval> copyOfMyRerouterIntervals;
     copyOfMyRerouterIntervals.push_back(rerouterInterval);
-    if (checkOverlapping(copyOfMyRerouterIntervals) == true) {
+    if (checkOverlapping(copyOfMyRerouterIntervals)) {
         myRerouterIntervals = copyOfMyRerouterIntervals;
         return true;
     } else {
@@ -268,7 +268,7 @@ GNERerouter::getRerouterIntervals() const {
 
 bool
 GNERerouter::setRerouterIntervals(const std::vector<GNERerouterInterval>& rerouterIntervals) {
-    if (checkOverlapping(rerouterIntervals) == true) {
+    if (checkOverlapping(rerouterIntervals)) {
         myRerouterIntervals = rerouterIntervals;
         return true;
     } else {

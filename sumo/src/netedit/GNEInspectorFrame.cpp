@@ -243,7 +243,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
                 oss << *it_val;
             }
             // Show attribute
-            if (((disableTLSinJunctions == true) && (tag == SUMO_TAG_JUNCTION) && ((*it == SUMO_ATTR_TLTYPE) || (*it == SUMO_ATTR_TLID))) == false) {
+            if ((disableTLSinJunctions && (tag == SUMO_TAG_JUNCTION) && ((*it == SUMO_ATTR_TLTYPE) || (*it == SUMO_ATTR_TLID))) == false) {
                 (*itAttrs)->showAttribute(myACs.front()->getTag(), (*it), oss.str());
             }
             // update attribute iterator
@@ -971,7 +971,7 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
             myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
         }
         // Write Warning in console if we're in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Value '" + newVal + "' for attribute " + toString(myAttr) + " of " + toString(myTag) + " isn't valid");
         }
     }

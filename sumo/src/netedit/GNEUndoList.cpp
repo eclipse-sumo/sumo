@@ -115,7 +115,7 @@ GNEUndoList::p_abort() {
 void
 GNEUndoList::undo() {
     //std::cout << undoName().text() << "\n";
-    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Keys Ctrl + Z (Undo) pressed");
     }
     FXUndoList::undo();
@@ -127,7 +127,7 @@ void
 GNEUndoList::redo() {
     //std::cout << redoName().text() << "\n";
     //std::cout << undoName().text() << "\n";
-    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Keys Ctrl + Y (Redo) pressed");
     }
     FXUndoList::redo();

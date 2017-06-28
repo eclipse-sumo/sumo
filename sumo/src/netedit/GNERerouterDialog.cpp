@@ -123,7 +123,7 @@ GNERerouterDialog::checkModifyInterval(const GNERerouterInterval& rerouterInterv
         it->setEnd(newEnd);
     }
     // check overlapping
-    if (myRerouterParent->checkOverlapping(auxCopyOfRerouterIntervals) == true) {
+    if (myRerouterParent->checkOverlapping(auxCopyOfRerouterIntervals)) {
         return true;
     } else {
         return false;

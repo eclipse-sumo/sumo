@@ -214,7 +214,7 @@ GNEViewParent::showFramesArea() {
     // Iterate over GNEFrames
     for (std::map<int, GNEFrame*>::iterator i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
         // if at least one frame is shown, change showFlag
-        if (i->second->shown() == true) {
+        if (i->second->shown()) {
             showFlag = true;
         }
     }
@@ -232,7 +232,7 @@ GNEViewParent::hideFramesArea() {
     // Iterate over frames
     for (std::map<int, GNEFrame*>::iterator i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
         // if at least one frame is shown,  change hideflag
-        if (i->second->shown() == true) {
+        if (i->second->shown()) {
             hideFlag = false;
         }
     }
@@ -274,13 +274,13 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     std::string error = myView->makeSnapshot(file);
     if (error != "") {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'error'");
         }
         // open message box
         FXMessageBox::error(this, MBOX_OK, "Saving failed.", "%s", error.c_str());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
         }
     }

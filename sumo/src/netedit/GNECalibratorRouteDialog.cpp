@@ -122,17 +122,17 @@ long
 GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myCalibratorRouteValid == false) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error " + std::string((myUpdatingElement == true) ? ("updating") : ("creating")) + " " + toString(myCalibratorRoute->getCalibratorParent()->getTag()) +
+                              ("Error " + std::string(myUpdatingElement ? ("updating") : ("creating")) + " " + toString(myCalibratorRoute->getCalibratorParent()->getTag()) +
                                "'s " + toString(myCalibratorRoute->getTag())).c_str(), "%s",
                               (toString(myCalibratorRoute->getCalibratorParent()->getTag()) + "'s " + toString(myCalibratorRoute->getTag()) +
-                               " cannot be " + std::string((myUpdatingElement == true) ? ("updated") : ("created")) + " because parameter " + toString(myInvalidAttr) +
+                               " cannot be " + std::string(myUpdatingElement ? ("updated") : ("created")) + " because parameter " + toString(myInvalidAttr) +
                                " is invalid.").c_str());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
         }
         return 0;
@@ -172,7 +172,7 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldRouteID, depending if current value is valid or not
     if (myCopyOfCalibratorRoute->getRouteID() == myTextFieldRouteID->getText().text()) {
         myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));
-    } else if (myCopyOfCalibratorRoute->setRouteID(myTextFieldRouteID->getText().text()) == true) {
+    } else if (myCopyOfCalibratorRoute->setRouteID(myTextFieldRouteID->getText().text())) {
         myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldRouteID->setTextColor(FXRGB(255, 0, 0));
@@ -181,7 +181,7 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     }
 
     // set color of myTextFieldRouteEdges, depending if current value is valEdges or not
-    if (myCopyOfCalibratorRoute->setEdges(myTextFieldEdges->getText().text()) == true) {
+    if (myCopyOfCalibratorRoute->setEdges(myTextFieldEdges->getText().text())) {
         myTextFieldEdges->setTextColor(FXRGB(0, 0, 0));
         // fill list of router's edges
         myListOfEdgesOfRoute->clearItems();
@@ -198,7 +198,7 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldColor, depending if current value is valid or not
     if (toString(myCopyOfCalibratorRoute->getColor()) == myTextFieldColor->getText().text()) {
         myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
-    } else if (myCopyOfCalibratorRoute->setColor(myTextFieldColor->getText().text()) == true) {
+    } else if (myCopyOfCalibratorRoute->setColor(myTextFieldColor->getText().text())) {
         myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
     } else {
         myTextFieldColor->setTextColor(FXRGB(255, 0, 0));

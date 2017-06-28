@@ -142,7 +142,7 @@ GNENet::~GNENet() {
     for (GNEEdges::iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         it->second->decRef("GNENet::~GNENet");
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting unreferenced " + toString(it->second->getTag()) + " '" + it->second->getID() + "' in GNENet destructor");
         }
         delete it->second;
@@ -150,13 +150,13 @@ GNENet::~GNENet() {
     for (GNEJunctions::iterator it = myJunctions.begin(); it != myJunctions.end(); it++) {
         it->second->decRef("GNENet::~GNENet");
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting unreferenced " + toString(it->second->getTag()) + " '" + it->second->getID() + "' in GNENet destructor");
         }
         delete it->second;
     }
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Deleting net builder in GNENet destructor");
     }
     delete myNetBuilder;
@@ -301,7 +301,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
         // iterate over crossing of neighbour juntion
         for(std::vector<GNECrossing*>::iterator j = crossingsOfJunctionNeighbours.begin(); j != crossingsOfJunctionNeighbours.end(); j++) {
             // if at least one of the edges of junction to remove belongs to a crossing of the neighbour junction, delete it
-            if((*j)->checkEdgeBelong(junction->getGNEEdges()) == true) {
+            if((*j)->checkEdgeBelong(junction->getGNEEdges())) {
                 crossingsToRemove.push_back(*j);
             }
         }
@@ -322,7 +322,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     junction->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
 
     // save selection status
-    if (gSelected.isSelected(GLO_JUNCTION, junction->getGlID()) == true) {
+    if (gSelected.isSelected(GLO_JUNCTION, junction->getGlID())) {
         std::set<GUIGlID> deselected;
         deselected.insert(junction->getGlID());
         undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
@@ -359,14 +359,14 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     std::vector<GNECrossing*> crossingsJunctionSource = edge->getGNEJunctionSource()->getGNECrossings();
     for(std::vector<GNECrossing*>::const_iterator i = crossingsJunctionSource.begin(); i != crossingsJunctionSource.end(); i++) {
         // if at least one of the edges of junction to remove belongs to a crossing of the source junction, delete it
-        if((*i)->checkEdgeBelong(edge) == true) {
+        if((*i)->checkEdgeBelong(edge)) {
             deleteCrossing((*i), undoList);
         }
     }
     std::vector<GNECrossing*> crossingsJunctionDestiny = edge->getGNEJunctionDestiny()->getGNECrossings();
     for(std::vector<GNECrossing*>::const_iterator i = crossingsJunctionDestiny.begin(); i != crossingsJunctionDestiny.end(); i++) {
         // if at least one of the edges of junction to remove belongs to a crossing of the destiny junction, delete it
-        if((*i)->checkEdgeBelong(edge) == true) {
+        if((*i)->checkEdgeBelong(edge)) {
             deleteCrossing((*i), undoList);
         }
     }
@@ -378,7 +378,7 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
     edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
 
     // save selection status
-    if (gSelected.isSelected(GLO_EDGE, edge->getGlID()) == true) {
+    if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
         std::set<GUIGlID> deselected;
         deselected.insert(edge->getGlID());
         undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
@@ -421,7 +421,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
         edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
 
         // save selection status
-        if (gSelected.isSelected(GLO_EDGE, edge->getGlID()) == true) {
+        if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
             std::set<GUIGlID> deselected;
             deselected.insert(edge->getGlID());
             undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
@@ -452,7 +452,7 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
     junctionDestiny->markAsModified(undoList);
     // check if GNEConnection was previouslyselected, and if true, unselect it.
     bool selected = gSelected.isSelected(GLO_CONNECTION, connection->getGlID());
-    if(selected == true) {
+    if(selected) {
         gSelected.deselect(connection->getGlID());
     }
     undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), selected, false), true);
@@ -468,7 +468,7 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
     undoList->p_begin("delete crossing");
     // check if GNECrossing was previouslyselected, and if true, unselect it.
     bool selected = gSelected.isSelected(GLO_CROSSING, crossing->getGlID());
-    if(selected == true) {
+    if(selected) {
         gSelected.deselect(crossing->getGlID());
     }
     undoList->add(new GNEChange_Crossing(crossing->getParentJunction(), crossing->getNBCrossing().edges,
@@ -1051,7 +1051,7 @@ void
 GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath) {
     if (!myNeedRecompute) {
         if (force) {
-            if(volatileOptions == true) {
+            if(volatileOptions) {
                 window->setStatusBarText("Forced computing junctions with volatile options ...");
             } else {
                 window->setStatusBarText("Forced computing junctions ...");
@@ -1060,7 +1060,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
             return;
         }
     } else {
-        if(volatileOptions == true) {
+        if(volatileOptions) {
             window->setStatusBarText("Computing junctions with volatile options ...");
         } else {
             window->setStatusBarText("Computing junctions  ...");
@@ -1167,7 +1167,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     for(GNEJunctions::const_iterator i = myJunctions.begin(); i != myJunctions.end(); i++) {
         if((i->second->getPosition() == pos) && (cluster.find(i->second->getNBNode()) == cluster.end())) {
             // show warning in gui testing debug mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Opening FXMessageBox of type 'question'");
             }
             // Ask confirmation to user
@@ -1177,15 +1177,15 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
                                                      + ".\nIt will be joined with the other selected " + toString(SUMO_TAG_JUNCTION) + "s. Continue?").c_str());
             if (answer != 1) { // 1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
-                if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true)) {
+                if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
                     WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
-                } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug") == true)) {
+                } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
                     WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
                 }
                 return false;
             } else {
                 // write warning if netedit is running in testing mode
-                if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+                if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                     WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                 }
                 // select conflicted junction an join all again
@@ -1820,7 +1820,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     myGrid.reset();
     myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
     // if volatile options are true
-    if(volatileOptions == true) {
+    if(volatileOptions) {
 
         // clear all additionals of grid
         GNEAdditionals copyOfAdditionals = myAdditionals;

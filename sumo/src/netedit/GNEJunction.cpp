@@ -83,7 +83,7 @@ GNEJunction::~GNEJunction() {
         (*it)->decRef();
         if ((*it)->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Deleting unreferenced " + toString((*it)->getTag()) + " '" + (*it)->getID() + "' in GNEJunction destructor");
             }
             delete *it;
@@ -92,7 +92,7 @@ GNEJunction::~GNEJunction() {
     
     if (myAmResponsible) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting NBNode of '" + getID() + "' in GNEJunction destructor");
         }
         delete &myNBNode;
@@ -120,7 +120,7 @@ GNEJunction::updateGeometry() {
 void
 GNEJunction::rebuildGNECrossings() {
     // rebuild GNECrossings only if create crossings and walkingAreas in net is enabled
-    if (myNet->getNetBuilder()->haveNetworkCrossings() == true) {
+    if (myNet->getNetBuilder()->haveNetworkCrossings()) {
         // build new NBNode::Crossings and walking areas
         myNBNode.buildCrossingsAndWalkingAreas();
         const std::vector<NBNode::Crossing>& crossings = myNBNode.getCrossings();
@@ -147,7 +147,7 @@ GNEJunction::rebuildGNECrossings() {
             (*it)->decRef();
             if ((*it)->unreferenced()) {
                 // show extra information for tests
-                if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+                if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                     WRITE_WARNING("Deleting unreferenced " + toString((*it)->getTag()) + " '" + (*it)->getID() + "' in rebuildGNECrossings()");
                 }
                 delete *it;
@@ -642,11 +642,11 @@ GNEJunction::retrieveGNECrossing(NBNode::Crossing &crossing, bool createIfNoExis
             return *i;
         }
     }
-    if(createIfNoExist == true) {
+    if(createIfNoExist) {
         // create new GNECrossing
         GNECrossing* createdGNECrossing = new GNECrossing(this, crossing);
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Created " + toString(createdGNECrossing->getTag()) + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");
         }
         return createdGNECrossing;
@@ -725,7 +725,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 // make a copy because we will modify the original
                 const std::set<NBTrafficLightDefinition*> tls = myNBNode.getControllingTLS();
                 for (std::set<NBTrafficLightDefinition*>::iterator it = tls.begin(); it != tls.end(); it++) {
-                    undoList->add(new GNEChange_TLS(this, *it, false, OptionsCont::getOptions().getBool("gui-testing-debug") == true), true);
+                    undoList->add(new GNEChange_TLS(this, *it, false, OptionsCont::getOptions().getBool("gui-testing-debug")), true);
                 }
             }
             // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS

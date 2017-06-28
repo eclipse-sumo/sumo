@@ -99,7 +99,7 @@ GNEEdge::~GNEEdge() {
         (*i)->decRef("GNEEdge::~GNEEdge");
         if ((*i)->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in GNEEdge destructor");
             }
             delete *i;
@@ -110,7 +110,7 @@ GNEEdge::~GNEEdge() {
         (*i)->decRef("GNEEdge::~GNEEdge");
         if ((*i)->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in GNEEdge destructor");
             }
             delete(*i);
@@ -454,7 +454,7 @@ GNEEdge::remakeGNEConnections() {
         (*it)->decRef();
         if ((*it)->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Deleting unreferenced " + toString((*it)->getTag()) + " '" + (*it)->getID() + "' in rebuildGNEConnections()");
             }
             delete *it;
@@ -474,7 +474,7 @@ GNEEdge::clearGNEConnections() {
         // Delete GNEConnectionToErase if is unreferenced
         if ((*i)->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Deleting unreferenced " + toString((*i)->getTag()) + " '" + (*i)->getID() + "' in clearGNEConnections()");
             }
             delete(*i);
@@ -796,7 +796,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PRIORITY:
             return canParse<int>(value);
         case SUMO_ATTR_LENGTH:
-            return canParse<double>(value) && ((isPositive<double>(value) == true) || (parse<double>(value) == NBEdge::UNSPECIFIED_LOADED_LENGTH));
+            return canParse<double>(value) && (isPositive<double>(value) || (parse<double>(value) == NBEdge::UNSPECIFIED_LOADED_LENGTH));
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
@@ -815,7 +815,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             if (value == "default") {
                 return true;
             } else {
-                return canParse<double>(value) && ((isPositive<double>(value) == true) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
+                return canParse<double>(value) && (isPositive<double>(value) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
             }
         case SUMO_ATTR_ENDOFFSET:
             return canParse<double>(value);
@@ -1043,7 +1043,7 @@ GNEEdge::removeLane(GNELane* lane) {
     // Delete lane if is unreferenced
     if (lane->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting unreferenced " + toString(lane->getTag()) + " '" + lane->getID() + "' in removeLane()");
         }
         delete lane;
@@ -1083,7 +1083,7 @@ GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
         // Add reference
         myGNEConnections.back()->incRef("GNEEdge::addConnection");
         // select GNEConnection if needed
-        if(selectAfterCreation == true) {
+        if(selectAfterCreation) {
             gSelected.deselect(con->getGlID());
         }
         // update geometry
@@ -1108,7 +1108,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
         if (con->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Deleting unreferenced " + toString(con->getTag()) + " '" + con->getID() + "' in removeConnection()");
             }
             delete con;
@@ -1127,11 +1127,11 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
             return *i;
         }
     }
-    if(createIfNoExist == true) {
+    if(createIfNoExist) {
         // create new connection
         GNEConnection *createdConnection = new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Created " + toString(createdConnection->getTag()) + " '" + createdConnection->getID() + "' in retrieveGNEConnection()");
         }
         return createdConnection;

@@ -424,7 +424,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
     }
 
     // Create additional
-    if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myActualAdditionalType, valuesOfElement) == true) {
+    if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myActualAdditionalType, valuesOfElement)) {
         return ADDADDITIONAL_SUCCESS;
     } else {
         return ADDADDITIONAL_INVALID_ARGUMENTS;
@@ -435,7 +435,7 @@ void
 GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
     myViewNet->getUndoList()->p_begin("delete " + additional->getDescription());
     // save selection status
-    if (gSelected.isSelected(GLO_ADDITIONAL, additional->getGlID()) == true) {
+    if (gSelected.isSelected(GLO_ADDITIONAL, additional->getGlID())) {
         std::set<GUIGlID> deselected;
         deselected.insert(additional->getGlID());
         myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), deselected, true), true);
@@ -680,7 +680,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLTag addition
     myInvalidValue = "";
     myLabel->setText(toString(myAdditionalAttr).c_str());
     myLabel->show();
-    if (value == true) {
+    if (value) {
         myBoolCheckButton->setCheck(true);
         myBoolCheckButton->setText("true");
     } else {
@@ -1086,7 +1086,7 @@ void
 GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // iterate over standar parameters
-    for (int i = 0; (i < myIndexParameter) && (errorMessage.empty() == true); i++) {
+    for (int i = 0; (i < myIndexParameter) && errorMessage.empty(); i++) {
         // Return string with the error if at least one of the parameter isn't valid
         std::string attributeValue = myVectorOfsingleAdditionalParameter.at(i)->isAttributeValid();
         if (attributeValue.size() != 0) {
@@ -1110,7 +1110,7 @@ GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) 
     // set message in status bar
     myViewNet->setStatusBarText(errorMessage);
     // Write Warning in console if we're in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING(errorMessage);
     }
 }

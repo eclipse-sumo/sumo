@@ -59,7 +59,7 @@ GNEChange_Junction::~GNEChange_Junction() {
     myJunction->decRef("GNEChange_Junction");
     if (myJunction->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting unreferenced " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' in GNEChange_Junction");
         }
         delete myJunction;
@@ -71,14 +71,14 @@ void
 GNEChange_Junction::undo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
         }
         // add junction to net
         myNet->deleteSingleJunction(myJunction);
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
         }
         // delete junction from net
@@ -91,14 +91,14 @@ void
 GNEChange_Junction::redo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
         }
         // add junction into net
         myNet->insertJunction(myJunction);
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
         }
         // delete junction from net

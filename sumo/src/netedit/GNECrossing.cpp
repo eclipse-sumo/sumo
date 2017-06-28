@@ -105,7 +105,7 @@ GNECrossing::getNBCrossing() const {
 void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0
-    if (s.drawCrossingsAndWalkingareas == true && myShapeRotations.size() > 0 && myShapeLengths.size() > 0) {
+    if (s.drawCrossingsAndWalkingareas && myShapeRotations.size() > 0 && myShapeLengths.size() > 0) {
         // push first draw matrix
         glPushMatrix();
         // push name
@@ -266,7 +266,7 @@ GNECrossing::checkEdgeBelong(GNEEdge* edge) const {
 bool 
 GNECrossing::checkEdgeBelong(const std::vector<GNEEdge*> &edges) const {
     for(std::vector<GNEEdge*>::const_iterator i = edges.begin(); i != edges.end(); i++) {   
-        if(checkEdgeBelong(*i) == true) {
+        if(checkEdgeBelong(*i)) {
             return true;
         }
     }

@@ -233,13 +233,13 @@ GNESelectorFrame::onCmdLoad(FXObject*, FXSelector, void*) {
         handleIDs(std::vector<GUIGlID>(ids.begin(), ids.end()), false);
         if (errors != "") {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Opening FXMessageBox of type 'error'");
             }
             // open message box error
             FXMessageBox::error(this, MBOX_OK, "Errors while loading Selection", "%s", errors.c_str());
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
             }
         }
@@ -260,13 +260,13 @@ GNESelectorFrame::onCmdSave(FXObject*, FXSelector, void*) {
         gSelected.save(file.text());
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'error'");
         }
         // open message box error
         FXMessageBox::error(this, MBOX_OK, "Storing Selection failed", "%s", e.what());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'error' with 'OK'");
         }
     }
@@ -288,7 +288,7 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         gSelected.toggleSelection(*it);
     }
-    ids = myViewNet->getNet()->getGlIDs((myViewNet->selectEdges() == true) ? GLO_EDGE : GLO_LANE);
+    ids = myViewNet->getNet()->getGlIDs(myViewNet->selectEdges() ? GLO_EDGE : GLO_LANE);
     for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         gSelected.toggleSelection(*it);
     }
@@ -479,7 +479,7 @@ GNESelectorFrame::hide() {
 std::string
 GNESelectorFrame::getStats() const {
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Current selection: " + 
                       toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions, " +
                       toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges, " +
@@ -528,7 +528,7 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, S
             GUIGlID id = *it;
             if (id > 0) { // net object?
                 object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-                if ((object->getType() == GLO_LANE) && (selectEdgesEnabled == true)) {
+                if ((object->getType() == GLO_LANE) && selectEdgesEnabled) {
                     const GNEEdge& edge = (static_cast<GNELane*>(object))->getParentEdge();
                     idsSet.insert(edge.getGNEJunctionSource()->getGlID());
                     idsSet.insert(edge.getGNEJunctionDestiny()->getGlID());
@@ -550,7 +550,7 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, S
             }
             type = object->getType();
             GUIGlObjectStorage::gIDStorage.unblockObject(id);
-            if ((type == GLO_LANE) && (selectEdgesEnabled == true)) {
+            if ((type == GLO_LANE) && selectEdgesEnabled) {
                 // @note edge may be selected/deselected multiple times but this shouldn't
                 // hurt unless we add SET_TOGGLE
                 id = (static_cast<GNELane*>(object))->getParentEdge().getGlID();

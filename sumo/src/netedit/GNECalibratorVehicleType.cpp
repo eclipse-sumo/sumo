@@ -300,7 +300,7 @@ bool
 GNECalibratorVehicleType::setVehicleTypeID(std::string vehicleTypeID) {
     if (vehicleTypeID.empty()) {
         return false;
-    } else if (myCalibratorParent->getViewNet()->getNet()->vehicleTypeExists(vehicleTypeID) == true) {
+    } else if (myCalibratorParent->getViewNet()->getNet()->vehicleTypeExists(vehicleTypeID)) {
         return false;
     } else {
         myVehicleTypeID = vehicleTypeID;
@@ -524,7 +524,7 @@ GNECalibratorVehicleType::setVClass(SUMOVehicleClass vClass) {
 
 bool
 GNECalibratorVehicleType::setVClass(std::string vClass) {
-    if (canParseVehicleClasses(vClass) == true) {
+    if (canParseVehicleClasses(vClass)) {
         return setVClass(getVehicleClassID(vClass));
     } else {
         return false;

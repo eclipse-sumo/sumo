@@ -65,7 +65,7 @@ GNEChange_Edge::~GNEChange_Edge() {
     myEdge->decRef("GNEChange_Edge");
     if (myEdge->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting unreferenced " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' GNEChange_Edge");
         }
         delete myEdge;
@@ -77,7 +77,7 @@ void
 GNEChange_Edge::undo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         }
         // delete edge from net
@@ -92,7 +92,7 @@ GNEChange_Edge::undo() {
         }
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         }
         // insert edge into net
@@ -113,7 +113,7 @@ void
 GNEChange_Edge::redo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         }
         // insert edge into net
@@ -128,7 +128,7 @@ GNEChange_Edge::redo() {
         }
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Removing " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         }
         // delte edge from net

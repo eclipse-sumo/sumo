@@ -61,7 +61,7 @@ GNEChange_Attribute::~GNEChange_Attribute() {
     myAC->decRef("GNEChange_Attribute " + toString(myKey));
     if (myAC->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting unreferenced " + toString(myAC->getTag()) + " '" + myAC->getID() + "' in GNEChange_Attribute");
         }
         delete myAC;
@@ -72,7 +72,7 @@ GNEChange_Attribute::~GNEChange_Attribute() {
 void
 GNEChange_Attribute::undo() {
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + toString(myAC->getTag()) + " '" + myAC->getID() + "'");
     }
     // set original value
@@ -83,7 +83,7 @@ GNEChange_Attribute::undo() {
 void
 GNEChange_Attribute::redo() {
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug") == true) {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Setting new attribute " + toString(myKey) + " '" + myNewValue + "' into " + toString(myAC->getTag()) + " '" + myAC->getID() + "'");
     }
     // set new value

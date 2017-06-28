@@ -147,7 +147,7 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device, bool /*volatileOptio
     device.writeAttr(SUMO_ATTR_X, myPosition.x());
     device.writeAttr(SUMO_ATTR_Y, myPosition.y());
     // If filenam isn't empty and save in filename is enabled, save in a different file. In other case, save in the same additional XML
-    if (!myFilename.empty() && mySaveInFilename == true) {
+    if (!myFilename.empty() && mySaveInFilename) {
         // Write filename attribute
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
         // Save values in a different file
