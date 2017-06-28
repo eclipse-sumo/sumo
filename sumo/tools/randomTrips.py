@@ -292,7 +292,18 @@ def split_trip_attributes(tripattrs):
     # belong to the <walk> or <persontrip>
     personattrs = []
     otherattrs = []
+    attrs = []
+    # handle attribute values with a space
+    # assume that no attribute value includes an '=' sign
     for a in tripattrs.split():
+        if "=" in a:
+            attrs.append(a)
+        else:
+            if len(attrs) == 0:
+                print("Warning: invalid trip-attribute '%s'" % a)
+            else:
+                attrs[-1] += ' ' + a
+    for a in attrs:
         if is_walk_attribute(a) or is_persontrip_attribute(a):
             otherattrs.append(a)
         else:
