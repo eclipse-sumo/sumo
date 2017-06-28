@@ -32,6 +32,8 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/geom/Position.h>
 
 #include "GNEAttributeCarrier.h"
 #include "GNEUndoList.h"
@@ -125,6 +127,43 @@ GNEAttributeCarrier::parse(const std::string& string) {
 template<> RGBColor
 GNEAttributeCarrier::parse(const std::string& string) {
    return TplConvert::_str2RGB(string);
+}
+
+
+template<> Position
+GNEAttributeCarrier::parse(const std::string& string) {
+    if (string.size() == 0) {
+        throw EmptyData();
+    }
+    // obtain values separated by comas
+    std::vector<std::string> values;
+    StringTokenizer st(string, ",", true);
+    while (st.hasNext()) {
+        values.push_back(st.next());
+    }
+    // clear empty values
+    values.erase(std::remove(values.begin(), values.end(), ""), values.end());
+    // check that we have a position X-Y or a Position X-Y-Z
+    if ((values.size() != 2) && (values.size() != 3)) {
+        // throw error if position is neither x,y nor x,y,z");
+        throw NumberFormatException();
+    }
+    // obtain X e Y and clear invalid sapces
+    std::string xstr = values.at(0);
+    xstr.erase(std::remove(xstr.begin(), xstr.end(), ' '), xstr.end());
+    double x = TplConvert::_2double(xstr.c_str());
+    std::string ystr = values.at(1);
+    ystr.erase(std::remove(ystr.begin(), ystr.end(), ' '), ystr.end());
+    double y = TplConvert::_2double(ystr.c_str());
+    if (values.size() == 2) {
+        return Position(x, y);
+    } else {
+        // obtain Z and clear invalid spaces
+        std::string zstr = values.at(0);
+        zstr.erase(std::remove(zstr.begin(), zstr.end(), ' '), zstr.end());
+        double z = TplConvert::_2double(zstr.c_str());
+        return Position(x, y, z);
+    }
 }
 
 
