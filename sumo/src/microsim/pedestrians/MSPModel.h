@@ -43,7 +43,7 @@ class MSNet;
 class MSLane;
 class MSJunction;
 
-typedef std::pair<MSPerson*, double> PersonDist;
+typedef std::pair<const MSPerson*, double> PersonDist;
 
 // ===========================================================================
 // class definitions
@@ -84,7 +84,7 @@ public:
         UNUSED_PARAMETER(minPos);
         UNUSED_PARAMETER(minRight);
         UNUSED_PARAMETER(maxLeft);
-        return PersonDist(0, -1);
+        return PersonDist((const MSPerson*)0, -1);
     }
 
     virtual void cleanupHelper() {};
