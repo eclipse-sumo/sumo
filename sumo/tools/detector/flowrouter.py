@@ -53,7 +53,7 @@ class Vertex:
     def reset(self):
         self.inPathEdge = None
         self.flowDelta = sys.maxsize
-        self.numImprovedEdges = 0
+        self.gain = 0
         self.value = 0
         if self.outEdges:
             for e in self.outEdges:
@@ -64,14 +64,18 @@ class Vertex:
         self.inPathEdge = edge
         self.flowDelta = flow
         if isForward:
-            self.numImprovedEdges = edge.source.numImprovedEdges
-            if edge.startCapacity < sys.maxsize:
-                self.numImprovedEdges += 1
+            numSatEdges = edge.source.gain // edge.source.flowDelta 
+            self.gain = numSatEdges * flow 
+            if edge.capacity < sys.maxsize: 
+                self.gain += flow 
         else:
-            self.numImprovedEdges = edge.target.numImprovedEdges
+            numSatEdges = edge.target.gain // edge.target.flowDelta 
+            self.gain = numSatEdges * flow 
+            if edge.capacity < sys.maxsize: 
+                self.gain -= flow 
 
     def __repr__(self):
-        return "<%s,%s,%s>" % (self.inPathEdge, self.flowDelta, self.numImprovedEdges)
+        return "<%s,%s,%s>" % (self.inPathEdge, self.flowDelta, self.gain)
 
     def __lt__(self, other):
         return self.value < other.value
@@ -410,7 +414,7 @@ class Net:
                                 #~ print(path, "no cont sink", edge)
                     continue
                 if not edge.target.inPathEdge and edge.flow < edge.capacity:
-                    if edge.target != self._sink or currVertex.numImprovedEdges > 0:
+                    if edge.target != self._sink or currVertex.gain > 0:
                         heapq.heappush(queue, edge.target)
                         edge.target.update(edge, min(currVertex.flowDelta,
                                                      edge.capacity - edge.flow),
@@ -418,7 +422,7 @@ class Net:
             #~ if not limitedSource and not limitedSink:
             for edge in currVertex.inEdges:
                 if not edge.source.inPathEdge and edge.flow > 0:
-                    if edge.source != self._source or currVertex.numImprovedEdges > 0:
+                    if edge.source != self._source or currVertex.gain > 0:
                         heapq.heappush(queue, edge.source)
                         edge.source.update(edge, min(currVertex.flowDelta,
                                                      edge.flow), False)
@@ -441,7 +445,7 @@ class Net:
                     numSatEdges += 1
         startVertex.inPathEdge = None
         unsatEdge.target.flowDelta = startVertex.flowDelta
-        unsatEdge.target.numImprovedEdges = numSatEdges
+        unsatEdge.target.gain = startVertex.flowDelta * numSatEdges
 
     def pullFlow(self, unsatEdge):
         if options.verbose:
