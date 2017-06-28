@@ -1,9 +1,15 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Setting new attribute pos '120,20,2' into junction 'gneJ13'
+Warning: Edge '-gneE10' has a grade of 514.98%.
 Warning: Edge '-gneE16' has a grade of 17.72%.
+Warning: Edge '-gneE17' has a grade of 501.17%.
 Warning: Edge '-gneE18' has a grade of 14.33%.
+Warning: Edge '-gneE9' has a grade of 537.32%.
+Warning: Edge 'gneE10' has a grade of 514.98%.
 Warning: Edge 'gneE16' has a grade of 17.72%.
+Warning: Edge 'gneE17' has a grade of 501.17%.
 Warning: Edge 'gneE18' has a grade of 14.33%.
+Warning: Edge 'gneE9' has a grade of 537.32%.
 Warning: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE11_0to-gneE10_0' in retrieveGNEConnection()

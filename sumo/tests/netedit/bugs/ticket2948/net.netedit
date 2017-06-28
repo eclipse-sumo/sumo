@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 17/03/2017 10:08:14 by Netedit Version dev-SVN-r22880
+<!-- generated on 28/06/2017 19:22:13 by Netedit Version dev-SVN-r22880
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <new value="true"/>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.server.17Mar100801.3988/netedit.server/bugs/ticket2948\additionals.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Jun175452.6108/netedit.gui/bugs/ticket2948\additionals.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.server.17Mar100801.3988/netedit.server/bugs/ticket2948\net.net.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Jun175452.6108/netedit.gui/bugs/ticket2948\net.net.xml"/>
     </output>
 
     <processing>
@@ -23,11 +23,12 @@
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.server.17Mar100801.3988/netedit.server/bugs/ticket2948\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Jun175452.6108/netedit.gui/bugs/ticket2948\log.txt"/>
     </report>
 
 </configuration>
@@ -106,30 +107,30 @@
     </edge>
 
     <tlLogic id="gneJ1" type="static" programID="0" offset="0">
-        <phase duration="39" state="GG"/>
-        <phase duration="6" state="yy"/>
-        <phase duration="39" state="GG"/>
-        <phase duration="6" state="yy"/>
+        <phase duration="40" state="GG"/>
+        <phase duration="5" state="yy"/>
+        <phase duration="40" state="GG"/>
+        <phase duration="5" state="yy"/>
     </tlLogic>
     <tlLogic id="gneJ2" type="static" programID="0" offset="0">
-        <phase duration="84" state="GG"/>
-        <phase duration="6" state="yy"/>
+        <phase duration="85" state="GG"/>
+        <phase duration="5" state="yy"/>
     </tlLogic>
     <tlLogic id="gneJ3" type="static" programID="0" offset="0">
-        <phase duration="39" state="GG"/>
-        <phase duration="6" state="yy"/>
-        <phase duration="39" state="GG"/>
-        <phase duration="6" state="yy"/>
+        <phase duration="40" state="GG"/>
+        <phase duration="5" state="yy"/>
+        <phase duration="40" state="GG"/>
+        <phase duration="5" state="yy"/>
     </tlLogic>
     <tlLogic id="gneJ4" type="static" programID="0" offset="0">
-        <phase duration="84" state="GG"/>
-        <phase duration="6" state="yy"/>
+        <phase duration="85" state="GG"/>
+        <phase duration="5" state="yy"/>
     </tlLogic>
     <tlLogic id="gneJ5" type="static" programID="0" offset="0">
-        <phase duration="39" state="GG"/>
-        <phase duration="6" state="yy"/>
-        <phase duration="39" state="GG"/>
-        <phase duration="6" state="yy"/>
+        <phase duration="40" state="GG"/>
+        <phase duration="5" state="yy"/>
+        <phase duration="40" state="GG"/>
+        <phase duration="5" state="yy"/>
     </tlLogic>
 
     <junction id="gneJ0" type="dead_end" x="67.20" y="65.00" incLanes="-gneE0_0" intLanes="" shape="67.20,64.95 67.20,68.25 67.20,65.05"/>

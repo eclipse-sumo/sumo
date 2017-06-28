@@ -8,7 +8,7 @@ Warning: Value 'dummy lane' for attribute lane of e2Detector isn't valid
 Warning: Setting new attribute lane 'gneE0_0' into e2Detector 'correctID'
 Warning: Setting new attribute lane 'gneE2_1' into e2Detector 'correctID'
 Warning: Setting new attribute lane 'gneE2_0' into e2Detector 'correctID'
-Warning: Value '' for attribute pos of e2Detector isn't valid
+Warning: Value '-5' for attribute pos of e2Detector isn't valid
 Warning: Value '400' for attribute pos of e2Detector isn't valid
 Warning: Setting new attribute pos '20' into e2Detector 'correctID'
 Warning: Setting new attribute length '10' into e2Detector 'correctID'

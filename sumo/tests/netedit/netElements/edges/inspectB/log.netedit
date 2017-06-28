@@ -36,7 +36,6 @@ Warning: Value 'authority  army, passenger; taxi. tram' for attribute disallow o
 Warning: Setting new attribute disallow 'emergency authority army vip passenger hov bus coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1' into lane 'gneE2_0'
 Warning: Setting new attribute disallow 'emergency authority army vip passenger hov bus coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1' into lane 'gneE2_1'
 Warning: Setting new attribute disallow 'emergency authority army vip passenger hov bus coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1' into edge 'gneE2'
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Warning: Value 'dummyShape' for attribute shape of edge isn't valid
 Warning: Key F5 (Compute) pressed
 Warning: Setting new attribute shape '13.112,16.22 34.19,16.11' into edge 'gneE2'
@@ -68,15 +67,11 @@ Warning: Setting new attribute endOffset '-3' into edge 'gneE2'
 Warning: Setting new attribute endOffset '2.5' into lane 'gneE2_0'
 Warning: Setting new attribute endOffset '2.5' into lane 'gneE2_1'
 Warning: Setting new attribute endOffset '2.5' into edge 'gneE2'
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Warning: Value 'dummyShapeStart' for attribute shapeStart of edge isn't valid
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Warning: Value '34' for attribute shapeStart of edge isn't valid
 Warning: Setting new attribute shapeStart '' into edge 'gneE2'
 Warning: Setting new attribute shapeStart '14,15.5' into edge 'gneE2'
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Warning: Value 'dummyShapeEnd' for attribute shapeEnd of edge isn't valid
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Warning: Value '24' for attribute shapeEnd of edge isn't valid
 Warning: Value '14,15.5' for attribute shapeEnd of edge isn't valid
 Warning: Setting new attribute shapeEnd '' into edge 'gneE2'

@@ -1,10 +1,3 @@
-java version "1.8.0_91"
-Java(TM) SE Runtime Environment (build 1.8.0_91-b15)
-Java HotSpot(TM) 64-Bit Server VM (build 25.91-b15, mixed mode)
-Mai 31, 2017 1:38:13 PM java.util.prefs.WindowsPreferences <init>
-WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
+java version "1.8.0_131"
+Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
