@@ -77,11 +77,12 @@
 //#define DEBUG_VEHICLE_CONTAINER
 //#define DEBUG_COLLISIONS
 //#define DEBUG_JUNCTION_COLLISIONS
+//#define DEBUG_PEDESTRIAN_COLLISIONS
 //#define DEBUG_LANE_SORTER
 
-#define DEBUG_COND (getID() == "disabled")
+//#define DEBUG_COND (getID() == "disabled")
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
-#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
+//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 
 // ===========================================================================
 // static member definitions
@@ -1187,6 +1188,38 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             }
         }
     }
+
+    if (myEdge->getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(this)) {
+#ifdef DEBUG_PEDESTRIAN_COLLISIONS
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " detect junction Collisions stage=" << stage << " lane=" << getID() << "\n";
+            }
+#endif
+        AnyVehicleIterator v_end = anyVehiclesEnd();
+        for (AnyVehicleIterator it_v = anyVehiclesBegin(); it_v != v_end; ++it_v) {
+            const MSVehicle* v = *it_v;
+            const double back = v->getBackPositionOnLane(this);
+            const double length = v->getVehicleType().getLength();
+            const double right = v->getRightSideOnEdge(this) - getRightSideOnEdge();
+            PersonDist leader = MSPModel::getModel()->nextBlocking(this, back, right, right + v->getVehicleType().getWidth());
+#ifdef DEBUG_PEDESTRIAN_COLLISIONS
+            if (DEBUG_COND && DEBUG_COND2(v)) {
+                std::cout << SIMTIME << " back=" << back << " right=" << right << " person=" << Named::getIDSecure(leader.first) << " dist=" << leader.second << "\n";
+            }
+#endif
+            if (leader.first != 0 && leader.second < length) {
+                WRITE_WARNING(
+                        "Vehicle '" + v->getID() 
+                        + "' collision with pedestrian '" + leader.first->getID()
+                        + "', lane='" + getID()
+                        + "', gap=" + toString(leader.second - length)
+                        + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
+                        + " stage=" + stage + ".");
+                MSNet::getInstance()->getVehicleControl().registerCollision();
+            }
+        }
+    }
+
 
     for (std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>::iterator it = toRemove.begin(); it != toRemove.end(); ++it) {
         MSVehicle* veh = const_cast<MSVehicle*>(*it);
@@ -2744,7 +2777,9 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
                 // add link leader to all sublanes and return
                 for (int i = 0; i < result.numSublanes(); ++i) {
                     MSVehicle* veh = ll.vehAndGap.first;
+#ifdef DEBUG_CONTEXT
                     if (DEBUG_COND2(ego)) std::cout << "   linkleader=" << veh->getID() << " gap=" << ll.vehAndGap.second << "\n";
+#endif
                     result.addLeader(veh, ll.vehAndGap.second, 0);
                 }
                 return; ;

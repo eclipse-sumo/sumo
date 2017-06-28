@@ -43,6 +43,7 @@ class MSNet;
 class MSLane;
 class MSJunction;
 
+typedef std::pair<const MSPerson*, double> PersonDist;
 
 // ===========================================================================
 // class definitions
@@ -71,9 +72,19 @@ public:
     /// @brief whether a pedestrian is blocking the crossing of lane at offset distToCrossing
     virtual bool blockedAtDist(const MSLane* lane, double distToCrossing, double oncomingGap, std::vector<const MSPerson*>* collectBlockers) = 0;
 
-    /// @brief returns the lanePosition of the next pedestrian beyond minPos that is laterally between minRight and maxLeft or INVALID_OFFSET
-    virtual double nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft) {
-        return GeomHelper::INVALID_OFFSET;
+    /// @brief whether the given lane has pedestrians on it
+    virtual bool hasPedestrians(const MSLane* lane) {
+        UNUSED_PARAMETER(lane);
+        return false;
+    }
+
+    /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
+    virtual PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft) {
+        UNUSED_PARAMETER(lane);
+        UNUSED_PARAMETER(minPos);
+        UNUSED_PARAMETER(minRight);
+        UNUSED_PARAMETER(maxLeft);
+        return PersonDist(0, -1);
     }
 
     virtual void cleanupHelper() {};
