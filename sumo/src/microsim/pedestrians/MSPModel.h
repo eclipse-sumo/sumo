@@ -79,7 +79,7 @@ public:
     }
 
     /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
-    virtual PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft) {
+    virtual PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime=0) {
         UNUSED_PARAMETER(lane);
         UNUSED_PARAMETER(minPos);
         UNUSED_PARAMETER(minRight);

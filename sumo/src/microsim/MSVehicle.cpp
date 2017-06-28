@@ -1542,10 +1542,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 std::cout << SIMTIME << " adapt to pedestrians on lane=" << lane->getID() << "\n";
             }
 #endif
-            PersonDist leader = MSPModel::getModel()->nextBlocking(lane, getPositionOnLane() + getVehicleType().getMinGap(), 
-                    getRightSideOnLane(), getRightSideOnLane() + getVehicleType().getWidth());
+            PersonDist leader = MSPModel::getModel()->nextBlocking(lane, getPositionOnLane(), 
+                    getRightSideOnLane(), getRightSideOnLane() + getVehicleType().getWidth(), ceil(getSpeed() / cfModel.getMaxDecel()));
             if (leader.first != 0) {
-                const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), leader.second);
+                const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), leader.second - getVehicleType().getMinGap());
                 v = MIN2(v, stopSpeed);
 #ifdef DEBUG_PLAN_MOVE
                 if (DEBUG_COND) {

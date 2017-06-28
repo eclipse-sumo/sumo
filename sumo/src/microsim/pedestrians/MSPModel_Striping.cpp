@@ -186,20 +186,25 @@ MSPModel_Striping::hasPedestrians(const MSLane* lane) {
 
 
 PersonDist
-MSPModel_Striping::nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft) {
+MSPModel_Striping::nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime) {
     PersonDist result(0, -1);
     double closest = std::numeric_limits<double>::max();
     const Pedestrians& pedestrians = getPedestrians(lane);
     for (Pedestrians::const_iterator it_ped = pedestrians.begin(); it_ped != pedestrians.end(); ++it_ped) {
         const PState& ped = **it_ped;
-        if (ped.myRelX > minPos && (result.first == 0 || closest > ped.myRelX)) {
+        // account for distance covered by oncoming pedestrians
+        double relX2 = ped.myRelX - (ped.myDir == FORWARD ? 0 : stopTime * ped.myPerson->getVehicleType().getMaxSpeed());
+        if (ped.myRelX > minPos && (result.first == 0 || closest > relX2)) {
             const double center = lane->getWidth() - (ped.myRelY + stripeWidth * 0.5);
             const double halfWidth = 0.5 * ped.myPerson->getVehicleType().getWidth();
             const bool overlap = (center + halfWidth > minRight && center - halfWidth < maxLeft);
             if DEBUGCOND(ped.myPerson->getID()) {
                 std::cout << "  nextBlocking lane=" << lane->getID() 
                     << " minPos=" << minPos << " minRight=" << minRight << " maxLeft=" << maxLeft 
+                    << " stopTime=" << stopTime
                     << " pedY=" << ped.myRelY
+                    << " pedX=" << ped.myRelX
+                    << " relX2=" << relX2
                     << " center=" << center
                     << " pedLeft=" << center + halfWidth
                     << " pedRight=" << center - halfWidth
@@ -207,9 +212,9 @@ MSPModel_Striping::nextBlocking(const MSLane* lane, double minPos, double minRig
                     << "\n";
             }
             if (overlap) {
-                closest = ped.myRelX;
+                closest = relX2;
                 result.first = ped.myPerson;
-                result.second = ped.myRelX - minPos - (ped.myDir == FORWARD ? ped.myPerson->getVehicleType().getLength() : 0);
+                result.second = relX2 - minPos - (ped.myDir == FORWARD ? ped.myPerson->getVehicleType().getLength() : 0);
             }
         }
     }

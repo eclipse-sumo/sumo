@@ -79,7 +79,7 @@ public:
     bool hasPedestrians(const MSLane* lane); 
 
     /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
-    PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft); 
+    PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime=0); 
 
     /// @brief remove state at simulation end
     void cleanupHelper();
