@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jun 28 12:29:16 2017 by SUMO Version dev-SVN-r24915
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <pedestrian.model value="striping"/>
+        <pedestrian.striping.dawdling value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="v0" depart="0.00" departLane="SC_0" departPos="20.00" departSpeed="0.00" departDelay="0.00" arrival="308.00" arrivalLane="SC_0" arrivalPos="91.95" arrivalSpeed="0.00" duration="308.00" routeLength="71.95" waitSteps="301" timeLoss="304.51" rerouteNo="0" devices="tripinfo_v0" vType="car" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p0" depart="0.00">
+        <walk arrival="350.00"/>
+    </personinfo>
+</tripinfos>
