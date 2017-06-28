@@ -313,8 +313,19 @@ public:
                 }
                 // set extra check for Color
                 if ((!ok) && (attribute == SUMO_ATTR_COLOR)) {
-                    errorFormat = "Format of RGB Color 'R,G,B' isn't valid; ";
+                    errorFormat = "Format of RGB Color '<0-255>,<0-255>,<0-255>' isn't valid; ";
                 }
+
+                // set extra check for Position with more than one coordinate
+                if ((!ok) && (attribute == SUMO_ATTR_POSITION) && (isFloat(tag, attribute) == false)) {
+                    errorFormat = "Formats of positions over plane are 'x,y' or 'x,y,z'; ";
+                }
+
+                // set extra check for shapes
+                if ((!ok) && (attribute == SUMO_ATTR_SHAPE)) {
+                    errorFormat = "Format of shapes is 'X1,Y1 X2,Y2 ... Xn,Yn' or 'X1,Y1,Z1 X2,y2,z2 ... Xn,Yn,Zn'; ";
+                }
+
                 // If attribute has an invalid format
                 if (!ok) {
                     // if attribute has a default value, take it as string. In other case, abort.
