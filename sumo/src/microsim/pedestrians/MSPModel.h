@@ -33,6 +33,7 @@
 #include <limits>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Command.h>
+#include <utils/geom/GeomHelper.h>
 #include <microsim/pedestrians/MSPerson.h>
 
 // ===========================================================================
@@ -69,6 +70,11 @@ public:
 
     /// @brief whether a pedestrian is blocking the crossing of lane at offset distToCrossing
     virtual bool blockedAtDist(const MSLane* lane, double distToCrossing, double oncomingGap, std::vector<const MSPerson*>* collectBlockers) = 0;
+
+    /// @brief returns the lanePosition of the next pedestrian beyond minPos that is laterally between minRight and maxLeft or INVALID_OFFSET
+    virtual double nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft) {
+        return GeomHelper::INVALID_OFFSET;
+    }
 
     virtual void cleanupHelper() {};
 

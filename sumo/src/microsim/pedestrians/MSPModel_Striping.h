@@ -75,6 +75,9 @@ public:
     /// @brief whether a pedestrian is blocking the crossing of lane at offset distToCrossing
     bool blockedAtDist(const MSLane* lane, double distToCrossing, double oncomingGap, std::vector<const MSPerson*>* collectBlockers);
 
+    /// @brief returns the position of the next pedestrian beyond minPos that is laterally between minRight and maxLeft
+    double nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft); 
+
     /// @brief remove state at simulation end
     void cleanupHelper();
 

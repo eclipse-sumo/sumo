@@ -179,6 +179,23 @@ MSPModel_Striping::blockedAtDist(const MSLane* lane, double distToCrossing, doub
 }
 
 
+double 
+MSPModel_Striping::nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft) {
+    double result = GeomHelper::INVALID_OFFSET;
+    const Pedestrians& pedestrians = getPedestrians(lane);
+    for (Pedestrians::const_iterator it_ped = pedestrians.begin(); it_ped != pedestrians.end(); ++it_ped) {
+        const PState& ped = **it_ped;
+        if (ped.myRelX > minPos 
+                && (result == GeomHelper::INVALID_OFFSET || result > ped.myRelX)
+                && (ped.myRelY + 0.5 * ped.myPerson->getVehicleType().getWidth() > minRight) 
+                && (ped.myRelY - 0.5 * ped.myPerson->getVehicleType().getWidth() < maxLeft)) {
+            result = ped.myRelX;
+        }
+    }
+    return result;
+}
+
+
 MSPModel_Striping::Pedestrians&
 MSPModel_Striping::getPedestrians(const MSLane* lane) {
     ActiveLanes::iterator it = myActiveLanes.find(lane);
