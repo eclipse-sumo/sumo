@@ -43,7 +43,7 @@ class MSNet;
 class MSLane;
 class MSJunction;
 
-typedef std::pair<const MSPerson*, double> PersonDist;
+typedef std::pair<MSPerson*, double> PersonDist;
 
 // ===========================================================================
 // class definitions
