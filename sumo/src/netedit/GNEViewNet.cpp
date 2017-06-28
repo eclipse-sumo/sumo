@@ -833,6 +833,22 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
 }
 
 
+long 
+GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* data) {
+    return GUISUMOAbstractView::onKeyPress(o, sel, data);
+}
+
+
+long 
+GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
+    if(myAmInRectSelect && ((((FXEvent*)data)->state & SHIFTMASK) == false)) {
+        myAmInRectSelect = false;
+        update();
+    }
+    return GUISUMOAbstractView::onKeyRelease(o, sel, data);
+}
+
+
 void
 GNEViewNet::abortOperation(bool clearSelection) {
     // steal focus from any text fields

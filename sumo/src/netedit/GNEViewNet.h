@@ -131,6 +131,12 @@ public:
 
     /// @brief called when user moves mouse
     long onMouseMove(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press a key
+    long onKeyPress(FXObject* o, FXSelector sel, void* data);
+
+    /// @brief called when user release a key
+    long onKeyRelease(FXObject* o, FXSelector sel, void* data);
     /// @}
 
     /// @name set mode call backs
