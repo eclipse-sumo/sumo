@@ -34,6 +34,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/Position.h>
+#include <utils/geom/PositionVector.h>
 
 #include "GNEAttributeCarrier.h"
 #include "GNEUndoList.h"
@@ -205,6 +206,28 @@ GNEAttributeCarrier::parse(const std::string& string) {
         parsedBoolValues.push_back(parse<bool>(*i));
     }
     return parsedBoolValues;
+}
+
+
+template<> PositionVector
+GNEAttributeCarrier::parse(const std::string& string) {
+    if (string.size() == 0) {
+        throw EmptyData();
+    }
+    // obtain values separated by spaces
+    std::vector<std::string> parsedValues;
+    StringTokenizer st(string, " ", true);
+    while (st.hasNext()) {
+        parsedValues.push_back(st.next());
+    }
+    // clear empty values
+    parsedValues.erase(std::remove(parsedValues.begin(), parsedValues.end(), ""), parsedValues.end());
+    // declare vector to save positions 
+    std::vector<Position> parsedPositionValues;
+    for (std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
+        parsedPositionValues.push_back(parse<Position>(*i));
+    }
+    return parsedPositionValues;
 }
 
 
