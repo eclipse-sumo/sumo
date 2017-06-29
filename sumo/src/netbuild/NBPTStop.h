@@ -31,6 +31,8 @@
 
 #include <string>
 #include <utils/geom/Position.h>
+#include "utils/common/SUMOVehicleClass.h"
+
 
 
 // ===========================================================================

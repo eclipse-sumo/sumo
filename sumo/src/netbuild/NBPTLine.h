@@ -23,6 +23,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 // ===========================================================================
 // class declarations
@@ -44,6 +45,17 @@ public:
 private:
     std::string myName;
     std::vector<NBPTStop*> myPTStops;
+public:
+    const std::vector<NBPTStop*>& getMyPTStops() const;
+private:
+    std::map<std::string, std::vector<long long int>> myWaysNodes;
+    std::vector<std::string> myWays;
+public:
+    const std::vector<std::string>& getMyWays() const;
+    std::vector<long long int>* getWaysNodes(std::string wayId);
+private:
+
+    std::string myCurrentWay;
     long long int myPTLineId;
 };
 

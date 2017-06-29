@@ -24,6 +24,7 @@
 
 #include <vector>
 #include "NBPTLine.h"
+#include "NBEdgeCont.h"
 
 class NBPTLineCont {
 
@@ -51,7 +52,11 @@ public:
         return myPTLines.end();
     }
 
+    void process(NBEdgeCont& cont);
 private:
+
+    static const int FWD = 1;
+    static const int BWD = -1;
 
     /// @brief Definition of the map of names to pt lines
     typedef std::vector<NBPTLine*> PTLinesCont;

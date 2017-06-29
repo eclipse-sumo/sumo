@@ -94,7 +94,7 @@ void NBPTStopCont::process(NBEdgeCont& cont) {
     //scnd pass set correct lane
     for (PTStopsCont::iterator i = myPTStops.begin(); i != myPTStops.end();) {
         NBPTStop* stop = i->second;
-        if (!findLaneAndComputeBusStopExtend(stop, cont)) {
+        if (!NBPTStopCont::findLaneAndComputeBusStopExtend(stop, cont)) {
             WRITE_WARNING("Could not find corresponding edge or compatible lane for pt stop: " + i->second->getName()
                                   + ". Thus, it will be removed!");
             EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());
@@ -107,43 +107,11 @@ void NBPTStopCont::process(NBEdgeCont& cont) {
 
 }
 
-bool NBPTStopCont::findLaneAndComputeBusStopExtend(NBPTStop* pStop, NBEdgeCont& cont) {
-    std::string edgeId = pStop->getEdgeId();
-    NBEdge* edge = cont.getByID(edgeId);
-    if (edge != 0) {
 
-        int laneNr = -1;
-
-        for (std::vector<NBEdge::Lane>::const_iterator it = edge->getLanes().begin();
-             it != edge->getLanes().end();
-             it++) {
-            if ((it->permissions & pStop->getPermissions()) > 0) {
-                ++laneNr;
-                break;
-            }
-            laneNr++;
-        }
-
-        if (laneNr != -1) {
-            const std::string& lane = edge->getLaneID(laneNr);
-            pStop->setLaneID(lane);
-            const PositionVector& shape = edge->getLaneShape(laneNr);
-            double offset = shape.nearest_offset_to_point2D(pStop->getPosition(), true);
-            pStop->computExtent(offset, edge->getLength());
-
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-    return true;
-
-}
 NBPTStop* NBPTStopCont::getReverseStop(NBPTStop* pStop, NBEdgeCont& cont) {
     std::string edgeId = pStop->getEdgeId();
     NBEdge* edge = cont.getByID(edgeId);
-    NBEdge* reverse = getReverseEdge(edge);
+    NBEdge* reverse = NBPTStopCont::getReverseEdge(edge);
     if (reverse != 0) {
 
         Position* pos = new Position(pStop->getPosition());
@@ -189,23 +157,12 @@ NBPTStop* NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeC
     return 0;
 }
 
-NBEdge* NBPTStopCont::getReverseEdge(NBEdge* edge) {
-    if (edge != 0) {
-        for (EdgeVector::const_iterator it = edge->getToNode()->getOutgoingEdges().begin();
-             it != edge->getToNode()->getOutgoingEdges().end();
-             it++) {
-            if ((*it)->getToNode() == edge->getFromNode()) {
-                return (*it);
-            }
-        }
-    }
-    return 0;
-}
+
 
 void NBPTStopCont::assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCont& cont) {
     std::string edgeId = pStop->getEdgeId();
     NBEdge* edge = cont.getByID(edgeId);
-    NBEdge* reverse = getReverseEdge(edge);
+    NBEdge* reverse = NBPTStopCont::getReverseEdge(edge);
     if (reverse != 0) {
         Position* closestPlatform = getClosestPlatformToPTStopPosition(pStop);
         //TODO make isLeft in PositionVector static [GL May '17]
@@ -253,4 +210,50 @@ Position* NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) {
     return closest;
 }
 
+//static functions
 
+bool NBPTStopCont::findLaneAndComputeBusStopExtend(NBPTStop* pStop, NBEdgeCont& cont) {
+    std::string edgeId = pStop->getEdgeId();
+    NBEdge* edge = cont.getByID(edgeId);
+    if (edge != 0) {
+
+        int laneNr = -1;
+
+        for (std::vector<NBEdge::Lane>::const_iterator it = edge->getLanes().begin();
+             it != edge->getLanes().end();
+             it++) {
+            if ((it->permissions & pStop->getPermissions()) > 0) {
+                ++laneNr;
+                break;
+            }
+            laneNr++;
+        }
+
+        if (laneNr != -1) {
+            const std::string& lane = edge->getLaneID(laneNr);
+            pStop->setLaneID(lane);
+            const PositionVector& shape = edge->getLaneShape(laneNr);
+            double offset = shape.nearest_offset_to_point2D(pStop->getPosition(), true);
+            pStop->computExtent(offset, edge->getLength());
+
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+    return true;
+}
+
+NBEdge* NBPTStopCont::getReverseEdge(NBEdge* edge) {
+    if (edge != 0) {
+        for (EdgeVector::const_iterator it = edge->getToNode()->getOutgoingEdges().begin();
+             it != edge->getToNode()->getOutgoingEdges().end();
+             it++) {
+            if ((*it)->getToNode() == edge->getFromNode()) {
+                return (*it);
+            }
+        }
+    }
+    return 0;
+}

@@ -1,5 +1,5 @@
-# direction of bus stops imported (guessed) correctly
-bus_line
+# direction of bus stops imported correctly based on pt lines
+bus_stop_direction_from_pt_lines
 
 # direction of bus stops imported (guessed) correctly
 bus_stop_direction_platform_tagged_as_highway

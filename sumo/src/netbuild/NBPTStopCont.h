@@ -73,13 +73,19 @@ private:
     /// @brief The map of names to pt stops
     PTStopsCont myPTStops;
 
-    bool findLaneAndComputeBusStopExtend(NBPTStop* pStop, NBEdgeCont& cont);
     NBPTStop* getReverseStop(NBPTStop* pStop, NBEdgeCont& cont);
-    NBEdge* getReverseEdge(NBEdge* edge);
+
+
     void assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCont& cont);
     Position* getClosestPlatformToPTStopPosition(NBPTStop* pStop);
     NBPTStop* assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont);
     double computeCrossProductEdgePosition(const NBEdge* edge, const Position* closestPlatform) const;
+
+public:
+    static bool findLaneAndComputeBusStopExtend(NBPTStop* pStop, NBEdgeCont& cont);
+    static NBEdge* getReverseEdge(NBEdge* edge);
+
+
 };
 
 #endif //SUMO_NBPTSTOPCONT_H
