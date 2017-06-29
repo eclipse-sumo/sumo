@@ -213,9 +213,6 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // Add a draw matrix
         glPushMatrix();
 
-        // Obtain rotation of the sing depeding of the option "lefthand"
-        double rotSign = OptionsCont::getOptions().getBool("lefthand");
-
         // Set color of the lines
         if (isAdditionalSelected()) {
             GLHelper::setColor(myTextColorSelected);
@@ -234,8 +231,8 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // Rotate 180 (Eje X -> Mirror)
             glRotated(180, 1, 0, 0);
 
-            // Rotate again depending of the option rotSign
-            glRotated(rotSign * myBlockIconRotation, 0, 0, 1);
+            // Rotate again depending of the myBlockIconRotation
+            glRotated(myBlockIconRotation, 0, 0, 1);
 
             // Set poligon mode
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
