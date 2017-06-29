@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 29 08:58:04 2017 by SUMO Version dev-SVN-r24952
+<!-- generated on Thu Jun 29 09:34:38 2017 by SUMO Version dev-SVN-r24952
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -25,3 +25,50 @@
     </report>
 
 </configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <person id="p0" x="40.00" y="-1.65" angle="90.00" speed="1.39" pos="40.00" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <person id="p0" x="41.39" y="-1.65" angle="90.00" speed="1.39" pos="41.39" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <person id="p0" x="42.78" y="-1.65" angle="90.00" speed="1.39" pos="42.78" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <person id="p0" x="44.17" y="-1.65" angle="90.00" speed="1.39" pos="44.17" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <person id="p0" x="45.56" y="-1.65" angle="90.00" speed="1.39" pos="45.56" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <person id="p0" x="46.94" y="-1.65" angle="90.00" speed="1.39" pos="46.94" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <person id="p0" x="48.33" y="-1.65" angle="90.00" speed="1.39" pos="48.33" edge="beg" slope="0.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <person id="p0" x="50.00" y="-4.65" angle="90.00" speed="1.39" pos="0.00" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <person id="p0" x="51.39" y="-4.65" angle="90.00" speed="1.39" pos="1.39" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <person id="p0" x="52.78" y="-4.65" angle="90.00" speed="1.39" pos="2.78" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <person id="p0" x="54.17" y="-4.65" angle="90.00" speed="1.39" pos="4.17" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <person id="p0" x="55.56" y="-4.65" angle="90.00" speed="1.39" pos="5.56" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="12.00">
+        <person id="p0" x="56.94" y="-4.65" angle="90.00" speed="1.39" pos="6.94" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="13.00">
+        <person id="p0" x="58.33" y="-4.65" angle="90.00" speed="1.39" pos="8.33" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="14.00"/>
+</fcd-export>
