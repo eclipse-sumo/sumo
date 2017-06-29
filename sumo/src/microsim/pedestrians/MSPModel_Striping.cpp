@@ -193,7 +193,7 @@ MSPModel_Striping::hasPedestrians(const MSLane* lane) {
 
 PersonDist
 MSPModel_Striping::nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime) {
-    PersonDist result(0, -1);
+    PersonDist result((const MSPerson*)0, -1);
     double closest = std::numeric_limits<double>::max();
     const Pedestrians& pedestrians = getPedestrians(lane);
     for (Pedestrians::const_iterator it_ped = pedestrians.begin(); it_ped != pedestrians.end(); ++it_ped) {
