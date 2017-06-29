@@ -703,6 +703,7 @@ GNEInspectorFrame::showAttributeCarrierChilds() {
     }
 }
 
+
 // ===========================================================================
 // AttributeInput method definitions
 // ===========================================================================
@@ -932,6 +933,11 @@ GNEInspectorFrame::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void
         }
     }
 
+    // we need a extra check for Position and Shape Values, due #2658
+    if((myAttr == SUMO_ATTR_POSITION) || (myAttr == SUMO_ATTR_SHAPE)) {
+        newVal = stripWhitespaceAfterComma(newVal);
+    }
+
     // Check if attribute must be changed
     if (myInspectorFrameParent->getACs().front()->isValid(myAttr, newVal)) {
         // if its valid for the first AC than its valid for all (of the same type)
@@ -990,6 +996,27 @@ GNEInspectorFrame::AttributeInput::show() {
 void
 GNEInspectorFrame::AttributeInput::hide() {
     FXHorizontalFrame::hide();
+}
+
+
+std::string 
+GNEInspectorFrame::AttributeInput::stripWhitespaceAfterComma(const std::string &stringValue) {
+    std::string result;
+    for(int i = 0; i < (stringValue.size() - 1); i++) {
+        if((stringValue.at(i) == ',') && (stringValue.at(i+1) == ' ')) {
+            result.push_back(stringValue.at(i));
+            i++;
+        } else if((stringValue.at(i) == ' ') && (stringValue.at(i+1) == ',')) {
+            i++;
+            result.push_back(stringValue.at(i));
+        } else if((stringValue.at(i) == ' ') && (stringValue.at(i+1) == ' ')) {
+            result.push_back(stringValue.at(i));
+            i++;
+        } else {
+            result.push_back(stringValue.at(i));
+        }
+    }
+    return result;
 }
 
 /****************************************************************************/

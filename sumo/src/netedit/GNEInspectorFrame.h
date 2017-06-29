@@ -86,6 +86,9 @@ public:
         /// @brief FOX needs this
         AttributeInput() {}
 
+        /// @brief removed invalid spaces of Positions and shapes
+        std::string stripWhitespaceAfterComma(const std::string &stringValue);
+
     private:
         /// @brief pointer to GNEInspectorFrame parent
         GNEInspectorFrame* myInspectorFrameParent;
