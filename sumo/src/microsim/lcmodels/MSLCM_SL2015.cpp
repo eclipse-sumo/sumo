@@ -1642,9 +1642,11 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderInfo& ahead, int sublane
                 /// XXX this could be done faster by checking all sublanes at once (but would complicate the MSPModel API)
                 double foeRight, foeLeft;
                 ahead.getSublaneBorders(sublane, 0, foeRight, foeLeft);
-                PersonDist leader = MSPModel::getModel()->nextBlocking(lane, myVehicle.getPositionOnLane() + myVehicle.getVehicleType().getMinGap(), foeRight, foeLeft);
+                // get all leaders ahead or overlapping
+                PersonDist leader = MSPModel::getModel()->nextBlocking(lane, myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getLength() , foeRight, foeLeft);
                 if (leader.first != 0) {
-                    double vSafePed = myCarFollowModel.stopSpeed(&myVehicle, vMax, leader.second);
+                    const double gap = leader.second - myVehicle.getVehicleType().getMinGap() - myVehicle.getVehicleType().getLength();
+                    const double vSafePed = myCarFollowModel.stopSpeed(&myVehicle, vMax, gap);
                     vSafe = MIN2(vSafe, vSafePed);
                 }
             }
