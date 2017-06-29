@@ -393,14 +393,13 @@ public:
     std::string getFileName(const SUMOSAXAttributes& attrs, const std::string& base, const bool allowEmpty = false);
 
     /**@brief extracts the position, checks whether it shall be mirrored and checks whether it is within the lane.
-     * @param[in] attrs The attributes to obtain the position from
+     * @param[in] pos position of additional over lane
      * @param[in] lane The lane the position shall be valid for
-     * @param[in] tt The trigger type (for user output)
-     * @param[in] tid The trigger id (for user output)
+     * @param[in] friendlyPos flag to indicate if friendlyPos is enabled
+     * @param[in] additionalID ID of additional
      * @return The position on the lane
-     * @exception InvalidArgument If the position is beyond the lane
      */
-    double getPosition(const SUMOSAXAttributes& attrs, GNELane& lane, const std::string& tt, const std::string& tid);
+    double getPosition(double pos, GNELane& lane, bool friendlyPos, const std::string& additionalID);
 
     /**@brief check if the position of an stoppingPlace over a lane is valid
     * @param[in] startPos Start position of stoppingPlace
@@ -410,7 +409,7 @@ public:
     * @param[in] friendlyPos Attribute of stoppingPlace
     * @return true if the stoppingPlace position is valid, false in otherweise
     */
-    bool checkStopPos(double& startPos, double& endPos, const double laneLength, const double minLength, const bool friendlyPos);
+    static bool checkAndFixStoppinPlacePosition(double& startPos, double& endPos, const double laneLength, const double minLength, const bool friendlyPos);
 
     /**@brief reset last Tag and clear non-valid Additionals (For example, created E3 withouts Entry/Exit childs)
      * @note must be called after a XML parsing
@@ -446,9 +445,6 @@ protected:
     bool checkAdditionalParent(SumoXMLTag currentTag);
 
 private:
-    /// @brief get special attribute friendly position, used in stopping places
-    bool getFriendlyPosition(const SUMOSAXAttributes& attrs, const char* objectid);
-
     /// @brief get a error message, if configuration of flow distribution is invalid
     GNECalibratorFlow::TypeOfFlow getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability);
 };

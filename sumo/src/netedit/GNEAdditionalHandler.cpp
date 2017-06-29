@@ -514,7 +514,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
         } else if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!checkAndFixStoppinPlacePosition(startPos, endPos, lane->getLaneShapeLength(), POSITION_EPS, friendlyPosition)) {
             // Write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if (buildBusStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition)) {
@@ -547,7 +547,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
         } else if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!checkAndFixStoppinPlacePosition(startPos, endPos, lane->getLaneShapeLength(), POSITION_EPS, friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if (buildContainerStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition)) {
@@ -583,7 +583,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
         } else if (lane == NULL) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!checkStopPos(startPos, endPos, lane->getLaneShapeLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!checkAndFixStoppinPlacePosition(startPos, endPos, lane->getLaneShapeLength(), POSITION_EPS, friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if (buildChargingStation(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition)) {
@@ -1298,13 +1298,7 @@ GNEAdditionalHandler::getFileName(const SUMOSAXAttributes& attrs, const std::str
 
 
 double
-GNEAdditionalHandler::getPosition(const SUMOSAXAttributes& attrs, GNELane& lane, const std::string& tt, const std::string& tid) {
-    bool ok = true;
-    double pos = attrs.get<double>(SUMO_ATTR_POSITION, 0, ok, false);
-    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
-    if (!ok) {
-        WRITE_WARNING("Error on parsing a position information.");
-    }
+GNEAdditionalHandler::getPosition(double pos, GNELane& lane, bool friendlyPos , const std::string& additionalID) {
     if (pos < 0) {
         pos = lane.getLaneShapeLength() + pos;
     }
@@ -1312,7 +1306,7 @@ GNEAdditionalHandler::getPosition(const SUMOSAXAttributes& attrs, GNELane& lane,
         if (friendlyPos) {
             pos = lane.getLaneShapeLength() - (double) 0.1;
         } else {
-            WRITE_WARNING("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane.getID() + "' length.");
+            WRITE_WARNING("The position of additional '" + additionalID + "' lies beyond the lane's '" + lane.getID() + "' length.");
         }
     }
     return pos;
@@ -1320,7 +1314,7 @@ GNEAdditionalHandler::getPosition(const SUMOSAXAttributes& attrs, GNELane& lane,
 
 
 bool
-GNEAdditionalHandler::checkStopPos(double& startPos, double& endPos, const double laneLength, const double minLength,  const bool friendlyPos) {
+GNEAdditionalHandler::checkAndFixStoppinPlacePosition(double& startPos, double& endPos, const double laneLength, const double minLength,  const bool friendlyPos) {
     if (minLength > laneLength) {
         return false;
     }
@@ -1353,13 +1347,6 @@ GNEAdditionalHandler::checkStopPos(double& startPos, double& endPos, const doubl
         }
     }
     return true;
-}
-
-
-bool
-GNEAdditionalHandler::getFriendlyPosition(const SUMOSAXAttributes& attrs, const char* objectid) {
-    bool ok = true;
-    return attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, objectid, ok, false);
 }
 
 

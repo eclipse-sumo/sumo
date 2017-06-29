@@ -55,6 +55,7 @@
 #include "GNENet.h"
 #include "GNEChange_Attribute.h"
 #include "GNEViewNet.h"
+#include "GNEAdditionalHandler.h"
 
 
 // ===========================================================================
@@ -123,6 +124,34 @@ GNEStoppingPlace::getStartPosition() const {
 double
 GNEStoppingPlace::getEndPosition() const {
     return myEndPos;
+}
+
+
+bool  
+GNEStoppingPlace::fixStoppingPlacePosition() {
+    if(myFriendlyPosition) {
+        throw InvalidArgument("StoppingPlace position cannot be fixed if friendlyPos is enabled");
+    } else {
+        return GNEAdditionalHandler::checkAndFixStoppinPlacePosition(myStartPos, myEndPos, myLane->getLaneShapeLength(), POSITION_EPS, myFriendlyPosition);
+    }
+}
+
+
+bool 
+GNEStoppingPlace::areStoppingPlacesPositionsFixed() {
+    // with friendly position enabled position are "always fixed"
+    if(myFriendlyPosition) {
+        return true;
+    } else {
+        double tmpStarPos = myStartPos;
+        double tmpEndPos = myEndPos;
+        // Check if positions can be fixed
+        if (GNEAdditionalHandler::checkAndFixStoppinPlacePosition(tmpStarPos, tmpEndPos, myLane->getLaneShapeLength(), POSITION_EPS, myFriendlyPosition)) {
+            return ((tmpStarPos == myStartPos) && (tmpEndPos == myEndPos));
+        } else {
+            return false;
+        }
+    }
 }
 
 

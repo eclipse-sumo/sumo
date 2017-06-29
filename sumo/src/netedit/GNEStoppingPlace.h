@@ -90,6 +90,15 @@ public:
     /// @brief Returns the End position of stoppingPlace
     double getEndPosition() const;
 
+    /**@brief fix stopping place position 
+     * @return true if fix was sucesfully
+     * @throw ProcessError if try to fix position when myFriendlyPosition is enabled
+     */
+    bool fixStoppingPlacePosition();
+
+    /// @brief check if Position of stoppingPlace are fixed
+    bool areStoppingPlacesPositionsFixed();
+
     /// @brief Returns the name of stoppingPlace
     const std::string &getStoppingPlaceName() const;
 
