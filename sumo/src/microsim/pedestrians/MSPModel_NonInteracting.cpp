@@ -156,6 +156,14 @@ MSPModel_NonInteracting::PState::getEdgePos(const MSPerson::MSPersonStage_Walkin
 Position
 MSPModel_NonInteracting::PState::getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(stage.getEdge());
+    if (lane == 0) {
+        //std::string error = "Pedestrian '" + myCommand->myPerson->getID() + "' could not find sidewalk on edge '" + state.getEdge()->getID() + "', time=" 
+        //    + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".";
+        //if (!OptionsCont::getOptions().getBool("ignore-route-errors")) {
+        //    throw ProcessError(error);
+        //}
+        lane = stage.getEdge()->getLanes().front();
+    }
     const double lateral_offset = lane->allowsVehicleClass(SVC_PEDESTRIAN) ? 0 : SIDEWALK_OFFSET;
     return stage.getLanePosition(lane, getEdgePos(stage, now), lateral_offset);
 }

@@ -351,6 +351,17 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
     MSLink* link = 0;
     int nextDir = UNDEFINED_DIRECTION;
 
+    if (nextRouteLane == 0 && nextRouteEdge != 0) {
+        std::string error = "Pedestrian '" + ped.myPerson->getID() + "' could not find sidewalk on edge '" + nextRouteEdge->getID() + "', time=" 
+            + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".";
+        if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
+            WRITE_WARNING(error);
+            nextRouteLane = nextRouteEdge->getLanes().front();
+        } else {
+            throw ProcessError(error);
+        }
+    }
+
     if (nextRouteLane != 0) {
         if (currentEdge->isInternal()) {
             assert(junction == currentEdge->getFromJunction());
