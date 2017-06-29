@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 29 Jun 2017 08:57:05 AM CEST by Netedit Version dev-SVN-r24915
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumoID/sumo/tests/sumo/pedestrian_model/striping/errors/route_invalid_permissions/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumoID/sumo/tests/sumo/pedestrian_model/striping/errors/route_invalid_permissions/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-493440.13,-5403519.13" convBoundary="0.00,0.00,100.00,0.00" origBoundary="8.910698,48.784636,8.924934,48.788513" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id=":2_0" function="internal">
+        <lane id=":2_0_0" index="0" disallow="pedestrian" speed="13.89" length="0.10" shape="50.00,-1.65 50.00,-1.65"/>
+    </edge>
+
+    <edge id="beg" from="1" to="2" priority="1">
+        <lane id="beg_0" index="0" speed="13.89" length="50.00" shape="0.00,-1.65 50.00,-1.65"/>
+    </edge>
+    <edge id="end" from="2" to="3" priority="1">
+        <lane id="end_0" index="0" disallow="pedestrian" speed="13.89" length="50.00" shape="50.00,-1.65 100.00,-1.65"/>
+    </edge>
+
+    <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
+    <junction id="2" type="priority" x="50.00" y="0.00" incLanes="beg_0" intLanes=":2_0_0" shape="50.00,-0.05 50.00,-3.25 50.00,-0.05">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="3" type="dead_end" x="100.00" y="0.00" incLanes="end_0" intLanes="" shape="100.00,-3.25 100.00,-0.05"/>
+
+    <connection from="beg" to="end" fromLane="0" toLane="0" via=":2_0_0" dir="s" state="M"/>
+
+    <connection from=":2_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
