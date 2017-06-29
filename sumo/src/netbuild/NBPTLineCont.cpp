@@ -130,6 +130,10 @@ void NBPTLineCont::process(NBEdgeCont& cont) {
 
             if (dir != assingedTo) {
                 NBEdge * reverse = NBPTStopCont::getReverseEdge(current);
+                if (reverse == 0) {
+                    WRITE_WARNING("Could not re-assign PT stop: " + (*it2)->getID()  + " probably broken osm file");
+                    continue;
+                }
                 (*it2)->setEdgeId(reverse->getID());
                 NBPTStopCont::findLaneAndComputeBusStopExtend(*it2,cont);
                 WRITE_WARNING("PT stop: " + (*it2)->getID() + " has been moved to edge: " + reverse->getID());
