@@ -32,9 +32,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/PositionVector.h>
 
 #include "GNEAttributeCarrier.h"
 #include "GNEUndoList.h"
@@ -125,43 +122,6 @@ GNEAttributeCarrier::parse(const std::string& string) {
 }
 
 
-template<> Position
-GNEAttributeCarrier::parse(const std::string& string) {
-    if (string.size() == 0) {
-        throw EmptyData();
-    }
-    // obtain values separated by comas
-    std::vector<std::string> values;
-    StringTokenizer st(string, ",", true);
-    while (st.hasNext()) {
-        values.push_back(st.next());
-    }
-    // clear empty values
-    values.erase(std::remove(values.begin(), values.end(), ""), values.end());
-    // check that we have a position X-Y or a Position X-Y-Z
-    if ((values.size() != 2) && (values.size() != 3)) {
-        // throw error if position is neither x,y nor x,y,z");
-        throw NumberFormatException();
-    }
-    // obtain X e Y and clear invalid sapces
-    std::string xstr = values.at(0);
-    xstr.erase(std::remove(xstr.begin(), xstr.end(), ' '), xstr.end());
-    double x = TplConvert::_2double(xstr.c_str());
-    std::string ystr = values.at(1);
-    ystr.erase(std::remove(ystr.begin(), ystr.end(), ' '), ystr.end());
-    double y = TplConvert::_2double(ystr.c_str());
-    if (values.size() == 2) {
-        return Position(x, y);
-    } else {
-        // obtain Z and clear invalid spaces
-        std::string zstr = values.at(0);
-        zstr.erase(std::remove(zstr.begin(), zstr.end(), ' '), zstr.end());
-        double z = TplConvert::_2double(zstr.c_str());
-        return Position(x, y, z);
-    }
-}
-
-
 template<> std::vector<std::string>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> parsedValues;
@@ -200,28 +160,6 @@ GNEAttributeCarrier::parse(const std::string& string) {
         parsedBoolValues.push_back(parse<bool>(*i));
     }
     return parsedBoolValues;
-}
-
-
-template<> PositionVector
-GNEAttributeCarrier::parse(const std::string& string) {
-    if (string.size() == 0) {
-        throw EmptyData();
-    }
-    // obtain values separated by spaces
-    std::vector<std::string> parsedValues;
-    StringTokenizer st(string, " ", true);
-    while (st.hasNext()) {
-        parsedValues.push_back(st.next());
-    }
-    // clear empty values
-    parsedValues.erase(std::remove(parsedValues.begin(), parsedValues.end(), ""), parsedValues.end());
-    // declare vector to save positions 
-    std::vector<Position> parsedPositionValues;
-    for (std::vector<std::string>::const_iterator i = parsedValues.begin(); i != parsedValues.end(); i++) {
-        parsedPositionValues.push_back(parse<Position>(*i));
-    }
-    return parsedPositionValues;
 }
 
 

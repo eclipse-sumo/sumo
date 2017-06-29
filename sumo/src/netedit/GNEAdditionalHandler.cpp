@@ -861,14 +861,19 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
         }
         case SUMO_TAG_E3DETECTOR: {
             // obtain specify attributes of detector E3
+            bool ok;
             std::string id = values[SUMO_ATTR_ID];
-            Position pos = GNEAttributeCarrier::parse<Position>(values[SUMO_ATTR_POSITION]);
+            PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
             double freq = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_FREQUENCY]);
             std::string filename = values[SUMO_ATTR_FILE];
             double timeThreshold = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_HALTING_TIME_THRESHOLD]);
             double speedThreshold = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_HALTING_SPEED_THRESHOLD]);
             // Build detector E3
-            return buildDetectorE3(viewNet, allowUndoRedo, id, pos, freq, filename, timeThreshold, speedThreshold);
+            if (pos.size() == 1) {
+                return buildDetectorE3(viewNet, allowUndoRedo, id, pos[0], freq, filename, timeThreshold, speedThreshold);
+            } else {
+                return false;
+            }
         }
         case SUMO_TAG_DET_ENTRY: {
             // obtain specify attributes of detector Entry
@@ -897,7 +902,8 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
         case SUMO_TAG_VSS: {
             // obtain specify attributes of variable speed signal
             std::string id = values[SUMO_ATTR_ID];
-            Position pos = GNEAttributeCarrier::parse<Position>(values[SUMO_ATTR_POSITION]);
+            bool ok;
+            PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
             // Parse lane Ids
             std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_LANES]);
             // By default, steps are empty
@@ -908,8 +914,11 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
                 lanes.push_back(viewNet->getNet()->retrieveLane(laneIds.at(i)));
             }
             std::string file = values[SUMO_ATTR_FILE];
-            
-            return buildVariableSpeedSign(viewNet, allowUndoRedo, id, pos, lanes, file, steps);
+            if (pos.size() == 1) {
+                return buildVariableSpeedSign(viewNet, allowUndoRedo, id, pos[0], lanes, file, steps);
+            } else {
+                return false;
+            }
         }
         case SUMO_TAG_CALIBRATOR: {
             // obtain specify attributes of calibrator
@@ -934,7 +943,8 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
         case SUMO_TAG_REROUTER: {
             // obtain specify attributes of rerouter
             std::string id = values[SUMO_ATTR_ID];
-            Position pos = GNEAttributeCarrier::parse<Position>(values[SUMO_ATTR_POSITION]);
+            bool ok;
+            PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
             // Parse edges Ids
             std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_EDGES]);
             // Get rest of parameters
@@ -947,7 +957,11 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
                 edges.push_back(viewNet->getNet()->retrieveEdge(edgeIds.at(i)));
             }
             // Build rerouter
-            return buildRerouter(viewNet, allowUndoRedo, id, pos, edges, prob, file, off);
+            if (pos.size() == 1) {
+                return buildRerouter(viewNet, allowUndoRedo, id, pos[0], edges, prob, file, off);
+            } else {
+                return false;
+            }
         }
         case SUMO_TAG_ROUTEPROBE: {
             // obtain specify attributes of RouteProbe

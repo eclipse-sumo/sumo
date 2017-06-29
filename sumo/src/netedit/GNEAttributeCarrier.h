@@ -311,17 +311,6 @@ public:
                 if ((!ok) && (attribute == SUMO_ATTR_GUISHAPE)) {
                     errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
                 }
-
-                // set extra check for Position with more than one coordinate
-                if ((!ok) && (attribute == SUMO_ATTR_POSITION) && (isFloat(tag, attribute) == false)) {
-                    errorFormat = "Formats of positions over plane are 'x,y' or 'x,y,z'; ";
-                }
-
-                // set extra check for shapes
-                if ((!ok) && (attribute == SUMO_ATTR_SHAPE)) {
-                    errorFormat = "Format of shapes is 'X1,Y1 X2,Y2 ... Xn,Yn' or 'X1,Y1,Z1 X2,y2,z2 ... Xn,Yn,Zn'; ";
-                }
-
                 // If attribute has an invalid format
                 if (!ok) {
                     // if attribute has a default value, take it as string. In other case, abort.

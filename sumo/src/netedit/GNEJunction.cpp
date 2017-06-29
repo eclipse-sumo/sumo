@@ -661,16 +661,12 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
-            break;
         case SUMO_ATTR_POSITION:
             return toString(myNBNode.getPosition());
-            break;
         case SUMO_ATTR_TYPE:
             return toString(myNBNode.getType());
-            break;
         case GNE_ATTR_MODIFICATION_STATUS:
             return myLogicStatus;
-            break;
         case SUMO_ATTR_SHAPE:
             return toString(myNBNode.getShape());
         case SUMO_ATTR_RADIUS:
@@ -785,13 +781,13 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::NodeTypes.hasString(value);
         case SUMO_ATTR_POSITION:
-            return canParse<Position>(value);
-        case SUMO_ATTR_SHAPE:
-            if(value == "") {
-                return true;
-            } else {
-                return canParse<PositionVector>(value);
-            }
+            bool ok;
+            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+        case SUMO_ATTR_SHAPE: {
+            bool ok = true;
+            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
+            return ok;
+        }
         case SUMO_ATTR_RADIUS:
             return canParse<double>(value);
         case SUMO_ATTR_TLTYPE:
@@ -826,7 +822,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_POSITION:
-            myOrigPos = GNEAttributeCarrier::parse<Position>(value);
+            bool ok;
+            myOrigPos = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
             move(myOrigPos);
             // recompute neighbors junctions
             recomputeNeighborsJunctions();
@@ -846,13 +843,12 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             myLogicStatus = value;
             break;
-        case SUMO_ATTR_SHAPE:
-            if(value == "") {
-                myNBNode.setCustomShape(PositionVector());
-            } else {
-                myNBNode.setCustomShape(parse<PositionVector>(value));
-            }
+        case SUMO_ATTR_SHAPE: {
+            bool ok;
+            const PositionVector shape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
+            myNBNode.setCustomShape(shape);
             break;
+        }
         case SUMO_ATTR_RADIUS:
             myNBNode.setRadius(parse<double>(value));
             break;

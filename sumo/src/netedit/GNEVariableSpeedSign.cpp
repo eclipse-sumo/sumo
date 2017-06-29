@@ -358,8 +358,10 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_POSITION:
-            return canParse<Position>(value);
+        case SUMO_ATTR_POSITION: {
+            bool ok;
+            return (GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1);
+        }
         case SUMO_ATTR_LANES: {
             std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
             // Empty Lanes aren't valid
@@ -407,7 +409,8 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_POSITION:
-            myPosition = parse<Position>(value);
+            bool ok;
+            myPosition = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false)[0];
             updateGeometry();
             getViewNet()->update();
             break;
