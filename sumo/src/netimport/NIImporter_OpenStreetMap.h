@@ -531,6 +531,9 @@ protected:
         /// @brief bus stop platforms references
         std::vector<long long int> myPlatforms;
 
+        /// @brief ways in pt line references
+        std::vector<long long int> myWays;
+
         /// @brief indicates whether current relation is a pt stop area
         bool myIsStopArea;
 

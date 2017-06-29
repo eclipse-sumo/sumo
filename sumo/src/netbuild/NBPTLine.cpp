@@ -57,3 +57,6 @@ void NBPTLine::write(OutputDevice& device) {
 void NBPTLine::setId(long long int id) {
     myPTLineId = id;
 }
+void NBPTLine::addWayNode(long long int way, long long int node) {
+
+}

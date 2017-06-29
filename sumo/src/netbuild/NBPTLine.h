@@ -40,6 +40,7 @@ public:
     std::vector<NBPTStop*> getStops();
     void write(OutputDevice& device);
     void setId(long long int id);
+    void addWayNode(long long int way, long long int node);
 private:
     std::string myName;
     std::vector<NBPTStop*> myPTStops;

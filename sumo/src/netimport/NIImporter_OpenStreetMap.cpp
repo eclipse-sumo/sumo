@@ -1015,6 +1015,7 @@ NIImporter_OpenStreetMap::RelationHandler::resetValues() {
     myRestrictionType = RESTRICTION_UNKNOWN;
     myPlatforms.clear();
     myStops.clear();
+    myWays.clear();
     myIsStopArea = false;
     myIsRoute = false;
     myIsPTRoute = false;
@@ -1078,6 +1079,11 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
                 myPlatforms.push_back(ref);
             }
 
+        } else if (role == ""){
+            std::string memberType = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
+            if (memberType == "way") {
+                myWays.push_back(ref);
+            }
         }
         return;
     }
@@ -1212,6 +1218,15 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     }
                     ptLine->addPTStop(ptStop);
 
+                }
+            }
+            for (std::vector<long long int>::iterator it = myWays.begin(); it != myWays.end(); it++) {
+                std::map<long long int, Edge*>::const_iterator entr = myOSMEdges.find(*it);
+                if (entr != myOSMEdges.end()) {
+                    Edge * edge = entr->second;
+                    for (std::vector<long long int>::iterator it2 = edge->myCurrentNodes.begin(); it2 != edge->myCurrentNodes.end(); it2++) {
+                        ptLine->addWayNode(*it,*it2);
+                    }
                 }
             }
             myNBPTLineCont->insert(ptLine);
