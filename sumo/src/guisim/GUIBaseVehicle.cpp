@@ -870,7 +870,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     const double degAngle = RAD2DEG(angle + PI / 2.);
     // one seat in the center of the vehicle by default
     if (myVehicle.getLane() != 0) {
-        mySeatPositions[0] = myVehicle.getLane()->geometryPositionAtOffset(myVehicle.getPositionOnLane() - getVType().getLength() / 2);
+        mySeatPositions[0] = myVehicle.getPosition(- getVType().getLength() / 2);
     } else {
         mySeatPositions[0] = p1;
     }
