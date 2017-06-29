@@ -15,3 +15,6 @@ signals
 # test angle output in all cardinal directions
 angle
 subsecond
+
+# correctly compute positions when vehicle is on a short lane
+short_lane
