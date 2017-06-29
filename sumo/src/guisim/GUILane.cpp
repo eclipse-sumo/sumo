@@ -550,7 +550,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                         // draw sublane-borders
                         GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
                         for (double offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
-                            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, offset);
+                            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, -offset);
                         }
                     }
                     if (s.showLinkDecals && !drawAsRailway(s) && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
