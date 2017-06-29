@@ -157,11 +157,17 @@ MSPModel_Striping::blockedAtDist(const MSLane* lane, double distToCrossing, doub
     for (Pedestrians::const_iterator it_ped = pedestrians.begin(); it_ped != pedestrians.end(); ++it_ped) {
         const PState& ped = **it_ped;
         const double halfVehicleWidth = 1.0; // @note could get the actual value from the vehicle
-        const double leaderBackDist = (ped.myDir == FORWARD
-                                       ? distToCrossing - (ped.myRelX - ped.getLength() - MSPModel::SAFETY_GAP - halfVehicleWidth)
-                                       : (ped.myRelX + ped.getLength() + MSPModel::SAFETY_GAP + halfVehicleWidth) - distToCrossing);
-        //std::cout << SIMTIME << " foe=" << foeLane->getID() << " dir=" << p.myDir << " pX=" << ped.myRelX << " pL=" << ped.getLength() << " fDTC=" << distToCrossing << " lBD=" << leaderBackDist << "\n";
-        if (leaderBackDist >= 0 && leaderBackDist <= oncomingGap) {
+        const double safetyGap = MSPModel::SAFETY_GAP + halfVehicleWidth;
+        const double leaderFrontDist = (ped.myDir == FORWARD ? distToCrossing - ped.myRelX : ped.myRelX - distToCrossing);
+        const double leaderBackDist = leaderFrontDist + ped.getLength();
+        if DEBUGCOND(ped.myPerson->getID()) {
+            std::cout << SIMTIME << " lane=" << lane->getID() << " dir=" << ped.myDir << " pX=" << ped.myRelX << " pL=" << ped.getLength() 
+            << " fDTC=" << distToCrossing 
+            << " lBD=" << leaderBackDist 
+            << " lFD=" << leaderFrontDist 
+            << " safetyGap=" << safetyGap << "\n";
+        }
+        if (leaderBackDist >= -safetyGap && leaderFrontDist <= oncomingGap) {
             // found one pedestrian that is not completely past the crossing point
             //std::cout << SIMTIME << " blocking pedestrian foeLane=" << lane->getID() << " ped=" << ped.myPerson->getID() << " dir=" << ped.myDir << " pX=" << ped.myRelX << " pL=" << ped.getLength() << " fDTC=" << distToCrossing << " lBD=" << leaderBackDist << "\n";
             if (collectBlockers == 0) {
