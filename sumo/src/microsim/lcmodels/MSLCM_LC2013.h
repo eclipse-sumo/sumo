@@ -198,6 +198,9 @@ protected:
     /// @brief save space for vehicles which need to counter-lane-change
     void saveBlockerLength(MSVehicle* blocker, int lcaCounter);
 
+    /// @brief react to pedestrians on the given lane
+    void adaptSpeedToPedestrians(const MSLane* lane, double& v);
+
     /// @brief reserve space at the end of the lane to avoid dead locks
     inline void saveBlockerLength(double length) {
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);

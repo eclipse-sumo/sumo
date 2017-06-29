@@ -38,6 +38,7 @@
 #include <iostream>
 #include <utils/common/RandHelper.h>
 #include <utils/common/TplConvert.h>
+#include <microsim/pedestrians/MSPModel.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
@@ -1503,6 +1504,11 @@ MSLCM_LC2013::_wantsChange(
         thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(
                                  &myVehicle, correctedSpeed, leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
     }
+    if (neighLane.getEdge().getPersons().size() > 0) {
+        // react to pedestrians
+        adaptSpeedToPedestrians(myVehicle.getLane(), thisLaneVSafe);
+        adaptSpeedToPedestrians(&neighLane, neighLaneVSafe);
+    }
 
     thisLaneVSafe = MIN2(thisLaneVSafe, vMax);
     neighLaneVSafe = MIN2(neighLaneVSafe, vMax);
@@ -1971,6 +1977,30 @@ MSLCM_LC2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
             }
 #endif
             blocker->getLaneChangeModel().saveBlockerLength(myVehicle.getVehicleType().getLengthWithGap());
+        }
+    }
+}
+
+
+void 
+MSLCM_LC2013::adaptSpeedToPedestrians(const MSLane* lane, double& v) {
+    if (MSPModel::getModel()->hasPedestrians(lane)) {
+#ifdef DEBUG_WANTS_CHANGE
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " adapt to pedestrians on lane=" << lane->getID() << "\n";
+        }
+#endif
+        PersonDist leader = MSPModel::getModel()->nextBlocking(lane, myVehicle.getPositionOnLane(), 
+                myVehicle.getRightSideOnLane(), myVehicle.getRightSideOnLane() + myVehicle.getVehicleType().getWidth(), 
+                ceil(myVehicle.getSpeed() / myVehicle.getCarFollowModel().getMaxDecel()));
+        if (leader.first != 0) {
+            const double stopSpeed = myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), leader.second - myVehicle.getVehicleType().getMinGap());
+            v = MIN2(v, stopSpeed);
+#ifdef DEBUG_WANTS_CHANGE
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << "    pedLeader=" << leader.first->getID() << " dist=" << leader.second << " v=" << v << "\n";
+            }
+#endif
         }
     }
 }
