@@ -482,7 +482,6 @@ public:
      */
     Position getPosition(const double offset = 0) const;
 
-
     /** @brief Returns the lane the vehicle is on
      * @return The vehicle's current lane
      */
@@ -1485,6 +1484,9 @@ protected:
     /** @brief Returns the list of still pending stop edges
      */
     const ConstMSEdgeVector getStopEdges() const;
+
+    /// @brief ensure that a vehicle-relative position is not invalid
+    Position validatePosition(Position result, double offset=0) const; 
 
     /// @brief register vehicle for drawing while outside the network
     virtual void drawOutsideNetwork(bool /*add*/) {};
