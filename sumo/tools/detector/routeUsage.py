@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    routeUsage.py.py
+@file    routeUsage.py
 @author  Jakob Erdmann
 @date    2017-03-30
 @version $Id$
@@ -34,7 +34,7 @@ else:
 
 
 def get_options():
-    USAGE = """Usage %prog <emitters.xml>"""
+    USAGE = """Usage %prog <emitters.xml> [<routes.xml>]"""
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
@@ -42,17 +42,33 @@ def get_options():
                          help="Output routes that are used less than the threshold value")
     optParser.add_option("--unused-output",
                          help="Output route ids that are used less than the threshold value to file")
+    optParser.add_option("-r", "--flow-restrictions", dest="restrictionfile",
+                         help="Output route ids that are used more often than the threshold value given in file")
     options, args = optParser.parse_args()
 
-    if len(args) != 1:
+    if len(args) not in (1, 2):
         sys.exit(USAGE)
     options.emitters = args[0]
+    options.routes = args[1] if len(args) == 2 else None 
     return options
 
 
 def main():
     options = get_options()
-    routeUsage = defaultdict(lambda: 0)
+
+    routes = defaultdict(list)
+    if options.routes is not None:
+        for route in parse(options.routes, 'route'):
+            routes[route.edges].append(route.id)
+
+    restrictions = {}
+    if options.restrictionfile is not None:
+        for line in open(options.restrictionfile):
+            count, edges = line.strip().split(None, 1)
+            for rID in routes[edges]:
+                restrictions[rID] = int(count)
+
+    routeUsage = defaultdict(int)
     for flow in parse(options.emitters, 'flow'):
         num = int(flow.number)
         if flow.route is None:
@@ -65,16 +81,21 @@ def main():
             routeUsage[flow.route] += num
 
     usage = Statistics("routeUsage")
+    restrictUsage = Statistics("restrictedRouteUsage")
     for rID, count in routeUsage.items():
         usage.add(count, rID)
+        if rID in restrictions:
+            restrictUsage.add(count, rID)
     print(usage)
+    print(restrictUsage)
 
     if options.unused_output is not None:
         with open(options.unused_output, 'w') as outf:
             for rID, count in routeUsage.items():
-                usage.add(rID, count)
                 if count <= options.threshold:
                     outf.write("%s\n" % rID)
+                if count > restrictions[rID]:
+                    outf.write("%s %s %s\n" % (rID, count, restrictions[rID]))
 
 
 if __name__ == "__main__":
