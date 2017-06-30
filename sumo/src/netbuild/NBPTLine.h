@@ -48,7 +48,7 @@ private:
 public:
     const std::vector<NBPTStop*>& getMyPTStops() const;
 private:
-    std::map<std::string, std::vector<long long int>> myWaysNodes;
+    std::map<std::string, std::vector<long long int> > myWaysNodes;
     std::vector<std::string> myWays;
 public:
     const std::vector<std::string>& getMyWays() const;
