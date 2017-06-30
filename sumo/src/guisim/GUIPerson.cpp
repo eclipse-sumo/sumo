@@ -539,5 +539,11 @@ GUIPerson::removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int w
     myAdditionalVisualizations[parent] &= ~which;
     parent->removeAdditionalGLVisualisation(this);
 }
+
+bool 
+GUIPerson::isSelected() const {
+    return gSelected.isSelected(GLO_PERSON, getGlID());
+}
+
 /****************************************************************************/
 

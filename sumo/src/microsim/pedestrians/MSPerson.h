@@ -293,6 +293,11 @@ public:
     */
     virtual void routeOutput(OutputDevice& os) const;
 
+    /// @brief whether this person is selected in the GUI
+    virtual bool isSelected() const {
+        return false;
+    }
+
 private:
     /// @brief Invalidated copy constructor.
     MSPerson(const MSPerson&);
