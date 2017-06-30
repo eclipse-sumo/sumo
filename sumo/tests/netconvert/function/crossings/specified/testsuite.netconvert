@@ -29,9 +29,6 @@
 # 4 arm junction without crossing but with walkingareas
 4_arm_0_walkingareas
 
-# 4 arm junction with crossings given on all sides but disabled via --walkingares false
-4_arm_0_nowalkingareas
-
 # 4 arm junction with crossings on 2 opposite sides
 4_arm_2_opposite
 
