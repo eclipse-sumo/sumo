@@ -818,18 +818,20 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                         crossingVehs[s] = vo;
                         hasCrossingVehObs = true;
                     }
-                    //std::cout << SIMTIME 
-                    //    << "lane=" << lane->getID() 
-                    //    << " crossingVeh=" << veh->getID() 
-                    //    << " dist=" << (*it).distToCrossing 
-                    //    << " gap=" << (*it).vehAndGap.second 
-                    //    << " ymin=" << vehYmin
-                    //    << " ymax=" << vehYmax
-                    //    << " stripes=" << stripes
-                    //    << " smin=" << PState::stripe(vehYmin)
-                    //    << " smax=" << PState::stripe(vehYmax)
-                    //    << "\n";
-                    //DEBUG_PRINT(crossingVehs);
+                    //if (SIMTIME == 329 && lane->getID() == ":51_c2_0") {
+                    //    std::cout << SIMTIME 
+                    //        << " lane=" << lane->getID() 
+                    //        << " crossingVeh=" << veh->getID() 
+                    //        << " dist=" << (*it).distToCrossing 
+                    //        << " gap=" << (*it).vehAndGap.second 
+                    //        << " ymin=" << vehYmin
+                    //        << " ymax=" << vehYmax
+                    //        << " stripes=" << stripes
+                    //        << " smin=" << PState::stripe(vehYmin)
+                    //        << " smax=" << PState::stripe(vehYmax)
+                    //        << "\n";
+                    //    DEBUG_PRINT(crossingVehs);
+                    //}
                 }
             }
         }
@@ -893,7 +895,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                     // @todo check for presence of vehicles blocking the path
                    )) {
             // prevent movement passed a closed link
-            Obstacles closedLink(stripes, Obstacle(p.myRelX + dir * (dist + NUMERICAL_EPS), 0, "closedLink", 0, true));
+            Obstacles closedLink(stripes, Obstacle(p.myRelX + dir * (dist + NUMERICAL_EPS), 0, "closedLink_" + link->getViaLaneOrLane()->getID(), 0, true));
             p.mergeObstacles(currentObs, closedLink);
             if DEBUGCOND(p) {
                 std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWitTLS=";
@@ -943,14 +945,14 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             }
             p.mergeObstacles(currentObs, vehObs);
             if DEBUGCOND(p) {
-                std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWitVehs=";
+                std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWithVehs=";
                 DEBUG_PRINT(currentObs);
             }
         }
         if (hasCrossingVehObs) {
             p.mergeObstacles(currentObs, crossingVehs);
             if DEBUGCOND(p) {
-                std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWitVehs2=";
+                std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWithVehs2=";
                 DEBUG_PRINT(currentObs);
             }
         }
