@@ -216,10 +216,6 @@ void MSPModel_Remote::remove(PedestrianState* state) {
 
 }
 
-bool MSPModel_Remote::blockedAtDist(const MSLane* lane, double distToCrossing, double oncomingGap,
-                                    std::vector<const MSPerson*>* collectBlockers) {
-    return false;
-}
 void MSPModel_Remote::cleanupHelper() {
     MSPModel::cleanupHelper();
 }

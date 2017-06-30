@@ -36,10 +36,6 @@ public:
     ~MSPModel_Remote();
     PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) override;
     void remove(PedestrianState* state) override;
-//    bool
-//    blockedAtDist(const MSLane* lane, double distToCrossing, std::vector<const MSPerson*>* collectBlockers) override;
-    bool blockedAtDist(const MSLane* lane, double distToCrossing, double oncomingGap,
-                       std::vector<const MSPerson*>* collectBlockers) override;
     void cleanupHelper() override;
 
     SUMOTime execute(SUMOTime time);

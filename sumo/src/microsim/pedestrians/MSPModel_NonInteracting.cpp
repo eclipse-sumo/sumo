@@ -91,12 +91,6 @@ MSPModel_NonInteracting::remove(PedestrianState* state) {
 }
 
 
-bool
-MSPModel_NonInteracting::blockedAtDist(const MSLane*, double, double, std::vector<const MSPerson*>*) {
-    return false;
-}
-
-
 SUMOTime
 MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
     if (myPerson == 0) {
