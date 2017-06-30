@@ -69,10 +69,19 @@ public:
     /// @brief remove the specified person from the pedestrian simulation
     virtual void remove(PedestrianState* state) = 0;
 
-    /// @brief whether a pedestrian is blocking the crossing of lane at offset distToCrossing
-    virtual bool blockedAtDist(const MSLane* lane, double distToCrossing, double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
+    /** @brief whether a pedestrian is blocking the crossing of lane for the given vehicle bondaries
+     * @param[in] lane The crossing to check
+     * @param[in] vehSide The offset to the vehicle side near the start of the crossing
+     * @param[in] vehWidth The width of the vehicle
+     * @param[in] oncomingGap The distance which the vehicle wants to keep from oncoming pedestrians
+     * @param[in] collectBlockers The list of persons blocking the crossing
+     * @return Whether the vehicle must wait
+     */
+    virtual bool blockedAtDist(const MSLane* lane, double vehSide, double vehWidth, 
+            double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
         UNUSED_PARAMETER(lane);
-        UNUSED_PARAMETER(distToCrossing);
+        UNUSED_PARAMETER(vehSide);
+        UNUSED_PARAMETER(vehWidth);
         UNUSED_PARAMETER(oncomingGap);
         UNUSED_PARAMETER(collectBlockers);
         return false;

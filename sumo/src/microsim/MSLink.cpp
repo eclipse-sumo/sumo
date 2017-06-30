@@ -785,8 +785,13 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             if (ego != 0) {
                 // check for crossing pedestrians (keep driving if already on top of the crossing
                 const double distToPeds = distToCrossing - MSPModel::SAFETY_GAP;
+                const double vehWidth = ego->getVehicleType().getWidth() + MSPModel::SAFETY_GAP; // + configurable safety gap
                 /// @todo consider lateral position (depending on whether the crossing is encountered on the way in or out)
-                if (distToPeds >= -MSPModel::SAFETY_GAP && MSPModel::getModel()->blockedAtDist(foeLane, foeDistToCrossing, 
+                // @check lefthand?!
+                const bool wayIn = myLengthsBehindCrossing[i].first < myLaneBefore->getLength() * 0.5;
+                const double vehSideOffset = (foeDistToCrossing + myLaneBefore->getWidth() * 0.5 - vehWidth * 0.5 
+                        + ego->getLateralPositionOnLane() * (wayIn ? -1 : 1));
+                if (distToPeds >= -MSPModel::SAFETY_GAP && MSPModel::getModel()->blockedAtDist(foeLane, vehSideOffset, vehWidth,
                             ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_CROSSING_GAP, JM_CROSSING_GAP_DEFAULT),
                             collectBlockers)) {
                     result.push_back(LinkLeader((MSVehicle*)0, -1, distToPeds));

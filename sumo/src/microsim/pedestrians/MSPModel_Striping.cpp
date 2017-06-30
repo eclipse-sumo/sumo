@@ -49,9 +49,9 @@
 //
 #define DEBUGID1 ""
 #define DEBUGID2 ""
-#define DEBUGCOND(PED) (false)
+//#define DEBUGCOND(PED) (false)
 //#define DEBUGCOND(PED) ((PED).myPerson->getID() == DEBUGID1 || (PED).myPerson->getID() == DEBUGID2)
-//#define DEBUGCOND(PED) ((PED).myPerson->isSelected())
+#define DEBUGCOND(PED) ((PED).myPerson->isSelected())
 //#define LOG_ALL 1
 
 void MSPModel_Striping::DEBUG_PRINT(const Obstacles& obs) {
@@ -154,23 +154,22 @@ MSPModel_Striping::remove(PedestrianState* state) {
 
 
 bool
-MSPModel_Striping::blockedAtDist(const MSLane* lane, double distToCrossing, double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
+MSPModel_Striping::blockedAtDist(const MSLane* lane, double vehSide, double vehWidth, 
+            double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
     const Pedestrians& pedestrians = getPedestrians(lane);
     for (Pedestrians::const_iterator it_ped = pedestrians.begin(); it_ped != pedestrians.end(); ++it_ped) {
         const PState& ped = **it_ped;
-        const double halfVehicleWidth = 1.0; // @note could get the actual value from the vehicle
-        // @note distToCrossing is measured at the border of the vehicle lane (which could have a different length)
-        const double safetyGap = MSPModel::SAFETY_GAP + halfVehicleWidth + SUMO_const_halfLaneWidth;
-        const double leaderFrontDist = (ped.myDir == FORWARD ? distToCrossing - ped.myRelX : ped.myRelX - distToCrossing);
+        const double leaderFrontDist = (ped.myDir == FORWARD ? vehSide - ped.myRelX : ped.myRelX - vehSide);
         const double leaderBackDist = leaderFrontDist + ped.getLength();
         if DEBUGCOND(ped) {
             std::cout << SIMTIME << " lane=" << lane->getID() << " dir=" << ped.myDir << " pX=" << ped.myRelX << " pL=" << ped.getLength() 
-            << " fDTC=" << distToCrossing 
+            << " vehSide=" << vehSide 
+            << " vehWidth=" << vehWidth 
             << " lBD=" << leaderBackDist 
             << " lFD=" << leaderFrontDist 
-            << " safetyGap=" << safetyGap << "\n";
+            << "\n";
         }
-        if (leaderBackDist >= -safetyGap && leaderFrontDist <= oncomingGap) {
+        if (leaderBackDist >= -vehWidth && leaderFrontDist <= oncomingGap) {
             // found one pedestrian that is not completely past the crossing point
             //std::cout << SIMTIME << " blocking pedestrian foeLane=" << lane->getID() << " ped=" << ped.myPerson->getID() << " dir=" << ped.myDir << " pX=" << ped.myRelX << " pL=" << ped.getLength() << " fDTC=" << distToCrossing << " lBD=" << leaderBackDist << "\n";
             if (collectBlockers == 0) {
