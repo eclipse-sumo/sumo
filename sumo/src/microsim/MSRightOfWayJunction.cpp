@@ -85,9 +85,15 @@ MSRightOfWayJunction::postloadInit() {
     for (i = myIncomingLanes.begin(); i != myIncomingLanes.end(); ++i) {
         const MSLinkCont& links = (*i)->getLinkCont();
         // ... set information for every link
+        const MSLane* walkingAreaFoe = 0;
         for (MSLinkCont::const_iterator j = links.begin(); j != links.end(); j++) {
-            if ((*j)->getLane()->getEdge().isWalkingArea() ||
-                    ((*i)->getEdge().isWalkingArea() && !(*j)->getLane()->getEdge().isCrossing())) {
+            if ((*j)->getLane()->getEdge().isWalkingArea()) {
+                if ((*i)->getPermissions() != SVC_PEDESTRIAN) {
+                    // vehicular lane connects to a walkingarea
+                    walkingAreaFoe = (*j)->getLane();
+                }
+                continue;
+            } else if (((*i)->getEdge().isWalkingArea() && !(*j)->getLane()->getEdge().isCrossing())) {
                 continue;
             }
             if (myLogic->getLogicSize() <= requestPos) {
@@ -169,6 +175,14 @@ MSRightOfWayJunction::postloadInit() {
                 (*k)->addBlockedLink(*j);
             }
             requestPos++;
+        }
+        if (walkingAreaFoe != 0 && links.size() > 1) {
+            for (MSLinkCont::const_iterator j = links.begin(); j != links.end(); j++) {
+                if (!(*j)->getLane()->getEdge().isWalkingArea()) {
+                    MSLink* exitLink = (*j)->getViaLane()->getLinkCont()[0];
+                    exitLink->addWalkingAreaFoe(walkingAreaFoe);
+                }
+            }
         }
     }
 }

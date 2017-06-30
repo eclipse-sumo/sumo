@@ -174,6 +174,15 @@ public:
                                const std::vector<MSLink*>& foeLinks, const std::vector<MSLane*>& foeLanes,
                                MSLane* internalLaneBefore = 0);
 
+    /// @brief add walkingarea as foe
+    void addWalkingAreaFoe(const MSLane* lane) {
+        myWalkingAreaFoe = lane;
+    }
+
+    /// @brief get walkingarea as foe
+    const MSLane* getWalkingAreaFoe() {
+        return myWalkingAreaFoe;
+    }
 
     /** @brief Sets the information about an approaching vehicle
      *
@@ -580,6 +589,7 @@ private:
     // TODO: documentation
     std::vector<MSLink*> myFoeLinks;
     std::vector<const MSLane*> myFoeLanes;
+    const MSLane* myWalkingAreaFoe;
 
     /* @brief Links with the same origin lane and the same destination edge that may
        be in conflict for sublane simulation */

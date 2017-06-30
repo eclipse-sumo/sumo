@@ -3,3 +3,4 @@
 --route-files input_routes.rou.xml
 --fcd-output fcd.xml
 --pedestrian.striping.dawdling 0
+--collision.check-junctions

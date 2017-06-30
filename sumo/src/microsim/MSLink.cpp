@@ -83,6 +83,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myInternalLaneBefore(0),
     myMesoTLSPenalty(0),
     myGreenFraction(1),
+    myWalkingAreaFoe(0),
     myParallelRight(0),
     myParallelLeft(0),
     myJunction(0) {

@@ -80,7 +80,8 @@
 //#define DEBUG_PEDESTRIAN_COLLISIONS
 //#define DEBUG_LANE_SORTER
 
-#define DEBUG_COND (getID() == "disabled")
+//#define DEBUG_COND (getID() == "disabled")
+#define DEBUG_COND (true)
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
 #define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 
@@ -1185,35 +1186,10 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                         }
                     }
                 }
-
-                if (foeLane->getEdge().getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(foeLane)) {
-#ifdef DEBUG_PEDESTRIAN_COLLISIONS
-                    if (DEBUG_COND) {
-                        std::cout << SIMTIME << " detect pedestrian junction collisions stage=" << stage << " lane=" << getID() << " foeLane=" << foeLane->getID() << "\n";
-                    }
-#endif
-                    const std::vector<MSTransportable*>& persons = foeLane->getEdge().getSortedPersons(timestep);
-                    for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
-#ifdef DEBUG_PEDESTRIAN_COLLISIONS
-                        if (DEBUG_COND) {
-                            std::cout << "    collider=" << collider->getID() 
-                                << " colliderBoundary=" << colliderBoundary 
-                                << " ped=" << (*it_p)->getID() 
-                                << " pedBoundary=" << (*it_p)->getBoundingBox() 
-                                << "\n";
-                        }
-#endif
-                        if (colliderBoundary.overlapsWith((*it_p)->getBoundingBox())) {
-                            WRITE_WARNING(
-                                    "Vehicle '" + collider->getID() 
-                                    + "' collision with pedestrian '" + (*it_p)->getID()
-                                    + "', lane='" + getID()
-                                    + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
-                                    + " stage=" + stage + ".");
-                            MSNet::getInstance()->getVehicleControl().registerCollision();
-                        }
-                    }
-                }
+                detectPedestrianJunctionCollision(collider, colliderBoundary, foeLane, timestep, stage);
+            }
+            if (myLinks.front()->getWalkingAreaFoe() != 0) {
+                detectPedestrianJunctionCollision(collider, colliderBoundary, myLinks.front()->getWalkingAreaFoe(), timestep, stage);
             }
         }
     }
@@ -1263,6 +1239,39 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     }
 }
 
+
+void 
+MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const PositionVector& colliderBoundary, const MSLane* foeLane, 
+        SUMOTime timestep, const std::string& stage) {
+    if (foeLane->getEdge().getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(foeLane)) {
+#ifdef DEBUG_PEDESTRIAN_COLLISIONS
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " detect pedestrian junction collisions stage=" << stage << " lane=" << getID() << " foeLane=" << foeLane->getID() << "\n";
+        }
+#endif
+        const std::vector<MSTransportable*>& persons = foeLane->getEdge().getSortedPersons(timestep);
+        for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
+#ifdef DEBUG_PEDESTRIAN_COLLISIONS
+            if (DEBUG_COND) {
+                std::cout << "    collider=" << collider->getID() 
+                    << " ped=" << (*it_p)->getID() 
+                    << " colliderBoundary=" << colliderBoundary 
+                    << " pedBoundary=" << (*it_p)->getBoundingBox() 
+                    << "\n";
+            }
+#endif
+            if (colliderBoundary.overlapsWith((*it_p)->getBoundingBox())) {
+                WRITE_WARNING(
+                        "Vehicle '" + collider->getID() 
+                        + "' collision with pedestrian '" + (*it_p)->getID()
+                        + "', lane='" + getID()
+                        + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
+                        + " stage=" + stage + ".");
+                MSNet::getInstance()->getVehicleControl().registerCollision();
+            }
+        }
+    }
+}
 
 bool
 MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
