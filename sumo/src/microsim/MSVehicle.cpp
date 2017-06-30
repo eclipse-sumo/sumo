@@ -2304,7 +2304,6 @@ MSVehicle::executeMove() {
                     myState.myPos -= myLane->getLength();
                     assert(myState.myPos > 0);
                     enterLaneAtMove(approachedLane);
-                    myLane = approachedLane;
                     if (MSGlobals::gUsingInternalLanes) {
                         // erase leaders when past the junction
                         if (link->getViaLane() == 0) {
@@ -2811,7 +2810,7 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
 void
 MSVehicle::activateReminders(const MSMoveReminder::Notification reason, const MSLane* enteredLane) {
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
-        // skip the reminder if it is a lane reminder but not for my lane
+        // skip the reminder if it is a lane reminder but not for my lane (indicated by rem->second > 0.)
         if (rem->first->getLane() != 0 && rem->second > 0.) {
 #ifdef _DEBUG
             if (myTraceMoveReminders) {
