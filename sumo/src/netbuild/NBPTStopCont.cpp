@@ -180,10 +180,29 @@ void NBPTStopCont::assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCo
 
 }
 double NBPTStopCont::computeCrossProductEdgePosition(const NBEdge* edge, const Position* closestPlatform) const {
-    double x0 = edge->getFromNode()->getPosition().x();
-    double y0 = edge->getFromNode()->getPosition().y();
-    double x1 = edge->getToNode()->getPosition().x();
-    double y1 = edge->getToNode()->getPosition().y();
+    PositionVector geom = edge->getGeometry();
+    int idxTmp = geom.indexOfClosest(*closestPlatform);
+    double offset = geom.nearest_offset_to_point2D(*closestPlatform,true);
+    double offset2 = geom.offsetAtIndex2D(idxTmp);
+    int idx1, idx2;
+    if (offset2 < offset) {
+        idx1 = idxTmp;
+        idx2 = idx1+1;
+    } else {
+        idx2 = idxTmp;
+        idx1 = idxTmp-1;
+    }
+    if (idx1 < 0 || idx1 >= geom.size() || idx2 < 0 || idx2 >= geom.size()) {
+        WRITE_WARNING("Could not determine cross product");
+        return 0;
+    }
+    Position p1 = geom[idx1];
+    Position p2 = geom[idx2];
+
+    double x0 = p1.x();
+    double y0 = p1.y();
+    double x1 = p2.x();
+    double y1 = p2.y();
     double x2 = closestPlatform->x();
     double y2 = closestPlatform->y();
     double crossProd = (x1 - x0) * (y2 - y0) - (y1 - y0) * (x2 - x0);
