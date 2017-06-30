@@ -721,7 +721,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
     } else if (myJunctionToMove) {
         // position is already up to date but we must register with myUndoList
         if (!mergeJunctions(myJunctionToMove)) {
-            myJunctionToMove->commmitGeometryMoved(myMovingOriginalPosition + myMovingReference, myUndoList);
+            myJunctionToMove->commmitGeometryMoving(myMovingOriginalPosition + myMovingReference, myUndoList);
         }
         myJunctionToMove = 0;
     } else if (myEdgeToMove) {
@@ -731,9 +731,9 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
         myEdgeToMove = 0;
     } else if (myAdditionalToMove) {
         if (myAdditionalToMove->getLane()) {
-            myAdditionalToMove->commmitAdditionalGeometryMoved(myMovingOriginalPosition, myUndoList);
+            myAdditionalToMove->commmitGeometryMoving(myMovingOriginalPosition, myUndoList);
         } else {
-            myAdditionalToMove->commmitAdditionalGeometryMoved(myMovingOriginalPosition + myMovingReference, myUndoList);
+            myAdditionalToMove->commmitGeometryMoving(myMovingOriginalPosition + myMovingReference, myUndoList);
         }
         myAdditionalToMove = 0;
     } else if (myMovingSelection) {
@@ -743,7 +743,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
         if(myOriginPostionOfMovedJunctions.size() > 0) {
             myUndoList->p_begin("position of selected elements");
             for(std::map<GNEJunction*, Position>::const_iterator i = myOriginPostionOfMovedJunctions.begin(); i != myOriginPostionOfMovedJunctions.end(); i++) {
-                i->first->commmitGeometryMoved(i->second, myUndoList);
+                i->first->commmitGeometryMoving(i->second, myUndoList);
             }
             myUndoList->p_end();
             myOriginPostionOfMovedJunctions.clear();
@@ -829,12 +829,12 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
             // If additional is placed over lane, move it across it
             if (myAdditionalToMove->getLane()) {
                 double posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(clickedPosition, false);
-                myAdditionalToMove->moveAdditionalGeometry(posOfMouseOverLane - myMovingReference.x(), 0);
+                myAdditionalToMove->moveGeometry(Position(posOfMouseOverLane - myMovingReference.x(), 0));
                 myMovingReference.set(posOfMouseOverLane, 0, 0);
             } else {
                 // Calculate movement offset and move geometry of additional
                 Position offsetPosition = clickedPosition - myMovingOriginalPosition;
-                myAdditionalToMove->moveAdditionalGeometry(myMovingOriginalPosition + offsetPosition + myMovingReference);
+                myAdditionalToMove->moveGeometry(myMovingOriginalPosition + offsetPosition + myMovingReference);
             }
             update();
         } else if (myMovingSelection) {

@@ -74,10 +74,10 @@ public:
     void openAdditionalDialog();
 
     /// @brief change the position of the rerouter geometry
-    void moveAdditionalGeometry(double offsetx, double offsety);
+    void moveGeometry(const Position &newPosition);
 
     /// @brief updated geometry changes in the attributes of additional
-    void commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList);
+    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element

@@ -73,9 +73,7 @@ GNEDetector::~GNEDetector() {
 
 
 void
-GNEDetector::moveAdditionalGeometry(double offsetx, double offsety) {
-    // Due a detector is placed over an lane ignore Warning of posy
-    UNUSED_PARAMETER(offsety);
+GNEDetector::moveGeometry(const Position &newPosition) {
     // declare start and end positions
     double startPos = myPosition.x();
     double endPos = 0;
@@ -84,9 +82,9 @@ GNEDetector::moveAdditionalGeometry(double offsetx, double offsety) {
         endPos = startPos + GNEAttributeCarrier::parse<double>(getAttribute(SUMO_ATTR_LENGTH));
     }
     // Move to Right if distance is positive, to left if distance is negative
-    if (((offsetx > 0) && ((endPos + offsetx) < myLane->getLaneShapeLength())) || ((offsetx < 0) && ((startPos + offsetx) > 0))) {
+    if (((newPosition.x() > 0) && ((endPos + newPosition.x()) < myLane->getLaneShapeLength())) || ((newPosition.x() < 0) && ((startPos + newPosition.x()) > 0))) {
         // change attribute
-        myPosition.set(myPosition.x() + offsetx, 0);
+        myPosition.set(myPosition.x() + newPosition.x(), 0);
         // Update geometry
         updateGeometry();
     }
@@ -94,9 +92,9 @@ GNEDetector::moveAdditionalGeometry(double offsetx, double offsety) {
 
 
 void
-GNEDetector::commmitAdditionalGeometryMoved(double oldPosx, double, GNEUndoList* undoList) {
+GNEDetector::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition.x()), true, toString(oldPosx)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition.x()), true, toString(oldPos.x())));
     undoList->p_end();
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);

@@ -139,13 +139,13 @@ GNERouteProbe::getPositionInView() const {
 
 
 void
-GNERouteProbe::moveAdditionalGeometry(double, double) {
+GNERouteProbe::moveGeometry(const Position &newPosition) {
     // This additional cannot be moved
 }
 
 
 void
-GNERouteProbe::commmitAdditionalGeometryMoved(double, double, GNEUndoList*) {
+GNERouteProbe::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     // This additional cannot be moved
 }
 

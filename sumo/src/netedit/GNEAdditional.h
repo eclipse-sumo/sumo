@@ -73,35 +73,19 @@ public:
     /// @brief Destructor
     ~GNEAdditional();
 
-    /**@brief change the position of the additional geometry
-     * @param[in] offset offset of movement
-     * @note simply call the function moveAdditionalGeometry(double offsetx, double offsety)
-     */
-    void moveAdditionalGeometry(const Position& offset);
-
-    /**@brief change the position of the additional geometry
+    /**@brief change the position of the element geometry without saving in undoList
      * @param[in] offsetx horizontal offset of movement
      * @param[in] offsety vertical offset of movement
      * @note if additional belongs to a Lane, offsety is ignored
      * @note must be implemented in ALL childrens
      */
-    virtual void moveAdditionalGeometry(double offsetx, double offsety) = 0;
+    virtual void moveGeometry(const Position &newPosition) = 0;
 
-    /**@brief updated geometry changes in the attributes of additional
+    /**@brief commit geometry changes in the attributes of an element
      * @param[in] oldPos old position X of additional
      * @param[in] undoList The undoList on which to register changes
-     * @note simply call function commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList)
      */
-    void commmitAdditionalGeometryMoved(const Position& oldPos, GNEUndoList* undoList);
-
-    /**@brief updated geometry changes in the attributes of additional
-     * @param[in] oldPosx old position X of additional
-     * @param[in] oldPosy old position Y of additional
-     * @param[in] undoList The undoList on which to register changes
-     * @note if additional belongs to a Lane, oldPosy is ignored
-     * @note must be implemented in ALL childrens
-     */
-    virtual void commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList) = 0;
+    virtual void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) = 0;
 
     /// @brief update pre-computed geometry information
     /// @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens

@@ -109,6 +109,30 @@ GNEDetectorExit::updateGeometryByParent() {
 }
 
 
+void
+GNEDetectorExit::moveGeometry(const Position &newPosition) {
+    // declare start and end positions
+    double startPos = myPosition.x();
+    // Move to Right if distance is positive, to left if distance is negative
+    if (((newPosition.x() > 0) && (newPosition.x() < myLane->getLaneShapeLength())) || ((newPosition.x() < 0) && ((startPos + newPosition.x()) > 0))) {
+        // change attribute
+        myPosition.set(myPosition.x() + newPosition.x(), 0);
+        // Update geometry
+        updateGeometry();
+    }
+}
+
+
+void
+GNEDetectorExit::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+    undoList->p_begin("position of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition.x()), true, toString(oldPos.x())));
+    undoList->p_end();
+    // Refresh element
+    myViewNet->getNet()->refreshAdditional(this);
+}
+
+
 Position
 GNEDetectorExit::getPositionInView() const {
     return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLength(myPosition.x()));

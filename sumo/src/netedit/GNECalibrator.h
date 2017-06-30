@@ -70,10 +70,10 @@ public:
     ~GNECalibrator();
 
     /// @brief change the position of the calibrator geometry
-    void moveAdditionalGeometry(double, double);
+    void moveGeometry(const Position &newPosition);
 
     /// @brief updated geometry changes in the attributes of additional
-    void commmitAdditionalGeometryMoved(double, double, GNEUndoList*);
+    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /**@brief update pre-computed geometry information
      * @note: must be called when geometry c6hanges (i.e. lane moved)

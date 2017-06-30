@@ -65,6 +65,12 @@ public:
     /// @brief update pre-computed geometry information called by E3 parent
     void updateGeometryByParent();
 
+    /// @brief change the position of the additional geometry
+    void moveGeometry(const Position &newPosition);
+
+    /// @brief updated geometry changes in the attributes of additional
+    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
     /// @brief Returns position of detector Entry in view
     Position getPositionInView() const;
 

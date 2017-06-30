@@ -84,20 +84,6 @@ GNEAdditional::~GNEAdditional() {}
 
 
 void
-GNEAdditional::moveAdditionalGeometry(const Position& offset) {
-    moveAdditionalGeometry(offset.x(), offset.y());
-}
-
-
-void
-GNEAdditional::commmitAdditionalGeometryMoved(const Position& oldPos, GNEUndoList* undoList) {
-    commmitAdditionalGeometryMoved(oldPos.x(), oldPos.y(), undoList);
-    // Refresh element
-    myViewNet->getNet()->refreshAdditional(this);
-}
-
-
-void
 GNEAdditional::openAdditionalDialog() {}
 
 

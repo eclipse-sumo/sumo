@@ -90,14 +90,14 @@ GNECalibrator::~GNECalibrator() {}
 
 
 void
-GNECalibrator::moveAdditionalGeometry(double, double) {
-    // This additional cannot be moved
+GNECalibrator::moveGeometry(const Position &) {
+    // This additional cannot be moved currently
 }
 
 
 void
-GNECalibrator::commmitAdditionalGeometryMoved(double, double, GNEUndoList*) {
-    // This additional cannot be moved
+GNECalibrator::commmitGeometryMoving(const Position&, GNEUndoList*) {
+    // This additional cannot be moved currently
 }
 
 

@@ -74,6 +74,12 @@ public:
      */
     void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
+    /// @brief change the position of the additional geometry
+    void moveGeometry(const Position &newPosition);
+
+    /// @brief updated geometry changes in the attributes of additional
+    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Draws the object

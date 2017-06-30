@@ -129,18 +129,18 @@ GNEDetectorE3::getPositionInView() const {
 
 
 void
-GNEDetectorE3::moveAdditionalGeometry(double offsetx, double offsety) {
+GNEDetectorE3::moveGeometry(const Position &newPosition) {
     // change Position
-    myPosition.set(offsetx, offsety);
+    myPosition = newPosition;
     updateGeometry();
 }
 
 
 void
-GNEDetectorE3::commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList) {
+GNEDetectorE3::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(myPosition.x()), true, toString(oldPosx)));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(myPosition.y()), true, toString(oldPosy)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(myPosition.x()), true, toString(oldPos.x())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(myPosition.y()), true, toString(oldPos.y())));
     undoList->p_end();
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);

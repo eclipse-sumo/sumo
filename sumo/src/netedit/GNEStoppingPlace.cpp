@@ -88,16 +88,14 @@ GNEStoppingPlace::getPositionInView() const {
 
 
 void
-GNEStoppingPlace::moveAdditionalGeometry(double offsetx, double offsety) {
-    // Due a stoppingplace is placed over an lane ignore Warning of posy
-    UNUSED_PARAMETER(offsety);
+GNEStoppingPlace::moveGeometry(const Position &newPosition) {
     // Move to Right if distance is positive, to left if distance is negative
-    if (((offsetx > 0) &&
-            ((myLane->getPositionRelativeToParametricLength(myEndPos) + offsetx) < myLane->getLaneParametricLength())) ||
-            ((offsetx < 0) && ((myLane->getPositionRelativeToParametricLength(myStartPos) + offsetx) > 0))) {
+    if (((newPosition.x() > 0) &&
+            ((myLane->getPositionRelativeToParametricLength(myEndPos) + newPosition.x()) < myLane->getLaneParametricLength())) ||
+            ((newPosition.x() < 0) && ((myLane->getPositionRelativeToParametricLength(myStartPos) + newPosition.x()) > 0))) {
         // change attribute
-        myStartPos += offsetx;
-        myEndPos += offsetx;
+        myStartPos += newPosition.x();
+        myEndPos += newPosition.x();
         // Update geometry
         updateGeometry();
     }
@@ -105,10 +103,10 @@ GNEStoppingPlace::moveAdditionalGeometry(double offsetx, double offsety) {
 
 
 void
-GNEStoppingPlace::commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList) {
+GNEStoppingPlace::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(getStartPosition()), true, toString(oldPosx)));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(getEndPosition()), true, toString(oldPosy)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(getStartPosition()), true, toString(oldPos.x())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(getEndPosition()), true, toString(oldPos.y())));
     undoList->p_end();
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);

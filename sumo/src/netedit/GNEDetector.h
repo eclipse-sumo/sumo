@@ -69,10 +69,10 @@ public:
     virtual Position getPositionInView() const = 0;
 
     /// @brief change the position of the additional geometry
-    void moveAdditionalGeometry(double offsetx, double offsety);
+    virtual void moveGeometry(const Position &newPosition) = 0;
 
     /// @brief updated geometry changes in the attributes of additional
-    void commmitAdditionalGeometryMoved(double oldPosx, double, GNEUndoList* undoList);
+    virtual void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) = 0;
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element

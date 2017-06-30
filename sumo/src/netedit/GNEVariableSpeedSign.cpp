@@ -121,17 +121,17 @@ GNEVariableSpeedSign::openAdditionalDialog() {
 
 
 void
-GNEVariableSpeedSign::moveAdditionalGeometry(double offsetx, double offsety) {
+GNEVariableSpeedSign::moveGeometry(const Position &newPosition) {
     // change Position
-    myPosition = Position(offsetx, offsety);
+    myPosition = newPosition;
     updateGeometry();
 }
 
 
 void
-GNEVariableSpeedSign::commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList) {
+GNEVariableSpeedSign::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(Position(oldPosx, oldPosy))));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(oldPos)));
     undoList->p_end();
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);

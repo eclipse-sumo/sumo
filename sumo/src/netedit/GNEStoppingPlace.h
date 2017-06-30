@@ -72,10 +72,13 @@ public:
     Position getPositionInView() const;
 
     /// @brief change the position of the StoppingPlace geometry
-    void moveAdditionalGeometry(double offsetx, double offsety);
+    void moveGeometry(const Position &newPosition);
 
-    /// @brief updated geometry changes in the attributes of additional
-    void commmitAdditionalGeometryMoved(double oldPosx, double oldPosy, GNEUndoList* undoList);
+    /**@brief commit geometry changes in the attributes of an element
+     * @param[in] oldPos old position X of additional
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
