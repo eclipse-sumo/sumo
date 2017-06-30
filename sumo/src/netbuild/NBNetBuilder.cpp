@@ -301,7 +301,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     NBNodeTypeComputer::computeNodeTypes(myNodeCont);
     PROGRESS_TIME_MESSAGE(before);
     //
-    myNetworkHaveCrossings = false;
+    myNetworkHaveCrossings = oc.getBool("walkingareas");
     if ((mayAddOrRemove == true) && oc.getBool("crossings.guess")) {
         myNetworkHaveCrossings = true;
         int crossings = 0;

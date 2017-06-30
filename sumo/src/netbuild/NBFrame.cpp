@@ -254,6 +254,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("crossings.guess.speed-threshold", "Processing",
                       "At uncontrolled nodes, do not build crossings across edges with a speed above the threshold");
 
+    oc.doRegister("walkingareas", new Option_Bool(false));
+    oc.addDescription("walkingareas", "Processing", "Always build walking areas even if there are no crossings");
+
     // tls setting options
     // explicit tls
     oc.doRegister("tls.set", new Option_String());
@@ -459,6 +462,10 @@ NBFrame::checkOptions() {
     }
     if (oc.getBool("no-internal-links") && oc.getBool("crossings.guess")) {
         WRITE_ERROR("only one of the options 'no-internal-links' or 'crossings.guess' may be given");
+        ok = false;
+    }
+    if (oc.getBool("no-internal-links") && oc.getBool("walkingareas")) {
+        WRITE_ERROR("only one of the options 'no-internal-links' or 'walkareas' may be given");
         ok = false;
     }
     if (!oc.isDefault("tls.green.time") && !oc.isDefault("tls.cycle.time")) {
