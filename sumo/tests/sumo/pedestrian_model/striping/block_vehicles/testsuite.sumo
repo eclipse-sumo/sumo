@@ -17,5 +17,8 @@ walking_forward_unprioritized
 # walk despite red light
 jaywalking_forward
 
-# walk despite red light and get run over 
+# walk despite red light and get run over
 jaywalking_forward_collision
+
+# pedestrians that are stopped on a crossing should not cause deadlock
+ignore_stopped
