@@ -55,8 +55,8 @@ public:
     void process(NBEdgeCont& cont);
 private:
 
-    static const int FWD = 1;
-    static const int BWD = -1;
+    static const int FWD;
+    static const int BWD;
 
     /// @brief Definition of the map of names to pt lines
     typedef std::vector<NBPTLine*> PTLinesCont;
