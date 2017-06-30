@@ -157,7 +157,8 @@ MSPModel_Striping::blockedAtDist(const MSLane* lane, double distToCrossing, doub
     for (Pedestrians::const_iterator it_ped = pedestrians.begin(); it_ped != pedestrians.end(); ++it_ped) {
         const PState& ped = **it_ped;
         const double halfVehicleWidth = 1.0; // @note could get the actual value from the vehicle
-        const double safetyGap = MSPModel::SAFETY_GAP + halfVehicleWidth;
+        // @note distToCrossing is measured at the border of the vehicle lane (which could have a different length)
+        const double safetyGap = MSPModel::SAFETY_GAP + halfVehicleWidth + SUMO_const_halfLaneWidth;
         const double leaderFrontDist = (ped.myDir == FORWARD ? distToCrossing - ped.myRelX : ped.myRelX - distToCrossing);
         const double leaderBackDist = leaderFrontDist + ped.getLength();
         if DEBUGCOND(ped.myPerson->getID()) {
