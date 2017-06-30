@@ -62,3 +62,6 @@ traffic_light_unregulated
 # remove a crossing
 discard
 discard_no_internal
+
+# discard all crossings
+discard_no_internal2
