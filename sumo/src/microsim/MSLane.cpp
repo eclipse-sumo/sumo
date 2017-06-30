@@ -220,6 +220,7 @@ MSLane::addMoveReminder(MSMoveReminder* rem) {
     for (VehCont::iterator veh = myVehicles.begin(); veh != myVehicles.end(); ++veh) {
         (*veh)->addReminder(rem);
     }
+    // XXX: Here, the partial occupators are ignored!? Refs. #3255
 }
 
 
