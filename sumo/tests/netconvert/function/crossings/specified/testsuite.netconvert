@@ -23,6 +23,12 @@
 # slanted 4 arm junction with crossings on all sides
 4_arm_slanted_complete
 
+# 4 arm junction without crossing but with walkingareas 
+4_arm_0_walkingareas
+
+# 4 arm junction without crossing but with walkingareas re-import from net.xml
+4_arm_0_walkingareas_sumonet
+
 # 4 arm junction with 1 crossing
 4_arm_1
 

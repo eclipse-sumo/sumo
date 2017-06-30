@@ -342,6 +342,9 @@ private:
     /// @brief whether all lanes of an edge should have the same stop line
     bool myRectLaneCut;
 
+    /// @brief whether walkingareas must be built
+    bool myWalkingAreas;
+
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;
 

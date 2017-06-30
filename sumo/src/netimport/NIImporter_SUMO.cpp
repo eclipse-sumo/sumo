@@ -83,7 +83,9 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myAmLefthand(false),
       myCornerDetail(0),
       myLinkDetail(-1),
-      myRectLaneCut(false) {
+      myRectLaneCut(false),
+      myWalkingAreas(false)
+{
 }
 
 
@@ -272,6 +274,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (oc.isDefault("rectangular-lane-cut")) {
         oc.set("rectangular-lane-cut", toString(myRectLaneCut));
     }
+    if (oc.isDefault("walkingareas")) {
+        oc.set("walkingareas", toString(myWalkingAreas));
+    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
         deprecatedVehicleClassesSeen.clear();
@@ -339,6 +344,7 @@ NIImporter_SUMO::myStartElement(int element,
             myCornerDetail = attrs.getOpt<int>(SUMO_ATTR_CORNERDETAIL, 0, ok, 0);
             myLinkDetail = attrs.getOpt<int>(SUMO_ATTR_LINKDETAIL, 0, ok, -1);
             myRectLaneCut = attrs.getOpt<bool>(SUMO_ATTR_RECTANGULAR_LANE_CUT, 0, ok, false);
+            myWalkingAreas = attrs.getOpt<bool>(SUMO_ATTR_WALKINGAREAS, 0, ok, false);
             break;
         }
         case SUMO_TAG_EDGE:
