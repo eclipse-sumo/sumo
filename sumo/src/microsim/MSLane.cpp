@@ -2282,7 +2282,7 @@ MSLane::getCrossingIndex() const {
 // ------------ Current state retrieval
 double
 MSLane::getBruttoOccupancy() const {
-    double fractions = myPartialVehicles.size() > 0 ? myLength - myPartialVehicles.front()->getBackPositionOnLane(this) : 0;
+    double fractions = myPartialVehicles.size() > 0 ? MIN2(myLength, myLength - myPartialVehicles.front()->getBackPositionOnLane(this)) : 0;
     getVehiclesSecure();
     if (myVehicles.size() != 0) {
         MSVehicle* lastVeh = myVehicles.front();
@@ -2291,13 +2291,13 @@ MSLane::getBruttoOccupancy() const {
         }
     }
     releaseVehicles();
-    return (myBruttoVehicleLengthSum + fractions) / myLength;
+    return MIN2(1., (myBruttoVehicleLengthSum + fractions) / myLength);
 }
 
 
 double
 MSLane::getNettoOccupancy() const {
-    double fractions = myPartialVehicles.size() > 0 ? myLength - myPartialVehicles.front()->getBackPositionOnLane(this) : 0;
+    double fractions = myPartialVehicles.size() > 0 ? MIN2(myLength, myLength - myPartialVehicles.front()->getBackPositionOnLane(this)) : 0;
     getVehiclesSecure();
     if (myVehicles.size() != 0) {
         MSVehicle* lastVeh = myVehicles.front();
