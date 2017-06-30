@@ -246,3 +246,6 @@ ticket3126
 
 # The output should list the short lane 31to211_0 which is being ignored at the time of ticket creation
 ticket3255
+
+# The long vehicle on the short lane should not imply occupancy values larger than 100% in the ParameterWindow
+ticket3258
