@@ -632,13 +632,13 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_MODIFICATION_STATUS:
             return myConnectionStatus;
         case GNE_ATTR_SHAPE_START:
-            if (myNBEdge.getGeometry()[0] == myGNEJunctionSource->getPosition()) {
+            if (myNBEdge.getGeometry()[0] == myGNEJunctionSource->getPositionInView()) {
                 return "";
             } else {
                 return toString(myNBEdge.getGeometry()[0]);
             }
         case GNE_ATTR_SHAPE_END:
-            if (myNBEdge.getGeometry()[-1] == myGNEJunctionDestiny->getPosition()) {
+            if (myNBEdge.getGeometry()[-1] == myGNEJunctionDestiny->getPositionInView()) {
                 return "";
             } else {
                 return toString(myNBEdge.getGeometry()[-1]);
@@ -938,7 +938,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             PositionVector geom = myNBEdge.getGeometry();
             geom.erase(geom.begin());
             if (value == "") {
-                geom.push_front_noDoublePos(myGNEJunctionSource->getPosition());
+                geom.push_front_noDoublePos(myGNEJunctionSource->getPositionInView());
             } else {
                 geom.push_front_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
             }
@@ -950,7 +950,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             PositionVector geom = myNBEdge.getGeometry();
             geom.pop_back();
             if (value == "") {
-                geom.push_back_noDoublePos(myGNEJunctionDestiny->getPosition());
+                geom.push_back_noDoublePos(myGNEJunctionDestiny->getPositionInView());
             } else {
                 geom.push_back_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
             }

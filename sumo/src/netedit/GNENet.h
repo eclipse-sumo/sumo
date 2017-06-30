@@ -538,7 +538,6 @@ public:
                     double angle, const std::string& imgFile,
                     const PositionVector& shape, bool fill, bool ignorePruning = false);
 
-
     /** @brief Builds a POI using the given values and adds it to the container
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
@@ -555,14 +554,11 @@ public:
                 const RGBColor& color, double layer, double angle, const std::string& imgFile,
                 const Position& pos, double width, double height, bool ignorePruning = false);
 
-
-
     /** @brief Removes a polygon from the container
      * @param[in] id The id of the polygon
      * @return Whether the polygon could be removed
      */
     bool removePolygon(const std::string& id);
-
 
     /** @brief Removes a PoI from the container
      * @param[in] id The id of the PoI

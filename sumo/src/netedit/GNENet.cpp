@@ -685,9 +685,10 @@ void
 GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* undoList) {
     undoList->p_begin("merge " + toString(SUMO_TAG_JUNCTION) + "s");
     // position of moved and target are probably a bit different (snap radius)
-    moved->move(target->getNBNode()->getPosition());
+    Position oldPos = moved->getNBNode()->getPosition();
+    moved->moveJunctionGeometry(target->getNBNode()->getPosition());
     // register the move with undolist (must happend within the undo group)
-    moved->registerMove(undoList);
+    moved->commmitGeometryMoved(oldPos, undoList);
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incoming = moved->getNBNode()->getIncomingEdges();
     for (EdgeVector::const_iterator it = incoming.begin(); it != incoming.end(); it++) {
@@ -724,7 +725,7 @@ bool
 GNENet::checkJunctionPosition(const Position &pos) {
     // Check that there isn't another junction in the same position as Pos
     for(GNEJunctions::const_iterator i = myJunctions.begin(); i != myJunctions.end(); i++) {
-        if(i->second->getPosition() == pos) {
+        if(i->second->getPositionInView() == pos) {
             return false;
         }
     }
@@ -1165,7 +1166,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
 
     // Check that there isn't another junction in the same position as Pos but doesn't belong to cluster
     for(GNEJunctions::const_iterator i = myJunctions.begin(); i != myJunctions.end(); i++) {
-        if((i->second->getPosition() == pos) && (cluster.find(i->second->getNBNode()) == cluster.end())) {
+        if((i->second->getPositionInView() == pos) && (cluster.find(i->second->getNBNode()) == cluster.end())) {
             // show warning in gui testing debug mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Opening FXMessageBox of type 'question'");
@@ -1334,12 +1335,13 @@ GNENet::removeExplicitTurnaround(std::string id) {
 void
 GNENet::moveSelection(const Position& moveSrc, const Position& moveDest) {
     Position delta = moveDest - moveSrc;
-    // move junctions
+    // obtain Junctios to move
     std::set<GNEJunction*> junctionSet;
     std::vector<GNEJunction*> junctions = retrieveJunctions(true);
+    // move junctions
     for (std::vector<GNEJunction*>::iterator it = junctions.begin(); it != junctions.end(); it++) {
         Position newPos = (*it)->getNBNode()->getPosition() + delta;
-        (*it)->move(newPos);
+        (*it)->moveJunctionGeometry(newPos);
         junctionSet.insert(*it);
     }
 
@@ -1349,7 +1351,7 @@ GNENet::moveSelection(const Position& moveSrc, const Position& moveDest) {
         GNEEdge* edge = *it;
         if (edge) {
             if (junctionSet.count(edge->getGNEJunctionSource()) > 0 &&
-                    junctionSet.count(edge->getGNEJunctionDestiny()) > 0) {
+                junctionSet.count(edge->getGNEJunctionDestiny()) > 0) {
                 // edge and its endpoints are selected, move all the inner points as well
                 edge->moveGeometry(delta);
             } else {
@@ -1368,7 +1370,6 @@ GNENet::finishMoveSelection(GNEUndoList* undoList) {
     std::set<GNEJunction*> junctionSet;
     std::vector<GNEJunction*> junctions = retrieveJunctions(true);
     for (std::vector<GNEJunction*>::iterator it = junctions.begin(); it != junctions.end(); it++) {
-        (*it)->registerMove(undoList);
         junctionSet.insert(*it);
     }
 

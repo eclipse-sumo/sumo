@@ -389,17 +389,18 @@ private:
     /// @brief the stoppingPlace element which shape is being moved
     GNEAdditional* myAdditionalToMove;
 
-    /// @brief variable for calculating moving offset of additionals
-    Position myAdditionalMovingReference;
+    /// @brief variable for calculating moving offset (Used when user doesn't click exactly over the center of shape)
+    Position myMovingReference;
 
-    /// @brief variable for saving additional position before moving
-    Position myOldAdditionalPosition;
-
-    /// @brief position from which to move edge geometry
-    Position myMoveSrc;
+    /// @brief Position of element before moving
+    Position myMovingOriginalPosition;
 
     /// @brief whether a selection is being moved
-    bool myMoveSelection;
+    bool myMovingSelection;
+
+    /// @brief Junctions that are being moved
+    /** NOTE: IN the future will be changed to std::map<GNENetElement*, Position> **/
+    std::map<GNEJunction*, Position> myOriginPostionOfMovedJunctions;
     // @}
 
     /// @name state-variables of inspect-mode and select-mode

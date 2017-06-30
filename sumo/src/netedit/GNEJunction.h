@@ -109,7 +109,7 @@ public:
     NBNode* getNBNode() const;
 
     /// @brief Return current position
-    Position getPosition() const;
+    Position getPositionInView() const;
 
     /// @brief return GNEJunction neighbours
     std::vector<GNEJunction*> getJunctionNeighbours() const;
@@ -158,13 +158,17 @@ public:
      * @note: those operations are not added to the undoList. This is handled in
      * registerMove to avoids merging lots of tiny movements
      */
-    void move(Position pos);
+    void moveJunctionGeometry(Position pos);
 
-    /**@brief reposition the node as above but keep the old z value */
-    void move2D(Position pos2D);
+    /**@brief reposition the node as above but keep the old z value
+     * @param[in] pos The new position
+     * @note: those operations are not added to the undoList. This is handled in
+     * registerMove to avoids merging lots of tiny movements
+     */
+    void moveJunctionGeometry2D(Position pos2D);
 
     /// @brief registers completed movement with the undoList
-    void registerMove(GNEUndoList* undoList);
+    void commmitGeometryMoved(const Position &oldPos, GNEUndoList* undoList);
 
     /**@brief update shapes of all elements associated to the junction
      * @note this include the adyacent nodes connected by edges
@@ -241,9 +245,6 @@ private:
     /// @brief vector with the outgoings GNEEdges vinculated with this junction
     std::vector<GNEEdge*> myGNEOutgoingEdges;
 
-    /// @brief restore point for undo
-    Position myOrigPos;
-
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double myMaxSize;
 
@@ -278,9 +279,6 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief reposition the NBNnode and nothing else
-    void setPosition(Position pos);
 
     /// @brief sets junction color depending on circumstances
     void setColor(const GUIVisualizationSettings& s, bool bubble) const;

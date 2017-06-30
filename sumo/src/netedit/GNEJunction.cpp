@@ -67,7 +67,6 @@
 GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
     GNENetElement(net, nbn.getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION, ICON_JUNCTION),
     myNBNode(nbn),
-    myOrigPos(nbn.getPosition()),
     myAmCreateEdgeSource(false),
     myLogicStatus(loaded ? LOADED : GUESSED),
     myAmResponsible(false),
@@ -102,12 +101,11 @@ GNEJunction::~GNEJunction() {
 
 void
 GNEJunction::updateGeometry() {
-    //myNet->getNetBuilder()->computeSingleNode(&myNBNode, OptionsCont::getOptions());
-
+    // calculate boundary using EXTENT as size
     const double EXTENT = 2;
-    myBoundary = Boundary(
-                     myOrigPos.x() - EXTENT, myOrigPos.y() - EXTENT,
-                     myOrigPos.x() + EXTENT, myOrigPos.y() + EXTENT);
+    myBoundary = Boundary(myNBNode.getPosition().x() - EXTENT, myNBNode.getPosition().y() - EXTENT,
+                          myNBNode.getPosition().x() + EXTENT, myNBNode.getPosition().y() + EXTENT);
+    // if junctio own a extra shape, add it to boundary
     if (myNBNode.getShape().size() > 0) {
         myBoundary.add(myNBNode.getShape().getBoxBoundary());
     }
@@ -313,7 +311,7 @@ GNEJunction::getNBNode() const {
 
 
 Position
-GNEJunction::getPosition() const {
+GNEJunction::getPositionInView() const {
     return myNBNode.getPosition();
 }
 
@@ -446,9 +444,9 @@ GNEJunction::recomputeNeighborsJunctions() {
 
 
 void
-GNEJunction::move(Position pos) {
+GNEJunction::moveJunctionGeometry(Position pos) {
     const Position orig = myNBNode.getPosition();
-    setPosition(pos);
+    myNBNode.reinit(pos, myNBNode.getType());
     const EdgeVector& incident = getNBNode()->getEdges();
     for (EdgeVector::const_iterator it = incident.begin(); it != incident.end(); it++) {
         GNEEdge* edge = myNet->retrieveEdge((*it)->getID());
@@ -464,27 +462,20 @@ GNEJunction::move(Position pos) {
 
 
 void
-GNEJunction::move2D(Position pos2D) {
+GNEJunction::moveJunctionGeometry2D(Position pos2D) {
     pos2D.setz(myNBNode.getPosition().z());
-    move(pos2D);
+    moveJunctionGeometry(pos2D);
 }
 
 void
-GNEJunction::registerMove(GNEUndoList* undoList) {
-    Position newPos = myNBNode.getPosition();
-    std::string newPosValue = getAttribute(SUMO_ATTR_POSITION);
-    if (isValid(SUMO_ATTR_POSITION, newPosValue)) {
-        // actually the geometry is already up to date
-        // set the restore point to the end of the last change-set
-        setPosition(myOrigPos);
-        // do not execute the command to avoid changing the edge geometry twice
-        undoList->add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, newPosValue), false);
-        setPosition(newPos);
-        // Refresh element to avoid grabbing problems
-        myNet->refreshElement(this);
+GNEJunction::commmitGeometryMoved(const Position &oldPos, GNEUndoList* undoList) {
+    if (isValid(SUMO_ATTR_POSITION, toString(myNBNode.getPosition()))) {
+        undoList->p_begin("position of " + toString(getTag()));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myNBNode.getPosition()), true, toString(oldPos)));
+        undoList->p_end();
     } else {
         // tried to set an invalid position, revert back to the previous one
-        move(myOrigPos);
+        moveJunctionGeometry(oldPos);
     }
 }
 
@@ -822,13 +813,13 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_POSITION:
+            // set new position in NBNode
             bool ok;
-            myOrigPos = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
-            move(myOrigPos);
+            moveJunctionGeometry(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
             // recompute neighbors junctions
             recomputeNeighborsJunctions();
-            // recompute junction
-            //myNet->getNetBuilder()->computeSingleNode(&myNBNode, OptionsCont::getOptions());
+            // update geometry
+            updateGeometry();
             // Refresh element to avoid grabbing problems
             myNet->refreshElement(this);
             break;
@@ -865,18 +856,6 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-void
-GNEJunction::setPosition(Position pos) {
-    const Position& orig = myNBNode.getPosition();
-    myBoundary.moveby(pos.x() - orig.x(), pos.y() - orig.y());
-    myNBNode.reinit(pos, myNBNode.getType());
-    /* //reshift also shifts the junction shape. this is not needed because shape is not yet computed
-     * const Position& orig = myNBNode.getPosition();
-     * myNBNode.reshiftPosition(pos.x() - orig.x(), pos.y() - orig.y());
-     */
 }
 
 
