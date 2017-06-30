@@ -726,7 +726,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             // vehicles on these lanes should always block (gap = -1)
             const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal());
             // vehicles on cont. lanes or on internal lanes with the same target as this link can never be ignored
-            const bool cannotIgnore = contLane || sameTarget || sameSource;
+            const bool cannotIgnore = (contLane || sameTarget || sameSource) && ego != 0;
             MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
             for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != end; ++it_veh) {
                 MSVehicle* leader = (MSVehicle*)*it_veh;
