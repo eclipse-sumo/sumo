@@ -567,6 +567,9 @@
         <!-- At uncontrolled nodes, do not build crossings across edges with a speed above the threshold -->
         <crossings.guess.speed-threshold value="13.89" type="FLOAT"/>
 
+        <!-- Always build walking areas even if there are no crossings -->
+        <walkingareas value="false" type="BOOL"/>
+
     </processing>
 
     <building_defaults>

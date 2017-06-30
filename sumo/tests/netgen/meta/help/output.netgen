@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r24506
+SUMO netgenerate Version dev-SVN-r24982
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -229,6 +229,8 @@ Processing Options:
   --crossings.guess.speed-threshold FLOAT  At uncontrolled nodes, do not build
                                          crossings across edges with a speed
                                          above the threshold
+  --walkingareas                       Always build walking areas even if there
+                                         are no crossings
 
 Building Defaults Options:
   -L, --default.lanenumber INT         The default number of lanes in an edge
