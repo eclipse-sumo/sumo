@@ -603,7 +603,9 @@ public:
 
     /// @brief discard all crossings
     void discardAllCrossings() {
-        myDiscardAllCrossings = true;
+        myCrossings.clear();
+        // also discard all further crossings
+        myDiscardAllCrossings = true; 
     }
 
     /// @brief get num of crossings from sumo net
