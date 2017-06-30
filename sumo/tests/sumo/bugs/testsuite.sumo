@@ -243,3 +243,6 @@ ticket3053
 
 # creeping stop at red traffic light
 ticket3126
+
+# The output should list the short lane 31to211_0 which is being ignored at the time of ticket creation
+ticket3255
