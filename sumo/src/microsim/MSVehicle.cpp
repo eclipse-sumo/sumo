@@ -815,8 +815,8 @@ MSVehicle::validatePosition(Position result, double offset) const {
     int furtherIndex = 0;
     while ((ISNAN(result.x()) || result == Position::INVALID)) {
         if (furtherIndex >= myFurtherLanes.size()) {
-            WRITE_WARNING("Could not compute position for vehicle '" + getID() + "', time=" +
-                    time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            //WRITE_WARNING("Could not compute position for vehicle '" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            break;
         }
         //std::cout << SIMTIME << " veh=" << getID() << " lane=" << myLane->getID() << " pos=" << getPositionOnLane() << " posLat=" << getLateralPositionOnLane() << " offset=" << offset << " result=" << result << " i=" << furtherIndex << " further=" << myFurtherLanes.size() << "\n";
         result = myFurtherLanes[furtherIndex]->geometryPositionAtOffset(myFurtherLanes[furtherIndex]->getLength() + offset, -getLateralPositionOnLane());
