@@ -713,8 +713,9 @@ GNENet::remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoL
         GNEEdge* newEdge = createEdge(from, to, oldEdge, undoList, oldEdge->getMicrosimID(), false, true);
         newEdge->setAttribute(SUMO_ATTR_SHAPE, oldEdge->getAttribute(SUMO_ATTR_SHAPE), undoList);
         if (keepEndpoints) {
-            newEdge->setAttribute(GNE_ATTR_SHAPE_START, oldEdge->getAttribute(GNE_ATTR_SHAPE_START), undoList);
-            newEdge->setAttribute(GNE_ATTR_SHAPE_END, oldEdge->getAttribute(GNE_ATTR_SHAPE_END), undoList);
+            // preserve endpoints even if they where not customized
+            newEdge->setAttribute(GNE_ATTR_SHAPE_START, toString(oldEdge->getNBEdge()->getGeometry().front()), undoList);
+            newEdge->setAttribute(GNE_ATTR_SHAPE_END, toString(oldEdge->getNBEdge()->getGeometry().back()), undoList);
         }
     }
     // @todo remap connectivity as well
