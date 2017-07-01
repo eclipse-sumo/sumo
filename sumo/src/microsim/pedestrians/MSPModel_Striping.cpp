@@ -170,8 +170,9 @@ MSPModel_Striping::blockedAtDist(const MSLane* lane, double vehSide, double vehW
             << "\n";
         }
         if (leaderBackDist >= -vehWidth 
-                // give right of way to (close) approaching pedestrians unless they are standing
-                && leaderFrontDist <= oncomingGap && ped.myWaitingTime < TIME2STEPS(2.0)) {
+                && (leaderFrontDist < 0
+                    // give right of way to (close) approaching pedestrians unless they are standing
+                    || (leaderFrontDist <= oncomingGap && ped.myWaitingTime < TIME2STEPS(2.0)))) {
             // found one pedestrian that is not completely past the crossing point
             //std::cout << SIMTIME << " blocking pedestrian foeLane=" << lane->getID() << " ped=" << ped.myPerson->getID() << " dir=" << ped.myDir << " pX=" << ped.myRelX << " pL=" << ped.getLength() << " fDTC=" << distToCrossing << " lBD=" << leaderBackDist << "\n";
             if (collectBlockers == 0) {
