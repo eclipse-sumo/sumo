@@ -106,10 +106,12 @@ PositionVector::around(const Position& p, double offset) const {
 
 bool
 PositionVector::overlapsWith(const AbstractPoly& poly, double offset) const {
-    for (const_iterator i = begin(); i != end() - 1; i++) {
-        if (poly.around(*i, offset)) {
-            return true;
-        }
+    if (
+        // check whether one of my points lies within the given poly
+        partialWithin(poly, offset) ||
+        // check whether the polygon lies within me
+        poly.partialWithin(*this, offset)) {
+        return true;
     }
     if (size() >= 2) {
         for (const_iterator i = begin(); i != end() - 1; i++) {
