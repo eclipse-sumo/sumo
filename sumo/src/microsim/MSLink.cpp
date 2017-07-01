@@ -798,6 +798,21 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 }
             }
         }
+
+        //std::cout << SIMTIME << " ego=" << Named::getIDSecure(ego) << " link=" << getViaLaneOrLane()->getID() << " myWalkingAreaFoe=" << Named::getIDSecure(myWalkingAreaFoe) << "\n";
+        if (ego != 0 && myWalkingAreaFoe != 0 && myWalkingAreaFoe->getEdge().getPersons().size() > 0) {
+            // pedestrians may be on an arbitrary path across this
+            // walkingarea. consider the whole area blocked
+            const double distToPeds = dist - myLaneBefore->getLength();
+            result.push_back(LinkLeader((MSVehicle*)0, -1, distToPeds));
+            if (collectBlockers != 0) {
+                const std::set<MSTransportable*>& persons = myWalkingAreaFoe->getEdge().getPersons();
+                for (std::set<MSTransportable*>::const_iterator it = persons.begin(); it != persons.end(); ++it) {
+                    collectBlockers->push_back(dynamic_cast<MSPerson*>(*it));
+                }
+            }
+        }
+
         if (MSGlobals::gLateralResolution > 0 && ego != 0 && !isShadowLink) {
             // check for foes on the same lane
             for (std::vector<MSLane*>::const_iterator it = mySublaneFoeLanes.begin(); it != mySublaneFoeLanes.end(); ++it) {
