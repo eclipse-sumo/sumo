@@ -1006,7 +1006,7 @@ GNEInspectorFrame::AttributeInput::stripWhitespaceAfterComma(const std::string &
      * string = std::regex_replace(string, std::regex("\\$name"), "Somename");
      */
     std::string result;
-    for(int i = 0; i < (stringValue.size() - 1); i++) {
+    for(int i = 0; i < ((int)stringValue.size() - 1); i++) {
         if((stringValue.at(i) == ',') && (stringValue.at(i+1) == ' ')) {
             result.push_back(stringValue.at(i));
             i++;
