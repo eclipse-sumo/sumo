@@ -22,3 +22,6 @@ jaywalking_forward_collision
 
 # pedestrians that are stopped on a crossing should not cause deadlock
 ignore_stopped
+
+# pedestrians that are stopped on a crossing and cannot be ignored
+blockage
