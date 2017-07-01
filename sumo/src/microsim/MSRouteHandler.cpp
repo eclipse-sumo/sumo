@@ -809,19 +809,22 @@ MSRouteHandler::closePerson() {
         deleteActivePlans();
         throw;
     }
+    // let's check whether this person had to depart before the simulation starts
+    if (!(myAddVehiclesDirectly || checkLastDepart()) 
+            || (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
+        delete myVehicleParameter;
+        myVehicleParameter = 0;
+        deleteActivePlans();
+        return;
+    }
     MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan);
     // @todo: consider myScale?
-    if (myAddVehiclesDirectly || checkLastDepart()) {
-        if (MSNet::getInstance()->getPersonControl().add(person)) {
-            registerLastDepart();
-        } else {
-            ProcessError error("Another person with the id '" + myVehicleParameter->id + "' exists.");
-            delete person;
-            throw error;
-        }
+    if (MSNet::getInstance()->getPersonControl().add(person)) {
+        registerLastDepart();
     } else {
-        // warning already given
+        ProcessError error("Another person with the id '" + myVehicleParameter->id + "' exists.");
         delete person;
+        throw error;
     }
     myVehicleParameter = 0;
     myActivePlan = 0;
