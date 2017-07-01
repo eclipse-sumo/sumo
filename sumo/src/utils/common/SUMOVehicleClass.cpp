@@ -242,10 +242,14 @@ extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std
     } else if (allowedS.size() > 0) {
         return parseVehicleClasses(allowedS);
     } else {
-        return SVCAll & ~parseVehicleClasses(disallowedS);
+        return invertPermissions(parseVehicleClasses(disallowedS));
     }
 }
 
+extern SVCPermissions 
+invertPermissions(SVCPermissions permissions) {
+    return SVCAll & ~permissions;
+}
 
 SVCPermissions
 parseVehicleClasses(const std::vector<std::string>& allowedS) {

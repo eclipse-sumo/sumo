@@ -283,6 +283,9 @@ extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std
  */
 extern SVCPermissions parseVehicleClasses(const std::vector<std::string>& allowedS);
 
+/// @brief negate the given permissions and ensure that only relevant bits are set
+extern SVCPermissions invertPermissions(SVCPermissions permissions);
+
 /// @brief writes allowed disallowed attributes if needed;
 extern void writePermissions(OutputDevice& into, SVCPermissions permissions);
 
