@@ -782,11 +782,9 @@ GNELane::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SPEED:
             return toString(edge->getLaneSpeed(myIndex));
         case SUMO_ATTR_ALLOW:
-            // return all allowed classes (may differ from the written attributes)
             return getVehicleClassNames(edge->getPermissions(myIndex));
         case SUMO_ATTR_DISALLOW:
-            // return all disallowed classes (may differ from the written attributes)
-            return getVehicleClassNames(~(edge->getPermissions(myIndex)));
+            return getVehicleClassNames(invertPermissions(edge->getPermissions(myIndex)));
         case SUMO_ATTR_WIDTH:
             if (edge->getLaneStruct(myIndex).width == NBEdge::UNSPECIFIED_WIDTH) {
                 return "default";
@@ -887,7 +885,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getViewNet()->update();
             break;
         case SUMO_ATTR_DISALLOW:
-            edge->setPermissions(SVCAll & ~parseVehicleClasses(value), myIndex); // negation yields allowed
+            edge->setPermissions(invertPermissions(parseVehicleClasses(value)), myIndex);
             updateGeometry();
             myNet->getViewNet()->update();
             break;

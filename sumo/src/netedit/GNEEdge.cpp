@@ -594,20 +594,9 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_NAME:
             return myNBEdge.getStreetName();
         case SUMO_ATTR_ALLOW:
-            // return all allowed classes (may differ from the written attributes)
             return (getVehicleClassNames(myNBEdge.getPermissions()) + (myNBEdge.hasLaneSpecificPermissions() ? " (combined!)" : ""));
         case SUMO_ATTR_DISALLOW: {
-            // if all classes are disabled, return all
-            if((~myNBEdge.getPermissions() == -1) || (getVehicleClassNames(~myNBEdge.getPermissions()) == "all")) {
-                return "all";
-            } else {
-                // return classes disallowed on at least one lane (may differ from the written attributes)
-                SVCPermissions combinedDissallowed = 0;
-                for (int i = 0; i < (int)myNBEdge.getNumLanes(); ++i) {
-                    combinedDissallowed |= ~myNBEdge.getPermissions(i);
-                }
-                return (getVehicleClassNames(combinedDissallowed) + (myNBEdge.hasLaneSpecificPermissions() ? " (combined!)" : ""));
-            }
+            return (getVehicleClassNames(invertPermissions(myNBEdge.getPermissions())) + (myNBEdge.hasLaneSpecificPermissions() ? " (combined!)" : ""));
         }
         case SUMO_ATTR_SPEED:
             if (myNBEdge.hasLaneSpecificSpeed()) {

@@ -869,7 +869,7 @@ GNEInspectorFrame::AttributeInput::onCmdOpenAllowDisallowEditor(FXObject*, FXSel
     GNEDialog_AllowDisallow(getApp(), &allowed).execute();
     if (myAttr == SUMO_ATTR_DISALLOW) {
         // invert again
-        std::string disallowed = getVehicleClassNames(SVCAll & ~parseVehicleClasses(allowed));
+        std::string disallowed = getVehicleClassNames(invertPermissions(parseVehicleClasses(allowed)));
         myTextFieldStrings->setText((disallowed).c_str());
     } else {
         myTextFieldStrings->setText((allowed).c_str());
