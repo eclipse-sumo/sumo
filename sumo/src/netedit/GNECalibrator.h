@@ -69,28 +69,14 @@ public:
     /// @brief Destructor
     ~GNECalibrator();
 
-    /// @brief change the position of the calibrator geometry
-    void moveGeometry(const Position &newPosition);
-
-    /// @brief updated geometry changes in the attributes of additional
-    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
-
-    /**@brief update pre-computed geometry information
-     * @note: must be called when geometry c6hanges (i.e. lane moved)
-     */
-    void updateGeometry();
-
-    /// @brief Returns position of Calibrator in view
-    Position getPositionInView() const;
-
-    /// @brief open Calibrator Dialog
-    void openAdditionalDialog();
-
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
      */
     void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
+
+    /// @brief open Calibrator Dialog
+    void openAdditionalDialog();
 
     /// @brief add calibrator vehicleType
     void addCalibratorVehicleType(const GNECalibratorVehicleType& vehicleType);
@@ -151,6 +137,27 @@ public:
      * @throw ivalid argument if calibrator doesn't exist
      */
     const GNECalibratorRoute& getCalibratorRoute(const std::string& routeID);
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] newPosition new position of geometry
+     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     */
+    void moveGeometry(const Position &newPosition);
+
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] oldPos the old position of additional
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
+    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{

@@ -139,13 +139,13 @@ GNERouteProbe::getPositionInView() const {
 
 
 void
-GNERouteProbe::moveGeometry(const Position &newPosition) {
+GNERouteProbe::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNERouteProbe::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNERouteProbe::commmitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 
@@ -165,7 +165,7 @@ GNERouteProbe::writeAdditional(OutputDevice& device, bool /*volatileOptionsEnabl
 }
 
 
-std::string
+const std::string&
 GNERouteProbe::getFilename() const {
     return myFilename;
 }
@@ -184,7 +184,7 @@ GNERouteProbe::getBegin() const {
 
 
 void
-GNERouteProbe::setFilename(std::string filename) {
+GNERouteProbe::setFilename(const std::string &filename) {
     myFilename = filename;
 }
 

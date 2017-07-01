@@ -62,18 +62,6 @@ public:
     /// @brief Destructor
     ~GNEDetector();
 
-    /// @brief update pre-computed geometry information
-    virtual void updateGeometry() = 0;
-
-    /// @brief Returns position of additional in view
-    virtual Position getPositionInView() const = 0;
-
-    /// @brief change the position of the additional geometry
-    virtual void moveGeometry(const Position &newPosition) = 0;
-
-    /// @brief updated geometry changes in the attributes of additional
-    virtual void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) = 0;
-
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
@@ -87,7 +75,7 @@ public:
     double getFrequency() const;
 
     /// @brief returns the path to the output file
-    std::string getFilename() const;
+    const std::string& getFilename() const;
 
     /**@brief Set a new position of detector over lane
      * @param[in] pos new position of detector over lane
@@ -104,9 +92,30 @@ public:
     /**@brief Set a new filename in detector
      * @param[in] filename new filename of detector
      */
-    void setFilename(std::string filename);
+    void setFilename(const std::string &filename);
 
-    /// @name inherited from GNEAdditional
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] newPosition new position of geometry
+     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     */
+    virtual void moveGeometry(const Position &newPosition) = 0;
+
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] oldPos the old position of additional
+     * @param[in] undoList The undoList on which to register changes
+     */
+    virtual void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) = 0;
+
+    /// @brief update pre-computed geometry information
+    virtual void updateGeometry() = 0;
+
+    /// @brief Returns position of additional in view
+    virtual Position getPositionInView() const = 0;
+    /// @}
+
+    /// @name inherited from GUIGLObject
     /// @{
     /// @brief Returns the name of the parent object
     /// @return This object's parent id

@@ -72,9 +72,6 @@ public:
     /// @brief Destructor
     ~GNEContainerStop();
 
-    /// @brief update pre-computed geometry information
-    void updateGeometry();
-
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
@@ -83,6 +80,12 @@ public:
 
     /// @brief get string vector with the lines of the busStop
     const std::vector<std::string> &getLines() const;
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{

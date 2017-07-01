@@ -66,9 +66,6 @@ public:
     /// @brief Destructor
     ~GNEChargingStation();
 
-    /// @brief update pre-computed geometry information
-    void updateGeometry();
-
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
@@ -113,6 +110,12 @@ public:
      * @throws InvalidArgument if value of chargeDelay isn't valid
      */
     void setChargeDelay(double chargeDelay);
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{

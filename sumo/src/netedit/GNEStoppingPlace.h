@@ -65,21 +65,6 @@ public:
     /// @brief Destructor
     ~GNEStoppingPlace();
 
-    /// @brief update pre-computed geometry information
-    virtual void updateGeometry() = 0;
-
-    /// @brief Returns position of StoppingPlace in view
-    Position getPositionInView() const;
-
-    /// @brief change the position of the StoppingPlace geometry
-    void moveGeometry(const Position &newPosition);
-
-    /**@brief commit geometry changes in the attributes of an element
-     * @param[in] oldPos old position X of additional
-     * @param[in] undoList The undoList on which to register changes
-     */
-    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
-
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
@@ -119,6 +104,27 @@ public:
 
     /// @brief set a new Name in StoppingPlace
     void setStoppingPlaceName(const std::string &name);
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] newPosition new position of geometry
+     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     */
+    void moveGeometry(const Position &newPosition);
+
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] oldPos the old position of additional
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
+    /// @brief update pre-computed geometry information
+    virtual void updateGeometry() = 0;
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
+    /// @}
 
     /// @name inherited from GNEAdditional
     /// @{

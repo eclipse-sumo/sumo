@@ -73,29 +73,15 @@ public:
     /// @brief Destructor
     ~GNEAdditional();
 
-    /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] offsetx horizontal offset of movement
-     * @param[in] offsety vertical offset of movement
-     * @note if additional belongs to a Lane, offsety is ignored
-     * @note must be implemented in ALL childrens
+    /**@brief writte additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
      */
-    virtual void moveGeometry(const Position &newPosition) = 0;
+    virtual void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const = 0;
 
-    /**@brief commit geometry changes in the attributes of an element
-     * @param[in] oldPos old position X of additional
-     * @param[in] undoList The undoList on which to register changes
+    /**@brief open Additional Dialog
+     * @note: if additional needs an additional dialog, this function has to be implemented in childrens (see GNERerouter and GNEVariableSpeedSign)
      */
-    virtual void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) = 0;
-
-    /// @brief update pre-computed geometry information
-    /// @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
-    virtual void updateGeometry() = 0;
-
-    /// @brief Returns position of additional in view
-    virtual Position getPositionInView() const = 0;
-
-    /// @brief open Additional Dialog
-    /// @note: if additional needs an additional dialog, this function has to be implemented in childrens (see GNERerouter and GNEVariableSpeedSign)
     virtual void openAdditionalDialog();
 
     /// @brief returns the ID of additional
@@ -125,22 +111,32 @@ public:
     /// @brief set the ID of additional
     void setAdditionalID(const std::string& id);
 
-    /// @brief set new position in the view
-    /// @note movement cannot be undo with GNEUndoRedo
-    void setPositionInView(const Position& pos);
-
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
-     * @note must be implemented in all derived classes
-     */
-    virtual void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const = 0;
-
     /// @brief get edge of additional, or NULL if additional isn't placed over an edge
     GNEEdge* getEdge() const;
 
     /// @brief get lane of additional, or NULL if additional isn't placed over a Lane
     GNELane* getLane() const;
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] newPosition new position of geometry
+     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     */
+    virtual void moveGeometry(const Position &newPosition) = 0;
+
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] oldPos the old position of additional
+     * @param[in] undoList The undoList on which to register changes
+     */
+    virtual void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) = 0;
+
+    /// @brief update pre-computed geometry information
+    virtual void updateGeometry() = 0;
+
+    /// @brief Returns position of additional in view
+    virtual Position getPositionInView() const = 0;
+    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{

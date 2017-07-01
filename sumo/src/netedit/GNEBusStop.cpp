@@ -177,7 +177,7 @@ GNEBusStop::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) c
 }
 
 
-std::vector<std::string>
+const std::vector<std::string>&
 GNEBusStop::getLines() const {
     return myLines;
 }

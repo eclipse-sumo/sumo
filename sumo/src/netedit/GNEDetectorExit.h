@@ -57,31 +57,38 @@ public:
     /// @brief destructor
     ~GNEDetectorExit();
 
-    /**@brief update pre-computed geometry information
-     * @note: must be called when geometry changes (i.e. lane moved)
-     */
-    void updateGeometry();
-
-    /// @brief change the position of the additional geometry
-    void moveGeometry(const Position &newPosition);
-
-    /// @brief updated geometry changes in the attributes of additional
-    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
-
-    /// @brief Returns position of detector Exit in view
-    Position getPositionInView() const;
-
-    /// @brief get E3 Detector parent
-    GNEDetectorE3* getE3Parent() const;
-
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
      */
     void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
+    /// @brief get E3 Detector parent
+    GNEDetectorE3* getE3Parent() const;
+
     /// @brief update pre-computed geometry information called by E3 parent
     void updateGeometryByParent();
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] newPosition new position of geometry
+     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     */
+    void moveGeometry(const Position &newPosition);
+
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] oldPos the old position of additional
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
+    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -135,7 +142,7 @@ private:
     GNEDetectorExit& operator=(const GNEDetectorExit&);
 
     /// @brief Invalidated get filename
-    std::string getFilename() const;
+    const std::string &getFilename() const;
 
     /// @brief Invalidated set frequency
     int getFrequency() const;
@@ -144,7 +151,7 @@ private:
     void setFrequency(double freq);
 
     /// @brief Invalidated
-    void setFilename(std::string filename);
+    void setFilename(const std::string &filename);
 };
 
 

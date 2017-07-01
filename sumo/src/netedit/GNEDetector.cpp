@@ -72,35 +72,6 @@ GNEDetector::~GNEDetector() {
 }
 
 
-void
-GNEDetector::moveGeometry(const Position &newPosition) {
-    // declare start and end positions
-    double startPos = myPosition.x();
-    double endPos = 0;
-    // set endPos if additional has the attribute length
-    if (GNEAttributeCarrier::hasAttribute(getTag(), SUMO_ATTR_LENGTH)) {
-        endPos = startPos + GNEAttributeCarrier::parse<double>(getAttribute(SUMO_ATTR_LENGTH));
-    }
-    // Move to Right if distance is positive, to left if distance is negative
-    if (((newPosition.x() > 0) && ((endPos + newPosition.x()) < myLane->getLaneShapeLength())) || ((newPosition.x() < 0) && ((startPos + newPosition.x()) > 0))) {
-        // change attribute
-        myPosition.set(myPosition.x() + newPosition.x(), 0);
-        // Update geometry
-        updateGeometry();
-    }
-}
-
-
-void
-GNEDetector::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition.x()), true, toString(oldPos.x())));
-    undoList->p_end();
-    // Refresh element
-    myViewNet->getNet()->refreshAdditional(this);
-}
-
-
 double
 GNEDetector::getPositionOverLane() const {
     return myPosition.x();
@@ -113,7 +84,7 @@ GNEDetector::getFrequency() const {
 }
 
 
-std::string
+const std::string&
 GNEDetector::getFilename() const {
     return myFilename;
 }
@@ -142,7 +113,7 @@ GNEDetector::setFrequency(const double freq) {
 
 
 void
-GNEDetector::setFilename(std::string filename) {
+GNEDetector::setFilename(const std::string &filename) {
     myFilename = filename;
 }
 

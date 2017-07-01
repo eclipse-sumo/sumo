@@ -60,20 +60,6 @@ public:
     /// @brief Destructor
     ~GNERouteProbe();
 
-    /// @brief change the position of the RouteProbe geometry
-    void moveGeometry(const Position &newPosition);
-
-    /// @brief updated geometry changes in the attributes of additional
-    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
-
-    /**@brief update pre-computed geometry information
-     * @note: must be called when geometry changes (i.e. lane moved)
-     */
-    void updateGeometry();
-
-    /// @brief Returns position of RouteProbe in view
-    Position getPositionInView() const;
-
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      * @param[in] volatileOptionsEnabled flag to indicate that additionals are being saved with volatile options enabled 
@@ -81,7 +67,7 @@ public:
     void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const;
 
     /// @brief get filename of RouteProbe
-    std::string getFilename() const;
+    const std::string &getFilename() const;
 
     /// @brief get frequency of RouteProbe
     double getFrequency() const;
@@ -90,20 +76,41 @@ public:
     double getBegin() const;
 
     /// @brief set filename of RouteProbe
-    void setFilename(std::string filename);
+    void setFilename(const std::string &filename);
 
     /// @brief set frequency of RouteProbe
     void setFrequency(double frequency);
 
     /// @brief set begin of RouteProbe
     void setBegin(double begin);
+    
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] newPosition new position of geometry
+     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     */
+    void moveGeometry(const Position &newPosition);
+
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] oldPos the old position of additional
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
+    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
     /// @brief Returns the name of the parent object
     /// @return This object's parent id
-
     const std::string& getParentName() const;
+
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL

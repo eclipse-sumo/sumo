@@ -145,11 +145,6 @@ GNEAdditional::setAdditionalID(const std::string& id) {
     myViewNet->getNet()->updateAdditionalID(oldID, this);
 }
 
-void
-GNEAdditional::setPositionInView(const Position& pos) {
-    myPosition = pos;
-}
-
 
 GNEEdge*
 GNEAdditional::getEdge() const {

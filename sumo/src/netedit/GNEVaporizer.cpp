@@ -136,13 +136,13 @@ GNEVaporizer::getPositionInView() const {
 
 
 void
-GNEVaporizer::moveGeometry(const Position &newPosition) {
+GNEVaporizer::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNEVaporizer::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNEVaporizer::commmitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 
