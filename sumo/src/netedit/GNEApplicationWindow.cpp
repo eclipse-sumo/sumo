@@ -1289,9 +1289,9 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     std::string oldPrefix = oc.getString("plain-output-prefix");
     oc.resetWritable();
     std::string prefix = file.text();
-    // if last character is a dot, remove it
-    if (prefix.at(prefix.size() - 1) == '.') {
-        prefix = prefix.substr(0, prefix.size() - 1);
+    // if the name of an edg.xml file was given, remove the suffix
+    if (StringUtils::endsWith(prefix, ".edg.xml")) {
+        prefix = prefix.substr(0, prefix.size() - 8);
     }
     oc.set("plain-output-prefix", prefix);
     getApp()->beginWaitCursor();
