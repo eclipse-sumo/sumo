@@ -93,8 +93,11 @@ def isEmbedded():
 
 
 def load(args):
-    """
-    Let sumo load a simulation using the given command line like options.
+    """load([optionOrParam, ...])
+    Let sumo load a simulation using the given command line like options 
+    Example:
+      load(['-c', 'run.sumocfg'])
+      load(['-n', 'net.net.xml', '-r', 'routes.rou.xml'])
     """
     return _connections[""].load(args)
 
