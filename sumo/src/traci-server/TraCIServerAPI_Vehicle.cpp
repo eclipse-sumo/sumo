@@ -57,6 +57,8 @@
 #include "TraCIServerAPI_Vehicle.h"
 #include "TraCIServerAPI_VehicleType.h"
 
+#define FAR_AWAY 1000.0
+
 //#define DEBUG_MOVEXY 1
 //#define DEBUG_MOVEXY_ANGLE 1
 
@@ -1358,7 +1360,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     found = vtdMap_matchingRoutePosition(pos, origID, *v, bestDistance, &lane, lanePos, routeOffset, edges);
                     // @note silenty ignoring mapping failure
                 } else {
-                    found = vtdMap(pos, maxRouteDistance, origID, angle, *v, server, bestDistance, &lane, lanePos, routeOffset, edges);
+                    found = vtdMap(pos, maxRouteDistance, mayLeaveNetwork, origID, angle, *v, server, bestDistance, &lane, lanePos, routeOffset, edges);
                 }
                 if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
                     // optionally compute lateral offset
@@ -1481,7 +1483,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
 
 bool
-TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, const std::string& origID, const double angle,  MSVehicle& v, TraCIServer& server,
+TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,  MSVehicle& v, TraCIServer& server,
                                double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
     // collect edges around the vehicle
     double speed = pos.distanceTo2D(v.getPosition()); // !!!v.getSpeed();
@@ -1561,9 +1563,14 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, con
         const bool perpendicular = false;
         for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end(); ++k) {
             MSLane* lane = *k;
-            double off = lane->getShape().nearest_offset_to_point2D(pos, perpendicular);
             double langle = 180.;
-            double dist = 1000.;
+            double dist = FAR_AWAY;
+            double perpendicularDist = FAR_AWAY;
+            double off = lane->getShape().nearest_offset_to_point2D(pos, true);
+            if (off != GeomHelper::INVALID_OFFSET) {
+                perpendicularDist = lane->getShape().distance2D(pos, true);
+            }
+            off = lane->getShape().nearest_offset_to_point2D(pos, perpendicular);
             if (off != GeomHelper::INVALID_OFFSET) {
                 dist = lane->getShape().distance2D(pos, perpendicular);
                 langle = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(off));
@@ -1576,15 +1583,24 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, con
                 rNextEdge = next == 0 ? 0 : &next->getEdge();
             }
             */
+            double dist2 = dist;
+            if (mayLeaveNetwork && dist != perpendicularDist) {
+                // ambiguous mapping. Don't trust this
+                dist2 = FAR_AWAY;
+            }
             const double angleDiff = (angle == INVALID_DOUBLE_VALUE ? 0 : GeomHelper::getMinAngleDiff(angle, langle));
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << lane->getID() << " lAngle:" << langle << " lLength=" << lane->getLength()
                       << " angleDiff:" << angleDiff
-                      << " off:" << off << " dist=" << dist << "\n";
+                      << " off:" << off 
+                      << " pDist=" << perpendicularDist 
+                      << " dist=" << dist 
+                      << " dist2=" << dist2
+                      << "\n";
             std::cout << lane->getID() << " param=" << lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) << " origID='" << origID << "\n";
 #endif
             lane2utility[lane] = LaneUtility(
-                                     dist, angleDiff,
+                                     dist2, perpendicularDist, angleDiff,
                                      lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) == origID,
                                      onRoute, sameEdge, prevEdge, nextEdge);
             // update scaling value
@@ -1615,7 +1631,11 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, con
 #endif
         if (value > bestValue || bestLane == 0) {
             bestValue = value;
-            bestLane = l;
+            if (u.dist == FAR_AWAY) {
+                bestLane = 0;
+            } else {
+                bestLane = l;
+            }
         }
     }
     // no best lane found, return

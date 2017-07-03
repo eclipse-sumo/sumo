@@ -77,7 +77,7 @@ public:
 
 
 private:
-    static bool vtdMap(const Position& pos, double maxRouteDistance, const std::string& origID, const double angle, MSVehicle& v, TraCIServer& server,
+    static bool vtdMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle, MSVehicle& v, TraCIServer& server,
                        double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
 
     static bool vtdMap_matchingRoutePosition(const Position& pos, const std::string& origID, MSVehicle& v,
@@ -90,12 +90,15 @@ private:
 
     class LaneUtility {
     public:
-        LaneUtility(double dist_, double angleDiff_, bool ID_, bool onRoute_, bool sameEdge_, const MSEdge* prevEdge_, const MSEdge* nextEdge_) :
-            dist(dist_), angleDiff(angleDiff_), ID(ID_), onRoute(onRoute_), sameEdge(sameEdge_), prevEdge(prevEdge_), nextEdge(nextEdge_) {}
+        LaneUtility(double dist_, double perpendicularDist_, double angleDiff_, bool ID_, 
+                bool onRoute_, bool sameEdge_, const MSEdge* prevEdge_, const MSEdge* nextEdge_) :
+            dist(dist_), perpendicularDist(perpendicularDist_), angleDiff(angleDiff_), ID(ID_), 
+            onRoute(onRoute_), sameEdge(sameEdge_), prevEdge(prevEdge_), nextEdge(nextEdge_) {}
         LaneUtility() {}
         ~LaneUtility() {}
 
         double dist;
+        double perpendicularDist;
         double angleDiff;
         bool ID;
         bool onRoute;
