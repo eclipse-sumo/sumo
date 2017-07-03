@@ -485,10 +485,11 @@ MSVehicle::Influencer::postProcessVTD(MSVehicle* v) {
         if (v->getDeparture() == NOT_YET_DEPARTED) {
             v->onDepart();
         }
-        v->setVTDState(myVTDXYPos);
         v->drawOutsideNetwork(true);
         //std::cout << "outside network p=" << myVTDXYPos << " a=" << myVTDAngle << " l=" << Named::getIDSecure(myVTDLane) << "\n";
     }
+    // ensure that the position is correct (i.e. when the lanePosition is ambiguous at corners)
+    v->setVTDState(myVTDXYPos);
     // inverse of GeomHelper::naviDegree
     v->setAngle(M_PI / 2. - DEG2RAD(myVTDAngle));
 }

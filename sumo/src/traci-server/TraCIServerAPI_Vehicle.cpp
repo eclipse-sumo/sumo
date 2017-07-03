@@ -1384,6 +1384,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                             }
                         }
                     }
+                    if (found && !mayLeaveNetwork && MSGlobals::gLateralResolution < 0) {
+                        // mapped position may differ from pos
+                        pos = lane->geometryPositionAtOffset(lanePos, -lanePosLat);
+                    }
                     assert((found && lane != 0) || (!found && lane == 0));
                     if (angle == INVALID_DOUBLE_VALUE) {
                         if (lane != 0) {
@@ -1600,7 +1604,7 @@ TraCIServerAPI_Vehicle::vtdMap(const Position& pos, double maxRouteDistance, boo
             std::cout << lane->getID() << " param=" << lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) << " origID='" << origID << "\n";
 #endif
             lane2utility[lane] = LaneUtility(
-                                     dist2, perpendicularDist, angleDiff,
+                                     dist2, perpendicularDist, off, angleDiff,
                                      lane->getParameter(SUMO_PARAM_ORIGID, lane->getID()) == origID,
                                      onRoute, sameEdge, prevEdge, nextEdge);
             // update scaling value
