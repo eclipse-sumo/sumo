@@ -569,7 +569,7 @@ TEST_F(PositionVectorTest, test_method_overlapsWith) {
     EXPECT_FALSE(vec1.overlapsWith(vec5, 0));
     // growth is from centroid and thus different from Boundary behavior
     EXPECT_FALSE(vec1.overlapsWith(vec5, 1)); 
-    EXPECT_TRUE(vec1.overlapsWith(vec5, 2));
+    EXPECT_TRUE(vec1.overlapsWith(vec5, 3));
     EXPECT_TRUE(vec1.overlapsWith(vec5, 6));
     EXPECT_FALSE(vec1.overlapsWith(empty));
 }
