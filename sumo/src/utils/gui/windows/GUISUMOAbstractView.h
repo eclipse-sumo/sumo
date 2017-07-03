@@ -210,6 +210,9 @@ public:
     ///@brief get visualitation settings
     GUIVisualizationSettings* getVisualisationSettings() const;
 
+    ///@brief recalibrate color scheme according to the current value range
+    virtual void buildColorRainbow(GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/) { }
+
     ///@brief remove viewport
     void remove(GUIDialog_EditViewport*);
 

@@ -267,6 +267,7 @@ private:
     std::vector<FXRealSpinDial*> myLaneThresholds;
     std::vector<FXButton*> myLaneButtons;
     FXCheckButton* myLaneColorInterpolation;
+    FXButton* myLaneColorRainbow;
 
     /// ... lane scaler
     FXComboBox* myLaneEdgeScaleMode;

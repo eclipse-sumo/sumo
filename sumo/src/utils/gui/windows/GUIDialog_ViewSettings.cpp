@@ -166,6 +166,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
         myLaneColorInterpolation = new FXCheckButton(m21, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
         myLaneColorSettingFrame = new FXVerticalFrame(frame22, GUIDesignViewSettingsVerticalFrame4);
+        myLaneColorRainbow = new FXButton(frame22, "Recalibrate Rainbow", NULL, this, MID_SIMPLE_VIEW_COLORCHANGE, 
+            (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
 
         new FXHorizontalSeparator(frame2, GUIDesignHorizontalSeparator);
         //  ... scale settings
@@ -814,6 +816,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.showSizeLegend = (myShowSizeLegend->getCheck() != FALSE);
 
     // lanes (colors)
+    if (sender == myLaneColorRainbow) {
+      myParent->buildColorRainbow(tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE);
+      doRebuildColorMatrices = true;
+    }
     if (tmpSettings.getLaneEdgeMode() == prevLaneMode) {
         if (updateColorRanges(sender, myLaneColors.begin(), myLaneColors.end(),
                               myLaneThresholds.begin(), myLaneThresholds.end(), myLaneButtons.begin(),
@@ -1352,6 +1358,11 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     FXMatrix* m = rebuildColorMatrix(myLaneColorSettingFrame, myLaneColors, myLaneThresholds, myLaneButtons, myLaneColorInterpolation, mySettings->getLaneEdgeScheme());
     if (doCreate) {
         m->create();
+    }
+    if (mySettings->getLaneEdgeScheme().isFixed()) {
+      myLaneColorRainbow->disable();
+    } else {
+      myLaneColorRainbow->enable();
     }
     myLaneColorSettingFrame->getParent()->recalc();
 

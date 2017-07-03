@@ -91,6 +91,9 @@ public:
 
     bool setColorScheme(const std::string& name);
 
+    ///@brief recalibrate color scheme according to the current value range
+    void buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjectType objectType); 
+
     /// @brief handle mouse click in gaming mode
     void onGamingClick(Position pos);
 

@@ -258,6 +258,9 @@ public:
         return myAmClosed;
     }
 
+    /// @brief gets the color value according to the current scheme index
+    double getColorValue(int activeScheme) const;
+
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     void swapAfterLaneChange(SUMOTime t);
@@ -292,8 +295,6 @@ private:
     PositionVector splitAtSegments(const PositionVector& shape);
 
 private:
-    /// @brief gets the color value according to the current scheme index
-    double getColorValue(int activeScheme) const;
 
     /// @brief gets the scaling value according to the current scheme index
     double getScaleValue(int activeScheme) const;
