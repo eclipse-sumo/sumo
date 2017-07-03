@@ -46,7 +46,9 @@ def check(x, y, angle, exLane, exPos, exPosLat, comment):
     lane2 = traci.vehicle.getLaneID(vehID)
     pos2 = traci.vehicle.getLanePosition(vehID)
     posLat2 = traci.vehicle.getLateralLanePosition(vehID)
-    if (abs(x - x2) > 0.1 or abs(y - y2) > 0.1 or exLane != lane2 
+    if (       abs(x - x2) > 0.1 
+            or abs(y - y2) > 0.1 
+            or exLane != lane2 
             or (exPos is not None and abs(exPos - pos2) > 0.1)
             or (exPosLat is not None and abs(exPosLat - posLat2) > 0.1)
             ):
@@ -63,8 +65,8 @@ traci.route.add("beg", ["beg"])
 traci.vehicle.add(vehID, "beg")
 check(-1,  0,   ANGLE_UNDEF, "",         None, None,       "1m before the start of the edge")
 check(-5,  0,   ANGLE_UNDEF, "",         None, None,       "5m before the start of the edge")
-check(198, 1.9, ANGLE_UNDEF, "middle_0", 98.0, 1.9,        "internal corner (inside)")
-check(198, 1.9, 0,           "middle_0", INVALID, INVALID, "internal corner (inside)")
+check(198, 1.9, ANGLE_UNDEF, "middle_0", 98.0, 1.9,        "internal corner (inside, segment1)")
+check(198, 1.9, 0,           "middle_0", 102,  2.0,        "internal corner (inside, segment2)")
 check(201, -1, 0,            "middle_0", 100, -1.41,       "internal corner (outside, near)")
 check(203, -4, 0,            "", INVALID, INVALID,         "internal corner (outside, far)")
 traci.close()
