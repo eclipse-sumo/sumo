@@ -36,6 +36,7 @@ sumoProcess = subprocess.Popen([sumoBinary,
                                 '--remote-port', str(PORT)], stdout=sys.stdout)
 
 ANGLE_UNDEF = traci.constants.INVALID_DOUBLE_VALUE
+INVALID = traci.constants.INVALID_DOUBLE_VALUE
 
 vehID = "v0"
 def check(x, y, angle, exLane, exPos, exPosLat, comment):
@@ -60,9 +61,11 @@ traci.init(PORT)
 traci.simulationStep()
 traci.route.add("beg", ["beg"])
 traci.vehicle.add(vehID, "beg")
-check(-1,  0,   ANGLE_UNDEF, "",         None, None, "1m before the start of the edge")
-check(-5,  0,   ANGLE_UNDEF, "",         None, None, "5m before the start of the edge")
-check(198, 1.9, ANGLE_UNDEF, "middle_0", 98.0, 1.9,  "internal corner (inside)")
-#check(198, 1.9, 0,           "middle_0", 101.9, 2.0,  "internal corner (inside)")
+check(-1,  0,   ANGLE_UNDEF, "",         None, None,       "1m before the start of the edge")
+check(-5,  0,   ANGLE_UNDEF, "",         None, None,       "5m before the start of the edge")
+check(198, 1.9, ANGLE_UNDEF, "middle_0", 98.0, 1.9,        "internal corner (inside)")
+check(198, 1.9, 0,           "middle_0", INVALID, INVALID, "internal corner (inside)")
+check(201, -1, 0,            "middle_0", 100, -1.41,       "internal corner (outside, near)")
+check(203, -4, 0,            "", INVALID, INVALID,         "internal corner (outside, far)")
 traci.close()
 sumoProcess.wait()
