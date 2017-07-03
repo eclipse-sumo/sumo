@@ -4,6 +4,19 @@ Warning: Discarding unusable type 'railway.tram' (first occurence for edge '2681
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '61312638').
 Warning: Discarding unusable type 'highway.bus_stop' (first occurence for edge '61312644#0').
 Warning: Discarding unusable type 'railway.disused' (first occurence for edge '379474086').
+Warning: Removing pt stop:251043373 on non existing edge: 138330831#0
+Warning: Removing pt stop:293898731 on non existing edge: 138330831#0
+Warning: Removing pt stop:294609120 on non existing edge: 308954431
+Warning: Removing pt stop:297653552 on non existing edge: 292614141#0
+Warning: Removing pt stop:2995485374 on non existing edge: 138330831#0
+Warning: Removing pt stop:3052897504 on non existing edge: 60840979#1
+Warning: Removing pt stop:3142496703 on non existing edge: 301916360#0
+Warning: Removing pt stop:3142528985 on non existing edge: 301916360#2
+Warning: Removing pt stop:3214057380 on non existing edge: 310266782#2
+Warning: Removing pt stop:3239586702 on non existing edge: 317671623#0
+Warning: Removing pt stop:3323513015 on non existing edge: 308954432#1
+Warning: Removing pt stop:813301343 on non existing edge: 292614141#3
+Warning: Removing pt stop:89228269 on non existing edge: 37976661
 Warning: No way found for reference '324274536' in relation '19784'
 Warning: No way found for reference '294918950' in relation '19784'
 Warning: No way found for reference '252980064' in relation '19784'
@@ -11,11 +24,22 @@ Warning: No way found for reference '294918952' in relation '19784'
 Warning: No way found for reference '294918951' in relation '19784'
 Warning: No way found for reference '258245731' in relation '19784'
 Warning: No way found for reference '159926926' in relation '19784'
+Warning: Relation '69389' refers to a non existing pt stop at node: '3323513015'. Probably OSM file is incomplete.
+Warning: Relation '69389' refers to a non existing pt stop at node: '294609120'. Probably OSM file is incomplete.
 Warning: Referenced node: '282832479' in relation: '71071' does not exist. Probably OSM file is incomplete.
+Warning: Relation '71071' refers to a non existing pt stop at node: '2995485374'. Probably OSM file is incomplete.
 Warning: Referenced node: '282832480' in relation: '71071' does not exist. Probably OSM file is incomplete.
+Warning: Relation '71071' refers to a non existing pt stop at node: '813301343'. Probably OSM file is incomplete.
+Warning: Relation '71072' refers to a non existing pt stop at node: '251043373'. Probably OSM file is incomplete.
+Warning: Relation '952093' refers to a non existing pt stop at node: '89228269'. Probably OSM file is incomplete.
+Warning: Relation '952093' refers to a non existing pt stop at node: '3142528985'. Probably OSM file is incomplete.
 Warning: Referenced node: '270148915' in relation: '952093' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '3239586702' in relation: '956690' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '3214057380' in relation: '956690' does not exist. Probably OSM file is incomplete.
+Warning: Relation '956680' refers to a non existing pt stop at node: '293898731'. Probably OSM file is incomplete.
+Warning: Relation '956680' refers to a non existing pt stop at node: '297653552'. Probably OSM file is incomplete.
+Warning: Relation '956685' refers to a non existing pt stop at node: '3142496703'. Probably OSM file is incomplete.
+Warning: Relation '956685' refers to a non existing pt stop at node: '3052897504'. Probably OSM file is incomplete.
+Warning: Relation '956690' refers to a non existing pt stop at node: '3239586702'. Probably OSM file is incomplete.
+Warning: Relation '956690' refers to a non existing pt stop at node: '3214057380'. Probably OSM file is incomplete.
 Warning: Relation '962338' refers to a non existing pt stop at node: '95633024'. Probably OSM file is incomplete.
 Warning: Ambiguity in turnarounds computation at junction '2560505516'.
 Warning: Ambiguity in turnarounds computation at junction '2560505533'.
@@ -83,16 +107,3 @@ Warning: The traffic light '3909312079' does not control any links; it will not 
 Warning: Could not build program '0' for traffic light '3909312079'
 Warning: The traffic light '3909312080' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '3909312080'
-Warning: Could not find corresponding edge or compatible lane for pt stop: Inselwall. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Alte Waage. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Theaterwall. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Alte Waage. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Radeklint. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Hagenmarkt. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Hagenmarkt. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Rathaus. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Am Wendentor. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Am Wendentor. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Theaterwall. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Radeklint. Thus, it will be removed!
-Warning: Could not find corresponding edge or compatible lane for pt stop: Rathaus. Thus, it will be removed!

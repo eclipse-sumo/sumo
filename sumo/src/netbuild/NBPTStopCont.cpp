@@ -276,3 +276,14 @@ NBEdge* NBPTStopCont::getReverseEdge(NBEdge* edge) {
     }
     return 0;
 }
+void NBPTStopCont::reviseStops(NBEdgeCont& cont) {
+    for (PTStopsCont::iterator i = myPTStops.begin(); i != myPTStops.end();) {
+        if (cont.getByID((*i).second->getEdgeId()) == 0) {
+            WRITE_WARNING("Removing pt stop:" + (*i).first + " on non existing edge: " + (*i).second->getEdgeId());
+            myPTStops.erase(i++);
+        } else {
+            i++;
+        }
+    }
+
+}

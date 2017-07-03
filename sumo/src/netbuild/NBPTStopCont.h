@@ -64,6 +64,11 @@ public:
         return myPTStops.end();
     }
 
+    /** @brief revise pt stops and remove stops on non existing (removed) edges
+     *
+     * @param cont
+     */
+    void reviseStops(NBEdgeCont& cont);
 
     void process(NBEdgeCont& cont);
 private:

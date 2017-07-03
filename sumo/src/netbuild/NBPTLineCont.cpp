@@ -59,7 +59,7 @@ void NBPTLineCont::process(NBEdgeCont& cont) {
         for (std::vector<NBPTStop*>::iterator it2 = stops.begin(); it2 != stops.end(); it2++) {
             //get the corresponding and one of the two adjacent ways
             std::string origId = (*it2)->getOrigEdgeId();
-            (*it2)->getEdgeId();
+
             std::vector<std::string> waysIds = (*it)->getMyWays();
             std::vector<std::string>::iterator waysIdsIt = waysIds.begin();
             if (waysIds.size() <= 1) {
