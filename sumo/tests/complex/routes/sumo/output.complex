@@ -7392,20 +7392,36 @@ Error: attribute 'from' is not declared for element 'vehicle'
 Quitting (on error).
 vehicle 16 0
 vehicle 16 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 2
 vehicle 16 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 4
 vehicle 16 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 6
 vehicle 16 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 8
 vehicle 16 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 10
 vehicle 16 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 12
 vehicle 16 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 14
 vehicle 16 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 17 0
 Error: attribute 'from' is not declared for element 'vehicle'
  In file 'routes.xml'
@@ -7936,20 +7952,36 @@ Error: attribute 'from' is not declared for element 'vehicle'
 Quitting (on error).
 vehicle 20 0
 vehicle 20 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 2
 vehicle 20 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 4
 vehicle 20 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 6
 vehicle 20 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 8
 vehicle 20 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 10
 vehicle 20 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 12
 vehicle 20 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 14
 vehicle 20 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 21 0
 Error: attribute 'from' is not declared for element 'vehicle'
  In file 'routes.xml'
@@ -8480,20 +8512,36 @@ Error: attribute 'from' is not declared for element 'vehicle'
 Quitting (on error).
 vehicle 24 0
 vehicle 24 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 2
 vehicle 24 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 4
 vehicle 24 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 6
 vehicle 24 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 8
 vehicle 24 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 10
 vehicle 24 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 12
 vehicle 24 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 14
 vehicle 24 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 25 0
 Error: attribute 'from' is not declared for element 'vehicle'
  In file 'routes.xml'
@@ -9024,20 +9072,36 @@ Error: attribute 'from' is not declared for element 'vehicle'
 Quitting (on error).
 vehicle 28 0
 vehicle 28 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 2
 vehicle 28 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 4
 vehicle 28 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 6
 vehicle 28 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 8
 vehicle 28 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 10
 vehicle 28 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 12
 vehicle 28 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 14
 vehicle 28 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 29 0
 Error: attribute 'from' is not declared for element 'vehicle'
  In file 'routes.xml'

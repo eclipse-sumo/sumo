@@ -1599,7 +1599,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 17 0
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 17 1
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1607,7 +1609,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 17 2
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 17 3
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1615,11 +1619,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 17 4
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 17 5
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1627,11 +1629,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 17 6
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 17 7
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1639,11 +1639,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 17 8
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 17 9
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1651,11 +1649,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 17 10
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 17 11
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1663,11 +1659,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 17 12
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 17 13
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1675,11 +1669,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 17 14
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 17 15
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1687,7 +1679,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 18 0
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 18 1
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1695,11 +1689,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 18 2
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 18 3
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1707,11 +1699,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 18 4
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 18 5
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1719,11 +1709,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 18 6
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 18 7
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1731,7 +1719,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 18 8
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 18 9
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1739,11 +1729,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 18 10
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 18 11
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1751,11 +1739,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 18 12
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 18 13
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1763,11 +1749,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 18 14
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 18 15
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1775,7 +1759,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 19 0
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 19 1
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1783,7 +1769,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 19 2
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 19 3
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1791,11 +1779,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 19 4
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 19 5
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1803,11 +1789,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 19 6
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 19 7
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1815,7 +1799,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 19 8
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 19 9
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1823,7 +1809,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 19 10
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 19 11
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1831,11 +1819,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 19 12
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 19 13
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1843,11 +1829,9 @@ Warning: Taz usage was requested but no taz present in trip 'v'!
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 19 14
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Warning: Taz usage was requested but no taz present in trip 'v'!
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 19 15
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -1935,6 +1919,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 21 0
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 21 1
@@ -1943,6 +1928,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 21 2
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 21 3
@@ -1951,8 +1937,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 21 4
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 21 5
@@ -1961,8 +1946,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 21 6
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 21 7
@@ -1971,8 +1955,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 21 8
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 21 9
@@ -1981,8 +1964,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 21 10
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 21 11
@@ -1991,8 +1973,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 21 12
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 21 13
@@ -2001,8 +1982,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 21 14
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 21 15
@@ -2011,140 +1991,128 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 22 0
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 22 1
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 22 2
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 22 3
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 22 4
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 22 5
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 22 6
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 22 7
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 22 8
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 22 9
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 22 10
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 22 11
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 22 12
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 22 13
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 22 14
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 22 15
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 23 0
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 23 1
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 23 2
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 23 3
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 23 4
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 23 5
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 23 6
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 23 7
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 23 8
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 23 9
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 23 10
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 23 11
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 23 12
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 23 13
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 23 14
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 23 15
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -2231,78 +2199,71 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 25 0
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 25 1
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 25 2
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 25 3
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 25 4
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 25 5
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 25 6
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 25 7
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 25 8
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 25 9
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 25 10
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 25 11
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 25 12
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 25 13
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 25 14
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 25 15
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 26 0
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 26 1
@@ -2311,8 +2272,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 26 2
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 26 3
@@ -2321,8 +2281,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 26 4
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 26 5
@@ -2331,8 +2290,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 26 6
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 26 7
@@ -2341,6 +2299,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 26 8
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 26 9
@@ -2349,8 +2308,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 26 10
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 26 11
@@ -2359,8 +2317,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 26 12
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 26 13
@@ -2369,8 +2326,7 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 26 14
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 Error: The routing information for trip 'v' is insufficient.
 Quitting (on error).
 trip 26 15
@@ -2379,362 +2335,320 @@ Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 27 0
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 27 1
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 27 2
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 27 3
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 27 4
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 27 5
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 27 6
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 27 7
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 27 8
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 27 9
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 27 10
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 27 11
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 27 12
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 27 13
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 27 14
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 27 15
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 28 0
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 28 1
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 28 2
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 28 3
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 28 4
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 28 5
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 28 6
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 28 7
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 28 8
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 28 9
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 28 10
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 28 11
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 28 12
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 28 13
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 28 14
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 28 15
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 29 0
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 29 1
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 29 2
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 29 3
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 29 4
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 29 5
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 29 6
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 29 7
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 29 8
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 29 9
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 29 10
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 29 11
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 29 12
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 29 13
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 29 14
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 29 15
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 30 0
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 30 1
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 30 2
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 30 3
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 30 4
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 30 5
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 30 6
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 30 7
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 30 8
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 30 9
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 30 10
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 30 11
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 30 12
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 30 13
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 30 14
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 30 15
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 31 0
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 31 1
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 31 2
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 31 3
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 31 4
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 31 5
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 31 6
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 31 7
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 31 8
-Error: Stop for vehicle 'v' on lane '2si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 31 9
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 31 10
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 31 11
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 31 12
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 31 13
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
 trip 31 14
-Error: Stop for vehicle 'v' on lane '1si_0' is not downstream the current route.
-Quitting (on error).
-Error: Stop for vehicle 'v' on lane '1fi_0' is not downstream the current route.
-Quitting (on error).
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 trip 31 15
 Error: The route for trip 'v' has no edges.
 Quitting (on error).
@@ -3510,257 +3424,513 @@ Quitting (on error).
 vehicle 15 15
 vehicle 16 0
 vehicle 16 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 2
 vehicle 16 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 4
 vehicle 16 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 6
 vehicle 16 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 8
 vehicle 16 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 10
 vehicle 16 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 12
 vehicle 16 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 16 14
 vehicle 16 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 17 0
 vehicle 17 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 17 2
 vehicle 17 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 17 4
 vehicle 17 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 17 6
 vehicle 17 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 17 8
 vehicle 17 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 17 10
 vehicle 17 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 17 12
 vehicle 17 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 17 14
 vehicle 17 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 18 0
 vehicle 18 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 18 2
 vehicle 18 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 18 4
 vehicle 18 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 18 6
 vehicle 18 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 18 8
 vehicle 18 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 18 10
 vehicle 18 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 18 12
 vehicle 18 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 18 14
 vehicle 18 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 19 0
 vehicle 19 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 19 2
 vehicle 19 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 19 4
 vehicle 19 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 19 6
 vehicle 19 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 19 8
 vehicle 19 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 19 10
 vehicle 19 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 19 12
 vehicle 19 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 19 14
 vehicle 19 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 0
 vehicle 20 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 2
 vehicle 20 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 4
 vehicle 20 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 6
 vehicle 20 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 8
 vehicle 20 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 10
 vehicle 20 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 12
 vehicle 20 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 20 14
 vehicle 20 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 21 0
 vehicle 21 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 21 2
 vehicle 21 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 21 4
 vehicle 21 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 21 6
 vehicle 21 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 21 8
 vehicle 21 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 21 10
 vehicle 21 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 21 12
 vehicle 21 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 21 14
 vehicle 21 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 22 0
 vehicle 22 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 22 2
 vehicle 22 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 22 4
 vehicle 22 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 22 6
 vehicle 22 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 22 8
 vehicle 22 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 22 10
 vehicle 22 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 22 12
 vehicle 22 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 22 14
 vehicle 22 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 23 0
 vehicle 23 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 23 2
 vehicle 23 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 23 4
 vehicle 23 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 23 6
 vehicle 23 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 23 8
 vehicle 23 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 23 10
 vehicle 23 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 23 12
 vehicle 23 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 23 14
 vehicle 23 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 0
 vehicle 24 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 2
 vehicle 24 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 4
 vehicle 24 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 6
 vehicle 24 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 8
 vehicle 24 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 10
 vehicle 24 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 12
 vehicle 24 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 24 14
 vehicle 24 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 25 0
 vehicle 25 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 25 2
 vehicle 25 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 25 4
 vehicle 25 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 25 6
 vehicle 25 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 25 8
 vehicle 25 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 25 10
 vehicle 25 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 25 12
 vehicle 25 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 25 14
 vehicle 25 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 26 0
 vehicle 26 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 26 2
 vehicle 26 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 26 4
 vehicle 26 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 26 6
 vehicle 26 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 26 8
 vehicle 26 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 26 10
 vehicle 26 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 26 12
 vehicle 26 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 26 14
 vehicle 26 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 27 0
 vehicle 27 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 27 2
 vehicle 27 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 27 4
 vehicle 27 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 27 6
 vehicle 27 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 27 8
 vehicle 27 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 27 10
 vehicle 27 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 27 12
 vehicle 27 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 27 14
 vehicle 27 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 0
 vehicle 28 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 2
 vehicle 28 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 4
 vehicle 28 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 6
 vehicle 28 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 8
 vehicle 28 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 10
 vehicle 28 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 12
 vehicle 28 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 28 14
 vehicle 28 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 29 0
 vehicle 29 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 29 2
 vehicle 29 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 29 4
 vehicle 29 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 29 6
 vehicle 29 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 29 8
 vehicle 29 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 29 10
 vehicle 29 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 29 12
 vehicle 29 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 29 14
 vehicle 29 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 30 0
 vehicle 30 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 30 2
 vehicle 30 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 30 4
 vehicle 30 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 30 6
 vehicle 30 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 30 8
 vehicle 30 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 30 10
 vehicle 30 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 30 12
 vehicle 30 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 30 14
 vehicle 30 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 31 0
 vehicle 31 1
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 31 2
 vehicle 31 3
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 31 4
 vehicle 31 5
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 31 6
 vehicle 31 7
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 31 8
 vehicle 31 9
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 31 10
 vehicle 31 11
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 31 12
 vehicle 31 13
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
 vehicle 31 14
 vehicle 31 15
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
+Warning: Ignoring child element 'route' for vehicle 'v' because attribute 'route' is set.
