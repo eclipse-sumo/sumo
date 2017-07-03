@@ -4,6 +4,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
+/// @author  Leonhard Luecken
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
@@ -53,6 +54,7 @@
 // debug constants
 // ===========================================================================
 //#define DEBUG_NOTIFY_MOVE
+//#define DEBUG_NOTIFY_ENTER
 
 // ===========================================================================
 // method definitions
@@ -75,7 +77,10 @@ MSMeanData::MeanDataValues::~MeanDataValues() {
 
 
 bool
-MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) { // /* enteredLane */) {
+#ifdef DEBUG_NOTIFY_ENTER
+    std::cout << "\n" << SIMTIME << " MSMeanData_Net::MSLaneMeanDataValues: veh '" << veh.getID() << "' enters lane '" << enteredLane->getID() << "'" << std::endl;
+#endif
     UNUSED_PARAMETER(reason);
     return myParent == 0 || myParent->vehicleApplies(veh);
 }
@@ -137,7 +142,6 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
         ret = veh.hasArrived();
     }
 
-
     // Treat the case that the vehicle's front left the lane in the last step
     if (newPos > myLaneLength && oldPos <= myLaneLength) {
         // vehicle's front has left the lane and has not left before
@@ -151,6 +155,9 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
         }
         leaveSpeedFront = MSCFModel::speedAfterTime(timeBeforeLeaveFront, oldSpeed, newPos - oldPos);
     }
+
+    assert(frontOnLane <= TS);
+    assert(timeOnLane <= TS);
 
     if (timeOnLane < 0) {
         WRITE_ERROR("Negative vehicle step fraction for '" + veh.getID() + "' on lane '" + getLane()->getID() + "'.");
@@ -189,7 +196,6 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
     double lengthOnLaneAtStepStart = MAX2(0., MIN4(myLaneLength, vehLength, vehLength - (oldPos - myLaneLength), oldPos));
     // occupied lane length at timeBeforeLeave (resp. stepEnd if still on lane)
     double lengthOnLaneAtStepEnd = MAX2(0., MIN4(myLaneLength, vehLength, vehLength - (newPos - myLaneLength), newPos));
-
     double integratedLengthOnLane = 0.;
     if (timeBeforeEnterBack < timeBeforeLeaveFront) {
         // => timeBeforeLeaveFront>0, myLaneLength>vehLength
@@ -215,6 +221,9 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
         } else {
             lengthOnLaneAtLeaveFront = myLaneLength;
         }
+#ifdef DEBUG_NOTIFY_MOVE
+      std::cout << "lengthOnLaneAtLeaveFront=" << lengthOnLaneAtLeaveFront << std::endl;
+#endif
         // linear quadrature of occupancy between timeBeforeEnter and timeBeforeLeaveFront
         integratedLengthOnLane += (timeBeforeLeaveFront - timeBeforeEnter)*(lengthOnLaneAtLeaveFront+lengthOnLaneAtStepStart)*0.5;
         // linear quadrature of occupancy between timeBeforeLeaveFront and timeBeforeEnterBack
@@ -225,8 +234,9 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
 
     double meanLengthOnLane = integratedLengthOnLane/TS;
 #ifdef DEBUG_NOTIFY_MOVE
-    std::cout << "Calculated mean length on lane '" << myLane->getID() << "' in last step as " << meanLengthOnLane << std::endl;
-    std::cout << "";
+    std::cout << "Calculated mean length on lane '" << myLane->getID() << "' in last step as " << meanLengthOnLane
+            << "\nlengthOnLaneAtStepStart="<<lengthOnLaneAtStepStart<<", lengthOnLaneAtStepEnd="<<lengthOnLaneAtStepEnd<<", integratedLengthOnLane="<<integratedLengthOnLane
+            << std::endl;
 #endif
 
 //    // XXX: use this, when #2556 is fixed! Refs. #2575
@@ -333,7 +343,10 @@ MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, double lastPos, 
 
 
 bool
-MSMeanData::MeanDataValueTracker::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSMeanData::MeanDataValueTracker::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) { // /* enteredLane */) {
+#ifdef DEBUG_NOTIFY_ENTER
+    std::cout << "\n" << SIMTIME << " MSMeanData::MeanDataValueTracker: veh '" << veh.getID() << "' enters lane '" << enteredLane->getID() << "'" << std::endl;
+#endif
     if (reason == MSMoveReminder::NOTIFICATION_SEGMENT) {
         return true;
     }
