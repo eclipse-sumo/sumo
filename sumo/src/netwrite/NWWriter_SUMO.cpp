@@ -259,14 +259,14 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
         if (elv.size() > 0) {
             bool haveVia = false;
-            NBEdge* toEdge = 0;
+            std::string edgeID = "";
             std::string internalEdgeID = "";
             // first pass: compute average lengths of non-via edges
-            std::map<NBEdge*, double> lengthSum;
-            std::map<NBEdge*, int> numLanes;
+            std::map<std::string, double> lengthSum;
+            std::map<std::string, int> numLanes;
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                lengthSum[(*k).toEdge] += MAX2((*k).shape.length(), POSITION_EPS);
-                numLanes[(*k).toEdge] += 1;
+                lengthSum[(*k).id] += MAX2((*k).shape.length(), POSITION_EPS);
+                numLanes[(*k).id] += 1;
             }
             // second pass: write non-via edges
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
@@ -274,13 +274,13 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     assert(false); // should never happen. tell me when it does
                     continue;
                 }
-                if (toEdge != (*k).toEdge) {
+                if (edgeID != (*k).id) {
                     internalEdgeID = (*k).id;
-                    if (toEdge != 0) {
+                    if (edgeID != "") {
                         // close the previous edge
                         into.closeTag();
                     }
-                    toEdge = (*k).toEdge;
+                    edgeID = (*k).id;
                     into.openTag(SUMO_TAG_EDGE);
                     into.writeAttr(SUMO_ATTR_ID, internalEdgeID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
@@ -289,7 +289,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 // to avoid changing to an internal lane which has a successor
                 // with the wrong permissions we need to inherit them from the successor
                 const NBEdge::Lane& successor = (*k).toEdge->getLanes()[(*k).toLane];
-                const double length = lengthSum[toEdge] / numLanes[toEdge];
+                const double length = lengthSum[edgeID] / numLanes[edgeID];
                 // @note the actual length should be used once sumo supports lanes of
                 // varying length within the same edge
                 //const double length = MAX2((*k).shape.length(), POSITION_EPS);
