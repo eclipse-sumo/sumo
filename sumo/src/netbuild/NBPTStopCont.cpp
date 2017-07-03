@@ -192,7 +192,7 @@ double NBPTStopCont::computeCrossProductEdgePosition(const NBEdge* edge, const P
         idx2 = idxTmp;
         idx1 = idxTmp-1;
     }
-    if (idx1 < 0 || idx1 >= geom.size() || idx2 < 0 || idx2 >= geom.size()) {
+    if (idx1 < 0 || idx1 >= (int)geom.size() || idx2 < 0 || idx2 >= (int)geom.size()) {
         WRITE_WARNING("Could not determine cross product");
         return 0;
     }

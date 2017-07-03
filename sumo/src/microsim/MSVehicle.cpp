@@ -814,7 +814,7 @@ Position
 MSVehicle::validatePosition(Position result, double offset) const {
     int furtherIndex = 0;
     while ((ISNAN(result.x()) || result == Position::INVALID)) {
-        if (furtherIndex >= myFurtherLanes.size()) {
+        if (furtherIndex >= (int)myFurtherLanes.size()) {
             //WRITE_WARNING("Could not compute position for vehicle '" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             break;
         }
