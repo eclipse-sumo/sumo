@@ -54,8 +54,8 @@ Warning: Format of optional float attribute 'y' of e3Detector with ID 'e3Detecto
 Warning: Adding e3Detector 'e3Detector_20' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_20detEntry0' in GNEChange_Additional
 Warning: e3Detectors without detEntrys or detExit aren't allowed; e3Detector with ID = 'e3Detector_21' cannot be created.
-Warning: Format of essential string attribute 'pos' of detEntry is invalid; Formats of positions over plane are 'x,y' or 'x,y,z'; detEntry cannot be created
-Warning: Format of essential string attribute 'pos' of detExit is invalid; Formats of positions over plane are 'x,y' or 'x,y,z'; detExit cannot be created
+Warning: Format of essential string attribute 'pos' of detEntry is invalid; detEntry cannot be created
+Warning: Format of essential string attribute 'pos' of detExit is invalid; detExit cannot be created
 Warning: e3Detectors without detEntrys or detExit aren't allowed; e3Detector with ID = 'e3Detector_22' cannot be created.
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

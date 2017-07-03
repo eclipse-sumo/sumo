@@ -28,19 +28,19 @@ import neteditTestFunctions as netedit
 
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
-
-# move junction
+netedit.rebuildNetwork()
 
 # Change to move
 netedit.moveMode()
 
 # move center circular road
-netedit.dragDrop(match, 350, 270, 400, 280)
+netedit.dragDrop(match, 350, 270, 100, 280)
+netedit.rebuildNetwork()
 
 # move 3-oclock node of circular road via attributes
 netedit.inspectMode()
 netedit.leftClick(match, 540, 290)
-netedit.modifyAttribute(1, "120,20,2")
+netedit.modifyAttribute(1, "120,20.2")
 
 # save newtork
 netedit.saveNetwork()

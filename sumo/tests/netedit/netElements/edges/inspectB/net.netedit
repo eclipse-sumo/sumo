@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/06/2017 11:13:30 by Netedit Version dev-SVN-r22880
+<!-- generated on 07/03/17 09:55:48 by Netedit Version dev-SVN-r22743
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Jun110807.4700/netedit.gui/netElements/edges/inspectB\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Jun110807.4700/netedit.gui/netElements/edges/inspectB\additionals.xml"/>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Jun110807.4700/netedit.gui/netElements/edges/inspectB\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Jul094951.8116/netedit.gui/netElements/edges/inspectB\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Jul094951.8116/netedit.gui/netElements/edges/inspectB\additionals.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Jul094951.8116/netedit.gui/netElements/edges/inspectB\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Jun110807.4700/netedit.gui/netElements/edges/inspectB\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Jul094951.8116/netedit.gui/netElements/edges/inspectB\net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
@@ -22,6 +22,7 @@
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
         <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <visualisation>
@@ -33,7 +34,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Jun110807.4700/netedit.gui/netElements/edges/inspectB\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Jul094951.8116/netedit.gui/netElements/edges/inspectB\log.txt"/>
     </report>
 
 </configuration>
@@ -78,10 +79,10 @@
         <lane id=":gneJ2_2_1" index="1" allow="private taxi delivery truck trailer bicycle evehicle ship custom2" speed="13.89" length="16.43" width="4.00" shape="1.65,18.55 3.79,18.93 8.57,18.78 13.53,18.44 16.23,18.25"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" speed="13.89" length="55.91" shape="32.08,16.24 32.83,18.63 39.62,37.31 44.47,43.52 47.38,37.27 48.35,18.54"/>
+        <lane id=":gneJ3_0_0" index="0" speed="13.89" length="55.10" shape="32.09,16.25 32.84,18.63 39.63,36.99 44.47,43.10 47.38,36.95 48.35,18.54"/>
     </edge>
     <edge id=":gneJ3_1" function="internal">
-        <lane id=":gneJ3_1_0" index="0" speed="13.89" length="11.69" shape="34.95,18.16 36.97,18.15 37.11,18.60 37.98,19.94 39.62,20.89 42.05,21.46 45.25,21.65"/>
+        <lane id=":gneJ3_1_0" index="0" speed="13.89" length="11.67" shape="34.98,18.15 36.98,18.13 37.13,18.61 38.00,19.94 39.64,20.89 42.06,21.46 45.25,21.65"/>
     </edge>
     <edge id=":gneJ3_2" function="internal">
         <lane id=":gneJ3_2_0" index="0" speed="13.89" length="8.07" shape="51.65,20.00 51.25,22.17 50.05,23.71 48.05,24.64 45.25,24.95"/>
@@ -94,9 +95,9 @@
     <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
         <lane id="gneE1_0" index="0" speed="13.89" length="43.50" shape="46.75,1.65 3.25,1.65"/>
     </edge>
-    <edge id="gneE2" from="gneJ2" to="gneJ3" name="my own name" priority="1" spreadType="center" length="40.00" shape="14.00,15.50 13.11,16.22 34.19,16.11 34.00,15.50">
-        <lane id="gneE2_0" index="0" allow="private taxi delivery truck trailer bicycle evehicle ship custom2" speed="13.89" length="37.50" endOffset="2.50" width="4.00" shape="15.29,17.09 18.93,14.14 31.41,14.07 32.08,16.24"/>
-        <lane id="gneE2_1" index="1" allow="private taxi delivery truck trailer bicycle evehicle ship custom2" speed="13.89" length="37.50" endOffset="2.50" width="4.00" shape="16.23,18.25 34.95,18.16"/>
+    <edge id="gneE2" from="gneJ2" to="gneJ3" name="my own name" priority="1" spreadType="center" length="40.00" shape="14.00,15.50 13.11,16.22 34.19,16.10 34.00,15.50">
+        <lane id="gneE2_0" index="0" allow="private taxi delivery truck trailer bicycle evehicle ship custom2" speed="13.89" length="37.50" endOffset="2.50" width="4.00" shape="15.29,17.09 18.94,14.14 31.40,14.07 32.09,16.25"/>
+        <lane id="gneE2_1" index="1" allow="private taxi delivery truck trailer bicycle evehicle ship custom2" speed="13.89" length="37.50" endOffset="2.50" width="4.00" shape="16.23,18.25 34.98,18.15"/>
     </edge>
     <edge id="gneE3" from="gneJ3" to="gneJ2" priority="1">
         <lane id="gneE3_0" index="0" speed="13.89" length="40.50" shape="45.25,24.95 4.75,24.95"/>
@@ -131,7 +132,7 @@
         <request index="2" response="0010" foes="0010" cont="0"/>
         <request index="3" response="0010" foes="0010" cont="0"/>
     </junction>
-    <junction id="gneJ3" type="priority" x="50.00" y="20.00" incLanes="gneE2_0 gneE2_1 gneE5_0" intLanes=":gneJ3_0_0 :gneJ3_1_0 :gneJ3_2_0 :gneJ3_2_1" shape="34.92,18.62 46.75,18.55 45.25,20.05 45.25,26.55">
+    <junction id="gneJ3" type="priority" x="50.00" y="20.00" incLanes="gneE2_0 gneE2_1 gneE5_0" intLanes=":gneJ3_0_0 :gneJ3_1_0 :gneJ3_2_0 :gneJ3_2_1" shape="34.93,18.62 46.75,18.55 45.25,20.05 45.25,26.55">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="1100" foes="1100" cont="0"/>
         <request index="2" response="0000" foes="0010" cont="0"/>

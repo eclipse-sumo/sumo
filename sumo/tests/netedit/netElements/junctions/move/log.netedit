@@ -1,15 +1,13 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
-Warning: Setting new attribute pos '120,20,2' into junction 'gneJ13'
-Warning: Edge '-gneE10' has a grade of 514.98%.
-Warning: Edge '-gneE16' has a grade of 17.72%.
-Warning: Edge '-gneE17' has a grade of 501.17%.
-Warning: Edge '-gneE18' has a grade of 14.33%.
-Warning: Edge '-gneE9' has a grade of 537.32%.
-Warning: Edge 'gneE10' has a grade of 514.98%.
-Warning: Edge 'gneE16' has a grade of 17.72%.
-Warning: Edge 'gneE17' has a grade of 501.17%.
-Warning: Edge 'gneE18' has a grade of 14.33%.
-Warning: Edge 'gneE9' has a grade of 537.32%.
+Warning: Key F5 (Compute) pressed
+Warning: Edge '-gneE16' has a grade of 13.33%.
+Warning: Edge '-gneE17' has a grade of 13.33%.
+Warning: Edge '-gneE18' has a grade of 13.33%.
+Warning: Edge '-gneE19' has a grade of 13.33%.
+Warning: Edge 'gneE16' has a grade of 13.33%.
+Warning: Edge 'gneE17' has a grade of 13.33%.
+Warning: Edge 'gneE18' has a grade of 13.33%.
+Warning: Edge 'gneE19' has a grade of 13.33%.
 Warning: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE11_0to-gneE10_0' in retrieveGNEConnection()
@@ -66,6 +64,17 @@ Warning: Created connection 'fromgneE7_0togneE4_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
+Warning: Setting new attribute pos '28.00,18.00,1.40' into junction 'gneJ19'
+Warning: Key F5 (Compute) pressed
+Warning: Connection '-gneE14_0->-gneE19_0' has a grade of 28.28%.
+Warning: Connection '-gneE17_0->gneE19_0' has a grade of 60.42%.
+Warning: Connection '-gneE18_0->gneE19_0' has a grade of 13.29%.
+Warning: Connection 'gneE13_0->-gneE19_0' has a grade of 13.48%.
+Warning: Setting new attribute pos '120,20.' into junction 'gneJ13'
+Warning: Connection '-gneE14_0->-gneE19_0' has a grade of 28.28%.
+Warning: Connection '-gneE17_0->gneE19_0' has a grade of 65.58%.
+Warning: Connection '-gneE18_0->gneE19_0' has a grade of 13.29%.
+Warning: Connection 'gneE13_0->-gneE19_0' has a grade of 13.48%.
 Warning: Deleting unreferenced edge '-gneE10' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE10_0to-gneE9_0' in GNEEdge destructor
@@ -82,31 +91,31 @@ Warning: Deleting unreferenced lane '-gneE13_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE13_0to-gneE12_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE14' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE14_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'from-gneE14_0to-gneE13_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE14_0to-gneE19_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from-gneE14_0to-gneE13_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE15' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE15_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE15_0to-gneE14_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE16' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE16_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'from-gneE16_0togneE19_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE16_0togneE18_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE16_0togneE17_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from-gneE16_0togneE19_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE17' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE17_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE17_0togneE16_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'from-gneE17_0togneE19_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE17_0togneE18_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from-gneE17_0togneE19_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE18' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE18_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE18_0togneE17_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'from-gneE18_0togneE16_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE18_0togneE19_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from-gneE18_0togneE16_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE19' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE19_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from-gneE19_0togneE16_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE19_0togneE18_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE19_0togneE17_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'from-gneE19_0togneE16_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE3' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE3_0togneE3_0' in GNEEdge destructor
@@ -146,8 +155,8 @@ Warning: Deleting unreferenced lane 'gneE12_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE12_0togneE13_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE13' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE13_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE13_0to-gneE19_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE13_0togneE14_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE13_0to-gneE19_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE14' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE14_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE14_0togneE15_0' in GNEEdge destructor
@@ -169,8 +178,8 @@ Warning: Deleting unreferenced connection 'fromgneE18_0togneE12_0' in GNEEdge de
 Warning: Deleting unreferenced connection 'fromgneE18_0to-gneE11_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE19' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE19_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE19_0togneE14_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE19_0to-gneE13_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE19_0togneE14_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE2' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE2_0togneE1_0' in GNEEdge destructor

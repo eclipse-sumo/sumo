@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/05/17 13:15:45 by Netedit Version dev-SVN-r22761
+<!-- generated on 07/03/17 11:17:25 by Netedit Version dev-SVN-r22743
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.05May131535.6560/netedit.gui/volatileRecomputing/crossings.guess\additionals.xml"/>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.05May131535.6560/netedit.gui/volatileRecomputing/crossings.guess\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Jul111318.6948/netedit.gui/volatileRecomputing/crossings.guess\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Jul111318.6948/netedit.gui/volatileRecomputing/crossings.guess\additionals.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Jul111318.6948/netedit.gui/volatileRecomputing/crossings.guess\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.05May131535.6560/netedit.gui/volatileRecomputing/crossings.guess\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Jul111318.6948/netedit.gui/volatileRecomputing/crossings.guess\net.net.xml"/>
     </output>
 
     <processing>
@@ -22,23 +23,25 @@
         <junctions.corner-detail value="0"/>
         <rectangular-lane-cut value="false"/>
         <crossings.guess value="true"/>
+        <walkingareas value="false"/>
     </processing>
 
     <visualisation>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.05May131535.6560/netedit.gui/volatileRecomputing/crossings.guess\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Jul111318.6948/netedit.gui/volatileRecomputing/crossings.guess\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" walkingareas="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="3.00,-25.00" convBoundary="0.00,0.00,100.00,60.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 

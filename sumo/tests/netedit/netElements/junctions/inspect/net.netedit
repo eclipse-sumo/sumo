@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 28/06/2017 17:59:16 by Netedit Version dev-SVN-r22880
+<!-- generated on 07/03/17 09:35:08 by Netedit Version dev-SVN-r22743
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Jun175452.6108/netedit.gui/netElements/junctions/inspect\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Jun175452.6108/netedit.gui/netElements/junctions/inspect\additionals.xml"/>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Jun175452.6108/netedit.gui/netElements/junctions/inspect\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_03Jul092651.8268/netedit.gui/netElements/junctions/inspect\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_03Jul092651.8268/netedit.gui/netElements/junctions/inspect\additionals.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_03Jul092651.8268/netedit.gui/netElements/junctions/inspect\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Jun175452.6108/netedit.gui/netElements/junctions/inspect\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_03Jul092651.8268/netedit.gui/netElements/junctions/inspect\net.net.xml"/>
     </output>
 
     <processing>
@@ -21,6 +21,7 @@
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
         <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <visualisation>
@@ -32,7 +33,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Jun175452.6108/netedit.gui/netElements/junctions/inspect\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_03Jul092651.8268/netedit.gui/netElements/junctions/inspect\log.txt"/>
     </report>
 
 </configuration>
@@ -383,7 +384,7 @@
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="gneJ17" type="unregulated" x="50.00" y="20.00" incLanes="-gneE14_0 gneE19_0 gneE13_0" intLanes=":gneJ17_0_0 :gneJ17_1_0 :gneJ17_2_0 :gneJ17_3_0 :gneJ17_4_0 :gneJ17_5_0" shape="46.75,25.25 53.25,25.25 55.25,23.25 55.25,16.75 53.25,14.75 46.75,14.75" radius="2.00"/>
-    <junction id="gneJ18" type="allway_stop" x="50.00" y="40.00" incLanes="-gneE15_0 gneE14_0" intLanes=":gneJ18_0_0 :gneJ18_1_0" shape="52.85,50.00 50.54,43.93 50.50,43.16 46.01,38.46 45.53,38.12 39.59,35.49" customShape="1">
+    <junction id="gneJ18" type="allway_stop" x="50.00" y="40.00" incLanes="-gneE15_0 gneE14_0" intLanes=":gneJ18_0_0 :gneJ18_1_0" shape="52.85,50.00 50.54,43.93 50.50,43.16 46.01,38.46 45.53,38.12 39.59,35.40" customShape="1">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
