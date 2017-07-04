@@ -125,6 +125,9 @@ public:
     /// @}
 
 protected:
+    /// @brief attribute length 
+    double myLength; 
+
     /// @brief The relative [0,1] start position this E2 detector is located at
     double myStartPosRelative;
 
