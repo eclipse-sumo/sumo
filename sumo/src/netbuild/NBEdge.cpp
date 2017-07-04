@@ -1387,7 +1387,12 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         if (con.toEdge == 0) {
             continue;
         }
-        if (con.toEdge != toEdge) {
+        LinkDirection dir = n.getDirection(this, con.toEdge);
+        const bool isRightTurn = (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT);
+        const bool isTurn = (isRightTurn || dir == LINKDIR_LEFT || dir == LINKDIR_PARTLEFT);
+
+        // put turning internal lanes on separate edges
+        if (con.toEdge != toEdge || isTurn) {
             // skip indices to keep some correspondence between edge ids and link indices:
             // internalEdgeIndex + internalLaneIndex = linkIndex
             edgeIndex = linkIndex;
@@ -1397,9 +1402,6 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         PositionVector shape = n.computeInternalLaneShape(this, con, numPoints, myTo);
         std::vector<int> foeInternalLinks;
 
-        LinkDirection dir = n.getDirection(this, con.toEdge);
-        const bool isRightTurn = (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT);
-        const bool isTurn = (isRightTurn || dir == LINKDIR_LEFT || dir == LINKDIR_PARTLEFT);
         if (dir != LINKDIR_STRAIGHT && shape.length() < POSITION_EPS) {
             WRITE_WARNING("Connection '" + getID() + "_" + toString(con.fromLane) + "->" + con.toEdge->getID() + "_" + toString(con.toLane) + "' is only " + toString(shape.length()) + " short.");
         }
