@@ -64,8 +64,8 @@
 
 GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string &name, bool friendlyPosition) :
     GNEAdditional(id, viewNet, Position(), tag, icon),
-    myStartPos(startPos),
-    myEndPos(endPos),
+    myStartPosRelative(startPos / lane->getLaneParametricLength()),
+    myEndPosRelative(endPos / lane->getLaneParametricLength()),
     myName(name),
     myFriendlyPosition(friendlyPosition),
     mySignColor(RGBColor::YELLOW),
@@ -89,24 +89,31 @@ GNEStoppingPlace::getPositionInView() const {
 
 void
 GNEStoppingPlace::moveGeometry(const Position &newPosition) {
-    // Move to Right if distance is positive, to left if distance is negative
-    if (((newPosition.x() > 0) &&
-            ((myLane->getPositionRelativeToParametricLength(myEndPos) + newPosition.x()) < myLane->getLaneParametricLength())) ||
-            ((newPosition.x() < 0) && ((myLane->getPositionRelativeToParametricLength(myStartPos) + newPosition.x()) > 0))) {
-        // change attribute
-        myStartPos += newPosition.x();
-        myEndPos += newPosition.x();
-        // Update geometry
-        updateGeometry();
+    // First we need to change the absolute new positions to a relative positions
+    double lenghtDifference = myLane->getLaneParametricLength() / myLane->getLaneShapeLength();
+    double relativePos = newPosition.x() / myLane->getLaneParametricLength() * lenghtDifference;
+    double stoppingPlaceLenght = myEndPosRelative - myStartPosRelative;
+    // change start position of stopping place
+    if((myStartPosRelative + relativePos) < 0) {
+        myStartPosRelative = 0;
+        myEndPosRelative = stoppingPlaceLenght;
+    } else if (myEndPosRelative + relativePos > 1) {
+        myStartPosRelative = 1 - stoppingPlaceLenght;
+        myEndPosRelative = 1;
+    } else {
+        myStartPosRelative += relativePos;
+        myEndPosRelative += relativePos;
     }
+    // Update geometry
+    updateGeometry();
 }
 
 
 void
 GNEStoppingPlace::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(getStartPosition()), true, toString(oldPos.x())));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(getEndPosition()), true, toString(oldPos.y())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(myStartPosRelative * myLane->getLaneParametricLength()), true, toString(oldPos.x())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPosRelative * myLane->getLaneParametricLength()), true, toString(oldPos.y())));
     undoList->p_end();
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);
@@ -115,13 +122,13 @@ GNEStoppingPlace::commmitGeometryMoving(const Position& oldPos, GNEUndoList* und
 
 double
 GNEStoppingPlace::getStartPosition() const {
-    return myStartPos;
+    return myStartPosRelative;
 }
 
 
 double
 GNEStoppingPlace::getEndPosition() const {
-    return myEndPos;
+    return myEndPosRelative;
 }
 
 
@@ -130,7 +137,7 @@ GNEStoppingPlace::fixStoppingPlacePosition() {
     if(myFriendlyPosition) {
         throw InvalidArgument("StoppingPlace position cannot be fixed if friendlyPos is enabled");
     } else {
-        return GNEAdditionalHandler::checkAndFixStoppinPlacePosition(myStartPos, myEndPos, myLane->getLaneShapeLength(), POSITION_EPS, myFriendlyPosition);
+        return GNEAdditionalHandler::checkAndFixStoppinPlacePosition(myStartPosRelative, myEndPosRelative, myLane->getLaneShapeLength(), POSITION_EPS, myFriendlyPosition);
     }
 }
 
@@ -141,11 +148,11 @@ GNEStoppingPlace::areStoppingPlacesPositionsFixed() {
     if(myFriendlyPosition) {
         return true;
     } else {
-        double tmpStarPos = myStartPos;
-        double tmpEndPos = myEndPos;
+        double tmpStarPos = myStartPosRelative;
+        double tmpEndPos = myEndPosRelative;
         // Check if positions can be fixed
         if (GNEAdditionalHandler::checkAndFixStoppinPlacePosition(tmpStarPos, tmpEndPos, myLane->getLaneShapeLength(), POSITION_EPS, myFriendlyPosition)) {
-            return ((tmpStarPos == myStartPos) && (tmpEndPos == myEndPos));
+            return ((tmpStarPos == myStartPosRelative) && (tmpEndPos == myEndPosRelative));
         } else {
             return false;
         }
@@ -156,34 +163,6 @@ GNEStoppingPlace::areStoppingPlacesPositionsFixed() {
 const std::string&
 GNEStoppingPlace::getStoppingPlaceName() const {
     return myName;
-}
-
-
-void
-GNEStoppingPlace::setStartPosition(double startPos) {
-    if (startPos < 0) {
-        throw InvalidArgument(toString(SUMO_ATTR_STARTPOS) + " '" + toString(startPos) + "' not allowed. Must be greater than 0");
-    } else if (startPos >= myEndPos) {
-        throw InvalidArgument(toString(SUMO_ATTR_STARTPOS) + " '" + toString(startPos) + "' not allowed. Must be smaller than endPos '" + toString(myEndPos) + "'");
-    } else if ((myEndPos - startPos) < 1) {
-        throw InvalidArgument(toString(SUMO_ATTR_STARTPOS) + " '" + toString(startPos) + "' not allowed. Length of StoppingPlace must be equal or greater than 1");
-    } else {
-        myStartPos = startPos;
-    }
-}
-
-
-void
-GNEStoppingPlace::setEndPosition(double endPos) {
-    if (endPos > myLane->getLaneShapeLength()) {
-        throw InvalidArgument(toString(SUMO_ATTR_ENDPOS) + " '" + toString(endPos) + "' not allowed. Must be smaller than lane length");
-    } else if (myStartPos >= endPos) {
-        throw InvalidArgument(toString(SUMO_ATTR_ENDPOS) + " '" + toString(endPos) + "' not allowed. Must be smaller than endPos '" + toString(myEndPos) + "'");
-    } else if ((endPos - myStartPos) < 1) {
-        throw InvalidArgument(toString(SUMO_ATTR_ENDPOS) + " '" + toString(endPos) + "' not allowed. Length of StoppingPlace must be equal or greater than 1");
-    } else {
-        myEndPos = endPos;
-    }
 }
 
 

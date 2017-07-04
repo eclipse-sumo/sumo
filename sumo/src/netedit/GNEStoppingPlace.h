@@ -90,18 +90,6 @@ public:
     /// @brief Returns the name of stoppingPlace
     const std::string &getStoppingPlaceName() const;
 
-    /**@brief Set a new Start position in StoppingPlace
-     * @param[in] startPos new Start position of StoppingPlace
-     * @throws InvalidArgument if value of startPos isn't valid
-     */
-    void setStartPosition(double startPos);
-
-    /**@brief Set a new End position in StoppingPlace
-     * @param[in] endPos new End position of StoppingPlace
-     * @throws InvalidArgument if value of endPos isn't valid
-     */
-    void setEndPosition(double endPos);
-
     /// @brief set a new Name in StoppingPlace
     void setStoppingPlaceName(const std::string &name);
 
@@ -163,11 +151,11 @@ public:
     /// @}
 
 protected:
-    /// @brief The start position this stopping place is located at
-    double myStartPos;
+    /// @brief The relative [0,1] start position this stopping place is located at
+    double myStartPosRelative;
 
-    /// @brief The end position this stopping place is located at
-    double myEndPos;
+    /// @brief The relative [0,1] end position this stopping place is located at
+    double myEndPosRelative;
 
     /// @brief name of stoppingPlace
     std::string myName;

@@ -97,7 +97,7 @@ GNEChargingStation::updateGeometry() {
     myShape = myLane->getShape();
 
     // Cut shape using as delimitators from start position and end position
-    myShape = myShape.getSubpart(myLane->getPositionRelativeToParametricLength(myStartPos), myLane->getPositionRelativeToParametricLength(myEndPos));
+    myShape = myShape.getSubpart(myStartPosRelative * myShape.length() , myEndPosRelative * myShape.length());
 
     // Get number of parts of the shape
     int numberOfSegments = (int) myShape.size() - 1;
@@ -166,8 +166,8 @@ GNEChargingStation::writeAdditional(OutputDevice& device, bool volatileOptionsEn
     } else {
         device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     }
-    device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
-    device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
+    device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosRelative * myLane->getLaneParametricLength());
+    device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosRelative * myLane->getLaneParametricLength());
     if(myName.empty() == false) {
         device.writeAttr(SUMO_ATTR_NAME, myName);
     }
@@ -379,9 +379,9 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return toString(myLane->getAttribute(SUMO_ATTR_ID));
         case SUMO_ATTR_STARTPOS:
-            return toString(myStartPos);
+            return toString(myStartPosRelative * myLane->getLaneParametricLength());
         case SUMO_ATTR_ENDPOS:
-            return toString(myEndPos);
+            return toString(myEndPosRelative * myLane->getLaneParametricLength());
         case SUMO_ATTR_NAME:
             return myName;
         case SUMO_ATTR_FRIENDLY_POS:
@@ -443,11 +443,23 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            return (canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) < (myEndPos - 1)));
+            if(canParse<double>(value)) {
+                // obtain relative new start position
+                double newStartPos = parse<double>(value) / myLane->getLaneParametricLength();
+                if((newStartPos < 0) || (newStartPos > 1) || (newStartPos > myEndPosRelative)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
         case SUMO_ATTR_ENDPOS: {
-            if (canParse<double>(value) && (parse<double>(value) >= 1) && (parse<double>(value) > myStartPos)) {
-                // If extension is larger than Lane
-                if (parse<double>(value) > myLane->getLaneParametricLength()) {
+            if (canParse<double>(value)) {
+                // obtain relative new end position
+                double newEndPos = parse<double>(value) / myLane->getLaneParametricLength();
+                // check if relative endPosition is valid
+                if ((newEndPos < 0) || (newEndPos < myStartPosRelative)) {
+                    return false;
+                } else if (newEndPos > 1) {
                     // write warning if netedit is running in testing mode
                     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                         WRITE_WARNING("Opening FXMessageBox of type 'question'");
@@ -462,6 +474,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
                         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                             WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
                         }
+                        // end position is valid
                         return true;
                     } else {
                         // write warning if netedit is running in testing mode
@@ -473,6 +486,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
                         return false;
                     }
                 } else {
+                    // end position is valid
                     return true;
                 }
             } else {
@@ -512,15 +526,15 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPos = parse<double>(value);
+            myStartPosRelative = parse<double>(value);
             updateGeometry();
             getViewNet()->update();
             break;
         case SUMO_ATTR_ENDPOS:
             if (parse<double>(value) > myLane->getLaneParametricLength()) {
-                myEndPos = myLane->getLaneParametricLength();
+                myEndPosRelative = myLane->getLaneParametricLength();
             } else {
-                myEndPos = parse<double>(value);
+                myEndPosRelative = parse<double>(value);
             }
             updateGeometry();
             getViewNet()->update();
