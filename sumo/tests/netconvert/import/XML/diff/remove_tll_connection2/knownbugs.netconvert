@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 15Feb16:55:11]
+search_string:1
+search_file:exitcode
+ignore_other_errors:1
+full_description:invalid error
+brief_description:see #2868
