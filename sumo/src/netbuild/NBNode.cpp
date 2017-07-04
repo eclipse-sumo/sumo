@@ -1540,6 +1540,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     if (outgoing == 0) {
         return LINKDIR_NODIR;
     }
+    if (incoming->getJunctionPriority(this) == NBEdge::ROUNDABOUT && outgoing->getJunctionPriority(this) == NBEdge::ROUNDABOUT) {
+        return LINKDIR_STRAIGHT;
+    }
     // turning direction
     if (incoming->isTurningDirectionAt(outgoing)) {
         return leftHand ? LINKDIR_TURN_LEFTHAND : LINKDIR_TURN;
