@@ -345,8 +345,7 @@ MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std
                 } else if ((*it)->isStoppedTriggered() ||
                            (*it)->getParameter().departProcedure == DEPART_TRIGGERED) {
                     // maybe we are within the range of the stop
-                    MSVehicle* veh = static_cast<MSVehicle*>(*it);
-                    if (veh->isStoppedInRange(position)) {
+                    if ((*it)->isStoppedInRange(position)) {
                         return (*it);
                     } else {
                         waitingTooFarAway.push_back(*it);

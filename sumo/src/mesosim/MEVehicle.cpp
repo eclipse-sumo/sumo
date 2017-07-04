@@ -81,7 +81,7 @@ double
 MEVehicle::getPositionOnLane() const {
 // the following interpolation causes problems with arrivals and calibrators
 //    const double fracOnSegment = MIN2(double(1), STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - myLastEntryTime) / STEPS2TIME(myEventTime - myLastEntryTime));
-    return (double(mySegment->getIndex()) /* + fracOnSegment */) * mySegment->getLength();
+    return mySegment == 0 ? 0 : (double(mySegment->getIndex()) /* + fracOnSegment */) * mySegment->getLength();
 }
 
 
@@ -236,6 +236,13 @@ MEVehicle::isStopped() const {
 bool
 MEVehicle::isStoppedTriggered() const {
     return false;
+}
+
+
+bool
+MEVehicle::isStoppedInRange(double pos) const {
+    UNUSED_PARAMETER(pos);
+    return isStopped();
 }
 
 

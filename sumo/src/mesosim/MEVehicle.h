@@ -167,6 +167,10 @@ public:
      */
     bool isStoppedTriggered() const;
 
+    /** @brief return whether the given position is within range of the current stop
+     */
+    bool isStoppedInRange(double pos) const;
+
     /** @brief Returns how long to stop at the given segment
      * @param[in] seg The segment in question
      * @return stop time for the segment

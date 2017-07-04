@@ -332,6 +332,9 @@ public:
      */
     virtual bool isStoppedTriggered() const = 0;
 
+    /** @brief Returns whether the vehicle is stoped in range of the given position */
+    virtual bool isStoppedInRange(double pos) const = 0;
+
     /// @brief Returns a device of the given type if it exists or 0
     virtual MSDevice* getDevice(const std::type_info& type) const = 0;
 

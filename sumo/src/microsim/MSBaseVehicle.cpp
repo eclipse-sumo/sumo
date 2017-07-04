@@ -37,6 +37,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSGlobals.h"
+#include "MSTransportable.h"
 #include "MSVehicleControl.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"
@@ -296,11 +297,13 @@ MSBaseVehicle::hasArrived() const {
 }
 
 void
-MSBaseVehicle::addPerson(MSTransportable* /*person*/) {
+MSBaseVehicle::addPerson(MSTransportable* person) {
+    throw ProcessError("Person '" + person->getID() + "' cannot ride in vehicle '" + getID() + "' in the mesoscopic simulation.");
 }
 
 void
-MSBaseVehicle::addContainer(MSTransportable* /*container*/) {
+MSBaseVehicle::addContainer(MSTransportable* container) {
+    throw ProcessError("Container '" + container->getID() + "' cannot ride in vehicle '" + getID() + "' in the mesoscopic simulation.");
 }
 
 bool
