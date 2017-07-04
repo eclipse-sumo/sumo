@@ -12,3 +12,6 @@ control.limited_tlsPenalty
 
 # smooth flow with penalty
 control.limited_tlsPenalty_scaled
+
+# smooth flow with penalty
+control_tlsPenalty
