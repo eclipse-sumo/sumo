@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r24982
+SUMO netgenerate Version dev-SVN-r24506
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -205,6 +205,12 @@ Processing Options:
   --junctions.scurve-stretch FLOAT     Generate longer intersections to allow
                                          for smooth s-curves when the number of
                                          lanes changes
+  --junctions.join-turns               Builds common edges for turning
+                                         connections with common from- and
+                                         to-edge. This causes discrepancies
+                                         between geometrical length and assigned
+                                         length due to averaging but enables
+                                         lane-changing while turning
   --rectangular-lane-cut               Forces rectangular cuts between lanes
                                          and intersections
   --check-lane-foes.roundabout         Allow driving onto a multi-lane road if
