@@ -990,7 +990,8 @@ GUILane::getColorValue(int activeScheme) const {
             }
         }
         case 17: {
-            return 1 / myLengthGeometryFactor;
+            // geometrical length has no meaning for walkingAreas since it describes the outer boundary
+            return myEdge->isWalkingArea() ? 1 :  1 / myLengthGeometryFactor;
         }
         case 19: {
             return getLoadedEdgeWeight();
