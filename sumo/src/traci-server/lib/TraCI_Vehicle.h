@@ -103,7 +103,6 @@ public:
     static std::string getParameter(const std::string& vehicleID, const std::string& key);
 
     static const MSVehicleType& getVehicleType(const std::string& vehicleID);
-    /* Type requests not yet implemented
     static std::string getEmissionClass(const std::string& vehicleID);
     static std::string getShapeClass(const std::string& vehicleID);
     static std::string getVClass(const std::string& vehicleID);
@@ -118,7 +117,7 @@ public:
     static double getMinGap(const std::string& vehicleID);
     static double getMaxSpeed(const std::string& vehicleID);
     static double getWidth(const std::string& vehicleID);
-    */
+
     /// @}
 
     /// @name State Changing
@@ -159,7 +158,7 @@ public:
     static void setSpeed(const std::string& vehicleID, double speed);
     static void setMaxSpeed(const std::string& vehicleID, double speed);
     static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
-    static void setColor(const std::string& vehicleID, const TraCIColor& c);
+    static void setColor(const std::string& vehicleID, const TraCIColor& col);
     static void setLine(const std::string& vehicleID, const std::string& line);
     static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);
     static void setShapeClass(const std::string& vehicleID, const std::string& clazz);

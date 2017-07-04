@@ -31,6 +31,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/TplConvert.h>
+#include <utils/emissions/PollutantsInterface.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice.h>
@@ -519,59 +520,75 @@ TraCI_Vehicle::getVehicleType(const std::string& vehicleID) {
 }
 
 
-
-/*
 std::string
 TraCI_Vehicle::getEmissionClass(const std::string& vehicleID) {
+    return PollutantsInterface::getName(getVehicleType(vehicleID).getEmissionClass());
 }
 
 std::string
 TraCI_Vehicle::getShapeClass(const std::string& vehicleID) {
+    return getVehicleShapeName(getVehicleType(vehicleID).getGuiShape());
 }
-
 
 
 double
 TraCI_Vehicle::getLength(const std::string& vehicleID) {
+    return getVehicleType(vehicleID).getLength();
 }
+
 
 double
 TraCI_Vehicle::getAccel(const std::string& vehicleID) {
+    return getVehicleType(vehicleID).getLength();
 }
+
 
 double
 TraCI_Vehicle::getDecel(const std::string& vehicleID) {
+    return getVehicleType(vehicleID).getCarFollowModel().getMaxDecel();
 }
+
 
 double
 TraCI_Vehicle::getTau(const std::string& vehicleID) {
+    return getVehicleType(vehicleID).getCarFollowModel().getHeadwayTime();
 }
+
 
 double
 TraCI_Vehicle::getImperfection(const std::string& vehicleID) {
+    return getVehicleType(vehicleID).getCarFollowModel().getImperfection();
 }
+
 
 double
 TraCI_Vehicle::getSpeedDeviation(const std::string& vehicleID) {
+    return getVehicleType(vehicleID).getSpeedFactor().getParameter()[1];
 }
+
 
 std::string
 TraCI_Vehicle::getVClass(const std::string& vehicleID) {
+    return toString(getVehicleType(vehicleID).getVehicleClass());
 }
+
 
 double
 TraCI_Vehicle::getMinGap(const std::string& vehicleID) {
+    return getVehicleType(vehicleID).getMinGap();
 }
+
 
 double
 TraCI_Vehicle::getMaxSpeed(const std::string& vehicleID) {
+    return getVehicleType(vehicleID).getMaxSpeed();
 }
 
 
 double
 TraCI_Vehicle::getWidth(const std::string& vehicleID) {
+    return getVehicleType(vehicleID).getWidth();
 }
-*/
 
 
 void
@@ -658,7 +675,10 @@ TraCI_Vehicle::resume(const std::string& vehicleID) {
 
 void
 TraCI_Vehicle::changeLane(const std::string& vehID, int laneIndex, SUMOTime duration) {
-    getVehicle(vehID);
+    std::vector<std::pair<SUMOTime, int> > laneTimeLine;
+    laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
+    laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + duration, laneIndex));
+    getVehicle(vehID)->getInfluencer().setLaneTimeLine(laneTimeLine);
 }
 
 
@@ -706,7 +726,7 @@ TraCI_Vehicle::setSpeed(const std::string& vehicleID, double speed) {
 
 void
 TraCI_Vehicle::setMaxSpeed(const std::string& vehicleID, double speed) {
-    getVehicle(vehicleID);
+    getVehicle(vehicleID)->getSingularType().setMaxSpeed(speed);
 }
 
 void
@@ -714,14 +734,18 @@ TraCI_Vehicle::remove(const std::string& vehicleID, char reason) {
     getVehicle(vehicleID);
 }
 
+
 void
-TraCI_Vehicle::setColor(const std::string& vehicleID, const TraCIColor& c) {
-    getVehicle(vehicleID);
+TraCI_Vehicle::setColor(const std::string& vehicleID, const TraCIColor& col) {
+    const SUMOVehicleParameter& p = getVehicle(vehicleID)->getParameter();
+    p.color.set(col.r, col.g, col.b, col.a);
+    p.setParameter |= VEHPARS_COLOR_SET;
 }
+
 
 void
 TraCI_Vehicle::setLine(const std::string& vehicleID, const std::string& line) {
-    getVehicle(vehicleID);
+    getVehicle(vehicleID)->getParameter().line = line;
 }
 
 void
@@ -731,7 +755,7 @@ TraCI_Vehicle::setVia(const std::string& vehicleID, const std::vector<std::strin
 
 void
 TraCI_Vehicle::setShapeClass(const std::string& vehicleID, const std::string& clazz) {
-    getVehicle(vehicleID);
+    getVehicle(vehicleID)->getSingularType().setShape(getVehicleShapeID(clazz));
 }
 
 void
