@@ -215,6 +215,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("junctions.scurve-stretch", new Option_Float(0));
     oc.addDescription("junctions.scurve-stretch", "Processing", "Generate longer intersections to allow for smooth s-curves when the number of lanes changes");
 
+    oc.doRegister("junctions.join-turns", new Option_Bool(false));
+    oc.addDescription("junctions.join-turns", "Processing", 
+            "Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning");
+
     oc.doRegister("rectangular-lane-cut", new Option_Bool(false));
     oc.addDescription("rectangular-lane-cut", "Processing", "Forces rectangular cuts between lanes and intersections");
 

@@ -1377,6 +1377,7 @@ NBEdge::moveConnectionToRight(int lane) {
 void
 NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex, int& splitIndex) {
     const int numPoints = OptionsCont::getOptions().getInt("junctions.internal-link-detail");
+    const bool joinTurns = OptionsCont::getOptions().getBool("junctions.join-turns");
     std::string innerID = ":" + n.getID();
     NBEdge* toEdge = 0;
     int edgeIndex = linkIndex;
@@ -1392,7 +1393,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         const bool isTurn = (isRightTurn || dir == LINKDIR_LEFT || dir == LINKDIR_PARTLEFT);
 
         // put turning internal lanes on separate edges
-        if (con.toEdge != toEdge || isTurn) {
+        if (con.toEdge != toEdge || (isTurn && !joinTurns)) {
             // skip indices to keep some correspondence between edge ids and link indices:
             // internalEdgeIndex + internalLaneIndex = linkIndex
             edgeIndex = linkIndex;
