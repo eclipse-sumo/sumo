@@ -55,7 +55,8 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& p
     NBTrafficLightDefinition(id, programID, offset, type),
     myTLLogic(0),
     myReconstructAddedConnections(false),
-    myReconstructRemovedConnections(false)
+    myReconstructRemovedConnections(false),
+    myPhasesLoaded(false)
 {
     myTLLogic = new NBTrafficLightLogic(id, programID, 0, offset, type);
 }
@@ -111,7 +112,7 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
     // myControlledInnerEdges.insert(from->getID()); // @todo recheck: this appears to be obsolete
     // set this information now so that it can be used while loading diffs
     from->setControllingTLInformation(conn, getID());
-    myReconstructAddedConnections = reconstruct;
+    myReconstructAddedConnections |= reconstruct;
 }
 
 
@@ -124,6 +125,9 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
         for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
             (*i)->removeTrafficLight(&dummy);
         }
+    }
+    if (myReconstructRemovedConnections) {
+        return; // will be called again in reconstructLogic()
     }
     // if nodes have been removed our links may have been invalidated as well
     // since no logic will be built anyway there is no reason to inform any edges
@@ -202,7 +206,7 @@ NBLoadedSUMOTLDef::removeConnection(const NBConnection& conn, bool reconstruct) 
         // especially when using the option --tls.join
         return;
     }
-    myReconstructRemovedConnections = reconstruct;
+    myReconstructRemovedConnections |= reconstruct;
 }
 
 
@@ -433,33 +437,41 @@ NBLoadedSUMOTLDef::registerModifications(bool addedConnections, bool removedConn
 void
 NBLoadedSUMOTLDef::reconstructLogic() {
 #ifdef DEBUG_RECONSTRUCTION
+    bool debugPrintModified = myReconstructAddedConnections || myReconstructRemovedConnections;
     std::cout << " reconstructLogic added=" << myReconstructAddedConnections << " removed=" << myReconstructRemovedConnections << " oldLInks\n";
     for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); ++it) {
         std::cout << "    " << *it << "\n";
     }
 #endif
-    if (myReconstructAddedConnections) {
-        // rebuild the logic from scratch
-        // XXX if a connection with the same from- and to-edge already exisits, its states could be copied instead
-        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
-        dummy.setParticipantsInformation();
-        dummy.setProgramID(getProgramID());
-        dummy.setTLControllingInformation();
-        NBTrafficLightLogic* newLogic = dummy.compute(OptionsCont::getOptions()); 
-        myIncomingEdges = dummy.getIncomingEdges();
-        myControlledLinks = dummy.getControlledLinks();
-        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-            (*i)->removeTrafficLight(&dummy);
-        }
-        delete myTLLogic;
-        myTLLogic = newLogic;
-        if (newLogic != 0) {
-            newLogic->setID(getID());
-            newLogic->setType(getType());
-            newLogic->setOffset(getOffset());
+    if (myReconstructAddedConnections) { 
+        myReconstructAddedConnections = false;
+        if (!myPhasesLoaded) {
+            // rebuild the logic from scratch
+            // XXX if a connection with the same from- and to-edge already exisits, its states could be copied instead
+            NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+            dummy.setParticipantsInformation();
+            dummy.setProgramID(getProgramID());
+            dummy.setTLControllingInformation();
+            NBTrafficLightLogic* newLogic = dummy.compute(OptionsCont::getOptions()); 
+            myIncomingEdges = dummy.getIncomingEdges();
+            myControlledLinks = dummy.getControlledLinks();
+            for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+                (*i)->removeTrafficLight(&dummy);
+            }
+            delete myTLLogic;
+            myTLLogic = newLogic;
+            if (newLogic != 0) {
+                newLogic->setID(getID());
+                newLogic->setType(getType());
+                newLogic->setOffset(getOffset());
+                setTLControllingInformation();
+            }
+        } else {
             setTLControllingInformation();
         }
-    } else if (myReconstructRemovedConnections) {
+    }
+    if (myReconstructRemovedConnections) {
+        myReconstructRemovedConnections = false;
         // for each connection, check whether it is still valid
         for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end();) {
             const NBConnection& con = (*it);
@@ -471,39 +483,40 @@ NBLoadedSUMOTLDef::reconstructLogic() {
                     && con.getFrom()->mayBeTLSControlled(con.getFromLane(), con.getTo(), con.getToLane())) {
                 it++;
             } else {
-                // remove connection and shift index off successive connections
+                // remove connection 
                 const int removed = con.getTLIndex();
                 it = myControlledLinks.erase(it);
-                for (NBConnectionVector::iterator j = myControlledLinks.begin(); j != myControlledLinks.end(); j++) {
-                    NBConnection& other = *j;
-                    if (other.getTLIndex() > removed) {
-                        other.setTLIndex(other.getTLIndex() - 1);
+                if (!myPhasesLoaded) {
+                    // shift index off successive connections and remove entry from all phases
+                    for (NBConnectionVector::iterator j = myControlledLinks.begin(); j != myControlledLinks.end(); j++) {
+                        NBConnection& other = *j;
+                        if (other.getTLIndex() > removed) {
+                            other.setTLIndex(other.getTLIndex() - 1);
+                        }
                     }
+                    // rebuild the logic
+                    const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
+                    NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
+                    for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
+                        std::string newState = it->state;
+                        newState.erase(newState.begin() + removed);
+                        newLogic->addStep(it->duration, newState);
+                    }
+                    delete myTLLogic;
+                    myTLLogic = newLogic;
                 }
-                // rebuild the logic
-                const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
-                NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
-                for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-                    std::string newState = it->state;
-                    newState.erase(newState.begin() + removed);
-                    newLogic->addStep(it->duration, newState);
-                }
-                delete myTLLogic;
-                myTLLogic = newLogic;
             }
         }
         setTLControllingInformation();
     }
 #ifdef DEBUG_RECONSTRUCTION
-    if (myReconstructAddedConnections || myReconstructRemovedConnections) {
+    if (debugPrintModified) {
         std::cout << " newLinks:\n";
         for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); ++it) {
             std::cout << "    " << *it << "\n";
         }
     }
 #endif
-    myReconstructAddedConnections = false;
-    myReconstructRemovedConnections = false;
 }
 
 /****************************************************************************/

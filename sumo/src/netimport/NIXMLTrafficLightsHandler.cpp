@@ -84,6 +84,7 @@ NIXMLTrafficLightsHandler::myStartElement(
                     myResetPhases = false;
                 }
                 NIImporter_SUMO::addPhase(attrs, myCurrentTL);
+                myCurrentTL->phasesLoaded();
             }
             break;
         case SUMO_TAG_CONNECTION:

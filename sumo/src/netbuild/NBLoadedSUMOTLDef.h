@@ -102,6 +102,10 @@ public:
      */
     void addPhase(SUMOTime duration, const std::string& state);
 
+    /// @brief mark phases as load
+    void phasesLoaded() {
+        myPhasesLoaded = true;
+    }
 
     /** @brief Adds a connection and immediately informs the edges
      */
@@ -174,6 +178,7 @@ private:
     /// @brief whether the logic must be reconstructed
     bool myReconstructAddedConnections;
     bool myReconstructRemovedConnections;
+    bool myPhasesLoaded;
 
     /** @brief Collects the edges for each tlIndex
      * @param[out] fromEdges The from-edge for each controlled tlIndex
