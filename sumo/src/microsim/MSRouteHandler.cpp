@@ -736,7 +736,7 @@ MSRouteHandler::closeVehicle() {
             }
         }
         // maybe we do not want this vehicle to be inserted due to scaling
-        int quota = vehControl.getQuota();
+        int quota = myAmLoadingState ? 1 : vehControl.getQuota();
         if (quota > 0) {
             vehControl.addVehicle(myVehicleParameter->id, vehicle);
             if (myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
