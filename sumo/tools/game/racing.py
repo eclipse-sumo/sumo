@@ -145,8 +145,9 @@ class RacingClient:
 
 def main(sumocfg="racing/racing.sumocfg", egoID="ego"):
     root = Tk()
-    root.geometry('100x100+0+0')
+    root.geometry('180x100+0+0')
     frame = Frame(root)
+    Button(frame, text="Click here.\nControl with arrow keys").grid(row=0)
     root.bind('<Left>', leftKey)
     root.bind('<Right>', rightKey)
     root.bind('<Up>', upKey)
