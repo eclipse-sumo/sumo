@@ -60,13 +60,12 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GUIIcon icon) :
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon) :
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
     myEdge(NULL),
     myLane(NULL),
-    myPosition(pos),
     myBlockIconRotation(0),
     myBlocked(false),
     myInspectionable(true),
@@ -260,7 +259,8 @@ GNEAdditional::setBlockIconRotation(GNELane* lane) {
         myBlockIconRotation = myShape.rotationDegreeAtOffset((myShape.length() / 2.)) - 90;
     } else if (lane != NULL) {
         // If additional is over a lane, set rotation in the position over lane
-        myBlockIconRotation = lane->getShape().rotationDegreeAtOffset(myPosition.x()) - 90;
+        double posOverLane = myLane->getShape().nearest_offset_to_point2D(getPositionInView());
+        myBlockIconRotation = lane->getShape().rotationDegreeAtOffset(posOverLane) - 90;
     } else {
         // In other case, rotation is 0
         myBlockIconRotation = 0;

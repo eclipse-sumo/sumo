@@ -62,9 +62,9 @@
 
 GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename,
                              bool cont, const double timeThreshold, double speedThreshold, double jamThreshold) :
-    GNEDetector(id, viewNet, SUMO_TAG_E2DETECTOR, ICON_E2, lane, pos, freq, filename),
-    myStartPosRelative(pos / lane->getLaneParametricLength()),
-    myEndPosRelative((pos + length) / lane->getLaneParametricLength()),
+    GNEDetector(id, viewNet, SUMO_TAG_E2DETECTOR, ICON_E2, lane, freq, filename),
+    myPositionOverLane(pos / lane->getLaneParametricLength()),
+    myLenght(length / lane->getLaneParametricLength()),
     myCont(cont),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
@@ -91,7 +91,7 @@ GNEDetectorE2::updateGeometry() {
     myShape = myLane->getShape();
 
     // Cut shape using as delimitators from start position and end position
-    myShape = myShape.getSubpart(myStartPosRelative * myShape.length() , myEndPosRelative * myShape.length());
+    myShape = myShape.getSubpart(myPositionOverLane * myShape.length() , (myPositionOverLane + myLenght) * myShape.length());
 
     // Get number of parts of the shape
     int numberOfSegments = (int) myShape.size() - 1;
@@ -139,7 +139,7 @@ GNEDetectorE2::updateGeometry() {
 
 Position
 GNEDetectorE2::getPositionInView() const {
-    double stoppingPlaceCenter = (myStartPosRelative + myEndPosRelative) / 2 ;
+    double stoppingPlaceCenter = (myPositionOverLane + myLenght) / 2 ;
     return myLane->getShape().positionAtOffset(stoppingPlaceCenter * myLane->getLaneShapeLength());
 }
 
@@ -152,17 +152,13 @@ GNEDetectorE2::moveGeometry(const Position &newPosition) {
         lenghtDifference = myLane->getLaneParametricLength() / myLane->getLaneShapeLength();
     }
     double relativePos = newPosition.x() / myLane->getLaneParametricLength() * lenghtDifference;
-    double stoppingPlaceLenght = myEndPosRelative - myStartPosRelative;
     // change start position of stopping place
-    if((myStartPosRelative + relativePos) < 0) {
-        myStartPosRelative = 0;
-        myEndPosRelative = stoppingPlaceLenght;
-    } else if (myEndPosRelative + relativePos > 1) {
-        myStartPosRelative = 1 - stoppingPlaceLenght;
-        myEndPosRelative = 1;
+    if((myPositionOverLane + relativePos) < 0) {
+        myPositionOverLane = 0;
+    } else if (myPositionOverLane + myLenght + relativePos > 1) {
+        myPositionOverLane = 1 - myLenght;
     } else {
-        myStartPosRelative += relativePos;
-        myEndPosRelative += relativePos;
+        myPositionOverLane += relativePos;
     }
     // Update geometry
     updateGeometry();
@@ -172,8 +168,7 @@ GNEDetectorE2::moveGeometry(const Position &newPosition) {
 void
 GNEDetectorE2::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(myStartPosRelative * myLane->getLaneParametricLength()), true, toString(oldPos.x())));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPosRelative * myLane->getLaneParametricLength()), true, toString(oldPos.y())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane * myLane->getLaneParametricLength()), true, toString(oldPos.x())));
     undoList->p_end();
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);
@@ -196,8 +191,8 @@ GNEDetectorE2::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     } else {
         device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     }
-    device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
-    device.writeAttr(SUMO_ATTR_LENGTH, myLength);
+    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myLane->getLaneParametricLength());
+    device.writeAttr(SUMO_ATTR_LENGTH, (myLenght - myPositionOverLane) * myLane->getLaneParametricLength());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
     if (!myFilename.empty()) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
@@ -266,11 +261,11 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return toString(myLane->getAttribute(SUMO_ATTR_ID));
         case SUMO_ATTR_POSITION:
-            return toString(myPosition.x());
+            return toString(myPositionOverLane * myLane->getLaneParametricLength());
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
         case SUMO_ATTR_LENGTH:
-            return toString(myLength);
+            return toString(myLenght * myLane->getLaneParametricLength());
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_CONT:
@@ -331,11 +326,33 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            return (canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= (myLane->getLaneParametricLength())));
+            if(canParse<double>(value)) {
+                // obtain relative new start position
+                double newlanePos = parse<double>(value) / myLane->getLaneParametricLength();
+                if((newlanePos < 0) || ((newlanePos + myLenght) > 1)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_LENGTH:
-            return (canParse<double>(value) && (parse<double>(value) >= 0));
+            if(canParse<double>(value)) {
+                // obtain relative new start position
+                double newLength = parse<double>(value);
+                // lenghts withs size 0 aren't valid
+                if(newLength <= 0) {
+                    return false;
+                } else {
+                    newLength = newLength / myLane->getLaneParametricLength();
+                    if((myPositionOverLane + newLength) > 1) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_CONT:
@@ -367,7 +384,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPosition = Position(parse<double>(value), 0);
+            myPositionOverLane = parse<double>(value) / myLane->getShape().length();
             updateGeometry();
             getViewNet()->update();
             break;
@@ -375,7 +392,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFreq = parse<double>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = parse<double>(value);
+            myLenght = parse<double>(value) / myLane->getShape().length();
             updateGeometry();
             getViewNet()->update();
             break;

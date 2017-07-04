@@ -196,6 +196,9 @@ public:
     /// @}
 
 protected:
+    /// @brief position over Lane
+    double myPositionOverLane;
+
     /// @brief Frequency of calibrator
     double myFrequency;
 

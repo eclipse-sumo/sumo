@@ -59,8 +59,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double posOverLane, double freq, const std::string& filename) :
-    GNEAdditional(id, viewNet, Position(posOverLane, 0), tag, icon),
+GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double freq, const std::string& filename) :
+    GNEAdditional(id, viewNet, tag, icon),
     myFreq(freq),
     myFilename(filename) {
     // This additional belongs to a Lane
@@ -73,12 +73,6 @@ GNEDetector::~GNEDetector() {
 
 
 double
-GNEDetector::getPositionOverLane() const {
-    return myPosition.x();
-}
-
-
-double
 GNEDetector::getFrequency() const {
     return myFreq;
 }
@@ -87,18 +81,6 @@ GNEDetector::getFrequency() const {
 const std::string&
 GNEDetector::getFilename() const {
     return myFilename;
-}
-
-
-void
-GNEDetector::setPositionOverLane(double pos) {
-    if (pos < 0) {
-        throw InvalidArgument("Position '" + toString(pos) + "' of " + toString(getTag()) + " not allowed. Must be greater than 0");
-    } else if (pos > myLane->getLaneShapeLength()) {
-        throw InvalidArgument("Position '" + toString(pos) + "' of " + toString(getTag()) + " not allowed. Must be smaller than lane length");
-    } else {
-        myPosition = Position(pos, 0);
-    }
 }
 
 

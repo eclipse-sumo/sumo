@@ -63,9 +63,10 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) :
-    GNEAdditional(viewNet->getNet()->generateVaporizerID(), viewNet, Position(), SUMO_TAG_VAPORIZER, ICON_VAPORIZER),
+    GNEAdditional(viewNet->getNet()->generateVaporizerID(), viewNet, SUMO_TAG_VAPORIZER, ICON_VAPORIZER),
     myStartTime(startTime),
-    myEnd(end) {
+    myEnd(end),
+    myRelativePositionY(0) {
     // This additional belongs to a edge
     myEdge = edge;
     // this additional ISN'T movable
@@ -91,7 +92,7 @@ GNEVaporizer::updateGeometry() {
     myShape.clear();
 
     // obtain relative position of vaporizer in edge
-    myRelativePosition = 2 * myEdge->getVaporizerRelativePosition(this);
+    myRelativePositionY = 2 * myEdge->getVaporizerRelativePosition(this);
 
     // get lanes of edge
     GNELane* firstLane = myEdge->getLanes().at(0);
@@ -115,7 +116,7 @@ GNEVaporizer::updateGeometry() {
     myBlockIconPosition = myShape.getLineCenter();
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(1.1, (-3.06) - myRelativePosition);
+    myBlockIconOffset = Position(1.1, (-3.06) - myRelativePositionY);
 
     // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(firstLane);
@@ -127,8 +128,8 @@ GNEVaporizer::updateGeometry() {
 
 Position
 GNEVaporizer::getPositionInView() const {
-    Position A = myEdge->getLanes().front()->getShape().positionAtOffset(myPosition.x());
-    Position B = myEdge->getLanes().back()->getShape().positionAtOffset(myPosition.x());
+    Position A = myEdge->getLanes().front()->getShape().positionAtOffset(5);
+    Position B = myEdge->getLanes().back()->getShape().positionAtOffset(5);
 
     // return Middle point
     return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
@@ -234,7 +235,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(myShape[0].x(), myShape[0].y(), getType());
     glRotated(myShapeRotations[0], 0, 0, 1);
-    glTranslated((-2.56) - myRelativePosition, (-1.6), 0);
+    glTranslated((-2.56) - myRelativePositionY, (-1.6), 0);
     glColor3d(1, 1, 1);
     glRotated(-90, 0, 0, 1);
 

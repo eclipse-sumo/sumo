@@ -64,11 +64,10 @@ public:
     /**@brief Constructor.
      * @param[in] id Gl-id of the additional element (Must be unique)
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
-     * @param[in] pos position of view in which additional is located
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] icon GUIIcon associated to the additional
      */
-    GNEAdditional(const std::string& id, GNEViewNet* viewNet, Position pos, SumoXMLTag tag, GUIIcon icon);
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon);
 
     /// @brief Destructor
     ~GNEAdditional();
@@ -223,11 +222,6 @@ protected:
      * @note is NULL if additional doesnt' belongs to a lane
      */
     GNELane* myLane;
-
-    /**@brief The position in which this additional element is located
-     * @note if this element belongs to a Lane, x() value will be the position over Lane
-     */
-    Position myPosition;
 
     /**@brief The shape of the additional element
      * @note must be configured in updateGeometry()

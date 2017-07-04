@@ -154,6 +154,9 @@ public:
     bool checkOverlapping(std::vector<GNERerouterInterval> rerouterIntervals);
 
 protected:
+    /// @brief position of rerouter in view
+    Position myPosition;
+
     /// @brief edges of Rerouter
     std::vector<GNEEdge*> myEdges;
 

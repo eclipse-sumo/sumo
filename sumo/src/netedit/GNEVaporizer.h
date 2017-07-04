@@ -149,7 +149,7 @@ protected:
     int myNumberOfLanes;
 
     /// @brief relative position regarding to other route probes
-    int myRelativePosition;
+    int myRelativePositionY;
 
 private:
     /// @brief set attribute after validation

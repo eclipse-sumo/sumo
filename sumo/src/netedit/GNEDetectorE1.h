@@ -120,10 +120,12 @@ public:
     /// @}
 
 protected:
+    /// @brief position over Lane
+    double myPositionOverLane;
+
     /// @brief attribute to enable or disable splitByType
     bool mySplitByType;
 
-private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

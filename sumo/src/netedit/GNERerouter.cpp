@@ -65,7 +65,8 @@
 // ===========================================================================
 
 GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNEEdge*> edges, const std::string& filename, double probability, bool off) :
-    GNEAdditional(id, viewNet, pos, SUMO_TAG_REROUTER, ICON_REROUTER),
+    GNEAdditional(id, viewNet, SUMO_TAG_REROUTER, ICON_REROUTER),
+    myPosition(pos),
     myEdges(edges),
     myFilename(filename),
     myProbability(probability),

@@ -65,7 +65,8 @@
 GNECalibrator::GNECalibrator(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos,
                              double frequency, const std::string& output, const std::vector<GNECalibratorRoute>& calibratorRoutes,
                              const std::vector<GNECalibratorFlow>& calibratorFlows, const std::vector<GNECalibratorVehicleType>& calibratorVehicleTypes) :
-    GNEAdditional(id, viewNet, Position(pos, 0), SUMO_TAG_CALIBRATOR, ICON_CALIBRATOR),
+    GNEAdditional(id, viewNet, SUMO_TAG_CALIBRATOR, ICON_CALIBRATOR),
+    myPositionOverLane(pos / lane->getLaneParametricLength()),
     myFrequency(frequency),
     myOutput(output),
     myRouteProbe(NULL), /** change this in the future **/
@@ -110,7 +111,7 @@ GNECalibrator::updateGeometry() {
     myShape.clear();
 
     // Get shape of lane parent
-    myShape.push_back(myLane->getShape().positionAtOffset(myPosition.x() * myShape.length()));
+    myShape.push_back(myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length()));
 
     // Obtain first position
     Position f = myShape[0] - Position(1, 0);
@@ -119,7 +120,7 @@ GNECalibrator::updateGeometry() {
     Position s = myShape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPosition.x() * myShape.length()) * -1);
+    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPositionOverLane * myLane->getShape().length()) * -1);
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
@@ -128,8 +129,9 @@ GNECalibrator::updateGeometry() {
 
 Position
 GNECalibrator::getPositionInView() const {
-    return myLane->getShape().positionAtOffset(myPosition.x() * myShape.length());
+    return myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length());
 }
+
 
 void
 GNECalibrator::openAdditionalDialog() {
@@ -154,7 +156,7 @@ GNECalibrator::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
     } else {
         device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     }
-    device.writeAttr(SUMO_ATTR_POSITION, myPosition.x());
+    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myLane->getLaneParametricLength());
     device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
     device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
     // write all routes of this calibrator
@@ -498,7 +500,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return toString(myLane->getID());
         case SUMO_ATTR_POSITION:
-            return toString(myPosition.x());
+            return toString(myPositionOverLane * myLane->getLaneParametricLength());
         case SUMO_ATTR_FREQUENCY:
             return toString(myFrequency);
         case SUMO_ATTR_OUTPUT:
@@ -553,6 +555,15 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
+            if(canParse<double>(value)) {
+                // obtain relative new start position
+                double newStartPos = parse<double>(value) / myLane->getLaneParametricLength();
+                if((newStartPos < 0) || (newStartPos > 1)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } 
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_OUTPUT:
@@ -582,7 +593,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPosition = Position(parse<double>(value), 0);
+            myPositionOverLane = parse<double>(value) / myLane->getShape().length();
             updateGeometry();
             getViewNet()->update();
             break;

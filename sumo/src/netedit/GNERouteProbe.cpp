@@ -63,12 +63,12 @@
 // ===========================================================================
 
 GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double frequency, const std::string& filename, double begin) :
-    GNEAdditional(id, viewNet, Position(), SUMO_TAG_ROUTEPROBE, ICON_ROUTEPROBE),
+    GNEAdditional(id, viewNet, SUMO_TAG_ROUTEPROBE, ICON_ROUTEPROBE),
     myFrequency(frequency),
     myFilename(filename),
     myBegin(begin),
     myNumberOfLanes(0),
-    myRelativePosition(0) {
+    myRelativePositionY(0) {
     // This additional belongs to a edge
     myEdge = edge;
     // this additional ISN'T movable
@@ -94,7 +94,7 @@ GNERouteProbe::updateGeometry() {
     myShape.clear();
 
     // obtain relative position of routeProbe in edge
-    myRelativePosition = 2 * myEdge->getRouteProbeRelativePosition(this);
+    myRelativePositionY = 2 * myEdge->getRouteProbeRelativePosition(this);
 
     // get lanes of edge
     GNELane* firstLane = myEdge->getLanes().at(0);
@@ -118,7 +118,7 @@ GNERouteProbe::updateGeometry() {
     myBlockIconPosition = myShape.getLineCenter();
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(1.1, (-3.06) - myRelativePosition);
+    myBlockIconOffset = Position(1.1, (-3.06) - myRelativePositionY);
 
     // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(firstLane);
@@ -130,8 +130,8 @@ GNERouteProbe::updateGeometry() {
 
 Position
 GNERouteProbe::getPositionInView() const {
-    Position A = myEdge->getLanes().front()->getShape().positionAtOffset(myPosition.x());
-    Position B = myEdge->getLanes().back()->getShape().positionAtOffset(myPosition.x());
+    Position A = myEdge->getLanes().front()->getShape().positionAtOffset(5);
+    Position B = myEdge->getLanes().back()->getShape().positionAtOffset(5);
 
     // return Middle point
     return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
@@ -252,7 +252,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(myShape[0].x(), myShape[0].y(), getType());
     glRotated(myShapeRotations[0], 0, 0, 1);
-    glTranslated((-2.56) - myRelativePosition, (-1.6), 0);
+    glTranslated((-2.56) - myRelativePositionY, (-1.6), 0);
     glColor3d(1, 1, 1);
     glRotated(-90, 0, 0, 1);
 

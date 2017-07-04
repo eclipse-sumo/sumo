@@ -123,14 +123,11 @@ public:
     /// @}
 
 private:
+    /// @brief position over Lane
+    double myPositionOverLane;
+
     /// @brief pointer to E3 parent
     GNEDetectorE3* myE3Parent;
-
-    /// @brief variable to save detectorEntry icon
-    static GUIGlID detectorEntryGlID;
-
-    /// @brief check if detectorEntry icon was inicilalizated
-    static bool detectorEntryInitialized;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

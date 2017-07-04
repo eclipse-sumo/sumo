@@ -154,6 +154,9 @@ public:
     /// @}
 
 protected:
+    /// @brief position of E3 in view
+    Position myPosition;
+
     /// @brief frequency of E3 detector
     double myFreq;
 

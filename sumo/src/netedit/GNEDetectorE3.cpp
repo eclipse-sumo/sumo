@@ -65,7 +65,8 @@
 // ===========================================================================
 
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, double freq, const std::string& filename, const double timeThreshold, double speedThreshold) :
-    GNEAdditional(id, viewNet, pos, SUMO_TAG_E3DETECTOR, ICON_E3),
+    GNEAdditional(id, viewNet, SUMO_TAG_E3DETECTOR, ICON_E3),
+    myPosition(pos),
     myFreq(freq),
     myFilename(filename),
     myTimeThreshold(timeThreshold),
@@ -177,7 +178,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
             } else {
                 device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
             }
-            device.writeAttr(SUMO_ATTR_POSITION, (*i)->getPositionOverLane());
+            device.writeAttr(SUMO_ATTR_POSITION, (*i)->getAttribute(SUMO_ATTR_POSITION));
             device.closeTag();
         }
 
@@ -195,7 +196,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled
             } else {
                 device.writeAttr(SUMO_ATTR_LANE, (*i)->getLane()->getID());
             }
-            device.writeAttr(SUMO_ATTR_POSITION, (*i)->getPositionOverLane());
+            device.writeAttr(SUMO_ATTR_POSITION, (*i)->getAttribute(SUMO_ATTR_POSITION));
             device.closeTag();
         }
 

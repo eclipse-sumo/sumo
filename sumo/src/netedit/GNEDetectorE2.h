@@ -129,10 +129,10 @@ protected:
     double myLength; 
 
     /// @brief The relative [0,1] start position this E2 detector is located at
-    double myStartPosRelative;
+    double myPositionOverLane;
 
     /// @brief The relative [0,1] end position this E2 detector is located at
-    double myEndPosRelative;
+    double myLenght;
 
     /// @brief attribute to enable or disable splitByType
     bool myCont;
@@ -140,10 +140,10 @@ protected:
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
     double myTimeThreshold;
 
-    /// @brief     The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
+    /// @brief The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
     double mySpeedThreshold;
 
-    /// @brief     The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
+    /// @brief The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
     double myJamThreshold;
 
 private:

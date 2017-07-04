@@ -53,11 +53,10 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] icon GUIIcon associated to the detector
-     * @param[in] posOverLane position of detector in lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double posOverLane, double freq, const std::string& filename);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double freq, const std::string& filename);
 
     /// @brief Destructor
     ~GNEDetector();
@@ -68,20 +67,11 @@ public:
      */
     virtual void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const = 0;
 
-    /// @brief Returns the position of the detector over lane
-    double getPositionOverLane() const;
-
     /// @brief returns the aggregation period the values the detector collects shall be summed up.
     double getFrequency() const;
 
     /// @brief returns the path to the output file
     const std::string& getFilename() const;
-
-    /**@brief Set a new position of detector over lane
-     * @param[in] pos new position of detector over lane
-     * @throws InvalidArgument if value of pos isn't valid
-     */
-    void setPositionOverLane(double pos);
 
     /**@brief Set a new frequency in detector
      * @param[in] freq new frequency of detector
@@ -117,8 +107,9 @@ public:
 
     /// @name inherited from GUIGLObject
     /// @{
-    /// @brief Returns the name of the parent object
-    /// @return This object's parent id
+    /**@brief Returns the name of the parent object
+     * @return This object's parent id
+     */
     const std::string& getParentName() const;
 
     /**@brief Draws the object

@@ -62,7 +62,8 @@
 // ===========================================================================
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, Position pos, std::vector<GNELane*> /* lanes */, const std::string& filename, const std::vector<GNEVariableSpeedSignStep>& steps) :
-    GNEAdditional(id, viewNet, pos, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGN),
+    GNEAdditional(id, viewNet, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGN),
+    myPosition(pos),
     myFilename(filename),
     mySteps(steps),
     mySaveInFilename(false) {

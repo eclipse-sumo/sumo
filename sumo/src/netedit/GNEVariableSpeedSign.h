@@ -139,6 +139,9 @@ public:
     /// @}
 
 protected:
+    /// @brief position of VSS in view
+    Position myPosition;
+
     /// @brief filename of variable speed sign
     std::string myFilename;
 
