@@ -699,7 +699,7 @@ MSRouteHandler::closeVehicle() {
         }
         if (myVehicleParameter->setParameter & VEHPARS_ROUTE_SET) {
             // if the route id was given, prefer that one
-            if (route != 0) {
+            if (route != 0 && !myAmLoadingState) {
                 WRITE_WARNING("Ignoring child element 'route' for vehicle '" + myVehicleParameter->id + "' because attribute 'route' is set.");
             }
             route = MSRoute::dictionary(myVehicleParameter->routeid, &myParsingRNG);
