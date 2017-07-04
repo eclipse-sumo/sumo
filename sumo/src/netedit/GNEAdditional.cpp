@@ -212,7 +212,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' don't have their edge as a ParentName()");
         }
     } else {
-        new FXMenuCommand(ret, ("position in view: " + toString(myPosition.x()) + "," + toString(myPosition.y())).c_str(), 0, 0, 0);
+        new FXMenuCommand(ret, ("position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), 0, 0, 0);
     }
     new FXMenuSeparator(ret);
     // let the GNEViewNet store the popup position
@@ -260,7 +260,7 @@ GNEAdditional::setBlockIconRotation(GNELane* lane) {
         myBlockIconRotation = myShape.rotationDegreeAtOffset((myShape.length() / 2.)) - 90;
     } else if (lane != NULL) {
         // If additional is over a lane, set rotation in the position over lane
-        myBlockIconRotation = lane->getShape().rotationDegreeAtOffset(lane->getPositionRelativeToParametricLength(myPosition.x())) - 90;
+        myBlockIconRotation = lane->getShape().rotationDegreeAtOffset(myPosition.x()) - 90;
     } else {
         // In other case, rotation is 0
         myBlockIconRotation = 0;

@@ -90,10 +90,10 @@ GNEDetectorExit::updateGeometryByParent() {
     myShape.clear();
 
     // Get shape of lane parent
-    myShape.push_back(myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLength(myPosition.x())));
+    myShape.push_back(myLane->getShape().positionAtOffset(myPosition.x() * myShape.length()));
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myLane->getPositionRelativeToParametricLength(myPosition.x())) * -1);
+    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPosition.x() * myShape.length()) * -1);
 
     // Set offset of logo
     myDetectorLogoOffset = Position(-2, 0);
@@ -135,7 +135,7 @@ GNEDetectorExit::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undo
 
 Position
 GNEDetectorExit::getPositionInView() const {
-    return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLength(myPosition.x()));
+    return myLane->getShape().positionAtOffset(myPosition.x() * myShape.length());
 }
 
 

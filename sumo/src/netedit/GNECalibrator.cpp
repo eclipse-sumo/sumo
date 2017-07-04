@@ -110,7 +110,7 @@ GNECalibrator::updateGeometry() {
     myShape.clear();
 
     // Get shape of lane parent
-    myShape.push_back(myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLength(myPosition.x())));
+    myShape.push_back(myLane->getShape().positionAtOffset(myPosition.x() * myShape.length()));
 
     // Obtain first position
     Position f = myShape[0] - Position(1, 0);
@@ -119,7 +119,7 @@ GNECalibrator::updateGeometry() {
     Position s = myShape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myLane->getPositionRelativeToParametricLength(myPosition.x())) * -1);
+    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPosition.x() * myShape.length()) * -1);
 
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshAdditional(this);
@@ -128,7 +128,7 @@ GNECalibrator::updateGeometry() {
 
 Position
 GNECalibrator::getPositionInView() const {
-    return myPosition;
+    return myLane->getShape().positionAtOffset(myPosition.x() * myShape.length());
 }
 
 void

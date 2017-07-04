@@ -149,26 +149,13 @@ public:
      */
     void setIndex(int index);
 
-    /// @brief returns the parameteric length of the lane
-    /// @note is the same as their Edge parent
+    /** @brief returns the parameteric length of the lane
+     *  @note is the same as their Edge parent, and cannot be never NULL
+     */
     double getLaneParametricLength() const;
 
     /// @brief returns the length of the lane's shape
     double getLaneShapeLength() const;
-
-    /* @brief returns the relative position of an element in the lane's shape depending of the parametric length
-     *        Examples: Lane with Parametric length = 100 and Shape length = 250. Position 50 returns 125, Position 80 returns 200
-     * @param[in] position to calculate their relative position in the lane's shape [0 < position < LaneParametricLength()]
-     * @return the relative position in the lane's shape
-     */
-    double getPositionRelativeToParametricLength(double position) const;
-
-    /* @brief returns the relative position of an element in the lane's shape depending of the shape's length
-     *        Examples: Lane with Parametric length = 100 and Shape length = 250. Position = 100 returns 40, Position 220 returns 88
-     * @param[in] position to calculate their relative position in the lane's shape [0 < position < LaneShapeLength]
-     * @return the relative position in the lane's shape
-     */
-    double getPositionRelativeToShapeLength(double position) const;
 
     /// @brief add additional child to this lane
     void addAdditionalChild(GNEAdditional* additional);

@@ -125,8 +125,11 @@ public:
     /// @}
 
 protected:
-    /// @brief attribute length
-    double myLength;
+    /// @brief The relative [0,1] start position this E2 detector is located at
+    double myStartPosRelative;
+
+    /// @brief The relative [0,1] end position this E2 detector is located at
+    double myEndPosRelative;
 
     /// @brief attribute to enable or disable splitByType
     bool myCont;

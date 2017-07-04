@@ -63,7 +63,8 @@
 GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename,
                              bool cont, const double timeThreshold, double speedThreshold, double jamThreshold) :
     GNEDetector(id, viewNet, SUMO_TAG_E2DETECTOR, ICON_E2, lane, pos, freq, filename),
-    myLength(length),
+    myStartPosRelative(pos / lane->getLaneParametricLength()),
+    myEndPosRelative((pos + length) / lane->getLaneParametricLength()),
     myCont(cont),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
@@ -89,8 +90,8 @@ GNEDetectorE2::updateGeometry() {
     // Get shape of lane parent
     myShape = myLane->getShape();
 
-    // Cut shape using as delimitators myPos and their length (myPos + length)
-    myShape = myShape.getSubpart(myLane->getPositionRelativeToParametricLength(myPosition.x()), myLane->getPositionRelativeToParametricLength(myPosition.x() + myLength));
+    // Cut shape using as delimitators from start position and end position
+    myShape = myShape.getSubpart(myStartPosRelative * myShape.length() , myEndPosRelative * myShape.length());
 
     // Get number of parts of the shape
     int numberOfSegments = (int) myShape.size() - 1;
@@ -138,30 +139,41 @@ GNEDetectorE2::updateGeometry() {
 
 Position
 GNEDetectorE2::getPositionInView() const {
-    return myLane->getShape().positionAtOffset(myLane->getPositionRelativeToParametricLength(myPosition.x()));
+    double stoppingPlaceCenter = (myStartPosRelative + myEndPosRelative) / 2 ;
+    return myLane->getShape().positionAtOffset(stoppingPlaceCenter * myLane->getLaneShapeLength());
 }
 
 
 void
 GNEDetectorE2::moveGeometry(const Position &newPosition) {
-    // declare start and end positions
-    double startPos = myPosition.x();
-    double endPos = startPos + GNEAttributeCarrier::parse<double>(getAttribute(SUMO_ATTR_LENGTH));
-    // Move to Right if distance is positive, to left if distance is negative
-    if (((newPosition.x() > 0) && ((endPos + newPosition.x()) < myLane->getLaneShapeLength())) || ((newPosition.x() < 0) && ((startPos + newPosition.x()) > 0))) {
-        // change attribute
-        myPosition.set(myPosition.x() + newPosition.x(), 0);
-        // Update geometry
-        updateGeometry();
+    // First we need to change the absolute new positions to a relative positions
+    double lenghtDifference = 0;
+    if(myLane->getLaneShapeLength() > 0) {
+        lenghtDifference = myLane->getLaneParametricLength() / myLane->getLaneShapeLength();
     }
+    double relativePos = newPosition.x() / myLane->getLaneParametricLength() * lenghtDifference;
+    double stoppingPlaceLenght = myEndPosRelative - myStartPosRelative;
+    // change start position of stopping place
+    if((myStartPosRelative + relativePos) < 0) {
+        myStartPosRelative = 0;
+        myEndPosRelative = stoppingPlaceLenght;
+    } else if (myEndPosRelative + relativePos > 1) {
+        myStartPosRelative = 1 - stoppingPlaceLenght;
+        myEndPosRelative = 1;
+    } else {
+        myStartPosRelative += relativePos;
+        myEndPosRelative += relativePos;
+    }
+    // Update geometry
+    updateGeometry();
 }
 
 
 void
 GNEDetectorE2::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition.x()), true, toString(oldPos.x())));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_LENGTH, toString(myPosition.x()), true, toString(oldPos.y())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(myStartPosRelative * myLane->getLaneParametricLength()), true, toString(oldPos.x())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPosRelative * myLane->getLaneParametricLength()), true, toString(oldPos.y())));
     undoList->p_end();
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);

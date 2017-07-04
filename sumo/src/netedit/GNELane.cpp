@@ -589,7 +589,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     const double pos = getShape().nearest_offset_to_point2D(parent.getPositionInformation());
     const double height = getShape().positionAtOffset2D(getShape().nearest_offset_to_point2D(parent.getPositionInformation())).z();
     new FXMenuCommand(ret, ("Shape pos: " + toString(pos)).c_str(), 0, 0, 0);
-    new FXMenuCommand(ret, ("Length pos: " + toString(getPositionRelativeToShapeLength(pos))).c_str(), 0, 0, 0);
+    new FXMenuCommand(ret, ("Length pos: " + toString(pos * getLaneParametricLength() / getLaneShapeLength())).c_str(), 0, 0, 0);
     new FXMenuCommand(ret, ("Height: " + toString(height)).c_str(), 0, 0, 0);
     // new FXMenuSeparator(ret);
     // buildPositionCopyEntry(ret, false);
@@ -716,7 +716,12 @@ GNELane::getSpeed() const {
 
 double
 GNELane::getLaneParametricLength() const  {
-    return myParentEdge.getNBEdge()->getLoadedLength();
+    double laneParametricLenght = myParentEdge.getNBEdge()->getLoadedLength();
+    if(laneParametricLenght > 0) {
+        return laneParametricLenght;
+    } else {
+        throw ProcessError("Lane Parametric Lenght cannot be never 0");
+    }
 }
 
 
@@ -724,19 +729,6 @@ double
 GNELane::getLaneShapeLength() const {
     return getShape().length();
 }
-
-
-double
-GNELane::getPositionRelativeToParametricLength(double position) const {
-    return (position * getLaneShapeLength()) / getLaneParametricLength();
-}
-
-
-double
-GNELane::getPositionRelativeToShapeLength(double position) const {
-    return (position * getLaneParametricLength()) / getLaneShapeLength();
-}
-
 
 void
 GNELane::addAdditionalChild(GNEAdditional* additional) {
