@@ -114,8 +114,11 @@ public:
     /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow&);
 
-    /// @brief set color schieme
+    /// @brief set color scheme
     bool setColorScheme(const std::string& name);
+
+    ///@brief recalibrate color scheme according to the current value range
+    void buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjectType objectType); 
 
     /// @name overloaded handlers
     /// @{

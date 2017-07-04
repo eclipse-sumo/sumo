@@ -211,6 +211,10 @@ public:
      */
     void setSpecialColor(const RGBColor* Color2);
 
+    /// @brief return value for lane coloring according to the given scheme
+    double getColorValue(int activeScheme) const;
+
+
 protected:
     /// @brief FOX needs this
     GNELane();
@@ -275,9 +279,6 @@ private:
 
     /// @brief draw lane to lane connections
     void drawLane2LaneConnections() const;
-
-    /// @brief return value for lane coloring according to the given scheme
-    double getColorValue(int activeScheme) const;
 
     /// @brief sets the color according to the current scheme index and some lane function
     bool setFunctionalColor(int activeScheme) const;

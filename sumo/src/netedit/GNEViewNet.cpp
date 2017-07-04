@@ -246,6 +246,33 @@ GNEViewNet::setColorScheme(const std::string& name) {
 }
 
 
+void 
+GNEViewNet::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjectType objectType) {
+  if (objectType == GLO_LANE) {
+    assert(!scheme.isFixed());
+    // retrieve range
+    double minValue = std::numeric_limits<double>::infinity();
+    double maxValue = -std::numeric_limits<double>::infinity();
+    const std::vector<GNELane*> edges = myNet->retrieveLanes();
+    for (std::vector<GNELane*>::const_iterator it = edges.begin(); it != edges.end(); it++) {
+        const double val = (*it)->getColorValue(active);
+        minValue = MIN2(minValue, val);
+        maxValue = MAX2(maxValue, val);
+    }
+    scheme.clear();
+    // add new thresholds
+    double range = maxValue - minValue;
+    scheme.addColor(RGBColor::RED,    (minValue));
+    scheme.addColor(RGBColor::ORANGE, (minValue + range * 1 / 6.0));
+    scheme.addColor(RGBColor::YELLOW, (minValue + range * 2 / 6.0));
+    scheme.addColor(RGBColor::GREEN,  (minValue + range * 3 / 6.0));
+    scheme.addColor(RGBColor::CYAN,   (minValue + range * 4 / 6.0));
+    scheme.addColor(RGBColor::BLUE,   (minValue + range * 5 / 6.0));
+    scheme.addColor(RGBColor::MAGENTA, (maxValue));
+  }
+}
+
+
 void
 GNEViewNet::setStatusBarText(const std::string& text) {
     myApp->setStatusBarText(text);
