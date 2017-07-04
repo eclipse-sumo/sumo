@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 30 08:53:41 2017 by SUMO netconvert Version dev-SVN-r24993
+<!-- generated on Tue Jul  4 14:34:12 2017 by SUMO netconvert Version dev-SVN-r25036
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -30,9 +30,13 @@
     <location netOffset="-392549.87,-5819736.98" convBoundary="0.00,0.00,111.45,224.07" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":21487229_0" function="internal">
-        <lane id=":21487229_0_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="9.98" shape="100.08,96.59 102.57,98.77 104.08,101.17 104.64,103.80 104.24,106.64"/>
-        <lane id=":21487229_0_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="9.98" shape="100.08,96.59 101.30,97.97 101.87,99.94 101.80,102.52 101.08,105.69"/>
-        <lane id=":21487229_0_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="9.98" shape="100.08,96.59 100.13,97.97 99.41,100.52 98.49,103.14 97.91,104.74"/>
+        <lane id=":21487229_0_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="11.70" shape="100.08,96.59 102.57,98.77 104.08,101.17 104.64,103.80 104.24,106.64"/>
+    </edge>
+    <edge id=":21487229_1" function="internal">
+        <lane id=":21487229_1_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="9.72" shape="100.08,96.59 101.30,97.97 101.87,99.94 101.80,102.52 101.08,105.69"/>
+    </edge>
+    <edge id=":21487229_2" function="internal">
+        <lane id=":21487229_2_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="8.51" shape="100.08,96.59 100.13,97.97 99.41,100.52 98.49,103.14 97.91,104.74"/>
     </edge>
     <edge id=":21487229_3" function="internal">
         <lane id=":21487229_3_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="4.82" shape="100.08,96.59 100.63,97.98 100.49,98.89 99.68,99.33 98.19,99.29"/>
@@ -163,7 +167,7 @@
     </tlLogic>
 
     <junction id="1193560217" type="dead_end" x="90.06" y="139.08" incLanes="312533962#0_0 312533962#0_1 312533962#0_2 312533962#0_3" intLanes="" shape="97.55,141.74 85.39,137.42"/>
-    <junction id="21487229" type="traffic_light" x="102.71" y="100.44" incLanes="4615548_0 4615548_1 :21487229_w1_0" intLanes=":21487229_0_0 :21487229_0_1 :21487229_0_2 :21487229_3_0 :21487229_c0_0" shape="101.72,93.22 95.58,101.98 96.38,104.28 108.74,107.99">
+    <junction id="21487229" type="traffic_light" x="102.71" y="100.44" incLanes="4615548_0 4615548_1 :21487229_w1_0" intLanes=":21487229_0_0 :21487229_1_0 :21487229_2_0 :21487229_3_0 :21487229_c0_0" shape="101.72,93.22 95.58,101.98 96.38,104.28 108.74,107.99">
         <request index="0" response="10000" foes="10000" cont="0"/>
         <request index="1" response="10000" foes="10000" cont="0"/>
         <request index="2" response="10000" foes="10000" cont="0"/>
@@ -210,13 +214,13 @@
     <connection from="246044848#1" to="246044848#2" fromLane="2" toLane="2" via=":29215077_7_1" tl="joinedS_7" linkIndex="12" dir="s" state="o"/>
     <connection from="246044848#1" to="4615548" fromLane="2" toLane="1" via=":29215077_9_0" tl="joinedS_7" linkIndex="13" dir="l" state="o"/>
     <connection from="4615548" to="312533962#0" fromLane="1" toLane="1" via=":21487229_0_0" tl="joinedS_7" linkIndex="0" dir="l" state="o"/>
-    <connection from="4615548" to="312533962#0" fromLane="1" toLane="2" via=":21487229_0_1" tl="joinedS_7" linkIndex="1" dir="l" state="o"/>
-    <connection from="4615548" to="312533962#0" fromLane="1" toLane="3" via=":21487229_0_2" tl="joinedS_7" linkIndex="2" dir="l" state="o"/>
+    <connection from="4615548" to="312533962#0" fromLane="1" toLane="2" via=":21487229_1_0" tl="joinedS_7" linkIndex="1" dir="l" state="o"/>
+    <connection from="4615548" to="312533962#0" fromLane="1" toLane="3" via=":21487229_2_0" tl="joinedS_7" linkIndex="2" dir="l" state="o"/>
     <connection from="4615548" to="-4615548" fromLane="1" toLane="1" via=":21487229_3_0" tl="joinedS_7" linkIndex="3" dir="t" state="o"/>
 
     <connection from=":21487229_0" to="312533962#0" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":21487229_0" to="312533962#0" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from=":21487229_0" to="312533962#0" fromLane="2" toLane="3" dir="s" state="M"/>
+    <connection from=":21487229_1" to="312533962#0" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":21487229_2" to="312533962#0" fromLane="0" toLane="3" dir="s" state="M"/>
     <connection from=":21487229_3" to="-4615548" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":29215077_0" to="-194962398#2" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":29215077_1" to="246044848#2" fromLane="0" toLane="2" via=":29215077_10_0" dir="s" state="m"/>

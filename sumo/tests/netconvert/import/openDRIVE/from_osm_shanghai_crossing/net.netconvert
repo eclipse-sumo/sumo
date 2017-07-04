@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr 25 15:04:13 2017 by SUMO netconvert Version dev-SVN-r24052
+<!-- generated on Tue Jul  4 14:34:09 2017 by SUMO netconvert Version dev-SVN-r25036
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -91,8 +91,10 @@
     <type id="railway.tram" priority="15" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id=":103895952_0" function="internal">
-        <lane id=":103895952_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="25.00" length="4.65" shape="840.45,2588.32,18.00 839.47,2582.15,18.00"/>
-        <lane id=":103895952_0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="25.00" length="4.65" shape="840.45,2588.32,18.00 839.42,2585.44,18.00"/>
+        <lane id=":103895952_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="25.00" length="6.25" shape="840.45,2588.32,18.00 839.47,2582.15,18.00"/>
+    </edge>
+    <edge id=":103895952_1" function="internal">
+        <lane id=":103895952_1_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="25.00" length="3.05" shape="840.45,2588.32,18.00 839.42,2585.44,18.00"/>
     </edge>
     <edge id=":103895952_2" function="internal">
         <lane id=":103895952_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.82" shape="840.45,2588.32,18.00 839.13,2587.62,18.00 838.64,2586.84,18.00 838.97,2585.97,18.00 840.13,2585.03,18.00"/>
@@ -801,7 +803,7 @@
     </edge>
 
     <junction id="103895156" type="dead_end" x="0.00" y="2522.11" z="6.00" incLanes="" intLanes="" shape="0.02,2522.06,6.00 3.82,2513.03,6.00"/>
-    <junction id="103895952" type="priority" x="836.41" y="2587.05" z="18.00" incLanes="-160079263_0 11635095#0_0 11635095#0_1 11635095#0_2" intLanes=":103895952_0_0 :103895952_0_1 :103895952_2_0 :103895952_3_0 :103895952_3_1 :103895952_3_2 :103895952_6_0" shape="840.60,2589.91,18.00 838.70,2577.23,18.00 832.17,2577.19,18.00 832.15,2586.99,18.00">
+    <junction id="103895952" type="priority" x="836.41" y="2587.05" z="18.00" incLanes="-160079263_0 11635095#0_0 11635095#0_1 11635095#0_2" intLanes=":103895952_0_0 :103895952_1_0 :103895952_2_0 :103895952_3_0 :103895952_3_1 :103895952_3_2 :103895952_6_0" shape="840.60,2589.91,18.00 838.70,2577.23,18.00 832.17,2577.19,18.00 832.15,2586.99,18.00">
         <request index="0" response="1111000" foes="1111000" cont="0"/>
         <request index="1" response="1111000" foes="1111000" cont="0"/>
         <request index="2" response="1000000" foes="1000000" cont="0"/>
@@ -1117,7 +1119,7 @@
     </junction>
 
     <connection from="-160079263" to="11635095#1" fromLane="0" toLane="1" via=":103895952_0_0" dir="r" state="m"/>
-    <connection from="-160079263" to="11635095#1" fromLane="0" toLane="2" via=":103895952_0_1" dir="r" state="m"/>
+    <connection from="-160079263" to="11635095#1" fromLane="0" toLane="2" via=":103895952_1_0" dir="r" state="m"/>
     <connection from="-160079263" to="160079263" fromLane="0" toLane="0" via=":103895952_2_0" dir="t" state="m"/>
     <connection from="10358632" to="10358635" fromLane="0" toLane="0" via=":64841426_0_0" dir="s" state="M"/>
     <connection from="10358632" to="10358635" fromLane="1" toLane="1" via=":64841426_0_1" dir="s" state="M"/>
@@ -1308,7 +1310,7 @@
     <connection from="9792174#1-AddedOnRampEdge" to="9792174#1" fromLane="3" toLane="1" via=":9792174#1-AddedOnRampNode_0_1" dir="s" state="M"/>
 
     <connection from=":103895952_0" to="11635095#1" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":103895952_0" to="11635095#1" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from=":103895952_1" to="11635095#1" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":103895952_2" to="160079263" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":103895952_3" to="11635095#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":103895952_3" to="11635095#1" fromLane="1" toLane="1" dir="s" state="M"/>

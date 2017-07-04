@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:01 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Tue Jul  4 14:34:01 2017 by SUMO netconvert Version dev-SVN-r25036
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -74,8 +74,10 @@
         <lane id=":0_15_0" index="0" speed="16.00" length="2.10" shape="499.73,496.76 499.18,496.49 498.35,495.25"/>
     </edge>
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" speed="16.00" length="9.12" shape="985.99,498.35 988.10,498.11 989.06,497.40 988.88,496.22 987.56,494.56"/>
-        <lane id=":2_0_1" index="1" speed="16.00" length="9.12" shape="985.99,498.35 989.99,497.97 991.98,496.82 991.94,494.90 989.89,492.22"/>
+        <lane id=":2_0_0" index="0" speed="16.00" length="6.64" shape="985.99,498.35 988.10,498.11 989.06,497.40 988.88,496.22 987.56,494.56"/>
+    </edge>
+    <edge id=":2_1" function="internal">
+        <lane id=":2_1_0" index="0" speed="16.00" length="11.61" shape="985.99,498.35 989.99,497.97 991.98,496.82 991.94,494.90 989.89,492.22"/>
     </edge>
     <edge id=":2_2" function="internal">
         <lane id=":2_2_0" index="0" speed="16.00" length="4.82" shape="985.99,498.35 987.22,499.18 987.64,500.00 987.22,500.82 985.99,501.65"/>
@@ -84,8 +86,10 @@
         <lane id=":3_0_0" index="0" speed="16.00" length="4.82" shape="498.35,17.31 499.18,16.08 500.00,15.66 500.82,16.08 501.65,17.31"/>
     </edge>
     <edge id=":3_1" function="internal">
-        <lane id=":3_1_0" index="0" speed="16.00" length="11.58" shape="508.74,15.74 507.08,14.42 505.90,14.24 505.19,15.20 504.95,17.31"/>
-        <lane id=":3_1_1" index="1" speed="16.00" length="11.58" shape="511.08,13.41 506.95,10.12 504.01,9.67 502.24,12.07 501.65,17.31"/>
+        <lane id=":3_1_0" index="0" speed="16.00" length="6.64" shape="508.74,15.74 507.08,14.42 505.90,14.24 505.19,15.20 504.95,17.31"/>
+    </edge>
+    <edge id=":3_2" function="internal">
+        <lane id=":3_2_0" index="0" speed="16.00" length="16.51" shape="511.08,13.41 506.95,10.12 504.01,9.67 502.24,12.07 501.65,17.31"/>
     </edge>
     <edge id=":4_0" function="internal">
         <lane id=":4_0_0" index="0" speed="16.00" length="4.82" shape="501.65,1000.00 500.82,1001.24 500.00,1001.65 499.18,1001.24 498.35,1000.00"/>
@@ -135,12 +139,12 @@
         <request index="11" response="000001000010" foes="000001000010" cont="1"/>
     </junction>
     <junction id="1" type="dead_end" x="0.00" y="500.00" incLanes="1o_0" intLanes="" shape="0.00,503.25 0.00,500.05"/>
-    <junction id="2" type="priority" x="1000.00" y="500.00" incLanes="2o_0" intLanes=":2_0_0 :2_0_1 :2_2_0" shape="991.02,491.09 986.43,495.69 985.99,496.75 985.99,506.55">
+    <junction id="2" type="priority" x="1000.00" y="500.00" incLanes="2o_0" intLanes=":2_0_0 :2_1_0 :2_2_0" shape="991.02,491.09 986.43,495.69 985.99,496.75 985.99,506.55">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0 1fi_0 1fi_1" intLanes=":3_0_0 :3_1_0 :3_1_1" shape="496.75,17.31 506.55,17.31 507.61,16.87 512.21,12.28">
+    <junction id="3" type="priority" x="500.00" y="0.00" incLanes="3o_0 1fi_0 1fi_1" intLanes=":3_0_0 :3_1_0 :3_2_0" shape="496.75,17.31 506.55,17.31 507.61,16.87 512.21,12.28">
         <request index="0" response="110" foes="110" cont="0"/>
         <request index="1" response="000" foes="001" cont="0"/>
         <request index="2" response="000" foes="001" cont="0"/>
@@ -155,13 +159,13 @@
     <junction id=":0_15_0" type="internal" x="499.73" y="496.76" incLanes=":0_11_0 2fi_1 4fi_0" intLanes=":0_1_0 :0_6_0"/>
 
     <connection from="1fi" to="3fi" fromLane="0" toLane="0" via=":3_1_0" dir="r" state="M"/>
-    <connection from="1fi" to="3fi" fromLane="1" toLane="1" via=":3_1_1" dir="r" state="M"/>
+    <connection from="1fi" to="3fi" fromLane="1" toLane="1" via=":3_2_0" dir="r" state="M"/>
     <connection from="2fi" to="4o" fromLane="0" toLane="0" via=":0_4_0" dir="r" state="m"/>
     <connection from="2fi" to="1o" fromLane="1" toLane="0" via=":0_5_0" dir="s" state="m"/>
     <connection from="2fi" to="3o" fromLane="1" toLane="0" via=":0_6_0" dir="l" state="m"/>
     <connection from="2fi" to="2o" fromLane="1" toLane="0" via=":0_7_0" dir="t" state="m"/>
     <connection from="2o" to="1fi" fromLane="0" toLane="0" via=":2_0_0" dir="r" state="M"/>
-    <connection from="2o" to="1fi" fromLane="0" toLane="1" via=":2_0_1" dir="r" state="M"/>
+    <connection from="2o" to="1fi" fromLane="0" toLane="1" via=":2_1_0" dir="r" state="M"/>
     <connection from="2o" to="2fi" fromLane="0" toLane="1" via=":2_2_0" dir="t" state="M"/>
     <connection from="3fi" to="2o" fromLane="0" toLane="0" via=":0_8_0" dir="r" state="M"/>
     <connection from="3fi" to="4o" fromLane="0" toLane="0" via=":0_9_0" dir="s" state="M"/>
@@ -191,11 +195,11 @@
     <connection from=":0_11" to="3o" fromLane="0" toLane="0" via=":0_15_0" dir="s" state="m"/>
     <connection from=":0_15" to="3o" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2_0" to="1fi" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":2_0" to="1fi" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":2_1" to="1fi" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":2_2" to="2fi" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":3_0" to="3fi" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":3_1" to="3fi" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":3_1" to="3fi" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":3_2" to="3fi" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":4_0" to="4fi" fromLane="0" toLane="1" dir="s" state="M"/>
 
 </net>

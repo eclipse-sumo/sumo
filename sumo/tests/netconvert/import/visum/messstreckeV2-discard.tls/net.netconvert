@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr  7 11:06:43 2017 by SUMO netconvert Version dev-SVN-r23847
+<!-- generated on Tue Jul  4 14:34:05 2017 by SUMO netconvert Version dev-SVN-r25036
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -294,8 +294,10 @@
         <lane id=":5_0_0" index="0" speed="16.67" length="5.25" shape="1052.96,499.02 1052.68,497.54 1052.04,496.48 1051.06,495.85 1049.73,495.65"/>
     </edge>
     <edge id=":5_1" function="internal">
-        <lane id=":5_1_0" index="0" speed="16.67" length="12.62" shape="1056.26,498.80 1056.09,493.11 1056.47,489.01 1057.38,486.52 1058.84,485.62"/>
-        <lane id=":5_1_1" index="1" speed="16.67" length="12.62" shape="1056.26,498.80 1056.19,494.55 1056.62,491.48 1057.57,489.60 1059.02,488.92"/>
+        <lane id=":5_1_0" index="0" speed="16.67" length="14.18" shape="1056.26,498.80 1056.09,493.11 1056.47,489.01 1057.38,486.52 1058.84,485.62"/>
+    </edge>
+    <edge id=":5_2" function="internal">
+        <lane id=":5_2_0" index="0" speed="16.67" length="11.06" shape="1056.26,498.80 1056.19,494.55 1056.62,491.48 1057.57,489.60 1059.02,488.92"/>
     </edge>
     <edge id=":5_3" function="internal">
         <lane id=":5_3_0" index="0" speed="19.44" length="9.56" shape="1059.37,495.51 1049.73,495.65"/>
@@ -678,7 +680,7 @@
         <request index="6" response="00000000" foes="00000010" cont="0"/>
         <request index="7" response="00011100" foes="00011110" cont="1"/>
     </junction>
-    <junction id="5" type="priority" x="1057.37" y="490.66" incLanes="17_0 17_1 -5_0 -5_1 -32_0 -32_1 -32_2" intLanes=":5_0_0 :5_1_0 :5_1_1 :5_3_0 :5_3_1 :5_5_0 :5_5_1 :5_5_2" shape="1051.37,499.13 1057.85,498.69 1059.46,497.11 1058.57,480.73 1049.66,480.85 1049.74,497.25">
+    <junction id="5" type="priority" x="1057.37" y="490.66" incLanes="17_0 17_1 -5_0 -5_1 -32_0 -32_1 -32_2" intLanes=":5_0_0 :5_1_0 :5_2_0 :5_3_0 :5_3_1 :5_5_0 :5_5_1 :5_5_2" shape="1051.37,499.13 1057.85,498.69 1059.46,497.11 1058.57,480.73 1049.66,480.85 1049.74,497.25">
         <request index="0" response="00011000" foes="00011000" cont="0"/>
         <request index="1" response="11111000" foes="11111000" cont="0"/>
         <request index="2" response="11111000" foes="11111000" cont="0"/>
@@ -795,7 +797,7 @@
     <connection from="16" to="15" fromLane="0" toLane="0" via=":16_3_0" dir="l" state="m"/>
     <connection from="17" to="32" fromLane="0" toLane="0" via=":5_0_0" dir="r" state="m"/>
     <connection from="17" to="5" fromLane="1" toLane="1" via=":5_1_0" dir="l" state="m"/>
-    <connection from="17" to="5" fromLane="1" toLane="2" via=":5_1_1" dir="l" state="m"/>
+    <connection from="17" to="5" fromLane="1" toLane="2" via=":5_2_0" dir="l" state="m"/>
     <connection from="18" to="15" fromLane="0" toLane="0" via=":16_1_0" dir="r" state="M"/>
     <connection from="18" to="-16" fromLane="1" toLane="0" via=":16_2_0" dir="s" state="M"/>
     <connection from="21" to="-22" fromLane="0" toLane="0" via=":22_0_0" dir="s" state="M"/>
@@ -907,7 +909,7 @@
     <connection from=":4_8" to="13" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":5_0" to="32" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":5_1" to="5" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":5_1" to="5" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from=":5_2" to="5" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":5_3" to="32" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":5_3" to="32" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":5_5" to="5" fromLane="0" toLane="0" dir="s" state="M"/>

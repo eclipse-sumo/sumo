@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 26 15:49:31 2017 by SUMO netconvert Version dev-SVN-r24896
+<!-- generated on Tue Jul  4 14:46:31 2017 by SUMO netconvert Version dev-SVN-r25036
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -18757,19 +18757,19 @@
     <connection from="39271417#5" to="-39271417#5" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="4379608#0" to="-8456256" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="4379608#0" to="-8456256" fromLane="0" toLane="1" dir="r" state="M"/>
-    <connection from="4379608#0" to="4379608#1" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="4379608#0" to="4379608#1" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from="4379608#0" to="4379608#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="4379608#0" to="4379608#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="4379608#1" to="28788639#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="4379608#1" to="28788639#0" fromLane="0" toLane="1" dir="r" state="M"/>
-    <connection from="4379608#1" to="4379608#2" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="4379608#1" to="4379608#2" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from="4379608#1" to="4379608#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="4379608#1" to="4379608#2" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="4379608#2" to="-24329079#3" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="4379608#2" to="4379608#0" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="4379608#2" to="4379608#0" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from="4379608#2" to="4379608#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="4379608#2" to="4379608#0" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="4379609#0" to="8456256" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="4379609#0" to="8456256" fromLane="0" toLane="1" dir="r" state="M"/>
-    <connection from="4379609#0" to="4379609#1" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="4379609#0" to="4379609#1" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from="4379609#0" to="4379609#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="4379609#0" to="4379609#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="4379609#1" to="-28074493#1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="4379609#1" to="-28074493#1" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from="4379609#1" to="4379609#2" fromLane="0" toLane="0" dir="s" state="M"/>
