@@ -38,6 +38,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
+#include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
@@ -787,6 +788,8 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             return toString(edge->getLaneStruct(myIndex).endOffset);
         case SUMO_ATTR_ACCELERATION:
             return toString(edge->getLaneStruct(myIndex).accelRamp);
+        case SUMO_ATTR_CUSTOMSHAPE:
+            return toString(edge->getLaneStruct(myIndex).customShape);
         case SUMO_ATTR_INDEX:
             return toString(myIndex);
         default:
@@ -815,6 +818,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_ENDOFFSET:
         case SUMO_ATTR_ACCELERATION:
+        case SUMO_ATTR_CUSTOMSHAPE:
         case SUMO_ATTR_INDEX:
             // no special handling
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -845,6 +849,11 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_ACCELERATION:
             return canParse<bool>(value);
+        case SUMO_ATTR_CUSTOMSHAPE: {
+            bool ok = true;
+            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
+            return ok;
+        }
         case SUMO_ATTR_INDEX:
             return canParse<int>(value) && (parse<int>(value) == myIndex);
         default:
@@ -896,6 +905,11 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ACCELERATION:
             edge->setAcceleration(myIndex, parse<bool>(value));
             break;
+        case SUMO_ATTR_CUSTOMSHAPE: {
+            bool ok;
+            edge->setLaneShape(myIndex, GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true));
+            break;
+        }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

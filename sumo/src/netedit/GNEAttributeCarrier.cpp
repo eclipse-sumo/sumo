@@ -293,6 +293,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "default"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ENDOFFSET, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ACCELERATION, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CUSTOMSHAPE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_INDEX, NODEFAULTVALUE));
                 break;
             case SUMO_TAG_POI:
@@ -1102,6 +1103,7 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_LANE][SUMO_ATTR_WIDTH] = "Width in meters (used for visualization).";
         myAttrDefinitions[SUMO_TAG_LANE][SUMO_ATTR_ENDOFFSET] = "Move the stop line back from the intersection by the given amount.";
         myAttrDefinitions[SUMO_TAG_LANE][SUMO_ATTR_INDEX] = "The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 is the leftmost one).";
+        myAttrDefinitions[SUMO_TAG_LANE][SUMO_ATTR_CUSTOMSHAPE] = "If the shape is given it overrides the computation based on edge shape.";
         // POI
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_ID] = "The id (a unique name) of the POI";
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_COLOR] = "The color with which the poi shall be displayed";
