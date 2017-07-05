@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jul  5 23:33:21 2017 by SUMO netconvert Version dev-SVN-r24506
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="CN" from="C" to="N" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" shape="100.00,105.00 50.00,115.00 0.00,105.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="EC" from="E" to="C" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="NC" from="N" to="C" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="WC" from="W" to="C" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" shape="0.00,95.00 50.00,90.00 91.99,94.20"/>
+        <lane index="1"/>
+    </edge>
+</edges>
