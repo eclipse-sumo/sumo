@@ -254,6 +254,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                 if (lane.accelRamp) {
                     edevice.writeAttr(SUMO_ATTR_ACCELERATION, lane.accelRamp);
                 }
+                if (lane.customShape.size() > 0) {
+                    edevice.writeAttr(SUMO_ATTR_SHAPE, lane.customShape);
+                }
                 if (lane.oppositeID != "") {
                     edevice.openTag(SUMO_TAG_NEIGH);
                     edevice.writeAttr(SUMO_ATTR_LANE, lane.oppositeID);

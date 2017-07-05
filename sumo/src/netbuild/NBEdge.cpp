@@ -1662,6 +1662,10 @@ NBEdge::computeLaneShapes() {
 
     // build the shape of each lane
     for (int i = 0; i < (int)myLanes.size(); ++i) {
+        if (myLanes[i].customShape.size() != 0) {
+            myLanes[i].shape = myLanes[i].customShape;
+            continue;
+        }
         try {
             myLanes[i].shape = computeLaneShape(i, offsets[i]);
         } catch (InvalidArgument& e) {
@@ -1813,6 +1817,17 @@ NBEdge::hasAccelLane() const {
     return false;
 }
 
+
+bool
+NBEdge::hasCustomLaneShape() const {
+    for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
+        if (i->customShape.size() > 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool
 NBEdge::needsLaneSpecificOutput() const {
     return (hasLaneSpecificPermissions()
@@ -1820,6 +1835,7 @@ NBEdge::needsLaneSpecificOutput() const {
             || hasLaneSpecificWidth()
             || hasLaneSpecificEndOffset()
             || hasAccelLane()
+            || hasCustomLaneShape()
             || (!myLanes.empty() && myLanes.back().oppositeID != ""));
 }
 
@@ -2916,6 +2932,14 @@ NBEdge::setAcceleration(int lane, bool accelRamp) {
     assert(lane >= 0);
     assert(lane < (int)myLanes.size());
     myLanes[lane].accelRamp = accelRamp;
+}
+
+
+void 
+NBEdge::setLaneShape(int lane, const PositionVector& shape) {
+    assert(lane >= 0);
+    assert(lane < (int)myLanes.size());
+    myLanes[lane].customShape = shape;
 }
 
 

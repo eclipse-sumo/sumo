@@ -386,7 +386,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, bool
         const NBEdge::Lane& l = lanes[i];
         writeLane(into, e.getLaneID(i), l.speed,
                   l.permissions, l.preferred, l.endOffset, l.width, l.shape, l.origID,
-                  length, i, origNames, l.oppositeID, 0, l.accelRamp);
+                  length, i, origNames, l.oppositeID, 0, l.accelRamp, l.customShape.size() > 0);
     }
     // close the edge
     into.closeTag();
@@ -398,7 +398,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
                          double speed, SVCPermissions permissions, SVCPermissions preferred,
                          double endOffset, double width, PositionVector shape,
                          const std::string& origID, double length, int index, bool origNames,
-                         const std::string& oppositeID, const NBNode* node, bool accelRamp) {
+                         const std::string& oppositeID, const NBNode* node, bool accelRamp, bool customShape) {
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE).writeAttr(SUMO_ATTR_ID, lID);
     // the first lane of an edge will be the depart lane
@@ -435,6 +435,8 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
             shape = it->second;
             into.writeAttr(SUMO_ATTR_CUSTOMSHAPE, true);
         }
+    } else if (customShape) {
+        into.writeAttr(SUMO_ATTR_CUSTOMSHAPE, true);
     }
     into.writeAttr(SUMO_ATTR_SHAPE, endOffset > 0 ?
                    shape.getSubpart(0, shape.length() - endOffset) : shape);

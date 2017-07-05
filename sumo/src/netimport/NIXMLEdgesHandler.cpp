@@ -290,6 +290,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     }
     bool ok = true;
     int lane;
+    std::string laneID = myCurrentID + "_" + toString(lane);
     if (attrs.hasAttribute(SUMO_ATTR_ID)) {
         lane = attrs.get<int>(SUMO_ATTR_ID, myCurrentID.c_str(), ok);
         if (!myHaveWarnedAboutDeprecatedLaneId) {
@@ -332,6 +333,15 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     // check whether this is an acceleration lane
     if (attrs.hasAttribute(SUMO_ATTR_ACCELERATION)) {
         myCurrentEdge->setAcceleration(lane, attrs.get<bool>(SUMO_ATTR_ACCELERATION, myCurrentID.c_str(), ok));
+    }
+
+    // check whether this is an acceleration lane
+    if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
+        PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, myCurrentID.c_str(), ok);
+        if (!NBNetBuilder::transformCoordinates(shape)) {
+            WRITE_ERROR("Unable to project coordinates for lane '" + laneID + "'.");
+        }
+        myCurrentEdge->setLaneShape(lane, shape);
     }
 }
 

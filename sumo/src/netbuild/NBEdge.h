@@ -155,6 +155,9 @@ public:
         /// @brief Whether connection information for this lane is already completed
         // @note (see NIImporter_DlrNavteq::ConnectedLanesHandler)
         bool connectionsDone;
+
+        /// @brief A custom shape for this lane set by the user
+        PositionVector customShape;
     };
 
 
@@ -993,6 +996,9 @@ public:
     /// @brief whether one of the lanes is an acceleration lane
     bool hasAccelLane() const;
 
+    /// @brief whether one of the lanes has a custom shape
+    bool hasCustomLaneShape() const;
+
     /// @brief computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges(bool noLeftMovers);
 
@@ -1143,6 +1149,9 @@ public:
 
     /// @brief marks one lane as acceleration lane
     void setAcceleration(int lane, bool accelRamp);
+
+    /// @brief sets a custom lane shape
+    void setLaneShape(int lane, const PositionVector& shape);
 
     /// @brief get the union of allowed classes over all lanes or for a specific lane
     SVCPermissions getPermissions(int lane = -1) const;
