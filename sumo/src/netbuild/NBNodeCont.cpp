@@ -219,10 +219,8 @@ NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightL
 
 
 void
-NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc) {
-    UNUSED_PARAMETER(tc);
+NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec) {
     // Warn of isolated edges, i.e. a single edge with no connection to another edge
-    int edgeCounter = 0;
     const std::vector<std::string>& edgeNames = ec.getAllNames();
     for (std::vector<std::string>::const_iterator it = edgeNames.begin(); it != edgeNames.end(); ++it) {
         // Test whether this node starts at a dead end, i.e. it has only one adjacent node
@@ -267,8 +265,8 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLig
             adjacentNodes.clear();
             for (EdgeVector::const_iterator itOfOutgoings = outgoingEdgesOfToNode.begin(); itOfOutgoings != outgoingEdgesOfToNode.end(); ++itOfOutgoings) {
                 if ((*itOfOutgoings)->getToNode() != from        // The back path
-                        && (*itOfOutgoings)->getToNode() != to   // A loop / dummy edge
-                   ) {
+                    && (*itOfOutgoings)->getToNode() != to   // A loop / dummy edge
+                    ) {
                     e = *itOfOutgoings; // Probably the next edge
                 }
                 adjacentNodes.insert((*itOfOutgoings)->getToNode());
@@ -282,7 +280,6 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLig
             }
         } while (!hasJunction && eOld != e);
         if (!hasJunction) {
-            edgeCounter +=  int(road.size());
             std::string warningString = "Removed a road without junctions: ";
             for (EdgeVector::iterator roadIt = road.begin(); roadIt != road.end(); ++roadIt) {
                 if (roadIt == road.begin()) {
@@ -306,8 +303,62 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLig
             WRITE_WARNING(warningString);
         }
     }
-    if (edgeCounter > 0 && !OptionsCont::getOptions().getBool("remove-edges.isolated")) {
-        WRITE_WARNING("Detected isolated roads. Use the option --remove-edges.isolated to get a list of all affected edges.");
+}
+
+
+void
+NBNodeCont::removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKeep) {
+    std::vector<std::set<NBEdge*> > components;
+    std::set<NBEdge*> edgesLeft;
+    for (std::map<std::string, NBEdge*>::const_iterator edgeIt = ec.begin(); edgeIt != ec.end(); ++edgeIt) {
+        edgesLeft.insert(edgeIt->second);
+    }
+    EdgeVector queue;
+    std::set<NBEdge*> toRemove;
+    while (!edgesLeft.empty()) {
+        queue.push_back(*edgesLeft.begin());
+        std::set<NBEdge*> component;
+        while (!queue.empty()) {
+            NBEdge* const e = queue.back();
+            queue.pop_back();
+            component.insert(e);
+            std::vector<EdgeVector> edgeLists;
+            edgeLists.push_back(e->getFromNode()->getOutgoingEdges());
+            edgeLists.push_back(e->getFromNode()->getIncomingEdges());
+            edgeLists.push_back(e->getToNode()->getOutgoingEdges());
+            edgeLists.push_back(e->getToNode()->getIncomingEdges());
+            for (std::vector<EdgeVector>::const_iterator listIt = edgeLists.begin(); listIt != edgeLists.end(); ++listIt) {
+                for (EdgeVector::const_iterator edgeIt = listIt->begin(); edgeIt != listIt->end(); ++edgeIt) {
+                    std::set<NBEdge*>::iterator leftIt = edgesLeft.find(*edgeIt);
+                    if (leftIt != edgesLeft.end()) {
+                        queue.push_back(*edgeIt);
+                        edgesLeft.erase(leftIt);
+                    }
+                }
+            }
+        }
+        std::vector<std::set<NBEdge*> >::iterator cIt;
+        for (cIt = components.begin(); cIt != components.end(); ++cIt) {
+            if (cIt->size() < component.size()) {
+                break;
+            }
+        }
+        components.insert(cIt, component);
+        if (components.size() > numKeep) {
+            toRemove.insert(components.back().begin(), components.back().end());
+            components.pop_back();
+        }
+    }
+    for (std::set<NBEdge*>::iterator edgeIt = toRemove.begin(); edgeIt != toRemove.end(); ++edgeIt) {
+        NBNode* const fromNode = (*edgeIt)->getFromNode();
+        NBNode* const toNode = (*edgeIt)->getToNode();
+        ec.erase(dc, *edgeIt);
+        if (fromNode->getIncomingEdges().size() == 0 && fromNode->getOutgoingEdges().size() == 0) {
+            erase(fromNode);
+        }
+        if (toNode->getIncomingEdges().size() == 0 && toNode->getOutgoingEdges().size() == 0) {
+            erase(toNode);
+        }
     }
 }
 

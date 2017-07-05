@@ -88,7 +88,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     const bool lefthand = oc.getBool("lefthand");
     if (lefthand) {
         mirrorX();
-    };
+    }
 
     // MODIFYING THE SETS OF NODES AND EDGES
 
@@ -97,15 +97,19 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     PROGRESS_BEGIN_MESSAGE("Removing self-loops");
     myNodeCont.removeSelfLoops(myDistrictCont, myEdgeCont, myTLLCont);
     PROGRESS_TIME_MESSAGE(before);
-    //
-    if ((mayAddOrRemove == true) && oc.exists("remove-edges.isolated") && oc.getBool("remove-edges.isolated")) {
+    if (mayAddOrRemove && oc.exists("remove-edges.isolated") && oc.getBool("remove-edges.isolated")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Finding isolated roads");
-        myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont, myTLLCont);
+        myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont);
         PROGRESS_TIME_MESSAGE(before);
     }
-    //
-    if ((mayAddOrRemove == true) && oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
+    if (mayAddOrRemove && oc.exists("keep-edges.components") && oc.getInt("keep-edges.components") > 0) {
+        before = SysUtils::getCurrentMillis();
+        PROGRESS_BEGIN_MESSAGE("Finding largest components");
+        myNodeCont.removeComponents(myDistrictCont, myEdgeCont, oc.getInt("keep-edges.components"));
+        PROGRESS_TIME_MESSAGE(before);
+    }
+    if (mayAddOrRemove && oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
         if (oc.isSet("keep-edges.explicit") || oc.isSet("keep-edges.input-file")) {
             before = SysUtils::getCurrentMillis();
             PROGRESS_BEGIN_MESSAGE("Removing unwished edges");

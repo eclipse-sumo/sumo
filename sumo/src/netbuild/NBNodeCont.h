@@ -164,14 +164,22 @@ public:
     void avoidOverlap();
 
     /** @brief Removes sequences of edges that are not connected with a junction.
-     * Simple roads without junctions sometimes remain when converting from OpenStreetMake,
+     * Simple roads without junctions sometimes remain when converting from OpenStreetMap,
      * but they make no sense. Remaining empty nodes are also deleted.
      *
      * @param[in, opt. changed] dc The district container needed if edges shall be removed
      * @param[in, opt. changed] ec The container with the edge to be tested
-     * @param[in, opt. changed] tc The traffic lights container to update
      */
-    void removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
+    void removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec);
+
+    /** @brief Checks the network for weak connectivity and removes all but the largest components.
+     * The connectivity check is done regardless of edge direction and vclass.
+     *
+     * @param[in, opt. changed] dc The district container needed if edges shall be removed
+     * @param[in, opt. changed] ec The container with the edge to be tested
+     * @param[in] numKeep The number of components to keep
+     */
+    void removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKeep);
 
     /** @brief Removes "unwished" nodes
      *
