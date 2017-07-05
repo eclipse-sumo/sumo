@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun  2 16:37:22 2017 by SUMO Version dev-SVN-r23112
+<!-- generated on Wed Jul  5 10:23:29 2017 by SUMO Version dev-SVN-r23112
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -30,7 +30,7 @@
             <lane id="edge1_0" sampledSeconds="1.00" traveltime="45.45" overlapTraveltime="50.00" density="20.00" occupancy="9.09" waitingTime="0.00" speed="1.10" departed="0" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
         <edge id="edge2">
-            <lane id="edge2_0" sampledSeconds="0.91" traveltime="45.45" overlapTraveltime="50.00" density="18.18" occupancy="0.83" waitingTime="0.00" speed="1.10" departed="0" arrived="0" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="edge2_0" sampledSeconds="0.91" traveltime="45.45" overlapTraveltime="50.00" density="18.18" occupancy="0.91" waitingTime="0.00" speed="1.10" departed="0" arrived="0" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
     </interval>
     <interval begin="2.00" end="3.00" id="dump_15">
@@ -59,7 +59,7 @@
     </interval>
     <interval begin="5.00" end="6.00" id="dump_15">
         <edge id="edge1">
-            <lane id="edge1_0" sampledSeconds="0.07" overlapTraveltime="36.67" density="1.33" occupancy="0.00" waitingTime="0.00" speed="1.50" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="edge1_0" sampledSeconds="0.07" overlapTraveltime="36.67" density="1.33" occupancy="0.01" waitingTime="0.00" speed="1.50" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
         <edge id="edge2">
             <lane id="edge2_0" sampledSeconds="1.00" traveltime="33.33" overlapTraveltime="36.67" density="20.00" occupancy="9.99" waitingTime="0.00" speed="1.50" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
