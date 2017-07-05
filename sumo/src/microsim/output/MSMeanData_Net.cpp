@@ -54,6 +54,10 @@
 // debug constants
 // ===========================================================================
 //#define DEBUG_OCCUPANCY
+//#define DEBUG_OCCUPANCY2
+//#define DEBUG_NOTIFY_ENTER
+//#define DEBUG_COND (veh.getLane()->getID() == "31to211_0")
+#define DEBUG_COND (false)
 
 
 // ===========================================================================
@@ -125,6 +129,18 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
         const double travelledDistanceFrontOnLane,
         const double travelledDistanceVehicleOnLane,
         const double meanLengthOnLane) {
+#ifdef DEBUG_OCCUPANCY
+    if DEBUG_COND {
+        std::cout << SIMTIME << "\n  MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal()\n"
+                << "  veh '" << veh.getID() << "' on lane '" << veh.getLane()->getID() << "'"
+                << ", timeOnLane=" << timeOnLane
+                << ", meanSpeedVehicleOnLane=" << meanSpeedVehicleOnLane
+                << ",\ntravelledDistanceFrontOnLane=" << travelledDistanceFrontOnLane
+                << ", travelledDistanceVehicleOnLane=" << travelledDistanceVehicleOnLane
+                << ", meanLengthOnLane=" << meanLengthOnLane
+                << std::endl;
+    }
+#endif
     sampleSeconds += timeOnLane;
     travelledDistance += travelledDistanceVehicleOnLane;
     vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
@@ -136,7 +152,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
     } else {
         // for the microsim case more elaborate calculation of the average length on the lane,
         // is taken out in notifyMove(), refs #153
-        occupationSum += meanLengthOnLane * timeOnLane;
+        occupationSum += meanLengthOnLane * TS;
     }
     if (myParent != 0 && meanSpeedVehicleOnLane < myParent->myHaltSpeed) {
         waitSeconds += timeOnLane;
@@ -171,7 +187,10 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, double /*las
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane ){ // /* enteredLane */) {
+#ifdef DEBUG_NOTIFY_ENTER
+    std::cout << "\n" << SIMTIME << " MSMeanData_Net::MSLaneMeanDataValues: veh '" << veh.getID() << "' enters lane '" << enteredLane->getID() << "'" << std::endl;
+#endif
     if (myParent == 0 || myParent->vehicleApplies(veh)) {
         if (getLane() == 0 || getLane() == static_cast<MSVehicle&>(veh).getLane()) {
             if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
@@ -198,6 +217,17 @@ MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const {
 void
 MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
         const double numLanes, const double defaultTravelTime, const int numVehicles) const {
+
+#ifdef DEBUG_OCCUPANCY2
+        // tests #3264
+        double occupancy = occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100;
+        if (occupancy > 100) {
+            std::cout << SIMTIME << " Encountered bad occupancy: " << occupancy
+                    << ", myLaneLength=" << myLaneLength << ", period=" << STEPS2TIME(period) << ", occupationSum="<<occupationSum
+                    << std::endl;
+        }
+#endif
+
     if (myParent == 0) {
         if (sampleSeconds > 0) {
             dev.writeAttr("density", sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength)
