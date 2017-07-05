@@ -16,9 +16,13 @@
         <lanechange-output value="lanechanges.xml"/>
     </output>
 
+    <time>
+        <step-length value="0.2"/>
+    </time>
+
     <processing>
         <step-method.ballistic value="true"/>
-        <lateral-resolution value="0.4"/>
+        <lateral-resolution value="0.2"/>
     </processing>
 
     <report>
@@ -30,6 +34,6 @@
 -->
 
 <lanechanges>
-    <change id="blocker1" time="2.00" from="beg_1" to="beg_2" dir="1" speed="23.28" reason="cooperative|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
-    <change id="merge" time="4.00" from="beg_0" to="beg_1" dir="1" speed="27.50" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
+    <change id="blocker1" time="1.80" from="beg_1" to="beg_2" dir="1" speed="25.24" reason="cooperative|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
+    <change id="merge" time="3.20" from="beg_0" to="beg_1" dir="1" speed="27.78" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" latGap="None"/>
 </lanechanges>

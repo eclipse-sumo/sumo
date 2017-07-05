@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jul  5 10:41:53 2017 by SUMO Version dev-SVN-r23112
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <lateral-resolution value="0.32"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="blockL" depart="0.00" departLane="beg_0" departPos="50.00" departPosLat="0.00" departSpeed="27.78" departDelay="0.00" arrival="22.00" arrivalLane="end_0" arrivalPos="136.29" arrivalPosLat="0.00" arrivalSpeed="27.78" duration="22.00" routeLength="591.64" waitSteps="0" timeLoss="0.00" rerouteNo="0" devices="tripinfo_blockL" vType="blockerType" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="ego" depart="0.00" departLane="beg_1" departPos="45.00" departPosLat="0.00" departSpeed="27.78" departDelay="0.00" arrival="23.00" arrivalLane="end_0" arrivalPos="136.29" arrivalPosLat="0.00" arrivalSpeed="27.78" duration="23.00" routeLength="596.64" waitSteps="0" timeLoss="1.02" rerouteNo="0" devices="tripinfo_ego" vType="egoType" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blockF" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.00" departSpeed="27.78" departDelay="0.00" arrival="24.00" arrivalLane="end_0" arrivalPos="136.29" arrivalPosLat="0.00" arrivalSpeed="27.78" duration="24.00" routeLength="641.64" waitSteps="0" timeLoss="0.70" rerouteNo="0" devices="tripinfo_blockF" vType="blockerType" speedFactor="1.00" vaporized=""/>
+</tripinfos>
