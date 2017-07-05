@@ -50,7 +50,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomConvHelper.h>
-#include <foreign/eulerspiral/euler.h>
+#include <foreign/eulerspiral/odrSpiral.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
@@ -61,6 +61,7 @@
 //#define DEBUG_VARIABLE_WIDTHS
 //#define DEBUG_VARIABLE_SPEED
 //#define DEBUG_CONNECTIONS
+//#define DEBUG_SPIRAL
 
 //#define DEBUG_COND(road) ((road)->id == "42")
 //#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "12"))
@@ -1081,14 +1082,60 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
     PositionVector ret;
     double curveStart = g.params[0];
     double curveEnd = g.params[1];
-    Point2D<double> end;
     try {
-        EulerSpiral s(Point2D<double>(g.x, g.y), g.hdg, curveStart, (curveEnd - curveStart) / g.length, g.length);
-        std::vector<Point2D<double> > into;
-        s.computeSpiral(into, resolution);
-        for (std::vector<Point2D<double> >::iterator i = into.begin(); i != into.end(); ++i) {
-            ret.push_back(Position((*i).getX(), (*i).getY()));
+        double cDot = (curveEnd - curveStart) / g.length;
+        if (cDot == 0 || g.length == 0) {
+            WRITE_WARNING("Could not compute spiral geometry for edge '" + e.id + "' (cDot=" + toString(cDot) + " length=" + toString(g.length) + ").");
+            ret.push_back(Position(g.x, g.y));
         }
+        double sStart = curveStart / cDot;
+        double sEnd = curveEnd / cDot;
+        double x = 0;
+        double y = 0;
+        double t = 0;
+        double tStart = 0;
+        double s;
+        odrSpiral(sStart, cDot, &x, &y, &tStart);
+        for (s = sStart; s < sEnd; s+= resolution) {
+            odrSpiral(s, cDot, &x, &y, &t);
+            ret.push_back(Position(x,y));
+        }
+        if (s != sEnd /*&& ret.size() == 1*/) {
+            odrSpiral(sEnd, cDot, &x, &y, &t);
+            ret.push_back(Position(x,y));
+        }
+        //if (s != sEnd && ret.size() > 2) {
+        //    ret.pop_back();
+        //}
+        assert(ret.size() >= 2);
+        assert(ret[0] != ret[1]);
+        // shift start to coordinate origin
+        PositionVector ret1 = ret;
+        ret.add(ret.front() * -1);
+        // rotate
+        double startAngle = ret[0].angleTo2D(ret[1]);
+        PositionVector ret2 = ret;
+        ret.rotate2D(g.hdg - tStart);
+        double startAngle2 = ret[0].angleTo2D(ret[1]);
+#ifdef DEBUG_SPIRAL 
+        std::cout 
+            << std::setprecision(4)
+            << "edge=" << e.id << " s=" << g.s 
+            << " cStart=" << curveStart
+            << " cEnd=" << curveEnd
+            << " cDot=" << cDot
+            << " sStart=" << sStart
+            << " sEnd=" << sEnd
+            << " g.hdg=" << GeomHelper::naviDegree(g.hdg) 
+            << " tStart=" << GeomHelper::naviDegree(tStart) 
+            << " startAngle=" << GeomHelper::naviDegree(startAngle) 
+            << " startAngle2=" << GeomHelper::naviDegree(startAngle2) 
+            << "\n  beforeShift=" << ret1
+            << "\n  beforeRot=" << ret2
+            << "\n";
+#endif
+        // shift to geometry start
+        ret.add(g.x, g.y, 0);
     } catch (const std::runtime_error& error) {
         WRITE_WARNING("Could not compute spiral geometry for edge '" + e.id + "' (" + error.what() + ").");
         ret.push_back(Position(g.x, g.y));
