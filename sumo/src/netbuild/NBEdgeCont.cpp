@@ -644,11 +644,14 @@ NBEdgeCont::recheckLanes() {
                     continue;
                 }
                 if (fabs(oppEdge->getLoadedLength() - edge->getLoadedLength()) > POSITION_EPS) {
-                    throw ProcessError("Opposite lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) + ") differs in length from edge '" + edge->getID() + "' (length "
+                    WRITE_ERROR("Opposite lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) + ") differs in length from edge '" + edge->getID() + "' (length "
                                        + toString(edge->getLoadedLength()) + ")!");
+                    edge->getLaneStruct(edge->getNumLanes() - 1).oppositeID = "";
+                    continue;
                 }
                 if (oppEdge->getFromNode() != edge->getToNode() || oppEdge->getToNode() != edge->getFromNode()) {
-                    throw ProcessError("Opposite lane '" + oppositeID + "' does not connect the same nodes as edge '" + edge->getID() + "'!");
+                    WRITE_ERROR("Opposite lane '" + oppositeID + "' does not connect the same nodes as edge '" + edge->getID() + "'!");
+                    edge->getLaneStruct(edge->getNumLanes() - 1).oppositeID = "";
                 }
             }
         }
