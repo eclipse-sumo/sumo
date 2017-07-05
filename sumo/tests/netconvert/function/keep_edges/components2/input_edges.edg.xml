@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 04.07.2017 15:59:44 by Netedit Version dev-SVN-r24888
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumo\tests\netconvert\function\remove_edges\isolated\net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumo\tests\netconvert\function\remove_edges\isolated\net.net.xml"/>
+        <plain-output-prefix value="D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumo\tests\netconvert\function\remove_edges\isolated\input_edges"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-gneE10" from="gneJ13" to="gneJ12" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE11" from="gneJ14" to="gneJ8" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE13" from="cluster_gneJ18_gneJ20_gneJ22_gneJ24" to="gneJ17" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE14" from="cluster_gneJ18_gneJ20_gneJ22_gneJ24" to="gneJ19" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE15" from="cluster_gneJ18_gneJ20_gneJ22_gneJ24" to="gneJ21" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE16" from="cluster_gneJ18_gneJ20_gneJ22_gneJ24" to="gneJ23" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE18" from="cluster_gneJ28_gneJ31" to="gneJ27" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE19" from="gneJ29" to="cluster_gneJ28_gneJ31" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE20" from="gneJ30" to="gneJ29" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE21" from="cluster_gneJ28_gneJ31" to="gneJ30" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE23" from="gneJ34" to="cluster_gneJ33_gneJ37_gneJ38" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE24" from="gneJ35" to="gneJ34" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE25" from="gneJ36" to="gneJ35" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE26" from="cluster_gneJ33_gneJ37_gneJ38" to="gneJ36" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE28" from="gneJ40" to="gneJ39" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE29" from="gneJ42" to="gneJ41" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE30" from="gneJ43" to="gneJ42" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE31" from="gneJ44" to="gneJ43" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE32" from="gneJ45" to="gneJ44" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE33" from="gneJ46" to="gneJ45" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE34" from="gneJ47" to="gneJ46" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE35" from="gneJ41" to="gneJ47" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE36" from="gneJ49" to="gneJ48" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE37" from="gneJ50" to="gneJ49" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE38" from="gneJ51" to="gneJ50" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE39" from="gneJ52" to="gneJ51" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE6" from="gneJ8" to="gneJ7" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE7" from="gneJ10" to="gneJ9" priority="1" numLanes="1" speed="13.89" shape="200.00,200.00 200.10,200.10"/>
+    <edge id="-gneE8" from="gneJ11" to="gneJ10" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE9" from="gneJ12" to="gneJ11" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE0" from="cluster_gneJ0_gneJ4" to="gneJ1" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE1" from="gneJ1" to="gneJ2" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE10" from="gneJ12" to="gneJ13" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE11" from="gneJ8" to="gneJ14" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE13" from="gneJ17" to="cluster_gneJ18_gneJ20_gneJ22_gneJ24" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE14" from="gneJ19" to="cluster_gneJ18_gneJ20_gneJ22_gneJ24" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE15" from="gneJ21" to="cluster_gneJ18_gneJ20_gneJ22_gneJ24" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE16" from="gneJ23" to="cluster_gneJ18_gneJ20_gneJ22_gneJ24" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE18" from="gneJ27" to="cluster_gneJ28_gneJ31" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE19" from="cluster_gneJ28_gneJ31" to="gneJ29" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE2" from="gneJ2" to="gneJ3" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE20" from="gneJ29" to="gneJ30" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE21" from="gneJ30" to="cluster_gneJ28_gneJ31" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE23" from="cluster_gneJ33_gneJ37_gneJ38" to="gneJ34" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE24" from="gneJ34" to="gneJ35" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE25" from="gneJ35" to="gneJ36" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE26" from="gneJ36" to="cluster_gneJ33_gneJ37_gneJ38" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE28" from="gneJ39" to="gneJ40" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE29" from="gneJ41" to="gneJ42" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE3" from="gneJ3" to="cluster_gneJ0_gneJ4" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE30" from="gneJ42" to="gneJ43" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE31" from="gneJ43" to="gneJ44" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE32" from="gneJ44" to="gneJ45" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE33" from="gneJ45" to="gneJ46" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE34" from="gneJ46" to="gneJ47" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE35" from="gneJ47" to="gneJ41" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE36" from="gneJ48" to="gneJ49" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE37" from="gneJ49" to="gneJ50" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE38" from="gneJ50" to="gneJ51" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE39" from="gneJ51" to="gneJ52" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE40" from="gneJ55" to="gneJ56" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE41" from="gneJ56" to="gneJ57" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE42" from="gneJ56" to="gneJ58" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE44" from="gneJ62" to="gneJ63" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE45" from="gneJ65" to="gneJ62" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE46" from="gneJ66" to="gneJ62" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE48" from="gneJ69" to="gneJ70" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE49" from="gneJ69" to="gneJ71" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE50" from="gneJ69" to="gneJ72" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE51" from="gneJ69" to="gneJ73" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE52" from="gneJ74" to="gneJ75" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE53" from="gneJ76" to="gneJ75" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE54" from="gneJ77" to="gneJ75" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE55" from="gneJ78" to="gneJ79" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE56" from="gneJ80" to="gneJ79" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE57" from="gneJ80" to="gneJ81" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE6" from="gneJ7" to="gneJ8" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE7" from="gneJ9" to="gneJ10" priority="1" numLanes="1" speed="13.89" shape="200.00,200.00 200.10,200.10"/>
+    <edge id="gneE8" from="gneJ10" to="gneJ11" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gneE9" from="gneJ11" to="gneJ12" priority="1" numLanes="1" speed="13.89"/>
+</edges>

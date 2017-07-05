@@ -3,6 +3,9 @@
 # no_removal (plain import)
 plain
 
+# remove isolated roads
+isolated
+
 # The top (4*) edges are removed
 removing_top
 

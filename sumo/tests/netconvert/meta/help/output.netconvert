@@ -177,6 +177,8 @@ Edge Removal Options:
   --remove-edges.by-vclass STR         Remove edges which allow only vclasses
                                          from STR
   --keep-edges.by-type STR             Only keep edges where type is in STR
+  --keep-edges.components INT          Only keep the INT largest weakly
+                                         connected compoonents
   --remove-edges.by-type STR           Remove edges where type is in STR
   --remove-edges.isolated              Removes isolated edges
 

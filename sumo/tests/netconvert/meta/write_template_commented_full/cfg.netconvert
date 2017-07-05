@@ -124,7 +124,7 @@
         <ptline-output value="" type="FILE"/>
 
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
-        <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
+        <opendrive-output.straight-threshold value="1e-008" type="FLOAT"/>
 
     </output>
 
@@ -284,6 +284,9 @@
 
         <!-- Only keep edges where type is in STR -->
         <keep-edges.by-type value="" type="STR"/>
+
+        <!-- Only keep the INT largest weakly connected compoonents -->
+        <keep-edges.components value="0" type="INT"/>
 
         <!-- Remove edges where type is in STR -->
         <remove-edges.by-type value="" type="STR"/>

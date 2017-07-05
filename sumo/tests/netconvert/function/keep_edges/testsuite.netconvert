@@ -24,3 +24,9 @@ by-vclass2
 
 # Only keep edges with the given type and *all* that are named explicitly
 by-type_and_explicit
+
+# remove isolated components
+components
+
+# keep 2 largest components
+components2

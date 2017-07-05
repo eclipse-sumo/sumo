@@ -47,7 +47,7 @@
         <street-sign-output value="" type="FILE" help="Writes street signs as POIs to FILE"/>
         <ptstop-output value="" type="FILE" help="Writes public transport stops to FILE"/>
         <ptline-output value="" type="FILE" help="Writes public transport lines to FILE"/>
-        <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
+        <opendrive-output.straight-threshold value="1e-008" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
     </output>
 
     <projection>
@@ -109,6 +109,7 @@
         <keep-edges.by-vclass value="" type="STR" help="Only keep edges which allow one of the vclasss in STR"/>
         <remove-edges.by-vclass value="" type="STR" help="Remove edges which allow only vclasses from STR"/>
         <keep-edges.by-type value="" type="STR" help="Only keep edges where type is in STR"/>
+        <keep-edges.components value="0" type="INT" help="Only keep the INT largest weakly connected compoonents"/>
         <remove-edges.by-type value="" type="STR" help="Remove edges where type is in STR"/>
         <remove-edges.isolated value="false" synonymes="remove-isolated" type="BOOL" help="Removes isolated edges"/>
     </edge_removal>
