@@ -1293,6 +1293,9 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     if (StringUtils::endsWith(prefix, ".edg.xml")) {
         prefix = prefix.substr(0, prefix.size() - 8);
     }
+    if (StringUtils::endsWith(prefix, ".")) {
+        prefix = prefix.substr(0, prefix.size() - 1);
+    }
     oc.set("plain-output-prefix", prefix);
     getApp()->beginWaitCursor();
     try {
