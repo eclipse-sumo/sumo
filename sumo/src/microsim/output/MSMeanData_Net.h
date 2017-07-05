@@ -193,6 +193,9 @@ public:
         /// @brief The sum of the occupation of the lane
         double occupationSum;
 
+        /// @brief minimal vehicle length in the current interval (used to determine a maximal density, see #3265)
+        double minimalVehicleLength;
+
         //@}
 
         /// @brief The meandata parent

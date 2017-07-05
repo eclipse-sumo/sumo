@@ -75,6 +75,7 @@ MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
       nVehVaporized(0), waitSeconds(0),
       nVehLaneChangeFrom(0), nVehLaneChangeTo(0),
       frontSampleSeconds(0), frontTravelledDistance(0),
+      minimalVehicleLength(INVALID_DOUBLE),
       vehLengthSum(0), occupationSum(0), myParent(parent) {}
 
 
@@ -98,6 +99,7 @@ MSMeanData_Net::MSLaneMeanDataValues::reset(bool) {
     frontTravelledDistance = 0;
     vehLengthSum = 0;
     occupationSum = 0;
+    minimalVehicleLength = INVALID_DOUBLE;
 }
 
 
@@ -118,6 +120,11 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
     v.frontTravelledDistance += frontTravelledDistance;
     v.vehLengthSum += vehLengthSum;
     v.occupationSum += occupationSum;
+    if (v.minimalVehicleLength == INVALID_DOUBLE){
+        v.minimalVehicleLength = minimalVehicleLength;
+    } else {
+        v.minimalVehicleLength = MIN2(minimalVehicleLength, v.minimalVehicleLength);
+    }
 }
 
 
@@ -159,6 +166,15 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
     }
     frontSampleSeconds += frontOnLane;
     frontTravelledDistance += travelledDistanceFrontOnLane;
+    if (minimalVehicleLength == INVALID_DOUBLE){
+        minimalVehicleLength = veh.getVehicleType().getLength();
+    } else {
+        minimalVehicleLength = MIN2(minimalVehicleLength, veh.getVehicleType().getLength());
+    }
+#ifdef DEBUG_OCCUPANCY2
+    // refs #3265
+    std::cout << SIMTIME << "ID: " << getDescription() << " minVehicleLength=" << minimalVehicleLength << std::endl;
+#endif
 }
 
 
@@ -226,11 +242,14 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
                     << ", myLaneLength=" << myLaneLength << ", period=" << STEPS2TIME(period) << ", occupationSum="<<occupationSum
                     << std::endl;
         }
+        // refs #3265
+        std::cout << SIMTIME << "ID: " << getDescription() << " minVehicleLength=" << minimalVehicleLength
+                << "\ndensity=" << MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1./MAX2(minimalVehicleLength,NUMERICAL_EPS)) << std::endl;
 #endif
 
     if (myParent == 0) {
         if (sampleSeconds > 0) {
-            dev.writeAttr("density", sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength)
+            dev.writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000./MAX2(minimalVehicleLength,NUMERICAL_EPS)))
             .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
             .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }
@@ -259,7 +278,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
                 dev.writeAttr("traveltime", defaultTravelTime);
             }
             dev.writeAttr("overlapTraveltime", overlapTraveltime)
-            .writeAttr("density", sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength)
+            .writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000./MAX2(minimalVehicleLength,NUMERICAL_EPS)))
             .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
             .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }
