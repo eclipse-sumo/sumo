@@ -630,6 +630,7 @@ NBEdgeCont::computeLanes2Edges() {
 
 void
 NBEdgeCont::recheckLanes() {
+    const bool fixOppositeLengths = OptionsCont::getOptions().getBool("opposites.guess.fix-lengths");
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
         NBEdge* edge = i->second;
         edge->recheckLanes();
@@ -644,10 +645,18 @@ NBEdgeCont::recheckLanes() {
                     continue;
                 }
                 if (fabs(oppEdge->getLoadedLength() - edge->getLoadedLength()) > POSITION_EPS) {
-                    WRITE_ERROR("Opposite lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) + ") differs in length from edge '" + edge->getID() + "' (length "
-                                       + toString(edge->getLoadedLength()) + ")!");
-                    edge->getLaneStruct(edge->getNumLanes() - 1).oppositeID = "";
-                    continue;
+                    if (fixOppositeLengths) {
+                        const double avgLength = 0.5 * (edge->getFinalLength() + oppEdge->getFinalLength());
+                        WRITE_WARNING("Averaging edge lengths for lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) + ") and edge '" + edge->getID() + "' (length "
+                                + toString(edge->getLoadedLength()) + ").");
+                        edge->setLoadedLength(avgLength);
+                        oppEdge->setLoadedLength(avgLength);
+                    } else {
+                        WRITE_ERROR("Opposite lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) + ") differs in length from edge '" + edge->getID() + "' (length "
+                                + toString(edge->getLoadedLength()) + "). Set --opposites.guess.fix-lengths to fix this.");
+                        edge->getLaneStruct(edge->getNumLanes() - 1).oppositeID = "";
+                        continue;
+                    }
                 }
                 if (oppEdge->getFromNode() != edge->getToNode() || oppEdge->getToNode() != edge->getFromNode()) {
                     WRITE_ERROR("Opposite lane '" + oppositeID + "' does not connect the same nodes as edge '" + edge->getID() + "'!");

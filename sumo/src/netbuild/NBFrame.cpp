@@ -177,6 +177,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("opposites.guess", new Option_Bool(false));
     oc.addDescription("opposites.guess", "Processing", "Enable guessing of opposite direction lanes usable for overtaking");
 
+    oc.doRegister("opposites.guess.fix-lengths", new Option_Bool(false));
+    oc.addDescription("opposites.guess.fix-lengths", "Processing", "Ensure that opposite edges have the same length");
+
     oc.doRegister("lefthand", new Option_Bool(false));
     oc.addDescription("lefthand", "Processing", "Assumes left-hand traffic on the network");
 
