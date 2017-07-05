@@ -5,3 +5,4 @@ set_node_shape
 # set custom shape for an internal lane
 set_internalShape
 reset_internalShape
+set_lane_shape
