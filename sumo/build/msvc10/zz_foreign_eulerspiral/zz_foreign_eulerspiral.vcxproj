@@ -26,6 +26,12 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\foreign\eulerspiral\odrSpiral.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\foreign\eulerspiral\odrSpiral.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{50B2C273-2B6A-4A3A-BE24-83E3202DE180}</ProjectGuid>
     <RootNamespace>zz_foreign_eulerspiral</RootNamespace>
@@ -139,16 +145,6 @@
       <PreprocessorDefinitions>WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\src\foreign\eulerspiral\BiArc.cpp" />
-    <ClCompile Include="..\..\..\src\foreign\eulerspiral\euler.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\src\foreign\eulerspiral\angles.h" />
-    <ClInclude Include="..\..\..\src\foreign\eulerspiral\BiArc.h" />
-    <ClInclude Include="..\..\..\src\foreign\eulerspiral\euler.h" />
-    <ClInclude Include="..\..\..\src\foreign\eulerspiral\points.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

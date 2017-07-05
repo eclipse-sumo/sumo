@@ -11,24 +11,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\foreign\eulerspiral\BiArc.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\foreign\eulerspiral\euler.cpp">
+    <ClCompile Include="..\..\..\src\foreign\eulerspiral\odrSpiral.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\foreign\eulerspiral\angles.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\foreign\eulerspiral\BiArc.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\foreign\eulerspiral\euler.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\foreign\eulerspiral\points.h">
+    <ClInclude Include="..\..\..\src\foreign\eulerspiral\odrSpiral.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
