@@ -16,3 +16,6 @@ wrong_nodes
 
 # guess opposites for internal lanes
 internal_lanes
+
+# guess opposites for internal lanes
+internal_lanes2
