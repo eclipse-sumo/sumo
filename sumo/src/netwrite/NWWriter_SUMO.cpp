@@ -240,7 +240,9 @@ NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, c
             if (succOpp != from && // turnaround
                     succOpp->getLaneID(conOpp.fromLane) == succ.oppositeID &&
                     predOpp == conOpp.toEdge &&
-                    predOpp->getLaneID(conOpp.toLane) == pred.oppositeID) {
+                    predOpp->getLaneID(conOpp.toLane) == pred.oppositeID &&
+                    // same lengths (@note: averaging is not taken into account)
+                    con.shape.length() == conOpp.shape.length()) {
                 return conOpp.getInternalLaneID();
             }
         }
