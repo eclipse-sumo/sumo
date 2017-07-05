@@ -504,6 +504,9 @@
         <!-- Enable guessing of opposite direction lanes usable for overtaking -->
         <opposites.guess value="false" type="BOOL"/>
 
+        <!-- Ensure that opposite edges have the same length -->
+        <opposites.guess.fix-lengths value="false" type="BOOL"/>
+
         <!-- Assumes left-hand traffic on the network -->
         <lefthand value="false" type="BOOL"/>
 

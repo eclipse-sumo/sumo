@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jul  5 10:15:22 2017 by SUMO netconvert Version dev-SVN-r25085
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <opposites.guess value="true"/>
+        <opposites.guess.fix-lengths value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="100.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="EC" from="E" to="S" priority="2" length="200.00" shape="200.00,100.00 100.00,100.00 100.00,0.00">
+        <lane id="EC_0" index="0" speed="13.89" length="200.00" shape="200.00,104.95 95.05,104.95 95.05,0.00"/>
+        <lane id="EC_1" index="1" speed="13.89" length="200.00" shape="200.00,101.65 98.35,101.65 98.35,0.00">
+            <neigh lane="SC_1"/>
+        </lane>
+    </edge>
+    <edge id="SC" from="S" to="E" priority="2" length="200.00" shape="100.00,0.00 100.00,100.00 200.00,100.00">
+        <lane id="SC_0" index="0" speed="13.89" length="200.00" shape="104.95,0.00 104.95,95.05 200.00,95.05"/>
+        <lane id="SC_1" index="1" speed="13.89" length="200.00" shape="101.65,0.00 101.65,98.35 200.00,98.35">
+            <neigh lane="EC_1"/>
+        </lane>
+    </edge>
+
+    <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="SC_0 SC_1" intLanes="" shape="200.00,100.05 200.00,93.45 200.00,99.95"/>
+    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="EC_0 EC_1" intLanes="" shape="100.05,-0.00 93.45,0.00 99.95,-0.00"/>
+
+</net>

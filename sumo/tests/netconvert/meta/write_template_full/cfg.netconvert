@@ -186,6 +186,7 @@
         <flip-y-axis value="false" synonymes="flip-y" type="BOOL" help="Flips the y-coordinate along zero"/>
         <roundabouts.guess value="false" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
         <opposites.guess value="false" type="BOOL" help="Enable guessing of opposite direction lanes usable for overtaking"/>
+        <opposites.guess.fix-lengths value="false" type="BOOL" help="Ensure that opposite edges have the same length"/>
         <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
         <edges.join value="false" type="BOOL" help="Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)"/>
         <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
