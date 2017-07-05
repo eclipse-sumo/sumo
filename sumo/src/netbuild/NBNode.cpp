@@ -1714,6 +1714,11 @@ void
 NBNode::setCustomShape(const PositionVector& shape) {
     myPoly = shape;
     myHaveCustomPoly = (myPoly.size() > 1);
+    if (myHaveCustomPoly) {
+        for (EdgeVector::iterator i = myAllEdges.begin(); i != myAllEdges.end(); i++) {
+            (*i)->resetNodeBorder(this);
+        }
+    }
 }
 
 
