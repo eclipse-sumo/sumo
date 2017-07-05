@@ -227,6 +227,8 @@ private:
         bool accelRamp;
         /// @brief This lane's opposite lane
         std::string oppositeID;
+        /// @brief Whether this lane has a custom shape
+        bool customShape;
     };
 
 

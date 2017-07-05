@@ -221,6 +221,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
             nbe->setAcceleration(fromLaneIndex, lane->accelRamp);
             nbe->getLaneStruct(fromLaneIndex).oppositeID = lane->oppositeID;
+            if (lane->customShape) {
+                nbe->setLaneShape(fromLaneIndex, lane->shape);
+            }
         }
         nbe->declareConnectionsAsLoaded();
         if (!nbe->hasLaneSpecificWidth() && nbe->getLanes()[0].width != NBEdge::UNSPECIFIED_WIDTH) {
@@ -481,11 +484,16 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         WRITE_ERROR("Found lane '" + id  + "' not within edge element");
         return;
     }
-    if (attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, 0, ok, false)) {
-        const std::string nodeID = NBNode::getNodeIDFromInternalLane(id);
-        myCustomShapeMaps[nodeID][id] = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
-    }
     myCurrentLane = new LaneAttrs();
+    if (attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, 0, ok, false)) {
+        myCurrentLane->customShape = true;
+        if (id[0] == ':') {
+            const std::string nodeID = NBNode::getNodeIDFromInternalLane(id);
+            myCustomShapeMaps[nodeID][id] = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
+        }
+    } else {
+        myCurrentLane->customShape = false;
+    }
     if (myCurrentEdge->func == EDGEFUNC_CROSSING) {
         // save the width and the lane id of the crossing but don't do anything else
         std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentEdge->id)];
@@ -730,9 +738,15 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* cur
 
 PositionVector
 NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& from, const Position& to) {
-    const PositionVector& firstLane = edge->lanes[0]->shape;
     PositionVector result;
     result.push_back(from);
+
+    if (edge->lanes[0]->customShape) {
+        // this is a new network where edge shapes are writen if they exist.
+        result.push_back(to);
+        return result;
+    }
+    const PositionVector& firstLane = edge->lanes[0]->shape;
 
     // reverse logic of NBEdge::computeLaneShape
     // !!! this will only work for old-style constant width lanes
