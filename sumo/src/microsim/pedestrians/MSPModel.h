@@ -99,6 +99,7 @@ public:
         UNUSED_PARAMETER(minPos);
         UNUSED_PARAMETER(minRight);
         UNUSED_PARAMETER(maxLeft);
+        UNUSED_PARAMETER(stopTime);
         return PersonDist((const MSPerson*)0, -1);
     }
 

@@ -77,9 +77,11 @@ MSMeanData::MeanDataValues::~MeanDataValues() {
 
 
 bool
-MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) { // /* enteredLane */) {
+MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_NOTIFY_ENTER
     std::cout << "\n" << SIMTIME << " MSMeanData_Net::MSLaneMeanDataValues: veh '" << veh.getID() << "' enters lane '" << enteredLane->getID() << "'" << std::endl;
+#else
+    UNUSED_PARAMETER(enteredLane);
 #endif
     UNUSED_PARAMETER(reason);
     return myParent == 0 || myParent->vehicleApplies(veh);
@@ -343,9 +345,11 @@ MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, double lastPos, 
 
 
 bool
-MSMeanData::MeanDataValueTracker::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) { // /* enteredLane */) {
+MSMeanData::MeanDataValueTracker::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_NOTIFY_ENTER
     std::cout << "\n" << SIMTIME << " MSMeanData::MeanDataValueTracker: veh '" << veh.getID() << "' enters lane '" << enteredLane->getID() << "'" << std::endl;
+#else
+    UNUSED_PARAMETER(enteredLane);
 #endif
     if (reason == MSMoveReminder::NOTIFICATION_SEGMENT) {
         return true;
