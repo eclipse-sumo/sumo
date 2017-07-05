@@ -1,6 +1,7 @@
 noinst_LIBRARIES = libvehicle.a
 
 libvehicle_a_SOURCES = AStarRouter.h \
+AStarLookupTable.h \
 CarEdge.h \
 CHBuilder.h CHRouter.h CHRouterWrapper.h \
 DijkstraRouterTT.h DijkstraRouterEffort.h \

@@ -379,18 +379,18 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                 typedef AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> > AStar;
                 const AStar::LookupTable* lookup = 0;
                 if (oc.isSet("astar.all-distances")) {
-                    lookup = new AStar::FullLookupTable(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
+                    lookup = new AStar::FLT(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
                 } else if (oc.isSet("astar.landmark-distances")) {
-                    lookup = new AStar::LandmarkLookupTable(oc.getString("astar.landmark-distances"), (int)MSEdge::getAllEdges().size());
+                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), (int)MSEdge::getAllEdges().size());
                 }
                 myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
             } else {
                 typedef AStarRouter<MSEdge, SUMOVehicle, noProhibitions<MSEdge, SUMOVehicle> > AStar;
                 const AStar::LookupTable* lookup = 0;
                 if (oc.isSet("astar.all-distances")) {
-                    lookup = new AStar::FullLookupTable(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
+                    lookup = new AStar::FLT(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
                 } else if (oc.isSet("astar.landmark-distances")) {
-                    lookup = new AStar::LandmarkLookupTable(oc.getString("astar.landmark-distances"), (int)MSEdge::getAllEdges().size());
+                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), (int)MSEdge::getAllEdges().size());
                 }
                 myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
             }
