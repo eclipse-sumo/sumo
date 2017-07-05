@@ -249,3 +249,6 @@ ticket3255
 
 # The long vehicle on the short lane should not imply occupancy values larger than 100% in the ParameterWindow
 ticket3258
+
+# The long vehicle on the short lane should not imply density values larger than the inverse of its length. (The bug resolution uses the inverse of the minimal observed length for passing vehicles to bound the output value.)
+ticket3265
