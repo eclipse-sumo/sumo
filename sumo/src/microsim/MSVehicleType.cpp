@@ -75,7 +75,7 @@ MSVehicleType::~MSVehicleType() {
 
 
 double
-MSVehicleType::computeChosenSpeedDeviation(MTRand* rng, const double minDev) const {
+MSVehicleType::computeChosenSpeedDeviation(std::mt19937* rng, const double minDev) const {
     return MAX2(minDev, myParameter.speedFactor.sample(rng));
 }
 

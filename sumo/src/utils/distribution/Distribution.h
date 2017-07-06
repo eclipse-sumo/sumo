@@ -30,13 +30,8 @@
 #include <config.h>
 #endif
 
+#include <random>
 #include <utils/common/Named.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class MTRand;
 
 
 // ===========================================================================
@@ -62,7 +57,7 @@ public:
     * @param[in] which The random number generator to use; the static one will be used if 0 is passed
     * @return the drawn member
     */
-    virtual double sample(MTRand* which = 0) const = 0;
+    virtual double sample(std::mt19937* which = 0) const = 0;
 
     /// Returns the maximum value of this distribution
     virtual double getMax() const = 0;

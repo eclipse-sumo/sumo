@@ -78,16 +78,16 @@ Distribution_Parameterized::parse(const std::string& description) {
 
 
 double
-Distribution_Parameterized::sample(MTRand* which) const {
+Distribution_Parameterized::sample(std::mt19937* which) const {
     if (myParameter[1] == 0.) {
         return myParameter[0];
     }
-    double val = which == 0 ? RandHelper::randNorm(myParameter[0], myParameter[1]) : which->randNorm(myParameter[0], myParameter[1]);
+    double val = RandHelper::randNorm(myParameter[0], myParameter[1], which);
     if (myParameter.size() > 2) {
         const double min = myParameter[2];
         const double max = getMax();
         while (val < min || val > max) {
-            val = which == 0 ? RandHelper::randNorm(myParameter[0], myParameter[1]) : which->randNorm(myParameter[0], myParameter[1]);
+            val = RandHelper::randNorm(myParameter[0], myParameter[1], which);
         }
     }
     return val;

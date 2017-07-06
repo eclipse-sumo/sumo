@@ -43,7 +43,6 @@
 #include <utils/common/RandHelper.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/common/RGBColor.h>
-#include <foreign/mersenne/MersenneTwister.h>
 
 
 // ===========================================================================
@@ -175,7 +174,7 @@ public:
     /** @brief Computes and returns the speed deviation
      * @return A new, random speed deviation
      */
-    double computeChosenSpeedDeviation(MTRand* rng, const double minDev = -1.) const;
+    double computeChosenSpeedDeviation(std::mt19937* rng, const double minDev = -1.) const;
 
 
     /** @brief Get the default probability of this vehicle type

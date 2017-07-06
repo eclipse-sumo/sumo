@@ -403,7 +403,7 @@ protected:
     /// @brief waiting time after which vehicles trigger jam sounds
     double myJamSoundTime;
     /// @brief A random number generator used to choose a gaming sound
-    static MTRand myGamingRNG;
+    static std::mt19937 myGamingRNG;
     int myPreviousCollisionNumber;
 
     /// performance indicators

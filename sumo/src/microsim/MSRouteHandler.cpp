@@ -63,7 +63,7 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-MTRand MSRouteHandler::myParsingRNG;
+std::mt19937 MSRouteHandler::myParsingRNG;
 
 
 // ===========================================================================
@@ -1065,7 +1065,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
     const std::string description = "person '" + personID + "' walking from " + fromEdge->getID();
 
     departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, description, fromEdge->getLength(),
-                             attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, description.c_str(), ok, "0"), myParsingRNG);
+                             attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS, description.c_str(), ok, "0"), &myParsingRNG);
 
     std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
     if (bsID != "") {
@@ -1083,7 +1083,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         arrivalPos = (bs->getBeginLanePosition() + bs->getEndLanePosition()) / 2.;
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             const double arrPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge->getLength(),
-                                               attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), myParsingRNG);
+                                               attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), &myParsingRNG);
             if (arrPos >= bs->getBeginLanePosition() && arrPos < bs->getEndLanePosition()) {
                 arrivalPos = arrPos;
             } else {
@@ -1096,7 +1096,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         }
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge->getLength(),
-                                      attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), myParsingRNG);
+                                      attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), &myParsingRNG);
         } else {
             arrivalPos = -NUMERICAL_EPS;
         }

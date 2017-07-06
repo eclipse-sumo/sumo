@@ -60,7 +60,7 @@ public:
     * @param[in] which The random number generator to use; the static one will be used if 0 is passed
     * @return the drawn member
     */
-    double sample(MTRand* which = 0) const {
+    double sample(std::mt19937* which = 0) const {
         return get(which);
     }
 

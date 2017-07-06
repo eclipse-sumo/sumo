@@ -141,7 +141,7 @@ MSRoute::dictionary(const std::string& id, RandomDistributor<const MSRoute*>* co
 
 
 const MSRoute*
-MSRoute::dictionary(const std::string& id, MTRand* rng) {
+MSRoute::dictionary(const std::string& id, std::mt19937* rng) {
 #ifdef HAVE_FOX
     FXMutexLock f(myDictMutex);
 #endif

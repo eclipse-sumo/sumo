@@ -736,7 +736,7 @@ SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes& attrs, const std
 
 
 double
-SUMOVehicleParserHelper::parseWalkPos(SumoXMLAttr attr, const std::string& id, double maxPos, const std::string& val, MTRand& rng) {
+SUMOVehicleParserHelper::parseWalkPos(SumoXMLAttr attr, const std::string& id, double maxPos, const std::string& val, std::mt19937* rng) {
     double result;
     std::string error;
     ArrivalPosDefinition proc;
@@ -745,7 +745,7 @@ SUMOVehicleParserHelper::parseWalkPos(SumoXMLAttr attr, const std::string& id, d
         throw ProcessError(error);
     }
     if (proc == ARRIVAL_POS_RANDOM) {
-        result = rng.rand(maxPos);
+        result = RandHelper::rand(maxPos, rng);
     } else if (proc == ARRIVAL_POS_MAX) {
         result = maxPos;
     }

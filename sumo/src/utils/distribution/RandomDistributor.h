@@ -98,11 +98,11 @@ public:
      * @param[in] which The random number generator to use; the static one will be used if 0 is passed
      * @return the drawn member
      */
-    T get(MTRand* which = 0) const {
+    T get(std::mt19937* which = 0) const {
         if (myProb == 0) {
             throw OutOfBoundsException();
         }
-        double prob = which == 0 ? RandHelper::rand(myProb) : which->rand(myProb);
+        double prob = RandHelper::rand(myProb, which);
         for (int i = 0; i < (int)myVals.size(); i++) {
             if (prob < myProbs[i]) {
                 return myVals[i];

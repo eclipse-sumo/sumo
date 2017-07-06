@@ -36,6 +36,7 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <random>
 #include <microsim/MSMoveReminder.h>
 #include <utils/common/Named.h>
 #include <utils/common/UtilExceptions.h>
@@ -48,7 +49,6 @@ class OutputDevice;
 class SUMOVehicle;
 class OptionsCont;
 class SUMOSAXAttributes;
-class MTRand;
 
 
 // ===========================================================================
@@ -88,7 +88,7 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
 
-    static MTRand* getEquipmentRNG() {
+    static std::mt19937* getEquipmentRNG() {
         return &myEquipmentRNG;
     }
 
@@ -191,7 +191,7 @@ private:
     static std::map<std::string, std::set<std::string> > myExplicitIDs;
 
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
-    static MTRand myEquipmentRNG;
+    static std::mt19937 myEquipmentRNG;
 
 
 private:

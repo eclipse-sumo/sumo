@@ -99,7 +99,7 @@ SUMOTime
 MSVehicleControl::computeRandomDepartOffset() const {
     if (myMaxRandomDepartOffset > 0) {
         // round to the closest usable simulation step
-        return DELTA_T * int((MSRouteHandler::getParsingRNG()->rand((int)myMaxRandomDepartOffset) + 0.5 * DELTA_T) / DELTA_T);
+        return DELTA_T * int((RandHelper::rand((int)myMaxRandomDepartOffset, MSRouteHandler::getParsingRNG()) + 0.5 * DELTA_T) / DELTA_T);
     } else {
         return 0;
     }
@@ -279,7 +279,7 @@ MSVehicleControl::hasVTypeDistribution(const std::string& id) const {
 
 
 MSVehicleType*
-MSVehicleControl::getVType(const std::string& id, MTRand* rng) {
+MSVehicleControl::getVType(const std::string& id, std::mt19937* rng) {
     VTypeDictType::iterator it = myVTypeDict.find(id);
     if (it == myVTypeDict.end()) {
         VTypeDistDictType::iterator it2 = myVTypeDistDict.find(id);

@@ -196,11 +196,11 @@ RORouteHandler::myStartElement(int element,
                 double arrivalPos = std::numeric_limits<double>::infinity();
                 if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
                     departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, objId, myActiveRoute.front()->getLength(),
-                        attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, objId, ok), RandHelper::getRNG());
+                        attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, objId, ok));
                 }
                 if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
                     arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, objId, myActiveRoute.back()->getLength(),
-                        attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, objId, ok), RandHelper::getRNG());
+                        attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, objId, ok));
                 }
                 const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, objId, ok, "");
                 if (!ok) {
@@ -729,11 +729,11 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     double arrivalPos = std::numeric_limits<double>::infinity();
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         departPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_DEPARTPOS, id, from->getLength(),
-                attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, id, ok), RandHelper::getRNG());
+                attrs.get<std::string>(SUMO_ATTR_DEPARTPOS, id, ok));
     }
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
         arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, id, to->getLength(),
-                attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, id, ok), RandHelper::getRNG());
+                attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, id, ok));
     }
     SVCPermissions modeSet = 0;
     for (StringTokenizer st(modes); st.hasNext();) {

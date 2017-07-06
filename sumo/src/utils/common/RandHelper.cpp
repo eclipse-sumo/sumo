@@ -39,7 +39,7 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
-MTRand RandHelper::myRandomNumberGenerator;
+std::mt19937 RandHelper::myRandomNumberGenerator;
 
 
 // ===========================================================================
@@ -61,19 +61,13 @@ RandHelper::insertRandOptions() {
 }
 
 void
-RandHelper::initRandGlobal(MTRand* which) {
+RandHelper::initRandGlobal(std::mt19937* which) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (which == 0) {
         which = &myRandomNumberGenerator;
     }
     if (oc.getBool("random")) {
-#ifdef _MSC_VER
-        long s = myRandomNumberGenerator.hash(time(NULL), clock()) + SysUtils::getWindowsTicks();
-        int s2 = (int)(s & 0xffff) ^ (s >> 16);
-        which->seed(s2);
-#else
         which->seed();
-#endif
     } else {
         which->seed(oc.getInt("seed"));
     }

@@ -344,7 +344,7 @@ NBNodeCont::removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKe
             }
         }
         components.insert(cIt, component);
-        if (components.size() > numKeep) {
+        if ((int)components.size() > numKeep) {
             toRemove.insert(components.back().begin(), components.back().end());
             components.pop_back();
         }

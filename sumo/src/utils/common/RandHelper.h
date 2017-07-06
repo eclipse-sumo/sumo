@@ -34,7 +34,7 @@
 
 #include <cassert>
 #include <vector>
-#include <foreign/mersenne/MersenneTwister.h>
+#include <random>
 
 
 // ===========================================================================
@@ -56,21 +56,17 @@ public:
     static void insertRandOptions();
 
     /// @brief Reads the given random number options and initialises the random number generator in accordance
-    static void initRandGlobal(MTRand* which = 0);
-
-    /// @brief Return the internal random number generator
-    static MTRand& getRNG() {
-        return myRandomNumberGenerator;
-    }
+    static void initRandGlobal(std::mt19937* which = 0);
 
     /// @brief Returns a random real number in [0, 1)
-    static inline double rand() {
-        return (double) RandHelper::myRandomNumberGenerator.randExc();
+    static inline double rand(std::mt19937* rng = 0) {
+        std::uniform_real_distribution<> dis(0., 1.);
+        return dis(rng != 0 ? *rng : myRandomNumberGenerator);
     }
 
     /// @brief Returns a random real number in [0, maxV)
-    static inline double rand(double maxV) {
-        return maxV * rand();
+    static inline double rand(double maxV, std::mt19937* rng = 0) {
+        return maxV * rand(rng);
     }
 
     /// @brief Returns a random real number in [minV, maxV)
@@ -79,8 +75,9 @@ public:
     }
 
     /// @brief Returns a random integer in [0, maxV-1]
-    static inline int rand(int maxV) {
-        return (int) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32)(maxV - 1));
+    static inline int rand(int maxV, std::mt19937* rng = 0) {
+        std::uniform_int_distribution<> dis(0, maxV - 1);
+        return dis(rng != 0 ? *rng : myRandomNumberGenerator);
     }
 
     /// @brief Returns a random integer in [minV, maxV-1]
@@ -90,7 +87,8 @@ public:
 
     /// @brief Returns a random 64 bit integer in [0, maxV-1]
     static inline long long int rand(long long int maxV) {
-        return (long long int) RandHelper::myRandomNumberGenerator.randInt64((unsigned long long int)(maxV - 1));
+        std::uniform_int_distribution<long long int> dis(0, maxV - 1);
+        return dis(RandHelper::myRandomNumberGenerator);
     }
 
     /// @brief Returns a random 64 bit integer in [minV, maxV-1]
@@ -99,18 +97,9 @@ public:
     }
 
     /// @brief Access to a random number from a normal distribution
-    static inline double randNorm(double mean, double variance, MTRand* rng = 0) {
-        if (rng == 0) {
-            rng = &myRandomNumberGenerator;
-        }
-        // Polar method to avoid cosine
-        double u, q;
-        do {
-            u = rng->randExc(2.0) - 1;
-            const double v = rng->randExc(2.0) - 1;
-            q  = u * u + v * v;
-        } while (q == 0.0 || q >= 1.0);
-        return (double)(mean + variance * u * sqrt(-2 * log(q) / q));
+    static inline double randNorm(double mean, double variance, std::mt19937* rng = 0) {
+        std::normal_distribution<> dis(mean, variance);
+        return dis(rng != 0 ? *rng : myRandomNumberGenerator);
     }
 
     /// @brief Returns a random element from the given vector
@@ -124,7 +113,7 @@ public:
 
 protected:
     /// @brief the random number generator to use
-    static MTRand myRandomNumberGenerator;
+    static std::mt19937 myRandomNumberGenerator;
 
 };
 

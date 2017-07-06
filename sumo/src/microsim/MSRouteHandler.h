@@ -67,7 +67,7 @@ public:
     /// standard destructor
     virtual ~MSRouteHandler();
 
-    static MTRand* getParsingRNG() {
+    static std::mt19937* getParsingRNG() {
         return &myParsingRNG;
     }
 
@@ -177,7 +177,7 @@ protected:
     bool myAmLoadingState;
 
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
-    static MTRand myParsingRNG;
+    static std::mt19937 myParsingRNG;
 
 private:
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.

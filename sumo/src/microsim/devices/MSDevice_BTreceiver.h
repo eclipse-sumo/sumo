@@ -31,6 +31,7 @@
 #include <config.h>
 #endif
 
+#include <random>
 #include "MSDevice.h"
 #include "MSDevice_BTsender.h"
 #include <utils/common/SUMOTime.h>
@@ -370,7 +371,7 @@ private:
     static double inquiryDelaySlots(const int backoffLimit);
 
     /// @brief A random number generator used to determine whether the opposite was recognized
-    static MTRand sRecognitionRNG;
+    static std::mt19937 sRecognitionRNG;
 
     /// @brief The list of arrived receivers
     static std::map<std::string, VehicleInformation*> sVehicles;

@@ -187,7 +187,7 @@ FXIMPLEMENT(GUIApplicationWindow, FXMainWindow, GUIApplicationWindowMap, ARRAYNU
 // ===========================================================================
 // static members
 // ===========================================================================
-MTRand GUIApplicationWindow::myGamingRNG;
+std::mt19937 GUIApplicationWindow::myGamingRNG;
 
 // ===========================================================================
 // member method definitions
