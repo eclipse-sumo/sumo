@@ -130,7 +130,7 @@ private:
 
         /// @brief add a new data point
         void add(double time, EncounterType type, Position egoX, Position egoV, Position foeX, Position foeV,
-                double egoDistToConflict, double foeDistToConflict);
+                double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double,double> pet);
 
         /// @brief Returns the number of trajectory points stored
         std::size_t size() const {
@@ -229,17 +229,17 @@ private:
         double foeConflictEntryDist;
         double egoConflictExitDist;
         double foeConflictExitDist;
-        double egoConflictEntryTime;
-        double foeConflictEntryTime;
-        double egoConflictExitTime;
-        double foeConflictExitTime;
+        double egoEstimatedConflictEntryTime;
+        double foeEstimatedConflictEntryTime;
+        double egoEstimatedConflictExitTime;
+        double foeEstimatedConflictExitTime;
         double egoConflictAreaLength;
         double foeConflictAreaLength;
         bool egoLeftConflict;
         bool foeLeftConflict;
         double ttc;
         double drac;
-        double pet;
+        std::pair<double,double> pet;
     };
 
 
@@ -459,7 +459,15 @@ private:
      *        and egoConflictExitTime, foeConflictExitTime (estimated time until the conflict exit point is reached).
      *        Further the type of the encounter as determined by classifyEncounter(), is refined for the cases CROSSING and MERGING here.
      */
-    void estimateConflictTimes(EncounterApproachInfo& eInfo) const;
+    static void estimateConflictTimes(EncounterApproachInfo& eInfo);
+
+
+    /** @brief Checks whether ego or foe have entered or left the conflict area in the last step and eventually writes
+     *         the corresponding entry or exit times to eInfo.encounter.
+     *  @param[in/out] eInfo  Info structure for the current state of the encounter.
+     *  @note The times are to be used for SSM computation in computeSSMs(), e.g. in determinePET()
+     */
+    static void checkConflictEntryAndExit(EncounterApproachInfo& eInfo);
 
 
     /** @brief Computes the conflict lane for the foe
@@ -488,7 +496,7 @@ private:
 
 
     /** @brief Discriminates between different encounter types and correspondingly determines the PET for those cases
-     *         and writes the result to eInfo.pet
+     *         and writes the result to eInfo.pet (after both vehicles have left the conflict area)
      */
     void determinePET(EncounterApproachInfo& eInfo) const;
 
@@ -510,6 +518,15 @@ private:
      */
     double computeDRAC(double gap, double followerSpeed, double leaderSpeed) const;
 
+
+    /** @brief make a string of a double vector and treat a special value as invalid ("NA")
+     *
+     * @param v vector to be converted to string
+     * @param NA value to be treated as NA
+     * @param sep separator for values in string
+     * @return String concatenation of the vector entries
+     */
+    static std::string makeStringWithNAs(std::vector<double> v, double NA, std::string sep=" ");
 
     /// @name parameter load helpers (introduced for readability of buildVehicleDevices())
     /// @{
