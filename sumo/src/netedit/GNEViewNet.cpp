@@ -411,9 +411,6 @@ long
 GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
     FXEvent* e = (FXEvent*) data;
     setFocus();
-    // limit position depending of myMenuCheckShowGrid
-    Position clickedPosition = snapToActiveGrid(getPositionInformation());
-
     // interpret object under curser
     if (makeCurrent()) {
         int id = getObjectUnderCursor();
@@ -469,7 +466,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                         myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
                     }
                     if (!pointed_junction) {
-                        pointed_junction = myNet->createJunction(clickedPosition, myUndoList);
+                        pointed_junction = myNet->createJunction(snapToActiveGrid(getPositionInformation()), myUndoList);
                     }
                     if (myCreateEdgeSource == 0) {
                         myCreateEdgeSource = pointed_junction;
@@ -530,9 +527,9 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     } else {
                         myJunctionToMove = pointed_junction;
                     }
-                    // Set myMovingOriginalPosition and myMovingReference
-                    myMovingOriginalPosition = getPositionInformation();
-                    myMovingReference = pointed_junction->getPositionInView() - clickedPosition;
+                    // Save original Position of Element and obtain moving reference
+                    myMovingOriginalPosition = pointed_junction->getPositionInView();
+                    myMovingReference = getPositionInformation();
                 } else if (pointed_edge) {
                     if (gSelected.isSelected(GLO_EDGE, pointed_edge->getGlID())) {
                         myMovingSelection = true;
@@ -569,11 +566,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                                     myMovingOriginalPosition.set(GNEAttributeCarrier::parse<double>(myAdditionalToMove->getAttribute(SUMO_ATTR_POSITION)), 0);
                                 }
                                 // Set myMovingReference
-                                myMovingReference.set(pointed_additional->getLane()->getShape().nearest_offset_to_point2D(clickedPosition, false), 0, 0);
+                                myMovingReference.set(pointed_additional->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false), 0, 0);
                             } else {
-                                // Set myMovingOriginalPosition and myMovingReference
-                                myMovingOriginalPosition = getPositionInformation();
-                                myMovingReference = pointed_additional->getPositionInView() - clickedPosition;
+                                // Save original Position of Element and obtain moving reference
+                                myMovingOriginalPosition = pointed_additional->getPositionInView();
+                                myMovingReference = getPositionInformation();
                             }
                         }
                     }
@@ -748,7 +745,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
     } else if (myJunctionToMove) {
         // position is already up to date but we must register with myUndoList
         if (!mergeJunctions(myJunctionToMove)) {
-            myJunctionToMove->commmitGeometryMoving(myMovingOriginalPosition + myMovingReference, myUndoList);
+            myJunctionToMove->commmitGeometryMoving(myMovingOriginalPosition, myUndoList);
         }
         myJunctionToMove = 0;
     } else if (myEdgeToMove) {
@@ -757,11 +754,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* data) {
         myEdgeToMove->setAttribute(SUMO_ATTR_SHAPE, newShape, myUndoList);
         myEdgeToMove = 0;
     } else if (myAdditionalToMove) {
-        if (myAdditionalToMove->getLane()) {
-            myAdditionalToMove->commmitGeometryMoving(myMovingOriginalPosition, myUndoList);
-        } else {
-            myAdditionalToMove->commmitGeometryMoving(myMovingOriginalPosition + myMovingReference, myUndoList);
-        }
+        myAdditionalToMove->commmitGeometryMoving(myMovingOriginalPosition, myUndoList);
         myAdditionalToMove = 0;
     } else if (myMovingSelection) {
         // positions and shapes are already up to date but we must register with myUndoList
@@ -820,8 +813,6 @@ GNEViewNet::onDoubleClicked(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
     GUISUMOAbstractView::onMouseMove(obj, sel, data);
-    // limit position depending of myMenuCheckShowGrid
-    Position clickedPosition = snapToActiveGrid(getPositionInformation());
     // in delete mode object under cursor must be checked in every mouse movement
     if (myEditMode == GNE_MODE_DELETE) {
         setFocus();
@@ -836,36 +827,36 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* data) {
         }
     } else {
         if (myPolyToMove) {
-            myMovingOriginalPosition = myPolyToMove->moveGeometry(myMovingOriginalPosition, clickedPosition);
+            myMovingOriginalPosition = myPolyToMove->moveGeometry(myMovingOriginalPosition, getPositionInformation());
         } else if (myPoiToMove) {
-            myPoiToMove->move(clickedPosition);
+            myPoiToMove->move(getPositionInformation());
         } else if (myJunctionToMove) {
             // check if  one of their junctions neighboors is in the position objective
             std::vector<GNEJunction*> junctionNeighbours = myJunctionToMove->getJunctionNeighbours();
             for (std::vector<GNEJunction*>::iterator i = junctionNeighbours.begin(); i != junctionNeighbours.end(); i++) {
-                if ((*i)->getPositionInView() == clickedPosition) {
+                if ((*i)->getPositionInView() == getPositionInformation()) {
                     return 0;
                 }
             }
             // Calculate movement offset and move geometry of junction
-            Position offsetPosition = clickedPosition - myMovingOriginalPosition;
-            myJunctionToMove->moveJunctionGeometry2D(myMovingOriginalPosition + offsetPosition + myMovingReference);
+            Position offsetPosition = myMovingReference - getPositionInformation();
+            myJunctionToMove->moveJunctionGeometry2D(snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
         } else if (myEdgeToMove) {
-            myMovingOriginalPosition = myEdgeToMove->moveGeometry(myMovingOriginalPosition, clickedPosition);
+            myMovingOriginalPosition = myEdgeToMove->moveGeometry(myMovingOriginalPosition, getPositionInformation());
         } else if (myAdditionalToMove) {
             // If additional is placed over lane, move it across it
             if (myAdditionalToMove->getLane()) {
-                double posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(clickedPosition, false);
+                double posOfMouseOverLane = myAdditionalToMove->getLane()->getShape().nearest_offset_to_point2D(getPositionInformation(), false);
                 myAdditionalToMove->moveGeometry(Position(posOfMouseOverLane - myMovingReference.x(), 0));
                 myMovingReference.set(posOfMouseOverLane, 0, 0);
             } else {
-                // Calculate movement offset and move geometry of additional
-                Position offsetPosition = clickedPosition - myMovingOriginalPosition;
-                myAdditionalToMove->moveGeometry(myMovingOriginalPosition + offsetPosition + myMovingReference);
+                // Calculate movement offset and move geometry of junction
+                Position offsetPosition = myMovingReference - getPositionInformation();
+                myAdditionalToMove->moveGeometry(snapToActiveGrid(myMovingOriginalPosition - offsetPosition));
             }
             update();
         } else if (myMovingSelection) {
-            Position moveTarget = clickedPosition;
+            Position moveTarget = getPositionInformation();
             myNet->moveSelection(myMovingOriginalPosition, moveTarget);
             myMovingOriginalPosition = moveTarget;
         } else if (myAmInRectSelect) {
