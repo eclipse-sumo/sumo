@@ -72,7 +72,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into, int maxRoutes = INT_MAX);
+    static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into, int maxRoutes = std::numeric_limits<int>::max());
 
 
     /// @brief generate vehroute output for vehicles which are still in the network
