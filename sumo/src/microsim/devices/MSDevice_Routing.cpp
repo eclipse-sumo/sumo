@@ -384,7 +384,10 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                     const double speedFactor = myHolder.getChosenSpeedFactor();
                     // we need an exemplary vehicle with speedFactor 1
                     myHolder.setChosenSpeedFactor(1);
-                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &MSNet::getInstance()->getRouterTT(), &myHolder);
+                    CHRouterWrapper<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> > router(
+                            MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
+                            string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
+                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, &myHolder);
                     myHolder.setChosenSpeedFactor(speedFactor);
                 }
                 myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
@@ -397,7 +400,10 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                     const double speedFactor = myHolder.getChosenSpeedFactor();
                     // we need an exemplary vehicle with speedFactor 1
                     myHolder.setChosenSpeedFactor(1);
-                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &MSNet::getInstance()->getRouterTT(), &myHolder);
+                    CHRouterWrapper<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> > router(
+                            MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
+                            string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
+                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, &myHolder);
                     myHolder.setChosenSpeedFactor(speedFactor);
                 }
                 myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
