@@ -13,6 +13,9 @@ ticket2948
 # Crash when activating 'join-junctions' and the results node has the same position as other
 ticket3071
 
+# snap to grid is not working when moving junctions
+ticket3278
+
 # In revision [24081] was solved a bug, that provoke a crash 
 # when the position of a node was changed using inspector node,
 # due a call to computeSingleNode(...)
