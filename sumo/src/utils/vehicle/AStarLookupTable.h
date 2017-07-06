@@ -30,6 +30,9 @@
 #include <config.h>
 #endif
 
+#include <iostream>
+#include <fstream>
+
 #define UNREACHABLE (std::numeric_limits<double>::max() / 1000.0)
 
 //#define ASTAR_DEBUG_LOOKUPTABLE
@@ -96,7 +99,7 @@ private:
 template<class E, class V>
 class LandmarkLookupTable : public AbstractLookupTable<E, V> {
 public:
-    LandmarkLookupTable(const std::string& filename, const int /*size*/) {
+    LandmarkLookupTable(const std::string& filename, const std::vector<E*>& edges, SUMOAbstractRouter<E, V>* router, const V* defaultVehicle) {
         std::ifstream strm(filename.c_str());
         if (!strm.good()) {
             throw ProcessError("Could not load landmark-lookup-table from '" + filename + "'.");
@@ -121,6 +124,55 @@ public:
                 double distTo = TplConvert::_2double(st.get(3).c_str());
                 myFromLandmarkDists[myLandmarks[lm]].push_back(distFrom);
                 myToLandmarkDists[myLandmarks[lm]].push_back(distTo);
+            }
+        }
+        const std::string missing = filename + ".missing";
+        std::ofstream ostrm(missing.c_str());
+        for (int i = 0; i < (int)myLandmarks.size(); ++i) {
+            if (myFromLandmarkDists[i].size() != edges.size()) {
+                const std::string landmarkID = getLandmark(i);
+                const E* landmark = 0;
+                // retrieve landmark edge
+                for (typename std::vector<E*>::const_iterator it_e = edges.begin(); it_e != edges.end(); ++it_e) {
+                    if ((*it_e)->getID() == landmarkID) {
+                        landmark = *it_e;
+                    }
+                }
+                if (landmark == 0) {
+                    WRITE_WARNING("Landmark '" + landmarkID + "' does not exist in the network.");
+                    continue;
+                }
+                if (router != 0) {
+                    WRITE_WARNING("Not all network edges were found in the lookup table '" + filename + "' for landmark '" + landmarkID + "'. Saving missing values to '" + missing + "'.");
+                    if (!ostrm.good()) {
+                        throw ProcessError("Could not open file '" + missing + "' for writing.");
+                    }
+                } else {
+                    throw ProcessError("Not all network edges were found in the lookup table '" + filename + "' for landmark '" + landmarkID + "'.");
+                }
+                std::vector<const E*> routeLM(1, landmark); 
+                const double lmCost = router->recomputeCosts(routeLM, defaultVehicle, 0);
+                for (int j = myFromLandmarkDists[i].size(); j < edges.size(); ++j) {
+                    double distFrom = -1;
+                    double distTo = -1;
+                    std::vector<const E*> route; 
+                    std::vector<const E*> routeE(1, edges[j]); 
+                    const double sourceDestCost = lmCost + router->recomputeCosts(routeE, defaultVehicle, 0);
+                    // compute from-distance
+                    router->compute(landmark, edges[j], defaultVehicle, 0, route);
+                    if (route.size() > 0) {
+                        distFrom = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
+                    }
+                    // compute to-distance
+                    route.clear();
+                    router->compute(edges[j], landmark, defaultVehicle, 0, route);
+                    if (route.size() > 0) {
+                        distTo = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
+                    }
+                    myFromLandmarkDists[i].push_back(distFrom);
+                    myToLandmarkDists[i].push_back(distTo);
+                    ostrm << landmarkID << " " << edges[j]->getID() << " " << distFrom << " " << distTo << "\n";
+                }
             }
         }
     }

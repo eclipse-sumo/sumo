@@ -130,7 +130,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 if (oc.isSet("astar.all-distances")) {
                     lookup = new AStar::FLT(oc.getString("astar.all-distances"), (int)ROEdge::getAllEdges().size());
                 } else if (oc.isSet("astar.landmark-distances")) {
-                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), (int)ROEdge::getAllEdges().size());
+                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), 0, 0);
                 }
                 router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, lookup);
             } else {
@@ -139,7 +139,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 if (oc.isSet("astar.all-distances")) {
                     lookup = new AStar::FLT(oc.getString("astar.all-distances"), (int)ROEdge::getAllEdges().size());
                 } else if (oc.isSet("astar.landmark-distances")) {
-                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), (int)ROEdge::getAllEdges().size());
+                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), 0, 0);
                 }
                 router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, lookup);
             }

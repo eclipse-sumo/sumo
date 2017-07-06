@@ -381,7 +381,11 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                 if (oc.isSet("astar.all-distances")) {
                     lookup = new AStar::FLT(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
                 } else if (oc.isSet("astar.landmark-distances")) {
-                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), (int)MSEdge::getAllEdges().size());
+                    const double speedFactor = myHolder.getChosenSpeedFactor();
+                    // we need an exemplary vehicle with speedFactor 1
+                    myHolder.setChosenSpeedFactor(1);
+                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &MSNet::getInstance()->getRouterTT(), &myHolder);
+                    myHolder.setChosenSpeedFactor(speedFactor);
                 }
                 myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
             } else {
@@ -390,7 +394,11 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                 if (oc.isSet("astar.all-distances")) {
                     lookup = new AStar::FLT(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
                 } else if (oc.isSet("astar.landmark-distances")) {
-                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), (int)MSEdge::getAllEdges().size());
+                    const double speedFactor = myHolder.getChosenSpeedFactor();
+                    // we need an exemplary vehicle with speedFactor 1
+                    myHolder.setChosenSpeedFactor(1);
+                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &MSNet::getInstance()->getRouterTT(), &myHolder);
+                    myHolder.setChosenSpeedFactor(speedFactor);
                 }
                 myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
             }
