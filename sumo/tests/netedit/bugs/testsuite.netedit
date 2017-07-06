@@ -13,6 +13,9 @@ ticket2948
 # Crash when activating 'join-junctions' and the results node has the same position as other
 ticket3071
 
+# When grid is shown, new edges do not use existing junctions 
+ticket3271
+
 # snap to grid is not working when moving junctions
 ticket3278
 
