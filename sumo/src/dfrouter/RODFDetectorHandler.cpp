@@ -72,7 +72,7 @@ RODFDetectorHandler::myStartElement(int element,
                 throw ProcessError();
             }
             ROEdge* edge = myNet->getEdge(lane.substr(0, lane.rfind('_')));
-            int laneIndex = TplConvert::_2intSec(lane.substr(lane.rfind('_') + 1).c_str(), INT_MAX);
+            int laneIndex = TplConvert::_2intSec(lane.substr(lane.rfind('_') + 1).c_str(), std::numeric_limits<int>::max());
             if (edge == 0 || laneIndex >= edge->getNumLanes()) {
                 throw ProcessError("Unknown lane '" + lane + "' for detector '" + id + "' in '" + getFileName() + "'.");
             }
