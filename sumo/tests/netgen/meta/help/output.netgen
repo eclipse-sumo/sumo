@@ -1,4 +1,4 @@
-SUMO netgenerate Version dev-SVN-r24506
+SUMO netgenerate Version dev-SVN-r25113
  Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -189,6 +189,8 @@ Processing Options:
   --roundabouts.guess                  Enable roundabout-guessing
   --opposites.guess                    Enable guessing of opposite direction
                                          lanes usable for overtaking
+  --opposites.guess.fix-lengths        Ensure that opposite edges have the same
+                                         length
   --lefthand                           Assumes left-hand traffic on the network
   --edges.join                         Merges edges which connect the same
                                          nodes and are close to each other
