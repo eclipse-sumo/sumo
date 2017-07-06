@@ -1498,6 +1498,7 @@ NIImporter_OpenStreetMap::getNeighboringNodes(NBNode* node, double maxDist, cons
     std::set<NBNode*> visited;
     std::vector<NBNode*> open;
     open.push_back(node);
+    result[node] = std::make_pair(0, 0);
     while (open.size() > 0) {
         NBNode* n = open.back();
         open.pop_back();
@@ -1526,6 +1527,7 @@ NIImporter_OpenStreetMap::getNeighboringNodes(NBNode* node, double maxDist, cons
             }
         }
     }
+    result.erase(node);
     return result;
 }
 
