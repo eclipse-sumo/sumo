@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/08/15 11:15:06 by SUMO Version dev-SVN-r17560
+<!-- generated on 07/06/17 12:32:17 by SUMO Version dev-SVN-r25114
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -21,7 +21,7 @@
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -39,7 +39,6 @@
     <bt id="right">
         <seen id="left" tBeg="3.00" observerPosBeg="44.34,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="beg_0" observerLanePosBeg="44.77" seenPosBeg="3.07,498.35" seenSpeedBeg="13.89" seenLaneIDBeg="beg_0" seenLanePosBeg="3.10" tEnd="38.82" observerPosEnd="498.35,453.40" observerSpeedEnd="13.89" observerLaneIDEnd="beg2right_0" observerLanePosEnd="544.81" seenPosEnd="498.51,503.40" seenSpeedEnd="13.89" seenLaneIDEnd="beg2left_0" seenLanePosEnd="503.14" observerRoute="beg beg2right" seenRoute="beg beg2left">
             <recognitionPoint t="4.00" observerPos="58.10,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="58.66" seenPos="16.83,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="16.99"/>
-            <recognitionPoint t="5.00" observerPos="71.86,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="72.55" seenPos="30.59,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="30.88"/>
             <recognitionPoint t="6.00" observerPos="85.62,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="86.44" seenPos="44.34,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="44.77"/>
             <recognitionPoint t="7.00" observerPos="99.38,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="100.33" seenPos="58.10,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="58.66"/>
             <recognitionPoint t="8.00" observerPos="113.13,498.35" observerSpeed="13.89" observerLaneID="beg_0" observerLanePos="114.22" seenPos="71.86,498.35" seenSpeed="13.89" seenLaneID="beg_0" seenLanePos="72.55"/>
