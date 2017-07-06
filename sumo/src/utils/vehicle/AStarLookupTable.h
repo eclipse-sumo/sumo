@@ -153,25 +153,35 @@ public:
                 std::vector<const E*> routeLM(1, landmark); 
                 const double lmCost = router->recomputeCosts(routeLM, defaultVehicle, 0);
                 for (int j = myFromLandmarkDists[i].size(); j < edges.size(); ++j) {
+                    const E* edge = edges[j];
                     double distFrom = -1;
                     double distTo = -1;
-                    std::vector<const E*> route; 
-                    std::vector<const E*> routeE(1, edges[j]); 
-                    const double sourceDestCost = lmCost + router->recomputeCosts(routeE, defaultVehicle, 0);
-                    // compute from-distance
-                    router->compute(landmark, edges[j], defaultVehicle, 0, route);
-                    if (route.size() > 0) {
-                        distFrom = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
-                    }
-                    // compute to-distance
-                    route.clear();
-                    router->compute(edges[j], landmark, defaultVehicle, 0, route);
-                    if (route.size() > 0) {
-                        distTo = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
+                    if (landmark == edge) {
+                        distFrom = 0;
+                        distTo = 0;
+                    } else {
+                        std::vector<const E*> route; 
+                        std::vector<const E*> routeE(1, edge); 
+                        const double sourceDestCost = lmCost + router->recomputeCosts(routeE, defaultVehicle, 0);
+                        // compute from-distance (skip taz-sources and other unreachable edges)
+                        if (edge->getPredecessors().size() > 0 && landmark->getSuccessors().size() > 0) {
+                            router->compute(landmark, edge, defaultVehicle, 0, route);
+                            if (route.size() > 0) {
+                                distFrom = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
+                            }
+                        }
+                        // compute to-distance (skip unreachable landmarks)
+                        if (landmark->getPredecessors().size() > 0 && edge->getSuccessors().size() > 0) {
+                            route.clear();
+                            router->compute(edge, landmark, defaultVehicle, 0, route);
+                            if (route.size() > 0) {
+                                distTo = MAX2(0.0, router->recomputeCosts(route, defaultVehicle, 0) - sourceDestCost);
+                            }
+                        }
                     }
                     myFromLandmarkDists[i].push_back(distFrom);
                     myToLandmarkDists[i].push_back(distTo);
-                    ostrm << landmarkID << " " << edges[j]->getID() << " " << distFrom << " " << distTo << "\n";
+                    ostrm << landmarkID << " " << edge->getID() << " " << distFrom << " " << distTo << "\n";
                 }
             }
         }
