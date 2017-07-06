@@ -457,6 +457,12 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
             }
         }
 
+        // check if there is anoter object in an hypotetic 
+        GUIGlObject* objectInSnappedToGridPosition = GUIGlObjectStorage::gIDStorage.getObjectBlocking(getObjectAtPosition(snapToActiveGrid(getPositionInformation())));
+        if((pointed_junction == NULL) && (objectInSnappedToGridPosition != NULL) && (objectInSnappedToGridPosition->getType() == GLO_JUNCTION)) {
+            pointed_junction = (GNEJunction*)objectInSnappedToGridPosition;
+        }
+
         // decide what to do based on mode
         switch (myEditMode) {
             case GNE_MODE_CREATE_EDGE: {
