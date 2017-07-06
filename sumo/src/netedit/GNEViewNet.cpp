@@ -515,10 +515,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
             case GNE_MODE_MOVE: {
                 if (pointed_poly) {
                     myPolyToMove = pointed_poly;
-                    myMovingOriginalPosition = clickedPosition;
+                    myMovingOriginalPosition = getPositionInformation();
                 } else if (pointed_poi) {
                     myPoiToMove = pointed_poi;
-                    myMovingOriginalPosition = clickedPosition;
+                    myMovingOriginalPosition = getPositionInformation();
                 } else if (pointed_junction) {
                     if (gSelected.isSelected(GLO_JUNCTION, pointed_junction->getGlID())) {
                         myMovingSelection = true;
@@ -531,15 +531,15 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                         myJunctionToMove = pointed_junction;
                     }
                     // Set myMovingOriginalPosition and myMovingReference
-                    myMovingOriginalPosition = clickedPosition;
-                    myMovingReference = snapToActiveGrid(pointed_junction->getPositionInView() - clickedPosition);
+                    myMovingOriginalPosition = getPositionInformation();
+                    myMovingReference = pointed_junction->getPositionInView() - clickedPosition;
                 } else if (pointed_edge) {
                     if (gSelected.isSelected(GLO_EDGE, pointed_edge->getGlID())) {
                         myMovingSelection = true;
                     } else {
                         myEdgeToMove = pointed_edge;
                     }
-                    myMovingOriginalPosition = clickedPosition;
+                    myMovingOriginalPosition = getPositionInformation();
                 } else if (pointed_additional) {
                     if (gSelected.isSelected(GLO_ADDITIONAL, pointed_additional->getGlID())) {
                         myMovingSelection = true;
@@ -572,8 +572,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                                 myMovingReference.set(pointed_additional->getLane()->getShape().nearest_offset_to_point2D(clickedPosition, false), 0, 0);
                             } else {
                                 // Set myMovingOriginalPosition and myMovingReference
-                                myMovingOriginalPosition = clickedPosition;
-                                myMovingReference = snapToActiveGrid(pointed_additional->getPositionInView() - clickedPosition);
+                                myMovingOriginalPosition = getPositionInformation();
+                                myMovingReference = pointed_additional->getPositionInView() - clickedPosition;
                             }
                         }
                     }
@@ -673,8 +673,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* data) {
 
                 myAmInRectSelect = (((FXEvent*)data)->state & SHIFTMASK) != 0;
                 if (myAmInRectSelect) {
-                    mySelCorner1 = clickedPosition;
-                    mySelCorner2 = clickedPosition;
+                    mySelCorner1 = getPositionInformation();
+                    mySelCorner2 = getPositionInformation();
                 } else {
                     // process click
                     processClick(e, data);
