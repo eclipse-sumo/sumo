@@ -171,7 +171,7 @@ def _reroutePersons(edge):
                 row = int(edge[4])
                 targetEdge = "footmain%sto%s" % (row, row + 1)
                 traci.vehicle.setStop(
-                    person, edge.replace("slot", "-foot"), 1., 0, 0.)
+                    person, edge.replace("slot", "-foot"), 1., 0, 0)
                 stopAt(person, targetEdge)
                 vehicleStatus[person].parking = False
                 vehicleStatus[person].slot = edge
