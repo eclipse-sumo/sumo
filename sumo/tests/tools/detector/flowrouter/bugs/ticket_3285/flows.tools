@@ -1,0 +1,6 @@
+<additional>
+    <flow id="src_1qPKW.0" departSpeed="max" departPos="last" departLane="best" number="100" begin="0" end="3600">
+        <routeDistribution routes="1.0qPKW.0 1.1qPKW.0" probabilities="75 25"/>
+    </flow>
+</additional>
+
