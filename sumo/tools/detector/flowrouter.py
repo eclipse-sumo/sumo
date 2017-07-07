@@ -450,7 +450,7 @@ class Net:
         unsatEdge.target.flowDelta = startVertex.flowDelta
         unsatEdge.target.gain = startVertex.flowDelta * numSatEdges
 
-    def pullFlow(self, unsatEdge):
+    def pullFlow(self, unsatEdge, limitSource, limitSink):
         if options.verbose:
             print("Trying to increase flow on", unsatEdge)
         for vertex in self._vertices:
@@ -463,7 +463,7 @@ class Net:
             currVertex = queue.pop(0)
             if currVertex == self._source or currVertex == self._sink:
                 self.savePulledPath(currVertex, unsatEdge, pred)
-                return self.findPath(unsatEdge.target, currVertex)
+                return self.findPath(unsatEdge.target, currVertex, limitSource, limitSink)
             for edge in currVertex.inEdges:
                 if edge.source not in pred and edge.flow < edge.capacity:
                     queue.append(edge.source)
@@ -489,7 +489,7 @@ class Net:
                 if not pathFound and options.pullflow:
                     for edge in sorted(self._edges.values()):
                         if edge.startCapacity < sys.maxsize:
-                            while edge.flow < edge.capacity and self.pullFlow(edge):
+                            while edge.flow < edge.capacity and self.pullFlow(edge, limitSource, limitSink):
                                 pathFound = True
         # the rest of this function only tests assertions
         for vertex in self._vertices:
