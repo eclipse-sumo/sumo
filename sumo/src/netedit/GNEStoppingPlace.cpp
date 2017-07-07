@@ -96,18 +96,9 @@ GNEStoppingPlace::moveGeometry(const Position &newPosition) {
         lenghtDifference = myLane->getLaneParametricLength() / myLane->getLaneShapeLength();
     }
     double relativePos = newPosition.x() / myLane->getLaneParametricLength() * lenghtDifference;
-    double stoppingPlaceLenght = myEndPosRelative - myStartPosRelative;
     // change start position of stopping place
-    if((myStartPosRelative + relativePos) < 0) {
-        myStartPosRelative = 0;
-        myEndPosRelative = stoppingPlaceLenght;
-    } else if (myEndPosRelative + relativePos > 1) {
-        myStartPosRelative = 1 - stoppingPlaceLenght;
-        myEndPosRelative = 1;
-    } else {
-        myStartPosRelative += relativePos;
-        myEndPosRelative += relativePos;
-    }
+    myStartPosRelative += relativePos;
+    myEndPosRelative += relativePos;
     // Update geometry
     updateGeometry();
 }
