@@ -783,7 +783,7 @@ if net.detectSourceSink(sources, sinks):
             print("No flows in '%s'" % flow)
             sys.exit(1)
         if options.verbose:
-            print("Reading flows between %s and %s" % tMin, tMax)
+            print("Reading flows between %s and %s" % (tMin, tMax))
         start = int(tMin - (tMin % options.interval))
         while start < tMax:
             suffix = "%s.%s" % (options.flowcol, start)
