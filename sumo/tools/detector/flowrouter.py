@@ -775,12 +775,18 @@ if net.detectSourceSink(sources, sinks):
         poiOut = open(options.flowpoifile, 'w')
         print("<pois>", file=poiOut)
     if options.interval:
-        haveFlows = True
-        start = 0
-        while haveFlows:
+        tMin = None
+        tMax = None
+        for flow in options.flowfiles:
+            tMin, tMax = reader._detReader.findTimes(flow, tMin, tMax)
+        if tMin is None:
+            print("No flows in '%s'" % flow)
+            sys.exit(1)
+        if options.verbose:
+            print("Reading flows between %s and %s" % tMin, tMax)
+        start = int(tMin - (tMin % options.interval))
+        while start < tMax:
             suffix = "%s.%s" % (options.flowcol, start)
-            if options.verbose:
-                print("Reading flows")
             for flow in options.flowfiles:
                 haveFlows = reader.readFlows(
                     flow, start, start + options.interval)
@@ -798,6 +804,9 @@ if net.detectSourceSink(sources, sinks):
                 net.writeEmitters(
                     emitOut, 60 * start, 60 * (start + options.interval), suffix)
                 net.writeFlowPOIs(poiOut, suffix)
+            else:
+                if options.verbose:
+                    print("No flows found")
             reader.clearFlows()
             start += options.interval
     else:

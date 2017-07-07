@@ -150,3 +150,26 @@ class DetectorReader(handler.ContentHandler):
                             self.addFlow(
                                 flowDef[detIdx], float(flowDef[flowIdx]))
         return hadFlow
+
+    def findTimes(self, flowFile, tMin, tMax, det="Detector", time="Time"):
+        timeIdx = 1
+        with open(flowFile) as f:
+            for l in f:
+                if not ';' in l:
+                    continue
+                flowDef = [e.strip() for e in l.split(';')]
+                if det in flowDef:
+                    if time in flowDef:
+                        timeIdx = flowDef.index(time)
+                elif len(flowDef) > timeIdx:
+                    curTime = float(flowDef[timeIdx])
+                    if tMin is None or tMin > curTime:
+                        tMin = curTime
+                    if tMax is None or tMax < curTime:
+                        tMax = curTime
+        return tMin, tMax
+
+
+
+
+
