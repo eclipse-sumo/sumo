@@ -785,7 +785,7 @@ if net.detectSourceSink(sources, sinks):
         if options.verbose:
             print("Reading flows between %s and %s" % (tMin, tMax))
         start = int(tMin - (tMin % options.interval))
-        while start < tMax:
+        while start <= tMax:
             suffix = "%s.%s" % (options.flowcol, start)
             for flow in options.flowfiles:
                 haveFlows = reader.readFlows(
