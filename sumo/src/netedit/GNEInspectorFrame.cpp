@@ -1002,7 +1002,7 @@ GNEInspectorFrame::AttributeInput::hide() {
 
 std::string 
 GNEInspectorFrame::AttributeInput::stripWhitespaceAfterComma(const std::string &stringValue) {
-    return std::regex_replace(stringValue, std::regex(", *"), ",");
+    return std::regex_replace(stringValue, std::regex(", *"), std::string(","));
 }
 
 /****************************************************************************/
