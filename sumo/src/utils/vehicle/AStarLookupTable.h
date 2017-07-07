@@ -152,7 +152,7 @@ public:
                 }
                 std::vector<const E*> routeLM(1, landmark); 
                 const double lmCost = router->recomputeCosts(routeLM, defaultVehicle, 0);
-                for (int j = myFromLandmarkDists[i].size(); j < edges.size(); ++j) {
+                for (int j = (int)myFromLandmarkDists[i].size(); j < (int)edges.size(); ++j) {
                     const E* edge = edges[j];
                     double distFrom = -1;
                     double distTo = -1;
