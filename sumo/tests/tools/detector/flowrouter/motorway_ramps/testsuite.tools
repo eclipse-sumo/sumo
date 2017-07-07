@@ -1,0 +1,9 @@
+# only flow on the main motorway
+all_main
+
+# only flow on the main motorway, aggregate by hour
+all_main_aggregate
+
+# only flow on the main motorway, aggregate by hour
+# flow data does not start at 0
+all_main_aggregate_lateData
