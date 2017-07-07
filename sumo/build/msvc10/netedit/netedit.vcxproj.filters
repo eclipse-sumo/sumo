@@ -369,6 +369,9 @@
     <ClCompile Include="..\..\..\src\netedit\GNEShape.cpp">
       <Filter>Quellcodedateien\Items\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDialog_FixStoppingPlaces.cpp">
+      <Filter>Quellcodedateien\Dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -612,6 +615,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEShape.h">
       <Filter>Header-Dateien\Items\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDialog_FixStoppingPlaces.h">
+      <Filter>Header-Dateien\Dialogs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
