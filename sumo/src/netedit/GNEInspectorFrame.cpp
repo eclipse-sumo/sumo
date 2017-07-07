@@ -31,6 +31,7 @@
 #include <iostream>
 #include <cassert>
 #include <cmath>
+#include <regex>
 #include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/foxtools/MFXUtils.h>
@@ -1001,26 +1002,7 @@ GNEInspectorFrame::AttributeInput::hide() {
 
 std::string 
 GNEInspectorFrame::AttributeInput::stripWhitespaceAfterComma(const std::string &stringValue) {
-    /** Note for the future:
-     * With C++ 11 can be used the function
-     * string = std::regex_replace(string, std::regex("\\$name"), "Somename");
-     */
-    std::string result;
-    for(int i = 0; i < ((int)stringValue.size() - 1); i++) {
-        if((stringValue.at(i) == ',') && (stringValue.at(i+1) == ' ')) {
-            result.push_back(stringValue.at(i));
-            i++;
-        } else if((stringValue.at(i) == ' ') && (stringValue.at(i+1) == ',')) {
-            i++;
-            result.push_back(stringValue.at(i));
-        } else if((stringValue.at(i) == ' ') && (stringValue.at(i+1) == ' ')) {
-            result.push_back(stringValue.at(i));
-            i++;
-        } else {
-            result.push_back(stringValue.at(i));
-        }
-    }
-    return result;
+    return std::regex_replace(stringValue, std::regex(", *"), ",");
 }
 
 /****************************************************************************/
