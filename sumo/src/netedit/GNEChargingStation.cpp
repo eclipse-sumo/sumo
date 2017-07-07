@@ -86,55 +86,17 @@ GNEChargingStation::~GNEChargingStation() {}
 
 void
 GNEChargingStation::updateGeometry() {
-    // Clear all containers
-    myShapeRotations.clear();
-    myShapeLengths.clear();
+    // Get value of option "lefthand"
+    double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
-    // Clear shape
-    myShape.clear();
-
-    // Get shape of lane parent
-    myShape = myLane->getShape();
-
-    // Cut shape using as delimitators from start position and end position
-    myShape = myShape.getSubpart(myStartPosRelative * myShape.length() , myEndPosRelative * myShape.length());
-
-    // Get number of parts of the shape
-    int numberOfSegments = (int) myShape.size() - 1;
-
-    // If number of segments is more than 0
-    if (numberOfSegments >= 0) {
-
-        // Reserve memory (To improve efficiency)
-        myShapeRotations.reserve(numberOfSegments);
-        myShapeLengths.reserve(numberOfSegments);
-
-        // For every part of the shape
-        for (int i = 0; i < numberOfSegments; ++i) {
-
-            // Obtain first position
-            const Position& f = myShape[i];
-
-            // Obtain next position
-            const Position& s = myShape[i + 1];
-
-            // Save distance between position into myShapeLengths
-            myShapeLengths.push_back(f.distanceTo(s));
-
-            // Save rotation (angle) of the vector constructed by points f and s
-            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
-        }
-    }
+    // Update common geometry of stopping place
+    setStoppingPlaceGeometry();
 
     // Obtain a copy of the shape
     PositionVector tmpShape = myShape;
 
     // Move shape to side
-    if (myRotationLefthand) {
-        tmpShape.move2side(-1.5);
-    } else {
-        tmpShape.move2side(1.5);
-    }
+    tmpShape.move2side(1.5 * offsetSign);
 
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
@@ -444,55 +406,18 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_STARTPOS:
             if(canParse<double>(value)) {
-                // obtain relative new start position
-                double newStartPos = parse<double>(value) / myLane->getLaneParametricLength();
-                if((newStartPos < 0) || (newStartPos > 1) || (newStartPos > myEndPosRelative)) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        case SUMO_ATTR_ENDPOS: {
-            if (canParse<double>(value)) {
-                // obtain relative new end position
-                double newEndPos = parse<double>(value) / myLane->getLaneParametricLength();
-                // check if relative endPosition is valid
-                if ((newEndPos < 0) || (newEndPos < myStartPosRelative)) {
-                    return false;
-                } else if (newEndPos > 1) {
-                    // write warning if netedit is running in testing mode
-                    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Opening FXMessageBox of type 'question'");
-                    }
-                    // Ask user if want to assign the length of lane as endPosition
-                    FXuint answer = FXMessageBox::question(getViewNet()->getApp(), MBOX_YES_NO,
-                                                           (toString(SUMO_ATTR_ENDPOS) + " exceeds the size of the " + toString(SUMO_TAG_LANE)).c_str(), "%s",
-                                                           (toString(SUMO_ATTR_ENDPOS) + " exceeds the size of the " + toString(SUMO_TAG_LANE) +
-                                                            ". Do you want to assign the length of the " + toString(SUMO_TAG_LANE) + " as " + toString(SUMO_ATTR_ENDPOS) + "?").c_str());
-                    if (answer == 1) { //1:yes, 2:no, 4:esc
-                        // write warning if netedit is running in testing mode
-                        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'Yes'");
-                        }
-                        // end position is valid
-                        return true;
-                    } else {
-                        // write warning if netedit is running in testing mode
-                        if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'No'");
-                        } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                            WRITE_WARNING("Closed FXMessageBox of type 'question' with 'ESC'");
-                        }
-                        return false;
-                    }
-                } else {
-                    // end position is valid
-                    return true;
-                }
+                // Check that new start Position is smaller that end position
+                return ((parse<double>(value) / myLane->getLaneParametricLength()) < myEndPosRelative);
             } else {
                 return false;
             }
-        }
+        case SUMO_ATTR_ENDPOS:
+            if(canParse<double>(value)) {
+                // Check that new end Position is larger that end position
+                return ((parse<double>(value) / myLane->getLaneParametricLength()) > myStartPosRelative);
+            } else {
+                return false;
+            }
         case SUMO_ATTR_NAME:
             return true;
         case SUMO_ATTR_FRIENDLY_POS:
@@ -526,16 +451,12 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPosRelative = parse<double>(value);
+            myStartPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
             updateGeometry();
             getViewNet()->update();
             break;
         case SUMO_ATTR_ENDPOS:
-            if (parse<double>(value) > myLane->getLaneParametricLength()) {
-                myEndPosRelative = myLane->getLaneParametricLength();
-            } else {
-                myEndPosRelative = parse<double>(value);
-            }
+            myEndPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
             updateGeometry();
             getViewNet()->update();
             break;

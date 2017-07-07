@@ -81,12 +81,6 @@ public:
     /// @brief check if Position of stoppingPlace are fixed
     bool areStoppingPlacesPositionsFixed();
 
-    /// @brief Returns the name of stoppingPlace
-    const std::string &getStoppingPlaceName() const;
-
-    /// @brief set a new Name in StoppingPlace
-    void setStoppingPlaceName(const std::string &name);
-
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
@@ -171,6 +165,9 @@ protected:
 
     /// @brief Text color selected (Default blue)
     RGBColor myTextColorSelected;
+
+    /// @brief set geometry common to all stopping places
+    void setStoppingPlaceGeometry();
 
 private:
     /// @brief set attribute after validation

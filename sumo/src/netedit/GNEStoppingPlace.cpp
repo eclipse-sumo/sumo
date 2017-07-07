@@ -153,20 +153,57 @@ GNEStoppingPlace::areStoppingPlacesPositionsFixed() {
 
 
 const std::string&
-GNEStoppingPlace::getStoppingPlaceName() const {
-    return myName;
+GNEStoppingPlace::getParentName() const {
+    return myLane->getMicrosimID();
 }
 
 
 void 
-GNEStoppingPlace::setStoppingPlaceName(const std::string &name) {
-    myName = name;
-}
+GNEStoppingPlace::setStoppingPlaceGeometry() {
+    // Clear all containers
+    myShapeRotations.clear();
+    myShapeLengths.clear();
 
+    // Get value of option "lefthand"
+    double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
-const std::string&
-GNEStoppingPlace::getParentName() const {
-    return myLane->getMicrosimID();
+    // Get shape of lane parent
+    myShape = myLane->getShape();
+
+    // Move shape to side
+    myShape.move2side(1.65 * offsetSign);
+
+    // Cut shape using as delimitators fixed start position and fixed end position
+    double startPosFixed = (myStartPosRelative < 0)? 0 : myStartPosRelative;
+    double endPosFixed = (myEndPosRelative > 1)? 1 : myEndPosRelative;
+    myShape = myShape.getSubpart(startPosFixed * myShape.length() , endPosFixed * myShape.length());
+
+    // Get number of parts of the shape
+    int numberOfSegments = (int) myShape.size() - 1;
+
+    // If number of segments is more than 0
+    if (numberOfSegments >= 0) {
+
+        // Reserve memory (To improve efficiency)
+        myShapeRotations.reserve(numberOfSegments);
+        myShapeLengths.reserve(numberOfSegments);
+
+        // For every part of the shape
+        for (int i = 0; i < numberOfSegments; ++i) {
+
+            // Obtain first position
+            const Position& f = myShape[i];
+
+            // Obtain next position
+            const Position& s = myShape[i + 1];
+
+            // Save distance between position into myShapeLengths
+            myShapeLengths.push_back(f.distanceTo(s));
+
+            // Save rotation (angle) of the vector constructed by points f and s
+            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
+        }
+    }
 }
 
 /****************************************************************************/
