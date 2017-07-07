@@ -168,8 +168,3 @@ class DetectorReader(handler.ContentHandler):
                     if tMax is None or tMax < curTime:
                         tMax = curTime
         return tMin, tMax
-
-
-
-
-

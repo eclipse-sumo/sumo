@@ -2,7 +2,7 @@
 /// @file    LandmarkLookupTable.h
 /// @author  Jakob Erdmann
 /// @date    July 2017
-/// @version $Id: LandmarkLookupTable.h 24460 2017-05-24 10:56:32Z namdre $
+/// @version $Id$
 ///
 // Precomputed landmark distances to speed up the A* routing algorithm
 /****************************************************************************/

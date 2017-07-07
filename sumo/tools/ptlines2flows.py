@@ -3,7 +3,7 @@
 @file    ptlines2flows.py
 @author  Gregor Laemmel
 @date    2017-06-23
-@version $Id: ptlines2flows.py 23851 2017-04-06 21:05:49Z behrisch $
+@version $Id$
 
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -37,8 +37,10 @@ def get_options():
     optParser.add_option("-l", "--ptlines-file", dest="ptlines", help="public transit lines file")
     optParser.add_option("-s", "--ptstops-file", dest="ptstops", help="public transit stops file")
     optParser.add_option("-f", "--flows-file", dest="flows", default="flows.rou.xml", help="output flows file")
-    optParser.add_option("-i", "--stopinfos-file", dest="stopinfos",default="stopinfos.xml", help="file from '--stop-output'")
-    optParser.add_option("-r", "--routes-file", dest="routes",default="vehroutes.xml", help="file from '--vehroute-output'")
+    optParser.add_option("-i", "--stopinfos-file", dest="stopinfos",
+                         default="stopinfos.xml", help="file from '--stop-output'")
+    optParser.add_option(
+        "-r", "--routes-file", dest="routes", default="vehroutes.xml", help="file from '--vehroute-output'")
     optParser.add_option("-t", "--trips-file", dest="trips", default="trips.trips.xml", help="output trips file")
     optParser.add_option("-p", "--period", dest="period", default="600", help="period")
     optParser.add_option("-b", "--begin", dest="begin", default="0", help="start time")
@@ -57,7 +59,7 @@ def main():
 
     with open(options.trips, 'w') as fouttrips:
         sumolib.writeXMLHeader(
-            fouttrips, "$Id: ptlines2trips.py 24746 2017-06-19 09:04:59Z behrisch $", "routes")
+            fouttrips, "$Id$", "routes")
         trp_nr = 0
         for line in sumolib.output.parse(options.ptlines, 'ptLine'):
             stops = line._child_dict['busStop']
@@ -82,19 +84,19 @@ def main():
         fouttrips.write("</routes>\n")
     print("done.")
     print("running SUMO to dertermine actual departure times...")
-    subprocess.call([sumolib.checkBinary("sumo"), "-r", options.trips, "-n",options.netfile, "-a", options.ptstops
-                        ,"--vehroute-output",options.routes,"--stop-output",options.stopinfos])
+    subprocess.call([sumolib.checkBinary("sumo"), "-r", options.trips, "-n", options.netfile, "-a",
+                     options.ptstops, "--vehroute-output", options.routes, "--stop-output", options.stopinfos])
     print("done.")
 
     print("creating routes...")
     stopsUntil = {}
-    for stop in sumolib.output.parse_fast(options.stopinfos, 'stopinfo', ['id','ended','busStop']):
+    for stop in sumolib.output.parse_fast(options.stopinfos, 'stopinfo', ['id', 'ended', 'busStop']):
         stopsUntil[stop.busStop] = stop.ended
 
     with open(options.flows, 'w') as foutflows:
         flows = []
         sumolib.writeXMLHeader(
-            foutflows, "$Id: ptlines2trips.py 24746 2017-06-19 09:04:59Z behrisch $", "routes")
+            foutflows, "$Id$", "routes")
         foutflows.write('\t<vType id="bus" vClass="bus" />\n')
         for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
             id = vehicle.id
@@ -102,14 +104,16 @@ def main():
             edges = vehicle.routeDistribution[0]._child_dict['route'][1].edges
             stops = vehicle.stop
             foutflows.write(
-                '\t<route id="%s" edges="%s" >\n' % (id,edges))
+                '\t<route id="%s" edges="%s" >\n' % (id, edges))
             for stop in stops:
                 foutflows.write(
-                    '\t\t<stop busStop="%s" duration="%s" until="%s" />\n'%(stop.busStop,stop.duration,stopsUntil[stop.busStop])
+                    '\t\t<stop busStop="%s" duration="%s" until="%s" />\n' % (
+                        stop.busStop, stop.duration, stopsUntil[stop.busStop])
                 )
             foutflows.write('\t</route>\n')
         for flow in flows:
-            foutflows.write('\t<flow id="%s" route="%s" begin="%s" end="%s" period="%s" type="bus" />\n' % (flow,flow,options.begin,options.end,options.period))
+            foutflows.write('\t<flow id="%s" route="%s" begin="%s" end="%s" period="%s" type="bus" />\n' %
+                            (flow, flow, options.begin, options.end, options.period))
         foutflows.write('</routes>\n')
 
     print("done.")

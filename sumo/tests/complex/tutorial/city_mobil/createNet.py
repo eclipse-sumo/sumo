@@ -200,11 +200,11 @@ print("</connections>", file=connections)
 connections.close()
 
 subprocess.call([NETCONVERT,
-    '--no-internal-links',
-    '-n', '%s.nod.xml' % PREFIX,
-    '-e', '%s.edg.xml' % PREFIX,
-    '-x', '%s.con.xml' % PREFIX,
-    '-o', '%s.net.xml' % PREFIX])
+                 '--no-internal-links',
+                 '-n', '%s.nod.xml' % PREFIX,
+                 '-e', '%s.edg.xml' % PREFIX,
+                 '-x', '%s.con.xml' % PREFIX,
+                 '-o', '%s.net.xml' % PREFIX])
 
 numBusses = TOTAL_CAPACITY // BUS_CAPACITY
 print("""    <flow id="b" type="cybercar" begin="0" period="100" number="%s">

@@ -66,7 +66,8 @@ netedit.modifyAttribute(10, "authority  army, passenger; taxi. tram")
 netedit.modifyAttribute(10, "")
 
 # Change parameter 10 with a valid value (empty)
-netedit.modifyAttribute(10, "emergency authority army vip passenger hov bus coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1")
+netedit.modifyAttribute(
+    10, "emergency authority army vip passenger hov bus coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1")
 
 # Change parameter 11 with an non valid value (dummy)
 netedit.modifyAttribute(11, "dummyShape")
@@ -104,10 +105,10 @@ netedit.modifyAttribute(13, "dummySpread")
 # Change parameter 13 with a non valid value (empty)
 netedit.modifyAttribute(13, "")
 
-# Change parameter 13 with a valid value 
+# Change parameter 13 with a valid value
 netedit.modifyAttribute(13, "center")
 
-# Change parameter 15 with a valid value 
+# Change parameter 15 with a valid value
 netedit.modifyAttribute(15, "my own name")
 
 # Change parameter 16 with a non valid value (dummy)
@@ -176,7 +177,7 @@ netedit.undo(match, 17)
 # recompute
 netedit.rebuildNetwork()
 
-#check redos
+# check redos
 netedit.redo(match, 17)
 
 # save additionals

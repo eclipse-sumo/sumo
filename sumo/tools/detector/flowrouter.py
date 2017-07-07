@@ -40,7 +40,7 @@ import detector
 # auxiliary data for the flow computation. The members are accessed
 # directly.
 
-DEBUG=False
+DEBUG = False
 
 
 class Vertex:
@@ -64,15 +64,15 @@ class Vertex:
         self.inPathEdge = edge
         self.flowDelta = flow
         if isForward:
-            numSatEdges = edge.source.gain // edge.source.flowDelta 
-            self.gain = numSatEdges * flow 
-            if edge.capacity < sys.maxsize: 
-                self.gain += flow 
+            numSatEdges = edge.source.gain // edge.source.flowDelta
+            self.gain = numSatEdges * flow
+            if edge.capacity < sys.maxsize:
+                self.gain += flow
         else:
-            numSatEdges = edge.target.gain // edge.target.flowDelta 
-            self.gain = numSatEdges * flow 
-            if edge.capacity < sys.maxsize: 
-                self.gain -= flow 
+            numSatEdges = edge.target.gain // edge.target.flowDelta
+            self.gain = numSatEdges * flow
+            if edge.capacity < sys.maxsize:
+                self.gain -= flow
 
     def __repr__(self):
         return "<%s,%s,%s>" % (self.inPathEdge, self.flowDelta, self.gain)
@@ -345,18 +345,20 @@ class Net:
         stubs = [Route(endVertex.flowDelta, [])]
         if options.verbose and DEBUG:
             print("  updateFlow start=%s end=%s flowDelta=%s" % (startVertex,
-                endVertex, endVertex.flowDelta))
+                                                                 endVertex, endVertex.flowDelta))
         while currVertex != startVertex or cycleStartStep:
             cycleStartStep = False
             currEdge = currVertex.inPathEdge
             if currEdge.target == currVertex:
-                if options.verbose and DEBUG: print("    incFlow edge=%s delta=%s" % (currEdge, endVertex.flowDelta))
+                if options.verbose and DEBUG:
+                    print("    incFlow edge=%s delta=%s" % (currEdge, endVertex.flowDelta))
                 currEdge.flow += endVertex.flowDelta
                 currVertex = currEdge.source
                 for routeStub in stubs:
                     routeStub.edges.insert(0, currEdge)
             else:
-                if options.verbose and DEBUG: print("    decFlow edge=%s delta=%s" % (currEdge, endVertex.flowDelta))
+                if options.verbose and DEBUG:
+                    print("    decFlow edge=%s delta=%s" % (currEdge, endVertex.flowDelta))
                 currEdge.flow -= endVertex.flowDelta
                 currVertex = currEdge.target
                 self.splitRoutes(stubs, currEdge)
@@ -381,7 +383,8 @@ class Net:
         path = None
         #~ debugEdge = self.getEdge("-562821874")
         if options.verbose and DEBUG:
-            print("  findPath start=%s pathStart=%s limits(%s, %s)" % (startVertex, pathStart, limitedSource, limitedSink))
+            print("  findPath start=%s pathStart=%s limits(%s, %s)" %
+                  (startVertex, pathStart, limitedSource, limitedSink))
         while len(queue) > 0:
             currVertex = heapq.heappop(queue)
             if currVertex == self._sink or (currVertex == self._source and currVertex.inPathEdge):

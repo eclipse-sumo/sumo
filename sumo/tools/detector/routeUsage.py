@@ -49,7 +49,7 @@ def get_options():
     if len(args) not in (1, 2):
         sys.exit(USAGE)
     options.emitters = args[0]
-    options.routes = args[1] if len(args) == 2 else None 
+    options.routes = args[1] if len(args) == 2 else None
     return options
 
 

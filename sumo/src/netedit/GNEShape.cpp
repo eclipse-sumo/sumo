@@ -2,7 +2,7 @@
 /// @file    GNEShape.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2017
-/// @version $Id: GNEPOI.cpp 23529 2017-03-18 10:22:36Z behrisch $
+/// @version $Id$
 ///
 // Abstract class for Shapes uses in netedit
 /****************************************************************************/

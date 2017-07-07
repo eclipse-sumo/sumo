@@ -2,7 +2,7 @@
 /// @file    GNEDialog_FixStoppingPlaces.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2017
-/// @version $Id: GNEDialog_FixStoppingPlaces.cpp 24108 2017-04-27 18:43:30Z behrisch $
+/// @version $Id$
 ///
 /// Dialog used to fix invalid stopping places
 /****************************************************************************/
