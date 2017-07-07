@@ -9,12 +9,12 @@
     </flow>
     <flow id="src_35_65qPKW" departSpeed="max" departPos="last" departLane="best" route="35_65.0qPKW" number="3" begin="0" end="3600"/>
     <flow id="src_36_62qPKW" departSpeed="max" departPos="last" departLane="best" number="346" begin="0" end="3600">
-        <routeDistribution routes="36_62.0qPKW 36_62.1qPKW 36_62.2qPKW" probabilities="95 189 62"/>
+        <routeDistribution routes="36_62.0qPKW 36_62.1qPKW 36_62.2qPKW 36_62.3qPKW" probabilities="2 93 189 62"/>
     </flow>
     <flow id="src_4qPKW" departSpeed="max" departPos="last" departLane="best" route="4.0qPKW" number="15" begin="0" end="3600"/>
     <flow id="src_45_2qPKW" departSpeed="max" departPos="last" departLane="best" route="45_2.0qPKW" number="16" begin="0" end="3600"/>
     <flow id="src_51_50qPKW" departSpeed="max" departPos="last" departLane="best" route="51_50.0qPKW" number="141" begin="0" end="3600"/>
     <flow id="src_7qPKW" departSpeed="max" departPos="last" departLane="best" number="219" begin="0" end="3600">
-        <routeDistribution routes="7.0qPKW 7.1qPKW 7.2qPKW 7.3qPKW 7.4qPKW" probabilities="26 2 45 70 76"/>
+        <routeDistribution routes="7.0qPKW 7.1qPKW 7.2qPKW 7.3qPKW" probabilities="26 47 70 76"/>
     </flow>
 </additional>

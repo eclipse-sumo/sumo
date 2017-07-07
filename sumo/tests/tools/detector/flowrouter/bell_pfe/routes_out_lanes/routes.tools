@@ -1,6 +1,7 @@
 <routes>
     <route id="10_0.0qPKW" edges="10 9 5 3"/>
-    <route id="17_0.0qPKW" edges="17 53_52 22_64 40"/>
+    <route id="17_0.0qPKW" edges="17 53_52 16 11_47 9 5 3"/>
+    <route id="17_0.1qPKW" edges="17 53_52 22_64 40"/>
     <route id="19_48_1.0qPKW" edges="19_48 16 11_47 9 5 3"/>
     <route id="19_48_1.1qPKW" edges="19_48 16 11_47 14_58 39"/>
     <route id="1_0.0qPKW" edges="1 6 38"/>
@@ -11,7 +12,7 @@
     <route id="33_60_61_0.0qPKW" edges="33_60_61 32_63 41"/>
     <route id="33_60_61_1.0qPKW" edges="33_60_61 46_13 44"/>
     <route id="33_60_61_2.0qPKW" edges="33_60_61 37"/>
-    <route id="35_65_0.0qPKW" edges="35_65 40"/>
+    <route id="35_65_0.0qPKW" edges="35_65 21_49 20 24"/>
     <route id="35_65_1.0qPKW" edges="35_65 31_59 39"/>
     <route id="36_62_0.0qPKW" edges="36_62 32_63 21_49 18"/>
     <route id="36_62_0.1qPKW" edges="36_62 32_63 41"/>
@@ -22,5 +23,6 @@
     <route id="4_0.0qPKW" edges="4 42"/>
     <route id="51_50_0.0qPKW" edges="51_50 22_64 40"/>
     <route id="51_50_1.0qPKW" edges="51_50 20 25_56 30"/>
-    <route id="7_0.0qPKW" edges="7 8 12 15 22_64 40"/>
+    <route id="7_0.0qPKW" edges="7 8 12 15 20 25_56 30"/>
+    <route id="7_0.1qPKW" edges="7 8 12 15 22_64 40"/>
 </routes>
