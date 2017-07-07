@@ -72,6 +72,7 @@
 #include "GNEConnection.h"
 #include "GNECrossing.h"
 #include "GNEDetector.h"
+#include "GNEDetectorE2.h"
 #include "GNEEdge.h"
 #include "GNEJunction.h"
 #include "GNEPoly.h"
@@ -84,6 +85,7 @@
 #include "GNEViewParent.h"
 #include "GNERerouter.h"
 #include "GNEAdditionalHandler.h"
+#include "GNEDialog_FixStoppingPlaces.h"
 
 
 
@@ -745,6 +747,50 @@ GNENet::save(OptionsCont& oc) {
 
 void
 GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled) {
+    // obtain invalid stopping places and E2 detectors
+    std::vector<GNEAdditional*> invalidStoppingPlacesAndE2;
+    for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
+        GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(i->second);
+        GNEDetectorE2* detectorE2 = dynamic_cast<GNEDetectorE2*>(i->second);
+
+        if((stoppingPlace != NULL) && (stoppingPlace->areStoppingPlacesPositionsFixed() == false)) {
+            invalidStoppingPlacesAndE2.push_back(i->second);
+        } else if((detectorE2 != NULL) /*&& (stoppingPlace->areStoppingPlacesPositionsFixed() == false) */) {
+            invalidStoppingPlacesAndE2.push_back(i->second);
+        }
+    }
+    // if there are invalid StoppingPlaces and E2 detectors, open GNEDialog_FixStoppingPlaces
+    if(invalidStoppingPlacesAndE2.size() > 0) {
+        GNEDialog_FixStoppingPlaces fixStoppingPlacesDialog(myViewNet->getApp(), invalidStoppingPlacesAndE2);
+        // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
+        // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions 
+        // 2 -> Saved only valid Stopping Places and E2 (And the rest of additionals)
+        int resultOfFixing = fixStoppingPlacesDialog.execute();
+
+        if(resultOfFixing == 0) {
+            // Here a console message
+            ;
+        } else if(resultOfFixing == 1) {
+            // save additionals
+            OutputDevice& device = OutputDevice::getDevice(filename);
+            device.openTag("additionals");
+            for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
+                i->second->writeAdditional(device, volatileOptionsEnabled);
+            }
+            device.close();
+        } else if(resultOfFixing == 2) {
+            // Save additionals except stoppingPlaces and E2 detector
+            OutputDevice& device = OutputDevice::getDevice(filename);
+            device.openTag("additionals");
+            for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
+                if(std::find(invalidStoppingPlacesAndE2.begin(), invalidStoppingPlacesAndE2.end(), i->second) == invalidStoppingPlacesAndE2.end()) {
+                    i->second->writeAdditional(device, volatileOptionsEnabled);
+                }
+            }
+            device.close();
+        }
+    }
+
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
     for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {

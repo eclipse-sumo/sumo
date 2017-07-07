@@ -131,14 +131,7 @@ GNEStoppingPlace::areStoppingPlacesPositionsFixed() {
     if(myFriendlyPosition) {
         return true;
     } else {
-        double tmpStarPos = myStartPosRelative;
-        double tmpEndPos = myEndPosRelative;
-        // Check if positions can be fixed
-        if (GNEAdditionalHandler::checkAndFixStoppinPlacePosition(tmpStarPos, tmpEndPos, myLane->getLaneShapeLength(), POSITION_EPS, myFriendlyPosition)) {
-            return ((tmpStarPos == myStartPosRelative) && (tmpEndPos == myEndPosRelative));
-        } else {
-            return false;
-        }
+        return (myStartPosRelative >= 0) && (myEndPosRelative <= 1) && (myStartPosRelative < myEndPosRelative);
     }
 }
 
