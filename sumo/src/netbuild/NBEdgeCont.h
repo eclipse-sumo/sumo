@@ -650,10 +650,10 @@ private:
     std::set<std::string> myTypes2Remove;
 
     /// @brief Boundary within which an edge must be located in order to be kept
-    PositionVector myPrunningBoundary;
+    PositionVector myPruningBoundary;
 
     /// @brief whether a geo transform has been applied to the pruning boundary
-    bool myNeedGeoTransformedPrunningBoundary;
+    bool myNeedGeoTransformedPruningBoundary;
     /// @}
 
     /// @brief Edges marked as belonging to a roundabout by the user (each EdgeVector is a roundabout)
