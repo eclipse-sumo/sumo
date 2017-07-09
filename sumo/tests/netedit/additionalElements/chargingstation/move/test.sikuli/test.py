@@ -45,28 +45,28 @@ netedit.leftClick(match, 250, 250)
 netedit.moveMode()
 
 # move chargingStation to left
-netedit.moveElement(match, 150, 250, 50, 250)
+netedit.moveElement(match, 150, 260, 50, 260)
 
 # move back
-netedit.moveElement(match, 50, 250, 150, 250)
+netedit.moveElement(match, 50, 260, 150, 260)
 
 # move chargingStation to right
-netedit.moveElement(match, 150, 250, 250, 250)
+netedit.moveElement(match, 150, 260, 250, 260)
 
 # move back
-netedit.moveElement(match, 250, 250, 150, 250)
+netedit.moveElement(match, 250, 260, 150, 260)
 
 # move chargingStation to left overpassing lane
-netedit.moveElement(match, 150, 250, -100, 250)
+netedit.moveElement(match, 150, 260, -100, 260)
 
 # move back
-netedit.moveElement(match, 0, 250, 150, 250)
+netedit.moveElement(match, -90, 260, 150, 260)
 
 # move chargingStation to right overpassing lane
-netedit.moveElement(match, 150, 250, 550, 250)
+netedit.moveElement(match, 150, 260, 550, 260)
 
 # move back to another different position of initial
-netedit.moveElement(match, 500, 250, 300, 250)
+netedit.moveElement(match, 500, 260, 300, 260)
 
 # Check undos and redos
 netedit.undo(match, 10)

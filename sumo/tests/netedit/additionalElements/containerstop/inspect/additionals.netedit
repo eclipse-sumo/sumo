@@ -1,4 +1,4 @@
 <additionals>
     <containerStop id="containerStop_gneE2_1_1" lane="gneE2_1" startPos="32.40" endPos="42.40" friendlyPos="0"/>
-    <containerStop id="correctID" lane="gneE2_0" startPos="20.00" endPos="30.00" name="chargingStation" friendlyPos="1" lines="line1 line2"/>
+    <containerStop id="correctID" lane="gneE2_0" startPos="20.00" endPos="30.00" name="busStop" friendlyPos="1" lines="line1 line2"/>
 </additionals>

@@ -77,23 +77,8 @@ netedit.modifyAdditionalDefaultBoolValue(6)
 # create chargingStation in mode "reference center"
 netedit.leftClick(match, 425, 250)
 
-# return to mode "reference left"
-netedit.modifyAdditionalDefaultValue(9, "reference left")
-
 # Change length
 netedit.modifyAdditionalDefaultValue(11, "30")
-
-# try to create a chargingStation in mode "reference left" (error)
-netedit.leftClick(match, 500, 250)
-
-# change reference to right
-netedit.modifyAdditionalDefaultValue(9, "reference right")
-
-# try chargingStation in mode "reference right" (Warning)
-netedit.leftClick(match, 110, 250)
-
-# enable force position
-netedit.modifyAdditionalDefaultBoolValue(12)
 
 # change reference to "reference left"
 netedit.modifyAdditionalDefaultValue(9, "reference left")

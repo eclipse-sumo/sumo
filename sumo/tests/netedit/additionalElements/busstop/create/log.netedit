@@ -2,8 +2,6 @@ Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Addi
 Warning: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE0_0_1' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE0_0_2' in GNEChange_Additional
-Warning: Invalid input parameter of busStop: 'startPos' overpass lane's lenght. Use 'force position' or another reference point.
-Warning: Invalid input parameter of busStop: 'startPos' takes a negative value. Use 'force position' or another reference point.
 Warning: Adding busStop 'busStop_gneE0_0_3' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE0_0_4' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed

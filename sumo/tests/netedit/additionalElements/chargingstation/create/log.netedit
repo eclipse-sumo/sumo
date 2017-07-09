@@ -4,8 +4,6 @@ Warning: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additio
 Warning: Invalid input parameter of chargingStation: 'efficiency' takes only values between 0 and 1
 Warning: Adding chargingStation 'chargingStation_gneE0_0_1' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_gneE0_0_2' in GNEChange_Additional
-Warning: Invalid input parameter of chargingStation: 'startPos' overpass lane's lenght. Use 'force position' or another reference point.
-Warning: Invalid input parameter of chargingStation: 'startPos' takes a negative value. Use 'force position' or another reference point.
 Warning: Invalid input parameter of chargingStation: 'chargeDelay' cannot be negative
 Warning: Adding chargingStation 'chargingStation_gneE0_0_3' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_gneE0_0_4' in GNEChange_Additional

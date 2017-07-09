@@ -60,7 +60,7 @@ netedit.moveElement(match, 250, 275, 150, 275)
 netedit.moveElement(match, 150, 275, -100, 275)
 
 # move back
-netedit.moveElement(match, 0, 275, 150, 275)
+netedit.moveElement(match, -90, 275, 150, 275)
 
 # move containerStop to right overpassing lane
 netedit.moveElement(match, 150, 275, 550, 275)

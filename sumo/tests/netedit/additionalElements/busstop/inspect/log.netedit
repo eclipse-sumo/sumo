@@ -8,14 +8,9 @@ Warning: Value 'dummy lane' for attribute lane of busStop isn't valid
 Warning: Setting new attribute lane 'gneE0_0' into busStop 'correctID'
 Warning: Setting new attribute lane 'gneE2_1' into busStop 'correctID'
 Warning: Setting new attribute lane 'gneE2_0' into busStop 'correctID'
-Warning: Value '-5' for attribute startPos of busStop isn't valid
+Warning: Setting new attribute startPos '-5' into busStop 'correctID'
 Warning: Value '400' for attribute startPos of busStop isn't valid
 Warning: Setting new attribute startPos '20' into busStop 'correctID'
-Warning: Opening FXMessageBox of type 'question'
-Warning: Closed FXMessageBox of type 'question' with 'No'
-Warning: Value '3000' for attribute endPos of busStop isn't valid
-Warning: Opening FXMessageBox of type 'question'
-Warning: Closed FXMessageBox of type 'question' with 'Yes'
 Warning: Setting new attribute endPos '3000' into busStop 'correctID'
 Warning: Value '10' for attribute endPos of busStop isn't valid
 Warning: Setting new attribute endPos '30' into busStop 'correctID'
@@ -34,9 +29,11 @@ Warning: Setting previous attribute friendlyPos '0' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute name '' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '50.00' into busStop 'correctID'
+Warning: Setting previous attribute endPos '3000.00' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '22.40' into busStop 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute startPos '-5.00' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute startPos '12.40' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -51,7 +48,6 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing busStop 'busStop_gneE2_1_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing busStop 'busStop_gneE2_1_0' in GNEChange_Additional
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -64,6 +60,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE2_1' into busStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE2_0' into busStop 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute startPos '-5' into busStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute startPos '20' into busStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -78,7 +76,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lines 'line1, line2' into busStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lines 'line1 line2' into busStop 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

@@ -65,23 +65,8 @@ netedit.modifyAdditionalDefaultValue(10, "reference center")
 # create containerStop in mode "reference center"
 netedit.leftClick(match, 425, 250)
 
-# return to mode "reference left"
-netedit.modifyAdditionalDefaultValue(10, "reference left")
-
 # Change length
 netedit.modifyAdditionalDefaultValue(12, "30")
-
-# try to create a containerStop in mode "reference left" (Warning)
-netedit.leftClick(match, 500, 250)
-
-# change reference to right
-netedit.modifyAdditionalDefaultValue(10, "reference right")
-
-# try containerStop in mode "reference right" (Warning)
-netedit.leftClick(match, 110, 250)
-
-# enable force position
-netedit.modifyAdditionalDefaultBoolValue(13)
 
 # change reference to "reference left"
 netedit.modifyAdditionalDefaultValue(10, "reference left")

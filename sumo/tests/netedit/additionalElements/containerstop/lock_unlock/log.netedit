@@ -1,14 +1,14 @@
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
 Warning: Adding containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
-Warning: Setting new attribute startPos '20.00' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '30.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '19.58' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '29.58' into containerStop 'containerStop_gneE0_0_0'
 Warning: Setting new attribute blockMovement 'true' into containerStop 'containerStop_gneE0_0_0'
 Warning: Setting new attribute blockMovement 'false' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute startPos '27.00' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '37.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '27.16' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '37.16' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '30.00' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting previous attribute startPos '20.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute endPos '29.58' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting previous attribute startPos '19.58' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '1' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -21,15 +21,15 @@ Warning: Removing containerStop 'containerStop_gneE0_0_0' in GNEChange_Additiona
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute startPos '20.00' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '30.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '19.58' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '29.58' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'false' into containerStop 'containerStop_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute startPos '27.00' into containerStop 'containerStop_gneE0_0_0'
-Warning: Setting new attribute endPos '37.00' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute startPos '27.16' into containerStop 'containerStop_gneE0_0_0'
+Warning: Setting new attribute endPos '37.16' into containerStop 'containerStop_gneE0_0_0'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced containerStop 'containerStop_gneE0_0_0'

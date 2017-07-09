@@ -45,13 +45,13 @@ netedit.leftClick(match, 250, 250)
 netedit.moveMode()
 
 # move chargingStation to right
-netedit.moveElement(match, 150, 250, 250, 250)
+netedit.moveElement(match, 150, 260, 250, 260)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect chargingStation
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(match, 300, 260)
 
 # block additional
 netedit.modifyBoolAttribute(10)
@@ -60,13 +60,13 @@ netedit.modifyBoolAttribute(10)
 netedit.moveMode()
 
 # try to move chargingStation to right (must be blocked)
-netedit.moveElement(match, 250, 250, 350, 250)
+netedit.moveElement(match, 250, 260, 350, 260)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect chargingStation
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(match, 300, 260)
 
 # unblock additional
 netedit.modifyBoolAttribute(10)
@@ -75,7 +75,7 @@ netedit.modifyBoolAttribute(10)
 netedit.moveMode()
 
 # move chargingStation to right (must be allowed)
-netedit.moveElement(match, 250, 250, 350, 250)
+netedit.moveElement(match, 250, 260, 350, 260)
 
 # Check undos and redos
 netedit.undo(match, 5)

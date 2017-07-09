@@ -216,7 +216,7 @@ def getReferenceMatch(neProcess, waitTime):
 def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchReference=True, waitTime=DELAY_REFERENCE):
     setup(testRoot)
     # disable Caps Lock
-    if(Env.isLockOn(Key.CAPS_LOCK) == True):
+    if(Env.isLockOn(Key.CAPS_LOCK) == False):
         type(Key.CAPS_LOCK)
     # Open netedit
     neteditProcess = Popen(extraParameters, debugInformation)
@@ -605,7 +605,7 @@ def modifyAdditionalDefaultValue(numTabs, length):
 def modifyAdditionalDefaultBoolValue(numTabs):
     # focus current frame
     focusOnFrame()
-    # place cursor in force position checkbox
+    # place cursor in check Box position
     for x in range(numTabs + 1):
         typeTab()
     # Change current value
