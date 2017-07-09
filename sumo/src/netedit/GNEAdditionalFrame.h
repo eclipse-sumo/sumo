@@ -328,29 +328,20 @@ public:
         /// @brief destructor
         ~NeteditAttributes();
 
-        /// @brief show length field
-        void showLengthField();
+        /// @brief show length field and reference point
+        void showLengthFieldAndReferecePoint();
 
         /// @brief hide length field
-        void hideLengthField();
-
-        /// @brief show refence point comboBox
-        void showReferencePoint();
-
-        /// @brief hide refence point comboBox
-        void hideReferencePoint();
+        void hideLengthFieldAndReferecePoint();
 
         /// @brief get actual reference point
-        additionalReferencePoint getActualReferencePoint();
+        additionalReferencePoint getActualReferencePoint() const;
 
         /// @brief get value of length
-        double getLength();
+        double getLength() const;
 
         /// @brief check if block is enabled
-        bool isBlockEnabled();
-
-        /// @brief check if force position is enabled
-        bool isForcePositionEnabled();
+        bool isBlockEnabled() const;
 
         /// @brief check if current length is valid
         bool isCurrentLengthValid() const;
@@ -365,9 +356,6 @@ public:
 
         /// @brief Called when user changes the checkbox "set blocking"
         long onCmdSetBlocking(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user changes the checkbox "force position"
-        long onCmdSetForcePosition(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press the help button
         long onCmdHelp(FXObject*, FXSelector, void*);
@@ -392,12 +380,6 @@ public:
 
         /// @brief textField for length
         FXTextField* myLengthTextField;
-
-        /// @brief Label for force position
-        FXLabel* myForcePositionLabel;
-
-        /// @brief checkBox for the option "force position"
-        FXCheckButton* myForcePositionCheckButton;
 
         /// @brief Label for block movement
         FXLabel* myBlockLabel;

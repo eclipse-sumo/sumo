@@ -80,7 +80,6 @@ FXDEFMAP(GNEAdditionalFrame::NeteditAttributes) GNEEditorParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT,   GNEAdditionalFrame::NeteditAttributes::onCmdSetLength),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_REFERENCEPOINT,         GNEAdditionalFrame::NeteditAttributes::onCmdSelectReferencePoint),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING,                           GNEAdditionalFrame::NeteditAttributes::onCmdSetBlocking),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MODE_ADDITIONAL_FORCEPOSITION,          GNEAdditionalFrame::NeteditAttributes::onCmdSetForcePosition),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNEAdditionalFrame::NeteditAttributes::onCmdHelp),
 };
 
@@ -493,8 +492,7 @@ GNEAdditionalFrame::setParametersOfAdditional(SumoXMLTag actualAdditionalType) {
     // Clear internal attributes
     myadditionalParameters->clearAttributes();
     // Hide length field and reference point
-    myEditorParameters->hideLengthField();
-    myEditorParameters->hideReferencePoint();
+    myEditorParameters->hideLengthFieldAndReferecePoint();
     // Obtain attributes of actual myActualAdditionalType
     std::vector<std::pair <SumoXMLAttr, std::string> > attrs = GNEAttributeCarrier::allowedAttributes(myActualAdditionalType);
     // Iterate over attributes of myActualAdditionalType
@@ -502,8 +500,7 @@ GNEAdditionalFrame::setParametersOfAdditional(SumoXMLTag actualAdditionalType) {
         if (!GNEAttributeCarrier::isUnique(myActualAdditionalType, i->first)) {
             myadditionalParameters->addAttribute(myActualAdditionalType, i->first);
         } else if (i->first == SUMO_ATTR_ENDPOS) {
-            myEditorParameters->showLengthField();
-            myEditorParameters->showReferencePoint();
+            myEditorParameters->showLengthFieldAndReferecePoint();
         }
     }
     // if there are parmeters, show and Recalc groupBox
@@ -557,26 +554,12 @@ GNEAdditionalFrame::setStartPosition(double positionOfTheMouseOverLane, double l
     switch (myEditorParameters->getActualReferencePoint()) {
         case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT:
             return positionOfTheMouseOverLane;
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_RIGHT: {
-            if (positionOfTheMouseOverLane - lengthOfAdditional >= 0.01) {
-                return positionOfTheMouseOverLane - lengthOfAdditional;
-            } else if (myEditorParameters->isForcePositionEnabled()) {
-                return 0.01;
-            } else {
-                return -1;
-            }
-        }
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_CENTER: {
-            if (positionOfTheMouseOverLane - lengthOfAdditional / 2 >= 0.01) {
-                return positionOfTheMouseOverLane - lengthOfAdditional / 2;
-            } else if (myEditorParameters->isForcePositionEnabled()) {
-                return 0;
-            } else {
-                return -1;
-            }
-        }
+        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_RIGHT:
+            return positionOfTheMouseOverLane - lengthOfAdditional;
+        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_CENTER:
+            return positionOfTheMouseOverLane - lengthOfAdditional / 2;
         default:
-            return -1;
+            throw InvalidArgument("Reference Point invalid");
     }
 }
 
@@ -584,28 +567,14 @@ GNEAdditionalFrame::setStartPosition(double positionOfTheMouseOverLane, double l
 double
 GNEAdditionalFrame::setEndPosition(double laneLength, double positionOfTheMouseOverLane, double lengthOfAdditional) {
     switch (myEditorParameters->getActualReferencePoint()) {
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT: {
-            if (positionOfTheMouseOverLane + lengthOfAdditional <= laneLength - 0.01) {
-                return positionOfTheMouseOverLane + lengthOfAdditional;
-            } else if (myEditorParameters->isForcePositionEnabled()) {
-                return laneLength - 0.01;
-            } else {
-                return -1;
-            }
-        }
+        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT:
+            return positionOfTheMouseOverLane + lengthOfAdditional;
         case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_RIGHT:
             return positionOfTheMouseOverLane;
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_CENTER: {
-            if (positionOfTheMouseOverLane + lengthOfAdditional / 2 <= laneLength - 0.01) {
-                return positionOfTheMouseOverLane + lengthOfAdditional / 2;
-            } else if (myEditorParameters->isForcePositionEnabled()) {
-                return laneLength - 0.01;
-            } else {
-                return -1;
-            }
-        }
+        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_CENTER:
+            return positionOfTheMouseOverLane + lengthOfAdditional / 2;
         default:
-            return -1;
+            throw InvalidArgument("Reference Point invalid");
     }
 }
 
@@ -1248,11 +1217,6 @@ GNEAdditionalFrame::NeteditAttributes::NeteditAttributes(FXComposite* parent) :
     myLengthLabel = new FXLabel(lengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
     myLengthTextField = new FXTextField(lengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_MODE_ADDITIONAL_CHANGEPARAMETER_TEXT, GUIDesignTextField);
     myLengthTextField->setText("10");
-    // Create Frame for force position Label and checkBox (By default disabled)
-    FXHorizontalFrame* forcePositionFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myForcePositionLabel = new FXLabel(forcePositionFrame, "force position", 0, GUIDesignLabelAttribute);
-    myForcePositionCheckButton = new FXCheckButton(forcePositionFrame, "false", this, MID_GNE_MODE_ADDITIONAL_FORCEPOSITION, GUIDesignCheckButtonAttribute);
-    myForcePositionCheckButton->setCheck(false);
     // Create Frame for block movement label and checkBox (By default disabled)
     FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myBlockLabel = new FXLabel(blockMovement, "block movement", 0, GUIDesignLabelAttribute);
@@ -1269,57 +1233,38 @@ GNEAdditionalFrame::NeteditAttributes::~NeteditAttributes() {}
 
 
 void
-GNEAdditionalFrame::NeteditAttributes::showLengthField() {
+GNEAdditionalFrame::NeteditAttributes::showLengthFieldAndReferecePoint() {
     myLengthLabel->show();
     myLengthTextField->show();
+    myReferencePointMatchBox->show();
 }
 
 
 void
-GNEAdditionalFrame::NeteditAttributes::hideLengthField() {
+GNEAdditionalFrame::NeteditAttributes::hideLengthFieldAndReferecePoint() {
     myLengthLabel->hide();
     myLengthTextField->hide();
-}
-
-
-void
-GNEAdditionalFrame::NeteditAttributes::showReferencePoint() {
-    myReferencePointMatchBox->show();
-    myForcePositionLabel->show();
-    myForcePositionCheckButton->show();
-}
-
-
-void
-GNEAdditionalFrame::NeteditAttributes::hideReferencePoint() {
     myReferencePointMatchBox->hide();
-    myForcePositionLabel->hide();
-    myForcePositionCheckButton->hide();
 }
 
 
 GNEAdditionalFrame::NeteditAttributes::additionalReferencePoint
-GNEAdditionalFrame::NeteditAttributes::getActualReferencePoint() {
+GNEAdditionalFrame::NeteditAttributes::getActualReferencePoint() const {
     return myActualAdditionalReferencePoint;
 }
 
 
 double
-GNEAdditionalFrame::NeteditAttributes::getLength() {
+GNEAdditionalFrame::NeteditAttributes::getLength() const {
     return GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
 }
 
 
 bool
-GNEAdditionalFrame::NeteditAttributes::isBlockEnabled() {
+GNEAdditionalFrame::NeteditAttributes::isBlockEnabled() const {
     return myBlockMovementCheckButton->getCheck() == 1 ? true : false;
 }
 
-
-bool
-GNEAdditionalFrame::NeteditAttributes::isForcePositionEnabled() {
-    return myForcePositionCheckButton->getCheck() == 1 ? true : false;
-}
 
 bool
 GNEAdditionalFrame::NeteditAttributes::isCurrentLengthValid() const {
@@ -1352,24 +1297,19 @@ GNEAdditionalFrame::NeteditAttributes::onCmdSelectReferencePoint(FXObject*, FXSe
         myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
         myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_LEFT;
         myLengthTextField->enable();
-        myForcePositionCheckButton->enable();
     } else if (myReferencePointMatchBox->getText() == "reference right") {
         myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
         myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_RIGHT;
         myLengthTextField->enable();
-        myForcePositionCheckButton->enable();
     } else if (myReferencePointMatchBox->getText() == "reference center") {
         myLengthTextField->enable();
-        myForcePositionCheckButton->enable();
         myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
         myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_CENTER;
         myLengthTextField->enable();
-        myForcePositionCheckButton->enable();
     } else {
         myReferencePointMatchBox->setTextColor(FXRGB(255, 0, 0));
         myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_INVALID;
         myLengthTextField->disable();
-        myForcePositionCheckButton->disable();
     }
     return 1;
 }
@@ -1381,17 +1321,6 @@ GNEAdditionalFrame::NeteditAttributes::onCmdSetBlocking(FXObject*, FXSelector, v
         myBlockMovementCheckButton->setText("true");
     } else {
         myBlockMovementCheckButton->setText("false");
-    }
-    return 1;
-}
-
-
-long
-GNEAdditionalFrame::NeteditAttributes::onCmdSetForcePosition(FXObject*, FXSelector, void*) {
-    if (myForcePositionCheckButton->getCheck()) {
-        myForcePositionCheckButton->setText("true");
-    } else {
-        myForcePositionCheckButton->setText("false");
     }
     return 1;
 }
