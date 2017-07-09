@@ -281,22 +281,10 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
                 if (myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
                     myadditionalParameters->showWarningMessage("Current selected reference point isn't valid");
                     return ADDADDITIONAL_INVALID_ARGUMENTS;
-                }
-                double startPos = setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLength());
-                double endPos = setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLength(), positionOfTheMouseOverEdge, myEditorParameters->getLength());
-                // Only set start position if are valid (!= -1)
-                if (startPos != -1) {
-                    valuesOfElement[SUMO_ATTR_STARTPOS] = toString(startPos);
                 } else {
-                    myadditionalParameters->showWarningMessage("'" + toString(SUMO_ATTR_STARTPOS) + "' takes a negative value. Use 'force position' or another reference point.");
-                    return ADDADDITIONAL_INVALID_ARGUMENTS;
-                }
-                // Only set end position if are valid (!= -1)
-                if (endPos != -1) {
-                    valuesOfElement[SUMO_ATTR_ENDPOS] = toString(endPos);
-                } else {
-                    myadditionalParameters->showWarningMessage("'" + toString(SUMO_ATTR_STARTPOS) + "' overpass " + toString(SUMO_TAG_EDGE) + "'s lenght. Use 'force position' or another reference point.");
-                    return ADDADDITIONAL_INVALID_ARGUMENTS;
+                    // set start and end position
+                    valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLength()));
+                    valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLength(), positionOfTheMouseOverEdge, myEditorParameters->getLength()));
                 }
             } else {
                 return ADDADDITIONAL_INVALID_ARGUMENTS;
@@ -315,22 +303,10 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
                 if (myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
                     myadditionalParameters->showWarningMessage("Current selected reference point isn't valid");
                     return ADDADDITIONAL_INVALID_ARGUMENTS;
-                }
-                double startPos = setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLength());
-                double endPos = setEndPosition(pointed_lane->getLaneShapeLength(), positionOfTheMouseOverLane, myEditorParameters->getLength());
-                // Only set start position if are valid (!= -1)
-                if (startPos != -1) {
-                    valuesOfElement[SUMO_ATTR_STARTPOS] = toString(startPos);
                 } else {
-                    myadditionalParameters->showWarningMessage("'" + toString(SUMO_ATTR_STARTPOS) + "' takes a negative value. Use 'force position' or another reference point.");
-                    return ADDADDITIONAL_INVALID_ARGUMENTS;
-                }
-                // Only set end position if are valid (!= -1)
-                if (endPos != -1) {
-                    valuesOfElement[SUMO_ATTR_ENDPOS] = toString(endPos);
-                } else {
-                    myadditionalParameters->showWarningMessage("'" + toString(SUMO_ATTR_STARTPOS) + "' overpass " + toString(SUMO_TAG_LANE) + "'s lenght. Use 'force position' or another reference point.");
-                    return ADDADDITIONAL_INVALID_ARGUMENTS;
+                    // set start and end position
+                    valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLength()));
+                    valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_lane->getLaneShapeLength(), positionOfTheMouseOverLane, myEditorParameters->getLength()));
                 }
             } else {
                 return ADDADDITIONAL_INVALID_ARGUMENTS;
@@ -1336,11 +1312,6 @@ GNEAdditionalFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
             << "- Reference Left will create it with startPos = 70 and endPos = 100.\n"
             << "- Reference Right will create it with startPos = 100 and endPos = 130.\n"
             << "- Reference Center will create it with startPos = 85 and endPos = 115.\n"
-            << "\n"
-            << "Force position: if is enabled, will create the additional adapting size of additional element to lane.\n"
-            << "Example: If you have a lane with length = 100, but you try to create a busStop with size = 50\n"
-            << "in the position 80 of the lane, a busStop with startPos = 80 and endPos = 100 will be created\n"
-            << "instead of a busStop with startPos = 80 and endPos = 130.\n"
             << "\n"
             << "Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with\n"
             << "the mouse. This option can be modified with the Inspector.";
