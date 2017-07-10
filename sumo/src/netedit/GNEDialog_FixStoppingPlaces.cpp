@@ -33,12 +33,15 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 #include "GNEDialog_FixStoppingPlaces.h"
 #include "GNEAdditional.h"
 #include "GNEStoppingPlace.h"
 #include "GNELane.h"
-
+#include "GNEViewNet.h"
+#include "GNEUndoList.h"
+#include "GNEChange_Selection.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -57,8 +60,9 @@ FXIMPLEMENT(GNEDialog_FixStoppingPlaces, FXDialogBox, GNEDialog_FixStoppingPlace
 // member method definitions
 // ===========================================================================
 
-GNEDialog_FixStoppingPlaces::GNEDialog_FixStoppingPlaces(FXApp* app, std::vector<GNEAdditional*> invalidStoppingPlacesAndE2) :
-    FXDialogBox(app, ("Fix stoppingPlaces positions"), GUIDesignDialogBoxExplicit, 0, 0, 458, 300, 0, 0, 0, 0),
+GNEDialog_FixStoppingPlaces::GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, std::vector<GNEAdditional*> invalidStoppingPlacesAndE2) :
+    FXDialogBox(viewNet->getApp(), ("Fix stoppingPlaces positions"), GUIDesignDialogBoxExplicit, 0, 0, 458, 300, 0, 0, 0, 0),
+    myViewNet(viewNet),
     myInvalidStoppingPlacesAndE2(invalidStoppingPlacesAndE2) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(ICON_BUSSTOP));
@@ -185,9 +189,40 @@ GNEDialog_FixStoppingPlaces::onCmdSelectOption(FXObject* obj, FXSelector, void*)
 
 long
 GNEDialog_FixStoppingPlaces::onCmdAccept(FXObject*, FXSelector, void*) {
-    // Stop Modal
-    getApp()->stopModal(this, TRUE);
-    return 1;
+
+    if(myOptionA->getCheck() == true) {
+        // stop modal with TRUE
+        getApp()->stopModal(this, TRUE);
+        return 1;
+    } else if(myOptionB->getCheck() == true) {
+        // stop modal with TRUE
+        getApp()->stopModal(this, TRUE);
+        return 1;
+    } else if(myOptionC->getCheck() == true) {
+        // stop modal with TRUE
+        getApp()->stopModal(this, TRUE);
+        return 1;
+    } else if(myOptionD->getCheck() == true) {
+        std::set<GUIGlID> GLIDsToSelect;
+        myViewNet->getUndoList()->p_begin("select invalid additionals");
+        // clear previous selection
+        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
+        // iterate over invalid stopping places and E2 to select it
+        for(std::vector<GNEAdditional*>::iterator i = myInvalidStoppingPlacesAndE2.begin(); i != myInvalidStoppingPlacesAndE2.end(); i++) {
+            GLIDsToSelect.insert((*i)->getGlID());
+        }
+        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), GLIDsToSelect, std::set<GUIGlID>(), true), true);
+        myViewNet->getUndoList()->p_end();
+        myViewNet->update();
+        // stop modal with FALSE
+        getApp()->stopModal(this, FALSE);
+        return 0;
+    } else {
+        // stop modal with FALSE
+        getApp()->stopModal(this, FALSE);
+        return 0;
+    }
+
 }
 
 

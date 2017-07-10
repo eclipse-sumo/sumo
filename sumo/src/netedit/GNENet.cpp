@@ -761,14 +761,12 @@ GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled
     }
     // if there are invalid StoppingPlaces and E2 detectors, open GNEDialog_FixStoppingPlaces
     if(invalidStoppingPlacesAndE2.size() > 0) {
-        int resultOfFixing = GNEDialog_FixStoppingPlaces(myViewNet->getApp(), invalidStoppingPlacesAndE2).execute();
         // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions 
-        // 2 -> Saved only valid Stopping Places and E2 (And the rest of additionals)
-        if(resultOfFixing == 0) {
+        if(GNEDialog_FixStoppingPlaces(myViewNet, invalidStoppingPlacesAndE2).execute() == 0) {
             // Here a console message
             ;
-        } else if(resultOfFixing == 1) {
+        } else {
             // save additionals
             OutputDevice& device = OutputDevice::getDevice(filename);
             device.openTag("additionals");
@@ -776,25 +774,15 @@ GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled
                 i->second->writeAdditional(device, volatileOptionsEnabled);
             }
             device.close();
-        } else if(resultOfFixing == 2) {
-            // Save additionals except stoppingPlaces and E2 detector
-            OutputDevice& device = OutputDevice::getDevice(filename);
-            device.openTag("additionals");
-            for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
-                if(std::find(invalidStoppingPlacesAndE2.begin(), invalidStoppingPlacesAndE2.end(), i->second) == invalidStoppingPlacesAndE2.end()) {
-                    i->second->writeAdditional(device, volatileOptionsEnabled);
-                }
-            }
-            device.close();
         }
+    } else {
+        OutputDevice& device = OutputDevice::getDevice(filename);
+        device.openTag("additionals");
+        for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
+            i->second->writeAdditional(device, volatileOptionsEnabled);
+        }
+        device.close();
     }
-
-    OutputDevice& device = OutputDevice::getDevice(filename);
-    device.openTag("additionals");
-    for (GNEAdditionals::const_iterator i = myAdditionals.begin(); i != myAdditionals.end(); ++i) {
-        i->second->writeAdditional(device, volatileOptionsEnabled);
-    }
-    device.close();
     // change value of flag
     myAdditionalsSaved = true;
 }

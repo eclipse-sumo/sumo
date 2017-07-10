@@ -36,6 +36,7 @@
 // class declarations
 // ===========================================================================
 class GNEAdditional;
+class GNEViewNet;
 
 // ===========================================================================
 // class definitions
@@ -51,7 +52,7 @@ class GNEDialog_FixStoppingPlaces : public FXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEDialog_FixStoppingPlaces(FXApp* app, std::vector<GNEAdditional*> invalidStoppingPlacesAndE2);
+    GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, std::vector<GNEAdditional*> invalidStoppingPlacesAndE2);
 
     /// @brief destructor
     ~GNEDialog_FixStoppingPlaces();
@@ -71,6 +72,9 @@ public:
 protected:
     /// @brief FOX needs this
     GNEDialog_FixStoppingPlaces() {}
+
+    /// @brief view net
+    GNEViewNet *myViewNet;
 
     /// @brief vector with the invalid stoppingplaces and E2
     std::vector<GNEAdditional*> myInvalidStoppingPlacesAndE2;
