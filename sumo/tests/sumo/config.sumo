@@ -75,6 +75,7 @@ tripinfosPrefix:pre_tripinfos.xml
 logPrefixed:pre_log.txt
 weights:weights.xml
 lanechanges:lanechanges.xml
+ssm:ssm.xml
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:

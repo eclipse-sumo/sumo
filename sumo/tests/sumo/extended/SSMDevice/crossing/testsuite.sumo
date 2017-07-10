@@ -1,0 +1,23 @@
+# Ego vehicle turning left has to wait with foe in opposite direction (Crossing conflict).
+ego_left_foe_straight
+
+# Foe vehicle turning left has to wait with ego in opposite direction (Crossing conflict). PET should give exactly the same value as for test ego_left_foe_straight.
+ego_straight_foe_left
+
+# Crossing conflict. Both going straight, ego on major
+ego_major
+
+# Crossing conflict. Both going straight, ego on minor. PET should be exactly as for ego_major
+ego_minor
+
+# Crossing conflict. Both turning left, ego on minor, foe approaches from its left.
+both_left_ego_minor1
+
+# Crossing conflict. Both turning left, ego on major, foe approaches from its right. PET should equal value from both_left_ego_minor1.
+both_left_ego_major1
+
+# Crossing conflict. Both turning left, ego on minor, foe approaches from its right.
+both_left_ego_minor2
+
+# Crossing conflict. Both turning left, ego on major, foe approaches from its left. PET should equal value from both_left_ego_minor2
+both_left_ego_major2

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mo 10 Jul 2017 14:53:00 CEST by Netedit Version dev-SVN-r23112
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/leo/sumo_master/sumo/tests/sumo/extended/SSMDevice/following_TODO/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/leo/sumo_master/sumo/tests/sumo/extended/SSMDevice/following_TODO/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,50.00,500.00,50.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="EW" from="E" to="W" priority="1" shape="500.00,50.00 100.00,50.00 0.00,50.00">
+        <lane id="EW_0" index="0" speed="30.00" length="500.00" shape="500.00,51.65 100.00,51.65 0.00,51.65"/>
+    </edge>
+    <edge id="WE" from="W" to="E" priority="1" type="roundabout" shape="0.00,50.00 100.00,50.00 500.00,50.00">
+        <lane id="WE_0" index="0" speed="30.00" length="500.00" shape="0.00,48.35 100.00,48.35 500.00,48.35"/>
+    </edge>
+
+    <junction id="E" type="unregulated" x="500.00" y="50.00" incLanes="WE_0" intLanes="" shape="500.00,50.05 500.00,46.75 500.00,49.95"/>
+    <junction id="W" type="unregulated" x="0.00" y="50.00" incLanes="EW_0" intLanes="" shape="0.00,49.95 0.00,53.25 0.00,50.05"/>
+
+</net>
