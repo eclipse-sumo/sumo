@@ -451,12 +451,12 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLane(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
+            myStartPosRelative = floor(parse<double>(value) / myLane->getLaneParametricLength()*1000)/1000;
             updateGeometry();
             getViewNet()->update();
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
+            myEndPosRelative = floor(parse<double>(value) / myLane->getLaneParametricLength()*1000)/1000;
             updateGeometry();
             getViewNet()->update();
             break;

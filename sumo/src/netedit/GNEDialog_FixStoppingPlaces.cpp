@@ -213,14 +213,7 @@ GNEDialog_FixStoppingPlaces::onCmdAccept(FXObject*, FXSelector, void*) {
                 double startPos = stoppingPlace->getAbsoluteStartPosition();
                 double endPos = stoppingPlace->getAbsoluteEndPosition();
                 // fix start and end positions using checkAndFixStoppinPlacePosition
-                GNEAdditionalHandler::checkAndFixStoppinPlacePosition(startPos, endPos, stoppingPlace->getLane()->getLaneShapeLength(), POSITION_EPS, true);
-                // this is needed to avoid precission problems
-                if((endPos / stoppingPlace->getLane()->getLaneParametricLength()) > 1) {
-                    endPos = stoppingPlace->getLane()->getLaneParametricLength();
-                }
-                if (startPos < 0) {
-                    startPos = 0;
-                }
+                GNEAdditionalHandler::checkAndFixStoppinPlacePosition(startPos, endPos, stoppingPlace->getLane()->getLaneParametricLength(), POSITION_EPS, true);
                 stoppingPlace->setAttribute(SUMO_ATTR_STARTPOS, toString(startPos), myViewNet->getUndoList());
                 stoppingPlace->setAttribute(SUMO_ATTR_ENDPOS, toString(endPos), myViewNet->getUndoList());
             }

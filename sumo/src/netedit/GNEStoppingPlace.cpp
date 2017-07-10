@@ -133,9 +133,8 @@ GNEStoppingPlace::areStoppingPlacesPositionsFixed() {
     if(myFriendlyPosition) {
         return true;
     } else {
-        return (getAbsoluteStartPosition() >= 0) && 
-                (getAbsoluteEndPosition() <= myLane->getLaneShapeLength()) && 
-                ((getAbsoluteEndPosition() - getAbsoluteStartPosition()) >= POSITION_EPS);
+        return (myStartPosRelative >= 0) && (myEndPosRelative <= 1) && 
+               ((getAbsoluteEndPosition() - getAbsoluteStartPosition()) >= POSITION_EPS);
     }
 }
 
