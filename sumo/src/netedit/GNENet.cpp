@@ -761,12 +761,10 @@ GNENet::saveAdditionals(const std::string& filename, bool volatileOptionsEnabled
     }
     // if there are invalid StoppingPlaces and E2 detectors, open GNEDialog_FixStoppingPlaces
     if(invalidStoppingPlacesAndE2.size() > 0) {
-        GNEDialog_FixStoppingPlaces fixStoppingPlacesDialog(myViewNet->getApp(), invalidStoppingPlacesAndE2);
+        int resultOfFixing = GNEDialog_FixStoppingPlaces(myViewNet->getApp(), invalidStoppingPlacesAndE2).execute();
         // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions 
         // 2 -> Saved only valid Stopping Places and E2 (And the rest of additionals)
-        int resultOfFixing = fixStoppingPlacesDialog.execute();
-
         if(resultOfFixing == 0) {
             // Here a console message
             ;

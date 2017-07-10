@@ -72,6 +72,12 @@ public:
      */
     virtual void writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) const = 0;
 
+    /// @brief get absolute start Position
+    double getAbsoluteStartPosition() const;
+
+    /// @brief get absolute end Position
+    double getAbsoluteEndPosition() const;
+
     /**@brief fix stopping place position 
      * @return true if fix was sucesfully
      * @throw ProcessError if try to fix position when myFriendlyPosition is enabled

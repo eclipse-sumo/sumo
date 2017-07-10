@@ -107,11 +107,23 @@ GNEStoppingPlace::moveGeometry(const Position &newPosition) {
 void
 GNEStoppingPlace::commmitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(myStartPosRelative * myLane->getLaneParametricLength()), true, toString(oldPos.x())));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPosRelative * myLane->getLaneParametricLength()), true, toString(oldPos.y())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(getAbsoluteStartPosition()), true, toString(oldPos.x())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(getAbsoluteEndPosition()), true, toString(oldPos.y())));
     undoList->p_end();
     // Refresh element
     myViewNet->getNet()->refreshAdditional(this);
+}
+
+
+double 
+GNEStoppingPlace::getAbsoluteStartPosition() const {
+    return myStartPosRelative * myLane->getLaneParametricLength();
+}
+
+
+double 
+GNEStoppingPlace::getAbsoluteEndPosition() const {
+    return myEndPosRelative * myLane->getLaneParametricLength();
 }
 
 

@@ -123,8 +123,8 @@ GNEBusStop::writeAdditional(OutputDevice& device, bool volatileOptionsEnabled) c
     } else {
         device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
     }
-    device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosRelative * myLane->getLaneParametricLength());
-    device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosRelative * myLane->getLaneParametricLength());
+    device.writeAttr(SUMO_ATTR_STARTPOS, getAbsoluteStartPosition());
+    device.writeAttr(SUMO_ATTR_ENDPOS, getAbsoluteEndPosition());
     if(myName.empty() == false) {
         device.writeAttr(SUMO_ATTR_NAME, myName);
     }
@@ -281,9 +281,9 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return toString(myLane->getAttribute(SUMO_ATTR_ID));
         case SUMO_ATTR_STARTPOS:
-            return toString(myStartPosRelative * myLane->getLaneParametricLength());
+            return toString(getAbsoluteStartPosition());
         case SUMO_ATTR_ENDPOS:
-            return toString(myEndPosRelative * myLane->getLaneParametricLength());
+            return toString(getAbsoluteEndPosition());
         case SUMO_ATTR_NAME:
             return myName;
         case SUMO_ATTR_FRIENDLY_POS:

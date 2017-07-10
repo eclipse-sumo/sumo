@@ -58,28 +58,14 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-    
-    /* /// @brief event when user press a enable/disable button
-    long onCmdValueChanged(FXObject*, FXSelector, void*);
+    /// @brief event when user select a option
+    long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
-    /// @brief event when user press select all VClasses button
-    long onCmdSelectAll(FXObject*, FXSelector, void*);
-
-    /// @brief event when user press unselect all VClasses button
-    long onCmdUnselectAll(FXObject*, FXSelector, void*);
-
-    /// @brief event when user press select only non road button
-    long onCmdSelectOnlyNonRoad(FXObject*, FXSelector, void*);
-    */
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
     /// @brief event after press cancel button
     long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @brief event after press reset button
-    long onCmdReset(FXObject*, FXSelector, void*);
-
     /// @}
 
 protected:
@@ -89,14 +75,26 @@ protected:
     /// @brief vector with the invalid stoppingplaces and E2
     std::vector<GNEAdditional*> myInvalidStoppingPlacesAndE2;
 
+    /// @brief list with the stoppingPlaces and E2
+    FXTable *myTable;
+
+    /// @brief Option "Activate friendlyPos and save"
+    FXRadioButton *myOptionA;
+
+    /// @brief Option "Fix Positions and save"
+    FXRadioButton *myOptionB;
+
+    /// @brief Option "Save invalid"
+    FXRadioButton *myOptionC;
+
+    /// @brief Option "Select invalid stops and cancel"
+    FXRadioButton *myOptionD;
+
     /// @brief accept button
     FXButton* myAcceptButton;
 
     /// @brief cancel button
     FXButton* myCancelButton;
-
-    /// @brief cancel button
-    FXButton* myResetButton;
 
 private:
     /// @brief Invalidated copy constructor.
