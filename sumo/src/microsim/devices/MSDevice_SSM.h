@@ -79,34 +79,39 @@ public:
         ENCOUNTER_TYPE_FOLLOWING_FOLLOWER = 2,       //!< ENCOUNTER_TYPE_FOLLOWING_FOLLOWER
         // Other vehicle is on an edge that has a sequence of successors connected to the ego vehicle's current edge
         ENCOUNTER_TYPE_FOLLOWING_LEADER = 3,         //!< ENCOUNTER_TYPE_FOLLOWING_LEADER
+        // Other vehicle is on an edge that has a sequence of successors connected to the ego vehicle's current edge
+        ENCOUNTER_TYPE_ON_ADJACENT_LANES = 4,         //!< ENCOUNTER_TYPE_ON_ADJACENT_LANES
         // Ego and foe share an upcoming edge of their routes while the merging point for the routes is still ahead
         // This type may be specified further by ENCOUNTER_TYPE_MERGING_LEADER or ENCOUNTER_TYPE_MERGING_FOLLOWER
-        ENCOUNTER_TYPE_MERGING = 4,  //!< ENCOUNTER_TYPE_MERGING
+        ENCOUNTER_TYPE_MERGING = 5,  //!< ENCOUNTER_TYPE_MERGING
         // Other vehicle is on an edge that has a sequence of successors connected to an edge on the ego vehicle's route
         // and the estimated arrival vehicle at the merge point is earlier for the ego than for the foe
-        ENCOUNTER_TYPE_MERGING_LEADER = 5,  //!< ENCOUNTER_TYPE_MERGING_LEADER
+        ENCOUNTER_TYPE_MERGING_LEADER = 6,  //!< ENCOUNTER_TYPE_MERGING_LEADER
         // Other vehicle is on an edge that has a sequence of successors connected to an edge on the ego vehicle's route
         // and the estimated arrival vehicle at the merge point is earlier for the foe than for the ego
-        ENCOUNTER_TYPE_MERGING_FOLLOWER = 6,//!< ENCOUNTER_TYPE_MERGING_FOLLOWER
+        ENCOUNTER_TYPE_MERGING_FOLLOWER = 7,//!< ENCOUNTER_TYPE_MERGING_FOLLOWER
+        // Vehicles' bestlanes lead to the same edge but to adjacent lanes
+        ENCOUNTER_TYPE_MERGING_ADJACENT = 8,//!< ENCOUNTER_TYPE_MERGING_ADJACENT
         // Ego's and foe's routes have crossing edges
         // This type may be specified further by ENCOUNTER_TYPE_CROSSING_LEADER or ENCOUNTER_TYPE_CROSSING_FOLLOWER
-        ENCOUNTER_TYPE_CROSSING = 7,  //!< ENCOUNTER_TYPE_CROSSING
+        ENCOUNTER_TYPE_CROSSING = 9,  //!< ENCOUNTER_TYPE_CROSSING
         // Other vehicle is on an edge that has a sequence of successors leading to an internal edge that crosses the ego vehicle's edge at a junction
         // and the estimated arrival vehicle at the merge point is earlier for the ego than for the foe
-        ENCOUNTER_TYPE_CROSSING_LEADER = 8, //!< ENCOUNTER_TYPE_CROSSING_LEADER
+        ENCOUNTER_TYPE_CROSSING_LEADER = 10, //!< ENCOUNTER_TYPE_CROSSING_LEADER
         // Other vehicle is on an edge that has a sequence of successors leading to an internal edge that crosses the ego vehicle's edge at a junction
         // and the estimated arrival vehicle at the merge point is earlier for the foe than for the ego
-        ENCOUNTER_TYPE_CROSSING_FOLLOWER = 9, //!< ENCOUNTER_TYPE_CROSSING_FOLLOWER
+        ENCOUNTER_TYPE_CROSSING_FOLLOWER = 11, //!< ENCOUNTER_TYPE_CROSSING_FOLLOWER
         // The encounter has been a possible crossing conflict, but the ego vehicle has left the conflict area
-        ENCOUNTER_TYPE_EGO_PASSED_CP = 10, //!< ENCOUNTER_TYPE_EGO_PASSED_CP
+        ENCOUNTER_TYPE_EGO_PASSED_CP = 12, //!< ENCOUNTER_TYPE_EGO_PASSED_CP
         // The encounter has been a possible crossing conflict, but the foe vehicle has left the conflict area
-        ENCOUNTER_TYPE_FOE_PASSED_CP = 11, //!< ENCOUNTER_TYPE_FOE_PASSED_CP
+        ENCOUNTER_TYPE_FOE_PASSED_CP = 13, //!< ENCOUNTER_TYPE_FOE_PASSED_CP
         // The encounter has been a possible crossing conflict, but both vehicle have left the conflict area
-        ENCOUNTER_TYPE_BOTH_PASSED_CP = 12, //!< ENCOUNTER_TYPE_BOTH_PASSED_CP
+        ENCOUNTER_TYPE_BOTH_PASSED_CP = 14, //!< ENCOUNTER_TYPE_BOTH_PASSED_CP
+        // FOLLOWING_PASSED and MERGING_PASSED are reserved to achieve that these encounter types may be tracked longer (see updatePassedEncounter)
         // The encounter has been a following situation, but is not active any more
-        ENCOUNTER_TYPE_FOLLOWING_PASSED = 13, //!< ENCOUNTER_TYPE_FOLLOWING_PASSED
+        ENCOUNTER_TYPE_FOLLOWING_PASSED = 15, //!< ENCOUNTER_TYPE_FOLLOWING_PASSED
         // The encounter has been a merging situation, but is not active any more
-        ENCOUNTER_TYPE_MERGING_PASSED = 14, //!< ENCOUNTER_TYPE_FOLLOWING_PASSED
+        ENCOUNTER_TYPE_MERGING_PASSED = 16, //!< ENCOUNTER_TYPE_FOLLOWING_PASSED
         // Collision (currently unused, might be differentiated further)
         ENCOUNTER_TYPE_COLLISION = 111 //!< ENCOUNTER_TYPE_COLLISION
     };
@@ -115,7 +120,7 @@ private:
     /// @brief An encounter is an episode involving two vehicles,
     ///        which are closer to each other than some specified distance.
     class Encounter {
-        // TODO: Shouldn't the time lines for the conflict point locations be stored?
+        // TODO: Shouldn't the time lines for the conflict point locations be stored? YES!
     private:
         /// @brief A trajectory encloses a series of positions x and speeds v for one vehicle
         /// (the times are stored only once in the enclosing encounter)
@@ -196,19 +201,12 @@ private:
         /// @brief All values for DRAC
         std::vector<double> DRACspan;
 
-        // TODO: update these in computeSSMs() or updateEncounter()
         /// @name Extremal values for the SSMs (as <time,value>-pairs)
         /// @{
         std::pair<double, double> minTTC;
         std::pair<double, double> maxDRAC;
         std::pair<double, double> PET;
         /// @}
-
-//        /// @brief Whether PET was calculated already
-//        /// @note  This applies for conflicts of merging or crossing type:
-//        ///         If one of the vehicles has already passed the conflict point, the PET has
-//        ///         to be calculated only once, when the second vehicle passes the conflict point.)
-//        bool PETCalculated; // TODO, PET calculation not yet implemented
 
         /// @brief this flag is set by updateEncounter() or directly in processEncounters(), where encounters are closed if it is true.
         bool closingRequested;
