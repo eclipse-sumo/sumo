@@ -135,9 +135,10 @@ button {
 }
 
 .options input {
-    float: right;
+    float: left;
     border-radius: 2px;
     border: none;
+	margin: 5px;
 }
 
 input[type=number] {
