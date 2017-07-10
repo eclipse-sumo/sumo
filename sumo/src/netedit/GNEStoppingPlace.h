@@ -78,12 +78,6 @@ public:
     /// @brief get absolute end Position
     double getAbsoluteEndPosition() const;
 
-    /**@brief fix stopping place position 
-     * @return true if fix was sucesfully
-     * @throw ProcessError if try to fix position when myFriendlyPosition is enabled
-     */
-    bool fixStoppingPlacePosition();
-
     /// @brief check if Position of stoppingPlace are fixed
     bool areStoppingPlacesPositionsFixed();
 

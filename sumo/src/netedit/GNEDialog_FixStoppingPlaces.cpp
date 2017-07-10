@@ -42,6 +42,8 @@
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNEChange_Selection.h"
+#include "GNEChange_Attribute.h"
+#include "GNEAdditionalHandler.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -148,6 +150,8 @@ GNEDialog_FixStoppingPlaces::GNEDialog_FixStoppingPlaces(GNEViewNet *viewNet, st
     myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_GNE_MODE_ADDITIONALDIALOG_ACCEPT, GUIDesignButtonAccept);
     myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose", GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_GNE_MODE_ADDITIONALDIALOG_CANCEL, GUIDesignButtonCancel);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    // set focus in accept button
+    myAcceptButton->setFocus();
 }
 
 
@@ -190,19 +194,46 @@ GNEDialog_FixStoppingPlaces::onCmdSelectOption(FXObject* obj, FXSelector, void*)
 long
 GNEDialog_FixStoppingPlaces::onCmdAccept(FXObject*, FXSelector, void*) {
 
-    if(myOptionA->getCheck() == true) {
+    if(myOptionA->getCheck() == TRUE) {
+        myViewNet->getUndoList()->p_begin(toString(SUMO_ATTR_FRIENDLY_POS) +" of invalid additionals");
+        // iterate over invalid stopping places and E2 to enable friendly position
+        for(std::vector<GNEAdditional*>::iterator i = myInvalidStoppingPlacesAndE2.begin(); i != myInvalidStoppingPlacesAndE2.end(); i++) {
+            (*i)->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+        }
+        myViewNet->getUndoList()->p_end();
         // stop modal with TRUE
         getApp()->stopModal(this, TRUE);
         return 1;
-    } else if(myOptionB->getCheck() == true) {
+    } else if(myOptionB->getCheck() == TRUE) {
+        myViewNet->getUndoList()->p_begin("Fixed positions of invalid additionals");
+        // iterate over invalid stopping places and E2 to fix positions
+        for(std::vector<GNEAdditional*>::iterator i = myInvalidStoppingPlacesAndE2.begin(); i != myInvalidStoppingPlacesAndE2.end(); i++) {
+            GNEStoppingPlace *stoppingPlace = dynamic_cast<GNEStoppingPlace*>(*i);
+            if(stoppingPlace != NULL) {
+                double startPos = stoppingPlace->getAbsoluteStartPosition();
+                double endPos = stoppingPlace->getAbsoluteEndPosition();
+                // fix start and end positions using checkAndFixStoppinPlacePosition
+                GNEAdditionalHandler::checkAndFixStoppinPlacePosition(startPos, endPos, stoppingPlace->getLane()->getLaneShapeLength(), POSITION_EPS, true);
+                // this is needed to avoid precission problems
+                if((endPos / stoppingPlace->getLane()->getLaneParametricLength()) > 1) {
+                    endPos = stoppingPlace->getLane()->getLaneParametricLength();
+                }
+                if (startPos < 0) {
+                    startPos = 0;
+                }
+                stoppingPlace->setAttribute(SUMO_ATTR_STARTPOS, toString(startPos), myViewNet->getUndoList());
+                stoppingPlace->setAttribute(SUMO_ATTR_ENDPOS, toString(endPos), myViewNet->getUndoList());
+            }
+        }
+         myViewNet->getUndoList()->p_end();
         // stop modal with TRUE
         getApp()->stopModal(this, TRUE);
         return 1;
-    } else if(myOptionC->getCheck() == true) {
-        // stop modal with TRUE
+    } else if(myOptionC->getCheck() == TRUE) {
+        // simply stop modal with TRUE to save additionals with invalid positions
         getApp()->stopModal(this, TRUE);
         return 1;
-    } else if(myOptionD->getCheck() == true) {
+    } else if(myOptionD->getCheck() == TRUE) {
         std::set<GUIGlID> GLIDsToSelect;
         myViewNet->getUndoList()->p_begin("select invalid additionals");
         // clear previous selection

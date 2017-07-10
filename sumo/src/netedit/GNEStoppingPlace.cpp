@@ -127,23 +127,15 @@ GNEStoppingPlace::getAbsoluteEndPosition() const {
 }
 
 
-bool  
-GNEStoppingPlace::fixStoppingPlacePosition() {
-    if(myFriendlyPosition) {
-        throw InvalidArgument("StoppingPlace position cannot be fixed if friendlyPos is enabled");
-    } else {
-        return GNEAdditionalHandler::checkAndFixStoppinPlacePosition(myStartPosRelative, myEndPosRelative, myLane->getLaneShapeLength(), POSITION_EPS, myFriendlyPosition);
-    }
-}
-
-
 bool 
 GNEStoppingPlace::areStoppingPlacesPositionsFixed() {
     // with friendly position enabled position are "always fixed"
     if(myFriendlyPosition) {
         return true;
     } else {
-        return (myStartPosRelative >= 0) && (myEndPosRelative <= 1) && (myStartPosRelative < myEndPosRelative);
+        return (getAbsoluteStartPosition() >= 0) && 
+                (getAbsoluteEndPosition() <= myLane->getLaneShapeLength()) && 
+                ((getAbsoluteEndPosition() - getAbsoluteStartPosition()) >= POSITION_EPS);
     }
 }
 
