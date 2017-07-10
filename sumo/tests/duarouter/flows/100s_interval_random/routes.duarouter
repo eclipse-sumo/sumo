@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/02/13 14:01:50 by SUMO duarouter Version 0.17.0
+<!-- generated on 07/10/17 12:00:09 by SUMO duarouter Version dev-SVN-r25136
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <flow-files value="input_flows.flows.xml"/>
+        <route-files value="input_flows.flows.xml"/>
     </input>
 
     <output>
@@ -19,6 +19,7 @@
     </processing>
 
     <report>
+        <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -26,34 +27,34 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0.0" depart="7.58">
+    <vehicle id="0.0" depart="6.61">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.1" depart="9.51">
+    <vehicle id="0.1" depart="11.40">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.2" depart="9.74">
+    <vehicle id="0.2" depart="32.63">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.3" depart="12.69">
+    <vehicle id="0.3" depart="35.70">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.4" depart="35.35">
+    <vehicle id="0.4" depart="36.56">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.5" depart="75.18">
+    <vehicle id="0.5" depart="39.28">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.6" depart="75.85">
+    <vehicle id="0.6" depart="41.07">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.7" depart="83.72">
+    <vehicle id="0.7" depart="53.29">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.8" depart="88.65">
+    <vehicle id="0.8" depart="63.69">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.9" depart="99.33">
+    <vehicle id="0.9" depart="66.14">
         <route edges="beg middle end rend"/>
     </vehicle>
 </routes>
