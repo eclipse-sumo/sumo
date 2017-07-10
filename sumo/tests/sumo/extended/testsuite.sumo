@@ -52,10 +52,10 @@ electric
 
 # check options for collision handling
 collisions
-
-# test for using option --max-num-vehicles
-max_num_vehicles
 rail
 
 # Tests for the Surrogate Safety Measure Device (MSDevice_SSM)
 SSMDevice
+
+# test for using option --max-num-vehicles
+max_num_vehicles

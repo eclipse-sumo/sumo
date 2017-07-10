@@ -12,7 +12,7 @@ following
 
 # use net2.net.xml with two lanes on major and test some encounter cases there
 # 
-multilane_TODO
+multilane
 
 # varying step-length
 # euler/ballistic
@@ -23,3 +23,11 @@ multilane_TODO
 # stopped vehicles
 # lane changing
 more_cases_TODO
+
+# Test trajectory output options
+# turn on/off different SSMs
+# test thresholds
+# test frequency
+# test range
+# 
+config_TODO
