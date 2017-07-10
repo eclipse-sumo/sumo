@@ -103,8 +103,12 @@ public:
         ENCOUNTER_TYPE_FOE_PASSED_CP = 11, //!< ENCOUNTER_TYPE_FOE_PASSED_CP
         // The encounter has been a possible crossing conflict, but both vehicle have left the conflict area
         ENCOUNTER_TYPE_BOTH_PASSED_CP = 12, //!< ENCOUNTER_TYPE_BOTH_PASSED_CP
+        // The encounter has been a following situation, but is not active any more
+        ENCOUNTER_TYPE_FOLLOWING_PASSED = 13, //!< ENCOUNTER_TYPE_FOLLOWING_PASSED
+        // The encounter has been a merging situation, but is not active any more
+        ENCOUNTER_TYPE_MERGING_PASSED = 14, //!< ENCOUNTER_TYPE_FOLLOWING_PASSED
         // Collision (currently unused, might be differentiated further)
-        ENCOUNTER_TYPE_COLLISION = 13 //!< ENCOUNTER_TYPE_COLLISION
+        ENCOUNTER_TYPE_COLLISION = 111 //!< ENCOUNTER_TYPE_COLLISION
     };
 
 private:
@@ -542,7 +546,11 @@ private:
 private:
     /// @name Device parameters
     /// @{
+    /// @brief thresholds for the ssms, i.e., critical values above or below which a value indicates that a conflict
+    ///        has occured. These are used in qualifiesAsConflict() and decide whether an encounter is saved.
     std::map<std::string, double> myThresholds;
+    /// @brief This determines whether the whole trajectories of the vehicles (position, speed, ssms) shall be saved in the ssm-output
+    ///        or only the most critical value shall be reported.
     bool mySaveTrajectories;
     /// @brief Maximal timespan duration for a single encounter
     double myMaxEncounterLength;
