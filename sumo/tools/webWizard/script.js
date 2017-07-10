@@ -237,11 +237,11 @@ on("ready", function(){
 
     function setPosition(lon, lat){
         if(!lon || !lat){
-            lon = parseFloat(elem("#current-lon").value);
-            lat = parseFloat(elem("#current-lat").value);
+            latLon = elem("#lat_lon").value.split(" ")
+            lon = parseFloat(latLon[1]);
+            lat = parseFloat(latLon[0]);
         } else {
-            elem("#current-lon").value = lon.toFixed(6);
-            elem("#current-lat").value = lat.toFixed(6);
+            elem("#lat_lon").value = lat.toFixed(6) + " " + lon.toFixed(6);
         }
 
         var lonLat = new OpenLayers.LonLat(lon, lat);
@@ -253,6 +253,40 @@ on("ready", function(){
         map.setCenter(lonLat, 16);
     }
 
+    function setPositionByString() {
+      query = elem("#address").value
+      var url = "http://nominatim.openstreetmap.org/search?q=" + query + "&format=json&polygon=0&addressdetails=0&limit=1&callback";
+      getJSON(url,
+          function(err, data) {
+            if (err != null) {
+              window.alert('Could not locate address: ' + err);
+            } else if (data.length == 0) {
+              window.alert('Could not locate address');
+            } else {
+              var result = data[0];
+              lon = parseFloat(result.lon);
+              lat = parseFloat(result.lat);
+              setPosition(lon, lat);
+            }
+          });
+    }
+
+    var getJSON = function(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = function() {
+          var status = xhr.status;
+          if (status == 200) {
+            callback(null, xhr.response);
+          } else {
+            callback(status);
+          }
+        };
+        xhr.send();
+    };
+    
+
     // set default position to center Berlin
     setPosition(13.4, 52.52);
 
@@ -260,7 +294,7 @@ on("ready", function(){
      * @listener
      * set the coordinates of the map to current coordinates (got from browser)
      */
-    elem("#set-position").on("click", function(){
+    elem("#buttonCurrent").on("click", function(){
         if(!navigator.geolocation) return;
 
         navigator.geolocation.getCurrentPosition(function(position){
@@ -272,8 +306,8 @@ on("ready", function(){
      * @listener
      * whenever the input boxes changes, update the map coordinates
      */
-    elem("#current-lon").on("input", setPosition);
-    elem("#current-lat").on("input", setPosition);
+    elem("#buttonSearch").on("click", setPositionByString);
+    elem("#buttonLatLon").on("click", setPosition);
 
     /**
      * @listener
@@ -285,9 +319,10 @@ on("ready", function(){
             map.getProjectionObject(), // from Spherical Mercator Projection
             new OpenLayers.Projection("EPSG:4326")
         );
+        lat = (cor.top + (cor.bottom - cor.top) / 2);
+        lon = (cor.left + (cor.right - cor.left) / 2);
 
-        elem("#current-lon").value = (cor.left + (cor.right - cor.left) / 2).toFixed(6);
-        elem("#current-lat").value = (cor.top + (cor.bottom - cor.top) / 2).toFixed(6);
+        elem("#lat_lon").value = lat.toFixed(6) + " " + lon.toFixed(6);
     });
 
     var socket;
