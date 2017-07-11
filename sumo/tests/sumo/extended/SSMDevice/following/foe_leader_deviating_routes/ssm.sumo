@@ -1,5 +1,5 @@
 <SSMLog>
-    <conflict begin="1.00" end="9.60" ego="ego1" foe="foe1">
+    <conflict begin="1.00" end="14.60" ego="ego1" foe="foe1">
         <minTTC value="8.30,4.05"/>
         <maxDRAC value="8.30,2.53"/>
         <minPET value="NA,NA"/>

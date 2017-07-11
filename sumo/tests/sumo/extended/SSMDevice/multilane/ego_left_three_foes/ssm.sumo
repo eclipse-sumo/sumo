@@ -1,17 +1,17 @@
 <SSMLog>
-    <conflict begin="7.10" end="11.20" ego="ego1" foe="foe3">
-        <minTTC value="7.10,2.23"/>
-        <maxDRAC value="7.10,2.37"/>
-        <minPET value="NA,NA"/>
+    <conflict begin="5.50" end="12.50" ego="ego1" foe="foe1">
+        <minTTC value="NA,NA"/>
+        <maxDRAC value="NA,NA"/>
+        <minPET value="9.48,1.90"/>
     </conflict>
     <conflict begin="6.30" end="13.30" ego="ego1" foe="foe2">
         <minTTC value="NA,NA"/>
         <maxDRAC value="NA,NA"/>
         <minPET value="9.48,1.03"/>
     </conflict>
-    <conflict begin="5.50" end="12.50" ego="ego1" foe="foe1">
-        <minTTC value="NA,NA"/>
-        <maxDRAC value="NA,NA"/>
-        <minPET value="9.48,1.90"/>
+    <conflict begin="7.10" end="14.20" ego="ego1" foe="foe3">
+        <minTTC value="7.10,2.23"/>
+        <maxDRAC value="7.10,2.37"/>
+        <minPET value="NA,NA"/>
     </conflict>
 </SSMLog>

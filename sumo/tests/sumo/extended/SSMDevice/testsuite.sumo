@@ -1,3 +1,13 @@
+# Tests the configration options. Uses test 'both_left_ego_major1' as base as that test produces values for TTC, DRAC, and PET.
+# 
+# Test trajectory output options
+# turn on/off different SSMs
+# test thresholds
+# test frequency
+# test range
+# 
+config
+
 # Test different crossing situations. In first line tests PET (Post Encroachment Time).
 crossing
 
@@ -23,13 +33,3 @@ multilane
 # stopped vehicles
 # lane changing
 more_cases_TODO
-
-# Tests the configration options. Uses test 'both_left_ego_major1' as base as that test produces values for TTC, DRAC, and PET.
-# 
-# Test trajectory output options
-# turn on/off different SSMs
-# test thresholds
-# test frequency
-# test range
-# 
-config
