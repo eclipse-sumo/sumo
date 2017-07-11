@@ -420,10 +420,20 @@ class NetReader(handler.ContentHandler):
                 prio = -1
                 if 'priority' in attrs:
                     prio = int(attrs['priority'])
-                self._currentEdge = self._net.addEdge(attrs['id'],
-                                                      attrs.get('from', None), attrs.get(
-                                                          'to', None),
+
+                    
+                # get the  ids 
+                edgeID = attrs['id']
+                fromNodeID = attrs.get('from', None)
+                toNodeID = attrs.get('to', None)
+                
+                # for internal junction set the junction id for from and to node
+                if function == 'internal':
+                    toNodeID = edgeID[1:edgeID.rfind('_')]
+                    fromNodeID = toNodeID
+                self._currentEdge = self._net.addEdge(edgeID, fromNodeID, toNodeID,
                                                       prio, function, attrs.get('name', ''))
+                
                 self._currentEdge.setRawShape(
                     convertShape(attrs.get('shape', '')))
             else:
