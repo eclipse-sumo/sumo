@@ -427,7 +427,7 @@ class NetReader(handler.ContentHandler):
                 fromNodeID = attrs.get('from', None)
                 toNodeID = attrs.get('to', None)
                 
-                # for internal junction set the junction id for from and to node
+                # for internal junctions use the junction's id for from and to node
                 if function == 'internal':
                     fromNodeID = toNodeID = edgeID[1:edgeID.rfind('_')]
                     
