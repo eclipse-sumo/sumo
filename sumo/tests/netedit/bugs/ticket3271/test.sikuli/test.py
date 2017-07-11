@@ -38,7 +38,7 @@ netedit.setZoom("50", "50", "150")
 # Change to create edge mode
 netedit.createEdgeMode()
 
-# Create an edge in 
+# Create an edge in
 netedit.leftClick(match, -80, 50)
 netedit.leftClick(match, 45, 50)
 
