@@ -32,8 +32,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/SysUtils.h>
 #include "RandHelper.h"
-#include <ctime>
-#include <cmath>
 
 
 // ===========================================================================
@@ -60,17 +58,24 @@ RandHelper::insertRandOptions() {
     oc.addDescription("seed", "Random Number", "Initialises the random number generator with the given value");
 }
 
+
 void
-RandHelper::initRandGlobal(std::mt19937* which) {
-    OptionsCont& oc = OptionsCont::getOptions();
+RandHelper::initRand(std::mt19937* which, const bool random, const int seed) {
     if (which == 0) {
         which = &myRandomNumberGenerator;
     }
-    if (oc.getBool("random")) {
-        which->seed();
+    if (random) {
+        which->seed(std::random_device{}());
     } else {
-        which->seed(oc.getInt("seed"));
+        which->seed(seed);
     }
+}
+
+
+void
+RandHelper::initRandGlobal(std::mt19937* which) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    initRand(which, oc.getBool("random"), oc.getInt("seed"));
 }
 
 
