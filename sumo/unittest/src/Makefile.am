@@ -17,6 +17,7 @@ sumo_unittest_LDFLAGS = $(GTEST_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
 sumo_unittest_LDADD   = \
 ./utils/common/StringUtilsTest.o \
 ./utils/common/StringTokenizerTest.o \
+./utils/common/RandHelperTest.o \
 ./utils/common/RGBColorTest.o \
 ./utils/common/TplConvertTest.o \
 ./utils/common/ValueTimeLineTest.o \
