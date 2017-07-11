@@ -1,0 +1,5 @@
+<SSMLog>
+    <conflict begin="4.30" end="13.90" ego="ego" foe="foe">
+        <maxDRAC value="6.30,7.68"/>
+    </conflict>
+</SSMLog>

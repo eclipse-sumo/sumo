@@ -1,0 +1,7 @@
+<SSMLog>
+    <conflict begin="7.30" end="13.90" ego="ego" foe="foe">
+        <minTTC value="8.70,0.71"/>
+        <maxDRAC value="8.70,7.40"/>
+        <minPET value="9.32,0.55"/>
+    </conflict>
+</SSMLog>

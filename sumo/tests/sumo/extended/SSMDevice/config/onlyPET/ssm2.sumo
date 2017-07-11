@@ -1,0 +1,5 @@
+<SSMLog>
+    <conflict begin="4.30" end="13.90" ego="ego" foe="foe">
+        <minPET value="9.32,0.55"/>
+    </conflict>
+</SSMLog>

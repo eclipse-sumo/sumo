@@ -1,0 +1,5 @@
+<SSMLog>
+    <conflict begin="4.30" end="13.90" ego="ego" foe="foe">
+        <minTTC value="8.70,0.71"/>
+    </conflict>
+</SSMLog>
