@@ -58,8 +58,7 @@
 // ===========================================================================
 // value indicating an invalid double parameter
 #define INVALID std::numeric_limits<double>::max()
-// default value for the maximal episode length for logged encounters
-#define DEFAULT_MAX_ENCOUNTER_LENGTH 30.0
+
 // default value for the detection range of potential opponents
 #define DEFAULT_RANGE 50.0
 
@@ -71,7 +70,7 @@
 #define DEFAULT_THRESHOLD_TTC 3. // in [s.], events get logged if below threshold
 #define DEFAULT_THRESHOLD_DRAC 4. // in [m/s^2], events get logged if above threshold
 #define DEFAULT_THRESHOLD_PET 2. // in seconds, events get logged if below threshold
-#define DEFAULT_EXTRA_TIME 5.      // in seconds, events get logged if below threshold
+#define DEFAULT_EXTRA_TIME 5.      // in seconds, events get logged for extra time even if encounter is over
 
 // ===========================================================================
 // method definitions
@@ -97,8 +96,6 @@ std::ostream& operator<<(std::ostream& out, MSDevice_SSM::EncounterType type) {
         case MSDevice_SSM::ENCOUNTER_TYPE_EGO_PASSED_CP: out << "EGO_PASSED_CP"; break;
         case MSDevice_SSM::ENCOUNTER_TYPE_FOE_PASSED_CP: out << "FOE_PASSED_CP"; break;
         case MSDevice_SSM::ENCOUNTER_TYPE_BOTH_PASSED_CP: out << "BOTH_PASSED_CP"; break;
-        // FOLLOWING_PASSED and MERGING_PASSED are reserved to achieve that these encounter types may be tracked longer (see updatePassedEncounter())
-        // -> TODO: us types FOLLOWING_PASSED and MERGING_PASSED to count down extratime instead of closing encounter immediately
         case MSDevice_SSM::ENCOUNTER_TYPE_FOLLOWING_PASSED: out << "FOLLOWING_PASSED"; break;
         case MSDevice_SSM::ENCOUNTER_TYPE_MERGING_PASSED: out << "MERGING_PASSED"; break;
         // Collision (currently unused, might be differentiated further)
@@ -144,8 +141,6 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.ssm.thresholds", "SSM Device", "Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged.");
     oc.doRegister("device.ssm.trajectories", new Option_Bool(false));
     oc.addDescription("device.ssm.trajectories", "SSM Device", "Specifies whether trajectories will be logged (if false, only the extremal values and times are reported).");
-    oc.doRegister("device.ssm.maxencounterlength", new Option_Float(DEFAULT_MAX_ENCOUNTER_LENGTH));
-    oc.addDescription("device.ssm.maxencounterlength", "SSM Device", "Specifies the maximal length of stored conflict trajectories in seconds (the frequency of logging, default is " + toString(DEFAULT_MAX_ENCOUNTER_LENGTH) + "s.).");
     oc.doRegister("device.ssm.range", new Option_Float(DEFAULT_RANGE));
     oc.addDescription("device.ssm.range", "SSM Device", "Specifies the detection range in meters (default is " + toString(DEFAULT_RANGE) + "m.). For vehicles below this distance from the equipped vehicle, SSM values are traced.");
     oc.doRegister("device.ssm.extratime", new Option_Float(DEFAULT_EXTRA_TIME));
@@ -175,9 +170,6 @@ MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) 
         // Trajectories
         bool trajectories = requestsTrajectories(v);
 
-        // max encounter length
-        double maxEncounterLength = getMaxEncounterLength(v);
-
         // detection range
         double range = getDetectionRange(v);
 
@@ -188,13 +180,14 @@ MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) 
         std::string file = getOutputFilename(v, deviceID);
 
         // Build the device (XXX: who deletes it?)
-        MSDevice_SSM* device = new MSDevice_SSM(v, deviceID, file, thresholds, trajectories, maxEncounterLength, range, extraTime);
+        MSDevice_SSM* device = new MSDevice_SSM(v, deviceID, file, thresholds, trajectories, range, extraTime);
         into.push_back(device);
     }
 }
 
 
 MSDevice_SSM::Encounter::Encounter(const MSVehicle* _ego, const MSVehicle* const _foe, double _begin, double extraTime) :
+    currentType(ENCOUNTER_TYPE_NOCONFLICT_AHEAD),
     ego(_ego),
     foe(_foe),
     egoID(_ego->getID()),
@@ -238,6 +231,8 @@ MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position ego
             <<", pet="<<(pet.second==INVALID?"NA":toString(pet.second))
             << std::endl;
 #endif
+    currentType=type;
+
     timeSpan.push_back(time);
     typeSpan.push_back(type);
     egoTrajectory.x.push_back(egoX);
@@ -308,9 +303,11 @@ void
 MSDevice_SSM::updateAndWriteOutput() {
     if (myHolder.isOnRoad()) {
         update();
+        // Write out past conflicts
         flushConflicts();
     } else {
         resetEncounters();
+        // Write out past conflicts
         flushConflicts(true);
     }
 }
@@ -345,11 +342,8 @@ MSDevice_SSM::update() {
     // Make new encounters for all foes, which were not removed by processEncounters (and deletes corresponding FoeInfos)
     createEncounters(foes);
     foes.clear();
-
-    // Write out past conflicts
-    flushConflicts();
-
 }
+
 
 void
 MSDevice_SSM::createEncounters(FoeInfoMap& foes) {
@@ -366,6 +360,11 @@ MSDevice_SSM::createEncounters(FoeInfoMap& foes) {
         std::pair<MSLane*, MSLane*> conflictLanes;
         Encounter* e = new Encounter(myHolderMS, foe->first, SIMTIME, myExtraTime);
         updateEncounter(e, foe->second); // deletes foe->second
+        if (myOldestActiveEncounterBegin==INVALID) {
+            assert(myActiveEncounters.empty());
+            myOldestActiveEncounterBegin=e->begin;
+        }
+        assert(myOldestActiveEncounterBegin <= e->begin);
         myActiveEncounters.push_back(e);
     }
 }
@@ -416,8 +415,19 @@ MSDevice_SSM::processEncounters(FoeInfoMap& foes, bool forceClose) {
         }
 
         if (e->closingRequested) {
+            double eBegin = e->begin;
             closeEncounter(e);
             ei = myActiveEncounters.erase(ei);
+            if (myActiveEncounters.empty()){
+                myOldestActiveEncounterBegin=INVALID;
+            } else if (eBegin == myOldestActiveEncounterBegin) {
+                // Erased the oldest encounter, update myOldestActiveEncounterBegin
+                auto i = myActiveEncounters.begin();
+                myOldestActiveEncounterBegin = (*i++)->begin;
+                while (i!=myActiveEncounters.end()){
+                    myOldestActiveEncounterBegin = MIN2(myOldestActiveEncounterBegin, (*i++)->begin);
+                }
+            }
         } else {
             ++ei;
         }
@@ -518,7 +528,7 @@ MSDevice_SSM::updateEncounter(Encounter* e, FoeInfo* foeInfo) {
     // Compute SSMs
     computeSSMs(eInfo);
 
-    // Add current states to trajectories
+    // Add current states to trajectories and update type
     e->add(SIMTIME, eInfo.type, e->ego->getPosition(), e->ego->getVelocityVector(), e->foe->getPosition(), e->foe->getVelocityVector(),
             eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, eInfo.ttc, eInfo.drac, eInfo.pet);
 
@@ -1041,23 +1051,19 @@ MSDevice_SSM::updatePassedEncounter(Encounter* e, FoeInfo* foeInfo, EncounterApp
             eInfo.type = ENCOUNTER_TYPE_NOCONFLICT_AHEAD;
         }
     } else if(lastPotentialConflictType == ENCOUNTER_TYPE_FOLLOWING_FOLLOWER
-            || lastPotentialConflictType == ENCOUNTER_TYPE_FOLLOWING_LEADER) {
+            || lastPotentialConflictType == ENCOUNTER_TYPE_FOLLOWING_LEADER
+            || lastPotentialConflictType == ENCOUNTER_TYPE_FOLLOWING_PASSED) {
         // if a following situation leads to a no-conflict situation this encounter switches no-conflict, since no further computations (PET) are needed.
-        // XXX: Resetting to NOCONFLICT_AHEAD may lead to an early abort of conflict logging, since the next call will close the encounter
-        //      Consider using the commented TYPE instead
-        eInfo.type = ENCOUNTER_TYPE_NOCONFLICT_AHEAD;
-//        eInfo.type = ENCOUNTER_TYPE_FOLLOWING_PASSED;
+        eInfo.type = ENCOUNTER_TYPE_FOLLOWING_PASSED;
 #ifdef DEBUG_SSM
         std::cout << "    Encounter was previously classified as a follow/lead situation." << std::endl;
 #endif
     } else if(lastPotentialConflictType == ENCOUNTER_TYPE_MERGING_FOLLOWER
-            || lastPotentialConflictType == ENCOUNTER_TYPE_MERGING_LEADER) {
+            || lastPotentialConflictType == ENCOUNTER_TYPE_MERGING_LEADER
+            || lastPotentialConflictType == ENCOUNTER_TYPE_MERGING_PASSED) {
         // if a merging situation leads to a no-conflict situation the leader was either removed from the net (we disregard special treatment)
         // or route- or lane-changes removed the conflict.
-        // XXX: Resetting to NOCONFLICT_AHEAD may lead to an early abort of conflict logging, since the next call will close the encounter
-        //      Consider using the commented TYPE instead
-        eInfo.type = ENCOUNTER_TYPE_NOCONFLICT_AHEAD;
-//        eInfo.type = ENCOUNTER_TYPE_MERGING_PASSED;
+        eInfo.type = ENCOUNTER_TYPE_MERGING_PASSED;
 #ifdef DEBUG_SSM
         std::cout << "    Encounter was previously classified as a merging situation." << std::endl;
 #endif
@@ -1554,7 +1560,7 @@ MSDevice_SSM::flushConflicts(bool flushAll) {
 #endif
     double t = SIMTIME;
     while (!myPastConflicts.empty()) {
-        if (flushAll || myPastConflicts.top()->begin <= t-myMaxEncounterLength) {
+        if (flushAll || myPastConflicts.top()->begin <= myOldestActiveEncounterBegin) {
             writeOutConflict(myPastConflicts.top());
             delete myPastConflicts.top();
             myPastConflicts.pop();
@@ -1627,13 +1633,13 @@ MSDevice_SSM::makeStringWithNAs(std::vector<double> v, double NA, std::string se
 // MSDevice_SSM-methods
 // ---------------------------------------------------------------------------
 MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::map<std::string, double> thresholds,
-        bool trajectories, double maxEncounterLength, double range, double extraTime) :
+        bool trajectories, double range, double extraTime) :
     MSDevice(holder, id),
     myThresholds(thresholds),
     mySaveTrajectories(trajectories),
-    myMaxEncounterLength(maxEncounterLength),
     myRange(range),
-    myExtraTime(extraTime)
+    myExtraTime(extraTime),
+    myOldestActiveEncounterBegin(INVALID)
 {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
@@ -1642,7 +1648,6 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     myComputeDRAC = myThresholds.find("DRAC") != myThresholds.end();
     myComputePET = myThresholds.find("PET") != myThresholds.end();
 
-    maxTrajectorySize = (int)std::ceil(myMaxEncounterLength/TS)+1;
     myActiveEncounters = EncounterVector();
     myPastConflicts = EncounterQueue();
 
@@ -1665,7 +1670,7 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     std::cout << "Initialized ssm device '" << id << "' with "
             << "myMeasures=" << joinToString(measures, " ")
             << ", myThresholds=" << joinToString(threshVals, " ")
-            << ", mySaveTrajectories=" << mySaveTrajectories << ", myMaxEncounterLength=" << myMaxEncounterLength
+            << ", mySaveTrajectories=" << mySaveTrajectories
             << ", myRange=" << myRange << ", output file=" << outputFilename << ", extra time=" << myExtraTime << "\n";
 #endif
 }
@@ -2133,31 +2138,6 @@ MSDevice_SSM::getExtraTime(const SUMOVehicle& v) {
     return extraTime;
 }
 
-
-double
-MSDevice_SSM::getMaxEncounterLength(const SUMOVehicle& v) {
-    OptionsCont& oc = OptionsCont::getOptions();
-    double maxEncounterLength = INVALID;
-    if (v.getParameter().knowsParameter("device.ssm.maxencounterlength")) {
-        try {
-            maxEncounterLength = TplConvert::_2double(v.getParameter().getParameter("device.ssm.maxencounterlength", "").c_str());
-        } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.maxencounterlength", "") + "'for vehicle parameter 'ssm.maxencounterlength'");
-        }
-    } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.maxencounterlength")) {
-        try {
-            maxEncounterLength = TplConvert::_2double(v.getVehicleType().getParameter().getParameter("device.ssm.maxencounterlength", "").c_str());
-        } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.maxencounterlength", "") + "'for vType parameter 'ssm.maxencounterlength'");
-        }
-    } else {
-        maxEncounterLength = oc.getFloat("device.ssm.maxencounterlength");
-#ifdef DEBUG_SSM
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.maxencounterlength'. Using default of '" << maxEncounterLength << "'\n";
-#endif
-    }
-    return maxEncounterLength;
-}
 
 bool
 MSDevice_SSM::requestsTrajectories(const SUMOVehicle& v) {

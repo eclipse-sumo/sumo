@@ -137,7 +137,7 @@ private:
         /// @brief Destructor
         ~Encounter();
 
-        /// @brief add a new data point
+        /// @brief add a new data point and update encounter type
         void add(double time, EncounterType type, Position egoX, Position egoV, Position foeX, Position foeV,
                 double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double,double> pet);
 
@@ -169,6 +169,7 @@ private:
         const std::string egoID;
         const std::string foeID;
         double begin, end;
+        EncounterType currentType;
 
         /// @brief Remaining extra time (decreases after an encounter ended)
         double remainingExtraTime;
@@ -394,12 +395,11 @@ private:
      * @param measures Vector of Surrogate Safety Measure IDs
      * @param thresholds Vector of corresponding thresholds
      * @param trajectories Flag indicating whether complete trajectories should be saved for an encounter (if false only extremal values are logged)
-     * @param maxEncounterLength Maximal length of a single encounter.
      * @param range Detection range. For vehicles closer than this distance from the ego vehicle, SSMs are traced
      * @param extraTime Extra time in seconds to be logged after a conflict is over
      */
     MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::map<std::string, double> thresholds,
-            bool trajectories, double maxEncounterLength, double range, double extraTime);
+            bool trajectories, double range, double extraTime);
 
     /** @brief Finds encounters for which the foe vehicle has disappeared from range.
      *         remainingExtraTime is decreased until it reaches zero, which triggers closing the encounter.
@@ -411,6 +411,14 @@ private:
      */
     void processEncounters(FoeInfoMap& foes, bool forceClose = false);
 
+
+    /** @brief Closes encounters, whose duration exceeds the maximal encounter length. If it is classified as conflict, the encounter is saved.
+     *         In any case, a new active encounter is created holding the trailing part (of length myOverlapTime) of the original.
+     */
+    void storeEncountersExceedingMaxLength();
+
+
+
     /** @brief Makes new encounters for all given vehicles (these should be the ones entering the device's range in the current timestep)
      */
     void createEncounters(FoeInfoMap& foes);
@@ -420,7 +428,7 @@ private:
      */
     void resetEncounters();
 
-    /** @brief Writes out all past conflicts that have begun earlier than time t-myMaxEncounterLength (i.e. no active encounter can have an earlier begin)
+    /** @brief Writes out all past conflicts that have begun earlier than the oldest active encounter
      * @param[in] all Whether all conflicts should be flushed or only those for which no active encounters with earlier begin can exist
      */
     void flushConflicts(bool all = false);
@@ -535,7 +543,6 @@ private:
     static std::string getOutputFilename(const SUMOVehicle& v, std::string deviceID);
     static double getDetectionRange(const SUMOVehicle& v);
     static double getExtraTime(const SUMOVehicle& v);
-    static double getMaxEncounterLength(const SUMOVehicle& v);
     static bool requestsTrajectories(const SUMOVehicle& v);
     static bool getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceID,
                                         std::map<std::string, double>& thresholds);
@@ -550,14 +557,10 @@ private:
     /// @brief This determines whether the whole trajectories of the vehicles (position, speed, ssms) shall be saved in the ssm-output
     ///        or only the most critical value shall be reported.
     bool mySaveTrajectories;
-    /// @brief Maximal timespan duration for a single encounter
-    double myMaxEncounterLength;
     /// Detection range. For vehicles closer than this distance from the ego vehicle, SSMs are traced
     double myRange;
     /// Extra time in seconds to be logged after a conflict is over
     double myExtraTime;
-    /// @brief Corresponding maximal trajectory size in points, derived from myMaxEncounterLength
-    int maxTrajectorySize;
     /// Flags for switching on / off comutation of different SSMs, derived from myMeasures
     bool myComputeTTC, myComputeDRAC, myComputePET;
     MSVehicle* myHolderMS;
@@ -568,6 +571,8 @@ private:
     /// @{
     /// @brief Currently observed encounters/conflicts
     EncounterVector myActiveEncounters;
+    /// @brief begin time of the oldest active encounter
+    double myOldestActiveEncounterBegin;
     /// @brief Past encounters that where qualified as conflicts and are not yet flushed to the output file
     EncounterQueue myPastConflicts;
     /// @}
