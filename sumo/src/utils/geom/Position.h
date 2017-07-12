@@ -277,6 +277,11 @@ public:
     /// @brief used to indicate that a position is valid
     static const Position INVALID;
 
+    /// @brief reference to invalid position (needed if INVALID is taken by macro-definition)
+    static const Position& invalidPosition() {
+        return INVALID;
+    }
+
 private:
     /// @brief  The x-position
     double myX;
