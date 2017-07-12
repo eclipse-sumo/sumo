@@ -44,6 +44,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
+#include <utils/geom/Position.h>
 #include "MSDevice_SSM.h"
 
 // ===========================================================================
@@ -201,9 +202,9 @@ MSDevice_SSM::Encounter::Encounter(const MSVehicle* _ego, const MSVehicle* const
     egoConflictExitTime(INVALID),
     foeConflictEntryTime(INVALID),
     foeConflictExitTime(INVALID),
-    minTTC(std::make_pair(INVALID, INVALID)),
-    maxDRAC(std::make_pair(INVALID, INVALID)),
-    PET(std::make_pair(INVALID, INVALID)),
+    minTTC(std::make_pair(std::make_pair(INVALID, INVALID),Position::invalidPosition())),
+    maxDRAC(std::make_pair(std::make_pair(INVALID, INVALID),Position::invalidPosition())),
+    PET(std::make_pair(std::make_pair(INVALID, INVALID),Position::invalidPosition())),
     closingRequested(false) {
 #ifdef DEBUG_SSM
     std::cout << "\n" << SIMTIME << " Constructing encounter of '"
@@ -221,7 +222,7 @@ MSDevice_SSM::Encounter::~Encounter() {
 
 void
 MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position egoX, Position egoV, Position foeX, Position foeV,
-        double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double,double> pet) {
+        Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double,double> pet) {
 #ifdef DEBUG_SSM
     std::cout << time << " Adding data point for encounter of '" << egoID << "' and '" << foeID << "':\n"
             << "type="<<type<<", egoDistToConflict="<<(egoDistToConflict==INVALID?"NA":toString(egoDistToConflict))
@@ -239,21 +240,22 @@ MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position ego
     egoTrajectory.v.push_back(egoV);
     foeTrajectory.x.push_back(foeX);
     foeTrajectory.v.push_back(foeV);
+    conflictPointSpan.push_back(conflictPoint);
     egoDistsToConflict.push_back(egoDistToConflict);
     foeDistsToConflict.push_back(foeDistToConflict);
 
     TTCspan.push_back(ttc);
-    if (ttc != INVALID && (ttc < minTTC.second || minTTC.second==INVALID)) {
-        minTTC = std::make_pair(time, ttc);
+    if (ttc != INVALID && (ttc < minTTC.first.second || minTTC.first.second==INVALID)) {
+        minTTC = std::make_pair(std::make_pair(time, ttc),conflictPoint);
     }
 
     DRACspan.push_back(drac);
-    if (drac != INVALID && (drac > maxDRAC.second || maxDRAC.second==INVALID)) {
-        maxDRAC = std::make_pair(time, drac);
+    if (drac != INVALID && (drac > maxDRAC.first.second || maxDRAC.first.second==INVALID)) {
+        maxDRAC = std::make_pair(std::make_pair(time, drac),conflictPoint);
     }
 
-    if (pet.first != INVALID && (PET.second >= pet.second || PET.second == INVALID)) {
-        PET = pet;
+    if (pet.first != INVALID && (PET.first.second >= pet.second || PET.first.second == INVALID)) {
+        PET = std::make_pair(pet,conflictPoint);
     }
 }
 
@@ -281,6 +283,7 @@ MSDevice_SSM::EncounterApproachInfo::EncounterApproachInfo(Encounter* e) :
             type(ENCOUNTER_TYPE_NOCONFLICT_AHEAD),
             egoConflictLane(0),
             foeConflictLane(0),
+            conflictPoint(Position::invalidPosition()),
             egoConflictEntryDist(INVALID),
             foeConflictEntryDist(INVALID),
             egoConflictExitDist(INVALID),
@@ -444,13 +447,13 @@ MSDevice_SSM::qualifiesAsConflict(Encounter* e) {
             << "'" << std::endl;
 #endif
 
-    if (myComputePET && e->PET.second != INVALID && e->PET.second <= myThresholds["PET"]) {
+    if (myComputePET && e->PET.first.second != INVALID && e->PET.first.second <= myThresholds["PET"]) {
         return true;
     }
-    if (myComputeTTC && e->minTTC.second != INVALID && e->minTTC.second <= myThresholds["TTC"]) {
+    if (myComputeTTC && e->minTTC.first.second != INVALID && e->minTTC.first.second <= myThresholds["TTC"]) {
         return true;
     }
-    if (myComputeDRAC && e->maxDRAC.second != INVALID && e->maxDRAC.second >= myThresholds["DRAC"]) {
+    if (myComputeDRAC && e->maxDRAC.first.second != INVALID && e->maxDRAC.first.second >= myThresholds["DRAC"]) {
         return true;
     }
     return false;
@@ -525,16 +528,60 @@ MSDevice_SSM::updateEncounter(Encounter* e, FoeInfo* foeInfo) {
     // update entry/exit times for conflict area
     checkConflictEntryAndExit(eInfo);
 
+    // update (x,y)-coords of conflict point
+    determineConflictPoint(eInfo);
+
     // Compute SSMs
     computeSSMs(eInfo);
 
     // Add current states to trajectories and update type
     e->add(SIMTIME, eInfo.type, e->ego->getPosition(), e->ego->getVelocityVector(), e->foe->getPosition(), e->foe->getVelocityVector(),
-            eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, eInfo.ttc, eInfo.drac, eInfo.pet);
+            eInfo.conflictPoint, eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, eInfo.ttc, eInfo.drac, eInfo.pet);
 
     // free foeInfo
     delete foeInfo;
 
+}
+
+
+void
+MSDevice_SSM::determineConflictPoint(EncounterApproachInfo& eInfo) {
+    /*  Calculates the (x,y)-coordinate for the eventually predicted conflict point and stores the result in
+     *         eInfo.conflictPoint. In case of MERGING and CROSSING, this is the entry point to conflict area for follower
+     *         In case of FOLLOWING it is the position of leader's back. */
+
+    // TODO: Take into account lateral positions
+
+#ifdef DEBUG_SSM
+      std::cout << SIMTIME << " determineConflictPoint()" << std::endl;
+#endif
+
+    const EncounterType& type = eInfo.type;
+    const Encounter* e = eInfo.encounter;
+    if (type == ENCOUNTER_TYPE_BOTH_PASSED_CP
+            || type == ENCOUNTER_TYPE_EGO_PASSED_CP
+            || type == ENCOUNTER_TYPE_FOE_PASSED_CP) {
+        eInfo.conflictPoint = e->conflictPointSpan.back();
+    } else if (type == ENCOUNTER_TYPE_CROSSING_FOLLOWER
+            || type == ENCOUNTER_TYPE_MERGING_FOLLOWER) {
+        eInfo.conflictPoint = e->ego->getPositionAlongBestLanes(eInfo.egoConflictEntryDist);
+    } else if (type == ENCOUNTER_TYPE_CROSSING_LEADER
+            || type == ENCOUNTER_TYPE_MERGING_LEADER) {
+        eInfo.conflictPoint = e->foe->getPositionAlongBestLanes(eInfo.foeConflictEntryDist);
+    } else if (type == ENCOUNTER_TYPE_FOLLOWING_FOLLOWER) {
+        eInfo.conflictPoint = e->foe->getPosition(-e->foe->getLength());
+    } else if (type == ENCOUNTER_TYPE_FOLLOWING_LEADER) {
+        eInfo.conflictPoint = e->ego->getPosition(-e->ego->getLength());
+    } else {
+#ifdef DEBUG_SSM
+      std::cout << "No conflict point associated with encounter type " << type << std::endl;
+#endif
+      return;
+    }
+
+#ifdef DEBUG_SSM
+      std::cout << "    Conflict at " << eInfo.conflictPoint << std::endl;
+#endif
 }
 
 
@@ -715,7 +762,7 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
             std::cout << "PET for crossing encounter already calculated as " << e->PET.second
                     << std::endl;
 #endif
-            assert(e->PET.second != INVALID);
+            assert(e->PET.first.second != INVALID);
             return; // pet must have been calculated already
         }
 
@@ -1082,7 +1129,7 @@ MSDevice_SSM::updatePassedEncounter(Encounter* e, FoeInfo* foeInfo, EncounterApp
         if (eInfo.egoConflictAreaLength == INVALID) eInfo.egoConflictAreaLength = e->foeConflictLane->getWidth();
         if (eInfo.foeConflictAreaLength == INVALID) eInfo.foeConflictAreaLength = e->egoConflictLane->getWidth();
 
-        // TODO: foe might not exist anymore... would result in an invalid pointer access below
+        // TODO: foe might not exist anymore... could result in an invalid pointer access below -> test!
         eInfo.egoConflictEntryDist = e->egoDistsToConflict.back() - e->ego->getLastStepDist();
         eInfo.egoConflictExitDist = eInfo.egoConflictEntryDist + eInfo.egoConflictAreaLength + e->ego->getLength();
         eInfo.foeConflictEntryDist = e->foeDistsToConflict.back() - e->foe->getLastStepDist();
@@ -1574,7 +1621,6 @@ MSDevice_SSM::flushConflicts(bool flushAll) {
 void
 MSDevice_SSM::writeOutConflict(Encounter* e) {
 
-// TODO: log the conflict point coordinates,
 // TODO: modify trajectory option: "all", "conflictPoints", ("position" && "speed" == "vehState"), "SSMs"!
 
 #ifdef DEBUG_SSM
@@ -1596,25 +1642,33 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
 
         myOutputFile->openTag("foePosition").writeAttr("values", toString(e->foeTrajectory.x)).closeTag();
         myOutputFile->openTag("foeVelocity").writeAttr("values", toString(e->foeTrajectory.v)).closeTag();
+
+        myOutputFile->openTag("conflictPoint").writeAttr("values", toString(e->conflictPointSpan)).closeTag();
     }
 
     if (myComputeTTC) {
         if (mySaveTrajectories) {
             myOutputFile->openTag("TTCSpan").writeAttr("values", makeStringWithNAs(e->TTCspan, INVALID)).closeTag();
         }
-        std::string s = (e->minTTC.first==INVALID)?("NA,NA"):(""+toString(e->minTTC.first)+","+toString(e->minTTC.second));
-        myOutputFile->openTag("minTTC").writeAttr("value", s).closeTag();
+        std::string time = (e->minTTC.first.first==INVALID)?"NA":toString(e->minTTC.first.first);
+        std::string value = (e->minTTC.first.first==INVALID)?"NA":toString(e->minTTC.first.second);
+        std::string position = (e->minTTC.first.first==INVALID)?"NA":toString(e->minTTC.second);
+        myOutputFile->openTag("minTTC").writeAttr("time", time).writeAttr("value", value).writeAttr("position", position).closeTag();
     }
     if (myComputeDRAC) {
         if (mySaveTrajectories) {
             myOutputFile->openTag("DRACSpan").writeAttr("values", makeStringWithNAs(e->DRACspan,INVALID)).closeTag();
         }
-        std::string s = (e->maxDRAC.first==INVALID)?("NA,NA"):(""+toString(e->maxDRAC.first)+","+toString(e->maxDRAC.second));
-        myOutputFile->openTag("maxDRAC").writeAttr("value", s).closeTag();
+        std::string time = (e->maxDRAC.first.first==INVALID)?"NA":toString(e->maxDRAC.first.first);
+        std::string value = (e->maxDRAC.first.first==INVALID)?"NA":toString(e->maxDRAC.first.second);
+        std::string position = (e->maxDRAC.first.first==INVALID)?"NA":toString(e->maxDRAC.second);
+        myOutputFile->openTag("maxDRAC").writeAttr("time", time).writeAttr("value", value).writeAttr("position", position).closeTag();
     }
     if (myComputePET) {
-        std::string s = (e->PET.first==INVALID)?("NA,NA"):(""+toString(e->PET.first)+","+toString(e->PET.second));
-        myOutputFile->openTag("minPET").writeAttr("value", s).closeTag();
+        std::string time = (e->PET.first.first==INVALID)?"NA":toString(e->PET.first.first);
+        std::string value = (e->PET.first.first==INVALID)?"NA":toString(e->PET.first.second);
+        std::string position = (e->PET.first.first==INVALID)?"NA":toString(e->PET.second);
+        myOutputFile->openTag("minPET").writeAttr("time", time).writeAttr("value", value).writeAttr("position", position).closeTag();
     }
     myOutputFile->closeTag();
 }

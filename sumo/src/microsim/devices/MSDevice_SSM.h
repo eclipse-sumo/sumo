@@ -139,7 +139,7 @@ private:
 
         /// @brief add a new data point and update encounter type
         void add(double time, EncounterType type, Position egoX, Position egoV, Position foeX, Position foeV,
-                double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double,double> pet);
+                Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double,double> pet);
 
         /// @brief Returns the number of trajectory points stored
         std::size_t size() const {
@@ -197,16 +197,21 @@ private:
         /// Evolution of the foe vehicle's distance to the conflict point
         std::vector<double> foeDistsToConflict;
 
+        /// @brief Predicted location of the conflict:
+        /// In case of MERGING and CROSSING: entry point to conflict area for follower
+        /// In case of FOLLOWING: position of leader's back
+        PositionVector conflictPointSpan;
+
         /// @brief All values for TTC
         std::vector<double> TTCspan;
         /// @brief All values for DRAC
         std::vector<double> DRACspan;
 
-        /// @name Extremal values for the SSMs (as <time,value>-pairs)
+        /// @name Extremal values for the SSMs (as < <time,value>,Position>-pairs)
         /// @{
-        std::pair<double, double> minTTC;
-        std::pair<double, double> maxDRAC;
-        std::pair<double, double> PET;
+        std::pair<std::pair<double, double>,Position> minTTC;
+        std::pair<std::pair<double, double>,Position> maxDRAC;
+        std::pair<std::pair<double, double>,Position> PET;
         /// @}
 
         /// @brief this flag is set by updateEncounter() or directly in processEncounters(), where encounters are closed if it is true.
@@ -228,6 +233,7 @@ private:
         EncounterType type;
         const MSLane* egoConflictLane;
         const MSLane* foeConflictLane;
+        Position conflictPoint;
         double egoConflictEntryDist;
         double foeConflictEntryDist;
         double egoConflictExitDist;
@@ -458,6 +464,14 @@ private:
      *          3) For crossing encounters the encounter distance is the distance until crossing point of the conflicting lanes.
      */
     EncounterType classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& eInfo) const;
+
+
+    /** @brief Calculates the (x,y)-coordinate for the eventually predicted conflict point and stores the result in
+     *         eInfo.conflictPoint. In case of MERGING and CROSSING, this is the entry point to conflict area for follower
+     *         In case of FOLLOWING it is the position of leader's back.
+     *  @param[in/out] eInfo  Info structure for the current state of the encounter.
+     */
+    static void determineConflictPoint(EncounterApproachInfo& eInfo);
 
 
     /** @brief Estimates the time until conflict for the vehicles based on the distance to the conflict entry points.
