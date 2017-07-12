@@ -1,5 +1,5 @@
 <SSMLog>
     <conflict begin="4.30" end="13.90" ego="ego" foe="foe">
-        <minPET value="9.32,0.55"/>
+        <minPET time="9.32" value="0.55" position="98.63,49.10"/>
     </conflict>
 </SSMLog>

@@ -14,7 +14,7 @@
         <param key="device.ssm.frequency" value="10" /> 
         <param key="device.ssm.range" value="20" />
         <param key="device.ssm.file" value="ssm.xml" />
-        <param key="device.ssm.trajectories" value="false" />
+        <param key="device.ssm.trajectories" value="true" />
     </vehicle>
     
 </routes>

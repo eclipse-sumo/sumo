@@ -10,7 +10,7 @@
         <param key="device.ssm.frequency" value="10" /> 
         <param key="device.ssm.range" value="20" />
         <param key="device.ssm.file" value="ssm.xml" />
-        <param key="device.ssm.trajectories" value="false" />
+        <param key="device.ssm.trajectories" value="true" />
     </vehicle>
     
     <vehicle id="foe1" type="2" depart="4" departPos="0" arrivalPos="70" departSpeed="max">
