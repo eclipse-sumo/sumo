@@ -482,6 +482,17 @@ public:
      */
     Position getPosition(const double offset = 0) const;
 
+
+    /** @brief Return the (x,y)-position, which the vehicle would reach
+     *         if it continued along its best continuation lanes from the current
+     *         for a distance of offset m.
+     * @param offset
+     * @return (x,y)-Position
+     * @see getPosition()
+     */
+    Position getPositionAlongBestLanes(double offset) const;
+
+
     /** @brief Returns the lane the vehicle is on
      * @return The vehicle's current lane
      */

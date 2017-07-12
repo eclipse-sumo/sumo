@@ -811,6 +811,66 @@ MSVehicle::getPosition(const double offset) const {
 }
 
 
+Position
+MSVehicle::getPositionAlongBestLanes(double offset) const {
+    assert(MSGlobals::gUsingInternalLanes);
+    const std::vector<MSLane*>& bestLanes = getBestLanesContinuation();
+    auto nextBestLane = bestLanes.begin();
+    double pos = myState.myPos;
+    const MSLane* lane = getLane();
+    assert(lane != 0);
+    bool success = true;
+
+    while (offset > 0) {
+        // take into account lengths along internal lanes
+        while (lane->isInternal() && offset > 0){
+            if (offset > lane->getLength()-pos) {
+                offset -= lane->getLength()-pos;
+                lane = lane->getLinkCont()[0]->getViaLaneOrLane();
+                pos = 0.;
+                if (lane==0) {
+                    success = false;
+                    offset = 0.;
+                }
+            } else {
+                pos += offset;
+                offset = 0;
+            }
+        }
+        // set nextBestLane to next non-internal lane
+        while(nextBestLane!=bestLanes.end() && *nextBestLane==0) ++nextBestLane;
+        if (offset > 0) {
+            assert(!lane->isInternal());
+            assert(lane==*nextBestLane);
+            if (offset > lane->getLength()-pos) {
+                offset -= lane->getLength()-pos;
+                ++nextBestLane;
+                assert(nextBestLane==bestLanes.end() || *nextBestLane!=0);
+                if (nextBestLane==bestLanes.end()) {
+                    success = false;
+                    offset = 0.;
+                } else {
+                    MSLink* link = lane->getLinkTo(*nextBestLane);
+                    assert(link!=0);
+                    lane = link->getViaLaneOrLane();
+                    pos = 0.;
+                }
+            } else {
+                pos += offset;
+                offset = 0;
+            }
+        }
+
+    }
+
+    if (success){
+        return lane->geometryPositionAtOffset(pos,-getLateralPositionOnLane());
+    } else {
+        return Position::INVALID;
+    }
+}
+
+
 Position 
 MSVehicle::validatePosition(Position result, double offset) const {
     int furtherIndex = 0;
