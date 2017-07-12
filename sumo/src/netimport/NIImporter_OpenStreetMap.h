@@ -82,8 +82,10 @@ protected:
     /** @brief An internal representation of an OSM-node
      */
     struct NIOSMNode {
-        NIOSMNode(long long int _id, double _lon, double _lat) :
-            id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), railwayCrossing(false), ptStopPostion(false), ptStopLength(0), node(0) {}
+        NIOSMNode(long long int _id, double _lon, double _lat)
+                :
+                id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), railwayCrossing(false),
+                ptStopPostion(false), ptStopLength(0), node(0) { }
 
         /// @brief The node's id
         const long long int id;
@@ -100,7 +102,7 @@ protected:
         /// @brief Whether this is a public transport stop position
         bool ptStopPostion;
         /// @brief type of pt stop
-        SVCPermissions permissions;
+        SVCPermissions permissions{};
         /// @brief The length of the pt stop
         double ptStopLength;
         /// @brief The name of the node
@@ -110,8 +112,7 @@ protected:
 
     private:
         /// invalidated assignment operator
-        NIOSMNode& operator=(const NIOSMNode& s);
-
+        NIOSMNode& operator=(const NIOSMNode& s) = delete;
 
 
     };
@@ -120,11 +121,11 @@ protected:
      * @brief details on the kind of cycleway along this road
      */
     enum WayType {
-        WAY_NONE = 0,
-        WAY_FORWARD = 1,
-        WAY_BACKWARD = 2,
-        WAY_BOTH = WAY_FORWARD | WAY_BACKWARD,
-        WAY_UNKNOWN = 4
+      WAY_NONE = 0,
+      WAY_FORWARD = 1,
+      WAY_BACKWARD = 2,
+      WAY_BOTH = WAY_FORWARD | WAY_BACKWARD,
+      WAY_UNKNOWN = 4
     };
 
 
@@ -132,13 +133,14 @@ protected:
      */
     struct Edge : public Parameterised {
 
-        Edge(long long int _id) :
-            id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
-            myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
-            myBuswayType(WAY_NONE), // buslanes are always built when declared
-            myLayer(0), // layer is non-zero only in conflict areas
-            myCurrentIsRoad(false),
-            myCurrentIsPlatform(false){}
+        explicit Edge(long long int _id)
+                :
+                id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
+                myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
+                myBuswayType(WAY_NONE), // buslanes are always built when declared
+                myLayer(0), // layer is non-zero only in conflict areas
+                myCurrentIsRoad(false),
+                myCurrentIsPlatform(false) { }
 
 
         /// @brief The edge's id
@@ -154,7 +156,7 @@ protected:
         /// @brief The type, stored in "highway" key
         std::string myHighWayType;
         /// @brief Information whether this is an one-way road
-        std::string  myIsOneWay;
+        std::string myIsOneWay;
         /// @brief Information about the kind of cycleway along this road
         WayType myCyclewayType;
         /// @brief Information about the kind of busway along this road
@@ -170,7 +172,7 @@ protected:
 
     private:
         /// invalidated assignment operator
-        Edge& operator=(const Edge& s);
+        Edge& operator=(const Edge& s) = delete;
 
 
     };
@@ -256,7 +258,8 @@ private:
     void reconstructLayerElevation(double layerElevation, NBNetBuilder& nb);
 
     /// @brief collect neighboring nodes with their road distance and maximum between-speed. Search does not continue beyond knownElevation-nodes
-    std::map<NBNode*, std::pair<double, double> > getNeighboringNodes(NBNode* node, double maxDist, const std::set<NBNode*>& knownElevation);
+    std::map<NBNode*, std::pair<double, double> >
+    getNeighboringNodes(NBNode* node, double maxDist, const std::set<NBNode*>& knownElevation);
 
 protected:
     static const double MAXSPEED_UNGIVEN;
@@ -275,11 +278,12 @@ protected:
          * @param[in] options The options to use
          */
         NodesHandler(std::map<long long int, NIOSMNode*>& toFill, std::set<NIOSMNode*,
-                     CompareNodes>& uniqueNodes, const OptionsCont& cont);
+                                                                           CompareNodes>& uniqueNodes,
+                     const OptionsCont& cont);
 
 
         /// @brief Destructor
-        ~NodesHandler();
+        ~NodesHandler() override;
 
 
     protected:
@@ -293,7 +297,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) override;
 
 
         /** @brief Called when a closing tag occurs
@@ -302,7 +306,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
-        void myEndElement(int element);
+        void myEndElement(int element) override;
         //@}
 
 
@@ -340,7 +344,6 @@ protected:
     };
 
 
-
     /**
      * @class EdgesHandler
      * @brief A class which extracts OSM-edges from a parsed OSM-file
@@ -357,7 +360,7 @@ protected:
 
 
         /// @brief Destructor
-        ~EdgesHandler();
+        ~EdgesHandler() override;
 
 
     protected:
@@ -371,7 +374,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) override;
 
 
         /** @brief Called when a closing tag occurs
@@ -380,7 +383,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
-        void myEndElement(int element);
+        void myEndElement(int element) override;
         //@}
 
 
@@ -425,12 +428,12 @@ protected:
          * @param[in] osmEdges The previously parse OSM-edges
          */
         RelationHandler(const std::map<long long int, NIOSMNode*>& osmNodes,
-                        const std::map<long long int, Edge*>& osmEdges, NBPTStopCont * nbptStopCont,
-                        const std::map<long long int, Edge*>& platfromShapes, NBPTLineCont * nbptLineCont);
+                        const std::map<long long int, Edge*>& osmEdges, NBPTStopCont* nbptStopCont,
+                        const std::map<long long int, Edge*>& platfromShapes, NBPTLineCont* nbptLineCont);
 
 
         /// @brief Destructor
-        ~RelationHandler();
+        ~RelationHandler() override;
 
 
     protected:
@@ -444,7 +447,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) override;
 
 
         /** @brief Called when a closing tag occurs
@@ -453,7 +456,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
-        void myEndElement(int element);
+        void myEndElement(int element) override;
         //@}
 
 
@@ -468,10 +471,10 @@ protected:
         const std::map<long long int, Edge*>& myPlatformShapes;
 
         /// @brief The previously filled pt stop container
-        NBPTStopCont * myNBPTStopCont;
+        NBPTStopCont* myNBPTStopCont;
 
         /// @brief PT Line container to be filled
-        NBPTLineCont * myNBPTLineCont;
+        NBPTLineCont* myNBPTLineCont;
 
         /// @brief The currently parsed relation
         long long int myCurrentRelation;
@@ -497,12 +500,12 @@ protected:
          * @brief whether the only allowed or the only forbidden connection is defined
          */
         enum RestrictionType {
-            /// @brief The only valid connection is declared
-            RESTRICTION_ONLY,
-            /// @brief The only invalid connection is declared
-            RESTRICTION_NO,
-            /// @brief The relation tag was missing
-            RESTRICTION_UNKNOWN
+          /// @brief The only valid connection is declared
+                  RESTRICTION_ONLY,
+          /// @brief The only invalid connection is declared
+                  RESTRICTION_NO,
+          /// @brief The relation tag was missing
+                  RESTRICTION_UNKNOWN
         };
         RestrictionType myRestrictionType;
 
