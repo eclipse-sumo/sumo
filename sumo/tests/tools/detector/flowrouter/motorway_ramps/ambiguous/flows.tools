@@ -1,4 +1,8 @@
 <additional>
-    <flow id="src_1qPKW" departSpeed="max" departPos="last" departLane="best" route="1.0qPKW" number="100" begin="0" end="3600"/>
-    <flow id="src_on3qPKW" departSpeed="max" departPos="last" departLane="best" route="on3.0qPKW" number="50" begin="0" end="3600"/>
+    <flow id="src_1qPKW" departSpeed="max" departPos="last" departLane="best" number="1000" begin="0" end="3600">
+        <routeDistribution routes="1.0qPKW 1.1qPKW" probabilities="670 330"/>
+    </flow>
+    <flow id="src_on3qPKW" departSpeed="max" departPos="last" departLane="best" number="500" begin="0" end="3600">
+        <routeDistribution routes="on3.0qPKW on3.1qPKW" probabilities="330 170"/>
+    </flow>
 </additional>
