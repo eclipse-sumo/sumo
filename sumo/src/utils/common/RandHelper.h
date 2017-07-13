@@ -106,7 +106,7 @@ public:
 
     /// @brief Returns a random 64 bit integer in [0, maxV-1]
     static inline long long int rand(long long int maxV, std::mt19937* rng = 0) {
-        if (maxV <= INT_MAX) {
+        if (maxV <= std::numeric_limits<int>::max()) {
             return rand((int)maxV, rng);
         }
         if (rng == 0) {
