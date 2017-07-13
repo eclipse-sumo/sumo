@@ -63,8 +63,10 @@ public:
 
     /// @brief Returns a random real number in [0, 1)
     static inline double rand(std::mt19937* rng = 0) {
-        std::uniform_real_distribution<> dis(0., 1.);
-        return dis(rng != 0 ? *rng : myRandomNumberGenerator);
+        if (rng == 0) {
+            rng = &myRandomNumberGenerator;
+        }
+        return double((*rng)() / 4294967296.0);
     }
 
     /// @brief Returns a random real number in [0, maxV)
@@ -73,44 +75,82 @@ public:
     }
 
     /// @brief Returns a random real number in [minV, maxV)
-    static inline double rand(double minV, double maxV) {
-        return minV + (maxV - minV) * rand();
+    static inline double rand(double minV, double maxV, std::mt19937* rng = 0) {
+        return minV + (maxV - minV) * rand(rng);
     }
 
     /// @brief Returns a random integer in [0, maxV-1]
     static inline int rand(int maxV, std::mt19937* rng = 0) {
-        std::uniform_int_distribution<> dis(0, maxV - 1);
-        return dis(rng != 0 ? *rng : myRandomNumberGenerator);
+        if (rng == 0) {
+            rng = &myRandomNumberGenerator;
+        }
+        unsigned int usedBits = maxV - 1;
+        usedBits |= usedBits >> 1;
+        usedBits |= usedBits >> 2;
+        usedBits |= usedBits >> 4;
+        usedBits |= usedBits >> 8;
+        usedBits |= usedBits >> 16;
+
+        // Draw numbers until one is found in [0, maxV-1]
+        int result;
+        do
+            result = (*rng)() & usedBits;
+        while (result >= maxV);
+        return result;
     }
 
     /// @brief Returns a random integer in [minV, maxV-1]
-    static inline int rand(int minV, int maxV) {
-        return minV + rand(maxV - minV);
+    static inline int rand(int minV, int maxV, std::mt19937* rng = 0) {
+        return minV + rand(maxV - minV, rng);
     }
 
     /// @brief Returns a random 64 bit integer in [0, maxV-1]
-    static inline long long int rand(long long int maxV) {
-        std::uniform_int_distribution<long long int> dis(0, maxV - 1);
-        return dis(RandHelper::myRandomNumberGenerator);
+    static inline long long int rand(long long int maxV, std::mt19937* rng = 0) {
+        if (maxV <= INT_MAX) {
+            return rand((int)maxV, rng);
+        }
+        if (rng == 0) {
+            rng = &myRandomNumberGenerator;
+        }
+        unsigned long long int usedBits = maxV - 1;
+        usedBits |= usedBits >> 1;
+        usedBits |= usedBits >> 2;
+        usedBits |= usedBits >> 4;
+        usedBits |= usedBits >> 8;
+        usedBits |= usedBits >> 16;
+        usedBits |= usedBits >> 32;
+
+        // Draw numbers until one is found in [0, maxV-1]
+        long long int result;
+        do
+            result = (((unsigned long long int)(*rng)() << 32) | (*rng)()) & usedBits;  // toss unused bits to shorten search
+        while (result >= maxV);
+        return result;
     }
 
     /// @brief Returns a random 64 bit integer in [minV, maxV-1]
-    static inline long long int rand(long long int minV, long long int maxV) {
-        return minV + rand(maxV - minV);
+    static inline long long int rand(long long int minV, long long int maxV, std::mt19937* rng = 0) {
+        return minV + rand(maxV - minV, rng);
     }
 
     /// @brief Access to a random number from a normal distribution
     static inline double randNorm(double mean, double variance, std::mt19937* rng = 0) {
-        std::normal_distribution<> dis(mean, variance);
-        return dis(rng != 0 ? *rng : myRandomNumberGenerator);
+        // Polar method to avoid cosine
+        double u, q;
+        do {
+            u = rand(2.0, rng) - 1;
+            const double v = rand(2.0, rng) - 1;
+            q = u * u + v * v;
+        } while (q == 0.0 || q >= 1.0);
+        return (double)(mean + variance * u * sqrt(-2 * log(q) / q));
     }
 
     /// @brief Returns a random element from the given vector
     template<class T>
     static inline const T&
-    getRandomFrom(const std::vector<T>& v) {
+    getRandomFrom(const std::vector<T>& v, std::mt19937* rng = 0) {
         assert(v.size() > 0);
-        return v[rand((int)v.size())];
+        return v[rand((int)v.size(), rng)];
     }
 
 
@@ -123,4 +163,3 @@ protected:
 #endif
 
 /****************************************************************************/
-

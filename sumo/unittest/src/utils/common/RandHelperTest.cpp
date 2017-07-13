@@ -126,7 +126,7 @@ TEST(RandHelper, test_norm) {
 /* Test whether the 'rand' sequence is always the same.*/
 TEST(RandHelper, test_sequence) {
     RandHelper::initRand();
-    int expect[] = { 94, 97, 27, 67, 55, 2, 40, 14, 77, 91 };
+    int expect[] = { 46, 17, 19, 75, 11, 42, 28, 22, 77, 11 };
     for (int i = 0; i < 10; i++) {
         EXPECT_EQ(expect[i], RandHelper::rand(100));
     }

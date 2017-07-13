@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include <ctime>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/SysUtils.h>
 #include "RandHelper.h"
@@ -65,7 +66,7 @@ RandHelper::initRand(std::mt19937* which, const bool random, const int seed) {
         which = &myRandomNumberGenerator;
     }
     if (random) {
-        which->seed(std::random_device{}());
+        which->seed((unsigned long)time(0));
     } else {
         which->seed(seed);
     }
