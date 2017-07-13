@@ -3,6 +3,9 @@
   <PropertyGroup Condition="Exists('$(VS120COMNTOOLS)')">
     <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="..\..\..\build\msvc10\config.props" Condition="Exists('..\..\..\build\msvc10\config.props')" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros">
     <XERCES_LIB>$(XERCES)\lib\xerces-c_3.lib</XERCES_LIB>
     <XERCES_DEBUG_LIB>$(XERCES)\lib\xerces-c_3D.lib</XERCES_DEBUG_LIB>
