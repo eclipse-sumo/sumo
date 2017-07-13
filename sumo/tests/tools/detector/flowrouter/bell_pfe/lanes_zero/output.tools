@@ -1,3 +1,10 @@
+Reading net
+66 edges read
+Reading detectors
+Reading flows
+Calculating routes
+25 sources, 4 unlimited
+13 sinks, 12 unlimited
 15 * [10_0, 9_0, 5_0, 3_0]
 6 * [10_0, 9_0, 5_0, 3_0]
 24 * [17_0, 53_52_1, 22_64_0, 40_0]
