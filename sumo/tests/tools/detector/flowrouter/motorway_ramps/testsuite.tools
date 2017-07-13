@@ -13,3 +13,6 @@ all_main_aggregate_1time
 
 # two sources and sinks
 ambiguous
+
+# test pull-flow functionality
+pull
