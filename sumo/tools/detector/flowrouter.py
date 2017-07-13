@@ -41,7 +41,7 @@ import detector
 # directly.
 
 DEBUG = False
-
+PULL_FLOW = False
 
 class Vertex:
 
@@ -350,7 +350,7 @@ class Net:
             cycleStartStep = False
             currEdge = currVertex.inPathEdge
             if currEdge.target == currVertex:
-                if options.verbose and DEBUG:
+                if options.verbose and DEBUG and not currEdge.kind == 'junction':
                     print("    incFlow edge=%s delta=%s" % (currEdge, endVertex.flowDelta))
                 currEdge.flow += endVertex.flowDelta
                 currVertex = currEdge.source
@@ -538,10 +538,14 @@ class Net:
     def writeEmitters(self, emitOut, begin=0, end=3600, suffix=""):
         if not emitOut:
             return
+        totalFlow = 0
+        numSources = 0
         for srcEdge in self._source.outEdges:
             if len(srcEdge.routes) == 0:
                 continue
             assert len(srcEdge.target.outEdges) == 1
+            totalFlow += srcEdge.flow
+            numSources += 1
             edge = srcEdge.target.outEdges[0]
             if len(srcEdge.routes) == 1:
                 print('    <flow id="src_%s%s" %s route="%s.0%s" number="%s" begin="%s" end="%s"/>' % (
@@ -556,6 +560,9 @@ class Net:
                 print('        <routeDistribution routes="%s" probabilities="%s"/>' % (
                     ids, probs), file=emitOut)
                 print('    </flow>', file=emitOut)
+        if options.verbose:
+            print("Writing %s vehicles from %s sources between time %s and %s" % (
+                totalFlow, numSources, begin, end))
 
     def writeFlowPOIs(self, poiOut, suffix=""):
         if not poiOut:
@@ -734,7 +741,7 @@ optParser.add_option("-l", "--lane-based", action="store_true", dest="lanebased"
                      default=False, help="do not aggregate detector data and connections to edges")
 optParser.add_option("-i", "--interval", type="int", help="aggregation interval in minutes")
 optParser.add_option("--pull-flow", action="store_true", dest="pullflow",
-                     default=False, help="let unsaturated detector edges attract more traffic even if it leads to detours")
+                     default=PULL_FLOW, help="let unsaturated detector edges attract more traffic even if it leads to detours")
 optParser.add_option("--limit", type="int", help="limit the amount of flow assigned in a single step")
 optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
                      default=False, help="suppress warnings")
