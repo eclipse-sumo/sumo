@@ -126,8 +126,11 @@ public:
                 myToLandmarkDists[myLandmarks[lm]].push_back(distTo);
             }
         }
-        const std::string missing = filename + ".missing";
-        std::ofstream ostrm(missing.c_str());
+        if (myLandmarks.empty()) {
+            WRITE_WARNING("No landmarks in '" + filename + "', falling back to standard A*.");
+            return;
+        }
+        std::ofstream* ostrm = 0;
         for (int i = 0; i < (int)myLandmarks.size(); ++i) {
             if (myFromLandmarkDists[i].size() != edges.size()) {
                 const std::string landmarkID = getLandmark(i);
@@ -143,8 +146,12 @@ public:
                     continue;
                 }
                 if (router != 0) {
+                    const std::string missing = filename + ".missing";
                     WRITE_WARNING("Not all network edges were found in the lookup table '" + filename + "' for landmark '" + landmarkID + "'. Saving missing values to '" + missing + "'.");
-                    if (!ostrm.good()) {
+                    if (ostrm == 0) {
+                        ostrm = new std::ofstream(missing.c_str());
+                    }
+                    if (!ostrm->good()) {
                         throw ProcessError("Could not open file '" + missing + "' for writing.");
                     }
                 } else {
@@ -181,10 +188,11 @@ public:
                     }
                     myFromLandmarkDists[i].push_back(distFrom);
                     myToLandmarkDists[i].push_back(distTo);
-                    ostrm << landmarkID << " " << edge->getID() << " " << distFrom << " " << distTo << "\n";
+                    (*ostrm) << landmarkID << " " << edge->getID() << " " << distFrom << " " << distTo << "\n";
                 }
             }
         }
+        delete ostrm;
     }
 
     double lowerBound(const E* from, const E* to, double speed, double speedFactor, double fromEffort, double toEffort) const { 

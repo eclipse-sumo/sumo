@@ -142,6 +142,7 @@
     <ClCompile Include="..\..\..\src\utils\vehicle\SUMOVTypeParameter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\utils\vehicle\AStarLookupTable.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\AStarRouter.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\CarEdge.h" />
     <ClInclude Include="..\..\..\src\utils\vehicle\CHBuilder.h" />
