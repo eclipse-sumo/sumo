@@ -983,8 +983,58 @@ TraCIAPI::LaneScope::getDisallowed(const std::string& laneID) const {
 }
 
 int
-TraCIAPI::LaneScope::getLinkNumber(const std::string& /* laneID */) const {
-    throw tcpip::SocketException("Not implemented!");
+TraCIAPI::LaneScope::getLinkNumber(const std::string& laneID) const {
+    return myParent.getUnsignedByte(CMD_GET_LANE_VARIABLE, LANE_LINK_NUMBER, laneID);
+}
+
+std::vector<TraCIConnection>
+TraCIAPI::LaneScope::getLinks(const std::string& laneID) const {
+    tcpip::Storage inMsg;
+    myParent.send_commandGetVariable(CMD_GET_LANE_VARIABLE, LANE_LINKS, laneID);
+    myParent.processGET(inMsg, CMD_GET_LANE_VARIABLE, TYPE_COMPOUND);
+    std::vector<TraCIConnection> ret;
+
+    inMsg.readUnsignedByte();
+    inMsg.readInt();
+
+    int linkNo = inMsg.readInt();
+    for (int i = 0; i < linkNo; ++i) {
+
+        inMsg.readUnsignedByte();
+        std::string approachedLane = inMsg.readString();
+
+        inMsg.readUnsignedByte();
+        std::string approachedLaneInternal = inMsg.readString();
+
+        inMsg.readUnsignedByte();
+        bool hasPrio = inMsg.readUnsignedByte();
+
+        inMsg.readUnsignedByte();
+        bool isOpen = inMsg.readUnsignedByte();
+
+        inMsg.readUnsignedByte();
+        bool hasFoe = inMsg.readUnsignedByte();
+
+        inMsg.readUnsignedByte();
+        std::string state = inMsg.readString();
+
+        inMsg.readUnsignedByte();
+        std::string direction = inMsg.readString();
+
+        inMsg.readUnsignedByte();
+        double length = inMsg.readDouble();
+
+        ret.push_back(TraCIConnection(approachedLane,
+                    hasPrio,
+                    isOpen,
+                    hasFoe,
+                    approachedLaneInternal,
+                    state,
+                    direction,
+                    length));
+
+    }
+    return ret;
 }
 
 TraCIPositionVector

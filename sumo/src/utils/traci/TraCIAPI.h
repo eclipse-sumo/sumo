@@ -297,6 +297,7 @@ public:
         std::vector<std::string> getAllowed(const std::string& laneID) const;
         std::vector<std::string> getDisallowed(const std::string& laneID) const;
         int getLinkNumber(const std::string& laneID) const;
+        std::vector<TraCIConnection> getLinks(const std::string& laneID) const;
         TraCIPositionVector getShape(const std::string& laneID) const;
         std::string getEdgeID(const std::string& laneID) const;
         double getCO2Emission(const std::string& laneID) const;

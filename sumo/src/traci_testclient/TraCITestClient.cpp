@@ -682,6 +682,25 @@ TraCITestClient::testAPI() {
     answerLog << "    currentTraveltime: " << edge.getTraveltime(edgeID) << "\n";
     answerLog << "    adaptedTravelTime: " << edge.getAdaptedTraveltime(edgeID, 0) << "\n";
     answerLog << "    effort: " << edge.getEffort(edgeID, 0) << "\n";
+    answerLog << "  lane:\n";
+    answerLog << "    getIDList: " << joinToString(lane.getIDList(), " ") << "\n";
+    //answerLog << "    getIDCount: " << lane.getIDCount() << "\n";
+    const std::string laneID = "e_m6_0";
+    answerLog << "    getLinkNumber: " << lane.getLinkNumber(laneID) << "\n";
+    std::vector<TraCIConnection> connections = lane.getLinks(laneID);
+    answerLog << "    getLinks:\n";
+    for (int i = 0; i < (int)connections.size(); ++i) {
+        const TraCIConnection& c = connections[i];
+        answerLog << "    approachedLane=" << c.approachedLane 
+            << " hasPrio=" << c.hasPrio
+            << " isOpen=" << c.isOpen
+            << " hasFoe=" << c.hasFoe
+            << " approachedInternal=" << c.approachedInternal
+            << " state=" << c.state
+            << " direction=" << c.direction
+            << " length=" << c.length
+            << "\n";
+    }
 
     answerLog << "  route:\n";
     answerLog << "    add:\n";
