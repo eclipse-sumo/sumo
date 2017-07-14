@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 13:48:46 2016 by SUMO netconvert Version dev-SVN-r21560
+<!-- generated on Fri Jul 14 14:51:52 2017 by SUMO netconvert Version dev-SVN-r25195
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -19,6 +19,8 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -175,16 +177,16 @@
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="26" state="gGGgrrrgGGgrrrrGrG"/>
-        <phase duration="5" state="gGGgrrrgGGgrrrrrrr"/>
-        <phase duration="4" state="yyygrrryyygrrrrrrr"/>
-        <phase duration="6" state="rrrGrrrrrrGrrrrrrr"/>
-        <phase duration="4" state="rrryrrrrrryrrrrrrr"/>
-        <phase duration="26" state="rrrrgGgrrrrgGgGrGr"/>
-        <phase duration="5" state="rrrrgGgrrrrgGgrrrr"/>
-        <phase duration="4" state="rrrryygrrrryygrrrr"/>
-        <phase duration="6" state="rrrrrrGrrrrrrGrrrr"/>
-        <phase duration="4" state="rrrrrryrrrrrryrrrr"/>
+        <phase duration="21" state="gGGgrrrgGGgrrrrGr"/>
+        <phase duration="10" state="gGGgrrrgGGgrrrrrr"/>
+        <phase duration="4" state="yyygrrryyygrrrrrr"/>
+        <phase duration="6" state="rrrGrrrrrrGrrrrrr"/>
+        <phase duration="4" state="rrryrrrrrryrrrrrr"/>
+        <phase duration="21" state="rrrrgGgrrrrgGgGrG"/>
+        <phase duration="10" state="rrrrgGgrrrrgGgrrr"/>
+        <phase duration="4" state="rrrryygrrrryygrrr"/>
+        <phase duration="6" state="rrrrrrGrrrrrrGrrr"/>
+        <phase duration="4" state="rrrrrryrrrrrryrrr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w1_0 :C_w2_0 :C_w3_0" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_14_0 :C_15_0 :C_5_0 :C_16_0 :C_17_0 :C_8_0 :C_8_1 :C_18_0 :C_19_0 :C_12_0 :C_20_0 :C_c0_0 :C_c1_0 :C_c2_0" shape="88.75,112.75 111.25,112.75 112.75,111.25 112.75,88.75 111.25,87.25 88.75,87.25 87.25,88.75 87.25,111.25">

@@ -87,8 +87,8 @@ NBLoadedSUMOTLDef::myCompute(int brakingTimeSeconds) {
     // @todo what to do with those parameters?
     UNUSED_PARAMETER(brakingTimeSeconds);
     reconstructLogic();
-    myTLLogic->closeBuilding();
     patchIfCrossingsAdded();
+    myTLLogic->closeBuilding();
     return new NBTrafficLightLogic(myTLLogic);
 }
 
@@ -294,7 +294,6 @@ NBLoadedSUMOTLDef::shiftTLConnectionLaneIndex(NBEdge* edge, int offset) {
 
 void
 NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
-    // XXX what to do if crossings are removed during network building?
     const int size = myTLLogic->getNumLinks();
     int noLinksAll = 0;
     for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
@@ -303,6 +302,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
             noLinksAll = MAX2(noLinksAll, (int)c.getTLIndex() + 1);
         }
     }
+    const int numNormalLinks = noLinksAll;
     int oldCrossings = 0;
     // collect crossings
     std::vector<NBNode::Crossing*> crossings;
@@ -314,38 +314,33 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
         noLinksAll += (int)c.size();
         oldCrossings += (*i)->numCrossingsFromSumoNet();
     }
-    const int newCrossings = (int)crossings.size() - oldCrossings;
-    if (newCrossings > 0) {
-        const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
+    if (crossings.size() != oldCrossings) {
+        std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
         if (phases.size() > 0) {
-            if ((int)phases.front().state.size() == noLinksAll - newCrossings) {
-                // patch states for the newly added crossings
+            // collect edges
+            EdgeVector fromEdges(size, (NBEdge*)0);
+            EdgeVector toEdges(size, (NBEdge*)0);
+            std::vector<int> fromLanes(size, 0);
+            collectEdgeVectors(fromEdges, toEdges, fromLanes);
+            const std::string crossingDefaultState(crossings.size(), 'r');
 
-                // collect edges
-                EdgeVector fromEdges(size, (NBEdge*)0);
-                EdgeVector toEdges(size, (NBEdge*)0);
-                std::vector<int> fromLanes(size, 0);
-                collectEdgeVectors(fromEdges, toEdges, fromLanes);
-                const std::string crossingDefaultState(newCrossings, 'r');
-
-                // rebuild the logic (see NBOwnTLDef.cpp::myCompute)
-                const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
-                NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
-                SUMOTime brakingTime = TIME2STEPS(3);
-                //std::cout << "patchIfCrossingsAdded for " << getID() << " numPhases=" << phases.size() << "\n";
-                for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-                    if ((*it).state.find_first_of("yY") != std::string::npos) {
-                        brakingTime = MAX2(brakingTime, it->duration);
-                    }
-                    NBOwnTLDef::addPedestrianPhases(newLogic, it->duration, it->state + crossingDefaultState, crossings, fromEdges, toEdges);
+            // rebuild the logic (see NBOwnTLDef.cpp::myCompute)
+            NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
+            SUMOTime brakingTime = TIME2STEPS(3);
+            //std::cout << "patchIfCrossingsAdded for " << getID() << " numPhases=" << phases.size() << "\n";
+            for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
+                if ((*it).state.find_first_of("yY") != std::string::npos) {
+                    brakingTime = MAX2(brakingTime, it->duration);
                 }
-                NBOwnTLDef::addPedestrianScramble(newLogic, noLinksAll, TIME2STEPS(10), brakingTime, crossings, fromEdges, toEdges);
-
-                delete myTLLogic;
-                myTLLogic = newLogic;
-            } else if ((int)phases.front().state.size() != noLinksAll) {
-                WRITE_WARNING("Could not patch tlLogic '" + getID() + "' for new crossings");
+                const std::string state = it->state.substr(0, numNormalLinks) + crossingDefaultState;
+                NBOwnTLDef::addPedestrianPhases(newLogic, it->duration, state, crossings, fromEdges, toEdges);
             }
+            NBOwnTLDef::addPedestrianScramble(newLogic, noLinksAll, TIME2STEPS(10), brakingTime, crossings, fromEdges, toEdges);
+
+            delete myTLLogic;
+            myTLLogic = newLogic;
+        } else {
+            WRITE_WARNING("Could not patch tlLogic '" + getID() + "' for changed crossings");
         }
     }
 }
