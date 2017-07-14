@@ -473,8 +473,8 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
     if(selected) {
         gSelected.deselect(crossing->getGlID());
     }
-    undoList->add(new GNEChange_Crossing(crossing->getParentJunction(), crossing->getNBCrossing().edges,
-                                         crossing->getNBCrossing().width, crossing->getNBCrossing().priority, selected, false), true);
+    undoList->add(new GNEChange_Crossing(crossing->getParentJunction(), crossing->getNBCrossing()->edges,
+                                         crossing->getNBCrossing()->width, crossing->getNBCrossing()->priority, selected, false), true);
     // remove crossing requieres always a recompute (due geometry and connections)
     requireRecompute();
     undoList->p_end();

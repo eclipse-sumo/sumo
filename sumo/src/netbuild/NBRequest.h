@@ -249,7 +249,7 @@ private:
     const EdgeVector& myOutgoing;
 
     /** edges outgoing from the junction */
-    const std::vector<NBNode::Crossing>& myCrossings;
+    std::vector<NBNode::Crossing*> myCrossings;
 
     /** definition of a container to store boolean informations about a link
         into */

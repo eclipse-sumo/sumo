@@ -329,8 +329,8 @@ NBRequest::writeLogic(std::string /* key */, OutputDevice& into, const bool chec
         }
     }
     // crossings
-    for (std::vector<NBNode::Crossing>::const_iterator i = myCrossings.begin(); i != myCrossings.end(); i++) {
-        pos = writeCrossingResponse(into, *i, pos);
+    for (auto c : myCrossings) {
+        pos = writeCrossingResponse(into, *c, pos);
     }
 }
 
@@ -533,8 +533,8 @@ NBRequest::getResponseString(int tlIndex, const NBEdge* const from, const NBEdge
     }
     std::string result;
     // crossings
-    for (std::vector<NBNode::Crossing>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
-        result += mustBrakeForCrossing(myJunction, from, to, *i) ? '1' : '0';
+    for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
+        result += mustBrakeForCrossing(myJunction, from, to, **i) ? '1' : '0';
     }
     NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
     // normal connections
@@ -582,9 +582,9 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
     // !!! move to forbidden
     std::string result;
     // crossings
-    for (std::vector<NBNode::Crossing>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
+    for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
         bool foes = false;
-        for (EdgeVector::const_iterator it_e = (*i).edges.begin(); it_e != (*i).edges.end(); ++it_e) {
+        for (EdgeVector::const_iterator it_e = (**i).edges.begin(); it_e != (**i).edges.end(); ++it_e) {
             if ((*it_e) == from || (*it_e) == to) {
                 foes = true;
                 break;
@@ -707,8 +707,8 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
     }
     // maybe we need to brake for a pedestrian crossing
     if (includePedCrossings) {
-        for (std::vector<NBNode::Crossing>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
-            if (mustBrakeForCrossing(myJunction, from, to, *i)) {
+        for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
+            if (mustBrakeForCrossing(myJunction, from, to, **i)) {
                 return true;
             }
         }

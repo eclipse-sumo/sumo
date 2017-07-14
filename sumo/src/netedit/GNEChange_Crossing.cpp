@@ -90,7 +90,7 @@ void GNEChange_Crossing::undo() {
         if(mySelected) {
             // iterate over GNECrossing of junction to find GNECrossing and select it
             for(std::vector<GNECrossing*>::const_iterator i = myJunctionParent->getGNECrossings().begin(); i != myJunctionParent->getGNECrossings().end(); i++) {
-                NBNode::Crossing crossingFromJunction = (*i)->getNBCrossing();
+                NBNode::Crossing crossingFromJunction = *(*i)->getNBCrossing();
                 if(crossingFromJunction.edges == myEdges) {
                     gSelected.select((*i)->getGlID());
                 }
@@ -117,7 +117,7 @@ void GNEChange_Crossing::redo() {
         if(mySelected) {
             // iterate over GNECrossing of junction to find GNECrossing and select it
             for(std::vector<GNECrossing*>::const_iterator i = myJunctionParent->getGNECrossings().begin(); i != myJunctionParent->getGNECrossings().end(); i++) {
-                NBNode::Crossing crossingFromJunction = (*i)->getNBCrossing();
+                NBNode::Crossing crossingFromJunction = *(*i)->getNBCrossing();
                 if(crossingFromJunction.edges == myEdges) {
                     gSelected.select((*i)->getGlID());
                 }

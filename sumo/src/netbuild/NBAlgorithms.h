@@ -121,8 +121,8 @@ public:
     public:
         explicit crossing_by_junction_angle_sorter(const NBNode* node, const EdgeVector& ordering);
 
-        int operator()(const NBNode::Crossing& c1, const NBNode::Crossing& c2) const {
-            return (int)(getMinRank(c1.edges) < getMinRank(c2.edges));
+        int operator()(const NBNode::Crossing* c1, const NBNode::Crossing* c2) const {
+            return (int)(getMinRank(c1->edges) < getMinRank(c2->edges));
         }
 
     private:

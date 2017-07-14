@@ -55,8 +55,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNECrossing::GNECrossing(GNEJunction* parentJunction, NBNode::Crossing& crossing) :
-    GNENetElement(parentJunction->getNet(), crossing.id, GLO_CROSSING, SUMO_TAG_CROSSING, ICON_CROSSING),
+GNECrossing::GNECrossing(GNEJunction* parentJunction, NBNode::Crossing* crossing) :
+    GNENetElement(parentJunction->getNet(), crossing->id, GLO_CROSSING, SUMO_TAG_CROSSING, ICON_CROSSING),
     myParentJunction(parentJunction),
     myCrossing(crossing) {
     // Update geometry
@@ -75,13 +75,13 @@ GNECrossing::updateGeometry() {
     // only rebuild shape if junction's shape isn't in Buuble mode
     if (myParentJunction->getNBNode()->getShape().size() > 0) {
         // Obtain segments of size and calculate it
-        int segments = (int) myCrossing.shape.size() - 1;
+        int segments = (int) myCrossing->shape.size() - 1;
         if (segments >= 0) {
             myShapeRotations.reserve(segments);
             myShapeLengths.reserve(segments);
             for (int i = 0; i < segments; ++i) {
-                const Position& f = myCrossing.shape[i];
-                const Position& s = myCrossing.shape[i + 1];
+                const Position& f = myCrossing->shape[i];
+                const Position& s = myCrossing->shape[i + 1];
                 myShapeLengths.push_back(f.distanceTo2D(s));
                 myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) PI);
             }
@@ -96,7 +96,7 @@ GNECrossing::getParentJunction() const {
 }
 
 
-NBNode::Crossing&
+NBNode::Crossing*
 GNECrossing::getNBCrossing() const {
     return myCrossing;
 }
@@ -115,7 +115,9 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         // set color depending of selection and priority
         if (gSelected.isSelected(getType(), getGlID())) {
             glColor3d(0.118, 0.565, 1.000);
-        } else if (myCrossing.priority) {
+        } else if (!myCrossing->valid) {
+            glColor3d(1.0, 0.1, 0.1);
+        } else if (myCrossing->priority) {
             glColor3d(0.9, 0.9, 0.9);
         } else {
             glColor3d(0.1, 0.1, 0.1);
@@ -125,16 +127,16 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         // set default values
         double length = 0.5;
         double spacing = 1.0;
-        double halfWidth = myCrossing.width * 0.5;
+        double halfWidth = myCrossing->width * 0.5;
         // push second draw matrix
         glPushMatrix();
         // draw on top of of the white area between the rails
         glTranslated(0, 0, 0.1);
-        for (int i = 0; i < (int)myCrossing.shape.size() - 1; ++i) {
+        for (int i = 0; i < (int)myCrossing->shape.size() - 1; ++i) {
             // push three draw matrix
             glPushMatrix();
             // traslete and rotate
-            glTranslated(myCrossing.shape[i].x(), myCrossing.shape[i].y(), 0.0);
+            glTranslated(myCrossing->shape[i].x(), myCrossing->shape[i].y(), 0.0);
             glRotated(myShapeRotations[i], 0, 0, 1);
             // draw crossing
             for (double t = 0; t < myShapeLengths[i]; t += spacing) {
@@ -182,7 +184,7 @@ GNECrossing::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 Boundary
 GNECrossing::getCenteringBoundary() const {
-    Boundary b = myCrossing.shape.getBoxBoundary();
+    Boundary b = myCrossing->shape.getBoxBoundary();
     b.grow(10);
     return b;
 }
@@ -195,13 +197,13 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
             return getMicrosimID();
             break;
         case SUMO_ATTR_WIDTH:
-            return toString(myCrossing.width);
+            return toString(myCrossing->width);
             break;
         case SUMO_ATTR_PRIORITY:
-            return myCrossing.priority ? "true" : "false";
+            return myCrossing->priority ? "true" : "false";
             break;
         case SUMO_ATTR_EDGES:
-            return toString(myCrossing.edges);
+            return toString(myCrossing->edges);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -255,7 +257,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
 
 bool 
 GNECrossing::checkEdgeBelong(GNEEdge* edge) const {
-    if(std::find(myCrossing.edges.begin(), myCrossing.edges.end(), edge->getNBEdge()) !=  myCrossing.edges.end()) {
+    if(std::find(myCrossing->edges.begin(), myCrossing->edges.end(), edge->getNBEdge()) !=  myCrossing->edges.end()) {
         return true;
     } else {
         return false;
@@ -284,21 +286,21 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(getTag()) + " isn't allowed");
         case SUMO_ATTR_EDGES: {
             // remove edges of crossing
-            myCrossing.edges.clear();
+            myCrossing->edges.clear();
             std::vector<std::string> NBEdgeIDs = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
             // Obtain NBEdges of GNENet and insert it in the crossing
             for (std::vector<std::string>::iterator i = NBEdgeIDs.begin(); i != NBEdgeIDs.end(); i++) {
-                myCrossing.edges.push_back(myNet->retrieveEdge(*i)->getNBEdge());
+                myCrossing->edges.push_back(myNet->retrieveEdge(*i)->getNBEdge());
             }
             break;
         }
         case SUMO_ATTR_WIDTH:
             // Change width an refresh element
-            myCrossing.width = parse<double>(value);
+            myCrossing->width = parse<double>(value);
             myNet->refreshElement(this);
             break;
         case SUMO_ATTR_PRIORITY:
-            myCrossing.priority = parse<bool>(value);
+            myCrossing->priority = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

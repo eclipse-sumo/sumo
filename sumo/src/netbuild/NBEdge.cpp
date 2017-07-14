@@ -1458,9 +1458,9 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     }
                 }
                 // foe pedestrian crossings
-                const std::vector<NBNode::Crossing>& crossings = n.getCrossings();
-                for (std::vector<NBNode::Crossing>::const_iterator it_c = crossings.begin(); it_c != crossings.end(); ++it_c) {
-                    const NBNode::Crossing& crossing = *it_c;
+                std::vector<NBNode::Crossing*> crossings = n.getCrossings();
+                for (auto c : crossings) {
+                    const NBNode::Crossing& crossing = *c;
                     for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {
                         const NBEdge* edge = *it_e;
                         // compute foe internal lanes

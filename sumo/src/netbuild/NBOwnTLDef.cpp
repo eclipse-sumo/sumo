@@ -231,9 +231,9 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         }
     }
     // collect crossings
-    std::vector<NBNode::Crossing> crossings;
+    std::vector<NBNode::Crossing*> crossings;
     for (std::vector<NBNode*>::iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-        const std::vector<NBNode::Crossing>& c = (*i)->getCrossings();
+        const std::vector<NBNode::Crossing*>& c = (*i)->getCrossings();
         if (!onlyConts) {
             // set tl indices for crossings
             (*i)->setCrossingTLIndices(getID(), noLinksAll);
@@ -435,10 +435,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 
 
 bool
-NBOwnTLDef::hasCrossing(const NBEdge* from, const NBEdge* to, const std::vector<NBNode::Crossing>& crossings) {
+NBOwnTLDef::hasCrossing(const NBEdge* from, const NBEdge* to, const std::vector<NBNode::Crossing*>& crossings) {
     assert(to != 0);
-    for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
-        const NBNode::Crossing& cross = *it;
+    for (auto c : crossings) {
+        const NBNode::Crossing& cross = *c;
         // only check connections at this crossings node
         if (to->getFromNode() == cross.node) {
             for (EdgeVector::const_iterator it_e = cross.edges.begin(); it_e != cross.edges.end(); ++it_e) {
@@ -455,7 +455,7 @@ NBOwnTLDef::hasCrossing(const NBEdge* from, const NBEdge* to, const std::vector<
 
 std::string
 NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, SUMOTime greenTime,
-                                std::string state, const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
+                                std::string state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
     const SUMOTime pedClearingTime = TIME2STEPS(5); // compute based on length of the crossing
     const SUMOTime minPedTime = TIME2STEPS(4); // compute: must be able to reach the middle of the second "Richtungsfahrbahn"
     const std::string orig = state;
@@ -482,12 +482,12 @@ NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, SUMOTime greenTime,
 
 
 std::string
-NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
+NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
     std::string result = state;
     const int pos = (int)(state.size() - crossings.size()); // number of controlled vehicle links
     for (int ic = 0; ic < (int)crossings.size(); ++ic) {
         const int i1 = pos + ic;
-        const NBNode::Crossing& cross = crossings[ic];
+        const NBNode::Crossing& cross = *crossings[ic];
         bool isForbidden = false;
         for (int i2 = 0; i2 < pos && !isForbidden; ++i2) {
             // only check connections at this crossings node
@@ -514,7 +514,7 @@ NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<N
     for (int i1 = 0; i1 < pos; ++i1) {
         if (result[i1] == 'G') {
             for (int ic = 0; ic < (int)crossings.size(); ++ic) {
-                const NBNode::Crossing& crossing = crossings[ic];
+                const NBNode::Crossing& crossing = *crossings[ic];
                 if (fromEdges[i1] != 0 && toEdges[i1] != 0 && fromEdges[i1]->getToNode() == crossing.node) {
                     const int i2 = pos + ic;
                     if (result[i2] == 'G' && crossing.node->mustBrakeForCrossing(fromEdges[i1], toEdges[i1], crossing)) {
@@ -662,7 +662,7 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
 
 void
 NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll, SUMOTime /* greenTime */, SUMOTime brakingTime,
-                                  const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
+                                  const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
     const int vehLinks = noLinksAll - (int)crossings.size();
     std::vector<bool> foundGreen(crossings.size(), false);
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = logic->getPhases();

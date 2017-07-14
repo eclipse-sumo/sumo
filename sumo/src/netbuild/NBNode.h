@@ -139,7 +139,9 @@ public:
             edges(_edges),
             width(_width),
             priority(_priority),
-            tlLinkNo(-1) {
+            tlLinkNo(-1),
+            valid(true)
+        {
         }
         /// @brief The parent node of this crossing
         const NBNode* node;
@@ -161,6 +163,8 @@ public:
         int tlLinkNo;
         /// @brief The id of the traffic light that controls this connection
         std::string tlID;
+        /// @brief whether this crossing is valid (and can be written to the net.xml). This is needed for netedit because validity can only be checked during junction computation
+        bool valid;
     };
 
 
@@ -601,12 +605,8 @@ public:
     /// @brief remove a pedestrian crossing from this node (identified by its edges)
     void removeCrossing(const EdgeVector& edges);
 
-    /// @brief discard all crossings
-    void discardAllCrossings() {
-        myCrossings.clear();
-        // also discard all further crossings
-        myDiscardAllCrossings = true; 
-    }
+    /// @brief discard all current (and optionally future) crossings
+    void discardAllCrossings(bool rejectAll); 
 
     /// @brief get num of crossings from sumo net
     int numCrossingsFromSumoNet() const {
@@ -614,7 +614,8 @@ public:
     }
 
     /// @brief return this junctions pedestrian crossings
-    inline const std::vector<Crossing>& getCrossings() const {
+    std::vector<Crossing*> getCrossings() const; 
+    inline const std::vector<Crossing*>& getCrossingsIncludingInvalid() const {
         return myCrossings;
     }
 
@@ -624,10 +625,7 @@ public:
     }
 
     /// @brief return the crossing with the given id
-    const Crossing& getCrossing(const std::string& id) const;
-
-    /// @brief return a reference to the crossing with the given id
-    Crossing& getCrossingRef(const std::string& id);
+    Crossing* getCrossing(const std::string& id) const;
 
     /// @brief set tl indices of this nodes crossing starting at the given index
     void setCrossingTLIndices(const std::string& tlID, int startIndex);
@@ -729,7 +727,7 @@ private:
     EdgeVector myAllEdges;
 
     /// @brief Vector of crossings
-    std::vector<Crossing> myCrossings;
+    std::vector<Crossing*> myCrossings;
 
     /// @brief Vector of walking areas
     std::vector<WalkingArea> myWalkingAreas;

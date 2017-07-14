@@ -121,13 +121,12 @@ GNEJunction::rebuildGNECrossings() {
     if (myNet->getNetBuilder()->haveNetworkCrossings()) {
         // build new NBNode::Crossings and walking areas
         myNBNode.buildCrossingsAndWalkingAreas();
-        const std::vector<NBNode::Crossing>& crossings = myNBNode.getCrossings();
         // create a vector to keep retrieved and created crossings
         std::vector<GNECrossing*> retrievedCrossings;
         // iterate over NBNode::Crossings of GNEJunction
-        for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
+        for (auto c : myNBNode.getCrossings()) {
             // retrieve existent GNECrossing, or create it
-            GNECrossing* retrievedGNECrossing = retrieveGNECrossing(myNBNode.getCrossingRef(it->id));
+            GNECrossing* retrievedGNECrossing = retrieveGNECrossing(myNBNode.getCrossing(c->id));
             retrievedCrossings.push_back(retrievedGNECrossing);
             // check if previously this GNECrossings exists, and if true, remove it from myGNECrossings
             std::vector<GNECrossing*>::iterator retrievedExists = std::find(myGNECrossings.begin(), myGNECrossings.end(), retrievedGNECrossing);
@@ -609,12 +608,10 @@ void
 GNEJunction::removeFromCrossings(GNEEdge* edge, GNEUndoList* undoList) {
     // @todo implement GNEChange_Crossing
     UNUSED_PARAMETER(undoList);
-    // make a copy because the original will be modified
-    const std::vector<NBNode::Crossing> crossings = myNBNode.getCrossings();
-    for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
-        EdgeSet edgeSet((*it).edges.begin(), (*it).edges.end());
+    for (auto c : myNBNode.getCrossings()) {
+        EdgeSet edgeSet(c->edges.begin(), c->edges.end());
         if (edgeSet.count(edge->getNBEdge()) == 1) {
-            myNBNode.removeCrossing((*it).edges);
+            myNBNode.removeCrossing(c->edges);
         }
     }
 }
@@ -627,9 +624,9 @@ GNEJunction::isLogicValid() {
 
 
 GNECrossing* 
-GNEJunction::retrieveGNECrossing(NBNode::Crossing &crossing, bool createIfNoExist) {
+GNEJunction::retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExist) {
     for (std::vector<GNECrossing*>::iterator i = myGNECrossings.begin(); i != myGNECrossings.end(); ++i) {
-        if ((*i)->getNBCrossing().edges == crossing.edges) {
+        if ((*i)->getNBCrossing() == crossing) {
             return *i;
         }
     }

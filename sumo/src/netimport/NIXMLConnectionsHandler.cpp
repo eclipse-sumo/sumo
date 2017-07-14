@@ -319,7 +319,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
                 WRITE_ERROR("Node '" + nodeID + "' in crossing is not known.");
                 return;
             }
-            node->discardAllCrossings();
+            node->discardAllCrossings(true);
             return;
         } else {
             WRITE_ERROR("No edges specified for crossing at node '" + nodeID + "'.");

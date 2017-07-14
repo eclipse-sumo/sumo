@@ -116,15 +116,15 @@ public:
     /// @brief add an additional pedestrian phase if there are crossings that did not get green yet
     static void addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll,
                                       SUMOTime greenTime, SUMOTime yellowTime,
-                                      const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
+                                      const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /// @brief add 1 or 2 phases depending on the presence of pedestrian crossings
     static std::string addPedestrianPhases(NBTrafficLightLogic* logic, SUMOTime greenTime,
-                                           std::string state, const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
+                                           std::string state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /// @brief compute phase state in regard to pedestrian crossings
     static std::string patchStateForCrossings(const std::string& state,
-            const std::vector<NBNode::Crossing>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
+            const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /** @brief helper function for myCompute
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
@@ -212,7 +212,7 @@ protected:
 
 
     /// @brief compute whether the given connection is crossed by pedestrians
-    static bool hasCrossing(const NBEdge* from, const NBEdge* to, const std::vector<NBNode::Crossing>& crossings);
+    static bool hasCrossing(const NBEdge* from, const NBEdge* to, const std::vector<NBNode::Crossing*>& crossings);
 
     /// @brief get edges that have connections
     static EdgeVector getConnectedOuterEdges(const EdgeVector& incoming);

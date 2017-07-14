@@ -511,12 +511,10 @@ GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
             rtree.addAdditionalGLObject(ilane);
             myInternalLanes[tlIndex].push_back(ilane);
         }
-        const std::vector<NBNode::Crossing>& crossings = nbn->getCrossings();
-        for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
-            const NBNode::Crossing& c = *it;
-            GNEInternalLane* ilane = new GNEInternalLane(this, c.id, c.shape, c.tlLinkNo);
+        for (auto c : nbn->getCrossings()) {
+            GNEInternalLane* ilane = new GNEInternalLane(this, c->id, c->shape, c->tlLinkNo);
             rtree.addAdditionalGLObject(ilane);
-            myInternalLanes[c.tlLinkNo].push_back(ilane);
+            myInternalLanes[c->tlLinkNo].push_back(ilane);
         }
     }
 }

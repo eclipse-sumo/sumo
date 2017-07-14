@@ -171,15 +171,15 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* node = (*i).second;
         // write connections from pedestrian crossings
-        const std::vector<NBNode::Crossing>& crossings = node->getCrossings();
-        for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
-            NWWriter_SUMO::writeInternalConnection(device, (*it).id, (*it).nextWalkingArea, 0, 0, "");
+        std::vector<NBNode::Crossing*> crossings = node->getCrossings();
+        for (auto c : crossings) {
+            NWWriter_SUMO::writeInternalConnection(device, c->id, c->nextWalkingArea, 0, 0, "");
         }
         // write connections from pedestrian walking areas
         const std::vector<NBNode::WalkingArea>& WalkingAreas = node->getWalkingAreas();
         for (std::vector<NBNode::WalkingArea>::const_iterator it = WalkingAreas.begin(); it != WalkingAreas.end(); it++) {
             if ((*it).nextCrossing != "") {
-                const NBNode::Crossing& nextCrossing = node->getCrossing((*it).nextCrossing);
+                const NBNode::Crossing& nextCrossing = *node->getCrossing((*it).nextCrossing);
                 // connection to next crossing (may be tls-controlled)
                 device.openTag(SUMO_TAG_CONNECTION);
                 device.writeAttr(SUMO_ATTR_FROM, (*it).id);
@@ -327,14 +327,13 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         }
     }
     // write pedestrian crossings
-    const std::vector<NBNode::Crossing>& crossings = n.getCrossings();
-    for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
+    for (auto c : n.getCrossings()) {
         into.openTag(SUMO_TAG_EDGE);
-        into.writeAttr(SUMO_ATTR_ID, (*it).id);
+        into.writeAttr(SUMO_ATTR_ID, c->id);
         into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_CROSSING);
-        into.writeAttr(SUMO_ATTR_CROSSING_EDGES, (*it).edges);
-        writeLane(into, (*it).id + "_0", 1, SVC_PEDESTRIAN, 0,
-                  NBEdge::UNSPECIFIED_OFFSET, (*it).width, (*it).shape, "", (*it).shape.length(), 0, false, "", &n);
+        into.writeAttr(SUMO_ATTR_CROSSING_EDGES, c->edges);
+        writeLane(into, c->id + "_0", 1, SVC_PEDESTRIAN, 0,
+                  NBEdge::UNSPECIFIED_OFFSET, c->width, c->shape, "", c->shape.length(), 0, false, "", &n);
         into.closeTag();
     }
     // write pedestrian walking areas
@@ -474,9 +473,9 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool che
             }
         }
     }
-    const std::vector<NBNode::Crossing>& crossings = n.getCrossings();
-    for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
-        incLanes += ' ' + (*it).prevWalkingArea + "_0";
+    std::vector<NBNode::Crossing*> crossings = n.getCrossings();
+    for (auto c : crossings) {
+        incLanes += ' ' + c->prevWalkingArea + "_0";
     }
     into.writeAttr(SUMO_ATTR_INCLANES, incLanes);
     // write the internal lanes
@@ -502,8 +501,8 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n, const bool che
         }
     }
     if (n.getType() != NODETYPE_DEAD_END && n.getType() != NODETYPE_NOJUNCTION) {
-        for (std::vector<NBNode::Crossing>::const_iterator it = crossings.begin(); it != crossings.end(); it++) {
-            intLanes += ' ' + (*it).id + "_0";
+        for (auto c : crossings) {
+            intLanes += ' ' + c->id + "_0";
         }
     }
     into.writeAttr(SUMO_ATTR_INTLANES, intLanes);
@@ -541,9 +540,8 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
             }
         }
     }
-    const std::vector<NBNode::Crossing>& crossings = n.getCrossings();
-    for (std::vector<NBNode::Crossing>::const_iterator it_c = crossings.begin(); it_c != crossings.end(); ++it_c) {
-        internalLaneIDs.push_back((*it_c).id + "_0");
+    for (auto c : n.getCrossings()) {
+        internalLaneIDs.push_back(c->id + "_0");
     }
     // write the internal nodes
     for (std::vector<NBEdge*>::const_iterator i = incoming.begin(); i != incoming.end(); i++) {

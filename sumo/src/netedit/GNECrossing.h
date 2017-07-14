@@ -56,7 +56,7 @@ public:
      * @param[in] parentJunction GNEJunction in which this crossing is placed
      * @param[in] crossing Node::Crossing
      */
-    GNECrossing(GNEJunction* parentJunction, NBNode::Crossing& crossing);
+    GNECrossing(GNEJunction* parentJunction, NBNode::Crossing* crossing);
 
     /// @brief Destructor
     virtual ~GNECrossing();
@@ -68,7 +68,7 @@ public:
     GNEJunction* getParentJunction() const;
 
     ///@brief get referente to NBode::Crossing
-    NBNode::Crossing& getNBCrossing() const;
+    NBNode::Crossing* getNBCrossing() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -138,7 +138,7 @@ private:
     GNEJunction* myParentJunction;
 
     /// @brief the data for this crossing
-    NBNode::Crossing& myCrossing;
+    NBNode::Crossing* myCrossing;
 
     /// @brief the shape of the edge
     const PositionVector myShape;

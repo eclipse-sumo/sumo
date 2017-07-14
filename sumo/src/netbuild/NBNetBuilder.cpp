@@ -385,7 +385,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         }
     } else if (oc.getBool("no-internal-links")) {
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            i->second->discardAllCrossings();
+            i->second->discardAllCrossings(false);
         }
     }
 
