@@ -100,6 +100,16 @@ template<class E, class V>
 class LandmarkLookupTable : public AbstractLookupTable<E, V> {
 public:
     LandmarkLookupTable(const std::string& filename, const std::vector<E*>& edges, SUMOAbstractRouter<E, V>* router, const V* defaultVehicle) {
+        myFirstNonInternal = -1;
+        std::map<std::string, int> numericID;
+        for (E* e : edges) {
+            if (!e->isInternal()) {
+                if (myFirstNonInternal == -1) {
+                    myFirstNonInternal = e->getNumericalID();
+                }
+                numericID[e->getID()] = e->getNumericalID() - myFirstNonInternal;
+            }
+        }
         std::ifstream strm(filename.c_str());
         if (!strm.good()) {
             throw ProcessError("Could not load landmark-lookup-table from '" + filename + "'.");
@@ -120,8 +130,11 @@ public:
                 assert(st.size() == 4); 
                 const std::string lm = st.get(0);
                 const std::string edge = st.get(1);
-                double distFrom = TplConvert::_2double(st.get(2).c_str());
-                double distTo = TplConvert::_2double(st.get(3).c_str());
+                if (numericID[edge] != myFromLandmarkDists[myLandmarks[lm]].size()) {
+                    WRITE_WARNING("Unknown or unordered edge '" + edge + "' in landmark file.");
+                }
+                const double distFrom = TplConvert::_2double(st.get(2).c_str());
+                const double distTo = TplConvert::_2double(st.get(3).c_str());
                 myFromLandmarkDists[myLandmarks[lm]].push_back(distFrom);
                 myToLandmarkDists[myLandmarks[lm]].push_back(distTo);
             }
@@ -132,7 +145,7 @@ public:
         }
         std::ofstream* ostrm = 0;
         for (int i = 0; i < (int)myLandmarks.size(); ++i) {
-            if (myFromLandmarkDists[i].size() != edges.size()) {
+            if ((int)myFromLandmarkDists[i].size() != edges.size() - myFirstNonInternal) {
                 const std::string landmarkID = getLandmark(i);
                 const E* landmark = 0;
                 // retrieve landmark edge
@@ -159,7 +172,7 @@ public:
                 }
                 std::vector<const E*> routeLM(1, landmark); 
                 const double lmCost = router->recomputeCosts(routeLM, defaultVehicle, 0);
-                for (int j = (int)myFromLandmarkDists[i].size(); j < (int)edges.size(); ++j) {
+                for (int j = (int)myFromLandmarkDists[i].size() + myFirstNonInternal; j < (int)edges.size(); ++j) {
                     const E* edge = edges[j];
                     double distFrom = -1;
                     double distTo = -1;
@@ -204,8 +217,8 @@ public:
 #endif
         for (int i = 0; i < (int)myLandmarks.size(); ++i) {
             // a cost of -1 is used to encode unreachability.
-            const double fl = myToLandmarkDists[i][from->getNumericalID()];
-            const double tl = myToLandmarkDists[i][to->getNumericalID()];
+            const double fl = myToLandmarkDists[i][from->getNumericalID() - myFirstNonInternal];
+            const double tl = myToLandmarkDists[i][to->getNumericalID() - myFirstNonInternal];
             if (fl >= 0 && tl >= 0) {
                 const double bound = (fl - tl - toEffort) / speedFactor;
 #ifdef ASTAR_DEBUG_LOOKUPTABLE
@@ -216,8 +229,8 @@ public:
 #endif
                 result = MAX2(result, bound);
             }
-            const double lt = myFromLandmarkDists[i][to->getNumericalID()];
-            const double lf = myFromLandmarkDists[i][from->getNumericalID()];
+            const double lt = myFromLandmarkDists[i][to->getNumericalID() - myFirstNonInternal];
+            const double lf = myFromLandmarkDists[i][from->getNumericalID() - myFirstNonInternal];
             if (lt >= 0 && lf >= 0) {
                 const double bound = (lt - lf - fromEffort) / speedFactor;
 #ifdef ASTAR_DEBUG_LOOKUPTABLE
@@ -249,6 +262,7 @@ private:
     std::map<std::string, int> myLandmarks;
     std::vector<std::vector<double> > myFromLandmarkDists;
     std::vector<std::vector<double> > myToLandmarkDists;
+    int myFirstNonInternal;
 
     std::string getLandmark(int i) const {
         for (std::map<std::string, int>::const_iterator it = myLandmarks.begin(); it != myLandmarks.end(); ++it) {
