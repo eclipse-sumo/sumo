@@ -76,6 +76,7 @@ logPrefixed:pre_log.txt
 weights:weights.xml
 lanechanges:lanechanges.xml
 ssm:ssm.xml
+ssm2:ssm_ego.xml
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:
