@@ -344,7 +344,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
                 delete myTLLogic;
                 myTLLogic = newLogic;
             } else if ((int)phases.front().state.size() != noLinksAll) {
-                WRITE_WARNING("Could not patch tlLogic " + getID() + "for new crossings");
+                WRITE_WARNING("Could not patch tlLogic '" + getID() + "' for new crossings");
             }
         }
     }
