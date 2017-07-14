@@ -17,6 +17,7 @@ copy_test_path:sumo.sumocfg
 copy_test_path:settings.xml
 copy_test_path:input_state.xml
 copy_test_path:input_meso_state.xml
+copy_test_path:lookuptable
 
 [collate_file]
 detector:detector.xml

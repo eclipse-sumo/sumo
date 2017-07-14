@@ -1,0 +1,2 @@
+-n net.net.xml -r input_trips.trips.xml -a input_districts.taz.xml -v --routing-algorithm astar --no-step-log --astar.landmark-distances lookuptable
+ --vehroute-output=vehroutes.xml
