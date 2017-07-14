@@ -124,7 +124,7 @@ GNEJunction::rebuildGNECrossings() {
         // create a vector to keep retrieved and created crossings
         std::vector<GNECrossing*> retrievedCrossings;
         // iterate over NBNode::Crossings of GNEJunction
-        for (auto c : myNBNode.getCrossings()) {
+        for (auto c : myNBNode.getCrossingsIncludingInvalid()) {
             // retrieve existent GNECrossing, or create it
             GNECrossing* retrievedGNECrossing = retrieveGNECrossing(myNBNode.getCrossing(c->id));
             retrievedCrossings.push_back(retrievedGNECrossing);
@@ -608,7 +608,7 @@ void
 GNEJunction::removeFromCrossings(GNEEdge* edge, GNEUndoList* undoList) {
     // @todo implement GNEChange_Crossing
     UNUSED_PARAMETER(undoList);
-    for (auto c : myNBNode.getCrossings()) {
+    for (auto c : myNBNode.getCrossingsIncludingInvalid()) {
         EdgeSet edgeSet(c->edges.begin(), c->edges.end());
         if (edgeSet.count(edge->getNBEdge()) == 1) {
             myNBNode.removeCrossing(c->edges);
