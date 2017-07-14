@@ -40,6 +40,8 @@
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
 #include "SUMORouteHandler.h"
 
@@ -194,9 +196,6 @@ SUMORouteHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_ROUTE_DISTRIBUTION:
             closeRouteDistribution();
-            break;
-        case SUMO_TAG_VTYPE:
-            SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVType);
             break;
         case SUMO_TAG_INTERVAL:
             myBeginDefault = string2time(OptionsCont::getOptions().getString("begin"));

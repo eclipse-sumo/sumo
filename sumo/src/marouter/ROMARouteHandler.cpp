@@ -32,6 +32,7 @@
 #endif
 
 #include <utils/options/OptionsCont.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
 #include <od/ODMatrix.h>
 #include "ROMARouteHandler.h"

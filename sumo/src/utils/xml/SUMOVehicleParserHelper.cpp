@@ -32,12 +32,15 @@
 #include <config.h>
 #endif
 
+#include <utils/common/FileHelpers.h>
+#include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
-#include <utils/common/FileHelpers.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include "SUMOVehicleParserHelper.h"
 
 

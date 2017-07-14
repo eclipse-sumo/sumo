@@ -33,15 +33,19 @@
 #include <config.h>
 #endif
 
+#include <random>
 #include <string>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
-#include <utils/vehicle/SUMOVTypeParameter.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/common/StdDefs.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class SUMOSAXAttributes;
+class SUMOVehicleParameter;
+class SUMOVTypeParameter;
+
 
 // ===========================================================================
 // class definitions
@@ -115,15 +119,6 @@ public:
 
     /// @brief Parses junction model attributes
     static void parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAttributes& attrs);
-
-    /** @brief Closes parsing of the vehicle type
-     * @return The resulting vehicle type parameter
-     * @see SUMOVTypeParameter
-     */
-    static void closeVTypeParsing(SUMOVTypeParameter& vtype) {
-        UNUSED_PARAMETER(vtype);
-    }
-
 
     /** @brief Parses the vehicle class
      *
