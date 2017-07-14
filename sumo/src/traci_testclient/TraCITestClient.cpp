@@ -684,7 +684,7 @@ TraCITestClient::testAPI() {
     answerLog << "    effort: " << edge.getEffort(edgeID, 0) << "\n";
     answerLog << "  lane:\n";
     answerLog << "    getIDList: " << joinToString(lane.getIDList(), " ") << "\n";
-    //answerLog << "    getIDCount: " << lane.getIDCount() << "\n";
+    answerLog << "    getIDCount: " << lane.getIDCount() << "\n";
     const std::string laneID = "e_m6_0";
     answerLog << "    getLinkNumber: " << lane.getLinkNumber(laneID) << "\n";
     std::vector<TraCIConnection> connections = lane.getLinks(laneID);

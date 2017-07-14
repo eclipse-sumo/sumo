@@ -957,6 +957,11 @@ TraCIAPI::LaneScope::getIDList() const {
     return myParent.getStringVector(CMD_GET_LANE_VARIABLE, ID_LIST, "");
 }
 
+int
+TraCIAPI::LaneScope::getIDCount() const {
+    return myParent.getInt(CMD_GET_LANE_VARIABLE, ID_COUNT, "");
+}
+
 double
 TraCIAPI::LaneScope::getLength(const std::string& laneID) const {
     return myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_LENGTH, laneID);

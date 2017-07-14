@@ -291,6 +291,7 @@ public:
         virtual ~LaneScope() {}
 
         std::vector<std::string> getIDList() const;
+        int getIDCount() const;
         double getLength(const std::string& laneID) const;
         double getMaxSpeed(const std::string& laneID) const;
         double getWidth(const std::string& laneID) const;
