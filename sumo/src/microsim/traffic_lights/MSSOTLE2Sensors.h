@@ -28,7 +28,7 @@
 #include <utils/common/SwarmDebug.h>
 #include "MSSOTLSensors.h"
 #include "MSSOTLDefinitions.h"
-#include <math.h>
+#include <cmath>
 #include <map>
 #include <utility>
 #include <microsim/output/MSE2Collector.h>

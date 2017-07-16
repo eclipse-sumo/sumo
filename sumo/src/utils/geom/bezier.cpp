@@ -48,7 +48,7 @@
 #include <config.h>
 #endif
 
-#include <math.h>
+#include <cmath>
 #include <iostream>
 #include <utils/common/StdDefs.h>
 #include "PositionVector.h"

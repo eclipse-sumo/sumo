@@ -27,7 +27,7 @@
 #include <config.h>
 #endif
 
-#include <math.h>
+#include <cmath>
 #include <algorithm>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>

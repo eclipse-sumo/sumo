@@ -35,7 +35,7 @@
 #include <utils/common/SwarmDebug.h>
 #include <utils/common/MsgHandler.h>
 #include <sstream>
-#include <math.h>
+#include <cmath>
 #include <stdlib.h>
 #include <string.h>
 #include "MSSOTLPolicy5DStimulus.h"

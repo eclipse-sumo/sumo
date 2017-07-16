@@ -32,7 +32,7 @@
 #include <config.h>
 #endif
 
-#include <math.h>
+#include <cmath>
 #include <string>
 #include <map>
 #include <set>

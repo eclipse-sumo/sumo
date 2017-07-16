@@ -35,7 +35,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
+#include <cmath>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBEdge.h>

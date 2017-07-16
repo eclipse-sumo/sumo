@@ -31,7 +31,7 @@
 #endif
 
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include <stdlib.h>
 #include "NGRandomNetBuilder.h"
 #include <utils/geom/GeomHelper.h>

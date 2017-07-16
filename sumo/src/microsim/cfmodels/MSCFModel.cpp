@@ -33,7 +33,7 @@
 #include <config.h>
 #endif
 
-#include <math.h>
+#include <cmath>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSVehicle.h>

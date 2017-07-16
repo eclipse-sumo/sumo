@@ -30,7 +30,7 @@
 #endif
 
 #include <cassert>
-#include <math.h>
+#include <cmath>
 #include <utils/common/ToString.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicle.h>

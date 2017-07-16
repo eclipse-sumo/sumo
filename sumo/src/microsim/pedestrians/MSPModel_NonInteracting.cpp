@@ -27,7 +27,7 @@
 #include <config.h>
 #endif
 
-#include <math.h>
+#include <cmath>
 #include <algorithm>
 #include <utils/common/RandHelper.h>
 #include <utils/geom/GeomHelper.h>

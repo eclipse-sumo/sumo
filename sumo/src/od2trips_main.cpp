@@ -38,7 +38,7 @@
 
 #include <iostream>
 #include <algorithm>
-#include <math.h>
+#include <cmath>
 #include <cstdlib>
 #include <string>
 #include <xercesc/parsers/SAXParser.hpp>

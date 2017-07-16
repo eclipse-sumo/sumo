@@ -34,7 +34,7 @@
 #include <config.h>
 #endif
 
-#include <math.h>
+#include <cmath>
 #include <utils/common/RandHelper.h>
 #include <utils/common/StdDefs.h>
 #include <activitygen/city/AGTime.h>

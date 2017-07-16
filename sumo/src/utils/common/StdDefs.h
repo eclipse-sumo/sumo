@@ -33,7 +33,7 @@
 #include <config.h>
 #endif
 #include <string>
-#include <math.h>
+#include <cmath>
 
 /* avoiding compiler warning unreferenced parameter */
 #define UNUSED_PARAMETER(x)  ((void)(x))

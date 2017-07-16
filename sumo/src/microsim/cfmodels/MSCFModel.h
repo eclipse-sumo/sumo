@@ -32,7 +32,7 @@
 #include <config.h>
 #endif
 
-#include <math.h>
+#include <cmath>
 #include <string>
 #include <utils/common/StdDefs.h>
 #include <utils/common/FileHelpers.h>

@@ -21,7 +21,7 @@
 /****************************************************************************/
 
 #include "MSSOTLPolicy.h"
-#include <math.h>
+#include <cmath>
 #include <typeinfo>
 #include "utils/common/RandHelper.h"
 

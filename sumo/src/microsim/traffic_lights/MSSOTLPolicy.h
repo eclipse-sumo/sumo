@@ -36,7 +36,7 @@
 //#define SWARM_DEBUG
 #include <utils/common/SwarmDebug.h>
 #include <sstream>
-#include <math.h>
+#include <cmath>
 #include <utility>
 #include <vector>
 #include <utils/common/Parameterised.h>
