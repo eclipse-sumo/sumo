@@ -402,6 +402,58 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList) {
 
 
 void
+GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) {
+    undoList->p_begin("replace " + toString(SUMO_TAG_EDGE));
+    undoList->p_add(new GNEChange_Attribute(by, SUMO_ATTR_TO, which->getAttribute(SUMO_ATTR_TO)));
+    
+    // replace in additionals childs of edge
+    std::vector<GNEAdditional*> copyOfEdgeAdditionals = which->getAdditionalChilds();
+    for (std::vector<GNEAdditional*>::iterator i = copyOfEdgeAdditionals.begin(); i != copyOfEdgeAdditionals.end(); i++) {
+        undoList->p_add(new GNEChange_Attribute(*i, SUMO_ATTR_EDGE, by->getID()));
+    }
+    
+    // replace in additionals childs of lane
+    for (std::vector<GNELane*>::const_iterator i = which->getLanes().begin(); i != which->getLanes().end(); i++) {
+        std::vector<GNEAdditional*> copyOfLaneAdditionals = (*i)->getAdditionalChilds();
+        for (std::vector<GNEAdditional*>::iterator j = copyOfLaneAdditionals.begin(); j != copyOfLaneAdditionals.end(); j++) {
+            undoList->p_add(new GNEChange_Attribute(*i, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID((*i)->getIndex())));
+        }
+    }
+    // replace in rerouters 
+    for(auto rerouter : which->getGNERerouters()) {
+        replaceInListAttribute(rerouter, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
+    }
+
+    // replace in crossings 
+    for(auto crossing : which->getGNEJunctionDestiny()->getGNECrossings()) {
+        // if at least one of the edges of junction to remove belongs to a crossing of the source junction, delete it
+        replaceInListAttribute(crossing, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
+    }
+
+    // fix connections (make a copy because they will be modified
+    std::vector<NBEdge::Connection> connections = which->getNBEdge()->getConnections();
+    for (auto con : connections) {
+        undoList->add(new GNEChange_Connection(which, con, false, false), true);
+        undoList->add(new GNEChange_Connection(by, con, false, true), true);
+    }
+
+    // save selection status
+    if (gSelected.isSelected(GLO_EDGE, which->getGlID())) {
+        std::set<GUIGlID> deselected;
+        deselected.insert(which->getGlID());
+        undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
+    }
+
+    // Delete edge
+    undoList->add(new GNEChange_Edge(which, false), true);
+
+    undoList->p_end();
+}
+
+
+
+
+void
 GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList) {
     GNEEdge* edge = &lane->getParentEdge();
     if (edge->getNBEdge()->getNumLanes() == 1) {
@@ -1295,6 +1347,14 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
     for (std::vector<std::pair<NBEdge*, NBEdge*> >::iterator j = toJoin.begin(); j != toJoin.end(); j++) {
         GNEEdge* begin = myEdges[(*j).first->getID()];
         GNEEdge* continuation = myEdges[(*j).second->getID()];
+        // remove connections between the edges
+        std::vector<NBEdge::Connection> connections = begin->getNBEdge()->getConnections();
+        for (auto con : connections) {
+            undoList->add(new GNEChange_Connection(begin, con, false, false), true);
+        }
+        // replace
+        replaceIncomingEdge(continuation, begin, undoList);
+        // fix shape
         PositionVector newShape = begin->getNBEdge()->getInnerGeometry();
         if (begin->getNBEdge()->hasDefaultGeometryEndpointAtNode(begin->getNBEdge()->getToNode())) {
             newShape.push_back(junction->getNBNode()->getPosition());
@@ -1307,16 +1367,8 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
             newShape.push_back_noDoublePos(continuation->getNBEdge()->getGeometry()[0]);
         }
         newShape.append(continuation->getNBEdge()->getInnerGeometry());
-        begin->setAttribute(SUMO_ATTR_TO, continuation->getAttribute(SUMO_ATTR_TO), undoList);
-        begin->setAttribute(SUMO_ATTR_SHAPE, toString(newShape), undoList);
         begin->setAttribute(GNE_ATTR_SHAPE_END, continuation->getAttribute(GNE_ATTR_SHAPE_END), undoList);
-        // fix connections
-        std::vector<NBEdge::Connection>& connections = continuation->getNBEdge()->getConnections();
-        for (auto con : connections) {
-            undoList->add(new GNEChange_Connection(begin, con, false, true), true);
-        }
-        // tls, crossings?
-        deleteEdge(continuation, undoList);
+        begin->setAttribute(SUMO_ATTR_SHAPE, toString(newShape), undoList);
     }
     deleteJunction(junction, undoList);
     undoList->p_end();
@@ -1923,5 +1975,16 @@ GNENet::setAdditionalSaved(bool value) {
     myAdditionalsSaved = value;
 }
 
+
+void 
+GNENet::replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList) {
+    assert(GNEAttributeCarrier::isList(ac->getTag(), key));
+    std::vector<std::string> values = GNEAttributeCarrier::parse<std::vector<std::string> >(ac->getAttribute(key));
+    std::vector<std::string> newValues;
+    for (auto v : values) {
+        newValues.push_back(v == which ? by : v);
+    }
+    ac->setAttribute(key, toString(newValues), undoList);
+}
 
 /****************************************************************************/

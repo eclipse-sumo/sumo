@@ -192,6 +192,13 @@ public:
      */
     void deleteEdge(GNEEdge* edge, GNEUndoList* undoList);
 
+    /**@brief replaces edge
+     * @param[in] which The edge to be replaced
+     * @param[in] by The replacement edge
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList);
+
     /**@brief removes lane
      * @param[in] lane The lane to be removed
      * @param[in] undoList The undolist in which to mark changes
@@ -645,6 +652,8 @@ private:
 
     /// @brief return true if there are already a Junction in the given position, false in other case
     bool checkJunctionPosition(const Position &pos);
+
+    static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList); 
 
     /// @brief the z boundary (stored in the x-coordinate), values of 0 are ignored
     Boundary myZBoundary;
