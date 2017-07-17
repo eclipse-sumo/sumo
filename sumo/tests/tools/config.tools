@@ -26,6 +26,7 @@ copy_test_path:vehroutes.xml
 copy_test_path:tripinfos.xml
 copy_test_path:tripinfos2.xml
 copy_test_path:input_flows.txt
+copy_test_path:input_restrictions.txt
 copy_test_path:map.txt
 copy_test_path:routes.rou.alt.xml
 copy_test_path:input_measurements.xml
