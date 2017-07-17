@@ -366,6 +366,29 @@ class Net:
             for edge in route.edges:
                 edge.routes.append(route)
 
+    def endsRestrictedRoute(self, edge):
+        currVertex = edge.source
+        routeEdgeObj = [edge]
+        route = []
+        count = currVertex.flowDelta
+        if options.limit and count > options.limit:
+            count = options.limit
+        while currVertex != self._source:
+            edge = currVertex.inPathEdge
+            if edge.target == currVertex:
+                if edge.kind == "real":
+                    route.insert(0, edge.label)
+                routeEdgeObj.insert(0, edge)
+                currVertex = edge.source
+            else:
+                return False
+        for r in edge.routes:
+            if r.edges == routeEdgeObj:
+                count += r.frequency
+        if options.verbose and DEBUG:
+            print("    checking limit for route %s count %s" % (route, count))
+        return count > self._routeRestriction.get(tuple(route), count)
+
     def buildPath(self, vertex, abort):
         path = []
         edge = vertex.inPathEdge
@@ -378,7 +401,6 @@ class Net:
         return path
 
     def findPath(self, startVertex, pathStart, limitedSource=True, limitedSink=True):
-        #~ print(limitedSource, limitedSink)
         queue = [startVertex]
         path = None
         #~ debugEdge = self.getEdge("-562821874")
@@ -396,25 +418,11 @@ class Net:
                 return True
             # prefer edges with low flow/numLanes when checking for path continuation
             for edge in currVertex.outEdges:
-                #~ if edge.label == "-562821874":
-                    #~ path = [edge]
-                # and currVertex.numImprovedEdges == 0:
                 if limitedSource and currVertex == self._source and not edge.isOnSourcePath:
-                    #~ if debugEdge.target.inPathEdge is not None:
-                        #~ path = self.buildPath(currVertex, debugEdge)
-                        #~ if path:
-                            #~ print(path, "no cont source", edge)
                     continue
                 if limitedSink and edge.target == self._sink and not edge.isOnSinkPath:
-                    #~ numImproved = edge.source.numImprovedEdges
-                    #~ sinkEdge = edge
-                    #~ while sinkEdge.isOnSinkPath and sinkEdge.source.numImprovedEdges == numImproved:
-                        #~ sinkEdge = sinkEdge.source.inPathEdge
-                    #~ if sinkEdge.source.numImprovedEdges == numImproved:
-                        #~ if debugEdge.target.inPathEdge is not None:
-                            #~ path = self.buildPath(currVertex, debugEdge)
-                            #~ if path:
-                                #~ print(path, "no cont sink", edge)
+                    continue
+                if edge.target == self._sink and self.endsRestrictedRoute(edge):
                     continue
                 if not edge.target.inPathEdge and edge.flow < edge.capacity:
                     if edge.target != self._sink or currVertex.gain > 0:
@@ -422,7 +430,6 @@ class Net:
                         edge.target.update(edge, min(currVertex.flowDelta,
                                                      edge.capacity - edge.flow),
                                            True)
-            #~ if not limitedSource and not limitedSink:
             for edge in currVertex.inEdges:
                 if not edge.source.inPathEdge and edge.flow > 0:
                     if edge.source != self._source or currVertex.gain > 0:

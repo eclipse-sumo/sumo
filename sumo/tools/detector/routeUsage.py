@@ -87,14 +87,14 @@ def main():
         if rID in restrictions:
             restrictUsage.add(count, rID)
     print(usage)
-    print(restrictUsage)
+    print(restrictUsage, "total:", sum(restrictUsage.values))
 
     if options.unused_output is not None:
         with open(options.unused_output, 'w') as outf:
             for rID, count in routeUsage.items():
                 if count <= options.threshold:
                     outf.write("%s\n" % rID)
-                if count > restrictions[rID]:
+                if rID in restrictions and count > restrictions[rID]:
                     outf.write("%s %s %s\n" % (rID, count, restrictions[rID]))
 
 
