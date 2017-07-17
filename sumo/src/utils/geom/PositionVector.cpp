@@ -956,11 +956,15 @@ PositionVector::move2side(double amount) {
         if (i == 0) {
             const Position& from = (*this)[i];
             const Position& to = (*this)[i + 1];
-            shape.push_back(from - sideOffset(from, to, amount));
+            if (from != to) {
+                shape.push_back(from - sideOffset(from, to, amount));
+            }
         } else if (i == static_cast<int>(size()) - 1) {
             const Position& from = (*this)[i - 1];
             const Position& to = (*this)[i];
-            shape.push_back(to - sideOffset(from, to, amount));
+            if (from != to) {
+                shape.push_back(to - sideOffset(from, to, amount));
+            }
         } else {
             const Position& from = (*this)[i - 1];
             const Position& me = (*this)[i];
