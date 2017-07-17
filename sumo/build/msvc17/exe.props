@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <ConfigurationType>Application</ConfigurationType>
+    <TargetName Condition="'$(Configuration)'=='Debug'">$(ProjectName)D</TargetName>
+    <TargetName Condition="'$(Configuration)'=='Fastbuild'">$(ProjectName)F</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
+    <Link>
+      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Fastbuild'">
+    <Link>
+      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);ws2_32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
+    <Link>
+      <AdditionalDependencies>$(XERCES_LIB);$(FOX16_LIB);ws2_32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <PostBuildEvent>
+      <Command>xcopy /Y $(TargetPath) ..\..\..\bin\</Command>
+    </PostBuildEvent>
+    <Link>
+      <OutputFile>$(OutDir)$(TargetName).exe</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>

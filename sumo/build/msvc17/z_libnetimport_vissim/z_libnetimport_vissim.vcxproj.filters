@@ -1,0 +1,506 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quellcodedateien">
+      <UniqueIdentifier>{a6de7279-0e60-4f60-a32b-6f6eb95b3877}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header-Dateien">
+      <UniqueIdentifier>{61a306a5-165f-4a7f-a37c-1e56ec2cbacf}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\netimport\vissim\NIImporter_Vissim.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimAbstractEdge.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimBoundedClusterObject.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosedLaneDef.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosures.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConnection.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimEdge.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimEdgePosMap.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimExtendedEdgePoint.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeCluster.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeDef.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeDef_Edges.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeDef_Poly.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeParticipatingEdge.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser__XKurvedefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser__XVerteilungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Auswertungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Detektordefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_DynUml.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Einheitendefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Emission.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrtverlaufdateien.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrverhaltendefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugklassendefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugtypdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fensterdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Gefahrwarnungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Gelbverhaltendefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Haltestellendefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Kantensperrung.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Kennungszeile.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Knotendefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Laengenverteilungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Langsamfahrbereichdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Lichtsignalanlagendefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Liniendefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Linksverkehr.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_LSAKopplungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Messungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Netzobjektdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Parkplatzdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Querschnittsmessungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Rautedefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Reisezeitmessungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Richtungsentscheidungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Richtungspfeildefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Routenentscheidungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgeberdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Simdauer.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_SimRate.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Startuhrzeit.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Startzufallszahl.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stauparameterdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stauzaehlerdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stopschilddefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckendefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckentypdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_TEAPACDefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Verbindungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Verlustzeitmessungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_VWunschentscheidungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zeitenverteilungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zeitschrittfaktor.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zuflussdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zusammensetzungsdefinition.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimSource.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimTL.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimTrafficDescription.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehicleClass.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehicleType.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehTypeClass.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConflictArea.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\netimport\vissim\NIImporter_Vissim.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimAbstractEdge.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimBoundedClusterObject.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosedLaneDef.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosedLanesVector.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimClosures.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConnection.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConnectionCluster.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimDistrictConnection.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimDisturbance.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimEdge.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimEdgePosMap.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\NIVissimElements.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimExtendedEdgePoint.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimExtendedEdgePointVector.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeCluster.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeDef.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeDef_Edges.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeDef_Poly.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeParticipatingEdge.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimNodeParticipatingEdgeVector.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser__XKurvedefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser__XVerteilungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Auswertungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Detektordefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_DynUml.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Einheitendefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Emission.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrtverlaufdateien.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrverhaltendefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugklassendefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fahrzeugtypdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Fensterdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Gefahrwarnungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Gelbverhaltendefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Haltestellendefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Kantensperrung.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Kennungszeile.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Knotendefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Laengenverteilungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Langsamfahrbereichdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Lichtsignalanlagendefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Liniendefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Linksverkehr.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_LSAKopplungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Messungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Netzobjektdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Parkplatzdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Querschnittsmessungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Rautedefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Reisezeitmessungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Richtungsentscheidungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Richtungspfeildefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Routenentscheidungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgeberdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Simdauer.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_SimRate.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Startuhrzeit.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Startzufallszahl.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stauparameterdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stauzaehlerdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Stopschilddefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckendefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Streckentypdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_TEAPACDefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Verbindungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Verlustzeitmessungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_VWunschentscheidungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zeitenverteilungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zeitschrittfaktor.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zuflussdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Zusammensetzungsdefinition.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimSource.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimTL.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimTrafficDescription.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehicleClass.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehicleClassVector.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehicleType.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimVehTypeClass.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\vissim\tempstructs\NIVissimConflictArea.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

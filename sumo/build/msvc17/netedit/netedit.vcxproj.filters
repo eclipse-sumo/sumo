@@ -1,0 +1,623 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quellcodedateien">
+      <UniqueIdentifier>{f316fe2a-0aff-4142-bd4d-2c998f9a9bea}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header-Dateien">
+      <UniqueIdentifier>{ba3cb8e7-edf2-49bd-95c1-51459ac14bbc}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{f467b499-f05c-4284-b92e-b1bd9f8b701a}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Header-Dateien\Items">
+      <UniqueIdentifier>{e1ec5b4f-548e-4ec2-8a0a-240be07ee43e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\Additionals">
+      <UniqueIdentifier>{fae2b4c6-f001-4538-a874-f0b12e39875f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\Changes">
+      <UniqueIdentifier>{8ab251c1-ea02-41e1-9127-fd987f0119e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Main">
+      <UniqueIdentifier>{6fc1e0c7-31d9-4c51-ab23-69488b587beb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Dialogs">
+      <UniqueIdentifier>{fab27808-043b-4c1f-819f-0f2bed2aa871}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Dialogs">
+      <UniqueIdentifier>{240d37ba-2558-475a-b140-24e464925ed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Main">
+      <UniqueIdentifier>{3a1098a6-1410-453c-a3d7-341ce405098f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\Routes">
+      <UniqueIdentifier>{23d6999b-70f4-4b5f-a148-b6c0003740a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items">
+      <UniqueIdentifier>{954454f3-87f2-4286-857d-9a385a553bbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Additionals">
+      <UniqueIdentifier>{b2f32ec9-cf11-4d3e-85e6-c2231ff203fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Changes">
+      <UniqueIdentifier>{b9838d6c-66a3-45d5-b5ce-05e04fe0fdb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Routes">
+      <UniqueIdentifier>{a83f242b-86a5-4c4d-b2d7-05e7f3dea69b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\Additionals\StoppingPlaces">
+      <UniqueIdentifier>{f61c5df4-5bc0-460d-8a11-fac41f7bc0ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\Additionals\Detectors">
+      <UniqueIdentifier>{1d4b9038-35fa-4603-80e1-fc1205c8f175}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Additionals\StoppingPlaces">
+      <UniqueIdentifier>{b0a52a75-d978-4cca-ad82-70ba53d69de6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Additionals\Detectors">
+      <UniqueIdentifier>{f952e93b-e954-452e-bb88-76ce558653a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Dialogs\AdditionalDialogs">
+      <UniqueIdentifier>{ee71b130-ea7e-4a69-be93-8e428cd7d0af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Dialogs\AdditionalDialogs">
+      <UniqueIdentifier>{1ec55ee2-0192-42e8-8ad4-436515a63786}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Frames">
+      <UniqueIdentifier>{e856b894-a581-42ba-ba51-720cf8133a3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Frames">
+      <UniqueIdentifier>{25dc7873-d099-418e-9340-579db01c9035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\Additionals\Rerouter">
+      <UniqueIdentifier>{d78f8503-f28f-4a62-a34a-71a7627f0b5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Additionals\Rerouter">
+      <UniqueIdentifier>{a89f84a4-21ee-48f4-a70a-cb6545593ff2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\Additionals\Calibrator">
+      <UniqueIdentifier>{a41bc2cc-a179-4e89-92bc-e1ca9d731cc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Additionals\Calibrator">
+      <UniqueIdentifier>{bb370bbf-896a-4108-9725-037cf33131f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Dialogs\AdditionalDialogs\CalibratorDialogs">
+      <UniqueIdentifier>{1dd91376-dd79-4198-a839-be27b17af8bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Dialogs\AdditionalDialogs\RerouterDialogs">
+      <UniqueIdentifier>{fdad97db-797e-426f-9a20-027d600431b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Dialogs\AdditionalDialogs\CalibratorDialogs">
+      <UniqueIdentifier>{371666ad-29e9-4b55-9eea-a8af4be2e96c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Dialogs\AdditionalDialogs\RerouterDialogs">
+      <UniqueIdentifier>{b275ebd1-cd4f-4322-a046-fd6e81d17d16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\Changes\NetElements">
+      <UniqueIdentifier>{bcf34f58-b5ac-49b3-ba4d-320f4c837bf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\Changes\Additionals">
+      <UniqueIdentifier>{5fda88ad-64b6-40b8-8228-77f328ba409e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Changes\NetElements">
+      <UniqueIdentifier>{1a975b6f-b31a-4300-b625-112da98a3ba7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\NetElements">
+      <UniqueIdentifier>{177f4314-7071-4f93-aef8-bbb20932c513}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\NetElements">
+      <UniqueIdentifier>{372ff15b-0c52-4502-918b-ba8ca7a6bf50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Changes\Additionals">
+      <UniqueIdentifier>{6968b610-def4-4bb3-a4a9-b4b7eb07e198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\Additionals\VariableSpeedSigns">
+      <UniqueIdentifier>{4f1ddf19-9dde-47b8-8384-abf20de492ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Additionals\VariableSpeedSigns">
+      <UniqueIdentifier>{a6d1d781-8970-4a8e-b6e4-f68fc714e23c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Shapes">
+      <UniqueIdentifier>{91ea9e54-fde6-4096-989f-c07bb907fea4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\Changes\Shapes">
+      <UniqueIdentifier>{8bf40540-9810-490a-94c7-85bca447295c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\Shapes">
+      <UniqueIdentifier>{1ed8a1dd-f1e0-4a35-8fc9-885daa342068}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quellcodedateien\Items\Changes\Shapes">
+      <UniqueIdentifier>{e6a8a3b6-44b4-431c-9068-6e1faf9eda34}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\netedit\GNEAdditional.cpp">
+      <Filter>Quellcodedateien\Items\Additionals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange.cpp">
+      <Filter>Quellcodedateien\Items\Changes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Attribute.cpp">
+      <Filter>Quellcodedateien\Items\Changes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Selection.cpp">
+      <Filter>Quellcodedateien\Items\Changes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEJunction.cpp">
+      <Filter>Quellcodedateien\Items\NetElements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNELane.cpp">
+      <Filter>Quellcodedateien\Items\NetElements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEEdge.cpp">
+      <Filter>Quellcodedateien\Items\NetElements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEAdditionalFrame.cpp">
+      <Filter>Quellcodedateien\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDialog_About.cpp">
+      <Filter>Quellcodedateien\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDialog_Wizard.cpp">
+      <Filter>Quellcodedateien\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECrossing.cpp">
+      <Filter>Quellcodedateien\Items\NetElements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEApplicationWindow.cpp">
+      <Filter>Quellcodedateien\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNELoadThread.cpp">
+      <Filter>Quellcodedateien\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEUndoList.cpp">
+      <Filter>Quellcodedateien\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEViewNet.cpp">
+      <Filter>Quellcodedateien\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEViewParent.cpp">
+      <Filter>Quellcodedateien\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\netedit_main.cpp">
+      <Filter>Quellcodedateien\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDetectorE1.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Detectors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDetectorE2.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Detectors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDetectorE3.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Detectors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDetector.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Detectors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEBusStop.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\StoppingPlaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChargingStation.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\StoppingPlaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEStoppingPlace.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\StoppingPlaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDetectorEntry.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Detectors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDetectorExit.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Detectors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEAdditionalHandler.cpp">
+      <Filter>Quellcodedateien\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEAttributeCarrier.cpp">
+      <Filter>Quellcodedateien\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEAdditionalDialog.cpp">
+      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNERouteProbe.cpp">
+      <Filter>Quellcodedateien\Items\Additionals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEConnection.cpp">
+      <Filter>Quellcodedateien\Items\NetElements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNENetElement.cpp">
+      <Filter>Quellcodedateien\Items\NetElements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNENet.cpp">
+      <Filter>Quellcodedateien\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEProhibition.cpp">
+      <Filter>Quellcodedateien\Items\NetElements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEConnectorFrame.cpp">
+      <Filter>Quellcodedateien\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEInspectorFrame.cpp">
+      <Filter>Quellcodedateien\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNESelectorFrame.cpp">
+      <Filter>Quellcodedateien\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNETLSEditorFrame.cpp">
+      <Filter>Quellcodedateien\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEFrame.cpp">
+      <Filter>Quellcodedateien\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEContainerStop.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\StoppingPlaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEVaporizer.cpp">
+      <Filter>Quellcodedateien\Items\Additionals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECrossingFrame.cpp">
+      <Filter>Quellcodedateien\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDeleteFrame.cpp">
+      <Filter>Quellcodedateien\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNERerouter.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Rerouter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDestProbReroute.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Rerouter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNERouteProbReroute.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Rerouter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEClosingLaneReroute.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Rerouter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEClosingReroute.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Rerouter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNERerouterInterval.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Rerouter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSignDialog.cpp">
+      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDialog_AllowDisallow.cpp">
+      <Filter>Quellcodedateien\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibrator.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Calibrator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorFlow.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Calibrator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorRoute.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Calibrator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorDialog.cpp">
+      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorRouteDialog.cpp">
+      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorFlowDialog.cpp">
+      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNERerouterDialog.cpp">
+      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs\RerouterDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNERerouterIntervalDialog.cpp">
+      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs\RerouterDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorVehicleType.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\Calibrator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNECalibratorVehicleTypeDialog.cpp">
+      <Filter>Quellcodedateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Lane.cpp">
+      <Filter>Quellcodedateien\Items\Changes\NetElements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Junction.cpp">
+      <Filter>Quellcodedateien\Items\Changes\NetElements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Edge.cpp">
+      <Filter>Quellcodedateien\Items\Changes\NetElements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Crossing.cpp">
+      <Filter>Quellcodedateien\Items\Changes\NetElements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Connection.cpp">
+      <Filter>Quellcodedateien\Items\Changes\NetElements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_TLS.cpp">
+      <Filter>Quellcodedateien\Items\Changes\NetElements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Additional.cpp">
+      <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_CalibratorItem.cpp">
+      <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_RerouterInterval.cpp">
+      <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSign.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\VariableSpeedSigns</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSignStep.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\VariableSpeedSigns</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEInternalLane.cpp">
+      <Filter>Quellcodedateien\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEPOI.cpp">
+      <Filter>Quellcodedateien\Items\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEPoly.cpp">
+      <Filter>Quellcodedateien\Items\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_POI.cpp">
+      <Filter>Quellcodedateien\Items\Changes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_Poly.cpp">
+      <Filter>Quellcodedateien\Items\Changes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEShape.cpp">
+      <Filter>Quellcodedateien\Items\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEDialog_FixStoppingPlaces.cpp">
+      <Filter>Quellcodedateien\Dialogs</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
+      <Filter>Ressourcendateien</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange.h">
+      <Filter>Header-Dateien\Items\Changes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Attribute.h">
+      <Filter>Header-Dateien\Items\Changes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Selection.h">
+      <Filter>Header-Dateien\Items\Changes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEAdditional.h">
+      <Filter>Header-Dateien\Items\Additionals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEJunction.h">
+      <Filter>Header-Dateien\Items\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNELane.h">
+      <Filter>Header-Dateien\Items\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEEdge.h">
+      <Filter>Header-Dateien\Items\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEAdditionalFrame.h">
+      <Filter>Header-Dateien\Frames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECrossing.h">
+      <Filter>Header-Dateien\Items\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDialog_About.h">
+      <Filter>Header-Dateien\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEViewParent.h">
+      <Filter>Header-Dateien\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEApplicationWindow.h">
+      <Filter>Header-Dateien\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEEvent_NetworkLoaded.h">
+      <Filter>Header-Dateien\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNELoadThread.h">
+      <Filter>Header-Dateien\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEReferenceCounter.h">
+      <Filter>Header-Dateien\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEUndoList.h">
+      <Filter>Header-Dateien\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEViewNet.h">
+      <Filter>Header-Dateien\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDialog_Wizard.h">
+      <Filter>Header-Dateien\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDetector.h">
+      <Filter>Header-Dateien\Items\Additionals\Detectors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDetectorE1.h">
+      <Filter>Header-Dateien\Items\Additionals\Detectors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDetectorE2.h">
+      <Filter>Header-Dateien\Items\Additionals\Detectors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDetectorE3.h">
+      <Filter>Header-Dateien\Items\Additionals\Detectors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEBusStop.h">
+      <Filter>Header-Dateien\Items\Additionals\StoppingPlaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChargingStation.h">
+      <Filter>Header-Dateien\Items\Additionals\StoppingPlaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEStoppingPlace.h">
+      <Filter>Header-Dateien\Items\Additionals\StoppingPlaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDetectorEntry.h">
+      <Filter>Header-Dateien\Items\Additionals\Detectors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDetectorExit.h">
+      <Filter>Header-Dateien\Items\Additionals\Detectors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEAdditionalHandler.h">
+      <Filter>Header-Dateien\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEAttributeCarrier.h">
+      <Filter>Header-Dateien\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEAdditionalDialog.h">
+      <Filter>Header-Dateien\Dialogs\AdditionalDialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNERouteProbe.h">
+      <Filter>Header-Dateien\Items\Additionals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNENet.h">
+      <Filter>Header-Dateien\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNENetElement.h">
+      <Filter>Header-Dateien\Items\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEConnection.h">
+      <Filter>Header-Dateien\Items\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEProhibition.h">
+      <Filter>Header-Dateien\Items\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEConnectorFrame.h">
+      <Filter>Header-Dateien\Frames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEInspectorFrame.h">
+      <Filter>Header-Dateien\Frames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNESelectorFrame.h">
+      <Filter>Header-Dateien\Frames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNETLSEditorFrame.h">
+      <Filter>Header-Dateien\Frames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEFrame.h">
+      <Filter>Header-Dateien\Frames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEContainerStop.h">
+      <Filter>Header-Dateien\Items\Additionals\StoppingPlaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEVaporizer.h">
+      <Filter>Header-Dateien\Items\Additionals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECrossingFrame.h">
+      <Filter>Header-Dateien\Frames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDeleteFrame.h">
+      <Filter>Header-Dateien\Frames</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNERerouter.h">
+      <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDestProbReroute.h">
+      <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNERouteProbReroute.h">
+      <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEClosingLaneReroute.h">
+      <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEClosingReroute.h">
+      <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNERerouterInterval.h">
+      <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSignDialog.h">
+      <Filter>Header-Dateien\Dialogs\AdditionalDialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDialog_AllowDisallow.h">
+      <Filter>Header-Dateien\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibrator.h">
+      <Filter>Header-Dateien\Items\Additionals\Calibrator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorFlow.h">
+      <Filter>Header-Dateien\Items\Additionals\Calibrator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorRoute.h">
+      <Filter>Header-Dateien\Items\Additionals\Calibrator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorDialog.h">
+      <Filter>Header-Dateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorRouteDialog.h">
+      <Filter>Header-Dateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorFlowDialog.h">
+      <Filter>Header-Dateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNERerouterDialog.h">
+      <Filter>Header-Dateien\Dialogs\AdditionalDialogs\RerouterDialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNERerouterIntervalDialog.h">
+      <Filter>Header-Dateien\Dialogs\AdditionalDialogs\RerouterDialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorVehicleType.h">
+      <Filter>Header-Dateien\Items\Additionals\Calibrator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNECalibratorVehicleTypeDialog.h">
+      <Filter>Header-Dateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Additional.h">
+      <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_CalibratorItem.h">
+      <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_RerouterInterval.h">
+      <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_TLS.h">
+      <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Connection.h">
+      <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Crossing.h">
+      <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Edge.h">
+      <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Junction.h">
+      <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Lane.h">
+      <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSign.h">
+      <Filter>Header-Dateien\Items\Additionals\VariableSpeedSigns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSignStep.h">
+      <Filter>Header-Dateien\Items\Additionals\VariableSpeedSigns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_POI.h">
+      <Filter>Header-Dateien\Items\Changes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEPOI.h">
+      <Filter>Header-Dateien\Items\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEPoly.h">
+      <Filter>Header-Dateien\Items\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEInternalLane.h">
+      <Filter>Header-Dateien\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_Poly.h">
+      <Filter>Header-Dateien\Items\Changes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEShape.h">
+      <Filter>Header-Dateien\Items\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEDialog_FixStoppingPlaces.h">
+      <Filter>Header-Dateien\Dialogs</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
