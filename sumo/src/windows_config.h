@@ -47,6 +47,11 @@
 #define WIN32
 #endif
 
+/* Temporary workaround to enable cmake compilation with MSVC */
+#ifndef HAVE_ENABLED
+#define HAVE_ENABLED "CMakeWindows"
+#endif
+
 /* Define for dynamic Fox linkage */
 #define FOXDLL 1
 
