@@ -1299,9 +1299,20 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
         deleteEdge(continuation, undoList);
         GNEEdge* newEdge = createEdge(begin->getGNEJunctionSource(), continuation->getGNEJunctionDestiny(), begin, undoList, begin->getMicrosimID(), false, true);
         PositionVector newShape = begin->getNBEdge()->getInnerGeometry();
-        newShape.push_back(junction->getNBNode()->getPosition());
+        if (begin->getNBEdge()->hasDefaultGeometryEndpointAtNode(begin->getNBEdge()->getToNode())) {
+            newShape.push_back(junction->getNBNode()->getPosition());
+        } else {
+            newShape.push_back(begin->getNBEdge()->getGeometry()[-1]);
+        }
+        if (continuation->getNBEdge()->hasDefaultGeometryEndpointAtNode(begin->getNBEdge()->getToNode())) {
+            newShape.push_back_noDoublePos(junction->getNBNode()->getPosition());
+        } else {
+            newShape.push_back_noDoublePos(continuation->getNBEdge()->getGeometry()[0]);
+        }
         newShape.append(continuation->getNBEdge()->getInnerGeometry());
         newEdge->setAttribute(SUMO_ATTR_SHAPE, toString(newShape), undoList);
+        newEdge->setAttribute(GNE_ATTR_SHAPE_START, begin->getAttribute(GNE_ATTR_SHAPE_START), undoList);
+        newEdge->setAttribute(GNE_ATTR_SHAPE_END, continuation->getAttribute(GNE_ATTR_SHAPE_END), undoList);
         // @todo what about trafficlights at the end of oontinuation?
     }
     deleteJunction(junction, undoList);
