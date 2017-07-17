@@ -9,10 +9,11 @@
     <route id="28_57_0.0qPKW" edges="28_57 26_55 24"/>
     <route id="29_0.0qPKW" edges="29 26_55 19_48 18"/>
     <route id="32_63_1.0qPKW" edges="32_63 40"/>
-    <route id="33_60_61_0.0qPKW" edges="33_60_61 32_63 41"/>
+    <route id="33_60_61_0.0qPKW" edges="33_60_61 32_63 21_49 20 25_56 30"/>
+    <route id="33_60_61_0.1qPKW" edges="33_60_61 32_63 41"/>
     <route id="33_60_61_1.0qPKW" edges="33_60_61 46_13 44"/>
     <route id="33_60_61_2.0qPKW" edges="33_60_61 37"/>
-    <route id="35_65_0.0qPKW" edges="35_65 21_49 20 24"/>
+    <route id="35_65_0.0qPKW" edges="35_65 21_49 20 25_56 30"/>
     <route id="35_65_1.0qPKW" edges="35_65 31_59 39"/>
     <route id="36_62_0.0qPKW" edges="36_62 32_63 21_49 18"/>
     <route id="36_62_0.1qPKW" edges="36_62 32_63 41"/>

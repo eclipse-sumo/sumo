@@ -12,7 +12,9 @@
     <flow id="src_28_57_0qPKW" departSpeed="max" departPos="last" departLane="best" route="28_57_0.0qPKW" number="1" begin="0" end="3600"/>
     <flow id="src_29_0qPKW" departSpeed="max" departPos="last" departLane="best" route="29_0.0qPKW" number="212" begin="0" end="3600"/>
     <flow id="src_32_63_1qPKW" departSpeed="max" departPos="last" departLane="best" route="32_63_1.0qPKW" number="13" begin="0" end="3600"/>
-    <flow id="src_33_60_61_0qPKW" departSpeed="max" departPos="last" departLane="best" route="33_60_61_0.0qPKW" number="69" begin="0" end="3600"/>
+    <flow id="src_33_60_61_0qPKW" departSpeed="max" departPos="last" departLane="best" number="69" begin="0" end="3600">
+        <routeDistribution routes="33_60_61_0.0qPKW 33_60_61_0.1qPKW" probabilities="61 8"/>
+    </flow>
     <flow id="src_33_60_61_1qPKW" departSpeed="max" departPos="last" departLane="best" route="33_60_61_1.0qPKW" number="21" begin="0" end="3600"/>
     <flow id="src_33_60_61_2qPKW" departSpeed="max" departPos="last" departLane="best" route="33_60_61_2.0qPKW" number="5" begin="0" end="3600"/>
     <flow id="src_35_65_0qPKW" departSpeed="max" departPos="last" departLane="best" route="35_65_0.0qPKW" number="1" begin="0" end="3600"/>
@@ -27,6 +29,6 @@
     <flow id="src_51_50_0qPKW" departSpeed="max" departPos="last" departLane="best" route="51_50_0.0qPKW" number="22" begin="0" end="3600"/>
     <flow id="src_51_50_1qPKW" departSpeed="max" departPos="last" departLane="best" route="51_50_1.0qPKW" number="119" begin="0" end="3600"/>
     <flow id="src_7_0qPKW" departSpeed="max" departPos="last" departLane="best" number="47" begin="0" end="3600">
-        <routeDistribution routes="7_0.0qPKW 7_0.1qPKW" probabilities="21 26"/>
+        <routeDistribution routes="7_0.0qPKW 7_0.1qPKW" probabilities="23 24"/>
     </flow>
 </additional>

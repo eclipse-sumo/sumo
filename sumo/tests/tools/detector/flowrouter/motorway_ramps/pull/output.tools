@@ -5,7 +5,5 @@ Reading flows
 Calculating routes
 3 sources, 3 unlimited
 3 sinks, 3 unlimited
-Trying to increase flow on real_2<0|1000>
-Trying to increase flow on real_4<0|2000>
 Trying to increase flow on real_4<1000|2000>
 Writing 2000 vehicles from 2 sources between time 0 and 3600
