@@ -1295,9 +1295,6 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
     for (std::vector<std::pair<NBEdge*, NBEdge*> >::iterator j = toJoin.begin(); j != toJoin.end(); j++) {
         GNEEdge* begin = myEdges[(*j).first->getID()];
         GNEEdge* continuation = myEdges[(*j).second->getID()];
-        deleteEdge(begin, undoList);
-        deleteEdge(continuation, undoList);
-        GNEEdge* newEdge = createEdge(begin->getGNEJunctionSource(), continuation->getGNEJunctionDestiny(), begin, undoList, begin->getMicrosimID(), false, true);
         PositionVector newShape = begin->getNBEdge()->getInnerGeometry();
         if (begin->getNBEdge()->hasDefaultGeometryEndpointAtNode(begin->getNBEdge()->getToNode())) {
             newShape.push_back(junction->getNBNode()->getPosition());
@@ -1310,10 +1307,16 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
             newShape.push_back_noDoublePos(continuation->getNBEdge()->getGeometry()[0]);
         }
         newShape.append(continuation->getNBEdge()->getInnerGeometry());
-        newEdge->setAttribute(SUMO_ATTR_SHAPE, toString(newShape), undoList);
-        newEdge->setAttribute(GNE_ATTR_SHAPE_START, begin->getAttribute(GNE_ATTR_SHAPE_START), undoList);
-        newEdge->setAttribute(GNE_ATTR_SHAPE_END, continuation->getAttribute(GNE_ATTR_SHAPE_END), undoList);
-        // @todo what about trafficlights at the end of oontinuation?
+        begin->setAttribute(SUMO_ATTR_TO, continuation->getAttribute(SUMO_ATTR_TO), undoList);
+        begin->setAttribute(SUMO_ATTR_SHAPE, toString(newShape), undoList);
+        begin->setAttribute(GNE_ATTR_SHAPE_END, continuation->getAttribute(GNE_ATTR_SHAPE_END), undoList);
+        // fix connections
+        std::vector<NBEdge::Connection>& connections = continuation->getNBEdge()->getConnections();
+        for (auto con : connections) {
+            undoList->add(new GNEChange_Connection(begin, con, false, true), true);
+        }
+        // tls, crossings?
+        deleteEdge(continuation, undoList);
     }
     deleteJunction(junction, undoList);
     undoList->p_end();
