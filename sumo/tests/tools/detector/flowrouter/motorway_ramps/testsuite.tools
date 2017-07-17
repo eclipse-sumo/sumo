@@ -14,8 +14,14 @@ all_main_aggregate_1time
 # two sources and sinks
 ambiguous
 
-# two sources and sinks
+# two sources and sinks. restrict usage of a route
 ambiguous_restrict
+
+# two sources and sinks. restrict usage of a route via setting origin an destination
+ambiguous_restrict_od
+
+# two sources and sinks. restrict usage of all routes with a given subpart
+ambiguous_restrict_part
 
 # test pull-flow functionality
 pull
