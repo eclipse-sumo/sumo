@@ -41,7 +41,7 @@ import detector
 # directly.
 
 DEBUG = False
-PULL_FLOW = False
+PULL_FLOW = True
 
 class Vertex:
 
@@ -403,17 +403,12 @@ class Net:
     def findPath(self, startVertex, pathStart, limitedSource=True, limitedSink=True):
         queue = [startVertex]
         path = None
-        #~ debugEdge = self.getEdge("-562821874")
         if options.verbose and DEBUG:
             print("  findPath start=%s pathStart=%s limits(%s, %s)" %
                   (startVertex, pathStart, limitedSource, limitedSink))
         while len(queue) > 0:
             currVertex = heapq.heappop(queue)
             if currVertex == self._sink or (currVertex == self._source and currVertex.inPathEdge):
-                #~ if debugEdge.target.inPathEdge is not None:
-                    #~ path = self.buildPath(currVertex, debugEdge)
-                    #~ if path:
-                        #~ print("success", path)
                 self.updateFlow(pathStart, currVertex)
                 return True
             # prefer edges with low flow/numLanes when checking for path continuation
@@ -468,7 +463,7 @@ class Net:
         queue = [unsatEdge.source]
         while len(queue) > 0:
             currVertex = queue.pop(0)
-            if currVertex == self._source or currVertex == self._sink:
+            if (currVertex == self._source and (not limitSource or pred[currVertex].isOnSourcePath)) or currVertex == self._sink:
                 self.savePulledPath(currVertex, unsatEdge, pred)
                 return self.findPath(unsatEdge.target, currVertex, limitSource, limitSink)
             for edge in currVertex.inEdges:
@@ -493,12 +488,12 @@ class Net:
                 for vertex in self._vertices:
                     vertex.reset()
                 pathFound = self.findPath(self._source, self._source, limitSource, limitSink)
-                if not pathFound and options.pullflow:
+                if not pathFound and PULL_FLOW and not limitSource and not limitSink:
                     for edge in sorted(self._edges.values()):
                         if edge.startCapacity < sys.maxsize:
                             while edge.flow < edge.capacity and self.pullFlow(edge, limitSource, limitSink):
                                 pathFound = True
-        # the rest of this function only tests assertions
+        # the following block tests assertions
         for vertex in self._vertices:
             sum = 0
             for preEdge in vertex.inEdges:
@@ -511,8 +506,10 @@ class Net:
                     flowSum += route.frequency
                 assert flowSum == succEdge.flow
             assert vertex == self._source or vertex == self._sink or sum == 0
+        # now we can merge identical routes
+        self.consolidateRoutes()
 
-    def writeRoutes(self, routeOut, suffix=""):
+    def consolidateRoutes(self):
         for edge in self._source.outEdges:
             routeByEdges = {}
             for route in edge.routes:
@@ -524,7 +521,15 @@ class Net:
                 if routeByEdges[key].frequency > self._routeRestriction.get(key, sys.maxsize):
                     print("invalid route", key, self._routeRestriction.get(key))
             edge.routes = sorted(routeByEdges.values())
+
+    def writeRoutes(self, routeOut, suffix=""):
+        totalFlow = 0
+        for edge in self._source.outEdges:
+            totalFlow += edge.flow
             for id, route in enumerate(edge.routes):
+                if routeOut is None:
+                    print(route)
+                    continue
                 firstReal = ''
                 lastReal = None
                 routeString = ''
@@ -541,6 +546,8 @@ class Net:
                 routeID = "%s.%s%s" % (firstReal, id, suffix)
                 print('    <route id="%s" edges="%s"/>' % (
                     routeID, routeString.strip()), file=routeOut)
+        if routeOut is None:
+            print("total flow:", totalFlow)
 
     def writeEmitters(self, emitOut, begin=0, end=3600, suffix=""):
         if not emitOut:
@@ -747,8 +754,6 @@ optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectz
 optParser.add_option("-l", "--lane-based", action="store_true", dest="lanebased",
                      default=False, help="do not aggregate detector data and connections to edges")
 optParser.add_option("-i", "--interval", type="int", help="aggregation interval in minutes")
-optParser.add_option("--pull-flow", action="store_true", dest="pullflow",
-                     default=PULL_FLOW, help="let unsaturated detector edges attract more traffic even if it leads to detours")
 optParser.add_option("--limit", type="int", help="limit the amount of flow assigned in a single step")
 optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
                      default=False, help="suppress warnings")
@@ -812,12 +817,7 @@ if net.detectSourceSink(sources, sinks):
                 if options.verbose:
                     print("Calculating routes")
                 net.calcRoutes()
-                if routeOut:
-                    net.writeRoutes(routeOut, suffix)
-                else:
-                    for edge in sorted(net._source.outEdges):
-                        for route in sorted(edge.routes):
-                            print(route)
+                net.writeRoutes(routeOut, suffix)
                 net.writeEmitters(
                     emitOut, 60 * start, 60 * (start + options.interval), suffix)
                 net.writeFlowPOIs(poiOut, suffix)
@@ -835,12 +835,7 @@ if net.detectSourceSink(sources, sinks):
         if options.verbose:
             print("Calculating routes")
         net.calcRoutes()
-        if routeOut:
-            net.writeRoutes(routeOut, options.flowcol)
-        else:
-            for edge in net._source.outEdges:
-                for route in edge.routes:
-                    print(route)
+        net.writeRoutes(routeOut, options.flowcol)
         net.writeEmitters(emitOut, suffix=options.flowcol)
         net.writeFlowPOIs(poiOut)
     if routeOut:
