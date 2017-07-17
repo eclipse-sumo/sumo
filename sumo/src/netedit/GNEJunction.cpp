@@ -181,7 +181,9 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (myNBNode.getIncomingEdges().size() == 2 && myNBNode.getOutgoingEdges().size() == 2) {
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
     }
-    if (wrongMode || !myNBNode.checkIsRemovable()) {
+    std::string reason = "wrong edit mode";
+    if (wrongMode || !myNBNode.checkIsRemovableReporting(reason)) {
+        mcReplace->setText(mcReplace->getText() + " (" + reason.c_str() + ")");
         mcReplace->handle(&parent, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), 0);
     }
     // let the GNEViewNet store the popup position

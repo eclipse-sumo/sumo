@@ -1630,11 +1630,21 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
     return LINKSTATE_MAJOR;
 }
 
-
 bool
 NBNode::checkIsRemovable() const {
+    std::string reason;
+    return checkIsRemovableReporting(reason);
+}
+
+bool 
+NBNode::checkIsRemovableReporting(std::string& reason) const {
     // check whether this node is included in a traffic light or crossing
-    if (myTrafficLights.size() != 0 || myCrossings.size() != 0) {
+    if (myTrafficLights.size() != 0) {
+        reason = "TLS";
+        return false;
+    }
+    if (myCrossings.size() != 0) {
+        reason = "crossing";
         return false;
     }
     EdgeVector::const_iterator i;
@@ -1642,10 +1652,14 @@ NBNode::checkIsRemovable() const {
     if (myOutgoingEdges.size() == 1 && myIncomingEdges.size() == 1) {
         // ... if types match ...
         if (!myIncomingEdges[0]->expandableBy(myOutgoingEdges[0])) {
+            reason = "edges incompatible";
             return false;
         }
-        //
-        return myIncomingEdges[0]->getTurnDestination(true) != myOutgoingEdges[0];
+        if (myIncomingEdges[0]->getTurnDestination(true) == myOutgoingEdges[0]) {
+            reason = "turnaround";
+            return false;
+        }
+        return true;
     }
     // two in, two out -> may be something else
     if (myOutgoingEdges.size() == 2 && myIncomingEdges.size() == 2) {
@@ -1667,17 +1681,20 @@ NBNode::checkIsRemovable() const {
                 NBEdge* continuation = opposite == myOutgoingEdges.front() ? myOutgoingEdges.back() : myOutgoingEdges.front();
                 // check whether the types allow joining
                 if (!(*i)->expandableBy(continuation)) {
+                    reason = "edges incompatible";
                     return false;
                 }
             } else {
                 // ok, at least one outgoing edge is not an opposite
                 //  of an incoming one
+                reason = "not opposites";
                 return false;
             }
         }
         return true;
     }
     // ok, a real node
+    reason = "intersection";
     return false;
 }
 

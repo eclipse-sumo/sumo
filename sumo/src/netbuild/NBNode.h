@@ -496,6 +496,9 @@ public:
     /// @brief check if node is removable
     bool checkIsRemovable() const;
 
+    /// @brief check if node is removable and return reason if not
+    bool checkIsRemovableReporting(std::string& reason) const;
+
     /// @brief get edges to join
     std::vector<std::pair<NBEdge*, NBEdge*> > getEdgesToJoin() const;
 
