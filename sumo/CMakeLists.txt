@@ -12,11 +12,13 @@ set(CMAKE_COLOR_MAKEFILE ON)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build/cmake_modules/")
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
         "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(warnings "-Wall -Wextra")
+    set(warnings "-Wall -Wextra -Wno-deprecated-register")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     #  set(warnings "/W4 /WX /EHsc")
-    set(warnings "/Wall /EHsc")
+	# enabling /WX is not possible due to warnings in external headers
+	# /Wall brings MSVC to complete halt
+    set(warnings "/W4 /EHsc")
 endif ()
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${warnings}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${warnings}")
@@ -168,11 +170,6 @@ if (BUILD_GRPC)
         set(GRPC_LIBS grpc++ grpc protobuf dl)
     endif (GRPC_FOUND)
 endif (BUILD_GRPC)
-
-
-set(warning_flags "-Wno-deprecated-register")
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${warning_flags}")
 
 if (APPLE AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     message(STATUS "configuring for OSX compiler flags")
