@@ -30,7 +30,7 @@
     <ProjectGuid>{4589198B-EBD4-4811-B778-8AE270AEE0CD}</ProjectGuid>
     <RootNamespace>netconvert</RootNamespace>
     <Keyword>MFCProj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">

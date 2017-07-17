@@ -31,7 +31,7 @@
     <ProjectGuid>{46274B55-07FE-4911-B4C0-D8B43A203B4A}</ProjectGuid>
     <RootNamespace>Traci_TestClient</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">

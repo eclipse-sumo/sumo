@@ -30,7 +30,7 @@
     <ProjectGuid>{F1904C42-F231-4B9D-AD80-E2971969AFA0}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
     <ProjectName>sumo-gui</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">
