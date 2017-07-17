@@ -123,7 +123,7 @@ public:
             //std::cout << "'" << line << "'" << "\n";
             StringTokenizer st(line);
             if (st.size() == 1) {
-                myLandmarks[line] = numLandMarks++;
+                myLandmarks[st.get(0)] = numLandMarks++;
                 myFromLandmarkDists.push_back(std::vector<double>(0));
                 myToLandmarkDists.push_back(std::vector<double>(0));
             } else {
