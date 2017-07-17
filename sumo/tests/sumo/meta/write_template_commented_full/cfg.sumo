@@ -147,6 +147,12 @@
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
 
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR"/>
+
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -453,9 +459,6 @@
         <!-- Specifies whether trajectories will be logged (if false, only the extremal values and times are reported). -->
         <device.ssm.trajectories value="false" type="BOOL"/>
 
-        <!-- Specifies the maximal length of stored conflict trajectories in seconds (the frequency of logging, default is 30.00s.). -->
-        <device.ssm.maxencounterlength value="30" type="FLOAT"/>
-
         <!-- Specifies the detection range in meters (default is 50.00m.). For vehicles below this distance from the equipped vehicle, SSM values are traced. -->
         <device.ssm.range value="50" type="FLOAT"/>
 
@@ -485,9 +488,6 @@
 
         <!-- Expected number of connecting clients -->
         <num-clients value="1" type="INT"/>
-
-        <!-- Runs TraCI script with embedded python -->
-        <python-script value="" type="STR"/>
 
     </traci_server>
 
@@ -569,9 +569,6 @@
 
         <!-- Create initial window at the given x,y position -->
         <window-pos value="" type="STR"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
