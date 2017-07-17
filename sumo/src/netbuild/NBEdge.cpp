@@ -2601,33 +2601,42 @@ NBEdge::getCCWBoundaryLine(const NBNode& n) const {
 
 
 bool
-NBEdge::expandableBy(NBEdge* possContinuation) const {
+NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
     // ok, the number of lanes must match
     if (myLanes.size() != possContinuation->myLanes.size()) {
+        reason = "laneNumber";
         return false;
     }
     // the priority, too (?)
     if (getPriority() != possContinuation->getPriority()) {
+        reason = "priority";
         return false;
     }
     // the speed allowed
     if (mySpeed != possContinuation->mySpeed) {
+        reason = "speed";
         return false;
     }
     // spreadtype should match or it will look ugly
     if (myLaneSpreadFunction != possContinuation->myLaneSpreadFunction) {
+        reason = "spreadType";
         return false;
     }
     // do not create self loops
     if (myFrom == possContinuation->myTo) {
+        reason = "loop";
         return false;
     }
     // matching lanes must have identical properties
     for (int i = 0; i < (int)myLanes.size(); i++) {
-        if (myLanes[i].speed != possContinuation->myLanes[i].speed ||
-                myLanes[i].permissions != possContinuation->myLanes[i].permissions ||
-                myLanes[i].width != possContinuation->myLanes[i].width
-           ) {
+        if (myLanes[i].speed != possContinuation->myLanes[i].speed) {
+            reason = "lane " + toString(i) + " speed";
+            return false;
+        } else if (myLanes[i].permissions != possContinuation->myLanes[i].permissions) {
+            reason = "lane " + toString(i) + " permissions";
+            return false;
+        } else if (myLanes[i].width != possContinuation->myLanes[i].width) {
+            reason = "lane " + toString(i) + " width";
             return false;
         }
     }
@@ -2652,6 +2661,7 @@ NBEdge::expandableBy(NBEdge* possContinuation) const {
             // the following edge must be connected
             const EdgeVector& conn = getConnectedEdges();
             if (find(conn.begin(), conn.end(), possContinuation) == conn.end()) {
+                reason = "disconnected";
                 return false;
             }
         }
@@ -2662,12 +2672,14 @@ NBEdge::expandableBy(NBEdge* possContinuation) const {
         case LANES2LANES_USER: {
             // the possible continuation must be connected
             if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(possContinuation)) == myConnections.end()) {
+                reason = "disconnected";
                 return false;
             }
             // all lanes must go to the possible continuation
             std::vector<int> conns = getConnectionLanes(possContinuation);
             const int offset = MAX2(0, getFirstNonPedestrianLaneIndex(NBNode::FORWARD, true));
             if (conns.size() != myLanes.size() - offset) {
+                reason = "some lanes disconnected";
                 return false;
             }
         }

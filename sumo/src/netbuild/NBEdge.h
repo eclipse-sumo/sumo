@@ -1048,7 +1048,7 @@ public:
     PositionVector getCCWBoundaryLine(const NBNode& n) const;
 
     /// @brief Check if Node is expandable
-    bool expandableBy(NBEdge* possContinuation) const;
+    bool expandableBy(NBEdge* possContinuation, std::string& reason) const;
 
     /// @brief append another edge
     void append(NBEdge* continuation);

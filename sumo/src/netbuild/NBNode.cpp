@@ -1651,8 +1651,8 @@ NBNode::checkIsRemovableReporting(std::string& reason) const {
     // one in, one out -> just a geometry ...
     if (myOutgoingEdges.size() == 1 && myIncomingEdges.size() == 1) {
         // ... if types match ...
-        if (!myIncomingEdges[0]->expandableBy(myOutgoingEdges[0])) {
-            reason = "edges incompatible";
+        if (!myIncomingEdges[0]->expandableBy(myOutgoingEdges[0], reason)) {
+            reason = "edges incompatible: " + reason;
             return false;
         }
         if (myIncomingEdges[0]->getTurnDestination(true) == myOutgoingEdges[0]) {
@@ -1680,8 +1680,8 @@ NBNode::checkIsRemovableReporting(std::string& reason) const {
                 // the other outgoing edges must be the continuation of the current
                 NBEdge* continuation = opposite == myOutgoingEdges.front() ? myOutgoingEdges.back() : myOutgoingEdges.front();
                 // check whether the types allow joining
-                if (!(*i)->expandableBy(continuation)) {
-                    reason = "edges incompatible";
+                if (!(*i)->expandableBy(continuation, reason)) {
+                    reason = "edges incompatible: " + reason;
                     return false;
                 }
             } else {
