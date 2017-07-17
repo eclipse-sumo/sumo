@@ -443,6 +443,8 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
         deselected.insert(which->getGlID());
         undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
     }
+    // XXX this is not undone one undo
+    getTLLogicCont().replaceRemoved(which->getNBEdge(), -1, by->getNBEdge(), -1);
 
     // Delete edge
     undoList->add(new GNEChange_Edge(which, false), true);
