@@ -512,6 +512,7 @@ class Net:
     def consolidateRoutes(self):
         for edge in self._source.outEdges:
             routeByEdges = {}
+            deleteRoute = []
             for route in edge.routes:
                 key = tuple([e.label for e in route.edges if e.kind == "real"])
                 if key in routeByEdges:
@@ -519,7 +520,13 @@ class Net:
                 elif route.frequency > 0:
                     routeByEdges[key] = route
                 if routeByEdges[key].frequency > self._routeRestriction.get(key, sys.maxsize):
-                    print("invalid route", key, self._routeRestriction.get(key))
+                    if self._routeRestriction.get(key, sys.maxsize) == 0:
+                        deleteRoute.append(key)
+                    else:
+                        routeByEdges[key].frequency = self._routeRestriction.get(key, sys.maxsize)
+            if len(deleteRoute) > 0:
+                for key in deleteRoute:
+                    routeByEdges.pop(key, None)
             edge.routes = sorted(routeByEdges.values())
 
     def writeRoutes(self, routeOut, suffix=""):
