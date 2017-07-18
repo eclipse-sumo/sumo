@@ -5,17 +5,4 @@ Reading flows
 Calculating routes
 25 sources, 4 unlimited
 13 sinks, 12 unlimited
-Trying to increase flow on real_11_47_1<55|97>
-Trying to increase flow on real_21_49_0<1|62>
-Trying to increase flow on real_22_64_1<0|56>
-Trying to increase flow on real_25_56_0<140|204>
-Trying to increase flow on real_25_56_0<202|204>
-Trying to increase flow on real_36_62_0<287|303>
-Trying to increase flow on real_36_62_1<28|43>
-Trying to increase flow on real_46_13_0<0|15>
-Trying to increase flow on real_11_47_1<55|97>
-Trying to increase flow on real_22_64_1<0|56>
-Trying to increase flow on real_36_62_0<287|303>
-Trying to increase flow on real_36_62_1<28|43>
-Trying to increase flow on real_46_13_0<0|15>
 Writing 1247 vehicles from 20 sources between time 0 and 3600

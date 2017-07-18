@@ -5,18 +5,6 @@ Reading flows
 Calculating routes
 14 sources, 5 unlimited
 13 sinks, 12 unlimited
-Trying to increase flow on real_11_47<2|97>
-Trying to increase flow on real_15<0|47>
-Trying to increase flow on real_17<2|26>
-Trying to increase flow on real_25_56<85|204>
-Trying to increase flow on real_32_63<206|350>
-Trying to increase flow on real_32_63<301|350>
-Trying to increase flow on real_6<26|61>
-Trying to increase flow on real_6<41|61>
-Trying to increase flow on real_6<57|61>
-Trying to increase flow on real_17<2|26>
-Trying to increase flow on real_32_63<301|350>
-Trying to increase flow on real_6<57|61>
 26 * [1, 6, 38]
 249 * [10, 9, 5, 3]
 2 * [17, 53_52, 16, 11_47, 14_58, 37]
