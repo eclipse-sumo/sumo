@@ -47,7 +47,7 @@ def fcd2dri(inpFCD, outSTRM, ignored):
     The following may be a matter of changes:
     - the engine torque is not given
     """
-    #print >> outSTRM, "v1\n<t>,<v>,<grad>,<n>\n[s],[km/h],[%],[1/min]\n"
+    # print >> outSTRM, "v1\n<t>,<v>,<grad>,<n>\n[s],[km/h],[%],[1/min]\n"
     print("v1\n<t>,<v>,<grad>\n[s],[km/h],[%]", file=outSTRM)
     for q in inpFCD:
         if q.vehicle:

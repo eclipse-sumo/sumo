@@ -21,7 +21,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import datetime
 import sumolib.output
-import sumolib.net
 
 TAXI_STATUS_FREE_FLOW = "70"
 

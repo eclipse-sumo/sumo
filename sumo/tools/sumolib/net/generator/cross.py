@@ -18,16 +18,13 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
-import random
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'tools'))
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
     os.path.dirname(__file__), '..', '..', '..', '..')), 'tools'))
 
 from . import network
-from . import demand
 
 
 def cross(defaultNode=None, defaultEdge=None, centralReservation=0):

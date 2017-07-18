@@ -25,7 +25,6 @@ import xml.etree.cElementTree as ET
 from collections import namedtuple, OrderedDict
 from keyword import iskeyword
 from functools import reduce
-from .miscutils import benchmark
 
 
 def _prefix_keyword(name, warn=False):
@@ -174,7 +173,7 @@ _IDENTITY = lambda x: x
 
 
 def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_conversions, heterogeneous, warn):
-    if not element_name in elementTypes or heterogeneous:
+    if element_name not in elementTypes or heterogeneous:
         # initialized the compound_object type from the first encountered #
         # element
         attrnames = element_attrs.get(element_name, node.keys())

@@ -22,7 +22,6 @@ import sumolib
 import os
 import subprocess
 import tempfile
-import shutil
 
 
 class Node:

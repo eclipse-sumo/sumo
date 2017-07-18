@@ -69,7 +69,7 @@ def get_allowed(allow, disallow):
         return allow.split()
     else:
         disallow = disallow.split()
-        return tuple([c for c in SUMO_VEHICLE_CLASSES if not c in disallow])
+        return tuple([c for c in SUMO_VEHICLE_CLASSES if c not in disallow])
 
 
 def addJunctionPos(shape, fromPos, toPos):

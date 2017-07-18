@@ -214,7 +214,7 @@ def getColor(options, i, a):
         cm.register_cmap(name="CUSTOM", cmap=colormap)
         options.colormap = "CUSTOM"
     colormap = get_cmap(options.colormap)
-    # cm = options.colormap#get_cmap(options.colormap)
+    # cm = options.colormap# get_cmap(options.colormap)
     cNorm = matplotlib.colors.Normalize(vmin=0, vmax=a)
     scalarMap = matplotlib.cm.ScalarMappable(norm=cNorm, cmap=colormap)
     return scalarMap.to_rgba(i)
@@ -321,12 +321,12 @@ def parseColorMap(mapDef):
         r = color[1:3]
         g = color[3:5]
         b = color[5:7]
-        #ret.append( (float(value), ( toFloat(r), toFloat(g), toFloat(b) ) ) )
+        # ret.append( (float(value), ( toFloat(r), toFloat(g), toFloat(b) ) ) )
         ret["red"].append((value, toFloat(r) / 255., toFloat(r) / 255.))
         ret["green"].append((value, toFloat(g) / 255., toFloat(g) / 255.))
         ret["blue"].append((value, toFloat(b) / 255., toFloat(b) / 255.))
 
         lastValue = value
-        #ret.append( (value, color) )
+        # ret.append( (value, color) )
     colormap = matplotlib.colors.LinearSegmentedColormap("CUSTOM", ret, 1024)
     return colormap

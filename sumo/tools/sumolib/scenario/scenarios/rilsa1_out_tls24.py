@@ -91,4 +91,4 @@ class Scenario_RiLSA1OutTLS24(Scenario):
         self.netName = self.sandboxPath(self.NET_FILE)
         shutil.copy(
             self.fullPath(self.NET_FILE), self.sandboxPath(self.NET_FILE))
-        #shutil.copy(self.fullPath(self.TLS_FILE), self.sandboxPath(self.TLS_FILE))
+        # shutil.copy(self.fullPath(self.TLS_FILE), self.sandboxPath(self.TLS_FILE))

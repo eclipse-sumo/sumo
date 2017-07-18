@@ -20,7 +20,6 @@ from __future__ import print_function
 
 from . import *
 import os
-import math
 import sumolib.net.generator.grid as netGenerator
 import sumolib.net.generator.demand as demandGenerator
 from sumolib.net.generator.network import *

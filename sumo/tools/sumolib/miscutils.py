@@ -28,8 +28,8 @@ import random
 from collections import defaultdict
 
 # append import path stanca:
-#THIS_DIR == os.path.basename(__file__)
-#sys.path.append(os.path.join(THIS_DIR, 'foo', 'bar'))
+# THIS_DIR == os.path.basename(__file__)
+# sys.path.append(os.path.join(THIS_DIR, 'foo', 'bar'))
 
 # http://www.python.org/dev/peps/pep-0326/
 

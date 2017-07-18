@@ -16,13 +16,11 @@ the Free Software Foundation; either version 3 of the License, or
 
 from __future__ import absolute_import
 from __future__ import print_function
-import sumolib.net.generator.cross as netGenerator
 import sumolib.net.generator.demand as demandGenerator
 from sumolib.net.generator.network import *
 from .scenarios import *
 import random
 import math
-import tempfile
 
 
 RWS = """
@@ -179,7 +177,7 @@ class ScenarioSet:
         return
 
 
-#--------------------------------------
+# --------------------------------------
 
 class ScenarioSet_IterateFlowsNA(ScenarioSet):
 
@@ -277,7 +275,7 @@ class ScenarioSet_IterateFlowsNA(ScenarioSet):
     def getYLabel(self):
         return "vertical demand [vehicles/h]"
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_IterateFlowsA(ScenarioSet):
@@ -386,7 +384,7 @@ class ScenarioSet_IterateFlowsA(ScenarioSet):
     def getYLabel(self):
         return "vertical demand [vehicles/h]"
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_RiLSA1LoadCurves(ScenarioSet):
@@ -566,7 +564,7 @@ class ScenarioSet_RiLSA1LoadCurves(ScenarioSet):
             [-0.5, 5.5, 8.5, 5.5]
         ]
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_RiLSA1LoadCurvesSampled(ScenarioSet):
@@ -703,7 +701,7 @@ class ScenarioSet_RiLSA1LoadCurvesSampled(ScenarioSet):
         ]
 
 
-#--------------------------------------
+# --------------------------------------
 
 class ScenarioSet_BasicOutflow(ScenarioSet):
 
@@ -816,7 +814,7 @@ class ScenarioSet_BasicOutflow(ScenarioSet):
     def halfX(self):
         return False
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_RiLSA1Outflow(ScenarioSet_RiLSA1LoadCurvesSampled):
@@ -958,7 +956,7 @@ class ScenarioSet_RiLSA1Outflow(ScenarioSet_RiLSA1LoadCurvesSampled):
     def halfX(self):
         return False
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_RiLSA1PedFlow(ScenarioSet_RiLSA1LoadCurvesSampled):
@@ -1093,7 +1091,7 @@ class ScenarioSet_RiLSA1PedFlow(ScenarioSet_RiLSA1LoadCurvesSampled):
     def getAdditionalDivider(self):
         return []
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_RiLSA1PTIteration(ScenarioSet_RiLSA1LoadCurvesSampled):
@@ -1242,7 +1240,7 @@ class ScenarioSet_RiLSA1PTIteration(ScenarioSet_RiLSA1LoadCurvesSampled):
     def adjust(self, fig):
         fig.subplots_adjust(bottom=0.2)
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_SinSinDemand(ScenarioSet):
@@ -1271,12 +1269,12 @@ class ScenarioSet_SinSinDemand(ScenarioSet):
     def genDemand(self, scenario, simSteps, offset, frequency):
         #fd = tempfile.NamedTemporaryFile(mode="w", delete=False)
         fd = open(scenario.demandName, "w")
-        #---routes---
+        # ---routes---
         print("""<routes>
-			<route id="WE" edges="0/1_to_1/1 0/1_to_1/1.-100 1/1_to_2/1"/>
-			<route id="NS" edges="1/2_to_1/1 1/2_to_1/1.-100 1/1_to_1/0"/>
-			<route id="EW" edges="2/1_to_1/1 2/1_to_1/1.-100 1/1_to_0/1"/>
-			<route id="SN" edges="1/0_to_1/1 1/0_to_1/1.-100 1/1_to_1/2"/>
+            <route id="WE" edges="0/1_to_1/1 0/1_to_1/1.-100 1/1_to_2/1"/>
+            <route id="NS" edges="1/2_to_1/1 1/2_to_1/1.-100 1/1_to_1/0"/>
+            <route id="EW" edges="2/1_to_1/1 2/1_to_1/1.-100 1/1_to_0/1"/>
+            <route id="SN" edges="1/0_to_1/1 1/0_to_1/1.-100 1/1_to_1/2"/>
     """, file=fd)
         pv1 = 0
         pv2 = 0
@@ -1373,7 +1371,7 @@ class ScenarioSet_SinSinDemand(ScenarioSet):
     def getYLabel(self):
         return "frequency [s]"
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_OneSinDemand(ScenarioSet):
@@ -1401,12 +1399,12 @@ class ScenarioSet_OneSinDemand(ScenarioSet):
     def genDemand(self, scenario, simSteps, amplitude, frequency):
         #fd = tempfile.NamedTemporaryFile(mode="w", delete=False)
         fd = open(scenario.demandName, "w")
-        #---routes---
+        # ---routes---
         print("""<routes>
-			<route id="WE" edges="0/1_to_1/1 0/1_to_1/1.-100 1/1_to_2/1"/>
-			<route id="NS" edges="1/2_to_1/1 1/2_to_1/1.-100 1/1_to_1/0"/>
-			<route id="EW" edges="2/1_to_1/1 2/1_to_1/1.-100 1/1_to_0/1"/>
-			<route id="SN" edges="1/0_to_1/1 1/0_to_1/1.-100 1/1_to_1/2"/>
+            <route id="WE" edges="0/1_to_1/1 0/1_to_1/1.-100 1/1_to_2/1"/>
+            <route id="NS" edges="1/2_to_1/1 1/2_to_1/1.-100 1/1_to_1/0"/>
+            <route id="EW" edges="2/1_to_1/1 2/1_to_1/1.-100 1/1_to_0/1"/>
+            <route id="SN" edges="1/0_to_1/1 1/0_to_1/1.-100 1/1_to_1/2"/>
     """, file=fd)
         pv1 = 0
         pv2 = 0
@@ -1503,7 +1501,7 @@ class ScenarioSet_OneSinDemand(ScenarioSet):
     def getYLabel(self):
         return "frequency [s]"
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_DemandStep(ScenarioSet):
@@ -1700,7 +1698,7 @@ class ScenarioSet_DemandStep(ScenarioSet):
         fig.subplots_adjust(bottom=0.2, left=0.2)
 
 
-#--------------------------------------
+# --------------------------------------
 
 class ScenarioSet_CorrFlowsDistancesA(ScenarioSet):
 
@@ -1842,7 +1840,7 @@ class ScenarioSet_CorrFlowsDistancesA(ScenarioSet):
     def adjust(self, fig):
         fig.subplots_adjust(bottom=0.2)
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_NetFlowsDistancesA(ScenarioSet):
@@ -1979,7 +1977,7 @@ class ScenarioSet_NetFlowsDistancesA(ScenarioSet):
             ret.append([i * 4 - .5, -0.5, i * 4 - .5, 3.5])
         return ret
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_TurnIteration(ScenarioSet):
@@ -2090,7 +2088,7 @@ class ScenarioSet_TurnIteration(ScenarioSet):
     def getYLabel(self):
         return "left-turning ratio [%]"
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_TurnIterationINIT(ScenarioSet):
@@ -2213,7 +2211,7 @@ class ScenarioSet_TurnIterationINIT(ScenarioSet):
     def getYLabel(self):
         return "left-turning ratio [%]"
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_RealWorld(ScenarioSet):
@@ -2293,7 +2291,7 @@ class ScenarioSet_RealWorld(ScenarioSet):
 #  def adjust(self, fig):
 #    fig.subplots_adjust(bottom=0.2)
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_RiLSA1LoadCurvesOutTLS(ScenarioSet):
@@ -2471,7 +2469,7 @@ class ScenarioSet_RiLSA1LoadCurvesOutTLS(ScenarioSet):
     def getYLabel(self):
         return "!!!RWS type"
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_RiLSA1LoadCurvesOutTLS24(ScenarioSet):
@@ -2651,7 +2649,7 @@ class ScenarioSet_RiLSA1LoadCurvesOutTLS24(ScenarioSet):
     def getYLabel(self):
         return "!!!RWS type"
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_RiLSA1LoadCurvesBothTLS(ScenarioSet):
@@ -2830,7 +2828,7 @@ class ScenarioSet_RiLSA1LoadCurvesBothTLS(ScenarioSet):
     def getYLabel(self):
         return "!!!RWS type"
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_RiLSA1LoadCurvesBothTLS24(ScenarioSet):
@@ -3011,7 +3009,7 @@ class ScenarioSet_RiLSA1LoadCurvesBothTLS24(ScenarioSet):
     def getYLabel(self):
         return "!!!RWS type"
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_BasicRiLSANet(ScenarioSet):
@@ -3177,7 +3175,7 @@ class ScenarioSet_BasicRiLSANet(ScenarioSet):
     def getYLabel(self):
         return "!!!RWS type"
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_BasicRiLSANet2x2(ScenarioSet):
@@ -3354,7 +3352,7 @@ class ScenarioSet_BasicRiLSANet2x2(ScenarioSet):
     def getYLabel(self):
         return "!!!RWS type"
 
-#--------------------------------------
+# --------------------------------------
 
 
 class ScenarioSet_BasicRiLSACorridor3(ScenarioSet):
@@ -3532,7 +3530,7 @@ class ScenarioSet_BasicRiLSACorridor3(ScenarioSet):
     def getYLabel(self):
         return "!!!RWS type"
 
-#--------------------------------------
+# --------------------------------------
 
 
 def getScenarioSet(name, params):

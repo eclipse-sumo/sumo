@@ -17,7 +17,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 
 
 class InductLoopReader(handler.ContentHandler):
