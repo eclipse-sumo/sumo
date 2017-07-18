@@ -453,7 +453,7 @@ class Net:
         unsatEdge.target.gain = startVertex.flowDelta * numSatEdges
 
     def pullFlow(self, unsatEdge, limitSource, limitSink):
-        if options.verbose:
+        if options.verbose and DEBUG:
             print("Trying to increase flow on", unsatEdge)
         for vertex in self._vertices:
             vertex.reset()
