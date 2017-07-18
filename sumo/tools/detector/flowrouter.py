@@ -411,7 +411,6 @@ class Net:
             if currVertex == self._sink or (currVertex == self._source and currVertex.inPathEdge):
                 self.updateFlow(pathStart, currVertex)
                 return True
-            # prefer edges with low flow/numLanes when checking for path continuation
             for edge in currVertex.outEdges:
                 if limitedSource and currVertex == self._source and not edge.isOnSourcePath:
                     continue
