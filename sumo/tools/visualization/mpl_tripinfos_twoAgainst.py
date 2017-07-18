@@ -26,13 +26,8 @@ from __future__ import print_function
 
 from matplotlib import rcParams
 from pylab import *
-import os
-import string
-import sys
-import StringIO
-import math
 from optparse import OptionParser
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 
 
 def toHex(val):
@@ -157,7 +152,7 @@ for veh in r1._veh2value:
         ys.append(r2._veh2value[veh])
         (min, max) = updateMinMax(min, max, r1._veh2value[veh])
         (min, max) = updateMinMax(min, max, r2._veh2value[veh])
-     # plot
+    # plot
 print("data range: " + str(min) + " - " + str(max))
 if options.verbose:
     print("Plotting...")

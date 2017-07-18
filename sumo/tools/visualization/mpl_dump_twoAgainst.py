@@ -26,13 +26,8 @@ from __future__ import print_function
 
 from matplotlib import rcParams
 from pylab import *
-import os
-import string
-import sys
-import StringIO
-import math
 from optparse import OptionParser
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 
 
 def toHex(val):
@@ -195,7 +190,7 @@ else:
                         min, max, weights1._edge2value[t][edge])
                     (min, max) = updateMinMax(
                         min, max, weights2._edge2value[t][edge])
-     # plot
+    # plot
 print("data range: " + str(min) + " - " + str(max))
 if options.verbose:
     print("Plotting...")

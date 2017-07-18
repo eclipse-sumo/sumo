@@ -19,16 +19,12 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import subprocess
 import sys
-import random
-from xml.sax.handler import ContentHandler
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
 from sumolib.visualization import helpers
 
-import matplotlib.pyplot as plt
 
 
 def main(args=None):

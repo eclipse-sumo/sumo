@@ -24,9 +24,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import subprocess
 import sys
-import random
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa

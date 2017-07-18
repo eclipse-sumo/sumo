@@ -28,13 +28,9 @@ from __future__ import print_function
 
 from matplotlib import rcParams
 from pylab import *
-import os
-import string
-import sys
-import StringIO
 import math
 from optparse import OptionParser
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 
 
 def toHex(val):

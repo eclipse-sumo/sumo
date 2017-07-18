@@ -20,9 +20,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import subprocess
 import sys
-import random
 from xml.sax.handler import ContentHandler
 
 if 'SUMO_HOME' in os.environ:
@@ -37,7 +35,6 @@ from sumolib.visualization import helpers
 import matplotlib.pyplot as plt
 import matplotlib
 
-import pdb
 
 
 class WeightsReader(ContentHandler):

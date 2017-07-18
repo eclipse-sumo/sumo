@@ -26,13 +26,8 @@ from __future__ import print_function
 
 from matplotlib import rcParams
 from pylab import *
-import os
-import string
-import sys
-import StringIO
-import math
 from optparse import OptionParser
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 
 
 def updateMinMax(min, max, value):
@@ -143,7 +138,7 @@ for dump in weights:
         yss.append(ys)
         cs.append(colors[index])
         index = index + 1
-     # plot
+    # plot
 print("data x-range: " + str(xmin) + " - " + str(xmax))
 print("data y-range: " + str(ymin) + " - " + str(ymax))
 for i in range(0, len(cs)):

@@ -18,6 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 import sys
+
 VER = sys.version_info[0]
 if VER >= 3:
     import socketserver
@@ -477,7 +478,7 @@ class WebSocket(object):
 
                     # we have no mask and some payload
                     else:
-                        #self.index = 0
+                        # self.index = 0
                         self.data = bytearray()
                         self.state = PAYLOAD
 
@@ -512,7 +513,7 @@ class WebSocket(object):
 
                     # we have no mask and some payload
                     else:
-                        #self.index = 0
+                        # self.index = 0
                         self.data = bytearray()
                         self.state = PAYLOAD
 
@@ -540,7 +541,7 @@ class WebSocket(object):
 
                     # we have no mask and some payload
                     else:
-                        #self.index = 0
+                        # self.index = 0
                         self.data = bytearray()
                         self.state = PAYLOAD
 
@@ -562,7 +563,7 @@ class WebSocket(object):
 
                 # we have no mask and some payload
                 else:
-                    #self.index = 0
+                    # self.index = 0
                     self.data = bytearray()
                     self.state = PAYLOAD
 
@@ -583,7 +584,7 @@ class WebSocket(object):
                 try:
                     self._handlePacket()
                 finally:
-                    #self.index = 0
+                    # self.index = 0
                     self.state = HEADERB1
                     self.data = bytearray()
             else:

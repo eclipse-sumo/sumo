@@ -25,9 +25,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import subprocess
 import sys
-import random
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
@@ -89,9 +87,13 @@ def main(args=None):
         labels = None
     shadow = options.shadow
     if options.percentage:
-        autopct = lambda p: '{:.1f}%'.format(p)
+        def autopct(p):
+            return '{:.1f}%'.format(p)
+        # autopct = lambda p: '{:.1f}%'.format(p)
     else:
-        autopct = lambda p: '{:.0f}'.format(p * total / 100)
+        def autopct(p):
+            return '{:.0f}'.format(p * total / 100)
+        # autopct = lambda p: '{:.0f}'.format(p * total / 100)
     patches, texts, autotexts = plt.pie(
         vals, labels=labels, autopct=autopct, colors=colors, shadow=shadow, startangle=options.startangle)
     helpers.closeFigure(fig, ax, options)
