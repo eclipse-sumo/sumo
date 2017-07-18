@@ -20,8 +20,6 @@ the Free Software Foundation; either version 3 of the License, or
 
 from setuptools import setup, find_packages
 
-import os
-
 setup(
     name='sumolib',
 

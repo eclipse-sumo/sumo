@@ -47,7 +47,6 @@ try:
 except ImportError:
     from urllib.request import urlopen
 import os
-import sys
 import shutil
 import datetime
 from optparse import OptionParser
@@ -232,7 +231,7 @@ for l in lines:
             ('<li style="list-style: none; display: inline"><ul>\n' *
              (nLevel - level))
     spc = ' ' * (nLevel + 1)
-    #+ str(level) + "-" + str(nLevel)
+    # + str(level) + "-" + str(nLevel)
     c = c + spc + "<li>"
     if link != "":
         c = c + '<a href="' + link + '">' + text + '</a>'

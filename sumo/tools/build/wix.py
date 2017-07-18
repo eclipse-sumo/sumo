@@ -22,7 +22,6 @@ import optparse
 import subprocess
 import zipfile
 import os
-import sys
 import tempfile
 import glob
 import shutil

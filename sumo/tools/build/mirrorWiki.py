@@ -38,8 +38,6 @@ try:
 except ImportError:
     from urllib.request import urlopen
 import os
-import sys
-import shutil
 import json
 from optparse import OptionParser
 

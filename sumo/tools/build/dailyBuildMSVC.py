@@ -32,10 +32,8 @@ import glob
 import subprocess
 import zipfile
 import shutil
-import datetime
 import sys
 
-import runSikulixServer
 import status
 import wix
 
@@ -204,8 +202,8 @@ for platform, dllDir in platformDlls:
                 if f.count('/') == 1:
                     write = False
                 if f.endswith('/') and f.count('/') == 2:
-                    write = (f.endswith('/bin/') or f.endswith('/examples/')
-                             or f.endswith('/tools/') or f.endswith('/data/') or f.endswith('/docs/'))
+                    write = (f.endswith('/bin/') or f.endswith('/examples/') or
+                             f.endswith('/tools/') or f.endswith('/data/') or f.endswith('/docs/'))
                     if f.endswith('/bin/'):
                         binDir = f
                 elif f.endswith('/') and '/docs/' in f and f.count('/') == 3:
