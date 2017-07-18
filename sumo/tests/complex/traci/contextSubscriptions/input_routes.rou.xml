@@ -3,4 +3,10 @@
     <vehicle id="ego" route="1" depart="0"/>
     <route id="2" edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
     <flow id="flow" route="2" begin="0" end="3030" period="10"/>
+    <person id="p0" depart="0">
+        <walk edges="3si 4o"/>
+    </person>
+    <person id="p1" depart="0">
+        <walk edges="1fi 1si 2o"/>
+    </person>
 </routes>

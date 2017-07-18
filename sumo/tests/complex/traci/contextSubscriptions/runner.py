@@ -146,3 +146,5 @@ elif sys.argv[3] == "poi":
     runSingle(1000, float(sys.argv[2]), traci.poi, "poi")
 elif sys.argv[3] == "polygon":
     runSingle(1000, float(sys.argv[2]), traci.polygon, "poly")
+elif sys.argv[3] == "person":
+    runSingle(1000, float(sys.argv[2]), traci.person, "p0")
