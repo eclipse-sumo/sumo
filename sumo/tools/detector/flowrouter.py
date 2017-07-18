@@ -565,15 +565,22 @@ class Net:
                 print('    <flow id="src_%s%s" %s route="%s.0%s" number="%s" begin="%s" end="%s"/>' % (
                     edge.label, suffix, options.params, edge.label, suffix, srcEdge.flow, begin, end), file=emitOut)
             else:
-                ids = " ".join(["%s.%s%s" % (edge.label, id, suffix)
-                                for id in range(len(srcEdge.routes))])
-                probs = " ".join([str(route.frequency)
-                                  for route in srcEdge.routes])
-                print('    <flow id="src_%s%s" %s number="%s" begin="%s" end="%s">' % (
-                    edge.label, suffix, options.params, srcEdge.flow, begin, end), file=emitOut)
-                print('        <routeDistribution routes="%s" probabilities="%s"/>' % (
-                    ids, probs), file=emitOut)
-                print('    </flow>', file=emitOut)
+                if options.random:
+                    ids = " ".join(["%s.%s%s" % (edge.label, id, suffix)
+                                    for id in range(len(srcEdge.routes))])
+                    probs = " ".join([str(route.frequency)
+                                      for route in srcEdge.routes])
+                    print('    <flow id="src_%s%s" %s number="%s" begin="%s" end="%s">' % (
+                        edge.label, suffix, options.params, srcEdge.flow, begin, end), file=emitOut)
+                    print('        <routeDistribution routes="%s" probabilities="%s"/>' % (
+                        ids, probs), file=emitOut)
+                    print('    </flow>', file=emitOut)
+                else:
+                    for i, route in enumerate(srcEdge.routes):
+                        routeID = "%s.%s%s" % (edge.label, i, suffix)
+                        print('    <flow id="src_%s" %s route="%s" number="%s" begin="%s" end="%s"/>' % (
+                            routeID, options.params, routeID, route.frequency, begin, end), file=emitOut)
+
         if options.verbose:
             print("Writing %s vehicles from %s sources between time %s and %s" % (
                 totalFlow, numSources, begin, end))
@@ -757,6 +764,8 @@ optParser.add_option("-i", "--interval", type="int", help="aggregation interval 
 optParser.add_option("--limit", type="int", help="limit the amount of flow assigned in a single step")
 optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
                      default=False, help="suppress warnings")
+optParser.add_option("--random", action="store_true", dest="random",
+                     default=False, help="write route distributions instead of separate flows")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 (options, args) = optParser.parse_args()
