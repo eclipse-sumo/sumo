@@ -24,15 +24,16 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-PY3 = sys.version_info > (3,)
 import csv
 import contextlib
 
-from collections import defaultdict, OrderedDict
+from collections import OrderedDict
 from optparse import OptionParser
 
 import xsd
 import xml2csv
+
+PY3 = sys.version_info > (3,)
 
 
 def get_options():
@@ -84,7 +85,7 @@ def write_xml(toptag, tag, options, printer=row2xml):
     with open(options.output, 'w') as outputf:
         outputf.write('<%s>\n' % toptag)
         if (options.source.isdigit()):
-            inputf = getSocketStream(int(options.source))
+            inputf = xml2csv.getSocketStream(int(options.source))
         else:
             inputf = open(options.source)
         for row in csv.DictReader(inputf, delimiter=options.delimiter):
@@ -107,12 +108,12 @@ def checkAttributes(out, old, new, ele, tagStack, depth):
 
 
 def checkChanges(out, old, new, currEle, tagStack, depth):
-    #print(depth, currEle.name, tagStack)
+    # print(depth, currEle.name, tagStack)
     if depth >= len(tagStack):
         for ele in currEle.children:
-            #print(depth, "try", ele.name)
+            # print(depth, "try", ele.name)
             if ele.name not in tagStack and checkAttributes(out, old, new, ele, tagStack, depth):
-                #print(depth, "adding", ele.name, ele.children)
+                # print(depth, "adding", ele.name, ele.children)
                 tagStack.append(ele.name)
                 if ele.children:
                     checkChanges(out, old, new, ele, tagStack, depth + 1)
@@ -128,7 +129,7 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
                     changed = True
                 if new.get(name, "") != "":
                     present = True
-            #print(depth, "seeing", ele.name, changed, tagStack)
+            # print(depth, "seeing", ele.name, changed, tagStack)
             if changed:
                 out.write(str.encode("/>\n"))
                 del tagStack[-1]
@@ -172,7 +173,7 @@ def writeHierarchicalXml(struct, options):
             if not fields:
                 fields = raw
                 for f in fields:
-                    if not '_' in f:
+                    if '_' not in f:
                         continue
                     enum = struct.getEnumerationByAttr(*f.split('_', 1))
                     if enum:

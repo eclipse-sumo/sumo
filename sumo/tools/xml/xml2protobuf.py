@@ -36,7 +36,6 @@ try:
 except ImportError:
     haveLxml = False
 
-import xsd
 import xml2csv
 
 

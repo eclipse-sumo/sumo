@@ -29,7 +29,6 @@ import contextlib
 
 from optparse import OptionParser
 import google.protobuf.descriptor
-import xsd
 import xml2csv
 import xml2protobuf
 
