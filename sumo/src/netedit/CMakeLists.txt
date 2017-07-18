@@ -163,6 +163,9 @@ set(netedit_SRCS
 add_executable(netedit ${netedit_SRCS})
 
 target_link_libraries(netedit utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings utils_gui_images utils_gui_tracker
-        utils_foxtools foreign_eulerspiral foreign_gl2ps foreign_polyfonts ${netconvertlibs} ${FOX_LIBRARIES})
+        utils_foxtools foreign_eulerspiral foreign_gl2ps foreign_polyfonts ${netconvertlibs} ${FOX_LIBRARY})
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+    target_link_libraries(netedit opengl32 glu32)
+endif ()
 
 install(TARGETS netedit DESTINATION bin)

@@ -4,8 +4,9 @@
 option(BUILD_GRPC "Build grpc interface" OFF)
 
 project(SUMO)
-cmake_minimum_required(VERSION 2.8)
-
+cmake_minimum_required(VERSION 3.1)
+# do not expand quoted variables in if statements
+cmake_policy(SET CMP0054 NEW)
 
 set(CMAKE_COLOR_MAKEFILE ON)
 
