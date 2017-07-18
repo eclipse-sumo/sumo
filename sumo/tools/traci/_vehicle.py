@@ -447,7 +447,7 @@ class VehicleDomain(Domain):
 
     def getAccumulatedWaitingTime(self, vehID):
         """getAccumulatedWaitingTime() -> double
-        The accumulated waiting time of a vehicle collects the vehicle's waiting time 
+        The accumulated waiting time of a vehicle collects the vehicle's waiting time
         over a certain time interval (interval length is set per option '--waiting-time-memory')
         """
         return self._getUniversal(tc.VAR_ACCUMULATED_WAITING_TIME, vehID)
@@ -1152,7 +1152,7 @@ class VehicleDomain(Domain):
 
     def moveToXY(self, vehID, edgeID, lane, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1):
         '''Place vehicle at the given x,y coordinates and force it's angle to
-        the given value (for drawing). 
+        the given value (for drawing).
         If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
         natural angle of the edge on which it is driving.
         If keepRoute is set to 1, the closest position

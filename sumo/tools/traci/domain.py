@@ -29,6 +29,7 @@ import warnings
 import traci
 from . import constants as tc
 from .storage import Storage
+from .exceptions import FatalTraCIError
 
 _defaultDomains = []
 
@@ -41,7 +42,7 @@ class SubscriptionResults:
         self._valueFunc = valueFunc
 
     def _parse(self, varID, data):
-        if not varID in self._valueFunc:
+        if varID not in self._valueFunc:
             raise FatalTraCIError("Unknown variable %02x." % varID)
         return self._valueFunc[varID](data)
 

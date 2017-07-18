@@ -23,7 +23,6 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import sys
 import datetime
 from optparse import OptionParser
 
@@ -76,6 +75,7 @@ def translateFile(filePath, fdo, start, item, end):
                 if options.java:
                     line = line.replace("//", "    //")
                 else:
+                    line = line.replace("///", "#").lstrip(" ")
                     line = line.replace("//", "#").lstrip(" ")
                 if line.find(item) >= 0:
                     if "=" in line:

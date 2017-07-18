@@ -20,7 +20,6 @@ the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 """
 from __future__ import absolute_import
-import struct
 from .domain import Domain
 from .storage import Storage
 from . import constants as tc

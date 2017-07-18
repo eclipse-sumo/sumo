@@ -359,7 +359,7 @@ class VehicleTypeDomain(Domain):
     def copy(self, origTypeID, newTypeID):
         """copy(string, string) -> None
 
-        Duplicates the vType with ID origTypeID. The newly created vType is assigned the ID newTypeID 
+        Duplicates the vType with ID origTypeID. The newly created vType is assigned the ID newTypeID
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.COPY, origTypeID, newTypeID)

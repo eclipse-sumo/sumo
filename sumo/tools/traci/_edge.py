@@ -22,7 +22,7 @@ import struct
 from . import constants as tc
 from .domain import Domain
 from .storage import Storage
-from . import exceptions
+from .exceptions import *
 
 
 def _TIME2STEPS(time):

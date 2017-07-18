@@ -122,7 +122,7 @@ class StepListener(object):
     def step(self, s=0):
         """step(int) -> None
 
-        After adding a StepListener 'listener' with traci.addStepListener(listener), 
+        After adding a StepListener 'listener' with traci.addStepListener(listener),
         TraCI will call listener.step(s) after each call to traci.simulationStep(s)
         """
         pass
