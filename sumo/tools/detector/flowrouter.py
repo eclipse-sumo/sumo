@@ -66,7 +66,7 @@ class Vertex:
         if isForward:
             numSatEdges = edge.source.gain // edge.source.flowDelta
             self.gain = numSatEdges * flow
-            if edge.capacity < sys.maxsize:
+            if edge.startCapacity < sys.maxsize:
                 self.gain += flow
         else:
             numSatEdges = edge.target.gain // edge.target.flowDelta
