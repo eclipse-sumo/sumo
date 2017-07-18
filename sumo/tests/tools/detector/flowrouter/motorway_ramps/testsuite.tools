@@ -22,3 +22,6 @@ ambiguous_restrict_od
 
 # test pull-flow functionality
 pull
+
+# use routeDistributions
+random
