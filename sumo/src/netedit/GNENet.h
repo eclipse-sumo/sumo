@@ -55,6 +55,7 @@
 #include <utils/common/IDSupplier.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
+#include "GNEChange.h"
 #include "GNEDetectorE3.h"
 #include "GNECalibrator.h"
 
@@ -660,6 +661,35 @@ private:
 
     /// @brief marker for whether the z-boundary is initialized
     static const double Z_INITIALIZED;
+
+    class GNEChange_ReplaceEdgeInTLS : public GNEChange {
+        FXDECLARE_ABSTRACT(GNEChange_ReplaceEdgeInTLS)
+    public:
+        GNEChange_ReplaceEdgeInTLS(NBTrafficLightLogicCont& tllcont, NBEdge* replaced, NBEdge* by) :
+            GNEChange(0, true),
+            myTllcont(tllcont), myReplaced(replaced), myBy(by) { }
+        ~GNEChange_ReplaceEdgeInTLS() {};
+
+        FXString undoName() const { return "Redo replace in TLS"; }
+        /// @brief get Redo name
+        FXString redoName() const { return "Undo replace in TLS"; }
+        /// @brief undo action
+        void undo() {
+            myTllcont.replaceRemoved(myBy, -1, myReplaced, -1);
+        }
+        /// @brief redo action
+        void redo() {
+            myTllcont.replaceRemoved(myReplaced, -1, myBy, -1);
+        }
+        /// @brief wether original and new value differ
+        bool trueChange() { return myReplaced != myBy; }
+
+    private:
+        NBTrafficLightLogicCont& myTllcont;
+        NBEdge* myReplaced;
+        NBEdge* myBy;
+    };
+
 };
 
 #endif
