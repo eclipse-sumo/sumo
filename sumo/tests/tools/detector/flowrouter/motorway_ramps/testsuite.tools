@@ -20,6 +20,9 @@ ambiguous_restrict
 # two sources and sinks. restrict usage of a route via setting origin an destination
 ambiguous_restrict_od
 
+# two sources and sinks. restrict usage of multiple routes
+restrict_inconsistent
+
 # test pull-flow functionality
 pull
 
