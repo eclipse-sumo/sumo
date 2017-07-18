@@ -400,7 +400,7 @@ class Net:
         path.reverse()
         return path
 
-    def findPath(self, startVertex, pathStart, limitedSource=True, limitedSink=True):
+    def findPath(self, startVertex, pathStart, limitedSource=True, limitedSink=True, allowBackward=True):
         queue = [startVertex]
         path = None
         if options.verbose and DEBUG:
@@ -424,12 +424,13 @@ class Net:
                         edge.target.update(edge, min(currVertex.flowDelta,
                                                      edge.capacity - edge.flow),
                                            True)
-            for edge in currVertex.inEdges:
-                if not edge.source.inPathEdge and edge.flow > 0:
-                    if edge.source != self._source or currVertex.gain > 0:
-                        heapq.heappush(queue, edge.source)
-                        edge.source.update(edge, min(currVertex.flowDelta,
-                                                     edge.flow), False)
+            if allowBackward:
+                for edge in currVertex.inEdges:
+                    if not edge.source.inPathEdge and edge.flow > 0:
+                        if edge.source != self._source or currVertex.gain > 0:
+                            heapq.heappush(queue, edge.source)
+                            edge.source.update(edge, min(currVertex.flowDelta,
+                                                         edge.flow), False)
         return False
 
     def savePulledPath(self, startVertex, unsatEdge, pred):
@@ -451,7 +452,7 @@ class Net:
         unsatEdge.target.flowDelta = startVertex.flowDelta
         unsatEdge.target.gain = startVertex.flowDelta * numSatEdges
 
-    def pullFlow(self, unsatEdge, limitSource, limitSink):
+    def pullFlow(self, unsatEdge, limitSource, limitSink, allowBackward):
         if options.verbose and DEBUG:
             print("Trying to increase flow on", unsatEdge)
         for vertex in self._vertices:
@@ -464,69 +465,86 @@ class Net:
             currVertex = queue.pop(0)
             if (currVertex == self._source and (not limitSource or pred[currVertex].isOnSourcePath)) or currVertex == self._sink:
                 self.savePulledPath(currVertex, unsatEdge, pred)
-                return self.findPath(unsatEdge.target, currVertex, limitSource, limitSink)
+                return self.findPath(unsatEdge.target, currVertex, limitSource, limitSink, allowBackward)
             for edge in currVertex.inEdges:
                 if edge.source not in pred and edge.flow < edge.capacity:
                     queue.append(edge.source)
                     pred[edge.source] = edge
                     edge.source.flowDelta = min(
                         currVertex.flowDelta, edge.capacity - edge.flow)
-            for edge in currVertex.outEdges:
-                if edge.target not in pred and edge.flow > 0:
-                    queue.append(edge.target)
-                    pred[edge.target] = edge
-                    edge.target.flowDelta = min(
-                        currVertex.flowDelta, edge.flow)
+            if allowBackward:
+                # inverse find path semantics
+                for edge in currVertex.outEdges:
+                    if edge.target not in pred and edge.flow > 0:
+                        queue.append(edge.target)
+                        pred[edge.target] = edge
+                        edge.target.flowDelta = min(
+                            currVertex.flowDelta, edge.flow)
         return False
 
-    def calcRoutes(self):
-        self.initNet()
+    def calcRoutes(self, allowBackward=True):
         for limitSource, limitSink in ((True, True), (True, False), (False, True), (False, False)):
             pathFound = True
             while pathFound:
                 for vertex in self._vertices:
                     vertex.reset()
-                pathFound = self.findPath(self._source, self._source, limitSource, limitSink)
+                pathFound = self.findPath(self._source, self._source, limitSource, limitSink, allowBackward)
                 if not pathFound and PULL_FLOW and not limitSource and not limitSink:
                     for edge in sorted(self._edges.values()):
                         if edge.startCapacity < sys.maxsize:
-                            while edge.flow < edge.capacity and self.pullFlow(edge, limitSource, limitSink):
+                            while edge.flow < edge.capacity and self.pullFlow(edge, limitSource, limitSink, allowBackward):
                                 pathFound = True
         # the following block tests assertions
-        for vertex in self._vertices:
-            sum = 0
-            for preEdge in vertex.inEdges:
-                sum += preEdge.flow
-            for succEdge in vertex.outEdges:
-                sum -= succEdge.flow
-                flowSum = 0
-                for route in succEdge.routes:
-                    assert route.frequency > 0
-                    flowSum += route.frequency
-                assert flowSum == succEdge.flow
-            assert vertex == self._source or vertex == self._sink or sum == 0
-        # now we can merge identical routes
+        if allowBackward:
+            for vertex in self._vertices:
+                sum = 0
+                for preEdge in vertex.inEdges:
+                    sum += preEdge.flow
+                for succEdge in vertex.outEdges:
+                    sum -= succEdge.flow
+                    flowSum = 0
+                    for route in succEdge.routes:
+                        assert route.frequency > 0
+                        flowSum += route.frequency
+                    assert flowSum == succEdge.flow
+                assert vertex == self._source or vertex == self._sink or sum == 0
+        # run again (once) if restricted routes were removed
         self.consolidateRoutes()
+        if self.applyRouteRestrictions() and allowBackward:
+            self.calcRoutes(False)
 
     def consolidateRoutes(self):
         for edge in self._source.outEdges:
             routeByEdges = {}
-            deleteRoute = []
             for route in edge.routes:
                 key = tuple([e.label for e in route.edges if e.kind == "real"])
                 if key in routeByEdges:
                     routeByEdges[key].frequency += route.frequency
                 elif route.frequency > 0:
                     routeByEdges[key] = route
-                if routeByEdges[key].frequency > self._routeRestriction.get(key, sys.maxsize):
-                    if self._routeRestriction.get(key, sys.maxsize) == 0:
-                        deleteRoute.append(key)
-                    else:
-                        routeByEdges[key].frequency = self._routeRestriction.get(key, sys.maxsize)
-            if len(deleteRoute) > 0:
-                for key in deleteRoute:
-                    routeByEdges.pop(key, None)
             edge.routes = sorted(routeByEdges.values())
+
+    def applyRouteRestrictions(self):
+        removed = False
+        deleteRoute = []
+        for edge in self._source.outEdges:
+            for route in edge.routes:
+                key = tuple([e.label for e in route.edges if e.kind == "real"])
+                surplus = route.frequency - self._routeRestriction.get(key, sys.maxsize)
+                if surplus > 0:
+                    if options.verbose and DEBUG: 
+                        print("route '%s' surplus=%s" % (" ".join(key), surplus))
+                    removed = True
+                    for e in route.edges:
+                        e.flow -= surplus
+                    if self._routeRestriction[key] == 0:
+                        deleteRoute.append(route)
+                    else:
+                        route.frequency = self._routeRestriction[key]
+            if deleteRoute:
+                edge.routes = [r for r in edge.routes if not r in deleteRoute]
+        return removed
+
 
     def writeRoutes(self, routeOut, suffix=""):
         totalFlow = 0
@@ -711,11 +729,6 @@ class NetDetectorFlowReader(handler.ContentHandler):
                 self._detReader.addFlow(edge, int(float(flow) * factor))
 
 
-def warn(msg):
-    if not options.quiet:
-        print(msg, file=sys.stderr)
-
-
 def addFlowFile(option, opt_str, value, parser):
     if not getattr(parser.values, option.dest, None):
         setattr(parser.values, option.dest, [])
@@ -831,6 +844,7 @@ if net.detectSourceSink(sources, sinks):
                 reader.readSyntheticFlows(start, start + options.interval)
                 if options.verbose:
                     print("Calculating routes")
+                net.initNet()
                 net.calcRoutes()
                 net.writeRoutes(routeOut, suffix)
                 net.writeEmitters(
@@ -849,6 +863,7 @@ if net.detectSourceSink(sources, sinks):
         reader.readSyntheticFlows()
         if options.verbose:
             print("Calculating routes")
+        net.initNet()
         net.calcRoutes()
         net.writeRoutes(routeOut, options.flowcol)
         net.writeEmitters(emitOut, suffix=options.flowcol)
