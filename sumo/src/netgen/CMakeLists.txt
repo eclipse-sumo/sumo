@@ -14,6 +14,6 @@ set(netgenerate_SRCS
 
 add_executable(netgenerate ${netgenerate_SRCS})
 
-target_link_libraries(netgenerate netbuild netwrite gdal ${commonlibs})
+target_link_libraries(netgenerate netbuild netwrite ${GDAL_LIBRARY} ${commonlibs})
 
 install(TARGETS netgenerate DESTINATION bin)

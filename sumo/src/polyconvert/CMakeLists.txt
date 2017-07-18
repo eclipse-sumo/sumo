@@ -23,7 +23,7 @@ set(polyconvert_SRCS
 
 add_executable(polyconvert ${polyconvert_SRCS})
 
-target_link_libraries(polyconvert ${commonlibs} gdal)
+target_link_libraries(polyconvert ${commonlibs} ${GDAL_LIBRARY})
 
 install(TARGETS polyconvert DESTINATION bin)
 

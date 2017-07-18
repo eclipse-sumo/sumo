@@ -3,13 +3,18 @@ include_directories(${CMAKE_BINARY_DIR}/src)
 
 set(commonlibs
         utils_distribution utils_shapes utils_options
-        utils_xml utils_geom utils_common utils_importio utils_iodevices foreign_tcpip xerces-c proj)
+        utils_xml utils_geom utils_common utils_importio utils_iodevices foreign_tcpip ${XercesC_LIBRARY_RELEASE} ${PROJ_LIBRARY})
+
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+    set(commonlibs
+            ${commonlibs} ws2_32)
+endif ()
 
 set(commonvehiclelibs
         utils_emissions foreign_phemlight utils_vehicle ${commonlibs} ${FOX_LIBRARIES})
 
 set(netconvertlibs
-        netwrite netimport netbuild foreign_eulerspiral gdal netimport_vissim netimport_vissim_typeloader netimport_vissim_tempstructs ${commonlibs})
+        netwrite netimport netbuild foreign_eulerspiral ${GDAL_LIBRARY} netimport_vissim netimport_vissim_typeloader netimport_vissim_tempstructs ${commonlibs})
 
 add_subdirectory(activitygen)
 add_subdirectory(dfrouter)
@@ -58,7 +63,7 @@ endif ()
 
 set(sumolibs
         netload microsim microsim_cfmodels microsim_lcmodels microsim_devices microsim_output microsim_pedestrians microsim_trigger microsim_actions
-        microsim_traffic_lights mesosim traciserver traciserver_lib ${commonvehiclelibs} proj ${GRPC_LIBS}
+        microsim_traffic_lights mesosim traciserver traciserver_lib ${commonvehiclelibs} ${GRPC_LIBS}
         ${PYTHON_LIBRARIES})
 
 add_executable(sumo version.h ${sumoexec})
@@ -66,7 +71,7 @@ target_link_libraries(sumo ${sumolibs})
 
 add_executable(sumo-gui version.h ${sumoguiexec})
 target_link_libraries(sumo-gui gui guinetload guisim gui_dialogs utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
-        utils_gui_images utils_gui_tracker utils_foxtools osgview ${sumolibs} mesogui gdal ${FFMPEG_LIBRARIES} foreign_gl2ps foreign_polyfonts)
+        utils_gui_images utils_gui_tracker utils_foxtools osgview ${sumolibs} mesogui ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} foreign_gl2ps foreign_polyfonts)
 
 add_executable(netconvert version.h netconvert_main.cpp)
 target_link_libraries(netconvert ${netconvertlibs})
