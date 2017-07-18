@@ -67,6 +67,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunctionControl.h>
+#include <microsim/MSTransportableControl.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSLane.h>
@@ -911,7 +912,8 @@ TraCIServer::postProcessSimulationStep() {
         const Subscription& s = *i;
         bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT)
                                 && (find(myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].begin(), myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end());
-        if ((s.endTime < t) || isArrivedVehicle) {
+        bool isArrivedPerson = (s.commandId == CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == CMD_SUBSCRIBE_PERSON_CONTEXT) && MSNet::getInstance()->getPersonControl().get(s.id) == 0;
+        if ((s.endTime < t) || isArrivedVehicle || isArrivedPerson) {
             i = mySubscriptions.erase(i);
             continue;
         }
@@ -1152,9 +1154,11 @@ TraCIServer::collectObjectsInRange(int domain, const PositionVector& shape, doub
                 break;
             case CMD_GET_EDGE_VARIABLE:
             case CMD_GET_LANE_VARIABLE:
+            case CMD_GET_PERSON_VARIABLE:
             case CMD_GET_VEHICLE_VARIABLE:
                 myObjects[CMD_GET_EDGE_VARIABLE] = 0;
                 myObjects[CMD_GET_LANE_VARIABLE] = 0;
+                myObjects[CMD_GET_PERSON_VARIABLE] = 0;
                 myObjects[CMD_GET_VEHICLE_VARIABLE] = 0;
                 myLaneTree = new LANE_RTREE_QUAL(&MSLane::visit);
                 MSLane::fill(*myLaneTree);
@@ -1186,6 +1190,7 @@ TraCIServer::collectObjectsInRange(int domain, const PositionVector& shape, doub
         break;
         case CMD_GET_EDGE_VARIABLE:
         case CMD_GET_LANE_VARIABLE:
+        case CMD_GET_PERSON_VARIABLE:
         case CMD_GET_VEHICLE_VARIABLE: {
             TraCIServerAPI_Lane::StoringVisitor sv(into, shape, range, domain);
             myLaneTree->Search(cmin, cmax, sv);
