@@ -48,7 +48,7 @@ class pVehicleState(object):
 class PVehicle(object):
 
     '''
-    Vehicle objects for platooning    
+    Vehicle objects for platooning
     '''
 
     def __init__(self, ID, controlInterval):
@@ -102,15 +102,15 @@ class PVehicle(object):
         '''_determinePlatoonVType(PlatoonMode) -> string
 
         Returns the type ID corresponding to the given mode. Uses the vehicles vType and the global map PLATOON_VTYPES
-        between original and platoon-vTypes. If the original vType is not mapped to any platoon-vtypes, 
+        between original and platoon-vTypes. If the original vType is not mapped to any platoon-vtypes,
         the original vType is used for platooning as well
         '''
         # original vType
         origVType = self._vTypes[PlatoonMode.NONE]
-        if not cfg.PLATOON_VTYPES.has_key(origVType) \
-                or not cfg.PLATOON_VTYPES[origVType].has_key(mode) \
+        if origVType not in cfg.PLATOON_VTYPES \
+                or mode not in cfg.PLATOON_VTYPES[origVType] \
                 or cfg.PLATOON_VTYPES[origVType][mode] is "":
-            if cfg.PLATOON_VTYPES.has_key("default") and cfg.PLATOON_VTYPES["default"].has_key(mode):
+            if "default" in cfg.PLATOON_VTYPES and mode in cfg.PLATOON_VTYPES["default"]:
                 if cfg.VERBOSITY >= 2:
                     warn("Using default vType '%s' for vehicle '%s' (PlatoonMode: '%s')." %
                          (cfg.PLATOON_VTYPES["default"][mode], self._ID, PlatoonMode(mode).name))
@@ -235,8 +235,8 @@ class PVehicle(object):
     def _setActiveSpeedFactor(self, switchWaitingTime):
         ''' setActiveSpeedFactor(float)
 
-        Sets the active speed factor derived from the current vType's speed factor. The higher the 
-        switch waiting time, the lower the active speed factor (to induce a slowing down, which allows 
+        Sets the active speed factor derived from the current vType's speed factor. The higher the
+        switch waiting time, the lower the active speed factor (to induce a slowing down, which allows
         to execute the switch safely)
         TODO: This mechanism does not work on highways, where the vehicles maxspeed is determining
               the travel speed and not the road's speed limit.
@@ -287,7 +287,7 @@ class PVehicle(object):
 
         Checks whether it is safe for this vehicle to continue in the target mode.
         The parameter switchImpatience \in [0,1] indicates the emergency of the switch
-        and controls to which degree the vehicle is disposed to break harder than 
+        and controls to which degree the vehicle is disposed to break harder than
         its preferred decel.
         '''
         global vTypeParameters
@@ -350,14 +350,14 @@ class PVehicle(object):
         followerBrakeGap = PVehicle.brakeGap(speed, maxDecel)
 
         if cfg.VERBOSITY >= 4:
-            report("leaderSpeed = %s" % leaderSpeed
-                   + "\nleaderDecel = %s" % leaderDecel
-                   + "\ngap = %s" % gap
-                   + "\nleaderBrakeGap = %s" % leaderBrakeGap
-                   + "\nspeed = %s" % speed
-                   + "\ndecel = %s" % decel
-                   + "\nfollowerBrakeGap = %s" % followerBrakeGap
-                   + "\nheadwayDist = %s" % headwayDist)
+            report("leaderSpeed = %s" % leaderSpeed +
+                   "\nleaderDecel = %s" % leaderDecel +
+                   "\ngap = %s" % gap +
+                   "\nleaderBrakeGap = %s" % leaderBrakeGap +
+                   "\nspeed = %s" % speed +
+                   "\ndecel = %s" % decel +
+                   "\nfollowerBrakeGap = %s" % followerBrakeGap +
+                   "\nheadwayDist = %s" % headwayDist)
 
         # TODO: test without headway...
         return gap + leaderBrakeGap - followerBrakeGap - headwayDist > 0

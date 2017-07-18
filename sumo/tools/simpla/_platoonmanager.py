@@ -35,7 +35,7 @@ class PlatoonManager(traci.StepListener):
     '''
     A PlatoonManager coordinates the initialization of platoons
     and adapts the vehicles in a platoon to change their controls accordingly.
-    To use it, create a PlatoonManager and call its update() method in each 
+    To use it, create a PlatoonManager and call its update() method in each
     simulation step.
     Do not create more than one PlatoonManager, if you cannot guarantee that
     the associated vehicle types are exclusive for each.
@@ -110,7 +110,7 @@ class PlatoonManager(traci.StepListener):
         '''step(int)
 
         Manages platoons at each time step.
-        NOTE: argument t is unused, larger step sizes than DeltaT are not supported. 
+        NOTE: argument t is unused, larger step sizes than DeltaT are not supported.
         NOTE: (prior to SUMO 1.0): Between two calls to step() it is required to call traci.simulationStep()!
         '''
         # Handle vehicles entering and leaving the simulation
@@ -128,7 +128,7 @@ class PlatoonManager(traci.StepListener):
     def stop(self):
         '''stop()
 
-        Immediately resets all vtypes, releases all vehicles from the managers control, and unsubscribes them from traci  
+        Immediately resets all vtypes, releases all vehicles from the managers control, and unsubscribes them from traci
         '''
         for veh in self._connectedVehicles.values():
             veh.setPlatoonMode(PlatoonMode.NONE)
@@ -137,7 +137,7 @@ class PlatoonManager(traci.StepListener):
     def getPlatoonLeaders(self):
         '''getPlatoonLeaders() -> list(PVehicle)
 
-        Returns all vehicles currently leading a platoon (of size > 1). 
+        Returns all vehicles currently leading a platoon (of size > 1).
         These can be in PlatoonMode.LEADER or in PlatoonMode.CATCHUP
         '''
         return [pltn.getVehicles()[0] for pltn in self._platoons.values() if pltn.size() > 1]
@@ -177,7 +177,7 @@ class PlatoonManager(traci.StepListener):
                     dist = veh.state.leaderInfo[1] + traci.vehicle.getLength(vehAheadID)
                     while dist < self._catchupDist:
                         nextLeaderInfo = traci.vehicle.getLeader(vehAheadID, self._catchupDist - dist)
-                        if nextLeaderInfo == None:
+                        if nextLeaderInfo is None:
                             break
                         vehAheadID = nextLeaderInfo[0]
                         if self._isConnected(vehAheadID):
@@ -355,8 +355,8 @@ class PlatoonManager(traci.StepListener):
             leader = self._connectedVehicles[leaderID]
 
             # Commented out -> isLastInPlatoon should not be a hindrance to join platoon
-            #tryCatchup = leader.isLastInPlatoon() and leader.getPlatoon() != pltn
-            #join = tryCatchup and leaderDist <= self._maxPlatoonGap
+            # tryCatchup = leader.isLastInPlatoon() and leader.getPlatoon() != pltn
+            # join = tryCatchup and leaderDist <= self._maxPlatoonGap
 
             # Check if leader is on pltnLeader's route
             # (sometimes a 'linkLeader' on junction is returned by traci.getLeader())
@@ -364,7 +364,7 @@ class PlatoonManager(traci.StepListener):
             pltnLeaderRoute = traci.vehicle.getRoute(pltnLeader.getID())
             pltnLeaderRouteIx = traci.vehicle.getRouteIndex(pltnLeader.getID())
             leaderEdge = leader.state.edgeID
-            if not leaderEdge in pltnLeaderRoute[pltnLeaderRouteIx:]:
+            if leaderEdge not in pltnLeaderRoute[pltnLeaderRouteIx:]:
                 continue
 
             if leader.getPlatoon() == pltn:
@@ -377,8 +377,8 @@ class PlatoonManager(traci.StepListener):
                     toRemove.append(pltnID)
                     # Debug
                     if cfg.VERBOSITY >= 2:
-                        report("Platoon '%s' joined Platoon '%s', which now contains " % (pltn.getID(), leader.getPlatoon().getID())
-                               + "vehicles:\n%s" % str([veh.getID() for veh in leader.getPlatoon().getVehicles()]))
+                        report("Platoon '%s' joined Platoon '%s', which now contains " % (pltn.getID(), leader.getPlatoon().getID()) +
+                               "vehicles:\n%s" % str([veh.getID() for veh in leader.getPlatoon().getVehicles()]))
                     continue
                 else:
                     if cfg.VERBOSITY >= 3:
@@ -516,9 +516,9 @@ class PlatoonManager(traci.StepListener):
     def _adviseLanes(self):
         '''_adviseLanes()
 
-        At the moment this only advises all platoon followers to change to their leaders lane 
-        if it is on a different lane on the same edge. Otherwise, followers are told to keep their 
-        lane for the next time step. 
+        At the moment this only advises all platoon followers to change to their leaders lane
+        if it is on a different lane on the same edge. Otherwise, followers are told to keep their
+        lane for the next time step.
         NOTE: Future, more sophisticated lc advices should go here.
         '''
         for pltn in self._platoons.values():
@@ -546,9 +546,9 @@ class PlatoonManager(traci.StepListener):
     def _isConnected(self, vehID):
         '''_isConnected(string) -> bool
 
-        Returns whether the given vehicle is a potential platooning participant 
+        Returns whether the given vehicle is a potential platooning participant
         '''
-        if self._connectedVehicles.has_key(vehID):
+        if vehID in self._connectedVehicles:
             return True
         else:
             return False

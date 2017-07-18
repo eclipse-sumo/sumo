@@ -14,9 +14,7 @@ the Free Software Foundation; either version 3 of the License, or
 -----------------------------------
 """
 
-import sys
-import math
-from simpla._reporting import Warner, Reporter, array2String
+from simpla._reporting import Warner, Reporter
 from simpla._platoonmode import PlatoonMode
 import simpla._config as cfg
 
@@ -35,7 +33,7 @@ class Platoon(object):
     def __init__(self, vehicles, controlInterval, registerVehicles=True):
         '''Platoon(list(PVehicle), float, bool) -> Platoon
 
-        Create a Platoon object that holds an ordered list of its members, which is inititialized with 'vehicles'. 
+        Create a Platoon object that holds an ordered list of its members, which is inititialized with 'vehicles'.
         Creator is responsible for setting the platoon mode of the vehicles. If registerVehicles is set, the vehicle's
         platoon reference veh._platoon is set to the newly created platoon. 'deltaT' is the control interval provided
         to give the platoon a sense of time (used for decreasing active speed factor when trying to switch modes unsuccessfully).
@@ -50,7 +48,7 @@ class Platoon(object):
 
     def registerVehicles(self):
         ''' registerVehicles() -> void
-        Sets reference to this platoon at member-vehicles' side 
+        Sets reference to this platoon at member-vehicles' side
         '''
         for veh in self._vehicles:
             veh.setPlatoon(self)
@@ -118,7 +116,7 @@ class Platoon(object):
         '''setModeWithImpatience(PlatoonMode, float) -> bool
 
         The same as setMode(), except acting on the platoon leaders switch waiting time as follows.
-        If the mode switch was successful, all waiting times are reset to 0., if not, the mode specific 
+        If the mode switch was successful, all waiting times are reset to 0., if not, the mode specific
         waiting time is increased.
         '''
         success = self.setMode(mode)
@@ -223,7 +221,7 @@ class Platoon(object):
 
         splitLeader = self._vehicles[index]
         mode = PlatoonMode.LEADER if (index < self.size() - 1) else PlatoonMode.NONE
-        #splitImpatience = 1. - math.exp(min([0., splitLeader._timeUntilSplit]))
+        # splitImpatience = 1. - math.exp(min([0., splitLeader._timeUntilSplit]))
         pltn = Platoon(self._vehicles[index:], self._controlInterval, False)
 
         if not pltn.setModeWithImpatience(mode, self._controlInterval):
@@ -240,8 +238,8 @@ class Platoon(object):
             self.setModeWithImpatience(PlatoonMode.NONE, self._controlInterval)
 
         if cfg.VERBOSITY >= 2:
-            report("Platoon '%s' splits (newly formed platoon is '%s'):\n" % (self._ID, pltn.getID())
-                   + "Platoon '%s': %s\nPlatoon '%s': %s" % (self._ID, str([veh.getID() for veh in self._vehicles]),
+            report("Platoon '%s' splits (newly formed platoon is '%s'):\n" % (self._ID, pltn.getID()) +
+                   "Platoon '%s': %s\nPlatoon '%s': %s" % (self._ID, str([veh.getID() for veh in self._vehicles]),
                                                              pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()])), 1)
         return pltn
 

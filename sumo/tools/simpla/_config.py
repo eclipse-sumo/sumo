@@ -87,7 +87,7 @@ import xml.etree.ElementTree as ET
 def loadVTypeMap(fn):
     '''readPairs(string) -> dict
 
-    Reads lines of the form 'origMode:leadMode:followMode:catchupMode:catchupFollowMode' (last two elements can be omitted) from a given file and write corresponding key:value pairs to PLATOON_VTYPES 
+    Reads lines of the form 'origMode:leadMode:followMode:catchupMode:catchupFollowMode' (last two elements can be omitted) from a given file and write corresponding key:value pairs to PLATOON_VTYPES
     '''
     global PLATOON_VTYPES
 
@@ -184,48 +184,48 @@ def load(filename):
         elif e.tag == "platoonSplitTime":
             PLATOON_SPLIT_TIME = float(e.attrib.values()[0])
         elif e.tag == "lcMode":
-            if (e.attrib.has_key("leader")):
+            if ("leader" in e.attrib):
                 LC_MODE[PlatoonMode.LEADER] = int(e.attrib["leader"])
-            if (e.attrib.has_key("follower")):
+            if ("follower" in e.attrib):
                 LC_MODE[PlatoonMode.FOLLOWER] = int(e.attrib["follower"])
-            if (e.attrib.has_key("catchup")):
+            if ("catchup" in e.attrib):
                 LC_MODE[PlatoonMode.CATCHUP] = int(e.attrib["catchup"])
-            if (e.attrib.has_key("catchupFollower")):
+            if ("catchupFollower" in e.attrib):
                 LC_MODE[PlatoonMode.CATCHUP_FOLLOWER] = int(e.attrib["catchupFollower"])
-            if (e.attrib.has_key("original")):
+            if ("original" in e.attrib):
                 LC_MODE[PlatoonMode.NONE] = int(e.attrib["original"])
         elif e.tag == "speedFactor":
-            if (e.attrib.has_key("leader")):
+            if ("leader" in e.attrib):
                 SPEEDFACTOR[PlatoonMode.LEADER] = float(e.attrib["leader"])
-            if (e.attrib.has_key("follower")):
+            if ("follower" in e.attrib):
                 SPEEDFACTOR[PlatoonMode.FOLLOWER] = float(e.attrib["follower"])
-            if (e.attrib.has_key("catchup")):
+            if ("catchup" in e.attrib):
                 SPEEDFACTOR[PlatoonMode.CATCHUP] = float(e.attrib["catchup"])
-            if (e.attrib.has_key("catchupFollower")):
+            if ("catchupFollower" in e.attrib):
                 SPEEDFACTOR[PlatoonMode.CATCHUP_FOLLOWER] = float(e.attrib["catchupFollower"])
-            if (e.attrib.has_key("original")):
+            if ("original" in e.attrib):
                 SPEEDFACTOR[PlatoonMode.NONE] = float(e.attrib["original"])
         elif e.tag == "vTypeMapFile":
             VTYPE_FILE = e.attrib.values()[0]
         elif e.tag == "vTypeMap":
             origType = e.attrib["original"]
             PLATOON_VTYPES[origType][PlatoonMode.NONE] = origType
-            if (e.attrib.has_key("leader")):
+            if ("leader" in e.attrib):
                 leaderType = e.attrib["leader"]
                 PLATOON_VTYPES[origType][PlatoonMode.LEADER] = leaderType
-                #print("Registering vtype map '%s':'%s'"%(origType,leaderType))
-            if (e.attrib.has_key("follower")):
+                # print("Registering vtype map '%s':'%s'"%(origType,leaderType))
+            if ("follower" in e.attrib):
                 followerType = e.attrib["follower"]
                 PLATOON_VTYPES[origType][PlatoonMode.FOLLOWER] = followerType
-                #print("Registering vtype map '%s':'%s'"%(origType,followerType))
-            if (e.attrib.has_key("catchup")):
+                # print("Registering vtype map '%s':'%s'"%(origType,followerType))
+            if ("catchup" in e.attrib):
                 catchupType = e.attrib["catchup"]
                 PLATOON_VTYPES[origType][PlatoonMode.CATCHUP] = catchupType
-                #print("Registering vtype map '%s':'%s'"%(origType,followerType))
-            if (e.attrib.has_key("catchupFollower")):
+                # print("Registering vtype map '%s':'%s'"%(origType,followerType))
+            if ("catchupFollower" in e.attrib):
                 catchupFollowerType = e.attrib["catchupFollower"]
                 PLATOON_VTYPES[origType][PlatoonMode.CATCHUP_FOLLOWER] = catchupFollowerType
-                #print("Registering vtype map '%s':'%s'"%(origType,followerType))
+                # print("Registering vtype map '%s':'%s'"%(origType,followerType))
         else:
             print("WARNING: Encountered unknown configuration parameter '%s'!" % e.tag)
 

@@ -4,33 +4,33 @@
 
 simpla - A simple platooning plugin for TraCI
 
-simpla is a configurable, simple platooning plugin for TraCI. 
+simpla is a configurable, simple platooning plugin for TraCI.
 A platooning configuration has to be created before using.
 Its possible elements are given in the example configuration file
 'simpla_example.cfg.xml'
 
 Information about vType mappings between original and
 platooning vTypes has to be supplied. This can be done directly
-in the configuration xml-file by using 'vTypeMapLeader', 'vTypeMapFollower' and 'vTypeMapCatchup' 
+in the configuration xml-file by using 'vTypeMapLeader', 'vTypeMapFollower' and 'vTypeMapCatchup'
 elements or by reference to seperate files which define the mappings as
 'originalVType : mappedVType'
 
-All specified vTypes should be available within the simulation, the "default" type 
+All specified vTypes should be available within the simulation, the "default" type
 is optional and used whenever information is missing for some original type
 if no default is specified, the original type remains unchanged within the platoon.
 
-For the definition of platooning vTypes for existing basic vTypes, 
+For the definition of platooning vTypes for existing basic vTypes,
 and generating vTypeMapping-files see the script generateModifiedVTypes.py.
 
-Usage: 
+Usage:
 1) import simpla into your traci script.
 2) After establishing a connection to SUMO with traci, call simpla.load(<configuration_filename>)
-3) Only applies to SUMO version < 0.30: After starting simpla, call simpla.update() after each call to traci.simulationStep() 
+3) Only applies to SUMO version < 0.30: After starting simpla, call simpla.update() after each call to traci.simulationStep()
 
-Notes: 
+Notes:
 1) simpla changes the vehicle types, speedfactors, and lane changemodes of all connected vehicles.
    If your application does so as well, this might have unintended consequences.
-2) Currently, steps of lengths other than DeltaT are not supported (i.e. if traci.simulationStep() 
+2) Currently, steps of lengths other than DeltaT are not supported (i.e. if traci.simulationStep()
    is called with argument when simpla is running this may yield undesired behaviour).
 3) simpla adds subscriptions to VAR_ROAD_ID, VAR_LANE_INDEX (and currently VAR_LANE_ID) and removes them when stopped
 

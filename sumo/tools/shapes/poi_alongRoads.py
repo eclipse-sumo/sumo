@@ -123,7 +123,7 @@ for elm in connEdges:
     offset = 0										# Anything left from the edge before?
     for edge in elm:
         for p in edge[3]:
-            #			shapes.append(p)
+            #                shapes.append(p)
             # collect all shapes of connected edges
             shapes.append([p[0], p[1], edge[0]])
     for i in range(0, len(shapes) - 1):
