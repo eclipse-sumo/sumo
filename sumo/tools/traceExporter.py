@@ -236,32 +236,32 @@ output format. Optionally the output can be sampled, filtered and distorted.
         return 1
     # ----- check needed values
 
-    ## ----- OMNET
+    # ----- OMNET
     if options.omnet:
         runMethod(options.fcd, options.omnet, omnet.fcd2omnet, options)
-    ## ----- OMNET
+    # ----- OMNET
 
-    ## ----- Shawn
+    # ----- Shawn
     if options.shawn:
         runMethod(options.fcd, options.shawn, shawn.fcd2shawn, options)
-    ## ----- Shawn
+    # ----- Shawn
 
-    ## ----- GPSDAT
+    # ----- GPSDAT
     if options.gpsdat:
         runMethod(options.fcd, options.gpsdat, gpsdat.fcd2gpsdat, options)
-    ## ----- GPSDAT
+    # ----- GPSDAT
 
-    ## ----- GPX
+    # ----- GPX
     if options.gpx:
         runMethod(options.fcd, options.gpx, gpx.fcd2gpx, options)
-    ## ----- GPX
+    # ----- GPX
 
-    ## ----- GPX
+    # ----- GPX
     if options.poi:
         runMethod(options.fcd, options.poi, poi.fcd2poi, options)
-    ## ----- GPX
+    # ----- GPX
 
-    ## ----- ns2
+    # ----- ns2
     if options.ns2mobility or options.ns2config or options.ns2activity:
         vIDm, vehInfo, begin, end, area = runMethod(
             options.fcd, options.ns2mobility, ns2.fcd2ns2mobility, options)
@@ -274,9 +274,9 @@ output format. Optionally the output can be sampled, filtered and distorted.
         ns2.writeNS2config(
             o, vehInfo, options.ns2activity, options.ns2mobility, begin, end, area)
         _closeOutputStream(o)
-    ## ----- ns2
+    # ----- ns2
 
-    ## ----- PHEM
+    # ----- PHEM
     # .dri
     if options.dri:
         runMethod(options.fcd, options.dri, phem.fcd2dri, options)
@@ -299,7 +299,7 @@ output format. Optionally the output can be sampled, filtered and distorted.
         o = _getOutputStream(options.flt)
         phem.vehicleTypes2flt(o, vtIDm)
         _closeOutputStream(o)
-    ## ----- PHEM
+    # ----- PHEM
     return 0
 
 

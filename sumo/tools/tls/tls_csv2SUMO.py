@@ -149,7 +149,7 @@ for tlsFile in allTLS:
         elif v[0] == "offset":
             offset = v[1]
         elif v[0] == "link":
-            #linkNo = int(v[1])
+            # linkNo = int(v[1])
             linkNo = v[1]
             fromDef = v[2]
             toDef = v[3]

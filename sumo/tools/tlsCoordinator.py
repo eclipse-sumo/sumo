@@ -23,8 +23,8 @@ from __future__ import print_function
 import os
 import sys
 import subprocess
-import xml.etree.cElementTree as ET
 import optparse
+from collections import namedtuple
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -33,10 +33,7 @@ if 'SUMO_HOME' in os.environ:
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
-from sumolib.miscutils import Statistics
 from sumolib.output import parse_fast
-from operator import itemgetter
-from collections import namedtuple
 
 TLTuple = namedtuple('TLTuple', ['edgeID', 'dist', 'time', 'connection'])
 PairKey = namedtuple('PairKey', ['edgeID', 'edgeID2', 'dist'])
@@ -150,12 +147,12 @@ def computePairOffsets(TLSPList, verbose):
             sets.append(newlist)
             c1 += 1
             operation = "newSet"
-        elif l2 is None and not l1 is None:
+        elif l2 is None and l1 is not None:
             # add to set 1 - add after existing set
             TLSP = coordinateAfterSet(TLSP, l1, l1Pair, l1Index)
             c2 += 1
             operation = "addAfterSet"
-        elif l1 is None and not l2 is None:
+        elif l1 is None and l2 is not None:
             # add to set 2 - add before existing set
             TLSP = coordinateBeforeSet(TLSP, l2, l2Pair, l2Index)
             c3 += 1
@@ -214,10 +211,10 @@ def finalizeOffsets(sets):
             tl2 = pair.tl.getID()
             betweenOffset = pair.betweenOffset
             startOffset = pair.startOffset
-            if not tl1 in offsetDict:
+            if tl1 not in offsetDict:
                 # print "     added %s offset %s" % (tl1, startOffset)
                 offsetDict[tl1] = startOffset
-            if not tl2 in offsetDict:
+            if tl2 not in offsetDict:
                 # print "     added %s offset %s" % (tl2, startOffset +
                 # betweenOffset)
                 offsetDict[tl2] = startOffset + betweenOffset
@@ -265,12 +262,12 @@ def getTLPairs(net, routeFile, speedFactor):
     # pairs of traffic lights
     TLPairs = {}  # PairKey -> PairData
 
-    for route in sumolib.output.parse_fast(routeFile, 'route', ['edges']):
+    for route in parse_fast(routeFile, 'route', ['edges']):
         rTLSList = getTLSInRoute(net, route.edges.split())
 
         for oldTL, TLelement in zip(rTLSList[:-1], rTLSList[1:]):
             key = PairKey(oldTL.edgeID, TLelement.edgeID, oldTL.dist)
-            numVehicles = 0 if not key in TLPairs else TLPairs[key].numVehicles
+            numVehicles = 0 if key not in TLPairs else TLPairs[key].numVehicles
 
             tl = net.getEdge(TLelement.edgeID).getTLS()
             otl = net.getEdge(oldTL.edgeID).getTLS()

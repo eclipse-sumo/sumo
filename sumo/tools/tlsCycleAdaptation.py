@@ -12,12 +12,12 @@
 - Traffic lights without traffic flows will not be optimized.
 - PCE is used instead of the number of vehicles.
 
-- If a lane group has green times in more than one phase, 
+- If a lane group has green times in more than one phase,
   the respective flows will be equally divided into the corresponding
-  phases for calculating the green splits. 
+  phases for calculating the green splits.
 
 - If the critial flow or the sum of the critial flows is larger than 1,
- the optimal cycle length will be set to 120 sec. 
+ the optimal cycle length will be set to 120 sec.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2010-2017 DLR (http://www.dlr.de/) and contributors
@@ -33,8 +33,6 @@ from __future__ import print_function
 
 import os
 import sys
-import subprocess
-import xml.etree.cElementTree as ET
 import optparse
 import collections
 
@@ -44,12 +42,6 @@ if 'SUMO_HOME' in os.environ:
     import sumolib  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
-
-from sumolib.miscutils import Statistics
-from sumolib.output import parse_fast
-from operator import itemgetter
-from collections import namedtuple
-from sumolib.net import connection
 
 
 def get_options(args=None):
