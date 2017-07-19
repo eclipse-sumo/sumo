@@ -74,10 +74,14 @@ void GNEChange_Crossing::undo() {
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
-        // check if after rebuild crossing net has GNECrossings
-        if (myNet->netHasGNECrossings() == false) {
+        // Check if Flag "haveNetworkCrossings" has to be disabled
+        if ((myNet->netHasGNECrossings() == false) && (myNet->getNetBuilder()->haveNetworkCrossings() == true)) {
             // change flag of NetBuilder (For build GNECrossing)
             myNet->getNetBuilder()->setHaveNetworkCrossings(false);
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'");
+            }
         }
         // Update view
         myNet->getViewNet()->update();
@@ -89,8 +93,14 @@ void GNEChange_Crossing::undo() {
         }
         // add crossing of NBNode
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, mySelected);
-        // change flag of NetBuilder (For build GNECrossing)
-        myNet->getNetBuilder()->setHaveNetworkCrossings(true);
+        // Check if Flag "haveNetworkCrossings" has to be enabled
+        if(myNet->getNetBuilder()->haveNetworkCrossings() == false) {
+            myNet->getNetBuilder()->setHaveNetworkCrossings(true);
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'");
+            }
+        }
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // check if created GNECrossing must be selected
@@ -118,8 +128,14 @@ void GNEChange_Crossing::redo() {
         }
         // add crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
-        // change flag of NetBuilder (For build GNECrossing)
-        myNet->getNetBuilder()->setHaveNetworkCrossings(true);
+        // Check if Flag "haveNetworkCrossings" has to be enabled
+        if (myNet->getNetBuilder()->haveNetworkCrossings() == false) {
+            myNet->getNetBuilder()->setHaveNetworkCrossings(true);
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'");
+            }
+        }
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // check if created GNECrossing must be selected
@@ -143,10 +159,14 @@ void GNEChange_Crossing::redo() {
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
-        // check if after rebuild crossing net has GNECrossings
-        if(myNet->netHasGNECrossings() == false) {
+        // Check if Flag "haveNetworkCrossings" has to be disabled
+        if((myNet->netHasGNECrossings() == false) && (myNet->getNetBuilder()->haveNetworkCrossings() == true)) {
             // change flag of NetBuilder (For build GNECrossing)
             myNet->getNetBuilder()->setHaveNetworkCrossings(false);
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'");
+            }
         }
         // Update view
         myNet->getViewNet()->update();
