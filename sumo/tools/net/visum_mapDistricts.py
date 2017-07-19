@@ -24,11 +24,9 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import string
 import sys
 import math
 from optparse import OptionParser
-from matplotlib.collections import LineCollection
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
@@ -174,8 +172,8 @@ nnn = {}
 for n1 in nodes1:
     if n1._id.find('-', 1) < 0:
         continue
-#	if n1._id.find("38208387")<0:
-#		continue
+#   if n1._id.find("38208387")<0:
+#       continue
     un1 = None
     for e in n1._outgoing:
         un1 = e._to

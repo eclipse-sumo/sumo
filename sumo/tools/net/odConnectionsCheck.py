@@ -22,11 +22,9 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import string
 import sys
-import operator
 
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 from optparse import OptionParser
 
 pyPath = os.path.dirname(sys.argv[0])

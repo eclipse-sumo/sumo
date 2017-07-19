@@ -21,14 +21,11 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import string
 import sys
-import math
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import sumolib  # noqa
-import netshiftadaptor
 from sumolib.geomhelper import distance
 
 optParser = OptionParser()
@@ -101,5 +98,5 @@ if options.edges2:
     print("\n".join(["edge:%s" % e.getID()
                      for e in matchedEdges2]), file=open(options.edges2, "w"))
 
-#adaptor = netshiftadaptor.NetShiftAdaptor(net1, net2, options.nodes1.split(","), options.nodes2.split(","))
+# adaptor = netshiftadaptor.NetShiftAdaptor(net1, net2, options.nodes1.split(","), options.nodes2.split(","))
 # adaptor.reproject(options.verbose)

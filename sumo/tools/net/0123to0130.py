@@ -21,7 +21,6 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 import os
-import string
 import sys
 import glob
 import xml
@@ -162,9 +161,9 @@ class NetConverter(handler.ContentHandler):
         if name == "edge":
             self._laneCount = 0
         if name == "junction":
-            self._single_junction = (attrs["id"][0] == ":"
-                                     or attrs["type"] == 'DEAD_END'
-                                     or attrs["type"] == 'dead_end')
+            self._single_junction = (attrs["id"][0] == ":" or
+                                     attrs["type"] == 'DEAD_END' or
+                                     attrs["type"] == 'dead_end')
         # skip removed
         if self.remove(name):
             return
@@ -265,7 +264,7 @@ class NetConverter(handler.ContentHandler):
 def changeFile(fname):
     if options.verbose:
         print("Patching " + fname + " ...")
-    if (("_deprecated_" in fname and not "net.netconvert" in fname) or
+    if (("_deprecated_" in fname and "net.netconvert" not in fname) or
             (os.path.join('tools', 'net', '0') in fname)):
         print(
             "Skipping file (looks like intentionally deprecated input): " + fname)

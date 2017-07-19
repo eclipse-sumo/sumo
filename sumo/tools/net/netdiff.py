@@ -33,7 +33,7 @@ from xml.dom import pulldom
 from xml.dom import Node
 from optparse import OptionParser
 from subprocess import call
-from collections import namedtuple, defaultdict
+from collections import defaultdict
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
@@ -81,9 +81,9 @@ DELETE_ELEMENT = 'delete'  # the xml element for signifying deletes
 
 # provide an order for the attribute names
 ATTRIBUTE_NAMES = {
-    #'.nod.xml' : ()
-    #'.edg.xml' : ()
-    #'.con.xml' : ()
+    # '.nod.xml' : ()
+    # '.edg.xml' : ()
+    # '.con.xml' : ()
 }
 
 # default values for the given attribute (needed when attributes appear in
@@ -138,7 +138,7 @@ class AttributeStore:
         a = xmlnode.attributes
         all = [a.item(i).localName for i in range(a.length)]
         instance = tuple([n for n in all if n not in idattrs])
-        if not instance in self.attrnames:
+        if instance not in self.attrnames:
             self.attrnames[instance] = instance
         # only store a single instance of this tuple to conserve memory
         return self.attrnames[instance]

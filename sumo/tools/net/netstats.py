@@ -20,7 +20,6 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 import os
-import string
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
@@ -43,7 +42,6 @@ def renderHTML(values):
 
 
 def renderPNG(values):
-    from matplotlib import rcParams
     from pylab import *
     bar([0], [values["edgeNumber"]], 1, color='r')
     show()
