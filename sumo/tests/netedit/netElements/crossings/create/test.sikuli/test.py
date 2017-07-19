@@ -83,6 +83,10 @@ netedit.leftClick(match, 150, 250)
 netedit.crossingInvertEdges()
 netedit.crossingClearEdges()
 
+# Check undo redo
+netedit.undo(match, 5)
+netedit.redo(match, 5)
+
 # save newtork
 netedit.saveNetwork()
 

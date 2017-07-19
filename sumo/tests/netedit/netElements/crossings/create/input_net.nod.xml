@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon 23 Jan 2017 01:56:30 PM CET by Netedit Version dev-SVN-r22674
+<!-- generated on 19.07.2017 15:20:38 by Netedit Version dev-SVN-r22743
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/scr1/sumoI/sumo/tests/netedit/netElements/crossings/create/input_net.net.xml"/>
+        <sumo-net-file value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\crossings\create\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr1/sumoI/sumo/tests/netedit/netElements/crossings/create/input_net.net.xml"/>
-        <plain-output-prefix value="/scr1/sumoI/sumo/tests/netedit/netElements/crossings/create/input_net"/>
+        <output-file value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\crossings\create\input_net.net.xml"/>
+        <plain-output-prefix value="C:\Projects\SUMO_Trunk\tests\netedit\netElements\crossings\create\input_net"/>
     </output>
 
     <processing>
@@ -20,6 +20,8 @@
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
 </configuration>

@@ -31,8 +31,10 @@ Warning: Removing crossing from junction 'Center'
 Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
 Warning: Removing crossing from junction 'Center'
 Warning: Deleting unreferenced crossing ':Center_c0' in rebuildGNECrossings()
+Warning: Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding crossing into junction 'Center'
+Warning: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding crossing into junction 'Center'

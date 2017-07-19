@@ -28,9 +28,10 @@ Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '100.00'
 Warning: Removing crossing from junction 'Center'
-Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
-Warning: Removing crossing from junction 'Center'
 Warning: Deleting unreferenced crossing ':Center_c0' in rebuildGNECrossings()
+Warning: Removing crossing from junction 'Center'
+Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
+Warning: Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'
 Warning: Removing connection '2_1->6_1' from edge '2'
 Warning: Deleting unreferenced connection 'from2_1to6_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
@@ -227,6 +228,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' in
 Warning: Adding connection '2_1->6_1' into edge '2'
 Warning: Created connection 'from2_1to6_1' in retrieveGNEConnection()
 Warning: Adding crossing into junction 'Center'
+Warning: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Adding crossing into junction 'Center'
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
@@ -282,7 +284,7 @@ Warning: Deleting unreferenced junction 'A' in GNENet destructor
 Warning: Deleting unreferenced junction 'B' in GNENet destructor
 Warning: Deleting unreferenced junction 'C' in GNENet destructor
 Warning: Deleting unreferenced junction 'Center' in GNENet destructor
-Warning: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'D' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
