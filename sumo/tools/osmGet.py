@@ -21,12 +21,10 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 import os
-import sys
 try:
     import httplib
 except ImportError:
     import http.client as httplib
-import gzip
 import optparse
 from os import path
 
@@ -116,7 +114,7 @@ def get(args=None):
         conn.close()
     else:
         conn = httplib.HTTPConnection("www.overpass-api.de")
-        #conn = httplib.HTTPConnection("overpass.osm.rambler.ru")
+        # conn = httplib.HTTPConnection("overpass.osm.rambler.ru")
         if options.area:
             if options.area < 3600000000:
                 options.area += 3600000000
