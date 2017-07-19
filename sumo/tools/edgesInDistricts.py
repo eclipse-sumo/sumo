@@ -27,7 +27,6 @@ import collections
 from optparse import OptionParser
 from xml.sax import parse
 import sumolib  # noqa
-import random
 
 
 # written into the net. All members are "private".

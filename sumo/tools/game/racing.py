@@ -24,7 +24,6 @@ import os
 import sys
 import Queue
 import threading
-import time
 import math
 
 try:
@@ -115,7 +114,7 @@ class RacingClient:
                             steerAngle = max(0, steerAngle - 15 * TS)
                         else:
                             steerAngle = min(0, steerAngle + 15 * TS)
-                        #print("revert steerAngle=%.2f" % steerAngle)
+                        # print("revert steerAngle=%.2f" % steerAngle)
                     while eventQueue.qsize():
                         try:
                             msg = eventQueue.get(0)

@@ -32,20 +32,19 @@ import subprocess
 import math
 import csv
 
+import xml.etree.cElementTree as ET
+from xml.dom import minidom
+from shapely.geometry import Polygon
+
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
 sys.path.append(os.path.join(SUMO_HOME, "tools"))
 
-import xml.etree.cElementTree as ET
-from xml.etree.ElementTree import Element, SubElement, Comment, tostring
-from xml.dom import minidom
-from shapely.geometry import Polygon
-
-import osmBuild
-import osmGet
+import osmBuild  # noqa
+import osmGet  # noqa
 import sumolib  # noqa
 
-import generateTraffic
+import generateTraffic  # noqa
 
 
 def mergePopulationData(populationFile, regionFile, mergedFile):
@@ -68,7 +67,7 @@ def mergePopulationData(populationFile, regionFile, mergedFile):
     for parents in root.findall("./*"):
         for elem in parents.findall("param[7]"):
             RSValue = str(elem.attrib)[11:23]
-            inhabitants = SubElement(parents, 'param')
+            inhabitants = ET.SubElement(parents, 'param')
             if RSValue in inhabDict:
                 inhabitants.clear()
                 inhabitants.attrib = {
@@ -180,5 +179,5 @@ sumoOptions = [sumo, '-n', "%s.net.xml" % prefix, '-a', "%s.poly.xml,inputLocati
                '-r', '%s.rou.xml' % prefix, '--ignore-route-errors', '--no-step-log', '--save-configuration', '%s.sumocfg' % prefix]
 subprocess.call(sumoOptions)
 subprocess.call([sumo, '%s.sumocfg' % prefix])
-#subprocess.call([sumolib.checkBinary('sumo-gui'), '%s.sumocfg' % prefix])
+# subprocess.call([sumolib.checkBinary('sumo-gui'), '%s.sumocfg' % prefix])
 print("done")

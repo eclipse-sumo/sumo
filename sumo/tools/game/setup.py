@@ -19,7 +19,6 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 
 from distutils.core import setup
-import py2exe
 import sys
 import shutil
 import os

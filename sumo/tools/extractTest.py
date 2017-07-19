@@ -131,7 +131,7 @@ def main(options):
         while True:
             for f in os.listdir(curDir):
                 path = join(curDir, f)
-                if not f in potentials or os.path.isdir(path):
+                if f not in potentials or os.path.isdir(path):
                     potentials[f].append(path)
                 if f == "options." + app:
                     optionsFiles.append(path)

@@ -23,8 +23,6 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 import sys
-import os
-import datetime
 from optparse import OptionParser
 
 import sumolib  # noqa
@@ -63,7 +61,7 @@ ASYM_BIDI_CACHE = {}  # edge : opposites
 
 
 def computeBidiTazAsymByRadius(edge, net, radius):
-    if not edge in ASYM_BIDI_CACHE:
+    if edge not in ASYM_BIDI_CACHE:
         candidates = getCandidates(edge, net, radius)
         opposites = reduce(lambda a, b: a.intersection(b), candidates)
         opposites.update(set(edge.getToNode().getOutgoing()).intersection(

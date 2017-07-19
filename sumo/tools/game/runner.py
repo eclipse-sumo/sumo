@@ -276,7 +276,7 @@ class ScoreDialog:
         self.root.minsize(250, 50)
         haveHigh = False
 
-        if not category in high:
+        if category not in high:
             high[category] = _SCORES * [("", "", -1.)]
         idx = 0
         for n, g, p in high[category]:
@@ -299,7 +299,7 @@ class ScoreDialog:
             Tkinter.Label(self.root, text=str(p)).grid(row=idx, column=2)
             idx += 1
         if not haveHigh:
-            if score != None:  # not called from the main menue
+            if score is not None:  # not called from the main menue
                 Tkinter.Label(self.root, text=lang['your score'], padx=5,
                               bg="indian red").grid(row=idx, sticky=Tkinter.W, column=1)
                 Tkinter.Label(self.root, text=str(score),
