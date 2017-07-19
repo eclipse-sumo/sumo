@@ -28,7 +28,7 @@ _bindir = os.path.abspath(os.path.join(_libdir, '..', '..', 'bin'))
 try:
     import autopy
 
-    #PLAY = autopy.bitmap.Bitmap.from_string()
+    # PLAY = autopy.bitmap.Bitmap.from_string()
     PLAY = autopy.bitmap.Bitmap.open(os.path.join(_libdir, "play.png"))
     STOP = autopy.bitmap.Bitmap.open(os.path.join(_libdir, "stop.png"))
 

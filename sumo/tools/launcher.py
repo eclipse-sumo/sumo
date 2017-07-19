@@ -19,7 +19,6 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 import os
-import sys
 import re
 import subprocess
 from Tkinter import *
@@ -214,7 +213,7 @@ def parse_help(app):
 def main():
     app = "netconvert"
     appOptions = parse_help(app)
-    #appOptions = []
+    # appOptions = []
     root = Tk()
     app = Launcher(root, app, appOptions)
     root.mainloop()

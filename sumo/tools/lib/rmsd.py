@@ -18,7 +18,7 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 
-from numpy import append, array, dot, shape, transpose
+from numpy import array, dot, shape, transpose
 from numpy.linalg import det, svd
 
 
@@ -42,7 +42,7 @@ def superpose(nodes1, nodes2, select1, select2):
     optimal_rotation = dot(V, W_trans)
     return dot(array(nodes2) - center2, optimal_rotation) + center1
 
-#a = [ (1,1), (4,4), (1,4) ]
-#b = [ (0,3), (3,0), (3,3), (5,5) ]
+# a = [ (1,1), (4,4), (1,4) ]
+# b = [ (0,3), (3,0), (3,3), (5,5) ]
 
 # print superpose(a, b, (0,1,2), (0,1,2))
