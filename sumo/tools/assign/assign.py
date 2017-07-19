@@ -7,7 +7,7 @@
 @version $Id$
 
 This script is for executing traffic assignment according to the required assignment model.
-The incremental assignment model, the C-Logit assignment model and the Lohse assignment model are included in this script. 
+The incremental assignment model, the C-Logit assignment model and the Lohse assignment model are included in this script.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2007-2017 DLR (http://www.dlr.de/) and contributors
@@ -24,8 +24,7 @@ from __future__ import print_function
 import math
 import operator
 import elements
-from elements import Vertex, Edge, Path, Vehicle
-from network import Net
+from elements import Vehicle
 
 
 def doIncAssign(net, vehicles, verbose, iteration, odestimation, endVertices, start, startVertex, matrixPshort, smallDemand, D, P, AssignedVeh, AssignedTrip, vehID, assignSmallDemand, linkChoiceMap, odPairsMap):

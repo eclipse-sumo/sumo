@@ -25,8 +25,6 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import subprocess
-import types
 from datetime import datetime
 from argparse import ArgumentParser
 from duaIterate import call, writeSUMOConf, addGenericOptions

@@ -7,9 +7,9 @@
 @version $Id$
 
 This script is to define the classes and functions for
-- reading network geometric, 
+- reading network geometric,
 - calculating link characteristics, such as capacity, travel time and link cost function,
-- recording vehicular and path information, and 
+- recording vehicular and path information, and
 - conducting statistic tests.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -64,7 +64,7 @@ class Vertex(sumolib.net.Node):
             if pred.pred == updatePred:
                 return
         pred = updatePred
-        while pred.edge != None:
+        while pred.edge is not None:
             if pred.edge == edge:
                 return
             pred = pred.pred
@@ -80,8 +80,8 @@ class Vertex(sumolib.net.Node):
         updateIndex = 0
         predIndex = 0
         while len(newPreds) < KPaths\
-            and (updateIndex < len(updatePreds)
-                 or predIndex < len(self.preds)):
+            and (updateIndex < len(updatePreds) or
+                 predIndex < len(self.preds)):
             if predIndex == len(self.preds):
                 self._addNewPredecessor(
                     edge, updatePreds[updateIndex], newPreds)
@@ -194,7 +194,7 @@ class Edge(sumolib.net.Edge):
                 for edge in leftEdge.source.inEdges:
                     for upstreamlink in edge.source.inEdges:
                         if leftEdge in upstreamlink.rightlink and len(upstreamlink.straightlink) > 0:
-                            if not upstreamlink in self.conflictlink:
+                            if upstreamlink not in self.conflictlink:
                                 self.conflictlink[upstreamlink] = []
                             self.conflictlink[upstreamlink].append(
                                 affectedTurning)
@@ -233,11 +233,11 @@ class Edge(sumolib.net.Edge):
         count = 0
         if self.junctiontype == 'signalized':
             junction = net._junctions[self.junction]
-            if self.rightturn != None and self.rightturn != 'O' and self.rightturn != 'o':
+            if self.rightturn is not None and self.rightturn != 'O' and self.rightturn != 'o':
                 rightSymbol = int(self.rightturn)
-            if self.leftturn != None and self.leftturn != 'O' and self.leftturn != 'o':
+            if self.leftturn is not None and self.leftturn != 'O' and self.leftturn != 'o':
                 leftSymbol = int(self.leftturn)
-            if self.straight != None and self.straight != 'O' and self.straight != 'o':
+            if self.straight is not None and self.straight != 'O' and self.straight != 'o':
                 straightSymbol = int(self.straight)
             for phase in junction.phases[:]:
                 count += 1
@@ -248,7 +248,7 @@ class Edge(sumolib.net.Edge):
                     rightGreen += phase.duration
                 if leftSymbol != -1 and phase.green[leftSymbol] == "1":
                     leftGreen += phase.duration
-            if self.straight != None:
+            if self.straight is not None:
                 self.estcapacity = (
                     straightGreen * (3600. / cyclelength)) / 1.5 * len(self._lanes)
             else:

@@ -28,15 +28,12 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import random
-import string
 import sys
 import datetime
 import math
 import operator
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser
 from optparse import OptionParser
-from elements import Predecessor, Vertex, Edge, Path, Vehicle
 from network import Net, DistrictsReader, ExtraSignalInformationReader
 from dijkstra import dijkstraBoost, dijkstraPlain, dijkstra
 from inputs import getMatrix, getConnectionTravelTime
@@ -342,8 +339,8 @@ def main():
             vehID = doSUEVehAssign(net, vehicles, options, counter, matrixPshort,
                                    startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)
 
-       # output the generated vehicular releasing times and routes, based on
-       # the current matrix
+        # output the generated vehicular releasing times and routes, based on
+        # the current matrix
         print('done with the assignment')  # debug
         if options.odestimation:
             linkChoicesOutput(net, startVertices, endVertices, matrixPshort,

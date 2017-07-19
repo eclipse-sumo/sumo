@@ -8,7 +8,7 @@
 
 This script is to calculate the global performance indices according to the SUMO-based simulation results.
 Besides, this script is also to execute the significance test for evaluating the results from different assignment methods.
-The t test and the Kruskal-Wallis test are available in this script. 
+The t test and the Kruskal-Wallis test are available in this script.
 If not specified, the Kruskal-Wallis test will be applied with the assumption that data are not normally distributed.
 
 The analyzed parameters include:
@@ -29,13 +29,10 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 
-import os
 import sys
-import datetime
-import math
 import operator
 
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser
 from optparse import OptionParser
 from statisticsElements import Assign, T_Value, H_Value, VehInformationReader, getStatisticsOutput, getSignificanceTestOutput
 from tables import chiSquareTable, tTable

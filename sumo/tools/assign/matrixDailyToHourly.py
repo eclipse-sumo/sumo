@@ -7,7 +7,7 @@
 @date    2008-08-20
 @version $Id$
 
-This script is to generate hourly matrices from a VISUM daily matrix. 
+This script is to generate hourly matrices from a VISUM daily matrix.
 The taffic demand of the traffic zones, which have the same connection links, will be integrated.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -22,15 +22,9 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 
-import os
-import random
-import string
 import sys
-import datetime
-import math
-import operator
 from optparse import OptionParser
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 
 OUTPUTDIR = "./input/"
 optParser = OptionParser()
@@ -74,9 +68,9 @@ class DistrictsReader(handler.ContentHandler):
             self._newDistrict = District(attrs['id'])
             self._district = attrs['id']
             self._districtList.append(self._newDistrict)
-        elif name == 'tazSource' and self._district != None:
+        elif name == 'tazSource' and self._district is not None:
             self._newDistrict.sourcelink = attrs['id']
-        elif name == 'tazSink' and self._district != None:
+        elif name == 'tazSink' and self._district is not None:
             self._newDistrict.sinklink = attrs['id']
 
     def endElement(self, name):

@@ -22,8 +22,7 @@ the Free Software Foundation; either version 3 of the License, or
 """
 from __future__ import absolute_import
 
-import string
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import handler
 
 
 # This class is for storing vehicle information, such as departure time,

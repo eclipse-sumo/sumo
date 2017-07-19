@@ -22,13 +22,11 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import string
 import sys
 import datetime
-import math
 import operator
-from xml.sax import saxutils, make_parser, handler
-from elements import Predecessor, Vertex, Edge, Vehicle, Path, TLJunction, Signalphase
+from xml.sax import handler
+from elements import Predecessor, Vertex, Edge, Path, TLJunction, Signalphase
 from dijkstra import dijkstraPlain, dijkstraBoost, dijkstra
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
@@ -445,7 +443,7 @@ class DetectedFlowsReader(handler.ContentHandler):
                 self._edgeObj.detectorNum = float(attrs['detectors'])
 
         elif name == 'flows':
-            if self._renew == True:
+            if self._renew:
                 self._newdata.label = attrs['weekday-time']
                 self._newdata.flowPger = float(attrs['passengercars'])
                 self._newdawta.flowTruck = float(attrs['truckflows'])

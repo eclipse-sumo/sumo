@@ -22,13 +22,8 @@ from __future__ import print_function
 
 import os
 import random
-import string
-import sys
 import datetime
 import operator
-import math
-from network import Net
-from elements import Vehicle
 
 # calculate the time for reading the input data (matrix data are excluded.)
 

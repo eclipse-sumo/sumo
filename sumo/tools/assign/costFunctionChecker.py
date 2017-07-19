@@ -23,7 +23,6 @@ from __future__ import print_function
 import os
 import sys
 import subprocess
-import types
 from datetime import datetime
 from optparse import OptionParser
 from xml.sax import make_parser, handler
@@ -87,7 +86,7 @@ class RouteReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'route':
             for edge in attrs['edges'].split():
-                if not edge in self._edgeWeights:
+                if edge not in self._edgeWeights:
                     self._edgeWeights[edge] = 0
                 self._edgeWeights[edge] += 1
         elif name == 'vehicle':
@@ -127,7 +126,7 @@ def generateWeights(step, options, edges, weights, costFunction):
             time, time + options.aggregation, options.aggregation), file=fd)
         for edge in edges:
             cost = costFunction(edge, weights.getWeight(edge))
-            if cost != None:
+            if cost is not None:
                 print('        <edge id="%s" traveltime="%s"/>' % (
                     edge, cost), file=fd)
         print('    </interval>', file=fd)

@@ -26,7 +26,6 @@ from __future__ import absolute_import
 import os
 import sys
 import subprocess
-import types
 import shutil
 import glob
 import argparse
@@ -86,7 +85,7 @@ def addGenericOptions(argParser):
 
 def initOptions():
     argParser = argparse.ArgumentParser(
-        description=""" Any options of the form sumo--long-option-name will be passed to sumo. 
+        description=""" Any options of the form sumo--long-option-name will be passed to sumo.
 These must be given after all the other options
 example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo.""", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     addGenericOptions(argParser)
@@ -403,15 +402,15 @@ def assign_remaining_args(application, prefix, args):
     item = None
     for arg in args:
         if "--" in arg:
-            if item != None:
+            if item is not None:
                 items.append(item)
             item = [arg]
         else:
-            if item == None:
+            if item is None:
                 sys.exit(
                     'Encounted argument "%s" without a preceeding option' % arg)
             item.append(arg)
-    if item != None:
+    if item is not None:
         items.append(item)
 
     # assign to programs
@@ -549,7 +548,7 @@ def main(args=None):
                 log.flush()
                 sys.stdout.flush()
                 call([duaBinary, "-c", cfgname], log)
-                if options.clean_alt and not router_input in input_demands:
+                if options.clean_alt and router_input not in input_demands:
                     os.remove(router_input)
                 etime = datetime.now()
                 print(">>> End time: %s" % etime)

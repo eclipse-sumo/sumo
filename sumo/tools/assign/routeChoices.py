@@ -23,14 +23,9 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 
-import string
-import glob
 import os
-import sys
-import optparse
 import random
-import shutil
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import handler
 from xml.sax import parse
 from numpy import *
 
@@ -46,7 +41,7 @@ class Vehicle:
         self.NOx_abs = 0.
         self.fuel_abs = 0.
         self.routesList = []
-        #self.speed = 0.
+        # self.speed = 0.
         self.depart = float(depart)
         self.departlane = departlane
         self.departpos = departpos
@@ -93,7 +88,7 @@ class Route:
         self.label = "%s" % pathNum
         pathNum += 1
         self.edges = edges
-        #self.ex_probability = None
+        # self.ex_probability = None
         self.probability = 0.
         self.selected = False
         self.ex_cost = 0.
@@ -426,7 +421,7 @@ def getRouteChoices(edgesMap, dumpfile, routeAltfile, netfile, addWeightsfile, a
     outputPath = os.path.abspath(routeAltfile)
     outputPath = os.path.dirname(outputPath)
     prefix = os.path.basename(routeAltfile)
-    #prefix = prefix[:prefix.find('.')]
+    # prefix = prefix[:prefix.find('.')]
     prefix = prefix[:-12]
     print('outputPath:', outputPath)
     print('prefix:', prefix)
@@ -476,8 +471,8 @@ def gawron(r1, r2, alpha):
     delta = (r2.act_cost - r1.act_cost) / (r1.act_cost + r2.act_cost)
     g = math.exp(a * delta / (1 - delta * delta))
     ex_prob = r1.probability
-    r1.probability = (r1.probability * (r1.probability + r2.probability)
-                      * g) / (r1.probability * g + r2.probability)  # check together with Eva
+    r1.probability = (r1.probability * (r1.probability + r2.probability) *
+                      g) / (r1.probability * g + r2.probability)  # check together with Eva
     r2.probability = ex_prob + r2.probability - r1.probability
 
 

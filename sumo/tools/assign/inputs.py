@@ -6,7 +6,7 @@
 @date    2007-10-25
 @version $Id$
 
-This script is to retrieve the assignment parameters, the OD districts and the matrix from the input files. 
+This script is to retrieve the assignment parameters, the OD districts and the matrix from the input files.
 Moreover, the link travel time for district connectors will be estimated.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -68,7 +68,7 @@ def getMatrix(net, verbose, matrix, matrixSum, demandscale=None):
                         matrixPshort.append([])
                     for item in line.split():
                         elem = float(item)
-                        if demandscale != None and demandscale != 1.:
+                        if demandscale is not None and demandscale != 1.:
                             elem *= demandscale
                         matrixPshort[-1].append(elem)
                         odpairs += 1

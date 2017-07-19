@@ -33,7 +33,7 @@ def detectCPUs():
     # for Linux, Unix and MacOS
     if hasattr(os, "sysconf"):
         if "SC_NPROCESSORS_ONLN" in os.sysconf_names:
-            #Linux and Unix
+            # Linux and Unix
             ncpus = os.sysconf("SC_NPROCESSORS_ONLN")
             if isinstance(ncpus, int) and ncpus > 0:
                 return ncpus
@@ -176,7 +176,7 @@ if not options.duaonly:
         "networkStatistics.py -t %s -o networkStatisticsWithSgT.txt" % tripinfos)
     for dir in succDir, clogDir, lohseDir:
         routes.append(dir + "/routes.rou.xml")
-#outfilename = "routecompare.txt"
+# outfilename = "routecompare.txt"
 # for idx, route1 in enumerate(routes):
 #    for route2 in routes[idx+1:]:
 #        outfile = open(outfilename, "a")

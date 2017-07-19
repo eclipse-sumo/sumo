@@ -8,9 +8,9 @@
 @version $Id$
 
 This script is based on the script from David Eppstein, UC Irvine.
-This script is to find the shortest path from the given origin 'start' to the other nodes in the investigated network. 
-The Dijkstra algorithm is used for searching the respective shortest paths. 
-the link information about the shortest paths and the corresponding travel times   
+This script is to find the shortest path from the given origin 'start' to the other nodes in the investigated network.
+The Dijkstra algorithm is used for searching the respective shortest paths.
+the link information about the shortest paths and the corresponding travel times
 will be stored in the lists P and D respectively.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -25,11 +25,6 @@ the Free Software Foundation; either version 3 of the License, or
 
 import os
 import sys
-try:
-    from Queue import PriorityQueue
-except ImportError:
-    from queue import PriorityQueue
-
 from collections import defaultdict
 from xml.sax import make_parser, handler
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
@@ -117,7 +112,7 @@ def dijkstra(start, targets):
         if targets.discard(v):
             if len(targets) == 0:
                 return (D, P)
-        isConflictCandidate = (v != start) and (P[v].conflictlink != None)
+        isConflictCandidate = (v != start) and (P[v].conflictlink is not None)
         for edge in v.outEdges:
             w = edge.target
             vwLength = D[v] + edge.helpacttime
@@ -180,7 +175,7 @@ def dijkstraBoost(boostGraph, start):
 class DijkstraRouter(handler.ContentHandler):
 
     """standalone class for routing on a sumolib network.
-    The edges from the network recieve new attribute 'cost' based on 
+    The edges from the network recieve new attribute 'cost' based on
     a loaded meanData output
     """
 
@@ -210,7 +205,7 @@ class DijkstraRouter(handler.ContentHandler):
         if name == 'edge':
             if self.intervals > 1:
                 return
-            if attrs.has_key(self.cost_attribute):  # may be missing for some
+            if self.cost_attribute in attrs:  # may be missing for some
                 self.net.getEdge(attrs['id']).cost = float(
                     attrs[self.cost_attribute])
 
@@ -226,14 +221,14 @@ class DijkstraRouter(handler.ContentHandler):
         Q[start] = 0
         for edge in Q:
             D[edge] = Q[edge]
-            #print("final const to %s: %s" % (edge.getID(), D[edge]))
+            # print("final const to %s: %s" % (edge.getID(), D[edge]))
             if edge == dest:
                 # print [(e.getID(), c) for e,c in Q.items()]
                 return (D, P)
             cost = Q[edge] + edge.cost * costFactors[edge.getID()]
             for succ in edge.getOutgoing():
                 if succ not in Q or Q[succ] > cost:
-                    #print("reaching %s in %s (from %s)" % (succ.getID(), cost, edge.getID()))
+                    # print("reaching %s in %s (from %s)" % (succ.getID(), cost, edge.getID()))
                     Q[succ] = cost
                     P[succ] = edge
         return (D, P)

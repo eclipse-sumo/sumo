@@ -22,7 +22,7 @@ from __future__ import absolute_import
 import os
 import sys
 from collections import defaultdict
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from sumolib.net import readNet
@@ -108,7 +108,7 @@ class CostMemory(handler.ContentHandler):
                 "Skipped loading of costs because the weight was %s but should have been > 0\n" % weight)
             return
         assert(weight > 0)
-        if self.iteration == None and iteration != 0:
+        if self.iteration is None and iteration != 0:
             print("Warning: continuing with empty memory")
         # update memory weights. memory is a weighted average across all runs
         self.new_weight = float(weight)
