@@ -26,7 +26,7 @@ import util.Path as path
 import util.Reader as reader
 from analysis.Taxi import *
 
-#global vars
+# global vars
 fcdEdgeDict = {}
 vtypeEdgeDict = {}
 WEE = True
@@ -71,7 +71,7 @@ def getSpeeds():
 # deprecated
 def getVtypeV():
     """Reads the vyteprobe-File and creates a dict of edges with list of velocities.
-       In a second step generates for each edge a average speed in km/h.  
+       In a second step generates for each edge a average speed in km/h.
     """
     vtypeEdgeDictSpeedList = {}
     inputFile = open(path.vtypeprobe, 'r')
@@ -91,7 +91,7 @@ def getVtypeV():
 
 def getFcdV():
     """Reads the fcd-File and creates a dict of edges with list of velocities.
-       In a second step generates for each edge a average speed in km/h.  
+       In a second step generates for each edge a average speed in km/h.
     """
     fcdEdgeDictSpeedList = {}
     inputFile = open(path.vls, 'r')

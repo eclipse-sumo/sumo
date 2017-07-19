@@ -25,12 +25,11 @@ from __future__ import print_function
 
 import random
 import os.path
-import profile
 from cPickle import dump
 from cPickle import load
 
 
-#global vars
+# global vars
 mainPath = "D:/Krieg/Projekte/Diplom/Daten/fcdQualitaet/"
 # mainPath="F:/DLR/Projekte/Diplom/Daten/fcdQualitaet/"
 edgeDumpPath = mainPath + "edgedumpFcdQuality_900_6Uhr.xml"
@@ -132,7 +131,7 @@ def make(source, dependentOn, builder, buildNew=False, *builderParams):
     """Fills the target (a variable) with Information of source (pickelt var).
        It Checks if the pickle file is up to date in comparison to the dependentOn file.
        If not the builder function is called.
-       If buildNew is True the builder function is called anyway.     
+       If buildNew is True the builder function is called anyway.
     """
     # check if pickle file exists
     if not os.path.exists(source):
@@ -172,7 +171,7 @@ def reduceVtype(vtypeDict, taxis):
 
 
 def createOutput(edgeDumpDict, vtypeDict, vehSum, taxiSum):
-    """Creates a file with a comparison of speeds for each edge 
+    """Creates a file with a comparison of speeds for each edge
     between the taxis and the average speed from the current edge."""
 
     intervalList = edgeDumpDict.keys()

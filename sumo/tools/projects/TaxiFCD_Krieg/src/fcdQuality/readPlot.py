@@ -25,7 +25,7 @@ from pylab import *
 from os import walk
 from os.path import join
 import util.Path as path
-#index = int(sys.argv[2])
+# index = int(sys.argv[2])
 
 # 0: Frequenz; ->belegt
 # 1: Ausstattungsgrad; ->belegt
@@ -151,7 +151,7 @@ def plotData():
     xlabel("Ausstattung [%]", size=textsize)
     title(
         "Abweichung der Geschwindigkeit zwischen FCD und des simulierten Verkehrs", size=textsize)
-    #title("Relative Anzahl erfasster Kanten", size=textsize)
+    # title("Relative Anzahl erfasster Kanten", size=textsize)
     figtext(0.7865, 0.92, '[%]', size=textsize)
 
     # levels=arange(mmin-mmin*.1, mmax+mmax*.1, (mmax-mmin)/10.))
@@ -160,7 +160,7 @@ def plotData():
     if showVal == EDGENO:
         cb = colorbar(ticks=[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
     else:
-        #cb = colorbar(ticks=range(17))
+        # cb = colorbar(ticks=range(17))
         cb = colorbar()
     for t in cb.ax.get_yticklabels():  # set colorbar fontsize of each tick
         t.set_fontsize(textsize)

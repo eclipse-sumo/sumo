@@ -31,9 +31,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import random
-import time
 import os.path
-import cProfile
 import util.Path as path
 from cPickle import dump
 from cPickle import load
@@ -48,7 +46,7 @@ U_FCD = 2  # use processed FCD to create output for readPlot
 U_RAW = 3  # use the vtypeprobe-data directly to create output for readPlot
 
 
-#global vars
+# global vars
 mode = W_FCD  # choose the mode
 simStartTime = 21600  # =6 o'clock  ->begin in edgeDump
 aggInterval = 900  # aggregation Interval of the edgeDump
@@ -106,7 +104,7 @@ def main():
 def generatePeriodQuotaSets(stopByPeriod=False):
     global period, quota
 
-    """Generates all period-quota-sets (with creation of new Taxis for each set). 
+    """Generates all period-quota-sets (with creation of new Taxis for each set).
     You can iterate over that generator and gets for each step the period and quota.
     If stopByPeriod=True it stops not only in the quota block but in the period block to-> have a look at the code.
     """
@@ -226,7 +224,7 @@ def make(source, dependentOn, builder, buildNew=False, *builderParams):
     """Fills the target (a variable) with Information of source (pickelt var).
        It Checks if the pickle file is up to date in comparison to the dependentOn file.
        If not the builder function is called.
-       If buildNew is True the builder function is called anyway.     
+       If buildNew is True the builder function is called anyway.
     """
     # check if pickle file exists
     if not os.path.exists(source):
@@ -312,7 +310,7 @@ def writeRawFCD():
 
 
 def createOutput():
-    """Creates a file with a comparison of speeds for each edge 
+    """Creates a file with a comparison of speeds for each edge
     between the taxis and the average speed from the current edge."""
 
     firstPeriod = True
@@ -329,7 +327,7 @@ def createOutput():
     outputFile.write('<paramEffects aggregationInterval="%d" vehicles="%d" edges="%d">\n' % (
         aggInterval, vehSum, edgesNo))
     for period, quota, vtypeDictR, taxiSum in generatePeriodQuotaSets(True):
-        if quota == None:
+        if quota is None:
             if not firstPeriod:
                 outputFile.write("\t</periods>\n")
             else:
@@ -355,15 +353,15 @@ def createOutput():
             drivenEdgesList.sort()
             # print "dataSets ",simpleTaxiMeanVList[1]
 
-            #--edgeDump--#
+            # --edgeDump-- #
             """
             for i in edgeDumpDict.keys(): #all intervals
-                for edge,v in edgeDumpDict[i]:                   
+                for edge,v in edgeDumpDict[i]:
                    if BinarySearch.isElmInList(drivenEdgesList,edge):
                        simpleEdgeMeanVList[0]+=v
                        simpleEdgeMeanVList[1]+=1
             """
-            #--vtype--#
+            # --vtype-- #
 
             for timestep, taxiList in vtypeDict.iteritems():
                 for tup in taxiList:

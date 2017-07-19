@@ -10,7 +10,7 @@
 
 Compares the travel time of vtypeprobe and FCD. (avg=False)
 
-Secondly the average travel time will be calculate (avg=True). 
+Secondly the average travel time will be calculate (avg=True).
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2017 DLR (http://www.dlr.de/) and contributors
@@ -67,7 +67,7 @@ def getPiePieces():
             print("Error by taxi %s : %s" % (taxi.id, e.message))
 
         # classify the relative time difference
-        #<10%', '10%-30%', '30%-50%', '50%-70%', '70%-90%', '>90%
+        # <10%', '10%-30%', '30%-50%', '50%-70%', '70%-90%', '>90%
         if diff < 10:
             pieces[0] += 1
         elif diff < 30:
@@ -223,10 +223,10 @@ def getTimeDiff(steps, sim=True):
         diff = sim - fcd
         if PERC:
             """
-            if (times[3]-times[2])>0 and (100*diff)/(times[3]-times[2])<-1000:     
-                print  "%%",(100*diff)/(times[3]-times[2])         
+            if (times[3]-times[2])>0 and (100*diff)/(times[3]-times[2])<-1000:
+                print  "%%",(100*diff)/(times[3]-times[2])
                 print "Diff",diff
-                print "fcd",(times[3]-times[2])  
+                print "fcd",(times[3]-times[2])
                 print "vtype",times[1]-times[0]
             """
             if fcd == 0:
@@ -266,7 +266,7 @@ def drawPieChart():
     figure(1, figsize=(10, 10))
 
     labels = 'Diff <10%', 'Diff 10%-30%', 'Diff 30%-50%', 'Diff 50%-70%', 'Diff 70%-90%', 'Diff >90%'
-    #fracs = [15,30,45, 10,66,7]
+    # fracs = [15,30,45, 10,66,7]
 
     pie(getPiePieces(), labels=labels, autopct='%1.1f%%',
         shadow=True, colors=colorTupel, labeldistance=1.2)
@@ -287,9 +287,9 @@ def drawBarChart():
     simSlower = 0
     """
     for k in sorted(barsDict.keys()):
-       
+
        if k >100:
-          over100+=0    
+          over100+=0
        elif k<-100:
            under100+=0
        else:
@@ -313,11 +313,11 @@ def drawBarChart():
     subplots_adjust(left=0.10, right=0.60, bottom=0.10, top=0.90)
     xticks(range(-110, 130, 20), size=textsize)
     yticks(size=textsize)
-    #b=bar(xList,yList, width=10, alpha=0.5)
+    # b=bar(xList,yList, width=10, alpha=0.5)
     bSim = bar(xListSim, yListSim, width=10, color="red", alpha=0.5)
     legend((None,), ('Taxis gesamt: ' + str(sum(barsDictSim.values())),
                      '> 0 Sim. langsammer', '< 0 Sim. schneller'), shadow=True)
-    #u'\u00f8'+' Reisezeit: '+str(sum(traveltimeList)/len(traveltimeList))+'s'
+    # u'\u00f8'+' Reisezeit: '+str(sum(traveltimeList)/len(traveltimeList))+'s'
     title(
         "Abweichung der Reisezeit zwischen realen und simulierten FCD", size=textsize)
     xlabel(

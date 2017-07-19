@@ -27,7 +27,7 @@ import util.Path as path
 import util.Reader as reader
 from cPickle import load
 
-#global vars
+# global vars
 taxis = []
 routes = []
 vlsEdges = []
@@ -171,7 +171,7 @@ def readFCDComplete(fcdPath):
             prevTime = fcdDict[taxiId][-1][0]
             # check if time lies not to far away from each other
             if words[1] in vlsEdges and (actTime - prevTime) < 180:
-                #routes[taxis.index(taxiId)].append((actTime, words[1]))
+                # routes[taxis.index(taxiId)].append((actTime, words[1]))
                 fcdDict[taxiId].append((actTime, words[1], words[2]))
             # if time diff >3min add a new taxiId and start a new route
             elif words[1] in vlsEdges:

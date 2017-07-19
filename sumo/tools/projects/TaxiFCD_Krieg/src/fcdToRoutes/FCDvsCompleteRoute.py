@@ -12,7 +12,7 @@ Compares the FCD-route of an taxi with the generated route which is used in the 
 The output data can be visualized with the script My_mpl_dump_onNet based on mpl_dump_onNet from Daniel.
 (avg=False)
 
-Secondly the average of added Edges per route will be calculate (avg=True). 
+Secondly the average of added Edges per route will be calculate (avg=True).
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2017 DLR (http://www.dlr.de/) and contributors
@@ -28,7 +28,7 @@ from __future__ import print_function
 
 import util.Path as path
 
-#global vars
+# global vars
 
 edgeList = []
 routeDict = {}
@@ -47,7 +47,7 @@ def main():
 
 
 def readRoutes():
-    """reads the t1CompletePath and the taxiRoutesPath. 
+    """reads the t1CompletePath and the taxiRoutesPath.
         and sets for each edge in t1CompletePath the color=green
         and if the edge is also in taxiRoutesPath changes the color to red.
     """

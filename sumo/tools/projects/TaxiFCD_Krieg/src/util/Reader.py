@@ -40,7 +40,7 @@ def readVLS_Edges():
 
 
 def readRoute_Edges(buildNew=False):
-    """Reads the route file of the 'normal' traffic. 
+    """Reads the route file of the 'normal' traffic.
        Goal is to fetch all edges of the net where traffic was generated."""
     edgesSet = set()
     if not exists(path.drivenEdges) or buildNew:

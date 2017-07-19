@@ -24,7 +24,7 @@ import sys
 from pylab import *
 
 
-#index = int(sys.argv[2])
+# index = int(sys.argv[2])
 
 # 0: Frequenz; ->belegt
 # 1: Ausstattungsgrad; ->belegt
@@ -92,6 +92,6 @@ xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], yt, size=textsize)
 xlabel("Ausstattung [%]", size=textsize)
 title("Abweichung der Geschwindigkeit zwischen FCD und des simulierten Verkehrs",
       size=textsize)
-#title("Relative Anzahl erfasster Kanten", size=textsize)
+# title("Relative Anzahl erfasster Kanten", size=textsize)
 figtext(0.7865, 0.92, '[%]', size=textsize)
 show()

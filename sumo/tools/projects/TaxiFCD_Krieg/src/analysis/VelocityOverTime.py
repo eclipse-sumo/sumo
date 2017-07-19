@@ -23,16 +23,13 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 from pylab import *
-import profile
 import util.Path as path
 import util.Reader as reader
 from cPickle import load
 from analysis.Taxi import *
 
-from matplotlib.collections import LineCollection
-from matplotlib.colors import colorConverter
 
-#global vars
+# global vars
 WEE = True  # =withoutEmptyEdges decide which analysis file should be used
 edgeDict = {}
 taxis = []

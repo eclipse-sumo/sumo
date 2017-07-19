@@ -151,7 +151,7 @@ def plotDiagram(name):
 
     figure(figsize=(12, 12))
     subplot(2, 2, 1)
-    #contour(X, Y, Z, 100)
+    # contour(X, Y, Z, 100)
     contourf(X, Y, Z, range(0, 180, 5))
 
     colorbar()
@@ -162,7 +162,7 @@ def plotDiagram(name):
     Z = griddata(flowWEA, flowNSA, avgDelayNSA, X, Y)
 
     subplot(2, 2, 2)
-    #contour(X, Y, Z, 100)
+    # contour(X, Y, Z, 100)
     contourf(X, Y, Z, range(0, 180, 5))
     colorbar()
     title('Average Delay NS')
@@ -174,7 +174,7 @@ def plotDiagram(name):
     avgDelayWECut = [Z[i][i] for i in range(len(Z))]
 
     subplot(2, 2, 3)
-    #contour(X, Y, Z, 100)
+    # contour(X, Y, Z, 100)
     contourf(X, Y, Z, range(0, 180, 5))
     colorbar()
     title('Average Delay WE')
@@ -186,7 +186,7 @@ def plotDiagram(name):
     avgDelayNSCut = [Z[i][i] for i in range(len(Z))]
 
     subplot(2, 2, 4)
-    #contour(X, Y, Z, 100)
+    # contour(X, Y, Z, 100)
     contourf(X, Y, Z, range(0, 180, 5))
     colorbar()
     title('Average Delay NS')
@@ -203,7 +203,7 @@ def plotDiagram(name):
 
     figure(figsize=(12, 6))
     subplot(1, 2, 1)
-    #contour(X, Y, Z, 100)
+    # contour(X, Y, Z, 100)
     contourf(X, Y, Z, range(0, 180, 5))
     colorbar()
     title('Average Delay')
@@ -215,7 +215,7 @@ def plotDiagram(name):
     avgDelayCut = [Z[i][i] for i in range(len(Z))]
 
     subplot(1, 2, 2)
-    #contour(X, Y, Z, 100)
+    # contour(X, Y, Z, 100)
     contourf(X, Y, Z, range(0, 180, 5))
 #    clim(0, maxDelay)
     colorbar()
@@ -262,7 +262,7 @@ def plotDiagram(name):
     figure(figsize=(12, 12))
     subplot(2, 2, 1)
     contourf(X, Y, Z, range(0, 100, 5))
- #   clim(0, maxGreen)
+#   clim(0, maxGreen)
     colorbar()
     title('Green-time WE')
     xlabel('Input flow WE')
@@ -284,7 +284,7 @@ def plotDiagram(name):
 
     subplot(2, 2, 3)
     contourf(X, Y, Z, range(0, 100, 5))
- #   clim(0, maxGreen)
+#   clim(0, maxGreen)
     colorbar()
     title('Green-time WE')
     xlabel('Flow q WE')

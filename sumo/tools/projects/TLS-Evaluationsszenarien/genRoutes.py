@@ -21,7 +21,6 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 
-import struct
 import random
 import optparse
 import sys

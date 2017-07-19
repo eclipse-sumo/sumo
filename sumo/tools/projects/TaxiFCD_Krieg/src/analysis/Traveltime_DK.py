@@ -24,7 +24,7 @@ from __future__ import print_function
 from pylab import *
 
 
-#global vars
+# global vars
 mainPath = "../../../../Projekte/Diplom/Daten/auswertung/reiseZeitD/"
 usedPath = mainPath + "used2.txt"
 analysisPath = mainPath + "taxiAnalysisInformation.xml"
@@ -88,7 +88,7 @@ def processData():
         elif line.find("</vehicle") >= 0:
             # if vehicle!="351_11":
                 # print cdata
-            #			continue
+            # 			continue
             data[vehicle] = cdata
     fd.close()
 
@@ -100,7 +100,7 @@ def processData():
         skip = False
         # check vtype
         for elm in data[veh]["vtypeProbe"]:
-            if lastEdge != None and elm[1] == lastEdge:
+            if lastEdge is not None and elm[1] == lastEdge:
                 continue
             lastEdge = elm[1]
             if lastEdge in seen:
@@ -114,7 +114,7 @@ def processData():
         skip = False
         # check Fcd
         for elm in data[veh]["FCD"]:
-            if lastEdge != None and elm[1] == lastEdge:
+            if lastEdge is not None and elm[1] == lastEdge:
                 continue
             lastEdge = elm[1]
             if lastEdge in seen:
@@ -127,7 +127,7 @@ def processData():
         skip = False
         # check simFCD
         for elm in data[veh]["simFCD"]:
-            if lastEdge != None and elm[1] == lastEdge:
+            if lastEdge is not None and elm[1] == lastEdge:
                 continue
             lastEdge = elm[1]
             if lastEdge in seen:
@@ -192,9 +192,9 @@ def processData():
 
     # ok, we should now have a list of valid FCD-trip parts within the container
     # for t in data["440_18"]:
-    #	print t
-    #	for e in data["440_18"][t]:
-    #		print e
+    # 	print t
+    # 	for e in data["440_18"][t]:
+    # 		print e
     # print data["440_18"]
 
     for veh in data2:
@@ -206,8 +206,8 @@ def processData():
                     if len(elm) > 5:
                         a = 1
                         # hier passiert nichts!
-    #					e[-2] = j[2]
-    #					e[-1] = j[0]
+    # 					e[-2] = j[2]
+    # 					e[-1] = j[0]
                     else:  # add corresponding simFCD values to the data
                         elm.append(j[2])  # speed
                         elm.append(j[0])  # time
@@ -236,19 +236,19 @@ def createStats():
         if len(data[veh]) < 2:  # by less then 2 entries continue
             continue
         travelTimeDict = calcTraveltime(data[veh])
-        if travelTimeDict["relDiff"] == None:
+        if travelTimeDict["relDiff"] is None:
             continue
 
         edges = len(data[veh])
         # if abs(norm)>3.9:
         # print veh
         """
-		if veh=="351_11_0" :
-			for elm in data3[veh]:
-				print elm[5],elm[0]
-			print real
-			print sim
-		"""
+        if veh=="351_11_0" :
+            for elm in data3[veh]:
+                print elm[5],elm[0]
+            print real
+            print sim
+        """
         fd.write(veh + ";" + str(travelTimeDict["real"]) + ";" + str(travelTimeDict["sim"]) + ";" + str(
             travelTimeDict["absDiff"]) + ";" + str(travelTimeDict["relDiff"]) + ";" + str(edges) + "\n")
     fd.close()
@@ -334,7 +334,7 @@ def plotBarChart(mode="relDiff"):
         # print travelTimeDict[mode]*100
         # i+=1
     b = bar(barsDict.keys(), barsDict.values(), width=10, alpha=0.5)
-    #hist(l, bins=41)
+    # hist(l, bins=41)
     # savefig(mainPath+"norm_abw_hist.png")
     print("over100", i)
     show()

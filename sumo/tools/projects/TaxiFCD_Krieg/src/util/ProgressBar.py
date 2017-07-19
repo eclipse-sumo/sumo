@@ -22,7 +22,7 @@ from __future__ import print_function
 
 
 def startTask(list, fct):
-    """its a simple progress bar for the console. 
+    """its a simple progress bar for the console.
     list=list of elements over which would be iterated
     fct= function which is called for every element of the list
     """

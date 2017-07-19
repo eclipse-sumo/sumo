@@ -24,7 +24,7 @@ from __future__ import print_function
 
 import util.Path as path
 
-#global vars
+# global vars
 taxiDict = {}
 
 

@@ -9,7 +9,7 @@
 @version $Id$
 
 Fetches Information of the simulated Data and the FCD.
-For each taxi the time, speed and position of every step will be collected and stored in a file. 
+For each taxi the time, speed and position of every step will be collected and stored in a file.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2017 DLR (http://www.dlr.de/) and contributors
@@ -23,13 +23,12 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 
-import profile
 import util.Path as path
 from util.CalcTime import getTimeInSecs
 from fcdToRoutes.GenerateTaxiRoutes import readFCDComplete, readSimFCDComplete, getSimTaxiId
 from util.Reader import readRoute_EdgesMod
 
-#global vars
+# global vars
 rawFcdDict = {}
 fcdDict = {}
 simRawFcdDict = {}
@@ -60,7 +59,7 @@ def arrangeData():
     """
     Arranges all available Data in a file which looks like:
     <vehicle id=" ">
-                <step time="(s)" source=" " speed="(km/h)" edge=" " lat=" " lon=" "/> 
+                <step time="(s)" source=" " speed="(km/h)" edge=" " lat=" " lon=" "/>
                 ...
     </vehicle>
     """

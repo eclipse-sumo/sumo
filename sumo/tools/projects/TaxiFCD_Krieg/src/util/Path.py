@@ -28,7 +28,7 @@ def newPath(path, *paths):
     p = os.path.join(path, *paths)
     p = p.replace("\\", "/")
     return p
-##Paths##
+# #Paths##
 
 
 # main="F:/DLR/Projekte/Diplom/Daten/"

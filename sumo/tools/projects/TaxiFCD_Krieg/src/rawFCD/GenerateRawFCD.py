@@ -8,7 +8,7 @@
 @date    2008-04-01
 @version $Id$
 
-Converts the vtypeProbe XML-File to the raw FCD-Format which can afterwards used to process FCD. 
+Converts the vtypeProbe XML-File to the raw FCD-Format which can afterwards used to process FCD.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2017 DLR (http://www.dlr.de/) and contributors
@@ -26,7 +26,7 @@ import util.Path as path
 from util.CalcTime import getDateFromDepart
 from cPickle import dump
 
-#global vars
+# global vars
 vehIdDict = {}
 vehId = 0
 

@@ -20,7 +20,6 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 
-import xml.dom.minidom as dom
 from genRoutes import *
 import subprocess
 import sys

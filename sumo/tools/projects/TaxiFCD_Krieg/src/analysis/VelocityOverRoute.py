@@ -24,13 +24,12 @@ from __future__ import print_function
 
 
 from pylab import *
-import profile
 import util.Path as path
 import util.Reader as reader
 from cPickle import load
 from analysis.Taxi import *
 
-#global vars
+# global vars
 WEE = True  # =withoutEmptyEdges decide which analysis file should be used
 taxiId = "26_5"
 edgeDict = {}

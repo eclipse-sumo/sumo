@@ -23,15 +23,10 @@ the Free Software Foundation; either version 3 of the License, or
 from __future__ import absolute_import
 from __future__ import print_function
 
-import sys
 import random
-import os.path
-import profile
-from cPickle import dump
-from cPickle import load
 
 
-#global vars
+# global vars
 mainPath = "D:/Krieg/Projekte/Diplom/Daten/fcdQualitaet/"
 # mainPath="F:/DLR/Projekte/Diplom/Daten/fcdQualitaet/"
 edgeDumpPath = mainPath + "edgedumpFcdQuality_900_6Uhr.xml"

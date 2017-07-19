@@ -15,7 +15,7 @@ This script reads a network and a dump file and
 matplotlib has to be installed for this purpose
 
 -n E:/DLR/Projekte/Diplom/Daten/sumoNetzFilesNurnbergIV/nuernberg_vls_new.net.xml
--d E:/DLR/Projekte/Diplom/Daten/mpl_dump_onNet__Files/FCD_vs_completeRoute351_11.out.xml 
+-d E:/DLR/Projekte/Diplom/Daten/mpl_dump_onNet__Files/FCD_vs_completeRoute351_11.out.xml
 --values no,no --show --color-map 0:#888888,.4:#ff0000,1:#00ff00
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
@@ -32,13 +32,8 @@ from __future__ import print_function
 
 from matplotlib import rcParams
 from pylab import *
-import os
-import string
-import sys
-import StringIO
-import math
 from optparse import OptionParser
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import make_parser, handler
 
 
 def toHex(val):
@@ -351,11 +346,11 @@ class WeightsReader(handler.ContentHandler):
                 else:
                     values[edge] = 1
 #        elif percSpeed:
- #           for edge in self._edge2value2:
-  #              values[edge] = (values[edge] / self._net._edge2speed[edge])
-   #     elif minV!=maxV:
-    #        for edge in self._edge2value2:
-     #           values[edge] = (values[edge] - minV) / (maxV - minV)
+#            for edge in self._edge2value2:
+#                values[edge] = (values[edge] / self._net._edge2speed[edge])
+#        elif minV!=maxV:
+#            for edge in self._edge2value2:
+#                values[edge] = (values[edge] - minV) / (maxV - minV)
 
     def norm(self, tendency, percSpeed):
         self._minValue1 = -1

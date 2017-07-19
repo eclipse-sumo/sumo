@@ -8,7 +8,7 @@
 @date    2008-04-01
 @version $Id$
 
-Counts for an given interval all unique taxis in an FCD file and draws the result as a bar chart. 
+Counts for an given interval all unique taxis in an FCD file and draws the result as a bar chart.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2017 DLR (http://www.dlr.de/) and contributors
@@ -28,7 +28,7 @@ from matplotlib.dates import MinuteLocator, HourLocator, DateFormatter
 import util.Path as path
 
 
-#global vars
+# global vars
 intervalDelta = datetime.timedelta(minutes=60)
 intervalDate = datetime.datetime(2007, 7, 18, 0, 0)
 format = "%Y-%m-%d %H:%M:%S"
